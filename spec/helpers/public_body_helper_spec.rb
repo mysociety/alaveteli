@@ -32,7 +32,7 @@ describe PublicBodyHelper do
                class="link_button_green">Make
                a request to this authority</a>).squish
 
-      expect(public_body_not_requestable_reasons(@body)).to include(msg)
+               expect(public_body_not_requestable_reasons(@body)).to include(msg)
     end
 
     it 'returns the reasons in order of importance' do
@@ -58,7 +58,7 @@ describe PublicBodyHelper do
 
     it 'handles Unicode' do
       category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
-                                                           :description => 'ünicode category')
+                                    :description => 'ünicode category')
       heading = FactoryGirl.create(:public_body_heading)
       heading.add_category(category)
       public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
@@ -68,71 +68,71 @@ describe PublicBodyHelper do
     end
 
     it 'constructs the correct string if there are tags which are not categories' do
-        heading = FactoryGirl.create(:public_body_heading)
-        3.times do |i|
-          category = FactoryGirl.create(:public_body_category, :category_tag => "spec_#{i}",
-                                                               :description => "spec category #{i}")
-          heading.add_category(category)
-        end
-        public_body = FactoryGirl.create(:public_body, :tag_string => 'unknown spec_0 spec_2')
-        expected = '<a href="/body/list/spec_0">Spec category 0</a> and <a href="/body/list/spec_2">spec category 2</a>'
-        expect(type_of_authority(public_body)).to eq(expected)
+      heading = FactoryGirl.create(:public_body_heading)
+      3.times do |i|
+        category = FactoryGirl.create(:public_body_category, :category_tag => "spec_#{i}",
+                                      :description => "spec category #{i}")
+        heading.add_category(category)
+      end
+      public_body = FactoryGirl.create(:public_body, :tag_string => 'unknown spec_0 spec_2')
+      expected = '<a href="/body/list/spec_0">Spec category 0</a> and <a href="/body/list/spec_2">spec category 2</a>'
+      expect(type_of_authority(public_body)).to eq(expected)
     end
 
 
     context 'when associated with one category' do
 
-        it 'returns the description wrapped in an anchor tag' do
-          category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
-                                                               :description => 'spec category')
-          heading = FactoryGirl.create(:public_body_heading)
-          heading.add_category(category)
-          public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
+      it 'returns the description wrapped in an anchor tag' do
+        category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
+                                      :description => 'spec category')
+        heading = FactoryGirl.create(:public_body_heading)
+        heading.add_category(category)
+        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
 
-          anchor = %Q(<a href="/body/list/spec">Spec category</a>)
-          expect(type_of_authority(public_body)).to eq(anchor)
-        end
+        anchor = %Q(<a href="/body/list/spec">Spec category</a>)
+        expect(type_of_authority(public_body)).to eq(anchor)
+      end
     end
 
     context 'when associated with several categories' do
 
-        it 'joins the category descriptions and capitalizes the first letter' do
-          heading = FactoryGirl.create(:public_body_heading)
-          3.times do |i|
-            category = FactoryGirl.create(:public_body_category, :category_tag => "spec_#{i}",
-                                                                 :description => "spec category #{i}")
-            heading.add_category(category)
-          end
-          public_body = FactoryGirl.create(:public_body, :tag_string => 'spec_0 spec_1 spec_2')
-
-          description = [
-            %Q(<a href="/body/list/spec_0">Spec category 0</a>),
-            ', ',
-            %Q(<a href="/body/list/spec_1">spec category 1</a>),
-            ' and ',
-            %Q(<a href="/body/list/spec_2">spec category 2</a>)
-          ].join('')
-
-          expect(type_of_authority(public_body)).to eq(description)
+      it 'joins the category descriptions and capitalizes the first letter' do
+        heading = FactoryGirl.create(:public_body_heading)
+        3.times do |i|
+          category = FactoryGirl.create(:public_body_category, :category_tag => "spec_#{i}",
+                                        :description => "spec category #{i}")
+          heading.add_category(category)
         end
+        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec_0 spec_1 spec_2')
+
+        description = [
+          %Q(<a href="/body/list/spec_0">Spec category 0</a>),
+          ', ',
+          %Q(<a href="/body/list/spec_1">spec category 1</a>),
+          ' and ',
+          %Q(<a href="/body/list/spec_2">spec category 2</a>)
+        ].join('')
+
+        expect(type_of_authority(public_body)).to eq(description)
+      end
 
     end
 
     context 'when in a non-default locale' do
 
-        it 'creates the anchor href in the correct locale' do
-            # Activate the routing filter, normally turned off for helper tests
-            RoutingFilter.active = true
-            category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
-                                                                 :description => 'spec category')
-            heading = FactoryGirl.create(:public_body_heading)
-            heading.add_category(category)
-            public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
+      it 'creates the anchor href in the correct locale' do
+        # Activate the routing filter, normally turned off for helper tests
+        RoutingFilter.active = true
+        category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
+                                      :description => 'spec category')
+        heading = FactoryGirl.create(:public_body_heading)
+        heading.add_category(category)
+        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
 
-            anchor = %Q(<a href="/es/body/list/spec">Spec category</a>)
-            I18n.with_locale(:es) { expect(type_of_authority(public_body)
-).to eq(anchor) }
-        end
+        anchor = %Q(<a href="/es/body/list/spec">Spec category</a>)
+        I18n.with_locale(:es) { expect(type_of_authority(public_body)
+                                      ).to eq(anchor) }
+      end
 
     end
 

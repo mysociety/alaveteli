@@ -1,18 +1,19 @@
 <% if message.prominence == 'hidden' %>
-    <p id="hidden_message">
-      <%- if !message.prominence_reason.blank? %>
-        <%= _('This message has prominence \'hidden\'. {{reason}} You can only see it because you are logged in as a super user.', :reason => message.prominence_reason) %>
-      <%- else %>
-        <%= _('This message has prominence \'hidden\'. You can only see it because you are logged in as a super user.') %>
-      <%- end %>
-    </p>
+  <p id="hidden_message">
+    <%- if !message.prominence_reason.blank? %>
+      <%= _('This message has prominence \'hidden\'. {{reason}} You can only see it because you are logged in as a super user.', :reason => message.prominence_reason) %>
+    <%- else %>
+      <%= _('This message has prominence \'hidden\'. You can only see it because you are logged in as a super user.') %>
+    <%- end %>
+  </p>
 <% end %>
+
 <% if message.prominence == 'requester_only' %>
-    <p id="hidden_message">
-      <%- if !message.prominence_reason.blank? %>
+  <p id="hidden_message">
+    <%- if !message.prominence_reason.blank? %>
       <%= _('This message is hidden, so that only you, the requester, can see it. {{reason}}', :reason => message.prominence_reason) %>
-      <%- else %>
-        <%= _('This message is hidden, so that only you, the requester, can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %>
-      <%- end %>
-    </p>
+    <%- else %>
+      <%= _('This message is hidden, so that only you, the requester, can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %>
+    <%- end %>
+  </p>
 <% end %>

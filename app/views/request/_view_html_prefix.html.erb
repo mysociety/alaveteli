@@ -1,12 +1,13 @@
 <div class="view_html_prefix">
-    <div class="view_html_logo">
-        <a href="/"><img src="/assets/navimg/logo-trans-small.png" alt="<%= site_name %>"></a>
-    </div>
-    <div class="view_html_download_link">
-        <%=link_to _("Download original attachment"), @attachment_url %>
-        <br>(<%=h @attachment.name_of_content_type %>)
-    </div>
-    <p class="view_html_description"><%= _('This is an HTML version of an attachment to the Freedom of Information request')%>
-    '<%=link_to h(@info_request.title), incoming_message_path(@incoming_message)%>'.</p>
+  <div class="view_html_logo">
+    <a href="/"><img src="/assets/navimg/logo-trans-small.png" alt="<%= site_name %>"></a>
+  </div>
+  <div class="view_html_download_link">
+    <%=link_to _("Download original attachment"), @attachment_url %>
+    <br>(<%=h @attachment.name_of_content_type %>)
+  </div>
+  <p class="view_html_description">
+    <%= _('This is an HTML version of an attachment to the Freedom of Information request') %>
+    '<%=link_to h(@info_request.title), incoming_message_path(@incoming_message)%>'.
+  </p>
 </div>
-

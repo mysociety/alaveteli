@@ -1,14 +1,14 @@
 <div id="topnav">
-    <ul id="navigation">
-        <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] != 'blog' and params[:action] != 'search' %>"><%= link_to _("Home"), frontpage_path %></li>
-        <li class="<%= 'selected' if params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action]) %>"><%= link_to _("Make a request"), select_authority_path, :id => 'make-request-link' %></li>
-        <li class="<%= 'selected' if params[:controller] == 'request' and !['new', 'select_authority'].include?(params[:action]) %>">
-            <%= link_to _("Browse requests"), request_list_successful_path %>
-        </li>
-        <li class="<%= 'selected' if params[:controller] == 'public_body' %>"><%= link_to _("View authorities"), list_public_bodies_default_path %></li>
-<% unless AlaveteliConfiguration::blog_feed.empty? %>
-        <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] == 'blog' %>"><%= link_to _("Read blog"), blog_path %></li>
-<% end %>
-        <li class="<%= 'selected' if params[:controller] == 'help' %>"><%= link_to _("Help"), help_about_path %></li>
-    </ul>
+  <ul id="navigation">
+    <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] != 'blog' and params[:action] != 'search' %>"><%= link_to _("Home"), frontpage_path %></li>
+    <li class="<%= 'selected' if params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action]) %>"><%= link_to _("Make a request"), select_authority_path, :id => 'make-request-link' %></li>
+    <li class="<%= 'selected' if params[:controller] == 'request' and !['new', 'select_authority'].include?(params[:action]) %>">
+      <%= link_to _("Browse requests"), request_list_successful_path %>
+    </li>
+    <li class="<%= 'selected' if params[:controller] == 'public_body' %>"><%= link_to _("View authorities"), list_public_bodies_default_path %></li>
+    <% unless AlaveteliConfiguration::blog_feed.empty? %>
+      <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] == 'blog' %>"><%= link_to _("Read blog"), blog_path %></li>
+    <% end %>
+    <li class="<%= 'selected' if params[:controller] == 'help' %>"><%= link_to _("Help"), help_about_path %></li>
+  </ul>
 </div>

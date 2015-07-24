@@ -21,7 +21,7 @@ namespace :stats do
       period = "#{month_start}-#{month_end}"
       date_conditions = ['created_at >= ?
                           AND created_at < ?',
-                          month_start, month_end+1]
+                         month_start, month_end+1]
       request_count = InfoRequest.count(:conditions => date_conditions)
       comment_count = Comment.count(:conditions => date_conditions)
       track_conditions = ['track_type = ?
@@ -33,14 +33,14 @@ namespace :stats do
       comment_on_own_request_conditions = ['comments.user_id = info_requests.user_id
                                             AND comments.created_at >= ?
                                             AND comments.created_at < ?',
-                                            month_start, month_end+1]
+                                           month_start, month_end+1]
       comment_on_own_request_count = Comment.count(:conditions => comment_on_own_request_conditions,
                                                    :include => :info_request)
 
       followup_conditions = ['message_type = ?
                                AND created_at >= ?
                                AND created_at < ?',
-                              'followup', month_start, month_end+1]
+                             'followup', month_start, month_end+1]
       follow_up_count = OutgoingMessage.count(:conditions => followup_conditions)
       puts [period,
             request_count,
@@ -98,9 +98,9 @@ namespace :stats do
   end
 
   desc <<-DESC
-Prints the per-quarter number of created FOI Requests made to each Public Body found by the query.
-Specify the search query as QUERY='london school'
-DESC
+  Prints the per-quarter number of created FOI Requests made to each Public Body found by the query.
+    Specify the search query as QUERY='london school'
+  DESC
   task :number_of_requests_created => :environment do
     query = ENV['QUERY']
     start_at = PublicBody.minimum(:created_at)
@@ -113,11 +113,11 @@ DESC
     puts headers.join(",")
 
     public_bodies.each do |body|
-        stats = quarters.map do |quarter|
-                    conditions = ['created_at >= ? AND created_at < ?', quarter[0], quarter[1]]
-                    count = body.info_requests.count(:conditions => conditions)
-                    count ? count : 0
-                end
+      stats = quarters.map do |quarter|
+        conditions = ['created_at >= ? AND created_at < ?', quarter[0], quarter[1]]
+        count = body.info_requests.count(:conditions => conditions)
+        count ? count : 0
+      end
 
       row = [%Q("#{ body.name }")] + stats
       puts row.join(",")
@@ -125,9 +125,9 @@ DESC
   end
 
   desc <<-DESC
-Prints the per-quarter number of successful FOI Requests made to each Public Body found by the query.
-Specify the search query as QUERY='london school'
-DESC
+  Prints the per-quarter number of successful FOI Requests made to each Public Body found by the query.
+    Specify the search query as QUERY='london school'
+  DESC
   task :number_of_requests_successful => :environment do
     query = ENV['QUERY']
     start_at = PublicBody.minimum(:created_at)
@@ -141,11 +141,11 @@ DESC
 
     public_bodies.each do |body|
       stats = quarters.map do |quarter|
-                  conditions = ['created_at >= ? AND created_at < ? AND described_state = ?',
-                                quarter[0], quarter[1], 'successful']
-                  count = body.info_requests.count(:conditions => conditions)
-                  count ? count : 0
-              end
+        conditions = ['created_at >= ? AND created_at < ? AND described_state = ?',
+                      quarter[0], quarter[1], 'successful']
+        count = body.info_requests.count(:conditions => conditions)
+        count ? count : 0
+      end
 
       row = [%Q("#{ body.name }")] + stats
       puts row.join(",")
@@ -165,10 +165,10 @@ DESC
       very_overdue_count = 0
       InfoRequest.find_each(:batch_size => 200,
                             :conditions => {
-                                :public_body_id => public_body.id,
-                                :awaiting_description => false,
-                                :prominence => 'normal'
-                            }) do |ir|
+                              :public_body_id => public_body.id,
+                              :awaiting_description => false,
+                              :prominence => 'normal'
+      }) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'
           very_overdue_count += 1
@@ -179,7 +179,7 @@ DESC
       public_body.info_requests_overdue_count = overdue_count + very_overdue_count
       public_body.no_xapian_reindex = true
       public_body.without_revision do
-          public_body.save!
+        public_body.save!
       end
     end
   end

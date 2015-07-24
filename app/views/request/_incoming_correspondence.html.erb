@@ -3,24 +3,30 @@
     <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message }%>
   <%- else %>
     <%= render :partial => 'request/restricted_correspondence', :locals => {:message => incoming_message } %>
+
     <h2>
       <% if incoming_message.specific_from_name? %>
         <%= _("From:") %> <%= incoming_message.safe_mail_from %><br>
       <% end %>
+
       <% if incoming_message.from_public_body? %>
         <%= @info_request.public_body.name %><br>
       <% end %>
+
       <br><%= simple_date(incoming_message.sent_at) %>
     </h2>
 
-    <%= render :partial => 'bubble', :locals => { :incoming_message => incoming_message, :body => incoming_message.get_body_for_html_display(@collapse_quotes), :attachments => incoming_message.get_attachments_for_display }  %>
+    <%= render :partial => 'bubble',
+               :locals => { :incoming_message => incoming_message,
+                            :body => incoming_message.get_body_for_html_display(@collapse_quotes),
+                            :attachments => incoming_message.get_attachments_for_display }  %>
 
     <p class="event_actions">
       <% if !@user.nil? && @user.admin_page_links? %>
         <%= link_to "Admin", edit_admin_incoming_message_path(incoming_message.id) %> |
       <% end %>
+
       <%= link_to _("Link to this"), incoming_message_path(incoming_message), :class => "link_to_this" %>
     </p>
   <%- end %>
 </div>
-

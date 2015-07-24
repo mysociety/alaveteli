@@ -1,10 +1,10 @@
 .blog_post {
-    h2 a {
-        text-decoration: none;
-        &:hover,
-        &:active,
-        &:focus {
-            text-decoration: underline;
-        }
+  h2 a {
+    text-decoration: none;
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: underline;
     }
+  }
 }

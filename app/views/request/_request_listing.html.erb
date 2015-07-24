@@ -1,8 +1,8 @@
 <% if info_requests.empty? %>
-    <%= _('None found.') %>
+  <%= _('None found.') %>
 <% else %>
-    <% for info_request in info_requests %>
-        <%= render :partial => 'request/request_listing_single', :locals => { :info_request => info_request } %>
-    <% end %>
+  <% for info_request in info_requests %>
+    <%= render :partial => 'request/request_listing_single', :locals => { :info_request => info_request } %>
+  <% end %>
 <% end %>
 

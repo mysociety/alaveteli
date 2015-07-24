@@ -1,27 +1,29 @@
 <h2><%= _("Act on what you've learnt") %></h2>
 
 <div class="act_link">
-    <% tweet_link = "https://twitter.com/share?" << {
-        :url => request.url,
-        :via => AlaveteliConfiguration.twitter_username,
-        :text => "'#{ @info_request.title }'",
-        :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name)
-      }.to_query
-    %>
+  <% tweet_link = "https://twitter.com/share?" << {
+    :url => request.url,
+    :via => AlaveteliConfiguration.twitter_username,
+    :text => "'#{ @info_request.title }'",
+    :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name)
+  }.to_query
+%>
 
-    <% link_to tweet_link do %>
-      <%= image_tag "twitter-16.png", :alt => "twitter icon" %>
-    <% end %>
-    <%= link_to _("Tweet this request"), tweet_link %>
+  <% link_to tweet_link do %>
+    <%= image_tag "twitter-16.png", :alt => "twitter icon" %>
+  <% end %>
+  <%= link_to _("Tweet this request"), tweet_link %>
 </div>
+
 <div class="act_link">
-    <%= link_to "http://wordpress.com/" do %>
-      <%= image_tag "wordpress.png", :class => "rss" %>
-    <% end %>
-    <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
+  <%= link_to "http://wordpress.com/" do %>
+    <%= image_tag "wordpress.png", :class => "rss" %>
+  <% end %>
+  <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
 </div>
+
 <% if AlaveteliConfiguration::enable_widgets %>
   <div class="act_link">
-     <%= link_to _("Create a widget for this request"), new_request_widget_path(@info_request) %>
+    <%= link_to _("Create a widget for this request"), new_request_widget_path(@info_request) %>
   </div>
 <% end %>

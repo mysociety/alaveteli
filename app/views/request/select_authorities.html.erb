@@ -9,9 +9,9 @@
   <%= form_tag(select_authorities_path, {:method => 'get', :id => 'body_search_form', :remote => true, "data-type" => 'json'}) do %>
     <%= text_field_tag 'public_body_query', params[:public_body_query], { :size => 30, :title => "type your search term here" } %>
     <% if !@public_bodies.blank? %>
-       <%- @public_bodies.each do |public_body| %>
-         <%= hidden_field_tag "public_body_ids[]", public_body.id, {:id => nil} %>
-       <%- end %>
+      <%- @public_bodies.each do |public_body| %>
+        <%= hidden_field_tag "public_body_ids[]", public_body.id, {:id => nil} %>
+      <%- end %>
     <% end %>
   <% end %>
 </div>
@@ -29,13 +29,13 @@
           <% end %>
         <% end %>
         <select multiple name="public_body_ids[]" id="select_body_candidates" class="body_select" size="15">
-        <% if @search_bodies %>
-          <% @search_bodies.results.each do |result| %>
+          <% if @search_bodies %>
+            <% @search_bodies.results.each do |result| %>
               <% unless (@public_bodies && @public_bodies.include?(result[:model])) %>
-              <option value="<%= result[:model].id %>"><%= result[:model].name %></option>
+                <option value="<%= result[:model].id %>"><%= result[:model].name %></option>
               <% end %>
+            <% end %>
           <% end %>
-        <% end %>
         </select>
       <% end %>
     </div>
@@ -54,20 +54,20 @@
         <select multiple name="remove_public_body_ids[]" id="select_body_selections" class="body_select" size="15">
           <% if @public_bodies %>
             <% @public_bodies.each do |public_body| %>
-                <option value="<%= public_body.id %>"><%= public_body.name %></option>
+              <option value="<%= public_body.id %>"><%= public_body.name %></option>
             <% end %>
           <% end %>
         </select>
       <% end %>
 
       <div id="body_submission">
-       <%= form_tag(new_batch_path, {:id => "body_submit_form"}) do %>
+        <%= form_tag(new_batch_path, {:id => "body_submit_form"}) do %>
           <% if @public_bodies %>
             <% @public_bodies.each do |public_body| %>
               <%= hidden_field_tag "public_body_ids[]", public_body.id , {:id => nil} %>
             <% end %>
           <% end %>
-         <%= submit_tag _('Make a request to these authorities'), :id => 'body_submit_button' %>
+          <%= submit_tag _('Make a request to these authorities'), :id => 'body_submit_button' %>
         <% end %>
       </div>
 

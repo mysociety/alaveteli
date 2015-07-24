@@ -1,56 +1,61 @@
 <% @title = _("Play the request categorisation game!") %>
 
 <div id="game_sidebar">
-    <p style="text-align: center">
-        <%=
-            image_tag "https://chart.googleapis.com/chart?chs=250x125&cht=gom&chd=t:#{@percentage}",
-                      :size => "250x125",
-                      :alt => "A chart showing #{@percentage}% of requests have been categorised",
-                      :title => "#{@percentage}% of requests have been categorised"
-        %>
-        <br><%=pluralize(@missing, 'request')%> left to categorise / <%=@total %> total
-    </p>
+  <p style="text-align: center">
+    <%= image_tag "https://chart.googleapis.com/chart?chs=250x125&cht=gom&chd=t:#{@percentage}",
+          :size => "250x125",
+          :alt => "A chart showing #{@percentage}% of requests have been categorised",
+          :title => "#{@percentage}% of requests have been categorised" %>
+    <br><%= pluralize(@missing, 'request')%> left to categorise / <%= @total %> total
+  </p>
 
-    <h2>Top recent players</h2>
-    <table>
+  <h2>Top recent players</h2>
+  <table>
     <% @league_table_28_days.each_with_index do |classifications, index| %>
-        <tr>
-            <td> <%= index += 1 %>. <td>
-            <td> <%= user_link(classifications.user) %> </td>
-            <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
-        </tr>
+      <tr>
+        <td> <%= index += 1 %>. <td>
+        <td> <%= user_link(classifications.user) %> </td>
+        <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
+      </tr>
     <% end %>
-    </table>
+  </table>
 
-    <h2>All time best players</h2>
-    <table>
+  <h2>All time best players</h2>
+  <table>
     <% @league_table_all_time.each_with_index do |classifications, index| %>
-        <tr>
-            <td> <%= index += 1 %>. <td>
-            <td> <%= user_link(classifications.user) %> </td>
-            <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
-        </tr>
+      <tr>
+        <td> <%= index += 1 %>. <td>
+        <td> <%= user_link(classifications.user) %> </td>
+        <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
+      </tr>
     <% end %>
-    </table>
+  </table>
 </div>
 
 <div id="game">
   <h2><%= _("Play the request categorisation game!")%></h2>
 
-  <p><%= _("Some people who've made requests haven't let us know whether they were
-successful or not.  We need <strong>your</strong> help &ndash;
-choose one of these requests, read it, and let everyone know whether or not the
-information has been provided. Everyone'll be exceedingly grateful.")%></p>
+  <p>
+    <%= _("Some people who've made requests haven't let us know whether " \
+          "they were successful or not.  We need <strong>your</strong> help " \
+          "&ndash; choose one of these requests, read it, and let everyone " \
+          "know whether or not the information has been provided. " \
+          "Everyone'll be exceedingly grateful.")%>
+  </p>
 
   <% @requests.each do |info_request| %>
-      <%= render :partial => 'request/request_listing_single', :locals => { :info_request => info_request } %>
+    <%= render :partial => 'request/request_listing_single',
+               :locals => { :info_request => info_request } %>
   <% end %>
 
   <p id="game_buttons">
-    <%= button_to _('I don\'t like these ones &mdash; give me some more!'), categorise_play_url %>
-    <%= button_to _('I don\'t want to do any more tidying now!'), categorise_stop_url %>
+    <%= button_to _("I don't like these ones &mdash; give me some more!"), categorise_play_url %>
+    <%= button_to _("I don't want to do any more tidying now!"), categorise_stop_url %>
   </p>
 
-  <p><%= _('Thanks for helping - your work will make it easier for everyone to find successful
-responses, and maybe even let us make league tables...')%></p>
+  <p>
+    <%= _("Thanks for helping - your work will make it easier for everyone " \
+          "to find successful responses, and maybe even let us make league " \
+          "tables...") %>
+  </p>
 </div>

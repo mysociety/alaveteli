@@ -1,55 +1,61 @@
 <div id="after_actions">
+  <h2><%= _('Things to do with this request') %></h2>
 
-    <h2><%= _('Things to do with this request') %></h2>
+  <div id="anyone_actions">
+    <strong><%= _('Anyone:') %></strong>
 
-    <div id="anyone_actions">
-        <strong><%= _('Anyone:') %></strong>
-        <ul>
-        <% if @info_request.comments_allowed? %>
+    <ul>
+      <% if @info_request.comments_allowed? %>
+        <li>
+          <%= raw(_('<a href="{{url}}">Add an annotation</a> (to help the requester or others)', :url => new_comment_url(:url_title => @info_request.url_title).html_safe)) %>
+        </li>
+      <% end %>
+
+      <% if @old_unclassified %>
+        <li>
+          <%= link_to _('Update the status of this request'), '#describe_state_form_1' %>
+        </li>
+      <% end %>
+
+      <li>
+        <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => @info_request.url_title) %>
+      </li>
+    </ul>
+  </div>
+
+  <% if ! @info_request.is_external? %>
+    <div id="owner_actions">
+      <strong><%= _('{{info_request_user_name}} only:',:info_request_user_name=>h(@info_request.user_name)) %></strong>
+
+      <ul>
+        <li>
+          <% if @last_response.nil? %>
+            <%= link_to _("Send a followup"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %>
+          <% else %>
+            <%= link_to _("Write a reply"), show_response_path(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %>
+          <% end %>
+        </li>
+
+        <% if !@old_unclassified %>
           <li>
-            <%= raw(_('<a href="{{url}}">Add an annotation</a> (to help the requester or others)', :url => new_comment_url(:url_title => @info_request.url_title).html_safe)) %>
+            <%= link_to _("Update the status of this request"), request_path(@info_request, :update_status => 1) %>
           </li>
         <% end %>
-        <% if @old_unclassified %>
-            <li>
-                <%= link_to _('Update the status of this request'), '#describe_state_form_1' %>
-            </li>
-        <% end %>
-      <li>
-          <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => @info_request.url_title) %>
-      </li>
-    </ul>
-    </div>
-    <% if ! @info_request.is_external? %>
-      <div id="owner_actions">
-      <strong><%= _('{{info_request_user_name}} only:',:info_request_user_name=>h(@info_request.user_name)) %></strong>
-        <ul>
 
         <li>
-            <% if @last_response.nil? %>
-                <%= link_to _("Send a followup"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %>
-            <% else %>
-                <%= link_to _("Write a reply"), show_response_path(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %>
-            <% end %>
+          <%= link_to _("Request an internal review"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>
         </li>
-        <% if !@old_unclassified %>
-            <li>
-            <%= link_to _("Update the status of this request"), request_path(@info_request, :update_status => 1) %>
-            </li>
-        <% end %>
-        <li>
-            <%= link_to _("Request an internal review"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>
-        </li>
-    </ul>
-      </div>
-    <% end %>
-
-    <div id="public_body_actions">
-    <strong><%= _('{{public_body_name}} only:',:public_body_name=>h(@info_request.public_body.name) ) %> </strong>
-      <ul>
-      <li>
-          <%= link_to _("Respond to request"), upload_response_path(:url_title => @info_request.url_title) %>
-      </li>
       </ul>
     </div>
+  <% end %>
+
+  <div id="public_body_actions">
+    <strong><%= _('{{public_body_name}} only:',:public_body_name=>h(@info_request.public_body.name) ) %> </strong>
+
+    <ul>
+      <li>
+        <%= link_to _("Respond to request"), upload_response_path(:url_title => @info_request.url_title) %>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -32,23 +32,23 @@ way authorities use it. Plus you\'ll need to be an elite statistician.  Please
   <th>link</th>
   </tr>
   
-<% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
-  <tr class="<%= cycle('odd', 'even') %>">
-  <% for column in @columns %>
+  <% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
+    <tr class="<%= cycle('odd', 'even') %>">
+    <% for column in @columns %>
+      <td>
+        <%=h info_request_event.send(column) %>
+      </td>
+    <% end %>
     <td>
-      <%=h info_request_event.send(column) %>
+    <% if info_request_event.outgoing_message %>
+      <%= link_to "outgoing", outgoing_message_path(info_request_event.outgoing_message) %>
+    <% end %>
+    <% if info_request_event.incoming_message %>
+      <%= link_to "incoming", incoming_message_path(info_request_event.incoming_message) %>
+    <% end %>
     </td>
+    </tr>
   <% end %>
-  <td>
-  <% if info_request_event.outgoing_message %>
-    <%= link_to "outgoing", outgoing_message_path(info_request_event.outgoing_message) %>
-  <% end %>
-  <% if info_request_event.incoming_message %>
-    <%= link_to "incoming", incoming_message_path(info_request_event.incoming_message) %>
-  <% end %>
-  </td>
-  </tr>
-<% end %>
 </table>
 
 <p>

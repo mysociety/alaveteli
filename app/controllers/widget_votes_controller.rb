@@ -9,43 +9,43 @@ require 'securerandom'
 
 class WidgetVotesController < ApplicationController
 
-    before_filter :check_widget_config, :find_info_request, :check_prominence
+  before_filter :check_widget_config, :find_info_request, :check_prominence
 
-    # Track interest in a request from a non-logged in user
-    def create
-        unless @user      
-          cookie = cookies[:widget_vote]
-        
-          if cookie.nil?
-              cookies.permanent[:widget_vote] = SecureRandom.hex(10)
-              cookie = cookies[:widget_vote]
-          end 
-        
-          @info_request.widget_votes.
-              where(:cookie => cookie).
-                  first_or_create
-        end
+  # Track interest in a request from a non-logged in user
+  def create
+    unless @user
+      cookie = cookies[:widget_vote]
 
-        track_thing = TrackThing.create_track_for_request(@info_request)
-        redirect_to do_track_path(track_thing), status => :temporary_redirect
+      if cookie.nil?
+        cookies.permanent[:widget_vote] = SecureRandom.hex(10)
+        cookie = cookies[:widget_vote]
+      end
+
+      @info_request.widget_votes.
+        where(:cookie => cookie).
+          first_or_create
     end
 
-    private
+    track_thing = TrackThing.create_track_for_request(@info_request)
+    redirect_to do_track_path(track_thing), status => :temporary_redirect
+  end
 
-    def check_widget_config
-        unless AlaveteliConfiguration::enable_widgets
-            raise ActiveRecord::RecordNotFound.new("Page not enabled")
-        end
-    end
+  private
 
-    def find_info_request
-        @info_request = InfoRequest.find(params[:request_id])
+  def check_widget_config
+    unless AlaveteliConfiguration::enable_widgets
+      raise ActiveRecord::RecordNotFound.new("Page not enabled")
     end
+  end
 
-    def check_prominence
-        unless @info_request.prominence == 'normal'
-            render :nothing => true, :status => :forbidden
-        end
+  def find_info_request
+    @info_request = InfoRequest.find(params[:request_id])
+  end
+
+  def check_prominence
+    unless @info_request.prominence == 'normal'
+      render :nothing => true, :status => :forbidden
     end
+  end
 
 end

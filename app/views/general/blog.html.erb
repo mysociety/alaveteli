@@ -6,38 +6,39 @@
   <div id="blog">
     <% @blog_items.each do |item| %>
       <div class="blog_post">
-          <h2 id="<%= Time.parse(item['pubDate'][0]).to_i %>"><a href="<%=item['link'][0]%>"><%=h item['title'][0] %></a></h2>
-          <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=> item['creator'] ? item['creator'][0] : item['author'][0]) %></p>
-          <div>
-            <% if item['encoded'] %>
-              <%= sanitize(raw item['encoded'][0]) %>
-            <% elsif item['description'] %>
-              <%= sanitize(raw item['description'][0]) %>
-            <% end %>
-          </div>
-          <p><em>
+        <h2 id="<%= Time.parse(item['pubDate'][0]).to_i %>"><a href="<%=item['link'][0]%>"><%=h item['title'][0] %></a></h2>
+        <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=> item['creator'] ? item['creator'][0] : item['author'][0]) %></p>
+        <div>
+          <% if item['encoded'] %>
+            <%= sanitize(raw item['encoded'][0]) %>
+          <% elsif item['description'] %>
+            <%= sanitize(raw item['description'][0]) %>
+          <% end %>
+        </div>
+        <p>
+          <em>
             <% if item['comments'] %>
               <a href="<%=item['comments'][0]%>"><%= _("{{number_of_comments}} comments", :number_of_comments=>item['comments'][1]) %></a>
             <% end %>
           </em>
-          </p>
+        </p>
       </div>
-    <% end   %>
+    <% end %>
   </div>
 </div>
 
 <% if !@twitter_user.empty? %>
-<div id="right_column">
-  <div class="act_link">
-    <h2><%= _("Stay up to date") %></h2>
-    <%= image_tag "twitter-16.png", :alt => "twitter icon", :class => "twitter-icon" %> <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on twitter") %></a><br/><br/>
-    <%= image_tag "feed-16.png", :alt => "RSS icon" %> <a href="<%= @feed_url %>"><%= _("Subscribe to blog") %></a>
+  <div id="right_column">
+    <div class="act_link">
+      <h2><%= _("Stay up to date") %></h2>
+      <%= image_tag "twitter-16.png", :alt => "twitter icon", :class => "twitter-icon" %> <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on twitter") %></a><br/><br/>
+      <%= image_tag "feed-16.png", :alt => "RSS icon" %> <a href="<%= @feed_url %>"><%= _("Subscribe to blog") %></a>
+    </div>
+    <% if AlaveteliConfiguration::twitter_widget_id %>
+      <div id="twitter">
+        <a class="twitter-timeline" data-dnt=true href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>" data-widget-id="<%= AlaveteliConfiguration::twitter_widget_id %>">Tweets by @<%= AlaveteliConfiguration::twitter_username %></a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </div>
+    <% end %>
   </div>
-  <% if AlaveteliConfiguration::twitter_widget_id %>
-  <div id="twitter">
-    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>" data-widget-id="<%= AlaveteliConfiguration::twitter_widget_id %>">Tweets by @<%= AlaveteliConfiguration::twitter_username %></a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-  </div>
-  <% end %>
-</div>
 <% end %>

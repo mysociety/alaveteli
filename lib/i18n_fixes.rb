@@ -55,9 +55,9 @@ end
 # symbols for locales
 module GettextI18nRails
   class Backend
-      def available_locales
-          FastGettext.available_locales.map{|l| l.to_sym} || []
-      end
+    def available_locales
+      FastGettext.available_locales.map{|l| l.to_sym} || []
+    end
   end
 end
 
@@ -65,10 +65,9 @@ end
 # I18n.locale= so that it changes underscores in locale names (as used in the gettext world)
 # to the dashes that I18n prefers
 module Globalize
-    class << self
-       def locale
-           read_locale || I18n.locale.to_s.gsub('-', '_').to_sym
-       end
+  class << self
+    def locale
+      read_locale || I18n.locale.to_s.gsub('-', '_').to_sym
     end
+  end
 end
-

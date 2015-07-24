@@ -1,16 +1,16 @@
 div#content, div#left_column, div.entirebody div#wrapper {
- width: 100%; 
- margin: 0; 
- float: none;
+  width: 100%; 
+  margin: 0; 
+  float: none;
 }
 div#content {
- padding-right: 0;
- width: 96%;
+  padding-right: 0;
+  width: 96%;
 }
 
 #wrapper {
- width: auto;
- padding: 0;
+  width: auto;
+  padding: 0;
 
 }
 
@@ -24,26 +24,26 @@ div#after_actions,
 #describe_state_form_2,
 .attachment_image,
 #footer {
- display: none;
+  display: none;
 }
 
 div.correspondence {
- background: none;
- border: 1px solid #DDD;
+  background: none;
+  border: 1px solid #DDD;
 }
 
 p#request_status {
- page-break-after: avoid;
+  page-break-after: avoid;
 }
 div.correspondence {
- page-break-before: avoid;
+  page-break-before: avoid;
 }
 
 #other-country-notice {
- display: none;
+  display: none;
 }
 
 .not-for-print {
- display: none !IMPORTANT;
+  display: none !IMPORTANT;
 }
 

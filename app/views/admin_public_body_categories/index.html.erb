@@ -13,16 +13,16 @@
 
 <h2>All category headings</h2>
 <div>
-<%= render :partial => 'heading_list', :locals => { :category_headings => @category_headings, :table_name => 'exact' } %>
+  <%= render :partial => 'heading_list', :locals => { :category_headings => @category_headings, :table_name => 'exact' } %>
 
-<% if @without_heading.count > 0 %>
-
+  <% if @without_heading.count > 0 %>
     <h3>Categories with no heading</h3>
 
     <% @without_heading.each do |category| %>
-          <%= render :partial => 'category_list_item', :locals => { :category => category, :heading => nil } %>
+      <%= render :partial => 'category_list_item', :locals => { :category => category, :heading => nil } %>
     <% end %>
-<% end %>
-<div class="form-actions save-panel">
-<%= link_to "Save", '#', :class => "btn btn-primary disabled save-order", "data-list-id" => '#category_list', 'data-endpoint' => reorder_admin_headings_path %><p class="save-notice" data-unsaved-text="There are unsaved changes to the order of category headings." data-success-text="Changes saved." data-error-text="There was an error saving your changes: ">Drag and drop to change the order of category headings.</p>
+  <% end %>
+  <div class="form-actions save-panel">
+    <%= link_to "Save", '#', :class => "btn btn-primary disabled save-order", "data-list-id" => '#category_list', 'data-endpoint' => reorder_admin_headings_path %><p class="save-notice" data-unsaved-text="There are unsaved changes to the order of category headings." data-success-text="Changes saved." data-error-text="There was an error saving your changes: ">Drag and drop to change the order of category headings.</p>
+  </div>
 </div>

@@ -9,73 +9,64 @@
 <%= foi_error_messages_for :incoming_message, :outgoing_message %>
 
 <% if @gone_postal %>
-    <div class="gone_postal_help">
-        <h1><%= _('Which of these is happening?') %></h1>
+  <div class="gone_postal_help">
+    <h1><%= _('Which of these is happening?') %></h1>
 
-        <dl>
+    <dl>
+      <dt>
+        <%= _('The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request') %>
+      </dt>
+      <dd>
+        <%= render :partial => 'help/why_they_should_reply_by_email', :locals => {:help_page_url =>  help_privacy_path } %>
+      </dd>
 
-        <dt>
-            <%= _('The authority say that they <strong>need a postal
-            address</strong>, not just an email, for it to be a valid FOI request') %>
-        </dt>
-        <dd>
-            <%= render :partial => 'help/why_they_should_reply_by_email', :locals => {:help_page_url =>  help_privacy_path } %>
-        </dd>
+      <dt>
+        <%= _('The authority only has a <strong>paper copy</strong> of the information.') %>
+      </dt>
+      <dd>
+        <%= _('At the bottom of this page, write a reply to them trying to persuade them to scan it in (<a href="{{url}}">more details</a>).',
+            :url => (help_privacy_path + '#postal_answer').html_safe) %>
+      </dd>
 
-        <dt>
-            <%= _('The authority only has a <strong>paper copy</strong> of the information.') %>
-        </dt>
-        <dd>
-            <%= _('At the bottom of this page, write a reply to them trying to persuade them to scan it in
-            (<a href="{{url}}">more details</a>).', :url => (help_privacy_path + '#postal_answer').html_safe) %>
-        </dd>
-
-        <dt>
-            <%= _('You want to <strong>give your postal address</strong> to the authority in private.') %>
-        </dt>
-        <dd>
-           <%= _('To do that please send a private email to ') %><%=h(@postal_email_name)%>
-            &lt;<%=mail_to h(@postal_email) %>&gt;
-      <%= _('containing your postal address, and asking them to reply to this request.
-            Or you could phone them.') %>
-
-            <%= _('When you receive the paper response, please help
-            others find out what it says:') %>
-            <ul>
-                <li><%= _('Add an annotation to your request with choice quotes, or
-                a <strong>summary of the response</strong>.') %></li>
-                <li><%=  _('If you can, scan in or photograph the response, and <strong>send us
-                    a copy to upload</strong>.') %></li>
-            </ul>
-        </dd>
-
-        </dl>
-    </div>
+      <dt>
+        <%= _('You want to <strong>give your postal address</strong> to the authority in private.') %>
+      </dt>
+      <dd>
+        <%= _('To do that please send a private email to ') %><%=h @postal_email_name %>
+        &lt;<%= mail_to h(@postal_email) %>&gt;
+        <%= _('containing your postal address, and asking them to reply to this request. Or you could phone them.') %>
+        <%= _('When you receive the paper response, please help others find out what it says:') %>
+        <ul>
+          <li><%= _('Add an annotation to your request with choice quotes, or a <strong>summary of the response</strong>.') %></li>
+          <li><%=  _('If you can, scan in or photograph the response, and <strong>send us a copy to upload</strong>.') %></li>
+        </ul>
+      </dd>
+    </dl>
+  </div>
 <% end %>
 
 <div id="show_response_view">
-    <% if !@incoming_message.nil? %>
-        <% if @is_owning_user %>
-            <% if @incoming_message.recently_arrived %>
-                <h2><%= _('New response to your request') %> '<%= request_link @info_request %>'</h2>
-            <% else %>
-                <h2><%= _('Response to your request') %>  '<%= request_link @info_request %>'</h2>
-            <% end %>
-        <% else %>
-            <% if @incoming_message.recently_arrived %>
-    <h2><%= _('New response to {{law_used_short}} request',:law_used_short => h(@info_request.law_used_short))%> '<%= request_link @info_request %>'</h2>
-            <% else %>
-                <h2>Response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
-            <% end %>
-        <% end %>
-
-        <% if @incoming_message.nil? %>
-            <%= render :partial => 'correspondence', :locals => { :info_request_event => @info_request.get_last_outgoing_event } %>
-        <% else %>
-            <%= render :partial => 'correspondence', :locals => { :info_request_event => @incoming_message.response_event } %>
-        <% end %>
+  <% if !@incoming_message.nil? %>
+    <% if @is_owning_user %>
+      <% if @incoming_message.recently_arrived %>
+        <h2><%= _('New response to your request') %> '<%= request_link @info_request %>'</h2>
+      <% else %>
+        <h2><%= _('Response to your request') %>  '<%= request_link @info_request %>'</h2>
+      <% end %>
+    <% else %>
+      <% if @incoming_message.recently_arrived %>
+        <h2><%= _('New response to {{law_used_short}} request',:law_used_short => h(@info_request.law_used_short))%> '<%= request_link @info_request %>'</h2>
+      <% else %>
+        <h2>Response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
+      <% end %>
     <% end %>
 
-    <%= render :partial => 'followup', :locals => { :incoming_message => @incoming_message } %>
-</div>
+    <% if @incoming_message.nil? %>
+      <%= render :partial => 'correspondence', :locals => { :info_request_event => @info_request.get_last_outgoing_event } %>
+    <% else %>
+      <%= render :partial => 'correspondence', :locals => { :info_request_event => @incoming_message.response_event } %>
+    <% end %>
+  <% end %>
 
+  <%= render :partial => 'followup', :locals => { :incoming_message => @incoming_message } %>
+</div>

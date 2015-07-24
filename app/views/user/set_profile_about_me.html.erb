@@ -5,37 +5,41 @@
 <%= foi_error_messages_for :about_me %>
 
 <%= form_for :about_me do |f| %>
-    <div class="form_note">
-        <h1><%= _('Edit text about you')%></h1>
-        <p> 
-           <%= _(' What are you investigating using Freedom of Information? ')%> 
-        </p>
-        <p>
-          <%= _('  This will appear on your {{site_name}} profile, to make it
-            easier for others to get involved with what you\'re doing.', :site_name=>site_name)%>
-        </p>
-    </div>
+  <div class="form_note">
+    <h1><%= _('Edit text about you') %></h1>
 
-    <p>
-      <label class="form_label" for="set_profile_about_me">
-        <%= _('About you:')%>
-      </label>
-      <% about_me_opts = { :rows => 5, :cols => 55 } %>
-      <% about_me_opts.merge!({ :disabled => 'disabled' }) if @user.banned? %>
-      <%= f.text_area :about_me, about_me_opts %>
+    <p> 
+      <%= _('What are you investigating using Freedom of Information?') %> 
     </p>
 
-    <div class="form_note">
-        <p>
-           <%= _(' Include relevant links, such as to a campaign page, your blog or a
-            twitter account. They will be made clickable. 
-            e.g.')%>
-            <a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>">https://twitter.com/<%= AlaveteliConfiguration::twitter_username %></a>
-        </p>
-    </div>
+    <p>
+      <%= _("This will appear on your {{site_name}} profile, to make it " \
+            "easier for others to get involved with what you're doing.",
+            :site_name => site_name) %>
+    </p>
+  </div>
 
-    <div class="form_button">
+  <p>
+    <label class="form_label" for="set_profile_about_me">
+      <%= _('About you:') %>
+    </label>
+    <% about_me_opts = { :rows => 5, :cols => 55 } %>
+    <% about_me_opts.merge!({ :disabled => 'disabled' }) if @user.banned? %>
+    <%= f.text_area :about_me, about_me_opts %>
+  </p>
+
+  <div class="form_note">
+    <p>
+      <%= _('Include relevant links, such as to a campaign page, your blog ' \
+            'or a twitter account. They will be made clickable. e.g.') %>
+      <a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>">
+        https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>
+      </a>
+    </p>
+  </div>
+
+  <div class="form_button">
     <%= hidden_field_tag 'submitted_about_me', 1 %>
     <%= submit_tag _('Save') %>
-    </div>
+  </div>
 <% end %>

@@ -18,86 +18,94 @@
 <% last_date = nil %>
 <% for event, event_at in @events %>
     <% if last_date != event_at.to_date %>
-        <% if last_date.nil? %>
-            <p>
-        <% end %>
-        <h3><%= simple_date(event_at) %></h3>
+      <% if last_date.nil? %>
         <p>
+      <% end %>
+    
+      <h3><%= simple_date(event_at) %></h3>
+
+      <p>
     <% else %>
-        <br>
+      <br>
     <% end %>
+
     <% last_date = event_at.to_date %>
 
     <%= simple_time(event_at) %>
 
     <% if event.is_a? InfoRequestEvent %>
-        <%= request_both_links(event.info_request) %>
-        <% if event.event_type == 'edit' %>
-            was edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% for p in ['title', 'described_state', 'awaiting_description']
-                    if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
-                        %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
-                    end
+      <%= request_both_links(event.info_request) %>
+
+      <% if event.event_type == 'edit' %>
+        was edited by administrator <strong><%=h event.params[:editor] %></strong>.
+
+        <% for p in ['title', 'described_state', 'awaiting_description']
+             if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+        %> Changed <%= p %> from '<%=h event.params[('old_'+p).to_sym] %>' to '<%=h event.params[p.to_sym] %>'. <%
+                 end
+            end
+        %>
+      <% elsif event.event_type == 'edit_outgoing' %>
+        <% outgoing_message = OutgoingMessage.find(event.params[:outgoing_message_id].to_i) %>
+        had outgoing message edited by administrator <strong><%=h event.params[:editor] %></strong>.
+        <% if outgoing_message %>
+          <% for p in ['body']
+               if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+          %> Changed <%= p %> from '<%=h event.params[('old_'+p).to_sym] %>' to '<%=h event.params[p.to_sym] %>'. <%
                end
-            %>
-        <% elsif event.event_type == 'edit_outgoing' %>
-            <% outgoing_message = OutgoingMessage.find(event.params[:outgoing_message_id].to_i) %>
-            had outgoing message edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% if outgoing_message %>
-                <% for p in ['body']
-                        if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
-                            %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
-                        end
-                   end
-                %>
-            <% else %>
-                Missing outgoing message, internal error.
-            <% end %>
-        <% elsif event.event_type == 'edit_comment' %>
-            <% comment = Comment.find(event.params[:comment_id].to_i) %>
-            had annotation edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% if comment %>
-                <% for p in ['body']
-                        if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
-                            %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
-                        end
-                   end
-                %>
-            <% else %>
-                Missing annotation, internal error.
-            <% end %>
-        <% elsif event.event_type == 'destroy_incoming' %>
-            had incoming message deleted by administrator <strong><%=h event.params[:editor] %></strong>.
-        <% elsif event.event_type == 'destroy_outgoing' %>
-            had outgoing message deleted by administrator <strong><%=h event.params[:editor] %></strong>.
-        <% elsif event.event_type == 'hide' %>
-            was hidden by administrator <strong><%=h event.params[:editor] %></strong>.
-        <% elsif event.event_type == 'redeliver_outgoing' %>
-            had incoming message redelivered to another request by administrator <strong><%=h event.params[:editor] %></strong>.
-         <% elsif event.event_type == 'response' %>
-            <% incoming_message = event.incoming_message %>
-            received
-            <%= link_to 'a response', incoming_message_path(incoming_message) %>
-            from <%=h event.info_request.public_body.name %>.
-        <% elsif event.event_type == 'sent' %>
-            was initially sent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
-        <% elsif event.event_type == 'resent' %>
-            had the request resent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
-        <% elsif event.event_type == 'followup_sent' %>
-            had a follow up message sent to <%=h event.info_request.public_body.name %>.
-        <% elsif event.event_type == 'comment' %>
-            had an annotation posted by <%=h event.comment.user.name %>.
-        <% elsif event.event_type == 'status_update' %>
-                had its status updated by <%= event.params[:user_id] ? User.find(event.params[:user_id]).name : event.params[:script] %> from '<%= h event.params[:old_described_state] %>' to '<%= h event.params[:described_state] %>'.
-        <% else %>
-            had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
-        <% end %>
+          end
+        %>
+      <% else %>
+        Missing outgoing message, internal error.
+      <% end %>
+    <% elsif event.event_type == 'edit_comment' %>
+      <% comment = Comment.find(event.params[:comment_id].to_i) %>
+      had annotation edited by administrator <strong><%=h event.params[:editor] %></strong>.
+
+      <% if comment %>
+        <% for p in ['body']
+             if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+        %> Changed <%= p %> from '<%=h event.params[('old_'+p).to_sym] %>' to '<%=h event.params[p.to_sym] %>'. <%
+             end
+           end
+        %>
+      <% else %>
+        Missing annotation, internal error.
+      <% end %>
+    <% elsif event.event_type == 'destroy_incoming' %>
+      had incoming message deleted by administrator <strong><%=h event.params[:editor] %></strong>.
+    <% elsif event.event_type == 'destroy_outgoing' %>
+      had outgoing message deleted by administrator <strong><%=h event.params[:editor] %></strong>.
+    <% elsif event.event_type == 'hide' %>
+      was hidden by administrator <strong><%=h event.params[:editor] %></strong>.
+    <% elsif event.event_type == 'redeliver_outgoing' %>
+      had incoming message redelivered to another request by administrator <strong><%=h event.params[:editor] %></strong>.
+    <% elsif event.event_type == 'response' %>
+      <% incoming_message = event.incoming_message %>
+      received
+      <%= link_to 'a response', incoming_message_path(incoming_message) %>
+      from <%=h event.info_request.public_body.name %>.
+    <% elsif event.event_type == 'sent' %>
+      was initially sent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
+    <% elsif event.event_type == 'resent' %>
+      had the request resent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
+    <% elsif event.event_type == 'followup_sent' %>
+      had a follow up message sent to <%=h event.info_request.public_body.name %>.
+    <% elsif event.event_type == 'comment' %>
+      had an annotation posted by <%=h event.comment.user.name %>.
+    <% elsif event.event_type == 'status_update' %>
+      had its status updated by <%= event.params[:user_id] ? User.find(event.params[:user_id]).name : event.params[:script] %> from '<%= h event.params[:old_described_state] %>' to '<%= h event.params[:described_state] %>'.
     <% else %>
-        <%= public_body_both_links(event.public_body) %>
-        was created/updated by administrator <strong><%=h event.last_edit_editor %></strong>
+      had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
     <% end %>
+  <% else %>
+    <%= public_body_both_links(event.public_body) %>
+    was created/updated by administrator <strong><%=h event.last_edit_editor %></strong>
+  <% end %>
 <% end %>
+
 <%= will_paginate(@events, :class => 'paginator') %>
+
 <% if not @events.empty? %>
-</p>
+  </p>
 <% end %>

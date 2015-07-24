@@ -1,35 +1,35 @@
 <h1><%= @title %></h1>
 
 <div class="row">
-    <div class="span8">
-        <div id="public_body_category_form">
-            <%= form_for @category, :url => admin_category_path(@category), :html => { :class => "form form-horizontal" } do |f| %>
-                <%= render :partial => 'form', :locals => { :f => f } %>
+  <div class="span8">
+    <div id="public_body_category_form">
+      <%= form_for @category, :url => admin_category_path(@category), :html => { :class => "form form-horizontal" } do |f| %>
+        <%= render :partial => 'form', :locals => { :f => f } %>
 
-                <div class="form-actions">
-                    <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %>
-                    <%= link_to 'List all', admin_categories_path, :class => "btn" %>
-                </div>
-            <% end %>
+        <div class="form-actions">
+          <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %>
+          <%= link_to 'List all', admin_categories_path, :class => "btn" %>
         </div>
+      <% end %>
     </div>
+  </div>
 </div>
 
 <hr />
 
 <div class="row">
-    <div class="span12">
-        <div class="well">
-          <%= form_for @category, :url => admin_category_path(@category), :method => 'delete', :class => "form form-inline" do |f| %>
-              <%= f.submit "Destroy #{ @category.title }",
-                           :title => @category.title,
-                           :class => "btn btn-danger",
-                           :confirm => 'Are you sure?' %>
-              <span class="help-block">
-                Destroying a category does not destroy the public authorities
-                associated with the category.
-              </span>
-          <% end %>
-        </div>
+  <div class="span12">
+    <div class="well">
+      <%= form_for @category, :url => admin_category_path(@category), :method => 'delete', :class => "form form-inline" do |f| %>
+        <%= f.submit "Destroy #{ @category.title }",
+          :title => @category.title,
+          :class => "btn btn-danger",
+          :confirm => 'Are you sure?' %>
+        <span class="help-block">
+          Destroying a category does not destroy the public authorities
+          associated with the category.
+        </span>
+      <% end %>
     </div>
+  </div>
 </div>

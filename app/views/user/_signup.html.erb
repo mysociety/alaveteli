@@ -1,52 +1,52 @@
 <div id="signup">
-
-<%= form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
+  <%= form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
     <%= foi_error_messages_for :user_signup %>
 
     <!--<h2><%= _('If you\'re new to {{site_name}}', :site_name=>site_name)%></h2>-->
 
-
-
     <p>
-        <label class="form_label" for="user_signup_name"> <%= _('Your name:')%></label>
-        <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 10, :autocomplete => "off" } %>
+      <label class="form_label" for="user_signup_name"> <%= _('Your name:')%></label>
+      <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 10, :autocomplete => "off" } %>
     </p>
+
     <div class="form_item_note">
-         <%= _('Your <strong>name will appear publicly</strong>
-        (<a href="{{why_url}}">why?</a>)
-        on this website and in search engines.
-        <a href="{{help_url}}">Thinking of using a pseudonym?</a>', :why_url => (help_privacy_path+"#public_request").html_safe, :help_url => (help_privacy_path+"#real_name").html_safe) %>
+      <%= _('Your <strong>name will appear publicly</strong> ' \
+            '(<a href="{{why_url}}">why?</a>) on this website and in search ' \
+            'engines. <a href="{{help_url}}">Thinking of using a ' \
+            'pseudonym?</a>',
+            :why_url => (help_privacy_path+"#public_request").html_safe,
+            :help_url => (help_privacy_path+"#real_name").html_safe) %>
     </div>
 
     <p>
-        <label class="form_label" for="user_signup_email"><%= _('Your e-mail:')%></label>
-        <%= text_field 'user_signup', 'email', { :size => 20, :tabindex => 20 } %>
+      <label class="form_label" for="user_signup_email"><%= _('Your e-mail:')%></label>
+      <%= text_field 'user_signup', 'email', { :size => 20, :tabindex => 20 } %>
     </p>
+
     <div class="form_item_note">
-        <%= _('We will not reveal your email address to anybody unless <a href="{{url}}">you or
-        the law tell us to</a>. ', :url => help_privacy_path) %>
+      <%= _('We will not reveal your email address to anybody unless ' \
+            '<a href="{{url}}">you or the law tell us to</a>.',
+            :url => help_privacy_path) %>
     </div>
 
     <p>
-        <label class="form_label" for="user_signup_password"> <%= _('Password:')%></label>
-        <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 30, :autocomplete => "off" } %>
+      <label class="form_label" for="user_signup_password"> <%= _('Password:')%></label>
+      <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 30, :autocomplete => "off" } %>
     </p>
 
     <p>
-        <label class="form_label" for="user_signup_password_confirmation"> <%= _('Confirm password:')%></label>
-        <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 40, :autocomplete => "off" } %>
+      <label class="form_label" for="user_signup_password_confirmation"> <%= _('Confirm password:')%></label>
+      <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 40, :autocomplete => "off" } %>
     </p>
 
     <% if @request_from_foreign_country %>
-    <%= recaptcha_tags %>
+      <%= recaptcha_tags %>
     <% end %>
 
     <div class="form_button">
-        <%= hidden_field_tag 'token', params[:token], {:id => 'signup_token' } %>
-        <%= hidden_field_tag :modal, params[:modal], {:id => 'signup_modal' } %>
-        <%= submit_tag _('Sign up'), :tabindex => 50 %>
+      <%= hidden_field_tag 'token', params[:token], {:id => 'signup_token' } %>
+      <%= hidden_field_tag :modal, params[:modal], {:id => 'signup_modal' } %>
+      <%= submit_tag _('Sign up'), :tabindex => 50 %>
     </div>
-
-<% end %>
-
+  <% end %>
 </div>

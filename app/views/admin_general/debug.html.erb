@@ -7,7 +7,7 @@
 <h2>Version numbers</h2>
 
 <p>
-Alaveteli version: <%= link_to @current_version, @github_origin + @current_version %>
+  Alaveteli version: <%= link_to @current_version, @github_origin + @current_version %>
 <br>
 <% if @current_branch == "(no branch)" %>
   Alaveteli branch: (no branch)
@@ -32,22 +32,22 @@ Xapian::version_string <%=h Xapian::version_string%>
 
 <h2>Environment variables</h2>
 <table>
-<% for k,v in @request_env %>
+  <% for k,v in @request_env %>
     <tr><td><%=h k%></td><td><%=h v%></td></tr>
-<% end %>
+  <% end %>
 </table>
 
 <h2>Parameters</h2>
 <table>
-<% for k,v in params %>
+  <% for k,v in params %>
     <tr><td><%=h k%></td><td><%=h v%></td></tr>
-<% end %>
+  <% end %>
 </table>
 
 <h2>Session</h2>
 <table>
-<% for k,v in session %>
+  <% for k,v in session %>
     <tr><td><%=h k%></td><td><%=h v%></td></tr>
-<% end %>
+  <% end %>
 </table>
 

@@ -5,9 +5,9 @@
 <p><%= _('To view the email address that we use to send FOI requests to {{public_body_name}}, please enter these words.', :public_body_name => h(@public_body.name))%></p>
 
 <%= form_for :contact do |f| %>
-    <%= recaptcha_tags %>
+  <%= recaptcha_tags %>
 
-    <%= hidden_field_tag(:submitted_view_email, { :value => 1 } ) %>
-    
-    <p><%= submit_tag _("View email") %></p>
+  <%= hidden_field_tag(:submitted_view_email, { :value => 1 } ) %>
+
+  <p><%= submit_tag _("View email") %></p>
 <% end %>

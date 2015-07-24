@@ -1,46 +1,46 @@
 <div class="accordion" id="users">
-  <% for user in users %>
-    <div class="accordion-group">
-      <div class="accordion-heading accordion-toggle">
-       <span class="item-title">
+<% for user in users %>
+  <div class="accordion-group">
+    <div class="accordion-heading accordion-toggle">
+      <span class="item-title">
         <a href="#user_<%=user.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
-      <% if user.admin_level == "super" %>
+        <% if user.admin_level == "super" %>
           <span class="label">superuser</span>
-      <% end %>
+        <% end %>
         <%= link_to("#{h(user.name)}", admin_user_path(user))%>
         <%= link_to("(#{h(user.email)})", "mailto:#{h(user.email)}")%>
-       </span>
-       <span class="item-metadata">
-   updated <%=I18n.l(user.updated_at, :format => "%e %B %Y %H:%M:%S")%>
-       </span>
-      </div>
-      <div id="user_<%=user.id%>" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <tbody>
-            <% if banned_column %>
-              <tr>
-                <td><b>Ban text</b></td>
-                <td><%= h user.ban_text %></td>
-              </tr>
-            <% end %>
-            <% user.for_admin_column do |name, value, type|%>
-              <tr>
-                <td><b><%=h name%></b></td>
-                <td>
-                  <% if type == 'datetime' %>
-                    <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
-                    (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
-                  <% else %>
-                    <%= h value %>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+      </span>
+      <span class="item-metadata">
+        updated <%=I18n.l(user.updated_at, :format => "%e %B %Y %H:%M:%S")%>
+    </span>
     </div>
-  <% end %>
+    <div id="user_<%=user.id%>" class="accordion-body collapse">
+      <table class="table table-striped table-condensed">
+        <tbody>
+          <% if banned_column %>
+            <tr>
+              <td><b>Ban text</b></td>
+              <td><%= h user.ban_text %></td>
+            </tr>
+          <% end %>
+          <% user.for_admin_column do |name, value, type|%>
+            <tr>
+              <td><b><%=h name%></b></td>
+              <td>
+                <% if type == 'datetime' %>
+                  <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
+                  (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                <% else %>
+                  <%= h value %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
 </div>
 
 <%= will_paginate(users, :class => "paginator") %>

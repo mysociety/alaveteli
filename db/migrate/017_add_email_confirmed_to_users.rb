@@ -5,6 +5,6 @@ class AddEmailConfirmedToUsers < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :users, :email_confirmed 
+    remove_column :users, :email_confirmed
   end
 end

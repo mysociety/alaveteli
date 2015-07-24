@@ -1,57 +1,59 @@
 <div id="content">
-  <div class="request-sent-message" id="notice">
-    <h1>
-      <%= _("Your requests will be <strong>sent</strong> shortly!") %>
-    </h1>
-    <div class="request-sent-message__row">
-      <div class="request-sent-message__column-1">
-        <p class="subtitle">
-          <%= _("<strong>We will email you</strong> when they have been sent. " \
-                "We will also email you when there is a response to any of them, or " \
-                "after {{late_number_of_days}} working days if the authorities still " \
-                "haven't replied by then.",
-                :late_number_of_days => AlaveteliConfiguration::reply_late_after_days) %>
-        </p>
+<div class="request-sent-message" id="notice">
+  <h1>
+    <%= _("Your requests will be <strong>sent</strong> shortly!") %>
+  </h1>
 
-        <h2><%= _("Share your batch request") %></h2>
+  <div class="request-sent-message__row">
+    <div class="request-sent-message__column-1">
+      <p class="subtitle">
+        <%= _("<strong>We will email you</strong> when they have been sent. " \
+              "We will also email you when there is a response to any of them, or " \
+              "after {{late_number_of_days}} working days if the authorities still " \
+              "haven't replied by then.",
+              :late_number_of_days => AlaveteliConfiguration::reply_late_after_days) %>
+      </p>
 
-           <%= link_to image_tag("next-step-twitter.png",
-                                 :alt => _("Tweet it"),
-                                 :width => "120",
-                                 :height => "37"),
-                       "https://twitter.com/intent/tweet?" << {
-                :url => request.url,
-                :via => AlaveteliConfiguration.twitter_username,
-                :text => "'#{ @info_request_batch.title }'",
-                :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name)
-             }.to_query, :class => 'share-link' %>
+      <h2><%= _("Share your batch request") %></h2>
 
-           <%= link_to image_tag("next-step-facebook.png",
-                                 :alt => _("Share on Facebook"),
-                                 :width => "120",
-                                 :height => "37"),
-                      "https://www.facebook.com/sharer/sharer.php?" << {
-               :u => request.url
-             }.to_query, :class => 'share-link' %>
+      <%= link_to image_tag("next-step-twitter.png",
+                            :alt => _("Tweet it"),
+                            :width => "120",
+                            :height => "37"),
+                            "https://twitter.com/intent/tweet?" << {
+                              :url => request.url,
+                              :via => AlaveteliConfiguration.twitter_username,
+                              :text => "'#{ @info_request_batch.title }'",
+                              :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name)
+                            }.to_query, :class => 'share-link' %>
 
-        <h2><%= _("Keep your requests up to date") %></h2>
-        <p>
-          <%= _('If you write about these requests ' \
-                '(for example in a forum or a blog) ' \
-                'please link to this page.') %>
-        </p>
-      </div>
-      <div class="request-sent-message__column-2">
-        <div class="what-next">
-          <h2><%= _("What next?") %></h2>
-          <ul class="what-next__list">
-            <li>
-              <%= link_to _("Help us classify requests that haven't " \
-              "been updated"), categorise_play_path %>
-            </li>
-          </ul>
-        </div>
+      <%= link_to image_tag("next-step-facebook.png",
+                            :alt => _("Share on Facebook"),
+                            :width => "120",
+                            :height => "37"),
+                            "https://www.facebook.com/sharer/sharer.php?" << {
+                              :u => request.url
+                            }.to_query, :class => 'share-link' %>
+
+      <h2><%= _("Keep your requests up to date") %></h2>
+      <p>
+        <%= _('If you write about these requests ' \
+              '(for example in a forum or a blog) ' \
+              'please link to this page.') %>
+      </p>
+    </div>
+
+    <div class="request-sent-message__column-2">
+      <div class="what-next">
+        <h2><%= _("What next?") %></h2>
+        <ul class="what-next__list">
+          <li>
+            <%= link_to _("Help us classify requests that haven't " \
+                          "been updated"), categorise_play_path %>
+        </li>
+        </ul>
       </div>
     </div>
   </div>
+</div>
 </div>

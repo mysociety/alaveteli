@@ -3,44 +3,43 @@
 <h1><%= _('FOI email address for {{public_body}}',:public_body=> public_body_link(@public_body))%></h1>
 
 <p>
-<% if @public_body.is_requestable? %>
-<%= _('{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority.', :site_name=>site_name, :request_email=> h(@public_body.request_email))%>
-<% else %>
+  <% if @public_body.is_requestable? %>
+    <%= _('{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority.', :site_name=>site_name, :request_email=> h(@public_body.request_email))%>
+  <% else %>
     <% if @public_body.not_requestable_reason == 'not_apply' %>
-        <p><%= _('Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to ')%><strong><%=h @public_body.request_email%></strong>.
-        </p>
+      <p><%= _('Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to ')%><strong><%=h @public_body.request_email%></strong>.
+      </p>
     <% elsif @public_body.not_requestable_reason == 'defunct' %>
-        <p><%=h @public_body.name %> no longer exists.
+      <p><%=h @public_body.name %> no longer exists.
         <%= _('Follow up messages to existing requests are sent to ')%><strong><%=h @public_body.request_email%></strong>.
-        </p>
+      </p>
     <% elsif @public_body.not_requestable_reason == 'bad_contact' %>
-        <p><%= _('We do not have a working request email address for this authority.')%>
-        </p>
+      <p><%= _('We do not have a working request email address for this authority.')%>
+    </p>
     <% else %>
-        <% raise "unknown reason " + @reason %>
+      <% raise "unknown reason " + @reason %>
     <% end %>
-
-<% end %>
+  <% end %>
 </p>
 
 <p>
-    <% if @public_body.has_request_email? %>
-        <%=  raw(_('If the address is wrong, or you know a better address, please <a href="{{url}}">contact us</a>.', :url => help_contact_path.html_safe)) %>
-    <% else %>
-       <%= raw(_(' If you know the address to use, then please <a href="{{url}}">send it to us</a>.
-        You may be able to find the address on their website, or by phoning them up and asking.', :url =>help_contact_path.html_safe)) %>
-    <% end %>
+  <% if @public_body.has_request_email? %>
+    <%=  raw(_('If the address is wrong, or you know a better address, please <a href="{{url}}">contact us</a>.', :url => help_contact_path.html_safe)) %>
+  <% else %>
+    <%= raw(_('If you know the address to use, then please <a href="{{url}}">' \
+              'send it to us</a>. You may be able to find the address on ' \
+              'their website, or by phoning them up and asking.',
+              :url =>help_contact_path.html_safe)) %>
+  <% end %>
 </p>
 
 <div id="stepwise_make_request_view_email">
-    <strong>
-        <% if @public_body.eir_only? %>
-        <%= link_to _("Make a new EIR request"), new_request_to_body_path(:url_name => @public_body.url_name)%>
-        <% else %>
-          <%= link_to _("Make a new FOI request"), new_request_to_body_path(:url_name => @public_body.url_name)%>
-        <% end %>
-        to <%= h(@public_body.name) %>
-    </strong>
+  <strong>
+    <% if @public_body.eir_only? %>
+      <%= link_to _("Make a new EIR request"), new_request_to_body_path(:url_name => @public_body.url_name)%>
+    <% else %>
+      <%= link_to _("Make a new FOI request"), new_request_to_body_path(:url_name => @public_body.url_name)%>
+    <% end %>
+    to <%= h(@public_body.name) %>
+  </strong>
 </div>
-
-

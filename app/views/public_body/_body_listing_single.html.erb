@@ -7,41 +7,41 @@
 %>
 
 <div class="body_listing">
-	<span class="head">
+  <span class="head">
     <%= link_to highlight_words(public_body.name, @highlight_words), public_body_path(public_body) %>
-   	</span>
-    <span class="desc">
+  </span>
+  <span class="desc">
     <% if !public_body.short_name.empty? || !public_body.notes_without_html.empty? %>
-        <% if !public_body.short_name.empty? %>
-            <%= _("Also called {{other_name}}.", :other_name => highlight_words(public_body.short_name, @highlight_words)) %>
-        <% end %>
-        <% if !public_body.notes_without_html.empty? %>
-            <%= highlight_and_excerpt(public_body.notes_without_html, @highlight_words, 150) %>
-        <% end %>
-        <br>
+      <% if !public_body.short_name.empty? %>
+        <%= _("Also called {{other_name}}.", :other_name => highlight_words(public_body.short_name, @highlight_words)) %>
+      <% end %>
+      <% if !public_body.notes_without_html.empty? %>
+        <%= highlight_and_excerpt(public_body.notes_without_html, @highlight_words, 150) %>
+      <% end %>
+      <br>
     <% end %>
   </span>
-    <span class="bottomline">
-        <%= n_('{{count}} request made.', '{{count}} requests made.', public_body.info_requests.size,
-        :count => public_body.info_requests.size) %>
-        <br>
-        <span class="date_added">
-            <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
-        </span>
-        <br>
-        <% if public_body.special_not_requestable_reason? %>
-           <% if public_body.not_requestable_reason == 'not_apply' %>
-           <%= _('FOI law does not apply to this authority.')%>
-           <% elsif public_body.not_requestable_reason == 'defunct' %>
-           <%= _('Defunct.')%>
-           <% end %>
-        <% end %>
+  <span class="bottomline">
+    <%= n_('{{count}} request made.', '{{count}} requests made.', public_body.info_requests.size,
+           :count => public_body.info_requests.size) %>
+    <br>
+    <span class="date_added">
+      <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
     </span>
-
-    <% if request_link && !public_body.special_not_requestable_reason? %>
-      <div class="make-request-quick-button">
-        <%= link_to _("Make a request"), new_request_to_body_path(:url_name => public_body.url_name), :class => "link_button_green" %>
-      </div>
+    <br>
+    <% if public_body.special_not_requestable_reason? %>
+      <% if public_body.not_requestable_reason == 'not_apply' %>
+        <%= _('FOI law does not apply to this authority.')%>
+      <% elsif public_body.not_requestable_reason == 'defunct' %>
+        <%= _('Defunct.')%>
+      <% end %>
     <% end %>
+  </span>
+
+  <% if request_link && !public_body.special_not_requestable_reason? %>
+    <div class="make-request-quick-button">
+      <%= link_to _("Make a request"), new_request_to_body_path(:url_name => public_body.url_name), :class => "link_button_green" %>
+    </div>
+  <% end %>
 </div>
 

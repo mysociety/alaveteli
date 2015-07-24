@@ -7,40 +7,40 @@
 
 class AdminRawEmailController < AdminController
 
-    def show
-        @raw_email = RawEmail.find(params[:id])
-        respond_to do |format|
-            format.html do
-                # For the holding pen, try to guess where it should be ...
-                @holding_pen = false
-                if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.empty_from_field?)
-                    @holding_pen = true
+  def show
+    @raw_email = RawEmail.find(params[:id])
+    respond_to do |format|
+      format.html do
+        # For the holding pen, try to guess where it should be ...
+        @holding_pen = false
+        if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.empty_from_field?)
+          @holding_pen = true
 
-                    # 1. Use domain of email to try and guess which public body it
-                    # is associated with, so we can display that.
-                    email = @raw_email.incoming_message.from_email
-                    domain = PublicBody.extract_domain_from_email(email)
+          # 1. Use domain of email to try and guess which public body it
+          # is associated with, so we can display that.
+          email = @raw_email.incoming_message.from_email
+          domain = PublicBody.extract_domain_from_email(email)
 
-                    if domain.nil?
-                        @public_bodies = []
-                    else
-                        @public_bodies = PublicBody.find(:all, :order => "name",
-                            :conditions => [ "lower(request_email) like lower('%'||?||'%')", domain ])
-                    end
+          if domain.nil?
+            @public_bodies = []
+          else
+            @public_bodies = PublicBody.find(:all, :order => "name",
+                                             :conditions => [ "lower(request_email) like lower('%'||?||'%')", domain ])
+          end
 
-                    # 2. Match the email address in the message without matching the hash
-                    @info_requests =  InfoRequest.guess_by_incoming_email(@raw_email.incoming_message)
+          # 2. Match the email address in the message without matching the hash
+          @info_requests =  InfoRequest.guess_by_incoming_email(@raw_email.incoming_message)
 
-                    # 3. Give a reason why it's in the holding pen
-                    last_event = InfoRequestEvent.find_by_incoming_message_id(@raw_email.incoming_message.id)
-                    @rejected_reason = last_event.params[:rejected_reason] || "unknown reason"
-                end
-            end
-            format.text do
-                response.content_type = 'message/rfc822'
-                render :text => @raw_email.data
-            end
+          # 3. Give a reason why it's in the holding pen
+          last_event = InfoRequestEvent.find_by_incoming_message_id(@raw_email.incoming_message.id)
+          @rejected_reason = last_event.params[:rejected_reason] || "unknown reason"
         end
+      end
+      format.text do
+        response.content_type = 'message/rfc822'
+        render :text => @raw_email.data
+      end
     end
+  end
 
 end

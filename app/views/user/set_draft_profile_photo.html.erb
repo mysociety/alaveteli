@@ -7,54 +7,52 @@
 <%= foi_error_messages_for :draft_profile_photo %>
 
 <div id="set_draft_profile_photo">
-
-<%= form_tag 'set_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
+  <%= form_tag 'set_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
     <p>
-	    <label class="form_label" for="file_1"><%= _('Photo of you:')%></label>
+      <label class="form_label" for="file_1"><%= _('Photo of you:')%></label>
       <% file_opts = { :size => 35, :id => 'file_1' } %>
       <% file_opts.merge!({ :disabled => true }) if @user.banned? %>
       <%= file_field_tag :file, file_opts %>
     </p>
 
-<ul>
-    <li><%= _('Your photo will be shown in public <strong>on the Internet</strong>,
-    wherever you do something on {{site_name}}.', :site_name=>site_name)%>
-    </li>
+    <ul>
+      <li>
+        <%= _('Your photo will be shown in public <strong>on the Internet' \
+              '</strong>, wherever you do something on {{site_name}}.',
+              :site_name => site_name) %>
+      </li>
 
-    <li><%= _('Please don\'t upload offensive pictures. We will take down images
-    that we consider inappropriate.')%>
-    </li>
-</ul>
-
+      <li>
+        <%= _("Please don't upload offensive pictures. We will take down " \
+              "images that we consider inappropriate.") %>
+      </li>
+    </ul>
 
     <p>
-        <%= hidden_field_tag 'submitted_draft_profile_photo', 1 %>
+      <%= hidden_field_tag 'submitted_draft_profile_photo', 1 %>
 
-        <script type="text/javascript" charset="utf-8">
-            document.write('<%= submit_tag _("Next, crop your photo &gt;&gt;") %>');
-        </script>
+      <script type="text/javascript" charset="utf-8">
+        document.write('<%= submit_tag _("Next, crop your photo &gt;&gt;") %>');
+      </script>
     </p>
 
     <noscript>
-        <div>
-            <%= hidden_field_tag 'automatically_crop', 1 %>
-            <%= submit_tag _("Done &gt;&gt;") %>
-        </div>
+      <div>
+        <%= hidden_field_tag 'automatically_crop', 1 %>
+        <%= submit_tag _("Done &gt;&gt;") %>
+      </div>
     </noscript>
-<% end %>
+  <% end %>
 
-<% if @user.profile_photo %>
-
+  <% if @user.profile_photo %>
     <h2><%= _('OR remove the existing photo')%></h2>
 
     <%= form_tag 'clear_photo', :id => 'clear_profile_photo_form', :multipart => true do %>
-        <%= submit_tag _("Clear photo") %>
+      <%= submit_tag _("Clear photo") %>
     <% end %>
+  <% end %>
 
-<% end %>
-
-<p>
+  <p>
     <%= link_to _("Cancel, return to your profile page"), user_path(@user) %>
-</p>
-
+  </p>
 </div>
