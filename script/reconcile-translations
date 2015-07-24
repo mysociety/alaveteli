@@ -1,0 +1,45 @@
+#!/bin/bash
+LANG=$1
+
+cp locale/$LANG/app.po tmp/$LANG-app-2space.po
+
+# Pull down the new translations
+# Try --disable-overwrite?
+tx pull -f -l $LANG
+
+# Clean the file
+bundle exec rake gettext:clean
+
+# Discard any changes except to the locale file you're interested in
+# TODO: Probably a better way to do this
+git add locale/$LANG
+git checkout -- locale/
+git reset locale/$LANG
+
+# Make a copy of the newly pulled po file
+cp locale/$LANG/app.po tmp/$LANG-app-pulled.po
+
+# Manually msgmerge the two po files, writing the output to a file
+msgmerge --sort-output --no-location --no-wrap \
+  tmp/$LANG-app-pulled.po tmp/$LANG-app-2space.po > tmp/$LANG-app-merged.po
+
+# Clear obsolete and fuzzy strings
+msgattrib --no-obsolete --clear-fuzzy -o locale/$LANG/app.po tmp/$LANG-app-merged.po
+
+# Clean the files
+bundle exec rake gettext:clean
+
+sed -i '/{{public_body_name}} no longer exists/ {
+N
+  s/\n.*/\nmsgstr ""/
+}' locale/$LANG/app.po
+
+# Discard any changes except to the locale file you're interested in
+# TODO: Probably a better way to do this
+git add locale/$LANG
+git checkout -- locale/
+git commit -F- <<EOF
+Reconcile $LANG translations
+
+Merge new translations from transifex and updates msgids
+EOF
