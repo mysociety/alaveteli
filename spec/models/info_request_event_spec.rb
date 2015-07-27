@@ -208,4 +208,39 @@ describe InfoRequestEvent do
 
   end
 
+  describe :set_calculated_state! do
+
+    before do
+      @info_request_event = FactoryGirl.build(:sent_event)
+      @info_request_event.set_calculated_state!('sent')
+      @timestamp = @info_request_event.last_described_at
+    end
+
+    context 'when the existing state is the same as the new state' do
+
+      it 'does not set the last described at time' do
+        @info_request_event.set_calculated_state!('sent')
+        expect(@info_request_event.last_described_at).to eql(@timestamp)
+      end
+
+    end
+
+    context 'when the existing state is not the same as the new state' do
+
+      it 'sets the last described at time' do
+        @info_request_event.set_calculated_state!('response')
+        expect(@info_request_event.last_described_at).to be > @timestamp
+      end
+
+      it 'sets the calculated state' do
+        @info_request_event.set_calculated_state!('response')
+        expect(@info_request_event.calculated_state).to eql('response')
+      end
+
+    end
+
+
+  end
+
+
 end

@@ -682,11 +682,8 @@ class InfoRequest < ActiveRecord::Base
       end
 
       if !curr_state.nil? && event.event_type == 'response'
-        if event.calculated_state != curr_state
-          event.calculated_state = curr_state
-          event.last_described_at = Time.now
-          event.save!
-        end
+        event.set_calculated_state!(curr_state)
+
         if event.last_described_at.nil? # TODO: actually maybe this isn't needed
           event.last_described_at = Time.now
           event.save!
@@ -698,11 +695,7 @@ class InfoRequest < ActiveRecord::Base
 
         # We want to store that in calculated_state state so it gets
         # indexed.
-        if event.calculated_state != event.described_state
-          event.calculated_state = event.described_state
-          event.last_described_at = Time.now
-          event.save!
-        end
+        event.set_calculated_state!(event.described_state)
 
         # And we don't want to propagate it to the response itself,
         # as that might already be set to waiting_clarification / a
@@ -715,11 +708,7 @@ class InfoRequest < ActiveRecord::Base
         # other request events precede it). This means that request should be correctly included
         # in status searches for that status. These events allow the described state to propagate in
         # case there is a preceding response that the described state should be applied to.
-        if event.calculated_state != event.described_state
-          event.calculated_state = event.described_state
-          event.last_described_at = Time.now
-          event.save!
-        end
+        event.set_calculated_state!(event.described_state)
       end
     end
   end
