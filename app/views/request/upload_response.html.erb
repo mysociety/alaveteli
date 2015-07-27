@@ -1,12 +1,11 @@
 <% @title = "Respond to the FOI request '" + h(@info_request.title) + "' made by " + h(@info_request.user_name) %>
 
 <% if @info_request.is_external? %>
-
   <h1><%= _('This request was not made via {{site_name}}', :site_name => site_name) %></h1>
-  <p><%= _('Sorry - you cannot respond to this request via {{site_name}}, because this is a copy of the request originally at {{link_to_original_request}}.', :site_name => site_name, :link_to_original_request => link_to(@info_request.external_url, @info_request.external_url)) %></p>
-
+  <p><%= _('Sorry - you cannot respond to this request via {{site_name}}, because this is a copy of the request originally at {{link_to_original_request}}.',
+           :site_name => site_name,
+           :link_to_original_request => link_to(@info_request.external_url, @info_request.external_url)) %></p>
 <% else %>
-
   <%= foi_error_messages_for :comment %>
 
   <h1><%= _("Respond to the FOI request '{{request}}' made by {{user}}",
@@ -14,39 +13,45 @@
             :user => user_link(@info_request.user)) %></h1>
 
   <p>
-      <%= raw(_('Your response will <strong>appear on the Internet</strong>, <a href="{{url}}">read why</a> and answers to other questions.', :url => help_officers_path.html_safe)) %>
+    <%= raw(_('Your response will <strong>appear on the Internet</strong>, <a href="{{url}}">read why</a> and answers to other questions.',
+              :url => help_officers_path.html_safe)) %>
   </p>
 
   <h2><%= _('Respond by email')%></h2>
 
-  <p><%= _('You should have received a copy of the request by email, and you can respond
-  by <strong>simply replying</strong> to that email. For your convenience, here is the address:')%>
-  <a href="mailto:<%=h @info_request.incoming_email%>"><%=h @info_request.incoming_email%></a>.
-  <%= _('You may <strong>include attachments</strong>. If you would like to attach a
-  file too large for email, use the form below.')%>
+  <p>
+    <%= _('You should have received a copy of the request by email, and you ' \
+          'can respond by <strong>simply replying</strong> to that email. ' \
+          'For your convenience, here is the address:') %>
+    <a href="mailto:<%=h @info_request.incoming_email %>">
+      <%=h @info_request.incoming_email %>
+    </a>.
+    <%= _('You may <strong>include attachments</strong>. If you would like ' \
+          'to attach a file too large for email, use the form below.') %>
   </p>
-
 
   <h2><%= _('Respond using the web')%></h2>
 
-  <p><%= raw(_('Enter your response below. You may attach one file (use email, or
-  <a href="{{url}}">contact us</a> if you need more).', :url => help_contact_path.html_safe)) %></p>
+  <p>
+    <%= raw(_('Enter your response below. You may attach one file (use ' \
+              'email, or <a href="{{url}}">contact us</a> if you need more).',
+              :url => help_contact_path.html_safe)) %></p>
 
-  <%= form_tag '', :id => 'upload_response_form', :multipart => true do %>
-      <p>
-          <label class="form_label" for="body"><% _('Response:')%></label>
-                  <%= text_area_tag :body, "", :rows => 10, :cols => 55 %>
-      </p>
+    <%= form_tag '', :id => 'upload_response_form', :multipart => true do %>
+    <p>
+      <label class="form_label" for="body"><% _('Response:') %></label>
+      <%= text_area_tag :body, "", :rows => 10, :cols => 55 %>
+    </p>
 
-      <p>
-        <label class="form_label" for="file_1"><% _('Attachment (optional):')%></label>
-          <%= file_field_tag :file_1, :size => 35 %>
-      </p>
+    <p>
+      <label class="form_label" for="file_1"><% _('Attachment (optional):') %></label>
+      <%= file_field_tag :file_1, :size => 35 %>
+    </p>
 
-      <p>
-          <%= hidden_field_tag 'submitted_upload_response', 1 %>
-          <%= submit_tag _("Upload FOI response") %>
-         <%= _(' (<strong>patience</strong>, especially for large files, it may take a while!)')%>
-      </p>
+    <p>
+      <%= hidden_field_tag 'submitted_upload_response', 1 %>
+      <%= submit_tag _("Upload FOI response") %>
+      <%= _(' (<strong>patience</strong>, especially for large files, it may take a while!)') %>
+    </p>
   <% end %>
 <% end %>

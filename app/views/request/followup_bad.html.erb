@@ -1,33 +1,51 @@
 <% if @incoming_message.nil? || !@incoming_message.valid_to_reply_to? %>
-    <% @title = _("Unable to send follow up message to {{username}}", :username => OutgoingMailer.name_for_followup(@info_request, nil)) %>
+  <% @title = _("Unable to send follow up message to {{username}}", :username => OutgoingMailer.name_for_followup(@info_request, nil)) %>
 <% else %>
-    <% @title = _("Unable to send a reply to {{username}}", :username => OutgoingMailer.name_for_followup(@info_request, @incoming_message)) %>
+  <% @title = _("Unable to send a reply to {{username}}", :username => OutgoingMailer.name_for_followup(@info_request, @incoming_message)) %>
 <% end %>
 
 <h1><%= @title %></h1>
 
 <% if @reason == 'not_apply' %>
-    <!-- we should never get here, but just in case give a sensible message -->
-    <p><%= _('Freedom of Information law no longer applies to {{public_body_name}}.', :public_body_name => @info_request.public_body.name) %>
-    <%= _('From the request page, try replying to a particular message, rather than sending
-    a general followup. If you need to make a general followup, and know
-    an email which will go to the right place, please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe) %>
-    </p>
+  <!-- we should never get here, but just in case give a sensible message -->
+  <p>
+    <%= _('Freedom of Information law no longer applies to {{public_body_name}}.',
+          :public_body_name => @info_request.public_body.name) %>
+    <%= _('From the request page, try replying to a particular message, ' \
+          'rather than sending a general followup. If you need to make a ' \
+          'general followup, and know an email which will go to the right ' \
+          'place, please <a href="{{url}}">send it to us</a>.',
+          :url => help_contact_path.html_safe) %>
+  </p>
 <% elsif @reason == 'defunct' %>
-    <!-- we should never get here, but just in case give a sensible message -->
-    <p><%= _('{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending
-    a general followup. If you need to make a general followup, and know
-    an email which will go to the right place, please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe, :public_body_name => @info_request.public_body.name) %>
-    </p>
+  <!-- we should never get here, but just in case give a sensible message -->
+  <p>
+    <%= _('{{public_body_name}} no longer exists. From the request page, try ' \
+          'replying to a particular message, rather than sending a general ' \
+          'followup. If you need to make a general followup, and know an ' \
+          'email which will go to the right place, please ' \
+          '<a href="{{url}}">send it to us</a>.',
+          :url => help_contact_path.html_safe,
+          :public_body_name => @info_request.public_body.name) %>
+  </p>
 <% elsif @reason == 'bad_contact' %>
-    <p><%= _('We do not have a working {{law_used_full}} address for {{public_body_name}}.', :law_used_full => @info_request.law_used_full, :public_body_name => @info_request.public_body.name) %> <%= _('You may be able to find
-    one on their website, or by phoning them up and asking. If you manage
-    to find one, then please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe) %>
-    </p>
-<% elsif @reason == 'external' %>
-    <p><%= _("Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf.", :public_body_name => @info_request.public_body.name) %>
-    </p>
-<% else %>
-    <% raise _("unknown reason ") + @reason %>
-<% end %>
+  <p>
+    <%= _('We do not have a working {{law_used_full}} address for {{public_body_name}}.',
+          :law_used_full => @info_request.law_used_full,
+          :public_body_name => @info_request.public_body.name) %>
 
+    <%= _('You may be able to find one on their website, or by phoning them ' \
+          'up and asking. If you manage to find one, then please ' \
+          '<a href="{{url}}">send it to us</a>.',
+          :url => help_contact_path.html_safe) %>
+  </p>
+<% elsif @reason == 'external' %>
+  <p>
+    <%= _("Followups cannot be sent for this request, as it was made " \
+          "externally, and published here by {{public_body_name}} on the " \
+          "requester's behalf.",
+          :public_body_name => @info_request.public_body.name) %>
+  </p>
+<% else %>
+  <% raise _("unknown reason ") + @reason %>
+<% end %>

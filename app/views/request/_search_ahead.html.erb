@@ -1,6 +1,6 @@
 <% unless @xapian_requests.nil? %>
-<% if @xapian_requests.results.any? %>
-  <div id="request_search_ahead_results">
+  <% if @xapian_requests.results.any? %>
+    <div id="request_search_ahead_results">
       <span class="close-button">X</span>
       <h2><%= _("Possible related requests") %></h2>
       <% @xapian_requests.results.each do |result| %>
@@ -10,11 +10,10 @@
       <% end %>
 
       <p>
-          <a id="body-site-search-link">
-            <%= _("Search in their website for this information &rarr;") %>
-          </a>
+        <a id="body-site-search-link">
+          <%= _("Search in their website for this information &rarr;") %>
+        </a>
       </p>
-
     </div>
- <% end %>
+  <% end %>
 <% end %>

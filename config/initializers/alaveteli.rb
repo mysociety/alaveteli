@@ -11,7 +11,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.22.0.4'
+ALAVETELI_VERSION = '0.22.1.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -63,4 +63,3 @@ AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
 if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false
   require 'no_constraint_disabling'
 end
-

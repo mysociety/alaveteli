@@ -1,39 +1,39 @@
 <h1><%= @title %></h1>
 
 <div class="row">
-    <div class="span8">
-        <div id="public_body_heading_form">
-            <%= form_for @heading, :url => admin_heading_path(@heading), :html => { :class => "form form-horizontal" } do |f| %>
-                <%= render :partial => 'form', :locals => { :f => f } %>
+  <div class="span8">
+    <div id="public_body_heading_form">
+      <%= form_for @heading, :url => admin_heading_path(@heading), :html => { :class => "form form-horizontal" } do |f| %>
+        <%= render :partial => 'form', :locals => { :f => f } %>
 
-                <div class="form-actions">
-                    <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %>
-                    <%= link_to 'List all', admin_categories_path, :class => "btn" %>
-                </div>
-            <% end %>
+        <div class="form-actions">
+          <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %>
+          <%= link_to 'List all', admin_categories_path, :class => "btn" %>
         </div>
+      <% end %>
     </div>
+  </div>
 </div>
 
 <hr />
 
 <div class="row">
-    <div class="span12">
-      <div class="well">
-        <%= form_for @heading, :url => admin_heading_path(@heading), :method => 'delete', :class => "form form-inline" do |f| %>
-            <%= f.submit "Destroy #{ @heading.name }",
-                         :name => @heading.name,
-                         :class => "btn btn-danger",
-                         :confirm => 'Are you sure?' %>
-            <span class="help-block">
-                <ul>
-                    <li>Destroying a category heading only destroys the heading itself.</li>
-                    <li>Child categories assigned to another heading remain assigned to the other heading.</li>
-                    <li>Child categories with no other heading become "Categories with no heading".</li>
-                    <li>Public authorities remain assigned to the categories.</li>
-                </ul>
-            </span>
-        <% end %>
-        </div>
+  <div class="span12">
+    <div class="well">
+      <%= form_for @heading, :url => admin_heading_path(@heading), :method => 'delete', :class => "form form-inline" do |f| %>
+        <%= f.submit "Destroy #{ @heading.name }",
+          :name => @heading.name,
+          :class => "btn btn-danger",
+          :confirm => 'Are you sure?' %>
+        <span class="help-block">
+          <ul>
+            <li>Destroying a category heading only destroys the heading itself.</li>
+            <li>Child categories assigned to another heading remain assigned to the other heading.</li>
+            <li>Child categories with no other heading become "Categories with no heading".</li>
+            <li>Public authorities remain assigned to the categories.</li>
+          </ul>
+        </span>
+      <% end %>
     </div>
+  </div>
 </div>

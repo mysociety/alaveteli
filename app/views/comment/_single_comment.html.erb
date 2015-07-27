@@ -1,27 +1,28 @@
 <div class="comment_in_request box" id="comment-<%=comment.id.to_s%>">
-    <% if comment.user && comment.user.profile_photo && !@render_to_file %>
-        <div class="user_photo_on_comment">
-            <img src="<%= get_profile_photo_url(:url_name => comment.user.url_name) %>" alt="">
-        </div>
-    <% end %>
-
-    <h2>
-        <%# When not logged in, but mid-comment-leaving, there'll be no comment.user %>
-        <%= comment.user ? user_link(comment.user) : _("You") %> <%= _("left an annotation") %> (<%= simple_date(comment.created_at || Time.now) %>)
-    </h2>
-    <div class="comment_in_request_text">
-        <p>
-        <%= comment.get_body_for_html_display %>
-        </p>
+  <% if comment.user && comment.user.profile_photo && !@render_to_file %>
+    <div class="user_photo_on_comment">
+      <img src="<%= get_profile_photo_url(:url_name => comment.user.url_name) %>" alt="">
     </div>
-    <p class="event_actions">
-        <% if !comment.id.nil? %>
-            <% if !@user.nil? && @user.admin_page_links? %>
-                <%= link_to "Admin", edit_admin_comment_path(comment) %> |
-            <% end %>
-            <%= link_to "Link to this", comment_path(comment), :class => "link_to_this" %>
-            <!-- | <%= link_to _('Report abuse'), comment_path(comment) %> -->
-        <% end %>
-    </p>
-</div>
+  <% end %>
 
+  <h2>
+    <%# When not logged in, but mid-comment-leaving, there'll be no comment.user %>
+    <%= comment.user ? user_link(comment.user) : _("You") %> <%= _("left an annotation") %> (<%= simple_date(comment.created_at || Time.now) %>)
+  </h2>
+
+  <div class="comment_in_request_text">
+    <p>
+      <%= comment.get_body_for_html_display %>
+    </p>
+  </div>
+
+  <p class="event_actions">
+    <% if !comment.id.nil? %>
+      <% if !@user.nil? && @user.admin_page_links? %>
+        <%= link_to "Admin", edit_admin_comment_path(comment) %> |
+      <% end %>
+      <%= link_to "Link to this", comment_path(comment), :class => "link_to_this" %>
+      <!-- | <%= link_to _('Report abuse'), comment_path(comment) %> -->
+    <% end %>
+  </p>
+</div>

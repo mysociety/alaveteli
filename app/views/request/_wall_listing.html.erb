@@ -4,27 +4,26 @@ end %>
 
 <div class="request_listing">
   <div class="request_left">
-      <div class="requester">
-        <% if event.event_type == 'sent' %>
-            <%= _('A new request, <em><a href="{{request_url}}">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at),:request_url=>request_path(info_request),:request_title=>info_request.title) %>
-        <% elsif event.event_type == 'followup_sent' %>
-            <%= _('A <a href="{{request_url}}">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at),:request_url=>outgoing_message_path(event.outgoing_message),:request_title=>info_request.title) %>
-        <% elsif event.event_type == 'response' %>
-            <%= _('A <a href="{{request_url}}">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at),:request_url=>incoming_message_path(event.incoming_message_selective_columns("incoming_messages.id")),:request_title=>info_request.title,:request_status=>info_request.display_status) %>
-        <% elsif event.event_type == 'comment' %>
-            <%= _('An <a href="{{request_url}}">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:event_comment_user=>user_link_absolute(event.comment.user),:date=>simple_date(event.created_at),:request_url=>comment_url(event.comment),:request_title=>info_request.title) %>
-        <% else %>
-            <%# Events of other types will not be indexed: see InfoRequestEvent#indexed_by_search?
-                However, it can happen that we see other types of event transiently here in the period
-                between a change being made and the update-xapian-index job being run. %>
-            <!-- Event of type '<%= event.event_type %>', id=<%= event.id %> -->
-        <% end %>
-      </div>
+    <div class="requester">
+      <% if event.event_type == 'sent' %>
+        <%= _('A new request, <em><a href="{{request_url}}">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at),:request_url=>request_path(info_request),:request_title=>info_request.title) %>
+      <% elsif event.event_type == 'followup_sent' %>
+        <%= _('A <a href="{{request_url}}">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at),:request_url=>outgoing_message_path(event.outgoing_message),:request_title=>info_request.title) %>
+      <% elsif event.event_type == 'response' %>
+        <%= _('A <a href="{{request_url}}">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at),:request_url=>incoming_message_path(event.incoming_message_selective_columns("incoming_messages.id")),:request_title=>info_request.title,:request_status=>info_request.display_status) %>
+      <% elsif event.event_type == 'comment' %>
+        <%= _('An <a href="{{request_url}}">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:event_comment_user=>user_link_absolute(event.comment.user),:date=>simple_date(event.created_at),:request_url=>comment_url(event.comment),:request_title=>info_request.title) %>
+      <% else %>
+        <%# Events of other types will not be indexed: see InfoRequestEvent#indexed_by_search?
+            However, it can happen that we see other types of event transiently here in the period
+            between a change being made and the update-xapian-index job being run. %>
+        <!-- Event of type '<%= event.event_type %>', id=<%= event.id %> -->
+    <% end %>
+    </div>
   </div>
   <div class="request_right">
     <span class="desc">
-        <%= highlight_and_excerpt(event.search_text_main(true), @highlight_words, 150) %>
+      <%= highlight_and_excerpt(event.search_text_main(true), @highlight_words, 150) %>
     </span>
   </div>
 </div>
-

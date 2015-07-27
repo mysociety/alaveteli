@@ -1,54 +1,56 @@
 <fieldset class="form-horizontal">
- <legend>Actions</legend>
- <%= form_tag  redeliver_admin_incoming_message_path(incoming_message), :class => "form form-inline" do %>
- <div class="control-group">
-  <label class="control-label" for="url_title_<%= incoming_message.id %>">Redeliver message to one or more other requests</label>
-  <div class="controls">
+<legend>Actions</legend>
+<%= form_tag  redeliver_admin_incoming_message_path(incoming_message), :class => "form form-inline" do %>
+  <div class="control-group">
+    <label class="control-label" for="url_title_<%= incoming_message.id %>">Redeliver message to one or more other requests</label>
+    <div class="controls">
       <% if @info_requests && @info_requests.size == 1 %>
-        <%= text_field_tag 'url_title', @info_requests[0].url_title, { :size => 20, :id => "url_title_#{incoming_message.id}" } %>
+        <%= text_field_tag 'url_title', @info_requests[0].url_title, { :size => 20, :id => "url_title_#{incoming_message.id}", :required => true } %>
       <% else %>
-        <%= text_field_tag 'url_title', "", { :size => 20, :id => "url_title_#{incoming_message.id}" } %>
+        <%= text_field_tag 'url_title', "", { :size => 20, :id => "url_title_#{incoming_message.id}",
+                                              :required => true } %>
       <% end %>
+
       <%= submit_tag "Redeliver to another request", :class => "btn" %>
       <p class="help-block"><code>id</code> or <code>url_title</code>; you can supply more than one, separated by commas</p>
+    </div>
   </div>
- </div>
- <% end %>
- <div class="control-group">
+<% end %>
+<div class="control-group">
   <label class="control-label">Generate FOI officer upload URL</label>
   <div class="controls">
     <%= form_tag generate_upload_url_admin_request_path(incoming_message.info_request), :class => "form form-inline" do %>
-     <%= hidden_field_tag 'incoming_message_id', incoming_message.id, :id => nil %>
+      <%= hidden_field_tag 'incoming_message_id', incoming_message.id, :id => nil %>
       <%= submit_tag "Generate and take me there", :class => "btn"  %>
     <% end %>
   </div>
- </div>
+</div>
 
+<div class="control-group">
+  <label class="control-label">Mark <code>To:</code> address as spam</label>
+  <div class="controls">
+    <%= link_to 'Spam Addresses', admin_spam_addresses_path %>
+  </div>
+</div>
+
+<%= form_tag admin_incoming_message_path(incoming_message), :method => 'delete', :class => "form form-inline" do %>
   <div class="control-group">
-    <label class="control-label">Mark <code>To:</code> address as spam</label>
+    <label class="control-label" for="destroy_message_<%= incoming_message.id %>">Destroy message</label>
     <div class="controls">
-      <%= link_to 'Spam Addresses', admin_spam_addresses_path %>
+      <%= hidden_field_tag 'incoming_message_id', incoming_message.id, :id => nil %>
+      <%= submit_tag "Destroy message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?", :id => "destroy_message_#{incoming_message.id}" %>
     </div>
   </div>
+<% end %>
 
- <%= form_tag admin_incoming_message_path(incoming_message), :method => 'delete', :class => "form form-inline" do %>
-  <div class="control-group">
-   <label class="control-label" for="destroy_message_<%= incoming_message.id %>">Destroy message</label>
-   <div class="controls">
-    <%= hidden_field_tag 'incoming_message_id', incoming_message.id, :id => nil %>
-    <%= submit_tag "Destroy message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?", :id => "destroy_message_#{incoming_message.id}" %>
-   </div>
-  </div>
- <% end %>
-
- <% if @raw_email.nil? %>
+<% if @raw_email.nil? %>
   <%# we're not on the raw_email page itself %>
   <div class="control-group">
-   <label class="control-label">Inspect email</label>
-   <div class="controls">
-     <%= link_to "View raw email", admin_raw_email_path(incoming_message.raw_email_id), :class => "btn" %>
-   </div>
+    <label class="control-label">Inspect email</label>
+    <div class="controls">
+      <%= link_to "View raw email", admin_raw_email_path(incoming_message.raw_email_id), :class => "btn" %>
+    </div>
   </div>
- <% end %>
+<% end %>
 
 </fieldset>

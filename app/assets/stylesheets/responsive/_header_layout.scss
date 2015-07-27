@@ -1,88 +1,88 @@
 /* Header layout */
 
 #banner_content{
-    @include grid-row;
-    position: relative;
-    @include ie8{
-      width: $main_menu-mobile_menu_cutoff;
-    }
+  @include grid-row;
+  position: relative;
+  @include ie8{
+    width: $main_menu-mobile_menu_cutoff;
+  }
 }
 
 #banner{
-    // Hide menu items by default on mobile
+  // Hide menu items by default on mobile
+  #logged_in_bar,
+  #topnav,
+  #user_locale_switcher{
+    display:none;
+  }
+
+  // …and show a button to reveal them
+  .rsp_menu_button{
+    @include grid-column(4);
+    padding: 1em 1em 0 1em;
+    float: right;
+    a {
+      text-align: right;
+      &.open{
+        display: block;
+      }
+      &.close{
+        display: none;
+      }
+    }
+  }
+
+  // Squeeze the logo up on small screens to make room for the button
+  #logo_wrapper{
+    @include grid-column(8);
+    padding: 1em 1em 0 1em;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column(4);
+      padding: 1em;
+      margin-bottom: 1em;
+      @include lte-ie7 {
+        width: 17.313em;
+      }
+    }
+  }
+
+  &:target{
+    // Hide menu button when menu is open
+    .rsp_menu_button{
+      .open{
+        display:none;
+      }
+      .close{
+        display:block;
+      }
+    }
+    @media( max-width: $main_menu-mobile_menu_cutoff ){
+      // Show menu items when menu is targeted
+      #logged_in_bar,
+      #topnav,
+      #user_locale_switcher{
+        display:block;
+        clear:both;
+      }
+    }
+
+
+  }
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    // On larger screens show the menu
+    #banner_nav,
     #logged_in_bar,
     #topnav,
     #user_locale_switcher{
-        display:none;
+      display:block;
     }
 
-    // …and show a button to reveal them
+    // …and hide the menu button
     .rsp_menu_button{
-        @include grid-column(4);
-        padding: 1em 1em 0 1em;
-        float: right;
-        a {
-            text-align: right;
-            &.open{
-                display: block;
-            }
-            &.close{
-                display: none;
-            }
-        }
+      display:none;
     }
-
-    // Squeeze the logo up on small screens to make room for the button
-    #logo_wrapper{
-        @include grid-column(8);
-        padding: 1em 1em 0 1em;
-        @include respond-min( $main_menu-mobile_menu_cutoff ){
-          @include grid-column(4);
-          padding: 1em;
-          margin-bottom: 1em;
-          @include lte-ie7 {
-              width: 17.313em;
-          }
-        }
-    }
-
-    &:target{
-        // Hide menu button when menu is open
-        .rsp_menu_button{
-            .open{
-                display:none;
-            }
-            .close{
-                display:block;
-            }
-        }
-        @media( max-width: $main_menu-mobile_menu_cutoff ){
-            // Show menu items when menu is targeted
-            #logged_in_bar,
-            #topnav,
-            #user_locale_switcher{
-                display:block;
-                clear:both;
-            }
-        }
-
-
-    }
-
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
-        // On larger screens show the menu
-        #banner_nav,
-        #logged_in_bar,
-        #topnav,
-        #user_locale_switcher{
-            display:block;
-        }
-
-        // …and hide the menu button
-        .rsp_menu_button{
-            display:none;
-        }
-    }
+  }
 
 }
 
@@ -90,116 +90,116 @@
 #topnav{
   padding: 0  0 1em 0;
   @include respond-min( $main_menu-mobile_menu_cutoff ){
-      padding: 0;
+    padding: 0;
   }
 }
 
 #navigation {
-    list-style: none outside none;
-    @include grid-row;
-    padding: 0;
-    position: relative;
-    @include ie8{
-      width: $main_menu-mobile_menu_cutoff;
-    }
-    /* Spread the nav elements horizontally on larger screens */
-    li{
-        display: block;
+  list-style: none outside none;
+  @include grid-row;
+  padding: 0;
+  position: relative;
+  @include ie8{
+    width: $main_menu-mobile_menu_cutoff;
+  }
+  /* Spread the nav elements horizontally on larger screens */
+  li{
+    display: block;
 
-        @include respond-min( $main_menu-mobile_menu_cutoff ){
-          display: inline-block;
-          float: left;
-        }
-        @include lte-ie7 {
-          display: inline;
-        }
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      display: inline-block;
+      float: left;
     }
-    a{
-      padding: 0.5em 1em;
-      display: block;
-      @include respond-min( $main_menu-mobile_menu_cutoff ){
-        display: inline-block;
-      }
+    @include lte-ie7 {
+      display: inline;
     }
+  }
+  a{
+    padding: 0.5em 1em;
+    display: block;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      display: inline-block;
+    }
+  }
 }
 
 #navigation_search {
-   @include respond-min( $main_menu-mobile_menu_cutoff ){
-        position: absolute;
-        top: 0;
-        right: 0;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    position: absolute;
+    top: 0;
+    right: 0;
   }
   form{
-        @include grid-row;
-        padding: 1em 1em 0;
-        @include lte-ie7 {
-           display: inline;
-        }
-        @include respond-min( $main_menu-mobile_menu_cutoff ){
-          padding-top: 0;
-        }
+    @include grid-row;
+    padding: 1em 1em 0;
+    @include lte-ie7 {
+      display: inline;
     }
-    input{
-        @include grid-column($columns:10);
-        margin-right:0;
-        @include lte-ie7 {
-          width: 10.063em;
-        }
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      padding-top: 0;
     }
-    button[type="submit"]{
-        @include prefix-postfix-base;
-        @include grid-column($columns:2,$float:right);
-        border:none;
-        @include lte-ie7 {
-           width: 2.125em;
-        }
+  }
+  input{
+    @include grid-column($columns:10);
+    margin-right:0;
+    @include lte-ie7 {
+      width: 10.063em;
     }
+  }
+  button[type="submit"]{
+    @include prefix-postfix-base;
+    @include grid-column($columns:2,$float:right);
+    border:none;
+    @include lte-ie7 {
+      width: 2.125em;
+    }
+  }
 }
 
 #logged_in_bar{
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
-        @include grid-column(8);
-        @include ie8{
-          padding-left: 0.9375em;
-          padding-right: 0.9375em;
-        }
-        @include lte-ie7 {
-           width: 36.813em;
-        }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(8);
+    @include ie8{
+      padding-left: 0.9375em;
+      padding-right: 0.9375em;
     }
-
-    a, .greeting {
-        display:block;
-        padding: 0.5em 1em;
+    @include lte-ie7 {
+      width: 36.813em;
     }
+  }
 
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
-      #logged_in_links {
-        top: 3em;
-        position: absolute;
-        right: 0.9375em;
-        a, .greeting{
-            display:inline;
-            font-weight: bold;
-            padding:0 0 0 1em;
-        }
+  a, .greeting {
+    display:block;
+    padding: 0.5em 1em;
+  }
 
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    #logged_in_links {
+      top: 3em;
+      position: absolute;
+      right: 0.9375em;
+      a, .greeting{
+        display:inline;
+        font-weight: bold;
+        padding:0 0 0 1em;
       }
+
     }
+  }
 }
 
 #user_locale_switcher {
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  a{
+    display: block;
+    padding: 0.5em 1em;
     @include respond-min( $main_menu-mobile_menu_cutoff ){
-      position: absolute;
-      right: 0;
-      top: 0;
+      display: inline-block;
     }
-    a{
-        display: block;
-        padding: 0.5em 1em;
-        @include respond-min( $main_menu-mobile_menu_cutoff ){
-          display: inline-block;
-        }
-    }
+  }
 
 }

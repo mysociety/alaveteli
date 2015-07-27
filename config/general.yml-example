@@ -83,6 +83,17 @@ TIME_ZONE: UTC
 # ---
 BLOG_FEED: ''
 
+# Makes your Facebook page/group name available to the application.
+#
+# FACEBOOK_USERNAME - String Facebook username (default: nil)
+#
+# Examples:
+#
+#   FACEBOOK_USERNAME: 'whatdotheyknowcom'
+#
+# ---
+FACEBOOK_USERNAME: ''
+
 # If you want a twitter feed displayed on the "blog" page, provide the
 # widget ID and username.
 #

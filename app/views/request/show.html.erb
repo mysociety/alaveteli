@@ -1,6 +1,6 @@
 <% @title = _("{{title}} - a Freedom of Information request to {{public_body}}",
-                :title => h(@info_request.title),
-                :public_body => (@info_request.public_body.name)) %>
+              :title => h(@info_request.title),
+              :public_body => (@info_request.public_body.name)) %>
 
 <% if flash[:request_sent] %>
   <%= render :partial => 'request_sent',
@@ -8,150 +8,157 @@
 <% end %>
 
 <% if @info_request.prominence == 'hidden' %>
-    <p id="hidden_request">
-    <%= _('This request has prominence \'hidden\'. You can only see it because you are logged
-    in as a super user.') %>
-    </p>
+  <p id="hidden_request">
+    <%= _("This request has prominence 'hidden'. You can only see it because " \
+          "you are logged in as a super user.") %>
+  </p>
 <% end %>
+
 <% if @info_request.prominence == 'requester_only' %>
-    <p id="hidden_request">
-    <%= _('This request is hidden, so that only you the requester can see it. Please
-    <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %>
-    </p>
+  <p id="hidden_request">
+    <%= _("This request is hidden, so that only you the requester can see it. " \
+          "Please <a href=\"{{url}}\">contact us</a> if you are not sure why.",
+          :url => help_requesting_path.html_safe) %>
+  </p>
 <% end %>
 
 
 <% if ( @update_status || @info_request.awaiting_description ) && ! @info_request.is_external? %>
-    <div class="describe_state_form box" id="describe_state_form_1">
+  <div class="describe_state_form box" id="describe_state_form_1">
     <%= render :partial => 'describe_state', :locals => { :id_suffix => "1" } %>
-    </div>
+  </div>
 <% end %>
 
 <div id="left_column">
-    <h1><%=h(@info_request.title)%></h1>
+  <h1><%=h(@info_request.title)%></h1>
 
-    <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>
-        <p class="user_photo_on_request">
-            <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>" alt="">
-        </p>
-    <% end %>
+  <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>
+    <p class="user_photo_on_request">
+      <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>" alt="">
+    </p>
+  <% end %>
 
-    <p class="subtitle">
-        <% if !@user.nil? && @user.admin_page_links? %>
-            <%= _('{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href="{{request_admin_url}}">admin</a>) to {{public_body_link}} (<a href="{{public_body_admin_url}}">admin</a>)',
-                    :user => request_user_link(@info_request, _('An anonymous user')),
-                    :law_used_full => h(@info_request.law_used_full),
-                    :user_admin_link => user_admin_link_for_request(@info_request, _('external'), _('admin')),
-                    :request_admin_url => admin_request_url(@info_request),
-                    :public_body_link => public_body_link(@info_request.public_body),
-                    :public_body_admin_url => admin_body_url(@info_request.public_body)) %>
-        <% else %>
-            <%= _('{{user}} made this {{law_used_full}} request',
+  <p class="subtitle">
+    <% if !@user.nil? && @user.admin_page_links? %>
+      <%= _('{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href="{{request_admin_url}}">admin</a>) to {{public_body_link}} (<a href="{{public_body_admin_url}}">admin</a>)',
+            :user => request_user_link(@info_request, _('An anonymous user')),
+            :law_used_full => h(@info_request.law_used_full),
+            :user_admin_link => user_admin_link_for_request(@info_request, _('external'), _('admin')),
+            :request_admin_url => admin_request_url(@info_request),
+            :public_body_link => public_body_link(@info_request.public_body),
+            :public_body_admin_url => admin_body_url(@info_request.public_body)) %>
+    <% else %>
+      <%= _('{{user}} made this {{law_used_full}} request',
             :user=>request_user_link(@info_request, _('An anonymous user')),
             :law_used_full=>h(@info_request.law_used_full)) %>
-            <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
-        <% end %>
-    </p>
+      <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
+    <% end %>
+  </p>
 
-    <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
+  <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
     <% if @info_request.awaiting_description %>
-        <% if @is_owning_user && !@info_request.is_external? && !@render_to_file %>
-          <%= n_('Please <strong>answer the question above</strong> so we know whether the recent response contains useful information.',
-                 'Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information.',
+      <% if @is_owning_user && !@info_request.is_external? && !@render_to_file %>
+        <%= n_('Please <strong>answer the question above</strong> so we know whether the recent response contains useful information.',
+               'Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information.',
+               @new_responses_count) %>
+      <% else %>
+        <%= _('This request has an <strong>unknown status</strong>.') %>
+
+        <% if @old_unclassified %>
+          <%= n_("We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?",
+                 "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?",
                  @new_responses_count) %>
         <% else %>
-            <%= _('This request has an <strong>unknown status</strong>.') %>
-            <% if @old_unclassified %>
-              <%= n_("We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?",
-                     "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?",
-                     @new_responses_count) %>
-            <% else %>
-              <%= n_("We're waiting for {{user}} to read a recent response and update the status.",
-                     "We're waiting for {{user}} to read recent responses and update the status.",
-                     @new_responses_count,
-                     :user => user_link_for_request(@info_request)) %>
-            <% end %>
+          <%= n_("We're waiting for {{user}} to read a recent response and update the status.",
+                 "We're waiting for {{user}} to read recent responses and update the status.",
+                 @new_responses_count,
+                 :user => user_link_for_request(@info_request)) %>
         <% end %>
+      <% end %>
     <% elsif @status == 'waiting_response' %>
-        <%= _('Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and', :public_body_link=> public_body_link(@info_request.public_body)) %>
-        <% if @info_request.public_body.is_school? %>
+      <%= _('Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and', :public_body_link=> public_body_link(@info_request.public_body)) %>
+
+      <% if @info_request.public_body.is_school? %>
         <%= _('in term time') %>
-        <% else %>
+      <% else %>
         <%= _('normally') %>
-        <% end %>
-        <%= _('no later than') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-        (<%= link_to _("details"), "/help/requesting#quickly_response" %>).
+      <% end %>
+
+      <%= _('no later than') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+      (<%= link_to _("details"), "/help/requesting#quickly_response" %>).
     <% elsif @status == 'waiting_response_overdue' %>
-        <%= _('Response to this request is <strong>delayed</strong>.') %>
-        <%= _('By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and',:public_body_link=>public_body_link(@info_request.public_body)) %>
-            <% if @info_request.public_body.is_school? %>
-            <%= _('in term time') %>
-            <% end %>
-            <%= _('by') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-        (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>)
+      <%= _('Response to this request is <strong>delayed</strong>.') %>
+      <%= _('By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and',:public_body_link=>public_body_link(@info_request.public_body)) %>
+ 
+      <% if @info_request.public_body.is_school? %>
+        <%= _('in term time') %>
+      <% end %>
+ 
+      <%= _('by') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+      (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>)
     <% elsif @status == 'waiting_response_very_overdue' %>
-        <%= _('Response to this request is <strong>long overdue</strong>.') %>
-        <%= _('By law, under all circumstances, {{public_body_link}} should have responded by now',:public_body_link => public_body_link(@info_request.public_body)) %>
-        (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>).
-        <% if !@info_request.is_external? %>
-          <%= _('You can <strong>complain</strong> by') %>
-          <%= link_to _("requesting an internal review"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
-        <% end %>
+      <%= _('Response to this request is <strong>long overdue</strong>.') %>
+      <%= _('By law, under all circumstances, {{public_body_link}} should have responded by now',:public_body_link => public_body_link(@info_request.public_body)) %>
+      (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>).
+
+      <% if !@info_request.is_external? %>
+        <%= _('You can <strong>complain</strong> by') %>
+        <%= link_to _("requesting an internal review"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
+      <% end %>
     <% elsif @status == 'not_held' %>
-        <%= public_body_link(@info_request.public_body) %> <%= _('<strong>did not have</strong> the information requested.') %>
+      <%= public_body_link(@info_request.public_body) %> <%= _('<strong>did not have</strong> the information requested.') %>
     <% elsif @status == 'rejected' %>
-        <%= _('The request was <strong>refused</strong> by') %> <%= public_body_link(@info_request.public_body) %>.
+      <%= _('The request was <strong>refused</strong> by') %> <%= public_body_link(@info_request.public_body) %>.
     <% elsif @status == 'successful' %>
-        <%= _('The request was <strong>successful</strong>.') %>
+      <%= _('The request was <strong>successful</strong>.') %>
     <% elsif @status == 'partially_successful' %>
-        <%= _('The request was <strong>partially successful</strong>.') %>
+      <%= _('The request was <strong>partially successful</strong>.') %>
     <% elsif @status == 'waiting_clarification' %>
-        <% if @is_owning_user && !@info_request.is_external? %>
-            <%=h @info_request.public_body.name %> <%= _('is <strong>waiting for your clarification</strong>.') %>
-            <%= _('Please') %>
-              <%= link_to _("send a follow up message"), respond_to_last_path(@info_request) + '#followup' %>.
-        <% else %>
-            <%= _('The request is <strong>waiting for clarification</strong>.') %>
-            <% if !@info_request.is_external? %>
-              <%= _('If you are {{user_link}}, please',:user_link=>user_link_for_request(@info_request)) %>
-              <%= link_to _("sign in"), signin_path(:r => request.fullpath) %> <%= _('to send a follow up message.') %>
-            <% end %>
+      <% if @is_owning_user && !@info_request.is_external? %>
+        <%=h @info_request.public_body.name %> <%= _('is <strong>waiting for your clarification</strong>.') %>
+        <%= _('Please') %>
+        <%= link_to _("send a follow up message"), respond_to_last_path(@info_request) + '#followup' %>.
+      <% else %>
+        <%= _('The request is <strong>waiting for clarification</strong>.') %>
+        <% if !@info_request.is_external? %>
+          <%= _('If you are {{user_link}}, please',:user_link=>user_link_for_request(@info_request)) %>
+          <%= link_to _("sign in"), signin_path(:r => request.fullpath) %> <%= _('to send a follow up message.') %>
         <% end %>
+      <% end %>
     <% elsif @status == 'gone_postal' %>
-        <%= _('The authority would like to / has <strong>responded by post</strong> to this request.') %>
+      <%= _('The authority would like to / has <strong>responded by post</strong> to this request.') %>
     <% elsif @status == 'internal_review' %>
-        <%= _('Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request.',:public_body_link=>public_body_link(@info_request.public_body)) %>
+      <%= _('Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request.',:public_body_link=>public_body_link(@info_request.public_body)) %>
     <% elsif @status == 'error_message' %>
-        <%= _('There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team.', :site_name=>site_name) %>
+      <%= _('There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team.', :site_name=>site_name) %>
     <% elsif @status == 'requires_admin' %>
-        <%= _('This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team.', :site_name=>site_name) %>
+      <%= _('This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team.', :site_name=>site_name) %>
     <% elsif @status == 'user_withdrawn' %>
-        <%= _('This request has been <strong>withdrawn</strong> by the person who made it.
-               There may be an explanation in the correspondence below.') %>
+      <%= _('This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below.') %>
     <% elsif @status == 'attention_requested' %>
-        <%= _('This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)') %>
+      <%= _('This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)') %>
     <% elsif @status == 'vexatious' %>
-        <%= _('This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious') %>
+      <%= _('This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious') %>
     <% elsif @status == 'not_foi' %>
-        <%= _('This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request') %>
+      <%= _('This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request') %>
     <% else %>
-        <%= render :partial => 'general/custom_state_descriptions', :locals => { :status => @status } %>
+      <%= render :partial => 'general/custom_state_descriptions', :locals => { :status => @status } %>
     <% end %>
-    </p>
+  </p>
 
-    <% for info_request_event in @info_request_events %>
-        <% if info_request_event.visible %>
-            <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event } %>
-        <% end %>
+  <% for info_request_event in @info_request_events %>
+    <% if info_request_event.visible %>
+      <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event } %>
     <% end %>
+  <% end %>
 
-    <% if @info_request.awaiting_description && ! @info_request.is_external? %>
-        <div class="describe_state_form box" id="describe_state_form_2">
-        <%= render :partial => 'describe_state', :locals => { :id_suffix => "2" } %>
-        </div>
-    <% end %>
+  <% if @info_request.awaiting_description && ! @info_request.is_external? %>
+    <div class="describe_state_form box" id="describe_state_form_2">
+      <%= render :partial => 'describe_state', :locals => { :id_suffix => "2" } %>
+    </div>
+  <% end %>
 
-    <%= render :partial => 'after_actions' %>
+  <%= render :partial => 'after_actions' %>
 </div>
 
 <%- if @sidebar %><%= render :partial => 'sidebar' %><% end %>

@@ -116,7 +116,7 @@ msgid ""
 msgstr " Sugiere <strong>en qué otro lugar</strong> el solicitante puede encontrar la información. "
 
 #: app/views/user/set_profile_about_me.rhtml:11
-msgid " What are you investigating using Freedom of Information? "
+msgid "What are you investigating using Freedom of Information?"
 msgstr " ¿Qué estás investigando usando solicitudes de información? "
 
 #: app/controllers/comment_controller.rb:75
@@ -2864,7 +2864,7 @@ msgid "The request was refused by the public authority"
 msgstr "La solicitud ha sido rechazada por el organismo"
 
 #: app/views/request/hidden.rhtml:9
-msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr "La solicitud que has intentado ver ha sido eliminada. Hay\nvarios posibles motivos para esto, pero no podemos ser más específicos aquí. Por favor <a\n    href=\"{{url}}\">contáctanos</a> si tiene cualquier pregunta."
 
 #: app/views/general/_advanced_search_tips.rhtml:36
@@ -4097,10 +4097,6 @@ msgstr "entre dos fechas"
 #: app/views/request/show.rhtml:82
 msgid "by"
 msgstr "antes de"
-
-#: app/views/request/_followup.rhtml:65
-msgid "by <strong>{{date}}</strong>"
-msgstr "antes de <strong>{{date}}</strong>"
 
 #: app/views/request/_request_listing_via_event.rhtml:26
 msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."

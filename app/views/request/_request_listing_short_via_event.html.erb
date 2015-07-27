@@ -3,12 +3,10 @@
 end %>
 
 <div class="request_short_listing">
-    <h3><%= link_to highlight_words(info_request.title, @highlight_words), request_path(info_request) %></h3>
-    <p>
-
-<%= _('To {{public_body_link_absolute}}',:public_body_link_absolute => public_body_link(info_request.public_body))%>
-<%= _('by {{user_link_absolute}}',:user_link_absolute => request_user_link(info_request))%>
+  <h3><%= link_to highlight_words(info_request.title, @highlight_words), request_path(info_request) %></h3>
+  <p>
+    <%= _('To {{public_body_link_absolute}}',:public_body_link_absolute => public_body_link(info_request.public_body))%>
+    <%= _('by {{user_link_absolute}}',:user_link_absolute => request_user_link(info_request))%>
     <%= simple_date(info_request.created_at) %>
-    </p>
+  </p>
 </div>
-

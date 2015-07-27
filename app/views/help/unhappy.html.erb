@@ -2,108 +2,108 @@
 
 
 <% if !@info_request.nil? %>
-<h1>Unhappy about the response you got
-to your request '<%=request_link(@info_request) %>'?
-</h1>
+  <h1>Unhappy about the response you got
+    to your request '<%=request_link(@info_request) %>'?
+  </h1>
 <% else %>
-<h1>Unhappy about the response you got?</h1>
+  <h1>Unhappy about the response you got?</h1>
 <% end %>
 
 <p>If ...</p>
 
 <ul>
-<li>You didn't get a reply within 20 working days</li>
-<li>You did not get all of the information that you requested <strong>or</strong></li>
-<li>Your request was refused, but without a reason valid under the law</li>
+  <li>You didn't get a reply within 20 working days</li>
+  <li>You did not get all of the information that you requested <strong>or</strong></li>
+  <li>Your request was refused, but without a reason valid under the law</li>
 </ul>
 
 <p>... you can</p>
 
 <ol>
-<li>Ask for an <strong>internal review</strong> at the public authority.</li>
-<li>If that doesn't help, complain to the <strong>Information Commissioner</strong>.</li>
-<li>Either way, also <strong>use other means</strong> to answer your question.</li>
+  <li>Ask for an <strong>internal review</strong> at the public authority.</li>
+  <li>If that doesn't help, complain to the <strong>Information Commissioner</strong>.</li>
+  <li>Either way, also <strong>use other means</strong> to answer your question.</li>
 </ol>
 
 <h1 id="internal_review">1. Asking for an internal review <a class="hover_a" href="#internal_review">#</a> </h1>
 
 <p>
-<% if !@info_request.nil? %>
+  <% if !@info_request.nil? %>
     <%= link_to "Request an internal review", show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup", :class => 'link_button_green' %> and then write a message asking the authority to review your request.
-<% else %>
+  <% else %>
     At the bottom of the relevant request page on <%= site_name %> choose
     "request an internal review". Then write a message asking for an internal
     review of your request. You may want to include a link to the
     request page, to make it clear which request you are talking about.
-<% end %>
+  <% end %>
 </p>
 
 <p>Internal reviews should be quick. If one takes longer than 20 working days
-then the authority should write and let you know, and it should never take
-longer than 40 working days (see this
-<a href="http://www.ico.gov.uk/upload/documents/library/freedom_of_information/detailed_specialist_guides/foi_good_practice_guidance_5.pdf">good
-practice guide</a>).
-You will then either get the information that
-you originally requested, or you will be told that the review upholds the
-original decision.
+  then the authority should write and let you know, and it should never take
+  longer than 40 working days (see this
+  <a href="http://www.ico.gov.uk/upload/documents/library/freedom_of_information/detailed_specialist_guides/foi_good_practice_guidance_5.pdf">good
+    practice guide</a>).
+  You will then either get the information that
+  you originally requested, or you will be told that the review upholds the
+  original decision.
 </p>
 
 <h1 id="complaining">2. Complaining to the Information Commissioner <a class="hover_a" href="#complaining">#</a> </h1>
 
 <p>If you are still unhappy after the public authority has done their internal review,
-then you can complain to the Information Commissioner. To do this read
-<a href="http://www.ico.gov.uk/complaints/freedom_of_information.aspx">Complaints about Freedom of Information</a>
-on the Information Commissioner's website. If you requested information from a Scottish
-authority, then  <a href="http://www.itspublicknowledge.info/YourRights/HowToAppeal/Appeal.asp">appeal
-to the Scottish Information Commissioner</a>.
+  then you can complain to the Information Commissioner. To do this read
+  <a href="http://www.ico.gov.uk/complaints/freedom_of_information.aspx">Complaints about Freedom of Information</a>
+  on the Information Commissioner's website. If you requested information from a Scottish
+  authority, then  <a href="http://www.itspublicknowledge.info/YourRights/HowToAppeal/Appeal.asp">appeal
+    to the Scottish Information Commissioner</a>.
 </p>
 
 <p>To make it easier to send the relevant information to the
-Information Commissioner, either
-<% if !@info_request.nil? %>
+  Information Commissioner, either
+  <% if !@info_request.nil? %>
     include a link to your request
     <strong><%=h request_url(@info_request) %></strong>
-<% else %>
+  <% else %>
     include a link to your request on <%= site_name %>
 <% end %>
 in your complaint or print out the whole page of your request and all attachments.
 </p>
 
 <p><%= site_name %> has no special facilities for handling a request at this stage - it
-passes into the Information Commissioner's system. You can leave annotations on your
-request keeping people informed of progress.</p>
+  passes into the Information Commissioner's system. You can leave annotations on your
+  request keeping people informed of progress.</p>
 
 <p>A warning. There is a backlog of work at the Information Commissioner, and
-it can take literally years to get resolution from them. If you reach this point,
-you should accept that you won't get the information quickly by this means. Maybe
-you want to help the fight to improve Freedom of Information, or maybe
-getting the information slowly is still worthwhile. You can also try and
-get the information by <strong>other means...</strong></p>
+  it can take literally years to get resolution from them. If you reach this point,
+  you should accept that you won't get the information quickly by this means. Maybe
+  you want to help the fight to improve Freedom of Information, or maybe
+  getting the information slowly is still worthwhile. You can also try and
+  get the information by <strong>other means...</strong></p>
 
 <h1 id="other_means">3. Using other means to answer your question <a class="hover_a" href="#other_means">#</a> </h1>
 
 <p>You can try persuing your problem or your research in other ways.
 
-<ul>
-<li>Make a <strong>new FOI request</strong> for summary information, or for
-documentation relating indirectly to matters in your refused request.
-<a href="<%= help_contact_path %>">Ask us for ideas</a> if you're stuck.</li>
-<li>If any <strong>other public authorities</strong> or publicly owned companies are involved,
-then make FOI requests to them.</li>
-<li>Write to <strong>your MP</strong> or other politician using <a
-href="http://www.writetothem.com">WriteToThem</a> and ask for their help
-finding the answer. MPs can write directly to ministers or departments, and
-can ask written questions in the House of Commons. Councillors in local authorities
-can talk directly to council officers.</li>
-<li>Ask <strong>other researchers</strong> who are interested in a similar
-issue to yours for ideas. You can sometimes find them by browsing this site;
-contact any registered user from their page. There may be an Internet
-forum or group that they hang out in. If it is a local matter, use <a
-href="http://www.groupsnearyou.com">GroupsNearYou</a> to find such a
-forum.</li>
-<li>You could form a small local campaign group and arrange a meeting
-with staff from the authority.</li>
-</ul>
+  <ul>
+    <li>Make a <strong>new FOI request</strong> for summary information, or for
+      documentation relating indirectly to matters in your refused request.
+      <a href="<%= help_contact_path %>">Ask us for ideas</a> if you're stuck.</li>
+    <li>If any <strong>other public authorities</strong> or publicly owned companies are involved,
+      then make FOI requests to them.</li>
+    <li>Write to <strong>your MP</strong> or other politician using <a
+         href="http://www.writetothem.com">WriteToThem</a> and ask for their help
+       finding the answer. MPs can write directly to ministers or departments, and
+       can ask written questions in the House of Commons. Councillors in local authorities
+       can talk directly to council officers.</li>
+    <li>Ask <strong>other researchers</strong> who are interested in a similar
+      issue to yours for ideas. You can sometimes find them by browsing this site;
+      contact any registered user from their page. There may be an Internet
+      forum or group that they hang out in. If it is a local matter, use <a
+         href="http://www.groupsnearyou.com">GroupsNearYou</a> to find such a
+       forum.</li>
+    <li>You could form a small local campaign group and arrange a meeting
+      with staff from the authority.</li>
+  </ul>
 
 
 

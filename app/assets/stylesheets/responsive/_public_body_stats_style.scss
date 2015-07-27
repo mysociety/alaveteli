@@ -1,11 +1,11 @@
 /* Style for public body stats page */
 .public-body-ranking .axisLabels {
-    /* Justification for using !important here: the axis label color is
-       set in the style attribute in Flot's Javascript to the same
-       colour as the grid background. Changing this requires quite
-       invasive changes to the Javascript, and is likely to be
-       irrelevant in the next version of Flot anyway, which will have
-       core support for axis labels.  So, just use !important to make
-       the axes black rather than transparent grey for the moment: */
-    color: #000 !important;
+  /* Justification for using !important here: the axis label color is
+  set in the style attribute in Flot's Javascript to the same
+  colour as the grid background. Changing this requires quite
+  invasive changes to the Javascript, and is likely to be
+  irrelevant in the next version of Flot anyway, which will have
+  core support for axis labels.  So, just use !important to make
+  the axes black rather than transparent grey for the moment: */
+  color: #000 !important;
 }

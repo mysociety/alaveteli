@@ -1,50 +1,50 @@
 $fix-mqs: false !default;
 
 @mixin respond-min($width) {
-    // If we're outputting for a fixed media query set...
-    @if $fix-mqs {
-        // ...and if we should apply these rules...
-        @if $fix-mqs >= $width {
-            // ...output the content the user gave us.
-            @content;
-        }
+  // If we're outputting for a fixed media query set...
+  @if $fix-mqs {
+    // ...and if we should apply these rules...
+    @if $fix-mqs >= $width {
+      // ...output the content the user gave us.
+      @content;
     }
-    @else {
-        // Otherwise, output it using a regular media query
-        @media(min-width: $width) {
-            @content;
-        }
+  }
+  @else {
+    // Otherwise, output it using a regular media query
+    @media(min-width: $width) {
+      @content;
     }
+  }
 }
 
 $ie8: false !default;
 $lte-ie7: false !default;
 
 @mixin ie8 {
-    // Only use this content if we're dealing with IE8
-    @if $ie8 {
-        @content;
-    }
+  // Only use this content if we're dealing with IE8
+  @if $ie8 {
+    @content;
+  }
 }
 
 @mixin lte-ie7 {
-    // Only use this content if we're dealing with oldest IE (<= 7)
-    @if $lte-ie7 {
-        @content;
-    }
+  // Only use this content if we're dealing with oldest IE (<= 7)
+  @if $lte-ie7 {
+    @content;
+  }
 }
 
 // Hide content visually, but keep it available to screen readers
 // source: http://a11yproject.com/posts/how-to-hide-content/
 .visually-hidden {
   // http://developer.yahoo.com/blogs/ydn/posts/2012/10/clip-your-hidden-content-for-better-accessibility/
-    position: absolute !important;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-    clip: rect(1px, 1px, 1px, 1px);
-    padding:0 !important;
-    border:0 !important;
-    height: 1px !important;
-    width: 1px !important;
-    overflow: hidden;
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  padding:0 !important;
+  border:0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
 }
 body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .visually-hidden button { display: none !important; }

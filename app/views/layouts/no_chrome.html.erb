@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
-    <head>
-        <meta charset="utf-8">
-        <%= csrf_meta_tags %>
+  <head>
+    <meta charset="utf-8">
+    <%= csrf_meta_tags %>
 
-        <title>
-        <% if @title %>
-            <%=@title%> - <%= site_name %>
-        <% else %>
-            <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
+    <title>
+      <% if @title %>
+        <%=@title%> - <%= site_name %>
+      <% else %>
+        <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
+      <% end %>
+    </title>
+
+    <%= javascript_include_tag "application" %>
+
+    <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
+      <%= render :partial => 'general/responsive_stylesheets' %>
+    <% else %>
+      <%= stylesheet_link_tag 'application', :title => "Main", :rel => "stylesheet" %>
+      <%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
+      <!--[if LT IE 7]>
+        <%= stylesheet_link_tag 'ie6', :rel => "stylesheet" %>
+        <![endif]-->
+      <% end %>
+  </head>
+  <body>
+    <div class="entirebody">
+      <div id="content">
+        <% if flash[:notice] %>
+          <div id="notice"><%= flash[:notice] %></div>
         <% end %>
-        </title>
-
-        <%= javascript_include_tag "application" %>
-
-        <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-            <%= render :partial => 'general/responsive_stylesheets' %>
-        <% else %>
-            <%= stylesheet_link_tag 'application', :title => "Main", :rel => "stylesheet" %>
-            <%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
-            <!--[if LT IE 7]>
-            <%= stylesheet_link_tag 'ie6', :rel => "stylesheet" %>
-            <![endif]-->
+        <% if flash[:error] %>
+          <div id="error"><%= flash[:error] %></div>
         <% end %>
-    </head>
-    <body>
-        <div class="entirebody">
-            <div id="content">
-                <% if flash[:notice] %>
-                    <div id="notice"><%= flash[:notice] %></div>
-                <% end %>
-                <% if flash[:error] %>
-                    <div id="error"><%= flash[:error] %></div>
-                <% end %>
 
-                <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
-                <%= yield :layout %>
-                </div>
-            </div>
+        <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
+          <%= yield :layout %>
         </div>
-    </body>
+      </div>
+    </div>
+  </body>
 </html>

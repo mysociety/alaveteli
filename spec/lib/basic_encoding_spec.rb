@@ -2,12 +2,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 def bytes_to_binary_string( bytes, claimed_encoding = nil )
-    claimed_encoding ||= 'ASCII-8BIT'
-    bytes_string = bytes.pack('c*')
-    if String.method_defined?(:force_encoding)
-        bytes_string.force_encoding claimed_encoding
-    end
-    bytes_string
+  claimed_encoding ||= 'ASCII-8BIT'
+  bytes_string = bytes.pack('c*')
+  if String.method_defined?(:force_encoding)
+    bytes_string.force_encoding claimed_encoding
+  end
+  bytes_string
 end
 
 random_string = bytes_to_binary_string [ 0x0f, 0x58, 0x1c, 0x8f, 0xa4, 0xcf,
@@ -60,159 +60,159 @@ gb_18030_spam_string = bytes_to_binary_string gb_18030_bytes
 
 describe "normalize_string_to_utf8" do
 
-    describe "when passed uniterpretable character data" do
+  describe "when passed uniterpretable character data" do
 
-        it "should reject it as invalid" do
+    it "should reject it as invalid" do
 
-            expect {
-                normalize_string_to_utf8 random_string
-            }.to raise_error(EncodingNormalizationError)
+      expect {
+        normalize_string_to_utf8 random_string
+      }.to raise_error(EncodingNormalizationError)
 
-            expect {
-                normalize_string_to_utf8 random_string, 'UTF-8'
-            }.to raise_error(EncodingNormalizationError)
-
-        end
-    end
-
-    describe "when passed unlabelled Windows 1252 data" do
-
-        it "should correctly convert it to UTF-8" do
-
-            normalized = normalize_string_to_utf8 windows_1252_string
-
-            normalized.should ==  "DASH – DASH"
-
-        end
+      expect {
+        normalize_string_to_utf8 random_string, 'UTF-8'
+      }.to raise_error(EncodingNormalizationError)
 
     end
+  end
 
-    describe "when passed GB 18030 data" do
+  describe "when passed unlabelled Windows 1252 data" do
 
-        it "should correctly convert it to UTF-8 if unlabelled" do
+    it "should correctly convert it to UTF-8" do
 
-            normalized = normalize_string_to_utf8 gb_18030_spam_string
+      normalized = normalize_string_to_utf8 windows_1252_string
 
-            normalized.should start_with("贵公司负责人")
-
-        end
+      normalized.should ==  "DASH – DASH"
 
     end
+
+  end
+
+  describe "when passed GB 18030 data" do
+
+    it "should correctly convert it to UTF-8 if unlabelled" do
+
+      normalized = normalize_string_to_utf8 gb_18030_spam_string
+
+      normalized.should start_with("贵公司负责人")
+
+    end
+
+  end
 
 end
 
 describe "convert_string_to_utf8_or_binary" do
 
-    describe "when passed uninterpretable character data" do
+  describe "when passed uninterpretable character data" do
 
-        it "should return it as a binary string" do
+    it "should return it as a binary string" do
 
-            converted = convert_string_to_utf8_or_binary random_string
-            converted.should == random_string
+      converted = convert_string_to_utf8_or_binary random_string
+      converted.should == random_string
 
-            if String.method_defined?(:encode)
-                converted.encoding.to_s.should == 'ASCII-8BIT'
-            end
+      if String.method_defined?(:encode)
+        converted.encoding.to_s.should == 'ASCII-8BIT'
+      end
 
-            converted = convert_string_to_utf8_or_binary random_string,'UTF-8'
-            converted.should == random_string
+      converted = convert_string_to_utf8_or_binary random_string,'UTF-8'
+      converted.should == random_string
 
-            if String.method_defined?(:encode)
-                converted.encoding.to_s.should == 'ASCII-8BIT'
-            end
-
-        end
-    end
-
-    describe "when passed unlabelled Windows 1252 data" do
-
-        it "should correctly convert it to UTF-8" do
-
-            converted = convert_string_to_utf8_or_binary windows_1252_string
-
-            converted.should ==  "DASH – DASH"
-
-            if String.method_defined?(:encode)
-                converted.encoding.to_s.should == 'UTF-8'
-            end
-        end
+      if String.method_defined?(:encode)
+        converted.encoding.to_s.should == 'ASCII-8BIT'
+      end
 
     end
+  end
 
-    describe "when passed GB 18030 data" do
+  describe "when passed unlabelled Windows 1252 data" do
 
-        it "should correctly convert it to UTF-8 if unlabelled" do
+    it "should correctly convert it to UTF-8" do
 
-            converted = convert_string_to_utf8_or_binary gb_18030_spam_string
+      converted = convert_string_to_utf8_or_binary windows_1252_string
 
-            converted.should start_with("贵公司负责人")
+      converted.should ==  "DASH – DASH"
 
-            if String.method_defined?(:encode)
-                converted.encoding.to_s.should == 'UTF-8'
-            end
-        end
-
+      if String.method_defined?(:encode)
+        converted.encoding.to_s.should == 'UTF-8'
+      end
     end
+
+  end
+
+  describe "when passed GB 18030 data" do
+
+    it "should correctly convert it to UTF-8 if unlabelled" do
+
+      converted = convert_string_to_utf8_or_binary gb_18030_spam_string
+
+      converted.should start_with("贵公司负责人")
+
+      if String.method_defined?(:encode)
+        converted.encoding.to_s.should == 'UTF-8'
+      end
+    end
+
+  end
 
 end
 
 describe "convert_string_to_utf8" do
 
-    describe "when passed uninterpretable character data" do
+  describe "when passed uninterpretable character data" do
 
-        it "should return it as a valid utf8 string with non-utf8 characters removed
+    it "should return it as a valid utf8 string with non-utf8 characters removed
             and mark it as scrubbed" do
 
-            converted = convert_string_to_utf8 random_string
+      converted = convert_string_to_utf8 random_string
 
-            if String.method_defined?(:encode)
-                converted.string.encoding.to_s.should == 'UTF-8'
-                converted.string.valid_encoding?.should == true
-            end
-            converted.scrubbed?.should == true
+      if String.method_defined?(:encode)
+        converted.string.encoding.to_s.should == 'UTF-8'
+        converted.string.valid_encoding?.should == true
+      end
+      converted.scrubbed?.should == true
 
-            converted = convert_string_to_utf8 random_string,'UTF-8'
+      converted = convert_string_to_utf8 random_string,'UTF-8'
 
-            if String.method_defined?(:encode)
-                converted.string.encoding.to_s.should == 'UTF-8'
-                converted.string.valid_encoding?.should == true
-            end
-            converted.scrubbed?.should == true
-
-        end
-    end
-
-    describe "when passed unlabelled Windows 1252 data" do
-
-        it "should correctly convert it to UTF-8" do
-
-            converted = convert_string_to_utf8 windows_1252_string
-
-            converted.string.should ==  "DASH – DASH"
-
-            if String.method_defined?(:encode)
-                converted.string.encoding.to_s.should == 'UTF-8'
-            end
-            converted.scrubbed?.should == false
-
-        end
+      if String.method_defined?(:encode)
+        converted.string.encoding.to_s.should == 'UTF-8'
+        converted.string.valid_encoding?.should == true
+      end
+      converted.scrubbed?.should == true
 
     end
+  end
 
-    describe "when passed GB 18030 data" do
+  describe "when passed unlabelled Windows 1252 data" do
 
-        it "should correctly convert it to UTF-8 if unlabelled" do
+    it "should correctly convert it to UTF-8" do
 
-            converted = convert_string_to_utf8 gb_18030_spam_string
+      converted = convert_string_to_utf8 windows_1252_string
 
-            converted.string.should start_with("贵公司负责人")
+      converted.string.should ==  "DASH – DASH"
 
-            if String.method_defined?(:encode)
-                converted.string.encoding.to_s.should == 'UTF-8'
-            end
-            converted.scrubbed?.should == false
-        end
+      if String.method_defined?(:encode)
+        converted.string.encoding.to_s.should == 'UTF-8'
+      end
+      converted.scrubbed?.should == false
 
     end
+
+  end
+
+  describe "when passed GB 18030 data" do
+
+    it "should correctly convert it to UTF-8 if unlabelled" do
+
+      converted = convert_string_to_utf8 gb_18030_spam_string
+
+      converted.string.should start_with("贵公司负责人")
+
+      if String.method_defined?(:encode)
+        converted.string.encoding.to_s.should == 'UTF-8'
+      end
+      converted.scrubbed?.should == false
+    end
+
+  end
 
 end

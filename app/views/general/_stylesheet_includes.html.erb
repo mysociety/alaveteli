@@ -1,40 +1,40 @@
 <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
   <%- if @render_to_file %>
     <style>
-    <%= Rails.application.assets["responsive/application.css"].to_s %>
-    <%= Rails.application.assets["responsive/print.css"].to_s %>
+      <%= Rails.application.assets["responsive/application.css"].to_s %>
+      <%= Rails.application.assets["responsive/print.css"].to_s %>
     </style>
   <%- else %>
     <%= render :partial => 'general/responsive_stylesheets' %>
     <%= stylesheet_link_tag 'responsive/print', :rel => "stylesheet", :media => "print"  %>
     <% if !params[:print_stylesheet].nil? %>
-    <%= stylesheet_link_tag 'responsive/print', :rel => "stylesheet", :media => "all"  %>
+      <%= stylesheet_link_tag 'responsive/print', :rel => "stylesheet", :media => "all"  %>
     <% end %>
     <% if AlaveteliConfiguration::force_registration_on_new_request %>
-    <%= stylesheet_link_tag 'fancybox.css', :rel => "stylesheet"  %>
+      <%= stylesheet_link_tag 'fancybox.css', :rel => "stylesheet"  %>
     <% end %>
   <% end %>
 <% else %>
   <%- if @render_to_file %>
     <style>
-    <%= Rails.application.assets["main.css"].to_s %>
-    <%= Rails.application.assets["print.css"].to_s %>
+      <%= Rails.application.assets["main.css"].to_s %>
+      <%= Rails.application.assets["print.css"].to_s %>
     </style>
   <%- else %>
     <%= stylesheet_link_tag 'application', :title => "Main", :rel => "stylesheet", :media => "all" %>
     <%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
     <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
     <% if !params[:print_stylesheet].nil? %>
-    <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
+      <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
     <% end %>
     <!--[if LT IE 7]>
-    <%= stylesheet_link_tag 'ie6.css' %>
+      <%= stylesheet_link_tag 'ie6.css' %>
     <![endif]-->
     <!--[if LT IE 8]>
-    <%= stylesheet_link_tag 'ie7.css' %>
+      <%= stylesheet_link_tag 'ie7.css' %>
     <![endif]-->
     <% if AlaveteliConfiguration::force_registration_on_new_request %>
-    <%= stylesheet_link_tag 'fancybox.css', :rel => "stylesheet"  %>
+      <%= stylesheet_link_tag 'fancybox.css', :rel => "stylesheet"  %>
     <% end %>
   <% end %>
 <% end %>

@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en-gb">
-    <head>
-      <meta http-equiv="content-type" content="text/html;charset=UTF-8" >
-      <%= csrf_meta_tags %>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" >
+    <%= csrf_meta_tags %>
 
-      <title><%= site_name %> admin<%= @title ? ":" : "" %> <%=@title%></title>
+    <title><%= site_name %> admin<%= @title ? ":" : "" %> <%=@title%></title>
 
-      <%= javascript_include_tag "admin" %>
-      <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
+    <%= javascript_include_tag "admin" %>
+    <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
 
-    </head>
-    <body class="admin">
-      <div id="main" class="container">
-        <%= render :partial => 'admin_general/admin_navbar' %>
-        <% if flash[:error] %>
-          <div class="row">
-            <div class="span12">
-              <div class="alert alert-error">
-                <%= flash[:error] %>
-              </div>
+  </head>
+  <body class="admin">
+    <div id="main" class="container">
+      <%= render :partial => 'admin_general/admin_navbar' %>
+      <% if flash[:error] %>
+        <div class="row">
+          <div class="span12">
+            <div class="alert alert-error">
+              <%= flash[:error] %>
             </div>
           </div>
-        <% end %>
+        </div>
+      <% end %>
 
-        <% if flash[:notice] %>
-          <div class="row">
-            <div class="span12">
-              <div class="alert alert-info">
-                <%= flash[:notice] %>
-              </div>
+      <% if flash[:notice] %>
+        <div class="row">
+          <div class="span12">
+            <div class="alert alert-info">
+              <%= flash[:notice] %>
             </div>
           </div>
-        <% end %>
+        </div>
+      <% end %>
 
-        <%= yield  %>
-      </div>
-    </body>
+      <%= yield  %>
+    </div>
+  </body>
 </html>

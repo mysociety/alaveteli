@@ -6,7 +6,7 @@
   <div class="control-group">
     <label class="control-label" for="outgoing_message_prominence"> Prominence</label>
     <div class="controls">
-    <%= select('outgoing_message', "prominence", OutgoingMessage.prominence_states) %>
+      <%= select('outgoing_message', "prominence", OutgoingMessage.prominence_states) %>
     </div>
   </div>
 
@@ -19,31 +19,31 @@
 
   <div class="control-group">
     <label class="control-label" for="outgoing_message_body">Body of message</label>
-     <div class="controls">
+    <div class="controls">
       <%= text_area 'outgoing_message', 'body', :rows => 10, :cols => 60  %>
-     </div>
+    </div>
 
-  <p><strong>Note:</strong> This is mainly to be used to excise information
-  that users inadvertently put in their messages, not realising it would be
-  public. It will already have been sent to the public authority, and their
-  reply may also include that information and be automatically published on
-  this site. You could also use this to edit a message before resending it, but
-  only the edited version will be shown on the public page if you do that.</p>
+    <p><strong>Note:</strong> This is mainly to be used to excise information
+      that users inadvertently put in their messages, not realising it would be
+      public. It will already have been sent to the public authority, and their
+      reply may also include that information and be automatically published on
+      this site. You could also use this to edit a message before resending it, but
+      only the edited version will be shown on the public page if you do that.</p>
 
-<div class="form-actions" >
-<%= submit_tag 'Save', :accesskey => 's', :class => 'btn' %>
-</div>
+    <div class="form-actions" >
+      <%= submit_tag 'Save', :accesskey => 's', :class => 'btn' %>
+    </div>
+  </div>
 <% end %>
 
 <p>
-<%= link_to 'Show', admin_request_path(@outgoing_message.info_request) %> |
-<%= link_to 'List all', admin_requests_path %>
+  <%= link_to 'Show', admin_request_path(@outgoing_message.info_request) %> |
+  <%= link_to 'List all', admin_requests_path %>
 </p>
 
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'delete' do %>
   <div>
-      <%= submit_tag "Destroy outgoing message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?" %>
+    <%= submit_tag "Destroy outgoing message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?" %>
   </div>
 <% end %>
-
 

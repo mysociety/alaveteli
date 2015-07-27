@@ -14,11 +14,11 @@
             <%= link_to(h(value), value)  %>
           <% elsif column_name == 'request_email' %>
             <%= link_to(h(value), "mailto:#{value}")  %>
-              <% unless @public_body.is_requestable? %>
-                <%=_("not requestable due to: {{reason}}", :reason => h(@public_body.not_requestable_reason))%><% if @public_body.is_followupable? %>; <%=_("but followupable")%><% end %>
-              <% end %>
+            <% unless @public_body.is_requestable? %>
+              <%=_("not requestable due to: {{reason}}", :reason => h(@public_body.not_requestable_reason))%><% if @public_body.is_followupable? %>; <%=_("but followupable")%><% end %>
+            <% end %>
           <% else %>
-              <%=h value %>
+            <%=h value %>
           <% end %>
         </td>
       </tr>
@@ -67,7 +67,7 @@
     </div>
     <% if i == versions.length - 1 %>
       <div class="span6">
-          <p>“<%= h(historic_public_body.last_edit_comment) %>”</p>
+        <p>“<%= h(historic_public_body.last_edit_comment) %>”</p>
         <ul>
           <li><%=_("This is the first version.")%></li>
         </ul>

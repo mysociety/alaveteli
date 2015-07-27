@@ -3,79 +3,79 @@
 <h1><%=@title%></h1>
 
 <% if not @notes.empty? %>
-<pre id="notice"><%=@notes %></pre>
+  <pre id="notice"><%=@notes %></pre>
 <% end %>
 <% if not @errors.empty? %>
-<pre id="error"><%=@errors %></pre>
+  <pre id="error"><%=@errors %></pre>
 <% end %>
 
 <%= form_tag 'import_csv', :multipart => true do %>
-    <p>
-        <% if @original_csv_file && @temporary_csv_file %>
-            CSV file:
-            <%= @original_csv_file %>
-            <%= hidden_field_tag :original_csv_file, @original_csv_file %>
-            <%= hidden_field_tag :temporary_csv_file, @temporary_csv_file %>
-            <%= link_to 'Clear current file', 'import_csv', :class => "btn btn-warning" %>
-        <% else %>
-            <label for="csv_file">CSV file:</label>
-            <%= file_field_tag :csv_file, :size => 40 %>
-        <% end %>
-    </p>
+  <p>
+    <% if @original_csv_file && @temporary_csv_file %>
+      CSV file:
+      <%= @original_csv_file %>
+      <%= hidden_field_tag :original_csv_file, @original_csv_file %>
+      <%= hidden_field_tag :temporary_csv_file, @temporary_csv_file %>
+      <%= link_to 'Clear current file', 'import_csv', :class => "btn btn-warning" %>
+    <% else %>
+      <label for="csv_file">CSV file:</label>
+      <%= file_field_tag :csv_file, :size => 40 %>
+    <% end %>
+  </p>
 
-    <p>
+  <p>
     <label for="tag">Optional: Tag to add entries to / alter entries for:</label>
     <%= text_field_tag 'tag', params[:tag] %>
-    </p>
+  </p>
 
-    <p>
+  <p>
     <label for="tag_behaviour">What to do with existing tags?</label>
     <%= select_tag 'tag_behaviour',
-        raw("<option value='add' selected>Add new tags to existing ones</option>
+      raw("<option value='add' selected>Add new tags to existing ones</option>
          <option value='replace'>Replace existing tags with new ones</option>")
-    %>
-    </p>
+       %>
+</p>
 
-    <p><strong>CSV file format:</strong> The first row should be a list
-    of fields, starting with <code>#</code>. The fields <code>name</code> and
-    <code>request_email</code> are required; additionally, translated values are
-    supported by adding the locale name to the field name,
-    e.g. <code>name.es</code>, <code>name.de</code>&hellip;<br />
-    <strong>Example:</strong>
-    </p>
+<p><strong>CSV file format:</strong> The first row should be a list
+  of fields, starting with <code>#</code>. The fields <code>name</code> and
+  <code>request_email</code> are required; additionally, translated values are
+  supported by adding the locale name to the field name,
+  e.g. <code>name.es</code>, <code>name.de</code>&hellip;<br />
+  <strong>Example:</strong>
+</p>
 
-    <pre>
+<pre>
 &#35;name,request_email,name.es,tag_string
 An Authority,a@example.com,Un organismo,a_tag another_tag
 Another One,another@example.com,Otro organismo,a_tag
-    </pre>
+</pre>
 
-    <p><strong>Supported fields:</strong>
-        <ul>
-            <% PublicBody.csv_import_fields.each do |field, notes| %>
-                <li><code><%= field %></code> <%= sanitize(notes) %></li>
-            <% end %>
-        </ul>
-    </p>
+<p><strong>Supported fields:</strong>
+  <ul>
+    <% PublicBody.csv_import_fields.each do |field, notes| %>
+      <li><code><%= field %></code> <%= sanitize(notes) %></li>
+    <% end %>
+  </ul>
+</p>
 
-    <p><strong>Note:</strong> Choose <strong>dry run</strong> to test, without
-    actually altering the database. Choose <strong>upload</strong> to actually
-    make the changes. In either case, you will be shown any errors, or details
-    of the changes.  When uploading, any changes since last import will be
-    overwritten – e.g.  email addresses changed back.
-    </p>
+<p><strong>Note:</strong> Choose <strong>dry run</strong> to test, without
+  actually altering the database. Choose <strong>upload</strong> to actually
+  make the changes. In either case, you will be shown any errors, or details
+  of the changes.  When uploading, any changes since last import will be
+  overwritten – e.g.  email addresses changed back.
+</p>
 
-    <p><strong>Note:</strong> The import tag will also be added to the imported bodies
-    if no tags are provided in the CSV file or if the import mode is set to
-    "Add new tags to existing ones".
-    </p>
+<p><strong>Note:</strong> The import tag will also be added to the imported bodies
+  if no tags are provided in the CSV file or if the import mode is set to
+  "Add new tags to existing ones".
+</p>
 
-    <div class="form-actions">
-      <p>
-        <%= submit_tag 'Dry run', :class => 'btn btn-success' %>
-        <%= submit_tag 'Upload', :class => 'btn btn-warning' %>
-      </p>
-    </div>
+<div class="form-actions">
+  <p>
+    <%= submit_tag 'Dry run', :class => 'btn btn-success' %>
+    <%= submit_tag 'Upload', :class => 'btn btn-warning' %>
+  </p>
+</div>
 <% end %>
 
 <hr>

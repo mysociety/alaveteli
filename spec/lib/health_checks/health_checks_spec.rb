@@ -2,77 +2,77 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe HealthChecks do
-    include HealthChecks
+  include HealthChecks
 
-    describe :add do
+  describe :add do
 
-        it 'adds a check to the collection and returns the check' do
-            check = double('MockCheck', :ok? => true)
-            expect(add(check)).to eq(check)
-        end
-
-        it 'does not add checks that do not define the check method' do
-            check = double('BadCheck')
-            expect(add(check)).to eq(false)
-        end
-
+    it 'adds a check to the collection and returns the check' do
+      check = double('MockCheck', :ok? => true)
+      expect(add(check)).to eq(check)
     end
 
-    describe :all do
-
-        it 'returns all the checks' do
-            check1 = double('MockCheck', :ok? => true)
-            check2 = double('AnotherCheck', :ok? => false)
-            add(check1)
-            add(check2)
-            expect(all).to include(check1, check2)
-        end
-
+    it 'does not add checks that do not define the check method' do
+      check = double('BadCheck')
+      expect(add(check)).to eq(false)
     end
 
-    describe :each do
+  end
 
-        it 'iterates over each check' do
-            expect(subject).to respond_to(:each)
-        end
+  describe :all do
 
+    it 'returns all the checks' do
+      check1 = double('MockCheck', :ok? => true)
+      check2 = double('AnotherCheck', :ok? => false)
+      add(check1)
+      add(check2)
+      expect(all).to include(check1, check2)
     end
 
-    describe :ok? do
+  end
 
-      it 'returns true if all checks are ok' do
-          checks = [
-              double('MockCheck', :ok? => true),
-              double('FakeCheck', :ok? => true),
-              double('TestCheck', :ok? => true)
-          ]
-          HealthChecks.stub(:all => checks)
+  describe :each do
 
-          expect(HealthChecks.ok?).to be_true
-      end
-
-      it 'returns false if all checks fail' do
-          checks = [
-              double('MockCheck', :ok? => false),
-              double('FakeCheck', :ok? => false),
-              double('TestCheck', :ok? => false)
-          ]
-          HealthChecks.stub(:all => checks)
-
-          expect(HealthChecks.ok?).to be_false
-      end
-
-      it 'returns false if a single check fails' do
-          checks = [
-              double('MockCheck', :ok? => true),
-              double('FakeCheck', :ok? => false),
-              double('TestCheck', :ok? => true)
-          ]
-          HealthChecks.stub(:all => checks)
-
-          expect(HealthChecks.ok?).to be_false
-      end
-
+    it 'iterates over each check' do
+      expect(subject).to respond_to(:each)
     end
+
+  end
+
+  describe :ok? do
+
+    it 'returns true if all checks are ok' do
+      checks = [
+        double('MockCheck', :ok? => true),
+        double('FakeCheck', :ok? => true),
+        double('TestCheck', :ok? => true)
+      ]
+      HealthChecks.stub(:all => checks)
+
+      expect(HealthChecks.ok?).to be_true
+    end
+
+    it 'returns false if all checks fail' do
+      checks = [
+        double('MockCheck', :ok? => false),
+        double('FakeCheck', :ok? => false),
+        double('TestCheck', :ok? => false)
+      ]
+      HealthChecks.stub(:all => checks)
+
+      expect(HealthChecks.ok?).to be_false
+    end
+
+    it 'returns false if a single check fails' do
+      checks = [
+        double('MockCheck', :ok? => true),
+        double('FakeCheck', :ok? => false),
+        double('TestCheck', :ok? => true)
+      ]
+      HealthChecks.stub(:all => checks)
+
+      expect(HealthChecks.ok?).to be_false
+    end
+
+  end
 
 end

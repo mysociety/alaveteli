@@ -1,19 +1,19 @@
 <%= form_for(@comment, :as => :comment, :url => { :controller => "comment", :action => "new", :type => "request" },  :html => { :id => 'comment_form' } ) do |f| %>
-    <p>
-        <%= f.text_area :body, :rows => 10, :cols => 55 %>
-    </p>
+  <p>
+    <%= f.text_area :body, :rows => 10, :cols => 55 %>
+  </p>
 
-    <% if !TrackThing.find_existing(@user, track_thing) && (!@user || @info_request.user != @user) %>
+  <% if !TrackThing.find_existing(@user, track_thing) && (!@user || @info_request.user != @user) %>
     <p>
-        <%= check_box_tag 'subscribe_to_request', "1", params[:subscribe_to_request] %> <label for="subscribe_to_request"><%= _('Email me future updates to this request') %></label>
+      <%= check_box_tag 'subscribe_to_request', "1", params[:subscribe_to_request] %> <label for="subscribe_to_request"><%= _('Email me future updates to this request') %></label>
     </p>
-    <% end %>
+  <% end %>
 
-    <p>
-        <%= hidden_field_tag 'submitted_comment', 1 %>
-        <%= hidden_field_tag 'preview', 1 %>
-        <%= submit_tag _('Preview your annotation') %>
-       <%= _(' (<strong>no ranty</strong> politics, read our <a href="{{url}}">moderation policy</a>)', :url => (help_requesting_path+'#moderation').html_safe) %>
-    </p>
+  <p>
+    <%= hidden_field_tag 'submitted_comment', 1 %>
+    <%= hidden_field_tag 'preview', 1 %>
+    <%= submit_tag _('Preview your annotation') %>
+    <%= _(' (<strong>no ranty</strong> politics, read our <a href="{{url}}">moderation policy</a>)', :url => (help_requesting_path+'#moderation').html_safe) %>
+  </p>
 <% end %>
 

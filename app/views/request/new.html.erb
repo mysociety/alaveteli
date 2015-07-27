@@ -1,38 +1,36 @@
 <% unless @batch %>
   <script type="text/javascript">
-      $(document).ready(function(){
-          // Avoid triggering too often (on each keystroke) by using the
-          // debounce jQuery plugin:
-          // http://benalman.com/projects/jquery-throttle-debounce-plugin/
-          $("#typeahead_search").keypress($.debounce( 300, function() {
-              if ( $('#request_search_ahead_results').text().trim().length > 0) {
-                  $('#typeahead_response').slideUp('fast');
-              }
+    $(document).ready(function(){
+      // Avoid triggering too often (on each keystroke) by using the
+      // debounce jQuery plugin:
+      // http://benalman.com/projects/jquery-throttle-debounce-plugin/
+      $("#typeahead_search").keypress($.debounce( 300, function() {
+        if ( $('#request_search_ahead_results').text().trim().length > 0) {
+          $('#typeahead_response').slideUp('fast');
+        }
 
-              $("#typeahead_response").load("<%= search_ahead_url %>?q="+encodeURI(this.value)+
-                                            "&requested_from=<%= @info_request.public_body.url_name %>"+
-                                            "&per_page=3", function() {
+      $("#typeahead_response").load("<%= search_ahead_url %>?q="+encodeURI(this.value)+
+        "&requested_from=<%= @info_request.public_body.url_name %>"+
+        "&per_page=3", function() {
 
-                  if ( $('#request_search_ahead_results').text().trim().length > 0) {
-                      $('#typeahead_response').hide().slideDown('fast');
+          if ( $('#request_search_ahead_results').text().trim().length > 0) {
+            $('#typeahead_response').hide().slideDown('fast');
 
-                      // When following links in typeahead results, open new
-                      // tab/window
-                      $("#typeahead_response a").attr("target","_blank");
+            // When following links in typeahead results, open new
+            // tab/window
+            $("#typeahead_response a").attr("target","_blank");
 
-                      // Update the public body site search link
-                      $("#body-site-search-link").attr("href", "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
-                                                      "+site:<%= @info_request.public_body.calculated_home_page %>");
+            // Update the public body site search link
+            $("#body-site-search-link").attr("href", "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
+              "+site:<%= @info_request.public_body.calculated_home_page %>");
 
-                      $('.close-button').click(function() { $(this).parent().hide() });
-                  }
-              });
-          }));
-      });
+            $('.close-button').click(function() { $(this).parent().hide() });
+          }
+        });
+      }));
+    });
   </script>
 <% end %>
-
-
 
 <% if @batch %>
   <% @title = _("Make an {{law_used_short}} request", :law_used_short=>h(@info_request.law_used_short))  %>
@@ -50,9 +48,13 @@
         <div class="errorExplanation" id="errorExplanation">
           <ul>
             <li>
-             <%= _('{{existing_request_user}} already
-            created the same request on {{date}}. You can either view the <a href="{{existing_request}}">existing request</a>,
-            or edit the details below to make a new but similar request.',:existing_request_user=>user_or_you_capital_link(@existing_request.user), :date=>simple_date(@existing_request.created_at), :existing_request=>request_path(@existing_request)) %>
+              <%= _('{{existing_request_user}} already created the same ' \
+                    'request on {{date}}. You can either view the ' \
+                    '<a href="{{existing_request}}">existing request</a>, or ' \
+                    'edit the details below to make a new but similar request.',
+                    :existing_request_user => user_or_you_capital_link(@existing_request.user),
+                    :date => simple_date(@existing_request.created_at),
+                    :existing_request => request_path(@existing_request)) %>
             </li>
           </ul>
         </div>
@@ -77,22 +79,23 @@
       <% end %>
 
       <% if @batch %>
-          <label class="form_label"><%= _('To:') %></label>
-          <span id="to_public_body">
-            <%= _("Your selected authorities") %>
-            <span class="batch_public_body_toggle" data-hidetext="<%= _("(hide)") %>" data-showtext="<%= _("(show)") %>"><a class="toggle-message"></a></span>
-          </span>
+        <label class="form_label"><%= _('To:') %></label>
+        <span id="to_public_body">
+          <%= _("Your selected authorities") %>
+          <span class="batch_public_body_toggle" data-hidetext="<%= _("(hide)") %>" data-showtext="<%= _("(show)") %>"><a class="toggle-message"></a></span>
+        </span>
 
-          <div class="batch_public_body_list">
-            <ul>
+        <div class="batch_public_body_list">
+          <ul>
             <% @public_bodies.each do |public_body| %>
               <li><%= public_body.name %></li>
             <% end %>
-            </ul>
-          </div>
+          </ul>
+        </div>
       <% else %>
-        <p id="to_public_body"><span class="to_public_body_label">To:</span>
-          <%=h(@info_request.public_body.name)%>
+        <p id="to_public_body">
+          <span class="to_public_body_label">To:</span>
+          <%= h(@info_request.public_body.name) %>
         </p>
       <% end %>
 
@@ -113,25 +116,30 @@
         <div id="request_body_header">
           <h3><%= _('Please ask for environmental information only') %></h3>
 
-          <p><%= _('The Freedom of Information Act <strong>does not apply</strong> to') %> <%=h(@info_request.public_body.name)%>.
-          <%= _('However, you have the right to request environmental
-      information under a different law') %> (<a href="/help/requesting#eir">explanation</a>).
-          <%= _('This covers a very wide spectrum of information about the state of
-      the <strong>natural and built environment</strong>, such as:') %>
+          <p>
+            <%= _('The Freedom of Information Act <strong>does not apply</strong> to') %> <%=h(@info_request.public_body.name)%>.
+            <%= _('However, you have the right to request environmental ' \
+                  'information under a different law') %>
+            (<a href="/help/requesting#eir">explanation</a>).
+            <%= _('This covers a very wide spectrum of information about the ' \
+                  'state of the <strong>natural and built environment' \
+                  '</strong>, such as:') %>
           </p>
+
           <ul>
-          <li><%= _('Air, water, soil, land, flora and fauna (including how these effect
-      human beings)') %></li>
-          <li><%= _('Information on emissions and discharges (e.g. noise, energy,
-      radiation, waste materials)') %></li>
-          <li><%= _('Human health and safety') %></li>
-          <li><%= _('Cultural sites and built structures (as they may be affected by the
-      environmental factors listed above)') %></li>
-          <li><%= _('Plans and administrative measures that affect these matters') %></li>
+            <li><%= _('Air, water, soil, land, flora and fauna (including how these effect human beings)') %></li>
+            <li><%= _('Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)') %></li>
+            <li><%= _('Human health and safety') %></li>
+            <li><%= _('Cultural sites and built structures (as they may be affected by the environmental factors listed above)') %></li>
+            <li><%= _('Plans and administrative measures that affect these matters') %></li>
           </ul>
 
-          <p><%= _('Please only request information that comes under those categories, <strong>do not waste your
-      time</strong> or the time of the public authority by requesting unrelated information.') %></p>
+          <p>
+            <%= _('Please only request information that comes under those ' \
+                  'categories, <strong>do not waste your time</strong> or ' \
+                  'the time of the public authority by requesting unrelated ' \
+                  'information.') %>
+          </p>
         </div>
       </div>
     <% end %>
@@ -142,52 +150,55 @@
       <% unless @batch %>
         <p>
           <% if @info_request.public_body.info_requests.size > 0 %>
-              <%= _("Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name), :url=>public_body_path(@info_request.public_body)) %>
+            <%= _("Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name), :url=>public_body_path(@info_request.public_body)) %>
           <% else %>
-              <%= _("Browse <a href='{{url}}'>other requests</a> for examples of how to word your request.", :url=>request_list_successful_url) %>
+            <%= _("Browse <a href='{{url}}'>other requests</a> for examples of how to word your request.", :url=>request_list_successful_url) %>
           <% end %>
         </p>
       <% end %>
 
       <% if !@user %>
         <p>
-          <%= raw(_('Everything that you enter on this page, including <strong>your name</strong>,
-          will be <strong>displayed publicly</strong> on
-          this website <a href="{{url}}">forever</a>', :url => (help_privacy_path+"#public_request").html_safe)) %>.
+          <%= raw(_('Everything that you enter on this page, including ' \
+                    '<strong>your name</strong>, will be <strong>displayed ' \
+                    'publicly</strong> on this website ' \
+                    '<a href="{{url}}">forever</a>',
+                    :url => (help_privacy_path+"#public_request").html_safe)) %>.
         </p>
         <p>
           <%= raw(_('<a href="{{url}}">Thinking of using a pseudonym?</a>', :url => (help_privacy_path+"#real_name").html_safe)) %>
         </p>
       <% else %>
         <p>
-          <%= raw(_('Everything that you enter on this page
-          will be <strong>displayed publicly</strong> on
-          this website forever (<a href="{{url}}">why?</a>).', :url => (help_privacy_path+"#public_request").html_safe)) %>
+          <%= raw(_('Everything that you enter on this page will be <strong>' \
+                    'displayed publicly</strong> on this website forever ' \
+                    '(<a href="{{url}}">why?</a>).',
+                    :url => (help_privacy_path+"#public_request").html_safe)) %>
         </p>
       <% end %>
 
       <p>
-        <%= raw(_("<strong> Can I request information about myself?</strong>\n" +
-          "\t\t\t<a href=\"{{url}}\">No!</a>", :url => (help_requesting_path+"#data_protection").html_safe)) %>
+        <%= raw(_("<strong>Can I request information about myself?</strong> " \
+                  "<a href=\"{{url}}\">No!</a>",
+                  :url => (help_requesting_path+"#data_protection").html_safe)) %>
       </p>
+
       <div class="advice-panel">
         <ul>
-
           <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
           <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
           <li><%= _('<a href="{{url}}">Keep it <strong>focused</strong></a>, you\'ll be more likely to get what you want.', :url => (help_requesting_path + '#focused').html_safe) %></li>
         </ul>
       </div>
-
     </div>
 
     <div id="request_form">
-
       <div id="request_header_subject">
         <p>
           <label class="form_label" for="typeahead_search"><%= _('Summary:') %></label>
-            <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
+          <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
         </p>
+
         <div class="form_item_note">
           <%= _("A one line summary of the information you are requesting, \n\t\t\te.g.") %>
           <%= render :partial => "summary_suggestion" %>
@@ -198,35 +209,34 @@
       </div>
 
       <%= fields_for :outgoing_message do |o| %>
-      <p>
+        <p>
           <label class="form_label" for="outgoing_message_body"><%= _('Your request:') %></label>
           <%= o.text_area :body, :rows => 20, :cols => 60 %>
-      </p>
+        </p>
       <% end %>
 
       <div class="form_button">
-          <% if @batch %>
-            <% params[:public_body_ids].each do |public_body_id| %>
-              <%= hidden_field_tag("public_body_ids[]", public_body_id)%>
-            <% end %>
-          <% else %>
-            <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+        <% if @batch %>
+          <% params[:public_body_ids].each do |public_body_id| %>
+            <%= hidden_field_tag("public_body_ids[]", public_body_id)%>
           <% end %>
-          <%= hidden_field_tag(:submitted_new_request, 1 ) %>
-          <%= hidden_field_tag(:preview, 1 ) %>
-          <%= submit_tag _("Preview your public request") %>
+        <% else %>
+          <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+        <% end %>
+        <%= hidden_field_tag(:submitted_new_request, 1 ) %>
+        <%= hidden_field_tag(:preview, 1 ) %>
+        <%= submit_tag _("Preview your public request") %>
       </div>
 
       <% if !@info_request.tag_string.empty? %>
         <p class="form_note">
           <!-- <label class="form_label" for="info_request_tag_string"><%= _("Tags (separated by a space):") %></label>
-          <%= f.text_field :tag_string, :size => 50 %> -->
+            <%= f.text_field :tag_string, :size => 50 %> -->
 
-          <%= f.hidden_field(:tag_string) %>
-          <strong>Tags:</strong> <%=h @info_request.tag_string %>
+            <%= f.hidden_field(:tag_string) %>
+            <strong>Tags:</strong> <%=h @info_request.tag_string %>
         </p>
       <% end %>
-
     </div>
   </div>
 <% end %>

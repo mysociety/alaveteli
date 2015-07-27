@@ -8,15 +8,14 @@
 # Monkeypatch! ./activesupport/lib/active_support/cache/file_store.rb
 
 module ActiveSupport
-    module Cache
-        class FileStore < Store
-            # We don't add the ".cache" file extension, as we want things like
-            # .jpg files made by pdf2html to be picked up and rendered if
-            # present.
-            def real_file_path(name)
-                '%s/%s' % [@cache_path, name.gsub('?', '.').gsub(':', '.')]
-            end
-        end
+  module Cache
+    class FileStore < Store
+      # We don't add the ".cache" file extension, as we want things like
+      # .jpg files made by pdf2html to be picked up and rendered if
+      # present.
+      def real_file_path(name)
+        '%s/%s' % [@cache_path, name.gsub('?', '.').gsub(':', '.')]
+      end
     end
+  end
 end
-

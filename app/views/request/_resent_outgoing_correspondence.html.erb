@@ -2,6 +2,7 @@
   <h2>
     <%= simple_date(info_request_event.created_at) %>
   </h2>
+
   <p class="event_plain">
     Sent
     <% if outgoing_message.message_type == 'initial_request' %>
@@ -12,5 +13,5 @@
       <% raise "unknown message_type" %>
     <% end %>
     to <%= public_body_link(@info_request.public_body) %> again<% if not info_request_event.same_email_as_previous_send? %>, using a new contact address<% end %>.
-   </p>
+  </p>
 </div>

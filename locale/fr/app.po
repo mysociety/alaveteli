@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # Adrien Chauvet <adr.chauvet@gmail.com>, 2013
 # skenaja <alex@alexskene.com>, 2011
 # andreas.pavlou <andreas@access-info.org>, 2013
@@ -37,18 +38,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 16:29+0000\n"
-"PO-Revision-Date: 2015-07-07 09:12+0000\n"
-"Last-Translator: mikaclau@gmail.com <mikaclau@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/p/alaveteli/language/fr/)\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:02+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr "Ceci apparaîtra sur votre profil  {{site_name}}, pour permettre  \\n aux autres de s'impliquer dans ce que vous faites."
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr "(<strong>aucune garantie</strong> politique, lire notre <a href=\"{{url}}\">politique de modération</a>)"
@@ -71,11 +69,6 @@ msgstr "<"
 msgid " << "
 msgstr "<<"
 
-msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
-msgstr ""
-" <strong>A savoir :</strong>\n"
-"    Nous allons vous envoyer un courrier électronique. Suivez les instructions de ce courrier pour changer votre mot de passe."
-
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr " <strong>Note de confidentialité :</strong> Votre adresse e-mail sera communiquée à"
 
@@ -94,14 +87,6 @@ msgstr "Conseils pour rendre la demande <strong>plus claire</strong>."
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Propositions <strong>d'autres informations à demander</strong> que cette administration pourrait détenir."
 
-msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr ""
-" Si vous savez quelle adresse utiliser, merci de <a href=\"{{url}}\">nous la communiquer</a>.\n"
-"        Vous êtes susceptible de trouver l'adresse sur leur site Internet ou en la leur demandant par téléphone."
-
-msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
-msgstr "Intégrez  des liens pertinants comme votre blog , page twitter \\n . Les liens sont cliquables . \\n e.g"
-
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
 msgstr "Lien vers les informations demandées, si elle sont <strong>déjà disponibles</strong> sur Internet."
 
@@ -113,9 +98,6 @@ msgstr " Dites-nous comment vous avez <strong>utilisé ces informations</strong>
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
 msgstr " Suggérez <strong>un autre endroit</strong> où l'utilisateur pourrait trouver ces informations. "
-
-msgid " What are you investigating using Freedom of Information? "
-msgstr "Quelle est votre motivation derrière l'accès aux informations attendues ?"
 
 msgid " You are already being emailed updates about the request."
 msgstr "Un courriel vous a déjà été envoyé au sujet de cette demande."
@@ -233,12 +215,6 @@ msgstr "<p>Vous avez demandé un certain <strong>code postal</strong>. Sauf s'il
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} est actuellement en maintenance. Vous pouvez uniquement afficher les demandes existantes. Vous ne pouvez pas faire de nouveaux, ajouter des suivis ou des annotations, ou par ailleurs changer la base de données .</p> <p>{{read_only}}</p>"
 
-msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
-msgstr "<small> Si vous utiliser le courrier électronique basé sur le Web ou des filtres de  \"courrier indésirable\", vérifiez également vos dossiers de courrier spam . Parfois, nos messages sont marqués de cette façon</small> /n</p>"
-
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No!</a>"
-msgstr "<strong>Puis -je demander des informations sur moi ?</strong>\\n\t\t\t<a href=\"{{url}}\">Non! (cliquer ici pour plus de détails)</a>"
-
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:tony_bowden</code></strong> Pour chercher des commentaires faits par Tony Bowden, écrivez le nom comme dans l'URL"
 
@@ -275,28 +251,36 @@ msgstr "<strong>Autres éléments</strong>, comme clarifier, inciter, et remerci
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Selon la loi, ils doivent repondre</strong> (<a href=\"{{url}}\">pourquoi?</a>)."
 
+msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
+msgstr "<strong>Puis -je demander des informations sur moi ?</strong>\\n\t\t\t<a href=\"{{url}}\">Non! (cliquer ici pour plus de détails)</a>"
+
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Caveat emptor!</strong> Pour utiliser ces données d'une façon honorable, vous devrez \\n avoir une  bonne connaissance interne du comportement de l'utilisateur sur  {{site_name}}. Comment , \\n pourquoi et par qui  les demandes sont categorisées .Vous aurez également besoin de comprendre la loi accès à l'information, et les \\n manières dont les autorités fonctionnet . De plus, vous aurez besoin d'être un statisticien élite . Veuillez \\n<a href=\"{{contact_path}}\">Nous contacter </a> avec vos questions."
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Des précisions</strong> ont été demandées"
 
-msgid "<strong>No response</strong> has been received\\n                <small>(maybe there's just an acknowledgement)</small>"
+msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr "<strong>Aucune réponse</strong> n'a été reçue \\n <small>(peut-être il ya juste une reconnaissance)</small>"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 
-msgid "<strong>Note:</strong> You're sending a message to yourself, presumably\\n            to try out how it works."
-msgstr "<strong>Remarque:</strong> Vous envoyez un message à vous-même, sans doute \\n pour essayer de voir  comment cela fonctionne."
-
-msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
+msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Remarque  :</strong> Nous allons vous envoyer un courrier électronique à avotre nouvelle adresse . Suivez les instructions de ce courrier pour confirmer le changement de votre mail."
 
-msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
+msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
+msgstr ""
+" <strong>A savoir :</strong>\n"
+"    Nous allons vous envoyer un courrier électronique. Suivez les instructions de ce courrier pour changer votre mot de passe."
+
+msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
+msgstr "<strong>Remarque:</strong> Vous envoyez un message à vous-même, sans doute \\n pour essayer de voir  comment cela fonctionne."
+
+msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
 msgstr "<strong>Note de confidentialité :</strong>  votre photo va apparaitre publiquement sur internet ,\\n  a chaque fois que vous changez quelque chose sur  {{site_name}}."
 
-msgid "<strong>Privacy warning:</strong> Your message, and any response\\n        to it, will be displayed publicly on this website."
+msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
 msgstr "<strong>Avertissement de confidentialité:</strong> Votre message, et toute réponse \\n  sera affichée publiquement sur ​​ce site."
 
 msgid "<strong>Some of the information</strong> has been sent "
@@ -371,7 +355,7 @@ msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "Ajouter une annotation &ldquo;{{request_title}}&rdquo;"
 
-msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
+msgid "Add an annotation to your request with choice quotes, or a <strong>summary of the response</strong>."
 msgstr "Ajouter une annotation à votre demande avec des citations de choix, ou \\n  un <strong> résumé de réponse</strong>."
 
 msgid "Add authority - {{public_body_name}}"
@@ -398,7 +382,7 @@ msgstr "Conseils pour une recherche avancée"
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
 msgstr "Conseils <strong>si le refus est légal</strong>, et comment se plaindre si il ne l'est pas."
 
-msgid "Air, water, soil, land, flora and fauna (including how these effect\\n      human beings)"
+msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
 msgstr "Air, l'eau, les sols, la flore et la faune (y compris la manière dont ils influent   \\n les êtres humains)"
 
 msgid "All of the information requested has been received"
@@ -443,7 +427,7 @@ msgstr "Remarques"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Les annotations sont là afin que toute personne, y compris vous, puissiez aider le demandeur avec leur demande. Par exemple:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Les remarques seront postées ici et seront <strong>pas</strong> envoyées  au {{public_body_name}}."
 
 msgid "Anonymous user"
@@ -473,7 +457,7 @@ msgstr "Demande de mettre ajour FOI email"
 msgid "Ask us to update the email address for {{public_body_name}}"
 msgstr "Demande de mise a jour d'adresses email {{public_body_name}}"
 
-msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
+msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in (<a href=\"{{url}}\">more details</a>)."
 msgstr "Au bas de cette page, écrire une réponse à leur essayant de les persuader de le numériser (<a href=\"{{url}}\">plus de détails</a>)."
 
 msgid "Attachment (optional):"
@@ -719,7 +703,7 @@ msgstr "Créée par {{info_request_user}} ce {{date}}."
 msgid "Crop your profile photo"
 msgstr "Recadrer votre photo de profil"
 
-msgid "Cultural sites and built structures (as they may be affected by the\\n      environmental factors listed above)"
+msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Les sites culturels et les batiments (ils peuvent être affectés par \\n les facteurs environnementaux listés ci dessus) "
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
@@ -800,7 +784,7 @@ msgstr "EIR"
 msgid "Edit"
 msgstr "Modifier"
 
-msgid "Edit and add <strong>more details</strong> to the message above,\\n                explaining why you are dissatisfied with their response."
+msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr "Modifier et ajouter <strong> plus de détails </strong> au message ci-dessus, \\n expliquant pourquoi vous n'êtes pas satisfait de leur réponse."
 
 msgid "Edit text about you"
@@ -827,7 +811,7 @@ msgstr "Email:"
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Entrez les mots que vous voulez trouver séparés avec des espaces. ex. : <strong>voie rapide</strong>"
 
-msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
+msgid "Enter your response below. You may attach one file (use email, or <a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr "Entrez votre réponse ci-dessous. Vous pouvez joindre un fichier (utiliser le courrier électronique, ou \\n <a href=\"{{url}}\">contactez nous</a>)."
 
 msgid "Environmental Information Regulations"
@@ -848,11 +832,11 @@ msgstr "Détails de l'historique des événements"
 msgid "Event {{id}}"
 msgstr "Evènement {{id}}"
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n          will be <strong>displayed publicly</strong> on\\n          this website <a href=\"{{url}}\">forever</a>"
-msgstr "Tout ce que vous indiquez dans cette page, y compris <strong>votre nom </strong>,\\n va etre  <strong>public </strong> sur \\n ce site (<a href=\"{{url}}\">pourquoi?</a>)."
-
-msgid "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr "Tout ce que vous ecrivez sur cette page  \\n va etre  <strong>public</strong> sur \\n             ce site  (<a href=\"{{url}}\">pouquoi?</a>)."
+
+msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr "Tout ce que vous indiquez dans cette page, y compris <strong>votre nom </strong>,\\n va etre  <strong>public </strong> sur \\n ce site (<a href=\"{{url}}\">pourquoi?</a>)."
 
 msgid "FOI"
 msgstr "DAI"
@@ -905,7 +889,7 @@ msgstr "Selectionnez les autorités à qui écrire"
 msgid "First, did your other requests succeed?"
 msgstr "Tout d'abord, est-ce que vos autres demandes ont pu aboutir ?"
 
-msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
+msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
 msgstr "Tout d'abord, tapez <strong>le nom de l’autorité publique</strong> auprès du quelle vous désirez l’information."
 
 msgid "Foi attachment"
@@ -1033,7 +1017,7 @@ msgstr "Demande d'accès à l'information envoyée en utilisant ce site web"
 msgid "From"
 msgstr "De"
 
-msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgid "From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr "Sur la page de demande, essayez répondre à un message particulier, plutôt que d'envoyer \\n un  suivi général. Si vous avez besoin de faire un suivi général, et vous  saviez \\ n quel  e-mail  ira à la bonne place, s'il vous plaît <a href=\"{{url}}\">Envoyez le nous </a>."
 
 msgid "From:"
@@ -1087,7 +1071,7 @@ msgstr "Ici e mot <strong> décrit </ strong> signifie quand un utilisateur a s�
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Voici le message que vous avez écrit, au cas où vous souhaiteriez copier le texte et l'enregistrer pour plus tard."
 
-msgid "Hi! We need your help. The person who made the following request\\n    hasn't told us whether or not it was successful. Would you mind taking\\n    a moment to read it and help us keep the place tidy for everyone?\\n    Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Bonjour, Nous avons besoin de votre aide . La personne qui a effectué cette demande \\n ne nous a pas dit si'il a reçu une bonne réponse . Veuillez  prendre quelques minutes pour lire et nous aider a classifier la demande .  \\n Merci"
 
 msgid "Hide request"
@@ -1111,7 +1095,7 @@ msgstr "Page d'accueil"
 msgid "Home page of authority"
 msgstr "Page d'accueil de l'institution"
 
-msgid "However, you have the right to request environmental\\n      information under a different law"
+msgid "However, you have the right to request environmental information under a different law"
 msgstr "Cependant, vous avez le droit de demander des  \\n informations environnementales en vertu d'une loi différente."
 
 msgid "Human health and safety"
@@ -1177,7 +1161,7 @@ msgstr "Si l'erreur a été un échec de livraison, et vous pouvez trouver une m
 msgid "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."
 msgstr "Si c'est incorrect, ou si vous souhaitez envoyer une réponse tardive à la demande \\n ou un e-mail sur un autre sujet pour{{user}},   alors s'il vous plait  contacter nous {{contact_email}} ."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
+msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Si vous n'etes pad satisfait de la réponse faite par l'organisme public , vous avez le droit de porter plainte  (<a href=\"{{url}}\">details</a>)."
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
@@ -1198,7 +1182,7 @@ msgstr "Si vous pensez que cette demande n'est pas appropriée, vous pouvez la s
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy\\nit</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\\nyou would type the address of any other webpage."
 msgstr "Si vous ne pouvez pas cliquer dans le mail , vous devrier <strong> selectionner et copier \\n<strong> a partir du mail . Apres , <strong> coller dans votre navigateur</strong> dans la barre d'adresse ."
 
-msgid "If you can, scan in or photograph the response, and <strong>send us\\n                    a copy to upload</strong>."
+msgid "If you can, scan in or photograph the response, and <strong>send us a copy to upload</strong>."
 msgstr "Si vous pouvez , scannez ou photographiez une réponse , et <strong>  envoyez nous une copie pour l'uploader </strong>"
 
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
@@ -1210,10 +1194,15 @@ msgstr "Si vous avez reçu un email <strong> il ya plus de 6 mois </strong> , al
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Si vous ne l'avez pas déjà fait, veuillez écrire un message à l'administration indiquant que vous avez retiré votre demande. Sinon, ils ne sauront pas qu'elle a été retirée."
 
+msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
+msgstr ""
+" Si vous savez quelle adresse utiliser, merci de <a href=\"{{url}}\">nous la communiquer</a>.\n"
+"        Vous êtes susceptible de trouver l'adresse sur leur site Internet ou en la leur demandant par téléphone."
+
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Si vous répondez a ce message ça ira directement à {{user_name}}, qui va \\n connaitre votre adresse mail  Ne répondez que si cela ne vous dérange pas "
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Si vous utilisez gmail , yahoo , live ou vous avez un dossier 'courrier indésirable'  . Parfois nos mails sont marqués comme spam"
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -1233,6 +1222,9 @@ msgstr "Si vous avez utilisé {{site_name}} avant"
 
 msgid "If your browser is set to accept cookies and you are seeing this message,\\nthen there is probably a fault with our server."
 msgstr "Si votre navigateur accepte les coockies et ce message affiché , \\n l'erreur est probablement liée a notre serveur"
+
+msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
+msgstr "Intégrez  des liens pertinants comme votre blog , page twitter \\n . Les liens sont cliquables . \\n e.g"
 
 msgid "Incoming email address"
 msgstr "Adresse du courrier entrant"
@@ -1351,7 +1343,7 @@ msgstr "InfoRequest|Url title"
 msgid "Information not held."
 msgstr "Information non détenue."
 
-msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
+msgid "Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)"
 msgstr "Informations sur les émissions et rejets (par exemple, le bruit, l'énergie, \\ n radiations, déchets)"
 
 msgid "Internal review"
@@ -1402,7 +1394,7 @@ msgstr "Dernière autorité publique consultée :"
 msgid "Last request viewed: "
 msgstr "Dernière demande consultée :"
 
-msgid "Let us know what you were doing when this message\\nappeared and your browser and operating system type and version."
+msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Dites-nous ce que vous faisiez lorsque ce message est apparu ainsi que votre navigateur et le type et la version de votre système d'exploitation."
 
 msgid "Link to this"
@@ -1770,7 +1762,7 @@ msgid_plural "Please <strong>answer the question above</strong> so we know wheth
 msgstr[0] "Veuillez <strong>répondre à la question ci-dessus<strong>, pour nous faciliter à savoir si la réponse récent contiennent des informations utiles."
 msgstr[1] "Veuillez <strong>répondre à la question ci-dessus</strong>, pour nous faciliter à savoir si les réponses récentes contiennent des informations utiles."
 
-msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
+msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "Veuillez <strong> aller aux demandes suivantes </strong> et dites \\n nous si les réponses contiennent l'information demandée."
 
 msgid "Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href=\"{{new_request_link}}\">file a new request</a>."
@@ -1809,7 +1801,7 @@ msgstr "Veuillez vous connecter ou créer un compte."
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
 msgstr "Merci de décrire plus amplement le sujet de votre demande. Il n'est pas nécessaire d'indiquer qu'il s'agit d'une demande d'accès aux documents administratifs, nous le précisons par défaut."
 
-msgid "Please don't upload offensive pictures. We will take down images\\n    that we consider inappropriate."
+msgid "Please don't upload offensive pictures. We will take down images that we consider inappropriate."
 msgstr "Veuillez ne pas uploader des images agressives . nous allons supprimer les images qui nous semblent  inappropriées."
 
 msgid "Please enable \"cookies\" to carry on"
@@ -1872,13 +1864,13 @@ msgstr "Merci de vous limiter à moins de 500 caractères "
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "S'il vous plait, soyez bref dans le résumé comme dans le titre d'un email. Utilisez une phrase plutôt qu'un paragraphe."
 
-msgid "Please only request information that comes under those categories, <strong>do not waste your\\n      time</strong> or the time of the public authority by requesting unrelated information."
+msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Veuillez uniquement demander les informations qui appartiennent à ces catégories <strong> ne  perdez pas votre temps </strong> ou celui de l'administration publique a  demander des informations sans rapport avec  ces catégories ."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Merci de bien vouloir transférer cette demande à la personne en charge de l'accès à ces informations publiques."
 
-msgid "Please select each of these requests in turn, and <strong>let everyone know</strong>\\nif they are successful yet or not."
+msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr "Veuillez choisir ces demandes une par une et <strong> laisser tout le monde savoir </strong> si elles ont abouti ou pas ."
 
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
@@ -2396,6 +2388,9 @@ msgstr "Se connecter ou créer un nouveau  compte"
 msgid "Sign in or sign up"
 msgstr "Se connecter ou s'inscrire"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Se déconnecter"
 
@@ -2414,7 +2409,7 @@ msgstr "Quelques commentaires ont été ajoutés à vôtre demande -"
 msgid "Some of the information requested has been received"
 msgstr "Quelques informations demandées ont été reçues"
 
-msgid "Some people who've made requests haven't let us know whether they were\\nsuccessful or not.  We need <strong>your</strong> help &ndash;\\nchoose one of these requests, read it, and let everyone know whether or not the\\ninformation has been provided. Everyone'll be exceedingly grateful."
+msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Quelques uns parmis ceux qui ont fait les demandes ne nous ont pas fourni un retour \\n . Nous avons besoin de <strong> votre </strong> aide  &ndash;\\n choisissez une de ces demandes , lisez la et  faites nous savoir si l'information demandée est fournie ou pas . Tout le monde sera extrêmement reconnaissant."
 
 msgid "Somebody added a note to your FOI request - "
@@ -2540,7 +2535,7 @@ msgstr "Merci pour la mise à jour de votre photo de profil"
 msgid "Thank you! We'll look into what happened and try and fix it up."
 msgstr "Merci! Nous allons examiner ce qui s'est passé et essayer de le corriger."
 
-msgid "Thanks for helping - your work will make it easier for everyone to find successful\\nresponses, and maybe even let us make league tables..."
+msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr "Merci de nous aider - avec votre travail il  sera plus facile pour tout le monde de trouver avec succès \\ n  des réponses."
 
 msgid "Thanks for your suggestion to add {{public_body_name}}. It's been added to the site here:"
@@ -2549,10 +2544,10 @@ msgstr "Merci de votre suggestion d'ajouter {{public_body_name}}. On l'a ajouté
 msgid "Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address."
 msgstr "Merci de votre suggestion de mettre à jour l'adresse e-mail de {{public_body_name}} à {{public_body_email}}. Ceci a été déjà fait et toutes nouvelles demandes seront envoyées au nouvel adresse."
 
-msgid "Thanks very much - this will help others find useful stuff. We'll\\n            also, if you need it, give advice on what to do next about your\\n            requests."
+msgid "Thanks very much - this will help others find useful stuff. We'll also, if you need it, give advice on what to do next about your requests."
 msgstr "Merci beaucoup - cela aidera les autres à trouver des choses utiles. Nous allons \\n aussi, si vous en avez besoin, donner des conseils sur ce qu'il faut faire au sujet de vos \\n demandes."
 
-msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>.\\n    We'll also, if you need it, give you advice on what to do next about each of your\\n    requests."
+msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>. We'll also, if you need it, give you advice on what to do next about each of your requests."
 msgstr "Merci beaucoup - cela aidera les autres à trouver des choses utiles. Nous allons \\ n aussi, si vous en avez besoin, donner des conseils sur ce qu'il faut faire au sujet de votre \\ n demandes."
 
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
@@ -2570,7 +2565,7 @@ msgstr "L'URL où vous avez trouvé l'adresse e-mail. Ce champ est optionel, mai
 msgid "The accounts have been left as they previously were."
 msgstr "Les comptes ont été laissés tels qu'ils étaient auparavant. "
 
-msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
+msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "L'autorité <strong>ne détient pas </strong> les informations <small>(peut-être qu'ils indiquent qui les a )</small>"
 
 msgid "The authority email doesn't look like a valid address"
@@ -2579,7 +2574,7 @@ msgstr "L'e-mail de l'autorité ne ressemble pas à une adresse valide"
 msgid "The authority only has a <strong>paper copy</strong> of the information."
 msgstr "L'autorité a uniquement <strong>la version en papier </strong> de cette information."
 
-msgid "The authority say that they <strong>need a postal\\n            address</strong>, not just an email, for it to be a valid FOI request"
+msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
 msgstr "l'etablissement public  dit qu'ils ont besoin d'une <strong> adresse postale </ strong>, et pas seulement un email, pour que ce soit une demande valide"
 
 msgid "The authority would like to / has <strong>responded by post</strong> to this request."
@@ -2651,16 +2646,19 @@ msgstr "La demande est <strong>réussie</strong>."
 msgid "The request was refused by the public authority"
 msgstr "La demande a été rejetée par l'autorité publique"
 
-msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr "La demande que vous avez essayé de voir a été retiré. Il ya \\n plusieurs raisons pour lesquelles nous aurions fait cela, désolé nous ne pouvons pas être plus précis ici . Veuillez  <a\\n href=\"{{url}}\">nous contacter </a>si vous avez des questions."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Le demandeur a renoncé à cette demande pour une raison quelconque"
 
-msgid "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "La réponse a votre demande a été <strong> retardée </strong> . Vous pouvez dire que \\n légalement ; l'organisme public aurait dû répondre \\n <strong>rapidement</strong> et "
 
-msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the authority should have responded\\n            by now"
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
+
+msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "La réponse a votre demande est  <strong>très en retard </strong>. Vous pouvez dire que selon la loi , en toutes circonstances, l'autorité aurait dû répondre \\n maintenant "
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
@@ -2750,7 +2748,7 @@ msgstr "Ensuite votre remarque sur {{info_request_title}} sera publiée. "
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "Il y a {{count}} de nouvelles remarques sur votre demande {{info_request}} .  Suivez ce lien pour les lires."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr "Il ya plus <strong> d'une personne </strong> qui utilise ce site et qui a ce nom \\n  , dont un est affiché ci dessous , peut etre vous cherchez une personne différente ."
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -2806,7 +2804,7 @@ msgstr "Choses que vous suivez"
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Cette institution n'existe plus, vous ne pouvez donc pas lui envoyer une demande."
 
-msgid "This covers a very wide spectrum of information about the state of\\n      the <strong>natural and built environment</strong>, such as:"
+msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
 msgstr "Cela couvre un très large spectre d'informations sur l'état de <strong>l'environnement naturel et construit par l'homme,</strong> comme par exemple :"
 
 msgid "This external request has been hidden"
@@ -2891,7 +2889,7 @@ msgstr "Cette demande a été  <strong>cachée</strong> du site parce qu'un admi
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Cette demande a été <strong>signalée</strong>  (peut-être parce qu'elle est vexatoire, ou une demande de renseignements personnels)"
 
-msgid "This request has been <strong>withdrawn</strong> by the person who made it.\\n               There may be an explanation in the correspondence below."
+msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Cette demande a été <strong> retirée </strong> par la personne qui l'a fait . \\n Il ya peut etre une explication ci dessous ."
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
@@ -2906,10 +2904,10 @@ msgstr "Cette demande a été catégorisée par un administrateur de sorte à \"
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Cette demande a eu une réponse inhabituelle, et <strong>nécessite l'attention</strong> de l'équipe {{site_name}}."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged\\n    in as a super user."
+msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
 msgstr "Cette demande est cachée . Vous pouvez uniquement la voir parce que vous etes administrateur ."
 
-msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Cette demande est masquée, uniquement le demandeur peut la  voir.Veuillez  <a href=\"{{url}}\">Nous contacter </a> si vous voulez en savoir plus "
 
 msgid "This request is still in progress:"
@@ -2929,6 +2927,9 @@ msgstr "Cet utilisateur a été banni de {{site_name}}"
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Ceci n'est pas possible parce qu'il existe deja un compte utilisant l'adresse mail  {{email}}."
+
+msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
+msgstr "Ceci apparaîtra sur votre profil  {{site_name}}, pour permettre  \\n aux autres de s'impliquer dans ce que vous faites."
 
 msgid "To"
 msgstr "A"
@@ -3245,10 +3246,10 @@ msgstr "Nous n'avons pas d'adresse email valide pour cette autorité."
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nous ne disposons pas d'adresse  {{law_used_full}}  pour {{public_body_name}}."
 
-msgid "We don't know whether the most recent response to this request contains\\n    information or not\\n        &ndash;\\n\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
+msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Nous ne savons pas si la réponse la plus récente à cette demande contient l'information \\n ou non \\n   &ndash;\\n\tsi vous etes  {{user_link}} veuillez <a href=\"{{url}}\">vous connecter</a> et laisser nous savoir."
 
-msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr "Nous ne communiquerons pas votre adresse e-mail sauf si vous nous y  autorisez ou si la loi nous y oblige (<a href=\"{{url}}\">détails</a>). "
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
@@ -3267,7 +3268,7 @@ msgid_plural "We're waiting for {{user}} to read recent responses and update the
 msgstr[0] "Nous attendons {{user}} de lire la réponse récent et mettre à jour le statut."
 msgstr[1] "Nous attendons {{user}} de lire les réponses récentes et mettre à jour le statut."
 
-msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
+msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr "Nous avons envoyé un email à votre nouvelle adresse email. Vous devez cliquer sur le lien là dedans  \\n avant que votre adresse e-mail sera changé."
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can\\ncontinue."
@@ -3278,6 +3279,9 @@ msgstr "Nous vous avons envoyé un email , cliquez sur le lien  qu'il contient p
 
 msgid "What are you doing?"
 msgstr "Qu'est ce que vous faites?"
+
+msgid "What are you investigating using Freedom of Information?"
+msgstr "Quelle est votre motivation derrière l'accès aux informations attendues ?"
 
 msgid "What best describes the status of this request now?"
 msgstr "Quelle est la meilleure description de l'état de votre demande ?"
@@ -3294,7 +3298,7 @@ msgstr "C’est quoi la suite?"
 msgid "When you get there, please update the status to say if the response \\ncontains any useful information."
 msgstr "Quand vous y arrivez, veuillez mettre à jour le statut et  dire si la réponse \\n contient une information utile."
 
-msgid "When you receive the paper response, please help\\n            others find out what it says:"
+msgid "When you receive the paper response, please help others find out what it says:"
 msgstr "Lorsque vous recevez la réponse sur papier, s'il vous plaît aidez \\n les  autres à  découvrir ce qu'elle contient:"
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
@@ -3417,9 +3421,6 @@ msgstr "Maintenant vous <a href=\"{{wall_url_user}}\">êtes en train de suivre d
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Maintenant vous <a href=\"{{wall_url_user}}\">êtes en train de suivre des</a>mise à jours sur <a href=\"{{successful_requests_url}}\">demandes réussies</a>."
 
-msgid "You are tracking this request"
-msgstr "Vous suivez cette demande"
-
 msgid "You can <strong>complain</strong> by"
 msgstr "Vous pouvez  <strong>vous plaindre</strong> en "
 
@@ -3456,14 +3457,14 @@ msgstr "Vous avez  essayé de vous inscrire sur  {{site_name}}, alors que  vous 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Vous savez ce qui a causé l'erreur et pouvez <strong>recommender une solution </strong> , une adresse mail valide par exemple."
 
-msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
+msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Vous pouvez <strong> inclure des pièces jointes </ strong>. Si vous souhaitez joindre un fichier \\n trop volumineux  pour le courrier électronique, utiliser le formulaire ci-dessous."
+
+msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please <a href=\"{{url}}\">send it to us</a>."
+msgstr "Vous pourrez peut-être trouver \\n un sur leur site Web ou en leur téléphonant et demander. Si vous parvenez \\n en trouver un, alors s'il vous plaît <a href=\"{{url}}\">contactez nous </a>."
 
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
 msgstr "Vous pourriez en trouver un sur leur site internet, ou en appelant et leur demander. Si vous en trouvez un, veuillez nous l'envoyer:"
-
-msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
-msgstr "Vous pourrez peut-être trouver \\n un sur leur site Web ou en leur téléphonant et demander. Si vous parvenez \\n en trouver un, alors s'il vous plaît <a href=\"{{url}}\">contactez nous </a>."
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr "Vous pourrez peut-être trouver \\n un sur leur site Web ou en leur téléphonant et demander. Si vous parvenez \\n en trouver un, alors s'il vous plaît  <a href=\"{{help_url}}\">contactez nous </a>."
@@ -3486,7 +3487,7 @@ msgstr "Vous devez être connecté pour déposer une demande à l'attention de l
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Vous avez  dejà utilisé le même commentaire pour cette demande ."
 
-msgid "You should have received a copy of the request by email, and you can respond\\n  by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
+msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr "Vous devriez avoir reçu une copie de la demande par e-mail, et vous pouvez répondre  \\n  en  <strong> répondant simplement </ strong> à cet email. Pour plus de facilité voici l'adresse:"
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
@@ -3534,7 +3535,7 @@ msgstr "Vous ne suivez rien ."
 msgid "You've now cleared your profile photo"
 msgstr "Vous avez supprimé votre photo de profil"
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
+msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "Votre <strong>nom va apparaître publiquement</strong>\\n        (<a href=\"{{why_url}}\">pourqoi?</a>)\\n       dans ce site et les moteurs de recherche . Si vous \\n      vous pensez à utiliser un pseudo veuillez \\n        <a href=\"{{help_url}}\">Lire ça </a>."
 
 msgid "Your annotations"
@@ -3579,7 +3580,7 @@ msgstr "Votre message va apparaitre dans les <strong>Moteurs de recherche</stron
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Votre nom et remarque vont apparaitre dans <strong>les moteurs de recherche</strong>."
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n                        (<a href=\"{{url}}\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr "Votre nom , demande et toute réponse vont  apparaître dans les <strong>moteurs de recherche </strong>\\n (<a href=\"{{url}}\">details</a>)."
 
 msgid "Your name:"
@@ -3594,7 +3595,7 @@ msgstr "Votre mot de passe a été changé"
 msgid "Your password:"
 msgstr "Votre mot de passe :"
 
-msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Votre photo va apparaitre publiquement <strong> sur internet </strong> ,\\n a chaque fois que vous changez quelque chose sur {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
@@ -3729,16 +3730,13 @@ msgstr "Mais suivable"
 msgid "by"
 msgstr "par"
 
-msgid "by <strong>{{date}}</strong>"
-msgstr "par <strong>{{date}}</strong>"
-
 msgid "by {{user_link_absolute}}"
 msgstr "par {{user_link_absolute}}"
 
 msgid "comments"
 msgstr "commentaires"
 
-msgid "containing your postal address, and asking them to reply to this request.\\n            Or you could phone them."
+msgid "containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr "contenant votre adresse postale, et en leur demandant de répondre à cette demande. \\n Ou vous pouvez leur téléphoner."
 
 msgid "details"
@@ -3935,7 +3933,7 @@ msgid_plural "{{count}} requests made."
 msgstr[0] "{{count}} demande réalisée."
 msgstr[1] "{{count}} demandes réalisées."
 
-msgid "{{existing_request_user}} already\\n            created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n            or edit the details below to make a new but similar request."
+msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}}  a dejà effectué la même demande le {{date}}. Vous pouvez soit voir la <a href=\"{{existing_request}}\">demande existante </a>,\\n ou modifier les details ci dessous pour faire une nouvelle demande similaire ."
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
@@ -3962,7 +3960,7 @@ msgstr "{{public_body_link}} a répondu à une demande sur"
 msgid "{{public_body_link}} was sent a request about"
 msgstr "{{public_body_link}}  a reçu une demande sur "
 
-msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr "{{public_body_name}} n’existe plus. De la page de demande, essayez de répondre à un message particulier, plutôt que de faire suivi général. Si vous avez besoin de faire un suivi général, et connaissez l’email qui ira à la bonne place, veuillez <a href=\"{{url}}\"> nous l'envoyer </a>."
 
 msgid "{{public_body_name}} only:"

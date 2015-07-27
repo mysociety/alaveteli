@@ -1,14 +1,14 @@
 <td>
-  <%= form_for(@holiday, :url => admin_holiday_path(@holiday), :html => { :class => 'form-inline edit-holiday-form'}) do |f| -%>
-    <%= render :partial => 'form', :locals => { :f => f, :holiday => @holiday, :context => :edit } %>
-  <% end %>
+<%= form_for(@holiday, :url => admin_holiday_path(@holiday), :html => { :class => 'form-inline edit-holiday-form'}) do |f| -%>
+  <%= render :partial => 'form', :locals => { :f => f, :holiday => @holiday, :context => :edit } %>
+<% end %>
 
-  <div class="holiday-destroy ">
-    <%= form_for @holiday, :url => admin_holiday_path(@holiday), :method => 'delete', :html => { :class => "form form-inline delete-holiday-form" } do |f| %>
-      <%= f.submit "Destroy",
-                   :class => "btn btn-danger",
-                   :confirm => 'Are you sure you want to destroy this public holiday?' %>
-    <% end %>
-  </div>
+<div class="holiday-destroy ">
+  <%= form_for @holiday, :url => admin_holiday_path(@holiday), :method => 'delete', :html => { :class => "form form-inline delete-holiday-form" } do |f| %>
+    <%= f.submit "Destroy",
+      :class => "btn btn-danger",
+      :confirm => 'Are you sure you want to destroy this public holiday?' %>
+  <% end %>
+</div>
 
 </td>

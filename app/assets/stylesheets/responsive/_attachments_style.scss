@@ -2,17 +2,17 @@
 
 #view-html-content {
 
-   td,th {
-     border:solid 1px #000;
-   }
+  td,th {
+    border:solid 1px #000;
+  }
 
-   tr:nth-child(odd) {
-     background-color:#bbb;
-   }
+  tr:nth-child(odd) {
+    background-color:#bbb;
+  }
 
-   tr:nth-child(even) {
-     background-color:#ddd;
-   }
+  tr:nth-child(even) {
+    background-color:#ddd;
+  }
 }
 
 .view_html_prefix {

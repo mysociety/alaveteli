@@ -2,8 +2,8 @@
 class CreateInfoRequests < ActiveRecord::Migration
   def self.up
     create_table :info_requests do |t|
-        t.column :title,   :text
-        t.column :user_id, :integer
+      t.column :title,   :text
+      t.column :user_id, :integer
     end
   end
 

@@ -1,32 +1,32 @@
 <%- if @page > 1 %>
   <%- @title = _("Requests similar to '{{request_title}}' (page {{page}})", {:page => @page, :request_title => @info_request.title}) %>
 <%- else %>
-<%- @title = _("Requests similar to '{{request_title}}'", {:request_title => @info_request.title}) %>
+  <%- @title = _("Requests similar to '{{request_title}}'", {:request_title => @info_request.title}) %>
 <%- end %>
 
 <h1>
   <%- if @page > 1 %>
     <%= _("Requests similar to '{{request_title}}' (page {{page}})", {:page => @page, :request_title => request_link(@info_request)}) %>
   <%- else %>
-  <%= _("Requests similar to '{{request_title}}'", {:request_title => request_link(@info_request)}) %>
+    <%= _("Requests similar to '{{request_title}}'", {:request_title => request_link(@info_request)}) %>
   <%- end %>
 </h1>
 
 <% if @xapian_object.results.empty? %>
     <p><%= _('No similar requests found.')%></p>
 <% else %>
-    <!--
-    <p class="subtitle">
-        <%= @xapian_object.matches_estimated %> in total
-    </p>
-    -->
-    <% for result in @xapian_object.results %>
-        <% if result[:model].class.to_s == 'InfoRequestEvent' %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
-        <% else %>
-            <p><strong><%= _('Unexpected search result type ')%><%=result[:model].class.to_s%></strong></p>
-        <% end %>
+  <!--
+  <p class="subtitle">
+    <%= @xapian_object.matches_estimated %> in total
+  </p>
+  -->
+  <% for result in @xapian_object.results %>
+    <% if result[:model].class.to_s == 'InfoRequestEvent' %>
+      <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+    <% else %>
+      <p><strong><%= _('Unexpected search result type ')%><%= result[:model].class.to_s %></strong></p>
     <% end %>
+  <% end %>
 <% end %>
 
 <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @show_no_more_than) %>

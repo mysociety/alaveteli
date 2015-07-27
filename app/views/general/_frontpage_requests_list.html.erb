@@ -7,31 +7,35 @@
       <%= _("What information has been requested?") %>
     <% end %>
   </h3>
-   <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
-    :site_name => site_name,
-    :number_of_requests => number_with_delimiter(InfoRequest.visible.count)) %>
-    <ul>
-      <% @request_events.each do |event| %>
-        <li>
-          <% if @request_events_all_successful %>
-            <%= _("{{public_body_link}} answered a request about",
-                :public_body_link => public_body_link(event.info_request.public_body)) %>
-          <% else %>
-            <%= _("{{public_body_link}} was sent a request about",
-                :public_body_link => public_body_link(event.info_request.public_body)) %>
-          <% end %>
+  <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
+        :site_name => site_name,
+        :number_of_requests => number_with_delimiter(InfoRequest.visible.count)) %>
 
-           <%=link_to h(event.info_request.title), request_path(event.info_request)%>
-           <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
-           <p class="excerpt" onclick="document.location.href='<%=request_path(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", :radius => 200) %></p>
-        </li>
-      <% end %>
-    </ul>
-    <p><strong>
+  <ul>
+    <% @request_events.each do |event| %>
+      <li>
+        <% if @request_events_all_successful %>
+          <%= _("{{public_body_link}} answered a request about",
+                :public_body_link => public_body_link(event.info_request.public_body)) %>
+        <% else %>
+          <%= _("{{public_body_link}} was sent a request about",
+                :public_body_link => public_body_link(event.info_request.public_body)) %>
+        <% end %>
+
+        <%=link_to h(event.info_request.title), request_path(event.info_request)%>
+        <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
+        <p class="excerpt" onclick="document.location.href='<%=request_path(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", :radius => 200) %></p>
+      </li>
+    <% end %>
+  </ul>
+
+  <p>
+    <strong>
       <% if @request_events_all_successful %>
-        <%=link_to _('More successful requests...'), request_list_successful_path %>
+        <%= link_to _('More successful requests...'), request_list_successful_path %>
       <% else %>
-        <%=link_to _('More requests...'), request_list_all_path %>
+        <%= link_to _('More requests...'), request_list_all_path %>
       <% end %>
-    </strong></p>
+    </strong>
+  </p>
 </div>

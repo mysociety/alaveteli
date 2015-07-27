@@ -1,10 +1,10 @@
 <% if @category.errors.any? %>
   <ul>
-  <% @category.errors.each do |attr, message| %>
-    <% unless attr.to_s.starts_with?('translation') %>
-    <li><%= message %></li>
+    <% @category.errors.each do |attr, message| %>
+      <% unless attr.to_s.starts_with?('translation') %>
+        <li><%= message %></li>
+      <% end %>
     <% end %>
-  <% end %>
   </ul>
 <% end %>
 
@@ -12,9 +12,9 @@
   <% if translation.errors.any? %>
     <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
     <ul>
-    <% translation.errors.each do |attr, message| %>
-      <li><%= message %></li>
-    <% end %>
+      <% translation.errors.each do |attr, message| %>
+        <li><%= message %></li>
+      <% end %>
     </ul>
   <% end %>
 <% end %>
@@ -50,27 +50,27 @@
 <h3>Common Fields</h3>
 
 <div class="control-group">
-    <label for="public_body_category_category_tag" class="control-label">Category tag</label>
-    <div class="controls">
-        <% if PublicBody.find_by_tag(@category.category_tag).count == 0 or
-               @category.errors.messages.keys.include?(:category_tag) %>
-            <%= f.text_field :category_tag, :class => "span4" %>
-        <% else %>
-            <%= f.text_field :category_tag, :class => "span4", :disabled => true %>
-            <span class="help-block">
-                This Category already has authorities assigned to it so the tags
-                cannot be modified.
-            </span>
-        <% end %>
+  <label for="public_body_category_category_tag" class="control-label">Category tag</label>
+  <div class="controls">
+    <% if PublicBody.find_by_tag(@category.category_tag).count == 0 or
+         @category.errors.messages.keys.include?(:category_tag) %>
+       <%= f.text_field :category_tag, :class => "span4" %>
+     <% else %>
+       <%= f.text_field :category_tag, :class => "span4", :disabled => true %>
+       <span class="help-block">
+         This Category already has authorities assigned to it so the tags
+         cannot be modified.
+       </span>
+     <% end %>
   </div>
 </div>
 
 <h3>Headings</h3>
 <div class="control-group">
-    <% PublicBodyHeading.all.each do |heading| %>
-        <div class="span3">
-            &nbsp;<%= check_box_tag "headings[heading_#{heading.id}]", heading.id, heading_is_selected?(heading) %> <label for="headings_heading_<%= heading.id %>" class="control-label"><%= heading.name %></label>
-        </div>
-    <% end %>
+  <% PublicBodyHeading.all.each do |heading| %>
+    <div class="span3">
+      &nbsp;<%= check_box_tag "headings[heading_#{heading.id}]", heading.id, heading_is_selected?(heading) %> <label for="headings_heading_<%= heading.id %>" class="control-label"><%= heading.name %></label>
+    </div>
+  <% end %>
 </div>
 <!--[eoform:public_body_category]-->

@@ -99,7 +99,7 @@ msgid " Suggest <strong>where else</strong> the requester might find the informa
 msgstr ""
 
 #: app/views/user/set_profile_about_me.rhtml:11
-msgid " What are you investigating using Freedom of Information? "
+msgid "What are you investigating using Freedom of Information?"
 msgstr ""
 
 #: app/controllers/comment_controller.rb:75
@@ -2670,7 +2670,7 @@ msgid "The request was refused by the public authority"
 msgstr ""
 
 #: app/views/request/hidden.rhtml:9
-msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
 
 #: app/views/general/_advanced_search_tips.rhtml:36
@@ -3814,10 +3814,6 @@ msgstr ""
 
 #: app/views/request/show.rhtml:82
 msgid "by"
-msgstr ""
-
-#: app/views/request/_followup.rhtml:65
-msgid "by <strong>{{date}}</strong>"
 msgstr ""
 
 #: app/views/request/_request_listing_via_event.rhtml:26

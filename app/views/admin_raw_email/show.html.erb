@@ -1,58 +1,58 @@
 <%= render :partial => 'admin_incoming_message/intro', :locals => { :incoming_message => @raw_email.incoming_message } %>
 
-    <% if @holding_pen %>
-        <br>This is in the holding pen because: <strong><%= @rejected_reason %></strong>
-        <% if @public_bodies.size > 0 %>
-            <br>Guessed authority:
-            <% @public_bodies.each do |public_body| %>
-                <%=public_body_both_links(public_body)%>
-            <% end %>
-            (based on From: email domain)
-        <% end %>
-        <% if @info_requests.size > 0 %>
-            <div class="accordion" id="guessed-requests">
-                Guessed request:
-                <% @info_requests.each do |info_request|  %>
-                    <div class="accordion-group">
-                        <div class="accordion-heading">
-                            <a href="#info_request_<%= info_request.id %>" data-toggle="collapse"><i class="icon-chevron-right"></i></a>
-                            <%=request_both_links(info_request)%>
-                        </div>
-                        <div class="accordion-body collapse" id="info_request_<%= info_request.id %>">
-                            <table class="table table-striped table-condensed">
-                                <tr>
-                                    <td><strong>Last outgoing message:</strong></td>
-                                    <td><%= info_request.outgoing_messages.last.body %></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Created by:</strong></td>
-                                    <td><%= user_admin_link_for_request(info_request) %></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Authority:</strong></td>
-                                    <td>
-                                        <%= link_to(info_request.public_body.name, admin_body_path(info_request.public_body)) %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>url_title:</strong></td>
-                                    <td><%= info_request.url_title %></td>
-                                </tr>
-                            </table>
-                            <p>
-                                This request was guessed because it has an incoming email address of <strong><%= info_request.incoming_email %></strong> and this incoming message was sent to <strong><%= @raw_email.incoming_message.mail.to %></strong>.
-                            </p>
-                        </div>
-                    </div>
-                <% end %>
-                (based on id, not hash, in To/Cc email)
-            </div>
-        <% end %>
+<% if @holding_pen %>
+  <br>This is in the holding pen because: <strong><%= @rejected_reason %></strong>
+  <% if @public_bodies.size > 0 %>
+    <br>Guessed authority:
+    <% @public_bodies.each do |public_body| %>
+      <%=public_body_both_links(public_body)%>
     <% end %>
+    (based on From: email domain)
+  <% end %>
+  <% if @info_requests.size > 0 %>
+    <div class="accordion" id="guessed-requests">
+      Guessed request:
+      <% @info_requests.each do |info_request|  %>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a href="#info_request_<%= info_request.id %>" data-toggle="collapse"><i class="icon-chevron-right"></i></a>
+            <%=request_both_links(info_request)%>
+          </div>
+          <div class="accordion-body collapse" id="info_request_<%= info_request.id %>">
+            <table class="table table-striped table-condensed">
+              <tr>
+                <td><strong>Last outgoing message:</strong></td>
+                <td><%= info_request.outgoing_messages.last.body %></td>
+              </tr>
+              <tr>
+                <td><strong>Created by:</strong></td>
+                <td><%= user_admin_link_for_request(info_request) %></td>
+              </tr>
+              <tr>
+                <td><strong>Authority:</strong></td>
+                <td>
+                  <%= link_to(info_request.public_body.name, admin_body_path(info_request.public_body)) %>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>url_title:</strong></td>
+                <td><%= info_request.url_title %></td>
+              </tr>
+            </table>
+            <p>
+              This request was guessed because it has an incoming email address of <strong><%= info_request.incoming_email %></strong> and this incoming message was sent to <strong><%= @raw_email.incoming_message.mail.to %></strong>.
+            </p>
+          </div>
+        </div>
+      <% end %>
+      (based on id, not hash, in To/Cc email)
+    </div>
+  <% end %>
+<% end %>
 </p>
 
 <div>
-    <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => @raw_email.incoming_message } %>
+  <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => @raw_email.incoming_message } %>
 </div>
 
 <h2>Raw email</h2>

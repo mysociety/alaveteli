@@ -5,18 +5,18 @@
   <div class="span8">
     <div id="public_body_form">
       <%= form_for @public_body, :as => :public_body, :url => admin_bodies_path, :html => {:class => "form form-horizontal"} do |f| %>
-          <%= render :partial => 'form', :locals => {:f => f} %>
+        <%= render :partial => 'form', :locals => {:f => f} %>
 
 
-          <div class="form-actions">
-            <%= f.submit "Create", :class => "btn btn-primary"  %>
-          </div>
-        <% end %>
-        <div class="row">
-          <div class="span8 well">
-              <%= link_to 'List all', admin_bodies_path, :class => "btn" %>
-          </div>
+        <div class="form-actions">
+          <%= f.submit "Create", :class => "btn btn-primary"  %>
         </div>
+      <% end %>
+      <div class="row">
+        <div class="span8 well">
+          <%= link_to 'List all', admin_bodies_path, :class => "btn" %>
+        </div>
+      </div>
     </div>
   </div>
   <div class="span4">

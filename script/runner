@@ -6,35 +6,35 @@ script_dir = File.dirname(__FILE__)
 alaveteli_dir = File.expand_path(File.join(script_dir, ".."))
 
 Dir.chdir(alaveteli_dir) do
-    if daemon_mode
-        # Run in daemon mode.
+  if daemon_mode
+    # Run in daemon mode.
 
-        # If the environment variable LOGFILE is present,
-        # redirect STDERR and STDOUT to that file.
-        if ENV.has_key? "LOGFILE"
-            STDERR.reopen(STDOUT.reopen(ENV["LOGFILE"], "a"))
-            STDOUT.sync=true
-            puts "Daemon starting at #{Time.new}"
-        end
-
-        # Load the runner in a subprocess
-        pid = fork do
-            exec("bundle exec rails runner #{ARGV[1]}")
-            exit 0
-        end
-
-        # If the environment variable PIDFILE is present,
-        # write the pid of the daemon process to that file.
-
-        if ENV.has_key? "PIDFILE"
-            File.open(ENV["PIDFILE"], 'w') do |fh|
-                fh.puts pid
-            end
-        end
-
-        Process.detach(pid)
-    else
-        # Not daemon mode
-        exec("bundle exec rails runner #{ARGV[0]}")
+    # If the environment variable LOGFILE is present,
+    # redirect STDERR and STDOUT to that file.
+    if ENV.has_key? "LOGFILE"
+      STDERR.reopen(STDOUT.reopen(ENV["LOGFILE"], "a"))
+      STDOUT.sync=true
+      puts "Daemon starting at #{Time.new}"
     end
+
+    # Load the runner in a subprocess
+    pid = fork do
+      exec("bundle exec rails runner #{ARGV[1]}")
+      exit 0
+    end
+
+    # If the environment variable PIDFILE is present,
+    # write the pid of the daemon process to that file.
+
+    if ENV.has_key? "PIDFILE"
+      File.open(ENV["PIDFILE"], 'w') do |fh|
+        fh.puts pid
+      end
+    end
+
+    Process.detach(pid)
+  else
+    # Not daemon mode
+    exec("bundle exec rails runner #{ARGV[0]}")
+  end
 end

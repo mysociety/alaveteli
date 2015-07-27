@@ -1,24 +1,23 @@
 <div id="signin">
-
-<%= form_tag({:action => "signin"}, {:id => "signin_form"}) do %>
+  <%= form_tag({:action => "signin"}, {:id => "signin_form"}) do %>
     <%= foi_error_messages_for :user_signin %>
 
     <!--<% if not sign_in_as_existing_user %>
-    <h2><%= _('If you\'ve used {{site_name}} before', :site_name=>site_name)%></h2>
+      <h2><%= _('If you\'ve used {{site_name}} before', :site_name=>site_name)%></h2>
     <% end %>-->
 
     <p>
-    <label class="form_label" for="user_signin_email"><%= _('Your e-mail:')%></label>
-    <%= text_field 'user_signin', 'email', { :size => 20, :tabindex => 60 } %>
+      <label class="form_label" for="user_signin_email"><%= _('Your e-mail:')%></label>
+      <%= text_field 'user_signin', 'email', { :size => 20, :tabindex => 60 } %>
     </p>
 
     <p>
-    <label class="form_label" for="user_signin_password"><%= _('Password:')%></label>
-    <%= password_field 'user_signin', 'password', { :size => 15, :tabindex => 70, :autocomplete => 'off' } %>
+      <label class="form_label" for="user_signin_password"><%= _('Password:')%></label>
+      <%= password_field 'user_signin', 'password', { :size => 15, :tabindex => 70, :autocomplete => 'off' } %>
     </p>
 
     <p class="form_note">
-    <%= link_to _('Forgotten your password?'), signchangepassword_path(:pretoken => h(params[:token])), :tabindex => 80 %>
+      <%= link_to _('Forgotten your password?'), signchangepassword_path(:pretoken => h(params[:token])), :tabindex => 80 %>
     </p>
 
     <p class="form_checkbox">
@@ -30,10 +29,9 @@
     </p>
 
     <div class="form_button">
-    <%= hidden_field_tag 'token', params[:token], {:id => 'signin_token' } %>
-    <%= hidden_field_tag :modal, params[:modal], {:id => 'signin_modal' } %>
-    <%= submit_tag _('Sign in'), :tabindex => 100 %>
+      <%= hidden_field_tag 'token', params[:token], {:id => 'signin_token' } %>
+      <%= hidden_field_tag :modal, params[:modal], {:id => 'signin_modal' } %>
+      <%= submit_tag _('Sign in'), :tabindex => 100 %>
     </div>
-<% end %>
-
+  <% end %>
 </div>

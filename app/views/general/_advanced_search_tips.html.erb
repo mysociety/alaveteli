@@ -1,52 +1,52 @@
 <div id="advanced-search-tips">
-    <a name="show-tips"></a>
-    <h2><%= _("Advanced search tips")%></h2>
-    <ul>
-    <li><%= _("Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>") %></li>
-    <li><%= _('Use OR (in capital letters) where you don\'t mind which word,  e.g. <strong><code>commons OR lords</code></strong>') %>
-    <li><%= _('Use quotes when you want to find an exact phrase, e.g. <strong><code>"Liverpool City Council"</code></strong>') %></li>
-    <li><%= _('<strong><code>status:</code></strong> to select based on the status or historical status of the request, see the <a href="{{statuses_url}}">table of statuses</a> below.', :statuses_url => "#statuses") %></li>
-    <li><%= _('<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href="{{varieties_url}}">table of varieties</a> below.', :varieties_url => "#varieties") %></li>
-    <li><%= _('<strong><code>requested_from:home_office</code></strong> to search requests from the Home Office, typing the name as in the URL.')%></li>
-    <li><%= _('<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL.') %></li>
-    <li><%= _('<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL.')%></li>
-    <li><%= _('<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL.')%>
-    <li><%= _('<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>', :list_of_file_extensions => IncomingMessage.get_all_file_extensions)%></li>
-    <li><%= _('Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January.')%></li>
-    <li><%= _('<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, 
+<a name="show-tips"></a>
+<h2><%= _("Advanced search tips")%></h2>
+<ul>
+  <li><%= _("Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>") %></li>
+  <li><%= _('Use OR (in capital letters) where you don\'t mind which word,  e.g. <strong><code>commons OR lords</code></strong>') %>
+  <li><%= _('Use quotes when you want to find an exact phrase, e.g. <strong><code>"Liverpool City Council"</code></strong>') %></li>
+  <li><%= _('<strong><code>status:</code></strong> to select based on the status or historical status of the request, see the <a href="{{statuses_url}}">table of statuses</a> below.', :statuses_url => "#statuses") %></li>
+  <li><%= _('<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href="{{varieties_url}}">table of varieties</a> below.', :varieties_url => "#varieties") %></li>
+  <li><%= _('<strong><code>requested_from:home_office</code></strong> to search requests from the Home Office, typing the name as in the URL.')%></li>
+  <li><%= _('<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL.') %></li>
+  <li><%= _('<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL.')%></li>
+  <li><%= _('<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL.')%>
+  <li><%= _('<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>', :list_of_file_extensions => IncomingMessage.get_all_file_extensions)%></li>
+  <li><%= _('Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January.')%></li>
+  <li><%= _('<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, 
     and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags
     can be present, you have to put <code>AND</code> explicitly if you only want results them all present.')%></li>
-    <li><%= _('Read about <a href="{{advanced_search_url}}">advanced search operators</a>, such as proximity and wildcards.', :advanced_search_url => "http://www.xapian.org/docs/queryparser.html") %></li>
-    </ul>
+  <li><%= _('Read about <a href="{{advanced_search_url}}">advanced search operators</a>, such as proximity and wildcards.', :advanced_search_url => "http://www.xapian.org/docs/queryparser.html") %></li>
+</ul>
 
-    <h2 id="statuses"><%= _('Table of statuses') %></h2>
-    <p><%= _("All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held.") %></p>
+<h2 id="statuses"><%= _('Table of statuses') %></h2>
+<p><%= _("All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held.") %></p>
 
-    <table class="status_table">
-        <tr><td><strong><%=search_link('status:waiting_response')%></strong></td><td><%= _('Waiting for the public authority to reply') %></td></tr>
-        <tr><td><strong><%=search_link('status:not_held')%></strong></td><td><%= _('The public authority does not have the information requested') %></td></tr>
-        <tr><td><strong><%=search_link('status:rejected')%></strong></td><td><%= _('The request was refused by the public authority') %></td></tr>
-        <tr><td><strong><%=search_link('status:partially_successful')%></strong></td><td><%= _('Some of the information requested has been received') %></td></tr>
-        <tr><td><strong><%=search_link('status:successful')%></strong></td><td><%= _('All of the information requested has been received') %></td></tr>
-        <tr><td><strong><%=search_link('status:waiting_clarification')%></strong></td><td><%= _('The public authority would like part of the request explained') %></td></tr>
-        <tr><td><strong><%=search_link('status:gone_postal')%></strong></td><td><%= _('The public authority would like to / has responded by post') %></td></tr>
-        <tr><td><strong><%=search_link('status:internal_review')%></strong></td><td><%= _('Waiting for the public authority to complete an internal review of their handling of the request') %></td></tr>
-        <tr><td><strong><%=search_link('status:error_message')%></strong></td><td><%= _('Received an error message, such as delivery failure.') %></td></tr>
-        <tr><td><strong><%=search_link('status:requires_admin')%></strong></td><td><%= _('A strange reponse, required attention by the {{site_name}} team', :site_name=>site_name) %></td></tr>
-        <tr><td><strong><%=search_link('status:user_withdrawn')%></strong></td><td><%= _('The requester has abandoned this request for some reason') %></td></tr>
-    </table>
+<table class="status_table">
+  <tr><td><strong><%=search_link('status:waiting_response')%></strong></td><td><%= _('Waiting for the public authority to reply') %></td></tr>
+  <tr><td><strong><%=search_link('status:not_held')%></strong></td><td><%= _('The public authority does not have the information requested') %></td></tr>
+  <tr><td><strong><%=search_link('status:rejected')%></strong></td><td><%= _('The request was refused by the public authority') %></td></tr>
+  <tr><td><strong><%=search_link('status:partially_successful')%></strong></td><td><%= _('Some of the information requested has been received') %></td></tr>
+  <tr><td><strong><%=search_link('status:successful')%></strong></td><td><%= _('All of the information requested has been received') %></td></tr>
+  <tr><td><strong><%=search_link('status:waiting_clarification')%></strong></td><td><%= _('The public authority would like part of the request explained') %></td></tr>
+  <tr><td><strong><%=search_link('status:gone_postal')%></strong></td><td><%= _('The public authority would like to / has responded by post') %></td></tr>
+  <tr><td><strong><%=search_link('status:internal_review')%></strong></td><td><%= _('Waiting for the public authority to complete an internal review of their handling of the request') %></td></tr>
+  <tr><td><strong><%=search_link('status:error_message')%></strong></td><td><%= _('Received an error message, such as delivery failure.') %></td></tr>
+  <tr><td><strong><%=search_link('status:requires_admin')%></strong></td><td><%= _('A strange reponse, required attention by the {{site_name}} team', :site_name=>site_name) %></td></tr>
+  <tr><td><strong><%=search_link('status:user_withdrawn')%></strong></td><td><%= _('The requester has abandoned this request for some reason') %></td></tr>
+</table>
 
-    <h2 id="varieties"><%= _('Table of varieties') %></h2>
-    <p><%= _("All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent.") %></p>
-    <table class="status_table">
-        <tr><td><strong><%=search_link('variety:sent')%></strong></td><td><%= _('Original request sent') %></td></tr>
-        <tr><td><strong><%=search_link('variety:followup_sent')%></strong></td><td><%=  # TRANSLATORS: "Follow up message" in this context means a
-        # further message sent by the requester to the authority after
-        # the initial request
-         _('Follow up message sent by requester') %></td></tr>
-        <tr><td><strong><%=search_link('variety:response')%></strong></td><td><%= _('Response from a public authority') %></td></tr>
-        <tr><td><strong><%=search_link('variety:comment')%></strong></td><td><%= _('Annotation added to request') %></td></tr>
-        <tr><td><strong><%=search_link('variety:authority')%></strong></td><td><%= _('A public authority') %></td></tr>
-        <tr><td><strong><%=search_link('variety:user')%></strong></td><td><%= _('A {{site_name}} user', :site_name=>site_name) %></td></tr>
-    </table>
+<h2 id="varieties"><%= _('Table of varieties') %></h2>
+<p><%= _("All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent.") %></p>
+<table class="status_table">
+  <tr><td><strong><%=search_link('variety:sent')%></strong></td><td><%= _('Original request sent') %></td></tr>
+  <tr><td><strong><%=search_link('variety:followup_sent')%></strong></td><td><%=  # TRANSLATORS: "Follow up message" in this context means a
+  # further message sent by the requester to the authority after
+  # the initial request
+  _('Follow up message sent by requester') %></td></tr>
+  <tr><td><strong><%=search_link('variety:response')%></strong></td><td><%= _('Response from a public authority') %></td></tr>
+  <tr><td><strong><%=search_link('variety:comment')%></strong></td><td><%= _('Annotation added to request') %></td></tr>
+  <tr><td><strong><%=search_link('variety:authority')%></strong></td><td><%= _('A public authority') %></td></tr>
+  <tr><td><strong><%=search_link('variety:user')%></strong></td><td><%= _('A {{site_name}} user', :site_name=>site_name) %></td></tr>
+</table>
 </div>

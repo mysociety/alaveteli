@@ -2,18 +2,18 @@
 
 <h1><%=@title%></h1>
 
-<p>
-<%=@details%>
-</p>
+<p><%= @details %></p>
 
-<p><%= _('The request you have tried to view has been removed. There are
-various reasons why we might have done this, sorry we can\'t be more specific here. Please <a
-    href="{{url}}">contact us</a> if you have any questions.', :url => help_contact_path.html_safe) %>
+<p>
+  <%= _("The request you have tried to view has been removed. There are " \
+        "various reasons why we might have done this, sorry we can't be more " \
+        "specific here. Please <a href=\"{{url}}\">contact us</a> if you have " \
+        "any questions.",
+        :url => help_contact_path.html_safe) %>
 </p>
 <% if @info_request.prominence == 'requester_only' %>
-    <p>
-    <%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> to view the request.', :url => signin_url(:r => request.fullpath).html_safe) %>
-    </p>
+  <p>
+    <%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> to view the request.',
+          :url => signin_url(:r => request.fullpath).html_safe) %>
+  </p>
 <% end %>
-
-

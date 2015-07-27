@@ -11,139 +11,140 @@
 <% end %>
 
 <div class="authority__header">
-    <h1><%= h(@public_body.name) %></h1>
-    <p class="authority__header__subtitle">
-        <%= type_of_authority(@public_body) %><% unless @public_body.short_name.empty? %>,
-        <%= _('also called {{public_body_short_name}}', :public_body_short_name => h(@public_body.short_name)) %>
-        <% end %>
+  <h1><%= h(@public_body.name) %></h1>
 
-        <% if @user && @user.admin_page_links? %>
-            (<%= link_to _("admin"), admin_body_path(@public_body) %>)
-        <% end %>
-    </p>
+  <p class="authority__header__subtitle">
+    <%= type_of_authority(@public_body) %><% unless @public_body.short_name.empty? %>,
+      <%= _('also called {{public_body_short_name}}', :public_body_short_name => h(@public_body.short_name)) %>
+    <% end %>
 
-    <% if @public_body.has_notes? || @public_body.eir_only? || @public_body.special_not_requestable_reason? %>
-      <div id="stepwise_make_request">
-        <% if @public_body.has_notes? %>
+    <% if @user && @user.admin_page_links? %>
+      (<%= link_to _("admin"), admin_body_path(@public_body) %>)
+    <% end %>
+  </p>
+
+  <% if @public_body.has_notes? || @public_body.eir_only? || @public_body.special_not_requestable_reason? %>
+    <div id="stepwise_make_request">
+      <% if @public_body.has_notes? %>
+        <p class="authority__header__notes">
+          <%= @public_body.notes_as_html.html_safe %>
+        </p>
+      <% end %>
+
+      <% if @public_body.is_requestable? %>
+        <% if @public_body.eir_only? %>
           <p class="authority__header__notes">
-            <%= @public_body.notes_as_html.html_safe %>
+            <%= _('You can only request information about the environment from this authority.')%>
           </p>
         <% end %>
+      <% elsif @public_body.special_not_requestable_reason? %>
+        <p class="authority__header__notes">
+          <%= public_body_not_requestable_reasons(@public_body).first %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
 
-        <% if @public_body.is_requestable? %>
-          <% if @public_body.eir_only? %>
-            <p class="authority__header__notes">
-              <%= _('You can only request information about the environment from this authority.')%>
-            </p>
-          <% end %>
-        <% elsif @public_body.special_not_requestable_reason? %>
-          <p class="authority__header__notes">
-            <%= public_body_not_requestable_reasons(@public_body).first %>
-          </p>
+  <% if @number_of_visible_requests > 0 %>
+    <div class="authority__header__stats">
+      <%= n_('{{count}} request',
+             '{{count}} requests',
+             @number_of_visible_requests,
+             :count => @number_of_visible_requests) %>
+    </div>
+  <% end %>
+
+  <div class="authority__header__action-bar">
+    <div class="action-bar__make-request">
+      <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
+        <%= link_to _("Make a request to this authority"), new_request_to_body_path(:url_name => @public_body.url_name), :class => "link_button_green" %>
+      <% end %>
+    </div>
+
+    <div class="action-bar__follow">
+      <div class="action-bar__follow-button">
+        <% if @existing_track %>
+          <%= link_to _("Unsubscribe"), {:controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath}, :class => "link_button_green" %>
+        <% else %>
+          <div class="feed_link">
+            <%= link_to _("Follow"), do_track_path(@track_thing), :class => "link_button_green" %>
+          </div>
         <% end %>
       </div>
-    <% end %>
 
-    <% if @number_of_visible_requests > 0 %>
-        <div class="authority__header__stats">
-            <%= n_('{{count}} request',
-                '{{count}} requests',
-                @number_of_visible_requests,
-                :count => @number_of_visible_requests) %>
-        </div>
-    <% end %>
-
-    <div class="authority__header__action-bar">
-        <div class="action-bar__make-request">
-            <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
-                <%= link_to _("Make a request to this authority"), new_request_to_body_path(:url_name => @public_body.url_name), :class => "link_button_green" %>
-            <% end %>
-        </div>
-
-        <div class="action-bar__follow">
-            <div class="action-bar__follow-button">
-                <% if @existing_track %>
-                    <%= link_to _("Unsubscribe"), {:controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath}, :class => "link_button_green" %>
-                <% else %>
-                    <div class="feed_link">
-                        <%= link_to _("Follow"), do_track_path(@track_thing), :class => "link_button_green" %>
-                    </div>
-                <% end %>
-            </div>
-
-            <div class="action-bar__follower-count">
-                <%= n_("{{count}} follower",
-                    "{{count}} followers",
-                    @follower_count,
-                    :count => content_tag(:span, @follower_count, :id => "follow_count")) %>
-            </div>
-        </div>
+      <div class="action-bar__follower-count">
+        <%= n_("{{count}} follower",
+               "{{count}} followers",
+               @follower_count,
+               :count => content_tag(:span, @follower_count, :id => "follow_count")) %>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="authority__body">
-    <div class="authority__body__foi-results">
-        <% if @number_of_visible_requests.zero? %>
-            <% if @public_body.is_requestable? or @public_body.not_requestable_reason != 'defunct' %>
-                <% if @public_body.eir_only? %>
-                    <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
-                    <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
-                <% else %>
-                    <h2><%= _('Freedom of Information requests made using this site')%></h2>
-                    <p><%= _('Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet.', :public_body_name => h(@public_body.name))%></p>
-                <% end %>
-            <% end %>
+  <div class="authority__body__foi-results">
+    <% if @number_of_visible_requests.zero? %>
+      <% if @public_body.is_requestable? or @public_body.not_requestable_reason != 'defunct' %>
+        <% if @public_body.eir_only? %>
+          <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
+          <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
         <% else %>
-            <% unless @page_desc.blank? %>
-              <h2 class="foi_results">
-                <%= @page_desc %>
-              </h2>
-            <% end %>
-            <a name="results"></a>
-
-            <% if @number_of_visible_requests > 4 %>
-                <%= render :partial => 'request/request_filter_form' %>
-            <% end %>
+          <h2><%= _('Freedom of Information requests made using this site')%></h2>
+          <p><%= _('Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet.', :public_body_name => h(@public_body.name))%></p>
         <% end %>
+      <% end %>
+    <% else %>
+      <% unless @page_desc.blank? %>
+        <h2 class="foi_results">
+          <%= @page_desc %>
+        </h2>
+      <% end %>
+      <a name="results"></a>
 
-        <% if @xapian_requests %>
-            <% @xapian_requests.results.each do |result| %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
-            <% end %>
+      <% if @number_of_visible_requests > 4 %>
+        <%= render :partial => 'request/request_filter_form' %>
+      <% end %>
+    <% end %>
 
-            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated) %>
+    <% if @xapian_requests %>
+      <% @xapian_requests.results.each do |result| %>
+        <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+      <% end %>
 
-            <% if @xapian_requests.results.empty? %>
-                <p><% _('There were no requests matching your query.') %></p>
-            <% else %>
-                  <p>
-                    <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %>
-                    <%= link_to _('?'), help_about_path %>
-                  </p>
-            <% end %>
+      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated) %>
 
-        <% else %>
-            <% if @public_body.eir_only? %>
-                <h2><%= _('Environmental Information Regulations requests made') %></h2>
-            <% else %>
-                <h2> <%= _('Freedom of Information requests made')%></h2>
-            <% end %>
-            <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
-        <% end %>
-    </div>
+      <% if @xapian_requests.results.empty? %>
+        <p><% _('There were no requests matching your query.') %></p>
+      <% else %>
+        <p>
+          <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %>
+          <%= link_to _('?'), help_about_path %>
+        </p>
+      <% end %>
 
-    <div class="authority__body__sidebar">
-        <% if @number_of_visible_requests > 4 %>
-            <%= render :partial => 'request/request_search_form' %>
-        <% end %>
+    <% else %>
+      <% if @public_body.eir_only? %>
+        <h2><%= _('Environmental Information Regulations requests made') %></h2>
+      <% else %>
+        <h2> <%= _('Freedom of Information requests made')%></h2>
+      <% end %>
+      <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
+    <% end %>
+  </div>
 
-        <%= render :partial => 'more_info', :locals => { :public_body => @public_body } %>
+  <div class="authority__body__sidebar">
+    <% if @number_of_visible_requests > 4 %>
+      <%= render :partial => 'request/request_search_form' %>
+    <% end %>
 
-        <%= render :partial => 'track/tracking_links',
-                   :locals => { :track_thing => @track_thing,
-                                :existing_track => @existing_track,
-                                :own_request => false,
-                                :location => 'sidebar' } %>
-    </div>
+    <%= render :partial => 'more_info', :locals => { :public_body => @public_body } %>
+
+    <%= render :partial => 'track/tracking_links',
+      :locals => { :track_thing => @track_thing,
+                   :existing_track => @existing_track,
+                   :own_request => false,
+                   :location => 'sidebar' } %>
+  </div>
 
 </div>
