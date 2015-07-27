@@ -4237,11 +4237,3 @@ msgstr "{{user}} küldte ezt a {{law_used_full}} igénylést "
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr ""
-#~ "Új<br/><br/>\n"
-#~ "        <strong>Közérdekű <br/>\n"
-#~ "        Adat <br/>\n"
-#~ "        Igénylés\n"
-#~ "        </strong><br/><br/> létrehozása "

@@ -4046,6 +4046,3 @@ msgstr "{{user}} je naredil zahtevek {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr "Ustvarite nov<br/>\\n <strong>Zahtevek <span>za</span><br/>\\n informacije<br/>\\n javnega značaja</strong>"

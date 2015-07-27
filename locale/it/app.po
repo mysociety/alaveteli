@@ -4030,6 +4030,3 @@ msgstr "{{user}} ha fatto questa {{law_used_full}} richiesta"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr "Invia una nuova<br/>\\n <strong>Richiesta <span>di</span><br/>\\n accesso<br/>\\n</strong>"
