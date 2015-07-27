@@ -4214,10 +4214,3 @@ msgstr "{{user}} vznesl tento {{law_used_full}} "
 
 msgid "« Back to search results"
 msgstr "« Zpět na výsledky hledání"
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr ""
-#~ "Zjistěte pomocí zákona<br/>\n"
-#~ "o svobodném přístupu<br/>\n"
-#~ "k informacím<br/>\n"
-#~ "co dělají státní instituce"

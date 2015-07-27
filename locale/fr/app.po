@@ -4046,6 +4046,3 @@ msgstr "{{user}} a fait cette  {{law_used_full}} demande"
 
 msgid "« Back to search results"
 msgstr "« Retour aux résultats de recherche"
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr "Faire une<br/>\\n  <strong>Nouvelle  <span>demande</span><br/>\\n  d'accès<br/>\\n  à l'information</strong>"

@@ -4038,6 +4038,3 @@ msgstr "{{user}} sende denne førespurnaden om {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Tilbake til søkeresultatene"
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr "Lag ein ny<br/>\\n <strong>førespurnad <span>om</span><br/>\\n  innsyn</strong>"

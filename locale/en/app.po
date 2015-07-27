@@ -4011,6 +4011,3 @@ msgstr "{{user}} made this {{law_used_full}} request"
 
 msgid "« Back to search results"
 msgstr "« Back to search results"
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
