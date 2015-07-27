@@ -22,7 +22,7 @@
 # Z.D <zdevir@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:04+0000\n"
@@ -484,10 +484,6 @@ msgstr "קבוצה נוצרה ע״י {{info_request_user}} בתאריך {{date}}
 
 msgid "Beginning with"
 msgstr "חיפוש על-פי אות ראשונה"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "חפשו במאגר של<br/><strong>{{number_of_requests}} בקשות</strong> <span>שנשלחו אל</span><br/>\\n <strong>{{number_of_authorities}} רשויות</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "הקליקו על <a href='{{url}}'>בקשות אחרות</a> לצפות בדוגמאות לניסוח הבקשה."
@@ -2440,10 +2436,6 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
-msgstr "צרו את הבלוג שלכם"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "צרו את הבלוג שלכם"
 
 msgid "Stay up to date"

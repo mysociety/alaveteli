@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2014-11-18 19:29+0200\n"
@@ -1576,10 +1576,6 @@ msgstr "Not a valid ATI request"
 msgid "Not a valid request"
 msgstr ""
 
-#, fuzzy
-msgid "Not an FOI request"
-msgstr "Not a valid ATI request"
-
 msgid "Not held"
 msgstr ""
 
@@ -2421,10 +2417,6 @@ msgstr ""
 msgid "Start your own blog"
 msgstr ""
 
-#, fuzzy
-msgid "Start your own request"
-msgstr "Share your request"
-
 msgid "Stay up to date"
 msgstr ""
 
@@ -2462,10 +2454,6 @@ msgid "Successful"
 msgstr ""
 
 msgid "Successful Freedom of Information requests"
-msgstr "Successful access to information requests"
-
-#, fuzzy
-msgid "Successful requests"
 msgstr "Successful access to information requests"
 
 msgid "Successful."
@@ -2806,10 +2794,6 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr ""
 
-#, fuzzy
-msgid "This is your request"
-msgstr "Share your request"
-
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3080,10 +3064,6 @@ msgstr ""
 
 msgid "Unsubscribe"
 msgstr ""
-
-#, fuzzy
-msgid "Unusual response"
-msgstr "Upload ATI response"
 
 msgid "Unusual response."
 msgstr ""
@@ -3535,10 +3515,6 @@ msgstr "Your email:"
 
 msgid "Your email doesn't look like a valid address"
 msgstr ""
-
-#, fuzzy
-msgid "Your email:"
-msgstr "Your email:"
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr ""

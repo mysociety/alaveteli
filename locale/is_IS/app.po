@@ -8,7 +8,7 @@
 # Páll Hilmarsson <pallih@kaninka.net>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 14:59+0000\n"
@@ -468,10 +468,6 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Byrjar á"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Leitaðu í <br/>\\n<strong>{{number_of_requests}} upplýsingabeiðnum</strong> <span>og</span><br/>\\n <strong>{{number_of_authorities}} stjórnvöldum</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Skoðaðu <a href='{{url}}'>aðrar beiðnir</a> til að sjá dæmi um hvernig hægt er að orða beiðnina þína."
@@ -2422,10 +2418,6 @@ msgstr ""
 
 msgid "Start your own blog"
 msgstr ""
-
-#, fuzzy
-msgid "Start your own request"
-msgstr "Breyta þessari beiðni"
 
 msgid "Stay up to date"
 msgstr ""

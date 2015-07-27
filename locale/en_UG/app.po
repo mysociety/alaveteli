@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2014-01-31 09:14+0000\n"
@@ -465,10 +465,6 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr ""
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} agencies </strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Browse <a href='{{url}}' target='_blank'>other requests</a> for examples of how to word your request."
@@ -1576,10 +1572,6 @@ msgstr "Not a valid ATI request"
 msgid "Not a valid request"
 msgstr ""
 
-#, fuzzy
-msgid "Not an FOI request"
-msgstr "Not a valid ATI request"
-
 msgid "Not held"
 msgstr ""
 
@@ -2421,10 +2413,6 @@ msgstr ""
 msgid "Start your own blog"
 msgstr ""
 
-#, fuzzy
-msgid "Start your own request"
-msgstr "Clarify your ATI request - "
-
 msgid "Stay up to date"
 msgstr ""
 
@@ -2462,10 +2450,6 @@ msgid "Successful"
 msgstr ""
 
 msgid "Successful Freedom of Information requests"
-msgstr "Successful Access to Information requests"
-
-#, fuzzy
-msgid "Successful requests"
 msgstr "Successful Access to Information requests"
 
 msgid "Successful."
@@ -2631,10 +2615,6 @@ msgid "The requester has abandoned this request for some reason"
 msgstr ""
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
-msgstr "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the agency should normally have responded\\n            <strong>promptly</strong> and"
-
-#, fuzzy
-msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
 msgstr "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the agency should normally have responded\\n            <strong>promptly</strong> and"
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
@@ -2806,10 +2786,6 @@ msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr ""
-
-#, fuzzy
-msgid "This is your request"
-msgstr "To send your ATI request"
 
 msgid "This message has been hidden."
 msgstr ""
@@ -3081,10 +3057,6 @@ msgstr ""
 
 msgid "Unsubscribe"
 msgstr ""
-
-#, fuzzy
-msgid "Unusual response"
-msgstr "Upload ATI response"
 
 msgid "Unusual response."
 msgstr ""
