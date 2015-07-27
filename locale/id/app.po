@@ -4250,10 +4250,3 @@ msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr ""
-#~ "Buat permintaan <br/>\n"
-#~ "        <strong>Freedom <span>of</span><br/>\n"
-#~ "        Information<br/>\n"
-#~ "        yang baru</strong>"

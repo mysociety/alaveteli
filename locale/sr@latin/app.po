@@ -4134,6 +4134,3 @@ msgstr "{{user}} je podneo/la ovaj zahtev pozivajući se na {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr "Podnesi novi<br/>\\n<strong>Zahtev<span> za</span><br/>\\nslobodan<br/>\\npristup informacijama od javnog značaja</strong>"

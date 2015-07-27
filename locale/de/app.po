@@ -4107,8 +4107,3 @@ msgstr "{{user}} hat diese {{law_used_full}} Anfrage gestellt"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr ""
-#~ "Stellen Sie eine neue<br/>\n"
-#~ "        <strong>Informationsfreiheitsanfrage</strong>"

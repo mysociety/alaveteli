@@ -4033,6 +4033,3 @@ msgstr "Cette demande a été faite par {{user}} "
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-#~ msgstr "Faire une nouvelle<br/>\\n  <strong>demande <span>d'accès</span><br/>\\n  aux documents<br/>\\n</strong>"
