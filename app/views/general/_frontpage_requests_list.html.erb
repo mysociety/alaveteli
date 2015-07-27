@@ -1,5 +1,4 @@
-<%- @request_events, @request_events_all_successful = InfoRequest.recent_requests %>
-<div id="examples_1">
+<div id="examples_1" class="latest-requests">
   <h3>
     <% if @request_events_all_successful %>
       <%= _("What information has been released?") %>
@@ -7,35 +6,37 @@
       <%= _("What information has been requested?") %>
     <% end %>
   </h3>
-  <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
+
+  <h4>
+    <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
         :site_name => site_name,
-        :number_of_requests => number_with_delimiter(InfoRequest.visible.count)) %>
+        :number_of_requests => number_with_delimiter(@number_of_requests)) %>
+  </h4>
 
   <ul>
     <% @request_events.each do |event| %>
-      <li>
-        <% if @request_events_all_successful %>
-          <%= _("{{public_body_link}} answered a request about",
-                :public_body_link => public_body_link(event.info_request.public_body)) %>
-        <% else %>
-          <%= _("{{public_body_link}} was sent a request about",
-                :public_body_link => public_body_link(event.info_request.public_body)) %>
-        <% end %>
+      <li class="request-listing">
+        <div class="request-listing__request-status-icon bottomline icon_<%= event.info_request.calculate_status %> icon-standalone"></div>
+        <div class="request-listing__request-body">
+        <p>
+          <% if @request_events_all_successful %>
+            <%= _("{{public_body_link}} answered a request about",
+                  :public_body_link => public_body_link(event.info_request.public_body)) %>
+          <% else %>
+            <%= _("{{public_body_link}} was sent a request about",
+                  :public_body_link => public_body_link(event.info_request.public_body)) %>
+          <% end %>
 
-        <%=link_to h(event.info_request.title), request_path(event.info_request)%>
-        <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
-        <p class="excerpt" onclick="document.location.href='<%=request_path(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", :radius => 200) %></p>
+          <%= link_to h(event.info_request.title), request_path(event.info_request) %>
+        </p>
+
+        <p class="request-body__time-ago">
+          <%= _('{{length_of_time}} ago',
+                :length_of_time => time_ago_in_words(event.described_at)) %>
+        </p>
       </li>
     <% end %>
   </ul>
 
-  <p>
-    <strong>
-      <% if @request_events_all_successful %>
-        <%= link_to _('More successful requests...'), request_list_successful_path %>
-      <% else %>
-        <%= link_to _('More requests...'), request_list_all_path %>
-      <% end %>
-    </strong>
-  </p>
+  <%= link_to _("Browse all requests &rarr;"), request_list_all_path, :class => 'button-secondary' %>
 </div>

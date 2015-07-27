@@ -47,3 +47,36 @@
     }
   }
 }
+
+
+.bodies-list,
+.latest-requests {
+  h4 {
+    font-size: 1.125em;
+    font-weight: normal;
+    line-height: 1.5em;
+  }
+}
+
+.request-listing {
+  a {
+    font-weight: 600;
+  }
+}
+
+.request-listing__request-body {
+  p {
+    line-height: 1.35em;
+  }
+  a {
+    &:hover,
+    &:active,
+    &:focus {
+      color: #333;
+    }
+  }
+}
+
+.request-body__time-ago {
+  font-size: 0.875em;
+}
