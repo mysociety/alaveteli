@@ -14,7 +14,7 @@
 # hiiri <murahoid@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:03+0000\n"
@@ -512,10 +512,6 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Ті, що починаються з"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Кількість зареєстрованих запитів: <strong>{{number_of_requests}}</strong><br/>\\n Кількість розпорядників інформації: <strong>{{number_of_authorities}}</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Прогляньте <a href='{{url}}'>інші запити</a>, щоб отримати приклади формулювань."
@@ -2519,10 +2515,6 @@ msgstr ""
 
 msgid "Start your own blog"
 msgstr ""
-
-#, fuzzy
-msgid "Start your own request"
-msgstr "Відредагувати цей запит"
 
 msgid "Stay up to date"
 msgstr ""
