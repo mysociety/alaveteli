@@ -19,7 +19,7 @@
 # louisecrow <louise@mysociety.org>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:00+0000\n"
@@ -523,13 +523,6 @@ msgstr "Dávka vytvořena {{info_request_user}} dne {{date}}."
 
 msgid "Beginning with"
 msgstr "Začínající na"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr ""
-"Prohledávejte více než<br/>\n"
-"          <strong>{{number_of_requests}} dotazů</strong> <span>a</span><br/>\n"
-"          <strong>{{number_of_authorities}} institucí v adresáři</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Pokud se chcete inspirovat jak formulovat svůj dotaz, prohlédněte si <a href='{{url}}'>dotazy ostatních</a>."
@@ -2541,10 +2534,6 @@ msgstr "SpamAdresa|Email"
 
 msgid "Start your own blog"
 msgstr "Začněte psát vlastní blg"
-
-#, fuzzy
-msgid "Start your own request"
-msgstr "Sdílet vaší žádost"
 
 msgid "Stay up to date"
 msgstr "Buďte informováni"

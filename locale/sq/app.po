@@ -18,7 +18,7 @@
 # Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:03+0000\n"
@@ -519,13 +519,6 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Duke filluar me"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr ""
-"Gjej mbi<br/>\n"
-"          <strong>{{number_of_requests}} kërkesa</strong> <span>dhe</span><br/>\n"
-"          <strong>{{number_of_authorities}} autoritete publike</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Shfleto <a href='{{url}}'>kërkesa të tjera</a> për shembuj se si të formulosh kërkesën tënde."
@@ -2530,10 +2523,6 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
-msgstr "Nis blogun tënd"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "Nis blogun tënd"
 
 msgid "Stay up to date"

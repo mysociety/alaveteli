@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2014-11-18 19:29+0200\n"
@@ -2422,10 +2422,6 @@ msgstr ""
 
 msgid "Start your own blog"
 msgstr ""
-
-#, fuzzy
-msgid "Start your own request"
-msgstr "Share your request"
 
 msgid "Stay up to date"
 msgstr ""

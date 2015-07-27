@@ -21,7 +21,7 @@
 # PerryX <wyeboy@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:00+0000\n"
@@ -483,10 +483,6 @@ msgstr "Swp a grëwyd gan {{info_request_user}} ar {{date}}."
 
 msgid "Beginning with"
 msgstr "Yn dechrau gyda"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Chwilio dros <strong>{{number_of_requests}} cais</strong> a <strong>{{number_of_authorities}} awdurdod</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Porwch<a href='{{url}}'>geisiadau eraill</a> am enghreifftiau o sut i eirio'ch cais."
@@ -2445,10 +2441,6 @@ msgid "SpamAddress|Email"
 msgstr "SpamAddress |Ebost"
 
 msgid "Start your own blog"
-msgstr "Dechreuwch eich blog eich hun"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "Dechreuwch eich blog eich hun"
 
 msgid "Stay up to date"

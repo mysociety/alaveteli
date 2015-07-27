@@ -16,7 +16,7 @@
 #   <sana_bj@live.fr>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:00+0000\n"
@@ -480,10 +480,6 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "البدء ب"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "ابحث عن<br/>\\n  <strong>{{number_of_requests}} الطلبات</strong> <span>و</span><br/>\\n  <strong>{{number_of_authorities}} السلطات</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "تصفح <a href='{{url}}'>طلبات اخرى</a> للاطلاع على امثلة لكيفية تحرير طلبك."
@@ -2448,10 +2444,6 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
-msgstr "اطلق مدونتك الخاصة"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "اطلق مدونتك الخاصة"
 
 msgid "Stay up to date"

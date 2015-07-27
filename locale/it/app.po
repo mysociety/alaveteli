@@ -13,7 +13,7 @@
 # Marco Giustini <info@marcogiustini.info>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:03+0000\n"
@@ -477,10 +477,6 @@ msgstr "Gruppo di richieste creato da {{info_request_user}} il {{date}}."
 
 msgid "Beginning with"
 msgstr "che iniziano con "
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Cerca tra<br/>\\n  <strong>{{number_of_requests}} richieste</strong> <span>e</span><br/>\\n  <strong>{{number_of_authorities}} amministrazioni</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Guarda le <a href='{{url}}'>altre richieste</a> come esempi su come argomentare la tua richiesta."
@@ -2436,10 +2432,6 @@ msgid "SpamAddress|Email"
 msgstr "SpamAddress|Email"
 
 msgid "Start your own blog"
-msgstr "Start your own blog"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "Start your own blog"
 
 msgid "Stay up to date"

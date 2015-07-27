@@ -19,7 +19,7 @@
 # pere <pere-transifex@hungry.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:01+0000\n"
@@ -485,10 +485,6 @@ msgstr "Visk oppretta av {{info_request_user}} den {{date}}."
 
 msgid "Beginning with"
 msgstr "Byrjar med"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Søk blant <br/>\\n <strong>{{number_of_requests}} førespurnader</strong> <span>og</span><br/>\\n <strong>{{number_of_authorities}} styresmakter</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Sjå på <a href='{{url}}'>andre førespurnader</a> for døme på korleis du bør ordleggja førespurnaden."
@@ -2442,10 +2438,6 @@ msgstr "SpamAddress|Email"
 
 msgid "Start your own blog"
 msgstr "Start din eigen blogg"
-
-#, fuzzy
-msgid "Start your own request"
-msgstr "Del din førespurnad"
 
 msgid "Stay up to date"
 msgstr "Hald deg oppdatert"

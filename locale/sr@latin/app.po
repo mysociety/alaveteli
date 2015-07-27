@@ -17,7 +17,7 @@
 # Goran Vučković <vucko@acm.org>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:02+0000\n"
@@ -484,10 +484,6 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Počevši sa"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Listajte <a href='{{url}}'>druge zahteve</a> da nađete primer kako da sročite Vaš zahtev."
@@ -2471,10 +2467,6 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
-msgstr "Započnite Vaš blog"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "Započnite Vaš blog"
 
 msgid "Stay up to date"

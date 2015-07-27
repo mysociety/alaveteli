@@ -11,7 +11,7 @@
 # Valentin Laskov <laskov@festa.bg>, 2013-2014
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:02+0000\n"
@@ -471,10 +471,6 @@ msgstr "Размножено заявление, създадено от {{info_
 
 msgid "Beginning with"
 msgstr "Започващи с"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Търсене измежду<br/>\\n <strong>{{number_of_requests}} заявления</strong> <span>и</span><br/>\\n  <strong>{{number_of_authorities}} органа</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Разгледайте <a href='{{url}}'>други запитвания</a> като примери за това как да опишете заявлението си."
@@ -2427,10 +2423,6 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
-msgstr "Започнете собствен блог"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "Започнете собствен блог"
 
 msgid "Stay up to date"

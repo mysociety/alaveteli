@@ -23,7 +23,7 @@
 # vickyanderica <victoria@access-info.org>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:01+0000\n"
@@ -524,13 +524,6 @@ msgstr "Lote creado por {{info_request_user}} el {{date}}."
 
 msgid "Beginning with"
 msgstr "Comenzando por"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr ""
-"Busque entre<br/>\n"
-"          <strong>{{number_of_requests}} solicitudes</strong> <span>y</span><br/>\n"
-"          <strong>{{number_of_authorities}} organismos</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Consulta <a href='{{url}}'>otras solicitudes</a> para ver cómo puede redactar tu solicitud."
@@ -2558,10 +2551,6 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
-msgstr "Crea tu propio blog"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "Crea tu propio blog"
 
 msgid "Stay up to date"

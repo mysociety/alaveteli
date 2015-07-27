@@ -10,7 +10,7 @@
 # zejn <zejn@kiberpipa.org>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:03+0000\n"
@@ -472,10 +472,6 @@ msgstr "Paket naredil {{info_request_user}} v {{date}}."
 
 msgid "Beginning with"
 msgstr "Začenši z"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Iščite po <br/>\\n <strong>{{number_of_requests}} zahtevkih</strong> <span>in po</span><br/>\\n<strong>{{number_of_authorities}} organih</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Prebrskajte <a href='{{url}}'>za drugimi zahtevki</a> za primere kako ubesediti vaš zahtevek."
@@ -2434,10 +2430,6 @@ msgid "SpamAddress|Email"
 msgstr "NezaželenaPošta|E-pošta"
 
 msgid "Start your own blog"
-msgstr "Začnite svoj blog"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "Začnite svoj blog"
 
 msgid "Stay up to date"

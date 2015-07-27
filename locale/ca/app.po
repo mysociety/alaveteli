@@ -13,7 +13,7 @@
 # mmtarres <mmtarres@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 14:59+0000\n"
@@ -521,13 +521,6 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Començant per"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr ""
-"Busque entre<br/>\n"
-"          <strong>{{number_of_requests}} solicitudes</strong> <span>y</span><br/>\n"
-"          <strong>{{number_of_authorities}} organismos</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Consulta <a href='{{url}}'>otras solicitudes</a> para ver cómo puede redactar tu solicitud."
@@ -2554,10 +2547,6 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
-msgstr "Crea tu propio blog"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "Crea tu propio blog"
 
 msgid "Stay up to date"

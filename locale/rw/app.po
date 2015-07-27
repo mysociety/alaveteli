@@ -10,7 +10,7 @@
 # Stephen Abbott Pugh <stephendabbott@gmail.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:01+0000\n"
@@ -470,10 +470,6 @@ msgstr "Urutonde rwakozwe na {{info_request_user}} kuwa {{date}}"
 
 msgid "Beginning with"
 msgstr "Duhereye kuri"
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Shakisha<br/>\\n Ibibazo bigera kuri <strong>{{number_of_requests}} </strong><br/>\\n <span>Ubuyobozi busaga</span>  <strong>{{number_of_authorities}} </strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Shaka <a href='{{url}}'>ibindi bibazo</a> ku ngero z'amagambo wakoresha mu kibazo cyawe."
@@ -2427,10 +2423,6 @@ msgstr "SpamAddress|Email"
 
 msgid "Start your own blog"
 msgstr "Tangira urubuga rwawe bwite"
-
-#, fuzzy
-msgid "Start your own request"
-msgstr "Sangiza ikibazo cyawe"
 
 msgid "Stay up to date"
 msgstr "Gezwaho amakuru yose"

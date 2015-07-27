@@ -12,7 +12,7 @@
 # spions kwong, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 14:59+0000\n"
@@ -471,10 +471,6 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr ""
-
-#, fuzzy
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "搜尋<br/>\\n <strong>{{number_of_requests}} 項要求</strong> <span>及</span><br/>\\n <strong>{{number_of_authorities}} 個部門及機構的</strong>公開資料"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr ""
@@ -2425,10 +2421,6 @@ msgstr "垃圾電郵地址｜電郵"
 
 msgid "Start your own blog"
 msgstr ""
-
-#, fuzzy
-msgid "Start your own request"
-msgstr "編輯此要求"
 
 msgid "Stay up to date"
 msgstr "保持更新"

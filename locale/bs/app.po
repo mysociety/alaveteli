@@ -14,7 +14,7 @@
 # vedad <vedadtrbonja@hotmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 14:59+0000\n"
@@ -2534,10 +2534,6 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
-msgstr "Započnite Vaš blog"
-
-#, fuzzy
-msgid "Start your own request"
 msgstr "Započnite Vaš blog"
 
 msgid "Stay up to date"
