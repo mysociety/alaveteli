@@ -427,4 +427,13 @@ class InfoRequestEvent < ActiveRecord::Base
 
     return ret
   end
+
+  def set_calculated_state!(state)
+    unless calculated_state == state
+      self.calculated_state = state
+      self.last_described_at = Time.now
+      save!
+    end
+  end
+
 end
