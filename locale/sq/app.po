@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:03+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
@@ -1060,6 +1060,9 @@ msgstr "Prej:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "JEPI DETAJET PËR ANKESËN TËNDE KËTU"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1517,17 +1520,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Bëj një<br/>\n"
-"        <strong>kërkesë <span>të re për</span><br/>\n"
-"        informata<br/>\n"
-"        zyrtare</strong>"
-
 msgid "Make a request"
 msgstr "Bëj një kërkesë"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3327,6 +3326,9 @@ msgstr "Duke pritur që autoriteti publik të përfundoj rishikimin intern të t
 
 msgid "Waiting for the public authority to reply"
 msgstr "Duke pritur që autoriteti publik të përgjigjet"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "A ishte kërkesa e juaj për QDP e mirë?"

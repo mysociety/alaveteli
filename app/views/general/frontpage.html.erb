@@ -1,18 +1,6 @@
 <% cache_if_caching_fragments("frontpage-#{@locale}", :expires_in => 5.minutes) do %>
-  <div id="frontpage_splash">
-    <div id="left_column">
-      <%= render :partial => "frontpage_new_request" %>
-    </div>
-    <div id="right_column">
-      <div id="frontpage_search_box">
-        <%= render :partial => "frontpage_search_box" %>
-      </div>
-      <div id="frontpage_right_to_know">
-        <%= render :partial => 'frontpage_intro_sentence'  %>
-      </div>
-    </div>
-    <div style="clear:both"></div>
-  </div>
+  <%= render :partial => "frontpage_how_it_works" %>
+
   <div id="frontpage_examples">
     <%= render :partial => "frontpage_bodies_list" %>
     <%= render :partial => "frontpage_requests_list" %>

@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:01+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
@@ -1014,6 +1014,9 @@ msgstr "De la:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "DĂ DETALII DESPRE PLÂNGEREA TA AICI"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1448,13 +1451,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Faceți o nouă<br/>\\n <strong>solicitare <span>de</span><br/>\\n informații<br/>\\de interes public</strong>"
-
 msgid "Make a request"
 msgstr "Faceţi o cerere"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3223,6 +3226,9 @@ msgstr "Aşteaptă autoritatea publică să finalizeze o reviuire internă a pre
 
 msgid "Waiting for the public authority to reply"
 msgstr "Aşteaptă răspunsul autorităţii publice"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Răspunsul pe care l-ai primit la solicitarea de acces la informații a fost de folos?"

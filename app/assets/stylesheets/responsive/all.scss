@@ -4,6 +4,7 @@
 @import "foundation/components/grid";
 @import "foundation/components/block-grid";
 @import "foundation/components/forms";
+@import "foundation/components/inline-lists";
 
 
 // Our own style components
@@ -61,6 +62,9 @@
 
 @import "_public_body_stats_layout";
 @import "_public_body_stats_style";
+
+@import "_sidebar_layout";
+@import "_sidebar_style";
 
 @import "_user_style";
 @import "_user_layout";

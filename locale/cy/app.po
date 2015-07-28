@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:00+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
@@ -1013,6 +1013,9 @@ msgstr "Oddi wrth:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "RHOWCH FANYLION AM EICH CWYN YMA"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1445,14 +1448,14 @@ msgstr "Gwneud cais EIR newydd"
 msgid "Make a new FOI request"
 msgstr "Gwneud cais Rhyddid Gwybodaeth newydd"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Gwnewch <strong>Cais<br/>Rhyddid<br/>Gwybodaeth</strong><br/>newydd"
-
 msgid "Make a request"
 msgstr "Gwneud cais"
 
 msgid "Make a request &raquo;"
 msgstr "Gwneud cais &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Gwneud cais i'r awdurdodau hyn"
@@ -3225,6 +3228,9 @@ msgstr "Yn disgwyl i'r awdurdod cyhoeddus gwblhau adolygiad mewnol o'u triniaeth
 
 msgid "Waiting for the public authority to reply"
 msgstr "Yn aros i'r awdurdod cyhoeddus ymateb"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "A oedd yr ymateb a gawsoch i'ch cais rhyddid gwybodaeth o ddefnydd?"

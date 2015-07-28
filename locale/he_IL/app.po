@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:04+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
@@ -1015,6 +1015,9 @@ msgstr "מאת:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ספקו פרטים על התלונה שלכם כאן"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr "יש לכם חשבון?"
 
@@ -1447,14 +1450,14 @@ msgstr "הגישו בקשה לדוח השפעה על הסביבה"
 msgid "Make a new FOI request"
 msgstr "צרו בקשת חופש מידע חדשה"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "הגישו<br><strong>בקשה</strong><br><span>לפתיחת</span> <br><strong>מאגר מידע</strong>"
-
 msgid "Make a request"
 msgstr "בקשה חדשה"
 
 msgid "Make a request &raquo;"
 msgstr "צרו בקשה &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "צרו בקשה לרשויות האלה"
@@ -3217,6 +3220,9 @@ msgstr "ממתין לרשות הציבורית על מנת שתסיים בדיק
 
 msgid "Waiting for the public authority to reply"
 msgstr "ממתין לתשובה של רשות ציבורית"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "האם קיבלתם תגובה מספקת על בקשת המידע שלכם?"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 14:59+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/projects/p/alaveteli/language/is_IS/)\n"
@@ -996,6 +996,9 @@ msgstr "Frá:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ÚTSKÝRING Á KVÖRTUN ÞINNI HÉR"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1428,14 +1431,14 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr "Sendu nýja upplýsingabeiðni"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-
 msgid "Make a request"
 msgstr "Útbúa upplýsingabeiðni"
 
 msgid "Make a request &raquo;"
 msgstr "Senda upplýsingabeiðni &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Senda upplýsingabeiðnir á þessi stjórnvöld"
@@ -3197,6 +3200,9 @@ msgid "Waiting for the public authority to complete an internal review of their 
 msgstr ""
 
 msgid "Waiting for the public authority to reply"
+msgstr ""
+
+msgid "Want to know something?"
 msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"

@@ -1,0 +1,56 @@
+/* Display of sidebars */
+.sidebar {
+  h2 {
+    font-size: 0.875em; //14px
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  small {
+    line-height: 1.5em;
+  }
+  .report-this-request {
+    text-align: center;
+  }
+}
+
+/* #follow_box .feed_link is here to override specificity in the request sidebar,
+   normally .feed_link should be enough */
+#follow_box .feed_link,
+.feed_link {
+  text-align: left;
+  .link_button_green {
+    text-align: center;
+  }
+}
+
+.request_short_listing {
+  h3 {
+    font-size: 1.125em;
+  }
+  p {
+    font-size: 0.875em;
+    line-height: 1.5em;
+  }
+}
+
+.act_link a {
+  line-height: 1.5em;
+  padding-left: 20px;
+  background-size: 16px;
+  background-position: 0 3px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+.act_link--twitter a {
+  background-image: image-url('twitter-16.png');
+}
+
+.act_link--wordpress a {
+  background-image: image-url('wordpress.png');
+}
+
+.act_link--widget a {
+  background-image: image-url('widget.png');
+}
+

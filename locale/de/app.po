@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:02+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/alaveteli/language/de/)\n"
@@ -1040,6 +1040,9 @@ msgstr "Von:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "HINTELASSEN SIE HIER DETAILS ZU IHRER BESCHWERDE"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1482,15 +1485,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Stellen Sie eine neue<br/>\n"
-"        <strong>Informationsfreiheitsanfrage</strong>"
-
 msgid "Make a request"
 msgstr "Anfrage stellen"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3275,6 +3276,9 @@ msgstr "Die Fertigstellung einer internen Prüfung der Bearbeitungsweise Ihrer A
 
 msgid "Waiting for the public authority to reply"
 msgstr "Antwort der Behörde wird erwartet"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr ""

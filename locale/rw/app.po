@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:01+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/projects/p/alaveteli/language/rw/)\n"
@@ -998,6 +998,9 @@ msgstr "Iva:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "TANGA IBISOBANURO KU KIREGO CYAWE HANO"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr "Ufite konti?"
 
@@ -1430,14 +1433,14 @@ msgstr "Tanga ikindi kibazo ku mategeko agenga ibidukikije"
 msgid "Make a new FOI request"
 msgstr "Tanga ikibazo gishya kirebana n'ubwisanzure bwo kumenya amakuru"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Tanga ikibazo gishya kijyanye<br/>\\n  <strong>n’ubwisanzure<span>bwo</span><br/>\\n  kumenya amakuru<br/>\\n  </strong>"
-
 msgid "Make a request"
 msgstr "Tanga ikibazo"
 
 msgid "Make a request &raquo;"
 msgstr "Tanga ikibazo &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Baza ikibazo aba bayobozi"
@@ -3200,6 +3203,9 @@ msgstr "Gitegereje ko umuyobozi arangiza gukora isuzuma ry'uburyo bakemuye iki k
 
 msgid "Waiting for the public authority to reply"
 msgstr "Dutegereje ko umuyobozi asubiza"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Igisubizo wahawe ku kibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyari cyiza?"

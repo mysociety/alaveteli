@@ -49,6 +49,38 @@
   &:target{
     // Hide menu button when menu is open
     .rsp_menu_button{
+      position: absolute;
+      top: 0.66em;
+      right: 0.9375rem;
+      a {
+        text-align: right;
+        &.open{
+          display: block;
+        }
+        &.close{
+          display: none;
+        }
+      }
+    }
+  }
+
+  .banner_site-title {
+    @include grid-column(12);
+    padding-top: 1.125em; //18px
+    padding-bottom: 1.125em;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column(5);
+      padding-top: 1.6875em; //27px
+      padding-bottom: 1.6875em;
+    }
+    h1 {
+      margin: 0;
+    }
+  }
+
+  &:target{
+    // Hide menu button when menu is open
+    .rsp_menu_button{
       .open{
         display:none;
       }
@@ -65,8 +97,6 @@
         clear:both;
       }
     }
-
-
   }
 
   @include respond-min( $main_menu-mobile_menu_cutoff ){
@@ -84,6 +114,20 @@
     }
   }
 
+}
+
+.site-title__logo {
+  @extend .image-replacement;
+  width: $logo-width;
+  height: $logo-height;
+  background-size: $logo-width $logo-height;
+  background-image: image-url($logo-filename);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  display: block;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url($logo-highdpi-filename);
+  }
 }
 
 
@@ -188,18 +232,46 @@
   }
 }
 
-#user_locale_switcher {
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
+.locale-list {
+  border-bottom: 1px solid #e9e9e9;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
     position: absolute;
     right: 0;
     top: 0;
+    border: 0;
   }
-  a{
+
+  a,
+  .locale-list-trigger {
     display: block;
     padding: 0.5em 1em;
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
+
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
       display: inline-block;
     }
   }
+}
 
+.locale-list-trigger {
+  margin-bottom: 0;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inline;
+  }
+}
+
+.available-languages {
+  list-style: none outside none;
+  margin:0;
+  padding: 0;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inline;
+  }
+
+  li {
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      display: inline-block;
+    }
+  }
 }

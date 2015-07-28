@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:03+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/alaveteli/language/sl/)\n"
@@ -1002,6 +1002,9 @@ msgstr "Od:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "PODROBNOSTI O VAŠI PRITOŽBI VPIŠITE TU"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1434,14 +1437,14 @@ msgstr "Ustvarite nov zahtevek za IJZ"
 msgid "Make a new FOI request"
 msgstr "Ustvarite nov zahtevek za IJZ"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Ustvarite nov<br/>\\n <strong>Zahtevek <span>za</span><br/>\\n informacije<br/>\\n javnega značaja</strong>"
-
 msgid "Make a request"
 msgstr "Naredite zahtevek"
 
 msgid "Make a request &raquo;"
 msgstr "Ustvarite zahtevek &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Ustvarite zahtevek na te organe"
@@ -3214,6 +3217,9 @@ msgstr "Čaka na javni organ, da konča interno revizijo obravnavanja tega zahte
 
 msgid "Waiting for the public authority to reply"
 msgstr "Čaka javni organ na odgovor"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Ali je bil odgovor, ki ste ga prejeli na zahtevek za IJZ, uporaben?"

@@ -1,11 +1,32 @@
 /* Frontpage styles */
-#frontpage_splash {
-  h1, h2 {
-    font-weight: normal;
+.intro__title {
+  margin: 0;
+  font-size: 2em;
+  line-height: 1.142857143em;
+  margin-bottom: 0.428571429em; //18px
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    font-size: 2.625em;
   }
-  strong {
-    font-weight: bold;
+}
+
+.intro__description {
+  font-size: 1.125em;
+  line-height: 1.5em;
+}
+
+.intro__browse {
+  font-size: 1.3125em;
+  a {
+    font-weight: 600;
   }
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    font-size: 1.6875em;
+  }
+}
+
+.new-request__title {
+  font-size: 1.4375em;
+  margin: 0 0 0.5em;
 }
 
 #frontpage_examples {
@@ -25,4 +46,74 @@
       padding-top: 1em;
     }
   }
+}
+
+.bodies-list,
+.latest-requests {
+  h4 {
+    font-size: 1.125em;
+    font-weight: normal;
+    line-height: 1.5em;
+  }
+}
+
+.request-listing {
+  a {
+    font-weight: 600;
+  }
+}
+
+.request-listing__request-body {
+  p {
+    line-height: 1.35em;
+  }
+  a {
+    &:hover,
+    &:active,
+    &:focus {
+      color: #333;
+    }
+  }
+}
+
+.request-body__time-ago {
+  font-size: 0.875em;
+}
+
+.homepage-how-it-works {
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.hiw-content__headings {
+  text-align: center;
+}
+
+.hiw__subtitle {
+  font-size: 1.125em;
+  font-weight: normal;
+  line-height: 1.5em;
+}
+
+.steps__list {
+  list-style: none outside none;
+}
+
+.steps__step-box {
+  line-height: 1.3em;
+  font-size: 1.125em;
+  font-size: 0.875em;
+}
+
+.steps__step-number {
+  text-align: center;
+  top: 1em;
+  p {
+    font-weight: bold;
+    font-size: 2em;
+  }
+}
+
+.learn-more-foi {
+  text-align: center;
 }

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:00+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/alaveteli/language/eu/)\n"
@@ -1027,6 +1027,9 @@ msgstr "Nondik:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ZEHAZTU HEMEN ZURE KEXA"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1468,16 +1471,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Bidali ezazu<br/>\n"
-"        <strong>Informazio<span></span><br/>\n"
-"        eskabide</strong> berria"
-
 msgid "Make a request"
 msgstr "Bidali eskabidea"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3262,6 +3262,9 @@ msgstr "Erakundeak zure eskabideari emandako erantzunaren barneko berrikusketa a
 
 msgid "Waiting for the public authority to reply"
 msgstr "Erakundearen erantzunaren zain"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Zure eskabideari emandako erantzuna behar bezalakoa izan da?"
