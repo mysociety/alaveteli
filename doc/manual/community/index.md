@@ -33,7 +33,7 @@ We have two mailing lists (actually Google Groups). It's OK to sign up to both!
   
 * The <a href="https://groups.google.com/forum/#!forum/alaveteli-dev">Alaveteli
   mailing list for devs</a> where the technical things about Alaveteli, its
-  the codebase and related software get discussed. If you're planning on
+  codebase and related software get discussed. If you're planning on
   contributing to the codebase or are involved in maintaining the systems
   your site is running on, jump in here!
 
