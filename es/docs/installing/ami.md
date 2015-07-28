@@ -55,11 +55,11 @@ Si aún no dispone de estos elementos, deberá crearlos. Consulte la introducci�
 Una vez haya iniciado sesión en el servicio de Amazon y haya navegado hasta la consola
 **EC2 Management Console**, puede lanzar la implementación. Si prefiere hacerlo manualmente,
 encontrará el AMI en la región «EU West (Ireland)» con el ID
-`ami-baf351cd` y el nombre «Basic Alaveteli installation 2014-10-06».
+`ami-428dc035` y el nombre «Basic Alaveteli installation 2015-07-09».
 Alternativamente puede utilizar este enlace:
 
 <p class="action-buttons">
-  <a href="https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-baf351cd" class="button">Lanzar
+  <a href="https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-428dc035" class="button">Lanzar
   implementación con AMI de instalación de Alaveteli</a> 
 </p>
 
