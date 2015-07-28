@@ -48,3 +48,10 @@ $lte-ie7: false !default;
   overflow: hidden;
 }
 body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .visually-hidden button { display: none !important; }
+
+/* Hide text when it's replaced by an image */
+.image-replacement {
+  overflow: hidden;
+  text-indent: 150%;
+  white-space: nowrap;
+}
