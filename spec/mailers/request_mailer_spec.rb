@@ -154,6 +154,24 @@ describe RequestMailer, " when receiving incoming mail" do
     deliveries.clear
   end
 
+  it "redirects spam to the holding_pen" do
+    info_request = FactoryGirl.create(:info_request)
+    AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('holding_pen')
+    AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
+    AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(100)
+    spam_email = <<-EOF.strip_heredoc
+    From: EMAIL_FROM
+    To: FOI Person <EMAIL_TO>
+    Subject: BUY MY SPAM
+    X-Spam-Score: 1000
+    Plz buy my spam
+    EOF
+
+    receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+
+    expect(InfoRequest.holding_pen_request.incoming_messages).to have(1).item
+  end
+
   it "discards mail over the configured spam threshold" do
     info_request = FactoryGirl.create(:info_request)
     AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('discard')

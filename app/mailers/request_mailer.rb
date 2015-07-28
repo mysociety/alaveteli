@@ -232,6 +232,14 @@ class RequestMailer < ApplicationMailer
         when 'discard'
           # Do nothing. Silently drop spam above the threshold
           return
+        when 'holding_pen'
+          reason = _("Incoming message has a spam score ({{spam_score}}) " \
+                     "above the configured threshold ({{spam_threshold}}).",
+                     :spam_score => spam_score,
+                     :spam_threshold => spam_threshold)
+          request = InfoRequest.holding_pen_request
+          request.receive(email, raw_email, false, reason)
+          return
         end
       end
     end
