@@ -210,7 +210,7 @@ in any language, and within any legislation</p>
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/diritto-di-sapere.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Diritto Di Sapere</h3>
+                        <h3 class="deployment__title">Chiedi</h3>
                         <p class="deployment__country">Italy</p>
                         <p class="deployment__link"><a href="https://chiedi.dirittodisapere.it/">https://chiedi.dirittodisapere.it/</a></p>
                     </div>
