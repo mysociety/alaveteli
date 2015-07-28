@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   before_filter :session_remember_me
   before_filter :set_vary_header
   before_filter :validate_session_timestamp
+  before_filter :collect_locales
   after_filter  :persist_session_timestamp
   before_filter :deprecation_notice
 
@@ -496,6 +497,20 @@ class ApplicationController < ActionController::Base
   # Returns a Hash
   def sanitize_path(params)
     params.merge!(:path => Rack::Utils.escape(params[:path])) if params.key?(:path)
+  end
+
+  # Collect the current and available locales for the locale switcher
+  #
+  # Returns a Hash
+  def collect_locales
+    @locales = { :current => FastGettext.locale, :available => [] }
+    FastGettext.default_available_locales.each do |possible_locale|
+      if possible_locale == FastGettext.locale
+        @locales[:current] = possible_locale
+      else
+        @locales[:available] << possible_locale
+      end
+    end
   end
 
   # URL generating functions are needed by all controllers (for redirects),
