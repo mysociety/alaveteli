@@ -1,13 +1,40 @@
 <div class="footer" id="footer">
-  <div id="footer-nav">
-    <ul>
-      <li><%= link_to image_tag('logo.png'), frontpage_path, :id => 'logo' %></li>
-      <li><%= link_to _("Contact {{site_name}}", :site_name => site_name), help_contact_path %></li>
-      <% unless AlaveteliConfiguration::twitter_username.blank? %>
-        <li><a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>"><%= _("Follow us on twitter") %></a></li>
-      <% end %>
-
+  <div class="row">
+    <div class="footer__about">
+      <h2><%= site_name %></h2>
       <%= render :partial => 'general/responsive_credits' %>
-    </ul>
+      <ul class="about__contact-links">
+        <li>
+          <%= link_to 'Contact us', help_contact_path %>
+        </li>
+        <li>
+          <%= link_to 'Help', help_path %>
+        </li>
+        <li>
+          <%= link_to 'Privacy and cookies', help_privacy_path %>
+        </li>
+        <li>
+          <%= link_to 'API', help_api_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__final">
+    <div class="row">
+      <div class="final__social-links">
+        <ul>
+          <% unless AlaveteliConfiguration::twitter_username.blank? %>
+          <li>
+            <a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>" class="social-link social-link--twitter">@<%= AlaveteliConfiguration::twitter_username %></a>
+          </li>
+          <% end %>
+          <% unless AlaveteliConfiguration::facebook_username.blank? %>
+          <li>
+            <a href="https://facebook.com/<%= AlaveteliConfiguration::facebook_username %>" class="social-link social-link--facebook">/<%= AlaveteliConfiguration::facebook_username %></a>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
