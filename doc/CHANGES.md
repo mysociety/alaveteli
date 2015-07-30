@@ -2,6 +2,10 @@
 
 ## Highlighted Features
 
+* The sorting on PublicBodyController#list now uses `COLLATE` to sort in the
+  correct order for a locale if a collation is available for the language. See
+  http://alaveteli.org/docs/developers/i18n/#internationalised-sorting for
+  adding collations. This requires PostgreSQL >= 9.1.12. (Gareth Rees)
 * The new widget template can now be translated (Gareth Rees).
 * Various design and markup improvements to the layout, home page and request
   page (Martin Wright).
