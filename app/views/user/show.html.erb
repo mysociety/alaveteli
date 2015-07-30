@@ -40,13 +40,13 @@
 <% if @show_profile %>
   <div id="user_profile_header">
     <div id="header_right" class="sidebar">
-      <% unless @track_thing.nil? %>
+      <% if @track_thing %>
         <h2><%= _('Track this person') %></h2>
         <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
         <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
       <% end %>
 
-      <% unless @xapian_requests.nil? %>
+      <% if @xapian_requests %>
         <h2><%= _('On this page') %></h2>
         <a href="#foi_requests"><%= _('FOI requests') %></a>
         <br><a href="#annotations"><%= _('Annotations') %></a>
