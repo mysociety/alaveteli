@@ -827,7 +827,8 @@ class InfoRequest < ActiveRecord::Base
   def initial_request_text
     return '' if outgoing_messages.empty?
     body_opts = { :censor_rules => applicable_censor_rules }
-    outgoing_messages.first.try(:get_text_for_indexing, true, body_opts) or ''
+    first_message = outgoing_messages.first
+    first_message.all_can_view? ? first_message.get_text_for_indexing(true, body_opts) : ''
   end
 
   # Returns index of last event which is described or nil if none described.
