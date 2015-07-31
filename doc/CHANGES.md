@@ -15,6 +15,8 @@
   media (Owen Blacker).
 * Request graph cron job no longer errors if there are no requests in a
   particular state (Petter Reinholdtsen).
+* New rake task stats:list_hidden for printing a list of requests with hidden
+  material (Louise Crow).
 
 ## Upgrade Notes
 
