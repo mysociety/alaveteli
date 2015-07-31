@@ -23,7 +23,10 @@ describe 'request/show' do
                                                 :prominence => 'normal',
                                                 :comments_allowed? => true,
                                                 :all_can_view? => true,
-                                                :url_title => 'test_request')
+                                                :url_title => 'test_request',
+                                                :created_at => Time.now,
+                                                :updated_at => Time.now,
+                                                :initial_request_text => 'Some text')
     end
 
     def request_page
