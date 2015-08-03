@@ -12,6 +12,7 @@
 
 class RequestClassification < ActiveRecord::Base
   belongs_to :user
+  belongs_to :info_request_event
 
   # return classification instances representing the top n
   # users, with a 'cnt' attribute representing the number
