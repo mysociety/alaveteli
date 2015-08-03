@@ -190,12 +190,22 @@ class GeneralController < ApplicationController
 
   def version
     respond_to do |format|
-      format.json { render :json => {
-                      :alaveteli_git_commit => alaveteli_git_commit,
-                      :alaveteli_version => ALAVETELI_VERSION,
-                      :ruby_version => RUBY_VERSION,
-                      :visible_request_count => InfoRequest.visible.count,
-                      :confirmed_user_count => User.where(:email_confirmed => true).count
+      format.json {
+        render :json => {
+          :alaveteli_git_commit => alaveteli_git_commit,
+          :alaveteli_version => ALAVETELI_VERSION,
+          :ruby_version => RUBY_VERSION,
+          :visible_public_body_count => PublicBody.visible.count,
+          :visible_request_count => InfoRequest.visible.count,
+          :confirmed_user_count => User.where(:email_confirmed => true).count,
+          :visible_comment_count => Comment.visible.count,
+          :track_thing_count => TrackThing.count,
+          :widget_vote_count => WidgetVote.count,
+          :public_body_change_request_count => PublicBodyChangeRequest.count,
+          :request_classification_count => RequestClassification.count,
+          :visible_followup_message_count =>
+            OutgoingMessage.where(:prominence => 'normal',
+                                  :message_type => 'followup').count
       }}
     end
   end

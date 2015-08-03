@@ -1,5 +1,9 @@
 # develop
 
+## Highlighted Features
+
+* Added additional transaction stats to /version.json endpoint (Gareth Rees).
+
 # Version 0.22.2.0
 
 ## Highlighted Features
