@@ -1,5 +1,33 @@
 # develop
 
+## Highlighted Features
+
+* Various design and markup improvements to the layout, home page and request
+  page (Martin Wright).
+
+## Upgrade Notes
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/general/_frontpage_hero.html.erb
+    app/views/general/_frontpage_how_it_works.html.erb
+    app/views/general/_frontpage_intro_sentence.html.erb
+    app/views/general/_frontpage_new_request.html.erb
+    app/views/general/_frontpage_requests_list.html.erb
+    app/views/general/_locale_switcher.html.erb
+    app/views/general/_responsive_credits.html.erb
+    app/views/general/_responsive_footer.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/frontpage.html.erb
+    app/views/general/search.html.erb
+    app/views/request/_act.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/list.html.erb
+    app/views/user/show.html.erb
+
 # Version 0.22.1.0
 
 ## Highlighted Features
