@@ -30,6 +30,7 @@ Definitions
   <li><a href="#disclosure-log">disclosure log</a></li>
   <li><a href="#emergency">emergency user</a></li>
   <li><a href="#foi">freedom of information</a></li>
+  <li><a href="#gaze">gaze</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">holding pen</a></li>
   <li><a href="#holiday">holiday</a></li>
@@ -412,6 +413,33 @@ Definitions
       <ul>
         <li>
           Wikipedia summary of <a href="http://en.wikipedia.org/wiki/Freedom_of_information_laws_by_country">FOI laws by country</a>.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="gaze">gaze</a>
+  </dt>
+  <dd>
+    <p>
+      Alateveli uses mySociety's gazeteer service, called Gaze, to determine
+      each user's country from their incoming IP address. This lets the site
+      suggest an Alaveteli site in their country, if one exists.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>The config variable 
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#gaze_url">GAZE_URL</a></code>
+          should usually point at...
+        </li>
+        <li>...the <a
+          href="http://gaze.mysociety.org/">Gaze service</a>.
+        </li>
+        <li>
+          See <a href="https://github.com/mysociety/gaze">Gaze source on
+          github</a>.
         </li>
       </ul>
     </div>

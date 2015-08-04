@@ -942,8 +942,11 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
     <a name="gaze_url"><code>GAZE_URL</code></a>
   </dt>
   <dd>
-      Alateveli uses mySociety's gazeteer service to determine country from incoming
-      IP address (this lets us suggest an Alaveteli in their country, if one exists).
+      Alateveli uses
+      <a href="{{ page.baseurl }}/docs/glossary/#gaze" class="glossary__link">Gaze</a>,
+      mySociety's gazeteer service, to determine each user's country from
+      their incoming IP address. This lets the site suggest an Alaveteli
+      site in their own country, if one exists.
       You shouldn't normally need to change this.
     <div class="more-info">
       <p>Example:</p>
