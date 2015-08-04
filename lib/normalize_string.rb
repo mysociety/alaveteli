@@ -83,7 +83,7 @@ def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
   result
 end
 
-class StringConversionResult < Struct.new(:string, :scrubbed)
+StringConversionResult = Struct.new(:string, :scrubbed) do
   alias_method :scrubbed?, :scrubbed
 end
 
