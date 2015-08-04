@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fixes incorrectly updating `url_name` when a banned user record is updated
+  (Gareth Rees).
 * Definition lists are now easier to read and follow, greatly improves help
   pages (Martin Wright).
 * The sorting on PublicBodyController#list now uses `COLLATE` to sort in the
