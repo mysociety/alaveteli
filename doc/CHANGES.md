@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* The new widget template can now be translated (Gareth Rees).
 * Various design and markup improvements to the layout, home page and request
   page (Martin Wright).
 
@@ -27,6 +28,7 @@ to match the new templates.
     app/views/request/_sidebar.html.erb
     app/views/request/list.html.erb
     app/views/user/show.html.erb
+    app/views/widgets/new.html.erb
 
 # Version 0.22.1.0
 
