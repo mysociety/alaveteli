@@ -527,7 +527,7 @@ Definitions
       <a href="{{ page.baseurl }}/docs/customising/translation/">translating</a> it, or
       <a href="{{ page.baseurl }}/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">uploading names</a>
       of the public bodies in more than one language) at the very least you may
-      need to know the language codes you're site is using.
+      need to know the language codes your site is using.
     </p>
     <div class="more-info">
       <p>More information:</p>
