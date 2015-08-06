@@ -18,9 +18,13 @@ class AdminHolidayImportsController < AdminController
 
   private
 
-  def holiday_import_params(key = :holiday_import)
-    if params[key]
-      params[key].slice(:holidays_attributes, :start_year, :end_year, :source, :ical_feed_url)
+  def holiday_import_params
+    if params[:holiday_import]
+      params[:holiday_import].slice(:holidays_attributes,
+                                    :start_year,
+                                    :end_year,
+                                    :source,
+                                    :ical_feed_url)
     else
       {}
     end
