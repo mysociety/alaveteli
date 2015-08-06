@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class AdminHolidaysController < AdminController
 
+  before_filter :set_holiday, :only => [:edit, :update, :destroy]
+
   def index
     get_all_holidays
   end
@@ -25,7 +27,6 @@ class AdminHolidaysController < AdminController
   end
 
   def edit
-    @holiday = Holiday.find(params[:id])
     if request.xhr?
       render :partial => 'edit_form'
     else
@@ -34,7 +35,6 @@ class AdminHolidaysController < AdminController
   end
 
   def update
-    @holiday = Holiday.find(params[:id])
     if @holiday.update_attributes(holiday_params)
       flash[:notice] = 'Holiday successfully updated.'
       redirect_to admin_holidays_path
@@ -44,7 +44,6 @@ class AdminHolidaysController < AdminController
   end
 
   def destroy
-    @holiday = Holiday.find(params[:id])
     @holiday.destroy
     notice = "Holiday successfully destroyed"
     redirect_to admin_holidays_path, :notice => notice
@@ -63,6 +62,10 @@ class AdminHolidaysController < AdminController
     else
       {}
     end
+  end
+
+  def set_holiday
+    @holiday = Holiday.find(params[:id])
   end
 
 end

@@ -63,13 +63,13 @@ describe AdminPublicBodyCategoriesController do
 
     it 'builds a new PublicBodyCategory' do
       get :new
-      expect(assigns(:category)).to be_new_record
+      expect(assigns(:public_body_category)).to be_new_record
     end
 
     it 'builds new translations for all locales' do
       get :new
 
-      translations = assigns(:category).translations.map{ |t| t.locale.to_s }.sort
+      translations = assigns(:public_body_category).translations.map{ |t| t.locale.to_s }.sort
       available = I18n.available_locales.map{ |l| l.to_s }.sort
 
       expect(translations).to eq(available)
@@ -179,7 +179,7 @@ describe AdminPublicBodyCategoriesController do
 
       it 'is rebuilt with the given params' do
         post :create, :public_body_category => { :title => 'Need a description' }
-        expect(assigns(:category).title).to eq('Need a description')
+        expect(assigns(:public_body_category).title).to eq('Need a description')
       end
 
     end
@@ -200,14 +200,14 @@ describe AdminPublicBodyCategoriesController do
 
       it 'is rebuilt with the default locale translation' do
         post :create, :public_body_category => @params
-        expect(assigns(:category).title).to eq('Need a description')
+        expect(assigns(:public_body_category).title).to eq('Need a description')
       end
 
       it 'is rebuilt with the alternative locale translation' do
         post :create, :public_body_category => @params
 
         I18n.with_locale(:es) do
-          expect(assigns(:category).title).to eq('Mi Nuevo Category')
+          expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
         end
       end
 
@@ -233,12 +233,12 @@ describe AdminPublicBodyCategoriesController do
 
     it 'finds the requested category' do
       get :edit, :id => @category.id
-      expect(assigns[:category]).to eq(@category)
+      expect(assigns[:public_body_category]).to eq(@category)
     end
 
     it 'builds new translations if the body does not already have a translation in the specified locale' do
       get :edit, :id => @category.id
-      expect(assigns[:category].translations.map(&:locale)).to include(:fr)
+      expect(assigns[:public_body_category].translations.map(&:locale)).to include(:fr)
     end
 
     it 'finds the public bodies tagged with the category tag' do
@@ -295,7 +295,7 @@ describe AdminPublicBodyCategoriesController do
     it 'finds the category to update' do
       post :update, :id => @category.id,
         :public_body_category => @params
-      expect(assigns(:category)).to eq(@category)
+      expect(assigns(:public_body_category)).to eq(@category)
     end
 
     it 'finds the public bodies tagged with the category tag' do
@@ -565,7 +565,7 @@ describe AdminPublicBodyCategoriesController do
                       :title => 'Need a description',
                       :description => '' }
           } }
-          expect(assigns(:category).title).to eq('Need a description')
+          expect(assigns(:public_body_category).title).to eq('Need a description')
       end
 
     end
@@ -589,7 +589,7 @@ describe AdminPublicBodyCategoriesController do
       it 'is rebuilt with the default locale translation' do
         post :update, :id => @category.id,
           :public_body_category => @params
-        expect(assigns(:category).title(:en)).to eq('Need a description')
+        expect(assigns(:public_body_category).title(:en)).to eq('Need a description')
       end
 
       it 'is rebuilt with the alternative locale translation' do
@@ -597,7 +597,7 @@ describe AdminPublicBodyCategoriesController do
           :public_body_category => @params
 
         I18n.with_locale(:es) do
-          expect(assigns(:category).title).to eq('Mi Nuevo Category')
+          expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
         end
       end
 

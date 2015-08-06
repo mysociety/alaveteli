@@ -7,8 +7,9 @@
 
 class AdminRawEmailController < AdminController
 
+  before_filter :set_raw_email, :only => [:show]
+
   def show
-    @raw_email = RawEmail.find(params[:id])
     respond_to do |format|
       format.html do
         # For the holding pen, try to guess where it should be ...
@@ -41,6 +42,12 @@ class AdminRawEmailController < AdminController
         render :text => @raw_email.data
       end
     end
+  end
+
+  private
+
+  def set_raw_email
+    @raw_email = RawEmail.find(params[:id])
   end
 
 end

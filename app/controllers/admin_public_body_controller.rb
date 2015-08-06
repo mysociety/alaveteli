@@ -9,6 +9,8 @@ class AdminPublicBodyController < AdminController
 
   include TranslatableParams
 
+  before_filter :set_public_body, :only => [:edit, :update, :destroy]
+
   def index
     lookup_query
   end
@@ -65,9 +67,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def edit
-    @public_body = PublicBody.find(params[:id])
     @public_body.build_all_translations
-
     if params[:change_request_id]
       @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
     end
@@ -88,7 +88,6 @@ class AdminPublicBodyController < AdminController
     end
     I18n.with_locale(I18n.default_locale) do
       params[:public_body][:last_edit_editor] = admin_current_user
-      @public_body = PublicBody.find(params[:id])
       if @public_body.update_attributes(public_body_params)
         if @change_request
           @change_request.close!
@@ -106,16 +105,15 @@ class AdminPublicBodyController < AdminController
   def destroy
     @locale = locale_from_params
     I18n.with_locale(@locale) do
-      public_body = PublicBody.find(params[:id])
 
-      if public_body.info_requests.size > 0
+      if @public_body.info_requests.size > 0
         flash[:notice] = "There are requests associated with the authority, so can't destroy it"
-        redirect_to admin_body_url(public_body)
+        redirect_to admin_body_url(@public_body)
         return
       end
 
-      public_body.tag_string = ""
-      public_body.destroy
+      @public_body.tag_string = ""
+      @public_body.destroy
       flash[:notice] = "PublicBody was successfully destroyed."
       redirect_to admin_bodies_url
     end
@@ -274,4 +272,9 @@ class AdminPublicBodyController < AdminController
        {}
       end
     end
+
+    def set_public_body
+      @public_body = PublicBody.find(params[:id])
+    end
+
 end
