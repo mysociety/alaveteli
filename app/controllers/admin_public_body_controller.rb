@@ -124,7 +124,7 @@ class AdminPublicBodyController < AdminController
       elsif params[:table_name] == 'substring'
         bodies = @public_bodies
       else
-        raise "Unknown table_name " + params[:table_name]
+        raise "Unknown table_name #{params[:table_name]}"
       end
       for body in bodies
         body.add_tag_if_not_already_present(params[:new_tag])
