@@ -27,7 +27,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  strip_attributes!
+  strip_attributes :allow_empty => true
 
   attr_accessor :password_confirmation, :no_xapian_reindex
 

@@ -22,7 +22,7 @@
 
 class Comment < ActiveRecord::Base
   include AdminColumn
-  strip_attributes!
+  strip_attributes :allow_empty => true
 
   belongs_to :user
   belongs_to :info_request

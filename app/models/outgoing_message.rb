@@ -51,7 +51,7 @@ class OutgoingMessage < ActiveRecord::Base
   # reindex if body text is edited (e.g. by admin interface)
   after_update :xapian_reindex_after_update
 
-  strip_attributes!
+  strip_attributes :allow_empty => true
   has_prominence
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain
