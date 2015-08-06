@@ -3,38 +3,37 @@ class AdminPublicBodyHeadingsController < AdminController
 
   include TranslatableParams
 
+  before_filter :set_public_body_heading, :only => [:edit, :update, :destroy]
+
   def new
-    @heading = PublicBodyHeading.new
-    @heading.build_all_translations
+    @public_body_heading = PublicBodyHeading.new
+    @public_body_heading.build_all_translations
   end
 
   def create
     I18n.with_locale(I18n.default_locale) do
-      @heading = PublicBodyHeading.new(public_body_heading_params)
-      if @heading.save
+      @public_body_heading = PublicBodyHeading.new(public_body_heading_params)
+      if @public_body_heading.save
         flash[:notice] = 'Heading was successfully created.'
         redirect_to admin_categories_url
       else
-        @heading.build_all_translations
+        @public_body_heading.build_all_translations
         render :action => 'new'
       end
     end
   end
 
   def edit
-    @heading = PublicBodyHeading.find(params[:id])
-    @heading.build_all_translations
+    @public_body_heading.build_all_translations
   end
 
   def update
-    @heading = PublicBodyHeading.find(params[:id])
-
     I18n.with_locale(I18n.default_locale) do
-      if @heading.update_attributes(public_body_heading_params)
+      if @public_body_heading.update_attributes(public_body_heading_params)
         flash[:notice] = 'Heading was successfully updated.'
-        redirect_to edit_admin_heading_path(@heading)
+        redirect_to edit_admin_heading_path(@public_body_heading)
       else
-        @heading.build_all_translations
+        @public_body_heading.build_all_translations
         render :action => 'edit'
       end
     end
@@ -43,8 +42,7 @@ class AdminPublicBodyHeadingsController < AdminController
   def destroy
     @locale = self.locale_from_params
     I18n.with_locale(@locale) do
-      heading = PublicBodyHeading.find(params[:id])
-      heading.destroy
+      @public_body_heading.destroy
       flash[:notice] = "Heading was successfully destroyed."
       redirect_to admin_categories_url
     end
@@ -121,6 +119,10 @@ class AdminPublicBodyHeadingsController < AdminController
     else
       {}
     end
+  end
+
+  def set_public_body_heading
+    @public_body_heading = PublicBodyHeading.find(params[:id])
   end
 
 end

@@ -4,7 +4,7 @@
 <div class="row">
   <div class="span8">
     <div id="public_heading_form">
-      <%= form_for @heading, :url => admin_headings_path, :html => { :class => "form form-horizontal" } do |f| %>
+      <%= form_for @public_body_heading, :url => admin_headings_path, :html => { :class => "form form-horizontal" } do |f| %>
         <%= render :partial => 'form', :locals => { :f => f } %>
 
         <div class="form-actions">

@@ -7,7 +7,7 @@ module AdminPublicBodyCategoryHelper
       else
         return false
       end
-    elsif @category.public_body_headings.include?(heading)
+    elsif @public_body_category.public_body_headings.include?(heading)
       return true
     end
     false

@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class AdminOutgoingMessageController < AdminController
 
+  before_filter :set_outgoing_message, :only => [:edit, :destroy, :update, :resend]
+
   def edit
-    @outgoing_message = OutgoingMessage.find(params[:id])
   end
 
   def destroy
-    @outgoing_message = OutgoingMessage.find(params[:id])
     @info_request = @outgoing_message.info_request
     outgoing_message_id = @outgoing_message.id
 
@@ -19,8 +19,6 @@ class AdminOutgoingMessageController < AdminController
   end
 
   def update
-    @outgoing_message = OutgoingMessage.find(params[:id])
-
     old_body = @outgoing_message.body
     old_prominence = @outgoing_message.prominence
     old_prominence_reason = @outgoing_message.prominence_reason
@@ -43,7 +41,6 @@ class AdminOutgoingMessageController < AdminController
   end
 
   def resend
-    @outgoing_message = OutgoingMessage.find(params[:id])
     @outgoing_message.prepare_message_for_resend
 
     mail_message = case @outgoing_message.message_type
@@ -74,13 +71,16 @@ class AdminOutgoingMessageController < AdminController
 
   private
 
-
   def outgoing_message_params
     if params[:outgoing_message]
       params[:outgoing_message].slice(:prominence, :prominence_reason, :body)
     else
       {}
     end
+  end
+
+  def set_outgoing_message
+    @outgoing_message = OutgoingMessage.find(params[:id])
   end
 
 end

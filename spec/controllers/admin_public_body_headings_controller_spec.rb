@@ -12,13 +12,13 @@ describe AdminPublicBodyHeadingsController do
 
     it 'builds a new PublicBodyHeading' do
       get :new
-      expect(assigns(:heading)).to be_new_record
+      expect(assigns(:public_body_heading)).to be_new_record
     end
 
     it 'builds new translations for all locales' do
       get :new
 
-      translations = assigns(:heading).translations.map{ |t| t.locale.to_s }.sort
+      translations = assigns(:public_body_heading).translations.map{ |t| t.locale.to_s }.sort
       available = I18n.available_locales.map{ |l| l.to_s }.sort
 
       expect(translations).to eq(available)
@@ -110,7 +110,7 @@ describe AdminPublicBodyHeadingsController do
 
       it 'is rebuilt with the given params' do
         post :create, :public_body_heading => { :name => 'Need a description' }
-        expect(assigns(:heading).name).to eq('Need a description')
+        expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
 
     end
@@ -128,14 +128,14 @@ describe AdminPublicBodyHeadingsController do
 
       it 'is rebuilt with the default locale translation' do
         post :create, :public_body_heading => @params
-        expect(assigns(:heading).name).to eq('Need a description')
+        expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
 
       it 'is rebuilt with the alternative locale translation' do
         post :create, :public_body_heading => @params
 
         I18n.with_locale(:es) do
-          expect(assigns(:heading).name).to eq('Mi Nuevo Heading')
+          expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
         end
       end
 
@@ -160,12 +160,12 @@ describe AdminPublicBodyHeadingsController do
 
     it 'finds the requested heading' do
       get :edit, :id => @heading.id
-      expect(assigns[:heading]).to eq(@heading)
+      expect(assigns[:public_body_heading]).to eq(@heading)
     end
 
     it 'builds new translations if the body does not already have a translation in the specified locale' do
       get :edit, :id => @heading.id
-      expect(assigns[:heading].translations.map(&:locale)).to include(:fr)
+      expect(assigns[:public_body_heading].translations.map(&:locale)).to include(:fr)
     end
 
     it 'renders the edit template' do
@@ -196,7 +196,7 @@ describe AdminPublicBodyHeadingsController do
     it 'finds the heading to update' do
       post :update, :id => @heading.id,
         :public_body_category => @params
-      expect(assigns(:heading)).to eq(@heading)
+      expect(assigns(:public_body_heading)).to eq(@heading)
     end
 
     context 'on success' do
@@ -374,7 +374,7 @@ describe AdminPublicBodyHeadingsController do
                       :locale => 'en',
                       :name => 'Need a description' }
         } }
-        expect(assigns(:heading).name).to eq('Need a description')
+        expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
 
     end
@@ -395,7 +395,7 @@ describe AdminPublicBodyHeadingsController do
       it 'is rebuilt with the default locale translation' do
         post :update, :id => @heading.id,
           :public_body_heading => @params
-        expect(assigns(:heading).name(:en)).to eq('')
+        expect(assigns(:public_body_heading).name(:en)).to eq('')
       end
 
       it 'is rebuilt with the alternative locale translation' do
@@ -403,7 +403,7 @@ describe AdminPublicBodyHeadingsController do
           :public_body_heading => @params
 
         I18n.with_locale(:es) do
-          expect(assigns(:heading).name).to eq('Mi Nuevo Heading')
+          expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
         end
       end
 
