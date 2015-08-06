@@ -7,6 +7,8 @@
 
 class AdminTrackController < AdminController
 
+  before_filter :set_track_thing, :only => [:destroy]
+
   def index
     @query = params[:query]
     if @query
@@ -19,12 +21,15 @@ class AdminTrackController < AdminController
   end
 
   def destroy
-    track_thing = TrackThing.find(params[:id].to_i)
-    track_thing.destroy
+    @track_thing.destroy
     flash[:notice] = 'Track destroyed'
-    redirect_to admin_user_url(track_thing.tracking_user)
+    redirect_to admin_user_url(@track_thing.tracking_user)
   end
 
   private
+
+  def set_track_thing
+    track_thing = TrackThing.find(params[:id])
+  end
 
 end

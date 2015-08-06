@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class AdminPublicBodyHeadingsController < AdminController
 
+  before_filter :set_public_body_heading, :only => [:edit, :update, :destroy]
+
   def new
     @heading = PublicBodyHeading.new
     @heading.build_all_translations
@@ -20,13 +22,10 @@ class AdminPublicBodyHeadingsController < AdminController
   end
 
   def edit
-    @heading = PublicBodyHeading.find(params[:id])
     @heading.build_all_translations
   end
 
   def update
-    @heading = PublicBodyHeading.find(params[:id])
-
     I18n.with_locale(I18n.default_locale) do
       if @heading.update_attributes(public_body_heading_params)
         flash[:notice] = 'Heading was successfully updated.'
@@ -41,8 +40,7 @@ class AdminPublicBodyHeadingsController < AdminController
   def destroy
     @locale = self.locale_from_params
     I18n.with_locale(@locale) do
-      heading = PublicBodyHeading.find(params[:id])
-      heading.destroy
+      @heading.destroy
       flash[:notice] = "Heading was successfully destroyed."
       redirect_to admin_categories_url
     end
@@ -126,6 +124,10 @@ class AdminPublicBodyHeadingsController < AdminController
     else
       {}
     end
+  end
+
+  def set_public_body_heading
+    @heading = PublicBodyHeading.find(params[:id])
   end
 
 end

@@ -7,6 +7,14 @@
 
 class AdminUserController < AdminController
 
+  before_filter :set_user, :only => [ :show,
+                                      :edit,
+                                      :update,
+                                      :show_bounce_message,
+                                      :clear_bounce,
+                                      :login_as,
+                                      :clear_profile_photo ]
+
   def index
     @query = params[:query]
     if @query
@@ -19,16 +27,12 @@ class AdminUserController < AdminController
   end
 
   def show
-    # Don't use @user as that is any logged in user
-    @admin_user = User.find(params[:id])
   end
 
   def edit
-    @admin_user = User.find(params[:id])
   end
 
   def update
-    @admin_user = User.find(params[:id])
     if @admin_user.update_attributes(user_params)
       flash[:notice] = 'User successfully updated.'
       redirect_to admin_user_url(@admin_user)
@@ -43,20 +47,16 @@ class AdminUserController < AdminController
   end
 
   def show_bounce_message
-    @admin_user = User.find(params[:id])
   end
 
   def clear_bounce
-    user = User.find(params[:id])
-    user.email_bounced_at = nil
-    user.email_bounce_message = ""
-    user.save!
-    redirect_to admin_user_url(user)
+    @admin_user.email_bounced_at = nil
+    @admin_user.email_bounce_message = ""
+    @admin_user.save!
+    redirect_to admin_user_url(@admin_user)
   end
 
   def login_as
-    @admin_user = User.find(params[:id]) # check user does exist
-
     post_redirect = PostRedirect.new( :uri => user_url(@admin_user), :user_id => @admin_user.id, :circumstance => "login_as" )
     post_redirect.save!
     url = confirm_url(:email_token => post_redirect.email_token)
@@ -65,8 +65,6 @@ class AdminUserController < AdminController
   end
 
   def clear_profile_photo
-    @admin_user = User.find(params[:id])
-
     if @admin_user.profile_photo
       @admin_user.profile_photo.destroy
     end
@@ -94,6 +92,11 @@ class AdminUserController < AdminController
     else
       {}
     end
+  end
+
+  def set_user
+    # Don't use @user as that is any logged in user
+    @admin_user = User.find(params[:id])
   end
 
 end

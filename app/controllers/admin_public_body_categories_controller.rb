@@ -1,5 +1,8 @@
 # -*- encoding : utf-8 -*-
 class AdminPublicBodyCategoriesController < AdminController
+
+  before_filter :set_public_body_category, :only => [:edit, :update, :destroy]
+
   def index
     @locale = self.locale_from_params
     @category_headings = PublicBodyHeading.all
@@ -32,13 +35,11 @@ class AdminPublicBodyCategoriesController < AdminController
   end
 
   def edit
-    @category = PublicBodyCategory.find(params[:id])
     @category.build_all_translations
     @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
   end
 
   def update
-    @category = PublicBodyCategory.find(params[:id])
     @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
 
     heading_ids = []
@@ -86,8 +87,7 @@ class AdminPublicBodyCategoriesController < AdminController
   def destroy
     @locale = self.locale_from_params
     I18n.with_locale(@locale) do
-      category = PublicBodyCategory.find(params[:id])
-      category.destroy
+      @category.destroy
       flash[:notice] = "Category was successfully destroyed."
       redirect_to admin_categories_path
     end
@@ -111,6 +111,10 @@ class AdminPublicBodyCategoriesController < AdminController
     else
       {}
     end
+  end
+
+  def set_public_body_category
+    @category = PublicBodyCategory.find(params[:id])
   end
 
 end
