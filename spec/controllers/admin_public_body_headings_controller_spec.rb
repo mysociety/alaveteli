@@ -413,18 +413,6 @@ describe AdminPublicBodyHeadingsController do
 
   describe 'DELETE destroy' do
 
-    it 'uses the current locale by default' do
-      heading = FactoryGirl.create(:public_body_heading)
-      post :destroy, :id => heading.id
-      expect(assigns(:locale)).to eq(I18n.locale.to_s)
-    end
-
-    it 'sets the locale if the show_locale param is passed' do
-      heading = FactoryGirl.create(:public_body_heading)
-      post :destroy, :id => heading.id, :show_locale => 'es'
-      expect(assigns(:locale)).to eq('es')
-    end
-
     it 'destroys the public body heading' do
       PublicBodyHeading.destroy_all
 

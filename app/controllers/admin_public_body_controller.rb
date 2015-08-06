@@ -103,20 +103,16 @@ class AdminPublicBodyController < AdminController
   end
 
   def destroy
-    @locale = locale_from_params
-    I18n.with_locale(@locale) do
-
-      if @public_body.info_requests.size > 0
-        flash[:notice] = "There are requests associated with the authority, so can't destroy it"
-        redirect_to admin_body_url(@public_body)
-        return
-      end
-
-      @public_body.tag_string = ""
-      @public_body.destroy
-      flash[:notice] = "PublicBody was successfully destroyed."
-      redirect_to admin_bodies_url
+    if @public_body.info_requests.size > 0
+      flash[:notice] = "There are requests associated with the authority, so can't destroy it"
+      redirect_to admin_body_url(@public_body)
+      return
     end
+
+    @public_body.tag_string = ""
+    @public_body.destroy
+    flash[:notice] = "PublicBody was successfully destroyed."
+    redirect_to admin_bodies_url
   end
 
   def mass_tag_add
