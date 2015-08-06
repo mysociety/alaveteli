@@ -7,7 +7,7 @@ class AdminSpamAddressesController < AdminController
   end
 
   def create
-    @spam_address = SpamAddress.new(params[:spam_address])
+    @spam_address = SpamAddress.new(spam_address_params)
 
     if @spam_address.save
       notice = "#{ @spam_address.email } has been added to the spam addresses list"
@@ -23,6 +23,16 @@ class AdminSpamAddressesController < AdminController
     @spam_address.destroy
     notice = "#{ @spam_address.email } has been removed from the spam addresses list"
     redirect_to admin_spam_addresses_path, :notice => notice
+  end
+
+  private
+
+  def spam_address_params
+    if params[:spam_address]
+      params[:spam_address].slice(:email)
+    else
+      {}
+    end
   end
 
 end

@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class AdminPublicBodyHeadingsController < AdminController
 
+  include TranslatableParams
+
   def new
     @heading = PublicBodyHeading.new
     @heading.build_all_translations
@@ -8,7 +10,7 @@ class AdminPublicBodyHeadingsController < AdminController
 
   def create
     I18n.with_locale(I18n.default_locale) do
-      @heading = PublicBodyHeading.new(params[:public_body_heading])
+      @heading = PublicBodyHeading.new(public_body_heading_params)
       if @heading.save
         flash[:notice] = 'Heading was successfully created.'
         redirect_to admin_categories_url
@@ -28,7 +30,7 @@ class AdminPublicBodyHeadingsController < AdminController
     @heading = PublicBodyHeading.find(params[:id])
 
     I18n.with_locale(I18n.default_locale) do
-      if @heading.update_attributes(params[:public_body_heading])
+      if @heading.update_attributes(public_body_heading_params)
         flash[:notice] = 'Heading was successfully updated.'
         redirect_to edit_admin_heading_path(@heading)
       else
@@ -107,6 +109,18 @@ class AdminPublicBodyHeadingsController < AdminController
       end
     end
     { :success => error.nil?, :error => error }
+  end
+
+  private
+
+  def public_body_heading_params
+    if public_body_heading_params = params[:public_body_heading]
+      keys = { :translated_keys => [:locale, :name],
+               :general_keys => [] }
+      translatable_params(keys, public_body_heading_params)
+    else
+      {}
+    end
   end
 
 end

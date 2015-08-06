@@ -24,10 +24,7 @@ class AdminOutgoingMessageController < AdminController
     old_body = @outgoing_message.body
     old_prominence = @outgoing_message.prominence
     old_prominence_reason = @outgoing_message.prominence_reason
-    @outgoing_message.prominence = params[:outgoing_message][:prominence]
-    @outgoing_message.prominence_reason = params[:outgoing_message][:prominence_reason]
-    @outgoing_message.body = params[:outgoing_message][:body]
-    if @outgoing_message.save
+    if @outgoing_message.update_attributes(outgoing_message_params)
       @outgoing_message.info_request.log_event("edit_outgoing",
                                                { :outgoing_message_id => @outgoing_message.id,
                                                  :editor => admin_current_user,
@@ -75,5 +72,15 @@ class AdminOutgoingMessageController < AdminController
     redirect_to admin_request_url(@outgoing_message.info_request)
   end
 
+  private
+
+
+  def outgoing_message_params
+    if params[:outgoing_message]
+      params[:outgoing_message].slice(:prominence, :prominence_reason, :body)
+    else
+      {}
+    end
+  end
 
 end
