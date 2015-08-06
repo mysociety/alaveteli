@@ -27,6 +27,7 @@
 
 class OutgoingMessage < ActiveRecord::Base
   include AdminColumn
+  include AttributeHash
   extend MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper

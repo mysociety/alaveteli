@@ -13,17 +13,13 @@ class AdminCommentController < AdminController
   end
 
   def update
-    old_body = @comment.body
-    old_visible = @comment.visible
-
+    old_values = @comment.attribute_hash(allowed_params, "old")
     if @comment.update_attributes(comment_params)
-      @comment.info_request.log_event("edit_comment",
-                                      { :comment_id => @comment.id,
-                                        :editor => admin_current_user,
-                                        :old_body => old_body,
-                                        :body => @comment.body,
-                                        :old_visible => old_visible,
-                                        :visible => @comment.visible })
+      new_values = @comment.attribute_hash(allowed_params)
+      meta_data = { :comment_id => @comment.id,
+                    :editor => admin_current_user }
+      event_info = [old_values, new_values, meta_data].inject(&:merge)
+      @comment.info_request.log_event("edit_comment", event_info)
       flash[:notice] = 'Comment successfully updated.'
       redirect_to admin_request_url(@comment.info_request)
     else
@@ -33,9 +29,13 @@ class AdminCommentController < AdminController
 
   private
 
+  def allowed_params
+    [:body, :visible]
+  end
+
   def comment_params
     if params[:comment]
-      params[:comment].slice(:body, :visible)
+      params[:comment].slice(*allowed_params)
     else
       {}
     end

@@ -39,6 +39,7 @@ require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ActiveRecord::Base
   include AdminColumn
+  include AttributeHash
   extend MessageProminence
   belongs_to :info_request
   validates_presence_of :info_request

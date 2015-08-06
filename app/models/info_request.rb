@@ -29,6 +29,7 @@ require 'digest/sha1'
 
 class InfoRequest < ActiveRecord::Base
   include AdminColumn
+  include AttributeHash
   include Rails.application.routes.url_helpers
 
   @non_admin_columns = %w(title url_title)

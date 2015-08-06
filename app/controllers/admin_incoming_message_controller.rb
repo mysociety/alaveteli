@@ -7,16 +7,13 @@ class AdminIncomingMessageController < AdminController
   end
 
   def update
-    old_prominence = @incoming_message.prominence
-    old_prominence_reason = @incoming_message.prominence_reason
+    old_values = @incoming_message.attribute_hash(allowed_params, "old")
     if @incoming_message.update_attributes(incoming_message_params)
-      @incoming_message.info_request.log_event('edit_incoming',
-                                               :incoming_message_id => @incoming_message.id,
-                                               :editor => admin_current_user,
-                                               :old_prominence => old_prominence,
-                                               :prominence => @incoming_message.prominence,
-                                               :old_prominence_reason => old_prominence_reason,
-                                               :prominence_reason => @incoming_message.prominence_reason)
+      new_values = @incoming_message.attribute_hash(allowed_params)
+      meta_data = { :editor => admin_current_user,
+                    :incoming_message_id => @incoming_message.id }
+      event_info = [old_values, new_values, meta_data].inject(&:merge)
+      @incoming_message.info_request.log_event('edit_incoming', event_info)
       expire_for_request(@incoming_message.info_request)
       flash[:notice] = 'Incoming message successfully updated.'
       redirect_to admin_request_url(@incoming_message.info_request)
@@ -37,7 +34,6 @@ class AdminIncomingMessageController < AdminController
   end
 
   def redeliver
-
     message_ids = params[:url_title].split(",").each {|x| x.strip}
     previous_request = @incoming_message.info_request
     destination_request = nil
@@ -80,9 +76,13 @@ class AdminIncomingMessageController < AdminController
 
   private
 
+  def allowed_params
+    [:prominence, :prominence_reason]
+  end
+
   def incoming_message_params
     if params[:incoming_message]
-      params[:incoming_message].slice(:prominence, :prominence_reason)
+      params[:incoming_message].slice(*allowed_params)
     else
       {}
     end

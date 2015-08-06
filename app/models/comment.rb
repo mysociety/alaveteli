@@ -22,6 +22,7 @@
 
 class Comment < ActiveRecord::Base
   include AdminColumn
+  include AttributeHash
   strip_attributes!
 
   belongs_to :user

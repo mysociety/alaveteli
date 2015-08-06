@@ -40,28 +40,12 @@ class AdminRequestController < AdminController
   end
 
   def update
-    old_title = @info_request.title
-    old_prominence = @info_request.prominence
-    old_described_state = @info_request.described_state
-    old_awaiting_description = @info_request.awaiting_description
-    old_allow_new_responses_from = @info_request.allow_new_responses_from
-    old_handle_rejected_responses = @info_request.handle_rejected_responses
-    old_tag_string = @info_request.tag_string
-    old_comments_allowed = @info_request.comments_allowed
-
-
+    old_values = @info_request.attribute_hash(allowed_params, "old")
     if @info_request.update_attributes(info_request_params)
-      @info_request.log_event("edit",
-                              { :editor => admin_current_user,
-                                :old_title => old_title, :title => @info_request.title,
-                                :old_prominence => old_prominence, :prominence => @info_request.prominence,
-                                :old_described_state => old_described_state, :described_state => params[:info_request][:described_state],
-                                :old_awaiting_description => old_awaiting_description, :awaiting_description => @info_request.awaiting_description,
-                                :old_allow_new_responses_from => old_allow_new_responses_from, :allow_new_responses_from => @info_request.allow_new_responses_from,
-                                :old_handle_rejected_responses => old_handle_rejected_responses, :handle_rejected_responses => @info_request.handle_rejected_responses,
-                                :old_tag_string => old_tag_string, :tag_string => @info_request.tag_string,
-                                :old_comments_allowed => old_comments_allowed, :comments_allowed => @info_request.comments_allowed
-                                })
+      new_values = @info_request.attribute_hash(allowed_params)
+      meta_data = { :editor => admin_current_user }
+      event_info = [old_values, new_values, meta_data].inject(&:merge)
+      @info_request.log_event("edit", event_info)
       if @info_request.described_state != params[:info_request][:described_state]
         @info_request.set_described_state(params[:info_request][:described_state])
       end
@@ -195,15 +179,19 @@ class AdminRequestController < AdminController
 
   private
 
+  def allowed_params
+    [:title,
+     :prominence,
+     :awaiting_description,
+     :allow_new_responses_from,
+     :handle_rejected_responses,
+     :tag_string,
+     :comments_allowed]
+  end
+
   def info_request_params
     if params[:info_request]
-      params[:info_request].slice(:title,
-                                  :prominence,
-                                  :awaiting_description,
-                                  :allow_new_responses_from,
-                                  :handle_rejected_responses,
-                                  :tag_string,
-                                  :comments_allowed)
+      params[:info_request].slice(*allowed_params)
     else
       {}
     end
