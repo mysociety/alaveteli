@@ -26,16 +26,14 @@ class AdminIncomingMessageController < AdminController
   end
 
   def destroy
-    @info_request = @incoming_message.info_request
-    incoming_message_id = @incoming_message.id
-
     @incoming_message.fully_destroy
     @incoming_message.info_request.log_event("destroy_incoming",
-                                             { :editor => admin_current_user, :deleted_incoming_message_id => incoming_message_id })
+                                             { :editor => admin_current_user,
+                                              :deleted_incoming_message_id => @incoming_message.id })
     # expire cached files
-    expire_for_request(@info_request)
+    expire_for_request(@incoming_message.info_request)
     flash[:notice] = 'Incoming message successfully destroyed.'
-    redirect_to admin_request_url(@info_request)
+    redirect_to admin_request_url(@incoming_message.info_request)
   end
 
   def redeliver
@@ -65,11 +63,10 @@ class AdminIncomingMessageController < AdminController
         mail = MailHandler.mail_from_raw_email(raw_email_data)
         destination_request.receive(mail, raw_email_data, true)
 
-        incoming_message_id = @incoming_message.id
         @incoming_message.info_request.log_event("redeliver_incoming", {
                                                   :editor => admin_current_user,
                                                   :destination_request => destination_request.id,
-                                                  :deleted_incoming_message_id => incoming_message_id
+                                                  :deleted_incoming_message_id => @incoming_message.id
         })
 
         flash[:notice] = "Message has been moved to request(s). Showing the last one:"
