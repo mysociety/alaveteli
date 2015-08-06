@@ -33,7 +33,7 @@ class InfoRequest < ActiveRecord::Base
 
   @non_admin_columns = %w(title url_title)
 
-  strip_attributes!
+  strip_attributes :allow_empty => true
 
   validates_presence_of :title, :message => N_("Please enter a summary of your request")
   # TODO: When we no longer support Ruby 1.8, this can be done with /[[:alpha:]]/
