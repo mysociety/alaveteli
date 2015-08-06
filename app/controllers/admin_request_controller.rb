@@ -93,7 +93,7 @@ class AdminRequestController < AdminController
       old_user = @info_request.user
       destination_user = User.find_by_url_name(params[:user_url_name])
       if destination_user.nil?
-        flash[:error] = "Couldn't find user '" + params[:user_url_name] + "'"
+        flash[:error] = "Couldn't find user '#{params[:user_url_name]}'"
       else
         @info_request.user = destination_user
         @info_request.save!
