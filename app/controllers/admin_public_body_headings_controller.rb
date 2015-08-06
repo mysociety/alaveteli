@@ -38,12 +38,9 @@ class AdminPublicBodyHeadingsController < AdminController
   end
 
   def destroy
-    @locale = self.locale_from_params
-    I18n.with_locale(@locale) do
-      @heading.destroy
-      flash[:notice] = "Heading was successfully destroyed."
-      redirect_to admin_categories_url
-    end
+    @heading.destroy
+    flash[:notice] = "Heading was successfully destroyed."
+    redirect_to admin_categories_url
   end
 
   def reorder

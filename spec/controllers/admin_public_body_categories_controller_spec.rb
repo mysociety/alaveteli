@@ -607,18 +607,6 @@ describe AdminPublicBodyCategoriesController do
 
   describe :destroy do
 
-    it 'uses the current locale by default' do
-      category = FactoryGirl.create(:public_body_category)
-      post :destroy, :id => category.id
-      expect(assigns(:locale)).to eq(I18n.locale.to_s)
-    end
-
-    it 'sets the locale if the show_locale param is passed' do
-      category = FactoryGirl.create(:public_body_category)
-      post :destroy, :id => category.id, :show_locale => 'es'
-      expect(assigns(:locale)).to eq('es')
-    end
-
     it 'destroys empty public body categories' do
       PublicBodyCategory.destroy_all
 

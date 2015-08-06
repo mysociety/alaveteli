@@ -85,12 +85,9 @@ class AdminPublicBodyCategoriesController < AdminController
   end
 
   def destroy
-    @locale = self.locale_from_params
-    I18n.with_locale(@locale) do
-      @category.destroy
-      flash[:notice] = "Category was successfully destroyed."
-      redirect_to admin_categories_path
-    end
+    @category.destroy
+    flash[:notice] = "Category was successfully destroyed."
+    redirect_to admin_categories_path
   end
 
   private
