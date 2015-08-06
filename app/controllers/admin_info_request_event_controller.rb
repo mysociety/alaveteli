@@ -12,7 +12,7 @@ class AdminInfoRequestEventController < AdminController
   # used so due dates get fixed
   def update
     if @info_request_event.event_type != 'response'
-      raise Exception("can only mark responses as requires clarification")
+      raise "can only mark responses as requires clarification"
     end
     @info_request_event.described_state = 'waiting_clarification'
     @info_request_event.calculated_state = 'waiting_clarification'
