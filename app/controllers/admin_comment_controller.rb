@@ -16,9 +16,8 @@ class AdminCommentController < AdminController
 
     old_body = @comment.body
     old_visible = @comment.visible
-    @comment.visible = params[:comment][:visible] == "true"
 
-    if @comment.update_attributes(params[:comment])
+    if @comment.update_attributes(comment_params)
       @comment.info_request.log_event("edit_comment",
                                       { :comment_id => @comment.id,
                                         :editor => admin_current_user,
@@ -33,4 +32,13 @@ class AdminCommentController < AdminController
     end
   end
 
+  private
+
+  def comment_params
+    if params[:comment]
+      params[:comment].slice(:body, :visible)
+    else
+      {}
+    end
+  end
 end

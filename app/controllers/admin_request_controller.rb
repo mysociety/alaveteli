@@ -46,16 +46,8 @@ class AdminRequestController < AdminController
     old_tag_string = @info_request.tag_string
     old_comments_allowed = @info_request.comments_allowed
 
-    @info_request.title = params[:info_request][:title]
-    @info_request.prominence = params[:info_request][:prominence]
-    @info_request.awaiting_description = params[:info_request][:awaiting_description] == "true"
-    @info_request.allow_new_responses_from = params[:info_request][:allow_new_responses_from]
-    @info_request.handle_rejected_responses = params[:info_request][:handle_rejected_responses]
-    @info_request.tag_string = params[:info_request][:tag_string]
-    @info_request.comments_allowed = params[:info_request][:comments_allowed] == "true"
 
-    if @info_request.valid?
-      @info_request.save!
+    if @info_request.update_attributes(info_request_params)
       @info_request.log_event("edit",
                               { :editor => admin_current_user,
                                 :old_title => old_title, :title => @info_request.title,
@@ -203,5 +195,19 @@ class AdminRequestController < AdminController
   end
 
   private
+
+  def info_request_params
+    if params[:info_request]
+      params[:info_request].slice(:title,
+                                  :prominence,
+                                  :awaiting_description,
+                                  :allow_new_responses_from,
+                                  :handle_rejected_responses,
+                                  :tag_string,
+                                  :comments_allowed)
+    else
+      {}
+    end
+  end
 
 end

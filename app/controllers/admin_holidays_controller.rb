@@ -57,9 +57,9 @@ class AdminHolidaysController < AdminController
     @years = @holidays_by_year.keys.sort.reverse
   end
 
-  def holiday_params(key = :holiday)
-    if params[key]
-      params[key].slice(:description, 'day(1i)', 'day(2i)', 'day(3i)')
+  def holiday_params
+    if params[:holiday]
+      params[:holiday].slice(:description, 'day(1i)', 'day(2i)', 'day(3i)')
     else
       {}
     end

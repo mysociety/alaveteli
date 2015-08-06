@@ -13,7 +13,7 @@ class AdminPublicBodyCategoriesController < AdminController
 
   def create
     I18n.with_locale(I18n.default_locale) do
-      @category = PublicBodyCategory.new(params[:public_body_category])
+      @category = PublicBodyCategory.new(public_body_category_params)
       if @category.save
         # FIXME: This can't handle failure (e.g. if a PublicBodyHeading
         # doesn't exist)
@@ -72,7 +72,7 @@ class AdminPublicBodyCategoriesController < AdminController
           end
         end
 
-        if @category.update_attributes(params[:public_body_category])
+        if @category.update_attributes(public_body_category_params)
           flash[:notice] = 'Category was successfully updated.'
           redirect_to edit_admin_category_path(@category)
         else
@@ -92,4 +92,25 @@ class AdminPublicBodyCategoriesController < AdminController
       redirect_to admin_categories_path
     end
   end
+
+  private
+
+  def public_body_category_params
+    if params[:public_body_category]
+      locale_keys = [:locale, :title, :description]
+      general_keys = [:category_tag]
+      valid_keys = locale_keys + general_keys + [:translations_attributes]
+      public_body_category_params = params[:public_body_category].slice(*valid_keys)
+      locale_keys << :id
+      if translation_params = public_body_category_params[:translations_attributes]
+        translation_params.each do |locale, translations_attributes|
+          translation_params[locale] = translations_attributes.slice(*locale_keys)
+        end
+      end
+      public_body_category_params
+    else
+      {}
+    end
+  end
+
 end

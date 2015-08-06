@@ -29,17 +29,7 @@ class AdminUserController < AdminController
 
   def update
     @admin_user = User.find(params[:id])
-
-    @admin_user.name = params[:admin_user][:name]
-    @admin_user.email = params[:admin_user][:email]
-    @admin_user.admin_level = params[:admin_user][:admin_level]
-    @admin_user.ban_text = params[:admin_user][:ban_text]
-    @admin_user.about_me = params[:admin_user][:about_me]
-    @admin_user.no_limit = params[:admin_user][:no_limit]
-    @admin_user.can_make_batch_requests = params[:admin_user][:can_make_batch_requests]
-
-    if @admin_user.valid?
-      @admin_user.save!
+    if @admin_user.update_attributes(user_params)
       flash[:notice] = 'User successfully updated.'
       redirect_to admin_user_url(@admin_user)
     else
@@ -91,5 +81,19 @@ class AdminUserController < AdminController
   end
 
   private
+
+  def user_params
+    if params[:admin_user]
+      params[:admin_user].slice(:name,
+                                :email,
+                                :admin_level,
+                                :ban_text,
+                                :about_me,
+                                :no_limit,
+                                :can_make_batch_requests)
+    else
+      {}
+    end
+  end
 
 end

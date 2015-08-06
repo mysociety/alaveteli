@@ -9,9 +9,7 @@ class AdminIncomingMessageController < AdminController
     @incoming_message = IncomingMessage.find(params[:id])
     old_prominence = @incoming_message.prominence
     old_prominence_reason = @incoming_message.prominence_reason
-    @incoming_message.prominence = params[:incoming_message][:prominence]
-    @incoming_message.prominence_reason = params[:incoming_message][:prominence_reason]
-    if @incoming_message.save
+    if @incoming_message.update_attributes(incoming_message_params)
       @incoming_message.info_request.log_event('edit_incoming',
                                                :incoming_message_id => @incoming_message.id,
                                                :editor => admin_current_user,
@@ -82,6 +80,16 @@ class AdminIncomingMessageController < AdminController
       incoming_message.fully_destroy
     end
     redirect_to admin_request_url(destination_request)
+  end
+
+  private
+
+  def incoming_message_params
+    if params[:incoming_message]
+      params[:incoming_message].slice(:prominence, :prominence_reason)
+    else
+      {}
+    end
   end
 
 end

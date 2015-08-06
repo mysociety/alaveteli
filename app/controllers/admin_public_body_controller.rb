@@ -45,7 +45,7 @@ class AdminPublicBodyController < AdminController
         @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
       end
       params[:public_body][:last_edit_editor] = admin_current_user
-      @public_body = PublicBody.new(params[:public_body])
+      @public_body = PublicBody.new(public_body_params)
       if @public_body.save
         if @change_request
           response_text = params[:response].gsub(_("[Authority URL will be inserted here]"),
@@ -87,7 +87,7 @@ class AdminPublicBodyController < AdminController
     I18n.with_locale(I18n.default_locale) do
       params[:public_body][:last_edit_editor] = admin_current_user
       @public_body = PublicBody.find(params[:id])
-      if @public_body.update_attributes(params[:public_body])
+      if @public_body.update_attributes(public_body_params)
         if @change_request
           @change_request.close!
           @change_request.send_response(params[:subject], params[:response])
@@ -254,4 +254,21 @@ class AdminPublicBodyController < AdminController
         @public_bodies_by_tag = PublicBody.find_by_tag(@query)
     end
 
+    def public_body_params
+      if params[:public_body]
+        locale_keys = [:locale, :name, :short_name, :request_email, :publication_scheme, :notes]
+        general_keys = [:tag_string, :home_page, :disclosure_log, :last_edit_comment, :last_edit_editor]
+        valid_keys = locale_keys + general_keys + [:translations_attributes]
+        public_body_params = params[:public_body].slice(*valid_keys)
+        locale_keys << :id
+        if translation_params = public_body_params[:translations_attributes]
+          translation_params.each do |locale, translations_attributes|
+            translation_params[locale] = translations_attributes.slice(*locale_keys)
+          end
+        end
+        public_body_params
+      else
+        {}
+      end
+    end
 end

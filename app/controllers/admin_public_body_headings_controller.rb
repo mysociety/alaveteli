@@ -8,7 +8,7 @@ class AdminPublicBodyHeadingsController < AdminController
 
   def create
     I18n.with_locale(I18n.default_locale) do
-      @heading = PublicBodyHeading.new(params[:public_body_heading])
+      @heading = PublicBodyHeading.new(public_body_heading_params)
       if @heading.save
         flash[:notice] = 'Heading was successfully created.'
         redirect_to admin_categories_url
@@ -28,7 +28,7 @@ class AdminPublicBodyHeadingsController < AdminController
     @heading = PublicBodyHeading.find(params[:id])
 
     I18n.with_locale(I18n.default_locale) do
-      if @heading.update_attributes(params[:public_body_heading])
+      if @heading.update_attributes(public_body_heading_params)
         flash[:notice] = 'Heading was successfully updated.'
         redirect_to edit_admin_heading_path(@heading)
       else
@@ -107,6 +107,25 @@ class AdminPublicBodyHeadingsController < AdminController
       end
     end
     { :success => error.nil?, :error => error }
+  end
+
+  private
+
+  def public_body_heading_params
+    if params[:public_body_heading]
+      locale_keys = [:locale, :name]
+      valid_keys = locale_keys + [:translations_attributes]
+      public_body_heading_params = params[:public_body_heading].slice(*valid_keys)
+      locale_keys << :id
+      if translation_params = public_body_heading_params[:translations_attributes]
+        translation_params.each do |locale, translations_attributes|
+          translation_params[locale] = translations_attributes.slice(*locale_keys)
+        end
+      end
+      public_body_heading_params
+    else
+      {}
+    end
   end
 
 end
