@@ -225,6 +225,10 @@ GEM
     rmagick (2.14.0)
     routing-filter (0.3.1)
       actionpack
+    rspec-activemodel-mocks (1.0.1)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      rspec-mocks (>= 2.99, < 4.0)
     rspec-collection_matchers (1.1.2)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (2.99.2)
@@ -357,6 +361,7 @@ DEPENDENCIES
   recaptcha (~> 0.3.1)
   rmagick (~> 2.14.0)
   routing-filter (~> 0.3.1)
+  rspec-activemodel-mocks (~> 1.0.1)
   rspec-rails (~> 2.99.0)
   ruby-debug (~> 0.10.4)
   ruby-msg (~> 1.5.0)!
