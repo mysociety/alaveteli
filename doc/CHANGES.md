@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Definition lists are now easier to read and follow, greatly improves help
+  pages (Martin Wright).
 * The sorting on PublicBodyController#list now uses `COLLATE` to sort in the
   correct order for a locale if a collation is available for the language. See
   http://alaveteli.org/docs/developers/i18n/#internationalised-sorting for
