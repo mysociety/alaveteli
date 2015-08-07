@@ -43,7 +43,7 @@ describe RequestMailer, " when receiving incoming mail" do
   it "puts messages with a malformed To: in the holding pen" do
     request = FactoryGirl.create(:info_request)
     receive_incoming_mail('incoming-request-plain.email', 'asdfg')
-    expect(InfoRequest.holding_pen_request.incoming_messages).to have(1).item
+    expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
   end
 
   it "should parse attachments from mails sent with apple mail" do
@@ -169,7 +169,7 @@ describe RequestMailer, " when receiving incoming mail" do
 
     receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
 
-    expect(InfoRequest.holding_pen_request.incoming_messages).to have(1).item
+    expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
   end
 
   it "discards mail over the configured spam threshold" do
@@ -208,7 +208,7 @@ describe RequestMailer, " when receiving incoming mail" do
 
     receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
 
-    expect(ActionMailer::Base.deliveries).to have(1).item
+    expect(ActionMailer::Base.deliveries.size).to eq(1)
     ActionMailer::Base.deliveries.clear
   end
 
@@ -227,7 +227,7 @@ describe RequestMailer, " when receiving incoming mail" do
 
     receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
 
-    expect(info_request.incoming_messages).to have(1).item
+    expect(info_request.incoming_messages.size).to eq(1)
     ActionMailer::Base.deliveries.clear
   end
 

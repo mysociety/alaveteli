@@ -25,17 +25,17 @@ describe TrackThing, "when tracking changes" do
 
   it "requires a type" do
     @track_thing.track_type = nil
-    @track_thing.should have(2).errors_on(:track_type)
+    expect(@track_thing.errors_on(:track_type).size).to eq(2)
   end
 
   it "requires a valid type" do
     @track_thing.track_type = 'gibberish'
-    @track_thing.should have(1).errors_on(:track_type)
+    expect(@track_thing.errors_on(:track_type).size).to eq(1)
   end
 
   it "requires a valid medium" do
     @track_thing.track_medium = 'pigeon'
-    @track_thing.should have(1).errors_on(:track_medium)
+    expect(@track_thing.errors_on(:track_medium).size).to eq(1)
   end
 
   it "will find existing tracks which are the same" do

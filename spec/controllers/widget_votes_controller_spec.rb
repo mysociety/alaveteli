@@ -39,7 +39,7 @@ describe WidgetVotesController do
 
         post :create, :request_id => @info_request.id
 
-        expect(votes).to have(1).item
+        expect(votes.size).to eq(1)
       end
 
     end
@@ -60,7 +60,7 @@ describe WidgetVotesController do
 
         post :create, :request_id => @info_request.id
 
-        expect(votes).to have(1).item
+        expect(votes.size).to eq(1)
       end
 
     end
