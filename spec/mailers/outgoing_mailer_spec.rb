@@ -34,7 +34,7 @@ describe OutgoingMailer, " when working out follow up names and addresses" do
   describe 'if the incoming message being replied to is not valid to reply to' do
 
     before do
-      @incoming_message.stub!(:valid_to_reply_to?).and_return(false)
+      @incoming_message.stub(:valid_to_reply_to?).and_return(false)
     end
 
     it 'should return the safe name and email address of the public body' do
@@ -47,7 +47,7 @@ describe OutgoingMailer, " when working out follow up names and addresses" do
   describe 'if the incoming message is valid to reply to' do
 
     before do
-      @incoming_message.stub!(:valid_to_reply_to?).and_return(true)
+      @incoming_message.stub(:valid_to_reply_to?).and_return(true)
     end
 
     it 'should return the name and email address from the incoming message' do
@@ -58,7 +58,7 @@ describe OutgoingMailer, " when working out follow up names and addresses" do
 
     it 'should return the name of the public body if the incoming message does not have
             a safe name' do
-      @incoming_message.stub!(:safe_mail_from).and_return(nil)
+      @incoming_message.stub(:safe_mail_from).and_return(nil)
       OutgoingMailer.name_for_followup(@info_request, @incoming_message).should == 'Test Authority'
     end
 

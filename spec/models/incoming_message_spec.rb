@@ -70,12 +70,12 @@ describe IncomingMessage, 'when asked if a user can view it' do
     end
 
     it 'should return true if the user can view hidden things' do
-      User.stub!(:view_hidden?).with(@user).and_return(true)
+      User.stub(:view_hidden?).with(@user).and_return(true)
       @incoming_message.user_can_view?(@user).should be true
     end
 
     it 'should return false if the user cannot view hidden things' do
-      User.stub!(:view_hidden?).with(@user).and_return(false)
+      User.stub(:view_hidden?).with(@user).and_return(false)
       @incoming_message.user_can_view?(@user).should be false
     end
 
@@ -88,12 +88,12 @@ describe IncomingMessage, 'when asked if a user can view it' do
     end
 
     it 'should return true if the user owns the associated request' do
-      @info_request.stub!(:is_owning_user?).with(@user).and_return(true)
+      @info_request.stub(:is_owning_user?).with(@user).and_return(true)
       @incoming_message.user_can_view?(@user).should be true
     end
 
     it 'should return false if the user does not own the associated request' do
-      @info_request.stub!(:is_owning_user?).with(@user).and_return(false)
+      @info_request.stub(:is_owning_user?).with(@user).and_return(false)
       @incoming_message.user_can_view?(@user).should be false
     end
   end
@@ -270,9 +270,9 @@ describe IncomingMessage, " when dealing with incoming mail" do
   it 'should handle a main body part that is just quoted content in an email that has
         no subject' do
     i = IncomingMessage.new
-    i.stub!(:get_main_body_text_unfolded).and_return("some quoting")
-    i.stub!(:get_main_body_text_folded).and_return("FOLDED_QUOTED_SECTION")
-    i.stub!(:subject).and_return(nil)
+    i.stub(:get_main_body_text_unfolded).and_return("some quoting")
+    i.stub(:get_main_body_text_folded).and_return("FOLDED_QUOTED_SECTION")
+    i.stub(:subject).and_return(nil)
     i.get_body_for_html_display
   end
 
@@ -354,11 +354,11 @@ end
 describe IncomingMessage, " checking validity to reply to" do
   def test_email(result, email, empty_return_path, autosubmitted = nil)
     @mail = mock('mail')
-    MailHandler.stub!(:get_from_address).and_return(email)
-    MailHandler.stub!(:empty_return_path?).with(@mail).and_return(empty_return_path)
-    MailHandler.stub!(:get_auto_submitted).with(@mail).and_return(autosubmitted)
+    MailHandler.stub(:get_from_address).and_return(email)
+    MailHandler.stub(:empty_return_path?).with(@mail).and_return(empty_return_path)
+    MailHandler.stub(:get_auto_submitted).with(@mail).and_return(autosubmitted)
     @incoming_message = IncomingMessage.new
-    @incoming_message.stub!(:mail).and_return(@mail)
+    @incoming_message.stub(:mail).and_return(@mail)
     @incoming_message._calculate_valid_to_reply_to.should == result
   end
 
@@ -462,8 +462,8 @@ describe IncomingMessage, " when censoring data" do
   end
 
   it "should apply censor rules to From: addresses" do
-    @im.stub!(:mail_from).and_return("Stilton Mouse")
-    @im.stub!(:last_parsed).and_return(Time.now)
+    @im.stub(:mail_from).and_return("Stilton Mouse")
+    @im.stub(:last_parsed).and_return(Time.now)
     safe_mail_from = @im.safe_mail_from
     safe_mail_from.should == "Jarlsberg Mouse"
   end
@@ -506,7 +506,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
   it "decodes a valid uuencoded attachment" do
     mail = get_fixture_mail('simple-uuencoded-attachment.email')
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    im.stub(:mail).and_return(mail)
     im.extract_attachments!
 
     im.reload
@@ -520,7 +520,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
   it "should be able to do it at all" do
     mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    im.stub(:mail).and_return(mail)
     im.extract_attachments!
 
     im.reload
@@ -534,7 +534,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
     # See https://github.com/mysociety/alaveteli/issues/2508
     mail = get_fixture_mail('incoming-request-bad-uuencoding-2.email')
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    im.stub(:mail).and_return(mail)
     im.extract_attachments!
 
     im.reload
@@ -549,8 +549,8 @@ describe IncomingMessage, " when uudecoding bad messages" do
     raw_email = load_file_fixture 'inline-uuencode.email'
     mail = MailHandler.mail_from_raw_email(raw_email)
     im = incoming_messages :useless_incoming_message
-    im.stub!(:raw_email).and_return(raw_email)
-    im.stub!(:mail).and_return(mail)
+    im.stub(:raw_email).and_return(raw_email)
+    im.stub(:mail).and_return(mail)
     im.parse_raw_email!
     attachments = im.foi_attachments
     attachments.size.should == 2
@@ -560,7 +560,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
     mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
 
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    im.stub(:mail).and_return(mail)
     ir = info_requests(:fancy_dog_request)
 
     @censor_rule = CensorRule.new
@@ -588,7 +588,7 @@ describe IncomingMessage, "when messages are attached to messages" do
       mail = MailHandler.mail_from_raw_email(mail_body)
 
       im = incoming_messages(:useless_incoming_message)
-      im.stub!(:mail).and_return(mail)
+      im.stub(:mail).and_return(mail)
 
       attachments = im.get_attachments_for_display
       attachments.size.should == 1
@@ -606,7 +606,7 @@ describe IncomingMessage, "when messages are attached to messages" do
     mail = get_fixture_mail('incoming-request-attach-attachments.email')
 
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    im.stub(:mail).and_return(mail)
 
     im.extract_attachments!
 
@@ -626,7 +626,7 @@ describe IncomingMessage, "when messages are attached to messages" do
       mail = MailHandler.mail_from_raw_email(mail_body)
 
       im = incoming_messages(:useless_incoming_message)
-      im.stub!(:mail).and_return(mail)
+      im.stub(:mail).and_return(mail)
 
       attachments = im.get_attachments_for_display
       attachments.size.should == 2
@@ -642,7 +642,7 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
     mail = get_fixture_mail('incoming-request-oft-attachments.email')
 
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    im.stub(:mail).and_return(mail)
     im.extract_attachments!
 
     im.get_attachments_for_display.map(&:display_filename).should == [
@@ -658,7 +658,7 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
     mail = get_fixture_mail('incoming-request-tnef-attachments.email')
 
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    im.stub(:mail).and_return(mail)
     im.extract_attachments!
 
     im.get_attachments_for_display.map(&:display_filename).should == [
@@ -691,7 +691,7 @@ describe IncomingMessage, "when extracting attachments" do
 
 
     # Simulate parsing with the original attachments
-    MailHandler.stub!(:get_attachment_attributes).and_return([attachment_attributes])
+    MailHandler.stub(:get_attachment_attributes).and_return([attachment_attributes])
     incoming_message = incoming_messages(:useless_incoming_message)
 
     # Extract the attachments
@@ -702,7 +702,7 @@ describe IncomingMessage, "when extracting attachments" do
     main.delete_cached_file!
 
     # Simulate reparsing with the slightly changed body
-    MailHandler.stub!(:get_attachment_attributes).and_return([new_attachment_attributes])
+    MailHandler.stub(:get_attachment_attributes).and_return([new_attachment_attributes])
 
     # Re-extract the attachments
     incoming_message.extract_attachments!
@@ -716,7 +716,7 @@ describe IncomingMessage, "when extracting attachments" do
   it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
     if String.method_defined?(:encode)
       im = incoming_messages(:useless_incoming_message)
-      im.stub!(:extract_text).and_return("\xBF")
+      im.stub(:extract_text).and_return("\xBF")
 
       im._get_attachment_text_internal.valid_encoding?.should be true
     end
@@ -755,8 +755,8 @@ describe IncomingMessage, 'when getting the body of a message for html display' 
   it 'should replace any masked email addresses with a link to the help page' do
     incoming_message = IncomingMessage.new
     body_text = 'there was an [email address] here'
-    incoming_message.stub!(:get_main_body_text_folded).and_return(body_text)
-    incoming_message.stub!(:get_main_body_text_unfolded).and_return(body_text)
+    incoming_message.stub(:get_main_body_text_folded).and_return(body_text)
+    incoming_message.stub(:get_main_body_text_unfolded).and_return(body_text)
     expected = 'there was an [<a href="/help/officers#mobiles">email address</a>] here'
     incoming_message.get_body_for_html_display.should == expected
   end
@@ -770,7 +770,7 @@ describe IncomingMessage, 'when getting clipped attachment text' do
     # This character is 2 bytes so the string should get sliced unless
     # we are handling multibyte chars correctly
     multibyte_string = "å" * 500002
-    incoming_message.stub!(:_get_attachment_text_internal).and_return(multibyte_string)
+    incoming_message.stub(:_get_attachment_text_internal).and_return(multibyte_string)
     incoming_message.get_attachment_text_clipped.length.should == 500002
   end
 end

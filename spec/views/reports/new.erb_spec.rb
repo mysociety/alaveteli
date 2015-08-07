@@ -14,7 +14,7 @@ describe 'reports/new.html.erb' do
 
   context "request has already been reported" do
     before :each do
-      info_request.stub!(:attention_requested).and_return(true)
+      info_request.stub(:attention_requested).and_return(true)
     end
 
     it "should not show a form" do

@@ -56,7 +56,7 @@ describe AdminOutgoingMessageController do
     end
 
     it 'should log an "edit_outgoing" event on the info_request' do
-      @controller.stub!(:admin_current_user).and_return("Admin user")
+      @controller.stub(:admin_current_user).and_return("Admin user")
       make_request
       @info_request.reload
       last_event = @info_request.info_request_events.last

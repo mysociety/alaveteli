@@ -9,7 +9,7 @@ describe WidgetVotesController do
 
     before do
       @info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
+      AlaveteliConfiguration.stub(:enable_widgets).and_return(true)
     end
 
     it 'should find the info request' do
@@ -26,13 +26,13 @@ describe WidgetVotesController do
     context 'for a non-logged-in user without a tracking cookie' do
 
       it 'sets a tracking cookie' do
-        SecureRandom.stub!(:hex).and_return(mock_cookie)
+        SecureRandom.stub(:hex).and_return(mock_cookie)
         post :create, :request_id => @info_request.id
         expect(cookies[:widget_vote]).to eq(mock_cookie)
       end
 
       it 'creates a widget vote' do
-        SecureRandom.stub!(:hex).and_return(mock_cookie)
+        SecureRandom.stub(:hex).and_return(mock_cookie)
         votes = @info_request.
           widget_votes.
           where(:cookie => mock_cookie)
@@ -68,7 +68,7 @@ describe WidgetVotesController do
     context 'when widgets are not enabled' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
+        AlaveteliConfiguration.stub(:enable_widgets).and_return(false)
         lambda{ post :create, :request_id => @info_request.id }.should
         raise_error(ActiveRecord::RecordNotFound)
       end

@@ -14,13 +14,13 @@ describe "public_body/show" do
                          :publication_scheme => '',
                          :disclosure_log => '',
                          :calculated_home_page => '')
-        @pb.stub!(:is_requestable?).and_return(true)
-        @pb.stub!(:special_not_requestable_reason?).and_return(false)
-        @pb.stub!(:has_notes?).and_return(false)
-        @pb.stub!(:has_tag?).and_return(false)
-        @pb.stub!(:tag_string).and_return('')
+        @pb.stub(:is_requestable?).and_return(true)
+        @pb.stub(:special_not_requestable_reason?).and_return(false)
+        @pb.stub(:has_notes?).and_return(false)
+        @pb.stub(:has_tag?).and_return(false)
+        @pb.stub(:tag_string).and_return('')
         @xap = mock(ActsAsXapian::Search, :matches_estimated => 2)
-        @xap.stub!(:results).and_return([
+        @xap.stub(:results).and_return([
           { :model => mock_event },
           { :model => mock_event }
         ])
