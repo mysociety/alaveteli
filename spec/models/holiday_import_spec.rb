@@ -93,7 +93,7 @@ describe HolidayImport do
       holidays = [ { :date => Date.new(2014, 1, 1),
                      :name => "New Year's Day",
                      :regions => [:gb] } ]
-      Holidays.stub!(:between).and_return(holidays)
+      Holidays.stub(:between).and_return(holidays)
       @holiday_import = HolidayImport.new(:source => 'suggestions')
       @holiday_import.populate
 
@@ -114,7 +114,7 @@ describe HolidayImport do
       holidays = [ { :date => Date.new(2014, 1, 1),
                      :name => "New Year's Day",
                      :regions => [:gb] } ]
-      Holidays.stub!(:between).and_return(holidays)
+      Holidays.stub(:between).and_return(holidays)
       @holiday_import = HolidayImport.new(:source => 'suggestions')
       @holiday_import.populate
 
@@ -133,7 +133,7 @@ describe HolidayImport do
     end
 
     it 'should populate holidays from the feed that are between the dates' do
-      @holiday_import.stub!(:open).and_return(load_file_fixture('ical-holidays.ics'))
+      @holiday_import.stub(:open).and_return(load_file_fixture('ical-holidays.ics'))
       @holiday_import.populate
       @holiday_import.holidays.size.should == 1
       holiday = @holiday_import.holidays.first
@@ -142,14 +142,14 @@ describe HolidayImport do
     end
 
     it 'should add an error if the calendar cannot be parsed' do
-      @holiday_import.stub!(:open).and_return('some invalid data')
+      @holiday_import.stub(:open).and_return('some invalid data')
       @holiday_import.populate
       expected = ["Sorry, there's a problem with the format of that feed."]
       @holiday_import.errors[:ical_feed_url].should == expected
     end
 
     it 'should add an error if the calendar cannot be found' do
-      @holiday_import.stub!(:open).and_raise Errno::ENOENT.new('No such file or directory')
+      @holiday_import.stub(:open).and_raise Errno::ENOENT.new('No such file or directory')
       @holiday_import.populate
       expected = ["Sorry we couldn't find that feed."]
       @holiday_import.errors[:ical_feed_url].should == expected

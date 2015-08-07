@@ -95,9 +95,9 @@ end
 describe GeneralController, 'when getting the blog feed' do
 
   before do
-    AlaveteliConfiguration.stub!(:blog_feed).and_return("http://blog.example.com")
+    AlaveteliConfiguration.stub(:blog_feed).and_return("http://blog.example.com")
     # Don't call out to external url during tests
-    controller.stub!(:quietly_try_to_open).and_return('')
+    controller.stub(:quietly_try_to_open).and_return('')
   end
 
   it 'should add a lang param correctly to a url with no querystring' do
@@ -106,13 +106,13 @@ describe GeneralController, 'when getting the blog feed' do
   end
 
   it 'should add a lang param correctly to a url with an existing querystring' do
-    AlaveteliConfiguration.stub!(:blog_feed).and_return("http://blog.example.com?alt=rss")
+    AlaveteliConfiguration.stub(:blog_feed).and_return("http://blog.example.com?alt=rss")
     get :blog
     assigns[:feed_url].should == "http://blog.example.com?alt=rss&lang=en"
   end
 
   it 'should parse an item from an example feed' do
-    controller.stub!(:quietly_try_to_open).and_return(load_file_fixture("blog_feed.atom"))
+    controller.stub(:quietly_try_to_open).and_return(load_file_fixture("blog_feed.atom"))
     get :blog
     assigns[:blog_items].count.should == 1
   end
@@ -120,7 +120,7 @@ describe GeneralController, 'when getting the blog feed' do
   context 'if no feed is configured' do
 
     before do
-      AlaveteliConfiguration.stub!(:blog_feed).and_return('')
+      AlaveteliConfiguration.stub(:blog_feed).and_return('')
     end
 
     it 'should raise an ActiveRecord::RecordNotFound error' do
@@ -133,7 +133,7 @@ describe GeneralController, 'when getting the blog feed' do
     render_views
 
     it 'should escape any javascript from the entries' do
-      controller.stub!(:quietly_try_to_open).and_return(load_file_fixture("blog_feed.atom"))
+      controller.stub(:quietly_try_to_open).and_return(load_file_fixture("blog_feed.atom"))
       get :blog
       response.body.should_not include('<script>alert("exciting!")</script>')
     end
@@ -157,7 +157,7 @@ describe GeneralController, "when showing the frontpage" do
                                     :described_at => Time.now,
                                     :search_text_main => 'example text')
     xapian_result = mock('xapian result', :results => [{:model => info_request_event}])
-    controller.stub!(:perform_search).and_return(xapian_result)
+    controller.stub(:perform_search).and_return(xapian_result)
   end
 
   it "should render the front page successfully" do

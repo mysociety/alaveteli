@@ -27,7 +27,7 @@ describe "When errors occur" do
     before(:each) { set_consider_all_requests_local(true) }
 
     it 'should show a full trace for general errors' do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      InfoRequest.stub(:find_by_url_title!).and_raise("An example error")
       get("/request/example")
       response.body.should have_selector('div[id=traces]')
       response.body.should match('An example error')
@@ -72,14 +72,14 @@ describe "When errors occur" do
 
 
     it "should render a 500 for general errors using the general/exception_caught template" do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      InfoRequest.stub(:find_by_url_title!).and_raise("An example error")
       get("/request/example")
       response.should render_template('general/exception_caught')
       response.code.should == "500"
     end
 
     it 'should render a 500 for json errors' do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      InfoRequest.stub(:find_by_url_title!).and_raise("An example error")
       get("/request/example.json")
       response.code.should == '500'
     end
@@ -90,7 +90,7 @@ describe "When errors occur" do
     end
 
     it 'should notify of a general error' do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      InfoRequest.stub(:find_by_url_title!).and_raise("An example error")
       get("/request/example")
       deliveries = ActionMailer::Base.deliveries
       deliveries.size.should == 1
@@ -100,12 +100,12 @@ describe "When errors occur" do
 
     it 'should log a general error' do
       Rails.logger.should_receive(:fatal)
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      InfoRequest.stub(:find_by_url_title!).and_raise("An example error")
       get("/request/example")
     end
 
     it 'should assign the locale for the general/exception_caught template' do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      InfoRequest.stub(:find_by_url_title!).and_raise("An example error")
       get("/es/request/example")
       response.should render_template('general/exception_caught')
       response.body.should match('Lo sentimos, hubo un problema procesando esta página')
@@ -124,7 +124,7 @@ describe "When errors occur" do
     end
 
     it "return a 403 for a JSON PermissionDenied error" do
-      InfoRequest.stub!(:find_by_url_title!).and_raise(ApplicationController::PermissionDenied)
+      InfoRequest.stub(:find_by_url_title!).and_raise(ApplicationController::PermissionDenied)
       get("/request/example.json")
       response.code.should == '403'
     end
@@ -132,7 +132,7 @@ describe "When errors occur" do
     context "in the admin interface" do
 
       it 'should show a full trace for general errors' do
-        InfoRequest.stub!(:find).and_raise("An example error")
+        InfoRequest.stub(:find).and_raise("An example error")
         get("/admin/requests/333")
         response.body.should have_selector('div[id=traces]')
         response.body.should match('An example error')

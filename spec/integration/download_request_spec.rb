@@ -36,7 +36,7 @@ describe 'when making a zipfile available' do
       # instance will have a working html_to_pdf tool, so just copy the HTML rendered
       # to the PDF file for the purposes of checking it doesn't contain anything that
       # shouldn't be there.
-      AlaveteliConfiguration.stub!(:html_to_pdf_command).and_return('/bin/cp')
+      AlaveteliConfiguration.stub(:html_to_pdf_command).and_return('/bin/cp')
     end
 
     context 'when an incoming message is made "requester_only"' do
@@ -139,7 +139,7 @@ describe 'when making a zipfile available' do
   context 'when no html to pdf converter is supplied' do
 
     before do
-      AlaveteliConfiguration.stub!(:html_to_pdf_command).and_return('')
+      AlaveteliConfiguration.stub(:html_to_pdf_command).and_return('')
     end
 
     it "should update the contents of the zipfile when the request changes" do

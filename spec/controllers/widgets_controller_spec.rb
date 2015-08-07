@@ -9,7 +9,7 @@ describe WidgetsController do
 
     before do
       @info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
+      AlaveteliConfiguration.stub(:enable_widgets).and_return(true)
     end
 
     it 'should render the widget template' do
@@ -171,7 +171,7 @@ describe WidgetsController do
     context 'when widgets are not enabled' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
+        AlaveteliConfiguration.stub(:enable_widgets).and_return(false)
         lambda{ get :show, :request_id => @info_request.id }.should
         raise_error(ActiveRecord::RecordNotFound)
       end
@@ -206,7 +206,7 @@ describe WidgetsController do
 
     before do
       @info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
+      AlaveteliConfiguration.stub(:enable_widgets).and_return(true)
     end
 
     it 'should render the create widget template' do
@@ -222,7 +222,7 @@ describe WidgetsController do
     context 'when widgets are not enabled' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
+        AlaveteliConfiguration.stub(:enable_widgets).and_return(false)
         lambda{ get :new, :request_id => @info_request.id }.should
         raise_error(ActiveRecord::RecordNotFound)
       end
