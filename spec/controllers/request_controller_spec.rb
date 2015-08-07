@@ -953,7 +953,7 @@ describe RequestController, "when searching for an authority" do
                    "qux ~ quux"]
       lambda {
         get :select_authority, :query => phrase
-      }.should_not raise_error(StandardError)
+      }.should_not raise_error
     end
   end
 
@@ -2408,7 +2408,7 @@ describe RequestController, "when doing type ahead searches" do
                    "bar ~ qux"]
       lambda {
         get :search_typeahead, :q => phrase
-      }.should_not raise_error(StandardError)
+      }.should_not raise_error
     end
   end
 
