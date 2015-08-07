@@ -131,21 +131,21 @@ describe PublicBodyController, "when listing bodies" do
   end
 
   it "if fallback is requested, should list all bodies from default locale, even when there are no translations for selected locale" do
-    AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
+    AlaveteliConfiguration.stub(:public_body_list_fallback_to_default_locale).and_return(true)
     @english_only = make_single_language_example :en
     get :list, {:locale => 'es'}
     assigns[:public_bodies].include?(@english_only).should == true
   end
 
   it 'if fallback is requested, should still list public bodies only with translations in the current locale' do
-    AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
+    AlaveteliConfiguration.stub(:public_body_list_fallback_to_default_locale).and_return(true)
     @spanish_only = make_single_language_example :es
     get :list, {:locale => 'es'}
     assigns[:public_bodies].include?(@spanish_only).should == true
   end
 
   it "if fallback is requested, make sure that there are no duplicates listed" do
-    AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
+    AlaveteliConfiguration.stub(:public_body_list_fallback_to_default_locale).and_return(true)
     get :list, {:locale => 'es'}
     pb_ids = assigns[:public_bodies].map { |pb| pb.id }
     unique_pb_ids = pb_ids.uniq
@@ -167,7 +167,7 @@ describe PublicBodyController, "when listing bodies" do
     # The names of each public body is in:
     #    <span class="head"><a>Public Body Name</a></span>
     # ... eo extract all of those, and check that they are ordered:
-    AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
+    AlaveteliConfiguration.stub(:public_body_list_fallback_to_default_locale).and_return(true)
     get :list, {:locale => 'es'}
     parsed = Nokogiri::HTML(response.body)
     public_body_names = parsed.xpath '//span[@class="head"]/a/text()'

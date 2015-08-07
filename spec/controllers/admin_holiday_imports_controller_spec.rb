@@ -20,7 +20,7 @@ describe AdminHolidayImportsController do
       it 'populates the import' do
         mock_import = mock(HolidayImport, :valid? => true,
                            :populate => nil)
-        HolidayImport.stub!(:new).and_return(mock_import)
+        HolidayImport.stub(:new).and_return(mock_import)
         mock_import.should_receive(:populate)
         get :new
       end
@@ -40,7 +40,7 @@ describe AdminHolidayImportsController do
 
       before do
         mock_import = mock(HolidayImport, :save => true)
-        HolidayImport.stub!(:new).and_return(mock_import)
+        HolidayImport.stub(:new).and_return(mock_import)
         post :create
       end
 
@@ -58,7 +58,7 @@ describe AdminHolidayImportsController do
 
       before do
         mock_import = mock(HolidayImport, :save => false)
-        HolidayImport.stub!(:new).and_return(mock_import)
+        HolidayImport.stub(:new).and_return(mock_import)
         post :create
       end
 

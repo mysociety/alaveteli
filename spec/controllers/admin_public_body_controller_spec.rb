@@ -585,7 +585,7 @@ describe AdminPublicBodyController, "when importing a csv" do
   describe 'when handling a POST request' do
 
     before do
-      PublicBody.stub!(:import_csv).and_return([[],[]])
+      PublicBody.stub(:import_csv).and_return([[],[]])
       @file_object = fixture_file_upload('/files/fake-authority-type.csv')
     end
 
@@ -714,7 +714,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 
   it "doesn't let people with good emergency account credentials log in if the emergency user is disabled" do
     setup_emergency_credentials('biz', 'fuz')
-    AlaveteliConfiguration.stub!(:disable_emergency_user).and_return(true)
+    AlaveteliConfiguration.stub(:disable_emergency_user).and_return(true)
     n = PublicBody.count
     basic_auth_login(@request, "biz", "fuz")
     post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}

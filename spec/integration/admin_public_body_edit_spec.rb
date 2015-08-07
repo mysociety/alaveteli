@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe 'Editing a Public Body' do
   before do
-    AlaveteliConfiguration.stub!(:skip_admin_auth).and_return(false)
+    AlaveteliConfiguration.stub(:skip_admin_auth).and_return(false)
 
     confirm(:admin_user)
     @admin = login(:admin_user)

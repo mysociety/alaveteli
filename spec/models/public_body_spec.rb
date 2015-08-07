@@ -1070,13 +1070,13 @@ describe PublicBody do
 
     it "should return the home page based on the request email domain if it has one" do
       public_body = PublicBody.new
-      public_body.stub!(:request_email_domain).and_return "public-authority.com"
+      public_body.stub(:request_email_domain).and_return "public-authority.com"
       public_body.calculated_home_page.should == "http://www.public-authority.com"
     end
 
     it "should return nil if there's no home page and the email domain can't be worked out" do
       public_body = PublicBody.new
-      public_body.stub!(:request_email_domain).and_return nil
+      public_body.stub(:request_email_domain).and_return nil
       public_body.calculated_home_page.should be_nil
     end
 
@@ -1152,12 +1152,12 @@ describe PublicBody do
     end
 
     it 'should return true if the body is defunct' do
-      @body.stub!(:defunct?).and_return(true)
+      @body.stub(:defunct?).and_return(true)
       @body.special_not_requestable_reason?.should == true
     end
 
     it 'should return true if FOI does not apply' do
-      @body.stub!(:not_apply?).and_return(true)
+      @body.stub(:not_apply?).and_return(true)
       @body.special_not_requestable_reason?.should == true
     end
 
@@ -1253,7 +1253,7 @@ end
 describe PublicBody, 'when asked for popular bodies' do
 
   it 'should return bodies correctly when passed the hyphenated version of the locale' do
-    AlaveteliConfiguration.stub!(:frontpage_publicbody_examples).and_return('')
+    AlaveteliConfiguration.stub(:frontpage_publicbody_examples).and_return('')
     PublicBody.popular_bodies('he-IL').should == [public_bodies(:humpadink_public_body)]
   end
 
@@ -1268,17 +1268,17 @@ describe PublicBody do
     end
 
     it 'should return false if the body is defunct' do
-      @body.stub!(:defunct?).and_return true
+      @body.stub(:defunct?).and_return true
       @body.is_requestable?.should == false
     end
 
     it 'should return false if FOI does not apply' do
-      @body.stub!(:not_apply?).and_return true
+      @body.stub(:not_apply?).and_return true
       @body.is_requestable?.should == false
     end
 
     it 'should return false there is no request_email' do
-      @body.stub!(:has_request_email?).and_return false
+      @body.stub(:has_request_email?).and_return false
       @body.is_requestable?.should == false
     end
 
@@ -1295,7 +1295,7 @@ describe PublicBody do
     end
 
     it 'should return false there is no request_email' do
-      @body.stub!(:has_request_email?).and_return false
+      @body.stub(:has_request_email?).and_return false
       @body.is_followupable?.should == false
     end
 
@@ -1312,18 +1312,18 @@ describe PublicBody do
     end
 
     it 'should return "defunct" if the body is defunct' do
-      @body.stub!(:defunct?).and_return true
+      @body.stub(:defunct?).and_return true
       @body.not_requestable_reason.should == 'defunct'
     end
 
     it 'should return "not_apply" if FOI does not apply' do
-      @body.stub!(:not_apply?).and_return true
+      @body.stub(:not_apply?).and_return true
       @body.not_requestable_reason.should == 'not_apply'
     end
 
 
     it 'should return "bad_contact" there is no request_email' do
-      @body.stub!(:has_request_email?).and_return false
+      @body.stub(:has_request_email?).and_return false
       @body.not_requestable_reason.should == 'bad_contact'
     end
 
@@ -1343,7 +1343,7 @@ describe PublicBody do
       end
 
       it "should return a different email address when overridden in configuration" do
-        AlaveteliConfiguration.stub!(:override_all_public_body_request_emails).and_return("tester@example.com")
+        AlaveteliConfiguration.stub(:override_all_public_body_request_emails).and_return("tester@example.com")
         expect(public_body.request_email).to eq("tester@example.com")
       end
     end
@@ -1356,7 +1356,7 @@ describe PublicBody do
       end
 
       it "should still return a blank email address when overridden in configuration" do
-        AlaveteliConfiguration.stub!(:override_all_public_body_request_emails).and_return("tester@example.com")
+        AlaveteliConfiguration.stub(:override_all_public_body_request_emails).and_return("tester@example.com")
         expect(public_body.request_email).to be_blank
       end
     end

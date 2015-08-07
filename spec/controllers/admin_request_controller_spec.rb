@@ -111,7 +111,7 @@ describe AdminRequestController, "when administering the holding pen" do
     describe 'when hiding an external request' do
 
       before do
-        @controller.stub!(:expire_for_request)
+        @controller.stub(:expire_for_request)
         @info_request = mock_model(InfoRequest, :prominence= => nil,
                                    :log_event => nil,
                                    :set_described_state => nil,
@@ -119,7 +119,7 @@ describe AdminRequestController, "when administering the holding pen" do
                                    :user => nil,
                                    :user_name => 'External User',
                                    :is_external? => true)
-        InfoRequest.stub!(:find).with(@info_request.id.to_s).and_return(@info_request)
+        InfoRequest.stub(:find).with(@info_request.id.to_s).and_return(@info_request)
         @default_params = { :id => @info_request.id,
                             :explanation => 'Foo',
                             :reason => 'vexatious' }

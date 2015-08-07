@@ -12,7 +12,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
     before do
       @im = incoming_messages(:useless_incoming_message)
-      @controller.stub!(:expire_for_request)
+      @controller.stub(:expire_for_request)
     end
 
     it "destroys the raw email file" do
@@ -23,7 +23,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
 
     it 'asks the incoming message to fully destroy itself' do
-      IncomingMessage.stub!(:find).and_return(@im)
+      IncomingMessage.stub(:find).and_return(@im)
       @im.should_receive(:fully_destroy)
       post :destroy, :id => @im.id
     end
@@ -121,7 +121,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
 
     it 'should log an "edit_incoming" event on the info_request' do
-      @controller.stub!(:admin_current_user).and_return("Admin user")
+      @controller.stub(:admin_current_user).and_return("Admin user")
       make_request
       @incoming.reload
       last_event = @incoming.info_request_events.last

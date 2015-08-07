@@ -8,13 +8,13 @@ describe Ability do
 
       context "logged out" do
         let(:user) { nil }
-        before(:each) { request.stub!(:is_owning_user?).and_return(false) }
+        before(:each) { request.stub(:is_owning_user?).and_return(false) }
         it { Ability::can_update_request_state?(user, request).should be false }
       end
 
       context "logged in but not owner of request" do
         let(:user) { mock_model(User) }
-        before(:each) { request.stub!(:is_owning_user?).and_return(false) }
+        before(:each) { request.stub(:is_owning_user?).and_return(false) }
 
         it { Ability::can_update_request_state?(user, request).should be true }
       end
@@ -25,7 +25,7 @@ describe Ability do
 
       context "logged out" do
         let(:user) { nil }
-        before(:each) { request.stub!(:is_owning_user?).and_return(false) }
+        before(:each) { request.stub(:is_owning_user?).and_return(false) }
 
         it { Ability::can_update_request_state?(user, request).should be false }
       end
@@ -35,13 +35,13 @@ describe Ability do
 
         # An owner of a request can also be someone with admin powers
         context "as owner of request" do
-          before(:each) { request.stub!(:is_owning_user?).and_return(true) }
+          before(:each) { request.stub(:is_owning_user?).and_return(true) }
 
           it { Ability::can_update_request_state?(user, request).should be true }
         end
 
         context "but not owner of request" do
-          before(:each) { request.stub!(:is_owning_user?).and_return(false) }
+          before(:each) { request.stub(:is_owning_user?).and_return(false) }
 
           it { Ability::can_update_request_state?(user, request).should be false }
         end

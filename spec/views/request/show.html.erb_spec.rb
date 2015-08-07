@@ -52,7 +52,7 @@ describe 'request/show' do
     describe 'when it is awaiting a description' do
 
         before do
-            @mock_request.stub!(:awaiting_description).and_return(true)
+            @mock_request.stub(:awaiting_description).and_return(true)
         end
 
         it 'should show the first form for describing the state of the request' do
@@ -76,14 +76,14 @@ describe 'request/show' do
         describe 'when the request status is "waiting clarification"' do
 
             before do
-                @mock_request.stub!(:calculate_status).and_return('waiting_clarification')
+                @mock_request.stub(:calculate_status).and_return('waiting_clarification')
             end
 
             describe 'when there is a last response' do
 
                 before do
                     @mock_response = mock_model(IncomingMessage)
-                    @mock_request.stub!(:get_last_public_response).and_return(@mock_response)
+                    @mock_request.stub(:get_last_public_response).and_return(@mock_response)
                 end
 
 
@@ -98,7 +98,7 @@ describe 'request/show' do
             describe 'when there is no last response' do
 
                 before do
-                    @mock_request.stub!(:get_last_public_response).and_return(nil)
+                    @mock_request.stub(:get_last_public_response).and_return(nil)
                 end
 
 
