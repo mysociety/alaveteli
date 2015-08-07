@@ -417,7 +417,7 @@ describe 'when getting attachment attributes' do
   end
 
   it 'should ignore anything beyond the final MIME boundary' do
-    pending do
+    skip do
       # This example raw email has a premature closing boundary for
       # the outer multipart/mixed - my reading of RFC 1521 is that
       # the "epilogue" beyond that should be ignored.
