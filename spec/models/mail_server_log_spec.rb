@@ -17,7 +17,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe MailServerLog do
   describe ".load_file" do
     before :each do
-      AlaveteliConfiguration.stub!(:incoming_email_domain).and_return("example.com")
+      AlaveteliConfiguration.stub(:incoming_email_domain).and_return("example.com")
       File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 10))
     end
 
@@ -78,8 +78,8 @@ describe MailServerLog do
 
   describe ".email_addresses_on_line" do
     before :each do
-      AlaveteliConfiguration.stub!(:incoming_email_domain).and_return("example.com")
-      AlaveteliConfiguration.stub!(:incoming_email_prefix).and_return("foi+")
+      AlaveteliConfiguration.stub(:incoming_email_domain).and_return("example.com")
+      AlaveteliConfiguration.stub(:incoming_email_prefix).and_return("foi+")
     end
 
     it "recognises a single incoming email" do
@@ -120,8 +120,8 @@ describe MailServerLog do
       # Postfix logs for a single email go over multiple lines. They are all tied together with the Queue ID.
       # See http://onlamp.com/onlamp/2004/01/22/postfix.html
       it "loads the postfix log and untangles seperate email transactions using the queue ID" do
-        AlaveteliConfiguration.stub!(:incoming_email_domain).and_return("example.com")
-        log.stub!(:rewind)
+        AlaveteliConfiguration.stub(:incoming_email_domain).and_return("example.com")
+        log.stub(:rewind)
         ir1 = info_requests(:fancy_dog_request)
         ir2 = info_requests(:naughty_chicken_request)
         InfoRequest.should_receive(:find_by_incoming_email).with("request-14-e0e09f97@example.com").any_number_of_times.and_return(ir1)
@@ -149,7 +149,7 @@ describe MailServerLog do
 
     describe ".scan_for_postfix_queue_ids" do
       it "returns the queue ids of interest with the connected email addresses" do
-        AlaveteliConfiguration.stub!(:incoming_email_domain).and_return("example.com")
+        AlaveteliConfiguration.stub(:incoming_email_domain).and_return("example.com")
         MailServerLog.scan_for_postfix_queue_ids(log).should == {
           "CB55836EE58C" => ["request-14-e0e09f97@example.com"],
           "9634B16F7F7" => ["request-10-1234@example.com"]

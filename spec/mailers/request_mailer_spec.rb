@@ -264,7 +264,7 @@ end
 describe RequestMailer, "when sending reminders to requesters to classify a response to their request" do
 
   before do
-    Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
+    Time.stub(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
     @mock_event = mock_model(InfoRequestEvent)
     @mock_response = mock_model(IncomingMessage, :user_can_view? => true)
     @mock_user = mock_model(User)
@@ -273,7 +273,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
                                :user_id => 2,
                                :url_title => 'test_title',
                                :user => @mock_user)
-    InfoRequest.stub!(:find).and_return([@mock_request])
+    InfoRequest.stub(:find).and_return([@mock_request])
     mail_mock = mock("mail")
     mail_mock.stub(:deliver)
     RequestMailer.stub(:new_response_reminder_alert).and_return(mail_mock)
@@ -282,7 +282,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
                              :alert_type= => nil,
                              :info_request_event_id= => nil,
                              :save! => true)
-    UserInfoRequestSentAlert.stub!(:new).and_return(@sent_alert)
+    UserInfoRequestSentAlert.stub(:new).and_return(@sent_alert)
   end
 
   def send_alerts
@@ -316,7 +316,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
   end
 
   it 'should raise an error if a request does not have a last response event id' do
-    @mock_request.stub!(:get_last_public_response_event_id).and_return(nil)
+    @mock_request.stub(:get_last_public_response_event_id).and_return(nil)
     expected_message = "internal error, no last response while making alert new response reminder, request id #{@mock_request.id}"
     lambda{ send_alerts }.should raise_error(expected_message)
   end
@@ -331,7 +331,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
   describe 'if an alert matching the attributes of the reminder to be sent has already been sent' do
 
     before do
-      UserInfoRequestSentAlert.stub!(:find).and_return(mock_model(UserInfoRequestSentAlert))
+      UserInfoRequestSentAlert.stub(:find).and_return(mock_model(UserInfoRequestSentAlert))
     end
 
     it 'should not send the reminder' do
@@ -344,12 +344,12 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
   describe 'if no alert matching the attributes of the reminder to be sent has already been sent' do
 
     before do
-      UserInfoRequestSentAlert.stub!(:find).and_return(nil)
+      UserInfoRequestSentAlert.stub(:find).and_return(nil)
     end
 
     it 'should store the information that the reminder has been sent' do
       mock_sent_alert = mock_model(UserInfoRequestSentAlert)
-      UserInfoRequestSentAlert.stub!(:new).and_return(mock_sent_alert)
+      UserInfoRequestSentAlert.stub(:new).and_return(mock_sent_alert)
       mock_sent_alert.should_receive(:info_request=).with(@mock_request)
       mock_sent_alert.should_receive(:user=).with(@mock_user)
       mock_sent_alert.should_receive(:alert_type=).with('new_response_reminder_1')

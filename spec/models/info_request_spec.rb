@@ -405,12 +405,12 @@ describe InfoRequest do
     it 'should return the last undescribed event id if there is one' do
       last_mock_event = mock_model(InfoRequestEvent)
       other_mock_event = mock_model(InfoRequestEvent)
-      @info_request.stub!(:events_needing_description).and_return([other_mock_event, last_mock_event])
+      @info_request.stub(:events_needing_description).and_return([other_mock_event, last_mock_event])
       @info_request.last_event_id_needing_description.should == last_mock_event.id
     end
 
     it 'should return zero if there are no undescribed events' do
-      @info_request.stub!(:events_needing_description).and_return([])
+      @info_request.stub(:events_needing_description).and_return([])
       @info_request.last_event_id_needing_description.should == 0
     end
 
@@ -532,22 +532,22 @@ describe InfoRequest do
     end
 
     it "isn't overdue on due date (20 working days after request sent)" do
-      Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
+      Time.stub(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
       @ir.calculate_status.should == 'waiting_response'
     end
 
     it "is overdue a day after due date (20 working days after request sent)" do
-      Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
+      Time.stub(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
       @ir.calculate_status.should == 'waiting_response_overdue'
     end
 
     it "is still overdue 40 working days after request sent" do
-      Time.stub!(:now).and_return(Time.utc(2007, 12, 10, 23, 59))
+      Time.stub(:now).and_return(Time.utc(2007, 12, 10, 23, 59))
       @ir.calculate_status.should == 'waiting_response_overdue'
     end
 
     it "is very overdue the day after 40 working days after request sent" do
-      Time.stub!(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
+      Time.stub(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
       @ir.calculate_status.should == 'waiting_response_very_overdue'
     end
   end
@@ -572,7 +572,7 @@ describe InfoRequest do
 
     it "accepts extended states" do
       # this time would normally be "overdue"
-      Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
+      Time.stub(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
       @ir.set_described_state("deadline_extended")
       @ir.display_status.should == 'Deadline extended.'
       @ir.date_deadline_extended
@@ -580,7 +580,7 @@ describe InfoRequest do
 
     it "is not overdue if it's had the deadline extended" do
       when_overdue = Time.utc(2007, 11, 10, 00, 01) + 16.days
-      Time.stub!(:now).and_return(when_overdue)
+      Time.stub(:now).and_return(when_overdue)
       @ir.calculate_status.should == 'waiting_response_overdue'
     end
 
@@ -608,32 +608,32 @@ describe InfoRequest do
     end
 
     it "isn't overdue on due date (20 working days after request sent)" do
-      Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
+      Time.stub(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
       @ir.calculate_status.should == 'waiting_response'
     end
 
     it "is overdue a day after due date (20 working days after request sent)" do
-      Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
+      Time.stub(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
       @ir.calculate_status.should == 'waiting_response_overdue'
     end
 
     it "is still overdue 40 working days after request sent" do
-      Time.stub!(:now).and_return(Time.utc(2007, 12, 10, 23, 59))
+      Time.stub(:now).and_return(Time.utc(2007, 12, 10, 23, 59))
       @ir.calculate_status.should == 'waiting_response_overdue'
     end
 
     it "is still overdue the day after 40 working days after request sent" do
-      Time.stub!(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
+      Time.stub(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
       @ir.calculate_status.should == 'waiting_response_overdue'
     end
 
     it "is still overdue 60 working days after request sent" do
-      Time.stub!(:now).and_return(Time.utc(2008, 01, 11, 23, 59))
+      Time.stub(:now).and_return(Time.utc(2008, 01, 11, 23, 59))
       @ir.calculate_status.should == 'waiting_response_overdue'
     end
 
     it "is very overdue the day after 60 working days after request sent" do
-      Time.stub!(:now).and_return(Time.utc(2008, 01, 12, 00, 01))
+      Time.stub(:now).and_return(Time.utc(2008, 01, 12, 00, 01))
       @ir.calculate_status.should == 'waiting_response_very_overdue'
     end
   end
@@ -655,12 +655,12 @@ describe InfoRequest do
     end
 
     it 'should return false for a user that is not the owner and does not own every request' do
-      @other_mock_user.stub!(:owns_every_request?).and_return(false)
+      @other_mock_user.stub(:owns_every_request?).and_return(false)
       @info_request.is_owning_user?(@other_mock_user).should be false
     end
 
     it 'should return true if the user is not the owner but owns every request' do
-      @other_mock_user.stub!(:owns_every_request?).and_return(true)
+      @other_mock_user.stub(:owns_every_request?).and_return(true)
       @info_request.is_owning_user?(@other_mock_user).should be true
     end
 
@@ -693,7 +693,7 @@ describe InfoRequest do
   describe 'when asked for old unclassified requests' do
 
     before do
-      Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
+      Time.stub(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
     end
 
     it 'should ask for requests using any limit param supplied' do
@@ -815,7 +815,7 @@ describe InfoRequest do
   describe 'when an instance is asked if it is old and unclassified' do
 
     before do
-      Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
+      Time.stub(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
       @info_request = FactoryGirl.create(:info_request,
                                          :prominence => 'normal',
                                          :awaiting_description => true)
@@ -835,12 +835,12 @@ describe InfoRequest do
     end
 
     it 'should return false if it is the holding pen' do
-      @info_request.stub!(:url_title).and_return('holding_pen')
+      @info_request.stub(:url_title).and_return('holding_pen')
       @info_request.is_old_unclassified?.should be false
     end
 
     it 'should return false if it is not awaiting description' do
-      @info_request.stub!(:awaiting_description).and_return(false)
+      @info_request.stub(:awaiting_description).and_return(false)
       @info_request.is_old_unclassified?.should be false
     end
 
@@ -871,11 +871,11 @@ describe InfoRequest do
       @info_request = InfoRequest.new(:prominence => 'normal',
                                       :awaiting_description => true,
                                       :title => 'title')
-      @info_request.stub!(:user).and_return(@user)
-      @info_request.stub!(:censor_rules).and_return([@request_rule])
-      @info_request.stub!(:public_body).and_return(@body)
+      @info_request.stub(:user).and_return(@user)
+      @info_request.stub(:censor_rules).and_return([@request_rule])
+      @info_request.stub(:public_body).and_return(@body)
       @text = 'some text'
-      CensorRule.stub!(:global).and_return(mock('global context', :all => [@global_rule]))
+      CensorRule.stub(:global).and_return(mock('global context', :all => [@global_rule]))
     end
 
     context "when applying censor rules to text" do
@@ -906,7 +906,7 @@ describe InfoRequest do
       end
 
       it 'should not raise an error if the request is a batch request template' do
-        @info_request.stub!(:public_body).and_return(nil)
+        @info_request.stub(:public_body).and_return(nil)
         @info_request.is_batch_request_template = true
         lambda{ @info_request.apply_censor_rules_to_text!(@text) }.should_not raise_error
       end

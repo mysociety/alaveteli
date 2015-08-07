@@ -48,7 +48,7 @@ describe InfoRequestEvent do
     end
 
     it 'should return a falsey value for a comment that is not visible' do
-      @comment.stub!(:visible).and_return(false)
+      @comment.stub(:visible).and_return(false)
       @info_request_event = InfoRequestEvent.new(:event_type => 'comment',
                                                  :comment => @comment,
                                                  :info_request => @info_request)
@@ -56,7 +56,7 @@ describe InfoRequestEvent do
     end
 
     it 'should return a truthy value for a comment that is visible' do
-      @comment.stub!(:visible).and_return(true)
+      @comment.stub(:visible).and_return(true)
       @info_request_event = InfoRequestEvent.new(:event_type => 'comment',
                                                  :comment => @comment,
                                                  :info_request => @info_request)
@@ -64,7 +64,7 @@ describe InfoRequestEvent do
     end
 
     it 'should return a truthy value for an incoming message that is not indexed by search' do
-      @incoming_message.stub!(:indexed_by_search?).and_return false
+      @incoming_message.stub(:indexed_by_search?).and_return false
       @info_request_event = InfoRequestEvent.new(:event_type => 'response',
                                                  :incoming_message => @incoming_message,
                                                  :info_request => @info_request)
@@ -72,7 +72,7 @@ describe InfoRequestEvent do
     end
 
     it 'should return a truthy value for an incoming message that is indexed by search' do
-      @incoming_message.stub!(:indexed_by_search?).and_return true
+      @incoming_message.stub(:indexed_by_search?).and_return true
       @info_request_event = InfoRequestEvent.new(:event_type => 'response',
                                                  :incoming_message => @incoming_message,
                                                  :info_request => @info_request)
@@ -80,7 +80,7 @@ describe InfoRequestEvent do
     end
 
     it 'should return a falsey value for an outgoing message that is not indexed by search' do
-      @outgoing_message.stub!(:indexed_by_search?).and_return false
+      @outgoing_message.stub(:indexed_by_search?).and_return false
       @info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
                                                  :outgoing_message => @outgoing_message,
                                                  :info_request => @info_request)
@@ -88,7 +88,7 @@ describe InfoRequestEvent do
     end
 
     it 'should return a truthy value for an outgoing message that is indexed by search' do
-      @outgoing_message.stub!(:indexed_by_search?).and_return true
+      @outgoing_message.stub(:indexed_by_search?).and_return true
       @info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
                                                  :outgoing_message => @outgoing_message,
                                                  :info_request => @info_request)
@@ -170,38 +170,38 @@ describe InfoRequestEvent do
     end
 
     it 'should return true if the email in its params and the previous email the request was sent to are both nil' do
-      @info_request_event.stub!(:params).and_return({})
+      @info_request_event.stub(:params).and_return({})
       @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
       @info_request_event.same_email_as_previous_send?.should be true
     end
 
     it 'should return false if one email address exists and the other does not' do
-      @info_request_event.stub!(:params).and_return(:email => 'test@example.com')
+      @info_request_event.stub(:params).and_return(:email => 'test@example.com')
       @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
       @info_request_event.same_email_as_previous_send?.should be false
     end
 
     it 'should return true if the addresses are identical' do
-      @info_request_event.stub!(:params).and_return(:email => 'test@example.com')
+      @info_request_event.stub(:params).and_return(:email => 'test@example.com')
       @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
       @info_request_event.same_email_as_previous_send?.should be true
     end
 
     it 'should return false if the addresses are different' do
-      @info_request_event.stub!(:params).and_return(:email => 'test@example.com')
+      @info_request_event.stub(:params).and_return(:email => 'test@example.com')
       @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('different@example.com')
       @info_request_event.same_email_as_previous_send?.should be false
     end
 
     it 'should return true if the addresses have different formats' do
-      @info_request_event.stub!(:params).and_return(:email => 'A Test <test@example.com>')
+      @info_request_event.stub(:params).and_return(:email => 'A Test <test@example.com>')
       @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
       @info_request_event.same_email_as_previous_send?.should be true
     end
 
     it 'should handle non-ascii characters in the name input' do
       address = "\"Someone’s name\" <test@example.com>"
-      @info_request_event.stub!(:params).and_return(:email => address)
+      @info_request_event.stub(:params).and_return(:email => address)
       @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(address)
       @info_request_event.same_email_as_previous_send?.should be true
     end

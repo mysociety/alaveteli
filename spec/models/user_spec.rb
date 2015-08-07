@@ -197,13 +197,13 @@ describe User, "when reindexing referencing models" do
   end
 
   it 'should reindex events associated with that user\'s comments when URL changes' do
-    @user.stub!(:changes).and_return({'url_name' => 1})
+    @user.stub(:changes).and_return({'url_name' => 1})
     @comment_event.should_receive(:xapian_mark_needs_index)
     @user.reindex_referencing_models
   end
 
   it 'should reindex events associated with that user\'s requests when URL changes' do
-    @user.stub!(:changes).and_return({'url_name' => 1})
+    @user.stub(:changes).and_return({'url_name' => 1})
     @request_event.should_receive(:xapian_mark_needs_index)
     @user.reindex_referencing_models
   end
@@ -214,13 +214,13 @@ describe User, "when reindexing referencing models" do
     end
 
     it 'should not reindex events associated with that user\'s comments when URL changes' do
-      @user.stub!(:changes).and_return({'url_name' => 1})
+      @user.stub(:changes).and_return({'url_name' => 1})
       @comment_event.should_not_receive(:xapian_mark_needs_index)
       @user.reindex_referencing_models
     end
 
     it 'should not reindex events associated with that user\'s requests when URL changes' do
-      @user.stub!(:changes).and_return({'url_name' => 1})
+      @user.stub(:changes).and_return({'url_name' => 1})
       @request_event.should_not_receive(:xapian_mark_needs_index)
       @user.reindex_referencing_models
     end
@@ -256,12 +256,12 @@ describe User, 'when asked if a user owns every request' do
   end
 
   it 'should return true if the user has "requires admin" power' do
-    @mock_user.stub!(:owns_every_request?).and_return true
+    @mock_user.stub(:owns_every_request?).and_return true
     User.owns_every_request?(@mock_user).should be true
   end
 
   it 'should return false if the user does not have "requires admin" power' do
-    @mock_user.stub!(:owns_every_request?).and_return false
+    @mock_user.stub(:owns_every_request?).and_return false
     User.owns_every_request?(@mock_user).should be false
   end
 
@@ -348,23 +348,23 @@ describe User, "when calculating if a user has exceeded the request limit" do
   end
 
   it 'should return false if no request limit is set' do
-    AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return nil
+    AlaveteliConfiguration.stub(:max_requests_per_user_per_day).and_return nil
     @user.exceeded_limit?.should be false
   end
 
   it 'should return false if the user has not submitted more than the limit' do
-    AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(2)
+    AlaveteliConfiguration.stub(:max_requests_per_user_per_day).and_return(2)
     @user.exceeded_limit?.should be false
   end
 
   it 'should return true if the user has submitted more than the limit' do
-    AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(0)
+    AlaveteliConfiguration.stub(:max_requests_per_user_per_day).and_return(0)
     @user.exceeded_limit?.should be true
   end
 
   it 'should return false if the user is allowed to make batch requests' do
     @user.can_make_batch_requests = true
-    AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(0)
+    AlaveteliConfiguration.stub(:max_requests_per_user_per_day).and_return(0)
     @user.exceeded_limit?.should be false
   end
 

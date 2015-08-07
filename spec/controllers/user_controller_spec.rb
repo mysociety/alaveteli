@@ -76,11 +76,11 @@ describe UserController, "when redirecting a show request to a canonical url" do
   end
 
   it 'should not redirect a long canonical name that has a numerical suffix' do
-    User.stub!(:find).with(:first, anything).and_return(mock_model(User,
+    User.stub(:find).with(:first, anything).and_return(mock_model(User,
                                                                    :url_name => 'bob_smithbob_smithbob_smithbob_s_2',
                                                                    :name => 'Bob Smith Bob Smith Bob Smith Bob Smith',
                                                                    :info_requests => []))
-    User.stub!(:find).with(:all, anything).and_return([])
+    User.stub(:find).with(:all, anything).and_return([])
     get :show, :url_name => 'bob_smithbob_smithbob_smithbob_s_2'
     response.should be_success
   end
@@ -190,7 +190,7 @@ describe UserController, "when signing in" do
 
   before do
     # Don't call out to external url during tests
-    controller.stub!(:country_from_ip).and_return('gb')
+    controller.stub(:country_from_ip).and_return('gb')
   end
 
   def get_last_postredirect
@@ -340,7 +340,7 @@ describe UserController, "when signing up" do
 
   before do
     # Don't call out to external url during tests
-    controller.stub!(:country_from_ip).and_return('gb')
+    controller.stub(:country_from_ip).and_return('gb')
   end
 
   it "should be an error if you type the password differently each time" do

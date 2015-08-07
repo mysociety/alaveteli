@@ -1201,43 +1201,43 @@ describe RequestController, "when making a new request" do
 
   before do
     @user = mock_model(User, :id => 3481, :name => 'Testy')
-    @user.stub!(:get_undescribed_requests).and_return([])
-    @user.stub!(:can_leave_requests_undescribed?).and_return(false)
-    @user.stub!(:can_file_requests?).and_return(true)
-    @user.stub!(:locale).and_return("en")
-    User.stub!(:find).and_return(@user)
+    @user.stub(:get_undescribed_requests).and_return([])
+    @user.stub(:can_leave_requests_undescribed?).and_return(false)
+    @user.stub(:can_file_requests?).and_return(true)
+    @user.stub(:locale).and_return("en")
+    User.stub(:find).and_return(@user)
 
     @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true, :name => "Test Quango")
-    PublicBody.stub!(:find).and_return(@body)
+    PublicBody.stub(:find).and_return(@body)
   end
 
   it "should allow you to have one undescribed request" do
-    @user.stub!(:get_undescribed_requests).and_return([ 1 ])
-    @user.stub!(:can_leave_requests_undescribed?).and_return(false)
+    @user.stub(:get_undescribed_requests).and_return([ 1 ])
+    @user.stub(:can_leave_requests_undescribed?).and_return(false)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
     response.should render_template('new')
   end
 
   it "should fail if more than one request undescribed" do
-    @user.stub!(:get_undescribed_requests).and_return([ 1, 2 ])
-    @user.stub!(:can_leave_requests_undescribed?).and_return(false)
+    @user.stub(:get_undescribed_requests).and_return([ 1, 2 ])
+    @user.stub(:can_leave_requests_undescribed?).and_return(false)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
     response.should render_template('new_please_describe')
   end
 
   it "should allow you if more than one request undescribed but are allowed to leave requests undescribed" do
-    @user.stub!(:get_undescribed_requests).and_return([ 1, 2 ])
-    @user.stub!(:can_leave_requests_undescribed?).and_return(true)
+    @user.stub(:get_undescribed_requests).and_return([ 1, 2 ])
+    @user.stub(:can_leave_requests_undescribed?).and_return(true)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
     response.should render_template('new')
   end
 
   it "should fail if user is banned" do
-    @user.stub!(:can_file_requests?).and_return(false)
-    @user.stub!(:exceeded_limit?).and_return(false)
+    @user.stub(:can_file_requests?).and_return(false)
+    @user.stub(:exceeded_limit?).and_return(false)
     @user.should_receive(:can_fail_html).and_return('FAIL!')
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
@@ -1344,8 +1344,8 @@ describe RequestController, "when classifying an information request" do
 
     before(:each) do
       @dog_request = info_requests(:fancy_dog_request)
-      @dog_request.stub!(:is_old_unclassified?).and_return(false)
-      InfoRequest.stub!(:find).and_return(@dog_request)
+      @dog_request.stub(:is_old_unclassified?).and_return(false)
+      InfoRequest.stub(:find).and_return(@dog_request)
       load_raw_emails_data
     end
 
@@ -1376,10 +1376,10 @@ describe RequestController, "when classifying an information request" do
     describe 'when the request is old and unclassified' do
 
       before do
-        @dog_request.stub!(:is_old_unclassified?).and_return(true)
+        @dog_request.stub(:is_old_unclassified?).and_return(true)
         mail_mock = mock("mail")
         mail_mock.stub(:deliver)
-        RequestMailer.stub!(:old_unclassified_updated).and_return(mail_mock)
+        RequestMailer.stub(:old_unclassified_updated).and_return(mail_mock)
       end
 
       describe 'when the user is not logged in' do
@@ -1401,7 +1401,7 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should classify the request' do
-          @dog_request.stub!(:calculate_status).and_return('rejected')
+          @dog_request.stub(:calculate_status).and_return('rejected')
           @dog_request.should_receive(:set_described_state).with('rejected', users(:silly_name_user), nil)
           post_status('rejected')
         end
@@ -1459,12 +1459,12 @@ describe RequestController, "when classifying an information request" do
         @admin_user = users(:admin_user)
         session[:user_id] = @admin_user.id
         @dog_request = info_requests(:fancy_dog_request)
-        InfoRequest.stub!(:find).and_return(@dog_request)
-        @dog_request.stub!(:each).and_return([@dog_request])
+        InfoRequest.stub(:find).and_return(@dog_request)
+        @dog_request.stub(:each).and_return([@dog_request])
       end
 
       it 'should update the status of the request' do
-        @dog_request.stub!(:calculate_status).and_return('rejected')
+        @dog_request.stub(:calculate_status).and_return('rejected')
         @dog_request.should_receive(:set_described_state).with('rejected', @admin_user, nil)
         post_status('rejected')
       end
@@ -1480,7 +1480,7 @@ describe RequestController, "when classifying an information request" do
 
       it 'should record a classification' do
         event = mock_model(InfoRequestEvent)
-        @dog_request.stub!(:log_event).with("status_update", anything).and_return(event)
+        @dog_request.stub(:log_event).with("status_update", anything).and_return(event)
         RequestClassification.should_receive(:create!).with(:user_id => @admin_user.id,
                                                             :info_request_event_id => event.id)
         post_status('rejected')
@@ -1512,12 +1512,12 @@ describe RequestController, "when classifying an information request" do
         @dog_request = info_requests(:fancy_dog_request)
         @dog_request.user = @admin_user
         @dog_request.save!
-        InfoRequest.stub!(:find).and_return(@dog_request)
-        @dog_request.stub!(:each).and_return([@dog_request])
+        InfoRequest.stub(:find).and_return(@dog_request)
+        @dog_request.stub(:each).and_return([@dog_request])
       end
 
       it 'should update the status of the request' do
-        @dog_request.stub!(:calculate_status).and_return('rejected')
+        @dog_request.stub(:calculate_status).and_return('rejected')
         @dog_request.should_receive(:set_described_state).with('rejected', @admin_user, nil)
         post_status('rejected')
       end
@@ -1550,7 +1550,7 @@ describe RequestController, "when classifying an information request" do
         @request_owner = users(:bob_smith_user)
         session[:user_id] = @request_owner.id
         @dog_request.awaiting_description.should == true
-        @dog_request.stub!(:each).and_return([@dog_request])
+        @dog_request.stub(:each).and_return([@dog_request])
       end
 
       it "should let you know when you forget to select a status" do
@@ -1561,7 +1561,7 @@ describe RequestController, "when classifying an information request" do
       end
 
       it "should not change the status if the request has changed while viewing it" do
-        @dog_request.stub!(:last_event_id_needing_description).and_return(2)
+        @dog_request.stub(:last_event_id_needing_description).and_return(2)
 
         post :describe_state, :incoming_message => { :described_state => "rejected" },
           :id => @dog_request.id, :last_info_request_event_id => 1
@@ -1635,7 +1635,7 @@ describe RequestController, "when classifying an information request" do
         RequestController.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
         RequestController.send(:include, RequestControllerCustomStates)
         RequestController.class_eval('@@custom_states_loaded = true')
-        Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
+        Time.stub(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
         post_status('deadline_extended')
         flash[:notice].should == 'Authority has requested extension of the deadline.'
       end
@@ -1647,8 +1647,8 @@ describe RequestController, "when classifying an information request" do
         @request_owner = users(:bob_smith_user)
         session[:user_id] = @request_owner.id
         @dog_request = info_requests(:fancy_dog_request)
-        @dog_request.stub!(:each).and_return([@dog_request])
-        InfoRequest.stub!(:find).and_return(@dog_request)
+        @dog_request.stub(:each).and_return([@dog_request])
+        InfoRequest.stub(:find).and_return(@dog_request)
       end
 
       def request_url
@@ -1668,8 +1668,8 @@ describe RequestController, "when classifying an information request" do
 
         it 'should redirect to the "request url" with a message in the right tense when
                     the response is not overdue' do
-          @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date+1)
-          @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+          @dog_request.stub(:date_response_required_by).and_return(Time.now.to_date+1)
+          @dog_request.stub(:date_very_overdue_after).and_return(Time.now.to_date+40)
 
           expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
           flash[:notice].should match(/should get a response/)
@@ -1677,16 +1677,16 @@ describe RequestController, "when classifying an information request" do
 
         it 'should redirect to the "request url" with a message in the right tense when
                     the response is overdue' do
-          @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-1)
-          @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+          @dog_request.stub(:date_response_required_by).and_return(Time.now.to_date-1)
+          @dog_request.stub(:date_very_overdue_after).and_return(Time.now.to_date+40)
           expect_redirect('waiting_response', request_url)
           flash[:notice].should match(/should have got a response/)
         end
 
         it 'should redirect to the "request url" with a message in the right tense when
                     the response is overdue' do
-          @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-2)
-          @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
+          @dog_request.stub(:date_response_required_by).and_return(Time.now.to_date-2)
+          @dog_request.stub(:date_very_overdue_after).and_return(Time.now.to_date-1)
           expect_redirect('waiting_response', unhappy_url)
           flash[:notice].should match(/is long overdue/)
           flash[:notice].should match(/by more than 40 working days/)
@@ -1709,7 +1709,7 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should show a message including the donation url if there is one' do
-          AlaveteliConfiguration.stub!(:donation_url).and_return('http://donations.example.com')
+          AlaveteliConfiguration.stub(:donation_url).and_return('http://donations.example.com')
           post_status('successful')
           flash[:notice].should match('make a donation')
           flash[:notice].should match('http://donations.example.com')
@@ -1717,7 +1717,7 @@ describe RequestController, "when classifying an information request" do
 
         it 'should show a message without reference to donations if there is no
                     donation url' do
-          AlaveteliConfiguration.stub!(:donation_url).and_return('')
+          AlaveteliConfiguration.stub(:donation_url).and_return('')
           post_status('successful')
           flash[:notice].should_not match('make a donation')
         end
@@ -1728,13 +1728,13 @@ describe RequestController, "when classifying an information request" do
 
         it 'should redirect to the "response url" when there is a last response' do
           incoming_message = mock_model(IncomingMessage)
-          @dog_request.stub!(:get_last_public_response).and_return(incoming_message)
+          @dog_request.stub(:get_last_public_response).and_return(incoming_message)
           expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
         end
 
         it 'should redirect to the "response no followup url" when there are no events
                     needing description' do
-          @dog_request.stub!(:get_last_public_response).and_return(nil)
+          @dog_request.stub(:get_last_public_response).and_return(nil)
           expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
         end
 
@@ -1755,7 +1755,7 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should show a message including the donation url if there is one' do
-          AlaveteliConfiguration.stub!(:donation_url).and_return('http://donations.example.com')
+          AlaveteliConfiguration.stub(:donation_url).and_return('http://donations.example.com')
           post_status('successful')
           flash[:notice].should match('make a donation')
           flash[:notice].should match('http://donations.example.com')
@@ -1763,7 +1763,7 @@ describe RequestController, "when classifying an information request" do
 
         it 'should show a message without reference to donations if there is no
                     donation url' do
-          AlaveteliConfiguration.stub!(:donation_url).and_return('')
+          AlaveteliConfiguration.stub(:donation_url).and_return('')
           post_status('successful')
           flash[:notice].should_not match('make a donation')
         end
@@ -2496,9 +2496,9 @@ describe RequestController, "when caching fragments" do
                             :user_can_view? => true,
                             :all_can_view? => true)
     attachment = FactoryGirl.build(:body_text, :filename => long_name)
-    IncomingMessage.stub!(:find).with("44").and_return(incoming_message)
-    IncomingMessage.stub!(:get_attachment_by_url_part_number_and_filename).and_return(attachment)
-    InfoRequest.stub!(:find).with("132").and_return(info_request)
+    IncomingMessage.stub(:find).with("44").and_return(incoming_message)
+    IncomingMessage.stub(:get_attachment_by_url_part_number_and_filename).and_return(attachment)
+    InfoRequest.stub(:find).with("132").and_return(info_request)
     params = { :file_name => long_name,
                :controller => "request",
                :action => "get_attachment_as_html",
@@ -2515,7 +2515,7 @@ describe RequestController, "#new_batch" do
   context "when batch requests is enabled" do
 
     before do
-      AlaveteliConfiguration.stub!(:allow_batch_requests).and_return(true)
+      AlaveteliConfiguration.stub(:allow_batch_requests).and_return(true)
     end
 
     context "when the current user can make batch requests" do
@@ -2642,7 +2642,7 @@ describe RequestController, "#new_batch" do
   context "when batch requests is not enabled" do
 
     it 'should return a 404' do
-      Rails.application.config.stub!(:consider_all_requests_local).and_return(false)
+      Rails.application.config.stub(:consider_all_requests_local).and_return(false)
       get :new_batch
       response.code.should == '404'
     end
@@ -2658,7 +2658,7 @@ describe RequestController, "#select_authorities" do
     before do
       get_fixtures_xapian_index
       load_raw_emails_data
-      AlaveteliConfiguration.stub!(:allow_batch_requests).and_return(true)
+      AlaveteliConfiguration.stub(:allow_batch_requests).and_return(true)
     end
 
     context "when the current user can make batch requests" do
@@ -2765,7 +2765,7 @@ describe RequestController, "#select_authorities" do
   context "when batch requests is not enabled" do
 
     it 'should return a 404' do
-      Rails.application.config.stub!(:consider_all_requests_local).and_return(false)
+      Rails.application.config.stub(:consider_all_requests_local).and_return(false)
       get :select_authorities
       response.code.should == '404'
     end

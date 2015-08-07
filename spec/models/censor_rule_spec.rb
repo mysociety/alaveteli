@@ -199,7 +199,7 @@ describe 'when validating rules' do
     describe 'if a regexp error is produced' do
 
       it 'should add an error message to the text field with the regexp error message' do
-        Regexp.stub!(:new).and_raise(RegexpError.new("very bad regexp"))
+        Regexp.stub(:new).and_raise(RegexpError.new("very bad regexp"))
         @censor_rule.valid?.should == false
         @censor_rule.errors[:text].should == ["very bad regexp"]
       end
@@ -209,7 +209,7 @@ describe 'when validating rules' do
     describe 'if no regexp error is produced' do
 
       it 'should not add any error message to the text field' do
-        Regexp.stub!(:new)
+        Regexp.stub(:new)
         @censor_rule.valid?
         @censor_rule.errors[:text].should == []
       end

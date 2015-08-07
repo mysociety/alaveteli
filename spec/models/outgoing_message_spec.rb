@@ -248,7 +248,7 @@ describe OutgoingMessage, "when validating the format of the message body" do
 
   it 'should handle a salutation with a bracket in it' do
     outgoing_message = FactoryGirl.build(:initial_request)
-    outgoing_message.stub!(:get_salutation).and_return("Dear Bob (Robert,")
+    outgoing_message.stub(:get_salutation).and_return("Dear Bob (Robert,")
     lambda{ outgoing_message.valid? }.should_not raise_error(RegexpError)
   end
 

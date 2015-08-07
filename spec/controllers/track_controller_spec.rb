@@ -6,7 +6,7 @@ describe TrackController do
   describe 'GET track_request' do
 
     it 'clears widget votes for the request' do
-      AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
+      AlaveteliConfiguration.stub(:enable_widgets).and_return(true)
       @info_request = FactoryGirl.create(:info_request)
       @info_request.widget_votes.create(:cookie => mock_cookie)
 
@@ -30,10 +30,10 @@ describe TrackController, "when making a new track on a request" do
                               :params => {},
                               :track_medium= => nil,
                               :tracking_user_id= => nil)
-    TrackThing.stub!(:create_track_for_request).and_return(@track_thing)
-    TrackThing.stub!(:create_track_for_search_query).and_return(@track_thing)
-    TrackThing.stub!(:find_existing).and_return(nil)
-    InfoRequest.stub!(:find_by_url_title!) do |url_title|
+    TrackThing.stub(:create_track_for_request).and_return(@track_thing)
+    TrackThing.stub(:create_track_for_search_query).and_return(@track_thing)
+    TrackThing.stub(:find_existing).and_return(nil)
+    InfoRequest.stub(:find_by_url_title!) do |url_title|
       if url_title == "myrequest"
         @ir
       else
@@ -42,10 +42,10 @@ describe TrackController, "when making a new track on a request" do
     end
 
     @user = mock_model(User)
-    User.stub!(:find).and_return(@user)
-    @user.stub!(:locale).and_return("en")
-    @user.stub!(:receive_email_alerts).and_return(true)
-    @user.stub!(:url_name).and_return("bob")
+    User.stub(:find).and_return(@user)
+    @user.stub(:locale).and_return("en")
+    @user.stub(:receive_email_alerts).and_return(true)
+    @user.stub(:url_name).and_return("bob")
   end
 
   it "should require login when making new track" do
