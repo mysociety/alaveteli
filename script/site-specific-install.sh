@@ -189,6 +189,12 @@ usermod -a -G adm "$UNIX_USER"
 # permissions are dropped below.
 add_postgresql_user --superuser
 
+# create the template_utf8 template we'll use for our databases
+sudo -u postgres createdb -T template0 -E UTF-8 template_utf8
+sudo -u postgres psql <<EOF
+update pg_database set datistemplate=true, datallowconn=false where datname='template_utf8';
+EOF
+
 export DEVELOPMENT_INSTALL
 su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY'" "$UNIX_USER"
 
