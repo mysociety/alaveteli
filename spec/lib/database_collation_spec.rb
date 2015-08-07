@@ -51,23 +51,23 @@ describe DatabaseCollation do
     it 'does not support collation if the database is not postgresql' do
       database = DatabaseCollation.
                  new(mock_connection(:adapter_name => 'MySQL'))
-      expect(database.supports?('en_GB')).to be_false
+      expect(database.supports?('en_GB')).to be false
     end
 
     it 'does not support collation if the postgresql version is too old' do
       database = DatabaseCollation.
                  new(mock_connection(:postgresql_version => 90111))
-      expect(database.supports?('en_GB')).to be_false
+      expect(database.supports?('en_GB')).to be false
     end
 
     it 'does not support collation if the collation does not exist' do
       database = DatabaseCollation.new(mock_connection)
-      expect(database.supports?('es')).to be_false
+      expect(database.supports?('es')).to be false
     end
 
     it 'supports collation if the collation exists' do
       database = DatabaseCollation.new(mock_connection)
-      expect(database.supports?('en_GB')).to be_true
+      expect(database.supports?('en_GB')).to be true
     end
 
   end

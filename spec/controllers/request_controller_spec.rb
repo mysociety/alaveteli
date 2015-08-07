@@ -338,26 +338,26 @@ describe RequestController, "when showing one request" do
 
     describe 'when the request is external' do
 
-      it 'should assign the "update status" flag to the view as false if the parameter is present' do
+      it 'should assign the "update status" flag to the view as falsey if the parameter is present' do
         get :show, :url_title => 'balalas', :update_status => 1
-        assigns[:update_status].should be_false
+        assigns[:update_status].should be_falsey
       end
 
-      it 'should assign the "update status" flag to the view as false if the parameter is not present' do
+      it 'should assign the "update status" flag to the view as falsey if the parameter is not present' do
         get :show, :url_title => 'balalas'
-        assigns[:update_status].should be_false
+        assigns[:update_status].should be_falsey
       end
 
     end
 
-    it 'should assign the "update status" flag to the view as true if the parameter is present' do
+    it 'should assign the "update status" flag to the view as truthy if the parameter is present' do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
-      assigns[:update_status].should be_true
+      assigns[:update_status].should be_truthy
     end
 
-    it 'should assign the "update status" flag to the view as false if the parameter is not present' do
+    it 'should assign the "update status" flag to the view as falsey if the parameter is not present' do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      assigns[:update_status].should be_false
+      assigns[:update_status].should be_falsey
     end
 
     it 'should require login' do
@@ -1094,7 +1094,7 @@ describe RequestController, "when creating a new request" do
       :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
       :submitted_new_request => 1, :preview => 0
 
-    expect(flash[:request_sent]).to be_true
+    expect(flash[:request_sent]).to be true
   end
 
   it "should give an error if the same request is submitted twice" do
@@ -2580,7 +2580,7 @@ describe RequestController, "#new_batch" do
 
         it 'sets the batch_sent flash to true' do
           make_request
-          expect(flash[:batch_sent]).to be_true
+          expect(flash[:batch_sent]).to be true
         end
 
       end

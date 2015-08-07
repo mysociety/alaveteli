@@ -546,21 +546,21 @@ describe InfoRequest do
     end
 
     it 'should return false if a nil object is passed to it' do
-      @info_request.is_owning_user?(nil).should be_false
+      @info_request.is_owning_user?(nil).should be false
     end
 
     it 'should return true if the user is the request\'s owner' do
-      @info_request.is_owning_user?(@mock_user).should be_true
+      @info_request.is_owning_user?(@mock_user).should be true
     end
 
     it 'should return false for a user that is not the owner and does not own every request' do
       @other_mock_user.stub!(:owns_every_request?).and_return(false)
-      @info_request.is_owning_user?(@other_mock_user).should be_false
+      @info_request.is_owning_user?(@other_mock_user).should be false
     end
 
     it 'should return true if the user is not the owner but owns every request' do
       @other_mock_user.stub!(:owns_every_request?).and_return(true)
-      @info_request.is_owning_user?(@other_mock_user).should be_true
+      @info_request.is_owning_user?(@other_mock_user).should be true
     end
 
   end
@@ -574,17 +574,17 @@ describe InfoRequest do
 
     it 'should return true if its described state is error_message' do
       @info_request.described_state = 'error_message'
-      @info_request.requires_admin?.should be_true
+      @info_request.requires_admin?.should be true
     end
 
     it 'should return true if its described state is requires_admin' do
       @info_request.described_state = 'requires_admin'
-      @info_request.requires_admin?.should be_true
+      @info_request.requires_admin?.should be true
     end
 
     it 'should return false if its described state is waiting_response' do
       @info_request.described_state = 'waiting_response'
-      @info_request.requires_admin?.should be_false
+      @info_request.requires_admin?.should be false
     end
 
   end
@@ -735,21 +735,21 @@ describe InfoRequest do
 
     it 'should return false if it is the holding pen' do
       @info_request.stub!(:url_title).and_return('holding_pen')
-      @info_request.is_old_unclassified?.should be_false
+      @info_request.is_old_unclassified?.should be false
     end
 
     it 'should return false if it is not awaiting description' do
       @info_request.stub!(:awaiting_description).and_return(false)
-      @info_request.is_old_unclassified?.should be_false
+      @info_request.is_old_unclassified?.should be false
     end
 
     it 'should return false if its last response event occurred less than 21 days ago' do
       @response_event.update_attribute(:created_at, Time.now - 20.days)
-      @info_request.is_old_unclassified?.should be_false
+      @info_request.is_old_unclassified?.should be false
     end
 
     it 'should return true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do
-      (@info_request.is_external? || @info_request.is_old_unclassified?).should be_true
+      (@info_request.is_external? || @info_request.is_old_unclassified?).should be true
     end
 
   end
@@ -1333,7 +1333,7 @@ describe InfoRequest do
 
     it 'should return a flag set to true' do
       similar, more = info_requests(:spam_1_request).similar_requests(1)
-      more.should be_true
+      more.should be true
     end
 
   end
@@ -1361,9 +1361,9 @@ describe InfoRequest do
           if previous
             previous.created_at.should be >= event.created_at
           end
-          ['sent', 'response'].include?(event.event_type).should be_true
+          ['sent', 'response'].include?(event.event_type).should be true
           if event.event_type == 'response'
-            ['successful', 'partially_successful'].include?(event.calculated_state).should be_true
+            ['successful', 'partially_successful'].include?(event.calculated_state).should be true
           end
           previous = event
         end
