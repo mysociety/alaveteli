@@ -79,7 +79,7 @@
 
       <p class="subtitle">
         <%= _('Joined {{site_name}} in', :site_name=>site_name) %> <%= @display_user.created_at.year %>
-        <% if @user.present? && @user.admin_page_links? %>
+        <% if @user && @user.admin_page_links? %>
           (<%= link_to "admin", admin_user_path(@display_user) %>)
         <% end %>
       </p>
@@ -182,7 +182,7 @@
       <% end %>
     <% end %>
 
-    <% if @xapian_comments.present? %>
+    <% if @xapian_comments %>
       <% if @xapian_comments.results.empty? %>
         <% if @page == 1 %>
           <h2>
