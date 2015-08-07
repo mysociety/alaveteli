@@ -21,7 +21,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe OutgoingMessage do
 
-  describe :initialize do
+  describe 'initialize' do
 
     it 'does not censor the #body' do
       attrs = { :status => 'ready',
@@ -37,7 +37,7 @@ describe OutgoingMessage do
 
   end
 
-  describe :body do
+  describe 'body' do
 
     it 'returns the body attribute' do
       attrs = { :status => 'ready',
