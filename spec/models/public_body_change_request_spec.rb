@@ -23,19 +23,19 @@ describe PublicBodyChangeRequest, 'when validating' do
 
   it 'should not be valid without a public body name' do
     change_request = PublicBodyChangeRequest.new
-    change_request.valid?.should be_false
+    change_request.valid?.should be false
     change_request.errors[:public_body_name].should == ['Please enter the name of the authority']
   end
 
   it 'should not be valid without a user name if there is no user' do
     change_request = PublicBodyChangeRequest.new(:public_body_name => 'New Body')
-    change_request.valid?.should be_false
+    change_request.valid?.should be false
     change_request.errors[:user_name].should == ['Please enter your name']
   end
 
   it 'should not be valid without a user email address if there is no user' do
     change_request = PublicBodyChangeRequest.new(:public_body_name => 'New Body')
-    change_request.valid?.should be_false
+    change_request.valid?.should be false
     change_request.errors[:user_email].should == ['Please enter your email address']
   end
 
@@ -43,20 +43,20 @@ describe PublicBodyChangeRequest, 'when validating' do
     user = FactoryGirl.build(:user)
     change_request = PublicBodyChangeRequest.new(:user => user,
                                                  :public_body_name => 'New Body')
-    change_request.valid?.should be_true
+    change_request.valid?.should be true
   end
 
   it 'should validate the format of a user email address entered' do
     change_request = PublicBodyChangeRequest.new(:public_body_name => 'New Body',
                                                  :user_email => '@example.com')
-    change_request.valid?.should be_false
+    change_request.valid?.should be false
     change_request.errors[:user_email].should == ["Your email doesn't look like a valid address"]
   end
 
   it 'should validate the format of a public body email address entered' do
     change_request = PublicBodyChangeRequest.new(:public_body_name => 'New Body',
                                                  :public_body_email => '@example.com')
-    change_request.valid?.should be_false
+    change_request.valid?.should be false
     change_request.errors[:public_body_email].should == ["The authority email doesn't look like a valid address"]
   end
 

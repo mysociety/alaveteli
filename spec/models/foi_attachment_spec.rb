@@ -76,7 +76,7 @@ describe FoiAttachment do
       foi_attachment = FactoryGirl.create(:body_text)
       if String.method_defined?(:encode)
         expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
-        expect(foi_attachment.body_as_text.string.valid_encoding?).to be_true
+        expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
       end
     end
 
@@ -85,7 +85,7 @@ describe FoiAttachment do
       foi_attachment = FoiAttachment.find(foi_attachment)
       if String.method_defined?(:encode)
         expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
-        expect(foi_attachment.body_as_text.string.valid_encoding?).to be_true
+        expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
       end
     end
 
@@ -93,13 +93,13 @@ describe FoiAttachment do
     it 'has a true scrubbed? value if the body has been coerced to valid UTF-8' do
       foi_attachment = FactoryGirl.create(:body_text)
       foi_attachment.body = "\x0FX\x1C\x8F\xA4\xCF\xF6\x8C\x9D\xA7\x06\xD9\xF7\x90lo"
-      expect(foi_attachment.body_as_text.scrubbed?).to be_true
+      expect(foi_attachment.body_as_text.scrubbed?).to be true
     end
 
     it 'has a false scrubbed? value if the body has not been coerced to valid UTF-8' do
       foi_attachment = FactoryGirl.create(:body_text)
       foi_attachment.body = "κόσμε"
-      expect(foi_attachment.body_as_text.scrubbed?).to be_false
+      expect(foi_attachment.body_as_text.scrubbed?).to be false
     end
 
   end
@@ -110,7 +110,7 @@ describe FoiAttachment do
       foi_attachment = FactoryGirl.create(:body_text)
       if String.method_defined?(:encode)
         expect(foi_attachment.default_body.encoding.to_s).to eq('UTF-8')
-        expect(foi_attachment.default_body.valid_encoding?).to be_true
+        expect(foi_attachment.default_body.valid_encoding?).to be true
       end
     end
 
@@ -138,11 +138,11 @@ describe FoiAttachment do
   describe '#has_body_as_html?' do
 
     it 'should be true for a pdf attachment' do
-      FactoryGirl.build(:pdf_attachment).has_body_as_html?.should be_true
+      FactoryGirl.build(:pdf_attachment).has_body_as_html?.should be true
     end
 
     it 'should be false for an html attachment' do
-      FactoryGirl.build(:html_attachment).has_body_as_html?.should be_false
+      FactoryGirl.build(:html_attachment).has_body_as_html?.should be false
     end
 
   end

@@ -236,11 +236,11 @@ describe User, "when checking abilities" do
   end
 
   it "should not get admin links" do
-    @user.admin_page_links?.should be_false
+    @user.admin_page_links?.should be false
   end
 
   it "should be able to file requests" do
-    @user.can_file_requests?.should be_true
+    @user.can_file_requests?.should be true
   end
 
 end
@@ -252,17 +252,17 @@ describe User, 'when asked if a user owns every request' do
   end
 
   it 'should return false if no user is passed' do
-    User.owns_every_request?(nil).should be_false
+    User.owns_every_request?(nil).should be false
   end
 
   it 'should return true if the user has "requires admin" power' do
     @mock_user.stub!(:owns_every_request?).and_return true
-    User.owns_every_request?(@mock_user).should be_true
+    User.owns_every_request?(@mock_user).should be true
   end
 
   it 'should return false if the user does not have "requires admin" power' do
     @mock_user.stub!(:owns_every_request?).and_return false
-    User.owns_every_request?(@mock_user).should be_false
+    User.owns_every_request?(@mock_user).should be false
   end
 
 end
@@ -325,7 +325,7 @@ describe User, "when unconfirmed" do
   end
 
   it "should not be emailed" do
-    @user.should_be_emailed?.should be_false
+    @user.should_be_emailed?.should be false
   end
 end
 
@@ -349,23 +349,23 @@ describe User, "when calculating if a user has exceeded the request limit" do
 
   it 'should return false if no request limit is set' do
     AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return nil
-    @user.exceeded_limit?.should be_false
+    @user.exceeded_limit?.should be false
   end
 
   it 'should return false if the user has not submitted more than the limit' do
     AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(2)
-    @user.exceeded_limit?.should be_false
+    @user.exceeded_limit?.should be false
   end
 
   it 'should return true if the user has submitted more than the limit' do
     AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(0)
-    @user.exceeded_limit?.should be_true
+    @user.exceeded_limit?.should be true
   end
 
   it 'should return false if the user is allowed to make batch requests' do
     @user.can_make_batch_requests = true
     AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(0)
-    @user.exceeded_limit?.should be_false
+    @user.exceeded_limit?.should be false
   end
 
 

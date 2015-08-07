@@ -190,9 +190,9 @@ describe PublicBody, " using tags" do
     @public_body.tag_string = 'stilton emmental'
     @public_body.tag_string.should == 'stilton emmental'
 
-    @public_body.has_tag?('stilton').should be_true
-    @public_body.has_tag?('emmental').should be_true
-    @public_body.has_tag?('jarlsberg').should be_false
+    @public_body.has_tag?('stilton').should be true
+    @public_body.has_tag?('emmental').should be true
+    @public_body.has_tag?('jarlsberg').should be false
   end
 
   it 'should strip spaces from tag strings' do
@@ -209,14 +209,14 @@ describe PublicBody, " using tags" do
     @public_body.tag_string = 'stilton'
     @public_body.tag_string.should == 'stilton'
 
-    @public_body.has_tag?('stilton').should be_true
-    @public_body.has_tag?('jarlsberg').should be_false
+    @public_body.has_tag?('stilton').should be true
+    @public_body.has_tag?('jarlsberg').should be false
 
     @public_body.tag_string = 'jarlsberg'
     @public_body.tag_string.should == 'jarlsberg'
 
-    @public_body.has_tag?('stilton').should be_false
-    @public_body.has_tag?('jarlsberg').should be_true
+    @public_body.has_tag?('stilton').should be false
+    @public_body.has_tag?('jarlsberg').should be true
   end
 
   it 'should be able to append tags' do
@@ -224,7 +224,7 @@ describe PublicBody, " using tags" do
     @public_body.add_tag_if_not_already_present('cheddar')
 
     @public_body.tag_string.should == 'cheddar'
-    @public_body.has_tag?('cheddar').should be_true
+    @public_body.has_tag?('cheddar').should be true
   end
 
   it 'should ignore repeat tags' do
@@ -246,8 +246,8 @@ describe PublicBody, " using machine tags" do
     @public_body.tag_string = 'wondrous cheese:green'
     @public_body.tag_string.should == 'wondrous cheese:green'
 
-    @public_body.has_tag?('cheese:green').should be_false
-    @public_body.has_tag?('cheese').should be_true
+    @public_body.has_tag?('cheese:green').should be false
+    @public_body.has_tag?('cheese').should be true
     @public_body.get_tag_values('cheese').should == ['green']
 
     @public_body.get_tag_values('wondrous').should == []
@@ -260,13 +260,13 @@ describe PublicBody, " using machine tags" do
     @public_body.tag_string = 'url:http://www.flourish.org'
     @public_body.tag_string.should == 'url:http://www.flourish.org'
 
-    @public_body.has_tag?('url').should be_true
+    @public_body.has_tag?('url').should be true
     @public_body.get_tag_values('url').should == ['http://www.flourish.org']
   end
 
   it 'should allow multiple tags of the same sort' do
     @public_body.tag_string = 'url:http://www.theyworkforyou.com/ url:http://www.fixmystreet.com/'
-    @public_body.has_tag?('url').should be_true
+    @public_body.has_tag?('url').should be true
     @public_body.get_tag_values('url').should == ['http://www.theyworkforyou.com/', 'http://www.fixmystreet.com/']
   end
 end
@@ -1109,12 +1109,12 @@ describe PublicBody do
 
     it 'is true when the body has the site_administration tag' do
       p = FactoryGirl.build(:public_body, :tag_string => 'site_administration')
-      p.site_administration?.should be_true
+      p.site_administration?.should be true
     end
 
     it 'is false when the body does not have the site_administration tag' do
       p = FactoryGirl.build(:public_body)
-      p.site_administration?.should be_false
+      p.site_administration?.should be false
     end
 
   end

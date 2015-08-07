@@ -34,23 +34,23 @@ describe SpamAddress do
     end
 
     it 'is a spam address if the address is stored' do
-      SpamAddress.spam?(@spam_address.email).should be_true
+      SpamAddress.spam?(@spam_address.email).should be true
     end
 
     it 'is not a spam address if the adress is not stored' do
-      SpamAddress.spam?('genuine-email@example.com').should be_false
+      SpamAddress.spam?('genuine-email@example.com').should be false
     end
 
     describe 'when accepting an array of emails' do
 
       it 'is spam if any of the emails are stored' do
         emails = ['genuine-email@example.com', @spam_address.email]
-        SpamAddress.spam?(emails).should be_true
+        SpamAddress.spam?(emails).should be true
       end
 
       it 'is not spam if none of the emails are stored' do
         emails = ['genuine-email@example.com', 'genuine-email@example.org']
-        SpamAddress.spam?(emails).should be_false
+        SpamAddress.spam?(emails).should be false
       end
 
     end

@@ -31,7 +31,7 @@ describe RawEmail do
 
       if data.respond_to?(:encoding)
         data.encoding.to_s.should == 'ASCII-8BIT'
-        data.valid_encoding?.should be_true
+        data.valid_encoding?.should be true
         data = data.force_encoding('UTF-8')
       end
       data.should == "\xA0"
@@ -48,7 +48,7 @@ describe RawEmail do
       data_as_text.should == "ccc"
       if data_as_text.respond_to?(:encoding)
         data_as_text.encoding.to_s.should == 'UTF-8'
-        data_as_text.valid_encoding?.should be_true
+        data_as_text.valid_encoding?.should be true
       end
     end
 

@@ -181,11 +181,11 @@ describe OutgoingMessage, " when making an outgoing message" do
       end
 
       it 'should return true for an admin user' do
-        @outgoing_message.user_can_view?(FactoryGirl.create(:admin_user)).should be_true
+        @outgoing_message.user_can_view?(FactoryGirl.create(:admin_user)).should be true
       end
 
       it 'should return false for a non-admin user' do
-        @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be_false
+        @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be false
       end
 
     end
@@ -197,11 +197,11 @@ describe OutgoingMessage, " when making an outgoing message" do
       end
 
       it 'should return true if the user owns the associated request' do
-        @outgoing_message.user_can_view?(@info_request.user).should be_true
+        @outgoing_message.user_can_view?(@info_request.user).should be true
       end
 
       it 'should return false if the user does not own the associated request' do
-        @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be_false
+        @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be false
       end
     end
 
@@ -212,7 +212,7 @@ describe OutgoingMessage, " when making an outgoing message" do
       end
 
       it 'should return true for a non-admin user' do
-        @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be_true
+        @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be true
       end
 
     end
@@ -228,17 +228,17 @@ describe OutgoingMessage, " when making an outgoing message" do
 
     it 'should return false if it has prominence "hidden"' do
       @outgoing_message.prominence = 'hidden'
-      @outgoing_message.indexed_by_search?.should be_false
+      @outgoing_message.indexed_by_search?.should be false
     end
 
     it 'should return false if it has prominence "requester_only"' do
       @outgoing_message.prominence = 'requester_only'
-      @outgoing_message.indexed_by_search?.should be_false
+      @outgoing_message.indexed_by_search?.should be false
     end
 
     it 'should return true if it has prominence "normal"' do
       @outgoing_message.prominence = 'normal'
-      @outgoing_message.indexed_by_search?.should be_true
+      @outgoing_message.indexed_by_search?.should be true
     end
 
   end

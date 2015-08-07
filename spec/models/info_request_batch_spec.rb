@@ -22,19 +22,19 @@ describe InfoRequestBatch, "when validating" do
 
   it 'should require a user' do
     @info_request_batch.user = nil
-    @info_request_batch.valid?.should be_false
+    @info_request_batch.valid?.should be false
     @info_request_batch.errors.full_messages.should == ["User can't be blank"]
   end
 
   it 'should require a title' do
     @info_request_batch.title = nil
-    @info_request_batch.valid?.should be_false
+    @info_request_batch.valid?.should be false
     @info_request_batch.errors.full_messages.should == ["Title can't be blank"]
   end
 
   it 'should require a body' do
     @info_request_batch.body = nil
-    @info_request_batch.valid?.should be_false
+    @info_request_batch.valid?.should be false
     @info_request_batch.errors.full_messages.should == ["Body can't be blank"]
   end
 

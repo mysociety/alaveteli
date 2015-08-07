@@ -106,19 +106,19 @@ when it really should be application/pdf.\n
 
     it 'is false if the return path is nil' do
       mail = Mail.new
-      empty_return_path?(mail).should be_false
+      empty_return_path?(mail).should be false
     end
 
     it 'is false if the return path has some data' do
       mail = Mail.new
       mail['return-path'] = 'xyz'
-      empty_return_path?(mail).should be_false
+      empty_return_path?(mail).should be false
     end
 
     it 'is true if the return path is blank' do
       mail = Mail.new
       mail['return-path'] = ''
-      empty_return_path?(mail).should be_true
+      empty_return_path?(mail).should be true
     end
 
   end

@@ -119,7 +119,7 @@ describe UserController, "when showing a user" do
     it 'should not show requests, or batch requests, but should show account options' do
       make_request
       response.body.should_not match(/Freedom of Information requests made by you/)
-      assigns[:show_batches].should be_false
+      assigns[:show_batches].should be false
       response.body.should include("Change your password")
     end
 
@@ -136,7 +136,7 @@ describe UserController, "when showing a user" do
     it 'should show requests, batch requests, but no account options' do
       make_request
       response.body.should match(/Freedom of Information requests made by you/)
-      assigns[:show_batches].should be_true
+      assigns[:show_batches].should be true
       response.body.should_not include("Change your password")
     end
 

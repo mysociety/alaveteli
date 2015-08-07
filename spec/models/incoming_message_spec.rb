@@ -30,7 +30,7 @@ describe IncomingMessage, 'when validating' do
       incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
                                              :info_request => InfoRequest.new,
                                              :prominence => prominence)
-      incoming_message.valid?.should be_true
+      incoming_message.valid?.should be true
     end
   end
 
@@ -38,7 +38,7 @@ describe IncomingMessage, 'when validating' do
     incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
                                            :info_request => InfoRequest.new,
                                            :prominence => 'norman')
-    incoming_message.valid?.should be_false
+    incoming_message.valid?.should be false
   end
 
 end
@@ -71,12 +71,12 @@ describe IncomingMessage, 'when asked if a user can view it' do
 
     it 'should return true if the user can view hidden things' do
       User.stub!(:view_hidden?).with(@user).and_return(true)
-      @incoming_message.user_can_view?(@user).should be_true
+      @incoming_message.user_can_view?(@user).should be true
     end
 
     it 'should return false if the user cannot view hidden things' do
       User.stub!(:view_hidden?).with(@user).and_return(false)
-      @incoming_message.user_can_view?(@user).should be_false
+      @incoming_message.user_can_view?(@user).should be false
     end
 
   end
@@ -89,12 +89,12 @@ describe IncomingMessage, 'when asked if a user can view it' do
 
     it 'should return true if the user owns the associated request' do
       @info_request.stub!(:is_owning_user?).with(@user).and_return(true)
-      @incoming_message.user_can_view?(@user).should be_true
+      @incoming_message.user_can_view?(@user).should be true
     end
 
     it 'should return false if the user does not own the associated request' do
       @info_request.stub!(:is_owning_user?).with(@user).and_return(false)
-      @incoming_message.user_can_view?(@user).should be_false
+      @incoming_message.user_can_view?(@user).should be false
     end
   end
 
@@ -105,7 +105,7 @@ describe IncomingMessage, 'when asked if a user can view it' do
     end
 
     it 'should return true' do
-      @incoming_message.user_can_view?(@user).should be_true
+      @incoming_message.user_can_view?(@user).should be true
     end
 
   end
@@ -138,17 +138,17 @@ describe 'when asked if it is indexed by search' do
 
   it 'should return false if it has prominence "hidden"' do
     @incoming_message.prominence = 'hidden'
-    @incoming_message.indexed_by_search?.should be_false
+    @incoming_message.indexed_by_search?.should be false
   end
 
   it 'should return false if it has prominence "requester_only"' do
     @incoming_message.prominence = 'requester_only'
-    @incoming_message.indexed_by_search?.should be_false
+    @incoming_message.indexed_by_search?.should be false
   end
 
   it 'should return true if it has prominence "normal"' do
     @incoming_message.prominence = 'normal'
-    @incoming_message.indexed_by_search?.should be_true
+    @incoming_message.indexed_by_search?.should be true
   end
 
 end
@@ -718,7 +718,7 @@ describe IncomingMessage, "when extracting attachments" do
       im = incoming_messages(:useless_incoming_message)
       im.stub!(:extract_text).and_return("\xBF")
 
-      im._get_attachment_text_internal.valid_encoding?.should be_true
+      im._get_attachment_text_internal.valid_encoding?.should be true
     end
   end
 
