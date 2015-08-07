@@ -42,7 +42,7 @@ describe FoiAttachment do
       main.delete_cached_file!
       lambda {
         im.get_main_body_text_part.body
-      }.should_not raise_error(Errno::ENOENT)
+      }.should_not raise_error
       main.delete_cached_file!
       main = im.get_main_body_text_part
       main.body.should == orig_body

@@ -245,7 +245,7 @@ describe UserController, "when signing in" do
       post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
                       :token => post_redirect
                       }
-    }.should_not raise_error(NoMethodError)
+    }.should_not raise_error
     post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
                     :token => post_redirect }
     response.should render_template('sign')
