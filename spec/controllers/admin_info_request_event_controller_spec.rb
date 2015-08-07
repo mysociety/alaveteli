@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminInfoRequestEventController do
 
-  describe :update do
+  describe 'PUT update' do
 
     describe 'when handling valid data' do
 

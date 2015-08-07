@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe HealthChecks do
   include HealthChecks
 
-  describe :add do
+  describe 'add' do
 
     it 'adds a check to the collection and returns the check' do
       check = double('MockCheck', :ok? => true)
@@ -18,7 +18,7 @@ describe HealthChecks do
 
   end
 
-  describe :all do
+  describe 'all' do
 
     it 'returns all the checks' do
       check1 = double('MockCheck', :ok? => true)
@@ -30,7 +30,7 @@ describe HealthChecks do
 
   end
 
-  describe :each do
+  describe 'each' do
 
     it 'iterates over each check' do
       expect(subject).to respond_to(:each)
@@ -38,7 +38,7 @@ describe HealthChecks do
 
   end
 
-  describe :ok? do
+  describe 'ok?' do
 
     it 'returns true if all checks are ok' do
       checks = [

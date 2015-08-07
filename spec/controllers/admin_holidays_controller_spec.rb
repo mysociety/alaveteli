@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe AdminHolidaysController do
 
-  describe :index do
+  describe 'GET index' do
 
     before do
       @holiday_one = FactoryGirl.create(:holiday, :day => Date.new(2010, 1, 1))
@@ -31,7 +31,7 @@ describe AdminHolidaysController do
 
   end
 
-  describe :new do
+  describe 'GET new' do
 
 
     describe 'when not using ajax' do
@@ -58,7 +58,7 @@ describe AdminHolidaysController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     before do
       @holiday_params = { :description => "New Year's Day",
@@ -96,7 +96,7 @@ describe AdminHolidaysController do
 
   end
 
-  describe :edit do
+  describe 'GET edit' do
 
     before do
       @holiday = FactoryGirl.create(:holiday)
@@ -127,7 +127,7 @@ describe AdminHolidaysController do
 
   end
 
-  describe :update do
+  describe 'PUT update' do
 
     before do
       @holiday = FactoryGirl.create(:holiday, :day => Date.new(2010, 1, 1),
@@ -165,7 +165,7 @@ describe AdminHolidaysController do
 
   end
 
-  describe :destroy do
+  describe 'DELETE destroy' do
 
     before(:each) do
       @holiday = FactoryGirl.create(:holiday)

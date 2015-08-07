@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe HelpController do
   render_views
 
-  describe :index do
+  describe 'GET index' do
 
     it 'redirects to the about page' do
       get :index
@@ -13,7 +13,7 @@ describe HelpController do
 
   end
 
-  describe :about do
+  describe 'GET about' do
 
     it 'shows the about page' do
       get :about
