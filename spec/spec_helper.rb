@@ -101,11 +101,11 @@ Spork.prefork do
 
     # Turn routing-filter off in functional and unit tests as per
     # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
-    config.before(:each) do
+    config.before(:each) do |example|
       RoutingFilter.active = false if [:controller, :helper, :model].include? example.metadata[:type]
     end
 
-    config.after(:each) do
+    config.after(:each) do |example|
       RoutingFilter.active = true if [:controller, :helper, :model].include? example.metadata[:type]
     end
 
