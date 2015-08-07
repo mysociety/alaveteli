@@ -373,7 +373,7 @@ end
 
 describe User do
 
-  describe :banned? do
+  describe '#banned?' do
 
     it 'is banned if the user has ban_text' do
       user = FactoryGirl.build(:user, :ban_text => 'banned')

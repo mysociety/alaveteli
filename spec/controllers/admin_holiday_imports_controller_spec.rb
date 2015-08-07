@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe AdminHolidayImportsController do
 
-  describe :new do
+  describe 'GET new' do
 
     it 'renders the new template' do
       get :new
@@ -29,7 +29,7 @@ describe AdminHolidayImportsController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     it 'creates an import' do
       post :create

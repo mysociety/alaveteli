@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe AdminPublicBodyHeadingsController do
 
-  describe :new do
+  describe 'GET new' do
 
     it 'responds successfully' do
       get :new
@@ -31,7 +31,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     context 'on success' do
 
@@ -143,7 +143,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :edit do
+  describe 'GET edit' do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
@@ -175,7 +175,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :update do
+  describe 'PUT update' do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
@@ -411,7 +411,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :destroy do
+  describe 'DELETE destroy' do
 
     it 'uses the current locale by default' do
       heading = FactoryGirl.create(:public_body_heading)

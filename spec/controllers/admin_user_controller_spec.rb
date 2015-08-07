@@ -48,7 +48,7 @@ end
 
 describe AdminUserController do
 
-  describe :modify_comment_visibility do
+  describe 'POST modify_comment_visibility' do
 
     before(:each) do
       @user = FactoryGirl.create(:user)

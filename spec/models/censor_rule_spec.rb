@@ -20,7 +20,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe CensorRule do
 
-  describe :apply_to_text do
+  describe '#apply_to_text' do
 
     it 'applies the rule to the text' do
       rule = FactoryGirl.build(:censor_rule, :text => 'secret')
@@ -42,7 +42,7 @@ describe CensorRule do
     end
   end
 
-  describe :apply_to_text! do
+  describe '#apply_to_text!' do
 
     it 'mutates the input' do
       rule = FactoryGirl.build(:censor_rule, :text => 'secret')
@@ -64,7 +64,7 @@ describe CensorRule, "substituting things" do
       @censor_rule.replacement = "hello"
     end
 
-    describe :apply_to_text do
+    describe '#apply_to_text!' do
 
       it 'should do basic text substitution' do
         body = "I don't know why you say goodbye"
@@ -74,7 +74,7 @@ describe CensorRule, "substituting things" do
 
     end
 
-    describe :apply_to_binary do
+    describe '#apply_to_binary!' do
 
       it 'should keep size same for binary substitution' do
         body = "I don't know why you say goodbye"

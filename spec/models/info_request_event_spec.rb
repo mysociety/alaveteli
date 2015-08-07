@@ -208,7 +208,7 @@ describe InfoRequestEvent do
 
   end
 
-  describe :set_calculated_state! do
+  describe '#set_calculated_state!' do
 
     before do
       @info_request_event = FactoryGirl.build(:sent_event)

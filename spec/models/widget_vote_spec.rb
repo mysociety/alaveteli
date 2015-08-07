@@ -14,7 +14,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe WidgetVote do
 
-  describe :new do
+  describe '.new' do
 
     it 'requires an info request' do
       widget_vote = WidgetVote.new

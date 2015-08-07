@@ -30,7 +30,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBody do
 
-  describe :translations_attributes= do
+  describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
 
@@ -103,7 +103,7 @@ describe PublicBody do
     end
   end
 
-  describe :set_api_key do
+  describe '#set_api_key' do
 
     it 'generates and sets an API key' do
       SecureRandom.stub(:base64).and_return('APIKEY')
@@ -121,7 +121,7 @@ describe PublicBody do
 
   end
 
-  describe :set_api_key! do
+  describe '#set_api_key!' do
 
     it 'generates and sets an API key' do
       SecureRandom.stub(:base64).and_return('APIKEY')
@@ -1105,7 +1105,7 @@ describe PublicBody do
 
   end
 
-  describe :site_administration? do
+  describe '#site_administration?' do
 
     it 'is true when the body has the site_administration tag' do
       p = FactoryGirl.build(:public_body, :tag_string => 'site_administration')
@@ -1119,7 +1119,7 @@ describe PublicBody do
 
   end
 
-  describe :has_request_email? do
+  describe '#has_request_email?' do
 
     before do
       @body = PublicBody.new(:request_email => 'test@example.com')
@@ -1145,7 +1145,7 @@ describe PublicBody do
     end
   end
 
-  describe :special_not_requestable_reason do
+  describe '#special_not_requestable_reason' do
 
     before do
       @body = PublicBody.new
@@ -1261,7 +1261,7 @@ end
 
 describe PublicBody do
 
-  describe :is_requestable? do
+  describe '#is_requestable?' do
 
     before do
       @body = PublicBody.new(:request_email => 'test@example.com')
@@ -1288,7 +1288,7 @@ describe PublicBody do
 
   end
 
-  describe :is_followupable? do
+  describe '#is_followupable?' do
 
     before do
       @body = PublicBody.new(:request_email => 'test@example.com')
@@ -1305,7 +1305,7 @@ describe PublicBody do
 
   end
 
-  describe :not_requestable_reason do
+  describe '#not_requestable_reason' do
 
     before do
       @body = PublicBody.new(:request_email => 'test@example.com')
@@ -1334,7 +1334,7 @@ describe PublicBody do
 
   end
 
-  describe :request_email do
+  describe '#request_email' do
     context "when the email is set" do
       subject(:public_body) { FactoryGirl.create(:public_body, :request_email => "request@example.com") }
 

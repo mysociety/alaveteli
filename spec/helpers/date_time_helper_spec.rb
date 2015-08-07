@@ -5,7 +5,7 @@ describe DateTimeHelper do
 
   include DateTimeHelper
 
-  describe :simple_date do
+  describe '#simple_date' do
 
     it 'formats a date in html by default' do
       time = Time.utc(2012, 11, 07, 21, 30, 26)
@@ -26,7 +26,7 @@ describe DateTimeHelper do
 
   end
 
-  describe :simple_date_html do
+  describe '#simple_date_html' do
 
     it 'formats a date in a time tag' do
       Time.use_zone('London') do
@@ -38,7 +38,7 @@ describe DateTimeHelper do
 
   end
 
-  describe :simple_date_text do
+  describe '#simple_date_text' do
 
     it 'should respect time zones' do
       Time.use_zone('Australia/Sydney') do
@@ -52,7 +52,7 @@ describe DateTimeHelper do
 
   end
 
-  describe :simple_time do
+  describe '#simple_time' do
 
     it 'returns 00:00:00 for a date' do
       simple_time(Date.new(2012, 11, 21)).should == '00:00:00'

@@ -18,7 +18,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe FoiAttachment do
 
-  describe :body= do
+  describe '#body=' do
 
     it "sets the body" do
       attachment = FoiAttachment.new
@@ -50,7 +50,7 @@ describe FoiAttachment do
 
   end
 
-  describe :body do
+  describe '#body' do
 
     it 'returns a binary encoded string when newly created' do
       foi_attachment = FactoryGirl.create(:body_text)
@@ -70,7 +70,7 @@ describe FoiAttachment do
 
   end
 
-  describe :body_as_text do
+  describe '#body_as_text' do
 
     it 'has a valid UTF-8 string when newly created' do
       foi_attachment = FactoryGirl.create(:body_text)
@@ -104,7 +104,7 @@ describe FoiAttachment do
 
   end
 
-  describe :default_body do
+  describe '#default_body' do
 
     it 'returns valid UTF-8 for a text attachment' do
       foi_attachment = FactoryGirl.create(:body_text)
@@ -124,7 +124,7 @@ describe FoiAttachment do
   end
 
 
-  describe :ensure_filename! do
+  describe '#ensure_filename!' do
 
     it 'should create a filename for an instance with a blank filename' do
       attachment = FoiAttachment.new
@@ -135,7 +135,7 @@ describe FoiAttachment do
 
   end
 
-  describe :has_body_as_html? do
+  describe '#has_body_as_html?' do
 
     it 'should be true for a pdf attachment' do
       FactoryGirl.build(:pdf_attachment).has_body_as_html?.should be_true

@@ -5,7 +5,7 @@ describe AdminSpamAddressesController do
   render_views
   before { basic_auth_login @request }
 
-  describe :index do
+  describe 'GET index' do
 
     it 'lists the spam addresses' do
       3.times { FactoryGirl.create(:spam_address) }
@@ -25,7 +25,7 @@ describe AdminSpamAddressesController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     let(:spam_params) { FactoryGirl.attributes_for(:spam_address) }
 
@@ -63,7 +63,7 @@ describe AdminSpamAddressesController do
 
   end
 
-  describe :delete do
+  describe 'DELETE destroy' do
 
     before(:each) do
       @spam = FactoryGirl.create(:spam_address)

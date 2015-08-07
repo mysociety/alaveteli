@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AlaveteliTextMasker do
   include AlaveteliTextMasker
 
-  describe :apply_masks! do
+  describe '#apply_masks!' do
 
     describe 'when applying censor rules' do
 

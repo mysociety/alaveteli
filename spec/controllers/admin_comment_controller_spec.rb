@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminCommentController do
 
-  describe :edit do
+  describe 'GET edit' do
 
     before do
       @comment = FactoryGirl.create(:comment)
@@ -20,7 +20,7 @@ describe AdminCommentController do
 
   end
 
-  describe :update do
+  describe 'PUT update' do
 
     context 'on valid data submission' do
 

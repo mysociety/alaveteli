@@ -5,7 +5,7 @@ describe AdminHelper do
 
   include AdminHelper
 
-  describe :comment_visibility do
+  describe '#comment_visibility' do
 
     it 'shows the status of a visible comment' do
       comment = Factory.build(:visible_comment)
