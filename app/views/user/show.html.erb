@@ -148,7 +148,7 @@
       </div>
     <% end %>
 
-    <% if @xapian_requests.present? %>
+    <% if @xapian_requests %>
       <% if @xapian_requests.results.empty? %>
         <% if @page == 1 %>
           <h2 class="foi_results" id="foi_requests">
