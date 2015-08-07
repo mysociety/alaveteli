@@ -519,7 +519,7 @@ describe PublicBody, " when dealing public body locales" do
     end
 
     # second time
-    lambda {PublicBody.internal_admin_body }.should_not raise_error(ActiveRecord::RecordInvalid)
+    lambda {PublicBody.internal_admin_body }.should_not raise_error
   end
 end
 
