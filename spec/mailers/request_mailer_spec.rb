@@ -149,8 +149,8 @@ describe RequestMailer, " when receiving incoming mail" do
     bounced_mail = MailHandler.mail_from_raw_email(mail.parts[1].body.to_s)
     bounced_mail.to.should == [ ir.incoming_email ]
     bounced_mail.from.should == [ 'geraldinequango@localhost' ]
-    bounced_mail.body.include?("That's so totally a rubbish question").should be_true
-    message_part.include?("marked to no longer receive responses").should be_true
+    bounced_mail.body.include?("That's so totally a rubbish question").should be true
+    message_part.include?("marked to no longer receive responses").should be true
     deliveries.clear
   end
 

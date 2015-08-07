@@ -57,24 +57,24 @@ describe AttachmentToHTML::Adapters::PDF do
 
   describe :success? do
 
-    it 'is successful if the body has content excluding the tags' do
+    it 'is truthy if the body has content excluding the tags' do
       adapter.stub(:body).and_return('<p>some content</p>')
-      adapter.success?.should be_true
+      adapter.success?.should be_truthy
     end
 
-    it 'is successful if the body contains images' do
+    it 'is truthy if the body contains images' do
       adapter.stub(:body).and_return(%Q(<img src="logo.png" />))
-      adapter.success?.should be_true
+      adapter.success?.should be_truthy
     end
 
-    it 'is not successful if the body has no content other than tags' do
+    it 'is falsey if the body has no content other than tags' do
       adapter.stub(:body).and_return('<p></p>')
-      adapter.success?.should be_false
+      adapter.success?.should be_falsey
     end
 
-    it 'is not successful if convert returns nil' do
+    it 'is falsey if convert returns nil' do
       adapter.stub(:convert).and_return(nil)
-      adapter.success?.should be_false
+      adapter.success?.should be_falsey
     end
 
     it 'is not successful if the body contains more than 50 images' do
@@ -111,7 +111,7 @@ describe AttachmentToHTML::Adapters::PDF do
       DOC
       AlaveteliExternalCommand.stub(:run).and_return(invalid)
 
-      adapter.success?.should be_false
+      adapter.success?.should be false
     end
 
   end

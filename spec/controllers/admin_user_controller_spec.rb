@@ -30,7 +30,7 @@ describe AdminUserController, "when updating a user" do
 
   it "saves a change to 'can_make_batch_requests'" do
     user = FactoryGirl.create(:user)
-    user.can_make_batch_requests?.should be_false
+    user.can_make_batch_requests?.should be false
     post :update, {:id => user.id, :admin_user => {:can_make_batch_requests => '1',
                                                    :name => user.name,
                                                    :email => user.email,
@@ -41,7 +41,7 @@ describe AdminUserController, "when updating a user" do
     flash[:notice].should == 'User successfully updated.'
     response.should be_redirect
     user = User.find(user.id)
-    user.can_make_batch_requests?.should be_true
+    user.can_make_batch_requests?.should be true
   end
 
 end

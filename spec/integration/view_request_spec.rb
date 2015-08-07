@@ -29,7 +29,7 @@ describe "When viewing requests" do
       incoming_message = info_request.incoming_messages.first
       attachment_url = "/es/request/#{info_request.id}/response/#{incoming_message.id}/attach/2/interesting.pdf"
       non_owner.get(attachment_url)
-      cache_directories_exist?(info_request).should be_true
+      cache_directories_exist?(info_request).should be true
 
       # Admin makes the incoming message requester only
       post_data = {:incoming_message => {:prominence => 'hidden',
@@ -37,7 +37,7 @@ describe "When viewing requests" do
       admin.put_via_redirect "/admin/incoming_messages/#{info_request.incoming_messages.first.id}", post_data
       admin.response.should be_success
 
-      cache_directories_exist?(info_request).should be_false
+      cache_directories_exist?(info_request).should be false
     end
 
   end

@@ -16,7 +16,7 @@ describe Holiday do
 
     it 'should require a day' do
       holiday = Holiday.new
-      holiday.valid?.should be_false
+      holiday.valid?.should be false
       holiday.errors[:day].should == ["can't be blank"]
     end
   end
