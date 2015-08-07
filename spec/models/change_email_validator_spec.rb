@@ -77,16 +77,14 @@ describe ChangeEmailValidator do
 
   describe 'password' do
 
-    pending 'password_and_format_of_email validation fails when password is nil' do
-      it 'must have a password' do
-        params = { :old_email => user.email,
-                   :new_email => 'new@example.com',
-                   :password => nil }
-        validator = validator_with_user_and_params(user, params)
+    it 'password_and_format_of_email validation fails when password is nil' do
+      params = { :old_email => user.email,
+                 :new_email => 'new@example.com',
+                 :password => nil }
+      validator = validator_with_user_and_params(user, params)
 
-        msg = 'Please enter your password'
-        expect(validator.errors_on(:password)).to include(msg)
-      end
+      msg = 'Please enter your password'
+      expect(validator.errors_on(:password)).to include(msg)
     end
 
     it 'does not require a password if changing email' do

@@ -44,7 +44,7 @@ class ChangeEmailValidator
     if errors[:old_email].blank?
       if !email_belongs_to_user?(old_email)
         errors.add(:old_email, _("Old email address isn't the same as the address of the account you are logged in with"))
-      elsif !changing_email && !correct_password?
+      elsif !changing_email && password && !correct_password?
         if errors[:password].blank?
           errors.add(:password, _("Password is not correct"))
         end
