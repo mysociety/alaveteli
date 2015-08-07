@@ -166,7 +166,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_similar_named_users(user)
-    User.where('name ilike ? and email_confirmed = ? and id <> ?',
+    User.where('name ILIKE ? AND email_confirmed = ? AND id <> ?',
                 user.name, true, user.id).order(:created_at)
   end
 
