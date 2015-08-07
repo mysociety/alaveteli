@@ -42,7 +42,7 @@ describe AttachmentToHTML::Adapters::GoogleDocsViewer do
   describe :success? do
 
     it 'is always true' do
-      adapter.success?.should be_true
+      adapter.success?.should be true
     end
 
   end

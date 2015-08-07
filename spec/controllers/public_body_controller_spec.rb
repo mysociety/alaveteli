@@ -368,7 +368,7 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
   it "only includes visible bodies" do
     get :list_all_csv
     all_data = CSV.parse(response.body)
-    all_data.any?{ |row| row.include?('Internal admin authority') }.should be_false
+    all_data.any?{ |row| row.include?('Internal admin authority') }.should be false
   end
 
   it "does not include site_administration bodies" do
@@ -379,7 +379,7 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
     get :list_all_csv
 
     all_data = CSV.parse(response.body)
-    all_data.any?{ |row| row.include?('Site Admin Body') }.should be_false
+    all_data.any?{ |row| row.include?('Site Admin Body') }.should be false
   end
 
 end
@@ -398,12 +398,12 @@ describe PublicBodyController, "when showing public body statistics" do
     # percentages with error bars:
     assigns[:graph_list].each_with_index do |graph, index|
       if index == 0
-        graph['errorbars'].should be_false
+        graph['errorbars'].should be false
         graph['x_values'].length.should == 4
         graph['x_values'].should == [0, 1, 2, 3]
         graph['y_values'].should == [1, 2, 2, 4]
       else
-        graph['errorbars'].should be_true
+        graph['errorbars'].should be true
         # Just check the first one:
         if index == 1
           graph['x_values'].should == [0, 1, 2, 3]
@@ -438,7 +438,7 @@ describe PublicBodyController, "when converting data for graphing" do
                                                    percentages=false,
                                                    {} )
     to_draw['public_bodies'][0].class.should == Hash
-    to_draw['public_bodies'][0].has_key?('request_email').should be_false
+    to_draw['public_bodies'][0].has_key?('request_email').should be false
   end
 
   it "should generate the expected id" do

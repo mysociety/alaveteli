@@ -237,7 +237,7 @@ describe AdminPublicBodyController, "when creating a public body" do
     end
 
     it 'should mark the change request as closed' do
-      PublicBodyChangeRequest.find(@change_request.id).is_open.should be_false
+      PublicBodyChangeRequest.find(@change_request.id).is_open.should be false
     end
 
   end
@@ -531,7 +531,7 @@ describe AdminPublicBodyController, "when updating a public body" do
     end
 
     it 'should mark the change request as closed' do
-      PublicBodyChangeRequest.find(@change_request.id).is_open.should be_false
+      PublicBodyChangeRequest.find(@change_request.id).is_open.should be false
     end
 
   end

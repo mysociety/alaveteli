@@ -48,7 +48,7 @@ describe HealthChecks do
       ]
       HealthChecks.stub(:all => checks)
 
-      expect(HealthChecks.ok?).to be_true
+      expect(HealthChecks.ok?).to be true
     end
 
     it 'returns false if all checks fail' do
@@ -59,7 +59,7 @@ describe HealthChecks do
       ]
       HealthChecks.stub(:all => checks)
 
-      expect(HealthChecks.ok?).to be_false
+      expect(HealthChecks.ok?).to be false
     end
 
     it 'returns false if a single check fails' do
@@ -70,7 +70,7 @@ describe HealthChecks do
       ]
       HealthChecks.stub(:all => checks)
 
-      expect(HealthChecks.ok?).to be_false
+      expect(HealthChecks.ok?).to be false
     end
 
   end

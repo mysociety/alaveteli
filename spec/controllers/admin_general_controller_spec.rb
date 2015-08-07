@@ -23,7 +23,7 @@ describe AdminGeneralController do
       previous_event_at = nil
       assigns[:events].each do |event, event_at|
         if previous_event
-          (event_at <= previous_event_at).should be_true
+          (event_at <= previous_event_at).should be true
         end
         previous_event = event
         previous_event_at = event_at

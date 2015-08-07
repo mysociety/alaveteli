@@ -57,13 +57,13 @@ describe WidgetsController do
     it 'sets user_owns_request to true if the user owns the request' do
       session[:user_id] = @info_request.user.id
       get :show, :request_id => @info_request.id
-      expect(assigns[:user_owns_request]).to be_true
+      expect(assigns[:user_owns_request]).to be true
     end
 
     it 'sets user_owns_request to false if the user does not own the request' do
       session[:user_id] = FactoryGirl.create(:user).id
       get :show, :request_id => @info_request.id
-      expect(assigns[:user_owns_request]).to be_false
+      expect(assigns[:user_owns_request]).to be false
     end
 
     it 'should not send an x-frame-options header' do
@@ -85,14 +85,14 @@ describe WidgetsController do
                                   :cookie => mock_cookie)
         request.cookies['widget_vote'] = vote.cookie
         get :show, :request_id => @info_request.id
-        expect(assigns[:existing_vote]).to be_true
+        expect(assigns[:existing_vote]).to be true
       end
 
       it 'will not find any existing votes if none exist' do
         WidgetVote.delete_all
         request.cookies['widget_vote'] = mock_cookie
         get :show, :request_id => @info_request.id
-        expect(assigns[:existing_vote]).to be_false
+        expect(assigns[:existing_vote]).to be false
       end
 
     end
@@ -108,7 +108,7 @@ describe WidgetsController do
       it 'will not find any existing votes' do
         request.cookies['widget_vote'] = nil
         get :show, :request_id => @info_request.id
-        expect(assigns[:existing_vote]).to be_false
+        expect(assigns[:existing_vote]).to be false
       end
 
     end
@@ -152,7 +152,7 @@ describe WidgetsController do
 
         get :show, :request_id => @info_request.id
 
-        expect(assigns[:existing_vote]).to be_true
+        expect(assigns[:existing_vote]).to be true
       end
 
       it 'will not find any existing votes if none exist' do
@@ -163,7 +163,7 @@ describe WidgetsController do
 
         get :show, :request_id => @info_request.id
 
-        expect(assigns[:existing_vote]).to be_false
+        expect(assigns[:existing_vote]).to be false
       end
 
     end
@@ -195,7 +195,7 @@ describe WidgetsController do
 
         get :show, :request_id => @info_request.id
 
-        expect(assigns[:existing_vote]).to be_false
+        expect(assigns[:existing_vote]).to be false
       end
 
     end
