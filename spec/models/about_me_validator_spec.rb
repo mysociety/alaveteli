@@ -36,7 +36,7 @@ describe AboutMeValidator do
     it 'is invalid if about_me is > 500' do
       params = { :about_me => 'a'*501 }
       validator = AboutMeValidator.new(params)
-      expect(validator).to have(1).error_on(:about_me)
+      expect(validator.errors_on(:about_me).size).to eq(1)
     end
 
   end
