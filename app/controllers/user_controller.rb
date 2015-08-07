@@ -92,19 +92,23 @@ class UserController < ApplicationController
     if session.instance_variable_get(:@dbman)
       unless session.instance_variable_get(:@dbman).instance_variable_get(:@original)
         # try and set them if we don't
-        return redirect_to signin_url(:r => params[:r], :again => 1) unless params[:again]
+        unless params[:again]
+          return redirect_to signin_url(:r => params[:r], :again => 1)
+        end
         return render :action => 'no_cookies'
       end
     end
     # remove "cookie setting attempt has happened" parameter if there is one and cookies worked
-    return redirect_to signin_url(:r => params[:r], :again => nil) if params[:again]
-
+    if params[:again]
+      return redirect_to signin_url(:r => params[:r], :again => nil)
+    end
     # First time page is shown
     return render :action => 'sign' unless params[:user_signin]
 
     if @post_redirect.present?
-        @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name])
+      @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name])
     end
+
     if @post_redirect.nil? || @user_signin.errors.size > 0
       # Failed to authenticate
       render :action => 'sign'
