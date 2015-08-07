@@ -59,7 +59,7 @@ describe MailServerLog do
 
     it "doesn't end up with two copies of each line when the same file is actually loaded twice" do
       File.should_receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10", "r").twice.and_return(log)
-      InfoRequest.should_receive(:find_by_incoming_email).with("request-1234@example.com").any_number_of_times.and_return(ir)
+      InfoRequest.stub(:find_by_incoming_email).with("request-1234@example.com").and_return(ir)
 
       MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
       ir.mail_server_logs.count.should == 2
@@ -124,8 +124,8 @@ describe MailServerLog do
         log.stub(:rewind)
         ir1 = info_requests(:fancy_dog_request)
         ir2 = info_requests(:naughty_chicken_request)
-        InfoRequest.should_receive(:find_by_incoming_email).with("request-14-e0e09f97@example.com").any_number_of_times.and_return(ir1)
-        InfoRequest.should_receive(:find_by_incoming_email).with("request-10-1234@example.com").any_number_of_times.and_return(ir2)
+        InfoRequest.stub(:find_by_incoming_email).with("request-14-e0e09f97@example.com").and_return(ir1)
+        InfoRequest.stub(:find_by_incoming_email).with("request-10-1234@example.com").and_return(ir2)
         MailServerLog.load_postfix_log_data(log, MailServerLogDone.new(:filename => "foo", :last_stat => DateTime.now))
         # TODO: Check that each log line is attached to the correct request
         ir1.mail_server_logs.count.should == 5
