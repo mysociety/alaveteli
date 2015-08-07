@@ -234,9 +234,7 @@ class UserController < ApplicationController
       if params[:submitted_signchangepassword_do]
         @user.password = params[:user][:password]
         @user.password_confirmation = params[:user][:password_confirmation]
-        unless @user.valid?
-          render :action => 'signchangepassword'
-        else
+        if @user.valid?
           @user.save!
           flash[:notice] = _("Your password has been changed.")
           if params[:pretoken] and not params[:pretoken].empty?
@@ -245,6 +243,8 @@ class UserController < ApplicationController
           else
             redirect_to user_url(@user)
           end
+        else
+          render :action => 'signchangepassword'
         end
       else
         render :action => 'signchangepassword'
@@ -567,7 +567,7 @@ class UserController < ApplicationController
   # Decide where we are going to redirect back to after signin/signup, and record that
   def work_out_post_redirect
     # Redirect to front page later if nothing else specified
-    params[:r] = "/" if params[:r].nil? and params[:token].nil?
+    params[:r] = "/" if params[:r].nil? && params[:token].nil?
 
     # The explicit "signin" link uses this to specify where to go back to
     if params[:r]
