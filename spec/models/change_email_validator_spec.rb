@@ -93,8 +93,7 @@ describe ChangeEmailValidator do
                  :user_circumstance => 'change_email',
                  :password => '' }
       validator = validator_with_user_and_params(user, params)
-
-      expect(validator).to have(0).errors_on(:password)
+      expect(validator.errors_on(:password).size).to eq(0)
     end
 
     it 'must have a password if not changing email' do

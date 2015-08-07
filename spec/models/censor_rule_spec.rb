@@ -165,20 +165,20 @@ describe 'when validating rules' do
 
   it 'must have the text to redact' do
     censor_rule = CensorRule.new
-    expect(censor_rule).to have(1).error_on(:text)
+    expect(censor_rule.errors_on(:text).size).to eq(1)
     expect(censor_rule.errors[:text]).to eql(["can't be blank"])
   end
 
   it 'must have a replacement' do
-    expect(CensorRule.new).to have(1).error_on(:replacement)
+    expect(CensorRule.new.errors_on(:replacement).size).to eq(1)
   end
 
   it 'must have a last_edit_editor' do
-    expect(CensorRule.new).to have(1).error_on(:last_edit_editor)
+    expect(CensorRule.new.errors_on(:last_edit_editor).size).to eq(1)
   end
 
   it 'must have a last_edit_comment' do
-    expect(CensorRule.new).to have(1).error_on(:last_edit_comment)
+    expect(CensorRule.new.errors_on(:last_edit_comment).size).to eq(1)
   end
 
   describe 'when validating a regexp rule' do
