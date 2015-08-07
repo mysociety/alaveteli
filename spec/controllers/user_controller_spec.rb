@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UserController do
 
-  describe :set_profile_photo do
+  describe 'POST set_profile_photo' do
 
     context 'user is banned' do
 
@@ -31,7 +31,7 @@ describe UserController do
 
   end
 
-  describe :set_profile_about_me do
+  describe 'POST set_profile_about_me' do
 
     context 'user is banned' do
 

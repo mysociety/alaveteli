@@ -13,7 +13,7 @@ require 'spec_helper'
 
 describe SpamAddress do
 
-  describe :new do
+  describe 'new' do
 
     it 'requres an email address' do
       SpamAddress.new.should_not be_valid

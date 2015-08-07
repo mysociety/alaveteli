@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe AdminPublicBodyCategoriesController do
 
-  describe :index do
+  describe 'GET index' do
 
     it 'responds successfully' do
       get :index
@@ -54,7 +54,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :new do
+  describe 'GET new' do
 
     it 'responds successfully' do
       get :new
@@ -82,7 +82,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     context 'on success' do
 
@@ -215,7 +215,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :edit do
+  describe 'GET edit' do
 
     before do
       @category = FactoryGirl.create(:public_body_category)
@@ -263,7 +263,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :update do
+  describe 'PUT update' do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
@@ -605,7 +605,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :destroy do
+  describe 'DELETE destroy' do
 
     it 'uses the current locale by default' do
       category = FactoryGirl.create(:public_body_category)

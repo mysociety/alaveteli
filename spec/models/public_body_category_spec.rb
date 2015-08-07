@@ -55,7 +55,7 @@ describe PublicBodyCategory do
 
   end
 
-  describe :save do
+  describe 'save' do
 
     it 'saves translations' do
       category = FactoryGirl.build(:public_body_category)
@@ -69,7 +69,7 @@ describe PublicBodyCategory do
 
   end
 
-  describe :translations_attributes= do
+  describe 'translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
 

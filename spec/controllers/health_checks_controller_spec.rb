@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe HealthChecksController do
 
-  describe :index do
+  describe 'GET index' do
 
     describe :index do
 

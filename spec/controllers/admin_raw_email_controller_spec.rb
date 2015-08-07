@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRawEmailController do
 
-  describe :show do
+  describe 'GET show' do
 
     before do
       @raw_email = FactoryGirl.create(:incoming_message).raw_email

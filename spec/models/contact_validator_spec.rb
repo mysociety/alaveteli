@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ContactValidator do
 
-  describe :new do
+  describe 'new' do
 
     let(:valid_params) do
       { :name => "Vinny Vanilli",

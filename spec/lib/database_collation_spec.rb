@@ -31,7 +31,7 @@ describe DatabaseCollation do
 
   end
 
-  describe :new do
+  describe 'new' do
 
     it 'defaults to the ActiveRecord::Base connection' do
       expect(DatabaseCollation.new.connection).
@@ -46,7 +46,7 @@ describe DatabaseCollation do
 
   end
 
-  describe :supports? do
+  describe 'supports?' do
 
     it 'does not support collation if the database is not postgresql' do
       database = DatabaseCollation.

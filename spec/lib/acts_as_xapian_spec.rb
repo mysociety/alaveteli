@@ -79,7 +79,7 @@ describe ActsAsXapian::Search do
     end
   end
 
-  describe :spelling_correction do
+  describe 'spelling_correction' do
 
     before :all do
       get_fixtures_xapian_index
