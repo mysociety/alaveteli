@@ -648,8 +648,14 @@ class UserController < ApplicationController
       end
     end
 
-    @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
-    @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+    begin
+      @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
+      @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+    # TODO: make this rescue specific to errors thrown when xapian is not working
+    rescue
+      @xapian_requests = nil
+      @xapian_comments = nil
+    end
 
     @page_desc = (@page > 1) ? " (page " + @page.to_s + ")" : ""
 
