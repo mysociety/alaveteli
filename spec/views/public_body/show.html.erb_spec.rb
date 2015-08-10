@@ -19,7 +19,7 @@ describe "public_body/show" do
         @pb.stub(:has_notes?).and_return(false)
         @pb.stub(:has_tag?).and_return(false)
         @pb.stub(:tag_string).and_return('')
-        @xap = mock(ActsAsXapian::Search, :matches_estimated => 2)
+        @xap = double(ActsAsXapian::Search, :matches_estimated => 2)
         @xap.stub(:results).and_return([
           { :model => mock_event },
           { :model => mock_event }

@@ -274,7 +274,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
                                :url_title => 'test_title',
                                :user => @mock_user)
     InfoRequest.stub(:find).and_return([@mock_request])
-    mail_mock = mock("mail")
+    mail_mock = double("mail")
     mail_mock.stub(:deliver)
     RequestMailer.stub(:new_response_reminder_alert).and_return(mail_mock)
     @sent_alert = mock_model(UserInfoRequestSentAlert, :user= =>nil,
