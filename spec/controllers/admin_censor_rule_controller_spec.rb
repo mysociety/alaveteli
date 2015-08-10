@@ -122,7 +122,7 @@ describe AdminCensorRuleController do
         end
 
         it 'purges the cache for the info request' do
-          @controller.should_receive(:expire_for_request).
+          expect(@controller).to receive(:expire_for_request).
             with(@info_request)
 
           post :create, :censor_rule => @censor_rule_params,
@@ -143,7 +143,7 @@ describe AdminCensorRuleController do
       context 'unsuccessfully saving the censor rule' do
 
         before(:each) do
-          CensorRule.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
 
         it 'does not persist the censor rule' do
@@ -195,7 +195,7 @@ describe AdminCensorRuleController do
 
         it 'purges the cache for the info request' do
           censor_rule = CensorRule.new(@censor_rule_params)
-          @controller.should_receive(:expire_requests_for_user).
+          expect(@controller).to receive(:expire_requests_for_user).
             with(@user)
 
           post :create, :censor_rule => @censor_rule_params,
@@ -217,7 +217,7 @@ describe AdminCensorRuleController do
       context 'unsuccessfully saving the censor rule' do
 
         before(:each) do
-          CensorRule.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
 
         it 'does not persist the censor rule' do
@@ -296,7 +296,7 @@ describe AdminCensorRuleController do
 
       it 'shows an error notice' do
         get :edit, :id => @censor_rule.id
-        flash[:notice].should == 'Only user and request censor rules can be edited'
+        expect(flash[:notice]).to eq('Only user and request censor rules can be edited')
       end
 
       it 'redirects to the admin index' do
@@ -318,7 +318,7 @@ describe AdminCensorRuleController do
 
       it 'shows an error notice' do
         get :edit, :id => @censor_rule.id
-        flash[:notice].should == 'Only user and request censor rules can be edited'
+        expect(flash[:notice]).to eq('Only user and request censor rules can be edited')
       end
 
       it 'redirects to the admin index' do
@@ -365,7 +365,7 @@ describe AdminCensorRuleController do
         end
 
         it 'purges the cache for the info request' do
-          @controller.should_receive(:expire_for_request).
+          expect(@controller).to receive(:expire_for_request).
             with(@censor_rule.info_request)
 
           put :update, :id => @censor_rule.id,
@@ -386,7 +386,7 @@ describe AdminCensorRuleController do
       context 'unsuccessfully saving the censor rule' do
 
         before(:each) do
-          CensorRule.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
 
         it 'does not update the censor rule' do
@@ -447,7 +447,7 @@ describe AdminCensorRuleController do
         end
 
         it 'purges the cache for the info request' do
-          @controller.should_receive(:expire_requests_for_user).
+          expect(@controller).to receive(:expire_requests_for_user).
             with(@censor_rule.user)
 
           put :update, :id => @censor_rule.id,
@@ -467,7 +467,7 @@ describe AdminCensorRuleController do
       context 'unsuccessfully saving the censor rule' do
 
         before(:each) do
-          CensorRule.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
 
         it 'does not update the censor rule' do
@@ -500,7 +500,7 @@ describe AdminCensorRuleController do
 
       it 'shows an error notice' do
         get :edit, :id => @censor_rule.id
-        flash[:notice].should == 'Only user and request censor rules can be edited'
+        expect(flash[:notice]).to eq('Only user and request censor rules can be edited')
       end
 
       it 'redirects to the admin index' do
@@ -528,7 +528,7 @@ describe AdminCensorRuleController do
       end
 
       it 'purges the cache for the info request' do
-        @controller.should_receive(:expire_for_request).with(@censor_rule.info_request)
+        expect(@controller).to receive(:expire_for_request).with(@censor_rule.info_request)
         delete :destroy, :id => @censor_rule.id
       end
 
@@ -557,7 +557,7 @@ describe AdminCensorRuleController do
       end
 
       it 'purges the cache for the user' do
-        @controller.should_receive(:expire_requests_for_user).with(@censor_rule.user)
+        expect(@controller).to receive(:expire_requests_for_user).with(@censor_rule.user)
         delete :destroy, :id => @censor_rule.id
       end
 
@@ -585,7 +585,7 @@ describe AdminCensorRuleController, "when making censor rules from the admin int
       :replacement => "tofu",
       :last_edit_comment => "none"
     }
-    PurgeRequest.all.first.model_id.should == ir.id
+    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
 
 end

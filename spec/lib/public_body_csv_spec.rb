@@ -37,20 +37,20 @@ describe PublicBodyCSV do
 
     it 'has a default set of fields' do
       csv = PublicBodyCSV.new
-      csv.fields.should == PublicBodyCSV.default_fields
+      expect(csv.fields).to eq(PublicBodyCSV.default_fields)
     end
 
     # DO NOT include request_email (we don't want to make it
     # easy to spam all authorities with requests)
     it 'does not include the request_email attribute' do
       csv = PublicBodyCSV.new
-      csv.fields.should_not include(:request_email)
+      expect(csv.fields).not_to include(:request_email)
     end
 
     it 'allows custom fields to be set on instantiation' do
       custom_fields = [:name, :short_name]
       csv = PublicBodyCSV.new(:fields => custom_fields)
-      csv.fields.should == custom_fields
+      expect(csv.fields).to eq(custom_fields)
     end
 
   end
@@ -59,13 +59,13 @@ describe PublicBodyCSV do
 
     it 'has a default set of headers' do
       csv = PublicBodyCSV.new
-      csv.headers.should == PublicBodyCSV.default_headers
+      expect(csv.headers).to eq(PublicBodyCSV.default_headers)
     end
 
     it 'allows custom headers to be set on instantiation' do
       custom_headers = ['Name', 'Short Name']
       csv = PublicBodyCSV.new(:headers => custom_headers)
-      csv.headers.should == custom_headers
+      expect(csv.headers).to eq(custom_headers)
     end
 
   end
@@ -74,7 +74,7 @@ describe PublicBodyCSV do
 
     it 'is empty on instantiation' do
       csv = PublicBodyCSV.new
-      csv.rows.should be_empty
+      expect(csv.rows).to be_empty
     end
 
   end
@@ -85,7 +85,7 @@ describe PublicBodyCSV do
       csv = PublicBodyCSV.new
       expected = ["Ministry of Silly Walks,MSW,msw,useless_agency,http://www.localhost,\"\",\"\",You know the one.,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
       csv << PublicBody.find(5)
-      csv.rows.should == expected
+      expect(csv.rows).to eq(expected)
     end
 
   end
@@ -107,7 +107,7 @@ describe PublicBodyCSV do
       csv = PublicBodyCSV.new(:fields => fields, :headers => headers)
       csv << PublicBody.where(:name => 'Department for Humpadinking').first
       csv << PublicBody.where(:name => 'Department of Loneliness').first
-      csv.generate.should == expected
+      expect(csv.generate).to eq(expected)
     end
 
   end

@@ -15,21 +15,21 @@ describe PublicBodyHeading do
 
     it 'should require a name' do
       heading = PublicBodyHeading.new
-      heading.should_not be_valid
-      heading.errors[:name].should == ["Name can't be blank"]
+      expect(heading).not_to be_valid
+      expect(heading.errors[:name]).to eq(["Name can't be blank"])
     end
 
     it 'should require a unique name' do
       heading = FactoryGirl.create(:public_body_heading)
       new_heading = PublicBodyHeading.new(:name => heading.name)
-      new_heading.should_not be_valid
-      new_heading.errors[:name].should == ["Name is already taken"]
+      expect(new_heading).not_to be_valid
+      expect(new_heading.errors[:name]).to eq(["Name is already taken"])
     end
 
     it 'should set a default display order based on the next available display order' do
       heading = PublicBodyHeading.new
       heading.valid?
-      heading.display_order.should == PublicBodyHeading.next_display_order
+      expect(heading.display_order).to eq(PublicBodyHeading.next_display_order)
     end
 
     it 'validates the translations' do
@@ -43,12 +43,12 @@ describe PublicBodyHeading do
   context 'when setting a display order' do
 
     it 'should return 0 if there are no public body headings' do
-      PublicBodyHeading.next_display_order.should == 0
+      expect(PublicBodyHeading.next_display_order).to eq(0)
     end
 
     it 'should return one more than the highest display order if there are public body headings' do
       heading = FactoryGirl.create(:public_body_heading)
-      PublicBodyHeading.next_display_order.should == 1
+      expect(PublicBodyHeading.next_display_order).to eq(1)
     end
   end
 
