@@ -5,12 +5,12 @@ describe 'when showing the form for describing the state of a request' do
 
     def expect_radio_button(value)
         do_render
-        response.should have_selector('input', :type => 'radio', :value => value)
+        expect(response).to have_selector('input', :type => 'radio', :value => value)
     end
 
     def expect_no_radio_button(value)
         do_render
-        response.should_not have_selector('input', :type => 'radio', :value => value)
+        expect(response).not_to have_selector('input', :type => 'radio', :value => value)
     end
 
     def do_render
@@ -38,12 +38,12 @@ describe 'when showing the form for describing the state of a request' do
 
             it 'should not show the form' do
                 do_render
-                response.should_not have_selector('h2', :content => 'What best describes the status of this request now?')
+                expect(response).not_to have_selector('h2', :content => 'What best describes the status of this request now?')
             end
 
             it 'should give a link to login' do
                 do_render
-                response.should have_selector('a', :content => 'sign in')
+                expect(response).to have_selector('a', :content => 'sign in')
             end
 
         end
@@ -56,17 +56,17 @@ describe 'when showing the form for describing the state of a request' do
 
             it 'should not show the form' do
                 do_render
-                response.should_not have_selector('h2', :content => 'What best describes the status of this request now?')
+                expect(response).not_to have_selector('h2', :content => 'What best describes the status of this request now?')
             end
 
             it 'should show the form for someone else to classify the request' do
                 do_render
-                response.should have_selector('h2', :content => 'We need your help')
+                expect(response).to have_selector('h2', :content => 'We need your help')
             end
 
             it 'should not give a link to login' do
                 do_render
-                response.should_not have_selector('a', :content => 'sign in')
+                expect(response).not_to have_selector('a', :content => 'sign in')
             end
         end
 
@@ -81,7 +81,7 @@ describe 'when showing the form for describing the state of a request' do
         describe 'when the request is not in internal review' do
 
             before do
-                @mock_request.stub(:described_state).and_return('waiting response')
+                allow(@mock_request).to receive(:described_state).and_return('waiting response')
             end
 
             it 'should show a radio button to set the status to "waiting response"' do
@@ -121,7 +121,7 @@ describe 'when showing the form for describing the state of a request' do
         describe 'when the request is in internal review' do
 
             before do
-                @mock_request.stub(:described_state).and_return('internal_review')
+                allow(@mock_request).to receive(:described_state).and_return('internal_review')
             end
 
             it 'should show a radio button to set the status to "internal review"' do
@@ -130,7 +130,7 @@ describe 'when showing the form for describing the state of a request' do
 
             it 'should show the text "The review has finished and overall:"' do
                 do_render
-                response.should have_selector('p', :content => 'The review has finished and overall:')
+                expect(response).to have_selector('p', :content => 'The review has finished and overall:')
             end
 
         end

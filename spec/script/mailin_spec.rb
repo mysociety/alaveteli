@@ -10,7 +10,7 @@ def mailin_test(email_filename)
     mail.gsub!('EMAIL_TO', ir.incoming_email)
     mail.gsub!('EMAIL_FROM', 'responder@localhost')
     xc = ExternalCommand.new("script/mailin", :stdin_string => mail).run
-    xc.err.should == ""
+    expect(xc.err).to eq("")
     return xc
   end
 end
@@ -24,8 +24,8 @@ describe "When importing mail into the application" do
 
   it "should not produce any output and should return a 0 code on importing a plain email" do
     r = mailin_test("incoming-request-empty.email")
-    r.status.should == 0
-    r.out.should == ""
+    expect(r.status).to eq(0)
+    expect(r.out).to eq("")
   end
 
   # Destroy the incoming message so that it doesn't affect other tests

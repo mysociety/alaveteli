@@ -22,7 +22,7 @@ describe DateQuarter do
 
         quarters_between(start, finish).each_with_index do |pair, i|
           pair.map!(&:to_i)
-          pair.should == expected[i]
+          expect(pair).to eq(expected[i])
         end
       end
     end

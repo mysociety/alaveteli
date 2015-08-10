@@ -10,7 +10,7 @@ describe 'when making a zipfile available' do
 
   def inspect_zip_download(session, info_request)
     session.get_via_redirect "request/#{info_request.url_title}/download"
-    session.response.should be_success
+    expect(session.response).to be_success
     Tempfile.open('download') do |f|
       f.binmode
       f.write(session.response.body)
@@ -36,7 +36,7 @@ describe 'when making a zipfile available' do
       # instance will have a working html_to_pdf tool, so just copy the HTML rendered
       # to the PDF file for the purposes of checking it doesn't contain anything that
       # shouldn't be there.
-      AlaveteliConfiguration.stub(:html_to_pdf_command).and_return('/bin/cp')
+      allow(AlaveteliConfiguration).to receive(:html_to_pdf_command).and_return('/bin/cp')
     end
 
     context 'when an incoming message is made "requester_only"' do
@@ -49,8 +49,8 @@ describe 'when making a zipfile available' do
         info_request = FactoryGirl.create(:info_request_with_incoming_attachments)
 
         inspect_zip_download(non_owner, info_request) do |zip|
-          zip.count.should == 3
-          zip.read('correspondence.pdf').should match('hereisthetext')
+          expect(zip.count).to eq(3)
+          expect(zip.read('correspondence.pdf')).to match('hereisthetext')
         end
 
         # Admin makes the incoming message requester only
@@ -58,28 +58,28 @@ describe 'when making a zipfile available' do
         post_data = {:incoming_message => {:prominence => 'requester_only',
                                            :prominence_reason => 'boring'}}
         admin.put_via_redirect "/en/admin/incoming_messages/#{info_request.incoming_messages.first.id}", post_data
-        admin.response.should be_success
+        expect(admin.response).to be_success
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
-          zip.count.should == 3
-          zip.read('correspondence.pdf').should match('hereisthetext')
+          expect(zip.count).to eq(3)
+          expect(zip.read('correspondence.pdf')).to match('hereisthetext')
         end
 
         # Zip for non owner is now without requester_only things
         inspect_zip_download(non_owner, info_request) do |zip|
-          zip.count.should == 1
+          expect(zip.count).to eq(1)
           correspondence_text = zip.read('correspondence.pdf')
-          correspondence_text.should_not match('hereisthetext')
+          expect(correspondence_text).not_to match('hereisthetext')
           expected_text = "This message has been hidden.\n    boring"
-          correspondence_text.should match(expected_text)
+          expect(correspondence_text).to match(expected_text)
         end
 
         # Requester retains the requester only things
         owner = login(info_request.user)
         inspect_zip_download(owner, info_request) do |zip|
-          zip.count.should == 3
-          zip.read('correspondence.pdf').should match('hereisthetext')
+          expect(zip.count).to eq(3)
+          expect(zip.read('correspondence.pdf')).to match('hereisthetext')
         end
 
       end
@@ -96,8 +96,8 @@ describe 'when making a zipfile available' do
         info_request = FactoryGirl.create(:info_request)
 
         inspect_zip_download(non_owner, info_request) do |zip|
-          zip.count.should == 1
-          zip.read('correspondence.pdf').should match('Some information please')
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.pdf')).to match('Some information please')
         end
 
         # Admin makes the incoming message requester only
@@ -106,28 +106,28 @@ describe 'when making a zipfile available' do
                                            :prominence_reason => 'boring',
                                            :body => 'Some information please'}}
         admin.put_via_redirect "/en/admin/outgoing_messages/#{info_request.outgoing_messages.first.id}", post_data
-        admin.response.should be_success
+        expect(admin.response).to be_success
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
-          zip.count.should == 1
-          zip.read('correspondence.pdf').should match('Some information please')
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.pdf')).to match('Some information please')
         end
 
         # Zip for non owner is now without requester_only things
         inspect_zip_download(non_owner, info_request) do |zip|
-          zip.count.should == 1
+          expect(zip.count).to eq(1)
           correspondence_text = zip.read('correspondence.pdf')
-          correspondence_text.should_not match('Some information please')
+          expect(correspondence_text).not_to match('Some information please')
           expected_text = "This message has been hidden.\n    boring"
-          correspondence_text.should match(expected_text)
+          expect(correspondence_text).to match(expected_text)
         end
 
         # Requester retains the requester only things
         owner = login(info_request.user)
         inspect_zip_download(owner, info_request) do |zip|
-          zip.count.should == 1
-          zip.read('correspondence.pdf').should match('Some information please')
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.pdf')).to match('Some information please')
         end
 
       end
@@ -139,7 +139,7 @@ describe 'when making a zipfile available' do
   context 'when no html to pdf converter is supplied' do
 
     before do
-      AlaveteliConfiguration.stub(:html_to_pdf_command).and_return('')
+      allow(AlaveteliConfiguration).to receive(:html_to_pdf_command).and_return('')
     end
 
     it "should update the contents of the zipfile when the request changes" do
@@ -148,24 +148,24 @@ describe 'when making a zipfile available' do
                                         :title => 'Example Title')
       request_owner = login(info_request.user)
       inspect_zip_download(request_owner, info_request) do |zip|
-        zip.count.should == 1 # just the message
+        expect(zip.count).to eq(1) # just the message
         expected = 'This is a plain-text version of the Freedom of Information request "Example Title"'
-        zip.read('correspondence.txt').should match expected
+        expect(zip.read('correspondence.txt')).to match expected
       end
 
       sleep_and_receive_mail('incoming-request-two-same-name.email', info_request)
 
       inspect_zip_download(request_owner, info_request) do |zip|
-        zip.count.should == 3 # the message plus two "hello-world.txt" files
-        zip.read('2_2_hello world.txt').should match('Second hello')
-        zip.read('2_3_hello world.txt').should match('First hello')
+        expect(zip.count).to eq(3) # the message plus two "hello-world.txt" files
+        expect(zip.read('2_2_hello world.txt')).to match('Second hello')
+        expect(zip.read('2_3_hello world.txt')).to match('First hello')
       end
 
       sleep_and_receive_mail('incoming-request-attachment-unknown-extension.email', info_request)
 
       inspect_zip_download(request_owner, info_request) do |zip|
-        zip.count.should == 4  # the message plus two "hello-world.txt" files, and the new attachment
-        zip.read('3_2_hello.qwglhm').should match('This is an unusual')
+        expect(zip.count).to eq(4)  # the message plus two "hello-world.txt" files, and the new attachment
+        expect(zip.read('3_2_hello.qwglhm')).to match('This is an unusual')
       end
     end
 
@@ -183,16 +183,16 @@ describe 'when making a zipfile available' do
       it 'should allow a download of the request by the request owner and admin only' do
         # Requester can access the zip
         inspect_zip_download(@request_owner, @info_request) do |zip|
-          zip.count.should == 1
-          zip.read('correspondence.txt').should match('hereisthetext')
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
         # Non-owner can't
         @non_owner.get_via_redirect "request/#{@info_request.url_title}/download"
-        @non_owner.response.code.should == '403'
+        expect(@non_owner.response.code).to eq('403')
         # Admin can
         inspect_zip_download(@admin, @info_request) do |zip|
-          zip.count.should == 1
-          zip.read('correspondence.txt').should match('hereisthetext')
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
       end
     end
@@ -208,14 +208,14 @@ describe 'when making a zipfile available' do
 
         # Requester can't access the zip
         @request_owner.get_via_redirect "request/#{@info_request.url_title}/download"
-        @request_owner.response.code.should == '403'
+        expect(@request_owner.response.code).to eq('403')
         # Non-owner can't
         @non_owner.get_via_redirect "request/#{@info_request.url_title}/download"
-        @non_owner.response.code.should == '403'
+        expect(@non_owner.response.code).to eq('403')
         # Admin can
         inspect_zip_download(@admin, @info_request) do |zip|
-          zip.count.should == 1
-          zip.read('correspondence.txt').should match('hereisthetext')
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
       end
 
@@ -231,8 +231,8 @@ describe 'when making a zipfile available' do
         info_request = FactoryGirl.create(:info_request_with_incoming_attachments)
 
         inspect_zip_download(non_owner, info_request) do |zip|
-          zip.count.should == 3
-          zip.read('correspondence.txt').should match('hereisthetext')
+          expect(zip.count).to eq(3)
+          expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
 
         # Admin makes the incoming message requester only
@@ -240,28 +240,28 @@ describe 'when making a zipfile available' do
         post_data = {:incoming_message => {:prominence => 'requester_only',
                                            :prominence_reason => 'boring'}}
         admin.put_via_redirect "/en/admin/incoming_messages/#{info_request.incoming_messages.first.id}", post_data
-        admin.response.should be_success
+        expect(admin.response).to be_success
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
-          zip.count.should == 3
-          zip.read('correspondence.txt').should match('hereisthetext')
+          expect(zip.count).to eq(3)
+          expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
 
         # Zip for non owner is now without requester_only things
         inspect_zip_download(non_owner, info_request) do |zip|
-          zip.count.should == 1
+          expect(zip.count).to eq(1)
           correspondence_text = zip.read('correspondence.txt')
-          correspondence_text.should_not match('hereisthetext')
+          expect(correspondence_text).not_to match('hereisthetext')
           expected_text = 'This message has been hidden. boring'
-          correspondence_text.should match(expected_text)
+          expect(correspondence_text).to match(expected_text)
         end
 
         # Requester retains the requester only things
         owner = login(info_request.user)
         inspect_zip_download(owner, info_request) do |zip|
-          zip.count.should == 3
-          zip.read('correspondence.txt').should match('hereisthetext')
+          expect(zip.count).to eq(3)
+          expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
 
       end
@@ -278,8 +278,8 @@ describe 'when making a zipfile available' do
         info_request = FactoryGirl.create(:info_request)
 
         inspect_zip_download(non_owner, info_request) do |zip|
-          zip.count.should == 1
-          zip.read('correspondence.txt').should match('Some information please')
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('Some information please')
         end
 
         # Admin makes the incoming message requester only
@@ -288,28 +288,28 @@ describe 'when making a zipfile available' do
                                            :prominence_reason => 'boring',
                                            :body => 'Some information please'}}
         admin.put_via_redirect "/en/admin/outgoing_messages/#{info_request.outgoing_messages.first.id}", post_data
-        admin.response.should be_success
+        expect(admin.response).to be_success
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
-          zip.count.should == 1
-          zip.read('correspondence.txt').should match('Some information please')
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('Some information please')
         end
 
         # Zip for non owner is now without requester_only things
         inspect_zip_download(non_owner, info_request) do |zip|
-          zip.count.should == 1
+          expect(zip.count).to eq(1)
           correspondence_text = zip.read('correspondence.txt')
-          correspondence_text.should_not match('Some information please')
+          expect(correspondence_text).not_to match('Some information please')
           expected_text = 'This message has been hidden. boring'
-          correspondence_text.should match(expected_text)
+          expect(correspondence_text).to match(expected_text)
         end
 
         # Requester retains the requester only things
         owner = login(info_request.user)
         inspect_zip_download(owner, info_request) do |zip|
-          zip.count.should == 1
-          zip.read('correspondence.txt').should match('Some information please')
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('Some information please')
         end
 
       end
@@ -319,7 +319,7 @@ describe 'when making a zipfile available' do
     it 'should successfully make a zipfile for an external request' do
       external_request = FactoryGirl.create(:external_request)
       user = login(FactoryGirl.create(:user))
-      inspect_zip_download(user, external_request){ |zip|  zip.count.should == 1 }
+      inspect_zip_download(user, external_request){ |zip|  expect(zip.count).to eq(1) }
     end
   end
 

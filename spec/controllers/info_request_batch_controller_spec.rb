@@ -23,19 +23,19 @@ describe InfoRequestBatchController, "when showing a request" do
 
   it 'should be successful' do
     make_request
-    response.should be_success
+    expect(response).to be_success
   end
 
   it 'should assign an info_request_batch to the view' do
     make_request
-    assigns[:info_request_batch].should == @info_request_batch
+    expect(assigns[:info_request_batch]).to eq(@info_request_batch)
   end
 
   context 'when the batch has not been sent' do
 
     it 'should assign public_bodies to the view' do
       make_request
-      assigns[:public_bodies].should == [@first_public_body, @second_public_body]
+      expect(assigns[:public_bodies]).to eq([@first_public_body, @second_public_body])
     end
   end
 
@@ -45,7 +45,7 @@ describe InfoRequestBatchController, "when showing a request" do
       @info_request_batch.sent_at = Time.now
       @info_request_batch.save!
       make_request
-      assigns[:info_requests].sort.should == [@first_request, @second_request]
+      expect(assigns[:info_requests].sort).to eq([@first_request, @second_request])
     end
 
   end

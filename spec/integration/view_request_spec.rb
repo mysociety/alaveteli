@@ -11,8 +11,8 @@ describe "When viewing requests" do
 
   it "should not make endlessly recursive JSON <link>s" do
     @unregistered.browses_request("#{@info_request.url_title}?unfold=1")
-    @unregistered.response.body.should_not include("#{@info_request.url_title}?unfold=1.json")
-    @unregistered.response.body.should include("#{@info_request.url_title}.json?unfold=1")
+    expect(@unregistered.response.body).not_to include("#{@info_request.url_title}?unfold=1.json")
+    expect(@unregistered.response.body).to include("#{@info_request.url_title}.json?unfold=1")
   end
 
   it 'should not raise a routing error when making a json link for a request with an
@@ -29,15 +29,15 @@ describe "When viewing requests" do
       incoming_message = info_request.incoming_messages.first
       attachment_url = "/es/request/#{info_request.id}/response/#{incoming_message.id}/attach/2/interesting.pdf"
       non_owner.get(attachment_url)
-      cache_directories_exist?(info_request).should be true
+      expect(cache_directories_exist?(info_request)).to be true
 
       # Admin makes the incoming message requester only
       post_data = {:incoming_message => {:prominence => 'hidden',
                                          :prominence_reason => 'boring'}}
       admin.put_via_redirect "/admin/incoming_messages/#{info_request.incoming_messages.first.id}", post_data
-      admin.response.should be_success
+      expect(admin.response).to be_success
 
-      cache_directories_exist?(info_request).should be false
+      expect(cache_directories_exist?(info_request)).to be false
     end
 
   end
@@ -53,21 +53,21 @@ describe "When viewing requests" do
       # unregistered
       unregistered = without_login
       unregistered.browses_request(@info_request.url_title)
-      unregistered.response.body.should include("hereisthetext")
-      unregistered.response.body.should_not include("This message has been hidden.")
-      unregistered.response.body.should_not include("sign in</a> to view the message.")
+      expect(unregistered.response.body).to include("hereisthetext")
+      expect(unregistered.response.body).not_to include("This message has been hidden.")
+      expect(unregistered.response.body).not_to include("sign in</a> to view the message.")
 
       # requester
       owner = login(@info_request.user)
       owner.browses_request(@info_request.url_title)
-      owner.response.body.should include("hereisthetext")
-      owner.response.body.should_not include("This message has been hidden.")
+      expect(owner.response.body).to include("hereisthetext")
+      expect(owner.response.body).not_to include("This message has been hidden.")
 
       # admin
       admin_user = login(FactoryGirl.create(:admin_user))
       admin_user.browses_request(@info_request.url_title)
-      admin_user.response.body.should include("hereisthetext")
-      admin_user.response.body.should_not include("This message has prominence \'hidden\'.")
+      expect(admin_user.response.body).to include("hereisthetext")
+      expect(admin_user.response.body).not_to include("This message has prominence \'hidden\'.")
 
     end
 
@@ -89,25 +89,25 @@ describe "When viewing requests" do
       # unregistered
       unregistered = without_login
       unregistered.browses_request(@info_request.url_title)
-      unregistered.response.body.should include("This message has been hidden.")
-      unregistered.response.body.should include("It is too irritating.")
-      unregistered.response.body.should_not include("sign in</a> to view the message.")
-      unregistered.response.body.should_not include("hereisthetext")
+      expect(unregistered.response.body).to include("This message has been hidden.")
+      expect(unregistered.response.body).to include("It is too irritating.")
+      expect(unregistered.response.body).not_to include("sign in</a> to view the message.")
+      expect(unregistered.response.body).not_to include("hereisthetext")
 
       # requester
       owner = login(@info_request.user)
       owner.browses_request(@info_request.url_title)
-      owner.response.body.should include("This message has been hidden.")
-      owner.response.body.should include("It is too irritating")
-      owner.response.body.should_not include("hereisthetext")
+      expect(owner.response.body).to include("This message has been hidden.")
+      expect(owner.response.body).to include("It is too irritating")
+      expect(owner.response.body).not_to include("hereisthetext")
 
       # admin
       admin_user = login(FactoryGirl.create(:admin_user))
       admin_user.browses_request(@info_request.url_title)
-      admin_user.response.body.should include('hereisthetext')
-      admin_user.response.body.should include("This message has prominence \'hidden\'.")
-      admin_user.response.body.should include("It is too irritating.")
-      admin_user.response.body.should include("You can only see it because you are logged in as a super user.")
+      expect(admin_user.response.body).to include('hereisthetext')
+      expect(admin_user.response.body).to include("This message has prominence \'hidden\'.")
+      expect(admin_user.response.body).to include("It is too irritating.")
+      expect(admin_user.response.body).to include("You can only see it because you are logged in as a super user.")
 
     end
 
@@ -129,24 +129,24 @@ describe "When viewing requests" do
       # unregistered
       unregistered = without_login
       unregistered.browses_request(@info_request.url_title)
-      unregistered.response.body.should include("This message has been hidden.")
-      unregistered.response.body.should include("It is too irritating")
-      unregistered.response.body.should include("sign in</a> to view the message.")
-      unregistered.response.body.should_not include("hereisthetext")
+      expect(unregistered.response.body).to include("This message has been hidden.")
+      expect(unregistered.response.body).to include("It is too irritating")
+      expect(unregistered.response.body).to include("sign in</a> to view the message.")
+      expect(unregistered.response.body).not_to include("hereisthetext")
 
       # requester
       owner = login(@info_request.user)
       owner.browses_request(@info_request.url_title)
-      owner.response.body.should include("hereisthetext")
-      owner.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
-      owner.response.body.should include("It is too irritating.")
+      expect(owner.response.body).to include("hereisthetext")
+      expect(owner.response.body).to include("This message is hidden, so that only you, the requester, can see it.")
+      expect(owner.response.body).to include("It is too irritating.")
 
       # admin
       admin_user = login(FactoryGirl.create(:admin_user))
       admin_user.browses_request(@info_request.url_title)
-      admin_user.response.body.should include('hereisthetext')
-      admin_user.response.body.should_not include("This message has been hidden.")
-      admin_user.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
+      expect(admin_user.response.body).to include('hereisthetext')
+      expect(admin_user.response.body).not_to include("This message has been hidden.")
+      expect(admin_user.response.body).to include("This message is hidden, so that only you, the requester, can see it.")
     end
 
   end
@@ -167,24 +167,24 @@ describe "When viewing requests" do
       # unregistered
       unregistered = without_login
       unregistered.browses_request(@info_request.url_title)
-      unregistered.response.body.should include("This message has been hidden.")
-      unregistered.response.body.should include("It is too irritating")
-      unregistered.response.body.should include("sign in</a> to view the message.")
-      unregistered.response.body.should_not include("Some information please")
+      expect(unregistered.response.body).to include("This message has been hidden.")
+      expect(unregistered.response.body).to include("It is too irritating")
+      expect(unregistered.response.body).to include("sign in</a> to view the message.")
+      expect(unregistered.response.body).not_to include("Some information please")
 
       # requester
       owner = login(@info_request.user)
       owner.browses_request(@info_request.url_title)
-      owner.response.body.should include("Some information please")
-      owner.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
-      owner.response.body.should include("It is too irritating.")
+      expect(owner.response.body).to include("Some information please")
+      expect(owner.response.body).to include("This message is hidden, so that only you, the requester, can see it.")
+      expect(owner.response.body).to include("It is too irritating.")
 
       # admin
       admin_user = login(FactoryGirl.create(:admin_user))
       admin_user.browses_request(@info_request.url_title)
-      admin_user.response.body.should include('Some information please')
-      admin_user.response.body.should_not include("This message has been hidden.")
-      admin_user.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
+      expect(admin_user.response.body).to include('Some information please')
+      expect(admin_user.response.body).not_to include("This message has been hidden.")
+      expect(admin_user.response.body).to include("This message is hidden, so that only you, the requester, can see it.")
     end
 
   end
