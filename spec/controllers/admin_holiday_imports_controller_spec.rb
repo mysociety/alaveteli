@@ -12,7 +12,7 @@ describe AdminHolidayImportsController do
 
     it 'creates an import' do
       get :new
-      assigns[:holiday_import].should be_instance_of(HolidayImport)
+      expect(assigns[:holiday_import]).to be_instance_of(HolidayImport)
     end
 
     describe 'if the import is valid' do
@@ -20,8 +20,8 @@ describe AdminHolidayImportsController do
       it 'populates the import' do
         mock_import = double(HolidayImport, :valid? => true,
                            :populate => nil)
-        HolidayImport.stub(:new).and_return(mock_import)
-        mock_import.should_receive(:populate)
+        allow(HolidayImport).to receive(:new).and_return(mock_import)
+        expect(mock_import).to receive(:populate)
         get :new
       end
 
@@ -33,23 +33,23 @@ describe AdminHolidayImportsController do
 
     it 'creates an import' do
       post :create
-      assigns[:holiday_import].should be_instance_of(HolidayImport)
+      expect(assigns[:holiday_import]).to be_instance_of(HolidayImport)
     end
 
     describe 'if the import can be saved' do
 
       before do
         mock_import = double(HolidayImport, :save => true)
-        HolidayImport.stub(:new).and_return(mock_import)
+        allow(HolidayImport).to receive(:new).and_return(mock_import)
         post :create
       end
 
       it 'should show a success notice' do
-        flash[:notice].should == 'Holidays successfully imported'
+        expect(flash[:notice]).to eq('Holidays successfully imported')
       end
 
       it 'should redirect to the index' do
-        response.should redirect_to(admin_holidays_path)
+        expect(response).to redirect_to(admin_holidays_path)
       end
 
     end
@@ -58,7 +58,7 @@ describe AdminHolidayImportsController do
 
       before do
         mock_import = double(HolidayImport, :save => false)
-        HolidayImport.stub(:new).and_return(mock_import)
+        allow(HolidayImport).to receive(:new).and_return(mock_import)
         post :create
       end
 

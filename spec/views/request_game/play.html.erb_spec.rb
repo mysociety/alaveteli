@@ -31,7 +31,7 @@ describe 'request_game/play' do
     
     it 'should show the correct url for a request' do
         render
-        response.should include("/categorise/request/a_test_request")
+        expect(response).to include("/categorise/request/a_test_request")
     end
 
 

@@ -411,7 +411,7 @@ describe AdminPublicBodyCategoriesController do
     context 'on success for multiple locales' do
 
       it "saves edits to a public body category in another locale" do
-        @category.title(:es).should == 'Los category'
+        expect(@category.title(:es)).to eq('Los category')
         post :update, :id => @category.id,
           :public_body_category => {
           :translations_attributes => {
@@ -450,7 +450,7 @@ describe AdminPublicBodyCategoriesController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         pbc = PublicBodyCategory.find(@category.id)
 
@@ -481,7 +481,7 @@ describe AdminPublicBodyCategoriesController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         pbc = PublicBodyCategory.find(@category.id)
 
@@ -515,7 +515,7 @@ describe AdminPublicBodyCategoriesController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         pbc = PublicBodyCategory.find(@category.id)
 

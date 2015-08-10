@@ -10,14 +10,14 @@ describe HighlightHelper do
       text = "Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking"
       phrases = ['humpadinking']
       expected = '...Department for <span class="highlight">Humpadinking</span>'
-      highlight_and_excerpt(text, phrases, 15).should == expected
+      expect(highlight_and_excerpt(text, phrases, 15)).to eq(expected)
     end
 
     it 'excerpts text and highlights matches' do
       text = "Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking"
       matches = [/\bhumpadink\w*\b/iu]
       expected = '...Department for <span class="highlight">Humpadinking</span>'
-      highlight_and_excerpt(text, matches, 15).should == expected
+      expect(highlight_and_excerpt(text, matches, 15)).to eq(expected)
     end
 
     context 'multiple matches' do
@@ -35,7 +35,7 @@ EOF
         text.chomp!
         expected.chomp!
         matches = [/\b(humpadink\w*)\b/iu]
-        highlight_and_excerpt(text, matches, 1000).should == expected
+        expect(highlight_and_excerpt(text, matches, 1000)).to eq(expected)
       end
 
       it 'bases the split on the first match' do
@@ -47,7 +47,7 @@ EOF
           "Humpadinking</span> decided to vis..."
 
         matches = [/\b(humpadink\w*)\b/iu]
-        highlight_and_excerpt(text, matches, 15).should == expected
+        expect(highlight_and_excerpt(text, matches, 15)).to eq(expected)
       end
 
     end

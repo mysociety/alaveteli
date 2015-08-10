@@ -81,7 +81,7 @@ describe "normalize_string_to_utf8" do
 
       normalized = normalize_string_to_utf8 windows_1252_string
 
-      normalized.should ==  "DASH – DASH"
+      expect(normalized).to eq("DASH – DASH")
 
     end
 
@@ -93,7 +93,7 @@ describe "normalize_string_to_utf8" do
 
       normalized = normalize_string_to_utf8 gb_18030_spam_string
 
-      normalized.should start_with("贵公司负责人")
+      expect(normalized).to start_with("贵公司负责人")
 
     end
 
@@ -108,17 +108,17 @@ describe "convert_string_to_utf8_or_binary" do
     it "should return it as a binary string" do
 
       converted = convert_string_to_utf8_or_binary random_string
-      converted.should == random_string
+      expect(converted).to eq(random_string)
 
       if String.method_defined?(:encode)
-        converted.encoding.to_s.should == 'ASCII-8BIT'
+        expect(converted.encoding.to_s).to eq('ASCII-8BIT')
       end
 
       converted = convert_string_to_utf8_or_binary random_string,'UTF-8'
-      converted.should == random_string
+      expect(converted).to eq(random_string)
 
       if String.method_defined?(:encode)
-        converted.encoding.to_s.should == 'ASCII-8BIT'
+        expect(converted.encoding.to_s).to eq('ASCII-8BIT')
       end
 
     end
@@ -130,10 +130,10 @@ describe "convert_string_to_utf8_or_binary" do
 
       converted = convert_string_to_utf8_or_binary windows_1252_string
 
-      converted.should ==  "DASH – DASH"
+      expect(converted).to eq("DASH – DASH")
 
       if String.method_defined?(:encode)
-        converted.encoding.to_s.should == 'UTF-8'
+        expect(converted.encoding.to_s).to eq('UTF-8')
       end
     end
 
@@ -145,10 +145,10 @@ describe "convert_string_to_utf8_or_binary" do
 
       converted = convert_string_to_utf8_or_binary gb_18030_spam_string
 
-      converted.should start_with("贵公司负责人")
+      expect(converted).to start_with("贵公司负责人")
 
       if String.method_defined?(:encode)
-        converted.encoding.to_s.should == 'UTF-8'
+        expect(converted.encoding.to_s).to eq('UTF-8')
       end
     end
 
@@ -166,18 +166,18 @@ describe "convert_string_to_utf8" do
       converted = convert_string_to_utf8 random_string
 
       if String.method_defined?(:encode)
-        converted.string.encoding.to_s.should == 'UTF-8'
-        converted.string.valid_encoding?.should == true
+        expect(converted.string.encoding.to_s).to eq('UTF-8')
+        expect(converted.string.valid_encoding?).to eq(true)
       end
-      converted.scrubbed?.should == true
+      expect(converted.scrubbed?).to eq(true)
 
       converted = convert_string_to_utf8 random_string,'UTF-8'
 
       if String.method_defined?(:encode)
-        converted.string.encoding.to_s.should == 'UTF-8'
-        converted.string.valid_encoding?.should == true
+        expect(converted.string.encoding.to_s).to eq('UTF-8')
+        expect(converted.string.valid_encoding?).to eq(true)
       end
-      converted.scrubbed?.should == true
+      expect(converted.scrubbed?).to eq(true)
 
     end
   end
@@ -188,12 +188,12 @@ describe "convert_string_to_utf8" do
 
       converted = convert_string_to_utf8 windows_1252_string
 
-      converted.string.should ==  "DASH – DASH"
+      expect(converted.string).to eq("DASH – DASH")
 
       if String.method_defined?(:encode)
-        converted.string.encoding.to_s.should == 'UTF-8'
+        expect(converted.string.encoding.to_s).to eq('UTF-8')
       end
-      converted.scrubbed?.should == false
+      expect(converted.scrubbed?).to eq(false)
 
     end
 
@@ -205,12 +205,12 @@ describe "convert_string_to_utf8" do
 
       converted = convert_string_to_utf8 gb_18030_spam_string
 
-      converted.string.should start_with("贵公司负责人")
+      expect(converted.string).to start_with("贵公司负责人")
 
       if String.method_defined?(:encode)
-        converted.string.encoding.to_s.should == 'UTF-8'
+        expect(converted.string.encoding.to_s).to eq('UTF-8')
       end
-      converted.scrubbed?.should == false
+      expect(converted.scrubbed?).to eq(false)
     end
 
   end
