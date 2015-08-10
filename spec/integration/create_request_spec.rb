@@ -12,7 +12,7 @@ describe "When creating requests" do
     # Now log in as an unconfirmed user.
     unregistered.post "/profile/sign_in", :user_signin => {:email => users(:unconfirmed_user).email, :password => "jonespassword"}, :token => post_redirect.token
     # This will trigger a confirmation mail. Get the PostRedirect for later.
-    unregistered.response.body.should match('Now check your email!')
+    expect(unregistered.response.body).to match('Now check your email!')
     post_redirect = PostRedirect.get_last_post_redirect
 
 
@@ -21,14 +21,14 @@ describe "When creating requests" do
     admin = login(:admin_user)
     admin.get "/c/" + post_redirect.email_token
     admin.follow_redirect!
-    admin.response.location.should =~ %r(/request/(.+)/new)
+    expect(admin.response.location).to match(%r(/request/(.+)/new))
     admin.response.location =~ %r(/request/(.+)/new)
     url_title = $1
     info_request = InfoRequest.find_by_url_title(url_title)
-    info_request.should_not be_nil
+    expect(info_request).not_to be_nil
 
     # Make sure the request is still owned by the user who made it, not the admin who confirmed it
-    info_request.user_id.should == users(:unconfirmed_user).id
+    expect(info_request.user_id).to eq(users(:unconfirmed_user).id)
   end
 
 end

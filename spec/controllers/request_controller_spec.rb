@@ -9,27 +9,27 @@ describe RequestController, "when listing recent requests" do
 
   it "should be successful" do
     get :list, :view => 'all'
-    response.should be_success
+    expect(response).to be_success
   end
 
   it "should render with 'list' template" do
     get :list, :view => 'all'
-    response.should render_template('list')
+    expect(response).to render_template('list')
   end
 
   it "should return 404 for pages we don't want to serve up" do
     xap_results = double(ActsAsXapian::Search,
                        :results => (1..25).to_a.map { |m| { :model => m } },
                        :matches_estimated => 1000000)
-    lambda {
+    expect {
       get :list, :view => 'all', :page => 100
-    }.should raise_error(ActiveRecord::RecordNotFound)
+    }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'should not raise an error for a page param of less than zero, but should treat it as
         a param of 1' do
-    lambda{ get :list, :view => 'all', :page => "-1" }.should_not raise_error
-    assigns[:page].should == 1
+    expect{ get :list, :view => 'all', :page => "-1" }.not_to raise_error
+    expect(assigns[:page]).to eq(1)
   end
 
 end
@@ -48,42 +48,41 @@ describe RequestController, "when changing things that appear on the request pag
     ir = info_requests(:fancy_dog_request)
 
     receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-
-    PurgeRequest.all.first.model_id.should == ir.id
+    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
   it "should purge the downstream cache when a comment is added" do
     ir = info_requests(:fancy_dog_request)
     new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
-    PurgeRequest.all.first.model_id.should == ir.id
+    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
   it "should purge the downstream cache when a followup is made" do
     session[:user_id] = users(:bob_smith_user).id
     ir = info_requests(:fancy_dog_request)
     post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :submitted_followup => 1
-    PurgeRequest.all.first.model_id.should == ir.id
+    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
   it "should purge the downstream cache when the request is categorised" do
     ir = info_requests(:fancy_dog_request)
     ir.set_described_state('waiting_clarification')
-    PurgeRequest.all.first.model_id.should == ir.id
+    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
   it "should purge the downstream cache when the authority data is changed" do
     ir = info_requests(:fancy_dog_request)
     ir.public_body.name = "Something new"
     ir.public_body.save!
-    PurgeRequest.all.map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
+    expect(PurgeRequest.all.map{|x| x.model_id}).to match_array(ir.public_body.info_requests.map{|x| x.id})
   end
   it "should purge the downstream cache when the user name is changed" do
     ir = info_requests(:fancy_dog_request)
     ir.user.name = "Something new"
     ir.user.save!
-    PurgeRequest.all.map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
+    expect(PurgeRequest.all.map{|x| x.model_id}).to match_array(ir.user.info_requests.map{|x| x.id})
   end
   it "should not purge the downstream cache when non-visible user details are changed" do
     ir = info_requests(:fancy_dog_request)
     ir.user.hashed_password = "some old hash"
     ir.user.save!
-    PurgeRequest.all.count.should == 0
+    expect(PurgeRequest.all.count).to eq(0)
   end
   it "should purge the downstream cache when censor rules have changed" do
     # TODO: really, CensorRules should execute expiry logic as part
@@ -95,17 +94,17 @@ describe RequestController, "when changing things that appear on the request pag
     ir = info_requests(:fancy_dog_request)
     ir.prominence = 'hidden'
     ir.save!
-    PurgeRequest.all.first.model_id.should == ir.id
+    expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
   it "should not create more than one entry for any given resource" do
     ir = info_requests(:fancy_dog_request)
     ir.prominence = 'hidden'
     ir.save!
-    PurgeRequest.all.count.should == 1
+    expect(PurgeRequest.all.count).to eq(1)
     ir = info_requests(:fancy_dog_request)
     ir.prominence = 'hidden'
     ir.save!
-    PurgeRequest.all.count.should == 1
+    expect(PurgeRequest.all.count).to eq(1)
   end
 end
 
@@ -118,40 +117,40 @@ describe RequestController, "when showing one request" do
 
   it "should be successful" do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    response.should be_success
+    expect(response).to be_success
   end
 
   it "should render with 'show' template" do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    response.should render_template('show')
+    expect(response).to render_template('show')
   end
 
   it "should show the request" do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    response.should be_success
-    response.body.should include("Why do you have such a fancy dog?")
+    expect(response).to be_success
+    expect(response.body).to include("Why do you have such a fancy dog?")
   end
 
   it "should assign the request" do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    assigns[:info_request].should == info_requests(:fancy_dog_request)
+    expect(assigns[:info_request]).to eq(info_requests(:fancy_dog_request))
   end
 
   it "should redirect from a numeric URL to pretty one" do
     get :show, :url_title => info_requests(:naughty_chicken_request).id.to_s
-    response.should redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
+    expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
   end
 
   it 'should show actions the request owner can take' do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    response.should have_selector('div#owner_actions')
+    expect(response).to have_selector('div#owner_actions')
   end
 
   describe 'when the request does allow comments' do
     it 'should have a comment link' do
       get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
         { :user_id => users(:admin_user).id }
-      response.should have_selector('#anyone_actions', :content => "Add an annotation")
+      expect(response).to have_selector('#anyone_actions', :content => "Add an annotation")
     end
   end
 
@@ -159,7 +158,7 @@ describe RequestController, "when showing one request" do
     it 'should not have a comment link' do
       get :show, { :url_title => 'spam_1' },
         { :user_id => users(:admin_user).id }
-      response.should_not have_selector('#anyone_actions', :content => "Add an annotation")
+      expect(response).not_to have_selector('#anyone_actions', :content => "Add an annotation")
     end
   end
 
@@ -167,8 +166,8 @@ describe RequestController, "when showing one request" do
     it "should allow the user to report" do
       title = info_requests(:badger_request).url_title
       get :show, :url_title => title
-      response.should_not contain("This request has been reported")
-      response.should contain("Offensive?")
+      expect(response).not_to contain("This request has been reported")
+      expect(response).to contain("Offensive?")
     end
   end
 
@@ -178,8 +177,8 @@ describe RequestController, "when showing one request" do
     end
     it "should inform the user" do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      response.should contain("This request has been reported")
-      response.should_not contain("Offensive?")
+      expect(response).to contain("This request has been reported")
+      expect(response).not_to contain("Offensive?")
     end
 
     context "and then deemed okay and left to complete" do
@@ -188,7 +187,7 @@ describe RequestController, "when showing one request" do
       end
       it "should let the user know that the administrators have not hidden this request" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.body.should =~ (/the site administrators.*have not hidden it/)
+        expect(response.body).to match(/the site administrators.*have not hidden it/)
       end
     end
   end
@@ -206,13 +205,13 @@ describe RequestController, "when showing one request" do
       it 'should show the describe state form' do
         get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
           { :user_id => users(:admin_user).id }
-        response.should have_selector('div.describe_state_form')
+        expect(response).to have_selector('div.describe_state_form')
       end
 
       it 'should ask the user to use the describe state from' do
         get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
           { :user_id => users(:admin_user).id }
-        response.should have_selector('p#request_status', :content => "answer the question above")
+        expect(response).to have_selector('p#request_status', :content => "answer the question above")
       end
 
     end
@@ -224,13 +223,13 @@ describe RequestController, "when showing one request" do
         dog_request.awaiting_description = false
         dog_request.described_state = 'waiting_response'
         dog_request.save!
-        dog_request.calculate_status.should == 'waiting_response_very_overdue'
+        expect(dog_request.calculate_status).to eq('waiting_response_very_overdue')
       end
 
       it 'should give a link to requesting an internal review' do
         get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
           { :user_id => users(:admin_user).id }
-        response.should have_selector('p#request_status', :content => "requesting an internal review")
+        expect(response).to have_selector('p#request_status', :content => "requesting an internal review")
       end
 
     end
@@ -242,13 +241,13 @@ describe RequestController, "when showing one request" do
         dog_request.awaiting_description = false
         dog_request.described_state = 'waiting_clarification'
         dog_request.save!
-        dog_request.calculate_status.should == 'waiting_clarification'
+        expect(dog_request.calculate_status).to eq('waiting_clarification')
       end
 
       it 'should give a link to make a followup' do
         get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
           { :user_id => users(:admin_user).id }
-        response.should have_selector('p#request_status a', :content => "send a follow up message")
+        expect(response).to have_selector('p#request_status a', :content => "send a follow up message")
       end
     end
 
@@ -260,12 +259,12 @@ describe RequestController, "when showing one request" do
 
       it 'should be successful' do
         get :show, { :url_title => 'balalas' }, { :user_id => nil }
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'should not display actions the request owner can take' do
         get :show, :url_title => 'balalas'
-        response.should_not have_selector('div#owner_actions')
+        expect(response).not_to have_selector('div#owner_actions')
       end
 
     end
@@ -278,7 +277,7 @@ describe RequestController, "when showing one request" do
 
       it 'should be successful' do
         make_request
-        response.should be_success
+        expect(response).to be_success
       end
 
       describe 'if the request is awaiting description' do
@@ -291,12 +290,12 @@ describe RequestController, "when showing one request" do
 
         it 'should not show the describe state form' do
           make_request
-          response.should_not have_selector('div.describe_state_form')
+          expect(response).not_to have_selector('div.describe_state_form')
         end
 
         it 'should not ask the user to use the describe state form' do
           make_request
-          response.should_not have_selector('p#request_status', :content => "answer the question above")
+          expect(response).not_to have_selector('p#request_status', :content => "answer the question above")
         end
 
       end
@@ -308,12 +307,12 @@ describe RequestController, "when showing one request" do
           external_request.awaiting_description = false
           external_request.described_state = 'waiting_response'
           external_request.save!
-          external_request.calculate_status.should == 'waiting_response_very_overdue'
+          expect(external_request.calculate_status).to eq('waiting_response_very_overdue')
         end
 
         it 'should not give a link to requesting an internal review' do
           make_request
-          response.should_not have_selector('p#request_status', :content => "requesting an internal review")
+          expect(response).not_to have_selector('p#request_status', :content => "requesting an internal review")
         end
       end
 
@@ -324,17 +323,17 @@ describe RequestController, "when showing one request" do
           external_request.awaiting_description = false
           external_request.described_state = 'waiting_clarification'
           external_request.save!
-          external_request.calculate_status.should == 'waiting_clarification'
+          expect(external_request.calculate_status).to eq('waiting_clarification')
         end
 
         it 'should not give a link to make a followup' do
           make_request
-          response.should_not have_selector('p#request_status a', :content => "send a follow up message")
+          expect(response).not_to have_selector('p#request_status a', :content => "send a follow up message")
         end
 
         it 'should not give a link to sign in (in the request status paragraph)' do
           make_request
-          response.should_not have_selector('p#request_status a', :content => "sign in")
+          expect(response).not_to have_selector('p#request_status a', :content => "sign in")
         end
 
       end
@@ -349,49 +348,49 @@ describe RequestController, "when showing one request" do
 
       it 'should assign the "update status" flag to the view as falsey if the parameter is present' do
         get :show, :url_title => 'balalas', :update_status => 1
-        assigns[:update_status].should be_falsey
+        expect(assigns[:update_status]).to be_falsey
       end
 
       it 'should assign the "update status" flag to the view as falsey if the parameter is not present' do
         get :show, :url_title => 'balalas'
-        assigns[:update_status].should be_falsey
+        expect(assigns[:update_status]).to be_falsey
       end
 
     end
 
     it 'should assign the "update status" flag to the view as truthy if the parameter is present' do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
-      assigns[:update_status].should be_truthy
+      expect(assigns[:update_status]).to be_truthy
     end
 
     it 'should assign the "update status" flag to the view as falsey if the parameter is not present' do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      assigns[:update_status].should be_falsey
+      expect(assigns[:update_status]).to be_falsey
     end
 
     it 'should require login' do
       session[:user_id] = nil
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
       post_redirect = PostRedirect.get_last_post_redirect
-      response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+      expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
     it 'should work if logged in as the requester' do
       session[:user_id] = users(:bob_smith_user).id
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
-      response.should render_template "request/show"
+      expect(response).to render_template "request/show"
     end
 
     it 'should not work if logged in as not the requester' do
       session[:user_id] = users(:silly_name_user).id
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
-      response.should render_template "user/wrong_user"
+      expect(response).to render_template "user/wrong_user"
     end
 
     it 'should work if logged in as an admin user' do
       session[:user_id] = users(:admin_user).id
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
-      response.should render_template "request/show"
+      expect(response).to render_template "request/show"
     end
   end
 
@@ -408,12 +407,12 @@ describe RequestController, "when showing one request" do
 
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
       deliveries = ActionMailer::Base.deliveries
-      deliveries.size.should == 1
+      expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      mail.body.should =~ /You have a new response to the Freedom of Information request/
+      expect(mail.body).to match(/You have a new response to the Freedom of Information request/)
 
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      (assigns[:info_request_events].size - size_before).should == 1
+      expect(assigns[:info_request_events].size - size_before).to eq(1)
     end
 
     it "should download attachments" do
@@ -421,30 +420,30 @@ describe RequestController, "when showing one request" do
       ir.incoming_messages.each { |x| x.parse_raw_email!(true) }
 
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      response.content_type.should == "text/html"
+      expect(response.content_type).to eq("text/html")
       size_before = assigns[:info_request_events].size
 
       ir = info_requests(:fancy_dog_request)
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
 
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      (assigns[:info_request_events].size - size_before).should == 1
+      expect(assigns[:info_request_events].size - size_before).to eq(1)
       ir.reload
 
       get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-      response.content_type.should == "text/plain"
-      response.should contain "Second hello"
+      expect(response.content_type).to eq("text/plain")
+      expect(response).to contain "Second hello"
 
       get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => 'hello world.txt', :skip_cache => 1
-      response.content_type.should == "text/plain"
-      response.should contain "First hello"
+      expect(response.content_type).to eq("text/plain")
+      expect(response).to contain "First hello"
     end
 
     it 'should cache an attachment on a request with normal prominence' do
       ir = info_requests(:fancy_dog_request)
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
       ir.reload
-      @controller.should_receive(:foi_fragment_cache_write)
+      expect(@controller).to receive(:foi_fragment_cache_write)
       get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
         :id => ir.id,
         :part => 2,
@@ -455,7 +454,7 @@ describe RequestController, "when showing one request" do
       ir = info_requests(:fancy_dog_request)
       receive_incoming_mail('iso8859_2_raw_email.email', ir.incoming_email)
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      response.should contain "tënde"
+      expect(response).to contain "tënde"
     end
 
     it "should generate valid HTML verson of plain text attachments" do
@@ -463,8 +462,8 @@ describe RequestController, "when showing one request" do
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
       ir.reload
       get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      response.content_type.should == "text/html"
-      response.should contain "Second hello"
+      expect(response.content_type).to eq("text/html")
+      expect(response).to contain "Second hello"
     end
 
     # This is a regression test for a bug where URLs of this form were causing 500 errors
@@ -482,22 +481,22 @@ describe RequestController, "when showing one request" do
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
       ir.reload
       ugly_id = "55195"
-      lambda {
+      expect {
         get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      }.should raise_error(ActiveRecord::RecordNotFound)
+      }.to raise_error(ActiveRecord::RecordNotFound)
 
-      lambda {
+      expect {
         get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-      }.should raise_error(ActiveRecord::RecordNotFound)
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
     it "should return 404 when incoming message and request ids don't match" do
       ir = info_requests(:fancy_dog_request)
       wrong_id = info_requests(:naughty_chicken_request).id
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
       ir.reload
-      lambda {
+      expect {
         get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      }.should raise_error(ActiveRecord::RecordNotFound)
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
     it "should return 404 for ugly URLs contain a request id that isn't an integer, even if the integer prefix refers to an actual request" do
       ir = info_requests(:fancy_dog_request)
@@ -505,22 +504,22 @@ describe RequestController, "when showing one request" do
       ir.reload
       ugly_id = "%d95" % [info_requests(:naughty_chicken_request).id]
 
-      lambda {
+      expect {
         get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      }.should raise_error(ActiveRecord::RecordNotFound)
+      }.to raise_error(ActiveRecord::RecordNotFound)
 
-      lambda {
+      expect {
         get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-      }.should raise_error(ActiveRecord::RecordNotFound)
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
     it "should return 404 when incoming message and request ids don't match" do
       ir = info_requests(:fancy_dog_request)
       wrong_id = info_requests(:naughty_chicken_request).id
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
       ir.reload
-      lambda {
+      expect {
         get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      }.should raise_error(ActiveRecord::RecordNotFound)
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should generate valid HTML verson of PDF attachments" do
@@ -528,8 +527,8 @@ describe RequestController, "when showing one request" do
       receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
       ir.reload
       get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'fs 50379341.pdf.html', :skip_cache => 1
-      response.content_type.should == "text/html"
-      response.should contain "Walberswick Parish Council"
+      expect(response.content_type).to eq("text/html")
+      expect(response).to contain "Walberswick Parish Council"
     end
 
     it "should not cause a reparsing of the raw email, even when the attachment can't be found" do
@@ -537,30 +536,30 @@ describe RequestController, "when showing one request" do
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
       ir.reload
       attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
-      attachment.body.should contain "Second hello"
+      expect(attachment.body).to contain "Second hello"
 
       # change the raw_email associated with the message; this only be reparsed when explicitly asked for
       ir.incoming_messages[1].raw_email.data = ir.incoming_messages[1].raw_email.data.sub("Second", "Third")
       # asking for an attachment by the wrong filename should result in redirecting
       # back to the incoming message, but shouldn't cause a reparse:
       get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.baz.html', :skip_cache => 1
-      response.status.should == 303
+      expect(response.status).to eq(303)
 
       attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
-      attachment.body.should contain "Second hello"
+      expect(attachment.body).to contain "Second hello"
 
       # ...nor should asking for it by its correct filename...
       get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      response.should_not contain "Third hello"
+      expect(response).not_to contain "Third hello"
 
       # ...but if we explicitly ask for attachments to be extracted, then they should be
       force = true
       ir.incoming_messages[1].parse_raw_email!(force)
       ir.reload
       attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
-      attachment.body.should contain "Third hello"
+      expect(attachment.body).to contain "Third hello"
       get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      response.should contain "Third hello"
+      expect(response).to contain "Third hello"
     end
 
     it "should redirect to the incoming message if there's a wrong part number and an ambiguous filename" do
@@ -571,12 +570,12 @@ describe RequestController, "when showing one request" do
       im = ir.incoming_messages[1]
 
       attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(im.get_attachments_for_display, 5, 'hello world.txt')
-      attachment.should be_nil
+      expect(attachment).to be_nil
 
       get :get_attachment_as_html, :incoming_message_id => im.id, :id => ir.id, :part => 5, :file_name => 'hello world.txt', :skip_cache => 1
-      response.status.should == 303
+      expect(response.status).to eq(303)
       new_location = response.header['Location']
-      new_location.should match(/request\/#{ir.url_title}#incoming-#{im.id}/)
+      expect(new_location).to match(/request\/#{ir.url_title}#incoming-#{im.id}/)
     end
 
     it "should find a uniquely named filename even if the URL part number was wrong" do
@@ -584,7 +583,7 @@ describe RequestController, "when showing one request" do
       receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
       ir.reload
       get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 5, :file_name => 'fs 50379341.pdf', :skip_cache => 1
-      response.content_type.should == "application/pdf"
+      expect(response.content_type).to eq("application/pdf")
     end
 
     it "should treat attachments with unknown extensions as binary" do
@@ -593,8 +592,8 @@ describe RequestController, "when showing one request" do
       ir.reload
 
       get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.qwglhm', :skip_cache => 1
-      response.content_type.should == "application/octet-stream"
-      response.should contain "an unusual sort of file"
+      expect(response.content_type).to eq("application/octet-stream")
+      expect(response).to contain "an unusual sort of file"
     end
 
     it "should not download attachments with wrong file name" do
@@ -602,7 +601,7 @@ describe RequestController, "when showing one request" do
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
 
       get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'http://trying.to.hack'
-      response.status.should == 303
+      expect(response.status).to eq(303)
     end
 
     it "should sanitise HTML attachments" do
@@ -612,9 +611,9 @@ describe RequestController, "when showing one request" do
         :part => 2,
         :file_name => 'interesting.html',
         :skip_cache => 1
-      response.body.should_not match("script")
-      response.body.should_not match("interesting")
-      response.body.should match('dull')
+      expect(response.body).not_to match("script")
+      expect(response.body).not_to match("interesting")
+      expect(response.body).to match('dull')
     end
 
     it "should censor attachments downloaded directly" do
@@ -631,8 +630,8 @@ describe RequestController, "when showing one request" do
         receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
 
         get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-        response.content_type.should == "text/plain"
-        response.should contain "Mouse hello"
+        expect(response.content_type).to eq("text/plain")
+        expect(response).to contain "Mouse hello"
       ensure
         ir.censor_rules.clear
       end
@@ -653,8 +652,8 @@ describe RequestController, "when showing one request" do
         ir.reload
 
         get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-        response.content_type.should == "text/plain"
-        response.should contain "Mouse hello"
+        expect(response.content_type).to eq("text/plain")
+        expect(response).to contain "Mouse hello"
       ensure
         ir.user.censor_rules.clear
       end
@@ -680,8 +679,8 @@ describe RequestController, "when showing one request" do
 
       # so at this point, assigns[:info_request].incoming_messages[1].get_attachments_for_display is returning stuff, but the equivalent thing in the template isn't.
       # but something odd is that the above is return a whole load of attachments which aren't there in the controller
-      response.body.should have_selector("p.attachment strong") do |s|
-        s.should contain /hello world.txt/m
+      expect(response.body).to have_selector("p.attachment strong") do |s|
+        expect(s).to contain /hello world.txt/m
       end
 
       censor_rule = CensorRule.new
@@ -694,8 +693,8 @@ describe RequestController, "when showing one request" do
       ir.censor_rules << censor_rule
       begin
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.body.should have_selector("p.attachment strong") do |s|
-          s.should contain /goodbye.txt/m
+        expect(response.body).to have_selector("p.attachment strong") do |s|
+          expect(s).to contain /goodbye.txt/m
         end
       ensure
         ir.censor_rules.clear
@@ -709,9 +708,9 @@ end
 describe RequestController, "when handling prominence" do
 
   def expect_hidden(hidden_template)
-    response.content_type.should == "text/html"
-    response.should render_template(hidden_template)
-    response.code.should == '403'
+    expect(response.content_type).to eq("text/html")
+    expect(response).to render_template(hidden_template)
+    expect(response.code).to eq('403')
   end
 
   context 'when the request is hidden' do
@@ -735,13 +734,13 @@ describe RequestController, "when handling prominence" do
     it 'should not show request if requested using json' do
       session[:user_id] = @info_request.user.id
       get :show, :url_title => @info_request.url_title, :format => 'json'
-      response.code.should == '403'
+      expect(response.code).to eq('403')
     end
 
     it "should show request if logged in as super user" do
       session[:user_id] = FactoryGirl.create(:admin_user)
       get :show, :url_title => @info_request.url_title
-      response.should render_template('show')
+      expect(response).to render_template('show')
     end
 
     it "should not download attachments" do
@@ -758,12 +757,12 @@ describe RequestController, "when handling prominence" do
             is hidden even for an admin but should return a 404' do
       session[:user_id] = FactoryGirl.create(:admin_user)
       incoming_message = @info_request.incoming_messages.first
-      lambda do
+      expect do
         get :get_attachment_as_html, :incoming_message_id => incoming_message.id,
           :id => @info_request.id,
           :part => 2,
           :file_name => 'interesting.pdf'
-      end.should raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
   end
@@ -787,17 +786,17 @@ describe RequestController, "when handling prominence" do
 
       session[:user_id] = @info_request.user.id
       get :show, :url_title => @info_request.url_title
-      response.should render_template('show')
+      expect(response).to render_template('show')
 
       session[:user_id] = FactoryGirl.create(:admin_user).id
       get :show, :url_title => @info_request.url_title
-      response.should render_template('show')
+      expect(response).to render_template('show')
     end
 
     it 'should not cache an attachment when showing an attachment to the requester or admin' do
       session[:user_id] = @info_request.user.id
       incoming_message = @info_request.incoming_messages.first
-      @controller.should_not_receive(:foi_fragment_cache_write)
+      expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :get_attachment, :incoming_message_id => incoming_message.id,
         :id => @info_request.id,
         :part => 2,
@@ -839,25 +838,25 @@ describe RequestController, "when handling prominence" do
         :part => 2,
         :file_name => 'interesting.pdf',
         :skip_cache => 1
-      response.content_type.should == 'application/pdf'
-      response.should be_success
+      expect(response.content_type).to eq('application/pdf')
+      expect(response).to be_success
     end
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
             is hidden even for an admin but should return a 404' do
       session[:user_id] = FactoryGirl.create(:admin_user).id
-      lambda do
+      expect do
         get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
           :id => @info_request.id,
           :part => 2,
           :file_name => 'interesting.pdf',
           :skip_cache => 1
-      end.should raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'should not cache an attachment when showing an attachment to the requester or admin' do
       session[:user_id] = @info_request.user.id
-      @controller.should_not_receive(:foi_fragment_cache_write)
+      expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :get_attachment, :incoming_message_id => @incoming_message.id,
         :id => @info_request.id,
         :part => 2,
@@ -890,8 +889,8 @@ describe RequestController, "when handling prominence" do
         :part => 2,
         :file_name => 'interesting.pdf',
         :skip_cache => 1
-      response.content_type.should == 'application/pdf'
-      response.should be_success
+      expect(response.content_type).to eq('application/pdf')
+      expect(response).to be_success
     end
 
     it 'should download attachments for an admin user' do
@@ -901,20 +900,20 @@ describe RequestController, "when handling prominence" do
         :part => 2,
         :file_name => 'interesting.pdf',
         :skip_cache => 1
-      response.content_type.should == 'application/pdf'
-      response.should be_success
+      expect(response.content_type).to eq('application/pdf')
+      expect(response).to be_success
     end
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
             is hidden even for an admin but should return a 404' do
       session[:user_id] = FactoryGirl.create(:admin_user)
-      lambda do
+      expect do
         get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
           :id => @info_request.id,
           :part => 2,
           :file_name => 'interesting.pdf',
           :skip_cache => 1
-      end.should raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
   end
@@ -939,17 +938,17 @@ describe RequestController, "when searching for an authority" do
     session[:user_id] = @user.id
     get :select_authority, :query => ""
 
-    response.should render_template('select_authority')
-    assigns[:xapian_requests].should == nil
+    expect(response).to render_template('select_authority')
+    expect(assigns[:xapian_requests]).to eq(nil)
   end
 
   it "should return matching bodies" do
     session[:user_id] = @user.id
     get :select_authority, :query => "Quango"
 
-    response.should render_template('select_authority')
+    expect(response).to render_template('select_authority')
     assigns[:xapian_requests].results.size == 1
-    assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+    expect(assigns[:xapian_requests].results[0][:model].name).to eq(public_bodies(:geraldine_public_body).name)
   end
 
   it "should not give an error when user users unintended search operators" do
@@ -960,9 +959,9 @@ describe RequestController, "when searching for an authority" do
                    " cardiff",
                    "Foo * bax",
                    "qux ~ quux"]
-      lambda {
+      expect {
         get :select_authority, :query => phrase
-      }.should_not raise_error
+      }.not_to raise_error
     end
   end
 
@@ -991,42 +990,42 @@ describe RequestController, "when creating a new request" do
 
   it "should redirect to front page if no public body specified" do
     get :new
-    response.should redirect_to(:controller => 'general', :action => 'frontpage')
+    expect(response).to redirect_to(:controller => 'general', :action => 'frontpage')
   end
 
   it "should redirect to front page if no public body specified, when logged in" do
     session[:user_id] = @user.id
     get :new
-    response.should redirect_to(:controller => 'general', :action => 'frontpage')
+    expect(response).to redirect_to(:controller => 'general', :action => 'frontpage')
   end
 
   it "should redirect 'bad request' page when a body has no email address" do
     @body.request_email = ""
     @body.save!
     get :new, :public_body_id => @body.id
-    response.should render_template('new_bad_contact')
+    expect(response).to render_template('new_bad_contact')
   end
 
   it "should accept a public body parameter" do
     get :new, :public_body_id => @body.id
-    assigns[:info_request].public_body.should == @body
-    response.should render_template('new')
+    expect(assigns[:info_request].public_body).to eq(@body)
+    expect(response).to render_template('new')
   end
 
   it 'should display one meaningful error message when no message body is added' do
     post :new, :info_request => { :public_body_id => @body.id },
       :outgoing_message => { :body => "" },
       :submitted_new_request => 1, :preview => 1
-    assigns[:info_request].errors.full_messages.should_not include('Outgoing messages is invalid')
-    assigns[:outgoing_message].errors.full_messages.should include('Body Please enter your letter requesting information')
+    expect(assigns[:info_request].errors.full_messages).not_to include('Outgoing messages is invalid')
+    expect(assigns[:outgoing_message].errors.full_messages).to include('Body Please enter your letter requesting information')
   end
 
   it "should give an error and render 'new' template when a summary isn't given" do
     post :new, :info_request => { :public_body_id => @body.id },
       :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
       :submitted_new_request => 1, :preview => 1
-    assigns[:info_request].errors[:title].should_not be_nil
-    response.should render_template('new')
+    expect(assigns[:info_request].errors[:title]).not_to be_nil
+    expect(response).to render_template('new')
   end
 
   it "should redirect to sign in page when input is good and nobody is logged in" do
@@ -1037,7 +1036,7 @@ describe RequestController, "when creating a new request" do
                }
     post :new, params
     post_redirect = PostRedirect.get_last_post_redirect
-    response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
   end
 
@@ -1049,7 +1048,7 @@ describe RequestController, "when creating a new request" do
       :outgoing_message => { :body => 'This is a silly letter.' },
       :submitted_new_request => 1,
       :preview => 1
-    response.should redirect_to frontpage_url
+    expect(response).to redirect_to frontpage_url
   end
 
   it "should show preview when input is good" do
@@ -1059,7 +1058,7 @@ describe RequestController, "when creating a new request" do
                  :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
                  :submitted_new_request => 1, :preview => 1
                  }
-    response.should render_template('preview')
+    expect(response).to render_template('preview')
   end
 
   it "should allow re-editing of a request" do
@@ -1068,7 +1067,7 @@ describe RequestController, "when creating a new request" do
       :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
       :submitted_new_request => 1, :preview => 0,
       :reedit => "Re-edit this request"
-    response.should render_template('new')
+    expect(response).to render_template('new')
   end
 
   it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
@@ -1079,21 +1078,21 @@ describe RequestController, "when creating a new request" do
       :submitted_new_request => 1, :preview => 0
 
     ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"])
-    ir_array.size.should == 1
+    expect(ir_array.size).to eq(1)
     ir = ir_array[0]
-    ir.outgoing_messages.size.should == 1
+    expect(ir.outgoing_messages.size).to eq(1)
     om = ir.outgoing_messages[0]
-    om.body.should == "This is a silly letter. It is too short to be interesting."
+    expect(om.body).to eq("This is a silly letter. It is too short to be interesting.")
 
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 1
+    expect(deliveries.size).to eq(1)
     mail = deliveries[0]
-    mail.body.should =~ /This is a silly letter. It is too short to be interesting./
+    expect(mail.body).to match(/This is a silly letter. It is too short to be interesting./)
 
-    response.should redirect_to show_new_request_url(:url_title => ir.url_title)
+    expect(response).to redirect_to show_new_request_url(:url_title => ir.url_title)
     # This test uses an explicit path because it's relied in
     # Google Analytics goals:
-    response.redirect_url.should =~ /request\/why_is_your_quango_called_gerald\/new$/
+    expect(response.redirect_url).to match(/request\/why_is_your_quango_called_gerald\/new$/)
   end
 
   it "sets the request_sent flash to true if successful" do
@@ -1114,7 +1113,7 @@ describe RequestController, "when creating a new request" do
     :title => info_requests(:fancy_dog_request).title },
       :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].raw_body},
       :submitted_new_request => 1, :preview => 0, :mouse_house => 1
-    response.should render_template('new')
+    expect(response).to render_template('new')
   end
 
   it "should let you submit another request with the same title" do
@@ -1131,14 +1130,14 @@ describe RequestController, "when creating a new request" do
       :submitted_new_request => 1, :preview => 0
 
     ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"], :order => "id")
-    ir_array.size.should == 2
+    expect(ir_array.size).to eq(2)
 
     ir = ir_array[0]
     ir2 = ir_array[1]
 
-    ir.url_title.should_not == ir2.url_title
+    expect(ir.url_title).not_to eq(ir2.url_title)
 
-    response.should redirect_to show_new_request_url(:url_title => ir2.url_title)
+    expect(response).to redirect_to show_new_request_url(:url_title => ir2.url_title)
   end
 
   it 'should respect the rate limit' do
@@ -1150,20 +1149,20 @@ describe RequestController, "when creating a new request" do
     :title => "What is the answer to the ultimate question?", :tag_string => "" },
       :outgoing_message => { :body => "Please supply the answer from your files." },
       :submitted_new_request => 1, :preview => 0
-    response.should redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
+    expect(response).to redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "Why did the chicken cross the road?", :tag_string => "" },
       :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
       :submitted_new_request => 1, :preview => 0
-    response.should redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
+    expect(response).to redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "What's black and white and red all over?", :tag_string => "" },
       :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
       :submitted_new_request => 1, :preview => 0
-    response.should render_template('user/rate_limited')
+    expect(response).to render_template('user/rate_limited')
   end
 
   it 'should ignore the rate limit for specified users' do
@@ -1177,20 +1176,20 @@ describe RequestController, "when creating a new request" do
     :title => "What is the answer to the ultimate question?", :tag_string => "" },
       :outgoing_message => { :body => "Please supply the answer from your files." },
       :submitted_new_request => 1, :preview => 0
-    response.should redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
+    expect(response).to redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "Why did the chicken cross the road?", :tag_string => "" },
       :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
       :submitted_new_request => 1, :preview => 0
-    response.should redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
+    expect(response).to redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "What's black and white and red all over?", :tag_string => "" },
       :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
       :submitted_new_request => 1, :preview => 0
-    response.should redirect_to show_new_request_url(:url_title => 'whats_black_and_white_and_red_al')
+    expect(response).to redirect_to show_new_request_url(:url_title => 'whats_black_and_white_and_red_al')
   end
 
 end
@@ -1201,47 +1200,47 @@ describe RequestController, "when making a new request" do
 
   before do
     @user = mock_model(User, :id => 3481, :name => 'Testy')
-    @user.stub(:get_undescribed_requests).and_return([])
-    @user.stub(:can_leave_requests_undescribed?).and_return(false)
-    @user.stub(:can_file_requests?).and_return(true)
-    @user.stub(:locale).and_return("en")
-    User.stub(:find).and_return(@user)
+    allow(@user).to receive(:get_undescribed_requests).and_return([])
+    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(false)
+    allow(@user).to receive(:can_file_requests?).and_return(true)
+    allow(@user).to receive(:locale).and_return("en")
+    allow(User).to receive(:find).and_return(@user)
 
     @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true, :name => "Test Quango")
-    PublicBody.stub(:find).and_return(@body)
+    allow(PublicBody).to receive(:find).and_return(@body)
   end
 
   it "should allow you to have one undescribed request" do
-    @user.stub(:get_undescribed_requests).and_return([ 1 ])
-    @user.stub(:can_leave_requests_undescribed?).and_return(false)
+    allow(@user).to receive(:get_undescribed_requests).and_return([ 1 ])
+    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(false)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
-    response.should render_template('new')
+    expect(response).to render_template('new')
   end
 
   it "should fail if more than one request undescribed" do
-    @user.stub(:get_undescribed_requests).and_return([ 1, 2 ])
-    @user.stub(:can_leave_requests_undescribed?).and_return(false)
+    allow(@user).to receive(:get_undescribed_requests).and_return([ 1, 2 ])
+    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(false)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
-    response.should render_template('new_please_describe')
+    expect(response).to render_template('new_please_describe')
   end
 
   it "should allow you if more than one request undescribed but are allowed to leave requests undescribed" do
-    @user.stub(:get_undescribed_requests).and_return([ 1, 2 ])
-    @user.stub(:can_leave_requests_undescribed?).and_return(true)
+    allow(@user).to receive(:get_undescribed_requests).and_return([ 1, 2 ])
+    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(true)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
-    response.should render_template('new')
+    expect(response).to render_template('new')
   end
 
   it "should fail if user is banned" do
-    @user.stub(:can_file_requests?).and_return(false)
-    @user.stub(:exceeded_limit?).and_return(false)
-    @user.should_receive(:can_fail_html).and_return('FAIL!')
+    allow(@user).to receive(:can_file_requests?).and_return(false)
+    allow(@user).to receive(:exceeded_limit?).and_return(false)
+    expect(@user).to receive(:can_fail_html).and_return('FAIL!')
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
-    response.should render_template('user/banned')
+    expect(response).to render_template('user/banned')
   end
 
 end
@@ -1256,19 +1255,19 @@ describe RequestController, "when viewing an individual response for reply/follo
   it "should ask for login if you are logged in as wrong person" do
     session[:user_id] = users(:silly_name_user).id
     get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    response.should render_template('user/wrong_user')
+    expect(response).to render_template('user/wrong_user')
   end
 
   it "should show the response if you are logged in as right person" do
     session[:user_id] = users(:bob_smith_user).id
     get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    response.should render_template('show_response')
+    expect(response).to render_template('show_response')
   end
 
   it "should offer the opportunity to reply to the main address" do
     session[:user_id] = users(:bob_smith_user).id
     get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    response.body.should have_selector("div#other_recipients ul li", :content => "the main FOI contact address for")
+    expect(response.body).to have_selector("div#other_recipients ul li", :content => "the main FOI contact address for")
   end
 
   it "should offer an opportunity to reply to another address" do
@@ -1278,7 +1277,7 @@ describe RequestController, "when viewing an individual response for reply/follo
     ir.save!
     receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "Frob <frob@bonce.com>")
     get :show_response, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    response.body.should have_selector("div#other_recipients ul li", :content => "Frob")
+    expect(response.body).to have_selector("div#other_recipients ul li", :content => "Frob")
   end
 
   context 'when a request is hidden' do
@@ -1293,7 +1292,7 @@ describe RequestController, "when viewing an individual response for reply/follo
 
     it "should not show individual responses, even if request owner" do
       get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-      response.should render_template('request/hidden')
+      expect(response).to render_template('request/hidden')
     end
 
     it 'should respond to a json request for a hidden request with a 403 code and no body' do
@@ -1301,7 +1300,7 @@ describe RequestController, "when viewing an individual response for reply/follo
         :incoming_message_id => incoming_messages(:useless_incoming_message),
         :format => 'json'
 
-      response.code.should == '403'
+      expect(response.code).to eq('403')
     end
 
   end
@@ -1310,13 +1309,13 @@ describe RequestController, "when viewing an individual response for reply/follo
 
     it 'should show a message saying that external requests cannot be followed up' do
       get :show_response, :id => info_requests(:external_request).id
-      response.should render_template('request/followup_bad')
-      assigns[:reason].should == 'external'
+      expect(response).to render_template('request/followup_bad')
+      expect(assigns[:reason]).to eq('external')
     end
 
     it 'should be successful' do
       get :show_response, :id => info_requests(:external_request).id
-      response.should be_success
+      expect(response).to be_success
     end
 
   end
@@ -1333,7 +1332,7 @@ describe RequestController, "when classifying an information request" do
 
     it 'should redirect to the request page' do
       post :describe_state, :id => @external_request.id
-      response.should redirect_to(:action => 'show',
+      expect(response).to redirect_to(:action => 'show',
                                   :controller => 'request',
                                   :url_title => @external_request.url_title)
     end
@@ -1344,8 +1343,8 @@ describe RequestController, "when classifying an information request" do
 
     before(:each) do
       @dog_request = info_requests(:fancy_dog_request)
-      @dog_request.stub(:is_old_unclassified?).and_return(false)
-      InfoRequest.stub(:find).and_return(@dog_request)
+      allow(@dog_request).to receive(:is_old_unclassified?).and_return(false)
+      allow(InfoRequest).to receive(:find).and_return(@dog_request)
       load_raw_emails_data
     end
 
@@ -1358,28 +1357,28 @@ describe RequestController, "when classifying an information request" do
     it "should require login" do
       post_status('rejected')
       post_redirect = PostRedirect.get_last_post_redirect
-      response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+      expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
     it 'should ask whether the request is old and unclassified' do
       session[:user_id] = users(:silly_name_user).id
-      @dog_request.should_receive(:is_old_unclassified?)
+      expect(@dog_request).to receive(:is_old_unclassified?)
       post_status('rejected')
     end
 
     it "should not classify the request if logged in as the wrong user" do
       session[:user_id] = users(:silly_name_user).id
       post_status('rejected')
-      response.should render_template('user/wrong_user')
+      expect(response).to render_template('user/wrong_user')
     end
 
     describe 'when the request is old and unclassified' do
 
       before do
-        @dog_request.stub(:is_old_unclassified?).and_return(true)
+        allow(@dog_request).to receive(:is_old_unclassified?).and_return(true)
         mail_mock = double("mail")
-        mail_mock.stub(:deliver)
-        RequestMailer.stub(:old_unclassified_updated).and_return(mail_mock)
+        allow(mail_mock).to receive(:deliver)
+        allow(RequestMailer).to receive(:old_unclassified_updated).and_return(mail_mock)
       end
 
       describe 'when the user is not logged in' do
@@ -1388,7 +1387,7 @@ describe RequestController, "when classifying an information request" do
           session[:user_id] = nil
           post_status('rejected')
           post_redirect = PostRedirect.get_last_post_redirect
-          response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+          expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
         end
 
       end
@@ -1401,8 +1400,8 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should classify the request' do
-          @dog_request.stub(:calculate_status).and_return('rejected')
-          @dog_request.should_receive(:set_described_state).with('rejected', users(:silly_name_user), nil)
+          allow(@dog_request).to receive(:calculate_status).and_return('rejected')
+          expect(@dog_request).to receive(:set_described_state).with('rejected', users(:silly_name_user), nil)
           post_status('rejected')
         end
 
@@ -1411,23 +1410,23 @@ describe RequestController, "when classifying an information request" do
                              :old_described_state => 'waiting_response',
                              :described_state => 'rejected'}
           event = mock_model(InfoRequestEvent)
-          @dog_request.should_receive(:log_event).with("status_update", expected_params).and_return(event)
+          expect(@dog_request).to receive(:log_event).with("status_update", expected_params).and_return(event)
           post_status('rejected')
         end
 
         it 'should send an email to the requester letting them know someone has updated the status of their request' do
-          RequestMailer.should_receive(:old_unclassified_updated)
+          expect(RequestMailer).to receive(:old_unclassified_updated)
           post_status('rejected')
         end
 
         it 'should redirect to the request page' do
           post_status('rejected')
-          response.should redirect_to(:action => 'show', :controller => 'request', :url_title => @dog_request.url_title)
+          expect(response).to redirect_to(:action => 'show', :controller => 'request', :url_title => @dog_request.url_title)
         end
 
         it 'should show a message thanking the user for a good deed' do
           post_status('rejected')
-          flash[:notice].should == 'Thank you for updating this request!'
+          expect(flash[:notice]).to eq('Thank you for updating this request!')
         end
 
         context "playing the classification game" do
@@ -1437,8 +1436,8 @@ describe RequestController, "when classifying an information request" do
 
           it "should continue the game after classifying a request" do
             post_status("rejected")
-            flash[:notice].should =~ /There are some more requests below for you to classify/
-            response.should redirect_to categorise_play_url
+            expect(flash[:notice]).to match(/There are some more requests below for you to classify/)
+            expect(response).to redirect_to categorise_play_url
           end
         end
 
@@ -1446,9 +1445,9 @@ describe RequestController, "when classifying an information request" do
           post :describe_state, :incoming_message => { :described_state => "requires_admin", :message => "a message" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
 
           deliveries = ActionMailer::Base.deliveries
-          deliveries.size.should == 1
+          expect(deliveries.size).to eq(1)
           mail = deliveries[0]
-          mail.from_addrs.first.to_s.should == users(:silly_name_user).email
+          expect(mail.from_addrs.first.to_s).to eq(users(:silly_name_user).email)
         end
       end
     end
@@ -1459,13 +1458,13 @@ describe RequestController, "when classifying an information request" do
         @admin_user = users(:admin_user)
         session[:user_id] = @admin_user.id
         @dog_request = info_requests(:fancy_dog_request)
-        InfoRequest.stub(:find).and_return(@dog_request)
-        @dog_request.stub(:each).and_return([@dog_request])
+        allow(InfoRequest).to receive(:find).and_return(@dog_request)
+        allow(@dog_request).to receive(:each).and_return([@dog_request])
       end
 
       it 'should update the status of the request' do
-        @dog_request.stub(:calculate_status).and_return('rejected')
-        @dog_request.should_receive(:set_described_state).with('rejected', @admin_user, nil)
+        allow(@dog_request).to receive(:calculate_status).and_return('rejected')
+        expect(@dog_request).to receive(:set_described_state).with('rejected', @admin_user, nil)
         post_status('rejected')
       end
 
@@ -1474,33 +1473,33 @@ describe RequestController, "when classifying an information request" do
         expected_params = {:user_id => @admin_user.id,
                            :old_described_state => 'waiting_response',
                            :described_state => 'rejected'}
-        @dog_request.should_receive(:log_event).with("status_update", expected_params).and_return(event)
+        expect(@dog_request).to receive(:log_event).with("status_update", expected_params).and_return(event)
         post_status('rejected')
       end
 
       it 'should record a classification' do
         event = mock_model(InfoRequestEvent)
-        @dog_request.stub(:log_event).with("status_update", anything).and_return(event)
-        RequestClassification.should_receive(:create!).with(:user_id => @admin_user.id,
+        allow(@dog_request).to receive(:log_event).with("status_update", anything).and_return(event)
+        expect(RequestClassification).to receive(:create!).with(:user_id => @admin_user.id,
                                                             :info_request_event_id => event.id)
         post_status('rejected')
       end
 
       it 'should send an email to the requester letting them know someone has updated the status of their request' do
         mail_mock = double("mail")
-        mail_mock.stub :deliver
-        RequestMailer.should_receive(:old_unclassified_updated).and_return(mail_mock)
+        allow(mail_mock).to receive :deliver
+        expect(RequestMailer).to receive(:old_unclassified_updated).and_return(mail_mock)
         post_status('rejected')
       end
 
       it 'should redirect to the request page' do
         post_status('rejected')
-        response.should redirect_to(:action => 'show', :controller => 'request', :url_title => @dog_request.url_title)
+        expect(response).to redirect_to(:action => 'show', :controller => 'request', :url_title => @dog_request.url_title)
       end
 
       it 'should show a message thanking the user for a good deed' do
         post_status('rejected')
-        flash[:notice].should == 'Thank you for updating this request!'
+        expect(flash[:notice]).to eq('Thank you for updating this request!')
       end
     end
 
@@ -1512,34 +1511,34 @@ describe RequestController, "when classifying an information request" do
         @dog_request = info_requests(:fancy_dog_request)
         @dog_request.user = @admin_user
         @dog_request.save!
-        InfoRequest.stub(:find).and_return(@dog_request)
-        @dog_request.stub(:each).and_return([@dog_request])
+        allow(InfoRequest).to receive(:find).and_return(@dog_request)
+        allow(@dog_request).to receive(:each).and_return([@dog_request])
       end
 
       it 'should update the status of the request' do
-        @dog_request.stub(:calculate_status).and_return('rejected')
-        @dog_request.should_receive(:set_described_state).with('rejected', @admin_user, nil)
+        allow(@dog_request).to receive(:calculate_status).and_return('rejected')
+        expect(@dog_request).to receive(:set_described_state).with('rejected', @admin_user, nil)
         post_status('rejected')
       end
 
       it 'should log a status update event' do
-        @dog_request.should_receive(:log_event)
+        expect(@dog_request).to receive(:log_event)
         post_status('rejected')
       end
 
       it 'should not send an email to the requester letting them know someone has updated the status of their request' do
-        RequestMailer.should_not_receive(:old_unclassified_updated)
+        expect(RequestMailer).not_to receive(:old_unclassified_updated)
         post_status('rejected')
       end
 
       it 'should say it is showing advice as to what to do next' do
         post_status('rejected')
-        flash[:notice].should match(/Here is what to do now/)
+        expect(flash[:notice]).to match(/Here is what to do now/)
       end
 
       it 'should redirect to the unhappy page' do
         post_status('rejected')
-        response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
+        expect(response).to redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
       end
 
     end
@@ -1549,55 +1548,55 @@ describe RequestController, "when classifying an information request" do
       before do
         @request_owner = users(:bob_smith_user)
         session[:user_id] = @request_owner.id
-        @dog_request.awaiting_description.should == true
-        @dog_request.stub(:each).and_return([@dog_request])
+        expect(@dog_request.awaiting_description).to eq(true)
+        allow(@dog_request).to receive(:each).and_return([@dog_request])
       end
 
       it "should let you know when you forget to select a status" do
         post :describe_state, :id => @dog_request.id,
           :last_info_request_event_id => @dog_request.last_event_id_needing_description
-        response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
-        flash[:error].should == _("Please choose whether or not you got some of the information that you wanted.")
+        expect(response).to redirect_to show_request_url(:url_title => @dog_request.url_title)
+        expect(flash[:error]).to eq(_("Please choose whether or not you got some of the information that you wanted."))
       end
 
       it "should not change the status if the request has changed while viewing it" do
-        @dog_request.stub(:last_event_id_needing_description).and_return(2)
+        allow(@dog_request).to receive(:last_event_id_needing_description).and_return(2)
 
         post :describe_state, :incoming_message => { :described_state => "rejected" },
           :id => @dog_request.id, :last_info_request_event_id => 1
-        response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
-        flash[:error].should =~ /The request has been updated since you originally loaded this page/
+        expect(response).to redirect_to show_request_url(:url_title => @dog_request.url_title)
+        expect(flash[:error]).to match(/The request has been updated since you originally loaded this page/)
       end
 
       it "should successfully classify response if logged in as user controlling request" do
         post_status('rejected')
-        response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
+        expect(response).to redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
         @dog_request.reload
-        @dog_request.awaiting_description.should == false
-        @dog_request.described_state.should == 'rejected'
-        @dog_request.get_last_public_response_event.should == info_request_events(:useless_incoming_message_event)
-        @dog_request.info_request_events.last.event_type.should == "status_update"
-        @dog_request.info_request_events.last.calculated_state.should == 'rejected'
+        expect(@dog_request.awaiting_description).to eq(false)
+        expect(@dog_request.described_state).to eq('rejected')
+        expect(@dog_request.get_last_public_response_event).to eq(info_request_events(:useless_incoming_message_event))
+        expect(@dog_request.info_request_events.last.event_type).to eq("status_update")
+        expect(@dog_request.info_request_events.last.calculated_state).to eq('rejected')
       end
 
       it 'should log a status update event' do
-        @dog_request.should_receive(:log_event)
+        expect(@dog_request).to receive(:log_event)
         post_status('rejected')
       end
 
       it 'should not send an email to the requester letting them know someone has updated the status of their request' do
-        RequestMailer.should_not_receive(:old_unclassified_updated)
+        expect(RequestMailer).not_to receive(:old_unclassified_updated)
         post_status('rejected')
       end
 
       it "should go to the page asking for more information when classified as requires_admin" do
         post :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
-        response.should redirect_to describe_state_message_url(:url_title => @dog_request.url_title, :described_state => "requires_admin")
+        expect(response).to redirect_to describe_state_message_url(:url_title => @dog_request.url_title, :described_state => "requires_admin")
 
         @dog_request.reload
-        @dog_request.described_state.should_not == 'requires_admin'
+        expect(@dog_request.described_state).not_to eq('requires_admin')
 
-        ActionMailer::Base.deliveries.should be_empty
+        expect(ActionMailer::Base.deliveries).to be_empty
       end
 
       context "message is included when classifying as requires_admin" do
@@ -1610,22 +1609,22 @@ describe RequestController, "when classifying an information request" do
             :last_info_request_event_id => @dog_request.last_event_id_needing_description
 
           deliveries = ActionMailer::Base.deliveries
-          deliveries.size.should == 1
+          expect(deliveries.size).to eq(1)
           mail = deliveries[0]
-          mail.body.should =~ /as needing admin/
-          mail.body.should =~ /Something weird happened/
+          expect(mail.body).to match(/as needing admin/)
+          expect(mail.body).to match(/Something weird happened/)
         end
       end
 
 
       it 'should say it is showing advice as to what to do next' do
         post_status('rejected')
-        flash[:notice].should match(/Here is what to do now/)
+        expect(flash[:notice]).to match(/Here is what to do now/)
       end
 
       it 'should redirect to the unhappy page' do
         post_status('rejected')
-        response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
+        expect(response).to redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
       end
 
       it "knows about extended states" do
@@ -1635,9 +1634,9 @@ describe RequestController, "when classifying an information request" do
         RequestController.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
         RequestController.send(:include, RequestControllerCustomStates)
         RequestController.class_eval('@@custom_states_loaded = true')
-        Time.stub(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
+        allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
         post_status('deadline_extended')
-        flash[:notice].should == 'Authority has requested extension of the deadline.'
+        expect(flash[:notice]).to eq('Authority has requested extension of the deadline.')
       end
     end
 
@@ -1647,8 +1646,8 @@ describe RequestController, "when classifying an information request" do
         @request_owner = users(:bob_smith_user)
         session[:user_id] = @request_owner.id
         @dog_request = info_requests(:fancy_dog_request)
-        @dog_request.stub(:each).and_return([@dog_request])
-        InfoRequest.stub(:find).and_return(@dog_request)
+        allow(@dog_request).to receive(:each).and_return([@dog_request])
+        allow(InfoRequest).to receive(:find).and_return(@dog_request)
       end
 
       def request_url
@@ -1661,36 +1660,36 @@ describe RequestController, "when classifying an information request" do
 
       def expect_redirect(status, redirect_path)
         post_status(status)
-        response.should redirect_to("http://test.host/#{redirect_path}")
+        expect(response).to redirect_to("http://test.host/#{redirect_path}")
       end
 
       context 'when status is updated to "waiting_response"' do
 
         it 'should redirect to the "request url" with a message in the right tense when
                     the response is not overdue' do
-          @dog_request.stub(:date_response_required_by).and_return(Time.now.to_date+1)
-          @dog_request.stub(:date_very_overdue_after).and_return(Time.now.to_date+40)
+          allow(@dog_request).to receive(:date_response_required_by).and_return(Time.now.to_date+1)
+          allow(@dog_request).to receive(:date_very_overdue_after).and_return(Time.now.to_date+40)
 
           expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
-          flash[:notice].should match(/should get a response/)
+          expect(flash[:notice]).to match(/should get a response/)
         end
 
         it 'should redirect to the "request url" with a message in the right tense when
                     the response is overdue' do
-          @dog_request.stub(:date_response_required_by).and_return(Time.now.to_date-1)
-          @dog_request.stub(:date_very_overdue_after).and_return(Time.now.to_date+40)
+          allow(@dog_request).to receive(:date_response_required_by).and_return(Time.now.to_date-1)
+          allow(@dog_request).to receive(:date_very_overdue_after).and_return(Time.now.to_date+40)
           expect_redirect('waiting_response', request_url)
-          flash[:notice].should match(/should have got a response/)
+          expect(flash[:notice]).to match(/should have got a response/)
         end
 
         it 'should redirect to the "request url" with a message in the right tense when
                     the response is overdue' do
-          @dog_request.stub(:date_response_required_by).and_return(Time.now.to_date-2)
-          @dog_request.stub(:date_very_overdue_after).and_return(Time.now.to_date-1)
+          allow(@dog_request).to receive(:date_response_required_by).and_return(Time.now.to_date-2)
+          allow(@dog_request).to receive(:date_very_overdue_after).and_return(Time.now.to_date-1)
           expect_redirect('waiting_response', unhappy_url)
-          flash[:notice].should match(/is long overdue/)
-          flash[:notice].should match(/by more than 40 working days/)
-          flash[:notice].should match(/within 20 working days/)
+          expect(flash[:notice]).to match(/is long overdue/)
+          expect(flash[:notice]).to match(/by more than 40 working days/)
+          expect(flash[:notice]).to match(/within 20 working days/)
         end
       end
 
@@ -1709,17 +1708,17 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should show a message including the donation url if there is one' do
-          AlaveteliConfiguration.stub(:donation_url).and_return('http://donations.example.com')
+          allow(AlaveteliConfiguration).to receive(:donation_url).and_return('http://donations.example.com')
           post_status('successful')
-          flash[:notice].should match('make a donation')
-          flash[:notice].should match('http://donations.example.com')
+          expect(flash[:notice]).to match('make a donation')
+          expect(flash[:notice]).to match('http://donations.example.com')
         end
 
         it 'should show a message without reference to donations if there is no
                     donation url' do
-          AlaveteliConfiguration.stub(:donation_url).and_return('')
+          allow(AlaveteliConfiguration).to receive(:donation_url).and_return('')
           post_status('successful')
-          flash[:notice].should_not match('make a donation')
+          expect(flash[:notice]).not_to match('make a donation')
         end
 
       end
@@ -1728,13 +1727,13 @@ describe RequestController, "when classifying an information request" do
 
         it 'should redirect to the "response url" when there is a last response' do
           incoming_message = mock_model(IncomingMessage)
-          @dog_request.stub(:get_last_public_response).and_return(incoming_message)
+          allow(@dog_request).to receive(:get_last_public_response).and_return(incoming_message)
           expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
         end
 
         it 'should redirect to the "response no followup url" when there are no events
                     needing description' do
-          @dog_request.stub(:get_last_public_response).and_return(nil)
+          allow(@dog_request).to receive(:get_last_public_response).and_return(nil)
           expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
         end
 
@@ -1755,17 +1754,17 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should show a message including the donation url if there is one' do
-          AlaveteliConfiguration.stub(:donation_url).and_return('http://donations.example.com')
+          allow(AlaveteliConfiguration).to receive(:donation_url).and_return('http://donations.example.com')
           post_status('successful')
-          flash[:notice].should match('make a donation')
-          flash[:notice].should match('http://donations.example.com')
+          expect(flash[:notice]).to match('make a donation')
+          expect(flash[:notice]).to match('http://donations.example.com')
         end
 
         it 'should show a message without reference to donations if there is no
                     donation url' do
-          AlaveteliConfiguration.stub(:donation_url).and_return('')
+          allow(AlaveteliConfiguration).to receive(:donation_url).and_return('')
           post_status('successful')
-          flash[:notice].should_not match('make a donation')
+          expect(flash[:notice]).not_to match('make a donation')
         end
 
       end
@@ -1794,7 +1793,7 @@ describe RequestController, "when classifying an information request" do
           :message => "A message" },
             :id => @dog_request.id,
             :last_info_request_event_id => @dog_request.last_event_id_needing_description
-          response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
+          expect(response).to redirect_to show_request_url(:url_title => @dog_request.url_title)
         end
 
       end
@@ -1807,7 +1806,7 @@ describe RequestController, "when classifying an information request" do
           :message => "A message" },
             :id => @dog_request.id,
             :last_info_request_event_id => @dog_request.last_event_id_needing_description
-          response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
+          expect(response).to redirect_to show_request_url(:url_title => @dog_request.url_title)
         end
 
       end
@@ -1835,13 +1834,13 @@ describe RequestController, "when sending a followup message" do
   it "should require login" do
     post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
     post_redirect = PostRedirect.get_last_post_redirect
-    response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
   end
 
   it "should not let you if you are logged in as the wrong user" do
     session[:user_id] = users(:silly_name_user).id
     post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    response.should render_template('user/wrong_user')
+    expect(response).to render_template('user/wrong_user')
   end
 
   it "should give an error and render 'show_response' template when a body isn't given" do
@@ -1849,26 +1848,26 @@ describe RequestController, "when sending a followup message" do
     post :show_response, :outgoing_message => { :body => "", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
 
     # TODO: how do I check the error message here?
-    response.should render_template('show_response')
+    expect(response).to render_template('show_response')
   end
 
   it "should show preview when input is good" do
     session[:user_id] = users(:bob_smith_user).id
     post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 1
-    response.should render_template('followup_preview')
+    expect(response).to render_template('followup_preview')
   end
 
   it "should allow re-editing of a preview" do
     session[:user_id] = users(:bob_smith_user).id
     post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 0, :reedit => "Re-edit this request"
-    response.should render_template('show_response')
+    expect(response).to render_template('show_response')
   end
 
   it "should send the follow up message if you are the right user" do
     # fake that this is a clarification
     info_requests(:fancy_dog_request).set_described_state('waiting_clarification')
-    info_requests(:fancy_dog_request).described_state.should == 'waiting_clarification'
-    info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state.should == 'waiting_clarification'
+    expect(info_requests(:fancy_dog_request).described_state).to eq('waiting_clarification')
+    expect(info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state).to eq('waiting_clarification')
 
     # make the followup
     session[:user_id] = users(:bob_smith_user).id
@@ -1884,17 +1883,17 @@ describe RequestController, "when sending a followup message" do
 
     # check it worked
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 1
+    expect(deliveries.size).to eq(1)
     mail = deliveries[0]
-    mail.body.should =~ /What a useless response! You suck./
-    mail.to_addrs.first.to_s.should == "foiperson@localhost"
+    expect(mail.body).to match(/What a useless response! You suck./)
+    expect(mail.to_addrs.first.to_s).to eq("foiperson@localhost")
 
-    response.should redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
+    expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
 
     # and that the status changed
     info_requests(:fancy_dog_request).reload
-    info_requests(:fancy_dog_request).described_state.should == 'waiting_response'
-    info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state.should == 'waiting_clarification'
+    expect(info_requests(:fancy_dog_request).described_state).to eq('waiting_response')
+    expect(info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state).to eq('waiting_clarification')
   end
 
   it "should give an error if the same followup is submitted twice" do
@@ -1902,12 +1901,12 @@ describe RequestController, "when sending a followup message" do
 
     # make the followup once
     post :show_response, :outgoing_message => { :body => "Stop repeating yourself!", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    response.should redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
+    expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
 
     # second time should give an error
     post :show_response, :outgoing_message => { :body => "Stop repeating yourself!", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
     # TODO: how do I check the error message here?
-    response.should render_template('show_response')
+    expect(response).to render_template('show_response')
   end
 
 end
@@ -1930,22 +1929,22 @@ describe RequestController, "sending overdue request alerts" do
     RequestMailer.alert_overdue_requests
 
     chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    chicken_mails.size.should == 1
+    expect(chicken_mails.size).to eq(1)
     mail = chicken_mails[0]
 
-    mail.body.should =~ /promptly, as normally/
-    mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.email
+    expect(mail.body).to match(/promptly, as normally/)
+    expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
 
     mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
     mail_url = $1
     mail_token = $2
 
-    session[:user_id].should be_nil
+    expect(session[:user_id]).to be_nil
     controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    session[:user_id].should == info_requests(:naughty_chicken_request).user.id
+    expect(session[:user_id]).to eq(info_requests(:naughty_chicken_request).user.id)
 
-    response.should render_template('show_response')
-    assigns[:info_request].should == info_requests(:naughty_chicken_request)
+    expect(response).to render_template('show_response')
+    expect(assigns[:info_request]).to eq(info_requests(:naughty_chicken_request))
   end
 
   it "should include clause for schools when sending an overdue alert mail to creators of overdue requests" do
@@ -1959,11 +1958,11 @@ describe RequestController, "sending overdue request alerts" do
     RequestMailer.alert_overdue_requests
 
     chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    chicken_mails.size.should == 1
+    expect(chicken_mails.size).to eq(1)
     mail = chicken_mails[0]
 
-    mail.body.should =~ /promptly, as normally/
-    mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.email
+    expect(mail.body).to match(/promptly, as normally/)
+    expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
   end
 
   it "should send not actually send the overdue alert if the user is banned but should
@@ -1971,12 +1970,12 @@ describe RequestController, "sending overdue request alerts" do
     user = info_requests(:naughty_chicken_request).user
     user.ban_text = 'Banned'
     user.save!
-    UserInfoRequestSentAlert.find_all_by_user_id(user.id).count.should == 0
+    expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to eq(0)
     RequestMailer.alert_overdue_requests
 
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 0
-    UserInfoRequestSentAlert.find_all_by_user_id(user.id).count.should > 0
+    expect(deliveries.size).to eq(0)
+    expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
   end
 
   it "should send a very overdue alert mail to creators of very overdue requests" do
@@ -1987,22 +1986,22 @@ describe RequestController, "sending overdue request alerts" do
     RequestMailer.alert_overdue_requests
 
     chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    chicken_mails.size.should == 1
+    expect(chicken_mails.size).to eq(1)
     mail = chicken_mails[0]
 
-    mail.body.should =~ /required by law/
-    mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.email
+    expect(mail.body).to match(/required by law/)
+    expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
 
     mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
     mail_url = $1
     mail_token = $2
 
-    session[:user_id].should be_nil
+    expect(session[:user_id]).to be_nil
     controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    session[:user_id].should == info_requests(:naughty_chicken_request).user.id
+    expect(session[:user_id]).to eq(info_requests(:naughty_chicken_request).user.id)
 
-    response.should render_template('show_response')
-    assigns[:info_request].should == info_requests(:naughty_chicken_request)
+    expect(response).to render_template('show_response')
+    expect(assigns[:info_request]).to eq(info_requests(:naughty_chicken_request))
   end
 
   it "should not resend alerts to people who've already received them" do
@@ -2011,10 +2010,10 @@ describe RequestController, "sending overdue request alerts" do
     chicken_request.outgoing_messages[0].save!
     RequestMailer.alert_overdue_requests
     chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    chicken_mails.size.should == 1
+    expect(chicken_mails.size).to eq(1)
     RequestMailer.alert_overdue_requests
     chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    chicken_mails.size.should == 1
+    expect(chicken_mails.size).to eq(1)
   end
 
   it 'should send alerts for requests where the last event forming the initial request is a followup
@@ -2024,7 +2023,7 @@ describe RequestController, "sending overdue request alerts" do
     chicken_request.outgoing_messages[0].save!
     RequestMailer.alert_overdue_requests
     chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    chicken_mails.size.should == 1
+    expect(chicken_mails.size).to eq(1)
 
     # Request is waiting clarification
     chicken_request.set_described_state('waiting_clarification')
@@ -2049,12 +2048,12 @@ describe RequestController, "sending overdue request alerts" do
     chicken_request = InfoRequest.find(chicken_request.id)
 
     # Last event forming the request is now the followup
-    chicken_request.last_event_forming_initial_request.event_type.should == 'followup_sent'
+    expect(chicken_request.last_event_forming_initial_request.event_type).to eq('followup_sent')
 
     # This isn't overdue, so no email
     RequestMailer.alert_overdue_requests
     chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    chicken_mails.size.should == 1
+    expect(chicken_mails.size).to eq(1)
 
     # Make the followup older
     outgoing_message.last_sent_at = Time.now - 60.days
@@ -2063,7 +2062,7 @@ describe RequestController, "sending overdue request alerts" do
     # Now it should be alerted on
     RequestMailer.alert_overdue_requests
     chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    chicken_mails.size.should == 2
+    expect(chicken_mails.size).to eq(2)
   end
 
 end
@@ -2079,20 +2078,20 @@ describe RequestController, "sending unclassified new response reminder alerts" 
     RequestMailer.alert_new_response_reminders
 
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 3 # sufficiently late it sends reminders too
+    expect(deliveries.size).to eq(3) # sufficiently late it sends reminders too
     mail = deliveries[0]
-    mail.body.should =~ /To let everyone know/
-    mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
+    expect(mail.body).to match(/To let everyone know/)
+    expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
     mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
     mail_url = $1
     mail_token = $2
 
-    session[:user_id].should be_nil
+    expect(session[:user_id]).to be_nil
     controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    session[:user_id].should == info_requests(:fancy_dog_request).user.id
+    expect(session[:user_id]).to eq(info_requests(:fancy_dog_request).user.id)
 
-    response.should render_template('show')
-    assigns[:info_request].should == info_requests(:fancy_dog_request)
+    expect(response).to render_template('show')
+    expect(assigns[:info_request]).to eq(info_requests(:fancy_dog_request))
     # TODO: should check anchor tag here :) that it goes to last new response
   end
 
@@ -2115,20 +2114,20 @@ describe RequestController, "clarification required alerts" do
     RequestMailer.alert_not_clarified_request
 
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 1
+    expect(deliveries.size).to eq(1)
     mail = deliveries[0]
-    mail.body.should =~ /asked you to explain/
-    mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
+    expect(mail.body).to match(/asked you to explain/)
+    expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
     mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
     mail_url = $1
     mail_token = $2
 
-    session[:user_id].should be_nil
+    expect(session[:user_id]).to be_nil
     controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    session[:user_id].should == info_requests(:fancy_dog_request).user.id
+    expect(session[:user_id]).to eq(info_requests(:fancy_dog_request).user.id)
 
-    response.should render_template('show_response')
-    assigns[:info_request].should == info_requests(:fancy_dog_request)
+    expect(response).to render_template('show_response')
+    expect(assigns[:info_request]).to eq(info_requests(:fancy_dog_request))
   end
 
   it "should not send an alert if you are banned" do
@@ -2146,7 +2145,7 @@ describe RequestController, "clarification required alerts" do
     RequestMailer.alert_not_clarified_request
 
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 0
+    expect(deliveries.size).to eq(0)
   end
 
 end
@@ -2170,17 +2169,17 @@ describe RequestController, "comment alerts" do
     RequestMailer.alert_comment_on_request
     deliveries = ActionMailer::Base.deliveries
     mail = deliveries[0]
-    mail.body.should =~ /has annotated your/
-    mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
+    expect(mail.body).to match(/has annotated your/)
+    expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
     mail.body.to_s =~ /(http:\/\/.*)/
     mail_url = $1
-    mail_url.should match("/request/why_do_you_have_such_a_fancy_dog#comment-#{new_comment.id}")
+    expect(mail_url).to match("/request/why_do_you_have_such_a_fancy_dog#comment-#{new_comment.id}")
 
     # check if we send again, no more go out
     deliveries.clear
     RequestMailer.alert_comment_on_request
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 0
+    expect(deliveries.size).to eq(0)
   end
 
   it "should not send an alert when you comment on your own request" do
@@ -2196,7 +2195,7 @@ describe RequestController, "comment alerts" do
     RequestMailer.alert_comment_on_request
 
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 0
+    expect(deliveries.size).to eq(0)
   end
 
   it 'should not send an alert for a comment on an external request' do
@@ -2206,7 +2205,7 @@ describe RequestController, "comment alerts" do
     RequestMailer.alert_comment_on_request
 
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 0
+    expect(deliveries.size).to eq(0)
   end
 
   it "should send an alert when there are two new comments" do
@@ -2218,13 +2217,13 @@ describe RequestController, "comment alerts" do
     RequestMailer.alert_comment_on_request
 
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 1
+    expect(deliveries.size).to eq(1)
     mail = deliveries[0]
-    mail.body.should =~ /There are 2 new annotations/
-    mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
+    expect(mail.body).to match(/There are 2 new annotations/)
+    expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
     mail.body.to_s =~ /(http:\/\/.*)/
     mail_url = $1
-    mail_url.should match("/request/why_do_you_have_such_a_fancy_dog#comment-#{comments(:silly_comment).id}")
+    expect(mail_url).to match("/request/why_do_you_have_such_a_fancy_dog#comment-#{comments(:silly_comment).id}")
 
   end
 
@@ -2239,18 +2238,18 @@ describe RequestController, "when viewing comments" do
   it "should link to the user who submitted it" do
     session[:user_id] = users(:bob_smith_user).id
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    response.body.should have_selector("div#comment-1 h2") do |s|
-      s.should contain /Silly.*left an annotation/m
-      s.should_not contain /You.*left an annotation/m
+    expect(response.body).to have_selector("div#comment-1 h2") do |s|
+      expect(s).to contain /Silly.*left an annotation/m
+      expect(s).not_to contain /You.*left an annotation/m
     end
   end
 
   it "should link to the user who submitted to it, even if it is you" do
     session[:user_id] = users(:silly_name_user).id
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    response.body.should have_selector("div#comment-1 h2") do |s|
-      s.should contain /Silly.*left an annotation/m
-      s.should_not contain /You.*left an annotation/m
+    expect(response.body).to have_selector("div#comment-1 h2") do |s|
+      expect(s).to contain /Silly.*left an annotation/m
+      expect(s).not_to contain /You.*left an annotation/m
     end
   end
 
@@ -2274,20 +2273,20 @@ describe RequestController, "authority uploads a response from the web interface
 
   it "should require login to view the form to upload" do
     @ir = info_requests(:fancy_dog_request)
-    @ir.public_body.is_foi_officer?(@normal_user).should == false
+    expect(@ir.public_body.is_foi_officer?(@normal_user)).to eq(false)
     session[:user_id] = @normal_user.id
 
     get :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    response.should render_template('user/wrong_user')
+    expect(response).to render_template('user/wrong_user')
   end
 
   it "should let you view upload form if you are an FOI officer" do
     @ir = info_requests(:fancy_dog_request)
-    @ir.public_body.is_foi_officer?(@foi_officer_user).should == true
+    expect(@ir.public_body.is_foi_officer?(@foi_officer_user)).to eq(true)
     session[:user_id] = @foi_officer_user.id
 
     get :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    response.should render_template('request/upload_response')
+    expect(response).to render_template('request/upload_response')
   end
 
   it "should prevent uploads if you are not a requester" do
@@ -2301,19 +2300,19 @@ describe RequestController, "authority uploads a response from the web interface
       :body => "Find attached a picture of a parrot",
       :file_1 => parrot_upload,
       :submitted_upload_response => 1
-    response.should render_template('user/wrong_user')
+    expect(response).to render_template('user/wrong_user')
   end
 
   it "should prevent entirely blank uploads" do
     session[:user_id] = @foi_officer_user.id
 
     post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog', :body => "", :submitted_upload_response => 1
-    response.should render_template('request/upload_response')
-    flash[:error].should match(/Please type a message/)
+    expect(response).to render_template('request/upload_response')
+    expect(flash[:error]).to match(/Please type a message/)
   end
 
   it 'should 404 for non existent requests' do
-    lambda{ post :upload_response, :url_title => 'i_dont_exist'}.should raise_error(ActiveRecord::RecordNotFound)
+    expect{ post :upload_response, :url_title => 'i_dont_exist'}.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   # How do I test a file upload in rails?
@@ -2330,20 +2329,20 @@ describe RequestController, "authority uploads a response from the web interface
       :file_1 => parrot_upload,
       :submitted_upload_response => 1
 
-    response.should redirect_to(:action => 'show', :url_title => 'why_do_you_have_such_a_fancy_dog')
-    flash[:notice].should match(/Thank you for responding to this FOI request/)
+    expect(response).to redirect_to(:action => 'show', :url_title => 'why_do_you_have_such_a_fancy_dog')
+    expect(flash[:notice]).to match(/Thank you for responding to this FOI request/)
 
     # check there is a new attachment
     incoming_after = @ir.incoming_messages.size
-    incoming_after.should == incoming_before + 1
+    expect(incoming_after).to eq(incoming_before + 1)
 
     # check new attachment looks vaguely OK
     new_im = @ir.incoming_messages[-1]
-    new_im.mail.body.should match(/Find attached a picture of a parrot/)
+    expect(new_im.mail.body).to match(/Find attached a picture of a parrot/)
     attachments = new_im.get_attachments_for_display
-    attachments.size.should == 1
-    attachments[0].filename.should == "parrot.png"
-    attachments[0].display_size.should == "94K"
+    expect(attachments.size).to eq(1)
+    expect(attachments[0].filename).to eq("parrot.png")
+    expect(attachments[0].display_size).to eq("94K")
   end
 end
 
@@ -2356,11 +2355,11 @@ describe RequestController, "when showing JSON version for API" do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json'
 
     ir = JSON.parse(response.body)
-    ir.class.to_s.should == 'Hash'
+    expect(ir.class.to_s).to eq('Hash')
 
-    ir['url_title'].should == 'why_do_you_have_such_a_fancy_dog'
-    ir['public_body']['url_name'].should == 'tgq'
-    ir['user']['url_name'].should == 'bob_smith'
+    expect(ir['url_title']).to eq('why_do_you_have_such_a_fancy_dog')
+    expect(ir['public_body']['url_name']).to eq('tgq')
+    expect(ir['user']['url_name']).to eq('bob_smith')
   end
 
 end
@@ -2374,37 +2373,37 @@ describe RequestController, "when doing type ahead searches" do
 
   it "should return nothing for the empty query string" do
     get :search_typeahead, :q => ""
-    response.should render_template('request/_search_ahead')
-    assigns[:xapian_requests].should be_nil
+    expect(response).to render_template('request/_search_ahead')
+    expect(assigns[:xapian_requests]).to be_nil
   end
 
   it "should return a request matching the given keyword, but not users with a matching description" do
     get :search_typeahead, :q => "chicken"
-    response.should render_template('request/_search_ahead')
-    assigns[:xapian_requests].results.size.should == 1
-    assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+    expect(response).to render_template('request/_search_ahead')
+    expect(assigns[:xapian_requests].results.size).to eq(1)
+    expect(assigns[:xapian_requests].results[0][:model].title).to eq(info_requests(:naughty_chicken_request).title)
   end
 
   it "should return all requests matching any of the given keywords" do
     get :search_typeahead, :q => "money dog"
-    response.should render_template('request/_search_ahead')
-    assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
+    expect(response).to render_template('request/_search_ahead')
+    expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array([
       info_requests(:fancy_dog_request),
       info_requests(:naughty_chicken_request),
       info_requests(:another_boring_request),
-    ]
+    ])
   end
 
   it "should not return matches for short words" do
     get :search_typeahead, :q => "a"
-    response.should render_template('request/_search_ahead')
-    assigns[:xapian_requests].should be_nil
+    expect(response).to render_template('request/_search_ahead')
+    expect(assigns[:xapian_requests]).to be_nil
   end
 
   it "should do partial matches for longer words" do
     get :search_typeahead, :q => "chick"
-    response.should render_template('request/_search_ahead')
-    assigns[:xapian_requests].results.size.should ==1
+    expect(response).to render_template('request/_search_ahead')
+    expect(assigns[:xapian_requests].results.size).to eq(1)
   end
 
   it "should not give an error when user users unintended search operators" do
@@ -2415,15 +2414,15 @@ describe RequestController, "when doing type ahead searches" do
                    "uda ( units of dent",
                    "frob * baz",
                    "bar ~ qux"]
-      lambda {
+      expect {
         get :search_typeahead, :q => phrase
-      }.should_not raise_error
+      }.not_to raise_error
     end
   end
 
   it "should return all requests matching any of the given keywords" do
     get :search_typeahead, :q => "dog -chicken"
-    assigns[:xapian_requests].results.size.should == 1
+    expect(assigns[:xapian_requests].results.size).to eq(1)
   end
 
   it 'can filter search results by public body' do
@@ -2454,8 +2453,8 @@ describe RequestController, "when showing similar requests" do
 
   it "should work" do
     get :similar, :url_title => info_requests(:badger_request).url_title
-    response.should render_template("request/similar")
-    assigns[:info_request].should == info_requests(:badger_request)
+    expect(response).to render_template("request/similar")
+    expect(assigns[:info_request]).to eq(info_requests(:badger_request))
   end
 
   it "should show similar requests" do
@@ -2463,21 +2462,21 @@ describe RequestController, "when showing similar requests" do
     get :similar, :url_title => badger_request.url_title
 
     # Xapian seems to think *all* the requests are similar
-    assigns[:xapian_object].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all.reject {|x| x == badger_request}
+    expect(assigns[:xapian_object].results.map{|x|x[:model].info_request}).to match_array(InfoRequest.all.reject {|x| x == badger_request})
   end
 
   it "should 404 for non-existent paths" do
-    lambda {
+    expect {
       get :similar, :url_title => "there_is_really_no_such_path_owNAFkHR"
-    }.should raise_error(ActiveRecord::RecordNotFound)
+    }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
 
   it "should return 404 for pages we don't want to serve up" do
     badger_request = info_requests(:badger_request)
-    lambda {
+    expect {
       get :similar, :url_title => badger_request.url_title, :page => 100
-    }.should raise_error(ActiveRecord::RecordNotFound)
+    }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
 end
@@ -2496,9 +2495,9 @@ describe RequestController, "when caching fragments" do
                             :user_can_view? => true,
                             :all_can_view? => true)
     attachment = FactoryGirl.build(:body_text, :filename => long_name)
-    IncomingMessage.stub(:find).with("44").and_return(incoming_message)
-    IncomingMessage.stub(:get_attachment_by_url_part_number_and_filename).and_return(attachment)
-    InfoRequest.stub(:find).with("132").and_return(info_request)
+    allow(IncomingMessage).to receive(:find).with("44").and_return(incoming_message)
+    allow(IncomingMessage).to receive(:get_attachment_by_url_part_number_and_filename).and_return(attachment)
+    allow(InfoRequest).to receive(:find).with("132").and_return(info_request)
     params = { :file_name => long_name,
                :controller => "request",
                :action => "get_attachment_as_html",
@@ -2515,7 +2514,7 @@ describe RequestController, "#new_batch" do
   context "when batch requests is enabled" do
 
     before do
-      AlaveteliConfiguration.stub(:allow_batch_requests).and_return(true)
+      allow(AlaveteliConfiguration).to receive(:allow_batch_requests).and_return(true)
     end
 
     context "when the current user can make batch requests" do
@@ -2535,35 +2534,35 @@ describe RequestController, "#new_batch" do
 
       it 'should be successful' do
         get :new_batch, {:public_body_ids => @public_body_ids}, {:user_id => @user.id}
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'should render the "new" template' do
         get :new_batch, {:public_body_ids => @public_body_ids}, {:user_id => @user.id}
-        response.should render_template('request/new')
+        expect(response).to render_template('request/new')
       end
 
       it 'should redirect to "select_authorities" if no public_body_ids param is passed' do
         get :new_batch, {}, {:user_id => @user.id}
-        response.should redirect_to select_authorities_path
+        expect(response).to redirect_to select_authorities_path
       end
 
       it "should render 'preview' when given a good title and body" do
         post :new_batch, @default_post_params, { :user_id => @user.id }
-        response.should render_template('preview')
+        expect(response).to render_template('preview')
       end
 
       it "should give an error and render 'new' template when a summary isn't given" do
         @default_post_params[:info_request].delete(:title)
         post :new_batch, @default_post_params, { :user_id => @user.id }
-        assigns[:info_request].errors[:title].should == ['Please enter a summary of your request']
-        response.should render_template('new')
+        expect(assigns[:info_request].errors[:title]).to eq(['Please enter a summary of your request'])
+        expect(response).to render_template('new')
       end
 
       it "should allow re-editing of a request" do
         params = @default_post_params.merge(:preview => 0, :reedit => 1)
         post :new_batch, params, { :user_id => @user.id }
-        response.should render_template('new')
+        expect(response).to render_template('new')
       end
 
       context "on success" do
@@ -2576,15 +2575,15 @@ describe RequestController, "#new_batch" do
         it 'should create an info request batch and redirect to the new batch on success' do
           make_request
           new_info_request_batch = assigns[:info_request_batch]
-          new_info_request_batch.should_not be_nil
-          response.should redirect_to(info_request_batch_path(new_info_request_batch))
+          expect(new_info_request_batch).not_to be_nil
+          expect(response).to redirect_to(info_request_batch_path(new_info_request_batch))
         end
 
         it 'should prevent double submission of a batch request' do
           make_request
           post :new_batch, @params, { :user_id => @user.id }
-          response.should render_template('new')
-          assigns[:existing_batch].should_not be_nil
+          expect(response).to render_template('new')
+          expect(assigns[:existing_batch]).not_to be_nil
         end
 
         it 'sets the batch_sent flash to true' do
@@ -2603,8 +2602,8 @@ describe RequestController, "#new_batch" do
 
         it 'should show the "banned" template' do
           post :new_batch, @default_post_params, { :user_id => @user.id }
-          response.should render_template('user/banned')
-          assigns[:details].should == 'bad behaviour'
+          expect(response).to render_template('user/banned')
+          expect(assigns[:details]).to eq('bad behaviour')
         end
 
       end
@@ -2621,8 +2620,8 @@ describe RequestController, "#new_batch" do
 
       it 'should return a 403 with an appropriate message' do
         get :new_batch, {}, {:user_id => @user.id}
-        response.code.should == '403'
-        response.body.should match("Users cannot usually make batch requests to multiple authorities at once")
+        expect(response.code).to eq('403')
+        expect(response.body).to match("Users cannot usually make batch requests to multiple authorities at once")
       end
 
     end
@@ -2632,7 +2631,7 @@ describe RequestController, "#new_batch" do
       it 'should return a redirect to the login page' do
         get :new_batch
         post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
       end
     end
 
@@ -2642,9 +2641,9 @@ describe RequestController, "#new_batch" do
   context "when batch requests is not enabled" do
 
     it 'should return a 404' do
-      Rails.application.config.stub(:consider_all_requests_local).and_return(false)
+      allow(Rails.application.config).to receive(:consider_all_requests_local).and_return(false)
       get :new_batch
-      response.code.should == '404'
+      expect(response.code).to eq('404')
     end
 
   end
@@ -2658,7 +2657,7 @@ describe RequestController, "#select_authorities" do
     before do
       get_fixtures_xapian_index
       load_raw_emails_data
-      AlaveteliConfiguration.stub(:allow_batch_requests).and_return(true)
+      allow(AlaveteliConfiguration).to receive(:allow_batch_requests).and_return(true)
     end
 
     context "when the current user can make batch requests" do
@@ -2671,25 +2670,25 @@ describe RequestController, "#select_authorities" do
 
         it 'should be successful' do
           get :select_authorities, {}, {:user_id => @user.id}
-          response.should be_success
+          expect(response).to be_success
         end
 
         it 'should render the "select_authorities" template' do
           get :select_authorities, {}, {:user_id => @user.id}
-          response.should render_template('request/select_authorities')
+          expect(response).to render_template('request/select_authorities')
         end
 
         it 'should assign a list of search results to the view if passed a query' do
           get :select_authorities, {:public_body_query => "Quango"}, {:user_id => @user.id}
-          assigns[:search_bodies].results.size.should == 1
-          assigns[:search_bodies].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+          expect(assigns[:search_bodies].results.size).to eq(1)
+          expect(assigns[:search_bodies].results[0][:model].name).to eq(public_bodies(:geraldine_public_body).name)
         end
 
         it 'should assign a list of public bodies to the view if passed a list of ids' do
           get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id]},
             {:user_id => @user.id}
-          assigns[:public_bodies].size.should == 1
-          assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
+          expect(assigns[:public_bodies].size).to eq(1)
+          expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
 
         it 'should subtract a list of public bodies to remove from the list of bodies assigned to
@@ -2698,8 +2697,8 @@ describe RequestController, "#select_authorities" do
                                                          public_bodies(:geraldine_public_body).id],
           :remove_public_body_ids => [public_bodies(:geraldine_public_body).id]},
             {:user_id => @user.id}
-          assigns[:public_bodies].size.should == 1
-          assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
+          expect(assigns[:public_bodies].size).to eq(1)
+          expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
 
       end
@@ -2708,26 +2707,26 @@ describe RequestController, "#select_authorities" do
 
         it 'should be successful' do
           get :select_authorities, {:public_body_query => "Quan", :format => 'json'}, {:user_id => @user.id}
-          response.should be_success
+          expect(response).to be_success
         end
 
         it 'should return a list of public body names and ids' do
           get :select_authorities, {:public_body_query => "Quan", :format => 'json'},
             {:user_id => @user.id}
 
-          JSON(response.body).should == [{ 'id' => public_bodies(:geraldine_public_body).id,
-                                           'name' => public_bodies(:geraldine_public_body).name }]
+          expect(JSON(response.body)).to eq([{ 'id' => public_bodies(:geraldine_public_body).id,
+                                           'name' => public_bodies(:geraldine_public_body).name }])
         end
 
         it 'should return an empty list if no search is passed' do
           get :select_authorities, {:format => 'json' },{:user_id => @user.id}
-          JSON(response.body).should == []
+          expect(JSON(response.body)).to eq([])
         end
 
         it 'should return an empty list if there are no bodies' do
           get :select_authorities, {:public_body_query => 'fknkskalnr', :format => 'json' },
             {:user_id => @user.id}
-          JSON(response.body).should == []
+          expect(JSON(response.body)).to eq([])
         end
 
       end
@@ -2744,8 +2743,8 @@ describe RequestController, "#select_authorities" do
 
       it 'should return a 403 with an appropriate message' do
         get :select_authorities, {}, {:user_id => @user.id}
-        response.code.should == '403'
-        response.body.should match("Users cannot usually make batch requests to multiple authorities at once")
+        expect(response.code).to eq('403')
+        expect(response.body).to match("Users cannot usually make batch requests to multiple authorities at once")
       end
 
     end
@@ -2755,7 +2754,7 @@ describe RequestController, "#select_authorities" do
       it 'should return a redirect to the login page' do
         get :select_authorities
         post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
       end
     end
 
@@ -2765,9 +2764,9 @@ describe RequestController, "#select_authorities" do
   context "when batch requests is not enabled" do
 
     it 'should return a 404' do
-      Rails.application.config.stub(:consider_all_requests_local).and_return(false)
+      allow(Rails.application.config).to receive(:consider_all_requests_local).and_return(false)
       get :select_authorities
-      response.code.should == '404'
+      expect(response.code).to eq('404')
     end
 
   end

@@ -7,8 +7,8 @@ describe DatabaseCollation do
 
     it 'delegates to an instance of the class' do
       collation = double
-      DatabaseCollation.stub(:instance).and_return(collation)
-      collation.should_receive(:supports?).with('en_GB')
+      allow(DatabaseCollation).to receive(:instance).and_return(collation)
+      expect(collation).to receive(:supports?).with('en_GB')
       DatabaseCollation.supports?('en_GB')
     end
 
@@ -92,8 +92,8 @@ def mock_connection(connection_double_opts = {})
     { "collname" => "en_GB.utf8" }
   ]
 
-  connection.
-    stub(:execute).
+  allow(connection).
+    to receive(:execute).
       with(%q(SELECT collname FROM pg_collation;)).
         and_return(installed_collations)
 

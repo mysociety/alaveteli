@@ -19,10 +19,10 @@ module AlaveteliDsl
     post "/new", params
     # We expect to be redirected to the login page
     post_redirect = PostRedirect.get_last_post_redirect
-    response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     follow_redirect!
-    response.should render_template("user/sign")
-    response.body.should match(/To send your FOI request, create an account or sign in/)
+    expect(response).to render_template("user/sign")
+    expect(response.body).to match(/To send your FOI request, create an account or sign in/)
   end
 
 end

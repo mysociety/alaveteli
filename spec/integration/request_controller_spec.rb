@@ -26,13 +26,13 @@ describe RequestController, "when classifying an information request" do
         @bob.fill_in "Please tell us more:", :with => "Okay. I don't quite understand."
         @bob.click_button "Submit status and send message"
 
-        @bob.response.should contain "Thank you! We'll look into what happened and try and fix it up."
+        expect(@bob.response).to contain "Thank you! We'll look into what happened and try and fix it up."
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 1
+        expect(deliveries.size).to eq(1)
         mail = deliveries[0]
-        mail.body.should =~ /as needing admin/
-        mail.body.should =~ /Okay. I don't quite understand./
+        expect(mail.body).to match(/as needing admin/)
+        expect(mail.body).to match(/Okay. I don't quite understand./)
       end
     end
   end

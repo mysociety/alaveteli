@@ -41,14 +41,14 @@ describe TrackThing, "when tracking changes" do
   it "will find existing tracks which are the same" do
     track_thing = TrackThing.create_track_for_search_query('fancy dog')
     found_track = TrackThing.find_existing(users(:silly_name_user), track_thing)
-    found_track.should == @track_thing
+    expect(found_track).to eq(@track_thing)
   end
 
   it "can display the description of a deleted track_thing" do
     track_thing = TrackThing.create_track_for_search_query('fancy dog')
     description = track_thing.track_query_description
     track_thing.destroy
-    track_thing.track_query_description.should == description
+    expect(track_thing.track_query_description).to eq(description)
   end
 
   it "will make some sane descriptions of search-based tracks" do
@@ -59,13 +59,13 @@ describe TrackThing, "when tracking changes" do
               'bob' => "anything matching text 'bob'" }
     tests.each do |query, description|
       track_thing = TrackThing.create_track_for_search_query(query)
-      track_thing.track_query_description.should == description
+      expect(track_thing.track_query_description).to eq(description)
     end
   end
 
   it "will create an authority-based track when called using a 'bodies' postfix" do
     track_thing = TrackThing.create_track_for_search_query('fancy dog', 'bodies')
-    track_thing.track_query.should =~ /variety:authority/
+    expect(track_thing.track_query).to match(/variety:authority/)
   end
 
 end

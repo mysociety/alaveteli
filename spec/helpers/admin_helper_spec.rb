@@ -9,12 +9,12 @@ describe AdminHelper do
 
     it 'shows the status of a visible comment' do
       comment = Factory.build(:visible_comment)
-      comment_visibility(comment).should == 'Visible'
+      expect(comment_visibility(comment)).to eq('Visible')
     end
 
     it 'shows the status of a hidden comment' do
       comment = Factory.build(:hidden_comment)
-      comment_visibility(comment).should == 'Hidden'
+      expect(comment_visibility(comment)).to eq('Hidden')
     end
 
   end

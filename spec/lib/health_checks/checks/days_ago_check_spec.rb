@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 describe HealthChecks::Checks::DaysAgoCheck do
   include HealthChecks::Checks
 
-  it { should be_kind_of(HealthChecks::HealthCheckable) }
+  it { is_expected.to be_kind_of(HealthChecks::HealthCheckable) }
 
   it 'defaults to comparing to one day ago' do
     check = HealthChecks::Checks::DaysAgoCheck.new

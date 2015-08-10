@@ -13,7 +13,7 @@ describe ContactValidator do
     end
 
     it 'validates specified attributes' do
-      ContactValidator.new(valid_params).should be_valid
+      expect(ContactValidator.new(valid_params)).to be_valid
     end
 
     it 'validates name is present' do
