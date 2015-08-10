@@ -6,7 +6,7 @@ describe TrackMailer do
   describe 'when sending email alerts for tracked things' do
 
     before do
-      mail_mock = mock("mail")
+      mail_mock = double("mail")
       mail_mock.stub(:deliver)
       TrackMailer.stub(:event_digest).and_return(mail_mock)
       Time.stub(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
@@ -67,7 +67,7 @@ describe TrackMailer do
                                                 :track_thing_id= => true,
                                                 :info_request_event_id= => true)
           TrackThingsSentEmail.stub(:new).and_return(@track_things_sent_email)
-          @xapian_search = mock('xapian search', :results => [])
+          @xapian_search = double('xapian search', :results => [])
           @found_event = mock_model(InfoRequestEvent, :described_at => @track_thing.created_at + 1.day)
           @search_result = {:model => @found_event}
           ActsAsXapian::Search.stub(:new).and_return(@xapian_search)

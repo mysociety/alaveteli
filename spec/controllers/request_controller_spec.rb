@@ -18,7 +18,7 @@ describe RequestController, "when listing recent requests" do
   end
 
   it "should return 404 for pages we don't want to serve up" do
-    xap_results = mock(ActsAsXapian::Search,
+    xap_results = double(ActsAsXapian::Search,
                        :results => (1..25).to_a.map { |m| { :model => m } },
                        :matches_estimated => 1000000)
     lambda {
@@ -1377,7 +1377,7 @@ describe RequestController, "when classifying an information request" do
 
       before do
         @dog_request.stub(:is_old_unclassified?).and_return(true)
-        mail_mock = mock("mail")
+        mail_mock = double("mail")
         mail_mock.stub(:deliver)
         RequestMailer.stub(:old_unclassified_updated).and_return(mail_mock)
       end
@@ -1487,7 +1487,7 @@ describe RequestController, "when classifying an information request" do
       end
 
       it 'should send an email to the requester letting them know someone has updated the status of their request' do
-        mail_mock = mock("mail")
+        mail_mock = double("mail")
         mail_mock.stub :deliver
         RequestMailer.should_receive(:old_unclassified_updated).and_return(mail_mock)
         post_status('rejected')
@@ -2485,9 +2485,9 @@ end
 describe RequestController, "when caching fragments" do
   it "should not fail with long filenames" do
     long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
-    info_request = mock(InfoRequest, :user_can_view? => true,
+    info_request = double(InfoRequest, :user_can_view? => true,
                         :all_can_view? => true)
-    incoming_message = mock(IncomingMessage, :info_request => info_request,
+    incoming_message = double(IncomingMessage, :info_request => info_request,
                             :parse_raw_email! => true,
                             :info_request_id => 132,
                             :id => 44,

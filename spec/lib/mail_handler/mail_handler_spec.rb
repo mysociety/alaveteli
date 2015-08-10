@@ -324,7 +324,7 @@ end
 
 describe "when getting the attachment text" do
   it "should not raise an error if the expansion of a zip file raises an error" do
-    mock_entry = mock('ZipFile entry', :file? => true)
+    mock_entry = double('ZipFile entry', :file? => true)
     mock_entries = [mock_entry]
     mock_entries.stub(:close)
     mock_entry.stub(:get_input_stream).and_raise("invalid distance too far back")
