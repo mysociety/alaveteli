@@ -353,7 +353,7 @@ end
 
 describe IncomingMessage, " checking validity to reply to" do
   def test_email(result, email, empty_return_path, autosubmitted = nil)
-    @mail = mock('mail')
+    @mail = double('mail')
     MailHandler.stub(:get_from_address).and_return(email)
     MailHandler.stub(:empty_return_path?).with(@mail).and_return(empty_return_path)
     MailHandler.stub(:get_auto_submitted).with(@mail).and_return(autosubmitted)
