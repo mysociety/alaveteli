@@ -774,7 +774,7 @@ describe InfoRequest do
       @info_request.stub(:censor_rules).and_return([@request_rule])
       @info_request.stub(:public_body).and_return(@body)
       @text = 'some text'
-      CensorRule.stub(:global).and_return(mock('global context', :all => [@global_rule]))
+      CensorRule.stub(:global).and_return(double('global context', :all => [@global_rule]))
     end
 
     context "when applying censor rules to text" do

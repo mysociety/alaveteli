@@ -156,7 +156,7 @@ describe GeneralController, "when showing the frontpage" do
                                     :info_request => info_request,
                                     :described_at => Time.now,
                                     :search_text_main => 'example text')
-    xapian_result = mock('xapian result', :results => [{:model => info_request_event}])
+    xapian_result = double('xapian result', :results => [{:model => info_request_event}])
     controller.stub(:perform_search).and_return(xapian_result)
   end
 
