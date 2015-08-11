@@ -156,9 +156,9 @@ describe RequestMailer, " when receiving incoming mail" do
 
   it "redirects spam to the holding_pen" do
     info_request = FactoryGirl.create(:info_request)
-    AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('holding_pen')
-    AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
-    AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(100)
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_action).and_return('holding_pen')
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_threshold).and_return(100)
     spam_email = <<-EOF.strip_heredoc
     From: EMAIL_FROM
     To: FOI Person <EMAIL_TO>
@@ -174,9 +174,9 @@ describe RequestMailer, " when receiving incoming mail" do
 
   it "discards mail over the configured spam threshold" do
     info_request = FactoryGirl.create(:info_request)
-    AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('discard')
-    AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
-    AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(10)
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_action).and_return('discard')
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_threshold).and_return(10)
     spam_email = <<-EOF.strip_heredoc
     From: EMAIL_FROM
     To: FOI Person <EMAIL_TO>
@@ -194,9 +194,9 @@ describe RequestMailer, " when receiving incoming mail" do
 
   it "delivers mail under the configured spam threshold" do
     info_request = FactoryGirl.create(:info_request)
-    AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('discard')
-    AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
-    AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(1000)
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_action).and_return('discard')
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_threshold).and_return(1000)
     spam_email = <<-EOF.strip_heredoc
     From: EMAIL_FROM
     To: FOI Person <EMAIL_TO>
@@ -214,9 +214,9 @@ describe RequestMailer, " when receiving incoming mail" do
 
   it "delivers mail without a spam header" do
     info_request = FactoryGirl.create(:info_request)
-    AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('discard')
-    AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
-    AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(1000)
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_action).and_return('discard')
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
+    allow(AlaveteliConfiguration).to receive(:incoming_email_spam_threshold).and_return(1000)
     spam_email = <<-EOF.strip_heredoc
     From: EMAIL_FROM
     To: FOI Person <EMAIL_TO>
