@@ -14,8 +14,7 @@ describe TrackController do
       request.cookies['widget_vote'] = mock_cookie
 
       get :track_request, :url_title => @info_request.url_title, :feed => 'track'
-
-      expect(@info_request.widget_votes).to be_empty
+      expect(@info_request.widget_votes(reload=true)).to be_empty
     end
 
   end
@@ -296,4 +295,8 @@ describe TrackController, "when tracking a public body" do
     expect(tt.track_query).to eq("requested_from:" + geraldine.url_name + " variety:sent")
   end
 
+end
+
+def mock_cookie
+  '0300fd3e1177127cebff'
 end
