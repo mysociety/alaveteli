@@ -313,20 +313,20 @@ describe IncomingMessage, " folding quoted parts of emails" do
   it 'should fold a plain text lotus notes quoted part correctly' do
     text = "FOI Team\n\n\nInfo Requester <xxx@whatdotheyknow.com>=20\nSent by: Info Requester <request-bounce-xxxxx@whatdotheyknow.com>\n06/03/08 10:00\nPlease respond to\nInfo Requester <request-xxxx@whatdotheyknow.com>"
     @incoming_message = IncomingMessage.new
-    @incoming_message.stub_chain(:info_request, :user_name).and_return("Info Requester")
+    allow(@incoming_message).to receive_message_chain(:info_request, :user_name).and_return("Info Requester")
     expect(@incoming_message.remove_lotus_quoting(text)).to match(/FOLDED_QUOTED_SECTION/)
   end
 
   it 'should not error when trying to fold lotus notes quoted parts on a request with no user_name' do
     text = "hello"
     @incoming_message = IncomingMessage.new
-    @incoming_message.stub_chain(:info_request, :user_name).and_return(nil)
+    allow(@incoming_message).to receive_message_chain(:info_request, :user_name).and_return(nil)
     expect(@incoming_message.remove_lotus_quoting(text)).to eq('hello')
   end
 
   it "cope with [ in user names properly" do
     @incoming_message = IncomingMessage.new
-    @incoming_message.stub_chain(:info_request, :user_name).and_return("Sir [ Bobble")
+    allow(@incoming_message).to receive_message_chain(:info_request, :user_name).and_return("Sir [ Bobble")
     # this gives a warning if [ is in the name
     text = @incoming_message.remove_lotus_quoting("Sir [ Bobble \nSent by: \n")
     expect(text).to eq("\n\nFOLDED_QUOTED_SECTION")

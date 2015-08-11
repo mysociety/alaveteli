@@ -18,7 +18,7 @@ describe MailServerLog do
   describe ".load_file" do
     before :each do
       allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
-      File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 10))
+      allow(File).to receive_message_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 10))
     end
 
     let(:log) {[
@@ -53,7 +53,7 @@ describe MailServerLog do
     it "loads the log file again if it's changed" do
       expect(File).to receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10", "r").twice.and_return([])
       MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
-      File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
+      allow(File).to receive_message_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
       MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
     end
 
@@ -64,7 +64,7 @@ describe MailServerLog do
       MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
       expect(ir.mail_server_logs.count).to eq(2)
 
-      File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
+      allow(File).to receive_message_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
       MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
       expect(ir.mail_server_logs.count).to eq(2)
     end
