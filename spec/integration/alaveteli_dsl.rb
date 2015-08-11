@@ -1,28 +1,25 @@
 # -*- encoding : utf-8 -*-
 module AlaveteliDsl
 
-  def browses_request(url_title)
-    get "/request/#{url_title}"
-    assert_response :success
+  def browse_request(url_title)
+    visit "/request/#{url_title}"
   end
 
-  def creates_request_unregistered
-    params = { :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id,
-                                  :title => "Why is your quango called Geraldine?",
-                                  :tag_string => "" },
-               :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-               :submitted_new_request => 1,
-               :preview => 0
-               }
+  def create_request
+    visit select_authority_path
+    within(:css, '#search_form') do
+      fill_in 'query', :with => 'Geraldine Quango'
+      find_button('Search').click
+    end
+    within(:css, '.body_listing') do
+      find_link('Make a request').click
+    end
+    fill_in 'Summary:', :with => "Why is your quango called Geraldine?"
+    fill_in 'Your request:', :with => "This is a silly letter. It is too short to be interesting."
 
-    # Initially we are not logged in. Try to create a new request.
-    post "/new", params
-    # We expect to be redirected to the login page
-    post_redirect = PostRedirect.get_last_post_redirect
-    expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-    follow_redirect!
-    expect(response).to render_template("user/sign")
-    expect(response.body).to match(/To send your FOI request, create an account or sign in/)
+    find_button('Preview your public request').click
+    find_button('Send request').click
+    expect(page).to have_content('To send your FOI request, create an account or sign in')
   end
 
 end
