@@ -9,7 +9,7 @@ describe 'reports/new.html.erb' do
 
   it "should show a form" do
     render
-    expect(rendered).to have_selector("form")
+    expect(rendered).to have_css("form")
   end
 
   context "request has already been reported" do
@@ -19,7 +19,7 @@ describe 'reports/new.html.erb' do
 
     it "should not show a form" do
       render
-      expect(rendered).not_to have_selector("form")
+      expect(rendered).not_to have_css("form")
     end
 
     it "should say it's already been reported" do
