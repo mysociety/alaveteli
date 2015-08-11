@@ -24,7 +24,7 @@ describe 'reports/new.html.erb' do
 
     it "should say it's already been reported" do
       render
-      expect(rendered).to contain("This request has already been reported")
+      expect(rendered).to have_content("This request has already been reported")
     end
   end
 end
