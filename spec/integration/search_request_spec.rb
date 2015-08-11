@@ -30,10 +30,12 @@ describe "When searching" do
     with_forgery_protection do
       user = FactoryGirl.create(:user)
       user_session = login(user)
-      user_session.visit frontpage_path
-      user_session.fill_in "navigation_search_button", :with => 'test'
-      user_session.click_button "Search"
-      expect(user_session.response.body).to include(user.name)
+      using_session(user_session) do
+        visit frontpage_path
+        fill_in "navigation_search_button", :with => 'test'
+        click_button "Search"
+        expect(page.body).to include(user.name)
+      end
     end
   end
 
