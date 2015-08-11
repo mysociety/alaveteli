@@ -60,10 +60,9 @@ describe 'when making a zipfile available' do
         admin = login(FactoryGirl.create(:admin_user))
 
         using_session(admin) do
-          visit edit_admin_incoming_message_path info_request.incoming_messages.first
-          select 'requester_only', :from => 'Prominence'
-          fill_in 'Reason for prominence', :with => 'boring'
-          find_button('Save').click
+          hide_incoming_message(info_request.incoming_messages.first,
+                                'requester_only',
+                                'boring')
         end
 
         # Admin retains the requester only things
@@ -108,11 +107,11 @@ describe 'when making a zipfile available' do
 
         # Admin makes the incoming message requester only
         admin = login(FactoryGirl.create(:admin_user))
+
         using_session(admin) do
-          visit edit_admin_outgoing_message_path outgoing_message
-          select prominence, :from => 'Prominence'
-          fill_in 'Reason for prominence', :with => reason
-          find_button('Save').click
+          hide_outgoing_message(info_request.outgoing_messages.first,
+                                'requester_only',
+                                'boring')
         end
 
         # Admin retains the requester only things
@@ -258,10 +257,9 @@ describe 'when making a zipfile available' do
         admin = login(FactoryGirl.create(:admin_user))
 
         using_session(admin) do
-          visit edit_admin_incoming_message_path info_request.incoming_messages.first
-          select 'requester_only', :from => 'Prominence'
-          fill_in 'Reason for prominence', :with => 'boring'
-          find_button('Save').click
+          hide_incoming_message(info_request.incoming_messages.first,
+                                'requester_only',
+                                'boring')
         end
 
         # Admin retains the requester only things
