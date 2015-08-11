@@ -28,56 +28,70 @@ describe "When administering the site" do
   end
 
   it "allows redelivery of an incoming message to a closed request" do
-    ir = info_requests(:fancy_dog_request)
-    close_request(ir)
+
+    # close request
+    info_request = info_requests(:fancy_dog_request)
+    close_request(info_request)
+
+    # check number of messages in holding pen and request
     expect(holding_pen_messages.length).to eq(0)
-    expect(ir.incoming_messages.length).to eq(1)
-    receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
+    expect(info_request.incoming_messages.length).to eq(1)
+
+    # deliver an incoming message to the closed request -
+    # it gets bounced to the holding pen
+    receive_incoming_mail('incoming-request-plain.email',
+                          info_request.incoming_email,
+                          "frob@nowhere.com")
     expect(holding_pen_messages.length).to eq(1)
-    new_im = holding_pen_messages[0]
-    expect(ir.incoming_messages.length).to eq(1)
-    post_params = { 'url_title' => ir.url_title }
+    new_message = holding_pen_messages.first
+    expect(info_request.incoming_messages.length).to eq(1)
 
+    # redeliver the message
     using_session(@admin) do
-      visit edit_admin_incoming_message_path(new_im)
+      visit edit_admin_incoming_message_path(new_message)
       fill_in('Redeliver message to one or more other requests',
-                :with => ir.url_title)
+                :with => info_request.url_title)
       find_button('Redeliver to another request').click
-      expect(current_path).to eq(admin_request_path(ir))
+      expect(current_path).to eq(admin_request_path(info_request))
     end
-    ir = InfoRequest.find_by_url_title(ir.url_title)
-    expect(ir.incoming_messages.length).to eq(2)
 
+    # check number of messages in holding pen and request
+    expect(info_request.reload.incoming_messages.length).to eq(2)
     expect(holding_pen_messages.length).to eq(0)
   end
 
   it "allows redelivery of an incoming message to more than one request" do
+    # close request
+    info_request = info_requests(:fancy_dog_request)
+    close_request(info_request)
 
-    ir1 = info_requests(:fancy_dog_request)
-    close_request(ir1)
-    expect(ir1.incoming_messages.length).to eq(1)
-    ir2 = info_requests(:another_boring_request)
-    expect(ir2.incoming_messages.length).to eq(1)
+    # check number of messages in holding pen and requests
+    expect(holding_pen_messages.length).to eq(0)
+    expect(info_request.incoming_messages.length).to eq(1)
 
-    receive_incoming_mail('incoming-request-plain.email', ir1.incoming_email, "frob@nowhere.com")
+    second_request = info_requests(:another_boring_request)
+    expect(second_request.incoming_messages.length).to eq(1)
+
+    # deliver an incoming message to the closed request -
+    # it gets bounced to the holding pen
+    receive_incoming_mail('incoming-request-plain.email',
+                          info_request.incoming_email,
+                          "frob@nowhere.com")
     expect(holding_pen_messages.length).to eq(1)
+    new_message = holding_pen_messages.first
 
-    new_im = holding_pen_messages[0]
-
-
+    # redeliver the message to two requests
     using_session(@admin) do
-      visit edit_admin_incoming_message_path(new_im)
+      visit edit_admin_incoming_message_path(new_message)
       fill_in('Redeliver message to one or more other requests',
-                 :with => "#{ir1.url_title},#{ir2.url_title}")
+                 :with => "#{info_request.url_title},#{second_request.url_title}")
       find_button('Redeliver to another request').click
-      expect(current_path).to eq(admin_request_path(ir2))
+      expect(current_path).to eq(admin_request_path(second_request))
     end
 
-    ir1.reload
-    expect(ir1.incoming_messages.length).to eq(2)
-    ir2.reload
-    expect(ir2.incoming_messages.length).to eq(2)
-    expect(@admin.response.location).to eq('http://www.example.com/en/admin/requests/106')
+    # check number of messages in holding pen and requests
+    expect(info_request.reload.incoming_messages.length).to eq(2)
+    expect(second_request.reload.incoming_messages.length).to eq(2)
     expect(holding_pen_messages.length).to eq(0)
   end
 
@@ -103,16 +117,15 @@ describe "When administering the site" do
       mail_to = "request-#{info_request.id}-asdfg@example.com"
       receive_incoming_mail('incoming-request-plain.email', mail_to)
       interesting_email = last_holding_pen_mail
+
       # now we add another message to the queue, which we're not interested in
-      receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
+      receive_incoming_mail('incoming-request-plain.email', info_request.incoming_email, "")
       expect(holding_pen_messages.length).to eq(2)
       using_session(@admin) do
         visit admin_raw_email_path interesting_email
         expect(page).to have_content "Could not identify the request"
-        expect(page).to have_content ir.title
+        expect(page).to have_content info_request.title
       end
     end
-
-
   end
 end
