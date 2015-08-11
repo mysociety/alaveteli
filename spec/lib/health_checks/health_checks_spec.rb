@@ -46,7 +46,7 @@ describe HealthChecks do
         double('FakeCheck', :ok? => true),
         double('TestCheck', :ok? => true)
       ]
-      HealthChecks.stub(:all => checks)
+      allow(HealthChecks).to receive_messages(:all => checks)
 
       expect(HealthChecks.ok?).to be true
     end
@@ -57,7 +57,7 @@ describe HealthChecks do
         double('FakeCheck', :ok? => false),
         double('TestCheck', :ok? => false)
       ]
-      HealthChecks.stub(:all => checks)
+      allow(HealthChecks).to receive_messages(:all => checks)
 
       expect(HealthChecks.ok?).to be false
     end
@@ -68,7 +68,7 @@ describe HealthChecks do
         double('FakeCheck', :ok? => false),
         double('TestCheck', :ok? => true)
       ]
-      HealthChecks.stub(:all => checks)
+      allow(HealthChecks).to receive_messages(:all => checks)
 
       expect(HealthChecks.ok?).to be false
     end
