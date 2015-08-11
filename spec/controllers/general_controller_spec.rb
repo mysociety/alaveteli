@@ -93,13 +93,13 @@ describe GeneralController, "when showing the frontpage" do
 
   it "should render the front page with default language" do
     get :frontpage
-    expect(response).to have_selector('html[lang="en"]')
+    expect(response.body).to have_css('html[lang="en"]')
   end
 
   it "should render the front page with default language" do
     with_default_locale("es") do
       get :frontpage
-      expect(response).to have_selector('html[lang="es"]')
+      expect(response.body).to have_css('html[lang="es"]')
     end
   end
 
@@ -118,7 +118,7 @@ describe GeneralController, "when showing the frontpage" do
     request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
     with_default_locale("es") do
       get :frontpage
-      expect(response).to have_selector('html[lang="es"]')
+      expect(response.body).to have_css('html[lang="es"]')
     end
   end
 
@@ -128,7 +128,7 @@ describe GeneralController, "when showing the frontpage" do
     accept_language = "es-ES,en-GB,en-US;q=0.8,en;q=0.6"
     request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
     get :frontpage
-    expect(response).to have_selector('html[lang="es"]')
+    expect(response.body).to have_css('html[lang="es"]')
     request.env['HTTP_ACCEPT_LANGUAGE'] = nil
   end
 
