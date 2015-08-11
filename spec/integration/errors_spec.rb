@@ -29,7 +29,7 @@ describe "When errors occur" do
     it 'should show a full trace for general errors' do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get("/request/example")
-      expect(response.body).to have_selector('div[id=traces]')
+      expect(response.body).to match('<div id="traces"')
       expect(response.body).to match('An example error')
     end
 
@@ -134,7 +134,7 @@ describe "When errors occur" do
       it 'should show a full trace for general errors' do
         allow(InfoRequest).to receive(:find).and_raise("An example error")
         get("/admin/requests/333")
-        expect(response.body).to have_selector('div[id=traces]')
+        expect(response.body).to match('<div id="traces"')
         expect(response.body).to match('An example error')
       end
 
