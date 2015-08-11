@@ -27,31 +27,34 @@ module AlaveteliDsl
 
 end
 
-def login(user)
-  open_session do |sess|
-    # Make sure we get a fresh empty session - there seems to be some
-    # problem with session leakage otherwise
-    sess.reset!
-    sess.extend(AlaveteliDsl)
 
-    u = user.is_a?(User) ? user : users(user)
 
-    sess.visit signin_path
-
-    sess.within '#signin_form' do
-      sess.fill_in "Your e-mail:", :with => u.email
-      sess.fill_in "Password:", :with => "jonespassword"
-      sess.click_button "Sign in"
-    end
-
-    assert sess.session[:user_id] == u.id
+def alaveteli_session(session_id)
+  using_session session_id do
+    extend AlaveteliDsl
+    yield
   end
 end
 
-def without_login
-  open_session do |sess|
-    sess.extend(AlaveteliDsl)
+def login(user)
+  u = user.is_a?(User) ? user : users(user)
+  alaveteli_session(u.id) do
+    visit signin_path
+    within '#signin_form' do
+      fill_in "Your e-mail:", :with => u.email
+      fill_in "Password:", :with => "jonespassword"
+      click_button "Sign in"
+    end
   end
+  u.id
+end
+
+def without_login
+  session_id = "without_login"
+  using_session session_id do
+    extend AlaveteliDsl
+  end
+  session_id
 end
 
 def confirm(user)
