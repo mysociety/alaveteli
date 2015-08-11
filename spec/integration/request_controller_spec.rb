@@ -21,12 +21,13 @@ describe RequestController, "when classifying an information request" do
       end
 
       it "should send an email including the message" do
-        @bob.visit describe_state_message_path(:url_title => @dog_request.url_title,
-                                               :described_state => "requires_admin")
-        @bob.fill_in "Please tell us more:", :with => "Okay. I don't quite understand."
-        @bob.click_button "Submit status and send message"
-
-        expect(@bob.response).to contain "Thank you! We'll look into what happened and try and fix it up."
+        using_session(@bob) do
+          visit describe_state_message_path(:url_title => @dog_request.url_title,
+                                            :described_state => "requires_admin")
+          fill_in "Please tell us more:", :with => "Okay. I don't quite understand."
+          click_button "Submit status and send message"
+          expect(page).to have_content "Thank you! We'll look into what happened and try and fix it up."
+        end
 
         deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
