@@ -66,14 +66,14 @@ end
 group :test do
   gem 'fakeweb', '~> 1.3.0'
   gem 'coveralls', :require => false
-  gem 'webrat', '~> 0.7.3'
+  gem 'capybara', '2.4.4'
 end
 
 group :test, :development do
   gem 'bullet', '~> 4.14.6'
   gem 'factory_girl_rails', '~> 1.7'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
-  gem 'rspec-rails', '~> 2.99.0'
+  gem 'rspec-rails', '3.0.2'
   gem 'spork-rails', '~> 3.2.1'
 end
 
