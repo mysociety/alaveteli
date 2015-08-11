@@ -47,13 +47,13 @@ describe PublicBodyController, "when showing a body" do
 
   it "should display the body using same locale as that used in url_name" do
     get :show, {:url_name => "edfh", :view => 'all', :locale => "es"}
-    expect(response).to contain("Baguette")
+    expect(response.body).to have_content("Baguette")
   end
 
   it 'should show public body names in the selected locale language if present for a locale with underscores' do
     AlaveteliLocalization.set_locales('he_IL en', 'en')
     get :show, {:url_name => 'dfh', :view => 'all', :locale => 'he_IL'}
-    expect(response).to contain('Hebrew Humpadinking')
+    expect(response.body).to have_content('Hebrew Humpadinking')
   end
 
   it "should redirect use to the relevant locale even when url_name is for a different locale" do
@@ -154,13 +154,13 @@ describe PublicBodyController, "when listing bodies" do
 
   it 'should show public body names in the selected locale language if present' do
     get :list, {:locale => 'es'}
-    expect(response).to contain('El Department for Humpadinking')
+    expect(response.body).to have_content('El Department for Humpadinking')
   end
 
   it 'should not show the internal admin authority' do
     PublicBody.internal_admin_body
     get :list, {:locale => 'en'}
-    expect(response).not_to contain('Internal admin authority')
+    expect(response.body).not_to have_content('Internal admin authority')
   end
 
   it 'should order on the translated name, even with the fallback' do
@@ -178,7 +178,7 @@ describe PublicBodyController, "when listing bodies" do
   it 'should show public body names in the selected locale language if present for a locale with underscores' do
     AlaveteliLocalization.set_locales('he_IL en', 'en')
     get :list, {:locale => 'he_IL'}
-    expect(response).to contain('Hebrew Humpadinking')
+    expect(response.body).to have_content('Hebrew Humpadinking')
   end
 
 
