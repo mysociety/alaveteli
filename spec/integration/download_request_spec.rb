@@ -9,14 +9,17 @@ describe 'when making a zipfile available' do
   end
 
   def inspect_zip_download(session, info_request)
-    session.get_via_redirect "request/#{info_request.url_title}/download"
-    expect(session.response).to be_success
-    Tempfile.open('download') do |f|
-      f.binmode
-      f.write(session.response.body)
-      f.flush
-      Zip::ZipFile::open(f.path) do |zip|
-        yield zip
+    using_session(session) do
+      visit show_request_path(info_request)
+      find_link('Download a zip file of all correspondence').click
+
+      Tempfile.open('download') do |f|
+        f.binmode
+        f.write(page.body)
+        f.flush
+        Zip::ZipFile::open(f.path) do |zip|
+          yield zip
+        end
       end
     end
   end
@@ -55,10 +58,13 @@ describe 'when making a zipfile available' do
 
         # Admin makes the incoming message requester only
         admin = login(FactoryGirl.create(:admin_user))
-        post_data = {:incoming_message => {:prominence => 'requester_only',
-                                           :prominence_reason => 'boring'}}
-        admin.put_via_redirect "/en/admin/incoming_messages/#{info_request.incoming_messages.first.id}", post_data
-        expect(admin.response).to be_success
+
+        using_session(admin) do
+          visit edit_admin_incoming_message_path info_request.incoming_messages.first
+          select 'requester_only', :from => 'Prominence'
+          fill_in 'Reason for prominence', :with => 'boring'
+          find_button('Save').click
+        end
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
@@ -102,11 +108,12 @@ describe 'when making a zipfile available' do
 
         # Admin makes the incoming message requester only
         admin = login(FactoryGirl.create(:admin_user))
-        post_data = {:outgoing_message => {:prominence => 'requester_only',
-                                           :prominence_reason => 'boring',
-                                           :body => 'Some information please'}}
-        admin.put_via_redirect "/en/admin/outgoing_messages/#{info_request.outgoing_messages.first.id}", post_data
-        expect(admin.response).to be_success
+        using_session(admin) do
+          visit edit_admin_outgoing_message_path outgoing_message
+          select prominence, :from => 'Prominence'
+          fill_in 'Reason for prominence', :with => reason
+          find_button('Save').click
+        end
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
@@ -186,9 +193,15 @@ describe 'when making a zipfile available' do
           expect(zip.count).to eq(1)
           expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
+
         # Non-owner can't
-        @non_owner.get_via_redirect "request/#{@info_request.url_title}/download"
-        expect(@non_owner.response.code).to eq('403')
+        using_session(@non_owner) do
+          visit show_request_path(@info_request)
+          expect(page).to have_content 'Request has been removed'
+          visit download_entire_request_path(@info_request.url_title)
+          expect(page.status_code).to eq(403)
+        end
+
         # Admin can
         inspect_zip_download(@admin, @info_request) do |zip|
           expect(zip.count).to eq(1)
@@ -207,11 +220,17 @@ describe 'when making a zipfile available' do
         @admin = login(FactoryGirl.create(:admin_user))
 
         # Requester can't access the zip
-        @request_owner.get_via_redirect "request/#{@info_request.url_title}/download"
-        expect(@request_owner.response.code).to eq('403')
+        using_session(@request_owner) do
+          visit download_entire_request_path(@info_request.url_title)
+          expect(page.status_code).to eq(403)
+        end
+
         # Non-owner can't
-        @non_owner.get_via_redirect "request/#{@info_request.url_title}/download"
-        expect(@non_owner.response.code).to eq('403')
+        using_session(@non_owner) do
+          visit download_entire_request_path(@info_request.url_title)
+          expect(page.status_code).to eq(403)
+        end
+
         # Admin can
         inspect_zip_download(@admin, @info_request) do |zip|
           expect(zip.count).to eq(1)
@@ -237,10 +256,13 @@ describe 'when making a zipfile available' do
 
         # Admin makes the incoming message requester only
         admin = login(FactoryGirl.create(:admin_user))
-        post_data = {:incoming_message => {:prominence => 'requester_only',
-                                           :prominence_reason => 'boring'}}
-        admin.put_via_redirect "/en/admin/incoming_messages/#{info_request.incoming_messages.first.id}", post_data
-        expect(admin.response).to be_success
+
+        using_session(admin) do
+          visit edit_admin_incoming_message_path info_request.incoming_messages.first
+          select 'requester_only', :from => 'Prominence'
+          fill_in 'Reason for prominence', :with => 'boring'
+          find_button('Save').click
+        end
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
@@ -284,11 +306,13 @@ describe 'when making a zipfile available' do
 
         # Admin makes the incoming message requester only
         admin = login(FactoryGirl.create(:admin_user))
-        post_data = {:outgoing_message => {:prominence => 'requester_only',
-                                           :prominence_reason => 'boring',
-                                           :body => 'Some information please'}}
-        admin.put_via_redirect "/en/admin/outgoing_messages/#{info_request.outgoing_messages.first.id}", post_data
-        expect(admin.response).to be_success
+
+        using_session(admin) do
+          visit edit_admin_outgoing_message_path info_request.outgoing_messages.first
+          select 'requester_only', :from => 'Prominence'
+          fill_in 'Reason for prominence', :with => 'boring'
+          find_button('Save').click
+        end
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
