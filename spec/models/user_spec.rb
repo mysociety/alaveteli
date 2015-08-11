@@ -119,21 +119,24 @@ describe User, " when saving" do
     @user.name = "Mr. Silly"
     @user.password = "insecurepassword"
     @user.email = "mousefooble"
-    expect(@user.errors_on(:email).size).to eq(1)
+    @user.valid?
+    expect(@user.errors[:email].size).to eq(1)
   end
 
   it "should not allow an email address as a name" do
     @user.name = "silly@example.com"
     @user.email = "silly@example.com"
     @user.password = "insecurepassword"
-    expect(@user.errors_on(:name).size).to eq(1)
+    @user.valid?
+    expect(@user.errors[:name].size).to eq(1)
   end
 
   it "should not save with no password" do
     @user.name = "Mr. Silly"
     @user.password = ""
     @user.email = "silly@localhost"
-    expect(@user.errors_on(:hashed_password).size).to eq(1)
+    @user.valid?
+    expect(@user.errors[:hashed_password].size).to eq(1)
   end
 
   it "should save with reasonable name, password and email" do
