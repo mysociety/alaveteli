@@ -328,7 +328,7 @@ describe PublicBody, " when saving" do
     set_default_attributes(@public_body)
     @public_body.request_email = "requestBOOlocalhost"
     expect(@public_body).not_to be_valid
-    expect(@public_body.errors_on(:request_email).size).to eq(1)
+    expect(@public_body.errors[:request_email].size).to eq(1)
   end
 
   it "should save" do
@@ -382,7 +382,8 @@ describe PublicBody, " when saving" do
   it "should not save if the url_name is already taken" do
     existing = FactoryGirl.create(:public_body)
     pb = PublicBody.new(existing.attributes)
-    expect(pb.errors_on(:url_name).size).to eq(1)
+    pb.valid?
+    expect(pb.errors[:url_name].size).to eq(1)
   end
 
   it "should save the name when renaming an existing public body" do
