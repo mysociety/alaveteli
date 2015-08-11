@@ -48,8 +48,8 @@ describe PublicBodyCategory do
                                                 :description => 'No title')
       category.valid?
       translation.valid?
-      expect(category.errors_on(:title).size).to eq(1)
-      expect(translation.errors_on(:title).size).to eq(0)
+      expect(category.errors[:title].size).to eq(1)
+      expect(translation.errors[:title].size).to eq(0)
     end
 
   end
