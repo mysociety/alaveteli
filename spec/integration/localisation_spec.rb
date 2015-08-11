@@ -22,7 +22,7 @@ describe "when generating urls" do
   it "should generate URLs without a locale prepended when there's only one locale set" do
     AlaveteliLocalization.set_locales(available_locales='en', default_locale='en')
     get('/')
-    expect(response).not_to contain @home_link_regex
+    expect(response).not_to match /#{@home_link_regex}/
   end
 
   context 'when handling public body requests' do
@@ -77,13 +77,13 @@ describe "when generating urls" do
 
         it 'should generate URLs without a locale prepended' do
           get '/'
-          expect(response).not_to contain @default_lang_home_link
+          expect(response.body).not_to match /#{@default_lang_home_link}/
         end
 
         it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
           get('/', {:locale => 'es'})
-          expect(response).not_to contain @other_lang_home_link
+          expect(response.body).not_to match /#{@other_lang_home_link}/
         end
       end
 
