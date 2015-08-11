@@ -158,8 +158,8 @@ describe RequestController, "when showing one request" do
     it "should allow the user to report" do
       title = info_requests(:badger_request).url_title
       get :show, :url_title => title
-      expect(response).not_to contain("This request has been reported")
-      expect(response).to contain("Offensive?")
+      expect(response.body).not_to have_content("This request has been reported")
+      expect(response.body).to have_content("Offensive?")
     end
   end
 
@@ -169,8 +169,8 @@ describe RequestController, "when showing one request" do
     end
     it "should inform the user" do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      expect(response).to contain("This request has been reported")
-      expect(response).not_to contain("Offensive?")
+      expect(response.body).to have_content("This request has been reported")
+      expect(response.body).not_to have_content("Offensive?")
     end
 
     context "and then deemed okay and left to complete" do
@@ -424,11 +424,11 @@ describe RequestController, "when showing one request" do
 
       get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
       expect(response.content_type).to eq("text/plain")
-      expect(response).to contain "Second hello"
+      expect(response.body).to have_content "Second hello"
 
       get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => 'hello world.txt', :skip_cache => 1
       expect(response.content_type).to eq("text/plain")
-      expect(response).to contain "First hello"
+      expect(response.body).to have_content "First hello"
     end
 
     it 'should cache an attachment on a request with normal prominence' do
@@ -446,7 +446,7 @@ describe RequestController, "when showing one request" do
       ir = info_requests(:fancy_dog_request)
       receive_incoming_mail('iso8859_2_raw_email.email', ir.incoming_email)
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      expect(response).to contain "tënde"
+      expect(response.body).to have_content "tënde"
     end
 
     it "should generate valid HTML verson of plain text attachments" do
@@ -455,7 +455,7 @@ describe RequestController, "when showing one request" do
       ir.reload
       get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
       expect(response.content_type).to eq("text/html")
-      expect(response).to contain "Second hello"
+      expect(response.body).to have_content "Second hello"
     end
 
     # This is a regression test for a bug where URLs of this form were causing 500 errors
@@ -520,7 +520,7 @@ describe RequestController, "when showing one request" do
       ir.reload
       get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'fs 50379341.pdf.html', :skip_cache => 1
       expect(response.content_type).to eq("text/html")
-      expect(response).to contain "Walberswick Parish Council"
+      expect(response.body).to have_content "Walberswick Parish Council"
     end
 
     it "should not cause a reparsing of the raw email, even when the attachment can't be found" do
@@ -528,7 +528,7 @@ describe RequestController, "when showing one request" do
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
       ir.reload
       attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
-      expect(attachment.body).to contain "Second hello"
+      expect(attachment.body).to have_content "Second hello"
 
       # change the raw_email associated with the message; this only be reparsed when explicitly asked for
       ir.incoming_messages[1].raw_email.data = ir.incoming_messages[1].raw_email.data.sub("Second", "Third")
@@ -538,20 +538,20 @@ describe RequestController, "when showing one request" do
       expect(response.status).to eq(303)
 
       attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
-      expect(attachment.body).to contain "Second hello"
+      expect(attachment.body).to have_content "Second hello"
 
       # ...nor should asking for it by its correct filename...
       get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      expect(response).not_to contain "Third hello"
+      expect(response.body).not_to have_content "Third hello"
 
       # ...but if we explicitly ask for attachments to be extracted, then they should be
       force = true
       ir.incoming_messages[1].parse_raw_email!(force)
       ir.reload
       attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
-      expect(attachment.body).to contain "Third hello"
+      expect(attachment.body).to have_content "Third hello"
       get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      expect(response).to contain "Third hello"
+      expect(response.body).to have_content "Third hello"
     end
 
     it "should redirect to the incoming message if there's a wrong part number and an ambiguous filename" do
@@ -585,7 +585,7 @@ describe RequestController, "when showing one request" do
 
       get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.qwglhm', :skip_cache => 1
       expect(response.content_type).to eq("application/octet-stream")
-      expect(response).to contain "an unusual sort of file"
+      expect(response.body).to have_content "an unusual sort of file"
     end
 
     it "should not download attachments with wrong file name" do
@@ -623,7 +623,7 @@ describe RequestController, "when showing one request" do
 
         get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
         expect(response.content_type).to eq("text/plain")
-        expect(response).to contain "Mouse hello"
+        expect(response.body).to have_content "Mouse hello"
       ensure
         ir.censor_rules.clear
       end
@@ -645,7 +645,7 @@ describe RequestController, "when showing one request" do
 
         get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
         expect(response.content_type).to eq("text/plain")
-        expect(response).to contain "Mouse hello"
+        expect(response.body).to have_content "Mouse hello"
       ensure
         ir.user.censor_rules.clear
       end
