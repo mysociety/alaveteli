@@ -201,7 +201,7 @@ describe UserController, "when signing in" do
 
   it "should show sign in / sign up page" do
     get :signin
-    expect(response).to have_selector("input#signin_token")
+    expect(response.body).to have_css("input#signin_token")
   end
 
   it "should create post redirect to / when you just go to /signin" do

@@ -41,7 +41,7 @@ describe "public_body/show" do
 
     it "should show the body's name" do
         render
-        expect(response).to have_selector('h1', :content => "Test Quango")
+        expect(response).to have_css('h1', :text => "Test Quango")
     end
 
     it "should tell total number of requests" do
@@ -52,7 +52,7 @@ describe "public_body/show" do
     it "should cope with no results" do
         assign(:number_of_visible_requests, 0)
         render
-        expect(response).to have_selector('p', :content => "Nobody has made any Freedom of Information requests")
+        expect(response).to have_css('p', :text => "Nobody has made any Freedom of Information requests")
     end
 
     it "should cope with Xapian being down" do
