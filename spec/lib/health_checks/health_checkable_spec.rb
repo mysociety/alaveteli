@@ -79,7 +79,7 @@ describe HealthChecks::HealthCheckable do
     context 'if the check succeeds' do
 
       before(:each) do
-        @subject.stub(:ok? => true)
+        allow(@subject).to receive_messages(:ok? => true)
       end
 
       it 'returns the default success message' do
@@ -96,7 +96,7 @@ describe HealthChecks::HealthCheckable do
     context 'if the check fails' do
 
       before(:each) do
-        @subject.stub(:ok? => false)
+        allow(@subject).to receive_messages(:ok? => false)
       end
 
       it 'returns the default failure message' do

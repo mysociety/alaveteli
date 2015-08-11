@@ -7,7 +7,7 @@ describe OutgoingMailer, " when working out follow up names and addresses" do
     @info_request = mock_model(InfoRequest,
                                :recipient_name_and_email => 'test <test@example.com>',
                                :recipient_email => 'test@example.com')
-    @info_request.stub_chain(:public_body, :name).and_return("Test Authority")
+    allow(@info_request).to receive_message_chain(:public_body, :name).and_return("Test Authority")
     @incoming_message = mock_model(IncomingMessage,
                                    :from_email => 'specific@example.com',
                                    :safe_mail_from => 'Specific Person')

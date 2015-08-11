@@ -6,13 +6,13 @@ describe HealthChecksController do
   describe 'GET index' do
 
     it 'returns a 200 if all health checks pass' do
-      HealthChecks.stub(:ok? => true)
+      allow(HealthChecks).to receive_messages(:ok? => true)
       get :index
       expect(response.status).to eq(200)
     end
 
     it 'returns a 500 if the health check fails' do
-      HealthChecks.stub(:ok? => false)
+      allow(HealthChecks).to receive_messages(:ok? => false)
       get :index
       expect(response.status).to eq(500)
     end

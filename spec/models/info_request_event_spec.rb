@@ -171,38 +171,38 @@ describe InfoRequestEvent do
 
     it 'should return true if the email in its params and the previous email the request was sent to are both nil' do
       allow(@info_request_event).to receive(:params).and_return({})
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
       expect(@info_request_event.same_email_as_previous_send?).to be true
     end
 
     it 'should return false if one email address exists and the other does not' do
       allow(@info_request_event).to receive(:params).and_return(:email => 'test@example.com')
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
       expect(@info_request_event.same_email_as_previous_send?).to be false
     end
 
     it 'should return true if the addresses are identical' do
       allow(@info_request_event).to receive(:params).and_return(:email => 'test@example.com')
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
       expect(@info_request_event.same_email_as_previous_send?).to be true
     end
 
     it 'should return false if the addresses are different' do
       allow(@info_request_event).to receive(:params).and_return(:email => 'test@example.com')
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('different@example.com')
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return('different@example.com')
       expect(@info_request_event.same_email_as_previous_send?).to be false
     end
 
     it 'should return true if the addresses have different formats' do
       allow(@info_request_event).to receive(:params).and_return(:email => 'A Test <test@example.com>')
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
       expect(@info_request_event.same_email_as_previous_send?).to be true
     end
 
     it 'should handle non-ascii characters in the name input' do
       address = "\"Someone’s name\" <test@example.com>"
       allow(@info_request_event).to receive(:params).and_return(:email => address)
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(address)
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return(address)
       expect(@info_request_event.same_email_as_previous_send?).to be true
     end
 
