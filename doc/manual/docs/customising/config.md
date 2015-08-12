@@ -124,6 +124,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 ### External public services:
 
 <code><a href="#blog_feed">BLOG_FEED</a></code>
+<br> <code><a href="#facebook_username">FACEBOOK_USERNAME</a></code>
 <br> <code><a href="#twitter_username">TWITTER_USERNAME</a></code>
 <br> <code><a href="#twitter_widget_id">TWITTER_WIDGET_ID</a></code>
 <br> <code><a href="#donation_url">DONATION_URL</a></code>
@@ -1181,6 +1182,22 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>BLOG_FEED: 'https://www.mysociety.org/category/projects/whatdotheyknow/feed/'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="facebook_username"><code>FACEBOOK_USERNAME</code></a>
+  </dt>
+  <dd>
+    Makes your Facebook page URL available to the application. Also
+    adds a Facebook link to the footer.
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            <code>FACEBOOK_USERNAME: whatdotheyknowcom</code>
         </li>
       </ul>
     </div>
