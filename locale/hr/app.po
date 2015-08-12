@@ -7,6 +7,7 @@
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Marina Ninić <inactive+mninic5@transifex.com>, 2015
+# Marina Ninić <inactive+mninic5@transifex.com>, 2015
 # Mateja Fabijanić <mateja.fabijanic@gmail.com>, 2015
 # Mihovil Nakić <mnakicvo@hotmail.com>, 2015
 # Mirna Basic <mirnabasic@outlook.com>, 2015
@@ -20,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
-"PO-Revision-Date: 2015-07-24 15:40+0000\n"
+"POT-Creation-Date: 2015-08-12 11:00+0000\n"
+"PO-Revision-Date: 2015-08-12 11:02+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language/hr/)\n"
 "Language: hr\n"
@@ -1258,6 +1259,9 @@ msgstr "Adresa dolazne pošte"
 
 msgid "Incoming message"
 msgstr "Dolazna poruka"
+
+msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
+msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
 msgstr "DolaznaPoruka|Spojeni predmemorirani tekst privitka "
