@@ -49,8 +49,9 @@ describe TrackController, "when making a new track on a request" do
 
   it "should require login when making new track" do
     get :track_request, :url_title => @ir.url_title, :feed => 'track'
-    post_redirect = PostRedirect.get_last_post_redirect
-    expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
   end
 
   it "should save a request track and redirect if you are logged in" do
