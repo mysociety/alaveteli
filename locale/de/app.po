@@ -11,15 +11,16 @@
 # KerstiRu <kersti@access-info.org>, 2011
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
+# Philipp Brocar <brocar@fra-uni.net>, 2015
 # stefanw <stefanwehrmeyer@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
-"PO-Revision-Date: 2015-07-24 15:02+0000\n"
+"POT-Creation-Date: 2015-08-12 11:00+0000\n"
+"PO-Revision-Date: 2015-08-12 11:02+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/alaveteli/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/mysociety/alaveteli/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,7 +85,7 @@ msgid " You will also be emailed updates about the request."
 msgstr "Aktualisierungen zu dieser Anfrage werden Ihnen auch per Email übermittelt. "
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "gefiltert nach Status: '{{status}}'"
 
 msgid " when you send this message."
 msgstr "wenn Sie diese Nachricht senden. "
@@ -105,16 +106,16 @@ msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', eine Person"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(ausblenden)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "(oder <a href=\"{{url}}\">einloggen</a>)"
 
 msgid "(show)"
 msgstr ""
 
 msgid "*unknown*"
-msgstr ""
+msgstr "*unbekannt*"
 
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ""
@@ -1250,6 +1251,9 @@ msgid "Incoming email address"
 msgstr ""
 
 msgid "Incoming message"
+msgstr ""
+
+msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
