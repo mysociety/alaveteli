@@ -41,16 +41,6 @@ class PostRedirect < ActiveRecord::Base
     MySociety::Util.generate_token
   end
 
-  # Used by (rspec) test code only
-  def self.get_last_post_redirect
-    # TODO: yeuch - no other easy way of getting the token so we can check
-    # the redirect URL, as it is by definition opaque to the controller
-    # apart from in the place that it redirects to.
-    post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
-    post_redirects.size.should == 1
-    post_redirects[0]
-  end
-
   # Called from cron job delete-old-things
   def self.delete_old_post_redirects
     PostRedirect.delete_all("updated_at < (now() - interval '2 months')")

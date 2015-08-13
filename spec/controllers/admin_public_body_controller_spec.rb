@@ -675,7 +675,9 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     @request.env["HTTP_AUTHORIZATION"] = ""
     n = PublicBody.count
     post :destroy, { :id => 3 }
-    expect(response).to redirect_to(:controller=>'user', :action=>'signin', :token=>PostRedirect.get_last_post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
     expect(PublicBody.count).to eq(n)
     expect(session[:using_admin]).to eq(nil)
   end
@@ -695,7 +697,9 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     n = PublicBody.count
     basic_auth_login(@request, "baduser", "badpassword")
     post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-    expect(response).to redirect_to(:controller=>'user', :action=>'signin', :token=>PostRedirect.get_last_post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
     expect(PublicBody.count).to eq(n)
     expect(session[:using_admin]).to eq(nil)
   end
@@ -739,7 +743,9 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     @request.env["HTTP_AUTHORIZATION"] = ""
     n = PublicBody.count
     post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-    expect(response).to redirect_to(:controller=>'user', :action=>'signin', :token=>PostRedirect.get_last_post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
     expect(PublicBody.count).to eq(n)
     expect(session[:using_admin]).to eq(nil)
   end
