@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-12 11:00+0000\n"
-"PO-Revision-Date: 2015-08-12 11:02+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2015-08-12 21:06+0000\n"
+"Last-Translator: pere <pere-transifex@hungry.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -1088,7 +1088,7 @@ msgid "I am asking for <strong>new information</strong>"
 msgstr "Jeg spør om <strong>ny informasjon</strong>"
 
 msgid "I am requesting an <strong>internal review</strong>"
-msgstr "Jeg ber om en <strong>intern gjennomgang</strong>"
+msgstr "Jeg ønsker å <strong>klage</strong>"
 
 msgid "I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'."
 msgstr "Jeg skriver for å klage på {{public_body_name}} sin håndtering av min innsynshenvendelse «{{info_request_title}}»."
@@ -1211,7 +1211,7 @@ msgid "Incoming message"
 msgstr "Innkommende beskjed"
 
 msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
-msgstr ""
+msgstr "Innkommende melding har en spam-verdi ({{spam_score}})  over den oppsatte grenseverdien ({{spam_threshold}})."
 
 msgid "IncomingMessage|Cached attachment text clipped"
 msgstr "IncomingMessage|Cached attachment text clipped"
@@ -1328,10 +1328,10 @@ msgid "Information on emissions and discharges (e.g. noise, energy, radiation, w
 msgstr "Informasjon om utslipp (for eksempel støy, energi,\\n stråling, avfall)"
 
 msgid "Internal review"
-msgstr "Intern gjennomgang"
+msgstr "Klage"
 
 msgid "Internal review of {{email_subject}}"
-msgstr "Intern gjennomgang av {{email_subject}}"
+msgstr "Klage over {{email_subject}}"
 
 msgid "Internal review request"
 msgstr "Klage"
@@ -1607,7 +1607,7 @@ msgid "Now preview your follow up"
 msgstr "Se nå igjennom din oppfølging"
 
 msgid "Now preview your message asking for an internal review"
-msgstr "Forhåndsvis din beskjed og be om en intern gjennomgang"
+msgstr "Forhåndsvis klage-meldingen din"
 
 msgid "Number of requests"
 msgstr "Antall henvendelser"
@@ -2176,7 +2176,7 @@ msgid "Request an internal review"
 msgstr "Skriv klage"
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr "Klag på vedtaket fra {{person_or_body}}"
+msgstr "Klag til {{person_or_body}}"
 
 msgid "Request email"
 msgstr "Forespør e-post"
@@ -3818,7 +3818,7 @@ msgid "please sign in as "
 msgstr "logg deg inn som "
 
 msgid "requesting an internal review"
-msgstr "be om en intern gjennomgang"
+msgstr "sender klage"
 
 msgid "requests"
 msgstr "henvendelser"
