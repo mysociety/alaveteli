@@ -296,6 +296,33 @@ INCOMING_EMAIL_PREFIX: 'foi+'
 # ---
 INCOMING_EMAIL_SECRET: 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'
 
+# Filter incoming mail that looks like spam. Spam can be redirected to the
+# holding pen or discarded.
+#
+# If you filter incoming emails through a spam detector like SpamAssassin, you
+# can configure Alaveteli to filter messages with a high spam score. This
+# feature requires the messages to contain a header with a numeric spam score,
+# and INCOMING_EMAIL_SPAM_ACTION, INCOMING_EMAIL_SPAM_HEADER and
+# INCOMING_EMAIL_SPAM_THRESHOLD to be configured before the filtering will take
+# effect.
+#
+# INCOMING_EMAIL_SPAM_ACTION - String or false
+#                              Options are 'holding_pen' or 'discard'
+#                              (default: false)
+# INCOMING_EMAIL_SPAM_HEADER - String (default: 'X-Spam-Score')
+# INCOMING_EMAIL_SPAM_THRESHOLD - Integer or false (default: false)
+#
+# Examples:
+#
+#   INCOMING_EMAIL_SPAM_ACTION: 'holding_pen'
+#   INCOMING_EMAIL_SPAM_HEADER: 'X-mySociety-Spam-Score'
+#   INCOMING_EMAIL_SPAM_THRESHOLD: 20
+#
+# ---
+INCOMING_EMAIL_SPAM_ACTION: false
+INCOMING_EMAIL_SPAM_HEADER: 'X-Spam-Score'
+INCOMING_EMAIL_SPAM_THRESHOLD: false
+
 # Used as envelope from at the incoming email domain for cases where you don't
 # care about failure.
 #
