@@ -8,46 +8,92 @@ namespace :stats do
     start_month = (ENV['START_MONTH'] || 1).to_i
     end_year = (ENV['END_YEAR'] || Time.now.year).to_i
     end_month = (ENV['END_MONTH'] || Time.now.month).to_i
+
     month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
+
     headers = ['Period',
                'Requests sent',
-               'Annotations added',
+               'Visible comments',
                'Track this request email signups',
                'Comments on own requests',
-               'Follow up messages sent']
+               'Follow up messages sent',
+               'Confirmed users',
+               'Request classifications',
+               'Public body change requests',
+               'Widget votes',
+               'Total tracks']
     puts headers.join("\t")
+
     month_starts.each do |month_start|
       month_end = month_start.end_of_month
       period = "#{month_start}-#{month_end}"
+
       date_conditions = ['created_at >= ?
                           AND created_at < ?',
                          month_start, month_end+1]
-      request_count = InfoRequest.count(:conditions => date_conditions)
-      comment_count = Comment.count(:conditions => date_conditions)
+
+      request_count = InfoRequest.where(date_conditions).count
+      visible_comments_count = Comment.visible.where(date_conditions).count
+
       track_conditions = ['track_type = ?
                            AND track_medium = ?
                            AND created_at >= ?
                            AND created_at < ?',
-                          'request_updates', 'email_daily', month_start, month_end+1]
-      email_request_track_count = TrackThing.count(:conditions => track_conditions)
+                          'request_updates',
+                          'email_daily',
+                          month_start,
+                          month_end + 1]
+      email_request_track_count = TrackThing.where(track_conditions).count
+
       comment_on_own_request_conditions = ['comments.user_id = info_requests.user_id
                                             AND comments.created_at >= ?
                                             AND comments.created_at < ?',
                                            month_start, month_end+1]
-      comment_on_own_request_count = Comment.count(:conditions => comment_on_own_request_conditions,
-                                                   :include => :info_request)
+
+      comment_on_own_request_count =
+        Comment.
+          includes(:info_request).
+            where(comment_on_own_request_conditions).
+              count
 
       followup_conditions = ['message_type = ?
+                               AND prominence = ?
                                AND created_at >= ?
                                AND created_at < ?',
-                             'followup', month_start, month_end+1]
-      follow_up_count = OutgoingMessage.count(:conditions => followup_conditions)
+                             'followup',
+                             'normal',
+                             month_start,
+                             month_end + 1]
+      follow_up_count = OutgoingMessage.where(followup_conditions).count
+
+      confirmed_users_count =
+        User.
+          where(:email_confirmed => true).
+            where(date_conditions).
+              count
+
+      request_classifications_count =
+        RequestClassification.where(date_conditions).count
+
+      public_body_change_requests_count =
+        PublicBodyChangeRequest.where(date_conditions).count
+
+      widget_votes_count = WidgetVote.where(date_conditions).count
+
+      total_tracks_count = TrackThing.where(date_conditions).count
+
+
       puts [period,
             request_count,
-            comment_count,
+            visible_comments_count,
             email_request_track_count,
             comment_on_own_request_count,
-            follow_up_count].join("\t")
+            follow_up_count,
+            confirmed_users_count,
+            request_classifications_count,
+            public_body_change_requests_count,
+            widget_votes_count,
+            total_tracks_count].join("\t")
     end
   end
 

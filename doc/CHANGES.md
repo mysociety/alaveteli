@@ -1,5 +1,16 @@
 # develop
 
+## Highlighted Features
+
+# Version 0.22.3.0
+
+* Added additional transaction stats to /version.json endpoint (Gareth Rees).
+* Added additional transaction stats to stats:show rake task (Gareth Rees).
+
+## Upgrade Notes
+
+* There should be no action necessary.
+
 # Version 0.22.2.0
 
 ## Highlighted Features

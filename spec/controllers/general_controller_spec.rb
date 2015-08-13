@@ -2,6 +2,80 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require 'fakeweb'
 
+describe GeneralController do
+
+  describe 'GET version' do
+
+    it 'renders json stats about the install' do
+      # Clean up fixtures
+      InfoRequest.find_each(&:fully_destroy)
+      Comment.find_each(&:fully_destroy)
+      PublicBody.find_each(&:destroy)
+      TrackThing.find_each(&:destroy)
+      User.find_each(&:destroy)
+
+      # Create some constant God models for other factories
+      user = FactoryGirl.create(:user)
+      body = FactoryGirl.create(:public_body)
+      info_request = FactoryGirl.create(:info_request,
+                                        :user => user, :public_body => body)
+      default_args = { :info_request => info_request,
+                       :public_body => body,
+                       :user => user }
+
+      # Create the other data we're checking
+      FactoryGirl.create(:info_request, :user => user,
+                                        :public_body => body,
+                                        :prominence => 'hidden')
+      FactoryGirl.create(:user, :email_confirmed => false)
+      FactoryGirl.create(:visible_comment,
+                         default_args.dup.slice!(:public_body))
+      FactoryGirl.create(:hidden_comment,
+                         default_args.dup.slice!(:public_body))
+      FactoryGirl.create(:search_track, :tracking_user => user)
+      FactoryGirl.create(:widget_vote,
+                         default_args.dup.slice!(:user, :public_body))
+      FactoryGirl.create(:internal_review_request,
+                         default_args.dup.slice!(:user, :public_body))
+      FactoryGirl.create(:internal_review_request,
+                         :info_request => info_request, :prominence => 'hidden')
+      FactoryGirl.create(:add_body_request,
+                         default_args.dup.slice!(:info_request))
+      event = FactoryGirl.create(:info_request_event,
+                                 default_args.dup.slice!(:user, :public_body))
+      FactoryGirl.create(:request_classification, :user => user,
+                                                  :info_request_event => event)
+
+      mock_git_commit = Digest::SHA1.hexdigest(Time.now.to_s)
+
+      ApplicationController.
+        any_instance.
+          stub(:alaveteli_git_commit).
+            and_return(mock_git_commit)
+
+      expected = { :alaveteli_git_commit => mock_git_commit,
+                   :alaveteli_version => ALAVETELI_VERSION,
+                   :ruby_version => RUBY_VERSION,
+                   :visible_public_body_count => 1,
+                   :visible_request_count => 1,
+                   :confirmed_user_count => 1,
+                   :visible_comment_count => 1,
+                   :track_thing_count => 1,
+                   :widget_vote_count => 1,
+                   :public_body_change_request_count => 1,
+                   :request_classification_count => 1,
+                   :visible_followup_message_count => 1 }
+
+      get :version, :format => :json
+
+      parsed_body = JSON.parse(response.body).symbolize_keys
+      expect(parsed_body).to eq(expected)
+    end
+
+  end
+
+end
+
 describe GeneralController, "when trying to show the blog" do
   before (:each) do
     FakeWeb.clean_registry
