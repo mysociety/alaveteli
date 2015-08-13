@@ -14,23 +14,23 @@ describe InfoRequestBatchMailer do
     end
 
     it 'renders the subject' do
-      @mail.subject.should == 'Your batch request "Example title" has been sent'
+      expect(@mail.subject).to eq('Your batch request "Example title" has been sent')
     end
 
     it 'renders the receiver email' do
-      @mail.to.should == [@user.email]
+      expect(@mail.to).to eq([@user.email])
     end
 
     it 'renders the sender email' do
-      @mail.from.should == ['postmaster@localhost']
+      expect(@mail.from).to eq(['postmaster@localhost'])
     end
 
     it 'assigns @unrequestable' do
-      @mail.body.encoded.should match(@public_body.name)
+      expect(@mail.body.encoded).to match(@public_body.name)
     end
 
     it 'assigns @url' do
-      @mail.body.encoded.should match("http://test.host/en/c/")
+      expect(@mail.body.encoded).to match("http://test.host/en/c/")
     end
   end
 end

@@ -18,7 +18,7 @@ describe ApiController, "when using the API" do
       expect {
         post :create_request, :request_json => @request_data.to_json
       }.to raise_error ApplicationController::PermissionDenied
-      InfoRequest.count.should == @number_of_requests
+      expect(InfoRequest.count).to eq(@number_of_requests)
     end
 
     it 'should check the API key' do
@@ -27,7 +27,7 @@ describe ApiController, "when using the API" do
         :k => 'This is not really an API key',
         :request_json => @request_data.to_json
       }.to raise_error ApplicationController::PermissionDenied
-      InfoRequest.count.should == @number_of_requests
+      expect(InfoRequest.count).to eq(@number_of_requests)
     end
   end
 
@@ -40,7 +40,7 @@ describe ApiController, "when using the API" do
       'external_url' => 'http://www.example.gov.uk/foi/chickens_23',
       'external_user_name' => 'Bob Smith'
     }.to_json
-    response.content_type.should == 'application/json'
+    expect(response.content_type).to eq('application/json')
     ActiveSupport::JSON.decode(response.body)['id']
   end
 
@@ -64,30 +64,30 @@ describe ApiController, "when using the API" do
       post :create_request,
         :k => public_bodies(:geraldine_public_body).api_key,
         :request_json => request_data.to_json
-      response.should be_success
+      expect(response).to be_success
 
-      response.content_type.should == 'application/json'
+      expect(response.content_type).to eq('application/json')
       response_body = ActiveSupport::JSON.decode(response.body)
-      response_body['errors'].should be_nil
-      response_body['url'].should =~ /^http/
+      expect(response_body['errors']).to be_nil
+      expect(response_body['url']).to match(/^http/)
 
-      InfoRequest.count(:conditions => [
+      expect(InfoRequest.count(:conditions => [
                           'public_body_id = ?',
                         public_bodies(:geraldine_public_body).id]
-                        ).should == number_of_requests + 1
+                        )).to eq(number_of_requests + 1)
 
       new_request = InfoRequest.find(response_body['id'])
-      new_request.user_id.should be_nil
-      new_request.external_user_name.should == request_data['external_user_name']
-      new_request.external_url.should == request_data['external_url']
+      expect(new_request.user_id).to be_nil
+      expect(new_request.external_user_name).to eq(request_data['external_user_name'])
+      expect(new_request.external_url).to eq(request_data['external_url'])
 
-      new_request.title.should == request_data['title']
-      new_request.last_event_forming_initial_request.outgoing_message.body.should == request_data['body'].strip
+      expect(new_request.title).to eq(request_data['title'])
+      expect(new_request.last_event_forming_initial_request.outgoing_message.body).to eq(request_data['body'].strip)
 
-      new_request.public_body_id.should == public_bodies(:geraldine_public_body).id
-      new_request.info_request_events.size.should == 1
-      new_request.info_request_events[0].event_type.should == 'sent'
-      new_request.info_request_events[0].calculated_state.should == 'waiting_response'
+      expect(new_request.public_body_id).to eq(public_bodies(:geraldine_public_body).id)
+      expect(new_request.info_request_events.size).to eq(1)
+      expect(new_request.info_request_events[0].event_type).to eq('sent')
+      expect(new_request.info_request_events[0].calculated_state).to eq('waiting_response')
     end
   end
 
@@ -98,7 +98,7 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      IncomingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 0
+      expect(IncomingMessage.count(:conditions => ["info_request_id = ?", request_id])).to eq(0)
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
@@ -113,13 +113,13 @@ describe ApiController, "when using the API" do
       }.to_json
 
       # And make sure it worked
-      response.should be_success
+      expect(response).to be_success
       incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
-      incoming_messages.count.should == 1
+      expect(incoming_messages.count).to eq(1)
       incoming_message = incoming_messages[0]
 
-      incoming_message.sent_at.should == Time.iso8601(sent_at)
-      incoming_message.get_main_body_text_folded.should be_equal_modulo_whitespace_to(response_body)
+      expect(incoming_message.sent_at).to eq(Time.iso8601(sent_at))
+      expect(incoming_message.get_main_body_text_folded).to be_equal_modulo_whitespace_to(response_body)
     end
 
     it 'should add a followup to a request' do
@@ -127,7 +127,7 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has one outgoing message
-      OutgoingMessage.count(:conditions => ['info_request_id = ?', request_id]).should == 1
+      expect(OutgoingMessage.count(:conditions => ['info_request_id = ?', request_id])).to eq(1)
 
       # Add another, as a followup
       sent_at = '2012-05-29T12:35:39+01:00'
@@ -142,15 +142,15 @@ describe ApiController, "when using the API" do
       }.to_json
 
       # Make sure it worked
-      response.should be_success
+      expect(response).to be_success
       followup_messages = OutgoingMessage.all(
         :conditions => ["info_request_id = ? and message_type = 'followup'", request_id]
       )
-      followup_messages.size.should == 1
+      expect(followup_messages.size).to eq(1)
       followup_message = followup_messages[0]
 
-      followup_message.last_sent_at.should == Time.iso8601(sent_at)
-      followup_message.body.should == followup_body.strip
+      expect(followup_message.last_sent_at).to eq(Time.iso8601(sent_at))
+      expect(followup_message.body).to eq(followup_body.strip)
     end
 
     it 'should update the status if a valid state is supplied' do
@@ -158,7 +158,7 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      IncomingMessage.count(:conditions => ['info_request_id = ?', request_id]).should == 0
+      expect(IncomingMessage.count(:conditions => ['info_request_id = ?', request_id])).to eq(0)
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
@@ -174,11 +174,11 @@ describe ApiController, "when using the API" do
       }.to_json
 
       # And make sure it worked
-      response.should be_success
+      expect(response).to be_success
       incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
-      incoming_messages.count.should == 1
+      expect(incoming_messages.count).to eq(1)
       request = InfoRequest.find_by_id(request_id)
-      request.described_state.should == 'successful'
+      expect(request.described_state).to eq('successful')
     end
 
     it 'should raise a JSON 500 error if an invalid state is supplied' do
@@ -186,7 +186,7 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      IncomingMessage.count(:conditions => ['info_request_id = ?', request_id]).should == 0
+      expect(IncomingMessage.count(:conditions => ['info_request_id = ?', request_id])).to eq(0)
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
@@ -202,14 +202,14 @@ describe ApiController, "when using the API" do
       }.to_json
 
       # And make sure it worked
-      response.status.should == 500
-      ActiveSupport::JSON.decode(response.body)['errors'].should == [
-      "'random_string' is not a valid request state"]
+      expect(response.status).to eq(500)
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
+      "'random_string' is not a valid request state"])
 
       incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
-      incoming_messages.count.should == 0
+      expect(incoming_messages.count).to eq(0)
       request = InfoRequest.find_by_id(request_id)
-      request.described_state.should == 'waiting_response'
+      expect(request.described_state).to eq('waiting_response')
     end
 
     it 'should not allow internal requests to be updated' do
@@ -226,12 +226,12 @@ describe ApiController, "when using the API" do
         'body' => 'xxx'
       }.to_json
 
-      response.status.should == 403
-      ActiveSupport::JSON.decode(response.body)['errors'].should == [
-      "Request #{request_id} cannot be updated using the API"]
+      expect(response.status).to eq(403)
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
+      "Request #{request_id} cannot be updated using the API"])
 
-      IncomingMessage.count.should == n_incoming_messages
-      OutgoingMessage.count.should == n_outgoing_messages
+      expect(IncomingMessage.count).to eq(n_incoming_messages)
+      expect(OutgoingMessage.count).to eq(n_outgoing_messages)
     end
 
     it 'should not allow other people\'s requests to be updated' do
@@ -248,17 +248,17 @@ describe ApiController, "when using the API" do
         'body' => 'xxx'
       }.to_json
 
-      response.status.should == 403
-      ActiveSupport::JSON.decode(response.body)['errors'].should == [
-      "You do not own request #{request_id}"]
+      expect(response.status).to eq(403)
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
+      "You do not own request #{request_id}"])
 
-      IncomingMessage.count.should == n_incoming_messages
-      OutgoingMessage.count.should == n_outgoing_messages
+      expect(IncomingMessage.count).to eq(n_incoming_messages)
+      expect(OutgoingMessage.count).to eq(n_outgoing_messages)
     end
 
     it 'should return a JSON 404 error for non-existent requests' do
       request_id = '123459876'
-      InfoRequest.stub(:find_by_id).with(request_id).and_return(nil)
+      allow(InfoRequest).to receive(:find_by_id).with(request_id).and_return(nil)
       sent_at = '2012-05-28T12:35:39+01:00'
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
@@ -269,8 +269,8 @@ describe ApiController, "when using the API" do
         'sent_at' => sent_at,
         'body' => response_body
       }.to_json
-      response.status.should == 404
-      ActiveSupport::JSON.decode(response.body)['errors'].should == ['Could not find request 123459876']
+      expect(response.status).to eq(404)
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(['Could not find request 123459876'])
     end
 
     it 'should return a JSON 403 error if we try to add correspondence to a request we don\'t own' do
@@ -285,8 +285,8 @@ describe ApiController, "when using the API" do
         'sent_at' => sent_at,
         'body' => response_body
       }.to_json
-      response.status.should == 403
-      ActiveSupport::JSON.decode(response.body)['errors'].should == ["Request #{request_id} cannot be updated using the API"]
+      expect(response.status).to eq(403)
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(["Request #{request_id} cannot be updated using the API"])
     end
 
     it 'should not allow files to be attached to a followup' do
@@ -303,9 +303,9 @@ describe ApiController, "when using the API" do
       ]
 
       # Make sure it worked
-      response.status.should == 500
+      expect(response.status).to eq(500)
       errors = ActiveSupport::JSON.decode(response.body)['errors']
-      errors.should == ["You cannot attach files to messages in the 'request' direction"]
+      expect(errors).to eq(["You cannot attach files to messages in the 'request' direction"])
     end
 
     it 'should allow files to be attached to a response' do
@@ -313,7 +313,7 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      IncomingMessage.count(:conditions => ['info_request_id = ?', request_id]).should == 0
+      expect(IncomingMessage.count(:conditions => ['info_request_id = ?', request_id])).to eq(0)
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
@@ -331,20 +331,20 @@ describe ApiController, "when using the API" do
       ]
 
       # And make sure it worked
-      response.should be_success
+      expect(response).to be_success
       incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
-      incoming_messages.count.should == 1
+      expect(incoming_messages.count).to eq(1)
       incoming_message = incoming_messages[0]
 
-      incoming_message.sent_at.should == Time.iso8601(sent_at)
-      incoming_message.get_main_body_text_folded.should be_equal_modulo_whitespace_to(response_body)
+      expect(incoming_message.sent_at).to eq(Time.iso8601(sent_at))
+      expect(incoming_message.get_main_body_text_folded).to be_equal_modulo_whitespace_to(response_body)
 
       # Get the attachment
       attachments = incoming_message.get_attachments_for_display
-      attachments.size.should == 1
+      expect(attachments.size).to eq(1)
       attachment = attachments[0]
-      attachment.filename.should == 'tfl.pdf'
-      attachment.body.should == load_file_fixture('tfl.pdf')
+      expect(attachment.filename).to eq('tfl.pdf')
+      expect(attachment.body).to eq(load_file_fixture('tfl.pdf'))
     end
   end
 
@@ -356,7 +356,7 @@ describe ApiController, "when using the API" do
       request = InfoRequest.find_by_id(request_id)
 
       # Its status should be the default for a new request
-      request.described_state.should == 'waiting_response'
+      expect(request.described_state).to eq('waiting_response')
 
       # Now accept an update
       post :update_state,
@@ -366,13 +366,13 @@ describe ApiController, "when using the API" do
 
       # It should have updated the status
       request = InfoRequest.find_by_id(request_id)
-      request.described_state.should == 'partially_successful'
+      expect(request.described_state).to eq('partially_successful')
 
       # It should have recorded the status_update event
       last_event = request.info_request_events.last
-      last_event.event_type.should == 'status_update'
-      last_event.described_state.should == 'partially_successful'
-      last_event.params_yaml.should =~ /script: Geraldine Quango on behalf of requester via API/
+      expect(last_event.event_type).to eq('status_update')
+      expect(last_event.described_state).to eq('partially_successful')
+      expect(last_event.params_yaml).to match(/script: Geraldine Quango on behalf of requester via API/)
     end
 
     it 'should return a JSON 500 error if an invalid state is sent' do
@@ -381,7 +381,7 @@ describe ApiController, "when using the API" do
       request = InfoRequest.find_by_id(request_id)
 
       # Its status should be the default for a new request
-      request.described_state.should == 'waiting_response'
+      expect(request.described_state).to eq('waiting_response')
 
       # Now post an invalid update
       post :update_state,
@@ -390,25 +390,25 @@ describe ApiController, "when using the API" do
         :state => 'random_string'
 
       # Check that the error has been raised...
-      response.status.should == 500
-      ActiveSupport::JSON.decode(response.body)['errors'].should == ["'random_string' is not a valid request state"]
+      expect(response.status).to eq(500)
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(["'random_string' is not a valid request state"])
 
       # ..and that the status hasn't been updated
       request = InfoRequest.find_by_id(request_id)
-      request.described_state.should == 'waiting_response'
+      expect(request.described_state).to eq('waiting_response')
     end
 
     it 'should return a JSON 404 error for non-existent requests' do
       request_id = '123459876'
-      InfoRequest.stub(:find_by_id).with(request_id).and_return(nil)
+      allow(InfoRequest).to receive(:find_by_id).with(request_id).and_return(nil)
 
       post :update_state,
         :k => public_bodies(:geraldine_public_body).api_key,
         :id => request_id,
         :state => "successful"
 
-      response.status.should == 404
-      ActiveSupport::JSON.decode(response.body)['errors'].should == ['Could not find request 123459876']
+      expect(response.status).to eq(404)
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(['Could not find request 123459876'])
     end
 
     it 'should return a JSON 403 error if we try to add correspondence to a request we don\'t own' do
@@ -419,8 +419,8 @@ describe ApiController, "when using the API" do
         :id => request_id,
         :state => 'successful'
 
-      response.status.should == 403
-      ActiveSupport::JSON.decode(response.body)['errors'].should == ["Request #{request_id} cannot be updated using the API"]
+      expect(response.status).to eq(403)
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(["Request #{request_id} cannot be updated using the API"])
     end
   end
 
@@ -433,11 +433,11 @@ describe ApiController, "when using the API" do
         :k => public_bodies(:geraldine_public_body).api_key,
         :id => info_request.id
 
-      response.should be_success
-      assigns[:request].id.should == info_request.id
+      expect(response).to be_success
+      expect(assigns[:request].id).to eq(info_request.id)
 
       r = ActiveSupport::JSON.decode(response.body)
-      r['title'].should == info_request.title
+      expect(r['title']).to eq(info_request.title)
       # Let’s not test all the fields here, because it would
       # essentially just be a matter of copying the code that
       # assigns them and changing assignment to an equality
@@ -450,10 +450,10 @@ describe ApiController, "when using the API" do
         :k => public_bodies(:geraldine_public_body).api_key,
         :id => info_request.id
 
-      response.should be_success
-      assigns[:request].id.should == info_request.id
+      expect(response).to be_success
+      expect(assigns[:request].id).to eq(info_request.id)
       r = ActiveSupport::JSON.decode(response.body)
-      r['title'].should == info_request.title
+      expect(r['title']).to eq(info_request.title)
     end
   end
 
@@ -465,13 +465,13 @@ describe ApiController, "when using the API" do
         :k => public_bodies(:geraldine_public_body).api_key,
         :feed_type => 'atom'
 
-      response.should be_success
-      response.should render_template('api/request_events')
-      assigns[:events].size.should > 0
+      expect(response).to be_success
+      expect(response).to render_template('api/request_events')
+      expect(assigns[:events].size).to be > 0
       assigns[:events].each do |event|
-        event.info_request.public_body.should == public_bodies(:geraldine_public_body)
-        event.outgoing_message.should_not be_nil
-        event.event_type.should satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
+        expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
+        expect(event.outgoing_message).not_to be_nil
+        expect(event.event_type).to satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
       end
     end
 
@@ -481,17 +481,17 @@ describe ApiController, "when using the API" do
         :k => public_bodies(:geraldine_public_body).api_key,
         :feed_type => 'json'
 
-      response.should be_success
-      assigns[:events].size.should > 0
+      expect(response).to be_success
+      expect(assigns[:events].size).to be > 0
       assigns[:events].each do |event|
-        event.info_request.public_body.should == public_bodies(:geraldine_public_body)
-        event.outgoing_message.should_not be_nil
-        event.event_type.should satisfy {|x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x)}
+        expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
+        expect(event.outgoing_message).not_to be_nil
+        expect(event.event_type).to satisfy {|x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x)}
       end
 
-      assigns[:event_data].size.should == assigns[:events].size
+      expect(assigns[:event_data].size).to eq(assigns[:events].size)
       assigns[:event_data].each do |event_record|
-        event_record[:event_type].should satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
+        expect(event_record[:event_type]).to satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
       end
     end
 
@@ -501,7 +501,7 @@ describe ApiController, "when using the API" do
         :k => public_bodies(:geraldine_public_body).api_key,
         :feed_type => 'json'
 
-      response.should be_success
+      expect(response).to be_success
       first_event = assigns[:event_data][0]
       second_event_id = assigns[:event_data][1][:event_id]
 
@@ -510,8 +510,8 @@ describe ApiController, "when using the API" do
         :k => public_bodies(:geraldine_public_body).api_key,
         :feed_type => 'json',
         :since_event_id => second_event_id
-      response.should be_success
-      assigns[:event_data].should == [first_event]
+      expect(response).to be_success
+      expect(assigns[:event_data]).to eq([first_event])
     end
 
     it 'should honour the since_date parameter' do
@@ -521,11 +521,11 @@ describe ApiController, "when using the API" do
         :since_date => '2010-01-01',
         :feed_type => 'atom'
 
-      response.should be_success
-      response.should render_template('api/request_events')
-      assigns[:events].size.should > 0
+      expect(response).to be_success
+      expect(response).to render_template('api/request_events')
+      expect(assigns[:events].size).to be > 0
       assigns[:events].each do |event|
-        event.created_at.should >= Date.new(2010, 1, 1)
+        expect(event.created_at).to be >= Date.new(2010, 1, 1)
       end
 
       get :body_request_events,
@@ -534,7 +534,7 @@ describe ApiController, "when using the API" do
         :since_date => '2010-01-01',
         :feed_type => 'json'
       assigns[:events].each do |event|
-        event.created_at.should >= Date.new(2010, 1, 1)
+        expect(event.created_at).to be >= Date.new(2010, 1, 1)
       end
     end
   end

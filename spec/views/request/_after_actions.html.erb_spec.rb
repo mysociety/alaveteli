@@ -27,15 +27,15 @@ describe 'when displaying actions that can be taken with regard to a request' do
 
         it 'should not display a link for the request owner to update the status of the request' do
             render :partial => 'request/after_actions'
-            response.should have_selector('div#owner_actions') do |div|
-                div.should_not have_selector('a', :content => 'Update the status of this request')
+            expect(response.body).to have_css('div#owner_actions') do |div|
+                expect(div).not_to have_css('a', :text => 'Update the status of this request')
             end
         end
 
         it 'should display a link for anyone to update the status of the request' do
             render :partial => 'request/after_actions'
-            response.should have_selector('div#anyone_actions') do |div|
-                div.should have_selector('a', :content => 'Update the status of this request')
+            expect(response.body).to have_css('div#anyone_actions') do |div|
+                expect(div).to have_css('a', :text => 'Update the status of this request')
             end
         end
 
@@ -49,15 +49,15 @@ describe 'when displaying actions that can be taken with regard to a request' do
 
         it 'should display a link for the request owner to update the status of the request' do
             render :partial => 'request/after_actions'
-            response.should have_selector('div#owner_actions') do |div|
-                div.should have_selector('a', :content => 'Update the status of this request')
+            expect(response.body).to have_css('div#owner_actions') do |div|
+                expect(div).to have_css('a', :text => 'Update the status of this request')
             end
         end
 
         it 'should not display a link for anyone to update the status of the request' do
             render :partial => 'request/after_actions'
-            response.should have_selector('div#anyone_actions') do |div|
-                div.should_not have_selector('a', :content => 'Update the status of this request')
+            expect(response.body).to have_css('div#anyone_actions') do |div|
+                expect(div).not_to have_css('a', :text => 'Update the status of this request')
             end
         end
 
@@ -65,16 +65,16 @@ describe 'when displaying actions that can be taken with regard to a request' do
 
     it 'should display a link for the request owner to request a review' do
         render :partial => 'request/after_actions'
-        response.should have_selector('div#owner_actions') do |div|
-            div.should have_selector('a', :content => 'Request an internal review')
+        expect(response.body).to have_css('div#owner_actions') do |div|
+            expect(div).to have_css('a', :text => 'Request an internal review')
         end
     end
 
 
     it 'should display the link to download the entire request' do
         render :partial => 'request/after_actions'
-        response.should have_selector('div#anyone_actions') do |div|
-            div.should have_selector('a', :content => 'Download a zip file of all correspondence')
+        expect(response.body).to have_css('div#anyone_actions') do |div|
+            expect(div).to have_css('a', :text => 'Download a zip file of all correspondence')
         end
     end
 

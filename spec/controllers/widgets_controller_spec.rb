@@ -9,7 +9,7 @@ describe WidgetsController do
 
     before do
       @info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
+      allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
     end
 
     it 'should render the widget template' do
@@ -19,17 +19,17 @@ describe WidgetsController do
 
     it 'should find the info request' do
       get :show, :request_id => @info_request.id
-      assigns[:info_request].should == @info_request
+      expect(assigns[:info_request]).to eq(@info_request)
     end
 
     it 'should create a track thing for the request' do
       get :show, :request_id => @info_request.id
-      assigns[:track_thing].info_request.should == @info_request
+      expect(assigns[:track_thing].info_request).to eq(@info_request)
     end
 
     it 'should assign the request status' do
       get :show, :request_id => @info_request.id
-      assigns[:status].should == @info_request.calculate_status
+      expect(assigns[:status]).to eq(@info_request.calculate_status)
     end
 
     it 'assigns the count of follows the request has' do
@@ -57,18 +57,18 @@ describe WidgetsController do
     it 'sets user_owns_request to true if the user owns the request' do
       session[:user_id] = @info_request.user.id
       get :show, :request_id => @info_request.id
-      expect(assigns[:user_owns_request]).to be_true
+      expect(assigns[:user_owns_request]).to be true
     end
 
     it 'sets user_owns_request to false if the user does not own the request' do
       session[:user_id] = FactoryGirl.create(:user).id
       get :show, :request_id => @info_request.id
-      expect(assigns[:user_owns_request]).to be_false
+      expect(assigns[:user_owns_request]).to be false
     end
 
     it 'should not send an x-frame-options header' do
       get :show, :request_id => @info_request.id
-      response.headers["X-Frame-Options"].should be_nil
+      expect(response.headers["X-Frame-Options"]).to be_nil
     end
 
     context 'for a non-logged-in user with a tracking cookie' do
@@ -85,14 +85,14 @@ describe WidgetsController do
                                   :cookie => mock_cookie)
         request.cookies['widget_vote'] = vote.cookie
         get :show, :request_id => @info_request.id
-        expect(assigns[:existing_vote]).to be_true
+        expect(assigns[:existing_vote]).to be true
       end
 
       it 'will not find any existing votes if none exist' do
         WidgetVote.delete_all
         request.cookies['widget_vote'] = mock_cookie
         get :show, :request_id => @info_request.id
-        expect(assigns[:existing_vote]).to be_false
+        expect(assigns[:existing_vote]).to be false
       end
 
     end
@@ -108,7 +108,7 @@ describe WidgetsController do
       it 'will not find any existing votes' do
         request.cookies['widget_vote'] = nil
         get :show, :request_id => @info_request.id
-        expect(assigns[:existing_vote]).to be_false
+        expect(assigns[:existing_vote]).to be false
       end
 
     end
@@ -152,7 +152,7 @@ describe WidgetsController do
 
         get :show, :request_id => @info_request.id
 
-        expect(assigns[:existing_vote]).to be_true
+        expect(assigns[:existing_vote]).to be true
       end
 
       it 'will not find any existing votes if none exist' do
@@ -163,7 +163,7 @@ describe WidgetsController do
 
         get :show, :request_id => @info_request.id
 
-        expect(assigns[:existing_vote]).to be_false
+        expect(assigns[:existing_vote]).to be false
       end
 
     end
@@ -171,9 +171,9 @@ describe WidgetsController do
     context 'when widgets are not enabled' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
-        lambda{ get :show, :request_id => @info_request.id }.should
-        raise_error(ActiveRecord::RecordNotFound)
+        allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
+        expect{ get :show, :request_id => @info_request.id }.
+          to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -184,7 +184,7 @@ describe WidgetsController do
         @info_request.prominence = 'hidden'
         @info_request.save!
         get :show, :request_id => @info_request.id
-        response.code.should == "403"
+        expect(response.code).to eq("403")
       end
 
       it 'does not look for an existing vote' do
@@ -195,7 +195,7 @@ describe WidgetsController do
 
         get :show, :request_id => @info_request.id
 
-        expect(assigns[:existing_vote]).to be_false
+        expect(assigns[:existing_vote]).to be false
       end
 
     end
@@ -206,7 +206,7 @@ describe WidgetsController do
 
     before do
       @info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
+      allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
     end
 
     it 'should render the create widget template' do
@@ -216,15 +216,15 @@ describe WidgetsController do
 
     it 'should find the info request' do
       get :new, :request_id => @info_request.id
-      assigns[:info_request].should == @info_request
+      expect(assigns[:info_request]).to eq(@info_request)
     end
 
     context 'when widgets are not enabled' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
-        lambda{ get :new, :request_id => @info_request.id }.should
-        raise_error(ActiveRecord::RecordNotFound)
+        allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
+        expect{ get :new, :request_id => @info_request.id }
+          .to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -235,7 +235,7 @@ describe WidgetsController do
         @info_request.prominence = 'hidden'
         @info_request.save!
         get :show, :request_id => @info_request.id
-        response.code.should == "403"
+        expect(response.code).to eq("403")
       end
 
     end

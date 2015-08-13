@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe HelpController do
   render_views
 
-  describe :index do
+  describe 'GET index' do
 
     it 'redirects to the about page' do
       get :index
@@ -13,12 +13,12 @@ describe HelpController do
 
   end
 
-  describe :about do
+  describe 'GET about' do
 
     it 'shows the about page' do
       get :about
-      response.should be_success
-      response.should render_template('help/about')
+      expect(response).to be_success
+      expect(response).to render_template('help/about')
     end
 
   end
@@ -27,8 +27,8 @@ describe HelpController do
 
     it 'shows contact form' do
       get :contact
-      response.should be_success
-      response.should render_template('help/contact')
+      expect(response).to be_success
+      expect(response).to render_template('help/contact')
     end
 
     describe 'when requesting a page in a supported locale' do
@@ -41,7 +41,7 @@ describe HelpController do
 
       it 'should render the locale-specific template if available' do
         get :contact, {:locale => 'es'}
-        response.body.should match('contáctenos theme one')
+        expect(response.body).to match('contáctenos theme one')
       end
 
     end
@@ -58,11 +58,11 @@ describe HelpController do
                          :comment => '',
                          :message => "You really should know!!!\n\nVinny" },
                        :submitted_contact_form => 1 }
-      response.should redirect_to(frontpage_path)
+      expect(response).to redirect_to(frontpage_path)
 
       deliveries = ActionMailer::Base.deliveries
-      deliveries.size.should == 1
-      deliveries[0].body.should include('really should know')
+      expect(deliveries.size).to eq(1)
+      expect(deliveries[0].body).to include('really should know')
       deliveries.clear
     end
 
@@ -75,10 +75,10 @@ describe HelpController do
                          :message => "You really should know!!!\n\nVinny" },
                        :submitted_contact_form => 1 }
 
-      response.should redirect_to(frontpage_path)
+      expect(response).to redirect_to(frontpage_path)
 
       deliveries = ActionMailer::Base.deliveries
-      deliveries.size.should == 0
+      expect(deliveries.size).to eq(0)
       deliveries.clear
     end
 

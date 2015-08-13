@@ -14,13 +14,13 @@ describe "public_body/show" do
                          :publication_scheme => '',
                          :disclosure_log => '',
                          :calculated_home_page => '')
-        @pb.stub!(:is_requestable?).and_return(true)
-        @pb.stub!(:special_not_requestable_reason?).and_return(false)
-        @pb.stub!(:has_notes?).and_return(false)
-        @pb.stub!(:has_tag?).and_return(false)
-        @pb.stub!(:tag_string).and_return('')
-        @xap = mock(ActsAsXapian::Search, :matches_estimated => 2)
-        @xap.stub!(:results).and_return([
+        allow(@pb).to receive(:is_requestable?).and_return(true)
+        allow(@pb).to receive(:special_not_requestable_reason?).and_return(false)
+        allow(@pb).to receive(:has_notes?).and_return(false)
+        allow(@pb).to receive(:has_tag?).and_return(false)
+        allow(@pb).to receive(:tag_string).and_return('')
+        @xap = double(ActsAsXapian::Search, :matches_estimated => 2)
+        allow(@xap).to receive(:results).and_return([
           { :model => mock_event },
           { :model => mock_event }
         ])
@@ -36,29 +36,29 @@ describe "public_body/show" do
 
     it "should be successful" do
         render
-        controller.response.should be_success
+        expect(controller.response).to be_success
     end
 
     it "should show the body's name" do
         render
-        response.should have_selector('h1', :content => "Test Quango")
+        expect(response).to have_css('h1', :text => "Test Quango")
     end
 
     it "should tell total number of requests" do
         render
-        response.should match "4 requests"
+        expect(response).to match "4 requests"
     end
 
     it "should cope with no results" do
         assign(:number_of_visible_requests, 0)
         render
-        response.should have_selector('p', :content => "Nobody has made any Freedom of Information requests")
+        expect(response).to have_css('p', :text => "Nobody has made any Freedom of Information requests")
     end
 
     it "should cope with Xapian being down" do
         assign(:xapian_requests, nil)
         render
-        response.should match "The search index is currently offline"
+        expect(response).to match "The search index is currently offline"
     end
 
 end

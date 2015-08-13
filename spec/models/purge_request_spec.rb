@@ -24,9 +24,9 @@ describe PurgeRequest, "purging things" do
                            :model => "don't care",
                            :model_id => "don't care")
     req.save
-    PurgeRequest.all.count.should == 1
+    expect(PurgeRequest.all.count).to eq(1)
     PurgeRequest.purge_all
-    PurgeRequest.all.count.should == 0
+    expect(PurgeRequest.all.count).to eq(0)
   end
 
   it 'should fail silently for a misconfigured server' do
@@ -37,8 +37,8 @@ describe PurgeRequest, "purging things" do
                            :model => "don't care",
                            :model_id => "don't care")
     req.save
-    PurgeRequest.all.count.should == 1
+    expect(PurgeRequest.all.count).to eq(1)
     PurgeRequest.purge_all
-    PurgeRequest.all.count.should == 0
+    expect(PurgeRequest.all.count).to eq(0)
   end
 end
