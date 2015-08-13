@@ -4,33 +4,39 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe PublicBodyCSV do
 
   describe '.default_fields' do
-    defaults = [:name,
-                :short_name,
-                :url_name,
-                :tag_string,
-                :calculated_home_page,
-                :publication_scheme,
-                :disclosure_log,
-                :notes,
-                :created_at,
-                :updated_at,
-                :version]
-    PublicBodyCSV.default_fields.should == defaults
+
+    it 'has a default set of fields' do
+      defaults = [:name,
+                  :short_name,
+                  :url_name,
+                  :tag_string,
+                  :calculated_home_page,
+                  :publication_scheme,
+                  :disclosure_log,
+                  :notes,
+                  :created_at,
+                  :updated_at,
+                  :version]
+      PublicBodyCSV.default_fields.should == defaults
+    end
   end
 
   describe '.default_headers' do
-    defaults = ['Name',
-                'Short name',
-                'URL name',
-                'Tags',
-                'Home page',
-                'Publication scheme',
-                'Disclosure log',
-                'Notes',
-                'Created at',
-                'Updated at',
-                'Version']
-    PublicBodyCSV.default_headers.should == defaults
+
+    it 'has a default set of headers' do
+      defaults = ['Name',
+                  'Short name',
+                  'URL name',
+                  'Tags',
+                  'Home page',
+                  'Publication scheme',
+                  'Disclosure log',
+                  'Notes',
+                  'Created at',
+                  'Updated at',
+                  'Version']
+      PublicBodyCSV.default_headers.should == defaults
+    end
   end
 
   describe '#fields' do
