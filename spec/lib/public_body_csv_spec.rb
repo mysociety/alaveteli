@@ -17,7 +17,7 @@ describe PublicBodyCSV do
                   :created_at,
                   :updated_at,
                   :version]
-      PublicBodyCSV.default_fields.should == defaults
+      expect(PublicBodyCSV.default_fields).to eq(defaults)
     end
   end
 
@@ -35,7 +35,7 @@ describe PublicBodyCSV do
                   'Created at',
                   'Updated at',
                   'Version']
-      PublicBodyCSV.default_headers.should == defaults
+      expect(PublicBodyCSV.default_headers).to eq(defaults)
     end
   end
 
