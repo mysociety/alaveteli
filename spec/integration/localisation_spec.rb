@@ -82,7 +82,7 @@ describe "when generating urls" do
 
         it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
-          get('/', {:locale => 'es'})
+          get('/', {}, {:locale => 'es'})
           expect(response.body).not_to match /#{@other_lang_home_link}/
         end
       end
