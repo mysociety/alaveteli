@@ -1,6 +1,5 @@
 # develop
 
-
 ## Highlighted Features
 
 * Definition lists are now easier to read and follow, greatly improves help
@@ -36,6 +35,15 @@ to match the new templates.
     app/views/request/list.html.erb
     app/views/user/show.html.erb
     app/views/widgets/new.html.erb
+
+# Version 0.22.3.0
+
+* Added additional transaction stats to /version.json endpoint (Gareth Rees).
+* Added additional transaction stats to stats:show rake task (Gareth Rees).
+
+## Upgrade Notes
+
+* There should be no action necessary.
 
 # Version 0.22.2.0
 
