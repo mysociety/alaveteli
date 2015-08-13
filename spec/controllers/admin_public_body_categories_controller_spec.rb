@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe AdminPublicBodyCategoriesController do
 
-  describe :index do
+  describe 'GET index' do
 
     it 'responds successfully' do
       get :index
@@ -54,7 +54,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :new do
+  describe 'GET new' do
 
     it 'responds successfully' do
       get :new
@@ -82,7 +82,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     context 'on success' do
 
@@ -215,7 +215,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :edit do
+  describe 'GET edit' do
 
     before do
       @category = FactoryGirl.create(:public_body_category)
@@ -263,7 +263,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :update do
+  describe 'PUT update' do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
@@ -411,7 +411,7 @@ describe AdminPublicBodyCategoriesController do
     context 'on success for multiple locales' do
 
       it "saves edits to a public body category in another locale" do
-        @category.title(:es).should == 'Los category'
+        expect(@category.title(:es)).to eq('Los category')
         post :update, :id => @category.id,
           :public_body_category => {
           :translations_attributes => {
@@ -450,7 +450,7 @@ describe AdminPublicBodyCategoriesController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         pbc = PublicBodyCategory.find(@category.id)
 
@@ -481,7 +481,7 @@ describe AdminPublicBodyCategoriesController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         pbc = PublicBodyCategory.find(@category.id)
 
@@ -515,7 +515,7 @@ describe AdminPublicBodyCategoriesController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         pbc = PublicBodyCategory.find(@category.id)
 
@@ -605,7 +605,7 @@ describe AdminPublicBodyCategoriesController do
 
   end
 
-  describe :destroy do
+  describe 'DELETE destroy' do
 
     it 'uses the current locale by default' do
       category = FactoryGirl.create(:public_body_category)

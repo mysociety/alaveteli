@@ -9,12 +9,12 @@ describe AttachmentToHTML::Adapters::PDF do
   describe :tmpdir do
 
     it 'defaults to the rails tmp directory' do
-      adapter.tmpdir.should == Rails.root.join('tmp')
+      expect(adapter.tmpdir).to eq(Rails.root.join('tmp'))
     end
 
     it 'allows a tmpdir to be specified to store the converted document' do
       adapter = AttachmentToHTML::Adapters::PDF.new(attachment, :tmpdir => '/tmp')
-      adapter.tmpdir.should == '/tmp'
+      expect(adapter.tmpdir).to eq('/tmp')
     end
 
   end
@@ -22,12 +22,12 @@ describe AttachmentToHTML::Adapters::PDF do
   describe :title do
 
     it 'uses the attachment filename for the title' do
-      adapter.title.should == attachment.display_filename
+      expect(adapter.title).to eq(attachment.display_filename)
     end
 
     it 'returns the title encoded as UTF-8' do
       if RUBY_VERSION.to_f >= 1.9
-        adapter.title.encoding.should == Encoding.find('UTF-8')
+        expect(adapter.title.encoding).to eq(Encoding.find('UTF-8'))
       end
     end
 
@@ -37,18 +37,18 @@ describe AttachmentToHTML::Adapters::PDF do
   describe :body do
 
     it 'extracts the body from the document' do
-      adapter.body.should include('thisisthebody')
+      expect(adapter.body).to include('thisisthebody')
     end
 
     it 'operates in the context of the supplied tmpdir' do
       adapter = AttachmentToHTML::Adapters::PDF.new(attachment, :tmpdir => '/tmp')
-      Dir.should_receive(:chdir).with('/tmp').and_call_original
+      expect(Dir).to receive(:chdir).with('/tmp').and_call_original
       adapter.body
     end
 
     it 'returns the body encoded as UTF-8' do
       if RUBY_VERSION.to_f >= 1.9
-        adapter.body.encoding.should == Encoding.find('UTF-8')
+        expect(adapter.body.encoding).to eq(Encoding.find('UTF-8'))
       end
     end
 
@@ -57,24 +57,24 @@ describe AttachmentToHTML::Adapters::PDF do
 
   describe :success? do
 
-    it 'is successful if the body has content excluding the tags' do
-      adapter.stub(:body).and_return('<p>some content</p>')
-      adapter.success?.should be_true
+    it 'is truthy if the body has content excluding the tags' do
+      allow(adapter).to receive(:body).and_return('<p>some content</p>')
+      expect(adapter.success?).to be_truthy
     end
 
-    it 'is successful if the body contains images' do
-      adapter.stub(:body).and_return(%Q(<img src="logo.png" />))
-      adapter.success?.should be_true
+    it 'is truthy if the body contains images' do
+      allow(adapter).to receive(:body).and_return(%Q(<img src="logo.png" />))
+      expect(adapter.success?).to be_truthy
     end
 
-    it 'is not successful if the body has no content other than tags' do
-      adapter.stub(:body).and_return('<p></p>')
-      adapter.success?.should be_false
+    it 'is falsey if the body has no content other than tags' do
+      allow(adapter).to receive(:body).and_return('<p></p>')
+      expect(adapter.success?).to be_falsey
     end
 
-    it 'is not successful if convert returns nil' do
-      adapter.stub(:convert).and_return(nil)
-      adapter.success?.should be_false
+    it 'is falsey if convert returns nil' do
+      allow(adapter).to receive(:convert).and_return(nil)
+      expect(adapter.success?).to be_falsey
     end
 
     it 'is not successful if the body contains more than 50 images' do
@@ -109,9 +109,9 @@ describe AttachmentToHTML::Adapters::PDF do
       </BODY>
       </HTML>
       DOC
-      AlaveteliExternalCommand.stub(:run).and_return(invalid)
+      allow(AlaveteliExternalCommand).to receive(:run).and_return(invalid)
 
-      adapter.success?.should be_false
+      expect(adapter.success?).to be false
     end
 
   end

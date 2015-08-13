@@ -60,43 +60,43 @@ describe ApplicationMailer do
       it 'should render a theme template in preference to a core template' do
         prepend_theme_views('theme_one')
         @mail = ApplicationMailer.simple
-        @mail.body.should match('Theme simple')
+        expect(@mail.body).to match('Theme simple')
       end
 
       it 'should render the template provided by the theme if no template is available in core' do
         prepend_theme_views('theme_one')
         @mail = ApplicationMailer.theme_only
-        @mail.body.should match('Theme only')
+        expect(@mail.body).to match('Theme only')
       end
 
       it 'should render the template provided by core if there is no theme template' do
         prepend_theme_views('theme_one')
         @mail = ApplicationMailer.core_only
-        @mail.body.should match('Core only')
+        expect(@mail.body).to match('Core only')
       end
 
       it 'should render an empty body if the template is in neither core nor theme' do
         prepend_theme_views('theme_one')
         @mail = ApplicationMailer.neither
-        @mail.body.should be_empty
+        expect(@mail.body).to be_empty
       end
 
       it 'should render a multipart email using a theme template' do
         prepend_theme_views('theme_one')
         create_multipart_method('multipart_theme_only')
         @mail = ApplicationMailer.multipart_theme_only
-        @mail.parts.size.should == 2
+        expect(@mail.parts.size).to eq(2)
         message_part = @mail.parts[0].to_s
-        message_part.should match("Theme multipart")
+        expect(message_part).to match("Theme multipart")
       end
 
       it 'should render a multipart email using a core template' do
         prepend_theme_views('theme_one')
         create_multipart_method('multipart_core_only')
         @mail = ApplicationMailer.multipart_core_only
-        @mail.parts.size.should == 2
+        expect(@mail.parts.size).to eq(2)
         message_part = @mail.parts[0].to_s
-        message_part.should match("Core multipart")
+        expect(message_part).to match("Core multipart")
       end
 
     end
@@ -106,43 +106,43 @@ describe ApplicationMailer do
       it 'should render a core template in preference to a theme template' do
         append_theme_views('theme_one')
         @mail = ApplicationMailer.simple
-        @mail.body.should match('Core simple')
+        expect(@mail.body).to match('Core simple')
       end
 
       it 'should render the template provided by the theme if no template is available in core' do
         append_theme_views('theme_one')
         @mail = ApplicationMailer.theme_only
-        @mail.body.should match('Theme only')
+        expect(@mail.body).to match('Theme only')
       end
 
       it 'should render the template provided by core if there is no theme template' do
         append_theme_views('theme_one')
         @mail = ApplicationMailer.core_only
-        @mail.body.should match('Core only')
+        expect(@mail.body).to match('Core only')
       end
 
       it 'should render an empty body if the template is in neither core nor theme' do
         append_theme_views('theme_one')
         @mail = ApplicationMailer.neither
-        @mail.body.should be_empty
+        expect(@mail.body).to be_empty
       end
 
       it 'should render a multipart email using a core template' do
         append_theme_views('theme_one')
         create_multipart_method('multipart_core_only')
         @mail = ApplicationMailer.multipart_core_only
-        @mail.parts.size.should == 2
+        expect(@mail.parts.size).to eq(2)
         message_part = @mail.parts[0].to_s
-        message_part.should match("Core multipart")
+        expect(message_part).to match("Core multipart")
       end
 
       it 'should render a multipart email using a theme template' do
         append_theme_views('theme_one')
         create_multipart_method('multipart_theme_only')
         @mail = ApplicationMailer.multipart_theme_only
-        @mail.parts.size.should == 2
+        expect(@mail.parts.size).to eq(2)
         message_part = @mail.parts[0].to_s
-        message_part.should match("Theme multipart")
+        expect(message_part).to match("Theme multipart")
       end
 
     end

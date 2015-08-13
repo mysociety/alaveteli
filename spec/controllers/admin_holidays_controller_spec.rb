@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe AdminHolidaysController do
 
-  describe :index do
+  describe 'GET index' do
 
     before do
       @holiday_one = FactoryGirl.create(:holiday, :day => Date.new(2010, 1, 1))
@@ -13,15 +13,15 @@ describe AdminHolidaysController do
 
     it 'gets a hash of holidays keyed by year' do
       get :index
-      assigns(:holidays_by_year)[2010].should include(@holiday_one)
-      assigns(:holidays_by_year)[2011].should include(@holiday_two)
-      assigns(:holidays_by_year)[2011].should include(@holiday_three)
+      expect(assigns(:holidays_by_year)[2010]).to include(@holiday_one)
+      expect(assigns(:holidays_by_year)[2011]).to include(@holiday_two)
+      expect(assigns(:holidays_by_year)[2011]).to include(@holiday_three)
     end
 
     it 'gets a list of years with holidays' do
       get :index
-      assigns(:years).should include(2010)
-      assigns(:years).should include(2011)
+      expect(assigns(:years)).to include(2010)
+      expect(assigns(:years)).to include(2011)
     end
 
     it 'renders the index template' do
@@ -31,7 +31,7 @@ describe AdminHolidaysController do
 
   end
 
-  describe :new do
+  describe 'GET new' do
 
 
     describe 'when not using ajax' do
@@ -53,12 +53,12 @@ describe AdminHolidaysController do
 
     it 'creates a new holiday' do
       get :new
-      assigns[:holiday].should be_instance_of(Holiday)
+      expect(assigns[:holiday]).to be_instance_of(Holiday)
     end
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     before do
       @holiday_params = { :description => "New Year's Day",
@@ -69,23 +69,23 @@ describe AdminHolidaysController do
     end
 
     it 'creates a new holiday' do
-      assigns(:holiday).description.should == @holiday_params[:description]
-      assigns(:holiday).day.should == Date.new(2010, 1, 1)
-      assigns(:holiday).should be_persisted
+      expect(assigns(:holiday).description).to eq(@holiday_params[:description])
+      expect(assigns(:holiday).day).to eq(Date.new(2010, 1, 1))
+      expect(assigns(:holiday)).to be_persisted
     end
 
     it 'shows the admin a success message' do
-      flash[:notice].should == 'Holiday successfully created.'
+      expect(flash[:notice]).to eq('Holiday successfully created.')
     end
 
     it 'redirects to the index' do
-      response.should redirect_to admin_holidays_path
+      expect(response).to redirect_to admin_holidays_path
     end
 
     context 'when there are errors' do
 
       before do
-        Holiday.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(Holiday).to receive(:save).and_return(false)
         post :create, :holiday => @holiday_params
       end
 
@@ -96,7 +96,7 @@ describe AdminHolidaysController do
 
   end
 
-  describe :edit do
+  describe 'GET edit' do
 
     before do
       @holiday = FactoryGirl.create(:holiday)
@@ -122,12 +122,12 @@ describe AdminHolidaysController do
 
     it 'gets the holiday in the id param' do
       get :edit, :id => @holiday.id
-      assigns[:holiday].should == @holiday
+      expect(assigns[:holiday]).to eq(@holiday)
     end
 
   end
 
-  describe :update do
+  describe 'PUT update' do
 
     before do
       @holiday = FactoryGirl.create(:holiday, :day => Date.new(2010, 1, 1),
@@ -136,25 +136,25 @@ describe AdminHolidaysController do
     end
 
     it 'gets the holiday in the id param' do
-      assigns[:holiday].should == @holiday
+      expect(assigns[:holiday]).to eq(@holiday)
     end
 
     it 'updates the holiday' do
-      holiday = Holiday.find(@holiday.id).description.should == 'New Test Holiday'
+      holiday = expect(Holiday.find(@holiday.id).description).to eq('New Test Holiday')
     end
 
     it 'shows the admin a success message' do
-      flash[:notice].should == 'Holiday successfully updated.'
+      expect(flash[:notice]).to eq('Holiday successfully updated.')
     end
 
     it 'redirects to the index' do
-      response.should redirect_to admin_holidays_path
+      expect(response).to redirect_to admin_holidays_path
     end
 
     context 'when there are errors' do
 
       before do
-        Holiday.any_instance.stub(:update_attributes).and_return(false)
+        allow_any_instance_of(Holiday).to receive(:update_attributes).and_return(false)
         put :update, :id => @holiday.id, :holiday => { :description => 'New Test Holiday' }
       end
 
@@ -165,7 +165,7 @@ describe AdminHolidaysController do
 
   end
 
-  describe :destroy do
+  describe 'DELETE destroy' do
 
     before(:each) do
       @holiday = FactoryGirl.create(:holiday)
@@ -173,16 +173,16 @@ describe AdminHolidaysController do
     end
 
     it 'finds the holiday to destroy' do
-      assigns(:holiday).should == @holiday
+      expect(assigns(:holiday)).to eq(@holiday)
     end
 
     it 'destroys the holiday' do
-      assigns(:holiday).should be_destroyed
+      expect(assigns(:holiday)).to be_destroyed
     end
 
     it 'tells the admin the holiday has been destroyed' do
       msg = "Holiday successfully destroyed"
-      flash[:notice].should == msg
+      expect(flash[:notice]).to eq(msg)
     end
 
     it 'redirects to the index action' do

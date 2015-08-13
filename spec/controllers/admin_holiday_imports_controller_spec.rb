@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe AdminHolidayImportsController do
 
-  describe :new do
+  describe 'GET new' do
 
     it 'renders the new template' do
       get :new
@@ -12,16 +12,16 @@ describe AdminHolidayImportsController do
 
     it 'creates an import' do
       get :new
-      assigns[:holiday_import].should be_instance_of(HolidayImport)
+      expect(assigns[:holiday_import]).to be_instance_of(HolidayImport)
     end
 
     describe 'if the import is valid' do
 
       it 'populates the import' do
-        mock_import = mock(HolidayImport, :valid? => true,
+        mock_import = double(HolidayImport, :valid? => true,
                            :populate => nil)
-        HolidayImport.stub!(:new).and_return(mock_import)
-        mock_import.should_receive(:populate)
+        allow(HolidayImport).to receive(:new).and_return(mock_import)
+        expect(mock_import).to receive(:populate)
         get :new
       end
 
@@ -29,27 +29,27 @@ describe AdminHolidayImportsController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     it 'creates an import' do
       post :create
-      assigns[:holiday_import].should be_instance_of(HolidayImport)
+      expect(assigns[:holiday_import]).to be_instance_of(HolidayImport)
     end
 
     describe 'if the import can be saved' do
 
       before do
-        mock_import = mock(HolidayImport, :save => true)
-        HolidayImport.stub!(:new).and_return(mock_import)
+        mock_import = double(HolidayImport, :save => true)
+        allow(HolidayImport).to receive(:new).and_return(mock_import)
         post :create
       end
 
       it 'should show a success notice' do
-        flash[:notice].should == 'Holidays successfully imported'
+        expect(flash[:notice]).to eq('Holidays successfully imported')
       end
 
       it 'should redirect to the index' do
-        response.should redirect_to(admin_holidays_path)
+        expect(response).to redirect_to(admin_holidays_path)
       end
 
     end
@@ -57,8 +57,8 @@ describe AdminHolidayImportsController do
     describe 'if the import cannot be saved' do
 
       before do
-        mock_import = mock(HolidayImport, :save => false)
-        HolidayImport.stub!(:new).and_return(mock_import)
+        mock_import = double(HolidayImport, :save => false)
+        allow(HolidayImport).to receive(:new).and_return(mock_import)
         post :create
       end
 

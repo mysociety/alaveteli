@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe 'Editing a Public Body' do
   before do
-    AlaveteliConfiguration.stub!(:skip_admin_auth).and_return(false)
+    allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
 
     confirm(:admin_user)
     @admin = login(:admin_user)
@@ -19,21 +19,22 @@ describe 'Editing a Public Body' do
   end
 
   it 'can edit the default locale' do
-    @admin.visit edit_admin_body_path(@body)
-    @admin.fill_in 'public_body_name__en', :with => 'New Quango EN'
-    @admin.click_button 'Save'
-
+    using_session(@admin) do
+      visit edit_admin_body_path(@body)
+      fill_in 'public_body_name__en', :with => 'New Quango EN'
+      click_button 'Save'
+    end
     pb = @body.reload
     expect(pb.name).to eq('New Quango EN')
   end
 
   it 'can add a translation for a single locale' do
     expect(@body.find_translation_by_locale('fr')).to be_nil
-
-    @admin.visit edit_admin_body_path(@body)
-    @admin.fill_in 'public_body_translations_attributes_fr_name__fr', :with => 'New Quango FR'
-    @admin.click_button 'Save'
-
+    using_session(@admin) do
+      visit edit_admin_body_path(@body)
+      fill_in 'public_body_translations_attributes_fr_name__fr', :with => 'New Quango FR'
+      click_button 'Save'
+    end
     pb = @body.reload
     I18n.with_locale(:fr) do
       expect(pb.name).to eq('New Quango FR')
@@ -41,22 +42,23 @@ describe 'Editing a Public Body' do
   end
 
   it 'can add a translation for multiple locales' do
-    @admin.visit edit_admin_body_path(@body)
-    @admin.fill_in 'public_body_name__en', :with => 'New Quango EN'
-    @admin.click_button 'Save'
+    using_session(@admin) do
+      visit edit_admin_body_path(@body)
+      fill_in 'public_body_name__en', :with => 'New Quango EN'
+      click_button 'Save'
 
-    # Add FR translation
-    expect(@body.find_translation_by_locale('fr')).to be_nil
-    @admin.visit edit_admin_body_path(@body)
-    @admin.fill_in 'public_body_translations_attributes_fr_name__fr', :with => 'New Quango FR'
-    @admin.click_button 'Save'
+      # Add FR translation
+      expect(@body.find_translation_by_locale('fr')).to be_nil
+      visit edit_admin_body_path(@body)
+      fill_in 'public_body_translations_attributes_fr_name__fr', :with => 'New Quango FR'
+      click_button 'Save'
 
-    # Add ES translation
-    expect(@body.find_translation_by_locale('es')).to be_nil
-    @admin.visit edit_admin_body_path(@body)
-    @admin.fill_in 'public_body_translations_attributes_es_name__es', :with => 'New Quango ES'
-    @admin.click_button 'Save'
-
+      # Add ES translation
+      expect(@body.find_translation_by_locale('es')).to be_nil
+      visit edit_admin_body_path(@body)
+      fill_in 'public_body_translations_attributes_es_name__es', :with => 'New Quango ES'
+      click_button 'Save'
+    end
     pb = @body.reload
 
     expect(pb.name).to eq('New Quango EN')
