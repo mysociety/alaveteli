@@ -75,6 +75,7 @@ describe "when generating urls" do
       describe 'when the config value INCLUDE_DEFAULT_LOCALE_IN_URLS is false' do
 
         before do
+          allow(AlaveteliConfiguration).to receive(:include_default_locale_in_urls).and_return false
           AlaveteliLocalization.set_default_locale_urls(false)
         end
 
@@ -93,6 +94,7 @@ describe "when generating urls" do
       describe 'when the config value INCLUDE_DEFAULT_LOCALE_IN_URLS is true' do
 
         before do
+          allow(AlaveteliConfiguration).to receive(:include_default_locale_in_urls).and_return true
           AlaveteliLocalization.set_default_locale_urls(true)
         end
 
