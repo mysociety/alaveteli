@@ -218,6 +218,13 @@ def normalise_whitespace(s)
   return s
 end
 
+def get_last_post_redirect
+  # TODO: yeuch - no other easy way of getting the token so we can check
+  # the redirect URL, as it is by definition opaque to the controller
+  # apart from in the place that it redirects to.
+  post_redirects = PostRedirect.order("id DESC").first
+end
+
 RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
   match do |actual|
     normalise_whitespace(actual) == normalise_whitespace(expected)

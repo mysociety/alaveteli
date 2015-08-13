@@ -371,8 +371,9 @@ describe RequestController, "when showing one request" do
     it 'should require login' do
       session[:user_id] = nil
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
-      post_redirect = PostRedirect.get_last_post_redirect
-      expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+      expect(response).to redirect_to(:controller => 'user',
+                                      :action => 'signin',
+                                      :token => get_last_post_redirect.token)
     end
 
     it 'should work if logged in as the requester' do
@@ -1035,8 +1036,9 @@ describe RequestController, "when creating a new request" do
                :submitted_new_request => 1, :preview => 0
                }
     post :new, params
-    post_redirect = PostRedirect.get_last_post_redirect
-    expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
     # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
   end
 
@@ -1356,8 +1358,9 @@ describe RequestController, "when classifying an information request" do
 
     it "should require login" do
       post_status('rejected')
-      post_redirect = PostRedirect.get_last_post_redirect
-      expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+      expect(response).to redirect_to(:controller => 'user',
+                                      :action => 'signin',
+                                      :token => get_last_post_redirect.token)
     end
 
     it 'should ask whether the request is old and unclassified' do
@@ -1386,8 +1389,9 @@ describe RequestController, "when classifying an information request" do
         it 'should require login' do
           session[:user_id] = nil
           post_status('rejected')
-          post_redirect = PostRedirect.get_last_post_redirect
-          expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+          expect(response).to redirect_to(:controller => 'user',
+                                          :action => 'signin',
+                                          :token => get_last_post_redirect.token)
         end
 
       end
@@ -1833,8 +1837,9 @@ describe RequestController, "when sending a followup message" do
 
   it "should require login" do
     post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    post_redirect = PostRedirect.get_last_post_redirect
-    expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
   end
 
   it "should not let you if you are logged in as the wrong user" do
@@ -2630,8 +2635,9 @@ describe RequestController, "#new_batch" do
 
       it 'should return a redirect to the login page' do
         get :new_batch
-        post_redirect = PostRedirect.get_last_post_redirect
-        expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        expect(response).to redirect_to(:controller => 'user',
+                                        :action => 'signin',
+                                        :token => get_last_post_redirect.token)
       end
     end
 
@@ -2753,8 +2759,9 @@ describe RequestController, "#select_authorities" do
 
       it 'should return a redirect to the login page' do
         get :select_authorities
-        post_redirect = PostRedirect.get_last_post_redirect
-        expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        expect(response).to redirect_to(:controller => 'user',
+                                        :action => 'signin',
+                                        :token => get_last_post_redirect.token)
       end
     end
 

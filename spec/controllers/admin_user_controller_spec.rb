@@ -19,8 +19,9 @@ describe AdminUserController, "when administering users" do
 
   it "logs in as another user" do
     get :login_as,  :id => users(:bob_smith_user).id
-    post_redirect = PostRedirect.get_last_post_redirect
-    expect(response).to redirect_to(:controller => 'user', :action => 'confirm', :email_token => post_redirect.email_token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'confirm',
+                                    :email_token => get_last_post_redirect.email_token)
   end
 
   # See also "allows an admin to log in as another user" in spec/integration/admin_spec.rb

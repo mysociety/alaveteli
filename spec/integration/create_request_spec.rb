@@ -8,9 +8,8 @@ describe "When creating requests" do
     using_session(without_login) do
       # This is a test for https://github.com/mysociety/alaveteli/issues/446
       create_request
-      post_redirect = PostRedirect.get_last_post_redirect
       # Now log in as an unconfirmed user.
-      visit signin_path :token => post_redirect.token
+      visit signin_path :token => get_last_post_redirect.token
       within '#signin_form' do
         fill_in "Your e-mail:", :with => users(:unconfirmed_user).email
         fill_in "Password:", :with => "jonespassword"
@@ -20,7 +19,7 @@ describe "When creating requests" do
     end
 
     # This will trigger a confirmation mail. Get the PostRedirect for later.
-    post_redirect = PostRedirect.get_last_post_redirect
+    post_redirect = get_last_post_redirect
     # Now log in as an admin user, then follow the confirmation link in the email that was sent to the unconfirmed user
     confirm(:admin_user)
     admin = login(:admin_user)
