@@ -105,7 +105,7 @@ describe 'when making a zipfile available' do
           expect(zip.read('correspondence.pdf')).to match('Some information please')
         end
 
-        # Admin makes the incoming message requester only
+        # Admin makes the outgoing message requester only
         admin = login(FactoryGirl.create(:admin_user))
 
         using_session(admin) do
