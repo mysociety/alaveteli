@@ -20,10 +20,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-27 14:25+0000\n"
-"PO-Revision-Date: 2015-07-24 15:01+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/alaveteli/language/nb/)\n"
+"POT-Creation-Date: 2015-08-12 11:00+0000\n"
+"PO-Revision-Date: 2015-08-12 21:06+0000\n"
+"Last-Translator: pere <pere-transifex@hungry.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1091,7 +1091,7 @@ msgid "I am asking for <strong>new information</strong>"
 msgstr "Jeg spør om <strong>ny informasjon</strong>"
 
 msgid "I am requesting an <strong>internal review</strong>"
-msgstr "Jeg ber om en <strong>intern gjennomgang</strong>"
+msgstr "Jeg ønsker å <strong>klage</strong>"
 
 msgid "I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'."
 msgstr "Jeg skriver for å klage på {{public_body_name}} sin håndtering av min innsynshenvendelse «{{info_request_title}}»."
@@ -1213,6 +1213,9 @@ msgstr "Inngående e-postadresse"
 msgid "Incoming message"
 msgstr "Innkommende beskjed"
 
+msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
+msgstr "Innkommende melding har en spam-verdi ({{spam_score}})  over den oppsatte grenseverdien ({{spam_threshold}})."
+
 msgid "IncomingMessage|Cached attachment text clipped"
 msgstr "IncomingMessage|Cached attachment text clipped"
 
@@ -1328,10 +1331,10 @@ msgid "Information on emissions and discharges (e.g. noise, energy, radiation, w
 msgstr "Informasjon om utslipp (for eksempel støy, energi,\\n stråling, avfall)"
 
 msgid "Internal review"
-msgstr "Intern gjennomgang"
+msgstr "Klage"
 
 msgid "Internal review of {{email_subject}}"
-msgstr "Intern gjennomgang av {{email_subject}}"
+msgstr "Klage over {{email_subject}}"
 
 msgid "Internal review request"
 msgstr "Klage"
@@ -1607,7 +1610,7 @@ msgid "Now preview your follow up"
 msgstr "Se nå igjennom din oppfølging"
 
 msgid "Now preview your message asking for an internal review"
-msgstr "Forhåndsvis din beskjed og be om en intern gjennomgang"
+msgstr "Forhåndsvis klage-meldingen din"
 
 msgid "Number of requests"
 msgstr "Antall henvendelser"
@@ -2176,7 +2179,7 @@ msgid "Request an internal review"
 msgstr "Skriv klage"
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr "Klag på vedtaket fra {{person_or_body}}"
+msgstr "Klag til {{person_or_body}}"
 
 msgid "Request email"
 msgstr "Forespør e-post"
@@ -2370,7 +2373,7 @@ msgid "Sign in or sign up"
 msgstr "Logg inn eller lag konto"
 
 msgid "Sign in to track this request"
-msgstr ""
+msgstr "Du følger med på denne henvendelsen"
 
 msgid "Sign out"
 msgstr "Logg ut"
@@ -2640,6 +2643,8 @@ msgstr ""
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
 msgstr ""
+"Svaret på din henvendelse er <strong>forsinket</strong>.  I følge lovverket\\n kan en si\n"
+"at etaten normal skulle svart <strong>uten opphold</strong> og"
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Svaret på din henvendelse er <strong>svært forsinket</strong>.  I følge loven\\n så burde instansen under enhver omstendighet ha svart på\\n dette tidspunkt"
@@ -2852,7 +2857,7 @@ msgstr[1] "Denne personens {{count}} innsynshenvendelser"
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
 msgstr[0] "Denne personens {{count}} merknad"
-msgstr[1] "Denne personens {{count} merknader"
+msgstr[1] "Denne personens {{count}} merknader"
 
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr "Denne henvendelsen trenger <strong>oppmerksomhet fra administrator</strong>"
@@ -3549,7 +3554,7 @@ msgid "Your follow up has not been sent because this request has been stopped to
 msgstr "Din oppfølging er ikke blitt sendt på grunn av at denne henvendelsen ble stoppet for å hindre søppelpost.   <a href=\"{{url}}\">Ta kontakt</a> hvis du virkelig ønsker å sende en oppfølgingsmelding."
 
 msgid "Your follow up message has been sent on its way."
-msgstr "Oppfølgningsmesldingen din er sendt."
+msgstr "Oppfølgingsmeldingen din er sendt."
 
 msgid "Your internal review request has been sent on its way."
 msgstr "Klagen din er sendt"
@@ -3819,7 +3824,7 @@ msgid "please sign in as "
 msgstr "logg deg inn som "
 
 msgid "requesting an internal review"
-msgstr "be om en intern gjennomgang"
+msgstr "sender klage"
 
 msgid "requests"
 msgstr "henvendelser"

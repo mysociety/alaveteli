@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-27 14:25+0000\n"
+"POT-Creation-Date: 2015-08-12 11:00+0000\n"
 "PO-Revision-Date: 2014-11-18 19:29+0200\n"
 "Last-Translator: Stephen Abbott Pugh <stephendabbott@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1202,6 +1202,9 @@ msgid "Incoming email address"
 msgstr ""
 
 msgid "Incoming message"
+msgstr ""
+
+msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"

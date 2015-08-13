@@ -7,9 +7,13 @@ def load_raw_emails_data
   end
 end
 
-def receive_incoming_mail(email_name, email_to, email_from = 'geraldinequango@localhost')
-  email_name = file_fixture_name(email_name)
-  content = File.open(email_name, 'rb') { |f| f.read }
+def receive_incoming_mail(email_name_or_string, email_to, email_from = 'geraldinequango@localhost')
+  email_name = file_fixture_name(email_name_or_string)
+  content = if File.exist?(email_name)
+    File.open(email_name, 'rb') { |f| f.read }
+  else
+    email_name_or_string
+  end
   content.gsub!('EMAIL_TO', email_to)
   content.gsub!('EMAIL_FROM', email_from)
   RequestMailer.receive(content)

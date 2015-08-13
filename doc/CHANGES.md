@@ -1,5 +1,6 @@
 # develop
 
+
 ## Highlighted Features
 
 * Definition lists are now easier to read and follow, greatly improves help
@@ -35,6 +36,19 @@ to match the new templates.
     app/views/request/list.html.erb
     app/views/user/show.html.erb
     app/views/widgets/new.html.erb
+
+# Version 0.22.2.0
+
+## Highlighted Features
+
+* Adds filtering of incoming mail based on a spam score from SpamAssassin.
+  Requests over a threshold can be discarded or sent to the holding pen.
+  See http://alaveteli.org/docs/customising/config#incoming_email_spam_action
+  for configuration instructions (Gareth Rees).
+
+## Upgrade Notes
+
+* There should be no action necessary.
 
 # Version 0.22.1.0
 
