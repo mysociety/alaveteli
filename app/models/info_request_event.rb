@@ -32,6 +32,8 @@ class InfoRequestEvent < ActiveRecord::Base
   belongs_to :incoming_message
   belongs_to :comment
 
+  has_one :request_classification
+
   has_many :user_info_request_sent_alerts
   has_many :track_things_sent_emails
 
