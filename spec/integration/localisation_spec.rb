@@ -81,6 +81,7 @@ describe "when generating urls" do
 
         it 'should generate URLs without a locale prepended' do
           get '/'
+          expect(response.body).to match  /class="current-locale">English/
           expect(response.body).not_to match /#{@default_lang_home_link}/
         end
 
