@@ -431,8 +431,9 @@ describe UserController, "when sending another user a message" do
 
   it "should redirect to signin page if you go to the contact form and aren't signed in" do
     get :contact, :id => users(:silly_name_user)
-    post_redirect = PostRedirect.get_last_post_redirect
-    expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
   end
 
   it "should show contact form if you are signed in" do
@@ -538,9 +539,9 @@ describe UserController, "when changing email address" do
 
   it "should require login" do
     get :signchangeemail
-
-    post_redirect = PostRedirect.get_last_post_redirect
-    expect(response).to redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
   end
 
   it "should show form for changing email if logged in" do
