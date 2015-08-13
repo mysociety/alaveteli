@@ -65,8 +65,11 @@ describe "when generating urls" do
 
       before do
         @default_lang_home_link = /href=".*\/en\//
-        @other_lang_home_link = /href=".*\/es\//
         @old_include_default_locale_in_urls = AlaveteliConfiguration::include_default_locale_in_urls
+      end
+
+      after do
+        AlaveteliLocalization.set_default_locale_urls(@old_include_default_locale_in_urls)
       end
 
       describe 'when the config value INCLUDE_DEFAULT_LOCALE_IN_URLS is false' do
@@ -83,7 +86,7 @@ describe "when generating urls" do
         it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
           get('/', {}, {:locale => 'es'})
-          expect(response.body).not_to match /#{@other_lang_home_link}/
+          expect(response.body).to match  /class="current-locale">English/
         end
       end
 
@@ -92,10 +95,6 @@ describe "when generating urls" do
         AlaveteliLocalization.set_default_locale_urls(true)
         get '/'
         expect(response.body).to match /#{@default_lang_home_link}/
-      end
-
-      after do
-        AlaveteliLocalization.set_default_locale_urls(@old_include_default_locale_in_urls)
       end
 
     end
