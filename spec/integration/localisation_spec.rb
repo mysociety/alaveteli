@@ -90,14 +90,22 @@ describe "when generating urls" do
         end
       end
 
-      it 'should generate URLs with a locale prepended when the config value
-                INCLUDE_DEFAULT_LOCALE_IN_URLS is true' do
-        AlaveteliLocalization.set_default_locale_urls(true)
-        get '/'
-        expect(response.body).to match /#{@default_lang_home_link}/
+      describe 'when the config value INCLUDE_DEFAULT_LOCALE_IN_URLS is true' do
+
+        before do
+          AlaveteliLocalization.set_default_locale_urls(true)
+        end
+
+        it 'should generate URLs with a locale prepended' do
+          get '/'
+          expect(response.body).to match  /class="current-locale">English/
+          expect(response.body).to match /#{@default_lang_home_link}/
+        end
+
       end
 
     end
+
   end
 
 end
