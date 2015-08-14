@@ -21,6 +21,8 @@
   material (Louise Crow).
 * Rspec is upgraded to version 3, and specs have been upgraded to modern
   syntax (Louise Crow).
+* Standard filters and parameter whitelisting added to admin controllers
+  (James McKinney, Louise Crow)
 
 ## Upgrade Notes
 
