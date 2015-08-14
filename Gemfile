@@ -72,6 +72,7 @@ end
 group :test, :development do
   gem 'bullet', '~> 4.14.6'
   gem 'factory_girl_rails', '~> 1.7'
+  gem 'guard-rspec', '~> 4.5.0', :require => false
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '3.0.2'
   gem 'spork-rails', '~> 3.2.1'
