@@ -11,6 +11,8 @@
 * The new widget template can now be translated (Gareth Rees).
 * Various design and markup improvements to the layout, home page and request
   page (Martin Wright).
+* OpenGraph markup added to improve the appearance of Alaveteli links on social media (Owen Blacker).
+
 
 ## Upgrade Notes
 
@@ -79,7 +81,6 @@ to match the new templates.
 * The [`json` API for public bodies](http://alaveteli.org/docs/developers/api/#json-structured-data)
   now includes statistics on the number of requests, number of visible successful classified requests,
   and number of successful, overdue, not held requests (Ross Jones).
-* OpenGraph markup added to improve the appearance of Alaveteli links on social media (Owen Blacker).
 
 ## Upgrade Notes
 
