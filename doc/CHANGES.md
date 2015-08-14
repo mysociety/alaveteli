@@ -15,6 +15,8 @@
   media (Owen Blacker).
 * Request graph cron job no longer errors if there are no requests in a
   particular state (Petter Reinholdtsen).
+* Refactoring of user controller for shorter methods and clearer syntax (Caleb
+  Tutty)
 
 ## Upgrade Notes
 
