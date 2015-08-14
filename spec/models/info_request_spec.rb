@@ -179,6 +179,23 @@ describe InfoRequest do
 
   end
 
+  describe :initial_request_text do
+
+    it 'returns an empty string if the first outgoing message is hidden' do
+      info_request = FactoryGirl.create(:info_request)
+      first_message = info_request.outgoing_messages.first
+      first_message.prominence = 'hidden'
+      first_message.save!
+      info_request.initial_request_text.should == ''
+    end
+
+    it 'returns the text of the first outgoing message if it is visible' do
+      info_request = FactoryGirl.create(:info_request)
+      info_request.initial_request_text.should == 'Some information please'
+    end
+
+  end
+
   describe 'when validating' do
 
     it 'should accept a summary with ascii characters' do
