@@ -65,6 +65,24 @@ grab_data "where described_state not in ('waiting_response', 'waiting_clarificat
 grab_data "where described_state not in ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal', 'internal_review', 'error_message')" $SOURCEK
 #user_withdrawn
 
+function write_zero_data_if_file_empty {
+  if ! [ -s "$1" ]; then
+    echo "`date --rfc-3339=date` 0" >> "$1";
+  fi
+}
+
+write_zero_data_if_file_empty $SOURCEA
+write_zero_data_if_file_empty $SOURCEB
+write_zero_data_if_file_empty $SOURCEC
+write_zero_data_if_file_empty $SOURCED
+write_zero_data_if_file_empty $SOURCEE
+write_zero_data_if_file_empty $SOURCEF
+write_zero_data_if_file_empty $SOURCEG
+write_zero_data_if_file_empty $SOURCEH
+write_zero_data_if_file_empty $SOURCEI
+write_zero_data_if_file_empty $SOURCEJ
+write_zero_data_if_file_empty $SOURCEK
+
 cat >$GPSCRIPT <<END 
     unset border
     unset arrow
