@@ -15,8 +15,17 @@
   media (Owen Blacker).
 * Request graph cron job no longer errors if there are no requests in a
   particular state (Petter Reinholdtsen).
+* Rspec is upgraded to version 3, and specs have been upgraded to modern
+  syntax (Louise Crow).
+
 
 ## Upgrade Notes
+
+* Please upgrade the syntax in any theme specs you have to be compatible with
+  rspec 3. Useful resources:
+  * https://relishapp.com/rspec/docs/upgrade
+  * http://yujinakayama.me/transpec/
+
 
 ### Changed Templates
 
