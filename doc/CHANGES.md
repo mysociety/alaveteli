@@ -19,8 +19,16 @@
   Tutty)
 * New rake task stats:list_hidden for printing a list of requests with hidden
   material (Louise Crow).
+* Rspec is upgraded to version 3, and specs have been upgraded to modern
+  syntax (Louise Crow).
 
 ## Upgrade Notes
+
+* Please upgrade the syntax in any theme specs you have to be compatible with
+  rspec 3. Useful resources:
+  * https://relishapp.com/rspec/docs/upgrade
+  * http://yujinakayama.me/transpec/
+
 
 ### Changed Templates
 
