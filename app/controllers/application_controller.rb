@@ -474,18 +474,13 @@ class ApplicationController < ActionController::Base
   end
 
   def country_from_ip
-    country = ""
-    if File.file?(AlaveteliConfiguration::geoip_database)
-      country = GeoIP.new(AlaveteliConfiguration::geoip_database).country(request.remote_ip).country_code2
-    elsif !AlaveteliConfiguration::gaze_url.empty?
-      begin
-        country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
-      rescue ActionDispatch::RemoteIp::IpSpoofAttackError
-        country = AlaveteliConfiguration::iso_country_code
-      end
+    begin
+      ip = request.remote_ip
+    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+      ip = nil
     end
-    country = AlaveteliConfiguration::iso_country_code if country.empty?
-    return country
+    return AlaveteliGeoIP.country_code_from_ip(ip) if ip
+    AlaveteliConfiguration::iso_country_code
   end
 
   def alaveteli_git_commit
