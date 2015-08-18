@@ -29,6 +29,8 @@
   HTTP requests (and tell users if there is an Alaveteli in their country),
   rather than the mySociety Gaze service. This should improve performance and
   reliability.
+* **Debian Squeeze is no longer supported as an OS to run Alaveteli on.** It is
+  end-of-life in Feb 2016 and only packages Ruby 1.8.
 
 ## Upgrade Notes
 
@@ -40,7 +42,16 @@
   install it with `sudo apt-get install geoip-database`. If you don't want to
   or can't use a local GeoIP database, set `GEOIP_DATABASE' to an empty string in
   `config/general.yml`.
-
+*  If you are running Alaveteli on Debian Squeeze, you should upgrade your OS to
+   Debian Wheezy before upgrading to this release. This
+   [Debian upgrade guide](https://www.debian.org/releases/oldstable/amd64/release-notes/ch-upgrading)
+   can guide you through the process. If you have
+   questions about upgrading OS, please don't hesitate to ask on the
+   [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+   If you're not ready to upgrade to Wheezy, you can still upgrade Alaveteli if
+   you install Ruby 1.9 or 2.0 yourself, but be aware that we will no longer be
+   testing package installation on Squeeze and that OS security updates will no
+   longer be produced by Debian after Feb 2016.
 
 ### Changed Templates
 

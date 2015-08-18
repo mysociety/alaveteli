@@ -138,10 +138,6 @@ do
     fi
 done
 
-# Bundler isn't packaged on Debian squeeze, so we have to install it
-# as a gem:
-
-which bundle || gem install bundler
 
 echo Running rails-post-deploy
 script/rails-post-deploy
