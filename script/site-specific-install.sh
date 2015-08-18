@@ -180,6 +180,10 @@ postfix reload
 
 install_website_packages
 
+# Set ruby version to 1.9.1
+update-alternatives --set ruby /usr/bin/ruby1.9.1
+update-alternatives --set gem /usr/bin/gem1.9.1
+
 # Give the unix user membership of the adm group so that they can read the mail log files
 usermod -a -G adm "$UNIX_USER"
 
