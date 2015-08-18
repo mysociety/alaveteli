@@ -12,7 +12,7 @@ title: For developers
 * The software is written in **Ruby on Rails 3.x**. We support postgresql as
   the backend database. A configured mail transfer agent (MTA) like exim,
   postfix or sendmail is necessary to parse incoming emails. We have production
-  sites deployed on Debian (Squeeze and Wheezy) and Ubuntu (12.04 LTS). For performance
+  sites deployed on Debian (Wheezy) and Ubuntu (12.04 LTS). For performance
   reasons, we recommend the use of [Varnish](https://www.varnish-cache.org).
 
 * To help you understand what the code is doing, read this [high-level

@@ -13,7 +13,7 @@ Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/in
 
 ## Installing with the installation script
 
-If you have a clean installation of Debian squeeze 64-bit or Ubuntu precise, you can
+If you have a clean installation of Debian Wheezy 64-bit or Ubuntu Precise, you can
 use an install script in our commonlib repository to set up a working instance
 of Alaveteli. This is not suitable for production (it runs in development mode,
 for example) but should set up a functional installation of the site, which can send and receive email.

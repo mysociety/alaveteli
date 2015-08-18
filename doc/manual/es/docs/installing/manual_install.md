@@ -28,13 +28,13 @@ Existen [otras maneras de instalar Alaveteli]({{ page.baseurl }}/docs/installing
 
 ### Sistema operativo objetivo
 
-Estas instrucciones corresponden a una versión de 64 bits de Debian 6 (Wheezy), Debian 7 (Squeeze)
+Estas instrucciones corresponden a una versión de 64 bits de Debian Debian 7 (Wheezy)
 o Ubuntu 12.04 LTS (Precise). Debian es la plataforma de implementación con mejor soporte. También
 tenemos instrucciones para la [instalación en MacOS]({{ page.baseurl }}/docs/installing/macos/).
 
 ### Defina la localización
 
-**Debian Wheezy o Squeeze**
+**Debian Wheezy**
 
 Siga el [manual de Debian](https://wiki.debian.org/Locale#Standard) para configurar la localización del sistema operativo.
 
@@ -72,38 +72,6 @@ encabezados necesarios para compilar parte de las dependencias gem.
 #### Utilice otros repositorios para obtener paquetes más recientes
 
 Añada los siguientes repositorios a `/etc/apt/sources.list`:
-
-**Debian Squeeze**
-
-    cat > /etc/apt/sources.list.d/debian-extra.list <<EOF
-    # Mirror de Debian que incluye contrib y non-free:
-    deb http://the.earth.li/debian/ squeeze main contrib non-free
-    deb-src http://the.earth.li/debian/ squeeze main contrib non-free
-
-    # Actualizaciones de seguridad:
-    deb http://security.debian.org/ squeeze/updates main non-free
-    deb-src http://security.debian.org/ squeeze/updates main non-free
-
-    # Backports de Debian
-    deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
-    deb-src http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
-
-    # Wheezy
-    deb http://ftp.uk.debian.org/debian wheezy main contrib non-free
-    EOF
-
-El repositorio squeeze-backports proporciona una versión más reciente de RubyGems y el repositorio de Wheezy proporciona bundler. Debería configurar la opción package-pinning para reducir la prioridad del repositorio de Wheezy con el objetivo de evitar que se le soliciten otros paquetes.
-
-    cat >> /etc/apt/preferences <<EOF
-
-    Package: bundler
-    Pin: release n=wheezy
-    Pin-Priority: 990
-
-    Package: *
-    Pin: release n=wheezy
-    Pin-Priority: 50
-    EOF
 
 **Debian Wheezy**
 
@@ -147,13 +115,13 @@ Aquí se utiliza el repositorio trusty para obtener una versión más reciente d
 Si utiliza Debian o Ubuntu, debería añadir el archivo de Debian de mySociety a sus fuentes
 apt. Los paquetes de mySociety actualmente solo se construyen para Debian de 64 bits.
 
-**Debian Squeeze, Wheezy o Ubuntu Precise**
+**Debian Wheezy o Ubuntu Precise**
 
     cat > /etc/apt/sources.list.d/mysociety-debian.list <<EOF
     deb http://debian.mysociety.org squeeze main
     EOF
 
-El repositorio anterior le permite instalar `wkhtmltopdf-static` y `pdftk` (para Squeeze) utilizando `apt`.
+El repositorio anterior le permite instalar `wkhtmltopdf-static` utilizando `apt`.
 
 Añada la clave GPG del
 [repositorio de paquetes de Debian de mySociety](http://debian.mysociety.org/):
@@ -188,9 +156,6 @@ de mySociety.
     Pin-Priority: 50
     EOF
 
-**Debian Squeeze**
-
-No se requiere la adición de ningún paquete especial.
 
 #### Otras plataformas
 Si utiliza otra plataforma basada en Linux, puede instalar, opcionalmente,
@@ -256,9 +221,6 @@ Instale los paquetes correspondientes para su sistema:
 
     # Debian Wheezy
     apt-get -y install $(cat /var/www/alaveteli/config/packages.debian-wheezy)
-
-    # Debian Squeeze
-    apt-get -y install $(cat /var/www/alaveteli/config/packages.debian-squeeze)
 
     # Ubuntu Precise
     apt-get -y install $(cat /var/www/alaveteli/config/packages.ubuntu-precise)
