@@ -40,7 +40,19 @@ to match the new templates.
     app/views/user/show.html.erb
     app/views/widgets/new.html.erb
 
+# Version 0.22.4.0
+
+## Highlighted Features
+
+* Set the return-path for the contact form mail (Louise Crow).
+
+## Upgrade Notes
+
+* There should be no action necessary.
+
 # Version 0.22.3.0
+
+## Highlighted Features
 
 * Added additional transaction stats to /version.json endpoint (Gareth Rees).
 * Added additional transaction stats to stats:show rake task (Gareth Rees).
