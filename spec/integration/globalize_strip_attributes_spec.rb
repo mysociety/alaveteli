@@ -10,7 +10,15 @@ describe 'globalize3 and strip_attributes' do
     body.save!
     body.reload
     expect(body.name).to eq('Trailing Spaces')
-    expect(body.name(:es)).to eq(' El Body ')
+  end
+
+  it 'strips spaces from attributes in an alternative locale' do
+    body = FactoryGirl.build(:public_body, :name => ' Trailing Spaces ')
+    body.translations_attributes = { :es => { :locale => 'es',
+                                              :name => ' El Body ' } }
+    body.save!
+    body.reload
+    expect(body.name(:es)).to eq('El Body')
   end
 
 end
