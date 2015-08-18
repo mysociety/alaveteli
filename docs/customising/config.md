@@ -656,6 +656,12 @@ THEME_URLS:
             <code>INCOMING_EMAIL_SPAM_ACTION: 'discard'</code>
         </li>
         <li>
+            <code>INCOMING_EMAIL_SPAM_ACTION: 'holding_pen'</code>
+        </li>
+        <li>
+            <code>INCOMING_EMAIL_SPAM_ACTION: 'false'</code>
+        </li>
+        <li>
             <code>INCOMING_EMAIL_SPAM_HEADER: 'X-mySociety-Spam-Score'</code>
         </li>
         <li>
