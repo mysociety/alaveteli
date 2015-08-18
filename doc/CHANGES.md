@@ -17,8 +17,21 @@
   particular state (Petter Reinholdtsen).
 * Refactoring of user controller for shorter methods and clearer syntax (Caleb
   Tutty)
+* **Debian Squeeze is no longer supported as an OS to run Alaveteli on.** It is
+  end-of-life in Feb 2016 and only packages Ruby 1.8.
 
 ## Upgrade Notes
+
+*  If you are running Alaveteli on Debian Squeeze, you should upgrade your OS to
+   Debian Wheezy before upgrading to this release. This
+   [Debian upgrade guide](https://www.debian.org/releases/oldstable/amd64/release-notes/ch-upgrading)
+   can guide you through the process. If you have
+   questions about upgrading OS, please don't hesitate to ask on the
+   [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+   If you're not ready to upgrade to Wheezy, you can still upgrade Alaveteli if
+   you install Ruby 1.9 or 2.0 yourself, but be aware that we will no longer be
+   testing package installation on Squeeze and that OS security updates will no
+   longer be produced by Debian after Feb 2016.
 
 ### Changed Templates
 
@@ -142,7 +155,7 @@ to match the new templates.
 * Destroing an InfoRequest now destroys associated Comments and CensorRules
   (Louise Crow).
 * There is experimental support for using an STMP server, rather than sendmail,
-  for outgoing mail. There is not yet any ability to retry if the SMTP server is 
+  for outgoing mail. There is not yet any ability to retry if the SMTP server is
   unavailable (Caleb Tutty, Louise Crow).
 * HTML 'widgets' advertising requests can be displayed on other sites in iframes.
   If `ENABLE_WIDGETS` is set to true in `general.yml` (the default is false), a link
@@ -169,7 +182,7 @@ to match the new templates.
   576b58803.
 * Memcached namespace is now dependent on Ruby version. No action required.
 * Capistrano now caches themes in `shared/themes`. Run the `deploy:setup` task
-  to create the shared directory before making a new code deploy. 
+  to create the shared directory before making a new code deploy.
 * Example daemon files have been renamed (7af5e9d). You'll need to use the new
   names in any scripts or documentation you've written.
 * Regenerate alert tracks and purge varnish daemons to get better stop daemon
@@ -276,7 +289,7 @@ to match the new templates.
 * CSRF protection is now used by default on forms using 'POST', and as a result, the navbar and front page
   search forms have been converted to use 'GET' rather than 'POST'. If you override `/app/views/general/_frontpage_search_box.html.erb`, `app/views/general/header.html.erb` or `app/views/general/_responsive_topnav.html.erb`, you should update the search forms in your templates to use 'GET'. Any forms of your own
   that use the 'POST' method should be generated in Rails or otherwise include a CSRF token. If
-  they don't, logged-in users will be logged out when they use them. 
+  they don't, logged-in users will be logged out when they use them.
 * If you override the `app/views/user/_signin.html.erb` or
   `app/view/user/_signup.html.erb` templates, check the tabindex order
   is still sensible - the order of the elements on the page has changed
