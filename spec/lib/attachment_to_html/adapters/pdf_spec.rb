@@ -52,6 +52,12 @@ describe AttachmentToHTML::Adapters::PDF do
       end
     end
 
+    it 'returns the body as valid UTF-8 when the HTML generated is not
+        valid UTF-8' do
+        allow(adapter).to receive(:convert).and_return("\xBF")
+        expect(adapter.body).to be_valid_encoding
+    end
+
   end
 
 
