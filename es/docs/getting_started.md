@@ -102,13 +102,13 @@ con espacio disponible.
 ### Instale su propia copia
 
 Necesitará encontrar a un técnico con conocimientos sobre el hospedaje de sitios web
-mediante Apache y Linux. No es necesario tener experiencia en Ruby on Rails, 
+mediante Apache y Linux. No es necesario tener experiencia en Ruby on Rails,
 aunque representa una gran ventaja.
 
 También necesitará un servidor de recursos. Debería solicitar ayuda a su asistente técnico
 para obtenerlo. Los requisitos mínimos para el funcionamiento de un sitio con poco tráfico son
 512 MB de memoria RAM y un disco de 20 GB, aunque lo ideal son 2 GB de memoria RAM. Recomendamos
-el último Debian Wheezy (7) o Squeeze (6) de 64 bits o Ubuntu precise (12.04)
+el último Debian Wheezy (7) de 64 bits o Ubuntu precise (12.04)
 como sistema operativo. Rackspace ofrece servidores adecuados en la nube desde unos
 25 dólares al mes. Una vez adquirido el servidor, su asistente técnico debería seguir la
 [documentación de instalación]({{ page.baseurl }}/docs/installing/).

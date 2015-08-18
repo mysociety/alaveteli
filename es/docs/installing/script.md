@@ -13,7 +13,7 @@ Existen [otras formas de instalar Alaveteli]({{ page.baseurl }}/docs/installing/
 
 ## Instalación con el script de instalación
 
-Si dispone de una instalación limpia de Debian Squeeze de 64 bits o Ubuntu Precise, puede
+Si dispone de una instalación limpia de Debian Wheezy de 64 bits o Ubuntu Precise, puede
 utilizar un script de instalación de nuestro repositorio commonlib para configurar una implementación
 funcional de Alaveteli. Esta opción no es válida para producción (funciona, por ejemplo, en modo
 de desarrollo), pero deberá llevar a cabo una instalación funcional del sitio, que pueda
