@@ -26,9 +26,7 @@ describe AttachmentToHTML::Adapters::PDF do
     end
 
     it 'returns the title encoded as UTF-8' do
-      if RUBY_VERSION.to_f >= 1.9
-        expect(adapter.title.encoding).to eq(Encoding.find('UTF-8'))
-      end
+      expect(adapter.title.encoding).to eq(Encoding.find('UTF-8'))
     end
 
 
@@ -47,9 +45,7 @@ describe AttachmentToHTML::Adapters::PDF do
     end
 
     it 'returns the body encoded as UTF-8' do
-      if RUBY_VERSION.to_f >= 1.9
-        expect(adapter.body.encoding).to eq(Encoding.find('UTF-8'))
-      end
+      expect(adapter.body.encoding).to eq(Encoding.find('UTF-8'))
     end
 
     it 'returns the body as valid UTF-8 when the HTML generated is not

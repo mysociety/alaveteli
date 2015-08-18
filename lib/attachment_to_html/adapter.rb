@@ -45,11 +45,7 @@ module AttachmentToHTML
     end
 
     def create_tempfile(text)
-      tempfile = if RUBY_VERSION.to_f >= 1.9
-        Tempfile.new('foiextract', '.', :encoding => text.encoding)
-      else
-        Tempfile.new('foiextract', '.')
-      end
+      tempfile = Tempfile.new('foiextract', '.', :encoding => text.encoding)
       tempfile.print(text)
       tempfile.flush
       tempfile

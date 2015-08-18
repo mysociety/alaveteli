@@ -34,7 +34,6 @@ see [the project website](http://alaveteli.org) for instructions on installing A
 
 Every Alaveteli commit is tested by Travis on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/master/.travis.yml#L7)
 
-* ruby-1.8.7
 * ruby-1.9.3
 * ruby-2.0.0
 
