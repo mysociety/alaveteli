@@ -10,6 +10,9 @@ class ContactMailer < ApplicationMailer
   def to_admin_message(name, email, subject, message, logged_in_user, last_request, last_body)
     @message, @logged_in_user, @last_request, @last_body = message, logged_in_user, last_request, last_body
 
+    # Return path is an address we control so that SPF checks are done on it.
+    headers('Return-Path' => blackhole_email, 'Reply-To' => MailHandler.address_from_name_and_email(name, email))
+
     mail(:from => MailHandler.address_from_name_and_email(name, email),
          :to => contact_from_name_and_email,
          :subject => subject)
