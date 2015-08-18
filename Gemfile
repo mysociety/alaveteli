@@ -19,7 +19,7 @@ gem 'holidays', '~> 1.2.0'
 gem 'iso_country_codes', '~> 0.6.1'
 gem 'mahoro', '~> 0.4'
 gem 'memcache-client', '~> 1.8.5'
-gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_18, :ruby_19]
+gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_19]
 gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '~> 1.5.9'
 gem 'open4', '~> 1.3.4'
@@ -85,7 +85,6 @@ group :development do
 end
 
 group :debug do
-  gem 'ruby-debug', '~> 0.10.4', :platforms => :ruby_18
   gem 'debugger', '~> 1.6.0', :platforms => :ruby_19
   gem 'annotate', '~> 2.5.0'
 end
