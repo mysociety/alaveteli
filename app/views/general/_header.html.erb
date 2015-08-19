@@ -1,9 +1,9 @@
-<div id="banner">
-  <div id="banner_inner">
+<div id="banner" class="banner">
+  <div id="banner_inner" class="banner_inner">
     <div class="lang"><%= render :partial => 'general/locale_switcher' %></div>
 
     <% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
-      <div id="logged_in_bar">
+      <div id="logged_in_bar" class="logged_in_bar">
         <% if @user %>
           <%= _('Hello, {{username}}!', :username => h(@user.name))%>
 
