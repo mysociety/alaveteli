@@ -16,10 +16,11 @@
       <%= render :partial => 'general/locale_switcher' %>
 
       <% if ! (controller.action_name == 'signin' or controller.action_name == 'signup') %>
-        <div id="logged_in_bar">
-          <div id="logged_in_links">
+        <div id="logged_in_bar" class="logged_in_bar">
+          <div id="logged_in_links" class="logged_in_links">
             <% if @user %>
-              <span class="greeting"><%= _('Hello, {{username}}!', :username => @user.name) %></span>
+              <span class="greeting">
+              <%= _('Hello, {{username}}!', :username => @user.name) %></span>
               <%= link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>
               <%= link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %>
               <%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
