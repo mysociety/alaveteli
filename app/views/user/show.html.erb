@@ -4,13 +4,13 @@
   <% @title = _("{{user_name}} - user profile", :user_name => h(@display_user.name)) %>
 <% end %>
 
-<% if (@same_name_users.size >= 1) %>
+<% if @same_name_users.size >= 1 %>
   <p>
     <%= _('There is <strong>more than one person</strong> who uses this site ' \
           'and has this name. One of them is shown below, you may mean a ' \
           'different one:')%>
-    <% for @same_name_user in @same_name_users %>
-      <%= user_link(@same_name_user) %>
+    <% @same_name_users.each do |same_name_user| %>
+      <%= user_link(same_name_user) %>
     <% end %>
   </p>
 <% end %>
@@ -24,7 +24,7 @@
     </p>
 
     <ul>
-      <% for undescribed_request in @undescribed_requests %>
+      <% @undescribed_requests.each do |undescribed_request| %>
         <li><%= request_link(undescribed_request) %></li>
       <% end %>
     </ul>
@@ -40,13 +40,13 @@
 <% if @show_profile %>
   <div id="user_profile_header">
     <div id="header_right" class="sidebar">
-      <% if !@track_thing.nil? %>
+      <% if @track_thing %>
         <h2><%= _('Track this person') %></h2>
         <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
         <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
       <% end %>
 
-      <% if !@xapian_requests.nil? %>
+      <% if @xapian_requests %>
         <h2><%= _('On this page') %></h2>
         <a href="#foi_requests"><%= _('FOI requests') %></a>
         <br><a href="#annotations"><%= _('Annotations') %></a>
@@ -57,7 +57,7 @@
       <p id="user_photo_on_profile">
         <% if @display_user.profile_photo %>
           <% if @is_you %>
-            <a href="<%= set_profile_photo_url() %>">
+            <a href="<%= set_profile_photo_url %>">
           <% end %>
 
           <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>" alt="">
@@ -79,7 +79,7 @@
 
       <p class="subtitle">
         <%= _('Joined {{site_name}} in', :site_name=>site_name) %> <%= @display_user.created_at.year %>
-        <% if !@user.nil? && @user.admin_page_links? %>
+        <% if @user && @user.admin_page_links? %>
           (<%= link_to "admin", admin_user_path(@display_user) %>)
         <% end %>
       </p>
@@ -111,7 +111,7 @@
 
       <%= render :partial => 'user/show_user_info' %>
 
-      <% if not @is_you %>
+      <% unless @is_you %>
         <p id="user_not_logged_in">
           <%= _('<a href="{{url}}">Sign in</a> to change password, subscriptions and more ({{user_name}} only)',:user_name => h(@display_user.name), :url => signin_url(:r => request.fullpath).html_safe) %>
         </p>
@@ -148,7 +148,7 @@
       </div>
     <% end %>
 
-    <% if !@xapian_requests.nil? %>
+    <% if @xapian_requests %>
       <% if @xapian_requests.results.empty? %>
         <% if @page == 1 %>
           <h2 class="foi_results" id="foi_requests">
@@ -167,7 +167,7 @@
           <%= @page_desc %>
         </h2>
 
-        <% for result in @xapian_requests.results %>
+        <% @xapian_requests.results.each do |result| %>
           <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
         <% end %>
 
@@ -182,7 +182,7 @@
       <% end %>
     <% end %>
 
-    <% if !@xapian_comments.nil? %>
+    <% if @xapian_comments %>
       <% if @xapian_comments.results.empty? %>
         <% if @page == 1 %>
           <h2>
@@ -198,7 +198,7 @@
           <%= @page_desc %>
         </h2>
 
-        <% for result in @xapian_comments.results %>
+        <% @xapian_comments.results.each do |result| %>
           <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
         <% end %>
 
@@ -230,7 +230,7 @@
       <% end %>
     <% end %>
 
-    <% for track_type, track_things in @track_things_grouped %>
+    <% @track_things_grouped.each do |track_type, track_things| %>
       <% if @track_things_grouped.size > 1 %>
         <%= form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
           <h3>
@@ -246,7 +246,7 @@
       <% end %>
 
       <ul>
-        <% for track_thing in track_things %>
+        <% track_things.each do |track_thing| %>
           <li>
             <%= form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
               <div>

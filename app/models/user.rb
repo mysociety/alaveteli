@@ -165,6 +165,11 @@ class User < ActiveRecord::Base
     return true
   end
 
+  def self.find_similar_named_users(user)
+    User.where('name ILIKE ? AND email_confirmed = ? AND id <> ?',
+                user.name, true, user.id).order(:created_at)
+  end
+
   def created_at_numeric
     # format it here as no datetime support in Xapian's value ranges
     created_at.strftime("%Y%m%d%H%M%S")
@@ -308,6 +313,7 @@ class User < ActiveRecord::Base
   def can_file_requests?
     ban_text.empty? && !exceeded_limit?
   end
+
   def exceeded_limit?
     # Some users have no limit
     return false if no_limit
@@ -321,6 +327,7 @@ class User < ActiveRecord::Base
 
     recent_requests >= AlaveteliConfiguration.max_requests_per_user_per_day
   end
+
   def next_request_permitted_at
     return nil if no_limit
 
@@ -332,15 +339,19 @@ class User < ActiveRecord::Base
     nth_most_recent_request = n_most_recent_requests[-1]
     nth_most_recent_request.created_at + 1.day
   end
+
   def can_make_followup?
     ban_text.empty?
   end
+
   def can_make_comments?
     ban_text.empty?
   end
+
   def can_contact_other_users?
     ban_text.empty?
   end
+
   def can_fail_html
     if ban_text
       text = ban_text.strip
@@ -442,7 +453,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def purge_in_cache        
+  def purge_in_cache
     info_requests.each { |x| x.purge_in_cache } if name_changed?
   end
 
