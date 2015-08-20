@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe LanguageNames do
 
-  describe 'get_language_name' do
+  describe '.get_language_name' do
 
     it 'should return the name assigned to the language' do
       expect(LanguageNames.get_language_name('en')).to eq('English')

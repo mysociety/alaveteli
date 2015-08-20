@@ -39,7 +39,7 @@ describe PublicBodyCSV do
     end
   end
 
-  describe 'fields' do
+  describe '#fields' do
 
     it 'has a default set of fields' do
       csv = PublicBodyCSV.new
@@ -61,7 +61,7 @@ describe PublicBodyCSV do
 
   end
 
-  describe 'headers' do
+  describe '#headers' do
 
     it 'has a default set of headers' do
       csv = PublicBodyCSV.new
@@ -76,7 +76,7 @@ describe PublicBodyCSV do
 
   end
 
-  describe 'rows' do
+  describe '#rows' do
 
     it 'is empty on instantiation' do
       csv = PublicBodyCSV.new
@@ -85,7 +85,7 @@ describe PublicBodyCSV do
 
   end
 
-  describe '<<' do
+  describe '#<<' do
 
     it 'adds an elements attributes to the rows collection' do
       csv = PublicBodyCSV.new
@@ -96,7 +96,7 @@ describe PublicBodyCSV do
 
   end
 
-  describe 'generate' do
+  describe '#generate' do
 
     it 'generates the csv' do
       expected = <<-CSV.strip_heredoc

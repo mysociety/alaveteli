@@ -5,7 +5,7 @@ describe WidgetHelper do
 
   include WidgetHelper
 
-  describe 'status_description' do
+  describe '#status_description' do
 
     before do
       @info_request = FactoryGirl.build(:info_request)

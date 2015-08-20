@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe HighlightHelper do
   include HighlightHelper
 
-  describe 'highlight_and_excerpt' do
+  describe '#highlight_and_excerpt' do
 
     it 'excerpts text and highlights phrases' do
       text = "Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking"
@@ -54,7 +54,7 @@ EOF
 
   end
 
-  describe 'highlight_matches' do
+  describe '#highlight_matches' do
 
     it 'highlights' do
       assert_equal(
@@ -163,7 +163,7 @@ EOF
 
   end
 
-  describe 'excerpt' do
+  describe '#excerpt' do
 
     it 'excerpts' do
       assert_equal("...is a beautiful morn...", excerpt("This is a beautiful morning", "beautiful", :radius => 5))

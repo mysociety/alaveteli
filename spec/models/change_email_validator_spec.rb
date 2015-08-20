@@ -11,7 +11,7 @@ describe ChangeEmailValidator do
 
   let(:user) { FactoryGirl.create(:user) }
 
-  describe 'old_email' do
+  describe '#old_email' do
 
     it 'must have an old email' do
       params = { :old_email => nil,
@@ -50,7 +50,7 @@ describe ChangeEmailValidator do
 
   end
 
-  describe 'new_email' do
+  describe '#new_email' do
 
     it 'must have a new email' do
       params = { :old_email => user.email,
@@ -76,7 +76,7 @@ describe ChangeEmailValidator do
 
   end
 
-  describe 'password' do
+  describe '#password' do
 
     it 'password_and_format_of_email validation fails when password is nil' do
       params = { :old_email => user.email,

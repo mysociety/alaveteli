@@ -12,7 +12,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Holiday do
 
-  describe 'new' do
+  describe '.new' do
 
     it 'should require a day' do
       holiday = Holiday.new

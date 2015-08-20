@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AboutMeValidator do
 
-  describe 'new' do
+  describe '.new' do
 
     it 'sets each supported attribute on the instance' do
       params = { :about_me => 'My description' }
@@ -13,7 +13,7 @@ describe AboutMeValidator do
 
   end
 
-  describe 'valid?' do
+  describe '#valid?' do
 
     it 'is valid if about_me is =< 500' do
       params = { :about_me => 'a'*500 }
@@ -42,7 +42,7 @@ describe AboutMeValidator do
 
   end
 
-  describe 'about_me' do
+  describe '#about_me' do
 
     it 'has an attribute accessor' do
       params = { :about_me => 'My description' }

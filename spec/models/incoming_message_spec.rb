@@ -726,7 +726,7 @@ end
 
 describe IncomingMessage do
 
-  describe '_extract_text' do
+  describe '#_extract_text' do
 
     it 'does not generate incompatible character encodings' do
       if String.respond_to?(:encode)

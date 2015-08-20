@@ -28,7 +28,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
-  describe 'new' do
+  describe '.new' do
 
     it 'sets the default law used' do
       expect(InfoRequest.new.law_used).to eq('foi')
@@ -48,7 +48,7 @@ describe InfoRequest do
     end
   end
 
-  describe 'move_to_public_body' do
+  describe '#move_to_public_body' do
 
     context 'with no options' do
 
@@ -139,7 +139,7 @@ describe InfoRequest do
     end
   end
 
-  describe 'destroy' do
+  describe '#destroy' do
 
     before do
       @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
@@ -163,7 +163,7 @@ describe InfoRequest do
 
   end
 
-  describe 'fully_destroy' do
+  describe '#fully_destroy' do
 
     it 'can destroy a request with comments and censor rules' do
       info_request = FactoryGirl.create(:info_request)
@@ -179,7 +179,7 @@ describe InfoRequest do
 
   end
 
-  describe :initial_request_text do
+  describe '#initial_request_text' do
 
     it 'returns an empty string if the first outgoing message is hidden' do
       info_request = FactoryGirl.create(:info_request)

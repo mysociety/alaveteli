@@ -5,7 +5,7 @@ describe AlaveteliTextMasker do
 
   let(:class_instance) { Class.new { include AlaveteliTextMasker }.new }
 
-  describe 'apply_masks!' do
+  describe '#apply_masks!' do
 
     describe 'when applying censor rules' do
 
