@@ -19,6 +19,8 @@
   Tutty)
 * Rspec is upgraded to version 3, and specs have been upgraded to modern
   syntax (Louise Crow).
+* New rake task stats:list_hidden for printing a list of requests with hidden
+  material (Louise Crow).
 
 ## Upgrade Notes
 
