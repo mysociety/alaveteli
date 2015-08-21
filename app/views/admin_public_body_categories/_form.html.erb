@@ -1,6 +1,6 @@
-<% if @category.errors.any? %>
+<% if @public_body_category.errors.any? %>
   <ul>
-    <% @category.errors.each do |attr, message| %>
+    <% @public_body_category.errors.each do |attr, message| %>
       <% unless attr.to_s.starts_with?('translation') %>
         <li><%= message %></li>
       <% end %>
@@ -8,7 +8,7 @@
   </ul>
 <% end %>
 
-<% @category.ordered_translations.each do |translation| %>
+<% @public_body_category.ordered_translations.each do |translation| %>
   <% if translation.errors.any? %>
     <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
     <ul>
@@ -23,7 +23,7 @@
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
-    <% @category.ordered_translations.each do |translation| %>
+    <% @public_body_category.ordered_translations.each do |translation| %>
       <li>
         <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
           <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
@@ -33,9 +33,9 @@
   </ul>
 
   <div class="tab-content">
-    <% @category.ordered_translations.each do |translation| %>
+    <% @public_body_category.ordered_translations.each do |translation| %>
       <% if translation.locale.to_s == I18n.default_locale.to_s %>
-        <%= fields_for('public_body_category', @category) do |t| %>
+        <%= fields_for('public_body_category', @public_body_category) do |t| %>
           <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
         <% end %>
       <% else %>
@@ -52,8 +52,8 @@
 <div class="control-group">
   <label for="public_body_category_category_tag" class="control-label">Category tag</label>
   <div class="controls">
-    <% if PublicBody.find_by_tag(@category.category_tag).count == 0 or
-         @category.errors.messages.keys.include?(:category_tag) %>
+    <% if PublicBody.find_by_tag(@public_body_category.category_tag).count == 0 or
+         @public_body_category.errors.messages.keys.include?(:category_tag) %>
        <%= f.text_field :category_tag, :class => "span4" %>
      <% else %>
        <%= f.text_field :category_tag, :class => "span4", :disabled => true %>

@@ -21,6 +21,8 @@
   syntax (Louise Crow).
 * New rake task stats:list_hidden for printing a list of requests with hidden
   material (Louise Crow).
+* Standard filters and parameter whitelisting added to admin controllers
+  (James McKinney, Louise Crow)
 
 ## Upgrade Notes
 
@@ -34,6 +36,12 @@
 The following templates have been changed. Please update overrides in your theme
 to match the new templates.
 
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_public_body_categories/edit.html.erb
+    app/views/admin_public_body_categories/new.html.erb
+    app/views/admin_public_body_headings/_form.html.erb
+    app/views/admin_public_body_headings/edit.html.erb
+    app/views/admin_public_body_headings/new.html.erb
     app/views/general/_frontpage_hero.html.erb
     app/views/general/_frontpage_how_it_works.html.erb
     app/views/general/_frontpage_intro_sentence.html.erb

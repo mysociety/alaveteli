@@ -71,6 +71,7 @@ module Alaveteli
       app.routes.append{ match '*path', :to => 'general#not_found' }
     end
 
+    config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
     config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"

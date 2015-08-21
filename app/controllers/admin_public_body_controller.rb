@@ -7,6 +7,10 @@
 
 class AdminPublicBodyController < AdminController
 
+  include TranslatableParams
+
+  before_filter :set_public_body, :only => [:edit, :update, :destroy]
+
   def index
     lookup_query
   end
@@ -45,7 +49,7 @@ class AdminPublicBodyController < AdminController
         @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
       end
       params[:public_body][:last_edit_editor] = admin_current_user
-      @public_body = PublicBody.new(params[:public_body])
+      @public_body = PublicBody.new(public_body_params)
       if @public_body.save
         if @change_request
           response_text = params[:response].gsub(_("[Authority URL will be inserted here]"),
@@ -63,9 +67,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def edit
-    @public_body = PublicBody.find(params[:id])
     @public_body.build_all_translations
-
     if params[:change_request_id]
       @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
     end
@@ -86,8 +88,7 @@ class AdminPublicBodyController < AdminController
     end
     I18n.with_locale(I18n.default_locale) do
       params[:public_body][:last_edit_editor] = admin_current_user
-      @public_body = PublicBody.find(params[:id])
-      if @public_body.update_attributes(params[:public_body])
+      if @public_body.update_attributes(public_body_params)
         if @change_request
           @change_request.close!
           @change_request.send_response(params[:subject], params[:response])
@@ -102,21 +103,16 @@ class AdminPublicBodyController < AdminController
   end
 
   def destroy
-    @locale = locale_from_params
-    I18n.with_locale(@locale) do
-      public_body = PublicBody.find(params[:id])
-
-      if public_body.info_requests.size > 0
-        flash[:notice] = "There are requests associated with the authority, so can't destroy it"
-        redirect_to admin_body_url(public_body)
-        return
-      end
-
-      public_body.tag_string = ""
-      public_body.destroy
-      flash[:notice] = "PublicBody was successfully destroyed."
-      redirect_to admin_bodies_url
+    if @public_body.info_requests.size > 0
+      flash[:notice] = "There are requests associated with the authority, so can't destroy it"
+      redirect_to admin_body_url(@public_body)
+      return
     end
+
+    @public_body.tag_string = ""
+    @public_body.destroy
+    flash[:notice] = "PublicBody was successfully destroyed."
+    redirect_to admin_bodies_url
   end
 
   def mass_tag_add
@@ -128,7 +124,7 @@ class AdminPublicBodyController < AdminController
       elsif params[:table_name] == 'substring'
         bodies = @public_bodies
       else
-        raise "Unknown table_name " + params[:table_name]
+        raise "Unknown table_name #{params[:table_name]}"
       end
       for body in bodies
         body.add_tag_if_not_already_present(params[:new_tag])
@@ -252,6 +248,29 @@ class AdminPublicBodyController < AdminController
                                  lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{underscore_locale}')", @query, @query, @query]).paginate :order => "public_body_translations.name", :page => @page, :per_page => 100
         end
         @public_bodies_by_tag = PublicBody.find_by_tag(@query)
+    end
+
+    def public_body_params
+      if public_body_params = params[:public_body]
+        keys = { :translated_keys => [:locale,
+                                      :name,
+                                      :short_name,
+                                      :request_email,
+                                      :publication_scheme,
+                                      :notes],
+                 :general_keys => [:tag_string,
+                                  :home_page,
+                                  :disclosure_log,
+                                  :last_edit_comment,
+                                  :last_edit_editor] }
+        translatable_params(keys, public_body_params)
+      else
+       {}
+      end
+    end
+
+    def set_public_body
+      @public_body = PublicBody.find(params[:id])
     end
 
 end
