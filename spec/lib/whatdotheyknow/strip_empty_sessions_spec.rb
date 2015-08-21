@@ -20,7 +20,7 @@ describe WhatDoTheyKnow::StripEmptySessions do
     application_response_headers = { 'Content-Type' => 'text/html',
                                      'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'}
     response = make_response(session_data, application_response_headers)
-    response.headers['Set-Cookie'].should == 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'
+    expect(response.headers['Set-Cookie']).to eq('mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly')
   end
 
   describe 'if there is no meaningful data in the session' do
@@ -34,14 +34,14 @@ describe WhatDoTheyKnow::StripEmptySessions do
       application_response_headers = { 'Content-Type' => 'text/html',
                                        'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'}
       response = make_response(@session_data, application_response_headers)
-      response.headers['Content-Type'].should == 'text/html'
+      expect(response.headers['Content-Type']).to eq('text/html')
     end
 
     it 'should strip the session cookie setting header ' do
       application_response_headers = { 'Content-Type' => 'text/html',
                                        'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'}
       response = make_response(@session_data, application_response_headers)
-      response.headers['Set-Cookie'].should == ""
+      expect(response.headers['Set-Cookie']).to eq("")
     end
 
     it 'should strip the session cookie setting header even with a locale' do
@@ -49,7 +49,7 @@ describe WhatDoTheyKnow::StripEmptySessions do
       application_response_headers = { 'Content-Type' => 'text/html',
                                        'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'}
       response = make_response(@session_data, application_response_headers)
-      response.headers['Set-Cookie'].should == ""
+      expect(response.headers['Set-Cookie']).to eq("")
     end
 
     it 'should not strip the session cookie setting for admins' do
@@ -57,7 +57,7 @@ describe WhatDoTheyKnow::StripEmptySessions do
       application_response_headers = { 'Content-Type' => 'text/html',
                                        'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'}
       response = make_response(@session_data, application_response_headers)
-      response.headers['Set-Cookie'].should == "mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly"
+      expect(response.headers['Set-Cookie']).to eq("mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly")
     end
 
     it 'should strip the session cookie setting header (but no other cookie setting header) if there is more than one' do
@@ -65,7 +65,7 @@ describe WhatDoTheyKnow::StripEmptySessions do
                                        'Set-Cookie' => ['mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly',
                                                         'other=mydata']}
       response = make_response(@session_data, application_response_headers)
-      response.headers['Set-Cookie'].should == ['other=mydata']
+      expect(response.headers['Set-Cookie']).to eq(['other=mydata'])
     end
 
   end

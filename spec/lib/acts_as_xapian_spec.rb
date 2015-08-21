@@ -19,47 +19,47 @@ describe ActsAsXapian::Search do
 
     it "should return a list of words used in the search" do
       s = ActsAsXapian::Search.new([PublicBody], "albatross words", :limit => 100)
-      s.words_to_highlight.should == ["albatross", "word"]
+      expect(s.words_to_highlight).to eq(["albatross", "word"])
     end
 
     it "should remove any operators" do
       s = ActsAsXapian::Search.new([PublicBody], "albatross words tag:mice", :limit => 100)
-      s.words_to_highlight.should == ["albatross", "word"]
+      expect(s.words_to_highlight).to eq(["albatross", "word"])
     end
 
     it "should separate punctuation" do
       s = ActsAsXapian::Search.new([PublicBody], "The doctor's patient", :limit => 100)
-      s.words_to_highlight.should == ["the", "doctor", "patient"].sort
+      expect(s.words_to_highlight).to eq(["the", "doctor", "patient"].sort)
     end
 
     it "should handle non-ascii characters" do
       s = ActsAsXapian::Search.new([PublicBody], "adatigénylés words tag:mice", :limit => 100)
-      s.words_to_highlight.should == ["adatigénylé", "word"]
+      expect(s.words_to_highlight).to eq(["adatigénylé", "word"])
     end
 
     it "should ignore stopwords" do
       s = ActsAsXapian::Search.new([PublicBody], "department of humpadinking", :limit => 100)
-      s.words_to_highlight.should_not include('of')
+      expect(s.words_to_highlight).not_to include('of')
     end
 
     it "uses stemming" do
       s = ActsAsXapian::Search.new([PublicBody], 'department of humpadinking', :limit => 100)
-      s.words_to_highlight.should == ["depart", "humpadink"]
+      expect(s.words_to_highlight).to eq(["depart", "humpadink"])
     end
 
     it "doesn't stem proper nouns" do
       s = ActsAsXapian::Search.new([PublicBody], 'department of Humpadinking', :limit => 1)
-      s.words_to_highlight.should == ["depart", "humpadinking"]
+      expect(s.words_to_highlight).to eq(["depart", "humpadinking"])
     end
 
     it "includes the original search terms if requested" do
       s = ActsAsXapian::Search.new([PublicBody], 'boring', :limit => 1)
-      s.words_to_highlight(:include_original => true).should == ['bore', 'boring']
+      expect(s.words_to_highlight(:include_original => true)).to eq(['bore', 'boring'])
     end
 
     it "does not return duplicate terms" do
       s = ActsAsXapian::Search.new([PublicBody], 'boring boring', :limit => 1)
-      s.words_to_highlight.should == ['bore']
+      expect(s.words_to_highlight).to eq(['bore'])
     end
 
     context 'the :regex option' do
@@ -67,19 +67,19 @@ describe ActsAsXapian::Search do
       it 'wraps each words in a regex that matches the full word' do
         expected = [/\b(albatross)\b/iu]
         s = ActsAsXapian::Search.new([PublicBody], 'Albatross', :limit => 1)
-        s.words_to_highlight(:regex => true).should == expected
+        expect(s.words_to_highlight(:regex => true)).to eq(expected)
       end
 
       it 'wraps each stem in a regex' do
         expected = [/\b(depart)\w*\b/iu]
         s = ActsAsXapian::Search.new([PublicBody], 'department', :limit => 1)
-        s.words_to_highlight(:regex => true).should == expected
+        expect(s.words_to_highlight(:regex => true)).to eq(expected)
       end
 
     end
   end
 
-  describe :spelling_correction do
+  describe '#spelling_correction' do
 
     before :all do
       get_fixtures_xapian_index
@@ -96,15 +96,15 @@ describe ActsAsXapian::Search do
 
     it 'returns a UTF-8 encoded string' do
       s = ActsAsXapian::Search.new([PublicBody], "alece", :limit => 100)
-      s.spelling_correction.should == "alice"
+      expect(s.spelling_correction).to eq("alice")
       if s.spelling_correction.respond_to? :encoding
-        s.spelling_correction.encoding.to_s.should == 'UTF-8'
+        expect(s.spelling_correction.encoding.to_s).to eq('UTF-8')
       end
     end
 
     it 'handles non-ASCII characters' do
       s = ActsAsXapian::Search.new([PublicBody], "bobby", :limit => 100)
-      s.spelling_correction.should == "bôbby"
+      expect(s.spelling_correction).to eq("bôbby")
     end
 
   end

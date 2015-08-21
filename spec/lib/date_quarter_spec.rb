@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe DateQuarter do
   include DateQuarter
 
-  describe :quarters_between do
+  describe '#quarters_between' do
 
     it 'returns all the quarters in a year' do
       # This is a bit of a convoluted spec, since we have to convert each
@@ -22,7 +22,7 @@ describe DateQuarter do
 
         quarters_between(start, finish).each_with_index do |pair, i|
           pair.map!(&:to_i)
-          pair.should == expected[i]
+          expect(pair).to eq(expected[i])
         end
       end
     end

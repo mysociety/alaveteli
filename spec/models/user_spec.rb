@@ -33,12 +33,12 @@ describe User, "making up the URL name" do
 
   it 'should remove spaces, and make lower case' do
     @user.name = 'Some Name'
-    @user.url_name.should == 'some_name'
+    expect(@user.url_name).to eq('some_name')
   end
 
   it 'should not allow a numeric name' do
     @user.name = '1234'
-    @user.url_name.should == 'user'
+    expect(@user.url_name).to eq('user')
   end
 end
 
@@ -50,7 +50,7 @@ describe User, "showing the name" do
   end
 
   it 'should strip whitespace' do
-    @user.name.should == 'Some Name'
+    expect(@user.name).to eq('Some Name')
   end
 
   describe  'if user has been banned' do
@@ -60,11 +60,11 @@ describe User, "showing the name" do
     end
 
     it 'should show an "Account suspended" suffix' do
-      @user.name.should == 'Some Name (Account suspended)'
+      expect(@user.name).to eq('Some Name (Account suspended)')
     end
 
     it 'should return a string when the user has been banned, not a SafeBuffer' do
-      @user.name.class.should == String
+      expect(@user.name.class).to eq(String)
     end
   end
 
@@ -83,25 +83,25 @@ describe User, " when authenticating" do
   end
 
   it "should create a hashed password when the password is set" do
-    @empty_user.hashed_password.should be_nil
+    expect(@empty_user.hashed_password).to be_nil
     @empty_user.password = "a test password"
-    @empty_user.hashed_password.should_not be_nil
+    expect(@empty_user.hashed_password).not_to be_nil
   end
 
   it "should have errors when given the wrong password" do
     found_user = User.authenticate_from_form({ :email => "sensible@localhost", :password => "iownzyou" })
-    found_user.errors.size.should > 0
+    expect(found_user.errors.size).to be > 0
   end
 
   it "should not find the user when given the wrong email" do
     found_user = User.authenticate_from_form( { :email => "soccer@localhost", :password => "foolishpassword" })
-    found_user.errors.size.should > 0
+    expect(found_user.errors.size).to be > 0
   end
 
   it "should find the user when given the right email and password" do
     found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
-    found_user.errors.size.should == 0
-    found_user.should == (@full_user)
+    expect(found_user.errors.size).to eq(0)
+    expect(found_user).to eq(@full_user)
   end
 
 end
@@ -112,28 +112,31 @@ describe User, " when saving" do
   end
 
   it "should not save without setting some parameters" do
-    lambda { @user.save! }.should raise_error(ActiveRecord::RecordInvalid)
+    expect { @user.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it "should not save with misformatted email" do
     @user.name = "Mr. Silly"
     @user.password = "insecurepassword"
     @user.email = "mousefooble"
-    @user.should have(1).error_on(:email)
+    @user.valid?
+    expect(@user.errors[:email].size).to eq(1)
   end
 
   it "should not allow an email address as a name" do
     @user.name = "silly@example.com"
     @user.email = "silly@example.com"
     @user.password = "insecurepassword"
-    @user.should have(1).error_on(:name)
+    @user.valid?
+    expect(@user.errors[:name].size).to eq(1)
   end
 
   it "should not save with no password" do
     @user.name = "Mr. Silly"
     @user.password = ""
     @user.email = "silly@localhost"
-    @user.should have(1).error_on(:hashed_password)
+    @user.valid?
+    expect(@user.errors[:hashed_password].size).to eq(1)
   end
 
   it "should save with reasonable name, password and email" do
@@ -161,7 +164,7 @@ describe User, " when saving" do
     @user.password = "insecurepassword"
     @user.email = "reasonable@localhost"
     @user.no_xapian_reindex = false
-    @user.should_receive(:xapian_mark_needs_index)
+    expect(@user).to receive(:xapian_mark_needs_index)
     @user.save!
   end
 
@@ -170,7 +173,7 @@ describe User, " when saving" do
     @user.password = "insecurepassword"
     @user.email = "reasonable@localhost"
     @user.no_xapian_reindex = nil
-    @user.should_receive(:xapian_mark_needs_index)
+    expect(@user).to receive(:xapian_mark_needs_index)
     @user.save!
   end
 
@@ -179,7 +182,7 @@ describe User, " when saving" do
     @user.password = "insecurepassword"
     @user.email = "reasonable@localhost"
     @user.no_xapian_reindex = true
-    @user.should_not_receive(:xapian_mark_needs_index)
+    expect(@user).not_to receive(:xapian_mark_needs_index)
     @user.save!
   end
 
@@ -197,14 +200,14 @@ describe User, "when reindexing referencing models" do
   end
 
   it 'should reindex events associated with that user\'s comments when URL changes' do
-    @user.stub!(:changes).and_return({'url_name' => 1})
-    @comment_event.should_receive(:xapian_mark_needs_index)
+    allow(@user).to receive(:changes).and_return({'url_name' => 1})
+    expect(@comment_event).to receive(:xapian_mark_needs_index)
     @user.reindex_referencing_models
   end
 
   it 'should reindex events associated with that user\'s requests when URL changes' do
-    @user.stub!(:changes).and_return({'url_name' => 1})
-    @request_event.should_receive(:xapian_mark_needs_index)
+    allow(@user).to receive(:changes).and_return({'url_name' => 1})
+    expect(@request_event).to receive(:xapian_mark_needs_index)
     @user.reindex_referencing_models
   end
 
@@ -214,14 +217,14 @@ describe User, "when reindexing referencing models" do
     end
 
     it 'should not reindex events associated with that user\'s comments when URL changes' do
-      @user.stub!(:changes).and_return({'url_name' => 1})
-      @comment_event.should_not_receive(:xapian_mark_needs_index)
+      allow(@user).to receive(:changes).and_return({'url_name' => 1})
+      expect(@comment_event).not_to receive(:xapian_mark_needs_index)
       @user.reindex_referencing_models
     end
 
     it 'should not reindex events associated with that user\'s requests when URL changes' do
-      @user.stub!(:changes).and_return({'url_name' => 1})
-      @request_event.should_not_receive(:xapian_mark_needs_index)
+      allow(@user).to receive(:changes).and_return({'url_name' => 1})
+      expect(@request_event).not_to receive(:xapian_mark_needs_index)
       @user.reindex_referencing_models
     end
 
@@ -236,11 +239,11 @@ describe User, "when checking abilities" do
   end
 
   it "should not get admin links" do
-    @user.admin_page_links?.should be_false
+    expect(@user.admin_page_links?).to be false
   end
 
   it "should be able to file requests" do
-    @user.can_file_requests?.should be_true
+    expect(@user.can_file_requests?).to be true
   end
 
 end
@@ -252,17 +255,17 @@ describe User, 'when asked if a user owns every request' do
   end
 
   it 'should return false if no user is passed' do
-    User.owns_every_request?(nil).should be_false
+    expect(User.owns_every_request?(nil)).to be false
   end
 
   it 'should return true if the user has "requires admin" power' do
-    @mock_user.stub!(:owns_every_request?).and_return true
-    User.owns_every_request?(@mock_user).should be_true
+    allow(@mock_user).to receive(:owns_every_request?).and_return true
+    expect(User.owns_every_request?(@mock_user)).to be true
   end
 
   it 'should return false if the user does not have "requires admin" power' do
-    @mock_user.stub!(:owns_every_request?).and_return false
-    User.owns_every_request?(@mock_user).should be_false
+    allow(@mock_user).to receive(:owns_every_request?).and_return false
+    expect(User.owns_every_request?(@mock_user)).to be false
   end
 
 end
@@ -273,7 +276,7 @@ describe User, " when making name and email address" do
     @user.name = "Sensible User"
     @user.email = "sensible@localhost"
 
-    @user.name_and_email.should == "Sensible User <sensible@localhost>"
+    expect(@user.name_and_email).to eq("Sensible User <sensible@localhost>")
   end
 
   it "should quote name and email with funny characters in the name" do
@@ -281,7 +284,7 @@ describe User, " when making name and email address" do
     @user.name = "Silly @ User"
     @user.email = "silly@localhost"
 
-    @user.name_and_email.should == "\"Silly @ User\" <silly@localhost>"
+    expect(@user.name_and_email).to eq("\"Silly @ User\" <silly@localhost>")
   end
 end
 
@@ -298,7 +301,7 @@ describe User, "when setting a profile photo" do
     data = load_file_fixture("parrot.png")
     profile_photo = ProfilePhoto.new(:data => data)
     @user.set_profile_photo(profile_photo)
-    profile_photo.user.should == @user
+    expect(profile_photo.user).to eq(@user)
   end
 
   #    it "should destroy old photos being replaced" do
@@ -325,7 +328,7 @@ describe User, "when unconfirmed" do
   end
 
   it "should not be emailed" do
-    @user.should_be_emailed?.should be_false
+    expect(@user.should_be_emailed?).to be false
   end
 end
 
@@ -335,8 +338,8 @@ describe User, "when emails have bounced" do
     User.record_bounce_for_email("bob@localhost", "The reason we think the email bounced (e.g. a bounce message)")
 
     user = User.find_user_by_email("bob@localhost")
-    user.email_bounced_at.should_not be_nil
-    user.email_bounce_message.should == "The reason we think the email bounced (e.g. a bounce message)"
+    expect(user.email_bounced_at).not_to be_nil
+    expect(user.email_bounce_message).to eq("The reason we think the email bounced (e.g. a bounce message)")
   end
 end
 
@@ -348,24 +351,24 @@ describe User, "when calculating if a user has exceeded the request limit" do
   end
 
   it 'should return false if no request limit is set' do
-    AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return nil
-    @user.exceeded_limit?.should be_false
+    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return nil
+    expect(@user.exceeded_limit?).to be false
   end
 
   it 'should return false if the user has not submitted more than the limit' do
-    AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(2)
-    @user.exceeded_limit?.should be_false
+    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(2)
+    expect(@user.exceeded_limit?).to be false
   end
 
   it 'should return true if the user has submitted more than the limit' do
-    AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(0)
-    @user.exceeded_limit?.should be_true
+    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
+    expect(@user.exceeded_limit?).to be true
   end
 
   it 'should return false if the user is allowed to make batch requests' do
     @user.can_make_batch_requests = true
-    AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(0)
-    @user.exceeded_limit?.should be_false
+    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
+    expect(@user.exceeded_limit?).to be false
   end
 
 
@@ -373,7 +376,7 @@ end
 
 describe User do
 
-  describe :banned? do
+  describe '#banned?' do
 
     it 'is banned if the user has ban_text' do
       user = FactoryGirl.build(:user, :ban_text => 'banned')

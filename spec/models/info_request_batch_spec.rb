@@ -22,20 +22,20 @@ describe InfoRequestBatch, "when validating" do
 
   it 'should require a user' do
     @info_request_batch.user = nil
-    @info_request_batch.valid?.should be_false
-    @info_request_batch.errors.full_messages.should == ["User can't be blank"]
+    expect(@info_request_batch.valid?).to be false
+    expect(@info_request_batch.errors.full_messages).to eq(["User can't be blank"])
   end
 
   it 'should require a title' do
     @info_request_batch.title = nil
-    @info_request_batch.valid?.should be_false
-    @info_request_batch.errors.full_messages.should == ["Title can't be blank"]
+    expect(@info_request_batch.valid?).to be false
+    expect(@info_request_batch.errors.full_messages).to eq(["Title can't be blank"])
   end
 
   it 'should require a body' do
     @info_request_batch.body = nil
-    @info_request_batch.valid?.should be_false
-    @info_request_batch.errors.full_messages.should == ["Body can't be blank"]
+    expect(@info_request_batch.valid?).to be false
+    expect(@info_request_batch.errors.full_messages).to eq(["Body can't be blank"])
   end
 
 end
@@ -52,32 +52,32 @@ describe InfoRequestBatch, "when finding an existing batch" do
   end
 
   it 'should return a batch with the same user, title and body sent to one of the same public bodies' do
-    InfoRequestBatch.find_existing(@info_request_batch.user,
+    expect(InfoRequestBatch.find_existing(@info_request_batch.user,
                                    @info_request_batch.title,
                                    @info_request_batch.body,
-                                   [@first_body]).should_not be_nil
+                                   [@first_body])).not_to be_nil
   end
 
   it 'should not return a batch with the same title and body sent to another public body' do
-    InfoRequestBatch.find_existing(@info_request_batch.user,
+    expect(InfoRequestBatch.find_existing(@info_request_batch.user,
                                    @info_request_batch.title,
                                    @info_request_batch.body,
-                                   [FactoryGirl.create(:public_body)]).should be_nil
+                                   [FactoryGirl.create(:public_body)])).to be_nil
   end
 
   it 'should not return a batch sent the same public bodies with a different title and body' do
-    InfoRequestBatch.find_existing(@info_request_batch.user,
+    expect(InfoRequestBatch.find_existing(@info_request_batch.user,
                                    'Other title',
                                    'Other body',
-                                   [@first_body]).should be_nil
+                                   [@first_body])).to be_nil
   end
 
   it 'should not return a batch sent to one of the same public bodies with the same title and body by
         a different user' do
-    InfoRequestBatch.find_existing(FactoryGirl.create(:user),
+    expect(InfoRequestBatch.find_existing(FactoryGirl.create(:user),
                                    @info_request_batch.title,
                                    @info_request_batch.body,
-                                   [@first_body]).should be_nil
+                                   [@first_body])).to be_nil
   end
 end
 
@@ -103,22 +103,22 @@ describe InfoRequestBatch, "when creating a batch" do
         info_request.public_body == public_body
       end
       expected = "Dear #{public_body.name},\nA message\nYours faithfully,\nRequester"
-      request.outgoing_messages.first.body.should == expected
+      expect(request.outgoing_messages.first.body).to eq(expected)
     end
   end
 
   it 'should send requests to requestable public bodies, and return a list of unrequestable ones' do
-    @first_public_body.stub(:is_requestable?).and_return(false)
+    allow(@first_public_body).to receive(:is_requestable?).and_return(false)
     unrequestable = @info_request_batch.create_batch!
-    unrequestable.should == [@first_public_body]
-    @info_request_batch.info_requests.size.should == 1
+    expect(unrequestable).to eq([@first_public_body])
+    expect(@info_request_batch.info_requests.size).to eq(1)
     request = @info_request_batch.info_requests.first
-    request.outgoing_messages.first.status.should == 'sent'
+    expect(request.outgoing_messages.first.status).to eq('sent')
   end
 
   it 'should set the sent_at value of the info request batch' do
     @info_request_batch.create_batch!
-    @info_request_batch.sent_at.should_not be_nil
+    expect(@info_request_batch.sent_at).not_to be_nil
   end
 
 end
@@ -146,18 +146,18 @@ describe InfoRequestBatch, "when sending batches" do
 
   it 'should send requests and notifications for only unsent batch requests' do
     InfoRequestBatch.send_batches
-    ActionMailer::Base.deliveries.size.should == 3
+    expect(ActionMailer::Base.deliveries.size).to eq(3)
     first_email = ActionMailer::Base.deliveries.first
-    first_email.to.should == [@first_public_body.request_email]
-    first_email.subject.should == 'Freedom of Information request - A test title'
+    expect(first_email.to).to eq([@first_public_body.request_email])
+    expect(first_email.subject).to eq('Freedom of Information request - A test title')
 
     second_email = ActionMailer::Base.deliveries.second
-    second_email.to.should == [@second_public_body.request_email]
-    second_email.subject.should == 'Freedom of Information request - A test title'
+    expect(second_email.to).to eq([@second_public_body.request_email])
+    expect(second_email.subject).to eq('Freedom of Information request - A test title')
 
     third_email = ActionMailer::Base.deliveries.third
-    third_email.to.should == [@user.email]
-    third_email.subject.should == 'Your batch request "A test title" has been sent'
+    expect(third_email.to).to eq([@user.email])
+    expect(third_email.subject).to eq('Your batch request "A test title" has been sent')
   end
 
 end

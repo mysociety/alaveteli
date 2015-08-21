@@ -4,20 +4,20 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe HighlightHelper do
   include HighlightHelper
 
-  describe :highlight_and_excerpt do
+  describe '#highlight_and_excerpt' do
 
     it 'excerpts text and highlights phrases' do
       text = "Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking"
       phrases = ['humpadinking']
       expected = '...Department for <span class="highlight">Humpadinking</span>'
-      highlight_and_excerpt(text, phrases, 15).should == expected
+      expect(highlight_and_excerpt(text, phrases, 15)).to eq(expected)
     end
 
     it 'excerpts text and highlights matches' do
       text = "Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking"
       matches = [/\bhumpadink\w*\b/iu]
       expected = '...Department for <span class="highlight">Humpadinking</span>'
-      highlight_and_excerpt(text, matches, 15).should == expected
+      expect(highlight_and_excerpt(text, matches, 15)).to eq(expected)
     end
 
     context 'multiple matches' do
@@ -35,7 +35,7 @@ EOF
         text.chomp!
         expected.chomp!
         matches = [/\b(humpadink\w*)\b/iu]
-        highlight_and_excerpt(text, matches, 1000).should == expected
+        expect(highlight_and_excerpt(text, matches, 1000)).to eq(expected)
       end
 
       it 'bases the split on the first match' do
@@ -47,14 +47,14 @@ EOF
           "Humpadinking</span> decided to vis..."
 
         matches = [/\b(humpadink\w*)\b/iu]
-        highlight_and_excerpt(text, matches, 15).should == expected
+        expect(highlight_and_excerpt(text, matches, 15)).to eq(expected)
       end
 
     end
 
   end
 
-  describe :highlight_matches do
+  describe '#highlight_matches' do
 
     it 'highlights' do
       assert_equal(
@@ -163,7 +163,7 @@ EOF
 
   end
 
-  describe :excerpt do
+  describe '#excerpt' do
 
     it 'excerpts' do
       assert_equal("...is a beautiful morn...", excerpt("This is a beautiful morning", "beautiful", :radius => 5))

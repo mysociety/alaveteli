@@ -19,19 +19,19 @@ describe PublicBodyHeading, 'when validating' do
     category_link = PublicBodyCategoryLink.new(:public_body_heading => heading,
                                                :public_body_category => category)
     category_link.valid?
-    category_link.category_display_order.should == PublicBodyCategoryLink.next_display_order(heading)
+    expect(category_link.category_display_order).to eq(PublicBodyCategoryLink.next_display_order(heading))
   end
 
   it 'should be invalid without a category' do
     category_link = PublicBodyCategoryLink.new
-    category_link.should_not be_valid
-    category_link.errors[:public_body_category].should == ["can't be blank"]
+    expect(category_link).not_to be_valid
+    expect(category_link.errors[:public_body_category]).to eq(["can't be blank"])
   end
 
   it 'should be invalid without a heading' do
     category_link = PublicBodyCategoryLink.new
-    category_link.should_not be_valid
-    category_link.errors[:public_body_heading].should == ["can't be blank"]
+    expect(category_link).not_to be_valid
+    expect(category_link.errors[:public_body_heading]).to eq(["can't be blank"])
   end
 
 end
@@ -40,7 +40,7 @@ describe PublicBodyCategoryLink, 'when setting a category display order' do
 
   it 'should return 0 if there are no public body headings' do
     heading = FactoryGirl.create(:public_body_heading)
-    PublicBodyCategoryLink.next_display_order(heading).should == 0
+    expect(PublicBodyCategoryLink.next_display_order(heading)).to eq(0)
   end
 
   it 'should return one more than the highest display order if there are public body headings' do
@@ -49,7 +49,7 @@ describe PublicBodyCategoryLink, 'when setting a category display order' do
     category_link = PublicBodyCategoryLink.create(:public_body_heading_id => heading.id,
                                                   :public_body_category_id => category.id)
 
-    PublicBodyCategoryLink.next_display_order(heading).should == 1
+    expect(PublicBodyCategoryLink.next_display_order(heading)).to eq(1)
   end
 
 end

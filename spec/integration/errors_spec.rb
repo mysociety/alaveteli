@@ -27,10 +27,10 @@ describe "When errors occur" do
     before(:each) { set_consider_all_requests_local(true) }
 
     it 'should show a full trace for general errors' do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get("/request/example")
-      response.body.should have_selector('div[id=traces]')
-      response.body.should match('An example error')
+      expect(response.body).to match('<div id="traces"')
+      expect(response.body).to match('An example error')
     end
 
   end
@@ -41,24 +41,24 @@ describe "When errors occur" do
 
     it "should render a 404 for unrouteable URLs using the general/exception_caught template" do
       get("/frobsnasm")
-      response.should render_template('general/exception_caught')
-      response.code.should == "404"
+      expect(response).to render_template('general/exception_caught')
+      expect(response.code).to eq("404")
     end
 
     it "should render a 404 for users or bodies that don't exist using the general/exception_caught
             template" do
       ['/user/wobsnasm', '/body/wobsnasm'].each do |non_existent_url|
         get(non_existent_url)
-        response.should render_template('general/exception_caught')
-        response.code.should == "404"
+        expect(response).to render_template('general/exception_caught')
+        expect(response.code).to eq("404")
       end
     end
 
     it 'should render a 404 when given an invalid page parameter' do
       get '/body/list/all', :page => 'xoforvfmy'
-      response.should render_template('general/exception_caught')
-      response.code.should == '404'
-      response.body.should match("Sorry, we couldn't find that page")
+      expect(response).to render_template('general/exception_caught')
+      expect(response.code).to eq('404')
+      expect(response.body).to match("Sorry, we couldn't find that page")
     end
 
     # it 'should handle non utf-8 parameters' do
@@ -72,43 +72,43 @@ describe "When errors occur" do
 
 
     it "should render a 500 for general errors using the general/exception_caught template" do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get("/request/example")
-      response.should render_template('general/exception_caught')
-      response.code.should == "500"
+      expect(response).to render_template('general/exception_caught')
+      expect(response.code).to eq("500")
     end
 
     it 'should render a 500 for json errors' do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get("/request/example.json")
-      response.code.should == '500'
+      expect(response.code).to eq('500')
     end
 
     it 'should render a 404 for a non-found xml request' do
       get("/frobsnasm.xml")
-      response.code.should == '404'
+      expect(response.code).to eq('404')
     end
 
     it 'should notify of a general error' do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get("/request/example")
       deliveries = ActionMailer::Base.deliveries
-      deliveries.size.should == 1
+      expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      mail.body.should =~ /An example error/
+      expect(mail.body).to match(/An example error/)
     end
 
     it 'should log a general error' do
-      Rails.logger.should_receive(:fatal)
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      expect(Rails.logger).to receive(:fatal)
+      allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get("/request/example")
     end
 
     it 'should assign the locale for the general/exception_caught template' do
-      InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+      allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get("/es/request/example")
-      response.should render_template('general/exception_caught')
-      response.body.should match('Lo sentimos, hubo un problema procesando esta página')
+      expect(response).to render_template('general/exception_caught')
+      expect(response.body).to match('Lo sentimos, hubo un problema procesando esta página')
     end
 
     it "should render a 403 with text body for attempts at directory listing for attachments" do
@@ -116,26 +116,26 @@ describe "When errors occur" do
       foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
       FileUtils.mkdir_p(File.join(foi_cache_path, "views/en/request/101/101/response/1/attach/html/1"))
       get("/request/101/response/1/attach/html/1/" )
-      response.body.should include("Directory listing not allowed")
-      response.code.should == "403"
+      expect(response.body).to include("Directory listing not allowed")
+      expect(response.code).to eq("403")
       get("/request/101/response/1/attach/html" )
-      response.body.should include("Directory listing not allowed")
-      response.code.should == "403"
+      expect(response.body).to include("Directory listing not allowed")
+      expect(response.code).to eq("403")
     end
 
     it "return a 403 for a JSON PermissionDenied error" do
-      InfoRequest.stub!(:find_by_url_title!).and_raise(ApplicationController::PermissionDenied)
+      allow(InfoRequest).to receive(:find_by_url_title!).and_raise(ApplicationController::PermissionDenied)
       get("/request/example.json")
-      response.code.should == '403'
+      expect(response.code).to eq('403')
     end
 
     context "in the admin interface" do
 
       it 'should show a full trace for general errors' do
-        InfoRequest.stub!(:find).and_raise("An example error")
+        allow(InfoRequest).to receive(:find).and_raise("An example error")
         get("/admin/requests/333")
-        response.body.should have_selector('div[id=traces]')
-        response.body.should match('An example error')
+        expect(response.body).to match('<div id="traces"')
+        expect(response.body).to match('An example error')
       end
 
     end

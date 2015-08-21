@@ -7,8 +7,8 @@ describe DatabaseCollation do
 
     it 'delegates to an instance of the class' do
       collation = double
-      DatabaseCollation.stub(:instance).and_return(collation)
-      collation.should_receive(:supports?).with('en_GB')
+      allow(DatabaseCollation).to receive(:instance).and_return(collation)
+      expect(collation).to receive(:supports?).with('en_GB')
       DatabaseCollation.supports?('en_GB')
     end
 
@@ -31,7 +31,7 @@ describe DatabaseCollation do
 
   end
 
-  describe :new do
+  describe '.new' do
 
     it 'defaults to the ActiveRecord::Base connection' do
       expect(DatabaseCollation.new.connection).
@@ -46,28 +46,28 @@ describe DatabaseCollation do
 
   end
 
-  describe :supports? do
+  describe '#supports?' do
 
     it 'does not support collation if the database is not postgresql' do
       database = DatabaseCollation.
                  new(mock_connection(:adapter_name => 'MySQL'))
-      expect(database.supports?('en_GB')).to be_false
+      expect(database.supports?('en_GB')).to be false
     end
 
     it 'does not support collation if the postgresql version is too old' do
       database = DatabaseCollation.
                  new(mock_connection(:postgresql_version => 90111))
-      expect(database.supports?('en_GB')).to be_false
+      expect(database.supports?('en_GB')).to be false
     end
 
     it 'does not support collation if the collation does not exist' do
       database = DatabaseCollation.new(mock_connection)
-      expect(database.supports?('es')).to be_false
+      expect(database.supports?('es')).to be false
     end
 
     it 'supports collation if the collation exists' do
       database = DatabaseCollation.new(mock_connection)
-      expect(database.supports?('en_GB')).to be_true
+      expect(database.supports?('en_GB')).to be true
     end
 
   end
@@ -92,8 +92,8 @@ def mock_connection(connection_double_opts = {})
     { "collname" => "en_GB.utf8" }
   ]
 
-  connection.
-    stub(:execute).
+  allow(connection).
+    to receive(:execute).
       with(%q(SELECT collname FROM pg_collation;)).
         and_return(installed_collations)
 

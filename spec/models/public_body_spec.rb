@@ -30,7 +30,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBody do
 
-  describe :translations_attributes= do
+  describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
 
@@ -103,17 +103,17 @@ describe PublicBody do
     end
   end
 
-  describe :set_api_key do
+  describe '#set_api_key' do
 
     it 'generates and sets an API key' do
-      SecureRandom.stub(:base64).and_return('APIKEY')
+      allow(SecureRandom).to receive(:base64).and_return('APIKEY')
       body = PublicBody.new
       body.set_api_key
       expect(body.api_key).to eq('APIKEY')
     end
 
     it 'does not overwrite an existing API key' do
-      SecureRandom.stub(:base64).and_return('APIKEY')
+      allow(SecureRandom).to receive(:base64).and_return('APIKEY')
       body = PublicBody.new(:api_key => 'EXISTING')
       body.set_api_key
       expect(body.api_key).to eq('EXISTING')
@@ -121,17 +121,17 @@ describe PublicBody do
 
   end
 
-  describe :set_api_key! do
+  describe '#set_api_key!' do
 
     it 'generates and sets an API key' do
-      SecureRandom.stub(:base64).and_return('APIKEY')
+      allow(SecureRandom).to receive(:base64).and_return('APIKEY')
       body = PublicBody.new
       body.set_api_key!
       expect(body.api_key).to eq('APIKEY')
     end
 
     it 'overwrites an existing API key' do
-      SecureRandom.stub(:base64).and_return('APIKEY')
+      allow(SecureRandom).to receive(:base64).and_return('APIKEY')
       body = PublicBody.new(:api_key => 'EXISTING')
       body.set_api_key!
       expect(body.api_key).to eq('APIKEY')
@@ -154,7 +154,7 @@ describe PublicBody do
     end
 
     it 'should return info about request counts' do
-      @public_body.json_for_api.should == { :name => 'Marmot Appreciation Society',
+      expect(@public_body.json_for_api).to eq({ :name => 'Marmot Appreciation Society',
                                             :notes => "",
                                             :publication_scheme => "",
                                             :short_name => "MAS",
@@ -171,7 +171,7 @@ describe PublicBody do
                                               :requests_overdue_count    => 3,
                                               :requests_visible_classified_count => 3,
                                             }
-                                            }
+                                            })
     end
   end
 
@@ -188,48 +188,48 @@ describe PublicBody, " using tags" do
 
   it 'should correctly convert a tag string into tags' do
     @public_body.tag_string = 'stilton emmental'
-    @public_body.tag_string.should == 'stilton emmental'
+    expect(@public_body.tag_string).to eq('stilton emmental')
 
-    @public_body.has_tag?('stilton').should be_true
-    @public_body.has_tag?('emmental').should be_true
-    @public_body.has_tag?('jarlsberg').should be_false
+    expect(@public_body.has_tag?('stilton')).to be true
+    expect(@public_body.has_tag?('emmental')).to be true
+    expect(@public_body.has_tag?('jarlsberg')).to be false
   end
 
   it 'should strip spaces from tag strings' do
     @public_body.tag_string = ' chesire  lancashire'
-    @public_body.tag_string.should == 'chesire lancashire'
+    expect(@public_body.tag_string).to eq('chesire lancashire')
   end
 
   it 'should work with other white space, such as tabs and new lines' do
     @public_body.tag_string = "chesire\n\tlancashire"
-    @public_body.tag_string.should == 'chesire lancashire'
+    expect(@public_body.tag_string).to eq('chesire lancashire')
   end
 
   it 'changing tags should remove presence of the old ones' do
     @public_body.tag_string = 'stilton'
-    @public_body.tag_string.should == 'stilton'
+    expect(@public_body.tag_string).to eq('stilton')
 
-    @public_body.has_tag?('stilton').should be_true
-    @public_body.has_tag?('jarlsberg').should be_false
+    expect(@public_body.has_tag?('stilton')).to be true
+    expect(@public_body.has_tag?('jarlsberg')).to be false
 
     @public_body.tag_string = 'jarlsberg'
-    @public_body.tag_string.should == 'jarlsberg'
+    expect(@public_body.tag_string).to eq('jarlsberg')
 
-    @public_body.has_tag?('stilton').should be_false
-    @public_body.has_tag?('jarlsberg').should be_true
+    expect(@public_body.has_tag?('stilton')).to be false
+    expect(@public_body.has_tag?('jarlsberg')).to be true
   end
 
   it 'should be able to append tags' do
-    @public_body.tag_string.should == ''
+    expect(@public_body.tag_string).to eq('')
     @public_body.add_tag_if_not_already_present('cheddar')
 
-    @public_body.tag_string.should == 'cheddar'
-    @public_body.has_tag?('cheddar').should be_true
+    expect(@public_body.tag_string).to eq('cheddar')
+    expect(@public_body.has_tag?('cheddar')).to be true
   end
 
   it 'should ignore repeat tags' do
     @public_body.tag_string = 'stilton stilton'
-    @public_body.tag_string.should == 'stilton'
+    expect(@public_body.tag_string).to eq('stilton')
   end
 end
 
@@ -244,30 +244,30 @@ describe PublicBody, " using machine tags" do
 
   it 'should parse machine tags' do
     @public_body.tag_string = 'wondrous cheese:green'
-    @public_body.tag_string.should == 'wondrous cheese:green'
+    expect(@public_body.tag_string).to eq('wondrous cheese:green')
 
-    @public_body.has_tag?('cheese:green').should be_false
-    @public_body.has_tag?('cheese').should be_true
-    @public_body.get_tag_values('cheese').should == ['green']
+    expect(@public_body.has_tag?('cheese:green')).to be false
+    expect(@public_body.has_tag?('cheese')).to be true
+    expect(@public_body.get_tag_values('cheese')).to eq(['green'])
 
-    @public_body.get_tag_values('wondrous').should == []
+    expect(@public_body.get_tag_values('wondrous')).to eq([])
     lambda {
-      @public_body.get_tag_values('notthere').should raise_error(PublicBody::TagNotFound)
+      expect(@public_body.get_tag_values('notthere')).to raise_error(PublicBody::TagNotFound)
     }
   end
 
   it 'should cope with colons in value' do
     @public_body.tag_string = 'url:http://www.flourish.org'
-    @public_body.tag_string.should == 'url:http://www.flourish.org'
+    expect(@public_body.tag_string).to eq('url:http://www.flourish.org')
 
-    @public_body.has_tag?('url').should be_true
-    @public_body.get_tag_values('url').should == ['http://www.flourish.org']
+    expect(@public_body.has_tag?('url')).to be true
+    expect(@public_body.get_tag_values('url')).to eq(['http://www.flourish.org'])
   end
 
   it 'should allow multiple tags of the same sort' do
     @public_body.tag_string = 'url:http://www.theyworkforyou.com/ url:http://www.fixmystreet.com/'
-    @public_body.has_tag?('url').should be_true
-    @public_body.get_tag_values('url').should == ['http://www.theyworkforyou.com/', 'http://www.fixmystreet.com/']
+    expect(@public_body.has_tag?('url')).to be true
+    expect(@public_body.get_tag_values('url')).to eq(['http://www.theyworkforyou.com/', 'http://www.fixmystreet.com/'])
   end
 end
 
@@ -282,12 +282,12 @@ describe PublicBody, "when finding_by_tags" do
 
   it 'should be able to find bodies by string' do
     found = PublicBody.find_by_tag('rabbit')
-    found.should == [ @geraldine ]
+    expect(found).to eq([ @geraldine ])
   end
 
   it 'should be able to find when there are multiple tags in one body, without returning duplicates' do
     found = PublicBody.find_by_tag('coney')
-    found.should == [ @humpadink ]
+    expect(found).to eq([ @humpadink ])
   end
 end
 
@@ -298,12 +298,12 @@ describe PublicBody, " when making up the URL name" do
 
   it 'should remove spaces, and make lower case' do
     @public_body.name = 'Some Authority'
-    @public_body.url_name.should == 'some_authority'
+    expect(@public_body.url_name).to eq('some_authority')
   end
 
   it 'should not allow a numeric name' do
     @public_body.name = '1234'
-    @public_body.url_name.should == 'body'
+    expect(@public_body.url_name).to eq('body')
   end
 end
 
@@ -321,14 +321,14 @@ describe PublicBody, " when saving" do
   end
 
   it "should not be valid without setting some parameters" do
-    @public_body.should_not be_valid
+    expect(@public_body).not_to be_valid
   end
 
   it "should not be valid with misformatted request email" do
     set_default_attributes(@public_body)
     @public_body.request_email = "requestBOOlocalhost"
-    @public_body.should_not be_valid
-    @public_body.should have(1).errors_on(:request_email)
+    expect(@public_body).not_to be_valid
+    expect(@public_body.errors[:request_email].size).to eq(1)
   end
 
   it "should save" do
@@ -338,9 +338,9 @@ describe PublicBody, " when saving" do
 
   it "should update first_letter" do
     set_default_attributes(@public_body)
-    @public_body.first_letter.should be_nil
+    expect(@public_body.first_letter).to be_nil
     @public_body.save!
-    @public_body.first_letter.should == 'T'
+    expect(@public_body.first_letter).to eq('T')
   end
 
   it "should update first letter, even if it's a multibyte character" do
@@ -349,40 +349,41 @@ describe PublicBody, " when saving" do
                         :request_email => 'foo@localhost',
                         :last_edit_editor => 'test',
                         :last_edit_comment => '')
-    pb.first_letter.should be_nil
+    expect(pb.first_letter).to be_nil
     pb.save!
-    pb.first_letter.should == 'Å'
+    expect(pb.first_letter).to eq('Å')
   end
 
   it 'should save the first letter of a translation' do
     existing = FactoryGirl.create(:public_body, :first_letter => 'T', :name => 'Test body')
     I18n.with_locale(:es) { existing.update_attributes :name => 'Prueba body' }
-    PublicBody::Translation.
+    expect(PublicBody::Translation.
       where(:public_body_id => existing.id, :locale => :es).
-      pluck('first_letter').first.should == 'P'
+      pluck('first_letter').first).to eq('P')
   end
 
   it 'should save the first letter of a translation, even when it is the same as the
         first letter in the default locale' do
     existing = FactoryGirl.create(:public_body, :first_letter => 'T', :name => 'Test body')
     I18n.with_locale(:es) { existing.update_attributes :name => existing.name }
-    PublicBody::Translation.
+    expect(PublicBody::Translation.
       where(:public_body_id => existing.id, :locale => :es).
-      pluck('first_letter').first.should == 'T'
+      pluck('first_letter').first).to eq('T')
   end
 
   it 'should create a url_name for a translation' do
     existing = FactoryGirl.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
     I18n.with_locale(:es) do
       existing.update_attributes :short_name => 'Prueba', :name => 'Prueba body'
-      existing.url_name.should == 'prueba'
+      expect(existing.url_name).to eq('prueba')
     end
   end
 
   it "should not save if the url_name is already taken" do
     existing = FactoryGirl.create(:public_body)
     pb = PublicBody.new(existing.attributes)
-    pb.should have(1).errors_on(:url_name)
+    pb.valid?
+    expect(pb.errors[:url_name].size).to eq(1)
   end
 
   it "should save the name when renaming an existing public body" do
@@ -390,7 +391,7 @@ describe PublicBody, " when saving" do
     public_body.name = "Mark's Public Body"
     public_body.save!
 
-    public_body.name.should == "Mark's Public Body"
+    expect(public_body.name).to eq("Mark's Public Body")
   end
 
   it 'should update the right translation when in a locale with an underscore' do
@@ -399,26 +400,26 @@ describe PublicBody, " when saving" do
     translation_count = public_body.translations.size
     public_body.name = 'Renamed'
     public_body.save!
-    public_body.translations.size.should == translation_count
+    expect(public_body.translations.size).to eq(translation_count)
   end
 
   it 'should not create a new version when nothing has changed' do
-    @public_body.versions.size.should == 0
+    expect(@public_body.versions.size).to eq(0)
     set_default_attributes(@public_body)
     @public_body.save!
-    @public_body.versions.size.should == 1
+    expect(@public_body.versions.size).to eq(1)
     @public_body.save!
-    @public_body.versions.size.should == 1
+    expect(@public_body.versions.size).to eq(1)
   end
 
   it 'should create a new version if something has changed' do
-    @public_body.versions.size.should == 0
+    expect(@public_body.versions.size).to eq(0)
     set_default_attributes(@public_body)
     @public_body.save!
-    @public_body.versions.size.should == 1
+    expect(@public_body.versions.size).to eq(1)
     @public_body.name = 'Test'
     @public_body.save!
-    @public_body.versions.size.should == 2
+    expect(@public_body.versions.size).to eq(2)
   end
 
 end
@@ -427,18 +428,18 @@ describe PublicBody, "when searching" do
 
   it "should find by existing url name" do
     body = PublicBody.find_by_url_name_with_historic('dfh')
-    body.id.should == 3
+    expect(body.id).to eq(3)
   end
 
   it "should find by historic url name" do
     body = PublicBody.find_by_url_name_with_historic('hdink')
-    body.id.should == 3
-    body.class.to_s.should == 'PublicBody'
+    expect(body.id).to eq(3)
+    expect(body.class.to_s).to eq('PublicBody')
   end
 
   it "should cope with not finding any" do
     body = PublicBody.find_by_url_name_with_historic('idontexist')
-    body.should be_nil
+    expect(body).to be_nil
   end
 
   it "should cope with duplicate historic names" do
@@ -446,19 +447,19 @@ describe PublicBody, "when searching" do
 
     # create history with short name "mouse" twice in it
     body.short_name = 'Mouse'
-    body.url_name.should == 'mouse'
+    expect(body.url_name).to eq('mouse')
     body.save!
     body.request_email = 'dummy@localhost'
     body.save!
     # but a different name now
     body.short_name = 'Stilton'
-    body.url_name.should == 'stilton'
+    expect(body.url_name).to eq('stilton')
     body.save!
 
     # try and find by it
     body = PublicBody.find_by_url_name_with_historic('mouse')
-    body.id.should == 3
-    body.class.to_s.should == 'PublicBody'
+    expect(body.id).to eq(3)
+    expect(body.class.to_s).to eq('PublicBody')
   end
 
   it "should cope with same url_name across multiple locales" do
@@ -470,8 +471,8 @@ describe PublicBody, "when searching" do
 
       # now try to retrieve it
       body = PublicBody.find_by_url_name_with_historic('tgq')
-      body.id.should == public_bodies(:geraldine_public_body).id
-      body.name.should == "El A Geraldine Quango"
+      expect(body.id).to eq(public_bodies(:geraldine_public_body).id)
+      expect(body.name).to eq("El A Geraldine Quango")
     end
   end
 
@@ -490,20 +491,20 @@ describe PublicBody, "when asked for the internal_admin_body" do
 
   it "should create the internal_admin_body if it didn't exist" do
     iab = PublicBody.internal_admin_body
-    iab.should_not be_nil
+    expect(iab).not_to be_nil
   end
 
   it "should find the internal_admin_body even if the default locale has changed since it was created" do
     with_default_locale("en") do
       I18n.with_locale(:en) do
         iab = PublicBody.internal_admin_body
-        iab.should_not be_nil
+        expect(iab).not_to be_nil
       end
     end
     with_default_locale("es") do
       I18n.with_locale(:es) do
         iab = PublicBody.internal_admin_body
-        iab.should_not be_nil
+        expect(iab).not_to be_nil
       end
     end
   end
@@ -519,7 +520,7 @@ describe PublicBody, " when dealing public body locales" do
     end
 
     # second time
-    lambda {PublicBody.internal_admin_body }.should_not raise_error(ActiveRecord::RecordInvalid)
+    expect {PublicBody.internal_admin_body }.not_to raise_error
   end
 end
 
@@ -532,10 +533,10 @@ describe PublicBody, " when loading CSV files" do
 
   it "should import even if no email is provided" do
     errors, notes = PublicBody.import_csv("1,aBody", '', 'replace', true, 'someadmin') # true means dry run
-    errors.should == []
-    notes.size.should == 2
-    notes[0].should == "line 1: creating new authority 'aBody' (locale: en):\n\t{\"name\":\"aBody\"}"
-    notes[1].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+    expect(errors).to eq([])
+    expect(notes.size).to eq(2)
+    expect(notes[0]).to eq("line 1: creating new authority 'aBody' (locale: en):\n\t{\"name\":\"aBody\"}")
+    expect(notes[1]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
   end
 
   it "should do a dry run successfully" do
@@ -543,18 +544,18 @@ describe PublicBody, " when loading CSV files" do
 
     csv_contents = normalize_string_to_utf8(load_file_fixture("fake-authority-type.csv"))
     errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
-    errors.should == []
-    notes.size.should == 6
-    notes[0..4].should == [
+    expect(errors).to eq([])
+    expect(notes.size).to eq(6)
+    expect(notes[0..4]).to eq([
       "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}",
       "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}",
       "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
       "line 4: creating new authority 'Gobierno de Aragón' (locale: en):\n\t\{\"name\":\"Gobierno de Arag\\u00f3n\",\"request_email\":\"spain_foi@localhost\"}",
       "line 5: creating new authority 'Nordic æøå' (locale: en):\n\t{\"name\":\"Nordic \\u00e6\\u00f8\\u00e5\",\"request_email\":\"no_foi@localhost\"}"
-    ]
-    notes[5].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+    ])
+    expect(notes[5]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
-    PublicBody.count.should == original_count
+    expect(PublicBody.count).to eq(original_count)
   end
 
   it "should do full run successfully" do
@@ -562,18 +563,18 @@ describe PublicBody, " when loading CSV files" do
 
     csv_contents = normalize_string_to_utf8(load_file_fixture("fake-authority-type.csv"))
     errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin') # false means real run
-    errors.should == []
-    notes.size.should == 6
-    notes[0..4].should == [
+    expect(errors).to eq([])
+    expect(notes.size).to eq(6)
+    expect(notes[0..4]).to eq([
       "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}",
       "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}",
       "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
       "line 4: creating new authority 'Gobierno de Aragón' (locale: en):\n\t\{\"name\":\"Gobierno de Arag\\u00f3n\",\"request_email\":\"spain_foi@localhost\"}",
       "line 5: creating new authority 'Nordic æøå' (locale: en):\n\t{\"name\":\"Nordic \\u00e6\\u00f8\\u00e5\",\"request_email\":\"no_foi@localhost\"}"
-    ]
-    notes[5].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+    ])
+    expect(notes[5]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
-    PublicBody.count.should == original_count + 5
+    expect(PublicBody.count).to eq(original_count + 5)
   end
 
   it "should do imports without a tag successfully" do
@@ -581,17 +582,17 @@ describe PublicBody, " when loading CSV files" do
 
     csv_contents = normalize_string_to_utf8(load_file_fixture("fake-authority-type.csv"))
     errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin') # false means real run
-    errors.should == []
-    notes.size.should == 6
-    notes[0..4].should == [
+    expect(errors).to eq([])
+    expect(notes.size).to eq(6)
+    expect(notes[0..4]).to eq([
       "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}",
       "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}",
       "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
       "line 4: creating new authority 'Gobierno de Aragón' (locale: en):\n\t\{\"name\":\"Gobierno de Arag\\u00f3n\",\"request_email\":\"spain_foi@localhost\"}",
       "line 5: creating new authority 'Nordic æøå' (locale: en):\n\t{\"name\":\"Nordic \\u00e6\\u00f8\\u00e5\",\"request_email\":\"no_foi@localhost\"}"
-    ]
-    notes[5].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
-    PublicBody.count.should == original_count + 5
+    ])
+    expect(notes[5]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
+    expect(PublicBody.count).to eq(original_count + 5)
   end
 
   it "should handle a field list and fields out of order" do
@@ -599,34 +600,34 @@ describe PublicBody, " when loading CSV files" do
 
     csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
     errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
-    errors.should == []
-    notes.size.should == 4
-    notes[0..2].should == [
+    expect(errors).to eq([])
+    expect(notes.size).to eq(4)
+    expect(notes[0..2]).to eq([
       "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"\}",
       "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"\}",
       "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"\}",
-    ]
-    notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+    ])
+    expect(notes[3]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
-    PublicBody.count.should == original_count
+    expect(PublicBody.count).to eq(original_count)
   end
 
   it "should import tags successfully when the import tag is not set" do
     csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
     errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin') # false means real run
 
-    PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == []
-    PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['scottish']
-    PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
+    expect(PublicBody.find_by_name('North West Fake Authority').tag_array_for_search).to eq([])
+    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(['scottish'])
+    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(['aTag', 'fake'])
 
     # Import again to check the 'add' tag functionality works
     new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
     errors, notes = PublicBody.import_csv(new_tags_file, '', 'add', false, 'someadmin') # false means real run
 
     # Check tags were added successfully
-    PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag']
-    PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag', 'scottish']
-    PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
+    expect(PublicBody.find_by_name('North West Fake Authority').tag_array_for_search).to eq(['aTag'])
+    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(['aTag', 'scottish'])
+    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(['aTag', 'fake'])
   end
 
   it "should import tags successfully when the import tag is set" do
@@ -634,18 +635,18 @@ describe PublicBody, " when loading CSV files" do
     errors, notes = PublicBody.import_csv(csv_contents, 'fake', 'add', false, 'someadmin') # false means real run
 
     # Check new bodies were imported successfully
-    PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['fake']
-    PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['fake', 'scottish']
-    PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
+    expect(PublicBody.find_by_name('North West Fake Authority').tag_array_for_search).to eq(['fake'])
+    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(['fake', 'scottish'])
+    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(['aTag', 'fake'])
 
     # Import again to check the 'replace' tag functionality works
     new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
     errors, notes = PublicBody.import_csv(new_tags_file, 'fake', 'replace', false, 'someadmin') # false means real run
 
     # Check tags were added successfully
-    PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag', 'fake']
-    PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag', 'fake']
-    PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
+    expect(PublicBody.find_by_name('North West Fake Authority').tag_array_for_search).to eq(['aTag', 'fake'])
+    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(['aTag', 'fake'])
+    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(['aTag', 'fake'])
   end
 
 
@@ -723,7 +724,7 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
 
         expected = %W(imported)
-        errors.should include("error: line 2: Name Name is already taken for authority 'Existing Body'")
+        expect(errors).to include("error: line 2: Name Name is already taken for authority 'Existing Body'")
       end
 
     end
@@ -922,25 +923,25 @@ describe PublicBody, " when loading CSV files" do
 
     csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
     errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin', [:en, :es])
-    errors.should == []
-    notes.size.should == 7
-    notes[0..5].should == [
+    expect(errors).to eq([])
+    expect(notes.size).to eq(7)
+    expect(notes[0..5]).to eq([
       "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}",
       "line 2: creating new authority 'North West Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad del Nordeste\"}",
       "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}",
       "line 3: creating new authority 'Scottish Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad Escocesa\"}",
       "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
       "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: es):\n\t{\"name\":\"Autoridad Irlandesa\"}",
-    ]
-    notes[6].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+    ])
+    expect(notes[6]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
-    PublicBody.count.should == original_count + 3
+    expect(PublicBody.count).to eq(original_count + 3)
 
     # TODO: Not sure why trying to do a I18n.with_locale fails here. Seems related to
     # the way categories are loaded every time from the PublicBody class. For now we just
     # test some translation was done.
     body = PublicBody.find_by_name('North West Fake Authority')
-    body.translated_locales.map{|l|l.to_s}.sort.should == ["en", "es"]
+    expect(body.translated_locales.map{|l|l.to_s}.sort).to eq(["en", "es"])
   end
 
   it "should not fail if a locale is not found in the input file" do
@@ -951,16 +952,16 @@ describe PublicBody, " when loading CSV files" do
     # is made of strings or symbols, so we use 'en' here as a string to test both scenarios.
     # See https://github.com/mysociety/alaveteli/issues/193
     errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin', ['en', :xx]) # true means dry run
-    errors.should == []
-    notes.size.should == 4
-    notes[0..2].should == [
+    expect(errors).to eq([])
+    expect(notes.size).to eq(4)
+    expect(notes[0..2]).to eq([
       "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}",
       "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}",
       "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
-    ]
-    notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+    ])
+    expect(notes[3]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
-    PublicBody.count.should == original_count
+    expect(PublicBody.count).to eq(original_count)
   end
 
   it "should be able to load CSV from a file as well as a string" do
@@ -973,7 +974,7 @@ describe PublicBody, " when loading CSV files" do
     original_count = PublicBody.count
     filename = file_fixture_name('fake-authority-type-with-field-names.csv')
     PublicBody.import_csv_from_file(filename, '', 'replace', false, 'someadmin')
-    PublicBody.count.should == original_count + 3
+    expect(PublicBody.count).to eq(original_count + 3)
   end
 
   it "should handle active record validation errors" do
@@ -986,7 +987,7 @@ CSV
     csv_contents = normalize_string_to_utf8(csv)
     errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
 
-    errors.should include("error: line 3: Url name URL name is already taken for authority 'Foobar Test'")
+    expect(errors).to include("error: line 3: Url name URL name is already taken for authority 'Foobar Test'")
   end
 
   it 'has a default list of fields to import' do
@@ -1047,15 +1048,15 @@ CSV
     csv_contents = load_file_fixture("multiple-locales-same-name.csv")
 
     errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin', ['en', 'es']) # true means dry run
-    errors.should == []
-    notes.size.should == 3
-    notes[0..1].should == [
+    expect(errors).to eq([])
+    expect(notes.size).to eq(3)
+    expect(notes[0..1]).to eq([
       "line 2: creating new authority 'Test' (locale: en):\n\t{\"name\":\"Test\",\"request_email\":\"test@test.es\",\"home_page\":\"http://www.test.es/\",\"tag_string\":\"37\"}",
       "line 2: creating new authority 'Test' (locale: es):\n\t{\"name\":\"Test\"}",
-    ]
-    notes[2].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+    ])
+    expect(notes[2]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
-    PublicBody.count.should == original_count
+    expect(PublicBody.count).to eq(original_count)
   end
 end
 
@@ -1065,31 +1066,31 @@ describe PublicBody do
     it "should return the home page verbatim if it's present" do
       public_body = PublicBody.new
       public_body.home_page = "http://www.example.com"
-      public_body.calculated_home_page.should == "http://www.example.com"
+      expect(public_body.calculated_home_page).to eq("http://www.example.com")
     end
 
     it "should return the home page based on the request email domain if it has one" do
       public_body = PublicBody.new
-      public_body.stub!(:request_email_domain).and_return "public-authority.com"
-      public_body.calculated_home_page.should == "http://www.public-authority.com"
+      allow(public_body).to receive(:request_email_domain).and_return "public-authority.com"
+      expect(public_body.calculated_home_page).to eq("http://www.public-authority.com")
     end
 
     it "should return nil if there's no home page and the email domain can't be worked out" do
       public_body = PublicBody.new
-      public_body.stub!(:request_email_domain).and_return nil
-      public_body.calculated_home_page.should be_nil
+      allow(public_body).to receive(:request_email_domain).and_return nil
+      expect(public_body.calculated_home_page).to be_nil
     end
 
     it "should ensure home page URLs start with http://" do
       public_body = PublicBody.new
       public_body.home_page = "example.com"
-      public_body.calculated_home_page.should == "http://example.com"
+      expect(public_body.calculated_home_page).to eq("http://example.com")
     end
 
     it "should not add http when https is present" do
       public_body = PublicBody.new
       public_body.home_page = "https://example.com"
-      public_body.calculated_home_page.should == "https://example.com"
+      expect(public_body.calculated_home_page).to eq("https://example.com")
     end
   end
 
@@ -1100,26 +1101,26 @@ describe PublicBody do
     end
 
     it 'should remove simple tags from notes' do
-      @public_body.notes_without_html.should == 'some notes'
+      expect(@public_body.notes_without_html).to eq('some notes')
     end
 
   end
 
-  describe :site_administration? do
+  describe '#site_administration?' do
 
     it 'is true when the body has the site_administration tag' do
       p = FactoryGirl.build(:public_body, :tag_string => 'site_administration')
-      p.site_administration?.should be_true
+      expect(p.site_administration?).to be true
     end
 
     it 'is false when the body does not have the site_administration tag' do
       p = FactoryGirl.build(:public_body)
-      p.site_administration?.should be_false
+      expect(p.site_administration?).to be false
     end
 
   end
 
-  describe :has_request_email? do
+  describe '#has_request_email?' do
 
     before do
       @body = PublicBody.new(:request_email => 'test@example.com')
@@ -1127,42 +1128,42 @@ describe PublicBody do
 
     it 'should return false if request_email is nil' do
       @body.request_email = nil
-      @body.has_request_email?.should == false
+      expect(@body.has_request_email?).to eq(false)
     end
 
     it 'should return false if the request email is "blank"' do
       @body.request_email = 'blank'
-      @body.has_request_email?.should == false
+      expect(@body.has_request_email?).to eq(false)
     end
 
     it 'should return false if the request email is an empty string' do
       @body.request_email = ''
-      @body.has_request_email?.should == false
+      expect(@body.has_request_email?).to eq(false)
     end
 
     it 'should return true if the request email is an email address' do
-      @body.has_request_email?.should == true
+      expect(@body.has_request_email?).to eq(true)
     end
   end
 
-  describe :special_not_requestable_reason do
+  describe '#special_not_requestable_reason' do
 
     before do
       @body = PublicBody.new
     end
 
     it 'should return true if the body is defunct' do
-      @body.stub!(:defunct?).and_return(true)
-      @body.special_not_requestable_reason?.should == true
+      allow(@body).to receive(:defunct?).and_return(true)
+      expect(@body.special_not_requestable_reason?).to eq(true)
     end
 
     it 'should return true if FOI does not apply' do
-      @body.stub!(:not_apply?).and_return(true)
-      @body.special_not_requestable_reason?.should == true
+      allow(@body).to receive(:not_apply?).and_return(true)
+      expect(@body.special_not_requestable_reason?).to eq(true)
     end
 
     it 'should return false if the body is not defunct and FOI applies' do
-      @body.special_not_requestable_reason?.should == false
+      expect(@body.special_not_requestable_reason?).to eq(false)
     end
   end
 
@@ -1170,9 +1171,9 @@ end
 
 describe PublicBody, " when override all public body request emails set" do
   it "should return the overridden request email" do
-    AlaveteliConfiguration.should_receive(:override_all_public_body_request_emails).twice.and_return("catch_all_test_email@foo.com")
+    expect(AlaveteliConfiguration).to receive(:override_all_public_body_request_emails).twice.and_return("catch_all_test_email@foo.com")
     @geraldine = public_bodies(:geraldine_public_body)
-    @geraldine.request_email.should == "catch_all_test_email@foo.com"
+    expect(@geraldine.request_email).to eq("catch_all_test_email@foo.com")
   end
 end
 
@@ -1185,8 +1186,8 @@ describe PublicBody, "when calculating statistics" do
                                                   minimum_requests=1)
       # For the total number of requests, we still include
       # hidden or unclassified requests:
-      totals_data['public_bodies'][-1].name.should == "Geraldine Quango"
-      totals_data['totals'][-1].should == 4
+      expect(totals_data['public_bodies'][-1].name).to eq("Geraldine Quango")
+      expect(totals_data['totals'][-1]).to eq(4)
 
       # However, for percentages, don't include the hidden or
       # unclassified requests.  So, for the Geraldine Quango
@@ -1202,7 +1203,7 @@ describe PublicBody, "when calculating statistics" do
         pb.name == "Geraldine Quango"
       end
 
-      percentages_data['y_values'][geraldine_index].should == 50
+      expect(percentages_data['y_values'][geraldine_index]).to eq(50)
     end
   end
 
@@ -1211,7 +1212,7 @@ describe PublicBody, "when calculating statistics" do
     with_enough_info_requests = PublicBody.where(["info_requests_count >= ?",
                                                   minimum_requests]).length
     all_data = PublicBody.get_request_totals 4, true, minimum_requests
-    all_data['public_bodies'].length.should == with_enough_info_requests
+    expect(all_data['public_bodies'].length).to eq(with_enough_info_requests)
   end
 
   it "should only return percentages for those with at least a minimum number of requests" do
@@ -1228,7 +1229,7 @@ describe PublicBody, "when calculating statistics" do
                                                     n=10,
                                                     true,
                                                     minimum_requests)
-      all_data.should be_nil
+      expect(all_data).to be_nil
     end
   end
 
@@ -1242,7 +1243,7 @@ describe PublicBody, "when calculating statistics" do
       minimum_requests = 1
       with_enough_info_requests = PublicBody.where(["info_requests_count >= ?", minimum_requests])
       all_data = PublicBody.get_request_totals 4, true, minimum_requests
-      all_data['public_bodies'].length.should == 3
+      expect(all_data['public_bodies'].length).to eq(3)
     ensure
       hpb.tag_string = original_tag_string
     end
@@ -1253,88 +1254,88 @@ end
 describe PublicBody, 'when asked for popular bodies' do
 
   it 'should return bodies correctly when passed the hyphenated version of the locale' do
-    AlaveteliConfiguration.stub!(:frontpage_publicbody_examples).and_return('')
-    PublicBody.popular_bodies('he-IL').should == [public_bodies(:humpadink_public_body)]
+    allow(AlaveteliConfiguration).to receive(:frontpage_publicbody_examples).and_return('')
+    expect(PublicBody.popular_bodies('he-IL')).to eq([public_bodies(:humpadink_public_body)])
   end
 
 end
 
 describe PublicBody do
 
-  describe :is_requestable? do
+  describe '#is_requestable?' do
 
     before do
       @body = PublicBody.new(:request_email => 'test@example.com')
     end
 
     it 'should return false if the body is defunct' do
-      @body.stub!(:defunct?).and_return true
-      @body.is_requestable?.should == false
+      allow(@body).to receive(:defunct?).and_return true
+      expect(@body.is_requestable?).to eq(false)
     end
 
     it 'should return false if FOI does not apply' do
-      @body.stub!(:not_apply?).and_return true
-      @body.is_requestable?.should == false
+      allow(@body).to receive(:not_apply?).and_return true
+      expect(@body.is_requestable?).to eq(false)
     end
 
     it 'should return false there is no request_email' do
-      @body.stub!(:has_request_email?).and_return false
-      @body.is_requestable?.should == false
+      allow(@body).to receive(:has_request_email?).and_return false
+      expect(@body.is_requestable?).to eq(false)
     end
 
     it 'should return true if the request email is an email address' do
-      @body.is_requestable?.should == true
+      expect(@body.is_requestable?).to eq(true)
     end
 
   end
 
-  describe :is_followupable? do
+  describe '#is_followupable?' do
 
     before do
       @body = PublicBody.new(:request_email => 'test@example.com')
     end
 
     it 'should return false there is no request_email' do
-      @body.stub!(:has_request_email?).and_return false
-      @body.is_followupable?.should == false
+      allow(@body).to receive(:has_request_email?).and_return false
+      expect(@body.is_followupable?).to eq(false)
     end
 
     it 'should return true if the request email is an email address' do
-      @body.is_followupable?.should == true
+      expect(@body.is_followupable?).to eq(true)
     end
 
   end
 
-  describe :not_requestable_reason do
+  describe '#not_requestable_reason' do
 
     before do
       @body = PublicBody.new(:request_email => 'test@example.com')
     end
 
     it 'should return "defunct" if the body is defunct' do
-      @body.stub!(:defunct?).and_return true
-      @body.not_requestable_reason.should == 'defunct'
+      allow(@body).to receive(:defunct?).and_return true
+      expect(@body.not_requestable_reason).to eq('defunct')
     end
 
     it 'should return "not_apply" if FOI does not apply' do
-      @body.stub!(:not_apply?).and_return true
-      @body.not_requestable_reason.should == 'not_apply'
+      allow(@body).to receive(:not_apply?).and_return true
+      expect(@body.not_requestable_reason).to eq('not_apply')
     end
 
 
     it 'should return "bad_contact" there is no request_email' do
-      @body.stub!(:has_request_email?).and_return false
-      @body.not_requestable_reason.should == 'bad_contact'
+      allow(@body).to receive(:has_request_email?).and_return false
+      expect(@body.not_requestable_reason).to eq('bad_contact')
     end
 
     it 'should raise an error if the body is not defunct, FOI applies and has an email address' do
       expected_error = "not_requestable_reason called with type that has no reason"
-      lambda{ @body.not_requestable_reason }.should raise_error(expected_error)
+      expect{ @body.not_requestable_reason }.to raise_error(expected_error)
     end
 
   end
 
-  describe :request_email do
+  describe '#request_email' do
     context "when the email is set" do
       subject(:public_body) { FactoryGirl.create(:public_body, :request_email => "request@example.com") }
 
@@ -1343,7 +1344,7 @@ describe PublicBody do
       end
 
       it "should return a different email address when overridden in configuration" do
-        AlaveteliConfiguration.stub!(:override_all_public_body_request_emails).and_return("tester@example.com")
+        allow(AlaveteliConfiguration).to receive(:override_all_public_body_request_emails).and_return("tester@example.com")
         expect(public_body.request_email).to eq("tester@example.com")
       end
     end
@@ -1356,7 +1357,7 @@ describe PublicBody do
       end
 
       it "should still return a blank email address when overridden in configuration" do
-        AlaveteliConfiguration.stub!(:override_all_public_body_request_emails).and_return("tester@example.com")
+        allow(AlaveteliConfiguration).to receive(:override_all_public_body_request_emails).and_return("tester@example.com")
         expect(public_body.request_email).to be_blank
       end
     end

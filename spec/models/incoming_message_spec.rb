@@ -30,7 +30,7 @@ describe IncomingMessage, 'when validating' do
       incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
                                              :info_request => InfoRequest.new,
                                              :prominence => prominence)
-      incoming_message.valid?.should be_true
+      expect(incoming_message.valid?).to be true
     end
   end
 
@@ -38,7 +38,7 @@ describe IncomingMessage, 'when validating' do
     incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
                                            :info_request => InfoRequest.new,
                                            :prominence => 'norman')
-    incoming_message.valid?.should be_false
+    expect(incoming_message.valid?).to be false
   end
 
 end
@@ -50,7 +50,7 @@ describe IncomingMessage, 'when getting a response event' do
     ['comment', 'response'].each do |event_type|
       incoming_message.info_request_events << InfoRequestEvent.new(:event_type => event_type)
     end
-    incoming_message.response_event.event_type.should == 'response'
+    expect(incoming_message.response_event.event_type).to eq('response')
   end
 
 end
@@ -70,13 +70,13 @@ describe IncomingMessage, 'when asked if a user can view it' do
     end
 
     it 'should return true if the user can view hidden things' do
-      User.stub!(:view_hidden?).with(@user).and_return(true)
-      @incoming_message.user_can_view?(@user).should be_true
+      allow(User).to receive(:view_hidden?).with(@user).and_return(true)
+      expect(@incoming_message.user_can_view?(@user)).to be true
     end
 
     it 'should return false if the user cannot view hidden things' do
-      User.stub!(:view_hidden?).with(@user).and_return(false)
-      @incoming_message.user_can_view?(@user).should be_false
+      allow(User).to receive(:view_hidden?).with(@user).and_return(false)
+      expect(@incoming_message.user_can_view?(@user)).to be false
     end
 
   end
@@ -88,13 +88,13 @@ describe IncomingMessage, 'when asked if a user can view it' do
     end
 
     it 'should return true if the user owns the associated request' do
-      @info_request.stub!(:is_owning_user?).with(@user).and_return(true)
-      @incoming_message.user_can_view?(@user).should be_true
+      allow(@info_request).to receive(:is_owning_user?).with(@user).and_return(true)
+      expect(@incoming_message.user_can_view?(@user)).to be true
     end
 
     it 'should return false if the user does not own the associated request' do
-      @info_request.stub!(:is_owning_user?).with(@user).and_return(false)
-      @incoming_message.user_can_view?(@user).should be_false
+      allow(@info_request).to receive(:is_owning_user?).with(@user).and_return(false)
+      expect(@incoming_message.user_can_view?(@user)).to be false
     end
   end
 
@@ -105,7 +105,7 @@ describe IncomingMessage, 'when asked if a user can view it' do
     end
 
     it 'should return true' do
-      @incoming_message.user_can_view?(@user).should be_true
+      expect(@incoming_message.user_can_view?(@user)).to be true
     end
 
   end
@@ -125,7 +125,7 @@ describe 'when destroying a message' do
     @info_request.log_event('edit_incoming',
                             :incoming_message_id => @incoming_message.id)
     @incoming_message.fully_destroy
-    IncomingMessage.where(:id => @incoming_message.id).should be_empty
+    expect(IncomingMessage.where(:id => @incoming_message.id)).to be_empty
   end
 
 end
@@ -138,17 +138,17 @@ describe 'when asked if it is indexed by search' do
 
   it 'should return false if it has prominence "hidden"' do
     @incoming_message.prominence = 'hidden'
-    @incoming_message.indexed_by_search?.should be_false
+    expect(@incoming_message.indexed_by_search?).to be false
   end
 
   it 'should return false if it has prominence "requester_only"' do
     @incoming_message.prominence = 'requester_only'
-    @incoming_message.indexed_by_search?.should be_false
+    expect(@incoming_message.indexed_by_search?).to be false
   end
 
   it 'should return true if it has prominence "normal"' do
     @incoming_message.prominence = 'normal'
-    @incoming_message.indexed_by_search?.should be_true
+    expect(@incoming_message.indexed_by_search?).to be true
   end
 
 end
@@ -168,14 +168,14 @@ describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('space-boundary.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.mail.parts.size.should == 2
-    message.mail.multipart?.should == true
+    expect(message.mail.parts.size).to eq(2)
+    expect(message.mail.multipart?).to eq(true)
   end
 
   it "should return the mail Date header date for sent at" do
     @im.parse_raw_email!(true)
     @im.reload
-    @im.sent_at.should == @im.mail.date
+    expect(@im.sent_at).to eq(@im.mail.date)
   end
 
   it "should correctly fold various types of footer" do
@@ -183,7 +183,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
       message = File.read(file)
       parsed = IncomingMessage.remove_quoted_sections(message)
       expected = File.read("#{file}.expected")
-      parsed.should be_equal_modulo_whitespace_to expected
+      expect(parsed).to be_equal_modulo_whitespace_to expected
     end
   end
 
@@ -191,7 +191,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.get_main_body_text_unfolded.should_not include("Email has no body")
+    expect(message.get_main_body_text_unfolded).not_to include("Email has no body")
   end
 
   it "should correctly convert HTML even when there's a meta tag asserting that it is iso-8859-1 which would normally confuse elinks" do
@@ -199,16 +199,16 @@ describe IncomingMessage, " when dealing with incoming mail" do
     receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
-    message.get_main_body_text_part.charset.should == "iso-8859-1"
-    message.get_main_body_text_internal.should include("política")
+    expect(message.get_main_body_text_part.charset).to eq("iso-8859-1")
+    expect(message.get_main_body_text_internal).to include("política")
   end
 
   it "should unquote RFC 2047 headers" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.mail_from.should == "Coordenação de Relacionamento, Pesquisa e Informação/CEDI"
-    message.subject.should == "Câmara Responde:  Banco de ideias"
+    expect(message.mail_from).to eq("Coordenação de Relacionamento, Pesquisa e Informação/CEDI")
+    expect(message.subject).to eq("Câmara Responde:  Banco de ideias")
   end
 
   it 'should deal with GB18030 text even if the charset is missing' do
@@ -216,7 +216,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
     receive_incoming_mail('no-part-charset-bad-utf8.email', ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
-    message.get_main_body_text_internal.should include("贵公司负责人")
+    expect(message.get_main_body_text_internal).to include("贵公司负责人")
   end
 
   it 'should not error on display of a message which has no charset set on the body part and is not good UTF-8' do
@@ -224,7 +224,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
     receive_incoming_mail('no-part-charset-random-data.email', ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
-    message.get_main_body_text_internal.should include("The above text was badly encoded")
+    expect(message.get_main_body_text_internal).to include("The above text was badly encoded")
   end
 
   it 'should convert DOS-style linebreaks to Unix style' do
@@ -232,7 +232,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
     receive_incoming_mail('dos-linebreaks.email', ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
-    message.get_main_body_text_internal.should_not match(/\r\n/)
+    expect(message.get_main_body_text_internal).not_to match(/\r\n/)
   end
 
   it "should fold multiline sections" do
@@ -243,7 +243,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
       "foo\n--------\nbar\n--------\nconfidential\n--------\nrest"        => "foo\n--------\nbar\nFOLDED_QUOTED_SECTION\nrest", # don't assume that a folded section continues to the end of the message
       "foo\n--------\nbar\n- - - - - - - -\nconfidential\n--------\nrest" => "foo\n--------\nbar\nFOLDED_QUOTED_SECTION\nrest", # allow spaces in the score
     }.each do |input,output|
-      IncomingMessage.remove_quoted_sections(input).should == output
+      expect(IncomingMessage.remove_quoted_sections(input)).to eq(output)
     end
   end
 
@@ -251,13 +251,13 @@ describe IncomingMessage, " when dealing with incoming mail" do
   it "should load an email with funny MIME settings" do
     ActionMailer::Base.deliveries.clear
     # just send it to the holding pen
-    InfoRequest.holding_pen_request.incoming_messages.size.should == 0
+    expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
     receive_incoming_mail("humberside-police-odd-mime-type.email", 'dummy')
-    InfoRequest.holding_pen_request.incoming_messages.size.should == 1
+    expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
 
     # clear the notification of new message in holding pen
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 1
+    expect(deliveries.size).to eq(1)
     deliveries.clear
 
     incoming_message = InfoRequest.holding_pen_request.incoming_messages[0]
@@ -270,9 +270,9 @@ describe IncomingMessage, " when dealing with incoming mail" do
   it 'should handle a main body part that is just quoted content in an email that has
         no subject' do
     i = IncomingMessage.new
-    i.stub!(:get_main_body_text_unfolded).and_return("some quoting")
-    i.stub!(:get_main_body_text_folded).and_return("FOLDED_QUOTED_SECTION")
-    i.stub!(:subject).and_return(nil)
+    allow(i).to receive(:get_main_body_text_unfolded).and_return("some quoting")
+    allow(i).to receive(:get_main_body_text_folded).and_return("FOLDED_QUOTED_SECTION")
+    allow(i).to receive(:subject).and_return(nil)
     i.get_body_for_html_display
   end
 
@@ -286,7 +286,7 @@ describe IncomingMessage, " display attachments" do
     # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
     foi_attachment.filename = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009.txt"
     expected_display_filename = foi_attachment.filename.gsub(/\//, " ")
-    foi_attachment.display_filename.should == expected_display_filename
+    expect(foi_attachment.display_filename).to eq(expected_display_filename)
   end
 
   it "should not show slashes in subject generated filenames" do
@@ -296,7 +296,7 @@ describe IncomingMessage, " display attachments" do
     foi_attachment.content_type = 'text/plain'
     foi_attachment.ensure_filename!
     expected_display_filename = foi_attachment.within_rfc822_subject.gsub(/\//, " ") + ".txt"
-    foi_attachment.display_filename.should == expected_display_filename
+    expect(foi_attachment.display_filename).to eq(expected_display_filename)
   end
 
 end
@@ -307,36 +307,36 @@ describe IncomingMessage, " folding quoted parts of emails" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('lotus-notes-quoting.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.get_main_body_text_folded.should match(/FOLDED_QUOTED_SECTION/)
+    expect(message.get_main_body_text_folded).to match(/FOLDED_QUOTED_SECTION/)
   end
 
   it 'should fold a plain text lotus notes quoted part correctly' do
     text = "FOI Team\n\n\nInfo Requester <xxx@whatdotheyknow.com>=20\nSent by: Info Requester <request-bounce-xxxxx@whatdotheyknow.com>\n06/03/08 10:00\nPlease respond to\nInfo Requester <request-xxxx@whatdotheyknow.com>"
     @incoming_message = IncomingMessage.new
-    @incoming_message.stub_chain(:info_request, :user_name).and_return("Info Requester")
-    @incoming_message.remove_lotus_quoting(text).should match(/FOLDED_QUOTED_SECTION/)
+    allow(@incoming_message).to receive_message_chain(:info_request, :user_name).and_return("Info Requester")
+    expect(@incoming_message.remove_lotus_quoting(text)).to match(/FOLDED_QUOTED_SECTION/)
   end
 
   it 'should not error when trying to fold lotus notes quoted parts on a request with no user_name' do
     text = "hello"
     @incoming_message = IncomingMessage.new
-    @incoming_message.stub_chain(:info_request, :user_name).and_return(nil)
-    @incoming_message.remove_lotus_quoting(text).should == 'hello'
+    allow(@incoming_message).to receive_message_chain(:info_request, :user_name).and_return(nil)
+    expect(@incoming_message.remove_lotus_quoting(text)).to eq('hello')
   end
 
   it "cope with [ in user names properly" do
     @incoming_message = IncomingMessage.new
-    @incoming_message.stub_chain(:info_request, :user_name).and_return("Sir [ Bobble")
+    allow(@incoming_message).to receive_message_chain(:info_request, :user_name).and_return("Sir [ Bobble")
     # this gives a warning if [ is in the name
     text = @incoming_message.remove_lotus_quoting("Sir [ Bobble \nSent by: \n")
-    text.should == "\n\nFOLDED_QUOTED_SECTION"
+    expect(text).to eq("\n\nFOLDED_QUOTED_SECTION")
   end
 
   it 'should fold an example of another kind of forward quoting' do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('forward-quoting-example.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.get_main_body_text_folded.should match(/FOLDED_QUOTED_SECTION/)
+    expect(message.get_main_body_text_folded).to match(/FOLDED_QUOTED_SECTION/)
   end
 
   it 'should fold a further example of forward quoting' do
@@ -344,22 +344,22 @@ describe IncomingMessage, " folding quoted parts of emails" do
     receive_incoming_mail('forward-quoting-example-2.email', ir.incoming_email)
     message = ir.incoming_messages[1]
     body_text = message.get_main_body_text_folded
-    body_text.should match(/FOLDED_QUOTED_SECTION/)
+    expect(body_text).to match(/FOLDED_QUOTED_SECTION/)
     # check that the quoted section incorporates both quoted messages
-    body_text.should_not match('Subject: RE: Freedom of Information request')
+    expect(body_text).not_to match('Subject: RE: Freedom of Information request')
   end
 
 end
 
 describe IncomingMessage, " checking validity to reply to" do
   def test_email(result, email, empty_return_path, autosubmitted = nil)
-    @mail = mock('mail')
-    MailHandler.stub!(:get_from_address).and_return(email)
-    MailHandler.stub!(:empty_return_path?).with(@mail).and_return(empty_return_path)
-    MailHandler.stub!(:get_auto_submitted).with(@mail).and_return(autosubmitted)
+    @mail = double('mail')
+    allow(MailHandler).to receive(:get_from_address).and_return(email)
+    allow(MailHandler).to receive(:empty_return_path?).with(@mail).and_return(empty_return_path)
+    allow(MailHandler).to receive(:get_auto_submitted).with(@mail).and_return(autosubmitted)
     @incoming_message = IncomingMessage.new
-    @incoming_message.stub!(:mail).and_return(@mail)
-    @incoming_message._calculate_valid_to_reply_to.should == result
+    allow(@incoming_message).to receive(:mail).and_return(@mail)
+    expect(@incoming_message._calculate_valid_to_reply_to).to eq(result)
   end
 
   it "says a valid email is fine" do
@@ -408,17 +408,17 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
   it "should allow a reply to plain emails" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-    ir.incoming_messages[1].valid_to_reply_to?.should == true
+    expect(ir.incoming_messages[1].valid_to_reply_to?).to eq(true)
   end
   it "should not allow a reply to emails with empty return-paths" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('empty-return-path.email', ir.incoming_email)
-    ir.incoming_messages[1].valid_to_reply_to?.should == false
+    expect(ir.incoming_messages[1].valid_to_reply_to?).to eq(false)
   end
   it "should not allow a reply to emails with autoresponse headers" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('autoresponse-header.email', ir.incoming_email)
-    ir.incoming_messages[1].valid_to_reply_to?.should == false
+    expect(ir.incoming_messages[1].valid_to_reply_to?).to eq(false)
   end
 
 end
@@ -458,14 +458,14 @@ describe IncomingMessage, " when censoring data" do
   it "should replace censor text" do
     data = "There was a mouse called Stilton, he wished that he was blue."
     @im.apply_masks!(data, "application/vnd.ms-word")
-    data.should == "There was a xxxxx called xxxxxxx, he wished that he was xxxx."
+    expect(data).to eq("There was a xxxxx called xxxxxxx, he wished that he was xxxx.")
   end
 
   it "should apply censor rules to From: addresses" do
-    @im.stub!(:mail_from).and_return("Stilton Mouse")
-    @im.stub!(:last_parsed).and_return(Time.now)
+    allow(@im).to receive(:mail_from).and_return("Stilton Mouse")
+    allow(@im).to receive(:last_parsed).and_return(Time.now)
     safe_mail_from = @im.safe_mail_from
-    safe_mail_from.should == "Jarlsberg Mouse"
+    expect(safe_mail_from).to eq("Jarlsberg Mouse")
   end
 
 end
@@ -489,13 +489,13 @@ describe IncomingMessage, " when censoring whole users" do
   it "should apply censor rules to HTML files" do
     data = @test_data.dup
     @im.apply_masks!(data, 'text/html')
-    data.should == "There was a mouse called Gorgonzola, he wished that he was blue."
+    expect(data).to eq("There was a mouse called Gorgonzola, he wished that he was blue.")
   end
 
   it "should replace censor text to Word documents" do
     data = @test_data.dup
     @im.apply_masks!(data, "application/vnd.ms-word")
-    data.should == "There was a mouse called xxxxxxx, he wished that he was blue."
+    expect(data).to eq("There was a mouse called xxxxxxx, he wished that he was blue.")
   end
 
 end
@@ -506,61 +506,61 @@ describe IncomingMessage, " when uudecoding bad messages" do
   it "decodes a valid uuencoded attachment" do
     mail = get_fixture_mail('simple-uuencoded-attachment.email')
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    allow(im).to receive(:mail).and_return(mail)
     im.extract_attachments!
 
     im.reload
     attachments = im.foi_attachments
-    attachments.size.should == 2
-    attachments[1].filename.should == 'Happy.txt'
-    attachments[1].body.should == "Happy today for to be one of peace and serene time.\n"
-    im.get_attachments_for_display.size.should == 1
+    expect(attachments.size).to eq(2)
+    expect(attachments[1].filename).to eq('Happy.txt')
+    expect(attachments[1].body).to eq("Happy today for to be one of peace and serene time.\n")
+    expect(im.get_attachments_for_display.size).to eq(1)
   end
 
   it "should be able to do it at all" do
     mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    allow(im).to receive(:mail).and_return(mail)
     im.extract_attachments!
 
     im.reload
     attachments = im.foi_attachments
-    attachments.size.should == 2
-    attachments[1].filename.should == 'moo.txt'
-    im.get_attachments_for_display.size.should == 1
+    expect(attachments.size).to eq(2)
+    expect(attachments[1].filename).to eq('moo.txt')
+    expect(im.get_attachments_for_display.size).to eq(1)
   end
 
   it "decodes an attachment where the uudecode program reports a 'No end line' error" do
     # See https://github.com/mysociety/alaveteli/issues/2508
     mail = get_fixture_mail('incoming-request-bad-uuencoding-2.email')
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    allow(im).to receive(:mail).and_return(mail)
     im.extract_attachments!
 
     im.reload
     attachments = im.foi_attachments
-    attachments.size.should == 2
-    attachments[1].filename.should == 'ResponseT5741 15.doc'
-    attachments[1].display_size.should == '123K'
-    im.get_attachments_for_display.size.should == 1
+    expect(attachments.size).to eq(2)
+    expect(attachments[1].filename).to eq('ResponseT5741 15.doc')
+    expect(attachments[1].display_size).to eq('123K')
+    expect(im.get_attachments_for_display.size).to eq(1)
   end
 
   it "should still work when parsed from the raw email" do
     raw_email = load_file_fixture 'inline-uuencode.email'
     mail = MailHandler.mail_from_raw_email(raw_email)
     im = incoming_messages :useless_incoming_message
-    im.stub!(:raw_email).and_return(raw_email)
-    im.stub!(:mail).and_return(mail)
+    allow(im).to receive(:raw_email).and_return(raw_email)
+    allow(im).to receive(:mail).and_return(mail)
     im.parse_raw_email!
     attachments = im.foi_attachments
-    attachments.size.should == 2
+    expect(attachments.size).to eq(2)
   end
 
   it "should apply censor rules" do
     mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
 
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    allow(im).to receive(:mail).and_return(mail)
     ir = info_requests(:fancy_dog_request)
 
     @censor_rule = CensorRule.new
@@ -571,9 +571,9 @@ describe IncomingMessage, " when uudecoding bad messages" do
     ir.censor_rules << @censor_rule
     im.extract_attachments!
 
-    im.get_attachments_for_display.map(&:display_filename).should == [
+    expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
       'bah.txt',
-    ]
+    ])
   end
 
 end
@@ -588,17 +588,17 @@ describe IncomingMessage, "when messages are attached to messages" do
       mail = MailHandler.mail_from_raw_email(mail_body)
 
       im = incoming_messages(:useless_incoming_message)
-      im.stub!(:mail).and_return(mail)
+      allow(im).to receive(:mail).and_return(mail)
 
       attachments = im.get_attachments_for_display
-      attachments.size.should == 1
+      expect(attachments.size).to eq(1)
       attachment = attachments.first
 
-      attachment.content_type.should == 'text/plain'
-      attachment.filename.should == "Freedom of Information request.txt"
-      attachment.charset.should == "utf-8"
-      attachment.within_rfc822_subject.should == "Freedom of Information request"
-      attachment.hexdigest.should == 'f10fe56e4f2287685a58b71329f09639'
+      expect(attachment.content_type).to eq('text/plain')
+      expect(attachment.filename).to eq("Freedom of Information request.txt")
+      expect(attachment.charset).to eq("utf-8")
+      expect(attachment.within_rfc822_subject).to eq("Freedom of Information request")
+      expect(attachment.hexdigest).to eq('f10fe56e4f2287685a58b71329f09639')
     end
   end
 
@@ -606,16 +606,16 @@ describe IncomingMessage, "when messages are attached to messages" do
     mail = get_fixture_mail('incoming-request-attach-attachments.email')
 
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    allow(im).to receive(:mail).and_return(mail)
 
     im.extract_attachments!
 
     attachments = im.get_attachments_for_display
-    attachments.map(&:display_filename).should == [
+    expect(attachments.map(&:display_filename)).to eq([
       'Same attachment twice.txt',
       'hello.txt',
       'hello.txt',
-    ]
+    ])
   end
 
   it 'should add headers to attached plain text message bodies' do
@@ -626,11 +626,11 @@ describe IncomingMessage, "when messages are attached to messages" do
       mail = MailHandler.mail_from_raw_email(mail_body)
 
       im = incoming_messages(:useless_incoming_message)
-      im.stub!(:mail).and_return(mail)
+      allow(im).to receive(:mail).and_return(mail)
 
       attachments = im.get_attachments_for_display
-      attachments.size.should == 2
-      attachments[0].body.should match('Date: Fri, 23 May 2008')
+      expect(attachments.size).to eq(2)
+      expect(attachments[0].body).to match('Date: Fri, 23 May 2008')
     end
   end
 
@@ -642,13 +642,13 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
     mail = get_fixture_mail('incoming-request-oft-attachments.email')
 
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    allow(im).to receive(:mail).and_return(mail)
     im.extract_attachments!
 
-    im.get_attachments_for_display.map(&:display_filename).should == [
+    expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
       'test.html',  # picks HTML rather than text by default, as likely to render better
       'attach.txt',
-    ]
+    ])
   end
 end
 
@@ -658,13 +658,13 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
     mail = get_fixture_mail('incoming-request-tnef-attachments.email')
 
     im = incoming_messages(:useless_incoming_message)
-    im.stub!(:mail).and_return(mail)
+    allow(im).to receive(:mail).and_return(mail)
     im.extract_attachments!
 
-    im.get_attachments_for_display.map(&:display_filename).should == [
+    expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
       'FOI 09 02976i.doc',
       'FOI 09 02976iii.doc',
-    ]
+    ])
   end
 end
 
@@ -691,7 +691,7 @@ describe IncomingMessage, "when extracting attachments" do
 
 
     # Simulate parsing with the original attachments
-    MailHandler.stub!(:get_attachment_attributes).and_return([attachment_attributes])
+    allow(MailHandler).to receive(:get_attachment_attributes).and_return([attachment_attributes])
     incoming_message = incoming_messages(:useless_incoming_message)
 
     # Extract the attachments
@@ -702,23 +702,23 @@ describe IncomingMessage, "when extracting attachments" do
     main.delete_cached_file!
 
     # Simulate reparsing with the slightly changed body
-    MailHandler.stub!(:get_attachment_attributes).and_return([new_attachment_attributes])
+    allow(MailHandler).to receive(:get_attachment_attributes).and_return([new_attachment_attributes])
 
     # Re-extract the attachments
     incoming_message.extract_attachments!
 
     attachments = incoming_message.foi_attachments
-    attachments.size.should == 1
-    attachments.first.hexdigest.should == "74d2c0a41e074f9cebe49324d5b47414"
-    attachments.first.body.should == 'No way!'
+    expect(attachments.size).to eq(1)
+    expect(attachments.first.hexdigest).to eq("74d2c0a41e074f9cebe49324d5b47414")
+    expect(attachments.first.body).to eq('No way!')
   end
 
   it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
     if String.method_defined?(:encode)
       im = incoming_messages(:useless_incoming_message)
-      im.stub!(:extract_text).and_return("\xBF")
+      allow(im).to receive(:extract_text).and_return("\xBF")
 
-      im._get_attachment_text_internal.valid_encoding?.should be_true
+      expect(im._get_attachment_text_internal.valid_encoding?).to be true
     end
   end
 
@@ -726,7 +726,7 @@ end
 
 describe IncomingMessage do
 
-  describe :_extract_text do
+  describe '#_extract_text' do
 
     it 'does not generate incompatible character encodings' do
       if String.respond_to?(:encode)
@@ -742,7 +742,7 @@ describe IncomingMessage do
         message.reload
 
         expect{ message._extract_text }.
-          to_not raise_error(Encoding::CompatibilityError)
+          to_not raise_error
       end
     end
 
@@ -755,10 +755,10 @@ describe IncomingMessage, 'when getting the body of a message for html display' 
   it 'should replace any masked email addresses with a link to the help page' do
     incoming_message = IncomingMessage.new
     body_text = 'there was an [email address] here'
-    incoming_message.stub!(:get_main_body_text_folded).and_return(body_text)
-    incoming_message.stub!(:get_main_body_text_unfolded).and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_folded).and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_unfolded).and_return(body_text)
     expected = 'there was an [<a href="/help/officers#mobiles">email address</a>] here'
-    incoming_message.get_body_for_html_display.should == expected
+    expect(incoming_message.get_body_for_html_display).to eq(expected)
   end
 
 end
@@ -770,7 +770,7 @@ describe IncomingMessage, 'when getting clipped attachment text' do
     # This character is 2 bytes so the string should get sliced unless
     # we are handling multibyte chars correctly
     multibyte_string = "å" * 500002
-    incoming_message.stub!(:_get_attachment_text_internal).and_return(multibyte_string)
-    incoming_message.get_attachment_text_clipped.length.should == 500002
+    allow(incoming_message).to receive(:_get_attachment_text_internal).and_return(multibyte_string)
+    expect(incoming_message.get_attachment_text_clipped.length).to eq(500002)
   end
 end

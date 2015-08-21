@@ -6,7 +6,7 @@ describe TrackController do
   describe 'GET track_request' do
 
     it 'clears widget votes for the request' do
-      AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
+      allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
       @info_request = FactoryGirl.create(:info_request)
       @info_request.widget_votes.create(:cookie => mock_cookie)
 
@@ -14,8 +14,7 @@ describe TrackController do
       request.cookies['widget_vote'] = mock_cookie
 
       get :track_request, :url_title => @info_request.url_title, :feed => 'track'
-
-      expect(@info_request.widget_votes).to be_empty
+      expect(@info_request.reload.widget_votes).to be_empty
     end
 
   end
@@ -30,10 +29,10 @@ describe TrackController, "when making a new track on a request" do
                               :params => {},
                               :track_medium= => nil,
                               :tracking_user_id= => nil)
-    TrackThing.stub!(:create_track_for_request).and_return(@track_thing)
-    TrackThing.stub!(:create_track_for_search_query).and_return(@track_thing)
-    TrackThing.stub!(:find_existing).and_return(nil)
-    InfoRequest.stub!(:find_by_url_title!) do |url_title|
+    allow(TrackThing).to receive(:create_track_for_request).and_return(@track_thing)
+    allow(TrackThing).to receive(:create_track_for_search_query).and_return(@track_thing)
+    allow(TrackThing).to receive(:find_existing).and_return(nil)
+    allow(InfoRequest).to receive(:find_by_url_title!) do |url_title|
       if url_title == "myrequest"
         @ir
       else
@@ -42,37 +41,38 @@ describe TrackController, "when making a new track on a request" do
     end
 
     @user = mock_model(User)
-    User.stub!(:find).and_return(@user)
-    @user.stub!(:locale).and_return("en")
-    @user.stub!(:receive_email_alerts).and_return(true)
-    @user.stub!(:url_name).and_return("bob")
+    allow(User).to receive(:find).and_return(@user)
+    allow(@user).to receive(:locale).and_return("en")
+    allow(@user).to receive(:receive_email_alerts).and_return(true)
+    allow(@user).to receive(:url_name).and_return("bob")
   end
 
   it "should require login when making new track" do
     get :track_request, :url_title => @ir.url_title, :feed => 'track'
-    post_redirect = PostRedirect.get_last_post_redirect
-    response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
   end
 
   it "should save a request track and redirect if you are logged in" do
     session[:user_id] = @user.id
-    @track_thing.should_receive(:save!)
+    expect(@track_thing).to receive(:save!)
     get :track_request, :url_title => @ir.url_title, :feed => 'track'
-    response.should redirect_to(:controller => 'request', :action => 'show', :url_title => @ir.url_title)
+    expect(response).to redirect_to(:controller => 'request', :action => 'show', :url_title => @ir.url_title)
   end
 
   it "should 404 for non-existent requests" do
     session[:user_id] = @user.id
-    lambda {
+    expect {
       get :track_request, :url_title => "hjksfdhjk_louytu_qqxxx", :feed => 'track'
-    }.should raise_error(ActiveRecord::RecordNotFound)
+    }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it "should save a search track and redirect to the right place" do
     session[:user_id] = @user.id
-    @track_thing.should_receive(:save!)
+    expect(@track_thing).to receive(:save!)
     get :track_search_query, :query_array => "bob variety:sent", :feed => 'track'
-    response.should redirect_to(:controller => 'general', :action => 'search', :combined => ["bob", "requests"])
+    expect(response).to redirect_to(:controller => 'general', :action => 'search', :combined => ["bob", "requests"])
   end
 
 end
@@ -88,7 +88,7 @@ describe TrackController, "when unsubscribing from a track" do
                   :track_medium => 'delete',
     :r => 'http://example.com'},
       {:user_id => @track_thing.tracking_user.id}
-    TrackThing.find(:first, :conditions => ['id = ? ', @track_thing.id]).should == nil
+    expect(TrackThing.find(:first, :conditions => ['id = ? ', @track_thing.id])).to eq(nil)
   end
 
   it 'should redirect to a URL on the site' do
@@ -96,7 +96,7 @@ describe TrackController, "when unsubscribing from a track" do
                   :track_medium => 'delete',
     :r => '/'},
       {:user_id => @track_thing.tracking_user.id}
-    response.should redirect_to('/')
+    expect(response).to redirect_to('/')
   end
 
   it 'should not redirect to a url on another site' do
@@ -105,7 +105,7 @@ describe TrackController, "when unsubscribing from a track" do
                   :track_medium => 'delete',
     :r => 'http://example.com/'},
       {:user_id => @track_thing.tracking_user.id}
-    response.should redirect_to('/')
+    expect(response).to redirect_to('/')
   end
 
 end
@@ -128,21 +128,21 @@ describe TrackController, "when sending alerts for a track" do
     TrackMailer.alert_tracks
 
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 1
+    expect(deliveries.size).to eq(1)
     mail = deliveries[0]
-    mail.body.should =~ /Alter your subscription/
-    mail.to_addrs.first.to_s.should include(users(:silly_name_user).email)
+    expect(mail.body).to match(/Alter your subscription/)
+    expect(mail.to_addrs.first.to_s).to include(users(:silly_name_user).email)
     mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
     mail_url = $1
     mail_token = $2
 
-    mail.body.should_not =~ /&amp;/
+    expect(mail.body).not_to match(/&amp;/)
 
-    mail.body.should_not include('sent a request') # request not included
-    mail.body.should_not include('sent a response') # response not included
-    mail.body.should include('added an annotation') # comment included
+    expect(mail.body).not_to include('sent a request') # request not included
+    expect(mail.body).not_to include('sent a response') # response not included
+    expect(mail.body).to include('added an annotation') # comment included
 
-    mail.body.should =~ /This a the daftest comment the world has ever seen/ # comment text included
+    expect(mail.body).to match(/This a the daftest comment the world has ever seen/) # comment text included
     # Check subscription managing link
     # TODO: We can't do this, as it is redirecting to another controller. I'm
     # apparently meant to be writing controller unit tests here, not functional
@@ -157,13 +157,13 @@ describe TrackController, "when sending alerts for a track" do
     # Given we can't click the link, check the token is right instead
     post_redirect = PostRedirect.find_by_email_token(mail_token)
     expected_url = show_user_url(:url_name => users(:silly_name_user).url_name, :anchor => "email_subscriptions")
-    post_redirect.uri.should == expected_url
+    expect(post_redirect.uri).to eq(expected_url)
 
     # Check nothing more is delivered if we try again
     deliveries.clear
     TrackMailer.alert_tracks
     deliveries = ActionMailer::Base.deliveries
-    deliveries.size.should == 0
+    expect(deliveries.size).to eq(0)
   end
 
   it "should send localised alerts" do
@@ -177,7 +177,7 @@ describe TrackController, "when sending alerts for a track" do
     TrackMailer.alert_tracks
     deliveries = ActionMailer::Base.deliveries
     mail = deliveries[0]
-    mail.body.should include('el equipo de ')
+    expect(mail.body).to include('el equipo de ')
   end
 end
 
@@ -193,21 +193,21 @@ describe TrackController, "when viewing RSS feed for a track" do
     track_thing = track_things(:track_fancy_dog_request)
 
     get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
-    response.should render_template('track/atom_feed')
-    response.content_type.should == 'application/atom+xml'
+    expect(response).to render_template('track/atom_feed')
+    expect(response.content_type).to eq('application/atom+xml')
     # TODO: should check it is an atom.builder type being rendered, not sure how to
 
-    assigns[:xapian_object].matches_estimated.should == 3
-    assigns[:xapian_object].results.size.should == 3
-    assigns[:xapian_object].results[0][:model].should == info_request_events(:silly_comment_event) # created_at 2008-08-12 23:05:12.500942
-    assigns[:xapian_object].results[1][:model].should == info_request_events(:useless_incoming_message_event) # created_at 2007-11-13 18:09:20.042061
-    assigns[:xapian_object].results[2][:model].should == info_request_events(:useless_outgoing_message_event) # created_at 2007-10-14 10:41:12.686264
+    expect(assigns[:xapian_object].matches_estimated).to eq(3)
+    expect(assigns[:xapian_object].results.size).to eq(3)
+    expect(assigns[:xapian_object].results[0][:model]).to eq(info_request_events(:silly_comment_event)) # created_at 2008-08-12 23:05:12.500942
+    expect(assigns[:xapian_object].results[1][:model]).to eq(info_request_events(:useless_incoming_message_event)) # created_at 2007-11-13 18:09:20.042061
+    expect(assigns[:xapian_object].results[2][:model]).to eq(info_request_events(:useless_outgoing_message_event)) # created_at 2007-10-14 10:41:12.686264
   end
 
   it "should return NotFound for a non-existent user" do
-    lambda {
+    expect {
       get :track_user, :feed => 'feed', :url_name => "there_is_no_such_user"
-    }.should raise_error(ActiveRecord::RecordNotFound)
+    }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'should return atom/xml for a feed url without format specified, even if the
@@ -217,8 +217,8 @@ describe TrackController, "when viewing RSS feed for a track" do
     track_thing = track_things(:track_fancy_dog_request)
 
     get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
-    response.should render_template('track/atom_feed')
-    response.content_type.should == 'application/atom+xml'
+    expect(response).to render_template('track/atom_feed')
+    expect(response.content_type).to eq('application/atom+xml')
   end
 
 end
@@ -238,28 +238,28 @@ describe TrackController, "when viewing JSON version of a track feed" do
     get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title, :format => "json"
 
     a = JSON.parse(response.body)
-    a.class.to_s.should == 'Array'
-    a.size.should == 3
+    expect(a.class.to_s).to eq('Array')
+    expect(a.size).to eq(3)
 
-    a[0]['id'].should == info_request_events(:silly_comment_event).id
-    a[1]['id'].should == info_request_events(:useless_incoming_message_event).id
-    a[2]['id'].should == info_request_events(:useless_outgoing_message_event).id
+    expect(a[0]['id']).to eq(info_request_events(:silly_comment_event).id)
+    expect(a[1]['id']).to eq(info_request_events(:useless_incoming_message_event).id)
+    expect(a[2]['id']).to eq(info_request_events(:useless_outgoing_message_event).id)
 
-    a[0]['info_request']['url_title'].should == 'why_do_you_have_such_a_fancy_dog'
-    a[1]['info_request']['url_title'].should == 'why_do_you_have_such_a_fancy_dog'
-    a[2]['info_request']['url_title'].should == 'why_do_you_have_such_a_fancy_dog'
+    expect(a[0]['info_request']['url_title']).to eq('why_do_you_have_such_a_fancy_dog')
+    expect(a[1]['info_request']['url_title']).to eq('why_do_you_have_such_a_fancy_dog')
+    expect(a[2]['info_request']['url_title']).to eq('why_do_you_have_such_a_fancy_dog')
 
-    a[0]['public_body']['url_name'].should == 'tgq'
-    a[1]['public_body']['url_name'].should == 'tgq'
-    a[2]['public_body']['url_name'].should == 'tgq'
+    expect(a[0]['public_body']['url_name']).to eq('tgq')
+    expect(a[1]['public_body']['url_name']).to eq('tgq')
+    expect(a[2]['public_body']['url_name']).to eq('tgq')
 
-    a[0]['user']['url_name'].should == 'bob_smith'
-    a[1]['user']['url_name'].should == 'bob_smith'
-    a[2]['user']['url_name'].should == 'bob_smith'
+    expect(a[0]['user']['url_name']).to eq('bob_smith')
+    expect(a[1]['user']['url_name']).to eq('bob_smith')
+    expect(a[2]['user']['url_name']).to eq('bob_smith')
 
-    a[0]['event_type'].should == 'comment'
-    a[1]['event_type'].should == 'response'
-    a[2]['event_type'].should == 'sent'
+    expect(a[0]['event_type']).to eq('comment')
+    expect(a[1]['event_type']).to eq('response')
+    expect(a[2]['event_type']).to eq('sent')
 
   end
 
@@ -277,23 +277,27 @@ describe TrackController, "when tracking a public body" do
   it "should work" do
     geraldine = public_bodies(:geraldine_public_body)
     get :track_public_body, :feed => 'feed', :url_name => geraldine.url_name
-    response.should be_success
-    response.should render_template('track/atom_feed')
+    expect(response).to be_success
+    expect(response).to render_template('track/atom_feed')
     tt = assigns[:track_thing]
-    tt.public_body.should == geraldine
-    tt.track_type.should == 'public_body_updates'
-    tt.track_query.should == "requested_from:" + geraldine.url_name
+    expect(tt.public_body).to eq(geraldine)
+    expect(tt.track_type).to eq('public_body_updates')
+    expect(tt.track_query).to eq("requested_from:" + geraldine.url_name)
   end
 
   it "should filter by event type" do
     geraldine = public_bodies(:geraldine_public_body)
     get :track_public_body, :feed => 'feed', :url_name => geraldine.url_name, :event_type => 'sent'
-    response.should be_success
-    response.should render_template('track/atom_feed')
+    expect(response).to be_success
+    expect(response).to render_template('track/atom_feed')
     tt = assigns[:track_thing]
-    tt.public_body.should == geraldine
-    tt.track_type.should == 'public_body_updates'
-    tt.track_query.should == "requested_from:" + geraldine.url_name + " variety:sent"
+    expect(tt.public_body).to eq(geraldine)
+    expect(tt.track_type).to eq('public_body_updates')
+    expect(tt.track_query).to eq("requested_from:" + geraldine.url_name + " variety:sent")
   end
 
+end
+
+def mock_cookie
+  '0300fd3e1177127cebff'
 end

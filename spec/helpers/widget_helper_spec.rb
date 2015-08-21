@@ -5,7 +5,7 @@ describe WidgetHelper do
 
   include WidgetHelper
 
-  describe :status_description do
+  describe '#status_description' do
 
     before do
       @info_request = FactoryGirl.build(:info_request)
@@ -16,7 +16,7 @@ describe WidgetHelper do
     end
 
     it 'should call theme_display_status for a theme status' do
-      @info_request.stub!(:theme_display_status).and_return("Special status")
+      allow(@info_request).to receive(:theme_display_status).and_return("Special status")
       expect(status_description(@info_request, 'special_status')).to eq('Special status')
     end
 

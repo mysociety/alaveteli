@@ -10,12 +10,12 @@ describe AdminPublicBodyController, "when showing the index of public bodies" do
 
   it "searches for 'humpa'" do
     get :index, :query => "humpa"
-    assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
+    expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
   end
 
   it "searches for 'humpa' in another locale" do
     get :index, {:query => "humpa", :locale => "es"}
-    assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
+    expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
   end
 
 end
@@ -29,7 +29,7 @@ describe AdminPublicBodyController, "when showing a public body" do
 
   it "sets a using_admin flag" do
     get :show, :id => 2
-    session[:using_admin].should == 1
+    expect(session[:using_admin]).to eq(1)
   end
 
   it "shows a public body in another locale" do
@@ -70,15 +70,15 @@ describe AdminPublicBodyController, 'when showing the form for a new public body
     it 'should populate the name, email address and last edit comment on the public body' do
       change_request = FactoryGirl.create(:add_body_request)
       get :new, :change_request_id => change_request.id
-      assigns[:public_body].name.should == change_request.public_body_name
-      assigns[:public_body].request_email.should == change_request.public_body_email
-      assigns[:public_body].last_edit_comment.should match('Notes: Please')
+      expect(assigns[:public_body].name).to eq(change_request.public_body_name)
+      expect(assigns[:public_body].request_email).to eq(change_request.public_body_email)
+      expect(assigns[:public_body].last_edit_comment).to match('Notes: Please')
     end
 
     it 'should assign a default response text to the view' do
       change_request = FactoryGirl.create(:add_body_request)
       get :new, :change_request_id => change_request.id
-      assigns[:change_request_user_response].should match("Thanks for your suggestion to add A New Body")
+      expect(assigns[:change_request_user_response]).to match("Thanks for your suggestion to add A New Body")
     end
   end
 
@@ -229,15 +229,15 @@ describe AdminPublicBodyController, "when creating a public body" do
 
     it 'should send a response to the requesting user' do
       deliveries = ActionMailer::Base.deliveries
-      deliveries.size.should == 1
+      expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      mail.subject.should == 'Adding a new body'
-      mail.to.should == [@change_request.get_user_email]
-      mail.body.should =~ /The URL will be http:\/\/test.host\/body\/new_quango/
+      expect(mail.subject).to eq('Adding a new body')
+      expect(mail.to).to eq([@change_request.get_user_email])
+      expect(mail.body).to match(/The URL will be http:\/\/test.host\/body\/new_quango/)
     end
 
     it 'should mark the change request as closed' do
-      PublicBodyChangeRequest.find(@change_request.id).is_open.should be_false
+      expect(PublicBodyChangeRequest.find(@change_request.id).is_open).to be false
     end
 
   end
@@ -279,9 +279,9 @@ describe AdminPublicBodyController, "when editing a public body" do
     get :edit, {:id => 3, :locale => :en}
 
     # When editing a body, the controller returns all available translations
-    assigns[:public_body].find_translation_by_locale("es").name.should == 'El Department for Humpadinking'
-    assigns[:public_body].name.should == 'Department for Humpadinking'
-    response.should render_template('edit')
+    expect(assigns[:public_body].find_translation_by_locale("es").name).to eq('El Department for Humpadinking')
+    expect(assigns[:public_body].name).to eq('Department for Humpadinking')
+    expect(response).to render_template('edit')
   end
 
   context 'when passed a change request id as a param' do
@@ -295,12 +295,12 @@ describe AdminPublicBodyController, "when editing a public body" do
     it 'should populate the email address and last edit comment on the public body' do
       change_request = FactoryGirl.create(:update_body_request)
       get :edit, :id => change_request.public_body_id,  :change_request_id => change_request.id
-      assigns[:public_body].request_email.should == @change_request.public_body_email
-      assigns[:public_body].last_edit_comment.should match('Notes: Please')
+      expect(assigns[:public_body].request_email).to eq(@change_request.public_body_email)
+      expect(assigns[:public_body].last_edit_comment).to match('Notes: Please')
     end
 
     it 'should assign a default response text to the view' do
-      assigns[:change_request_user_response].should match("Thanks for your suggestion to update the email address")
+      expect(assigns[:change_request_user_response]).to match("Thanks for your suggestion to update the email address")
     end
   end
 
@@ -357,7 +357,7 @@ describe AdminPublicBodyController, "when updating a public body" do
   context 'on success for multiple locales' do
 
     it 'saves edits to a public body heading in another locale' do
-      @body.name(:es).should == 'Los Quango'
+      expect(@body.name(:es)).to eq('Los Quango')
       post :update, :id => @body.id,
       :public_body => {
         :name => @body.name(:en),
@@ -388,7 +388,7 @@ describe AdminPublicBodyController, "when updating a public body" do
         }
       }
 
-      request.flash[:notice].should include('successful')
+      expect(request.flash[:notice]).to include('successful')
 
       body = PublicBody.find(@body.id)
 
@@ -414,7 +414,7 @@ describe AdminPublicBodyController, "when updating a public body" do
         }
       }
 
-      request.flash[:notice].should include('successful')
+      expect(request.flash[:notice]).to include('successful')
 
       body = PublicBody.find(@body.id)
 
@@ -443,7 +443,7 @@ describe AdminPublicBodyController, "when updating a public body" do
         }
       }
 
-      request.flash[:notice].should include('successful')
+      expect(request.flash[:notice]).to include('successful')
 
       body = PublicBody.find(@body.id)
 
@@ -523,15 +523,15 @@ describe AdminPublicBodyController, "when updating a public body" do
 
     it 'should send a response to the requesting user' do
       deliveries = ActionMailer::Base.deliveries
-      deliveries.size.should == 1
+      expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      mail.subject.should == 'Body update'
-      mail.to.should == [@change_request.get_user_email]
-      mail.body.should =~ /Done./
+      expect(mail.subject).to eq('Body update')
+      expect(mail.to).to eq([@change_request.get_user_email])
+      expect(mail.body).to match(/Done./)
     end
 
     it 'should mark the change request as closed' do
-      PublicBodyChangeRequest.find(@change_request.id).is_open.should be_false
+      expect(PublicBodyChangeRequest.find(@change_request.id).is_open).to be false
     end
 
   end
@@ -544,15 +544,15 @@ describe AdminPublicBodyController, "when destroying a public body" do
     id = public_bodies(:humpadink_public_body).id
     n = PublicBody.count
     post :destroy, { :id => id }
-    response.should redirect_to(:controller=>'admin_public_body', :action=>'show', :id => id)
-    PublicBody.count.should == n
+    expect(response).to redirect_to(:controller=>'admin_public_body', :action=>'show', :id => id)
+    expect(PublicBody.count).to eq(n)
   end
 
   it "destroys a public body" do
     n = PublicBody.count
     post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-    response.should redirect_to admin_bodies_path
-    PublicBody.count.should == n - 1
+    expect(response).to redirect_to admin_bodies_path
+    expect(PublicBody.count).to eq(n - 1)
   end
 
 end
@@ -564,9 +564,9 @@ describe AdminPublicBodyController, "when assigning public body tags" do
     condition = "public_body_translations.locale = ?"
     n = PublicBody.joins(:translations).where([condition, "en"]).count
     post :mass_tag_add, { :new_tag => "department", :table_name => "substring" }
-    request.flash[:notice].should == "Added tag to table of bodies."
-    response.should redirect_to admin_bodies_path
-    PublicBody.find_by_tag("department").count.should == n
+    expect(request.flash[:notice]).to eq("Added tag to table of bodies.")
+    expect(response).to redirect_to admin_bodies_path
+    expect(PublicBody.find_by_tag("department").count).to eq(n)
   end
 end
 
@@ -577,7 +577,7 @@ describe AdminPublicBodyController, "when importing a csv" do
 
     it 'should get the page successfully' do
       get :import_csv
-      response.should be_success
+      expect(response).to be_success
     end
 
   end
@@ -585,19 +585,19 @@ describe AdminPublicBodyController, "when importing a csv" do
   describe 'when handling a POST request' do
 
     before do
-      PublicBody.stub!(:import_csv).and_return([[],[]])
+      allow(PublicBody).to receive(:import_csv).and_return([[],[]])
       @file_object = fixture_file_upload('/files/fake-authority-type.csv')
     end
 
     it 'should handle a nil csv file param' do
       post :import_csv, { :commit => 'Dry run' }
-      response.should be_success
+      expect(response).to be_success
     end
 
     describe 'if there is a csv file param' do
 
       it 'should try to get the contents and original name of a csv file param' do
-        @file_object.should_receive(:read).and_return('some contents')
+        expect(@file_object).to receive(:read).and_return('some contents')
         post :import_csv, { :csv_file => @file_object,
                             :commit => 'Dry run'}
       end
@@ -605,7 +605,7 @@ describe AdminPublicBodyController, "when importing a csv" do
       it 'should assign the original filename to the view' do
         post :import_csv, { :csv_file => @file_object,
                             :commit => 'Dry run'}
-        assigns[:original_csv_file].should == 'fake-authority-type.csv'
+        expect(assigns[:original_csv_file]).to eq('fake-authority-type.csv')
       end
 
     end
@@ -615,7 +615,7 @@ describe AdminPublicBodyController, "when importing a csv" do
 
       it 'should try and get the file contents from a temporary file whose name
                 is passed as a param' do
-        @controller.should_receive(:retrieve_csv_data).with('csv_upload-2046-12-31-394')
+        expect(@controller).to receive(:retrieve_csv_data).with('csv_upload-2046-12-31-394')
         post :import_csv, { :temporary_csv_file => 'csv_upload-2046-12-31-394',
                             :original_csv_file => 'original_contents.txt',
                             :commit => 'Dry run'}
@@ -626,7 +626,7 @@ describe AdminPublicBodyController, "when importing a csv" do
                    :original_csv_file => 'original_contents.txt',
                    :commit => 'Dry run'}
         expected_error = "Invalid filename in upload_csv: bad_name"
-        lambda{ post :import_csv, params }.should raise_error(expected_error)
+        expect{ post :import_csv, params }.to raise_error(expected_error)
       end
 
       it 'should raise an error if the temp file does not exist' do
@@ -635,14 +635,14 @@ describe AdminPublicBodyController, "when importing a csv" do
                    :original_csv_file => 'original_contents.txt',
                    :commit => 'Dry run'}
         expected_error = "Missing file in upload_csv: csv_upload-20461231-394"
-        lambda{ post :import_csv, params }.should raise_error(expected_error)
+        expect{ post :import_csv, params }.to raise_error(expected_error)
       end
 
       it 'should assign the temporary filename to the view' do
         post :import_csv, { :csv_file => @file_object,
                             :commit => 'Dry run'}
         temporary_filename = assigns[:temporary_csv_file]
-        temporary_filename.should match(/csv_upload-#{Time.now.strftime("%Y%m%d")}-\d{1,5}/)
+        expect(temporary_filename).to match(/csv_upload-#{Time.now.strftime("%Y%m%d")}-\d{1,5}/)
       end
 
     end
@@ -675,9 +675,11 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     @request.env["HTTP_AUTHORIZATION"] = ""
     n = PublicBody.count
     post :destroy, { :id => 3 }
-    response.should redirect_to(:controller=>'user', :action=>'signin', :token=>PostRedirect.get_last_post_redirect.token)
-    PublicBody.count.should == n
-    session[:using_admin].should == nil
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
+    expect(PublicBody.count).to eq(n)
+    expect(session[:using_admin]).to eq(nil)
   end
 
   it "skips admin authorisation when SKIP_ADMIN_AUTH set" do
@@ -686,8 +688,8 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     @request.env["HTTP_AUTHORIZATION"] = ""
     n = PublicBody.count
     post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-    PublicBody.count.should == n - 1
-    session[:using_admin].should == 1
+    expect(PublicBody.count).to eq(n - 1)
+    expect(session[:using_admin]).to eq(1)
   end
 
   it "doesn't let people with bad emergency account credentials log in" do
@@ -695,9 +697,11 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     n = PublicBody.count
     basic_auth_login(@request, "baduser", "badpassword")
     post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-    response.should redirect_to(:controller=>'user', :action=>'signin', :token=>PostRedirect.get_last_post_redirect.token)
-    PublicBody.count.should == n
-    session[:using_admin].should == nil
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
+    expect(PublicBody.count).to eq(n)
+    expect(session[:using_admin]).to eq(nil)
   end
 
   it "allows people with good emergency account credentials log in using HTTP Basic Auth" do
@@ -705,24 +709,24 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     n = PublicBody.count
     basic_auth_login(@request, "biz", "fuz")
     post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}
-    session[:using_admin].should == 1
+    expect(session[:using_admin]).to eq(1)
     n = PublicBody.count
     post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-    session[:using_admin].should == 1
-    PublicBody.count.should == n - 1
+    expect(session[:using_admin]).to eq(1)
+    expect(PublicBody.count).to eq(n - 1)
   end
 
   it "doesn't let people with good emergency account credentials log in if the emergency user is disabled" do
     setup_emergency_credentials('biz', 'fuz')
-    AlaveteliConfiguration.stub!(:disable_emergency_user).and_return(true)
+    allow(AlaveteliConfiguration).to receive(:disable_emergency_user).and_return(true)
     n = PublicBody.count
     basic_auth_login(@request, "biz", "fuz")
     post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}
-    session[:using_admin].should == nil
+    expect(session[:using_admin]).to eq(nil)
     n = PublicBody.count
     post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-    session[:using_admin].should == nil
-    PublicBody.count.should == n
+    expect(session[:using_admin]).to eq(nil)
+    expect(PublicBody.count).to eq(n)
   end
 
   it "allows superusers to do stuff" do
@@ -730,8 +734,8 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     @request.env["HTTP_AUTHORIZATION"] = ""
     n = PublicBody.count
     post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-    PublicBody.count.should == n - 1
-    session[:using_admin].should == 1
+    expect(PublicBody.count).to eq(n - 1)
+    expect(session[:using_admin]).to eq(1)
   end
 
   it "doesn't allow non-superusers to do stuff" do
@@ -739,9 +743,11 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     @request.env["HTTP_AUTHORIZATION"] = ""
     n = PublicBody.count
     post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-    response.should redirect_to(:controller=>'user', :action=>'signin', :token=>PostRedirect.get_last_post_redirect.token)
-    PublicBody.count.should == n
-    session[:using_admin].should == nil
+    expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'signin',
+                                    :token => get_last_post_redirect.token)
+    expect(PublicBody.count).to eq(n)
+    expect(session[:using_admin]).to eq(nil)
   end
 
   describe 'when asked for the admin current user' do
@@ -750,14 +756,14 @@ describe AdminPublicBodyController, "when administering public bodies and paying
       setup_emergency_credentials('biz', 'fuz')
       basic_auth_login(@request, "biz", "fuz")
       post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1 }
-      controller.send(:admin_current_user).should == 'biz'
+      expect(controller.send(:admin_current_user)).to eq('biz')
     end
 
     it 'returns the current user url_name for a superuser' do
       session[:user_id] = users(:admin_user).id
       @request.env["HTTP_AUTHORIZATION"] = ""
       post :show, { :id => public_bodies(:humpadink_public_body).id }
-      controller.send(:admin_current_user).should == users(:admin_user).url_name
+      expect(controller.send(:admin_current_user)).to eq(users(:admin_user).url_name)
     end
 
     it 'returns the REMOTE_USER value from the request environment when skipping admin auth' do
@@ -766,7 +772,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
       @request.env["HTTP_AUTHORIZATION"] = ""
       @request.env["REMOTE_USER"] = "i_am_admin"
       post :show, { :id => public_bodies(:humpadink_public_body).id }
-      controller.send(:admin_current_user).should == "i_am_admin"
+      expect(controller.send(:admin_current_user)).to eq("i_am_admin")
     end
 
   end

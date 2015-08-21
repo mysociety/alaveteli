@@ -21,7 +21,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe OutgoingMessage do
 
-  describe :initialize do
+  describe '#initialize' do
 
     it 'does not censor the #body' do
       attrs = { :status => 'ready',
@@ -31,13 +31,13 @@ describe OutgoingMessage do
 
       message = FactoryGirl.create(:outgoing_message, attrs)
 
-      OutgoingMessage.any_instance.should_not_receive(:body).and_call_original
+      expect_any_instance_of(OutgoingMessage).not_to receive(:body).and_call_original
       OutgoingMessage.find(message.id)
     end
 
   end
 
-  describe :body do
+  describe '#body' do
 
     it 'returns the body attribute' do
       attrs = { :status => 'ready',
@@ -78,7 +78,7 @@ describe OutgoingMessage do
 
       rules = [FactoryGirl.build(:censor_rule, :text => 'secret'),
                FactoryGirl.build(:censor_rule, :text => 'sensitive')]
-      InfoRequest.any_instance.stub(:censor_rules).and_return(rules)
+      allow_any_instance_of(InfoRequest).to receive(:censor_rules).and_return(rules)
 
       expected = 'This [REDACTED] text contains [REDACTED] info!'
       expect(message.body).to eq(expected)
@@ -93,7 +93,7 @@ describe OutgoingMessage do
 
       request_rules = [FactoryGirl.build(:censor_rule, :text => 'secret'),
                        FactoryGirl.build(:censor_rule, :text => 'sensitive')]
-      InfoRequest.any_instance.stub(:censor_rules).and_return(request_rules)
+      allow_any_instance_of(InfoRequest).to receive(:censor_rules).and_return(request_rules)
 
       censor_rules = [FactoryGirl.build(:censor_rule, :text => 'text'),
                       FactoryGirl.build(:censor_rule, :text => 'contains')]
@@ -121,23 +121,23 @@ describe OutgoingMessage, " when making an outgoing message" do
 
   it "should not index the email addresses" do
     # also used for track emails
-    @outgoing_message.get_text_for_indexing.should_not include("foo@bar.com")
+    expect(@outgoing_message.get_text_for_indexing).not_to include("foo@bar.com")
   end
 
   it "should not display email addresses on page" do
-    @outgoing_message.get_body_for_html_display.should_not include("foo@bar.com")
+    expect(@outgoing_message.get_body_for_html_display).not_to include("foo@bar.com")
   end
 
   it "should link to help page where email address was" do
-    @outgoing_message.get_body_for_html_display.should include('<a href="/help/officers#mobiles">')
+    expect(@outgoing_message.get_body_for_html_display).to include('<a href="/help/officers#mobiles">')
   end
 
   it "should include email addresses in outgoing messages" do
-    @outgoing_message.body.should include("foo@bar.com")
+    expect(@outgoing_message.body).to include("foo@bar.com")
   end
 
   it "should work out a salutation" do
-    @om.get_salutation.should == "Dear Geraldine Quango,"
+    expect(@om.get_salutation).to eq("Dear Geraldine Quango,")
   end
 
   it 'should produce the expected text for an internal review request' do
@@ -155,14 +155,14 @@ describe OutgoingMessage, " when making an outgoing message" do
                                              :info_request => info_request
     })
     expected_text = "I am writing to request an internal review of A test public body's handling of my FOI request 'A test title'."
-    outgoing_message.body.should include(expected_text)
+    expect(outgoing_message.body).to include(expected_text)
   end
 
   context "when associated with a batch template request" do
 
     it 'should produce a salutation with a placeholder' do
       @om.info_request.is_batch_request_template = true
-      @om.get_salutation.should == 'Dear [Authority name],'
+      expect(@om.get_salutation).to eq('Dear [Authority name],')
     end
   end
 
@@ -181,11 +181,11 @@ describe OutgoingMessage, " when making an outgoing message" do
       end
 
       it 'should return true for an admin user' do
-        @outgoing_message.user_can_view?(FactoryGirl.create(:admin_user)).should be_true
+        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:admin_user))).to be true
       end
 
       it 'should return false for a non-admin user' do
-        @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be_false
+        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:user))).to be false
       end
 
     end
@@ -197,11 +197,11 @@ describe OutgoingMessage, " when making an outgoing message" do
       end
 
       it 'should return true if the user owns the associated request' do
-        @outgoing_message.user_can_view?(@info_request.user).should be_true
+        expect(@outgoing_message.user_can_view?(@info_request.user)).to be true
       end
 
       it 'should return false if the user does not own the associated request' do
-        @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be_false
+        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:user))).to be false
       end
     end
 
@@ -212,7 +212,7 @@ describe OutgoingMessage, " when making an outgoing message" do
       end
 
       it 'should return true for a non-admin user' do
-        @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be_true
+        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:user))).to be true
       end
 
     end
@@ -228,17 +228,17 @@ describe OutgoingMessage, " when making an outgoing message" do
 
     it 'should return false if it has prominence "hidden"' do
       @outgoing_message.prominence = 'hidden'
-      @outgoing_message.indexed_by_search?.should be_false
+      expect(@outgoing_message.indexed_by_search?).to be false
     end
 
     it 'should return false if it has prominence "requester_only"' do
       @outgoing_message.prominence = 'requester_only'
-      @outgoing_message.indexed_by_search?.should be_false
+      expect(@outgoing_message.indexed_by_search?).to be false
     end
 
     it 'should return true if it has prominence "normal"' do
       @outgoing_message.prominence = 'normal'
-      @outgoing_message.indexed_by_search?.should be_true
+      expect(@outgoing_message.indexed_by_search?).to be true
     end
 
   end
@@ -248,8 +248,8 @@ describe OutgoingMessage, "when validating the format of the message body" do
 
   it 'should handle a salutation with a bracket in it' do
     outgoing_message = FactoryGirl.build(:initial_request)
-    outgoing_message.stub!(:get_salutation).and_return("Dear Bob (Robert,")
-    lambda{ outgoing_message.valid? }.should_not raise_error(RegexpError)
+    allow(outgoing_message).to receive(:get_salutation).and_return("Dear Bob (Robert,")
+    expect{ outgoing_message.valid? }.not_to raise_error
   end
 
 end

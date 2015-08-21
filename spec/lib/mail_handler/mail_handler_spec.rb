@@ -13,35 +13,35 @@ describe 'when creating a mail object from raw data' do
     m = Mail.new
     m.add_file(:filename => "attachment.data", :content => "a" * (8 * 1024 * 1024))
     raw_email = "From jamis_buck@byu.edu Mon May  2 16:07:05 2005\r\n#{m.to_s}"
-    lambda { Mail::Message.new(raw_email) }.should_not raise_error
+    expect { Mail::Message.new(raw_email) }.not_to raise_error
   end
 
   it 'should correctly parse a multipart email with a linebreak in the boundary' do
     mail = get_fixture_mail('space-boundary.email')
-    mail.parts.size.should == 2
-    mail.multipart?.should == true
+    expect(mail.parts.size).to eq(2)
+    expect(mail.multipart?).to eq(true)
   end
 
   it "should not fail on invalid byte sequence in content-disposition header" do
     part = Mail::Part.new("Content-Disposition: inline; filename=a\xB8z\r\n\r\nThis is the body text.")
-    lambda { part.inline? }.should_not raise_error
+    expect { part.inline? }.not_to raise_error
   end
 
   it 'should parse multiple to addresses with unqoted display names' do
     mail = get_fixture_mail('multiple-unquoted-display-names.email')
-    mail.to.should == ["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"]
+    expect(mail.to).to eq(["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"])
   end
 
   it 'should return nil for malformed To: and Cc: lines' do
     mail = get_fixture_mail('malformed-to-and-cc.email')
-    mail.to.should == nil
-    mail.cc.should == nil
+    expect(mail.to).to eq(nil)
+    expect(mail.cc).to eq(nil)
   end
 
   it 'should convert an iso8859 email to utf8' do
     mail = get_fixture_mail('iso8859_2_raw_email.email')
-    mail.subject.should match /gjatë/u
-    MailHandler.get_part_body(mail).is_utf8?.should == true
+    expect(mail.subject).to match /gjatë/u
+    expect(MailHandler.get_part_body(mail).is_utf8?).to eq(true)
   end
 
   it 'should not be confused by subject lines with malformed UTF-8 at the end' do
@@ -49,18 +49,18 @@ describe 'when creating a mail object from raw data' do
     #   printf "hello\360" | base64
     # ... and wrapping the result in '=?UTF-8?B?' and '?='
     mail = get_fixture_mail('subject-bad-utf-8-trailing-base64.email')
-    mail.subject.should == 'hello'
+    expect(mail.subject).to eq('hello')
     # The quoted printable subject line was generated with:
     #   printf "hello\360" | qprint -b -e
     # ... and wrapping the result in '=?UTF-8?Q?' and '?='
     mail = get_fixture_mail('subject-bad-utf-8-trailing-quoted-printable.email')
-    mail.subject.should == 'hello'
+    expect(mail.subject).to eq('hello')
   end
 
   it 'should convert a Windows-1252 body mislabelled as ISO-8859-1 to UTF-8' do
     mail = get_fixture_mail('mislabelled-as-iso-8859-1.email')
     body = MailHandler.get_part_body(mail)
-    body.is_utf8?.should == true
+    expect(body.is_utf8?).to eq(true)
     # This email is broken in at least these two ways:
     #  1. It contains a top bit set character (0x96) despite the
     #     "Content-Transfer-Encoding: 7bit"
@@ -69,12 +69,12 @@ describe 'when creating a mail object from raw data' do
     #     be Unicode codepoint 2013.  It should be possible to
     #     spot the mislabelling, since 0x96 isn't a valid
     #     ISO-8859-1 character.
-    body.should match(/ \xe2\x80\x93 /)
+    expect(body).to match(/ \xe2\x80\x93 /)
   end
 
   it 'should not error on a subject line with an encoding encoding not recognized by iconv' do
     mail = get_fixture_mail('unrecognized-encoding-mail.email')
-    lambda{ mail.subject }.should_not raise_error
+    expect{ mail.subject }.not_to raise_error
   end
 
 end
@@ -83,22 +83,22 @@ describe 'when asked for the from name' do
 
   it 'should return nil if there is a blank "From" field' do
     mail = create_message_from('')
-    MailHandler.get_from_name(mail).should == nil
+    expect(MailHandler.get_from_name(mail)).to eq(nil)
   end
 
   it 'should correctly return an encoded name from the from field' do
     mail = get_fixture_mail('quoted-subject-iso8859-1.email')
-    MailHandler.get_from_name(mail).should == 'Coordenação de Relacionamento, Pesquisa e Informação/CEDI'
+    expect(MailHandler.get_from_name(mail)).to eq('Coordenação de Relacionamento, Pesquisa e Informação/CEDI')
   end
 
   it 'should get a name from a "From" field with a name and address' do
     mail = get_fixture_mail('incoming-request-oft-attachments.email')
-    MailHandler.get_from_name(mail).should == 'Public Authority'
+    expect(MailHandler.get_from_name(mail)).to eq('Public Authority')
   end
 
   it 'should return nil from a "From" field that is just a name'do
     mail = get_fixture_mail('track-response-webshield-bounce.email')
-    MailHandler.get_from_name(mail).should == nil
+    expect(MailHandler.get_from_name(mail)).to eq(nil)
   end
 
 end
@@ -107,27 +107,27 @@ describe 'when asked for the from address' do
 
   it 'should return nil if there is a blank "From" field' do
     mail = create_message_from('')
-    MailHandler.get_from_address(mail).should == nil
+    expect(MailHandler.get_from_address(mail)).to eq(nil)
   end
 
   it 'should correctly return an address from a mail that has an encoded name in the from field' do
     mail = get_fixture_mail('quoted-subject-iso8859-1.email')
-    MailHandler.get_from_address(mail).should == 'geraldinequango@localhost'
+    expect(MailHandler.get_from_address(mail)).to eq('geraldinequango@localhost')
   end
 
   it 'should return nil if there is no address in the "From" field' do
     mail = get_fixture_mail('track-response-webshield-bounce.email')
-    MailHandler.get_from_address(mail).should == nil
+    expect(MailHandler.get_from_address(mail)).to eq(nil)
   end
 
   it 'should return the "From" email address if there is one' do
     mail = get_fixture_mail('track-response-abcmail-oof.email')
-    MailHandler.get_from_address(mail).should == 'Name.Removed@example.gov.uk'
+    expect(MailHandler.get_from_address(mail)).to eq('Name.Removed@example.gov.uk')
   end
 
   it 'should get an address from a "From" field with a name and address' do
     mail = get_fixture_mail('incoming-request-oft-attachments.email')
-    MailHandler.get_from_address(mail).should == 'public@authority.gov.uk'
+    expect(MailHandler.get_from_address(mail)).to eq('public@authority.gov.uk')
   end
 end
 
@@ -140,15 +140,15 @@ describe 'when asked for all the addresses a mail has been sent to' do
     mail_data.gsub!('Cc: request-5335-xxxxxxxx@whatdotheyknow.com',
                     'Cc: request-3333-xxxxxxxx@whatdotheyknow.com')
     mail = MailHandler.mail_from_raw_email(mail_data)
-    MailHandler.get_all_addresses(mail).should == ['request-5335-xxxxxxxx@whatdotheyknow.com',
+    expect(MailHandler.get_all_addresses(mail)).to eq(['request-5335-xxxxxxxx@whatdotheyknow.com',
                                                    'request-3333-xxxxxxxx@whatdotheyknow.com',
-                                                   'request-5555-xxxxxxxx@whatdotheyknow.com']
+                                                   'request-5555-xxxxxxxx@whatdotheyknow.com'])
   end
 
   it 'should only return unique values' do
     # envelope-to and to fields are the same
     mail = get_fixture_mail('humberside-police-odd-mime-type.email')
-    MailHandler.get_all_addresses(mail).should == ['request-5335-xxxxxxxx@whatdotheyknow.com']
+    expect(MailHandler.get_all_addresses(mail)).to eq(['request-5335-xxxxxxxx@whatdotheyknow.com'])
   end
 
   it 'should handle the absence of an envelope-to or cc field' do
@@ -156,7 +156,7 @@ describe 'when asked for all the addresses a mail has been sent to' do
     mail_data.gsub!('To: FOI Person <EMAIL_TO>',
                     'To: FOI Person <request-5555-xxxxxxxx@whatdotheyknow.com>')
     mail = MailHandler.mail_from_raw_email(mail_data)
-    MailHandler.get_all_addresses(mail).should == ["request-5555-xxxxxxxx@whatdotheyknow.com"]
+    expect(MailHandler.get_all_addresses(mail)).to eq(["request-5555-xxxxxxxx@whatdotheyknow.com"])
   end
 
   it 'should not return invalid addresses' do
@@ -164,7 +164,7 @@ describe 'when asked for all the addresses a mail has been sent to' do
     mail_data.gsub!('To: FOI Person <EMAIL_TO>',
                     'To: <request-5555-xxxxxxxx>')
     mail = MailHandler.mail_from_raw_email(mail_data)
-    MailHandler.get_all_addresses(mail).should == []
+    expect(MailHandler.get_all_addresses(mail)).to eq([])
   end
 
 
@@ -174,12 +174,12 @@ describe 'when asked for auto_submitted' do
 
   it 'should return a string value for an email with an auto-submitted header' do
     mail = get_fixture_mail('autoresponse-header.email')
-    MailHandler.get_auto_submitted(mail).should == 'auto-replied'
+    expect(MailHandler.get_auto_submitted(mail)).to eq('auto-replied')
   end
 
   it 'should return a nil value for an email with no auto-submitted header' do
     mail = get_fixture_mail('incoming-request-plain.email')
-    MailHandler.get_auto_submitted(mail).should == nil
+    expect(MailHandler.get_auto_submitted(mail)).to eq(nil)
   end
 
 end
@@ -188,17 +188,17 @@ describe 'when asked if there is an empty return path' do
 
   it 'should return true if there is an empty return-path specified' do
     mail = get_fixture_mail('empty-return-path.email')
-    MailHandler.empty_return_path?(mail).should == true
+    expect(MailHandler.empty_return_path?(mail)).to eq(true)
   end
 
   it 'should return false if there is no return-path header' do
     mail = get_fixture_mail('incoming-request-attach-attachments.email')
-    MailHandler.empty_return_path?(mail).should == false
+    expect(MailHandler.empty_return_path?(mail)).to eq(false)
   end
 
   it 'should return false if there is a return path address' do
     mail = get_fixture_mail('autoresponse-header.email')
-    MailHandler.empty_return_path?(mail).should == false
+    expect(MailHandler.empty_return_path?(mail)).to eq(false)
   end
 end
 
@@ -209,7 +209,7 @@ describe 'when deriving a name, email and formatted address from a message from 
     name = MailHandler.get_from_name(mail)
     email = MailHandler.get_from_address(mail)
     address = MailHandler.address_from_name_and_email(name, email).to_s
-    [name, email, address].should == expected_result
+    expect([name, email, address]).to eq(expected_result)
   end
 
   it 'should correctly render a name with quoted commas' do
@@ -261,7 +261,7 @@ describe 'when getting the content type of a mail part' do
 
   def expect_content_type(fixture_file, content_type)
     mail = get_fixture_mail(fixture_file)
-    MailHandler.get_content_type(mail).should == content_type
+    expect(MailHandler.get_content_type(mail)).to eq(content_type)
   end
 
   it 'should correctly return a type of "multipart/report"' do
@@ -279,9 +279,9 @@ describe 'when getting the content type of a mail part' do
   it 'should correctly return the types in an example bounce report' do
     mail = get_fixture_mail('track-response-ms-bounce.email')
     report = mail.parts.detect{ |part| MailHandler.get_content_type(part) == 'multipart/report'}
-    MailHandler.get_content_type(report.parts[0]).should == 'text/plain'
-    MailHandler.get_content_type(report.parts[1]).should == 'message/delivery-status'
-    MailHandler.get_content_type(report.parts[2]).should == 'message/rfc822'
+    expect(MailHandler.get_content_type(report.parts[0])).to eq('text/plain')
+    expect(MailHandler.get_content_type(report.parts[1])).to eq('message/delivery-status')
+    expect(MailHandler.get_content_type(report.parts[2])).to eq('message/rfc822')
   end
 
 end
@@ -290,7 +290,7 @@ describe 'when getting header strings' do
 
   def expect_header_string(fixture_file, header, header_string)
     mail = get_fixture_mail(fixture_file)
-    MailHandler.get_header_string(header, mail).should == header_string
+    expect(MailHandler.get_header_string(header, mail)).to eq(header_string)
   end
 
   it 'should return the contents of a "Subject" header' do
@@ -317,18 +317,18 @@ describe "when parsing HTML mail" do
   it "should display UTF-8 characters in the plain text version correctly" do
     html = "<html><b>foo</b> është"
     plain_text = MailHandler.get_attachment_text_one_file('text/html', html)
-    plain_text.should match(/është/)
+    expect(plain_text).to match(/është/)
   end
 
 end
 
 describe "when getting the attachment text" do
   it "should not raise an error if the expansion of a zip file raises an error" do
-    mock_entry = mock('ZipFile entry', :file? => true)
+    mock_entry = double('ZipFile entry', :file? => true)
     mock_entries = [mock_entry]
-    mock_entries.stub!(:close)
-    mock_entry.stub!(:get_input_stream).and_raise("invalid distance too far back")
-    Zip::ZipFile.stub!(:open).and_return(mock_entries)
+    allow(mock_entries).to receive(:close)
+    allow(mock_entry).to receive(:get_input_stream).and_raise("invalid distance too far back")
+    allow(Zip::ZipFile).to receive(:open).and_return(mock_entries)
     MailHandler.get_attachment_text_one_file('application/zip', "some string")
   end
 
@@ -339,27 +339,27 @@ describe 'when getting attachment attributes' do
   it 'should handle a mail with a non-multipart part with no charset in the Content-Type header' do
     mail = get_fixture_mail('part-without-charset-in-content-type.email')
     attributes = MailHandler.get_attachment_attributes(mail)
-    attributes.size.should == 2
+    expect(attributes.size).to eq(2)
   end
 
   it 'should get two attachment parts from a multipart mail with text and html alternatives
     and an image' do
     mail = get_fixture_mail('quoted-subject-iso8859-1.email')
     attributes = MailHandler.get_attachment_attributes(mail)
-    attributes.size.should == 2
+    expect(attributes.size).to eq(2)
   end
 
   it 'should get one attachment from a multipart mail with text and HTML alternatives, which should be UTF-8' do
     mail = get_fixture_mail('iso8859_2_raw_email.email')
     attributes = MailHandler.get_attachment_attributes(mail)
-    attributes.length.should == 1
-    attributes[0][:body].is_utf8?.should == true
+    expect(attributes.length).to eq(1)
+    expect(attributes[0][:body].is_utf8?).to eq(true)
   end
 
   it 'should get multiple attachments from a multipart mail with text and HTML alternatives, which should be UTF-8' do
     mail = get_fixture_mail('apple-mail-with-attachments.email')
     attributes = MailHandler.get_attachment_attributes(mail)
-    attributes.length.should == 7
+    expect(attributes.length).to eq(7)
   end
 
   it 'should expand a mail attached as text' do
@@ -368,14 +368,14 @@ describe 'when getting attachment attributes' do
     with_env_tz('London') do
       mail = get_fixture_mail('rfc822-attachment.email')
       attributes = MailHandler.get_attachment_attributes(mail)
-      attributes.size.should == 2
+      expect(attributes.size).to eq(2)
       rfc_attachment = attributes[1]
-      rfc_attachment[:within_rfc822_subject].should == 'Freedom of Information request'
+      expect(rfc_attachment[:within_rfc822_subject]).to eq('Freedom of Information request')
       headers = ['Date: Thu, 13 Mar 2008 16:57:33 +0000',
                  'Subject: Freedom of Information request',
                  'From: An FOI Officer <foi.officer@example.com>',
                  'To: request-bounce-xx-xxxxx@whatdotheyno.com']
-      rfc_attachment[:body].should == "#{headers.join("\n")}\n\nsome example text"
+      expect(rfc_attachment[:body]).to eq("#{headers.join("\n")}\n\nsome example text")
     end
   end
 
@@ -387,11 +387,11 @@ describe 'when getting attachment attributes' do
   it 'should ignore truncated TNEF attachment' do
     mail = get_fixture_mail('tnef-attachment-truncated.email')
     attributes = MailHandler.get_attachment_attributes(mail)
-    attributes.length.should == 2
+    expect(attributes.length).to eq(2)
   end
 
   it 'should ignore anything beyond the final MIME boundary' do
-    pending do
+    skip do
       # This example raw email has a premature closing boundary for
       # the outer multipart/mixed - my reading of RFC 1521 is that
       # the "epilogue" beyond that should be ignored.
@@ -406,10 +406,10 @@ describe 'when getting attachment attributes' do
   it 'should cope with a missing final MIME boundary' do
     mail = get_fixture_mail('multipart-no-final-boundary.email')
     attributes = MailHandler.get_attachment_attributes(mail)
-    attributes.length.should == 1
-    attributes[0][:body].should match(/This is an acknowledgement of your email/)
-    attributes[0][:content_type].should == "text/plain"
-    attributes[0][:url_part_number].should == 1
+    expect(attributes.length).to eq(1)
+    expect(attributes[0][:body]).to match(/This is an acknowledgement of your email/)
+    expect(attributes[0][:content_type]).to eq("text/plain")
+    expect(attributes[0][:url_part_number]).to eq(1)
   end
 
   it 'should ignore a TNEF attachment with no usable contents' do
@@ -424,16 +424,16 @@ describe 'when getting attachment attributes' do
     # same as before.
     mail = get_fixture_mail('tnef-attachment-empty.email')
     attributes = MailHandler.get_attachment_attributes(mail)
-    attributes.length.should == 2
+    expect(attributes.length).to eq(2)
     # This is the size of the TNEF-encoded attachment; currently,
     # we expect the code just to return this without decoding:
-    attributes[1][:body].length.should == 7769
+    expect(attributes[1][:body].length).to eq(7769)
   end
 
   it 'should treat a document/pdf attachment as application/pdf' do
     mail = get_fixture_mail('document-pdf.email')
     attributes = MailHandler.get_attachment_attributes(mail)
-    attributes[1][:content_type].should == "application/pdf"
+    expect(attributes[1][:content_type]).to eq("application/pdf")
   end
 
   it 'should produce a consistent set of url_part_numbers, content_types, within_rfc822_subjects
@@ -513,7 +513,7 @@ describe 'when getting attachment attributes' do
       attr.delete(:charset)
       attr.delete(:body)
       attr.delete(:hexdigest)
-      attr.should == expected_attributes[index]
+      expect(attr).to eq(expected_attributes[index])
     end
   end
 end
@@ -522,6 +522,6 @@ describe 'when getting the address part from an address string' do
 
   it 'should handle non-ascii characters in the name input' do
     address = "\"Someone’s name\" <test@example.com>"
-    MailHandler.address_from_string(address).should == 'test@example.com'
+    expect(MailHandler.address_from_string(address)).to eq('test@example.com')
   end
 end

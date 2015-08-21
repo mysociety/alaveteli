@@ -26,15 +26,15 @@ describe InfoRequestEvent do
       ire = InfoRequestEvent.new
       example_params = { :foo => 'this is stuff', :bar => 83, :humbug => "yikes!!!" }
       ire.params = example_params
-      ire.params_yaml.should == example_params.to_yaml
-      ire.params.should == example_params
+      expect(ire.params_yaml).to eq(example_params.to_yaml)
+      expect(ire.params).to eq(example_params)
     end
 
     it "should restore UTF8-heavy params stored under ruby 1.8 as UTF-8" do
       ire = InfoRequestEvent.new
       utf8_params = "--- \n:foo: !binary |\n  0KLQvtCz0LDRiCDR\n"
       ire.params_yaml = utf8_params
-      ire.params[:foo].encoding.to_s.should == 'UTF-8' if ire.params[:foo].respond_to?(:encoding)
+      expect(ire.params[:foo].encoding.to_s).to eq('UTF-8') if ire.params[:foo].respond_to?(:encoding)
     end
   end
 
@@ -47,52 +47,52 @@ describe InfoRequestEvent do
       @info_request = mock_model(InfoRequest, :indexed_by_search? => true)
     end
 
-    it 'should return false for a comment that is not visible' do
-      @comment.stub!(:visible).and_return(false)
+    it 'should return a falsey value for a comment that is not visible' do
+      allow(@comment).to receive(:visible).and_return(false)
       @info_request_event = InfoRequestEvent.new(:event_type => 'comment',
                                                  :comment => @comment,
                                                  :info_request => @info_request)
-      @info_request_event.indexed_by_search?.should be_false
+      expect(@info_request_event.indexed_by_search?).to be_falsey
     end
 
-    it 'should return true for a comment that is visible' do
-      @comment.stub!(:visible).and_return(true)
+    it 'should return a truthy value for a comment that is visible' do
+      allow(@comment).to receive(:visible).and_return(true)
       @info_request_event = InfoRequestEvent.new(:event_type => 'comment',
                                                  :comment => @comment,
                                                  :info_request => @info_request)
-      @info_request_event.indexed_by_search?.should be_true
+      expect(@info_request_event.indexed_by_search?).to be_truthy
     end
 
-    it 'should return false for an incoming message that is not indexed by search' do
-      @incoming_message.stub!(:indexed_by_search?).and_return false
+    it 'should return a truthy value for an incoming message that is not indexed by search' do
+      allow(@incoming_message).to receive(:indexed_by_search?).and_return false
       @info_request_event = InfoRequestEvent.new(:event_type => 'response',
                                                  :incoming_message => @incoming_message,
                                                  :info_request => @info_request)
-      @info_request_event.indexed_by_search?.should be_false
+      expect(@info_request_event.indexed_by_search?).to be_falsey
     end
 
-    it 'should return true for an incoming message that is indexed by search' do
-      @incoming_message.stub!(:indexed_by_search?).and_return true
+    it 'should return a truthy value for an incoming message that is indexed by search' do
+      allow(@incoming_message).to receive(:indexed_by_search?).and_return true
       @info_request_event = InfoRequestEvent.new(:event_type => 'response',
                                                  :incoming_message => @incoming_message,
                                                  :info_request => @info_request)
-      @info_request_event.indexed_by_search?.should be_true
+      expect(@info_request_event.indexed_by_search?).to be_truthy
     end
 
-    it 'should return false for an outgoing message that is not indexed by search' do
-      @outgoing_message.stub!(:indexed_by_search?).and_return false
+    it 'should return a falsey value for an outgoing message that is not indexed by search' do
+      allow(@outgoing_message).to receive(:indexed_by_search?).and_return false
       @info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
                                                  :outgoing_message => @outgoing_message,
                                                  :info_request => @info_request)
-      @info_request_event.indexed_by_search?.should be_false
+      expect(@info_request_event.indexed_by_search?).to be_falsey
     end
 
-    it 'should return true for an outgoing message that is indexed by search' do
-      @outgoing_message.stub!(:indexed_by_search?).and_return true
+    it 'should return a truthy value for an outgoing message that is indexed by search' do
+      allow(@outgoing_message).to receive(:indexed_by_search?).and_return true
       @info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
                                                  :outgoing_message => @outgoing_message,
                                                  :info_request => @info_request)
-      @info_request_event.indexed_by_search?.should be_true
+      expect(@info_request_event.indexed_by_search?).to be_truthy
     end
   end
 
@@ -102,7 +102,7 @@ describe InfoRequestEvent do
       event = InfoRequestEvent.new(:info_request => mock_model(InfoRequest),
                                    :event_type => 'sent',
                                    :params => {})
-      event.should_receive(:xapian_mark_needs_index)
+      expect(event).to receive(:xapian_mark_needs_index)
       event.run_callbacks(:save)
     end
 
@@ -112,25 +112,25 @@ describe InfoRequestEvent do
 
     it "that it's an incoming message" do
       event = InfoRequestEvent.new(:incoming_message => mock_model(IncomingMessage))
-      event.is_incoming_message?.should be_true
-      event.is_outgoing_message?.should be_false
-      event.is_comment?.should be_false
+      expect(event.is_incoming_message?).to be_truthy
+      expect(event.is_outgoing_message?).to be_falsey
+      expect(event.is_comment?).to be_falsey
     end
 
     it "that it's an outgoing message" do
       event = InfoRequestEvent.new(:outgoing_message => mock_model(OutgoingMessage))
       event.id = 1
-      event.is_incoming_message?.should be_false
-      event.is_outgoing_message?.should be_true
-      event.is_comment?.should be_false
+      expect(event.is_incoming_message?).to be_falsey
+      expect(event.is_outgoing_message?).to be_truthy
+      expect(event.is_comment?).to be_falsey
     end
 
     it "that it's a comment" do
       event = InfoRequestEvent.new(:comment => mock_model(Comment))
       event.id = 1
-      event.is_incoming_message?.should be_false
-      event.is_outgoing_message?.should be_false
-      event.is_comment?.should be_true
+      expect(event.is_incoming_message?).to be_falsey
+      expect(event.is_outgoing_message?).to be_falsey
+      expect(event.is_comment?).to be_truthy
     end
 
   end
@@ -145,20 +145,20 @@ describe InfoRequestEvent do
     it 'should get search text for outgoing messages' do
       event = info_request_events(:useless_outgoing_message_event)
       message = outgoing_messages(:useless_outgoing_message).body
-      event.search_text_main.should == message + "\n\n"
+      expect(event.search_text_main).to eq(message + "\n\n")
     end
 
     it 'should get search text for incoming messages' do
       event = info_request_events(:useless_incoming_message_event)
-      event.search_text_main.strip.should == "No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango"
+      expect(event.search_text_main.strip).to eq("No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango")
     end
 
     it 'should get clipped text for incoming messages, and cache it too' do
       event = info_request_events(:useless_incoming_message_event)
 
       event.incoming_message_selective_columns("cached_main_body_text_folded").cached_main_body_text_folded = nil
-      event.search_text_main(true).strip.should == "No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango"
-      event.incoming_message_selective_columns("cached_main_body_text_folded").cached_main_body_text_folded.should_not == nil
+      expect(event.search_text_main(true).strip).to eq("No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango")
+      expect(event.incoming_message_selective_columns("cached_main_body_text_folded").cached_main_body_text_folded).not_to eq(nil)
     end
 
   end
@@ -170,45 +170,45 @@ describe InfoRequestEvent do
     end
 
     it 'should return true if the email in its params and the previous email the request was sent to are both nil' do
-      @info_request_event.stub!(:params).and_return({})
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
-      @info_request_event.same_email_as_previous_send?.should be_true
+      allow(@info_request_event).to receive(:params).and_return({})
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
+      expect(@info_request_event.same_email_as_previous_send?).to be true
     end
 
     it 'should return false if one email address exists and the other does not' do
-      @info_request_event.stub!(:params).and_return(:email => 'test@example.com')
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
-      @info_request_event.same_email_as_previous_send?.should be_false
+      allow(@info_request_event).to receive(:params).and_return(:email => 'test@example.com')
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
+      expect(@info_request_event.same_email_as_previous_send?).to be false
     end
 
     it 'should return true if the addresses are identical' do
-      @info_request_event.stub!(:params).and_return(:email => 'test@example.com')
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
-      @info_request_event.same_email_as_previous_send?.should be_true
+      allow(@info_request_event).to receive(:params).and_return(:email => 'test@example.com')
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
+      expect(@info_request_event.same_email_as_previous_send?).to be true
     end
 
     it 'should return false if the addresses are different' do
-      @info_request_event.stub!(:params).and_return(:email => 'test@example.com')
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('different@example.com')
-      @info_request_event.same_email_as_previous_send?.should be_false
+      allow(@info_request_event).to receive(:params).and_return(:email => 'test@example.com')
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return('different@example.com')
+      expect(@info_request_event.same_email_as_previous_send?).to be false
     end
 
     it 'should return true if the addresses have different formats' do
-      @info_request_event.stub!(:params).and_return(:email => 'A Test <test@example.com>')
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
-      @info_request_event.same_email_as_previous_send?.should be_true
+      allow(@info_request_event).to receive(:params).and_return(:email => 'A Test <test@example.com>')
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
+      expect(@info_request_event.same_email_as_previous_send?).to be true
     end
 
     it 'should handle non-ascii characters in the name input' do
       address = "\"Someone’s name\" <test@example.com>"
-      @info_request_event.stub!(:params).and_return(:email => address)
-      @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(address)
-      @info_request_event.same_email_as_previous_send?.should be_true
+      allow(@info_request_event).to receive(:params).and_return(:email => address)
+      allow(@info_request_event).to receive_message_chain(:info_request, :get_previous_email_sent_to).and_return(address)
+      expect(@info_request_event.same_email_as_previous_send?).to be true
     end
 
   end
 
-  describe :set_calculated_state! do
+  describe '#set_calculated_state!' do
 
     before do
       @info_request_event = FactoryGirl.build(:sent_event)

@@ -9,22 +9,22 @@ describe 'reports/new.html.erb' do
 
   it "should show a form" do
     render
-    rendered.should have_selector("form")
+    expect(rendered).to have_css("form")
   end
 
   context "request has already been reported" do
     before :each do
-      info_request.stub!(:attention_requested).and_return(true)
+      allow(info_request).to receive(:attention_requested).and_return(true)
     end
 
     it "should not show a form" do
       render
-      rendered.should_not have_selector("form")
+      expect(rendered).not_to have_css("form")
     end
 
     it "should say it's already been reported" do
       render
-      rendered.should contain("This request has already been reported")
+      expect(rendered).to have_content("This request has already been reported")
     end
   end
 end

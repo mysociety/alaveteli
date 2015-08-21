@@ -19,7 +19,7 @@ describe AdminRequestController, "when administering requests" do
 
   it 'shows an external public body with no username' do
     get :show, :id => info_requests(:anonymous_external_request)
-    response.should be_success
+    expect(response).to be_success
   end
 
   it "edits a public body" do
@@ -27,7 +27,7 @@ describe AdminRequestController, "when administering requests" do
   end
 
   it "saves edits to a request" do
-    info_requests(:fancy_dog_request).title.should == "Why do you have & such a fancy dog?"
+    expect(info_requests(:fancy_dog_request).title).to eq("Why do you have & such a fancy dog?")
     post :update, { :id => info_requests(:fancy_dog_request),
                     :info_request => { :title => "Renamed",
                                        :prominence => "normal",
@@ -35,14 +35,14 @@ describe AdminRequestController, "when administering requests" do
                                        :awaiting_description => false,
                                        :allow_new_responses_from => 'anybody',
                                        :handle_rejected_responses => 'bounce' } }
-    request.flash[:notice].should include('successful')
+    expect(request.flash[:notice]).to include('successful')
     ir = InfoRequest.find(info_requests(:fancy_dog_request).id)
-    ir.title.should == "Renamed"
+    expect(ir.title).to eq("Renamed")
   end
 
   it 'expires the request cache when saving edits to it' do
     info_request = info_requests(:fancy_dog_request)
-    @controller.should_receive(:expire_for_request).with(info_request)
+    expect(@controller).to receive(:expire_for_request).with(info_request)
     post :update, { :id => info_request,
                     :info_request => { :title => "Renamed",
                                        :prominence => "normal",
@@ -57,14 +57,14 @@ describe AdminRequestController, "when administering requests" do
 
     it 'expires the file cache for that request' do
       info_request = info_requests(:badger_request)
-      @controller.should_receive(:expire_for_request).with(info_request)
+      expect(@controller).to receive(:expire_for_request).with(info_request)
       get :destroy, { :id => info_request }
     end
 
     it 'uses a different flash message to avoid trying to fetch a non existent user record' do
       info_request = info_requests(:external_request)
       post :destroy, { :id => info_request.id }
-      request.flash[:notice].should include('external')
+      expect(request.flash[:notice]).to include('external')
     end
 
   end
@@ -81,11 +81,11 @@ describe AdminRequestController, "when administering the holding pen" do
   it "shows a suitable default 'your email has been hidden' message" do
     ir = info_requests(:fancy_dog_request)
     get :show, :id => ir.id
-    assigns[:request_hidden_user_explanation].should include(ir.user.name)
-    assigns[:request_hidden_user_explanation].should include("vexatious")
+    expect(assigns[:request_hidden_user_explanation]).to include(ir.user.name)
+    expect(assigns[:request_hidden_user_explanation]).to include("vexatious")
     get :show, :id => ir.id, :reason => "not_foi"
-    assigns[:request_hidden_user_explanation].should_not include("vexatious")
-    assigns[:request_hidden_user_explanation].should include("not a valid FOI")
+    expect(assigns[:request_hidden_user_explanation]).not_to include("vexatious")
+    expect(assigns[:request_hidden_user_explanation]).to include("not a valid FOI")
   end
 
   describe 'when hiding requests' do
@@ -94,24 +94,24 @@ describe AdminRequestController, "when administering the holding pen" do
       ir = info_requests(:fancy_dog_request)
       post :hide, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
       ir.reload
-      ir.prominence.should == "requester_only"
-      ir.described_state.should == "vexatious"
+      expect(ir.prominence).to eq("requester_only")
+      expect(ir.described_state).to eq("vexatious")
       deliveries = ActionMailer::Base.deliveries
-      deliveries.size.should == 1
+      expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      mail.body.should =~ /Foo/
+      expect(mail.body).to match(/Foo/)
     end
 
     it 'expires the file cache for the request' do
       ir = info_requests(:fancy_dog_request)
-      @controller.should_receive(:expire_for_request).with(ir)
+      expect(@controller).to receive(:expire_for_request).with(ir)
       post :hide, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
     end
 
     describe 'when hiding an external request' do
 
       before do
-        @controller.stub!(:expire_for_request)
+        allow(@controller).to receive(:expire_for_request)
         @info_request = mock_model(InfoRequest, :prominence= => nil,
                                    :log_event => nil,
                                    :set_described_state => nil,
@@ -119,7 +119,7 @@ describe AdminRequestController, "when administering the holding pen" do
                                    :user => nil,
                                    :user_name => 'External User',
                                    :is_external? => true)
-        InfoRequest.stub!(:find).with(@info_request.id.to_s).and_return(@info_request)
+        allow(InfoRequest).to receive(:find).with(@info_request.id.to_s).and_return(@info_request)
         @default_params = { :id => @info_request.id,
                             :explanation => 'Foo',
                             :reason => 'vexatious' }
@@ -131,29 +131,29 @@ describe AdminRequestController, "when administering the holding pen" do
 
       it 'should redirect the the admin page for the request' do
         make_request
-        response.should redirect_to(:controller => 'admin_request',
+        expect(response).to redirect_to(:controller => 'admin_request',
                                     :action => 'show',
                                     :id => @info_request.id)
       end
 
       it 'should set the request prominence to "requester_only"' do
-        @info_request.should_receive(:prominence=).with('requester_only')
-        @info_request.should_receive(:save!)
+        expect(@info_request).to receive(:prominence=).with('requester_only')
+        expect(@info_request).to receive(:save!)
         make_request
       end
 
       it 'should not send a notification email' do
-        ContactMailer.should_not_receive(:from_admin_message)
+        expect(ContactMailer).not_to receive(:from_admin_message)
         make_request
       end
 
       it 'should add a notice to the flash saying that the request has been hidden' do
         make_request
-        request.flash[:notice].should == "This external request has been hidden"
+        expect(request.flash[:notice]).to eq("This external request has been hidden")
       end
 
       it 'should expire the file cache for the request' do
-        @controller.should_receive(:expire_for_request)
+        expect(@controller).to receive(:expire_for_request)
         make_request
       end
     end

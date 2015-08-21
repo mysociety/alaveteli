@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe AdminPublicBodyHeadingsController do
 
-  describe :new do
+  describe 'GET new' do
 
     it 'responds successfully' do
       get :new
@@ -31,7 +31,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     context 'on success' do
 
@@ -143,7 +143,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :edit do
+  describe 'GET edit' do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
@@ -175,7 +175,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :update do
+  describe 'PUT update' do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
@@ -233,7 +233,7 @@ describe AdminPublicBodyHeadingsController do
     context 'on success for multiple locales' do
 
       it 'saves edits to a public body heading in another locale' do
-        @heading.name(:es).should == 'Los heading'
+        expect(@heading.name(:es)).to eq('Los heading')
         post :update, :id => @heading.id,
         :public_body_heading => {
           :translations_attributes => {
@@ -268,7 +268,7 @@ describe AdminPublicBodyHeadingsController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         heading = PublicBodyHeading.find(@heading.id)
 
@@ -296,7 +296,7 @@ describe AdminPublicBodyHeadingsController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         heading = PublicBodyHeading.find(@heading.id)
 
@@ -327,7 +327,7 @@ describe AdminPublicBodyHeadingsController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         heading = PublicBodyHeading.find(@heading.id)
 
@@ -411,7 +411,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :destroy do
+  describe 'DELETE destroy' do
 
     it 'uses the current locale by default' do
       heading = FactoryGirl.create(:public_body_heading)
@@ -483,13 +483,13 @@ describe AdminPublicBodyHeadingsController do
 
       it 'should reorder headings according to their position in the submitted params' do
         make_request
-        PublicBodyHeading.find(@second.id).display_order.should == 0
-        PublicBodyHeading.find(@first.id).display_order.should == 1
+        expect(PublicBodyHeading.find(@second.id).display_order).to eq(0)
+        expect(PublicBodyHeading.find(@first.id).display_order).to eq(1)
       end
 
       it 'should return a "success" status' do
         make_request
-        response.should be_success
+        expect(response).to be_success
       end
     end
 
@@ -502,13 +502,13 @@ describe AdminPublicBodyHeadingsController do
       it 'should return an "unprocessable entity" status and an error message' do
         make_request(@params)
         assert_response :unprocessable_entity
-        response.body.should match("Couldn't find PublicBodyHeading with id")
+        expect(response.body).to match("Couldn't find PublicBodyHeading with id")
       end
 
       it 'should not reorder headings' do
         make_request(@params)
-        PublicBodyHeading.find(@first.id).display_order.should == 0
-        PublicBodyHeading.find(@second.id).display_order.should == 1
+        expect(PublicBodyHeading.find(@first.id).display_order).to eq(0)
+        expect(PublicBodyHeading.find(@second.id).display_order).to eq(1)
       end
 
     end
@@ -545,14 +545,14 @@ describe AdminPublicBodyHeadingsController do
       it 'should reorder categories for the heading according to their position \
                 in the submitted params' do
 
-        @heading.public_body_categories.should == @old_order
+        expect(@heading.public_body_categories).to eq(@old_order)
         make_request
-        @heading.public_body_categories(reload=true).should == @new_order
+        expect(@heading.public_body_categories(reload=true)).to eq(@new_order)
       end
 
       it 'should return a success status' do
         make_request
-        response.should be_success
+        expect(response).to be_success
       end
     end
 
@@ -568,12 +568,12 @@ describe AdminPublicBodyHeadingsController do
       it 'should return an "unprocessable entity" status and an error message' do
         make_request(@params)
         assert_response :unprocessable_entity
-        response.body.should match("Couldn't find PublicBodyCategoryLink")
+        expect(response.body).to match("Couldn't find PublicBodyCategoryLink")
       end
 
       it 'should not reorder the categories for the heading' do
         make_request(@params)
-        @heading.public_body_categories(reload=true).should == @old_order
+        expect(@heading.public_body_categories(reload=true)).to eq(@old_order)
       end
     end
 

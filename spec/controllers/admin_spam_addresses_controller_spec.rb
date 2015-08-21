@@ -5,12 +5,12 @@ describe AdminSpamAddressesController do
   render_views
   before { basic_auth_login @request }
 
-  describe :index do
+  describe 'GET index' do
 
     it 'lists the spam addresses' do
       3.times { FactoryGirl.create(:spam_address) }
       get :index
-      assigns(:spam_addresses).should == SpamAddress.all
+      expect(assigns(:spam_addresses)).to eq(SpamAddress.all)
     end
 
     it 'creates a new spam address for the form' do
@@ -25,45 +25,45 @@ describe AdminSpamAddressesController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     let(:spam_params) { FactoryGirl.attributes_for(:spam_address) }
 
     it 'creates a new spam address with the given parameters' do
       post :create, :spam_address => spam_params
-      assigns(:spam_address).email.should == spam_params[:email]
-      assigns(:spam_address).should be_persisted
+      expect(assigns(:spam_address).email).to eq(spam_params[:email])
+      expect(assigns(:spam_address)).to be_persisted
     end
 
     it 'redirects to the index action if successful' do
-      SpamAddress.any_instance.stub(:save).and_return(true)
+      allow_any_instance_of(SpamAddress).to receive(:save).and_return(true)
       post :create, :spam_address => spam_params
       expect(response).to redirect_to(admin_spam_addresses_path)
     end
 
     it 'notifies the admin the spam address has been created' do
-      SpamAddress.any_instance.stub(:save).and_return(true)
+      allow_any_instance_of(SpamAddress).to receive(:save).and_return(true)
       post :create, :spam_address => spam_params
       msg = "#{ spam_params[:email] } has been added to the spam addresses list"
-      flash[:notice].should == msg
+      expect(flash[:notice]).to eq(msg)
     end
 
     it 'renders the index action if the address could not be saved' do
-      SpamAddress.any_instance.stub(:save).and_return(false)
+      allow_any_instance_of(SpamAddress).to receive(:save).and_return(false)
       post :create, :spam_address => spam_params
       expect(response).to render_template('index')
     end
 
     it 'collects the spam addresses if the address could not be saved' do
       3.times { FactoryGirl.create(:spam_address) }
-      SpamAddress.any_instance.stub(:save).and_return(false)
+      allow_any_instance_of(SpamAddress).to receive(:save).and_return(false)
       post :create, :spam_address => spam_params
-      assigns(:spam_addresses).should == SpamAddress.all
+      expect(assigns(:spam_addresses)).to eq(SpamAddress.all)
     end
 
   end
 
-  describe :delete do
+  describe 'DELETE destroy' do
 
     before(:each) do
       @spam = FactoryGirl.create(:spam_address)
@@ -71,16 +71,16 @@ describe AdminSpamAddressesController do
     end
 
     it 'finds the spam address to delete' do
-      assigns(:spam_address).should == @spam
+      expect(assigns(:spam_address)).to eq(@spam)
     end
 
     it 'destroys the spam address' do
-      assigns(:spam_address).should be_destroyed
+      expect(assigns(:spam_address)).to be_destroyed
     end
 
     it 'tells the admin the spam address has been deleted' do
       msg = "#{ @spam.email } has been removed from the spam addresses list"
-      flash[:notice].should == msg
+      expect(flash[:notice]).to eq(msg)
     end
 
     it 'redirects to the index action' do
