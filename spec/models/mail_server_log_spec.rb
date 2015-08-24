@@ -107,6 +107,42 @@ describe MailServerLog do
     end
   end
 
+  context "Exim" do
+    describe ".load_exim_log_data" do
+      it "sanitizes each line in the log file" do
+        allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
+
+        ir = info_requests(:fancy_dog_request)
+        allow(InfoRequest).to receive(:find_by_incoming_email).with("request-1234@example.com").and_return(ir)
+
+        # Log files can contain stuff which isn't valid UTF-8 sometimes when
+        # things go wrong.
+        fixture_path = file_fixture_name('exim-bad-utf8-exim-log')
+        log = File.open(fixture_path, 'r')
+        done = MailServerLogDone.new(:filename => "foo",
+                                     :last_stat => DateTime.new(2012, 10, 10))
+
+        expect(ir.mail_server_logs.count).to eq 0
+        # This will error if we don't sanitize the lines
+        MailServerLog.load_exim_log_data(log, done)
+        expect(ir.mail_server_logs.count).to eq 3
+
+        # Check that we stored a sanitised version of the log line
+        expected_log_line = "2015-07-09 15:41:40 [29933] foi+request-1234" \
+                            "@example.com SMTP protocol synchronization " \
+                            "error (next input sent too soon: pipelining was" \
+                            " not advertised): rejected \"EHLO 0]C\u000E" \
+                            "\u000E\u0003\u001C<\u0006\u0019~\u0006|='" \
+                            "\u0016)\u0006\u0005\" H=remote.comagex.be " \
+                            "[91.183.116.119]:53191 I=[46.43.39.78]:25 " \
+                            "next \input=\"\\f\\227\\212\\016\\314\\246" \
+                            "\\r\\n\"\n"
+        expect(ir.mail_server_logs[1].line).to eq expected_log_line
+        log.close
+      end
+    end
+  end
+
   context "Postfix" do
     let(:log) {[
                  "Oct  3 16:39:35 host postfix/pickup[2257]: CB55836EE58C: uid=1003 from=<foitest+request-14-e0e09f97@example.com>",

@@ -66,9 +66,10 @@ class MailServerLog < ActiveRecord::Base
   def self.load_exim_log_data(f, done)
     order = 0
     f.each do |line|
+      sanitised_line = scrub(line)
       order = order + 1
-      emails = email_addresses_on_line(line)
-      create_mail_server_logs(emails, line, order, done)
+      emails = email_addresses_on_line(sanitised_line)
+      create_mail_server_logs(emails, sanitised_line, order, done)
     end
   end
 
@@ -78,10 +79,11 @@ class MailServerLog < ActiveRecord::Base
     # Go back to the beginning of the file
     f.rewind
     f.each do |line|
+      sanitised_line = scrub(line)
       order = order + 1
-      queue_id = extract_postfix_queue_id_from_syslog_line(line)
+      queue_id = extract_postfix_queue_id_from_syslog_line(sanitised_line)
       if emails.has_key?(queue_id)
-        create_mail_server_logs(emails[queue_id], line, order, done)
+        create_mail_server_logs(emails[queue_id], sanitised_line, order, done)
       end
     end
   end
