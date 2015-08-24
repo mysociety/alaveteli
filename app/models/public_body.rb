@@ -92,7 +92,7 @@ class PublicBody < ActiveRecord::Base
     [:tag_array_for_search, 'U', "tag"]
   ]
   has_tag_string
-  strip_attributes!
+  strip_attributes :allow_empty => true
   translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
   # Cannot be grouped at top as it depends on the `translates` macro
@@ -104,6 +104,7 @@ class PublicBody < ActiveRecord::Base
   # Cannot be grouped at top as it depends on the `translates` macro
   class Translation
     include PublicBodyDerivedFields
+    strip_attributes :allow_empty => true
   end
 
   self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'

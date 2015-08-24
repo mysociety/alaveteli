@@ -27,7 +27,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  strip_attributes!
+  strip_attributes :allow_empty => true
 
   attr_accessor :password_confirmation, :no_xapian_reindex
 
@@ -208,14 +208,9 @@ class User < ActiveRecord::Base
                 comments.visible
   end
 
-  # Don't display any leading/trailing spaces
-  # TODO: we have strip_attributes! now, so perhaps this can be removed (might
-  # be still needed for existing cases)
   def name
     name = read_attribute(:name)
-    if not name.nil?
-      name.strip!
-    end
+
     if banned?
       # Use interpolation to return a string rather than a SafeBuffer so that
       # gsub can be called on it until we upgrade to Rails 3.2. The name returned
@@ -224,17 +219,18 @@ class User < ActiveRecord::Base
       name = _("{{user_name}} (Account suspended)", :user_name => name.html_safe)
       name = "#{name}"
     end
+
     name
   end
 
   # When name is changed, also change the url name
   def name=(name)
-    write_attribute(:name, name)
+    write_attribute(:name, name.try(:strip))
     update_url_name
   end
 
   def update_url_name
-    url_name = MySociety::Format.simplify_url_part(name, 'user', 32)
+    url_name = MySociety::Format.simplify_url_part(read_attribute(:name), 'user', 32)
     # For user with same name as others, add on arbitary numeric identifier
     unique_url_name = url_name
     suffix_num = 2 # as there's already one without numeric suffix
