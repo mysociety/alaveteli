@@ -50,6 +50,26 @@ describe InfoRequest do
 
   describe '#receive' do
 
+    it "uses instance-specific spam handling first" do
+      info_request = FactoryGirl.create(:info_request)
+      info_request.update_attributes!(:handle_rejected_responses => 'bounce',
+                                      :allow_new_responses_from => 'nobody')
+      AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('holding_pen')
+      AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
+      AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(100)
+      spam_email = <<-EOF.strip_heredoc
+      From: EMAIL_FROM
+      To: FOI Person <EMAIL_TO>
+      Subject: BUY MY SPAM
+      X-Spam-Score: 1000
+      Plz buy my spam
+      EOF
+
+      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+
+      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+    end
+
     it "redirects spam to the holding_pen" do
       info_request = FactoryGirl.create(:info_request)
       AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('holding_pen')
