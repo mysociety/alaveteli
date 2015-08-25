@@ -47,6 +47,19 @@ describe AttachmentToHTML::Adapters::Text do
       expect(adapter.body).to eq(expected)
     end
 
+    it 'returns the body encoded as UTF-8' do
+      attachment = FactoryGirl.build(:body_text, :body => "\xBF")
+      adapter = AttachmentToHTML::Adapters::Text.new(attachment)
+      expect(adapter.body.encoding).to eq(Encoding.find('UTF-8'))
+    end
+
+    it 'returns the body as valid UTF-8 when the text is not
+        valid UTF-8' do
+      attachment = FactoryGirl.build(:body_text, :body => "\xBF")
+      adapter = AttachmentToHTML::Adapters::Text.new(attachment)
+      expect(adapter.body).to be_valid_encoding
+    end
+
   end
 
   describe :success? do
