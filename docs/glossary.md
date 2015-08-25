@@ -30,6 +30,7 @@ Definitions
   <li><a href="#disclosure-log">disclosure log</a></li>
   <li><a href="#emergency">emergency user</a></li>
   <li><a href="#foi">freedom of information</a></li>
+  <li><a href="#geoip-database">GeoIP database</a></li>
   <li><a href="#gaze">gaze</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">holding pen</a></li>
@@ -419,18 +420,38 @@ Definitions
   </dd>
 
   <dt>
-    <a name="gaze">gaze</a>
+    <a name="geoip-database">GeoIP database</a>
   </dt>
   <dd>
     <p>
-      Alateveli uses mySociety's gazeteer service, called Gaze, to determine
-      each user's country from their incoming IP address. This lets the site
-      suggest an Alaveteli site in their country, if one exists.
+      A GeoIP database is a local store of geographical information about IP addresses.
+      By default, Alaveteli uses a GeoIP database to determine each user's country from
+      their incoming IP address. This lets the site suggest an Alaveteli site in their
+      country, if one exists.
     </p>
     <div class="more-info">
       <p>More information:</p>
       <ul>
-        <li>The config variable 
+        <li>More about the free <a href="http://dev.maxmind.com/geoip/legacy/geolite/">GeoLite databases</a> from MaxMind.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="gaze">gaze</a>
+  </dt>
+  <dd>
+    <p>
+      In the absence of a <a href="#geoip-database">GeoIP database</a>, Alateveli uses
+      mySociety's gazeteer service, called Gaze, to determine each user's country from
+      their incoming IP address. This lets the site suggest an Alaveteli site in their
+      country, if one exists.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>The config variable
           <code><a href="{{ page.baseurl }}/docs/customising/config/#gaze_url">GAZE_URL</a></code>
           should usually point at...
         </li>
