@@ -27,6 +27,11 @@ anywhere from one day to three months, depending on the scale of your ambition
 for customising the software, your access to technical skills, and your
 available time.
 
+<div class="attention-box">
+  <h3>How does Alaveteli work?</h3>
+  <img src="{{ site.baseurl }}assets/img/alaveteli-overview.png" />
+</div>
+
 You can get a feeling for how things might turn out by reading [how an
 Alaveteli was set up in
 Spain](https://www.mysociety.org/2012/04/16/a-right-to-know-site-for-spain/)
