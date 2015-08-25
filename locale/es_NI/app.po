@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-12 11:00+0000\n"
-"PO-Revision-Date: 2015-08-12 11:02+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2015-08-22 00:57+0000\n"
+"Last-Translator: jbaezni <jbaezni@gmail.com>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/mysociety/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
 "MIME-Version: 1.0\n"
@@ -3584,7 +3584,7 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr "Usted ahora está <a href=\"{{wall_url_user}}\"> siguiendo </a> actualizaciones sobre <a href=\"{{successful_requests_url}}\"> solicitudes exitosas </a>."
 
 msgid "You can <strong>complain</strong> by"
-msgstr "Puede <strong>apelar</strong>"
+msgstr "Puede <strong>preguntar por su solicitud</strong>"
 
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "Puedes cambiar los pedidos y usuarios a los que estas siguiendo en  <a href=\"{{profile_url}}\">tu página de perfil</a>."
@@ -4021,7 +4021,7 @@ msgid "please sign in as "
 msgstr "por favor abra una sesión como "
 
 msgid "requesting an internal review"
-msgstr "pidiendo una revisión de la información"
+msgstr "Pregunta por tu solicitud."
 
 msgid "requests"
 msgstr "solicitudes"
