@@ -206,11 +206,32 @@ indentation correct. If in doubt, look at the examples already in the file, and 
     <a name="force_registration_on_new_request"><code>FORCE_REGISTRATION_ON_NEW_REQUEST</code></a>
   </dt>
   <dd>
-    Does a user needs to sign in to start the New Request process?
+    Does a user need to sign in to start the New Request process?
+    <p>
+      Alaveteli will not send a request on behalf of a user until they have
+      confirmed their email address. This setting controls <em>when</em> in the
+      process such confirmation is required.
+    </p>
+    <p>
+      If <code>FORCE_REGISTRATION_ON_NEW_REQUEST</code> is false, a user who is
+      not logged in can create a new request, but when they finally submit it
+      they'll be invited to sign in or register; the request will not be sent
+      until they have done so. That is, Alaveteli puts the confirmation of
+      email address (by registering or signing in) <em>at the end</em> of the
+      process. We recommend this because demanding registration right at the
+      start may subtly discourage new users from making requests. If you don't
+      want your site to behave in this way, set this to true.
+    </p>
+    <p>
+      This setting does not affect the way the site behaves if the user is
+      already logged in.
+    </p>
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
+            We recommend you don't force registration at the start of the process:
+            <br>
             <code>FORCE_REGISTRATION_ON_NEW_REQUEST: false</code>
         </li>
       </ul>
@@ -654,6 +675,12 @@ THEME_URLS:
       <ul class="examples">
         <li>
             <code>INCOMING_EMAIL_SPAM_ACTION: 'discard'</code>
+        </li>
+        <li>
+            <code>INCOMING_EMAIL_SPAM_ACTION: 'holding_pen'</code>
+        </li>
+        <li>
+            <code>INCOMING_EMAIL_SPAM_ACTION: 'false'</code>
         </li>
         <li>
             <code>INCOMING_EMAIL_SPAM_HEADER: 'X-mySociety-Spam-Score'</code>
