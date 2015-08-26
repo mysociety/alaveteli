@@ -425,11 +425,11 @@ class InfoRequest < ActiveRecord::Base
       gatekeeper =
         case allow_new_responses_from
         when 'nobody'
-          allow_new_responses_from_nobody
+          ResponseGatekeeper::Nobody.new
         when 'anybody'
-          allow_new_responses_from_anybody
+          ResponseGatekeeper::Anybody.new
         when 'authority_only'
-          allow_new_responses_from_authority_only(email)
+          ResponseGatekeeper::AuthorityOnly.new(self, email)
         else
           raise "Unknown allow_new_responses_from '#{ allow_new_responses_from }'"
         end
@@ -1353,18 +1353,6 @@ class InfoRequest < ActiveRecord::Base
   end
 
   private
-
-  def allow_new_responses_from_anybody
-    ResponseGatekeeper::Anybody.new
-  end
-
-  def allow_new_responses_from_nobody
-    ResponseGatekeeper::Nobody.new
-  end
-
-  def allow_new_responses_from_authority_only(email)
-    ResponseGatekeeper::AuthorityOnly.new(self, email)
-  end
 
   module ResponseGatekeeper
     class Nobody
