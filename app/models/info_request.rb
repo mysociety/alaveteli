@@ -420,7 +420,7 @@ class InfoRequest < ActiveRecord::Base
   # A new incoming email to this request
   def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
     # Is this request allowing responses?
-    if !override_stop_new_responses
+    unless override_stop_new_responses
       allow = nil
       reason = nil
       # See if new responses are prevented for spam reasons
@@ -502,7 +502,11 @@ class InfoRequest < ActiveRecord::Base
     create_response!(email, raw_email_data, rejected_reason)
 
     self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
-    RequestMailer.new_response(self, incoming_messages.last).deliver if !is_external?
+    # Notify the user that a new response has been received, unless the request
+    # is external
+    unless is_external?
+      RequestMailer.new_response(self, incoming_messages.last).deliver
+    end
   end
 
 
