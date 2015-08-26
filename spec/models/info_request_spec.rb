@@ -264,9 +264,13 @@ describe InfoRequest do
       info_request = FactoryGirl.create(:info_request)
       info_request.update_attributes!(:handle_rejected_responses => 'bounce',
                                       :allow_new_responses_from => 'nobody')
-      AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('holding_pen')
-      AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
-      AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(100)
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_action).and_return('holding_pen')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_threshold).and_return(100)
+
       spam_email = <<-EOF.strip_heredoc
       From: EMAIL_FROM
       To: FOI Person <EMAIL_TO>
@@ -282,9 +286,13 @@ describe InfoRequest do
 
     it "redirects spam to the holding_pen" do
       info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('holding_pen')
-      AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
-      AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(100)
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_action).and_return('holding_pen')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_threshold).and_return(100)
+
       spam_email = <<-EOF.strip_heredoc
       From: EMAIL_FROM
       To: FOI Person <EMAIL_TO>
@@ -300,9 +308,13 @@ describe InfoRequest do
 
     it "discards mail over the configured spam threshold" do
       info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('discard')
-      AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
-      AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(10)
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_action).and_return('discard')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_threshold).and_return(10)
+
       spam_email = <<-EOF.strip_heredoc
       From: EMAIL_FROM
       To: FOI Person <EMAIL_TO>
@@ -320,9 +332,13 @@ describe InfoRequest do
 
     it "delivers mail under the configured spam threshold" do
       info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('discard')
-      AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
-      AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(1000)
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_action).and_return('discard')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_threshold).and_return(1000)
+
       spam_email = <<-EOF.strip_heredoc
       From: EMAIL_FROM
       To: FOI Person <EMAIL_TO>
@@ -340,9 +356,13 @@ describe InfoRequest do
 
     it "delivers mail without a spam header" do
       info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub(:incoming_email_spam_action).and_return('discard')
-      AlaveteliConfiguration.stub(:incoming_email_spam_header).and_return('X-Spam-Score')
-      AlaveteliConfiguration.stub(:incoming_email_spam_threshold).and_return(1000)
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_action).and_return('discard')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
+      allow(AlaveteliConfiguration).
+        to receive(:incoming_email_spam_threshold).and_return(1000)
+
       spam_email = <<-EOF.strip_heredoc
       From: EMAIL_FROM
       To: FOI Person <EMAIL_TO>
@@ -497,12 +517,12 @@ describe InfoRequest do
       first_message = info_request.outgoing_messages.first
       first_message.prominence = 'hidden'
       first_message.save!
-      info_request.initial_request_text.should == ''
+      expect(info_request.initial_request_text).to eq('')
     end
 
     it 'returns the text of the first outgoing message if it is visible' do
       info_request = FactoryGirl.create(:info_request)
-      info_request.initial_request_text.should == 'Some information please'
+      expect(info_request.initial_request_text).to eq('Some information please')
     end
 
   end
@@ -536,6 +556,7 @@ describe InfoRequest do
     it 'should not require a public body id if it is a batch request template' do
       info_request = InfoRequest.new
       info_request.is_batch_request_template = true
+
       info_request.valid?
       expect(info_request.errors[:public_body_id]).to be_empty
     end
