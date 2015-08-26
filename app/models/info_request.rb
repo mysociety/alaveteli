@@ -1354,35 +1354,82 @@ class InfoRequest < ActiveRecord::Base
   private
 
   def allow_new_responses_from_anybody
-    [true, nil]
+    gatekeeper = ResponseGatekeeper::Anybody.new
+    [gatekeeper.allow, gatekeeper.reason]
   end
 
   def allow_new_responses_from_nobody
-    allow = false
-    reason = _('This request has been set by an administrator to "allow new responses from nobody"')
-    [allow, reason]
+    gatekeeper = ResponseGatekeeper::Nobody.new
+    [gatekeeper.allow, gatekeeper.reason]
   end
 
   def allow_new_responses_from_authority_only(email)
-    sender_email = MailHandler.get_from_address(email)
-    if sender_email.nil?
-      allow = false
-      reason = _('Only the authority can reply to this request, but there is no "From" address to check against')
-    else
-      sender_domain = PublicBody.extract_domain_from_email(sender_email)
-      reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
-      allow = false
-      # Allow any domain that has already sent reply
-      who_can_followup_to.each do |row|
-        request_domain = PublicBody.extract_domain_from_email(row[1])
-        if request_domain == sender_domain
-          allow = true
-          reason = nil
-        end
+    gatekeeper = ResponseGatekeeper::AuthorityOnly.new(self, email)
+    [gatekeeper.allow, gatekeeper.reason]
+  end
+
+  module ResponseGatekeeper
+    class Nobody
+      attr_reader :allow, :reason
+
+      def initialize
+        @allow = false
+        @reason = _('This request has been set by an administrator to "allow new responses from nobody"')
+      end
+
+      def allow_new_responses_from
+        [allow, reason]
       end
     end
 
-    [allow, reason]
+    class Anybody
+      attr_reader :allow, :reason
+
+      def initialize
+        @allow = true
+        @reason = nil
+      end
+
+      def allow_new_responses_from
+        [allow, reason]
+      end
+    end
+
+    class AuthorityOnly
+      attr_reader :allow, :reason
+
+      def initialize(info_request, email)
+        @allow, @reason = calculate_allow_reason(info_request, email)
+      end
+
+      def allow_new_responses_from
+        [allow, reason]
+      end
+
+      private
+
+      def calculate_allow_reason(info_request, email)
+        sender_email = MailHandler.get_from_address(email)
+        if sender_email.nil?
+          allow = false
+          reason = _('Only the authority can reply to this request, but there is no "From" address to check against')
+        else
+          sender_domain = PublicBody.extract_domain_from_email(sender_email)
+          reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
+          allow = false
+          # Allow any domain that has already sent reply
+          info_request.who_can_followup_to.each do |row|
+            request_domain = PublicBody.extract_domain_from_email(row[1])
+            if request_domain == sender_domain
+              allow = true
+              reason = nil
+            end
+          end
+        end
+
+        [allow, reason]
+      end
+    end
   end
 
   def handle_rejected_responses_bounce(email, raw_email_data)
