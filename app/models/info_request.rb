@@ -499,37 +499,10 @@ class InfoRequest < ActiveRecord::Base
     end
 
     # Otherwise log the message
-    incoming_message = IncomingMessage.new
+    create_response!(email, raw_email_data, rejected_reason)
 
-    ActiveRecord::Base.transaction do
-
-      # To avoid a deadlock when simultaneously dealing with two
-      # incoming emails that refer to the same InfoRequest, we
-      # lock the row for update.  In Rails 3.2.0 and later this
-      # can be done with info_request.with_lock or
-      # info_request.lock!, but upgrading to that version of
-      # Rails creates many other problems at the moment.  In the
-      # interim, just use raw SQL to do the SELECT ... FOR UPDATE
-      raw_sql = "SELECT * FROM info_requests WHERE id = #{self.id} LIMIT 1 FOR UPDATE"
-      ActiveRecord::Base.connection.execute(raw_sql)
-
-      raw_email = RawEmail.new
-      incoming_message.raw_email = raw_email
-      incoming_message.info_request = self
-      incoming_message.save!
-      raw_email.data = raw_email_data
-      raw_email.save!
-
-      self.awaiting_description = true
-      params = { :incoming_message_id => incoming_message.id }
-      if !rejected_reason.empty?
-        params[:rejected_reason] = rejected_reason.to_str
-      end
-      self.log_event("response", params)
-      self.save!
-    end
     self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
-    RequestMailer.new_response(self, incoming_message).deliver if !is_external?
+    RequestMailer.new_response(self, incoming_messages.last).deliver if !is_external?
   end
 
 
@@ -1396,6 +1369,39 @@ class InfoRequest < ActiveRecord::Base
   end
 
   private
+
+  def create_response!(email, raw_email_data, rejected_reason = '')
+    incoming_message = IncomingMessage.new
+
+    ActiveRecord::Base.transaction do
+      # To avoid a deadlock when simultaneously dealing with two
+      # incoming emails that refer to the same InfoRequest, we
+      # lock the row for update.  In Rails 3.2.0 and later this
+      # can be done with info_request.with_lock or
+      # info_request.lock!, but upgrading to that version of
+      # Rails creates many other problems at the moment.  In the
+      # interim, just use raw SQL to do the SELECT ... FOR UPDATE
+      raw_sql = "SELECT * FROM info_requests WHERE id = #{self.id} LIMIT 1 FOR UPDATE"
+      ActiveRecord::Base.connection.execute(raw_sql)
+
+      raw_email = RawEmail.new
+      incoming_message.raw_email = raw_email
+      incoming_message.info_request = self
+      incoming_message.save!
+      raw_email.data = raw_email_data
+      raw_email.save!
+
+      self.awaiting_description = true
+
+      params = { :incoming_message_id => incoming_message.id }
+      if !rejected_reason.empty?
+        params[:rejected_reason] = rejected_reason.to_str
+      end
+      log_event("response", params)
+
+      save!
+    end
+  end
 
   def set_defaults
     begin
