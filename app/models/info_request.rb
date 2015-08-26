@@ -418,7 +418,7 @@ class InfoRequest < ActiveRecord::Base
   end
 
   # A new incoming email to this request
-  def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = "")
+  def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
     # Is this request allowing responses?
     if !override_stop_new_responses
       allow = nil
@@ -1370,7 +1370,7 @@ class InfoRequest < ActiveRecord::Base
 
   private
 
-  def create_response!(email, raw_email_data, rejected_reason = '')
+  def create_response!(email, raw_email_data, rejected_reason = nil)
     incoming_message = IncomingMessage.new
 
     ActiveRecord::Base.transaction do
@@ -1384,9 +1384,10 @@ class InfoRequest < ActiveRecord::Base
       raw_sql = "SELECT * FROM info_requests WHERE id = #{self.id} LIMIT 1 FOR UPDATE"
       ActiveRecord::Base.connection.execute(raw_sql)
 
+      # TODO: These are very tightly coupled
+      incoming_message = incoming_messages.build
       raw_email = RawEmail.new
       incoming_message.raw_email = raw_email
-      incoming_message.info_request = self
       incoming_message.save!
       raw_email.data = raw_email_data
       raw_email.save!
@@ -1394,9 +1395,7 @@ class InfoRequest < ActiveRecord::Base
       self.awaiting_description = true
 
       params = { :incoming_message_id => incoming_message.id }
-      if !rejected_reason.empty?
-        params[:rejected_reason] = rejected_reason.to_str
-      end
+      params[:rejected_reason] = rejected_reason.to_s if rejected_reason
       log_event("response", params)
 
       save!
