@@ -435,7 +435,7 @@ class InfoRequest < ActiveRecord::Base
         end
 
       # If its not allowing responses, handle the message
-      unless gatekeeper.allow
+      unless gatekeeper.allow?
         ResponseRejection.
           for(handle_rejected_responses, self, email, raw_email_data).
             reject(gatekeeper.reason)
@@ -1356,8 +1356,8 @@ class InfoRequest < ActiveRecord::Base
         @reason = _('This request has been set by an administrator to "allow new responses from nobody"')
       end
 
-      def allow_new_responses_from
-        [allow, reason]
+      def allow?
+        allow
       end
     end
 
@@ -1369,8 +1369,8 @@ class InfoRequest < ActiveRecord::Base
         @reason = nil
       end
 
-      def allow_new_responses_from
-        [allow, reason]
+      def allow?
+        allow
       end
     end
 
@@ -1381,8 +1381,8 @@ class InfoRequest < ActiveRecord::Base
         @allow, @reason = calculate_allow_reason(info_request, email)
       end
 
-      def allow_new_responses_from
-        [allow, reason]
+      def allow?
+        allow
       end
 
       private
