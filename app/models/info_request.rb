@@ -422,11 +422,12 @@ class InfoRequest < ActiveRecord::Base
     # Is this request allowing responses?
     unless override_stop_new_responses
       # See if new responses are prevented for spam reasons
-      if allow_new_responses_from == 'nobody'
+      case allow_new_responses_from
+      when 'nobody'
         allow, reason = allow_new_responses_from_nobody
-      elsif allow_new_responses_from == 'anybody'
+      when 'anybody'
         allow, reason = allow_new_responses_from_anybody
-      elsif allow_new_responses_from == 'authority_only'
+      when 'authority_only'
         allow, reason = allow_new_responses_from_authority_only(email)
       else
         raise "Unknown allow_new_responses_from '#{ allow_new_responses_from }'"
@@ -434,11 +435,12 @@ class InfoRequest < ActiveRecord::Base
 
       # If its not allowing responses, handle the message
       if !allow
-        if handle_rejected_responses == 'bounce'
+        case handle_rejected_responses
+        when 'bounce'
           handle_rejected_responses_bounce(email, raw_email_data)
-        elsif handle_rejected_responses == 'holding_pen'
+        when 'holding_pen'
           handle_rejected_responses_holding_pen(email, raw_email_data, reason)
-        elsif handle_rejected_responses == 'blackhole'
+        when 'blackhole'
           handle_rejected_responses_blackhole
         else
           raise "Unknown handle_rejected_responses '#{ handle_rejected_responses }'"
