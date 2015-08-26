@@ -50,6 +50,216 @@ describe InfoRequest do
 
   describe '#receive' do
 
+    it 'creates a new incoming message' do
+      info_request = FactoryGirl.create(:info_request)
+      email, raw_email = email_and_raw_email
+      info_request.receive(email, raw_email)
+      expect(info_request.incoming_messages.size).to eq(1)
+      expect(info_request.incoming_messages.last).to be_persisted
+    end
+
+    it 'creates a new raw_email with the incoming email data' do
+      info_request = FactoryGirl.create(:info_request)
+      email, raw_email = email_and_raw_email
+      info_request.receive(email, raw_email)
+      expect(info_request.incoming_messages.first.raw_email.data).
+        to eq(raw_email)
+      expect(info_request.incoming_messages.first.raw_email).to be_persisted
+    end
+
+    it 'marks the request as awaiting description' do
+      info_request = FactoryGirl.create(:info_request)
+      email, raw_email = email_and_raw_email
+      info_request.receive(email, raw_email)
+      expect(info_request.awaiting_description).to be true
+    end
+
+    it 'logs an event' do
+      info_request = FactoryGirl.create(:info_request)
+      email, raw_email = email_and_raw_email
+      info_request.receive(email, raw_email)
+      expect(info_request.info_request_events.last.incoming_message.id).
+        to eq(info_request.incoming_messages.last.id)
+      expect(info_request.info_request_events.last).to be_response
+    end
+
+    it 'logs a rejected reason' do
+      info_request = FactoryGirl.create(:info_request)
+      email, raw_email = email_and_raw_email
+      info_request.receive(email, raw_email, false, 'rejected for testing')
+      expect(info_request.info_request_events.last.params[:rejected_reason]).
+        to eq('rejected for testing')
+    end
+
+    context 'notifying the request owner' do
+
+      it 'notifies the user that a response has been received' do
+        info_request = FactoryGirl.create(:info_request)
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        notification = ActionMailer::Base.deliveries.last
+        expect(notification.to).to include(info_request.user.email)
+        expect(ActionMailer::Base.deliveries.size).to eq(1)
+        ActionMailer::Base.deliveries.clear
+      end
+
+      it 'does not notify when the request is external' do
+        info_request = FactoryGirl.create(:external_request)
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        expect(ActionMailer::Base.deliveries).to be_empty
+        ActionMailer::Base.deliveries.clear
+      end
+
+    end
+
+    context 'allowing new responses' do
+
+      it 'from nobody' do
+        attrs = { :allow_new_responses_from => 'nobody',
+                  :handle_rejected_responses => 'holding_pen' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        holding_pen = InfoRequest.holding_pen_request
+        msg = 'This request has been set by an administrator to "allow new ' \
+              'responses from nobody"'
+        expect(info_request.incoming_messages.size).to eq(0)
+        expect(holding_pen.incoming_messages.size).to eq(1)
+        expect(holding_pen.info_request_events.last.params[:rejected_reason]).
+          to eq(msg)
+      end
+
+      it 'from anybody' do
+        attrs = { :allow_new_responses_from => 'anybody',
+                  :handle_rejected_responses => 'holding_pen' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        expect(info_request.incoming_messages.size).to eq(1)
+      end
+
+      it 'from authority_only receives if the mail is from the authority' do
+        attrs = { :allow_new_responses_from => 'authority_only',
+                  :handle_rejected_responses => 'holding_pen' }
+        info_request = FactoryGirl.create(:info_request_with_incoming, attrs)
+        email, raw_email = email_and_raw_email(:from => 'bob@example.com')
+        info_request.receive(email, raw_email)
+        expect(info_request.reload.incoming_messages.size).to eq(2)
+      end
+
+      it 'from authority_only rejects if there is no from address' do
+        attrs = { :allow_new_responses_from => 'authority_only',
+                  :handle_rejected_responses => 'holding_pen' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email(:from => '')
+        info_request.receive(email, raw_email)
+        expect(info_request.reload.incoming_messages.size).to eq(0)
+        holding_pen = InfoRequest.holding_pen_request
+        expect(holding_pen.incoming_messages.size).to eq(1)
+        msg = 'Only the authority can reply to this request, but there is ' \
+              'no "From" address to check against'
+        expect(holding_pen.info_request_events.last.params[:rejected_reason]).
+          to eq(msg)
+      end
+
+      it 'from authority_only rejects if the mail is not from the authority' do
+        attrs = { :allow_new_responses_from => 'authority_only',
+                  :handle_rejected_responses => 'holding_pen' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email(:from => 'spam@example.net')
+        info_request.receive(email, raw_email)
+        expect(info_request.reload.incoming_messages.size).to eq(0)
+        holding_pen = InfoRequest.holding_pen_request
+        expect(holding_pen.incoming_messages.size).to eq(1)
+        msg = "Only the authority can reply to this request, and I don't " \
+              "recognise the address this reply was sent from"
+        expect(holding_pen.info_request_events.last.params[:rejected_reason]).
+          to eq(msg)
+      end
+
+      it 'raises an error if there is an unknown allow_new_responses_from' do
+        info_request = FactoryGirl.create(:info_request)
+        info_request.allow_new_responses_from = 'unknown_value'
+        email, raw_email = email_and_raw_email
+        expect { info_request.receive(email, raw_email) }.to raise_error
+      end
+
+      it 'can override the stop new responses status of a request' do
+        attrs = { :allow_new_responses_from => 'nobody',
+                  :handle_rejected_responses => 'holding_pen' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email, true)
+        expect(info_request.incoming_messages.size).to eq(1)
+      end
+
+    end
+
+    context 'handling rejected responses' do
+
+      it 'bounces rejected responses if the mail has a from address' do
+        attrs = { :allow_new_responses_from => 'nobody',
+                  :handle_rejected_responses => 'bounce' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email(:from => 'bounce@example.com')
+        info_request.receive(email, raw_email)
+        bounce = ActionMailer::Base.deliveries.first
+        expect(bounce.to).to include('bounce@example.com')
+        ActionMailer::Base.deliveries.clear
+      end
+
+      it 'does not bounce responses to external requests' do
+        info_request = FactoryGirl.create(:external_request)
+        email, raw_email = email_and_raw_email(:from => 'bounce@example.com')
+        info_request.receive(email, raw_email)
+        expect(ActionMailer::Base.deliveries).to be_empty
+        ActionMailer::Base.deliveries.clear
+      end
+
+      it 'discards rejected responses if the mail has no from address' do
+        attrs = { :allow_new_responses_from => 'nobody',
+                  :handle_rejected_responses => 'bounce' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email(:from => '')
+        info_request.receive(email, raw_email)
+        expect(ActionMailer::Base.deliveries).to be_empty
+        ActionMailer::Base.deliveries.clear
+      end
+
+      it 'sends rejected responses to the holding pen' do
+        attrs = { :allow_new_responses_from => 'nobody',
+                  :handle_rejected_responses => 'holding_pen' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+        # Check that the notification that there's something new in the holding
+        # has been sent
+        expect(ActionMailer::Base.deliveries.size).to eq(1)
+        ActionMailer::Base.deliveries.clear
+      end
+
+      it 'discards rejected responses' do
+        attrs = { :allow_new_responses_from => 'nobody',
+                  :handle_rejected_responses => 'blackhole' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+        ActionMailer::Base.deliveries.clear
+      end
+
+      it 'raises an error if there is an unknown handle_rejected_responses' do
+        info_request = FactoryGirl.create(:info_request)
+        info_request.update_attribute(:handle_rejected_responses, 'unknown_value')
+        email, raw_email = email_and_raw_email
+        expect { info_request.receive(email, raw_email) }.to raise_error
+      end
+
+    end
+
     it "uses instance-specific spam handling first" do
       info_request = FactoryGirl.create(:info_request)
       info_request.update_attributes!(:handle_rejected_responses => 'bounce',
@@ -1571,6 +1781,24 @@ describe InfoRequest do
       expect(results.include?(info_requests(:fancy_dog_request))).to eq(true)
     end
 
+  end
+
+  def email_and_raw_email(opts = {})
+    raw_email = opts[:raw_email] || <<-EOF.strip_heredoc
+    From: EMAIL_FROM
+    To: EMAIL_TO
+    Subject: Basic Email
+    Hello, World
+    EOF
+
+    email_to = opts[:to] || 'to@example.org'
+    email_from = opts[:from] || 'from@example.com'
+
+    raw_email.gsub!('EMAIL_TO', email_to)
+    raw_email.gsub!('EMAIL_FROM', email_from)
+
+    email = MailHandler.mail_from_raw_email(raw_email)
+    [email, raw_email]
   end
 
 end
