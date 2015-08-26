@@ -424,12 +424,12 @@ class InfoRequest < ActiveRecord::Base
       allow = nil
       reason = nil
       # See if new responses are prevented for spam reasons
-      if self.allow_new_responses_from == 'nobody'
+      if allow_new_responses_from == 'nobody'
         allow = false
         reason = _('This request has been set by an administrator to "allow new responses from nobody"')
-      elsif self.allow_new_responses_from == 'anybody'
+      elsif allow_new_responses_from == 'anybody'
         allow = true
-      elsif self.allow_new_responses_from == 'authority_only'
+      elsif allow_new_responses_from == 'authority_only'
         sender_email = MailHandler.get_from_address(email)
         if sender_email.nil?
           allow = false
@@ -439,7 +439,7 @@ class InfoRequest < ActiveRecord::Base
           reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
           allow = false
           # Allow any domain that has already sent reply
-          for row in self.who_can_followup_to
+          who_can_followup_to.each do |row|
             request_domain = PublicBody.extract_domain_from_email(row[1])
             if request_domain == sender_domain
               allow = true
@@ -447,26 +447,26 @@ class InfoRequest < ActiveRecord::Base
           end
         end
       else
-        raise "Unknown allow_new_responses_from '" + self.allow_new_responses_from + "'"
+        raise "Unknown allow_new_responses_from '#{ allow_new_responses_from }'"
       end
 
       # If its not allowing responses, handle the message
       if !allow
-        if self.handle_rejected_responses == 'bounce'
+        if handle_rejected_responses == 'bounce'
           if MailHandler.get_from_address(email).nil?
             # do nothing – can't bounce the mail as there's no
             # address to send it to
           else
             RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
           end
-        elsif self.handle_rejected_responses == 'holding_pen'
+        elsif handle_rejected_responses == 'holding_pen'
           InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
-        elsif self.handle_rejected_responses == 'blackhole'
+        elsif handle_rejected_responses == 'blackhole'
           # do nothing - just lose the message (Note: a copy will be
           # in the backup mailbox if the server is configured to send
           # new incoming messages there as well as this script)
         else
-          raise "Unknown handle_rejected_responses '" + self.handle_rejected_responses + "'"
+          raise "Unknown handle_rejected_responses '#{ handle_rejected_responses }'"
         end
         return
       end
