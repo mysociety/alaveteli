@@ -438,11 +438,13 @@ class InfoRequest < ActiveRecord::Base
       if !gatekeeper.allow
         case handle_rejected_responses
         when 'bounce'
-          handle_rejected_responses_bounce(email, raw_email_data)
+          ResponseRejection::Bounce.new(self, email, raw_email_data).reject
         when 'holding_pen'
-          handle_rejected_responses_holding_pen(email, raw_email_data, gatekeeper.reason)
+          ResponseRejection::HoldingPen.
+            new(self, email, raw_email_data).
+              reject(gatekeeper.reason)
         when 'blackhole'
-          handle_rejected_responses_blackhole
+          ResponseRejection::Blackhole.new(self, email, raw_email_data).reject
         else
           raise "Unknown handle_rejected_responses '#{ handle_rejected_responses }'"
         end
@@ -1418,24 +1420,60 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  def handle_rejected_responses_bounce(email, raw_email_data)
-    if MailHandler.get_from_address(email).nil?
-      # do nothing – can't bounce the mail as there's no address to send it to
-    else
-      unless is_external?
-        RequestMailer.stopped_responses(self, email, raw_email_data).deliver
+  module ResponseRejection
+    class Bounce
+      attr_reader :info_request, :email, :raw_email_data
+
+      def initialize(info_request, email, raw_email_data)
+        @info_request = info_request
+        @email = email
+        @raw_email_data = raw_email_data
+      end
+
+      def reject
+        if MailHandler.get_from_address(email).nil?
+          # do nothing – can't bounce the mail as there's no address to send it
+          # to
+        else
+          unless info_request.is_external?
+            RequestMailer.
+              stopped_responses(info_request, email, raw_email_data).
+                deliver
+          end
+        end
       end
     end
-  end
 
-  def handle_rejected_responses_holding_pen(email, raw_email_data, reason)
-    InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
-  end
+    class HoldingPen
+      attr_reader :info_request, :email, :raw_email_data, :holding_pen
 
-  def handle_rejected_responses_blackhole
-    # do nothing - just lose the message (Note: a copy will be
-    # in the backup mailbox if the server is configured to send
-    # new incoming messages there as well as this script)
+      def initialize(info_request, email, raw_email_data)
+        @info_request = info_request
+        @email = email
+        @raw_email_data = raw_email_data
+        @holding_pen = InfoRequest.holding_pen_request
+      end
+
+      def reject(reason)
+        holding_pen.receive(email, raw_email_data, false, reason)
+      end
+    end
+
+    class Blackhole
+      attr_reader :info_request, :email, :raw_email_data
+
+      def initialize(info_request, email, raw_email_data)
+        @info_request = info_request
+        @email = email
+        @raw_email_data = raw_email_data
+      end
+
+      def reject
+        # do nothing - just lose the message (Note: a copy will be
+        # in the backup mailbox if the server is configured to send
+        # new incoming messages there as well as this script)
+      end
+    end
   end
 
   def create_response!(email, raw_email_data, rejected_reason = nil)
