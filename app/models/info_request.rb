@@ -435,18 +435,11 @@ class InfoRequest < ActiveRecord::Base
       # If its not allowing responses, handle the message
       if !allow
         if handle_rejected_responses == 'bounce'
-          if MailHandler.get_from_address(email).nil?
-            # do nothing – can't bounce the mail as there's no
-            # address to send it to
-          else
-            RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
-          end
+          handle_rejected_responses_bounce(email, raw_email_data)
         elsif handle_rejected_responses == 'holding_pen'
-          InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
+          handle_rejected_responses_holding_pen(email, raw_email_data, reason)
         elsif handle_rejected_responses == 'blackhole'
-          # do nothing - just lose the message (Note: a copy will be
-          # in the backup mailbox if the server is configured to send
-          # new incoming messages there as well as this script)
+          handle_rejected_responses_blackhole
         else
           raise "Unknown handle_rejected_responses '#{ handle_rejected_responses }'"
         end
@@ -1388,6 +1381,26 @@ class InfoRequest < ActiveRecord::Base
     end
 
     [allow, reason]
+  end
+
+  def handle_rejected_responses_bounce(email, raw_email_data)
+    if MailHandler.get_from_address(email).nil?
+      # do nothing – can't bounce the mail as there's no address to send it to
+    else
+      unless is_external?
+        RequestMailer.stopped_responses(self, email, raw_email_data).deliver
+      end
+    end
+  end
+
+  def handle_rejected_responses_holding_pen(email, raw_email_data, reason)
+    InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
+  end
+
+  def handle_rejected_responses_blackhole
+    # do nothing - just lose the message (Note: a copy will be
+    # in the backup mailbox if the server is configured to send
+    # new incoming messages there as well as this script)
   end
 
   def create_response!(email, raw_email_data, rejected_reason = nil)
