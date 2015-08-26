@@ -501,7 +501,9 @@ class InfoRequest < ActiveRecord::Base
     # Otherwise log the message
     create_response!(email, raw_email_data, rejected_reason)
 
-    self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
+    # for the "waiting_classification" index
+    reindex_request_events
+
     # Notify the user that a new response has been received, unless the request
     # is external
     unless is_external?
