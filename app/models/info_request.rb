@@ -421,31 +421,13 @@ class InfoRequest < ActiveRecord::Base
   def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
     # Is this request allowing responses?
     unless override_stop_new_responses
-      allow = nil
-      reason = nil
       # See if new responses are prevented for spam reasons
       if allow_new_responses_from == 'nobody'
-        allow = false
-        reason = _('This request has been set by an administrator to "allow new responses from nobody"')
+        allow, reason = allow_new_responses_from_nobody
       elsif allow_new_responses_from == 'anybody'
-        allow = true
+        allow, reason = allow_new_responses_from_anybody
       elsif allow_new_responses_from == 'authority_only'
-        sender_email = MailHandler.get_from_address(email)
-        if sender_email.nil?
-          allow = false
-          reason = _('Only the authority can reply to this request, but there is no "From" address to check against')
-        else
-          sender_domain = PublicBody.extract_domain_from_email(sender_email)
-          reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
-          allow = false
-          # Allow any domain that has already sent reply
-          who_can_followup_to.each do |row|
-            request_domain = PublicBody.extract_domain_from_email(row[1])
-            if request_domain == sender_domain
-              allow = true
-            end
-          end
-        end
+        allow, reason = allow_new_responses_from_authority_only(email)
       else
         raise "Unknown allow_new_responses_from '#{ allow_new_responses_from }'"
       end
@@ -1375,6 +1357,38 @@ class InfoRequest < ActiveRecord::Base
   end
 
   private
+
+  def allow_new_responses_from_anybody
+    [true, nil]
+  end
+
+  def allow_new_responses_from_nobody
+    allow = false
+    reason = _('This request has been set by an administrator to "allow new responses from nobody"')
+    [allow, reason]
+  end
+
+  def allow_new_responses_from_authority_only(email)
+    sender_email = MailHandler.get_from_address(email)
+    if sender_email.nil?
+      allow = false
+      reason = _('Only the authority can reply to this request, but there is no "From" address to check against')
+    else
+      sender_domain = PublicBody.extract_domain_from_email(sender_email)
+      reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
+      allow = false
+      # Allow any domain that has already sent reply
+      who_can_followup_to.each do |row|
+        request_domain = PublicBody.extract_domain_from_email(row[1])
+        if request_domain == sender_domain
+          allow = true
+          reason = nil
+        end
+      end
+    end
+
+    [allow, reason]
+  end
 
   def create_response!(email, raw_email_data, rejected_reason = nil)
       # To avoid a deadlock when simultaneously dealing with two
