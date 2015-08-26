@@ -436,22 +436,9 @@ class InfoRequest < ActiveRecord::Base
 
       # If its not allowing responses, handle the message
       if !gatekeeper.allow
-        case handle_rejected_responses
-        when 'bounce'
-          ResponseRejection::Bounce.
-            new(self, email, raw_email_data).
-              reject(gatekeeper.reason)
-        when 'holding_pen'
-          ResponseRejection::HoldingPen.
-            new(self, email, raw_email_data).
-              reject(gatekeeper.reason)
-        when 'blackhole'
-          ResponseRejection::Blackhole.
-            new(self, email, raw_email_data).
-              reject(gatekeeper.reason)
-        else
-          raise "Unknown handle_rejected_responses '#{ handle_rejected_responses }'"
-        end
+        ResponseRejection.
+          for(handle_rejected_responses, self, email, raw_email_data).
+            reject(gatekeeper.reason)
         return
       end
     end
@@ -1466,7 +1453,12 @@ class InfoRequest < ActiveRecord::Base
       end
     end
 
-    class Blackhole < Base
+    SPECIALIZED_CLASSES = { 'bounce' => Bounce,
+                            'holding_pen' => HoldingPen,
+                            'blackhole' => Base }
+
+    def self.for(name, info_request, email, raw_email)
+      SPECIALIZED_CLASSES[name].new(info_request, email, raw_email)
     end
   end
 
