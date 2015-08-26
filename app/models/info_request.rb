@@ -435,7 +435,7 @@ class InfoRequest < ActiveRecord::Base
         end
 
       # If its not allowing responses, handle the message
-      if !gatekeeper.allow
+      unless gatekeeper.allow
         ResponseRejection.
           for(handle_rejected_responses, self, email, raw_email_data).
             reject(gatekeeper.reason)
