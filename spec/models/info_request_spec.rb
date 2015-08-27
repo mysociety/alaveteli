@@ -182,7 +182,9 @@ describe InfoRequest do
         info_request = FactoryGirl.create(:info_request)
         info_request.allow_new_responses_from = 'unknown_value'
         email, raw_email = email_and_raw_email
-        expect { info_request.receive(email, raw_email) }.to raise_error
+        err = InfoRequest::ResponseGatekeeper::UnknownResponseGatekeeperError
+        expect { info_request.receive(email, raw_email) }.
+          to raise_error(err)
       end
 
       it 'can override the stop new responses status of a request' do
@@ -252,10 +254,12 @@ describe InfoRequest do
       end
 
       it 'raises an error if there is an unknown handle_rejected_responses' do
-        info_request = FactoryGirl.create(:info_request)
+        attrs = { :allow_new_responses_from => 'nobody' }
+        info_request = FactoryGirl.create(:info_request, attrs)
         info_request.update_attribute(:handle_rejected_responses, 'unknown_value')
         email, raw_email = email_and_raw_email
-        expect { info_request.receive(email, raw_email) }.to raise_error
+        err = InfoRequest::ResponseRejection::UnknownResponseRejectionError
+        expect { info_request.receive(email, raw_email) }.to raise_error(err)
       end
 
     end

@@ -431,7 +431,8 @@ class InfoRequest < ActiveRecord::Base
         when 'authority_only'
           ResponseGatekeeper::AuthorityOnly.new(self, email)
         else
-          raise "Unknown allow_new_responses_from '#{ allow_new_responses_from }'"
+          raise ResponseGatekeeper::UnknownResponseGatekeeperError,
+                "Unknown allow_new_responses_from '#{ allow_new_responses_from }'"
         end
 
       # If its not allowing responses, handle the message
@@ -1348,6 +1349,8 @@ class InfoRequest < ActiveRecord::Base
   private
 
   module ResponseGatekeeper
+    class UnknownResponseGatekeeperError < ArgumentError ; end
+
     class Nobody
       attr_reader :allow, :reason
 
@@ -1412,6 +1415,8 @@ class InfoRequest < ActiveRecord::Base
   end
 
   module ResponseRejection
+    class UnknownResponseRejectionError < ArgumentError ; end
+
     class Base
       attr_reader :info_request, :email, :raw_email_data
 
@@ -1458,7 +1463,10 @@ class InfoRequest < ActiveRecord::Base
                             'blackhole' => Base }
 
     def self.for(name, info_request, email, raw_email)
-      SPECIALIZED_CLASSES[name].new(info_request, email, raw_email)
+      SPECIALIZED_CLASSES.fetch(name).new(info_request, email, raw_email)
+      rescue KeyError
+        raise UnknownResponseRejectionError,
+              "Unknown allow_new_responses_from '#{ name }'"
     end
   end
 
