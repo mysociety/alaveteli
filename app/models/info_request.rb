@@ -454,7 +454,9 @@ class InfoRequest < ActiveRecord::Base
       if spam_score > spam_threshold
         case spam_action
         when 'discard'
-          # Do nothing. Silently drop spam above the threshold
+          ResponseRejection.
+            for('discard', self, email, raw_email_data).
+              reject
           return
         when 'holding_pen'
           unless self == InfoRequest.holding_pen_request
@@ -462,8 +464,9 @@ class InfoRequest < ActiveRecord::Base
                        "above the configured threshold ({{spam_threshold}}).",
                        :spam_score => spam_score,
                        :spam_threshold => spam_threshold)
-            request = InfoRequest.holding_pen_request
-            request.receive(email, raw_email_data, false, reason)
+            ResponseRejection.
+              for('holding_pen', self, email, raw_email_data).
+                  reject(reason)
             return
           end
         end
@@ -1460,7 +1463,8 @@ class InfoRequest < ActiveRecord::Base
 
     SPECIALIZED_CLASSES = { 'bounce' => Bounce,
                             'holding_pen' => HoldingPen,
-                            'blackhole' => Base }
+                            'blackhole' => Base,
+                            'discard' => Base }
 
     def self.for(name, info_request, email, raw_email)
       SPECIALIZED_CLASSES.fetch(name).new(info_request, email, raw_email)
