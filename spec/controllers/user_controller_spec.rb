@@ -785,7 +785,7 @@ describe UserController, "when viewing the wall" do
     user = users(:silly_name_user)
     session[:user_id] = user.id
     get :wall, :url_name => user.url_name
-    assigns[:feed_results].uniq.should == assigns[:feed_results]
+    expect(assigns[:feed_results].uniq).to eq(assigns[:feed_results])
   end
 
 end
