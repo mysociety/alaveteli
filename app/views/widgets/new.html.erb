@@ -4,10 +4,8 @@
   <%= _("To add a widget for <b>{{info_request_title}}</b>, copy and paste " \
         "the following code to your web page:",
         :info_request_title => @info_request.title) %>
+  <textarea autofocus readonly rows='4' cols='60' id='widgetbox'><iframe src='<%= request_widget_url(@info_request) %>' width='320' height='215' frameborder='0' marginwidth='0' marginheight='0'></iframe></textarea>
 
-  <textarea autofocus readonly rows='4' cols='60' id='widgetbox'>
-    <iframe src='<%= request_widget_url(@info_request) %>' width='320' height='215' frameborder='0' marginwidth='0' marginheight='0'></iframe>
-  </textarea>
 </p>
 
 <p>
