@@ -148,7 +148,7 @@ Este manual presupone que ha definido <a href="{{ page.baseurl }}/docs/customisi
 Redirija todo el correo entrante cuya dirección `To:` empiece por `foi+` hacia la ruta de `alaveteli` (`/var/www/alaveteli/script/mailin`, como se especifica en `/etc/postfix/master.cf` en el inicio de esta sección):
 
     cat > /etc/postfix/transports <<EOF
-    /^foi.*/                alaveteli
+    /^foi\+.*@example.com$/                alaveteli
     EOF
 
 #### Realice copias de seguridad de los correos de solicitudes
@@ -167,7 +167,7 @@ Añada la siguiente línea a `/etc/postfix/main.cf`:
 Configure el correo enviado a una dirección con el prefijo `foi+` para que se envíe al usuario de la copia de seguridad:
 
     cat > /etc/postfix/recipient_bcc <<EOF
-    /^foi.*/                backupfoi
+    /^foi\+.*@example.com$/                backupfoi
     EOF
 
 
@@ -241,7 +241,7 @@ _Nota:_ Sustituya `/var/www/alaveteli` con la ruta correcta de Alaveteli, si es 
 Redirija el correo enviado a `user-support@example.com` hacia `alaveteli_replies`:
 
     cat >> /etc/postfix/transports <<EOF
-    /^user-support@*/                alaveteli_replies
+    /^user-support@example.com$/                alaveteli_replies
     EOF
 
 Finalmente, edite `/etc/aliases` para eliminar `user-support`:
