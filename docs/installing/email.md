@@ -145,11 +145,15 @@ In `/etc/postfix/main.cf` update the `mydestination` line (which determines what
 This guide assumes you have set <a href="{{ page.baseurl }}/docs/customising/config/#incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a> to <code>foi+</code> in <code>config/general.yml</code>
 </div>
 
-Pipe all incoming mail where the `To:` address starts with `foi+` to the `alaveteli` pipe (`/var/www/alaveteli/script/mailin`, as specified in `/etc/postfix/master.cf` at the start of this section):
+Pipe all incoming mail for your domain where the `To:` address starts with `foi+` to the
+`alaveteli` pipe (`/var/www/alaveteli/script/mailin`, as specified in `/etc/postfix/master.cf`
+at the start of this section):
 
     cat > /etc/postfix/transports <<EOF
-    /^foi.*/                alaveteli
+    /^foi\+.*@example.com$/           alaveteli
     EOF
+
+The `@example.com` domain should be set to your actual domain.
 
 #### Backup request mail
 
@@ -167,9 +171,10 @@ Add the following line to `/etc/postfix/main.cf`
 Configure mail sent to an `foi+` prefixed address to be sent to the backup user:
 
     cat > /etc/postfix/recipient_bcc <<EOF
-    /^foi.*/                backupfoi
+    /^foi\+.*@example.com$/                backupfoi
     EOF
 
+Again, the `@example.com` domain should be set to your actual domain.
 
 #### Define the valid recipients for your domain
 
@@ -241,7 +246,7 @@ _Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if requi
 Pipe mail sent to `user-support@example.com` to the `alaveteli_replies` pipe:
 
     cat >> /etc/postfix/transports <<EOF
-    /^user-support@*/                alaveteli_replies
+    /^user-support@example.com$/            alaveteli_replies
     EOF
 
 Finally, edit `/etc/aliases` to remove `user-support`:
