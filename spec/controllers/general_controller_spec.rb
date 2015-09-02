@@ -48,10 +48,9 @@ describe GeneralController do
 
       mock_git_commit = Digest::SHA1.hexdigest(Time.now.to_s)
 
-      ApplicationController.
-        any_instance.
-          stub(:alaveteli_git_commit).
-            and_return(mock_git_commit)
+      allow_any_instance_of(ApplicationController).
+        to receive(:alaveteli_git_commit).
+          and_return(mock_git_commit)
 
       expected = { :alaveteli_git_commit => mock_git_commit,
                    :alaveteli_version => ALAVETELI_VERSION,
