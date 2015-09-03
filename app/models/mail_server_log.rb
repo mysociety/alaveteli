@@ -59,6 +59,7 @@ class MailServerLog < ActiveRecord::Base
       else
         raise "Unexpected MTA type: #{type}"
       end
+      f.close
     end
   end
 
