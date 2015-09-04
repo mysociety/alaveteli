@@ -551,7 +551,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
     im = incoming_messages :useless_incoming_message
     allow(im).to receive(:raw_email).and_return(raw_email)
     allow(im).to receive(:mail).and_return(mail)
-    im.parse_raw_email!
+    im.parse_raw_email!(true)
     attachments = im.foi_attachments
     expect(attachments.size).to eq(2)
   end
@@ -589,7 +589,7 @@ describe IncomingMessage, "when messages are attached to messages" do
 
       im = incoming_messages(:useless_incoming_message)
       allow(im).to receive(:mail).and_return(mail)
-
+      im.parse_raw_email!(true)
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(1)
       attachment = attachments.first
@@ -627,7 +627,7 @@ describe IncomingMessage, "when messages are attached to messages" do
 
       im = incoming_messages(:useless_incoming_message)
       allow(im).to receive(:mail).and_return(mail)
-
+      im.parse_raw_email!(true)
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(2)
       expect(attachments[0].body).to match('Date: Fri, 23 May 2008')
