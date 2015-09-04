@@ -25,6 +25,10 @@
   material (Louise Crow).
 * Standard filters and parameter whitelisting added to admin controllers
   (James McKinney, Louise Crow)
+* Alaveteli now uses a local GeoIP database by default to find the country for
+  HTTP requests (and tell users if there is an Alaveteli in their country),
+  rather than the mySociety Gaze service. This should improve performance and
+  reliability.
 
 ## Upgrade Notes
 
@@ -32,6 +36,10 @@
   rspec 3. Useful resources:
   * https://relishapp.com/rspec/docs/upgrade
   * http://yujinakayama.me/transpec/
+* This release adds `geoip-database` to the list of required packages. You can
+  install it with `sudo apt-get install geoip-database`. If you don't want to
+  or can't use a local GeoIP database, set `GEOIP_DATABASE' to an empty string in
+  `config/general.yml`.
 
 ### Changed Templates
 

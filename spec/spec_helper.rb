@@ -203,6 +203,7 @@ Spork.prefork do
     password = AlaveteliConfiguration::admin_password if password.nil?
     request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
   end
+
 end
 
 Spork.each_run do
