@@ -535,7 +535,7 @@ module ActsAsXapian
     private
 
     def correctly_encode(w)
-      RUBY_VERSION.to_f >= 1.9 ? w.force_encoding('UTF-8') : w
+      w.force_encoding('UTF-8')
     end
 
   end

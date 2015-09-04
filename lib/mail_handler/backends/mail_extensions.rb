@@ -34,57 +34,7 @@ module Mail
     end
   end
 
-  # HACK: Backport encoding fixes for Ruby 1.8 from Mail 2.5
-  # Can be removed when we no longer support Ruby 1.8
-  class Ruby18
-
-    def self.b_value_decode(str)
-      match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
-      if match
-        encoding = match[1]
-        str = Ruby18.decode_base64(match[2])
-        # Adding and removing trailing spaces is a workaround
-        # for Iconv.conv throwing an exception if it finds an
-        # invalid character at the end of the string, even
-        # with UTF-8//IGNORE:
-        # http://po-ru.com/diary/fixing-invalid-utf-8-in-ruby-revisited/
-        begin
-          str = Iconv.conv('UTF-8//IGNORE', fix_encoding(encoding), str + "    ")[0...-4]
-        rescue Iconv::InvalidEncoding
-        end
-      end
-      str
-    end
-
-    def self.q_value_decode(str)
-      match = str.match(/\=\?(.+)?\?[Qq]\?(.+)?\?\=/m)
-      if match
-        encoding = match[1]
-        string = match[2].gsub(/_/, '=20')
-        # Remove trailing = if it exists in a Q encoding
-        string = string.sub(/\=$/, '')
-        str = Encodings::QuotedPrintable.decode(string)
-        # Adding and removing trailing spaces is a workaround
-        # for Iconv.conv throwing an exception if it finds an
-        # invalid character at the end of the string, even
-        # with UTF-8//IGNORE:
-        # http://po-ru.com/diary/fixing-invalid-utf-8-in-ruby-revisited/
-        str = Iconv.conv('UTF-8//IGNORE', fix_encoding(encoding), str + "    ")[0...-4]
-      end
-      str
-    end
-
-    private
-
-    def self.fix_encoding(encoding)
-      case encoding.upcase
-      when 'UTF8'
-        'UTF-8'
-      else
-        encoding
-      end
-    end
-  end
+  # Monkeypatch of method from mail gem to rescue from an unknown encoding
   class Ruby19
 
     def self.b_value_decode(str)

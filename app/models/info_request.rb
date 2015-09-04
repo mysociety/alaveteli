@@ -36,8 +36,7 @@ class InfoRequest < ActiveRecord::Base
   strip_attributes :allow_empty => true
 
   validates_presence_of :title, :message => N_("Please enter a summary of your request")
-  # TODO: When we no longer support Ruby 1.8, this can be done with /[[:alpha:]]/
-  validates_format_of :title, :with => /[ёЁа-яА-Яa-zA-Zà-üÀ-Ü]/iu,
+  validates_format_of :title, :with => /[[:alpha:]]/,
     :message => N_("Please write a summary with some text in it"),
     :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
 

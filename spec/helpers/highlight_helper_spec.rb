@@ -213,11 +213,10 @@ EOF
     end
 
     it 'excerpts with utf8' do
-      if RUBY_VERSION.to_f >= 1.9
-        assert_equal("...\357\254\203ciency could not be...".force_encoding(Encoding::UTF_8), excerpt("That's why e\357\254\203ciency could not be helped".force_encoding(Encoding::UTF_8), 'could', :radius => 8))
-      else
-        assert_equal("...\357\254\203ciency could not be...", excerpt("That's why e\357\254\203ciency could not be helped", 'could', :radius => 8))
-      end
+      assert_equal("...\357\254\203ciency could not be...".force_encoding(Encoding::UTF_8),
+        excerpt("That's why e\357\254\203ciency could not be helped".force_encoding(Encoding::UTF_8),
+          'could',
+          :radius => 8))
     end
 
     it 'doesnt modify the options hash' do

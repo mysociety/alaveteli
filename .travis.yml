@@ -24,7 +24,7 @@ before_install:
   - sudo apt-get update
   - export DEBIAN_FRONTEND=noninteractive
   - sudo apt-get -y install exim4-daemon-light
-  - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.8$|^rubygems$|^rake)"`
+  - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.9.1$|^rubygems$|^rake)"`
   - RAILS_ENV=test ./script/rails-post-deploy
   - RAILS_ENV=test ./script/update-xapian-index
 install: echo 'Bundle installed through script/rails-post-deploy'
