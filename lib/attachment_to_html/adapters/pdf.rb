@@ -30,6 +30,7 @@ module AttachmentToHTML
 
       def parse_body
         conversion = convert
+        conversion = convert_string_to_utf8(conversion).string if conversion
         match = conversion ? conversion.match(/<body[^>]*>(.*?)<\/body>/mi) : nil
         match ? match[1] : ''
       end

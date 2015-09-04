@@ -18,7 +18,7 @@ lockfile-progs
 mutt
 pdftk
 php5-cli
-poppler-utils
+poppler-utils/wheezy-backports
 postgresql
 postgresql-client
 python-yaml
