@@ -290,12 +290,18 @@ describe InfoRequest do
 
     it "redirects spam to the holding_pen" do
       info_request = FactoryGirl.create(:info_request)
-      allow(AlaveteliConfiguration).
-        to receive(:incoming_email_spam_action).and_return('holding_pen')
-      allow(AlaveteliConfiguration).
-        to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
-      allow(AlaveteliConfiguration).
-        to receive(:incoming_email_spam_threshold).and_return(100)
+
+      mocked_default_config = {
+        :spam_action => 'holding_pen',
+        :spam_header => 'X-Spam-Score',
+        :spam_threshold => 100
+      }
+
+      const = 'InfoRequest::' \
+              'ResponseGatekeeper::' \
+              'SpamChecker::' \
+              'DEFAULT_CONFIGURATION'
+      stub_const(const, mocked_default_config)
 
       spam_email = <<-EOF.strip_heredoc
       From: EMAIL_FROM
@@ -312,12 +318,18 @@ describe InfoRequest do
 
     it "discards mail over the configured spam threshold" do
       info_request = FactoryGirl.create(:info_request)
-      allow(AlaveteliConfiguration).
-        to receive(:incoming_email_spam_action).and_return('discard')
-      allow(AlaveteliConfiguration).
-        to receive(:incoming_email_spam_header).and_return('X-Spam-Score')
-      allow(AlaveteliConfiguration).
-        to receive(:incoming_email_spam_threshold).and_return(10)
+
+      mocked_default_config = {
+        :spam_action => 'discard',
+        :spam_header => 'X-Spam-Score',
+        :spam_threshold => 10
+      }
+
+      const = 'InfoRequest::' \
+              'ResponseGatekeeper::' \
+              'SpamChecker::' \
+              'DEFAULT_CONFIGURATION'
+      stub_const(const, mocked_default_config)
 
       spam_email = <<-EOF.strip_heredoc
       From: EMAIL_FROM
