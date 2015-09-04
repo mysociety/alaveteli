@@ -153,7 +153,7 @@ Style/EmptyLinesAroundModuleBody:
 Style/Encoding:
   Description: Use UTF-8 as the source file encoding.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#utf-8
-  Enabled: false
+  Enabled: true
   EnforcedStyle: always
   SupportedStyles:
   - when_needed
@@ -161,7 +161,7 @@ Style/Encoding:
 Style/FileName:
   Description: Use snake_case for source file names.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#snake-case-files
-  Enabled: false
+  Enabled: true
   Exclude: []
 Style/FirstParameterIndentation:
   Description: Checks the indentation of the first parameter in a method call.
@@ -429,7 +429,7 @@ Style/SymbolProc:
 Style/TrailingBlankLines:
   Description: Checks trailing blank lines and final newline.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#newline-eof
-  Enabled: false
+  Enabled: true
   EnforcedStyle: final_newline
   SupportedStyles:
   - final_newline
@@ -725,7 +725,7 @@ Style/EndBlock:
 Style/EndOfLine:
   Description: Use Unix-style line endings.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#crlf
-  Enabled: false
+  Enabled: true
 Style/EvenOdd:
   Description: Favor the use of Fixnum#even? && Fixnum#odd?
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#predicate-methods
@@ -907,11 +907,11 @@ Style/StructInheritance:
 Style/Tab:
   Description: No hard tabs.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#spaces-indentation
-  Enabled: false
+  Enabled: true
 Style/TrailingWhitespace:
   Description: Avoid trailing whitespace.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-whitespace
-  Enabled: false
+  Enabled: true
 Style/UnlessElse:
   Description: Do not use unless with else. Rewrite these with the positive case first.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-else-with-unless
