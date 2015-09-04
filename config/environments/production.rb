@@ -35,8 +35,14 @@ Alaveteli::Application.configure do
 
   config.active_support.deprecation = :notify
 
+  exception_notifier_prefix = '[ERROR] '
+  unless AlaveteliConfiguration.domain.blank?
+    exception_notifier_prefix << "[#{ AlaveteliConfiguration.domain }] "
+  end
+
   if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
     middleware.use ExceptionNotifier,
+      :email_prefix => exception_notifier_prefix,
       :sender_address => AlaveteliConfiguration::exception_notifications_from,
       :exception_recipients => AlaveteliConfiguration::exception_notifications_to
   end
