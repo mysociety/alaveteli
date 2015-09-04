@@ -64,7 +64,6 @@ ALAVETELI_OS = ENV['ALAVETELI_VAGRANT_OS'] || 'precise64'
 
 SUPPORTED_OPERATING_SYSTEMS = {
   'precise64' => 'https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box',
-  'squeeze64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210-nocm.box',
   'wheezy64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box'
 }
 

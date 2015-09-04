@@ -32,30 +32,6 @@ misuse() {
 
 update_mysociety_apt_sources
 
-# Debian Squeeze Fixes
-if [ x"$DISTRIBUTION" = x"debian" ] && [ x"$DISTVERSION" = x"squeeze" ]
-then
-  # Add wheezy repo to get bundler
-  cat > /etc/apt/sources.list.d/debian-wheezy.list <<EOF
-deb http://the.earth.li/debian/ wheezy main contrib non-free
-EOF
-
-  # Get bundler from wheezy repo and de-prioritise all other
-  # wheezy packages
-  cat >> /etc/apt/preferences <<EOF
-
-Package: bundler
-Pin: release n=wheezy
-Pin-Priority: 990
-
-Package: *
-Pin: release n=wheezy
-Pin-Priority: 50
-EOF
-
-apt-get -qq update
-fi
-
 # Ubuntu Precise Fixes
 if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"precise" ]
 then
