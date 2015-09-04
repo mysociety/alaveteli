@@ -140,7 +140,7 @@ ensure_line_present \
     /etc/rsyslog.d/50-default.conf 644
 
 cat > /etc/postfix/transports <<EOF
-/^foi.*/                alaveteli
+/^foi\+.*@$HOST$/                alaveteli
 EOF
 
 cat > /etc/postfix/recipients <<EOF
