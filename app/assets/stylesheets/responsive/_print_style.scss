@@ -208,12 +208,7 @@ p.subtitle {
 }
 
 .steps__step-box {
-    background-color: #f4f4f4;
-    color: black;
-    border-color: #f4f4f4;
-    &:after {
-        border-top-color: #f4f4f4;
-    }
+    background-color: transparent;
 }
 
 .latest-requests {
