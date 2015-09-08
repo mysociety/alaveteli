@@ -10,6 +10,12 @@ describe PublicBodyChangeRequestsController do
       expect(response).to render_template("new")
     end
 
+    it 'renders a ReCaptcha form if the request is from a foreign country' do
+      allow(AlaveteliConfiguration).
+        to receive(:iso_country_code).and_return('XYZ')
+      get :new
+      expect(assigns[:request_from_foreign_country]).to eq(true)
+    end
   end
 
   describe 'POST #create' do
@@ -24,6 +30,13 @@ describe PublicBodyChangeRequestsController do
                                 :notes => 'Please',
                                 :source => 'http://www.example.com',
                                 :comment => '' }
+    end
+
+    it 'renders a ReCaptcha form if the request is from a foreign country' do
+      allow(AlaveteliConfiguration).
+        to receive(:iso_country_code).and_return('XYZ')
+      post :create, :public_body_change_request => @change_request_params
+      expect(assigns[:request_from_foreign_country]).to eq(true)
     end
 
     it "should send an email to the site contact address" do
