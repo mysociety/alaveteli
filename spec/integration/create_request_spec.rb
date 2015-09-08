@@ -4,6 +4,10 @@ require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe "When creating requests" do
 
+  before do
+    get_fixtures_xapian_index
+  end
+
   it "should associate the request with the requestor, even if it is approved by an admin" do
     using_session(without_login) do
       # This is a test for https://github.com/mysociety/alaveteli/issues/446
