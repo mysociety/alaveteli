@@ -3,6 +3,23 @@ class PublicBodyChangeRequestsController < ApplicationController
   before_filter :catch_spam, :only => [:create]
   before_filter :set_request_from_foreign_country
 
+  def new
+    @change_request = PublicBodyChangeRequest.new
+
+    if params[:body]
+      @change_request.public_body =
+        PublicBody.find_by_url_name_with_historic(params[:body])
+    end
+
+    @title =
+      if @change_request.public_body
+        _('Ask us to update the email address for {{public_body_name}}',
+          :public_body_name => @change_request.public_body.name)
+      else
+        _('Ask us to add an authority')
+      end
+  end
+
   def create
     @change_request =
       PublicBodyChangeRequest.
@@ -19,23 +36,6 @@ class PublicBodyChangeRequestsController < ApplicationController
     else
       render :action => 'new'
     end
-  end
-
-  def new
-    @change_request = PublicBodyChangeRequest.new
-
-    if params[:body]
-      @change_request.public_body =
-        PublicBody.find_by_url_name_with_historic(params[:body])
-    end
-
-    @title =
-      if @change_request.public_body
-        _('Ask us to update the email address for {{public_body_name}}',
-          :public_body_name => @change_request.public_body.name)
-      else
-        _('Ask us to add an authority')
-      end
   end
 
   private
