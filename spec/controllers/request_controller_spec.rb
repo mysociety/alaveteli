@@ -38,8 +38,17 @@ describe RequestController, "when changing things that appear on the request pag
   render_views
 
   it "should purge the downstream cache when mail is received" do
+    # HACK: The holding pen is now being called (and created, if
+    # this is the first time the holding pen has been initialised) in
+    # InfoRequest#receive. This seemed to create a PurgeRequest for the
+    # holding pen instead of the request under test. The solution was to
+    # ensure the holding pen already exists before this spec.
+    InfoRequest.holding_pen_request
+    PurgeRequest.delete_all
     ir = info_requests(:fancy_dog_request)
+
     receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+
     PurgeRequest.all.first.model_id.should == ir.id
   end
   it "should purge the downstream cache when a comment is added" do
