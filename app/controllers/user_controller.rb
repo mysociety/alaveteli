@@ -11,6 +11,7 @@ class UserController < ApplicationController
   layout :select_layout
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
+  before_filter :set_request_from_foreign_country, :only => [:signin, :signup]
 
   # Show page about a user
   def show
@@ -86,7 +87,6 @@ class UserController < ApplicationController
   # Login form
   def signin
     work_out_post_redirect
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     # make sure we have cookies
     if session.instance_variable_get(:@dbman)
       unless session.instance_variable_get(:@dbman).instance_variable_get(:@original)
@@ -132,7 +132,6 @@ class UserController < ApplicationController
   # Create new account form
   def signup
     work_out_post_redirect
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false
@@ -661,5 +660,10 @@ class UserController < ApplicationController
 
   def current_user_is_display_user
     @user.try(:id) == @display_user.id
+  end
+
+  def set_request_from_foreign_country
+    @request_from_foreign_country =
+      country_from_ip != AlaveteliConfiguration.iso_country_code
   end
 end
