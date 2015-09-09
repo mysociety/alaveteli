@@ -5,7 +5,7 @@ module AlaveteliTextMasker
     # Public: A middleware to replace email addresses with a redaction String
     class EmailAddressMasker < RegexpMasker
       EMAIL_REGEXP = /(\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b)/
-      DEFAULT_EMAIL_REPLACEMENT = '[email address]'
+      DEFAULT_EMAIL_REPLACEMENT = _('[email address]')
 
       def self.defaults
         { :regexp => EMAIL_REGEXP,
@@ -21,11 +21,11 @@ module AlaveteliTextMasker
       def initialize(app, opts = {})
         # TODO: Refactor options setting
         # opts = opts.merge(self.class.defaults)
-  
+
         new_opts = {}
         new_opts[:regexp] = EMAIL_REGEXP
         new_opts[:replacement] = opts.fetch(:replacement, DEFAULT_EMAIL_REPLACEMENT)
-        
+
         super(app, new_opts)
       end
     end
