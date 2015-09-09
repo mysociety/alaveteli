@@ -1,4 +1,8 @@
 # -*- encoding : utf-8 -*-
+Dir[File.dirname(__FILE__) + '/text_masks/*.rb'].each do |file|
+  require file
+end
+
 module AlaveteliTextMasker
   extend self
   DoNotBinaryMask = [ 'image/tiff',
