@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Adds reCAPTCHA to the public authority change request form if the user is from
+  a country outside of the configured `ISO_COUNTRY_CODE` (Gareth Rees).
 * Fixes incorrectly updating `url_name` when a banned user record is updated
   (Gareth Rees).
 * Definition lists are now easier to read and follow, greatly improves help
