@@ -3,7 +3,7 @@ module AlaveteliTextMasker
     # Public: A simple middleware to replace text matched by a Regexp with a
     # replacement String
     class RegexpMasker
-      DEFAULT_REPLACEMENT_STRING = '[REDACTED]'
+      DEFAULT_REPLACEMENT_STRING = _('[REDACTED]')
 
       attr_reader :regexp, :replacement
 
