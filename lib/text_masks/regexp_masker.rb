@@ -3,13 +3,6 @@ module AlaveteliTextMasker
     # Public: A simple middleware to replace text matched by a Regexp with a
     # replacement String
     class RegexpMasker
-      # HACK: Used lambda because it looks like constants are assigned before
-      # FastGettext is configured, causing specs to fail with:
-      #   Current textdomain (nil) was not added, use
-      #   FastGettext.add_text_domain !
-      #   (FastGettext::Storage::NoTextDomainConfigured)
-      DEFAULT_REPLACEMENT_STRING = -> { _('[REDACTED]') }
-
       attr_reader :regexp, :replacement
 
       # Public: Initialize a RegexpMasker
@@ -22,7 +15,7 @@ module AlaveteliTextMasker
       def initialize(app, opts = {})
         @app = check_app(app)
         @regexp = opts.fetch(:regexp)
-        @replacement = opts.fetch(:replacement, DEFAULT_REPLACEMENT_STRING)
+        @replacement = opts.fetch(:replacement, _('[REDACTED]'))
       end
 
       # Public: Perform the replacement and call the next middleware
