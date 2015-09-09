@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Added a shortcut to the Holding Pen in the admin navigation menu
+  (Gareth Rees).
 * Fixes incorrectly updating `url_name` when a banned user record is updated
   (Gareth Rees).
 * Definition lists are now easier to read and follow, greatly improves help
