@@ -4,19 +4,6 @@ module AlaveteliTextMasker
   module TextMasks
     # Public: A middleware to replace email addresses with a redaction String
     class EmailAddressMasker < RegexpMasker
-      EMAIL_REGEXP = /(\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b)/
-      # HACK: Used lambda because it looks like constants are assigned before
-      # FastGettext is configured, causing specs to fail with:
-      #   Current textdomain (nil) was not added, use
-      #   FastGettext.add_text_domain !
-      #   (FastGettext::Storage::NoTextDomainConfigured)
-      DEFAULT_EMAIL_REPLACEMENT = -> { _('[email address]') }
-
-      def self.defaults
-        { :regexp => EMAIL_REGEXP,
-          :replacement => DEFAULT_EMAIL_REPLACEMENT }
-      end
-
       # Public: Initialize an EmailAddressMasker
       #
       # app  - a middleware that responds to #call
@@ -28,8 +15,8 @@ module AlaveteliTextMasker
         # opts = opts.merge(self.class.defaults)
 
         new_opts = {}
-        new_opts[:regexp] = EMAIL_REGEXP
-        new_opts[:replacement] = opts.fetch(:replacement, DEFAULT_EMAIL_REPLACEMENT)
+        new_opts[:regexp] = /(\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b)/
+        new_opts[:replacement] = opts.fetch(:replacement) { _('[email address]') }
 
         super(app, new_opts)
       end
