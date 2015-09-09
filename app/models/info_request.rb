@@ -1104,9 +1104,9 @@ class InfoRequest < ActiveRecord::Base
     masks = [{ :to_replace => incoming_email,
                :replacement =>  _('[FOI #{{request}} email]',
                                   :request => id.to_s) },
-                                  { :to_replace => AlaveteliConfiguration::contact_email,
-                                    :replacement => _("[{{site_name}} contact email]",
-                                                      :site_name => AlaveteliConfiguration::site_name)} ]
+             { :to_replace => AlaveteliConfiguration::contact_email,
+               :replacement => _("[{{site_name}} contact email]",
+                                 :site_name => AlaveteliConfiguration::site_name)} ]
     if public_body.is_followupable?
       masks << { :to_replace => public_body.request_email,
                  :replacement => _("[{{public_body}} request email]",
