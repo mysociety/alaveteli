@@ -180,7 +180,7 @@ describe AlaveteliTextMasker do
         expect(result).to eq(expected)
       end
 
-      it "repplaces a https Alaveteli login link" do
+      it "replaces a https Alaveteli login link" do
         data = "the login link is https://test.host/c/ekfmsdfkm"
         expected = "the login link is [Alaveteli login link]"
         result = class_instance.apply_masks(data, 'text/html', {})

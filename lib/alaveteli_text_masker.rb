@@ -32,12 +32,12 @@ module AlaveteliTextMasker
 
     # Special cases for some content types
     case content_type
-    when *DoNotBinaryMask
-      text # do nothing
-    when *TextMask
-      apply_text_masks(text, options)
     when 'application/pdf'
       apply_pdf_masks(text, options)
+    when *TextMask
+      apply_text_masks(text, options)
+    when *DoNotBinaryMask
+      text # do nothing
     else
       apply_binary_masks(text, options)
     end
@@ -173,10 +173,7 @@ module AlaveteliTextMasker
 
     # Replace censor items
     censor_rules = options[:censor_rules] || []
-
-    # TODO: Add and use CensorRule#apply_to_binary
-    censor_rules.each{ |censor_rule| censor_rule.apply_to_binary!(text) }
-
+    text = censor_rules.reduce(text) { |text, rule| rule.apply_to_binary(text) }
     raise "internal error in apply_binary_masks" if text.size != orig_size
 
     text
@@ -244,9 +241,7 @@ module AlaveteliTextMasker
       memo.gsub(mask[:to_replace], mask[:replacement])
     end
 
-    text = censor_rules.inject(text) do |memo, censor_rule|
-      censor_rule.apply_to_text!(memo)
-    end
+    censor_rules.reduce(text) { |text, rule| rule.apply_to_text(text) }
   end
 
   def apply_text_masks!(text, options = {})
