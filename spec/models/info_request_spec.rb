@@ -562,6 +562,11 @@ describe InfoRequest do
       @ir = info_requests(:naughty_chicken_request)
     end
 
+    after do
+      Object.send(:remove_const, 'InfoRequest')
+      load 'app/models/info_request.rb'
+    end
+
     it "rejects invalid states" do
       expect {@ir.set_described_state("foo")}.to raise_error(ActiveRecord::RecordInvalid)
     end
