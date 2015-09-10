@@ -23,6 +23,33 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+
+describe IncomingMessage do
+
+  describe '#_extract_text' do
+
+    it 'does not generate incompatible character encodings' do
+      if String.respond_to?(:encode)
+        message = FactoryGirl.create(:incoming_message)
+        FactoryGirl.create(:body_text,
+                           :body => 'hí',
+                           :incoming_message => message,
+                           :url_part_number => 2)
+        FactoryGirl.create(:pdf_attachment,
+                           :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
+                           :incoming_message => message,
+                           :url_part_number => 3)
+        message.reload
+
+        expect{ message._extract_text }.
+          to_not raise_error
+      end
+    end
+
+  end
+
+end
+
 describe IncomingMessage, 'when validating' do
 
   it 'should be valid with valid prominence values' do
@@ -494,7 +521,6 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
 
 end
 
-
 describe IncomingMessage, " when censoring data" do
 
   before(:each) do
@@ -791,32 +817,6 @@ describe IncomingMessage, "when extracting attachments" do
 
       expect(im._get_attachment_text_internal.valid_encoding?).to be true
     end
-  end
-
-end
-
-describe IncomingMessage do
-
-  describe '#_extract_text' do
-
-    it 'does not generate incompatible character encodings' do
-      if String.respond_to?(:encode)
-        message = FactoryGirl.create(:incoming_message)
-        FactoryGirl.create(:body_text,
-                           :body => 'hí',
-                           :incoming_message => message,
-                           :url_part_number => 2)
-        FactoryGirl.create(:pdf_attachment,
-                           :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
-                           :incoming_message => message,
-                           :url_part_number => 3)
-        message.reload
-
-        expect{ message._extract_text }.
-          to_not raise_error
-      end
-    end
-
   end
 
 end
