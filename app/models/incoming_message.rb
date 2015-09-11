@@ -362,7 +362,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # apply masks for this message
-    apply_masks!(text, 'text/html')
+    text = apply_masks(text, 'text/html')
 
     # Remove existing quoted sections
     folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
@@ -564,7 +564,7 @@ class IncomingMessage < ActiveRecord::Base
     text = MySociety::Format.make_clickable(text, :contract => 1)
 
     # add a helpful link to email addresses and mobile numbers removed
-    # by apply_masks!
+    # by apply_masks
     email_pattern = Regexp.escape(_("email address"))
     mobile_pattern = Regexp.escape(_("mobile number"))
     text.gsub!(/\[(#{email_pattern}|#{mobile_pattern})\]/,
@@ -607,7 +607,7 @@ class IncomingMessage < ActiveRecord::Base
   # Returns text version of attachment text
   def get_attachment_text_full
     text = self._get_attachment_text_internal
-    apply_masks!(text, 'text/html')
+    text = apply_masks(text, 'text/html')
 
     # This can be useful for memory debugging
     #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
