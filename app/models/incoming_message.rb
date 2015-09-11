@@ -224,6 +224,12 @@ class IncomingMessage < ActiveRecord::Base
     end
   end
 
+  def apply_masks(text, content_type)
+    mask_options = { :censor_rules => info_request.applicable_censor_rules,
+                     :masks => info_request.masks }
+    AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
+  end
+
   def apply_masks!(text, content_type)
     mask_options = { :censor_rules => info_request.applicable_censor_rules,
                      :masks => info_request.masks }
