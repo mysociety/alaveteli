@@ -112,8 +112,8 @@ class InfoRequest < ActiveRecord::Base
       'vexatious',
       'not_foi'
     ]
-    if @@custom_states_loaded
-      states += InfoRequest.theme_extra_states
+    if @@theme_states
+      states += @@theme_states.extra_states
     end
     states
   end
@@ -188,13 +188,23 @@ class InfoRequest < ActiveRecord::Base
     is_external? ? { :name => user_name || _("Anonymous user") } : user.json_for_api
   end
 
-  @@custom_states_loaded = false
+  @@theme_states = nil
+
   begin
     require 'customstates'
-    include InfoRequestCustomStates
-    @@custom_states_loaded = true
+    load_theme_states(InfoRequestThemeStates.new)
   rescue MissingSourceFile, NameError
   end
+
+  def self.load_theme_states(theme_states)
+    @@theme_states = theme_states
+  end
+
+  def self.unload_theme_states
+    @@theme_states = nil
+  end
+
+
 
   OLD_AGE_IN_DAYS = 21.days
 
@@ -640,7 +650,7 @@ class InfoRequest < ActiveRecord::Base
     if cached_value_ok && @cached_calculated_status
       return @cached_calculated_status
     end
-    @cached_calculated_status = @@custom_states_loaded ? self.theme_calculate_status : self.base_calculate_status
+    @cached_calculated_status = @@theme_states ? @@theme_states.calculate_status(self) : self.base_calculate_status
   end
 
   def base_calculate_status
@@ -911,8 +921,8 @@ class InfoRequest < ActiveRecord::Base
     }
     if descriptions[status]
       descriptions[status]
-    elsif respond_to?(:theme_display_status)
-      theme_display_status(status)
+    elsif @@theme_states && @@theme_states.respond_to?(:display_status)
+      @@theme_states.display_status(status)
     else
       raise _("unknown status ") + status
     end

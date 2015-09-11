@@ -556,15 +556,13 @@ describe InfoRequest do
   describe "when using a plugin and calculating the status" do
 
     before do
-      InfoRequest.send(:require, File.expand_path(File.dirname(__FILE__) + '/customstates'))
-      InfoRequest.send(:include, InfoRequestCustomStates)
-      InfoRequest.class_eval('@@custom_states_loaded = true')
+      require File.expand_path(File.dirname(__FILE__) + '/customstates')
+      InfoRequest.load_theme_states(InfoRequestThemeStates.new)
       @ir = info_requests(:naughty_chicken_request)
     end
 
     after do
-      Object.send(:remove_const, 'InfoRequest')
-      load 'app/models/info_request.rb'
+      InfoRequest.unload_theme_states
     end
 
     it "rejects invalid states" do
@@ -580,7 +578,6 @@ describe InfoRequest do
       allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
       @ir.set_described_state("deadline_extended")
       expect(@ir.display_status).to eq('Deadline extended.')
-      @ir.date_deadline_extended
     end
 
     it "is not overdue if it's had the deadline extended" do
