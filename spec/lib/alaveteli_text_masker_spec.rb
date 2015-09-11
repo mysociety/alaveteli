@@ -204,8 +204,13 @@ describe AlaveteliTextMasker do
       it 'applies extra masks to text' do
         data = "here is a mouse"
         expected = "here is a cat"
-        mask = { :to_replace => 'mouse', :replacement => 'cat'}
-        result = class_instance.apply_masks(data, 'text/html', :masks => [mask])
+
+        mask = Middleware::Builder.new do |b|
+          b.use AlaveteliTextMasker::TextMasks::RegexpMasker,
+                :regexp => 'mouse', :replacement => 'cat'
+        end
+
+        result = class_instance.apply_masks(data, 'text/html', :masks => mask)
         expect(result).to eq(expected)
       end
 

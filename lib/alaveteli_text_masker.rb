@@ -237,24 +237,44 @@ module AlaveteliTextMasker
   end
 
   # Remove any email addresses, login links and mobile phone numbers
-  def default_text_masks
-    [{ :to_replace => MySociety::Validate.email_find_regexp,
-       :replacement => "[#{_("email address")}]" },
-     { :to_replace => /(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/,
-       :replacement => "[#{_("mobile number")}]" },
-     { :to_replace => /https?:\/\/#{AlaveteliConfiguration::domain}\/c\/[^\s]+/,
-       :replacement => "[#{_("{{site_name}} login link",
-                             :site_name => AlaveteliConfiguration::site_name)}]" }]
+  def default_text_masks(middleware=false)
+    if middleware
+      ::Middleware::Builder.new do |m|
+        m.use TextMasks::EmailAddressMasker
+        m.use TextMasks::RegexpMasker,
+              :regexp => /(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/,
+              :replacement => "[#{_("mobile number")}]"
+        m.use TextMasks::RegexpMasker,
+              :regexp => /https?:\/\/#{ AlaveteliConfiguration.domain }\/c\/[^\s]+/,
+              :replacement => "[#{_("{{site_name}} login link",
+                              :site_name => AlaveteliConfiguration.site_name)}]"
+      end
+    else
+      [{ :to_replace => MySociety::Validate.email_find_regexp,
+         :replacement => "[#{_("email address")}]" },
+       { :to_replace => /(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/,
+         :replacement => "[#{_("mobile number")}]" },
+       { :to_replace => /https?:\/\/#{AlaveteliConfiguration::domain}\/c\/[^\s]+/,
+         :replacement => "[#{_("{{site_name}} login link",
+                               :site_name => AlaveteliConfiguration::site_name)}]" }]
+    end
   end
 
   def apply_text_masks(text, options = {})
-    masks = options[:masks] || []
-    masks += default_text_masks
     censor_rules = options[:censor_rules] || []
 
-    text = masks.inject(text) do |memo, mask|
-      memo.gsub(mask[:to_replace], mask[:replacement])
+    stack = Middleware::Builder.new do |s|
+      s.use options[:masks] if options[:masks]
+
+      # TODO: Temporarily pass true to get the middleware stack rather than
+      # the Array of hashes. Remove in [v0.24.0.0]
+      s.use default_text_masks(true)
+
+      # TODO: Add censor rules in to stack:
+      # s.use options[:censor_rules] if options[:censor_rules]
     end
+
+    text = stack.call(text)
 
     text = censor_rules.inject(text) do |memo, censor_rule|
       censor_rule.apply_to_text!(memo)
