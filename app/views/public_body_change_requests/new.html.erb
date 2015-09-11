@@ -61,6 +61,10 @@
     <%= f.text_area :notes, :rows => 10, :cols => 60 %>
   </p>
 
+  <% if @request_from_foreign_country %>
+    <%= recaptcha_tags %>
+  <% end %>
+
   <p style="display:none;">
     <%= label_tag 'public_body_change_request[comment]', _('Do not fill in this field') %>
     <%= text_field_tag 'public_body_change_request[comment]' %>
