@@ -35,7 +35,7 @@
   </div>
 <% end %>
 
-<div id="left_column">
+<div id="left_column" class="left_column">
   <h1><%=h(@info_request.title)%></h1>
 
   <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>
