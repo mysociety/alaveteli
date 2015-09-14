@@ -2,19 +2,6 @@
 class PublicBodyChangeRequestsController < ApplicationController
   before_filter :catch_spam, :only => [:create]
 
-  def create
-    @change_request =
-      PublicBodyChangeRequest.
-        from_params(params[:public_body_change_request], @user)
-
-    if @change_request.save
-      @change_request.send_message
-      redirect_to frontpage_url, :notice => @change_request.thanks_notice
-    else
-      render :action => 'new'
-    end
-  end
-
   def new
     @change_request =
       PublicBodyChangeRequest.new
@@ -31,6 +18,19 @@ class PublicBodyChangeRequestsController < ApplicationController
       else
         _('Ask us to add an authority')
       end
+  end
+
+  def create
+    @change_request =
+      PublicBodyChangeRequest.
+        from_params(params[:public_body_change_request], @user)
+
+    if @change_request.save
+      @change_request.send_message
+      redirect_to frontpage_url, :notice => @change_request.thanks_notice
+    else
+      render :action => 'new'
+    end
   end
 
   private
