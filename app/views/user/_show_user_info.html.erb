@@ -9,7 +9,7 @@
 <% end %>
 
 <% if @is_you %>
-  <p id="user_change_password_email">
+  <p id="user_change_password_email" class="user_change_password_email">
     <% if @display_user.profile_photo %>
       <%= link_to _('Change profile photo'), set_profile_photo_path %> |
     <% end %>
