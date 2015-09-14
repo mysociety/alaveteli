@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class PublicBodyChangeRequestsController < ApplicationController
   before_filter :catch_spam, :only => [:create]
+  before_filter :set_render_recaptcha
 
   def new
     @change_request =
@@ -41,6 +42,10 @@ class PublicBodyChangeRequestsController < ApplicationController
         redirect_to frontpage_url
       end
     end
+  end
+
+  def set_render_recaptcha
+    @render_recaptcha = !@user
   end
 
 end

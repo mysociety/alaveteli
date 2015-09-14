@@ -10,6 +10,17 @@ describe PublicBodyChangeRequestsController do
       expect(response).to render_template("new")
     end
 
+    it 'instructs the view to render recaptcha if there is no logged in user' do
+      get :new
+      expect(assigns[:render_recaptcha]).to eq(true)
+    end
+
+    it 'does not instruct the view to render recaptcha if there is a logged in user' do
+      session[:user_id] = FactoryGirl.create(:user).id
+      get :new
+      expect(assigns[:render_recaptcha]).to eq(false)
+    end
+
   end
 
   describe 'POST #create' do
@@ -40,6 +51,17 @@ describe PublicBodyChangeRequestsController do
       expect(mail.body).to include("Please")
       expect(mail.body).to include("http://test.host/admin/bodies/new?change_request_id=#{change_request_id}")
       expect(mail.body).to include("http://test.host/admin/change_requests/#{change_request_id}/edit")
+    end
+
+    it 'sets render_recaptcha to true if there is no logged in user' do
+      post :create, :public_body_change_request => @change_request_params
+      expect(assigns[:render_recaptcha]).to eq(true)
+    end
+
+    it 'sets render_recaptcha to false if there is a logged in user' do
+      session[:user_id] = FactoryGirl.create(:user).id
+      post :create, :public_body_change_request => @change_request_params
+      expect(assigns[:render_recaptcha]).to eq(false)
     end
 
     it 'should show a notice' do
