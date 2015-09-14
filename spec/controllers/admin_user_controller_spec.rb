@@ -45,6 +45,20 @@ describe AdminUserController, "when updating a user" do
     expect(user.can_make_batch_requests?).to be true
   end
 
+  it "should not allow an existing email address to be used" do
+    existing_email = 'donotreuse@localhost'
+    FactoryGirl.create(:user, :email => existing_email)
+    user = FactoryGirl.create(:user, :email => 'user1@localhost')
+    post :update, {:id => user.id, :admin_user => {:name => user.name,
+                                                   :email => existing_email,
+                                                   :admin_level => user.admin_level,
+                                                   :ban_text => user.ban_text,
+                                                   :about_me => user.about_me,
+                                                   :no_limit => user.no_limit}}
+    user = User.find(user.id)
+    expect(user.email).to eq('user1@localhost')
+  end
+
 end
 
 describe AdminUserController do
