@@ -10,7 +10,7 @@
   <% @title = _("Results page {{page_number}}", :page_number => @page.to_s) %>
 <% end%>
 
-<div id="header_left">
+<div id="header_left" class="header_left">
   <% if @query.nil? %>
     <h1><%= _("Search") %></h1>
   <% else %>
@@ -18,7 +18,7 @@
   <% end%>
 
   <% if @advanced %>
-    <div id="advanced-search">
+    <div id="advanced-search" class="advanced-search">
       <p><%= _('To use the advanced search, combine phrases and labels as described in the search tips below.') %></p>
       <%= form_tag(advanced_search_url, :method => "get") do %>
         <p>
@@ -52,8 +52,8 @@
 
       </p>
 
-      <div id="common-subfilters">
-        <div id="variety-filter">
+      <div id="common-subfilters" class="common-subfilters">
+        <div id="variety-filter" class="variety-filter">
           <h3 class="title"><%= _("Showing") %></h3>
           <% labels = [
             ["requests", _("requests")],
@@ -72,7 +72,7 @@
       </div>
 
       <% if @variety_postfix == "requests" %>
-        <div id="requests-subfilters">
+        <div id="requests-subfilters" class="requests-subfilters">
           <div>
             <h3 class="title"><%= _("Restrict to") %></h3>
             <% [["successful", _("successful requests")],
@@ -98,7 +98,7 @@
               <% end %>
           </div>
 
-          <div id="date_range">
+          <div id="date_range" class="date_range">
             <label class="form_label title" for="query"><%= _("Made between") %></label>
             <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>
             <label class="form_label" for="query">&nbsp;<%= _("and") %></label>
@@ -115,7 +115,7 @@
       <% end # if @advanced %>
 
       <% if !@query.nil? && @total_hits > 0 %>
-        <p id="search_controls">
+        <p id="search_controls" class="search_controls">
           <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_path([params[:query], @variety_postfix, 'relevant'], params) %>
           |
           <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_path([params[:query], @variety_postfix, 'newest'], params) %>
@@ -126,7 +126,7 @@
       <% end %>
 </div>  <!-- header left -->
 <% if !@track_thing.nil? %>
-  <div id="header_right" class="sidebar">
+  <div id="header_right" class="header_right">
     <h2><%= _('Track this search')%></h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
     <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'main' } %>
