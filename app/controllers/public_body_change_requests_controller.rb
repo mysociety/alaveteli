@@ -26,7 +26,20 @@ class PublicBodyChangeRequestsController < ApplicationController
       PublicBodyChangeRequest.
         from_params(params[:public_body_change_request], @user)
 
-    if @change_request.save
+    verified =
+      if @render_recaptcha
+        recaptcha_args = {
+          :model => @change_request,
+          :message => _('There was an error with the reCAPTCHA. ' \
+                        'Please try again.')
+        }
+
+        verify_recaptcha(recaptcha_args)
+      else
+        true
+      end
+
+    if verified && @change_request.save
       @change_request.send_message
       redirect_to frontpage_url, :notice => @change_request.thanks_notice
     else
