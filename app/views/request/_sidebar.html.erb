@@ -1,5 +1,5 @@
-<div id="right_column" class="sidebar">
-  <div id="track-request">
+<div id="right_column" class="sidebar right_column">
+  <div id="track-request" class="track-request">
     <h2><%= _('Follow this request') %></h2>
 
     <% follower_count = TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
