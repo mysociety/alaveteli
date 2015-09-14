@@ -24,7 +24,7 @@
   </p>
 
   <% if @public_body.has_notes? || @public_body.eir_only? || @public_body.special_not_requestable_reason? %>
-    <div id="stepwise_make_request">
+    <div id="stepwise_make_request" class="stepwise_make_request">
       <% if @public_body.has_notes? %>
         <p class="authority__header__notes">
           <%= @public_body.notes_as_html.html_safe %>
