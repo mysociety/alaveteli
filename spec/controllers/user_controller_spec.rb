@@ -351,7 +351,17 @@ describe UserController, "when signing up" do
     post :signup, { :user_signup => { :email => 'malformed-email', :name => 'Mr Malformed',
                                       :password => 'sillypassword', :password_confirmation => 'sillypassword' }
                     }
-    expect(assigns[:user_signup].errors[:email]).not_to be_nil
+    expect(assigns[:user_signup].errors[:email]).to eq(['Please enter a valid email address'])
+  end
+
+  it "should not show the 'already in use' error when trying to sign up with a duplicate email" do
+    existing_user = FactoryGirl.create(:user, :email => 'in-use@localhost')
+
+    post :signup, { :user_signup => { :email => 'in-use@localhost', :name => 'Mr Suspected-Hacker',
+                                      :password => 'sillypassword', :password_confirmation => 'mistyped' }
+                    }
+    expect(assigns[:user_signup].errors[:password]).to eq(['Please enter the same password twice'])
+    expect(assigns[:user_signup].errors[:email]).to be_empty
   end
 
   it "should send confirmation mail if you fill in the form right" do
@@ -380,6 +390,19 @@ describe UserController, "when signing up" do
 
   it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
     post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
+                                      :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+                    }
+    expect(response).to render_template('confirm')
+
+    deliveries = ActionMailer::Base.deliveries
+    expect(deliveries.size).to  eq(1)
+
+    # This text may span a line break, depending on the length of the SITE_NAME
+    expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
+  end
+
+  it "should send special 'already signed up' mail if you fill the form in with existing registered email with trailing spaces" do
+    post :signup, { :user_signup => { :email => 'silly@localhost ', :name => 'New Person',
                                       :password => 'sillypassword', :password_confirmation => 'sillypassword' }
                     }
     expect(response).to render_template('confirm')

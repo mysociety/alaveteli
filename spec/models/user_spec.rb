@@ -173,6 +173,27 @@ describe User, " when saving" do
     @user2.save!
   end
 
+  it "should not let you make two users with same email" do
+    @user.name = "Mr. Flobble"
+    @user.password = "insecurepassword"
+    @user.email = "flobble@localhost"
+    @user.save!
+
+    @user2 = User.new
+    @user2.name = "Flobble Jr."
+    @user2.password = "insecurepassword"
+    @user2.email = "flobble@localhost"
+    @user2.valid?
+    expect(@user2.errors[:email].size).to eq(1)
+    expect(@user2.errors[:email][0]).to eq('This email is already in use')
+
+    # should ignore case differences
+    @user2.email = "FloBBle@localhost"
+    @user2.valid?
+    expect(@user2.errors[:email].size).to eq(1)
+    expect(@user2.errors[:email][0]).to eq('This email is already in use')
+  end
+
   it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is set to false' do
     @user.name = "Mr. First"
     @user.password = "insecurepassword"

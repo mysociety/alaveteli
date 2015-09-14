@@ -140,11 +140,17 @@ class UserController < ApplicationController
       flash.now[:error] = _("There was an error with the words you entered, please try again.")
       error = true
     end
-    if error || !@user_signup.valid?
+    @user_signup.valid?
+    user_alreadyexists = User.find_user_by_email(params[:user_signup][:email].strip)
+    if user_alreadyexists
+      # attempt to remove the 'already in use message' from the errors hash
+      # so it doesn't get accidentally shown to the end user
+      @user_signup.errors[:email].delete_if{|message| message == _("This email is already in use")}
+    end
+    if error || !@user_signup.errors.empty?
       # Show the form
       render :action => 'sign'
     else
-      user_alreadyexists = User.find_user_by_email(params[:user_signup][:email])
       if user_alreadyexists
         already_registered_mail user_alreadyexists
         return
