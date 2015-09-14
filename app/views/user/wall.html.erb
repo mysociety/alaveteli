@@ -10,7 +10,7 @@
   <% end %>
 </div>
 
-<div id="user_profile_search">
+<div id="user_profile_search" class="user_profile_search">
   <% if !@feed_results.nil? and !@feed_results.empty? %>
     <% for result in @feed_results %>
       <%= render :partial => 'request/wall_listing', :locals => { :event => result, :info_request => result.info_request } %>
