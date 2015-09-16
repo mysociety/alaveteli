@@ -986,3 +986,20 @@ p.ui-dropdown-list-trigger {
 .ui-dropdown-list.active .current-locale:after {
 	border-top-color: #fff;
 }
+
+.fluid-width-video-wrapper {
+    width: 100%;
+    position: relative;
+    padding: 0;
+    padding-top: 75%;
+}
+
+.fluid-width-video-wrapper iframe,
+.fluid-width-video-wrapper object,
+.fluid-width-video-wrapper embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
