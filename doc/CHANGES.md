@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Adds reCAPTCHA to the public authority change request form if there is no
+  logged in user (Gareth Rees).
 * Fixes incorrectly updating `url_name` when a banned user record is updated
   (Gareth Rees).
 * Definition lists are now easier to read and follow, greatly improves help
