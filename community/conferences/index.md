@@ -14,8 +14,7 @@ AlaveteliCon is the world&rsquo;s only conference on Freedom of
 Information technologies and brought together 60 participants
 from across the world who all have one thing in common: an interest
 in online Right To Know tools.
-<p>Find out more about AlaveteliCon 2015 <a
-href="https://www.mysociety.org/projects/freedom-of-information/alaveteli/alavetelicon%202015/">here</a>.
+<p>Find out more about <a href="{{ site.baseurl }}community/conferences/2015/">AlaveteliCon 2015 here</a>.
 <p>
 The first Alaveteli conference was held in 2012 in Oxford. You can
-read more about AlaveteliCon 2012 <a href="http://alaveteli.org/community/conferences/2012/">here</a>.
+read more about <a href="{{ site.baseurl }}community/conferences/2012/">AlaveteliCon 2012 here</a>.
