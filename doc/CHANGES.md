@@ -4,6 +4,8 @@
 
 * Adds reCAPTCHA to the public authority change request form if there is no
   logged in user (Gareth Rees).
+* Rename #follow_box to #track-request to prevent add blockers hiding the
+  button allowing users to follow a request (Martin Wright).
 * Fixes incorrectly updating `url_name` when a banned user record is updated
   (Gareth Rees).
 * Definition lists are now easier to read and follow, greatly improves help
