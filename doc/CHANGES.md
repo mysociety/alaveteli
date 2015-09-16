@@ -39,6 +39,10 @@
 
 ## Upgrade Notes
 
+* This release takes the first steps to deprecate the `link_button_green` class, which
+  will be removed in a future release. We've added contextually relevant
+  classes to these elements. Please update your themes to ensure you're
+  no longer using `link_button_green` for styling.
 * If you are running Alaveteli on Debian Squeeze, you should upgrade your OS to
   Debian Wheezy before upgrading to this release. This
   [Debian upgrade guide](https://www.debian.org/releases/oldstable/amd64/release-notes/ch-upgrading)
