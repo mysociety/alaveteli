@@ -54,6 +54,13 @@ describe TrackController, "when making a new track on a request" do
                                     :token => get_last_post_redirect.token)
   end
 
+  it "should set no-cache headers on the login redirect" do
+    get :track_request, :url_title => @ir.url_title, :feed => 'track'
+    response.headers["Cache-Control"].should == 'no-cache, no-store, max-age=0, must-revalidate'
+    response.headers['Pragma'].should == 'no-cache'
+    response.headers['Expires'].should == '0'
+  end
+
   it "should save a request track and redirect if you are logged in" do
     session[:user_id] = @user.id
     expect(@track_thing).to receive(:save!)
