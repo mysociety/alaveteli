@@ -1,5 +1,7 @@
 /* Layout for request page */
-
+div.correspondence {
+  word-wrap: break-word;
+}
 
 .gone_postal_help{
   @include grid-column(12);
