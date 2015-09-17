@@ -56,7 +56,7 @@ introduction on
 Once you're logged in to Amazon's service, and navigated to the **EC2
 Management Console**, you can launch the instance. If you prefer to do this
 manually, you can find the AMI in the "EU West (Ireland)" region, with the ID
-`ami-428dc035` and name “Basic Alaveteli installation 2015-09-07”.
+`ami-cf230fb8` and name “Basic Alaveteli installation 2015-09-17”.
 Alternatively, use this link:
 
 <p class="action-buttons">
