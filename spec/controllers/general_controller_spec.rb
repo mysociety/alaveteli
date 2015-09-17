@@ -246,6 +246,13 @@ describe GeneralController, "when showing the frontpage" do
       expect(session[:user_id]).to be_nil
     end
 
+    it "should render the front page successfully with post_redirect if post_params is not set" do
+      session[:post_redirect_token] = 'orphaned_token'
+      get :frontpage, :post_redirect => 1
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
+    end
+
   end
 
 end
