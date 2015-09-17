@@ -342,8 +342,10 @@ class ApplicationController < ActionController::Base
   def check_in_post_redirect
     if params[:post_redirect] and session[:post_redirect_token]
       post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
-      params.update(post_redirect.post_params)
-      params[:post_redirect_user] = post_redirect.user
+      if post_redirect
+        params.update(post_redirect.post_params)
+        params[:post_redirect_user] = post_redirect.user
+      end
     end
   end
 
