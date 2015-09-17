@@ -60,7 +60,7 @@ manually, you can find the AMI in the "EU West (Ireland)" region, with the ID
 Alternatively, use this link:
 
 <p class="action-buttons">
-  <a href="https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-428dc035" class="button">launch
+  <a href="https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-cf230fb8" class="button">launch
   instance with Alaveteli installation AMI</a>
 </p>
 
