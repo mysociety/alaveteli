@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 <h1><%= _('Find an authority') %></h1>
 
-<div id="authority_selection">
+<div id="authority_selection" class="authority_selection">
   <%= form_tag select_authority_path, { :id => 'search_form', :method => 'get' } do %>
     <div>
       <p>
@@ -34,7 +34,7 @@ $(document).ready(function() {
     </div>
 
     <% if AlaveteliConfiguration.allow_batch_requests && @user && @user.can_make_batch_requests? %>
-      <div id="batch_request_link">
+      <div id="batch_request_link" class="batch_request_link">
         <p>
           <%= _('Or make a <a href="{{url}}">batch request</a> to <strong>multiple authorities</strong> at once.',
                 :url => select_authorities_path) %>
@@ -43,12 +43,12 @@ $(document).ready(function() {
     <% end %>
   <% end %>
 
-  <div id="typeahead_response">
+  <div id="typeahead_response" class="typeahead_response">
     <%= render :partial => 'public_body/search_ahead' %>
   </div>
 </div>
 
-<div id="select_authority_help">
+<div id="select_authority_help" class="select_authority_help">
   <p class="info"><%= _("Can't find the one you want?") %></p>
   <p class="actions">
     <%= raw _('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.',

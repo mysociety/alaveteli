@@ -1,7 +1,7 @@
-<div id="after_actions">
+<div id="after_actions" class="after_actions">
   <h2><%= _('Things to do with this request') %></h2>
 
-  <div id="anyone_actions">
+  <div id="anyone_actions" class="anyone_actions">
     <strong><%= _('Anyone:') %></strong>
 
     <ul>
@@ -24,7 +24,7 @@
   </div>
 
   <% if ! @info_request.is_external? %>
-    <div id="owner_actions">
+    <div id="owner_actions" class="owner_actions">
       <strong><%= _('{{info_request_user_name}} only:',:info_request_user_name=>h(@info_request.user_name)) %></strong>
 
       <ul>
@@ -49,7 +49,7 @@
     </div>
   <% end %>
 
-  <div id="public_body_actions">
+  <div id="public_body_actions" class="public_body_actions">
     <strong><%= _('{{public_body_name}} only:',:public_body_name=>h(@info_request.public_body.name) ) %> </strong>
 
     <ul>

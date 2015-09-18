@@ -1,5 +1,5 @@
-<div id="topnav">
-  <ul id="navigation">
+<div id="topnav" class="topnav">
+  <ul id="navigation" class="navigation">
     <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] != 'blog' and params[:action] != 'search' %>"><%= link_to _("Home"), frontpage_path %></li>
     <li class="<%= 'selected' if params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action]) %>"><%= link_to _("Make a request"), select_authority_path, :id => 'make-request-link' %></li>
     <li class="<%= 'selected' if params[:controller] == 'request' and !['new', 'select_authority'].include?(params[:action]) %>">

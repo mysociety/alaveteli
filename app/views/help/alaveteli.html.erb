@@ -1,8 +1,8 @@
 <% @title = "Making requests" %>
 
 <%= render :partial => 'sidebar' %>
-<div id="left_column_flip">
-  <% if params[:country_name] %>  
+<div id="left_column_flip" class="left_column_flip">
+  <% if params[:country_name] %>
     <h1><%= _("Would you like to see a website like this in your country?") %></h1>
   <% else %>
     <h1>Powered by Alaveteli</h1>

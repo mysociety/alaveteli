@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add more classes to markup to make style customisation easier (Martin Wright).
 * Adds reCAPTCHA to the public authority change request form if there is no
   logged in user (Gareth Rees).
 * Rename #follow_box to #track-request to prevent add blockers hiding the
