@@ -431,20 +431,20 @@ class InfoRequest < ActiveRecord::Base
             reject(gatekeeper.reason)
         return
       end
-    end
 
-    # Take action if the message looks like spam
-    spam_checker = ResponseGatekeeper::SpamChecker.new
+      # Take action if the message looks like spam
+      spam_checker = ResponseGatekeeper::SpamChecker.new
 
-    unless spam_checker.allow?(email)
-      # HACK: Stops messages already being received by the holding pen
-      # getting redirected back to the holding pen again and again.
-      unless self == InfoRequest.holding_pen_request &&
-              spam_checker.rejection_action == 'holding_pen'
-        ResponseRejection.
-          for(spam_checker.rejection_action, self, email, raw_email_data).
-            reject(spam_checker.reason)
-        return
+      unless spam_checker.allow?(email)
+        # HACK: Stops messages already being received by the holding pen
+        # getting redirected back to the holding pen again and again.
+        unless self == InfoRequest.holding_pen_request &&
+                spam_checker.rejection_action == 'holding_pen'
+          ResponseRejection.
+            for(spam_checker.rejection_action, self, email, raw_email_data).
+              reject(spam_checker.reason)
+          return
+        end
       end
     end
 
