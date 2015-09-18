@@ -89,6 +89,10 @@ describe PublicBodyController, "when showing a body" do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
+  it 'should not raise an error when given an empty query param' do
+    get :show, :url_name => "dfh", :view => 'all', :query => nil
+    expect(response).to be_success
+  end
 end
 
 describe PublicBodyController, "when listing bodies" do
