@@ -196,6 +196,34 @@ describe InfoRequest do
         expect(info_request.incoming_messages.size).to eq(1)
       end
 
+      it 'does not check spam when overriding the stop new responses status of a request' do
+        mocked_default_config = {
+          :spam_action => 'holding_pen',
+          :spam_header => 'X-Spam-Score',
+          :spam_threshold => 100
+        }
+
+        const = 'InfoRequest::' \
+                'ResponseGatekeeper::' \
+                'SpamChecker::' \
+                'DEFAULT_CONFIGURATION'
+        stub_const(const, mocked_default_config)
+
+        spam_email = <<-EOF.strip_heredoc
+        From: EMAIL_FROM
+        To: FOI Person <EMAIL_TO>
+        Subject: BUY MY SPAM
+        X-Spam-Score: 1000
+        Plz buy my spam
+        EOF
+
+        attrs = { :allow_new_responses_from => 'nobody',
+                  :handle_rejected_responses => 'holding_pen' }
+        info_request = FactoryGirl.create(:info_request, attrs)
+        email, raw_email = email_and_raw_email(:raw_email => spam_email)
+        info_request.receive(email, raw_email, true)
+        expect(info_request.incoming_messages.size).to eq(1)
+      end
     end
 
     context 'handling rejected responses' do
