@@ -434,9 +434,9 @@ class InfoRequest < ActiveRecord::Base
     end
 
     # Take action if the message looks like spam
-    spam_checker = ResponseGatekeeper::SpamChecker.new(email)
+    spam_checker = ResponseGatekeeper::SpamChecker.new
 
-    unless spam_checker.allow?
+    unless spam_checker.allow?(email)
       # HACK: Stops messages already being received by the holding pen
       # getting redirected back to the holding pen again and again.
       unless self == InfoRequest.holding_pen_request &&
@@ -1389,31 +1389,28 @@ class InfoRequest < ActiveRecord::Base
         :spam_threshold => ::AlaveteliConfiguration.incoming_email_spam_threshold
       }
 
-      attr_reader :email, :spam_action, :spam_header, :spam_threshold
+      attr_reader :spam_action, :spam_header, :spam_threshold
 
-      def initialize(email, opts = {})
-        @email = email
+      def initialize(opts = {})
         @spam_action = opts[:spam_action] || DEFAULT_CONFIGURATION[:spam_action]
         @spam_header = opts[:spam_header] || DEFAULT_CONFIGURATION[:spam_header]
         @spam_threshold = opts[:spam_threshold] || DEFAULT_CONFIGURATION[:spam_threshold]
       end
 
-      def allow?
-        configured? ? !spam? : true
+      def allow?(email)
+        configured? ? !spam?(email) : true
       end
 
       def reason
-        _("Incoming message has a spam score ({{spam_score}}) " \
-          "above the configured threshold ({{spam_threshold}}).",
-          :spam_score => spam_score,
-          :spam_threshold => spam_threshold)
+        _('Incoming message has a spam score above the configured threshold ' \
+          '({{spam_threshold}}).', :spam_threshold => spam_threshold)
       end
 
-      def spam?
-        spam_score > spam_threshold
+      def spam?(email)
+        spam_score(email) > spam_threshold
       end
 
-      def spam_score
+      def spam_score(email)
         email.header[spam_header].try(:value).to_f
       end
 
