@@ -442,7 +442,7 @@ end
 
 describe RequestMailer, 'requires_admin' do
   before(:each) do
-    user = mock_model(User, :name_and_email => 'Bruce Jones',
+    user = mock_model(User, :name_and_email => 'Bruce Jones <bruce@example.com>',
                       :name => 'Bruce Jones')
     @info_request = mock_model(InfoRequest, :user => user,
                                :described_state => 'error_message',
@@ -463,8 +463,20 @@ describe RequestMailer, 'requires_admin' do
   end
 
   it 'should not create HTML entities in the subject line' do
-    expect(RequestMailer.requires_admin(@info_request).subject).to eq "FOI response requires admin (error_message) - It's a Test request"
+    expect(RequestMailer.requires_admin(@info_request).subject).
+      to eq "FOI response requires admin (error_message) - It's a Test request"
   end
+
+  it 'sets the "Reply-To" header header to the sender' do
+    expect(RequestMailer.requires_admin(@info_request).header['Reply-To'].to_s).
+      to eq('Bruce Jones <bruce@example.com>')
+  end
+
+  it 'sets the "Return-Path" header to the blackhole address' do
+    expect(RequestMailer.requires_admin(@info_request).header['Return-Path'].to_s).
+      to eq('do-not-reply-to-this-address@localhost')
+  end
+
 end
 
 describe RequestMailer, "overdue_alert" do
