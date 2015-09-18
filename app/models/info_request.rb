@@ -422,21 +422,10 @@ class InfoRequest < ActiveRecord::Base
     # Is this request allowing responses?
     unless override_stop_new_responses
       # See if new responses are prevented for spam reasons
-      gatekeeper =
-        case allow_new_responses_from
-        when 'nobody'
-          ResponseGatekeeper::Nobody.new
-        when 'anybody'
-          ResponseGatekeeper::Anybody.new
-        when 'authority_only'
-          ResponseGatekeeper::AuthorityOnly.new(self, email)
-        else
-          raise ResponseGatekeeper::UnknownResponseGatekeeperError,
-                "Unknown allow_new_responses_from '#{ allow_new_responses_from }'"
-        end
+      gatekeeper = ResponseGatekeeper.for(allow_new_responses_from, self)
 
       # If its not allowing responses, handle the message
-      unless gatekeeper.allow?
+      unless gatekeeper.allow?(email)
         ResponseRejection.
           for(handle_rejected_responses, self, email, raw_email_data).
             reject(gatekeeper.reason)
@@ -1340,40 +1329,31 @@ class InfoRequest < ActiveRecord::Base
   module ResponseGatekeeper
     class UnknownResponseGatekeeperError < ArgumentError ; end
 
-    class Nobody
-      attr_reader :allow, :reason
+    class Base
+      attr_reader :info_request, :allow, :reason
 
-      def initialize
-        @allow = false
-        @reason = _('This request has been set by an administrator to "allow new responses from nobody"')
-      end
-
-      def allow?
-        allow
-      end
-    end
-
-    class Anybody
-      attr_reader :allow, :reason
-
-      def initialize
+      def initialize(info_request)
+        @info_request = info_request
         @allow = true
         @reason = nil
       end
 
-      def allow?
+      def allow?(email)
         allow
       end
     end
 
-    class AuthorityOnly
-      attr_reader :allow, :reason
-
-      def initialize(info_request, email)
-        @allow, @reason = calculate_allow_reason(info_request, email)
+    class Nobody < Base
+      def initialize(info_request)
+        super
+        @allow = false
+        @reason = _('This request has been set by an administrator to "allow new responses from nobody"')
       end
+    end
 
-      def allow?
+    class AuthorityOnly < Base
+      def allow?(email)
+        @allow, @reason = calculate_allow_reason(info_request, email)
         allow
       end
 
@@ -1440,6 +1420,18 @@ class InfoRequest < ActiveRecord::Base
       def configured?
         (spam_action && spam_header && spam_threshold) ? true : false
       end
+    end
+
+
+    SPECIALIZED_CLASSES = { 'nobody' => Nobody,
+                            'anybody' => Base,
+                            'authority_only' => AuthorityOnly }
+
+    def self.for(name, info_request)
+      SPECIALIZED_CLASSES.fetch(name).new(info_request)
+      rescue KeyError
+        raise UnknownResponseGatekeeperError,
+              "Unknown allow_new_responses_from '#{ name }'"
     end
   end
 
