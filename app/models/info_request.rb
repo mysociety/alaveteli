@@ -427,7 +427,7 @@ class InfoRequest < ActiveRecord::Base
       # If its not allowing responses, handle the message
       unless gatekeeper.allow?(email)
         ResponseRejection.
-          for(handle_rejected_responses, self, email, raw_email_data).
+          for(gatekeeper.rejection_action, self, email, raw_email_data).
             reject(gatekeeper.reason)
         return
       end
@@ -440,9 +440,9 @@ class InfoRequest < ActiveRecord::Base
       # HACK: Stops messages already being received by the holding pen
       # getting redirected back to the holding pen again and again.
       unless self == InfoRequest.holding_pen_request &&
-              spam_checker.spam_action == 'holding_pen'
+              spam_checker.rejection_action == 'holding_pen'
         ResponseRejection.
-          for(spam_checker.spam_action, self, email, raw_email_data).
+          for(spam_checker.rejection_action, self, email, raw_email_data).
             reject(spam_checker.reason)
         return
       end
@@ -1341,6 +1341,10 @@ class InfoRequest < ActiveRecord::Base
       def allow?(email)
         allow
       end
+
+      def rejection_action
+        info_request.handle_rejected_responses
+      end
     end
 
     class Nobody < Base
@@ -1404,6 +1408,10 @@ class InfoRequest < ActiveRecord::Base
       def reason
         _('Incoming message has a spam score above the configured threshold ' \
           '({{spam_threshold}}).', :spam_threshold => spam_threshold)
+      end
+
+      def rejection_action
+        spam_action
       end
 
       def spam?(email)
