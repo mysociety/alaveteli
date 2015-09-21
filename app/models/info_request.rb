@@ -420,47 +420,26 @@ class InfoRequest < ActiveRecord::Base
   # A new incoming email to this request
   def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
     # Is this request allowing responses?
-    unless override_stop_new_responses
-      # See if new responses are prevented for spam reasons
-      gatekeeper = ResponseGatekeeper.for(allow_new_responses_from, self)
-
-      # If its not allowing responses, handle the message
-      unless gatekeeper.allow?(email)
-        ResponseRejection.
-          for(gatekeeper.rejection_action, self, email, raw_email_data).
-            reject(gatekeeper.reason)
-        return
+    accepted =
+      if override_stop_new_responses
+        true
+      else
+        accept_incoming?(email, raw_email_data)
       end
 
-      # Take action if the message looks like spam
-      spam_checker = ResponseGatekeeper::SpamChecker.new
+    if accepted
+      create_response!(email, raw_email_data, rejected_reason)
 
-      unless spam_checker.allow?(email)
-        # HACK: Stops messages already being received by the holding pen
-        # getting redirected back to the holding pen again and again.
-        unless self == InfoRequest.holding_pen_request &&
-                spam_checker.rejection_action == 'holding_pen'
-          ResponseRejection.
-            for(spam_checker.rejection_action, self, email, raw_email_data).
-              reject(spam_checker.reason)
-          return
-        end
+      # for the "waiting_classification" index
+      reindex_request_events
+
+      # Notify the user that a new response has been received, unless the
+      # request is external
+      unless is_external?
+        RequestMailer.new_response(self, incoming_messages.last).deliver
       end
-    end
-
-    # Otherwise log the message
-    create_response!(email, raw_email_data, rejected_reason)
-
-    # for the "waiting_classification" index
-    reindex_request_events
-
-    # Notify the user that a new response has been received, unless the request
-    # is external
-    unless is_external?
-      RequestMailer.new_response(self, incoming_messages.last).deliver
     end
   end
-
 
   # An annotation (comment) is made
   def add_comment(body, user)
@@ -1453,6 +1432,7 @@ class InfoRequest < ActiveRecord::Base
       end
 
       def reject(reason = nil)
+        true
       end
     end
 
@@ -1461,8 +1441,11 @@ class InfoRequest < ActiveRecord::Base
         if MailHandler.get_from_address(email).nil?
           # do nothing – can't bounce the mail as there's no address to send it
           # to
+          true
         else
-          unless info_request.is_external?
+          if info_request.is_external?
+            true
+          else
             RequestMailer.
               stopped_responses(info_request, email, raw_email_data).
                 deliver
@@ -1480,7 +1463,11 @@ class InfoRequest < ActiveRecord::Base
       end
 
       def reject(reason = nil)
-        holding_pen.receive(email, raw_email_data, false, reason)
+        if info_request == holding_pen
+          false
+        else
+          holding_pen.receive(email, raw_email_data, false, reason)
+        end
       end
     end
 
@@ -1494,6 +1481,40 @@ class InfoRequest < ActiveRecord::Base
       rescue KeyError
         raise UnknownResponseRejectionError,
               "Unknown allow_new_responses_from '#{ name }'"
+    end
+  end
+
+  def accept_incoming?(email, raw_email_data)
+    # See if new responses are prevented
+    gatekeeper = ResponseGatekeeper.for(allow_new_responses_from, self)
+    # Take action if the message looks like spam
+    spam_checker = ResponseGatekeeper::SpamChecker.new
+
+    # What rejected the email – the gatekeeper or the spam checker?
+    response_rejector =
+      if gatekeeper.allow?(email)
+        if spam_checker.allow?(email)
+          nil
+        else
+          spam_checker
+        end
+      else
+        gatekeeper
+      end
+
+    # Figure out how to reject the mail if it was rejected
+    response_rejection =
+      if response_rejector
+        ResponseRejection.
+          for(response_rejector.rejection_action, self, email, raw_email_data)
+      end
+
+    will_be_rejected = (response_rejector && response_rejection) ? true : false
+
+    if will_be_rejected && response_rejection.reject(response_rejector.reason)
+      false
+    else
+      true
     end
   end
 
