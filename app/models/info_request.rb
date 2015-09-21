@@ -1308,14 +1308,6 @@ class InfoRequest < ActiveRecord::Base
   module ResponseGatekeeper
     class UnknownResponseGatekeeperError < ArgumentError ; end
 
-    class Nobody < Base
-      def initialize(info_request)
-        super
-        @allow = false
-        @reason = _('This request has been set by an administrator to "allow new responses from nobody"')
-      end
-    end
-
     class AuthorityOnly < Base
       def allow?(email)
         @allow, @reason = calculate_allow_reason(info_request, email)
