@@ -1308,24 +1308,6 @@ class InfoRequest < ActiveRecord::Base
   module ResponseGatekeeper
     class UnknownResponseGatekeeperError < ArgumentError ; end
 
-    class Base
-      attr_reader :info_request, :allow, :reason
-
-      def initialize(info_request)
-        @info_request = info_request
-        @allow = true
-        @reason = nil
-      end
-
-      def allow?(email)
-        allow
-      end
-
-      def rejection_action
-        info_request.handle_rejected_responses
-      end
-    end
-
     class Nobody < Base
       def initialize(info_request)
         super
