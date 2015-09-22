@@ -33,7 +33,9 @@ class Comment < ActiveRecord::Base
   validate :check_body_has_content,
     :check_body_uses_mixed_capitals
 
-  scope :visible, where(:visible => true)
+  scope :visible, lambda {
+    joins(:info_request).merge(InfoRequest.visible).where(:visible => true)
+  }
 
   after_save :event_xapian_update
 
