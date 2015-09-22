@@ -137,6 +137,30 @@ describe UserController, "when showing a user" do
       expect(response.body).not_to include("Change your password")
     end
 
+    it 'should not include annotations of hidden requests in the count' do
+      hidden_request = FactoryGirl.create(:info_request, :prominence => "hidden")
+      shown_request = FactoryGirl.create(:info_request)
+      comment1 = FactoryGirl.create(:visible_comment,
+                                    :info_request => hidden_request,
+                                    :user => @user)
+      comment2 = FactoryGirl.create(:visible_comment,
+                                    :info_request => shown_request,
+                                    :user => @user)
+      FactoryGirl.create(:info_request_event,
+                         :event_type => 'comment',
+                         :comment => comment1,
+                         :info_request => hidden_request)
+      FactoryGirl.create(:info_request_event,
+                         :event_type => 'comment',
+                         :comment => comment2,
+                         :info_request => shown_request)
+      expect(@user.comments.size).to eq(2)
+      expect(@user.comments.visible.size).to eq(1)
+      update_xapian_index
+
+      make_request
+      expect(response.body).to match(/Your 1 annotation/)
+    end
   end
 
 end
