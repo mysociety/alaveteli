@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     'super',
   ], :message => N_('Admin level is not included in list')
 
+  validates :email, :uniqueness => {
+                      :case_sensitive => false,
+                      :message => _("This email is already in use") }
+
   validate :email_and_name_are_valid
 
   after_initialize :set_defaults
