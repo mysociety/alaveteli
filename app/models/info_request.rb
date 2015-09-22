@@ -1308,24 +1308,6 @@ class InfoRequest < ActiveRecord::Base
   module ResponseRejection
     class UnknownResponseRejectionError < ArgumentError ; end
 
-    class Bounce < Base
-      def reject(reason = nil)
-        if MailHandler.get_from_address(email).nil?
-          # do nothing – can't bounce the mail as there's no address to send it
-          # to
-          true
-        else
-          if info_request.is_external?
-            true
-          else
-            RequestMailer.
-              stopped_responses(info_request, email, raw_email_data).
-                deliver
-          end
-        end
-      end
-    end
-
     class HoldingPen < Base
       attr_reader :holding_pen
 
