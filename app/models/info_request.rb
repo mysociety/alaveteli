@@ -1308,20 +1308,6 @@ class InfoRequest < ActiveRecord::Base
   module ResponseRejection
     class UnknownResponseRejectionError < ArgumentError ; end
 
-    class Base
-      attr_reader :info_request, :email, :raw_email_data
-
-      def initialize(info_request, email, raw_email_data)
-        @info_request = info_request
-        @email = email
-        @raw_email_data = raw_email_data
-      end
-
-      def reject(reason = nil)
-        true
-      end
-    end
-
     class Bounce < Base
       def reject(reason = nil)
         if MailHandler.get_from_address(email).nil?
