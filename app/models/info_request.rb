@@ -1305,22 +1305,6 @@ class InfoRequest < ActiveRecord::Base
 
   private
 
-  module ResponseRejection
-    class UnknownResponseRejectionError < ArgumentError ; end
-
-    SPECIALIZED_CLASSES = { 'bounce' => Bounce,
-                            'holding_pen' => HoldingPen,
-                            'blackhole' => Base,
-                            'discard' => Base }
-
-    def self.for(name, info_request, email, raw_email)
-      SPECIALIZED_CLASSES.fetch(name).new(info_request, email, raw_email)
-      rescue KeyError
-        raise UnknownResponseRejectionError,
-              "Unknown allow_new_responses_from '#{ name }'"
-    end
-  end
-
   def accept_incoming?(email, raw_email_data)
     # See if new responses are prevented
     gatekeeper = ResponseGatekeeper.for(allow_new_responses_from, self)
