@@ -74,6 +74,7 @@ end
 group :test, :development do
   gem 'bullet', '~> 4.14.6'
   gem 'factory_girl_rails', '~> 1.7'
+  gem 'pry', '~> 0.9.6'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '3.0.2'
   gem 'spork-rails', '~> 3.2.1'
@@ -82,7 +83,6 @@ end
 group :development do
   gem 'capistrano', '~> 2.15.4'
   gem 'mailcatcher', '~> 0.5.11'
-  gem 'pry', '~> 0.9.6'
   gem 'quiet_assets', '~> 1.0.2'
   gem 'rdoc', '~> 3.12.2'
 end
