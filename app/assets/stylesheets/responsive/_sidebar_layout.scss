@@ -16,14 +16,15 @@
    normally .feed_link should be enough */
 #track-request .feed_link,
 .feed_link {
-  .link_button_green {
+  .track-request-action {
     margin-bottom: 1em;
+    display: inline-block;
   }
 }
 
 .authority__body__sidebar {
   .feed_link_sidebar {
-    .link_button_green {
+    .track-request-action {
       margin-top: 1em;
     }
   }

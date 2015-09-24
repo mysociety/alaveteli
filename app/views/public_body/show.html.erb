@@ -57,17 +57,17 @@
   <div class="authority__header__action-bar">
     <div class="action-bar__make-request">
       <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
-        <%= link_to _("Make a request to this authority"), new_request_to_body_path(:url_name => @public_body.url_name), :class => "link_button_green" %>
+        <%= link_to _("Make a request to this authority"), new_request_to_body_path(:url_name => @public_body.url_name), :class => "link_button_green make-request__action" %>
       <% end %>
     </div>
 
     <div class="action-bar__follow">
       <div class="action-bar__follow-button">
         <% if @existing_track %>
-          <%= link_to _("Unsubscribe"), {:controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath}, :class => "link_button_green" %>
+          <%= link_to _("Unsubscribe"), {:controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath}, :class => "link_button_green unsubscribe__action" %>
         <% else %>
           <div class="feed_link">
-            <%= link_to _("Follow"), do_track_path(@track_thing), :class => "link_button_green" %>
+            <%= link_to _("Follow"), do_track_path(@track_thing), :class => "link_button_green track__action" %>
           </div>
         <% end %>
       </div>
