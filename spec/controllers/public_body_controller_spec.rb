@@ -329,6 +329,27 @@ describe PublicBodyController, "when listing bodies" do
     expect(assigns[:tag]).to eq("eats_cheese:stilton")
   end
 
+  it 'should not include hidden requests in the request count' do
+    fake_pb = FactoryGirl.create(:public_body)
+    hidden_request = FactoryGirl.create(:info_request,
+                                        :prominence => 'hidden',
+                                        :public_body => fake_pb)
+    visible_request = FactoryGirl.create(:info_request, :public_body => fake_pb)
+    fake_pb.reload
+    expect(fake_pb.info_requests.size).to eq(2)
+    expect(fake_pb.info_requests.visible.size).to eq(1)
+    fake_list = [fake_pb]
+    allow(fake_list).to receive(:joins).and_return(fake_list)
+    allow(fake_list).to receive(:paginate).and_return(fake_list)
+    allow(fake_list).to receive(:order).and_return(fake_list)
+    allow(fake_list).to receive(:total_entries).and_return(1)
+    allow(fake_list).to receive(:total_pages).and_return(1)
+
+    allow(PublicBody).to receive(:where).and_return(fake_list)
+    get :list
+    expect(response.body).to have_content('1 request made')
+  end
+
   it 'should return a "406 Not Acceptable" code if asked for a json version of a list' do
     get :list, :format => 'json'
     expect(response.code).to eq('406')

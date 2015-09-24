@@ -22,8 +22,8 @@
     <% end %>
   </span>
   <span class="bottomline">
-    <%= n_('{{count}} request made.', '{{count}} requests made.', public_body.info_requests.size,
-           :count => public_body.info_requests.size) %>
+    <%= n_('{{count}} request made.', '{{count}} requests made.', public_body.info_requests.visible.size,
+           :count => public_body.info_requests.visible.size) %>
     <br>
     <span class="date_added">
       <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
