@@ -101,7 +101,7 @@ describe MailServerLog do
     end
 
     it "ignores an email with a different prefix" do
-      expect(MailServerLog.email_addresses_on_line("foitest+request-14-e0e09f97@example.com")).to be_empty
+      expect(MailServerLog.email_addresses_on_line("unknown+request-14-e0e09f97@example.com")).to be_empty
     end
 
     it "ignores an email where the . is substituted for something else" do
@@ -113,9 +113,10 @@ describe MailServerLog do
     describe ".load_exim_log_data" do
       it "sanitizes each line in the log file" do
         allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
+        allow(AlaveteliConfiguration).to receive(:incoming_email_prefix).and_return("foi+")
 
         ir = info_requests(:fancy_dog_request)
-        allow(InfoRequest).to receive(:find_by_incoming_email).with("request-1234@example.com").and_return(ir)
+        allow(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-1234@example.com").and_return(ir)
 
         # Log files can contain stuff which isn't valid UTF-8 sometimes when
         # things go wrong.
@@ -147,13 +148,13 @@ describe MailServerLog do
 
   context "Postfix" do
     let(:log) {[
-                 "Oct  3 16:39:35 host postfix/pickup[2257]: CB55836EE58C: uid=1003 from=<foitest+request-14-e0e09f97@example.com>",
-                 "Oct  3 16:39:35 host postfix/cleanup[7674]: CB55836EE58C: message-id=<ogm-15+506bdda7a4551-20ee@example.com>",
-                 "Oct  3 16:39:35 host postfix/qmgr[1673]: 9634B16F7F7: from=<foitest+request-10-1234@example.com>, size=368, nrcpt=1 (queue active)",
-                 "Oct  3 16:39:35 host postfix/qmgr[15615]: CB55836EE58C: from=<foitest+request-14-e0e09f97@example.com>, size=1695, nrcpt=1 (queue active)",
-                 "Oct  3 16:39:38 host postfix/smtp[7676]: CB55836EE58C: to=<foi@some.gov.au>, relay=aspmx.l.google.com[74.125.25.27]:25, delay=2.5, delays=0.13/0.02/1.7/0.59, dsn=2.0.0, status=sent (250 2.0.0 OK 1349246383 j9si1676296paw.328)",
-                 "Oct  3 16:39:38 host postfix/smtp[1681]: 9634B16F7F7: to=<kdent@example.com>, relay=none, delay=46, status=deferred (connect to 216.150.150.131[216.150.150.131]: No route to host)",
-                 "Oct  3 16:39:38 host postfix/qmgr[15615]: CB55836EE58C: removed",
+      "Oct  3 16:39:35 host postfix/pickup[2257]: CB55836EE58C: uid=1003 from=<foi+request-14-e0e09f97@example.com>",
+      "Oct  3 16:39:35 host postfix/cleanup[7674]: CB55836EE58C: message-id=<ogm-15+506bdda7a4551-20ee@example.com>",
+      "Oct  3 16:39:35 host postfix/qmgr[1673]: 9634B16F7F7: from=<foi+request-10-1234@example.com>, size=368, nrcpt=1 (queue active)",
+      "Oct  3 16:39:35 host postfix/qmgr[15615]: CB55836EE58C: from=<foi+request-14-e0e09f97@example.com>, size=1695, nrcpt=1 (queue active)",
+      "Oct  3 16:39:38 host postfix/smtp[7676]: CB55836EE58C: to=<foi@some.gov.au>, relay=aspmx.l.google.com[74.125.25.27]:25, delay=2.5, delays=0.13/0.02/1.7/0.59, dsn=2.0.0, status=sent (250 2.0.0 OK 1349246383 j9si1676296paw.328)",
+      "Oct  3 16:39:38 host postfix/smtp[1681]: 9634B16F7F7: to=<kdent@example.com>, relay=none, delay=46, status=deferred (connect to 216.150.150.131[216.150.150.131]: No route to host)",
+      "Oct  3 16:39:38 host postfix/qmgr[15615]: CB55836EE58C: removed",
     ]}
 
     describe ".load_postfix_log_data" do
@@ -161,27 +162,28 @@ describe MailServerLog do
       # See http://onlamp.com/onlamp/2004/01/22/postfix.html
       it "loads the postfix log and untangles seperate email transactions using the queue ID" do
         allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
+        allow(AlaveteliConfiguration).to receive(:incoming_email_prefix).and_return("foi+")
         allow(log).to receive(:rewind)
         ir1 = info_requests(:fancy_dog_request)
         ir2 = info_requests(:naughty_chicken_request)
-        allow(InfoRequest).to receive(:find_by_incoming_email).with("request-14-e0e09f97@example.com").and_return(ir1)
-        allow(InfoRequest).to receive(:find_by_incoming_email).with("request-10-1234@example.com").and_return(ir2)
+        allow(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-14-e0e09f97@example.com").and_return(ir1)
+        allow(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-10-1234@example.com").and_return(ir2)
         MailServerLog.load_postfix_log_data(log, MailServerLogDone.new(:filename => "foo", :last_stat => DateTime.now))
         # TODO: Check that each log line is attached to the correct request
         expect(ir1.mail_server_logs.count).to eq(5)
         expect(ir1.mail_server_logs[0].order).to eq(1)
-        expect(ir1.mail_server_logs[0].line).to eq("Oct  3 16:39:35 host postfix/pickup[2257]: CB55836EE58C: uid=1003 from=<foitest+request-14-e0e09f97@example.com>")
+        expect(ir1.mail_server_logs[0].line).to eq("Oct  3 16:39:35 host postfix/pickup[2257]: CB55836EE58C: uid=1003 from=<foi+request-14-e0e09f97@example.com>")
         expect(ir1.mail_server_logs[1].order).to eq(2)
         expect(ir1.mail_server_logs[1].line).to eq("Oct  3 16:39:35 host postfix/cleanup[7674]: CB55836EE58C: message-id=<ogm-15+506bdda7a4551-20ee@example.com>")
         expect(ir1.mail_server_logs[2].order).to eq(4)
-        expect(ir1.mail_server_logs[2].line).to eq("Oct  3 16:39:35 host postfix/qmgr[15615]: CB55836EE58C: from=<foitest+request-14-e0e09f97@example.com>, size=1695, nrcpt=1 (queue active)")
+        expect(ir1.mail_server_logs[2].line).to eq("Oct  3 16:39:35 host postfix/qmgr[15615]: CB55836EE58C: from=<foi+request-14-e0e09f97@example.com>, size=1695, nrcpt=1 (queue active)")
         expect(ir1.mail_server_logs[3].order).to eq(5)
         expect(ir1.mail_server_logs[3].line).to eq("Oct  3 16:39:38 host postfix/smtp[7676]: CB55836EE58C: to=<foi@some.gov.au>, relay=aspmx.l.google.com[74.125.25.27]:25, delay=2.5, delays=0.13/0.02/1.7/0.59, dsn=2.0.0, status=sent (250 2.0.0 OK 1349246383 j9si1676296paw.328)")
         expect(ir1.mail_server_logs[4].order).to eq(7)
         expect(ir1.mail_server_logs[4].line).to eq("Oct  3 16:39:38 host postfix/qmgr[15615]: CB55836EE58C: removed")
         expect(ir2.mail_server_logs.count).to eq(2)
         expect(ir2.mail_server_logs[0].order).to eq(3)
-        expect(ir2.mail_server_logs[0].line).to eq("Oct  3 16:39:35 host postfix/qmgr[1673]: 9634B16F7F7: from=<foitest+request-10-1234@example.com>, size=368, nrcpt=1 (queue active)")
+        expect(ir2.mail_server_logs[0].line).to eq("Oct  3 16:39:35 host postfix/qmgr[1673]: 9634B16F7F7: from=<foi+request-10-1234@example.com>, size=368, nrcpt=1 (queue active)")
         expect(ir2.mail_server_logs[1].order).to eq(6)
         expect(ir2.mail_server_logs[1].line).to eq("Oct  3 16:39:38 host postfix/smtp[1681]: 9634B16F7F7: to=<kdent@example.com>, relay=none, delay=46, status=deferred (connect to 216.150.150.131[216.150.150.131]: No route to host)")
       end
