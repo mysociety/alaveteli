@@ -18,61 +18,63 @@ describe MailServerLog do
   describe ".load_file" do
     before :each do
       allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
+      allow(AlaveteliConfiguration).to receive(:incoming_email_prefix).and_return('foi+')
       allow(File).to receive_message_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 10))
     end
 
-    let(:log) {[
-                 "This is a line of a logfile relevant to foi+request-1234@example.com",
-                 "This is the second line for the same foi+request-1234@example.com email address"
-    ]}
-
+    let(:text_log_path) { file_fixture_name('exim-mainlog-2012-10-10') }
+    let(:gzip_log_path) { file_fixture_name('exim-mainlog-2012-10-10.gz') }
     let(:ir) { info_requests(:fancy_dog_request) }
 
     it "loads relevant lines of an uncompressed exim log file" do
-      expect(File).to receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10", "r").and_return(log)
-      expect(InfoRequest).to receive(:find_by_incoming_email).with("request-1234@example.com").twice.and_return(ir)
-      MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+      expect(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-1234@example.com").twice.and_return(ir)
+      MailServerLog.load_file(text_log_path)
 
       expect(ir.mail_server_logs.count).to eq(2)
       log = ir.mail_server_logs[0]
       expect(log.order).to eq(1)
-      expect(log.line).to eq("This is a line of a logfile relevant to foi+request-1234@example.com")
+      expect(log.line).to eq("This is a line of a logfile relevant to foi+request-1234@example.com\n")
 
       log = ir.mail_server_logs[1]
       expect(log.order).to eq(2)
-      expect(log.line).to eq("This is the second line for the same foi+request-1234@example.com email address")
+      expect(log.line).to eq("This is the second line for the same foi+request-1234@example.com email address\n")
     end
 
     it "doesn't load the log file twice if it's unchanged" do
-      expect(File).to receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10", "r").once.and_return([])
-
-      MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
-      MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+      File.open(text_log_path, 'r') do |file|
+        expect(File).to receive(:open).with(text_log_path, 'r').once.and_return(file)
+        expect(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-1234@example.com").twice.and_return(ir)
+        MailServerLog.load_file(text_log_path)
+        MailServerLog.load_file(text_log_path)
+      end
     end
 
     it "loads the log file again if it's changed" do
-      expect(File).to receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10", "r").twice.and_return([])
-      MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+      expect(File).to receive(:open).with(text_log_path, 'r').twice.and_call_original
+      expect(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-1234@example.com").exactly(4).times.and_return(ir)
+      MailServerLog.load_file(text_log_path)
       allow(File).to receive_message_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
-      MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+      MailServerLog.load_file(text_log_path)
     end
 
     it "doesn't end up with two copies of each line when the same file is actually loaded twice" do
-      expect(File).to receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10", "r").twice.and_return(log)
-      allow(InfoRequest).to receive(:find_by_incoming_email).with("request-1234@example.com").and_return(ir)
+      allow(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-1234@example.com").and_return(ir)
 
-      MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+      MailServerLog.load_file(text_log_path)
       expect(ir.mail_server_logs.count).to eq(2)
 
       allow(File).to receive_message_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
-      MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+      MailServerLog.load_file(text_log_path)
       expect(ir.mail_server_logs.count).to eq(2)
     end
 
     it "easily handles gzip compress log files" do
-      expect(File).not_to receive(:open)
-      expect(Zlib::GzipReader).to receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10.gz").and_return([])
-      MailServerLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10.gz")
+      allow(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-1234@example.com").and_return(ir)
+
+      MailServerLog.load_file(gzip_log_path)
+
+      log = ir.mail_server_logs.first
+      expect(log.line).to eq("This is a line of a logfile relevant to foi+request-1234@example.com\n")
     end
   end
 
