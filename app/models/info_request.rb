@@ -418,120 +418,26 @@ class InfoRequest < ActiveRecord::Base
   end
 
   # A new incoming email to this request
-  def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = "")
+  def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
     # Is this request allowing responses?
-    if !override_stop_new_responses
-      allow = nil
-      reason = nil
-      # See if new responses are prevented for spam reasons
-      if self.allow_new_responses_from == 'nobody'
-        allow = false
-        reason = _('This request has been set by an administrator to "allow new responses from nobody"')
-      elsif self.allow_new_responses_from == 'anybody'
-        allow = true
-      elsif self.allow_new_responses_from == 'authority_only'
-        sender_email = MailHandler.get_from_address(email)
-        if sender_email.nil?
-          allow = false
-          reason = _('Only the authority can reply to this request, but there is no "From" address to check against')
-        else
-          sender_domain = PublicBody.extract_domain_from_email(sender_email)
-          reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
-          allow = false
-          # Allow any domain that has already sent reply
-          for row in self.who_can_followup_to
-            request_domain = PublicBody.extract_domain_from_email(row[1])
-            if request_domain == sender_domain
-              allow = true
-            end
-          end
-        end
+    accepted =
+      if override_stop_new_responses
+        true
       else
-        raise "Unknown allow_new_responses_from '" + self.allow_new_responses_from + "'"
+        accept_incoming?(email, raw_email_data)
       end
 
-      # If its not allowing responses, handle the message
-      if !allow
-        if self.handle_rejected_responses == 'bounce'
-          if MailHandler.get_from_address(email).nil?
-            # do nothing – can't bounce the mail as there's no
-            # address to send it to
-          else
-            RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
-          end
-        elsif self.handle_rejected_responses == 'holding_pen'
-          InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
-        elsif self.handle_rejected_responses == 'blackhole'
-          # do nothing - just lose the message (Note: a copy will be
-          # in the backup mailbox if the server is configured to send
-          # new incoming messages there as well as this script)
-        else
-          raise "Unknown handle_rejected_responses '" + self.handle_rejected_responses + "'"
-        end
-        return
+    if accepted
+      incoming_message =
+        create_response!(email, raw_email_data, rejected_reason)
+
+      # Notify the user that a new response has been received, unless the
+      # request is external
+      unless is_external?
+        RequestMailer.new_response(self, incoming_message).deliver
       end
     end
-
-    # Take action if the message looks like spam
-    spam_action = AlaveteliConfiguration.incoming_email_spam_action
-    spam_threshold = AlaveteliConfiguration.incoming_email_spam_threshold
-    spam_header = AlaveteliConfiguration.incoming_email_spam_header
-    spam_score = email.header[spam_header].try(:value).to_f
-
-    if spam_action && spam_header && spam_threshold && spam_score
-      if spam_score > spam_threshold
-        case spam_action
-        when 'discard'
-          # Do nothing. Silently drop spam above the threshold
-          return
-        when 'holding_pen'
-          unless self == InfoRequest.holding_pen_request
-            reason = _("Incoming message has a spam score ({{spam_score}}) " \
-                       "above the configured threshold ({{spam_threshold}}).",
-                       :spam_score => spam_score,
-                       :spam_threshold => spam_threshold)
-            request = InfoRequest.holding_pen_request
-            request.receive(email, raw_email_data, false, reason)
-            return
-          end
-        end
-      end
-    end
-
-    # Otherwise log the message
-    incoming_message = IncomingMessage.new
-
-    ActiveRecord::Base.transaction do
-
-      # To avoid a deadlock when simultaneously dealing with two
-      # incoming emails that refer to the same InfoRequest, we
-      # lock the row for update.  In Rails 3.2.0 and later this
-      # can be done with info_request.with_lock or
-      # info_request.lock!, but upgrading to that version of
-      # Rails creates many other problems at the moment.  In the
-      # interim, just use raw SQL to do the SELECT ... FOR UPDATE
-      raw_sql = "SELECT * FROM info_requests WHERE id = #{self.id} LIMIT 1 FOR UPDATE"
-      ActiveRecord::Base.connection.execute(raw_sql)
-
-      raw_email = RawEmail.new
-      incoming_message.raw_email = raw_email
-      incoming_message.info_request = self
-      incoming_message.save!
-      raw_email.data = raw_email_data
-      raw_email.save!
-
-      self.awaiting_description = true
-      params = { :incoming_message_id => incoming_message.id }
-      if !rejected_reason.empty?
-        params[:rejected_reason] = rejected_reason.to_str
-      end
-      self.log_event("response", params)
-      self.save!
-    end
-    self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
-    RequestMailer.new_response(self, incoming_message).deliver if !is_external?
   end
-
 
   # An annotation (comment) is made
   def add_comment(body, user)
@@ -1396,6 +1302,69 @@ class InfoRequest < ActiveRecord::Base
   end
 
   private
+
+  def accept_incoming?(email, raw_email_data)
+    # See if new responses are prevented
+    gatekeeper = ResponseGatekeeper.for(allow_new_responses_from, self)
+    # Take action if the message looks like spam
+    spam_checker = ResponseGatekeeper::SpamChecker.new
+
+    # What rejected the email – the gatekeeper or the spam checker?
+    response_rejector =
+      if gatekeeper.allow?(email)
+        if spam_checker.allow?(email)
+          nil
+        else
+          spam_checker
+        end
+      else
+        gatekeeper
+      end
+
+    # Figure out how to reject the mail if it was rejected
+    response_rejection =
+      if response_rejector
+        ResponseRejection.
+          for(response_rejector.rejection_action, self, email, raw_email_data)
+      end
+
+    will_be_rejected = (response_rejector && response_rejection) ? true : false
+
+    if will_be_rejected && response_rejection.reject(response_rejector.reason)
+      false
+    else
+      true
+    end
+  end
+
+  def create_response!(email, raw_email_data, rejected_reason = nil)
+    incoming_message = incoming_messages.build
+
+    # To avoid a deadlock when simultaneously dealing with two
+    # incoming emails that refer to the same InfoRequest, we
+    # lock the row for update.
+    with_lock do
+      # TODO: These are very tightly coupled
+      raw_email = RawEmail.new
+      incoming_message.raw_email = raw_email
+      incoming_message.save!
+      raw_email.data = raw_email_data
+      raw_email.save!
+
+      self.awaiting_description = true
+
+      params = { :incoming_message_id => incoming_message.id }
+      params[:rejected_reason] = rejected_reason.to_s if rejected_reason
+      log_event("response", params)
+
+      save!
+    end
+
+    # for the "waiting_classification" index
+    reindex_request_events
+
+    incoming_message
+  end
 
   def set_defaults
     begin
