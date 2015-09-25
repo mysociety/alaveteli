@@ -8,8 +8,8 @@ class InfoRequest
                             'blackhole' => Base,
                             'discard' => Base }
 
-    def self.for(name, info_request, email, raw_email)
-      SPECIALIZED_CLASSES.fetch(name).new(info_request, email, raw_email)
+    def self.for(name, info_request, email)
+      SPECIALIZED_CLASSES.fetch(name).new(info_request, email)
       rescue KeyError
         raise UnknownResponseRejectionError,
               "Unknown allow_new_responses_from '#{ name }'"

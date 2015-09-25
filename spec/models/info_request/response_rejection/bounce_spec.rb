@@ -16,8 +16,8 @@ describe InfoRequest::ResponseRejection::Bounce do
       Subject: No From header
       Hello, World
       EOF
-      email = MailHandler.mail_from_raw_email(raw_email)
-      args = [double('info_request'), email, double('raw_email_data')]
+      args = [double('info_request'),
+              MailHandler.mail_from_raw_email(raw_email)]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
@@ -30,8 +30,7 @@ describe InfoRequest::ResponseRejection::Bounce do
       Subject: External
       Hello, World
       EOF
-      email = MailHandler.mail_from_raw_email(raw_email)
-      args = [info_request, email, double('raw_email_data')]
+      args = [info_request, MailHandler.mail_from_raw_email(raw_email)]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
@@ -44,8 +43,7 @@ describe InfoRequest::ResponseRejection::Bounce do
       Subject: External
       Hello, World
       EOF
-      email = MailHandler.mail_from_raw_email(raw_email)
-      args = [info_request, email, raw_email]
+      args = [info_request, MailHandler.mail_from_raw_email(raw_email)]
 
       described_class.new(*args).reject
 

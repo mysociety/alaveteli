@@ -4,7 +4,7 @@ class InfoRequest
     class HoldingPen < Base
       attr_reader :holding_pen
 
-      def initialize(info_request, email, raw_email_data)
+      def initialize(info_request, email)
         super
         @holding_pen = InfoRequest.holding_pen_request
       end
@@ -13,7 +13,8 @@ class InfoRequest
         if info_request == holding_pen
           false
         else
-          holding_pen.receive(email, raw_email_data, false, reason)
+          # TODO: Remove the second parameter to receive in 0.24
+          holding_pen.receive(email, nil, false, reason)
         end
       end
     end

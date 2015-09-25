@@ -889,7 +889,7 @@ class RequestController < ApplicationController
 
       mail = RequestMailer.fake_response(@info_request, @user, body, file_name, file_content)
 
-      @info_request.receive(mail, mail.encoded, true)
+      @info_request.receive(mail, nil, true)
       flash[:notice] = _("Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to ") + CGI.escapeHTML(@info_request.user.name) + "."
       redirect_to request_url(@info_request)
       return
