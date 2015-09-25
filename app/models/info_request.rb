@@ -430,9 +430,6 @@ class InfoRequest < ActiveRecord::Base
     if accepted
       create_response!(email, raw_email_data, rejected_reason)
 
-      # for the "waiting_classification" index
-      reindex_request_events
-
       # Notify the user that a new response has been received, unless the
       # request is external
       unless is_external?
@@ -1340,26 +1337,29 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def create_response!(email, raw_email_data, rejected_reason = nil)
-      # To avoid a deadlock when simultaneously dealing with two
-      # incoming emails that refer to the same InfoRequest, we
-      # lock the row for update.
-      with_lock do
-        # TODO: These are very tightly coupled
-        incoming_message = incoming_messages.build
-        raw_email = RawEmail.new
-        incoming_message.raw_email = raw_email
-        incoming_message.save!
-        raw_email.data = raw_email_data
-        raw_email.save!
+    # To avoid a deadlock when simultaneously dealing with two
+    # incoming emails that refer to the same InfoRequest, we
+    # lock the row for update.
+    with_lock do
+      # TODO: These are very tightly coupled
+      incoming_message = incoming_messages.build
+      raw_email = RawEmail.new
+      incoming_message.raw_email = raw_email
+      incoming_message.save!
+      raw_email.data = raw_email_data
+      raw_email.save!
 
-        self.awaiting_description = true
+      self.awaiting_description = true
 
-        params = { :incoming_message_id => incoming_message.id }
-        params[:rejected_reason] = rejected_reason.to_s if rejected_reason
-        log_event("response", params)
+      params = { :incoming_message_id => incoming_message.id }
+      params[:rejected_reason] = rejected_reason.to_s if rejected_reason
+      log_event("response", params)
 
-        save!
-      end
+      save!
+    end
+
+    # for the "waiting_classification" index
+    reindex_request_events
   end
 
   def set_defaults
