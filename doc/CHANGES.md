@@ -29,6 +29,8 @@
   HTTP requests (and tell users if there is an Alaveteli in their country),
   rather than the mySociety Gaze service. This should improve performance and
   reliability.
+* The 'Return-Path' header for mails from users is now set to an email address on
+  the Alaveteli domain so that SPF checks should pass.
 * **Debian Squeeze is no longer supported as an OS to run Alaveteli on.** It is
   end-of-life in Feb 2016 and only packages Ruby 1.8.
 
@@ -52,6 +54,12 @@
   install it with `sudo apt-get install geoip-database`. If you don't want to
   or can't use a local GeoIP database, set `GEOIP_DATABASE' to an empty string in
   `config/general.yml`.
+* Make sure that your 'blackhole email address' is configured to be
+  discarded by your MTA - see our [postfix](
+  http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email)
+  and [exim](http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email-1)
+  setup documentation.
+
 
 ### Changed Templates
 
