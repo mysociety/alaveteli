@@ -428,12 +428,13 @@ class InfoRequest < ActiveRecord::Base
       end
 
     if accepted
-      create_response!(email, raw_email_data, rejected_reason)
+      incoming_message =
+        create_response!(email, raw_email_data, rejected_reason)
 
       # Notify the user that a new response has been received, unless the
       # request is external
       unless is_external?
-        RequestMailer.new_response(self, incoming_messages.last).deliver
+        RequestMailer.new_response(self, incoming_message).deliver
       end
     end
   end
@@ -1337,12 +1338,13 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def create_response!(email, raw_email_data, rejected_reason = nil)
+    incoming_message = incoming_messages.build
+
     # To avoid a deadlock when simultaneously dealing with two
     # incoming emails that refer to the same InfoRequest, we
     # lock the row for update.
     with_lock do
       # TODO: These are very tightly coupled
-      incoming_message = incoming_messages.build
       raw_email = RawEmail.new
       incoming_message.raw_email = raw_email
       incoming_message.save!
@@ -1360,6 +1362,8 @@ class InfoRequest < ActiveRecord::Base
 
     # for the "waiting_classification" index
     reindex_request_events
+
+    incoming_message
   end
 
   def set_defaults
