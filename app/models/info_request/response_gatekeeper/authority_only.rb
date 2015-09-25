@@ -19,8 +19,8 @@ class InfoRequest
           reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
           allow = false
           # Allow any domain that has already sent reply
-          info_request.who_can_followup_to.each do |row|
-            request_domain = PublicBody.extract_domain_from_email(row[1])
+          info_request.who_can_followup_to.each do |_, email_address, _|
+            request_domain = PublicBody.extract_domain_from_email(email_address)
             if request_domain == sender_domain
               allow = true
               reason = nil
