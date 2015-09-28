@@ -143,6 +143,26 @@ describe 'when destroying a message' do
     expect(OutgoingMessage.where(:id => outgoing_message.id)).
       to eq([outgoing_message])
   end
+
+  context 'with attachments' do
+    let(:incoming_with_attachment) {
+      FactoryGirl.create(:incoming_message_with_html_attachment)
+    }
+
+    it 'destroys the incoming message' do
+      incoming_with_attachment.destroy
+      expect(IncomingMessage.where(:id => incoming_with_attachment.id)).
+        to be_empty
+    end
+
+    it 'should destroy associated attachments' do
+      incoming_with_attachment.destroy
+      expect(
+        FoiAttachment.where(:incoming_message_id => incoming_with_attachment.id)
+      ).to be_empty
+    end
+  end
+
 end
 
 describe 'when fully destroying a message' do
@@ -151,6 +171,16 @@ describe 'when fully destroying a message' do
   it 'destroys the incoming message' do
     incoming_message.fully_destroy
     expect(IncomingMessage.where(:id => incoming_message.id)).to be_empty
+  end
+
+  it 'should call the destroy method' do
+    expect(incoming_message).to receive(:destroy)
+    incoming_message.fully_destroy
+  end
+
+  it 'should ask for the file representation of the emails to be destroyed' do
+    expect(incoming_message.raw_email).to receive(:destroy_file_representation!)
+    incoming_message.fully_destroy
   end
 
   it 'should destroy the related info_request_event' do
@@ -175,6 +205,25 @@ describe 'when fully destroying a message' do
       where(:incoming_message_followup_id => incoming_message.id)).to be_empty
     expect(OutgoingMessage.where(:id => outgoing_message.id)).
       to eq([outgoing_message])
+  end
+
+  context 'with attachments' do
+    let(:incoming_with_attachment) {
+      FactoryGirl.create(:incoming_message_with_html_attachment)
+    }
+
+    it 'destroys the incoming message' do
+      incoming_with_attachment.destroy
+      expect(IncomingMessage.where(:id => incoming_with_attachment.id)).
+        to be_empty
+    end
+
+    it 'should destroy associated attachments' do
+      incoming_with_attachment.destroy
+      expect(
+        FoiAttachment.where(:incoming_message_id => incoming_with_attachment.id)
+      ).to be_empty
+    end
   end
 end
 
