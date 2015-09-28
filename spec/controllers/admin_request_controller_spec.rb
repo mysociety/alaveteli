@@ -55,14 +55,6 @@ describe AdminRequestController, "when administering requests" do
 
   describe 'when fully destroying a request' do
 
-    it 'expires the file cache for that request' do
-      info_request = double(InfoRequest, :id => 'fake_request', :url_title => 'test')
-      info_request.stub(:user)
-      expect(InfoRequest).to receive(:find).with('fake_request').and_return(info_request)
-
-      expect(info_request).to receive(:expire)
-    end
-
     it 'calls fully_destroy on the info_request object' do
       info_request = FactoryGirl.create(:info_request)
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
