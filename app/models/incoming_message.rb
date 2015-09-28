@@ -49,7 +49,7 @@ class IncomingMessage < ActiveRecord::Base
            :foreign_key => 'incoming_message_followup_id',
            :class_name => 'OutgoingMessage',
            :dependent => :nullify
-  has_many :foi_attachments, :order => 'id'
+  has_many :foi_attachments, :order => 'id', :dependent => :destroy
   # never really has many info_request_events, but could in theory
   has_many :info_request_events, :dependent => :destroy
 
