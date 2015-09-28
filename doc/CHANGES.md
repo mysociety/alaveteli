@@ -3,6 +3,8 @@
 ## Highlighted Features
 
 * Major refactoring of `InfoRequest#receive` (Gareth Rees).
+* Santitze invalid UTF-8 in mail server logs while processing them (Steven Day,
+  Gareth Rees).
 * Add more classes to markup to make style customisation easier (Martin Wright).
 * Adds reCAPTCHA to the public authority change request form if there is no
   logged in user (Gareth Rees).
