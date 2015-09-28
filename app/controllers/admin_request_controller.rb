@@ -78,7 +78,6 @@ class AdminRequestController < AdminController
     user = @info_request.user
     url_title = @info_request.url_title
 
-    @info_request.expire
     @info_request.fully_destroy
 
     email = user.try(:email) ? user.email : 'This request is external so has no associated user'

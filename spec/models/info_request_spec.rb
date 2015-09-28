@@ -624,6 +624,11 @@ describe InfoRequest do
       expect(InfoRequest.where(:id => info_request.id)).to be_empty
       expect(IncomingMessage.where(:info_request_id => info_request.id)).to be_empty
     end
+
+    it 'should call the expire method' do
+      expect(info_request).to receive(:expire)
+      info_request.fully_destroy
+    end
   end
 
   describe '#initial_request_text' do
