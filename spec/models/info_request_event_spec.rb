@@ -242,5 +242,38 @@ describe InfoRequestEvent do
 
   end
 
+  describe '#destroy' do
+    let (:info_request) { FactoryGirl.create(:info_request)}
+    let (:event) { InfoRequestEvent.create(:info_request => info_request,
+                                           :event_type => 'sent',
+                                           :params => {})
+                 }
 
+    it 'should destroy the info_request_event' do
+      event.destroy
+      expect(InfoRequestEvent.where(:id => event.id)).to be_empty
+    end
+
+    it 'should destroy associated user_info_request_sent_alerts' do
+      user = FactoryGirl.create(:user)
+      UserInfoRequestSentAlert.create(:info_request_event_id => event.id,
+                                      :alert_type => 'overdue_1',
+                                      :user => user,
+                                      :info_request => info_request)
+      event.destroy
+      expect(UserInfoRequestSentAlert.where(:info_request_event_id => event.id)).
+        to be_empty
+    end
+
+    it 'should destroy associated track_things_sent_emails' do
+      track_thing = FactoryGirl.create(:search_track,
+                                       :info_request => info_request)
+      TrackThingsSentEmail.create(:track_thing => track_thing,
+                                  :info_request_event => event)
+      event.reload
+      event.destroy
+      expect(TrackThingsSentEmail.where(:info_request_event_id => event.id)).
+        to be_empty
+    end
+  end
 end
