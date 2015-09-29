@@ -85,6 +85,14 @@ textarea{
   }
 }
 
+#left_column_flip.left_column_flip--opposite {
+  // This is an aggressive selector, but it's better than !important.
+  // When we refactor the Sass to no longer use IDs this can be refactored too
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    float: right;
+  }
+}
+
 #right_column_flip, #right_column {
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
