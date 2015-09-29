@@ -129,6 +129,20 @@ describe 'when destroying a message' do
     expect(InfoRequestEvent.where(:incoming_message_id => incoming_message.id)).
       to be_empty
   end
+
+  it 'should nullify outgoing_message_followups' do
+    outgoing_message = FactoryGirl.
+                         create(:initial_request,
+                                :info_request => incoming_message.info_request,
+                                :incoming_message_followup_id => incoming_message.id)
+    incoming_message.reload
+    incoming_message.destroy
+
+    expect(OutgoingMessage.
+      where(:incoming_message_followup_id => incoming_message.id)).to be_empty
+    expect(OutgoingMessage.where(:id => outgoing_message.id)).
+      to eq([outgoing_message])
+  end
 end
 
 describe 'when fully destroying a message' do
@@ -147,6 +161,20 @@ describe 'when fully destroying a message' do
     incoming_message.fully_destroy
     expect(InfoRequestEvent.where(:incoming_message_id => incoming_message.id)).
       to be_empty
+  end
+
+  it 'should nullify outgoing_message_followups' do
+    outgoing_message = FactoryGirl.
+                         create(:initial_request,
+                                :info_request => incoming_message.info_request,
+                                :incoming_message_followup_id => incoming_message.id)
+    incoming_message.reload
+    incoming_message.fully_destroy
+
+    expect(OutgoingMessage.
+      where(:incoming_message_followup_id => incoming_message.id)).to be_empty
+    expect(OutgoingMessage.where(:id => outgoing_message.id)).
+      to eq([outgoing_message])
   end
 end
 
