@@ -113,21 +113,41 @@ describe IncomingMessage, 'when asked if a user can view it' do
 end
 
 describe 'when destroying a message' do
+  let(:incoming_message) { FactoryGirl.create(:plain_incoming_message) }
 
-  before do
-    @incoming_message = FactoryGirl.create(:plain_incoming_message)
+  it 'destroys the incoming message' do
+    incoming_message.destroy
+    expect(IncomingMessage.where(:id => incoming_message.id)).to be_empty
   end
 
-  it 'can destroy a message with more than one info request event' do
-    @info_request = @incoming_message.info_request
-    @info_request.log_event('response',
-                            :incoming_message_id => @incoming_message.id)
-    @info_request.log_event('edit_incoming',
-                            :incoming_message_id => @incoming_message.id)
-    @incoming_message.fully_destroy
-    expect(IncomingMessage.where(:id => @incoming_message.id)).to be_empty
+  it 'should destroy the related info_request_event' do
+    info_request = incoming_message.info_request
+    info_request.log_event('response',
+                           :incoming_message_id => incoming_message.id)
+    incoming_message.reload
+    incoming_message.destroy
+    expect(InfoRequestEvent.where(:incoming_message_id => incoming_message.id)).
+      to be_empty
+  end
+end
+
+describe 'when fully destroying a message' do
+  let(:incoming_message) { FactoryGirl.create(:plain_incoming_message) }
+
+  it 'destroys the incoming message' do
+    incoming_message.fully_destroy
+    expect(IncomingMessage.where(:id => incoming_message.id)).to be_empty
   end
 
+  it 'should destroy the related info_request_event' do
+    info_request = incoming_message.info_request
+    info_request.log_event('response',
+                           :incoming_message_id => incoming_message.id)
+    incoming_message.reload
+    incoming_message.fully_destroy
+    expect(InfoRequestEvent.where(:incoming_message_id => incoming_message.id)).
+      to be_empty
+  end
 end
 
 describe 'when asked if it is indexed by search' do
