@@ -107,11 +107,13 @@
       <% end %>
       <div id="wrapper">
         <div id="content">
-          <% if flash[:notice] %>
-            <div id="notice"><%= flash[:notice] %></div>
-          <% end %>
-          <% if flash[:error] %>
-            <div id="error"><%= flash[:error] %></div>
+          <% unless params[:action] == 'frontpage' %>
+            <% if flash[:notice] %>
+              <div id="notice"><%= flash[:notice] %></div>
+            <% end %>
+            <% if flash[:error] %>
+              <div id="error"><%= flash[:error] %></div>
+            <% end %>
           <% end %>
 
           <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
