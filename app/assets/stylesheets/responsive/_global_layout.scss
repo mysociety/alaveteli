@@ -1,13 +1,18 @@
 /* Layout across the site */
-#wrapper{
+.wrapper {
   @include grid-row();
   @include ie8{
     width: $main_menu-mobile_menu_cutoff;
   }
 }
 
+/* Legacy ID-based wrapper */
+#wrapper {
+  @extend .wrapper;
+}
+
 /* A global 12 column element provides padding for all pages */
-#content{
+.content {
   @include grid-column(12);
   @include ie8{
     padding-left: 0.9375em;
@@ -18,6 +23,10 @@
   }
 }
 
+/* Legacy ID-based content */
+#content {
+  @extend .content;
+}
 
 textarea{
   @include respond-min( $main_menu-mobile_menu_cutoff ){
