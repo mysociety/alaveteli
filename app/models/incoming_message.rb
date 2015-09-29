@@ -47,7 +47,8 @@ class IncomingMessage < ActiveRecord::Base
 
   has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
   has_many :foi_attachments, :order => 'id'
-  has_many :info_request_events # never really has many, but could in theory
+  # never really has many info_request_events, but could in theory
+  has_many :info_request_events, :dependent => :destroy
 
   belongs_to :raw_email
 
@@ -637,11 +638,6 @@ class IncomingMessage < ActiveRecord::Base
       outgoing_message_followups.each do |outgoing_message_followup|
         outgoing_message_followup.incoming_message_followup = nil
         outgoing_message_followup.save!
-      end
-      info_request_events.each do |info_request_event|
-        info_request_event.track_things_sent_emails.each { |a| a.destroy }
-        info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
-        info_request_event.destroy
       end
       self.raw_email.destroy_file_representation!
       self.destroy
