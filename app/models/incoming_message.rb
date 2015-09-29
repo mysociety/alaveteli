@@ -45,7 +45,10 @@ class IncomingMessage < ActiveRecord::Base
 
   validates_presence_of :raw_email
 
-  has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
+  has_many :outgoing_message_followups,
+           :foreign_key => 'incoming_message_followup_id',
+           :class_name => 'OutgoingMessage',
+           :dependent => :nullify
   has_many :foi_attachments, :order => 'id'
   # never really has many info_request_events, but could in theory
   has_many :info_request_events, :dependent => :destroy
@@ -635,10 +638,6 @@ class IncomingMessage < ActiveRecord::Base
 
   def fully_destroy
     ActiveRecord::Base.transaction do
-      outgoing_message_followups.each do |outgoing_message_followup|
-        outgoing_message_followup.incoming_message_followup = nil
-        outgoing_message_followup.save!
-      end
       self.raw_email.destroy_file_representation!
       self.destroy
     end
