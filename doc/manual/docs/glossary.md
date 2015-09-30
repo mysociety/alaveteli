@@ -311,14 +311,13 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          see the
-          <a href="{{ page.baseurl }}/docs/running/admin_manual/">admin manual</a>
-          for more about censor rules
+          <a href="{{ site.baseurl }}docs/running/redaction/">more about redacting</a>
+          using censor rules
         </li>
         <li>
           censor rules may simply redact text that exactly matches a
           particular sentence or phrase, or may use
-          <a href="#regexp">regular expressions</a>
+          <a href="#regexp" class="glossary__link">regular expressions</a>
         </li>
       </ul>
     </div>
@@ -773,12 +772,13 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          see the
-          <a href="{{ page.baseurl }}/docs/running/admin_manual/">admin manual</a>
-          for more about how and when you may need to redact information
+          redaction is just one way to hide sensitive information &mdash; see
+          <a href="{{ site.baseurl }}docs/running/hiding_information/">more about
+          hiding information on Alaveteli</a>
         </li>
         <li>
-          you can do text-only redaction with Alaveteli's
+          <a href="{{ site.baseurl }}docs/running/redaction/">more about redacting</a>,
+          including instructions for setting up
           <a href="#censor-rule" class="glossary__link">censor rules</a>
         </li>
         <li>

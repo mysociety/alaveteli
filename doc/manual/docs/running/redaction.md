@@ -5,7 +5,148 @@ title: Redacting Sensitive Information
 
 # Redacting Sensitive Information
 
-In some countries, local requirements mean that requests need to contain personal information such as the address or ID number of the person asking for information. Usually requesters do not want this information to be displayed to the general public.
+<p class="lead">
+  Redacting means removing or hiding part of a message so it cannot be read:
+  you are effectively removing part of a document from your site. Typically you
+  do this to conceal sensitive (usually, that means personal) information on
+  the public site. Alaveteli supports an automatic form of redaction using
+  <a href="{{ site.baseurl }}docs/glossary/#censor-rule" class="glossary__link">censor rules</a>.
+  These can be powerful, so must be used with caution.
+</p>
+
+This page describes redaction in Alaveteli. It explains how to add censor rules, and
+contains a detailed example of how we use this to prevent publication of citizens'
+national ID numbers in the Nicaraguan installation of Alaveteli.
+
+<div class="attention-box info">
+  Redaction only affects what is <em>shown</em> on the site. It does not remove
+  anything from the emails that Alaveteli sends out.
+</div>
+
+<div class="attention-box warning">
+  Automatic redaction can be complex. Before you use decide to use it, you
+  should be familiar with other ways to hide information on your site. You can
+  manually edit message text and annotations, and you can also hide whole
+  request pages or individual messages. For an overview of the various methods
+  available to you, see
+  <a href="{{ site.baseurl }}docs/running/hiding_information">hiding or removing information</a>.
+</div>
+
+Alaveteli supports redaction because it _automatically publishes_
+correspondance between a requester and the authority. The most common need for
+redaction is when one or more of the messages in that correspondance contain
+personal or sensitive information. Sometimes this is because the requester
+included personal information in the outgoing request. Often the authority, by
+automatically quoting the incoming email in their reply, then includes that
+information _again_ in their response. This is one example; there are lots of
+other reasons why sensitive information might be included in messages &mdash;
+hence the need for redaction.
+
+## Overview of redaction
+
+Alaveteli's automatic redaction requires that you can predict the following. Together,
+these form a censor rule:
+
+* *the specific pattern of text that you want to redact*
+  <br>
+  This might be a particular word, email address or number; or
+  a particular pattern (described using a 
+  <a href="{{ site.baseurl }}docs/glossary/#regexp" class="glossary__link">regular expression</a>)
+* *the range of messages to which this redaction applies*
+  <br>
+  This could be _all_ messages, or only messages relating to a specific user
+* *the replacement text*
+  <br>
+  The word or words that should be used instead of the redacted text. We
+  recommend something like "<code>[REDACTED]</code>".
+
+For example, your can tell Alaveteli to automatically replace the word `swordfish`
+with `[password]` in any messages relating to a request created by user Groucho
+with email `groucho@example.com`.
+
+A regular expression (regexp) is a method of pattern-matching often used by
+programmers, and if the redaction you want is more complicated than simply
+matching exact text. But a regexp can be difficult to get right, especially for
+complex patterns. If you haven't used them before, we recommend you learn about
+them first &mdash; there are a lot of resources online, including websites that
+let you test and experiment with your regexp before you add it to Alaveteli. If
+you make a mistake in your regexp, either it won't match when you think it
+should (redacting nothing), or it will match too much (redacting things that
+should have been left). Be careful; if you're not sure, ask us for help first.
+
+Redaction will attempt to apply to attachments as well as the text body of
+message. For example, text may be redacted within PDFs or Word documents that are 
+attached to a response to which censor rules apply.
+
+<div class="attention-box warning">
+  Binary files, that is, formats such as PDF, Word, or Excel can be difficult
+  to redact. Some other formats, such as photos or JPEG files of scanned text,
+  will not be redacted at all. If you are applying censor rules, you should
+  always check they are working as expected on incoming attachments.
+</div>
+
+Redaction within binary files does not use the replacement text you have
+specified, because it needs to approximate the length of the text that has been
+redacted. Alaveteli automatically uses `[xxxxx]` as the replacement text, with
+as many <code>x</code>s as needed.
+
+## How to add a censor rule
+
+To add a censor rule to a specific user, in the admin interface click on
+**Users** and click of their name. Scroll down to _censor rules_, and click
+**New censor rule**.
+
+To add a censor rule to a specific request, click on the the **New censor rule**
+button at the bottom of that request's admin page.
+
+If you want to redact any text that matches a particular pattern, you can use a
+<a href="{{ site.baseurl }}docs/glossary/#regexp" class="glossary__link">regular expression</a>
+(regexp). You need to tell Alaveteli that the text is describing such a pattern
+rather than the exact text you want to replace. Tick the checkbox labelled _Is
+it a regular expression_ if you're using a regexp instead of a simple, exact
+text match.
+
+If you're not using a regular expression, the text match is case sensitive
+&mdash; so `Reading` will _not_ redact the word `reading`. If you need case
+insensitive matching, use a regular expression.
+
+Enter the _replacement text_ that should be inserted in place of the redacted
+text. We recommend something like `[REDACTED]` or <code>[personal&nbsp;details&nbsp;removed]</code>
+to make it very clear that this is not the original text. Remember that the
+replacement text will look the same as the running text into which it is 
+inserted, which is why you should use square brackets, or something like them.
+
+Provide a _comment_ explaining why this rule is needed. This will be seen only
+by other administrators on the site.
+
+Click the **create** button when you are ready to add the censor rule. 
+
+## Seeing unredacted text
+
+Censor rules are applied when the site pages (which includes the admin) are
+displayed. If you want to see unredacted text, Alaveteli shows the original
+text when you 
+[edit the text of a message]({{ site.baseurl }}docs/running/admin_manual/#editing-an-outgoing-message).
+
+## Redaction scope: requests, users, or more
+
+The admin interface lets you easily add a censor rule to a specific request
+or a particular user. 
+
+But it's also technically possible to add censor rules with a different
+scope by working directly within the source code. If you need to apply a
+censor rule across a broader scope, for example, for _all_ requests on your
+site, ask us for help. 
+
+By way of an example, in the detailed example below, we add some code to apply
+a unique redaction rule to every user (for hiding their own citizen ID number).
+
+## A detailed example
+
+In some countries, local requirements mean that requests need to contain
+personal information such as the address or ID number of the person asking for
+information. Usually requesters do not want this information to be displayed to
+the general public.
 
 Alaveteli has some ability to deal with this through the use of <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rules</a>.
 
