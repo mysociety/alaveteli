@@ -32,7 +32,7 @@ national ID numbers in the Nicaraguan installation of Alaveteli.
   <a href="{{ site.baseurl }}docs/running/hiding_information">hiding or removing information</a>.
 </div>
 
-Alaveteli supports redaction because it _automatically publishes_
+Alaveteli's redaction feature is useful because the site _automatically publishes_
 correspondence between a requester and the authority. The most common need for
 redaction is when one or more of the messages in that correspondence contain
 personal or sensitive information. Sometimes this is because the requester
