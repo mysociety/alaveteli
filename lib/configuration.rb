@@ -33,6 +33,7 @@ module AlaveteliConfiguration
       :DISABLE_EMERGENCY_USER => false,
       :DOMAIN => 'localhost:3000',
       :DONATION_URL => '',
+      :ENABLE_2FACTOR_AUTH => false,
       :ENABLE_WIDGETS => false,
       :EXCEPTION_NOTIFICATIONS_FROM => 'errors@localhost',
       :EXCEPTION_NOTIFICATIONS_TO => 'user-support@localhost',
