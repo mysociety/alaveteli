@@ -881,3 +881,12 @@ PRODUCTION_MAILER_DELIVERY_METHOD: sendmail
 #
 # ---
 ENABLE_WIDGETS: false
+
+# Enable a second step of authentication for dangerous account actions.
+# Currently only active for changing password. Two factor auth is opt-in per
+# user.
+#
+# ENABLE_TWO_FACTOR_AUTH – Boolean (default: false)
+#
+# ---
+ENABLE_TWO_FACTOR_AUTH: false
