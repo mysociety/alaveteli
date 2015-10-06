@@ -1,28 +1,41 @@
 <% @title = _('{{user_name}} - 2factor Authentication',
               :user_name => h(@user.name)) %>
 
-<h1><%= @title %></h1>
+<h1 class="one-time-password-page-title"><%= @title %></h1>
 
 <% if @user.otp_enabled? %>
-  <h2>Your One Time Password:</h2>
-
   <div class="one-time-password">
-    <%= @user.otp_code %>
+    <h2 class="one-time-password__title">
+      <%= _('Your current one time password:') %>
+    </h2>
+
+    <div class="one-time-password__otp-code">
+      <%= @user.otp_code %>
+    </div>
   </div>
 
-  <ul>
-    <li>
-      <%= link_to one_time_password_path, :method => :put, :confirm => _('Are you sure?') do %>
+  <ul class="one-time-password-actions">
+    <li class="one-time-password-actions__action-item action-item">
+      <%= link_to one_time_password_path, :method => :put,
+                                          :confirm => _('Are you sure?'),
+                                          :class => 'action-item__action' do %>
         <%= _('Regenerate one time password') %>
       <% end %>
     </li>
 
-    <li>
-      <%= link_to one_time_password_path, :method => :delete, :confirm => _('Are you sure?') do %>
+    <li class="one-time-password-actions__action-item action-item">
+      <%= link_to one_time_password_path, :method => :delete,
+                                          :confirm => _('Are you sure?'),
+                                          :class => 'action-item__action' do %>
         <%= _('Disable 2factor Authentication') %>
       <% end %>
     </li>
   </ul>
 <% else %>
-  <%= button_to _('Enable 2factor Authentication'), :action => :create %>
+  <ul class="one-time-password-actions">
+    <li class="one-time-password-actions__action-item action-item">
+      <%= button_to _('Enable 2factor Authentication'),
+                    { :action => :create },
+                    { :class => 'action-item__action' } %>
+    </li>
 <% end %>
