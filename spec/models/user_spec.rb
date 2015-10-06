@@ -434,6 +434,74 @@ describe User do
 
   end
 
+  describe '#otp_enabled?' do
+
+    it 'requires an otp_secret_key to be enabled' do
+      attrs = { :otp_enabled => true,
+                :otp_secret_key => nil,
+                :otp_counter => 1 }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'requires an otp_counter to be enabled' do
+      attrs = { :otp_enabled => true,
+                :otp_secret_key => '123',
+                :otp_counter => nil }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'requires an otp_enabled to be true to be enabled' do
+      attrs = { :otp_enabled => false,
+                :otp_secret_key => '123',
+                :otp_counter => 1 }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'requires otp_enabled, otp_secret_key and otp_counter to be enabled' do
+      attrs = { :otp_enabled => true,
+                :otp_secret_key => '123',
+                :otp_counter => 1 }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(true)
+    end
+
+  end
+
+  describe '#enable_otp' do
+
+    it 'resets the otp_counter' do
+      user = User.new(:otp_counter => 200)
+      user.enable_otp
+      expect(user.otp_counter).to eq(1)
+    end
+
+    it 'regenerates the otp_secret_key' do
+      user = User.new(:otp_secret_key => '123')
+      user.enable_otp
+      expect(user.otp_secret_key.length).to eq(16)
+    end
+
+    it 'sets otp_enabled to true' do
+      user = User.new
+      user.enable_otp
+      expect(user.otp_enabled).to eq(true)
+    end
+
+  end
+
+  describe '#disable_otp' do
+
+    it 'sets otp_enabled to false' do
+      user = User.new(:otp_enabled => true)
+      user.disable_otp
+      expect(user.otp_enabled).to eq(false)
+    end
+
+  end
+
   describe '#otp_counter' do
 
     it 'defaults to 1' do
