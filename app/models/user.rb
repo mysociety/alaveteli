@@ -70,6 +70,8 @@ class User < ActiveRecord::Base
   :terms => [ [ :variety, 'V', "variety" ] ],
   :if => :indexed_by_search?
 
+  has_one_time_password :counter_based => true
+
   # Return user given login email, password and other form parameters (e.g. name)
   #
   # The specific_user_login parameter says that login as a particular user is
@@ -259,6 +261,20 @@ class User < ActiveRecord::Base
   def has_this_password?(password)
     expected_password = User.encrypted_password(password, salt)
     hashed_password == expected_password
+  end
+
+  def otp_enabled?
+    (otp_secret_key && otp_counter && otp_enabled) ? true : false
+  end
+
+  def enable_otp
+    otp_regenerate_secret
+    otp_regenerate_counter
+    self.otp_enabled = true
+  end
+
+  def disable_otp
+    self.otp_enabled = false
   end
 
   # For use in to/from in email messages
