@@ -56,15 +56,28 @@ describe AdminRequestController, "when administering requests" do
   describe 'when fully destroying a request' do
 
     it 'expires the file cache for that request' do
-      info_request = info_requests(:badger_request)
-      expect(@controller).to receive(:expire_for_request).with(info_request)
-      get :destroy, { :id => info_request }
+      info_request = double(InfoRequest, :id => 'fake_request', :url_title => 'test')
+      info_request.stub(:user)
+      expect(InfoRequest).to receive(:find).with('fake_request').and_return(info_request)
+
+      expect(info_request).to receive(:expire)
+      expect(info_request).to receive(:fully_destroy)
+      get :destroy, { :id => info_request.id }
     end
 
     it 'uses a different flash message to avoid trying to fetch a non existent user record' do
       info_request = info_requests(:external_request)
       post :destroy, { :id => info_request.id }
       expect(request.flash[:notice]).to include('external')
+    end
+
+    it 'redirects after destroying a request with incoming_messages' do
+      info_request = FactoryGirl.create(:info_request)
+      incoming_message = FactoryGirl.create(:incoming_message_with_html_attachment,
+                                            :info_request => info_request)
+      delete :destroy, { :id => info_request.id }
+
+      expect(response).to redirect_to(admin_requests_url)
     end
 
   end
