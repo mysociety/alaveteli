@@ -75,6 +75,10 @@ Alaveteli::Application.routes.draw do
   # Use /profile for things to do with the currently signed in user.
   # Use /user/XXXX for things that anyone can see about that user.
   # Note that /profile isn't indexed by search (see robots.txt)
+  resource :one_time_password,
+           :only => [:show, :create],
+           :path => '/profile/2factor'
+
   match '/profile/sign_in' => 'user#signin', :as => :signin
   match '/profile/sign_up' => 'user#signup', :as => :signup, :via => :post
   match '/profile/sign_up' => 'user#signin', :via => :get
