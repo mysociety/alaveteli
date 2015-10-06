@@ -55,10 +55,29 @@ describe OneTimePasswordsController do
       expect(assigns[:user]).to eq(@user)
     end
 
-    it 'redirects back to #show' do
+    it 'enables OTP for the user' do
+      session[:user_id] = @user.id
+      post :create
+      expect(@user.reload.otp_enabled?).to eq(true)
+    end
+
+    it 'sets a successful notification message' do
+      session[:user_id] = @user.id
+      post :create
+      expect(flash[:notice]).to eq('2factor authentication enabled')
+    end
+
+    it 'redirects back to #show on success' do
       session[:user_id] = @user.id
       post :create
       expect(response).to redirect_to(one_time_password_path)
+    end
+
+    it 'renders #show on failure' do
+      allow_any_instance_of(User).to receive(:save).and_return(false)
+      session[:user_id] = @user.id
+      post :create
+      expect(response).to render_template('show')
     end
 
     context 'when 2factor auth is not enabled' do
@@ -70,6 +89,54 @@ describe OneTimePasswordsController do
       end
 
     end
+
+  end
+
+  describe 'DELETE #destroy' do
+
+    it 'redirects to the sign-in page without a signed in user' do
+      delete :destroy
+      expect(response).
+        to redirect_to(signin_path(:token => PostRedirect.last.token))
+    end
+
+    it 'assigns the signed in user' do
+      session[:user_id] = @user.id
+      delete :destroy
+      expect(assigns[:user]).to eq(@user)
+    end
+
+    it 'disables OTP for the user' do
+      @user.enable_otp
+      @user.save!
+      session[:user_id] = @user.id
+      delete :destroy
+      expect(@user.reload.otp_enabled?).to eq(false)
+    end
+
+    it 'redirects back to #show on success' do
+      session[:user_id] = @user.id
+      delete :destroy
+      expect(response).to redirect_to(one_time_password_path)
+    end
+
+    it 'renders #show on failure' do
+      allow_any_instance_of(User).to receive(:save).and_return(false)
+      session[:user_id] = @user.id
+      delete :destroy
+      expect(response).to render_template('show')
+    end
+
+    context 'when 2factor auth is not enabled' do
+
+      it 'raises ActiveRecord::RecordNotFound' do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_2factor_auth).and_return(false)
+        expect{ delete :destroy }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+    end
+
   end
 
 end

@@ -1,10 +1,18 @@
 <% @title = _('{{user_name}} - 2factor Authentication',
               :user_name => h(@user.name)) %>
 
-<h1>2factor</h1>
+<h1><%= @title %></h1>
 
-<h2>Your One Time Password:</h2>
+<% if @user.otp_enabled? %>
+  <h2>Your One Time Password:</h2>
 
-<div class="one-time-password">
-  
-</div>
+  <div class="one-time-password">
+    <%= @user.otp_code %>
+  </div>
+
+  <%= link_to one_time_password_path, :method => :delete, :confirm => _('Are you sure?') do %>
+    <%= _('Disable 2factor Authentication') %>
+  <% end %>
+<% else %>
+  <%= button_to _('Enable 2factor Authentication'), :action => :create %>
+<% end %>

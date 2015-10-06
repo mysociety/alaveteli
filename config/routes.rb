@@ -76,7 +76,7 @@ Alaveteli::Application.routes.draw do
   # Use /user/XXXX for things that anyone can see about that user.
   # Note that /profile isn't indexed by search (see robots.txt)
   resource :one_time_password,
-           :only => [:show, :create],
+           :only => [:show, :create, :destroy],
            :path => '/profile/2factor'
 
   match '/profile/sign_in' => 'user#signin', :as => :signin

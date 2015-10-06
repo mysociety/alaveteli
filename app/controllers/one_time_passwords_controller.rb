@@ -7,7 +7,25 @@ class OneTimePasswordsController < ApplicationController
   end
 
   def create
-    redirect_to one_time_password_path
+    @user.enable_otp
+
+    if @user.save
+      redirect_to one_time_password_path,
+                  :notice => _('2factor authentication enabled')
+    else
+      render :show
+    end
+  end
+
+  def destroy
+    @user.disable_otp
+
+    if @user.save
+      redirect_to one_time_password_path,
+                  :notice => _('2factor authentication disabled')
+    else
+      render :show
+    end
   end
 
   private
