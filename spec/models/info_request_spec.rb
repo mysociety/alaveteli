@@ -614,6 +614,16 @@ describe InfoRequest do
       info_request.fully_destroy
       expect(WidgetVote.where(:info_request_id => info_request.id)).to be_empty
     end
+
+    it 'can destroy a request with incoming messages' do
+      incoming_message = FactoryGirl.create(:incoming_message_with_html_attachment,
+                                            :info_request => info_request)
+      info_request.reload
+      info_request.fully_destroy
+
+      expect(InfoRequest.where(:id => info_request.id)).to be_empty
+      expect(IncomingMessage.where(:info_request_id => info_request.id)).to be_empty
+    end
   end
 
   describe '#initial_request_text' do

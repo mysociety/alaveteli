@@ -26,6 +26,7 @@
 #
 
 require 'digest/sha1'
+require 'fileutils'
 
 class InfoRequest < ActiveRecord::Base
   include AdminColumn
@@ -223,6 +224,24 @@ class InfoRequest < ActiveRecord::Base
     ret = self.orig_tag_string=(tag_string)
     reindex_request_events
     return ret
+  end
+
+  def expire
+    # Clear out cached entries, by removing files from disk (the built in
+    # Rails fragment cache made doing this and other things too hard)
+    foi_fragment_cache_directories.each{ |dir| FileUtils.rm_rf(dir) }
+
+    # Remove any download zips
+    FileUtils.rm_rf(download_zip_dir)
+
+    # Remove the database caches of body / attachment text (the attachment text
+    # one is after privacy rules are applied)
+    clear_in_database_caches!
+
+    # also force a search reindexing (so changed text reflected in search)
+    reindex_request_events
+    # and remove from varnish
+    purge_in_cache
   end
 
   # Removes anything cached about the object in the database, and saves
