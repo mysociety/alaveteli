@@ -22,6 +22,7 @@
 #  no_limit                :boolean          default(FALSE), not null
 #  receive_email_alerts    :boolean          default(TRUE), not null
 #  can_make_batch_requests :boolean          default(FALSE), not null
+#  otp_enabled             :boolean          default(FALSE)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -410,6 +411,26 @@ describe User, "when calculating if a user has exceeded the request limit" do
 end
 
 describe User do
+
+  describe '#otp_enabled' do
+
+    it 'defaults to false' do
+      user = User.new
+      expect(user.otp_enabled).to eq(false)
+    end
+
+    it 'can be enabled on initialization' do
+      user = User.new(:otp_enabled => true)
+      expect(user.otp_enabled).to eq(true)
+    end
+
+    it 'can be enabled after initialization' do
+      user = User.new
+      user.otp_enabled = true
+      expect(user.otp_enabled).to eq(true)
+    end
+
+  end
 
   describe '#banned?' do
 
