@@ -515,43 +515,105 @@ describe InfoRequest do
   end
 
   describe '#destroy' do
-
-    before do
-      @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
-                                      :external_user_name => 'Example User',
-                                      :title => 'Some request or other',
-                                      :public_body => public_bodies(:geraldine_public_body))
-    end
+    let(:info_request) { FactoryGirl.create(:info_request) }
 
     it "should call update_counter_cache" do
-      @info_request.save!
-      expect(@info_request).to receive(:update_counter_cache)
-      @info_request.destroy
+      expect(info_request).to receive(:update_counter_cache)
+      info_request.destroy
     end
 
     it 'destroys associated widget_votes' do
-      @info_request.save
-      @info_request.widget_votes.create(:cookie => 'x' * 20)
-      @info_request.destroy
-      expect(WidgetVote.where(:info_request_id => @info_request.id)).to be_empty
+      info_request.widget_votes.create(:cookie => 'x' * 20)
+      info_request.destroy
+      expect(WidgetVote.where(:info_request_id => info_request.id)).to be_empty
     end
 
+    it 'destroys associated censor_rules' do
+      censor_rule = FactoryGirl.create(:censor_rule, :info_request => info_request)
+      info_request.reload
+      info_request.destroy
+      expect(CensorRule.where(:info_request_id => info_request.id)).to be_empty
+    end
+
+    it 'destroys associated comments' do
+      comment = FactoryGirl.create(:comment, :info_request => info_request)
+      info_request.reload
+      info_request.destroy
+      expect(Comment.where(:info_request_id => info_request.id)).to be_empty
+    end
+
+    it 'destroys associated info_request_events' do
+      info_request.destroy
+      expect(InfoRequestEvent.where(:info_request_id => info_request.id)).to be_empty
+    end
+
+    it 'destroys associated outgoing_messages' do
+      info_request.destroy
+      expect(OutgoingMessage.where(:info_request_id => info_request.id)).to be_empty
+    end
+
+    it 'destroys associated incoming_messages' do
+      ir_with_incoming = FactoryGirl.create(:info_request_with_incoming)
+      ir_with_incoming.destroy
+      expect(IncomingMessage.where(:info_request_id => ir_with_incoming.id)).to be_empty
+    end
+
+    it 'destroys associated mail_server_logs' do
+      MailServerLog.create(:line => 'hi!', :order => 1, :info_request => info_request)
+      info_request.destroy
+      expect(MailServerLog.where(:info_request_id => info_request.id)).to be_empty
+    end
+
+    it 'destroys associated track_things' do
+      FactoryGirl.create(:request_update_track,
+                         :track_medium => 'email_daily',
+                         :info_request => info_request,
+                         :track_query => 'Example Query')
+      info_request.destroy
+      expect(TrackThing.where(:info_request_id => info_request.id)).to be_empty
+    end
+
+    it 'destroys associated user_info_request_sent_alerts' do
+      UserInfoRequestSentAlert.create(:info_request => info_request,
+                                      :user => info_request.user,
+                                      :alert_type => 'comment_1')
+      info_request.destroy
+      expect(UserInfoRequestSentAlert.where(:info_request_id => info_request.id)).to be_empty
+    end
   end
 
   describe '#fully_destroy' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
 
-    it 'can destroy a request with comments and censor rules' do
-      info_request = FactoryGirl.create(:info_request)
+    it 'can destroy a request with censor rules' do
       censor_rule = FactoryGirl.create(:censor_rule, :info_request => info_request)
+      info_request.reload
+      info_request.fully_destroy
+      expect(CensorRule.where(:id => censor_rule.id)).to be_empty
+    end
+
+    it 'can destroy a request with comments' do
       comment = FactoryGirl.create(:comment, :info_request => info_request)
       info_request.reload
       info_request.fully_destroy
-
-      expect(InfoRequest.where(:id => info_request.id)).to be_empty
-      expect(CensorRule.where(:id => censor_rule.id)).to be_empty
-      expect(Comment.where(:id => comment.id)).to be_empty
+      expect(Comment.where(:info_request_id => info_request.id)).to be_empty
     end
 
+    it 'destroys associated info_request_events' do
+      info_request.fully_destroy
+      expect(InfoRequestEvent.where(:info_request_id => info_request.id)).to be_empty
+    end
+
+    it 'destroys associated outgoing_messages' do
+      info_request.fully_destroy
+      expect(OutgoingMessage.where(:info_request_id => info_request.id)).to be_empty
+    end
+
+    it 'destroys associated widget_votes' do
+      info_request.widget_votes.create(:cookie => 'x' * 20)
+      info_request.fully_destroy
+      expect(WidgetVote.where(:info_request_id => info_request.id)).to be_empty
+    end
   end
 
   describe '#initial_request_text' do
