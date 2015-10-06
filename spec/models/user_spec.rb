@@ -23,6 +23,8 @@
 #  receive_email_alerts    :boolean          default(TRUE), not null
 #  can_make_batch_requests :boolean          default(FALSE), not null
 #  otp_enabled             :boolean          default(FALSE)
+#  otp_secret_key          :string(255)
+#  otp_counter             :integer          default(1)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -425,6 +427,43 @@ describe User do
       user = User.new
       user.otp_enabled = true
       expect(user.otp_enabled).to eq(true)
+    end
+
+  end
+
+  describe '#otp_counter' do
+
+    it 'defaults to 1' do
+      user = User.new
+      expect(user.otp_counter).to eq(1)
+    end
+
+    it 'can be set on initialization' do
+      user = User.new(:otp_counter => 200)
+      expect(user.otp_counter).to eq(200)
+    end
+
+    it 'can be set after initialization' do
+      user = User.new
+      user.otp_counter = 200
+      expect(user.otp_counter).to eq(200)
+    end
+
+  end
+
+  describe '#otp_secret_key' do
+
+    it 'can be set on initialization' do
+      key = ROTP::Base32.random_base32
+      user = User.new(:otp_secret_key => key)
+      expect(user.otp_secret_key).to eq(key)
+    end
+
+    it 'can be set after initialization' do
+      key = ROTP::Base32.random_base32
+      user = User.new
+      user.otp_secret_key = key
+      expect(user.otp_secret_key).to eq(key)
     end
 
   end

@@ -23,6 +23,8 @@
 #  receive_email_alerts    :boolean          default(TRUE), not null
 #  can_make_batch_requests :boolean          default(FALSE), not null
 #  otp_enabled             :boolean          default(FALSE)
+#  otp_secret_key          :string(255)
+#  otp_counter             :integer          default(1)
 #
 
 require 'digest/sha1'
