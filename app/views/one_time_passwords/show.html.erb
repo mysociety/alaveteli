@@ -10,9 +10,19 @@
     <%= @user.otp_code %>
   </div>
 
-  <%= link_to one_time_password_path, :method => :delete, :confirm => _('Are you sure?') do %>
-    <%= _('Disable 2factor Authentication') %>
-  <% end %>
+  <ul>
+    <li>
+      <%= link_to one_time_password_path, :method => :put, :confirm => _('Are you sure?') do %>
+        <%= _('Regenerate one time password') %>
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to one_time_password_path, :method => :delete, :confirm => _('Are you sure?') do %>
+        <%= _('Disable 2factor Authentication') %>
+      <% end %>
+    </li>
+  </ul>
 <% else %>
   <%= button_to _('Enable 2factor Authentication'), :action => :create %>
 <% end %>
