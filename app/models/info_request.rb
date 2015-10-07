@@ -402,7 +402,10 @@ class InfoRequest < ActiveRecord::Base
   end
 
   # Has this email already been received here? Based just on message id.
-  def already_received?(email, raw_email_data)
+  def already_received?(email, raw_email_data = nil)
+    warn %q([DEPRECATION] InfoRequest#already_received? will remove the
+            raw_email_data argument in 0.24).squish unless raw_email_data.nil?
+
     message_id = email.message_id
     if message_id.nil?
       raise "No message id for this message"
@@ -418,18 +421,21 @@ class InfoRequest < ActiveRecord::Base
   end
 
   # A new incoming email to this request
-  def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
+  def receive(email, raw_email_data = nil, override_stop_new_responses = false, rejected_reason = nil)
+    warn %q([DEPRECATION] InfoRequest#receive will remove the raw_email_data
+            argument in 0.24).squish unless raw_email_data.nil?
+
     # Is this request allowing responses?
     accepted =
       if override_stop_new_responses
         true
       else
-        accept_incoming?(email, raw_email_data)
+        accept_incoming?(email)
       end
 
     if accepted
       incoming_message =
-        create_response!(email, raw_email_data, rejected_reason)
+        create_response!(email, rejected_reason)
 
       # Notify the user that a new response has been received, unless the
       # request is external
@@ -1303,7 +1309,7 @@ class InfoRequest < ActiveRecord::Base
 
   private
 
-  def accept_incoming?(email, raw_email_data)
+  def accept_incoming?(email)
     # See if new responses are prevented
     gatekeeper = ResponseGatekeeper.for(allow_new_responses_from, self)
     # Take action if the message looks like spam
@@ -1325,7 +1331,7 @@ class InfoRequest < ActiveRecord::Base
     response_rejection =
       if response_rejector
         ResponseRejection.
-          for(response_rejector.rejection_action, self, email, raw_email_data)
+          for(response_rejector.rejection_action, self, email)
       end
 
     will_be_rejected = (response_rejector && response_rejection) ? true : false
@@ -1337,7 +1343,7 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  def create_response!(email, raw_email_data, rejected_reason = nil)
+  def create_response!(email, rejected_reason = nil)
     incoming_message = incoming_messages.build
 
     # To avoid a deadlock when simultaneously dealing with two
@@ -1348,7 +1354,7 @@ class InfoRequest < ActiveRecord::Base
       raw_email = RawEmail.new
       incoming_message.raw_email = raw_email
       incoming_message.save!
-      raw_email.data = raw_email_data
+      raw_email.data = email.raw_source
       raw_email.save!
 
       self.awaiting_description = true

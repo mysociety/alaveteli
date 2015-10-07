@@ -61,7 +61,7 @@ class AdminIncomingMessageController < AdminController
 
         raw_email_data = @incoming_message.raw_email.data
         mail = MailHandler.mail_from_raw_email(raw_email_data)
-        destination_request.receive(mail, raw_email_data, true)
+        destination_request.receive(mail, nil, true)
 
         @incoming_message.info_request.log_event("redeliver_incoming", {
                                                   :editor => admin_current_user,

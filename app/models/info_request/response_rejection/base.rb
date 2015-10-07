@@ -2,12 +2,11 @@
 class InfoRequest
   module ResponseRejection
     class Base
-      attr_reader :info_request, :email, :raw_email_data
+      attr_reader :info_request, :email
 
-      def initialize(info_request, email, raw_email_data)
+      def initialize(info_request, email)
         @info_request = info_request
         @email = email
-        @raw_email_data = raw_email_data
       end
 
       def reject(reason = nil)

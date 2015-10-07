@@ -11,7 +11,7 @@ describe InfoRequest::ResponseRejection::HoldingPen do
   describe '.new' do
 
     it 'finds and sets the holding_pen' do
-      rejection = described_class.new(double, double, double)
+      rejection = described_class.new(double, double)
       expect(rejection.holding_pen).to eq(InfoRequest.holding_pen_request)
     end
 
@@ -21,7 +21,7 @@ describe InfoRequest::ResponseRejection::HoldingPen do
 
     it 'returns false if the info_request is the holding_pen' do
       holding_pen = InfoRequest.holding_pen_request
-      rejection = described_class.new(holding_pen, double, double)
+      rejection = described_class.new(holding_pen, double)
       expect(rejection.reject).to eq(false)
     end
 
@@ -33,8 +33,7 @@ describe InfoRequest::ResponseRejection::HoldingPen do
       Subject: External
       Hello, World
       EOF
-      email = MailHandler.mail_from_raw_email(raw_email)
-      args = [info_request, email, raw_email]
+      args = [info_request, MailHandler.mail_from_raw_email(raw_email)]
 
       described_class.new(*args).reject
 

@@ -39,11 +39,14 @@ class RequestMailer < ApplicationMailer
   end
 
   # Incoming message arrived for a request, but new responses have been stopped.
-  def stopped_responses(info_request, email, raw_email_data)
+  def stopped_responses(info_request, email, raw_email_data = nil)
+    warn %q([DEPRECATION] RequestMailer#stopped_responses will remove the
+            raw_email_data argument in 0.24).squish unless raw_email_data.nil?
+
     headers('Return-Path' => blackhole_email,   # we don't care about bounces, likely from spammers
             'Auto-Submitted' => 'auto-replied') # http://tools.ietf.org/html/rfc3834
 
-    attachments.inline["original.eml"] = raw_email_data
+    attachments.inline["original.eml"] = email.raw_source
 
     @info_request = info_request
     @contact_email = AlaveteliConfiguration::contact_email
@@ -198,7 +201,7 @@ class RequestMailer < ApplicationMailer
     ActiveSupport::Notifications.instrument("receive.action_mailer") do |payload|
       mail = MailHandler.mail_from_raw_email(raw_mail)
       set_payload_for_mail(payload, mail)
-      new.receive(mail, raw_mail)
+      new.receive(mail)
     end
   end
 
@@ -216,14 +219,18 @@ class RequestMailer < ApplicationMailer
   end
 
   # Member function, called on the new class made in self.receive above
-  def receive(email, raw_email)
+  def receive(email, raw_email = nil)
+    warn %q([DEPRECATION] RequestMailer#receive will remove the raw_email_data
+            argument in 0.24).squish unless raw_email.nil?
+
     # Find which info requests the email is for
     reply_info_requests = self.requests_matching_email(email)
     # Nothing found, so save in holding pen
     if reply_info_requests.size == 0
       reason = _("Could not identify the request from the email address")
       request = InfoRequest.holding_pen_request
-      request.receive(email, raw_email, false, reason) unless SpamAddress.spam?(email.to)
+      # TODO: Make remove the second argument to receive in 0.24 
+      request.receive(email, nil, false, reason) unless SpamAddress.spam?(email.to)
       return
     end
 
@@ -231,11 +238,11 @@ class RequestMailer < ApplicationMailer
     for reply_info_request in reply_info_requests
       # If environment variable STOP_DUPLICATES is set, don't send message with same id again
       if ENV['STOP_DUPLICATES']
-        if reply_info_request.already_received?(email, raw_email)
+        if reply_info_request.already_received?(email)
           raise "message " + email.message_id + " already received by request"
         end
       end
-      reply_info_request.receive(email, raw_email)
+      reply_info_request.receive(email)
     end
   end
 

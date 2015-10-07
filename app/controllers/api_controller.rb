@@ -144,7 +144,7 @@ class ApiController < ApplicationController
 
       mail = RequestMailer.external_response(@request, body, sent_at, attachment_hashes)
 
-      @request.receive(mail, mail.encoded, true)
+      @request.receive(mail, nil, true)
 
       if new_state
         # we've already checked above that the status is valid
