@@ -40,7 +40,7 @@ class TrackThing < ActiveRecord::Base
   belongs_to :public_body
   belongs_to :tracking_user, :class_name => 'User'
   belongs_to :tracked_user, :class_name => 'User'
-  has_many :track_things_sent_emails
+  has_many :track_things_sent_emails, :dependent => :destroy
 
   validates_presence_of :track_query
   validates_presence_of :track_type
