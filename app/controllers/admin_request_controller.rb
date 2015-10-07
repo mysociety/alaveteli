@@ -66,7 +66,7 @@ class AdminRequestController < AdminController
         @info_request.set_described_state(params[:info_request][:described_state])
       end
       # expire cached files
-      expire_for_request(@info_request)
+      @info_request.expire
       flash[:notice] = 'Request successfully updated.'
       redirect_to admin_request_url(@info_request)
     else
@@ -187,7 +187,7 @@ class AdminRequestController < AdminController
         flash[:notice] = _("This external request has been hidden")
       end
       # expire cached files
-      expire_for_request(@info_request)
+      @info_request.expire
       redirect_to admin_request_url(@info_request)
     end
   end

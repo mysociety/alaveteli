@@ -122,11 +122,17 @@ describe AdminCensorRuleController do
         end
 
         it 'purges the cache for the info request' do
-          expect(@controller).to receive(:expire_for_request).
-            with(@info_request)
+          info_request = FactoryGirl.create(:info_request)
+          censor_rules = double
+          allow(info_request).to receive(:censor_rules) { censor_rules }
+          allow(InfoRequest).to receive(:find) { info_request }
+          censor_rule = FactoryGirl.build(:info_request_censor_rule, :info_request => info_request)
+          allow(censor_rules).to receive(:build) { censor_rule }
+
+          expect(info_request).to receive(:expire)
 
           post :create, :censor_rule => @censor_rule_params,
-            :request_id => @info_request.id,
+            :request_id => info_request.id,
             :name_prefix => 'request_'
         end
 
@@ -365,8 +371,10 @@ describe AdminCensorRuleController do
         end
 
         it 'purges the cache for the info request' do
-          expect(@controller).to receive(:expire_for_request).
-            with(@censor_rule.info_request)
+          info_request = FactoryGirl.create(:info_request)
+          allow(CensorRule).to receive(:find).and_return(@censor_rule)
+          allow(@censor_rule).to receive(:info_request).and_return(info_request)
+          expect(info_request).to receive(:expire)
 
           put :update, :id => @censor_rule.id,
             :censor_rule => { :text => 'different text' }
@@ -528,7 +536,10 @@ describe AdminCensorRuleController do
       end
 
       it 'purges the cache for the info request' do
-        expect(@controller).to receive(:expire_for_request).with(@censor_rule.info_request)
+        info_request = FactoryGirl.create(:info_request)
+        allow(CensorRule).to receive(:find).and_return(@censor_rule)
+        allow(@censor_rule).to receive(:info_request).and_return(info_request)
+        expect(@censor_rule.info_request).to receive(:expire)
         delete :destroy, :id => @censor_rule.id
       end
 

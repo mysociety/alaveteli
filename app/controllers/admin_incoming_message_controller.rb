@@ -17,7 +17,7 @@ class AdminIncomingMessageController < AdminController
                                                :prominence => @incoming_message.prominence,
                                                :old_prominence_reason => old_prominence_reason,
                                                :prominence_reason => @incoming_message.prominence_reason)
-      expire_for_request(@incoming_message.info_request)
+      @incoming_message.info_request.expire
       flash[:notice] = 'Incoming message successfully updated.'
       redirect_to admin_request_url(@incoming_message.info_request)
     else
@@ -31,7 +31,7 @@ class AdminIncomingMessageController < AdminController
                                              { :editor => admin_current_user,
                                               :deleted_incoming_message_id => @incoming_message.id })
     # expire cached files
-    expire_for_request(@incoming_message.info_request)
+    @incoming_message.info_request.expire
     flash[:notice] = 'Incoming message successfully destroyed.'
     redirect_to admin_request_url(@incoming_message.info_request)
   end
@@ -72,7 +72,7 @@ class AdminIncomingMessageController < AdminController
         flash[:notice] = "Message has been moved to request(s). Showing the last one:"
       end
       # expire cached files
-      expire_for_request(previous_request)
+      previous_request.expire
       @incoming_message.destroy
     end
     redirect_to admin_request_url(destination_request)

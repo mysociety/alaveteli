@@ -31,7 +31,7 @@ class AdminOutgoingMessageController < AdminController
                                                  :prominence => @outgoing_message.prominence,
                                                  :prominence_reason => @outgoing_message.prominence_reason })
       flash[:notice] = 'Outgoing message successfully updated.'
-      expire_for_request(@outgoing_message.info_request)
+      @outgoing_message.info_request.expire
       redirect_to admin_request_url(@outgoing_message.info_request)
     else
       render :action => 'edit'
