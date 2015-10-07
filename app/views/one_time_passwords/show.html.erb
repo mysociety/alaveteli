@@ -12,9 +12,20 @@
     <div class="one-time-password__otp-code">
       <%= @user.otp_code %>
     </div>
+
+    <p class="one-time-password__otp-info">
+      <%= _('Keep this password safe. You will need it to confirm your ' \
+            'account when changing your email. You can add it to a ' \
+            'password manager or print it and store it in a safe place.') %>
+      <strong><%= _('Do not share this password.') %></strong>
+    </p>
+
+    <%= link_to _('Print your one time password'), '',
+        :onclick => 'window.print();return false;',
+        :class => 'one-time-password__print-link not-for-print' %>
   </div>
 
-  <ul class="one-time-password-actions">
+  <ul class="one-time-password-actions not-for-print">
     <li class="one-time-password-actions__action-item action-item">
       <%= link_to one_time_password_path, :method => :put,
                                           :confirm => _('Are you sure?'),
