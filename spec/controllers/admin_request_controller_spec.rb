@@ -41,8 +41,9 @@ describe AdminRequestController, "when administering requests" do
   end
 
   it 'expires the request cache when saving edits to it' do
-    info_request = info_requests(:fancy_dog_request)
-    expect(@controller).to receive(:expire_for_request).with(info_request)
+    info_request = FactoryGirl.create(:info_request)
+    allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
+    expect(info_request).to receive(:expire)
     post :update, { :id => info_request,
                     :info_request => { :title => "Renamed",
                                        :prominence => "normal",
@@ -50,7 +51,6 @@ describe AdminRequestController, "when administering requests" do
                                        :awaiting_description => false,
                                        :allow_new_responses_from => 'anybody',
                                        :handle_rejected_responses => 'bounce' } }
-
   end
 
   describe 'when fully destroying a request' do
@@ -61,6 +61,11 @@ describe AdminRequestController, "when administering requests" do
       expect(InfoRequest).to receive(:find).with('fake_request').and_return(info_request)
 
       expect(info_request).to receive(:expire)
+    end
+
+    it 'calls fully_destroy on the info_request object' do
+      info_request = FactoryGirl.create(:info_request)
+      allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:fully_destroy)
       get :destroy, { :id => info_request.id }
     end
@@ -116,15 +121,15 @@ describe AdminRequestController, "when administering the holding pen" do
     end
 
     it 'expires the file cache for the request' do
-      ir = info_requests(:fancy_dog_request)
-      expect(@controller).to receive(:expire_for_request).with(ir)
-      post :hide, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
+      info_request = FactoryGirl.create(:info_request)
+      allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
+      expect(info_request).to receive(:expire)
+      post :hide, :id => info_request.id, :explanation => "Foo", :reason => "vexatious"
     end
 
     describe 'when hiding an external request' do
 
       before do
-        allow(@controller).to receive(:expire_for_request)
         @info_request = mock_model(InfoRequest, :prominence= => nil,
                                    :log_event => nil,
                                    :set_described_state => nil,
@@ -132,6 +137,8 @@ describe AdminRequestController, "when administering the holding pen" do
                                    :user => nil,
                                    :user_name => 'External User',
                                    :is_external? => true)
+        allow(@info_request).to receive(:expire)
+
         allow(InfoRequest).to receive(:find).with(@info_request.id.to_s).and_return(@info_request)
         @default_params = { :id => @info_request.id,
                             :explanation => 'Foo',
@@ -166,7 +173,7 @@ describe AdminRequestController, "when administering the holding pen" do
       end
 
       it 'should expire the file cache for the request' do
-        expect(@controller).to receive(:expire_for_request)
+        expect(@info_request).to receive(:expire)
         make_request
       end
     end

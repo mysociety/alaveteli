@@ -21,13 +21,16 @@ class AdminController < ApplicationController
 
   # Expire cached attachment files for a request
   def expire_for_request(info_request)
+    warn %q([DEPRECATION] AdminController#expire_for_request will be replaced with
+      InfoRequest#expire as of 0.24).squish
+
     info_request.expire
   end
 
   # Expire cached attachment files for a user
   def expire_requests_for_user(user)
     for info_request in user.info_requests
-      expire_for_request(info_request)
+      info_request.expire
     end
   end
 

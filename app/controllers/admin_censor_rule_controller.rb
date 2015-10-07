@@ -20,7 +20,7 @@ class AdminCensorRuleController < AdminController
       flash[:notice] = 'CensorRule was successfully created.'
 
       if @censor_rule.info_request
-        expire_for_request(@censor_rule.info_request)
+        @censor_rule.info_request.expire
         redirect_to admin_request_url(@censor_rule.info_request)
       elsif @censor_rule.user
         expire_requests_for_user(@censor_rule.user)
@@ -40,7 +40,7 @@ class AdminCensorRuleController < AdminController
       flash[:notice] = 'CensorRule was successfully updated.'
 
       if @censor_rule.info_request
-        expire_for_request(@censor_rule.info_request)
+        @censor_rule.info_request.expire
         redirect_to admin_request_url(@censor_rule.info_request)
       elsif @censor_rule.user
         expire_requests_for_user(@censor_rule.user)
@@ -60,7 +60,7 @@ class AdminCensorRuleController < AdminController
     flash[:notice] = "CensorRule was successfully destroyed."
 
     if info_request
-      expire_for_request(info_request)
+      info_request.expire
       redirect_to admin_request_url(info_request)
     elsif user
       expire_requests_for_user(user) if user
