@@ -37,6 +37,25 @@ describe OutgoingMessage do
 
   end
 
+  describe '#destroy' do
+    it 'should destroy the outgoing message' do
+      attrs = { :status => 'ready',
+                :message_type => 'initial_request',
+                :body => 'abc',
+                :what_doing => 'normal_sort' }
+      outgoing_message = FactoryGirl.create(:outgoing_message, attrs)
+      outgoing_message.destroy
+      expect(OutgoingMessage.where(:id => outgoing_message.id)).to be_empty
+    end
+
+    it 'should destroy the associated info_request_events' do
+      info_request = FactoryGirl.create(:info_request)
+      outgoing_message = info_request.outgoing_messages.first
+      outgoing_message.destroy
+      expect(InfoRequestEvent.where(:outgoing_message_id => outgoing_message.id)).to be_empty
+    end
+  end
+
   describe '#body' do
 
     it 'returns the body attribute' do

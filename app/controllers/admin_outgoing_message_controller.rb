@@ -7,7 +7,7 @@ class AdminOutgoingMessageController < AdminController
   end
 
   def destroy
-    @outgoing_message.fully_destroy
+    @outgoing_message.destroy
     @outgoing_message.info_request.log_event("destroy_outgoing",
                                              { :editor => admin_current_user,
                                                :deleted_outgoing_message_id => @outgoing_message.id })
