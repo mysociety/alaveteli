@@ -26,7 +26,7 @@ class AdminIncomingMessageController < AdminController
   end
 
   def destroy
-    @incoming_message.fully_destroy
+    @incoming_message.destroy
     @incoming_message.info_request.log_event("destroy_incoming",
                                              { :editor => admin_current_user,
                                               :deleted_incoming_message_id => @incoming_message.id })
@@ -73,7 +73,7 @@ class AdminIncomingMessageController < AdminController
       end
       # expire cached files
       expire_for_request(previous_request)
-      @incoming_message.fully_destroy
+      @incoming_message.destroy
     end
     redirect_to admin_request_url(destination_request)
   end

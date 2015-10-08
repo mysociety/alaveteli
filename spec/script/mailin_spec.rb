@@ -32,7 +32,7 @@ describe "When importing mail into the application" do
   after do
     ir = info_requests(:other_request)
     incoming_message = ir.incoming_messages[0]
-    incoming_message.fully_destroy
+    incoming_message.destroy
     # And get rid of any remaining purge requests
     PurgeRequest.destroy_all
   end
