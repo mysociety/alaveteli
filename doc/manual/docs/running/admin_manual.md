@@ -814,7 +814,10 @@ If a request has any annotations, they will be listed in the admin page for
 that request. Scroll down to the list of annotations, and edit any one
 individually by clicking on its title. We recommend you make your changes
 explicit. For example, if you're removing personal information, rather than
-just deleting it, replace it with something like "<code>[REDACTED]</code>".
+just deleting it, replace it with something that indicates clearly what
+has been removed: "`personal information removed`". Wherever possible, you
+should make it clear what has been redacted and, if it needs clarification,
+why it needed to be hidden.
 
 You can hide (or reveal) the annotation by selecting the appropriate setting
 from the drop-down menu labelled <em>Visible</em>.
