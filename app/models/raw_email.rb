@@ -63,7 +63,7 @@ class RawEmail < ActiveRecord::Base
   end
 
   def destroy_file_representation!
-    File.delete(filepath)
+    File.delete(filepath) if File.exists?(filepath)
   end
 
   private
