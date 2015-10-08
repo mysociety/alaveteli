@@ -54,6 +54,7 @@ Definitions
   <li><a href="#state">state</a></li>
   <li><a href="#super">superuser</a></li>
   <li><a href="#tag">tag</a></li>
+  <li><a href="#takedown">takedown request</a></li>
   <li><a href="#theme">theme</a></li>
   <li><a href="#transifex">Transifex</a></li>
   <li><a href="#wdtk">WhatDoTheyKnow</a></li>
@@ -311,7 +312,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          <a href="{{ site.baseurl }}docs/running/redaction/">more about redacting</a>
+          <a href="{{ page.baseurl }}/docs/running/redaction/">more about redacting</a>
           using censor rules
         </li>
         <li>
@@ -528,7 +529,7 @@ Definitions
       <ul>
         <li>
           See more about
-          <a href="{{ site.baseurl }}docs/installing/next_steps/#add-some-public-holidays">adding
+          <a href="{{ page.baseurl }}/docs/installing/next_steps/#add-some-public-holidays">adding
           public holidays</a>. It's possible to load dates from an iCalendar
           feed or accept Alaveteli's suggestions.
         </li>
@@ -773,11 +774,11 @@ Definitions
       <ul>
         <li>
           redaction is just one way to hide sensitive information &mdash; see
-          <a href="{{ site.baseurl }}docs/running/hiding_information/">more about
+          <a href="{{ page.baseurl }}/docs/running/hiding_information/">more about
           hiding information on Alaveteli</a>
         </li>
         <li>
-          <a href="{{ site.baseurl }}docs/running/redaction/">more about redacting</a>,
+          <a href="{{ page.baseurl }}/docs/running/redaction/">more about redacting</a>,
           including instructions for setting up
           <a href="#censor-rule" class="glossary__link">censor rules</a>
         </li>
@@ -1068,6 +1069,33 @@ Definitions
     </div>
   </dd>
 
+  <dt>
+    <a name="takedown">takedown request</a>
+  </dt>
+  <dd>
+    A <strong>takedown request</strong> is an appeal from someone asking or
+    demanding that you remove information from your site. This may be because a
+    response you have published contains illegal, personal, or sensitive
+    information. Takedown requests may be made by people involved in the
+    request or response, but can also be from third parties who are affected in
+    some way by the information published.
+    <p>
+      Because Alaveteli automatically publishes messages, if a response or
+      message contains inappropriate information, it will be published. So
+      takedown requests often have merit, and part of the role of the admin
+      team is to handle them quickly and fairly.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          More about
+          <a href="{{ page.baseurl }}/docs/running/hiding_information/">hiding information</a>,
+          including a process for handling for takedown requests
+        </li>
+      </ul>
+    </div>
+  </dd>
 
   <dt>
     <a name="theme">theme</a>

@@ -13,7 +13,7 @@ title: Hiding or removing information
 </p>
 
 We know from our own experience running
-<a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
+<a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
 in the UK that it is sometimes necessary to remove information from the site.
 Furthermore, sometimes this needs to be done sensitively, swiftly, and
 transparently.
@@ -37,13 +37,64 @@ There are four different approaches to removing information on your site:
 * **Redacting** is the _automated_ removal of content based on pattern-matching
   (for example, removing all occurrences of a particular bank account number).
 
+## Two important types of removal
+
+There are two particular circumstances where removal of information is required
+and may need special handling.
+
+### Takedown requests
+
+Because your Alaveteli site automatically publishes messages, sometimes it will
+display information that someone feels should be taken down. They will contact
+you demanding or appealing for its removal: this is a
+<a href="{{ page.baseurl }}/docs/glossary/#takedown" class="glossary__link">takedown request</a>,.
+The automatic way Alaveteli publishes messages, combined with the nature of
+Freedom of Information work, means that takedown requests often do have merit.
+Part of the role of your admin team is to handle them quickly and fairly.
+Furthermore, the details of specific cases can sometimes be complicated, and
+may have legal implications &mdash; for example, if the information is
+libellous or contravenes local laws.
+
+We recommend you have a process in place for handling these events when they
+occur. The team that runs
+<a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
+in the UK responds to each takedown request in this way:
+
+* hide the message or request
+* let the person who requested the takedown know that the information has been 
+  hidden pending a decision by your admin team
+* restore, delete or keep the information hidden, depending on the outcome of
+  the admin decision
+
+### Accidental releases of data
+
+Another situation which sometimes arises when running an Alaveteli site is the
+inadvertent release of data. This is where a
+<a href="{{ page.baseurl }}/glossary/#body" class="glossary__link">body</a>
+accidentally includes sensitive data as part of their response. When this does
+happen, it is often in the attachments (such as spreadsheets). The nature of
+these accidental releases can sometimes be very serious, because often the
+source of the data is an official body whose data may be sensitive.
+
+When this happens, you should hide the data immediately and review the
+situation. You may be guided to some extent by the local law. For example, in
+the UK, we report any such incidents to the Information Commissioner. Sometimes
+the inadvertently released data is not sensitive, and publication of it may be
+in the public interest. These are decisions that your admin team will need to
+make, taking any legal implications into consideration.
+
+Often, where data has been included in a response by accident, the body will
+provide a corrected replacement response &mdash; and perhaps the ombudsman or
+information commissioner has been notified &mdash; it might be necessary (and
+possibly a legal obligation) to _delete_ the material from both the site and
+the server.
 
 ## How hiding works: prominence
 
 Alaveteli displays things depending on their _prominence_. When you hide
 requests or responses, you do so by changing their prominence, which you can do
 in the
-<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>.
 
 You can set the prominence for a whole page (that is, a request and any
 messages, including responses associated with it), or any individual message.
@@ -100,7 +151,7 @@ messages, including responses associated with it), or any individual message.
     <td>
       <em>
         If the viewing user is logged in as the requester themselves (or an
-        <a href="{{site.baseurl}}docs/glossary/#super" class="glossary__link">administrator</a>):
+        <a href="{{page.baseurl}}/docs/glossary/#super" class="glossary__link">administrator</a>):
       </em>
       <br>
       the item is displayed, together with a notice indicating that it is
@@ -118,7 +169,7 @@ messages, including responses associated with it), or any individual message.
 </table>
 
 <span>*</span> the actual message may be different, depending on your
-<a href="{{site.baseurl}}docs/glossary/#theme" class="glossary__link">theme</a>
+<a href="{{page.baseurl}}/docs/glossary/#theme" class="glossary__link">theme</a>
 or translation.
 
 ## Hiding requests and responses
@@ -127,8 +178,8 @@ The general process for hiding messages that Alaveteli has sent or received is
 to find it in the admin interface, go to edit it, and change the prominence.
 For more detail, see:
 
-* how to [hide a request (that is, the whole page)]({{ site.baseurl }}docs/running/requests/#hiding-a-request)
-* how to [hide an incoming or outgoing message]({{ site.baseurl }}docs/running/admin_manual/#hiding-an-incoming-or-outgoing-message)
+* how to [hide a request (that is, the whole page)]({{ page.baseurl }}/docs/running/requests/#hiding-a-request)
+* how to [hide an incoming or outgoing message]({{ page.baseurl }}/docs/running/admin_manual/#hiding-an-incoming-or-outgoing-message)
 
 The most common reason for hiding a message is if it contains personal,
 sensitive, or libellous content.
@@ -152,7 +203,7 @@ it individually).
 
 For instructions, see:
 
-* how to [edit or hide annotations]({{ site.baseurl }}docs/running/requests/#editing-or-hiding-annotations-comments)
+* how to [edit or hide annotations]({{ page.baseurl }}/docs/running/requests/#editing-or-hiding-annotations-comments)
 
 ## Deleting
 
@@ -168,15 +219,15 @@ Information request).
   before you delete it. Deleting it after it has been sent removes it from the
   site, and means any responses that are sent back to this request will instead
   end up in the 
-  <a href="{{ site.baseurl }}docs/glossary/#hoding_pen" class="glossary__link">holding pen</a>. 
+  <a href="{{ page.baseurl }}/docs/glossary/#hoding_pen" class="glossary__link">holding pen</a>. 
   This is why it is generally better to
-  <a href="{{ site.baseurl }}docs/running/requests/#hiding-a-request">hide the request</a>
+  <a href="{{ page.baseurl }}/docs/running/requests/#hiding-a-request">hide the request</a>
   instead.
 </div>
 
 For instructions, see:
 
-* how to [delete a request]({{ site.baseurl }}docs/running/requests/#deleting-a-request)
+* how to [delete a request]({{ page.baseurl }}/docs/running/requests/#deleting-a-request)
 
 If you delete a request, that operation cannot be undone.
 
@@ -193,7 +244,7 @@ outgoing messages.
 
 For instructions, see:
 
-* how to [edit the text of a message]({{ site.baseurl }}docs/running/admin_manual/#editing-an-outgoing-message)
+* how to [edit the text of a message]({{ page.baseurl }}/docs/running/admin_manual/#editing-an-outgoing-message)
 
 Obviously you should only do this to remove information that should not be
 displayed. Examples of why you might need to do this:
@@ -209,7 +260,8 @@ displayed. Examples of why you might need to do this:
   made
 
 When you edit text, we recommend you clearly replace any text you remove with
-an indication in place, such as "`[REDACTED]`".
+an indication in place, such as "`[personal information removed]`" or 
+"`[telephone number redacted]`".
 
 
 ## Redacting
@@ -229,10 +281,10 @@ is automatic. There are several considerations here:
   image files) can never be 100% effective
 
 Redaction is controlled by 
-<a href="{{ site.baseurl }}docs/glossary/#censor-rule" class="glossary__link">censor rules</a>
+<a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">censor rules</a>
 that describe the patterns in text that Alaveteli should remove, and the text
-it should use as a replacement (typically, this is "`[REDACTED]`"). The rules
-are applied to messages before their contents are published on your site.
+it should use as a replacement (for example, "`[passport number redacted]`").
+The rules are applied to messages before their contents are published on your site.
 Redaction attempts to remove text from attachments to messages, as well as the
 message text itself.
 
@@ -242,7 +294,7 @@ to other scopes too.
 
 For details, see:
 
-* how to [automatically redact information from incoming messages]({{ site.baseurl}}docs/running/redaction/),
+* how to [automatically redact information from incoming messages]({{ page.baseurl}}/docs/running/redaction/),
   which includes both general instructions and a detailed example.
 
 

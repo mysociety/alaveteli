@@ -10,7 +10,7 @@ title: Redacting Sensitive Information
   you are effectively removing part of a document from your site. Typically you
   do this to conceal sensitive (usually, that means personal) information on
   the public site. Alaveteli supports an automatic form of redaction using
-  <a href="{{ site.baseurl }}docs/glossary/#censor-rule" class="glossary__link">censor rules</a>.
+  <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">censor rules</a>.
   These can be powerful, so must be used with caution.
 </p>
 
@@ -29,7 +29,7 @@ national ID numbers in the Nicaraguan installation of Alaveteli.
   manually edit message text and annotations, and you can also hide whole
   request pages or individual messages. For an overview of the various methods
   available to you, see
-  <a href="{{ site.baseurl }}docs/running/hiding_information">hiding or removing information</a>.
+  <a href="{{ page.baseurl }}/docs/running/hiding_information">hiding or removing information</a>.
 </div>
 
 Alaveteli's redaction feature is useful because the site _automatically publishes_
@@ -51,7 +51,7 @@ these form a censor rule:
   <br>
   This might be a particular word, email address or number; or
   a particular pattern (described using a 
-  <a href="{{ site.baseurl }}docs/glossary/#regexp" class="glossary__link">regular expression</a>)
+  <a href="{{ page.baseurl }}/docs/glossary/#regexp" class="glossary__link">regular expression</a>)
 * *the range of messages to which this redaction applies*
   <br>
   This could be _all_ messages, or only messages relating to a specific user
@@ -65,21 +65,22 @@ with `[password]` in any messages relating to a request created by user Groucho
 with email `groucho@example.com`.
 
 A regular expression (regexp) is a method of pattern-matching often used by
-programmers, and if the redaction you want is more complicated than simply
-matching exact text. But a regexp can be difficult to get right, especially for
-complex patterns. If you haven't used them before, we recommend you learn about
-them first &mdash; there are a lot of resources online, including websites that
-let you test and experiment with your regexp before you add it to Alaveteli. If
-you make a mistake in your regexp, either it won't match when you think it
-should (redacting nothing), or it will match too much (redacting things that
-should have been left). Be careful; if you're not sure, ask us for help first.
+programmers, and can be used if the redaction you want is more complicated than
+simply matching exact text. But a regexp can be difficult to get right,
+especially for complex patterns. If you haven't used them before, we recommend
+you learn about them first &mdash; there are a lot of resources online,
+including websites that let you test and experiment with your regexp before you
+add it to Alaveteli (for example, [rubular.com](http://rubular.com/)). If you
+make a mistake in your regexp, either it won't match when you think it should
+(redacting nothing), or it will match too much (redacting things that should
+have been left). Be careful; if you're not sure, ask us for help first.
 
-Redaction will attempt to apply to attachments as well as the text body of
-message. For example, text may be redacted within PDFs or Word documents that are 
-attached to a response to which censor rules apply.
+Alaveteli will attempt to apply redaction to attachments as well as to the text
+body of the message. For example, text may be redacted within PDFs or Word
+documents that are attached to a response to which censor rules apply.
 
 <div class="attention-box warning">
-  Binary files, that is, formats such as PDF, Word, or Excel can be difficult
+  Binary files (that is, formats such as PDF, Word, or Excel) can be difficult
   to redact. Some other formats, such as photos or JPEG files of scanned text,
   will not be redacted at all. If you are applying censor rules, you should
   always check they are working as expected on incoming attachments.
@@ -100,21 +101,22 @@ To add a censor rule to a specific request, click on the the **New censor rule**
 button at the bottom of that request's admin page.
 
 If you want to redact any text that matches a particular pattern, you can use a
-<a href="{{ site.baseurl }}docs/glossary/#regexp" class="glossary__link">regular expression</a>
+<a href="{{ page.baseurl }}/docs/glossary/#regexp" class="glossary__link">regular expression</a>
 (regexp). You need to tell Alaveteli that the text is describing such a pattern
 rather than the exact text you want to replace. Tick the checkbox labelled _Is
 it a regular expression_ if you're using a regexp instead of a simple, exact
 text match.
 
-If you're not using a regular expression, the text match is case sensitive
-&mdash; so `Reading` will _not_ redact the word `reading`. If you need case
-insensitive matching, use a regular expression.
+Basic text replacement is case sensitive &mdash; so `Reading` will _not_ redact
+the word `reading`. If you need case insensitive matching, use a regular
+expression.
 
 Enter the _replacement text_ that should be inserted in place of the redacted
 text. We recommend something like `[REDACTED]` or <code>[personal&nbsp;details&nbsp;removed]</code>
-to make it very clear that this is not the original text. Remember that the
-replacement text will look the same as the running text into which it is 
-inserted, which is why you should use square brackets, or something like them.
+to make it very clear that this is not the original text and, ideally, to give
+some indication of why something was redacted. Remember that the replacement
+text will look the same as the running text into which it is inserted, which is
+why you should use square brackets, or something like them.
 
 Provide a _comment_ explaining why this rule is needed. This will be seen only
 by other administrators on the site.
@@ -126,12 +128,12 @@ Click the **create** button when you are ready to add the censor rule.
 Censor rules are applied when the site pages (which includes the admin) are
 displayed. If you want to see unredacted text, Alaveteli shows the original
 text when you 
-[edit the text of a message]({{ site.baseurl }}docs/running/admin_manual/#editing-an-outgoing-message).
+[edit the text of a message]({{ page.baseurl }}/docs/running/admin_manual/#editing-an-outgoing-message).
 
 ## Redaction scope: requests, users, or more
 
-The admin interface lets you easily add a censor rule to a specific request
-or a particular user. 
+The admin interface lets you easily add a censor rule to a specific request, or
+all requests made by a particular user.
 
 But it's also technically possible to add censor rules with a different
 scope by working directly within the source code. If you need to apply a
@@ -150,7 +152,7 @@ displayed to the general public.
 
 The following example shows how Alaveteli can help deal with this problem by
 automatically redacting such information using
-<a href="{{ site.baseurl }}docs/glossary/#censor-rule" class="glossary__link">censor
+<a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">censor
 rules</a>.
 
 ### Nicaragua's "General Law" (providing personal details)
@@ -158,7 +160,7 @@ rules</a>.
 This example is based on the specific requirements of 
 [Derecho a Preguntar](https://derechoapreguntar.org), the 
 Alaveteli site running in Nicaragua. As usual, this site is running its own
-<a href="{{ site.baseurl }}docs/glossary/#them" class="glossary__link">theme</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#them" class="glossary__link">theme</a>.
 The 
 [theme is available on github](https://github.com/mysociety/derechoapreguntar-theme)
 and is called `derechoapreguntar-theme`.
@@ -339,7 +341,7 @@ requests.
 
 Because this is matching a pattern of text, rather than an exact string, this
 censor rule uses a
-<a href="{{ site.baseurl }}docs/glossary/#regexp" class="glossary__link">regular expression</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#regexp" class="glossary__link">regular expression</a>.
 
 `={67}\s*\n(?:[^\n]*?#[^\n]*?: ?[^\n]*\n){3,10}[^\n]*={67}`
 
