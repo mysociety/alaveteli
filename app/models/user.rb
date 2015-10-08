@@ -328,6 +328,10 @@ class User < ActiveRecord::Base
     recent_requests >= AlaveteliConfiguration.max_requests_per_user_per_day
   end
 
+  def expire_requests
+    info_requests.each { |request| request.expire }
+  end
+
   def next_request_permitted_at
     return nil if no_limit
 
