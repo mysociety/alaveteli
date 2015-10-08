@@ -14,7 +14,7 @@ describe 'Editing a Public Body Category' do
   it 'can edit the default locale' do
     using_session(@admin) do
       visit edit_admin_category_path(@category)
-      fill_in 'public_body_category_title__en', :with => 'New Category EN'
+      fill_in 'public_body_category_title', :with => 'New Category EN'
       click_button 'Save'
     end
 
@@ -27,8 +27,8 @@ describe 'Editing a Public Body Category' do
 
     using_session(@admin) do
       visit edit_admin_category_path(@category)
-      fill_in 'public_body_category_translations_attributes_fr_title__fr', :with => 'New Category FR'
-      fill_in 'public_body_category_translations_attributes_fr_description__fr', :with => 'FR Description'
+      fill_in 'public_body_category_translations_attributes_fr_title', :with => 'New Category FR'
+      fill_in 'public_body_category_translations_attributes_fr_description', :with => 'FR Description'
       click_button 'Save'
     end
 
@@ -42,14 +42,14 @@ describe 'Editing a Public Body Category' do
     using_session(@admin) do
       # Add FR translation
       visit edit_admin_category_path(@category)
-      fill_in 'public_body_category_translations_attributes_fr_title__fr', :with => 'New Category FR'
-      fill_in 'public_body_category_translations_attributes_fr_description__fr', :with => 'FR Description'
+      fill_in 'public_body_category_translations_attributes_fr_title', :with => 'New Category FR'
+      fill_in 'public_body_category_translations_attributes_fr_description', :with => 'FR Description'
       click_button 'Save'
 
       # Add ES translation
       visit edit_admin_category_path(@category)
-      fill_in 'public_body_category_translations_attributes_es_title__es', :with => 'New Category ES'
-      fill_in 'public_body_category_translations_attributes_es_description__es', :with => 'ES Description'
+      fill_in 'public_body_category_translations_attributes_es_title', :with => 'New Category ES'
+      fill_in 'public_body_category_translations_attributes_es_description', :with => 'ES Description'
       click_button 'Save'
 
     end
