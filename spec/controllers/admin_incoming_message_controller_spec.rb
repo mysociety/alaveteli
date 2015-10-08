@@ -22,9 +22,9 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
       assert_equal File.exists?(raw_email), false
     end
 
-    it 'asks the incoming message to fully destroy itself' do
+    it 'asks the incoming message to destroy itself' do
       allow(IncomingMessage).to receive(:find).and_return(@im)
-      expect(@im).to receive(:fully_destroy)
+      expect(@im).to receive(:destroy)
       post :destroy, :id => @im.id
     end
 

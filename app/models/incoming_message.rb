@@ -57,6 +57,8 @@ class IncomingMessage < ActiveRecord::Base
 
   has_prominence
 
+  before_destroy :destroy_email_file
+
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
   def response_event
@@ -137,6 +139,10 @@ class IncomingMessage < ActiveRecord::Base
         self.save!
       end
     end
+  end
+
+  def destroy_email_file
+    raw_email.destroy_file_representation!
   end
 
   def valid_to_reply_to?
@@ -637,10 +643,9 @@ class IncomingMessage < ActiveRecord::Base
   end
 
   def fully_destroy
-    ActiveRecord::Base.transaction do
-      self.raw_email.destroy_file_representation!
-      self.destroy
-    end
+    warn %q([DEPRECATION] IncomingMessage#fully_destroy will be replaced with
+      IncomingMessage#destroy as of 0.24).squish
+    destroy
   end
 
   # Search all info requests for
