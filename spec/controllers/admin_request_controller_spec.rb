@@ -55,10 +55,10 @@ describe AdminRequestController, "when administering requests" do
 
   describe 'when fully destroying a request' do
 
-    it 'calls fully_destroy on the info_request object' do
+    it 'calls destroy on the info_request object' do
       info_request = FactoryGirl.create(:info_request)
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
-      expect(info_request).to receive(:fully_destroy)
+      expect(info_request).to receive(:destroy)
       get :destroy, { :id => info_request.id }
     end
 

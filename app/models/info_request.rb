@@ -95,6 +95,7 @@ class InfoRequest < ActiveRecord::Base
   validate :title_formatting, :on => :create
 
   after_initialize :set_defaults
+  before_destroy :expire
 
   def self.enumerate_states
     states = [
@@ -849,6 +850,8 @@ class InfoRequest < ActiveRecord::Base
 
   # Completely delete this request and all objects depending on it
   def fully_destroy
+    warn %q([DEPRECATION] InfoRequest#fully_destroy will be replaced with
+      InfoRequest#destroy as of 0.24).squish
     destroy
   end
 

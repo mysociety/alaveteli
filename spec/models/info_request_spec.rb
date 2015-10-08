@@ -522,6 +522,11 @@ describe InfoRequest do
       info_request.destroy
     end
 
+    it "should call expire" do
+      expect(info_request).to receive(:expire)
+      info_request.destroy
+    end
+
     it 'destroys associated widget_votes' do
       info_request.widget_votes.create(:cookie => 'x' * 20)
       info_request.destroy
@@ -579,55 +584,6 @@ describe InfoRequest do
                                       :alert_type => 'comment_1')
       info_request.destroy
       expect(UserInfoRequestSentAlert.where(:info_request_id => info_request.id)).to be_empty
-    end
-  end
-
-  describe '#fully_destroy' do
-    let(:info_request) { FactoryGirl.create(:info_request) }
-
-    it 'can destroy a request with censor rules' do
-      censor_rule = FactoryGirl.create(:censor_rule, :info_request => info_request)
-      info_request.reload
-      info_request.fully_destroy
-      expect(CensorRule.where(:id => censor_rule.id)).to be_empty
-    end
-
-    it 'can destroy a request with comments' do
-      comment = FactoryGirl.create(:comment, :info_request => info_request)
-      info_request.reload
-      info_request.fully_destroy
-      expect(Comment.where(:info_request_id => info_request.id)).to be_empty
-    end
-
-    it 'destroys associated info_request_events' do
-      info_request.fully_destroy
-      expect(InfoRequestEvent.where(:info_request_id => info_request.id)).to be_empty
-    end
-
-    it 'destroys associated outgoing_messages' do
-      info_request.fully_destroy
-      expect(OutgoingMessage.where(:info_request_id => info_request.id)).to be_empty
-    end
-
-    it 'destroys associated widget_votes' do
-      info_request.widget_votes.create(:cookie => 'x' * 20)
-      info_request.fully_destroy
-      expect(WidgetVote.where(:info_request_id => info_request.id)).to be_empty
-    end
-
-    it 'can destroy a request with incoming messages' do
-      incoming_message = FactoryGirl.create(:incoming_message_with_html_attachment,
-                                            :info_request => info_request)
-      info_request.reload
-      info_request.fully_destroy
-
-      expect(InfoRequest.where(:id => info_request.id)).to be_empty
-      expect(IncomingMessage.where(:info_request_id => info_request.id)).to be_empty
-    end
-
-    it 'should call the expire method' do
-      expect(info_request).to receive(:expire)
-      info_request.fully_destroy
     end
   end
 
@@ -1729,8 +1685,8 @@ describe InfoRequest do
     end
 
     it "should call purge_in_cache and update_counter_cache" do
-      expect(@info_request).to receive(:purge_in_cache)
       # Twice - once for save, once for destroy:
+      expect(@info_request).to receive(:purge_in_cache).twice
       expect(@info_request).to receive(:update_counter_cache).twice
       @info_request.save!
       @info_request.destroy
