@@ -458,7 +458,7 @@ class RequestController < ApplicationController
       ).html_safe
     end
 
-    case info_request.calculate_status
+    case calculated_status
     when 'waiting_response', 'waiting_response_overdue', 'not_held', 'successful',
         'internal_review', 'error_message', 'requires_admin'
       redirect_to request_url(info_request)
