@@ -25,6 +25,7 @@
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
+#  info_requests_visible_count            :integer
 #
 
 require 'csv'
@@ -111,7 +112,7 @@ class PublicBody < ActiveRecord::Base
   self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
   self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
   self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
-  self.non_versioned_columns << 'info_requests_overdue_count'
+  self.non_versioned_columns << 'info_requests_overdue_count' << 'info_requests_visible_count'
 
   # Cannot be defined directly under `include` statements as this is opening
   # the PublicBody::Version class dynamically defined by  the
