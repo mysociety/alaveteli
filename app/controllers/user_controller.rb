@@ -508,8 +508,9 @@ class UserController < ApplicationController
         flash[:notice] = _("Thank you for updating your profile photo")
         redirect_to user_url(@user)
       else
-        flash[:notice] = _("<p>Thanks for updating your profile photo.</p>
-                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>")
+        flash[:notice] = _("<p>Thanks for updating your profile photo.</p>" \
+                "<p><strong>Next...</strong> You can put some text about " \
+                "you and your research on your profile.</p>")
         redirect_to set_profile_about_me_url
       end
     else
@@ -594,8 +595,9 @@ class UserController < ApplicationController
       flash[:notice] = _("You have now changed the text about you on your profile.")
       redirect_to user_url(@user)
     else
-      flash[:notice] = _("<p>Thanks for changing the text about you on your profile.</p>
-            <p><strong>Next...</strong> You can upload a profile photograph too.</p>")
+      flash[:notice] = _("<p>Thanks for changing the text about you on your " \
+                         "profile.</p><p><strong>Next...</strong> You can " \
+                         "upload a profile photograph too.</p>")
       redirect_to set_profile_photo_url
     end
   end

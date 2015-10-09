@@ -1,13 +1,15 @@
 <%= raw @name %>,
 
-<%= _('Please click on the link below to confirm that you want to 
-change the email address that you use for {{site_name}}
-from {{old_email}} to {{new_email}}', 
-:site_name=>site_name, :old_email=>@old_email, :new_email=>@new_email) %>
+<%= _('Please click on the link below to confirm that you want to ' \
+      'change the email address that you use for {{site_name}} ' \
+      'from {{old_email}} to {{new_email}}',
+      :site_name => site_name,
+      :old_email => @old_email,
+      :new_email => @new_email) %>
 
-<%=@url%>
+<%= @url %>
 
-<%= _('We will not reveal your email addresses to anybody unless you
-or the law tell us to.')%>
+<%= _('We will not reveal your email addresses to anybody unless you ' \
+	  'or the law tell us to.') %>
 
--- <%= _('the {{site_name}} team', :site_name=>site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name) %>
