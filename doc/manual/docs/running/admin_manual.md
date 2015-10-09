@@ -42,6 +42,7 @@ In this guide:
       <li><a href="#deleting-a-request">Deleting a request</a></li>
       <li><a href="#hiding-an-incoming-or-outgoing-message">Hiding an incoming or outgoing message</a></li>
       <li><a href="#editing-an-outgoing-message">Editing an outgoing message</a></li>
+      <li><a href="#editing-or-hiding-annotations-comments">Editing or hiding annotations (comments)</a></li>
       <li><a href="#hiding-certain-text-from-a-request-using-censor-rules">Hiding certain text from a request</a></li>
     </ul>
   </li>
@@ -803,6 +804,30 @@ Scroll down to the 'Outgoing Messages' section, and click on 'Edit'.
 
 Then on the next page you will be able to edit the message accordingly and save it. The edited version will then appear on the Alaveteli website, although an unedited version will have been sent to the authority.
 
+
+### Editing or hiding annotations (comments)
+
+Annotations are simpler than requests or messages because they only exist
+on the request page, that is, they are not sent anywhere.
+
+If a request has any annotations, they will be listed in the admin page for
+that request. Scroll down to the list of annotations, and edit any one
+individually by clicking on its title. We recommend you make your changes
+explicit. For example, if you're removing personal information, rather than
+just deleting it, replace it with something that indicates clearly what
+has been removed: "`[personal information removed]`". Wherever possible, you
+should make it clear what has been redacted and, if it needs clarification,
+why it needed to be hidden.
+
+You can hide (or reveal) the annotation by selecting the appropriate setting
+from the drop-down menu labelled <em>Visible</em>.
+
+When you have finished making your changes, click <strong>Save</strong>.
+
+It's also possible to hide (or reveal) annotations in bulk. On the request's
+admin page, scroll down to the list of annotations and tick the checkboxes for
+the ones you want to change. Then click <strong>Hide&nbsp;selected</strong> or
+<strong>Unhide&nbsp;selected</strong>.
 
 ### Hiding certain text from a request using censor rules
 
