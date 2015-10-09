@@ -2,12 +2,12 @@
 
 ---------------------------------------------------------------------
 <%= raw @reported_by.name %> <%= _('has reported an')%> <%= raw @info_request.law_used_short %>
-<%= _('response as needing administrator attention. Take a look, and reply to this
-email to let them know what you are going to do about it.')%>
+<%= _('response as needing administrator attention. Take a look, and reply ' \
+      'to this email to let them know what you are going to do about it.') %>
 
 Request '<%= raw @info_request.title %>':
 <%= @url %>
 
-<%= _('Administration URL:') %> 
+<%= _('Administration URL:') %>
 <%= @admin_url %>
 ---------------------------------------------------------------------

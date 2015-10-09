@@ -1,23 +1,27 @@
 <% @title = "Cookies not enabled" %>
 
-<h1><%= _('Please enable "cookies" to carry on')%></h1>
+<h1><%= _('Please enable "cookies" to carry on') %></h1>
 
-<p><%= _('To carry on, you need to sign in or make an account. Unfortunately, there
-was a technical problem trying to do this.')%></p>
+<p><%= _('To carry on, you need to sign in or make an account. ' \
+         'Unfortunately, there was a technical problem trying to ' \
+         'do this.') %></p>
 
-<p><%= _('It may be that your browser is not set to accept a thing called "cookies",
-or cannot do so.  If you can, please enable cookies, or try using a different
-browser.  Then press refresh to have another go.')%></p>
+<p><%= _('It may be that your browser is not set to accept a thing called ' \
+         '"cookies", or cannot do so.  If you can, please enable cookies, ' \
+         'or try using a different browser.  Then press refresh to have ' \
+         'another go.') %></p>
 
-<p><%= _('If your browser is set to accept cookies and you are seeing this message,
-then there is probably a fault with our server.')%> 
+<p><%= _('If your browser is set to accept cookies and you are seeing this ' \
+         'message, then there is probably a fault with our server.') %>
 
-<%= _('Please <a href="{{url}}">get in touch</a> with us so we can fix it.', :url => help_contact_path.html_safe) %>
+<%= _('Please <a href="{{url}}">get in touch</a> with us so we can fix it.',
+      :url => help_contact_path.html_safe) %>
 
 <%= _('Let us know what you were doing when this message ' \
       'appeared and your browser and operating system type and version.') %>
 </p>
 
-<p><%= _('If you are still having trouble, please <a href="{{url}}">contact us</a>.', :url => help_contact_path.html_safe) %>
+<p><%= _('If you are still having trouble, please <a href="{{url}}">' \
+         'contact us</a>.', :url => help_contact_path.html_safe) %>
 </p>
 

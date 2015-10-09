@@ -128,7 +128,8 @@
 
           <ul>
             <li><%= _('Air, water, soil, land, flora and fauna (including how these effect human beings)') %></li>
-            <li><%= _('Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)') %></li>
+            <li><%= _('Information on emissions and discharges (e.g. noise, ' \
+                      'energy, radiation, waste materials)') %></li>
             <li><%= _('Human health and safety') %></li>
             <li><%= _('Cultural sites and built structures (as they may be affected by the environmental factors listed above)') %></li>
             <li><%= _('Plans and administrative measures that affect these matters') %></li>
@@ -200,7 +201,7 @@
         </p>
 
         <div class="form_item_note">
-          <%= _("A one line summary of the information you are requesting, \n\t\t\te.g.") %>
+          <%= _("A one line summary of the information you are requesting, e.g.") %>
           <%= render :partial => "summary_suggestion" %>
         </div>
       </div>
