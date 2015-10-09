@@ -1,0 +1,10 @@
+<p>
+  <%= _("Thank you! Hopefully your wait isn't too long.") %>
+</p>
+<p>
+  <%= _("You should get a response within {{late_number_of_days}} days, " \
+        "or be told if it will take longer (<a href=\"{{review_url}}\">" \
+        "details</a>).",
+        :late_number_of_days => AlaveteliConfiguration.reply_late_after_days,
+        :review_url => unhappy_url(info_request) + "#internal_review") %>
+</p>
