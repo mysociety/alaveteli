@@ -1703,6 +1703,7 @@ describe InfoRequest do
       old_version_count = pb.versions.count
       old_successful_count = pb.info_requests_successful_count
       old_not_held_count = pb.info_requests_not_held_count
+      old_visible_count = pb.info_requests_visible_count
       ir = InfoRequest.new(:external_url => 'http://www.example.com',
                            :external_user_name => 'Example User',
                            :title => 'Some request or other',
@@ -1710,6 +1711,7 @@ describe InfoRequest do
                            :public_body => pb)
       ir.save!
       expect(pb.info_requests_successful_count).to eq(old_successful_count + 1)
+      expect(pb.info_requests_visible_count).to eq(old_visible_count + 1)
       ir.described_state = 'not_held'
       ir.save!
       pb.reload
@@ -1724,9 +1726,46 @@ describe InfoRequest do
       pb.reload
       expect(pb.info_requests_successful_count).to eq(old_successful_count)
       expect(pb.info_requests_successful_count).to eq(old_not_held_count)
+      expect(pb.info_requests_visible_count).to eq(old_visible_count)
       expect(pb.versions.count).to eq(old_version_count)
     end
+  end
 
+  describe 'when changing prominence' do
+    it "should change the counts on its PublicBody without saving a new version" do
+      pb = public_bodies(:geraldine_public_body)
+      old_version_count = pb.versions.count
+      old_successful_count = pb.info_requests_successful_count
+      old_not_held_count = pb.info_requests_not_held_count
+      old_visible_count = pb.info_requests_visible_count
+      ir = InfoRequest.new(:external_url => 'http://www.example.com',
+                           :external_user_name => 'Example User',
+                           :title => 'Some request or other',
+                           :described_state => 'partially_successful',
+                           :public_body => pb)
+      ir.save!
+      expect(pb.info_requests_successful_count).to eq(old_successful_count + 1)
+      expect(pb.info_requests_visible_count).to eq(old_visible_count + 1)
+      ir.prominence = 'hidden'
+      ir.save!
+      pb.reload
+      expect(pb.info_requests_successful_count).to eq(old_successful_count)
+      expect(pb.info_requests_not_held_count).to eq(old_not_held_count)
+      expect(pb.info_requests_visible_count).to eq(old_visible_count)
+
+      ir.prominence = 'normal'
+      ir.save!
+      pb.reload
+      expect(pb.info_requests_successful_count).to eq(old_successful_count + 1)
+      expect(pb.info_requests_not_held_count).to eq(old_not_held_count)
+      expect(pb.info_requests_visible_count).to eq(old_visible_count + 1)
+      ir.destroy
+      pb.reload
+      expect(pb.info_requests_successful_count).to eq(old_successful_count)
+      expect(pb.info_requests_successful_count).to eq(old_not_held_count)
+      expect(pb.info_requests_visible_count).to eq(old_visible_count)
+      expect(pb.versions.count).to eq(old_version_count)
+    end
   end
 
   describe InfoRequest, 'when getting similar requests' do
