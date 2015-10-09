@@ -618,7 +618,7 @@ describe UserController, "when changing email address" do
     deliveries = ActionMailer::Base.deliveries
     deliveries.size.should  == 1
     mail = deliveries[0]
-    mail.body.should include("confirm that you want to \nchange")
+    mail.body.should include("confirm that you want to change")
     mail.to.should == [ 'newbob@localhost' ]
 
     mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/

@@ -13,9 +13,13 @@
   <li><%= _('<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL.')%>
   <li><%= _('<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>', :list_of_file_extensions => IncomingMessage.get_all_file_extensions)%></li>
   <li><%= _('Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January.')%></li>
-  <li><%= _('<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, 
-    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags
-    can be present, you have to put <code>AND</code> explicitly if you only want results them all present.')%></li>
+  <li><%= _('<strong><code>tag:charity</code></strong> to find all public ' \
+            'authorities or requests with a given tag. You can include ' \
+            'multiple tags, and tag values, e.g. <code>tag:openlylocal ' \
+            'AND tag:financial_transaction:335633</code>. Note that by ' \
+            'default any of the tags can be present, you have to put ' \
+            '<code>AND</code> explicitly if you only want results them ' \
+            'all present.') %></li>
   <li><%= _('Read about <a href="{{advanced_search_url}}">advanced search operators</a>, such as proximity and wildcards.', :advanced_search_url => "http://www.xapian.org/docs/queryparser.html") %></li>
 </ul>
 
