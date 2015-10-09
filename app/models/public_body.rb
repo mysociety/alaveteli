@@ -688,7 +688,7 @@ class PublicBody < ActiveRecord::Base
         if body_short_names.empty?
           # This is too slow
           bodies = visible.find(:all,
-                                :order => "info_requests_count desc",
+                                :order => "info_requests_visible_count desc",
                                 :limit => 32,
                                 :conditions => conditions,
                                 :joins => :translations
