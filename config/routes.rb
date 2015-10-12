@@ -75,6 +75,11 @@ Alaveteli::Application.routes.draw do
   # Use /profile for things to do with the currently signed in user.
   # Use /user/XXXX for things that anyone can see about that user.
   # Note that /profile isn't indexed by search (see robots.txt)
+  resource :password_change,
+           :only => [:new, :create, :edit, :update],
+           :path => '/profile/change_password',
+           :path_names => { :edit => '' }
+
   match '/profile/sign_in' => 'user#signin', :as => :signin
   match '/profile/sign_up' => 'user#signup', :as => :signup, :via => :post
   match '/profile/sign_up' => 'user#signin', :via => :get
@@ -87,7 +92,6 @@ Alaveteli::Application.routes.draw do
   match '/user/:url_name/wall' => 'user#wall', :as => :show_user_wall
   match '/user/contact/:id' => 'user#contact', :as => :contact_user
 
-  match '/profile/change_password' => 'user#signchangepassword', :as => :signchangepassword
   match '/profile/change_email' => 'user#signchangeemail', :as => :signchangeemail
 
   match '/profile/set_photo' => 'user#set_profile_photo', :as => :set_profile_photo

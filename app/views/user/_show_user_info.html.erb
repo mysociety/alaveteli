@@ -13,7 +13,7 @@
     <% if @display_user.profile_photo %>
       <%= link_to _('Change profile photo'), set_profile_photo_path %> |
     <% end %>
-    <%= link_to _('Change your password'), signchangepassword_path %> |
+    <%= link_to _('Change your password'), new_password_change_path %> |
     <%= link_to _('Change your email'), signchangeemail_path %>
   </p>
 <% end %>
