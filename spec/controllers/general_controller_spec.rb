@@ -385,4 +385,11 @@ describe GeneralController, 'when using xapian search' do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
+  it 'should pass xapian error messages to flash and redirect to a blank search page' do
+    error_text = "Your query was not quite right. QueryParserError: Syntax: <expression> AND <expression>"
+    get :search, :combined => "test AND"
+    expect(flash[:error]).to eq(error_text)
+    expect(response).to redirect_to(:action => 'search', :combined => "")
+  end
+
 end
