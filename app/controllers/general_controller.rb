@@ -124,7 +124,7 @@ class GeneralController < ApplicationController
       begin
         dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
       rescue => e
-        flash[:error] = "Your query was not quite right. " + CGI.escapeHTML(e.to_str)
+        flash[:error] = "Your query was not quite right. #{e.message}"
         redirect_to search_url("")
         return
       end
