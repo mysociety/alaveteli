@@ -122,11 +122,17 @@ describe AdminCensorRuleController do
         end
 
         it 'purges the cache for the info request' do
-          expect(@controller).to receive(:expire_for_request).
-            with(@info_request)
+          info_request = FactoryGirl.create(:info_request)
+          censor_rules = double
+          allow(info_request).to receive(:censor_rules) { censor_rules }
+          allow(InfoRequest).to receive(:find) { info_request }
+          censor_rule = FactoryGirl.build(:info_request_censor_rule, :info_request => info_request)
+          allow(censor_rules).to receive(:build) { censor_rule }
+
+          expect(info_request).to receive(:expire)
 
           post :create, :censor_rule => @censor_rule_params,
-            :request_id => @info_request.id,
+            :request_id => info_request.id,
             :name_prefix => 'request_'
         end
 
@@ -166,47 +172,52 @@ describe AdminCensorRuleController do
     context 'user_id param' do
 
       before(:each) do
-        @censor_rule_params = FactoryGirl.build(:user_censor_rule).serializable_hash
+        @user = FactoryGirl.create(:user)
+        @censor_rule_params = FactoryGirl.build(:user_censor_rule, :user => @user).serializable_hash
         # last_edit_editor gets set in the controller
         @censor_rule_params.delete(:last_edit_editor)
-        @user = FactoryGirl.create(:user)
+      end
+
+      def create_censor_rule
         post :create, :user_id => @user.id,
           :censor_rule => @censor_rule_params,
           :name_prefix => 'user_'
       end
 
       it 'sets the last_edit_editor to the current admin' do
+        create_censor_rule
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
       end
 
       it 'finds a user if the user_id param is supplied' do
+        create_censor_rule
         expect(assigns[:censor_user]).to eq(@user)
       end
 
       it 'associates the user with the new censor rule' do
+        create_censor_rule
         expect(assigns[:censor_rule].user).to eq(@user)
       end
 
       it 'sets the URL for the form to POST to' do
+        create_censor_rule
         expect(assigns[:form_url]).to eq(admin_user_censor_rules_path(@user))
       end
 
       context 'successfully saving the censor rule' do
-
         it 'purges the cache for the info request' do
-          censor_rule = CensorRule.new(@censor_rule_params)
-          expect(@controller).to receive(:expire_requests_for_user).
-            with(@user)
+          expect(User).to receive(:find) { @user }
+          censor_rules = double
+          allow(@user).to receive(:censor_rules) { censor_rules }
+          censor_rule = FactoryGirl.build(:user_censor_rule, :user => @user)
+          allow(censor_rules).to receive(:build) { censor_rule }
 
-          post :create, :censor_rule => @censor_rule_params,
-            :user_id => @user.id,
-            :name_prefix => 'user_'
+          expect(censor_rule.user).to receive(:expire_requests)
+          create_censor_rule
         end
 
         it 'redirects to the associated info request' do
-          post :create, :censor_rule => @censor_rule_params,
-            :user_id => @user.id,
-            :name_prefix => 'user_'
+          create_censor_rule
           expect(response).to redirect_to(
             admin_user_path(assigns[:censor_rule].user)
           )
@@ -365,8 +376,10 @@ describe AdminCensorRuleController do
         end
 
         it 'purges the cache for the info request' do
-          expect(@controller).to receive(:expire_for_request).
-            with(@censor_rule.info_request)
+          info_request = FactoryGirl.create(:info_request)
+          allow(CensorRule).to receive(:find).and_return(@censor_rule)
+          allow(@censor_rule).to receive(:info_request).and_return(info_request)
+          expect(info_request).to receive(:expire)
 
           put :update, :id => @censor_rule.id,
             :censor_rule => { :text => 'different text' }
@@ -409,7 +422,6 @@ describe AdminCensorRuleController do
     end
 
     context 'a CensorRule with an associated User' do
-
       before(:each) do
         @censor_rule = FactoryGirl.create(:user_censor_rule)
       end
@@ -426,12 +438,9 @@ describe AdminCensorRuleController do
           :censor_rule => { :text => 'different text' }
 
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
-
       end
 
-
       context 'successfully saving the censor rule' do
-
         it 'updates the censor rule' do
           put :update, :id => @censor_rule.id,
             :censor_rule => { :text => 'different text' }
@@ -447,8 +456,8 @@ describe AdminCensorRuleController do
         end
 
         it 'purges the cache for the info request' do
-          expect(@controller).to receive(:expire_requests_for_user).
-            with(@censor_rule.user)
+          expect(CensorRule).to receive(:find) { @censor_rule }
+          expect(@censor_rule.user).to receive(:expire_requests)
 
           put :update, :id => @censor_rule.id,
             :censor_rule => { :text => 'different text' }
@@ -528,7 +537,8 @@ describe AdminCensorRuleController do
       end
 
       it 'purges the cache for the info request' do
-        expect(@controller).to receive(:expire_for_request).with(@censor_rule.info_request)
+        expect(CensorRule).to receive(:find) { @censor_rule }
+        expect(@censor_rule.info_request).to receive(:expire)
         delete :destroy, :id => @censor_rule.id
       end
 
@@ -557,7 +567,8 @@ describe AdminCensorRuleController do
       end
 
       it 'purges the cache for the user' do
-        expect(@controller).to receive(:expire_requests_for_user).with(@censor_rule.user)
+        expect(CensorRule).to receive(:find) { @censor_rule }
+        expect(@censor_rule.user).to receive(:expire_requests)
         delete :destroy, :id => @censor_rule.id
       end
 

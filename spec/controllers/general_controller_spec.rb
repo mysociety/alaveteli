@@ -8,8 +8,8 @@ describe GeneralController do
 
     it 'renders json stats about the install' do
       # Clean up fixtures
-      InfoRequest.find_each(&:fully_destroy)
-      Comment.find_each(&:fully_destroy)
+      InfoRequest.find_each(&:destroy)
+      Comment.find_each(&:destroy)
       PublicBody.find_each(&:destroy)
       TrackThing.find_each(&:destroy)
       User.find_each(&:destroy)

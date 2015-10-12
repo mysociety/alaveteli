@@ -72,8 +72,16 @@ describe AdminOutgoingMessageController do
     end
 
     it 'should expire the file cache for the info request' do
-      expect(@controller).to receive(:expire_for_request).with(@info_request)
-      make_request
+      info_request = FactoryGirl.create(:info_request)
+      allow_any_instance_of(OutgoingMessage).to receive(:info_request) { info_request }
+
+      outgoing = FactoryGirl.create(:initial_request, :info_request => info_request)
+
+      expect(info_request).to receive(:expire)
+
+      params = @default_params.dup
+      params[:id] = outgoing.id
+      make_request(params)
     end
 
     context 'if the outgoing message saves correctly' do

@@ -26,6 +26,7 @@
 #
 
 require 'digest/sha1'
+require 'fileutils'
 
 class InfoRequest < ActiveRecord::Base
   include AdminColumn
@@ -47,15 +48,15 @@ class InfoRequest < ActiveRecord::Base
   belongs_to :info_request_batch
   validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
-  has_many :outgoing_messages, :order => 'created_at'
-  has_many :incoming_messages, :order => 'created_at'
-  has_many :info_request_events, :order => 'created_at'
-  has_many :user_info_request_sent_alerts
-  has_many :track_things, :order => 'created_at desc'
+  has_many :info_request_events, :order => 'created_at', :dependent => :destroy
+  has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
+  has_many :incoming_messages, :order => 'created_at', :dependent => :destroy
+  has_many :user_info_request_sent_alerts, :dependent => :destroy
+  has_many :track_things, :order => 'created_at desc', :dependent => :destroy
   has_many :widget_votes, :dependent => :destroy
-  has_many :comments, :order => 'created_at'
-  has_many :censor_rules, :order => 'created_at desc'
-  has_many :mail_server_logs, :order => 'mail_server_log_done_id'
+  has_many :comments, :order => 'created_at', :dependent => :destroy
+  has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
+  has_many :mail_server_logs, :order => 'mail_server_log_done_id', :dependent => :destroy
   attr_accessor :is_batch_request_template
 
   has_tag_string
@@ -94,6 +95,7 @@ class InfoRequest < ActiveRecord::Base
   validate :title_formatting, :on => :create
 
   after_initialize :set_defaults
+  before_destroy :expire
 
   def self.enumerate_states
     states = [
@@ -223,6 +225,24 @@ class InfoRequest < ActiveRecord::Base
     ret = self.orig_tag_string=(tag_string)
     reindex_request_events
     return ret
+  end
+
+  def expire
+    # Clear out cached entries, by removing files from disk (the built in
+    # Rails fragment cache made doing this and other things too hard)
+    foi_fragment_cache_directories.each{ |dir| FileUtils.rm_rf(dir) }
+
+    # Remove any download zips
+    FileUtils.rm_rf(download_zip_dir)
+
+    # Remove the database caches of body / attachment text (the attachment text
+    # one is after privacy rules are applied)
+    clear_in_database_caches!
+
+    # also force a search reindexing (so changed text reflected in search)
+    reindex_request_events
+    # and remove from varnish
+    purge_in_cache
   end
 
   # Removes anything cached about the object in the database, and saves
@@ -830,23 +850,8 @@ class InfoRequest < ActiveRecord::Base
 
   # Completely delete this request and all objects depending on it
   def fully_destroy
-    track_things.each do |track_thing|
-      track_thing.track_things_sent_emails.each { |a| a.destroy }
-      track_thing.destroy
-    end
-    user_info_request_sent_alerts.each { |a| a.destroy }
-    info_request_events.each do |info_request_event|
-      info_request_event.track_things_sent_emails.each { |a| a.destroy }
-      info_request_event.destroy
-    end
-    mail_server_logs.each do |mail_server_log|
-      mail_server_log.destroy
-    end
-    outgoing_messages.each { |a| a.destroy }
-    incoming_messages.each { |a| a.destroy }
-    comments.each { |comment| comment.destroy }
-    censor_rules.each{ |censor_rule| censor_rule.destroy }
-
+    warn %q([DEPRECATION] InfoRequest#fully_destroy will be replaced with
+      InfoRequest#destroy as of 0.24).squish
     destroy
   end
 

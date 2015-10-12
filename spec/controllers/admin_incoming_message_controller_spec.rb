@@ -12,7 +12,6 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
     before do
       @im = incoming_messages(:useless_incoming_message)
-      allow(@controller).to receive(:expire_for_request)
     end
 
     it "destroys the raw email file" do
@@ -22,14 +21,17 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
       assert_equal File.exists?(raw_email), false
     end
 
-    it 'asks the incoming message to fully destroy itself' do
+    it 'asks the incoming message to destroy itself' do
       allow(IncomingMessage).to receive(:find).and_return(@im)
-      expect(@im).to receive(:fully_destroy)
+      expect(@im).to receive(:destroy)
       post :destroy, :id => @im.id
     end
 
     it 'expires the file cache for the associated info_request' do
-      expect(@controller).to receive(:expire_for_request).with(@im.info_request)
+      info_request = FactoryGirl.create(:info_request)
+      allow(@im).to receive(:info_request).and_return(info_request)
+      allow(IncomingMessage).to receive(:find).and_return(@im)
+      expect(@im.info_request).to receive(:expire)
       post :destroy, :id => @im.id
     end
 
@@ -43,10 +45,12 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
 
     it 'expires the file cache for the previous request' do
-      current_info_request = info_requests(:fancy_dog_request)
+      previous_info_request = FactoryGirl.create(:info_request)
       destination_info_request = info_requests(:naughty_chicken_request)
       incoming_message = incoming_messages(:useless_incoming_message)
-      expect(@controller).to receive(:expire_for_request).with(current_info_request)
+      allow(incoming_message).to receive(:info_request).and_return(previous_info_request)
+      allow(IncomingMessage).to receive(:find).and_return(incoming_message)
+      expect(previous_info_request).to receive(:expire)
       post :redeliver, :id => incoming_message.id,
         :url_title => destination_info_request.url_title
     end
@@ -135,7 +139,10 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
 
     it 'should expire the file cache for the info request' do
-      expect(@controller).to receive(:expire_for_request).with(@incoming.info_request)
+      info_request = FactoryGirl.create(:info_request)
+      allow(IncomingMessage).to receive(:find).and_return(@incoming)
+      allow(@incoming).to receive(:info_request).and_return(info_request)
+      expect(info_request).to receive(:expire)
       make_request
     end
 

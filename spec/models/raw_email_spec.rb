@@ -55,3 +55,17 @@ describe RawEmail do
   end
 
 end
+
+describe '#destroy_file_representation!' do
+  let(:raw_email) { FactoryGirl.create(:incoming_message).raw_email }
+  it 'should delete the directory' do
+    raw_email.destroy_file_representation!
+    expect(File.exists?(raw_email.filepath)).to eq(false)
+  end
+
+  it 'should only delete the directory if it exists' do
+    expect(File).to receive(:delete).once.and_call_original
+    raw_email.destroy_file_representation!
+    expect{ raw_email.destroy_file_representation! }.not_to raise_error
+  end
+end
