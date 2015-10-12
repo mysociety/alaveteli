@@ -1170,14 +1170,15 @@ class InfoRequest < ActiveRecord::Base
   # an InfoRequest associated with the body:
   def update_counter_cache
     PublicBody.skip_callback(:save, :after, :purge_in_cache)
+    success_states = ['successful', 'partially_successful']
     basic_params = {
       :public_body_id => self.public_body_id,
-      :awaiting_description => false,
       :prominence => 'normal'
     }
-    [['info_requests_not_held_count', {:described_state => 'not_held'}],
-     ['info_requests_successful_count', {:described_state => ['successful', 'partially_successful']}],
-     ['info_requests_visible_classified_count', {}]].each do |column, extra_params|
+    [['info_requests_not_held_count', {:awaiting_description => false, :described_state => 'not_held'}],
+     ['info_requests_successful_count', {:awaiting_description => false, :described_state => success_states}],
+     ['info_requests_visible_classified_count', {:awaiting_description => false}],
+     ['info_requests_visible_count', {}]].each do |column, extra_params|
        params = basic_params.clone.update extra_params
        self.public_body.send "#{column}=", InfoRequest.where(params).count
      end
