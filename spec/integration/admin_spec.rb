@@ -3,6 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe "When administering the site" do
+  let(:admin_user) { FactoryGirl.create(:admin_user) }
+  let(:bob_smith_user) { FactoryGirl.create(:user, :name => 'Bob Smith') }
+  let(:robin_user) { FactoryGirl.create(:user, :name => 'Robin') }
 
   before do
     allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
@@ -12,7 +15,7 @@ describe "When administering the site" do
 
   it "allows an admin to log in as another user" do
     using_session(@admin) do
-      visit admin_user_path users(:bob_smith_user)
+      visit admin_user_path bob_smith_user
       find_button('Log in as Bob Smith (also confirms their email)').click
       expect(page).to have_content 'Hello, Bob Smith!'
     end
@@ -21,7 +24,7 @@ describe "When administering the site" do
   it 'does not allow a non-admin user to login as another user' do
     robin = login(:robin_user)
     using_session(robin) do
-      visit admin_user_path users(:bob_smith_user)
+      visit admin_user_path bob_smith_user
       expect(page).to have_content \
         'To log into the administrative interface, please sign in as a superuser'
     end
@@ -30,7 +33,7 @@ describe "When administering the site" do
   it "allows redelivery of an incoming message to a closed request" do
 
     # close request
-    info_request = info_requests(:fancy_dog_request)
+    info_request = FactoryGirl.create(:info_request_with_incoming)
     close_request(info_request)
 
     # check number of messages in holding pen and request
@@ -62,14 +65,14 @@ describe "When administering the site" do
 
   it "allows redelivery of an incoming message to more than one request" do
     # close request
-    info_request = info_requests(:fancy_dog_request)
+    info_request = FactoryGirl.create(:info_request_with_incoming)
     close_request(info_request)
 
     # check number of messages in holding pen and requests
     expect(holding_pen_messages.length).to eq(0)
     expect(info_request.incoming_messages.length).to eq(1)
 
-    second_request = info_requests(:another_boring_request)
+    second_request = FactoryGirl.create(:info_request_with_incoming)
     expect(second_request.incoming_messages.length).to eq(1)
 
     # deliver an incoming message to the closed request -
