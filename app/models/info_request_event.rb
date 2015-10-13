@@ -100,6 +100,7 @@ class InfoRequestEvent < ActiveRecord::Base
   def requested_by
     self.info_request.user_name_slug
   end
+
   def requested_from
     # acts_as_xapian will detect translated fields via Globalize and add all the
     # available locales to the index. But 'requested_from' is not translated directly,
@@ -108,6 +109,7 @@ class InfoRequestEvent < ActiveRecord::Base
     # of values in a term, btw)
     self.info_request.public_body.translations.map {|t| t.url_name}
   end
+
   def commented_by
     if self.event_type == 'comment'
       self.comment.user.url_name
@@ -115,6 +117,7 @@ class InfoRequestEvent < ActiveRecord::Base
       return ''
     end
   end
+
   def request
     self.info_request.url_title
   end
@@ -147,6 +150,7 @@ class InfoRequestEvent < ActiveRecord::Base
     url_title = url_title.gsub(/[_0-9]+$/, "")
     return url_title
   end
+
   def described_at
     # For responses, people might have RSS feeds on searches for type of
     # response (e.g. successful) in which case we want to date sort by
@@ -154,10 +158,12 @@ class InfoRequestEvent < ActiveRecord::Base
     # types, just use the create at date.
     return self.last_described_at || self.created_at
   end
+
   def described_at_numeric
     # format it here as no datetime support in Xapian's value ranges
     return self.described_at.strftime("%Y%m%d%H%M%S")
   end
+
   def created_at_numeric
     # format it here as no datetime support in Xapian's value ranges
     return self.created_at.strftime("%Y%m%d%H%M%S")
@@ -216,12 +222,14 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     return text
   end
+
   def title
     if self.event_type == 'sent'
       return self.info_request.title
     end
     return ''
   end
+
   def filetype
     if self.event_type == 'response'
       if self.incoming_message.nil?
@@ -231,10 +239,12 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     return ''
   end
+
   def tags
     # this returns an array of strings, each gets indexed as separate term by acts_as_xapian
     return self.info_request.tag_array_for_search
   end
+
   def indexed_by_search?
     if ['sent', 'followup_sent', 'response', 'comment'].include?(self.event_type)
       if !self.info_request.indexed_by_search?
@@ -326,7 +336,6 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     return ret
   end
-
 
   def is_incoming_message?
     incoming_message_id? or (incoming_message if new_record?)
@@ -437,5 +446,4 @@ class InfoRequestEvent < ActiveRecord::Base
       save!
     end
   end
-
 end
