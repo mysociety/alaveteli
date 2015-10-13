@@ -103,7 +103,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def destroy
-    if @public_body.info_requests.size > 0
+    if @public_body.info_requests.count > 0
       flash[:notice] = "There are requests associated with the authority, so can't destroy it"
       redirect_to admin_body_url(@public_body)
       return
