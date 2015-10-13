@@ -120,14 +120,6 @@ in any language, and within any legislation</p>
             <div class="grid-row">
                 <div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/queremos-saber.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Queremos Saber</h3>
-                        <p class="deployment__country">Brazil</p>
-                        <p class="deployment__link"><a href="http://queremossaber.org.br/">http://queremossaber.org.br/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/right-to-know.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Right To Know</h3>
                         <p class="deployment__country">Australia</p>
@@ -173,14 +165,6 @@ in any language, and within any legislation</p>
                         <h3 class="deployment__title">Ask Data</h3>
                         <p class="deployment__country">Israel</p>
                         <p class="deployment__link"><a href="http://askdata.org.il/">http://askdata.org.il/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/je-veux-savoir.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Je Veux Savoir</h3>
-                        <p class="deployment__country">Canada</p>
-                        <p class="deployment__link"><a href="http://www.jeveuxsavoir.org/">http://www.jeveuxsavoir.org/</a></p>
                     </div>
                 </div><!--
                 --><div class="deployments__unit--minor">
