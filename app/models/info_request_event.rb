@@ -68,7 +68,7 @@ class InfoRequestEvent < ActiveRecord::Base
   validate :must_be_valid_state
 
   def must_be_valid_state
-    if !described_state.nil? and !InfoRequest.enumerate_states.include?(described_state)
+    if described_state and !InfoRequest.enumerate_states.include?(described_state)
       errors.add(described_state, "is not a valid state")
     end
   end
@@ -114,7 +114,7 @@ class InfoRequestEvent < ActiveRecord::Base
     if event_type == 'comment'
       comment.user.url_name
     else
-      return ''
+      ''
     end
   end
 
@@ -124,7 +124,7 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def latest_variety
     for event in info_request.info_request_events.reverse
-      if !event.variety.nil? and !event.variety.empty?
+      unless event.variety.blank?
         return event.variety
       end
     end
@@ -132,11 +132,10 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def latest_status
     for event in info_request.info_request_events.reverse
-      if !event.calculated_state.nil? and !event.calculated_state.empty?
+      unless event.calculated_state.blank?
         return event.calculated_state
       end
     end
-    return
   end
 
   def waiting_classification
@@ -148,7 +147,7 @@ class InfoRequestEvent < ActiveRecord::Base
     # remove numeric section from the end, use this to group lots
     # of similar requests by
     url_title = url_title.gsub(/[_0-9]+$/, "")
-    return url_title
+    url_title
   end
 
   def described_at
@@ -156,17 +155,17 @@ class InfoRequestEvent < ActiveRecord::Base
     # response (e.g. successful) in which case we want to date sort by
     # when the responses was described as being of the type. For other
     # types, just use the create at date.
-    return last_described_at || created_at
+    last_described_at || created_at
   end
 
   def described_at_numeric
     # format it here as no datetime support in Xapian's value ranges
-    return described_at.strftime("%Y%m%d%H%M%S")
+    described_at.strftime("%Y%m%d%H%M%S")
   end
 
   def created_at_numeric
     # format it here as no datetime support in Xapian's value ranges
-    return created_at.strftime("%Y%m%d%H%M%S")
+    created_at.strftime("%Y%m%d%H%M%S")
   end
 
   def incoming_message_selective_columns(fields)
@@ -175,10 +174,10 @@ class InfoRequestEvent < ActiveRecord::Base
       where('info_request_events.id = ?', id)
 
     message = message[0]
-    if !message.nil?
+    if message
       message.info_request = InfoRequest.find(message.info_request_id)
     end
-    return message
+    message
   end
 
   def get_clipped_response_efficiently
@@ -198,7 +197,7 @@ class InfoRequestEvent < ActiveRecord::Base
     else
       text = clipped_body.gsub("FOLDED_QUOTED_SECTION", " ").strip + "\n\n" + clipped_attachment
     end
-    return text + "\n\n"
+    text + "\n\n"
   end
 
   # clipped = true - means return shorter text. It is used for snippets fore
@@ -220,29 +219,29 @@ class InfoRequestEvent < ActiveRecord::Base
     else
       # nothing
     end
-    return text
+    text
   end
 
   def title
     if event_type == 'sent'
       return info_request.title
     end
-    return ''
+    ''
   end
 
   def filetype
     if event_type == 'response'
-      if incoming_message.nil?
+      unless incoming_message
         raise "event type is 'response' but no incoming message for event id #{id}"
       end
       return incoming_message.get_present_file_extensions
     end
-    return ''
+    ''
   end
 
   def tags
     # this returns an array of strings, each gets indexed as separate term by acts_as_xapian
-    return info_request.tag_array_for_search
+    info_request.tag_array_for_search
   end
 
   def indexed_by_search?
@@ -260,9 +259,8 @@ class InfoRequestEvent < ActiveRecord::Base
         return false
       end
       return true
-    else
-      return false
     end
+    false
   end
 
   def variety
@@ -273,20 +271,20 @@ class InfoRequestEvent < ActiveRecord::Base
     if event_type == 'comment'
       return comment.visible
     end
-    return true
+    true
   end
 
   # We store YAML version of parameters in the database
   def params=(params)
     # TODO: should really set these explicitly, and stop storing them in
     # here, but keep it for compatibility with old way for now
-    if not params[:incoming_message_id].nil?
+    if params[:incoming_message_id]
       self.incoming_message_id = params[:incoming_message_id]
     end
-    if not params[:outgoing_message_id].nil?
+    if params[:outgoing_message_id]
       self.outgoing_message_id = params[:outgoing_message_id]
     end
-    if not params[:comment_id].nil?
+    if params[:comment_id]
       self.comment_id = params[:comment_id]
     end
     self.params_yaml = params.to_yaml
@@ -334,7 +332,7 @@ class InfoRequestEvent < ActiveRecord::Base
       ret = ret + CGI.escapeHTML(value.to_s.strip)
       ret = ret + "<br>"
     end
-    return ret
+    ret
   end
 
   def is_incoming_message?
@@ -358,7 +356,7 @@ class InfoRequestEvent < ActiveRecord::Base
 
     if is_outgoing_message?
       status = calculated_state
-      if !status.nil?
+      if status
         if status == 'internal_review'
           return _("Internal review request")
         end
@@ -401,7 +399,7 @@ class InfoRequestEvent < ActiveRecord::Base
     if prev_addr.nil? || curr_addr.nil?
       return false
     end
-    return MailHandler.address_from_string(prev_addr) == MailHandler.address_from_string(curr_addr)
+    MailHandler.address_from_string(prev_addr) == MailHandler.address_from_string(curr_addr)
   end
 
   def json_for_api(deep, snippet_highlight_proc = nil)
@@ -426,7 +424,7 @@ class InfoRequestEvent < ActiveRecord::Base
       ret[:display_status] = display_status
     end
 
-    if !snippet_highlight_proc.nil?
+    if snippet_highlight_proc
       ret[:snippet] = snippet_highlight_proc.call(search_text_main(true))
     end
 
@@ -436,7 +434,7 @@ class InfoRequestEvent < ActiveRecord::Base
       ret[:user] = info_request.user_json_for_api
     end
 
-    return ret
+    ret
   end
 
   def set_calculated_state!(state)
