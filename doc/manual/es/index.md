@@ -39,7 +39,7 @@ title: Bienvenido
         </div>
         <div class="what-is-alaveteli__international-reach-position">
             <div class="what-is-alaveteli__international-reach">
-                <p class="message">Alaveteli ha ayudado a los ciudadanos a realizar más de <strong>200.000 solicitudes de información pública</strong> en <strong>18 jurisdicciones</strong></p>
+                <p class="message">Alaveteli ha ayudado a los ciudadanos a realizar más de <strong>{{ site.requests | replace: ",", "." }} solicitudes de información pública</strong> en <strong>{{ site.jurisdictions }} jurisdicciones</strong></p>
                 <p><a href="{{ page.baseurl }}/deployments/">Consulte todas sus implementaciones</a></p>
             </div>
         </div>

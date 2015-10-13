@@ -37,7 +37,7 @@ title: Welcome
         </div>
         <div class="what-is-alaveteli__international-reach-position">
             <div class="what-is-alaveteli__international-reach">
-                <p class="message">Alaveteli has helped citizens make over <strong>295,000 Freedom of Information requests</strong> in <strong>20 jurisdictions</strong></p>
+                <p class="message">Alaveteli has helped citizens make over <strong>{{ site.requests }} Freedom of Information requests</strong> in <strong>{{ site.jurisdictions }} jurisdictions</strong></p>
                 <p><a href="{{ site.baseurl }}deployments/">See Alaveteli in use around the world</a></p>
             </div>
         </div>

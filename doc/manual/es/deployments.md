@@ -6,8 +6,8 @@ title: Implementaciones
 
 <div class="deployments__intro">
     <div class="container">
-    <h1>Más de 20 idiomas, 18 jurisdicciones
-    <span>200.000 solicitudes de información</span></h1>
+    <h1>Más de {{ site.languages }} idiomas, {{ site.jurisdictions }} jurisdicciones
+    <span>{{ site.requests | replace: ",", "." }} solicitudes de información</span></h1>
     <p>Alaveteli puede colaborar en la transparencia del gobierno en cualquier país,
 en cualquier idioma y dentro de cualquier marco legal</p>
     </div>

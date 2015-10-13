@@ -27,3 +27,6 @@ exclude:
   - vendor
 gems:
   - jekyll-redirect-from
+jurisdictions: "25"
+requests: "315,000"
+languages: "20"
