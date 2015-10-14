@@ -19,6 +19,19 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequestEvent do
+  describe "when checking for a valid state" do
+    it 'should add an error message for described_state if it is not valid' do
+      ire = InfoRequestEvent.new(:described_state => 'nope')
+      ire.valid?
+      expect(ire.errors.messages[:described_state]).to eq ["is not a valid state"]
+    end
+
+    it 'should not add an error message for described_state if it is valid' do
+      ire = InfoRequestEvent.new(:described_state => 'waiting_response')
+      ire.valid?
+      expect(ire.errors.messages[:described_state]).to be_nil
+    end
+  end
 
   describe "when storing serialized parameters" do
     let(:ire) { InfoRequestEvent.new }
