@@ -303,17 +303,22 @@ class InfoRequestEvent < ActiveRecord::Base
     old_params = {}
     new_params = {}
     other_params = {}
+    ignore = {}
     for key, value in params
       key = key.to_s
       if key.match(/^old_(.*)$/)
-        old_params[$1.to_sym] = value.to_s.strip
+        if params[$1.to_sym] == value
+          ignore[$1.to_sym] = ''
+        else
+          old_params[$1.to_sym] = value.to_s.strip
+        end
       elsif params.include?(("old_" + key).to_sym)
         new_params[key.to_sym] = value.to_s.strip
       else
         other_params[key.to_sym] = value.to_s.strip
       end
     end
-    new_params.delete_if { |key, value| other_params.keys.include?(key) }
+    new_params.delete_if { |key, value| ignore.keys.include?(key) }
     {:new => new_params, :old => old_params, :other => other_params}
   end
 

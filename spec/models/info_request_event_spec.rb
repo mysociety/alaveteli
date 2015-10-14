@@ -270,11 +270,17 @@ describe InfoRequestEvent do
     let(:ire) { InfoRequestEvent.new }
 
     it "should return old, new and other params" do
-      ire.params = { :old_foo => 'this is stuff', :foo => 'stuff', :bar => 84 }
+      ire.params = {:old_foo => 'this is stuff', :foo => 'stuff', :bar => 84}
       expected_hash = {
         :new => {:foo => 'stuff'},
         :old => {:foo => 'this is stuff'},
         :other => {:bar => "84"}}
+      expect(ire.params_diff).to eq(expected_hash)
+    end
+
+    it 'should drop matching old and new values' do
+      ire.params = {:old_foo => 'stuff', :foo => 'stuff', :bar => 84}
+      expected_hash = {:new => {}, :old => {}, :other => {:bar => "84"}}
       expect(ire.params_diff).to eq(expected_hash)
     end
   end
