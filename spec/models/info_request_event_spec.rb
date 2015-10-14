@@ -266,19 +266,16 @@ describe InfoRequestEvent do
     end
   end
 
-  describe '#params_yaml_as_html' do
+  describe '#params_diff' do
     let(:ire) { InfoRequestEvent.new }
 
-    it "should differentiate between old, new and other" do
+    it "should return old, new and other params" do
       ire.params = { :old_foo => 'this is stuff', :foo => 'stuff', :bar => 84 }
-      expected_output = "<em>foo:</em> this is stuff => stuff<br><em>bar:</em> 84<br>"
-      expect(ire.params_yaml_as_html).to eq(expected_output)
-    end
-
-    it "should not report unchanged values as new" do
-      ire.params = { :old_foo => 'this is stuff', :foo => 'this is stuff', :bar => 84 }
-      expected_output = "<em>bar:</em> 84<br>"
-      expect(ire.params_yaml_as_html).to eq(expected_output)
+      expected_hash = {
+        :new => {:foo => 'stuff'},
+        :old => {:foo => 'this is stuff'},
+        :other => {:bar => "84"}}
+      expect(ire.params_diff).to eq(expected_hash)
     end
   end
 
