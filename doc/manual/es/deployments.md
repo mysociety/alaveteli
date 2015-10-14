@@ -131,7 +131,6 @@ en cualquier idioma y dentro de cualquier marco legal</p>
                         <p class="deployment__link"><a href="http://nuvasuparati.info/">http://nuvasuparati.info/ </a></p>
                     </div>
                 </div><!--
-
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/pravo-da-znam.jpg" class="deployment__screenshot" />
@@ -162,6 +161,78 @@ en cualquier idioma y dentro de cualquier marco legal</p>
                         <h3 class="deployment__title">Da Zanamo Svi</h3>
                         <p class="deployment__country">Serbia</p>
                         <p class="deployment__link"><a href="http://daznamosvi.rs/sr">http://daznamosvi.rs/sr</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/sobanukirwa.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Sobanukirwa</h3>
+                        <p class="deployment__country">Ruanda</p>
+                        <p class="deployment__link"><a href="https://sobanukirwa.rw/">https://sobanukirwa.rw/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/diritto-di-sapere.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Chiedi</h3>
+                        <p class="deployment__country">Italia</p>
+                        <p class="deployment__link"><a href="https://chiedi.dirittodisapere.it/">https://chiedi.dirittodisapere.it/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/access-info-hk.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">accessinfo.hk</h3>
+                        <p class="deployment__country">Hong Kong</p>
+                        <p class="deployment__link"><a href="https://accessinfo.hk/">https://accessinfo.hk/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/ask-your-gov-uganda.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Ask Your Gov</h3>
+                        <p class="deployment__country">Uganda</p>
+                        <p class="deployment__link"><a href="http://askyourgov.ug">http://askyourgov.ug/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/nos-queremos-saber.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Nós Queremos Saber</h3>
+                        <p class="deployment__country">Portugal</p>
+                        <p class="deployment__link"><a href="http://nosqueremossaber.org">http://nosqueremossaber.org/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/mimes-bronn.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Mimes Brønn</h3>
+                        <p class="deployment__country">Noruega</p>
+                        <p class="deployment__link"><a href="https://www.mimesbronn.no">https://www.mimesbronn.no/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/right-to-know-malaysia.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">RightToKnow</h3>
+                        <p class="deployment__country">Malasia</p>
+                        <p class="deployment__link"><a href="http://foi.sinarproject.org">http://foi.sinarproject.org/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/queremo-saber.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">QueremoSaber</h3>
+                        <p class="deployment__country">Paraguay</p>
+                        <p class="deployment__link"><a href="http://queremosaber.org.py">http://queremosaber.org.py/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/derecho-a-preguntar.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Derecho A Preguntar</h3>
+                        <p class="deployment__country">Nicaragua</p>
+                        <p class="deployment__link"><a href="https://derechoapreguntar.org">https://derechoapreguntar.org/</a></p>
                     </div>
                 </div>
             </div>
