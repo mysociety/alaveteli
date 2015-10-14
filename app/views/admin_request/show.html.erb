@@ -207,7 +207,7 @@
                 </td>
                 <td>
                   <% if column_name == 'params_yaml' %>
-                    <%= info_request_event.params_yaml_as_html.html_safe %>
+                    <%= render :partial => 'params', :locals => { :params => info_request_event.params_diff } %>
                   <% elsif value.nil? %>
                     nil
                   <% elsif %w(text string).include?(type) %>

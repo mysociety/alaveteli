@@ -298,8 +298,7 @@ class InfoRequestEvent < ActiveRecord::Base
     param_hash
   end
 
-  def params_yaml_as_html
-    ret = ''
+  def params_diff
     # split out parameters into old/new diffs, and other ones
     old_params = {}
     new_params = {}
@@ -307,32 +306,15 @@ class InfoRequestEvent < ActiveRecord::Base
     for key, value in params
       key = key.to_s
       if key.match(/^old_(.*)$/)
-        old_params[$1] = value
+        old_params[$1.to_sym] = value.to_s.strip
       elsif params.include?(("old_" + key).to_sym)
-        new_params[key] = value
+        new_params[key.to_sym] = value.to_s.strip
       else
-        other_params[key] = value
+        other_params[key.to_sym] = value.to_s.strip
       end
     end
-    # loop through
-    for key, value in new_params
-      old_value = old_params[key].to_s
-      new_value = new_params[key].to_s
-      if old_value != new_value
-        ret = ret + "<em>" + CGI.escapeHTML(key) + ":</em> "
-        ret = ret +
-          CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(old_value).strip).gsub(/\n/, '<br>') +
-          " => " +
-          CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(new_value).strip).gsub(/\n/, '<br>')
-        ret = ret + "<br>"
-      end
-    end
-    for key, value in other_params
-      ret = ret + "<em>" + CGI.escapeHTML(key.to_s) + ":</em> "
-      ret = ret + CGI.escapeHTML(value.to_s.strip)
-      ret = ret + "<br>"
-    end
-    ret
+    new_params.delete_if { |key, value| other_params.keys.include?(key) }
+    {:new => new_params, :old => old_params, :other => other_params}
   end
 
   def is_incoming_message?
