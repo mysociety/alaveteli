@@ -147,6 +147,8 @@ class ApplicationController < ActionController::Base
     session[:remember_me] = false
     session[:using_admin] = nil
     session[:admin_name] = nil
+    session[:change_password_post_redirect_id] = nil
+    session[:post_redirect_token] = nil
   end
 
   def render_exception(exception)

@@ -180,7 +180,13 @@ class UserController < ApplicationController
       @user.email_confirmed = true
       @user.save!
       session[:user_id] = @user.id
-    when *%w(normal change_email)
+    when 'change_password'
+      unless session[:user_id] == post_redirect.user_id
+        clear_session_credentials
+      end
+
+      session[:change_password_post_redirect_id] = post_redirect.id
+    when 'normal', 'change_email'
       # !User.stay_logged_in_on_redirect?(nil)
       # # => true
       # !User.stay_logged_in_on_redirect?(user)
