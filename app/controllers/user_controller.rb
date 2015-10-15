@@ -174,12 +174,28 @@ class UserController < ApplicationController
       return
     end
 
-    if !User.stay_logged_in_on_redirect?(@user) || post_redirect.circumstance == "login_as"
+    case post_redirect.circumstance
+    when 'login_as'
       @user = post_redirect.user
       @user.email_confirmed = true
       @user.save!
+      session[:user_id] = @user.id
+    when *%w(normal change_email)
+      # !User.stay_logged_in_on_redirect?(nil)
+      # # => true
+      # !User.stay_logged_in_on_redirect?(user)
+      # # => true
+      # !User.stay_logged_in_on_redirect?(admin)
+      # # => false
+      unless User.stay_logged_in_on_redirect?(@user)
+        @user = post_redirect.user
+        @user.email_confirmed = true
+        @user.save!
+      end
+
+      session[:user_id] = @user.id
     end
-    session[:user_id] = @user.id
+
     session[:user_circumstance] = post_redirect.circumstance
 
     do_post_redirect post_redirect
