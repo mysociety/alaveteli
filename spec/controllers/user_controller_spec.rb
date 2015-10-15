@@ -96,6 +96,78 @@ describe UserController do
 
     end
 
+    context 'the post redirect circumstance is change_password' do
+
+      before :each do
+        @user = FactoryGirl.create(:user)
+        @post_redirect =
+          PostRedirect.create(:uri => edit_password_change_path,
+                              :user => @user,
+                              :circumstance => 'change_password')
+
+        get :confirm, :email_token => @post_redirect.email_token
+      end
+
+      it 'sets the change_password_post_redirect_id session key' do
+         expect(session[:change_password_post_redirect_id]).
+           to eq(@post_redirect.id)
+      end
+
+      it 'does not log the user in' do
+        expect(session[:user_id]).to eq(nil)
+      end
+
+      it 'logs out a user who does not own the post redirect' do
+        logged_in_user = FactoryGirl.create(:user)
+        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @post_redirect =
+          PostRedirect.create(:uri => edit_password_change_path,
+                              :user => @user,
+                              :circumstance => 'change_password')
+
+        session[:user_id] = logged_in_user.id
+        get :confirm, :email_token => @post_redirect.email_token
+
+        expect(session[:user_id]).to be_nil
+      end
+
+      it 'does not log out a user if they own the post redirect' do
+        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @post_redirect =
+          PostRedirect.create(:uri => edit_password_change_path,
+                              :user => @user,
+                              :circumstance => 'change_password')
+
+        session[:user_id] = @user.id
+        get :confirm, :email_token => @post_redirect.email_token
+
+        expect(session[:user_id]).to eq(@user.id)
+        expect(assigns[:user]).to eq(@user)
+      end
+
+      it 'does not confirm an unconfirmed user' do
+        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @post_redirect =
+          PostRedirect.create(:uri => edit_password_change_path,
+                              :user => @user,
+                              :circumstance => 'change_password')
+
+        get :confirm, :email_token => @post_redirect.email_token
+
+        expect(@user.reload.email_confirmed).to eq(false)
+      end
+
+      it 'sets the user_circumstance to change_password' do
+        expect(session[:user_circumstance]).to eq('change_password')
+      end
+
+      it 'redirects to the post redirect uri' do
+        expect(response).
+          to redirect_to('/profile/change_password?post_redirect=1')
+      end
+
+    end
+
     context 'if the currently logged in user is an admin' do
 
       before :each do
