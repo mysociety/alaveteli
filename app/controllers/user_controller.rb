@@ -608,6 +608,17 @@ class UserController < ApplicationController
   # If they register again
   def already_registered_mail(user)
     post_redirect = PostRedirect.find_by_token(params[:token])
+    unless post_redirect
+      # Redirect to front page later if nothing else specified
+      params[:r] = "/" if params[:r].nil?
+      post_redirect = PostRedirect.new(:uri => params[:r],
+                                       :post_params => {},
+                                       :reason_params => {
+                                         :web => "",
+                                         :email => _("Then you can sign in to {{site_name}}", :site_name => site_name),
+                                         :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
+                                        })
+    end
     post_redirect.user = user
     post_redirect.save!
 
