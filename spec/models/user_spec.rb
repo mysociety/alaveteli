@@ -411,6 +411,24 @@ end
 
 describe User do
 
+  describe '.stay_logged_in_on_redirect?' do
+
+    it 'is false if the user is nil' do
+      expect(User.stay_logged_in_on_redirect?(nil)).to eq(false)
+    end
+
+    it 'is true if the user is an admin' do
+      admin = double(:super? => true)
+      expect(User.stay_logged_in_on_redirect?(admin)).to eq(true)
+    end
+
+    it 'is false if the user is not an admin' do
+      user = double(:super? => false)
+      expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
+    end
+
+  end
+
   describe '#valid?' do
 
     context 'with require_otp' do
