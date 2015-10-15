@@ -481,6 +481,36 @@ describe PublicBody, "when searching" do
   end
 end
 
+describe PublicBody, "when destroying" do
+  let(:public_body) { FactoryGirl.create(:public_body) }
+
+  it 'should destroy the public_body' do
+    public_body.destroy
+    expect(PublicBody.where(:id => public_body.id)).to be_empty
+  end
+
+  it 'should destroy the associated track_things' do
+    FactoryGirl.create(:public_body_track,
+                       :public_body => public_body,
+                       :track_medium => 'email_daily',
+                       :track_query => 'test')
+    public_body.destroy
+    expect(TrackThing.where(:public_body_id => public_body.id)).to be_empty
+  end
+
+  it 'should destroy the associated censor_rules' do
+    FactoryGirl.create(:censor_rule, :public_body => public_body)
+    public_body.destroy
+    expect(CensorRule.where(:public_body_id => public_body.id)).to be_empty
+  end
+
+  it 'should raise an error if there are associated info_requests' do
+    FactoryGirl.create(:info_request, :public_body => public_body)
+    public_body.reload
+    expect{ public_body.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
+  end
+end
+
 describe PublicBody, "when asked for the internal_admin_body" do
   before(:each) do
     # Make sure that there's no internal_admin_body before each of
