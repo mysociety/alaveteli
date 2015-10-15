@@ -56,6 +56,162 @@ describe UserController do
 
   end
 
+  describe 'GET confirm' do
+
+    context 'if the post redirect cannot be found' do
+
+      it 'renders bad_token' do
+        get :confirm, :email_token => ''
+        expect(response).to render_template(:bad_token)
+      end
+
+    end
+
+    context 'the post redirect circumstance is login_as' do
+
+      before :each do
+        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @post_redirect =
+          PostRedirect.
+            create(:uri => '/', :user => @user, :circumstance => 'login_as')
+
+        get :confirm, :email_token => @post_redirect.email_token
+      end
+
+      it 'confirms the post redirect user' do
+        expect(@user.reload.email_confirmed).to eq(true)
+      end
+
+      it 'logs in as the post redirect user' do
+        expect(session[:user_id]).to eq(@user.id)
+      end
+
+      it 'sets the user_circumstance to login_as' do
+        expect(session[:user_circumstance]).to eq('login_as')
+      end
+
+      it 'redirects to the post redirect uri' do
+        expect(response).to redirect_to('/?post_redirect=1')
+      end
+
+    end
+
+    context 'if the currently logged in user is an admin' do
+
+      before :each do
+        @admin = FactoryGirl.create(:user, :admin_level => 'super')
+        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
+
+        session[:user_id] = @admin.id
+        get :confirm, :email_token => @post_redirect.email_token
+      end
+
+      it 'does not confirm the post redirect user' do
+        expect(@user.reload.email_confirmed).to eq(false)
+      end
+
+      it 'stays logged in as the admin user' do
+        expect(session[:user_id]).to eq(@admin.id)
+      end
+
+      it 'sets the user_circumstance to normal' do
+        expect(session[:user_circumstance]).to eq('normal')
+      end
+
+      it 'redirects to the post redirect uri' do
+        expect(response).to redirect_to('/?post_redirect=1')
+      end
+
+    end
+
+    context 'if the currently logged in user is not an admin and owns the post redirect' do
+
+      before :each do
+        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
+
+        session[:user_id] = @user.id
+        get :confirm, :email_token => @post_redirect.email_token
+      end
+
+      it 'confirms the post redirect user' do
+        expect(@user.reload.email_confirmed).to eq(true)
+      end
+
+      it 'stays logged in as the user' do
+        expect(session[:user_id]).to eq(@user.id)
+      end
+
+      it 'sets the user_circumstance to normal' do
+        expect(session[:user_circumstance]).to eq('normal')
+      end
+
+      it 'redirects to the post redirect uri' do
+        expect(response).to redirect_to('/?post_redirect=1')
+      end
+
+    end
+
+    context 'if the currently logged in user is not an admin and does not own the post redirect' do
+
+      before :each do
+        @current_user = FactoryGirl.create(:user)
+        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
+
+        session[:user_id] = @current_user.id
+        get :confirm, :email_token => @post_redirect.email_token
+      end
+
+      it 'confirms the post redirect user' do
+        expect(@user.reload.email_confirmed).to eq(true)
+      end
+
+      # FIXME: There's no reason this should be allowed
+      it 'gets logged in as the post redirect user' do
+        expect(session[:user_id]).to eq(@user.id)
+      end
+
+      it 'sets the user_circumstance to normal' do
+        expect(session[:user_circumstance]).to eq('normal')
+      end
+
+      it 'redirects to the post redirect uri' do
+        expect(response).to redirect_to('/?post_redirect=1')
+      end
+
+    end
+
+    context 'if there is no logged in user' do
+
+      before :each do
+        @user = FactoryGirl.create(:user, :email_confirmed => false)
+        @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
+
+        get :confirm, :email_token => @post_redirect.email_token
+      end
+
+      it 'confirms the post redirect user' do
+        expect(@user.reload.email_confirmed).to eq(true)
+      end
+
+      it 'gets logged in as the post redirect user' do
+        expect(session[:user_id]).to eq(@user.id)
+      end
+
+      it 'sets the user_circumstance to normal' do
+        expect(session[:user_circumstance]).to eq('normal')
+      end
+
+      it 'redirects to the post redirect uri' do
+        expect(response).to redirect_to('/?post_redirect=1')
+      end
+
+    end
+
+  end
+
 end
 
 # TODO: Use route_for or params_from to check /c/ links better
