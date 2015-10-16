@@ -131,7 +131,10 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def latest_status
-    info_request.info_request_events.reverse.each do |event|
+    sibling_events =
+      self.class.where(:info_request_id => info_request_id).order('created_at')
+
+    sibling_events.reverse.each do |event|
       unless event.calculated_state.blank?
         return event.calculated_state
       end
