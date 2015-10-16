@@ -131,7 +131,7 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def latest_status
-    for event in info_request.info_request_events.reverse
+    info_request.info_request_events.reverse.each do |event|
       unless event.calculated_state.blank?
         return event.calculated_state
       end
