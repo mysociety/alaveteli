@@ -38,5 +38,16 @@
 </div>
 
 <% if params[:action] == 'frontpage' %>
+  <div class="wrapper">
+    <div class="homepage-flash">
+      <% if flash[:notice] %>
+        <div id="notice"><%= flash[:notice] %></div>
+      <% end %>
+      <% if flash[:error] %>
+        <div id="error"><%= flash[:error] %></div>
+      <% end %>
+    </div>
+  </div>
+
   <%= render :partial => "frontpage_hero" %>
 <% end %>

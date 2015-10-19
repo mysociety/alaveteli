@@ -1,5 +1,9 @@
 /* Frontpage layout */
 
+.homepage-flash {
+  @extend .content;
+}
+
 .homepage-hero {
   padding: 2em 0 4em;
   position: relative;
