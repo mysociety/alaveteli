@@ -33,3 +33,6 @@ notifications:
   email:
     recipients:
       - cron-whatdotheyknow@mysociety.org
+addons:
+  code_climate:
+    repo_token: ee19b27266ded8ab2d2c4e65c66a79fc58b11ff9c4bd84673ae21b1a565f3e6d
