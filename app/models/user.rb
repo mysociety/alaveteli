@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   strip_attributes :allow_empty => true
 
   attr_accessor :password_confirmation, :no_xapian_reindex
+  attr_accessor :entered_otp_code
 
   has_many :info_requests, :order => 'created_at desc'
   has_many :user_info_request_sent_alerts
@@ -58,6 +59,8 @@ class User < ActiveRecord::Base
                       :message => _("This email is already in use") }
 
   validate :email_and_name_are_valid
+  validate :verify_otp_code,
+           :if => Proc.new { |u| u.otp_enabled? && u.require_otp? }
 
   after_initialize :set_defaults
   after_save :purge_in_cache
@@ -275,6 +278,17 @@ class User < ActiveRecord::Base
 
   def disable_otp
     self.otp_enabled = false
+    self.require_otp = false
+    true
+  end
+
+  def require_otp?
+    @require_otp = false if @require_otp.nil?
+    @require_otp
+  end
+
+  def require_otp=(value)
+    @require_otp = value ? true : false
   end
 
   # For use in to/from in email messages
@@ -469,9 +483,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def verify_otp_code
+    if entered_otp_code.nil? || !authenticate_otp(entered_otp_code)
+      msg = _('Invalid one time password')
+      errors.add(:otp_code, msg)
+    end
+    self.entered_otp_code = nil
+  end
+
   def purge_in_cache
     info_requests.each { |x| x.purge_in_cache } if name_changed?
   end
 
 end
-
