@@ -411,6 +411,68 @@ end
 
 describe User do
 
+  describe '#valid?' do
+
+    context 'with require_otp' do
+
+      it 'has no effect when otp is disabled' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.disable_otp
+        user.require_otp = true
+        user.entered_otp_code = 'invalid'
+        expect(user.valid?).to eq(true)
+      end
+
+      it 'it has no effect when require_otp is false' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = false
+        user.entered_otp_code = 'invalid'
+        expect(user.valid?).to eq(true)
+      end
+
+      it 'is invalid with an incorrect otp' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = true
+        user.entered_otp_code = 'invalid'
+        expect(user.valid?).to eq(false)
+      end
+
+      it 'is invalid with a nil otp' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = true
+        user.entered_otp_code = nil
+        expect(user.valid?).to eq(false)
+      end
+
+      it 'adds an error for an invalid otp' do
+        msg = 'Invalid one time password'
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = true
+        user.entered_otp_code = 'invalid'
+        user.valid?
+        expect(user.errors[:otp_code]).to include(msg)
+      end
+
+    end
+
+    context 'with otp disabled' do
+
+      it 'is valid with any otp' do
+        user = FactoryGirl.build(:user)
+        user.disable_otp
+        user.entered_otp_code = 'invalid'
+        expect(user.valid?).to eq(true)
+      end
+
+    end
+
+  end
+
   describe '#otp_enabled' do
 
     it 'defaults to false' do
@@ -487,6 +549,11 @@ describe User do
       expect(user.otp_enabled).to eq(true)
     end
 
+    it 'returns true' do
+      user = User.new
+      expect(user.enable_otp).to eq(true)
+    end
+
   end
 
   describe '#disable_otp' do
@@ -494,7 +561,49 @@ describe User do
     it 'sets otp_enabled to false' do
       user = User.new(:otp_enabled => true)
       user.disable_otp
-      expect(user.otp_enabled).to eq(false)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'sets require_otp to false' do
+      user = User.new(:otp_enabled => true)
+      user.require_otp = true
+      user.disable_otp
+      expect(user.require_otp?).to eq(false)
+    end
+
+    it 'returns true' do
+      user = User.new
+      expect(user.disable_otp).to eq(true)
+    end
+
+  end
+
+  describe '#require_otp?' do
+
+    it 'is false by default' do
+      user = User.new
+      expect(user.require_otp?).to eq(false)
+    end
+
+    it 'returns the assigned boolean' do
+      user = User.new(:require_otp => true)
+      expect(user.require_otp?).to eq(true)
+    end
+
+  end
+
+  describe '#require_otp=' do
+
+    it 'assigns true for a truthy value' do
+      user = User.new
+      user.require_otp = 'yes'
+      expect(user.require_otp?).to eq(true)
+    end
+
+    it 'assigns false for a falsy value' do
+      user = User.new
+      user.require_otp = nil
+      expect(user.require_otp?).to eq(false)
     end
 
   end
@@ -532,6 +641,25 @@ describe User do
       user = User.new
       user.otp_secret_key = key
       expect(user.otp_secret_key).to eq(key)
+    end
+
+  end
+
+  describe '#entered_otp_code' do
+
+    it 'gets the virtual attribue for use in validation' do
+      user = User.new(:entered_otp_code => '123456')
+      expect(user.entered_otp_code).to eq('123456')
+    end
+
+  end
+
+  describe '#entered_otp_code=' do
+
+    it 'sets the virtual attribue for use in validation' do
+      user = User.new
+      user.entered_otp_code = '123456'
+      expect(user.entered_otp_code).to eq('123456')
     end
 
   end
