@@ -576,6 +576,99 @@ describe UserController, "when changing password" do
     expect(users(:bob_smith_user).hashed_password).to eq(old_hash)
   end
 
+  context 'when the user has 2factor auth enabled' do
+
+    it 'changes the password with a correct otp_code' do
+      allow(AlaveteliConfiguration).
+        to receive(:enable_2factor_auth).and_return(true)
+
+      user = FactoryGirl.build(:user)
+      user.enable_otp
+      user.save!
+
+      session[:user_id] = user.id
+      session[:user_circumstance] = "change_password"
+
+      old_hash = user.hashed_password
+
+      post :signchangepassword,
+           :user => { :password => 'ooo',
+                      :password_confirmation => 'ooo',
+                      :otp_code => user.otp_code },
+           :submitted_signchangepassword_do => 1
+
+      expect(user.reload.hashed_password).not_to eq(old_hash)
+    end
+
+    it 'does not change the password with an incorrect otp_code' do
+      allow(AlaveteliConfiguration).
+        to receive(:enable_2factor_auth).and_return(true)
+
+      user = FactoryGirl.build(:user)
+      user.enable_otp
+      user.save!
+
+      session[:user_id] = user.id
+      session[:user_circumstance] = "change_password"
+
+      old_hash = user.hashed_password
+
+      post :signchangepassword,
+           :user => { :password => 'ooo',
+                      :password_confirmation => 'ooo',
+                      :otp_code => '123456' },
+           :submitted_signchangepassword_do => 1
+
+      expect(user.reload.hashed_password).to eq(old_hash)
+    end
+
+    it 'does not change the password without an otp_code' do
+      allow(AlaveteliConfiguration).
+        to receive(:enable_2factor_auth).and_return(true)
+
+      user = FactoryGirl.build(:user)
+      user.enable_otp
+      user.save!
+
+      session[:user_id] = user.id
+      session[:user_circumstance] = "change_password"
+
+      old_hash = user.hashed_password
+
+      post :signchangepassword,
+           :user => { :password => 'ooo',
+                      :password_confirmation => 'ooo' },
+           :submitted_signchangepassword_do => 1
+
+      expect(user.reload.hashed_password).to eq(old_hash)
+    end
+  end
+
+  context 'when the user has 2factor auth disabled' do
+
+    it 'does not require an otp_code' do
+      allow(AlaveteliConfiguration).
+        to receive(:enable_2factor_auth).and_return(true)
+
+      user = FactoryGirl.build(:user)
+      user.disable_otp
+      user.save!
+
+      session[:user_id] = user.id
+      session[:user_circumstance] = "change_password"
+
+      old_hash = user.hashed_password
+
+      post :signchangepassword,
+           :user => { :password => 'ooo',
+                      :password_confirmation => 'ooo' },
+           :submitted_signchangepassword_do => 1
+
+      expect(user.reload.hashed_password).not_to eq(old_hash)
+    end
+
+  end
+
 end
 
 describe UserController, "when changing email address" do

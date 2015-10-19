@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/garethrees/active_model_otp.git
+  revision: 0eb977b4c6dafdecaa6d0861783ebb502de3981f
+  ref: 0eb977b4c6dafd
+  specs:
+    active_model_otp (1.2.0)
+      activemodel
+      rotp
+
+GIT
   remote: https://github.com/globalize/globalize.git
   revision: 5fd95f2389dff13c9368fb2e08c96c8a48798c72
   ref: 5fd95f2389dff1
@@ -234,6 +243,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.14.0)
+    rotp (2.1.1)
     routing-filter (0.3.1)
       actionpack
     rspec-activemodel-mocks (1.0.1)
@@ -319,6 +329,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_otp!
   acts_as_versioned!
   annotate (~> 2.5.0)
   bootstrap-sass (~> 2.3.1.2)

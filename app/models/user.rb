@@ -22,6 +22,9 @@
 #  no_limit                :boolean          default(FALSE), not null
 #  receive_email_alerts    :boolean          default(TRUE), not null
 #  can_make_batch_requests :boolean          default(FALSE), not null
+#  otp_enabled             :boolean          default(FALSE)
+#  otp_secret_key          :string(255)
+#  otp_counter             :integer          default(1)
 #
 
 require 'digest/sha1'
@@ -30,6 +33,7 @@ class User < ActiveRecord::Base
   strip_attributes :allow_empty => true
 
   attr_accessor :password_confirmation, :no_xapian_reindex
+  attr_writer :otp_code
 
   has_many :info_requests, :order => 'created_at desc'
   has_many :user_info_request_sent_alerts
@@ -55,6 +59,7 @@ class User < ActiveRecord::Base
                       :message => _("This email is already in use") }
 
   validate :email_and_name_are_valid
+  validate :verify_otp_code
 
   after_initialize :set_defaults
   after_save :purge_in_cache
@@ -66,6 +71,8 @@ class User < ActiveRecord::Base
   ],
   :terms => [ [ :variety, 'V', "variety" ] ],
   :if => :indexed_by_search?
+
+  has_one_time_password :counter_based => true
 
   # Return user given login email, password and other form parameters (e.g. name)
   #
@@ -265,6 +272,20 @@ class User < ActiveRecord::Base
     hashed_password == expected_password
   end
 
+  def otp_enabled?
+    (otp_secret_key && otp_counter && otp_enabled) ? true : false
+  end
+
+  def enable_otp
+    otp_regenerate_secret
+    otp_regenerate_counter
+    self.otp_enabled = true
+  end
+
+  def disable_otp
+    self.otp_enabled = false
+  end
+
   # For use in to/from in email messages
   def name_and_email
     MailHandler.address_from_name_and_email(name, email)
@@ -457,9 +478,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def verify_otp_code
+    if otp_enabled? && @otp_code
+      msg = _('Invalid one time password')
+      errors.add(:otp_code, msg) unless authenticate_otp(@otp_code)
+      @otp_code = nil
+    end
+  end
+
   def purge_in_cache
     info_requests.each { |x| x.purge_in_cache } if name_changed?
   end
 
 end
-

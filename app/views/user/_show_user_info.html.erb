@@ -14,6 +14,9 @@
       <%= link_to _('Change profile photo'), set_profile_photo_path %> |
     <% end %>
     <%= link_to _('Change your password'), signchangepassword_path %> |
+    <% if AlaveteliConfiguration.enable_2factor_auth %>
+      <%= link_to _('2factor authentication'), one_time_password_path %> |
+    <% end %>
     <%= link_to _('Change your email'), signchangeemail_path %>
   </p>
 <% end %>

@@ -22,6 +22,9 @@
 #  no_limit                :boolean          default(FALSE), not null
 #  receive_email_alerts    :boolean          default(TRUE), not null
 #  can_make_batch_requests :boolean          default(FALSE), not null
+#  otp_enabled             :boolean          default(FALSE)
+#  otp_secret_key          :string(255)
+#  otp_counter             :integer          default(1)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -410,6 +413,191 @@ describe User, "when calculating if a user has exceeded the request limit" do
 end
 
 describe User do
+
+  describe '#valid?' do
+
+    context 'with otp enabled' do
+
+      it 'is valid with a correct otp' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.otp_code = user.otp_code
+        expect(user.valid?).to eq(true)
+      end
+
+      it 'is invalid with an incorrect otp' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.otp_code = 'invalid'
+        expect(user.valid?).to eq(false)
+      end
+
+      it 'adds an error for an invalid otp' do
+        msg = 'Invalid one time password'
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.otp_code = 'invalid'
+        user.valid?
+        expect(user.errors[:otp_code]).to include(msg)
+      end
+
+    end
+
+    context 'with otp disabled' do
+
+      it 'is valid with any otp' do
+        user = FactoryGirl.build(:user)
+        user.disable_otp
+        user.otp_code = 'invalid'
+        expect(user.valid?).to eq(true)
+      end
+
+    end
+
+  end
+
+  describe '#otp_enabled' do
+
+    it 'defaults to false' do
+      user = User.new
+      expect(user.otp_enabled).to eq(false)
+    end
+
+    it 'can be enabled on initialization' do
+      user = User.new(:otp_enabled => true)
+      expect(user.otp_enabled).to eq(true)
+    end
+
+    it 'can be enabled after initialization' do
+      user = User.new
+      user.otp_enabled = true
+      expect(user.otp_enabled).to eq(true)
+    end
+
+  end
+
+  describe '#otp_enabled?' do
+
+    it 'requires an otp_secret_key to be enabled' do
+      attrs = { :otp_enabled => true,
+                :otp_secret_key => nil,
+                :otp_counter => 1 }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'requires an otp_counter to be enabled' do
+      attrs = { :otp_enabled => true,
+                :otp_secret_key => '123',
+                :otp_counter => nil }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'requires an otp_enabled to be true to be enabled' do
+      attrs = { :otp_enabled => false,
+                :otp_secret_key => '123',
+                :otp_counter => 1 }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'requires otp_enabled, otp_secret_key and otp_counter to be enabled' do
+      attrs = { :otp_enabled => true,
+                :otp_secret_key => '123',
+                :otp_counter => 1 }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(true)
+    end
+
+  end
+
+  describe '#enable_otp' do
+
+    it 'resets the otp_counter' do
+      user = User.new(:otp_counter => 200)
+      user.enable_otp
+      expect(user.otp_counter).to eq(1)
+    end
+
+    it 'regenerates the otp_secret_key' do
+      user = User.new(:otp_secret_key => '123')
+      user.enable_otp
+      expect(user.otp_secret_key.length).to eq(16)
+    end
+
+    it 'sets otp_enabled to true' do
+      user = User.new
+      user.enable_otp
+      expect(user.otp_enabled).to eq(true)
+    end
+
+  end
+
+  describe '#disable_otp' do
+
+    it 'sets otp_enabled to false' do
+      user = User.new(:otp_enabled => true)
+      user.disable_otp
+      expect(user.otp_enabled).to eq(false)
+    end
+
+  end
+
+  describe '#otp_counter' do
+
+    it 'defaults to 1' do
+      user = User.new
+      expect(user.otp_counter).to eq(1)
+    end
+
+    it 'can be set on initialization' do
+      user = User.new(:otp_counter => 200)
+      expect(user.otp_counter).to eq(200)
+    end
+
+    it 'can be set after initialization' do
+      user = User.new
+      user.otp_counter = 200
+      expect(user.otp_counter).to eq(200)
+    end
+
+  end
+
+  describe '#otp_secret_key' do
+
+    it 'can be set on initialization' do
+      key = ROTP::Base32.random_base32
+      user = User.new(:otp_secret_key => key)
+      expect(user.otp_secret_key).to eq(key)
+    end
+
+    it 'can be set after initialization' do
+      key = ROTP::Base32.random_base32
+      user = User.new
+      user.otp_secret_key = key
+      expect(user.otp_secret_key).to eq(key)
+    end
+
+  end
+
+  describe '#otp_code=' do
+
+    it 'sets the virtual attribue for use in validation' do
+      user = User.new
+      user.otp_code = '123456'
+      expect(user.instance_variable_get(:@otp_code)).to eq('123456')
+    end
+
+    it 'does not interfere with otp_code provided by active_model_otp' do
+      user = User.new
+      user.enable_otp
+      expected = user.otp_code
+      user.otp_code = '123456'
+      expect(user.otp_code).to eq(expected)
+    end
+
+  end
 
   describe '#banned?' do
 

@@ -243,6 +243,11 @@ class UserController < ApplicationController
       if params[:submitted_signchangepassword_do]
         @user.password = params[:user][:password]
         @user.password_confirmation = params[:user][:password_confirmation]
+
+        if AlaveteliConfiguration.enable_2factor_auth && @user.otp_enabled?
+          @user.otp_code = params[:user].fetch(:otp_code, '')
+        end
+
         if @user.valid?
           @user.save!
           flash[:notice] = _("Your password has been changed.")
