@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve mobile layout on authority list page (Marting Wright).
 * Major refactoring of `InfoRequest#receive` (Gareth Rees).
 * Santitze invalid UTF-8 in mail server logs while processing them (Steven Day,
   Gareth Rees).
