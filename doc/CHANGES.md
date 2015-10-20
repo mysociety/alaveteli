@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fixes a bug which caused request titles to be HTML escaped twice
+  when setting up a new request track while not logged in (Liz Conlan).
 * Extracted UserController#signchangepassword to PasswordChangesController
   (Gareth Rees).
 * Added configuration for `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS`.
