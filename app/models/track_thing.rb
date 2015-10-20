@@ -61,50 +61,45 @@ class TrackThing < ActiveRecord::Base
   end
 
   def self.create_track_for_request(info_request)
-    track_thing = TrackThing.new
-    track_thing.track_type = 'request_updates'
-    track_thing.info_request = info_request
-    track_thing.track_query = "request:#{ info_request.url_title }"
-    track_thing
+    new(:track_type => 'request_updates',
+        :info_request => info_request,
+        :track_query => "request:#{ info_request.url_title }")
   end
 
   def self.create_track_for_all_new_requests
-    track_thing = TrackThing.new
-    track_thing.track_type = 'all_new_requests'
-    track_thing.track_query = "variety:sent"
-    track_thing
+    new(:track_type => 'all_new_requests',
+        :track_query => 'variety:sent')
   end
 
   def self.create_track_for_all_successful_requests
-    track_thing = TrackThing.new
-    track_thing.track_type = 'all_successful_requests'
-    track_thing.track_query = 'variety:response (status:successful OR status:partially_successful)'
-    track_thing
+    new(:track_type => 'all_successful_requests',
+        :track_query => 'variety:response ' \
+        '(status:successful OR status:partially_successful)')
   end
 
   def self.create_track_for_public_body(public_body, event_type = nil)
-    track_thing = TrackThing.new
-    track_thing.track_type = 'public_body_updates'
-    track_thing.public_body = public_body
     query = "requested_from:#{ public_body.url_name }"
     if InfoRequestEvent.enumerate_event_types.include?(event_type)
       query += " variety:#{ event_type }"
     end
-    track_thing.track_query = query
-    track_thing
+    new(:track_type => 'public_body_updates',
+        :public_body => public_body,
+        :track_query => query)
   end
 
   def self.create_track_for_user(user)
-    track_thing = TrackThing.new
-    track_thing.track_type = 'user_updates'
-    track_thing.tracked_user = user
-    track_thing.track_query = "requested_by:#{ user.url_name } OR commented_by: #{ user.url_name }"
-    track_thing
+    new(:track_type => 'user_updates',
+        :tracked_user => user,
+        :track_query => "requested_by:#{ user.url_name }" \
+        " OR commented_by: #{ user.url_name }")
   end
 
   def self.create_track_for_search_query(query, variety_postfix = nil)
-    track_thing = TrackThing.new
-    track_thing.track_type = 'search_query'
+    # TODO: should extract requested_by:, request:, requested_from:
+    # and stick their values into the respective relations.
+    # Should also update "params" to make the list_description
+    # nicer and more generic.  It will need to do some clever
+    # parsing of the query to do this nicely
     unless query =~ /variety:/
       case variety_postfix
       when "requests"
@@ -115,13 +110,8 @@ class TrackThing < ActiveRecord::Base
         query += " variety:authority"
       end
     end
-    track_thing.track_query = query
-    # TODO: should extract requested_by:, request:, requested_from:
-    # and stick their values into the respective relations.
-    # Should also update "params" to make the list_description
-    # nicer and more generic.  It will need to do some clever
-    # parsing of the query to do this nicely
-    track_thing
+    new(:track_type => 'search_query',
+        :track_query => query)
   end
 
   def track_type_description
