@@ -42,10 +42,11 @@ class TrackThing < ActiveRecord::Base
   belongs_to :tracked_user, :class_name => 'User'
   has_many :track_things_sent_emails, :dependent => :destroy
 
-  validates_presence_of :track_query
+  validates_presence_of :track_query, :message => _("Query can't be blank")
   validates_presence_of :track_type
   validates_inclusion_of :track_type, :in => TRACK_TYPES.keys
   validates_inclusion_of :track_medium, :in => TRACK_MEDIUMS
+  validates_length_of :track_query, :maximum => 500, :message => _("Query is too long")
 
   # When constructing a new track, use this to avoid duplicates / double
   # posting
