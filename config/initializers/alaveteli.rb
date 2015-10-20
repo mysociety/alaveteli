@@ -37,7 +37,6 @@ end
 
 # Load monkey patches and other things from lib/
 require 'use_spans_for_errors.rb'
-require 'activerecord_errors_extensions.rb'
 require 'i18n_fixes.rb'
 require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
