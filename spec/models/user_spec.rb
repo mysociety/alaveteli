@@ -77,9 +77,6 @@ describe User, "showing the name" do
       expect(@user.name).to eq('Some Name (Account suspended)')
     end
 
-    it 'should return a string when the user has been banned, not a SafeBuffer' do
-      expect(@user.name.class).to eq(String)
-    end
   end
 
 
