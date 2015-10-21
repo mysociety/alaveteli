@@ -17,6 +17,19 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe PostRedirect do
+
+  describe '#valid?' do
+
+    it 'is false if an invalid circumstance is provided' do
+      pr = PostRedirect.new(:circumstance => 'invalid')
+      expect(pr).to_not be_valid
+    end
+
+  end
+
+end
+
 describe PostRedirect, " when constructing" do
   before do
   end
