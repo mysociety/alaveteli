@@ -74,14 +74,109 @@ describe TrackController, "when making a new track on a request" do
       get :track_request, :url_title => "hjksfdhjk_louytu_qqxxx", :feed => 'track'
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
+end
+
+describe TrackController, "when making a search track" do
+  let(:track_thing) { FactoryGirl.create(:search_track,
+                                         :track_medium => 'email_daily',
+                                         :track_query => 'example') }
+  let(:user) { FactoryGirl.create(:user, :locale => 'en', :name => 'bob') }
 
   it "should save a search track and redirect to the right place" do
-    session[:user_id] = @user.id
-    expect(@track_thing).to receive(:save!)
+    session[:user_id] = user.id
+    expect(track_thing).to receive(:save!)
     get :track_search_query, :query_array => "bob variety:sent", :feed => 'track'
     expect(response).to redirect_to(:controller => 'general', :action => 'search', :combined => ["bob", "requests"])
   end
 
+  it "should redirect with an error message if the query is too long" do
+    long_track = TrackThing.new(:track_type => 'search_query',
+                                :track_query => "lorem ipsum " * 42)
+    session[:user_id] = user.id
+    allow(TrackThing).to receive(:create_track_for_search_query).and_return(long_track)
+    get :track_search_query, :query_array => "bob variety:sent", :feed => 'track'
+    expect(flash[:error]).to match('too long')
+    expect(response).to redirect_to(:controller => 'general', :action => 'search', :combined => ["bob", "requests"])
+  end
+end
+
+describe TrackController, "when making a new track on a public body" do
+  let(:public_body) { FactoryGirl.create(:public_body) }
+  let(:user) { FactoryGirl.create(:user, :locale => 'en', :name => 'bob') }
+
+  it "should save a search track and redirect to the right place" do
+    session[:user_id] = user.id
+    track_thing = TrackThing.new(:track_type => 'public_body_updates',
+                                 :public_body => public_body)
+    allow(TrackThing).to receive(:create_track_for_public_body).and_return(track_thing)
+    expect(track_thing).to receive(:save).and_call_original
+    get :track_public_body, :url_name => public_body.url_name,
+                            :feed => 'track', :event_type => 'sent'
+    expect(response).to redirect_to("/body/#{public_body.url_name}")
+  end
+
+  it "should redirect with an error message if the query is too long" do
+    session[:user_id] = user.id
+    long_track = TrackThing.new(:track_type => 'public_body_updates',
+                                :public_body => public_body,
+                                :track_query => "lorem ipsum " * 42)
+    allow(TrackThing).to receive(:create_track_for_public_body).and_return(long_track)
+    get :track_public_body, :url_name => public_body.url_name,
+                            :feed => 'track', :event_type => 'sent'
+    expect(flash[:error]).to match('too long')
+    expect(response).to redirect_to("/body/#{public_body.url_name}")
+  end
+end
+
+describe TrackController, "when making a new track on a user" do
+  let(:target_user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
+
+  it "should save a user track and redirect to the right place" do
+    session[:user_id] = user.id
+    track_thing = TrackThing.new(:track_type => 'user_updates',
+                                 :tracked_user => target_user,
+                                 :track_query => "requested_by:#{target_user.url_name}")
+    allow(TrackThing).to receive(:create_track_for_user).and_return(track_thing)
+    expect(track_thing).to receive(:save).and_call_original
+    get :track_user, :url_name => target_user.url_name, :feed => 'track'
+    expect(response).to redirect_to("/user/#{target_user.url_name}")
+  end
+
+  it "should redirect with an error message if the query is too long" do
+    session[:user_id] = user.id
+    long_track = TrackThing.new(:track_type => 'user_updates',
+                                :tracked_user => target_user,
+                                :track_query => "lorem ipsum " * 42)
+    allow(TrackThing).to receive(:create_track_for_user).and_return(long_track)
+    get :track_user, :url_name => target_user.url_name, :feed => 'track'
+    expect(flash[:error]).to match('too long')
+    expect(response).to redirect_to("/user/#{target_user.url_name}")
+  end
+end
+
+describe TrackController, "when making a new track on a list" do
+  let(:user) { FactoryGirl.create(:user) }
+
+  it "should save a list track and redirect to the right place" do
+    session[:user_id] = user.id
+    track_thing = TrackThing.new(:track_type => 'all_new_requests',
+                                 :track_query => "variety:sent")
+    allow(TrackThing).to receive(:create_track_for_all_new_requests).and_return(track_thing)
+    expect(track_thing).to receive(:save).and_call_original
+    get :track_list, :view => 'recent', :feed => 'track'
+    expect(response).to redirect_to("/list?view=recent")
+  end
+
+  it "should redirect with an error message if the query is too long" do
+    session[:user_id] = user.id
+    long_track = TrackThing.new(:track_type => 'all_new_requests',
+                                :track_query => "lorem ipsum " * 42)
+    allow(TrackThing).to receive(:create_track_for_all_new_requests).and_return(long_track)
+    get :track_list, :view => 'recent', :feed => 'track'
+    expect(flash[:error]).to match('too long')
+    expect(response).to redirect_to("/list?view=recent")
+  end
 end
 
 describe TrackController, "when unsubscribing from a track" do
