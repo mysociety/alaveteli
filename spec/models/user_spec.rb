@@ -696,4 +696,59 @@ describe User do
 
   end
 
+  describe '#confirm' do
+
+    it 'confirms an unconfirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => false)
+       user.confirm
+       expect(user.email_confirmed).to be(true)
+    end
+
+    it 'no-ops a confirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => true)
+       user.confirm
+       expect(user.email_confirmed).to be(true)
+    end
+
+    it 'does not save by default' do
+      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user.confirm
+      expect(user).to be_new_record
+    end
+
+    it 'saves the record if passed an argument' do
+      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user.confirm(true)
+      expect(user).to be_persisted
+    end
+
+  end
+
+  describe '#confirm!' do
+
+    it 'confirms an unconfirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => false)
+       user.confirm!
+       expect(user.reload.email_confirmed).to be(true)
+    end
+
+    it 'no-ops a confirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => true)
+       user.confirm!
+       expect(user.reload.email_confirmed).to be(true)
+    end
+
+    it 'saves the record' do
+      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user.confirm!
+      expect(user).to be_persisted
+    end
+
+    it 'it raises an error on save if the record is invalid' do
+      user = FactoryGirl.build(:user, :email => nil, :email_confirmed => false)
+      expect { user.confirm! }.to raise_error
+    end
+
+  end
+
 end

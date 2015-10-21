@@ -680,8 +680,7 @@ class UserController < ApplicationController
   end
 
   def confirm_user!(user)
-    user.email_confirmed = true
-    user.save!
+    user.confirm!
     user
   end
 
