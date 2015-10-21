@@ -580,12 +580,7 @@ class UserController < ApplicationController
 
     # The explicit "signin" link uses this to specify where to go back to
     if params[:r]
-      @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
-                                        :reason_params => {
-                                          :web => "",
-                                          :email => _("Then you can sign in to {{site_name}}", :site_name => site_name),
-                                          :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
-      })
+      @post_redirect = generate_post_redirect_for_signup(params[:r])
       @post_redirect.save!
       params[:token] = @post_redirect.token
     elsif params[:token]
@@ -608,6 +603,7 @@ class UserController < ApplicationController
   # If they register again
   def already_registered_mail(user)
     post_redirect = PostRedirect.find_by_token(params[:token])
+    post_redirect ||= generate_post_redirect_for_signup(params[:r])
     post_redirect.user = user
     post_redirect.save!
 
@@ -667,5 +663,17 @@ class UserController < ApplicationController
 
   def current_user_is_display_user
     @user.try(:id) == @display_user.id
+  end
+
+  # Redirects to front page later if nothing else specified
+  def generate_post_redirect_for_signup(redirect_to="/")
+    redirect_to = "/" if redirect_to.nil?
+    PostRedirect.new(:uri => redirect_to,
+                     :post_params => {},
+                     :reason_params => {
+                       :web => "",
+                       :email => _("Then you can sign in to {{site_name}}", :site_name => site_name),
+                       :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
+                     })
   end
 end

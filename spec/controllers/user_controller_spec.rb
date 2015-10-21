@@ -412,30 +412,40 @@ describe UserController, "when signing up" do
     expect(deliveries[0].body).to include("No revelaremos")
   end
 
-  it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
-    post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
-                                      :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+  context "filling in the form with an existing registered email" do
+    it "should send special 'already signed up' mail" do
+      post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
+                                        :password => 'sillypassword', :password_confirmation => 'sillypassword' }
                     }
-    expect(response).to render_template('confirm')
+      expect(response).to render_template('confirm')
 
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to  eq(1)
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to  eq(1)
 
-    # This text may span a line break, depending on the length of the SITE_NAME
-    expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
-  end
+      # This text may span a line break, depending on the length of the SITE_NAME
+      expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
+    end
 
-  it "should send special 'already signed up' mail if you fill the form in with existing registered email with trailing spaces" do
-    post :signup, { :user_signup => { :email => 'silly@localhost ', :name => 'New Person',
-                                      :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+    it "cope with trailing spaces in the email address" do
+      post :signup, { :user_signup => { :email => 'silly@localhost ', :name => 'New Person',
+                                        :password => 'sillypassword', :password_confirmation => 'sillypassword' }
                     }
-    expect(response).to render_template('confirm')
+      expect(response).to render_template('confirm')
 
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to  eq(1)
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to  eq(1)
 
-    # This text may span a line break, depending on the length of the SITE_NAME
-    expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
+      # This text may span a line break, depending on the length of the SITE_NAME
+      expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
+    end
+
+    it "should create a new PostRedirect if the old one has expired" do
+      allow(PostRedirect).to receive(:find_by_token).and_return(nil)
+      post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
+                                        :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+                    }
+      expect(response).to render_template('confirm')
+    end
   end
 
   it 'accepts only whitelisted parameters' do
