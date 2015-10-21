@@ -176,9 +176,7 @@ class UserController < ApplicationController
 
     case post_redirect.circumstance
     when 'login_as'
-      @user = post_redirect.user
-      @user.email_confirmed = true
-      @user.save!
+      @user = confirm_user!(post_redirect.user)
       session[:user_id] = @user.id
     when 'change_password'
       unless session[:user_id] == post_redirect.user_id
@@ -194,9 +192,7 @@ class UserController < ApplicationController
       # !User.stay_logged_in_on_redirect?(admin)
       # # => false
       unless User.stay_logged_in_on_redirect?(@user)
-        @user = post_redirect.user
-        @user.email_confirmed = true
-        @user.save!
+        @user = confirm_user!(post_redirect.user)
       end
 
       session[:user_id] = @user.id
@@ -684,6 +680,12 @@ class UserController < ApplicationController
     # Track corresponding to this page
     @track_thing = TrackThing.create_track_for_user(@display_user)
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+  end
+
+  def confirm_user!(user)
+    user.email_confirmed = true
+    user.save!
+    user
   end
 
   def current_user_is_display_user
