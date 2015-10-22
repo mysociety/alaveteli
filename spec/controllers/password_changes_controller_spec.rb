@@ -258,6 +258,16 @@ describe PasswordChangesController do
         expect(session[:user_id]).to eq(user.id)
       end
 
+      it 'clears the user_circumstance session on success' do
+        user = FactoryGirl.create(:user)
+        post_redirect =
+          PostRedirect.create(:user => user, :uri => frontpage_url)
+        session[:change_password_post_redirect_id] = post_redirect.id
+        session[:user_circumstance] = 'change_password'
+        put :update, :password_change_user => @valid_password_params
+        expect(session[:user_circumstance]).to be_nil
+      end
+
     end
 
     it 'changes the password on success' do

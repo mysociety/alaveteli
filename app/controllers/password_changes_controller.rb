@@ -69,6 +69,7 @@ class PasswordChangesController < ApplicationController
 
       if @password_change_user.save
         session.delete(:change_password_post_redirect_id)
+        session.delete(:user_circumstance)
         session[:user_id] ||= @password_change_user.id
 
         msg = _('Your password has been changed.')
