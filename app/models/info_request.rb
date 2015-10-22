@@ -208,11 +208,13 @@ class InfoRequest < ActiveRecord::Base
       self.reindex_request_events
     end
   end
+
   def reindex_request_events
     for info_request_event in self.info_request_events
       info_request_event.xapian_mark_needs_index
     end
   end
+
   # Force reindex when tag string changes
   alias_method :orig_tag_string=, :tag_string=
   def tag_string=(tag_string)
@@ -247,11 +249,13 @@ class InfoRequest < ActiveRecord::Base
   end
 
   public
+
   # When name is changed, also change the url name
   def title=(title)
     write_attribute(:title, title)
     self.update_url_title
   end
+
   def update_url_title
     url_title = MySociety::Format.simplify_url_part(self.title, 'request', 32)
     # For request with same title as others, add on arbitary numeric identifier
@@ -265,6 +269,7 @@ class InfoRequest < ActiveRecord::Base
     end
     write_attribute(:url_title, unique_url_title)
   end
+
   # Remove spaces from ends (for when used in emails etc.)
   # Needed for legacy reasons, even though we call strip_attributes now
   def title
@@ -281,6 +286,7 @@ class InfoRequest < ActiveRecord::Base
   def incoming_email
     return self.magic_email("request-")
   end
+
   def incoming_name_and_email
     return MailHandler.address_from_name_and_email(self.user_name, self.incoming_email)
   end
@@ -317,6 +323,7 @@ class InfoRequest < ActiveRecord::Base
       raise "Unknown law used '" + self.law_used + "'"
     end
   end
+
   def law_used_short
     if self.law_used == 'foi'
       return _("FOI")
@@ -326,6 +333,7 @@ class InfoRequest < ActiveRecord::Base
       raise "Unknown law used '" + self.law_used + "'"
     end
   end
+
   def law_used_act
     if self.law_used == 'foi'
       return _("Freedom of Information Act")
@@ -335,6 +343,7 @@ class InfoRequest < ActiveRecord::Base
       raise "Unknown law used '" + self.law_used + "'"
     end
   end
+
   def law_used_with_a
     if self.law_used == 'foi'
       return _("A Freedom of Information request")
@@ -344,7 +353,6 @@ class InfoRequest < ActiveRecord::Base
       raise "Unknown law used '" + self.law_used + "'"
     end
   end
-
 
   # Return info request corresponding to an incoming email address, or nil if
   # none found. Checks the hash to ensure the email came from the public body -
@@ -393,7 +401,6 @@ class InfoRequest < ActiveRecord::Base
 
     return [id, hash]
   end
-
 
   # When constructing a new request, use this to check user hasn't double submitted.
   # TODO: could have a date range here, so say only check last month's worth of new requests. If somebody is making
@@ -574,7 +581,6 @@ class InfoRequest < ActiveRecord::Base
     return 'waiting_response'
   end
 
-
   # 'described_state' can be populated on any info_request_event but is only
   # ever used in the process populating calculated_state on the
   # info_request_event (if it represents a response, outgoing message, edit
@@ -669,6 +675,7 @@ class InfoRequest < ActiveRecord::Base
     last_sent = last_event_forming_initial_request
     return last_sent.outgoing_message.last_sent_at
   end
+
   # How do we cope with case where extra info was required from the requester
   # by the public body in order to fulfill the request, as per sections 1(3)
   # and 10(6b) ? For clarifications this is covered by
@@ -677,6 +684,7 @@ class InfoRequest < ActiveRecord::Base
   def date_response_required_by
     Holiday.due_date_from(self.date_initial_request_last_sent_at, AlaveteliConfiguration::reply_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
   end
+
   # This is a long stop - even with UK public interest test extensions, 40
   # days is a very long time.
   def date_very_overdue_after
@@ -693,9 +701,11 @@ class InfoRequest < ActiveRecord::Base
   def recipient_email
     return self.public_body.request_email
   end
+
   def recipient_email_valid_for_followup?
     return self.public_body.is_followupable?
   end
+
   def recipient_name_and_email
     return MailHandler.address_from_name_and_email(
       _("{{law_used}} requests at {{public_body}}",
@@ -806,7 +816,6 @@ class InfoRequest < ActiveRecord::Base
     end
     return last_email
   end
-
 
   # Display version of status
   def self.get_status_description(status)
@@ -1075,6 +1084,7 @@ class InfoRequest < ActiveRecord::Base
   def is_owning_user?(user)
     !user.nil? && (user.id == user_id || user.owns_every_request?)
   end
+
   def is_actual_owning_user?(user)
     !user.nil? && user.id == user_id
   end
