@@ -20,6 +20,25 @@ describe PasswordChangesController do
       expect(assigns[:pretoken]).to eq(nil)
     end
 
+    it 'does not pre-fill the email field without a signed in user' do
+      get :new
+      expect(assigns[:email_field_options]).to eq({})
+    end
+
+    it 'pre-fills the email field for a signed in user' do
+      user = FactoryGirl.create(:user)
+      session[:user_id] = user.id
+      get :new
+      expect(assigns[:email_field_options][:value]).to eq(user.email)
+    end
+
+    it 'disables the email field for a signed in user' do
+      user = FactoryGirl.create(:user)
+      session[:user_id] = user.id
+      get :new
+      expect(assigns[:email_field_options][:disabled]).to eq(true)
+    end
+
     it 'renders the template' do
       get :new
       expect(response).to render_template(:new)
@@ -28,6 +47,23 @@ describe PasswordChangesController do
   end
 
   describe 'POST create' do
+
+    context 'when a user is signed in' do
+
+      it 'ignores an email submitted in the post params' do
+        user = FactoryGirl.create(:user)
+        session[:user_id] = user.id
+        post :create, :password_change_user => { :email => 'hacker@localhost' }
+        expect(assigns[:password_change_user]).to eq(user)
+      end
+
+      it 'does not require an email to be submitted' do
+        user = FactoryGirl.create(:user)
+        session[:user_id] = user.id
+        post :create
+        expect(assigns[:password_change_user]).to eq(user)
+      end
+    end
 
     context 'when receiving an email address of an existing user' do
 

@@ -10,18 +10,22 @@ class PasswordChangesController < ApplicationController
   before_filter :set_pretoken_hash
   before_filter :set_user_from_session, :only => [:edit, :update]
 
-  def new ; end
+  def new
+    @email_field_options =
+      @user ? { :disabled => true, :value => @user.email } : {}
+  end
 
   def create
-    unless MySociety::Validate.is_valid_email(params[:password_change_user][:email])
+    email = @user ? @user.email : params[:password_change_user][:email]
+
+    unless MySociety::Validate.is_valid_email(email)
       flash[:error] = _("That doesn't look like a valid email address. " \
                         "Please check you have typed it correctly.")
       render :new
       return
     end
 
-    @password_change_user =
-      User.where(:email => params[:password_change_user][:email]).first
+    @password_change_user = User.where(:email => email).first
 
     if @password_change_user
       uri = edit_password_change_url(@pretoken_hash)
