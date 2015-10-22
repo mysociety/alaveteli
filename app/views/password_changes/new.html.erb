@@ -12,17 +12,20 @@
       <label class="form_label" for="user_email">
         <%= _('Your e-mail:') %>
       </label>
-      <%= email_field 'password_change_user', 'email', { :size => 20 } %>
+      <%= email_field 'password_change_user',
+                      'email',
+                      @email_field_options.merge(:size => 20) %>
     </p>
 
     <p class="form_note">
-      <%= _('<strong>Note:</strong> We will send you an email. Follow the ' \
-            'instructions in it to change your password.') %>
+      <%= _('<strong>Note:</strong> We will send you an email to confirm you ' \
+            'are the owner of this account. Follow the instructions in it to ' \
+            'change your password.') %>
     </p>
 
     <div class="form_button">
       <%= hidden_field_tag :pretoken, @pretoken %>
-      <%= submit_tag _('Submit') %>
+      <%= submit_tag _('Send me the email') %>
     </div>
   <% end %>
 </div>
