@@ -39,7 +39,7 @@ class InfoRequest < ActiveRecord::Base
   validates_presence_of :title, :message => N_("Please enter a summary of your request")
   validates_format_of :title, :with => /[[:alpha:]]/,
     :message => N_("Please write a summary with some text in it"),
-    :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
+    :unless => Proc.new { |info_request| info_request.title.blank? }
 
   belongs_to :user
   validate :must_be_internal_or_external
@@ -159,14 +159,14 @@ class InfoRequest < ActiveRecord::Base
   def must_be_internal_or_external
     # We must permit user_id and external_user_name both to be nil, because the system
     # allows a request to be created by a non-logged-in user.
-    if !user_id.nil?
-      errors.add(:external_user_name, "must be null for an internal request") if !external_user_name.nil?
-      errors.add(:external_url, "must be null for an internal request") if !external_url.nil?
+    if user_id
+      errors.add(:external_user_name, "must be null for an internal request") unless external_user_name.nil?
+      errors.add(:external_url, "must be null for an internal request") unless external_url.nil?
     end
   end
 
   def is_external?
-    !external_url.nil?
+    external_url.nil? ? false : true
   end
 
   def user_name
@@ -377,7 +377,7 @@ class InfoRequest < ActiveRecord::Base
       guesses.push(InfoRequest.find_by_id(id))
       guesses.push(InfoRequest.find_by_idhash(hash))
     end
-    guesses.select{|x| !x.nil?}.uniq
+    guesses.compact.uniq
   end
 
   # Internal function used by find_by_magic_email and guess_by_incoming_email
@@ -392,7 +392,7 @@ class InfoRequest < ActiveRecord::Base
     id = $1.to_i
     hash = $2
 
-    if not hash.nil?
+    if hash
       # Convert l to 1, and o to 0. FOI officers quite often retype the
       # email address and make this kind of error.
       hash.gsub!(/l/, "1")
@@ -543,13 +543,13 @@ class InfoRequest < ActiveRecord::Base
 
     if requires_admin?
       # Check there is someone to send the message "from"
-      if !set_by.nil? || !user.nil?
+      if set_by && user
         RequestMailer.requires_admin(self, set_by, message).deliver
       end
     end
 
     unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
-      RequestMailer.old_unclassified_updated(self).deliver if !is_external?
+      RequestMailer.old_unclassified_updated(self).deliver unless is_external?
     end
   end
 
@@ -599,12 +599,12 @@ class InfoRequest < ActiveRecord::Base
     for event in info_request_events.reverse
       event.xapian_mark_needs_index  # we need to reindex all events in order to update their latest_* terms
       if curr_state.nil?
-        if !event.described_state.nil?
+        if event.described_state
           curr_state = event.described_state
         end
       end
 
-      if !curr_state.nil? && event.event_type == 'response'
+      if curr_state && event.event_type == 'response'
         event.set_calculated_state!(curr_state)
 
         if event.last_described_at.nil? # TODO: actually maybe this isn't needed
@@ -612,7 +612,7 @@ class InfoRequest < ActiveRecord::Base
           event.save!
         end
         curr_state = nil
-      elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent') && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
+      elsif curr_state && (event.event_type == 'followup_sent' || event.event_type == 'sent') && event.described_state && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
         # Followups can set the status to waiting response / internal
         # review. Initial requests ('sent') set the status to waiting response.
 
@@ -624,7 +624,7 @@ class InfoRequest < ActiveRecord::Base
         # as that might already be set to waiting_clarification / a
         # success status, which we want to know about.
         curr_state = nil
-      elsif !curr_state.nil? && (['edit', 'status_update'].include? event.event_type)
+      elsif curr_state && (['edit', 'status_update'].include? event.event_type)
         # A status update or edit event should get the same calculated state as described state
         # so that the described state is always indexed (and will be the latest_status
         # for the request immediately after it has been described, regardless of what
@@ -764,9 +764,7 @@ class InfoRequest < ActiveRecord::Base
     events.each_index do |i|
       revi = events.size - 1 - i
       m = events[revi]
-      if not m.described_state.nil?
-        return revi
-      end
+      return revi if m.described_state
     end
     nil
   end
@@ -1080,11 +1078,13 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def is_owning_user?(user)
-    !user.nil? && (user.id == user_id || user.owns_every_request?)
+    return false unless user
+    user.id == user_id || user.owns_every_request?
   end
 
   def is_actual_owning_user?(user)
-    !user.nil? && user.id == user_id
+    return false unless user
+    user.id == user_id
   end
 
   def user_can_view?(user)
@@ -1165,7 +1165,7 @@ class InfoRequest < ActiveRecord::Base
 
   before_save :purge_in_cache
   def purge_in_cache
-    if !AlaveteliConfiguration::varnish_host.blank? && !id.nil?
+    if AlaveteliConfiguration::varnish_host.present? && id
       # we only do this for existing info_requests (new ones have a nil id)
       path = url_for(:controller => 'request', :action => 'show', :url_title => url_title, :only_path => true, :locale => :none)
       req = PurgeRequest.find_by_url(path)
@@ -1406,13 +1406,13 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def title_formatting
-    if !title.nil? && !MySociety::Validate.uses_mixed_capitals(title, 10)
+    if title && !MySociety::Validate.uses_mixed_capitals(title, 10)
       errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
     end
-    if !title.nil? && title.size > 200
+    if title && title.size > 200
       errors.add(:title, _('Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.'))
     end
-    if !title.nil? && title =~ /^(FOI|Freedom of Information)\s*requests?$/i
+    if title && title =~ /^(FOI|Freedom of Information)\s*requests?$/i
       errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
     end
   end

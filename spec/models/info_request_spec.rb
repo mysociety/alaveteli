@@ -666,8 +666,19 @@ describe InfoRequest do
 
   end
 
-  describe 'when validating' do
+  describe '#is_external?' do
+    it 'should return true if there is an external url' do
+      info_request = InfoRequest.new(:external_url => "demo_url")
+      expect(info_request.is_external?).to eq(true)
+    end
 
+    it 'should return false if there is not an external url' do
+      info_request = InfoRequest.new(:external_url => nil)
+      expect(info_request.is_external?).to eq(false)
+    end
+  end
+
+  describe 'when validating' do
     it 'should accept a summary with ascii characters' do
       info_request = InfoRequest.new(:title => 'abcde')
       info_request.valid?
