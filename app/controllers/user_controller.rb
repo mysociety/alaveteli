@@ -186,7 +186,7 @@ class UserController < ApplicationController
   end
 
   def signout
-    clear_session_credentials
+    reset_session
     if params[:r]
       redirect_to URI.parse(params[:r]).path
     else
