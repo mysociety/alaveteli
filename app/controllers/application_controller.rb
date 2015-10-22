@@ -132,7 +132,7 @@ class ApplicationController < ActionController::Base
   SESSION_TTL = 3.hours
   def validate_session_timestamp
     if session[:user_id] && session.key?(:ttl) && session[:ttl] < SESSION_TTL.ago
-      clear_session_credentials
+      reset_session
     end
   end
 
@@ -142,11 +142,9 @@ class ApplicationController < ActionController::Base
 
   # Logout form
   def clear_session_credentials
-    session[:user_id] = nil
-    session[:user_circumstance] = nil
-    session[:remember_me] = false
-    session[:using_admin] = nil
-    session[:admin_name] = nil
+    warn %q([DEPRECATION] ApplicationController#clear_session_credentials will
+      be removed as of 0.24. Just use Rails' reset_session).squish
+    reset_session
   end
 
   def render_exception(exception)
