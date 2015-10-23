@@ -123,7 +123,7 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def latest_variety
-    for event in info_request.info_request_events.reverse
+    sibling_events(:reverse => true).each do |event|
       unless event.variety.blank?
         return event.variety
       end
@@ -131,7 +131,7 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def latest_status
-    for event in info_request.info_request_events.reverse
+    sibling_events(:reverse => true).each do |event|
       unless event.calculated_state.blank?
         return event.calculated_state
       end
@@ -431,4 +431,12 @@ class InfoRequestEvent < ActiveRecord::Base
       save!
     end
   end
+
+  private
+
+  def sibling_events(opts = {})
+    order = opts[:reverse] ? 'created_at DESC' : 'created_at'
+    events = self.class.where(:info_request_id => info_request_id).order(order)
+  end
+
 end
