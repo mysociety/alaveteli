@@ -1114,10 +1114,21 @@ class InfoRequest < ActiveRecord::Base
     very_old = old * 2
     # 'old' months since last change to request, only allow new incoming
     # messages from authority domains
-    InfoRequest.update_all "allow_new_responses_from = 'authority_only' where updated_at < (now() - interval '#{ old } months') and allow_new_responses_from = 'anybody' and url_title <> 'holding_pen'"
+    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
+    allow_new_responses_from = 'authority_only'
+    where updated_at < (now() - interval '#{ old } months')
+    and allow_new_responses_from = 'anybody'
+    and url_title <> 'holding_pen'
+    EOF
+
     # 'very_old' months since last change requests, don't allow any new
     # incoming messages
-    InfoRequest.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '#{ very_old } months') and allow_new_responses_from in ('anybody', 'authority_only') and url_title <> 'holding_pen'"
+    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
+    allow_new_responses_from = 'nobody'
+    where updated_at < (now() - interval '#{ very_old } months')
+    and allow_new_responses_from in ('anybody', 'authority_only')
+    and url_title <> 'holding_pen'
+    EOF
   end
 
   def json_for_api(deep)
