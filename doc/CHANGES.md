@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Added configuration for `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS`.
+  (Gareth Rees).
 * Increased the maximum length of a track query and added a warning if
   this new limit is exceeded (Liz Conlan).
 * Improved placeholder logo (Zarino Zappia).
