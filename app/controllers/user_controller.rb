@@ -214,6 +214,12 @@ class UserController < ApplicationController
 
   # Change password (TODO: and perhaps later email) - requires email authentication
   def signchangepassword
+    warn %q([DEPRECATION] UserController#signchangepassword has been replaced
+            with PasswordChangesController as of 0.23. It will be removed in
+            0.24. See doc/CHANGES.md for information on how to revert to
+            UserController#signchangepassword).
+            squish
+
     if @user and ((not session[:user_circumstance]) or (session[:user_circumstance] != "change_password"))
       # Not logged in via email, so send confirmation
       params[:submitted_signchangepassword_send_confirm] = true
