@@ -1642,6 +1642,8 @@ describe RequestController, "when classifying an information request" do
         allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
         post_status('deadline_extended')
         expect(flash[:notice]).to eq('Authority has requested extension of the deadline.')
+        Object.send(:remove_const, 'InfoRequest')
+        load 'app/models/info_request.rb'
       end
     end
 

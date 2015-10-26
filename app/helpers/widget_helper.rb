@@ -37,8 +37,8 @@ module WidgetHelper
     when 'not_foi'
       _('Not an FOI request')
     else
-      if info_request.respond_to?(:theme_display_status)
-        info_request.theme_display_status(status)
+      if InfoRequest.respond_to?(:theme_display_status)
+        InfoRequest.theme_display_status(status)
       else
         _('Unknown')
       end
