@@ -685,6 +685,67 @@ describe InfoRequest do
 
   end
 
+  describe 'when working out which law is in force' do
+
+    context 'when using FOI law' do
+
+      let(:info_request) { InfoRequest.new(:law_used => 'foi') }
+
+      it 'returns the expected law_used_full string' do
+        expect(info_request.law_used_full).to eq("Freedom of Information")
+      end
+
+      it 'returns the expected law_used_short string' do
+        expect(info_request.law_used_short).to eq("FOI")
+      end
+
+      it 'returns the expected law_used_act string' do
+        expect(info_request.law_used_act).to eq("Freedom of Information Act")
+      end
+
+    end
+
+    context 'when using EIR law' do
+
+      let(:info_request) { InfoRequest.new(:law_used => 'eir') }
+
+      it 'returns the expected law_used_full string' do
+        expect(info_request.law_used_full).to eq("Environmental Information Regulations")
+      end
+
+      it 'returns the expected law_used_short string' do
+        expect(info_request.law_used_short).to eq("EIR")
+      end
+
+      it 'returns the expected law_used_act string' do
+        expect(info_request.law_used_act).to eq("Environmental Information Regulations")
+      end
+
+    end
+
+    context 'when set to an unknown law' do
+
+      let(:info_request) { InfoRequest.new(:law_used => 'unknown') }
+
+      it 'raises an error when asked for law_used_full string' do
+        expect{ info_request.law_used_full }.to raise_error.
+          with_message("Unknown law used '" + info_request.law_used + "'")
+      end
+
+      it 'raises an error when asked for law_used_short string' do
+        expect{ info_request.law_used_short }.to raise_error.
+          with_message("Unknown law used '" + info_request.law_used + "'")
+      end
+
+      it 'raises an error when asked for law_used_act string' do
+        expect{ info_request.law_used_act }.to raise_error.
+          with_message("Unknown law used '" + info_request.law_used + "'")
+      end
+
+    end
+
+  end
+
   describe 'when validating' do
 
     it 'requires a summary' do
