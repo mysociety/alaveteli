@@ -1230,13 +1230,12 @@ class InfoRequest < ActiveRecord::Base
     # Get some successful requests
     begin
       query = 'variety:response (status:successful OR status:partially_successful)'
-      sortby = "newest"
       max_count = 5
 
       xapian_object = ActsAsXapian::Search.new([InfoRequestEvent],
                                                query,
                                                :offset => 0,
-                                               :limit => 5,
+                                               :limit => max_count,
                                                :sort_by_prefix => 'created_at',
                                                :sort_by_ascending => true,
                                                :collapse_by_prefix => 'request_title_collapse'
