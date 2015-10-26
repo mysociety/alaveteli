@@ -32,6 +32,18 @@ class InfoRequest < ActiveRecord::Base
   include AdminColumn
   include Rails.application.routes.url_helpers
 
+  # Two sorts of laws for requests, FOI or EIR
+  LAW_USED_READABLE_DATA =
+    { :foi => { :short => _('FOI'),
+                :full => _('Freedom of Information'),
+                :with_a => _('A Freedom of Information request'),
+                :act => _('Freedom of Information Act') },
+      :eir => { :short => _('EIR'),
+                :full => _('Environmental Information Regulations'),
+                :with_a => _('An Environmental Information request'),
+                :act => _('Environmental Information Regulations') }
+    }
+
   @non_admin_columns = %w(title url_title)
 
   strip_attributes :allow_empty => true
@@ -313,45 +325,22 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  # Two sorts of laws for requests, FOI or EIR
   def law_used_full
-    if law_used == 'foi'
-      return _("Freedom of Information")
-    elsif law_used == 'eir'
-      return _("Environmental Information Regulations")
-    else
-      raise "Unknown law used '" + law_used + "'"
-    end
+    law_used_human(:full)
   end
 
   def law_used_short
-    if law_used == 'foi'
-      return _("FOI")
-    elsif law_used == 'eir'
-      return _("EIR")
-    else
-      raise "Unknown law used '" + law_used + "'"
-    end
+    law_used_human(:short)
   end
 
   def law_used_act
-    if law_used == 'foi'
-      return _("Freedom of Information Act")
-    elsif law_used == 'eir'
-      return _("Environmental Information Regulations")
-    else
-      raise "Unknown law used '" + law_used + "'"
-    end
+    law_used_human(:act)
   end
 
   def law_used_with_a
-    if law_used == 'foi'
-      return _("A Freedom of Information request")
-    elsif law_used == 'eir'
-      return _("An Environmental Information Regulations request")
-    else
-      raise "Unknown law used '" + law_used + "'"
-    end
+    warn %q([DEPRECATION] law_used_with_a will be removed in Alaveteli
+           release 0.24).squish
+    law_used_human(:with_a)
   end
 
   # Return info request corresponding to an incoming email address, or nil if
@@ -1402,6 +1391,22 @@ class InfoRequest < ActiveRecord::Base
     # FOI or EIR?
     if new_record? && public_body && public_body.eir_only?
       self.law_used = 'eir'
+    end
+  end
+
+  def law_used_human(key = :full)
+    begin
+      applicable_law.fetch(key)
+    rescue KeyError
+      raise "Unknown key '#{key}' for '#{law_used}'"
+    end
+  end
+
+  def applicable_law
+    begin
+      LAW_USED_READABLE_DATA.fetch(law_used.to_sym)
+    rescue KeyError
+      raise "Unknown law used '#{law_used}'"
     end
   end
 
