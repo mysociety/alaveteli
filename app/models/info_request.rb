@@ -1208,14 +1208,13 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def self.request_list(filters, page, per_page, max_results)
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent],
-                                             InfoRequestEvent.make_query_from_params(filters),
-                                             :offset => (page - 1) * per_page,
-                                             :limit => 25,
-                                             :sort_by_prefix => 'created_at',
-                                             :sort_by_ascending => true,
-                                             :collapse_by_prefix => 'request_collapse'
-                                            )
+    query = InfoRequestEvent.make_query_from_params(filters)
+    search_options = {
+      :limit => 25,
+      :offset => (page - 1) * per_page,
+      :collapse_by_prefix => 'request_collapse' }
+
+    xapian_object = search_events(query, search_options)
     list_results = xapian_object.results.map { |r| r[:model] }
     matches_estimated = xapian_object.matches_estimated
     show_no_more_than = [matches_estimated, max_results].min
@@ -1231,15 +1230,11 @@ class InfoRequest < ActiveRecord::Base
     begin
       query = 'variety:response (status:successful OR status:partially_successful)'
       max_count = 5
+      search_options = {
+        :limit => max_count,
+        :collapse_by_prefix => 'request_title_collapse' }
 
-      xapian_object = ActsAsXapian::Search.new([InfoRequestEvent],
-                                               query,
-                                               :offset => 0,
-                                               :limit => max_count,
-                                               :sort_by_prefix => 'created_at',
-                                               :sort_by_ascending => true,
-                                               :collapse_by_prefix => 'request_title_collapse'
-                                              )
+      xapian_object = search_events(query, search_options)
       xapian_object.results
       request_events = xapian_object.results.map { |r| r[:model] }
 
@@ -1247,14 +1242,8 @@ class InfoRequest < ActiveRecord::Base
       # other requests
       if request_events.count < max_count
         query = 'variety:sent'
-        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent],
-                                                 query,
-                                                 :offset => 0,
-                                                 :limit => max_count-request_events.count,
-                                                 :sort_by_prefix => 'created_at',
-                                                 :sort_by_ascending => true,
-                                                 :collapse_by_prefix => 'request_title_collapse'
-                                                )
+        search_options[:limit] = max_count-request_events.count
+        xapian_object = search_events(query, search_options)
         xapian_object.results
         more_events = xapian_object.results.map { |r| r[:model] }
         request_events += more_events
@@ -1426,4 +1415,16 @@ class InfoRequest < ActiveRecord::Base
       params[:conditions] += extra_params[:conditions]
     end
   end
+  private_class_method :add_conditions_from_extra_params
+
+  def self.search_events(query, opts = {})
+    defaults = {
+      :offset => 0,
+      :limit => 20,
+      :sort_by_prefix => 'created_at',
+      :sort_by_ascending => true
+    }
+    ActsAsXapian::Search.new([InfoRequestEvent], query, defaults.merge(opts))
+  end
+  private_class_method :search_events
 end
