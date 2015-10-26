@@ -260,8 +260,6 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  public
-
   # When name is changed, also change the url name
   def title=(title)
     write_attribute(:title, title)
