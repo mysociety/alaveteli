@@ -52,6 +52,11 @@ class InfoRequest < ActiveRecord::Base
   validates_format_of :title, :with => /[[:alpha:]]/,
     :message => N_("Please write a summary with some text in it"),
     :unless => Proc.new { |info_request| info_request.title.blank? }
+  validates :title, :length => {
+    :maximum => 200,
+    :message => _('Please keep the summary short, like in the subject of an ' \
+                  'email. You can use a phrase, rather than a full sentence.')
+  }
 
   belongs_to :user
   validate :must_be_internal_or_external
@@ -1399,9 +1404,6 @@ class InfoRequest < ActiveRecord::Base
   def title_formatting
     if title && !MySociety::Validate.uses_mixed_capitals(title, 10)
       errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
-    end
-    if title && title.size > 200
-      errors.add(:title, _('Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.'))
     end
     if title && title =~ /^(FOI|Freedom of Information)\s*requests?$/i
       errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))

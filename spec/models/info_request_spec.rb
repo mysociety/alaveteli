@@ -770,13 +770,48 @@ describe InfoRequest do
     it 'rejects a summary with no ascii or unicode characters' do
       info_request = InfoRequest.new(:title => '55555')
       info_request.valid?
-      expect(info_request.errors[:title]).not_to be_empty
+      expect(info_request.errors[:title]).
+        to include("Please write a summary with some text in it")
+    end
+
+    it 'rejects a summary which is more than 200 chars long' do
+      info_request = InfoRequest.new(:title => 'Lorem ipsum ' * 17)
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include("Please keep the summary short, like in the subject of an " \
+                   "email. You can use a phrase, rather than a full sentence.")
+    end
+
+    it 'rejects a summary that just says "FOI requests"' do
+      info_request = InfoRequest.new(:title => 'FOI requests')
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include("Please describe more what the request is about in the " \
+                   "subject. There is no need to say it is an FOI request, " \
+                   "we add that on anyway.")
+    end
+
+    it 'rejects a summary that just says "Freedom of Information request"' do
+      info_request = InfoRequest.new(:title => 'Freedom of Information request')
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include("Please describe more what the request is about in the " \
+                   "subject. There is no need to say it is an FOI request, " \
+                   "we add that on anyway.")
+    end
+
+    it 'rejects a summary which is not a mix of upper and lower case' do
+      info_request = InfoRequest.new(:title => 'lorem ipsum')
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include("Please write the summary using a mixture of capital and " \
+                   "lower case letters. This makes it easier for others to read.")
     end
 
     it 'requires a public body id by default' do
       info_request = InfoRequest.new
       info_request.valid?
-      expect(info_request.errors[:public_body_id]).not_to be_empty
+      expect(info_request.errors[:public_body_id]).to include("can't be blank")
     end
 
     it 'does not require a public body id if it is a batch request template' do
