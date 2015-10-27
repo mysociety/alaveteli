@@ -55,10 +55,10 @@
       a {
         text-align: right;
         &.open{
-          display: block;
+          display: none;
         }
         &.close{
-          display: none;
+          display: block;
         }
       }
     }
