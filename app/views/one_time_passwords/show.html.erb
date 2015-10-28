@@ -1,0 +1,35 @@
+<% @title = _('{{user_name}} - Two Factor Authentication',
+              :user_name => h(@user.name)) %>
+
+<h1 class="one-time-password-page-title"><%= @title %></h1>
+
+<% if @user.otp_enabled? %>
+  <div class="one-time-password">
+    <h2 class="one-time-password__title">
+      <%= _('Your current one time password:') %>
+    </h2>
+
+    <div class="one-time-password__otp-code">
+      <%= @user.otp_code %>
+    </div>
+
+    <div class="one-time-password__otp-info">
+      <p>
+        <%= _('Keep this password safe. You will need it to confirm your ' \
+              'account when changing your password. You can add it to a ' \
+              'password manager or print it and store it in a safe place.') %>
+      </p>
+      <p>
+        <strong><%= _('Do not share this password.') %></strong>
+      </p>
+    </div>
+
+    <ul class="one-time-password-actions not-for-print">
+      <li class="one-time-password-actions__action-item action-item">
+        <%= link_to _('Print your one time password'), '',
+              :onclick => 'window.print();return false;',
+              :class => 'action-item__action' %>
+      </li>
+    </ul>
+  </div>
+<% end %>
