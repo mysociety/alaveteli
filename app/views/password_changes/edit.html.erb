@@ -1,0 +1,27 @@
+<% @title = _('Change your password on {{site_name}}',
+              :site_name => site_name) %>
+
+<div id="change_password" class="change_password">
+  <%= form_for @password_change_user, :as => :password_change_user, :url => password_change_path, :method => :put do |f| %>
+    <%= foi_error_messages_for :password_change_user %>
+
+    <div class="form_note">
+      <h1><%= @title %></h1>
+    </div>
+
+    <p>
+      <%= f.label :password, _('New password:'), :class => 'form_label' %>
+      <%= f.password_field :password, :size => 15, :autocomplete => 'off' %>
+    </p>
+
+    <p>
+      <%= f.label :password_confirmation, _('New password: (again)'), :class => 'form_label' %>
+      <%= f.password_field :password_confirmation, :size => 15, :autocomplete => 'off' %>
+    </p>
+
+    <div class="form_button">
+      <%= hidden_field_tag :pretoken, @pretoken %>
+      <%= f.submit @title %>
+    </div>
+  <% end %>
+</div>

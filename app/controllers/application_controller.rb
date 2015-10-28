@@ -147,6 +147,8 @@ class ApplicationController < ActionController::Base
     session[:remember_me] = false
     session[:using_admin] = nil
     session[:admin_name] = nil
+    session[:change_password_post_redirect_id] = nil
+    session[:post_redirect_token] = nil
   end
 
   def render_exception(exception)
@@ -190,6 +192,11 @@ class ApplicationController < ActionController::Base
   # can work over multiple controllers)
   # TODO: Move this to the tests. It shouldn't be here
   def test_code_redirect_by_email_token(token, controller_example_group)
+    warn %q([DEPRECATION]
+            ApplicationController#test_code_redirect_by_email_token has not been
+            in sync with UserController#confirm for some time. Updating it to
+            match causes spec failures. The specs that currently use it should
+            not be doing so.).squish
     post_redirect = PostRedirect.find_by_email_token(token)
     if post_redirect.nil?
       raise "bad token in test code email"

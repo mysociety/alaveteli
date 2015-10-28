@@ -436,6 +436,16 @@ class User < ActiveRecord::Base
     save!
   end
 
+  def confirm(save_record = false)
+    self.email_confirmed = true
+    save if save_record
+  end
+
+  def confirm!
+    confirm
+    save!
+  end
+
   def should_be_emailed?
     email_confirmed && email_bounced_at.nil?
   end

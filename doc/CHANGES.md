@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Extracted UserController#signchangepassword to PasswordChangesController
+  (Gareth Rees).
 * Added configuration for `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS`.
   (Gareth Rees).
 * Increased the maximum length of a track query and added a warning if
@@ -50,6 +52,15 @@
 
 ## Upgrade Notes
 
+* `UserController#signchangepassword` has been deprecated. If you still need
+  this controller, add the following route to your theme's
+  `lib/config/custom_routes.rb`:
+
+    match '/profile/change_password' => 'user#signchangepassword',
+          :as => :signchangepassword
+
+  You'll also need to change any url helpers from `new_password_change_path` to
+  `signchangepassword_path`
 * This release takes the first steps to deprecate the `link_button_green` class, which
   will be removed in a future release. We've added contextually relevant
   classes to these elements. Please update your themes to ensure you're

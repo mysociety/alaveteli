@@ -411,6 +411,24 @@ end
 
 describe User do
 
+  describe '.stay_logged_in_on_redirect?' do
+
+    it 'is false if the user is nil' do
+      expect(User.stay_logged_in_on_redirect?(nil)).to eq(false)
+    end
+
+    it 'is true if the user is an admin' do
+      admin = double(:super? => true)
+      expect(User.stay_logged_in_on_redirect?(admin)).to eq(true)
+    end
+
+    it 'is false if the user is not an admin' do
+      user = double(:super? => false)
+      expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
+    end
+
+  end
+
   describe '#valid?' do
 
     context 'with require_otp' do
@@ -674,6 +692,61 @@ describe User do
     it 'is not banned if the user has no ban_text' do
       user = FactoryGirl.build(:user, :ban_text => '')
       expect(user).to_not be_banned
+    end
+
+  end
+
+  describe '#confirm' do
+
+    it 'confirms an unconfirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => false)
+       user.confirm
+       expect(user.email_confirmed).to be(true)
+    end
+
+    it 'no-ops a confirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => true)
+       user.confirm
+       expect(user.email_confirmed).to be(true)
+    end
+
+    it 'does not save by default' do
+      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user.confirm
+      expect(user).to be_new_record
+    end
+
+    it 'saves the record if passed an argument' do
+      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user.confirm(true)
+      expect(user).to be_persisted
+    end
+
+  end
+
+  describe '#confirm!' do
+
+    it 'confirms an unconfirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => false)
+       user.confirm!
+       expect(user.reload.email_confirmed).to be(true)
+    end
+
+    it 'no-ops a confirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => true)
+       user.confirm!
+       expect(user.reload.email_confirmed).to be(true)
+    end
+
+    it 'saves the record' do
+      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user.confirm!
+      expect(user).to be_persisted
+    end
+
+    it 'it raises an error on save if the record is invalid' do
+      user = FactoryGirl.build(:user, :email => nil, :email_confirmed => false)
+      expect { user.confirm! }.to raise_error
     end
 
   end
