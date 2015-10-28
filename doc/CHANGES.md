@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Increased the maximum length of a track query and added a warning if
+  this new limit is exceeded (Liz Conlan).
 * Improved placeholder logo (Zarino Zappia).
 * Improve mobile layout on authority list page (Marting Wright).
 * Major refactoring of `InfoRequest#receive` (Gareth Rees).
@@ -68,6 +70,7 @@
   install it with `sudo apt-get install geoip-database`. If you don't want to
   or can't use a local GeoIP database, set `GEOIP_DATABASE' to an empty string in
   `config/general.yml`.
+* There are a couple of database structure updates so remember to `rake db:migrate`
 * Make sure that your 'blackhole email address' is configured to be
   discarded by your MTA - see our [postfix](
   http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email)
