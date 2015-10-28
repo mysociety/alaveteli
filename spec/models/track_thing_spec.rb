@@ -70,6 +70,13 @@ describe TrackThing, "when tracking changes" do
     track_thing = TrackThing.create_track_for_search_query('fancy dog', 'bodies')
     expect(track_thing.track_query).to match(/variety:authority/)
   end
+
+  it "will check that the query isn't too long to store" do
+    long_query = "Lorem ipsum " * 42 # 504 chars
+    track_thing = TrackThing.create_track_for_search_query(long_query)
+    track_thing.valid?
+    expect(track_thing.errors[:track_query][0]).to eq("Query is too long")
+  end
 end
 
 describe TrackThing, "destroy" do

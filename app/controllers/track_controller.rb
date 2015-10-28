@@ -42,7 +42,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set
+    if self.track_set || @track_thing.errors.any?
       redirect_to request_list_url(:view => @view)
     end
   end
@@ -65,7 +65,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set
+    if self.track_set || @track_thing.errors.any?
       redirect_to public_body_url(@public_body)
     end
   end
@@ -78,7 +78,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set
+    if self.track_set || @track_thing.errors.any?
       redirect_to user_url(@track_user)
     end
   end
@@ -97,7 +97,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set
+    if self.track_set || @track_thing.errors.any?
       if @query.scan("variety").length == 1
         # we're making a track for a simple filter, for which
         # there's an expression in the UI (rather than relying
@@ -134,9 +134,14 @@ class TrackController < ApplicationController
 
     @track_thing.track_medium = 'email_daily'
     @track_thing.tracking_user_id = @user.id
-    @track_thing.save!
-    flash[:notice] = render_to_string(:partial => 'track_set').html_safe
-    return true
+    if @track_thing.save
+      flash[:notice] = render_to_string(:partial => 'track_set').html_safe
+      return true
+    else
+      # this will most likely be tripped by a single error - probably track_query length
+      flash[:error] = @track_thing.errors.map{ |_, msg| msg }.join(", ")
+      return false
+    end
   end
 
   # Old-Style atom track. We're phasing this out, so for now issue a
