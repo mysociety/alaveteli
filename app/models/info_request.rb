@@ -1110,10 +1110,25 @@ class InfoRequest < ActiveRecord::Base
 
   # This is called from cron regularly.
   def self.stop_new_responses_on_old_requests
-    # 6 months since last change to request, only allow new incoming messages from authority domains
-    InfoRequest.update_all "allow_new_responses_from = 'authority_only' where updated_at < (now() - interval '6 months') and allow_new_responses_from = 'anybody' and url_title <> 'holding_pen'"
-    # 1 year since last change requests, don't allow any new incoming messages
-    InfoRequest.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only') and url_title <> 'holding_pen'"
+    old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
+    very_old = old * 2
+    # 'old' months since last change to request, only allow new incoming
+    # messages from authority domains
+    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
+    allow_new_responses_from = 'authority_only'
+    WHERE updated_at < (now() - interval '#{ old } months')
+    AND allow_new_responses_from = 'anybody'
+    AND url_title <> 'holding_pen'
+    EOF
+
+    # 'very_old' months since last change requests, don't allow any new
+    # incoming messages
+    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
+    allow_new_responses_from = 'nobody'
+    WHERE updated_at < (now() - interval '#{ very_old } months')
+    AND allow_new_responses_from IN ('anybody', 'authority_only')
+    AND url_title <> 'holding_pen'
+    EOF
   end
 
   def json_for_api(deep)
