@@ -10,6 +10,18 @@ class OneTimePasswordsController < ApplicationController
   def show
   end
 
+  def create
+    @user.enable_otp
+
+    if @user.save
+      redirect_to one_time_password_path,
+                  :notice => _('Two factor authentication enabled')
+    else
+      flash.now[:error] = _('Two factor authentication could not be enabled')
+      render :show
+    end
+  end
+
   def update
     if @user.increment!(:otp_counter)
       redirect_to one_time_password_path,

@@ -43,4 +43,12 @@
       </li>
     </ul>
   </div>
+<% else %>
+  <ul class="one-time-password-actions">
+    <li class="one-time-password-actions__action-item action-item">
+      <%= button_to _('Enable two factor authentication'),
+                    { :action => :create },
+                    { :class => 'action-item__action' } %>
+    </li>
+  </ul>
 <% end %>
