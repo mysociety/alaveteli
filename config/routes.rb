@@ -81,7 +81,7 @@ Alaveteli::Application.routes.draw do
            :path_names => { :edit => '' }
 
   resource :one_time_password,
-           :only => [:show],
+           :only => [:show, :update],
            :path => '/profile/two_factor'
 
   match '/profile/sign_in' => 'user#signin', :as => :signin
