@@ -51,18 +51,24 @@ these form a censor rule:
   <br>
   This might be a particular word, email address or number; or
   a particular pattern (described using a 
-  <a href="{{ page.baseurl }}/docs/glossary/#regexp" class="glossary__link">regular expression</a>)
-* *the range of messages to which this redaction applies*
-  <br>
-  This could be _all_ messages, or only messages relating to a specific user
+  <a href="{{ page.baseurl }}/docs/glossary/#regexp" class="glossary__link">regular expression</a>).
 * *the replacement text*
   <br>
-  The word or words that should be used instead of the redacted text. We
-  recommend something like "<code>[REDACTED]</code>".
+  The word or words that should be used instead of the redacted text.
+* *the range of messages to which this redaction applies*
+  <br>
+  This could be _all_ messages, or only messages relating to a specific user.
 
 For example, your can tell Alaveteli to automatically replace the word `swordfish`
-with `[password]` in any messages relating to a request created by user Groucho
+with <code>[password&nbsp;redacted]</code> in any messages relating to a request created by user Groucho
 with email `groucho@example.com`.
+
+These are examples of replacement texts we've used on WhatDoTheyKnow:
+
+     [potentially defamatory material removed]
+     [extraneous material removed]
+     [name removed]
+     [personal information removed]
 
 A regular expression (regexp) is a method of pattern-matching often used by
 programmers, and can be used if the redaction you want is more complicated than
@@ -112,11 +118,12 @@ the word `reading`. If you need case insensitive matching, use a regular
 expression.
 
 Enter the _replacement text_ that should be inserted in place of the redacted
-text. We recommend something like `[REDACTED]` or <code>[personal&nbsp;details&nbsp;removed]</code>
-to make it very clear that this is not the original text and, ideally, to give
-some indication of why something was redacted. Remember that the replacement
-text will look the same as the running text into which it is inserted, which is
-why you should use square brackets, or something like them.
+text. We recommend something like `[potentially defamatory material removed]`
+or `[personal details removed]` to make it very clear that this is not the
+original text and, ideally, to give some indication of why something was
+redacted. Remember that the replacement text will look the same as the running
+text into which it is inserted, which is why you should use square brackets, or
+something like them.
 
 Provide a _comment_ explaining why this rule is needed. This will be seen only
 by other administrators on the site.
