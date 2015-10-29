@@ -47,6 +47,80 @@ describe OneTimePasswordsController do
 
   end
 
+  describe 'POST #create' do
+
+    it 'redirects to the sign-in page without a signed in user' do
+      post :create
+      expect(response).
+        to redirect_to(signin_path(:token => PostRedirect.last.token))
+    end
+
+    it 'assigns the signed in user' do
+      user = FactoryGirl.create(:user)
+      session[:user_id] = user.id
+      post :create
+      expect(assigns[:user]).to eq(user)
+    end
+
+    it 'enables OTP for the user' do
+      user = FactoryGirl.create(:user)
+      session[:user_id] = user.id
+      post :create
+      expect(user.reload.otp_enabled?).to eq(true)
+    end
+
+    it 'does not disable OTP for the user' do
+      user = FactoryGirl.create(:user)
+      user.enable_otp
+      user.save!
+      session[:user_id] = user.id
+      post :create
+      expect(user.reload.otp_enabled?).to eq(true)
+    end
+
+    it 'sets a successful notification message' do
+      user = FactoryGirl.create(:user)
+      session[:user_id] = user.id
+      post :create
+      expect(flash[:notice]).to eq('Two factor authentication enabled')
+    end
+
+    it 'redirects back to #show on success' do
+      user = FactoryGirl.create(:user)
+      session[:user_id] = user.id
+      post :create
+      expect(response).to redirect_to(one_time_password_path)
+    end
+
+    it 'renders #show on failure' do
+      allow_any_instance_of(User).to receive(:save).and_return(false)
+      user = FactoryGirl.create(:user)
+      session[:user_id] = user.id
+      post :create
+      expect(response).to render_template(:show)
+    end
+
+    it 'sets a failure notification message' do
+      allow_any_instance_of(User).to receive(:save).and_return(false)
+      user = FactoryGirl.create(:user)
+      session[:user_id] = user.id
+      post :create
+      expect(flash[:error]).
+        to eq('Two factor authentication could not be enabled')
+    end
+
+    context 'when 2factor auth is not enabled' do
+
+      it 'raises ActiveRecord::RecordNotFound' do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(false)
+        expect{ post :create }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+    end
+
+  end
+
   describe 'PUT #update' do
 
     it 'redirects to the sign-in page without a signed in user' do
