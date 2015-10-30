@@ -32,6 +32,18 @@ class OneTimePasswordsController < ApplicationController
     end
   end
 
+  def destroy
+    @user.disable_otp
+
+    if @user.save
+      redirect_to one_time_password_path,
+                  :notice => _('Two factor authentication disabled')
+    else
+      flash.now[:error] = _('Two factor authentication could not be disabled')
+      render :show
+    end
+  end
+
   private
 
   def check_two_factor_config

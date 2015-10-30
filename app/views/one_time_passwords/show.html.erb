@@ -41,6 +41,15 @@
           <%= _('Regenerate one time password') %>
         <% end %>
       </li>
+      <li class="one-time-password-actions__action-item action-item">
+        <% confirmation_msg = _('Are you sure you want to disable two factor ' \
+                                'authentication?') %>
+        <%= link_to one_time_password_path, :method => :delete,
+                                            :confirm => confirmation_msg,
+                                            :class => 'action-item__action' do %>
+          <%= _('Disable two factor authentication') %>
+        <% end %>
+      </li>
     </ul>
   </div>
 <% else %>
