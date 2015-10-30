@@ -382,6 +382,69 @@ describe PasswordChangesController do
       expect(response).to render_template(:edit)
     end
 
+    context 'when the user has two factor authentication enabled' do
+
+      it 'changes the password with a correct otp_code' do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.save!
+
+        post_redirect =
+          PostRedirect.create(:user => user, :uri => frontpage_url)
+        session[:change_password_post_redirect_id] = post_redirect.id
+
+        old_hash = user.hashed_password
+
+        params = @valid_password_params.merge(:otp_code => user.otp_code)
+        put :update, :password_change_user => params
+
+        expect(user.reload.hashed_password).not_to eq(old_hash)
+      end
+
+      it 'does not change the password with an incorrect otp_code' do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.save!
+
+        post_redirect =
+          PostRedirect.create(:user => user, :uri => frontpage_url)
+        session[:change_password_post_redirect_id] = post_redirect.id
+
+        old_hash = user.hashed_password
+
+        params = @valid_password_params.merge(:otp_code => 'invalid')
+        put :update, :password_change_user => params
+
+        expect(user.reload.hashed_password).to eq(old_hash)
+      end
+
+      it 'does not change the password without an otp_code' do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.save!
+
+        post_redirect =
+          PostRedirect.create(:user => user, :uri => frontpage_url)
+        session[:change_password_post_redirect_id] = post_redirect.id
+
+        old_hash = user.hashed_password
+
+        put :update, :password_change_user => @valid_password_params
+
+        expect(user.reload.hashed_password).to eq(old_hash)
+      end
+
+    end
+
   end
 
 end
