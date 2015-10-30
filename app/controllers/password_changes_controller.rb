@@ -71,6 +71,13 @@ class PasswordChangesController < ApplicationController
       @password_change_user.password_confirmation =
         params[:password_change_user][:password_confirmation]
 
+      if AlaveteliConfiguration.enable_two_factor_auth &&
+          @password_change_user.otp_enabled?
+            @password_change_user.entered_otp_code =
+              params[:password_change_user][:otp_code]
+            @password_change_user.require_otp = true
+      end
+
       if @password_change_user.save
         session.delete(:change_password_post_redirect_id)
         session.delete(:user_circumstance)
