@@ -6,7 +6,7 @@ gem 'pg', '~> 0.17.1'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
-gem 'active_model_otp', :git => 'https://github.com/garethrees/active_model_otp.git', :ref => '0eb977b4c6dafd'
+gem 'active_model_otp', :git => 'https://github.com/mysociety/active_model_otp.git', :ref => '0eb977b4c6dafd'
 gem 'charlock_holmes', '~> 0.6.9.4'
 gem 'dynamic_form', '~> 1.1.4'
 gem 'exception_notification', '~> 3.0.1'

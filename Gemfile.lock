@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/garethrees/active_model_otp.git
-  revision: 0eb977b4c6dafdecaa6d0861783ebb502de3981f
-  ref: 0eb977b4c6dafd
-  specs:
-    active_model_otp (1.2.0)
-      activemodel
-      rotp
-
-GIT
   remote: https://github.com/globalize/globalize.git
   revision: 5fd95f2389dff13c9368fb2e08c96c8a48798c72
   ref: 5fd95f2389dff1
@@ -16,6 +7,15 @@ GIT
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       paper_trail (~> 2)
+
+GIT
+  remote: https://github.com/mysociety/active_model_otp.git
+  revision: 0eb977b4c6dafdecaa6d0861783ebb502de3981f
+  ref: 0eb977b4c6dafd
+  specs:
+    active_model_otp (1.2.0)
+      activemodel
+      rotp
 
 GIT
   remote: https://github.com/mysociety/ruby-msg.git
