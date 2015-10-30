@@ -83,13 +83,29 @@ class PasswordChangesController < ApplicationController
         session.delete(:user_circumstance)
         session[:user_id] ||= @password_change_user.id
 
-        msg = _('Your password has been changed.')
-
         if @pretoken_redirect
-          redirect_to @pretoken_redirect.uri, :notice => msg
+          if AlaveteliConfiguration.enable_two_factor_auth &&
+              @password_change_user.otp_enabled?
+                msg = _("Your password has been changed. " \
+                        "You also have a new one time passcode which you'll " \
+                        "need next time you want to change your password")
+                redirect_to one_time_password_path, :notice => msg
+          else
+            msg = _('Your password has been changed.')
+            redirect_to @pretoken_redirect.uri, :notice => msg
+          end
         else
-          redirect_to show_user_profile_path(@password_change_user.url_name),
-                      :notice => msg
+          if AlaveteliConfiguration.enable_two_factor_auth &&
+              @password_change_user.otp_enabled?
+                msg = _("Your password has been changed. " \
+                        "You also have a new one time passcode which you'll " \
+                        "need next time you want to change your password")
+                redirect_to one_time_password_path, :notice => msg
+          else
+            msg = _('Your password has been changed.')
+            redirect_to show_user_profile_path(@password_change_user.url_name),
+                        :notice => msg
+          end
         end
       else
         render :edit
