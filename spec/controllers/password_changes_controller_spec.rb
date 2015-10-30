@@ -404,6 +404,69 @@ describe PasswordChangesController do
         expect(user.reload.hashed_password).not_to eq(old_hash)
       end
 
+      it 'redirects to the two factor page to show the new OTP' do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.save!
+
+        post_redirect =
+          PostRedirect.create(:user => user, :uri => frontpage_url)
+        session[:change_password_post_redirect_id] = post_redirect.id
+
+        old_hash = user.hashed_password
+
+        params = @valid_password_params.merge(:otp_code => user.otp_code)
+        put :update, :password_change_user => params
+
+        expect(response).to redirect_to(one_time_password_path)
+      end
+
+      it 'redirects to the two factor page even if there is a pretoken redirect' do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.save!
+
+        post_redirect =
+          PostRedirect.create(:user => user, :uri => frontpage_url)
+        pretoken = PostRedirect.create(:user => user, :uri => '/')
+        session[:change_password_post_redirect_id] = post_redirect.id
+
+        params = @valid_password_params.merge(:otp_code => user.otp_code)
+        put :update, :password_change_user => params,
+                     :pretoken => pretoken.token
+
+        expect(response).to redirect_to(one_time_password_path)
+      end
+
+      it 'reminds the user that they have a new OTP' do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.save!
+
+        post_redirect =
+          PostRedirect.create(:user => user, :uri => frontpage_url)
+        session[:change_password_post_redirect_id] = post_redirect.id
+
+        old_hash = user.hashed_password
+
+        params = @valid_password_params.merge(:otp_code => user.otp_code)
+        put :update, :password_change_user => params
+
+        msg = "Your password has been changed. " \
+              "You also have a new one time passcode which you'll " \
+              "need next time you want to change your password"
+        expect(flash[:notice]).to eq(msg)
+      end
+
       it 'does not change the password with an incorrect otp_code' do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(true)
