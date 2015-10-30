@@ -488,7 +488,8 @@ class User < ActiveRecord::Base
   end
 
   def verify_otp_code
-    if entered_otp_code.nil? || !authenticate_otp(entered_otp_code)
+    opts = { :auto_increment => true }
+    if entered_otp_code.nil? || !authenticate_otp(entered_otp_code, opts)
       msg = _('Invalid one time password')
       errors.add(:otp_code, msg)
     end
