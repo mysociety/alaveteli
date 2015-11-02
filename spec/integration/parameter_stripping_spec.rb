@@ -14,7 +14,7 @@ describe "When handling bad requests" do
     data = { :excerpt => "something\xA3\xA1" }
     post "/en/request/#{info_request.id}/response/#{incoming_message.id}/attach/2/interesting.pdf/trackback", data
     expect(response.status).to eq(303)
-    expect(response).to redirect_to "/en/request/#{info_request.url_title}#incoming-#{incoming_message.id}"
+    expect(response).to redirect_to("/en/request/#{info_request.url_title}#incoming-#{incoming_message.id}")
   end
 
 end
