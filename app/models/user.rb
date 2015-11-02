@@ -214,12 +214,6 @@ class User < ActiveRecord::Base
     (locale || I18n.locale).to_s
   end
 
-  def visible_comments
-    warn %q([DEPRECATION] User#visible_comments will be replaced with
-                User#comments.visible as of 0.23).squish
-                comments.visible
-  end
-
   def name
     name = read_attribute(:name)
     if banned?
