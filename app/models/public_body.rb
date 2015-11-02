@@ -702,18 +702,11 @@ class PublicBody < ActiveRecord::Base
       return bodies
     end
 
-    # Methods to privatise
-    # --------------------------------------------------------------------------
+    private
 
     # TODO: This could be removed by updating the default value (to '') of the
     # `publication_scheme` column in the `public_body_translations` table.
-    #
-    # TODO: Can't actually deprecate this because spec/script/mailin_spec.rb:28
-    # fails due to the deprecation notice output
     def set_default_publication_scheme
-      # warn %q([DEPRECATION] PublicBody#set_default_publication_scheme will
-      # become a private method in 0.23).squish
-
       # Make sure publication_scheme gets the correct default value.
       # (This would work automatically, were publication_scheme not a
       # translated attribute)
@@ -723,13 +716,7 @@ class PublicBody < ActiveRecord::Base
     # if the URL name has changed, then all requested_from: queries
     # will break unless we update index for every event for every
     # request linked to it
-    #
-    # TODO: Can't actually deprecate this because spec/script/mailin_spec.rb:28
-    # fails due to the deprecation notice output
     def reindex_requested_from
-      # warn %q([DEPRECATION] PublicBody#reindex_requested_from will become a
-      # private method in 0.23).squish
-
       if changes.include?('url_name')
         info_requests.each do |info_request|
           info_request.info_request_events.each do |info_request_event|
@@ -738,35 +725,6 @@ class PublicBody < ActiveRecord::Base
         end
       end
     end
-
-    # Methods to remove
-    # --------------------------------------------------------------------------
-
-    # Set the first letter on a public body or translation
-    def self.set_first_letter(instance)
-      warn %q([DEPRECATION] PublicBody.set_first_letter will be removed
-              in 0.23).squish
-
-      unless instance.name.nil? or instance.name.empty?
-        # we use a regex to ensure it works with utf-8/multi-byte
-        first_letter = Unicode.upcase instance.name.scan(/^./mu)[0]
-        if first_letter != instance.first_letter
-          instance.first_letter = first_letter
-        end
-      end
-    end
-
-    def calculate_cached_fields(t)
-      warn %q([DEPRECATION] PublicBody#calculate_cached_fields will be removed
-              in 0.23).squish
-
-      PublicBody.set_first_letter(t)
-      short_long_name = t.name
-      short_long_name = t.short_name if t.short_name and !t.short_name.empty?
-      t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
-    end
-
-    private
 
     # Read an attribute value (without using locale fallbacks if the attribute is translated)
     def read_attribute_value(name, locale)
