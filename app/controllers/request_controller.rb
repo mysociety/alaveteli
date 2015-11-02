@@ -514,7 +514,8 @@ class RequestController < ApplicationController
           "make a donation</a> to the charity which runs it.</p><p>If you " \
           "want to try and get the rest of the information, here's what to " \
           "do now.</p>",
-          :site_name => site_name, :donation_url => AlaveteliConfiguration::donation_url)
+          :site_name => site_name,
+          :donation_url => AlaveteliConfiguration::donation_url)
       end
     when 'waiting_clarification'
       _("Please write your follow up message containing the necessary " \
