@@ -487,7 +487,8 @@ class RequestController < ApplicationController
         :other_means_url =>
           CGI.escapeHTML(unhappy_url(info_request)) + "#other_means")
     when 'rejected'
-      _("Oh no! Sorry to hear that your request was refused. Here is what to do now.")
+      _("Oh no! Sorry to hear that your request was refused. Here is what " \
+        "to do now.")
     when 'successful'
       if AlaveteliConfiguration::donation_url.blank?
         _("<p>We're glad you got all the information that you wanted. If " \
