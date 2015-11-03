@@ -100,27 +100,86 @@
 The following templates have been changed. Please update overrides in your theme
 to match the new templates.
 
+    app/views/admin_public_body/_locale_fields.html.erb
+    app/views/admin_public_body/edit.html.erb
     app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_public_body_categories/_locale_fields.html.erb
     app/views/admin_public_body_categories/edit.html.erb
     app/views/admin_public_body_categories/new.html.erb
     app/views/admin_public_body_headings/_form.html.erb
+    app/views/admin_public_body_headings/_locale_fields.html.erb
     app/views/admin_public_body_headings/edit.html.erb
     app/views/admin_public_body_headings/new.html.erb
-    app/views/general/_frontpage_hero.html.erb
-    app/views/general/_frontpage_how_it_works.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_footer.html.erb
+    app/views/general/_frontpage_bodies_list.html.erb
     app/views/general/_frontpage_intro_sentence.html.erb
     app/views/general/_frontpage_new_request.html.erb
     app/views/general/_frontpage_requests_list.html.erb
+    app/views/general/_frontpage_search_box.html.erb
+    app/views/general/_header.html.erb
     app/views/general/_locale_switcher.html.erb
     app/views/general/_responsive_credits.html.erb
     app/views/general/_responsive_footer.html.erb
     app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/_topnav.html.erb
+    app/views/general/blog.html.erb
+    app/views/general/exception_caught.html.erb
     app/views/general/frontpage.html.erb
     app/views/general/search.html.erb
+    app/views/help/_sidebar.html.erb
+    app/views/help/about.html.erb
+    app/views/help/alaveteli.html.erb
+    app/views/help/api.html.erb
+    app/views/help/contact.html.erb
+    app/views/help/credits.html.erb
+    app/views/help/officers.html.erb
+    app/views/help/privacy.html.erb
+    app/views/help/requesting.html.erb
+    app/views/help/unhappy.html.erb
+    app/views/info_request_batch/_batch_sent.html.erb
+    app/views/layouts/default.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/list.html.erb
+    app/views/public_body/show.html.erb
+    app/views/public_body/statistics.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/public_body_change_requests/new.html.erb
     app/views/request/_act.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_followup.html.erb
+    app/views/request/_hidden_correspondence.html.erb
+    app/views/request/_request_search_form.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_restricted_correspondence.html.erb
+    app/views/request/_search_ahead.html.erb
     app/views/request/_sidebar.html.erb
+    app/views/request/followup_preview.html.erb
     app/views/request/list.html.erb
+    app/views/request/new.html.erb
+    app/views/request/select_authorities.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request/show.html.erb
+    app/views/request/show_response.html.erb
+    app/views/request_game/play.html.erb
+    app/views/track/_tracking_links.html.erb
+    app/views/user/_show_user_info.html.erb
+    app/views/user/_signin.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/set_crop_profile_photo.html.erb
+    app/views/user/set_draft_profile_photo.html.erb
     app/views/user/show.html.erb
+    app/views/user/sign.html.erb
+    app/views/user/signchangeemail.html.erb
+    app/views/user/signchangepassword.html.erb
+    app/views/user/signchangepassword_send_confirm.html.erb
+    app/views/user/signin_successful.html.erb
+    app/views/user/wall.html.erb
+    app/views/user/wrong_user.html.erb
+    app/views/user/wrong_user_unknown_email.html.erb
     app/views/widgets/new.html.erb
 
 # Version 0.22.4.0
