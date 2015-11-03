@@ -336,6 +336,12 @@ end
 
 describe 'when getting attachment attributes' do
 
+  it 'should handle a UTF-7 mail' do
+    mail = get_fixture_mail('utf-7-conversion.email')
+    attributes = MailHandler.get_attachment_attributes(mail)
+    attributes.size.should == 3
+  end
+
   it 'should handle a mail with a non-multipart part with no charset in the Content-Type header' do
     mail = get_fixture_mail('part-without-charset-in-content-type.email')
     attributes = MailHandler.get_attachment_attributes(mail)
