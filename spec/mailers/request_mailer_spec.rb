@@ -368,28 +368,35 @@ end
 
 describe RequestMailer, 'when sending mail when someone has updated an old unclassified request' do
 
+  let(:user) do
+    FactoryGirl.create(:user, :name => "test name", :email => "email@localhost")
+  end
+
+  let(:public_body) { FactoryGirl.create(:public_body, :name => "Test public body") }
+
+  let(:info_request) do
+    FactoryGirl.create(:info_request, :user => user,
+                                      :title => "Test request",
+                                      :public_body => public_body,
+                                      :url_title => "test_request")
+  end
+
+  let(:mail) { RequestMailer.old_unclassified_updated(info_request) }
+
   before do
-    @user = mock_model(User, :name_and_email => 'test name and email')
-    @public_body = mock_model(PublicBody, :name => 'Test public body')
-    @info_request = mock_model(InfoRequest, :user => @user,
-                               :law_used_full => 'Freedom of Information',
-                               :title => 'Test request',
-                               :public_body => @public_body,
-                               :display_status => 'Refused.',
-                               :url_title => 'test_request')
-    @mail = RequestMailer.old_unclassified_updated(@info_request)
+    allow(info_request).to receive(:display_status).and_return("refused.")
   end
 
   it 'should have the subject "Someone has updated the status of your request"' do
-    expect(@mail.subject).to eq('Someone has updated the status of your request')
+    expect(mail.subject).to eq('Someone has updated the status of your request')
   end
 
   it 'should tell them what status was picked' do
-    expect(@mail.body).to match(/"refused."/)
+    expect(mail.body).to match(/"refused."/)
   end
 
   it 'should contain the request path' do
-    expect(@mail.body).to match(/request\/test_request/)
+    expect(mail.body).to match(/request\/test_request/)
   end
 
 end
@@ -418,20 +425,30 @@ end
 
 describe RequestMailer, 'when sending a new response email' do
 
-  before do
-    @user = mock_model(User, :name_and_email => 'test name and email')
-    @public_body = mock_model(PublicBody, :name => 'Test public body')
-    @info_request = mock_model(InfoRequest, :user => @user,
-                               :law_used_full => 'Freedom of Information',
-                               :title => 'Here is a character that needs quoting …',
-                               :public_body => @public_body,
-                               :display_status => 'Refused.',
-                               :url_title => 'test_request')
-    @incoming_message = mock_model(IncomingMessage, :info_request => @info_request)
+  let(:user) do
+    FactoryGirl.create(:user, :name => "test name",
+                              :email => "email@localhost")
+  end
+
+  let(:public_body) do
+    FactoryGirl.create(:public_body, :name => "Test public body")
+  end
+
+  let(:info_request) do
+    FactoryGirl.create(:info_request,
+                       :user => user,
+                       :title => "Here is a character that needs quoting …",
+                       :public_body => public_body,
+                       :described_state => 'rejected',
+                       :url_title => "test_request")
+  end
+
+  let(:incoming_message) do
+    FactoryGirl.create(:incoming_message, :info_request => info_request)
   end
 
   it 'should not error when sending mails requests with characters requiring quoting in the subject' do
-    @mail = RequestMailer.new_response(@info_request, @incoming_message)
+    mail = RequestMailer.new_response(info_request, incoming_message)
   end
 
   it 'should not create HTML entities in the subject line' do
@@ -441,39 +458,45 @@ describe RequestMailer, 'when sending a new response email' do
 end
 
 describe RequestMailer, 'requires_admin' do
-  before(:each) do
-    user = mock_model(User, :name_and_email => 'Bruce Jones <bruce@example.com>',
-                      :name => 'Bruce Jones')
-    @info_request = mock_model(InfoRequest, :user => user,
-                               :described_state => 'error_message',
-                               :title => "It's a Test request",
-                               :url_title => 'test_request',
-                               :law_used_short => 'FOI',
-                               :id => 123)
+  let(:user) do
+    FactoryGirl.create(:user, :name => "Bruce Jones",
+                              :email => "bruce@example.com")
+  end
+
+  let(:info_request) do
+    FactoryGirl.create(:info_request, :user => user,
+                                      :title => "It's a Test request",
+                                      :url_title => "test_request",
+                                      :id => 123)
+  end
+
+  before do
+    info_request.described_state = 'error_message'
+    info_request.save
   end
 
   it 'body should contain the full admin URL' do
-    mail = RequestMailer.requires_admin(@info_request).deliver
+    mail = RequestMailer.requires_admin(info_request).deliver
     expect(mail.body).to include('http://test.host/en/admin/requests/123')
   end
 
   it "body should contain the message from the user" do
-    mail = RequestMailer.requires_admin(@info_request, nil, "Something has gone wrong").deliver
+    mail = RequestMailer.requires_admin(info_request, nil, "Something has gone wrong").deliver
     expect(mail.body).to include 'Something has gone wrong'
   end
 
   it 'should not create HTML entities in the subject line' do
-    expect(RequestMailer.requires_admin(@info_request).subject).
+    expect(RequestMailer.requires_admin(info_request).subject).
       to eq "FOI response requires admin (error_message) - It's a Test request"
   end
 
   it 'sets the "Reply-To" header header to the sender' do
-    expect(RequestMailer.requires_admin(@info_request).header['Reply-To'].to_s).
+    expect(RequestMailer.requires_admin(info_request).header['Reply-To'].to_s).
       to eq('Bruce Jones <bruce@example.com>')
   end
 
   it 'sets the "Return-Path" header to the blackhole address' do
-    expect(RequestMailer.requires_admin(@info_request).header['Return-Path'].to_s).
+    expect(RequestMailer.requires_admin(info_request).header['Return-Path'].to_s).
       to eq('do-not-reply-to-this-address@localhost')
   end
 

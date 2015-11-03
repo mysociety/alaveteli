@@ -692,15 +692,20 @@ describe InfoRequest do
       let(:info_request) { InfoRequest.new(:law_used => 'foi') }
 
       it 'returns the expected law_used_full string' do
-        expect(info_request.law_used_full).to eq("Freedom of Information")
+        expect(info_request.law_used_human(:full)).to eq("Freedom of Information")
       end
 
       it 'returns the expected law_used_short string' do
-        expect(info_request.law_used_short).to eq("FOI")
+        expect(info_request.law_used_human(:short)).to eq("FOI")
       end
 
       it 'returns the expected law_used_act string' do
-        expect(info_request.law_used_act).to eq("Freedom of Information Act")
+        expect(info_request.law_used_human(:act)).to eq("Freedom of Information Act")
+      end
+
+      it 'raises an error when given an unknown key' do
+        expect{ info_request.law_used_human(:random) }.to raise_error.
+          with_message( "Unknown key 'random' for '#{info_request.law_used}'")
       end
 
     end
@@ -710,15 +715,20 @@ describe InfoRequest do
       let(:info_request) { InfoRequest.new(:law_used => 'eir') }
 
       it 'returns the expected law_used_full string' do
-        expect(info_request.law_used_full).to eq("Environmental Information Regulations")
+        expect(info_request.law_used_human(:full)).to eq("Environmental Information Regulations")
       end
 
       it 'returns the expected law_used_short string' do
-        expect(info_request.law_used_short).to eq("EIR")
+        expect(info_request.law_used_human(:short)).to eq("EIR")
       end
 
       it 'returns the expected law_used_act string' do
-        expect(info_request.law_used_act).to eq("Environmental Information Regulations")
+        expect(info_request.law_used_human(:act)).to eq("Environmental Information Regulations")
+      end
+
+      it 'raises an error when given an unknown key' do
+        expect{ info_request.law_used_human(:random) }.to raise_error.
+          with_message( "Unknown key 'random' for '#{info_request.law_used}'")
       end
 
     end
@@ -728,18 +738,23 @@ describe InfoRequest do
       let(:info_request) { InfoRequest.new(:law_used => 'unknown') }
 
       it 'raises an error when asked for law_used_full string' do
-        expect{ info_request.law_used_full }.to raise_error.
-          with_message("Unknown law used '" + info_request.law_used + "'")
+        expect{ info_request.law_used_human(:full) }.to raise_error.
+          with_message("Unknown law used '#{info_request.law_used}'")
       end
 
       it 'raises an error when asked for law_used_short string' do
-        expect{ info_request.law_used_short }.to raise_error.
-          with_message("Unknown law used '" + info_request.law_used + "'")
+        expect{ info_request.law_used_human(:short) }.to raise_error.
+          with_message("Unknown law used '#{info_request.law_used}'")
       end
 
       it 'raises an error when asked for law_used_act string' do
-        expect{ info_request.law_used_act }.to raise_error.
-          with_message("Unknown law used '" + info_request.law_used + "'")
+        expect{ info_request.law_used_human(:act) }.to raise_error.
+          with_message("Unknown law used '#{info_request.law_used}'")
+      end
+
+      it 'raises an error when given an unknown key' do
+        expect{ info_request.law_used_human(:random) }.to raise_error.
+          with_message("Unknown law used '#{info_request.law_used}'")
       end
 
     end

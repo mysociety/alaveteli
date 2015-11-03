@@ -310,7 +310,7 @@ class InfoRequest < ActiveRecord::Base
   def email_subject_request(opts = {})
     html = opts.fetch(:html, true)
     _('{{law_used_full}} request - {{title}}',
-      :law_used_full => law_used_full,
+      :law_used_full => law_used_human(:full),
       :title => (html ? title : title.html_safe))
   end
 
@@ -329,14 +329,20 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def law_used_full
+    warn %q([DEPRECATION] law_used_full will be replaced with
+      InfoRequest#law_used_human(:full) as of 0.24).squish
     law_used_human(:full)
   end
 
   def law_used_short
+    warn %q([DEPRECATION] law_used_short will be replaced with
+      InfoRequest#law_used_human(:short) as of 0.24).squish
     law_used_human(:short)
   end
 
   def law_used_act
+    warn %q([DEPRECATION] law_used_act will will be replaced with
+      InfoRequest#law_used_human(:act) as of 0.24).squish
     law_used_human(:act)
   end
 
@@ -344,6 +350,14 @@ class InfoRequest < ActiveRecord::Base
     warn %q([DEPRECATION] law_used_with_a will be removed in Alaveteli
            release 0.24).squish
     law_used_human(:with_a)
+  end
+
+  def law_used_human(key = :full)
+    begin
+      applicable_law.fetch(key)
+    rescue KeyError
+      raise "Unknown key '#{key}' for '#{law_used}'"
+    end
   end
 
   # Return info request corresponding to an incoming email address, or nil if
@@ -699,7 +713,7 @@ class InfoRequest < ActiveRecord::Base
   def recipient_name_and_email
     MailHandler.address_from_name_and_email(
       _("{{law_used}} requests at {{public_body}}",
-        :law_used => law_used_short,
+        :law_used => law_used_human(:short),
         :public_body => public_body.short_or_long_name),
         recipient_email)
   end
@@ -1382,14 +1396,6 @@ class InfoRequest < ActiveRecord::Base
     # FOI or EIR?
     if new_record? && public_body && public_body.eir_only?
       self.law_used = 'eir'
-    end
-  end
-
-  def law_used_human(key = :full)
-    begin
-      applicable_law.fetch(key)
-    rescue KeyError
-      raise "Unknown key '#{key}' for '#{law_used}'"
     end
   end
 
