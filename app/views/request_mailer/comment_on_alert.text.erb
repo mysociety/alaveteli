@@ -1,7 +1,7 @@
 <%= _('{{user_name}} has annotated your {{law_used_short}} request. Follow ' \
       'this link to see what they wrote.',
       :user_name => @comment.user.name,
-      :law_used_short => @info_request.law_used_short) %>
+      :law_used_short => @info_request.law_used_human(:short)) %>
 
 <%= @url %>
 
