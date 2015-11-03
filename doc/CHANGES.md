@@ -31,8 +31,8 @@
   http://alaveteli.org/docs/developers/i18n/#internationalised-sorting for
   adding collations. This requires PostgreSQL >= 9.1.12. (Gareth Rees)
 * The new widget template can now be translated (Gareth Rees).
-* Various design and markup improvements to the layout, home page and request
-  page (Martin Wright).
+* Various major design and markup improvements to the layout, home page and
+  request page (Martin Wright).
 * OpenGraph markup added to improve the appearance of Alaveteli links on social
   media (Owen Blacker).
 * Request graph cron job no longer errors if there are no requests in a
