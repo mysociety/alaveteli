@@ -1,0 +1,86 @@
+From MAILER-DAEMON Thu Oct 22 10:20:48 2015
+Return-path: <>
+X-PMWin-Version: 2.6.1, Antispam-Engine: 2.7.2, Antivirus-Engine: 3.60.0
+thread-index: AdEMqu1P???????==
+Content-Transfer-Encoding: 7bit
+Content-Class: urn:content-classes:message
+Importance: normal
+Priority: normal
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.3790.4862
+From: <a@b.com>
+To: <x@y.com>
+Date: Thu, 22 Oct 2015 10:20:43 +0100
+MIME-Version: 1.0
+Content-Type: multipart/report;
+	report-type=delivery-status;
+	boundary="9B095B5ADSN=_01D0B55B756364260003CF4BRXCXW001.sussex."
+X-DSNContext: 335a7efd - 4523 - 00000001 - 80040546
+Subject: Delivery Status Notification (Failure)
+X-OriginalArrivalTime: 22 Oct 2015 09:20:43.0702 (UTC) FILETIME=[ED618560:01D10CAA]
+X-TM-AS-Product-Ver: IMSVA-8.0.0.1495-8.0.0.1202-21894.006
+X-TM-AS-Result: No--18.926-30-31-10
+X-imss-scan-details:
+	No--18.926-30-31-10;No--18.926-3-31-10;No--18.926-4-31-10
+X-TMASE-MatchedRID: qR3eSjc6+eTYmaMdHlTWOq5hNiDbc2YjLuzxcMHytYjwkZ5FhgEMOnWc
+	c410Cv1KSlPTkiijFqiVmy9s2PCGRM/mgMItUzYIlVHM/F6YkvRzd7C7BtJobhKAWnKBwBf/N/I
+	PgHUHVfBobT1IFjA6Uwl8rZUeg2ihwLVW0Lktr+WTEgTE0DYkgCH8kDR0dp2mVI7KaIl9Nhcp+k
+	Tolgio6Un+UWGpawXAjVN2QhX0V6q8xUTtl1vue8qXjImgj58bELbqrOgWzyc4PPb1XDCZIWqgH
+	jofzSuJ2WPp5ytyMJyYtTlTMN2RR0ExWwMTXIcxBFtTtfRjLMF+K68qL2G5phy/A9iZcrIfhLPj
+	Ho6SaP++/oEEZaxTGD7Ml2KDF54IgiIO7Sf/7rHOr8/a/TSIo4PfQve7FwfAuu0N7j6PSiMzzzf
+	d6hdZYXQhMmsfF7TrJ/0jSQ/ph3q0sjm58Wp/oJ4CIKY/Hg3AaZGo0EeYG96+qryzYw2E8Oo86d
+	L2DqU+iLCBYN5xnggtA/10mNyXg4XScp990nK4Xyb+Fa0HiA4aL7wnRnDxdbz5F4tyyqrZA+tUY
+	MxbiLw=
+X-mySociety-Spam-Score: -1.9
+X-Delivered-Suffix: -298102-8a117cf6
+
+This is a multi-part message in MIME format.
+
+--9B095B5ADSN=_01D0B55B756364260003CF4BRXCXW001.sussex.
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset="utf-7"
+
+This is an automatically generated Delivery Status Notification.
+
+Delivery to the following recipients failed.
+
+       x@y.com
+
+
+
+
+--9B095B5ADSN=_01D0B55B756364260003CF4BRXCXW001.sussex.
+Content-Transfer-Encoding: 7bit
+Content-Type: message/delivery-status
+
+Arrival-Date: Thu, 22 Oct 2015 10:20:43 +0100
+
+Original-Recipient: rfc822;foi@b.com
+Final-Recipient: rfc822;foi@b.com
+Action: failed
+Status: 5.1.1
+
+--9B095B5ADSN=_01D0B55B756364260003CF4BRXCXW001.sussex.
+Content-Transfer-Encoding: 7bit
+Content-Type: message/rfc822
+
+From: "X" <x@y.com>
+To: "FOI" <foi@b.com>
+Subject: Freedom of Information request
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-AV-SIZE: Y
+X-TM-AS-Product-Ver: IMSVA-8.0.0.1495-8.0.0.1202-21894.006
+X-TM-AS-Result: No--15.163-15-31-10
+X-imss-scan-details: No--15.163-15-31-10;No--15.163-3.0-31-10;No--15.163-5-31-10;No--15.163-5-31-10
+X-TMASE-MatchedRID: 9M69yBZ2Ml6i6pQmyVJS4s1ZaFpD2ocTORWkBaHYNfEbIszkLg3+MQmF9R9McEFQBCI/p6XQPXf9CFphAwc/gNq72IXmYAV7k3rl+MaNgxCvC9kAVDo5w5IuII6CcB9zzv0+UmYCZcPZY+nnK3IwnHIMnl5Hvbra7h1xPdlpOhzK09/T6AzbVrtzN4mRU7E3BlEN2j2FexLoGjiUsQw3aZbjua5r56Nsf3WjXhSioemKDa5m+5vWeLiMC5wdwKqdXgqwd9ijktAQubGz4I4b4G+3hLAz/YUd7pVKpxaWB9/cWZANe+Wue2d946HZaeOHQr2qXCJMSV9d9lja5z2h9uOjezwlfd8eo8WMkQWv6iUD0yuKrQIMCK70QVVXsVhWt2KO3WWf5GXEQdG7H66TyH4gKq42LRYkkI1AsbeIahV+uh5rZMFfH/VtjxYxmE8brIxFY610+9l+3BndfXUhXQ==
+Return-Path: <x@y.com>
+X-OriginalArrivalTime: 22 Oct 2015 09:20:43.0319 (UTC) FILETIME=[ED271470:01D10CAA]
+
+FOI Request
+
+--9B095B5ADSN=_01D0B55B756364260003CF4BRXCXW001.sussex.--
+
+

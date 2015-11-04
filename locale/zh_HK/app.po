@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-12 11:00+0000\n"
-"PO-Revision-Date: 2015-08-25 15:01+0000\n"
+"PO-Revision-Date: 2015-09-07 11:54+0000\n"
 "Last-Translator: beckymak <makpowan@gmail.com>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
@@ -539,7 +539,7 @@ msgid "Change the text about you on your profile at {{site_name}}"
 msgstr ""
 
 msgid "Change your email"
-msgstr ""
+msgstr "更改你的電郵"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr ""
@@ -845,7 +845,7 @@ msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "篩選"
 
 msgid "Filter by Request Status (optional)"
 msgstr ""
@@ -1116,7 +1116,7 @@ msgid "I've received <strong>some of the information</strong>"
 msgstr ""
 
 msgid "I've received an <strong>error message</strong>"
-msgstr ""
+msgstr "我接收了一個<strong>錯誤訊息</strong>"
 
 msgid "I've received an error message"
 msgstr ""
@@ -1365,7 +1365,7 @@ msgid "Last authority viewed: "
 msgstr ""
 
 msgid "Last request viewed: "
-msgstr ""
+msgstr "最後已讀要求:"
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr ""
@@ -1915,7 +1915,7 @@ msgid "Prefer not to receive emails?"
 msgstr ""
 
 msgid "Prev"
-msgstr ""
+msgstr "上一頁"
 
 msgid "Preview follow up to '"
 msgstr ""
@@ -3310,7 +3310,7 @@ msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr ""
 
 msgid "You"
-msgstr ""
+msgstr "你"
 
 msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
@@ -3520,7 +3520,7 @@ msgid "Your email doesn't look like a valid address"
 msgstr ""
 
 msgid "Your email:"
-msgstr ""
+msgstr "你的電郵:"
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr ""
