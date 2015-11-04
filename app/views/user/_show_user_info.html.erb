@@ -18,7 +18,7 @@
     <% if AlaveteliConfiguration.enable_two_factor_auth %>
     |
       <% if @display_user.otp_enabled? %>
-        <%= link_to _('View your two factor authentication one time password'), one_time_password_path %>
+        <%= link_to _('View your two factor authentication one time passcode'), one_time_password_path %>
       <% else %>
         <%= link_to _('Improve your account security'), one_time_password_path %>
       <% end %>

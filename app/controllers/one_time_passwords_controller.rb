@@ -25,9 +25,9 @@ class OneTimePasswordsController < ApplicationController
   def update
     if @user.increment!(:otp_counter)
       redirect_to one_time_password_path,
-                  :notice => _('Two factor one time password updated')
+                  :notice => _('Two factor one time passcode updated')
     else
-      flash.now[:error] = _('Could not update your two factor one time password')
+      flash.now[:error] = _('Could not update your two factor one time passcode')
       render :show
     end
   end

@@ -21,7 +21,7 @@
 
     <% if AlaveteliConfiguration.enable_two_factor_auth && @password_change_user.otp_enabled? %>
       <p>
-        <%= f.label :otp_code, _('Two factor one time password:'), :class => 'form_label' %>
+        <%= f.label :otp_code, _('Two factor one time passcode:'), :class => 'form_label' %>
         <%= f.text_field :otp_code, :size => 15, :autocomplete => 'off', :value => nil %>
       </p>
     <% end %>
