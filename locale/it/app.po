@@ -6,6 +6,7 @@
 # Translators:
 # Antonella <anapolitano@gmail.com>, 2014-2015
 # Claudio Cesarano <claudio@dirittodisapere.it>, 2015
+# Giancarlo <pinet@pinet.it>, 2015
 # guido romeo <guido.romeo@gmail.com>, 2015
 # louisecrow <louise@mysociety.org>, 2014-2015
 # Marco Giustini <info@marcogiustini.info>, 2013
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-12 11:00+0000\n"
-"PO-Revision-Date: 2015-08-12 11:02+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2015-08-31 09:27+0000\n"
+"Last-Translator: Giancarlo <pinet@pinet.it>\n"
 "Language-Team: Italian (http://www.transifex.com/mysociety/alaveteli/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -1215,7 +1216,7 @@ msgid "Incoming message"
 msgstr "Messaggio in arrivo"
 
 msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
-msgstr ""
+msgstr "Il messaggio in arrivo ha un punteggio di spam ({{spam_score}}) al di sopra della soglia configurata ({{spam_threshold}})."
 
 msgid "IncomingMessage|Cached attachment text clipped"
 msgstr "IncomingMessage|Cached attachment text clipped"
