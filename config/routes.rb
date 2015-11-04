@@ -80,6 +80,10 @@ Alaveteli::Application.routes.draw do
            :path => '/profile/change_password',
            :path_names => { :edit => '' }
 
+  resource :one_time_password,
+           :only => [:show, :create, :update, :destroy],
+           :path => '/profile/two_factor'
+
   match '/profile/sign_in' => 'user#signin', :as => :signin
   match '/profile/sign_up' => 'user#signup', :as => :signup, :via => :post
   match '/profile/sign_up' => 'user#signin', :via => :get

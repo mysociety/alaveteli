@@ -476,6 +476,16 @@ describe User do
         expect(user.errors[:otp_code]).to include(msg)
       end
 
+      it 'increments the otp_counter if a correct otp_code is used' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        counter = user.otp_counter
+        user.valid?
+        expect(user.otp_counter).to eq(counter + 1)
+      end
+
     end
 
     context 'with otp disabled' do
