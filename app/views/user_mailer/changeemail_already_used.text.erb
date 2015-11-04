@@ -1,10 +1,12 @@
-<%= _('Someone, perhaps you, just tried to change their email address on
-{{site_name}} from {{old_email}} to {{new_email}}.', :site_name=>site_name,
-:old_email=>@old_email, :new_email=>@new_email) %>
+<%= _('Someone, perhaps you, just tried to change their email address on ' \
+      '{{site_name}} from {{old_email}} to {{new_email}}.',
+      :site_name => site_name,
+      :old_email => @old_email,
+      :new_email => @new_email) %>
 
-<%= _('This was not possible because there is already an account using 
-the email address {{email}}.', :email=>@new_email)%>.
+<%= _('This was not possible because there is already an account using ' \
+      'the email address {{email}}.', :email => @new_email) %>
 
-<%= _('The accounts have been left as they previously were.')%>
+<%= _('The accounts have been left as they previously were.') %>
 
--- <%= _('the {{site_name}} team', :site_name=>site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name) %>

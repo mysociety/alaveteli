@@ -1,11 +1,11 @@
 <%= raw @name %>,
 
-<%= _('Please click on the link below to confirm your email address.')%>
-<%= raw @reasons[:email] %> 
+<%= _('Please click on the link below to confirm your email address.') %>
+<%= raw @reasons[:email] %>
 
-<%=@url%>
+<%= @url %>
 
-<%= _('We will not reveal your email address to anybody unless you
-or the law tell us to.')%>
+<%= _('We will not reveal your email address to anybody ' \
+      'unless you or the law tell us to.') %>
 
--- <%= _('the {{site_name}} team', :site_name=>site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name) %>
