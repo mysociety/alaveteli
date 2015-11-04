@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Adds basic opt-in two factor authentication. Enable it globally with
+  `ENABLE_TWO_FACTOR_AUTH` (Gareth Rees).
 * Fixes a bug which caused request titles to be HTML escaped twice
   when setting up a new request track while not logged in (Liz Conlan).
 * Extracted UserController#signchangepassword to PasswordChangesController
