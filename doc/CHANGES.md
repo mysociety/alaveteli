@@ -6,22 +6,29 @@
   `ENABLE_TWO_FACTOR_AUTH` (Gareth Rees).
 * Fixes a bug which caused request titles to be HTML escaped twice
   when setting up a new request track while not logged in (Liz Conlan).
+* Added a new placeholder logo (Zarino Zappia).
 * Extracted UserController#signchangepassword to PasswordChangesController
   (Gareth Rees).
 * Added configuration for `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS`.
   (Gareth Rees).
+* Performance improvements when finding sibling info request events (Gareth
+  Rees).
 * Increased the maximum length of a track query and added a warning if
   this new limit is exceeded (Liz Conlan).
 * Improved placeholder logo (Zarino Zappia).
 * Improve mobile layout on authority list page (Marting Wright).
+* Improve handling of associated records when destroying parents (Liz Conlan).
 * Major refactoring of `InfoRequest#receive` (Gareth Rees).
 * Santitze invalid UTF-8 in mail server logs while processing them (Steven Day,
   Gareth Rees).
+* Fixes for several edge case bugs (Liz Conlan).
 * Add more classes to markup to make style customisation easier (Martin Wright).
 * Adds reCAPTCHA to the public authority change request form if there is no
   logged in user (Gareth Rees).
 * Rename #follow_box to #track-request to prevent add blockers hiding the
   button allowing users to follow a request (Martin Wright).
+* Improved handling of invalid UTF-8 attachment text (Louise Crow).
+* Add domain to exception notification subject line (Gareth Rees).
 * Fixes incorrectly updating `url_name` when a banned user record is updated
   (Gareth Rees).
 * Definition lists are now easier to read and follow, greatly improves help
@@ -33,6 +40,7 @@
 * The new widget template can now be translated (Gareth Rees).
 * Various major design and markup improvements to the layout, home page and
   request page (Martin Wright).
+* Improved locale switcher markup and code (Martin Wright, Gareth Rees).
 * OpenGraph markup added to improve the appearance of Alaveteli links on social
   media (Owen Blacker).
 * Request graph cron job no longer errors if there are no requests in a
@@ -69,6 +77,9 @@
   will be removed in a future release. We've added contextually relevant
   classes to these elements. Please update your themes to ensure you're
   no longer using `link_button_green` for styling.
+* The install script `site-specific-install.sh` sets the default ruby to 1.9. You can do this manually with the same commands http://git.io/vlDpb
+* If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
+  http://git.io/vlD1k
 * If you are running Alaveteli on Debian Squeeze, you should upgrade your OS to
   Debian Wheezy before upgrading to this release. This
   [Debian upgrade guide](https://www.debian.org/releases/oldstable/amd64/release-notes/ch-upgrading)
