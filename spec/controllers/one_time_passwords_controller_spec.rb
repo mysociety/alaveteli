@@ -148,7 +148,7 @@ describe OneTimePasswordsController do
       user = FactoryGirl.create(:user, :otp_enabled => true)
       session[:user_id] = user.id
       put :update
-      expect(flash[:notice]).to eq('Two factor one time password updated')
+      expect(flash[:notice]).to eq('Two factor one time passcode updated')
     end
 
     it 'redirects back to #show on success' do
@@ -172,7 +172,7 @@ describe OneTimePasswordsController do
       session[:user_id] = user.id
       put :update
       expect(flash[:error]).
-        to eq('Could not update your two factor one time password')
+        to eq('Could not update your two factor one time passcode')
     end
 
     context 'when 2factor auth is not enabled' do
