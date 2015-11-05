@@ -163,7 +163,7 @@ will have the rules applied.
 This example removes the name "Alice Alaveteli" from messages relating to a
 specific request.
 
-* click on **Requests** in the admin and searc or find the one you want 
+* click on **Requests** in the admin and search or find the one you want 
 * click on the request's title to go to its page in the admin
 * scroll to the bottom: *Censor rules*
 * click **New censor rule** and fill in the form:
@@ -205,7 +205,7 @@ spelling.
    requests on your site.
 </div>
 
-* click on **Requests** in the admin and searc or find the one you want
+* click on **Requests** in the admin and search or find the one you want
 * click on the request's title to go to its page in the admin
 * scroll to the bottom: *Censor rules*
 * find the censor rule that finds `Alice` (from the previous example), click
