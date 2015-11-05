@@ -39,6 +39,8 @@ class InfoRequestEvent < ActiveRecord::Base
 
   validates_presence_of :event_type
 
+  after_create :update_request, :if => :response?
+
   def self.enumerate_event_types
     [
       'sent',
@@ -371,6 +373,13 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def response?
     event_type == 'response'
+  end
+
+  # This method updates the cached column of the InfoRequest that
+  # stores the last created_at date of relevant events
+  # when saving or destroying an InfoRequestEvent associated with the request
+  def update_request
+    info_request.update_last_public_response_at
   end
 
   def same_email_as_previous_send?
