@@ -6,22 +6,29 @@
   `ENABLE_TWO_FACTOR_AUTH` (Gareth Rees).
 * Fixes a bug which caused request titles to be HTML escaped twice
   when setting up a new request track while not logged in (Liz Conlan).
+* Added a new placeholder logo (Zarino Zappia).
 * Extracted UserController#signchangepassword to PasswordChangesController
   (Gareth Rees).
 * Added configuration for `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS`.
   (Gareth Rees).
+* Performance improvements when finding sibling info request events (Gareth
+  Rees).
 * Increased the maximum length of a track query and added a warning if
   this new limit is exceeded (Liz Conlan).
 * Improved placeholder logo (Zarino Zappia).
 * Improve mobile layout on authority list page (Marting Wright).
+* Improve handling of associated records when destroying parents (Liz Conlan).
 * Major refactoring of `InfoRequest#receive` (Gareth Rees).
 * Santitze invalid UTF-8 in mail server logs while processing them (Steven Day,
   Gareth Rees).
+* Fixes for several edge case bugs (Liz Conlan).
 * Add more classes to markup to make style customisation easier (Martin Wright).
 * Adds reCAPTCHA to the public authority change request form if there is no
   logged in user (Gareth Rees).
 * Rename #follow_box to #track-request to prevent add blockers hiding the
   button allowing users to follow a request (Martin Wright).
+* Improved handling of invalid UTF-8 attachment text (Louise Crow).
+* Add domain to exception notification subject line (Gareth Rees).
 * Fixes incorrectly updating `url_name` when a banned user record is updated
   (Gareth Rees).
 * Definition lists are now easier to read and follow, greatly improves help
@@ -31,8 +38,9 @@
   http://alaveteli.org/docs/developers/i18n/#internationalised-sorting for
   adding collations. This requires PostgreSQL >= 9.1.12. (Gareth Rees)
 * The new widget template can now be translated (Gareth Rees).
-* Various design and markup improvements to the layout, home page and request
-  page (Martin Wright).
+* Various major design and markup improvements to the layout, home page and
+  request page (Martin Wright).
+* Improved locale switcher markup and code (Martin Wright, Gareth Rees).
 * OpenGraph markup added to improve the appearance of Alaveteli links on social
   media (Owen Blacker).
 * Request graph cron job no longer errors if there are no requests in a
@@ -69,6 +77,9 @@
   will be removed in a future release. We've added contextually relevant
   classes to these elements. Please update your themes to ensure you're
   no longer using `link_button_green` for styling.
+* The install script `site-specific-install.sh` sets the default ruby to 1.9. You can do this manually with the same commands http://git.io/vlDpb
+* If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
+  http://git.io/vlD1k
 * If you are running Alaveteli on Debian Squeeze, you should upgrade your OS to
   Debian Wheezy before upgrading to this release. This
   [Debian upgrade guide](https://www.debian.org/releases/oldstable/amd64/release-notes/ch-upgrading)
@@ -100,27 +111,86 @@
 The following templates have been changed. Please update overrides in your theme
 to match the new templates.
 
+    app/views/admin_public_body/_locale_fields.html.erb
+    app/views/admin_public_body/edit.html.erb
     app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_public_body_categories/_locale_fields.html.erb
     app/views/admin_public_body_categories/edit.html.erb
     app/views/admin_public_body_categories/new.html.erb
     app/views/admin_public_body_headings/_form.html.erb
+    app/views/admin_public_body_headings/_locale_fields.html.erb
     app/views/admin_public_body_headings/edit.html.erb
     app/views/admin_public_body_headings/new.html.erb
-    app/views/general/_frontpage_hero.html.erb
-    app/views/general/_frontpage_how_it_works.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_footer.html.erb
+    app/views/general/_frontpage_bodies_list.html.erb
     app/views/general/_frontpage_intro_sentence.html.erb
     app/views/general/_frontpage_new_request.html.erb
     app/views/general/_frontpage_requests_list.html.erb
+    app/views/general/_frontpage_search_box.html.erb
+    app/views/general/_header.html.erb
     app/views/general/_locale_switcher.html.erb
     app/views/general/_responsive_credits.html.erb
     app/views/general/_responsive_footer.html.erb
     app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/_topnav.html.erb
+    app/views/general/blog.html.erb
+    app/views/general/exception_caught.html.erb
     app/views/general/frontpage.html.erb
     app/views/general/search.html.erb
+    app/views/help/_sidebar.html.erb
+    app/views/help/about.html.erb
+    app/views/help/alaveteli.html.erb
+    app/views/help/api.html.erb
+    app/views/help/contact.html.erb
+    app/views/help/credits.html.erb
+    app/views/help/officers.html.erb
+    app/views/help/privacy.html.erb
+    app/views/help/requesting.html.erb
+    app/views/help/unhappy.html.erb
+    app/views/info_request_batch/_batch_sent.html.erb
+    app/views/layouts/default.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/list.html.erb
+    app/views/public_body/show.html.erb
+    app/views/public_body/statistics.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/public_body_change_requests/new.html.erb
     app/views/request/_act.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_followup.html.erb
+    app/views/request/_hidden_correspondence.html.erb
+    app/views/request/_request_search_form.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_restricted_correspondence.html.erb
+    app/views/request/_search_ahead.html.erb
     app/views/request/_sidebar.html.erb
+    app/views/request/followup_preview.html.erb
     app/views/request/list.html.erb
+    app/views/request/new.html.erb
+    app/views/request/select_authorities.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request/show.html.erb
+    app/views/request/show_response.html.erb
+    app/views/request_game/play.html.erb
+    app/views/track/_tracking_links.html.erb
+    app/views/user/_show_user_info.html.erb
+    app/views/user/_signin.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/set_crop_profile_photo.html.erb
+    app/views/user/set_draft_profile_photo.html.erb
     app/views/user/show.html.erb
+    app/views/user/sign.html.erb
+    app/views/user/signchangeemail.html.erb
+    app/views/user/signchangepassword.html.erb
+    app/views/user/signchangepassword_send_confirm.html.erb
+    app/views/user/signin_successful.html.erb
+    app/views/user/wall.html.erb
+    app/views/user/wrong_user.html.erb
+    app/views/user/wrong_user_unknown_email.html.erb
     app/views/widgets/new.html.erb
 
 # Version 0.22.4.0
