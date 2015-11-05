@@ -318,7 +318,7 @@ class RequestMailer < ApplicationMailer
                                                       :include => [:user],
                                                       :age_in_days => days_since)
 
-    for info_request in info_requests
+    info_requests.each do |info_request|
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
       if alert_event_id.nil?

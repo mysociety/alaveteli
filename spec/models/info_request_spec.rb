@@ -1215,85 +1215,137 @@ describe InfoRequest do
 
   describe 'when asked for old unclassified requests' do
 
-    before do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-    end
-
     it 'asks for requests using any limit param supplied' do
-      expect(InfoRequest).to receive(:find).with(:all, {:select => anything,
-                                                    :order => anything,
-                                                    :conditions=> anything,
-                                                    :limit => 5})
+      expect(InfoRequest).to receive(:find).
+        with(:all, hash_including(:limit => 5))
       InfoRequest.find_old_unclassified(:limit => 5)
     end
 
     it 'asks for requests using any offset param supplied' do
-      expect(InfoRequest).to receive(:find).with(:all, {:select => anything,
-                                                    :order => anything,
-                                                    :conditions=> anything,
-                                                    :offset => 100})
+      expect(InfoRequest).to receive(:find).
+        with(:all, hash_including(:offset => 100))
       InfoRequest.find_old_unclassified(:offset => 100)
     end
 
     it 'does not limit the number of requests returned by default' do
-      expect(InfoRequest).not_to receive(:find).with(:all, {:select => anything,
-                                                        :order => anything,
-                                                        :conditions=> anything,
-                                                        :limit => anything})
+      expect(InfoRequest).to receive(:find).
+        with(:all, hash_excluding(:limit => anything))
       InfoRequest.find_old_unclassified
     end
 
     it 'adds extra conditions if supplied' do
-      expected_conditions = ["awaiting_description = ?
-                                    AND (SELECT info_request_events.created_at
-                                         FROM info_request_events, incoming_messages
-                                         WHERE info_request_events.info_request_id = info_requests.id
-                                         AND info_request_events.event_type = 'response'
-                                         AND incoming_messages.id = info_request_events.incoming_message_id
-                                         AND incoming_messages.prominence = 'normal'
-                                         ORDER BY created_at desc LIMIT 1) < ?
-                                    AND url_title != 'holding_pen'
-                                    AND user_id IS NOT NULL
-                                    AND prominence != 'backpage'".split(' ').join(' '),
-                             true, Time.now - 21.days]
-      # compare conditions ignoring whitespace differences
-      expect(InfoRequest).to receive(:find) do |all, query_params|
-        query_string = query_params[:conditions][0]
-        query_params[:conditions][0] = query_string.split(' ').join(' ')
-        expect(query_params[:conditions]).to eq(expected_conditions)
-      end
+      expect(InfoRequest).to receive(:find).
+        with(:all, hash_including(
+          {:conditions => include(/prominence != 'backpage'/)}))
       InfoRequest.find_old_unclassified({:conditions => ["prominence != 'backpage'"]})
     end
 
-    it 'asks the database for requests that are awaiting description, have a last public response older
-        than 21 days old, have a user, are not the holding pen and are not backpaged' do
-      expected_conditions = ["awaiting_description = ?
-                                    AND (SELECT info_request_events.created_at
-                                         FROM info_request_events, incoming_messages
-                                         WHERE info_request_events.info_request_id = info_requests.id
-                                         AND info_request_events.event_type = 'response'
-                                         AND incoming_messages.id = info_request_events.incoming_message_id
-                                         AND incoming_messages.prominence = 'normal'
-                                         ORDER BY created_at desc LIMIT 1) < ?
-                                    AND url_title != 'holding_pen'
-                                    AND user_id IS NOT NULL".split(' ').join(' '),
-                             true, Time.now - 21.days]
-      expected_select = "*, (SELECT info_request_events.created_at
-                                   FROM info_request_events, incoming_messages
-                                   WHERE info_request_events.info_request_id = info_requests.id
-                                   AND info_request_events.event_type = 'response'
-                                   AND incoming_messages.id = info_request_events.incoming_message_id
-                                   AND incoming_messages.prominence = 'normal'
-                                   ORDER BY created_at desc LIMIT 1)
-                                   AS last_response_time".split(' ').join(' ')
-      expect(InfoRequest).to receive(:find) do |all, query_params|
-        query_string = query_params[:conditions][0]
-        query_params[:conditions][0] = query_string.split(' ').join(' ')
-        expect(query_params[:conditions]).to eq(expected_conditions)
-        expect(query_params[:select].split(' ').join(' ')).to eq(expected_select)
-        expect(query_params[:order]).to eq("last_response_time")
+    context "returning records" do
+      let(:recent_date) { Time.zone.now - 20.days }
+      let(:old_date) { Time.zone.now - 22.days }
+      let(:user) { FactoryGirl.create(:user) }
+
+      def create_recent_unclassified_request
+        request = FactoryGirl.create(:info_request, :user => user,
+                                                    :created_at => recent_date)
+        message = FactoryGirl.create(:incoming_message, :created_at => recent_date,
+                                                        :info_request => request)
+        FactoryGirl.create(:info_request_event, :incoming_message => message,
+                                                :event_type => "response",
+                                                :info_request => request,
+                                                :created_at => recent_date)
+        request.awaiting_description = true
+        request.save
+        request
       end
-      InfoRequest.find_old_unclassified
+
+      def create_old_unclassified_request
+        request = FactoryGirl.create(:info_request, :user => user,
+                                                    :created_at => old_date)
+        message = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                        :info_request => request)
+        FactoryGirl.create(:info_request_event, :incoming_message => message,
+                                                :event_type => "response",
+                                                :info_request => request,
+                                                :created_at => old_date)
+        request.awaiting_description = true
+        request.save
+        request
+      end
+
+      def create_old_unclassified_described
+        request = FactoryGirl.create(:info_request, :user => user,
+                                                    :created_at => old_date)
+        message = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                        :info_request => request)
+        FactoryGirl.create(:info_request_event, :incoming_message => message,
+                                                :event_type => "response",
+                                                :info_request => request,
+                                                :created_at => old_date)
+        request
+      end
+
+      def create_old_unclassified_no_user
+        request = FactoryGirl.create(:info_request, :user => nil,
+                                                    :external_user_name => 'test_user',
+                                                    :external_url => 'test',
+                                                    :created_at => old_date)
+        message = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                        :info_request => request)
+        FactoryGirl.create(:info_request_event, :incoming_message => message,
+                                                :event_type => "response",
+                                                :info_request => request,
+                                                :created_at => old_date)
+        request.awaiting_description = true
+        request.save
+        request
+      end
+
+      def create_old_unclassified_holding_pen
+        request = FactoryGirl.create(:info_request, :user => user,
+                                                    :url_title => 'holding_pen',
+                                                    :created_at => old_date)
+        message = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                        :info_request => request)
+        FactoryGirl.create(:info_request_event, :incoming_message => message,
+                                                :event_type => "response",
+                                                :info_request => request,
+                                                :created_at => old_date)
+        request.awaiting_description = true
+        request.save
+        request
+      end
+
+
+      it "returns records over 21 days old" do
+        old_unclassified_request = create_old_unclassified_request
+        results = InfoRequest.find_old_unclassified
+        expect(results).to include(old_unclassified_request)
+      end
+
+      it "does not return records less than 21 days old" do
+        recent_unclassified_request = create_recent_unclassified_request
+        results = InfoRequest.find_old_unclassified
+        expect(results).not_to include(recent_unclassified_request)
+      end
+
+      it "only returns records with an associated user" do
+        old_unclassified_no_user = create_old_unclassified_no_user
+        results = InfoRequest.find_old_unclassified
+        expect(results).not_to include(old_unclassified_no_user)
+      end
+
+      it "only returns records which are awaiting description" do
+        old_unclassified_described = create_old_unclassified_described
+        results = InfoRequest.find_old_unclassified
+        expect(results).not_to include(old_unclassified_described)
+      end
+
+      it "does not return anything which is in the holding pen" do
+        old_unclassified_holding_pen = create_old_unclassified_holding_pen
+        results = InfoRequest.find_old_unclassified
+        expect(results).not_to include(old_unclassified_holding_pen)
+      end
     end
 
   end
