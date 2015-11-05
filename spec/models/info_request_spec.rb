@@ -1178,7 +1178,6 @@ describe InfoRequest do
 
   end
 
-
   describe 'when asked if it requires admin' do
 
     before do
@@ -1507,6 +1506,127 @@ describe InfoRequest do
       @incoming_message.prominence = 'normal'
       @incoming_message.save!
       expect(@info_request.get_last_public_response_event).to eq(@incoming_message.response_event)
+    end
+
+  end
+
+  describe 'keeping track of the last public response date' do
+
+    let(:old_date) { Time.zone.now - 21.days }
+    let(:recent_date) { Time.zone.now - 2.days }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'does not set last_public_response_at date if there is no response' do
+      request = FactoryGirl.create(:info_request)
+      expect(request.last_public_response_at).to be_nil
+    end
+
+    it 'sets last_public_response_at when a public response is added' do
+      request = FactoryGirl.create(:info_request, :user => user,
+                                                  :created_at => old_date)
+      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                      :info_request => request)
+      FactoryGirl.create(:info_request_event, :info_request => request,
+                                              :incoming_message => message,
+                                              :created_at => old_date,
+                                              :event_type => 'response')
+      expect(request.last_public_response_at).to eq(old_date)
+    end
+
+    it 'does not set last_public_response_at when a hidden response is added' do
+      request = FactoryGirl.create(:info_request, :user => user,
+                                                  :created_at => old_date)
+      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                      :info_request => request,
+                                                      :prominence => 'hidden')
+      FactoryGirl.create(:info_request_event, :info_request => request,
+                                              :incoming_message => message,
+                                              :created_at => old_date,
+                                              :event_type => 'response')
+      expect(request.last_public_response_at).to be_nil
+    end
+
+    it 'sets last_public_response_at to nil when the only response is hidden' do
+      request = FactoryGirl.create(:info_request, :user => user,
+                                                  :created_at => old_date)
+      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                      :info_request => request)
+      FactoryGirl.create(:info_request_event, :info_request => request,
+                                              :incoming_message => message,
+                                              :created_at => old_date,
+                                              :event_type => 'response')
+      message.prominence = 'hidden'
+      message.save
+      expect(request.last_public_response_at).to be_nil
+    end
+
+    it 'reverts last_public_response_at when the latest response is hidden' do
+      request = FactoryGirl.create(:info_request, :user => user,
+                                                  :created_at => old_date)
+      message1 = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                       :info_request => request)
+      message2 = FactoryGirl.create(:incoming_message, :created_at => recent_date,
+                                                       :info_request => request)
+      FactoryGirl.create(:info_request_event, :info_request => request,
+                                              :incoming_message => message1,
+                                              :created_at => old_date,
+                                              :event_type => 'response')
+      FactoryGirl.create(:info_request_event, :info_request => request,
+                                              :incoming_message => message2,
+                                              :created_at => recent_date,
+                                              :event_type => 'response')
+      expect(request.last_public_response_at).to eq(recent_date)
+      message2.prominence = 'hidden'
+      message2.save
+      expect(request.last_public_response_at).to eq(old_date)
+    end
+
+    it 'sets last_public_response_at to nil when the only response is destroyed' do
+      request = FactoryGirl.create(:info_request, :user => user,
+                                                  :created_at => old_date)
+      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                      :info_request => request)
+      FactoryGirl.create(:info_request_event, :info_request => request,
+                                              :incoming_message => message,
+                                              :created_at => old_date,
+                                              :event_type => 'response')
+      message.destroy
+      expect(request.last_public_response_at).to be_nil
+    end
+
+    it 'reverts last_public_response_at when the latest response is destroyed' do
+      request = FactoryGirl.create(:info_request, :user => user,
+                                                  :created_at => old_date)
+      message1 = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                       :info_request => request)
+      message2 = FactoryGirl.create(:incoming_message, :created_at => recent_date,
+                                                       :info_request => request)
+      FactoryGirl.create(:info_request_event, :info_request => request,
+                                              :incoming_message => message1,
+                                              :created_at => old_date,
+                                              :event_type => 'response')
+      FactoryGirl.create(:info_request_event, :info_request => request,
+                                              :incoming_message => message2,
+                                              :created_at => recent_date,
+                                              :event_type => 'response')
+      expect(request.last_public_response_at).to eq(recent_date)
+      message2.destroy
+      expect(request.last_public_response_at).to eq(old_date)
+    end
+
+    it 'sets last_public_response_at when a hidden response is unhidden' do
+      request = FactoryGirl.create(:info_request, :user => user,
+                                                  :created_at => old_date)
+      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
+                                                      :info_request => request,
+                                                      :prominence => 'hidden')
+      FactoryGirl.create(:info_request_event, :info_request => request,
+                                              :incoming_message => message,
+                                              :created_at => old_date,
+                                              :event_type => 'response')
+      message.prominence = 'normal'
+      message.save
+      expect(request.last_public_response_at).to eq(old_date)
     end
 
   end

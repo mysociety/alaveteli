@@ -286,6 +286,16 @@ class InfoRequest < ActiveRecord::Base
     write_attribute(:url_title, unique_url_title)
   end
 
+  def update_last_public_response_at
+    last_public_event = get_last_public_response_event
+    if last_public_event
+      self.last_public_response_at = last_public_event.created_at
+    else
+      self.last_public_response_at = nil
+    end
+    save
+  end
+
   # Remove spaces from ends (for when used in emails etc.)
   # Needed for legacy reasons, even though we call strip_attributes now
   def title
