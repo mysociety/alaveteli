@@ -124,6 +124,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
 <br> <code><a href="#public_body_list_fallback_to_default_locale">PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</a></code>
 <br> <code><a href="#enable_widgets">ENABLE_WIDGETS</a></code>
+<br> <code><a href="#enable_two_factor_auth">ENABLE_TWO_FACTOR_AUTH</a></code>
 
 ### External public services:
 
@@ -1266,6 +1267,29 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>ENABLE_WIDGETS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_two_factor_auth"><code>ENABLE_TWO_FACTOR_AUTH</code></a>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.23.0.0
+      </p>
+    </div>
+
+    Enable a second step of authentication for dangerous account actions.
+    Currently only active for changing password. Two factor auth is opt-in per
+    user.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_TWO_FACTOR_AUTH: true</code>
         </li>
       </ul>
     </div>
