@@ -57,7 +57,8 @@ these form a censor rule:
   The word or words that should be used instead of the redacted text.
 * *the range of messages to which this redaction applies*
   <br>
-  This could be _all_ messages, or only messages relating to a specific user.
+  This could be _all_ messages, or only messages relating to a specific user,
+  or one particular request.
 
 For example, your can tell Alaveteli to automatically replace the word `swordfish`
 with <code>[password&nbsp;redacted]</code> in any messages relating to a request created by user Groucho
@@ -149,6 +150,113 @@ site, ask us for help.
 
 By way of an example, in the detailed example below, we add some code to apply
 a unique redaction rule to every user (for hiding their own citizen ID number).
+
+## A simple censor rule: hiding a name
+
+The follow example shows how occurrences of a specific name ("Alice") can be
+hidden from messages associated with a particular request. You can also
+add censor rules to a user (rather than a request), so any requests they make
+will have the rules applied.
+
+### Add a censor rule to hide a name using an exact match
+
+This example removes the name "Alice Alaveteli" from messages relating to a
+specific request.
+
+* click on **Requests** in the admin and search or find the one you want 
+* click on the request's title to go to its page in the admin
+* scroll to the bottom: *Censor rules*
+* click **New censor rule** and fill in the form:
+   * leave _is it a regexp replacement_ unchecked because this is an exact-match word (but see the next example too)
+   * enter `Alice Alaveteli` as the "text you want to remove"
+   * enter `[name removed]` as the "replacement"
+   * add a comment which explains the reason for the redaction (this can be read by other admins, but isn't shown publicly)
+   * click on **Create**
+   
+The censor rule is created, and will be applied to any messages that are displayed in this request. If you look at the request's page in the admin,
+you can see this rule (and any other censor rules associated with it)
+along with the button for creating more.
+
+For example the text:
+
+    The witness is called Alice Alaveteli.
+
+becomes
+
+    The witness is called [name removed].
+
+But, because this replacement is case-sensitive, the name won't be redacted
+unless its case matches exactly (so `Alice` matches but `alice` does not). For
+example, the name would not be redacted from these examples:
+
+    The witness wore a T-shirt with the words ALICE ALAVETELI on it.
+    Her email is alice_alaveteli@example.com
+
+### Changing a censor rule to hide a name using a regular expression
+
+You can add more than one censor rule to the request. Alternatively, you can
+change one that you've already created. This example replaces "Alice"
+regardless of the case of the first letter, and even if it has double-l in the
+spelling.
+
+<div class="attention-box warning">
+   We recommend you <strong>do not</strong> use regular expressions unless you
+   really need them, because they can radically slow down the display of
+   requests on your site.
+</div>
+
+* click on **Requests** in the admin and search or find the one you want
+* click on the request's title to go to its page in the admin
+* scroll to the bottom: *Censor rules*
+* find the censor rule that finds `Alice` (from the previous example), click
+  **Edit** and fill in the form:
+   * tick the _is it a regexp replacement_ checkbox because this time it
+   is a <a href="{{ page.baseurl }}/docs/glossary/#regexp" class="glossary__link">regular expression</a>
+   * enter `[Aa]ll?ice(\s+|_)[Aa]laveteli` as the "text you want to remove"
+     * in the regexp, the `[Aa]` indicates any letters in the class listed,
+       in this case, `A` or `a`
+     * the `?` signifies that the preceding item (in this case, the second letter `l`) is optional, and may occur "one or zero times"
+     * `\s+` means "one or more whitespace characters"
+     * the arrangement of `()` and a vertical bar `|` here means "one or more whitepace characters or an underscore"
+   * keep `[name removed]` as the "replacement"
+   * update the comment which explains the reason for the modification (the
+     name is sometimes being spelt with a double L)
+   * click on **Create**
+
+This censor rule will match and replace the following examples:
+
+    Alice Alaveteli
+
+and 
+
+    Allice
+    Alaveteli
+
+(because the line break is considered as whitespace) and also 
+
+    alice_alaveteli
+    
+Note that if you can predict the specific text instead of using a regular
+expression, then you probably should. For example, if you expect the email to
+always be lower case, you could create a censor rule specifically to redact
+that in addition to one looking for an exact match on the capitalised name.
+This will probably always be more efficient than trying to capture many
+different things with a single regular expression.
+
+### Things to be careful about
+
+It's easy to make mistakes with regular expressions, so be cautious. Complex
+regular expressions are notoriously hard to decipher. But also remember that
+you are really _guessing_ how the incoming text will appear. If anything causes
+the pattern not to match, then the redaction will not happen. For example:
+
+* a phrase might break over more than one line &mdash; this becomes more
+  likely the longer the phrase you are searching for it
+* words may be hyphenated
+* some documents may break the text up with (for example) formatting or markup
+* writers may use alternative spellings, or mis-type words and names
+* as mentioned above, some binary formats can't be reliably redacted &mdash;
+  they need human intervention
 
 ## A detailed example
 
