@@ -22,6 +22,7 @@
 #  attention_requested       :boolean          default(FALSE)
 #  comments_allowed          :boolean          default(TRUE), not null
 #  info_request_batch_id     :integer
+#  last_public_response_at   :datetime
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
