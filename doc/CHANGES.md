@@ -15,6 +15,7 @@
   Rees).
 * Increased the maximum length of a track query and added a warning if
   this new limit is exceeded (Liz Conlan).
+* Refactor of `InfoRequest` (Liz Conlan).
 * Improved placeholder logo (Zarino Zappia).
 * Improve mobile layout on authority list page (Marting Wright).
 * Improve handling of associated records when destroying parents (Liz Conlan).
@@ -77,6 +78,15 @@
   will be removed in a future release. We've added contextually relevant
   classes to these elements. Please update your themes to ensure you're
   no longer using `link_button_green` for styling.
+* The `InfoRequest` methods `law_used_short`, `law_used_act` and `law_used_with_a`
+  have been deprecated and will be removed in a future release. The new method
+  `law_used_human` has been supplied instead which takes a key to access the
+  equivalent information of the original methods, e.g. `law_used_human(:full)`,
+  `law_used_human(:short)` etc. As the `law_used_with_a` functionality does not
+  appear to be in use, if you do still need this functionality in future you
+  may need to override the `LAW_USED_READABLE_DATA` hash to ensure it has a
+  `:with_a` key value pair for each law you are supporting before calling
+  `law_used_human(:with_a)`.
 * The install script `site-specific-install.sh` sets the default ruby to 1.9. You can do this manually with the same commands http://git.io/vlDpb
 * If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
   http://git.io/vlD1k

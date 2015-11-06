@@ -46,6 +46,7 @@ describe InfoRequest do
       expect_any_instance_of(InfoRequest).not_to receive(:law_used=).and_call_original
       InfoRequest.find(info_request.id)
     end
+
   end
 
   describe '.stop_new_responses_on_old_requests' do
@@ -286,6 +287,7 @@ describe InfoRequest do
         info_request.receive(email, raw_email, true)
         expect(info_request.incoming_messages.size).to eq(1)
       end
+
     end
 
     context 'handling rejected responses' do
@@ -574,17 +576,19 @@ describe InfoRequest do
       end
 
     end
+
   end
 
   describe '#destroy' do
+
     let(:info_request) { FactoryGirl.create(:info_request) }
 
-    it "should call update_counter_cache" do
+    it "calls update_counter_cache" do
       expect(info_request).to receive(:update_counter_cache)
       info_request.destroy
     end
 
-    it "should call expire" do
+    it "calls expire" do
       expect(info_request).to receive(:expire)
       info_request.destroy
     end
@@ -647,6 +651,7 @@ describe InfoRequest do
       info_request.destroy
       expect(UserInfoRequestSentAlert.where(:info_request_id => info_request.id)).to be_empty
     end
+
   end
 
   describe '#initial_request_text' do
@@ -666,39 +671,172 @@ describe InfoRequest do
 
   end
 
+  describe '#is_external?' do
+
+    it 'returns true if there is an external url' do
+      info_request = InfoRequest.new(:external_url => "demo_url")
+      expect(info_request.is_external?).to eq(true)
+    end
+
+    it 'returns false if there is not an external url' do
+      info_request = InfoRequest.new(:external_url => nil)
+      expect(info_request.is_external?).to eq(false)
+    end
+
+  end
+
+  describe 'when working out which law is in force' do
+
+    context 'when using FOI law' do
+
+      let(:info_request) { InfoRequest.new(:law_used => 'foi') }
+
+      it 'returns the expected law_used_full string' do
+        expect(info_request.law_used_human(:full)).to eq("Freedom of Information")
+      end
+
+      it 'returns the expected law_used_short string' do
+        expect(info_request.law_used_human(:short)).to eq("FOI")
+      end
+
+      it 'returns the expected law_used_act string' do
+        expect(info_request.law_used_human(:act)).to eq("Freedom of Information Act")
+      end
+
+      it 'raises an error when given an unknown key' do
+        expect{ info_request.law_used_human(:random) }.to raise_error.
+          with_message( "Unknown key 'random' for '#{info_request.law_used}'")
+      end
+
+    end
+
+    context 'when using EIR law' do
+
+      let(:info_request) { InfoRequest.new(:law_used => 'eir') }
+
+      it 'returns the expected law_used_full string' do
+        expect(info_request.law_used_human(:full)).to eq("Environmental Information Regulations")
+      end
+
+      it 'returns the expected law_used_short string' do
+        expect(info_request.law_used_human(:short)).to eq("EIR")
+      end
+
+      it 'returns the expected law_used_act string' do
+        expect(info_request.law_used_human(:act)).to eq("Environmental Information Regulations")
+      end
+
+      it 'raises an error when given an unknown key' do
+        expect{ info_request.law_used_human(:random) }.to raise_error.
+          with_message( "Unknown key 'random' for '#{info_request.law_used}'")
+      end
+
+    end
+
+    context 'when set to an unknown law' do
+
+      let(:info_request) { InfoRequest.new(:law_used => 'unknown') }
+
+      it 'raises an error when asked for law_used_full string' do
+        expect{ info_request.law_used_human(:full) }.to raise_error.
+          with_message("Unknown law used '#{info_request.law_used}'")
+      end
+
+      it 'raises an error when asked for law_used_short string' do
+        expect{ info_request.law_used_human(:short) }.to raise_error.
+          with_message("Unknown law used '#{info_request.law_used}'")
+      end
+
+      it 'raises an error when asked for law_used_act string' do
+        expect{ info_request.law_used_human(:act) }.to raise_error.
+          with_message("Unknown law used '#{info_request.law_used}'")
+      end
+
+      it 'raises an error when given an unknown key' do
+        expect{ info_request.law_used_human(:random) }.to raise_error.
+          with_message("Unknown law used '#{info_request.law_used}'")
+      end
+
+    end
+
+  end
+
   describe 'when validating' do
 
-    it 'should accept a summary with ascii characters' do
+    it 'requires a summary' do
+      info_request = InfoRequest.new
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include("Please enter a summary of your request")
+    end
+
+    it 'accepts a summary with ascii characters' do
       info_request = InfoRequest.new(:title => 'abcde')
       info_request.valid?
       expect(info_request.errors[:title]).to be_empty
     end
 
-    it 'should accept a summary with unicode characters' do
+    it 'accepts a summary with unicode characters' do
       info_request = InfoRequest.new(:title => 'кажете')
       info_request.valid?
       expect(info_request.errors[:title]).to be_empty
     end
 
-    it 'should not accept a summary with no ascii or unicode characters' do
+    it 'rejects a summary with no ascii or unicode characters' do
       info_request = InfoRequest.new(:title => '55555')
       info_request.valid?
-      expect(info_request.errors[:title]).not_to be_empty
+      expect(info_request.errors[:title]).
+        to include("Please write a summary with some text in it")
     end
 
-    it 'should require a public body id by default' do
+    it 'rejects a summary which is more than 200 chars long' do
+      info_request = InfoRequest.new(:title => 'Lorem ipsum ' * 17)
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include("Please keep the summary short, like in the subject of an " \
+                   "email. You can use a phrase, rather than a full sentence.")
+    end
+
+    it 'rejects a summary that just says "FOI requests"' do
+      info_request = InfoRequest.new(:title => 'FOI requests')
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include("Please describe more what the request is about in the " \
+                   "subject. There is no need to say it is an FOI request, " \
+                   "we add that on anyway.")
+    end
+
+    it 'rejects a summary that just says "Freedom of Information request"' do
+      info_request = InfoRequest.new(:title => 'Freedom of Information request')
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include("Please describe more what the request is about in the " \
+                   "subject. There is no need to say it is an FOI request, " \
+                   "we add that on anyway.")
+    end
+
+    it 'rejects a summary which is not a mix of upper and lower case' do
+      info_request = InfoRequest.new(:title => 'lorem ipsum')
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include("Please write the summary using a mixture of capital and " \
+                   "lower case letters. This makes it easier for others to read.")
+    end
+
+    it 'requires a public body id by default' do
       info_request = InfoRequest.new
       info_request.valid?
-      expect(info_request.errors[:public_body_id]).not_to be_empty
+      expect(info_request.errors[:public_body_id]).to include("can't be blank")
     end
 
-    it 'should not require a public body id if it is a batch request template' do
+    it 'does not require a public body id if it is a batch request template' do
       info_request = InfoRequest.new
       info_request.is_batch_request_template = true
 
       info_request.valid?
       expect(info_request.errors[:public_body_id]).to be_empty
     end
+
   end
 
   describe 'when generating a user name slug' do
@@ -724,7 +862,7 @@ describe InfoRequest do
       load_raw_emails_data
     end
 
-    it 'should compute a hash' do
+    it 'computes a hash' do
       @info_request = InfoRequest.new(:title => "testing",
                                       :public_body => public_bodies(:geraldine_public_body),
                                       :user_id => 1)
@@ -732,7 +870,7 @@ describe InfoRequest do
       expect(@info_request.idhash).not_to eq(nil)
     end
 
-    it 'should find a request based on an email with an intact id and a broken hash' do
+    it 'finds a request based on an email with an intact id and a broken hash' do
       ir = info_requests(:fancy_dog_request)
       id = ir.id
       @im.mail.to = "request-#{id}-asdfg@example.com"
@@ -740,7 +878,7 @@ describe InfoRequest do
       expect(guessed[0].idhash).to eq(ir.idhash)
     end
 
-    it 'should find a request based on an email with a broken id and an intact hash' do
+    it 'finds a request based on an email with a broken id and an intact hash' do
       ir = info_requests(:fancy_dog_request)
       idhash = ir.idhash
       @im.mail.to = "request-123ab-#{idhash}@example.com"
@@ -751,19 +889,21 @@ describe InfoRequest do
   end
 
   describe "making up the URL title" do
+
     before do
       @info_request = InfoRequest.new
     end
 
-    it 'should remove spaces, and make lower case' do
+    it 'removes spaces, and makes lower case' do
       @info_request.title = 'Something True'
       expect(@info_request.url_title).to eq('something_true')
     end
 
-    it 'should not allow a numeric title' do
+    it 'does not allow a numeric title' do
       @info_request.title = '1234'
       expect(@info_request.url_title).to eq('request')
     end
+
   end
 
   describe "when asked for the last event id that needs description" do
@@ -772,14 +912,14 @@ describe InfoRequest do
       @info_request = InfoRequest.new
     end
 
-    it 'should return the last undescribed event id if there is one' do
+    it 'returns the last undescribed event id if there is one' do
       last_mock_event = mock_model(InfoRequestEvent)
       other_mock_event = mock_model(InfoRequestEvent)
       allow(@info_request).to receive(:events_needing_description).and_return([other_mock_event, last_mock_event])
       expect(@info_request.last_event_id_needing_description).to eq(last_mock_event.id)
     end
 
-    it 'should return zero if there are no undescribed events' do
+    it 'returns zero if there are no undescribed events' do
       allow(@info_request).to receive(:events_needing_description).and_return([])
       expect(@info_request.last_event_id_needing_description).to eq(0)
     end
@@ -787,59 +927,60 @@ describe InfoRequest do
   end
 
   describe 'when managing the cache directories' do
+
     before do
       @info_request = info_requests(:fancy_dog_request)
     end
 
-    it 'should return the default locale cache path without locale parts' do
+    it 'returns the default locale cache path without locale parts' do
       default_locale_path = File.join(Rails.root, 'cache', 'views', 'request', '101', '101')
       expect(@info_request.foi_fragment_cache_directories.include?(default_locale_path)).to eq(true)
     end
 
-    it 'should return the cache path for any other locales' do
+    it 'returns the cache path for any other locales' do
       other_locale_path =  File.join(Rails.root, 'cache', 'views', 'es', 'request', '101', '101')
       expect(@info_request.foi_fragment_cache_directories.include?(other_locale_path)).to eq(true)
     end
 
   end
 
-  describe " when emailing" do
+  describe "when emailing" do
 
     before do
       @info_request = info_requests(:fancy_dog_request)
     end
 
-    it "should have a valid incoming email" do
+    it "has a valid incoming email" do
       expect(@info_request.incoming_email).not_to be_nil
     end
 
-    it "should have a sensible incoming name and email" do
+    it "has a sensible incoming name and email" do
       expect(@info_request.incoming_name_and_email).to eq("Bob Smith <" + @info_request.incoming_email + ">")
     end
 
-    it "should have a sensible recipient name and email" do
+    it "has a sensible recipient name and email" do
       expect(@info_request.recipient_name_and_email).to eq("FOI requests at TGQ <geraldine-requests@localhost>")
     end
 
-    it "should recognise its own incoming email" do
+    it "recognises its own incoming email" do
       incoming_email = @info_request.incoming_email
       found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
       expect(found_info_request).to eq(@info_request)
     end
 
-    it "should recognise its own incoming email with some capitalisation" do
+    it "recognises its own incoming email with some capitalisation" do
       incoming_email = @info_request.incoming_email.gsub(/request/, "Request")
       found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
       expect(found_info_request).to eq(@info_request)
     end
 
-    it "should recognise its own incoming email with quotes" do
+    it "recognises its own incoming email with quotes" do
       incoming_email = "'" + @info_request.incoming_email + "'"
       found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
       expect(found_info_request).to eq(@info_request)
     end
 
-    it "should recognise l and 1 as the same in incoming emails" do
+    it "recognises l and 1 as the same in incoming emails" do
       # Make info request with a 1 in it
       while true
         ir = InfoRequest.new(:title => "testing", :public_body => public_bodies(:geraldine_public_body),
@@ -859,19 +1000,19 @@ describe InfoRequest do
       expect(found_info_request).to eq(ir)
     end
 
-    it "should recognise old style request-bounce- addresses" do
+    it "recognises old style request-bounce- addresses" do
       incoming_email = @info_request.magic_email("request-bounce-")
       found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
       expect(found_info_request).to eq(@info_request)
     end
 
-    it "should return nil when receiving email for a deleted request" do
+    it "returns nil when receiving email for a deleted request" do
       deleted_request_address = InfoRequest.magic_email_for_id("request-", 98765)
       found_info_request = InfoRequest.find_by_incoming_email(deleted_request_address)
       expect(found_info_request).to be_nil
     end
 
-    it "should cope with indexing after item is deleted" do
+    it "copes with indexing after item is deleted" do
       load_raw_emails_data
       IncomingMessage.find(:all).each{|x| x.parse_raw_email!}
       rebuild_xapian_index
@@ -920,8 +1061,8 @@ describe InfoRequest do
       allow(Time).to receive(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
       expect(@ir.calculate_status).to eq('waiting_response_very_overdue')
     end
-  end
 
+  end
 
   describe "when using a plugin and calculating the status" do
 
@@ -955,7 +1096,6 @@ describe InfoRequest do
     end
 
   end
-
 
   describe "when calculating the status for a school" do
 
@@ -1006,6 +1146,7 @@ describe InfoRequest do
       allow(Time).to receive(:now).and_return(Time.utc(2008, 01, 12, 00, 01))
       expect(@ir.calculate_status).to eq('waiting_response_very_overdue')
     end
+
   end
 
   describe 'when asked if a user is the owning user for this request' do
@@ -1016,20 +1157,20 @@ describe InfoRequest do
       @other_mock_user = mock_model(User)
     end
 
-    it 'should return false if a nil object is passed to it' do
+    it 'returns false if a nil object is passed to it' do
       expect(@info_request.is_owning_user?(nil)).to be false
     end
 
-    it 'should return true if the user is the request\'s owner' do
+    it 'returns true if the user is the request\'s owner' do
       expect(@info_request.is_owning_user?(@mock_user)).to be true
     end
 
-    it 'should return false for a user that is not the owner and does not own every request' do
+    it 'returns false for a user that is not the owner and does not own every request' do
       allow(@other_mock_user).to receive(:owns_every_request?).and_return(false)
       expect(@info_request.is_owning_user?(@other_mock_user)).to be false
     end
 
-    it 'should return true if the user is not the owner but owns every request' do
+    it 'returns true if the user is not the owner but owns every request' do
       allow(@other_mock_user).to receive(:owns_every_request?).and_return(true)
       expect(@info_request.is_owning_user?(@other_mock_user)).to be true
     end
@@ -1043,17 +1184,17 @@ describe InfoRequest do
       @info_request = InfoRequest.new
     end
 
-    it 'should return true if its described state is error_message' do
+    it 'returns true if its described state is error_message' do
       @info_request.described_state = 'error_message'
       expect(@info_request.requires_admin?).to be true
     end
 
-    it 'should return true if its described state is requires_admin' do
+    it 'returns true if its described state is requires_admin' do
       @info_request.described_state = 'requires_admin'
       expect(@info_request.requires_admin?).to be true
     end
 
-    it 'should return false if its described state is waiting_response' do
+    it 'returns false if its described state is waiting_response' do
       @info_request.described_state = 'waiting_response'
       expect(@info_request.requires_admin?).to be false
     end
@@ -1066,7 +1207,7 @@ describe InfoRequest do
       allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
     end
 
-    it 'should ask for requests using any limit param supplied' do
+    it 'asks for requests using any limit param supplied' do
       expect(InfoRequest).to receive(:find).with(:all, {:select => anything,
                                                     :order => anything,
                                                     :conditions=> anything,
@@ -1074,7 +1215,7 @@ describe InfoRequest do
       InfoRequest.find_old_unclassified(:limit => 5)
     end
 
-    it 'should ask for requests using any offset param supplied' do
+    it 'asks for requests using any offset param supplied' do
       expect(InfoRequest).to receive(:find).with(:all, {:select => anything,
                                                     :order => anything,
                                                     :conditions=> anything,
@@ -1082,7 +1223,7 @@ describe InfoRequest do
       InfoRequest.find_old_unclassified(:offset => 100)
     end
 
-    it 'should not limit the number of requests returned by default' do
+    it 'does not limit the number of requests returned by default' do
       expect(InfoRequest).not_to receive(:find).with(:all, {:select => anything,
                                                         :order => anything,
                                                         :conditions=> anything,
@@ -1090,7 +1231,7 @@ describe InfoRequest do
       InfoRequest.find_old_unclassified
     end
 
-    it 'should add extra conditions if supplied' do
+    it 'adds extra conditions if supplied' do
       expected_conditions = ["awaiting_description = ?
                                     AND (SELECT info_request_events.created_at
                                          FROM info_request_events, incoming_messages
@@ -1112,7 +1253,7 @@ describe InfoRequest do
       InfoRequest.find_old_unclassified({:conditions => ["prominence != 'backpage'"]})
     end
 
-    it 'should ask the database for requests that are awaiting description, have a last public response older
+    it 'asks the database for requests that are awaiting description, have a last public response older
         than 21 days old, have a user, are not the holding pen and are not backpaged' do
       expected_conditions = ["awaiting_description = ?
                                     AND (SELECT info_request_events.created_at
@@ -1147,7 +1288,7 @@ describe InfoRequest do
 
   describe 'when asked for random old unclassified requests with normal prominence' do
 
-    it "should not return requests that don't have normal prominence" do
+    it "does not return requests that don't have normal prominence" do
       dog_request = info_requests(:fancy_dog_request)
       old_unclassified = InfoRequest.get_random_old_unclassified(1, :conditions => ["prominence = 'normal'"])
       expect(old_unclassified.length).to eq(1)
@@ -1166,7 +1307,7 @@ describe InfoRequest do
 
   describe 'when asked to count old unclassified requests with normal prominence' do
 
-    it "should not return requests that don't have normal prominence" do
+    it "does not return requests that don't have normal prominence" do
       dog_request = info_requests(:fancy_dog_request)
       old_unclassified = InfoRequest.count_old_unclassified(:conditions => ["prominence = 'normal'"])
       expect(old_unclassified).to eq(1)
@@ -1204,22 +1345,22 @@ describe InfoRequest do
       @info_request.update_attribute(:awaiting_description, true)
     end
 
-    it 'should return false if it is the holding pen' do
+    it 'returns false if it is the holding pen' do
       allow(@info_request).to receive(:url_title).and_return('holding_pen')
       expect(@info_request.is_old_unclassified?).to be false
     end
 
-    it 'should return false if it is not awaiting description' do
+    it 'returns false if it is not awaiting description' do
       allow(@info_request).to receive(:awaiting_description).and_return(false)
       expect(@info_request.is_old_unclassified?).to be false
     end
 
-    it 'should return false if its last response event occurred less than 21 days ago' do
+    it 'returns false if its last response event occurred less than 21 days ago' do
       @response_event.update_attribute(:created_at, Time.now - 20.days)
       expect(@info_request.is_old_unclassified?).to be false
     end
 
-    it 'should return true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do
+    it 'returns true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do
       expect(@info_request.is_external? || @info_request.is_old_unclassified?).to be true
     end
 
@@ -1250,32 +1391,32 @@ describe InfoRequest do
 
     context "when applying censor rules to text" do
 
-      it "should apply a global censor rule" do
+      it "applies a global censor rule" do
         expect(@global_rule).to receive(:apply_to_text!).with(@text)
         @info_request.apply_censor_rules_to_text!(@text)
       end
 
-      it 'should apply a user rule' do
+      it 'applies a user rule' do
         expect(@user_rule).to receive(:apply_to_text!).with(@text)
         @info_request.apply_censor_rules_to_text!(@text)
       end
 
-      it 'should not raise an error if there is no user' do
+      it 'does not raise an error if there is no user' do
         @info_request.user_id = nil
         expect{ @info_request.apply_censor_rules_to_text!(@text) }.not_to raise_error
       end
 
-      it 'should apply a rule from the body associated with the request' do
+      it 'applies a rule from the body associated with the request' do
         expect(@body_rule).to receive(:apply_to_text!).with(@text)
         @info_request.apply_censor_rules_to_text!(@text)
       end
 
-      it 'should apply a request rule' do
+      it 'applies a request rule' do
         expect(@request_rule).to receive(:apply_to_text!).with(@text)
         @info_request.apply_censor_rules_to_text!(@text)
       end
 
-      it 'should not raise an error if the request is a batch request template' do
+      it 'does not raise an error if the request is a batch request template' do
         allow(@info_request).to receive(:public_body).and_return(nil)
         @info_request.is_batch_request_template = true
         expect{ @info_request.apply_censor_rules_to_text!(@text) }.not_to raise_error
@@ -1285,27 +1426,27 @@ describe InfoRequest do
 
     context 'when applying censor rules to binary files' do
 
-      it "should apply a global censor rule" do
+      it "applies a global censor rule" do
         expect(@global_rule).to receive(:apply_to_binary!).with(@text)
         @info_request.apply_censor_rules_to_binary!(@text)
       end
 
-      it 'should apply a user rule' do
+      it 'applies a user rule' do
         expect(@user_rule).to receive(:apply_to_binary!).with(@text)
         @info_request.apply_censor_rules_to_binary!(@text)
       end
 
-      it 'should not raise an error if there is no user' do
+      it 'does not raise an error if there is no user' do
         @info_request.user_id = nil
         expect{ @info_request.apply_censor_rules_to_binary!(@text) }.not_to raise_error
       end
 
-      it 'should apply a rule from the body associated with the request' do
+      it 'applies a rule from the body associated with the request' do
         expect(@body_rule).to receive(:apply_to_binary!).with(@text)
         @info_request.apply_censor_rules_to_binary!(@text)
       end
 
-      it 'should apply a request rule' do
+      it 'applies a request rule' do
         expect(@request_rule).to receive(:apply_to_binary!).with(@text)
         @info_request.apply_censor_rules_to_binary!(@text)
       end
@@ -1320,25 +1461,26 @@ describe InfoRequest do
       @info_request = InfoRequest.new
     end
 
-    it 'should return true if its prominence is normal' do
+    it 'returns true if its prominence is normal' do
       @info_request.prominence = 'normal'
       expect(@info_request.all_can_view?).to eq(true)
     end
 
-    it 'should return true if its prominence is backpage' do
+    it 'returns true if its prominence is backpage' do
       @info_request.prominence = 'backpage'
       expect(@info_request.all_can_view?).to eq(true)
     end
 
-    it 'should return false if its prominence is hidden' do
+    it 'returns false if its prominence is hidden' do
       @info_request.prominence = 'hidden'
       expect(@info_request.all_can_view?).to eq(false)
     end
 
-    it 'should return false if its prominence is requester_only' do
+    it 'returns false if its prominence is requester_only' do
       @info_request.prominence = 'requester_only'
       expect(@info_request.all_can_view?).to eq(false)
     end
+
   end
 
   describe 'when asked for the last public response event' do
@@ -1348,23 +1490,24 @@ describe InfoRequest do
       @incoming_message = @info_request.incoming_messages.first
     end
 
-    it 'should not return an event with a hidden prominence message' do
+    it 'does not return an event with a hidden prominence message' do
       @incoming_message.prominence = 'hidden'
       @incoming_message.save!
       expect(@info_request.get_last_public_response_event).to eq(nil)
     end
 
-    it 'should not return an event with a requester_only prominence message' do
+    it 'does not return an event with a requester_only prominence message' do
       @incoming_message.prominence = 'requester_only'
       @incoming_message.save!
       expect(@info_request.get_last_public_response_event).to eq(nil)
     end
 
-    it 'should return an event with a normal prominence message' do
+    it 'returns an event with a normal prominence message' do
       @incoming_message.prominence = 'normal'
       @incoming_message.save!
       expect(@info_request.get_last_public_response_event).to eq(@incoming_message.response_event)
     end
+
   end
 
   describe 'when asked for the last public outgoing event' do
@@ -1374,19 +1517,19 @@ describe InfoRequest do
       @outgoing_message = @info_request.outgoing_messages.first
     end
 
-    it 'should not return an event with a hidden prominence message' do
+    it 'does not return an event with a hidden prominence message' do
       @outgoing_message.prominence = 'hidden'
       @outgoing_message.save!
       expect(@info_request.get_last_public_outgoing_event).to eq(nil)
     end
 
-    it 'should not return an event with a requester_only prominence message' do
+    it 'does not return an event with a requester_only prominence message' do
       @outgoing_message.prominence = 'requester_only'
       @outgoing_message.save!
       expect(@info_request.get_last_public_outgoing_event).to eq(nil)
     end
 
-    it 'should return an event with a normal prominence message' do
+    it 'returns an event with a normal prominence message' do
       @outgoing_message.prominence = 'normal'
       @outgoing_message.save!
       expect(@info_request.get_last_public_outgoing_event).to eq(@outgoing_message.info_request_events.first)
@@ -1402,7 +1545,7 @@ describe InfoRequest do
       @public_body = @info_request.public_body
     end
 
-    it 'should not include details from a hidden prominence response' do
+    it 'does not include details from a hidden prominence response' do
       @incoming_message.prominence = 'hidden'
       @incoming_message.save!
       expect(@info_request.who_can_followup_to).to eq([[@public_body.name,
@@ -1410,7 +1553,7 @@ describe InfoRequest do
                                                     nil]])
     end
 
-    it 'should not include details from a requester_only prominence response' do
+    it 'does not include details from a requester_only prominence response' do
       @incoming_message.prominence = 'requester_only'
       @incoming_message.save!
       expect(@info_request.who_can_followup_to).to eq([[@public_body.name,
@@ -1418,7 +1561,7 @@ describe InfoRequest do
                                                     nil]])
     end
 
-    it 'should include details from a normal prominence response' do
+    it 'includes details from a normal prominence response' do
       @incoming_message.prominence = 'normal'
       @incoming_message.save!
       expect(@info_request.who_can_followup_to).to eq([[@public_body.name,
@@ -1441,7 +1584,7 @@ describe InfoRequest do
                                                   :about_me => 'Hi' })
     end
 
-    it 'should return full user info for an internal request' do
+    it 'returns full user info for an internal request' do
       @info_request = InfoRequest.new(:user => @user)
       expect(@info_request.user_json_for_api).to eq({ :id => 20,
                                                   :url_name => 'alaveteli_user',
@@ -1449,11 +1592,12 @@ describe InfoRequest do
                                                   :ban_text => '',
                                                   :about_me => 'Hi' })
     end
+
   end
 
   describe 'when working out a subject for request emails' do
 
-    it 'should create a standard request subject' do
+    it 'creates a standard request subject' do
       info_request = FactoryGirl.build(:info_request)
       expected_text = "Freedom of Information request - #{info_request.title}"
       expect(info_request.email_subject_request).to eq(expected_text)
@@ -1463,7 +1607,7 @@ describe InfoRequest do
 
   describe 'when working out a subject for a followup emails' do
 
-    it "should not be confused by an nil subject in the incoming message" do
+    it "is not confused by an nil subject in the incoming message" do
       ir = info_requests(:fancy_dog_request)
       im = mock_model(IncomingMessage,
                       :subject => nil,
@@ -1472,25 +1616,30 @@ describe InfoRequest do
       expect(subject).to match(/^Re: Freedom of Information request.*fancy dog/)
     end
 
-    it "should return a hash with the user's name for an external request" do
+    it "returns a hash with the user's name for an external request" do
       @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
                                       :external_user_name => 'External User')
       expect(@info_request.user_json_for_api).to eq({:name => 'External User'})
     end
 
-    it 'should return "Anonymous user" for an anonymous external user' do
+    it 'returns "Anonymous user" for an anonymous external user' do
       @info_request = InfoRequest.new(:external_url => 'http://www.example.com')
       expect(@info_request.user_json_for_api).to eq({:name => 'Anonymous user'})
     end
+
   end
+
   describe "#set_described_state and #log_event" do
+
     context "a request" do
+
       let(:request) { InfoRequest.create!(:title => "my request",
                                           :public_body => public_bodies(:geraldine_public_body),
                                           :user => users(:bob_smith_user)) }
 
       context "a series of events on a request" do
-        it "should have sensible events after the initial request has been made" do
+
+        it "has sensible events after the initial request has been made" do
           # An initial request is sent
           # FIXME: The logic that changes the status when a message
           # is sent is mixed up in
@@ -1507,7 +1656,7 @@ describe InfoRequest do
           expect(events[0].calculated_state).to eq("waiting_response")
         end
 
-        it "should have sensible events after a response is received to a request" do
+        it "has sensible events after a response is received to a request" do
           # An initial request is sent
           request.log_event('sent', {})
           request.set_described_state('waiting_response')
@@ -1529,7 +1678,7 @@ describe InfoRequest do
           expect(events[1].calculated_state).to be_nil
         end
 
-        it "should have sensible events after a request is classified by the requesting user" do
+        it "has sensible events after a request is classified by the requesting user" do
           # An initial request is sent
           request.log_event('sent', {})
           request.set_described_state('waiting_response')
@@ -1554,7 +1703,7 @@ describe InfoRequest do
           expect(events[2].calculated_state).to eq("waiting_response")
         end
 
-        it "should have sensible events after a normal followup is sent" do
+        it "has sensible events after a normal followup is sent" do
           # An initial request is sent
           request.log_event('sent', {})
           request.set_described_state('waiting_response')
@@ -1586,7 +1735,7 @@ describe InfoRequest do
           expect(events[3].calculated_state).to eq("waiting_response")
         end
 
-        it "should have sensible events after a user classifies the request after a follow up" do
+        it "has sensible events after a user classifies the request after a follow up" do
           # An initial request is sent
           request.log_event('sent', {})
           request.set_described_state('waiting_response')
@@ -1621,10 +1770,12 @@ describe InfoRequest do
           expect(events[4].described_state).to eq("waiting_response")
           expect(events[4].calculated_state).to eq("waiting_response")
         end
+
       end
 
       context "another series of events on a request" do
-        it "should have sensible event states" do
+
+        it "has sensible event states" do
           # An initial request is sent
           request.log_event('sent', {})
           request.set_described_state('waiting_response')
@@ -1642,7 +1793,7 @@ describe InfoRequest do
           expect(events[1].calculated_state).to eq("internal_review")
         end
 
-        it "should have sensible event states" do
+        it "has sensible event states" do
           # An initial request is sent
           request.log_event('sent', {})
           request.set_described_state('waiting_response')
@@ -1665,10 +1816,12 @@ describe InfoRequest do
           expect(events[2].described_state).to eq("rejected")
           expect(events[2].calculated_state).to eq("rejected")
         end
+
       end
 
       context "another series of events on a request" do
-        it "should have sensible event states" do
+
+        it "has sensible event states" do
           # An initial request is sent
           request.log_event('sent', {})
           request.set_described_state('waiting_response')
@@ -1687,7 +1840,7 @@ describe InfoRequest do
           expect(events[1].calculated_state).to eq("successful")
         end
 
-        it "should have sensible event states" do
+        it "has sensible event states" do
           # An initial request is sent
           request.log_event('sent', {})
           request.set_described_state('waiting_response')
@@ -1712,10 +1865,12 @@ describe InfoRequest do
           expect(events[2].described_state).to eq("successful")
           expect(events[2].calculated_state).to eq("successful")
         end
+
       end
 
       context "another series of events on a request" do
-        it "should have sensible event states" do
+
+        it "has sensible event states" do
           # An initial request is sent
           request.log_event('sent', {})
           request.set_described_state('waiting_response')
@@ -1733,8 +1888,11 @@ describe InfoRequest do
           expect(events[1].described_state).to eq("gone_postal")
           expect(events[1].calculated_state).to eq("gone_postal")
         end
+
       end
+
     end
+
   end
 
   describe 'when saving an info_request' do
@@ -1746,7 +1904,7 @@ describe InfoRequest do
                                       :public_body => public_bodies(:geraldine_public_body))
     end
 
-    it "should call purge_in_cache and update_counter_cache" do
+    it "calls purge_in_cache and update_counter_cache" do
       # Twice - once for save, once for destroy:
       expect(@info_request).to receive(:purge_in_cache).twice
       expect(@info_request).to receive(:update_counter_cache).twice
@@ -1756,11 +1914,9 @@ describe InfoRequest do
 
   end
 
-
-
   describe 'when changing a described_state' do
 
-    it "should change the counts on its PublicBody without saving a new version" do
+    it "changes the counts on its PublicBody without saving a new version" do
       pb = public_bodies(:geraldine_public_body)
       old_version_count = pb.versions.count
       old_successful_count = pb.info_requests_successful_count
@@ -1791,10 +1947,12 @@ describe InfoRequest do
       expect(pb.info_requests_visible_count).to eq(old_visible_count)
       expect(pb.versions.count).to eq(old_version_count)
     end
+
   end
 
   describe 'when changing prominence' do
-    it "should change the counts on its PublicBody without saving a new version" do
+
+    it "changes the counts on its PublicBody without saving a new version" do
       pb = public_bodies(:geraldine_public_body)
       old_version_count = pb.versions.count
       old_successful_count = pb.info_requests_successful_count
@@ -1828,6 +1986,7 @@ describe InfoRequest do
       expect(pb.info_requests_visible_count).to eq(old_visible_count)
       expect(pb.versions.count).to eq(old_version_count)
     end
+
   end
 
   describe InfoRequest, 'when getting similar requests' do
@@ -1836,12 +1995,12 @@ describe InfoRequest do
       get_fixtures_xapian_index
     end
 
-    it 'should return similar requests' do
+    it 'returns similar requests' do
       similar, more = info_requests(:spam_1_request).similar_requests(1)
       expect(similar.results.first[:model].info_request).to eq(info_requests(:spam_2_request))
     end
 
-    it 'should return a flag set to true' do
+    it 'returns a flag set to true' do
       similar, more = info_requests(:spam_1_request).similar_requests(1)
       expect(more).to be true
     end
@@ -1856,8 +2015,8 @@ describe InfoRequest do
 
     describe 'when there are fewer than five successful requests' do
 
-      it 'should list the most recently sent and successful requests by the creation date of the
-                request event' do
+      it 'lists the most recently sent and successful requests by the creation
+                date of the request event' do
         # Make sure the newest response is listed first even if a request
         # with an older response has a newer comment or was reclassified more recently:
         # https://github.com/mysociety/alaveteli/issues/370
@@ -1877,13 +2036,16 @@ describe InfoRequest do
           end
           previous = event
         end
+
       end
+
     end
 
-    it 'should coalesce duplicate requests' do
+    it 'coalesces duplicate requests' do
       request_events, request_events_all_successful = InfoRequest.recent_requests
       expect(request_events.map(&:info_request).select{|x|x.url_title =~ /^spam/}.length).to eq(1)
     end
+
   end
 
   describe InfoRequest, "when constructing a list of requests by query" do
@@ -1898,7 +2060,7 @@ describe InfoRequest do
       results[:results].map(&:info_request)
     end
 
-    it "should filter requests" do
+    it "filters requests" do
       expect(apply_filters(:latest_status => 'all')).to match_array(InfoRequest.all)
 
       # default sort order is the request with the most recently created event first
@@ -1921,10 +2083,9 @@ describe InfoRequest do
                     )
                     AND info_request_events.described_state IN ('successful', 'partially_successful')
                 )"))
-
     end
 
-    it "should filter requests by date" do
+    it "filters requests by date" do
       # The semantics of the search are that it finds any InfoRequest
       # that has any InfoRequestEvent created in the specified range
       filters = {:latest_status => 'all', :request_date_before => '13/10/2007'}
@@ -1949,9 +2110,7 @@ describe InfoRequest do
                                        AND '2007-11-01'::date)"))
     end
 
-
-    it "should list internal_review requests as unresolved ones" do
-
+    it "lists internal_review requests as unresolved ones" do
       # This doesn’t precisely duplicate the logic of the actual
       # query, but it is close enough to give the same result with
       # the current set of test data.
@@ -1968,7 +2127,6 @@ describe InfoRequest do
                         where later_events.created_at > info_request_events.created_at
                         and later_events.info_request_id = info_request_events.info_request_id
                     ))"))
-
 
       expect(results.include?(info_requests(:fancy_dog_request))).to eq(false)
 
