@@ -336,6 +336,32 @@ end
 
 describe 'when getting attachment attributes' do
 
+  it 'should handle an Outlook attachment with HTML generated from RTF' do
+    mail = get_fixture_mail('outlook-encoding-rtf.email')
+    attribute_hashes = MailHandler.get_attachment_attributes(mail)
+    attribute_hashes.each do |attribute_hash|
+      if attribute_hash[:body].respond_to?(:valid_encoding)
+        attribute_hash[:body].valid_encoding?.should be_true
+      end
+    end
+  end
+
+  it 'should handle an Outlook attachment with multiple attachments' do
+    mail = get_fixture_mail('outlook-encoding-multiple.email')
+    attribute_hashes = MailHandler.get_attachment_attributes(mail)
+    attribute_hashes.each do |attribute_hash|
+      if attribute_hash[:body].respond_to?(:valid_encoding)
+        attribute_hash[:body].valid_encoding?.should be_true
+      end
+    end
+  end
+
+  it 'should handle a UTF-7 mail' do
+    mail = get_fixture_mail('utf-7-conversion.email')
+    attributes = MailHandler.get_attachment_attributes(mail)
+    attributes.size.should == 3
+  end
+
   it 'should handle a mail with a non-multipart part with no charset in the Content-Type header' do
     mail = get_fixture_mail('part-without-charset-in-content-type.email')
     attributes = MailHandler.get_attachment_attributes(mail)
@@ -516,6 +542,7 @@ describe 'when getting attachment attributes' do
       expect(attr).to eq(expected_attributes[index])
     end
   end
+
 end
 
 describe 'when getting the address part from an address string' do

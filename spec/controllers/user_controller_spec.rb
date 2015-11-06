@@ -673,7 +673,8 @@ describe UserController, "when changing email address" do
     deliveries = ActionMailer::Base.deliveries
     expect(deliveries.size).to  eq(1)
     mail = deliveries[0]
-    expect(mail.body).to include("confirm that you want to \nchange")
+
+    expect(mail.body).to include("confirm that you want to change")
     expect(mail.to).to eq([ 'newbob@localhost' ])
 
     mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/

@@ -1,9 +1,10 @@
 <h2>
-  <%= _("Search over<br/>
-  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>
-  <strong>{{number_of_authorities}} authorities</strong>",
-  :number_of_requests => number_with_delimiter(InfoRequest.visible.count),
-  :number_of_authorities => number_with_delimiter(PublicBody.visible.count)) %>
+  <%= _("Search over<br/>" \
+        "<strong>{{number_of_requests}} requests</strong> " \
+        "<span>and</span><br/>" \
+        "<strong>{{number_of_authorities}} authorities</strong>",
+       :number_of_requests => number_with_delimiter(InfoRequest.visible.count),
+       :number_of_authorities => number_with_delimiter(PublicBody.visible.count)) %>
 </h2>
 <form id="search_form" class="search_form" method="get" action="<%= search_redirect_path %>">
   <div>
