@@ -271,6 +271,19 @@ class InfoRequest < ActiveRecord::Base
     update_url_title
   end
 
+  # Public: url_title attribute reader
+  #
+  # opts - Hash of options (default: {})
+  #        :collapse - Set true to strip the numeric section. Use this to group
+  #                    lots of similar requests by url_title.
+  #
+  # Returns a String
+  def url_title(opts = {})
+    _url_title = super()
+    return _url_title.gsub(/[_0-9]+$/, "") if opts[:collapse]
+    _url_title
+  end
+
   def update_url_title
     url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
     # For request with same title as others, add on arbitary numeric identifier

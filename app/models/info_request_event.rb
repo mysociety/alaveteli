@@ -143,11 +143,7 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def request_title_collapse
-    url_title = info_request.url_title
-    # remove numeric section from the end, use this to group lots
-    # of similar requests by
-    url_title = url_title.gsub(/[_0-9]+$/, "")
-    url_title
+    info_request.url_title(:collapse => true)
   end
 
   def described_at

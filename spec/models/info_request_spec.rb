@@ -487,6 +487,18 @@ describe InfoRequest do
 
   end
 
+  describe "#url_title" do
+    let(:request) { FactoryGirl.create(:info_request, :title => "Test 101") }
+
+    it "returns the url_title" do
+      expect(request.url_title).to eq('test_101')
+    end
+
+    it "collapses the url title if requested" do
+      expect(request.url_title(:collapse => true)).to eq("test")
+    end
+  end
+
   describe '#move_to_public_body' do
 
     context 'with no options' do
