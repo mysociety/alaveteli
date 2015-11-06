@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-12 11:00+0000\n"
-"PO-Revision-Date: 2015-09-04 14:24+0000\n"
+"PO-Revision-Date: 2015-10-05 17:58+0000\n"
 "Last-Translator: Lu Pa <lupa@inventati.org>\n"
 "Language-Team: Spanish (Paraguay) (http://www.transifex.com/mysociety/alaveteli/language/es_PY/)\n"
 "Language: es_PY\n"
@@ -525,7 +525,7 @@ msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for
 msgstr "Explora <a href='{{url}}'>otras solicitudes</a> a '{{public_body_name}}' para ver ejemplos de cómo redactar tu solicitud."
 
 msgid "Browse all authorities..."
-msgstr "Explorá otros entidades públicas..."
+msgstr "Explorá otras entidades públicas..."
 
 msgid "Browse and search requests"
 msgstr "Ver y buscar solicitudes"
@@ -543,7 +543,7 @@ msgid "Calculated home page"
 msgstr "Dirección web supuesta"
 
 msgid "Can't find the one you want?"
-msgstr "¿No encuentra el que busca?"
+msgstr "¿No encontrás lo que estás buscando?"
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "Cancele una alerta de {{site_name}}"
@@ -2401,7 +2401,7 @@ msgid "Search results"
 msgstr "Resultados de la búsqueda"
 
 msgid "Search the site to find what you were looking for."
-msgstr "Buscar en esta web para encontrar lo que busca."
+msgstr "Para encontrar lo que estás buscando, hacelo en esta web."
 
 msgid "Search your contributions"
 msgstr "Busca tus aportaciones"
@@ -2484,7 +2484,7 @@ msgid "Sign out"
 msgstr "Cerrar sesión"
 
 msgid "Sign up"
-msgstr "Iniciar cesión "
+msgstr "Iniciar sesión "
 
 msgid "Similar requests"
 msgstr "Solicitudes similares"

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Translators:
+# codefornepal <codefornepal@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-12 11:00+0000\n"
-"PO-Revision-Date: 2015-08-26 08:16+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2015-10-29 03:29+0000\n"
+"Last-Translator: codefornepal <codefornepal@gmail.com>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -1460,10 +1461,10 @@ msgid "Matching authorities"
 msgstr ""
 
 msgid "Message"
-msgstr ""
+msgstr "सूचना"
 
 msgid "Message has been removed"
-msgstr ""
+msgstr "सूचना हटाएको छ"
 
 msgid "Message sent using {{site_name}} contact form, "
 msgstr ""

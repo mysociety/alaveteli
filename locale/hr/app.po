@@ -6,6 +6,7 @@
 # Translators:
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
+# Igor Dobrača <id.public@rovinj.net>, 2015
 # Marina Ninić <inactive+mninic5@transifex.com>, 2015
 # Marina Ninić <inactive+mninic5@transifex.com>, 2015
 # Mateja Fabijanić <mateja.fabijanic@gmail.com>, 2015
@@ -22,8 +23,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-12 11:00+0000\n"
-"PO-Revision-Date: 2015-08-12 11:02+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2015-10-09 17:37+0000\n"
+"Last-Translator: Igor Dobrača <id.public@rovinj.net>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -147,7 +148,7 @@ msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and mor
 msgstr "<a href=\"{{url}}\">Prijavite se</a> da biste promijenili lozinku, pretplatu ili drugo ({{user_name}} only)"
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Razmišljate li o korištenju pseudonima?</a>"
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -475,10 +476,10 @@ msgid "Authority:"
 msgstr "Tijelo javne vlasti:"
 
 msgid "Awaiting clarification"
-msgstr ""
+msgstr "Čeka objašnjenje"
 
 msgid "Awaiting classification"
-msgstr ""
+msgstr "Čeka klasifikaciju"
 
 msgid "Awaiting classification."
 msgstr "Čeka klasifikaciju."
@@ -487,7 +488,7 @@ msgid "Awaiting internal review."
 msgstr "Čeka odgovor na požurnicu."
 
 msgid "Awaiting response"
-msgstr ""
+msgstr "Čeka odgovor"
 
 msgid "Awaiting response."
 msgstr "Čeka odgovor."
@@ -697,7 +698,7 @@ msgid "Create a new account"
 msgstr "Izradi novi račun"
 
 msgid "Create a widget for this request"
-msgstr ""
+msgstr "Izradi widget za ovaj zahtjev"
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Izradio/la {{info_request_user}} dana {{date}}."
@@ -733,7 +734,7 @@ msgid "Defunct."
 msgstr "Defunkc."
 
 msgid "Delayed"
-msgstr ""
+msgstr "Odgođeno"
 
 msgid "Delayed response to your FOI request - "
 msgstr "Odgovor na Vaš PPI zahtjev kasni  - "
@@ -1040,7 +1041,7 @@ msgid "Got an account?"
 msgstr "Imate li račun?"
 
 msgid "Handled by post"
-msgstr ""
+msgstr "Riješen poštom"
 
 msgid "Handled by post."
 msgstr "Riješen poštom."
@@ -1112,7 +1113,7 @@ msgid "Human health and safety"
 msgstr "Zdravlje i sigurnost ljudi"
 
 msgid "I also want to know!"
-msgstr ""
+msgstr "I ja želim znati!"
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "Molim za <strong>nove informacije</strong>"
@@ -1261,7 +1262,7 @@ msgid "Incoming message"
 msgstr "Dolazna poruka"
 
 msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
-msgstr ""
+msgstr "Dolazna poruka ima indeks neželjene pošte ({{spam_score}}) iznad konfigurirane razine ({{spam_threshold}})."
 
 msgid "IncomingMessage|Cached attachment text clipped"
 msgstr "DolaznaPoruka|Spojeni predmemorirani tekst privitka "
@@ -1378,10 +1379,10 @@ msgid "Information on emissions and discharges (e.g. noise, energy, radiation, w
 msgstr "Informacije o emisijama i ispuštanjima u okoliš (npr. buka, energija,\\n zračenje, otpadni materijali)"
 
 msgid "Internal review"
-msgstr ""
+msgstr "Požurnica"
 
 msgid "Internal review of {{email_subject}}"
-msgstr ""
+msgstr "Požurnica za {{email_subject}}"
 
 msgid "Internal review request"
 msgstr "Zahtjev za požurnicom"
@@ -1459,7 +1460,7 @@ msgid "Log into the admin interface"
 msgstr "Prijavite se u administratorsko sučelje"
 
 msgid "Long overdue"
-msgstr ""
+msgstr "Kašnjenja"
 
 msgid "Long overdue."
 msgstr "Kašnjenja"
@@ -1567,7 +1568,7 @@ msgid "Name is already taken"
 msgstr "Ime se već koristi"
 
 msgid "Needs admin attention"
-msgstr ""
+msgstr "Potrebna aktivnost administratora"
 
 msgid "New Freedom of Information requests"
 msgstr "Novi zahtjevi za pristup informacijama"
@@ -1639,10 +1640,10 @@ msgid "Not a valid request"
 msgstr "Zahtjev nije valjan"
 
 msgid "Not an FOI request"
-msgstr ""
+msgstr "Nije PPI zahtjev"
 
 msgid "Not held"
-msgstr ""
+msgstr "Ne posjeduje"
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Uzmite u obzir da podnositelj zahtjeva neće biti obaviješten o Vašoj pribilješci, jer je zahtjev u njegovo ime objavljen od strane {{public_body_name}}."
@@ -1744,7 +1745,7 @@ msgid "OutgoingMessage|What doing"
 msgstr "Odlazna poruka|Što radi"
 
 msgid "Partial success"
-msgstr ""
+msgstr "Djelomično uspješno"
 
 msgid "Partially successful."
 msgstr "Djelomično uspješno."
@@ -2212,7 +2213,7 @@ msgid "Refused."
 msgstr "Odbijen."
 
 msgid "Rejected"
-msgstr ""
+msgstr "Odbijeno"
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Zapamti me (ostajete dulje prijavljeni; ne koristite na javnim računalima)"
@@ -2437,7 +2438,7 @@ msgid "Sign in or sign up"
 msgstr "Prijavite se ili Registrirajte se"
 
 msgid "Sign in to track this request"
-msgstr ""
+msgstr "Pratite ovaj zahtjev"
 
 msgid "Sign out"
 msgstr "Odjavite se"
@@ -2514,7 +2515,7 @@ msgid "Submit"
 msgstr "Predajte"
 
 msgid "Submit Search"
-msgstr ""
+msgstr "Pošaljite upit"
 
 msgid "Submit request"
 msgstr "Predajte zahtjev"
@@ -2532,7 +2533,7 @@ msgid "Success"
 msgstr "Uspješno"
 
 msgid "Successful"
-msgstr ""
+msgstr "Uspješan"
 
 msgid "Successful Freedom of Information requests"
 msgstr "Uspješni zahtjevi za pristup informacijama"
@@ -2714,7 +2715,7 @@ msgid "The response to your request has been <strong>delayed</strong>. You can s
 msgstr "Odgovor na Vaš zahtjev <strong>kasni</strong>. Možete reći da je, po zakonu,\\n tijelo javne vlasti trebalo odgovoriti <strong>brzo</strong> i"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
-msgstr ""
+msgstr "Odgovor na Vaš zahtjev <strong>kasni</strong>. Možete reći da je, po zakonu,\\n tijelo javne vlasti trebalo odgovoriti <strong>brzo</strong> i"
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Odgovor na Vaš zahtjev <strong>kasni</strong>. Možete reći da po zakonu,\\n u svakom slučaju, tijelo javen vlasti trebalo odgovoriti do sada"
@@ -2894,7 +2895,7 @@ msgid "This is your own request, so you will be automatically emailed when new r
 msgstr "Ovo je Vaš zahtjev, bit ćete automatski obaviješteni e-poštom kada stignu novi odgovori."
 
 msgid "This is your request"
-msgstr ""
+msgstr "Ovo je Vaš zahtjev"
 
 msgid "This message has been hidden."
 msgstr "Ova je poruka skrivena."
@@ -3179,13 +3180,13 @@ msgstr ""
 "adresu za"
 
 msgid "Unknown"
-msgstr ""
+msgstr "Nepoznato"
 
 msgid "Unsubscribe"
 msgstr "Odjavite pretplatu"
 
 msgid "Unusual response"
-msgstr ""
+msgstr "Neobičan odgovor"
 
 msgid "Unusual response."
 msgstr "Neobičan odgovor."
@@ -3404,10 +3405,10 @@ msgid "Why specifically do you consider this request unsuitable?"
 msgstr "Zašto ovaj zahtjev smatrate neodgovarajućim?"
 
 msgid "Widget vote"
-msgstr ""
+msgstr "Widget za glasanje"
 
 msgid "WidgetVote|Cookie"
-msgstr ""
+msgstr "WidgetZaGlasanje|Cookie"
 
 msgid "Withdrawn"
 msgstr "Povučeno"

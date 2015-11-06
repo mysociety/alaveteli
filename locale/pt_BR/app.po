@@ -38,6 +38,7 @@
 # Rafael H L Moretti <rafael.moretti@gmail.com>, 2012
 # Rafael H L Moretti <rafael.moretti@gmail.com>, 2012
 # Rafael H L Moretti <rafael.moretti@gmail.com>, 2012
+# Rodrigo Missagia Hulle <rmhulle@gmail.com>, 2015
 # serramassuda <a.serramassuda@gmail.com>, 2012
 # Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013
 # Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013
@@ -47,8 +48,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-12 11:00+0000\n"
-"PO-Revision-Date: 2015-08-12 11:02+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2015-10-04 22:58+0000\n"
+"Last-Translator: Rodrigo Missagia Hulle <rmhulle@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/mysociety/alaveteli/language/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +115,7 @@ msgid " You will also be emailed updates about the request."
 msgstr "Você também receberá atualizações por e-mail sobre esse pedido."
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "Filtrado pelo status: '{{status}}'"
 
 msgid " when you send this message."
 msgstr "quando você enviar esta mensagem."
@@ -135,7 +136,7 @@ msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', uma pessoa"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(ocultar)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
 msgstr ""
@@ -144,7 +145,7 @@ msgid "(show)"
 msgstr ""
 
 msgid "*unknown*"
-msgstr ""
+msgstr "\"desconhecido\""
 
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ""
