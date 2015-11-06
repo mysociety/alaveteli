@@ -22,6 +22,9 @@
 #  no_limit                :boolean          default(FALSE), not null
 #  receive_email_alerts    :boolean          default(TRUE), not null
 #  can_make_batch_requests :boolean          default(FALSE), not null
+#  otp_enabled             :boolean          default(FALSE)
+#  otp_secret_key          :string(255)
+#  otp_counter             :integer          default(1)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -408,6 +411,287 @@ end
 
 describe User do
 
+  describe '.stay_logged_in_on_redirect?' do
+
+    it 'is false if the user is nil' do
+      expect(User.stay_logged_in_on_redirect?(nil)).to eq(false)
+    end
+
+    it 'is true if the user is an admin' do
+      admin = double(:super? => true)
+      expect(User.stay_logged_in_on_redirect?(admin)).to eq(true)
+    end
+
+    it 'is false if the user is not an admin' do
+      user = double(:super? => false)
+      expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
+    end
+
+  end
+
+  describe '#valid?' do
+
+    context 'with require_otp' do
+
+      it 'has no effect when otp is disabled' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.disable_otp
+        user.require_otp = true
+        user.entered_otp_code = 'invalid'
+        expect(user.valid?).to eq(true)
+      end
+
+      it 'it has no effect when require_otp is false' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = false
+        user.entered_otp_code = 'invalid'
+        expect(user.valid?).to eq(true)
+      end
+
+      it 'is invalid with an incorrect otp' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = true
+        user.entered_otp_code = 'invalid'
+        expect(user.valid?).to eq(false)
+      end
+
+      it 'is invalid with a nil otp' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = true
+        user.entered_otp_code = nil
+        expect(user.valid?).to eq(false)
+      end
+
+      it 'adds an error for an invalid otp' do
+        msg = 'Invalid one time password'
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = true
+        user.entered_otp_code = 'invalid'
+        user.valid?
+        expect(user.errors[:otp_code]).to include(msg)
+      end
+
+      it 'increments the otp_counter if a correct otp_code is used' do
+        user = FactoryGirl.build(:user)
+        user.enable_otp
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        counter = user.otp_counter
+        user.valid?
+        expect(user.otp_counter).to eq(counter + 1)
+      end
+
+    end
+
+    context 'with otp disabled' do
+
+      it 'is valid with any otp' do
+        user = FactoryGirl.build(:user)
+        user.disable_otp
+        user.entered_otp_code = 'invalid'
+        expect(user.valid?).to eq(true)
+      end
+
+    end
+
+  end
+
+  describe '#otp_enabled' do
+
+    it 'defaults to false' do
+      user = User.new
+      expect(user.otp_enabled).to eq(false)
+    end
+
+    it 'can be enabled on initialization' do
+      user = User.new(:otp_enabled => true)
+      expect(user.otp_enabled).to eq(true)
+    end
+
+    it 'can be enabled after initialization' do
+      user = User.new
+      user.otp_enabled = true
+      expect(user.otp_enabled).to eq(true)
+    end
+
+  end
+
+  describe '#otp_enabled?' do
+
+    it 'requires an otp_secret_key to be enabled' do
+      attrs = { :otp_enabled => true,
+                :otp_secret_key => nil,
+                :otp_counter => 1 }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'requires an otp_counter to be enabled' do
+      attrs = { :otp_enabled => true,
+                :otp_secret_key => '123',
+                :otp_counter => nil }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'requires an otp_enabled to be true to be enabled' do
+      attrs = { :otp_enabled => false,
+                :otp_secret_key => '123',
+                :otp_counter => 1 }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'requires otp_enabled, otp_secret_key and otp_counter to be enabled' do
+      attrs = { :otp_enabled => true,
+                :otp_secret_key => '123',
+                :otp_counter => 1 }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(true)
+    end
+
+  end
+
+  describe '#enable_otp' do
+
+    it 'resets the otp_counter' do
+      user = User.new(:otp_counter => 200)
+      user.enable_otp
+      expect(user.otp_counter).to eq(1)
+    end
+
+    it 'regenerates the otp_secret_key' do
+      user = User.new(:otp_secret_key => '123')
+      user.enable_otp
+      expect(user.otp_secret_key.length).to eq(16)
+    end
+
+    it 'sets otp_enabled to true' do
+      user = User.new
+      user.enable_otp
+      expect(user.otp_enabled).to eq(true)
+    end
+
+    it 'returns true' do
+      user = User.new
+      expect(user.enable_otp).to eq(true)
+    end
+
+  end
+
+  describe '#disable_otp' do
+
+    it 'sets otp_enabled to false' do
+      user = User.new(:otp_enabled => true)
+      user.disable_otp
+      expect(user.otp_enabled?).to eq(false)
+    end
+
+    it 'sets require_otp to false' do
+      user = User.new(:otp_enabled => true)
+      user.require_otp = true
+      user.disable_otp
+      expect(user.require_otp?).to eq(false)
+    end
+
+    it 'returns true' do
+      user = User.new
+      expect(user.disable_otp).to eq(true)
+    end
+
+  end
+
+  describe '#require_otp?' do
+
+    it 'is false by default' do
+      user = User.new
+      expect(user.require_otp?).to eq(false)
+    end
+
+    it 'returns the assigned boolean' do
+      user = User.new(:require_otp => true)
+      expect(user.require_otp?).to eq(true)
+    end
+
+  end
+
+  describe '#require_otp=' do
+
+    it 'assigns true for a truthy value' do
+      user = User.new
+      user.require_otp = 'yes'
+      expect(user.require_otp?).to eq(true)
+    end
+
+    it 'assigns false for a falsy value' do
+      user = User.new
+      user.require_otp = nil
+      expect(user.require_otp?).to eq(false)
+    end
+
+  end
+
+  describe '#otp_counter' do
+
+    it 'defaults to 1' do
+      user = User.new
+      expect(user.otp_counter).to eq(1)
+    end
+
+    it 'can be set on initialization' do
+      user = User.new(:otp_counter => 200)
+      expect(user.otp_counter).to eq(200)
+    end
+
+    it 'can be set after initialization' do
+      user = User.new
+      user.otp_counter = 200
+      expect(user.otp_counter).to eq(200)
+    end
+
+  end
+
+  describe '#otp_secret_key' do
+
+    it 'can be set on initialization' do
+      key = ROTP::Base32.random_base32
+      user = User.new(:otp_secret_key => key)
+      expect(user.otp_secret_key).to eq(key)
+    end
+
+    it 'can be set after initialization' do
+      key = ROTP::Base32.random_base32
+      user = User.new
+      user.otp_secret_key = key
+      expect(user.otp_secret_key).to eq(key)
+    end
+
+  end
+
+  describe '#entered_otp_code' do
+
+    it 'gets the virtual attribue for use in validation' do
+      user = User.new(:entered_otp_code => '123456')
+      expect(user.entered_otp_code).to eq('123456')
+    end
+
+  end
+
+  describe '#entered_otp_code=' do
+
+    it 'sets the virtual attribue for use in validation' do
+      user = User.new
+      user.entered_otp_code = '123456'
+      expect(user.entered_otp_code).to eq('123456')
+    end
+
+  end
+
   describe '#banned?' do
 
     it 'is banned if the user has ban_text' do
@@ -418,6 +702,61 @@ describe User do
     it 'is not banned if the user has no ban_text' do
       user = FactoryGirl.build(:user, :ban_text => '')
       expect(user).to_not be_banned
+    end
+
+  end
+
+  describe '#confirm' do
+
+    it 'confirms an unconfirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => false)
+       user.confirm
+       expect(user.email_confirmed).to be(true)
+    end
+
+    it 'no-ops a confirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => true)
+       user.confirm
+       expect(user.email_confirmed).to be(true)
+    end
+
+    it 'does not save by default' do
+      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user.confirm
+      expect(user).to be_new_record
+    end
+
+    it 'saves the record if passed an argument' do
+      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user.confirm(true)
+      expect(user).to be_persisted
+    end
+
+  end
+
+  describe '#confirm!' do
+
+    it 'confirms an unconfirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => false)
+       user.confirm!
+       expect(user.reload.email_confirmed).to be(true)
+    end
+
+    it 'no-ops a confirmed user' do
+       user = FactoryGirl.build(:user, :email_confirmed => true)
+       user.confirm!
+       expect(user.reload.email_confirmed).to be(true)
+    end
+
+    it 'saves the record' do
+      user = FactoryGirl.build(:user, :email_confirmed => false)
+      user.confirm!
+      expect(user).to be_persisted
+    end
+
+    it 'it raises an error on save if the record is invalid' do
+      user = FactoryGirl.build(:user, :email => nil, :email_confirmed => false)
+      expect { user.confirm! }.to raise_error
     end
 
   end

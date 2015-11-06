@@ -31,7 +31,7 @@
 <% elsif @reason == 'bad_contact' %>
   <p>
     <%= _('We do not have a working {{law_used_full}} address for {{public_body_name}}.',
-          :law_used_full => @info_request.law_used_full,
+          :law_used_full => @info_request.law_used_human(:full),
           :public_body_name => @info_request.public_body.name) %>
 
     <%= _('You may be able to find one on their website, or by phoning them ' \

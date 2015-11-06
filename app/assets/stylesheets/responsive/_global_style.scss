@@ -160,7 +160,9 @@ p + .form_item_note {
   top: -1.25em;
 }
 
-form input[type=text],form input[type=password] {
+form input[type=text],
+form input[type=password],
+form input[type=email] {
   font-size:1.1em;
   width:200px;
   border-radius:3px;

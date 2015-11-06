@@ -1,0 +1,65 @@
+<% @title = _('{{user_name}} - Two Factor Authentication',
+              :user_name => h(@user.name)) %>
+
+<h1 class="one-time-password-page-title"><%= @title %></h1>
+
+<% if @user.otp_enabled? %>
+  <div class="one-time-password">
+    <h2 class="one-time-password__title">
+      <%= _('Your current one time passcode:') %>
+    </h2>
+
+    <div class="one-time-password__otp-code">
+      <%= @user.otp_code %>
+    </div>
+
+    <div class="one-time-password__otp-info">
+      <p>
+        <%= _('Keep this passcode safe. You will need it to confirm your ' \
+              'account when changing your password. You can add it to a ' \
+              'password manager or print it and store it in a safe place.') %>
+      </p>
+      <p>
+        <strong><%= _('Do not share this passcode.') %></strong>
+      </p>
+    </div>
+
+    <ul class="one-time-password-actions not-for-print">
+      <li class="one-time-password-actions__action-item action-item">
+        <%= link_to _('Print your one time passcode'), '',
+              :onclick => 'window.print();return false;',
+              :class => 'action-item__action' %>
+      </li>
+
+      <li class="one-time-password-actions__action-item action-item">
+        <% confirmation_msg = _('Are you sure? If you regenerate your one ' \
+                                'time passcode you will need to update your ' \
+                                'password manager or re-print it.') %>
+        <%= link_to one_time_password_path, :method => :put,
+                                            :confirm => confirmation_msg,
+                                            :class => 'action-item__action' do %>
+          <%= _('Regenerate one time passcode') %>
+        <% end %>
+      </li>
+      <li class="one-time-password-actions__action-item action-item">
+        <% confirmation_msg = _('Are you sure you want to disable two factor ' \
+                                'authentication?') %>
+        <%= link_to one_time_password_path, :method => :delete,
+                                            :confirm => confirmation_msg,
+                                            :class => 'action-item__action' do %>
+          <%= _('Disable two factor authentication') %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+<% else %>
+  <ul class="one-time-password-actions not-for-print">
+    <li class="one-time-password-actions__action-item action-item">
+      <%= button_to _('Enable two factor authentication'),
+                    { :action => :create },
+                    { :class => 'action-item__action' } %>
+    </li>
+  </ul>
+<% end %>
+
+<%= render :partial => 'help_guide' %>

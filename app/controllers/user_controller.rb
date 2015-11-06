@@ -174,12 +174,30 @@ class UserController < ApplicationController
       return
     end
 
-    if !User.stay_logged_in_on_redirect?(@user) || post_redirect.circumstance == "login_as"
-      @user = post_redirect.user
-      @user.email_confirmed = true
-      @user.save!
+    case post_redirect.circumstance
+    when 'login_as'
+      @user = confirm_user!(post_redirect.user)
+      session[:user_id] = @user.id
+    when 'change_password'
+      unless session[:user_id] == post_redirect.user_id
+        clear_session_credentials
+      end
+
+      session[:change_password_post_redirect_id] = post_redirect.id
+    when 'normal', 'change_email'
+      # !User.stay_logged_in_on_redirect?(nil)
+      # # => true
+      # !User.stay_logged_in_on_redirect?(user)
+      # # => true
+      # !User.stay_logged_in_on_redirect?(admin)
+      # # => false
+      unless User.stay_logged_in_on_redirect?(@user)
+        @user = confirm_user!(post_redirect.user)
+      end
+
+      session[:user_id] = @user.id
     end
-    session[:user_id] = @user.id
+
     session[:user_circumstance] = post_redirect.circumstance
 
     do_post_redirect post_redirect
@@ -196,6 +214,12 @@ class UserController < ApplicationController
 
   # Change password (TODO: and perhaps later email) - requires email authentication
   def signchangepassword
+    warn %q([DEPRECATION] UserController#signchangepassword has been replaced
+            with PasswordChangesController as of 0.23. It will be removed in
+            0.24. See doc/CHANGES.md for information on how to revert to
+            UserController#signchangepassword).
+            squish
+
     if @user and ((not session[:user_circumstance]) or (session[:user_circumstance] != "change_password"))
       # Not logged in via email, so send confirmation
       params[:submitted_signchangepassword_send_confirm] = true
@@ -661,6 +685,11 @@ class UserController < ApplicationController
     # Track corresponding to this page
     @track_thing = TrackThing.create_track_for_user(@display_user)
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+  end
+
+  def confirm_user!(user)
+    user.confirm!
+    user
   end
 
   def current_user_is_display_user

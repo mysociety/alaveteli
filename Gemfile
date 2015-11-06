@@ -6,6 +6,7 @@ gem 'pg', '~> 0.17.1'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
+gem 'active_model_otp', :git => 'https://github.com/mysociety/active_model_otp.git', :ref => '0eb977b4c6dafd'
 gem 'charlock_holmes', '~> 0.6.9.4'
 gem 'dynamic_form', '~> 1.1.4'
 gem 'exception_notification', '~> 3.0.1'
@@ -74,10 +75,11 @@ end
 group :test, :development do
   gem 'bullet', '~> 4.14.6'
   gem 'factory_girl_rails', '~> 1.7'
-  gem 'pry', '~> 0.10.2'
+  gem 'pry', '~> 0.10.3'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '3.0.2'
   gem 'spork-rails', '~> 3.2.1'
+  gem 'pry-nav', '~> 0.2.4'
 end
 
 group :development do

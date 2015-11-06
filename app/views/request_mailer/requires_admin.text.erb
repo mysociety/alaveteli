@@ -1,7 +1,7 @@
 <%= raw @message %>
 
 ---------------------------------------------------------------------
-<%= raw @reported_by.name %> <%= _('has reported an')%> <%= raw @info_request.law_used_short %>
+<%= raw @reported_by.name %> <%= _('has reported an')%> <%= raw @info_request.law_used_human(:short) %>
 <%= _('response as needing administrator attention. Take a look, and reply ' \
       'to this email to let them know what you are going to do about it.') %>
 

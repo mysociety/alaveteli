@@ -13,7 +13,15 @@
     <% if @display_user.profile_photo %>
       <%= link_to _('Change profile photo'), set_profile_photo_path %> |
     <% end %>
-    <%= link_to _('Change your password'), signchangepassword_path %> |
+    <%= link_to _('Change your password'), new_password_change_path %> |
     <%= link_to _('Change your email'), signchangeemail_path %>
+    <% if AlaveteliConfiguration.enable_two_factor_auth %>
+    |
+      <% if @display_user.otp_enabled? %>
+        <%= link_to _('View your two factor authentication one time passcode'), one_time_password_path %>
+      <% else %>
+        <%= link_to _('Improve your account security'), one_time_password_path %>
+      <% end %>
+    <% end %>
   </p>
 <% end %>
