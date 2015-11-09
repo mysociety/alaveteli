@@ -21,10 +21,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-27 14:25+0000\n"
-"PO-Revision-Date: 2015-07-24 15:01+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Norwegian Nynorsk (http://www.transifex.com/projects/p/alaveteli/language/nn/)\n"
+"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"PO-Revision-Date: 2015-11-09 14:44+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"Language-Team: Norwegian Nynorsk (http://www.transifex.com/mysociety/alaveteli/language/nn/)\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -258,6 +258,9 @@ msgstr "<strong>Merk:</strong> Då vi held på å testa, så vil førespurnader 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Merk:</strong>\\n    Vi kjem til å senda ei e-post til den nye e-postadressa di. Følg\\n    instruksjonane i den e-posten for å stadfesta at du ynskjer å byta e-postadresse."
 
+msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
+msgstr ""
+
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr "<strong>Merk:</strong>\\nVi kjem til å sende deg ein e-post.  Følg instruksjonane i han\\nfor å endre passordet ditt."
 
@@ -339,6 +342,9 @@ msgstr "ActsAsXapian::ActsAsXapianJob|Action"
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 
+msgid "Add a widget"
+msgstr ""
+
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "Legg til ein bemerkning til &ldquo;{{request_title}}&rdquo;"
 
@@ -399,8 +405,8 @@ msgstr "Ein <a href=\"{{request_url}}\">annotering</a> til <em>{{request_title}}
 msgid "An <strong>error message</strong> has been received"
 msgstr "Ei <strong>feilmelding</strong> har vorte motteke"
 
-msgid "An Environmental Information Regulations request"
-msgstr "Ein miljøinformasjonslov-førespurnad"
+msgid "An Environmental Information request"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "Ein anonym brukar"
@@ -428,6 +434,12 @@ msgstr "Gjelder for"
 
 msgid "Are we missing a public authority?"
 msgstr "Skal vi leggja til fleire styresmakter?"
+
+msgid "Are you sure you want to disable two factor authentication?"
+msgstr ""
+
+msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
+msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Eig du kommersielle åndsverksrettar på denne sida?"
@@ -486,6 +498,9 @@ msgstr "Visk oppretta av {{info_request_user}} den {{date}}."
 msgid "Beginning with"
 msgstr "Byrjar med"
 
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Sjå på <a href='{{url}}'>andre førespurnader</a> for døme på korleis du bør ordleggja førespurnaden."
 
@@ -495,11 +510,17 @@ msgstr "Sjå på <a href='{{url}}'>andre førespurnader</a> til '{{public_body_n
 msgid "Browse all authorities..."
 msgstr "Vis alle styresmaktene..."
 
+msgid "Browse all requests &rarr;"
+msgstr ""
+
 msgid "Browse and search requests"
 msgstr "Vis og søk i førespurnader"
 
 msgid "Browse requests"
 msgstr "Vis førespurnader"
+
+msgid "By law, they have to respond."
+msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "I følgje lova burde {{public_body_link}}, under kvart og eit omstende ha svara innan dette tidspunktet"
@@ -675,6 +696,9 @@ msgstr "Inneheld personleg informasjon"
 msgid "Could not identify the request from the email address"
 msgstr "Kunne ikkje finna førespurnaden ut frå e-post-adressa"
 
+msgid "Could not update your two factor one time passcode"
+msgstr ""
+
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Klarer ikkje å lesa inn bilete-fila du lasta opp. Vi støttar PNG, JPEG, GIF og mange andre vanlege bilete-format."
 
@@ -735,6 +759,9 @@ msgstr "Detaljer for førespurnad &ldquo;{{request_title}}&rdquo;"
 msgid "Did you mean: {{correction}}"
 msgstr "Meinte du: {{correction}}"
 
+msgid "Disable two factor authentication"
+msgstr ""
+
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr "Til orientering: Denne meldinga og alle svara dine vil offentleggjort på Internett.  Reglene våre for personvern og åndsverk:"
 
@@ -746,6 +773,9 @@ msgstr "URL til utleveringslogg"
 
 msgid "Do not fill in this field"
 msgstr "Ikkje fyll inn dette feltet"
+
+msgid "Do not share this passcode."
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr "Ingen superuser-konto enno?"
@@ -795,6 +825,9 @@ msgstr "Send meg e-post om framtidige oppdateringar på denne førespurnaden"
 msgid "Email:"
 msgstr "E-post:"
 
+msgid "Enable two factor authentication"
+msgstr ""
+
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Skriv inn ord som du leitar etter separert med mellomrom, t.d. <strong>klatra linje</strong>"
 
@@ -818,6 +851,9 @@ msgstr "Logg over hendingar"
 
 msgid "Event {{id}}"
 msgstr "Hending {{id}}"
+
+msgid "Every citizen has the right to access information held by public authorities."
+msgstr ""
 
 msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr "Alt du skriv inn på denne sida\\n                vil visast offentleg</strong> på\\n                denne tenesta for all framtid (<a href=\"{{url}}\">kvifor?</a>)."
@@ -1082,6 +1118,9 @@ msgstr "Heimeside"
 msgid "Home page of authority"
 msgstr "Heimesida til styresmakta"
 
+msgid "How it works"
+msgstr ""
+
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Endå har du rett til å spørja om miljøinformasjon i følgje ein annan lov"
 
@@ -1208,6 +1247,9 @@ msgstr "Viss du har brukt {{site_name}} tidlegare"
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "Dersom nettlesaren er sett opp til å akseptera informasjonskapslar og du ser denne meldinga,\\nså er det mest sannsynleg nokon feil med servane vår."
 
+msgid "Improve your account security"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Ta med relevante lenker, t.d. kampanjesider, bloggar, eller Twitter-konto.  Dei vil vere klikkbare.\\nT.d."
 
@@ -1217,7 +1259,7 @@ msgstr "Inngåande e-postadresse"
 msgid "Incoming message"
 msgstr "Innkommende melding"
 
-msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
+msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1346,6 +1388,9 @@ msgstr "Klage"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Klage sendt til {{public_body_name}} av {{info_request_user}} den {{date}}."
 
+msgid "Invalid one time password"
+msgstr ""
+
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Er  {{email_address}} feil adresse for førespurnader om {{type_of_request}} til {{public_body_name}}? I såg fall, ver så snill å ta kontakt med oss ved å bruka dette skjemaet:"
 
@@ -1367,6 +1412,9 @@ msgstr "Vart med {{site_name}} i"
 msgid "Just one more thing"
 msgstr "Berre ein ting til"
 
+msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
+msgstr ""
+
 msgid "Keep your request up to date"
 msgstr "Hald førespurnadene dine oppdaterte"
 
@@ -1381,6 +1429,9 @@ msgstr "Siste styresmakt du såg på:"
 
 msgid "Last request viewed: "
 msgstr "Siste førespurnad du såg på:"
+
+msgid "Learn more &rarr;"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Fortel oss kva du gjorde då denne meldinga dukka opp, og dessutan type og versjon for nettlesaren din og ditt operativsystem."
@@ -1448,9 +1499,6 @@ msgstr "Lan ein ny miljøinformasjonslov-førespurnad"
 msgid "Make a new FOI request"
 msgstr "Lag eit nytt krav om innsyn"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Lag ein ny<br/>\\n <strong>førespurnad <span>om</span><br/>\\n  innsyn</strong>"
-
 msgid "Make a request"
 msgstr "Lag førespurnad"
 
@@ -1493,14 +1541,8 @@ msgstr "Manglar kontaktdetaljar for '"
 msgid "More about this authority"
 msgstr "Meir om denne styresmakta"
 
-msgid "More requests..."
-msgstr "Fleire førespurnader..."
-
 msgid "More similar requests"
 msgstr "Fleire liknande førespurnader"
-
-msgid "More successful requests..."
-msgstr "Fleire vellukka førespurnader..."
 
 msgid "My profile"
 msgstr "Profilen min"
@@ -1660,6 +1702,9 @@ msgstr "Berre styresmakta kan svara på denne førespurnaden, og eg kjenner ikkj
 
 msgid "Only the authority can reply to this request, but there is no \"From\" address to check against"
 msgstr "Berre styresmakta kan svara på denne førespurnaden, men det er ikkje nokon \"From\"-adresse å sjekka mot"
+
+msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
+msgstr ""
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr "Eller lag eit <a href=\"{{url}}\">samlekrav</a> til <strong>fleire styresmakter</strong> på ein gong."
@@ -1957,6 +2002,9 @@ msgstr "Forhåndsvis førespurnaden din"
 msgid "Preview your request"
 msgstr "Forhåndsvis din førespurnad"
 
+msgid "Print your one time passcode"
+msgstr ""
+
 msgid "Profile photo"
 msgstr "Profilbilete"
 
@@ -2019,9 +2067,6 @@ msgstr "Offentleg instans-endringsførespurnad"
 
 msgid "Public body heading"
 msgstr "Offentleg instans-overskrift"
-
-msgid "Public notes"
-msgstr "Offentlege notat"
 
 msgid "Public page"
 msgstr "Offentleg side"
@@ -2086,6 +2131,9 @@ msgstr "PublicBody|Info requests successful count"
 msgid "PublicBody|Info requests visible classified count"
 msgstr "PublicBody|Info requests visible classified count"
 
+msgid "PublicBody|Info requests visible count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
 
@@ -2116,9 +2164,6 @@ msgstr "PublicBody|Version"
 msgid "Publication scheme"
 msgstr "Arkivplan"
 
-msgid "Publication scheme URL"
-msgstr "URL til arkivplan"
-
 msgid "Purge request"
 msgstr "Slett førespurnad"
 
@@ -2127,6 +2172,12 @@ msgstr "PurgeRequest|Model"
 
 msgid "PurgeRequest|Url"
 msgstr "PurgeRequest|Url"
+
+msgid "Query can't be blank"
+msgstr ""
+
+msgid "Query is too long"
+msgstr ""
 
 msgid "RSS feed"
 msgstr "RSS-straum"
@@ -2154,6 +2205,9 @@ msgstr "Nylige skildra resultat først"
 
 msgid "Refused."
 msgstr "Avslegen"
+
+msgid "Regenerate one time passcode"
+msgstr ""
 
 msgid "Rejected"
 msgstr "Avvist"
@@ -2184,9 +2238,6 @@ msgstr "Skriv klage"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Klag på vedtaket frå {{person_or_body}}"
-
-msgid "Request email"
-msgstr "Spør e-post"
 
 msgid "Request for personal information"
 msgstr "Spør personleg informasjon"
@@ -2323,6 +2374,9 @@ msgstr "Send eit offentleg svar til {{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "Send oppfølging til '{{title}}'"
 
+msgid "Send me the email"
+msgstr ""
+
 msgid "Send message"
 msgstr "Send melding"
 
@@ -2331,6 +2385,9 @@ msgstr "Send melding til "
 
 msgid "Send request"
 msgstr "Send førespurnad"
+
+msgid "Sending..."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2348,9 +2405,6 @@ msgstr "Del ditt samlekrav"
 
 msgid "Share your request"
 msgstr "Del din førespurnad"
-
-msgid "Short name"
-msgstr "Kortnamn"
 
 msgid "Short name is already taken"
 msgstr "Kortnamnet er allereie teke"
@@ -2435,6 +2489,9 @@ msgstr "SpamAddress|Email"
 
 msgid "Start your own blog"
 msgstr "Start din eigen blogg"
+
+msgid "Start your own request"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "Hald deg oppdatert"
@@ -2657,6 +2714,9 @@ msgstr "Søkja-indeksen er ikkje tilgjengeleg, så vi kan ikkje visa deg krav om
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "Søkjeindeksen er ikkje tilgjengeleg, så vi kan ikkje visa innsynskrava til denne personen."
 
+msgid "The widget will look like this:"
+msgstr ""
+
 msgid "The {{site_name}} team."
 msgstr "{{site_name}}-gjengen."
 
@@ -2755,6 +2815,9 @@ msgstr[1] "{{count}} personar følgjer denne førespurnaden"
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Det var ein <strong>feil med leveringen</strong> eller liknande, som treng å rettast av {{site_name}}-gruppa."
 
+msgid "There was an error with the reCAPTCHA. Please try again."
+msgstr ""
+
 msgid "There was an error with the words you entered, please try again."
 msgstr "Det var ein feil med orda du skreiv inn, vennlegast forsøk på nytt."
 
@@ -2796,6 +2859,9 @@ msgstr "Denne styresmakta er sletta, og kan ikkje kontaktast."
 
 msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
 msgstr "Dette dekker eit svært breitt spekter av informasjon om tilstanden til \\n<strong> rørd natur og bygde ut område</ strong>, som til dømes:"
+
+msgid "This email is already in use"
+msgstr ""
 
 msgid "This external request has been hidden"
 msgstr "Denne eksterne førespurnaden har vorte skjult"
@@ -2926,6 +2992,9 @@ msgstr ""
 msgid "To"
 msgstr "Til"
 
+msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "For å avbryta varslingen."
 
@@ -3016,6 +3085,9 @@ msgstr "For å sjå e-postadressa som vi brukar til å senda innsynskravet til {
 msgid "To view the response, click on the link below."
 msgstr "For å sjå svaret, klikk på lenkja under."
 
+msgid "To view your two factor authentication details"
+msgstr ""
+
 msgid "To {{public_body_link_absolute}}"
 msgstr "Til {{public_body_link_absolute}}"
 
@@ -3054,6 +3126,27 @@ msgstr "Tvitra dette"
 
 msgid "Tweet this request"
 msgstr "Tvitra om førespurnaden"
+
+msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
+msgstr ""
+
+msgid "Two factor authentication could not be disabled"
+msgstr ""
+
+msgid "Two factor authentication could not be enabled"
+msgstr ""
+
+msgid "Two factor authentication disabled"
+msgstr ""
+
+msgid "Two factor authentication enabled"
+msgstr ""
+
+msgid "Two factor one time passcode updated"
+msgstr ""
+
+msgid "Two factor one time passcode:"
+msgstr ""
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
 msgstr "Skriv <strong><code>01/01/2008..14/01/2008</code></strong> for å berre vise ting som har skjedd dei to første vekene i januar."
@@ -3121,6 +3214,9 @@ msgstr "Bruk OR (store bokstavar) der du vil ha treff på eitt av orda, til døm
 msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr "Bruk hermeteikn der du vil søkja etter eit nøyaktig uttrykk, til dømes. <strong><code>\"Byrådavdeling for finans\"</code></strong>"
 
+msgid "Use this site to make your request for information – we'll show you how."
+msgstr ""
+
 msgid "User"
 msgstr "Nytter"
 
@@ -3175,6 +3271,15 @@ msgstr "Nytter|Namn"
 msgid "User|No limit"
 msgstr "Brukar|Ingen grense"
 
+msgid "User|Otp counter"
+msgstr ""
+
+msgid "User|Otp enabled"
+msgstr ""
+
+msgid "User|Otp secret key"
+msgstr ""
+
 msgid "User|Receive email alerts"
 msgstr "User|Motta e-post notifikasjonar"
 
@@ -3211,6 +3316,9 @@ msgstr "Les e-post"
 msgid "View other requests to {{public_body}}"
 msgstr "Sjå andre førespurnader til {{public_body}}"
 
+msgid "View your two factor authentication one time passcode"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Ventar avklaring"
 
@@ -3222,6 +3330,9 @@ msgstr "Ventar på at styresmakta skal utføra klagehandsaming på denne føresp
 
 msgid "Waiting for the public authority to reply"
 msgstr "Ventar på svar frå styresmakta"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Var svaret på innsynskravet ditt tilfredsstillande?"
@@ -3244,6 +3355,9 @@ msgstr ""
 "informasjon/dokument eller ikkje\\n &ndash;\\n\n"
 "om du er {{user_link}}, ver venleg og <a href=\"{{url}}\">logg inn</a> og gje alle melding."
 
+msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
+msgstr ""
+
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr "Vi vil aldri gje ut e-postadressa di til nokon utan at du eller\\n        retten ber oss om det (<a href=\"{{url}}\">detaljar</a>). "
 
@@ -3252,6 +3366,9 @@ msgstr "Vi kjem ikkje dela e-post-adressa di med nokon, med mindre du eller ein 
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Vi kjem ikkje dela e-post-adressene dine med nokon, med mindre du eller ein domstol ber oss om det."
+
+msgid "We'll drop you an email as soon as your request gets a response."
+msgstr ""
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3295,6 +3412,9 @@ msgstr "Når du kjem dit, ver så snill å oppdatera statusen til å fortelja om
 
 msgid "When you receive the paper response, please help others find out what it says:"
 msgstr "Når du mottek svar på papir, ver så snill å hjelp andre å finna ut kva det seier:"
+
+msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
+msgstr ""
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
 msgstr "Når du har gjort dette, <strong>kom tilbake hit</strong>, <a href=\"{{url}}\">last denne sida på nytt</a> og legg inn din nye førespurnad."
@@ -3428,6 +3548,9 @@ msgstr "Du kan få tak i denne sida på maskinlesbart format som del av\\nhoved-
 msgid "You can only request information about the environment from this authority."
 msgstr "Du kan berre spørja om miljøinformasjon frå denne styresmakta."
 
+msgid "You can regenerate your one time passcode at any time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Du har eit nytt svar til {{law_used_full}}-førespurnad"
 
@@ -3445,6 +3568,9 @@ msgstr "Du har no endra teksta om deg på profilen din."
 
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr "Du har no endra e-øost adressa brukt på {{site_name}}"
+
+msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
+msgstr ""
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr "Du freista å registrera deg på {{site_name}}, når du allereie\\nhar ein konto. Namnet ditt og passord har ikkje vorte endra.\\n\\nVennligst klikk på lenkja nedanfor."
@@ -3484,6 +3610,9 @@ msgstr "Du skal ha fått tilsendt ein kopi av førespurnaden på e-post, og du k
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
 msgstr "Du ynskjer å <strong>gje postadressa di</strong> til styresmakta på ein privat måte."
+
+msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
+msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr "Du vil ikkje kunna laga nye førespurnader, senda oppfølgingar, leggja inn\\nkommentarar eller senda meldingar til andre brukarar.  Du kan fortsetja med å sjå andre\\nførespurnader og setja opp e-postvarslingar."
@@ -3536,6 +3665,9 @@ msgstr "Dine bemerkninger"
 msgid "Your batch request \"{{title}}\" has been sent"
 msgstr "Din samlekrav «{{title}}» er sendt"
 
+msgid "Your current one time passcode:"
+msgstr ""
+
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr "Informasjonen din, inkludert e-postadressa di, har ikkje vorte gjeve til nokon."
 
@@ -3584,6 +3716,9 @@ msgstr "Den opphavlege meldinga di er lagt ved."
 msgid "Your password has been changed."
 msgstr "Passordet ditt er bytt"
 
+msgid "Your password has been changed. You also have a new one time passcode which you'll need next time you want to change your password"
+msgstr ""
+
 msgid "Your password:"
 msgstr "Passordet ditt:"
 
@@ -3622,6 +3757,9 @@ msgstr "Ditt svar til ein krav om innsyn vart ikkje levert"
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Svaret ditt vil <strong>publiserast på Internettet<strong>, <a href=\"{{url}}\">les kvifor</a>, og få svar på andre spurnader."
+
+msgid "Your right to know"
+msgstr ""
 
 msgid "Your selected authorities"
 msgstr "Dei valde styresmaktene dine"
@@ -3676,9 +3814,6 @@ msgstr "\\n\\n[ {{site_name}} NB: Teksta over var feil enkodet, og har fått rar
 
 msgid "admin"
 msgstr "administrator"
-
-msgid "alaveteli_foi:The software that runs {{site_name}}"
-msgstr "alaveteli_foi:Programvara som køyrer {{site_name}}"
 
 msgid "all requests"
 msgstr "alle førespurnader"
@@ -3805,6 +3940,9 @@ msgstr "mobilnummer"
 
 msgid "move..."
 msgstr "flytt..."
+
+msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
+msgstr ""
 
 msgid "new requests"
 msgstr "nye førespurnader"
@@ -3996,6 +4134,9 @@ msgstr "{{user_name}} (Konto er stengt)"
 
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - Krav om innsyn"
+
+msgid "{{user_name}} - Two Factor Authentication"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - brukarprofil"
