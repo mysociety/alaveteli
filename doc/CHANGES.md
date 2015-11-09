@@ -77,7 +77,10 @@
   you install Ruby 1.9 or 2.0 yourself, but be aware that we will no longer be
   testing package installation on Squeeze and that OS security updates will no
   longer be produced by Debian after Feb 2016.
-
+* The install script `site-specific-install.sh` sets the default ruby to 1.9. You
+  can do this manually with the same commands http://git.io/vlDpb
+* If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
+  http://git.io/vlD1k
 * `UserController#signchangepassword` has been deprecated. If you still need
   this action, add the following route to your theme's
   `lib/config/custom_routes.rb`:
@@ -100,9 +103,8 @@
   may need to override the `LAW_USED_READABLE_DATA` hash to ensure it has a
   `:with_a` key value pair for each law you are supporting before calling
   `law_used_human(:with_a)`.
-* The install script `site-specific-install.sh` sets the default ruby to 1.9. You can do this manually with the same commands http://git.io/vlDpb
-* If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
-  http://git.io/vlD1k
+
+
 * Please upgrade the syntax in any theme specs you have to be compatible with
   rspec 3. Useful resources:
   * https://relishapp.com/rspec/docs/upgrade
