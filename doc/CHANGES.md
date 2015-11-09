@@ -66,7 +66,7 @@
 ## Upgrade Notes
 
 * `UserController#signchangepassword` has been deprecated. If you still need
-  this controller, add the following route to your theme's
+  this action, add the following route to your theme's
   `lib/config/custom_routes.rb`:
 
     match '/profile/change_password' => 'user#signchangepassword',
