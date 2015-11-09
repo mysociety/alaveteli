@@ -1058,9 +1058,6 @@ msgstr "Feladó:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ITT ÍRJA LE PANASZÁNAK RÉSZLETEIT "
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr ""
 
@@ -1538,13 +1535,18 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+msgstr ""
+"Új<br/><br/>\n"
+"        <strong>Közérdekű <br/>\n"
+"        Adat <br/>\n"
+"        Igénylés\n"
+"        </strong><br/><br/> létrehozása "
+
 msgid "Make a request"
 msgstr "Új igénylés"
 
 msgid "Make a request &raquo;"
-msgstr ""
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3379,9 +3381,6 @@ msgstr "Az adatgazda által végrehajtott, az igénylés kezelésével kapcsolat
 
 msgid "Waiting for the public authority to reply"
 msgstr "Az adatgazda válaszára várakozik "
-
-msgid "Want to know something?"
-msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "A közérdekűadat-igénylésére kielégítő választ kapott? "

@@ -996,9 +996,6 @@ msgstr "Frá:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ÚTSKÝRING Á KVÖRTUN ÞINNI HÉR"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr "Þegar með reikning?"
 
@@ -1439,9 +1436,6 @@ msgstr "Útbúa upplýsingabeiðni"
 
 msgid "Make a request &raquo;"
 msgstr "Senda upplýsingabeiðni &raquo;"
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
-msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Senda upplýsingabeiðnir á þessi stjórnvöld"
@@ -3203,9 +3197,6 @@ msgid "Waiting for the public authority to complete an internal review of their 
 msgstr ""
 
 msgid "Waiting for the public authority to reply"
-msgstr ""
-
-msgid "Want to know something?"
 msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"

@@ -1012,9 +1012,6 @@ msgstr "من"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "قوموا بإعطاء تفاصيل عن شكواكم هنا"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr ""
 
@@ -1450,13 +1447,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+msgstr "اضف<br/>\\n  <strong>لحرية<span>of</span><br/>\\n  النفاذ للمعلومة<br/>\\n طلبا جديدا</strong>"
+
 msgid "Make a request"
 msgstr "قدم مطلبا"
 
 msgid "Make a request &raquo;"
-msgstr ""
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3240,9 +3237,6 @@ msgstr "بانتظار ان تكمل السلطة العامة مراجعة دا
 
 msgid "Waiting for the public authority to reply"
 msgstr "انتظار رد السلطة العامة"
-
-msgid "Want to know something?"
-msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "هل كان الرد الذي تحصلت عليه بخصوص طلب حرية النفاذ للمعلومة جيدا؟"
