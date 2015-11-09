@@ -65,6 +65,19 @@
 
 ## Upgrade Notes
 
+* **Version 0.23 does not support Ruby 1.8.7.**
+
+* If you are running Alaveteli on Debian Squeeze, you should upgrade your OS to
+  Debian Wheezy before upgrading to this release. This
+  [Debian upgrade guide](https://www.debian.org/releases/oldstable/amd64/release-notes/ch-upgrading)
+  can guide you through the process. If you have
+  questions about upgrading OS, please don't hesitate to ask on the
+  [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+  If you're not ready to upgrade to Wheezy, you can still upgrade Alaveteli if
+  you install Ruby 1.9 or 2.0 yourself, but be aware that we will no longer be
+  testing package installation on Squeeze and that OS security updates will no
+  longer be produced by Debian after Feb 2016.
+
 * `UserController#signchangepassword` has been deprecated. If you still need
   this action, add the following route to your theme's
   `lib/config/custom_routes.rb`:
@@ -90,16 +103,6 @@
 * The install script `site-specific-install.sh` sets the default ruby to 1.9. You can do this manually with the same commands http://git.io/vlDpb
 * If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
   http://git.io/vlD1k
-* If you are running Alaveteli on Debian Squeeze, you should upgrade your OS to
-  Debian Wheezy before upgrading to this release. This
-  [Debian upgrade guide](https://www.debian.org/releases/oldstable/amd64/release-notes/ch-upgrading)
-  can guide you through the process. If you have
-  questions about upgrading OS, please don't hesitate to ask on the
-  [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
-  If you're not ready to upgrade to Wheezy, you can still upgrade Alaveteli if
-  you install Ruby 1.9 or 2.0 yourself, but be aware that we will no longer be
-  testing package installation on Squeeze and that OS security updates will no
-  longer be produced by Debian after Feb 2016.
 * Please upgrade the syntax in any theme specs you have to be compatible with
   rspec 3. Useful resources:
   * https://relishapp.com/rspec/docs/upgrade
