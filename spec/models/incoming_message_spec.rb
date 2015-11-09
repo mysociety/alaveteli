@@ -23,6 +23,98 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+
+describe IncomingMessage do
+
+  describe '#apply_masks' do
+
+    before(:each) do
+      @im = incoming_messages(:useless_incoming_message)
+
+      @default_opts = { :last_edit_editor => 'unknown',
+                        :last_edit_comment => 'none' }
+
+      load_raw_emails_data
+    end
+
+    it 'replaces text with global censor rules' do
+      data = 'There was a mouse called Stilton, he wished that he was blue'
+      expected = 'There was a mouse called Stilton, he said that he was blue'
+
+      opts = { :text => 'wished',
+               :replacement => 'said',
+               :allow_global => true }.merge(@default_opts)
+      CensorRule.create!(opts)
+
+      result = @im.apply_masks(data, 'text/plain')
+
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with censor rules belonging to the info request' do
+      data = 'There was a mouse called Stilton.'
+      expected = 'There was a cat called Jarlsberg.'
+
+      rules = [
+        { :text => 'Stilton', :replacement => 'Jarlsberg' },
+        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+      ]
+
+      rules.each do |rule|
+        @im.info_request.censor_rules << CensorRule.new(rule.merge(@default_opts))
+      end
+
+      result = @im.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with masks belonging to the info request' do
+      data = "He emailed #{ @im.info_request.incoming_email }"
+      expected = "He emailed [FOI ##{ @im.info_request.id } email]"
+      result = @im.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with global masks' do
+      data = 'His email address was stilton@example.org'
+      expected = 'His email address was [email address]'
+      result = @im.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text in binary files' do
+      data = 'His email address was stilton@example.org'
+      expected = 'His email address was xxxxxxx@xxxxxxx.xxx'
+      result = @im.apply_masks(data, 'application/vnd.ms-word')
+      expect(result).to eq(expected)
+    end
+
+  end
+
+  describe '#_extract_text' do
+
+    it 'does not generate incompatible character encodings' do
+      if String.respond_to?(:encode)
+        message = FactoryGirl.create(:incoming_message)
+        FactoryGirl.create(:body_text,
+                           :body => 'hí',
+                           :incoming_message => message,
+                           :url_part_number => 2)
+        FactoryGirl.create(:pdf_attachment,
+                           :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
+                           :incoming_message => message,
+                           :url_part_number => 3)
+        message.reload
+
+        expect{ message._extract_text }.
+          to_not raise_error
+      end
+    end
+
+  end
+
+end
+
 describe IncomingMessage, 'when validating' do
 
   it 'should be valid with valid prominence values' do
@@ -464,7 +556,8 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
 
 end
 
-
+# [DEPRECATION] IncomingMessage#apply_masks! will be removed in 0.24.
+# Use the non-destructive IncomingMessage#apply_masks instead
 describe IncomingMessage, " when censoring data" do
 
   before(:each) do
@@ -761,32 +854,6 @@ describe IncomingMessage, "when extracting attachments" do
 
       expect(im._get_attachment_text_internal.valid_encoding?).to be true
     end
-  end
-
-end
-
-describe IncomingMessage do
-
-  describe '#_extract_text' do
-
-    it 'does not generate incompatible character encodings' do
-      if String.respond_to?(:encode)
-        message = FactoryGirl.create(:incoming_message)
-        FactoryGirl.create(:body_text,
-                           :body => 'hí',
-                           :incoming_message => message,
-                           :url_part_number => 2)
-        FactoryGirl.create(:pdf_attachment,
-                           :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
-                           :incoming_message => message,
-                           :url_part_number => 3)
-        message.reload
-
-        expect{ message._extract_text }.
-          to_not raise_error
-      end
-    end
-
   end
 
 end

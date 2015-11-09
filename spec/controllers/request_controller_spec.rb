@@ -2497,7 +2497,7 @@ describe RequestController, "when caching fragments" do
                             :info_request_id => 132,
                             :id => 44,
                             :get_attachments_for_display => nil,
-                            :apply_masks! => nil,
+                            :apply_masks => nil,
                             :user_can_view? => true,
                             :all_can_view? => true)
     attachment = FactoryGirl.build(:body_text, :filename => long_name)

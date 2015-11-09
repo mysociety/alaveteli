@@ -157,6 +157,7 @@ GEM
     hike (1.2.3)
     holidays (1.2.0)
     i18n (0.6.11)
+    ibsciss-middleware (0.3.2)
     icalendar (1.4.3)
     iso_country_codes (0.6.1)
     journey (1.0.4)
@@ -356,6 +357,7 @@ DEPENDENCIES
   gettext_i18n_rails (~> 0.9.4)
   globalize3!
   holidays (~> 1.2.0)
+  ibsciss-middleware (~> 0.3)
   icalendar (= 1.4.3)
   iso_country_codes (~> 0.6.1)
   jquery-rails (~> 3.1.3)
