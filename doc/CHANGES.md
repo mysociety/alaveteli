@@ -114,6 +114,8 @@
   http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email)
   and [exim](http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email-1)
   setup documentation.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running rails-post-deploy.
 
 
 ### Changed Templates
