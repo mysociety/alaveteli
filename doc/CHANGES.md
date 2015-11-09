@@ -6,7 +6,6 @@
   `ENABLE_TWO_FACTOR_AUTH` (Gareth Rees).
 * Fixes a bug which caused request titles to be HTML escaped twice
   when setting up a new request track while not logged in (Liz Conlan).
-* Added a new placeholder logo (Zarino Zappia).
 * Extracted UserController#signchangepassword to PasswordChangesController
   (Gareth Rees).
 * Added configuration for `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS`.
@@ -17,7 +16,7 @@
   this new limit is exceeded (Liz Conlan).
 * Refactor of `InfoRequest` (Liz Conlan).
 * Improved placeholder logo (Zarino Zappia).
-* Improve mobile layout on authority list page (Marting Wright).
+* Improve mobile layout on authority list page (Martin Wright).
 * Improve handling of associated records when destroying parents (Liz Conlan).
 * Major refactoring of `InfoRequest#receive` (Gareth Rees).
 * Santitze invalid UTF-8 in mail server logs while processing them (Steven Day,
@@ -57,23 +56,49 @@
 * Alaveteli now uses a local GeoIP database by default to find the country for
   HTTP requests (and tell users if there is an Alaveteli in their country),
   rather than the mySociety Gaze service. This should improve performance and
-  reliability.
+  reliability (Ian Chard).
 * The 'Return-Path' header for mails from users is now set to an email address on
-  the Alaveteli domain so that SPF checks should pass.
+  the Alaveteli domain so that SPF checks should pass (Louise Crow).
 * **Debian Squeeze is no longer supported as an OS to run Alaveteli on.** It is
   end-of-life in Feb 2016 and only packages Ruby 1.8.
 
 ## Upgrade Notes
 
-* `UserController#signchangepassword` has been deprecated. If you still need
-  this controller, add the following route to your theme's
+* **Version 0.23 does not support Ruby 1.8.7.**
+
+* If you are running Alaveteli on Debian Squeeze, you should upgrade your OS to
+  Debian Wheezy before upgrading to this release. This
+  [Debian upgrade guide](https://www.debian.org/releases/oldstable/amd64/release-notes/ch-upgrading)
+  can guide you through the process. If you have
+  questions about upgrading OS, please don't hesitate to ask on the
+  [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+  If you're not ready to upgrade to Wheezy, you can still upgrade Alaveteli if
+  you install Ruby 1.9 or 2.0 yourself, but be aware that we will no longer be
+  testing package installation on Squeeze and that OS security updates will no
+  longer be produced by Debian after Feb 2016.
+* The install script `site-specific-install.sh` sets the default ruby to 1.9. You
+  can do this manually with the same commands http://git.io/vlDpb
+* If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
+  http://git.io/vlD1k
+* This release adds `geoip-database` to the list of required packages. You can
+  install it with `sudo apt-get install geoip-database`. If you don't want to
+  or can't use a local GeoIP database, set `GEOIP_DATABASE' to an empty string in
+  `config/general.yml`.
+* Make sure that your 'blackhole email address' is configured to be
+  discarded by your MTA - see our [postfix](
+  http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email)
+  and [exim](http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email-1)
+  setup documentation.
+* `UserController#signchangepassword` has been deprecated and password changing
+  moved to a separate controller, `PasswordChangesController`. If you still need
+  the old action, add the following route to your theme's
   `lib/config/custom_routes.rb`:
 
     match '/profile/change_password' => 'user#signchangepassword',
           :as => :signchangepassword
 
-  You'll also need to change any url helpers from `new_password_change_path` to
-  `signchangepassword_path`
+  If you do this, you'll also need to change any url helpers from `new_password_change_path`
+  to `signchangepassword_path`.
 * This release takes the first steps to deprecate the `link_button_green` class, which
   will be removed in a future release. We've added contextually relevant
   classes to these elements. Please update your themes to ensure you're
@@ -87,33 +112,13 @@
   may need to override the `LAW_USED_READABLE_DATA` hash to ensure it has a
   `:with_a` key value pair for each law you are supporting before calling
   `law_used_human(:with_a)`.
-* The install script `site-specific-install.sh` sets the default ruby to 1.9. You can do this manually with the same commands http://git.io/vlDpb
-* If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
-  http://git.io/vlD1k
-* If you are running Alaveteli on Debian Squeeze, you should upgrade your OS to
-  Debian Wheezy before upgrading to this release. This
-  [Debian upgrade guide](https://www.debian.org/releases/oldstable/amd64/release-notes/ch-upgrading)
-  can guide you through the process. If you have
-  questions about upgrading OS, please don't hesitate to ask on the
-  [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
-  If you're not ready to upgrade to Wheezy, you can still upgrade Alaveteli if
-  you install Ruby 1.9 or 2.0 yourself, but be aware that we will no longer be
-  testing package installation on Squeeze and that OS security updates will no
-  longer be produced by Debian after Feb 2016.
 * Please upgrade the syntax in any theme specs you have to be compatible with
   rspec 3. Useful resources:
   * https://relishapp.com/rspec/docs/upgrade
   * http://yujinakayama.me/transpec/
-* This release adds `geoip-database` to the list of required packages. You can
-  install it with `sudo apt-get install geoip-database`. If you don't want to
-  or can't use a local GeoIP database, set `GEOIP_DATABASE' to an empty string in
-  `config/general.yml`.
 * There are a couple of database structure updates so remember to `rake db:migrate`
-* Make sure that your 'blackhole email address' is configured to be
-  discarded by your MTA - see our [postfix](
-  http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email)
-  and [exim](http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email-1)
-  setup documentation.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running rails-post-deploy.
 
 
 ### Changed Templates
@@ -163,6 +168,7 @@ to match the new templates.
     app/views/help/unhappy.html.erb
     app/views/info_request_batch/_batch_sent.html.erb
     app/views/layouts/default.html.erb
+    app/views/outgoing_mailer/initial_request.text.erb
     app/views/public_body/_body_listing_single.html.erb
     app/views/public_body/list.html.erb
     app/views/public_body/show.html.erb
@@ -178,14 +184,26 @@ to match the new templates.
     app/views/request/_restricted_correspondence.html.erb
     app/views/request/_search_ahead.html.erb
     app/views/request/_sidebar.html.erb
+    app/views/request/followup_bad.html.erb
     app/views/request/followup_preview.html.erb
     app/views/request/list.html.erb
     app/views/request/new.html.erb
+    app/views/request/new_bad_contact.html.erb
+    app/views/request/preview.html.erb
     app/views/request/select_authorities.html.erb
     app/views/request/select_authority.html.erb
     app/views/request/show.html.erb
     app/views/request/show_response.html.erb
     app/views/request_game/play.html.erb
+    app/views/request_mailer/comment_on_alert.text.erb
+    app/views/request_mailer/comment_on_alert_plural.text.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/request_mailer/not_clarified_alert.text.erb
+    app/views/request_mailer/old_unclassified_updated.text.erb
+    app/views/request_mailer/overdue_alert.text.erb
+    app/views/request_mailer/requires_admin.text.erb
+    app/views/request_mailer/stopped_responses.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
     app/views/track/_tracking_links.html.erb
     app/views/user/_show_user_info.html.erb
     app/views/user/_signin.html.erb
