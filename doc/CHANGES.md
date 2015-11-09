@@ -81,15 +81,16 @@
   can do this manually with the same commands http://git.io/vlDpb
 * If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
   http://git.io/vlD1k
-* `UserController#signchangepassword` has been deprecated. If you still need
-  this action, add the following route to your theme's
+* `UserController#signchangepassword` has been deprecated and password changing
+  moved to a separate controller, `PasswordChangesController`. If you still need
+  the old action, add the following route to your theme's
   `lib/config/custom_routes.rb`:
 
     match '/profile/change_password' => 'user#signchangepassword',
           :as => :signchangepassword
 
-  You'll also need to change any url helpers from `new_password_change_path` to
-  `signchangepassword_path`
+  If you do this, you'll also need to change any url helpers from `new_password_change_path`
+  to `signchangepassword_path`.
 * This release takes the first steps to deprecate the `link_button_green` class, which
   will be removed in a future release. We've added contextually relevant
   classes to these elements. Please update your themes to ensure you're
