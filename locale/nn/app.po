@@ -1013,9 +1013,6 @@ msgstr "Frå:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "SKRIV GRUNNENE FOR KVIFOR DU KLAGAR HER"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr "Har du ein konto?"
 
@@ -1451,14 +1448,14 @@ msgstr "Lan ein ny miljøinformasjonslov-førespurnad"
 msgid "Make a new FOI request"
 msgstr "Lag eit nytt krav om innsyn"
 
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+msgstr "Lag ein ny<br/>\\n <strong>førespurnad <span>om</span><br/>\\n  innsyn</strong>"
+
 msgid "Make a request"
 msgstr "Lag førespurnad"
 
 msgid "Make a request &raquo;"
 msgstr "Lag en førespurnad &raquo;"
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
-msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Lag ein førespurnad til desse styresmaktene"
@@ -3225,9 +3222,6 @@ msgstr "Ventar på at styresmakta skal utføra klagehandsaming på denne føresp
 
 msgid "Waiting for the public authority to reply"
 msgstr "Ventar på svar frå styresmakta"
-
-msgid "Want to know something?"
-msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Var svaret på innsynskravet ditt tilfredsstillande?"

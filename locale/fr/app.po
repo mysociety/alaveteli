@@ -1026,9 +1026,6 @@ msgstr "De:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "DONNEZ DES DÉTAILS SUR VOTRE PLAINTE ICI"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr "Vous avez un compte?"
 
@@ -1466,14 +1463,14 @@ msgstr "Faites une nouvelle demande sur l'Information de règlement de l'environ
 msgid "Make a new FOI request"
 msgstr "Faites une nouvelle demande DAI"
 
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+msgstr "Faire une<br/>\\n  <strong>Nouvelle  <span>demande</span><br/>\\n  d'accès<br/>\\n  à l'information</strong>"
+
 msgid "Make a request"
 msgstr "Demander l'accès à une information"
 
 msgid "Make a request &raquo;"
 msgstr "Faites une demande &raquo;"
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
-msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Faites une demande à ces autorités"
@@ -3236,9 +3233,6 @@ msgstr "En attente de l'autorité administrative  pour compléter une révision 
 
 msgid "Waiting for the public authority to reply"
 msgstr "En attente de la réponse de l'autorité administrative"
-
-msgid "Want to know something?"
-msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Est ce que vous êtes satisfait  de la réponse que vous avez eu ?"

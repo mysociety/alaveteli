@@ -1019,9 +1019,6 @@ msgstr "Od strane:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "OVDE IZNESITE DETALJE VAŠE ŽALBE"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr ""
 
@@ -1462,13 +1459,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+msgstr "Podnesi novi<br/>\\n<strong>Zahtev<span> za</span><br/>\\nslobodan<br/>\\npristup informacijama od javnog značaja</strong>"
+
 msgid "Make a request"
 msgstr "Podnesi zahtev"
 
 msgid "Make a request &raquo;"
-msgstr ""
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3289,9 +3286,6 @@ msgstr "Čeka se na javnu ustanovu da završi urgenciju u vezi obrade ovog zahte
 
 msgid "Waiting for the public authority to reply"
 msgstr "Čeka na odgovor javne ustanove"
-
-msgid "Want to know something?"
-msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Da li je odgovor koji ste dobili na Vaš Zahtev o slobodnom pristupu informacijama od javnog značaja bio od ikakve koristi?"

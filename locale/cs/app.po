@@ -1071,9 +1071,6 @@ msgstr "Od:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ZDE UPŘESNĚTE DETAILY VAŠÍ STÍŽNOSTI"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr "Máte účet?"
 
@@ -1530,14 +1527,18 @@ msgstr "Podejte novou EIR žádost"
 msgid "Make a new FOI request"
 msgstr "Vzneste novou žádost"
 
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+msgstr ""
+"Zjistěte pomocí zákona<br/>\n"
+"o svobodném přístupu<br/>\n"
+"k informacím<br/>\n"
+"co dělají státní instituce"
+
 msgid "Make a request"
 msgstr "Vzneste dotaz"
 
 msgid "Make a request &raquo;"
 msgstr "Vzneste dotaz &raquo;"
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
-msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Vzneste dotaz na tyto instituce"
@@ -3354,9 +3355,6 @@ msgstr "Čekám, až instituce doplní požadované informace k mému dotazu"
 
 msgid "Waiting for the public authority to reply"
 msgstr "Čeká se na odpověď instituce"
-
-msgid "Want to know something?"
-msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Byla odpověď na váš dotaz kompletní a v pořádku?"

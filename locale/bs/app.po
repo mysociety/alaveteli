@@ -511,9 +511,6 @@ msgstr ""
 msgid "Beginning with"
 msgstr "Počevši sa"
 
-msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr ""
-
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Pretražite <a href='{{url}}'>druge zahtjeve</a> radi primjera kako da sročite Vaš zahtjev."
 
@@ -1052,9 +1049,6 @@ msgstr "Od strane:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "OVDJE IZNESITE DETALJE VAŠE ŽALBE"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr ""
 
@@ -1529,13 +1523,17 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+msgstr ""
+"Podnesi novi<br/>\n"
+"        <strong>Zahtjev<span>za</span><br/>\n"
+"        slobodan<br/>\n"
+"        pristup informacijama</strong>"
+
 msgid "Make a request"
 msgstr "Podnesi zahtjev"
 
 msgid "Make a request &raquo;"
-msgstr ""
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3359,9 +3357,6 @@ msgstr ""
 
 msgid "Waiting for the public authority to reply"
 msgstr "Čekamo na odgovor javne ustanove"
-
-msgid "Want to know something?"
-msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Da li je odgovor koji ste dobili na Vaš Zahtjev o slobodnom pristupu informacijama bio od ikakve koristi?"

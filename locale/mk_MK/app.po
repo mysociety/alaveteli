@@ -996,9 +996,6 @@ msgstr "Од:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ДАДЕТЕ ДЕТАЛИ ЗА ВАЖАТА ЖАЛБА ТУКА"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr ""
 
@@ -1434,13 +1431,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+msgstr "Направи ново<br/>\\n  <strong>Барање  за Слободен <span>пристап до</span><br/>\\n  информации</strong>"
+
 msgid "Make a request"
 msgstr "Поднесете барање"
 
 msgid "Make a request &raquo;"
-msgstr ""
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3209,9 +3206,6 @@ msgstr "Се чека имателот да ја заврши внатрешна
 
 msgid "Waiting for the public authority to reply"
 msgstr "Се чека имателот да одговори"
-
-msgid "Want to know something?"
-msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Дали одговорот што го добивте на вашето барање ви е од корист?"

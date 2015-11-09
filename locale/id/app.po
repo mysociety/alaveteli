@@ -1080,9 +1080,6 @@ msgstr "Dari:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "BERIKAN RINCIAN TENTANG KEBERATAN ANDA DI SINI"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr ""
 
@@ -1560,13 +1557,17 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+msgstr ""
+"Buat permintaan <br/>\n"
+"        <strong>Freedom <span>of</span><br/>\n"
+"        Information<br/>\n"
+"        yang baru</strong>"
+
 msgid "Make a request"
 msgstr "Buat permintaan"
 
 msgid "Make a request &raquo;"
-msgstr ""
-
-msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -3396,9 +3397,6 @@ msgstr "Menunggu otoritas publik untuk menyelesaikan kajian internal mengenai pe
 
 msgid "Waiting for the public authority to reply"
 msgstr "Menunggu otoritas publik untuk membalas"
-
-msgid "Want to know something?"
-msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Apakah respon yang Anda terima atas permintaa FOI Anda berguna?"
