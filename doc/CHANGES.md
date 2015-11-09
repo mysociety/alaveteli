@@ -6,7 +6,6 @@
   `ENABLE_TWO_FACTOR_AUTH` (Gareth Rees).
 * Fixes a bug which caused request titles to be HTML escaped twice
   when setting up a new request track while not logged in (Liz Conlan).
-* Added a new placeholder logo (Zarino Zappia).
 * Extracted UserController#signchangepassword to PasswordChangesController
   (Gareth Rees).
 * Added configuration for `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS`.
@@ -17,7 +16,7 @@
   this new limit is exceeded (Liz Conlan).
 * Refactor of `InfoRequest` (Liz Conlan).
 * Improved placeholder logo (Zarino Zappia).
-* Improve mobile layout on authority list page (Marting Wright).
+* Improve mobile layout on authority list page (Martin Wright).
 * Improve handling of associated records when destroying parents (Liz Conlan).
 * Major refactoring of `InfoRequest#receive` (Gareth Rees).
 * Santitze invalid UTF-8 in mail server logs while processing them (Steven Day,
@@ -57,9 +56,9 @@
 * Alaveteli now uses a local GeoIP database by default to find the country for
   HTTP requests (and tell users if there is an Alaveteli in their country),
   rather than the mySociety Gaze service. This should improve performance and
-  reliability.
+  reliability (Ian Chard).
 * The 'Return-Path' header for mails from users is now set to an email address on
-  the Alaveteli domain so that SPF checks should pass.
+  the Alaveteli domain so that SPF checks should pass (Louise Crow).
 * **Debian Squeeze is no longer supported as an OS to run Alaveteli on.** It is
   end-of-life in Feb 2016 and only packages Ruby 1.8.
 
