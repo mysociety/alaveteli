@@ -4,9 +4,9 @@
 #
 # Translators:
 # Translators:
-# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012-2013
-# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012-2013
-# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012
+# Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
+# Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
+# Andrei Cristian Petcu <andreip@posteo.net>, 2012
 # Claudiu Marginean <copyratul@gmail.com>, 2012
 # Claudiu Marginean <copyratul@gmail.com>, 2012
 # Claudiu Marginean <copyratul@gmail.com>, 2012
@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-06 14:00+0000\n"
-"PO-Revision-Date: 2015-08-12 11:02+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2015-11-06 15:25+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
