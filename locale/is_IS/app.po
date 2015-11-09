@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-06 14:00+0000\n"
-"PO-Revision-Date: 2015-10-28 09:30+0000\n"
+"PO-Revision-Date: 2015-11-09 09:24+0000\n"
 "Last-Translator: Páll Hilmarsson <pallih@kaninka.net>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
@@ -707,7 +707,7 @@ msgid "Delayed."
 msgstr "Seinkað."
 
 msgid "Delivery error"
-msgstr ""
+msgstr "Villa í sendingu"
 
 msgid "Destroy {{name}}"
 msgstr "Eyða {{name}}"
@@ -833,7 +833,7 @@ msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "Mistókst"
 
 msgid "Failed to convert image to a PNG"
 msgstr "Gat ekki breytt mynd yfir í PNG"
@@ -851,19 +851,19 @@ msgid "Find an authority"
 msgstr "Finndu stjórnvald"
 
 msgid "Find the authorities"
-msgstr ""
+msgstr "Finndu stjórnvöld"
 
 msgid "Find the authorities to write to"
-msgstr ""
+msgstr "Finndu stjórnvöld til að senda á"
 
 msgid "First, did your other requests succeed?"
-msgstr ""
+msgstr "Í fyrsta lagi, heppnuðust hinar beiðnirnar?"
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
 msgstr "Til að byrja með, sláðu inn <strong>nafn stjórnvaldsins</strong> sem þú vilt\\n fá upplýsingar frá."
 
 msgid "Foi attachment"
-msgstr ""
+msgstr "Viðhengi"
 
 msgid "FoiAttachment|Charset"
 msgstr ""
