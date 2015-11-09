@@ -114,12 +114,12 @@
   install it with `sudo apt-get install geoip-database`. If you don't want to
   or can't use a local GeoIP database, set `GEOIP_DATABASE' to an empty string in
   `config/general.yml`.
-* There are a couple of database structure updates so remember to `rake db:migrate`
 * Make sure that your 'blackhole email address' is configured to be
   discarded by your MTA - see our [postfix](
   http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email)
   and [exim](http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email-1)
   setup documentation.
+* There are a couple of database structure updates so remember to `rake db:migrate`
 * This release includes an update to the commonlib submodule - you
   should be warned about this when running rails-post-deploy.
 
