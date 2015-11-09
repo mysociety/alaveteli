@@ -5,6 +5,7 @@
 # Translators:
 # Translators:
 # andreas.pavlou <andreas@access-info.org>, 2015
+# andreas.pavlou <andreas@access-info.org>, 2015
 # David Cabo <david.cabo@gmail.com>, 2011-2013,2015
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
@@ -25,7 +26,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-06 14:00+0000\n"
-"PO-Revision-Date: 2015-09-17 19:22+0000\n"
+"PO-Revision-Date: 2015-11-06 15:25+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/mysociety/alaveteli/language/es/)\n"
 "Language: es\n"
