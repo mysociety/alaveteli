@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Various major design and markup improvements to the layout, home page and
+  request page (Martin Wright).
 * Adds basic opt-in two factor authentication. Enable it globally with
   `ENABLE_TWO_FACTOR_AUTH` (Gareth Rees).
 * Fixes a bug which caused request titles to be HTML escaped twice
@@ -38,8 +40,6 @@
   http://alaveteli.org/docs/developers/i18n/#internationalised-sorting for
   adding collations. This requires PostgreSQL >= 9.1.12. (Gareth Rees)
 * The new widget template can now be translated (Gareth Rees).
-* Various major design and markup improvements to the layout, home page and
-  request page (Martin Wright).
 * Improved locale switcher markup and code (Martin Wright, Gareth Rees).
 * OpenGraph markup added to improve the appearance of Alaveteli links on social
   media (Owen Blacker).
@@ -89,6 +89,9 @@
   http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email)
   and [exim](http://alaveteli.org/docs/installing/email/#discard-unwanted-incoming-email-1)
   setup documentation.
+* This release introduces a new default homepage - if you want to keep your existing
+  homepage layout, copy the old homepage templates to your theme before upgrading and
+  check that you have translations for them in your `theme-locale` directory.
 * `UserController#signchangepassword` has been deprecated and password changing
   moved to a separate controller, `PasswordChangesController`. If you still need
   the old action, add the following route to your theme's
