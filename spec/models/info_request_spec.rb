@@ -48,6 +48,28 @@ describe InfoRequest do
       InfoRequest.find(info_request.id)
     end
 
+    it "sets the url_title from the supplied title" do
+      info_request = InfoRequest.new(:title => "Test title")
+      expect(info_request.url_title).to eq("test_title")
+    end
+
+    it "adds the next sequential number to the url_title to make it unique" do
+      # will actually return the matching record but true is good enough here
+      allow(InfoRequest).to receive(:find_by_url_title).
+        with("test_title", :conditions => nil).
+          and_return(true)
+      allow(InfoRequest).to receive(:find_by_url_title).
+        with("test_title_2", :conditions => nil).
+          and_return(true)
+
+      # not found - we can use this one
+      allow(InfoRequest).to receive(:find_by_url_title).
+        with("test_title_3", :conditions => nil).
+          and_return(nil)
+
+      info_request = InfoRequest.new(:title => "Test title")
+      expect(info_request.url_title).to eq("test_title_3")
+    end
   end
 
   describe '.stop_new_responses_on_old_requests' do
