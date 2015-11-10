@@ -521,6 +521,17 @@ describe UserController, "when signing in" do
     expect(ActionMailer::Base.deliveries).not_to be_empty
   end
 
+  it 'does not redirect you to another domain' do
+    get :signin, :r => "http://bad.place.com/list"
+    post_redirect = get_last_postredirect
+    post :signin, { :user_signin => { :email => 'unconfirmed@localhost',
+                                      :password => 'jonespassword' },
+                    :token => post_redirect.token
+                  }
+    get :confirm, :email_token => post_redirect.email_token
+    expect(response).to redirect_to('/list?post_redirect=1')
+  end
+
   it "should confirm your email, log you in and redirect you to where you were after you click an email link" do
     get :signin, :r => "/list"
     post_redirect = get_last_postredirect
