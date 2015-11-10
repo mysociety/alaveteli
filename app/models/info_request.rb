@@ -114,6 +114,10 @@ class InfoRequest < ActiveRecord::Base
 
   after_initialize :set_defaults
   before_destroy :expire
+  # make sure the url_title is unique but don't update
+  # existing requests unless the title is being changed
+  before_save :update_url_title,
+    :if => Proc.new { |request| request.title_changed? }
 
   def self.enumerate_states
     states = [
@@ -287,6 +291,7 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def update_url_title
+    return unless title
     url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
     # For request with same title as others, add on arbitary numeric identifier
     unique_url_title = url_title
@@ -294,7 +299,7 @@ class InfoRequest < ActiveRecord::Base
     while InfoRequest.
             find_by_url_title(unique_url_title,
                               :conditions => id.nil? ? nil : ["id <> ?", id])
-      unique_url_title = url_title + "_" + suffix_num.to_s
+      unique_url_title = "#{url_title}_#{suffix_num}"
       suffix_num = suffix_num + 1
     end
     write_attribute(:url_title, unique_url_title)
