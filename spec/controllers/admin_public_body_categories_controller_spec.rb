@@ -15,11 +15,6 @@ describe AdminPublicBodyCategoriesController do
       expect(assigns(:locale)).to eq(I18n.locale.to_s)
     end
 
-    it 'sets the locale if the show_locale param is passed' do
-      get :index, :show_locale => 'es'
-      expect(assigns(:locale)).to eq('es')
-    end
-
     it 'finds all category headings' do
       PublicBodyHeading.destroy_all
 

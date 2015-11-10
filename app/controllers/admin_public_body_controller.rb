@@ -16,7 +16,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def show
-    @locale = locale_from_params
+    @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
       @public_body = PublicBody.find(params[:id])
       @info_requests = @public_body.info_requests.paginate :order => "created_at desc",
@@ -231,7 +231,7 @@ class AdminPublicBodyController < AdminController
     end
 
     def lookup_query
-        @locale = locale_from_params
+        @locale = I18n.locale.to_s
         underscore_locale = @locale.gsub '-', '_'
         I18n.with_locale(@locale) do
             @query = params[:query]

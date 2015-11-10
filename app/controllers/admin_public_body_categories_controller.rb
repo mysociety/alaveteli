@@ -6,7 +6,7 @@ class AdminPublicBodyCategoriesController < AdminController
   before_filter :set_public_body_category, :only => [:edit, :update, :destroy]
 
   def index
-    @locale = self.locale_from_params
+    @locale = I18n.locale.to_s
     @category_headings = PublicBodyHeading.all
     @without_heading = PublicBodyCategory.without_headings
   end
