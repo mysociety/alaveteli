@@ -84,8 +84,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :locale_from_params
-
   # Help work out which request causes RAM spike.
   # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
   # This shows the memory use increase of the Ruby process due to the request.
@@ -246,6 +244,8 @@ class ApplicationController < ActionController::Base
 
   # get the local locale
   def locale_from_params(*args)
+    warn %q([DEPRECATION] locale_from_params will be removed in Alaveteli
+               release 0.24).squish
     if params[:show_locale]
       params[:show_locale]
     else
@@ -321,7 +321,7 @@ class ApplicationController < ActionController::Base
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
   def do_post_redirect(post_redirect)
-    uri = post_redirect.uri
+    uri = URI.parse(post_redirect.uri).path
 
     session[:post_redirect_token] = post_redirect.token
 

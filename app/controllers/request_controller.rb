@@ -75,7 +75,7 @@ class RequestController < ApplicationController
     else
       medium_cache
     end
-    @locale = locale_from_params
+    @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
 
       # Look up by old style numeric identifiers
@@ -164,7 +164,7 @@ class RequestController < ApplicationController
   def list
     medium_cache
     @view = params[:view]
-    @locale = locale_from_params
+    @locale = I18n.locale.to_s
     @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
     @per_page = PER_PAGE
     @max_results = MAX_RESULTS
@@ -884,7 +884,7 @@ class RequestController < ApplicationController
 
   # FOI officers can upload a response
   def upload_response
-    @locale = locale_from_params
+    @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
@@ -950,7 +950,7 @@ class RequestController < ApplicationController
   end
 
   def download_entire_request
-    @locale = locale_from_params
+    @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       if authenticated?(

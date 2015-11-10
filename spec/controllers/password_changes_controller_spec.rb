@@ -348,6 +348,17 @@ describe PasswordChangesController do
         expect(response).to redirect_to(pretoken.uri)
       end
 
+      it 'does not redirect to another domain' do
+        user = FactoryGirl.create(:user)
+        post_redirect =
+          PostRedirect.create(:user => user, :uri => frontpage_url)
+        pretoken = PostRedirect.create(:user => user, :uri => 'http://bad.place.com/')
+        session[:change_password_post_redirect_id] = post_redirect.id
+        put :update, :password_change_user => @valid_password_params,
+                     :pretoken => pretoken.token
+        expect(response).to redirect_to('/')
+      end
+
       it 'redirects to the user profile with a blank pretoken' do
         user = FactoryGirl.create(:user)
         post_redirect =

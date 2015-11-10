@@ -23,4 +23,29 @@ describe 'user/sign' do
       expect(response).to have_content("To follow the request '#{@rendered_title}'")
     end
   end
+
+  describe 'when the requested URI is for an admin page and an emergency user exists' do
+
+    before do
+      redirect = PostRedirect.create(:uri => 'http://bad.place.com/admin',
+                                     :post_params => {'controller' => 'admin_general'},
+                                     :reason_params => {:web => '',
+                                                        :user_name => 'Admin user',
+                                                        :user_url => 'users/admin_user'})
+      receive(:disable_emergency_user).and_return(false)
+      assign :post_redirect, redirect
+    end
+
+    it 'shows a link to the path with an emergency param added' do
+      render
+      expect(response).to include("/admin?emergency=1")
+    end
+
+    it 'does not show a link to a different domain' do
+      render
+      expect(response).not_to include("http://bad.place.com/admin?emergency=1")
+    end
+
+  end
+
 end
