@@ -356,7 +356,8 @@ describe PublicBodyController, "when listing bodies" do
   end
 
   it "should list authorities starting with a multibyte first letter" do
-    get :list, {:tag => "å", :show_locale => 'cs'}
+    AlaveteliLocalization.set_locales('cs')
+    get :list, {:tag => "å", :locale => 'cs'}
     expect(response).to render_template('list')
     expect(assigns[:public_bodies]).to eq([ public_bodies(:accented_public_body) ])
     expect(assigns[:tag]).to eq("Å")
