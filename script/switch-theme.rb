@@ -63,7 +63,9 @@ if $available_themes.empty?
   exit
 end
 
-def usage_and_exit
+if ARGV.length == 1
+  requested_theme = ARGV[0]
+else
   STDERR.puts "Usage: #{$0} <THEME-NAME>"
   $available_themes.each do |theme_name|
     STDERR.puts "  #{theme_name}"
@@ -71,9 +73,14 @@ def usage_and_exit
   exit 1
 end
 
-usage_and_exit unless ARGV.length == 1
-requested_theme = ARGV[0]
-usage_and_exit unless $available_themes.include? requested_theme
+unless $available_themes.include? requested_theme
+  STDERR.puts "Theme '#{requested_theme}' not found in '#{theme_directory}'"
+  STDERR.puts "Available themes:"
+  $available_themes.each do |theme_name|
+    STDERR.puts "  #{theme_name}"
+  end
+  exit 1
+end
 
 full_theme_path = File.join theme_directory, requested_theme
 
