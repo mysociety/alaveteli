@@ -156,6 +156,7 @@ GEM
     highline (1.6.19)
     hike (1.2.3)
     holidays (1.2.0)
+    htmlentities (4.3.4)
     i18n (0.6.11)
     icalendar (1.4.3)
     iso_country_codes (0.6.1)
@@ -356,6 +357,7 @@ DEPENDENCIES
   gettext_i18n_rails (~> 0.9.4)
   globalize3!
   holidays (~> 1.2.0)
+  htmlentities (~> 4.3.4)
   icalendar (= 1.4.3)
   iso_country_codes (~> 0.6.1)
   jquery-rails (~> 3.1.3)
