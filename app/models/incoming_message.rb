@@ -32,7 +32,6 @@
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
 # general not specific to IncomingMessage.
 
-require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
 require 'iconv' unless String.method_defined?(:encode)
