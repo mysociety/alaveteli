@@ -322,9 +322,16 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
   end
 
   it 'should check to see if an alert matching the attributes of the one to be sent has already been sent' do
-    expected_params =  {:conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?",
+    expected_params =  {:conditions => [ "alert_type = ? AND user_id = ? AND info_request_id = ? AND info_request_event_id = ?",
                                          'new_response_reminder_1', 2, @mock_request.id, @mock_event.id]}
-    expect(UserInfoRequestSentAlert).to receive(:find).with(:first, expected_params)
+
+    # compare conditions ignoring whitespace differences
+    expect(UserInfoRequestSentAlert).to receive(:find) do |first, query_params|
+      query_string = query_params[:conditions][0]
+      query_params[:conditions][0] = query_string.split(' ').join(' ')
+      expect(query_params).to eq(expected_params)
+    end
+
     send_alerts
   end
 
