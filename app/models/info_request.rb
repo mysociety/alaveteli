@@ -882,7 +882,7 @@ class InfoRequest < ActiveRecord::Base
     elsif respond_to?(:theme_display_status)
       theme_display_status(status)
     else
-      raise _("unknown status ") + status
+      raise _("unknown status {{status}}", :status => status)
     end
   end
 
