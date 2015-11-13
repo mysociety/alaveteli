@@ -348,7 +348,7 @@ class InfoRequestEvent < ActiveRecord::Base
         if status == 'waiting_response'
           return _("Clarification")
         end
-        raise _("unknown status ") + status
+        raise _("unknown status {{status}}", :status => status)
       end
       # TRANSLATORS: "Follow up" in this context means a further
       # message sent by the requester to the authority after
