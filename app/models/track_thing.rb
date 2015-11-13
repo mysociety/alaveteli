@@ -174,7 +174,7 @@ class TrackThing < ActiveRecord::Base
                          :request_title => info_request.title),
       # Authentication
       :web => _("To follow the request '{{request_title}}'",
-                :request_title => info_request.title),
+                :request_title => info_request.title.html_safe),
       :email => _("Then you will be updated whenever the request '{{request_title}}' is updated.",
                   :request_title => info_request.title),
       :email_subject => _("Confirm you want to follow the request '{{request_title}}'",
@@ -233,8 +233,8 @@ class TrackThing < ActiveRecord::Base
                          :public_body_name => public_body.name),
       # Authentication
       :web => _("To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'",
-                :site_name => AlaveteliConfiguration.site_name,
-                :public_body_name => public_body.name),
+                :site_name => AlaveteliConfiguration.site_name.html_safe,
+                :public_body_name => public_body.name.html_safe),
       :email => _("Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'.",
                   :public_body_name => public_body.name),
       :email_subject => _("Confirm you want to follow requests to '{{public_body_name}}'",
@@ -255,7 +255,7 @@ class TrackThing < ActiveRecord::Base
                          :user_name => tracked_user.name),
       # Authentication
       :web => _("To follow requests by '{{user_name}}'",
-                :user_name => tracked_user.name),
+                :user_name => tracked_user.name.html_safe),
       :email => _("Then you will be notified whenever '{{user_name}}' requests something or gets a response.",
                   :user_name => tracked_user.name),
       :email_subject => _("Confirm you want to follow requests by '{{user_name}}'",

@@ -28,7 +28,7 @@
         <% if @post_redirect.reason_params[:web].empty? %>
           <%= _('Please create an account or sign in') %>
         <% else %>
-          <%= _('{{reason}}, create an account or sign in', :reason => HTMLEntities.new.decode(@post_redirect.reason_params[:web])) %>
+          <%= _('{{reason}}, create an account or sign in', :reason => @post_redirect.reason_params[:web]) %>
         <% end %>
       </h1>
     <% end %>
