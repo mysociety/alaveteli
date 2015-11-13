@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/language/he_IL/)\n"
@@ -1359,6 +1359,9 @@ msgstr "InfoRequest|Handle תגובות שנדחו"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
+
+msgid "InfoRequest|Last public response at"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law היו בשימוש"
@@ -4031,8 +4034,9 @@ msgstr ""
 msgid "unknown reason "
 msgstr "סיבה לא ידוע"
 
-msgid "unknown status "
-msgstr "ססטוס לא ידוע"
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "ססטוס לא ידוע {{status}}"
 
 msgid "unresolved requests"
 msgstr "בקשות שלא נענו"
@@ -4180,3 +4184,31 @@ msgstr "{{user}} הגיש את בקשת {{law_used_full}} הזו"
 
 msgid "« Back to search results"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "אז תוכלו לרשום הודעת מעקב ל- {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "אז תוכלו לכתוב את התגובה שלכם ל- {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "לא ניתן לשלוח תגובה ל- {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "לא ניתן לשלוח הודעת מעקב ל- {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "לא ניתן לשלוח תגובה ל- {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "כתבו את בקשת המעקב למידע ל- {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "הודעת המעקב שלכם לא נשלחה, כי היא זוהתה כדואר זבל. <a href=\"{{contact_url}}\">נא צרו איתנו קשר</a>אם אתם באמת מעוניינים לשלוח אותה."

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
@@ -1341,6 +1341,9 @@ msgid "InfoRequest|Handle rejected responses"
 msgstr ""
 
 msgid "InfoRequest|Idhash"
+msgstr ""
+
+msgid "InfoRequest|Last public response at"
 msgstr ""
 
 msgid "InfoRequest|Law used"
@@ -3992,8 +3995,9 @@ msgstr "在這裡輸入你的搜尋文字"
 msgid "unknown reason "
 msgstr "不明原因"
 
-msgid "unknown status "
-msgstr "未知狀態"
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "未知狀態 {{status}}"
 
 msgid "unresolved requests"
 msgstr "尚未解決的要求"
@@ -4138,3 +4142,15 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr "« 返回搜尋結果"
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "傳送一項公開的跟進訊息至{{authority_name}}"
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "然後你可以更改你在 {{authority_name}} 網站的密碼"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "發出一項跟進訊息。{{authority_name}}"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Irish (Ireland) (http://www.transifex.com/mysociety/alaveteli/language/ga_IE/)\n"
@@ -1343,6 +1343,9 @@ msgid "InfoRequest|Handle rejected responses"
 msgstr ""
 
 msgid "InfoRequest|Idhash"
+msgstr ""
+
+msgid "InfoRequest|Last public response at"
 msgstr ""
 
 msgid "InfoRequest|Law used"
@@ -4034,7 +4037,7 @@ msgstr ""
 msgid "unknown reason "
 msgstr ""
 
-msgid "unknown status "
+msgid "unknown status {{status}}"
 msgstr ""
 
 msgid "unresolved requests"

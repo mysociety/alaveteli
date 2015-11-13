@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-14 14:13+0000\n"
 "Last-Translator: gorm <gormer@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
@@ -1350,6 +1350,9 @@ msgstr "InfoRequest|Håndter avviste svar"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
+
+msgid "InfoRequest|Last public response at"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"
@@ -4019,8 +4022,9 @@ msgstr "skriv inn søketerm her"
 msgid "unknown reason "
 msgstr "ukjent grunn "
 
-msgid "unknown status "
-msgstr "ukjent status "
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "ukjent status {{status}}"
 
 msgid "unresolved requests"
 msgstr "uavklarte henvendelser"
@@ -4168,3 +4172,31 @@ msgstr "{{user}} sendte denne henvendelsen om {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Tilbake til søkeresultatene"
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Deretter kan du skrive en oppfølgingsmelding til {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Så kan du skrive svaret ditt til {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Klarte ikke sende svar til {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Klarte ikke sende oppfølgningsmelding til {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Klarte ikke sende svar til {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Skriv din oppfølgning til henvendelsen til {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Din oppfølging er ikke blitt sendt på grunn av at denne henvendelsen ble stoppet for å hindre søppelpost.   <a href=\"{{contact_url}}\">Ta kontakt</a> hvis du virkelig ønsker å sende en oppfølgingsmelding."

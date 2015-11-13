@@ -47,7 +47,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/mysociety/alaveteli/language/pt_BR/)\n"
@@ -1401,6 +1401,9 @@ msgstr "InfoRequest | Administrar respostas rejeitadas"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
+
+msgid "InfoRequest|Last public response at"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest | Lei utilizada"
@@ -4081,8 +4084,9 @@ msgstr ""
 msgid "unknown reason "
 msgstr "razão desconhecida"
 
-msgid "unknown status "
-msgstr "situação desconhecida"
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "situação desconhecida {{status}}"
 
 msgid "unresolved requests"
 msgstr "pedidos pendentes"
@@ -4230,3 +4234,31 @@ msgstr "{{user}} fez esse pedido de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Então você pode escrever uma mensagem de acompanhamento para {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Então você pode escrever sua resposta para {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Não foi possível enviar uma mensagem para {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Não foi possível mandar uma mensagem de acompanhamento para {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Não foi possível enviar uma mensagem para {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Escreva sua mensagem de acompanhamento do pedido para {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Sua mensagem não foi enviada por que esse pedido foi interrompido para impedir spam. Por favor <a href=\"{{contact_url}}\">entre em contato</a> se você realmente quer enviar essa mensagem."

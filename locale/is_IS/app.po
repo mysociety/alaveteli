@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:45+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
@@ -1339,6 +1339,9 @@ msgid "InfoRequest|Handle rejected responses"
 msgstr ""
 
 msgid "InfoRequest|Idhash"
+msgstr ""
+
+msgid "InfoRequest|Last public response at"
 msgstr ""
 
 msgid "InfoRequest|Law used"
@@ -4000,7 +4003,7 @@ msgstr ""
 msgid "unknown reason "
 msgstr ""
 
-msgid "unknown status "
+msgid "unknown status {{status}}"
 msgstr ""
 
 msgid "unresolved requests"
@@ -4149,3 +4152,15 @@ msgstr "{{user}} sendi þessa {{law_used_full}} beiðni"
 
 msgid "« Back to search results"
 msgstr "« Aftur í leitarniðurstöður"
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Staðfestu að þú viljir fylgjast með beiðnum til '{{authority_name}}'"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Senda opinbera viðbót til {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Skrifa svar til {{authority_name}}"

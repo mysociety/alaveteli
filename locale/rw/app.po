@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/language/rw/)\n"
@@ -1342,6 +1342,10 @@ msgstr "InfoRequest|Handle rejected responses"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
+
+#, fuzzy
+msgid "InfoRequest|Last public response at"
+msgstr "InfoRequest|Last public response at"
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"
@@ -4002,8 +4006,9 @@ msgstr "andika ijambo ushaka hano"
 msgid "unknown reason "
 msgstr "impamvu itazwi"
 
-msgid "unknown status "
-msgstr "irangamimerere itazwi"
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "irangamimerere itazwi {{status}}"
 
 msgid "unresolved requests"
 msgstr "ibibazo bitasubijwe"
@@ -4151,3 +4156,31 @@ msgstr "{{user}} yatanze iki {{law_used_full}} kibazo"
 
 msgid "« Back to search results"
 msgstr "« Subira ku rutonde rw'ibyavuye mu ishakisha"
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Ubwo ushobora kwandika ubutumwa bwo gukurikirana kuri {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Ubwo ushobora kwandika igisubizo cyawe kuri {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Ntibishoboka kwoherereza {{username}} igisubizo {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Ntibishoboka kwoherereza {{authority_name}} ubutumwa bwo gukurikirana"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Ntibishoboka kwoherereza {{authority_name}} igisubizo"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Andikira ubutumwa bwawe bwo gukurikirana {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Ubutumwa bwawe bwo gukurikirana iki kibazo bwahagaritswe mu rwego rwo kwirinda sipamu. Turagusaba <a href=\"{{contact_url}}\">kutwandikita</a> niba koko wifuza kwohereza ubutumw bwo gukurikirana."

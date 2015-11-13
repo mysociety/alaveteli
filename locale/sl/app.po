@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/mysociety/alaveteli/language/sl/)\n"
@@ -1346,6 +1346,9 @@ msgstr "InfoZahtevek|Obravnavaj zavrnjene odzive"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoZahtevek|Preverjevalna vsota"
+
+msgid "InfoRequest|Last public response at"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoZahtevek|Uporabljen zakon"
@@ -2757,7 +2760,7 @@ msgid "Then you can write follow up message to "
 msgstr "Zatem lahko napišete odziv na "
 
 msgid "Then you can write your reply to "
-msgstr "Zatem lahko napišete odgovor na"
+msgstr "Zatem lahko napišete odgovor na "
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Po tem boste spremljali vse nove zahtevke za IJZ"
@@ -4026,8 +4029,9 @@ msgstr "vpišite iskalne besede"
 msgid "unknown reason "
 msgstr "neznan razlog"
 
-msgid "unknown status "
-msgstr "neznan status"
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "neznan status {{status}}"
 
 msgid "unresolved requests"
 msgstr "nerešeni zahtevki"
@@ -4181,3 +4185,31 @@ msgstr "{{user}} je naredil zahtevek {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Zatem lahko napišete odziv na {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Zatem lahko napišete odgovor na {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Ni bilo možno poslati odgovora osebi {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Ni bilo možno poslati odziva osebi {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Ni bilo možno poslati odgovora osebi {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Napišite vaš odziv na {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Vaš odziv ni bil poslan, ker je bil ta zahtevek ustavljen, da se prepreči nezaželena pošta. Prosimo, <a href=\"{{contact_url}}\">stopite v stik</a>, če res želite poslati sporočilo."

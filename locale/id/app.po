@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/language/id/)\n"
@@ -1459,6 +1459,10 @@ msgstr "InfoRequest|Handle rejected responses"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
+
+#, fuzzy
+msgid "InfoRequest|Last public response at"
+msgstr "InfoRequest|Last public response at"
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"
@@ -4231,8 +4235,9 @@ msgstr ""
 msgid "unknown reason "
 msgstr "alasan tidak diketahui "
 
-msgid "unknown status "
-msgstr "status tidak diketahui "
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "status tidak diketahui {{status}}"
 
 msgid "unresolved requests"
 msgstr "permintaan yang belum terselesaikan"
@@ -4382,3 +4387,31 @@ msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
 
 msgid "« Back to search results"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Maka Anda dapat menulis pesan tindak lanjut kepada {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Maka Anda dapat menulis balasan kepada {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Tidak dapat mengirimkan balasan kepada {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Tidak dapat mengirimkan pesan tindak lanjut kepada {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Tidak dapat mengirimkan balasan kepada {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Tulis pesan tindak lanjut FOI Anda kepada {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Tindak lanjut Anda belum dikirimkan karena permintaan ini telah dihentikan untuk mencegah spam. Silakan <a href=\"{{contact_url}}\">hubungi kami</a> jika Anda benar-benar ingin mengirimkan pesan tindak lanjut."

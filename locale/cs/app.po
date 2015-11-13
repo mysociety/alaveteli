@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
@@ -1431,6 +1431,9 @@ msgstr "InfoRequestEvent | Řešit odmítnuté odpovědi "
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequestEventIdhash ??"
+
+msgid "InfoRequest|Last public response at"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequestEvent | Podle zákona"
@@ -4195,8 +4198,9 @@ msgstr "zadejte hledaný termín"
 msgid "unknown reason "
 msgstr "neznámé důvody"
 
-msgid "unknown status "
-msgstr "stav neznámý"
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "stav neznámý {{status}}"
 
 msgid "unresolved requests"
 msgstr "nevyřešené dotazy"
@@ -4349,3 +4353,31 @@ msgstr "{{user}} vznesl tento {{law_used_full}} "
 
 msgid "« Back to search results"
 msgstr "« Zpět na výsledky hledání"
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Poté můžete napsat odpověď na zprávu uživateli nebo instituci {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Poté můžete odpovědět na zprávu od uživatele nebo instituce {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Nelze poslat odpověď uživateli {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Nelze poslat odpověď uživateli {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Nelze poslat odpověď uživateli {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Napište svou odpověď pro {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Vaše odpověď nebyla odeslána, protože tento dotaz byl identifikován jako nevyžádaná zpráva. Prosíme <a href=\"{{contact_url}}\">kontaktujte nás</a> pokud svou zprávu chcete odeslat. "

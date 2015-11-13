@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
@@ -1361,6 +1361,9 @@ msgstr "CerereInfo | Prelucrare răspunsuri respinse"
 
 msgid "InfoRequest|Idhash"
 msgstr "CerereInfo | ldhash"
+
+msgid "InfoRequest|Last public response at"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "CerereInfo | Lege utilizată"
@@ -4031,8 +4034,9 @@ msgstr ""
 msgid "unknown reason "
 msgstr "motiv necunoscut"
 
-msgid "unknown status "
-msgstr "stare necunocută"
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "stare necunocută {{status}}"
 
 msgid "unresolved requests"
 msgstr "cereri nesoluţionate"
@@ -4183,3 +4187,31 @@ msgstr "{{user}} a făcut această cerere {{law_used_full}} "
 
 msgid "« Back to search results"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Apoi puteţi să scrieţi un mesaj de urmărire către {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Apoi puteţi să scrieţi răspunsul către {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Nu se poate trimite un răspuns către {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Nu se poate trimite un mesaj de urmărire către {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Nu se poate trimite un răspuns către {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Scrie mesajul de follow up la solicitarea către {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Follow up-ul tău nu a fost trimis deoarece acest mesaj a fost stopat de protecţia anti-spam. Te rugăm <a href=\"{{contact_url}}\">să ne contactezi</a> dacă dorești cu adevărat să trimiţi un mesaj de follow up."

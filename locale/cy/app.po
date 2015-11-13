@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
@@ -1357,6 +1357,9 @@ msgstr "InfoRequest|Trin ymatebion a wrthodwyd"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
+
+msgid "InfoRequest|Last public response at"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Y gyfraith a ddefnyddiwyd "
@@ -4037,8 +4040,9 @@ msgstr ""
 msgid "unknown reason "
 msgstr "rheswm anhysbys "
 
-msgid "unknown status "
-msgstr "statws anhysbys "
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "statws anhysbys {{status}}"
 
 msgid "unresolved requests"
 msgstr "ceisiadau heb eu datrys"
@@ -4192,3 +4196,31 @@ msgstr "Gwnaeth {{user}} y cais {{law_used_full}} hwn"
 
 msgid "« Back to search results"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Yna, gallwch ysgrifennu neges ddilynol i {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Yna, gallwch ysgrifennu eich ateb i {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Yn methu anfon ateb i {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Yn methu anfon neges ddilynol i {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Yn methu anfon ateb i {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Ysgrifennwch eich neges Rhyddid Gwybodaeth ddilynol i {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Nid yw eich neges ddilynol wedi cael ei hanfon gan fod y cais hwn wedi cael ei stopio i atal spam. <a href=\"{{contact_url}}\"> Cysylltwch â ni </a> os ydych wir eisiau anfon neges ddilynol."

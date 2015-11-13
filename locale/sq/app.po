@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
@@ -1429,6 +1429,9 @@ msgstr "InfoRequest|Handle rejected responses"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
+
+msgid "InfoRequest|Last public response at"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "Info të kërkesës | Ligji i përdorur"
@@ -4157,8 +4160,9 @@ msgstr ""
 msgid "unknown reason "
 msgstr "arsye e panjohur "
 
-msgid "unknown status "
-msgstr "status i panjohur "
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "status i panjohur {{status}}"
 
 msgid "unresolved requests"
 msgstr "kërkesat e pazgjidhura"
@@ -4309,3 +4313,31 @@ msgstr "{{user}} bëri këtë kërkesë"
 
 msgid "« Back to search results"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Atëher ti mund të shkruash mesazh vazhdues për {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Pastaj ti mund të shkruash përgjigjen tënde për {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Nuk munda të dërgoj përgjigje te {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Nuk munda të dërgoj një përcjellje te {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Nuk munda të dërgoj përgjigje te {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Shkruaj mesazhin tënd vazhdues të kërkesës për informata zyrtare për {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Mesazhi yt vazhdues nuk është dërguar përshkak se kërkesa ështe stopuar për të parandaluar spam emailat.  Të lutem <a href=\"{{contact_url}}\">na kontakto</a> nëse vërtet dëshiron të dërgosh mesazh vazhdues."

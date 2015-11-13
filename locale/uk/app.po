@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
@@ -1425,6 +1425,10 @@ msgstr "InfoRequest|Handle rejected responses"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
+
+#, fuzzy
+msgid "InfoRequest|Last public response at"
+msgstr "InfoRequest|Last public response at"
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"
@@ -4143,8 +4147,9 @@ msgstr ""
 msgid "unknown reason "
 msgstr "невідома причина"
 
-msgid "unknown status "
-msgstr "статус невідомий"
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "статус невідомий {{status}}"
 
 msgid "unresolved requests"
 msgstr "без відповіді"
@@ -4297,3 +4302,31 @@ msgstr "{{user}} зробив (-ла) цей запит"
 
 msgid "« Back to search results"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Після цього ви можете написати додаткове повідомлення для {{authority_name}}."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Після цього ви можете написати відповідь для {{authority_name}}."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Неможливо надіслати відповідь користувачу {{authority_name}}"
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Неможливо надіслати повідомленя користувачу {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Неможливо надіслати відповідь користувачу {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Напишіть додаткового листа. Адресат - {{authority_name}}"
+
+#, fuzzy
+#~ msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{contact_url}}\">contact us</a> if you really want to send a follow up message."
+#~ msgstr "Ваше повідомлення не було надіслано, тому що цей запит не пройшов спам-фільтр."

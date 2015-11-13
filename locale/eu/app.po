@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"POT-Creation-Date: 2015-12-02 15:15+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
@@ -1380,6 +1380,10 @@ msgstr "InfoRequest|Handle rejected responses"
 
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
+
+#, fuzzy
+msgid "InfoRequest|Last public response at"
+msgstr "InfoRequest|Last public response at"
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"
@@ -3726,8 +3730,9 @@ msgstr ""
 msgid "Your email:"
 msgstr ""
 
+#, fuzzy
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
-msgstr "Zure erantzuna ez da bidali, eskabide hau blokeatuta dagoelako, spama ekidetzearren. Benetan erantzuna bidali nahi baldin baduzu, mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
+msgstr "Zure erantzuna ez da bidali, eskabide hau blokeatuta dagoelako, spama ekidetzearren. Benetan erantzuna bidali nahi baldin baduzu, mesedez, jar zaitez gurekin <a href=\"{{contact_url}}\">harremanetan</a>."
 
 msgid "Your follow up message has been sent on its way."
 msgstr "Zure mezua bidean dago."
@@ -4074,8 +4079,9 @@ msgstr ""
 msgid "unknown reason "
 msgstr "arrazoi ezezaguna"
 
-msgid "unknown status "
-msgstr "egoera ezezaguna"
+#, fuzzy
+msgid "unknown status {{status}}"
+msgstr "egoera ezezaguna {{status}}"
 
 msgid "unresolved requests"
 msgstr "konpondu gabeko eskabideak"
@@ -4227,3 +4233,27 @@ msgstr "{{user}}-k {{law_used_full}} eskabidea egin zuen"
 
 msgid "« Back to search results"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Then you can write follow up message to {{authority_name}}."
+#~ msgstr "Orduan {{authority_name}}-ri mezu bat idatzi ahal izango diozu."
+
+#, fuzzy
+#~ msgid "Then you can write your reply to {{authority_name}}."
+#~ msgstr "Orduan {{authority_name}}-ri erantzuna idatzi ahal izango diozu."
+
+#, fuzzy
+#~ msgid "To reply to {{authority_name}}"
+#~ msgstr "Ezin izan zaio {{authority_name}}-ri erantzuna bidali."
+
+#, fuzzy
+#~ msgid "To send a follow up message to {{authority_name}}"
+#~ msgstr "Ezin izan zaio {{authority_name}}-ri erantzuna bidali."
+
+#, fuzzy
+#~ msgid "Write a reply to {{authority_name}}"
+#~ msgstr "Ezin izan zaio {{authority_name}}-ri erantzuna bidali."
+
+#, fuzzy
+#~ msgid "Write your FOI follow up message to {{authority_name}}"
+#~ msgstr "Idatzi zure erantzuna honi {{authority_name}}:"
