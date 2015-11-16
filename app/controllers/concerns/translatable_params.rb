@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module TranslatableParams
 
   def translatable_params(keys, params)

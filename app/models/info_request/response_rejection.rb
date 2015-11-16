@@ -10,9 +10,9 @@ class InfoRequest
 
     def self.for(name, info_request, email, raw_email)
       SPECIALIZED_CLASSES.fetch(name).new(info_request, email, raw_email)
-      rescue KeyError
-        raise UnknownResponseRejectionError,
-              "Unknown allow_new_responses_from '#{ name }'"
+    rescue KeyError
+      raise UnknownResponseRejectionError,
+            "Unknown allow_new_responses_from '#{ name }'"
     end
   end
 end

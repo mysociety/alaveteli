@@ -9,9 +9,9 @@ class InfoRequest
 
     def self.for(name, info_request)
       SPECIALIZED_CLASSES.fetch(name).new(info_request)
-      rescue KeyError
-        raise UnknownResponseGatekeeperError,
-              "Unknown allow_new_responses_from '#{ name }'"
+    rescue KeyError
+      raise UnknownResponseGatekeeperError,
+            "Unknown allow_new_responses_from '#{ name }'"
     end
   end
 end
