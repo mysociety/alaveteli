@@ -25,7 +25,8 @@ or the way Alaveteli is handling it.
 
 <ul class="toc">
   <li><a href="#what-state-is-the-request-in">What state is the request in?</a></li>
-  <li><a href="#old-requests-6-months-without-activity">Old requests (6+ months without activity)</a></li>
+  <li><a href="#old-requests-by-default-6-months-without-activity">Old requests (by
+  default, 6+ months without activity)</a></li>
   <li><a href="#changing-things-about-a-request">Changing things about a request</a></li>
   <li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Resending a request or sending a request to a different authority</a></li>
   <li><a href="#hiding-a-request">Hiding a request</a></li>
@@ -34,7 +35,7 @@ or the way Alaveteli is handling it.
 
 ## What state is the request in?
 
-Every request moves through a series of 
+Every request moves through a series of
 <a href="{{ page.baseurl }}/docs/glossary/#state" class="glossary__link">states</a>,
 indicating its progress. Usually a new request will be in the
 `waiting_response` state until something happens to change that &mdash; for
@@ -58,17 +59,17 @@ but also notices if anything has happened since it was last described and
 sets its "awaiting description" status appropriately.
 
 
-## Old requests (6+ months without activity)
+## Old requests (by default, 6+ months without activity)
 
-If there is no activity on a request for six months, Alaveteli automatically
-changes that request's **Allow new responses from...** setting to `authority_only`.
-Any responses will be rejected unless they are from the authority to which the
-request was originally made.
+If there is no activity on a request for some months (by default six), Alaveteli
+automatically changes that request's **Allow new responses from...** setting to
+`authority_only`. Any responses will be rejected unless they are from the
+authority to which the request was originally made.
 
-If a further six months pass with no activity, that is, a year has passed
-without any updates, the request's **Allow new responses from...** setting
-becomes `nobody`. All responses to this request will be rejected. The request
-is effectively closed.
+If a further number of months pass with no activity, that is, by default, if a
+year has passed without any updates, the request's **Allow new responses
+from...** setting becomes `nobody`. All responses to this request will be
+rejected. The request is effectively closed.
 
 By default, any rejected responses will be bounced with a message that explains
 that the request has been closed because it is old, with a suggestion that the
@@ -83,12 +84,16 @@ responses** setting.
 See [changing things about a request](#changing-things-about-a-request) below
 for how to change these settings.
 
+You can change the number of months it takes for responses to be restricted, and
+then rejected, by changing the <code><a href="{{ page.baseurl }}/docs/customising/config/#restrict_new_responses_on_old_requests_after_months">
+RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS</a></code> setting in the config.
+
 
 ## Changing things about a request
 
-To change any of these settings, go to the 
+To change any of these settings, go to the
 <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>,
-click on **Requests**, then click on the title of the request you want to affect. 
+click on **Requests**, then click on the title of the request you want to affect.
 Click the **Edit metadata** button.
 
 <table class="table">
@@ -162,7 +167,7 @@ Click the **Edit metadata** button.
       </p>
       <p>
         This setting may change automatically when
-        <a href="#old-requests-6-months-without-activity">the request gets old</a>.
+        <a href="#old-requests-by-default-6-months-without-activity">the request gets old</a>.
       </p>
     </td>
   </tr>
