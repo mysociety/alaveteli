@@ -1,0 +1,3 @@
+2015-07-09 15:41:40 [13707] foi+request-1234@example.com SMTP connection from [91.183.116.119]:53191 I=[46.43.39.78]:25 (TCP/IP connection count = 3)
+2015-07-09 15:41:40 [29933] foi+request-1234@example.com SMTP protocol synchronization error (next input sent too soon: pipelining was not advertised): rejected "EHLO 0ß]Cà<¿Œ¤èÌ~ž|='ì)ÈŒÒ" H=remote.comagex.be [91.183.116.119]:53191 I=[46.43.39.78]:25 next input="\f\227\212\016\314\246\r\n"
+2015-07-09 15:41:40 [29933] foi+request-1234@example.com no MAIL in SMTP connection from remote.comagex.be [91.183.116.119]:53191 I=[46.43.39.78]:25 D=0s

@@ -134,14 +134,10 @@ do
     # Create each database if it doesn't exist:
     if ! psql -l | egrep "^ *$REAL_DB_NAME *\|" > /dev/null
     then
-        createdb -T template0 --owner "$UNIX_USER" "$REAL_DB_NAME"
+        createdb -T template_utf8 --owner "$UNIX_USER" "$REAL_DB_NAME"
     fi
 done
 
-# Bundler isn't packaged on Debian squeeze, so we have to install it
-# as a gem:
-
-which bundle || gem install bundler
 
 echo Running rails-post-deploy
 script/rails-post-deploy

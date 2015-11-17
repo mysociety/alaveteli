@@ -45,13 +45,19 @@ class IncomingMessage < ActiveRecord::Base
 
   validates_presence_of :raw_email
 
-  has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
-  has_many :foi_attachments, :order => 'id'
-  has_many :info_request_events # never really has many, but could in theory
+  has_many :outgoing_message_followups,
+           :foreign_key => 'incoming_message_followup_id',
+           :class_name => 'OutgoingMessage',
+           :dependent => :nullify
+  has_many :foi_attachments, :order => 'id', :dependent => :destroy
+  # never really has many info_request_events, but could in theory
+  has_many :info_request_events, :dependent => :destroy
 
   belongs_to :raw_email
 
   has_prominence
+
+  before_destroy :destroy_email_file
 
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
@@ -133,6 +139,10 @@ class IncomingMessage < ActiveRecord::Base
         self.save!
       end
     end
+  end
+
+  def destroy_email_file
+    raw_email.destroy_file_representation!
   end
 
   def valid_to_reply_to?
@@ -633,19 +643,9 @@ class IncomingMessage < ActiveRecord::Base
   end
 
   def fully_destroy
-    ActiveRecord::Base.transaction do
-      outgoing_message_followups.each do |outgoing_message_followup|
-        outgoing_message_followup.incoming_message_followup = nil
-        outgoing_message_followup.save!
-      end
-      info_request_events.each do |info_request_event|
-        info_request_event.track_things_sent_emails.each { |a| a.destroy }
-        info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
-        info_request_event.destroy
-      end
-      self.raw_email.destroy_file_representation!
-      self.destroy
-    end
+    warn %q([DEPRECATION] IncomingMessage#fully_destroy will be replaced with
+      IncomingMessage#destroy as of 0.24).squish
+    destroy
   end
 
   # Search all info requests for

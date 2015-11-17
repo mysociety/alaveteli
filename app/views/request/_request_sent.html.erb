@@ -2,7 +2,7 @@
   <div class="request-sent-message" id="notice">
     <h1>
       <%= _("Your {{law_used_full}} request has been sent",
-            :law_used_full => @info_request.law_used_full) %>
+            :law_used_full => @info_request.law_used_human(:full)) %>
     </h1>
 
     <div class="request-sent-message__row">
@@ -24,7 +24,7 @@
                                 :url => request.url,
                                 :via => AlaveteliConfiguration.twitter_username,
                                 :text => "'#{ @info_request.title }'",
-                                :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name)
+                                :related => _('mySocietyIntl:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
                               }.to_query, :class => 'share-link' %>
 
         <%= link_to image_tag("next-step-facebook.png",

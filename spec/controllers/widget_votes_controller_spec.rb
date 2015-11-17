@@ -9,12 +9,12 @@ describe WidgetVotesController do
 
     before do
       @info_request = FactoryGirl.create(:info_request)
-      AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
+      allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
     end
 
     it 'should find the info request' do
       post :create, :request_id => @info_request.id
-      assigns[:info_request].should == @info_request
+      expect(assigns[:info_request]).to eq(@info_request)
     end
 
     it 'should redirect to the track path for the info request' do
@@ -26,20 +26,20 @@ describe WidgetVotesController do
     context 'for a non-logged-in user without a tracking cookie' do
 
       it 'sets a tracking cookie' do
-        SecureRandom.stub!(:hex).and_return(mock_cookie)
+        allow(SecureRandom).to receive(:hex).and_return(mock_cookie)
         post :create, :request_id => @info_request.id
         expect(cookies[:widget_vote]).to eq(mock_cookie)
       end
 
       it 'creates a widget vote' do
-        SecureRandom.stub!(:hex).and_return(mock_cookie)
+        allow(SecureRandom).to receive(:hex).and_return(mock_cookie)
         votes = @info_request.
           widget_votes.
           where(:cookie => mock_cookie)
 
         post :create, :request_id => @info_request.id
 
-        expect(votes).to have(1).item
+        expect(votes.size).to eq(1)
       end
 
     end
@@ -60,7 +60,7 @@ describe WidgetVotesController do
 
         post :create, :request_id => @info_request.id
 
-        expect(votes).to have(1).item
+        expect(votes.size).to eq(1)
       end
 
     end
@@ -68,9 +68,9 @@ describe WidgetVotesController do
     context 'when widgets are not enabled' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
-        lambda{ post :create, :request_id => @info_request.id }.should
-        raise_error(ActiveRecord::RecordNotFound)
+        allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
+        expect{ post :create, :request_id => @info_request.id }.
+          to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
@@ -81,7 +81,7 @@ describe WidgetVotesController do
         @info_request.prominence = 'hidden'
         @info_request.save!
         post :create, :request_id => @info_request.id
-        response.code.should == "403"
+        expect(response.code).to eq("403")
       end
 
     end

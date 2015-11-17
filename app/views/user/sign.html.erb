@@ -1,8 +1,8 @@
 <% if !@post_redirect.nil? && @post_redirect.reason_params[:user_name] %>
   <% @title = _("Sign in") %>
-  <div id="sign_alone">
+  <div id="sign_alone" class="sign_alone">
 
-    <p id="sign_in_reason">
+    <p id="sign_in_reason" class="sign_in_reason">
       <% if @post_redirect.reason_params[:web].empty? %>
         <%= _('Please sign in as ')%><%= link_to h(@post_redirect.reason_params[:user_name]), @post_redirect.reason_params[:user_url] %>.
       <% else %>
@@ -13,7 +13,7 @@
 
     <% if @post_redirect.post_params["controller"] == "admin_general" %>
       <% unless AlaveteliConfiguration::disable_emergency_user %>
-        <p id="superuser_message"><%= _("Don't have a superuser account yet?") %> <%= link_to _("Sign in as the emergency user"), @post_redirect.uri + "?emergency=1" %></p>
+        <p id="superuser_message" class="superuser_message"><%= _("Don't have a superuser account yet?") %> <%= link_to _("Sign in as the emergency user"), URI.parse(@post_redirect.uri).path + "?emergency=1" %></p>
       <% end %>
     <% end %>
 
@@ -22,9 +22,9 @@
 <% else %>
   <% @title = _('Sign in or make a new account') %>
 
-  <div id="sign_together">
+  <div id="sign_together" class="sign_together">
     <% if !@post_redirect.nil? %>
-      <h1 id="sign_in_reason">
+      <h1 id="sign_in_reason" class="sign_in_reason">
         <% if @post_redirect.reason_params[:web].empty? %>
           <%= _('Please create an account or sign in') %>
         <% else %>
@@ -32,12 +32,12 @@
         <% end %>
       </h1>
     <% end %>
-    <div id="left_half">
+    <div id="left_half" class="left_half">
       <h2><%= _('Create a new account') %></h2>
       <%= render :partial => 'signup' %>
     </div>
 
-    <div id="right_half">
+    <div id="right_half" class="right_half">
       <div class="sign-in-wrapper">
         <p class="pretitle"><%= _('Got an account?') %></p>
         <h2><%= _('Sign in') %></h2>

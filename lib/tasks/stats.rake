@@ -229,4 +229,43 @@ namespace :stats do
       end
     end
   end
+
+  desc 'Print a list of the admin URLs of requests with hidden material'
+  task :list_hidden => :environment do
+    include Rails.application.routes.url_helpers
+    hidden_requests = InfoRequest.where(:prominence => 'hidden')
+    requester_only_requests = InfoRequest.where(:prominence => 'requester_only')
+
+    hidden_incoming = InfoRequest.joins(:incoming_messages).
+      where(:incoming_messages => {:prominence => 'hidden'}).uniq
+    requester_only_incoming = InfoRequest.joins(:incoming_messages).
+      where(:incoming_messages => {:prominence => 'requester_only'}).uniq
+
+    hidden_outgoing = InfoRequest.joins(:outgoing_messages).
+      where(:outgoing_messages => {:prominence => 'hidden'}).uniq
+    requester_only_outgoing = InfoRequest.joins(:outgoing_messages).
+      where(:outgoing_messages => {:prominence => 'requester_only'}).uniq
+
+    hidden_comments = InfoRequest.joins(:comments).
+      where(:comments => {:visible => false}).uniq
+
+    [['Hidden requests', hidden_requests],
+     ['Requester-only requests', requester_only_requests],
+     ['Requests with hidden incoming messages', hidden_incoming],
+     ['Requests with requester-only incoming messages', requester_only_incoming],
+     ['Requests with hidden outgoing messages', hidden_outgoing],
+     ['Requests with requester-only outgoing messages', requester_only_outgoing],
+     ['Requests with hidden comments', hidden_comments]].each do |title, list|
+      unless list.empty?
+        puts "\n#{title}\n"
+        list.each do |request|
+          request_line = "#{admin_request_url(request, :host => AlaveteliConfiguration::domain)}"
+          if ['vexatious', 'not_foi'].include? request.described_state
+            request_line << "\t#{request.described_state}"
+          end
+          puts "#{request_line}\n"
+        end
+      end
+    end
+  end
 end

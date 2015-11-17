@@ -3,7 +3,7 @@
       '{{public_body}}, to "{{display_status}}" If you disagree with ' \
       'their categorisation, please update the status again yourself ' \
       'to what you believe to be more accurate.',
-      :law_used_full => @info_request.law_used_full,
+      :law_used_full => @info_request.law_used_human(:full),
       :title => @info_request.title,
       :public_body => @info_request.public_body.name,
       :display_status => @info_request.display_status.downcase) %>

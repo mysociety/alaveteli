@@ -27,7 +27,7 @@ class PublicBodyController < ApplicationController
       return
     end
 
-    @locale = locale_from_params
+    @locale = I18n.locale.to_s
 
     I18n.with_locale(@locale) do
       @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
@@ -100,7 +100,7 @@ class PublicBodyController < ApplicationController
     @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
     raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
 
-    I18n.with_locale(locale_from_params) do
+    I18n.with_locale(I18n.locale.to_s) do
       if params[:submitted_view_email]
         if verify_recaptcha
           flash.discard(:error)
@@ -123,7 +123,7 @@ class PublicBodyController < ApplicationController
 
     @tag = params[:tag]
 
-    @locale = locale_from_params
+    @locale = I18n.locale.to_s
     underscore_locale = @locale.gsub '-', '_'
     underscore_default_locale = I18n.default_locale.to_s.gsub '-', '_'
 
@@ -175,24 +175,31 @@ class PublicBodyController < ApplicationController
       if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
         # Unfortunately, when we might fall back to the
         # default locale, this is a rather complex query:
+        if DatabaseCollation.supports?(underscore_locale)
+          select_sql = %Q(SELECT public_bodies.*, COALESCE(current_locale.name, default_locale.name) COLLATE "#{ underscore_locale }" AS display_name)
+        else
+          select_sql = %Q(SELECT public_bodies.*, COALESCE(current_locale.name, default_locale.name) AS display_name)
+        end
+
         query =  %Q{
-                    SELECT public_bodies.*, COALESCE(current_locale.name, default_locale.name) AS display_name
-                    FROM public_bodies
-                    LEFT OUTER JOIN public_body_translations as current_locale
-                        ON (public_bodies.id = current_locale.public_body_id
-                            AND current_locale.locale = ? AND #{ get_public_body_list_translated_condition('current_locale', first_letter) })
-                    LEFT OUTER JOIN public_body_translations as default_locale
-                        ON (public_bodies.id = default_locale.public_body_id
-                            AND default_locale.locale = ? AND #{ get_public_body_list_translated_condition('default_locale', first_letter) })
-                    WHERE #{ where_condition } AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL
-                    ORDER BY display_name}
-        sql = [query, underscore_locale, like_query, like_query, like_query]
-        sql.push @tag if first_letter
-        sql += [underscore_default_locale, like_query, like_query, like_query]
-        sql.push @tag if first_letter
-        sql += where_parameters
+          #{ select_sql }
+          FROM public_bodies
+          LEFT OUTER JOIN public_body_translations as current_locale
+            ON (public_bodies.id = current_locale.public_body_id
+              AND current_locale.locale = ? AND #{ get_public_body_list_translated_condition('current_locale', first_letter) })
+          LEFT OUTER JOIN public_body_translations as default_locale
+            ON (public_bodies.id = default_locale.public_body_id
+              AND default_locale.locale = ? AND #{ get_public_body_list_translated_condition('default_locale', first_letter) })
+          WHERE #{ where_condition } AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL
+          ORDER BY display_name
+        }
+        @sql = [query, underscore_locale, like_query, like_query, like_query]
+        @sql.push @tag if first_letter
+        @sql += [underscore_default_locale, like_query, like_query, like_query]
+        @sql.push @tag if first_letter
+        @sql += where_parameters
         @public_bodies = PublicBody.paginate_by_sql(
-          sql,
+          @sql,
           :page => params[:page],
           :per_page => 100)
       else
@@ -202,10 +209,18 @@ class PublicBodyController < ApplicationController
         where_sql = [where_condition, like_query, like_query, like_query]
         where_sql.push @tag if first_letter
         where_sql += [underscore_locale] + where_parameters
-        @public_bodies = PublicBody.where(where_sql).
-          joins(:translations).
-          order("public_body_translations.name").
-          paginate(:page => params[:page], :per_page => 100)
+
+        if DatabaseCollation.supports?(underscore_locale)
+          @public_bodies = PublicBody.where(where_sql).
+            joins(:translations).
+              order(%Q(public_body_translations.name COLLATE "#{ underscore_locale }")).
+                paginate(:page => params[:page], :per_page => 100)
+        else
+            @public_bodies = PublicBody.where(where_sql).
+              joins(:translations).
+                order('public_body_translations.name').
+                  paginate(:page => params[:page], :per_page => 100)
+        end
       end
 
       respond_to do |format|

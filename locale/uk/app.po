@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:00+0000\n"
-"PO-Revision-Date: 2015-11-06 15:26+0000\n"
+"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
 "Language: uk\n"
@@ -277,6 +277,9 @@ msgstr ""
 " Ми надішлемо на нову адресу листа\n"
 " з інструкціями щодо підтвердження зміни адреси."
 
+msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
+msgstr ""
+
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr "Ми надішлемо вам листа з інструкціями щодо зміни паролю."
 
@@ -362,6 +365,9 @@ msgstr ""
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
+msgid "Add a widget"
+msgstr ""
+
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr ""
 
@@ -424,8 +430,8 @@ msgstr "<a href=\"{{request_url}}\">Коментар</a> на <em>{{request_titl
 msgid "An <strong>error message</strong> has been received"
 msgstr "Отримано повідомлення про помилку"
 
-msgid "An Environmental Information Regulations request"
-msgstr "An Environmental Information Regulations request"
+msgid "An Environmental Information request"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "Анонімний користувач"
@@ -455,6 +461,12 @@ msgstr "Можна застосувати до"
 
 msgid "Are we missing a public authority?"
 msgstr "Ми когось забули?"
+
+msgid "Are you sure you want to disable two factor authentication?"
+msgstr ""
+
+msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
+msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Вам належить авторське право на будь-що на цій сторінці?"
@@ -513,6 +525,9 @@ msgstr ""
 msgid "Beginning with"
 msgstr "Ті, що починаються з"
 
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Прогляньте <a href='{{url}}'>інші запити</a>, щоб отримати приклади формулювань."
 
@@ -522,11 +537,17 @@ msgstr "Прогляньте <a href='{{url}}'>інші запити</a> до '{
 msgid "Browse all authorities..."
 msgstr "Проглянути всіх розпорядників..."
 
+msgid "Browse all requests &rarr;"
+msgstr ""
+
 msgid "Browse and search requests"
 msgstr "Переглядати та шукати запити"
 
 msgid "Browse requests"
 msgstr "Показати запити"
+
+msgid "By law, they have to respond."
+msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Згідно з законодавством, за будь-яких умов {{public_body_link}} мав би вже відповісти"
@@ -704,6 +725,9 @@ msgstr ""
 msgid "Could not identify the request from the email address"
 msgstr "Не вдалося визначити запит"
 
+msgid "Could not update your two factor one time passcode"
+msgstr ""
+
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Неможливо завантажити файл. Підтримються PNG, JPEG, GIF та багато інших поширених форматів."
 
@@ -766,6 +790,9 @@ msgstr ""
 msgid "Did you mean: {{correction}}"
 msgstr "Можливо, ви мали на увазі: {{correction}}"
 
+msgid "Disable two factor authentication"
+msgstr ""
+
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr "Увага! Це повідомлення та будь-яка відповідь на нього будуть опубліковані на сайті Доступу до Правди"
 
@@ -776,6 +803,9 @@ msgid "Disclosure log URL"
 msgstr ""
 
 msgid "Do not fill in this field"
+msgstr ""
+
+msgid "Do not share this passcode."
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -828,6 +858,9 @@ msgstr "Надішліть мені майбутні оновлення щодо
 msgid "Email:"
 msgstr ""
 
+msgid "Enable two factor authentication"
+msgstr ""
+
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Введіть слова, які хочете знайти, розділені пробілами"
 
@@ -852,6 +885,9 @@ msgid "Event history details"
 msgstr "Історія (деталі)"
 
 msgid "Event {{id}}"
+msgstr ""
+
+msgid "Every citizen has the right to access information held by public authorities."
 msgstr ""
 
 msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
@@ -1130,6 +1166,9 @@ msgstr "Домашня сторінка"
 msgid "Home page of authority"
 msgstr "Домашня сторінка розпорядника інформації"
 
+msgid "How it works"
+msgstr ""
+
 msgid "However, you have the right to request environmental information under a different law"
 msgstr ""
 "However, you have the right to request environmental\n"
@@ -1276,6 +1315,9 @@ msgstr ""
 "Якщо ваш браузер приймає пряники (cookies) і ви бачите це повідомлення,\n"
 "значить, щось не так із вашим сервером."
 
+msgid "Improve your account security"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Включіть доречні посилання (наприклад, на сторінку кампанії, ваш блог чи твіттер-акаунт). Вони будуть активними."
 
@@ -1285,7 +1327,7 @@ msgstr ""
 msgid "Incoming message"
 msgstr "Вхідне повідомлення"
 
-msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
+msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1416,6 +1458,9 @@ msgstr "Запит на внутрішню перевірку"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
+msgid "Invalid one time password"
+msgstr ""
+
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr ""
 
@@ -1440,6 +1485,9 @@ msgstr "Користувач долучився до {{site_name}} у"
 msgid "Just one more thing"
 msgstr ""
 
+msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
+msgstr ""
+
 msgid "Keep your request up to date"
 msgstr ""
 
@@ -1454,6 +1502,9 @@ msgstr "Останній переглянутий розпорядник інф�
 
 msgid "Last request viewed: "
 msgstr "Останній переглянутий запит: "
+
+msgid "Learn more &rarr;"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr ""
@@ -1523,11 +1574,6 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Зробити<br/>\n"
-"<strong>запит</strong>"
-
 msgid "Make a request"
 msgstr "Зробити запит"
 
@@ -1570,14 +1616,8 @@ msgstr "Бракує контактної адреси для '"
 msgid "More about this authority"
 msgstr "Більше про цього розпорядника інформації"
 
-msgid "More requests..."
-msgstr "Більше запитів..."
-
 msgid "More similar requests"
 msgstr "Більше подібних запитів"
-
-msgid "More successful requests..."
-msgstr "Більше успішних запитів..."
 
 msgid "My profile"
 msgstr "Мій профіль"
@@ -1737,6 +1777,9 @@ msgstr "Тільки владний орган може відповісти н�
 
 msgid "Only the authority can reply to this request, but there is no \"From\" address to check against"
 msgstr "Тільки владний орган може відповісти на цей запит, але адресант не вказаний, тож перевірити неможливо "
+
+msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
+msgstr ""
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr ""
@@ -2038,6 +2081,9 @@ msgstr "Попередній перегляд запиту"
 msgid "Preview your request"
 msgstr ""
 
+msgid "Print your one time passcode"
+msgstr ""
+
 msgid "Profile photo"
 msgstr "Фото у профілі"
 
@@ -2099,9 +2145,6 @@ msgid "Public body change request"
 msgstr ""
 
 msgid "Public body heading"
-msgstr ""
-
-msgid "Public notes"
 msgstr ""
 
 msgid "Public page"
@@ -2167,6 +2210,9 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr ""
 
@@ -2197,9 +2243,6 @@ msgstr ""
 msgid "Publication scheme"
 msgstr ""
 
-msgid "Publication scheme URL"
-msgstr ""
-
 msgid "Purge request"
 msgstr "Видалити запит"
 
@@ -2207,6 +2250,12 @@ msgid "PurgeRequest|Model"
 msgstr ""
 
 msgid "PurgeRequest|Url"
+msgstr ""
+
+msgid "Query can't be blank"
+msgstr ""
+
+msgid "Query is too long"
 msgstr ""
 
 msgid "RSS feed"
@@ -2235,6 +2284,9 @@ msgstr ""
 
 msgid "Refused."
 msgstr "Відмовлено"
+
+msgid "Regenerate one time passcode"
+msgstr ""
 
 msgid "Rejected"
 msgstr ""
@@ -2265,9 +2317,6 @@ msgstr "Зробити запит на внутрішню перевірку"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Зробити запит на внутрішню перевірку від {{person_or_body}}"
-
-msgid "Request email"
-msgstr ""
 
 msgid "Request for personal information"
 msgstr ""
@@ -2404,6 +2453,9 @@ msgstr "Надіслати публічну відповідь. Адресат: 
 msgid "Send follow up to '{{title}}'"
 msgstr "Відправити додаткове повідомлення щодо запиту '{{title}}'"
 
+msgid "Send me the email"
+msgstr ""
+
 msgid "Send message"
 msgstr "Надіслати повідомлення"
 
@@ -2412,6 +2464,9 @@ msgstr "Надіслати повідомлення до "
 
 msgid "Send request"
 msgstr "Надіслати запит"
+
+msgid "Sending..."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2429,9 +2484,6 @@ msgid "Share your batch request"
 msgstr ""
 
 msgid "Share your request"
-msgstr ""
-
-msgid "Short name"
 msgstr ""
 
 msgid "Short name is already taken"
@@ -2516,6 +2568,9 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
+msgstr ""
+
+msgid "Start your own request"
 msgstr ""
 
 msgid "Stay up to date"
@@ -2739,6 +2794,9 @@ msgstr ""
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr ""
 
+msgid "The widget will look like this:"
+msgstr ""
+
 msgid "The {{site_name}} team."
 msgstr ""
 
@@ -2838,6 +2896,9 @@ msgstr[2] "Цей запит відслідковує така кількіст�
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Зафіксовано <strong>помилку доставки</strong> або щось подібне. Команда сайту має виправити її."
 
+msgid "There was an error with the reCAPTCHA. Please try again."
+msgstr ""
+
 msgid "There was an error with the words you entered, please try again."
 msgstr "Ви ввели слова неправильно, спробуйте ще раз."
 
@@ -2881,6 +2942,9 @@ msgid "This covers a very wide spectrum of information about the state of the <s
 msgstr ""
 "This covers a very wide spectrum of information about the state of\n"
 "            the <strong>natural and built environment</strong>, such as:"
+
+msgid "This email is already in use"
+msgstr ""
 
 msgid "This external request has been hidden"
 msgstr "Цей зовнішній запит було приховано"
@@ -3015,6 +3079,9 @@ msgstr "Це з’явиться у вашому профілі для озна�
 msgid "To"
 msgstr ""
 
+msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr ""
 
@@ -3105,6 +3172,9 @@ msgstr "Щоб побачити адресу, на яку буде надісл�
 msgid "To view the response, click on the link below."
 msgstr "Щоб ознайомитись із відповіддю, натисність посилання нижче."
 
+msgid "To view your two factor authentication details"
+msgstr ""
+
 msgid "To {{public_body_link_absolute}}"
 msgstr "До {{public_body_link_absolute}}"
 
@@ -3143,6 +3213,27 @@ msgstr ""
 
 msgid "Tweet this request"
 msgstr "Твітніть цей запит"
+
+msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
+msgstr ""
+
+msgid "Two factor authentication could not be disabled"
+msgstr ""
+
+msgid "Two factor authentication could not be enabled"
+msgstr ""
+
+msgid "Two factor authentication disabled"
+msgstr ""
+
+msgid "Two factor authentication enabled"
+msgstr ""
+
+msgid "Two factor one time passcode updated"
+msgstr ""
+
+msgid "Two factor one time passcode:"
+msgstr ""
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
 msgstr ""
@@ -3210,6 +3301,9 @@ msgstr ""
 msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr "Використовуйте лапки, якщо хочете знайти точну фразу, наприклад <strong><code>\"Кіровоградська міська рада\"</code></strong>"
 
+msgid "Use this site to make your request for information – we'll show you how."
+msgstr ""
+
 msgid "User"
 msgstr "Користувач"
 
@@ -3264,6 +3358,15 @@ msgstr ""
 msgid "User|No limit"
 msgstr ""
 
+msgid "User|Otp counter"
+msgstr ""
+
+msgid "User|Otp enabled"
+msgstr ""
+
+msgid "User|Otp secret key"
+msgstr ""
+
 msgid "User|Receive email alerts"
 msgstr ""
 
@@ -3300,6 +3403,9 @@ msgstr "Показати емейли"
 msgid "View other requests to {{public_body}}"
 msgstr ""
 
+msgid "View your two factor authentication one time passcode"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Очікує на уточнення"
 
@@ -3311,6 +3417,9 @@ msgstr "В очікуванні завершення внутрішньої пе
 
 msgid "Waiting for the public authority to reply"
 msgstr "В очікуванні відповіді від розпорядника інформації"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Чи була відповідь на ваш запит корисною для вас?"
@@ -3330,6 +3439,9 @@ msgstr "У нас нема адреси цього розпорядника ін
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Нам невідомо, чи відповідь на цей запит була інформативною.\\nЯкщо ви {{user_link}}, будь ласка, <a href=\"{{url}}\">авторизуйтесь</a> і вкажіть, наскільки успішним був запит."
 
+msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
+msgstr ""
+
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr ""
 "Ми не передамо вашу адресу нікому, якщо нас до цього не спонукаєте\n"
@@ -3344,6 +3456,9 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr ""
 "Ми не передамо вашу адресу нікому, якщо нас до цього не спонукаєте\n"
 "ви або законодавство."
+
+msgid "We'll drop you an email as soon as your request gets a response."
+msgstr ""
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3390,6 +3505,9 @@ msgstr ""
 " залежно від того, чи був він для вас корисним."
 
 msgid "When you receive the paper response, please help others find out what it says:"
+msgstr ""
+
+msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
 msgstr ""
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
@@ -3524,6 +3642,9 @@ msgstr ""
 msgid "You can only request information about the environment from this authority."
 msgstr "You can only request information about the environment from this authority."
 
+msgid "You can regenerate your one time passcode at any time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Ви отримали нову відповідь на свій запит"
 
@@ -3541,6 +3662,9 @@ msgstr "Ви змінили текст про себе в профілі."
 
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr "Ви змінили свою електронну адресу на {{site_name}}"
+
+msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
+msgstr ""
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr ""
@@ -3588,6 +3712,9 @@ msgstr ""
 " відповіді. Для вашої зручності, ось адреса:"
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
+msgstr ""
+
+msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
 msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
@@ -3652,6 +3779,9 @@ msgstr "Ваші коментарі"
 msgid "Your batch request \"{{title}}\" has been sent"
 msgstr ""
 
+msgid "Your current one time passcode:"
+msgstr ""
+
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr "Інформація про вас не була передана нікому."
 
@@ -3702,6 +3832,9 @@ msgstr "Ваше повідомлення було приєднане."
 msgid "Your password has been changed."
 msgstr "Ваш пароль було змінено."
 
+msgid "Your password has been changed. You also have a new one time passcode which you'll need next time you want to change your password"
+msgstr ""
+
 msgid "Your password:"
 msgstr "Ваш пароль:"
 
@@ -3740,6 +3873,9 @@ msgstr "Ваша відповідь на запит не була доставл
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Ваша відповідь <strong>з’явиться в інтернеті</strong> <a href=\"{{url}}\">(чому?)</a>"
+
+msgid "Your right to know"
+msgstr ""
 
 msgid "Your selected authorities"
 msgstr ""
@@ -3796,9 +3932,6 @@ msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had
 msgstr "\\n\\n[ Повідомлення сайту: вищенаведений текст неправильний закодований, тож невідомі символи було вилучено.]"
 
 msgid "admin"
-msgstr ""
-
-msgid "alaveteli_foi:The software that runs {{site_name}}"
 msgstr ""
 
 msgid "all requests"
@@ -3925,6 +4058,9 @@ msgid "mobile number"
 msgstr ""
 
 msgid "move..."
+msgstr ""
+
+msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
 msgid "new requests"
@@ -4120,6 +4256,9 @@ msgstr "{{user_name}} (дію акаунта припинено)"
 
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - запити"
+
+msgid "{{user_name}} - Two Factor Authentication"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - профіль користувача"

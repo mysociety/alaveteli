@@ -71,6 +71,7 @@ module Alaveteli
       app.routes.append{ match '*path', :to => 'general#not_found' }
     end
 
+    config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
     config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
@@ -85,9 +86,7 @@ module Alaveteli
     config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
 
     # Strip non-UTF-8 request parameters
-    if RUBY_VERSION == '1.9.3'
-      config.middleware.insert 0, Rack::UTF8Sanitizer
-    end
+    config.middleware.insert 0, Rack::UTF8Sanitizer
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }

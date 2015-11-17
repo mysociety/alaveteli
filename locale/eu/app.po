@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:00+0000\n"
-"PO-Revision-Date: 2015-11-06 15:24+0000\n"
+"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -265,6 +265,9 @@ msgstr ""
 "<strong>Oharra:</strong>\n"
 "    Posta bat bidaliko dugu posta helbide berrira. Jarraitu argibideei helbide berria egiaztatzeko."
 
+msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
+msgstr ""
+
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr ""
 " <strong>Oharra::</strong>\n"
@@ -348,6 +351,9 @@ msgstr ""
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
+msgid "Add a widget"
+msgstr ""
+
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr ""
 
@@ -408,8 +414,8 @@ msgstr ""
 msgid "An <strong>error message</strong> has been received"
 msgstr "<strong>akats mezua</strong> jaso da."
 
-msgid "An Environmental Information Regulations request"
-msgstr "Inguruneari buruzko informazioaren eskabidea"
+msgid "An Environmental Information request"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr ""
@@ -438,6 +444,12 @@ msgid "Applies to"
 msgstr ""
 
 msgid "Are we missing a public authority?"
+msgstr ""
+
+msgid "Are you sure you want to disable two factor authentication?"
+msgstr ""
+
+msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
 msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
@@ -497,6 +509,9 @@ msgstr ""
 msgid "Beginning with"
 msgstr "___-ekin hasita"
 
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Kontsulta itzazu <a href='{{url}}'>beste eskabideak</a>, ikusteko nola idatz daitekeen zure eskabidea."
 
@@ -506,11 +521,17 @@ msgstr "Araka itzazu<a href='{{url}}'>beste eskabideak</a>, '{{public_body_name}
 msgid "Browse all authorities..."
 msgstr "Arakatu beste erakunde publikoak..."
 
+msgid "Browse all requests &rarr;"
+msgstr ""
+
 msgid "Browse and search requests"
 msgstr "Ikusi eta bilatu eskabideak"
 
 msgid "Browse requests"
 msgstr "Ikusi eskabideak"
+
+msgid "By law, they have to respond."
+msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Legearen arabera, edozein zirkunstantzia dela, {{public_body_link}}k jada erantzun behar izango zukeen"
@@ -686,6 +707,9 @@ msgstr ""
 msgid "Could not identify the request from the email address"
 msgstr "Ezin izan dugu eskabidea zehaztu helbide elektronikoaren arabera"
 
+msgid "Could not update your two factor one time passcode"
+msgstr ""
+
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Ezin dugu prozesatu igo duzun irudia. PNG, JPEG, GIF edo beste irudi formatu orokorrak erabil ditzakezu."
 
@@ -746,6 +770,9 @@ msgstr ""
 msgid "Did you mean: {{correction}}"
 msgstr "{{correction}} esan nahi al duzu?"
 
+msgid "Disable two factor authentication"
+msgstr ""
+
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr "Kontuz: mezu hau eta egingo duzun edozein erantzun Interneten argitaratuko dira. Gure pribatutasun eta copyright politikak:"
 
@@ -756,6 +783,9 @@ msgid "Disclosure log URL"
 msgstr ""
 
 msgid "Do not fill in this field"
+msgstr ""
+
+msgid "Do not share this passcode."
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -806,6 +836,9 @@ msgstr "Eskabide honen gaurkotzeak emailez jaso nahi ditut"
 msgid "Email:"
 msgstr ""
 
+msgid "Enable two factor authentication"
+msgstr ""
+
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Sartu nahi dituzun hitzak, espazio batez bananduta, hau da <strong>parlamentua gastua</strong>"
 
@@ -828,6 +861,9 @@ msgid "Event history details"
 msgstr "Gertaera historia"
 
 msgid "Event {{id}}"
+msgstr ""
+
+msgid "Every citizen has the right to access information held by public authorities."
 msgstr ""
 
 msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
@@ -1099,6 +1135,9 @@ msgstr ""
 msgid "Home page of authority"
 msgstr "Erakundearen webgunea"
 
+msgid "How it works"
+msgstr ""
+
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Aldiz, inguruneari buruzko informazioa eskatzeko eskubidea daukazu, beste lege baten arabera"
 
@@ -1231,6 +1270,9 @@ msgstr "Lehenago {{site_name}} erabili baldin baduzu"
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "Zure nabigatzaileak cookiak onartzen baditu eta mezu hau ikusten baldin baduzu, gure zerbitzarian egon daiteke errorea."
 
+msgid "Improve your account security"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr " Sar itzazu esteka adierazgarriak, hala nola informazio orrialdea, zure bloga edo twitter kontua. Automatikoki esteka bihurtuko dira. Adibidez:"
 
@@ -1240,7 +1282,7 @@ msgstr ""
 msgid "Incoming message"
 msgstr ""
 
-msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
+msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1369,6 +1411,9 @@ msgstr "Barneko berrikusketa egiteko eskabidea"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
+msgid "Invalid one time password"
+msgstr ""
+
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr " {{email_address}} ba al da {{type_of_request}} eskabideak {{public_body_name}}-ri egiteko helbide okerra? Hala bada, mesedez, jar zaitez gurekin harremanetan ondoko inprimakia erabiliz:"
 
@@ -1390,6 +1435,9 @@ msgstr "{{site_name}}-ean erregistratua"
 msgid "Just one more thing"
 msgstr ""
 
+msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
+msgstr ""
+
 msgid "Keep your request up to date"
 msgstr ""
 
@@ -1404,6 +1452,9 @@ msgstr "Bisitatu den azken erakundea: "
 
 msgid "Last request viewed: "
 msgstr "Ikusi den azken eskabidea: "
+
+msgid "Learn more &rarr;"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Jakinaraz iezaguzu zer egiten ari zinen mezu hau agertu zenean, baita zure nabigatzailearen izena eta bertsioa eta sistema eragilea ere."
@@ -1471,12 +1522,6 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Bidali ezazu<br/>\n"
-"        <strong>Informazio<span></span><br/>\n"
-"        eskabide</strong> berria"
-
 msgid "Make a request"
 msgstr "Bidali eskabidea"
 
@@ -1519,14 +1564,8 @@ msgstr "Kontaktuaren datuak falta dira '"
 msgid "More about this authority"
 msgstr "Erakunde honi buruzko informazio gehiago"
 
-msgid "More requests..."
-msgstr ""
-
 msgid "More similar requests"
 msgstr "Antzeko eskabide gehiago"
-
-msgid "More successful requests..."
-msgstr "Arrakasta izan duten eskabide gehiago..."
 
 msgid "My profile"
 msgstr "Nire profila"
@@ -1686,6 +1725,9 @@ msgstr "Erakundeak bakarrik erantzun diezaioke eskabide honi, eta ezin dut jakin
 
 msgid "Only the authority can reply to this request, but there is no \"From\" address to check against"
 msgstr "Erakundeak bakarrik erantzun diezaioke eskabide honi, baina ez dago \"From\" helbiderik konparaketa egiteko"
+
+msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
+msgstr ""
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr ""
@@ -1985,6 +2027,9 @@ msgstr "Berrikusi zure eskabide argitaratua"
 msgid "Preview your request"
 msgstr ""
 
+msgid "Print your one time passcode"
+msgstr ""
+
 msgid "Profile photo"
 msgstr ""
 
@@ -2046,9 +2091,6 @@ msgid "Public body change request"
 msgstr ""
 
 msgid "Public body heading"
-msgstr ""
-
-msgid "Public notes"
 msgstr ""
 
 msgid "Public page"
@@ -2114,6 +2156,9 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
 
@@ -2144,9 +2189,6 @@ msgstr "Versión"
 msgid "Publication scheme"
 msgstr "Argitaratzeko eskema"
 
-msgid "Publication scheme URL"
-msgstr ""
-
 msgid "Purge request"
 msgstr ""
 
@@ -2154,6 +2196,12 @@ msgid "PurgeRequest|Model"
 msgstr ""
 
 msgid "PurgeRequest|Url"
+msgstr ""
+
+msgid "Query can't be blank"
+msgstr ""
+
+msgid "Query is too long"
 msgstr ""
 
 msgid "RSS feed"
@@ -2182,6 +2230,9 @@ msgstr "Lehenbizi deskribatu berri diren emaitzak"
 
 msgid "Refused."
 msgstr "Ez da onartu."
+
+msgid "Regenerate one time passcode"
+msgstr ""
 
 msgid "Rejected"
 msgstr ""
@@ -2212,9 +2263,6 @@ msgstr "Eskatu barneko berrikusketa"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "{{person_or_body}}-ri barneko berrikusketa eskatu."
-
-msgid "Request email"
-msgstr ""
 
 msgid "Request for personal information"
 msgstr ""
@@ -2354,6 +2402,9 @@ msgstr "ERantzun {{person_or_body}}-ri publikoki"
 msgid "Send follow up to '{{title}}'"
 msgstr ""
 
+msgid "Send me the email"
+msgstr ""
+
 msgid "Send message"
 msgstr "Bidali mezua"
 
@@ -2362,6 +2413,9 @@ msgstr "Bidali _____-ri mezua"
 
 msgid "Send request"
 msgstr "Bidali eskabidea"
+
+msgid "Sending..."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2378,9 +2432,6 @@ msgid "Share your batch request"
 msgstr ""
 
 msgid "Share your request"
-msgstr ""
-
-msgid "Short name"
 msgstr ""
 
 msgid "Short name is already taken"
@@ -2468,6 +2519,9 @@ msgstr ""
 
 msgid "Start your own blog"
 msgstr "Sortu zeure bloga"
+
+msgid "Start your own request"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "Egon zaitez egunean"
@@ -2698,6 +2752,9 @@ msgstr "Bilatzailea ez dago orain eskuragarri: ezin ditugu erakutsi erakunde hon
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "Bilatzailea ez dago orain eskuragarri: ezin ditugu erakutsi pertsona honek egin dituen informazio eskabideak."
 
+msgid "The widget will look like this:"
+msgstr ""
+
 msgid "The {{site_name}} team."
 msgstr ""
 
@@ -2796,6 +2853,9 @@ msgstr[1] "Badaude eskabide honi jarraitzen dioten {{count}} pertsona."
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "<strong>Ematean errorea gertatu da</strong> edo antzeko zerbait, eta {{site_name}}-ko taldeak konpondu behar du."
 
+msgid "There was an error with the reCAPTCHA. Please try again."
+msgstr ""
+
 msgid "There was an error with the words you entered, please try again."
 msgstr "Sartu dituzun hitzetan errorea gertatu da, mesedez saia zaitez berriro."
 
@@ -2839,6 +2899,9 @@ msgstr "Erakunde hau jadanik ez da existitzen, ezin da informazio eskabiderik eg
 
 msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
 msgstr "Honek <strong>ingurune naturala eta hiritartuaren</strong> egoerari buruzko informazio zabala dakar, esaterako:"
+
+msgid "This email is already in use"
+msgstr ""
 
 msgid "This external request has been hidden"
 msgstr ""
@@ -2969,6 +3032,9 @@ msgstr "  Hau zure {{site_name}} profilean agertuko da, beste pertsonek zure esk
 msgid "To"
 msgstr ""
 
+msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "Baliogabetu alerta hauek"
 
@@ -3059,6 +3125,9 @@ msgstr "{{public_body_name}}-ri eskabideak bidaltzeko erabiltzen ari garen posta
 msgid "To view the response, click on the link below."
 msgstr "Erantzuna ikusteko, erabil itzazu ondoko esteka."
 
+msgid "To view your two factor authentication details"
+msgstr ""
+
 msgid "To {{public_body_link_absolute}}"
 msgstr "{{public_body_link_absolute}}-rentzat"
 
@@ -3097,6 +3166,27 @@ msgstr ""
 
 msgid "Tweet this request"
 msgstr "Tuiteatu eskabide hau"
+
+msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
+msgstr ""
+
+msgid "Two factor authentication could not be disabled"
+msgstr ""
+
+msgid "Two factor authentication could not be enabled"
+msgstr ""
+
+msgid "Two factor authentication disabled"
+msgstr ""
+
+msgid "Two factor authentication enabled"
+msgstr ""
+
+msgid "Two factor one time passcode updated"
+msgstr ""
+
+msgid "Two factor one time passcode:"
+msgstr ""
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
 msgstr "Sar ezazu <code><strong>01/01/2008..14/01/2008</strong></code> urtarrileko lehen bi asteetako gertaerak soilik erakusteko."
@@ -3164,6 +3254,9 @@ msgstr "Idatz ezazu OR (hizki larritan)  berdin zaizunean zein hitz, esaterako <
 msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr "Erabil itzazu komatxoak esaldi zehatza bilatu nahi duzunean, adibidez <strong><code>\"Europako Kontseilua\"</code></strong>"
 
+msgid "Use this site to make your request for information – we'll show you how."
+msgstr ""
+
 msgid "User"
 msgstr ""
 
@@ -3218,6 +3311,15 @@ msgstr "User|Name"
 msgid "User|No limit"
 msgstr "User|No limit"
 
+msgid "User|Otp counter"
+msgstr ""
+
+msgid "User|Otp enabled"
+msgstr ""
+
+msgid "User|Otp secret key"
+msgstr ""
+
 msgid "User|Receive email alerts"
 msgstr ""
 
@@ -3254,6 +3356,9 @@ msgstr "Ikusi posta"
 msgid "View other requests to {{public_body}}"
 msgstr ""
 
+msgid "View your two factor authentication one time passcode"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Azalpenaren zain."
 
@@ -3265,6 +3370,9 @@ msgstr "Erakundeak zure eskabideari emandako erantzunaren barneko berrikusketa a
 
 msgid "Waiting for the public authority to reply"
 msgstr "Erakundearen erantzunaren zain"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Zure eskabideari emandako erantzuna behar bezalakoa izan da?"
@@ -3287,6 +3395,9 @@ msgstr ""
 "        &ndash;\n"
 "\tzu {{user_link}} ez bazara, mesedez <a href=\"{{url}}\">ireki saioa </a> eta jakinarazi."
 
+msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
+msgstr ""
+
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartzen bagaitu izan ezik (<a href=\"{{url}}\">informazio gehiago</a>). "
 
@@ -3295,6 +3406,9 @@ msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartze
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartzen bagaitu izan ezik."
+
+msgid "We'll drop you an email as soon as your request gets a response."
+msgstr ""
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3338,6 +3452,9 @@ msgstr "Mesedez, gaurkotu ezazu egoera, erantzunak informazio baliagarria dakarr
 
 msgid "When you receive the paper response, please help others find out what it says:"
 msgstr "Erantzuna paperez jasoko duzunean, mesedez lagundu besteek jakin dezaten zer esaten duen:"
+
+msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
+msgstr ""
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
 msgstr "Prest zaudenean, <strong>itzul zaitez hona</strong>, <a href=\"{{url}}\">kargatu berriro orrialde hau</a> eta sortu eskabide berria."
@@ -3471,6 +3588,9 @@ msgstr "Orrialde hau lortu ahal duzu formatu prozesagarri batean, eskabidearen J
 msgid "You can only request information about the environment from this authority."
 msgstr "Erakunde honi inguruneari buruzko informazioa soilik eska diezaiokezu."
 
+msgid "You can regenerate your one time passcode at any time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "{{law_used_full}} eskabidearen erantzun berria daukazu."
 
@@ -3488,6 +3608,9 @@ msgstr "Zure profilari buruzko testua aldatu duzu."
 
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr "{{site_name}}-ean erabiltzen duzun helbide elektronikoa aldatu duzu."
+
+msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
+msgstr ""
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr ""
@@ -3530,6 +3653,9 @@ msgstr ""
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
 msgstr "Erakundeari modu pribatuan <strong>zure posta helbidea</strong> eman nahi diozu."
+
+msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
+msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr "Ezin duzu eskabide berriak egin, erantzunak bidali, iruzkinak gehitu edo beste erabiltzaileekin harremanetan jarri. Beste eskabideak ikusten edo posta bidezko alertak konfiguratzen jarraitu ahal izango duzu."
@@ -3585,6 +3711,9 @@ msgstr "Zure iruzkinak"
 msgid "Your batch request \"{{title}}\" has been sent"
 msgstr ""
 
+msgid "Your current one time passcode:"
+msgstr ""
+
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr ""
 
@@ -3635,6 +3764,9 @@ msgstr "Zure mezu originala erantsita dago."
 msgid "Your password has been changed."
 msgstr "Zure pasahitza aldatu da."
 
+msgid "Your password has been changed. You also have a new one time passcode which you'll need next time you want to change your password"
+msgstr ""
+
 msgid "Your password:"
 msgstr "Zure pasahitza:"
 
@@ -3673,6 +3805,9 @@ msgstr ""
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Zure erantzuna eta beste galderen erantzunak <strong>Interneten agertuko dira</strong>, <a href=\"{{url}}\">irakurri zergatik</a>."
+
+msgid "Your right to know"
+msgstr ""
 
 msgid "Your selected authorities"
 msgstr ""
@@ -3727,9 +3862,6 @@ msgstr "\\n\\n[ {{site_name}} Oharra: Aurreko testuak ez zeukan kode egokirik, h
 
 msgid "admin"
 msgstr "admin"
-
-msgid "alaveteli_foi:The software that runs {{site_name}}"
-msgstr ""
 
 msgid "all requests"
 msgstr "eskabide guztiak"
@@ -3857,6 +3989,9 @@ msgid "mobile number"
 msgstr ""
 
 msgid "move..."
+msgstr ""
+
+msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
 msgid "new requests"
@@ -4050,6 +4185,9 @@ msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (Kontua baliogabetuta dago)"
 
 msgid "{{user_name}} - Freedom of Information requests"
+msgstr ""
+
+msgid "{{user_name}} - Two Factor Authentication"
 msgstr ""
 
 msgid "{{user_name}} - user profile"

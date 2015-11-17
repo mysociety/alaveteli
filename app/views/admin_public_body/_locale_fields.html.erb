@@ -2,16 +2,16 @@
 <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
   <div class="control-group">
     <%= t.hidden_field :locale, :value => locale.to_s %>
-    <label for="<%= form_tag_id(t.object_name, :name, locale) %>" class="control-label">Name</label>
+    <%= t.label :name, 'Name', :class => 'control-label' %>
     <div class="controls">
-      <%= t.text_field :name, :id => form_tag_id(t.object_name, :name, locale), :class => "span4" %>
+      <%= t.text_field :name, :class => "span4" %>
     </div>
   </div>
 
   <div class="control-group">
-    <label for="<%= form_tag_id(t.object_name, :short_name, locale) %>" class="control-label"><%=_("Short name")%></label>
+    <%= t.label :short_name, 'Short name', :class => 'control-label' %>
     <div class="controls">
-      <%= t.text_field :short_name, :id => form_tag_id(t.object_name, :short_name, locale), :class => "span2"  %>
+      <%= t.text_field :short_name, :class => "span2"  %>
       <p class="help-block">
         <%=_("Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect")%>
       </p>
@@ -19,9 +19,9 @@
   </div>
 
   <div class="control-group">
-    <label for="<%= form_tag_id(t.object_name, :request_email, locale) %>" class="control-label"><%=_("Request email")%></label>
+    <%= t.label :request_email, 'Request email', :class => 'control-label' %>
     <div class="controls">
-      <%= t.text_field :request_email, :id => form_tag_id(t.object_name, :request_email, locale), :class => "span3" %>
+      <%= t.text_field :request_email, :class => "span3" %>
       <p class="help-block">
         <%=_("set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA")%>
       </p>
@@ -29,16 +29,16 @@
   </div>
 
   <div class="control-group">
-    <label for="<%= form_tag_id(t.object_name, :publication_scheme, locale) %>" class="control-label"><%=_("Publication scheme URL")%></label>
+    <%= t.label :publication_scheme, 'Publication scheme URL', :class => 'control-label' %>
     <div class="controls">
-      <%= t.text_field :publication_scheme, :size => 60, :id => form_tag_id(t.object_name, :publication_scheme, locale), :class => "span3" %>
+      <%= t.text_field :publication_scheme, :size => 60, :class => "span3" %>
     </div>
   </div>
 
   <div class="control-group">
-    <label for="<%= form_tag_id(t.object_name, :notes, locale) %>" class="control-label"><%=_("Public notes")%></label>
+    <%= t.label :notes, 'Public notes', :class => 'control-label' %>
     <div class="controls">
-      <%= t.text_area :notes, :rows => 3, :id => form_tag_id(t.object_name, :notes, locale), :class => "span6" %>
+      <%= t.text_area :notes, :rows => 3, :class => "span6" %>
       <p class="help-block">
         HTML, for users to consider when making FOI requests to the authority
       </p>

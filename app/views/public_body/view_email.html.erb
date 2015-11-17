@@ -33,7 +33,7 @@
   <% end %>
 </p>
 
-<div id="stepwise_make_request_view_email">
+<div id="stepwise_make_request_view_email" class="stepwise_make_request_view_email">
   <strong>
     <% if @public_body.eir_only? %>
       <%= link_to _("Make a new EIR request"), new_request_to_body_path(:url_name => @public_body.url_name)%>

@@ -10,7 +10,7 @@ describe HealthChecks::HealthCheckable do
     @subject = MockCheck.new
   end
 
-  describe :initialize do
+  describe '#initialize' do
 
     it 'allows a custom failure message to be set' do
       @subject = MockCheck.new(:failure_message => 'F')
@@ -24,7 +24,7 @@ describe HealthChecks::HealthCheckable do
 
   end
 
-  describe :name do
+  describe '#name' do
 
     it 'returns the name of the check' do
       expect(@subject.name).to eq('MockCheck')
@@ -32,7 +32,7 @@ describe HealthChecks::HealthCheckable do
 
   end
 
-  describe :ok? do
+  describe '#ok?' do
 
     it 'is intended to be overridden by the includer' do
       expect{ @subject.ok? }.to raise_error(NotImplementedError)
@@ -40,7 +40,7 @@ describe HealthChecks::HealthCheckable do
 
   end
 
-  describe :failure_message do
+  describe '#failure_message' do
 
     it 'returns a default message if one has not been set' do
       expect(@subject.failure_message).to eq('Failed')
@@ -48,7 +48,7 @@ describe HealthChecks::HealthCheckable do
 
   end
 
-  describe :failure_message= do
+  describe '#failure_message=' do
 
     it 'allows a custom failure message to be set' do
       @subject.failure_message = 'F'
@@ -57,7 +57,7 @@ describe HealthChecks::HealthCheckable do
 
   end
 
-  describe :success_message do
+  describe '#success_message' do
 
     it 'returns a default message if one has not been set' do
       expect(@subject.success_message).to eq('Success')
@@ -65,7 +65,7 @@ describe HealthChecks::HealthCheckable do
 
   end
 
-  describe :success_message= do
+  describe '#success_message=' do
 
     it 'allows a custom success message to be set' do
       @subject.success_message = 'S'
@@ -74,12 +74,12 @@ describe HealthChecks::HealthCheckable do
 
   end
 
-  describe :message do
+  describe '#message' do
 
     context 'if the check succeeds' do
 
       before(:each) do
-        @subject.stub(:ok? => true)
+        allow(@subject).to receive_messages(:ok? => true)
       end
 
       it 'returns the default success message' do
@@ -96,7 +96,7 @@ describe HealthChecks::HealthCheckable do
     context 'if the check fails' do
 
       before(:each) do
-        @subject.stub(:ok? => false)
+        allow(@subject).to receive_messages(:ok? => false)
       end
 
       it 'returns the default failure message' do

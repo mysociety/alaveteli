@@ -12,7 +12,6 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
     before do
       @im = incoming_messages(:useless_incoming_message)
-      @controller.stub!(:expire_for_request)
     end
 
     it "destroys the raw email file" do
@@ -22,14 +21,17 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
       assert_equal File.exists?(raw_email), false
     end
 
-    it 'asks the incoming message to fully destroy itself' do
-      IncomingMessage.stub!(:find).and_return(@im)
-      @im.should_receive(:fully_destroy)
+    it 'asks the incoming message to destroy itself' do
+      allow(IncomingMessage).to receive(:find).and_return(@im)
+      expect(@im).to receive(:destroy)
       post :destroy, :id => @im.id
     end
 
     it 'expires the file cache for the associated info_request' do
-      @controller.should_receive(:expire_for_request).with(@im.info_request)
+      info_request = FactoryGirl.create(:info_request)
+      allow(@im).to receive(:info_request).and_return(info_request)
+      allow(IncomingMessage).to receive(:find).and_return(@im)
+      expect(@im.info_request).to receive(:expire)
       post :destroy, :id => @im.id
     end
 
@@ -43,10 +45,12 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
 
     it 'expires the file cache for the previous request' do
-      current_info_request = info_requests(:fancy_dog_request)
+      previous_info_request = FactoryGirl.create(:info_request)
       destination_info_request = info_requests(:naughty_chicken_request)
       incoming_message = incoming_messages(:useless_incoming_message)
-      @controller.should_receive(:expire_for_request).with(current_info_request)
+      allow(incoming_message).to receive(:info_request).and_return(previous_info_request)
+      allow(IncomingMessage).to receive(:find).and_return(incoming_message)
+      expect(previous_info_request).to receive(:expire)
       post :redeliver, :id => incoming_message.id,
         :url_title => destination_info_request.url_title
     end
@@ -71,7 +75,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
       assert_equal IncomingMessage.exists?(incoming_message.id), true
       # Should show an error to the user
       assert_equal flash[:error], "You must supply at least one request to redeliver the message to."
-      response.should redirect_to admin_request_url(incoming_message.info_request)
+      expect(response).to redirect_to admin_request_url(incoming_message.info_request)
     end
 
 
@@ -85,12 +89,12 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
     it 'should be successful' do
       get :edit, :id => @incoming.id
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'should assign the incoming message to the view' do
       get :edit, :id => @incoming.id
-      assigns[:incoming_message].should == @incoming
+      expect(assigns[:incoming_message]).to eq(@incoming)
     end
 
   end
@@ -111,31 +115,34 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     it 'should save the prominence of the message' do
       make_request
       @incoming.reload
-      @incoming.prominence.should == 'hidden'
+      expect(@incoming.prominence).to eq('hidden')
     end
 
     it 'should save a prominence reason for the message' do
       make_request
       @incoming.reload
-      @incoming.prominence_reason.should == 'dull'
+      expect(@incoming.prominence_reason).to eq('dull')
     end
 
     it 'should log an "edit_incoming" event on the info_request' do
-      @controller.stub!(:admin_current_user).and_return("Admin user")
+      allow(@controller).to receive(:admin_current_user).and_return("Admin user")
       make_request
       @incoming.reload
       last_event = @incoming.info_request_events.last
-      last_event.event_type.should == 'edit_incoming'
-      last_event.params.should == { :incoming_message_id => @incoming.id,
+      expect(last_event.event_type).to eq('edit_incoming')
+      expect(last_event.params).to eq({ :incoming_message_id => @incoming.id,
                                     :editor => "Admin user",
                                     :old_prominence => "normal",
                                     :prominence => "hidden",
                                     :old_prominence_reason => nil,
-                                    :prominence_reason => "dull" }
+                                    :prominence_reason => "dull" })
     end
 
     it 'should expire the file cache for the info request' do
-      @controller.should_receive(:expire_for_request).with(@incoming.info_request)
+      info_request = FactoryGirl.create(:info_request)
+      allow(IncomingMessage).to receive(:find).and_return(@incoming)
+      allow(@incoming).to receive(:info_request).and_return(info_request)
+      expect(info_request).to receive(:expire)
       make_request
     end
 
@@ -143,12 +150,12 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
       it 'should redirect to the admin info request view' do
         make_request
-        response.should redirect_to admin_request_url(@incoming.info_request)
+        expect(response).to redirect_to admin_request_url(@incoming.info_request)
       end
 
       it 'should show a message that the incoming message has been updated' do
         make_request
-        flash[:notice].should == 'Incoming message successfully updated.'
+        expect(flash[:notice]).to eq('Incoming message successfully updated.')
       end
 
     end
@@ -159,7 +166,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
         make_request({:id => @incoming.id,
                       :incoming_message => {:prominence => 'fantastic',
                                             :prominence_reason => 'dull'}})
-        response.should render_template("edit")
+        expect(response).to render_template("edit")
       end
 
     end

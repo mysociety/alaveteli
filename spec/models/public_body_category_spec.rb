@@ -15,25 +15,25 @@ describe PublicBodyCategory do
 
     it 'should require a title' do
       category = PublicBodyCategory.new
-      category.should_not be_valid
-      category.errors[:title].should == ["Title can't be blank"]
+      expect(category).not_to be_valid
+      expect(category.errors[:title]).to eq(["Title can't be blank"])
     end
 
     it 'should require a category tag' do
       category = PublicBodyCategory.new
-      category.should_not be_valid
-      category.errors[:category_tag].should == ["Tag can't be blank"]
+      expect(category).not_to be_valid
+      expect(category.errors[:category_tag]).to eq(["Tag can't be blank"])
     end
 
     it 'should require a unique tag' do
       existing = FactoryGirl.create(:public_body_category)
-      PublicBodyCategory.new(:email => existing.category_tag).should_not be_valid
+      expect(PublicBodyCategory.new(:email => existing.category_tag)).not_to be_valid
     end
 
     it 'should require a description' do
       category = PublicBodyCategory.new
-      category.should_not be_valid
-      category.errors[:description].should == ["Description can't be blank"]
+      expect(category).not_to be_valid
+      expect(category.errors[:description]).to eq(["Description can't be blank"])
     end
 
     it 'validates the translations' do
@@ -48,14 +48,13 @@ describe PublicBodyCategory do
                                                 :description => 'No title')
       category.valid?
       translation.valid?
-
-      expect(category).to have(1).error_on(:title)
-      expect(translation).to have(0).errors_on(:title)
+      expect(category.errors[:title].size).to eq(1)
+      expect(translation.errors[:title].size).to eq(0)
     end
 
   end
 
-  describe :save do
+  describe '#save' do
 
     it 'saves translations' do
       category = FactoryGirl.build(:public_body_category)
@@ -69,7 +68,7 @@ describe PublicBodyCategory do
 
   end
 
-  describe :translations_attributes= do
+  describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
 

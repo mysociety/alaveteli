@@ -1,6 +1,7 @@
 build-essential
 catdoc
 elinks
+geoip-database
 gettext
 ghostscript
 gnuplot-nox

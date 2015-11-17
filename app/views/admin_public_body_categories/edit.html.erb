@@ -3,7 +3,7 @@
 <div class="row">
   <div class="span8">
     <div id="public_body_category_form">
-      <%= form_for @category, :url => admin_category_path(@category), :html => { :class => "form form-horizontal" } do |f| %>
+      <%= form_for @public_body_category, :url => admin_category_path(@public_body_category), :html => { :class => "form form-horizontal" } do |f| %>
         <%= render :partial => 'form', :locals => { :f => f } %>
 
         <div class="form-actions">
@@ -20,9 +20,9 @@
 <div class="row">
   <div class="span12">
     <div class="well">
-      <%= form_for @category, :url => admin_category_path(@category), :method => 'delete', :class => "form form-inline" do |f| %>
-        <%= f.submit "Destroy #{ @category.title }",
-          :title => @category.title,
+      <%= form_for @public_body_category, :url => admin_category_path(@public_body_category), :method => 'delete', :class => "form form-inline" do |f| %>
+        <%= f.submit "Destroy #{ @public_body_category.title }",
+          :title => @public_body_category.title,
           :class => "btn btn-danger",
           :confirm => 'Are you sure?' %>
         <span class="help-block">

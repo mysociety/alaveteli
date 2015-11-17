@@ -1,6 +1,6 @@
-<% if @heading.errors.any? %>
+<% if @public_body_heading.errors.any? %>
   <ul>
-    <% @heading.errors.each do |attr, message| %>
+    <% @public_body_heading.errors.each do |attr, message| %>
       <% unless attr.to_s.starts_with?('translation') %>
         <li><%= message %></li>
       <% end %>
@@ -8,7 +8,7 @@
   </ul>
 <% end %>
 
-<% @heading.ordered_translations.each do |translation| %>
+<% @public_body_heading.ordered_translations.each do |translation| %>
   <% if translation.errors.any? %>
     <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
     <ul>
@@ -24,7 +24,7 @@
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
-    <% @heading.ordered_translations.each do |translation| %>
+    <% @public_body_heading.ordered_translations.each do |translation| %>
       <li>
         <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
           <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
@@ -33,9 +33,9 @@
     <% end %>
   </ul>
   <div class="tab-content">
-    <% @heading.ordered_translations.each do |translation| %>
+    <% @public_body_heading.ordered_translations.each do |translation| %>
       <% if translation.locale.to_s == I18n.default_locale.to_s %>
-        <%= fields_for('public_body_heading', @heading) do |t| %>
+        <%= fields_for('public_body_heading', @public_body_heading) do |t| %>
           <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
         <% end %>
       <% else %>

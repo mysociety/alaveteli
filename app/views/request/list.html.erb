@@ -1,10 +1,10 @@
-<div id="header_left">
+<div id="header_left" class="header_left">
   <h1><%= @title %></h1>
   <%= render :partial => 'request/request_search_form',
              :locals => { :after_form_fields => render(:partial => 'request/request_filter_form') } %>
 </div>
 
-<div id="header_right">
+<div id="header_right" class="sidebar header_right">
   <h2><%= _("Follow these requests") %></h2>
   <% if @track_thing %>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>

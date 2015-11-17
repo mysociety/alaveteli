@@ -22,7 +22,7 @@
 
 class Comment < ActiveRecord::Base
   include AdminColumn
-  strip_attributes!
+  strip_attributes :allow_empty => true
 
   belongs_to :user
   belongs_to :info_request
@@ -33,7 +33,9 @@ class Comment < ActiveRecord::Base
   validate :check_body_has_content,
     :check_body_uses_mixed_capitals
 
-  scope :visible, where(:visible => true)
+  scope :visible, lambda {
+    joins(:info_request).merge(InfoRequest.visible).where(:visible => true)
+  }
 
   after_save :event_xapian_update
 

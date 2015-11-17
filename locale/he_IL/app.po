@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:00+0000\n"
-"PO-Revision-Date: 2015-11-06 15:26+0000\n"
+"POT-Creation-Date: 2015-11-09 14:39+0000\n"
+"PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
@@ -257,6 +257,9 @@ msgstr "<strong>הערה:</strong> בגלל שאנחנו בודקים, הבקש�
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>הערה:</strong>\\n    אנו נשלח הודעת אימות לכתובת הדוא\"ל החדשה שלך. עקבו אחר \\n    ההוראות כדי לאשר את שינוי הכתובת."
 
+msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
+msgstr ""
+
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr " <strong>הערה:<strong/> בקרוב יישלח אליכם דואר אלקטרוני. עקוב אחר ההוראות המצויות בו על מנת לשנות את הסיסמא."
 
@@ -338,6 +341,9 @@ msgstr "מתנהג כמו Xapien::מתנהג כמו מטלת Xapien | פעולה
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "מתנהג כמו Xapien::מתנהג כמו מטלת Xapien | מודל"
 
+msgid "Add a widget"
+msgstr ""
+
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "הוסיפו הערה ל&ldquo;{{request_title}}&rdquo;"
 
@@ -398,8 +404,8 @@ msgstr "<a href=\"{{request_url}}\">הבהרה</a> לבקשה <em>{{request_titl
 msgid "An <strong>error message</strong> has been received"
 msgstr "התקבלה <strong>הודעת שגיאה</strong>"
 
-msgid "An Environmental Information Regulations request"
-msgstr "בקשה למידע על רגולציה סביבתית"
+msgid "An Environmental Information request"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "משתמש אנונימי"
@@ -427,6 +433,12 @@ msgstr "תקף ל- "
 
 msgid "Are we missing a public authority?"
 msgstr "האם חסר לנו גוף ציבורי?"
+
+msgid "Are you sure you want to disable two factor authentication?"
+msgstr ""
+
+msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
+msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "האם אתם הבעלים של\\n            זכויות יוצרים מסחריות על עמוד זה?"
@@ -485,6 +497,9 @@ msgstr "קבוצה נוצרה ע״י {{info_request_user}} בתאריך {{date}}
 msgid "Beginning with"
 msgstr "חיפוש על-פי אות ראשונה"
 
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "הקליקו על <a href='{{url}}'>בקשות אחרות</a> לצפות בדוגמאות לניסוח הבקשה."
 
@@ -494,11 +509,17 @@ msgstr "הקליקו על <a href='{{url}}'>בקשות אחרות</a> אל '{{pu
 msgid "Browse all authorities..."
 msgstr "עיון בכל הרשויות..."
 
+msgid "Browse all requests &rarr;"
+msgstr ""
+
 msgid "Browse and search requests"
 msgstr "צפו וחפשו בקשות מידע"
 
 msgid "Browse requests"
 msgstr "בקשות מידע"
+
+msgid "By law, they have to respond."
+msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "לפי החוק, בכפוף לנסיבות, {{public_body_link}} היו צרכים להשיב עד עתה"
@@ -674,6 +695,9 @@ msgstr "מכיל מידע אישי"
 msgid "Could not identify the request from the email address"
 msgstr "לא ניתן היה לזהות את הבקשה מכתובת הדואר האלקטרוני"
 
+msgid "Could not update your two factor one time passcode"
+msgstr ""
+
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "קובץ התמונה שהעלתם לא נתמך. ניתן להעלות קבצים בפורמט PNG, JPEG, GIF ועוד."
 
@@ -737,6 +761,9 @@ msgstr "פרטי הבקשה &ldquo;{{request_title}}&rdquo;"
 msgid "Did you mean: {{correction}}"
 msgstr "האם התכוונתם: {{correction}}"
 
+msgid "Disable two factor authentication"
+msgstr ""
+
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr "כתב ויתור: הודעה זו וכל הודעה הקשורה אליה שתשלחו, תפורסם באינטרנט. מדיניות הפרטיות והגנת הזכויות שלנו:"
 
@@ -748,6 +775,9 @@ msgstr "כתובת יומן גילוי נאות"
 
 msgid "Do not fill in this field"
 msgstr "אין למלא שדה  זה"
+
+msgid "Do not share this passcode."
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr "אין לך חשבון מנהל עדיין?"
@@ -797,6 +827,9 @@ msgstr "שלחו לי עדכונים בדואר אלקטרוני לגבי הבק
 msgid "Email:"
 msgstr "דוא״ל:"
 
+msgid "Enable two factor authentication"
+msgstr ""
+
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "הכניסו את מילות החיפוש עם רווח ביניהן. לדוגמה, e.g. <strong>נתיב עליה</strong>"
 
@@ -820,6 +853,9 @@ msgstr "פירוט היסטוריית אירועים"
 
 msgid "Event {{id}}"
 msgstr "אירוע {{id}}"
+
+msgid "Every citizen has the right to access information held by public authorities."
+msgstr ""
 
 msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr "כל מה שתזינו בדף הזה, יוצג <strong>פתוח לציבור</strong> באתר הזה לתמיד (<a href=\"{{url}}\">למה?</a>)."
@@ -1084,6 +1120,9 @@ msgstr "עמוד הבית"
 msgid "Home page of authority"
 msgstr "עמוד הבית של הרשות"
 
+msgid "How it works"
+msgstr ""
+
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "לעומת זאת, יש לכם את הזכות לבקש מידע סביבתי /n תחת חוק אחר"
 
@@ -1210,6 +1249,9 @@ msgstr "אם השתמשתם באתר  {{site_name}} before לפני"
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "אם הדפדפן שלכם מקבל עוגיות ואתם רואים הודעה זו, \\n אז כנראה שיש תקלה בשרת שלנו."
 
+msgid "Improve your account security"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "הוסיפו קישורים מתאימים כמו למשל לדף הקמפיין, לבלוג שלכם או לטוויטר. יהיה ניתן להקליק עליהם n\\. למשל"
 
@@ -1219,7 +1261,7 @@ msgstr "כתובת לקבלת דואר אלקטרוני"
 msgid "Incoming message"
 msgstr "הודעה נכנסת"
 
-msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
+msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1348,6 +1390,9 @@ msgstr "בקשת בדיקה פנימית"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "בקשת ביקורת פנימית נשלחה ל- {{public_body_name}} ע״י {{info_request_user}} בתאריך {{date}}."
 
+msgid "Invalid one time password"
+msgstr ""
+
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "האם הכתובת  {{email_address}} היא הנכונה לבקשת {{type_of_request}} אל {{public_body_name}}? אם לא, נא צרו איתנו קשר באמצעות טופס זה:"
 
@@ -1369,6 +1414,9 @@ msgstr "הצטרף/פה ל-  {{site_name}}ב- "
 msgid "Just one more thing"
 msgstr "רק עוד דבר אחד"
 
+msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
+msgstr ""
+
 msgid "Keep your request up to date"
 msgstr "שמרו על הבקשה שלכם עדכנית"
 
@@ -1383,6 +1431,9 @@ msgstr "הרשות האחרונה שנצפתה:"
 
 msgid "Last request viewed: "
 msgstr "בקשה אחרונה שנצפתה:"
+
+msgid "Learn more &rarr;"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "ספרו לנו מה עשיתם כשהודעה זו\\nהופיעה, וכן מהו הדפדפן שלכם, מערכת ההפעלה שלכם והגרסה שלה."
@@ -1450,9 +1501,6 @@ msgstr "הגישו בקשה לדוח השפעה על הסביבה"
 msgid "Make a new FOI request"
 msgstr "צרו בקשת חופש מידע חדשה"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "הגישו<br><strong>בקשה</strong><br><span>לפתיחת</span> <br><strong>מאגר מידע</strong>"
-
 msgid "Make a request"
 msgstr "בקשה חדשה"
 
@@ -1495,14 +1543,8 @@ msgstr "חסרים פרטי יצירת קשר של '"
 msgid "More about this authority"
 msgstr "עוד פרטים על רשות זו"
 
-msgid "More requests..."
-msgstr "בקשות נוספות..."
-
 msgid "More similar requests"
 msgstr "בקשות דומות נוספות"
-
-msgid "More successful requests..."
-msgstr "בקשות נוספות שנענו..."
 
 msgid "My profile"
 msgstr "הפרופיל שלי"
@@ -1662,6 +1704,9 @@ msgstr "רק הרשות יכולה להשיב לבקשה זו, וכתובת הד
 
 msgid "Only the authority can reply to this request, but there is no \"From\" address to check against"
 msgstr "רק הרשות יכולה להשיב לבקשה זו, אבל לא קיימת כתובת דוא\"ל בשדה \"מאת\", שניתן לבדוק אותה"
+
+msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
+msgstr ""
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr ""
@@ -1959,6 +2004,9 @@ msgstr "צפה בבקשה הציבורית שלך"
 msgid "Preview your request"
 msgstr ""
 
+msgid "Print your one time passcode"
+msgstr ""
+
 msgid "Profile photo"
 msgstr "תמונת פרופיל"
 
@@ -2021,9 +2069,6 @@ msgstr ""
 
 msgid "Public body heading"
 msgstr ""
-
-msgid "Public notes"
-msgstr "רשימות ציבוריות"
 
 msgid "Public page"
 msgstr "דף ציבורי"
@@ -2088,6 +2133,9 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last ערכו הערה"
 
@@ -2118,9 +2166,6 @@ msgstr "PublicBody|Version"
 msgid "Publication scheme"
 msgstr "תוכנית פרסום"
 
-msgid "Publication scheme URL"
-msgstr "כתובת תוכנית פרסומים"
-
 msgid "Purge request"
 msgstr "נקה בקשה"
 
@@ -2129,6 +2174,12 @@ msgstr "PurgeRequest|Model"
 
 msgid "PurgeRequest|Url"
 msgstr "PurgeRequest|Url"
+
+msgid "Query can't be blank"
+msgstr ""
+
+msgid "Query is too long"
+msgstr ""
 
 msgid "RSS feed"
 msgstr "ערוץ RSS"
@@ -2156,6 +2207,9 @@ msgstr "תוצאות אחרונות מופיעות ראשונות"
 
 msgid "Refused."
 msgstr "סורב"
+
+msgid "Regenerate one time passcode"
+msgstr ""
 
 msgid "Rejected"
 msgstr ""
@@ -2186,9 +2240,6 @@ msgstr "לבקש בדיקה פנימית"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "בקשה לבדיקה פנימית מ- {{person_or_body}}"
-
-msgid "Request email"
-msgstr "בקשת דוא\"ל"
 
 msgid "Request for personal information"
 msgstr ""
@@ -2325,6 +2376,9 @@ msgstr "שלחו תגובה ציבורית ל{{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "שלח בקשת מעקב ל'{{title}}'"
 
+msgid "Send me the email"
+msgstr ""
+
 msgid "Send message"
 msgstr "שלחו הודעה"
 
@@ -2333,6 +2387,9 @@ msgstr "שלחו הודעה"
 
 msgid "Send request"
 msgstr "שלחו בקשה"
+
+msgid "Sending..."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2350,9 +2407,6 @@ msgstr ""
 
 msgid "Share your request"
 msgstr ""
-
-msgid "Short name"
-msgstr "שם קצר"
 
 msgid "Short name is already taken"
 msgstr "השם הקצר כבר תפוס"
@@ -2437,6 +2491,9 @@ msgstr ""
 
 msgid "Start your own blog"
 msgstr "צרו את הבלוג שלכם"
+
+msgid "Start your own request"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "הישאר מעודכן"
@@ -2657,6 +2714,9 @@ msgstr "מנוע החיפוש לא זמין כרגע, לכן לא תוכלו ל�
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "מנוע החיפוש לא זמין כרגע, לכן לא תוכלו לצפות בבקשות מידע של אדם זה."
 
+msgid "The widget will look like this:"
+msgstr ""
+
 msgid "The {{site_name}} team."
 msgstr "צוות {{site_name}}"
 
@@ -2755,6 +2815,9 @@ msgstr[1] "עוקבים אחר הבקשה הזו {{count}} אנשים"
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "היתה <strong>תקלה במסירה</strong> שדורשת טיפול על-ידי אנשי {{site_name}}."
 
+msgid "There was an error with the reCAPTCHA. Please try again."
+msgstr ""
+
 msgid "There was an error with the words you entered, please try again."
 msgstr "יש שגיאה בטקסט שהכנסתם. נסו שנית."
 
@@ -2796,6 +2859,9 @@ msgstr "רשות זו לא קיימת כבר, לכן לא ניתן להגיש ל
 
 msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
 msgstr "דבר זה מכסה מנעד רחב של מידע על מצב\\n <strong>הסביבה הטבעית והבנויה</strong>, כגון:"
+
+msgid "This email is already in use"
+msgstr ""
 
 msgid "This external request has been hidden"
 msgstr "בקשה חיצונית זו הוסתרה"
@@ -2924,6 +2990,9 @@ msgstr "זה יופיע בפרופיל של {{site_name}} כדי להקל n\\  �
 msgid "To"
 msgstr ""
 
+msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "לבטל את ההתראות הללו"
 
@@ -3014,6 +3083,9 @@ msgstr "כדי לראות את כתובת הדוא\"ל בה עשינו שימו�
 msgid "To view the response, click on the link below."
 msgstr "לראות את התגובה, הקליקו על הקישור מתחת"
 
+msgid "To view your two factor authentication details"
+msgstr ""
+
 msgid "To {{public_body_link_absolute}}"
 msgstr "ל-  {{public_body_link_absolute}}"
 
@@ -3052,6 +3124,27 @@ msgstr ""
 
 msgid "Tweet this request"
 msgstr "צייצו את הבקשה"
+
+msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
+msgstr ""
+
+msgid "Two factor authentication could not be disabled"
+msgstr ""
+
+msgid "Two factor authentication could not be enabled"
+msgstr ""
+
+msgid "Two factor authentication disabled"
+msgstr ""
+
+msgid "Two factor authentication enabled"
+msgstr ""
+
+msgid "Two factor one time passcode updated"
+msgstr ""
+
+msgid "Two factor one time passcode:"
+msgstr ""
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
 msgstr "הכניסו <strong><code>01/01/2013..14/01/2013</code></strong> להראות רק מה שקרה בין התאריכים הללו בחודש ינואר."
@@ -3119,6 +3212,9 @@ msgstr "*****הקלידו OR (באותיות גדולות) כדי לחפש יו�
 msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr "השתמשו במרכאות כדי לחפש את הביטוי המדוייק, לדוגמה, <strong><code>\"מועצת העיר ירושלים\"</code></strong>"
 
+msgid "Use this site to make your request for information – we'll show you how."
+msgstr ""
+
 msgid "User"
 msgstr "משתמש"
 
@@ -3173,6 +3269,15 @@ msgstr "User|Name"
 msgid "User|No limit"
 msgstr "User|No limit"
 
+msgid "User|Otp counter"
+msgstr ""
+
+msgid "User|Otp enabled"
+msgstr ""
+
+msgid "User|Otp secret key"
+msgstr ""
+
 msgid "User|Receive email alerts"
 msgstr "User|Receive email alerts"
 
@@ -3209,6 +3314,9 @@ msgstr "צפו בדואר האלקטרוני"
 msgid "View other requests to {{public_body}}"
 msgstr ""
 
+msgid "View your two factor authentication one time passcode"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "ממתין להבהרות"
 
@@ -3220,6 +3328,9 @@ msgstr "ממתין לרשות הציבורית על מנת שתסיים בדיק
 
 msgid "Waiting for the public authority to reply"
 msgstr "ממתין לתשובה של רשות ציבורית"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "האם קיבלתם תגובה מספקת על בקשת המידע שלכם?"
@@ -3239,6 +3350,9 @@ msgstr "אין ברשותנו {{law_used_full}} כתובת פעילה ל- {{publ
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "איננו יודעים האם התגובה האחרונה לבקשה זו כוללת\\n    מידע או לא\\n        &ndash;\\n\tאם אתם {{user_link}} אנא <a href=\"{{url}}\">הכנסו למערכת</a> ועדכנו את כולם."
 
+msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
+msgstr ""
+
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr "אנחנו לא נחשוף את כתובת המייל שלכם לאף אחד, אלא אם <a href=\"{{url}}\">אתם או\\n החוק יבקשו זאת </a>. "
 
@@ -3247,6 +3361,9 @@ msgstr "אנחנו לא נחשוף את כתובת המייל שלכם לאף א
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "אנחנו לא נחשוף את כתובות המייל שלכם לאף אחד, אלא אם נידרש על פי חוק."
+
+msgid "We'll drop you an email as soon as your request gets a response."
+msgstr ""
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3290,6 +3407,9 @@ msgstr "כאשר הנכם מגיעים לעמוד, אנא עדכנו את הסט
 
 msgid "When you receive the paper response, please help others find out what it says:"
 msgstr "כאשר תקבלו את מכתב התגובה, אנא עזרו \\n לאחרים להבין את תוכנו:"
+
+msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
+msgstr ""
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
 msgstr "כשתסיימו, <strong>חזרו לכאן</strong>, <a href=\"{{url}}\">כנסו שוב לדף הזה</a> והגישו את בקשתכם."
@@ -3423,6 +3543,9 @@ msgstr "אתם יכולים לקבל את עמוד זה בפורמט המיוע�
 msgid "You can only request information about the environment from this authority."
 msgstr "ניתן לבקש רק מידע סביבתי מרשות זו."
 
+msgid "You can regenerate your one time passcode at any time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "יש לך תשובה חדשה לחוק {{law_used_full}} "
 
@@ -3440,6 +3563,9 @@ msgstr "שינוי הפרופיל שלכם בוצע בהצלחה."
 
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr "שינוי כתובת הדוא\"ל שלכם באתר {{site_name}} בוצע בהצלחה."
+
+msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
+msgstr ""
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr "ניסיתם להירשם לאתר {{site_name}}, כאשר\\nכבר יש ברשותכם חשבון. שם המשתמש והסיסמא שלכם\\nנותרו ללא שינוי.\\n\\nאנא לחצו על הקישור למטה."
@@ -3479,6 +3605,9 @@ msgstr "הייתם אמורים לקבל עותק של הבקשה בדוא\"ל, 
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
 msgstr "אתם מעוניינים <strong>למסור את כתובת הדואר שלכם</strong> לרשות באופן פרטי."
+
+msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
+msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr "לא תוכלו ליצור בקשות חדשות, לשלוח עדכונים לבקשות, להוסיף הערות או\\nלשלוח הודעות למשתמשים אחרים. תוכלו להמשיך לצפות בבקשות אחרות, ולהגדיר\\nקבלת התראות בדוא\"ל."
@@ -3533,6 +3662,9 @@ msgstr "ההערות שלכם"
 msgid "Your batch request \"{{title}}\" has been sent"
 msgstr ""
 
+msgid "Your current one time passcode:"
+msgstr ""
+
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr "הפרטים שלכם, כולל כתובת הדואר האלקטרוני, לא ניתנו לאף אחד."
 
@@ -3581,6 +3713,9 @@ msgstr "הההודעה המקורית שלכם מצורפת."
 msgid "Your password has been changed."
 msgstr "הסיסמה שונתה בהצלחה."
 
+msgid "Your password has been changed. You also have a new one time passcode which you'll need next time you want to change your password"
+msgstr ""
+
 msgid "Your password:"
 msgstr "הסיסמה שלכם:"
 
@@ -3619,6 +3754,9 @@ msgstr "התגובה שלך לבקשה לא נשלחה"
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "תגובתכם <strong>תופיע באינטרנט</strong>, <a href=\"{{url}}\">קראו מדוע</a> and וצפו בתשובות לשאלות נוספות."
+
+msgid "Your right to know"
+msgstr ""
 
 msgid "Your selected authorities"
 msgstr ""
@@ -3683,9 +3821,6 @@ msgstr "\\n\\n[ הערת {{site_name}}: הטקסט המופיע למעלה קו�
 
 msgid "admin"
 msgstr "מנהל"
-
-msgid "alaveteli_foi:The software that runs {{site_name}}"
-msgstr "Alaveteli: התוכנה מאחורי {{site_name}}"
 
 msgid "all requests"
 msgstr "כל הבקשות"
@@ -3812,6 +3947,9 @@ msgstr ""
 
 msgid "move..."
 msgstr "להעביר..."
+
+msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
+msgstr ""
 
 msgid "new requests"
 msgstr ""
@@ -4003,6 +4141,9 @@ msgstr "{{user_name}} (חשבון הושעה)"
 
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "בקשות המידע של - {{user_name}} "
+
+msgid "{{user_name}} - Two Factor Authentication"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "פרופיל משתמש - {{user_name}}"

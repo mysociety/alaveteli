@@ -1,4 +1,4 @@
-<div id="signup">
+<div id="signup" class="signup">
   <%= form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
     <%= foi_error_messages_for :user_signup %>
 
@@ -46,7 +46,7 @@
     <div class="form_button">
       <%= hidden_field_tag 'token', params[:token], {:id => 'signup_token' } %>
       <%= hidden_field_tag :modal, params[:modal], {:id => 'signup_modal' } %>
-      <%= submit_tag _('Sign up'), :tabindex => 50 %>
+      <%= submit_tag _('Sign up'), :tabindex => 50, :disable_with => _("Sending...") %>
     </div>
   <% end %>
 </div>

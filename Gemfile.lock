@@ -9,6 +9,15 @@ GIT
       paper_trail (~> 2)
 
 GIT
+  remote: https://github.com/mysociety/active_model_otp.git
+  revision: 0eb977b4c6dafdecaa6d0861783ebb502de3981f
+  ref: 0eb977b4c6dafd
+  specs:
+    active_model_otp (1.2.0)
+      activemodel
+      rotp
+
+GIT
   remote: https://github.com/mysociety/ruby-msg.git
   revision: f9f928ed76c024b4bc3a08bc1a59beb62df36663
   ref: f9f928ed76c024b4bc3a08bc1a59beb62df36663
@@ -16,6 +25,14 @@ GIT
     ruby-msg (1.5.2)
       ruby-ole (>= 1.2.8)
       vpim (>= 0.360)
+
+GIT
+  remote: https://github.com/mysociety/strip_attributes.git
+  revision: ce9e1f477bc9324074f6fbf1d3c3bb33305abb0d
+  branch: globalize3
+  specs:
+    strip_attributes (1.7.0)
+      activemodel (>= 3.0, < 5.0)
 
 GIT
   remote: https://github.com/technoweenie/acts_as_versioned.git
@@ -70,6 +87,12 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    capybara (2.5.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     charlock_holmes (0.6.9.4)
     chunky_png (1.3.3)
     coderay (1.1.0)
@@ -101,7 +124,7 @@ GEM
       debugger-ruby_core_source (~> 1.2.1)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.2)
-    diff-lcs (1.2.4)
+    diff-lcs (1.2.5)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     eventmachine (1.0.7)
@@ -122,6 +145,7 @@ GEM
       railties (>= 3.1.0)
       sass (>= 3.2.0)
     fssm (0.2.10)
+    geoip (1.6.1)
     gettext (2.3.9)
       locale
       text
@@ -143,8 +167,6 @@ GEM
       railties (>= 3.1.0)
     json (1.8.2)
     libv8 (3.16.14.3)
-    linecache (0.46)
-      rbx-require-relative (> 0.0.4)
     locale (2.0.8)
     mahoro (0.4)
     mail (2.5.4)
@@ -172,7 +194,7 @@ GEM
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.12.1.298)
+    newrelic_rpm (3.14.0.305)
     nokogiri (1.5.9)
     open4 (1.3.4)
     paper_trail (2.7.2)
@@ -180,10 +202,12 @@ GEM
       railties (~> 3.0)
     pg (0.17.1)
     polyglot (0.3.5)
-    pry (0.9.12.6)
-      coderay (~> 1.0)
-      method_source (~> 0.8)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-nav (0.2.4)
+      pry (>= 0.9.10, < 0.11.0)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.4.6)
@@ -215,32 +239,36 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (0.9.2.2)
-    rbx-require-relative (0.0.9)
     rdoc (3.12.2)
       json (~> 1.4)
-    recaptcha (0.3.6)
+    recaptcha (0.4.0)
     ref (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.14.0)
+    rotp (2.1.1)
     routing-filter (0.3.1)
       actionpack
-    rspec-core (2.13.1)
-    rspec-expectations (2.13.0)
-      diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.13.1)
-    rspec-rails (2.13.2)
+    rspec-activemodel-mocks (1.0.1)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      rspec-mocks (>= 2.99, < 4.0)
+    rspec-core (3.1.7)
+      rspec-support (~> 3.1.0)
+    rspec-expectations (3.1.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.1.0)
+    rspec-mocks (3.1.3)
+      rspec-support (~> 3.1.0)
+    rspec-rails (3.1.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
-    ruby-debug (0.10.4)
-      columnize (>= 0.1)
-      ruby-debug-base (~> 0.10.4.0)
-    ruby-debug-base (0.10.4)
-      linecache (>= 0.3)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+      rspec-support (~> 3.1.0)
+    rspec-support (3.1.2)
     ruby-ole (1.2.11.8)
     sass (3.2.10)
     sass-rails (3.2.6)
@@ -286,31 +314,31 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.42)
-    uglifier (2.2.1)
+    uglifier (2.7.2)
       execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+      json (>= 1.8.0)
     unicode (0.4.4)
     unidecoder (1.1.2)
     uniform_notifier (1.9.0)
     vpim (13.11.11)
-    webrat (0.7.3)
-      nokogiri (>= 1.2.0)
-      rack (>= 1.0)
-      rack-test (>= 0.5.3)
     will_paginate (3.0.5)
-    xapian-full-alaveteli (1.2.9.7)
+    xapian-full-alaveteli (1.2.21.1)
     xml-simple (1.1.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
     zip (2.0.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_otp!
   acts_as_versioned!
   annotate (~> 2.5.0)
   bootstrap-sass (~> 2.3.1.2)
   bullet (~> 4.14.6)
   capistrano (~> 2.15.4)
+  capybara (~> 2.5.0)
   charlock_holmes (~> 0.6.9.4)
   coffee-rails (~> 3.2.1)
   compass-rails (= 2.0.0)
@@ -323,6 +351,7 @@ DEPENDENCIES
   fancybox-rails (~> 0.2.1)
   fast_gettext (~> 0.7.0)
   foundation-rails (~> 5.2.1.0)
+  geoip (~> 1.6.1)
   gettext (~> 2.3.9)
   gettext_i18n_rails (~> 0.9.4)
   globalize3!
@@ -342,7 +371,8 @@ DEPENDENCIES
   nokogiri (~> 1.5.9)
   open4 (~> 1.3.4)
   pg (~> 0.17.1)
-  pry (~> 0.9.6)
+  pry (~> 0.10.3)
+  pry-nav (~> 0.2.4)
   quiet_assets (~> 1.0.2)
   rack (~> 1.4.6)
   rack-utf8_sanitizer (~> 1.3.0)
@@ -350,25 +380,25 @@ DEPENDENCIES
   rails-i18n (~> 0.7.3)
   rake (= 0.9.2.2)
   rdoc (~> 3.12.2)
-  recaptcha (~> 0.3.1)
+  recaptcha (~> 0.4.0)
   rmagick (~> 2.14.0)
   routing-filter (~> 0.3.1)
-  rspec-rails (~> 2.13.2)
-  ruby-debug (~> 0.10.4)
+  rspec-activemodel-mocks (~> 1.0.1)
+  rspec-rails (= 3.1.0)
   ruby-msg (~> 1.5.0)!
   sass-rails (~> 3.2.3)
   secure_headers (~> 2.0.2)
   spork-rails (~> 3.2.1)
   statistics2 (~> 0.54)
+  strip_attributes!
   syslog_protocol (~> 0.9.2)
   therubyracer (~> 0.12.0)
   thin (~> 1.5.1)
-  uglifier (>= 1.0.3)
+  uglifier (~> 2.7.2)
   unicode (~> 0.4.4)
   unidecoder (~> 1.1.2)
   vpim (~> 13.11.11)
-  webrat (~> 0.7.3)
   will_paginate (~> 3.0.5)
-  xapian-full-alaveteli (~> 1.2.9.7)
+  xapian-full-alaveteli (~> 1.2.21.1)
   xml-simple (~> 1.1.2)
   zip (~> 2.0.2)

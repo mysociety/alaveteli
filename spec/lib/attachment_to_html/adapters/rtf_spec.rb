@@ -9,12 +9,12 @@ describe AttachmentToHTML::Adapters::RTF do
   describe :tmpdir do
 
     it 'defaults to the rails tmp directory' do
-      adapter.tmpdir.should == Rails.root.join('tmp')
+      expect(adapter.tmpdir).to eq(Rails.root.join('tmp'))
     end
 
     it 'allows a tmpdir to be specified to store the converted document' do
       adapter = AttachmentToHTML::Adapters::RTF.new(attachment, :tmpdir => '/tmp')
-      adapter.tmpdir.should == '/tmp'
+      expect(adapter.tmpdir).to eq('/tmp')
     end
 
   end
@@ -22,7 +22,7 @@ describe AttachmentToHTML::Adapters::RTF do
   describe :title do
 
     it 'uses the attachment filename for the title' do
-      adapter.title.should == attachment.display_filename
+      expect(adapter.title).to eq(attachment.display_filename)
     end
 
   end
@@ -30,12 +30,12 @@ describe AttachmentToHTML::Adapters::RTF do
   describe :body do
 
     it 'extracts the body from the document' do
-      adapter.body.should include('thisisthebody')
+      expect(adapter.body).to include('thisisthebody')
     end
 
     it 'operates in the context of the supplied tmpdir' do
       adapter = AttachmentToHTML::Adapters::RTF.new(attachment, :tmpdir => '/tmp')
-      Dir.should_receive(:chdir).with('/tmp').and_call_original
+      expect(Dir).to receive(:chdir).with('/tmp').and_call_original
       adapter.body
     end
 
@@ -56,20 +56,20 @@ describe AttachmentToHTML::Adapters::RTF do
       <body><font size="3"><font color="#000000">thisisthebody</font></font></body>
       </html>
       DOC
-      AlaveteliExternalCommand.stub(:run).and_return(invalid)
+      allow(AlaveteliExternalCommand).to receive(:run).and_return(invalid)
 
-      adapter.body.should_not include('//W3C//DTD HTML 4.01 Transitional//EN')
+      expect(adapter.body).not_to include('//W3C//DTD HTML 4.01 Transitional//EN')
     end
 
     it 'converts empty files' do
       attachment = FactoryGirl.build(:rtf_attachment, :body => load_file_fixture('empty.rtf'))
       adapter = AttachmentToHTML::Adapters::RTF.new(attachment)
-      adapter.body.should == ''
+      expect(adapter.body).to eq('')
     end
 
     it 'doesnt fail if the external command returns nil' do
-      AlaveteliExternalCommand.stub(:run).and_return(nil)
-      adapter.body.should == ''
+      allow(AlaveteliExternalCommand).to receive(:run).and_return(nil)
+      expect(adapter.body).to eq('')
     end
 
   end
@@ -77,19 +77,19 @@ describe AttachmentToHTML::Adapters::RTF do
 
   describe :success? do
 
-    it 'is successful if the body has content excluding the tags' do
-      adapter.stub(:body).and_return('<p>some content</p>')
-      adapter.success?.should be_true
+    it 'is truthy if the body has content excluding the tags' do
+      allow(adapter).to receive(:body).and_return('<p>some content</p>')
+      expect(adapter.success?).to be_truthy
     end
 
-    it 'is successful if the body contains images' do
-      adapter.stub(:body).and_return(%Q(<img src="logo.png" />))
-      adapter.success?.should be_true
+    it 'is truthy if the body contains images' do
+      allow(adapter).to receive(:body).and_return(%Q(<img src="logo.png" />))
+      expect(adapter.success?).to be_truthy
     end
 
-    it 'is not successful if the body has no content other than tags' do
-      adapter.stub(:body).and_return('<p></p>')
-      adapter.success?.should be_false
+    it 'is falsey if the body has no content other than tags' do
+      allow(adapter).to receive(:body).and_return('<p></p>')
+      expect(adapter.success?).to be_falsey
     end
 
   end

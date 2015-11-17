@@ -32,30 +32,6 @@ misuse() {
 
 update_mysociety_apt_sources
 
-# Debian Squeeze Fixes
-if [ x"$DISTRIBUTION" = x"debian" ] && [ x"$DISTVERSION" = x"squeeze" ]
-then
-  # Add wheezy repo to get bundler
-  cat > /etc/apt/sources.list.d/debian-wheezy.list <<EOF
-deb http://the.earth.li/debian/ wheezy main contrib non-free
-EOF
-
-  # Get bundler from wheezy repo and de-prioritise all other
-  # wheezy packages
-  cat >> /etc/apt/preferences <<EOF
-
-Package: bundler
-Pin: release n=wheezy
-Pin-Priority: 990
-
-Package: *
-Pin: release n=wheezy
-Pin-Priority: 50
-EOF
-
-apt-get -qq update
-fi
-
 # Ubuntu Precise Fixes
 if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"precise" ]
 then
@@ -140,7 +116,7 @@ ensure_line_present \
     /etc/rsyslog.d/50-default.conf 644
 
 cat > /etc/postfix/transports <<EOF
-/^foi.*/                alaveteli
+/^foi\+.*@$HOST$/                alaveteli
 EOF
 
 cat > /etc/postfix/recipients <<EOF
@@ -180,6 +156,10 @@ postfix reload
 
 install_website_packages
 
+# Set ruby version to 1.9.1
+update-alternatives --set ruby /usr/bin/ruby1.9.1
+update-alternatives --set gem /usr/bin/gem1.9.1
+
 # Give the unix user membership of the adm group so that they can read the mail log files
 usermod -a -G adm "$UNIX_USER"
 
@@ -188,6 +168,19 @@ usermod -a -G adm "$UNIX_USER"
 # This is only needed for loading the sample data, so the superuser
 # permissions are dropped below.
 add_postgresql_user --superuser
+
+# create the template_utf8 template we'll use for our databases
+echo -n "Checking for postgres template_utf8 database... "
+if ! sudo -u postgres psql --list | grep template_utf8 > /dev/null; then
+  sudo -u postgres createdb -T template0 -E UTF-8 template_utf8
+  echo -n "Created."
+fi
+
+sudo -u postgres psql -q <<EOF
+update pg_database set datistemplate=true, datallowconn=false where datname='template_utf8';
+EOF
+
+echo $DONE_MSG
 
 export DEVELOPMENT_INSTALL
 su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY'" "$UNIX_USER"

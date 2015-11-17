@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe AdminPublicBodyHeadingsController do
 
-  describe :new do
+  describe 'GET new' do
 
     it 'responds successfully' do
       get :new
@@ -12,13 +12,13 @@ describe AdminPublicBodyHeadingsController do
 
     it 'builds a new PublicBodyHeading' do
       get :new
-      expect(assigns(:heading)).to be_new_record
+      expect(assigns(:public_body_heading)).to be_new_record
     end
 
     it 'builds new translations for all locales' do
       get :new
 
-      translations = assigns(:heading).translations.map{ |t| t.locale.to_s }.sort
+      translations = assigns(:public_body_heading).translations.map{ |t| t.locale.to_s }.sort
       available = I18n.available_locales.map{ |l| l.to_s }.sort
 
       expect(translations).to eq(available)
@@ -31,7 +31,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :create do
+  describe 'POST create' do
 
     context 'on success' do
 
@@ -110,7 +110,7 @@ describe AdminPublicBodyHeadingsController do
 
       it 'is rebuilt with the given params' do
         post :create, :public_body_heading => { :name => 'Need a description' }
-        expect(assigns(:heading).name).to eq('Need a description')
+        expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
 
     end
@@ -128,14 +128,14 @@ describe AdminPublicBodyHeadingsController do
 
       it 'is rebuilt with the default locale translation' do
         post :create, :public_body_heading => @params
-        expect(assigns(:heading).name).to eq('Need a description')
+        expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
 
       it 'is rebuilt with the alternative locale translation' do
         post :create, :public_body_heading => @params
 
         I18n.with_locale(:es) do
-          expect(assigns(:heading).name).to eq('Mi Nuevo Heading')
+          expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
         end
       end
 
@@ -143,7 +143,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :edit do
+  describe 'GET edit' do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
@@ -160,12 +160,12 @@ describe AdminPublicBodyHeadingsController do
 
     it 'finds the requested heading' do
       get :edit, :id => @heading.id
-      expect(assigns[:heading]).to eq(@heading)
+      expect(assigns[:public_body_heading]).to eq(@heading)
     end
 
     it 'builds new translations if the body does not already have a translation in the specified locale' do
       get :edit, :id => @heading.id
-      expect(assigns[:heading].translations.map(&:locale)).to include(:fr)
+      expect(assigns[:public_body_heading].translations.map(&:locale)).to include(:fr)
     end
 
     it 'renders the edit template' do
@@ -175,7 +175,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :update do
+  describe 'PUT update' do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
@@ -196,7 +196,7 @@ describe AdminPublicBodyHeadingsController do
     it 'finds the heading to update' do
       post :update, :id => @heading.id,
         :public_body_category => @params
-      expect(assigns(:heading)).to eq(@heading)
+      expect(assigns(:public_body_heading)).to eq(@heading)
     end
 
     context 'on success' do
@@ -233,7 +233,7 @@ describe AdminPublicBodyHeadingsController do
     context 'on success for multiple locales' do
 
       it 'saves edits to a public body heading in another locale' do
-        @heading.name(:es).should == 'Los heading'
+        expect(@heading.name(:es)).to eq('Los heading')
         post :update, :id => @heading.id,
         :public_body_heading => {
           :translations_attributes => {
@@ -268,7 +268,7 @@ describe AdminPublicBodyHeadingsController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         heading = PublicBodyHeading.find(@heading.id)
 
@@ -296,7 +296,7 @@ describe AdminPublicBodyHeadingsController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         heading = PublicBodyHeading.find(@heading.id)
 
@@ -327,7 +327,7 @@ describe AdminPublicBodyHeadingsController do
           }
         }
 
-        request.flash[:notice].should include('successful')
+        expect(request.flash[:notice]).to include('successful')
 
         heading = PublicBodyHeading.find(@heading.id)
 
@@ -374,7 +374,7 @@ describe AdminPublicBodyHeadingsController do
                       :locale => 'en',
                       :name => 'Need a description' }
         } }
-        expect(assigns(:heading).name).to eq('Need a description')
+        expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
 
     end
@@ -395,7 +395,7 @@ describe AdminPublicBodyHeadingsController do
       it 'is rebuilt with the default locale translation' do
         post :update, :id => @heading.id,
           :public_body_heading => @params
-        expect(assigns(:heading).name(:en)).to eq('')
+        expect(assigns(:public_body_heading).name(:en)).to eq('')
       end
 
       it 'is rebuilt with the alternative locale translation' do
@@ -403,7 +403,7 @@ describe AdminPublicBodyHeadingsController do
           :public_body_heading => @params
 
         I18n.with_locale(:es) do
-          expect(assigns(:heading).name).to eq('Mi Nuevo Heading')
+          expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
         end
       end
 
@@ -411,19 +411,7 @@ describe AdminPublicBodyHeadingsController do
 
   end
 
-  describe :destroy do
-
-    it 'uses the current locale by default' do
-      heading = FactoryGirl.create(:public_body_heading)
-      post :destroy, :id => heading.id
-      expect(assigns(:locale)).to eq(I18n.locale.to_s)
-    end
-
-    it 'sets the locale if the show_locale param is passed' do
-      heading = FactoryGirl.create(:public_body_heading)
-      post :destroy, :id => heading.id, :show_locale => 'es'
-      expect(assigns(:locale)).to eq('es')
-    end
+  describe 'DELETE destroy' do
 
     it 'destroys the public body heading' do
       PublicBodyHeading.destroy_all
@@ -483,13 +471,13 @@ describe AdminPublicBodyHeadingsController do
 
       it 'should reorder headings according to their position in the submitted params' do
         make_request
-        PublicBodyHeading.find(@second.id).display_order.should == 0
-        PublicBodyHeading.find(@first.id).display_order.should == 1
+        expect(PublicBodyHeading.find(@second.id).display_order).to eq(0)
+        expect(PublicBodyHeading.find(@first.id).display_order).to eq(1)
       end
 
       it 'should return a "success" status' do
         make_request
-        response.should be_success
+        expect(response).to be_success
       end
     end
 
@@ -502,13 +490,13 @@ describe AdminPublicBodyHeadingsController do
       it 'should return an "unprocessable entity" status and an error message' do
         make_request(@params)
         assert_response :unprocessable_entity
-        response.body.should match("Couldn't find PublicBodyHeading with id")
+        expect(response.body).to match("Couldn't find PublicBodyHeading with id")
       end
 
       it 'should not reorder headings' do
         make_request(@params)
-        PublicBodyHeading.find(@first.id).display_order.should == 0
-        PublicBodyHeading.find(@second.id).display_order.should == 1
+        expect(PublicBodyHeading.find(@first.id).display_order).to eq(0)
+        expect(PublicBodyHeading.find(@second.id).display_order).to eq(1)
       end
 
     end
@@ -545,14 +533,14 @@ describe AdminPublicBodyHeadingsController do
       it 'should reorder categories for the heading according to their position \
                 in the submitted params' do
 
-        @heading.public_body_categories.should == @old_order
+        expect(@heading.public_body_categories).to eq(@old_order)
         make_request
-        @heading.public_body_categories(reload=true).should == @new_order
+        expect(@heading.public_body_categories(reload=true)).to eq(@new_order)
       end
 
       it 'should return a success status' do
         make_request
-        response.should be_success
+        expect(response).to be_success
       end
     end
 
@@ -568,12 +556,12 @@ describe AdminPublicBodyHeadingsController do
       it 'should return an "unprocessable entity" status and an error message' do
         make_request(@params)
         assert_response :unprocessable_entity
-        response.body.should match("Couldn't find PublicBodyCategoryLink")
+        expect(response.body).to match("Couldn't find PublicBodyCategoryLink")
       end
 
       it 'should not reorder the categories for the heading' do
         make_request(@params)
-        @heading.public_body_categories(reload=true).should == @old_order
+        expect(@heading.public_body_categories(reload=true)).to eq(@old_order)
       end
     end
 

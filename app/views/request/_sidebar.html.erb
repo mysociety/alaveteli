@@ -1,5 +1,5 @@
-<div id="right_column">
-  <div id="follow_box">
+<div id="right_column" class="sidebar right_column">
+  <div id="track-request" class="track-request">
     <h2><%= _('Follow this request') %></h2>
 
     <% follower_count = TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
@@ -15,24 +15,28 @@
 
   <% if @info_request.described_state != "attention_requested" %>
     <h2><%= _('Offensive? Unsuitable?') %></h2>
-    <% if @info_request.attention_requested %>
-      <% if @info_request.prominence == 'hidden' %>
-        <p>
-          <%= _("This request has prominence 'hidden'. You can only see it " \
-                "because you are logged in as a super user.") %>
-        </p>
-      <% elsif @info_request.prominence == 'requester_only' %>
-        <%# The eccentric formatting of the following string is in order that it be identical
-          to the corresponding string in request/show.html.erb %>
-        <p><%= _('This request is hidden, so that only you the requester can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %></p>
+      <% if @info_request.attention_requested %>
+        <% if @info_request.prominence == 'hidden' %>
+          <p>
+            <%= _("This request has prominence 'hidden'. You can only see it " \
+                  "because you are logged in as a super user.") %>
+          </p>
+        <% elsif @info_request.prominence == 'requester_only' %>
+          <%# The eccentric formatting of the following string is in order that it be identical
+              to the corresponding string in request/show.html.erb %>
+          <p><%= _('This request is hidden, so that only you the requester can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %></p>
+        <% else %>
+          <p><%= _('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="{{url}}">contact us</a>.', :url => help_requesting_path.html_safe) %></p>
+        <% end %>
       <% else %>
-        <p><%= _('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="{{url}}">contact us</a>.', :url => help_requesting_path.html_safe) %></p>
+        <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
+        <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
+        <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title), :class => 'report-this-request' %>
       <% end %>
-    <% else %>
-      <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
-      <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
-      <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %>
-    <% end %>
+  <% else %>
+    <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
+    <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
+    <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %>
   <% end %>
 
   <%= render :partial => 'request/act' %>

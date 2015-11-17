@@ -57,18 +57,12 @@ class PublicBodyCSV
   end
 
   def <<(public_body)
-    # Allow join_rows to handle newlines because of differences between
-    # CSV.generate_line in 1.8 / 1.9+
-    if RUBY_VERSION.to_f >= 1.9
       rows << CSV.generate_line(collect_public_body_attributes(public_body), :row_sep => '')
-    else
-      rows << CSV.generate_line(collect_public_body_attributes(public_body))
-    end
   end
 
-  # TODO: Just use CSV.generate when Ruby 1.8.7 support is dropped
+  # TODO: Just use CSV.generate
   def generate
-    csv = generate_header_row
+    csv = CSV.generate_line(headers)
     csv << join_rows
     csv << "\n"
   end
@@ -77,14 +71,6 @@ class PublicBodyCSV
 
   def join_rows
     rows.join("\n")
-  end
-
-  def generate_header_row
-    # Add a newline because of differences between
-    # CSV.generate_line in 1.8 / 1.9+
-    row = CSV.generate_line(headers)
-    row += "\n" unless RUBY_VERSION.to_f >= 1.9
-    row
   end
 
   def collect_public_body_attributes(public_body)

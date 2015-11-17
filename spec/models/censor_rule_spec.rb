@@ -20,7 +20,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe CensorRule do
 
-  describe :apply_to_text do
+  describe '#apply_to_text' do
 
     it 'applies the rule to the text' do
       rule = FactoryGirl.build(:censor_rule, :text => 'secret')
@@ -42,7 +42,7 @@ describe CensorRule do
     end
   end
 
-  describe :apply_to_text! do
+  describe '#apply_to_text!' do
 
     it 'mutates the input' do
       rule = FactoryGirl.build(:censor_rule, :text => 'secret')
@@ -64,25 +64,25 @@ describe CensorRule, "substituting things" do
       @censor_rule.replacement = "hello"
     end
 
-    describe :apply_to_text do
+    describe '#apply_to_text!' do
 
       it 'should do basic text substitution' do
         body = "I don't know why you say goodbye"
         @censor_rule.apply_to_text!(body)
-        body.should == "I don't know why you say hello"
+        expect(body).to eq("I don't know why you say hello")
       end
 
     end
 
-    describe :apply_to_binary do
+    describe '#apply_to_binary!' do
 
       it 'should keep size same for binary substitution' do
         body = "I don't know why you say goodbye"
         orig_body = body.dup
         @censor_rule.apply_to_binary!(body)
-        body.size.should == orig_body.size
-        body.should == "I don't know why you say xxxxxxx"
-        body.should_not == orig_body # be sure duplicated as expected
+        expect(body.size).to eq(orig_body.size)
+        expect(body).to eq("I don't know why you say xxxxxxx")
+        expect(body).not_to eq(orig_body) # be sure duplicated as expected
       end
 
       it 'should handle a UTF-8 rule and ASCII-8BIT text' do
@@ -90,7 +90,7 @@ describe CensorRule, "substituting things" do
         body.force_encoding("ASCII-8BIT") if String.method_defined?(:encode)
         @censor_rule.text = 'g‘oodbye'
         @censor_rule.apply_to_binary!(body)
-        body.should == "I don't know why you say xxxxxxxxxx"
+        expect(body).to eq("I don't know why you say xxxxxxxxxx")
       end
 
     end
@@ -116,7 +116,7 @@ BODY
 
     it "replaces the regexp with the replacement text when applied to text" do
       @censor_rule.apply_to_text!(@body)
-      @body.should ==
+      expect(@body).to eq \
 <<BODY
 Some public information
 --REMOVED
@@ -128,7 +128,7 @@ BODY
     it "replaces the regexp with the same number of 'x' characters as the text replaced
             when applied to binary" do
       @censor_rule.apply_to_binary!(@body)
-      @body.should ==
+      expect(@body).to eq \
 <<BODY
 Some public information
 xxxxxxxxx
@@ -148,7 +148,7 @@ Some private information
 BODY
       @body.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
       @censor_rule.apply_to_binary!(@body)
-      @body.should ==
+      expect(@body).to eq \
 <<BODY
 Some public information
 xxxxxxxxx
@@ -165,20 +165,27 @@ describe 'when validating rules' do
 
   it 'must have the text to redact' do
     censor_rule = CensorRule.new
-    expect(censor_rule).to have(1).error_on(:text)
+    censor_rule.valid?
+    expect(censor_rule.errors[:text].size).to eq(1)
     expect(censor_rule.errors[:text]).to eql(["can't be blank"])
   end
 
   it 'must have a replacement' do
-    expect(CensorRule.new).to have(1).error_on(:replacement)
+    censor_rule = CensorRule.new
+    censor_rule.valid?
+    expect(censor_rule.errors[:replacement].size).to eq(1)
   end
 
   it 'must have a last_edit_editor' do
-    expect(CensorRule.new).to have(1).error_on(:last_edit_editor)
+    censor_rule = CensorRule.new
+    censor_rule.valid?
+    expect(censor_rule.errors[:last_edit_editor].size).to eq(1)
   end
 
   it 'must have a last_edit_comment' do
-    expect(CensorRule.new).to have(1).error_on(:last_edit_comment)
+    censor_rule = CensorRule.new
+    censor_rule.valid?
+    expect(censor_rule.errors[:last_edit_comment].size).to eq(1)
   end
 
   describe 'when validating a regexp rule' do
@@ -192,16 +199,16 @@ describe 'when validating rules' do
     end
 
     it 'should try to create a regexp from the text' do
-      Regexp.should_receive(:new).with('*', Regexp::MULTILINE)
+      expect(Regexp).to receive(:new).with('*', Regexp::MULTILINE)
       @censor_rule.valid?
     end
 
     describe 'if a regexp error is produced' do
 
       it 'should add an error message to the text field with the regexp error message' do
-        Regexp.stub!(:new).and_raise(RegexpError.new("very bad regexp"))
-        @censor_rule.valid?.should == false
-        @censor_rule.errors[:text].should == ["very bad regexp"]
+        allow(Regexp).to receive(:new).and_raise(RegexpError.new("very bad regexp"))
+        expect(@censor_rule.valid?).to eq(false)
+        expect(@censor_rule.errors[:text]).to eq(["very bad regexp"])
       end
 
     end
@@ -209,9 +216,9 @@ describe 'when validating rules' do
     describe 'if no regexp error is produced' do
 
       it 'should not add any error message to the text field' do
-        Regexp.stub!(:new)
+        allow(Regexp).to receive(:new)
         @censor_rule.valid?
-        @censor_rule.errors[:text].should == []
+        expect(@censor_rule.errors[:text]).to eq([])
       end
 
     end
@@ -229,7 +236,7 @@ describe 'when validating rules' do
     end
 
     it 'should allow a global censor rule (without user_id, request_id or public_body_id)' do
-      @censor_rule.valid?.should == true
+      expect(@censor_rule.valid?).to eq(true)
     end
 
   end
@@ -244,22 +251,22 @@ describe 'when validating rules' do
     end
 
     it 'should not allow a global text censor rule (without user_id, request_id or public_body_id)' do
-      @censor_rule.valid?.should == false
+      expect(@censor_rule.valid?).to eq(false)
 
       expected_error = ["Rule must apply to an info request, a user or a body"]
-      @censor_rule.errors[:user].should == expected_error
-      @censor_rule.errors[:info_request].should == expected_error
-      @censor_rule.errors[:public_body].should == expected_error
+      expect(@censor_rule.errors[:user]).to eq(expected_error)
+      expect(@censor_rule.errors[:info_request]).to eq(expected_error)
+      expect(@censor_rule.errors[:public_body]).to eq(expected_error)
     end
 
     it 'should not allow a global regex censor rule (without user_id, request_id or public_body_id)' do
       @censor_rule.regexp = true
-      @censor_rule.valid?.should == false
+      expect(@censor_rule.valid?).to eq(false)
 
       expected_error = ["Rule must apply to an info request, a user or a body"]
-      @censor_rule.errors[:user].should == expected_error
-      @censor_rule.errors[:info_request].should == expected_error
-      @censor_rule.errors[:public_body].should == expected_error
+      expect(@censor_rule.errors[:user]).to eq(expected_error)
+      expect(@censor_rule.errors[:info_request]).to eq(expected_error)
+      expect(@censor_rule.errors[:public_body]).to eq(expected_error)
     end
 
   end
@@ -275,7 +282,7 @@ describe 'when handling global rules' do
     end
 
     it 'should return a value of true from is_global?' do
-      @global_rule.is_global?.should == true
+      expect(@global_rule.is_global?).to eq(true)
     end
 
   end
@@ -296,11 +303,11 @@ describe 'when handling global rules' do
     end
 
     it 'should include an instance without user_id, request_id or public_body_id' do
-      CensorRule.global.all.include?(@global_rule).should == true
+      expect(CensorRule.global.all.include?(@global_rule)).to eq(true)
     end
 
     it 'should not include a request with user_id' do
-      CensorRule.global.all.include?(@user_rule).should == false
+      expect(CensorRule.global.all.include?(@user_rule)).to eq(false)
     end
 
     after do

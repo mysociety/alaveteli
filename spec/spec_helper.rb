@@ -15,7 +15,6 @@ SimpleCov.start('rails') do
   add_filter  'commonlib'
   add_filter  'vendor/plugins'
   add_filter  'lib/attachment_to_html'
-  add_filter  'lib/strip_attributes'
   add_filter  'lib/has_tag_string'
   add_filter  'lib/acts_as_xapian'
   add_filter  'lib/themes'
@@ -31,7 +30,6 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
-  require 'rspec/autorun'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -48,6 +46,10 @@ Spork.prefork do
     # config.mock_with :mocha
     # config.mock_with :flexmock
     # config.mock_with :rr
+
+    config.infer_spec_type_from_file_location!
+
+    config.include Capybara::DSL, :type => :request
 
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -101,11 +103,11 @@ Spork.prefork do
 
     # Turn routing-filter off in functional and unit tests as per
     # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
-    config.before(:each) do
+    config.before(:each) do |example|
       RoutingFilter.active = false if [:controller, :helper, :model].include? example.metadata[:type]
     end
 
-    config.after(:each) do
+    config.after(:each) do |example|
       RoutingFilter.active = true if [:controller, :helper, :model].include? example.metadata[:type]
     end
 
@@ -201,6 +203,7 @@ Spork.prefork do
     password = AlaveteliConfiguration::admin_password if password.nil?
     request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
   end
+
 end
 
 Spork.each_run do
@@ -213,6 +216,13 @@ def normalise_whitespace(s)
   s = s.gsub(/\A\s+|\s+\Z/, "")
   s = s.gsub(/\s+/, " ")
   return s
+end
+
+def get_last_post_redirect
+  # TODO: yeuch - no other easy way of getting the token so we can check
+  # the redirect URL, as it is by definition opaque to the controller
+  # apart from in the place that it redirects to.
+  post_redirects = PostRedirect.order("id DESC").first
 end
 
 RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|

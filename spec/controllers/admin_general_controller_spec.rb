@@ -10,7 +10,7 @@ describe AdminGeneralController do
 
     it "should render the front page" do
       get :index
-      response.should render_template('index')
+      expect(response).to render_template('index')
     end
 
   end
@@ -23,7 +23,7 @@ describe AdminGeneralController do
       previous_event_at = nil
       assigns[:events].each do |event, event_at|
         if previous_event
-          (event_at <= previous_event_at).should be_true
+          expect(event_at <= previous_event_at).to be true
         end
         previous_event = event
         previous_event_at = event_at
