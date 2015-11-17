@@ -107,6 +107,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <code><a href="#cookie_store_session_secret">COOKIE_STORE_SESSION_SECRET</a></code>
 <br> <code><a href="#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
 <br> <code><a href="#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
+<br> <code><a href="#geoip_database">GEOIP_DATABASE</a></code>
 <br> <code><a href="#gaze_url">GAZE_URL</a></code>
 <br> <code><a href="#ga_code">GA_CODE</a></code> (GA=Google Analytics)
 <br> <code><a href="#utility_search_path">UTILITY_SEARCH_PATH</a></code>
@@ -1018,15 +1019,31 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   </dd>
 
   <dt>
-    <a name="gaze_url"><code>GAZE_URL</code></a>
+    <a name="geoip_database"><code>GEOIP_DATABASE</code></a>
   </dt>
   <dd>
-      Alateveli uses
-      <a href="{{ page.baseurl }}/docs/glossary/#gaze" class="glossary__link">Gaze</a>,
-      mySociety's gazeteer service, to determine each user's country from
-      their incoming IP address. This lets the site suggest an Alaveteli
-      site in their own country, if one exists.
-      You shouldn't normally need to change this.
+      Alaveteli uses a GeoIP database to determine the country from the IP address
+      of an HTTP request to the site (this lets us suggest an Alaveteli in the user's
+      country if one exists). You shouldn't need to change this if you have the
+      <code>geoip-database</code> package installed as specified in the
+      <code>config/packages</code> files.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>GEOIP_DATABASE: /usr/share/GeoIP/GeoIP.dat</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="gaze_url"><code>GAZE_URL</code></a>
+  </dt>
+  <dd> In the absence of a <a href="#geoip_database">GeoIP database</a>, Alateveli can use
+       <a href="{{ page.baseurl }}/docs/glossary/#gaze" class="glossary__link">Gaze</a>,
+       mySociety's gazeteer, to determine the country from the IP address of an HTTP request
+       to the site. You shouldn't normally need to change this.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
