@@ -101,6 +101,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#smtp_mailer_password">SMTP_MAILER_PASSWORD</a></code>
 <br> <code><a href="#smtp_mailer_authentication">SMTP_MAILER_AUTHENTICATION</a></code>
 <br> <code><a href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a></code>
+<br> <code><a href="#restrict_new_responses_on_old_requests_after_months">RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS</a></code>
 
 ### General admin (keys, paths, back-end services):
 
@@ -124,6 +125,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
 <br> <code><a href="#public_body_list_fallback_to_default_locale">PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</a></code>
 <br> <code><a href="#enable_widgets">ENABLE_WIDGETS</a></code>
+<br> <code><a href="#enable_two_factor_auth">ENABLE_TWO_FACTOR_AUTH</a></code>
 
 ### External public services:
 
@@ -980,7 +982,32 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
 
 
 
+  <dt>
+    <a name="restrict_new_responses_on_old_requests_after_months"><code>RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS</code></a><br>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.23.0.0
+      </p>
+    </div>
 
+    Number of months after which to start restricting new responses to requests.
+    When a request has not been updated after <strong>RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS</strong>, allow_new_responses_from is set to <code>'authority_only'</code>. After <strong>RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS &times; 2</strong> , allow_new_responses_from is set to <code>'nobody'</code>.
+
+    <p>
+      For details of this process, see
+      <a href="{{ page.baseurl }}/docs/running/requests/#old-requests-by-default-6-months-without-activity">old requests</a>.
+    </p>
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            <code>RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS: 3</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
 
   <dt>
     <a name="cookie_store_session_secret"><code>COOKIE_STORE_SESSION_SECRET</code></a>
@@ -1262,6 +1289,29 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>ENABLE_WIDGETS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_two_factor_auth"><code>ENABLE_TWO_FACTOR_AUTH</code></a>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.23.0.0
+      </p>
+    </div>
+
+    Enable a second step of authentication for dangerous account actions.
+    Currently only active for changing password. Two factor auth is opt-in per
+    user.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_TWO_FACTOR_AUTH: true</code>
         </li>
       </ul>
     </div>
