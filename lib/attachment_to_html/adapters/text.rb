@@ -13,7 +13,7 @@ module AttachmentToHTML
       private
 
       def convert
-        text = attachment.body.strip
+        text = attachment.body_as_text.string.strip
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text)
         text = text.gsub(/\n/, '<br>')

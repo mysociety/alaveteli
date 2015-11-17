@@ -33,15 +33,15 @@
 <% end %>
 
 <% if @batch %>
-  <% @title = _("Make an {{law_used_short}} request", :law_used_short=>h(@info_request.law_used_short))  %>
+  <% @title = _("Make an {{law_used_short}} request", :law_used_short=>h(@info_request.law_used_human(:short)))  %>
 <% else %>
-  <% @title = _("Make an {{law_used_short}} request to '{{public_body_name}}'",:law_used_short=>h(@info_request.law_used_short),:public_body_name=>h(@info_request.public_body.name))  %>
+  <% @title = _("Make an {{law_used_short}} request to '{{public_body_name}}'",:law_used_short=>h(@info_request.law_used_human(:short)),:public_body_name=>h(@info_request.public_body.name))  %>
 <% end %>
 
 
 <%= form_for(@info_request, :url => (@batch ? new_batch_path : new_request_path), :html => { :id => 'write_form' }  ) do |f| %>
-  <div id="request_header">
-    <div id="request_header_body">
+  <div id="request_header" class="request_header">
+    <div id="request_header_body" class="request_header_body">
       <h1><%= _('Make a request') %></h1>
 
       <% if @existing_request %>
@@ -80,7 +80,7 @@
 
       <% if @batch %>
         <label class="form_label"><%= _('To:') %></label>
-        <span id="to_public_body">
+        <span id="to_public_body" class="to_public_body">
           <%= _("Your selected authorities") %>
           <span class="batch_public_body_toggle" data-hidetext="<%= _("(hide)") %>" data-showtext="<%= _("(show)") %>"><a class="toggle-message"></a></span>
         </span>
@@ -93,7 +93,7 @@
           </ul>
         </div>
       <% else %>
-        <p id="to_public_body">
+        <p id="to_public_body" class="to_public_body">
           <span class="to_public_body_label">To:</span>
           <%= h(@info_request.public_body.name) %>
         </p>
@@ -101,7 +101,7 @@
 
       <% unless @batch %>
         <% if @info_request.public_body.has_notes? %>
-          <div id="request_header_text">
+          <div id="request_header_text" class="request_header_text">
             <p><%= @info_request.public_body.notes_as_html.html_safe %></p>
           </div>
         <% end %>
@@ -113,7 +113,7 @@
   <% unless @batch %>
     <% if @info_request.public_body.eir_only? %>
       <div class="request_body">
-        <div id="request_body_header">
+        <div id="request_body_header" class="request_body_header">
           <h3><%= _('Please ask for environmental information only') %></h3>
 
           <p>
@@ -128,7 +128,8 @@
 
           <ul>
             <li><%= _('Air, water, soil, land, flora and fauna (including how these effect human beings)') %></li>
-            <li><%= _('Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)') %></li>
+            <li><%= _('Information on emissions and discharges (e.g. noise, ' \
+                      'energy, radiation, waste materials)') %></li>
             <li><%= _('Human health and safety') %></li>
             <li><%= _('Cultural sites and built structures (as they may be affected by the environmental factors listed above)') %></li>
             <li><%= _('Plans and administrative measures that affect these matters') %></li>
@@ -146,7 +147,7 @@
   <% end %>
 
   <div class="request_body">
-    <div id="request_advice">
+    <div id="request_advice" class="request_advice">
       <% unless @batch %>
         <p>
           <% if @info_request.public_body.info_requests.size > 0 %>
@@ -192,20 +193,20 @@
       </div>
     </div>
 
-    <div id="request_form">
-      <div id="request_header_subject">
+    <div id="request_form" class="request_form">
+      <div id="request_header_subject" class="request_header_subject">
         <p>
           <label class="form_label" for="typeahead_search"><%= _('Summary:') %></label>
           <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
         </p>
 
         <div class="form_item_note">
-          <%= _("A one line summary of the information you are requesting, \n\t\t\te.g.") %>
+          <%= _("A one line summary of the information you are requesting, e.g.") %>
           <%= render :partial => "summary_suggestion" %>
         </div>
       </div>
 
-      <div id="typeahead_response">
+      <div id="typeahead_response" class="typeahead_response">
       </div>
 
       <%= fields_for :outgoing_message do |o| %>

@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe PublicBodyHelper do
   include PublicBodyHelper
 
-  describe :public_body_not_requestable_reasons do
+  describe '#public_body_not_requestable_reasons' do
 
     before do
       @body = FactoryGirl.build(:public_body)
@@ -49,7 +49,7 @@ describe PublicBodyHelper do
   end
 
 
-  describe :type_of_authority do
+  describe '#type_of_authority' do
 
     it 'falls back to "A public authority"' do
       public_body = FactoryGirl.build(:public_body)

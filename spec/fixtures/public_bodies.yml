@@ -43,6 +43,7 @@ geraldine_public_body:
   info_requests_successful_count: 0
   info_requests_not_held_count: 0
   info_requests_overdue_count: 3
+  info_requests_visible_count: 4
 humpadink_public_body:
   name: "Department for Humpadinking"
   first_letter: D
@@ -62,6 +63,7 @@ humpadink_public_body:
   info_requests_successful_count: 1
   info_requests_not_held_count: 0
   info_requests_overdue_count: 1
+  info_requests_visible_count: 2
 forlorn_public_body:
   name: "Department of Loneliness"
   first_letter: D
@@ -81,6 +83,7 @@ forlorn_public_body:
   info_requests_successful_count: 0
   info_requests_not_held_count: 0
   info_requests_overdue_count: 0
+  info_requests_visible_count: 0
 silly_walks_public_body:
   id: 5
   version: 1
@@ -100,6 +103,7 @@ silly_walks_public_body:
   info_requests_successful_count: 2
   info_requests_not_held_count: 0
   info_requests_overdue_count: 0
+  info_requests_visible_count: 2
 sensible_walks_public_body:
   id: 6
   version: 1
@@ -119,6 +123,7 @@ sensible_walks_public_body:
   info_requests_successful_count: 1
   info_requests_not_held_count: 0
   info_requests_overdue_count: 0
+  info_requests_visible_count: 1
 other_public_body:
   id: 7
   version: 1
@@ -138,6 +143,7 @@ other_public_body:
   info_requests_successful_count: 0
   info_requests_not_held_count: 0
   info_requests_overdue_count: 0
+  info_requests_visible_count: 0
 accented_public_body:
   id: 8
   version: 1
@@ -157,3 +163,4 @@ accented_public_body:
   info_requests_successful_count: 0
   info_requests_not_held_count: 0
   info_requests_overdue_count: 0
+  info_requests_visible_count: 0

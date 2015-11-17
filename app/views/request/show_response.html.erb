@@ -37,7 +37,8 @@
         <%= _('containing your postal address, and asking them to reply to this request. Or you could phone them.') %>
         <%= _('When you receive the paper response, please help others find out what it says:') %>
         <ul>
-          <li><%= _('Add an annotation to your request with choice quotes, or a <strong>summary of the response</strong>.') %></li>
+          <li><%= _('Add an annotation to your request with choice quotes, ' \
+                    'or a <strong>summary of the response</strong>.') %></li>
           <li><%=  _('If you can, scan in or photograph the response, and <strong>send us a copy to upload</strong>.') %></li>
         </ul>
       </dd>
@@ -45,7 +46,7 @@
   </div>
 <% end %>
 
-<div id="show_response_view">
+<div id="show_response_view" class="show_response_view">
   <% if !@incoming_message.nil? %>
     <% if @is_owning_user %>
       <% if @incoming_message.recently_arrived %>
@@ -55,9 +56,9 @@
       <% end %>
     <% else %>
       <% if @incoming_message.recently_arrived %>
-        <h2><%= _('New response to {{law_used_short}} request',:law_used_short => h(@info_request.law_used_short))%> '<%= request_link @info_request %>'</h2>
+        <h2><%= _('New response to {{law_used_short}} request', :law_used_short => h(@info_request.law_used_human(:short)))%> '<%= request_link @info_request %>'</h2>
       <% else %>
-        <h2>Response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
+        <h2>Response to <%=h(@info_request.law_used_human(:short))%> request '<%= request_link @info_request %>'</h2>
       <% end %>
     <% end %>
 

@@ -76,16 +76,20 @@ img {
 
 dt {
   margin-top: 1em;
+  font-weight: bold;
+  line-height: 1.5em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){	
+    font-size: 1.3125em;
+   }	
 }
 
 dd {
-  margin-left: 2em;
+  margin-left: 0;
 }
 
 dt + dd {
   margin-top: 0.5em;
 }
-
 
 /* Links in sidebars usually only underlined on hover */
 .feed_link,.act_link {
@@ -156,7 +160,9 @@ p + .form_item_note {
   top: -1.25em;
 }
 
-form input[type=text],form input[type=password] {
+form input[type=text],
+form input[type=password],
+form input[type=email] {
   font-size:1.1em;
   width:200px;
   border-radius:3px;

@@ -2,7 +2,7 @@
 
 <% raise _('internal error') if not @user %>
 
-<div id="change_email">
+<div id="change_email" class="change_email">
   <%= form_tag({:action => "signchangeemail"}, {:id => "signchangeemail_form"}) do %>
     <%= foi_error_messages_for :signchangeemail %>
 

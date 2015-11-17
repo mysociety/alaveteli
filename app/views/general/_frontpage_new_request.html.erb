@@ -1,7 +1,5 @@
-<h1>
-  <%= _("Make a new<br/>
-  <strong>Freedom <span>of</span><br/>
-  Information<br/>
-  request</strong>") %>
-</h1>
-<a class="link_button_green_large" href="<%= select_authority_path %>"><%= _("Make a request &raquo;") %></a>
+<h2 class="new-request__title"><%= _("Want to know something?") %></h2>
+<p class="new-request__description"><%= _("Start your own request") %></p>
+<%= link_to select_authority_path, :class => "new-request__make-new-requests" do %>
+  <%= _("Make a request &raquo;") %>
+<% end %>

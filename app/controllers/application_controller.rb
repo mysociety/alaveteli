@@ -34,18 +34,8 @@ class ApplicationController < ActionController::Base
   before_filter :session_remember_me
   before_filter :set_vary_header
   before_filter :validate_session_timestamp
+  before_filter :collect_locales
   after_filter  :persist_session_timestamp
-  before_filter :deprecation_notice
-
-  def deprecation_notice
-    if RUBY_VERSION.to_f < 1.9
-      ActiveSupport::Deprecation.warn "[DEPRECATION] You are using Ruby 1.8. This will not be supported " \
-        "as of Alaveteli release 0.23. Please upgrade your ruby version. See " \
-        "https://github.com/mysociety/alaveteli/wiki/Migrating-an-existing-Alaveteli-site-from-ruby-1.8.7 " \
-        "for upgrade advice."
-    end
-  end
-
 
   def set_vary_header
     response.headers['Vary'] = 'Cookie'
@@ -93,8 +83,6 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-
-  helper_method :locale_from_params
 
   # Help work out which request causes RAM spike.
   # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
@@ -157,6 +145,8 @@ class ApplicationController < ActionController::Base
     session[:remember_me] = false
     session[:using_admin] = nil
     session[:admin_name] = nil
+    session[:change_password_post_redirect_id] = nil
+    session[:post_redirect_token] = nil
   end
 
   def render_exception(exception)
@@ -200,6 +190,11 @@ class ApplicationController < ActionController::Base
   # can work over multiple controllers)
   # TODO: Move this to the tests. It shouldn't be here
   def test_code_redirect_by_email_token(token, controller_example_group)
+    warn %q([DEPRECATION]
+            ApplicationController#test_code_redirect_by_email_token has not been
+            in sync with UserController#confirm for some time. Updating it to
+            match causes spec failures. The specs that currently use it should
+            not be doing so.).squish
     post_redirect = PostRedirect.find_by_email_token(token)
     if post_redirect.nil?
       raise "bad token in test code email"
@@ -249,6 +244,8 @@ class ApplicationController < ActionController::Base
 
   # get the local locale
   def locale_from_params(*args)
+    warn %q([DEPRECATION] locale_from_params will be removed in Alaveteli
+               release 0.24).squish
     if params[:show_locale]
       params[:show_locale]
     else
@@ -324,7 +321,7 @@ class ApplicationController < ActionController::Base
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
   def do_post_redirect(post_redirect)
-    uri = post_redirect.uri
+    uri = URI.parse(post_redirect.uri).path
 
     session[:post_redirect_token] = post_redirect.token
 
@@ -352,8 +349,10 @@ class ApplicationController < ActionController::Base
   def check_in_post_redirect
     if params[:post_redirect] and session[:post_redirect_token]
       post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
-      params.update(post_redirect.post_params)
-      params[:post_redirect_user] = post_redirect.user
+      if post_redirect
+        params.update(post_redirect.post_params)
+        params[:post_redirect_user] = post_redirect.user
+      end
     end
   end
 
@@ -480,16 +479,13 @@ class ApplicationController < ActionController::Base
   end
 
   def country_from_ip
-    country = ""
-    if !AlaveteliConfiguration::gaze_url.empty?
-      begin
-        country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
-      rescue ActionDispatch::RemoteIp::IpSpoofAttackError
-        country = AlaveteliConfiguration::iso_country_code
-      end
+    begin
+      ip = request.remote_ip
+    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+      ip = nil
     end
-    country = AlaveteliConfiguration::iso_country_code if country.empty?
-    return country
+    return AlaveteliGeoIP.country_code_from_ip(ip) if ip
+    AlaveteliConfiguration::iso_country_code
   end
 
   def alaveteli_git_commit
@@ -503,6 +499,20 @@ class ApplicationController < ActionController::Base
   # Returns a Hash
   def sanitize_path(params)
     params.merge!(:path => Rack::Utils.escape(params[:path])) if params.key?(:path)
+  end
+
+  # Collect the current and available locales for the locale switcher
+  #
+  # Returns a Hash
+  def collect_locales
+    @locales = { :current => FastGettext.locale, :available => [] }
+    FastGettext.default_available_locales.each do |possible_locale|
+      if possible_locale == FastGettext.locale
+        @locales[:current] = possible_locale
+      else
+        @locales[:available] << possible_locale
+      end
+    end
   end
 
   # URL generating functions are needed by all controllers (for redirects),

@@ -44,14 +44,14 @@ class OutgoingMessage < ActiveRecord::Base
 
   # can have many events, for items which were resent by site admin e.g. if
   # contact address changed
-  has_many :info_request_events
+  has_many :info_request_events, :dependent => :destroy
 
   after_initialize :set_default_letter
   after_save :purge_in_cache
   # reindex if body text is edited (e.g. by admin interface)
   after_update :xapian_reindex_after_update
 
-  strip_attributes!
+  strip_attributes :allow_empty => true
   has_prominence
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain
@@ -271,13 +271,9 @@ class OutgoingMessage < ActiveRecord::Base
 
 
   def fully_destroy
-    ActiveRecord::Base.transaction do
-      info_request_event = InfoRequestEvent.find_by_outgoing_message_id(id)
-      info_request_event.track_things_sent_emails.each { |a| a.destroy }
-      info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
-      info_request_event.destroy
-      destroy
-    end
+    warn %q([DEPRECATION] OutgoingMessage#fully_destroy will be replaced with
+      OutgoingMessage#destroy as of 0.24).squish
+    destroy
   end
 
   def purge_in_cache

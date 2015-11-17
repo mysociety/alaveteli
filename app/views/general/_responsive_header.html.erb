@@ -1,8 +1,11 @@
-<div id="banner">
-  <div id="banner_inner">
-    <div id="banner_content">
-      <div id="logo_wrapper">
-        <%= link_to image_tag('logo.png'), frontpage_path, :id => 'logo' %>
+<div class="only-show-for-print">
+  <p class="print-information">Printed from <%= request.original_url %> on <%= Time.zone.now.to_formatted_s(:long)  %></p>
+</div>
+<div id="banner" class="banner">
+  <div id="banner_inner" class="banner_inner">
+    <div id="banner_content" class="banner_content">
+      <div class="banner_site-title">
+        <h1><%= link_to site_name, frontpage_path, :id => 'logo', :class => 'site-title__logo' %></h1>
       </div>
 
       <div class="rsp_menu_button">
@@ -13,10 +16,11 @@
       <%= render :partial => 'general/locale_switcher' %>
 
       <% if ! (controller.action_name == 'signin' or controller.action_name == 'signup') %>
-        <div id="logged_in_bar">
-          <div id="logged_in_links">
+        <div id="logged_in_bar" class="logged_in_bar">
+          <div id="logged_in_links" class="logged_in_links">
             <% if @user %>
-              <span class="greeting"><%= _('Hello, {{username}}!', :username => @user.name) %></span>
+              <span class="greeting">
+              <%= _('Hello, {{username}}!', :username => @user.name) %></span>
               <%= link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>
               <%= link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %>
               <%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
@@ -33,3 +37,17 @@
   </div>
 </div>
 
+<% if params[:action] == 'frontpage' %>
+  <div class="wrapper">
+    <div class="homepage-flash">
+      <% if flash[:notice] %>
+        <div id="notice"><%= flash[:notice] %></div>
+      <% end %>
+      <% if flash[:error] %>
+        <div id="error"><%= flash[:error] %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render :partial => "frontpage_hero" %>
+<% end %>

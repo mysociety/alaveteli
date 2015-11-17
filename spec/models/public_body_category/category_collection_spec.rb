@@ -16,7 +16,7 @@ describe PublicBodyCategory::CategoryCollection do
     describe 'when asked for headings' do
 
       it 'should return a list of headings' do
-        @categories.headings.should == ['Local and regional', 'Miscellaneous']
+        expect(@categories.headings).to eq(['Local and regional', 'Miscellaneous'])
       end
 
     end
@@ -31,7 +31,7 @@ describe PublicBodyCategory::CategoryCollection do
                                "Miscellaneous", ["other",
                                                  "Miscellaneous",
                                                  "miscellaneous"]]
-        @categories.with_headings.should == expected_categories
+        expect(@categories.with_headings).to eq(expected_categories)
       end
     end
 
@@ -39,8 +39,8 @@ describe PublicBodyCategory::CategoryCollection do
 
     describe 'when asked for tags by headings' do
       it 'should return a hash of tags keyed by heading' do
-        @categories.by_heading.should == {'Local and regional' => ['local_council'],
-                                          'Miscellaneous' => ['other']}
+        expect(@categories.by_heading).to eq({'Local and regional' => ['local_council'],
+                                          'Miscellaneous' => ['other']})
       end
     end
 
@@ -51,31 +51,31 @@ describe PublicBodyCategory::CategoryCollection do
           ["local_council", "Local councils", "a local council"],
           ["other", "Miscellaneous", "miscellaneous"]
         ]
-        @categories.with_description.should == expected_categories
+        expect(@categories.with_description).to eq(expected_categories)
       end
     end
 
     describe 'when asked for tags' do
       it 'should return a list of tags' do
-        @categories.tags.should == ["local_council", "other"]
+        expect(@categories.tags).to eq(["local_council", "other"])
       end
     end
 
     describe 'when asked for categories by tag' do
       it 'should return a hash of categories keyed by tag' do
-        @categories.by_tag.should == {
+        expect(@categories.by_tag).to eq({
           "local_council" => "Local councils",
           "other" => "Miscellaneous"
-        }
+        })
       end
     end
 
     describe 'when asked for singular_by_tag' do
       it 'should return a hash of category descriptions keyed by tag' do
-        @categories.singular_by_tag.should == {
+        expect(@categories.singular_by_tag).to eq({
           "local_council" => "a local council",
           "other" => "miscellaneous"
-        }
+        })
       end
     end
   end

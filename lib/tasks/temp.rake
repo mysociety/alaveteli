@@ -46,7 +46,7 @@ EOF
     f = is_gz ? Zlib::GzipReader.open(log_file_path) : File.open(log_file_path, 'r')
     processed = 0
     f.each_line do |line|
-      line.force_encoding('ASCII-8BIT') if RUBY_VERSION.to_f >= 1.9
+      line.force_encoding('ASCII-8BIT')
       if request_match = line.match(/^Started (GET|OPTIONS|POST) "(\/request\/.*?)"/)
         next if line.match(/request\/\d+\/response/)
         urls[request_match[2]] += 1

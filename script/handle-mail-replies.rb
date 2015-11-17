@@ -24,10 +24,9 @@ MySociety::Config.load_default
 
 require 'active_support/all'
 require 'mail_handler'
-if RUBY_VERSION.to_f >= 1.9
-  # the default encoding for IO is utf-8, and we use utf-8 internally
-  Encoding.default_external = Encoding.default_internal = Encoding::UTF_8
-end
+
+# the default encoding for IO is utf-8, and we use utf-8 internally
+Encoding.default_external = Encoding.default_internal = Encoding::UTF_8
 
 def main(in_test_mode)
   Dir.chdir($alaveteli_dir) do

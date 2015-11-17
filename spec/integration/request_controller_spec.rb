@@ -21,18 +21,19 @@ describe RequestController, "when classifying an information request" do
       end
 
       it "should send an email including the message" do
-        @bob.visit describe_state_message_path(:url_title => @dog_request.url_title,
-                                               :described_state => "requires_admin")
-        @bob.fill_in "Please tell us more:", :with => "Okay. I don't quite understand."
-        @bob.click_button "Submit status and send message"
-
-        @bob.response.should contain "Thank you! We'll look into what happened and try and fix it up."
+        using_session(@bob) do
+          visit describe_state_message_path(:url_title => @dog_request.url_title,
+                                            :described_state => "requires_admin")
+          fill_in "Please tell us more:", :with => "Okay. I don't quite understand."
+          click_button "Submit status and send message"
+          expect(page).to have_content "Thank you! We'll look into what happened and try and fix it up."
+        end
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 1
+        expect(deliveries.size).to eq(1)
         mail = deliveries[0]
-        mail.body.should =~ /as needing admin/
-        mail.body.should =~ /Okay. I don't quite understand./
+        expect(mail.body).to match(/as needing admin/)
+        expect(mail.body).to match(/Okay. I don't quite understand./)
       end
     end
   end

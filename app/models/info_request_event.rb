@@ -34,8 +34,8 @@ class InfoRequestEvent < ActiveRecord::Base
 
   has_one :request_classification
 
-  has_many :user_info_request_sent_alerts
-  has_many :track_things_sent_emails
+  has_many :user_info_request_sent_alerts, :dependent => :destroy
+  has_many :track_things_sent_emails, :dependent => :destroy
 
   validates_presence_of :event_type
 
@@ -68,8 +68,8 @@ class InfoRequestEvent < ActiveRecord::Base
   validate :must_be_valid_state
 
   def must_be_valid_state
-    if !described_state.nil? and !InfoRequest.enumerate_states.include?(described_state)
-      errors.add(described_state, "is not a valid state")
+    if described_state and !InfoRequest.enumerate_states.include?(described_state)
+      errors.add(:described_state, "is not a valid state")
     end
   end
 
@@ -98,69 +98,74 @@ class InfoRequestEvent < ActiveRecord::Base
                  :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
 
   def requested_by
-    self.info_request.user_name_slug
+    info_request.user_name_slug
   end
+
   def requested_from
     # acts_as_xapian will detect translated fields via Globalize and add all the
     # available locales to the index. But 'requested_from' is not translated directly,
     # although it relies on a translated field in PublicBody. Hence, we need to
     # manually add all the localized values to the index (Xapian can handle a list
     # of values in a term, btw)
-    self.info_request.public_body.translations.map {|t| t.url_name}
+    info_request.public_body.translations.map {|t| t.url_name}
   end
+
   def commented_by
-    if self.event_type == 'comment'
-      self.comment.user.url_name
+    if event_type == 'comment'
+      comment.user.url_name
     else
-      return ''
+      ''
     end
   end
+
   def request
-    self.info_request.url_title
+    info_request.url_title
   end
 
   def latest_variety
-    for event in self.info_request.info_request_events.reverse
-      if !event.variety.nil? and !event.variety.empty?
+    sibling_events(:reverse => true).each do |event|
+      unless event.variety.blank?
         return event.variety
       end
     end
   end
 
   def latest_status
-    for event in self.info_request.info_request_events.reverse
-      if !event.calculated_state.nil? and !event.calculated_state.empty?
+    sibling_events(:reverse => true).each do |event|
+      unless event.calculated_state.blank?
         return event.calculated_state
       end
     end
-    return
   end
 
   def waiting_classification
-    self.info_request.awaiting_description == true ? "yes" : "no"
+    info_request.awaiting_description == true ? "yes" : "no"
   end
 
   def request_title_collapse
-    url_title = self.info_request.url_title
+    url_title = info_request.url_title
     # remove numeric section from the end, use this to group lots
     # of similar requests by
     url_title = url_title.gsub(/[_0-9]+$/, "")
-    return url_title
+    url_title
   end
+
   def described_at
     # For responses, people might have RSS feeds on searches for type of
     # response (e.g. successful) in which case we want to date sort by
     # when the responses was described as being of the type. For other
     # types, just use the create at date.
-    return self.last_described_at || self.created_at
+    last_described_at || created_at
   end
+
   def described_at_numeric
     # format it here as no datetime support in Xapian's value ranges
-    return self.described_at.strftime("%Y%m%d%H%M%S")
+    described_at.strftime("%Y%m%d%H%M%S")
   end
+
   def created_at_numeric
     # format it here as no datetime support in Xapian's value ranges
-    return self.created_at.strftime("%Y%m%d%H%M%S")
+    created_at.strftime("%Y%m%d%H%M%S")
   end
 
   def incoming_message_selective_columns(fields)
@@ -169,10 +174,10 @@ class InfoRequestEvent < ActiveRecord::Base
       where('info_request_events.id = ?', id)
 
     message = message[0]
-    if !message.nil?
+    if message
       message.info_request = InfoRequest.find(message.info_request_id)
     end
-    return message
+    message
   end
 
   def get_clipped_response_efficiently
@@ -183,100 +188,103 @@ class InfoRequestEvent < ActiveRecord::Base
     # (to show the search snippet). Actually, we should review if we
     # need all this data to be cached in the database at all, and
     # then we won't need this horrid workaround.
-    message = self.incoming_message_selective_columns("cached_attachment_text_clipped, cached_main_body_text_folded")
+    message = incoming_message_selective_columns("cached_attachment_text_clipped, cached_main_body_text_folded")
     clipped_body = message.cached_main_body_text_folded
     clipped_attachment = message.cached_attachment_text_clipped
     if clipped_body.nil? || clipped_attachment.nil?
       # we're going to have to load it anyway
-      text = self.incoming_message.get_text_for_indexing_clipped
+      text = incoming_message.get_text_for_indexing_clipped
     else
       text = clipped_body.gsub("FOLDED_QUOTED_SECTION", " ").strip + "\n\n" + clipped_attachment
     end
-    return text + "\n\n"
+    text + "\n\n"
   end
 
   # clipped = true - means return shorter text. It is used for snippets fore
   # performance reasons. Xapian will take the full text.
   def search_text_main(clipped = false)
     text = ''
-    if self.event_type == 'sent'
-      text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
-    elsif self.event_type == 'followup_sent'
-      text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
-    elsif self.event_type == 'response'
+    if event_type == 'sent'
+      text = text + outgoing_message.get_text_for_indexing + "\n\n"
+    elsif event_type == 'followup_sent'
+      text = text + outgoing_message.get_text_for_indexing + "\n\n"
+    elsif event_type == 'response'
       if clipped
-        text = text + self.get_clipped_response_efficiently
+        text = text + get_clipped_response_efficiently
       else
-        text = text + self.incoming_message.get_text_for_indexing_full + "\n\n"
+        text = text + incoming_message.get_text_for_indexing_full + "\n\n"
       end
-    elsif self.event_type == 'comment'
-      text = text + self.comment.body + "\n\n"
+    elsif event_type == 'comment'
+      text = text + comment.body + "\n\n"
     else
       # nothing
     end
-    return text
+    text
   end
+
   def title
-    if self.event_type == 'sent'
-      return self.info_request.title
+    if event_type == 'sent'
+      return info_request.title
     end
-    return ''
+    ''
   end
+
   def filetype
-    if self.event_type == 'response'
-      if self.incoming_message.nil?
-        raise "event type is 'response' but no incoming message for event id #{self.id}"
+    if event_type == 'response'
+      unless incoming_message
+        raise "event type is 'response' but no incoming message for event id #{id}"
       end
-      return self.incoming_message.get_present_file_extensions
+      return incoming_message.get_present_file_extensions
     end
-    return ''
+    ''
   end
+
   def tags
     # this returns an array of strings, each gets indexed as separate term by acts_as_xapian
-    return self.info_request.tag_array_for_search
+    info_request.tag_array_for_search
   end
+
   def indexed_by_search?
-    if ['sent', 'followup_sent', 'response', 'comment'].include?(self.event_type)
-      if !self.info_request.indexed_by_search?
+    if ['sent', 'followup_sent', 'response', 'comment'].include?(event_type)
+      if !info_request.indexed_by_search?
         return false
       end
-      if self.event_type == 'response' && !self.incoming_message.indexed_by_search?
+      if event_type == 'response' && !incoming_message.indexed_by_search?
         return false
       end
-      if ['sent', 'followup_sent'].include?(self.event_type) && !self.outgoing_message.indexed_by_search?
+      if ['sent', 'followup_sent'].include?(event_type) && !outgoing_message.indexed_by_search?
         return false
       end
-      if self.event_type == 'comment' && !self.comment.visible
+      if event_type == 'comment' && !comment.visible
         return false
       end
       return true
-    else
-      return false
     end
+    false
   end
 
   def variety
-    self.event_type
+    event_type
   end
 
   def visible
-    if self.event_type == 'comment'
-      return self.comment.visible
+    if event_type == 'comment'
+      return comment.visible
     end
-    return true
+    true
   end
 
   # We store YAML version of parameters in the database
   def params=(params)
     # TODO: should really set these explicitly, and stop storing them in
     # here, but keep it for compatibility with old way for now
-    if not params[:incoming_message_id].nil?
+    if params[:incoming_message_id]
       self.incoming_message_id = params[:incoming_message_id]
     end
-    if not params[:outgoing_message_id].nil?
+    if params[:outgoing_message_id]
       self.outgoing_message_id = params[:outgoing_message_id]
     end
-    if not params[:comment_id].nil?
+    if params[:comment_id]
       self.comment_id = params[:comment_id]
     end
     self.params_yaml = params.to_yaml
@@ -290,43 +298,29 @@ class InfoRequestEvent < ActiveRecord::Base
     param_hash
   end
 
-  def params_yaml_as_html
-    ret = ''
+  def params_diff
     # split out parameters into old/new diffs, and other ones
     old_params = {}
     new_params = {}
     other_params = {}
-    for key, value in self.params
+    ignore = {}
+    for key, value in params
       key = key.to_s
       if key.match(/^old_(.*)$/)
-        old_params[$1] = value
-      elsif self.params.include?(("old_" + key).to_sym)
-        new_params[key] = value
+        if params[$1.to_sym] == value
+          ignore[$1.to_sym] = ''
+        else
+          old_params[$1.to_sym] = value.to_s.strip
+        end
+      elsif params.include?(("old_" + key).to_sym)
+        new_params[key.to_sym] = value.to_s.strip
       else
-        other_params[key] = value
+        other_params[key.to_sym] = value.to_s.strip
       end
     end
-    # loop through
-    for key, value in new_params
-      old_value = old_params[key].to_s
-      new_value = new_params[key].to_s
-      if old_value != new_value
-        ret = ret + "<em>" + CGI.escapeHTML(key) + ":</em> "
-        ret = ret +
-          CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(old_value).strip).gsub(/\n/, '<br>') +
-          " => " +
-          CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(new_value).strip).gsub(/\n/, '<br>')
-        ret = ret + "<br>"
-      end
-    end
-    for key, value in other_params
-      ret = ret + "<em>" + CGI.escapeHTML(key.to_s) + ":</em> "
-      ret = ret + CGI.escapeHTML(value.to_s.strip)
-      ret = ret + "<br>"
-    end
-    return ret
+    new_params.delete_if { |key, value| ignore.keys.include?(key) }
+    {:new => new_params, :old => old_params, :other => other_params}
   end
-
 
   def is_incoming_message?
     incoming_message_id? or (incoming_message if new_record?)
@@ -343,13 +337,13 @@ class InfoRequestEvent < ActiveRecord::Base
   # Display version of status
   def display_status
     if is_incoming_message?
-      status = self.calculated_state
+      status = calculated_state
       return status.nil? ? _("Response") : InfoRequest.get_status_description(status)
     end
 
     if is_outgoing_message?
-      status = self.calculated_state
-      if !status.nil?
+      status = calculated_state
+      if status
         if status == 'internal_review'
           return _("Internal review request")
         end
@@ -384,49 +378,65 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def same_email_as_previous_send?
-    prev_addr = self.info_request.get_previous_email_sent_to(self)
-    curr_addr = self.params[:email]
+    prev_addr = info_request.get_previous_email_sent_to(self)
+    curr_addr = params[:email]
     if prev_addr.nil? && curr_addr.nil?
       return true
     end
     if prev_addr.nil? || curr_addr.nil?
       return false
     end
-    return MailHandler.address_from_string(prev_addr) == MailHandler.address_from_string(curr_addr)
+    MailHandler.address_from_string(prev_addr) == MailHandler.address_from_string(curr_addr)
   end
 
   def json_for_api(deep, snippet_highlight_proc = nil)
     ret = {
-      :id => self.id,
-      :event_type => self.event_type,
+      :id => id,
+      :event_type => event_type,
       # params_yaml has possibly sensitive data in it, don't include it
-      :created_at => self.created_at,
-      :described_state => self.described_state,
-      :calculated_state => self.calculated_state,
-      :last_described_at => self.last_described_at,
-      :incoming_message_id => self.incoming_message_id,
-      :outgoing_message_id => self.outgoing_message_id,
-      :comment_id => self.comment_id,
+      :created_at => created_at,
+      :described_state => described_state,
+      :calculated_state => calculated_state,
+      :last_described_at => last_described_at,
+      :incoming_message_id => incoming_message_id,
+      :outgoing_message_id => outgoing_message_id,
+      :comment_id => comment_id,
 
       # TODO: would be nice to add links here, but alas the
       # code to make them is in views only. See views/request/details.html.erb
       # perhaps can call with @template somehow
     }
 
-    if self.is_incoming_message? || self.is_outgoing_message?
-      ret[:display_status] = self.display_status
+    if is_incoming_message? || is_outgoing_message?
+      ret[:display_status] = display_status
     end
 
-    if !snippet_highlight_proc.nil?
-      ret[:snippet] = snippet_highlight_proc.call(self.search_text_main(true))
+    if snippet_highlight_proc
+      ret[:snippet] = snippet_highlight_proc.call(search_text_main(true))
     end
 
     if deep
-      ret[:info_request] = self.info_request.json_for_api(false)
-      ret[:public_body] = self.info_request.public_body.json_for_api
-      ret[:user] = self.info_request.user_json_for_api
+      ret[:info_request] = info_request.json_for_api(false)
+      ret[:public_body] = info_request.public_body.json_for_api
+      ret[:user] = info_request.user_json_for_api
     end
 
-    return ret
+    ret
   end
+
+  def set_calculated_state!(state)
+    unless calculated_state == state
+      self.calculated_state = state
+      self.last_described_at = Time.now
+      save!
+    end
+  end
+
+  private
+
+  def sibling_events(opts = {})
+    order = opts[:reverse] ? 'created_at DESC' : 'created_at'
+    events = self.class.where(:info_request_id => info_request_id).order(order)
+  end
+
 end

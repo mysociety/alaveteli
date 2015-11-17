@@ -5,7 +5,7 @@
 #
 #  id               :integer          not null, primary key
 #  tracking_user_id :integer          not null
-#  track_query      :string(255)      not null
+#  track_query      :string(500)      not null
 #  info_request_id  :integer
 #  tracked_user_id  :integer
 #  public_body_id   :integer
@@ -40,12 +40,13 @@ class TrackThing < ActiveRecord::Base
   belongs_to :public_body
   belongs_to :tracking_user, :class_name => 'User'
   belongs_to :tracked_user, :class_name => 'User'
-  has_many :track_things_sent_emails
+  has_many :track_things_sent_emails, :dependent => :destroy
 
-  validates_presence_of :track_query
+  validates_presence_of :track_query, :message => _("Query can't be blank")
   validates_presence_of :track_type
   validates_inclusion_of :track_type, :in => TRACK_TYPES.keys
   validates_inclusion_of :track_medium, :in => TRACK_MEDIUMS
+  validates_length_of :track_query, :maximum => 500, :message => _("Query is too long")
 
   # When constructing a new track, use this to avoid duplicates / double
   # posting
@@ -61,50 +62,45 @@ class TrackThing < ActiveRecord::Base
   end
 
   def self.create_track_for_request(info_request)
-    track_thing = TrackThing.new
-    track_thing.track_type = 'request_updates'
-    track_thing.info_request = info_request
-    track_thing.track_query = "request:#{ info_request.url_title }"
-    track_thing
+    new(:track_type => 'request_updates',
+        :info_request => info_request,
+        :track_query => "request:#{ info_request.url_title }")
   end
 
   def self.create_track_for_all_new_requests
-    track_thing = TrackThing.new
-    track_thing.track_type = 'all_new_requests'
-    track_thing.track_query = "variety:sent"
-    track_thing
+    new(:track_type => 'all_new_requests',
+        :track_query => 'variety:sent')
   end
 
   def self.create_track_for_all_successful_requests
-    track_thing = TrackThing.new
-    track_thing.track_type = 'all_successful_requests'
-    track_thing.track_query = 'variety:response (status:successful OR status:partially_successful)'
-    track_thing
+    new(:track_type => 'all_successful_requests',
+        :track_query => 'variety:response ' \
+        '(status:successful OR status:partially_successful)')
   end
 
   def self.create_track_for_public_body(public_body, event_type = nil)
-    track_thing = TrackThing.new
-    track_thing.track_type = 'public_body_updates'
-    track_thing.public_body = public_body
     query = "requested_from:#{ public_body.url_name }"
     if InfoRequestEvent.enumerate_event_types.include?(event_type)
       query += " variety:#{ event_type }"
     end
-    track_thing.track_query = query
-    track_thing
+    new(:track_type => 'public_body_updates',
+        :public_body => public_body,
+        :track_query => query)
   end
 
   def self.create_track_for_user(user)
-    track_thing = TrackThing.new
-    track_thing.track_type = 'user_updates'
-    track_thing.tracked_user = user
-    track_thing.track_query = "requested_by:#{ user.url_name } OR commented_by: #{ user.url_name }"
-    track_thing
+    new(:track_type => 'user_updates',
+        :tracked_user => user,
+        :track_query => "requested_by:#{ user.url_name }" \
+        " OR commented_by: #{ user.url_name }")
   end
 
   def self.create_track_for_search_query(query, variety_postfix = nil)
-    track_thing = TrackThing.new
-    track_thing.track_type = 'search_query'
+    # TODO: should extract requested_by:, request:, requested_from:
+    # and stick their values into the respective relations.
+    # Should also update "params" to make the list_description
+    # nicer and more generic.  It will need to do some clever
+    # parsing of the query to do this nicely
     unless query =~ /variety:/
       case variety_postfix
       when "requests"
@@ -115,13 +111,8 @@ class TrackThing < ActiveRecord::Base
         query += " variety:authority"
       end
     end
-    track_thing.track_query = query
-    # TODO: should extract requested_by:, request:, requested_from:
-    # and stick their values into the respective relations.
-    # Should also update "params" to make the list_description
-    # nicer and more generic.  It will need to do some clever
-    # parsing of the query to do this nicely
-    track_thing
+    new(:track_type => 'search_query',
+        :track_query => query)
   end
 
   def track_type_description
@@ -183,7 +174,7 @@ class TrackThing < ActiveRecord::Base
                          :request_title => info_request.title),
       # Authentication
       :web => _("To follow the request '{{request_title}}'",
-                :request_title => info_request.title),
+                :request_title => info_request.title.html_safe),
       :email => _("Then you will be updated whenever the request '{{request_title}}' is updated.",
                   :request_title => info_request.title),
       :email_subject => _("Confirm you want to follow the request '{{request_title}}'",
@@ -242,8 +233,8 @@ class TrackThing < ActiveRecord::Base
                          :public_body_name => public_body.name),
       # Authentication
       :web => _("To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'",
-                :site_name => AlaveteliConfiguration.site_name,
-                :public_body_name => public_body.name),
+                :site_name => AlaveteliConfiguration.site_name.html_safe,
+                :public_body_name => public_body.name.html_safe),
       :email => _("Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'.",
                   :public_body_name => public_body.name),
       :email_subject => _("Confirm you want to follow requests to '{{public_body_name}}'",
@@ -264,7 +255,7 @@ class TrackThing < ActiveRecord::Base
                          :user_name => tracked_user.name),
       # Authentication
       :web => _("To follow requests by '{{user_name}}'",
-                :user_name => tracked_user.name),
+                :user_name => tracked_user.name.html_safe),
       :email => _("Then you will be notified whenever '{{user_name}}' requests something or gets a response.",
                   :user_name => tracked_user.name),
       :email_subject => _("Confirm you want to follow requests by '{{user_name}}'",

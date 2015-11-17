@@ -204,6 +204,21 @@ SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
 # ---
 WORKING_OR_CALENDAR_DAYS: working
 
+# Number of months after which to start closing requests to new responses. When
+# a request has not been updated after
+# RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS, allow_new_responses_from is
+# set to 'authority_only'. After RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS
+# * 2, allow_new_responses_from is set to 'nobody'.
+#
+# WORKING_OR_CALENDAR_DAYS - Integer (default: 6)
+#
+# Examples:
+#
+#   RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS: 3
+#
+# ---
+RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS: 6
+
 # Specify which public bodies you want to be listed as examples on the home
 # page, using their short_names. If you want more than one, separate them with
 # semicolons. List is auto-generated if not set.
@@ -504,9 +519,19 @@ DEBUG_RECORD_MEMORY: false
 # ---
 USE_GHOSTSCRIPT_COMPRESSION: false
 
-# Alateveli uses mySociety's gazeteer service to determine country from
-# incoming IP address (this lets us suggest an Alaveteli in the user's country
-# if one exists). You shouldn't normally need to change this.
+# Alaveteli uses a GeoIP database to determine the country from the IP address
+# of an HTTP request to the site (this lets us suggest an Alaveteli in the user's
+# country if one exists). You shouldn't need to change this if you have the
+# geoip-database package installed as specified in the config/packages files.
+#
+# GEOIP_DATABASE - String (default: /usr/share/GeoIP/GeoIP.dat)
+#
+# ---
+GEOIP_DATABASE: /usr/share/GeoIP/GeoIP.dat
+
+# In the absence of a GeoIP database (see above), Alateveli can use Gaze,
+# mySociety's gazeteer, to determine the country from the IP address of an HTTP
+# request to the site. You shouldn't normally need to change this.
 #
 # GAZE_URL - String (default: http://gaze.mysociety.org)
 #
@@ -866,3 +891,12 @@ PRODUCTION_MAILER_DELIVERY_METHOD: sendmail
 #
 # ---
 ENABLE_WIDGETS: false
+
+# Enable a second step of authentication for dangerous account actions.
+# Currently only active for changing password. Two factor auth is opt-in per
+# user.
+#
+# ENABLE_TWO_FACTOR_AUTH – Boolean (default: false)
+#
+# ---
+ENABLE_TWO_FACTOR_AUTH: false

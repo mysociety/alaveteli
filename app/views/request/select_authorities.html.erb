@@ -16,8 +16,8 @@
   <% end %>
 </div>
 
-<div id="body_selection">
-  <div id="body_lists">
+<div id="body_selection" class="body_selection">
+  <div id="body_lists" class="body_lists">
     <div id="body_candidates" class="body_list">
       <%= form_tag(select_authorities_path, {:id => "body_select_form"}) do %>
         <%= submit_tag _(' >> '), :id => 'body_select_all_button', :class => 'select_all_button' %>
@@ -40,7 +40,7 @@
       <% end %>
     </div>
 
-    <div id="body_selections" class="body_list">
+    <div id="body_selections" class="body_list body_selections">
       <%= form_tag(select_authorities_path, {:id => "body_deselect_form"}) do %>
 
         <%= submit_tag _(' < '), :id => 'body_deselect_button' %>
@@ -60,7 +60,7 @@
         </select>
       <% end %>
 
-      <div id="body_submission">
+      <div id="body_submission" class="body_submission">
         <%= form_tag(new_batch_path, {:id => "body_submit_form"}) do %>
           <% if @public_bodies %>
             <% @public_bodies.each do |public_body| %>

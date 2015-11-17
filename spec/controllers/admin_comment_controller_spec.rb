@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminCommentController do
 
-  describe :edit do
+  describe 'GET edit' do
 
     before do
       @comment = FactoryGirl.create(:comment)
@@ -15,12 +15,12 @@ describe AdminCommentController do
     end
 
     it 'gets the comment' do
-      assigns[:comment].should == @comment
+      expect(assigns[:comment]).to eq(@comment)
     end
 
   end
 
-  describe :update do
+  describe 'PUT update' do
 
     context 'on valid data submission' do
 
@@ -31,25 +31,25 @@ describe AdminCommentController do
       end
 
       it 'gets the comment' do
-        assigns[:comment].should == @comment
+        expect(assigns[:comment]).to eq(@comment)
       end
 
       it 'updates the comment' do
-        Comment.find(@comment.id).body.should == 'I am new'
+        expect(Comment.find(@comment.id).body).to eq('I am new')
       end
 
       it 'logs the update event' do
         most_recent_event = Comment.find(@comment.id).info_request_events.last
-        most_recent_event.event_type.should == 'edit_comment'
-        most_recent_event.comment_id.should == @comment.id
+        expect(most_recent_event.event_type).to eq('edit_comment')
+        expect(most_recent_event.comment_id).to eq(@comment.id)
       end
 
       it 'shows a success notice' do
-        flash[:notice].should == "Comment successfully updated."
+        expect(flash[:notice]).to eq("Comment successfully updated.")
       end
 
       it 'redirects to the request page' do
-        response.should redirect_to(admin_request_path(@comment.info_request))
+        expect(response).to redirect_to(admin_request_path(@comment.info_request))
       end
     end
 
@@ -58,7 +58,7 @@ describe AdminCommentController do
       it 'renders the edit template' do
         @comment = FactoryGirl.create(:comment)
         put :update, :id => @comment.id, :comment => {:body => ''}
-        response.should render_template('edit')
+        expect(response).to render_template('edit')
       end
 
     end

@@ -4,93 +4,99 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe PublicBodyCSV do
 
   describe '.default_fields' do
-    defaults = [:name,
-                :short_name,
-                :url_name,
-                :tag_string,
-                :calculated_home_page,
-                :publication_scheme,
-                :disclosure_log,
-                :notes,
-                :created_at,
-                :updated_at,
-                :version]
-    PublicBodyCSV.default_fields.should == defaults
+
+    it 'has a default set of fields' do
+      defaults = [:name,
+                  :short_name,
+                  :url_name,
+                  :tag_string,
+                  :calculated_home_page,
+                  :publication_scheme,
+                  :disclosure_log,
+                  :notes,
+                  :created_at,
+                  :updated_at,
+                  :version]
+      expect(PublicBodyCSV.default_fields).to eq(defaults)
+    end
   end
 
   describe '.default_headers' do
-    defaults = ['Name',
-                'Short name',
-                'URL name',
-                'Tags',
-                'Home page',
-                'Publication scheme',
-                'Disclosure log',
-                'Notes',
-                'Created at',
-                'Updated at',
-                'Version']
-    PublicBodyCSV.default_headers.should == defaults
+
+    it 'has a default set of headers' do
+      defaults = ['Name',
+                  'Short name',
+                  'URL name',
+                  'Tags',
+                  'Home page',
+                  'Publication scheme',
+                  'Disclosure log',
+                  'Notes',
+                  'Created at',
+                  'Updated at',
+                  'Version']
+      expect(PublicBodyCSV.default_headers).to eq(defaults)
+    end
   end
 
-  describe :fields do
+  describe '#fields' do
 
     it 'has a default set of fields' do
       csv = PublicBodyCSV.new
-      csv.fields.should == PublicBodyCSV.default_fields
+      expect(csv.fields).to eq(PublicBodyCSV.default_fields)
     end
 
     # DO NOT include request_email (we don't want to make it
     # easy to spam all authorities with requests)
     it 'does not include the request_email attribute' do
       csv = PublicBodyCSV.new
-      csv.fields.should_not include(:request_email)
+      expect(csv.fields).not_to include(:request_email)
     end
 
     it 'allows custom fields to be set on instantiation' do
       custom_fields = [:name, :short_name]
       csv = PublicBodyCSV.new(:fields => custom_fields)
-      csv.fields.should == custom_fields
+      expect(csv.fields).to eq(custom_fields)
     end
 
   end
 
-  describe :headers do
+  describe '#headers' do
 
     it 'has a default set of headers' do
       csv = PublicBodyCSV.new
-      csv.headers.should == PublicBodyCSV.default_headers
+      expect(csv.headers).to eq(PublicBodyCSV.default_headers)
     end
 
     it 'allows custom headers to be set on instantiation' do
       custom_headers = ['Name', 'Short Name']
       csv = PublicBodyCSV.new(:headers => custom_headers)
-      csv.headers.should == custom_headers
+      expect(csv.headers).to eq(custom_headers)
     end
 
   end
 
-  describe :rows do
+  describe '#rows' do
 
     it 'is empty on instantiation' do
       csv = PublicBodyCSV.new
-      csv.rows.should be_empty
+      expect(csv.rows).to be_empty
     end
 
   end
 
-  describe :<< do
+  describe '#<<' do
 
     it 'adds an elements attributes to the rows collection' do
       csv = PublicBodyCSV.new
       expected = ["Ministry of Silly Walks,MSW,msw,useless_agency,http://www.localhost,\"\",\"\",You know the one.,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
       csv << PublicBody.find(5)
-      csv.rows.should == expected
+      expect(csv.rows).to eq(expected)
     end
 
   end
 
-  describe :generate do
+  describe '#generate' do
 
     it 'generates the csv' do
       expected = <<-CSV.strip_heredoc
@@ -107,7 +113,7 @@ describe PublicBodyCSV do
       csv = PublicBodyCSV.new(:fields => fields, :headers => headers)
       csv << PublicBody.where(:name => 'Department for Humpadinking').first
       csv << PublicBody.where(:name => 'Department of Loneliness').first
-      csv.generate.should == expected
+      expect(csv.generate).to eq(expected)
     end
 
   end

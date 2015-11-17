@@ -4,7 +4,7 @@
 <div class="row">
   <div class="span8">
     <div id="public_category_form">
-      <%= form_for @category, :url => admin_categories_path, :html => { :class => "form form-horizontal" } do |f| %>
+      <%= form_for @public_body_category, :url => admin_categories_path, :html => { :class => "form form-horizontal" } do |f| %>
         <%= render :partial => 'form', :locals => { :f => f } %>
 
         <div class="form-actions">

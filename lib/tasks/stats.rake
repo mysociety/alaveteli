@@ -246,12 +246,16 @@ namespace :stats do
     requester_only_outgoing = InfoRequest.joins(:outgoing_messages).
       where(:outgoing_messages => {:prominence => 'requester_only'}).uniq
 
+    hidden_comments = InfoRequest.joins(:comments).
+      where(:comments => {:visible => false}).uniq
+
     [['Hidden requests', hidden_requests],
      ['Requester-only requests', requester_only_requests],
      ['Requests with hidden incoming messages', hidden_incoming],
      ['Requests with requester-only incoming messages', requester_only_incoming],
      ['Requests with hidden outgoing messages', hidden_outgoing],
-     ['Requests with requester-only outgoing messages', requester_only_outgoing]].each do |title, list|
+     ['Requests with requester-only outgoing messages', requester_only_outgoing],
+     ['Requests with hidden comments', hidden_comments]].each do |title, list|
       unless list.empty?
         puts "\n#{title}\n"
         list.each do |request|

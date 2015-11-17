@@ -63,6 +63,10 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
     @message = message
 
+    # Return path is an address we control so that SPF checks are done on it.
+    headers('Return-Path' => blackhole_email,
+            'Reply-To' => user.name_and_email)
+
     mail(:from => user.name_and_email,
          :to => contact_from_name_and_email,
          :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title.html_safe))
@@ -190,10 +194,12 @@ class RequestMailer < ApplicationMailer
   # actual original mail sent by the authority in the admin interface (so
   # can check that attachment decoding failures are problems in the message,
   # not in our code). ]
-  def self.receive(raw_email)
-    logger.info "Received mail:\n #{raw_email}" unless logger.nil?
-    mail = MailHandler.mail_from_raw_email(raw_email)
-    new.receive(mail, raw_email)
+  def self.receive(raw_mail)
+    ActiveSupport::Notifications.instrument("receive.action_mailer") do |payload|
+      mail = MailHandler.mail_from_raw_email(raw_mail)
+      set_payload_for_mail(payload, mail)
+      new.receive(mail, raw_mail)
+    end
   end
 
   # Find which info requests the email is for

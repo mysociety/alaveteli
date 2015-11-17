@@ -8,7 +8,7 @@ describe RequestGameController, "when playing the game" do
 
   it "should show the game homepage" do
     get :play
-    response.should render_template('play')
+    expect(response).to render_template('play')
   end
 end
 

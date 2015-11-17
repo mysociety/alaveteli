@@ -1,7 +1,13 @@
 <% @title = _("{{title}} - a Freedom of Information request to {{public_body}}",
               :title => h(@info_request.title),
               :public_body => (@info_request.public_body.name)) %>
-
+<% if @info_request.all_can_view? %>
+  <% content_for :open_graph_tags do %>
+    <meta property="article:published_time" content="<%= @info_request.created_at.iso8601 %>" />
+    <meta property="article:modified_time" content="<%= @info_request.updated_at.iso8601 %>" />
+    <meta property="og:description" content="<%= @info_request.initial_request_text %>" />
+  <% end %>
+<% end %>
 <% if flash[:request_sent] %>
   <%= render :partial => 'request_sent',
              :locals => { :info_request => @info_request } %>
@@ -29,7 +35,7 @@
   </div>
 <% end %>
 
-<div id="left_column">
+<div id="left_column" class="left_column">
   <h1><%=h(@info_request.title)%></h1>
 
   <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>
@@ -42,7 +48,7 @@
     <% if !@user.nil? && @user.admin_page_links? %>
       <%= _('{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href="{{request_admin_url}}">admin</a>) to {{public_body_link}} (<a href="{{public_body_admin_url}}">admin</a>)',
             :user => request_user_link(@info_request, _('An anonymous user')),
-            :law_used_full => h(@info_request.law_used_full),
+            :law_used_full => h(@info_request.law_used_human(:full)),
             :user_admin_link => user_admin_link_for_request(@info_request, _('external'), _('admin')),
             :request_admin_url => admin_request_url(@info_request),
             :public_body_link => public_body_link(@info_request.public_body),
@@ -50,7 +56,7 @@
     <% else %>
       <%= _('{{user}} made this {{law_used_full}} request',
             :user=>request_user_link(@info_request, _('An anonymous user')),
-            :law_used_full=>h(@info_request.law_used_full)) %>
+            :law_used_full=>h(@info_request.law_used_human(:full))) %>
       <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
     <% end %>
   </p>
@@ -89,11 +95,11 @@
     <% elsif @status == 'waiting_response_overdue' %>
       <%= _('Response to this request is <strong>delayed</strong>.') %>
       <%= _('By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and',:public_body_link=>public_body_link(@info_request.public_body)) %>
- 
+
       <% if @info_request.public_body.is_school? %>
         <%= _('in term time') %>
       <% end %>
- 
+
       <%= _('by') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
       (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>)
     <% elsif @status == 'waiting_response_very_overdue' %>

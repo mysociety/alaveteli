@@ -1,0 +1,12 @@
+<% params[:new].each do |key, value| %>
+  <em><%= key %>:</em>
+  <%= MySociety::Format.wrap_email_body_by_lines(h(params[:old][key])).gsub('\n', '<br>').html_safe %>
+  =>
+  <%= MySociety::Format.wrap_email_body_by_lines(h(value)).gsub('\n', '<br>').html_safe %>
+  <br>
+<% end %>
+<% params[:other].each do |key, value| %>
+  <em><%= key %>:</em>
+  <%= value %>
+  <br>
+<% end %>

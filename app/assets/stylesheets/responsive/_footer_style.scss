@@ -1,5 +1,26 @@
 /* Footer styles */
-#footer {
-  text-align: center;
-  font-size:0.85em;
+.footer {
+  border-top: 1px solid #e9e9e9;
+  margin-top: 2em;
+}
+
+.social-link {
+  padding: 0.5em 0.5em 0.5em 2.2em;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 22px 22px;
+}
+
+.social-link--twitter {
+  background-image: image-url('social-twitter.png');
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('social-twitter@2.png');
+  }
+}
+
+.social-link--facebook {
+  background-image: image-url('social-facebook.png');
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('social-facebook@2.png');
+  }
 }
