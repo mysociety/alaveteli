@@ -12,7 +12,7 @@ title: Para desarrolladores
 * El software está escrito en **Ruby on Rails 3.x**. Soportamos postgresql como
   sistema gestor de base de datos. Se necesita un agente de transferencia de correo (MTA) 
   configurado, como exim, para analizar los correos recibidos. Disponemos de servidores de
-  producción implementados en Debian (Squeeze y Wheezy) y en Ubuntu (12.04 LTS). Por motivos
+  producción implementados en Debian (Wheezy) y en Ubuntu (12.04 LTS). Por motivos
   de rendimiento, recomendamos el uso de [Varnish](https://www.varnish-cache.org).
 
 * Para ayudarle a entender qué hace el código, le recomendamos que lea esta [vista general

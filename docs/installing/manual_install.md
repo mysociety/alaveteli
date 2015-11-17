@@ -28,13 +28,13 @@ Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/in
 
 ### Target operating system
 
-These instructions assume a 64-bit version of Debian 6 (Wheezy), Debian 7 (Squeeze)
+These instructions assume a 64-bit version of Debian 7 (Wheezy)
 or Ubuntu 12.04 LTS (Precise). Debian is the best supported deployment platform. We also
 have instructions for [installing on MacOS]({{ page.baseurl }}/docs/installing/macos/).
 
 ### Set the locale
 
-**Debian Wheezy or Squeeze**
+**Debian Wheezy**
 
 Follow the [Debian guide](https://wiki.debian.org/Locale#Standard) for configuring the locale of the operating system.
 
@@ -72,38 +72,6 @@ headers necessary to compile some of the gem dependencies in the next step.
 #### Using other repositories to get more recent packages
 
 Add the following repositories to `/etc/apt/sources.list`:
-
-**Debian Squeeze**
-
-    cat > /etc/apt/sources.list.d/debian-extra.list <<EOF
-    # Debian mirror to use, including contrib and non-free:
-    deb http://the.earth.li/debian/ squeeze main contrib non-free
-    deb-src http://the.earth.li/debian/ squeeze main contrib non-free
-
-    # Security Updates:
-    deb http://security.debian.org/ squeeze/updates main non-free
-    deb-src http://security.debian.org/ squeeze/updates main non-free
-
-    # Debian Backports
-    deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
-    deb-src http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
-
-    # Wheezy
-    deb http://ftp.uk.debian.org/debian wheezy main contrib non-free
-    EOF
-
-The squeeze-backports repository is providing a more recent version of rubygems, and the wheezy repository is providing bundler. You should configure package-pinning to reduce the priority of the wheezy repository so other packages aren't pulled from it.
-
-    cat >> /etc/apt/preferences <<EOF
-
-    Package: bundler
-    Pin: release n=wheezy
-    Pin-Priority: 990
-
-    Package: *
-    Pin: release n=wheezy
-    Pin-Priority: 50
-    EOF
 
 **Debian Wheezy**
 
@@ -147,13 +115,13 @@ The trusty repo is used here to get a more recent version of bundler. You should
 If you're using Debian or Ubuntu, you should add the mySociety Debian archive to your
 apt sources. Note that mySociety packages are currently only built for 64-bit Debian.
 
-**Debian Squeeze, Wheezy or Ubuntu Precise**
+**Debian Wheezy or Ubuntu Precise**
 
     cat > /etc/apt/sources.list.d/mysociety-debian.list <<EOF
     deb http://debian.mysociety.org squeeze main
     EOF
 
-The repository above lets you install `wkhtmltopdf-static` and `pdftk` (for squeeze) using `apt`.
+The repository above lets you install `wkhtmltopdf-static` using `apt`.
 
 Add the GPG key from the
 [mySociety Debian Package Repository](http://debian.mysociety.org/).
@@ -187,10 +155,6 @@ from mysociety.
     Pin: origin debian.mysociety.org
     Pin-Priority: 50
     EOF
-
-**Debian Squeeze**
-
-No special package pinning is required.
 
 #### Other platforms
 If you're using some other linux platform, you can optionally install these
@@ -259,9 +223,6 @@ Now install the packages relevant to your system:
 
     # Debian Wheezy
     apt-get -y install $(cat /var/www/alaveteli/config/packages.debian-wheezy)
-
-    # Debian Squeeze
-    apt-get -y install $(cat /var/www/alaveteli/config/packages.debian-squeeze)
 
     # Ubuntu Precise
     apt-get -y install $(cat /var/www/alaveteli/config/packages.ubuntu-precise)
@@ -639,7 +600,7 @@ We recommend two main combinations of application and web server:
 - Nginx &amp; Thin
 
 There are ways to run Passenger with Nginx, and indeed Thin with Apache, but
-that's out of scope for this guide. If you want to do something that isn't 
+that's out of scope for this guide. If you want to do something that isn't
 documented here, get in touch on [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) and we'll
 be more than happy to help you get set up.
 
