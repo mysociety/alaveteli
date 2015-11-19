@@ -50,7 +50,8 @@
   <% end %>
 
   <div id="public_body_actions" class="public_body_actions">
-    <strong><%= _('{{public_body_name}} only:',:public_body_name=>h(@info_request.public_body.name) ) %> </strong>
+    <strong><%= _('{{authority_name}} only:',
+                  :authority_name => h(@info_request.public_body.name)) %></strong>
 
     <ul>
       <li>

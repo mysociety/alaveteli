@@ -1,11 +1,11 @@
 <%= _('To help us keep the site tidy, someone else has updated the status ' \
       'of the {{law_used_full}} request {{title}} that you made to ' \
-      '{{public_body}}, to "{{display_status}}" If you disagree with ' \
+      '{{authority_name}}, to "{{display_status}}" If you disagree with ' \
       'their categorisation, please update the status again yourself ' \
       'to what you believe to be more accurate.',
       :law_used_full => @info_request.law_used_human(:full),
       :title => @info_request.title,
-      :public_body => @info_request.public_body.name,
+      :authority_name => @info_request.public_body.name,
       :display_status => @info_request.display_status.downcase) %>
 
 <%= _('Follow this link to see the request:') %>

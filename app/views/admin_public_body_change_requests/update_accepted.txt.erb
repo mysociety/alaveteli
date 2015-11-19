@@ -1,6 +1,10 @@
 <%= _("Dear {{user_name}},", :user_name => @change_request.get_user_name) %>
 
-<%= _("Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address.", :public_body_name => @change_request.public_body.name, :public_body_email => @change_request.public_body_email) %>
+<%= _("Thanks for your suggestion to update the email address for " \
+	    "{{authority_name}} to {{authority_email}}. This has now been done " \
+	    "and any new requests will be sent to the new address.",
+	 :authority_name => @change_request.public_body.name,
+	 :authority_email => @change_request.public_body_email) %>
 
 <%= _("Yours,") %>
 

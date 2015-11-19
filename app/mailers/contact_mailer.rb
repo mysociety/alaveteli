@@ -52,8 +52,8 @@ class ContactMailer < ApplicationMailer
     @change_request = change_request
     mail(:from => MailHandler.address_from_name_and_email(@change_request.get_user_name, @change_request.get_user_email),
          :to => contact_from_name_and_email,
-         :subject => _('Add authority - {{public_body_name}}',
-                       :public_body_name => @change_request.get_public_body_name))
+         :subject => _('Add authority - {{authority_name}}',
+                       :authority_name => @change_request.get_public_body_name))
   end
 
   # Send a request to the administrator to update an authority email address
@@ -61,8 +61,8 @@ class ContactMailer < ApplicationMailer
     @change_request = change_request
     mail(:from => MailHandler.address_from_name_and_email(@change_request.get_user_name, @change_request.get_user_email),
          :to => contact_from_name_and_email,
-         :subject => _('Update email address - {{public_body_name}}',
-                       :public_body_name => @change_request.get_public_body_name))
+         :subject => _('Update email address - {{authority_name}}',
+                       :authority_name => @change_request.get_public_body_name))
   end
 
 end

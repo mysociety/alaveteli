@@ -6,8 +6,10 @@
 <%= @url %>
 
 <% if !@unrequestable.empty? %>
-<%= _('Unfortunately, we do not have a working address for {{public_body_names}}.',   :public_body_names => @unrequestable.map{|body| body.name}.join(",")) %>
-<%= _('You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:') %>
+<%= _('Unfortunately, we do not have a working address for {{authority_names}}.',
+      :authority_names => @unrequestable.map{|body| body.name}.join(",")) %>
+<%= _('You may be able to find one on their website, or by phoning them up ' \
+	     'and asking. If you manage to find one, then please send it to us:') %>
 
 <%= help_contact_url %>
 

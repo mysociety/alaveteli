@@ -1,4 +1,5 @@
-<% @title = _("Public authority – {{name}}", :name => h(@public_body.name)) %>
+<% @title = _("Public authority – {{authority_name}}",
+              :authority_name => h(@public_body.name)) %>
 
 <h1><%=@title%></h1>
 
@@ -15,7 +16,8 @@
           <% elsif column_name == 'request_email' %>
             <%= link_to(h(value), "mailto:#{value}")  %>
             <% unless @public_body.is_requestable? %>
-              <%=_("not requestable due to: {{reason}}", :reason => h(@public_body.not_requestable_reason))%><% if @public_body.is_followupable? %>; <%=_("but followupable")%><% end %>
+              <%=_("not requestable due to: {{reason}}",
+                   :reason => h(@public_body.not_requestable_reason))%><% if @public_body.is_followupable? %>; <%=_("but followupable")%><% end %>
             <% end %>
           <% else %>
             <%=h value %>

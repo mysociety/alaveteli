@@ -1,6 +1,8 @@
 <%= _("Dear {{user_name}},", :user_name => @change_request.get_user_name) %>
 
-<%= _("Thanks for your suggestion to add {{public_body_name}}. It's been added to the site here:", :public_body_name => @change_request.public_body_name) %>
+<%= _("Thanks for your suggestion to add {{authority_name}}. It's been added " \
+	     "to the site here:",
+	  :authority_name => @change_request.public_body_name) %>
 
 <%= _("[Authority URL will be inserted here]")%>
 

@@ -12,8 +12,8 @@
       <%= info_request.display_status %>
     </strong>
     <br>
-    <%= _('Requested from {{public_body_name}} by {{info_request_user}} on {{date}}',
-          :public_body_name => public_body_link(info_request.public_body),
+    <%= _('Requested from {{authority_name}} by {{info_request_user}} on {{date}}',
+          :authority_name => public_body_link(info_request.public_body),
           :info_request_user => user_link(info_request.user),
           :date => simple_date(info_request.created_at)) %>
   </span>

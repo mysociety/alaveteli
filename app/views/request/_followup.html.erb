@@ -5,7 +5,9 @@
     # Send a public follow up message to...
     # Send a public reply to...
     # Don't want to address your message to... ?
-    name_for_followup = _("the main FOI contact at {{public_body}}", :public_body => h(OutgoingMailer.name_for_followup(@info_request, nil))) %>
+    name_for_followup = _("the main FOI contact at {{authority_name}}",
+                          :authority_name => h(OutgoingMailer.name_for_followup(
+                                              @info_request, nil))) %>
   <% else %>
     <% name_for_followup = h(OutgoingMailer.name_for_followup(@info_request, incoming_message)) %>
   <% end %>
@@ -25,23 +27,34 @@
 
   <% if @info_request.who_can_followup_to(incoming_message).count > 0 %>
     <div id="other_recipients" class="box other_recipients">
-      <%= _("Don't want to address your message to {{person_or_body}}?  You can also write to:", :person_or_body => name_for_followup) %>
+      <%= _("Don't want to address your message to {{person_or_body}}? " \
+               "You can also write to:",
+            :person_or_body => name_for_followup) %>
 
       <ul>
         <% @info_request.who_can_followup_to(incoming_message).each do |name, email, id|  %>
           <% if id.nil? && !incoming_message.nil? && incoming_message.valid_to_reply_to? %>
-            <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil)) %></li>
+            <li><%= link_to(_("the main FOI contact address for {{authority_name}}",
+                              :authority_name => name), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil)) %></li>
           <% else %>
             <% if !id.nil? %>
               <% if @info_request.public_body.request_email == email %>
                 <% if !incoming_message.nil? %>
-                  <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil)) %></li>
+                  <li><%= link_to(_("the main FOI contact address for {{authority_name}}",
+                                    :authority_name => name),
+                                  show_response_no_followup_path(
+                                    :id => @info_request.id,
+                                    :incoming_message_id => nil)) %></li>
                 <% end %>
               <% else %>
                 <li><%= link_to name, show_response_path(:id => @info_request.id, :incoming_message_id => id)%></li>
               <% end %>
             <% else %>
-              <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil)) %></li>
+              <li><%= link_to(_("the main FOI contact address for {{authority_name}}",
+                                 :authority_name => name),
+                              show_response_no_followup_path(
+                                :id => @info_request.id,
+                                :incoming_message_id => nil)) %></li>
             <% end %>
           <% end %>
         <% end %>
