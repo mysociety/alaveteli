@@ -309,9 +309,9 @@ class InfoRequest < ActiveRecord::Base
   # Subject lines for emails about the request
   def email_subject_request(opts = {})
     html = opts.fetch(:html, true)
-    _('{{law_used_full}} request - {{title}}',
+    _('{{law_used_full}} request - {{email_title}}',
       :law_used_full => law_used_human(:full),
-      :title => (html ? title : title.html_safe))
+      :email_title => (html ? title : title.html_safe))
   end
 
   def email_subject_followup(opts = {})

@@ -1,10 +1,17 @@
 <%= _('{{authority_name}} have delayed.',
       :authority_name => raw(@info_request.public_body.name)) %>
 
-<%= _('They have not replied to your {{law_used_short}} request {{title}} ' \
-      'promptly, as normally required by law',
+<% if @info_request.public_body.is_school? %>
+  <%= _('They have not replied to your {{law_used_short}} request {{request_title}} ' \
+           'promptly, as normally required by law during term time.',
       :law_used_short => @info_request.law_used_human(:short),
-      :title => @info_request.title) %><% if @info_request.public_body.is_school? %> <%=_('during term time')%> <% end %>.
+      :request_title => @info_request.title) %>
+<% else %>
+  <%= _('They have not replied to your {{law_used_short}} request {{request_title}} ' \
+           'promptly, as normally required by law.',
+      :law_used_short => @info_request.law_used_human(:short),
+      :request_title => @info_request.title) %>
+<% end %>
 
 <%= _('Click on the link below to send a message to {{authority_name}} reminding ' \
          'them to reply to your request.',

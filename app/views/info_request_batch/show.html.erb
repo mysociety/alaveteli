@@ -1,4 +1,5 @@
-<% @title = _("{{title}} - a batch request", :title => @info_request_batch.title) %>
+<% @title = _("{{request_title}} - a batch request",
+              :request_title => @info_request_batch.title) %>
 
 <% if flash[:batch_sent] %>
   <%= render :partial => 'batch_sent' %>

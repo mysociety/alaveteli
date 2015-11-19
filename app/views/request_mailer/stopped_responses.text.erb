@@ -1,19 +1,20 @@
 <%= _('The email that you, on behalf of {{authority_name}}, sent to ' \
-      '{{user}} to reply to an {{law_used_short}} request has not ' \
+      '{{user_name}} to reply to an {{law_used_short}} request has not ' \
       'been delivered.',
       :authority_name => @info_request.public_body.name,
-      :user => @info_request.user.name,
+      :user_name => @info_request.user.name,
       :law_used_short => @info_request.law_used_human(:short)) %>
 
-<%= _('This is because {{title}} is an old request that has been ' \
+<%= _('This is because {{request_title}} is an old request that has been ' \
       'marked to no longer receive responses.',
-      :title => @info_request.title) %>
+      :request_title => @info_request.title) %>
 
 
 
 <%= _('If this is incorrect, or you would like to send a late response to ' \
-      'the request or an email on another subject to {{user}}, then please ' \
-      'email {{contact_email}} for help.', :user => @info_request.user.name,
+      'the request or an email on another subject to {{user_name}}, then ' \
+      'please email {{contact_email}} for help.',
+      :user_name => @info_request.user.name,
       :contact_email => @contact_email) %>
 
 <%= _('Your original message is attached.') %>

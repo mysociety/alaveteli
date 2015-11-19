@@ -1,5 +1,6 @@
-<% @title = _("{{title}} - a Freedom of Information request to {{authority_name}}",
-              :title => h(@info_request.title),
+<% @title = _("{{request_title}} - a Freedom of Information request to '" \
+                 "{{authority_name}}'",
+              :request_title => h(@info_request.title),
               :authority_name => (@info_request.public_body.name)) %>
 <% if @info_request.all_can_view? %>
   <% content_for :open_graph_tags do %>
@@ -78,10 +79,12 @@
                  "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?",
                  @new_responses_count) %>
         <% else %>
-          <%= n_("We're waiting for {{user}} to read a recent response and update the status.",
-                 "We're waiting for {{user}} to read recent responses and update the status.",
+          <%= n_("We're waiting for {{user_name}} to read a recent response " \
+                    "and update the status.",
+                 "We're waiting for {{user_name}} to read recent responses " \
+                    "and update the status.",
                  @new_responses_count,
-                 :user => user_link_for_request(@info_request)) %>
+                 :user_name => user_link_for_request(@info_request)) %>
         <% end %>
       <% end %>
     <% elsif @status == 'waiting_response' %>

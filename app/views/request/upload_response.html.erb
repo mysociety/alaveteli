@@ -8,9 +8,9 @@
 <% else %>
   <%= foi_error_messages_for :comment %>
 
-  <h1><%= _("Respond to the FOI request '{{request}}' made by {{user}}",
-            :request => request_link(@info_request),
-            :user => user_link(@info_request.user)) %></h1>
+  <h1><%= _("Respond to the FOI request '{{request_link}}' made by {{user_name}}",
+            :request_link => request_link(@info_request),
+            :user_name => user_link(@info_request.user)) %></h1>
 
   <p>
     <%= raw(_('Your response will <strong>appear on the Internet</strong>, <a href="{{url}}">read why</a> and answers to other questions.',

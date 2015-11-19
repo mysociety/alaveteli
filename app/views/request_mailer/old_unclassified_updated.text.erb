@@ -1,10 +1,10 @@
 <%= _('To help us keep the site tidy, someone else has updated the status ' \
-      'of the {{law_used_full}} request {{title}} that you made to ' \
+      'of the {{law_used_full}} request {{request_title}} that you made to ' \
       '{{authority_name}}, to "{{display_status}}" If you disagree with ' \
       'their categorisation, please update the status again yourself ' \
       'to what you believe to be more accurate.',
       :law_used_full => @info_request.law_used_human(:full),
-      :title => @info_request.title,
+      :request_title => @info_request.title,
       :authority_name => @info_request.public_body.name,
       :display_status => @info_request.display_status.downcase) %>
 

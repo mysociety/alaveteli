@@ -25,7 +25,8 @@ class ReportsController < ApplicationController
     @info_request = InfoRequest.find_by_url_title!(params[:request_id])
     if authenticated?(
         :web => _("To report this request"),
-        :email => _("Then you can report the request '{{title}}'", :title => @info_request.title),
+        :email => _("Then you can report the request '{{request_title}}'",
+                    :request_title => @info_request.title),
       :email_subject => _("Report an offensive or unsuitable request"))
     end
   end
