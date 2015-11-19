@@ -712,9 +712,9 @@ class InfoRequest < ActiveRecord::Base
 
   def recipient_name_and_email
     MailHandler.address_from_name_and_email(
-      _("{{law_used}} requests at {{public_body}}",
+      _("{{law_used}} requests at {{authority_name}}",
         :law_used => law_used_human(:short),
-        :public_body => public_body.short_or_long_name),
+        :authority_name => public_body.short_or_long_name),
         recipient_email)
   end
 
@@ -1078,8 +1078,8 @@ class InfoRequest < ActiveRecord::Base
                                                       :site_name => AlaveteliConfiguration::site_name)} ]
     if public_body.is_followupable?
       masks << { :to_replace => public_body.request_email,
-                 :replacement => _("[{{public_body}} request email]",
-                                   :public_body => public_body.short_or_long_name) }
+                 :replacement => _("[{{authority_name}} request email]",
+                                   :authority_name => public_body.short_or_long_name) }
     end
   end
 

@@ -221,24 +221,27 @@ class TrackThing < ActiveRecord::Base
 
   def public_body_updates_params
     { # Website
-      :verb_on_page => _("Follow requests to {{public_body_name}}",
-                         :public_body_name => public_body.name),
+      :verb_on_page => _("Follow requests to {{authority_name}}",
+                         :authority_name => public_body.name),
       :verb_on_page_already => _("Following"),
       # Email
-      :title_in_email => _("{{foi_law}} requests to '{{public_body_name}}'",
+      :title_in_email => _("{{foi_law}} requests to '{{authority_name}}'",
                            :foi_law => public_body.law_only_short,
-                           :public_body_name => public_body.name),
-      :title_in_rss => _("{{foi_law}} requests to '{{public_body_name}}'",
+                           :authority_name => public_body.name),
+      :title_in_rss => _("{{foi_law}} requests to '{{authority_name}}'",
                          :foi_law => public_body.law_only_short,
-                         :public_body_name => public_body.name),
+                         :authority_name => public_body.name),
       # Authentication
-      :web => _("To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'",
-                :site_name => AlaveteliConfiguration.site_name.html_safe,
-                :public_body_name => public_body.name.html_safe),
-      :email => _("Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'.",
-                  :public_body_name => public_body.name),
-      :email_subject => _("Confirm you want to follow requests to '{{public_body_name}}'",
-                          :public_body_name => public_body.name),
+      :web => _("To follow requests made using {{site_name}} to the public " \
+                   "authority '{{authority_name}}'",
+                :site_name => AlaveteliConfiguration.site_name,
+                :authority_name => public_body.name),
+      :email => _("Then you will be notified whenever someone requests " \
+                     "something or gets a response from '{{authority_name}}'.",
+                  :authority_name => public_body.name),
+      :email_subject => _("Confirm you want to follow requests to " \
+                             "'{{authority_name}}'",
+                          :authority_name => public_body.name),
       # RSS sorting
       :feed_sortby => 'newest'
       }

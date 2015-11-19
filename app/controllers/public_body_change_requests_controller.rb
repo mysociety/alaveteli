@@ -14,8 +14,8 @@ class PublicBodyChangeRequestsController < ApplicationController
 
     @title =
       if @change_request.public_body
-        _('Ask us to update the email address for {{public_body_name}}',
-          :public_body_name => @change_request.public_body.name)
+        _('Ask us to update the email address for {{authority_name}}',
+          :authority_name => @change_request.public_body.name)
       else
         _('Ask us to add an authority')
       end

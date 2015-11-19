@@ -62,7 +62,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def self.default_salutation(public_body)
-    _("Dear {{public_body_name}},", :public_body_name => public_body.name)
+    _("Dear {{authority_name}},", :authority_name => public_body.name)
   end
 
   def self.placeholder_salutation
@@ -89,7 +89,7 @@ class OutgoingMessage < ActiveRecord::Base
     else
       return OutgoingMessage.default_salutation(info_request.public_body)
     end
-    salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
+    salutation = _("Dear {{authority_name}},", :authority_name => ret)
   end
 
   def get_signoff
@@ -112,13 +112,17 @@ class OutgoingMessage < ActiveRecord::Base
     return default_letter if default_letter
 
     if what_doing == 'internal_review'
-      letter = _("Please pass this on to the person who conducts Freedom of Information reviews.")
+      letter = _("Please pass this on to the person who conducts Freedom of " \
+                   "Information reviews.")
       letter += "\n\n"
-      letter += _("I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'.",
-                  :public_body_name => info_request.public_body.name,
+      letter += _("I am writing to request an internal review of " \
+                    "{{authority_name}}'s handling of my FOI request " \
+                    "'{{info_request_title}}'.",
+                  :authority_name => info_request.public_body.name,
                   :info_request_title => info_request.title)
       letter += "\n\n\n\n [ #{ get_internal_review_insert_here_note } ] \n\n\n\n"
-      letter += _("A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}",
+      letter += _("A full history of my FOI request and all correspondence " \
+                    "is available on the Internet at this address: {{url}}",
                   :url => request_url(info_request))
       letter += "\n"
     else

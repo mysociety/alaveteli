@@ -18,14 +18,20 @@
         # e.g. Julian Burgess sent a request to Royal Mail Group (15 May 2008)
         if event.event_type == 'response'
           url = incoming_message_url(event.incoming_message, :cachebust => true)
-          main_text += _("{{public_body}} sent a response to {{user_name}}", :public_body => event.info_request.public_body.name, :user_name => event.info_request.user_name)
+          main_text += _("{{authority_name}} sent a response to {{user_name}}",
+                         :authority_name => event.info_request.public_body.name,
+                         :user_name => event.info_request.user_name)
         elsif event.event_type == 'followup_sent'
           url = outgoing_message_url(event.outgoing_message, :cachebust => true)
-          main_text += _("{{user_name}} sent a follow up message to {{public_body}}", :user_name => event.info_request.user_name, :public_body => event.info_request.public_body.name)
+          main_text += _("{{user_name}} sent a follow up message to {{authority_name}}",
+                         :user_name => event.info_request.user_name,
+                         :authority_name => event.info_request.public_body.name)
         elsif event.event_type == 'sent'
           # this is unlikely to happen in real life, but happens in the test code
           url = outgoing_message_url(event.outgoing_message, :cachebust => true)
-          main_text += _("{{user_name}} sent a request to {{public_body}}", :user_name => event.info_request.user_name, :public_body => event.info_request.public_body.name)
+          main_text += _("{{user_name}} sent a request to {{authority_name}}",
+                         :user_name => event.info_request.user_name,
+                         :authority_name => event.info_request.public_body.name)
         elsif event.event_type == 'comment'
           url = comment_url(event.comment)
           main_text += _("{{user_name}} added an annotation", :user_name => event.comment.user.name)

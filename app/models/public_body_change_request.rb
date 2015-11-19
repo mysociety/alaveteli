@@ -79,8 +79,9 @@ class PublicBodyChangeRequest < ActiveRecord::Base
 
   def thanks_notice
     if self.public_body
-      _("Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon.",
-        :public_body_name => get_public_body_name)
+      _("Your request to update the address for {{authority_name}} has been " \
+          "sent. Thank you for getting in touch! We'll get back to you soon.",
+        :authority_name => get_public_body_name)
     else
       _("Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon.")
     end
@@ -106,11 +107,13 @@ class PublicBodyChangeRequest < ActiveRecord::Base
 
   def default_response_subject
     if self.public_body
-      _("Your request to update {{public_body_name}} on {{site_name}}", :site_name => AlaveteliConfiguration::site_name,
-        :public_body_name => public_body.name)
+      _("Your request to update {{authority_name}} on {{site_name}}",
+        :site_name => AlaveteliConfiguration::site_name,
+        :authority_name => public_body.name)
     else
-      _("Your request to add {{public_body_name}} to {{site_name}}", :site_name => AlaveteliConfiguration::site_name,
-        :public_body_name => public_body_name)
+      _("Your request to add {{authority_name}} to {{site_name}}",
+        :site_name => AlaveteliConfiguration::site_name,
+        :authority_name => public_body_name)
     end
   end
 

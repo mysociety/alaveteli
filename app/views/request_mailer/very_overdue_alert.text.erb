@@ -1,15 +1,16 @@
-<%= raw @info_request.public_body.name %> <%= _('are long overdue.')%>
+<%= _('{{authority_name}} are long overdue.',
+      :authority_name => raw(@info_request.public_body.name)) %>
 
 <%= _('They have not replied to your {{law_used_short}} request {{title}}, ' \
       'as required by law',
       :law_used_short => @info_request.law_used_human(:short),
       :title => @info_request.title)%><% if @info_request.public_body.is_school? %> <%= _('even during holidays')%><% end %>.
 
-<%= _('Click on the link below to send a message to {{public_body_name}} ' \
+<%= _('Click on the link below to send a message to {{authority_name}} ' \
       'telling them to reply to your request. You might like to ask for ' \
       'an internal review, asking them to find out why response to the ' \
       'request has been so slow.',
-      :public_body_name => @info_request.public_body.name) %>
+      :authority_name => @info_request.public_body.name) %>
 
 <%= @url %>
 

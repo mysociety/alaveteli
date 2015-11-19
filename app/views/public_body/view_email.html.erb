@@ -1,6 +1,8 @@
-<% @title = _("FOI email address for {{public_body}}", :public_body => h(@public_body.name)) %>
+<% @title = _("FOI email address for {{authority_name}}",
+              :authority_name => h(@public_body.name)) %>
 
-<h1><%= _('FOI email address for {{public_body}}',:public_body=> public_body_link(@public_body))%></h1>
+<h1><%= _('FOI email address for {{authority_name}}',
+          :authority_name=> public_body_link(@public_body))%></h1>
 
 <p>
   <% if @public_body.is_requestable? %>

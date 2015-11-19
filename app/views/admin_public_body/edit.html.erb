@@ -21,7 +21,9 @@
 
       <% if @public_body.info_requests.count == 0 %>
         <%= form_tag(admin_body_path(@public_body), :class => "form form-inline", :method => 'delete') do %>
-          <%= submit_tag _("Destroy {{name}}", :name => @public_body.name), :class => "btn btn-danger" %> (this is permanent!)
+          <%= submit_tag _("Destroy {{authority_name}}",
+                           :authority_name => @public_body.name),
+                           :class => "btn btn-danger" %> (this is permanent!)
         <% end %>
       <% end %>
     </div>
