@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/language/bg/)\n"
@@ -589,8 +589,9 @@ msgstr "Изясняване"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Изпратено е пояснение до {{public_body_name}} от {{info_request_user}} на {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "Пояснете Вашето Заявление за ДдИ - "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Пояснете Вашето Заявление за ДдИ - {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "Класифициране на отговор за ДдИ от "
@@ -727,8 +728,9 @@ msgstr "Неработещ."
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Закъснява отговорът на Вашето заявление за ДдИ - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Закъснява отговорът на Вашето заявление за ДдИ - {{request_title}"
 
 msgid "Delayed."
 msgstr "Закъснялo."
@@ -868,8 +870,9 @@ msgstr "Заявления за ДдИ от '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Заявления за ДдИ {{start_count}} до {{end_count}} от {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Отговорът за ДдИ изисква администратор ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Отговорът за ДдИ изисква администратор ({{reason}}) - {{request_title}"
 
 msgid "Failed"
 msgstr "Провалено"
@@ -1575,8 +1578,9 @@ msgstr "Новата парола: (отново)"
 msgid "New response to '{{title}}'"
 msgstr "Нов отговор към '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Нов отговор на Ваше заявление за ДдИ - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Нов отговор на Ваше заявление за ДдИ - {{request_title}"
 
 msgid "New response to your request"
 msgstr "Нов отговор на Вашето заявление"
@@ -2434,8 +2438,9 @@ msgstr "Подобни заявления"
 msgid "Simple search"
 msgstr "Опростено търсене"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Някои бележки бяха добавени към заявлението Ви за ДдИ - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Някои бележки бяха добавени към заявлението Ви за ДдИ - {{request_title}"
 
 msgid "Some of the information requested has been received"
 msgstr "Част от поисканата информация беше получена"
@@ -2443,8 +2448,9 @@ msgstr "Част от поисканата информация беше пол�
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "За няколко заявления, потребителите, които са ги отправили, не са отбелязали\\nуспешни ли са или не.  Нужна ни е <strong>Вашата</strong> помощ &ndash;\\nизберете едно от тези Заявления, прочетете го и определете предоставена ли е\\nисканата информация или не. Всички ще научат за това и ще Ви бъдат изключително благодарни."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Някой добави бележка към заявлението Ви за ДдИ - "
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Някой добави бележка към заявлението Ви за ДдИ - {{request_title}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Някой обнови състоянието на Заявлението Ви"
@@ -3629,8 +3635,9 @@ msgstr "Вие все още ще можете да го виждате, ког�
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Влязохте. <a href=\"#\" id=\"send-request\">Продължаване с изпращането на Заявлението Ви</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Отговорът на ДдИ Заявлението Ви твърде много закъсня - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Отговорът на ДдИ Заявлението Ви твърде много закъсня - {{request_title}"
 
 msgid "You're not following anything."
 msgstr "Вие не следите нищо."

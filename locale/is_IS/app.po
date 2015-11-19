@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:45+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
@@ -586,8 +586,9 @@ msgstr "Útskýring"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Útskýring send til  {{public_body_name}} frá {{info_request_user}} þann {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "Útskýrðu beiðnina -"
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Útskýrðu beiðnina - {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "Flokkaðu upplýsingabeiðni frá"
@@ -724,8 +725,9 @@ msgstr "Úrelt."
 msgid "Delayed"
 msgstr "Seinkað"
 
-msgid "Delayed response to your FOI request - "
-msgstr "Hjálpaðu okkur við að flokka beiðnir sem hafa ekki verið uppfærðar"
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Hjálpaðu okkur við að flokka beiðnir sem hafa ekki verið uppfærðar {{request_title}}"
 
 msgid "Delayed."
 msgstr "Seinkað."
@@ -865,7 +867,7 @@ msgstr "Upplýsingabeiðnir eftir '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Upplýsingabeiðnir {{start_count}} til {{end_count}} af {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr ""
 
 msgid "Failed"
@@ -1572,8 +1574,9 @@ msgstr "Nýtt lykilorð (aftur):"
 msgid "New response to '{{title}}'"
 msgstr "Nýtt svar við '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Nýtt svar við upplýsingabeiðninni þinni"
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Nýtt svar við upplýsingabeiðninni þinni {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Nýtt svar við beiðninni þinn"
@@ -2431,8 +2434,9 @@ msgstr "Svipaðar beiðnir"
 msgid "Simple search"
 msgstr "Einföld leit"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Athugasemdum hefur verið bætti við upplýsingabeiðnina þína -"
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Athugasemdum hefur verið bætti við upplýsingabeiðnina þína - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Eitthvað af gögnunum sem þú baðst um hefur borist"
@@ -2440,8 +2444,9 @@ msgstr "Eitthvað af gögnunum sem þú baðst um hefur borist"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr ""
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Einhver bætti við athugasemd við upplýsingabeiðnina þína -"
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Einhver bætti við athugasemd við upplýsingabeiðnina þína - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Einhver hefur uppfært stöðu upplýsingabeiðninnar þinnar"
@@ -3626,7 +3631,7 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-msgid "You're long overdue a response to your FOI request - "
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "You're not following anything."

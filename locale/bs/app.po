@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Bosnian (http://www.transifex.com/mysociety/alaveteli/language/bs/)\n"
@@ -628,8 +628,9 @@ msgstr "Objašnjenje"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
-msgstr ""
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Nova ažuriranja za zahtjev '{{request_title}}'"
 
 msgid "Classify an FOI response from "
 msgstr "Klasificirajte odgovor na Zahtjev za slobodan pristup informacijama od"
@@ -768,8 +769,9 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Odgođen odgovor na Vaš Zahtjev o slobodnom pristupu informacijama  - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Odgođen odgovor na Vaš Zahtjev o slobodnom pristupu informacijama  - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Odgođen"
@@ -917,7 +919,7 @@ msgstr "Zahtjevi za slobodan pristup informacijama od strane '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr ""
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr ""
 
 msgid "Failed"
@@ -1664,8 +1666,9 @@ msgstr "Novi password: (ponovo)"
 msgid "New response to '{{title}}'"
 msgstr ""
 
-msgid "New response to your FOI request - "
-msgstr "Novi odgovor na Vaš Zahtjev o slobodnom pristupu informacijama  - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Novi odgovor na Vaš Zahtjev o slobodnom pristupu informacijama  - {{request_title}"
 
 msgid "New response to your request"
 msgstr "Novi odgovor na Vaš zahtjev"
@@ -2536,8 +2539,9 @@ msgstr "Slični zahtjevi"
 msgid "Simple search"
 msgstr "Jednostavna pretraga"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Bilješke su dodate na Vaš Zahtjev o slobodnom pristupu informacijama  - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Bilješke su dodate na Vaš Zahtjev o slobodnom pristupu informacijama  - {{request_title}"
 
 msgid "Some of the information requested has been received"
 msgstr "Dio traženih informacija je dobijen"
@@ -2549,8 +2553,9 @@ msgstr ""
 "odaberite jedan od ovih zahtjeva, pročitajte ga, i sviju obavijestite da li su\n"
 "informacije dobijene ili ne. Svi će Vam biti veoma zahvalni."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Neko je dodao komentar na Vaš Zahtjev za slobodan pristup informacijama."
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Neko je dodao komentar na Vaš Zahtjev za slobodan pristup informacijama - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr ""
@@ -3806,7 +3811,7 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-msgid "You're long overdue a response to your FOI request - "
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "You're not following anything."

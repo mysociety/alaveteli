@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/language/id/)\n"
@@ -654,8 +654,9 @@ msgstr "Klarifikasi"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
-msgstr "Silakan klarifikasi permintaan Anda - "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Silakan klarifikasi permintaan Anda - {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "Mengklasifikasi respon FOI dari "
@@ -796,8 +797,9 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Respon yang tertunda atas permintaan FOI Anda - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Respon yang tertunda atas permintaan FOI Anda - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Tertunda."
@@ -945,8 +947,9 @@ msgstr "Permintaan FOI oleh '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Permintaan FOI {{start_count}} sampai{{end_count}} dari{{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Jawaban permintaan membutuhkan {{{reason}}} - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Jawaban permintaan membutuhkan {{{reason}}} - {{{request_title}}"
 
 msgid "Failed"
 msgstr ""
@@ -1699,8 +1702,9 @@ msgstr "Kode sandi baru: (lagi)"
 msgid "New response to '{{title}}'"
 msgstr "Respon baru untuk '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Respon baru untuk permintaan FOI Anda -"
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Respon baru untuk permintaan FOI Anda - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Respon baru untuk permintaan Anda"
@@ -2570,8 +2574,9 @@ msgstr "Permintaan serupa"
 msgid "Simple search"
 msgstr "Pencarian sederhana"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Beberapa catatan telah ditambahkan ke permintaan FOI Anda - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Beberapa catatan telah ditambahkan ke permintaan FOI Anda - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Beberapa informasi yang diminta sudah diterima"
@@ -2583,8 +2588,9 @@ msgstr ""
 "pilih satu dari antara permintaan ini, bacalah, dan beri tahukan semua orang apakah \n"
 "informasi sudah disediakan atau belum. Semua orang akan sangat berterima kasih."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Seseorang menambahkan catatan kepada permintaan FOI Anda -"
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Seseorang menambahkan catatan kepada permintaan FOI Anda - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Seseorang memperbarui status permintaan Anda"
@@ -3850,8 +3856,9 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Anda telah masuk. <a href=\"#\" id=\"send-request\">Lanjut mengirim permintaan Anda</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Anda telah lama menunda respon terhadap permintaan FOI Anda - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Anda telah lama menunda respon terhadap permintaan FOI Anda - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Anda tidak mengikuti apapun."

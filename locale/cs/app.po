@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
@@ -641,8 +641,9 @@ msgstr "Vysvětlení"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Upřesnění bylo odesláno {{public_body_name}} od uživatele {{info_request_user}} dne {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "Upřesněte svůj dotaz – "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Upřesněte svůj dotaz – {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "Zařaďte dotaz od "
@@ -789,8 +790,9 @@ msgstr "Nefunkční."
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Zpožděná odpověď na váš dotaz –"
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Zpožděná odpověď na váš dotaz – {{request_title}}"
 
 msgid "Delayed."
 msgstr "Zpoždění."
@@ -937,8 +939,9 @@ msgstr "Dotaz vznesený uživatelem '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Dotazy {{start_count}} do {{end_count}} z {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Odpověď vyžaduje zásah administrátora -  ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Odpověď vyžaduje zásah administrátora -  ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Nezdařilo se"
@@ -1668,8 +1671,9 @@ msgstr "Nové heslo (znovu):"
 msgid "New response to '{{title}}'"
 msgstr "Nová odpověď na '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Nová odpověď na váš dotaz - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Nová odpověď na váš dotaz - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Nová odpověď na váš dotaz "
@@ -2539,8 +2543,9 @@ msgstr "Podobné dotazy"
 msgid "Simple search"
 msgstr "Jednoduché hledání"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "K vašemu dotazu byly přidány nějaké poznámky – "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "K vašemu dotazu byly přidány nějaké poznámky – {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Některé z požadovaných informací byly obdrženy"
@@ -2551,8 +2556,9 @@ msgstr ""
 "vyberte si dotaz, přečtěte si ji a rozhodněte, zda byl zodpovězen.\n"
 "Všichni vám budou vděční."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Někdo přidal poznámku k vašemu dotazu – "
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Někdo přidal poznámku k vašemu dotazu – {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Někdo aktualizoval status vašeho dotazu"
@@ -3809,8 +3815,9 @@ msgstr "Náhled Vám bude po přihlášení stále k dispozici. Prosím odpověz
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Odesláno. <a href=\"#\" id=\"send-request\"> Můžete vznést další dotaz.</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Dlouho jste nereagovali na odpověď ke svému dotazu –"
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Dlouho jste nereagovali na odpověď ke svému dotazu – {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Nesledujete žádný vznesený dotaz."

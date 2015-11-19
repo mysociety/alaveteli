@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/language/rw/)\n"
@@ -588,8 +588,9 @@ msgstr "Ibisobanuro"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Ibisobanuro byohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "Sobanura ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Sobanura ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru - {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "Shyingura igisubizo cy'ubwisanzure bwo kumenya amakuru cyatanzwe na"
@@ -726,8 +727,9 @@ msgstr "Ntikora."
 msgid "Delayed"
 msgstr "Cyakerewe"
 
-msgid "Delayed response to your FOI request - "
-msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyatinze gusubizwa -"
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyatinze gusubizwa - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Cyakerewe."
@@ -867,8 +869,9 @@ msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru bya {{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru {{start_count}} kugera kuri {{end_count}} bya {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Igisubizo cy'ubwisanzur bwo kumenya amakuru kirasaba umuyobozi w'urubuga ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Igisubizo cy'ubwisanzur bwo kumenya amakuru kirasaba umuyobozi w'urubuga ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Yanze"
@@ -1575,8 +1578,9 @@ msgstr "Ijambo banga rishya: (nanone)"
 msgid "New response to '{{title}}'"
 msgstr "Igisubizo gishya kuri '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Igisubizo gishya ku kibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Igisubizo gishya ku kibazo cyawe cy'ubwisanzure bwo kumenya amakuru - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Igisubizo gishya ku kibazo cyawe"
@@ -2434,8 +2438,9 @@ msgstr "Ibindi bibazo bisa n'iki"
 msgid "Simple search"
 msgstr "Gushaka byoroshye"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Hari amagambo yongewe mu kibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Hari amagambo yongewe mu kibazo cyawe cy'ubwisanzure bwo kumenya amakuru - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Amwe mu makuru yasabwe yakiriwe"
@@ -2443,8 +2448,9 @@ msgstr "Amwe mu makuru yasabwe yakiriwe"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Bamwe mu bantu batanze ibibazo ntibatubwiye niba\\nbarasubijwe cyangwa batarasubijwe.  Dukeneye <strong>Ubufasha</strong> bwawe &ndash;\\nHitamo kimwe muri ibi bibazo, ugisome, hanyuma ubwire abantu bose niba\\namakuru yaratanzwe cyangwa ataratanzwe. Abantu bose bazagushimira ibyo."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Hari umuntu wongeye amagambo mu kibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Hari umuntu wongeye amagambo mu kibazo cyawe cy'ubwisanzure bwo kumenya amakuru - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Hari umuntu wavuguruye irangamimerere ry'ikibazo cyawe"
@@ -3629,8 +3635,9 @@ msgstr "Ni uzajya uba winjiye ku rubuga uzakomeza ubashe kukibona. Subiza iyi im
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Winjiye. <a href=\"#\" id=\"send-request\">Komeza wohereze ikibazo cyawe</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyararengeranye -"
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyararengeranye - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Nta kintu uri gukurikira."

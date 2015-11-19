@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-14 21:54+0000\n"
 "Last-Translator: velmont <odin.omdal@gmail.com>\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/mysociety/alaveteli/language/nn/)\n"
@@ -604,8 +604,9 @@ msgstr "Klargjering"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Klargjering send til {{public_body_name}} av {{info_request_user}} den {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "Klargjer din krav om innsyn - "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Klargjer din krav om innsyn - {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "Klassifiser eit innsynsvar frå"
@@ -742,8 +743,9 @@ msgstr "Nedlagt."
 msgid "Delayed"
 msgstr "Forseinka"
 
-msgid "Delayed response to your FOI request - "
-msgstr "Forseinka svar på din krav om innsyn - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Forseinka svar på din krav om innsyn - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Forseinka."
@@ -883,8 +885,9 @@ msgstr "Krav om innsyn frå «{{user_name}}»"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Krav om innsyn {{start_count}} til {{end_count}} av {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Innsynssvar krev administrator ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Innsynssvar krev administrator ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Feilte"
@@ -1590,8 +1593,9 @@ msgstr "Nytt passord: (igjen)"
 msgid "New response to '{{title}}'"
 msgstr "Nytt svar til '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Nytt svar på din krav om innsyn - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Nytt svar på din krav om innsyn - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Nytt svar på henvenndelsen din"
@@ -2449,8 +2453,9 @@ msgstr "Liknande førespurnader"
 msgid "Simple search"
 msgstr "Enkelt søk"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Nokre merknader er lagt til innsynskravet ditt – "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Nokre merknader er lagt til innsynskravet ditt – {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Noko av den etterspurde informasjonen er motteke"
@@ -2458,8 +2463,9 @@ msgstr "Noko av den etterspurde informasjonen er motteke"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Nokre som har sendt inn førespurnader har ikkje fortalt oss om dei var\\nvellukka eller ikkje. Vi treng <strong>di hjelp</strong> &ndash;\\nVel ein av førespurnadene, les ho, og la alle få vita om\\n den etterspurde information er gjeve. Alle vil bli svært takknemlege."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Nokon har lagt til ein merknad på innsynskravet ditt - "
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Nokon har lagt til ein merknad på innsynskravet ditt - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Nokre har oppdatert status på førespurnaden din"
@@ -3651,8 +3657,9 @@ msgstr "Du vil enno vera i stand til å sjå henne når du er pålogga på netts
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Du er inne. <a href=\"#\" id=\"send-request\">Hald fram innsending av din førespurnad</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Du har venta altfor lenge med å svara på din førespurnad - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Du har venta altfor lenge med å svara på din førespurnad - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Du følgjer ikkje noko."

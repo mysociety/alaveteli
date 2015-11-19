@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:47+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language/hr/)\n"
@@ -619,8 +619,9 @@ msgstr "Objašnjenje"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Pojašnjenje poslano {{public_body_name}} od {{info_request_user}} dana {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "Pojasnite svoj zahtjev za pristup informacijama - "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Pojasnite svoj zahtjev za pristup informacijama - {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "Klasificirajte odgovor na zahtjev za pristup informacijama od"
@@ -760,8 +761,9 @@ msgstr "Defunkc."
 msgid "Delayed"
 msgstr "Odgođeno"
 
-msgid "Delayed response to your FOI request - "
-msgstr "Odgovor na Vaš PPI zahtjev kasni  - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Odgovor na Vaš PPI zahtjev kasni  - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Odgovor kasni."
@@ -905,8 +907,9 @@ msgstr "Zahtjevi za pristup informacijama od '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Zahtjevi za pristup informacijama {{start_count}} do {{end_count}} od {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "PPI odgovor zahtijeva administraciju ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "PPI odgovor zahtijeva administraciju ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Nije uspjelo"
@@ -1636,8 +1639,9 @@ msgstr "Nova lozinka: (ponovo)"
 msgid "New response to '{{title}}'"
 msgstr "Novi odgovor na '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Odgovor na Vaš zahtjev za pristup informacijama - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Odgovor na Vaš zahtjev za pristup informacijama - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Novi odgovor na Vaš zahtjev"
@@ -2509,8 +2513,9 @@ msgstr "Slični zahtjevi"
 msgid "Simple search"
 msgstr "Jednostavna pretraga"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Bilješke su dodane Vašem zahtjevu za pristup informacijama  - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Bilješke su dodane Vašem zahtjevu za pristup informacijama  - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Dio traženih informacija je dobijen"
@@ -2518,8 +2523,9 @@ msgstr "Dio traženih informacija je dobijen"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Neki od podnositelja zahtjeva nas nisu obavijestili jesu li njihovi zahtjevi bili\\n uspješni ili ne. Trebamo <strong>Vašu</strong> pomoć &ndash;\\n odaberite jedan od ovih zahtjeva, pročitajte ga, obavijestite sve jesu li\\n informacije dobijene ili ne. Svi će Vam biti veoma zahvalni."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Netko je dodao komentar na Vaš zahtjev za pristup informacijama -"
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Netko je dodao komentar na Vaš zahtjev za pristup informacijama - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Netko je ažurirao status Vašeg zahtjeva"
@@ -3753,8 +3759,9 @@ msgstr "Još uvijek će Vam biti vidljivo kad ste prijavljeni na stranici. Molim
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Prijavljeni ste. <a href=\"#\" id=\"send-request\">Nastavite sa slanjem Vašeg zahtjeva</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Prilično kasni odgovor na vaš PPI zahtjev - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Prilično kasni odgovor na vaš PPI zahtjev - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Ne pratite ništa."

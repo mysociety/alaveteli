@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Galician (http://www.transifex.com/mysociety/alaveteli/language/gl/)\n"
@@ -638,7 +638,7 @@ msgstr "Aclaración"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
+msgid "Clarify your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "Classify an FOI response from "
@@ -780,8 +780,9 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Respuesta retrasada a tu solicitud de acceso a información - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Respuesta retrasada a tu solicitud de acceso a información - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Retrasado."
@@ -929,7 +930,7 @@ msgstr "Solicitudes de información por '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Solicitudes {{start_count}} a {{end_count}} de {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr ""
 
 msgid "Failed"
@@ -1683,8 +1684,9 @@ msgstr "Nueva contraseña: (de nuevo)"
 msgid "New response to '{{title}}'"
 msgstr ""
 
-msgid "New response to your FOI request - "
-msgstr "Nueva respuesta a tu solicitud de información - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Nueva respuesta a tu solicitud de información - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Nueva respuesta a tu solicitud"
@@ -2556,8 +2558,9 @@ msgstr "Solicitudes similares"
 msgid "Simple search"
 msgstr "Búsqueda básica"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Nuevos comentarios en tu solicitud de acceso a información - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Nuevos comentarios en tu solicitud de acceso a información - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Parte de la información solicitada ha sido recibida"
@@ -2569,8 +2572,9 @@ msgstr ""
 "elije una de las solicitudes, léela, y háznos saber si se ha obtenido o no\n"
 "la información. Todos te estaremos agradecidos."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Nuevo comentario en tu solicitud de acceso a información - "
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Nuevo comentario en tu solicitud de acceso a información - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr ""
@@ -3839,8 +3843,9 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "La respuesta a tu solicitud de información está muy retrasada - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "La respuesta a tu solicitud de información está muy retrasada - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr ""

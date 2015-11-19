@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/language/he_IL/)\n"
@@ -602,8 +602,9 @@ msgstr "הבהרה"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "הבהרה נשלח ל- {{public_body_name}} ע״י {{info_request_user}} בתאריך {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "הבהירו את בקשת המידע - "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "הבהירו את בקשת המידע - {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "קטלג בקשה מאת"
@@ -743,8 +744,9 @@ msgstr "מבוטל."
 msgid "Delayed"
 msgstr "מעוכב"
 
-msgid "Delayed response to your FOI request - "
-msgstr "עיכוב בתגובה לבקשה"
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "עיכוב בתגובה לבקשה {{request_title}}"
 
 msgid "Delayed."
 msgstr "מעוכב."
@@ -884,8 +886,9 @@ msgstr "בקשה לקבלת מידע, שהוגשה על-ידי '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "בקשות לקבלת מידע {{start_count}} עד {{end_count}} מתוך {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "התגובה דורשת התערבות מנהל  ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "התגובה דורשת התערבות מנהל  ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "נכשל"
@@ -1591,8 +1594,9 @@ msgstr "סיסמה חדשה (שוב):"
 msgid "New response to '{{title}}'"
 msgstr "תשובה חדשה ל'{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "תגובה חדשה לבקשה שלך -"
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "תגובה חדשה לבקשה שלך - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "תגובה חדשה לבקשה שלך"
@@ -2450,8 +2454,9 @@ msgstr "בקשות דומות"
 msgid "Simple search"
 msgstr "חיפוש פשוט"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "התווספו הערות לבקשה שלך"
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "התווספו הערות לבקשה שלך {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "חלק מהמידע המבוקש התקבל"
@@ -2459,8 +2464,9 @@ msgstr "חלק מהמידע המבוקש התקבל"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "חלק מהאנשים אשר הגישו בקשות לא עדכנו האם הן הצליחו או לא. \\n אנו <strong>זקוקים לעזרתך</strong> -\\n בחר באחת מהבקשות, קרא אותה, ואפשר לכולם לדעת האם המידע סופק. \\n כולנו נהיה אסירי תודה."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "התווספה הערה לבקשה שלך"
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "התווספה הערה לבקשה שלך {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "מישהו עדכן את הססטוס של הדרישה שלך"
@@ -3645,8 +3651,9 @@ msgstr "עדיין תוכלו לצפות כאשר תהיו מחוברים לאת
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "אתם בפנים. <a href=\"#\" id=\"send-request\">המשיכו בשליחת הבקשה</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "אתם מתעכבים בתגובתכם לבקשת חופש המידע – "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "אתם מתעכבים בתגובתכם לבקשת חופש המידע – {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "אתם לא עוקבים אחר דבר."

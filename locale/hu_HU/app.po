@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/mysociety/alaveteli/language/hu_HU/)\n"
@@ -631,8 +631,9 @@ msgstr "Pontosítás"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
-msgstr "A közérdekűadat-igénylés pontosítása"
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "A közérdekűadat-igénylés pontosítása {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "-tól/-től származó közérdekű adat igénylésére érkező válasz besorolása "
@@ -773,8 +774,9 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Késedelmes válasz a közérdekű adatok igénylésére - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Késedelmes válasz a közérdekű adatok igénylésére - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Késedelmes. "
@@ -922,8 +924,9 @@ msgstr "'{{user_name}}' által igényelt közérdekű adatok "
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "közérdekűadat-igénylések: {{start_count}} - {{end_count}}, összesen: {{total_count}} "
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "A közérdekűadat-igénylés megválaszolásához adminisztrátori beavatkozás szükséges ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "A közérdekűadat-igénylés megválaszolásához adminisztrátori beavatkozás szükséges ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr ""
@@ -1677,8 +1680,9 @@ msgstr "Új jelszó: (újból) "
 msgid "New response to '{{title}}'"
 msgstr "Új válasz a(z) '{{title}}' igénylésre"
 
-msgid "New response to your FOI request - "
-msgstr "Új válasz közérdekű adatok igénylésére - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Új válasz közérdekű adatok igénylésére - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Új válasz igénylésére - "
@@ -2552,8 +2556,9 @@ msgstr "Hasonló igénylések "
 msgid "Simple search"
 msgstr "Egyszerű keresés "
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Közérdekűadat-igényléséhez hozzászóltak - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Közérdekűadat-igényléséhez hozzászóltak - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Az igényelt információ egy része megérkezett "
@@ -2565,8 +2570,9 @@ msgstr ""
 "kérjük válassza ki a kívánt igénylést, olvassa el, és tájékoztasson mindenkit, hogy a kért\n"
 "információt megtalálta-e. Ezért mindenki nagyon hálás lesz."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Közérdekűadat-igényléséhez valaki hozzászólt - "
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Közérdekűadat-igényléséhez valaki hozzászólt - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Valaki módosította az igénylés állapotát"
@@ -3834,8 +3840,9 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Bejelentkezett. <a href=\"#\" id=\"send-request\">Igénylés elküldésének folytatása</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Közérdekűadat-igénylésére már rég választ kellett volna kapnia - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Közérdekűadat-igénylésére már rég választ kellett volna kapnia - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Ön nem követ semmit."

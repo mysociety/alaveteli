@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
@@ -601,8 +601,9 @@ msgstr "Eglurhad"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Eglurhad a anfonwyd at {{public_body_name}} gan {{info_request_user}} ar {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "Eglurwch eich cais Rhyddid Gwybodaeth - "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Eglurwch eich cais Rhyddid Gwybodaeth - {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "Dosbarthwch ymateb Rh.G. oddiwrth"
@@ -739,8 +740,9 @@ msgstr "Wedi darfod."
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Ymateb hwyr i'ch cais Rh.G. -"
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Ymateb hwyr i'ch cais Rh.G. - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Hwyr."
@@ -880,8 +882,9 @@ msgstr "Ceisiadau Rhyddid Gwybodaeth gan '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Ceisiadau Rhyddid Gwybodaeth {{start_count}} i {{end_count}} o {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Mae ar Ymateb Rhyddid Gwybodaeth angen gweinyddu ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Mae ar Ymateb Rhyddid Gwybodaeth angen gweinyddu ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Methwyd"
@@ -1589,8 +1592,9 @@ msgstr "Cyfrinair newydd: (eto)"
 msgid "New response to '{{title}}'"
 msgstr "Ymateb newydd i '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Ymateb newydd i'ch cais Rhyddid Gwybodaeth - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Ymateb newydd i'ch cais Rhyddid Gwybodaeth - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Ymateb newydd i'ch cais"
@@ -2452,8 +2456,9 @@ msgstr "Ceisiadau tebyg"
 msgid "Simple search"
 msgstr "Chwiliad syml"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Mae rhai nodiadau wedi cael eu hychwanegu at eich cais Rhyddid Gwybodaeth - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Mae rhai nodiadau wedi cael eu hychwanegu at eich cais Rhyddid Gwybodaeth - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Mae peth o'r wybodaeth y gwnaed cais amdani wedi ei dderbyn."
@@ -2461,8 +2466,9 @@ msgstr "Mae peth o'r wybodaeth y gwnaed cais amdani wedi ei dderbyn."
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Nid yw rhai pobl sydd wedi gwneud ceisiadau wedi rhoi gwybod i ni a oeddynt yn llwyddiannus ai peidio. Mae angen <strong>eich</strong> help - dewisiwch un o'r ceisiadau hyn, ei ddarllen, a gadael i bawb wybod a yw'r wybodaeth wedi cael ei darparu. Bydd pawb yn eithriadol o ddiolchgar."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Ychwanegodd rhywun nodyn at eich cais Rhyddid Gwybodaeth - "
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Ychwanegodd rhywun nodyn at eich cais Rhyddid Gwybodaeth - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Mae rhywun wedi diweddaru statws eich cais"
@@ -3657,8 +3663,9 @@ msgstr "Byddwch yn dal yn gallu ei weld tra byddwch wedi mewngofnodi i'r wefan. 
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Rydych wedi mewngofnodi. <a href=\"#\"  id=\"send-request\"> Parhau i anfon eich cais</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Dylech fod wedi derbyn ymateb i'ch cais Rhyddid Gwybodaeth ers tro- "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Dylech fod wedi derbyn ymateb i'ch cais Rhyddid Gwybodaeth ers tro- {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Nid ydych yn dilyn dim."

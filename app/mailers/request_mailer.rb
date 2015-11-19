@@ -69,7 +69,10 @@ class RequestMailer < ApplicationMailer
 
     mail(:from => user.name_and_email,
          :to => contact_from_name_and_email,
-         :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title.html_safe))
+         :subject => _("FOI response requires admin ({{reason}}) - " \
+                        "{{request_title}}",
+                       :reason => info_request.described_state,
+                       :request_title => info_request.title.html_safe))
   end
 
   # Tell the requester that a new response has arrived
@@ -85,7 +88,8 @@ class RequestMailer < ApplicationMailer
 
     mail(:from => contact_from_name_and_email,
          :to => info_request.user.name_and_email,
-         :subject => _("New response to your FOI request - ") + info_request.title.html_safe,
+         :subject => _("New response to your FOI request - {{request_title}}",
+                       :request_title => info_request.title.html_safe),
          :charset => "UTF-8",
          # not much we can do if the user's email is broken
          :reply_to => contact_from_name_and_email)
@@ -105,7 +109,11 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
 
     auto_generated_headers
-    mail_user_with_info_request_title(user, _("Delayed response to your FOI request - "), info_request)
+    mail_user(
+      user,
+      _("Delayed response to your FOI request - {{request_title}}",
+        :request_title => info_request.title.html_safe)
+    )
   end
 
   # Tell the requester that the public body is very late in replying
@@ -120,7 +128,11 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
 
     auto_generated_headers
-    mail_user_with_info_request_title(user, _("You're long overdue a response to your FOI request - "), info_request)
+    mail_user(
+      user,
+      _("You're long overdue a response to your FOI request - {{request_title}}",
+        :request_title => info_request.title.html_safe)
+    )
   end
 
   # Tell the requester that they need to say if the new response
@@ -137,7 +149,8 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
 
     auto_generated_headers
-    mail_user(info_request.user, _("Was the response you got to your FOI request any good?"))
+    mail_user(info_request.user, _("Was the response you got to your FOI " \
+                                      "request any good?"))
   end
 
   # Tell the requester that someone updated their old unclassified request
@@ -146,7 +159,8 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
 
     auto_generated_headers
-    mail_user(info_request.user, _("Someone has updated the status of your request"))
+    mail_user(info_request.user, _("Someone has updated the status of " \
+                                      "your request"))
   end
 
   # Tell the requester that they need to clarify their request
@@ -164,7 +178,11 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
 
     auto_generated_headers
-    mail_user_with_info_request_title(info_request.user, _("Clarify your FOI request - "), info_request)
+    mail_user(
+      info_request.user,
+      _("Clarify your FOI request - {{request_title}}",
+        :request_title => info_request.title.html_safe)
+    )
   end
 
   # Tell requester that somebody add an annotation to their request
@@ -173,14 +191,25 @@ class RequestMailer < ApplicationMailer
     @url = comment_url(comment)
 
     auto_generated_headers
-    mail_user_with_info_request_title(info_request.user, _("Somebody added a note to your FOI request - "), info_request)
+    mail_user(
+      info_request.user,
+      _("Somebody added a note to your FOI request - {{request_title}}",
+        :request_title => info_request.title.html_safe)
+    )
   end
+
+  # Tell requester that somebody added annotations to more than one of
+  # their requests
   def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
     @count, @info_request = count, info_request
     @url = comment_url(earliest_unalerted_comment)
 
     auto_generated_headers
-    mail_user_with_info_request_title(info_request.user, _("Some notes have been added to your FOI request - "), info_request)
+    mail_user(
+      info_request.user,
+      _("Some notes have been added to your FOI request - {{request_title}}",
+        :request_title => info_request.title.html_safe)
+    )
   end
 
   # Class function, called by script/mailin with all incoming responses.
@@ -508,6 +537,8 @@ class RequestMailer < ApplicationMailer
   end
 
   def mail_user_with_info_request_title(user, subject, info_request)
+    warn %q([DEPRECATION] RequestMailer#mail_user_with_info_request_title
+              will be removed in Alaveteli release 0.25).squish
     mail_user(user, subject + info_request.title.html_safe)
   end
 

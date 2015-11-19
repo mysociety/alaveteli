@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/mysociety/alaveteli/language/sr@latin/)\n"
@@ -602,8 +602,9 @@ msgstr "Objašnjenje"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
-msgstr "Razjasnite Vaš Zahtev za slobodan pristup informacijama od javnog značaja - "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Razjasnite Vaš Zahtev za slobodan pristup informacijama od javnog značaja - {{request_title}}"
 
 msgid "Classify an FOI response from "
 msgstr "Klasifikujte odgovor na ZOSPIOJ zahtev od"
@@ -740,8 +741,9 @@ msgstr "Neupotrebljivo."
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Odloženi odgovor na Vaš ZOSPIOJ zahtev  - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Odloženi odgovor na Vaš ZOSPIOJ zahtev  - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Odložen"
@@ -887,8 +889,9 @@ msgstr "ZOSPIOJ zahtevi od strane '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "ZOSPIOJ zahtevi {{start_count}} do {{end_count}} od ukupno {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Odgovor na Zahtev za slobodan pristup informacijama od javnog značaja zahteva administratorsku dozvolu  -  ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Odgovor na Zahtev za slobodan pristup informacijama od javnog značaja zahteva administratorsku dozvolu  -  ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr ""
@@ -1601,8 +1604,9 @@ msgstr "Nova lozinka: (ponovo)"
 msgid "New response to '{{title}}'"
 msgstr "Novi odgovor na '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Novi odgovor na Vaš zahtev po Zakonu o slobodnom pristupu informacijama od javnog značaja  - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Novi odgovor na Vaš zahtev po Zakonu o slobodnom pristupu informacijama od javnog značaja  - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Novi odgovor na Vaš zahtev"
@@ -2473,8 +2477,9 @@ msgstr "Slični zahtevi"
 msgid "Simple search"
 msgstr "Jednostavna pretraga"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Beleške su dodate na Vaš zahtev po ZOSPIOJ - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Beleške su dodate na Vaš zahtev po ZOSPIOJ - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Deo traženih informacija je primljen"
@@ -2486,8 +2491,9 @@ msgstr ""
 "odaberite jedan od ovih zahteva, pročitajte ga - i obavestite sve da li su\n"
 "informacije dobijene ili ne. Svi će Vam biti veoma zahvalni."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Neko je dodao komentar na Vaš zahtev po ZOSPIOJ."
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Neko je dodao komentar na Vaš zahtev po ZOSPIOJ. {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Neko je promenio status Vašeg zahteva"
@@ -3732,8 +3738,9 @@ msgstr "I dalje ćete moći da ga vidite kada ste prijavljeni na sistem. Molimo 
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Prijavili ste se. <a href=\"#\" id=\"send-request\">Nastavite podnošenje zahteva</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Odgovor na Vaš zahtev za slobodan pristup informacijama od javnog značaja kasni - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Odgovor na Vaš zahtev za slobodan pristup informacijama od javnog značaja kasni - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Trenutno ne pratite ništa pomoću e-mail biltena."

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
@@ -614,7 +614,7 @@ msgstr "Azalpena"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
+msgid "Clarify your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "Classify an FOI response from "
@@ -752,8 +752,9 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Zure informaziorako sarbidearen eskabidea atzeratuta dabil - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Zure informaziorako sarbidearen eskabidea atzeratuta dabil - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Atzeratuta."
@@ -896,7 +897,7 @@ msgstr "'{{user_name}}'-k egindako informazio eskabideak"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Eskabideak {{start_count}}-tik {{end_count}}-ra, {{total_count}} guztira"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr ""
 
 msgid "Failed"
@@ -1613,8 +1614,9 @@ msgstr "Pasahitza berria: (berriro)"
 msgid "New response to '{{title}}'"
 msgstr ""
 
-msgid "New response to your FOI request - "
-msgstr "Zure informazio eskabideari egindako erantzun berria - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Zure informazio eskabideari egindako erantzun berria - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Zure eskabideari egindako erantzun berria"
@@ -2477,8 +2479,9 @@ msgstr "Antzeko eskabideak"
 msgid "Simple search"
 msgstr "Oinarrizko bilaketa"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berriak - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berriak - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Eskatutako informazio zati bat jaso da"
@@ -2488,8 +2491,9 @@ msgstr ""
 "Eskabidea egin zuten zenbaitek ez digute jakinarazi arrakasta izan zuten ala ez. <strong>Zure</strong> laguntza behar dugu &ndash;\n"
 "aukera ezazu eskabideren bat, irakurri eta jakinarazi informazioa lortu duen ala ez. Guztion eskerrona izango duzu."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berria - "
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berria - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr ""
@@ -3694,8 +3698,9 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Zure informazio eskabidearen erantzuna oso atzeratuta dago - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Zure informazio eskabidearen erantzuna oso atzeratuta dago - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr ""
@@ -3730,7 +3735,6 @@ msgstr ""
 msgid "Your email:"
 msgstr ""
 
-#, fuzzy
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Zure erantzuna ez da bidali, eskabide hau blokeatuta dagoelako, spama ekidetzearren. Benetan erantzuna bidali nahi baldin baduzu, mesedez, jar zaitez gurekin <a href=\"{{contact_url}}\">harremanetan</a>."
 

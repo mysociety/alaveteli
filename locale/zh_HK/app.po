@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 15:15+0000\n"
+"POT-Creation-Date: 2015-12-02 15:38+0000\n"
 "PO-Revision-Date: 2015-11-09 14:44+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
@@ -589,7 +589,7 @@ msgstr ""
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
+msgid "Clarify your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "Classify an FOI response from "
@@ -727,7 +727,7 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
+msgid "Delayed response to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "Delayed."
@@ -868,7 +868,7 @@ msgstr ""
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr ""
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr ""
 
 msgid "Failed"
@@ -1574,7 +1574,7 @@ msgstr ""
 msgid "New response to '{{title}}'"
 msgstr ""
 
-msgid "New response to your FOI request - "
+msgid "New response to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "New response to your request"
@@ -2431,8 +2431,9 @@ msgstr "類似的索取資料要求"
 msgid "Simple search"
 msgstr "簡單搜尋"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "你的索取資料要求已加入一些備註"
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "你的索取資料要求已加入一些備註 {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr ""
@@ -2440,8 +2441,9 @@ msgstr ""
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr ""
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "有人在你的索取資料要求加入備註"
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "有人在你的索取資料要求加入備註 - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "有人更新了你的索取資料要求的狀態"
@@ -3621,7 +3623,7 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-msgid "You're long overdue a response to your FOI request - "
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "You're not following anything."
