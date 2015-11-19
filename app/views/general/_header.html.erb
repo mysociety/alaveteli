@@ -5,7 +5,7 @@
     <% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
       <div id="logged_in_bar" class="logged_in_bar">
         <% if @user %>
-          <%= _('Hello, {{username}}!', :username => h(@user.name))%>
+          <%= _('Hello, {{user_name}}!', :user_name => h(@user.name))%>
 
           <% if @user %>
             <%=link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>

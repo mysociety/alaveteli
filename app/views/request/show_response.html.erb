@@ -1,9 +1,12 @@
 <% if @incoming_message.nil? %>
-  <% @title = _("Send follow up to '{{title}}'", :title => h(@info_request.title)) %>
+  <% @title = _("Send follow up to '{{request_title}}'",
+                  :request_title => h(@info_request.title)) %>
 <% elsif @incoming_message.recently_arrived %>
-  <% @title = _("New response to '{{title}}'", :title => h(@info_request.title)) %>
+  <% @title = _("New response to '{{request_title}}'",
+                  :request_title => h(@info_request.title)) %>
 <% else %>
-  <% @title = _("Response to '{{title}}'", :title => h(@info_request.title)) %>
+  <% @title = _("Response to '{{request_title}}'",
+                  :request_title => h(@info_request.title)) %>
 <% end %>
 
 <%= foi_error_messages_for :incoming_message, :outgoing_message %>

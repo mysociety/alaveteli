@@ -1,4 +1,5 @@
-<% @title = _("FOI request – {{title}}", :title => h(@info_request.title)) %>
+<% @title = _("FOI request – {{request_title}}",
+              :request_title => h(@info_request.title)) %>
 
 <h1><%=@title%></h1>
 
