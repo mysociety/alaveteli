@@ -1,4 +1,4 @@
-<% @title = "Contact " + h(@recipient_user.name) %>
+<% @title = _("Contact {{recipient}}", :recipient => h(@recipient_user.name)) %>
 
 <% if not @user %>
   <% raise "You need to be logged in" %>
