@@ -25,7 +25,8 @@
 
   <% if ! @info_request.is_external? %>
     <div id="owner_actions" class="owner_actions">
-      <strong><%= _('{{info_request_user_name}} only:',:info_request_user_name=>h(@info_request.user_name)) %></strong>
+      <strong><%= _('{{user_name}} only:',
+                    :user_name => h(@info_request.user_name)) %></strong>
 
       <ul>
         <li>

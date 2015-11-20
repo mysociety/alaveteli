@@ -4,7 +4,9 @@
       <%= link_to highlight_words(info_request_batch.title, @highlight_words), info_request_batch_path(info_request_batch) %>
     </span>
     <div class="requester">
-      <%= _('Batch created by {{info_request_user}} on {{date}}.', :info_request_user => user_link_absolute(info_request_batch.user),:date=>simple_date(info_request_batch.created_at)) %>
+      <%= _('Batch created by {{user_name}} on {{date}}.',
+            :user_name => user_link_absolute(info_request_batch.user),
+            :date => simple_date(info_request_batch.created_at)) %>
     </div>
   </div>
 
