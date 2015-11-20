@@ -87,9 +87,14 @@
       </p>
 
       <p>
-        <%= link_to _('Send message to ') + h(@display_user.name), contact_user_path(:id => @display_user.id) %>
         <% if @is_you %>
-          (<%= _('just to see how it works') %>)
+          <%= link_to _('Send message to {{user_name}} just to see how it works',
+                        :user_name => h(@display_user.name)),
+                      contact_user_path(:id => @display_user.id) %>
+        <% else %>
+          <%= link_to _('Send message to {{user_name}}',
+                        :user_name => h(@display_user.name)),
+                      contact_user_path(:id => @display_user.id) %>
         <% end %>
       </p>
 

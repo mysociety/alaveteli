@@ -174,7 +174,8 @@
 
     <p>
       <% if not @is_owning_user %>
-        (You will be asked to sign in as <%= user_link(@info_request.user) %>)
+        <%= _("(You will be asked to sign in as {{user_name}})",
+              :user_name => user_link(@info_request.user)) %>
       <% end %>
     </p>
   <% end %>

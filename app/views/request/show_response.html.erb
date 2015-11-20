@@ -35,10 +35,15 @@
         <%= _('You want to <strong>give your postal address</strong> to the authority in private.') %>
       </dt>
       <dd>
-        <%= _('To do that please send a private email to ') %><%=h @postal_email_name %>
-        &lt;<%= mail_to h(@postal_email) %>&gt;
-        <%= _('containing your postal address, and asking them to reply to this request. Or you could phone them.') %>
-        <%= _('When you receive the paper response, please help others find out what it says:') %>
+        <%= _('To do that please send a private email to {{postal_email}} ' \
+                  '{{postal_email_link}} containing your postal address, ' \
+                  'and asking them to reply to this request. Or you could' \
+                  'phone them.',
+              :postal_email => h(@postal_email_name),
+              :postal_email_link => "&lt;#{mail_to h(@postal_email)}&gt;") %>
+
+        <%= _('When you receive the paper response, please help others find ' \
+                 'out what it says:') %>
         <ul>
           <li><%= _('Add an annotation to your request with choice quotes, ' \
                     'or a <strong>summary of the response</strong>.') %></li>
