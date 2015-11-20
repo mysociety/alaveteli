@@ -1,4 +1,5 @@
-<% @title = _("Preview new annotation on '{{info_request_title}}'",:info_request_title=>h(@info_request.title)) %>
+<% @title = _("Preview new annotation on '{{request_title}}'",
+              :request_title=>h(@info_request.title)) %>
 
 <%= form_for(@comment, :html => { :id => 'preview_form' }, :url => { :controller => "comment", :action => "new", :type => "request" } ) do |f| %>
 

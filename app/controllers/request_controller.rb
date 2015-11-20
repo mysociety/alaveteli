@@ -441,7 +441,12 @@ class RequestController < ApplicationController
 
       # Don't give advice on what to do next, as it isn't their request
       if session[:request_game]
-        flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(info_request.title), :url=>CGI.escapeHTML(request_path(info_request)))
+        flash[:notice] = _('Thank you for updating the status of the request ' \
+                              '\'<a href="{{url}}">{{request_title}}</a>\'. ' \
+                              'There are some more requests below for you ' \
+                              'to classify.',
+                           :request_title => CGI.escapeHTML(info_request.title),
+                           :url => CGI.escapeHTML(request_path(info_request)))
         redirect_to categorise_play_url
       else
         flash[:notice] = _('Thank you for updating this request!')
@@ -879,10 +884,10 @@ class RequestController < ApplicationController
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       if authenticated?(
           :web => _("To download the zip file"),
-          :email => _("Then you can download a zip file of {{info_request_title}}.",
-                      :info_request_title=>@info_request.title),
-          :email_subject => _("Log in to download a zip file of {{info_request_title}}",
-                              :info_request_title=>@info_request.title)
+          :email => _("Then you can download a zip file of {{request_title}}.",
+                      :request_title=>@info_request.title),
+          :email_subject => _("Log in to download a zip file of {{request_title}}",
+                              :request_title=>@info_request.title)
         )
         # Test for whole request being hidden or requester-only
         if !@info_request.user_can_view?(@user)

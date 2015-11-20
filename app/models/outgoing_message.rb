@@ -117,9 +117,9 @@ class OutgoingMessage < ActiveRecord::Base
       letter += "\n\n"
       letter += _("I am writing to request an internal review of " \
                     "{{authority_name}}'s handling of my FOI request " \
-                    "'{{info_request_title}}'.",
+                    "'{{request_title}}'.",
                   :authority_name => info_request.public_body.name,
-                  :info_request_title => info_request.title)
+                  :request_title => info_request.title)
       letter += "\n\n\n\n [ #{ get_internal_review_insert_here_note } ] \n\n\n\n"
       letter += _("A full history of my FOI request and all correspondence " \
                     "is available on the Internet at this address: {{url}}",
