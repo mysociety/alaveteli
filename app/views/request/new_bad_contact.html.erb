@@ -4,8 +4,8 @@
 <h1><%=@title%></h1>
 
 <p><%= _('Unfortunately, we do not have a working ' \
-         '{{info_request_law_used_full}} address for',
-          :info_request_law_used_full => @info_request.law_used_human(:full)) %>
+         '{{law_used_full}} address for',
+          :law_used_full => @info_request.law_used_human(:full)) %>
     <%=h @info_request.public_body.name %>.
     <%= _('You may be able to find one on their website, or by phoning ' \
           'them up and asking. If you manage to find one, then please ' \
