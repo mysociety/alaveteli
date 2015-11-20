@@ -1,4 +1,4 @@
-<% @title = h(@display_user.name) + _(" - wall") %>
+<% @title = _("{{user_name}} - wall", :user_name => h(@display_user.name)) %>
 
 <div class="medium_column">
   <% if @is_you %>
