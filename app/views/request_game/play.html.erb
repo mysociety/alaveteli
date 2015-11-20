@@ -9,7 +9,7 @@
     <br><%= pluralize(@missing, 'request')%> left to categorise / <%= @total %> total
   </p>
 
-  <h2>Top recent players</h2>
+  <h2><%= _("Top recent players") %></h2>
   <table>
     <% @league_table_28_days.each_with_index do |classifications, index| %>
       <tr>
@@ -20,7 +20,7 @@
     <% end %>
   </table>
 
-  <h2>All time best players</h2>
+  <h2><%= _("All time best players") %></h2>
   <table>
     <% @league_table_all_time.each_with_index do |classifications, index| %>
       <tr>
