@@ -107,11 +107,16 @@ class RequestController < ApplicationController
       assign_variables_for_show_template(@info_request)
 
       if @update_status
-        return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
-                                                              :web => _("To update the status of this FOI request"),
-                                                              :email => _("Then you can update the status of your request to ") + @info_request.public_body.name + ".",
-                                                              :email_subject => _("Update the status of your request to ") + @info_request.public_body.name
-                                                              )
+        return if !@is_owning_user && !authenticated_as_user?(
+          @info_request.user,
+          :web => _("To update the status of this FOI request"),
+          :email => _("Then you can update the status of your request to " \
+                        "{{authority_name}}.",
+                      :authority_name => @info_request.public_body.name),
+          :email_subject => _("Update the status of your request to " \
+                                "{{authority_name}}",
+                              :authority_name => @info_request.public_body.name)
+        )
       end
 
       # Sidebar stuff
@@ -178,9 +183,13 @@ class RequestController < ApplicationController
     end
 
     @filters = params.merge(:latest_status => @view)
-    @title = _('Browse and search requests')
 
-    @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
+    if (@page > 1)
+      @title = _("Browse and search requests (page {{count}})", :count => @page)
+    else
+      @title = _('Browse and search requests')
+    end
+
     @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
@@ -392,10 +401,14 @@ class RequestController < ApplicationController
 
     # Check authenticated, and parameters set.
     unless Ability::can_update_request_state?(authenticated_user, info_request)
-      authenticated_as_user?(info_request.user,
-                             :web => _("To classify the response to this FOI request"),
-                             :email => _("Then you can classify the FOI response you have got from ") + info_request.public_body.name + ".",
-                             :email_subject => _("Classify an FOI response from ") + info_request.public_body.name)
+      authenticated_as_user?(
+        info_request.user,
+        :web => _("To classify the response to this FOI request"),
+        :email => _("Then you can classify the FOI response you have got " \
+                      "from {{authority_name}}.",
+                    :authority_name => info_request.public_body.name),
+        :email_subject => _("Classify an FOI response from {{authority_name}}",
+                            :authority_name => info_request.public_body.name))
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
@@ -672,17 +685,24 @@ class RequestController < ApplicationController
     # Force login early - this is really the "send followup" form. We want
     # to make sure they're the right user first, before they start writing a
     # message and wasting their time if they are not the requester.
-    if !authenticated_as_user?(@info_request.user,
-                               :web => @incoming_message.nil? ?
-                               _("To send a follow up message to ") + @info_request.public_body.name :
-                               _("To reply to ") + @info_request.public_body.name,
-                               :email => @incoming_message.nil? ?
-                               _("Then you can write follow up message to ") + @info_request.public_body.name + "." :
-                               _("Then you can write your reply to ") + @info_request.public_body.name + ".",
-                               :email_subject => @incoming_message.nil? ?
-                               _("Write your FOI follow up message to ") + @info_request.public_body.name :
-                               _("Write a reply to ") + @info_request.public_body.name
-                               )
+    if !authenticated_as_user?(
+      @info_request.user,
+      :web => @incoming_message.nil? ?
+        _("To send a follow up message to {{authority_name}}",
+          :authority_name => @info_request.public_body.name) :
+        _("To reply to {{authority_name}}",
+          :authority_name => @info_request.public_body.name),
+      :email => @incoming_message.nil? ?
+        _("Then you can write follow up message to {{authority_name}}.",
+          :authority_name => @info_request.public_body.name) :
+        _("Then you can write your reply to {{authority_name}}.",
+          :authority_name => @info_request.public_body.name),
+      :email_subject => @incoming_message.nil? ?
+        _("Write your FOI follow up message to {{authority_name}}",
+          :authority_name => @info_request.public_body.name) :
+        _("Write a reply to {{authority_name}}",
+          :authority_name => @info_request.public_body.name)
+      )
       return
     end
 
@@ -896,7 +916,9 @@ class RequestController < ApplicationController
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
       @reason_params = {
-        :web => _("To upload a response, you must be logged in using an email address from ") +  CGI.escapeHTML(@info_request.public_body.name),
+        :web => _("To upload a response, you must be logged in using an " \
+                    "email address from {{authority_name}}",
+                  :authority_name => CGI.escapeHTML(@info_request.public_body.name)),
         :email => _("Then you can upload an FOI response. "),
         :email_subject => _("Confirm your account on {{site_name}}",
                             :site_name => site_name)
@@ -935,7 +957,10 @@ class RequestController < ApplicationController
       mail = RequestMailer.fake_response(@info_request, @user, body, file_name, file_content)
 
       @info_request.receive(mail, mail.encoded, true)
-      flash[:notice] = _("Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to ") + CGI.escapeHTML(@info_request.user.name) + "."
+      flash[:notice] = _("Thank you for responding to this FOI request! " \
+                           "Your response has been published below, and a " \
+                           "link to your response has been emailed to {{user_name}}.",
+                         :user_name => CGI.escapeHTML(@info_request.user.name))
       redirect_to request_url(@info_request)
       return
     end

@@ -80,16 +80,23 @@
       <h1><%= h(@display_user.name) + (@is_you ? _(" (you)") : "") %></h1>
 
       <p class="subtitle">
-        <%= _('Joined {{site_name}} in', :site_name=>site_name) %> <%= @display_user.created_at.year %>
+        <%= _('Joined {{site_name}} in {{date}}',
+              :site_name => site_name,
+              :date => @display_user.created_at.year) %>
         <% if @user && @user.admin_page_links? %>
           (<%= link_to "admin", admin_user_path(@display_user) %>)
         <% end %>
       </p>
 
       <p>
-        <%= link_to _('Send message to ') + h(@display_user.name), contact_user_path(:id => @display_user.id) %>
         <% if @is_you %>
-          (<%= _('just to see how it works') %>)
+          <%= link_to _('Send message to {{user_name}} just to see how it works',
+                        :user_name => h(@display_user.name)),
+                      contact_user_path(:id => @display_user.id) %>
+        <% else %>
+          <%= link_to _('Send message to {{user_name}}',
+                        :user_name => h(@display_user.name)),
+                      contact_user_path(:id => @display_user.id) %>
         <% end %>
       </p>
 
