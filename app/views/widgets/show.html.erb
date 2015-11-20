@@ -18,7 +18,7 @@
           <%= link_to @info_request.title, request_path(@info_request), :target => "_top" %>
         </div>
         <div class="alaveteli-widget__status <%= @status %>">
-          <p class="alaveteli-widget__status__status-label">Status</p>
+          <p class="alaveteli-widget__status__status-label">_("Status")</p>
           <%= status_description(@info_request, @status) %>
         </div>
       </div>
