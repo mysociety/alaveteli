@@ -2,10 +2,10 @@
   <%= form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
     <%= foi_error_messages_for :user_signup %>
 
-    <!--<h2><%= _('If you\'re new to {{site_name}}', :site_name=>site_name)%></h2>-->
+    <!--<h2><%= _('If you\'re new to {{site_name}}', :site_name=>site_name) %></h2>-->
 
     <p>
-      <label class="form_label" for="user_signup_name"> <%= _('Your name:')%></label>
+      <label class="form_label" for="user_signup_name"> <%= _('Your name:') %></label>
       <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 10, :autocomplete => "off" } %>
     </p>
 
@@ -19,7 +19,7 @@
     </div>
 
     <p>
-      <label class="form_label" for="user_signup_email"><%= _('Your e-mail:')%></label>
+      <label class="form_label" for="user_signup_email"><%= _('Your e-mail:') %></label>
       <%= text_field 'user_signup', 'email', { :size => 20, :tabindex => 20 } %>
     </p>
 
@@ -30,12 +30,12 @@
     </div>
 
     <p>
-      <label class="form_label" for="user_signup_password"> <%= _('Password:')%></label>
+      <label class="form_label" for="user_signup_password"> <%= _('Password:') %></label>
       <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 30, :autocomplete => "off" } %>
     </p>
 
     <p>
-      <label class="form_label" for="user_signup_password_confirmation"> <%= _('Confirm password:')%></label>
+      <label class="form_label" for="user_signup_password_confirmation"> <%= _('Confirm password:') %></label>
       <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 40, :autocomplete => "off" } %>
     </p>
 

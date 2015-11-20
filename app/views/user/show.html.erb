@@ -1,7 +1,9 @@
 <% if @show_requests %>
-  <% @title =  _("{{user_name}} - Freedom of Information requests", :user_name => h(@display_user.name)) %>
+  <% @title =  _("{{user_name}} - Freedom of Information requests",
+                 :user_name => h(@display_user.name)) %>
 <% else %>
-  <% @title = _("{{user_name}} - user profile", :user_name => h(@display_user.name)) %>
+  <% @title = _("{{user_name}} - user profile",
+                :user_name => h(@display_user.name)) %>
 <% end %>
 
 <% if @same_name_users.size >= 1 %>
@@ -95,7 +97,8 @@
         <div id="user_public_banned" class="user_public_banned">
           <p>
             <strong>
-              <%= _('This user has been banned from {{site_name}} ', :site_name=>site_name) %>
+              <%= _('This user has been banned from {{site_name}} ',
+                    :site_name=>site_name) %>
             </strong>
           </p>
 
@@ -113,7 +116,10 @@
 
       <% unless @is_you %>
         <p id="user_not_logged_in" class="user_not_logged_in">
-          <%= _('<a href="{{url}}">Sign in</a> to change password, subscriptions and more ({{user_name}} only)',:user_name => h(@display_user.name), :url => signin_url(:r => request.fullpath).html_safe) %>
+          <%= _('<a href="{{url}}">Sign in</a> to change password, ' \
+                   'subscriptions and more ({{user_name}} only)',
+                :user_name => h(@display_user.name),
+                :url => signin_url(:r => request.fullpath).html_safe) %>
         </p>
       <% end %>
     </div>
@@ -125,7 +131,10 @@
 <% if @show_batches %>
   <% if @is_you && !@display_user.info_request_batches.empty? %>
     <h2 class="batch_results" id="batch_requests">
-      <%= n_('Your {{count}} batch requests', 'Your {{count}} batch requests', @display_user.info_request_batches.size, :count => @display_user.info_request_batches.size) %>
+      <%= n_('Your {{count}} batch requests',
+             'Your {{count}} batch requests',
+             @display_user.info_request_batches.size,
+             :count => @display_user.info_request_batches.size) %>
     </h2>
 
     <%= render :partial => 'info_request_batch/info_request_batch', :collection => @display_user.info_request_batches %>
@@ -161,7 +170,14 @@
         <% end %>
       <% else %>
         <h2 class="foi_results foi_requests" id="foi_requests">
-          <%= @is_you ? n_('Your {{count}} Freedom of Information request', 'Your {{count}} Freedom of Information requests', @xapian_requests.matches_estimated, :count => @xapian_requests.matches_estimated) : n_("This person's {{count}} Freedom of Information request", "This person's {{count}} Freedom of Information requests",  @xapian_requests.matches_estimated, :count => @xapian_requests.matches_estimated) %>
+          <%= @is_you ? n_('Your {{count}} Freedom of Information request',
+                           'Your {{count}} Freedom of Information requests',
+                           @xapian_requests.matches_estimated,
+                           :count => @xapian_requests.matches_estimated) :
+                        n_("This person's {{count}} Freedom of Information request",
+                           "This person's {{count}} Freedom of Information requests",
+                           @xapian_requests.matches_estimated,
+                           :count => @xapian_requests.matches_estimated) %>
           <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
           <%= @match_phrase %>
           <%= @page_desc %>
@@ -176,9 +192,11 @@
     <% else %>
       <% if @show_requests %>
         <h2 class="foi_results foi_requests" id="foi_requests">
-          <%= @is_you ? _('Freedom of Information requests made by you') : _('Freedom of Information requests made by this person') %>
+          <%= @is_you ? _('Freedom of Information requests made by you') :
+                        _('Freedom of Information requests made by this person') %>
         </h2>
-        <p><%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests this person has made.')%></p>
+        <p><%= _('The search index is currently offline, so we can\'t show ' \
+                    'the Freedom of Information requests this person has made.')%></p>
       <% end %>
     <% end %>
 
@@ -193,7 +211,14 @@
         <% end %>
       <% else %>
         <h2 id="annotations">
-          <%= @is_you ? n_('Your {{count}} annotation', 'Your {{count}} annotations', @display_user.comments.visible.size, :count => @display_user.comments.visible.size) : n_("This person's {{count}} annotation", "This person's {{count}} annotations", @display_user.comments.visible.size, :count => @display_user.comments.visible.size) %>
+          <%= @is_you ? n_('Your {{count}} annotation',
+                           'Your {{count}} annotations',
+                           @display_user.comments.visible.size,
+                           :count => @display_user.comments.visible.size) :
+                        n_("This person's {{count}} annotation",
+                           "This person's {{count}} annotations",
+                           @display_user.comments.visible.size,
+                           :count => @display_user.comments.visible.size) %>
           <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
           <%= @page_desc %>
         </h2>

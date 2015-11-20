@@ -898,7 +898,8 @@ class RequestController < ApplicationController
       @reason_params = {
         :web => _("To upload a response, you must be logged in using an email address from ") +  CGI.escapeHTML(@info_request.public_body.name),
         :email => _("Then you can upload an FOI response. "),
-        :email_subject => _("Confirm your account on {{site_name}}",:site_name=>site_name)
+        :email_subject => _("Confirm your account on {{site_name}}",
+                            :site_name => site_name)
       }
 
       if !authenticated?(@reason_params)
@@ -926,7 +927,8 @@ class RequestController < ApplicationController
       body = params[:body] || ""
 
       if file_name.nil? && body.empty?
-        flash[:error] = _("Please type a message and/or choose a file containing your response.")
+        flash[:error] = _("Please type a message and/or choose a file " \
+                            "containing your response.")
         return
       end
 

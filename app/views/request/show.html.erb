@@ -52,7 +52,8 @@
               '{{authority_link}} (<a href="{{authority_admin_url}}">admin</a>)',
             :user_name => request_user_link(@info_request, _('An anonymous user')),
             :law_used_full => h(@info_request.law_used_human(:full)),
-            :user_admin_link => user_admin_link_for_request(@info_request, _('external'), _('admin')),
+            :user_admin_link => user_admin_link_for_request(
+              @info_request, _('external'), _('admin')),
             :request_admin_url => admin_request_url(@info_request),
             :authority_link => public_body_link(@info_request.public_body),
             :authority_admin_url => admin_body_url(@info_request.public_body)) %>
@@ -68,15 +69,21 @@
   <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
     <% if @info_request.awaiting_description %>
       <% if @is_owning_user && !@info_request.is_external? && !@render_to_file %>
-        <%= n_('Please <strong>answer the question above</strong> so we know whether the recent response contains useful information.',
-               'Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information.',
+        <%= n_('Please <strong>answer the question above</strong> so we know ' \
+                  'whether the recent response contains useful information.',
+               'Please <strong>answer the question above</strong> so we know ' \
+                  'whether the recent responses contain useful information.',
                @new_responses_count) %>
       <% else %>
         <%= _('This request has an <strong>unknown status</strong>.') %>
 
         <% if @old_unclassified %>
-          <%= n_("We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?",
-                 "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?",
+          <%= n_("We're waiting for someone to read a recent response and " \
+                    "update the status accordingly. Perhaps " \
+                    "<strong>you</strong> might like to help out by doing that?",
+                 "We're waiting for someone to read recent responses and " \
+                    "update the status accordingly. Perhaps " \
+                    "<strong>you</strong> might like to help out by doing that?",
                  @new_responses_count) %>
         <% else %>
           <%= n_("We're waiting for {{user_name}} to read a recent response " \
@@ -147,28 +154,40 @@
       <% else %>
         <%= _('The request is <strong>waiting for clarification</strong>.') %>
         <% if !@info_request.is_external? %>
-          <%= _('If you are {{user_link}}, please',:user_link=>user_link_for_request(@info_request)) %>
-          <%= link_to _("sign in"), signin_path(:r => request.fullpath) %> <%= _('to send a follow up message.') %>
+          <%= _('If you are {{user_link}}, please',
+                :user_link=>user_link_for_request(@info_request)) %>
+          <%= link_to _("sign in"), signin_path(:r => request.fullpath) %>
+          <%= _('to send a follow up message.') %>
         <% end %>
       <% end %>
     <% elsif @status == 'gone_postal' %>
-      <%= _('The authority would like to / has <strong>responded by post</strong> to this request.') %>
+      <%= _('The authority would like to / has <strong>responded by ' \
+               'post</strong> to this request.') %>
     <% elsif @status == 'internal_review' %>
       <%= _('Waiting for an <strong>internal review</strong> by ' \
                '{{authority_link}} of their handling of this request.',
             :authority_link => public_body_link(@info_request.public_body)) %>
     <% elsif @status == 'error_message' %>
-      <%= _('There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team.', :site_name=>site_name) %>
+      <%= _('There was a <strong>delivery error</strong> or similar, which ' \
+               'needs fixing by the {{site_name}} team.',
+            :site_name=>site_name) %>
     <% elsif @status == 'requires_admin' %>
-      <%= _('This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team.', :site_name=>site_name) %>
+      <%= _('This request has had an unusual response, and <strong>requires ' \
+              'attention</strong> from the {{site_name}} team.',
+            :site_name=>site_name) %>
     <% elsif @status == 'user_withdrawn' %>
-      <%= _('This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below.') %>
+      <%= _('This request has been <strong>withdrawn</strong> by the person ' \
+               'who made it. There may be an explanation in the correspondence below.') %>
     <% elsif @status == 'attention_requested' %>
-      <%= _('This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)') %>
+      <%= _('This request has been <strong>reported</strong> as needing ' \
+               'administrator attention (perhaps because it is vexatious, or a ' \
+               'request for personal information)') %>
     <% elsif @status == 'vexatious' %>
-      <%= _('This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious') %>
+      <%= _('This request has been <strong>hidden</strong> from the site, ' \
+               'because an administrator considers it vexatious') %>
     <% elsif @status == 'not_foi' %>
-      <%= _('This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request') %>
+      <%= _('This request has been <strong>hidden</strong> from the site, ' \
+               'because an administrator considers it not to be an FOI request') %>
     <% else %>
       <%= render :partial => 'general/custom_state_descriptions', :locals => { :status => @status } %>
     <% end %>

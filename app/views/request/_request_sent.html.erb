@@ -24,7 +24,10 @@
                                 :url => request.url,
                                 :via => AlaveteliConfiguration.twitter_username,
                                 :text => "'#{ @info_request.title }'",
-                                :related => _('mySocietyIntl:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
+                                :related => _('mySocietyIntl:Helping people set ' \
+                                                'up sites like {{site_name}} ' \
+                                                'all over the world',
+                                              :site_name => site_name)
                               }.to_query, :class => 'share-link' %>
 
         <%= link_to image_tag("next-step-facebook.png",
@@ -42,7 +45,8 @@
                 '(for example in a forum or a blog) ' \
                 'please link to this page, and <a href="{{url}}">add an ' \
                 'annotation</a> below telling people ' \
-                'about your writing.', :url => new_comment_url(:url_title => @info_request.url_title).html_safe) %>
+                'about your writing.',
+                :url => new_comment_url(:url_title => @info_request.url_title).html_safe) %>
         </p>
       </div>
 

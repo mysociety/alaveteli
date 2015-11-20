@@ -1,4 +1,8 @@
-<%= _('This is a plain-text version of the Freedom of Information request "{{request_title}}".  The latest, full version is available online at {{full_url}}', :request_title => @info_request.title, :full_url => "http://#{AlaveteliConfiguration::domain}#{show_request_path(:url_title=>@info_request.url_title)}") %>.
+<%= _('This is a plain-text version of the Freedom of Information request ' \
+         '"{{request_title}}".  The latest, full version is available online ' \
+         'at {{full_url}}',
+      :request_title => @info_request.title,
+      :full_url => "http://#{AlaveteliConfiguration::domain}#{show_request_path(:url_title=>@info_request.url_title)}") %>.
 
 <% @info_request_events.each do |info_request_event| %>
   <% if info_request_event.visible %>
