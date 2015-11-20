@@ -49,5 +49,5 @@
           :authority_name => @info_request.public_body.name) %>
   </p>
 <% else %>
-  <% raise _("unknown reason ") + @reason %>
+  <% raise _("unknown reason {{reason}}", :reason => @reason) %>
 <% end %>
