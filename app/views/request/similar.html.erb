@@ -30,7 +30,8 @@
     <% if result[:model].class.to_s == 'InfoRequestEvent' %>
       <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
     <% else %>
-      <p><strong><%= _('Unexpected search result type ')%><%= result[:model].class.to_s %></strong></p>
+      <p><strong><%= _('Unexpected search result type {{result_type}}',
+                       :result_type => result[:model].class.to_s) %></strong></p>
     <% end %>
   <% end %>
 <% end %>
