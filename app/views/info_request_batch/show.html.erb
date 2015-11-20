@@ -8,7 +8,13 @@
 <div class="info_request_batch_intro">
   <h1><%= @title %></h1>
   <% if @info_request_batch.sent_at %>
-    <%= n_('Sent to one authority by {{info_request_user}} on {{date}}.', 'Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}.', @info_request_batch.info_requests.size, :authority_count=> @info_request_batch.info_requests.size, :info_request_user => user_link(@info_request_batch.user), :date => simple_date(@info_request_batch.sent_at)) %>
+    <%= n_('Sent to one authority by {{user_name}} on {{date}}.',
+           'Sent to {{authority_count}} authorities by {{user_name}} ' \
+              'on {{date}}.',
+           @info_request_batch.info_requests.size,
+           :authority_count => @info_request_batch.info_requests.size,
+           :user_name => user_link(@info_request_batch.user),
+           :date => simple_date(@info_request_batch.sent_at)) %>
 
 </div>
 <div class="results_section">
@@ -21,7 +27,9 @@
 </div>
 
 <% else %>
-  <%= _('Created by {{info_request_user}} on {{date}}.', :info_request_user => user_link(@info_request_batch.user), :date => simple_date(@info_request_batch.created_at)) %>
+  <%= _('Created by {{user_name}} on {{date}}.',
+        :user_name => user_link(@info_request_batch.user),
+        :date => simple_date(@info_request_batch.created_at)) %>
   <%= _('Requests will be sent to the following bodies:') %>
   </div>
   <div class="results_section">

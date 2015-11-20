@@ -12,9 +12,9 @@
       <%= info_request.display_status %>
     </strong>
     <br>
-    <%= _('Requested from {{authority_name}} by {{info_request_user}} on {{date}}',
+    <%= _('Requested from {{authority_name}} by {{user_name}} on {{date}}',
           :authority_name => public_body_link(info_request.public_body),
-          :info_request_user => user_link(info_request.user),
+          :user_name => user_link(info_request.user),
           :date => simple_date(info_request.created_at)) %>
   </span>
 </div>
