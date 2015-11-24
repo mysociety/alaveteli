@@ -113,11 +113,16 @@ class InfoRequest < ActiveRecord::Base
   validate :title_formatting, :on => :create
 
   after_initialize :set_defaults
+  after_save :update_counter_cache
+  after_destroy :update_counter_cache
+  after_update :reindex_some_request_events
   before_destroy :expire
+  before_save :purge_in_cache
   # make sure the url_title is unique but don't update
   # existing requests unless the title is being changed
   before_save :update_url_title,
     :if => Proc.new { |request| request.title_changed? }
+  before_validation :compute_idhash
 
   def self.enumerate_states
     states = [
@@ -225,7 +230,6 @@ class InfoRequest < ActiveRecord::Base
 
   # If the URL name has changed, then all request: queries will break unless
   # we update index for every event. Also reindex if prominence changes.
-  after_update :reindex_some_request_events
   def reindex_some_request_events
     if changes.include?('url_title') || changes.include?('prominence') || changes.include?('user_id')
       reindex_request_events
@@ -905,8 +909,6 @@ class InfoRequest < ActiveRecord::Base
     magic_email
   end
 
-  before_validation :compute_idhash
-
   def compute_idhash
     self.idhash = InfoRequest.hash_from_id(id)
   end
@@ -1198,7 +1200,6 @@ class InfoRequest < ActiveRecord::Base
     ret
   end
 
-  before_save :purge_in_cache
   def purge_in_cache
     if AlaveteliConfiguration::varnish_host.present? && id
       # we only do this for existing info_requests (new ones have a nil id)
@@ -1213,8 +1214,6 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  after_save :update_counter_cache
-  after_destroy :update_counter_cache
   # This method updates the count columns of the PublicBody that
   # store the number of "not held", "to some extent successful" and
   # "both visible and classified" requests when saving or destroying
