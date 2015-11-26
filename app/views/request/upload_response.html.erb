@@ -8,14 +8,14 @@
             :site_name => site_name) %></h1>
   <p><%= _('Sorry - you cannot respond to this request via {{site_name}}, ' \
               'because this is a copy of the request originally at ' \
-              '{{link_to_original_request}}.',
+              '{{request_url}}.',
            :site_name => site_name,
-           :link_to_original_request => link_to(@info_request.external_url, @info_request.external_url)) %></p>
+           :request_url => link_to(@info_request.external_url, @info_request.external_url)) %></p>
 <% else %>
   <%= foi_error_messages_for :comment %>
 
-  <h1><%= _("Respond to the FOI request '{{request_link}}' made by {{user_name}}",
-            :request_link => request_link(@info_request),
+  <h1><%= _("Respond to the FOI request '{{request_url}}' made by {{user_name}}",
+            :request_url => request_link(@info_request),
             :user_name => user_link(@info_request.user)) %></h1>
 
   <p>

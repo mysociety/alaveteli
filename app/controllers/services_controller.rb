@@ -17,8 +17,10 @@ class ServicesController < ApplicationController
       begin
         FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
         if found_country && found_country[:country_name] && found_country[:url] && found_country[:name]
-          text = _("Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}",
-                   :country_name => found_country[:country_name], :link_to_website => "<a href=\"#{found_country[:url]}\">#{found_country[:name]}</a>".html_safe)
+          text = _("Hello! You can make Freedom of Information requests " \
+                      "{{country_name}} at {{country_site_url}}",
+                   :country_name => found_country[:country_name],
+                   :country_site_url => "<a href=\"#{found_country[:url]}\">#{found_country[:name]}</a>".html_safe)
         else
           country_data = WorldFOIWebsites.by_code(iso_country_code)
           if country_data

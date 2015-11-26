@@ -47,22 +47,22 @@
 
   <p class="subtitle">
     <% if !@user.nil? && @user.admin_page_links? %>
-      <%= _('{{user_name}} ({{user_admin_link}}) made this {{law_used_full}} ' \
+      <%= _('{{user_name}} ({{user_admin_url}}) made this {{law_used_full}} ' \
               'request (<a href="{{request_admin_url}}">admin</a>) to ' \
-              '{{authority_link}} (<a href="{{authority_admin_url}}">admin</a>)',
+              '{{authority_url}} (<a href="{{authority_admin_url}}">admin</a>)',
             :user_name => request_user_link(@info_request, _('An anonymous user')),
             :law_used_full => h(@info_request.law_used_human(:full)),
-            :user_admin_link => user_admin_link_for_request(
+            :user_admin_url => user_admin_link_for_request(
               @info_request, _('external'), _('admin')),
             :request_admin_url => admin_request_url(@info_request),
-            :authority_link => public_body_link(@info_request.public_body),
+            :authority_url => public_body_link(@info_request.public_body),
             :authority_admin_url => admin_body_url(@info_request.public_body)) %>
     <% else %>
       <%= _('{{user_name}} made this {{law_used_full}} request to ' \
-               '{{authority_link}}',
+               '{{authority_url}}',
             :user_name => request_user_link(@info_request, _('An anonymous user')),
             :law_used_full => h(@info_request.law_used_human(:full)),
-            :authority_link => public_body_link(@info_request.public_body)) %>
+            :authority_url => public_body_link(@info_request.public_body)) %>
     <% end %>
   </p>
 
@@ -113,15 +113,15 @@
       <%= _('Response to this request is <strong>delayed</strong>.') %>
 
       <% if @info_request.public_body.is_school? %>
-        <%= _('By law, {{authority_link}} should normally have responded ' \
+        <%= _('By law, {{authority_url}} should normally have responded ' \
                  '<strong>promptly</strong> and in term time by {{date}}',
-            :authority_link => public_body_link(@info_request.public_body),
+            :authority_url => public_body_link(@info_request.public_body),
             :date => "<strong>#{simple_date(@info_request.date_response_required_by)}" \
                         "</strong>") %>
       <% else %>
-        <%= _('By law, {{authority_link}} should normally have responded ' \
+        <%= _('By law, {{authority_url}} should normally have responded ' \
                 '<strong>promptly</strong> and by {{date}}',
-              :authority_link => public_body_link(@info_request.public_body),
+              :authority_url => public_body_link(@info_request.public_body),
               :date => "<strong>#{simple_date(@info_request.date_response_required_by)}" \
                           "</strong>") %>
       <% end %>
@@ -129,9 +129,9 @@
       (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>)
     <% elsif @status == 'waiting_response_very_overdue' %>
       <%= _('Response to this request is <strong>long overdue</strong>.') %>
-      <%= _('By law, under all circumstances, {{authority_link}} should ' \
+      <%= _('By law, under all circumstances, {{authority_url}} should ' \
                'have responded by now',
-            :authority_link => public_body_link(@info_request.public_body)) %>
+            :authority_url => public_body_link(@info_request.public_body)) %>
       (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>).
 
       <% if !@info_request.is_external? %>
@@ -158,8 +158,8 @@
       <% else %>
         <%= _('The request is <strong>waiting for clarification</strong>.') %>
         <% if !@info_request.is_external? %>
-          <%= _('If you are {{user_link}}, please',
-                :user_link=>user_link_for_request(@info_request)) %>
+          <%= _('If you are {{user_url}}, please',
+                :user_url = >user_link_for_request(@info_request)) %>
           <%= link_to _("sign in"), signin_path(:r => request.fullpath) %>
           <%= _('to send a follow up message.') %>
         <% end %>
@@ -169,8 +169,8 @@
                'post</strong> to this request.') %>
     <% elsif @status == 'internal_review' %>
       <%= _('Waiting for an <strong>internal review</strong> by ' \
-               '{{authority_link}} of their handling of this request.',
-            :authority_link => public_body_link(@info_request.public_body)) %>
+               '{{authority_url}} of their handling of this request.',
+            :authority_url => public_body_link(@info_request.public_body)) %>
     <% elsif @status == 'error_message' %>
       <%= _('There was a <strong>delivery error</strong> or similar, which ' \
                'needs fixing by the {{site_name}} team.',
