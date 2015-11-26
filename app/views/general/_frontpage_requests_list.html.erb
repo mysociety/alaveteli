@@ -20,11 +20,11 @@
         <div class="request-listing__request-body">
         <p>
           <% if @request_events_all_successful %>
-            <%= _("{{authority_link}} answered a request about",
-                  :authority_link => public_body_link(event.info_request.public_body)) %>
+            <%= _("{{authority_url}} answered a request about",
+                  :authority_url => public_body_link(event.info_request.public_body)) %>
           <% else %>
-            <%= _("{{authority_link}} was sent a request about",
-                  :authority_link => public_body_link(event.info_request.public_body)) %>
+            <%= _("{{authority_url}} was sent a request about",
+                  :authority_url => public_body_link(event.info_request.public_body)) %>
           <% end %>
 
           <%= link_to h(event.info_request.title), request_path(event.info_request) %>

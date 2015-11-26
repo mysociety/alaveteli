@@ -4,11 +4,16 @@
 
 <p><%= _("You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}.", :max_requests_per_user_per_day => AlaveteliConfiguration::max_requests_per_user_per_day, :can_make_another_request => distance_of_time_in_words(Time.now, @next_request_permitted_at))%></p>
 
-<p><%= _("There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>.", :help_contact_path => help_contact_path) %></p>
+<p><%= _("There is a limit on the number of requests you can make in a day, " \
+	        "because we don’t want public authorities to be bombarded with " \
+	        "large numbers of inappropriate requests. If you feel you have a " \
+	        "good reason to ask for the limit to be lifted in your case, " \
+	        "please <a href='{{help_contact_url}}'>get in touch</a>.",
+	     :help_contact_url => help_contact_path) %></p>
 
 <% if @info_request %>
   <p><%= _("Here is the message you wrote, in case you would like to copy the text and save it for later.") %></p>
-  
+
   <div class="correspondence box">
     <div class="correspondence_text"><%= @info_request.outgoing_messages[0].get_body_for_html_display %></div>
   </div>

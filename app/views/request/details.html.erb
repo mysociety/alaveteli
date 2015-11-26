@@ -21,8 +21,8 @@
          'not straightforward, and there will be user error and ambiguity. ' \
          'You will also need to understand FOI law, and the way authorities ' \
          'use it. Plus you\'ll need to be an elite statistician.  Please ' \
-         '<a href="{{contact_path}}">contact us</a> with questions.',
-          :site_name => site_name, :contact_path => help_contact_path) %>
+         '<a href="{{contact_url}}">contact us</a> with questions.',
+          :site_name => site_name, :contact_url => help_contact_path) %>
 </p>
 
 <% columns = ['id', 'event_type', 'created_at', 'described_state', 'calculated_state', 'last_described_at' ] %>
@@ -59,13 +59,13 @@
       'for the request, and the most recent event had its status updated to ' \
       'that value. <strong>calculated</strong> is then inferred by ' \
       '{{site_name}} for intermediate events, which weren\'t given an ' \
-      'explicit description by a user. See the <a href="{{search_path}}">' \
+      'explicit description by a user. See the <a href="{{search_url}}">' \
       'search tips</a> for description of the states.',
-      :site_name => site_name, :search_path => search_redirect_path) %>
+      :site_name => site_name, :search_url => search_redirect_path) %>
 </p>
 
 <p>
 <%= _('You can get this page in computer-readable format as part of the ' \
-      'main JSON page for the request.  See the <a href="{{api_path}}">' \
-      'API documentation</a>.', :api_path => help_api_path) %>
+      'main JSON page for the request.  See the <a href="{{api_url}}">' \
+      'API documentation</a>.', :api_url => help_api_path) %>
 </p>

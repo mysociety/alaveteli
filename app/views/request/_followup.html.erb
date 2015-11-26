@@ -69,8 +69,8 @@
           # the initial request
           _('Follow ups and new responses to this request have been stopped ' \
             'to prevent spam. Please <a href="{{url}}">contact us</a> if you ' \
-            'are {{user_link}} and need to send a follow up.',
-            :user_link => user_link(@info_request.user),
+            'are {{user_url}} and need to send a follow up.',
+            :user_url => user_link(@info_request.user),
             :url => help_contact_path) %>
     </p>
   <% else %>
@@ -84,9 +84,9 @@
     <% end %>
 
     <p>
-      <%= _('Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href="{{new_request_link}}">file a new request</a>.',
-            :request_link => request_link(@info_request),
-            :new_request_link => new_request_to_body_url(:url_name => @info_request.public_body.url_name)) %>
+      <%= _('Please <strong>only</strong> write messages directly relating to your request {{request_url}}. If you would like to ask for information that was not in your original request, then <a href="{{new_request_url}">file a new request</a>.',
+            :request_url => request_link(@info_request),
+            :new_request_url => new_request_to_body_url(:url_name => @info_request.public_body.url_name)) %>
     </p>
 
     <% status = @info_request.calculate_status %>
