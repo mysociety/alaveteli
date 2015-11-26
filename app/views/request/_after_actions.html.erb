@@ -7,7 +7,13 @@
     <ul>
       <% if @info_request.comments_allowed? %>
         <li>
+<<<<<<< 6207c0f041ab587aaf59eb6a522951f917cacd82
           <%= raw(_('<a href="{{url}}">Add an annotation</a> (to help the requester or others)', :url => new_comment_url(:url_title => @info_request.url_title).html_safe)) %>
+=======
+          <%= raw(_('<a href="{{add_annotation_url}}">Add an annotation</a> (to help the ' \
+                      'requester or others)',
+                    :add_annotation_url => new_comment_url(:url_title => @info_request.url_title).html_safe)) %>
+>>>>>>> Expand out {{url}} into more helpful variable names
         </li>
       <% end %>
 

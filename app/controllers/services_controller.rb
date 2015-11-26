@@ -24,12 +24,14 @@ class ServicesController < ApplicationController
         else
           country_data = WorldFOIWebsites.by_code(iso_country_code)
           if country_data
-            text = _("Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}",
+            text = _("Hello! We have an  <a href=\"{{country_site_url}}\">" \
+                        "important message</a> for visitors outside {{country_name}}",
                      :country_name => country_data[:country_name],
-                     :url => "/help/alaveteli?country_name=#{CGI.escape(country_data[:country_name])}")
+                     :country_site_url => "/help/alaveteli?country_name=#{CGI.escape(country_data[:country_name])}")
           else
-            text = _("Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries",
-                     :url => "/help/alaveteli")
+            text = _("Hello! We have an <a href=\"{{country_site_url}}\">" \
+                        "important message</a> for visitors in other countries",
+                     :country_site_url => "/help/alaveteli")
           end
         end
       ensure

@@ -16,10 +16,12 @@
           <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
           <li><%= raw(_("Your name, request and any responses will appear in " \
                         "<strong>search engines</strong> " \
-                        "(<a href=\"{{url}}\">details</a>).",
-                        :url => (help_privacy_path+"#public_request").html_safe)) %>
+                        "(<a href=\"{{privacy_url}}\">details</a>).",
+                        :privacy_url => (help_privacy_path+"#public_request").html_safe)) %>
           </li>
-          <li><%= _('<a href="{{url}}">Do you want to request private information about yourself?</a>', :url => (help_requesting_path+"#data_protection").html_safe) %></li>
+          <li><%= _('<a href="{{data_protection_url}}">Do you want to request ' \
+                      'private information about yourself?</a>',
+                    :data_protection_url => (help_requesting_path+"#data_protection").html_safe) %></li>
         </ul>
       </div>
     </div>

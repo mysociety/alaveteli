@@ -13,7 +13,7 @@
             'engines. <a href="{{help_url}}">Thinking of using a ' \
             'pseudonym?</a>',
             :why_url => (help_privacy_path+"#public_request").html_safe,
-            :help_url => (help_privacy_path+"#real_name").html_safe) %>
+            :privacy_url => (help_privacy_path+"#real_name").html_safe) %>
     </div>
 
     <p>
@@ -23,8 +23,8 @@
 
     <div class="form_item_note">
       <%= _('We will not reveal your email address to anybody unless ' \
-            '<a href="{{url}}">you or the law tell us to</a>.',
-            :url => help_privacy_path) %>
+            '<a href="{{privacy_url}}">you or the law tell us to</a>.',
+            :privacy_url => help_privacy_path) %>
     </div>
 
     <p>

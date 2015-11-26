@@ -1,1 +1,6 @@
-<%= _('Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href="{{url}}">contact us</a> if you think you have good reason to send the same request to multiple authorities at once.', :url => help_contact_path.html_safe) %>
+<%= _('Users cannot usually make batch requests to multiple authorities ' \
+	     'at once because we don’t want public authorities to be bombarded ' \
+	     'with large numbers of inappropriate requests.  Please ' \
+	     '<a href="{{contact_url}}">contact us</a> if you think you have good reason ' \
+	     'to send the same request to multiple authorities at once.',
+	   :contact_url => help_contact_path.html_safe) %>

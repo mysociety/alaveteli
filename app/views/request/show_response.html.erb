@@ -27,8 +27,14 @@
         <%= _('The authority only has a <strong>paper copy</strong> of the information.') %>
       </dt>
       <dd>
+<<<<<<< 6207c0f041ab587aaf59eb6a522951f917cacd82
         <%= _('At the bottom of this page, write a reply to them trying to persuade them to scan it in (<a href="{{url}}">more details</a>).',
             :url => (help_privacy_path + '#postal_answer').html_safe) %>
+=======
+        <%= _('At the bottom of this page, write a reply to them trying to ' \
+                 'persuade them to scan it in (<a href="{{privacy_url}}">more details</a>).',
+            :privacy_url => (help_privacy_path + '#postal_answer').html_safe) %>
+>>>>>>> Expand out {{url}} into more helpful variable names
       </dd>
 
       <dt>

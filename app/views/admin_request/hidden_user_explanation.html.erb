@@ -1,8 +1,10 @@
 <%= _("Dear {{name}},", :name => name_to) %>
 
-<%= _("Your request '{{request}}' at {{url}} has been reviewed by moderators.", :request => info_request.title.html_safe, :url => info_request_url) %>
+<%= _("Your request '{{request_title}}' at {{request_url}} has been reviewed by moderators.",
+	  :request_title => info_request.title.html_safe,
+	  :request_url => info_request_url) %>
 
-<%= reason == 'not_foi' ? _("We consider it is not a valid FOI request, and have therefore hidden it from other users.") : _("We consider it to be vexatious, and have therefore hidden it from other users.") %> <%= _("You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further.") %>
+<%= reason == 'not_foi' ? _("We consider it is not a valid FOI request, "and have therefore hidden it from other users.") : _("We consider it to be vexatious, and have therefore hidden it from other users.") %> <%= _("You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further.") %>
 
 <%= _("Yours,") %>
 

@@ -19,8 +19,9 @@
             :user_name => user_link(@info_request.user)) %></h1>
 
   <p>
-    <%= raw(_('Your response will <strong>appear on the Internet</strong>, <a href="{{url}}">read why</a> and answers to other questions.',
-              :url => help_officers_path.html_safe)) %>
+    <%= raw(_('Your response will <strong>appear on the Internet</strong>, ' \
+                 '<a href="{{help_officers_url}}">read why</a> and answers to other questions.',
+              :help_officers_url => help_officers_path.html_safe)) %>
   </p>
 
   <h2><%= _('Respond by email')%></h2>
@@ -40,8 +41,8 @@
 
   <p>
     <%= raw(_('Enter your response below. You may attach one file (use ' \
-              'email, or <a href="{{url}}">contact us</a> if you need more).',
-              :url => help_contact_path.html_safe)) %></p>
+              'email, or <a href="{{contact_url}}">contact us</a> if you need more).',
+              :contact_url => help_contact_path.html_safe)) %></p>
 
     <%= form_tag '', :id => 'upload_response_form', :multipart => true do %>
     <p>

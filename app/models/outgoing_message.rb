@@ -122,8 +122,8 @@ class OutgoingMessage < ActiveRecord::Base
                   :request_title => info_request.title)
       letter += "\n\n\n\n [ #{ get_internal_review_insert_here_note } ] \n\n\n\n"
       letter += _("A full history of my FOI request and all correspondence " \
-                    "is available on the Internet at this address: {{url}}",
-                  :url => request_url(info_request))
+                    "is available on the Internet at this address: {{request_url}}",
+                  :request_url => request_url(info_request))
       letter += "\n"
     else
       ""

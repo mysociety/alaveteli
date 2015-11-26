@@ -125,9 +125,9 @@
   <% if !@info_request.is_external? %>
     <%=  _("We don't know whether the most recent response to this request " \
            "contains information or not &ndash; if you are {{user_url}} " \
-           "please <a href=\"{{url}}\">sign in</a> and let everyone know.",
+           "please <a href=\"{{signin_url}}\">sign in</a> and let everyone know.",
            :user_url => user_link(@info_request.user),
-           :url => signin_url(:r => request.fullpath)) %>
+           :signin_url => signin_url(:r => request.fullpath)) %>
   <% end %>
 <% end %>
 

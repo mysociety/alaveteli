@@ -13,7 +13,10 @@
     <%- if !message.prominence_reason.blank? %>
       <%= _('This message is hidden, so that only you, the requester, can see it. {{reason}}', :reason => message.prominence_reason) %>
     <%- else %>
-      <%= _('This message is hidden, so that only you, the requester, can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %>
+      <%= _('This message is hidden, so that only you, the requester, can ' \
+               'see it. Please <a href="{{contact_url}}">contact us</a> if ' \
+               'you are not sure why.',
+            :contact_url => help_requesting_path.html_safe) %>
     <%- end %>
   </p>
 <% end %>

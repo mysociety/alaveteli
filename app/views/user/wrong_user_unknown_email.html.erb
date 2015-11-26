@@ -1,7 +1,7 @@
 <p id="sign_in_reason" class="sign_in_reason">
 <%= _("{{reason}}. Unfortunately we don't know the FOI email address for that " \
-        "authority, so we can't validate this. Please <a href=\"{{url}}\">" \
+        "authority, so we can't validate this. Please <a href=\"{{contact_url}}\">" \
         "contact us</a> to sort it out.",
       :reason => @reason_params[:web],
-      :url => help_contact_path.html_safe) %>
+      :contact_url => help_contact_path.html_safe) %>
 </p>

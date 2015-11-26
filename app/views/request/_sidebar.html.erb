@@ -24,9 +24,16 @@
         <% elsif @info_request.prominence == 'requester_only' %>
           <%# The eccentric formatting of the following string is in order that it be identical
               to the corresponding string in request/show.html.erb %>
-          <p><%= _('This request is hidden, so that only you the requester can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %></p>
+          <p><%= _('This request is hidden, so that only you the requester ' \
+                      'can see it. Please <a href="{{contact_url}}">contact us</a> ' \
+                      'if you are not sure why.',
+                   :contact_url => help_requesting_path.html_safe) %></p>
         <% else %>
-          <p><%= _('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="{{url}}">contact us</a>.', :url => help_requesting_path.html_safe) %></p>
+          <p><%= _('This request has been marked for review by the site ' \
+                     'administrators, who have not hidden it at this time. ' \
+                     'If you believe it should be hidden, please ' \
+                     '<a href="{{contact_url}}">contact us</a>.',
+                   :contact_url => help_requesting_path.html_safe) %></p>
         <% end %>
       <% else %>
         <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
