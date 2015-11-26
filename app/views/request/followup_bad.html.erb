@@ -16,8 +16,8 @@
     <%= _('From the request page, try replying to a particular message, ' \
           'rather than sending a general followup. If you need to make a ' \
           'general followup, and know an email which will go to the right ' \
-          'place, please <a href="{{url}}">send it to us</a>.',
-          :url => help_contact_path.html_safe) %>
+          'place, please <a href="{{contact_url}}">send it to us</a>.',
+          :contact_url => help_contact_path.html_safe) %>
   </p>
 <% elsif @reason == 'defunct' %>
   <!-- we should never get here, but just in case give a sensible message -->
@@ -26,8 +26,8 @@
           'replying to a particular message, rather than sending a general ' \
           'followup. If you need to make a general followup, and know an ' \
           'email which will go to the right place, please ' \
-          '<a href="{{url}}">send it to us</a>.',
-          :url => help_contact_path.html_safe,
+          '<a href="{{contact_url}}">send it to us</a>.',
+          :contact_url => help_contact_path.html_safe,
           :authority_name => @info_request.public_body.name) %>
   </p>
 <% elsif @reason == 'bad_contact' %>

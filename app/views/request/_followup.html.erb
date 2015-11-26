@@ -68,18 +68,18 @@
           # messages sent by the requester to the authority after
           # the initial request
           _('Follow ups and new responses to this request have been stopped ' \
-            'to prevent spam. Please <a href="{{url}}">contact us</a> if you ' \
-            'are {{user_url}} and need to send a follow up.',
+            'to prevent spam. Please <a href="{{contact_url}}">contact us</a> ' \
+            'if you are {{user_url}} and need to send a follow up.',
             :user_url => user_link(@info_request.user),
-            :url => help_contact_path) %>
+            :contact_url => help_contact_path) %>
     </p>
   <% else %>
     <% if @internal_review %>
       <p>
         <%= _('If you are dissatisfied by the response you got from the ' \
               'public authority, you have the right to complain ' \
-              '(<a href="{{url}}">details</a>).',
-              :url => "http://foiwiki.com/foiwiki/index.php/Internal_reviews".html_safe) %>
+              '(<a href="{{internal_review_help_url}}">details</a>).',
+              :internal_review_help_url => "http://foiwiki.com/foiwiki/index.php/Internal_reviews".html_safe) %>
       </p>
     <% end %>
 

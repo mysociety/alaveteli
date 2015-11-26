@@ -22,8 +22,8 @@ $(document).ready(function() {
               "</strong> you'd like information from.") %>
         <% if AlaveteliConfiguration.authority_must_respond %>
           <%= _('<strong>By law, they have to respond</strong> ' \
-                  '(<a href="{{url}}">why?</a>).',
-                :url => (help_about_path(:anchor => 'whybother_them')).html_safe) %>
+                  '(<a href="{{help_about_url}}">why?</a>).',
+                :help_about_url => (help_about_path(:anchor => 'whybother_them')).html_safe) %>
         <% end %>
       </p>
 
@@ -37,9 +37,9 @@ $(document).ready(function() {
     <% if AlaveteliConfiguration.allow_batch_requests && @user && @user.can_make_batch_requests? %>
       <div id="batch_request_link" class="batch_request_link">
         <p>
-          <%= _('Or make a <a href="{{url}}">batch request</a> to <' \
-                   'strong>multiple authorities</strong> at once.',
-                :url => select_authorities_path) %>
+          <%= _('Or make a <a href="{{batch_request_url}}">batch request</a> ' \
+                   'to <strong>multiple authorities</strong> at once.',
+                :batch_request_url => select_authorities_path) %>
         </p>
       </div>
     <% end %>

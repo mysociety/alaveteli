@@ -123,10 +123,10 @@
 
       <% unless @is_you %>
         <p id="user_not_logged_in" class="user_not_logged_in">
-          <%= _('<a href="{{url}}">Sign in</a> to change password, ' \
+          <%= _('<a href="{{signin_url}}">Sign in</a> to change password, ' \
                    'subscriptions and more ({{user_name}} only)',
                 :user_name => h(@display_user.name),
-                :url => signin_url(:r => request.fullpath).html_safe) %>
+                :signin_url => signin_url(:r => request.fullpath).html_safe) %>
         </p>
       <% end %>
     </div>

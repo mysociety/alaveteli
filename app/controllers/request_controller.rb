@@ -455,11 +455,11 @@ class RequestController < ApplicationController
       # Don't give advice on what to do next, as it isn't their request
       if session[:request_game]
         flash[:notice] = _('Thank you for updating the status of the request ' \
-                              '\'<a href="{{url}}">{{request_title}}</a>\'. ' \
+                              '\'<a href="{{request_url}}">{{request_title}}</a>\'. ' \
                               'There are some more requests below for you ' \
                               'to classify.',
                            :request_title => CGI.escapeHTML(info_request.title),
-                           :url => CGI.escapeHTML(request_path(info_request)))
+                           :request_url => CGI.escapeHTML(request_path(info_request)))
         redirect_to categorise_play_url
       else
         flash[:notice] = _('Thank you for updating this request!')
@@ -708,7 +708,11 @@ class RequestController < ApplicationController
 
     if !params[:submitted_followup].nil? && !params[:reedit]
       if @info_request.allow_new_responses_from == 'nobody'
-        flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you really want to send a follow up message.', :url => help_contact_path.html_safe)
+        flash[:error] = _('Your follow up has not been sent because this ' \
+                          'request has been stopped to prevent spam. Please ' \
+                          '<a href="{{contact_url}}">contact us</a> if you ' \
+                          'really want to send a follow up message.',
+                        :contact_url => help_contact_path.html_safe)
       else
         if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
           flash[:error] = _('You previously submitted that exact follow up message for this request.')
@@ -1171,14 +1175,14 @@ class RequestController < ApplicationController
       if @user.nil?
         message += _("<p>You do not need to include your email in the " \
                      "request in order to get a reply, as we will ask " \
-                     "for it on the next screen (<a href=\"{{url}}\">" \
+                     "for it on the next screen (<a href=\"{{privacy_url}}\">" \
                      "details</a>).</p>",
-                     :url => (help_privacy_path+"#email_address").html_safe)
+                     :privacy_url => (help_privacy_path+"#email_address").html_safe)
       else
         message += _("<p>You do not need to include your email in the " \
-                     "request in order to get a reply (<a href=\"{{url}}\">" \
+                     "request in order to get a reply (<a href=\"{{privacy_url}}\">" \
                      "details</a>).</p>",
-                     :url => (help_privacy_path+"#email_address").html_safe)
+                     :privacy_url => (help_privacy_path+"#email_address").html_safe)
       end
       message += _("<p>We recommend that you edit your request and remove " \
                    "the email address. If you leave it, the email address " \

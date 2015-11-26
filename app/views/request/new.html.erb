@@ -161,15 +161,15 @@
       <% unless @batch %>
         <p>
           <% if @info_request.public_body.info_requests.size > 0 %>
-            <%= _("Browse <a href='{{url}}'>other requests</a> to " \
+            <%= _("Browse <a href='{{authority_url}}'>other requests</a> to " \
                      "'{{authority_name}}' for examples of how to word " \
                      "your request.",
                   :authority_name => h(@info_request.public_body.name),
                   :url => public_body_path(@info_request.public_body)) %>
           <% else %>
-            <%= _("Browse <a href='{{url}}'>other requests</a> for examples " \
+            <%= _("Browse <a href='{{requests_url}}'>other requests</a> for examples " \
                     "of how to word your request.",
-                  :url => request_list_successful_url) %>
+                  :requests_url => request_list_successful_url) %>
           <% end %>
         </p>
       <% end %>
@@ -179,25 +179,26 @@
           <%= raw(_('Everything that you enter on this page, including ' \
                     '<strong>your name</strong>, will be <strong>displayed ' \
                     'publicly</strong> on this website ' \
-                    '<a href="{{url}}">forever</a>',
-                    :url => (help_privacy_path+"#public_request").html_safe)) %>.
+                    '<a href="{{privacy_url}}">forever</a>',
+                    :privacy_url => (help_privacy_path+"#public_request").html_safe)) %>.
         </p>
         <p>
-          <%= raw(_('<a href="{{url}}">Thinking of using a pseudonym?</a>', :url => (help_privacy_path+"#real_name").html_safe)) %>
+          <%= raw(_('<a href="{{privacy_url}}">Thinking of using a pseudonym?</a>',
+                    :privacy_url => (help_privacy_path+"#real_name").html_safe)) %>
         </p>
       <% else %>
         <p>
           <%= raw(_('Everything that you enter on this page will be <strong>' \
                     'displayed publicly</strong> on this website forever ' \
-                    '(<a href="{{url}}">why?</a>).',
-                    :url => (help_privacy_path+"#public_request").html_safe)) %>
+                    '(<a href="{{privacy_url}}">why?</a>).',
+                    :privacy_url => (help_privacy_path+"#public_request").html_safe)) %>
         </p>
       <% end %>
 
       <p>
         <%= raw(_("<strong>Can I request information about myself?</strong> " \
-                  "<a href=\"{{url}}\">No!</a>",
-                  :url => (help_requesting_path+"#data_protection").html_safe)) %>
+                  "<a href=\"{{privacy_url}}\">No!</a>",
+                  :privacy_url => (help_requesting_path+"#data_protection").html_safe)) %>
       </p>
 
       <div class="advice-panel">
@@ -206,9 +207,9 @@
           <li><%= _('Ask for <strong>specific</strong> documents or ' \
                        'information, this site is not suitable for general ' \
                        'enquiries.') %></li>
-          <li><%= _('<a href="{{url}}">Keep it <strong>focused</strong></a>, ' \
+          <li><%= _('<a href="{{request_help_url}}">Keep it <strong>focused</strong></a>, ' \
                        'you\'ll be more likely to get what you want.',
-                    :url => (help_requesting_path + '#focused').html_safe) %></li>
+                    :request_help_url => (help_requesting_path + '#focused').html_safe) %></li>
         </ul>
       </div>
     </div>
