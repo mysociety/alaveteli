@@ -194,12 +194,10 @@ class RequestMailer < ApplicationMailer
   # actual original mail sent by the authority in the admin interface (so
   # can check that attachment decoding failures are problems in the message,
   # not in our code). ]
-  def self.receive(raw_mail)
-    ActiveSupport::Notifications.instrument("receive.action_mailer") do |payload|
-      mail = MailHandler.mail_from_raw_email(raw_mail)
-      set_payload_for_mail(payload, mail)
-      new.receive(mail, raw_mail)
-    end
+  def self.receive(raw_email)
+    logger.info "Received mail:\n #{raw_email}" unless logger.nil?
+    mail = MailHandler.mail_from_raw_email(raw_email)
+    new.receive(mail, raw_email)
   end
 
   # Find which info requests the email is for
