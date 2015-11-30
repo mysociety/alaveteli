@@ -21,7 +21,9 @@ class PasswordChangesController < ApplicationController
     unless MySociety::Validate.is_valid_email(email)
       flash[:error] = _("That doesn't look like a valid email address. " \
                         "Please check you have typed it correctly.")
-      redirect_to new_password_change_path(@pretoken_hash)
+      @email_field_options =
+        @user ? { :disabled => true, :value => email } : {}
+      render :new
       return
     end
 
