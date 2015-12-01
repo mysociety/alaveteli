@@ -158,8 +158,9 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def must_be_valid_state
-    errors.add(:described_state, "is not a valid state") if
-    !InfoRequest.enumerate_states.include? described_state
+    unless InfoRequest.enumerate_states.include?(described_state)
+      errors.add(:described_state, "is not a valid state")
+    end
   end
 
   def is_batch_request_template?
