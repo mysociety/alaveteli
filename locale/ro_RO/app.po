@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -259,9 +259,8 @@ msgstr "<strong>Notă:</strong> Deoarece acum testăm, cererile sunt trimise că
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Notă:</strong>\\n Vom trimite un email către noua ta adresă de email.  Urmărește instrucţiunile \\n din acesta pentru a confirma schimbarea emailului tău."
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
-msgstr " <strong>Notă:</strong>\\n   Îți vom trimite un email. Urmează instrucţiunile din acesta pentru a modifica \\n    parola ta."
+msgstr ""
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr " <strong>Notă:</strong>\\n   Îți vom trimite un email. Urmează instrucţiunile din acesta pentru a modifica \\n    parola ta."
@@ -407,9 +406,8 @@ msgstr "O <a href=\"{{request_url}}\">adnotare</a> către <em>{{request_title}}<
 msgid "An <strong>error message</strong> has been received"
 msgstr "Un  <strong>mesaj de eroare </strong> a fost primit"
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "Reglementări Informaţii de Mediu"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "Utilizator anonim"
@@ -501,9 +499,8 @@ msgstr ""
 msgid "Beginning with"
 msgstr "Începând cu"
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Caută prin<br/>\\n <strong>{{number_of_requests}} solicitări</strong> <span>şi</span><br/>\\n <strong>{{number_of_authorities}} autorităţi</strong>"
+msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Consultaţi  <a href='{{url}}'> şi alte cereri </a> pentru exemple asupra modului în care să formulaţi cererea."
@@ -514,9 +511,8 @@ msgstr "Consultaţi  <a href='{{url}}'> şi alte cereri </a> catre '{{public_bod
 msgid "Browse all authorities..."
 msgstr "Consultaţi toate autoritaţile ..."
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "Vezi cereri"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "Vezi şi caută cereri"
@@ -1126,9 +1122,8 @@ msgstr "Pagina principală"
 msgid "Home page of authority"
 msgstr "Website instituție"
 
-#, fuzzy
 msgid "How it works"
-msgstr "doar să vedeţi cum funcţionează"
+msgstr ""
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Cu toate acestea, ai dreptul de a solicita informaţii \\nprivind mediul în cadrul unei legi diferite"
@@ -1397,9 +1392,8 @@ msgstr "Solicitare revizie intrenă"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "Parola (din nou):"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Este  {{email_address}} o adresă greşită pentru o {{type_of_request}} cerere adresată  {{public_body_name}}? Dacă da, vă rugăm să ne contactaţi utilizând acest formular :"
@@ -2142,9 +2136,8 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBody|Info requests visible count"
-msgstr "InstituţiePublică|Info număr de cereri "
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "Instituţie publică| Ultimul comentariu editat"
@@ -2185,9 +2178,8 @@ msgstr "EliminareCerere|Model"
 msgid "PurgeRequest|Url"
 msgstr "EliminareCerere|Url"
 
-#, fuzzy
 msgid "Query can't be blank"
-msgstr "Campul Nume nu poate fi necompletat"
+msgstr ""
 
 msgid "Query is too long"
 msgstr ""
@@ -2387,9 +2379,8 @@ msgstr "Trimite un răspuns public către {{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "Trimite follow up la '{{title}}'"
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "De asemenea trimiteţi-mi alerte prin email"
+msgstr ""
 
 msgid "Send message"
 msgstr "Trimite un mesaj"
@@ -2505,9 +2496,8 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Incepeţi propriul jurnal"
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "Incepeţi propriul jurnal"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "Rămaneţi la curent"
@@ -2830,9 +2820,8 @@ msgstr[2] "Sunt  {{count}} persoane care urmăresc această cerere."
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "A apărut o  <strong>eroare de transmitere</strong> sau similară ce va trebui să fie rezolvată de către echipa {{site_name}}."
 
-#, fuzzy
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "Există o eroare printre cuvintele pe care le-aţi introdus, vă rugăm încercaţi din nou."
+msgstr ""
 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Există o eroare printre cuvintele pe care le-aţi introdus, vă rugăm încercaţi din nou."
@@ -3287,13 +3276,11 @@ msgstr "Utilizator|Nume"
 msgid "User|No limit"
 msgstr "Utilizator|Fără limită"
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "Utilizator|Despre mine"
+msgstr ""
 
-#, fuzzy
 msgid "User|Otp enabled"
-msgstr "Utilizator|Nume URL"
+msgstr ""
 
 msgid "User|Otp secret key"
 msgstr ""
@@ -4158,9 +4145,8 @@ msgstr "{{user_name}} (Cont suspendat)"
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - solicitări de acces la informații"
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} a adăugat o adnotare"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - profil utilizator"
@@ -4197,3 +4183,24 @@ msgstr "{{user}} a făcut această cerere {{law_used_full}} "
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"

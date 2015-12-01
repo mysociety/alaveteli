@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
@@ -244,9 +244,8 @@ msgstr ""
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "我們將會向你發出一封電郵，請按照電郵內的指示更改你的密碼。"
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
-msgstr "我們將會向你發出一封電郵，請按照電郵內的指示更改你的密碼。"
+msgstr ""
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr "我們將會向你發出一封電郵，請按照電郵內的指示更改你的密碼。"
@@ -392,9 +391,8 @@ msgstr ""
 msgid "An <strong>error message</strong> has been received"
 msgstr ""
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "一宗索取資料要求"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "一位匿名用戶"
@@ -486,9 +484,8 @@ msgstr ""
 msgid "Beginning with"
 msgstr ""
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "搜尋<br/>\\n <strong>{{number_of_requests}} 項要求</strong> <span>及</span><br/>\\n <strong>{{number_of_authorities}} 個部門及機構的</strong>公開資料"
+msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr ""
@@ -499,9 +496,8 @@ msgstr "瀏覽其他向 '{{public_body_name}}' 提出的 <a href='{{url}}'>索�
 msgid "Browse all authorities..."
 msgstr "列出所有部門及機構"
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "瀏覽要求"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "瀏覽及搜尋要求"
@@ -1377,9 +1373,8 @@ msgstr "部門覆檢要求"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "{{info_request_user}}已在{{date}}向{{public_body_name}}提出部門覆檢要求。"
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "確認密碼："
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr ""
@@ -2363,9 +2358,8 @@ msgstr "傳送一項公開的回覆至{{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "傳送有關「{{title}}」的跟進訊息"
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "同時傳送提醒電郵給我"
+msgstr ""
 
 msgid "Send message"
 msgstr "傳送訊息"
@@ -2479,9 +2473,8 @@ msgstr "垃圾電郵地址｜電郵"
 msgid "Start your own blog"
 msgstr ""
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "編輯此要求"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "保持更新"
@@ -3254,9 +3247,8 @@ msgstr ""
 msgid "User|No limit"
 msgstr "使用者｜沒有限制"
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "使用者｜關於自己"
+msgstr ""
 
 msgid "User|Otp enabled"
 msgstr ""
@@ -4108,9 +4100,8 @@ msgstr ""
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr ""
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} 新增了一個註解。"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr ""
@@ -4147,3 +4138,24 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr "« 返回搜尋結果"
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"

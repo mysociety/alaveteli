@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/language/id/)\n"
 "Language: id\n"
@@ -292,12 +292,8 @@ msgstr ""
 "    Kami akan mengirimkan email ke alamat email Anda yang baru. Ikutilah\n"
 "    instruksi di dalamnya untuk mengkonfirmasi perubahan email Anda."
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr ""
-"  <strong>Catatan:</strong>\n"
-"    Kami akan mengirimkan sebuah email kepada Anda. Ikutilah instruksi-instruksi di dalamnya untuk mengubah\n"
-"    kode sandi Anda."
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr ""
@@ -456,9 +452,8 @@ msgstr "Sebuah <a href=\"{{request_url}}\">anotasi</a> untuk <em>{{request_title
 msgid "An <strong>error message</strong> has been received"
 msgstr "Sebuah<strong>pesan error</strong> telah diterima"
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "Peraturan Informasi Lingkungan"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "Sebuah pengguna anonim"
@@ -554,12 +549,8 @@ msgstr ""
 msgid "Beginning with"
 msgstr "Dimulai dengan"
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
 msgstr ""
-"Cari lagi<br/>\n"
-"          <strong>{{number_of_requests}} permintaan</strong> <span>dan</span><br/>\n"
-"          <strong>{{number_of_authorities}} otoritas</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Melihat<a href='{{url}}'>permintaan lain</a> contohnya tentang bagaimana menyampaikan permintaan Anda."
@@ -570,9 +561,8 @@ msgstr "Melihat <a href='{{url}}'>permintaan lain</a> untuk'{{public_body_name}}
 msgid "Browse all authorities..."
 msgstr "Melihat semua otoritas..."
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "Tampilkan permintaan"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "Tampilkan dan cari permintaan"
@@ -1202,9 +1192,8 @@ msgstr "Halaman beranda"
 msgid "Home page of authority"
 msgstr "Situs web otoritas"
 
-#, fuzzy
 msgid "How it works"
-msgstr "hanya untuk melihat cara kerjanya"
+msgstr ""
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr ""
@@ -1503,9 +1492,8 @@ msgstr "Permintaan kajian internal"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "Kode sandi: (ulangi)"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Apakah {{email_address}} adalah alamat yang salah untuk {{type_of_request}} permintaan kepada {{public_body_name}}? Jika demikian, silakan hubungi kami menggunakan formulir ini:"
@@ -2262,9 +2250,8 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBody|Info requests visible count"
-msgstr "PublicBody | Info requests count"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
@@ -2305,9 +2292,8 @@ msgstr "PurgeRequest|Model"
 msgid "PurgeRequest|Url"
 msgstr "PurgeRequest|Url"
 
-#, fuzzy
 msgid "Query can't be blank"
-msgstr "Nama tidak bisa kosong"
+msgstr ""
 
 msgid "Query is too long"
 msgstr ""
@@ -2510,9 +2496,8 @@ msgstr "Kirim balasan terbuka kepada {{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "Mengikuti permintaan '{{title}}'"
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "Kirimkan juga peringatan kepada Saya melalui email"
+msgstr ""
 
 msgid "Send message"
 msgstr "Kirim pesan"
@@ -2632,9 +2617,8 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Mulai blog Anda sendiri"
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "Mulai blog Anda sendiri"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "Tetap dapatkan informasi terkini"
@@ -2977,9 +2961,8 @@ msgstr[0] "Ada {{count}} orang mengikuti permintaan ini"
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Ada <strong>kesalahan pengiriman</strong> atau yang serupa, yang perlu diperbaiki oleh {{site_name}} tim."
 
-#, fuzzy
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "Ada kesalahan pada kata-kata yang Anda masukkan, silakan coba lagi."
+msgstr ""
 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Ada kesalahan pada kata-kata yang Anda masukkan, silakan coba lagi."
@@ -3459,13 +3442,11 @@ msgstr "User|Name"
 msgid "User|No limit"
 msgstr "User|No limit"
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "User|About me"
+msgstr ""
 
-#, fuzzy
 msgid "User|Otp enabled"
-msgstr "User|Url name"
+msgstr ""
 
 msgid "User|Otp secret key"
 msgstr ""
@@ -4361,9 +4342,8 @@ msgstr "{{user_name}} (Akun ditangguhkan)"
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - permintaan Keterbukaan Informasi"
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} menambahkan anotasi"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - profil pengguna"
@@ -4402,3 +4382,24 @@ msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"

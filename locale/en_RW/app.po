@@ -386,10 +386,6 @@ msgstr ""
 msgid "An <strong>error message</strong> has been received"
 msgstr ""
 
-#, fuzzy
-msgid "An Environmental Information request"
-msgstr "An access to information request"
-
 msgid "An anonymous user"
 msgstr ""
 
@@ -2113,10 +2109,6 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
-#, fuzzy
-msgid "PublicBody|Info requests visible count"
-msgstr "Information request event"
-
 msgid "PublicBody|Last edit comment"
 msgstr ""
 
@@ -2472,10 +2464,6 @@ msgstr ""
 
 msgid "Start your own blog"
 msgstr ""
-
-#, fuzzy
-msgid "Start your own request"
-msgstr "Share your request"
 
 msgid "Stay up to date"
 msgstr ""

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/language/bg/)\n"
 "Language: bg\n"
@@ -244,9 +244,8 @@ msgstr "<strong>Бележка:</strong> Поради това че тества
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Бележка:</strong>\\n    Ще изпратим имейл на новия Ви адрес. Следвайте\\n    инструкциите в него за да потвърдите смяната на имейл адреса Ви."
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
-msgstr " <strong>Бележка:</strong>\\n    Ще Ви изпратим имейл. Следвайте инструкциите в него за да смените\\n    Вашата парола."
+msgstr ""
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr " <strong>Бележка:</strong>\\n    Ще Ви изпратим имейл. Следвайте инструкциите в него за да смените\\n    Вашата парола."
@@ -392,9 +391,8 @@ msgstr "Беше добавен <a href=\"{{request_url}}\">коментар</a>
 msgid "An <strong>error message</strong> has been received"
 msgstr "Беше получено <strong>съобщение за грешка</strong>"
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "Законодателство за информация за околната среда"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "Анонимен потребител"
@@ -486,9 +484,8 @@ msgstr "Размножено заявление, създадено от {{info_
 msgid "Beginning with"
 msgstr "Започващи с"
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Търсене измежду<br/>\\n <strong>{{number_of_requests}} заявления</strong> <span>и</span><br/>\\n  <strong>{{number_of_authorities}} органа</strong>"
+msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Разгледайте <a href='{{url}}'>други запитвания</a> като примери за това как да опишете заявлението си."
@@ -499,9 +496,8 @@ msgstr "Разгледайте <a href='{{url}}'>други запитвания
 msgid "Browse all authorities..."
 msgstr "Списък на всички органи..."
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "Преглед на заявления"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "Преглед и търсене на заявления"
@@ -1108,9 +1104,8 @@ msgstr "Начална страница"
 msgid "Home page of authority"
 msgstr "Сайт на публичния орган"
 
-#, fuzzy
 msgid "How it works"
-msgstr "само за да видя как работи"
+msgstr ""
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Впрочем, Вие имате правото да поискате информация за\\n            околната среда съгласно друг закон"
@@ -1379,9 +1374,8 @@ msgstr "Заявление за вътрешно разглеждане"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Заявление за вътрешно разглеждане, изпратено до {{public_body_name}} от {{info_request_user}} на {{date}}."
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "Паролата: (отново)"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Грешен ли е адресът {{email_address}} за {{type_of_request}} заявления към {{public_body_name}}? Ако да, моля свържете се с нас, използвайки тази форма:"
@@ -2123,9 +2117,8 @@ msgstr "PublicBody|Брой успешни заявления"
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBody|Info requests visible count"
-msgstr "PublicBody|Брой заявления"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Последно редактиран коментар"
@@ -2166,9 +2159,8 @@ msgstr ""
 msgid "PurgeRequest|Url"
 msgstr ""
 
-#, fuzzy
 msgid "Query can't be blank"
-msgstr "Името не може да е празно"
+msgstr ""
 
 msgid "Query is too long"
 msgstr ""
@@ -2368,9 +2360,8 @@ msgstr "Изпращане публичен отговор до {{person_or_body
 msgid "Send follow up to '{{title}}'"
 msgstr "Изпращане на пояснително съобщение към '{{title}}'"
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "Изпращай ми известия и по имейл"
+msgstr ""
 
 msgid "Send message"
 msgstr "Изпращане на съобщение"
@@ -2485,9 +2476,8 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Започнете собствен блог"
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "Започнете собствен блог"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "Бъди в час"
@@ -2809,9 +2799,8 @@ msgstr[1] "Има {{count}} потребители, следящи това за
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Получи се някаква <strong>грешка при обработката</strong>, която се нуждае от вниманието на екипа на {{site_name}}."
 
-#, fuzzy
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "Получи се грешка с въведените от Вас думи. Моля, опитайте отново."
+msgstr ""
 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Получи се грешка с въведените от Вас думи. Моля, опитайте отново."
@@ -3264,9 +3253,8 @@ msgstr "User|Име"
 msgid "User|No limit"
 msgstr "User|Без ограничения"
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "User|За мен"
+msgstr ""
 
 msgid "User|Otp enabled"
 msgstr ""
@@ -4126,9 +4114,8 @@ msgstr "{{user_name}} (Блокирана регистрация)"
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - Заявления за Достъп до Обществена Информация"
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} добави коментар"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - потребителски профил"
@@ -4165,3 +4152,24 @@ msgstr "{{user}} отправи това {{law_used_full}} заявление"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"

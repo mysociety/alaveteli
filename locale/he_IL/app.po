@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
@@ -257,9 +257,8 @@ msgstr "<strong>הערה:</strong> בגלל שאנחנו בודקים, הבקש�
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>הערה:</strong>\\n    אנו נשלח הודעת אימות לכתובת הדוא\"ל החדשה שלך. עקבו אחר \\n    ההוראות כדי לאשר את שינוי הכתובת."
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
-msgstr " <strong>הערה:<strong/> בקרוב יישלח אליכם דואר אלקטרוני. עקוב אחר ההוראות המצויות בו על מנת לשנות את הסיסמא."
+msgstr ""
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr " <strong>הערה:<strong/> בקרוב יישלח אליכם דואר אלקטרוני. עקוב אחר ההוראות המצויות בו על מנת לשנות את הסיסמא."
@@ -405,9 +404,8 @@ msgstr "<a href=\"{{request_url}}\">הבהרה</a> לבקשה <em>{{request_titl
 msgid "An <strong>error message</strong> has been received"
 msgstr "התקבלה <strong>הודעת שגיאה</strong>"
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "מידע תקנות סביבתיות"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "משתמש אנונימי"
@@ -499,9 +497,8 @@ msgstr "קבוצה נוצרה ע״י {{info_request_user}} בתאריך {{date}}
 msgid "Beginning with"
 msgstr "חיפוש על-פי אות ראשונה"
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "חפשו במאגר של<br/><strong>{{number_of_requests}} בקשות</strong> <span>שנשלחו אל</span><br/>\\n <strong>{{number_of_authorities}} רשויות</strong>"
+msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "הקליקו על <a href='{{url}}'>בקשות אחרות</a> לצפות בדוגמאות לניסוח הבקשה."
@@ -512,9 +509,8 @@ msgstr "הקליקו על <a href='{{url}}'>בקשות אחרות</a> אל '{{pu
 msgid "Browse all authorities..."
 msgstr "עיון בכל הרשויות..."
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "בקשות מידע"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "צפו וחפשו בקשות מידע"
@@ -1124,9 +1120,8 @@ msgstr "עמוד הבית"
 msgid "Home page of authority"
 msgstr "עמוד הבית של הרשות"
 
-#, fuzzy
 msgid "How it works"
-msgstr "רק כדי לראות איך זה עובד"
+msgstr ""
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "לעומת זאת, יש לכם את הזכות לבקש מידע סביבתי /n תחת חוק אחר"
@@ -1395,9 +1390,8 @@ msgstr "בקשת בדיקה פנימית"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "בקשת ביקורת פנימית נשלחה ל- {{public_body_name}} ע״י {{info_request_user}} בתאריך {{date}}."
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "סיסמה (שוב):"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "האם הכתובת  {{email_address}} היא הנכונה לבקשת {{type_of_request}} אל {{public_body_name}}? אם לא, נא צרו איתנו קשר באמצעות טופס זה:"
@@ -2139,9 +2133,8 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBody|Info requests visible count"
-msgstr "גוף ציבורי|מספר הבקשות שהוגשו"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last ערכו הערה"
@@ -2182,9 +2175,8 @@ msgstr "PurgeRequest|Model"
 msgid "PurgeRequest|Url"
 msgstr "PurgeRequest|Url"
 
-#, fuzzy
 msgid "Query can't be blank"
-msgstr "חובה למלא שם"
+msgstr ""
 
 msgid "Query is too long"
 msgstr ""
@@ -2384,9 +2376,8 @@ msgstr "שלחו תגובה ציבורית ל{{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "שלח בקשת מעקב ל'{{title}}'"
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "שלחו לנו גם התרעות בדוא\"ל"
+msgstr ""
 
 msgid "Send message"
 msgstr "שלחו הודעה"
@@ -2501,9 +2492,8 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "צרו את הבלוג שלכם"
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "צרו את הבלוג שלכם"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "הישאר מעודכן"
@@ -2825,9 +2815,8 @@ msgstr[1] "עוקבים אחר הבקשה הזו {{count}} אנשים"
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "היתה <strong>תקלה במסירה</strong> שדורשת טיפול על-ידי אנשי {{site_name}}."
 
-#, fuzzy
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "יש שגיאה בטקסט שהכנסתם. נסו שנית."
+msgstr ""
 
 msgid "There was an error with the words you entered, please try again."
 msgstr "יש שגיאה בטקסט שהכנסתם. נסו שנית."
@@ -3280,13 +3269,11 @@ msgstr "User|Name"
 msgid "User|No limit"
 msgstr "User|No limit"
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "User|About me"
+msgstr ""
 
-#, fuzzy
 msgid "User|Otp enabled"
-msgstr "User|Url name"
+msgstr ""
 
 msgid "User|Otp secret key"
 msgstr ""
@@ -4155,9 +4142,8 @@ msgstr "{{user_name}} (חשבון הושעה)"
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "בקשות המידע של - {{user_name}} "
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} הוסיף הערה"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "פרופיל משתמש - {{user_name}}"
@@ -4194,3 +4180,24 @@ msgstr "{{user}} הגיש את בקשת {{law_used_full}} הזו"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"

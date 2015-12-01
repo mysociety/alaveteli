@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
@@ -251,9 +251,8 @@ msgstr "<strong>Merk:</strong> Da vi holder på å teste, så vil henvendelser b
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Merk:</strong>\\n    Vi kommer til å sende en e-post til din nye e-postadresse. Følg\\n    instruksjonene i den e-posten for å bekrefte at du ønsker å bytte e-postadresse."
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
-msgstr " <strong>Merk:</strong>\\n    Vi kommer til å sende deg en e-post. Følg instruksjonene i den for å bytte\\n  passordet ditt."
+msgstr ""
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr " <strong>Merk:</strong>\\n    Vi kommer til å sende deg en e-post. Følg instruksjonene i den for å bytte\\n  passordet ditt."
@@ -399,9 +398,8 @@ msgstr "En <a href=\"{{request_url}}\">annotering</a> til <em>{{request_title}}<
 msgid "An <strong>error message</strong> has been received"
 msgstr "En <strong>feilmelding</strong> har blitt mottatt"
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "Miljøinformasjonslov"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "En anonym bruker"
@@ -493,9 +491,8 @@ msgstr "Bunt opprettet av {{info_request_user}} den {{date}}."
 msgid "Beginning with"
 msgstr "Begynner med"
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Søk blant <br/>\\n <strong>{{number_of_requests}} henvendelser</strong> <span>og</span><br/>\\n <strong>{{number_of_authorities}} myndigheter</strong>"
+msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Se på <a href='{{url}}'>andre henvendelser</a> for eksempler på hvordan du bør ordlegge henvendelsen."
@@ -506,9 +503,8 @@ msgstr "Se på <a href='{{url}}'>andre henvendelser</a> til '{{public_body_name}
 msgid "Browse all authorities..."
 msgstr "Vis alle myndighetene..."
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "Vis henvendelser"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "Vis og søk i henvendelser"
@@ -1115,9 +1111,8 @@ msgstr "Hjemmeside"
 msgid "Home page of authority"
 msgstr "Hjemmesida til myndigheten"
 
-#, fuzzy
 msgid "How it works"
-msgstr "bare for å se hvordan det fungerer"
+msgstr ""
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Dog har du rett til å spørre om miljøinformasjon i følge en annen lov"
@@ -1386,9 +1381,8 @@ msgstr "Klage"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Klage sendt til {{public_body_name}} av {{info_request_user}} den {{date}}."
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "Passord: (igjen)"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Er  {{email_address}} feil adresse for henvendelser om {{type_of_request}} til {{public_body_name}}? I så fall, vær så snill å ta kontakt med oss ved å bruke dette skjemaet:"
@@ -2130,9 +2124,8 @@ msgstr "PublicBody|Info requests successful count"
 msgid "PublicBody|Info requests visible classified count"
 msgstr "PublicBody|Info requests visible classified count"
 
-#, fuzzy
 msgid "PublicBody|Info requests visible count"
-msgstr "PublicBody|Info requests count"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
@@ -2173,9 +2166,8 @@ msgstr "PurgeRequest|Model"
 msgid "PurgeRequest|Url"
 msgstr "PurgeRequest|Url"
 
-#, fuzzy
 msgid "Query can't be blank"
-msgstr "Navn kan ikke være tomt"
+msgstr ""
 
 msgid "Query is too long"
 msgstr ""
@@ -2375,9 +2367,8 @@ msgstr "Send et offentlig svar til {{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "Send oppfølgning til '{{title}}'"
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "Send meg også varsel via e-post"
+msgstr ""
 
 msgid "Send message"
 msgstr "Send melding"
@@ -2492,9 +2483,8 @@ msgstr "SpamAddress|Email"
 msgid "Start your own blog"
 msgstr "Start din egen blogg"
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "Del henvendelsen din"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "Hold deg oppdatert"
@@ -2820,9 +2810,8 @@ msgstr[1] "{{count}} personer følger denne henvendelsen"
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Det var en <strong>feil med leveringen</strong> eller liknende, som trenger å rettes av {{site_name}}-gruppen."
 
-#, fuzzy
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "Det var en feil med ordene du skrev inn, vennligst forsøk på nytt."
+msgstr ""
 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Det var en feil med ordene du skrev inn, vennligst forsøk på nytt."
@@ -3275,13 +3264,11 @@ msgstr "Bruker|Navn"
 msgid "User|No limit"
 msgstr "Bruker|Ingen grense"
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "Bruker|Om meg"
+msgstr ""
 
-#, fuzzy
 msgid "User|Otp enabled"
-msgstr "Bruker|Url navn"
+msgstr ""
 
 msgid "User|Otp secret key"
 msgstr ""
@@ -4141,9 +4128,8 @@ msgstr "{{user_name}} (Konto er stengt)"
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - Innsynshenvendelser"
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} la til en merknad"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - brukerprofil"
@@ -4180,3 +4166,24 @@ msgstr "{{user}} sendte denne henvendelsen om {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Tilbake til søkeresultatene"
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"

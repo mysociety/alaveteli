@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/mysociety/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
@@ -255,11 +255,8 @@ msgstr "<strong>Note:</strong> Puisque nous faisons des tests, les demandes sont
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Remarque:</strong> Nous allons vous envoyer un courriel à votre nouvelle adresse. Suivez les instructions qui s'y trouveront pour confirmer le changement de votre adresse courriel."
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr ""
-" <strong>Note:</strong>\n"
-"    Nous vous enverrons un courriel. Merci de suivre les indications qui s'y trouveront afin de changer \\n votre mot de passe."
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr ""
@@ -407,9 +404,8 @@ msgstr "Une <a href=\"{{request_url}}\">annotation</a> sur <em>{{request_title}}
 msgid "An <strong>error message</strong> has been received"
 msgstr "Un <strong>message d'erreur</strong> a été reçu."
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "Règlements nationaux en matière d'information sur l'environnement"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "Un utilisateur anonyme"
@@ -501,9 +497,8 @@ msgstr ""
 msgid "Beginning with"
 msgstr "Commence avec"
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Rechercher parmi<br/>\\n  <strong>{{number_of_requests}} demandes</strong> <span>et</span><br/>\\n  <strong>{{number_of_authorities}} organismes</strong>"
+msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Prenez connaissance <a href='{{url}}'>des autres demandes</a> pour des exemples sur la façon dont vous pouvez formuler votre demande. Vérifiez également que votre demande n'a pas déjà été faite (et répondue!) par un autre utilisateur."
@@ -514,9 +509,8 @@ msgstr "Prenez connaissance <a href='{{url}}'>des autres demandes</a> faites au 
 msgid "Browse all authorities..."
 msgstr "Parcourir tous les organismes gouvernementaux…"
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "Voir les demandes"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "Parcourir les demandes passées"
@@ -1123,9 +1117,8 @@ msgstr "Page d'accueil"
 msgid "Home page of authority"
 msgstr "Page web de l'organisme public"
 
-#, fuzzy
 msgid "How it works"
-msgstr "Juste pour voir comment cela fonctionne"
+msgstr ""
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Cependant, vous avez le droit de demander des  \\n informations environnementales en vertu d'une loi différente."
@@ -1394,9 +1387,8 @@ msgstr "Demande de révision interne"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "Mot de passe: (confirmation)"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Est-ce que {{email_address}} est la mauvaise adresse pour les demandes de {{type_of_request}} à {{public_body_name}}? Si c'est le cas, veuillez nous l'indiquer en complétant ce formulaire:"
@@ -2138,9 +2130,8 @@ msgstr "OrganismePublic|Info comptage des demandes réussies"
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBody|Info requests visible count"
-msgstr "PublicBody|Info requests count"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
@@ -2181,9 +2172,8 @@ msgstr "PurgeRequest|Model"
 msgid "PurgeRequest|Url"
 msgstr "PurgeRequest|Url"
 
-#, fuzzy
 msgid "Query can't be blank"
-msgstr "Le nom ne peut pas être vide"
+msgstr ""
 
 msgid "Query is too long"
 msgstr ""
@@ -2383,9 +2373,8 @@ msgstr "Envoyer une réponse publique à {{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "Envoyer un message de suivi à '{{title}}'"
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "Envoyez-moi aussi des alertes par courriel"
+msgstr ""
 
 msgid "Send message"
 msgstr "Envoyer un message"
@@ -2500,9 +2489,8 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Commencez votre blog"
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "Commencez votre blog"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "Restez à jour"
@@ -2824,9 +2812,8 @@ msgstr[1] "Il y a {{count}} personnes qui suivent cette demande "
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Il y a eu <strong> une erreur de transmission </strong> ou autre qui doit être corrigée par l'équipe de {{site_name}}."
 
-#, fuzzy
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "Il y a une erreur liée aux mots saisis. Veuillez réessayer. "
+msgstr ""
 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Il y a une erreur liée aux mots saisis. Veuillez réessayer. "
@@ -3279,13 +3266,11 @@ msgstr "User|Name"
 msgid "User|No limit"
 msgstr "User|No limit"
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "User|About me"
+msgstr ""
 
-#, fuzzy
 msgid "User|Otp enabled"
-msgstr "User|Url name"
+msgstr ""
 
 msgid "User|Otp secret key"
 msgstr ""
@@ -4145,9 +4130,8 @@ msgstr "{{user_name}} (Compte suspend)"
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - Demandes d'accès à l'information"
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} a ajouté une annotation"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - profil de l'utilisateur"
@@ -4184,3 +4168,24 @@ msgstr "Cette demande a été faite par {{user}} "
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"

@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -275,12 +275,8 @@ msgstr ""
 "    Do të dërgojmë email në adresën tënde të re. Përcjelli\n"
 "    udhëzimet për të konfirmuar ndërrimin e emailit."
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr ""
-" <strong>Shënim:</strong>\n"
-"    Do të dërgoj një email. Ndiq udhëzimet në te për të ndryshuar \n"
-"    fjalëkalimin tënd."
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr ""
@@ -439,9 +435,8 @@ msgstr ""
 msgid "An <strong>error message</strong> has been received"
 msgstr "Një <strong>mesazh gabimi</strong> është marrë"
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "Environmental Information Regulations"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "Një përdorues anonim"
@@ -537,12 +532,8 @@ msgstr ""
 msgid "Beginning with"
 msgstr "Duke filluar me"
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
 msgstr ""
-"Gjej mbi<br/>\n"
-"          <strong>{{number_of_requests}} kërkesa</strong> <span>dhe</span><br/>\n"
-"          <strong>{{number_of_authorities}} autoritete publike</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Shfleto <a href='{{url}}'>kërkesa të tjera</a> për shembuj se si të formulosh kërkesën tënde."
@@ -553,9 +544,8 @@ msgstr "Shfleto <a href='{{url}}'>kërkesa të tjera</a> të drejtuara te '{{pub
 msgid "Browse all authorities..."
 msgstr "Shfleto të gjitha autoritetet ..."
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "Shiko kërkesat"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "Shiko dhe kërko kërkesat"
@@ -1183,9 +1173,8 @@ msgstr ""
 msgid "Home page of authority"
 msgstr "Ueb sajti i autoritetit"
 
-#, fuzzy
 msgid "How it works"
-msgstr "vetëm për të parë se si funksionon"
+msgstr ""
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr ""
@@ -1471,9 +1460,8 @@ msgstr "Kërkesë për rishqyrtim intern"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "Fjalëkalimi: (përsërite)"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "A është {{email_address}} adresë e gabuar  për {{public_body_name}}? Nëse po, të lutem na kontakto nëpermjet kësaj forme:"
@@ -2224,9 +2212,8 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBody|Info requests visible count"
-msgstr "PublicBody |Emaili me kërkesë"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody | Editimi i fundit i komentit"
@@ -2267,9 +2254,8 @@ msgstr "FshijKërkesën|Modeli"
 msgid "PurgeRequest|Url"
 msgstr "FshijKërkesën|URL"
 
-#, fuzzy
 msgid "Query can't be blank"
-msgstr "Emri nuk mund të jetë i zbrazët"
+msgstr ""
 
 msgid "Query is too long"
 msgstr ""
@@ -2472,9 +2458,8 @@ msgstr "Dërgo përgjigje publike te {{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "Më dërgo poashtu lajmrime me email"
+msgstr ""
 
 msgid "Send message"
 msgstr "Dërgo mesazh"
@@ -2591,9 +2576,8 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Nis blogun tënd"
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "Nis blogun tënd"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "Qëndro i informuar rreth risive"
@@ -2925,9 +2909,8 @@ msgstr[1] "Janë {{count}} persona duke e përcjell këtë autoritet"
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Kishte një <strong>dështim gjatë dorëzimit.</strong> apo diç e ngjajshme, e cila ka nevojë për përmirsim nga ekipi i {{site_name}}."
 
-#, fuzzy
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "Kishte një gabim me fjalët që keni shtypur, të lutem provo përsëri."
+msgstr ""
 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Kishte një gabim me fjalët që keni shtypur, të lutem provo përsëri."
@@ -3392,13 +3375,11 @@ msgstr "Përdoruesi|Emri"
 msgid "User|No limit"
 msgstr "Përdoruesi|Pa limit"
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "Përdoruesi|Rreth meje"
+msgstr ""
 
-#, fuzzy
 msgid "User|Otp enabled"
-msgstr "Përdoruesi | Emri Url"
+msgstr ""
 
 msgid "User|Otp secret key"
 msgstr ""
@@ -4290,9 +4271,8 @@ msgstr "{{user_name}} (Përjashtuar)"
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr ""
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} shtoi një shënim"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr ""
@@ -4329,3 +4309,24 @@ msgstr "{{user}} bëri këtë kërkesë"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"

@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
 "Language: uk\n"
@@ -277,9 +277,8 @@ msgstr ""
 " Ми надішлемо на нову адресу листа\n"
 " з інструкціями щодо підтвердження зміни адреси."
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
-msgstr "Ми надішлемо вам листа з інструкціями щодо зміни паролю."
+msgstr ""
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr "Ми надішлемо вам листа з інструкціями щодо зміни паролю."
@@ -431,9 +430,8 @@ msgstr "<a href=\"{{request_url}}\">Коментар</a> на <em>{{request_titl
 msgid "An <strong>error message</strong> has been received"
 msgstr "Отримано повідомлення про помилку"
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "Environmental Information Regulations"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "Анонімний користувач"
@@ -527,9 +525,8 @@ msgstr ""
 msgid "Beginning with"
 msgstr "Ті, що починаються з"
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Кількість зареєстрованих запитів: <strong>{{number_of_requests}}</strong><br/>\\n Кількість розпорядників інформації: <strong>{{number_of_authorities}}</strong>"
+msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Прогляньте <a href='{{url}}'>інші запити</a>, щоб отримати приклади формулювань."
@@ -540,9 +537,8 @@ msgstr "Прогляньте <a href='{{url}}'>інші запити</a> до '{
 msgid "Browse all authorities..."
 msgstr "Проглянути всіх розпорядників..."
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "Показати запити"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "Переглядати та шукати запити"
@@ -1170,9 +1166,8 @@ msgstr "Домашня сторінка"
 msgid "Home page of authority"
 msgstr "Домашня сторінка розпорядника інформації"
 
-#, fuzzy
 msgid "How it works"
-msgstr "просто щоб побачити, як це працює"
+msgstr ""
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr ""
@@ -1463,9 +1458,8 @@ msgstr "Запит на внутрішню перевірку"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "Пароль (ще раз):"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr ""
@@ -2258,9 +2252,8 @@ msgstr ""
 msgid "PurgeRequest|Url"
 msgstr ""
 
-#, fuzzy
 msgid "Query can't be blank"
-msgstr "Ім’я/назва не може бути пустим"
+msgstr ""
 
 msgid "Query is too long"
 msgstr ""
@@ -2460,9 +2453,8 @@ msgstr "Надіслати публічну відповідь. Адресат: 
 msgid "Send follow up to '{{title}}'"
 msgstr "Відправити додаткове повідомлення щодо запиту '{{title}}'"
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "Також надсилайте мені сповіщення на мейл"
+msgstr ""
 
 msgid "Send message"
 msgstr "Надіслати повідомлення"
@@ -2578,9 +2570,8 @@ msgstr ""
 msgid "Start your own blog"
 msgstr ""
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "Відредагувати цей запит"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr ""
@@ -2905,9 +2896,8 @@ msgstr[2] "Цей запит відслідковує така кількіст�
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Зафіксовано <strong>помилку доставки</strong> або щось подібне. Команда сайту має виправити її."
 
-#, fuzzy
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "Ви ввели слова неправильно, спробуйте ще раз."
+msgstr ""
 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Ви ввели слова неправильно, спробуйте ще раз."
@@ -3368,9 +3358,8 @@ msgstr ""
 msgid "User|No limit"
 msgstr ""
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "Користувач|Про мене"
+msgstr ""
 
 msgid "User|Otp enabled"
 msgstr ""
@@ -4268,9 +4257,8 @@ msgstr "{{user_name}} (дію акаунта припинено)"
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - запити"
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} залишив коментар"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - профіль користувача"
@@ -4309,3 +4297,24 @@ msgstr "{{user}} зробив (-ла) цей запит"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"

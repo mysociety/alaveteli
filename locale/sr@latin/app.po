@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2015-11-17 08:37+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/mysociety/alaveteli/language/sr@latin/)\n"
 "Language: sr@latin\n"
@@ -253,11 +253,8 @@ msgstr "<strong>Napomena:</strong> Pošto smo trenutno u fazi testiranja, zahtev
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Napomena:</strong>\\n Poslaćemo e-mail na Vašu novu adresu. Pratite\\n instrukcije u njemu da potvrdite promenu Vaše e-mail adrese."
 
-#, fuzzy
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr ""
-" <strong>Napomena:</strong>\n"
-"    Poslaćemo Vam e-mail. Pratite instrukcije u njemu da biste promenili Vašu lozinku."
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr ""
@@ -405,9 +402,8 @@ msgstr "<a href=\"{{request_url}}\">Komentar</a> na zahtev <em>{{request_title}}
 msgid "An <strong>error message</strong> has been received"
 msgstr "Primljena je <strong>poruka o grešci</strong>"
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "Regulativa u vezi informacija o zaštiti prirodne sredine"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr "Anonimni korisnik"
@@ -501,9 +497,8 @@ msgstr ""
 msgid "Beginning with"
 msgstr "Počevši sa"
 
-#, fuzzy
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
+msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Listajte <a href='{{url}}'>druge zahteve</a> da nađete primer kako da sročite Vaš zahtev."
@@ -514,9 +509,8 @@ msgstr "Listajte <a href='{{url}}'>druge zahteve</a> od '{{public_body_name}}' z
 msgid "Browse all authorities..."
 msgstr "Listajte sve ustanove..."
 
-#, fuzzy
 msgid "Browse all requests &rarr;"
-msgstr "Pregled zahteva"
+msgstr ""
 
 msgid "Browse and search requests"
 msgstr "Pregledaj i pretraži zahteve"
@@ -1130,9 +1124,8 @@ msgstr "Naslovna strana"
 msgid "Home page of authority"
 msgstr "Početna stranica ustanove"
 
-#, fuzzy
 msgid "How it works"
-msgstr "samo da vidite kako radi"
+msgstr ""
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Imate, ipak, pravo da tražite informacije o prirodnoj sredini\\n po drugom zakonu."
@@ -1406,9 +1399,8 @@ msgstr "Zahtev za urgenciju"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#, fuzzy
 msgid "Invalid one time password"
-msgstr "Lozinka: (ponovo)"
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Da li je {{email_address}} pogrešna email adresa za zahteve za {{public_body_name}} tipa {{type_of_request}}? Ako jeste, molimo da nas kontaktirate koristeći ovaj formular:"
@@ -2162,9 +2154,8 @@ msgstr "PublicBody|Broj uspešnih odgovora"
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBody|Info requests visible count"
-msgstr "PublicBody|Broj zahteva za informacijama"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Komentar poslednje izmene"
@@ -2205,9 +2196,8 @@ msgstr "PurgeRequest|Model"
 msgid "PurgeRequest|Url"
 msgstr "PurgeRequest|Url"
 
-#, fuzzy
 msgid "Query can't be blank"
-msgstr "Ime ne može ostati prazno"
+msgstr ""
 
 msgid "Query is too long"
 msgstr ""
@@ -2407,9 +2397,8 @@ msgstr "Pošaljite javni odgovor za {{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "Pošalji reakciju na '{{title}}'"
 
-#, fuzzy
 msgid "Send me the email"
-msgstr "Šalji mi takođe e-mail biltene"
+msgstr ""
 
 msgid "Send message"
 msgstr "Pošalji poruku"
@@ -2531,9 +2520,8 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Započnite Vaš blog"
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "Započnite Vaš blog"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "Budite stalno informisani"
@@ -2876,9 +2864,8 @@ msgstr[2] "Trenutno {{count}} korisnika prati ovaj zahtev"
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Došlo je do <strong>greške u isporuci</strong> ili nečega sličnog što zahteva popravku od strane tima {{site_name}}."
 
-#, fuzzy
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "Postoji greška u rečima koje ste uneli, molimo pokušajte ponovo."
+msgstr ""
 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Postoji greška u rečima koje ste uneli, molimo pokušajte ponovo."
@@ -3348,13 +3335,11 @@ msgstr "User|Ime"
 msgid "User|No limit"
 msgstr "User|Bez limita"
 
-#, fuzzy
 msgid "User|Otp counter"
-msgstr "User|O meni"
+msgstr ""
 
-#, fuzzy
 msgid "User|Otp enabled"
-msgstr "User|Url ime"
+msgstr ""
 
 msgid "User|Otp secret key"
 msgstr ""
@@ -4241,9 +4226,8 @@ msgstr "{{user_name}} (blokiran profil)"
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - Zahtevi za slobodan pristup informacijama od javnog značaja"
 
-#, fuzzy
 msgid "{{user_name}} - Two Factor Authentication"
-msgstr "{{user_name}} je dodao/la napomenu"
+msgstr ""
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - korisnički profil"
@@ -4282,3 +4266,24 @@ msgstr "{{user}} je podneo/la ovaj zahtev pozivajući se na {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "More requests..."
+#~ msgstr "More requests..."
+
+#~ msgid "More successful requests..."
+#~ msgstr "More successful requests..."
+
+#~ msgid "Public notes"
+#~ msgstr "Public notes"
+
+#~ msgid "Publication scheme URL"
+#~ msgstr "Publication scheme URL"
+
+#~ msgid "Request email"
+#~ msgstr "Request email"
+
+#~ msgid "Short name"
+#~ msgstr "Short name"
+
+#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
+#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"
