@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:00+0000\n"
+"POT-Creation-Date: 2015-12-01 18:08+0000\n"
 "PO-Revision-Date: 2015-11-17 08:37+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/mysociety/alaveteli/language/ar/)\n"
@@ -253,6 +253,10 @@ msgstr "<strong>ملاحظة:</strong> نظراً لكوننا في مرحلة �
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Note:</strong>\\n    سنرسل بريدا الكترونيا لعنوان بريدك الالكتروني الجديد. اتبع \\n   التعليمات الواردة فيه لتؤكد تغيير بريدك الالكتروني ."
 
+#, fuzzy
+msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
+msgstr " <strong>ملاحظة:</strong>\\n    سوف نمدكم برسالة إلكترونية. قوموا باتباع الإرشادات الموجودة لتتمكنوا من تغير\\n    كلمة السر."
+
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr " <strong>ملاحظة:</strong>\\n    سوف نمدكم برسالة إلكترونية. قوموا باتباع الإرشادات الموجودة لتتمكنوا من تغير\\n    كلمة السر."
 
@@ -334,6 +338,9 @@ msgstr ""
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
+msgid "Add a widget"
+msgstr ""
+
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr ""
 
@@ -394,8 +401,9 @@ msgstr " <a href=\"{{request_url}}\">ملاحظة</a> ل <em>{{request_title}}</
 msgid "An <strong>error message</strong> has been received"
 msgstr "An <strong>رسالة خطأ</strong> تم تلقي"
 
-msgid "An Environmental Information Regulations request"
-msgstr ""
+#, fuzzy
+msgid "An Environmental Information request"
+msgstr "معلومات القوانين البيئية"
 
 msgid "An anonymous user"
 msgstr "مستخدم غير معروف"
@@ -422,6 +430,12 @@ msgid "Applies to"
 msgstr ""
 
 msgid "Are we missing a public authority?"
+msgstr ""
+
+msgid "Are you sure you want to disable two factor authentication?"
+msgstr ""
+
+msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
 msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
@@ -481,6 +495,10 @@ msgstr ""
 msgid "Beginning with"
 msgstr "البدء ب"
 
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "ابحث عن<br/>\\n  <strong>{{number_of_requests}} الطلبات</strong> <span>و</span><br/>\\n  <strong>{{number_of_authorities}} السلطات</strong>"
+
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "تصفح <a href='{{url}}'>طلبات اخرى</a> للاطلاع على امثلة لكيفية تحرير طلبك."
 
@@ -490,11 +508,18 @@ msgstr "تصفح <a href='{{url}}'>طلبات اخرى</a>ل '{{public_body_name
 msgid "Browse all authorities..."
 msgstr "تصفح كل السلطات "
 
+#, fuzzy
+msgid "Browse all requests &rarr;"
+msgstr "عرض الطلبات"
+
 msgid "Browse and search requests"
 msgstr "عرض والبحث عن الطلبات"
 
 msgid "Browse requests"
 msgstr "عرض الطلبات"
+
+msgid "By law, they have to respond."
+msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "حسب مايمليه القانون ومهما كانت الظروف يجب أن يكون, {{public_body_link}} قد قام بالرد الآن"
@@ -670,6 +695,9 @@ msgstr ""
 msgid "Could not identify the request from the email address"
 msgstr "لا يمكن التعرف على الطلب من عنوان البريد الالكتروني"
 
+msgid "Could not update your two factor one time passcode"
+msgstr ""
+
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "لم يقع التعرف على ملف الصور الذي حملته.و يقع اعتماد PNG, JPEG, GIF و اشكال معتادة اخرى لملفات الصور ."
 
@@ -730,6 +758,9 @@ msgstr ""
 msgid "Did you mean: {{correction}}"
 msgstr "هل قصدتم: {{correction}}"
 
+msgid "Disable two factor authentication"
+msgstr ""
+
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr "تنويه: هذه الرسالة و اي رد تقوم به سيقع نشره على الانترنات  . خصوصيتنا و سياسات حقوق النشر:"
 
@@ -740,6 +771,9 @@ msgid "Disclosure log URL"
 msgstr ""
 
 msgid "Do not fill in this field"
+msgstr ""
+
+msgid "Do not share this passcode."
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -790,6 +824,9 @@ msgstr "ارسل لي بريدا الكترونيا بكل تحديث لهذا �
 msgid "Email:"
 msgstr ""
 
+msgid "Enable two factor authentication"
+msgstr ""
+
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "ادخل الكلمات التي تريد ايجادها منفصلة , e.g. <strong>تسلق ممر</strong>"
 
@@ -812,6 +849,9 @@ msgid "Event history details"
 msgstr "تفاصيل تاريخ الحدث"
 
 msgid "Event {{id}}"
+msgstr ""
+
+msgid "Every citizen has the right to access information held by public authorities."
 msgstr ""
 
 msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
@@ -1012,9 +1052,6 @@ msgstr "من"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "قوموا بإعطاء تفاصيل عن شكواكم هنا"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr ""
 
@@ -1083,6 +1120,10 @@ msgstr ""
 
 msgid "Home page of authority"
 msgstr "الصفحة الرئيسية للمؤسسة"
+
+#, fuzzy
+msgid "How it works"
+msgstr "فقط لمشاهدة كيفية الاشتغال"
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "However, you have the right to request environmental\\n            information under a different law"
@@ -1210,6 +1251,9 @@ msgstr "إذا قمتم باستخدام هذا الموقع {{site_name}} من 
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "ان كان المتصفح الذي تستعمله مبرمجا لقبول ملفات الارتباط ورأيت هذه الرسالة,\\nفهناك على الغالب خطأ بالخادم الخاص بنا"
 
+msgid "Improve your account security"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "تضمين روابط ذات صلة مثل صفحة الحملة،المدوّنةأو صفحة  التّويتر. تصبح هذه الروابط متاحة للجميع."
 
@@ -1219,7 +1263,7 @@ msgstr ""
 msgid "Incoming message"
 msgstr "رسالة واردة"
 
-msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
+msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1348,6 +1392,10 @@ msgstr "مطلب المراجعة الداخلية "
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
+#, fuzzy
+msgid "Invalid one time password"
+msgstr "كلمة العبور: (ثانيةً)"
+
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "هل عنوان هذا البريد الالكتروني {{email_address}} خاطئ بالنسبة ل{{type_of_request}} الطلبات ل {{public_body_name}}?في هذه الحالة الرجاء الاتصال بنا باستعمال الصيغة التالية:"
 
@@ -1369,6 +1417,9 @@ msgstr "انظم الى {{site_name}} في"
 msgid "Just one more thing"
 msgstr ""
 
+msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
+msgstr ""
+
 msgid "Keep your request up to date"
 msgstr ""
 
@@ -1383,6 +1434,9 @@ msgstr "آخر مؤسسة تمّ الإطلاع عليها : "
 
 msgid "Last request viewed: "
 msgstr "آخر مطلب وقع الإطلاع عليه: "
+
+msgid "Learn more &rarr;"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "اعلمنا  ما كنت تفعل عندما ظهرت\\nهذه الرسالة ومتصفحك و نوع و نسخة نظام التشغيل."
@@ -1456,9 +1510,6 @@ msgstr "قدم مطلبا"
 msgid "Make a request &raquo;"
 msgstr ""
 
-msgid "Make a request for information to a public authority: by law, they have to respond"
-msgstr ""
-
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1495,14 +1546,8 @@ msgstr "تنقصنا بيانات اتصال ل '"
 msgid "More about this authority"
 msgstr "المزيد عن هذه السلطة"
 
-msgid "More requests..."
-msgstr ""
-
 msgid "More similar requests"
 msgstr "مزيد المطالب المماثلة"
-
-msgid "More successful requests..."
-msgstr ""
 
 msgid "My profile"
 msgstr "حسابي"
@@ -1662,6 +1707,9 @@ msgstr "السلطو فقط بامكانها الاجابة على هذا الط
 
 msgid "Only the authority can reply to this request, but there is no \"From\" address to check against"
 msgstr "السلطة فقط قادرة على الرد على هذا الطلب, ولكن لا يوجد اي عنوان وارد للرد عليه"
+
+msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
+msgstr ""
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr ""
@@ -1963,6 +2011,9 @@ msgstr "الق نظرة على طلبك العلني"
 msgid "Preview your request"
 msgstr ""
 
+msgid "Print your one time passcode"
+msgstr ""
+
 msgid "Profile photo"
 msgstr "صورة الحساب"
 
@@ -2024,9 +2075,6 @@ msgid "Public body change request"
 msgstr ""
 
 msgid "Public body heading"
-msgstr ""
-
-msgid "Public notes"
 msgstr ""
 
 msgid "Public page"
@@ -2092,6 +2140,10 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
+#, fuzzy
+msgid "PublicBody|Info requests visible count"
+msgstr "الهيكل العامّ|طلب البريد الالكتروني"
+
 msgid "PublicBody|Last edit comment"
 msgstr "الهيكل العامّ|اخر تعليق محوّر"
 
@@ -2122,9 +2174,6 @@ msgstr "الهيكل العامّ|نسخة"
 msgid "Publication scheme"
 msgstr "مخطط مايقع نشره"
 
-msgid "Publication scheme URL"
-msgstr ""
-
 msgid "Purge request"
 msgstr "مطلب تطهير"
 
@@ -2132,6 +2181,13 @@ msgid "PurgeRequest|Model"
 msgstr "نهاية الصلاحية|نموذج"
 
 msgid "PurgeRequest|Url"
+msgstr ""
+
+#, fuzzy
+msgid "Query can't be blank"
+msgstr "مكان الاسم لا يجب ان بظل فارغا"
+
+msgid "Query is too long"
 msgstr ""
 
 msgid "RSS feed"
@@ -2160,6 +2216,9 @@ msgstr "اظهار أحدث النتائج أولا"
 
 msgid "Refused."
 msgstr "مرفوض."
+
+msgid "Regenerate one time passcode"
+msgstr ""
 
 msgid "Rejected"
 msgstr ""
@@ -2190,9 +2249,6 @@ msgstr "طلب مراجعة داخلية"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "اطلب مراجعة داخلية من {{person_or_body}}"
-
-msgid "Request email"
-msgstr ""
 
 msgid "Request for personal information"
 msgstr ""
@@ -2329,6 +2385,10 @@ msgstr "ارسل ردا علنيا ل {{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "ارسل متابعة ل '{{title}}'"
 
+#, fuzzy
+msgid "Send me the email"
+msgstr "أرسل التحذيرات عبر البريد الالكتروني أيضا"
+
 msgid "Send message"
 msgstr "ابعث رسالة "
 
@@ -2337,6 +2397,9 @@ msgstr "ابعث رسالة ل"
 
 msgid "Send request"
 msgstr "إرسال المطلب"
+
+msgid "Sending..."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2357,9 +2420,6 @@ msgid "Share your batch request"
 msgstr ""
 
 msgid "Share your request"
-msgstr ""
-
-msgid "Short name"
 msgstr ""
 
 msgid "Short name is already taken"
@@ -2444,6 +2504,10 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
+msgstr "اطلق مدونتك الخاصة"
+
+#, fuzzy
+msgid "Start your own request"
 msgstr "اطلق مدونتك الخاصة"
 
 msgid "Stay up to date"
@@ -2665,6 +2729,9 @@ msgstr "مؤشر البحث خارج الخدمة حاليا,لذلك لا يم�
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "مؤشر البحث خارج الخدمة حاليا, لذلك ليس بامكاننا اظهار طلبات حرية النفاذ الى المعلومة التي قدمها هذا الشخص."
 
+msgid "The widget will look like this:"
+msgstr ""
+
 msgid "The {{site_name}} team."
 msgstr ""
 
@@ -2767,6 +2834,10 @@ msgstr[5] ""
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "كان هنالك <strong>خطأ في التسلبم</strong> او ما شابه ذلك, و يحتاج اصلاحه من قبل {{site_name}} الفريق."
 
+#, fuzzy
+msgid "There was an error with the reCAPTCHA. Please try again."
+msgstr "كان هتالك خطأ في الكلمات التي ادخلتها الرجاء المحاولة ثانية"
+
 msgid "There was an error with the words you entered, please try again."
 msgstr "كان هتالك خطأ في الكلمات التي ادخلتها الرجاء المحاولة ثانية"
 
@@ -2808,6 +2879,9 @@ msgstr "هذه السلطة لم تعد موجودة, لم يعد بامكانك
 
 msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
 msgstr "هذا يغطي مجالا واسعا من المعلومات حول حالة \\n             <strong>البيئة الطبيعية و الاصطناعية</strong>, مثل :"
+
+msgid "This email is already in use"
+msgstr ""
 
 msgid "This external request has been hidden"
 msgstr "تم اخفاء الطلب الخارجي"
@@ -2944,6 +3018,9 @@ msgstr "هذا سوف يظهر على حسابك {{site_name}} ، لتمكين �
 msgid "To"
 msgstr ""
 
+msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "لالغاء اشارات التنبيه"
 
@@ -3034,6 +3111,9 @@ msgstr "لرؤية البريد الالكتروني الذي نستعمله ل�
 msgid "To view the response, click on the link below."
 msgstr "لرؤية الاجابة, انقر على الرابط اسفله."
 
+msgid "To view your two factor authentication details"
+msgstr ""
+
 msgid "To {{public_body_link_absolute}}"
 msgstr "ل {{public_body_link_absolute}}"
 
@@ -3072,6 +3152,27 @@ msgstr ""
 
 msgid "Tweet this request"
 msgstr "ضع هذا الطلب على التويتر"
+
+msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
+msgstr ""
+
+msgid "Two factor authentication could not be disabled"
+msgstr ""
+
+msgid "Two factor authentication could not be enabled"
+msgstr ""
+
+msgid "Two factor authentication disabled"
+msgstr ""
+
+msgid "Two factor authentication enabled"
+msgstr ""
+
+msgid "Two factor one time passcode updated"
+msgstr ""
+
+msgid "Two factor one time passcode:"
+msgstr ""
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
 msgstr "ادخل <strong><code>01/01/2008..14/01/2008</code></strong> لاظهار ما حدث في اول اسبوعين من جانفي فقط."
@@ -3139,6 +3240,9 @@ msgstr ""
 msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr "استخدم اقتباسات عندما تريد ايجاد جملة بعينها, مثال. <strong><code>\"مجلس مدينة ليفربول\"</code></strong>"
 
+msgid "Use this site to make your request for information – we'll show you how."
+msgstr ""
+
 msgid "User"
 msgstr "المستخدم"
 
@@ -3193,6 +3297,17 @@ msgstr "المستخدم|الاسم"
 msgid "User|No limit"
 msgstr "مستخدم|لاحدود"
 
+#, fuzzy
+msgid "User|Otp counter"
+msgstr "مستخدم|معلومات عني"
+
+#, fuzzy
+msgid "User|Otp enabled"
+msgstr "المستخدم|Url name"
+
+msgid "User|Otp secret key"
+msgstr ""
+
 msgid "User|Receive email alerts"
 msgstr "المستخدم|تلقي اشارات تنبيه للرسائل الالكترونية"
 
@@ -3229,6 +3344,9 @@ msgstr "عرض البريد الالكتروني"
 msgid "View other requests to {{public_body}}"
 msgstr ""
 
+msgid "View your two factor authentication one time passcode"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "انتظار التوضيحات"
 
@@ -3262,6 +3380,9 @@ msgstr "لا نملك {{law_used_full}} عنوان بريد الكتروني ص�
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "لا نعرف ان كان أحدث رد على هذا الطلب يحتوي\\n    على المعلومات أم لا\\n        &ndash;\\n\tان كنت {{user_link}} الرجاء <a href=\"{{url}}\">تسجيل الدخول</a>واعلام الجميع ."
 
+msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
+msgstr ""
+
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr " لن نكشف عنوان بريدك الالكتروني لاحد الا  اذا قررت انت\\nاو القانون عكس ذلك ."
 
@@ -3270,6 +3391,9 @@ msgstr " لن نكشف عنوان بريدك الالكتروني لاحد ال�
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr " لن نكشف عناوين بريدك الالكتروني لاحد الا  اذا قررت انت\\nاو القانون عكس ذلك ."
+
+msgid "We'll drop you an email as soon as your request gets a response."
+msgstr ""
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3321,6 +3445,9 @@ msgstr "عندما تصل هناك, الرجاء تحيين الحالة لاخ�
 
 msgid "When you receive the paper response, please help others find out what it says:"
 msgstr "عندما تستقبل ورقة الرد, الرجاء مساعدة الاخرين\\n               معرفة محتواها:"
+
+msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
+msgstr ""
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
 msgstr ""
@@ -3454,6 +3581,9 @@ msgstr ""
 msgid "You can only request information about the environment from this authority."
 msgstr "لا تستطيع طلب معلومات عن البيئة الا من خلال هذه السلطة."
 
+msgid "You can regenerate your one time passcode at any time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "لديك اجابة جديدة على {{law_used_full}} طلب "
 
@@ -3471,6 +3601,9 @@ msgstr "لقد قمت الان بتغيير النص الخاص بك على حس
 
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr "لقد قمت الان بتغيير بريدك الالكتروني المستخدم على address  {{site_name}}"
+
+msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
+msgstr ""
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr "لقد حاولت للتو تسجيل دخولك ل {{site_name}}, في حين  انك\\nتملك حسابا. لقد تم الحفاظ على\\nالاسم و كلمة السر الخاصتين بك كما كانا.\\n\\nيرجى الضغط على الرابط اسفله."
@@ -3510,6 +3643,9 @@ msgstr "كان يجب ان تحصل على نسخة من الطلب عبر ال�
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
 msgstr "سترغب في <strong>مد عنوانك البريدي</strong> الى السلطة بشكل سري."
+
+msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
+msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr "لن تتمكن من القيام باية طلبات جديدة, ابعث متابعات, اضف ملاحظات او\\nابعث رسائل لمستخدمين اخرين. قد تستمر في رؤية طلبات اخرى , و set\\n وضع\\nاشارات تنبيه خاصة بالبريد الالكتروني."
@@ -3562,6 +3698,9 @@ msgstr "ملاحظاتك"
 msgid "Your batch request \"{{title}}\" has been sent"
 msgstr ""
 
+msgid "Your current one time passcode:"
+msgstr ""
+
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr "لم يقع اعطاء المعلومات الخاصة بك , بما فيها, بريدك الالكتروني لأحد"
 
@@ -3610,6 +3749,9 @@ msgstr "تم ربط رسالتك الاصلية"
 msgid "Your password has been changed."
 msgstr "تم تغيير كلمة السر"
 
+msgid "Your password has been changed. You also have a new one time passcode which you'll need next time you want to change your password"
+msgstr ""
+
 msgid "Your password:"
 msgstr "كلمة السر:"
 
@@ -3647,6 +3789,9 @@ msgid "Your response to an FOI request was not delivered"
 msgstr "لم يقع ارسال ردك على طلب حرية النفاذ الى المعلومة بنجاح"
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr ""
+
+msgid "Your right to know"
 msgstr ""
 
 msgid "Your selected authorities"
@@ -3714,9 +3859,6 @@ msgstr ""
 
 msgid "admin"
 msgstr "مشرف"
-
-msgid "alaveteli_foi:The software that runs {{site_name}}"
-msgstr ""
 
 msgid "all requests"
 msgstr "كل الطلبات"
@@ -3842,6 +3984,9 @@ msgid "mobile number"
 msgstr ""
 
 msgid "move..."
+msgstr ""
+
+msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
 msgid "new requests"
@@ -4046,6 +4191,10 @@ msgstr "{{user_name}} (حساب معلق)"
 
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - طلبات حرية النفاذ للمعلومة"
+
+#, fuzzy
+msgid "{{user_name}} - Two Factor Authentication"
+msgstr "{{user_name}} اضاف ملاحظة"
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} -حساب المستخدم"

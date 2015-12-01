@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:00+0000\n"
+"POT-Creation-Date: 2015-12-01 18:08+0000\n"
 "PO-Revision-Date: 2015-11-17 08:37+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
@@ -256,6 +256,10 @@ msgstr "<strong>Nodyn:</strong> Oherwydd ein bod yn profi, mae ceisiadau yn cael
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Nodyn:</strong>  Byddwn yn anfon e-bost at eich cyfeiriad e-bost newydd. Dilynwch y cyfarwyddiadau ynddo i gadarnhau newid eich e-bost."
 
+#, fuzzy
+msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
+msgstr " <strong>Sylwer:</strong> Byddwn yn anfon e-bost atoch. Dilynwch y cyfarwyddiadau ynddo i newid eich cyfrinair."
+
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr " <strong>Sylwer:</strong> Byddwn yn anfon e-bost atoch. Dilynwch y cyfarwyddiadau ynddo i newid eich cyfrinair."
 
@@ -337,6 +341,9 @@ msgstr "ActsAsXapian :: ActsAsXapianJob | Gweithredu"
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "ActsAsXapian :: ActsAsXapianJob | Model"
 
+msgid "Add a widget"
+msgstr ""
+
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr ""
 
@@ -397,8 +404,9 @@ msgstr "Gwnaed <a href=\"{{request_url}}\">anodiad</a> i <em>{{request_title}}</
 msgid "An <strong>error message</strong> has been received"
 msgstr "Derbyniwyd  <strong>gwall-neges</strong>"
 
-msgid "An Environmental Information Regulations request"
-msgstr ""
+#, fuzzy
+msgid "An Environmental Information request"
+msgstr "Rheoliadau Gwybodaeth Amgylcheddol"
 
 msgid "An anonymous user"
 msgstr "Defnyddiwr dienw"
@@ -426,6 +434,12 @@ msgstr "Yn berthnasol i"
 
 msgid "Are we missing a public authority?"
 msgstr "A oes awdurdod cyhoeddus ar goll gennym?"
+
+msgid "Are you sure you want to disable two factor authentication?"
+msgstr ""
+
+msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
+msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Ai chi yw perchennog unrhyw hawlfraint masnachol ar y dudalen hon?"
@@ -484,6 +498,10 @@ msgstr "Swp a grëwyd gan {{info_request_user}} ar {{date}}."
 msgid "Beginning with"
 msgstr "Yn dechrau gyda"
 
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Chwilio dros <strong>{{number_of_requests}} cais</strong> a <strong>{{number_of_authorities}} awdurdod</strong>"
+
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Porwch<a href='{{url}}'>geisiadau eraill</a> am enghreifftiau o sut i eirio'ch cais."
 
@@ -493,11 +511,18 @@ msgstr "Porwch <a href='{{url}}'>geisiadau eraill</a> i '{{public_body_name}}' a
 msgid "Browse all authorities..."
 msgstr "Mwy o awdurdodau..."
 
+#, fuzzy
+msgid "Browse all requests &rarr;"
+msgstr "Gweld ceisiadau"
+
 msgid "Browse and search requests"
 msgstr "Gweld a chwilio ceisiadau"
 
 msgid "Browse requests"
 msgstr "Gweld ceisiadau"
+
+msgid "By law, they have to respond."
+msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Yn ôl y gyfraith, ym mhob amgylchiad, dylai {{public_body_link}} fod wedi ymateb erbyn hyn."
@@ -673,6 +698,9 @@ msgstr "Yn cynnwys gwybodaeth bersonol"
 msgid "Could not identify the request from the email address"
 msgstr "Methwyd ag adnabod y cais o'r cyfeiriad e-bost"
 
+msgid "Could not update your two factor one time passcode"
+msgstr ""
+
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Methwyd â deall y ffeil ddelwedd yr ydych yn llwytho i fyny. Cefnogir PNG, JPEG, GIF a llawer o fformatau ffeil delwedd cyffredin eraill."
 
@@ -733,6 +761,9 @@ msgstr ""
 msgid "Did you mean: {{correction}}"
 msgstr "A oeddech yn meddwl: {{correction}}"
 
+msgid "Disable two factor authentication"
+msgstr ""
+
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr "Ymwadiad: Caiff y neges hon ac unrhyw ateb a roddwch eu cyhoeddi ar y rhyngrwyd. Ein polisïau preifatrwydd a hawlfraint:"
 
@@ -744,6 +775,9 @@ msgstr "URL log datgelu"
 
 msgid "Do not fill in this field"
 msgstr "Peidiwch â llenwi'r maes hwn"
+
+msgid "Do not share this passcode."
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr "Heb gyfrif defnyddiwr uwch eto?"
@@ -793,6 +827,9 @@ msgstr "E-bostiwch diweddariadau i'r cais hwn yn y dyfodol ataf"
 msgid "Email:"
 msgstr "Ebost:"
 
+msgid "Enable two factor authentication"
+msgstr ""
+
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Rhowch eiriau yr ydych am ddod o hyd iddynt, wedi eu gwahanu gan fylchau, ee <strong>lôn  ddringo</strong>"
 
@@ -816,6 +853,9 @@ msgstr "Hanes y digwyddiad: manylion"
 
 msgid "Event {{id}}"
 msgstr "Digwyddiad {{id}}"
+
+msgid "Every citizen has the right to access information held by public authorities."
+msgstr ""
 
 msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr "Dangosir popeth yr ydych yn rhoi i mewn ar y dudalen hon <strong>yn gyhoeddus</strong> ar y wefan hon am byth (<a href=\"{{url}}\">pam?</a>) ."
@@ -1013,9 +1053,6 @@ msgstr "Oddi wrth:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "RHOWCH FANYLION AM EICH CWYN YMA"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr ""
 
@@ -1084,6 +1121,10 @@ msgstr "Tudalen hafan"
 
 msgid "Home page of authority"
 msgstr "Tudalen hafan yr awdurdod"
+
+#, fuzzy
+msgid "How it works"
+msgstr "dim ond i weld sut mae'n gweithio"
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Fodd bynnag, mae gennych yr hawl i ofyn am wybodaeth amgylcheddol dan gyfraith wahanol"
@@ -1211,6 +1252,9 @@ msgstr "Os ydych chi wedi defnyddio {{site_name}} o'r blaen "
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "Os yw eich porwr wedi ei osod i dderbyn cwcis ac rydych yn gweld y neges hon, yna mae'n debyg fod nam ar ein gweinydd."
 
+msgid "Improve your account security"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr " Cynhwyswch gysylltiadau perthnasol, megis i dudalen yr ymgyrch, eich blog neu gyfrif Twitter. Byddant yn cael eu gwneud yn gliciadwy. ee"
 
@@ -1220,7 +1264,7 @@ msgstr "Cyfeiriad e-bost sy'n dod i mewn"
 msgid "Incoming message"
 msgstr "Neges sy'n dod i mewn"
 
-msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
+msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1349,6 +1393,10 @@ msgstr "Cais am adolygiad mewnol"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Cais am adolygiad mewnol a anfonwyd at {{public_body_name}} gan {{info_request_user}} ar {{date}}."
 
+#, fuzzy
+msgid "Invalid one time password"
+msgstr "Cyfrinair: (eto)"
+
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "A yw {{email_address}} y cyfeiriad anghywir ar gyfer ceisiadau  {{type_of_request}} i {{public_body_name}}? Os felly, cysylltwch â ni gan ddefnyddio'r ffurflen hon:"
 
@@ -1370,6 +1418,9 @@ msgstr "Ymunodd â {{site_name}} yn"
 msgid "Just one more thing"
 msgstr "Dim ond un peth arall"
 
+msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
+msgstr ""
+
 msgid "Keep your request up to date"
 msgstr ""
 
@@ -1384,6 +1435,9 @@ msgstr "Yr awdurdod diwethaf edrychwyd arno: "
 
 msgid "Last request viewed: "
 msgstr "Y cais diwethaf edrychwyd arno: "
+
+msgid "Learn more &rarr;"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Gadewch i ni wybod beth oeddech yn ei wneud pan ymddangosodd y neges hon, a manylion eich porwr, eich system weithredu a'i fersiwn."
@@ -1457,9 +1511,6 @@ msgstr "Gwneud cais"
 msgid "Make a request &raquo;"
 msgstr "Gwneud cais &raquo;"
 
-msgid "Make a request for information to a public authority: by law, they have to respond"
-msgstr ""
-
 msgid "Make a request to these authorities"
 msgstr "Gwneud cais i'r awdurdodau hyn"
 
@@ -1496,14 +1547,8 @@ msgstr "Manylion cyswllt ar goll ar gyfer '"
 msgid "More about this authority"
 msgstr "Rhagor am yr awdurdod hwn"
 
-msgid "More requests..."
-msgstr ""
-
 msgid "More similar requests"
 msgstr "Rhagor o geisiadau tebyg"
-
-msgid "More successful requests..."
-msgstr ""
 
 msgid "My profile"
 msgstr "Fy mhroffil"
@@ -1663,6 +1708,9 @@ msgstr "Dim ond yr awdurdod a all ymateb i'r cais hwn, ac nid wyf yn adnabod y c
 
 msgid "Only the authority can reply to this request, but there is no \"From\" address to check against"
 msgstr "Dim ond yr awdurdod a all ymateb i'r cais hwn, ond nid oes cyfeiriad \"O\" i wirio yn ei erbyn"
+
+msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
+msgstr ""
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr "Neu wneud <a href=\"{{url}}\"> swp </a> cais i <strong> lluosog awdurdodau </ strong> ar unwaith."
@@ -1962,6 +2010,9 @@ msgstr "Rhagolygwch eich cais cyhoeddus"
 msgid "Preview your request"
 msgstr ""
 
+msgid "Print your one time passcode"
+msgstr ""
+
 msgid "Profile photo"
 msgstr "Photo proffil"
 
@@ -2024,9 +2075,6 @@ msgstr "Cais am newid y corff cyhoeddus"
 
 msgid "Public body heading"
 msgstr "Pennawd corff cyhoeddus"
-
-msgid "Public notes"
-msgstr ""
 
 msgid "Public page"
 msgstr "Tudalen gyhoeddus"
@@ -2091,6 +2139,10 @@ msgstr "PublicBody|Cyfrif ceisiadau gwybodaeth llwyddiannus"
 msgid "PublicBody|Info requests visible classified count"
 msgstr "PublicBody|Cyfrif ceisiadau gweladwy wedi eu dosbarthu"
 
+#, fuzzy
+msgid "PublicBody|Info requests visible count"
+msgstr "PublicBody|Cyfrif ceisiadau gwybodaeth"
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Sylw ar y golygiad diwethaf"
 
@@ -2121,9 +2173,6 @@ msgstr "PublicBody|Fersiwn"
 msgid "Publication scheme"
 msgstr "Cynllun cyhoeddi"
 
-msgid "Publication scheme URL"
-msgstr ""
-
 msgid "Purge request"
 msgstr "Cliriwch gais"
 
@@ -2132,6 +2181,13 @@ msgstr "PurgeRequest|Model"
 
 msgid "PurgeRequest|Url"
 msgstr "PurgeRequest|Url"
+
+#, fuzzy
+msgid "Query can't be blank"
+msgstr "Ni all yr enw fod yn wag"
+
+msgid "Query is too long"
+msgstr ""
 
 msgid "RSS feed"
 msgstr "Porthiant RSS"
@@ -2159,6 +2215,9 @@ msgstr "Canlyniadau a ddisgrifiwyd yn ddiweddar yn gyntaf"
 
 msgid "Refused."
 msgstr "Gwrthodwyd."
+
+msgid "Regenerate one time passcode"
+msgstr ""
 
 msgid "Rejected"
 msgstr ""
@@ -2189,9 +2248,6 @@ msgstr "Gofyn am adolygiad mewnol"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Gofyn am adolygiad mewnol o {{person_or_body}}"
-
-msgid "Request email"
-msgstr ""
 
 msgid "Request for personal information"
 msgstr "Cais am wybodaeth bersonol"
@@ -2328,6 +2384,10 @@ msgstr "Anfon ateb cyhoeddus i {{person_or_body}} "
 msgid "Send follow up to '{{title}}'"
 msgstr "Anfonwch neges ddilynol i '{{title}}'"
 
+#, fuzzy
+msgid "Send me the email"
+msgstr "Hefyd anfonwch rybuddion ataf drwy e-bost"
+
 msgid "Send message"
 msgstr "Anfon neges"
 
@@ -2336,6 +2396,9 @@ msgstr "Anfon neges i"
 
 msgid "Send request"
 msgstr "Anfon cais"
+
+msgid "Sending..."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2354,9 +2417,6 @@ msgid "Share your batch request"
 msgstr ""
 
 msgid "Share your request"
-msgstr ""
-
-msgid "Short name"
 msgstr ""
 
 msgid "Short name is already taken"
@@ -2441,6 +2501,10 @@ msgid "SpamAddress|Email"
 msgstr "SpamAddress |Ebost"
 
 msgid "Start your own blog"
+msgstr "Dechreuwch eich blog eich hun"
+
+#, fuzzy
+msgid "Start your own request"
 msgstr "Dechreuwch eich blog eich hun"
 
 msgid "Stay up to date"
@@ -2662,6 +2726,9 @@ msgstr "Mae'r mynegai chwilio ar hyn o bryd all-lein, fel na allwn ddangos geisi
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "Mae'r mynegai chwilio ar hyn o bryd all-lein, fel na allwn ddangos y ceisiadau Rhyddid Gwybodaeth y mae'r person yma wedi gwneud."
 
+msgid "The widget will look like this:"
+msgstr ""
+
 msgid "The {{site_name}} team."
 msgstr "Tîm {{site_name}}."
 
@@ -2762,6 +2829,10 @@ msgstr[3] "Mae {{count}} person yn dilyn y cais hwn"
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Roedd <strong>gwall cyflenwi</strong> neu rywbeth tebyg, sy angen ei drwsio gan dîm {{site_name}}."
 
+#, fuzzy
+msgid "There was an error with the reCAPTCHA. Please try again."
+msgstr "Roedd gwall gyda'r geiriau a roddoch, ceisiwch eto os gwelwch yn dda."
+
 msgid "There was an error with the words you entered, please try again."
 msgstr "Roedd gwall gyda'r geiriau a roddoch, ceisiwch eto os gwelwch yn dda."
 
@@ -2803,6 +2874,9 @@ msgstr "Nid yw'r awdurdod hwn yn bodoli bellach, felly ni allwch wneud cais iddo
 
 msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
 msgstr "Mae hyn yn cwmpasu sbectrwm eang iawn o wybodaeth am gyflwr yr <strong> amgylchedd naturiol ac adeiledig</strong>, megis:"
+
+msgid "This email is already in use"
+msgstr ""
 
 msgid "This external request has been hidden"
 msgstr "Mae'r cais allanol wedi cael ei guddio"
@@ -2935,6 +3009,9 @@ msgstr "  Bydd hyn yn ymddangos ar eich proffil {{site_name}}, i'w wneud yn haws
 msgid "To"
 msgstr ""
 
+msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "I ganslo'r rhybuddion hyn"
 
@@ -3025,6 +3102,9 @@ msgstr "I weld y cyfeiriad e-bost yr ydym yn ei ddefnyddio i anfon ceisiadau Rhy
 msgid "To view the response, click on the link below."
 msgstr "I weld yr ymateb, cliciwch ar y ddolen isod."
 
+msgid "To view your two factor authentication details"
+msgstr ""
+
 msgid "To {{public_body_link_absolute}}"
 msgstr "I {{public_body_link_absolute}} "
 
@@ -3063,6 +3143,27 @@ msgstr ""
 
 msgid "Tweet this request"
 msgstr "Trydarwch y cais hwn"
+
+msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
+msgstr ""
+
+msgid "Two factor authentication could not be disabled"
+msgstr ""
+
+msgid "Two factor authentication could not be enabled"
+msgstr ""
+
+msgid "Two factor authentication disabled"
+msgstr ""
+
+msgid "Two factor authentication enabled"
+msgstr ""
+
+msgid "Two factor one time passcode updated"
+msgstr ""
+
+msgid "Two factor one time passcode:"
+msgstr ""
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
 msgstr "Teipiwch <strong><code> 01/01/2008..14/01/2008 </code></strong> i ddangos yn unig bethau a ddigwyddodd yn ystod dwy wythnos gyntaf mis Ionawr."
@@ -3130,6 +3231,9 @@ msgstr "Defnyddiwch OR (mewn prif lythrennau) lle nad oes ots gennych pa air, ee
 msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr "Defnyddiwch ddyfynodau pan fyddwch am ddod o hyd i'r union ymadrodd, ee <strong> <code>\"Cardiff City Council\"</code></strong>"
 
+msgid "Use this site to make your request for information – we'll show you how."
+msgstr ""
+
 msgid "User"
 msgstr "Defnyddiwr"
 
@@ -3184,6 +3288,17 @@ msgstr "User|Enw"
 msgid "User|No limit"
 msgstr "User|Dim cyfyngiad"
 
+#, fuzzy
+msgid "User|Otp counter"
+msgstr "User|Amdanaf i"
+
+#, fuzzy
+msgid "User|Otp enabled"
+msgstr "User|Enw Url"
+
+msgid "User|Otp secret key"
+msgstr ""
+
 msgid "User|Receive email alerts"
 msgstr "User|Derbyn rhybuddion e-bost"
 
@@ -3220,6 +3335,9 @@ msgstr "Gweld e-bost"
 msgid "View other requests to {{public_body}}"
 msgstr ""
 
+msgid "View your two factor authentication one time passcode"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Yn disgwyl eglurhad."
 
@@ -3253,6 +3371,9 @@ msgstr "Nid oes gennym gyfeiriad {{law_used_full}} sy'n gweithio ar gyfer {{publ
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Nid ydym yn gwybod a yw'r ymateb mwyaf diweddar i'r cais hwn yn cynnwys gwybodaeth neuai peidio - os chi yw{{user_link}} <a href = \"{{url}}\">mewngofnodwch </a> a gadael i bawb wybod."
 
+msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
+msgstr ""
+
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr "Ni fyddwn yn datgelu eich cyfeiriad e-bost i neb oni bai eich bod chi neu'r gyfraith yn dweud wrthym i wneud (<a href=\"{{url}}\">manylion</a>)."
 
@@ -3261,6 +3382,9 @@ msgstr "Ni fyddwn yn datgelu eich cyfeiriad e-bost i neb oni bai eich bod chi ne
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
 msgstr "Ni fyddwn yn datgelu eich cyfeiriad e-bost i neb oni bai eich bod chi neu'r gyfraith yn dweud wrthym i wneud."
+
+msgid "We'll drop you an email as soon as your request gets a response."
+msgstr ""
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3308,6 +3432,9 @@ msgstr "Pan fyddwch yn cyrraedd yno, diweddarwch y statws i ddweud a yw'r ymateb
 
 msgid "When you receive the paper response, please help others find out what it says:"
 msgstr "Pan fyddwch yn derbyn yr ymateb papur, helpwch eraill i gael gwybod beth y mae'n ei ddweud:"
+
+msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
+msgstr ""
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
 msgstr "Pan fyddwch chi wedi gorffen, <strong>dewch yn ôl yma</strong>, <a href=\"{{url}}\"> ail-lwytho'r dudalen hon </ a> a ffeilio eich cais newydd."
@@ -3441,6 +3568,9 @@ msgstr "Gallwch gael y dudalen hon ar ffurf gyfrifiadurol-darllenadwy fel rhan o
 msgid "You can only request information about the environment from this authority."
 msgstr "Ceisio gwybodaeth am yr amgylchedd yn unig y gallwch ei wneud gan yr awdurdod hwn."
 
+msgid "You can regenerate your one time passcode at any time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Mae gennych ymateb newydd i'r cais {{law_used_full}}  "
 
@@ -3458,6 +3588,9 @@ msgstr "Rydych yn awr wedi newid y testun amdanoch chi ar eich proffil."
 
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr "Rydych bellach wedi newid eich cyfeiriad e-bost a ddefnyddir ar {{site_name}}"
+
+msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
+msgstr ""
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr "Rydych newydd geisio i gofrestru ar {{site_name}}, er bod gennych gyfrif eisoes. Mae'ch enw a'ch cyfrinair wedi eu gadael fel yr oedden. Cliciwch ar y ddolen isod."
@@ -3497,6 +3630,9 @@ msgstr "Dylech fod wedi derbyn copi o'r cais drwy e-bost, a gallwch ymateb yn sy
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
 msgstr "Byddwch am <strong>roi eich cyfeiriad post</ strong> i'r awdurdod yn breifat."
+
+msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
+msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr "Ni fyddwch yn gallu gwneud ceisiadau newydd, anfon negeseuon dilynol, ychwanegu anodiadau nac anfon negeseuon at ddefnyddwyr eraill. Byddwch yn dal i allu gweld ceisiadau eraill, a threfnu gosod rhybuddion e-byst."
@@ -3549,6 +3685,9 @@ msgstr "Eich anodiadau"
 msgid "Your batch request \"{{title}}\" has been sent"
 msgstr "Mae eich cais swp  {{title}}  wedi ei yrru"
 
+msgid "Your current one time passcode:"
+msgstr ""
+
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr "Nid yw eich manylion, gan gynnwys eich cyfeiriad e-bost, wedi cael eu rhoi i neb."
 
@@ -3597,6 +3736,9 @@ msgstr "Mae eich neges wreiddiol yn atodedig."
 msgid "Your password has been changed."
 msgstr "Mae eich cyfrinair wedi cael ei newid."
 
+msgid "Your password has been changed. You also have a new one time passcode which you'll need next time you want to change your password"
+msgstr ""
+
 msgid "Your password:"
 msgstr "Eich cyfrinair:"
 
@@ -3635,6 +3777,9 @@ msgstr "Ni chafodd eich ymateb i gais Rhyddid Gwybodaeth ei gyflwyno"
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Bydd eich ymateb <strong>yn ymddangos ar y Rhyngrwyd</strong>, <a href=\"{{url}}\"> darllenwch pam</a> ac atebion i gwestiynau eraill."
+
+msgid "Your right to know"
+msgstr ""
 
 msgid "Your selected authorities"
 msgstr "Eich awdurdodau dewisedig"
@@ -3695,9 +3840,6 @@ msgstr "[Nodyn {{site_name}} : Roedd y testun uchod wedi'i amgodio'n wael, ac ma
 
 msgid "admin"
 msgstr "gweinydd'"
-
-msgid "alaveteli_foi:The software that runs {{site_name}}"
-msgstr ""
 
 msgid "all requests"
 msgstr "pob cais"
@@ -3824,6 +3966,9 @@ msgstr ""
 
 msgid "move..."
 msgstr "symud ..."
+
+msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
+msgstr ""
 
 msgid "new requests"
 msgstr "ceisiadau newydd"
@@ -4021,6 +4166,10 @@ msgstr "{{user_name}} (Ataliwyd y cyfrif)"
 
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - ceisiadau Rhyddid Gwybodaeth"
+
+#, fuzzy
+msgid "{{user_name}} - Two Factor Authentication"
+msgstr "Ychwanegodd {{user_name}} anodiad"
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - proffil defnyddiwr"

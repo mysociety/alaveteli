@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:00+0000\n"
+"POT-Creation-Date: 2015-12-01 18:08+0000\n"
 "PO-Revision-Date: 2015-11-17 08:37+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/language/id/)\n"
@@ -292,6 +292,13 @@ msgstr ""
 "    Kami akan mengirimkan email ke alamat email Anda yang baru. Ikutilah\n"
 "    instruksi di dalamnya untuk mengkonfirmasi perubahan email Anda."
 
+#, fuzzy
+msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
+msgstr ""
+"  <strong>Catatan:</strong>\n"
+"    Kami akan mengirimkan sebuah email kepada Anda. Ikutilah instruksi-instruksi di dalamnya untuk mengubah\n"
+"    kode sandi Anda."
+
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr ""
 "  <strong>Catatan:</strong>\n"
@@ -380,6 +387,9 @@ msgstr ""
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
+msgid "Add a widget"
+msgstr ""
+
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr ""
 
@@ -446,8 +456,9 @@ msgstr "Sebuah <a href=\"{{request_url}}\">anotasi</a> untuk <em>{{request_title
 msgid "An <strong>error message</strong> has been received"
 msgstr "Sebuah<strong>pesan error</strong> telah diterima"
 
-msgid "An Environmental Information Regulations request"
-msgstr ""
+#, fuzzy
+msgid "An Environmental Information request"
+msgstr "Peraturan Informasi Lingkungan"
 
 msgid "An anonymous user"
 msgstr "Sebuah pengguna anonim"
@@ -477,6 +488,12 @@ msgstr "Berlaku untuk"
 
 msgid "Are we missing a public authority?"
 msgstr "Adakah otoritas publik yang belum kami cantumkan?"
+
+msgid "Are you sure you want to disable two factor authentication?"
+msgstr ""
+
+msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
+msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Apakah Anda pemilik dari hak cipta komersial di halaman ini?"
@@ -537,6 +554,13 @@ msgstr ""
 msgid "Beginning with"
 msgstr "Dimulai dengan"
 
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+"Cari lagi<br/>\n"
+"          <strong>{{number_of_requests}} permintaan</strong> <span>dan</span><br/>\n"
+"          <strong>{{number_of_authorities}} otoritas</strong>"
+
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Melihat<a href='{{url}}'>permintaan lain</a> contohnya tentang bagaimana menyampaikan permintaan Anda."
 
@@ -546,11 +570,18 @@ msgstr "Melihat <a href='{{url}}'>permintaan lain</a> untuk'{{public_body_name}}
 msgid "Browse all authorities..."
 msgstr "Melihat semua otoritas..."
 
+#, fuzzy
+msgid "Browse all requests &rarr;"
+msgstr "Tampilkan permintaan"
+
 msgid "Browse and search requests"
 msgstr "Tampilkan dan cari permintaan"
 
 msgid "Browse requests"
 msgstr "Tampilkan permintaan"
+
+msgid "By law, they have to respond."
+msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Berdasarkan undang-undang, dalam semua keadaan, {{public_body_link}} sekarang seharusnya sudah ditanggapi"
@@ -728,6 +759,9 @@ msgstr ""
 msgid "Could not identify the request from the email address"
 msgstr "Tidak dapat mengidentifikasi permintaan dari alamat email"
 
+msgid "Could not update your two factor one time passcode"
+msgstr ""
+
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Tidak dapat membaca file gambar yang Anda muat. PNG, JPEG, GIF dan berbagai format file umum lainnya yang didukung."
 
@@ -790,6 +824,9 @@ msgstr ""
 msgid "Did you mean: {{correction}}"
 msgstr "Apakah yang Anda maksud: {{correction}}"
 
+msgid "Disable two factor authentication"
+msgstr ""
+
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr "Sangkalan: Pesan ini dan balasan apapun yang Anda buat akan dimuat di Internet. Kebijakan privasi dan hak citpta kami:"
 
@@ -800,6 +837,9 @@ msgid "Disclosure log URL"
 msgstr "Pembukaan riwayat URL"
 
 msgid "Do not fill in this field"
+msgstr ""
+
+msgid "Do not share this passcode."
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -852,6 +892,9 @@ msgstr "Email saya update dari permintaan ini"
 msgid "Email:"
 msgstr ""
 
+msgid "Enable two factor authentication"
+msgstr ""
+
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Masukkan kata-kata yang ingin Anda cari dipisahkan dengan spasi, contoh <strong>jalur pendakian</strong>"
 
@@ -875,6 +918,9 @@ msgstr "Rincian sejarah peristiwa"
 
 msgid "Event {{id}}"
 msgstr "Event {{id}}"
+
+msgid "Every citizen has the right to access information held by public authorities."
+msgstr ""
 
 msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
@@ -1080,9 +1126,6 @@ msgstr "Dari:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "BERIKAN RINCIAN TENTANG KEBERATAN ANDA DI SINI"
 
-msgid "Get answers from the government and public sector"
-msgstr ""
-
 msgid "Got an account?"
 msgstr ""
 
@@ -1158,6 +1201,10 @@ msgstr "Halaman beranda"
 
 msgid "Home page of authority"
 msgstr "Situs web otoritas"
+
+#, fuzzy
+msgid "How it works"
+msgstr "hanya untuk melihat cara kerjanya"
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr ""
@@ -1310,6 +1357,9 @@ msgstr ""
 "Jika browser Anda diatur untuk menerima cookie dan Anda melihat pesan ini,\n"
 "maka kemungkinan ada kesalahan pada server kami."
 
+msgid "Improve your account security"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr ""
 " Sertakan tautan-tautan yang relevan, seperti tautan ke halaman kampanye, blog Anda atau \n"
@@ -1322,7 +1372,7 @@ msgstr "Email masuk"
 msgid "Incoming message"
 msgstr "Pesan Masuk"
 
-msgid "Incoming message has a spam score ({{spam_score}}) above the configured threshold ({{spam_threshold}})."
+msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1453,6 +1503,10 @@ msgstr "Permintaan kajian internal"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
+#, fuzzy
+msgid "Invalid one time password"
+msgstr "Kode sandi: (ulangi)"
+
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Apakah {{email_address}} adalah alamat yang salah untuk {{type_of_request}} permintaan kepada {{public_body_name}}? Jika demikian, silakan hubungi kami menggunakan formulir ini:"
 
@@ -1477,6 +1531,9 @@ msgstr "Bergabung {{site_name}} di"
 msgid "Just one more thing"
 msgstr "Satu hal lagi"
 
+msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
+msgstr ""
+
 msgid "Keep your request up to date"
 msgstr ""
 
@@ -1491,6 +1548,9 @@ msgstr "Otoritas terakhir yang dilihat: "
 
 msgid "Last request viewed: "
 msgstr "Permintaan terakhir yang dilihat: "
+
+msgid "Learn more &rarr;"
+msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr ""
@@ -1566,9 +1626,6 @@ msgstr "Buat permintaan"
 msgid "Make a request &raquo;"
 msgstr ""
 
-msgid "Make a request for information to a public authority: by law, they have to respond"
-msgstr ""
-
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1605,14 +1662,8 @@ msgstr "Kehilangan rincian kontak untuk '"
 msgid "More about this authority"
 msgstr "Lebih jauh tentang otoritas ini"
 
-msgid "More requests..."
-msgstr ""
-
 msgid "More similar requests"
 msgstr "Lebih banyak permintaan serupa"
-
-msgid "More successful requests..."
-msgstr ""
 
 msgid "My profile"
 msgstr "Profil saya"
@@ -1772,6 +1823,9 @@ msgstr "Hanya otoritas yang dapat menjawab permintaan ini, dan saya tidak mengen
 
 msgid "Only the authority can reply to this request, but there is no \"From\" address to check against"
 msgstr "Hanya otoritas yang dapat menjawab permintaan ini, tapi tidak ada alamat \"Dari\" untuk diperiksa"
+
+msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
+msgstr ""
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr ""
@@ -2079,6 +2133,9 @@ msgstr "Melihat dulu permintaan publik Anda"
 msgid "Preview your request"
 msgstr ""
 
+msgid "Print your one time passcode"
+msgstr ""
+
 msgid "Profile photo"
 msgstr "Foto profil"
 
@@ -2140,9 +2197,6 @@ msgid "Public body change request"
 msgstr ""
 
 msgid "Public body heading"
-msgstr ""
-
-msgid "Public notes"
 msgstr ""
 
 msgid "Public page"
@@ -2208,6 +2262,10 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
+#, fuzzy
+msgid "PublicBody|Info requests visible count"
+msgstr "PublicBody | Info requests count"
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
 
@@ -2238,9 +2296,6 @@ msgstr "PublicBody|Version"
 msgid "Publication scheme"
 msgstr "Skema publikasi"
 
-msgid "Publication scheme URL"
-msgstr ""
-
 msgid "Purge request"
 msgstr "Pembersihan permintaan"
 
@@ -2249,6 +2304,13 @@ msgstr "PurgeRequest|Model"
 
 msgid "PurgeRequest|Url"
 msgstr "PurgeRequest|Url"
+
+#, fuzzy
+msgid "Query can't be blank"
+msgstr "Nama tidak bisa kosong"
+
+msgid "Query is too long"
+msgstr ""
 
 msgid "RSS feed"
 msgstr "Umpan web RSS"
@@ -2276,6 +2338,9 @@ msgstr "Hasil yang baru dijelaskan dulu"
 
 msgid "Refused."
 msgstr "Ditolak."
+
+msgid "Regenerate one time passcode"
+msgstr ""
 
 msgid "Rejected"
 msgstr ""
@@ -2306,9 +2371,6 @@ msgstr "Minta kajian internal"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Minta kajian internal dari {{person_or_body}}"
-
-msgid "Request email"
-msgstr ""
 
 msgid "Request for personal information"
 msgstr ""
@@ -2448,6 +2510,10 @@ msgstr "Kirim balasan terbuka kepada {{person_or_body}}"
 msgid "Send follow up to '{{title}}'"
 msgstr "Mengikuti permintaan '{{title}}'"
 
+#, fuzzy
+msgid "Send me the email"
+msgstr "Kirimkan juga peringatan kepada Saya melalui email"
+
 msgid "Send message"
 msgstr "Kirim pesan"
 
@@ -2456,6 +2522,9 @@ msgstr "Kirim pesan kepada"
 
 msgid "Send request"
 msgstr "Kirim permintaan"
+
+msgid "Sending..."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2471,9 +2540,6 @@ msgid "Share your batch request"
 msgstr ""
 
 msgid "Share your request"
-msgstr ""
-
-msgid "Short name"
 msgstr ""
 
 msgid "Short name is already taken"
@@ -2564,6 +2630,10 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Start your own blog"
+msgstr "Mulai blog Anda sendiri"
+
+#, fuzzy
+msgid "Start your own request"
 msgstr "Mulai blog Anda sendiri"
 
 msgid "Stay up to date"
@@ -2807,6 +2877,9 @@ msgstr "Indeks pencarian saat ini sedang offline, sehingga kami tidak dapat mena
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "Indeks pencarian saat ini sedang offline, sehingga kami tidak dapat menampilkan permintaan Freedom of Information yang telah dibuat oleh orang ini."
 
+msgid "The widget will look like this:"
+msgstr ""
+
 msgid "The {{site_name}} team."
 msgstr ""
 
@@ -2904,6 +2977,10 @@ msgstr[0] "Ada {{count}} orang mengikuti permintaan ini"
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Ada <strong>kesalahan pengiriman</strong> atau yang serupa, yang perlu diperbaiki oleh {{site_name}} tim."
 
+#, fuzzy
+msgid "There was an error with the reCAPTCHA. Please try again."
+msgstr "Ada kesalahan pada kata-kata yang Anda masukkan, silakan coba lagi."
+
 msgid "There was an error with the words you entered, please try again."
 msgstr "Ada kesalahan pada kata-kata yang Anda masukkan, silakan coba lagi."
 
@@ -2949,6 +3026,9 @@ msgid "This covers a very wide spectrum of information about the state of the <s
 msgstr ""
 "Hal ini mencakup spektrum informasi yang sangat luas tentang keadaan dari\n"
 "lingkungan <strong> alami dan buatan </strong>, seperti:"
+
+msgid "This email is already in use"
+msgstr ""
 
 msgid "This external request has been hidden"
 msgstr "Permintaan luar ini telah disembunyikan"
@@ -3091,6 +3171,9 @@ msgstr ""
 msgid "To"
 msgstr ""
 
+msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "Untuk membatalkan tanda notifikasi"
 
@@ -3185,6 +3268,9 @@ msgstr "Untuk menampilkan alamat email yang kami gunakan untuk mengirimkan permi
 msgid "To view the response, click on the link below."
 msgstr "Untuk menampilkan respon, klik pada tautan di bawah."
 
+msgid "To view your two factor authentication details"
+msgstr ""
+
 msgid "To {{public_body_link_absolute}}"
 msgstr "Untuk {{public_body_link_absolute}}"
 
@@ -3223,6 +3309,27 @@ msgstr ""
 
 msgid "Tweet this request"
 msgstr "Tweet permintaan ini"
+
+msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
+msgstr ""
+
+msgid "Two factor authentication could not be disabled"
+msgstr ""
+
+msgid "Two factor authentication could not be enabled"
+msgstr ""
+
+msgid "Two factor authentication disabled"
+msgstr ""
+
+msgid "Two factor authentication enabled"
+msgstr ""
+
+msgid "Two factor one time passcode updated"
+msgstr ""
+
+msgid "Two factor one time passcode:"
+msgstr ""
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
 msgstr "Ketik <strong><code>0 /0 /2008.. 4/0 /2008</code></strong> untuk hanya menunjukkan hal-hal yang terjadi di dua minggu pertama bulan Januari."
@@ -3295,6 +3402,9 @@ msgstr "Gunakan ATAU (dalam huruf kapital) di mana Anda tidak keberatan kata yan
 msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr "Gunakan tanda kutip ketika Anda ingin menemukan frase yang persis sama, misalnya <strong><code>\"Dewan Kota Liverpool\"</code></strong>"
 
+msgid "Use this site to make your request for information – we'll show you how."
+msgstr ""
+
 msgid "User"
 msgstr "Pengguna"
 
@@ -3349,6 +3459,17 @@ msgstr "User|Name"
 msgid "User|No limit"
 msgstr "User|No limit"
 
+#, fuzzy
+msgid "User|Otp counter"
+msgstr "User|About me"
+
+#, fuzzy
+msgid "User|Otp enabled"
+msgstr "User|Url name"
+
+msgid "User|Otp secret key"
+msgstr ""
+
 msgid "User|Receive email alerts"
 msgstr "User|Receive email alerts"
 
@@ -3383,6 +3504,9 @@ msgid "View email"
 msgstr "Tampilkan email"
 
 msgid "View other requests to {{public_body}}"
+msgstr ""
+
+msgid "View your two factor authentication one time passcode"
 msgstr ""
 
 msgid "Waiting clarification."
@@ -3422,6 +3546,9 @@ msgstr ""
 "        &ndash;\n"
 "\tjika Anda adalah {{user_link}} silakan <a href=\"{{url}}\">masuk</a> dan jangan biarkan siapapun tahu."
 
+msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
+msgstr ""
+
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr ""
 "Kami tidak akan mengungkapkan alamat email Anda kepada siapapun kecuali Anda atau\n"
@@ -3436,6 +3563,9 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr ""
 "Kami tidak akan mengungkapkan alamat email Anda kepada siapapun kecuali Anda \n"
 "atau undang-undang menyuruh kami untuk melakukannya."
+
+msgid "We'll drop you an email as soon as your request gets a response."
+msgstr ""
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3485,6 +3615,9 @@ msgid "When you receive the paper response, please help others find out what it 
 msgstr ""
 "Ketika Anda menerima respon tertulis, mohon bantu\n"
 "            yang lainnya untuk mengetahui apa yang dikatakannya:"
+
+msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
+msgstr ""
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
 msgstr "Ketika Anda selesai, <strong>kembali ke sini</strong>, <a href=\"{{url}}\">muat ulang halaman ini</a> dan ajukan permintaan baru Anda."
@@ -3620,6 +3753,9 @@ msgstr ""
 msgid "You can only request information about the environment from this authority."
 msgstr "Anda hanya dapat meminta informasi tentang lingkungan dari otoritas ini."
 
+msgid "You can regenerate your one time passcode at any time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Anda memiliki respon baru terhadap {{law_used_full}} permintaan "
 
@@ -3637,6 +3773,9 @@ msgstr "Anda sekarang dapat mengubah teks tentang Anda di profil Anda."
 
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr "Anda sekarang telah mengubah alamat email Anda yang digunakan di {{site_name}}"
+
+msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
+msgstr ""
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr ""
@@ -3684,6 +3823,9 @@ msgstr "Anda seharusnya menerima salinan dari permintaan tersebut lewat email, d
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
 msgstr "Anda ingin <strong>memberikan alamat pos Anda</strong> kepada otoritas tersebut secara pribadi."
+
+msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
+msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr ""
@@ -3746,6 +3888,9 @@ msgstr "anotasi Anda"
 msgid "Your batch request \"{{title}}\" has been sent"
 msgstr ""
 
+msgid "Your current one time passcode:"
+msgstr ""
+
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr "Rincian Anda, termasuk alamat email Anda, tidak akan diberikan ke siapapun."
 
@@ -3796,6 +3941,9 @@ msgstr "pesan asli Anda terlampir"
 msgid "Your password has been changed."
 msgstr "kode sandi Anda telah diganti."
 
+msgid "Your password has been changed. You also have a new one time passcode which you'll need next time you want to change your password"
+msgstr ""
+
 msgid "Your password:"
 msgstr "kode sandi aAnda:"
 
@@ -3834,6 +3982,9 @@ msgstr "Respon Anda ke permintaan FOI tidak terkirim"
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Respon Anda akan <strong>tampil di Internet</strong>, <a href=\"{{url}}\">baca mengapa</a> dan jawaban-jawaban atas pertanyaan-pertanyaan lain."
+
+msgid "Your right to know"
+msgstr ""
 
 msgid "Your selected authorities"
 msgstr ""
@@ -3885,9 +4036,6 @@ msgstr "\\n\\n[ {{site_name}} catatan: Teks di atas telah dikodekan, dan karakte
 
 msgid "admin"
 msgstr "admin"
-
-msgid "alaveteli_foi:The software that runs {{site_name}}"
-msgstr ""
 
 msgid "all requests"
 msgstr "semua permintaan"
@@ -4016,6 +4164,9 @@ msgstr ""
 
 msgid "move..."
 msgstr "pindah..."
+
+msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
+msgstr ""
 
 msgid "new requests"
 msgstr ""
@@ -4209,6 +4360,10 @@ msgstr "{{user_name}} (Akun ditangguhkan)"
 
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - permintaan Keterbukaan Informasi"
+
+#, fuzzy
+msgid "{{user_name}} - Two Factor Authentication"
+msgstr "{{user_name}} menambahkan anotasi"
 
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - profil pengguna"
