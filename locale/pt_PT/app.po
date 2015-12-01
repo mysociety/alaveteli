@@ -4214,24 +4214,3 @@ msgstr "{{user}} fez esse pedido de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Resultados da pesquisa"
-
-#~ msgid "More requests..."
-#~ msgstr "More requests..."
-
-#~ msgid "More successful requests..."
-#~ msgstr "More successful requests..."
-
-#~ msgid "Public notes"
-#~ msgstr "Public notes"
-
-#~ msgid "Publication scheme URL"
-#~ msgstr "Publication scheme URL"
-
-#~ msgid "Request email"
-#~ msgstr "Request email"
-
-#~ msgid "Short name"
-#~ msgstr "Short name"
-
-#~ msgid "alaveteli_foi:The software that runs {{site_name}}"
-#~ msgstr "alaveteli_foi:The software that runs {{site_name}}"
