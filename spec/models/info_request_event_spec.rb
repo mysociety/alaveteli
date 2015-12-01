@@ -286,13 +286,54 @@ describe InfoRequestEvent do
   end
 
   describe 'after saving' do
+    let(:request) { FactoryGirl.create(:info_request) }
+
     it 'should mark the model for reindexing in xapian if there is no no_xapian_reindex flag on the object' do
-      event = InfoRequestEvent.new(:info_request => mock_model(InfoRequest),
+      event = InfoRequestEvent.new(:info_request => request,
                                    :event_type => 'sent',
                                    :params => {})
       expect(event).to receive(:xapian_mark_needs_index)
       event.run_callbacks(:save)
     end
+
+    context "the incoming_message is not hidden" do
+
+      it "updates the parent info_request's last_public_response_at value" do
+        im = FactoryGirl.create(:incoming_message)
+        response_event = FactoryGirl.
+                          create(:info_request_event, :event_type => 'response',
+                                                      :info_request => request,
+                                                      :incoming_message => im)
+        expect(request.last_public_response_at).to be_within(1.second).
+            of response_event.created_at
+      end
+
+    end
+
+    context "the event is not a response" do
+
+      it "does not update the info_request's last_public_response_at value" do
+        expect_any_instance_of(InfoRequestEvent).not_to receive(:update_request)
+        event = FactoryGirl.create(:info_request_event, :event_type => 'comment',
+                                                        :info_request => request)
+        expect(request.last_public_response_at).to be_nil
+      end
+
+    end
+
+    context "the incoming_message is hidden" do
+
+      it "sets the parent info_request's last_public_response_at to nil" do
+        im = FactoryGirl.create(:incoming_message, :prominence => 'hidden')
+        response_event = FactoryGirl.
+                          create(:info_request_event, :event_type => 'response',
+                                                      :info_request => request,
+                                                      :incoming_message => im)
+        expect(request.last_public_response_at).to be_nil
+      end
+
+    end
+
   end
 
   describe "should know" do
@@ -448,5 +489,6 @@ describe InfoRequestEvent do
       expect(TrackThingsSentEmail.where(:info_request_event_id => event.id)).
         to be_empty
     end
+
   end
 end

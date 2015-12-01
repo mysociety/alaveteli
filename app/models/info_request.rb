@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20131024114346
+# Schema version: 20151104131702
 #
 # Table name: info_requests
 #
@@ -23,6 +23,7 @@
 #  attention_requested       :boolean          default(FALSE)
 #  comments_allowed          :boolean          default(TRUE), not null
 #  info_request_batch_id     :integer
+#  last_public_response_at   :datetime
 #
 
 require 'digest/sha1'
@@ -297,6 +298,16 @@ class InfoRequest < ActiveRecord::Base
                                            suffix_num = suffix_num + 1
     end
     write_attribute(:url_title, unique_url_title)
+  end
+
+  def update_last_public_response_at
+    last_public_event = get_last_public_response_event
+    if last_public_event
+      self.last_public_response_at = last_public_event.created_at
+    else
+      self.last_public_response_at = nil
+    end
+    save
   end
 
   # Remove spaces from ends (for when used in emails etc.)
@@ -930,24 +941,23 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def self.last_public_response_clause
+    # TODO: Deprecate this method
     join_clause = "incoming_messages.id = info_request_events.incoming_message_id
                        AND incoming_messages.prominence = 'normal'"
     last_event_time_clause('response', 'incoming_messages', join_clause)
   end
 
   def self.old_unclassified_params(extra_params, include_last_response_time=false)
-    last_response_created_at = last_public_response_clause
     age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
     params = { :conditions => ["awaiting_description = ?
-                                    AND #{last_response_created_at} < ?
+                                    AND last_public_response_at < ?
                                     AND url_title != 'holding_pen'
                                     AND user_id IS NOT NULL",
-                                      true, Time.now - age] }
+                                      true, Time.zone.now - age] }
     if include_last_response_time
-      params[:select] = "*, #{last_response_created_at} AS last_response_time"
-      params[:order] = 'last_response_time'
+      params[:order] = 'last_public_response_at'
     end
-    params
+    return params
   end
 
   def self.count_old_unclassified(extra_params={})
