@@ -2,8 +2,6 @@
   <%= form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
     <%= foi_error_messages_for :user_signup %>
 
-    <!--<h2><%= _('If you\'re new to {{site_name}}', :site_name=>site_name)%></h2>-->
-
     <p>
       <label class="form_label" for="user_signup_name"> <%= _('Your name:')%></label>
       <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 10, :autocomplete => "off" } %>

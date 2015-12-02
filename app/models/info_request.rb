@@ -539,11 +539,11 @@ class InfoRequest < ActiveRecord::Base
   # states which require administrator action (hence email administrators
   # when they are entered, and offer state change dialog to them)
   def self.requires_admin_states
-    ['requires_admin', 'error_message', 'attention_requested']
+    %w(requires_admin error_message attention_requested)
   end
 
   def requires_admin?
-    ['requires_admin', 'error_message', 'attention_requested'].include?(described_state)
+    self.class.requires_admin_states.include?(described_state)
   end
 
   # Report this request for administrator attention

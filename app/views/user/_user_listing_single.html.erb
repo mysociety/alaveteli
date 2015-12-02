@@ -16,8 +16,18 @@
   </span>
 
   <span class="bottomline">
-    <%= pluralize(display_user.info_requests.size, "request") %> <%= _('made.')%>
-    <%= pluralize(display_user.comments.visible.size, "annotation") %> <%= _('made.')%>
-    <%= _('Joined in')%> <%= display_user.created_at.year %>.
+    <% request_count = display_user.info_requests.size %>
+    <%= n_('{{count}} request made.',
+           '{{count}} requests made.',
+           request_count,
+           :count => request_count) %>
+
+    <% annotation_count = display_user.comments.visible.size %>
+    <%= n_('{{count}} annotation made.',
+           '{{count}} annotations made.',
+           annotation_count,
+           :count => annotation_count) %>
+
+    <%= _('Joined in {{year}}.', :year => display_user.created_at.year) %>
   </span>
 </div>
