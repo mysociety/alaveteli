@@ -14,6 +14,7 @@
 
 ## Highlighted Features
 
+* Stop outgoing messages being displayed with forced line breaks (Liz Conlan)
 * Improve speed of the 'old unclassified' requests query by adding a cached
   field to InfoRequest to keep track of when the last public response was
   made (Liz Conlan)

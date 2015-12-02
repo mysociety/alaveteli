@@ -143,12 +143,45 @@ describe OutgoingMessage, " when making an outgoing message" do
     expect(@outgoing_message.get_text_for_indexing).not_to include("foo@bar.com")
   end
 
-  it "should not display email addresses on page" do
-    expect(@outgoing_message.get_body_for_html_display).not_to include("foo@bar.com")
-  end
+  context "when formatting the message for html display" do
 
-  it "should link to help page where email address was" do
-    expect(@outgoing_message.get_body_for_html_display).to include('<a href="/help/officers#mobiles">')
+    it "does not display email addresses on page" do
+      expect(@outgoing_message.get_body_for_html_display).not_to include("foo@bar.com")
+    end
+
+    it "links to help page where email address was" do
+      expect(@outgoing_message.get_body_for_html_display).to include('<a href="/help/officers#mobiles">')
+    end
+
+    it "does not force long lines to wrap" do
+      long_line = "long string of 125 characters, set so the old line break " \
+                  "falls here, and making sure even longer lines are not " \
+                  "affected either"
+      @outgoing_message.body = long_line
+      expect(@outgoing_message.get_body_for_html_display).to eq("<p>#{long_line}</p>")
+    end
+
+    it "interprets single line breaks as <br> tags" do
+      split_line = "Hello,\nI am a test message\nWith multiple lines"
+      expected = "<p>Hello,\n<br />I am a test message\n<br />With multiple lines</p>"
+      @outgoing_message.body = split_line
+      expect(@outgoing_message.get_body_for_html_display).to include(expected)
+    end
+
+    it "interprets double line breaks as <p> tags" do
+      split_line = "Hello,\n\nI am a test message\n\nWith multiple lines"
+      expected = "<p>Hello,</p>\n\n<p>I am a test message</p>\n\n<p>With multiple lines</p>"
+      @outgoing_message.body = split_line
+      expect(@outgoing_message.get_body_for_html_display).to include(expected)
+    end
+
+    it "removes excess linebreaks" do
+      split_line = "Line 1\n\n\n\n\n\n\n\n\n\nLine 2"
+      expected = "<p>Line 1</p>\n\n<p>Line 2</p>"
+      @outgoing_message.body = split_line
+      expect(@outgoing_message.get_body_for_html_display).to include(expected)
+    end
+
   end
 
   it "should include email addresses in outgoing messages" do
