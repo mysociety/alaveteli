@@ -78,7 +78,9 @@
       <h1><%= h(@display_user.name) + (@is_you ? _(" (you)") : "") %></h1>
 
       <p class="subtitle">
-        <%= _('Joined {{site_name}} in', :site_name=>site_name) %> <%= @display_user.created_at.year %>
+        <%= _('Joined {{site_name}} in {{year}}',
+              :site_name => site_name,
+              :year => @display_user.created_at.year) %>
         <% if @user && @user.admin_page_links? %>
           (<%= link_to "admin", admin_user_path(@display_user) %>)
         <% end %>

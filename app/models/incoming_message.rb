@@ -32,7 +32,6 @@
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
 # general not specific to IncomingMessage.
 
-require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
 require 'iconv' unless String.method_defined?(:encode)
@@ -57,6 +56,8 @@ class IncomingMessage < ActiveRecord::Base
 
   has_prominence
 
+  after_destroy :update_request
+  after_update :update_request
   before_destroy :destroy_email_file
 
   # Given that there are in theory many info request events, a convenience method for
@@ -191,6 +192,13 @@ class IncomingMessage < ActiveRecord::Base
   def mail_from_domain
     parse_raw_email!
     super
+  end
+
+  # This method updates the cached column of the InfoRequest that
+  # stores the last created_at date of relevant events
+  # when updating an IncomingMessage associated with the request
+  def update_request
+    info_request.update_last_public_response_at
   end
 
   # And look up by URL part number and display filename to get an attachment

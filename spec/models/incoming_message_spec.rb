@@ -55,6 +55,36 @@ describe IncomingMessage, 'when getting a response event' do
 
 end
 
+describe IncomingMessage, "when the prominence is changed" do
+  let(:request) { FactoryGirl.create(:info_request) }
+
+  it "updates the info_request's last_public_response_at to nil when hidden" do
+    im = FactoryGirl.create(:incoming_message, :info_request => request)
+    response_event = FactoryGirl.
+                      create(:info_request_event, :event_type => 'response',
+                                                  :info_request => request,
+                                                  :incoming_message => im)
+    im.prominence = 'hidden'
+    im.save
+    expect(request.last_public_response_at).to be_nil
+  end
+
+  it "updates the info_request's last_public_response_at to a timestamp \
+      when unhidden" do
+    im = FactoryGirl.create(:incoming_message, :prominence => 'hidden',
+                                               :info_request => request)
+    response_event = FactoryGirl.
+                      create(:info_request_event, :event_type => 'response',
+                                                  :info_request => request,
+                                                  :incoming_message => im)
+    im.prominence = 'normal'
+    im.save
+    expect(request.last_public_response_at).to be_within(1.second).
+      of(response_event.created_at)
+  end
+
+end
+
 describe IncomingMessage, 'when asked if a user can view it' do
 
   before do
