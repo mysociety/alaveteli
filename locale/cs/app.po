@@ -15,14 +15,14 @@
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # Jiří Vírava <appukonrad@gmail.com>, 2012
 # louisecrow <louise@mysociety.org>, 2012-2013
-# louisecrow <louise@mysociety.org>, 2013-2014
+# louisecrow <louise@mysociety.org>, 2013-2015
 # louisecrow <louise@mysociety.org>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
-"PO-Revision-Date: 2015-11-09 14:44+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
@@ -2300,7 +2300,7 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
-msgstr ""
+msgstr "Zapamatovat mé údaje (zašrktněte, pokud chcete být déle přihlášeni; nezaškrtávejte, pokud jste na veřejně přístupném počítači)."
 
 msgid "Report abuse"
 msgstr "Nahlásit zneužití"

@@ -7,13 +7,14 @@
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
+# Baris Altintas <info@platform24.org>, 2015
 # Pinar Dag <pinar.dag@dagmedya.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
-"PO-Revision-Date: 2015-11-09 14:44+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
@@ -35,7 +36,7 @@ msgid " - view and make Freedom of Information requests"
 msgstr "- Bilgi Edinme isteklerini görüntüleyin/oluşturun"
 
 msgid " - wall"
-msgstr ""
+msgstr "-duvar"
 
 msgid " < "
 msgstr ""

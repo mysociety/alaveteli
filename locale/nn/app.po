@@ -18,13 +18,14 @@
 # oeyrvin <oeyrvin@hagan.no>, 2014
 # pere <pere-transifex@hungry.com>, 2013,2015
 # pere <pere-transifex@hungry.com>, 2015
+# velmont <odin.omdal@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
-"PO-Revision-Date: 2015-11-14 21:54+0000\n"
-"Last-Translator: velmont <odin.omdal@gmail.com>\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/mysociety/alaveteli/language/nn/)\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"

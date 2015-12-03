@@ -4,12 +4,13 @@
 #
 # Translators:
 # Translators:
+# Niall Ó Tuathail <niall@niallotuathail.ie>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
-"PO-Revision-Date: 2015-11-09 14:44+0000\n"
+"POT-Creation-Date: 2015-12-01 17:09+0000\n"
+"PO-Revision-Date: 2015-12-01 17:12+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Irish (Ireland) (http://www.transifex.com/mysociety/alaveteli/language/ga_IE/)\n"
 "Language: ga_IE\n"
@@ -480,7 +481,7 @@ msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "Beginning with"
-msgstr ""
+msgstr "Ag tosú le"
 
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
 msgstr ""
@@ -558,7 +559,7 @@ msgid "Change the text about you on your profile at {{site_name}}"
 msgstr ""
 
 msgid "Change your email"
-msgstr ""
+msgstr "Athraigh do r-phost"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr ""
@@ -603,7 +604,7 @@ msgid "Click on the link below to send a message to {{public_body}} reminding th
 msgstr ""
 
 msgid "Close"
-msgstr ""
+msgstr "Dún"
 
 msgid "Close the request and respond:"
 msgstr ""
@@ -705,7 +706,7 @@ msgid "Currently <strong>waiting for a response</strong> from {{public_body_link
 msgstr ""
 
 msgid "Date:"
-msgstr ""
+msgstr "Dáta:"
 
 msgid "Dear [Authority name],"
 msgstr ""
@@ -768,10 +769,10 @@ msgid "Don't want to address your message to {{person_or_body}}?  You can also w
 msgstr ""
 
 msgid "Done"
-msgstr ""
+msgstr "Críochnaithe"
 
 msgid "Done &gt;&gt;"
-msgstr ""
+msgstr "Críochnaithe &gt;&gt;"
 
 msgid "Download a zip file of all correspondence"
 msgstr ""
@@ -807,7 +808,7 @@ msgid "Email me future updates to this request"
 msgstr ""
 
 msgid "Email:"
-msgstr ""
+msgstr "R-phost:"
 
 msgid "Enable two factor authentication"
 msgstr ""
@@ -998,10 +999,10 @@ msgstr[3] ""
 msgstr[4] ""
 
 msgid "Freedom of Information"
-msgstr ""
+msgstr "Saoráil Faisnéise"
 
 msgid "Freedom of Information Act"
-msgstr ""
+msgstr "Acht um Shaoráil Faisnéise"
 
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr ""
@@ -3841,7 +3842,7 @@ msgid "an anonymous user"
 msgstr ""
 
 msgid "and"
-msgstr ""
+msgstr "agus"
 
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr ""
@@ -3853,7 +3854,7 @@ msgid "are long overdue."
 msgstr ""
 
 msgid "at"
-msgstr ""
+msgstr "ag"
 
 msgid "authorities"
 msgstr ""
@@ -3892,13 +3893,13 @@ msgid "edit text about you"
 msgstr ""
 
 msgid "email address"
-msgstr ""
+msgstr "ríomhphost"
 
 msgid "even during holidays"
 msgstr ""
 
 msgid "everything"
-msgstr ""
+msgstr "gach rud"
 
 msgid "external"
 msgstr ""
