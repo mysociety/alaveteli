@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Improve speed of the 'old unclassified' requests query by adding a cached
+  field to InfoRequest to keep track of when the last public response was
+  made (Liz Conlan)
 * Various major design and markup improvements to the layout, home page and
   request page (Martin Wright).
 * Adds basic opt-in two factor authentication. Enable it globally with
