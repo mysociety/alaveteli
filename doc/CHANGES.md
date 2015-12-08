@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add a footer to the Admin layout with useful links to alaveteli.org (Gareth
+  Rees)
 * Add user name spam checking (Gareth Rees)
 * Make it quicker to ban users for spamming in admin interface (Gareth Rees)
 * Limit the frequency that `PublicBody#updated_at` gets updated by unrelated
