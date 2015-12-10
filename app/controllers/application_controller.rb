@@ -185,27 +185,6 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  # Called from test code, is a mimic of UserController.confirm, for use in following email
-  # links when in controller tests (though we also have full integration tests that
-  # can work over multiple controllers)
-  # TODO: Move this to the tests. It shouldn't be here
-  def test_code_redirect_by_email_token(token, controller_example_group)
-    warn %q([DEPRECATION]
-            ApplicationController#test_code_redirect_by_email_token has not been
-            in sync with UserController#confirm for some time. Updating it to
-            match causes spec failures. The specs that currently use it should
-            not be doing so.).squish
-    post_redirect = PostRedirect.find_by_email_token(token)
-    if post_redirect.nil?
-      raise "bad token in test code email"
-    end
-    session[:user_id] = post_redirect.user.id
-    session[:user_circumstance] = post_redirect.circumstance
-    params = Rails.application.routes.recognize_path(post_redirect.local_part_uri)
-    params.merge(post_redirect.post_params)
-    controller_example_group.get params[:action], params
-  end
-
   # Used to work out where to cache fragments. We add an extra path to the
   # URL using the first three digits of the info request id, because we can't
   # have more than 32,000 entries in one directory on an ext3 filesystem.
