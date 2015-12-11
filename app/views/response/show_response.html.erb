@@ -62,11 +62,7 @@
       <% end %>
     <% end %>
 
-    <% if @incoming_message.nil? %>
-      <%= render :partial => 'request/correspondence', :locals => { :info_request_event => @info_request.get_last_outgoing_event } %>
-    <% else %>
-      <%= render :partial => 'request/correspondence', :locals => { :info_request_event => @incoming_message.response_event } %>
-    <% end %>
+    <%= render :partial => 'request/correspondence', :locals => { :info_request_event => @incoming_message.response_event } %>
   <% end %>
 
   <%= render :partial => 'followup', :locals => { :incoming_message => @incoming_message } %>
