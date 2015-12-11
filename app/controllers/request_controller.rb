@@ -260,7 +260,7 @@ class RequestController < ApplicationController
     # margin of 1 undescribed so it isn't too annoying - the function
     # get_undescribed_requests also allows one day since the response
     # arrived.
-    if !@user.nil? && params[:submitted_new_request].nil? && !@user.can_leave_requests_undescribed?
+    if !@user.nil? && params[:submitted_new_request].nil?
       @undescribed_requests = @user.get_undescribed_requests
       if @undescribed_requests.size > 1
         render :action => 'new_please_describe'

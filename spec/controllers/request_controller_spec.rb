@@ -1203,7 +1203,6 @@ describe RequestController, "when making a new request" do
   before do
     @user = mock_model(User, :id => 3481, :name => 'Testy')
     allow(@user).to receive(:get_undescribed_requests).and_return([])
-    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(false)
     allow(@user).to receive(:can_file_requests?).and_return(true)
     allow(@user).to receive(:locale).and_return("en")
     allow(User).to receive(:find).and_return(@user)
@@ -1214,7 +1213,6 @@ describe RequestController, "when making a new request" do
 
   it "should allow you to have one undescribed request" do
     allow(@user).to receive(:get_undescribed_requests).and_return([ 1 ])
-    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(false)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
     expect(response).to render_template('new')
@@ -1222,18 +1220,9 @@ describe RequestController, "when making a new request" do
 
   it "should fail if more than one request undescribed" do
     allow(@user).to receive(:get_undescribed_requests).and_return([ 1, 2 ])
-    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(false)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
     expect(response).to render_template('new_please_describe')
-  end
-
-  it "should allow you if more than one request undescribed but are allowed to leave requests undescribed" do
-    allow(@user).to receive(:get_undescribed_requests).and_return([ 1, 2 ])
-    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(true)
-    session[:user_id] = @user.id
-    get :new, :public_body_id => @body.id
-    expect(response).to render_template('new')
   end
 
   it "should fail if user is banned" do
