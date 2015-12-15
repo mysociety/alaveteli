@@ -897,3 +897,19 @@ ENABLE_TWO_FACTOR_AUTH: false
 #
 # ---
 EXTERNAL_REVIEWERS: ''
+
+# Enable annotations on requests.
+# If ENABLE_ANNOTATIONS is set to true, Alaveteli will include a link in the
+# "Things to do with this request" section to allow users to add extra
+# comments or information to it. This is a standard feature which is usually
+# turned on, but if you want to disable it, you can set this to false.
+#
+# Note: We don't recommend disabling annotations after users have started
+# making comments. Setting this to false won't hide existing comments, or
+# stop email alerts being sent about comments that were created before you
+# turned them off.
+#
+# ENABLE_ANNOTATIONS – Boolean (default: true)
+#
+# ---
+ENABLE_ANNOTATIONS: true

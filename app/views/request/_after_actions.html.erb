@@ -5,7 +5,7 @@
     <strong><%= _('Anyone:') %></strong>
 
     <ul>
-      <% if @info_request.comments_allowed? %>
+      <% if AlaveteliConfiguration.enable_annotations && @info_request.comments_allowed? %>
         <li>
           <%= raw(_('<a href="{{url}}">Add an annotation</a> (to help the ' \
                       'requester or others)',
