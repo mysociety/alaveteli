@@ -10,59 +10,21 @@ class ResponseController < ApplicationController
                 :set_internal_review_ivars,
                 :set_outgoing_message
 
-  # Show an individual incoming message, and allow followup
-  def show_response
-    if !params[:submitted_followup].nil? && !params[:reedit]
-      if @info_request.allow_new_responses_from == 'nobody'
-        flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you really want to send a follow up message.', :url => help_contact_path.html_safe)
-      else
-        if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
-          flash[:error] = _('You previously submitted that exact follow up message for this request.')
-          render :action => 'show_response'
-          return
-        end
+  before_filter :check_reedit, :show_preview, :check_responses_allowed,
+    :only => [:create_followup]
 
-        # See if values were valid or not
-        @outgoing_message.info_request = @info_request
-        if !@outgoing_message.valid?
-          render :action => 'show_response'
-          return
-        end
-        if params[:preview].to_i == 1
-          if @outgoing_message.what_doing == 'internal_review'
-            @internal_review = true
-          end
-          render :action => 'followup_preview'
-          return
-        end
+  def new_followup
+  end
 
-        # Send a follow up message
-        @outgoing_message.sendable?
-
-        mail_message = OutgoingMailer.followup(
-          @outgoing_message.info_request,
-          @outgoing_message,
-          @outgoing_message.incoming_message_followup
-        ).deliver
-
-        @outgoing_message.record_email_delivery(
-          mail_message.to_addrs.join(', '),
-          mail_message.message_id
-        )
-
-        @outgoing_message.save!
-
-        if @outgoing_message.what_doing == 'internal_review'
-          flash[:notice] = _("Your internal review request has been sent on its way.")
-        else
-          flash[:notice] = _("Your follow up message has been sent on its way.")
-        end
-
-        redirect_to request_url(@info_request)
-      end
-    else
-      # render default show_response template
+  def create_followup
+    @outgoing_message.info_request = @info_request
+    if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
+      flash[:error] = _('You previously submitted that exact follow up message for this request.')
+    elsif @outgoing_message.valid?
+      send_followup
+      redirect_to request_url(@info_request) and return
     end
+    render :action => 'new_followup'
   end
 
   private
@@ -93,6 +55,13 @@ class ResponseController < ApplicationController
     end
   end
 
+  def check_reedit
+    if params[:reedit]
+      render :action => 'new_followup'
+      return
+    end
+  end
+
   def check_request_matches_incoming_message
     if @incoming_message and @info_request != @incoming_message.info_request
       raise ActiveRecord::RecordNotFound.
@@ -101,17 +70,25 @@ class ResponseController < ApplicationController
     end
   end
 
+  def check_responses_allowed
+    if @info_request.allow_new_responses_from == "nobody"
+      flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you really want to send a follow up message.', :url => help_contact_path.html_safe)
+      render :action => 'new_followup'
+      return
+    end
+  end
+
   def check_user_credentials
     # We want to make sure they're the right user first, before they start
     # writing a message and wasting their time if they are not the requester.
     params = get_login_params(@incoming_message, @info_request)
     return if !authenticated_as_user?(@info_request.user, params)
-    if !authenticated_user.nil? && !authenticated_user.can_make_followup?
+    if authenticated_user and !authenticated_user.can_make_followup?
       @details = authenticated_user.can_fail_html
       render :template => 'user/banned'
       return
     end
-    if !authenticated_user.nil? && !@info_request.user_can_view?(authenticated_user)
+    if authenticated_user && !@info_request.user_can_view?(authenticated_user)
       return render_hidden
     end
   end
@@ -144,6 +121,29 @@ class ResponseController < ApplicationController
     })
     params_outgoing_message[:what_doing] = 'internal_review' if @internal_review
     params_outgoing_message
+  end
+
+  def send_followup
+    @outgoing_message.sendable?
+
+    mail_message = OutgoingMailer.followup(
+      @outgoing_message.info_request,
+      @outgoing_message,
+      @outgoing_message.incoming_message_followup
+    ).deliver
+
+    @outgoing_message.record_email_delivery(
+      mail_message.to_addrs.join(', '),
+      mail_message.message_id
+    )
+
+    @outgoing_message.save!
+
+    if @outgoing_message.what_doing == 'internal_review'
+      flash[:notice] = _("Your internal review request has been sent on its way.")
+    else
+      flash[:notice] = _("Your follow up message has been sent on its way.")
+    end
   end
 
   def set_incoming_message
@@ -184,6 +184,16 @@ class ResponseController < ApplicationController
     else
       @postal_email = who_can_followup_to[-1][1]
       @postal_email_name = who_can_followup_to[-1][0]
+    end
+  end
+
+  def show_preview
+    if params[:preview].to_i == 1
+      if @outgoing_message.what_doing == 'internal_review'
+        @internal_review = true
+      end
+      render :action => 'followup_preview'
+      return
     end
   end
 end
