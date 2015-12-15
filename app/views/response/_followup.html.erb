@@ -104,7 +104,7 @@
       </p>
     <% end %>
 
-    <%= form_for(@outgoing_message, :html => { :id => 'followup_form' }, :url => incoming_message.nil? ? show_response_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>
+    <%= form_for(@outgoing_message, :html => { :id => 'followup_form' }, :url => incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>
       <p>
         <%= o.text_area :body, :rows => 15, :cols => 55 %>
       </p>
