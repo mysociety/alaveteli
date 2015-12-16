@@ -743,6 +743,19 @@ describe InfoRequest do
 
   end
 
+  describe '#late_calculator' do
+
+    it 'returns a DefaultLateCalculator' do
+      expect(subject.late_calculator).
+        to be_instance_of(DefaultLateCalculator)
+    end
+
+    it 'caches the late calculator' do
+      expect(subject.late_calculator).to equal(subject.late_calculator)
+    end
+
+  end
+
   describe 'when working out which law is in force' do
 
     context 'when using FOI law' do
