@@ -724,7 +724,9 @@ class InfoRequest < ActiveRecord::Base
   # last_event_forming_initial_request. There may be more obscure
   # things, e.g. fees, not properly covered.
   def date_response_required_by
-    Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::reply_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
+    Holiday.due_date_from(date_initial_request_last_sent_at,
+                          late_calculator.reply_late_after_days,
+                          AlaveteliConfiguration.working_or_calendar_days)
   end
 
   # This is a long stop - even with UK public interest test extensions, 40
@@ -735,7 +737,9 @@ class InfoRequest < ActiveRecord::Base
       Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::special_reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
     else
       # public interest test ICO guidance gives 40 working maximum
-      Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
+    Holiday.due_date_from(date_initial_request_last_sent_at,
+                          late_calculator.reply_very_late_after_days,
+                          AlaveteliConfiguration.working_or_calendar_days)
     end
   end
 
