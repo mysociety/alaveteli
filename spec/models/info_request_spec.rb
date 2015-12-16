@@ -1168,58 +1168,6 @@ describe InfoRequest do
 
   end
 
-  describe "when calculating the status for a school" do
-
-    before do
-      @ir = info_requests(:naughty_chicken_request)
-      @ir.public_body.tag_string = "school"
-      expect(@ir.public_body.is_school?).to eq(true)
-    end
-
-    it "has expected sent date" do
-      expect(@ir.last_event_forming_initial_request.outgoing_message.last_sent_at.strftime("%F")).to eq('2007-10-14')
-    end
-
-    it "has correct due date" do
-      expect(@ir.date_response_required_by.strftime("%F")).to eq('2007-11-09')
-    end
-
-    it "has correct very overdue after date" do
-      expect(@ir.date_very_overdue_after.strftime("%F")).to eq('2008-01-11') # 60 working days for schools
-    end
-
-    it "isn't overdue on due date (20 working days after request sent)" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-      expect(@ir.calculate_status).to eq('waiting_response')
-    end
-
-    it "is overdue a day after due date (20 working days after request sent)" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
-    end
-
-    it "is still overdue 40 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 12, 10, 23, 59))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
-    end
-
-    it "is still overdue the day after 40 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
-    end
-
-    it "is still overdue 60 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2008, 01, 11, 23, 59))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
-    end
-
-    it "is very overdue the day after 60 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2008, 01, 12, 00, 01))
-      expect(@ir.calculate_status).to eq('waiting_response_very_overdue')
-    end
-
-  end
-
   describe 'when asked if a user is the owning user for this request' do
 
     before do

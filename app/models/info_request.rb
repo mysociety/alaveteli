@@ -732,15 +732,10 @@ class InfoRequest < ActiveRecord::Base
   # This is a long stop - even with UK public interest test extensions, 40
   # days is a very long time.
   def date_very_overdue_after
-    if public_body.is_school?
-      # schools have 60 working days maximum (even over a long holiday)
-      Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::special_reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
-    else
-      # public interest test ICO guidance gives 40 working maximum
+    # public interest test ICO guidance gives 40 working maximum
     Holiday.due_date_from(date_initial_request_last_sent_at,
                           late_calculator.reply_very_late_after_days,
                           AlaveteliConfiguration.working_or_calendar_days)
-    end
   end
 
   # Where the initial request is sent to
