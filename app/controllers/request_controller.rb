@@ -751,15 +751,6 @@ class RequestController < ApplicationController
 
   private
 
-  def render_hidden(template='request/hidden')
-    respond_to do |format|
-      response_code = 403 # forbidden
-      format.html{ render :template => template, :status => response_code }
-      format.any{ render :nothing => true, :status => response_code }
-    end
-    false
-  end
-
   def assign_variables_for_show_template(info_request)
     @info_request = info_request
     @info_request_events = info_request.info_request_events
