@@ -181,6 +181,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def render_hidden(template='request/hidden')
+    respond_to do |format|
+      response_code = 403 # forbidden
+      format.html{ render :template => template, :status => response_code }
+      format.any{ render :nothing => true, :status => response_code }
+    end
+    false
+  end
+
   def show_rails_exceptions?
     false
   end
