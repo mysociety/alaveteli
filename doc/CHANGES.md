@@ -1,3 +1,15 @@
+# develop
+
+## Highlighted Features
+
+* Better image for pages when shared on Facebook (Zarino Zappia)
+
+## Upgrade Notes
+
+* Add a 256x256 image named `logo-opengraph.png` to
+  `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
+  shared on Facebook.
+
 # Version 0.23
 
 ## Highlighted Features
