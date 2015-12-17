@@ -146,15 +146,6 @@ class ResponseController < ApplicationController
     params_outgoing_message
   end
 
-  def render_hidden(template='request/hidden')
-    respond_to do |format|
-      response_code = 403 # forbidden
-      format.html{ render :template => template, :status => response_code }
-      format.any{ render :nothing => true, :status => response_code }
-    end
-    false
-  end
-
   def set_incoming_message
     if params[:incoming_message_id].nil?
       @incoming_message = nil
