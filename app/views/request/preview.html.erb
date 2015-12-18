@@ -61,7 +61,8 @@
         <%= hidden_field_tag(:submitted_new_request, 1) %>
         <%= hidden_field_tag(:preview, 0 ) %>
         <%= submit_tag _("Edit your request"), :name => 'reedit', :id => 'reedit_button' %>
-        <%= submit_tag _("Send request"), :name => 'submit', :id => 'submit_button' %>
+        <%= submit_tag _("Send request"), :disable_with => _("Sending..."),
+                                          :name => 'submit', :id => 'submit_button' %>
       </p>
 
       <% if !@info_request.tag_string.empty? %>

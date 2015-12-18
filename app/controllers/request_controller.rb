@@ -313,13 +313,13 @@ class RequestController < ApplicationController
     @outgoing_message = @info_request.outgoing_messages.first
 
     # Maybe we lost the address while they're writing it
-    if !@info_request.public_body.is_requestable?
+    unless @info_request.public_body.is_requestable?
       render :action => 'new_' + @info_request.public_body.not_requestable_reason
       return
     end
 
     # See if values were valid or not
-    if !@existing_request.nil? || !@info_request.valid?
+    if @existing_request || !@info_request.valid?
       # We don't want the error "Outgoing messages is invalid", as in this
       # case the list of errors will also contain a more specific error
       # describing the reason it is invalid.

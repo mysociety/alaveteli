@@ -33,6 +33,7 @@ describe CommentController, "when commenting on a request" do
 
   it "should create the comment, and redirect to request page when input is good and somebody is logged in" do
     session[:user_id] = users(:bob_smith_user).id
+
     post :new, :url_title => info_requests(:naughty_chicken_request).url_title,
       :comment => { :body => "A good question, but why not also ask about nice chickens?" },
       :type => 'request', :submitted_comment => 1, :preview => 0

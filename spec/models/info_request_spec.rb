@@ -29,7 +29,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
-  describe '.new' do
+  describe 'creating a new request' do
 
     it 'sets the default law used' do
       expect(InfoRequest.new.law_used).to eq('foi')
@@ -46,6 +46,51 @@ describe InfoRequest do
       info_request.update_attributes(:public_body_id => body.id)
       expect_any_instance_of(InfoRequest).not_to receive(:law_used=).and_call_original
       InfoRequest.find(info_request.id)
+    end
+
+    it "sets the url_title from the supplied title" do
+      info_request = FactoryGirl.create(:info_request, :title => "Test title")
+      expect(info_request.url_title).to eq("test_title")
+    end
+
+    it "ignores any supplied url_title and sets it from the title instead" do
+      info_request = FactoryGirl.create(:info_request, :title => "Real title",
+                                                       :url_title => "ignore_me")
+      expect(info_request.url_title).to eq("real_title")
+    end
+
+    it "adds the next sequential number to the url_title to make it unique" do
+      allow(InfoRequest).to receive(:find_by_url_title).
+        with("test_title", :conditions => nil).
+          and_return(mock_model(InfoRequest))
+      allow(InfoRequest).to receive(:find_by_url_title).
+        with("test_title_2", :conditions => nil).
+          and_return(mock_model(InfoRequest))
+
+      # not found - we can use this one
+      allow(InfoRequest).to receive(:find_by_url_title).
+        with("test_title_3", :conditions => nil).
+          and_return(nil)
+
+      info_request = InfoRequest.new(:title => "Test title")
+      expect(info_request.url_title).to eq("test_title_3")
+    end
+
+    context "when a race condition creates a duplicate between new and save" do
+      # this appears to be happening in the request#new controller method
+      # we suspect (hope?) it's an accidental double press of 'Save'
+
+      it "picks the next available url_title instead of failing" do
+        public_body = FactoryGirl.create(:public_body)
+        user = FactoryGirl.create(:user)
+        first_request = InfoRequest.new(:title => "Test title",
+                                        :user => user,
+                                        :public_body => public_body)
+        second_request = FactoryGirl.create(:info_request, :title => "Test title")
+        first_request.save!
+        expect(first_request.url_title).to eq("test_title_2")
+      end
+
     end
 
   end
@@ -1303,7 +1348,7 @@ describe InfoRequest do
 
       def create_old_unclassified_holding_pen
         request = FactoryGirl.create(:info_request, :user => user,
-                                                    :url_title => 'holding_pen',
+                                                    :title => 'Holding pen',
                                                     :created_at => old_date)
         message = FactoryGirl.create(:incoming_message, :created_at => old_date,
                                                         :info_request => request)
