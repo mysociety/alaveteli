@@ -5,7 +5,7 @@ class ResponseController < ApplicationController
                   :check_address, :check_request_matches_incoming_message,
                   :set_params
 
-  before_filter :check_reedit, :show_preview,
+  before_filter :check_reedit, :show_preview, :check_responses_allowed,
     :only => [:create_followup]
 
   def new_followup
@@ -63,6 +63,14 @@ class ResponseController < ApplicationController
       raise ActiveRecord::RecordNotFound.
               new("Incoming message #{@incoming_message.id} does not belong " \
                     "to request #{@info_request.id}")
+    end
+  end
+
+  def check_responses_allowed
+    if @info_request.allow_new_responses_from == "nobody"
+      flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you really want to send a follow up message.', :url => help_contact_path.html_safe)
+      render :action => 'new_followup'
+      return
     end
   end
 
