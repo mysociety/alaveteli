@@ -1,77 +1,106 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe ResponseController, "when viewing an individual response for reply/followup" do
+describe ResponseController do
   render_views
 
-  before(:each) do
-    load_raw_emails_data
-  end
+  let(:request_user) { FactoryGirl.create(:user) }
+  let(:request) { FactoryGirl.create(:info_request_with_incoming, :user => request_user) }
+  let(:message_id) { request.incoming_messages[0].id }
 
-  it "should ask for login if you are logged in as wrong person" do
-    session[:user_id] = users(:silly_name_user).id
-    get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    expect(response).to render_template('user/wrong_user')
-  end
+  describe "GET show_response" do
 
-  it "should show the response if you are logged in as right person" do
-    session[:user_id] = users(:bob_smith_user).id
-    get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    expect(response).to render_template('show_response')
-  end
-
-  it "should offer the opportunity to reply to the main address" do
-    session[:user_id] = users(:bob_smith_user).id
-    get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    expect(response.body).to have_css("div#other_recipients ul li", :text => "the main FOI contact address for")
-  end
-
-  it "should offer an opportunity to reply to another address" do
-    session[:user_id] = users(:bob_smith_user).id
-    ir = info_requests(:fancy_dog_request)
-    ir.allow_new_responses_from = "anybody"
-    ir.save!
-    receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "Frob <frob@bonce.com>")
-    get :show_response, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    expect(response.body).to have_css("div#other_recipients ul li", :text => "Frob")
-  end
-
-  context 'when a request is hidden' do
-
-    before do
-      ir = info_requests(:fancy_dog_request)
-      ir.prominence = 'hidden'
-      ir.save!
-
-      session[:user_id] = users(:bob_smith_user).id
+    it "displays 'wrong user' message when not logged in as the request owner" do
+      session[:user_id] = FactoryGirl.create(:user)
+      get :show_response, :id => request.id,
+                         :incoming_message_id => message_id
+      expect(response).to render_template('user/wrong_user')
     end
 
-    it "should not show individual responses, even if request owner" do
-      get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-      expect(response).to render_template('request/hidden')
+    it "redirects to the signin page if not logged in" do
+      get :show_response, :id => request.id
+      expect(response).
+        to redirect_to(signin_url(:token => get_last_post_redirect.token))
     end
 
-    it 'should respond to a json request for a hidden request with a 403 code and no body' do
-      get :show_response, :id => info_requests(:fancy_dog_request).id,
-        :incoming_message_id => incoming_messages(:useless_incoming_message),
-        :format => 'json'
-
-      expect(response.code).to eq('403')
+    it "calls the message a followup if there is an incoming message" do
+      expected_reason = "To send a follow up message to #{request.public_body.name}"
+      get :show_response, :id => request.id, :incoming_message_id => message_id
+       expect(get_last_post_redirect.reason_params[:web]).to eq(expected_reason)
     end
 
-  end
-
-  describe 'when viewing a response for an external request' do
-
-    it 'should show a message saying that external requests cannot be followed up' do
-      get :show_response, :id => info_requests(:external_request).id
-      expect(response).to render_template('followup_bad')
-      expect(assigns[:reason]).to eq('external')
+    it "calls the message a reply if there is no incoming message" do
+      expected_reason = "To reply to #{request.public_body.name}."
+      get :show_response, :id => request.id
+      expect(get_last_post_redirect.reason_params[:web]).to eq(expected_reason)
     end
 
-    it 'should be successful' do
-      get :show_response, :id => info_requests(:external_request).id
-      expect(response).to be_success
+    context "logged in as the request owner" do
+      before(:each) do
+        session[:user_id] = request_user.id
+      end
+
+      it "shows the followup form" do
+        get :show_response, :id => request.id, :incoming_message_id => message_id
+        expect(response).to render_template('show_response')
+      end
+
+      it "offers the opportunity to reply to the main address" do
+        get :show_response, :id => request.id, :incoming_message_id => message_id
+        expect(response.body).
+          to have_css("div#other_recipients ul li", :text => "the main FOI contact address for")
+      end
+
+      it "offers an opportunity to reply to another address" do
+        open_request = FactoryGirl.create(:info_request_with_incoming,
+                                          :user => request_user,
+                                          :allow_new_responses_from => "anybody")
+        receive_incoming_mail('incoming-request-plain.email',
+                              open_request.incoming_email, "Frob <frob@bonce.com>")
+        get :show_response, :id => open_request.id,
+                           :incoming_message_id => open_request.incoming_messages[0].id
+        expect(response.body).to have_css("div#other_recipients ul li", :text => "Frob")
+      end
+
+      context "the request is hidden" do
+        let(:hidden_request) do
+          FactoryGirl.create(:info_request_with_incoming, :user => request_user,
+                                                          :prominence => "hidden")
+        end
+
+        it "does not show the form, even to the request owner" do
+          get :show_response, :id => hidden_request.id
+          expect(response).to render_template('request/hidden')
+        end
+
+        it 'responds to a json request with a 403' do
+          incoming_message_id = hidden_request.incoming_messages[0].id
+          get :show_response, :id => hidden_request.id,
+                              :incoming_message_id => incoming_message_id,
+                              :format => 'json'
+          expect(response.code).to eq('403')
+        end
+
+      end
+
+    end
+
+    context 'when viewing a response for an external request' do
+
+      it "does not allow follow ups to external requests" do
+        session[:user_id] = FactoryGirl.create(:user)
+        external_request = FactoryGirl.create(:external_request)
+        get :show_response, :id => external_request.id
+        expect(response).to render_template('followup_bad')
+        expect(assigns[:reason]).to eq('external')
+      end
+
+      it 'the response code should be successful' do
+        session[:user_id] = FactoryGirl.create(:user)
+        get :show_response, :id => FactoryGirl.create(:external_request).id
+        expect(response).to be_success
+      end
+
     end
 
   end
