@@ -190,7 +190,6 @@ describe ResponseController do
           post :create_followup, :outgoing_message => dummy_message,
                                  :id => closed_request.id,
                                  :incoming_message_id => closed_request.incoming_messages[0].id
-
           deliveries = ActionMailer::Base.deliveries
           expect(deliveries.size).to eq(0)
 
@@ -199,6 +198,22 @@ describe ResponseController do
             to include('Your follow up has not been sent because this request has been stopped to prevent spam.')
         end
 
+      end
+
+      it "displays an error if the request has been closed to new responses" do
+        allow_any_instance_of(InfoRequest).
+          to receive(:allow_new_responses_from) { "nobody" }
+
+        post :create_followup, :outgoing_message => dummy_message,
+                               :id => request.id,
+                               :incoming_message_id => message_id
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+
+        expect(response).to render_template('new_followup')
+        expect(response.body).
+          to include('Your follow up has not been sent because this request has been stopped to prevent spam.')
       end
 
       context "the same followup is submitted twice" do
