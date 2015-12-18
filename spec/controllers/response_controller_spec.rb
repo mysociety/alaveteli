@@ -222,6 +222,11 @@ describe ResponseController do
           expect(deliveries.size).to eq(1)
         end
 
+        it "does not repeat the message sent text" do
+          expect(response.body).
+            not_to include('Your follow up message has been sent on its way')
+        end
+
       end
 
     end
