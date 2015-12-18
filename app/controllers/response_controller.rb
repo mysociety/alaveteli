@@ -19,6 +19,7 @@ class ResponseController < ApplicationController
   def create_followup
     @outgoing_message.info_request = @info_request
     if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
+      flash.clear # otherwise the message sent notice may be redisplayed
       flash[:error] = _('You previously submitted that exact follow up message for this request.')
     elsif @outgoing_message.valid?
       send_followup
