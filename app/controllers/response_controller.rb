@@ -10,8 +10,9 @@ class ResponseController < ApplicationController
                 :set_internal_review_ivars,
                 :set_outgoing_message
 
-  before_filter :check_reedit, :show_preview, :check_responses_allowed,
-    :only => [:create_followup]
+  before_filter :check_reedit, :only => [:preview_followup, :create_followup]
+
+  before_filter :check_responses_allowed, :only => [:create_followup]
 
   def new_followup
   end
@@ -26,6 +27,17 @@ class ResponseController < ApplicationController
       redirect_to request_url(@info_request) and return
     end
     render :action => 'new_followup'
+  end
+
+  def preview_followup
+    @outgoing_message.info_request = @info_request
+    if @outgoing_message.what_doing == 'internal_review'
+       @internal_review = true
+    end
+    unless @outgoing_message.valid?
+      render :action => 'new_followup'
+      return
+    end
   end
 
   private
@@ -185,16 +197,6 @@ class ResponseController < ApplicationController
     else
       @postal_email = who_can_followup_to[-1][1]
       @postal_email_name = who_can_followup_to[-1][0]
-    end
-  end
-
-  def show_preview
-    if params[:preview].to_i == 1
-      if @outgoing_message.what_doing == 'internal_review'
-        @internal_review = true
-      end
-      render :action => 'followup_preview'
-      return
     end
   end
 end

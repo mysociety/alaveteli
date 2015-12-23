@@ -27,6 +27,12 @@ Alaveteli::Application.routes.draw do
   #####
 
   #### Response controller
+  match '/request/:id/response' => 'response#preview_followup',
+         :as => :preview_response,
+         :constraints => lambda { |request| request.params[:preview] == "1" }
+  match '/request/:id/response/:incoming_message_id' => 'response#preview_followup',
+         :as => :preview_response,
+         :constraints => lambda { |request| request.params[:preview] == "1" }
   match '/request/:id/response' => 'response#create_followup',
           :as => :preview_response, :via => :post
   match '/request/:id/response/:incoming_message_id' => 'response#create_followup',
@@ -36,6 +42,7 @@ Alaveteli::Application.routes.draw do
   match '/request/:id/response' => 'response#new_followup',
           :as => :show_response_no_followup
   ####
+
 
   ##### Request controller
   match '/list/recent' => 'request#list', :as => :request_list_recent, :view => 'recent'
