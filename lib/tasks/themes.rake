@@ -122,6 +122,8 @@ namespace :themes do
     # Finally run the install hooks:
     run_hook(theme_name, 'install', verbose)
     run_hook(theme_name, 'post_install', verbose)
+    puts "#{theme_name} successfully installed in: #{theme_directory}"
+    puts ""
   end
 
   desc "Install themes specified in the config file's THEME_URLS"
