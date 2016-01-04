@@ -119,4 +119,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                                              "alaveteli " \
                                              "vagrant " \
                                              "#{ ALAVETELI_FQDN }"
+
+  # Append basic usage instructions to the MOTD
+  motd = <<-EOF
+To start your alaveteli instance:
+* cd alaveteli
+* bundle exec rails server
+EOF
+
+  config.vm.provision :shell, :inline => "echo '#{ motd }' >> /etc/motd.tail"
 end
