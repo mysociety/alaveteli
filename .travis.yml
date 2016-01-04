@@ -12,6 +12,9 @@ env:
     - S3_BUCKET_NAME=alaveteli-bundle-cache
     - secure: "cbZMhxbih4k2syqykwVprnBBTyD9Rk9pVhwM2W1Oa3Y9QIn79giL2yTUrJi3+bapHHFedWstG1wkLxEalc/Ei1G4vWYDqXiOtdzYR/WMqqCyd8royrkusist+rVcolvZ2dTCu8uvmteQ6sE3/FsoayTlYJmWCNFWhAiWayaai8Q="
 before_install:
+  - sudo locale-gen --no-archive en_GB
+  - sudo locale-gen --no-archive en_GB.UTF-8
+  - sudo update-locale
   - gem update --system 2.1.11
   - gem install rake --version=0.9.2.2
   - git submodule update --init --recursive
@@ -26,6 +29,9 @@ before_install:
   - sudo apt-get -y install exim4-daemon-light
   - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.9.1$|^rubygems$|^rake)"`
   - RAILS_ENV=test ./script/rails-post-deploy
+  - psql -c 'CREATE COLLATION "en_GB" (LOCALE = "en_GB.utf8");' -U postgres foi_test
+  - psql -c 'CREATE COLLATION "en_GB.utf8" (LOCALE = "en_GB.utf8");' -U postgres foi_test
+  - psql -c 'CREATE COLLATION "en" (LOCALE = "en_GB.utf8");' -U postgres foi_test
   - RAILS_ENV=test ./script/update-xapian-index
 install: echo 'Bundle installed through script/rails-post-deploy'
 notifications:
