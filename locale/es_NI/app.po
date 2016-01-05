@@ -3047,7 +3047,7 @@ msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Esta persona no ha realizado solicitudes de información usando esta web."
 
 msgid "This person's annotations"
-msgstr "Tus comentarios"
+msgstr "Comentarios de esta persona"
 
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
