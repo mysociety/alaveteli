@@ -43,7 +43,7 @@ gem 'xml-simple', '~> 1.1.2', :require => 'xmlsimple'
 gem 'zip', '~> 2.0.2'
 
 # Gems related to internationalisation
-gem 'gettext_i18n_rails', '~> 0.9.4'
+gem 'gettext_i18n_rails', '~> 0.9.4' # Later versions cause error (see blame)
 gem 'gettext', '~> 2.3.9'
 gem 'globalize3', :git => 'https://github.com/globalize/globalize.git', :ref => '5fd95f2389dff1'
 gem 'locale', '~> 2.0.8'
