@@ -72,8 +72,9 @@ GEM
     activesupport (3.2.22)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    annotate (2.5.0)
-      rake
+    annotate (2.7.0)
+      activerecord (>= 3.2, < 6.0)
+      rake (~> 10.4)
     arel (3.0.3)
     bootstrap-sass (2.3.1.2)
       sass (~> 3.2)
@@ -336,7 +337,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_otp!
   acts_as_versioned!
-  annotate (~> 2.5.0)
+  annotate (~> 2.7.0)
   bootstrap-sass (~> 2.3.1.2)
   bullet (~> 4.14.6)
   capistrano (~> 2.15.4)

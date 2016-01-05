@@ -90,5 +90,5 @@ end
 
 group :debug do
   gem 'debugger', '~> 1.6.0', :platforms => :ruby_19
-  gem 'annotate', '~> 2.5.0'
+  gem 'annotate', '~> 2.7.0'
 end
