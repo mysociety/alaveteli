@@ -255,12 +255,10 @@ class OutgoingMessage < ActiveRecord::Base
   def get_body_for_html_display
     text = body.strip
     self.remove_privacy_sensitive_things!(text)
-    # reparagraph and wrap it so is good preview of emails
-    text = MySociety::Format.wrap_email_body_by_lines(text)
     text = CGI.escapeHTML(text)
     text = MySociety::Format.make_clickable(text, :contract => 1)
     text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
-    text = text.gsub(/\n/, '<br>')
+    text = ActionController::Base.helpers.simple_format(text)
     text.html_safe
   end
 
