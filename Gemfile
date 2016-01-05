@@ -43,7 +43,6 @@ gem 'xml-simple', '~> 1.1.2', :require => 'xmlsimple'
 gem 'zip', '~> 2.0.2'
 
 # Gems related to internationalisation
-gem 'fast_gettext', '~> 0.7.0'
 gem 'gettext_i18n_rails', '~> 0.9.4'
 gem 'gettext', '~> 2.3.9'
 gem 'globalize3', :git => 'https://github.com/globalize/globalize.git', :ref => '5fd95f2389dff1'
