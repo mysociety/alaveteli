@@ -63,7 +63,6 @@ y no utilice tabulaciones.
 
 <code><a href="#reply_late_after_days">REPLY_LATE_AFTER_DAYS</a></code>
 <br> <code><a href="#reply_very_late_after_days">REPLY_VERY_LATE_AFTER_DAYS</a></code>
-<br> <code><a href="#special_reply_very_late_after_days">SPECIAL_REPLY_VERY_LATE_AFTER_DAYS</a></code>
 <br> <code><a href="#working_or_calendar_days">WORKING_OR_CALENDAR_DAYS</a></code>
 
 ### Acceso a la interfaz de administración:
@@ -311,14 +310,11 @@ y no utilice tabulaciones.
   <dt>
     <a name="reply_late_after_days"><code>REPLY_LATE_AFTER_DAYS</code></a><br>
     <a name="reply_very_late_after_days"><code>REPLY_VERY_LATE_AFTER_DAYS</code></a><br>
-    <a name="special_reply_very_late_after_days"><code>SPECIAL_REPLY_VERY_LATE_AFTER_DAYS</code></a>
     <a name="working_or_calendar_days"><code>WORKING_OR_CALENDAR_DAYS</code></a>
   </dt>
   <dd>
         Las variables <strong>REPLY...AFTER_DAYS</strong> definen cuántos días deben pasar
         antes de que la respuesta a una solicitud se considere oficialmente <em>late</em> (fuera de plazo).
-        Existe un caso SPECIAL para ciertos tipos de autoridades (por ejemplo, los colegios en el Reino Unido) que
-        disponen de algo más de tiempo que las demás para responder a las consultas.
         La variable <strong>WORKING_OR_CALENDAR_DAYS</strong> puede contener los valores «working» (predeterminado)
         o «calendar», que determinan qué días se incluyen en el contador.
     <div class="more-info">
@@ -329,9 +325,6 @@ y no utilice tabulaciones.
         </li>
         <li>
             <code>REPLY_VERY_LATE_AFTER_DAYS: 40</code>
-        </li>
-        <li>
-            <code>SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60</code>
         </li>
         <li>
           <code>WORKING_OR_CALENDAR_DAYS: working</code>
@@ -372,7 +365,7 @@ y no utilice tabulaciones.
   </dt>
   <dd>
     Direcciones URL de <a href="{{ page.baseurl }}/docs/customising/themes/">temas</a> para descargar y utilizar
-    (al ejecutar el script <code>rails-post-deploy</code>). Las primeras plantillas de la lista tienen 
+    (al ejecutar el script <code>rails-post-deploy</code>). Las primeras plantillas de la lista tienen
     mayor prioridad que las siguientes.
     <div class="more-info">
       <p>Ejemplo:</p>
@@ -718,7 +711,7 @@ THEME_URLS:
   </dt>
   <dd>
      Para depurar problemas de memoria. Si se le asigna el valor «true», Alaveteli registra
-     los aumentos de uso de memoria del proceso de Ruby debido a la 
+     los aumentos de uso de memoria del proceso de Ruby debido a la
      solicitud (solamente en Linux).  Como Ruby nunca devuelve memoria al sistema operativo,
      si el proceso existente había dado servicio previamente a una solicitud de mayor tamaño,
      no se mostrará ningún consumo para la siguiente.
@@ -742,7 +735,7 @@ THEME_URLS:
     Opcionalmente, puede probar Ghostscript, que debería llevar a cabo un mejor trabajo
     de compresión. Algunas versiones de pdftk generan errores respecto a la compresión,
     en cuyo caso Alaveteli no recomprime los archivos PDF
-    y registra un mensaje de advertencia, «Unable to compress PDF», un motivo más 
+    y registra un mensaje de advertencia, «Unable to compress PDF», un motivo más
     para probar esta opción.
     <div class="more-info">
       <p>Ejemplo:</p>
@@ -846,8 +839,8 @@ EXCEPTION_NOTIFICATIONS_TO:
     <a name="varnish_host"><code>VARNISH_HOST</code></a>
   </dt>
   <dd>
-      Si su sitio funciona con Varnish, 
-	  puede activar esta opción para 
+      Si su sitio funciona con Varnish,
+	  puede activar esta opción para
 	  averiguar dónde enviar las solicitudes
 	  de purga. En caso contrario, no
 	  la configure.
@@ -1053,7 +1046,7 @@ EXCEPTION_NOTIFICATIONS_TO:
     <a name="shared_files_path"><code>SHARED_FILES_PATH</code></a>
   </dt>
   <dd>
-     En algunas implementaciones de Alaveteli tal vez desee instalar cada nueva versión 
+     En algunas implementaciones de Alaveteli tal vez desee instalar cada nueva versión
      implementada junto con las anteriores, en cuyo caso ciertos archivos y recursos
      se compartirán entre las diferentes instalaciones.
      Por ejemplo, el directorio de archivos, <code>files</code>, el directorio <code>cache</code>
@@ -1134,7 +1127,7 @@ SHARED_DIRECTORIES:
      Utilice las plantillas y hojas de estilo de diseño web adaptable en lugar de
      aquellas que solo muestran el sitio con una anchura determinada. Estas hojas
      de estilo son experimentales actualmente, pero se predeterminarán en el futuro.
-     Permiten que el sitio se muestre correctamente en dispositivos móviles, así 
+     Permiten que el sitio se muestre correctamente en dispositivos móviles, así
      como en pantallas de mayor tamaño. Actualmente las hojas de estilos de anchura
      fija se utilizan por defecto.
 

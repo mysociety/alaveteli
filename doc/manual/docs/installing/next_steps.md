@@ -137,10 +137,8 @@ have a certain number of days in order to respond to requests. Alaveteli
 helps requesters by reminding them when their request is overdue for a
 response according to the law. You can set the number of days an
 authority is given to respond to a request in the
-[`REPLY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#reply_late_after_days),
+[`REPLY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#reply_late_after_days) and
 [`REPLY_VERY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#reply_very_late_after_days)
-and
-[`SPECIAL_REPLY_VERY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#special_reply_very_late_after_days)
 options in `config/general.yml`. Most laws specify that the days are
 either working days, or calendar days. You can set this using the
 [`WORKING_OR_CALENDAR_DAYS`]({{ page.baseurl }}/docs/customising/config/#working_or_calendar_days)
