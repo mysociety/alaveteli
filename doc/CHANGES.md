@@ -11,6 +11,16 @@
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook.
 
+# Version 0.23.1.0
+
+## Highlighted Features
+
+* Remove blocks of spaces in translation strings (Louise Crow).
+
+## Upgrade Notes
+
+* There should be no action necessary.
+
 # Version 0.23
 
 ## Highlighted Features

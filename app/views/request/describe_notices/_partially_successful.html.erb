@@ -1,0 +1,21 @@
+<% if AlaveteliConfiguration::donation_url.blank? %>
+<p>
+  <%= _("We're glad you got some of the information that you wanted.") %>
+</p>
+<p>
+  <%= _("If you want to try and get the rest of the information, " \
+        "here's what to do now.") %>
+</p>
+<% else %>
+<p>
+  <%= _("We're glad you got some of the information that you wanted. If you " \
+        "found {{site_name}} useful, <a href=\"{{donation_url}}\">make a " \
+        "donation</a> to the charity which runs it.",
+        :site_name => site_name,
+        :donation_url => AlaveteliConfiguration::donation_url) %>
+</p>
+<p>
+  <%= _("If you want to try and get the rest of the information, " \
+        "here's what to do now.") %>
+</p>
+<% end %>

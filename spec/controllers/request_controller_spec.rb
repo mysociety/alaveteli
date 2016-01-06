@@ -1498,6 +1498,8 @@ describe RequestController, "when classifying an information request" do
 
     describe 'when logged in as an admin user who is also the actual requester' do
 
+      render_views
+
       before do
         @admin_user = users(:admin_user)
         session[:user_id] = @admin_user.id
@@ -1537,6 +1539,8 @@ describe RequestController, "when classifying an information request" do
     end
 
     describe 'when logged in as the requestor' do
+
+      render_views
 
       before do
         @request_owner = users(:bob_smith_user)
@@ -1634,6 +1638,8 @@ describe RequestController, "when classifying an information request" do
     end
 
     describe 'after a successful status update by the request owner' do
+
+      render_views
 
       before do
         @request_owner = users(:bob_smith_user)

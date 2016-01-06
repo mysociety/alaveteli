@@ -448,95 +448,17 @@ class RequestController < ApplicationController
       return
     end
 
-    calculated_status = info_request.calculate_status
     # Display advice for requester on what to do next, as appropriate
-    flash[:notice] = case info_request.calculate_status
-    when 'waiting_response'
-      _("<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, " \
-        "you should get a response promptly, and normally before the end of " \
-        "<strong>{{date_response_required_by}}</strong>.</p>",
-        :date_response_required_by =>
-          view_context.simple_date(info_request.date_response_required_by))
-    when 'waiting_response_overdue'
-      _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By " \
-        "law, you should have got a response promptly, and normally before " \
-        "the end of <strong>{{date_response_required_by}}</strong>.</p>",
-        :date_response_required_by =>
-          view_context.simple_date(info_request.date_response_required_by))
-    when 'waiting_response_very_overdue'
-      _("<p>Thank you! Your request is long overdue, by more than " \
-        "{{very_late_number_of_days}} working days. Most requests should be " \
-        "answered within {{late_number_of_days}} working days. You might " \
-        "like to complain about this, see below.</p>",
-        :very_late_number_of_days =>
-          AlaveteliConfiguration::reply_very_late_after_days,
-        :late_number_of_days =>
-          AlaveteliConfiguration::reply_late_after_days)
-    when 'not_held'
-      _("<p>Thank you! Here are some ideas on what to do next:</p><ul><li>" \
-        "To send your request to another authority, first copy the text " \
-        "of your request below, then <a href=\"{{find_authority_url}}\">" \
-        "find the other authority</a>.</li><li>If you would like to contest " \
-        "the authority's claim that they do not hold the information, here " \
-        "is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We " \
-        "have <a href=\"{{other_means_url}}\">suggestions</a> on other " \
-        "means to answer your question.</li></ul>",
-        :find_authority_url => "/new",
-        :complain_url =>
-          CGI.escapeHTML(unhappy_url(info_request)),
-        :other_means_url =>
-          CGI.escapeHTML(unhappy_url(info_request)) + "#other_means")
-    when 'rejected'
-      _("Oh no! Sorry to hear that your request was refused. Here is what " \
-        "to do now.")
-    when 'successful'
-      if AlaveteliConfiguration::donation_url.blank?
-        _("<p>We're glad you got all the information that you wanted. If " \
-          "you write about or make use of the information, please come back " \
-          "and add an annotation below saying what you did.</p>")
-      else
-        _("<p>We're glad you got all the information that you wanted. If " \
-          "you write about or make use of the information, please come back " \
-          "and add an annotation below saying what you did.</p><p>If you " \
-          "found {{site_name}} useful, <a href=\"{{donation_url}}\">make " \
-          "a donation</a> to the charity which runs it.</p>",
-          :site_name => site_name,
-          :donation_url => AlaveteliConfiguration::donation_url)
-      end
-    when 'partially_successful'
-      if AlaveteliConfiguration::donation_url.blank?
-        _("<p>We're glad you got some of the information that you wanted." \
-          "</p><p>If you want to try and get the rest of the information, " \
-          "here's what to do now.</p>")
-      else
-        _("<p>We're glad you got some of the information that you wanted. " \
-          "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">" \
-          "make a donation</a> to the charity which runs it.</p><p>If you " \
-          "want to try and get the rest of the information, here's what to " \
-          "do now.</p>",
-          :site_name => site_name,
-          :donation_url => AlaveteliConfiguration::donation_url)
-      end
-    when 'waiting_clarification'
-      _("Please write your follow up message containing the necessary " \
-        "clarifications below.")
-    when 'gone_postal'
-      nil
-    when 'internal_review'
-      _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should " \
-        "get a response within {{late_number_of_days}} days, or be told if " \
-        "it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",
-        :late_number_of_days => AlaveteliConfiguration.reply_late_after_days,
-        :review_url => unhappy_url(info_request) + "#internal_review")
-    when 'error_message', 'requires_admin'
-      _("Thank you! We'll look into what happened and try and fix it up.")
-    when 'user_withdrawn'
-      _("If you have not done so already, please write a message below " \
-        "telling the authority that you have withdrawn your request. " \
-        "Otherwise they will not know it has been withdrawn.")
+    calculated_status = info_request.calculate_status
+    partial_path = 'request/describe_notices'
+    if template_exists?(calculated_status, [partial_path], true)
+      flash[:notice] = render_to_string(
+          :partial => "#{partial_path}/#{calculated_status}",
+          :locals => {:info_request => info_request}
+      ).html_safe
     end
 
-    case info_request.calculate_status
+    case calculated_status
     when 'waiting_response', 'waiting_response_overdue', 'not_held', 'successful',
         'internal_review', 'error_message', 'requires_admin'
       redirect_to request_url(info_request)
