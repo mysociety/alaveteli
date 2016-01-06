@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Added onscreen instructions to the Vagrant box (Liz Conlan)
 * Better image for pages when shared on Facebook (Zarino Zappia)
 
 ## Upgrade Notes
