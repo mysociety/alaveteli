@@ -6,12 +6,12 @@ title: Categories & tags
 #  Categories and tags for authorities
 
 <p class="lead">
-  
+
   Use tags to arrange
   <a href="{{ page.baseurl }}/docs/glossary/#authority"
   class="glossary__link">authorities</a> into categories, or to associate
   related authorities with each other. This helps your users find the right
-  authority for the 
+  authority for the
   <a href="{{ page.baseurl }}/docs/glossary/#request" class="glossary__link">request</a>
   (or <a href="{{ page.baseurl }}/docs/glossary/#response" class="glossary__link">response</a>)
   they are interested in.
@@ -95,7 +95,7 @@ it.
 ## Special tags
 
 Some tags are special. Alaveteli behaves differently when an authority has one
-of these tags. 
+of these tags.
 
 <table class="table">
   <tr>
@@ -112,7 +112,7 @@ of these tags.
     </td>
     <td>
       This is a test/dummy authority. It is not displayed to the public on your
-      main site, and it is not included when you 
+      main site, and it is not included when you
       <a href="{{ page.baseurl }}/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">export authorities in CSV format</a>.
     </td>
   </tr>
@@ -165,20 +165,16 @@ of these tags.
 
 You can add any tag you want &mdash; they don't have to be associated with
 categories.
-  
+
 If you are a developer, and you want to add special behaviour to your site
 based on your own tags, you need to add custom code, which should probably go
 in your own
 <a href="{{ page.baseurl }}/docs/glossary/#theme" class="glossary__link">theme</a>.
 For example, in the UK, schools are granted special concession in the law to allow for
-requests that are made out of term-time. Alaveteli handles this by using the
-[`SPECIAL_REPLY_VERY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#special_reply_very_late_after_days)
-config value if the authority has the `school` tag.
-See
-[`is_school?`](https://github.com/mysociety/alaveteli/blob/f0bbeb4abf4bf07e5cfb46668f39bbff72ed7210/app/models/public_body.rb#L391)
-and
-[`date_very_overdue_after`](https://github.com/mysociety/alaveteli/blob/81b778622ed47e24a2dea59c0529d1f928c68a58/app/models/info_request.rb#L752)
-for the source code.
+requests that are made out of term-time. WhatDoTheyKnow handles this by using a
+custom `LateCalculator`. See
+<https://github.com/mysociety/whatdotheyknow-theme/pull/287> for the source
+code.
 
 ## Searching with tags
 
@@ -194,7 +190,3 @@ You can add reference numbers or specific values to tags using a colon. On
 <a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
 we tag all authorities that are charities with the tag `charity:123456` (where
 123456 is the authority's registered charity number).
-
-
-
-

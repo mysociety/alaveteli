@@ -64,7 +64,6 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 
 <code><a href="#reply_late_after_days">REPLY_LATE_AFTER_DAYS</a></code>
 <br> <code><a href="#reply_very_late_after_days">REPLY_VERY_LATE_AFTER_DAYS</a></code>
-<br> <code><a href="#special_reply_very_late_after_days">SPECIAL_REPLY_VERY_LATE_AFTER_DAYS</a></code>
 <br> <code><a href="#working_or_calendar_days">WORKING_OR_CALENDAR_DAYS</a></code>
 
 ### Admin access:
@@ -505,14 +504,11 @@ THEME_URLS:
   <dt>
     <a name="reply_late_after_days"><code>REPLY_LATE_AFTER_DAYS</code></a><br>
     <a name="reply_very_late_after_days"><code>REPLY_VERY_LATE_AFTER_DAYS</code></a><br>
-    <a name="special_reply_very_late_after_days"><code>SPECIAL_REPLY_VERY_LATE_AFTER_DAYS</code></a>
     <a name="working_or_calendar_days"><code>WORKING_OR_CALENDAR_DAYS</code></a>
   </dt>
   <dd>
         The <strong>REPLY...AFTER_DAYS</strong> settings define how many days must have
         passed before an answer to a request is officially <em>late</em>.
-        The SPECIAL case is for some types of authority (for example: in the UK, schools) which are
-        granted a bit longer than everyone else to respond to questions.
         The <strong>WORKING_OR_CALENDAR_DAYS</strong> setting can be either "working" (the default)
         or "calendar", and determines which days are counted.
     <div class="more-info">
@@ -523,9 +519,6 @@ THEME_URLS:
         </li>
         <li>
             <code>REPLY_VERY_LATE_AFTER_DAYS: 40</code>
-        </li>
-        <li>
-            <code>SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60</code>
         </li>
         <li>
           <code>WORKING_OR_CALENDAR_DAYS: working</code>
