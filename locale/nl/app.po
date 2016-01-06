@@ -9,10 +9,10 @@
 # Infwolf <infwolf@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2015-12-01 18:28+0000\n"
+"PO-Revision-Date: 2016-01-06 22:47+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl/)\n"
 "Language: nl\n"
@@ -482,13 +482,11 @@ msgstr ""
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Volgens de wet, onder alle omstandigheden, {{public_body_link}} zou na al moeten hebben gereageerd"
 
-#, fuzzy
 msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
-msgstr "<p> Dank u wel! Ik hoop dat u niet al te lang hoeft te wachten. </ P> Volgens de wet moet u reactie hebben gekregen, voor <strong> {{date_response_required_by}} </ strong>. </ p>"
+msgstr "Volgens de wet moet u reactie hebben gekregen, voor <strong> {{date_response_required_by}} </strong>."
 
-#, fuzzy
 msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr "<p> Dank u wel! Ik hoop dat u niet al te lang hoeft te wachten. </ P> Volgens de wet moet u reactie hebben gekregen, voor <strong> {{date_response_required_by}} </ strong>. </ p>"
+msgstr "Volgens de wet moet u reactie hebben gekregen, voor <strong> {{date_response_required_by}} </strong>."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr ""
@@ -2555,10 +2553,10 @@ msgid "Thank you! Here are some ideas on what to do next:"
 msgstr ""
 
 msgid "Thank you! Hope you don't have to wait much longer."
-msgstr ""
+msgstr "Dank u wel! Ik hoop dat u niet al te lang hoeft te wachten."
 
 msgid "Thank you! Hopefully your wait isn't too long."
-msgstr ""
+msgstr "Dank u wel! Ik hoop dat u niet al te lang hoeft te wachten."
 
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
 msgstr ""

@@ -11,10 +11,10 @@
 # sroberto <ertoba@yahoo.es>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2015-12-01 18:28+0000\n"
+"PO-Revision-Date: 2016-01-06 22:46+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -507,15 +507,13 @@ msgstr ""
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Legearen arabera, edozein zirkunstantzia dela, {{public_body_link}}k jada erantzun behar izango zukeen"
 
-#, fuzzy
 msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
 msgstr ""
-"<p>Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango.</p> <p>Legearen arabera, erantzuna laster jaso behar izango duzu, normalean <strong>\n"
-"{{date_response_required_by}}</strong> amaitu baino lehen.</p>"
+"Legearen arabera, erantzuna laster jaso behar izango duzu, normalean <strong>\n"
+"{{date_response_required_by}}</strong> amaitu baino lehen."
 
-#, fuzzy
 msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr "<p>Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango.</p> <p>Legearen arabera, erantzuna laster jaso behar izango duzu, normalean   <strong>{{date_response_required_by}}</strong>amaitu baino lehen.</p>"
+msgstr "Legearen arabera, erantzuna laster jaso behar izango duzu, normalean   <strong>{{date_response_required_by}}</strong>amaitu baino lehen."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Legearen arabera, {{public_body_link}}k jada erantzun behar izango zukeen  <strong>laster</strong> eta"
@@ -1217,7 +1215,7 @@ msgid "If you find this service useful as an FOI officer, please ask your web ma
 msgstr "Informaziorako Sarbidearen arduraduna zaren heinean, zerbitzu honi erabilgarri baldin baderitzozu, mesedez eska iezaiozu zure web orrialdeko arduradunari gure orrialdearen esteka jartzeko."
 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr ""
+msgstr "{{site_name}} erabilgarria izan baldin bada, dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu."
 
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr "Posta <strong>duela sei hilabete baino lehenago</strong> jaso baduzu, orduan estekak ez du funtzionatuko. Mesedez, saia zaitez egiten hasieran frogatu duzuna."
@@ -2601,14 +2599,13 @@ msgid "Thank you! Here are some ideas on what to do next:"
 msgstr ""
 
 msgid "Thank you! Hope you don't have to wait much longer."
-msgstr ""
+msgstr "Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango."
 
 msgid "Thank you! Hopefully your wait isn't too long."
-msgstr ""
+msgstr "Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango."
 
-#, fuzzy
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
-msgstr "<p>Eskerrik asko! Zure eskabidea atzeratuta dabil, {{very_late_number_of_days}} lan egun baino gehiago igaro dira. Eskabide gehienek erantzuna jaso beharko lukete  {{late_number_of_days}} lan egunetan. Atzerapen hau dela eta, erreklamazioa egin dezakezu, beherago azaltzen den moduan.</p>"
+msgstr "Eskerrik asko! Zure eskabidea atzeratuta dabil, {{very_late_number_of_days}} lan egun baino gehiago igaro dira. Eskabide gehienek erantzuna jaso beharko lukete  {{late_number_of_days}} lan egunetan. Atzerapen hau dela eta, erreklamazioa egin dezakezu, beherago azaltzen den moduan."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr "Eskerrik asko zure laguntzagatik, zure lanak arrakasta izan duten beste eskabideak aurkitzeko ahalegina arintzen du, sailkatzeko aukera ere ematen digu..."
@@ -3416,17 +3413,14 @@ msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartze
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
 
-#, fuzzy
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
-msgstr "<p>Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. Horri buruz idazten baduzu edo erabiltzen baduzu, mesedez itzul zaitez hona eta jarraian gehitu iruzkin bat, zer egin duzun azalduz.</p><p>{{site_name}} erabilgarria izan baldin bada, dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu.</p>"
+msgstr "Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. Horri buruz idazten baduzu edo erabiltzen baduzu, mesedez itzul zaitez hona eta jarraian gehitu iruzkin bat, zer egin duzun azalduz."
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted."
-msgstr "Mesedez, jakinarazi nahi zenuen informazioa jaso duzun ala ez."
+msgstr "Pozgarria da eskatu zenuen informazioa jaso duzula jakitea."
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr "<p>Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. Horri buruz idazten baduzu edo erabiltzen baduzu, mesedez itzul zaitez hona eta jarraian gehitu iruzkin bat, zer egin duzun azalduz.</p><p>{{site_name}} erabilgarria izan baldin bada,dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu.</p>"
+msgstr "Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. {{site_name}} erabilgarria izan baldin bada,dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu."
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3666,9 +3660,8 @@ msgstr ""
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Eskabide honi jada erantzun bera bidali diozu."
 
-#, fuzzy
 msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
-msgstr "<p>Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango.</p><p>Erantzuna {{late_number_of_days}} egunetan jaso behar izango zenuke, edo erantzuna beranduago helduko zela jakinarazi beharko lizukete (<a href=\"{{review_url}}\">informazio gehago</a>).</p>"
+msgstr "Erantzuna {{late_number_of_days}} egunetan jaso behar izango zenuke, edo erantzuna beranduago helduko zela jakinarazi beharko lizukete (<a href=\"{{review_url}}\">informazio gehago</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr ""

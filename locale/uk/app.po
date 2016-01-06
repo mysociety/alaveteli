@@ -14,10 +14,10 @@
 # hiiri <murahoid@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2015-12-01 18:28+0000\n"
+"PO-Revision-Date: 2016-01-06 22:49+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
 "Language: uk\n"
@@ -523,15 +523,11 @@ msgstr ""
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Згідно з законодавством, за будь-яких умов {{public_body_link}} мав би вже відповісти"
 
-#, fuzzy
 msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
-msgstr ""
-"<p>Дякуємо! Сподіваємось, вам не доведеться чекати надто довго.</p> <p>Згідно з законодавством, ви маєте отримати відповідь швидко, як правило, не пізніше ніж <strong>\n"
-"{{date_response_required_by}}</strong>.</p>"
+msgstr "Згідно з законодавством, ви маєте отримати відповідь швидко, як правило, не пізніше ніж <strong>{{date_response_required_by}}</strong>."
 
-#, fuzzy
 msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr "<p>Дякуємо! Сподіваємось, вам не доведеться чекати довше.</p> <p>Згідно з законодавством, ви маєте отримати відповідь швидко, не пізніше цієї дати: <strong>{{date_response_required_by}}</strong>.</p>"
+msgstr "Згідно з законодавством, ви маєте отримати відповідь швидко, не пізніше цієї дати: <strong>{{date_response_required_by}}</strong>."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Згідно з законодавством, {{public_body_link}} мав би відповісти <strong>швидко</strong> і"
@@ -2651,14 +2647,13 @@ msgid "Thank you! Here are some ideas on what to do next:"
 msgstr ""
 
 msgid "Thank you! Hope you don't have to wait much longer."
-msgstr ""
+msgstr "Дякуємо! Сподіваємось, вам не доведеться чекати довше."
 
 msgid "Thank you! Hopefully your wait isn't too long."
-msgstr ""
+msgstr "Дякуємо! Сподіваємось, вам не доведеться чекати надто довго."
 
-#, fuzzy
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
-msgstr "<p>Дякуємо! Ваш запит давно прострочений, більш ніж {{very_late_number_of_days}} робочих днів. Більшість запитів отримують відповідь в межах {{late_number_of_days}} робочих днів.</p>"
+msgstr "Дякуємо! Ваш запит давно прострочений, більш ніж {{very_late_number_of_days}} робочих днів. Більшість запитів отримують відповідь в межах {{late_number_of_days}} робочих днів"
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr ""
@@ -3466,17 +3461,14 @@ msgstr ""
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
 
-#, fuzzy
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
-msgstr "<p>Ми раді, що ви отримали всю потрібну інформацію. Якщо ви напишете про це або використаєте цю інформацію в будь-який спосіб, поверніться та додайте коментар про це внизу.</p>"
+msgstr "Ми раді, що ви отримали всю потрібну інформацію. Якщо ви напишете про це або використаєте цю інформацію в будь-який спосіб, поверніться та додайте коментар про це внизу."
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted."
-msgstr "Будь ласка, зазначте, чи отримали ви бажану інформацію."
+msgstr ""
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr "<p>Ми раді, що ви отримали дещо з потрібної вам інформації. Якщо ви напишете про це або використаєте цю інформацію в будь-який спосіб, поверніться та додайте коментар про це внизу.</p>"
+msgstr ""
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3724,9 +3716,8 @@ msgstr ""
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Ви вже надіслали точно таке ж додаткове повідомлення для цього запиту."
 
-#, fuzzy
 msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
-msgstr "<p>Дякуємо! Сподіваємось, вам не доведеться довго чекати.</p><p>Ви маєте отримати відповідь в межах {{late_number_of_days}} днів, або ж вам повідомлять, що це займе більше часу (<a href=\"{{review_url}}\">details</a>).</p>"
+msgstr "Ви маєте отримати відповідь в межах {{late_number_of_days}} днів, або ж вам повідомлять, що це займе більше часу (<a href=\"{{review_url}}\">details</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr ""
@@ -4319,6 +4310,3 @@ msgstr "{{user}} зробив (-ла) цей запит"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
-#~ msgstr "<p>Дякуємо! Щоб відправити запит іншому розпоряднику, спершу скопіюйте текст вашого запиту нижче, далі знайдіть іншого розпорядника</p>"

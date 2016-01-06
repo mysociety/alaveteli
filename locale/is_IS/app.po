@@ -8,10 +8,10 @@
 # Páll Hilmarsson <pallih@kaninka.net>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2015-12-01 18:28+0000\n"
+"PO-Revision-Date: 2016-01-06 22:46+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
@@ -481,13 +481,11 @@ msgstr ""
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Samkvæmt lögum ætti {{public_body_link}} að hafa svarað"
 
-#, fuzzy
 msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
-msgstr "<p>Takk! Vonandi þarftu ekki að bíða lengi.</p> <p>Í lögunum er tekið fram að verða skal við beiðninni orðið verður við beiðni um aðgang að gögnum svo fljótt sem verða má, venjulega innan <strong>\\n{{date_response_required_by}}</strong> daga.</p>"
+msgstr "Í lögunum er tekið fram að verða skal við beiðninni orðið verður við beiðni um aðgang að gögnum svo fljótt sem verða má, venjulega innan <strong>\\n{{date_response_required_by}}</strong> daga."
 
-#, fuzzy
 msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr "<p>Takk! Þú þarft vonandi ekki að bíða mikið lengur.</p> <p>Í lögunum er tekið fram að verða skal við beiðninni orðið verður við beiðni um aðgang að gögnum svo fljótt sem verða má, venjulega innan <strong>{{date_response_required_by}}</strong> daga.</p>"
+msgstr "Í lögunum er tekið fram að verða skal við beiðninni orðið verður við beiðni um aðgang að gögnum svo fljótt sem verða má, venjulega innan <strong>{{date_response_required_by}}</strong> daga."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Samkvæmt lögum ætti, {{public_body_link}} að hafa svarað <strong>svo fljótt sem verða má</strong> og"
@@ -1200,7 +1198,7 @@ msgid "If you want to try and get the rest of the information, here's what to do
 msgstr ""
 
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
-msgstr ""
+msgstr "Ef þú villt draga í efa fullyrðingar stofnunar um að þau hafi ekki upplýsingarnar <a href=\"{{complain_url}}\">hvernig sný ég mér</a>."
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr ""
@@ -2551,17 +2549,16 @@ msgid "Thank you for updating your profile photo"
 msgstr "Takk fyrir að uppfæra myndina af þér"
 
 msgid "Thank you! Here are some ideas on what to do next:"
-msgstr ""
+msgstr "Takk kærlega! Hér eru nokkrar hugmyndir að næstu skrefum:"
 
 msgid "Thank you! Hope you don't have to wait much longer."
-msgstr ""
+msgstr "Takk! Þú þarft vonandi ekki að bíða mikið lengur."
 
 msgid "Thank you! Hopefully your wait isn't too long."
-msgstr ""
+msgstr "Takk! Vonandi þarftu ekki að bíða lengi."
 
-#, fuzzy
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
-msgstr "<p>Takk! Beiðn þinni hefði átt að svara fyrir löngu, fyrir meira en  {{very_late_number_of_days}} vinnudögum. Flestum beiðnum skal svarað innan  {{late_number_of_days}} vinnudaga. Þú ættir hugsanlega að kvarta yfir þessu, nánari upplýsingar hér fyrir neðan."
+msgstr "Takk! Beiðn þinni hefði átt að svara fyrir löngu, fyrir meira en  {{very_late_number_of_days}} vinnudögum. Flestum beiðnum skal svarað innan  {{late_number_of_days}} vinnudaga. Þú ættir hugsanlega að kvarta yfir þessu, nánari upplýsingar hér fyrir neðan."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr ""
@@ -3050,7 +3047,7 @@ msgid "To send your FOI request"
 msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
-msgstr ""
+msgstr "Til að senda beiðnina á aðra stofnun, afritaðu fyrst textann fyrir neðan <a href=\"{{find_authority_url}}\">leitaðu svo að stofnun</a>."
 
 msgid "To update the status of this FOI request"
 msgstr ""
@@ -3335,7 +3332,7 @@ msgid "We don't know whether the most recent response to this request contains i
 msgstr ""
 
 msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
-msgstr ""
+msgstr "Við erum með <a href=\"{{other_means_url}}\">uppástungur</a> að því hvernig má svara spurningum þínum."
 
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
 msgstr ""
@@ -3596,9 +3593,8 @@ msgstr ""
 msgid "You previously submitted that exact follow up message for this request."
 msgstr ""
 
-#, fuzzy
 msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
-msgstr "<p>Takk! Vonandi þarftu ekki að bíða lengi.</p><p>Þú ættir að fá svar innan {{late_number_of_days}} daga, eða fá beiðni um lengri frest (<a href=\"{{review_url}}\">nánari upplýsingar</a>).</p>"
+msgstr "Þú ættir að fá svar innan {{late_number_of_days}} daga, eða fá beiðni um lengri frest (<a href=\"{{review_url}}\">nánari upplýsingar</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr ""
@@ -4168,6 +4164,3 @@ msgstr "{{user}} sendi þessa {{law_used_full}} beiðni"
 
 msgid "« Back to search results"
 msgstr "« Aftur í leitarniðurstöður"
-
-#~ msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
-#~ msgstr "<p>Takk kærlega! Hér eru nokkrar hugmyndir að næstu skrefum:</p>\\n            <ul>\\n            <li>Til að senda beiðnina á aðra stofnun, afritaðu fyrst textann fyrir neðan <a href=\"{{find_authority_url}}\">leitaðu svo að stofnun</a>.</li>\\n            <li>Ef þú villt draga í efa fullyrðingar stofnunar um að þau hafi ekki upplýsingarnar\\n            <a href=\"{{complain_url}}\">hvernig sný ég mér</a>.\\n            </li>\\n            <li>Við erum með <a href=\"{{other_means_url}}\">uppástungur</a>\\n            að því hvernig má svara spurningum þínum.\\n            </li>\\n            </ul>"

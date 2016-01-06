@@ -21,10 +21,10 @@
 # PerryX <wyeboy@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2015-12-01 18:28+0000\n"
+"PO-Revision-Date: 2016-01-06 22:46+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
 "Language: cy\n"
@@ -496,13 +496,11 @@ msgstr ""
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Yn ôl y gyfraith, ym mhob amgylchiad, dylai {{public_body_link}} fod wedi ymateb erbyn hyn."
 
-#, fuzzy
 msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
-msgstr "<p>Diolch yn fawr! Gobeithio na fydd rhaid i chi aros yn rhy hir. Yn ôl y gyfraith, dylech gael ymateb yn brydlon, ac fel arfer cyn diwedd <strong>{{date_response_required_by}}</strong>.</p>"
+msgstr "Gobeithio na fydd rhaid i chi aros yn rhy hir. Yn ôl y gyfraith, dylech gael ymateb yn brydlon, ac fel arfer cyn diwedd <strong>{{date_response_required_by}}</strong>."
 
-#, fuzzy
 msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr "<p>Diolch yn fawr! Gobeithio na fydd yn rhaid i chi aros lawer yn hwy.</p> <p>Yn ôl y gyfraith, dylech fod wedi cael ymateb yn ddi-oed, ac fel arfer cyn diwedd <strong>{{date_response_required_by}}</strong>.</p>"
+msgstr "Yn ôl y gyfraith, dylech fod wedi cael ymateb yn ddi-oed, ac fel arfer cyn diwedd <strong>{{date_response_required_by}}</strong>."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Yn ôl y gyfraith, dylai {{public_body_link}} fel arfer wedi ymateb <strong>yn brydlon</strong> a"
@@ -1196,7 +1194,7 @@ msgid "If you find this service useful as an FOI officer, please ask your web ma
 msgstr "Os byddwch fel swyddog Rhyddid Gwybodaeth yn cael y gwasanaeth hwn yn ddefnyddiol, gofynnwch i'ch rheolwr gwe i gysylltu â ni o dudalen Rhyddid Gwybodaeth eich sefydliad."
 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr ""
+msgstr "Os cawsoch {{site_name}} yn ddefnyddiol, <a href=\"{{donation_url}}\">gwnewch gyfraniad</a> i'r elusen sy'n gyfrifol amdani."
 
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr "Os cawsoch yr e-bost <strong>dros chwe mis yn ôl</strong>, yna ni fydd y ddolen  fewngofnodi hon yn gweithio bellach. Ceisiwch wneud yr hyn yr oeddech yn ei wneud o'r dechrau."
@@ -1213,12 +1211,11 @@ msgstr "Os byddwch yn ymateb i'r neges hon, bydd yn mynd yn uniongyrchol i {{use
 msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Os ydych yn defnyddio e-bost ar y we neu hidlwyr \"post sothach\", edrychwch hefyd yn edrych ar eich ffolderi e-post swmp/spam. Weithiau, caiff ein negeseuon eu marcio felly."
 
-#, fuzzy
 msgid "If you want to try and get the rest of the information, here's what to do now."
-msgstr "<p>Rydym yn falch i chi gael rhywfaint o'r wybodaeth oedd arnoch ei heisiau.</p> <p>Os ydych am geisio cael gweddill y wybodaeth, dyma beth i'w wneud yn awr.</p>"
+msgstr "Os ydych am geisio cael gweddill y wybodaeth, dyma beth i'w wneud yn awr."
 
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
-msgstr ""
+msgstr "Os hoffech herio honiad yr awdurdod nad ydynt yn dal y wybodaeth, dyma  <a href=\"{{complain_url}}\">sut i gwyno</a>."
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr "Os hoffech i ni i godi'r gwaharddiad hwn, cewch <a href=\"/help/contact\">ofyn i ni</a> yn gwrtais  ni gan roi rhesymau."
@@ -2573,17 +2570,16 @@ msgid "Thank you for updating your profile photo"
 msgstr "Diolch i chi am ddiweddaru llun eich proffil"
 
 msgid "Thank you! Here are some ideas on what to do next:"
-msgstr ""
+msgstr "Diolch yn fawr! Dyma rai syniadau ar beth i'w wneud nesaf:"
 
 msgid "Thank you! Hope you don't have to wait much longer."
-msgstr ""
+msgstr "Diolch yn fawr! Gobeithio na fydd yn rhaid i chi aros lawer yn hwy."
 
 msgid "Thank you! Hopefully your wait isn't too long."
-msgstr ""
+msgstr "Diolch yn fawr! Gobeithio na fydd rhaid i chi aros yn rhy hir."
 
-#, fuzzy
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
-msgstr "<p>Diolch yn fawr! Mae eich cais yn ddyledus ers tro, gan ei fod fwy na {{very_late_number_of_days}} diwrnod gwaith yn hwyr. Dylai'r rhan fwyaf o geisiadau gael eu hateb o fewn {{late_number_of_days}} diwrnod gwaith. Efallai yr hoffech chi gwyno am hyn, gweler isod.</p>"
+msgstr "Diolch yn fawr! Mae eich cais yn ddyledus ers tro, gan ei fod fwy na {{very_late_number_of_days}} diwrnod gwaith yn hwyr. Dylai'r rhan fwyaf o geisiadau gael eu hateb o fewn {{late_number_of_days}} diwrnod gwaith. Efallai yr hoffech chi gwyno am hyn, gweler isod."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr "Diolch am helpu - bydd eich gwaith yn ei wneud yn haws i bawb ddod o hyd i geisiadau llwyddiannus, ac efallai hyd yn oed yn gadael i ni lunio tablau cynghrair ..."
@@ -3078,7 +3074,7 @@ msgid "To send your FOI request"
 msgstr "I anfon eich cais Rhyddid Gwybodaeth"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
-msgstr ""
+msgstr "I anfon eich cais i awdurdod arall, yn gyntaf copiwch destun eich cais isod, yna <a href=\"{{find_authority_url}}\">dewch o hyd i'r awdurdod arall</a>."
 
 msgid "To update the status of this FOI request"
 msgstr "I roi'r wybodaeth ddiweddaraf i statws y cais Rhyddid Gwybodaeth hwn"
@@ -3362,9 +3358,8 @@ msgstr "Nid oes gennym gyfeiriad {{law_used_full}} sy'n gweithio ar gyfer {{publ
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Nid ydym yn gwybod a yw'r ymateb mwyaf diweddar i'r cais hwn yn cynnwys gwybodaeth neuai peidio - os chi yw{{user_link}} <a href = \"{{url}}\">mewngofnodwch </a> a gadael i bawb wybod."
 
-#, fuzzy
 msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
-msgstr "<a href=\"{{url}}\">Cysylltwch â ni</a> os oes gennych gwestiynau."
+msgstr "Mae gennym <a href=\"{{other_means_url}}\">awgrymiadau</a>  ar ddulliau eraill i ateb eich cwestiwn."
 
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
 msgstr ""
@@ -3381,17 +3376,14 @@ msgstr "Ni fyddwn yn datgelu eich cyfeiriad e-bost i neb oni bai eich bod chi ne
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
 
-#, fuzzy
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
-msgstr "<p>Rydym yn falch i chi cael yr holl wybodaeth oedd arnoch ei heisiau. Os ydych yn ysgrifennu amdani neu'n gwneud defnydd o'r wybodaeth,dewch yn ôl ac ychwanegwch nodyn isod i ddweud beth wnaethoch.</p>"
+msgstr "Rydym yn falch i chi cael yr holl wybodaeth oedd arnoch ei heisiau. Os ydych yn ysgrifennu amdani neu'n gwneud defnydd o'r wybodaeth,dewch yn ôl ac ychwanegwch nodyn isod i ddweud beth wnaethoch."
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted."
-msgstr "Dewiswch p'un a gawsoch rywfaint o'r wybodaeth a pedd arnoch ei eisiau."
+msgstr "Rydym yn falch i chi gael rhywfaint o'r wybodaeth oedd arnoch ei heisiau."
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr "<p>Rydym yn falch i chi gael rhywfaint o'r wybodaeth oedd arnoch ei heisiau. Os cawsoch {{site_name}} yn ddefnyddiol, <a href=\"{{donation_url}}\">gwnewch gyfraniad</a> i'r elusen sy'n gyfrifol amdani.</p> <p>Os ydych am geisio cael gweddill y wybodaeth, dyma beth i'w wneud yn awr.</p>"
+msgstr "Rydym yn falch i chi gael rhywfaint o'r wybodaeth oedd arnoch ei heisiau. Os cawsoch {{site_name}} yn ddefnyddiol, <a href=\"{{donation_url}}\">gwnewch gyfraniad</a> i'r elusen sy'n gyfrifol amdani.</p> <p>Os ydych am geisio cael gweddill y wybodaeth, dyma beth i'w wneud yn awr."
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3632,9 +3624,8 @@ msgstr "Rhaid i chi fod wedi mewngofnodi i roi gwybod am gais at sylw gweinyddwr
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Rydych chi wedi cyflwyno'r union un neges ddilynol am y cais hwn o'r blaen."
 
-#, fuzzy
 msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
-msgstr "<p>Diolch yn fawr! Gobeithio na fydd yn rhaid i chi aros yn rhy hir.</p><p>Dylech gael ymateb o fewn {{late_number_of_days}} diwrnod, neu yn cael gwybod os bydd yn cymryd mwy o amser (<a href=\"{{review_url}}\">manylion</a>).</p>"
+msgstr "Gobeithio na fydd yn rhaid i chi aros yn rhy hir.</p><p>Dylech gael ymateb o fewn {{late_number_of_days}} diwrnod, neu yn cael gwybod os bydd yn cymryd mwy o amser (<a href=\"{{review_url}}\">manylion</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr "Dylech fod wedi derbyn copi o'r cais drwy e-bost, a gallwch ymateb yn syml drwy <strong>ateb </strong> yr e-bost yna. Er hwylustod i chi, dyma'r cyfeiriad:"
@@ -4216,12 +4207,3 @@ msgstr "Gwnaeth {{user}} y cais {{law_used_full}} hwn"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
-#~ msgstr "<p>Diolch yn fawr! Dyma rai syniadau ar beth i'w wneud nesaf:</p><ul><li>I anfon eich cais i awdurdod arall, yn gyntaf copiwch destun eich cais isod, yna <a href=\"{{find_authority_url}}\">dewch o hyd i'r awdurdod arall</a>.</li><li>Os hoffech herio honiad yr awdurdod nad ydynt yn dal y wybodaeth, dyma  <a href=\"{{complain_url}}\">sut i gwyno</a>.</li><li>Mae gennym <a href=\"{{other_means_url}}\">awgrymiadau</a>  ar ddulliau eraill i ateb eich cwestiwn.</li></ul>"
-
-#~ msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
-#~ msgstr "<p>Rydym yn falch i chi cael yr holl wybodaeth oedd arnoch ei heisiau. Os ydych yn ysgrifennu amdani neu'n gwneud defnydd o'r wybodaeth,dewch yn ôl ac ychwanegwch nodyn isod i ddweud beth wnaethoch.</p><p>Os cawsoch {{site_name}} yn ddefnyddiol, <a href=\"{{donation_url}}\">gwnewch gyfraniad</a> i'r elusen sy'n gyfrifol amdani.</p>"
-
-#~ msgid "Thank you! We'll look into what happened and try and fix it up."
-#~ msgstr "Diolch yn fawr! Byddwn yn ymchwilio i beth ddigwyddodd ac yn ceisio ei drwsio."

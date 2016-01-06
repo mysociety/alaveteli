@@ -17,10 +17,10 @@
 # Goran Vučković <vucko@acm.org>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2015-12-01 18:28+0000\n"
+"PO-Revision-Date: 2016-01-06 22:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/mysociety/alaveteli/language/sr@latin/)\n"
 "Language: sr@latin\n"
@@ -497,13 +497,11 @@ msgstr ""
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Po zakonu je, u svakoj varijanti, {{public_body_link}} trebalo da odgovori do sada"
 
-#, fuzzy
 msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
-msgstr "<p>Hvala! Nadamo se da ne čekate predugo.</p> <p>Po zakonu na Vaš zahtev bi trebalo da bude odgovoreno bez odlaganja, po običaju pre <strong>\\n{{date_response_required_by}}</strong>.</p>"
+msgstr "Po zakonu na Vaš zahtev bi trebalo da bude odgovoreno bez odlaganja, po običaju pre <strong>{{date_response_required_by}}</strong>."
 
-#, fuzzy
 msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr "<p>Hvala! Nadamo se da nećete morati da čekate još puno.</p> <p>Po zakonu, trebalo je da dobijete odgovor u kratkom roku, obično do <strong>{{date_response_required_by}}</strong>.</p>"
+msgstr "Po zakonu, trebalo je da dobijete odgovor u kratkom roku, obično do <strong>{{date_response_required_by}}</strong>."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Po zakonu je {{public_body_link}} trebalo da <strong>bez odlaganja</strong> odgovori i"
@@ -1205,7 +1203,7 @@ msgid "If you find this service useful as an FOI officer, please ask your web ma
 msgstr "Ako Vam, kao nadležnom referentu za izdavanje informacija od javnog značaja, ovaj sistem koristi, molimo Vas da tražite od vašeg webmastera da postavi link na naš sistem sa stranice web sajta Vaše ustanove koja se tiče informacija od javnog značaja."
 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr ""
+msgstr "Ako mislite da je {{site_name}} bio koristan i želeli biste da donirate novac za njegovo održavanje, moramo da Vas obavestimo da mi ne primamo direktne donacije - ali onima koji bi da pomognu i novcem preporučujemo neku od dobrotvornih organizacija - klikom na link <a href=\"{{donation_url}}\">donirajte</a> onoj kojoj trenutno usmeravamo pomoć."
 
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr "Ako ste dobili e-mail <strong>pre više od šest meseci</strong>, onda ovaj link za prijavu na sistem više neće\\nraditi. U tom slučaju molimo pokušajte ispočetka."
@@ -1224,12 +1222,11 @@ msgstr "Ako odgovorite korisniku {{user_name}} na ovu email poruku direktno, kor
 msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Ako koristite web mail ili imate \"junk mail\" filtere, proverite takođe\\nbulk/spam mail foldere. Naše poruke ponekad budu tako klasifikovane."
 
-#, fuzzy
 msgid "If you want to try and get the rest of the information, here's what to do now."
-msgstr "<p>Drago nam je da ste dobili deo informacija koje ste tražili.</p><p>Ako želite da dobijete ostatak informacija, to možete uraditi na sledeći način.</p>"
+msgstr "Ako želite da dobijete ostatak informacija, to možete uraditi na sledeći način."
 
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
-msgstr ""
+msgstr "Ako želite da protivrečite tvrdnji ustanove da ne poseduje tu informaciu, evo kako <a href=\"{{complain_url}}\">da uložite žalbu</a>."
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr "Ako biste želeli da ukinemo ovu zabranu, molimo Vas da nas na uljudan način\\n<a href=\"/help/contact\">kontaktirate</a> uz obrazloženje.\\n"
@@ -2599,17 +2596,16 @@ msgid "Thank you for updating your profile photo"
 msgstr "Hvala što ste ažurirali sliku na Vašem profilu"
 
 msgid "Thank you! Here are some ideas on what to do next:"
-msgstr ""
+msgstr "Hvala! Evo nekoliko ideja šta uraditi sada:"
 
 msgid "Thank you! Hope you don't have to wait much longer."
-msgstr ""
+msgstr "Hvala! Nadamo se da nećete morati da čekate još puno."
 
 msgid "Thank you! Hopefully your wait isn't too long."
-msgstr ""
+msgstr "Hvala! Nadamo se da ne čekate predugo."
 
-#, fuzzy
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
-msgstr "<p>Hvala! Rok za odgovor na Vaš zahtev je davno prekoračen, prošlo je više od {{very_late_number_of_days}} dana. Većina zahteva bi trebalo da bude odgovorena u roku od {{late_number_of_days}} dana. Na ovo možete da uložite žalbu, pogledajte ispod.</p>"
+msgstr "Hvala! Rok za odgovor na Vaš zahtev je davno prekoračen, prošlo je više od {{very_late_number_of_days}} dana. Većina zahteva bi trebalo da bude odgovorena u roku od {{late_number_of_days}} dana. Na ovo možete da uložite žalbu, pogledajte ispod."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr ""
@@ -3131,7 +3127,7 @@ msgid "To send your FOI request"
 msgstr "Da biste poslali Vaš Zahtev za slobodan pristup informacijama od javnog značaja"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
-msgstr ""
+msgstr "Da biste poslali zahtev nekoj drugoj ustanovi, prvo kopirajte tekst Vaše zahteva ispod, a onda <a href=\"{{find_authority_url}}\">izaberete drugu ustanovu</a>"
 
 msgid "To update the status of this FOI request"
 msgstr "Da biste ažurirali status Vašeg Zahteva za slobodan pristup informacijama od javnog značaja"
@@ -3420,9 +3416,8 @@ msgstr "Nemamo ispravnu adresu za {{public_body_name}} za upite vezane za {{law_
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Ne znamo da li najnoviji odgovor na ovaj zahtev sadrži\\n ili ne tražene informacije\\n &ndash;\\n⇥ako ste vi {{user_link}} molimo <a href=\"{{url}}\">prijavite se na sistem</a> i obavestite sve o tome."
 
-#, fuzzy
 msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
-msgstr "Molimo da nas <a href=\"{{url}}\">kontaktirate</a> ako imate pitanja."
+msgstr "mamo <a href=\"{{other_means_url}}\">još saveta</a>\\n o drugim načinima kako da Vaše pitanje bude odgovoreno."
 
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
 msgstr ""
@@ -3445,17 +3440,14 @@ msgstr ""
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
 
-#, fuzzy
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
-msgstr "<p>Drago nam je da ste dobili sve informacije koje ste tražili. Ako budete pisali o ovom zahtevu ili koristili informacije, molimo postavite komentar ispod sa opisom šta ste uradili.</p>"
+msgstr "Drago nam je da ste dobili sve informacije koje ste tražili. Ako budete pisali o ovom zahtevu ili koristili informacije, molimo postavite komentar ispod sa opisom šta ste uradili."
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted."
-msgstr "Molimo izaberite da li jeste ili niste dobili nešto od informacija koje ste tražili."
+msgstr "Drago nam je da ste dobili deo željenih informacija."
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr "<p>Drago nam je da ste dobili deo željenih informacija.Ako mislite da je {{site_name}} bio koristan i želeli biste da donirate novac za njegovo održavanje, moramo da Vas obavestimo da mi ne primamo direktne donacije - ali onima koji bi da pomognu i novcem preporučujemo neku od dobrotvornih organizacija - klikom na link <a href=\"{{donation_url}}\">donirajte</a> onoj kojoj trenutno usmeravamo pomoć.</p>"
+msgstr "Drago nam je da ste dobili deo željenih informacija. Ako mislite da je {{site_name}} bio koristan i želeli biste da donirate novac za njegovo održavanje, moramo da Vas obavestimo da mi ne primamo direktne donacije - ali onima koji bi da pomognu i novcem preporučujemo neku od dobrotvornih organizacija - klikom na link <a href=\"{{donation_url}}\">donirajte</a> onoj kojoj trenutno usmeravamo pomoć."
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3706,9 +3698,8 @@ msgstr "Morate biti prijavljeni na sistem da biste prijavili ovaj zahtev adminis
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Već ste jednom poslali potpuno istu reakciju za ovaj zahtev."
 
-#, fuzzy
 msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
-msgstr "<p>Hvala! Nadamo se da nećete čekati predugo.</p><p>Trebalo bi da dobijete odgovor u roku od {{late_number_of_days}} dana, ili da budete obavešteni da će trajati duže. (<a href=\"{{review_url}}\">Više informacija</a>)</p>"
+msgstr "Trebalo bi da dobijete odgovor u roku od {{late_number_of_days}} dana, ili da budete obavešteni da će trajati duže. (<a href=\"{{review_url}}\">Više informacija</a>)"
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr "Trebalo bi da ste dobili kopiju zahteva e-mailom i možete odgovoriti\\n prosto tako što <strong>odgovorite na e-mail</strong>. Evo adrese:"
@@ -4290,12 +4281,3 @@ msgstr "{{user}} je podneo/la ovaj zahtev pozivajući se na {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
-#~ msgstr "<p>Hvala! Evo nekoliko ideja šta uraditi sada:</p>\\n <ul>\\n <li>Da biste poslali zahtev nekoj drugoj ustanovi, prvo kopirajte tekst Vaše zahteva ispod, a onda <a href=\"{{find_authority_url}}\">izaberete drugu ustanovu</a>.</li>\\n <li>Ako želite da protivrečite tvrdnji ustanove da ne poseduje tu informaciu, evo kako\\n <a href=\"{{complain_url}}\">da uložite žalbu</a>.\\n </li>\\n <li>Imamo <a href=\"{{other_means_url}}\">još saveta</a>\\n o drugim načinima kako da Vaše pitanje bude odgovoreno.\\n </li>\\n </ul>"
-
-#~ msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
-#~ msgstr "<p>Drago nam je da ste dobili sve željene informacije. Ako ih budete koristili ili pisali o njima, molili bismo Vas da dođete opet i dodate napomenu ispod, opisujući šta ste uradili. </p><p>Ako mislite da je {{site_name}} bio koristan i želeli biste da donirate novac za njegovo održavanje, moramo da Vas obavestimo da mi ne primamo direktne donacije - ali onima koji bi da pomognu i novcem preporučujemo neku od dobrotvornih organizacija - klikom na link <a href=\"{{donation_url}}\">donirajte</a> onoj kojoj trenutno usmeravamo pomoć.</p>"
-
-#~ msgid "Thank you! We'll look into what happened and try and fix it up."
-#~ msgstr "Hvala! Pogledaćemo šta se desilo i pokušati da to ispravimo."

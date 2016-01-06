@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
 "PO-Revision-Date: 2014-11-18 19:29+0200\n"
@@ -359,9 +359,8 @@ msgstr ""
 msgid "An <strong>error message</strong> has been received"
 msgstr ""
 
-#, fuzzy
 msgid "An Environmental Information request"
-msgstr "An access to information request"
+msgstr ""
 
 msgid "An anonymous user"
 msgstr ""
@@ -2101,9 +2100,8 @@ msgstr ""
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBody|Info requests visible count"
-msgstr "Information request event"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr ""
@@ -2461,9 +2459,8 @@ msgstr ""
 msgid "Start your own blog"
 msgstr ""
 
-#, fuzzy
 msgid "Start your own request"
-msgstr "Share your request"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr ""

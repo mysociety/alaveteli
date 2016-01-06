@@ -15,10 +15,10 @@
 # stefanw <stefanwehrmeyer@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2015-12-01 18:28+0000\n"
+"PO-Revision-Date: 2016-01-06 22:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/mysociety/alaveteli/language/de/)\n"
 "Language: de\n"
@@ -518,13 +518,11 @@ msgstr ""
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Nach gesetzlicher Vorschrift sollte {{public_body_link}} Ihnen inzwischen unter allen Umständen geantwortet haben. "
 
-#, fuzzy
 msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
-msgstr "<p>Vielen Dank! Wir hoffen Sie müssen nicht zu lange warten.</p> <p>Nach gesetzlicher Vorschrift hätten Sie sofort oder vor Ende <strong>{{date_response_required_by}}</strong> erhalten sollen. </p>"
+msgstr "Nach gesetzlicher Vorschrift hätten Sie sofort oder vor Ende <strong>{{date_response_required_by}}</strong> erhalten sollen."
 
-#, fuzzy
 msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr "<p>Vielen Dank! Wir hoffen Sie müssen nicht viel länger warten.</p> <p>Nach gesetzlicher Vorschrift hätten Sie sofort oder vor Ende <strong>{{date_response_required_by}}</strong> erhalten sollen. </p>"
+msgstr "Nach gesetzlicher Vorschrift hätten Sie sofort oder vor Ende <strong>{{date_response_required_by}}</strong> erhalten sollen."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Nach gesetzlicher Vorschrift sollte {{public_body_link}}  <strong>umgehend</strong> geantwortet haben und"
@@ -1228,7 +1226,7 @@ msgid "If you find this service useful as an FOI officer, please ask your web ma
 msgstr "Falls Sie als IFGler diesen Service nützlich finden, bitten Sie bitte Ihren Webadministrator die IFG-Seite Ihrer Organisation mit uns zu verlinken."
 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr ""
+msgstr "Falls Sie {{site_name}} hilfreich fanden, <a href=\"{{donation_url}}\">senden Sie eine Spende</a> an die Organisation hinter dieser Seite."
 
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr "Wenn Sie diese Email <strong>vor mehr als sechs Monaten erhalten haben</strong>, ist dieser Anmeldecode nichtmehr aktiv. Bitte nehmen Sie eine neue Registrierung vor. "
@@ -1248,7 +1246,7 @@ msgid "If you use web-based email or have \"junk mail\" filters, also check your
 msgstr "Sollten Sie ein webbasiertes Emailkonto oder Spamfilter benutzen, überrpüfen Sie Ihre Bulk-, Spamordner. Unsere Nachrichten landen teilweise in diese Ordnern. "
 
 msgid "If you want to try and get the rest of the information, here's what to do now."
-msgstr ""
+msgstr "Falls Sie versuchen möchten den Rest der Information zu erhalten, schauen Sie hier was Sie tun können."
 
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
 msgstr ""
@@ -2617,10 +2615,10 @@ msgid "Thank you! Here are some ideas on what to do next:"
 msgstr ""
 
 msgid "Thank you! Hope you don't have to wait much longer."
-msgstr ""
+msgstr "Vielen Dank! Wir hoffen Sie müssen nicht viel länger warten."
 
 msgid "Thank you! Hopefully your wait isn't too long."
-msgstr ""
+msgstr "Vielen Dank! Wir hoffen Sie müssen nicht zu lange warten."
 
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
 msgstr ""
@@ -3430,17 +3428,14 @@ msgstr "Ohne Ihre Zustimmung oder gesetzliche Vorschrift werden wir Ihre Email-A
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
 
-#, fuzzy
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
-msgstr "<p>Wir freuen uns, dass Sie die von Ihnen gewünschten Informationen erhalten haben. Solten Sie darüber schreiben oder die Informationen andersweitig verwenden, kommen Sie bitte zurück und fügen Sie einen Kommentar an, in welchem Sie uns mitteilen, wie Sie die Informationen verwendet haben .</p><p>Falls Sie {{site_name}} hilfreich fanden, <a href=\"{{donation_url}}\">senden Sie eine Spende</a> an die Organisation hinter dieser Seite.</p>"
+msgstr "Wir freuen uns, dass Sie die von Ihnen gewünschten Informationen erhalten haben. Solten Sie darüber schreiben oder die Informationen andersweitig verwenden, kommen Sie bitte zurück und fügen Sie einen Kommentar an, in welchem Sie uns mitteilen, wie Sie die Informationen verwendet haben ."
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted."
-msgstr "Bitte wählen Sie ob Sie einige der erwünschten Informationen erhalten haben oder ob dies nicht der Fall ist. "
+msgstr "Wir freuen uns, dass Sie die von Ihnen gewünschten Informationen erhalten haben. "
 
-#, fuzzy
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr "<p>Wir freuen uns, dass Sie die von Ihnen gewünschten Informationen erhalten haben. Falls Sie {{site_name}} hilfreich fanden, <a href=\"{{donation_url}}\">senden Sie eine Spende</a>an die Organisation hinter dieser Seite.</p><p>Falls Sie versuchen möchten den Rest der Information zu erhalten, schauen Sie hier was Sie tun können.</p>"
+msgstr "Wir freuen uns, dass Sie die von Ihnen gewünschten Informationen erhalten haben. Falls Sie {{site_name}} hilfreich fanden, <a href=\"{{donation_url}}\">senden Sie eine Spende</a>an die Organisation hinter dieser Seite."
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3679,9 +3674,8 @@ msgstr ""
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Sie haben kürzlich dieselbe Follow-up Nachricht für diese Anfrage gesendet. "
 
-#, fuzzy
 msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
-msgstr "<p>Vielen Dank! Hoffentlich mussten Sie nicht zu lange warten.</p><p>Sie sollten innerhalb {{late_number_of_days}} Tagen eine Antwort erhalten, oder eine Nachricht, dass es länger dauern kann (<a href=\"{{review_url}}\">Details</a>).</p>"
+msgstr "Sie sollten innerhalb {{late_number_of_days}} Tagen eine Antwort erhalten, oder eine Nachricht, dass es länger dauern kann (<a href=\"{{review_url}}\">Details</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr ""
