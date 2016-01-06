@@ -12,7 +12,7 @@
 # Harald Fykse <haraldfykse@gmail.com>, 2015
 # Kevin Brubeck Unhammer <unhammer+dill@mm.st>, 2015
 # Kjetil Torgrim Homme <kjetilho@ifi.uio.no>, 2015
-# Knut Arne Bjørndal <bob+transifex@cakebox.net>, 2015
+# Knut Arne Bjørndal <inactive+bobkare@transifex.com>, 2015
 # louisecrow <louise@mysociety.org>, 2014
 # velmont <odin.omdal@gmail.com>, 2015
 # oeyrvin <oeyrvin@hagan.no>, 2014
@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 17:09+0000\n"
-"PO-Revision-Date: 2015-12-01 17:12+0000\n"
+"POT-Creation-Date: 2015-12-01 18:08+0000\n"
+"PO-Revision-Date: 2015-12-01 18:28+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/mysociety/alaveteli/language/nn/)\n"
 "Language: nn\n"

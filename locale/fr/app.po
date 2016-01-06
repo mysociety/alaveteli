@@ -31,6 +31,7 @@
 # skenaja <alex@alexskene.com>, 2011
 # Stephen Abbott Pugh <stephendabbott@gmail.com>, 2014-2015
 # teymour <tanguim@gmail.com>, 2011
+# Teg-wende Idriss TINTO <tinto.jean@titinto.net>, 2015
 # teymour <tanguim@gmail.com>, 2011
 # vickyanderica <victoria@access-info.org>, 2011
 # vickyanderica <victoria@access-info.org>, 2011
@@ -38,9 +39,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 17:09+0000\n"
-"PO-Revision-Date: 2015-12-01 17:12+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-12-01 18:08+0000\n"
+"PO-Revision-Date: 2015-12-10 11:20+0000\n"
+"Last-Translator: Teg-wende Idriss TINTO <tinto.jean@titinto.net>\n"
 "Language-Team: French (http://www.transifex.com/mysociety/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -356,7 +357,7 @@ msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 
 msgid "Add a widget"
-msgstr ""
+msgstr "Ajouter un widget"
 
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "Ajouter une annotation &ldquo;{{request_title}}&rdquo;"
