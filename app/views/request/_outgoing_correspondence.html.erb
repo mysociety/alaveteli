@@ -6,8 +6,40 @@
 
     <h2>
       <%= _("From:") %> <%= @info_request.user_name %><br>
-      <br><%= simple_date(info_request_event.created_at) %>
+      <br>
+      <% if rand(0..1) == 0 %>
+        <a href="/help#email-delivery" class="correspondence__delivery correspondence__delivery--sent">Sent</a>
+      <% else %>
+        <a href="/help#email-delivery" class="correspondence__delivery correspondence__delivery--delivered">Delivered</a>
+      <% end %>
+      <%= simple_date(info_request_event.created_at) %>
     </h2>
+
+    <div class="correspondence__delivery-info">
+      <h3>This message has been delivered to the destination mailserver</h3>
+      <p>
+        However, this does not guarantee that the message has been read.
+        <a href="/help#email-delivery">Find out more about email delivery.</a>
+      </p>
+      <p>Mailserver log:</p>
+      <textarea readonly>03:19 03:22 SMTPD(00180250) [192.168.1.131] connect 209.221.59.70 port 2539
+03:19 03:22 SMTPD(00180250) [209.221.59.70] EHLO jetbn.net
+03:19 03:22 SMTPD(00180250) [209.221.59.70] MAIL FROM:&lt;REDACTED@whatdotheyknow.com&gt;
+03:19 03:22 SMTPD(00180250) [209.221.59.70] RCPT To:&lt;REDACTED@authority.gov.uk&gt;
+03:19 03:22 SMTPD(00180250) [209.221.59.70] C:\IMail\spool\D28de0018025017cd.SMD 3827
+03:19 03:22 SMTP-(00000260) processing C:\IMail\spool\Q28de0018025017cd.SMD
+03:19 03:22 SMTP-(00000260) ldeliver mail.domain.com user (1) &lt;REDACTED@whatdotheyknow.com&gt; 2354
+03:19 03:22 SMTP-(00000260) finished C:\IMail\spool\Q28de0018025017cd.SMD status=1</textarea>
+  </div>
+
+  <script>
+  $(function(){
+    $('.correspondence__delivery').on('click', function(e){
+      e.preventDefault();
+      $('.correspondence__delivery-info').slideToggle(200);
+    });
+  });
+  </script>
 
     <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
 
