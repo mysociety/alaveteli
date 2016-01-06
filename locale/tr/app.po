@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-01 18:08+0000\n"
-"PO-Revision-Date: 2016-01-05 13:31+0000\n"
+"PO-Revision-Date: 2016-01-06 09:50+0000\n"
 "Last-Translator: Baris Altintas <info@platform24.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
@@ -2800,8 +2800,8 @@ msgstr "Henüz gösterilecek bir şey yok. "
 
 msgid "There is {{count}} person following this request"
 msgid_plural "There are {{count}} people following this request"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bu başvuruyu {{count}} kişi takip ediyor "
+msgstr[1] "Bu başvuruyu {{count}} kişi takip ediyor "
 
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "{{site_name}} ekibinin ilgilenmesi gereken <strong>teslimat hatası</strong> veya benzeri bir sorun çıktı. "
@@ -2810,7 +2810,7 @@ msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr " reCAPTCHA. kodunda bir sorun yaşandı. Lütfen tekrar deneyin. "
 
 msgid "There was an error with the words you entered, please try again."
-msgstr "Girdiğiniz kelimelerde bir hata çıktı, lütfen tekrar deneyin.  please try again."
+msgstr "Girdiğiniz kelimelerde bir hata çıktı, lütfen tekrar deneyin. "
 
 msgid "There was no data calculated for this graph yet."
 msgstr "Bu grafik için şimdiye kadar veri hesaplaması yapılmamış."
@@ -2822,13 +2822,14 @@ msgid "There were no results matching your query."
 msgstr "Sorgunuza uyan sonuç bulunamadı."
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
-msgstr "Bu grafikler kısmen <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">   WhatDoTheyKnow (Ne Biliyorlar) adlı bilgi edinme sitesi için  Mark Goodge'ün ürettiği grafiklerden</a> esinlenerek oluşturuldu. Bu yüzden ona teşekkür ederiz. "
+
+msgstr "Bu grafikler kısmen <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\"> WhatDoTheyKnow (Ne Biliyorlar) adlı bilgi edinme sitesi için Mark Goodge'ün ürettiği grafiklerden</a> esinlenerek oluşturuldu. Bu yüzden ona teşekkür ederiz. "
 
 msgid "They are going to reply <strong>by post</strong>"
-msgstr " <strong>Posta ile </strong> cevap verecekler"
+msgstr "<strong>Posta ile </strong> cevap verecekler"
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Bu bilgi  <strong>ellerinde yok</strong> <small>(belki kimin elinde bulunduğunu söylemişlerdir)</small>"
+msgstr "Bu bilgi <strong>ellerinde yok</strong> <small>(belki kimin elinde bulunduğunu söylemişlerdir)</small>"
 
 msgid "They have been given the following explanation:"
 msgstr "Aşağıdaki açıklama verildi:"
@@ -2849,7 +2850,7 @@ msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Bu kuruluş artık mevcut değil. Bu yüzden ona bir başvuru gönderemezsiniz"
 
 msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
-msgstr "Bu,  <strong>doğal ve  yapay çevre</strong> durumu hakkında çok geniş bir bilgi aralığı içeriyor. Aşağıdaki gibi:"
+msgstr "Bu, <strong>doğal ve  yapay çevre</strong> durumu hakkında çok geniş bir bilgi aralığı içeriyor. Aşağıdaki gibi:"
 
 msgid "This email is already in use"
 msgstr "Bu email adresi zaten kullanımda"
@@ -2861,13 +2862,13 @@ msgid "This is <a href=\"{{profile_url}}\">{{user_name}}'s</a> wall"
 msgstr "Bu <a href=\"{{profile_url}}\">{{user_name}} adlı kullanıcının</a> duvarı"
 
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
-msgstr "Bu,  \"{{request_title}}\" başlıklı Bilgi Edinme Başvurusunun sade metin versiyonudur. En son ve tam versiyonu internette  {{full_url}} adresinde bulunabilir."
+msgstr "Bu,  \"{{request_title}}\" başlıklı Bilgi Edinme Başvurusunun sade metin halidir. En son ve tam hali internette  {{full_url}} adresinde bulunabilir."
 
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
-msgstr "Bu, Bilgi Edinme Başvurusunda bulunan ek dosyasnın HTML versiyonu"
+msgstr "Bu, Bilgi Edinme Başvurusunda bulunan ek dosyasnın HTML sürümü"
 
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "Bu {{title}} eski bir başvuru olduğun ve artık cevap almamak üzere işaretlendiği için oluyor. "
+msgstr "Bu {{title}} eski bir başvuru olduğundan ve artık cevap almamak üzere işaretlendiği için oluyor. "
 
 msgid "This is the first version."
 msgstr "Bu ilk versiyon."
@@ -2888,13 +2889,14 @@ msgid "This message has prominence 'hidden'. You can only see it because you are
 msgstr "Bu mesajın önem durumu 'gizli' olarak işaretlenmiş. Bu mesajı görebiliyor olmanızın nedeni süper kullanıcı olarak giriş yapmış olmanız. "
 
 msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "Bu mesajın önem durumu 'gizli' olarak seçili. {{reason}} Bu mesajı görebilmenizin tek neden süper kullanıcı olarak giriş yapmış olmanız."
+
+msgstr "Bu mesajın önem durumu 'gizli' olarak seçili. {{reason}} Bu mesajı görebilmenizin tek nedeni süper kullanıcı olarak giriş yapmış olmanız."
 
 msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Bu mesaj başvuruyu yapan kişi olarak sadece sizin görebileceğiniz şekilde gizlendi. Lütfen bunun neden olduğuna dair tam olarak emin değilseniz <a href=\"{{url}}\">bizimle iletişime geçin</a>."
+msgstr "Bu mesaj başvuruyu yapan kişi olarak sadece sizin görebileceğiniz şekilde gizlendi. Lütfen bunun neden olduğuna dair emin değilseniz <a href=\"{{url}}\">bizimle iletişime geçin</a>."
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
-msgstr "Bu mesaj  başvuruyu yapan kişi olarak sadece sizin görebileceğiniz şekilde gizlendi. {{reason}}"
+msgstr "Bu mesaj başvuruyu yapan kişi olarak sadece sizin görebileceğiniz şekilde gizlendi. {{reason}}"
 
 msgid "This page of public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
 msgstr "Bu kamu kuruluşunun web sitesi şu an deneme aşamasında, bu yüzden akılda bulundurulması gereken bazı uyarı alanları var:"
@@ -2910,13 +2912,13 @@ msgstr "Bu kişinin açıklama notları"
 
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bu kişinin yaptığı {{count}} Bilgi Edinme Başvurusu"
+msgstr[1] "Bu kişinin yaptığı {{count}} Bilgi Edinme Başvurusu"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bu kişinin eklediği {{count}} not"
+msgstr[1] "Bu kişinin eklediği {{count}} not"
 
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr "Bu başvuruya <strong>site yöneticisinin bakması gerekiyor</strong>"
@@ -2925,10 +2927,10 @@ msgid "This request has already been reported for administrator attention"
 msgstr "Bu başvuru, yöneticinin ilgilenmesi için zaten rapor edildi"
 
 msgid "This request has an <strong>unknown status</strong>."
-msgstr "Bu başvurunun  <strong>durumu bilinmiyor</strong>."
+msgstr "Bu başvurunun <strong>durumu bilinmiyor</strong>."
 
 msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr "Bu başvuru bi sitede <strong>gizlendi</strong>, çünkü site yönetilerinden biri bunun bir Bilgi Edinme Başvurusu olmadığını düşünüyor"
+msgstr "Bu başvuru bu sitede <strong>gizlendi</strong>, çünkü site yöneticilerinden biri bunun bir Bilgi Edinme Başvurusu olmadığını düşünüyor"
 
 msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
 msgstr "Bu başvuru sitede <strong>gizlendi</strong> çünkü site yöneticilerinden biri bu başvurunun kurumu taciz etmeye yönelik olduğunu düşünüyor"
@@ -2937,7 +2939,7 @@ msgid "This request has been <strong>reported</strong> as needing administrator 
 msgstr "Bu başvuru site yöneticisinin bakması için <strong>rapor edildi</strong> (belki taciz edici bulundu, belki de kişisel bilgi içeriyor)"
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
-msgstr "Bu başvuru, bilgi edinme isteğini yapan kişi tarafından <strong>geri çekildi</strong>\\n Aşağıdaki yazışmamlarda bunun nedenine dair bir açıklama olabilir. "
+msgstr "Bu başvuru, bilgi edinme isteğini yapan kişi tarafından <strong>geri çekildi</strong>\\n Aşağıdaki yazışmalarda bunun nedenine dair bir açıklama olabilir. "
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Bu başvuru site yöneticileri tarafından gözden geçirilmek üzere gizlendi. Gizlenmemesi gerektiğini düşünüyorsanız, lütfen <a href=\"{{url}}\">bize yazın</a>."
@@ -2949,7 +2951,7 @@ msgid "This request has been set by an administrator to \"allow new responses fr
 msgstr "Bu başvuru site yöneticileri tarafından \"hiç kimseden yeni cevap kabul etme\" seçeneğine ayarlandı."
 
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
-msgstr "Bu başvuruya sıradışı bir cevap geldi ve {{site_name}} ekibi tarafından  <strong>gözden geçirilmesi</strong> gerekiyor."
+msgstr "Bu başvuruya sıradışı bir cevap geldi ve {{site_name}} ekibi tarafından <strong>gözden geçirilmesi</strong> gerekiyor."
 
 msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
 msgstr "Bu başvurunun önem derecesi \"gizli\" olarak seçilmiş. Bu başvuruyu görebiliyorsunuz çünkü süper kullanıcı olarak giriş yapmış durumdasınız. "
@@ -2964,25 +2966,25 @@ msgid "This request requires administrator attention"
 msgstr "Bu başvuru site yöneticisi tarafından gözden geçirilmeli"
 
 msgid "This request was not made via {{site_name}}"
-msgstr "Bu başvuru  {{site_name}} aracılığıyla yapılmadı"
+msgstr "Bu başvuru {{site_name}} aracılığıyla yapılmadı"
 
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
-msgstr "Bu tabloda\\n {{site_name}} sitesinde bu başvuruyla ilgili site içi gerçekleşmiş adımların teknik detaylarını görebilirsiniz. Bu tablo kamu kuruluşlarının başvurulara cevap verme hızı\\n, postayla cevap verilmesi gereken başvuru sayısı ve birçok başka konuda bilgi üretmek için kullanılabilir. "
+msgstr "Bu tabloda\\n {{site_name}} sitesinde bu başvuruyla ilgili site içinde gerçekleşmiş adımların teknik detaylarını görebilirsiniz. Bu tablo, kamu kuruluşlarının başvurulara cevap verme hızı\\n, postayla cevap verilmesi gereken başvuru sayısı ve birçok başka konuda bilgi üretmek için kullanılabilir. "
 
 msgid "This user has been banned from {{site_name}} "
-msgstr "Bu kullanıcı  {{site_name}} sitesinde yasaklı "
+msgstr "Bu kullanıcı {{site_name}} sitesinde yasaklı "
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
 msgstr "Bu işlemin gerçekleşmesi mümkün olamadı çünkü zaten \\n{{email}} adresini kullanan bir kullanıcı kayıtlı. "
 
 msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
-msgstr " Bu {{site_name}} profilinizde\\n başkalarının yaptıklarınıza daha kolay dahil olabilmesi amacıyla gösterilecek. "
+msgstr "Bu, {{site_name}} profilinizde\\n başkalarının yaptıklarınıza daha kolay dahil olabilmesi amacıyla gösterilecek. "
 
 msgid "To"
 msgstr "Kime"
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
-msgstr " <b>{{info_request_title}}</b> başvurusuna widget eklemek için, aşağıdaki kodu kopyalayarak web sitenize yapıştırın:"
+msgstr " <b>{{info_request_title}} </b>başvurusuna widget eklemek için, aşağıdaki kodu kopyalayarak web sitenize yapıştırın:"
 
 msgid "To cancel these alerts"
 msgstr "Bu alert'leri iptal etmek için"
@@ -2991,7 +2993,7 @@ msgid "To cancel this alert"
 msgstr "Bu alert'ü iptal etmek"
 
 msgid "To carry on, you need to sign in or make an account. Unfortunately, there was a technical problem trying to do this."
-msgstr "Devam etmek için giriş yapmanız ya da bir hesap oluşturmanız gerekiyor. Ne yazık ki bu yapılırken\\ teknik bir hata oluştu."
+msgstr "Devam etmek için giriş yapmanız ya da bir hesap oluşturmanız gerekiyor. Ne yazık ki bu yapılırken\\nteknik bir hata oluştu."
 
 msgid "To change your email address used on {{site_name}}"
 msgstr "{{site_name}} sitesinde kullandığınız email adresini değiştirmek için"
@@ -3009,10 +3011,10 @@ msgid "To download the zip file"
 msgstr "Aşağıdaki zip dosyasını indirmek için"
 
 msgid "To follow all successful requests"
-msgstr "Tüm başarılı başvuruları izlemek için"
+msgstr "Olumlu sonuçlanan tüm başvuruları takip etmek için"
 
 msgid "To follow new requests"
-msgstr "Yeni başvuruları izlemek için"
+msgstr "Yeni başvuruları takip etmek için"
 
 msgid "To follow requests and responses matching your search"
 msgstr "Aramanıza uygun başvuru ve cevapları takip etmek için"
@@ -3021,13 +3023,13 @@ msgid "To follow requests by '{{user_name}}'"
 msgstr " '{{user_name}}' tarafından yapılan başvuruları görmek için"
 
 msgid "To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'"
-msgstr " {{site_name}}  üzerinde  '{{public_body_name}}' adlı kuruluşa yapılmış bilgi edinme isteklerini görmek için"
+msgstr " {{site_name}} üzerinde '{{public_body_name}}' adlı kuruluşa yapılmış bilgi edinme isteklerini görmek için"
 
 msgid "To follow the request '{{request_title}}'"
 msgstr " '{{request_title}}' başvurusunu takip etmek için"
 
 msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "Siteyi derli toplu tutmamıza yardım etme amacıyla başka biri\\n  {{public_body}} adlı kuruluşa yapmış olduğunuz {{law_used_full}} başvuruyu {{title}},  \"{{display_status}}\"  olarak işaretledi. Bu kategorizasyona katılmıyorsanız lütfen daha doğru olduğunu düşündüğünüz sınıflandırmayı seçerek başvurunuzun durumunu tekerar güncelleyin. "
+msgstr "Siteyi derli toplu tutmamıza yardım etme amacıyla başka biri\\n {{public_body}} adlı kuruluşa yapmış olduğunuz {{law_used_full}} başvuruyu {{title}}, \"{{display_status}}\"  olarak işaretledi. Bu kategorizasyona katılmıyorsanız lütfen daha doğru olduğunu düşündüğünüz sınıflandırmayı seçerek başvurunuzun durumunu tekrar güncelleyin. "
 
 msgid "To let everyone know, follow this link and then select the appropriate box."
 msgstr "Herkesin bilmesi için, bu bağlantıyı takip edin ve uygun kutucuğu işaretleyin. "
@@ -3063,7 +3065,7 @@ msgid "To update the status of this FOI request"
 msgstr "Bu Bilgi Edinme başvurusunun durumunu güncellemek için"
 
 msgid "To upload a response, you must be logged in using an email address from "
-msgstr "Siteye bir cevap yüklemek için, siteye aşağıdaki kurumdan bir email adresi kullanarak giriş yapmalısınız"
+msgstr "Siteye bir cevap yüklemek için, aşağıdaki kurumdan bir email adresi kullanarak giriş yapmalısınız"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Gelişmiş aramayı kullanmak için, sözcükleri ve etiketleri aşağıda verilen arama ipuçlarında anlatıldığı gibi birleştirin. "
@@ -3135,7 +3137,7 @@ msgid "Two factor one time passcode updated"
 msgstr "iki aşamalı tek kullanımlık giriş kodu güncellendi"
 
 msgid "Two factor one time passcode:"
-msgstr "İki aşamalı tek kullanımlık giri kodu:"
+msgstr "İki aşamalı tek kullanımlık giriş kodu:"
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
 msgstr "Yalnızca Ocak ayının ilk iki haftasında olmuş şeyleri göstermek için <strong><code>01/01/2008..14/01/2008</code></strong> yazın"
@@ -3150,7 +3152,7 @@ msgid "Unable to change email address on {{site_name}}"
 msgstr "{{site_name}} üzerinde email adresi değiştirilemedi"
 
 msgid "Unable to send a reply to {{username}}"
-msgstr " {{username}} adlı kullanıcıya yanıt gönderilemed"
+msgstr " {{username}} adlı kullanıcıya yanıt gönderilemedi"
 
 msgid "Unable to send follow up message to {{username}}"
 msgstr " {{username}} adlı kullanıcıya takip iletisi gönderilemedi"
@@ -3219,7 +3221,7 @@ msgid "UserInfoRequestSentAlert|Alert type"
 msgstr "UserInfoRequestSentAlert|Alert type"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr "Genelde kullanıcıların birçok kamu kurumuna toplu başvuru gönderimi yapmasına izin vermiyoruz   kamu kurum ve kuruluşlarının  uygunsuz birçok mesajla bombardmana maruz kalmasını istemiyoruz. Aynı başvuruyu bir kerede farklı kuruluşlara göndermek için iyi bir nedeniniz olduğuna inanıyorsanız, lütfen <a href=\"{{url}}\">bizimle iletişime geçin</a>."
+msgstr "Genelde kullanıcıların birçok kamu kurumuna toplu başvuru gönderimi yapmasına izin vermiyoruz çünkü kamu kurum ve kuruluşlarının uygunsuz birçok mesajla bombardmana maruz kalmasını istemiyoruz. Aynı başvuruyu bir kerede farklı kuruluşlara göndermek için iyi bir nedeniniz olduğuna inanıyorsanız, lütfen <a href=\"{{url}}\">bizimle iletişime geçin</a>."
 
 msgid "User|About me"
 msgstr "User|About me"
@@ -3312,7 +3314,7 @@ msgid "Waiting clarification."
 msgstr "Açıklık getirilmesi bekleniyor."
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
-msgstr "Bu başvuruyu işleme koyma şekilleri hakkında  {{public_body_link}} tarafından gerçekleştirilecek <strong>kurum içi inceleme</strong> bekleniyor."
+msgstr "Bu başvuruyu işleme koyma şekilleri hakkında {{public_body_link}} tarafından gerçekleştirilecek <strong>kurum içi inceleme</strong> bekleniyor."
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Kamu kuruluşunun başvuruyu işleme koyma şekliyle ilgili gerçekleştireceği kurum içi inceleme bekleniyor"
@@ -3330,7 +3332,7 @@ msgid "We consider it is not a valid FOI request, and have therefore hidden it f
 msgstr "Biz bunun geçerli bir Bilgi Edinme Başvurusu olmadığını düşünüyoruz ve bu yüzden diğer kullanıcılardan gizledik."
 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
-msgstr "Biz bunun taciz amaçlı yapılmış bir başvuru olduğunu düşünüyoruz. Bu yüzden diğer kullanıcılardan gizledik. "
+msgstr "Bunun taciz amaçlı yapılmış bir başvuru olduğunu düşünüyoruz. Bu yüzden diğer kullanıcılardan gizledik. "
 
 msgid "We do not have a working request email address for this authority."
 msgstr "Bu kuruluş için çalışan bir bilgi edinme emaili elimizde yok."
@@ -3342,10 +3344,10 @@ msgid "We don't know whether the most recent response to this request contains i
 msgstr "Bu başvuruya gelen en son cevabın\\n bilgi içerip içermediğini bilmiyoruz\\n &ndash;\\n⇥ {{user_link}} iseniz lütfen siteye <a href=\"{{url}}\">giriş yapın</a> ve başvurunuzun durumunu herkesle paylaşın."
 
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
-msgstr "Her şeyi siteye ekliyoruz. Mükemmel! Şimdi cevabı aldığınıza göre, herkesin bu bilgiye erişim olanağı oldu. "
+msgstr "Her şeyi siteye ekliyoruz. İyi haber! Şimdi cevabı aldığınıza göre, herkesin bu bilgiye erişim olanağı oldu. "
 
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
-msgstr "Email adresinizi  <a href=\"{{url}}\"> sizin istediğiniz ya da kanunun emrettiği durumlar dışında</a> kimseyle paylaşmayacağız. "
+msgstr "Email adresinizi <a href=\"{{url}}\"> sizin istediğiniz ya da kanunun emrettiği durumlar dışında</a> kimseyle paylaşmayacağız. "
 
 msgid "We will not reveal your email address to anybody unless you or the law tell us to."
 msgstr "Email adresinizi sizin istediğiniz ya da kanunun emrettiği durumlar dışında kimseyle paylaşmayacağız. "
@@ -3358,13 +3360,13 @@ msgstr "Başvurunuza bir cevap gelir gelmez sizi emaille haberdar edeceğiz. "
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Birisinin en son cevapları okuyup başvuru durumunu cevaplara göre güncellemesini bekliyoruz. Belki bunu yaparak <strong>siz</strong> yardım etmek istersiniz?"
+msgstr[1] "Birisinin en son cevapları okuyup başvuru durumunu cevaplara göre güncellemesini bekliyoruz. Belki bunu yaparak <strong>siz</strong> yardım etmek istersiniz?"
 
 msgid "We're waiting for {{user}} to read a recent response and update the status."
 msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " {{user}} adlı kullanıcının en son gelen cevapları okuyup başvuru durumunu güncellemesini bekliyoruz."
+msgstr[1] "{{user}} adlı kullanıcının en son gelen cevapları okuyup başvuru durumunu güncellemesini bekliyoruz."
 
 msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr "Yeni email adresinize bir mesaj gönderdik. Email adresiniz değiştirilmeden önce mesaj metninde verdiğimiz\\n bağlantıyı tıklamanız gerekli. "
@@ -3400,10 +3402,10 @@ msgid "When you receive the paper response, please help others find out what it 
 msgstr "Kağıt üzerinde yazılı cevabı aldığınızda lütfen diğerlerinin de içeriğinden haberdar olmasına yardımcı olun:"
 
 msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
-msgstr "Hesabınızın şifresini değiştirmek istediğinizde, aynı zamanda iki aşamalı tek kullanımlık giriş kodunuzu da girmeniz gerekecek. Tek kullanımlık giriş kodunuz sadece tek bir defa kullanılabilir, bu yüzden şifrenizi değiştirdikten sonra yeni bir giriş kodu üretilecek. Şife yöneticisi kullanıyorsanız oradaki bilgiyi düzeltmeyi ya da yeni giriş kodunun bir çıktısını almayı unutmayın. "
+msgstr "Hesabınızın şifresini değiştirmek istediğinizde, iki aşamalı tek kullanımlık giriş kodunuzu da girmeniz gerekecek. Tek kullanımlık giriş kodunuz sadece tek bir defa kullanılabilir, bu yüzden şifrenizi değiştirdikten sonra yeni bir giriş kodu üretilecek. Şife yöneticisi kullanıyorsanız oradaki bilgiyi düzeltmeyi ya da yeni giriş kodunun bir çıktısını almayı unutmayın. "
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
-msgstr "Bitirdiğinizde <strong>bu sayfaya geri dönün</strong>, <a href=\"{{url}}\">bu sayfayı yeniden yükleyin</a> ve yenin başvurunuzu yapın."
+msgstr "Bitirdiğinizde <strong>bu sayfaya geri dönün</strong>, <a href=\"{{url}}\">bu sayfayı yeniden yükleyin</a> ve yeni başvurunuzu yapın."
 
 msgid "Which of these is happening?"
 msgstr "Bunlardan hangisi gerçekleşiyor?"
@@ -3412,7 +3414,7 @@ msgid "Who can I request information from?"
 msgstr "Kimden bilgi isteyebilirim?"
 
 msgid "Why specifically do you consider this request unsuitable?"
-msgstr "Neden tam olarak bu başvuruyu uygunsuz buluyorsunuz?"
+msgstr "Tam olarak neden bu başvuruyu uygunsuz buluyorsunuz?"
 
 msgid "Widget vote"
 msgstr "Widget oy"
@@ -3448,7 +3450,7 @@ msgid "You"
 msgstr "Siz"
 
 msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr " {{date}} tarihinde zaten aynı toplu başvuruyu oluşturmuştunuz. Ya    <a href=\"{{existing_batch}}\">halihazırda var olan toplu başvuruyu</a> görebilir, ya da aşağıdaki detayları düzenleyerek toplu gönderim için benzer başvurular oluşturabilirsiniz. "
+msgstr " {{date}} tarihinde zaten aynı toplu başvuruyu oluşturmuştunuz. Ya <a href=\"{{existing_batch}}\">halihazırda var olan toplu başvuruyu</a> görebilir, ya da aşağıdaki detayları düzenleyerek toplu gönderim için benzer başvurular oluşturabilirsiniz. "
 
 msgid "You are already following new requests"
 msgstr "Yeni başvuruları zaten takip ediyorsunuz"
@@ -3505,19 +3507,19 @@ msgid "You are no longer following <a href=\"{{successful_requests_url}}\">succe
 msgstr "Artık  <a href=\"{{successful_requests_url}}\">olumlu sonuçlanan başvuruları</a>.takip etmiyorsunuz."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
-msgstr "Artık <a href=\"{{wall_url_user}}\">following</a> '{{link_to_authority}}' hakkındaki güncellemeleri takip ediyorsunuz. "
+msgstr "Artık '{{link_to_authority}}' hakkındaki güncellemeleri <a href=\"{{wall_url_user}}\"> takip ediyorsunuz.</a> "
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
 msgstr "'{{link_to_request}}' başvurusu hakkındaki güncellemeleri artık <a href=\"{{wall_url_user}}\">takip ediyorsunuz</a>."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
-msgstr " '{{link_to_user}}' adlı kişiyle ilgili güncellemeleri artık  <a href=\"{{wall_url_user}}\">takip ediyorsunuz</a> a person."
+msgstr " '{{link_to_user}}' adlı kişiyle ilgili güncellemeleri artık <a href=\"{{wall_url_user}}\">takip ediyorsunuz</a>."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr "<a href=\"{{new_requests_url}}\">Yeni başvurular</a> hakkında güncellemeleri artık  <a href=\"{{wall_url_user}}\">takip</a> ediyorsunuz. "
+msgstr "<a href=\"{{new_requests_url}}\">Yeni başvurular</a> hakkında güncellemeleri artık <a href=\"{{wall_url_user}}\">takip</a> ediyorsunuz. "
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
-msgstr "<a href=\"{{search_url}}\">Bu arama</a> ile ilgili güncellemeleri artık  <a href=\"{{wall_url_user}}\">takip</a> ediyorsunuz"
+msgstr "<a href=\"{{search_url}}\">Bu arama</a> ile ilgili güncellemeleri artık <a href=\"{{wall_url_user}}\">takip</a> ediyorsunuz"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Artık <a href=\"{{successful_requests_url}}\">olumlu sonuçlanan başvurular</a>ı <a href=\"{{wall_url_user}}\">takip</a> ediyorsunuz"
@@ -3529,7 +3531,7 @@ msgid "You can change the requests and users you are following on <a href=\"{{pr
 msgstr "Takip ettiğiniz başvuru ve kullanıcıları <a href=\"{{profile_url}}\">profil sayfanızda</a> değiştirebilirsiniz."
 
 msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr "Bu sayfayı başvuru için yapılmş ana  JSON\\nsayfanın bir parçası olarak bilgisayar tarafından okunabilecek bir formatta indirebilirsiniz. <a href=\"{{api_path}}\">API dokümentasyonuna</a> bakın."
+msgstr "Bu sayfayı başvuru için yapılmş ana JSON\\nsayfanın bir parçası olarak bilgisayar tarafından okunabilecek bir formatta indirebilirsiniz. <a href=\"{{api_path}}\">API dokümentasyonuna</a> bakın."
 
 msgid "You can only request information about the environment from this authority."
 msgstr "Bu kuruluştan yalnızca çevre ile ilgili bilgi isteyebilirsiniz.  "
@@ -3562,10 +3564,10 @@ msgid "You just tried to sign up to {{site_name}}, when you already have an acco
 msgstr "Zaten bir {{site_name}} hesabınız varken, yeni\\n bir hesap oluşturmaya çalıştınız. Kullanıcı adınız ve şifreniz önceki haliyle\\ duruyor.\\n\\nLütfen aşağıdaki bağlantıyı tıklayın. "
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
-msgstr "Hatanın nedenini biliyorsanız  <strong>bir çözüm önerebilirsiniz</strong>; ör: çalışan bir mail adresi gibi. "
+msgstr "Hatanın nedenini biliyorsanız <strong>bir çözüm önerebilirsiniz</strong>; ör: çalışan bir mail adresi gibi. "
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
-msgstr "Başvurunuza <strong>ek dosya</strong> ekleyebilirsiniz. Eklemek istediğiniz dosya email ile iletmeki çin çok büyükse\\n aşağıdaki formu kullanın. "
+msgstr "Başvurunuza <strong>ek dosya</strong> ekleyebilirsiniz. Eklemek istediğiniz dosya email ile iletmek için çok büyükse\\n aşağıdaki formu kullanın. "
 
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr "Email adresini kurumun\\n web sitesinde bulabilir ya da kuruma telefon edip sorarak öğrenebilirsiniz. Adresi bulabilirseniz,\\n lütfen  <a href=\"{{help_url}}\">bize iletin</a>."
@@ -3586,7 +3588,7 @@ msgid "You need to be logged in to edit your profile."
 msgstr "Profilinizi düzenlemek için siteye giriş yapmış olmalısınız."
 
 msgid "You need to be logged in to report a request for administrator attention"
-msgstr "Herhangi bir başvuruyu yöneticilerin gözden geçirmesi için şikayet etmek için siteye giriş yapmış olmalısınız"
+msgstr "Herhangi bir başvuruyu yöneticilerin gözden geçirmesi için şikayet etmek istiyorsanız, siteye giriş yapmalısınız. "
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Bu başvuru için daha önce tam olarak bu takip mesajını gönderdiniz"
@@ -3595,22 +3597,22 @@ msgid "You should have received a copy of the request by email, and you can resp
 msgstr "Başvurunun bir kopyasını email ile almış olmalısınız. O emailde <strong>yanıt düğmesine basarak</strong> cevap verebilirsiniz. Kolaylık olsun diye adresi de veriyoruz: "
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
-msgstr " <strong>Posta adresinizi</strong> kamu kuruluşuna özel olarak halka açık olmadan vermeniz daha doğru olur. "
+msgstr "<strong>Posta adresinizi</strong> kamu kuruluşuna özel olarak halka açık olmadan vermeniz daha doğru olur. "
 
 msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
 msgstr "İki aşamalı doğrulamayı devreye soktuğunuzda size tek kullanımlık bir giriş kodu verilecek. Bu kodu kimseyle paylaşmayın. Bir şifre yöneticisinde saklayabilir veya bir çıktısını alıp güvenli bir yerde tutabilirsiniz."
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
-msgstr "Yeni başvurular yapamayacak, takip mesajları iletemeyecek, başvurulara açıklayıcı notlar ekleyemeyecek ve\\n diğer kullanıcılara mesaj gönderemeyeceksiniz. Diğer başvuruları görmeye ve email alert'leri oluşturmaya devame edebilirsiniz.  "
+msgstr "Yeni başvurular yapamayacak, takip mesajları iletemeyecek, başvurulara açıklayıcı notlar ekleyemeyecek ve\\n diğer kullanıcılara mesaj gönderemeyeceksiniz. Diğer başvuruları görmeye ve email alert'leri oluşturmaya devam edebilirsiniz.  "
 
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "Bundan sonra bu alertler için email güncellemesi almayacaksınız. "
 
 msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
-msgstr "Bundan sonra  '{{link_to_authority}}' hakkındaki güncellemeleri emaille alacaksınız."
+msgstr "Bundan sonra '{{link_to_authority}}' hakkındaki güncellemeleri emaille alacaksınız."
 
 msgid "You will now be emailed updates about '{{link_to_request}}', a request."
-msgstr "Bundans onra bu başvuru  '{{link_to_request}}' hakkındaki güncellemeleri emaille alacaksınız."
+msgstr "Bundan sonra bu başvuru  '{{link_to_request}}' hakkındaki güncellemeleri emaille alacaksınız."
 
 msgid "You will now be emailed updates about '{{link_to_user}}', a person."
 msgstr "Bundan sonra '{{link_to_user}}' kullanıcısı hakkındaki güncellemeleri emaille alacaksınız."
@@ -3619,7 +3621,7 @@ msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this sea
 msgstr "Bundan sonra bu <a href=\"{{search_url}}\">arama</a> hakkındaki güncellemeleri emaille alacaksınız."
 
 msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr "Bundan sonra  <a href=\"{{successful_requests_url}}\">olumlu sonuçlanan başvşurular</a> hakkındaki güncellemeleri emaille alacaksınız."
+msgstr "Bundan sonra <a href=\"{{successful_requests_url}}\">olumlu sonuçlanan başvurular</a> hakkındaki güncellemeleri emaille alacaksınız."
 
 msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
 msgstr "Bundan sonra <a href=\"{{new_requests_url}}\">yeni yapılan başvurular<a>hakkındaki güncellemeleri emaille alacaksınız."
@@ -3628,7 +3630,7 @@ msgid "You will only get an answer to your request if you follow up with the cla
 msgstr "Yalnızca gerektiği şekilde açıklık getirirseniz başvurunuza bir yanıt alacaksınız. "
 
 msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
-msgstr "Siteye giriş yaptığınızda hala görebileceksiniz. Bu kararı tartışmak  istiyorsanız, lütfen bu emaile cevap verin. "
+msgstr "Siteye giriş yaptığınızda hala görebileceksiniz. Bu kararı tartışmak istiyorsanız, lütfen bu emaile cevap verin. "
 
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Giriş yaptınız. <a href=\"#\" id=\"send-request\">Başvurunuzu göndermeye devam edin</a>"
