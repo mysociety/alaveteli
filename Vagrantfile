@@ -119,4 +119,34 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                                              "alaveteli " \
                                              "vagrant " \
                                              "#{ ALAVETELI_FQDN }"
+
+  # Append basic usage instructions to the MOTD
+  motd = <<-EOF
+To start your alaveteli instance:
+* cd alaveteli
+* bundle exec rails server
+EOF
+
+  config.vm.provision :shell, :inline => "echo '#{ motd }' >> /etc/motd.tail"
+
+  # Display next steps info at the end of a successful install
+  instructions = <<-EOF
+
+Welcome to your new Alaveteli development site!
+
+If you are planning to use a custom theme, you should create
+an `alaveteli-themes` folder at the same level as your `alaveteli`
+code folder to hold your theme repositories so that your
+Vagrant box will see your theme folders when using the
+switch-theme.rb script (take a look at the documentation in
+the script/switch-theme.rb file for more information).
+
+Full instructions for customising your install can be found online:
+http://alaveteli.org/docs/customising/
+
+Type `vagrant ssh` to log into the Vagrant box to start the site
+or run the test suite
+EOF
+
+  config.vm.provision :shell, :inline => "echo '#{ instructions }'"
 end
