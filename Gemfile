@@ -23,7 +23,7 @@ gem 'mahoro', '~> 0.4'
 gem 'memcache-client', '~> 1.8.5'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_19]
 gem 'net-purge', '~> 0.1.0'
-gem 'nokogiri', '~> 1.6.6.4'
+gem 'nokogiri', '~> 1.6'
 gem 'open4', '~> 1.3.4'
 gem 'rack', '~> 1.4.6'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
