@@ -17,9 +17,9 @@
 # Agung Riyadi <ariadi01@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 18:08+0000\n"
+"POT-Creation-Date: 2016-01-06 10:01+0000\n"
 "PO-Revision-Date: 2015-12-01 18:28+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/language/id/)\n"
@@ -156,33 +156,6 @@ msgstr[0] ""
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Selesai! Terima kasih banyak untuk bantuan Anda.</p><p>Ada <a href=\"{{helpus_url}}\">lebih banyak hal-hal yang bisa Anda lakukan </a> untuk membantu{{site_name}}.</p>"
 
-msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
-msgstr ""
-"<p>Terimakasih! Berikut beberapa ide untuk selanjutnya:</p>\n"
-"            <ul>\n"
-"            <li>Untuk mengirim permintaan Anda ke otoritas lain, pertama salin kalimat permintaan Anda dibawah, kemudian <a href=\"{{find_authority_url}}\">pilih otoritas yang lain</a>.</li>\n"
-"            <li>Jika Anda ingin mengadu kepada otoritas publik bahwa mereka tidak menahan informasi, berikut\n"
-"            <a href=\"{{complain_url}}\">cara mengadu</a>.\n"
-"            </li>\n"
-"            <li>Kami mempunyai <a href=\"{{other_means_url}}\">saran</a>\n"
-"            dengan maksud untuk menjawab pertanyaan Anda.\n"
-"            </li>\n"
-"            </ul>"
-
-msgid "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr "<p>Terima kasih! Semoga Anda tidak perlu menunggu lebih lama lagi.</p> <p>Berdasarkan undang-undang, Anda seharusnya mendapatkan tanggapan segera, dan biasanya sebelum akhir <strong>{{date_response_required_by}}</strong>.</p>"
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr ""
-"<p>Terima kasih! Mudah-mudahan Anda tidak terlalu lama menunggu.</p> <p>Berdasarkan undang-undang, Anda seharusnya mendapatkan tanggapan segera, dan biasanya sebelum akhir <strong>\n"
-"{{date_response_required_by}}</strong>.</p>"
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>"
-msgstr "<p>Terima kasih! Mudah-mudahan Anda tidak terlalu lama menunggu.</p><p>Anda seharusnya mendapatkan tanggapan dalam waktu{{late_number_of_days}} hari, atau akan diinformasikan jika akan memakan waktu lebih lama (<a href=\"{{review_url}}\">rincian</a>).</p>"
-
-msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
-msgstr "<p>Terima kasih! Permintaan Anda sudah lama terlambat, lebih dari {{very_late_number_of_days}} hari kerja. Kebanyakan permintaan seharusnya dijawab dalam waktu {{late_number_of_days}} hari kerja. Anda mungkin ingin mengajukan keberatan mengenai hal ini, lihat di bawah.</p>"
-
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
 "<p>Terima kasih telah mengubah teks tentang Anda di profil Anda.</p>\n"
@@ -197,18 +170,6 @@ msgid "<p>We recommend that you edit your request and remove the email address. 
 msgstr ""
 "<p>Kami menyarankan agar Anda mengedit permintaan Anda dan menghapus alamat email.\n"
 "                Jika Anda meninggalkannya, alamat email tersebut akan dikirimkan kepada otoritas, tetapi tidak akan ditampilkan di situs.</p>"
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p>"
-msgstr ""
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
-msgstr "<p>Kami senang Anda memperoleh semua informasi yang Anda inginkan. Jika Anda menulis atau menggunakan informasi tersebut, mohon kembali ke situs ini dan menambahkan anotasi di bawah yang menyatakan apa yang Anda lakukan.</p><p>Jika Anda merasakan {{site_name}} berguna, <a href=\"{{donation_url}}\">berikanlah donasi</a> kepada badan amal yang mengelolanya.</p>"
-
-msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr "<p>Kami senang Anda memperoleh beberapa informasi yang Anda inginkan. Jika Anda merasakannya {{site_name}} berguna, <a href=\"{{donation_url}}\">berikanlah donasi</a> kepada badan amal yang mengelolanya.</p><p>Jika Anda ingin mencoba dan mendapatkan seluruh informasi tersebut, berikut apa yang harus dilakukan sekarang.</p>"
-
-msgid "<p>We're glad you got some of the information that you wanted.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr ""
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>Anda tidak perlu menyertakan email Anda dalam permintaan ini untuk mendapatkan balasan (<a href=\"{{url}}\">rincian</a>).</p>"
@@ -575,6 +536,16 @@ msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Berdasarkan undang-undang, dalam semua keadaan, {{public_body_link}} sekarang seharusnya sudah ditanggapi"
+
+#, fuzzy
+msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
+msgstr ""
+"<p>Terima kasih! Mudah-mudahan Anda tidak terlalu lama menunggu.</p> <p>Berdasarkan undang-undang, Anda seharusnya mendapatkan tanggapan segera, dan biasanya sebelum akhir <strong>\n"
+"{{date_response_required_by}}</strong>.</p>"
+
+#, fuzzy
+msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr "<p>Terima kasih! Semoga Anda tidak perlu menunggu lebih lama lagi.</p> <p>Berdasarkan undang-undang, Anda seharusnya mendapatkan tanggapan segera, dan biasanya sebelum akhir <strong>{{date_response_required_by}}</strong>.</p>"
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Berdasarkan undang-undang, {{public_body_link}} seharusnya sudah menanggapi <strong>pada waktunya</strong> dan"
@@ -1303,6 +1274,9 @@ msgstr ""
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
 msgstr "Jika Anda merasa layanan ini berguna sebagai seorang petugas FOI, silakan minta pengelola website Anda untuk menautkan kepada kami dari halaman FOI organisasi Anda."
 
+msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr ""
+
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 "Jika Anda menerima emailnya <strong>lebih dari enam bulan lalu</strong>, maka tautan masuk ini tidak berfungsi \n"
@@ -1323,6 +1297,12 @@ msgid "If you use web-based email or have \"junk mail\" filters, also check your
 msgstr ""
 "Jika Anda menggunakan email berbasis web atau memiliki filter \"junk mail\", juga periksa \n"
 "folder surat bulk/spam Anda. Terkadang, pesan-pesan kami ditandai seperti itu."
+
+msgid "If you want to try and get the rest of the information, here's what to do now."
+msgstr ""
+
+msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
+msgstr ""
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr ""
@@ -2704,8 +2684,18 @@ msgstr "Terima kasih telah memperbarui permintaan ini!"
 msgid "Thank you for updating your profile photo"
 msgstr "Terima kasih telah memperbarui foto profil Anda"
 
-msgid "Thank you! We'll look into what happened and try and fix it up."
-msgstr "Terimakasih! Kami akan melihat apa yang terjadi dan mencoba memperbaikinya."
+msgid "Thank you! Here are some ideas on what to do next:"
+msgstr ""
+
+msgid "Thank you! Hope you don't have to wait much longer."
+msgstr ""
+
+msgid "Thank you! Hopefully your wait isn't too long."
+msgstr ""
+
+#, fuzzy
+msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
+msgstr "<p>Terima kasih! Permintaan Anda sudah lama terlambat, lebih dari {{very_late_number_of_days}} hari kerja. Kebanyakan permintaan seharusnya dijawab dalam waktu {{late_number_of_days}} hari kerja. Anda mungkin ingin mengajukan keberatan mengenai hal ini, lihat di bawah.</p>"
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr ""
@@ -3236,6 +3226,9 @@ msgstr "Untuk mengirimkan pesan kepada"
 msgid "To send your FOI request"
 msgstr "Untuk mengirimkan permintaan FOI Anda"
 
+msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
+msgstr ""
+
 msgid "To update the status of this FOI request"
 msgstr "Untuk memperbarui status dari permintaan FOI ini"
 
@@ -3527,6 +3520,9 @@ msgstr ""
 "        &ndash;\n"
 "\tjika Anda adalah {{user_link}} silakan <a href=\"{{url}}\">masuk</a> dan jangan biarkan siapapun tahu."
 
+msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
+msgstr ""
+
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
 msgstr ""
 
@@ -3547,6 +3543,18 @@ msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
+
+#, fuzzy
+msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
+msgstr "<p>Kami senang Anda memperoleh semua informasi yang Anda inginkan. Jika Anda menulis atau menggunakan informasi tersebut, mohon kembali ke situs ini dan menambahkan anotasi di bawah yang menyatakan apa yang Anda lakukan.</p><p>Jika Anda merasakan {{site_name}} berguna, <a href=\"{{donation_url}}\">berikanlah donasi</a> kepada badan amal yang mengelolanya.</p>"
+
+#, fuzzy
+msgid "We're glad you got some of the information that you wanted."
+msgstr "Silakan pilih apakah Anda mendapatkan beberapa informasi yang Anda inginkan atau tidak."
+
+#, fuzzy
+msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr "<p>Kami senang Anda memperoleh beberapa informasi yang Anda inginkan. Jika Anda merasakannya {{site_name}} berguna, <a href=\"{{donation_url}}\">berikanlah donasi</a> kepada badan amal yang mengelolanya.</p><p>Jika Anda ingin mencoba dan mendapatkan seluruh informasi tersebut, berikut apa yang harus dilakukan sekarang.</p>"
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3798,6 +3806,10 @@ msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Anda sebelumnya memasukkan pesan tindak lanjut yang sama persis untuk permintaan ini."
+
+#, fuzzy
+msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
+msgstr "<p>Terima kasih! Mudah-mudahan Anda tidak terlalu lama menunggu.</p><p>Anda seharusnya mendapatkan tanggapan dalam waktu{{late_number_of_days}} hari, atau akan diinformasikan jika akan memakan waktu lebih lama (<a href=\"{{review_url}}\">rincian</a>).</p>"
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr "Anda seharusnya menerima salinan dari permintaan tersebut lewat email, dan Anda dapat merespon\\n <strong>hanya dengan membalas</strong> kepada email tersebut. Untuk kenyamanan Anda, berikut adalah alamatnya:"
@@ -4382,3 +4394,19 @@ msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
+#~ msgstr ""
+#~ "<p>Terimakasih! Berikut beberapa ide untuk selanjutnya:</p>\n"
+#~ "            <ul>\n"
+#~ "            <li>Untuk mengirim permintaan Anda ke otoritas lain, pertama salin kalimat permintaan Anda dibawah, kemudian <a href=\"{{find_authority_url}}\">pilih otoritas yang lain</a>.</li>\n"
+#~ "            <li>Jika Anda ingin mengadu kepada otoritas publik bahwa mereka tidak menahan informasi, berikut\n"
+#~ "            <a href=\"{{complain_url}}\">cara mengadu</a>.\n"
+#~ "            </li>\n"
+#~ "            <li>Kami mempunyai <a href=\"{{other_means_url}}\">saran</a>\n"
+#~ "            dengan maksud untuk menjawab pertanyaan Anda.\n"
+#~ "            </li>\n"
+#~ "            </ul>"
+
+#~ msgid "Thank you! We'll look into what happened and try and fix it up."
+#~ msgstr "Terimakasih! Kami akan melihat apa yang terjadi dan mencoba memperbaikinya."
