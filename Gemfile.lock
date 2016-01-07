@@ -152,6 +152,7 @@ GEM
       text
     gettext_i18n_rails (0.9.4)
       fast_gettext (>= 0.4.8)
+    gnuplot (2.6.2)
     haml (4.0.3)
       tilt
     highline (1.6.19)
@@ -364,6 +365,7 @@ DEPENDENCIES
   gettext (~> 2.3.9)
   gettext_i18n_rails (~> 0.9.4)
   globalize3!
+  gnuplot (= 2.6.2)
   holidays (~> 2.2.0)
   htmlentities (~> 4.3.4)
   icalendar (= 1.4.3)
