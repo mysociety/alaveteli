@@ -405,6 +405,3 @@ DEPENDENCIES
   xapian-full-alaveteli (~> 1.2.21.1)
   xml-simple (~> 1.1.2)
   zip (~> 2.0.2)
-
-BUNDLED WITH
-   1.10.6
