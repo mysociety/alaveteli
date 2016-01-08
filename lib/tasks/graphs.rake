@@ -81,6 +81,10 @@ namespace :graphs do
         options = {:with => "impulses", :linecolor => 3, :linewidth => 15,
                    :title => "users each day ... who registered"}
         all_users = select_as_columns(aggregate_signups)
+
+        # nothing to do, bail
+        abort "warning: no user data to graph, skipping task" unless all_users
+
         plot.data << create_dataset(all_users, options)
 
         # plot confirmed users
@@ -152,6 +156,7 @@ namespace :graphs do
         # here be database-specific dragons...
         # this uses a window function which is not supported by MySQL, but
         # is reportedly available in MariaDB from 10.2 onward (and Postgres 9.1+)
+
         sql = "SELECT DATE(created_at), COUNT(*), SUM(count(*)) " \
               "OVER (ORDER BY DATE(created_at)) " \
               "FROM info_requests " \
@@ -159,6 +164,10 @@ namespace :graphs do
               "GROUP BY DATE(created_at)"
 
         all_requests = select_as_columns(sql)
+
+        # nothing to do, bail
+        abort "warning: no request data to graph, skipping task" unless all_requests
+
         plot.data << create_dataset(data, options)
 
         # start plotting the data from largest to smallest so
