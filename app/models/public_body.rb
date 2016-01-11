@@ -528,25 +528,12 @@ class PublicBody < ActiveRecord::Base
 
     alias_method :foi_officer_domain_required, :request_email_domain
 
-    # Return the domain part of an email address, canonicalised and with common
-    # extra UK Government server name parts removed.
+    # Return the canonicalised domain part of an email address
     #
     # TODO: Extract to library class
     def self.extract_domain_from_email(email)
       email =~ /@(.*)/
-      if $1.nil?
-        return nil
-      end
-
-      # take lower case
-      ret = $1.downcase
-
-      # remove special email domains for UK Government addresses
-      ret.sub!(".gsi.", ".")
-      ret.sub!(".x.", ".")
-      ret.sub!(".pnn.", ".")
-
-      return ret
+      $1.nil? ? nil : $1.downcase
     end
 
     # TODO: Could this be defined as `sorted_versions.reverse`?
