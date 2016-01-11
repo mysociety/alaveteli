@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
-"PO-Revision-Date: 2015-11-09 14:44+0000\n"
+"POT-Creation-Date: 2016-01-06 10:01+0000\n"
+"PO-Revision-Date: 2016-01-06 22:47+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/mysociety/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -152,23 +152,6 @@ msgstr[1] ""
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Kész! Köszönjük segítségét.</p><p>Különféle <a href=\"{{helpus_url}}\">módokon tud</a> segítséget nyújtani a {{site_name}} számára.</p> "
 
-msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
-msgstr "<p>Köszönjük! Néhány javaslat a következő lépést illetően:</p>\\n            <ul>\\n            <li>Ha igénylését egy másik adatgazdának is el szeretné küldeni, először másolja be alulra igénylésének szövegét, majd <a href=\"{{find_authority_url}}\">keresse ki a másik adatgazdát</a>.</li>\\n            <li>Amennyiben meg kívánja támadni a közintézmény azon állítását, miszerint nem rendelkeznek a kért információval, itt ismerheti meg a\\n            <a href=\"{{complain_url}}\">panasz benyújtásának menetét</a>.\\n            </li>\\n            <li>Van <a href=\"{{other_means_url}}\">javaslatunk</a>\\n            arra vonatkozóan, hogy kérdésére hogyan lehetne választ kapni.n            </li>\\n            </ul>"
-
-msgid "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr "<p>Köszönjük! Reméljük, nem kell már sokáig várakoznia.</p> <p>A jogszabályi előírások szerint azonnal választ kellett volna kapnia, de legkésőbb <strong>{{date_response_required_by}}</strong>-ig.</p> "
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr ""
-"<p>Köszönjük! Reméljük, nem kell sokáig várakoznia.</p> <p>A jogszabályi előírások szerint azonnal választ kell kapnia, de legkésőbb <strong>\n"
-"{{date_response_required_by}}</strong>-ig.</p> "
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>"
-msgstr "<p>Köszönjük! Reméljük, nem kell sokáig várakoznia.</p><p>{{late_number_of_days}} napon belül választ kell kapnia. Amennyiben a válaszadás ennél több időt vesz igénybe, arról tájékoztatást kell kapnia (<a href=\"{{review_url}}\">részletek</a>).</p>"
-
-msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
-msgstr "<p>Köszönjük! Igénylése több mint {{very_late_number_of_days}} munkanappal lejárt. A legtöbb igénylésre {{late_number_of_days}} munkanapon belül választ kell adni. Amennyiben panaszt kíván tenni, lásd alább.</p>"
-
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
 "<p>Köszönjük, hogy módosította a profiljához tartozó bemutatkozó szöveget.</p>\n"
@@ -183,18 +166,6 @@ msgid "<p>We recommend that you edit your request and remove the email address. 
 msgstr ""
 "<p>Javasoljuk, hogy módosítsa igénylését és távolítsa el az e-mail címet.\n"
 "                Amennyiben benne hagyja, az adatgazda megkapja az e-mail címet, a weboldalon azonban nem fog szerepelni.</p> "
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p>"
-msgstr ""
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
-msgstr "<p>Örülünk, hogy megkapta az összes kért információt! Kérjük, készítsen feljegyzést az adatok felhasználásáról, és tegye azt közzé egy hozzászólásban! </p><p>Amennyiben a {{site_name}} weboldalt hasznosnak találta, <a href=\"{{donation_url}}\">adományával támogassa</a> az üzemeltető közhasznú szervezetet.</p>"
-
-msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr "<p>Örülünk, hogy megkapta a kért információk egy részét. Amennyiben a {{site_name}} weboldalt hasznosnak találta, <a href=\"{{donation_url}}\">adományával támogassa</a> a weboldalt üzemeltető jótékonysági szervezetet.</p><p>Amennyiben a hiányzó információkat is meg kívánja szerezni, a következőket kell tennie.</p> "
-
-msgid "<p>We're glad you got some of the information that you wanted.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr ""
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>Az igénylésben nem kell feltüntetnie e-mail címét ahhoz, hogy választ kapjon (<a href=\"{{url}}\">részletek</a>).</p> "
@@ -552,6 +523,14 @@ msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "A vonatkozó jogszabály értelmében  a(z) {{public_body_link}} munkatársainak már ki kellett volna adniuk a kért adatokat."
+
+msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
+msgstr ""
+"A jogszabályi előírások szerint azonnal választ kell kapnia, de legkésőbb <strong>\n"
+"{{date_response_required_by}}</strong>-ig."
+
+msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr "A jogszabályi előírások szerint azonnal választ kellett volna kapnia, de legkésőbb <strong>{{date_response_required_by}}</strong>-ig."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "A vonatkozó jogszabály értelmében a(z) {{public_body_link}} adatgazdának normális esetben"
@@ -1282,6 +1261,9 @@ msgstr ""
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
 msgstr "Amennyiben megkeresésekre válaszoló munkatársként hasznosnak találta ezt a szolgáltatást, kérje meg szervezete webmesterét, hogy helyezzen el a honlapunkra mutató hivatkozást közérdekű adatokat tartalmazó weboldalán. "
 
+msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr ""
+
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 "Ha az e-mailt <strong>több, mint hat hónapja</strong> kapta, ez a bejelentkezési hivatkozás már\n"
@@ -1302,6 +1284,12 @@ msgid "If you use web-based email or have \"junk mail\" filters, also check your
 msgstr ""
 "Amennyiben webes levelező rendszert használ vagy spamszűrő van beállítva, ellenőrizze a\n"
 "levélszemetet tartalmazó mappákat is! Előfordulhat, hogy üzeneteink ide kerülnek."
+
+msgid "If you want to try and get the rest of the information, here's what to do now."
+msgstr "Amennyiben a hiányzó információkat is meg kívánja szerezni, a következőket kell tennie."
+
+msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
+msgstr "Amennyiben meg kívánja támadni a közintézmény azon állítását, miszerint nem rendelkeznek a kért információval, itt ismerheti meg a <a href=\"{{complain_url}}\">panasz benyújtásának menetét</a>."
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr ""
@@ -2686,8 +2674,17 @@ msgstr "Köszönjük, hogy frissítette az igénylést. "
 msgid "Thank you for updating your profile photo"
 msgstr "Köszönjük, hogy frissítette profilképét "
 
-msgid "Thank you! We'll look into what happened and try and fix it up."
-msgstr ""
+msgid "Thank you! Here are some ideas on what to do next:"
+msgstr "Köszönjük! Néhány javaslat a következő lépést illetően:"
+
+msgid "Thank you! Hope you don't have to wait much longer."
+msgstr "Köszönjük! Reméljük, nem kell már sokáig várakoznia."
+
+msgid "Thank you! Hopefully your wait isn't too long."
+msgstr "Köszönjük! Reméljük, nem kell sokáig várakoznia."
+
+msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
+msgstr "Köszönjük! Igénylése több mint {{very_late_number_of_days}} munkanappal lejárt. A legtöbb igénylésre {{late_number_of_days}} munkanapon belül választ kell adni. Amennyiben panaszt kíván tenni, lásd alább."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr ""
@@ -3219,6 +3216,9 @@ msgstr "Ha üzenet szeretne küldeni a következőnek: "
 msgid "To send your FOI request"
 msgstr "Ha el szeretné küldeni közérdekűadat-igénylését "
 
+msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
+msgstr "Ha igénylését egy másik adatgazdának is el szeretné küldeni, először másolja be alulra igénylésének szövegét, majd <a href=\"{{find_authority_url}}\">keresse ki a másik adatgazdát</a>."
+
 msgid "To update the status of this FOI request"
 msgstr "Ha frissíteni szeretné ennek a közérdekűadat-igénylésnek az állapotát "
 
@@ -3510,6 +3510,9 @@ msgstr ""
 "        &ndash;\n"
 "\tamennyiben ön {{user_link}}, kérjük, <a href=\"{{url}}\">jelentkezzen be</a>, és értékelje a megkapott adatokat."
 
+msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
+msgstr "Van <a href=\"{{other_means_url}}\">javaslatunk</a> arra vonatkozóan, hogy kérdésére hogyan lehetne választ kapni.n"
+
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
 msgstr ""
 
@@ -3530,6 +3533,15 @@ msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
+
+msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
+msgstr "Örülünk, hogy megkapta az összes kért információt! Kérjük, készítsen feljegyzést az adatok felhasználásáról, és tegye azt közzé egy hozzászólásban!"
+
+msgid "We're glad you got some of the information that you wanted."
+msgstr "Örülünk, hogy megkapta a kért információk egy részét."
+
+msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr "Örülünk, hogy megkapta a kért információk egy részét. Amennyiben a {{site_name}} weboldalt hasznosnak találta, <a href=\"{{donation_url}}\">adományával támogassa</a> a weboldalt üzemeltető jótékonysági szervezetet."
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3781,6 +3793,9 @@ msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Korábban már beküldte ugyanezt a nyomon követési üzenetet erre az igénylésre vonatkozóan. "
+
+msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
+msgstr "{{late_number_of_days}} napon belül választ kell kapnia. Amennyiben a válaszadás ennél több időt vesz igénybe, arról tájékoztatást kell kapnia (<a href=\"{{review_url}}\">részletek</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr "E-mailben meg kellett volna kapnia az igénylést, és a válaszadáshoz\\n <strong>egyszerűen válaszolnia</strong> kell erre az e-mailre. A kényelem kedvéért, íme a cím: "

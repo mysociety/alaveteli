@@ -15,14 +15,14 @@
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # Jiří Vírava <appukonrad@gmail.com>, 2012
 # louisecrow <louise@mysociety.org>, 2012-2013
-# louisecrow <louise@mysociety.org>, 2013-2014
+# louisecrow <louise@mysociety.org>, 2013-2015
 # louisecrow <louise@mysociety.org>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
-"PO-Revision-Date: 2015-11-09 14:44+0000\n"
+"POT-Creation-Date: 2016-01-06 10:01+0000\n"
+"PO-Revision-Date: 2016-01-06 22:46+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
@@ -160,23 +160,6 @@ msgstr[2] ""
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Hotovo! Děkujeme za vaši pomoc.</p><p>Můžete nám <a href=\"{{helpus_url}}\"> také pomoci se stránkami</a>  {{site_name}}</p>"
 
-msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
-msgstr "<p>Děkujeme vám! Dále můžete:</p> <ul> <li>vznést stejný dotaz na jinou instituci: nejdříve zkopírujte níže uvedený text dotazu a pak <a href=\"{{find_authority_url}}\">najděte požadovanou instituci</a>.</li> <li>Můžete také zpochybnit tvrzení instituce, pokud máte důvodné podezření, že tvrzení o nedostupnosti informací se nezakládá na skutečnosti: zde najdete <a href=\"{{complain_url}}\">popis, jak podat stížnost</a>. Také zde můžete</li> <li>pročíst další <a href=\"{{other_means_url}}\">tipy,</a> jak získat odpověď na svůj dotaz. </li> </ul>"
-
-msgid "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr "<p>Děkujeme! Doufáme, že na odpověď nebudete příliš dlouho čekat.</p> <p>Podle zákona byste ji měli obdržet co nejdříve, nejpozději do <strong>{{date_response_required_by}}</strong>.</p>"
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr ""
-"<p>Děkujeme! Doufáme, že na odpověď nečekáte příliš dlouho.</p> <p>Podle zákona byste ji měli obdržet co nejdříve, obvykle do <strong>\n"
-"{{date_response_required_by}}</strong>.</p>"
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>"
-msgstr "<p>Děkujeme! Doufáme, že na odpověď nebudete příliš dlouho čekat.</p><p>Měli byste ji obdržet během {{late_number_of_days}} dní, nebo byste měli být informováni, že zodpovězení dotazu bude trvat déle (<a href=\"{{review_url}}\">podrobnosti</a>).</p>"
-
-msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
-msgstr "<p>Děkujeme! Zodpovězení vašeho dotazu trvá déle, než stanoví zákonná lhůta, tedy konkrétně o {{very_late_number_of_days}} pracovních dní. Obvykle mají být dotazy zodpovězeny do {{late_number_of_days}} pracovních dnů. Pokud chcete podat stížnost, podívejte se níže a přesný postup.</p>"
-
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
 "<p>Děkujeme vám za změnu textu ve vašem profilu.</p>\n"
@@ -191,18 +174,6 @@ msgid "<p>We recommend that you edit your request and remove the email address. 
 msgstr ""
 "<p>Doporučujeme vám upravit dotaz a odstranit e-mailovou adresu.\n"
 "                Pokud ji v dotazu ponecháte, e-mailová adresa bude instituci odeslána, ale neobjeví se na stránkách Informace pro všechny.</p>"
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p>"
-msgstr "<p>Jsme rádi, že jste obdrželi požadované informace. Pokud k této odpovědi něco dodáte, nebo ji někde použijete, přidejte poznámku pro další uživatele stránek Informace pro všechny</p>"
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
-msgstr "<p>Jsme rádi, že jste obdrželi informace, které jste potřebovali. Pokud k této odpovědi něco dodáte, nebo ji někde použijete, přidejte poznámku pro další uživatele stránek Informace pro všechny. </p><p>Pokud považujete stránky {{site_name}} užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>.</p>"
-
-msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr "<p>Jsme rádi, že jste obdrželi alespoň částečnou odpověď na vznesený dotaz. Pokud považujete stránky {{site_name}} za užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>.</p><p>Pokud chcete získat doplňující informace, zde je návod.</p>"
-
-msgid "<p>We're glad you got some of the information that you wanted.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr "<p>Jsme rádi, že jste obdrželi alespoň částečnou odpověď na vznesený dotaz. Pokud chcete získat více informací,  zde je návod. </p><p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>Nemusíte uvádět svou e-mailovou adresu. (<a href=\"{{url}}\">více</a>).</p>"
@@ -562,6 +533,14 @@ msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Podle zákona by instituce {{public_body_link}} měla v každém případě odpovědět."
+
+msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
+msgstr ""
+"Podle zákona byste ji měli obdržet co nejdříve, obvykle do <strong>\n"
+"{{date_response_required_by}}</strong>."
+
+msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr "Podle zákona byste ji měli obdržet co nejdříve, nejpozději do <strong>{{date_response_required_by}}</strong>."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Podle zákona by měla instituce {{public_body_link}} odpovědět okamžitě a "
@@ -1282,6 +1261,9 @@ msgstr ""
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
 msgstr "Pokud jste poskytovatelem informací a považujete naši službu za užitečnou, požádejte IT nebo oddělení spravující vaše webové stránky o propojení s našimi stránkami – ideálně tam, kde uveřejňujete povinné informace."
 
+msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr "Pokud považujete stránky {{site_name}} užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>."
+
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 "Pokud jste obdrželi e-mail <strong>před více než šesti měsíci</strong>, tak tento přihlašovací odkaz již není funkční. \n"
@@ -1300,6 +1282,12 @@ msgstr "Pokud odpovíte na tuto zprávu, bude odeslána přímo {{user_name}}, k
 
 msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Pokud používáte bzplatnou e-mailovou službu nebo máte filtr nevyžádané pošty, zkontrolujte také příslušné složky ve své poště. Někdy jsou zprávy ze stránek Informace pro všechny zařazeny jako spam. "
+
+msgid "If you want to try and get the rest of the information, here's what to do now."
+msgstr "Pokud chcete získat doplňující informace, zde je návod."
+
+msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
+msgstr "Můžete také zpochybnit tvrzení instituce, pokud máte důvodné podezření, že tvrzení o nedostupnosti informací se nezakládá na skutečnosti: zde najdete <a href=\"{{complain_url}}\">popis, jak podat stížnost</a>. Také zde můžete"
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr "Pokud chcete, abychom tento zákaz zrušili, tak nás prosíme <a href=\"/help/contact\">kontaktujte</a> s vysvětlením.\\n"
@@ -2300,7 +2288,7 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
-msgstr ""
+msgstr "Zapamatovat mé údaje (zašrktněte, pokud chcete být déle přihlášeni; nezaškrtávejte, pokud jste na veřejně přístupném počítači)."
 
 msgid "Report abuse"
 msgstr "Nahlásit zneužití"
@@ -2673,8 +2661,17 @@ msgstr "Děkujeme vám za aktualizaci tohoto dotazu!"
 msgid "Thank you for updating your profile photo"
 msgstr "Děkujeme vám za aktualizaci svého profilového fota"
 
-msgid "Thank you! We'll look into what happened and try and fix it up."
-msgstr "Děkujeme! Zjistíme co se stalo a zkusíme to spravit. "
+msgid "Thank you! Here are some ideas on what to do next:"
+msgstr "Děkujeme vám! Dále můžete:"
+
+msgid "Thank you! Hope you don't have to wait much longer."
+msgstr "Děkujeme! Doufáme, že na odpověď nebudete příliš dlouho čekat."
+
+msgid "Thank you! Hopefully your wait isn't too long."
+msgstr "Děkujeme! Doufáme, že na odpověď nečekáte příliš dlouho."
+
+msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
+msgstr "Děkujeme! Zodpovězení vašeho dotazu trvá déle, než stanoví zákonná lhůta, tedy konkrétně o {{very_late_number_of_days}} pracovních dní. Obvykle mají být dotazy zodpovězeny do {{late_number_of_days}} pracovních dnů. Pokud chcete podat stížnost, podívejte se níže a přesný postup."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr ""
@@ -3196,6 +3193,9 @@ msgstr "Poslat zprávu "
 msgid "To send your FOI request"
 msgstr "Vznést dotaz"
 
+msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
+msgstr "vznést stejný dotaz na jinou instituci: nejdříve zkopírujte níže uvedený text dotazu a pak <a href=\"{{find_authority_url}}\">najděte požadovanou instituci</a>."
+
 msgid "To update the status of this FOI request"
 msgstr "Aktualizovat stav dotazu"
 
@@ -3485,6 +3485,9 @@ msgstr ""
 "        &ndash;\n"
 "\tpokud jste {{user_link}} prosíme <a href=\"{{url}}\">přihlašte se</a> a upravte stav dotazu."
 
+msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
+msgstr "pročíst další <a href=\"{{other_means_url}}\">tipy,</a> jak získat odpověď na svůj dotaz."
+
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
 msgstr ""
 
@@ -3505,6 +3508,15 @@ msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
+
+msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
+msgstr "Jsme rádi, že jste obdrželi požadované informace. Pokud k této odpovědi něco dodáte, nebo ji někde použijete, přidejte poznámku pro další uživatele stránek Informace pro všechny"
+
+msgid "We're glad you got some of the information that you wanted."
+msgstr "Jsme rádi, že jste obdrželi alespoň částečnou odpověď na vznesený dotaz."
+
+msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr "Jsme rádi, že jste obdrželi alespoň částečnou odpověď na vznesený dotaz. Pokud považujete stránky {{site_name}} za užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>."
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3758,6 +3770,9 @@ msgstr "Upozornit adminstrátora můžete jako přihlášený uživatel"
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "V minulosti jste již vložili úplně stejnou zprávu týkající se tohoto dotazu. "
+
+msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
+msgstr "Měli byste ji obdržet během {{late_number_of_days}} dní, nebo byste měli být informováni, že zodpovězení dotazu bude trvat déle (<a href=\"{{review_url}}\">podrobnosti</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr "Měli byste obdržet kopii dotazu e-mailem. Odpovědět můžete na tento e-mail <strong>jednoduše</strong>. Zde je adresa:"

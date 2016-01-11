@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
-"PO-Revision-Date: 2015-11-09 14:44+0000\n"
+"POT-Creation-Date: 2016-01-06 10:01+0000\n"
+"PO-Revision-Date: 2016-01-06 22:46+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -149,23 +149,6 @@ msgstr[1] ""
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Eginda dago! Eskerrik asko zure laguntzagatik.</p> {{site_name}} laguntzeko<p>badaude<a href=\"{{helpus_url}}\">egin ditzakezun gauza gehiago</a>.</p>"
 
-msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
-msgstr ""
-
-msgid "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr "<p>Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango.</p> <p>Legearen arabera, erantzuna laster jaso behar izango duzu, normalean   <strong>{{date_response_required_by}}</strong>amaitu baino lehen.</p>"
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr ""
-"<p>Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango.</p> <p>Legearen arabera, erantzuna laster jaso behar izango duzu, normalean <strong>\n"
-"{{date_response_required_by}}</strong> amaitu baino lehen.</p>"
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>"
-msgstr "<p>Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango.</p><p>Erantzuna {{late_number_of_days}} egunetan jaso behar izango zenuke, edo erantzuna beranduago helduko zela jakinarazi beharko lizukete (<a href=\"{{review_url}}\">informazio gehago</a>).</p>"
-
-msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
-msgstr "<p>Eskerrik asko! Zure eskabidea atzeratuta dabil, {{very_late_number_of_days}} lan egun baino gehiago igaro dira. Eskabide gehienek erantzuna jaso beharko lukete  {{late_number_of_days}} lan egunetan. Atzerapen hau dela eta, erreklamazioa egin dezakezu, beherago azaltzen den moduan.</p>"
-
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
 "<p>Eskerrik asko zure profil pertsonala gaurkotzeagatik.</p>\n"
@@ -180,18 +163,6 @@ msgid "<p>We recommend that you edit your request and remove the email address. 
 msgstr ""
 "<p>Gure aholkua hauxe da, zure eskabidea editatu eta posta elektronikoaren helbidea kentzea.\n"
 "                Helbidea utziz gero, erakunde publikora bidaliko da, baina ez da ikusgarria izango webgune honetan.</p>"
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p>"
-msgstr ""
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
-msgstr "<p>Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. Horri buruz idazten baduzu edo erabiltzen baduzu, mesedez itzul zaitez hona eta jarraian gehitu iruzkin bat, zer egin duzun azalduz.</p><p>{{site_name}} erabilgarria izan baldin bada, dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu.</p>"
-
-msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr "<p>Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. Horri buruz idazten baduzu edo erabiltzen baduzu, mesedez itzul zaitez hona eta jarraian gehitu iruzkin bat, zer egin duzun azalduz.</p><p>{{site_name}} erabilgarria izan baldin bada,dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu.</p>"
-
-msgid "<p>We're glad you got some of the information that you wanted.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr ""
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>Eskabidean ez duzu zure posta elektronikoaren helbidea sartu behar, erantzuna jasotzeko (<a href=\"{{url}}\">más detalles</a>).</p>"
@@ -535,6 +506,14 @@ msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Legearen arabera, edozein zirkunstantzia dela, {{public_body_link}}k jada erantzun behar izango zukeen"
+
+msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
+msgstr ""
+"Legearen arabera, erantzuna laster jaso behar izango duzu, normalean <strong>\n"
+"{{date_response_required_by}}</strong> amaitu baino lehen."
+
+msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr "Legearen arabera, erantzuna laster jaso behar izango duzu, normalean   <strong>{{date_response_required_by}}</strong>amaitu baino lehen."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Legearen arabera, {{public_body_link}}k jada erantzun behar izango zukeen  <strong>laster</strong> eta"
@@ -1235,6 +1214,9 @@ msgstr "Ahal baduzu, eskanea ezazu edo egin ezazu erantzunaren argazkia, eta <st
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
 msgstr "Informaziorako Sarbidearen arduraduna zaren heinean, zerbitzu honi erabilgarri baldin baderitzozu, mesedez eska iezaiozu zure web orrialdeko arduradunari gure orrialdearen esteka jartzeko."
 
+msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr "{{site_name}} erabilgarria izan baldin bada, dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu."
+
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr "Posta <strong>duela sei hilabete baino lehenago</strong> jaso baduzu, orduan estekak ez du funtzionatuko. Mesedez, saia zaitez egiten hasieran frogatu duzuna."
 
@@ -1251,6 +1233,12 @@ msgstr ""
 
 msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Web posta erabiltzen baduzu edo \"spamaren kontrako\" iragazkiak badituzu, mesedez, ikus ezazu zure spam karpeta. Batzutan gure mezuak honela markatzen dira, erroreagatik."
+
+msgid "If you want to try and get the rest of the information, here's what to do now."
+msgstr ""
+
+msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
+msgstr ""
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr "Blokeoa ezabatu nahi izanez gero, jar zaitez gurekin <a href=\"/help/contact\">harremanetan</a>, zure arrazoiak azalduz.\\n"
@@ -2607,8 +2595,17 @@ msgstr "Eskerrik asko eskabide hau gaurkotzeagatik!"
 msgid "Thank you for updating your profile photo"
 msgstr "Eskerrik asko zure profilaren argazkia gaurkotzeagatik"
 
-msgid "Thank you! We'll look into what happened and try and fix it up."
+msgid "Thank you! Here are some ideas on what to do next:"
 msgstr ""
+
+msgid "Thank you! Hope you don't have to wait much longer."
+msgstr "Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango."
+
+msgid "Thank you! Hopefully your wait isn't too long."
+msgstr "Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango."
+
+msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
+msgstr "Eskerrik asko! Zure eskabidea atzeratuta dabil, {{very_late_number_of_days}} lan egun baino gehiago igaro dira. Eskabide gehienek erantzuna jaso beharko lukete  {{late_number_of_days}} lan egunetan. Atzerapen hau dela eta, erreklamazioa egin dezakezu, beherago azaltzen den moduan."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr "Eskerrik asko zure laguntzagatik, zure lanak arrakasta izan duten beste eskabideak aurkitzeko ahalegina arintzen du, sailkatzeko aukera ere ematen digu..."
@@ -3110,6 +3107,9 @@ msgstr "______-ri mezua bidaltzeko"
 msgid "To send your FOI request"
 msgstr "Zure informazio eskabidea bidaltzeko"
 
+msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
+msgstr ""
+
 msgid "To update the status of this FOI request"
 msgstr "Zure informazio eskabidearen egoera gaurkotzeko"
 
@@ -3395,6 +3395,9 @@ msgstr ""
 "        &ndash;\n"
 "\tzu {{user_link}} ez bazara, mesedez <a href=\"{{url}}\">ireki saioa </a> eta jakinarazi."
 
+msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
+msgstr ""
+
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
 msgstr ""
 
@@ -3409,6 +3412,15 @@ msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartze
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
+
+msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
+msgstr "Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. Horri buruz idazten baduzu edo erabiltzen baduzu, mesedez itzul zaitez hona eta jarraian gehitu iruzkin bat, zer egin duzun azalduz."
+
+msgid "We're glad you got some of the information that you wanted."
+msgstr "Pozgarria da eskatu zenuen informazioa jaso duzula jakitea."
+
+msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr "Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. {{site_name}} erabilgarria izan baldin bada,dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu."
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3647,6 +3659,9 @@ msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Eskabide honi jada erantzun bera bidali diozu."
+
+msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
+msgstr "Erantzuna {{late_number_of_days}} egunetan jaso behar izango zenuke, edo erantzuna beranduago helduko zela jakinarazi beharko lizukete (<a href=\"{{review_url}}\">informazio gehago</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr ""
