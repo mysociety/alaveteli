@@ -49,6 +49,7 @@ namespace :config_files do
       :vhost_dir => ENV['VHOST_DIR'],
       :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
       :site => ENV.fetch('SITE') { 'foi' },
+      :cpus => ENV.fetch('CPUS') { '1' },
       :rails_env => ENV.fetch('RAILS_ENV') { 'development' }
     }
 
