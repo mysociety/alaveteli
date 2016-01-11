@@ -17,6 +17,7 @@ NAME=!!(*= $site *)!!
 SITE_HOME=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!
 DESC="Alaveteli app server"
 USER=!!(*= $user *)!!
+CPUS=!!(*= $cpus *)!!
 RAILS_ENV=!!(*= $rails_env *)!!
 
 set -e
@@ -38,6 +39,7 @@ start_daemon() {
     --group="$USER" \
     --address=127.0.0.1 \
     --daemonize \
+    --servers="$CPUS" \
     --quiet \
     start || true
   echo "$NAME."
@@ -45,7 +47,7 @@ start_daemon() {
 
 stop_daemon() {
   echo -n "Stopping $DESC: "
-  cd "$SITE_HOME" && bundle exec thin --quiet stop || true
+  cd "$SITE_HOME" && bundle exec thin --quiet --servers="$CPUS" stop || true
   echo "$NAME."
 }
 
