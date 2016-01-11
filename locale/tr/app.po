@@ -8,13 +8,14 @@
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baris Altintas <info@platform24.org>, 2015-2016
+# louisecrow <louise@mysociety.org>, 2016
 # Pinar Dag <pinar.dag@dagmedya.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2016-01-06 22:51+0000\n"
+"PO-Revision-Date: 2016-01-08 10:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
@@ -182,10 +183,10 @@ msgid "<strong><code>status:</code></strong> to select based on the status or hi
 msgstr "<strong><code>durum:</code></strong> başvurunun durumu veya geçmiş durumlarına göre seçim yapmak için, aşağıdaki <a href=\"{{statuses_url}}\">durum tablosu</a>na bakın."
 
 msgid "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
-msgstr "></strong> belirli bir etiketle ilişkliendirilmiş tüm kamu kuruluşlarını bulmak için  <strong><code>tag:charity</code>  birden fazla etiket ve etiket değerleri içerebilir, \\n  Ör <code>tag:openlylocal VE  tag:financial_transaction:335633</code>. Her etiket zaten var olabilir. Var olanları istiyorsanız mutlaka <code>VE</code> sözcüğünü eklemelisiniz."
+msgstr " belirli bir etiketle ilişkliendirilmiş tüm kamu kuruluşlarını bulmak için  <strong><code>tag:charity</code></strong>  birden fazla etiket ve etiket değerleri içerebilir, \\n  Ör <code>tag:openlylocal VE  tag:financial_transaction:335633</code>. Her etiket zaten var olabilir. Var olanları istiyorsanız mutlaka <code>VE</code> sözcüğünü eklemelisiniz."
 
 msgid "<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
-msgstr "<strong><code>variety:</code></strong> arayacağınız şeyin türünü seçmek için aşağıdaki  <a href=\"{{varieties_url}}\"> türler tablosuna <a>bakın."
+msgstr "<strong><code>variety:</code></strong> arayacağınız şeyin türünü seçmek için aşağıdaki  <a href=\"{{varieties_url}}\"> türler tablosuna </a>bakın."
 
 msgid "<strong>Advice</strong> on how to get a response that will satisfy the requester. </li>"
 msgstr "Başvuranın istediğ bilgi hakkında tatmin edici bir cevap alması için<strong> öneride</strong> bulunun. "

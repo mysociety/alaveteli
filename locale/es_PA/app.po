@@ -6,6 +6,7 @@
 # Translators:
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # gaba <gabelula@gmail.com>, 2012,2014
+# Gareth Rees <gareth@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2014
 # skenaja <alex@alexskene.com>, 2011
 # vdiaz <vdiaz@antai.gob.pa>, 2014-2015
@@ -17,8 +18,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2016-01-06 22:46+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2016-01-08 16:09+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/language/es_PA/)\n"
 "Language: es_PA\n"
 "MIME-Version: 1.0\n"
@@ -2911,7 +2912,7 @@ msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Esta persona no ha realizado solicitudes de acceso a la información utilizando esta plataforma."
 
 msgid "This person's annotations"
-msgstr "Sus comentarios"
+msgstr "Comentarios de esta persona"
 
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
