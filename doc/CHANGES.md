@@ -1,3 +1,13 @@
+# Version 0.23.1.0
+
+## Highlighted Features
+
+* Remove blocks of spaces in translation strings (Louise Crow).
+
+## Upgrade Notes
+
+* There should be no action necessary.
+
 # Version 0.23
 
 ## Highlighted Features

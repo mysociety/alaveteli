@@ -47,8 +47,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 14:39+0000\n"
-"PO-Revision-Date: 2015-11-09 14:44+0000\n"
+"POT-Creation-Date: 2016-01-06 10:01+0000\n"
+"PO-Revision-Date: 2016-01-06 22:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/mysociety/alaveteli/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -183,21 +183,6 @@ msgstr[1] ""
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Tudo certo! Muito obrigado por sua ajuda.</p><p>Existem <a href=\"{{helpus_url}}\">mais coisas que você pode fazer</a> para ajudar o {{site_name}}.</p>"
 
-msgid "<p>Thank you! Here are some ideas on what to do next:</p><ul><li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li><li>If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>.</li><li>We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question.</li></ul>"
-msgstr "<p>Obrigado! Estas são algumas ideias de próximos passos:</p>\\n            <ul>\\n            <li>Para enviar seu pedido de informação a outro órgão público, primeiro copie o texto de seu pedido abaixo, em seguida <a href=\"{{find_authority_url}}\">localize outra autoridade</a>.</li>\\n            <li>Se você deseja recorrer à resposta do órgão público, veja aqui\\n            <a href=\"{{complain_url}}\">como proceder</a>.\\n            </li>\\n            <li>Nós temos<a href=\"{{other_means_url}}\">sugestões</a>\\n            sobre outras maneiras para conseguir uma resposta satisfatória ao seu pedido de informação.\\n            </li>\\n            </ul>"
-
-msgid "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr "<p>Obrigado! Esperamos que você não tenha que esperar muito.</p><p> Conforme a Lei de Acesso à Informação, você deverá receber uma resposta em no máximo 20 dias, ou seja, antes de <strong>{{date_response_required_by}}</strong>.</p>"
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr "<p>Obrigado! Esperamos que você não tenha que esperar muito.</p><p> Conforme a Lei de Acesso à Informação, você deverá receber uma resposta em no máximo 20 dias, ou seja, antes de <strong>{{date_response_required_by}}</strong>.</p>"
-
-msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>"
-msgstr "<p>Obrigado! Esperamos que você não tenha que esperar muito.</p><p> Conforme a Lei de Acesso à Informação, você deverá receber uma resposta em no máximo <strong>{{date_response_required_by}}</strong> dias, ou ser informado dentro desse período de que serão necessários no máximo mais 10 dias em (<a href=\"{{review_url}}\">detalhes</a>).</p>"
-
-msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
-msgstr "<p>Obrigado! Sua resposta está bastante atrasada, por mais de {{very_late_number_of_days}} dias. A maioria dos pedidos deve ser respondido dentro de {{late_number_of_days}} dias. Você pode reclamar disso, veja abaixo.</p>"
-
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
 "<p>Obrigado por mudar o texto sobre você em seu perfil.</p>\n"
@@ -212,18 +197,6 @@ msgid "<p>We recommend that you edit your request and remove the email address. 
 msgstr ""
 "<p>Recomendamos que você edite seu pedido e remova o endereço de e-mail\n"
 "                Se deixá-lo, o endereço de e-mail será enviado à autoridade, mas não será publicado no site.</p>"
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p>"
-msgstr ""
-
-msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
-msgstr "<p>Nós estamos felizes que você tenha conseguido toda a informação que procurava. Se você for escrever sobre ou fazer uso dessa informação, por favor, volte depois e deixe um comentário contando o que você fez.</p><p>Se você achou o {{site_name}} útil, divulgue para seus contatos, exerça a cidadania!</p>"
-
-msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr "<p>Nós estamos felizes que você tenha conseguido toda a informação que procurava. Se você for escrever sobre ou fazer uso dessa informação, por favor, volte depois e deixe um comentário contando o que você fez.</p><p>Se você achou o {{site_name}} útil, divulgue para seus contatos, exerça a cidadania!</p>"
-
-msgid "<p>We're glad you got some of the information that you wanted.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr ""
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>Você não precisa incluir seu e-mail no pedido de informação para receber uma resposta (<a href=\"{{url}}\">detalhes</a>).</p>"
@@ -562,6 +535,12 @@ msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "De acordo com a lei, em qualquer circunstância, {{public_body_link}} já deveria ter respondido seu pedido."
+
+msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
+msgstr "Conforme a Lei de Acesso à Informação, você deverá receber uma resposta em no máximo 20 dias, ou seja, antes de <strong>{{date_response_required_by}}</strong>."
+
+msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr "Conforme a Lei de Acesso à Informação, você deverá receber uma resposta em no máximo 20 dias, ou seja, antes de <strong>{{date_response_required_by}}</strong>."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "De acordo com a lei, {{public_body_link}} deveria ter respondido <strong>prontamente</strong> seu pedido e"
@@ -1258,6 +1237,9 @@ msgstr "Se você puder, digitalizar ou fotografe a resposta, e <strong>envie-nos
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
 msgstr "Conheça a Lei de Acesso à Informação Pública: http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm"
 
+msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr "</p><p>Se você achou o {{site_name}} útil, divulgue para seus contatos, exerça a cidadania!"
+
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr "Se você recebeu o e-mail de confirmação <strong>há mais de seis meses,</strong> então este link não funciona mais. Tente começar novamente."
 
@@ -1272,6 +1254,12 @@ msgstr "Se você responder a esta mensagem, ela irá diretamente para {{user_nam
 
 msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Se você usar seu e-mail por algum site da web ou se tiver filtros para mensagens indesejadas, verifique também suas pastas de spam. Às vezes, nossas mensagens podem ser marcadas dessa forma pelo seu provedor."
+
+msgid "If you want to try and get the rest of the information, here's what to do now."
+msgstr ""
+
+msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
+msgstr "Se você deseja recorrer à resposta do órgão público, veja aqui <a href=\"{{complain_url}}\">como proceder</a>."
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr "Se você gostaria de nos levantar esta proibição, você pode <a href=\"/help/contact\">entrar em contato conosco</a>, dando as razões.\\n"
@@ -2621,8 +2609,17 @@ msgstr "Obrigado por atualizar esta solicitação!"
 msgid "Thank you for updating your profile photo"
 msgstr "Obrigado por atualizar sua foto do perfil"
 
-msgid "Thank you! We'll look into what happened and try and fix it up."
-msgstr ""
+msgid "Thank you! Here are some ideas on what to do next:"
+msgstr "Obrigado! Estas são algumas ideias de próximos passos:"
+
+msgid "Thank you! Hope you don't have to wait much longer."
+msgstr "Obrigado! Esperamos que você não tenha que esperar muito."
+
+msgid "Thank you! Hopefully your wait isn't too long."
+msgstr "Obrigado! Esperamos que você não tenha que esperar muito."
+
+msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
+msgstr "Obrigado! Sua resposta está bastante atrasada, por mais de {{very_late_number_of_days}} dias. A maioria dos pedidos deve ser respondido dentro de {{late_number_of_days}} dias. Você pode reclamar disso, veja abaixo."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr "Obrigado por ajudar, seu trabalho tornará mais fácil para todo mundo achar respostas com sucesso, e talvez até mesmo permitir que nos façamos tabelas classificativas..."
@@ -3118,6 +3115,9 @@ msgstr "Enviar uma mensagem para "
 msgid "To send your FOI request"
 msgstr "Enviar seu pedido de acesso a informação"
 
+msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
+msgstr "Para enviar seu pedido de informação a outro órgão público, primeiro copie o texto de seu pedido abaixo, em seguida <a href=\"{{find_authority_url}}\">localize outra autoridade</a>."
+
 msgid "To update the status of this FOI request"
 msgstr "Para atualizar a situação desse pedido de informação"
 
@@ -3402,6 +3402,9 @@ msgstr "Nós não temos um email do {{public_body_name}} para fazer pedidos de a
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Nós ainda não sabemos se esta última resposta contém ou não a informação que foi pedida. Se você for {{user_link}} por favor <a href=\"{{url}}\">acesse</a> e deixe todos saberem."
 
+msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
+msgstr "Nós temos<a href=\"{{other_means_url}}\">sugestões</a> sobre outras maneiras para conseguir uma resposta satisfatória ao seu pedido de informação."
+
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
 msgstr ""
 
@@ -3416,6 +3419,15 @@ msgstr "Nós não iremos revelar o seu endereço de email para ninguém a menos 
 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
+
+msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
+msgstr "Nós estamos felizes que você tenha conseguido toda a informação que procurava. Se você for escrever sobre ou fazer uso dessa informação, por favor, volte depois e deixe um comentário contando o que você fez."
+
+msgid "We're glad you got some of the information that you wanted."
+msgstr "Nós estamos felizes que você tenha conseguido toda a informação que procurava."
+
+msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
+msgstr "Nós estamos felizes que você tenha conseguido toda a informação que procurava. Se você achou o {{site_name}} útil, divulgue para seus contatos, exerça a cidadania!"
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
@@ -3654,6 +3666,9 @@ msgstr ""
 
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Você já submeteu uma resposta igual para este pedido."
+
+msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
+msgstr "Conforme a Lei de Acesso à Informação, você deverá receber uma resposta em no máximo <strong>{{date_response_required_by}}</strong> dias, ou ser informado dentro desse período de que serão necessários no máximo mais 10 dias em (<a href=\"{{review_url}}\">detalhes</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr "Você deve receber uma cópia do pedido pro email. Você pode responder \\n simplesmente <strong>respondendo</strong> ao email. para sua conveniência, aqui está o endereço:"

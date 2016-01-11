@@ -1,0 +1,8 @@
+<p>
+  <%= _("Thank you! Your request is long overdue, by more than " \
+      "{{very_late_number_of_days}} working days. Most requests should " \
+      "be answered within {{late_number_of_days}} working days. You " \
+      "might like to complain about this, see below.",
+      :very_late_number_of_days => AlaveteliConfiguration::reply_very_late_after_days,
+      :late_number_of_days => AlaveteliConfiguration::reply_late_after_days) %>
+</p>

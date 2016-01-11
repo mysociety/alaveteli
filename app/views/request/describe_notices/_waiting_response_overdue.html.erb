@@ -1,0 +1,8 @@
+<p>
+  <%= _("Thank you! Hope you don't have to wait much longer.") %>
+</p>
+<p>
+  <%= _("By law, you should have got a response promptly, and normally " \
+      "before the end of <strong>{{date_response_required_by}}</strong>.",
+      :date_response_required_by => simple_date(info_request.date_response_required_by)) %>
+</p>
