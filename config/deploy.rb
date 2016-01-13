@@ -76,7 +76,8 @@ namespace :deploy do
   end
 end
 
-before 'deploy:assets:precompile', 'deploy:symlink_configuration'
+after 'deploy:assets:symlink', 'deploy:symlink_configuration'
+
 before 'deploy:assets:precompile', 'themes:install'
 
 # Put up a maintenance notice if doing a migration which could take a while
