@@ -20,6 +20,7 @@ PIDFILE=$PIDDIR/!!(*= $daemon_name *)!!.pid
 LOGDIR=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log
 LOGFILE=$LOGDIR/!!(*= $daemon_name *)!!.log
 DUSER=!!(*= $user *)!!
+SITE_HOME=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!
 # Set RAILS_ENV - not needed if using config/rails_env.rb
 # RAILS_ENV=your_rails_env
 # export RAILS_ENV
@@ -35,13 +36,13 @@ export PIDFILE LOGFILE
 quietly_start_daemon() {
     mkdir -p {$LOGDIR,$PIDDIR}
     chown $DUSER:$DUSER {$LOGDIR,$PIDDIR}
-    /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
+    /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --chdir "$SITE_HOME" --startas "$DAEMON" -- $DAEMON_ARGS
 }
 
 start_daemon() {
     mkdir -p {$LOGDIR,$PIDDIR}
     chown $DUSER:$DUSER {$LOGDIR,$PIDDIR}
-    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
+    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --chdir "$SITE_HOME" --startas "$DAEMON" -- $DAEMON_ARGS
 }
 
 stop_daemon() {
