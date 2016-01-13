@@ -401,6 +401,7 @@ Run the following to get the server running:
       --environment=production \
       --user=alaveteli \
       --group=alaveteli \
+      --servers=1 \
       start
 
 By default the server listens on all interfaces. You can restrict it to the
@@ -498,6 +499,8 @@ Start the application:
   e.g. `alaveteli`
 * `site`: a string to identify your alaveteli instance
 * `user`: the user that the software runs as
+* `cpus`: the number of CPU cores your server has - run `nproc` to find what
+  this number should be. This controls how many thin servers the daemon starts.
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
@@ -507,6 +510,7 @@ useful to you. Change the variables to suit your installation.
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
+      CPUS=1 \
       SITE=alaveteli \
       SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-thin.example > /etc/init.d/alaveteli
     popd
@@ -522,7 +526,7 @@ Start the application:
 
 One of the cron jobs refers to a script at `/etc/init.d/alaveteli-alert-tracks`. This
 is an init script, which can be generated from the
-`config/alert-tracks-debian.example` template. This script sends out emails to users subscribed to updates from the site – known as [`tracks`]({{ page.baseurl }}/docs/installing/email/#tracks-mail) – when there is something new matching their interests.
+`config/alert-tracks-debian.example` template. This script sends out emails to users subscribed to updates from the site – known as [`tracks`]({{ page.baseurl }}/docs/installing/email/#tracks-mail) – when there is something new matching their interests
 
 **Template Variables:**
 
@@ -636,7 +640,7 @@ occurrences of `www.example.com` to your URL
       /etc/apache2/sites-available/alaveteli
 
 Disable the default site and enable the `alaveteli` VirtualHost
-  
+
     a2dissite default
     a2ensite alaveteli
 
@@ -728,6 +732,21 @@ production server**. Replace `www.example.com` with your domain name.
       -subj /CN=www.example.com
     chmod 640 /etc/ssl/certs/www.example.com.cert
 
+If you have configured thin to use more than one server, you will need to edit the alaveteli upstream
+directive in your <code>/etc/nginx/sites-enabled/alaveteli_https</code> file so
+that it has a `server` line for each instance you are running (otherwise nginx
+will only know how to send requests to the first server process). Each address
+line needs to have a unique port number - start at `3000` and add `1` for each
+new process. For example if you started your cluster with 4 servers, the
+upstream directive should look like this:
+
+    upstream alaveteli {
+        server 127.0.0.1:3000;
+        server 127.0.0.1:3001;
+        server 127.0.0.1:3002;
+        server 127.0.0.1:3003;
+    }
+
 Check the configuration and fix any issues
 
     service nginx configtest
@@ -754,6 +773,21 @@ Disable the default site and enable the `alaveteli` server
     rm /etc/nginx/sites-enabled/default
     ln -s /etc/nginx/sites-available/alaveteli \
       /etc/nginx/sites-enabled/alaveteli
+
+If you have configured thin to use more than one server, you will need to edit the alaveteli upstream
+directive in your <code>/etc/nginx/sites-enabled/alaveteli</code> file so
+that it has a `server` line for each instance you are running (otherwise nginx
+will only know how to send requests to the first server process). Each address
+line needs to have a unique port number - start at `3000` and add `1` for each
+new process. For example if you started your cluster with 4 servers, the
+upstream directive should look like this:
+
+    upstream alaveteli {
+        server 127.0.0.1:3000;
+        server 127.0.0.1:3001;
+        server 127.0.0.1:3002;
+        server 127.0.0.1:3003;
+    }
 
 Check the configuration and fix any issues
 
