@@ -19,6 +19,20 @@ set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
 server configuration['server'], :app, :web, :db, :primary => true
 
+set(:rbenv_ruby_version) do
+  command = "cat #{shared_path}/rbenv-version 2>/dev/null || true"
+  result = capture(command).strip
+  result.empty? ? nil : result
+end
+
+if rbenv_ruby_version
+  set(:rbenv_path) { capture("echo $HOME/.rbenv").strip }
+  set(:rbenv_shims_path) { File.join(rbenv_path, 'shims') }
+  set :default_environment, {
+    'PATH' => [rbenv_shims_path, '$PATH'].join(':')
+  }
+end
+
 namespace :themes do
   task :install do
     run "cd #{latest_release} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
@@ -61,6 +75,10 @@ namespace :deploy do
       "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
       "#{release_path}/lib/themes" => "#{shared_path}/themes",
     }
+
+    if rbenv_ruby_version
+      links["#{release_path}/.rbenv-version"] = "#{shared_path}/rbenv-version"
+    end
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
     run links.map {|a| "ln -sf #{a.last} #{a.first}"}.join(";")
