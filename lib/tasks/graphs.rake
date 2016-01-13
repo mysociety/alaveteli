@@ -4,6 +4,10 @@ require 'gnuplot'
 
 namespace :graphs do
 
+  # return the results from the SQL statement in the format:
+  #   [[row1_column1, row2_column1], [row1_column2, row2, column2]]
+  # or nil if there are no results found
+  # errors not caught so will be sent to the command line
   def select_as_columns(sql)
     hash_array = User.connection.select_all(sql)
     return if hash_array.empty?
@@ -18,6 +22,9 @@ namespace :graphs do
     columns
   end
 
+  # accepts column format data (see above) and a hash of gnuplot options
+  # for outputting the graph
+  # returns the resulting Gnuplot::DataSet 
   def create_dataset(data, options)
     default = {:using => "1:2"} #in most cases, we just want the first 2 columns
     options = default.merge(options)
@@ -26,6 +33,19 @@ namespace :graphs do
         ds.send("#{option}=", options[option])
        end
     end
+  end
+
+  # helper method to append a new dataset to the current graph by passing in 
+  # a sql statement
+  def plot_data_from_sql(sql, options, graph_datasets)
+    data = select_as_columns(sql)
+    graph_datasets << create_dataset(data, options) if data
+  end
+
+  # helper method to append a new dataset to the current graph by passing in 
+  # prefetched column formatted data (useful where data is reused)
+  def plot_data_from_columns(columns, options, graph_datasets)
+    graph_datasets << create_dataset(columns, options) if columns
   end
 
   task :generate_user_use_graph => :environment do
@@ -85,26 +105,26 @@ namespace :graphs do
         # nothing to do, bail
         abort "warning: no user data to graph, skipping task" unless all_users
 
-        plot.data << create_dataset(all_users, options)
+        plot_data_from_columns(all_users, options, plot.data)
 
         # plot confirmed users
         options[:title] = "... and since confirmed their email"
         options[:linecolor] = 4
-        plot.data << create_dataset(select_as_columns(confirmed_users), options)
+        plot_data_from_sql(confirmed_users, options, plot.data)
 
         # plot active users
         options[:with] = "lines"
         options[:title] = "... who made an FOI request"
         options[:linecolor] = 6
         options.delete(:linewidth)
-        plot.data << create_dataset(select_as_columns(active_users), options)
+        plot_data_from_sql(active_users, options, plot.data)
 
         # plot cumulative user totals
         options[:title] = "cumulative total number of users"
         options[:axes] = "x1y2"
         options[:linecolor] = 2
         options[:using] = "1:3"
-        plot.data << create_dataset(all_users, options)
+        plot_data_from_columns(all_users, options, plot.data)
       end
     end
   end
@@ -168,7 +188,7 @@ namespace :graphs do
         # nothing to do, bail
         abort "warning: no request data to graph, skipping task" unless all_requests
 
-        plot.data << create_dataset(data, options)
+        plot_data_from_columns(all_requests, options, plot.data)
 
         # start plotting the data from largest to smallest so
         # that the shorter bars overlay the taller bars
@@ -176,52 +196,51 @@ namespace :graphs do
         sql = assemble_sql("described_state NOT IN ('waiting_response')")
         options[:title] = "waiting_clarification"
         options[:linecolor] = 3
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification')")
         options[:title] = "not_held"
         options[:linecolor] = 9
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held')")
         options[:title] = "rejected"
         options[:linecolor] = 6
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected')")
         options[:title] = "successful"
         options[:linecolor] = 2
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful')")
         options[:title] = "partially_successful"
         options[:linecolor] = 10
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful')")
         options[:title] = "requires_admin"
-        options[:linecolor] = 5
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin')")
         options[:title] = "gone_postal"
         options[:linecolor] = 7
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal')")
         options[:title] = "internal_review"
         options[:linecolor] = 4
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal', 'internal_review')")
         options[:title] = "error_message"
         options[:linecolor] = 12
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal', 'internal_review', 'error_message')")
         options[:title] = "user_withdrawn"
         options[:linecolor] = 13
-        plot.data << create_dataset(select_as_columns(sql), options)
+        plot_data_from_sql(sql, options, plot.data)
 
         # plot the cumulative counts
         options[:with] = "lines"
@@ -230,7 +249,7 @@ namespace :graphs do
         options[:using] = "1:3"
         options[:axes] = "x1y2"
         options.delete(:linewidth)
-        plot.data << create_dataset(all_requests, options)
+        plot_data_from_columns(all_requests, options, plot.data)
       end
     end
   end
