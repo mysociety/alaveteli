@@ -10,7 +10,7 @@ class DatabaseCollation
   attr_reader :connection
 
   # Public: Does the connected database support collation in the given locale?
-  # Delegates to an instance configured with the DEFAULT_CONNECTION. See
+  # Delegates to an instance configured with the DEFAULT_CONNECTION. See
   # DatabaseCollation#supports? for more documentation.
   def self.supports?(locale)
     instance.supports?(locale)
