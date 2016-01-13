@@ -19,6 +19,14 @@ set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
 server configuration['server'], :app, :web, :db, :primary => true
 
+if configuration['rbenv_ruby_version']
+  require 'capistrano-rbenv'
+  set :rbenv_ruby_version, configuration['rbenv_ruby_version']
+  set :rbenv_install_dependencies, false
+  set :rbenv_install_bundler, false
+  set :rbenv_plugins, []
+end
+
 namespace :themes do
   task :install do
     run "cd #{latest_release} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
@@ -46,6 +54,7 @@ namespace :deploy do
   desc 'Link configuration after a code update'
   task :symlink_configuration do
     links = {
+      "#{release_path}/.rbenv-version" => "#{shared_path}/rbenv-version",
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
       "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
       "#{release_path}/config/rails_env.rb" => "#{shared_path}/rails_env.rb",
