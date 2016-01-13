@@ -2,11 +2,21 @@
 
 ## Highlighted Features
 
+* Better support for setting up a thin cluster (Liz Conlan)
 * Added onscreen instructions to the Vagrant box (Liz Conlan)
 * Better image for pages when shared on Facebook (Zarino Zappia)
 
 ## Upgrade Notes
 
+* To switch to running multiple thin servers with nginx:
+  * stop the running processes using `service alaveteli stop`
+  * regenerate your SysVinit daemon file using the instructions at:
+    [http://alaveteli.org/docs/installing/manual_install/#thin](http://alaveteli.org/docs/installing/manual_install/#thin) (but don't restart the site yet!)
+  * Edit the upstream alaveteli directive in your `/etc/nginx/sites-available/alaveteli_https`
+    (or `/etc/nginx/sites-available/alaveteli` if you are not running your site over SSL) file
+    as per [http://alaveteli.org/docs/installing/manual_install/#running-over-ssl](http://alaveteli.org/docs/installing/manual_install/#running-over-ssl) so that nginx knows how to use
+    the extra server processes
+  * restart your site with `service alaveteli start`
 * Add a 256x256 image named `logo-opengraph.png` to
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook.
