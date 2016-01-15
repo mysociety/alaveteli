@@ -19,12 +19,18 @@ set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
 server configuration['server'], :app, :web, :db, :primary => true
 
-if configuration['rbenv_ruby_version']
-  require 'capistrano-rbenv'
-  set :rbenv_ruby_version, configuration['rbenv_ruby_version']
-  set :rbenv_install_dependencies, false
-  set :rbenv_install_bundler, false
-  set :rbenv_plugins, []
+set(:rbenv_ruby_version) do
+  command = "cat #{shared_path}/rbenv-version 2>/dev/null || true"
+  result = capture(command).strip
+  result.empty? ? nil : result
+end
+
+if rbenv_ruby_version
+  set(:rbenv_path) { capture("echo $HOME/.rbenv").strip }
+  set(:rbenv_shims_path) { File.join(rbenv_path, 'shims') }
+  set :default_environment, {
+    'PATH' => [rbenv_shims_path, '$PATH'].join(':')
+  }
 end
 
 namespace :themes do
@@ -54,7 +60,6 @@ namespace :deploy do
   desc 'Link configuration after a code update'
   task :symlink_configuration do
     links = {
-      "#{release_path}/.rbenv-version" => "#{shared_path}/rbenv-version",
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
       "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
       "#{release_path}/config/rails_env.rb" => "#{shared_path}/rails_env.rb",
@@ -70,6 +75,10 @@ namespace :deploy do
       "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
       "#{release_path}/lib/themes" => "#{shared_path}/themes",
     }
+
+    if rbenv_ruby_version
+      links["#{release_path}/.rbenv-version"] = "#{shared_path}/rbenv-version"
+    end
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
     run links.map {|a| "ln -sf #{a.last} #{a.first}"}.join(";")

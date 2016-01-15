@@ -84,7 +84,6 @@ end
 
 group :development do
   gem 'capistrano', '~> 2.15.4'
-  gem 'capistrano-rbenv', '~> 1.0'
   gem 'mailcatcher', '~> 0.5.11'
   gem 'quiet_assets', '~> 1.0.2'
   gem 'rdoc', '~> 3.12.2'
