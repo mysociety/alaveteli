@@ -83,7 +83,7 @@ module Alaveteli
 
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
-    config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+    config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_alaveteli_cookie_session', :path => "/", :httponly => true
 
     # Strip non-UTF-8 request parameters
     config.middleware.insert 0, Rack::UTF8Sanitizer
