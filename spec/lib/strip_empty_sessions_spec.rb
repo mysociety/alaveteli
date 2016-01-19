@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
-describe WhatDoTheyKnow::StripEmptySessions do
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+describe StripEmptySessions do
 
   def make_response(session_data, response_headers)
     app = lambda do |env|
       env['rack.session'] = session_data
       return [200, response_headers, ['content']]
     end
-    strip_empty_sessions = WhatDoTheyKnow::StripEmptySessions
+    strip_empty_sessions = StripEmptySessions
     app = strip_empty_sessions.new(app, {:key => 'mykey', :path => '', :httponly => true})
     response = Rack::MockRequest.new(app).get('/', 'HTTP_ACCEPT' => 'text/html')
   end
