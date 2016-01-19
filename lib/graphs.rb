@@ -23,6 +23,8 @@ module Graphs
   }.freeze
   COLORS = COLOURS
 
+  GraphParams = Struct.new(:sql, :options)
+
   # return the results from the SQL statement in the format:
   #   [[row1_column1, row2_column1], [row1_column2, row2, column2]]
   # or nil if there are no results found
@@ -65,5 +67,11 @@ module Graphs
   # prefetched column formatted data (useful where data is reused)
   def plot_data_from_columns(columns, options, graph_datasets)
     graph_datasets << create_dataset(columns, options) if columns
+  end
+
+  def plot_datasets(graph_param_sets, graph_datasets)
+    graph_param_sets.each do |params|
+      plot_data_from_sql(params.sql, params.options, graph_datasets)
+    end
   end
 end

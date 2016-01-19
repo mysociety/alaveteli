@@ -143,4 +143,43 @@ describe Graphs do
 
   end
 
+  describe "when asked to plot multiple datasets" do
+    include Graphs
+
+    let(:graph_def_1) do
+      Graphs::GraphParams.new(
+        "SELECT DATE(created_at), COUNT(*) FROM users GROUP BY DATE(created_at)",
+        { :title => "test 1",
+          :with => "lines",
+          :linecolor => Graphs::COLOURS[:mauve] }
+      )
+    end
+
+    let(:graph_def_2) do
+      Graphs::GraphParams.new(
+        "SELECT DATE(created_at), COUNT(*) FROM info_requests GROUP BY DATE(created_at)",
+        { :title => "test 2",
+          :with => "lines",
+          :linecolor => Graphs::COLOURS[:red] }
+      )
+     end
+
+    it "passes the sql and options for a set of params to plot_data_from_sql" do
+      expect(dummy_class).to receive(:plot_data_from_sql).
+        with(
+          graph_def_1.sql,
+          graph_def_1.options,
+          []
+        )
+      dummy_class.plot_datasets([graph_def_1], [])
+    end
+
+    it "calls plot_data_from_sql for each set of data supplied" do
+      graph_param_sets = [graph_def_1, graph_def_2]
+      expect(dummy_class).to receive(:plot_data_from_sql).exactly(2).times
+      dummy_class.plot_datasets(graph_param_sets, [])
+    end
+
+  end
+
 end

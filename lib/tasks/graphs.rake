@@ -54,9 +54,30 @@ namespace :graphs do
         # start plotting the data from largest to smallest so
         # that the shorter bars overlay the taller bars
 
+        state_list = [ {
+                          :title => "users each day ... who registered",
+                          :colour => :lightblue
+                        },
+                        {
+                          :title => "... and since confirmed their email",
+                          :with => "impulses",
+                          :linewidth => 15,
+                          :colour => :mauve,
+                          :sql => confirmed_users
+                        },
+                        {
+                          :title => "...who made an FOI request",
+                          :with => "lines",
+                          :linewidth => 1,
+                          :colour => :red,
+                          :sql => active_users
+                        }
+                      ]
+
         # plot all users
-        options = {:with => "impulses", :linecolor => COLOURS[:lightblue],
-                   :linewidth => 15, :title => "users each day ... who registered"}
+        options = {:with => "impulses",
+                   :linecolor => COLOURS[state_list[0][:colour]],
+                   :linewidth => 15, :title => state_list[0][:title]}
         all_users = select_as_columns(aggregate_signups)
 
         # nothing to do, bail
@@ -64,23 +85,30 @@ namespace :graphs do
 
         plot_data_from_columns(all_users, options, plot.data)
 
-        # plot confirmed users
-        options[:title] = "... and since confirmed their email"
-        options[:linecolor] = COLOURS[:mauve]
-        plot_data_from_sql(confirmed_users, options, plot.data)
+        graph_param_sets = []
+        state_list.each_with_index do |state_info, index|
+          if index > 0
+            graph_param_sets << GraphParams.new(
+              state_info[:sql],
+              options.merge({
+                :title => state_info[:title],
+                :linecolor => COLOURS[state_info[:colour]],
+                :with => state_info[:with],
+                :linewidth => state_info[:linewidth]})
+            )
+          end
+        end
 
-        # plot active users
-        options[:with] = "lines"
-        options[:title] = "... who made an FOI request"
-        options[:linecolor] = COLOURS[:red]
-        options.delete(:linewidth)
-        plot_data_from_sql(active_users, options, plot.data)
+        plot_datasets(graph_param_sets, plot.data)
 
         # plot cumulative user totals
-        options[:title] = "cumulative total number of users"
-        options[:axes] = "x1y2"
-        options[:linecolor] = COLOURS[:lightgreen]
-        options[:using] = "1:3"
+        options.merge!({
+          :title => "cumulative total number of users",
+          :axes => "x1y2",
+          :with => "lines",
+          :linewidth => 1,
+          :linecolor => COLOURS[:lightgreen],
+          :using => "1:3"})
         plot_data_from_columns(all_users, options, plot.data)
       end
     end
@@ -97,6 +125,10 @@ namespace :graphs do
               "AND PROMINENCE != 'backpage' " \
               "GROUP BY DATE(created_at)" \
               "ORDER BY DATE(created_at)"
+    end
+
+    def state_exclusion_sql(states)
+      "described_state NOT IN ('#{states.join("','")}')"
     end
 
     Gnuplot.open(false) do |gp|
@@ -127,8 +159,21 @@ namespace :graphs do
 
         # get the data, plot the graph
 
-        options = {:with => "impulses", :linecolor => COLOURS[:darkblue],
-                   :linewidth => 4, :title => "awaiting_response"}
+        state_list = [ {:state => 'waiting_response', :colour => :darkblue},
+                   {:state => 'waiting_clarification', :colour => :lightblue},
+                   {:state => 'not_held',  :colour => :yellow},
+                   {:state => 'rejected', :colour =>  :red},
+                   {:state => 'successful',  :colour => :lightgreen},
+                   {:state => 'partially_successful',  :colour => :darkgreen},
+                   {:state => 'requires_admin', :colour =>  :cyan},
+                   {:state => 'gone_postal',  :colour => :darkyellow},
+                   {:state => 'internal_review', :colour =>  :mauve},
+                   {:state => 'error_message', :colour =>  :redbrown},
+                   {:state => 'user_withdrawn',  :colour => :pink} ]
+
+        options = {:with => "impulses",
+                   :linecolor => COLOURS[state_list[0][:colour]],
+                   :linewidth => 4, :title => state_list[0][:state]}
 
         # here be database-specific dragons...
         # this uses a window function which is not supported by MySQL, but
@@ -145,68 +190,36 @@ namespace :graphs do
         # nothing to do, bail
         abort "warning: no request data to graph, skipping task" unless all_requests
 
-        plot_data_from_columns(all_requests, options, plot.data)
-
         # start plotting the data from largest to smallest so
         # that the shorter bars overlay the taller bars
 
-        sql = assemble_sql("described_state NOT IN ('waiting_response')")
-        options[:title] = "waiting_clarification"
-        options[:linecolor] = COLOURS[:lightblue]
-        plot_data_from_sql(sql, options, plot.data)
+        plot_data_from_columns(all_requests, options, plot.data)
 
-        sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification')")
-        options[:title] = "not_held"
-        options[:linecolor] = COLOURS[:yellow]
-        plot_data_from_sql(sql, options, plot.data)
+        graph_param_sets = []
+        previous_states = []
+        state_list.each_with_index do |state_info, index|
+          if index > 0
+            graph_param_sets << GraphParams.new(
+              assemble_sql(state_exclusion_sql(previous_states)),
+              options.merge({
+                :title => state_info[:state],
+                :linecolor => COLOURS[state_info[:colour]]})
+            )
+          end
+          previous_states << state_list[index][:state]
+        end
 
-        sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held')")
-        options[:title] = "rejected"
-        options[:linecolor] = COLOURS[:red]
-        plot_data_from_sql(sql, options, plot.data)
-
-        sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected')")
-        options[:title] = "successful"
-        options[:linecolor] = COLOURS[:lightgreen]
-        plot_data_from_sql(sql, options, plot.data)
-
-        sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful')")
-        options[:title] = "partially_successful"
-        options[:linecolor] = COLOURS[:darkgreen]
-        plot_data_from_sql(sql, options, plot.data)
-
-        sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful')")
-        options[:title] = "requires_admin"
-        options[:linecolor] = COLOURS[:cyan]
-        plot_data_from_sql(sql, options, plot.data)
-
-        sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin')")
-        options[:title] = "gone_postal"
-        options[:linecolor] = COLOURS[:darkyellow]
-        plot_data_from_sql(sql, options, plot.data)
-
-        sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal')")
-        options[:title] = "internal_review"
-        options[:linecolor] = COLOURS[:mauve]
-        plot_data_from_sql(sql, options, plot.data)
-
-        sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal', 'internal_review')")
-        options[:title] = "error_message"
-        options[:linecolor] = COLOURS[:redbrown]
-        plot_data_from_sql(sql, options, plot.data)
-
-        sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal', 'internal_review', 'error_message')")
-        options[:title] = "user_withdrawn"
-        options[:linecolor] = COLOURS[:pink]
-        plot_data_from_sql(sql, options, plot.data)
+        plot_datasets(graph_param_sets, plot.data)
 
         # plot the cumulative counts
-        options[:with] = "lines"
-        options[:linecolor] = COLOURS[:lightgreen]
-        options[:title] = "cumulative total number of requests"
-        options[:using] = "1:3"
-        options[:axes] = "x1y2"
-        options.delete(:linewidth)
+        options.merge!({
+          :with => "lines",
+          :linecolor => COLOURS[:lightgreen],
+          :linewidth => 1,
+          :title => "cumulative total number of requests",
+          :using => "1:3",
+          :axes => "x1y2",
+        })
         plot_data_from_columns(all_requests, options, plot.data)
       end
     end
