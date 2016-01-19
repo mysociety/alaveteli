@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.21'
+gem 'rails', '3.2.22'
 
 gem 'pg', '~> 0.17.1'
 
@@ -17,22 +17,21 @@ gem 'icalendar', '1.4.3'
 gem 'jquery-rails', '~> 3.1.3'
 gem 'jquery-ui-rails', '~> 4.1.0'
 gem 'json', '~> 1.8.1'
-gem 'holidays', '~> 1.2.0'
+gem 'holidays', '~> 2.2.0'
 gem 'iso_country_codes', '~> 0.6.1'
 gem 'mahoro', '~> 0.4'
 gem 'memcache-client', '~> 1.8.5'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_19]
 gem 'net-purge', '~> 0.1.0'
-gem 'nokogiri', '~> 1.6.6.4'
+gem 'nokogiri', '~> 1.6'
 gem 'open4', '~> 1.3.4'
 gem 'rack', '~> 1.4.6'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
-gem 'rake', '0.9.2.2'
 gem 'rails-i18n', '~> 0.7.3'
 gem 'recaptcha', '~> 0.4.0', :require => 'recaptcha/rails'
 gem 'rmagick', '~> 2.14.0'
 gem 'ruby-msg', '~> 1.5.0',  :git => 'https://github.com/mysociety/ruby-msg.git', :ref => 'f9f928ed76c024b4bc3a08bc1a59beb62df36663'
-gem 'secure_headers', '~> 2.0.2'
+gem 'secure_headers', '~> 2.4.0'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3'
 gem 'syslog_protocol', '~> 0.9.2'
@@ -44,8 +43,7 @@ gem 'xml-simple', '~> 1.1.2', :require => 'xmlsimple'
 gem 'zip', '~> 2.0.2'
 
 # Gems related to internationalisation
-gem 'fast_gettext', '~> 0.7.0'
-gem 'gettext_i18n_rails', '~> 0.9.4'
+gem 'gettext_i18n_rails', '~> 0.9.4' # Later versions cause error (see blame)
 gem 'gettext', '~> 2.3.9'
 gem 'globalize3', :git => 'https://github.com/globalize/globalize.git', :ref => '5fd95f2389dff1'
 gem 'locale', '~> 2.0.8'
@@ -91,5 +89,5 @@ end
 
 group :debug do
   gem 'debugger', '~> 1.6.0', :platforms => :ruby_19
-  gem 'annotate', '~> 2.5.0'
+  gem 'annotate', '~> 2.7.0'
 end
