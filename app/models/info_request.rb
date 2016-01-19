@@ -714,25 +714,28 @@ class InfoRequest < ActiveRecord::Base
     last_sent.outgoing_message.last_sent_at
   end
 
+  def late_calculator
+    @late_calculator ||= DefaultLateCalculator.new
+  end
+
   # How do we cope with case where extra info was required from the requester
   # by the public body in order to fulfill the request, as per sections 1(3)
   # and 10(6b) ? For clarifications this is covered by
   # last_event_forming_initial_request. There may be more obscure
   # things, e.g. fees, not properly covered.
   def date_response_required_by
-    Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::reply_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
+    Holiday.due_date_from(date_initial_request_last_sent_at,
+                          late_calculator.reply_late_after_days,
+                          AlaveteliConfiguration.working_or_calendar_days)
   end
 
   # This is a long stop - even with UK public interest test extensions, 40
   # days is a very long time.
   def date_very_overdue_after
-    if public_body.is_school?
-      # schools have 60 working days maximum (even over a long holiday)
-      Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::special_reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
-    else
-      # public interest test ICO guidance gives 40 working maximum
-      Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
-    end
+    # public interest test ICO guidance gives 40 working maximum
+    Holiday.due_date_from(date_initial_request_last_sent_at,
+                          late_calculator.reply_very_late_after_days,
+                          AlaveteliConfiguration.working_or_calendar_days)
   end
 
   # Where the initial request is sent to

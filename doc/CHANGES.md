@@ -4,6 +4,9 @@
 
 * Better support for setting up a thin cluster (Liz Conlan)
 * Added onscreen instructions to the Vagrant box (Liz Conlan)
+* The UK-specific `SPECIAL_REPLY_VERY_LATE_AFTER_DAYS` has been removed. See
+  https://github.com/mysociety/whatdotheyknow-theme/pull/287 for how we've
+  re-implemented this in WhatDoTheyKnow.
 * Better image for pages when shared on Facebook (Zarino Zappia)
 
 ## Upgrade Notes

@@ -239,6 +239,7 @@ class PublicBody < ActiveRecord::Base
 
   # Schools are allowed more time in holidays, so we change some wordings
   def is_school?
+    warn %q([DEPRECATION] PublicBody#is_school? will be removed in 0.25)
     has_tag?('school')
   end
 
