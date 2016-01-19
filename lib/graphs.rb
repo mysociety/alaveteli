@@ -3,6 +3,26 @@ require 'gnuplot'
 
 module Graphs
 
+  # the colour references given here are for the default palette
+  # as provided by our basic gnuplot configuration, do not rely on them
+  # if you have altered the gnuplot install
+  COLOURS = {
+    :darkblue => 8,
+    :lightblue => 3,
+    :yellow => 9,
+    :red => 6,
+    :lightgreen => 2,
+    :darkgreen => 10,
+    :cyan => 5,
+    :darkyellow => 7,
+    :mauve => 4,
+    :redbrown => 12, # previously "darky reddy brown"
+    :pink => 13,
+    :bluemauve => 11,
+    :limegreen => 14
+  }.freeze
+  COLORS = COLOURS
+
   # return the results from the SQL statement in the format:
   #   [[row1_column1, row2_column1], [row1_column2, row2, column2]]
   # or nil if there are no results found

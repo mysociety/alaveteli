@@ -55,8 +55,8 @@ namespace :graphs do
         # that the shorter bars overlay the taller bars
 
         # plot all users
-        options = {:with => "impulses", :linecolor => 3, :linewidth => 15,
-                   :title => "users each day ... who registered"}
+        options = {:with => "impulses", :linecolor => COLOURS[:lightblue],
+                   :linewidth => 15, :title => "users each day ... who registered"}
         all_users = select_as_columns(aggregate_signups)
 
         # nothing to do, bail
@@ -66,20 +66,20 @@ namespace :graphs do
 
         # plot confirmed users
         options[:title] = "... and since confirmed their email"
-        options[:linecolor] = 4
+        options[:linecolor] = COLOURS[:mauve]
         plot_data_from_sql(confirmed_users, options, plot.data)
 
         # plot active users
         options[:with] = "lines"
         options[:title] = "... who made an FOI request"
-        options[:linecolor] = 6
+        options[:linecolor] = COLOURS[:red]
         options.delete(:linewidth)
         plot_data_from_sql(active_users, options, plot.data)
 
         # plot cumulative user totals
         options[:title] = "cumulative total number of users"
         options[:axes] = "x1y2"
-        options[:linecolor] = 2
+        options[:linecolor] = COLOURS[:lightgreen]
         options[:using] = "1:3"
         plot_data_from_columns(all_users, options, plot.data)
       end
@@ -127,8 +127,8 @@ namespace :graphs do
 
         # get the data, plot the graph
 
-        options = {:with => "impulses", :linecolor => 8, :linewidth => 4,
-                   :title => "awaiting_response"}
+        options = {:with => "impulses", :linecolor => COLOURS[:darkblue],
+                   :linewidth => 4, :title => "awaiting_response"}
 
         # here be database-specific dragons...
         # this uses a window function which is not supported by MySQL, but
@@ -152,56 +152,57 @@ namespace :graphs do
 
         sql = assemble_sql("described_state NOT IN ('waiting_response')")
         options[:title] = "waiting_clarification"
-        options[:linecolor] = 3
+        options[:linecolor] = COLOURS[:lightblue]
         plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification')")
         options[:title] = "not_held"
-        options[:linecolor] = 9
+        options[:linecolor] = COLOURS[:yellow]
         plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held')")
         options[:title] = "rejected"
-        options[:linecolor] = 6
+        options[:linecolor] = COLOURS[:red]
         plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected')")
         options[:title] = "successful"
-        options[:linecolor] = 2
+        options[:linecolor] = COLOURS[:lightgreen]
         plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful')")
         options[:title] = "partially_successful"
-        options[:linecolor] = 10
+        options[:linecolor] = COLOURS[:darkgreen]
         plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful')")
         options[:title] = "requires_admin"
+        options[:linecolor] = COLOURS[:cyan]
         plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin')")
         options[:title] = "gone_postal"
-        options[:linecolor] = 7
+        options[:linecolor] = COLOURS[:darkyellow]
         plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal')")
         options[:title] = "internal_review"
-        options[:linecolor] = 4
+        options[:linecolor] = COLOURS[:mauve]
         plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal', 'internal_review')")
         options[:title] = "error_message"
-        options[:linecolor] = 12
+        options[:linecolor] = COLOURS[:redbrown]
         plot_data_from_sql(sql, options, plot.data)
 
         sql = assemble_sql("described_state NOT IN ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal', 'internal_review', 'error_message')")
         options[:title] = "user_withdrawn"
-        options[:linecolor] = 13
+        options[:linecolor] = COLOURS[:pink]
         plot_data_from_sql(sql, options, plot.data)
 
         # plot the cumulative counts
         options[:with] = "lines"
-        options[:linecolor] = 2
+        options[:linecolor] = COLOURS[:lightgreen]
         options[:title] = "cumulative total number of requests"
         options[:using] = "1:3"
         options[:axes] = "x1y2"
