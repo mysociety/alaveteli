@@ -28,7 +28,7 @@ start_daemon() {
 
 stop_daemon() {
   echo -n "Stopping $DESC: "
-  cp "$SITE_HOME/public/down.default.html" "$SITE_HOME/public/down.html"
+  ln -sf "$SITE_HOME/public/down.default.html" "$SITE_HOME/public/down.html"
   echo "$NAME."
 }
 
