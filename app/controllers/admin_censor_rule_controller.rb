@@ -11,6 +11,10 @@ class AdminCensorRuleController < AdminController
   before_filter :find_and_check_rule, :only => [:edit, :update, :destroy]
   before_filter :set_info_request_and_censor_rule_and_form_url, :only => [:new, :create]
 
+  def index
+    @censor_rules = CensorRule.all
+  end
+
   def new
   end
 

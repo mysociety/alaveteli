@@ -4,6 +4,27 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminCensorRuleController do
   before(:each) { basic_auth_login(@request) }
 
+  describe 'GET index' do
+
+    before do
+      3.times { FactoryGirl.create(:global_censor_rule) }
+      get :index
+    end
+
+    it 'returns a successful response' do
+      expect(response).to be_success
+    end
+
+    it 'collects all censor rules' do
+      expect(assigns[:censor_rules]).to eq(CensorRule.all)
+    end
+
+    it 'renders the correct template' do
+      expect(response).to render_template('index')
+    end
+
+  end
+
   describe 'GET new' do
 
     context 'request_id param' do
