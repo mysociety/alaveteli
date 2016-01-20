@@ -9,3 +9,10 @@
 <p>
   <%= link_to _('List of all authorities (CSV)'), all_public_bodies_csv_path %>
 </p>
+
+<% if can_ask_the_eu?(country_code) %>
+  <p>
+    <%= link_to _('Ask EU Authorities'), 'http://www.asktheeu.org' %>
+    <%= link_to _('?'), help_general_url(:action => 'unhappy', :anchor => 'other_means') %>
+  <p>
+<% end %>
