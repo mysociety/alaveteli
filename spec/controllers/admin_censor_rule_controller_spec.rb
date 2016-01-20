@@ -787,6 +787,30 @@ describe AdminCensorRuleController do
 
     end
 
+    context 'a CensorRule with an associated PublicBody' do
+
+      before(:each) do
+        @censor_rule = FactoryGirl.create(:public_body_censor_rule)
+      end
+
+      it 'finds the correct censor rule to destroy' do
+        delete :destroy, :id => @censor_rule.id
+        expect(assigns[:censor_rule]).to eq(@censor_rule)
+      end
+
+      it 'confirms the censor rule is destroyed in all cases' do
+        delete :destroy, :id => @censor_rule.id
+        msg = 'Censor rule was successfully destroyed.'
+        expect(flash[:notice]).to eq(msg)
+      end
+
+      it 'redirects to the associated public body' do
+        delete :destroy, :id => @censor_rule.id
+        expect(response).to redirect_to(admin_body_path(@censor_rule.public_body))
+      end
+
+    end
+
   end
 
 end
