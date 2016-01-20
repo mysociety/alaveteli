@@ -30,7 +30,7 @@
                   <b><%= name %>:</b>
                 </td>
                 <td>
-                  <% if type == 'datetime' %>
+                  <% if type == 'datetime' && value %>
                     <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
                     (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
                   <% else %>

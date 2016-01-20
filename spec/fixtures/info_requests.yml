@@ -34,6 +34,7 @@ fancy_dog_request:
     described_state: waiting_response
     awaiting_description: true
     comments_allowed: true
+    last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 50929748
 naughty_chicken_request:
     id: 103
@@ -70,6 +71,7 @@ boring_request:
     described_state: successful
     awaiting_description: false
     comments_allowed: true
+    last_public_response_at: 2007-11-13 18:00:20
     idhash: 173fd003
 another_boring_request:
     id: 106
@@ -82,6 +84,7 @@ another_boring_request:
     described_state: successful
     awaiting_description: false
     comments_allowed: true
+    last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 173fd004
 
 # A pair of identical requests (with url_title differing only in the numeric suffix)
@@ -97,6 +100,7 @@ spam_1_request:
     described_state: successful
     awaiting_description: false
     comments_allowed: false
+    last_public_response_at: 2001-01-03 01:23:45.6789100
     idhash: 173fd005
 spam_2_request:
     id: 108
@@ -120,6 +124,7 @@ external_request:
     described_state: waiting_response
     awaiting_description: false
     comments_allowed: true
+    last_public_response_at: 2001-01-03 02:23:45.6789100
     idhash: a1234567
 anonymous_external_request:
     id: 110
