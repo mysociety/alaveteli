@@ -191,6 +191,10 @@ Alaveteli::Application.routes.draw do
       post 'mass_tag_add', :on => :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
+      resources :censor_rules,
+        :controller => 'admin_censor_rule',
+        :only => [:new, :create],
+        :name_prefix => 'public_body_'
     end
   end
   ####

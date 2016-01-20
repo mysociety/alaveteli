@@ -8,6 +8,9 @@
   <% unless user.nil? %>
     <%= user_both_links(user) %>
   <% end %>
+  <% unless public_body.nil? %>
+    <%= public_body_both_links(public_body) %>
+  <% end %>
 </div>
 
 <div class="control-group">

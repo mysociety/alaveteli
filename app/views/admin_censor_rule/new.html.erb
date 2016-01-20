@@ -3,7 +3,10 @@
 <h1><%= @title %></h1>
 
 <%= form_for @censor_rule, :url => @form_url, :class => "form form-horizontal" do %>
-  <%= render :partial => 'form', :locals => { :info_request => @info_request, :user => @censor_user } %>
+  <%= render :partial => 'form',
+             :locals => { :info_request => @info_request,
+                          :user => @censor_user,
+                          :public_body => @public_body } %>
   <div class="form-actions">
     <%= submit_tag "Create", :class => "btn btn-primary" %>
   </div>

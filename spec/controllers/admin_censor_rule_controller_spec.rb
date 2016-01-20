@@ -72,6 +72,40 @@ describe AdminCensorRuleController do
 
     end
 
+    # NOTE: This should be public_body_id but the resource is mapped as :bodies
+    context 'body_id param' do
+
+      before do
+        @public_body = FactoryGirl.create(:public_body)
+        get :new, :body_id => @public_body.id, :name_prefix => 'public_body_'
+      end
+
+      it 'returns a successful response' do
+        expect(response).to be_success
+      end
+
+      it 'initializes a new censor rule' do
+        expect(assigns[:censor_rule]).to be_new_record
+      end
+
+      it 'renders the correct template' do
+        expect(response).to render_template('new')
+      end
+
+      it 'finds a public body if the public_body_id param is supplied' do
+        expect(assigns[:public_body]).to eq(@public_body)
+      end
+
+      it 'associates the public_body with the new censor rule' do
+        expect(assigns[:censor_rule].public_body).to eq(@public_body)
+      end
+
+      it 'sets the URL for the form to POST to' do
+        expect(assigns[:form_url]).to eq(admin_body_censor_rules_path(@public_body))
+      end
+
+    end
+
   end
 
   describe 'POST create' do
@@ -247,6 +281,84 @@ describe AdminCensorRuleController do
 
       end
 
+    end
+
+    context 'body_id param' do
+
+      before(:each) do
+        @censor_rule_params = FactoryGirl.build(:public_body_censor_rule).serializable_hash
+        # last_edit_editor gets set in the controller
+        @censor_rule_params.delete(:last_edit_editor)
+        @public_body = FactoryGirl.create(:public_body)
+        post :create, :body_id => @public_body.id,
+          :censor_rule => @censor_rule_params,
+          :name_prefix => 'public_body_'
+      end
+
+      it 'sets the last_edit_editor to the current admin' do
+        expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
+      end
+
+      it 'finds a public body if the body_id param is supplied' do
+        expect(assigns[:public_body]).to eq(@public_body)
+      end
+
+      it 'associates the public body with the new censor rule' do
+        expect(assigns[:censor_rule].public_body).to eq(@public_body)
+      end
+
+      it 'sets the URL for the form to POST to' do
+        expect(assigns[:form_url]).to eq(admin_body_censor_rules_path(@public_body))
+      end
+
+      context 'successfully saving the censor rule' do
+
+        it 'persists the censor rule' do
+          post :create, :censor_rule => @censor_rule_params,
+            :body_id => @public_body.id,
+            :name_prefix => 'public_body_'
+          expect(assigns[:censor_rule]).to be_persisted
+        end
+
+        it 'confirms the censor rule is created' do
+          post :create, :censor_rule => @censor_rule_params,
+            :body_id => @public_body.id,
+            :name_prefix => 'public_body_'
+          msg = 'Censor rule was successfully created.'
+          expect(flash[:notice]).to eq(msg)
+        end
+
+        it 'redirects to the associated public body' do
+          post :create, :censor_rule => @censor_rule_params,
+            :body_id => @public_body.id,
+            :name_prefix => 'public_body_'
+          expect(response).to redirect_to(
+            admin_body_path(assigns[:censor_rule].public_body)
+          )
+        end
+      end
+
+      context 'unsuccessfully saving the censor rule' do
+
+        before(:each) do
+          allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
+        end
+
+        it 'does not persist the censor rule' do
+          post :create, :censor_rule => @censor_rule_params,
+            :body_id => @public_body.id,
+            :name_prefix => 'public_body_'
+          expect(assigns[:censor_rule]).to be_new_record
+        end
+
+        it 'renders the form' do
+          post :create, :censor_rule => @censor_rule_params,
+            :body_id => @public_body.id,
+            :name_prefix => 'public_body_'
+          expect(response).to render_template('new')
+        end
+
+      end
     end
 
   end
