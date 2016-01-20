@@ -77,8 +77,8 @@ class AdminCensorRuleController < AdminController
 
   def find_and_check_rule
     @censor_rule = CensorRule.find(params[:id])
-    unless (@censor_rule.user || @censor_rule.info_request)
-      flash[:notice] = 'Only user and request censor rules can be edited'
+    unless (@censor_rule.user || @censor_rule.info_request || @censor_rule.public_body)
+      flash[:notice] = 'Only user, request and public body censor rules can be edited'
       redirect_to admin_general_index_path
     end
   end
