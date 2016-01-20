@@ -33,3 +33,8 @@
   <%= link_to "New censor rule", new_admin_user_censor_rule_path(user), :class => "btn btn-info" %>
   <span class="label label-info">for all requests by this user</span>
 <% end %>
+
+<% if defined? public_body %>
+  <%= link_to "New censor rule", new_admin_body_censor_rule_path(public_body), :class => "btn btn-info" %>
+  <span class="label label-info">for all requests to this body</span>
+<% end %>
