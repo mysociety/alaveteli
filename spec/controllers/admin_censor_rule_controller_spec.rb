@@ -117,7 +117,7 @@ describe AdminCensorRuleController do
           post :create, :censor_rule => @censor_rule_params,
             :request_id => @info_request.id,
             :name_prefix => 'request_'
-          msg = 'CensorRule was successfully created.'
+          msg = 'Censor rule was successfully created.'
           expect(flash[:notice]).to eq(msg)
         end
 
@@ -371,7 +371,7 @@ describe AdminCensorRuleController do
         it 'confirms the censor rule is updated' do
           put :update, :id => @censor_rule.id,
             :censor_rule => { :text => 'different text' }
-          msg = 'CensorRule was successfully updated.'
+          msg = 'Censor rule was successfully updated.'
           expect(flash[:notice]).to eq(msg)
         end
 
@@ -451,7 +451,7 @@ describe AdminCensorRuleController do
         it 'confirms the censor rule is updated' do
           put :update, :id => @censor_rule.id,
             :censor_rule => { :text => 'different text' }
-          msg = 'CensorRule was successfully updated.'
+          msg = 'Censor rule was successfully updated.'
           expect(flash[:notice]).to eq(msg)
         end
 
@@ -532,7 +532,7 @@ describe AdminCensorRuleController do
 
       it 'confirms the censor rule is destroyed in all cases' do
         delete :destroy, :id => @censor_rule.id
-        msg = 'CensorRule was successfully destroyed.'
+        msg = 'Censor rule was successfully destroyed.'
         expect(flash[:notice]).to eq(msg)
       end
 
@@ -562,7 +562,7 @@ describe AdminCensorRuleController do
 
       it 'confirms the censor rule is destroyed in all cases' do
         delete :destroy, :id => @censor_rule.id
-        msg = 'CensorRule was successfully destroyed.'
+        msg = 'Censor rule was successfully destroyed.'
         expect(flash[:notice]).to eq(msg)
       end
 
