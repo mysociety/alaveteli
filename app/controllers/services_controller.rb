@@ -17,8 +17,27 @@ class ServicesController < ApplicationController
       begin
         FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
         if found_country && found_country[:country_name] && found_country[:url] && found_country[:name]
-          text = _("Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}",
-                   :country_name => found_country[:country_name], :link_to_website => "<a href=\"#{found_country[:url]}\">#{found_country[:name]}</a>".html_safe)
+          country_site = found_country[:name]
+          country_name = found_country[:country_name]
+          country_code = found_country[:country_iso_code]
+          country_url = found_country[:url]
+          country_link = %Q(<a href="#{ country_url }">#{ country_site }</a>)
+
+          text = if WorldFOIWebsites.can_ask_the_eu?(country_code)
+            asktheeu_link = %q(<a href="http://asktheeu.org">Ask The EU</a>)
+
+            _("Hello! You can make Freedom of Information requests within " \
+              "{{country_name}} at {{link_to_website}} and to EU " \
+              "institutions at {{link_to_asktheeu}}",
+              :country_name => country_name,
+              :link_to_website => country_link.html_safe,
+              :link_to_asktheeu => asktheeu_link.html_safe)
+          else
+            _("Hello! You can make Freedom of Information requests within " \
+              "{{country_name}} at {{link_to_website}}",
+              :country_name => country_name,
+              :link_to_website => country_link.html_safe)
+          end
         else
           country_data = WorldFOIWebsites.by_code(iso_country_code)
           if country_data
@@ -34,6 +53,7 @@ class ServicesController < ApplicationController
         FastGettext.locale = old_fgt_locale
       end
     end
+
     render :text => text, :content_type => "text/plain"  # TODO: workaround the HTML validation in test suite
   end
 
