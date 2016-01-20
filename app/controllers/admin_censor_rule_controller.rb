@@ -20,9 +20,7 @@ class AdminCensorRuleController < AdminController
 
   def create
     if @censor_rule.save
-
       flash[:notice] = 'Censor rule was successfully created.'
-
       expire_requests_and_redirect
     else
       render :action => 'new'
@@ -34,9 +32,7 @@ class AdminCensorRuleController < AdminController
 
   def update
     if @censor_rule.update_attributes(censor_rule_params)
-
       flash[:notice] = 'Censor rule was successfully updated.'
-
       expire_requests_and_redirect
     else
       render :action => 'edit'
