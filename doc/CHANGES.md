@@ -1,3 +1,4 @@
+
 # develop
 
 ## Highlighted Features
@@ -23,6 +24,17 @@
 * Add a 256x256 image named `logo-opengraph.png` to
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook.
+
+# Version 0.23.2.0
+
+## Highlighted Features
+
+* Improve speed of the 'old unclassified' requests query by adding a cached
+  field to InfoRequest to keep track of when the last public response was made (Liz Conlan).
+
+## Upgrade Notes
+
+* There are a couple of database structure updates so remember to rake db:migrate
 
 # Version 0.23.1.0
 
