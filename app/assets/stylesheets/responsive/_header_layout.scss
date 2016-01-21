@@ -201,33 +201,33 @@
 }
 
 #logged_in_bar{
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    @include grid-column(8);
-    @include ie8{
-      padding-left: 0.9375em;
-      padding-right: 0.9375em;
-    }
-    @include lte-ie7 {
-      width: 36.813em;
-    }
-  }
-
   a, .greeting {
     display:block;
     padding: 0.5em 1em;
   }
 
   @include respond-min( $main_menu-mobile_menu_cutoff ){
+    position: absolute; // relative to #banner_content
+    top: 2em; // leave space for the language switcher
+    left: 40%; // leave space for the logo
+    right: 0;
+    bottom: 0;
+
     #logged_in_links {
-      top: 3em;
       position: absolute;
-      right: 0.9375em;
+      right: 0.9375em; // match the grid padding
+      top: 50%;
+      -webkit-transform: translateY(-50%); // vertically centre in Safari and Android
+      -ms-transform: translateY(-50%); // vertically centre in IE9
+      transform: translateY(-50%); // vertically centre in modern browsers
+      top: 0px\9; // fallback for IE8 and below (which don't support transform)
+      text-align: right;
+
       a, .greeting{
         display:inline;
         font-weight: bold;
         padding:0 0 0 1em;
       }
-
     }
   }
 }
