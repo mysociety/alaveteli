@@ -54,6 +54,11 @@ class CensorRule < ActiveRecord::Base
     text_to_censor.gsub!(to_replace('UTF-8'), replacement)
   end
 
+  def apply_to_binary(binary_to_censor)
+    return nil if binary_to_censor.nil?
+    binary_to_censor.gsub(to_replace('ASCII-8BIT')) { |match| match.gsub(single_char_regexp, 'x') }
+  end
+
   def apply_to_binary!(binary_to_censor)
     return nil if binary_to_censor.nil?
     binary_to_censor.gsub!(to_replace('ASCII-8BIT')) { |match| match.gsub(single_char_regexp, 'x') }

@@ -40,6 +40,7 @@ describe CensorRule do
       text = 'Some text'
       expect(rule.apply_to_text(text)).to eq('Some text')
     end
+
   end
 
   describe '#apply_to_text!' do
@@ -52,6 +53,45 @@ describe CensorRule do
     end
 
   end
+
+  describe '#apply_to_binary' do
+
+    it 'applies the rule to the text' do
+      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      text = 'Some secret text'
+      expect(rule.apply_to_binary(text)).to eq('Some xxxxxx text')
+    end
+
+    it 'does not modify the size of the string' do
+      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      text = 'Some secret text'
+      original_text = text.dup
+      redacted = rule.apply_to_binary(text)
+      expect(redacted.size).to eq(original_text.size)
+    end
+
+    it 'does not mutate the input' do
+      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      text = 'Some secret text'
+      rule.apply_to_binary(text)
+      expect(text).to eq('Some secret text')
+    end
+
+    it 'returns the text if the rule is unmatched' do
+      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      text = 'Some text'
+      expect(rule.apply_to_binary(text)).to eq('Some text')
+    end
+
+    it 'handles a UTF-8 rule and ASCII-8BIT text' do
+      rule = FactoryGirl.build(:censor_rule, :text => 'sécret')
+      text = 'Some sécret text'
+      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+      expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
+    end
+
+  end
+
 end
 
 describe CensorRule, "substituting things" do
