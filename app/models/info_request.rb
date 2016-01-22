@@ -1169,6 +1169,9 @@ class InfoRequest < ActiveRecord::Base
 
   # Call groups of censor rules
   def apply_censor_rules_to_text!(text)
+    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_text! will be
+            removed in 0.25. Use the non-destructive
+            InfoRequest#apply_censor_rules_to_text instead).squish
     applicable_censor_rules.each do |censor_rule|
       censor_rule.apply_to_text!(text)
     end
@@ -1181,6 +1184,9 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def apply_censor_rules_to_binary!(binary)
+    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_binary! will be
+            removed in 0.25. Use the non-destructive
+            InfoRequest#apply_censor_rules_to_binary instead).squish
     applicable_censor_rules.each do |censor_rule|
       censor_rule.apply_to_binary!(binary)
     end
