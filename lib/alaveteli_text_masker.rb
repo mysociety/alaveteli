@@ -46,6 +46,9 @@ module AlaveteliTextMasker
   # Replaces all email addresses in (possibly binary) data
   # Also applies custom masks and censor items
   def apply_masks!(text, content_type, options = {})
+    warn %q([DEPRECATION] AlaveteliTextMasker#apply_masks! will be removed
+            in 0.25. Use the non-destructive AlaveteliTextMasker#apply_masks
+            instead).squish
     # See if content type is one that we mask - things like zip files and
     # images may get broken if we try to. We err on the side of masking too
     # much, as many unknown types will really be text.
@@ -64,6 +67,9 @@ module AlaveteliTextMasker
   end
 
   def apply_pdf_masks!(text, options = {})
+    warn %q([DEPRECATION] AlaveteliTextMasker#apply_pdf_masks! will be removed
+            in 0.25. Use AlaveteliTextMasker.apply_masks, which will implement
+            a private AlaveteliTextMasker.apply_pdf_masks).squish
     uncompressed_text = uncompress_pdf(text)
     # if we managed to uncompress the PDF...
     if !uncompressed_text.blank?
@@ -181,6 +187,9 @@ module AlaveteliTextMasker
 
   # Replace text in place
   def apply_binary_masks!(text, options = {})
+    warn %q([DEPRECATION] AlaveteliTextMasker#apply_binary_masks! will be
+            removed in 0.25. Use the non-destructive
+            AlaveteliTextMasker#apply_binary_masks instead).squish
     # Keep original size, so can check haven't resized it
     orig_size = text.size
 
@@ -245,6 +254,9 @@ module AlaveteliTextMasker
   end
 
   def apply_text_masks!(text, options = {})
+    warn %q([DEPRECATION] AlaveteliTextMasker#apply_text_masks! will be removed
+            in 0.25. Use the non-destructive
+            AlaveteliTextMasker#apply_text_masks instead).squish
     masks = options[:masks] || []
     masks += default_text_masks
     censor_rules = options[:censor_rules] || []
