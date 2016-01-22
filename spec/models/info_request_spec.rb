@@ -1571,6 +1571,40 @@ describe InfoRequest do
 
   end
 
+  describe '#apply_censor_rules_to_text' do
+
+    it 'applies each censor rule to the text' do
+      rule_1 = FactoryGirl.build(:censor_rule, :text => '1')
+      rule_2 = FactoryGirl.build(:censor_rule, :text => '2')
+      info_request = FactoryGirl.build(:info_request)
+      allow(info_request).
+        to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
+
+      expected = '[REDACTED] 3 [REDACTED]'
+
+      expect(info_request.apply_censor_rules_to_text('1 3 2')).to eq(expected)
+    end
+
+  end
+
+  describe '#apply_censor_rules_to_binary' do
+
+    it 'applies each censor rule to the text' do
+      rule_1 = FactoryGirl.build(:censor_rule, :text => '1')
+      rule_2 = FactoryGirl.build(:censor_rule, :text => '2')
+      info_request = FactoryGirl.build(:info_request)
+      allow(info_request).
+        to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
+
+      text = '1 3 2'
+      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+
+      expect(info_request.apply_censor_rules_to_binary(text)).to eq('x 3 x')
+    end
+
+  end
+
+
   describe 'when applying censor rules' do
 
     before do

@@ -1162,12 +1162,22 @@ class InfoRequest < ActiveRecord::Base
     applicable_rules.flatten
   end
 
+  def apply_censor_rules_to_text(text)
+    applicable_censor_rules.
+      reduce(text) { |text, rule| rule.apply_to_text(text) }
+  end
+
   # Call groups of censor rules
   def apply_censor_rules_to_text!(text)
     applicable_censor_rules.each do |censor_rule|
       censor_rule.apply_to_text!(text)
     end
     text
+  end
+
+  def apply_censor_rules_to_binary(text)
+    applicable_censor_rules.
+      reduce(text) { |text, rule| rule.apply_to_binary(text) }
   end
 
   def apply_censor_rules_to_binary!(binary)
