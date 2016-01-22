@@ -31,7 +31,7 @@ describe AdminCensorRuleController do
 
       before do
         @info_request = FactoryGirl.create(:info_request)
-        get :new, :request_id => @info_request.id, :name_prefix => 'request_'
+        get :new, :request_id => @info_request.id
       end
 
       it 'returns a successful response' do
@@ -64,7 +64,7 @@ describe AdminCensorRuleController do
 
       before do
         @user = FactoryGirl.create(:user)
-        get :new, :user_id => @user.id, :name_prefix => 'user_'
+        get :new, :user_id => @user.id
       end
 
       it 'returns a successful response' do
@@ -98,7 +98,7 @@ describe AdminCensorRuleController do
 
       before do
         @public_body = FactoryGirl.create(:public_body)
-        get :new, :body_id => @public_body.id, :name_prefix => 'public_body_'
+        get :new, :body_id => @public_body.id
       end
 
       it 'returns a successful response' do
@@ -139,8 +139,7 @@ describe AdminCensorRuleController do
         @censor_rule_params.delete(:last_edit_editor)
         @info_request = FactoryGirl.create(:info_request)
         post :create, :request_id => @info_request.id,
-          :censor_rule => @censor_rule_params,
-          :name_prefix => 'request_'
+                      :censor_rule => @censor_rule_params
       end
 
       it 'sets the last_edit_editor to the current admin' do
@@ -163,15 +162,13 @@ describe AdminCensorRuleController do
 
         it 'persists the censor rule' do
           post :create, :censor_rule => @censor_rule_params,
-            :request_id => @info_request.id,
-            :name_prefix => 'request_'
+                        :request_id => @info_request.id
           expect(assigns[:censor_rule]).to be_persisted
         end
 
         it 'confirms the censor rule is created' do
           post :create, :censor_rule => @censor_rule_params,
-            :request_id => @info_request.id,
-            :name_prefix => 'request_'
+                        :request_id => @info_request.id
           msg = 'Censor rule was successfully created.'
           expect(flash[:notice]).to eq(msg)
         end
@@ -187,14 +184,12 @@ describe AdminCensorRuleController do
           expect(info_request).to receive(:expire)
 
           post :create, :censor_rule => @censor_rule_params,
-            :request_id => info_request.id,
-            :name_prefix => 'request_'
+                        :request_id => info_request.id
         end
 
         it 'redirects to the associated info request' do
           post :create, :censor_rule => @censor_rule_params,
-            :request_id => @info_request.id,
-            :name_prefix => 'request_'
+                        :request_id => @info_request.id
           expect(response).to redirect_to(
             admin_request_path(assigns[:censor_rule].info_request)
           )
@@ -209,15 +204,13 @@ describe AdminCensorRuleController do
 
         it 'does not persist the censor rule' do
           post :create, :censor_rule => @censor_rule_params,
-            :request_id => @info_request.id,
-            :name_prefix => 'request_'
+                        :request_id => @info_request.id
           expect(assigns[:censor_rule]).to be_new_record
         end
 
         it 'renders the form' do
           post :create, :censor_rule => @censor_rule_params,
-            :request_id => @info_request.id,
-            :name_prefix => 'request_'
+                        :request_id => @info_request.id
           expect(response).to render_template('new')
         end
 
@@ -235,8 +228,7 @@ describe AdminCensorRuleController do
 
       def create_censor_rule
         post :create, :user_id => @user.id,
-          :censor_rule => @censor_rule_params,
-          :name_prefix => 'user_'
+                      :censor_rule => @censor_rule_params
       end
 
       it 'sets the last_edit_editor to the current admin' do
@@ -288,15 +280,13 @@ describe AdminCensorRuleController do
 
         it 'does not persist the censor rule' do
           post :create, :censor_rule => @censor_rule_params,
-            :user_id => @user.id,
-            :name_prefix => 'user_'
+                        :user_id => @user.id
           expect(assigns[:censor_rule]).to be_new_record
         end
 
         it 'renders the form' do
           post :create, :censor_rule => @censor_rule_params,
-            :user_id => @user.id,
-            :name_prefix => 'user_'
+                        :user_id => @user.id
           expect(response).to render_template('new')
         end
 
@@ -312,8 +302,7 @@ describe AdminCensorRuleController do
         @censor_rule_params.delete(:last_edit_editor)
         @public_body = FactoryGirl.create(:public_body)
         post :create, :body_id => @public_body.id,
-          :censor_rule => @censor_rule_params,
-          :name_prefix => 'public_body_'
+                      :censor_rule => @censor_rule_params
       end
 
       it 'sets the last_edit_editor to the current admin' do
@@ -336,23 +325,20 @@ describe AdminCensorRuleController do
 
         it 'persists the censor rule' do
           post :create, :censor_rule => @censor_rule_params,
-            :body_id => @public_body.id,
-            :name_prefix => 'public_body_'
+                        :body_id => @public_body.id
           expect(assigns[:censor_rule]).to be_persisted
         end
 
         it 'confirms the censor rule is created' do
           post :create, :censor_rule => @censor_rule_params,
-            :body_id => @public_body.id,
-            :name_prefix => 'public_body_'
+                        :body_id => @public_body.id
           msg = 'Censor rule was successfully created.'
           expect(flash[:notice]).to eq(msg)
         end
 
         it 'redirects to the associated public body' do
           post :create, :censor_rule => @censor_rule_params,
-            :body_id => @public_body.id,
-            :name_prefix => 'public_body_'
+                        :body_id => @public_body.id
           expect(response).to redirect_to(
             admin_body_path(assigns[:censor_rule].public_body)
           )
@@ -367,15 +353,13 @@ describe AdminCensorRuleController do
 
         it 'does not persist the censor rule' do
           post :create, :censor_rule => @censor_rule_params,
-            :body_id => @public_body.id,
-            :name_prefix => 'public_body_'
+                        :body_id => @public_body.id
           expect(assigns[:censor_rule]).to be_new_record
         end
 
         it 'renders the form' do
           post :create, :censor_rule => @censor_rule_params,
-            :body_id => @public_body.id,
-            :name_prefix => 'public_body_'
+                        :body_id => @public_body.id
           expect(response).to render_template('new')
         end
 
@@ -843,12 +827,11 @@ describe AdminCensorRuleController, "when making censor rules from the admin int
   it "should create a censor rule and purge the corresponding request from varnish" do
     ir = info_requests(:fancy_dog_request)
     post :create, :request_id => ir.id,
-      :name_prefix => 'request_',
-    :censor_rule => {
-      :text => "meat",
-      :replacement => "tofu",
-      :last_edit_comment => "none"
-    }
+                  :censor_rule => {
+                    :text => "meat",
+                    :replacement => "tofu",
+                    :last_edit_comment => "none"
+                  }
     expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
 

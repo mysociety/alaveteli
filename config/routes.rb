@@ -193,8 +193,7 @@ Alaveteli::Application.routes.draw do
       post 'import_csv', :on => :collection
       resources :censor_rules,
         :controller => 'admin_censor_rule',
-        :only => [:new, :create],
-        :name_prefix => 'public_body_'
+        :only => [:new, :create]
     end
   end
   ####
@@ -257,9 +256,7 @@ Alaveteli::Application.routes.draw do
       post 'hide', :on => :member
       resources :censor_rules,
         :controller => 'admin_censor_rule',
-        :only => [:new, :create],
-        :name_prefix => 'request_'
-
+        :only => [:new, :create]
     end
   end
   ####
@@ -320,9 +317,8 @@ Alaveteli::Application.routes.draw do
       post 'modify_comment_visibility', :on => :collection
       resources :censor_rules,
         :controller => 'admin_censor_rule',
-        :only => [:new, :create],
-        :name_prefix => 'user_'
-    end
+        :only => [:new, :create]
+      end
   end
   ####
 
