@@ -174,10 +174,8 @@ class IncomingMessage < ActiveRecord::Base
   end
 
   def safe_mail_from
-    if !self.mail_from.nil?
-      mail_from = self.mail_from.dup
-      self.info_request.apply_censor_rules_to_text!(mail_from)
-      return mail_from
+    if mail_from
+      info_request.apply_censor_rules_to_text(mail_from)
     end
   end
 
