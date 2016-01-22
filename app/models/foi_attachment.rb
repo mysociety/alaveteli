@@ -193,7 +193,7 @@ class FoiAttachment < ActiveRecord::Base
   def display_filename
     filename = self.filename
     if !self.incoming_message.nil?
-      self.incoming_message.info_request.apply_censor_rules_to_text!(filename)
+      filename = incoming_message.info_request.apply_censor_rules_to_text(filename)
     end
     # Sometimes filenames have e.g. %20 in - no point butchering that
     # (without unescaping it, this would remove the % and leave 20s in there)
