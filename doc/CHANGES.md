@@ -3,6 +3,7 @@
 
 ## Highlighted Features
 
+* Improve handling of long translations in logged in nav (Zarino Zappia)
 * Better support for setting up a thin cluster (Liz Conlan)
 * Added onscreen instructions to the Vagrant box (Liz Conlan)
 * The UK-specific `SPECIAL_REPLY_VERY_LATE_AFTER_DAYS` has been removed. See
