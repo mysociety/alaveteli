@@ -41,6 +41,26 @@ describe CensorRule do
       expect(rule.apply_to_text(text)).to eq('Some text')
     end
 
+    it 'replaces the regexp with the replacement text when applied to text' do
+      attrs = { :text => '--PRIVATE.*--PRIVATE',
+                :replacement => "--REMOVED\nHidden private info\n--REMOVED",
+                :regexp => true }
+      rule = FactoryGirl.build(:censor_rule, attrs)
+      text = <<-EOF.strip_heredoc
+      Some public information
+      --PRIVATE
+      Some private information
+      --PRIVATE
+      EOF
+
+      expect(rule.apply_to_text(text)).to eq <<-EOF.strip_heredoc
+      Some public information
+      --REMOVED
+      Hidden private info
+      --REMOVED
+      EOF
+    end
+
   end
 
   describe '#apply_to_text!' do
