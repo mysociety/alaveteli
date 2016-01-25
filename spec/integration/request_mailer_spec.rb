@@ -8,10 +8,10 @@ describe RequestMailer do
   let(:very_overdue_date) { Time.zone.now - 60.days }
 
   before(:each) do
-    @tapir_request = FactoryGirl.create(:info_request,
-                                 :title => "Do you really own a tapir?")
-    @tapir_request.outgoing_messages[0].last_sent_at = overdue_date
-    @tapir_request.outgoing_messages[0].save!
+    @kitten_request = FactoryGirl.create(:info_request,
+                                         :title => "Do you really own a kitten?")
+    @kitten_request.outgoing_messages[0].last_sent_at = overdue_date
+    @kitten_request.outgoing_messages[0].save!
   end
 
   describe "sending overdue request alerts" do
@@ -19,90 +19,90 @@ describe RequestMailer do
     it "sends an overdue alert mail to request creators" do
       RequestMailer.alert_overdue_requests
 
-      tapir_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /tapir/}
-      expect(tapir_mails.size).to eq(1)
-      mail = tapir_mails[0]
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
+      mail = kitten_mails[0]
 
       expect(mail.body).to match(/promptly, as normally/)
-      expect(mail.to_addrs.first.to_s).to eq(@tapir_request.user.email)
+      expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
 
       mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
       mail_url = $1
       mail_token = $2
 
       visit mail_url
-      expect(current_path).to match(show_response_no_followup_path(@tapir_request.id))
+      expect(current_path).to match(show_response_no_followup_path(@kitten_request.id))
     end
 
     it "includes clause for schools when sending alerts to request creators" do
-      @tapir_request.public_body.tag_string = "school"
-      @tapir_request.public_body.save!
+      @kitten_request.public_body.tag_string = "school"
+      @kitten_request.public_body.save!
 
       RequestMailer.alert_overdue_requests
 
-      tapir_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /tapir/}
-      expect(tapir_mails.size).to eq(1)
-      mail = tapir_mails[0]
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
+      mail = kitten_mails[0]
 
       expect(mail.body).to match(/promptly, as normally/)
-      expect(mail.to_addrs.first.to_s).to eq(@tapir_request.user.email)
+      expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
     end
 
     it "does not send the alert if the user is banned but records it as sent" do
-      user = @tapir_request.user
+      user = @kitten_request.user
       user.ban_text = 'Banned'
       user.save!
       expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to eq(0)
       RequestMailer.alert_overdue_requests
 
-      deliveries = ActionMailer::Base.deliveries.select{|x| x.body =~ /tapir/}
+      deliveries = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
       expect(deliveries.size).to eq(0)
       expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
     end
 
     it "sends a very overdue alert mail to creators of very overdue requests" do
-      @tapir_request.outgoing_messages[0].last_sent_at = very_overdue_date
-      @tapir_request.outgoing_messages[0].save!
+      @kitten_request.outgoing_messages[0].last_sent_at = very_overdue_date
+      @kitten_request.outgoing_messages[0].save!
 
       RequestMailer.alert_overdue_requests
 
-      tapir_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /tapir/}
-      expect(tapir_mails.size).to eq(1)
-      mail = tapir_mails[0]
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
+      mail = kitten_mails[0]
 
       expect(mail.body).to match(/required by law/)
-      expect(mail.to_addrs.first.to_s).to eq(@tapir_request.user.email)
+      expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
 
       mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
       mail_url = $1
       mail_token = $2
 
       visit mail_url
-      expect(current_path).to match(show_response_no_followup_path(@tapir_request.id))
+      expect(current_path).to match(show_response_no_followup_path(@kitten_request.id))
     end
 
     it "does not resend alerts to people who've already received them" do
       RequestMailer.alert_overdue_requests
-      tapir_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /tapir/}
-      expect(tapir_mails.size).to eq(1)
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
       RequestMailer.alert_overdue_requests
-      tapir_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /tapir/}
-      expect(tapir_mails.size).to eq(1)
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
     end
 
     it "sends alerts for requests where the last event forming the initial
           request is a followup being sent following a request for clarification" do
       RequestMailer.alert_overdue_requests
-      tapir_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /tapir/}
-      expect(tapir_mails.size).to eq(1)
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
 
       # Request is waiting clarification
-      @tapir_request.set_described_state('waiting_clarification')
+      @kitten_request.set_described_state('waiting_clarification')
 
       # Followup message is sent
       outgoing_message = OutgoingMessage.new(:status => 'ready',
                                              :message_type => 'followup',
-                                             :info_request_id => @tapir_request.id,
+                                             :info_request_id => @kitten_request.id,
                                              :body => 'Some text',
                                              :what_doing => 'normal_sort')
 
@@ -116,15 +116,15 @@ describe RequestMailer do
 
       outgoing_message.save!
 
-      tapir_request = InfoRequest.find(@tapir_request.id)
+      kitten_request = InfoRequest.find(@kitten_request.id)
 
       # Last event forming the request is now the followup
-      expect(tapir_request.last_event_forming_initial_request.event_type).to eq('followup_sent')
+      expect(kitten_request.last_event_forming_initial_request.event_type).to eq('followup_sent')
 
       # This isn't overdue, so no email
       RequestMailer.alert_overdue_requests
-      tapir_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /tapir/}
-      expect(tapir_mails.size).to eq(1)
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
 
       # Make the followup older
       outgoing_message.last_sent_at = very_overdue_date
@@ -132,8 +132,8 @@ describe RequestMailer do
 
       # Now it should be alerted on
       RequestMailer.alert_overdue_requests
-      tapir_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /tapir/}
-      expect(tapir_mails.size).to eq(2)
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(2)
     end
 
   end
