@@ -543,20 +543,25 @@ describe AdminCensorRuleController do
 
     end
 
-    context 'when editing a global rule' do
+    context 'a global rule' do
 
       before(:each) do
         @censor_rule = FactoryGirl.create(:global_censor_rule)
       end
 
-      it 'shows an error notice' do
+      it 'returns a successful response' do
         get :edit, :id => @censor_rule.id
-        expect(flash[:notice]).to eq('Only user, request and public body censor rules can be edited')
+        expect(response).to be_success
       end
 
-      it 'redirects to the admin index' do
+      it 'renders the correct template' do
         get :edit, :id => @censor_rule.id
-        expect(response).to redirect_to(admin_general_index_path)
+        expect(response).to render_template('edit')
+      end
+
+      it 'finds the correct censor rule to edit' do
+        get :edit, :id => @censor_rule.id
+        expect(assigns[:censor_rule]).to eq(@censor_rule)
       end
 
     end
@@ -565,22 +570,71 @@ describe AdminCensorRuleController do
 
   describe 'PUT update' do
 
-    context 'a global CensorRule' do
+    context 'a global censor rule' do
 
       before(:each) do
         @censor_rule = FactoryGirl.create(:global_censor_rule)
       end
 
-      it 'shows an error notice' do
+      it 'finds the correct censor rule to edit' do
         put :update, :id => @censor_rule.id,
           :censor_rule => { :text => 'different text' }
-        expect(flash[:notice]).to eq('Only user, request and public body censor rules can be edited')
+
+        expect(assigns[:censor_rule]).to eq(@censor_rule)
       end
 
-      it 'redirects to the admin index' do
+      it 'sets the last_edit_editor to the current admin' do
         put :update, :id => @censor_rule.id,
           :censor_rule => { :text => 'different text' }
-        expect(response).to redirect_to(admin_general_index_path)
+
+        expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
+      end
+
+      context 'successfully saving the censor rule' do
+
+        it 'updates the censor rule' do
+          put :update, :id => @censor_rule.id,
+            :censor_rule => { :text => 'different text' }
+          @censor_rule.reload
+          expect(@censor_rule.text).to eq('different text')
+        end
+
+        it 'confirms the censor rule is updated' do
+          put :update, :id => @censor_rule.id,
+            :censor_rule => { :text => 'different text' }
+          msg = 'Censor rule was successfully updated.'
+          expect(flash[:notice]).to eq(msg)
+        end
+
+        it 'redirects to the censor rule index' do
+          put :update, :id => @censor_rule.id,
+            :censor_rule => { :text => 'different text' }
+
+          expect(response).to redirect_to(admin_censor_rules_path)
+        end
+
+      end
+
+      context 'unsuccessfully saving the censor rule' do
+
+        before(:each) do
+          allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
+        end
+
+        it 'does not update the censor rule' do
+          put :update, :id => @censor_rule.id,
+            :censor_rule => { :text => 'different text' }
+          @censor_rule.reload
+          expect(@censor_rule.text).to eq('some text to redact')
+        end
+
+        it 'renders the form' do
+          put :update, :id => @censor_rule.id,
+            :censor_rule => { :text => 'different text' }
+
+          expect(response).to render_template('edit')
+        end
+
       end
 
     end
@@ -663,7 +717,6 @@ describe AdminCensorRuleController do
         end
 
       end
-
 
     end
 
@@ -824,14 +877,20 @@ describe AdminCensorRuleController do
         @censor_rule = FactoryGirl.create(:global_censor_rule)
       end
 
-      it 'shows an error notice' do
+      it 'finds the correct censor rule to destroy' do
         delete :destroy, :id => @censor_rule.id
-        expect(flash[:notice]).to eq('Only user, request and public body censor rules can be edited')
+        expect(assigns[:censor_rule]).to eq(@censor_rule)
       end
 
-      it 'redirects to the admin index' do
+      it 'confirms the censor rule is destroyed in all cases' do
         delete :destroy, :id => @censor_rule.id
-        expect(response).to redirect_to(admin_general_index_path)
+        msg = 'Censor rule was successfully destroyed.'
+        expect(flash[:notice]).to eq(msg)
+      end
+
+      it 'redirects to the censor rules index' do
+        delete :destroy, :id => @censor_rule.id
+        expect(response).to redirect_to(admin_censor_rules_path)
       end
 
     end
