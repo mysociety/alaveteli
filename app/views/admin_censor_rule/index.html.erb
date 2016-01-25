@@ -1,6 +1,47 @@
-<% @title = 'Censor Rules' %>
+<% @title = 'Global Censor Rules' %>
 
 <h1><%= @title %></h1>
 
+<div class="row">
+  <div class="span12">
+    <p class="lead">
+      This page lists Censor Rules that apply to <em>everything</em> – Requests,
+      Users and Public Bodies.
+    </p>
+    <p>
+      Request, User and Public Body specific censor rules may also exist and can
+      be seen, edited and created on the admin pages for those Requests, Users
+      and Public Bodies.
+    </p>
+  </div>
+</div>
+
 <%= render :partial => 'show',
            :locals => { :censor_rules => @censor_rules } %>
+
+<hr />
+
+<div class="row">
+  <div class="span12">
+    <div class="alert alert-info">
+      <h3>About Censor Rules</h3>
+      <p>Censor Rules are rules to redact information from incoming and outgoing
+         messages.</p>
+      <p>Redacting means removing or hiding part of a message so it cannot be
+         read: you are effectively removing part of a document from your site.
+         Typically you do this to conceal sensitive (usually, that means
+         personal) information on the public site.</p>
+      <p>These can be powerful, so must be used with caution.</p>
+      <p>Censor Rules can be associated with the following:</p>
+      <ul>
+        <li><strong>Info Requests:</strong> Applies to everything on a single request</li>
+        <li><strong>Users:</strong> Applies to all requests made by the associated user</li>
+        <li><strong>Public Bodies:</strong> Applies to all requests made to the associated body</li>
+        <li><strong>Global:</strong> Applies to <em>everything</em> on the site</li>
+      </ul>
+      <p>Read more about <%= link_to 'Censor Rules on alaveteli.org',
+        'http://alaveteli.org/docs/running/redaction/', :target => '_blank' %>.
+      </p>
+    </div>
+  </div>
+</div>
