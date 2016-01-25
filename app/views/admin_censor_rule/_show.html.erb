@@ -43,5 +43,9 @@
       <span class="label label-info">for all requests to this body</span>
     <% end %>
 
+    <% unless defined?(info_request) || defined?(user) || defined?(public_body) %>
+      <%= link_to "New global censor rule", new_admin_censor_rule_path, :class => "btn btn-info" %>
+      <span class="label label-info">for all requests, users and bodies</span>
+    <% end %>
   </p>
 </div>
