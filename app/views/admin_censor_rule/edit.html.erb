@@ -1,6 +1,12 @@
 <% @title = 'Edit censor rule' %>
 
-<h1><%=@title%></h1>
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+</div>
 
 <%= form_tag admin_censor_rule_path(@censor_rule), :method => 'put', :class => "form form-horizontal" do %>
   <%= render :partial => 'form',
