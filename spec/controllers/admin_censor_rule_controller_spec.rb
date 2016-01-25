@@ -27,6 +27,42 @@ describe AdminCensorRuleController do
 
   describe 'GET new' do
 
+    context 'global censor rule' do
+
+      before do
+        get :new
+      end
+
+      it 'returns a successful response' do
+        expect(response).to be_success
+      end
+
+      it 'initializes a new censor rule' do
+        expect(assigns[:censor_rule]).to be_new_record
+      end
+
+      it 'renders the correct template' do
+        expect(response).to render_template('new')
+      end
+
+      it 'does not associate the censor rule with an info request' do
+        expect(assigns[:censor_rule].info_request).to be_nil
+      end
+
+      it 'does not associate the censor rule with a public body' do
+        expect(assigns[:censor_rule].public_body).to be_nil
+      end
+
+      it 'does not associate the censor rule with a user' do
+        expect(assigns[:censor_rule].user).to be_nil
+      end
+
+      it 'sets the URL for the form to POST to' do
+        expect(assigns[:form_url]).to eq(admin_censor_rules_path)
+      end
+
+    end
+
     context 'request_id param' do
 
       before do
@@ -130,6 +166,74 @@ describe AdminCensorRuleController do
   end
 
   describe 'POST create' do
+
+    context 'a global censor rule' do
+
+      before(:each) do
+        @censor_rule_params = FactoryGirl.build(:global_censor_rule).serializable_hash
+        # last_edit_editor gets set in the controller
+        @censor_rule_params.delete(:last_edit_editor)
+      end
+
+      def create_censor_rule
+        post :create, :censor_rule => @censor_rule_params
+      end
+
+      it 'sets the last_edit_editor to the current admin' do
+        create_censor_rule
+        expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
+      end
+
+      it 'does not associate the censor rule with an info request' do
+        create_censor_rule
+        expect(assigns[:censor_rule].info_request).to be_nil
+      end
+
+      it 'does not associate the censor rule with a public body' do
+        create_censor_rule
+        expect(assigns[:censor_rule].public_body).to be_nil
+      end
+
+      it 'does not associate the censor rule with a user' do
+        create_censor_rule
+        expect(assigns[:censor_rule].user).to be_nil
+      end
+
+      it 'sets the URL for the form to POST to' do
+        create_censor_rule
+        expect(assigns[:form_url]).to eq(admin_censor_rules_path)
+      end
+
+      context 'successfully saving the censor rule' do
+
+        it 'redirects to the censor rules index' do
+          create_censor_rule
+          expect(response).to redirect_to(
+            admin_censor_rules_path
+          )
+        end
+
+      end
+
+      context 'unsuccessfully saving the censor rule' do
+
+        before(:each) do
+          allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
+        end
+
+        it 'does not persist the censor rule' do
+          create_censor_rule
+          expect(assigns[:censor_rule]).to be_new_record
+        end
+
+        it 'renders the form' do
+          create_censor_rule
+          expect(response).to render_template('new')
+        end
+
+      end
+
+    end
 
     context 'request_id param' do
 

@@ -69,6 +69,12 @@ class AdminCensorRuleController < AdminController
       @censor_rule = @public_body.censor_rules.build(censor_rule_params)
       @form_url = admin_body_censor_rules_path(@public_body)
     end
+
+    if [:request_id, :user_id, :body_id].all? { |key| params[key].nil? }
+      @censor_rule =
+        CensorRule.new(censor_rule_params.merge(:allow_global => true))
+      @form_url = admin_censor_rules_path
+    end
   end
 
   def set_editor
@@ -100,6 +106,8 @@ class AdminCensorRuleController < AdminController
       redirect_to admin_user_url(@censor_rule.user)
     elsif @censor_rule.public_body
       redirect_to admin_body_url(@censor_rule.public_body)
+    else
+      redirect_to admin_censor_rules_path
     end
   end
 end

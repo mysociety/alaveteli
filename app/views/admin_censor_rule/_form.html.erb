@@ -11,6 +11,9 @@
   <% unless public_body.nil? %>
     <%= public_body_both_links(public_body) %>
   <% end %>
+  <% if info_request.nil? && user.nil? && public_body.nil? %>
+    <strong>everything</strong>
+  <% end %>
 </div>
 
 <div class="control-group">

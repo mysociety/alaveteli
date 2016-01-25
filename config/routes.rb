@@ -333,8 +333,7 @@ Alaveteli::Application.routes.draw do
   #### AdminCensorRule controller
   scope '/admin', :as => 'admin' do
     resources :censor_rules,
-      :controller => 'admin_censor_rule',
-      :except => [:new, :create]
+      :controller => 'admin_censor_rule'
   end
 
   #### AdminSpamAddresses controller
