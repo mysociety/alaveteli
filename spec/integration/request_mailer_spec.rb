@@ -4,8 +4,9 @@ require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe RequestMailer do
 
-  let(:overdue_date) { Time.zone.now - 30.days }
-  let(:very_overdue_date) { Time.zone.now - 60.days }
+  let(:request_date) { Time.zone.parse('2010-12-12') }
+  let(:overdue_date) { request_date - 31.days }
+  let(:very_overdue_date) { request_date - 61.days }
 
   before(:each) do
     @kitten_request = FactoryGirl.create(:info_request,
@@ -17,6 +18,7 @@ describe RequestMailer do
   describe "sending overdue request alerts" do
 
     it "sends an overdue alert mail to request creators" do
+      allow(Time).to receive(:now).and_return(request_date)
       RequestMailer.alert_overdue_requests
 
       kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
@@ -35,6 +37,7 @@ describe RequestMailer do
     end
 
     it "includes clause for schools when sending alerts to request creators" do
+      allow(Time).to receive(:now).and_return(request_date)
       @kitten_request.public_body.tag_string = "school"
       @kitten_request.public_body.save!
 
