@@ -30,22 +30,22 @@
   <p class="span12">
     <% if defined? info_request %>
       <%= link_to "New censor rule", new_admin_request_censor_rule_path(info_request), :class => "btn btn-info" %>
-      <span class="label label-info">for this request only</span>
+      <span class="help-inline">for this request only</span>
     <% end %>
 
     <% if defined? user %>
       <%= link_to "New censor rule", new_admin_user_censor_rule_path(user), :class => "btn btn-info" %>
-      <span class="label label-info">for all requests by this user</span>
+      <span class="help-inline">for all requests by this user</span>
     <% end %>
 
     <% if defined? public_body %>
       <%= link_to "New censor rule", new_admin_body_censor_rule_path(public_body), :class => "btn btn-info" %>
-      <span class="label label-info">for all requests to this body</span>
+      <span class="help-inline">for all requests to this body</span>
     <% end %>
 
     <% unless defined?(info_request) || defined?(user) || defined?(public_body) %>
-      <%= link_to "New global censor rule", new_admin_censor_rule_path, :class => "btn btn-info" %>
-      <span class="label label-info">for all requests, users and bodies</span>
+      <%= link_to "New global censor rule", new_admin_censor_rule_path, :class => "btn btn-warning" %>
+      <span class="help-inline">for all requests, users and bodies</span>
     <% end %>
   </p>
 </div>
