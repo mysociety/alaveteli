@@ -557,21 +557,6 @@ describe RequestMailer do
         to match(show_response_no_followup_path(@kitten_request.id))
     end
 
-    it "includes clause for schools when sending alerts to request creators" do
-      allow(Time).to receive(:now).and_return(request_date)
-      @kitten_request.public_body.tag_string = "school"
-      @kitten_request.public_body.save!
-
-      RequestMailer.alert_overdue_requests
-
-      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
-      expect(kitten_mails.size).to eq(1)
-      mail = kitten_mails[0]
-
-      expect(mail.body).to match(/promptly, as normally/)
-      expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
-    end
-
     it "does not send the alert if the user is banned but records it as sent" do
       user = @kitten_request.user
       user.ban_text = 'Banned'
