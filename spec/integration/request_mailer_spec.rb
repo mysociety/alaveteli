@@ -32,8 +32,9 @@ describe RequestMailer do
       mail_url = $1
       mail_token = $2
 
-      visit mail_url
-      expect(current_path).to match(show_response_no_followup_path(@kitten_request.id))
+      post_redirect = PostRedirect.find_by_email_token(mail_token)
+      expect(post_redirect.uri).
+        to match(show_response_no_followup_path(@kitten_request.id))
     end
 
     it "includes clause for schools when sending alerts to request creators" do
@@ -80,8 +81,9 @@ describe RequestMailer do
       mail_url = $1
       mail_token = $2
 
-      visit mail_url
-      expect(current_path).to match(show_response_no_followup_path(@kitten_request.id))
+      post_redirect = PostRedirect.find_by_email_token(mail_token)
+      expect(post_redirect.uri).
+        to match(show_response_no_followup_path(@kitten_request.id))
     end
 
     it "does not resend alerts to people who've already received them" do
@@ -159,9 +161,13 @@ describe RequestMailer do
       mail_url = $1
       mail_token = $2
 
-      visit mail_url
-      expect(current_path).to match(show_request_path(info_requests(:fancy_dog_request).url_title))
-      # TODO: should check anchor tag here :) that it goes to last new response
+      post_redirect = PostRedirect.find_by_email_token(mail_token)
+      expect(post_redirect.uri).
+        to match(show_request_path(info_requests(:fancy_dog_request).url_title))
+
+      # check anchor tag goes to last new response
+      expect(post_redirect.uri.split("#").last).
+        to eq("describe_state_form_1")
     end
 
   end
@@ -191,8 +197,8 @@ describe RequestMailer do
       mail_url = $1
       mail_token = $2
 
-      visit mail_url
-      expect(current_path).
+      post_redirect = PostRedirect.find_by_email_token(mail_token)
+      expect(post_redirect.uri).
         to match(show_response_path(:id => ir.id,
                                     :incoming_message_id => ir.incoming_messages.last.id))
     end
