@@ -126,6 +126,11 @@ Back on the server:
    * `lib/acts_as_xapian/xapiandbs` (copy this to straight into `shared` so it becomes `shared/xapiandbs`)
    * `log/`
 
+If you're using [rbenv](https://github.com/mysociety/alaveteli/wiki/Migrating-an-existing-Alaveteli-site-from-ruby-1.8.7#3-install-a-ruby-version-manager-optional), you can add a
+`rbenv-version` containing the ruby string to the `shared` directory.
+Alaveteli's deployment configuration will automatically recognise this and use
+the specified Ruby version.
+
 Now, back on your local machine:
 
 * make sure you're still in the Alaveteli repo (if not, `cd` back into it)
@@ -189,4 +194,3 @@ website](http://capistranorb.com/).
 If a deployment goes wrong, or you discover after doing it that you're not
 ready for the latest version after all, don't panic! Run `cap deploy:rollback`
 and it will switch `current` back to the previous deployment.
-
