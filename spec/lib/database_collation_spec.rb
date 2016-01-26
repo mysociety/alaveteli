@@ -7,38 +7,18 @@ describe DatabaseCollation do
 
     it 'delegates to an instance of the class' do
       collation = double
-      allow(DatabaseCollation).to receive(:instance).and_return(collation)
+      connection = mock_connection
+      allow(ActiveRecord::Base.connection_pool).to receive(:with_connection).and_yield(connection)
+      allow(DatabaseCollation).to receive(:new).with(connection).and_return(collation)
       expect(collation).to receive(:supports?).with('en_GB')
       DatabaseCollation.supports?('en_GB')
     end
 
   end
 
-  describe '.instance' do
-
-    it 'creates a new instance' do
-      expect(DatabaseCollation.instance).to be_instance_of(DatabaseCollation)
-    end
-
-    it 'caches the instance' do
-      expect(DatabaseCollation.instance).to equal(DatabaseCollation.instance)
-    end
-
-    it 'configures the instance with the default connection' do
-      expect(DatabaseCollation.instance.connection).
-        to equal(DatabaseCollation::DEFAULT_CONNECTION)
-    end
-
-  end
-
   describe '.new' do
 
-    it 'defaults to the ActiveRecord::Base connection' do
-      expect(DatabaseCollation.new.connection).
-        to eq(ActiveRecord::Base.connection)
-    end
-
-    it 'allows a connection to be specified' do
+    it 'requires a connection to be specified' do
       mock_connection = double
       expect(DatabaseCollation.new(mock_connection).connection).
         to eq(mock_connection)

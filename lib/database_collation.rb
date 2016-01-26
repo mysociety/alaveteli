@@ -4,23 +4,22 @@
 # a given language. Prefer the class method .supports? rather than creating a
 # new instance.
 class DatabaseCollation
-  DEFAULT_CONNECTION = ActiveRecord::Base.connection
   MINIMUM_POSTGRESQL_VERSION = 90112
 
   attr_reader :connection
 
   # Public: Does the connected database support collation in the given locale?
-  # Delegates to an instance configured with the DEFAULT_CONNECTION. See
-  # DatabaseCollation#supports? for more documentation.
+  # Delegates to an instance configured with a connection from the
+  # ActiveRecord::Base connection pool. See DatabaseCollation#supports? for
+  # more documentation.
   def self.supports?(locale)
-    instance.supports?(locale)
+    ActiveRecord::Base.connection_pool.with_connection do |connection|
+      i = new(connection)
+      i.supports?(locale)
+    end
   end
 
-  def self.instance
-    @instance ||= new
-  end
-
-  def initialize(connection = DEFAULT_CONNECTION)
+  def initialize(connection)
     @connection = connection
   end
 

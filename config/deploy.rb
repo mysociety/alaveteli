@@ -19,6 +19,20 @@ set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
 server configuration['server'], :app, :web, :db, :primary => true
 
+set(:rbenv_ruby_version) do
+  command = "cat #{shared_path}/rbenv-version 2>/dev/null || true"
+  result = capture(command).strip
+  result.empty? ? nil : result
+end
+
+if rbenv_ruby_version
+  set(:rbenv_path) { capture("echo $HOME/.rbenv").strip }
+  set(:rbenv_shims_path) { File.join(rbenv_path, 'shims') }
+  set :default_environment, {
+    'PATH' => [rbenv_shims_path, '$PATH'].join(':')
+  }
+end
+
 namespace :themes do
   task :install do
     run "cd #{latest_release} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
@@ -39,7 +53,7 @@ namespace :deploy do
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
     task t, :roles => :app, :except => { :no_release => true } do
-      run "service #{ daemon_name } #{ t }"
+      run "/etc/init.d/#{ daemon_name } #{ t }"
     end
   end
 
@@ -62,6 +76,10 @@ namespace :deploy do
       "#{release_path}/lib/themes" => "#{shared_path}/themes",
     }
 
+    if rbenv_ruby_version
+      links["#{release_path}/.rbenv-version"] = "#{shared_path}/rbenv-version"
+    end
+
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
     run links.map {|a| "ln -sf #{a.last} #{a.first}"}.join(";")
   end
@@ -76,7 +94,8 @@ namespace :deploy do
   end
 end
 
-before 'deploy:assets:precompile', 'deploy:symlink_configuration'
+after 'deploy:assets:symlink', 'deploy:symlink_configuration'
+
 before 'deploy:assets:precompile', 'themes:install'
 
 # Put up a maintenance notice if doing a migration which could take a while
