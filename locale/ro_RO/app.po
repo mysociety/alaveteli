@@ -6,7 +6,7 @@
 # Translators:
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
-# Andrei Cristian Petcu <andreip@posteo.net>, 2012
+# Andrei Cristian Petcu <andreip@posteo.net>, 2012,2016
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012
 # Claudiu Marginean <copyratul@gmail.com>, 2012
 # Claudiu Marginean <copyratul@gmail.com>, 2012
@@ -28,8 +28,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2016-01-06 22:47+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2016-01-15 16:39+0000\n"
+"Last-Translator: Andrei Cristian Petcu <andreip@posteo.net>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -53,10 +53,10 @@ msgid " - wall"
 msgstr " - perete"
 
 msgid " < "
-msgstr ""
+msgstr "<"
 
 msgid " << "
-msgstr ""
+msgstr "<<"
 
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr " <strong>Notă de confidenţialitate:</strong> Adresa ta de email va fi văzută şi de către"
