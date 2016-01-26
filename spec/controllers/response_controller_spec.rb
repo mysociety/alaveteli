@@ -95,7 +95,7 @@ describe ResponseController do
 
   end
 
-  describe "POST create_followup" do
+  describe "GET or POST preview_followup" do
 
     let(:dummy_message) do
       { :body => "What a useless response! You suck.",
@@ -103,18 +103,18 @@ describe ResponseController do
     end
 
     it "redirects to the signin page if not logged in" do
-      post :create_followup, :outgoing_message => dummy_message,
-                             :id => request.id,
-                             :incoming_message_id => message_id
+      post :preview_followup, :outgoing_message => dummy_message,
+                              :id => request.id,
+                              :incoming_message_id => message_id
       expect(response).
         to redirect_to(signin_url(:token => get_last_post_redirect.token))
     end
 
     it "displays a wrong user message when not logged in as the request owner" do
       session[:user_id] = FactoryGirl.create(:user)
-      post :create_followup, :outgoing_message => dummy_message,
-                             :id => request.id,
-                             :incoming_message_id => message_id
+      post :preview_followup, :outgoing_message => dummy_message,
+                              :id => request.id,
+                              :incoming_message_id => message_id
       expect(response).to render_template('user/wrong_user')
     end
 
@@ -124,126 +124,128 @@ describe ResponseController do
         session[:user_id] = request_user.id
       end
 
-      it "displays the followup form with an error when the message body is blank" do
-        post :create_followup, :id => request.id,
-                               :outgoing_message => {
+      it "displays the edit form with an error when the message body is blank" do
+        post :preview_followup, :id => request.id,
+                                :outgoing_message => {
                                   :body => "",
                                   :what_doing => "normal_sort" },
-                               :incoming_message_id => message_id
+                                :incoming_message_id => message_id
 
         expect(response).to render_template("new_followup")
         expect(response.body).to include("Please enter your follow up message")
       end
 
       it "shows a preview when input is good" do
-        post :create_followup, :outgoing_message => dummy_message,
-                               :id => request.id,
-                               :incoming_message_id => message_id,
-                               :preview => 1
-        expect(response).to render_template('followup_preview')
+        get :preview_followup, :outgoing_message => dummy_message,
+                                :id => request.id,
+                                :incoming_message_id => message_id,
+                                :preview => 1
+        expect(response).to render_template('preview_followup')
       end
 
       it "allows re-editing of a preview" do
-        post :create_followup, :outgoing_message => dummy_message,
-                               :id => request.id,
-                               :incoming_message_id => message_id,
-                               :reedit => "Re-edit this request"
+        get :preview_followup, :outgoing_message => dummy_message,
+                                :id => request.id,
+                                :incoming_message_id => message_id,
+                                :reedit => "Re-edit this request"
         expect(response).to render_template('new_followup')
       end
 
-      context "when not sent preview or reedit params" do
+    end
 
-        it "sends the follow up message" do
-          post :create_followup, :outgoing_message => dummy_message,
-                                 :id => request.id,
-                                 :incoming_message_id => message_id
+  end
 
-          # check it worked
-          deliveries = ActionMailer::Base.deliveries
-          expect(deliveries.size).to eq(1)
-          mail = deliveries[0]
-          expect(mail.body).to match(/What a useless response! You suck./)
-          expect(mail.to_addrs.first.to_s).to eq(request.public_body.request_email)
-        end
+  describe "POST create_followup" do
 
-        it "redirects to the request page" do
-          post :create_followup, :outgoing_message => dummy_message,
-                                 :id => request.id,
-                                 :incoming_message_id => message_id
+    let(:dummy_message) do
+      { :body => "What a useless response! You suck.",
+        :what_doing => 'normal_sort' }
+    end
 
-          expect(response).
-            to redirect_to(show_request_url(:url_title => request.url_title))
-        end
+    before(:each) do
+      session[:user_id] = request_user.id
+    end
 
-        it "displays the a confirmation once the message has been sent" do
-          post :create_followup, :outgoing_message => dummy_message,
-                                 :id => request.id,
-                                 :incoming_message_id => message_id
-          expect(flash[:notice]).to eq('Your follow up message has been sent on its way.')
-        end
+    it "redirects to the signin page if not logged in" do
+      session[:user_id] = nil
+      post :create_followup, :outgoing_message => dummy_message,
+                             :id => request.id,
+                             :incoming_message_id => message_id
+      expect(response).
+        to redirect_to(signin_url(:token => get_last_post_redirect.token))
+    end
 
-        it "displays an error if the request has been closed to new responses" do
-          closed_request = FactoryGirl.create(:info_request_with_incoming,
-                                              :user => request_user,
-                                              :allow_new_responses_from => "nobody")
+    it "sends the follow up message" do
+      post :create_followup, :outgoing_message => dummy_message,
+                             :id => request.id,
+                             :incoming_message_id => message_id
 
-          post :create_followup, :outgoing_message => dummy_message,
-                                 :id => closed_request.id,
-                                 :incoming_message_id => closed_request.incoming_messages[0].id
-          deliveries = ActionMailer::Base.deliveries
-          expect(deliveries.size).to eq(0)
+      # check it worked
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+      expect(mail.body).to match(/What a useless response! You suck./)
+      expect(mail.to_addrs.first.to_s).to eq(request.public_body.request_email)
+    end
 
-          expect(response).to render_template('new_followup')
-          expect(response.body).
-            to include('Your follow up has not been sent because this request has been stopped to prevent spam.')
-        end
+    it "redirects to the request page" do
+      post :create_followup, :outgoing_message => dummy_message,
+                             :id => request.id,
+                             :incoming_message_id => message_id
 
-      end
+      expect(response).
+        to redirect_to(show_request_url(:url_title => request.url_title))
+    end
 
-      it "displays an error if the request has been closed to new responses" do
-        allow_any_instance_of(InfoRequest).
-          to receive(:allow_new_responses_from) { "nobody" }
+    it "displays the a confirmation once the message has been sent" do
+      post :create_followup, :outgoing_message => dummy_message,
+                             :id => request.id,
+                             :incoming_message_id => message_id
+      expect(flash[:notice]).to eq('Your follow up message has been sent on its way.')
+    end
 
+    it "displays an error if the request has been closed to new responses" do
+      closed_request = FactoryGirl.create(:info_request_with_incoming,
+                                          :user => request_user,
+                                          :allow_new_responses_from => "nobody")
+
+      post :create_followup, :outgoing_message => dummy_message,
+                             :id => closed_request.id,
+                             :incoming_message_id => closed_request.incoming_messages[0].id
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(0)
+
+      expect(response).to render_template('new_followup')
+      expect(response.body).
+        to include('Your follow up has not been sent because this request has been stopped to prevent spam.')
+    end
+
+    context "the same followup is submitted twice" do
+
+      before(:each) do
         post :create_followup, :outgoing_message => dummy_message,
                                :id => request.id,
                                :incoming_message_id => message_id
 
-        deliveries = ActionMailer::Base.deliveries
-        expect(deliveries.size).to eq(0)
-
-        expect(response).to render_template('new_followup')
-        expect(response.body).
-          to include('Your follow up has not been sent because this request has been stopped to prevent spam.')
+        post :create_followup, :outgoing_message => dummy_message,
+                               :id => request.id,
+                               :incoming_message_id => message_id
       end
 
-      context "the same followup is submitted twice" do
+      it "displays the form with an error message" do
+        expect(response).to render_template('new_followup')
+        expect(response.body).
+          to include('You previously submitted that exact follow up message for this request.')
+      end
 
-        before(:each) do
-          post :create_followup, :outgoing_message => dummy_message,
-                                 :id => request.id,
-                                 :incoming_message_id => message_id
+      it "only delivers the message once" do
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+      end
 
-          post :create_followup, :outgoing_message => dummy_message,
-                                 :id => request.id,
-                                 :incoming_message_id => message_id
-        end
-
-        it "displays the form with an error message" do
-          expect(response).to render_template('new_followup')
-          expect(response.body).
-            to include('You previously submitted that exact follow up message for this request.')
-        end
-
-        it "only delivers the message once" do
-          deliveries = ActionMailer::Base.deliveries
-          expect(deliveries.size).to eq(1)
-        end
-
-        it "does not repeat the message sent text" do
-          expect(response.body).
-            not_to include('Your follow up message has been sent on its way')
-        end
-
+      it "does not repeat the message sent text" do
+        expect(response.body).
+          not_to include('Your follow up message has been sent on its way')
       end
 
     end
