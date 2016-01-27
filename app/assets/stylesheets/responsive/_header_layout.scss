@@ -143,24 +143,33 @@
   @include grid-row;
   padding: 0;
   position: relative;
+
   @include ie8{
     width: $main_menu-mobile_menu_cutoff;
   }
-  /* Spread the nav elements horizontally on larger screens */
-  li{
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    padding-right: 15em; // Stop nav links disappearing behind search box
+  }
+
+  // Spread the nav elements horizontally on larger screens
+  li {
     display: block;
 
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       display: inline-block;
       float: left;
     }
+
     @include lte-ie7 {
       display: inline;
     }
   }
-  a{
+
+  a {
     padding: 0.5em 1em;
     display: block;
+
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       display: inline-block;
     }
