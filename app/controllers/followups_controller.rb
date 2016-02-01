@@ -10,14 +10,14 @@ class FollowupsController < ApplicationController
                 :set_internal_review_ivars,
                 :set_outgoing_message
 
-  before_filter :check_reedit, :only => [:preview_followup, :create_followup]
+  before_filter :check_reedit, :only => [:preview, :create]
 
-  before_filter :check_responses_allowed, :only => [:create_followup]
+  before_filter :check_responses_allowed, :only => [:create]
 
-  def new_followup
+  def new
   end
 
-  def create_followup
+  def create
     @outgoing_message.info_request = @info_request
     if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
       flash.clear # otherwise the message sent notice may be redisplayed
@@ -26,16 +26,16 @@ class FollowupsController < ApplicationController
       send_followup
       redirect_to request_url(@info_request) and return
     end
-    render :action => 'new_followup'
+    render :action => 'new'
   end
 
-  def preview_followup
+  def preview
     @outgoing_message.info_request = @info_request
     if @outgoing_message.what_doing == 'internal_review'
        @internal_review = true
     end
     unless @outgoing_message.valid?
-      render :action => 'new_followup'
+      render :action => 'new'
       return
     end
   end
@@ -70,7 +70,7 @@ class FollowupsController < ApplicationController
 
   def check_reedit
     if params[:reedit]
-      render :action => 'new_followup'
+      render :action => 'new'
       return
     end
   end
@@ -86,7 +86,7 @@ class FollowupsController < ApplicationController
   def check_responses_allowed
     if @info_request.allow_new_responses_from == "nobody"
       flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you really want to send a follow up message.', :url => help_contact_path.html_safe)
-      render :action => 'new_followup'
+      render :action => 'new'
       return
     end
   end
