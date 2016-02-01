@@ -1,10 +1,11 @@
 # -*- encoding : utf-8 -*-
 class FollowupsController < ApplicationController
   before_filter :check_read_only,
-                :set_incoming_message_and_last_request,
-                :check_for_external_request,
+                :set_incoming_message,
+                :set_info_request,
+                :set_last_request_data,
+                :check_can_followup,
                 :check_user_credentials,
-                :check_address,
                 :check_request_matches_incoming_message,
                 :set_params,
                 :set_internal_review_ivars,
@@ -42,18 +43,9 @@ class FollowupsController < ApplicationController
 
   private
 
-  def check_address
-    if !OutgoingMailer.is_followupable?(@info_request, @incoming_message)
-      raise "unexpected followupable inconsistency" if @info_request.public_body.is_requestable?
-      @reason = @info_request.public_body.not_requestable_reason
-      render :action => 'followup_bad'
-      return
-    end
-  end
-
-  def check_for_external_request
-    if @info_request.is_external?
-      @reason = 'external'
+  def check_can_followup
+    unless @info_request.is_followupable?(@incoming_message)
+      @reason = @info_request.followup_bad_reason
       render :action => 'followup_bad'
       return
     end
