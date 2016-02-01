@@ -45,9 +45,9 @@ describe ServicesController, "when returning a message for people in other count
   it "should show link to other FOI website when not in the deployed country" do
     allow(AlaveteliConfiguration).to receive(:iso_country_code).and_return("ZZ")
     allow(controller).to receive(:country_from_ip).and_return('ES')
-    request.env['HTTP_ACCEPT_LANGUAGE'] = "es"
     get :other_country_message
-    expect(response.body).to match(/Puede hacer solicitudes de información en España/)
+    expect(response.body).
+      to match(/You can make Freedom of Information requests within España at/)
   end
 
   after do
