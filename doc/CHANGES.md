@@ -10,6 +10,7 @@
   https://github.com/mysociety/whatdotheyknow-theme/pull/287 for how we've
   re-implemented this in WhatDoTheyKnow.
 * Better image for pages when shared on Facebook (Zarino Zappia)
+* Official support added for ruby 2.1.5 and 2.3.0 (Louise Crow)
 
 ## Upgrade Notes
 

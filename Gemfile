@@ -58,7 +58,7 @@ group :assets do
   gem 'compass-rails', '2.0.0'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '~> 2.7.2'
-  gem 'therubyracer', '~> 0.12.0'
+  gem 'therubyracer', '~> 0.12.2'
 end
 
 group :production do
@@ -76,7 +76,8 @@ group :test, :development do
   gem 'factory_girl_rails', '~> 1.7'
   gem 'pry', '~> 0.10.3'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
-  gem 'rspec-rails', '3.1.0'
+  gem 'rspec-rails', '3.2.0'
+  gem 'test-unit', '~> 3.0'
   gem 'spork-rails', '~> 3.2.1'
   gem 'pry-nav', '~> 0.2.4'
 end
