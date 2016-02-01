@@ -9,13 +9,16 @@ class ServicesController < ApplicationController
     flash.keep
 
     text = ""
-    iso_country_code = AlaveteliConfiguration::iso_country_code.downcase
-    if country_from_ip.downcase != iso_country_code
-      found_country = WorldFOIWebsites.by_code(country_from_ip)
+    site_country_code = AlaveteliConfiguration.iso_country_code.downcase
+    user_country_code = country_from_ip.downcase
 
+    if user_country_code != site_country_code
+      found_country = WorldFOIWebsites.by_code(user_country_code)
       old_fgt_locale = FastGettext.locale
+
       begin
         FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
+
         if found_country && found_country[:country_name] && found_country[:url] && found_country[:name]
           country_site = found_country[:name]
           country_name = found_country[:country_name]
@@ -39,7 +42,7 @@ class ServicesController < ApplicationController
               :link_to_website => country_link.html_safe)
           end
         else
-          country_data = WorldFOIWebsites.by_code(iso_country_code)
+          country_data = WorldFOIWebsites.by_code(site_country_code)
           if country_data
             text = _("Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}",
                      :country_name => country_data[:country_name],
