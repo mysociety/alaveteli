@@ -27,6 +27,14 @@ describe ServicesController, "when returning a message for people in other count
     expect(response.body).to eq("")
   end
 
+  it "shows a message if user location has a deployed FOI website" do
+    allow(AlaveteliConfiguration).to receive(:iso_country_code).and_return("ZZ")
+    allow(controller).to receive(:country_from_ip).and_return('ES')
+    get :other_country_message
+    expect(response.body).
+      to match(/You can make Freedom of Information requests within España at/)
+  end
+
   it "shows a message when user not in same country as deployed alaveteli and user country has no FOI website" do
     allow(AlaveteliConfiguration).to receive(:iso_country_code).and_return("DE")
     allow(controller).to receive(:country_from_ip).and_return('ZZ')
@@ -50,12 +58,22 @@ describe ServicesController, "when returning a message for people in other count
     expect(response.body).to match(/EU institutions/)
   end
 
-  it "shows a message if user location has a deployed FOI website" do
-    allow(AlaveteliConfiguration).to receive(:iso_country_code).and_return("ZZ")
-    allow(controller).to receive(:country_from_ip).and_return('ES')
+  it "shows a message when user not in same country as deployed alaveteli and user country has no FOI website
+      but user country is covered by EU" do
+    allow(AlaveteliConfiguration).to receive(:iso_country_code).and_return("DE")
+    allow(controller).to receive(:country_from_ip).and_return('MT')
     get :other_country_message
-    expect(response.body).
-      to match(/You can make Freedom of Information requests within España at/)
+    expect(response.body).to match(/outside Deutschland/)
+    expect(response.body).to match(/EU institutions/)
+  end
+
+  it "shows a message when user not in same country as deployed alaveteli and user country has no FOI website
+      and WorldFOIWebsites has no data about the deployed alaveteli but user is covered by EU" do
+    allow(AlaveteliConfiguration).to receive(:iso_country_code).and_return("XY")
+    allow(controller).to receive(:country_from_ip).and_return('MT')
+    get :other_country_message
+    expect(response.body).to match(/in other countries/)
+    expect(response.body).to match(/EU institutions/)
   end
 
   after do

@@ -30,7 +30,14 @@ class ServicesController < ApplicationController
         else
           country_data = WorldFOIWebsites.by_code(site_country_code)
 
-          text = if country_data
+
+          text = if WorldFOIWebsites.can_ask_the_eu?(user_country_code)
+            if country_data
+              no_user_site_eu_msg(country_data[:country_name])
+            else
+              no_user_site_eu_msg
+            end
+          elsif country_data
             no_user_site_msg(country_data[:country_name])
           else
             no_user_site_msg
@@ -60,14 +67,12 @@ class ServicesController < ApplicationController
   private
 
   def user_site_and_eu_site_msg(country_name, country_link)
-    asktheeu_link = %q(<a href="http://asktheeu.org">Ask The EU</a>)
-
     _("Hello! You can make Freedom of Information requests within " \
       "{{country_name}} at {{link_to_website}} and to EU " \
       "institutions at {{link_to_asktheeu}}",
       :country_name => country_name,
       :link_to_website => country_link.html_safe,
-      :link_to_asktheeu => asktheeu_link.html_safe)
+      :link_to_asktheeu => ask_the_eu_link.html_safe)
   end
 
   def user_site_msg(country_name, country_link)
@@ -86,6 +91,27 @@ class ServicesController < ApplicationController
       _("Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries",
         :url => "/help/alaveteli")
     end
+  end
+
+  def no_user_site_eu_msg(country_name = nil)
+    if country_name
+      _("Hello! We have an <a href=\"{{url}}\">important message</a> for " \
+        "visitors outside {{country_name}}. You can also make Freedom of " \
+        "Information requests to EU institutions at {{link_to_asktheeu}}",
+        :country_name => country_name,
+        :url => "/help/alaveteli?country_name=#{CGI.escape(country_name)}",
+        :link_to_asktheeu => ask_the_eu_link.html_safe)
+    else
+      _("Hello! We have an <a href=\"{{url}}\">important message</a> for " \
+        "visitors in other countries. You can also make Freedom of " \
+        "Information requests to EU institutions at {{link_to_asktheeu}}",
+        :url => "/help/alaveteli",
+        :link_to_asktheeu => ask_the_eu_link.html_safe)
+    end
+  end
+
+  def ask_the_eu_link
+    %q(<a href="http://asktheeu.org">Ask The EU</a>)
   end
 
 end
