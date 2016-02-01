@@ -13,17 +13,17 @@ class ServicesController < ApplicationController
     user_country_code = country_from_ip.downcase
 
     if user_country_code != site_country_code
-      found_country = WorldFOIWebsites.by_code(user_country_code)
+      user_site = WorldFOIWebsites.by_code(user_country_code)
       old_fgt_locale = FastGettext.locale
 
       begin
         FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
 
-        if found_country && found_country[:country_name] && found_country[:url] && found_country[:name]
-          country_site = found_country[:name]
-          country_name = found_country[:country_name]
-          country_code = found_country[:country_iso_code]
-          country_url = found_country[:url]
+        if user_site && user_site[:country_name] && user_site[:url] && user_site[:name]
+          country_site = user_site[:name]
+          country_name = user_site[:country_name]
+          country_code = user_site[:country_iso_code]
+          country_url = user_site[:url]
           country_link = %Q(<a href="#{ country_url }">#{ country_site }</a>)
 
           text = if WorldFOIWebsites.can_ask_the_eu?(country_code)
