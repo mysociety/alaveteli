@@ -5,6 +5,7 @@
 * Better support for setting up a thin cluster (Liz Conlan)
 * Added onscreen instructions to the Vagrant box (Liz Conlan)
 * Better image for pages when shared on Facebook (Zarino Zappia)
+* Official support added for ruby 2.1.5 and 2.3.0 (Louise Crow)
 
 ## Upgrade Notes
 
