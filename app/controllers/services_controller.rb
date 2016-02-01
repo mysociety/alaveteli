@@ -51,11 +51,11 @@ class ServicesController < ApplicationController
       :content_type => "text/plain",
       :layout => false,
       :locals => {:name_to => info_request.user_name,
-                  :name_from => AlaveteliConfiguration::contact_name,
+                  :name_from => AlaveteliConfiguration.contact_name,
                   :info_request => info_request, :reason => params[:reason],
-                  :info_request_url => 'http://' + AlaveteliConfiguration::domain + request_path(info_request),
+                  :info_request_url => 'http://' + AlaveteliConfiguration.domain + request_path(info_request),
                   :site_name => site_name}
-      end
+  end
 
   private
 
