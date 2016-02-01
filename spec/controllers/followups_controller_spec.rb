@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe ResponseController do
+describe FollowupsController do
   render_views
 
   let(:request_user) { FactoryGirl.create(:user) }
@@ -21,7 +21,7 @@ describe ResponseController do
       session[:user_id] = FactoryGirl.create(:user)
       external_request = FactoryGirl.create(:external_request)
       get :new_followup, :id => external_request.id
-      expect(response).to render_template('response/followup_bad')
+      expect(response).to render_template('followups/followup_bad')
       expect(assigns[:reason]).to eq('external')
     end
 
