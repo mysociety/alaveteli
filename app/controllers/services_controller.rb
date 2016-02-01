@@ -21,30 +21,19 @@ class ServicesController < ApplicationController
 
         if user_site
           country_link = %Q(<a href="#{ user_site[:url] }">#{ user_site[:name] }</a>)
-          asktheeu_link = %q(<a href="http://asktheeu.org">Ask The EU</a>)
 
           text = if WorldFOIWebsites.can_ask_the_eu?(user_site[:country_iso_code])
-            _("Hello! You can make Freedom of Information requests within " \
-              "{{country_name}} at {{link_to_website}} and to EU " \
-              "institutions at {{link_to_asktheeu}}",
-              :country_name => user_site[:country_name],
-              :link_to_website => country_link.html_safe,
-              :link_to_asktheeu => asktheeu_link.html_safe)
+            user_site_and_eu_site_msg(user_site[:country_name], country_link)
           else
-            _("Hello! You can make Freedom of Information requests within " \
-              "{{country_name}} at {{link_to_website}}",
-              :country_name => user_site[:country_name],
-              :link_to_website => country_link.html_safe)
+            user_site_msg(user_site[:country_name], country_link)
           end
         else
           country_data = WorldFOIWebsites.by_code(site_country_code)
-          if country_data
-            text = _("Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}",
-                     :country_name => country_data[:country_name],
-                     :url => "/help/alaveteli?country_name=#{CGI.escape(country_data[:country_name])}")
+
+          text = if country_data
+            no_user_site_msg(country_data[:country_name])
           else
-            text = _("Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries",
-                     :url => "/help/alaveteli")
+            no_user_site_msg
           end
         end
       ensure
@@ -67,5 +56,36 @@ class ServicesController < ApplicationController
                   :info_request_url => 'http://' + AlaveteliConfiguration::domain + request_path(info_request),
                   :site_name => site_name}
       end
+
+  private
+
+  def user_site_and_eu_site_msg(country_name, country_link)
+    asktheeu_link = %q(<a href="http://asktheeu.org">Ask The EU</a>)
+
+    _("Hello! You can make Freedom of Information requests within " \
+      "{{country_name}} at {{link_to_website}} and to EU " \
+      "institutions at {{link_to_asktheeu}}",
+      :country_name => country_name,
+      :link_to_website => country_link.html_safe,
+      :link_to_asktheeu => asktheeu_link.html_safe)
+  end
+
+  def user_site_msg(country_name, country_link)
+    _("Hello! You can make Freedom of Information requests within " \
+      "{{country_name}} at {{link_to_website}}",
+      :country_name => country_name,
+      :link_to_website => country_link.html_safe)
+  end
+
+  def no_user_site_msg(country_name = nil)
+    if country_name
+      _("Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}",
+        :country_name => country_name,
+        :url => "/help/alaveteli?country_name=#{CGI.escape(country_name)}")
+    else
+      _("Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries",
+        :url => "/help/alaveteli")
+    end
+  end
 
 end
