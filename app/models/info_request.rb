@@ -76,6 +76,7 @@ class InfoRequest < ActiveRecord::Base
   has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
   has_many :mail_server_logs, :order => 'mail_server_log_done_id', :dependent => :destroy
   attr_accessor :is_batch_request_template
+  attr_reader :followup_bad_reason
 
   has_tag_string
 
@@ -1054,6 +1055,23 @@ class InfoRequest < ActiveRecord::Base
     end
 
     directories
+  end
+
+  def is_followupable?(incoming_message)
+    if is_external?
+      @followup_bad_reason = "external"
+      false
+    elsif !OutgoingMailer.is_followupable?(self, incoming_message)
+      @followup_bad_reason = if public_body.is_requestable?
+        "unexpected followupable inconsistency"
+      else
+        public_body.not_requestable_reason
+      end
+      false
+    else
+      @followup_bad_reason = nil
+      true
+    end
   end
 
   def request_dirs

@@ -756,6 +756,85 @@ describe InfoRequest do
 
   end
 
+  describe "#is_followupable?" do
+
+    let(:message_without_reply_to) { FactoryGirl.create(:incoming_message) }
+    let(:valid_request) { FactoryGirl.create(:info_request) }
+    let(:unfollowupable_body) { FactoryGirl.create(:public_body, :request_email => "") }
+
+    context "it is possible to reply to the public body" do
+
+      it "returns true" do
+        expect(valid_request.is_followupable?(message_without_reply_to)).
+          to eq(true)
+      end
+
+      it "should not set a followup_bad_reason" do
+        valid_request.is_followupable?(message_without_reply_to)
+        expect(valid_request.followup_bad_reason).to be_nil
+      end
+
+    end
+
+
+    context "the message has a valid reply address" do
+
+      let(:request) do
+        FactoryGirl.create(:info_request, :public_body => unfollowupable_body)
+      end
+      let(:dummy_message) { double(IncomingMessage) }
+
+      before do
+        allow(dummy_message).to receive(:valid_to_reply_to?) { true }
+      end
+
+      it "returns true" do
+        expect(request.is_followupable?(dummy_message)).to eq(true)
+      end
+
+      it "should not set a followup_bad_reason" do
+        request.is_followupable?(dummy_message)
+        expect(request.followup_bad_reason).to be_nil
+      end
+
+    end
+
+    context "an external request" do
+
+      let(:info_request) { InfoRequest.new(:external_url => "demo_url") }
+
+      it "returns false" do
+        expect(info_request.is_followupable?(message_without_reply_to)).
+          to eq(false)
+      end
+
+      it "sets followup_bad_reason to 'external'" do
+        info_request.is_followupable?(message_without_reply_to)
+        expect(info_request.followup_bad_reason).to eq("external")
+      end
+
+    end
+
+    context "belongs to an unfollowupable PublicBody" do
+
+      let(:request) do
+        FactoryGirl.create(:info_request, :public_body => unfollowupable_body)
+      end
+
+      it "returns false" do
+        expect(request.is_followupable?(message_without_reply_to)).to eq(false)
+      end
+
+      it "sets followup_bad_reason to the public body's not_requestable_reason" do
+        request.is_followupable?(message_without_reply_to)
+        expect(request.followup_bad_reason).
+          to eq(unfollowupable_body.not_requestable_reason)
+      end
+
+    end
+
+  end
+
   describe 'when working out which law is in force' do
 
     context 'when using FOI law' do
