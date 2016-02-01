@@ -164,8 +164,6 @@ class UserController < ApplicationController
     end
   end
 
-  # Followed link in user account confirmation email.
-  # If you change this, change ApplicationController.test_code_redirect_by_email_token also
   def confirm
     post_redirect = PostRedirect.find_by_email_token(params[:email_token])
 

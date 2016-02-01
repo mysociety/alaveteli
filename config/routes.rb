@@ -26,6 +26,24 @@ Alaveteli::Application.routes.draw do
   match '/version.:format' => 'general#version', :as => :version
   #####
 
+  #### Followup controller
+  match '/request/:id/response' => 'followup#preview',
+         :as => :preview_response,
+         :constraints => lambda { |request| request.params[:preview] == "1" }
+  match '/request/:id/response/:incoming_message_id' => 'followup#preview',
+         :as => :preview_response,
+         :constraints => lambda { |request| request.params[:preview] == "1" }
+  match '/request/:id/response' => 'response#create',
+          :as => :preview_response, :via => :post
+  match '/request/:id/response/:incoming_message_id' => 'followup#create',
+          :as => :preview_response, :via => :post
+  match '/request/:id/response/:incoming_message_id' => 'followup#new',
+          :as => :show_response
+  match '/request/:id/response' => 'followup#new',
+          :as => :show_response_no_followup
+  ####
+
+
   ##### Request controller
   match '/list/recent' => 'request#list', :as => :request_list_recent, :view => 'recent'
   match '/list/all' => 'request#list', :as => :request_list_all, :view => 'all'
@@ -50,8 +68,6 @@ Alaveteli::Application.routes.draw do
 
   match '/request/:id/describe' => 'request#describe_state', :as => :describe_state
   match '/request/:url_title/describe/:described_state' => 'request#describe_state_message', :as => :describe_state_message
-  match '/request/:id/response' => 'request#show_response', :as => :show_response_no_followup
-  match '/request/:id/response/:incoming_message_id' => 'request#show_response', :as => :show_response
   match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html', :format => false, :as => :get_attachment_as_html
   match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment', :format => false, :as => :get_attachment
 
