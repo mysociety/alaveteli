@@ -19,26 +19,21 @@ class ServicesController < ApplicationController
       begin
         FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
 
-        if user_site && user_site[:country_name] && user_site[:url] && user_site[:name]
-          country_site = user_site[:name]
-          country_name = user_site[:country_name]
-          country_code = user_site[:country_iso_code]
-          country_url = user_site[:url]
-          country_link = %Q(<a href="#{ country_url }">#{ country_site }</a>)
+        if user_site
+          country_link = %Q(<a href="#{ user_site[:url] }">#{ user_site[:name] }</a>)
+          asktheeu_link = %q(<a href="http://asktheeu.org">Ask The EU</a>)
 
-          text = if WorldFOIWebsites.can_ask_the_eu?(country_code)
-            asktheeu_link = %q(<a href="http://asktheeu.org">Ask The EU</a>)
-
+          text = if WorldFOIWebsites.can_ask_the_eu?(user_site[:country_iso_code])
             _("Hello! You can make Freedom of Information requests within " \
               "{{country_name}} at {{link_to_website}} and to EU " \
               "institutions at {{link_to_asktheeu}}",
-              :country_name => country_name,
+              :country_name => user_site[:country_name],
               :link_to_website => country_link.html_safe,
               :link_to_asktheeu => asktheeu_link.html_safe)
           else
             _("Hello! You can make Freedom of Information requests within " \
               "{{country_name}} at {{link_to_website}}",
-              :country_name => country_name,
+              :country_name => user_site[:country_name],
               :link_to_website => country_link.html_safe)
           end
         else
