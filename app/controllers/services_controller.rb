@@ -57,7 +57,8 @@ class ServicesController < ApplicationController
       end
     end
 
-    render :text => text, :content_type => "text/plain"  # TODO: workaround the HTML validation in test suite
+    # TODO: workaround the HTML validation in test suite
+    render :text => text, :content_type => "text/plain"
   end
 
   def hidden_user_explanation
