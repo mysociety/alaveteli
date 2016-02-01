@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class ResponseController < ApplicationController
+class FollowupController < ApplicationController
   before_filter :check_read_only, :set_incoming_message_and_last_request,
                   :check_for_external_request, :check_user_credentials,
                   :check_address, :check_request_matches_incoming_message,

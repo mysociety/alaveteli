@@ -26,20 +26,20 @@ Alaveteli::Application.routes.draw do
   match '/version.:format' => 'general#version', :as => :version
   #####
 
-  #### Response controller
-  match '/request/:id/response' => 'response#preview_followup',
+  #### Followup controller
+  match '/request/:id/response' => 'followup#preview_followup',
          :as => :preview_response,
          :constraints => lambda { |request| request.params[:preview] == "1" }
-  match '/request/:id/response/:incoming_message_id' => 'response#preview_followup',
+  match '/request/:id/response/:incoming_message_id' => 'followup#preview_followup',
          :as => :preview_response,
          :constraints => lambda { |request| request.params[:preview] == "1" }
   match '/request/:id/response' => 'response#create_followup',
           :as => :preview_response, :via => :post
-  match '/request/:id/response/:incoming_message_id' => 'response#create_followup',
+  match '/request/:id/response/:incoming_message_id' => 'followup#create_followup',
           :as => :preview_response, :via => :post
-  match '/request/:id/response/:incoming_message_id' => 'response#new_followup',
+  match '/request/:id/response/:incoming_message_id' => 'followup#new_followup',
           :as => :show_response
-  match '/request/:id/response' => 'response#new_followup',
+  match '/request/:id/response' => 'followup#new_followup',
           :as => :show_response_no_followup
   ####
 
