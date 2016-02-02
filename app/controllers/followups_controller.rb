@@ -174,11 +174,11 @@ class FollowupsController < ApplicationController
   end
 
   def set_params
-    @collapse_quotes = !params[:unfold]
     @is_owning_user = @info_request.is_owning_user?(authenticated_user)
     @gone_postal = params[:gone_postal]
     @gone_postal = false if !@is_owning_user
     set_postal_addresses if @gone_postal
+    @collapse_quotes = !params[:unfold]
   end
 
   def set_postal_addresses
