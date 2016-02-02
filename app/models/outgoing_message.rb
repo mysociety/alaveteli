@@ -161,6 +161,17 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  # Public: Return logged Message-ID attributes for this OutgoingMessage.
+  # Note that these are not the MTA ID: https://en.wikipedia.org/wiki/Message-ID
+  #
+  # Returns an Array
+  def smtp_message_ids
+    info_request_events.
+      order('created_at ASC').
+        map { |event| event.params[:smtp_message_id] }.
+          compact
+  end
+
   # An admin function
   def prepare_message_for_resend
     if ['initial_request', 'followup'].include?(message_type) and status == 'sent'

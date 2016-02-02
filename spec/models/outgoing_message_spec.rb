@@ -428,6 +428,106 @@ describe OutgoingMessage do
 
   end
 
+  describe '#smtp_message_ids' do
+
+    context 'a sent message' do
+
+      it 'returns one smtp_message_id when a message has been sent once' do
+        message = FactoryGirl.create(:initial_request)
+        smtp_id = message.info_request_events.first.params[:smtp_message_id]
+        expect(message.smtp_message_ids).to eq([smtp_id])
+      end
+
+      it 'returns an empty array if the smtp_message_id was not logged' do
+        message = FactoryGirl.create(:initial_request)
+        message.info_request_events.first.update_attributes(:params => {})
+        expect(message.smtp_message_ids).to be_empty
+      end
+
+    end
+
+    context 'a resent message' do
+
+      it 'returns an smtp_message_id each time the message has been sent' do
+        message = FactoryGirl.create(:initial_request)
+        smtp_id_1 = message.info_request_events.first.params[:smtp_message_id]
+
+        message.prepare_message_for_resend
+
+        mail_message = OutgoingMailer.initial_request(
+          message.info_request,
+          message
+        ).deliver
+
+        message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id,
+          'resent'
+        )
+
+        smtp_id_2 = mail_message.message_id
+
+        message.prepare_message_for_resend
+
+        mail_message = OutgoingMailer.initial_request(
+          message.info_request,
+          message
+        ).deliver
+
+        message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id,
+          'resent'
+        )
+
+        smtp_id_3 = mail_message.message_id
+
+        expect(message.smtp_message_ids).
+          to eq([smtp_id_1, smtp_id_2, smtp_id_3])
+      end
+
+      it 'returns known smtp_message_ids if some were not logged' do
+        message = FactoryGirl.create(:initial_request)
+        smtp_id_1 = message.info_request_events.first.params[:smtp_message_id]
+
+        message.prepare_message_for_resend
+
+        mail_message = OutgoingMailer.initial_request(
+          message.info_request,
+          message
+        ).deliver
+
+        message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          nil,
+          'resent'
+        )
+
+        smtp_id_2 = mail_message.message_id
+
+        message.prepare_message_for_resend
+
+        mail_message = OutgoingMailer.initial_request(
+          message.info_request,
+          message
+        ).deliver
+
+        message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id,
+          'resent'
+        )
+
+        smtp_id_3 = mail_message.message_id
+
+        expect(message.smtp_message_ids).
+          to eq([smtp_id_1, smtp_id_3])
+      end
+
+    end
+
+  end
+
 end
 
 describe OutgoingMessage, " when making an outgoing message" do
