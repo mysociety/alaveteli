@@ -102,7 +102,7 @@ class PublicBodyController < ApplicationController
 
     I18n.with_locale(I18n.locale.to_s) do
       if params[:submitted_view_email]
-        if true
+        if verify_recaptcha
           flash.discard(:error)
           render :template => "public_body/view_email"
           return
