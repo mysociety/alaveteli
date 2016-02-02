@@ -554,7 +554,7 @@ describe RequestMailer do
 
       post_redirect = PostRedirect.find_by_email_token(mail_token)
       expect(post_redirect.uri).
-        to match(show_response_no_followup_path(@kitten_request.id))
+        to match(new_followup_no_incoming_path(@kitten_request.id))
     end
 
     it "does not send the alert if the user is banned but records it as sent" do
@@ -650,7 +650,7 @@ describe RequestMailer do
 
         post_redirect = PostRedirect.find_by_email_token(mail_token)
         expect(post_redirect.uri).
-          to match(show_response_no_followup_path(@kitten_request.id))
+          to match(new_followup_no_incoming_path(@kitten_request.id))
       end
 
     end
@@ -693,7 +693,7 @@ describe RequestMailer do
 
       post_redirect = PostRedirect.find_by_email_token(mail_token)
       expect(post_redirect.uri).
-        to match(show_response_path(:id => ir.id,
+        to match(new_followup_path(:request_id => ir.id,
                                     :incoming_message_id => ir.incoming_messages.last.id))
     end
 
