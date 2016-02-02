@@ -26,24 +26,6 @@ Alaveteli::Application.routes.draw do
   match '/version.:format' => 'general#version', :as => :version
   #####
 
-  #### Followups controller
-  match '/request/:id/response' => 'followups#preview',
-         :as => :preview_response,
-         :constraints => lambda { |request| request.params[:preview] == "1" }
-  match '/request/:id/response/:incoming_message_id' => 'followups#preview',
-         :as => :preview_response,
-         :constraints => lambda { |request| request.params[:preview] == "1" }
-  match '/request/:id/response' => 'response#create',
-          :as => :preview_response, :via => :post
-  match '/request/:id/response/:incoming_message_id' => 'followups#create',
-          :as => :preview_response, :via => :post
-  match '/request/:id/response/:incoming_message_id' => 'followups#new',
-          :as => :show_response
-  match '/request/:id/response' => 'followups#new',
-          :as => :show_response_no_followup
-  ####
-
-
   ##### Request controller
   match '/list/recent' => 'request#list', :as => :request_list_recent, :view => 'recent'
   match '/list/all' => 'request#list', :as => :request_list_all, :view => 'all'
@@ -75,6 +57,13 @@ Alaveteli::Application.routes.draw do
 
   match '/upload/request/:url_title' => 'request#upload_response', :as => :upload_response
   match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
+  ####
+
+  #### Followups controller
+  match '/request/:request_id/followups/new' => 'followups#new', :as => :new_request_followup
+  match '/request/:request_id/followups/new/:incoming_message_id' => 'followups#new', :as => :new_request_incoming_followup
+  match '/request/:request_id/followups/preview' => 'followups#preview', :as => :preview_request_followups, :via => :post
+  match '/request/:request_id/followups' => 'followups#create', :as => :request_followups, :via => :post
   ####
 
   resources :health_checks, :only => [:index]

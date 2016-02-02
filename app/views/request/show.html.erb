@@ -109,7 +109,7 @@
 
       <% if !@info_request.is_external? %>
         <%= _('You can <strong>complain</strong> by') %>
-        <%= link_to _("requesting an internal review"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
+        <%= link_to _("requesting an internal review"), new_request_followup_path(:request_id => @info_request.id) + "?internal_review=1#followup" %>.
       <% end %>
     <% elsif @status == 'not_held' %>
       <%= public_body_link(@info_request.public_body) %> <%= _('<strong>did not have</strong> the information requested.') %>
