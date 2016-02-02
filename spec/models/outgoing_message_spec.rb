@@ -528,6 +528,207 @@ describe OutgoingMessage do
 
   end
 
+  describe '#mta_ids' do
+
+    context 'a sent message' do
+
+      it 'returns one mta_id when a message has been sent once' do
+        message = FactoryGirl.create(:initial_request)
+        body_email = message.info_request.public_body.request_email
+        request_email = message.info_request.incoming_email
+        request_subject = message.info_request.email_subject_request(:html => false)
+        smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+        log = <<-EOF.strip_heredoc
+        2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+        2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-10-30 19:24:15 [17814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        EOF
+
+        batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
+
+        log.split("\n").each_with_index do |line, index|
+          MailServerLog.create_exim_log_line(line, batch, index + 1)
+        end
+
+        expect(message.mta_ids).to eq(['1ZsFHb-0004dK-SM'])
+      end
+
+      it 'returns an empty array if the mta_id could not be found' do
+        message = FactoryGirl.create(:initial_request)
+        body_email = message.info_request.public_body.request_email
+        request_email = 'unknown@localhost'
+        request_subject = 'Unknown'
+        smtp_message_id = 'ogm-11+1111111111111-1111@localhost'
+
+        log = <<-EOF.strip_heredoc
+        2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+        2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-10-30 19:24:15 [17814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        EOF
+
+        batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
+
+        log.split("\n").each_with_index do |line, index|
+          MailServerLog.create_exim_log_line(line, batch, index + 1)
+        end
+
+        expect(message.mta_ids).to be_empty
+      end
+
+    end
+
+    context 'a resent message' do
+
+      it 'returns an mta_id each time the message has been sent' do
+        message = FactoryGirl.create(:initial_request)
+        body_email = message.info_request.public_body.request_email
+        request_email = message.info_request.incoming_email
+        request_subject = message.info_request.email_subject_request(:html => false)
+        smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+        log = <<-EOF.strip_heredoc
+        2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+        2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-10-30 19:24:15 [17814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        EOF
+
+        batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
+
+        log.split("\n").each_with_index do |line, index|
+          MailServerLog.create_exim_log_line(line, batch, index + 1)
+        end
+
+        message.prepare_message_for_resend
+
+        mail_message = OutgoingMailer.initial_request(
+          message.info_request,
+          message
+        ).deliver
+
+        message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id,
+          'resent'
+        )
+
+        smtp_message_id = mail_message.message_id
+
+        log = <<-EOF.strip_heredoc
+        2015-10-30 19:24:16 [17817] 2ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+        2015-10-30 19:24:16 [17814] 2ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-10-30 19:24:15 [17814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        EOF
+
+        batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
+
+        log.split("\n").each_with_index do |line, index|
+          MailServerLog.create_exim_log_line(line, batch, index + 1)
+        end
+
+        message.prepare_message_for_resend
+
+        mail_message = OutgoingMailer.initial_request(
+          message.info_request,
+          message
+        ).deliver
+
+        message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id,
+          'resent'
+        )
+
+        request_email = 'unknown@localhost'
+        request_subject = 'Unknown'
+        smtp_message_id = 'ogm-11+1111111111111-1111@localhost'
+        smtp_message_id = mail_message.message_id
+
+        log = <<-EOF.strip_heredoc
+        2015-10-30 19:24:16 [17817] 3ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+        2015-10-30 19:24:16 [17814] 3ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-10-30 19:24:15 [17814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        EOF
+
+        batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
+
+        log.split("\n").each_with_index do |line, index|
+          MailServerLog.create_exim_log_line(line, batch, index + 1)
+        end
+
+        expect(message.mta_ids).
+          to eq(%w(1ZsFHb-0004dK-SM 2ZsFHb-0004dK-SM))
+      end
+
+      it 'returns the known mta_ids if some outgoing messages were not logged' do
+        message = FactoryGirl.create(:initial_request)
+        body_email = message.info_request.public_body.request_email
+        request_email = message.info_request.incoming_email
+        request_subject = message.info_request.email_subject_request(:html => false)
+        smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+        log = <<-EOF.strip_heredoc
+        2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+        2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-10-30 19:24:15 [17814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        EOF
+
+        batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
+
+        log.split("\n").each_with_index do |line, index|
+          MailServerLog.create_exim_log_line(line, batch, index + 1)
+        end
+
+        # Resend the message without importing exim logs for it, simulating a
+        # lost log file or similar.
+        message.prepare_message_for_resend
+
+        mail_message = OutgoingMailer.initial_request(
+          message.info_request,
+          message
+        ).deliver
+
+        message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id,
+          'resent'
+        )
+
+        message.prepare_message_for_resend
+
+        mail_message = OutgoingMailer.initial_request(
+          message.info_request,
+          message
+        ).deliver
+
+        message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id,
+          'resent'
+        )
+
+        smtp_message_id = mail_message.message_id
+
+        log = <<-EOF.strip_heredoc
+        2015-10-30 19:24:16 [17817] 3ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+        2015-10-30 19:24:16 [17814] 3ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-10-30 19:24:15 [17814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        EOF
+
+        batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
+
+        log.split("\n").each_with_index do |line, index|
+          MailServerLog.create_exim_log_line(line, batch, index + 1)
+        end
+
+        expect(message.mta_ids).
+          to eq(%w(1ZsFHb-0004dK-SM 3ZsFHb-0004dK-SM))
+      end
+
+    end
+
+  end
+
 end
 
 describe OutgoingMessage, " when making an outgoing message" do
