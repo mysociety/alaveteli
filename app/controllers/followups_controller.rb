@@ -8,7 +8,7 @@ class FollowupsController < ApplicationController
                 :check_user_credentials,
                 :check_request_matches_incoming_message,
                 :set_params,
-                :set_internal_review_ivars,
+                :set_internal_review,
                 :set_outgoing_message
 
   before_filter :check_reedit, :only => [:preview, :create]
@@ -51,12 +51,10 @@ class FollowupsController < ApplicationController
     end
   end
 
-  def set_internal_review_ivars
+  def set_internal_review
     @internal_review = false
-    @internal_review_pass_on = false
     if params[:internal_review]
       @internal_review = true
-      @internal_review_pass_on = true
     end
   end
 
