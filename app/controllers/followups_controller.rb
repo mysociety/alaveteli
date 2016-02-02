@@ -182,13 +182,7 @@ class FollowupsController < ApplicationController
   end
 
   def set_postal_addresses
-    who_can_followup_to = @info_request.who_can_followup_to
-    if who_can_followup_to.size == 0
-      @postal_email = @info_request.request_email
-      @postal_email_name = @info_request.name
-    else
-      @postal_email = who_can_followup_to[-1][1]
-      @postal_email_name = who_can_followup_to[-1][0]
-    end
+    @postal_email = @info_request.postal_email
+    @postal_email_name = @info_request.postal_email_name
   end
 end

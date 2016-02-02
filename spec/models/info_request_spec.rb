@@ -1174,6 +1174,62 @@ describe InfoRequest do
 
   end
 
+  describe "#postal_email" do
+
+    let(:public_body) do
+      FactoryGirl.create(:public_body, :request_email => "test@localhost")
+    end
+
+    context "there is no list of incoming messages to followup" do
+
+      it "returns the public body's request_email" do
+        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        expect(request.postal_email).to eq("test@localhost")
+      end
+
+    end
+
+    context "there is a list of incoming messages to followup" do
+
+      it "returns the email address from the last message in the chain" do
+        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        incoming_message = FactoryGirl.create(:plain_incoming_message,
+                                              :info_request => request)
+        request.log_event("response", {:incoming_message_id => incoming_message.id})
+        expect(request.postal_email).to eq("bob@example.com")
+      end
+
+    end
+
+  end
+
+  describe "#postal_email_name" do
+
+    let(:public_body) { FactoryGirl.create(:public_body, :name => "Ministry of Test") }
+
+    context "there is no list of incoming messages to followup" do
+
+      it "returns the public body name" do
+        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        expect(request.postal_email_name).to eq("Ministry of Test")
+      end
+
+    end
+
+    context "there is a list of incoming messages to followup" do
+
+      it "returns the email name from the last message in the chain" do
+        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        incoming_message = FactoryGirl.create(:plain_incoming_message,
+                                              :info_request => request)
+        request.log_event("response", {:incoming_message_id => incoming_message.id})
+        expect(request.postal_email_name).to eq("Bob Responder")
+      end
+
+    end
+
+  end
+
   describe "when calculating the status" do
 
     before do

@@ -1074,6 +1074,22 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  def postal_email
+    if who_can_followup_to.size == 0
+      public_body.request_email
+    else
+      who_can_followup_to[-1][1]
+    end
+  end
+
+  def postal_email_name
+    if who_can_followup_to.size == 0
+      public_body.name
+    else
+      who_can_followup_to[-1][0]
+    end
+  end
+
   def request_dirs
     first_three_digits = id.to_s[0..2]
     File.join(first_three_digits.to_s, id.to_s)
