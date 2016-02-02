@@ -1,9 +1,15 @@
 # -*- encoding : utf-8 -*-
 class FollowupController < ApplicationController
-  before_filter :check_read_only, :set_incoming_message_and_last_request,
-                  :check_can_followup, :check_user_credentials,
-                  :check_request_matches_incoming_message,
-                  :set_params
+  before_filter :check_read_only,
+                :set_incoming_message,
+                :set_info_request,
+                :set_last_request_data,
+                :check_can_followup,
+                :check_user_credentials,
+                :check_request_matches_incoming_message,
+                :set_params,
+                :set_internal_review_ivars,
+                :set_outgoing_message
 
   before_filter :check_reedit, :only => [:preview, :create]
 
@@ -44,7 +50,7 @@ class FollowupController < ApplicationController
     end
   end
 
-  def check_internal_review
+  def set_internal_review_ivars
     @internal_review = false
     @internal_review_pass_on = false
     if params[:internal_review]
@@ -117,7 +123,6 @@ class FollowupController < ApplicationController
                                      :incoming_message_followup => @incoming_message,
                                      :info_request_id => @info_request.id
     })
-    check_internal_review
     params_outgoing_message[:what_doing] = 'internal_review' if @internal_review
     params_outgoing_message
   end
@@ -145,25 +150,34 @@ class FollowupController < ApplicationController
     end
   end
 
-  def set_incoming_message_and_last_request
+  def set_incoming_message
     if params[:incoming_message_id].nil?
       @incoming_message = nil
     else
       @incoming_message = IncomingMessage.find(params[:incoming_message_id])
     end
+  end
 
+  def set_info_request
     @info_request = InfoRequest.find(params[:id].to_i)
+  end
+
+  def set_last_request_data
     set_last_request(@info_request)
   end
 
-  def set_params
-    @collapse_quotes = !params[:unfold]
-    @gone_postal = params[:gone_postal]
-    @is_owning_user = @info_request.is_owning_user?(authenticated_user)
-    @gone_postal = false if !@is_owning_user
-    set_postal_addresses if @gone_postal
+  def set_outgoing_message
+    outgoing_message_params
     @outgoing_message = OutgoingMessage.new(outgoing_message_params)
     @outgoing_message.set_signature_name(@user.name) if @user
+  end
+
+  def set_params
+    @is_owning_user = @info_request.is_owning_user?(authenticated_user)
+    @gone_postal = params[:gone_postal]
+    @gone_postal = false if !@is_owning_user
+    set_postal_addresses if @gone_postal
+    @collapse_quotes = !params[:unfold]
   end
 
   def set_postal_addresses
