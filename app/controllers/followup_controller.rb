@@ -157,7 +157,7 @@ class FollowupController < ApplicationController
   end
 
   def set_info_request
-    @info_request = InfoRequest.find(params[:id].to_i)
+    @info_request = InfoRequest.find(params[:request_id].to_i)
   end
 
   def set_last_request_data

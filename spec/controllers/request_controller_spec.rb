@@ -1584,7 +1584,8 @@ describe RequestController, "when classifying an information request" do
 
       def expect_redirect(status, redirect_path)
         post_status(status)
-        expect(response).to redirect_to("http://test.host/#{redirect_path}")
+        expect(response).
+          to redirect_to("http://" + "test.host/#{redirect_path}".squeeze("/"))
       end
 
       context 'when status is updated to "waiting_response"' do
@@ -1652,13 +1653,19 @@ describe RequestController, "when classifying an information request" do
         it 'should redirect to the "response url" when there is a last response' do
           incoming_message = mock_model(IncomingMessage)
           allow(@dog_request).to receive(:get_last_public_response).and_return(incoming_message)
-          expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
+          expected_url = new_followup_path(
+                          :request_id => @dog_request.id,
+                          :incoming_message_id => @dog_request.get_last_public_response.id)
+          expect_redirect('waiting_clarification', expected_url)
         end
 
-        it 'should redirect to the "response no followup url" when there are no events
+        it 'should redirect to the "followup no incoming url" when there are no events
                     needing description' do
           allow(@dog_request).to receive(:get_last_public_response).and_return(nil)
-          expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
+          expected_url = new_followup_no_incoming_path(
+                          :request_id => @dog_request.id,
+                          :incoming_message_id => nil)
+          expect_redirect('waiting_clarification', expected_url)
         end
 
       end
@@ -1696,7 +1703,10 @@ describe RequestController, "when classifying an information request" do
       context 'when status is updated to "gone postal"' do
 
         it 'should redirect to the "respond to last url"' do
-          expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_public_response.id}?gone_postal=1")
+          expected_url = new_followup_path(
+                          :request_id => @dog_request.id,
+                          :incoming_message_id => @dog_request.get_last_public_response.id)
+          expect_redirect('gone_postal', "#{expected_url}?gone_postal=1")
         end
 
       end
@@ -1738,10 +1748,14 @@ describe RequestController, "when classifying an information request" do
       context 'when status is updated to "user_withdrawn"' do
 
         it 'should redirect to the "respond to last url url" ' do
-          expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_public_response.id}")
+          expected_url = new_followup_path(
+                          :request_id => @dog_request.id,
+                          :incoming_message_id => @dog_request.get_last_public_response.id)
+          expect_redirect('user_withdrawn', expected_url)
         end
 
       end
+
     end
 
   end
