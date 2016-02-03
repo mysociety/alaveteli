@@ -150,10 +150,10 @@ class FollowupsController < ApplicationController
   end
 
   def set_incoming_message
-    if params[:incoming_message_id].nil?
-      @incoming_message = nil
+    @incoming_message = if params[:incoming_message_id].nil?
+      nil
     else
-      @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+      IncomingMessage.find(params[:incoming_message_id])
     end
   end
 
