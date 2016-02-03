@@ -1017,10 +1017,10 @@ class InfoRequest < ActiveRecord::Base
       return false
     end
     unless OutgoingMailer.is_followupable?(self, incoming_message)
-      if public_body.is_requestable?
-        @followup_bad_reason = "unexpected followupable inconsistency"
+      @followup_bad_reason = if public_body.is_requestable?
+        "unexpected followupable inconsistency"
       else
-        @followup_bad_reason = public_body.not_requestable_reason
+        public_body.not_requestable_reason
       end
       return false
     end
