@@ -187,6 +187,21 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  # Public: Return the MTA logs for this message.
+  # Currently only implemented for exim.
+  #
+  # Returns an Array.
+  def mail_server_logs
+    case AlaveteliConfiguration.mta_log_type.to_sym
+    when :exim
+      exim_mail_server_logs
+    when :postfix
+      []
+    else
+      raise 'Unexpected MTA type'
+    end
+  end
+
   # An admin function
   def prepare_message_for_resend
     if ['initial_request', 'followup'].include?(message_type) and status == 'sent'
@@ -414,6 +429,14 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     lines.compact.map { |line| line.split(' ').fourth.strip }
+  end
+
+  def exim_mail_server_logs
+    mta_ids.flat_map do |mta_id|
+      info_request.
+        mail_server_logs.
+          where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
+    end
   end
 
   # remove excess linebreaks that unnecessarily space it out

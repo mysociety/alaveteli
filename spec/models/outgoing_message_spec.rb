@@ -685,6 +685,106 @@ describe OutgoingMessage do
 
     end
 
+    describe '#mail_server_logs' do
+
+      it 'finds the mail server logs associated with a sent message' do
+        message = FactoryGirl.create(:initial_request)
+        body_email = message.info_request.public_body.request_email
+        request_email = message.info_request.incoming_email
+        request_subject = message.info_request.email_subject_request(:html => false)
+        smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+        load_mail_server_logs <<-EOF.strip_heredoc
+        2016-02-03 06:58:10 [16003] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f request-313973-1650c56a@localhost --
+        foi@body.example.com
+        2016-02-03 06:58:11 [16003] 1aQrOE-0004A7-TL <= request-313973-1650c56a@localhost U=alaveteli P=local S=3098 id=ogm-512169+56b3a50ac0cf4-6717@localhost T="Freedom of Information request - Rspec" from <request-313973-1650c56a@localhost> for foi@body.example.com foi@body.example.com
+        2016-02-03 06:58:11 [16006] cwd=/var/spool/exim4 3 args: /usr/sbin/exim4 -Mc 1aQrOE-0004A7-TL
+        2016-02-03 06:58:12 [16006] 1aQrOE-0004A7-TL => foi@body.example.com F=<request-313973-1650c56a@localhost> P=<request-313973-1650c56a@localhost> R=dnslookup T=remote_smtp S=3170 H=authority.mail.protection.example.com [213.199.154.87]:25 X=TLS1.2:RSA_AES_256_CBC_SHA256:256 CV=no DN="C=US,ST=WA,L=Redmond,O=Microsoft,OU=Forefront Online Protection for Exchange,CN=mail.protection.outlook.com" C="250 2.6.0 <ogm-512169+56b3a50ac0cf4-6717@localhost> [InternalId=41399189774878, Hostname=HE" QT=2s DT=1s
+        2016-02-03 06:58:12 [16006] 1aQrOE-0004A7-TL Completed QT=2s
+        2016-02-03 06:58:55 [31388] SMTP connection from [127.0.0.1]:41019 I=[127.0.0.1]:25 (TCP/IP connection count = 1)
+        2016-02-03 06:58:56 [16211] 1aQrOx-0004DT-PC <= medications-cheapest5@broadband.hu H=nil.ukcod.org.uk [127.0.0.1]:41019 I=[127.0.0.1]:25 P=esmtp S=31163 T="Spam" from <medications-cheapest5@broadband.hu> for foi@unknown.ukcod.org.uk
+        2016-02-03 06:58:56 [16212] cwd=/var/spool/exim4 3 args: /usr/sbin/exim4 -Mc 1aQrOx-0004DT-PC
+        2016-02-03 06:58:56 [16211] SMTP connection from nil.ukcod.org.uk [127.0.0.1]:41019 I=[127.0.0.1]:25 closed by QUIT
+        2016-02-03 06:58:56 [16287] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ smtp_message_id } -- #{ body_email }
+        2016-02-03 06:58:56 [16287] 1aQrOy-0004Eh-H7 <= #{ request_email } U=alaveteli P=local S=2329 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2016-02-03 06:58:56 [16291] cwd=/var/spool/exim4 3 args: /usr/sbin/exim4 -Mc 1aQrOy-0004Eh-H7
+        2016-02-03 06:58:57 [16291] 1aQrOy-0004Eh-H7 => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2394 H=cluster1.uk.example.com [85.158.143.3]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail14.messagelabs.com" C="250 ok 1454482737 qp 41621 server-16.tower-14.example.com!1454482736!6386345!1" QT=1s DT=1s
+        2016-02-03 06:58:57 [16291] 1aQrOy-0004Eh-H7 Completed QT=1s
+        2016-02-03 06:59:17 [16212] 1aQrOx-0004DT-PC => |/home/alaveteli/run-with-rbenv-path /var/www/alaveteli/alaveteli/script/mailin <foi@unknown.ukcod.org.uk> F=<medications-cheapest5@broadband.hu> P=<medications-cheapest5@broadband.hu> R=userforward_unsuffixed T=address_pipe S=31362 QT=22s DT=21s
+        2016-02-03 06:59:17 [16212] 1aQrOx-0004DT-PC Completed QT=22s
+        2016-02-03 06:59:49 [31388] SMTP connection from [46.235.226.171]:57365 I=[127.0.0.1]:25 (TCP/IP connection count = 1)
+        2016-02-03 06:59:49 [16392] SMTP connection from null.ukcod.org.uk (null) [46.235.226.171]:57365 I=[127.0.0.1]:25 closed by QUIT
+        2016-02-03 06:59:49 [16392] no MAIL in SMTP connection from null.ukcod.org.uk (null) [46.235.226.171]:57365 I=[127.0.0.1]:25 D=0s C=HELO,QUIT
+        EOF
+
+        expected_lines = <<-EOF.strip_heredoc
+        2016-02-03 06:58:56 [16287] 1aQrOy-0004Eh-H7 <= #{ request_email } U=alaveteli P=local S=2329 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2016-02-03 06:58:57 [16291] 1aQrOy-0004Eh-H7 => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2394 H=cluster1.uk.example.com [85.158.143.3]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail14.messagelabs.com" C="250 ok 1454482737 qp 41621 server-16.tower-14.example.com!1454482736!6386345!1" QT=1s DT=1s
+        EOF
+
+        expect(message.mail_server_logs.map(&:line)).
+          to eq(expected_lines.split("\n"))
+      end
+
+      it 'finds the mail server logs associated with a resent message' do
+        message = FactoryGirl.create(:internal_review_request)
+        body_email = message.info_request.public_body.request_email
+        request_email = message.info_request.incoming_email
+        request_subject = message.info_request.email_subject_request(:html => false)
+        smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+        message.prepare_message_for_resend
+
+        mail_message = OutgoingMailer.initial_request(
+          message.info_request,
+          message
+        ).deliver
+
+        message.record_email_delivery(
+          mail_message.to_addrs.join(', '),
+          mail_message.message_id,
+          'resent'
+        )
+
+        resent_smtp_message_id = mail_message.message_id
+
+        load_mail_server_logs <<-EOF.strip_heredoc
+        2015-09-22 17:36:56 [2035] 1ZeQYq-0000Wm-1V => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=1685 H=mail.example.com [62.208.144.158]:25 C="250 2.0.0 Ok: queued as 95FC94583B8" QT=0s DT=0s
+        2015-09-22 17:36:56 [2032] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        2015-09-22 17:36:56 [2032] 1ZeQYq-0000Wm-1V <= #{ request_email } U=alaveteli P=local S=1645 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-10-21 10:28:01 [10354] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        2015-10-21 10:28:01 [10354] 1Zopgf-0002h0-3S <= #{ request_email } U=alaveteli P=local S=1323 id=ogm-+56275aa1046c0-d660@localhost T="Re: #{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-10-21 10:28:01 [10420] 1Zopgf-0002h0-3S => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=1359 H=mail.example.com [62.208.144.158]:25 C="250 2.0.0 Ok: queued as A84A244B926" QT=0s DT=0s
+        2015-11-06 10:49:25 [23969] 1ZueaD-0006Eb-Cx <= #{ request_email } U=alaveteli P=local S=1901 id=ogm-+563c85b54d2ed-73c6@localhost T="Internal review of #{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-11-06 10:49:26 [24015] 1ZueaD-0006Eb-Cx => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=1945 H=mail.example.com [62.208.144.158]:25 C="250 2.0.0 Ok: queued as 35671838115" QT=1s DT=1s
+        2015-11-06 10:49:25 [23969] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        2015-11-16 20:55:54 [31964] 1ZyQoc-0008JY-DM <= #{ request_email } U=alaveteli P=local S=1910 id=ogm-+564a42da4ea11-8a2e@localhost T="Internal review of #{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-11-16 20:55:55 [31967] 1ZyQoc-0008JY-DM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=1953 H=mail.example.com [62.208.144.158]:25 C="250 2.0.0 Ok: queued as 03958448DA3" QT=1s DT=1s
+        2015-11-16 20:55:54 [31964] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        2015-11-17 05:50:22 [32285] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        2015-11-17 05:50:22 [32285] 1ZyZ9q-0008Oj-JH <= #{ request_email } U=alaveteli P=local S=3413 id=ogm-+564ac01e5ab3c-98e6@localhost T="RE: #{ request_subject } 15" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-11-17 05:50:24 [32288] 1ZyZ9q-0008Oj-JH => #{ body_email } <#{ body_email }> F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=3559 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as 318214E002E" QT=2s DT=2s
+        2015-11-22 00:37:01 [17622] 1a0IeK-0004aB-Na => #{ body_email } <#{ body_email }> F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=4137 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as 8878A680030" QT=1s DT=0s
+        2015-11-22 00:37:00 [17619] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        2015-11-22 00:37:00 [17619] 1a0IeK-0004aB-Na <= #{ request_email } U=alaveteli P=local S=3973 id=#{ resent_smtp_message_id }@localhost T="RE: #{ request_subject } 15" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-12-01 17:05:37 [26935] 1a3oMy-00070R-SQ <= #{ request_email } U=alaveteli P=local S=2016 id=ogm-+565dd360be2ca-2767@localhost T="Re: #{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-12-01 17:05:36 [26935] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+        2015-12-01 17:05:38 [26938] 1a3oMy-00070R-SQ => #{ body_email } <#{ body_email }> F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2071 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as D177C4C002F" QT=2s DT=0s
+        EOF
+
+        expected_lines = <<-EOF.strip_heredoc
+        2015-09-22 17:36:56 [2035] 1ZeQYq-0000Wm-1V => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=1685 H=mail.example.com [62.208.144.158]:25 C="250 2.0.0 Ok: queued as 95FC94583B8" QT=0s DT=0s
+        2015-09-22 17:36:56 [2032] 1ZeQYq-0000Wm-1V <= #{ request_email } U=alaveteli P=local S=1645 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+        2015-11-22 00:37:01 [17622] 1a0IeK-0004aB-Na => #{ body_email } <#{ body_email }> F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=4137 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as 8878A680030" QT=1s DT=0s
+        2015-11-22 00:37:00 [17619] 1a0IeK-0004aB-Na <= #{ request_email } U=alaveteli P=local S=3973 id=#{ resent_smtp_message_id }@localhost T="RE: #{ request_subject } 15" from <#{ request_email }> for #{ body_email } #{ body_email }
+        EOF
+
+        expect(message.mail_server_logs.map(&:line)).
+          to eq(expected_lines.split("\n"))
+      end
+
+    end
+
   end
 
 end
