@@ -82,11 +82,7 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     ret = ""
-    if message_type == 'followup' &&
-        !incoming_message_followup.nil? &&
-        !incoming_message_followup.safe_mail_from.nil? &&
-        incoming_message_followup.valid_to_reply_to?
-
+    if replying_to_incoming_message?
       ret += OutgoingMailer.name_for_followup(info_request, incoming_message_followup)
     else
       return OutgoingMessage.default_salutation(info_request.public_body)
@@ -95,11 +91,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def get_signoff
-    if message_type == 'followup' &&
-        !incoming_message_followup.nil? &&
-        !incoming_message_followup.safe_mail_from.nil? &&
-        incoming_message_followup.valid_to_reply_to?
-
+    if replying_to_incoming_message?
       _("Yours sincerely,")
     else
       _("Yours faithfully,")
@@ -305,6 +297,13 @@ class OutgoingMessage < ActiveRecord::Base
 
   def set_default_letter
     self.body = get_default_message if raw_body.nil?
+  end
+
+  def replying_to_incoming_message?
+    message_type == 'followup' &&
+      !incoming_message_followup.nil? &&
+        !incoming_message_followup.safe_mail_from.nil? &&
+          incoming_message_followup.valid_to_reply_to?
   end
 
   def format_of_body
