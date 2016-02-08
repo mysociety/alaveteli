@@ -66,11 +66,16 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def self.placeholder_salutation
-    _("Dear [Authority name],")
+    warn %q([DEPRECATION] OutgoingMessage.placeholder_salutation will be
+            replaced with
+            OutgoingMessage::Template::BatchRequest.placeholder_salutation as of
+            0.25).squish
+    Template::BatchRequest.placeholder_salutation
   end
 
-  def self.fill_in_salutation(body, public_body)
-    body.gsub(placeholder_salutation, default_salutation(public_body))
+  def self.fill_in_salutation(text, public_body)
+    text.gsub(Template::BatchRequest.placeholder_salutation,
+              default_salutation(public_body))
   end
 
   # How the default letter starts and ends
@@ -119,12 +124,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def get_default_message
-    msg = get_salutation
-    msg += "\n\n"
-    msg += get_default_letter
-    msg += "\n\n"
-    msg += get_signoff
-    msg += "\n\n"
+    letter_template.body(default_message_replacements)
   end
 
   def set_signature_name(name)
@@ -297,6 +297,40 @@ class OutgoingMessage < ActiveRecord::Base
     self.body = get_default_message if raw_body.nil?
   end
 
+  def letter_template
+    @letter_template ||=
+      if what_doing == 'internal_review'
+        Template::InternalReview.new
+      elsif info_request.is_batch_request_template?
+        Template::BatchRequest.new
+      elsif replying_to_incoming_message?
+        Template::IncomingMessageFollowup.new
+      else
+        Template::InitialRequest.new
+      end
+  end
+
+  def default_message_replacements
+    opts = {}
+
+    if info_request
+      opts[:url] = request_url(info_request) if info_request.url_title
+      opts[:info_request_title] = info_request.title if info_request.title
+    end
+
+    opts[:public_body_name] =
+      if replying_to_incoming_message?
+        OutgoingMailer.
+          name_for_followup(info_request, incoming_message_followup)
+      else
+        info_request.try(:public_body).try(:name)
+      end
+
+    opts[:letter] = default_letter if default_letter
+
+    opts
+  end
+
   def replying_to_incoming_message?
     message_type == 'followup' &&
       !incoming_message_followup.nil? &&
@@ -305,7 +339,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def format_of_body
-    if body.empty? || body =~ /\A#{Regexp.escape(get_salutation)}\s+#{Regexp.escape(get_signoff)}/ || body =~ /#{Regexp.escape(get_internal_review_insert_here_note)}/
+    if body.empty? || body =~ /\A#{Regexp.escape(letter_template.salutation(default_message_replacements))}\s+#{Regexp.escape(letter_template.signoff(default_message_replacements))}/ || body =~ /#{Regexp.escape(Template::InternalReview.details_placeholder)}/
       if message_type == 'followup'
         if what_doing == 'internal_review'
           errors.add(:body, _("Please give details explaining why you want a review"))
@@ -319,8 +353,8 @@ class OutgoingMessage < ActiveRecord::Base
       end
     end
 
-    if body =~ /#{get_signoff}\s*\Z/m
-      errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => get_signoff))
+    if body =~ /#{letter_template.signoff(default_message_replacements)}\s*\Z/m
+      errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => letter_template.signoff(default_message_replacements)))
     end
 
     unless MySociety::Validate.uses_mixed_capitals(body)
