@@ -885,3 +885,15 @@ ENABLE_WIDGETS: false
 #
 # ---
 ENABLE_TWO_FACTOR_AUTH: false
+
+# Enable referral of requests to external reviewers. This is likely to be an
+# Information Commissioner or similar.
+#
+# EXTERNAL_REVIEWERS – String (default: '')
+#
+# Examples:
+#
+#   EXTERNAL_REVIEWERS: ico@example.net
+#
+# ---
+EXTERNAL_REVIEWERS: ''
