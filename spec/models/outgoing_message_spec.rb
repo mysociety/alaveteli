@@ -152,27 +152,17 @@ describe OutgoingMessage do
 
   end
 
-end
+  describe '#get_body_for_html_display' do
 
-describe OutgoingMessage, " when making an outgoing message" do
-
-  before do
-    @om = outgoing_messages(:useless_outgoing_message)
-    @outgoing_message = OutgoingMessage.new({
-                                              :status => 'ready',
-                                              :message_type => 'initial_request',
-                                              :body => 'This request contains a foo@bar.com email address',
-                                              :last_sent_at => Time.now,
-                                              :what_doing => 'normal_sort'
-    })
-  end
-
-  it "should not index the email addresses" do
-    # also used for track emails
-    expect(@outgoing_message.get_text_for_indexing).not_to include("foo@bar.com")
-  end
-
-  context "when formatting the message for html display" do
+    before do
+      @outgoing_message = OutgoingMessage.new({
+                                                :status => 'ready',
+                                                :message_type => 'initial_request',
+                                                :body => 'This request contains a foo@bar.com email address',
+                                                :last_sent_at => Time.now,
+                                                :what_doing => 'normal_sort'
+      })
+    end
 
     it "does not display email addresses on page" do
       expect(@outgoing_message.get_body_for_html_display).not_to include("foo@bar.com")
@@ -212,6 +202,27 @@ describe OutgoingMessage, " when making an outgoing message" do
     end
 
   end
+
+end
+
+describe OutgoingMessage, " when making an outgoing message" do
+
+  before do
+    @om = outgoing_messages(:useless_outgoing_message)
+    @outgoing_message = OutgoingMessage.new({
+                                              :status => 'ready',
+                                              :message_type => 'initial_request',
+                                              :body => 'This request contains a foo@bar.com email address',
+                                              :last_sent_at => Time.now,
+                                              :what_doing => 'normal_sort'
+    })
+  end
+
+  it "should not index the email addresses" do
+    # also used for track emails
+    expect(@outgoing_message.get_text_for_indexing).not_to include("foo@bar.com")
+  end
+
 
   it "should include email addresses in outgoing messages" do
     expect(@outgoing_message.body).to include("foo@bar.com")
