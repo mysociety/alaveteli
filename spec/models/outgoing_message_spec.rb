@@ -123,6 +123,144 @@ describe OutgoingMessage do
 
   end
 
+  describe '#get_default_message' do
+
+    context 'an initial_request' do
+
+      it 'produces the expected text for a batch request template' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => false)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        expected_text = "Dear a test public body,\n\n\n\nYours faithfully,\n\n"
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+    end
+
+    context 'a batch request template' do
+
+      it 'produces the expected text for a batch request template' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => true)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        expected_text = "Dear [Authority name],\n\n\n\nYours faithfully,\n\n"
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+    end
+
+    context 'a followup' do
+
+      it 'produces the expected text for a followup' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => false)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'followup',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        expected_text = "Dear a test public body,\n\n\n\nYours faithfully,\n\n"
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+      it 'produces the expected text for an incoming message followup' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => false)
+        incoming_message =
+          mock_model(IncomingMessage, :safe_mail_from => 'helpdesk',
+                                      :valid_to_reply_to? => true)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'followup',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request,
+                              :incoming_message_followup => incoming_message)
+
+        expected_text = "Dear helpdesk,\n\n\n\nYours sincerely,\n\n"
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+    end
+
+    context 'an internal_review' do
+
+      it 'produces the expected text for an internal review request' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => false)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'followup',
+                              :what_doing => 'internal_review',
+                              :info_request => info_request)
+
+        expected_text = <<-EOF.strip_heredoc
+        Dear a test public body,
+
+        Please pass this on to the person who conducts Freedom of Information reviews.
+
+        I am writing to request an internal review of a test public body's handling of my FOI request 'a test title'.
+
+
+
+         [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] 
+
+
+
+        A full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title
+
+
+        Yours faithfully,
+
+        EOF
+
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+    end
+
+  end
+
   describe '#get_body_for_html_display' do
 
     before do
