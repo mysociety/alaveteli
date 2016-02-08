@@ -424,10 +424,6 @@ describe OutgoingMessage, " when making an outgoing message" do
     expect(@outgoing_message.body).to include("foo@bar.com")
   end
 
-  it "should work out a salutation" do
-    expect(@om.get_salutation).to eq("Dear Geraldine Quango,")
-  end
-
   it 'should produce the expected text for an internal review request' do
     public_body = mock_model(PublicBody, :name => 'A test public body')
     info_request = mock_model(InfoRequest, :public_body => public_body,
@@ -444,14 +440,6 @@ describe OutgoingMessage, " when making an outgoing message" do
     })
     expected_text = "Dear A test public body,\n\nPlease pass this on to the person who conducts Freedom of Information reviews.\n\nI am writing to request an internal review of A test public body's handling of my FOI request 'A test title'.\n\n[ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] \n\nA full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title\n\nYours faithfully,"
     expect(outgoing_message.body).to eq(expected_text)
-  end
-
-  context "when associated with a batch template request" do
-
-    it 'should produce a salutation with a placeholder' do
-      @om.info_request.is_batch_request_template = true
-      expect(@om.get_salutation).to eq('Dear [Authority name],')
-    end
   end
 
 end
