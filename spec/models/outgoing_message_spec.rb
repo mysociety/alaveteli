@@ -203,6 +203,30 @@ describe OutgoingMessage do
 
   end
 
+  describe '#indexed_by_search?' do
+
+    before do
+      @info_request = FactoryGirl.create(:info_request)
+      @outgoing_message = @info_request.outgoing_messages.first
+    end
+
+    it 'should return false if it has prominence "hidden"' do
+      @outgoing_message.prominence = 'hidden'
+      expect(@outgoing_message.indexed_by_search?).to be false
+    end
+
+    it 'should return false if it has prominence "requester_only"' do
+      @outgoing_message.prominence = 'requester_only'
+      expect(@outgoing_message.indexed_by_search?).to be false
+    end
+
+    it 'should return true if it has prominence "normal"' do
+      @outgoing_message.prominence = 'normal'
+      expect(@outgoing_message.indexed_by_search?).to be true
+    end
+
+  end
+
 end
 
 describe OutgoingMessage, " when making an outgoing message" do
@@ -311,29 +335,6 @@ describe OutgoingMessage, " when making an outgoing message" do
 
   end
 
-  describe 'when asked if it is indexed by search' do
-
-    before do
-      @info_request = FactoryGirl.create(:info_request)
-      @outgoing_message = @info_request.outgoing_messages.first
-    end
-
-    it 'should return false if it has prominence "hidden"' do
-      @outgoing_message.prominence = 'hidden'
-      expect(@outgoing_message.indexed_by_search?).to be false
-    end
-
-    it 'should return false if it has prominence "requester_only"' do
-      @outgoing_message.prominence = 'requester_only'
-      expect(@outgoing_message.indexed_by_search?).to be false
-    end
-
-    it 'should return true if it has prominence "normal"' do
-      @outgoing_message.prominence = 'normal'
-      expect(@outgoing_message.indexed_by_search?).to be true
-    end
-
-  end
 end
 
 describe OutgoingMessage, "when validating the format of the message body" do
