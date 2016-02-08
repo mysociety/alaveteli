@@ -21,6 +21,17 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe OutgoingMessage do
 
+  describe '.fill_in_salutation' do
+
+    it 'replaces the batch request salutation with the body name' do
+      text = 'Dear [Authority name],'
+      public_body = mock_model(PublicBody, :name => 'A Body')
+      expect(described_class.fill_in_salutation(text, public_body)).
+        to eq('Dear A Body,')
+    end
+
+  end
+
   describe '#initialize' do
 
     it 'does not censor the #body' do
