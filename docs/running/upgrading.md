@@ -20,13 +20,14 @@ Upgrading Alaveteli
   We recommend you set this to the explicit tag name (for example,
   `0.18`, and not `master`) so there's no risk of you accidentally deploying
   a new version before you're aware it's been released.
-* otherwise, you can simply upgrade by running `git pull`
+* otherwise, you can simply upgrade by running `git pull` as the alaveteli user
+  to avoid permission errors for site files (e.g. `sudo -u alaveteli git pull`)
 
 ## Run the post-deploy script
 
 Unless you're [using Capistrano for deployment]({{ page.baseurl }}/docs/installing/deploy/),
-you should always run the script `scripts/rails-post-deploy` after each
-deployment. This runs any database migrations for you, plus various other
+you should always run the script `scripts/rails-post-deploy` (again, as the alaveteli user)
+after each deployment. This runs any database migrations for you, plus various other
 things that can be automated for deployment.
 
 <div class="attention-box info">
