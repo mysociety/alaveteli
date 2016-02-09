@@ -10,7 +10,11 @@
   <div class="span12">
     <h1>Statistics</h1>
     <h2>Chart of requests (excluding backpaged)</h2>
-    <img src="/foi-live-creation.png" alt="Chart of requests">
+    <% if File.exists?(File.expand_path("public/foi-live-creation.png", Rails.root)) %>
+      <img src="/foi-live-creation.png" alt="Chart of requests">
+    <% else %>
+      No requests yet (the raw data may include the Holding Pen request)
+    <% end %>
   </div>
 </div>
 <div class="row">
@@ -33,7 +37,11 @@
 <div class="row">
   <div class="span12">
     <h2>Chart of users</h2>
-    <img src="/foi-user-use.png" alt="Chart of users">
+    <% if File.exists?(File.expand_path("public/foi-user-use.png", Rails.root)) %>
+      <img src="/foi-user-use.png" alt="Chart of users">
+    <% else %>
+      No user data yet
+    <% end %>
   </div>
 </div>
 <div class="row">

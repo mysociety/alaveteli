@@ -11,6 +11,7 @@
   re-implemented this in WhatDoTheyKnow.
 * Better image for pages when shared on Facebook (Zarino Zappia)
 * Official support added for ruby 2.1.5 and 2.3.0 (Louise Crow)
+* Ported the graph generation shell scripts to Ruby (Liz Conlan)
 
 ## Upgrade Notes
 
