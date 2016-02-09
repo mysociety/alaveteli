@@ -6,9 +6,9 @@ require 'spork'
 #require 'spork/ext/ruby-debug'
 require 'simplecov'
 require 'coveralls'
-# Generate coverage locally in html as well as in coveralls.io
+
+# Generate coverage in coveralls.io
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter
 ]
 SimpleCov.start('rails') do
