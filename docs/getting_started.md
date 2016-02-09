@@ -98,14 +98,10 @@ If you install your own copy, you have complete control over the website, its
 performance, how often it is upgraded, and so on. We recommend this as the best
 approach. However, you will need some resources to do this.
 
-Alternatively, we have very limited capacity to run a handful of Alaveteli
-sites for willing volunteers. We want to learn more about how we can support
-third parties, and to do so we're happy to help host low-volume sites for two
-or three partners. However, you will have no service level agreement, no
-warranties, and no guarantee on our time: if the website goes down when we're
-on holiday, you'll have to wait until we're back! If you want to try this
-route, please [get in touch](mailto:international@mysociety.org) to find out if
-we have capacity.
+Alternatively, we have an open call for applications to run Alaveteli sites.
+There is [more information on this process here](https://www.mysociety.org/international/apply-for-help/). However, you will have no service level agreement, no warranties,
+and no guarantee on our time: if the website goes down when we're on holiday,
+you'll have to wait until we're back!
 
 ### Install your own copy
 
