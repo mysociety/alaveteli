@@ -1,5 +1,5 @@
 safe: true
-highlighter: pygments
+highlighter: rouge
 baseurl: /
 permalink: pretty
 markdown: kramdown
