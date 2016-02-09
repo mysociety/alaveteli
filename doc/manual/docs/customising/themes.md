@@ -203,9 +203,26 @@ into minified concatenated CSS. Assets are stored in core Alaveteli under
 `app/assets` -- in `fonts`, `images`, `javascripts` and `stylesheets`. The
 default theme has corresponding asset directories in `alavetelitheme/assets`
 Asset files placed in these directories will override those in the core
-directories. As with templates, a file at
-<code>lib/themes/<em>yourtheme</em>/assets/images/logo.png</code> will appear on the
-site instead of the logo from `app/assets/images/logo.png`.
+directories.
+
+To add your own logo, you will need to prepare 2 separate logo files - the
+"standard" one and a double size version that will prevent your logo
+looking blurry on high resolution screens such as Apple's Retina displays.
+
+The easiest method is to start with a logo image which is exactly twice
+the size you want it to appear on the screen (if you try to create the larger version
+from the smaller one, you run the risk of ending up with ending up with your
+larger file looking blurry anyway). So if you want your finished logo to be 275
+pixels wide and 44 pixels high (as per our current example logos), your
+high resolution version should be 550 pixels by 88. Save this as `logo@2.png`
+and copy it to your theme as
+<code>lib/themes/<em>yourtheme</em>/assets/images/logo@2.png</code> so that it
+will replace the example image.
+
+Now make a copy of your `logo@2.png` and make it half the size - be careful to
+keep the proportions the same or your logo will look squashed! - so in our example
+it will be 275 x 44 pixels. Save this as `logo.png` and place it in your theme as
+<code>lib/themes/<em>yourtheme</em>/assets/images/logo.png</code>.
 
 ### Changing the colour scheme
 
