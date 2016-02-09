@@ -37,6 +37,35 @@ describe OutgoingMessage do
 
   end
 
+  describe '#what_doing' do
+
+    it 'allows a value of normal_sort' do
+      message =
+        FactoryGirl.build(:initial_request, :what_doing => 'normal_sort')
+      expect(message).to be_valid
+    end
+
+    it 'allows a value of internal_review' do
+      message =
+        FactoryGirl.build(:initial_request, :what_doing => 'internal_review')
+      expect(message).to be_valid
+    end
+
+    it 'allows a value of new_information' do
+      message =
+        FactoryGirl.build(:initial_request, :what_doing => 'new_information')
+      expect(message).to be_valid
+    end
+
+    it 'adds an error to :what_doing_dummy if an invalid value is provided' do
+      message = FactoryGirl.build(:initial_request, :what_doing => 'invalid')
+      message.valid?
+      expect(message.errors[:what_doing_dummy]).
+        to eq(['Please choose what sort of reply you are making.'])
+    end
+
+  end
+
   describe '#destroy' do
     it 'should destroy the outgoing message' do
       attrs = { :status => 'ready',
