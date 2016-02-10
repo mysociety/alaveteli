@@ -1939,57 +1939,6 @@ describe RequestController, "sending overdue request alerts" do
     expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
   end
 
-  it 'should send alerts for requests where the last event forming the initial request is a followup
-        being sent following a request for clarification' do
-    chicken_request = info_requests(:naughty_chicken_request)
-    chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
-    chicken_request.outgoing_messages[0].save!
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-
-    # Request is waiting clarification
-    chicken_request.set_described_state('waiting_clarification')
-
-    # Followup message is sent
-    outgoing_message = OutgoingMessage.new(:status => 'ready',
-                                           :message_type => 'followup',
-                                           :info_request_id => chicken_request.id,
-                                           :body => 'Some text',
-                                           :what_doing => 'normal_sort')
-
-    outgoing_message.sendable?
-    mail_message = OutgoingMailer.followup(
-      outgoing_message.info_request,
-      outgoing_message,
-      outgoing_message.incoming_message_followup
-    ).deliver
-    outgoing_message.record_email_delivery(mail_message.to_addrs.join(', '), mail_message.message_id)
-
-    outgoing_message.save!
-
-    chicken_request = InfoRequest.find(chicken_request.id)
-
-    # Last event forming the request is now the followup
-    expect(chicken_request.last_event_forming_initial_request.event_type).to eq('followup_sent')
-
-    # This isn't overdue, so no email
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-
-    # Make the followup older
-    outgoing_message.last_sent_at = Time.now - 60.days
-    outgoing_message.save!
-
-    # Now it should be alerted on
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(2)
-  end
-
-end
-
 describe RequestController, "sending unclassified new response reminder alerts" do
   render_views
 

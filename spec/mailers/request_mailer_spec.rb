@@ -550,6 +550,52 @@ describe RequestMailer do
       expect(kitten_mails.size).to eq(1)
     end
 
+    it "sends alerts for requests where the last event forming the initial
+          request is a followup being sent following a request for clarification" do
+      RequestMailer.alert_overdue_requests
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
+
+      # Request is waiting clarification
+      @kitten_request.set_described_state('waiting_clarification')
+
+      # Followup message is sent
+      outgoing_message = OutgoingMessage.new(:status => 'ready',
+                                             :message_type => 'followup',
+                                             :info_request_id => @kitten_request.id,
+                                             :body => 'Some text',
+                                             :what_doing => 'normal_sort')
+
+      outgoing_message.sendable?
+      mail_message = OutgoingMailer.followup(
+        outgoing_message.info_request,
+        outgoing_message,
+        outgoing_message.incoming_message_followup
+      ).deliver
+      outgoing_message.record_email_delivery(mail_message.to_addrs.join(', '), mail_message.message_id)
+
+      outgoing_message.save!
+
+      kitten_request = InfoRequest.find(@kitten_request.id)
+
+      # Last event forming the request is now the followup
+      expect(kitten_request.last_event_forming_initial_request.event_type).to eq('followup_sent')
+
+      # This isn't overdue, so no email
+      RequestMailer.alert_overdue_requests
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
+
+      # Make the followup older
+      outgoing_message.last_sent_at = very_overdue_date
+      outgoing_message.save!
+
+      # Now it should be alerted on
+      RequestMailer.alert_overdue_requests
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(2)
+    end
+
     context "very overdue alerts" do
 
       it 'should not create HTML entities in the subject line' do
