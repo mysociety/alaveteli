@@ -445,6 +445,35 @@ describe RequestMailer do
 
   end
 
+  describe "sending unclassified new response reminder alerts" do
+
+    before(:each) do
+      load_raw_emails_data
+    end
+
+    it "sends an alert" do
+      RequestMailer.alert_new_response_reminders
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(3) # sufficiently late it sends reminders too
+      mail = deliveries[0]
+      expect(mail.body).to match(/To let everyone know/)
+      expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
+      mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+      mail_url = $1
+      mail_token = $2
+
+      post_redirect = PostRedirect.find_by_email_token(mail_token)
+      expect(post_redirect.uri).
+        to match(show_request_path(info_requests(:fancy_dog_request).url_title))
+
+      # check anchor tag goes to last new response
+      expect(post_redirect.uri.split("#").last).
+        to eq("describe_state_form_1")
+    end
+
+  end
+
   describe "requires_admin" do
 
     let(:user) do

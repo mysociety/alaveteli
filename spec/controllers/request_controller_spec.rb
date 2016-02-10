@@ -1939,36 +1939,6 @@ describe RequestController, "sending overdue request alerts" do
     expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
   end
 
-describe RequestController, "sending unclassified new response reminder alerts" do
-  render_views
-
-  before(:each) do
-    load_raw_emails_data
-  end
-
-  it "should send an alert" do
-    RequestMailer.alert_new_response_reminders
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(3) # sufficiently late it sends reminders too
-    mail = deliveries[0]
-    expect(mail.body).to match(/To let everyone know/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
-    mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
-    mail_url = $1
-    mail_token = $2
-
-    expect(session[:user_id]).to be_nil
-    controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    expect(session[:user_id]).to eq(info_requests(:fancy_dog_request).user.id)
-
-    expect(response).to render_template('show')
-    expect(assigns[:info_request]).to eq(info_requests(:fancy_dog_request))
-    # TODO: should check anchor tag here :) that it goes to last new response
-  end
-
-end
-
 describe RequestController, "clarification required alerts" do
   render_views
   before(:each) do
