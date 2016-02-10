@@ -1,13 +1,9 @@
 # -*- encoding : utf-8 -*-
 class ResponseController < ApplicationController
   before_filter :check_read_only,
-                :check_banned,
-                :set_incoming_message,
-                :set_info_request,
-                :set_last_request_data,
+                :set_incoming_message_and_last_request,
                 :check_for_external_request,
-                :force_login,
-                :check_hidden,
+                :check_user_credentials,
                 :check_address,
                 :check_request_matches_incoming_message,
                 :set_params,
@@ -71,14 +67,6 @@ class ResponseController < ApplicationController
 
   private
 
-  def check_banned
-    if !authenticated_user.nil? && !authenticated_user.can_make_followup?
-      @details = authenticated_user.can_fail_html
-      render :template => 'user/banned'
-      return
-    end
-  end
-
   def check_address
     if !OutgoingMailer.is_followupable?(@info_request, @incoming_message)
       raise "unexpected followupable inconsistency" if @info_request.public_body.is_requestable?
@@ -93,12 +81,6 @@ class ResponseController < ApplicationController
       @reason = 'external'
       render :action => 'followup_bad'
       return
-    end
-  end
-
-  def check_hidden
-    if !authenticated_user.nil? && !@info_request.user_can_view?(authenticated_user)
-      return render_hidden
     end
   end
 
@@ -119,11 +101,19 @@ class ResponseController < ApplicationController
     end
   end
 
-  def force_login
+  def check_user_credentials
     # We want to make sure they're the right user first, before they start
     # writing a message and wasting their time if they are not the requester.
     params = get_login_params(@incoming_message, @info_request)
     return if !authenticated_as_user?(@info_request.user, params)
+    if !authenticated_user.nil? && !authenticated_user.can_make_followup?
+      @details = authenticated_user.can_fail_html
+      render :template => 'user/banned'
+      return
+    end
+    if !authenticated_user.nil? && !@info_request.user_can_view?(authenticated_user)
+      return render_hidden
+    end
   end
 
   def get_login_params(is_incoming, info_request)
