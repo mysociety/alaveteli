@@ -493,9 +493,40 @@ describe RequestMailer do
 
   describe "sending overdue request alerts" do
 
+    let(:request_date) { Time.zone.parse('2010-12-12') }
+    let(:overdue_date) { request_date - 31.days }
+    let(:very_overdue_date) { request_date - 61.days }
+
+    before(:each) do
+      @kitten_request = FactoryGirl.create(:info_request,
+                                           :title => "Do you really own a kitten?")
+      @kitten_request.outgoing_messages[0].last_sent_at = overdue_date
+      @kitten_request.outgoing_messages[0].save!
+    end
+
     it 'should not create HTML entities in the subject line' do
       mail = RequestMailer.overdue_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:user))
       expect(mail.subject).to eq "Delayed response to your FOI request - Here's a request"
+    end
+
+    it "sends an overdue alert mail to request creators" do
+      allow(Time).to receive(:now).and_return(request_date)
+      RequestMailer.alert_overdue_requests
+
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
+      mail = kitten_mails[0]
+
+      expect(mail.body).to match(/promptly, as normally/)
+      expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
+
+      mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+      mail_url = $1
+      mail_token = $2
+
+      post_redirect = PostRedirect.find_by_email_token(mail_token)
+      expect(post_redirect.uri).
+        to match(show_response_no_followup_path(@kitten_request.id))
     end
 
     context "very overdue alerts" do
