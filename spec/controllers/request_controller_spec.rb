@@ -1939,18 +1939,6 @@ describe RequestController, "sending overdue request alerts" do
     expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
   end
 
-  it "should not resend alerts to people who've already received them" do
-    chicken_request = info_requests(:naughty_chicken_request)
-    chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
-    chicken_request.outgoing_messages[0].save!
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-  end
-
   it 'should send alerts for requests where the last event forming the initial request is a followup
         being sent following a request for clarification' do
     chicken_request = info_requests(:naughty_chicken_request)

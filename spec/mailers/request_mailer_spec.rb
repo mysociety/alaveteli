@@ -541,6 +541,15 @@ describe RequestMailer do
       expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
     end
 
+    it "does not resend alerts to people who've already received them" do
+      RequestMailer.alert_overdue_requests
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
+      RequestMailer.alert_overdue_requests
+      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(kitten_mails.size).to eq(1)
+    end
+
     context "very overdue alerts" do
 
       it 'should not create HTML entities in the subject line' do
