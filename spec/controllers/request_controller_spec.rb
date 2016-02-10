@@ -1911,34 +1911,6 @@ describe RequestController, "when sending a followup message" do
 
 end
 
-# TODO: Stuff after here should probably be in request_mailer_spec.rb - but then
-# it can't check the URLs in the emails I don't think, ugh.
-
-describe RequestController, "sending overdue request alerts" do
-  render_views
-
-  before(:each) do
-    load_raw_emails_data
-  end
-
-  it "should include clause for schools when sending an overdue alert mail to creators of overdue requests" do
-    chicken_request = info_requests(:naughty_chicken_request)
-    chicken_request.outgoing_messages[0].last_sent_at = Time.now - 30.days
-    chicken_request.outgoing_messages[0].save!
-
-    chicken_request.public_body.tag_string = "school"
-    chicken_request.public_body.save!
-
-    RequestMailer.alert_overdue_requests
-
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-    mail = chicken_mails[0]
-
-    expect(mail.body).to match(/promptly, as normally/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
-  end
-
 describe RequestController, "when viewing comments" do
   render_views
   before(:each) do
