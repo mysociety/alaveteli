@@ -685,4 +685,55 @@ describe RequestMailer do
 
   end
 
+  describe "clarification required alerts" do
+
+    before(:each) do
+      load_raw_emails_data
+    end
+
+    it "should send an alert" do
+      ir = info_requests(:fancy_dog_request)
+      ir.set_described_state('waiting_clarification')
+      # this is pretty horrid, but will do :) need to make it waiting
+      # clarification more than 3 days ago for the alerts to go out.
+      ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.zone.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
+      ir.reload
+
+      RequestMailer.alert_not_clarified_request
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+      expect(mail.body).to match(/asked you to explain/)
+      expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
+      mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+      mail_url = $1
+      mail_token = $2
+
+      post_redirect = PostRedirect.find_by_email_token(mail_token)
+      expect(post_redirect.uri).
+        to match(show_response_path(:id => ir.id,
+                                    :incoming_message_id => ir.incoming_messages.last.id))
+    end
+
+    it "should not send an alert to banned users" do
+      ir = info_requests(:fancy_dog_request)
+      ir.set_described_state('waiting_clarification')
+
+      ir.user.ban_text = 'Banned'
+      ir.user.save!
+
+      # this is pretty horrid, but will do :) need to make it waiting
+      # clarification more than 3 days ago for the alerts to go out.
+      ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.zone.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
+      ir.reload
+
+      RequestMailer.alert_not_clarified_request
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(0)
+    end
+
+  end
+
 end
