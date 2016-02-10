@@ -548,6 +548,28 @@ describe RequestMailer do
         expect(mail.subject).to eq "You're long overdue a response to your FOI request - Here's a request"
       end
 
+      it "sends a very overdue alert mail to creators of very overdue requests" do
+        @kitten_request.outgoing_messages[0].last_sent_at = very_overdue_date
+        @kitten_request.outgoing_messages[0].save!
+
+        RequestMailer.alert_overdue_requests
+
+        kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+        expect(kitten_mails.size).to eq(1)
+        mail = kitten_mails[0]
+
+        expect(mail.body).to match(/required by law/)
+        expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
+
+        mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+        mail_url = $1
+        mail_token = $2
+
+        post_redirect = PostRedirect.find_by_email_token(mail_token)
+        expect(post_redirect.uri).
+          to match(show_response_no_followup_path(@kitten_request.id))
+      end
+
     end
 
   end

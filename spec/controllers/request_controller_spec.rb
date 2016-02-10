@@ -1939,32 +1939,6 @@ describe RequestController, "sending overdue request alerts" do
     expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
   end
 
-  it "should send a very overdue alert mail to creators of very overdue requests" do
-    chicken_request = info_requests(:naughty_chicken_request)
-    chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
-    chicken_request.outgoing_messages[0].save!
-
-    RequestMailer.alert_overdue_requests
-
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-    mail = chicken_mails[0]
-
-    expect(mail.body).to match(/required by law/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
-
-    mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
-    mail_url = $1
-    mail_token = $2
-
-    expect(session[:user_id]).to be_nil
-    controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    expect(session[:user_id]).to eq(info_requests(:naughty_chicken_request).user.id)
-
-    expect(response).to render_template('show_response')
-    expect(assigns[:info_request]).to eq(info_requests(:naughty_chicken_request))
-  end
-
   it "should not resend alerts to people who've already received them" do
     chicken_request = info_requests(:naughty_chicken_request)
     chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
