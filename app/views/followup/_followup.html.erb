@@ -30,18 +30,18 @@
       <ul>
         <% @info_request.who_can_followup_to(incoming_message).each do |name, email, id|  %>
           <% if id.nil? && !incoming_message.nil? && incoming_message.valid_to_reply_to? %>
-            <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil)) %></li>
+            <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), new_followup_no_incoming_path(:request_id => @info_request.id)) %></li>
           <% else %>
             <% if !id.nil? %>
               <% if @info_request.public_body.request_email == email %>
                 <% if !incoming_message.nil? %>
-                  <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil)) %></li>
+                  <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), new_followup_no_incoming_path(:request_id => @info_request.id)) %></li>
                 <% end %>
               <% else %>
-                <li><%= link_to name, show_response_path(:id => @info_request.id, :incoming_message_id => id)%></li>
+                <li><%= link_to name, new_followup_path(:request_id => @info_request.id, :incoming_message_id => id)%></li>
               <% end %>
             <% else %>
-              <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil)) %></li>
+              <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), new_followup_no_incoming_path(:request_id => @info_request.id)) %></li>
             <% end %>
           <% end %>
         <% end %>
@@ -104,7 +104,7 @@
       </p>
     <% end %>
 
-    <%= form_for(@outgoing_message, :html => { :id => 'followup_form' }, :url => incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>
+    <%= form_for(@outgoing_message, :html => { :id => 'followup_form' }, :url => incoming_message.nil? ? preview_followup_url(:request_id => @info_request.id) : preview_followup_url(:request_id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>
       <p>
         <%= o.text_area :body, :rows => 15, :cols => 55 %>
       </p>
@@ -151,8 +151,7 @@
 
       <p>
         <%= hidden_field_tag 'submitted_followup', 1 %>
-        <%= hidden_field_tag(:preview, 1 ) %>
-        <% if @internal_review_pass_on %>
+        <% if @internal_review %>
           <%= hidden_field_tag(:internal_review, 1 ) %>
         <% end %>
         <%= submit_tag _("Preview your message") %>

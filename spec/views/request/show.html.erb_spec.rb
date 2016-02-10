@@ -75,8 +75,13 @@ describe 'request/show' do
           allow(mock_request).to receive(:get_last_public_response).
             and_return(mock_response)
           request_page
-          expected_url = "/en/request/#{mock_request.id}/response/#{mock_response.id}#followup"
-          expect(response.body).to have_css("a[href='#{expected_url}']", :text => 'send a follow up message')
+          expected_url = new_followup_path(
+                          :request_id => mock_request.id,
+                          :incoming_message_id => mock_response.id)
+          expect(response.body).
+            to have_css(
+              "a[href='#{expected_url}#followup']",
+              :text => 'send a follow up message')
         end
 
       end
@@ -89,8 +94,11 @@ describe 'request/show' do
 
         it 'should show a link to follow up the request without reference to a specific response' do
           request_page
-          expected_url = "/en/request/#{mock_request.id}/response#followup"
-          expect(response.body).to have_css("a[href='#{expected_url}']", :text => 'send a follow up message')
+          expected_url = new_followup_no_incoming_path(:request_id => mock_request.id)
+          expect(response.body).
+            to have_css(
+              "a[href='#{expected_url}#followup']",
+              :text => 'send a follow up message')
         end
 
       end

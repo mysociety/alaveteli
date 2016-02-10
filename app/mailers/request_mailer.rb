@@ -151,7 +151,7 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that they need to clarify their request
   def not_clarified_alert(info_request, incoming_message)
-    respond_url = show_response_url(:id => info_request.id, :incoming_message_id => incoming_message.id)
+    respond_url = new_followup_url(:request_id => info_request.id, :incoming_message_id => incoming_message.id)
     respond_url = respond_url + "#followup"
 
     post_redirect = PostRedirect.new(
