@@ -50,8 +50,6 @@ Alaveteli::Application.routes.draw do
 
   match '/request/:id/describe' => 'request#describe_state', :as => :describe_state
   match '/request/:url_title/describe/:described_state' => 'request#describe_state_message', :as => :describe_state_message
-  match '/request/:id/response' => 'request#show_response', :as => :show_response_no_followup
-  match '/request/:id/response/:incoming_message_id' => 'request#show_response', :as => :show_response
   match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html', :format => false, :as => :get_attachment_as_html
   match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment', :format => false, :as => :get_attachment
 
@@ -59,6 +57,13 @@ Alaveteli::Application.routes.draw do
 
   match '/upload/request/:url_title' => 'request#upload_response', :as => :upload_response
   match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
+  ####
+
+  #### Followup controller
+  match '/request/:request_id/followup/new' => 'followup#new', :as => :new_followup_no_incoming
+  match '/request/:request_id/followup/new/:incoming_message_id' => 'followup#new', :as => :new_followup
+  match '/request/:request_id/followup/preview' => 'followup#preview', :as => :preview_followup, :via => :post
+  match '/request/:request_id/followup' => 'followup#create', :as => :create_followup, :via => :post
   ####
 
   resources :health_checks, :only => [:index]

@@ -56,9 +56,9 @@ module LinkToHelper
   def respond_to_last_url(info_request, options = {})
     last_response = info_request.get_last_public_response
     if last_response.nil?
-      show_response_no_followup_url(options.merge(:id => info_request.id))
+      new_followup_no_incoming_url(options.merge(:request_id => info_request.id))
     else
-      show_response_url(options.merge(:id => info_request.id, :incoming_message_id => last_response.id))
+      new_followup_url(options.merge(:request_id => info_request.id, :incoming_message_id => last_response.id))
     end
   end
 
