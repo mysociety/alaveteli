@@ -105,4 +105,44 @@ describe ResponseController do
 
   end
 
+  describe "POST show_response" do
+
+    let(:dummy_message) do
+      { :body => "What a useless response! You suck.",
+        :what_doing => 'normal_sort' }
+    end
+
+    it "redirects to the signin page if not logged in" do
+      post :show_response, :outgoing_message => dummy_message,
+                           :id => request.id,
+                           :incoming_message_id => message_id
+      expect(response).
+        to redirect_to(signin_url(:token => get_last_post_redirect.token))
+    end
+
+    it "displays a wrong user message when not logged in as the request owner" do
+      session[:user_id] = FactoryGirl.create(:user)
+      post :show_response, :outgoing_message => dummy_message,
+                           :id => request.id,
+                           :incoming_message_id => message_id
+      expect(response).to render_template('user/wrong_user')
+    end
+
+    context "logged in as the request owner" do
+      before(:each) do
+        session[:user_id] = request_user.id
+      end
+
+      it "allows re-editing of a preview" do
+        post :show_response, :outgoing_message => dummy_message,
+                               :id => request.id,
+                               :incoming_message_id => message_id,
+                               :reedit => "Re-edit this request"
+        expect(response).to render_template('show_response')
+      end
+
+    end
+
+  end
+
 end
