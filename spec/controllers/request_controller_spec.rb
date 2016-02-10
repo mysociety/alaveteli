@@ -1939,19 +1939,6 @@ describe RequestController, "sending overdue request alerts" do
     expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
   end
 
-  it "should send not actually send the overdue alert if the user is banned but should
-        record it as sent" do
-    user = info_requests(:naughty_chicken_request).user
-    user.ban_text = 'Banned'
-    user.save!
-    expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to eq(0)
-    RequestMailer.alert_overdue_requests
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(0)
-    expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
-  end
-
   it "should send a very overdue alert mail to creators of very overdue requests" do
     chicken_request = info_requests(:naughty_chicken_request)
     chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days

@@ -529,6 +529,18 @@ describe RequestMailer do
         to match(show_response_no_followup_path(@kitten_request.id))
     end
 
+    it "does not send the alert if the user is banned but records it as sent" do
+      user = @kitten_request.user
+      user.ban_text = 'Banned'
+      user.save!
+      expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to eq(0)
+      RequestMailer.alert_overdue_requests
+
+      deliveries = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
+      expect(deliveries.size).to eq(0)
+      expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
+    end
+
     context "very overdue alerts" do
 
       it 'should not create HTML entities in the subject line' do
