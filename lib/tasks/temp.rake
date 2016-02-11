@@ -1,6 +1,23 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  task :sync_xapian => :environment do
+    InfoRequest.where(["updated_at >= ?", DateTime.new(2016, 2, 11, 9, 30)]).find_each do |info_request|
+      info_request.reindex_request_events
+    end
+
+    User.where(["updated_at >= ?", DateTime.new(2016, 2, 11, 9, 30)]).find_each do |user|
+      user.xapian_mark_needs_index
+      user.reindex_referencing_models
+    end
+
+    PublicBody.where(["updated_at >= ?", DateTime.new(2016, 2, 11, 9, 30)]).find_each do |public_body|
+      public_body.xapian_mark_needs_index
+    end
+
+  end
+
+
     desc 'Rewrite cached HTML attachment headers to use responsive CSS'
     task :responsive_attachments => :environment do
         example = 'rake responsive_attachments PATTERN="./cache/views/request/*/*/response/*/attach/html/*/*.html"'
