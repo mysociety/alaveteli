@@ -1768,47 +1768,6 @@ describe RequestController, "when classifying an information request" do
 
 end
 
-describe RequestController, "when sending a followup message" do
-  render_views
-
-  before(:each) do
-    load_raw_emails_data
-  end
-
-  it "should require login" do
-    post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    expect(response).to redirect_to(:controller => 'user',
-                                    :action => 'signin',
-                                    :token => get_last_post_redirect.token)
-  end
-
-  it "should show preview when input is good" do
-    session[:user_id] = users(:bob_smith_user).id
-    post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 1
-    expect(response).to render_template('followup_preview')
-  end
-
-  it "should allow re-editing of a preview" do
-    session[:user_id] = users(:bob_smith_user).id
-    post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 0, :reedit => "Re-edit this request"
-    expect(response).to render_template('show_response')
-  end
-
-  it "should give an error if the same followup is submitted twice" do
-    session[:user_id] = users(:bob_smith_user).id
-
-    # make the followup once
-    post :show_response, :outgoing_message => { :body => "Stop repeating yourself!", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
-
-    # second time should give an error
-    post :show_response, :outgoing_message => { :body => "Stop repeating yourself!", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    # TODO: how do I check the error message here?
-    expect(response).to render_template('show_response')
-  end
-
-end
-
 describe RequestController, "when viewing comments" do
   render_views
   before(:each) do
