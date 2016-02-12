@@ -1782,20 +1782,6 @@ describe RequestController, "when sending a followup message" do
                                     :token => get_last_post_redirect.token)
   end
 
-  it "should not let you if you are logged in as the wrong user" do
-    session[:user_id] = users(:silly_name_user).id
-    post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    expect(response).to render_template('user/wrong_user')
-  end
-
-  it "should give an error and render 'show_response' template when a body isn't given" do
-    session[:user_id] = users(:bob_smith_user).id
-    post :show_response, :outgoing_message => { :body => "", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-
-    # TODO: how do I check the error message here?
-    expect(response).to render_template('show_response')
-  end
-
   it "should show preview when input is good" do
     session[:user_id] = users(:bob_smith_user).id
     post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 1
@@ -1806,39 +1792,6 @@ describe RequestController, "when sending a followup message" do
     session[:user_id] = users(:bob_smith_user).id
     post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 0, :reedit => "Re-edit this request"
     expect(response).to render_template('show_response')
-  end
-
-  it "should send the follow up message if you are the right user" do
-    # fake that this is a clarification
-    info_requests(:fancy_dog_request).set_described_state('waiting_clarification')
-    expect(info_requests(:fancy_dog_request).described_state).to eq('waiting_clarification')
-    expect(info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state).to eq('waiting_clarification')
-
-    # make the followup
-    session[:user_id] = users(:bob_smith_user).id
-
-    post :show_response,
-    :outgoing_message => {
-      :body => "What a useless response! You suck.",
-      :what_doing => 'normal_sort'
-    },
-      :id => info_requests(:fancy_dog_request).id,
-      :incoming_message_id => incoming_messages(:useless_incoming_message),
-      :submitted_followup => 1
-
-    # check it worked
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(1)
-    mail = deliveries[0]
-    expect(mail.body).to match(/What a useless response! You suck./)
-    expect(mail.to_addrs.first.to_s).to eq("foiperson@localhost")
-
-    expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
-
-    # and that the status changed
-    info_requests(:fancy_dog_request).reload
-    expect(info_requests(:fancy_dog_request).described_state).to eq('waiting_response')
-    expect(info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state).to eq('waiting_clarification')
   end
 
   it "should give an error if the same followup is submitted twice" do

@@ -195,6 +195,24 @@ describe FollowupsController do
         to redirect_to(signin_url(:token => get_last_post_redirect.token))
     end
 
+    it "only allows the request owner to make a followup" do
+      session[:user_id] = FactoryGirl.create(:user).id
+      post :create, :outgoing_message => dummy_message,
+                    :request_id => request.id,
+                    :incoming_message_id => message_id
+      expect(response).to render_template('user/wrong_user')
+    end
+
+    it "gives an error and renders 'show_response' when a body isn't given" do
+      post :create, :outgoing_message => dummy_message.merge(:body => ''),
+                    :request_id => request.id,
+                    :incoming_message_id => message_id
+
+      expect(assigns[:outgoing_message].errors[:body]).
+        to eq(["Please enter your follow up message"])
+      expect(response).to render_template('new')
+    end
+
     it "sends the follow up message" do
       post :create, :outgoing_message => dummy_message,
                     :request_id => request.id,
@@ -206,6 +224,25 @@ describe FollowupsController do
       mail = deliveries[0]
       expect(mail.body).to match(/What a useless response! You suck./)
       expect(mail.to_addrs.first.to_s).to eq(request.public_body.request_email)
+    end
+
+    it "updates the status for successful followup sends" do
+      post :create, :outgoing_message => dummy_message,
+                    :request_id => request.id,
+                    :incoming_message_id => message_id
+
+      expect(request.reload.described_state).to eq('waiting_response')
+    end
+
+    it "updates the event status for successful followup sends if the request is waiting clarification" do
+      request.set_described_state('waiting_clarification')
+
+      post :create, :outgoing_message => dummy_message,
+                    :request_id => request.id,
+                    :incoming_message_id => message_id
+
+      expect(request.reload.get_last_public_response_event.calculated_state)
+         .to eq('waiting_clarification')
     end
 
     it "redirects to the request page" do
