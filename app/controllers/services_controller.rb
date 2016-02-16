@@ -9,32 +9,47 @@ class ServicesController < ApplicationController
     flash.keep
 
     text = ""
-    iso_country_code = AlaveteliConfiguration::iso_country_code.downcase
-    if country_from_ip.downcase != iso_country_code
-      found_country = WorldFOIWebsites.by_code(country_from_ip)
+    site_country_code = AlaveteliConfiguration.iso_country_code.downcase
+    user_country_code = country_from_ip.downcase
 
+    if user_country_code != site_country_code
+      user_site = WorldFOIWebsites.by_code(user_country_code)
       old_fgt_locale = FastGettext.locale
+
       begin
         FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
-        if found_country && found_country[:country_name] && found_country[:url] && found_country[:name]
-          text = _("Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}",
-                   :country_name => found_country[:country_name], :link_to_website => "<a href=\"#{found_country[:url]}\">#{found_country[:name]}</a>".html_safe)
-        else
-          country_data = WorldFOIWebsites.by_code(iso_country_code)
-          if country_data
-            text = _("Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}",
-                     :country_name => country_data[:country_name],
-                     :url => "/help/alaveteli?country_name=#{CGI.escape(country_data[:country_name])}")
+
+        if user_site
+          country_link = %Q(<a href="#{ user_site[:url] }">#{ user_site[:name] }</a>)
+
+          text = if WorldFOIWebsites.can_ask_the_eu?(user_site[:country_iso_code])
+            user_site_and_eu_site_msg(user_site[:country_name], country_link)
           else
-            text = _("Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries",
-                     :url => "/help/alaveteli")
+            user_site_msg(user_site[:country_name], country_link)
+          end
+        else
+          country_data = WorldFOIWebsites.by_code(site_country_code)
+
+
+          text = if WorldFOIWebsites.can_ask_the_eu?(user_country_code)
+            if country_data
+              no_user_site_eu_msg(country_data[:country_name])
+            else
+              no_user_site_eu_msg
+            end
+          elsif country_data
+            no_user_site_msg(country_data[:country_name])
+          else
+            no_user_site_msg
           end
         end
       ensure
         FastGettext.locale = old_fgt_locale
       end
     end
-    render :text => text, :content_type => "text/plain"  # TODO: workaround the HTML validation in test suite
+
+    # TODO: workaround the HTML validation in test suite
+    render :text => text, :content_type => "text/plain"
   end
 
   def hidden_user_explanation
@@ -43,10 +58,60 @@ class ServicesController < ApplicationController
       :content_type => "text/plain",
       :layout => false,
       :locals => {:name_to => info_request.user_name,
-                  :name_from => AlaveteliConfiguration::contact_name,
+                  :name_from => AlaveteliConfiguration.contact_name,
                   :info_request => info_request, :reason => params[:reason],
-                  :info_request_url => 'http://' + AlaveteliConfiguration::domain + request_path(info_request),
+                  :info_request_url => 'http://' + AlaveteliConfiguration.domain + request_path(info_request),
                   :site_name => site_name}
-      end
+  end
+
+  private
+
+  def user_site_and_eu_site_msg(country_name, country_link)
+    _("Hello! You can make Freedom of Information requests within " \
+      "{{country_name}} at {{link_to_website}} and to EU " \
+      "institutions at {{link_to_asktheeu}}",
+      :country_name => country_name,
+      :link_to_website => country_link.html_safe,
+      :link_to_asktheeu => ask_the_eu_link.html_safe)
+  end
+
+  def user_site_msg(country_name, country_link)
+    _("Hello! You can make Freedom of Information requests within " \
+      "{{country_name}} at {{link_to_website}}",
+      :country_name => country_name,
+      :link_to_website => country_link.html_safe)
+  end
+
+  def no_user_site_msg(country_name = nil)
+    if country_name
+      _("Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}",
+        :country_name => country_name,
+        :url => "/help/alaveteli?country_name=#{CGI.escape(country_name)}")
+    else
+      _("Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries",
+        :url => "/help/alaveteli")
+    end
+  end
+
+  def no_user_site_eu_msg(country_name = nil)
+    if country_name
+      _("Hello! We have an <a href=\"{{url}}\">important message</a> for " \
+        "visitors outside {{country_name}}. You can also make Freedom of " \
+        "Information requests to EU institutions at {{link_to_asktheeu}}",
+        :country_name => country_name,
+        :url => "/help/alaveteli?country_name=#{CGI.escape(country_name)}",
+        :link_to_asktheeu => ask_the_eu_link.html_safe)
+    else
+      _("Hello! We have an <a href=\"{{url}}\">important message</a> for " \
+        "visitors in other countries. You can also make Freedom of " \
+        "Information requests to EU institutions at {{link_to_asktheeu}}",
+        :url => "/help/alaveteli",
+        :link_to_asktheeu => ask_the_eu_link.html_safe)
+    end
+  end
+
+  def ask_the_eu_link
+    %q(<a href="http://asktheeu.org">Ask The EU</a>)
+  end
 
 end

@@ -17,6 +17,7 @@ class HelpController < ApplicationController
   end
 
   def unhappy
+    @country_code = AlaveteliConfiguration.iso_country_code
     @info_request = nil
     if params[:url_title]
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])

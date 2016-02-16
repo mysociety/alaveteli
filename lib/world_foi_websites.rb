@@ -1,5 +1,34 @@
 # -*- encoding : utf-8 -*-
 class WorldFOIWebsites
+    EU_COUNTRIES = { 'BE' => 'Belgium',
+                     'BG' => 'Bulgaria',
+                     'CZ' => 'Czech Republic',
+                     'DK' => 'Denmark',
+                     'DE' => 'Germany',
+                     'EE' => 'Estonia',
+                     'IE' => 'Ireland',
+                     'GR' => 'Greece',
+                     'ES' => 'Spain',
+                     'FR' => 'France',
+                     'HR' => 'Croatia',
+                     'IT' => 'Italy',
+                     'CY' => 'Cyprus',
+                     'LV' => 'Latvia',
+                     'LT' => 'Lithuania',
+                     'LU' => 'Luxembourg',
+                     'HU' => 'Hungary',
+                     'MT' => 'Malta',
+                     'NL' => 'Netherlands',
+                     'AT' => 'Austria',
+                     'PL' => 'Poland',
+                     'PT' => 'Portugal',
+                     'RO' => 'Romania',
+                     'SI' => 'Slovenia',
+                     'SK' => 'Slovakia',
+                     'FI' => 'Finland',
+                     'SE' => 'Sweden',
+                     'GB' => 'United Kingdom' }.freeze
+
   def self.world_foi_websites
     world_foi_websites = [
       { :name => "WhatDoTheyKnow",
@@ -94,4 +123,17 @@ class WorldFOIWebsites
     result = self.world_foi_websites.find{|x| x[:country_iso_code].downcase == code.downcase}
     return result
   end
+
+  def self.can_ask_the_eu?(code)
+    country_in_eu?(code) && !is_ask_the_eu?
+  end
+
+  def self.country_in_eu?(code)
+    EU_COUNTRIES.key?(code.to_s.upcase)
+  end
+
+  def self.is_ask_the_eu?
+    AlaveteliConfiguration.domain == 'www.asktheeu.org'
+  end
+
 end

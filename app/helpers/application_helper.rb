@@ -172,4 +172,8 @@ module ApplicationHelper
         :date => date)
     end
   end
+
+  def can_ask_the_eu?(code)
+    WorldFOIWebsites.can_ask_the_eu?(code)
+  end
 end

@@ -6,6 +6,15 @@ describe ApplicationHelper do
   include ApplicationHelper
   include LinkToHelper
 
+  describe '#can_ask_the_eu?' do
+
+    it 'delegates to WorldFOIWebsites.can_ask_the_eu?' do
+      expect(WorldFOIWebsites).to receive(:can_ask_the_eu?).with('US')
+      can_ask_the_eu?('US')
+    end
+
+  end
+
   describe 'when creating an event description' do
 
     it 'should generate a description for a request' do
