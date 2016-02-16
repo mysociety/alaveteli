@@ -9,7 +9,7 @@
       <br><%= simple_date(info_request_event.created_at) %>
     </h2>
 
-    <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
+    <%= render :partial => 'request/bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
 
     <p class="event_actions">
       <% if outgoing_message.status == 'ready' && !@info_request.is_external? %>

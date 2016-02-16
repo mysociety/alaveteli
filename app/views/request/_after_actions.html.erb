@@ -30,9 +30,9 @@
       <ul>
         <li>
           <% if @last_response.nil? %>
-            <%= link_to _("Send a followup"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %>
+            <%= link_to _("Send a followup"), new_request_followup_path(:request_id => @info_request.id) + "#followup" %>
           <% else %>
-            <%= link_to _("Write a reply"), show_response_path(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %>
+            <%= link_to _("Write a reply"), new_request_incoming_followup_path(:request_id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %>
           <% end %>
         </li>
 
@@ -43,7 +43,7 @@
         <% end %>
 
         <li>
-          <%= link_to _("Request an internal review"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>
+          <%= link_to _("Request an internal review"), new_request_followup_path(:request_id => @info_request.id) + "?internal_review=1#followup" %>
         </li>
       </ul>
     </div>

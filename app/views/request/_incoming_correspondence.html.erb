@@ -16,7 +16,7 @@
       <br><%= simple_date(incoming_message.sent_at) %>
     </h2>
 
-    <%= render :partial => 'bubble',
+    <%= render :partial => 'request/bubble',
                :locals => { :incoming_message => incoming_message,
                             :body => incoming_message.get_body_for_html_display(@collapse_quotes),
                             :attachments => incoming_message.get_attachments_for_display }  %>
