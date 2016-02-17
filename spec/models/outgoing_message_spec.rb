@@ -21,6 +21,17 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe OutgoingMessage do
 
+  describe '.fill_in_salutation' do
+
+    it 'replaces the batch request salutation with the body name' do
+      text = 'Dear [Authority name],'
+      public_body = mock_model(PublicBody, :name => 'A Body')
+      expect(described_class.fill_in_salutation(text, public_body)).
+        to eq('Dear A Body,')
+    end
+
+  end
+
   describe '#initialize' do
 
     it 'does not censor the #body' do
@@ -152,27 +163,155 @@ describe OutgoingMessage do
 
   end
 
-end
+  describe '#get_default_message' do
 
-describe OutgoingMessage, " when making an outgoing message" do
+    context 'an initial_request' do
 
-  before do
-    @om = outgoing_messages(:useless_outgoing_message)
-    @outgoing_message = OutgoingMessage.new({
-                                              :status => 'ready',
-                                              :message_type => 'initial_request',
-                                              :body => 'This request contains a foo@bar.com email address',
-                                              :last_sent_at => Time.now,
-                                              :what_doing => 'normal_sort'
-    })
+      it 'produces the expected text for a batch request template' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => false)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        expected_text = "Dear a test public body,\n\n\n\nYours faithfully,\n\n"
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+    end
+
+    context 'a batch request template' do
+
+      it 'produces the expected text for a batch request template' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => true)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        expected_text = "Dear [Authority name],\n\n\n\nYours faithfully,\n\n"
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+    end
+
+    context 'a followup' do
+
+      it 'produces the expected text for a followup' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => false)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'followup',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        expected_text = "Dear a test public body,\n\n\n\nYours faithfully,\n\n"
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+      it 'produces the expected text for an incoming message followup' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => false)
+        incoming_message =
+          mock_model(IncomingMessage, :safe_mail_from => 'helpdesk',
+                                      :valid_to_reply_to? => true)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'followup',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request,
+                              :incoming_message_followup => incoming_message)
+
+        expected_text = "Dear helpdesk,\n\n\n\nYours sincerely,\n\n"
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+    end
+
+    context 'an internal_review' do
+
+      it 'produces the expected text for an internal review request' do
+        public_body = mock_model(PublicBody, :name => 'a test public body')
+        info_request =
+          mock_model(InfoRequest, :public_body => public_body,
+                                  :url_title => 'a_test_title',
+                                  :title => 'a test title',
+                                  :applicable_censor_rules => [],
+                                  :apply_censor_rules_to_text! => nil,
+                                  :is_batch_request_template? => false)
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'followup',
+                              :what_doing => 'internal_review',
+                              :info_request => info_request)
+
+        expected_text = <<-EOF.strip_heredoc
+        Dear a test public body,
+
+        Please pass this on to the person who conducts Freedom of Information reviews.
+
+        I am writing to request an internal review of a test public body's handling of my FOI request 'a test title'.
+
+
+
+         [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] 
+
+
+
+        A full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title
+
+
+        Yours faithfully,
+
+        EOF
+
+        expect(outgoing_message.get_default_message).to eq(expected_text)
+      end
+
+    end
+
   end
 
-  it "should not index the email addresses" do
-    # also used for track emails
-    expect(@outgoing_message.get_text_for_indexing).not_to include("foo@bar.com")
-  end
+  describe '#get_body_for_html_display' do
 
-  context "when formatting the message for html display" do
+    before do
+      @outgoing_message = OutgoingMessage.new({
+                                                :status => 'ready',
+                                                :message_type => 'initial_request',
+                                                :body => 'This request contains a foo@bar.com email address',
+                                                :last_sent_at => Time.now,
+                                                :what_doing => 'normal_sort'
+      })
+    end
 
     it "does not display email addresses on page" do
       expect(@outgoing_message.get_body_for_html_display).not_to include("foo@bar.com")
@@ -213,42 +352,31 @@ describe OutgoingMessage, " when making an outgoing message" do
 
   end
 
-  it "should include email addresses in outgoing messages" do
-    expect(@outgoing_message.body).to include("foo@bar.com")
-  end
+  describe '#indexed_by_search?' do
 
-  it "should work out a salutation" do
-    expect(@om.get_salutation).to eq("Dear Geraldine Quango,")
-  end
-
-  it 'should produce the expected text for an internal review request' do
-    public_body = mock_model(PublicBody, :name => 'A test public body')
-    info_request = mock_model(InfoRequest, :public_body => public_body,
-                              :url_title => 'a_test_title',
-                              :title => 'A test title',
-                              :applicable_censor_rules => [],
-                              :apply_censor_rules_to_text! => nil,
-                              :is_batch_request_template? => false)
-    outgoing_message = OutgoingMessage.new({
-                                             :status => 'ready',
-                                             :message_type => 'followup',
-                                             :what_doing => 'internal_review',
-                                             :info_request => info_request
-    })
-    expected_text = "I am writing to request an internal review of A test public body's handling of my FOI request 'A test title'."
-    expect(outgoing_message.body).to include(expected_text)
-  end
-
-  context "when associated with a batch template request" do
-
-    it 'should produce a salutation with a placeholder' do
-      @om.info_request.is_batch_request_template = true
-      expect(@om.get_salutation).to eq('Dear [Authority name],')
+    before do
+      @info_request = FactoryGirl.create(:info_request)
+      @outgoing_message = @info_request.outgoing_messages.first
     end
+
+    it 'should return false if it has prominence "hidden"' do
+      @outgoing_message.prominence = 'hidden'
+      expect(@outgoing_message.indexed_by_search?).to be false
+    end
+
+    it 'should return false if it has prominence "requester_only"' do
+      @outgoing_message.prominence = 'requester_only'
+      expect(@outgoing_message.indexed_by_search?).to be false
+    end
+
+    it 'should return true if it has prominence "normal"' do
+      @outgoing_message.prominence = 'normal'
+      expect(@outgoing_message.indexed_by_search?).to be true
+    end
+
   end
 
-
-  describe 'when asked if a user can view it' do
+  describe '#user_can_view?' do
 
     before do
       @info_request = FactoryGirl.create(:info_request)
@@ -300,29 +428,49 @@ describe OutgoingMessage, " when making an outgoing message" do
 
   end
 
-  describe 'when asked if it is indexed by search' do
+end
 
-    before do
-      @info_request = FactoryGirl.create(:info_request)
-      @outgoing_message = @info_request.outgoing_messages.first
-    end
+describe OutgoingMessage, " when making an outgoing message" do
 
-    it 'should return false if it has prominence "hidden"' do
-      @outgoing_message.prominence = 'hidden'
-      expect(@outgoing_message.indexed_by_search?).to be false
-    end
-
-    it 'should return false if it has prominence "requester_only"' do
-      @outgoing_message.prominence = 'requester_only'
-      expect(@outgoing_message.indexed_by_search?).to be false
-    end
-
-    it 'should return true if it has prominence "normal"' do
-      @outgoing_message.prominence = 'normal'
-      expect(@outgoing_message.indexed_by_search?).to be true
-    end
-
+  before do
+    @om = outgoing_messages(:useless_outgoing_message)
+    @outgoing_message = OutgoingMessage.new({
+                                              :status => 'ready',
+                                              :message_type => 'initial_request',
+                                              :body => 'This request contains a foo@bar.com email address',
+                                              :last_sent_at => Time.now,
+                                              :what_doing => 'normal_sort'
+    })
   end
+
+  it "should not index the email addresses" do
+    # also used for track emails
+    expect(@outgoing_message.get_text_for_indexing).not_to include("foo@bar.com")
+  end
+
+
+  it "should include email addresses in outgoing messages" do
+    expect(@outgoing_message.body).to include("foo@bar.com")
+  end
+
+  it 'should produce the expected text for an internal review request' do
+    public_body = mock_model(PublicBody, :name => 'A test public body')
+    info_request = mock_model(InfoRequest, :public_body => public_body,
+                              :url_title => 'a_test_title',
+                              :title => 'A test title',
+                              :applicable_censor_rules => [],
+                              :apply_censor_rules_to_text! => nil,
+                              :is_batch_request_template? => false)
+    outgoing_message = OutgoingMessage.new({
+                                             :status => 'ready',
+                                             :message_type => 'followup',
+                                             :what_doing => 'internal_review',
+                                             :info_request => info_request
+    })
+    expected_text = "Dear A test public body,\n\nPlease pass this on to the person who conducts Freedom of Information reviews.\n\nI am writing to request an internal review of A test public body's handling of my FOI request 'A test title'.\n\n[ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] \n\nA full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title\n\nYours faithfully,"
+    expect(outgoing_message.body).to eq(expected_text)
+  end
+
 end
 
 describe OutgoingMessage, "when validating the format of the message body" do
