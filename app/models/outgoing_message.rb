@@ -31,6 +31,8 @@ class OutgoingMessage < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  WHAT_DOING_VALUES = %w(normal_sort internal_review new_information)
+
   # To override the default letter
   attr_accessor :default_letter
 
@@ -328,7 +330,7 @@ class OutgoingMessage < ActiveRecord::Base
       errors.add(:body, _('Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.'))
     end
 
-    if what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(what_doing)
+    if what_doing.nil? || !WHAT_DOING_VALUES.include?(what_doing)
       errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
     end
   end
