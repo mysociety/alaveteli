@@ -344,8 +344,8 @@ class OutgoingMessage < ActiveRecord::Base
 
   def replying_to_incoming_message?
     message_type == 'followup' &&
-      !incoming_message_followup.nil? &&
-        !incoming_message_followup.safe_mail_from.nil? &&
+      incoming_message_followup &&
+        incoming_message_followup.safe_mail_from &&
           incoming_message_followup.valid_to_reply_to?
   end
 
