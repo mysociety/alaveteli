@@ -278,6 +278,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
+        <%= check_box_tag "message_id_#{incoming_message.id}", incoming_message.id, false, :class => "delete-checkbox" %>
         <%= link_to edit_admin_incoming_message_path(incoming_message) do %>
           <%=incoming_message.id%>
           --
@@ -319,6 +320,15 @@
         </table>
       </div>
     </div>
+  <% end %>
+  <% if @info_request.incoming_messages.count > 0 %>
+    <%= form_tag bulk_destroy_admin_incoming_messages_path do %>
+      <%= hidden_field_tag(:ids) %>
+      <%= hidden_field_tag(:request_id, @info_request.id) %>
+      <%= submit_tag("Delete selected messages",
+                     { :class => "btn btn-danger",
+                       :disabled => true }) %>
+    <% end %>
   <% end %>
 </div>
 <hr>

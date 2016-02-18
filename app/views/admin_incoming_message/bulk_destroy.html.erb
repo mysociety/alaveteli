@@ -1,0 +1,23 @@
+<h1>Confirm incoming message deletion</h1>
+
+<% @incoming_messages.each do |incoming_message| %>
+  <b><%= h(incoming_message.mail_from) %></b>
+  at <%=admin_value(incoming_message.sent_at)%>
+  <blockquote class="incoming-message">
+    <% if !incoming_message.cached_main_body_text_folded.nil? %>
+      <%= truncate(
+            incoming_message.cached_main_body_text_folded.
+              gsub('FOLDED_QUOTED_SECTION', ''), :length => 400) %>
+    <% end %>
+  </blockquote>
+<% end %>
+
+Delete these messages?
+<%= form_tag bulk_destroy_admin_incoming_messages_path(@info_request) do %>
+  <%= hidden_field_tag(:ids, params[:ids]) %>
+  <%= hidden_field_tag(:request_id, params[:request_id]) %>
+  <%= submit_tag("Yes",
+                 { :class => "btn btn-danger",
+                   :confirm => 'Are you sure?' }) %>
+  <%= submit_tag("No", { :class => "btn btn-button" }) %>
+<% end %>

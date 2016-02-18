@@ -172,4 +172,98 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     end
   end
 
+  describe "when destroying multiple incoming messages" do
+    let(:request) { FactoryGirl.create(:info_request) }
+    let(:spam1) { FactoryGirl.create(
+                    :incoming_message,
+                    :subject => "Buy a watch!1!!",
+                    :info_request => request) }
+    let(:spam2) { FactoryGirl.create(
+                    :incoming_message,
+                    :subject => "Best cheap w@tches!!1!",
+                    :info_request => request) }
+    let(:spam_ids) { [spam1.id, spam2.id] }
+
+    context "the user confirms deletion" do
+
+      it "destroys the selected messages" do
+        post :bulk_destroy, :request_id => request.id,
+                            :ids => spam_ids.join(","),
+                            :commit => "Yes"
+
+        expect(IncomingMessage.where(:id => spam_ids)).to be_empty
+      end
+
+      it 'expires the file cache for the associated info_request' do
+        allow(InfoRequest).to receive(:find).and_return(request)
+        expect(request).to receive(:expire)
+        post :bulk_destroy, :request_id => request.id,
+                            :ids => spam_ids.join(","),
+                            :commit => "Yes"
+      end
+
+      it "redirects back to the admin page for the request" do
+        post :bulk_destroy, :request_id => request.id,
+                            :ids => spam_ids.join(","),
+                            :commit => "Yes"
+
+        expect(response).to redirect_to(admin_request_url(request))
+      end
+
+      it "sets a success message in flash" do
+        post :bulk_destroy, :request_id => request.id,
+                            :ids => spam_ids.join(","),
+                            :commit => "Yes"
+
+        expect(response).to redirect_to(admin_request_url(request))
+        expect(flash[:notice]).to eq("Incoming messages successfully destroyed.")
+      end
+
+      it "only destroys selected messages" do
+        post :bulk_destroy, :request_id => request.id,
+                            :ids => spam2.id,
+                            :commit => "Yes"
+
+        expect(IncomingMessage.where(:id => spam_ids)).to eq([spam1])
+      end
+
+      context "not all the messages can be destroyed" do
+
+        it "set an error message in flash" do
+          allow(spam2).to receive(:destroy).and_raise("random DB error")
+          allow(IncomingMessage).to receive(:where).and_return([spam1, spam2])
+          msg = "Incoming Messages #{spam2.id} could not be destroyed"
+          post :bulk_destroy, :request_id => request.id,
+                              :ids => spam_ids.join(","),
+                              :commit => "Yes"
+
+          expect(flash[:error]).to match(msg)
+        end
+
+      end
+
+    end
+
+    context "the user does not confirm deletion" do
+
+      it "does not destroy the messages" do
+        post :bulk_destroy, :request_id => request.id,
+                            :ids => spam_ids.split(","),
+                            :commit => "No"
+
+        expect(IncomingMessage.where(:id => spam_ids)).to eq([spam1, spam2])
+      end
+
+      it "redirects back to the admin page for the request" do
+        post :bulk_destroy, :request_id => request.id,
+                            :ids => spam_ids.join(","),
+                            :commit => "No"
+
+        expect(response).to redirect_to(admin_request_url(request))
+      end
+
+    end
+
+  end
+
 end
