@@ -194,7 +194,7 @@ this means that if you put your own copy of the "about us" template
 in <code>lib/themes/<em>yourtheme</em>/lib/views/help/about.html.erb</code>,
 then that will appear instead of the core "about us" file.
 
-### Changing the logo
+### Changing the site logo
 
 Alaveteli uses Rails' [asset pipeline](http://guides.rubyonrails.org/asset_pipeline.html)
 to convert and compress stylesheets written in
@@ -223,6 +223,15 @@ Now make a copy of your `logo@2.png` and make it half the size - be careful to
 keep the proportions the same or your logo will look squashed! - so in our example
 it will be 275 x 44 pixels. Save this as `logo.png` and place it in your theme as
 <code>lib/themes/<em>yourtheme</em>/assets/images/logo.png</code>.
+
+#### A logo for social media sharing
+
+There is a third version of the logo that is used for Facebook's Open Graph
+metadata so that content shared on Facebook will have your logo displayed
+alongside it. This logo needs to be square, at a minimum size of
+256 x 256 pixels and should be placed in your theme as
+<code>lib/themes/<em>yourtheme</em>/assets/images/logo-opengraph.png</code>.
+
 
 ### Changing the colour scheme
 
