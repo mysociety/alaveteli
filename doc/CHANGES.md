@@ -3,6 +3,8 @@
 
 ## Highlighted Features
 
+* Added non-destructive methods to apply censor rules and text masks (Gareth
+  Rees).
 * Improve handling of long translations in logged in nav (Zarino Zappia)
 * Better support for setting up a thin cluster (Liz Conlan)
 * Added onscreen instructions to the Vagrant box (Liz Conlan)
@@ -14,6 +16,24 @@
 * Ported the graph generation shell scripts to Ruby (Liz Conlan)
 
 ## Upgrade Notes
+
+* The following methods have been replaced:
+  * `CensorRule#apply_to_text!`: `CensorRule#apply_to_text`
+  * `CensorRule#apply_to_binary!`: `CensorRule#apply_to_binary`
+  * `IncomingMessage#apply_masks!`: `IncomingMessage#apply_masks`
+  * `InfoRequest#apply_censor_rules_to_text!`: `InfoRequest#apply_censor_rules_to_text`
+  * `InfoRequest#apply_censor_rules_to_binary!`: `InfoRequest#apply_censor_rules_to_binary`
+  * `AlaveteliTextMasker#apply_masks!`: `AlaveteliTextMasker#apply_masks`
+  * `AlaveteliTextMasker#apply_pdf_masks!`: `AlaveteliTextMasker#apply_pdf_masks`
+  * `AlaveteliTextMasker#apply_binary_masks!`: `AlaveteliTextMasker#apply_binary_masks`
+  * `AlaveteliTextMasker#apply_text_masks!`: `AlaveteliTextMasker#apply_text_masks`
+
+  Note that you will need to assign the return value from the new methods, e.g:
+
+```diff
+- censor_rule.apply_to_text!(text)
++ censored_text = censor_rule.apply_to_text(text)
+```
 
 * To switch to running multiple thin servers with nginx:
   * stop the running processes using `service alaveteli stop`
