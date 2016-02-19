@@ -50,11 +50,20 @@ class CensorRule < ActiveRecord::Base
   end
 
   def apply_to_text!(text_to_censor)
+    warn %q([DEPRECATION] CensorRule#apply_to_text! will be removed in 0.25.
+            Use the non-destructive CensorRule#apply_to_text instead).squish
     return nil if text_to_censor.nil?
     text_to_censor.gsub!(to_replace('UTF-8'), replacement)
   end
 
+  def apply_to_binary(binary_to_censor)
+    return nil if binary_to_censor.nil?
+    binary_to_censor.gsub(to_replace('ASCII-8BIT')) { |match| match.gsub(single_char_regexp, 'x') }
+  end
+
   def apply_to_binary!(binary_to_censor)
+    warn %q([DEPRECATION] CensorRule#apply_to_binary! will be removed in 0.25.
+            Use the non-destructive CensorRule#apply_to_binary instead).squish
     return nil if binary_to_censor.nil?
     binary_to_censor.gsub!(to_replace('ASCII-8BIT')) { |match| match.gsub(single_char_regexp, 'x') }
   end

@@ -40,121 +40,105 @@ describe CensorRule do
       text = 'Some text'
       expect(rule.apply_to_text(text)).to eq('Some text')
     end
+
+    it 'replaces the regexp with the replacement text when applied to text' do
+      attrs = { :text => '--PRIVATE.*--PRIVATE',
+                :replacement => "--REMOVED\nHidden private info\n--REMOVED",
+                :regexp => true }
+      rule = FactoryGirl.build(:censor_rule, attrs)
+      text = <<-EOF.strip_heredoc
+      Some public information
+      --PRIVATE
+      Some private information
+      --PRIVATE
+      EOF
+
+      expect(rule.apply_to_text(text)).to eq <<-EOF.strip_heredoc
+      Some public information
+      --REMOVED
+      Hidden private info
+      --REMOVED
+      EOF
+    end
+
   end
 
-  describe '#apply_to_text!' do
+  describe '#apply_to_binary' do
 
-    it 'mutates the input' do
+    it 'applies the rule to the text' do
       rule = FactoryGirl.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
-      rule.apply_to_text!(text)
-      expect(text).to eq('Some [REDACTED] text')
+      expect(rule.apply_to_binary(text)).to eq('Some xxxxxx text')
     end
 
-  end
-end
-
-describe CensorRule, "substituting things" do
-
-  describe 'when using a text rule' do
-
-    before do
-      @censor_rule = CensorRule.new
-      @censor_rule.text = "goodbye"
-      @censor_rule.replacement = "hello"
+    it 'does not modify the size of the string' do
+      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      text = 'Some secret text'
+      original_text = text.dup
+      redacted = rule.apply_to_binary(text)
+      expect(redacted.size).to eq(original_text.size)
     end
 
-    describe '#apply_to_text!' do
-
-      it 'should do basic text substitution' do
-        body = "I don't know why you say goodbye"
-        @censor_rule.apply_to_text!(body)
-        expect(body).to eq("I don't know why you say hello")
-      end
-
+    it 'does not mutate the input' do
+      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      text = 'Some secret text'
+      rule.apply_to_binary(text)
+      expect(text).to eq('Some secret text')
     end
 
-    describe '#apply_to_binary!' do
-
-      it 'should keep size same for binary substitution' do
-        body = "I don't know why you say goodbye"
-        orig_body = body.dup
-        @censor_rule.apply_to_binary!(body)
-        expect(body.size).to eq(orig_body.size)
-        expect(body).to eq("I don't know why you say xxxxxxx")
-        expect(body).not_to eq(orig_body) # be sure duplicated as expected
-      end
-
-      it 'should handle a UTF-8 rule and ASCII-8BIT text' do
-        body = "I don't know why you say g‘oodbye"
-        body.force_encoding("ASCII-8BIT") if String.method_defined?(:encode)
-        @censor_rule.text = 'g‘oodbye'
-        @censor_rule.apply_to_binary!(body)
-        expect(body).to eq("I don't know why you say xxxxxxxxxx")
-      end
-
+    it 'returns the text if the rule is unmatched' do
+      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      text = 'Some text'
+      expect(rule.apply_to_binary(text)).to eq('Some text')
     end
 
-  end
-
-  describe "when using a regular expression rule" do
-
-    before do
-      @censor_rule = CensorRule.new(:last_edit_editor => 1,
-                                    :last_edit_comment => 'comment')
-      @censor_rule.text = "--PRIVATE.*--PRIVATE"
-      @censor_rule.replacement = "--REMOVED\nHidden private info\n--REMOVED"
-      @censor_rule.regexp = true
-      @body =
-<<BODY
-Some public information
---PRIVATE
-Some private information
---PRIVATE
-BODY
+    it 'handles a UTF-8 rule and ASCII-8BIT text' do
+      rule = FactoryGirl.build(:censor_rule, :text => 'sécret')
+      text = 'Some sécret text'
+      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+      expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
     end
 
-    it "replaces the regexp with the replacement text when applied to text" do
-      @censor_rule.apply_to_text!(@body)
-      expect(@body).to eq \
-<<BODY
-Some public information
---REMOVED
-Hidden private info
---REMOVED
-BODY
+    it "replaces the regexp with the same number of 'x' characters as the text
+        replaced when applied to binary" do
+      attrs = { :text => '--PRIVATE.*--PRIVATE',
+                :replacement => "--REMOVED\nHidden private info\n--REMOVED",
+                :regexp => true }
+      rule = FactoryGirl.build(:censor_rule, attrs)
+      text = <<-EOF.strip_heredoc
+      Some public information
+      --PRIVATE
+      Some private information
+      --PRIVATE
+      EOF
+
+      expect(rule.apply_to_binary(text)).to eq <<-EOF.strip_heredoc
+      Some public information
+      xxxxxxxxx
+      xxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxx
+      EOF
     end
 
-    it "replaces the regexp with the same number of 'x' characters as the text replaced
-            when applied to binary" do
-      @censor_rule.apply_to_binary!(@body)
-      expect(@body).to eq \
-<<BODY
-Some public information
-xxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxx
-BODY
-    end
+    it 'handles a UTF-8 rule with ASCII-8BIT text' do
+      attrs = { :text => '--PRIVATE.*--P‘RIVATE',
+                :replacement => "--REMOVED\nHidden private info\n--REMOVED",
+                :regexp => true }
+      rule = FactoryGirl.build(:censor_rule, attrs)
+      text = <<-EOF.strip_heredoc
+      Some public information
+      --PRIVATE
+      Some private information
+      --P‘RIVATE
+      EOF
+      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
 
-    it "handles a UTF-8 rule with ASCII-8BIT text" do
-      @censor_rule.text = "--PRIVATE.*--P‘RIVATE"
-      @body =
-<<BODY
-Some public information
---PRIVATE
-Some private information
---P‘RIVATE
-BODY
-      @body.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
-      @censor_rule.apply_to_binary!(@body)
-      expect(@body).to eq \
-<<BODY
-Some public information
-xxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxx
-BODY
+      expect(rule.apply_to_binary(text)).to eq <<-EOF.strip_heredoc
+      Some public information
+      xxxxxxxxx
+      xxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxx
+      EOF
     end
 
   end

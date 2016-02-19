@@ -1162,15 +1162,31 @@ class InfoRequest < ActiveRecord::Base
     applicable_rules.flatten
   end
 
+  def apply_censor_rules_to_text(text)
+    applicable_censor_rules.
+      reduce(text) { |text, rule| rule.apply_to_text(text) }
+  end
+
   # Call groups of censor rules
   def apply_censor_rules_to_text!(text)
+    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_text! will be
+            removed in 0.25. Use the non-destructive
+            InfoRequest#apply_censor_rules_to_text instead).squish
     applicable_censor_rules.each do |censor_rule|
       censor_rule.apply_to_text!(text)
     end
     text
   end
 
+  def apply_censor_rules_to_binary(text)
+    applicable_censor_rules.
+      reduce(text) { |text, rule| rule.apply_to_binary(text) }
+  end
+
   def apply_censor_rules_to_binary!(binary)
+    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_binary! will be
+            removed in 0.25. Use the non-destructive
+            InfoRequest#apply_censor_rules_to_binary instead).squish
     applicable_censor_rules.each do |censor_rule|
       censor_rule.apply_to_binary!(binary)
     end
@@ -1183,9 +1199,9 @@ class InfoRequest < ActiveRecord::Base
     masks = [{ :to_replace => incoming_email,
                :replacement =>  _('[FOI #{{request}} email]',
                                   :request => id.to_s) },
-                                  { :to_replace => AlaveteliConfiguration::contact_email,
-                                    :replacement => _("[{{site_name}} contact email]",
-                                                      :site_name => AlaveteliConfiguration::site_name)} ]
+             { :to_replace => AlaveteliConfiguration::contact_email,
+               :replacement => _("[{{site_name}} contact email]",
+                                 :site_name => AlaveteliConfiguration::site_name)} ]
     if public_body.is_followupable?
       masks << { :to_replace => public_body.request_email,
                  :replacement => _("[{{public_body}} request email]",

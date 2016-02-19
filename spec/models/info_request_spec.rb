@@ -1571,91 +1571,35 @@ describe InfoRequest do
 
   end
 
-  describe 'when applying censor rules' do
+  describe '#apply_censor_rules_to_text' do
 
-    before do
-      @global_rule = mock_model(CensorRule, :apply_to_text! => nil,
-                                :apply_to_binary! => nil)
-      @user_rule = mock_model(CensorRule, :apply_to_text! => nil,
-                              :apply_to_binary! => nil)
-      @request_rule = mock_model(CensorRule, :apply_to_text! => nil,
-                                 :apply_to_binary! => nil)
-      @body_rule = mock_model(CensorRule, :apply_to_text! => nil,
-                              :apply_to_binary! => nil)
-      @user = mock_model(User, :censor_rules => [@user_rule])
-      @body = mock_model(PublicBody, :censor_rules => [@body_rule])
-      @info_request = InfoRequest.new(:prominence => 'normal',
-                                      :awaiting_description => true,
-                                      :title => 'title')
-      allow(@info_request).to receive(:user).and_return(@user)
-      allow(@info_request).to receive(:censor_rules).and_return([@request_rule])
-      allow(@info_request).to receive(:public_body).and_return(@body)
-      @text = 'some text'
-      allow(CensorRule).to receive(:global).and_return(double('global context', :all => [@global_rule]))
+    it 'applies each censor rule to the text' do
+      rule_1 = FactoryGirl.build(:censor_rule, :text => '1')
+      rule_2 = FactoryGirl.build(:censor_rule, :text => '2')
+      info_request = FactoryGirl.build(:info_request)
+      allow(info_request).
+        to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
+
+      expected = '[REDACTED] 3 [REDACTED]'
+
+      expect(info_request.apply_censor_rules_to_text('1 3 2')).to eq(expected)
     end
 
-    context "when applying censor rules to text" do
+  end
 
-      it "applies a global censor rule" do
-        expect(@global_rule).to receive(:apply_to_text!).with(@text)
-        @info_request.apply_censor_rules_to_text!(@text)
-      end
+  describe '#apply_censor_rules_to_binary' do
 
-      it 'applies a user rule' do
-        expect(@user_rule).to receive(:apply_to_text!).with(@text)
-        @info_request.apply_censor_rules_to_text!(@text)
-      end
+    it 'applies each censor rule to the text' do
+      rule_1 = FactoryGirl.build(:censor_rule, :text => '1')
+      rule_2 = FactoryGirl.build(:censor_rule, :text => '2')
+      info_request = FactoryGirl.build(:info_request)
+      allow(info_request).
+        to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
 
-      it 'does not raise an error if there is no user' do
-        @info_request.user_id = nil
-        expect{ @info_request.apply_censor_rules_to_text!(@text) }.not_to raise_error
-      end
+      text = '1 3 2'
+      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
 
-      it 'applies a rule from the body associated with the request' do
-        expect(@body_rule).to receive(:apply_to_text!).with(@text)
-        @info_request.apply_censor_rules_to_text!(@text)
-      end
-
-      it 'applies a request rule' do
-        expect(@request_rule).to receive(:apply_to_text!).with(@text)
-        @info_request.apply_censor_rules_to_text!(@text)
-      end
-
-      it 'does not raise an error if the request is a batch request template' do
-        allow(@info_request).to receive(:public_body).and_return(nil)
-        @info_request.is_batch_request_template = true
-        expect{ @info_request.apply_censor_rules_to_text!(@text) }.not_to raise_error
-      end
-
-    end
-
-    context 'when applying censor rules to binary files' do
-
-      it "applies a global censor rule" do
-        expect(@global_rule).to receive(:apply_to_binary!).with(@text)
-        @info_request.apply_censor_rules_to_binary!(@text)
-      end
-
-      it 'applies a user rule' do
-        expect(@user_rule).to receive(:apply_to_binary!).with(@text)
-        @info_request.apply_censor_rules_to_binary!(@text)
-      end
-
-      it 'does not raise an error if there is no user' do
-        @info_request.user_id = nil
-        expect{ @info_request.apply_censor_rules_to_binary!(@text) }.not_to raise_error
-      end
-
-      it 'applies a rule from the body associated with the request' do
-        expect(@body_rule).to receive(:apply_to_binary!).with(@text)
-        @info_request.apply_censor_rules_to_binary!(@text)
-      end
-
-      it 'applies a request rule' do
-        expect(@request_rule).to receive(:apply_to_binary!).with(@text)
-        @info_request.apply_censor_rules_to_binary!(@text)
-      end
-
+      expect(info_request.apply_censor_rules_to_binary(text)).to eq('x 3 x')
     end
 
   end
