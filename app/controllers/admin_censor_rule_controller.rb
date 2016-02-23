@@ -31,7 +31,7 @@ class AdminCensorRuleController < AdminController
   end
 
   def update
-    if @censor_rule.update_attributes(global_censor_rule_params)
+    if @censor_rule.update_attributes(censor_rule_params)
       flash[:notice] = 'Censor rule was successfully updated.'
       expire_requests_and_redirect
     else
@@ -71,7 +71,7 @@ class AdminCensorRuleController < AdminController
     end
 
     if [:request_id, :user_id, :body_id].all? { |key| params[key].nil? }
-      @censor_rule = CensorRule.new(global_censor_rule_params)
+      @censor_rule = CensorRule.new(censor_rule_params)
       @form_url = admin_censor_rules_path
     end
   end
@@ -90,10 +90,6 @@ class AdminCensorRuleController < AdminController
     else
       {}
     end
-  end
-
-  def global_censor_rule_params
-    censor_rule_params.merge(:allow_global => true)
   end
 
   def expire_requests_and_redirect

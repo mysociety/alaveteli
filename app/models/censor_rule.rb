@@ -30,9 +30,16 @@ class CensorRule < ActiveRecord::Base
 
   # a flag to allow the require_user_request_or_public_body
   # validation to be skipped
-  attr_accessor :allow_global
+  def allow_global
+    warn %q([DEPRECATION] CensorRule#allow_global will be removed in 0.25)
+    @allow_global
+  end
 
-  validate :require_user_request_or_public_body, :unless => proc { |rule| rule.allow_global == true }
+  def allow_global=(value)
+    warn %q([DEPRECATION] CensorRule#allow_global= will be removed in 0.25)
+    @allow_global = value
+  end
+
   validate :require_valid_regexp, :if => proc { |rule| rule.regexp? == true }
 
   validates_presence_of :text,
@@ -79,14 +86,6 @@ class CensorRule < ActiveRecord::Base
       Regexp.new('.'.force_encoding('ASCII-8BIT'))
     else
       Regexp.new('.', nil, 'N')
-    end
-  end
-
-  def require_user_request_or_public_body
-    if info_request.nil? && user.nil? && public_body.nil?
-      [:info_request, :user, :public_body].each do |a|
-        errors.add(a, "Rule must apply to an info request, a user or a body")
-      end
     end
   end
 

@@ -25,7 +25,6 @@ FactoryGirl.define do
     end
 
     factory :global_censor_rule do
-      initialize_with { CensorRule.new(:allow_global => true) }
     end
 
   end
