@@ -5,8 +5,7 @@ describe 'request_game/play' do
     
     before do 
         @mock_body = mock_model(PublicBody, :name => 'test body',
-                                            :url_name => 'test_body',
-                                            :is_school? => false)
+                                            :url_name => 'test_body')
         @mock_user = mock_model(User, :name => 'test user',
                                       :url_name => 'test_user',
                                       :profile_photo => nil)

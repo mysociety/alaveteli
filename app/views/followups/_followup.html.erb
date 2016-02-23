@@ -79,19 +79,11 @@
     <% status = @info_request.calculate_status %>
     <% if status == 'waiting_response_overdue' %>
       <p>
-        <% if @info_request.public_body.is_school? %>
-          <%= _('The response to your request has been <strong>delayed</strong>. ' \
-                'You can say that, by law, the authority should normally have ' \
-                'responded <strong>promptly</strong> and in term time by ' \
-                '<strong>{{date}}</strong>',
-                :date=>simple_date(@info_request.date_response_required_by)) %>
-        <% else %>
-          <%= _('The response to your request has been <strong>delayed</strong>. ' \
-                'You can say that, by law, the authority should normally have ' \
-                'responded <strong>promptly</strong> and by ' \
-                '<strong>{{date}}</strong>',
-                :date=>simple_date(@info_request.date_response_required_by)) %>
-        <% end %>
+        <%= _('The response to your request has been <strong>delayed</strong>. ' \
+              'You can say that, by law, the authority should normally have ' \
+              'responded <strong>promptly</strong> and by ' \
+              '<strong>{{date}}</strong>',
+              :date=>simple_date(@info_request.date_response_required_by)) %>
 
         (<%= link_to _('details'), "#{help_requesting_path}#quickly_response" %>).
       </p>
