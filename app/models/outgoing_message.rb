@@ -161,6 +161,47 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  # Public: Return logged Message-ID attributes for this OutgoingMessage.
+  # Note that these are not the MTA ID: https://en.wikipedia.org/wiki/Message-ID
+  #
+  # Returns an Array
+  def smtp_message_ids
+    info_request_events.
+      order('created_at ASC').
+        map { |event| event.params[:smtp_message_id] }.
+          compact
+  end
+
+  # Public: Return logged MTA IDs for this OutgoingMessage.
+  # Currently only implemented for exim.
+  #
+  # Returns an Array
+  def mta_ids
+    case AlaveteliConfiguration.mta_log_type.to_sym
+    when :exim
+      exim_mta_ids
+    when :postfix
+      []
+    else
+      raise 'Unexpected MTA type'
+    end
+  end
+
+  # Public: Return the MTA logs for this message.
+  # Currently only implemented for exim.
+  #
+  # Returns an Array.
+  def mail_server_logs
+    case AlaveteliConfiguration.mta_log_type.to_sym
+    when :exim
+      exim_mail_server_logs
+    when :postfix
+      []
+    else
+      raise 'Unexpected MTA type'
+    end
+  end
+
   # An admin function
   def prepare_message_for_resend
     if ['initial_request', 'followup'].include?(message_type) and status == 'sent'
@@ -374,6 +415,27 @@ class OutgoingMessage < ActiveRecord::Base
 
     if what_doing.nil? || !WHAT_DOING_VALUES.include?(what_doing)
       errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
+    end
+  end
+
+  def exim_mta_ids
+    lines = smtp_message_ids.map do |smtp_message_id|
+      info_request.
+        mail_server_logs.
+          where("line ILIKE :q", q: "%#{ smtp_message_id }%").
+            where("line ILIKE :marker", marker: "%<=%").
+              last.
+                try(:line)
+    end
+
+    lines.compact.map { |line| line.split(' ').fourth.strip }
+  end
+
+  def exim_mail_server_logs
+    mta_ids.flat_map do |mta_id|
+      info_request.
+        mail_server_logs.
+          where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
     end
   end
 
