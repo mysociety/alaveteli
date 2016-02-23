@@ -8,17 +8,19 @@
 class AdminCensorRuleController < AdminController
 
   before_filter :set_editor, :only => [:create, :update]
-  before_filter :find_and_check_rule, :only => [:edit, :update, :destroy]
+  before_filter :set_censor_rule, :only => [:edit, :update, :destroy]
   before_filter :set_info_request_and_censor_rule_and_form_url, :only => [:new, :create]
+
+  def index
+    @censor_rules = CensorRule.all
+  end
 
   def new
   end
 
   def create
     if @censor_rule.save
-
-      flash[:notice] = 'CensorRule was successfully created.'
-
+      flash[:notice] = 'Censor rule was successfully created.'
       expire_requests_and_redirect
     else
       render :action => 'new'
@@ -30,9 +32,7 @@ class AdminCensorRuleController < AdminController
 
   def update
     if @censor_rule.update_attributes(censor_rule_params)
-
-      flash[:notice] = 'CensorRule was successfully updated.'
-
+      flash[:notice] = 'Censor rule was successfully updated.'
       expire_requests_and_redirect
     else
       render :action => 'edit'
@@ -44,7 +44,7 @@ class AdminCensorRuleController < AdminController
     user = @censor_rule.user
     @censor_rule.destroy
 
-    flash[:notice] = "CensorRule was successfully destroyed."
+    flash[:notice] = "Censor rule was successfully destroyed."
 
     expire_requests_and_redirect
   end
@@ -63,18 +63,25 @@ class AdminCensorRuleController < AdminController
       @censor_rule = @censor_user.censor_rules.build(censor_rule_params)
       @form_url = admin_user_censor_rules_path(@censor_user)
     end
+
+    if params[:body_id]
+      @public_body = PublicBody.find(params[:body_id])
+      @censor_rule = @public_body.censor_rules.build(censor_rule_params)
+      @form_url = admin_body_censor_rules_path(@public_body)
+    end
+
+    if [:request_id, :user_id, :body_id].all? { |key| params[key].nil? }
+      @censor_rule = CensorRule.new(censor_rule_params)
+      @form_url = admin_censor_rules_path
+    end
   end
 
   def set_editor
     params[:censor_rule][:last_edit_editor] = admin_current_user
   end
 
-  def find_and_check_rule
+  def set_censor_rule
     @censor_rule = CensorRule.find(params[:id])
-    unless (@censor_rule.user || @censor_rule.info_request)
-      flash[:notice] = 'Only user and request censor rules can be edited'
-      redirect_to admin_general_index_path
-    end
   end
 
   def censor_rule_params
@@ -92,6 +99,10 @@ class AdminCensorRuleController < AdminController
     elsif @censor_rule.user
       @censor_rule.user.expire_requests
       redirect_to admin_user_url(@censor_rule.user)
+    elsif @censor_rule.public_body
+      redirect_to admin_body_url(@censor_rule.public_body)
+    else
+      redirect_to admin_censor_rules_path
     end
   end
 end

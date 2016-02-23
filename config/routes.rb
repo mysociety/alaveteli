@@ -191,6 +191,9 @@ Alaveteli::Application.routes.draw do
       post 'mass_tag_add', :on => :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
+      resources :censor_rules,
+        :controller => 'admin_censor_rule',
+        :only => [:new, :create]
     end
   end
   ####
@@ -253,9 +256,7 @@ Alaveteli::Application.routes.draw do
       post 'hide', :on => :member
       resources :censor_rules,
         :controller => 'admin_censor_rule',
-        :only => [:new, :create],
-        :name_prefix => 'request_'
-
+        :only => [:new, :create]
     end
   end
   ####
@@ -316,9 +317,8 @@ Alaveteli::Application.routes.draw do
       post 'modify_comment_visibility', :on => :collection
       resources :censor_rules,
         :controller => 'admin_censor_rule',
-        :only => [:new, :create],
-        :name_prefix => 'user_'
-    end
+        :only => [:new, :create]
+      end
   end
   ####
 
@@ -333,8 +333,7 @@ Alaveteli::Application.routes.draw do
   #### AdminCensorRule controller
   scope '/admin', :as => 'admin' do
     resources :censor_rules,
-      :controller => 'admin_censor_rule',
-      :except => [:index, :new, :create]
+      :controller => 'admin_censor_rule'
   end
 
   #### AdminSpamAddresses controller

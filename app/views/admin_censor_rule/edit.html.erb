@@ -1,17 +1,36 @@
 <% @title = 'Edit censor rule' %>
 
-<h1><%=@title%></h1>
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+</div>
 
 <%= form_tag admin_censor_rule_path(@censor_rule), :method => 'put', :class => "form form-horizontal" do %>
-  <%= render :partial => 'form', :locals => { :info_request => @censor_rule.info_request, :user => @censor_rule.user } %>
+  <%= render :partial => 'form',
+             :locals => { :info_request => @censor_rule.info_request,
+                          :user => @censor_rule.user,
+                          :public_body => @censor_rule.public_body } %>
   <div class="form-actions">
-    <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-primary" %>
+    <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-success" %>
   </div>
 <% end %>
 
-<%= form_tag admin_censor_rule_path(@censor_rule), :method => 'delete', :class => "form form-horizontal" do %>
-  <div class="form-actions">
-    Permanent! --&gt; <%= submit_tag "Destroy rule", :class => "btn btn-primary" %>
-</div>
-<% end %>
+<hr />
 
+<div class="row">
+  <div class="span12">
+    <div class="well">
+      <%= form_tag admin_censor_rule_path(@censor_rule), :method => 'delete', :class => "form form-inline" do |f| %>
+        <%= submit_tag "Destroy censor rule",
+                       :class => "btn btn-danger",
+                       :confirm => 'Are you sure?' %>
+        <span class="help-block">
+          Destroying a censor rule permanently destroys the rule
+        </span>
+      <% end %>
+    </div>
+  </div>
+</div>

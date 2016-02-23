@@ -3,6 +3,8 @@
 
 ## Highlighted Features
 
+* Global and Public Body censor rules can now be managed through the admin UI
+  (Gareth Rees)
 * Added non-destructive methods to apply censor rules and text masks (Gareth
   Rees).
 * Improve handling of long translations in logged in nav (Zarino Zappia)

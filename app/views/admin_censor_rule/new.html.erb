@@ -1,10 +1,19 @@
 <% @title = _('New censor rule') %>
 
-<h1><%= @title %></h1>
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+</div>
 
 <%= form_for @censor_rule, :url => @form_url, :class => "form form-horizontal" do %>
-  <%= render :partial => 'form', :locals => { :info_request => @info_request, :user => @censor_user } %>
+  <%= render :partial => 'form',
+             :locals => { :info_request => @info_request,
+                          :user => @censor_user,
+                          :public_body => @public_body } %>
   <div class="form-actions">
-    <%= submit_tag "Create", :class => "btn btn-primary" %>
+    <%= submit_tag "Create", :class => "btn btn-success" %>
   </div>
 <% end %>

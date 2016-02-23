@@ -209,52 +209,6 @@ describe 'when validating rules' do
 
   end
 
-  describe 'when the allow_global flag has been set' do
-
-    before do
-      @censor_rule = CensorRule.new(:text => 'some text',
-                                    :replacement => '---',
-                                    :last_edit_comment => 'test',
-                                    :last_edit_editor => 'rspec')
-      @censor_rule.allow_global = true
-    end
-
-    it 'should allow a global censor rule (without user_id, request_id or public_body_id)' do
-      expect(@censor_rule.valid?).to eq(true)
-    end
-
-  end
-
-  describe 'when the allow_global flag has not been set' do
-
-    before do
-      @censor_rule = CensorRule.new(:text => '/./',
-                                    :replacement => '---',
-                                    :last_edit_comment => 'test',
-                                    :last_edit_editor => 'rspec')
-    end
-
-    it 'should not allow a global text censor rule (without user_id, request_id or public_body_id)' do
-      expect(@censor_rule.valid?).to eq(false)
-
-      expected_error = ["Rule must apply to an info request, a user or a body"]
-      expect(@censor_rule.errors[:user]).to eq(expected_error)
-      expect(@censor_rule.errors[:info_request]).to eq(expected_error)
-      expect(@censor_rule.errors[:public_body]).to eq(expected_error)
-    end
-
-    it 'should not allow a global regex censor rule (without user_id, request_id or public_body_id)' do
-      @censor_rule.regexp = true
-      expect(@censor_rule.valid?).to eq(false)
-
-      expected_error = ["Rule must apply to an info request, a user or a body"]
-      expect(@censor_rule.errors[:user]).to eq(expected_error)
-      expect(@censor_rule.errors[:info_request]).to eq(expected_error)
-      expect(@censor_rule.errors[:public_body]).to eq(expected_error)
-    end
-
-  end
-
 end
 
 describe 'when handling global rules' do
@@ -274,8 +228,7 @@ describe 'when handling global rules' do
   describe 'the scope CensorRule.global.all' do
 
     before do
-      @global_rule = CensorRule.create!(:allow_global => true,
-                                        :text => 'hide me',
+      @global_rule = CensorRule.create!(:text => 'hide me',
                                         :replacement => 'nothing to see here',
                                         :last_edit_editor => 1,
                                         :last_edit_comment => 'comment')
