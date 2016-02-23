@@ -42,8 +42,7 @@ describe IncomingMessage do
       expected = 'There was a mouse called Stilton, he said that he was blue'
 
       opts = { :text => 'wished',
-               :replacement => 'said',
-               :allow_global => true }.merge(@default_opts)
+               :replacement => 'said' }.merge(@default_opts)
       CensorRule.create!(opts)
 
       result = @im.apply_masks(data, 'text/plain')
