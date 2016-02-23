@@ -3,6 +3,8 @@
 
 ## Highlighted Features
 
+* Added some experimental methods for retrieving exim mail server logs for a
+  specific `OutgoingMessage` (Gareth Rees)
 * Global and Public Body censor rules can now be managed through the admin UI
   (Gareth Rees)
 * Added non-destructive methods to apply censor rules and text masks (Gareth
