@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd `dirname $0`
+bundle exec rake --silent cleanup:holding_pen
+
