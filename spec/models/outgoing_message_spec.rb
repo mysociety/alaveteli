@@ -96,6 +96,42 @@ describe OutgoingMessage do
     end
   end
 
+  describe '#from' do
+
+    it 'returns the value to use in the From: header of the mail' do
+      user = FactoryGirl.create(:user, :name => 'Spec User 862')
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+      expected = "Spec User 862 <request-#{ request.id }-#{ request.idhash }@localhost>"
+      expect(message.from).to eq(expected)
+    end
+
+  end
+
+  describe '#to' do
+
+    it 'returns the value to use in the To: header of the mail' do
+      body = FactoryGirl.create(:public_body, :name => 'Example Public Body',
+                                              :short_name => 'EPB')
+      request = FactoryGirl.create(:info_request, :public_body => body)
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+      expected = 'FOI requests at EPB <request@example.com>'
+      expect(message.to).to eq(expected)
+    end
+
+  end
+
+  describe '#subject' do
+
+    it 'returns the value to use in the Subject: header of the mail' do
+      request = FactoryGirl.create(:info_request, :title => 'Example Request')
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+      expected = 'Freedom of Information request - Example Request'
+      expect(message.subject).to eq(expected)
+    end
+
+  end
+
   describe '#body' do
 
     it 'returns the body attribute' do

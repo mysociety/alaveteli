@@ -95,6 +95,29 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  # Public: The value to be used in the From: header of an OutgoingMailer
+  # message.
+  #
+  # Returns a String
+  def from
+    info_request.incoming_name_and_email
+  end
+
+  # Public: The value to be used in the To: header of an OutgoingMailer message.
+  #
+  # Returns a String
+  def to
+    info_request.recipient_name_and_email
+  end
+
+  # Public: The value to be used in the Subject: header of an OutgoingMailer
+  # message.
+  #
+  # Returns a String
+  def subject
+    info_request.email_subject_request(:html => false)
+  end
+
   # Public: The body text of the OutgoingMessage. The text is cleaned and
   # CensorRules are applied.
   #
