@@ -712,6 +712,22 @@ describe InfoRequest do
 
   end
 
+  describe '#expire' do
+
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    it "clears the database caches" do
+      expect(info_request).to receive(:clear_in_database_caches!)
+      info_request.expire
+    end
+
+    it "does not clear the database caches if passed the preserve_database_cache option" do
+      expect(info_request).not_to receive(:clear_in_database_caches!)
+      info_request.expire(:preserve_database_cache => true)
+    end
+
+  end
+
   describe '#initial_request_text' do
 
     it 'returns an empty string if the first outgoing message is hidden' do

@@ -31,7 +31,7 @@ class AdminIncomingMessageController < AdminController
                                              { :editor => admin_current_user,
                                               :deleted_incoming_message_id => @incoming_message.id })
     # expire cached files
-    @incoming_message.info_request.expire
+    @incoming_message.info_request.expire(:preserve_database_cache => true)
     flash[:notice] = 'Incoming message successfully destroyed.'
     redirect_to admin_request_url(@incoming_message.info_request)
   end
@@ -55,7 +55,7 @@ class AdminIncomingMessageController < AdminController
           errors << message.id
         end
       end
-      info_request.expire
+      info_request.expire(:preserve_database_cache => true)
       if errors.empty?
         flash[:notice] = "Incoming messages successfully destroyed."
       else

@@ -251,7 +251,7 @@ class InfoRequest < ActiveRecord::Base
     ret
   end
 
-  def expire
+  def expire(options={})
     # Clear out cached entries, by removing files from disk (the built in
     # Rails fragment cache made doing this and other things too hard)
     foi_fragment_cache_directories.each{ |dir| FileUtils.rm_rf(dir) }
@@ -261,7 +261,7 @@ class InfoRequest < ActiveRecord::Base
 
     # Remove the database caches of body / attachment text (the attachment text
     # one is after privacy rules are applied)
-    clear_in_database_caches!
+    clear_in_database_caches! unless options[:preserve_database_cache]
 
     # also force a search reindexing (so changed text reflected in search)
     reindex_request_events

@@ -31,7 +31,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
       info_request = FactoryGirl.create(:info_request)
       allow(@im).to receive(:info_request).and_return(info_request)
       allow(IncomingMessage).to receive(:find).and_return(@im)
-      expect(@im.info_request).to receive(:expire)
+      expect(@im.info_request).to receive(:expire).with(:preserve_database_cache => true)
       post :destroy, :id => @im.id
     end
 
@@ -196,7 +196,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
       it 'expires the file cache for the associated info_request' do
         allow(InfoRequest).to receive(:find).and_return(request)
-        expect(request).to receive(:expire)
+        expect(request).to receive(:expire).with(:preserve_database_cache => true)
         post :bulk_destroy, :request_id => request.id,
                             :ids => spam_ids.join(","),
                             :commit => "Yes"
