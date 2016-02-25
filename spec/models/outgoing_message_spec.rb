@@ -119,6 +119,33 @@ describe OutgoingMessage do
       expect(message.to).to eq(expected)
     end
 
+    it 'returns the value to use in the To: header of a followup mail with a valid address' do
+      message = FactoryGirl.build(:internal_review_request)
+
+      followup =
+        mock_model(IncomingMessage, :from_email => 'specific@example.com',
+                                    :safe_mail_from => 'Specific Person',
+                                    :valid_to_reply_to? => true)
+      allow(message).to receive(:incoming_message_followup).and_return(followup)
+
+      expected = 'Specific Person <specific@example.com>'
+      expect(message.to).to eq(expected)
+    end
+
+    it 'returns the value to use in the To: header of a followup mail with an invalid address' do
+      body = FactoryGirl.create(:public_body, :name => 'Example Public Body',
+                                              :short_name => 'EPB')
+      request = FactoryGirl.create(:info_request, :public_body => body)
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+
+      followup =
+        mock_model(IncomingMessage, :valid_to_reply_to? => false)
+      allow(message).to receive(:incoming_message_followup).and_return(followup)
+
+      expected = 'FOI requests at EPB <request@example.com>'
+      expect(message.to).to eq(expected)
+    end
+
   end
 
   describe '#subject' do

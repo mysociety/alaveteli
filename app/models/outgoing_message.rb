@@ -107,7 +107,13 @@ class OutgoingMessage < ActiveRecord::Base
   #
   # Returns a String
   def to
-    info_request.recipient_name_and_email
+    if incoming_message_followup && incoming_message_followup.valid_to_reply_to?
+      # calling safe_mail_from from so censor rules are run
+      MailHandler.address_from_name_and_email(incoming_message_followup.safe_mail_from,
+                                              incoming_message_followup.from_email)
+    else
+      info_request.recipient_name_and_email
+    end
   end
 
   # Public: The value to be used in the Subject: header of an OutgoingMailer
