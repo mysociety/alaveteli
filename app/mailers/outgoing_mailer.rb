@@ -17,21 +17,21 @@ class OutgoingMailer < ApplicationMailer
   # Email to public body requesting info
   def initial_request(info_request, outgoing_message)
     @info_request, @outgoing_message, @contact_email = info_request, outgoing_message, AlaveteliConfiguration::contact_email
-    headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
+    headers["message-id"] = OutgoingMailer.id_for_message(@outgoing_message)
 
-    mail(:from => info_request.incoming_name_and_email,
-         :to => info_request.recipient_name_and_email,
-         :subject => info_request.email_subject_request(:html => false))
+    mail(:from => @outgoing_message.from,
+         :to => @outgoing_message.to,
+         :subject => @outgoing_message.subject)
   end
 
   # Later message to public body regarding existing request
   def followup(info_request, outgoing_message, incoming_message_followup)
     @info_request, @outgoing_message, @incoming_message_followup, @contact_email = info_request, outgoing_message, incoming_message_followup, AlaveteliConfiguration::contact_email
-    headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
+    headers["message-id"] = OutgoingMailer.id_for_message(@outgoing_message)
 
-    mail(:from => info_request.incoming_name_and_email,
-         :to => OutgoingMailer.name_and_email_for_followup(info_request, incoming_message_followup),
-         :subject => OutgoingMailer.subject_for_followup(info_request, outgoing_message, :html => false))
+    mail(:from => @outgoing_message.from,
+         :to => @outgoing_message.to,
+         :subject => @outgoing_message.subject)
   end
 
   # TODO: the condition checking valid_to_reply_to? also appears in views/request/_followup.html.erb,
