@@ -37,7 +37,7 @@ perform a manual upgrade.
 
 * Still in your site directory (`/var/www/YOUR-SITE/alaveteli/`), run the
   post-deploy script as the alaveteli user by issuing
-  `sudo -u alaveteli scripts/rails-post-deploy`
+  `sudo -u alaveteli script/rails-post-deploy`
 
 Do this after each manual deployment as runs any database migrations for you,
 plus various other things that can be automated for deployment.

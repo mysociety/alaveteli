@@ -22,7 +22,7 @@ associated InfoRequestEvent of type `initial_request`. An InfoRequest event can
 have an OutgoingMessage or an IncomingMessage or neither associated with it.
 
 Replies are received by the system by piping raw emails (represented by a **RawEmail**)
-from the MTA to a script at `scripts/mailin`. This parses the email, tries to identify the
+from the MTA to a script at `script/mailin`. This parses the email, tries to identify the
 associated InfoRequest, and then generates an **IncomingMessage** which references
 both the RawEmail and the InfoRequest.
 
@@ -37,7 +37,7 @@ out.)
 
 The **MailServerLog** is a representation of the parsed MTA log files.
 MailServerLog entries are created by a cron job that runs
-`scripts/load-mail-server-logs`. This checks incoming emails and matches them
+`script/load-mail-server-logs`. This checks incoming emails and matches them
 to InfoRequests; then `script/check-recent-requests-send` checkes these logs to
 ensure they have an envelope-from header set (to combat spam).
 
