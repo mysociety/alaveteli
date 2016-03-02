@@ -153,7 +153,7 @@ a unique redaction rule to every user (for hiding their own citizen ID number).
 
 ## A simple censor rule: hiding a name
 
-The follow example shows how occurrences of a specific name ("Alice") can be
+The following example shows how occurrences of a specific name ("Alice") can be
 hidden from messages associated with a particular request. You can also
 add censor rules to a user (rather than a request), so any requests they make
 will have the rules applied.
