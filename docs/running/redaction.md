@@ -110,6 +110,10 @@ button at the bottom of that request's admin page.
 To add a censor rule to a specific authority, click on the the **New censor rule**
 button at the bottom of that authority's admin page.
 
+To add a censor rule to everything on the site, go to the Censor Rules page in
+the "Tools" section of the admin navigation (or go straight to
+`/admin/censor_rules`) and click "New global censor rule".
+
 If you want to redact any text that matches a particular pattern, you can use a
 <a href="{{ page.baseurl }}/docs/glossary/#regexp" class="glossary__link">regular expression</a>
 (regexp). You need to tell Alaveteli that the text is describing such a pattern
