@@ -3,6 +3,8 @@
 
 ## Highlighted Features
 
+* Added Google Analytics tracking code to log an event when a widget button
+  is clicked (Liz Conlan)
 * Added a system of checkboxes to allow admins to delete multiple incoming
   messages (ie spam) that are associated with a request (Liz Conlan)
 * Added a new cron job to run the holding pen cleanup task once a week.
