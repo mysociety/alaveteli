@@ -35,6 +35,7 @@ In this guide:
       <li><a href="#rejecting-spam-that-arrives-in-the-holding-pen">Rejecting spam that arrives in the holding pen</a></li>
       <li><a href="#creating-changing-and-uploading-public-authority-data">Creating, changing and uploading public authority data</a></li>
       <li><a href="#banning-a-user">Banning a user</a></li>
+      <li><a href="#deleting-a-user">Deleting a user</a></li>
       <li><a href="#allowing-a-user-to-make-more-requests">Allowing a user to make more requests</a></li>
       <li><a href="#batch-requests">Batch requests</a></li>
       <li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Resending a request or sending it to a different authority</a></li>
@@ -702,6 +703,27 @@ You may wish to completely ban a user from the website (such as a spammer or tro
 Find the user you wish to ban on the list and click on their name. Once on the user page, select ‘edit’.
 
 Enter some text in the in the ‘Ban text’ box to explain why they have been banned.  Please be aware, this is publicly viewable from the users' account. Then click on save and the user will be banned.
+
+### Deleting a user
+
+There's no way to remove a user entirely from your Alaveteli site, but if you
+really need to render a user account redundant, you can do this:
+
+* In the admin, find the user, and click **Edit**
+* Set the account's name to `[redundant account]` and remove any description
+* If there's a profile photo, click on **Clear photo** to remove it
+* Find the account's *Url name* and set its email address to match it, with the
+  domain "`invalid`" like this: <code><em>url_name</em>@invalid</code>
+* When you've clicked **Save**, log in as the user by clicking the **Log in
+  as...** button
+* Click on **change your password**, and then confirm by clicking on **Send me
+  the email** — this will try to send an email, containing a confirmation link,
+  but that email won't really go anywhere (because the email is `@invalid`)...
+* ...but you can access that link by going to the user's admin page, and
+  building it yourself. Find the *Otp secret key* and use it to make this URL:
+  <code><em>your_domain</em>/c/<em>secret_key</em></code>
+* Change the user's password to a random string
+* If the account is banned (see above), change the ban text to something neutral
 
 ### Allowing a user to make more requests
 
