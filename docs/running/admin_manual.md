@@ -36,6 +36,7 @@ In this guide:
       <li><a href="#creating-changing-and-uploading-public-authority-data">Creating, changing and uploading public authority data</a></li>
       <li><a href="#banning-a-user">Banning a user</a></li>
       <li><a href="#deleting-a-user">Deleting a user</a></li>
+      <li><a href="#anonymising-a-user">Anonymising a user</a></li>
       <li><a href="#allowing-a-user-to-make-more-requests">Allowing a user to make more requests</a></li>
       <li><a href="#batch-requests">Batch requests</a></li>
       <li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Resending a request or sending it to a different authority</a></li>
@@ -724,6 +725,24 @@ really need to render a user account redundant, you can do this:
   <code><em>your_domain</em>/c/<em>secret_key</em></code>
 * Change the user's password to a random string
 * If the account is banned (see above), change the ban text to something neutral
+
+### Anonymising a user
+
+Sometimes you need to remove a user's details from display on your Alaveteli
+site, so that they won't be found by search engines. To do this, first follow
+the steps in [deleting a user](#deleting-a-user) above, replacing the name with
+<code>[name&nbsp;removed]</code>. You then need to remove any other references
+to the user from the site. If you have a lot of requests on your site, this may
+be a big job.
+
+* Add <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">censor rules</a>
+  to remove all forms of their name from their requests, replacing with
+  <code>[name&nbsp;removed]</code>. This will require reading all the requests.
+  Look out for names (and maybe abbreviations too) in reference numbers, and so
+  on. It may be necessary to re-order rules to ensure that all forms of the
+  name are caught.
+  See [more about redaction]({{ page.baseurl }}/docs/running/redaction/).
+* Check the annotations, and edit them to remove name as necessary.
 
 ### Allowing a user to make more requests
 
