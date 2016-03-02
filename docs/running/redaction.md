@@ -477,7 +477,6 @@ The code, in the theme's `lib/censor_rules.rb`, looks like this:
     unless CensorRule.find_by_text(regexp)
       Rails.logger.info("Creating new censor rule: /#{regexp}/")
       CensorRule.create!(:text => regexp,
-                         :allow_global => true,
                          :replacement => _('REDACTED'),
                          :regexp => true,
                          :last_edit_editor => THEME_NAME,
