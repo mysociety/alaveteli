@@ -25,7 +25,7 @@ Actualización de Alaveteli
 ## Ejecutar el script posterior al despliegue
 
 A menos que utilice [Capistrano para la implementación]({{ page.baseurl }}/docs/installing/deploy/),
-siempre debería ejectuar el script `scripts/rails-post-deploy` después de cada
+siempre debería ejectuar el script `script/rails-post-deploy` después de cada
 despliegue. Dicho script efectúa todas las migraciones de bases de datos, además de otras
 diversas tareas que pueden automatizarse en el despliegue.
 
