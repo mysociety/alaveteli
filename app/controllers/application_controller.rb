@@ -230,17 +230,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # get the local locale
-  def locale_from_params(*args)
-    warn %q([DEPRECATION] locale_from_params will be removed in Alaveteli
-               release 0.24).squish
-    if params[:show_locale]
-      params[:show_locale]
-    else
-      I18n.locale.to_s
-    end
-  end
-
   private
 
   def user?

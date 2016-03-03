@@ -656,12 +656,6 @@ class IncomingMessage < ActiveRecord::Base
     (Time.now - self.created_at) <= 3.days
   end
 
-  def fully_destroy
-    warn %q([DEPRECATION] IncomingMessage#fully_destroy will be replaced with
-      IncomingMessage#destroy as of 0.24).squish
-    destroy
-  end
-
   # Search all info requests for
   def self.find_all_unknown_mime_types
     for incoming_message in IncomingMessage.find(:all)
