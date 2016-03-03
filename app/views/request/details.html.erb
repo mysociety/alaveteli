@@ -34,7 +34,7 @@
   <% end %>
   <th>link</th>
   </tr>
-  
+
   <% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
     <tr class="<%= cycle('odd', 'even') %>">
     <% for column in @columns %>

@@ -9,7 +9,8 @@
         <%= _("Your name:") %>
       </label>
       <%= f.text_field :user_name %>
-      <%= _('(or <a href="{{url}}">sign in</a>)', :url => signin_path(:r => request.fullpath)) %>
+      <%= _('(or <a href="{{url}}">sign in</a>)',
+            :url => signin_path(:r => request.fullpath)) %>
     </p>
 
     <p>
