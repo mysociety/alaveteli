@@ -101,17 +101,17 @@ as many <code>x</code>s as needed.
 ## How to add a censor rule
 
 To add a censor rule to a specific user, in the admin interface click on
-**Users** and click of their name. Scroll down to _censor rules_, and click
+**Users** and click on their name. Scroll down to _censor rules_, and click
 **New censor rule**.
 
 To add a censor rule to a specific
 <a href="{{ page.baseurl }}/docs/glossary/#request" class="glossary__link">
-request</a>, click on the the **New censor rule** button at the bottom of that
+request</a>, click on the **New censor rule** button at the bottom of that
 request's admin page.
 
 To add a censor rule to a specific
 <a href="{{ page.baseurl }}/docs/glossary/#authority" class="glossary__link">
-authority</a>, click on the the **New censor rule** button at the bottom of that
+authority</a>, click on the **New censor rule** button at the bottom of that
 authority's admin page.
 
 To add a censor rule to everything on the site, go to the Censor Rules page in
