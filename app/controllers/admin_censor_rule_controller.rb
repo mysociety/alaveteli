@@ -9,7 +9,7 @@ class AdminCensorRuleController < AdminController
 
   before_filter :set_editor, :only => [:create, :update]
   before_filter :set_censor_rule, :only => [:edit, :update, :destroy]
-  before_filter :set_info_request_and_censor_rule_and_form_url, :only => [:new, :create]
+  before_filter :set_subject_and_censor_rule_and_form_url, :only => [:new, :create]
 
   def index
     @censor_rules = CensorRule.all
@@ -51,7 +51,9 @@ class AdminCensorRuleController < AdminController
 
   private
 
-  def set_info_request_and_censor_rule_and_form_url
+  # The subject can be @info_request, @censor_user or @public_body if the rule
+  # applies to an associated record. Nothing is set for a global rule.
+  def set_subject_and_censor_rule_and_form_url
     if params[:request_id]
       @info_request = InfoRequest.find(params[:request_id])
       @censor_rule = @info_request.censor_rules.build(censor_rule_params)
