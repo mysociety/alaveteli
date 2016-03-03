@@ -60,6 +60,78 @@
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook.
 
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin_censor_rule/_form.html.erb
+    app/views/admin_censor_rule/_show.html.erb
+    app/views/admin_censor_rule/edit.html.erb
+    app/views/admin_censor_rule/new.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/stats.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/comment/new.html.erb
+    app/views/comment/preview.html.erb
+    app/views/general/_responsive_footer.html.erb
+    app/views/help/unhappy.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/default.html.erb
+    app/views/outgoing_mailer/_followup_footer.text.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/list.html.erb
+    app/views/public_body/show.html.erb
+    app/views/public_body/statistics.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/public_body_change_requests/new.html.erb
+    app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_followup.html.erb
+    app/views/request/_hidden_correspondence.html.erb
+    app/views/request/_hidden_correspondence.text.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_other_describe_state.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_restricted_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_sidebar_request_listing.html.erb
+    app/views/request/batch_not_allowed.html.erb
+    app/views/request/describe_state_message.html.erb
+    app/views/request/details.html.erb
+    app/views/request/followup_bad.html.erb
+    app/views/request/followup_preview.html.erb
+    app/views/request/hidden.html.erb
+    app/views/request/new.html.erb
+    app/views/request/preview.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request/show.html.erb
+    app/views/request/show.text.erb
+    app/views/request/show_response.html.erb
+    app/views/request/similar.html.erb
+    app/views/request/upload_response.html.erb
+    app/views/request_mailer/overdue_alert.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/track/_tracking_links.html.erb
+    app/views/user/_change_receive_email.html.erb
+    app/views/user/_signin.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/_user_listing_single.html.erb
+    app/views/user/rate_limited.html.erb
+    app/views/user/set_profile_about_me.html.erb
+    app/views/user/show.html.erb
+    app/views/user/sign.html.erb
+    app/views/user/signchangeemail.html.erb
+    app/views/user/signchangepassword.html.erb
+    app/views/user/signchangepassword_confirm.html.erb
+    app/views/user/signchangepassword_send_confirm.html.erb
+    app/views/user/wall.html.erb
+    app/views/user/wrong_user.html.erb
+    app/views/widgets/show.html.erb
+
 # Version 0.23.2.0
 
 ## Highlighted Features
