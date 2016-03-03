@@ -101,11 +101,22 @@ as many <code>x</code>s as needed.
 ## How to add a censor rule
 
 To add a censor rule to a specific user, in the admin interface click on
-**Users** and click of their name. Scroll down to _censor rules_, and click
+**Users** and click on their name. Scroll down to _censor rules_, and click
 **New censor rule**.
 
-To add a censor rule to a specific request, click on the the **New censor rule**
-button at the bottom of that request's admin page.
+To add a censor rule to a specific
+<a href="{{ page.baseurl }}/docs/glossary/#request" class="glossary__link">
+request</a>, click on the **New censor rule** button at the bottom of that
+request's admin page.
+
+To add a censor rule to a specific
+<a href="{{ page.baseurl }}/docs/glossary/#authority" class="glossary__link">
+authority</a>, click on the **New censor rule** button at the bottom of that
+authority's admin page.
+
+To add a censor rule to everything on the site, go to the Censor Rules page in
+the "Tools" section of the admin navigation (or go straight to
+`/admin/censor_rules`) and click "New global censor rule".
 
 If you want to redact any text that matches a particular pattern, you can use a
 <a href="{{ page.baseurl }}/docs/glossary/#regexp" class="glossary__link">regular expression</a>
@@ -153,7 +164,7 @@ a unique redaction rule to every user (for hiding their own citizen ID number).
 
 ## A simple censor rule: hiding a name
 
-The follow example shows how occurrences of a specific name ("Alice") can be
+The following example shows how occurrences of a specific name ("Alice") can be
 hidden from messages associated with a particular request. You can also
 add censor rules to a user (rather than a request), so any requests they make
 will have the rules applied.
@@ -477,7 +488,6 @@ The code, in the theme's `lib/censor_rules.rb`, looks like this:
     unless CensorRule.find_by_text(regexp)
       Rails.logger.info("Creating new censor rule: /#{regexp}/")
       CensorRule.create!(:text => regexp,
-                         :allow_global => true,
                          :replacement => _('REDACTED'),
                          :regexp => true,
                          :last_edit_editor => THEME_NAME,
