@@ -11,7 +11,7 @@
   <% else %>
     <% if @public_body.not_requestable_reason == 'not_apply' %>
       <p><%= _('Freedom of Information law no longer applies to this ' \
-                  'authority.Follow up messages to existing requests are ' \
+                  'authority. Follow up messages to existing requests are ' \
                   'sent to <strong>{{authority_email}}</strong>.',
                :authority_email => h(@public_body.request_email)) %>
       </p>
