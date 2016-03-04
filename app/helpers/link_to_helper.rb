@@ -254,15 +254,6 @@ module LinkToHelper
     end
   end
 
-  #I18n locale switcher
-
-  def locale_switcher(locale, params)
-    warn %q([DEPRECATION] locale_switcher will be removed in Alaveteli
-           release 0.24).squish
-    params['locale'] = locale
-    return url_for(params)
-  end
-
   private
 
   # Private: Generate a request_url linking to the new correspondence

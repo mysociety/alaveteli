@@ -19,21 +19,6 @@ class AdminController < ApplicationController
     true
   end
 
-  # Expire cached attachment files for a request
-  def expire_for_request(info_request)
-    warn %q([DEPRECATION] AdminController#expire_for_request will be replaced with
-      InfoRequest#expire as of 0.24).squish
-
-    info_request.expire
-  end
-
-  # Expire cached attachment files for a user
-  def expire_requests_for_user(user)
-    warn %q([DEPRECATION] AdminController#expire_for_user will be replaced with
-      User#expire_requests as of 0.24).squish
-    user.expire_requests
-  end
-
   # For administration interface, return display name of authenticated user
   def admin_current_user
     if AlaveteliConfiguration::skip_admin_auth
