@@ -3,6 +3,11 @@
 
 ## Highlighted Features
 
+* Added a system of checkboxes to allow admins to delete multiple incoming
+  messages (ie spam) that are associated with a request (Liz Conlan)
+* Added a new cron job to run the holding pen cleanup task once a week.
+  You will need to update your deployed crontab if you want to make use
+  of this feature (Liz Conlan)
 * Added some experimental methods for retrieving exim mail server logs for a
   specific `OutgoingMessage` (Gareth Rees)
 * Global and Public Body censor rules can now be managed through the admin UI

@@ -261,13 +261,6 @@ class OutgoingMessage < ActiveRecord::Base
     get_text_for_indexing(strip_salutation=false)
   end
 
-
-  def fully_destroy
-    warn %q([DEPRECATION] OutgoingMessage#fully_destroy will be replaced with
-      OutgoingMessage#destroy as of 0.24).squish
-    destroy
-  end
-
   def purge_in_cache
     info_request.purge_in_cache
   end
