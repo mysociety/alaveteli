@@ -5,13 +5,27 @@
 
 * Added Google Analytics tracking code to log an event when a widget button
   is clicked (Liz Conlan)
+* Fix crash when neither Geoip nor Gaze are configured (Alfonso Cora)
 * Added a system of checkboxes to allow admins to delete multiple incoming
   messages (ie spam) that are associated with a request (Liz Conlan)
 * Added a new cron job to run the holding pen cleanup task once a week.
-  You will need to update your deployed crontab if you want to make use
-  of this feature (Liz Conlan)
+  (Liz Conlan)
+* Improved the holiday reminder email that gets sent to site admins once a year
+  (Liz Conlan)
+* Extracted `ResponseController#show_response` in to several actions in a new
+  `FollowupsController` (Liz Conlan, Gareth Rees)
+* Added links to [AskTheEU](http://www.asktheeu.org) from Alaveteli sites
+  installed in an EU country (Gareth Rees)
+* Stopped generating code coverage reports locally. You can still view code
+  coverage reports on https://coveralls.io/github/mysociety/alaveteli
+  (Gareth Rees)
+* Added `OutgoingMessage::Template` module and extracted templates to classes
+  in this module (Gareth Rees)
+* Added some experimental methods for sending requests to an external reviewer
+  (Gareth Rees)
 * Added some experimental methods for retrieving exim mail server logs for a
   specific `OutgoingMessage` (Gareth Rees)
+* Improved the organisation of the items in the admin nav bar (Gareth Rees)
 * Global and Public Body censor rules can now be managed through the admin UI
   (Gareth Rees)
 * Added non-destructive methods to apply censor rules and text masks (Gareth
@@ -22,10 +36,19 @@
 * The UK-specific `SPECIAL_REPLY_VERY_LATE_AFTER_DAYS` has been removed. See
   https://github.com/mysociety/whatdotheyknow-theme/pull/287 for how we've
   re-implemented this in WhatDoTheyKnow.
+* Stop outgoing messages being displayed with forced line breaks (Liz Conlan).
+* Reduce risk of duplicate request urls (Liz Conlan).
 * Better image for pages when shared on Facebook (Zarino Zappia)
 * Official support added for ruby 2.1.5 and 2.3.0 (Louise Crow)
 * Ported the graph generation shell scripts to Ruby (Liz Conlan)
 * Official support added for Debian Jessie (Liz Conlan)
+* Improved some translation strings and added some missing wrappers (Gareth
+  Rees)
+* Deprecated some UK-specific code (Gareth Rees)
+* Improve speed of the 'old unclassified' requests query by adding a cached
+  field to InfoRequest to keep track of when the last public response was
+  made (Liz Conlan).
+* Improved error messages in `script/switch-theme.rb` (Zarino Zappia)
 
 ## Upgrade Notes
 
@@ -56,9 +79,16 @@
     as per [http://alaveteli.org/docs/installing/manual_install/#running-over-ssl](http://alaveteli.org/docs/installing/manual_install/#running-over-ssl) so that nginx knows how to use
     the extra server processes
   * restart your site with `service alaveteli start`
+* There's been a minor change to `config/sysvinit-passenger.example`. You should
+  regenerate this file: http://alaveteli.org/docs/installing/manual_install/#passenger
 * Add a 256x256 image named `logo-opengraph.png` to
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook.
+* The crontab needs to be regenerated to include the new modifications:
+  http://alaveteli.org/docs/installing/manual_install/#generate-crontab
+* 5af81d905 includes a migration that runs over all info requests in the
+  database. This might take some time, so you should ideally **schedule this
+  outside of busy periods**.
 
 ### Changed Templates
 
@@ -157,11 +187,6 @@ to match the new templates.
 
 ## Highlighted Features
 
-* Stop outgoing messages being displayed with forced line breaks (Liz Conlan).
-* Reduce risk of duplicate request urls (Liz Conlan).
-* Improve speed of the 'old unclassified' requests query by adding a cached
-  field to InfoRequest to keep track of when the last public response was
-  made (Liz Conlan).
 * Various major design and markup improvements to the layout, home page and
   request page (Martin Wright).
 * Adds basic opt-in two factor authentication. Enable it globally with
