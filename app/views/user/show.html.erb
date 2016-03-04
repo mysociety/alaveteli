@@ -138,7 +138,7 @@
 <% if @show_batches %>
   <% if @is_you && !@display_user.info_request_batches.empty? %>
     <h2 class="batch_results" id="batch_requests">
-      <%= n_('Your {{count}} batch requests',
+      <%= n_('Your {{count}} batch request',
              'Your {{count}} batch requests',
              @display_user.info_request_batches.size,
              :count => @display_user.info_request_batches.size) %>
