@@ -34,7 +34,8 @@
       <% if @public_body.is_requestable? %>
         <% if @public_body.eir_only? %>
           <p class="authority__header__notes">
-            <%= _('You can only request information about the environment from this authority.')%>
+            <%= _('You can only request information about the environment ' \
+                     'from this authority.')%>
           </p>
         <% end %>
       <% elsif @public_body.special_not_requestable_reason? %>
@@ -118,7 +119,8 @@
         <p><% _('There were no requests matching your query.') %></p>
       <% else %>
         <p>
-          <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %>
+          <%= _('Only requests made using {{site_name}} are shown.',
+                :site_name => site_name) %>
           <%= link_to _('?'), help_about_path %>
         </p>
       <% end %>
@@ -129,7 +131,9 @@
       <% else %>
         <h2> <%= _('Freedom of Information requests made')%></h2>
       <% end %>
-      <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
+      <p> <%= _('The search index is currently offline, so we can\'t show ' \
+                  'the Freedom of Information requests that have been made ' \
+                  'to this authority.') %></p>
     <% end %>
   </div>
 

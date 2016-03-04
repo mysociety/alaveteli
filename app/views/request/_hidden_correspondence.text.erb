@@ -1,5 +1,6 @@
 <%- if !message.prominence_reason.blank? %>
   <%= _('This message has been hidden.') %> <%= message.prominence_reason %>
 <%- else %>
-  <%= _("This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here.") %>
+  <%= _("This message has been hidden. There are various reasons why we might " \
+           "have done this, sorry we can't be more specific here.") %>
 <%- end %>

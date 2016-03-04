@@ -13,7 +13,8 @@
   <span class="desc">
     <% if !public_body.short_name.empty? || !public_body.notes_without_html.empty? %>
       <% if !public_body.short_name.empty? %>
-        <%= _("Also called {{other_name}}.", :other_name => highlight_words(public_body.short_name, @highlight_words)) %>
+        <%= _("Also called {{other_name}}.",
+              :other_name => highlight_words(public_body.short_name, @highlight_words)) %>
       <% end %>
       <% if !public_body.notes_without_html.empty? %>
         <%= highlight_and_excerpt(public_body.notes_without_html, @highlight_words, 150) %>
@@ -22,7 +23,9 @@
     <% end %>
   </span>
   <span class="bottomline">
-    <%= n_('{{count}} request made.', '{{count}} requests made.', public_body.info_requests.visible.size,
+    <%= n_('{{count}} request made.',
+           '{{count}} requests made.',
+           public_body.info_requests.visible.size,
            :count => public_body.info_requests.visible.size) %>
     <br>
     <span class="date_added">

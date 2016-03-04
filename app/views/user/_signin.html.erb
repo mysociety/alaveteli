@@ -3,12 +3,12 @@
     <%= foi_error_messages_for :user_signin %>
 
     <p>
-      <label class="form_label" for="user_signin_email"><%= _('Your e-mail:')%></label>
+      <label class="form_label" for="user_signin_email"><%= _('Your e-mail:') %></label>
       <%= text_field 'user_signin', 'email', { :size => 20, :tabindex => 60 } %>
     </p>
 
     <p>
-      <label class="form_label" for="user_signin_password"><%= _('Password:')%></label>
+      <label class="form_label" for="user_signin_password"><%= _('Password:') %></label>
       <%= password_field 'user_signin', 'password', { :size => 15, :tabindex => 70, :autocomplete => 'off' } %>
     </p>
 

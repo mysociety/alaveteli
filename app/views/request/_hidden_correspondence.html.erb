@@ -2,12 +2,17 @@
   <%- if !message.prominence_reason.blank? %>
     <%= _('This message has been hidden.') %>
     <%= message.prominence_reason %>
-    <%= _('Please <a href="{{url}}">contact us</a> if you have any questions.', :url => help_contact_path.html_safe) %>
+    <%= _('Please <a href="{{url}}">contact us</a> if you have any questions.',
+          :url => help_contact_path.html_safe) %>
   <%- else %>
-    <%= _("This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here.") %>
-    <%= _('Please <a href="{{url}}">contact us</a> if you have any questions.', :url => help_contact_path.html_safe) %>
+    <%= _("This message has been hidden. There are various reasons why we " \
+             "might have done this, sorry we can't be more specific here.") %>
+    <%= _('Please <a href="{{url}}">contact us</a> if you have any questions.',
+          :url => help_contact_path.html_safe) %>
   <%- end %>
   <% if message.prominence == 'requester_only' %>
-    <%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> to view the message.', :url => signin_url(:r => request.fullpath).html_safe) %>
+    <%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> ' \
+             'to view the message.',
+          :url => signin_url(:r => request.fullpath).html_safe) %>
   <% end %>
 </p>
