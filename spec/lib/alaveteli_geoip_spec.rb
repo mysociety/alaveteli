@@ -102,6 +102,14 @@ describe AlaveteliGeoIP do
           .to eq(instance.current_code)
       end
 
+      it "returns the current code if the service isn't configured" do
+        allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('')
+        instance = AlaveteliGeoIP.new
+        expect(instance.country_code_from_ip('127.0.0.1'))
+          .to eq(instance.current_code)
+      end
+
+
       it "returns the current code and logs the error with url if the
            service returns an error" do
         FakeWeb.register_uri(:get, %r|500.com|, :body => "Error", :status => ["500", "Error"])
