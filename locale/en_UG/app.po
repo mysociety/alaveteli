@@ -4160,6 +4160,3 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
-#~ msgstr "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the agency should normally have responded\\n            <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
