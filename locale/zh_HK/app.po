@@ -9,14 +9,14 @@
 # caxekis <caxekis@gmail.com>, 2013
 # beckymak <makpowan@gmail.com>, 2015
 # spions kwong, 2015
-# spions kwong, 2015
+# spions kwong, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2016-01-06 22:45+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2016-02-26 02:35+0000\n"
+"Last-Translator: spions kwong\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -3032,16 +3032,16 @@ msgid "To reply to "
 msgstr ""
 
 msgid "To report this request"
-msgstr "為報告此要求"
+msgstr "舉報這項要求"
 
 msgid "To send a follow up message to "
-msgstr ""
+msgstr "發出一項跟進訊息予"
 
 msgid "To send a message to "
-msgstr ""
+msgstr "發出一項訊息予"
 
 msgid "To send your FOI request"
-msgstr ""
+msgstr "發送你的索取資料要求"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "如要將你的要求發送予其他機構，請先複製你的索取資料要求，然後<a href=\"{{find_authority_url}}\">搜尋其他部門／機構</a>."
@@ -3409,7 +3409,7 @@ msgid "Who can I request information from?"
 msgstr "我可以向哪些部門及機構查閱資料？"
 
 msgid "Why specifically do you consider this request unsuitable?"
-msgstr ""
+msgstr "具體而言，請問為何你認為這項要求並不恰當？"
 
 msgid "Widget vote"
 msgstr ""
