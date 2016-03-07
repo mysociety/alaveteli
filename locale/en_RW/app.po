@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-06 10:01+0000\n"
+"POT-Creation-Date: 2016-03-07 15:33+0000\n"
 "PO-Revision-Date: 2014-11-18 19:29+0200\n"
 "Last-Translator: Stephen Abbott Pugh <stephendabbott@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -215,9 +215,6 @@ msgstr ""
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr ""
 
-msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
-msgstr ""
-
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
 msgstr ""
 
@@ -279,6 +276,9 @@ msgid "A vexatious request"
 msgstr ""
 
 msgid "A {{site_name}} user"
+msgstr ""
+
+msgid "API"
 msgstr ""
 
 msgid "About you:"
@@ -396,6 +396,9 @@ msgid "Are you sure? If you regenerate your one time passcode you will need to u
 msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
+msgstr ""
+
+msgid "Ask EU Authorities"
 msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
@@ -524,9 +527,6 @@ msgstr ""
 msgid "Change email on {{site_name}}"
 msgstr ""
 
-msgid "Change password on {{site_name}}"
-msgstr ""
-
 msgid "Change profile photo"
 msgstr ""
 
@@ -639,6 +639,9 @@ msgid "Considered by administrators as not an FOI request and hidden from site."
 msgstr "Considered by administrators as not an ATI request and hidden from site."
 
 msgid "Considered by administrators as vexatious and hidden from site."
+msgstr ""
+
+msgid "Contact us"
 msgstr ""
 
 msgid "Contact {{recipient}}"
@@ -941,7 +944,7 @@ msgstr ""
 msgid "Follow up message sent by requester"
 msgstr ""
 
-msgid "Follow up messages to existing requests are sent to "
+msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr ""
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
@@ -978,9 +981,6 @@ msgstr "Access to information act"
 
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Access to information law does not apply to this authority, so you cannot make\\n                a request to it."
-
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
-msgstr "Access to information law no longer applies to this authority. Follow up messages to existing requests are sent to "
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "Access to information law no longer applies to {{public_body_name}}."
@@ -1034,6 +1034,12 @@ msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors
 msgstr ""
 
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
+msgstr ""
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
 msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
@@ -1207,12 +1213,6 @@ msgstr ""
 msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
 msgstr ""
 
-msgid "If you're new to {{site_name}}"
-msgstr ""
-
-msgid "If you've used {{site_name}} before"
-msgstr ""
-
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr ""
 
@@ -1327,6 +1327,9 @@ msgstr ""
 msgid "InfoRequest|Idhash"
 msgstr ""
 
+msgid "InfoRequest|Last public response at"
+msgstr ""
+
 msgid "InfoRequest|Law used"
 msgstr ""
 
@@ -1372,10 +1375,10 @@ msgstr ""
 msgid "Items sent in last month"
 msgstr ""
 
-msgid "Joined in"
+msgid "Joined in {{year}}."
 msgstr ""
 
-msgid "Joined {{site_name}} in"
+msgid "Joined {{site_name}} in {{year}}"
 msgstr ""
 
 msgid "Just one more thing"
@@ -1974,6 +1977,9 @@ msgstr ""
 msgid "Print your one time passcode"
 msgstr ""
 
+msgid "Privacy and cookies"
+msgstr ""
+
 msgid "Profile photo"
 msgstr ""
 
@@ -2280,6 +2286,9 @@ msgstr ""
 msgid "Response to your request"
 msgstr ""
 
+msgid "Response to {{law_used_short}} request"
+msgstr ""
+
 msgid "Response:"
 msgstr ""
 
@@ -2472,9 +2481,6 @@ msgid "Subject"
 msgstr ""
 
 msgid "Subject:"
-msgstr ""
-
-msgid "Submit"
 msgstr ""
 
 msgid "Submit Search"
@@ -2678,9 +2684,6 @@ msgstr ""
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr ""
 
-msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
-msgstr ""
-
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr ""
 
@@ -2738,10 +2741,10 @@ msgstr ""
 msgid "Then you can upload an FOI response. "
 msgstr "Then you can upload an ATI response. "
 
-msgid "Then you can write follow up message to "
+msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-msgid "Then you can write your reply to "
+msgid "Then you can write your reply to {{authority_name}}."
 msgstr ""
 
 msgid "Then you will be following all new FOI requests."
@@ -3029,13 +3032,13 @@ msgstr ""
 msgid "To post your annotation"
 msgstr ""
 
-msgid "To reply to "
+msgid "To reply to {{authority_name}}."
 msgstr ""
 
 msgid "To report this request"
 msgstr ""
 
-msgid "To send a follow up message to "
+msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
 msgid "To send a message to "
@@ -3212,6 +3215,9 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr ""
 
@@ -3219,6 +3225,9 @@ msgid "User|Ban text"
 msgstr ""
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3234,6 +3243,9 @@ msgid "User|Email confirmed"
 msgstr ""
 
 msgid "User|Hashed password"
+msgstr ""
+
+msgid "User|Identity card number"
 msgstr ""
 
 msgid "User|Last daily track email"
@@ -3372,9 +3384,6 @@ msgstr ""
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr ""
 
-msgid "We've sent you an email, click the link in it, then you can change your password."
-msgstr ""
-
 msgid "What are you doing?"
 msgstr ""
 
@@ -3435,11 +3444,8 @@ msgstr ""
 msgid "Write a reply"
 msgstr ""
 
-msgid "Write a reply to "
+msgid "Write a reply to {{authority_name}}"
 msgstr ""
-
-msgid "Write your FOI follow up message to "
-msgstr "Write your ATI follow up message to "
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr ""
@@ -3447,7 +3453,7 @@ msgstr ""
 msgid "You"
 msgstr ""
 
-msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
+msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
 
 msgid "You are already following new requests"
@@ -3861,9 +3867,6 @@ msgstr ""
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr ""
 
-msgid "during term time"
-msgstr ""
-
 msgid "e.g. Ministry of Defence"
 msgstr ""
 
@@ -3872,9 +3875,6 @@ msgstr ""
 
 msgid "email address"
 msgstr "email address"
-
-msgid "even during holidays"
-msgstr ""
 
 msgid "everything"
 msgstr ""
@@ -3889,9 +3889,6 @@ msgid "have delayed."
 msgstr ""
 
 msgid "hide quoted sections"
-msgstr ""
-
-msgid "in term time"
 msgstr ""
 
 msgid "in the category ‘{{category_name}}’"
@@ -3910,9 +3907,6 @@ msgid "just to see how it works"
 msgstr ""
 
 msgid "left an annotation"
-msgstr ""
-
-msgid "made."
 msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
@@ -4010,6 +4004,9 @@ msgstr ""
 msgid "type your search term here"
 msgstr ""
 
+msgid "unknown reason"
+msgstr ""
+
 msgid "unknown reason "
 msgstr ""
 
@@ -4036,6 +4033,11 @@ msgstr ""
 
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} ATI requests found"
+
+msgid "{{count}} annotation made."
+msgid_plural "{{count}} annotations made."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
