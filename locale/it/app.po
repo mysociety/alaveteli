@@ -5,7 +5,7 @@
 # Translators:
 # Translators:
 # Antonella <anapolitano@gmail.com>, 2014-2015
-# Claudio Cesarano <claudio@dirittodisapere.it>, 2015
+# Claudio Cesarano <claudio@dirittodisapere.it>, 2015-2016
 # Giancarlo <pinet@pinet.it>, 2015
 # guido romeo <guido.romeo@gmail.com>, 2015
 # louisecrow <louise@mysociety.org>, 2014-2015
@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2016-01-06 22:48+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2016-03-07 12:49+0000\n"
+"Last-Translator: Claudio Cesarano <claudio@dirittodisapere.it>\n"
 "Language-Team: Italian (http://www.transifex.com/mysociety/alaveteli/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -2901,7 +2901,7 @@ msgid "This page of public body statistics is currently experimental, so there a
 msgstr "La pagina delle statistiche relative all'amministrazione è ancora in fase di sperimentazione, ecco alcune cose da tenere a mente:"
 
 msgid "This particular request is finished:"
-msgstr "This particular request is finished:"
+msgstr "Il processo di richiesta è concluso:"
 
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Questo utente non ha fatto alcuna richiesta di accesso usando il sito."
