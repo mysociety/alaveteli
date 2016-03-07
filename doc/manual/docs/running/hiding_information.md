@@ -60,10 +60,10 @@ occur. The team that runs
 <a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
 in the UK responds to each takedown request in this way:
 
-* hide the message or request
-* let the person who requested the takedown know that the information has been 
-  hidden pending a decision by your admin team
-* restore, delete or keep the information hidden, depending on the outcome of
+* hide the message or request if it's clear the correspondence is clearly inappropriate
+* if information has been hidden, let the person who requested the takedown know that the
+  information has been hidden pending a decision by your admin team
+* hide, delete, restore or keep the information hidden, depending on the outcome of
   the admin decision
 
 ### Accidental releases of data
