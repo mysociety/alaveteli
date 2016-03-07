@@ -8,6 +8,7 @@
 # arianit <ardob11@gmail.com>, 2012
 # bresta <bresta@gmail.com>, 2011
 # bresta <bresta@gmail.com>, 2011
+# Dorian Kavaja <dorik2k@gmail.com>, 2016
 # driton <dritoni.h@gmail.com>, 2011
 # Hana Huntova <>, 2012
 # louisecrow <louise@mysociety.org>, 2014
@@ -21,8 +22,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2016-01-06 22:49+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2016-03-05 22:09+0000\n"
+"Last-Translator: Dorian Kavaja <dorik2k@gmail.com>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
@@ -46,10 +47,10 @@ msgid " - wall"
 msgstr "- muri"
 
 msgid " < "
-msgstr ""
+msgstr "<"
 
 msgid " << "
-msgstr ""
+msgstr "<<"
 
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr " <strong>Shënim privatësie:</strong> Adresa e emailit do t'i jepet"
@@ -58,10 +59,10 @@ msgid " <strong>Summarise</strong> the content of any information returned. "
 msgstr " <strong>Përmbledh</strong> përmbajtjen e informacioneve të kthyera (përgjigura)."
 
 msgid " > "
-msgstr ""
+msgstr ">"
 
 msgid " >> "
-msgstr ""
+msgstr ">>"
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
 msgstr " Këshillo se si <strong>më së miri të sqarohet</strong> një kërkesë."
@@ -88,7 +89,7 @@ msgid " You will also be emailed updates about the request."
 msgstr " Ti gjithashtu do të pranon email me aktualizimet e reja në lidhje me kërkesën."
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "filtruar sipas statusit: '{{status}}'"
 
 msgid " when you send this message."
 msgstr " kur e dërgoni këtë mesazh."
@@ -109,26 +110,19 @@ msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', një person"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(fshih)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "(ose <a href=\"{{url}}\">kyçuni</a>)"
 
 msgid "(show)"
-msgstr ""
+msgstr "(shfaq)"
 
 msgid "*unknown*"
-msgstr ""
+msgstr "*i panjohur*"
 
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
-msgstr ""
-",\n"
-"\n"
-"\n"
-"\n"
-"Me nderime,\n"
-"\n"
-"{{user_name}}"
+msgstr ",\\n\\n\\n\\nMe nderime,,\\n\\n{{user_name}}"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Shfletoni të gjitha</a> ose <a href=\"{{add_url}}\">kërkoni nga ne që të shtojmë një</a>."
@@ -148,12 +142,12 @@ msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and mor
 msgstr "<a href=\"{{url}}\">Kyçu</a> për të ndryshuar fjalëkalimin, abonimet dhe të tjera (vetëm për {{user_name}})"
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Mendon të përdorësh një pseudonim?</a>"
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<div class=\"alaveteli-widget__count\">{{count}}</div> persona duan të dinë"
+msgstr[1] "<div class=\"alaveteli-widget__count\">{{count}}</div> persona duan të dinë"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Të gjitha u bënë! Shumë faleminderit  për ndihmën tënde. </p><p>Ka <a href=\"{{helpus_url}}\">shumë gjëra që ti mund të bësh</a> për të ndihmuar {{site_name}}. </p>"
@@ -218,7 +212,7 @@ msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Diçka tjetër,</strong> p.sh. sqarim, falënderim"
 
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "<strong>Me detyrim ligjor, ata duhet të përgjigjen</strong> (<a href=\"{{url}}\">pse?</a>)."
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr ""
@@ -284,7 +278,7 @@ msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>nuk e kanë</strong> informacionin e kërkuar."
 
 msgid "?"
-msgstr ""
+msgstr "?"
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
