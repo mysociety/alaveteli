@@ -17,7 +17,6 @@ class OutgoingMailer < ApplicationMailer
   # Email to public body requesting info
   def initial_request(info_request, outgoing_message)
     @info_request, @outgoing_message, @contact_email = info_request, outgoing_message, AlaveteliConfiguration::contact_email
-    @wrap_lines_as_paragraphs = true
     headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
 
     mail(:from => info_request.incoming_name_and_email,
@@ -28,7 +27,6 @@ class OutgoingMailer < ApplicationMailer
   # Later message to public body regarding existing request
   def followup(info_request, outgoing_message, incoming_message_followup)
     @info_request, @outgoing_message, @incoming_message_followup, @contact_email = info_request, outgoing_message, incoming_message_followup, AlaveteliConfiguration::contact_email
-    @wrap_lines_as_paragraphs = true
     headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
 
     mail(:from => info_request.incoming_name_and_email,
