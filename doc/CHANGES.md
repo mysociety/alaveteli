@@ -5,13 +5,27 @@
 
 * Added Google Analytics tracking code to log an event when a widget button
   is clicked (Liz Conlan)
+* Fix crash when neither Geoip nor Gaze are configured (Alfonso Cora)
 * Added a system of checkboxes to allow admins to delete multiple incoming
   messages (ie spam) that are associated with a request (Liz Conlan)
 * Added a new cron job to run the holding pen cleanup task once a week.
-  You will need to update your deployed crontab if you want to make use
-  of this feature (Liz Conlan)
+  (Liz Conlan)
+* Improved the holiday reminder email that gets sent to site admins once a year
+  (Liz Conlan)
+* Extracted `ResponseController#show_response` in to several actions in a new
+  `FollowupsController` (Liz Conlan, Gareth Rees)
+* Added links to [AskTheEU](http://www.asktheeu.org) from Alaveteli sites
+  installed in an EU country (Gareth Rees)
+* Stopped generating code coverage reports locally. You can still view code
+  coverage reports on https://coveralls.io/github/mysociety/alaveteli
+  (Gareth Rees)
+* Added `OutgoingMessage::Template` module and extracted templates to classes
+  in this module (Gareth Rees)
+* Added some experimental methods for sending requests to an external reviewer
+  (Gareth Rees)
 * Added some experimental methods for retrieving exim mail server logs for a
   specific `OutgoingMessage` (Gareth Rees)
+* Improved the organisation of the items in the admin nav bar (Gareth Rees)
 * Global and Public Body censor rules can now be managed through the admin UI
   (Gareth Rees)
 * Added non-destructive methods to apply censor rules and text masks (Gareth
@@ -22,10 +36,19 @@
 * The UK-specific `SPECIAL_REPLY_VERY_LATE_AFTER_DAYS` has been removed. See
   https://github.com/mysociety/whatdotheyknow-theme/pull/287 for how we've
   re-implemented this in WhatDoTheyKnow.
+* Stop outgoing messages being displayed with forced line breaks (Liz Conlan).
+* Reduce risk of duplicate request urls (Liz Conlan).
 * Better image for pages when shared on Facebook (Zarino Zappia)
 * Official support added for ruby 2.1.5 and 2.3.0 (Louise Crow)
 * Ported the graph generation shell scripts to Ruby (Liz Conlan)
 * Official support added for Debian Jessie (Liz Conlan)
+* Improved some translation strings and added some missing wrappers (Gareth
+  Rees)
+* Deprecated some UK-specific code (Gareth Rees)
+* Improve speed of the 'old unclassified' requests query by adding a cached
+  field to InfoRequest to keep track of when the last public response was
+  made (Liz Conlan).
+* Improved error messages in `script/switch-theme.rb` (Zarino Zappia)
 
 ## Upgrade Notes
 
@@ -56,9 +79,88 @@
     as per [http://alaveteli.org/docs/installing/manual_install/#running-over-ssl](http://alaveteli.org/docs/installing/manual_install/#running-over-ssl) so that nginx knows how to use
     the extra server processes
   * restart your site with `service alaveteli start`
+* There's been a minor change to `config/sysvinit-passenger.example`. You should
+  regenerate this file: http://alaveteli.org/docs/installing/manual_install/#passenger
 * Add a 256x256 image named `logo-opengraph.png` to
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook.
+* The crontab needs to be regenerated to include the new modifications:
+  http://alaveteli.org/docs/installing/manual_install/#generate-crontab
+* 5af81d905 includes a migration that runs over all info requests in the
+  database. This might take some time, so you should ideally **schedule this
+  outside of busy periods**.
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin_censor_rule/_form.html.erb
+    app/views/admin_censor_rule/_show.html.erb
+    app/views/admin_censor_rule/edit.html.erb
+    app/views/admin_censor_rule/new.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/stats.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/comment/new.html.erb
+    app/views/comment/preview.html.erb
+    app/views/general/_responsive_footer.html.erb
+    app/views/help/unhappy.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/default.html.erb
+    app/views/outgoing_mailer/_followup_footer.text.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/list.html.erb
+    app/views/public_body/show.html.erb
+    app/views/public_body/statistics.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/public_body_change_requests/new.html.erb
+    app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_followup.html.erb
+    app/views/request/_hidden_correspondence.html.erb
+    app/views/request/_hidden_correspondence.text.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_other_describe_state.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_restricted_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_sidebar_request_listing.html.erb
+    app/views/request/batch_not_allowed.html.erb
+    app/views/request/describe_state_message.html.erb
+    app/views/request/details.html.erb
+    app/views/request/followup_bad.html.erb
+    app/views/request/followup_preview.html.erb
+    app/views/request/hidden.html.erb
+    app/views/request/new.html.erb
+    app/views/request/preview.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request/show.html.erb
+    app/views/request/show.text.erb
+    app/views/request/show_response.html.erb
+    app/views/request/similar.html.erb
+    app/views/request/upload_response.html.erb
+    app/views/request_mailer/overdue_alert.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/track/_tracking_links.html.erb
+    app/views/user/_change_receive_email.html.erb
+    app/views/user/_signin.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/_user_listing_single.html.erb
+    app/views/user/rate_limited.html.erb
+    app/views/user/set_profile_about_me.html.erb
+    app/views/user/show.html.erb
+    app/views/user/sign.html.erb
+    app/views/user/signchangeemail.html.erb
+    app/views/user/signchangepassword.html.erb
+    app/views/user/signchangepassword_confirm.html.erb
+    app/views/user/signchangepassword_send_confirm.html.erb
+    app/views/user/wall.html.erb
+    app/views/user/wrong_user.html.erb
+    app/views/widgets/show.html.erb
 
 # Version 0.23.2.0
 
@@ -85,11 +187,6 @@
 
 ## Highlighted Features
 
-* Stop outgoing messages being displayed with forced line breaks (Liz Conlan).
-* Reduce risk of duplicate request urls (Liz Conlan).
-* Improve speed of the 'old unclassified' requests query by adding a cached
-  field to InfoRequest to keep track of when the last public response was
-  made (Liz Conlan).
 * Various major design and markup improvements to the layout, home page and
   request page (Martin Wright).
 * Adds basic opt-in two factor authentication. Enable it globally with
