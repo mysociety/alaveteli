@@ -3,6 +3,8 @@
 
 ## Highlighted Features
 
+* Stopped enforcing line lengths in plain text emails for a better experience
+  when using small screen clients such as mobile phones (Liz Conlan)
 * Added Google Analytics tracking code to log an event when a widget button
   is clicked (Liz Conlan)
 * Fix crash when neither Geoip nor Gaze are configured (Alfonso Cora)
