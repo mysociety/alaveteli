@@ -1,0 +1,63 @@
+#!/bin/bash
+set -e
+
+function usage {
+  cat <<EOF
+Usage: $( basename $0 ) THEME_FILE
+
+Currently only works with overrides in the lib directory in your alaveteli theme
+
+ARGUMENTS
+  THEME_FILE: path to a file in your alaveteli theme
+
+OPTIONS
+  -d diff tool including arguments (default: /usr/bin/git diff)
+  -h display this help message
+EOF
+}
+
+function alaveteli_dir {
+  echo "$(dirname "{BASH_SOURCE[0]}")"
+}
+
+function main {
+  relative_path=`echo "$THEME_FILE" | sed "s|.*\/lib\/||"`
+  $DIFF_TOOL "$(alaveteli_dir)/app/$relative_path" $THEME_FILE
+}
+
+DIFF_TOOL="/usr/bin/git diff"
+
+while getopts "hd:" opt; do
+  case $opt in
+    h)
+      usage
+      exit 0
+      ;;
+    d)
+      DIFF_TOOL="$OPTARG"
+      ;;
+    \:)
+      echo "Option -$OPTARG requires an argument" >&2
+      echo ""
+      exit 1
+      ;;
+    \?)
+      echo "Invalid option -$OPTARG" >&2
+      echo ""
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+shift $(($OPTIND - 1))
+THEME_FILE="$*"
+
+if ! [[ -f $THEME_FILE ]]
+  then
+    echo "$THEME_FILE: No such file or directory"
+    usage
+    exit 1
+fi
+
+main
