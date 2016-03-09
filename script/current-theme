@@ -7,19 +7,30 @@ Usage: $( basename $0 )
 
 OPTIONS
   -h display this help message
+  -v print the full path to the theme
 EOF
 }
 
-function main {
-  alaveteli_dir="$(dirname "{BASH_SOURCE[0]}")/"
-  current_theme=`basename $(readlink $alaveteli_dir/public/alavetelitheme | sed 's/\/public//')`
-  echo $current_theme
+function alaveteli_dir {
+  echo "$(dirname "{BASH_SOURCE[0]}")"
 }
 
-while getopts "h" opt; do
+function main {
+  echo $(basename $(verbose))
+}
+
+function verbose {
+  echo $(readlink $(alaveteli_dir)/public/alavetelitheme | sed 's/\/public//')
+}
+
+while getopts "hv" opt; do
   case $opt in
     h)
       usage
+      exit 0
+      ;;
+    v)
+      verbose
       exit 0
       ;;
     \:)
