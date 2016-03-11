@@ -35,7 +35,6 @@ describe RequestController, "when listing recent requests" do
 end
 
 describe RequestController, "when changing things that appear on the request page" do
-  render_views
 
   it "should purge the downstream cache when mail is received" do
     # HACK: The holding pen is now being called (and created, if
