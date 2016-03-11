@@ -36,6 +36,10 @@ end
 
 describe RequestController, "when changing things that appear on the request page" do
 
+  before do
+    PurgeRequest.destroy_all
+  end
+
   it "should purge the downstream cache when mail is received" do
     # HACK: The holding pen is now being called (and created, if
     # this is the first time the holding pen has been initialised) in
