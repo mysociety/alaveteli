@@ -11,11 +11,7 @@
   <% end %>
 
   <h2 class="publicbody_results">
-    <%= n_('Found {{count}} public authority {{description}}',
-           'Found {{count}} public authorities {{description}}',
-           @public_bodies.total_entries,
-           :count => @public_bodies.total_entries,
-           :description => @description) %>
+    <%= @description %>
   </h2>
 
   <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
