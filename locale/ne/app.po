@@ -4,14 +4,17 @@
 #
 # Translators:
 # Translators:
+# arjun gautam <arjun.gautam.1694@gmail.com>, 2016
 # codefornepal <codefornepal@gmail.com>, 2015
+# Pawan Kumar Kandel <pkkandel1@gmail.com>, 2016
+# Saroj  Dhakal <lotusnagarkot@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-07 15:38+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2016-03-15 09:21+0000\n"
+"Last-Translator: Pawan Kumar Kandel <pkkandel1@gmail.com>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -23,64 +26,64 @@ msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">modera
 msgstr ""
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr ""
+msgstr "(विशेष गरी ठुला फाइलहरूका लागि, <strong>धैर्य गर्नु होला</strong>, यसलाई केहि समय लाग्न सक्छ!)"
 
 msgid " (you)"
-msgstr ""
+msgstr "(तपाईँ)"
 
 msgid " - view and make Freedom of Information requests"
-msgstr ""
+msgstr "- सूचना अनुरोधको हाक हेर्नुहोस् र बनाउनहोस्"
 
 msgid " - wall"
-msgstr ""
+msgstr "- भित्ता"
 
 msgid " < "
-msgstr ""
+msgstr " < "
 
 msgid " << "
-msgstr ""
+msgstr " << "
 
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr ""
+msgstr "<strong>गोपनीयता टिप्पणी:</strong> तपाईको इमेल ठेगाना यंह उल्लेखित व्यक्ति सम्म पुग्न सक्ने छ "
 
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr ""
+msgstr "लिखित कुनै पनि जानकारी <strong>संक्षिप्तमा लेख्नुहोस्</strong>।"
 
 msgid " > "
-msgstr ""
+msgstr " > "
 
 msgid " >> "
-msgstr ""
+msgstr " >> "
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr ""
+msgstr "<strong>राम्रोसंग अनुरोध स्पष्टीकरण</strong> गर्न सल्लाह दिनुहोस्।"
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
-msgstr ""
+msgstr " अख्तियारसंग <strong>अन्य कस्ता कागजातहरु अनुरोध गर्न सकिन्छन</strong> भन्ने बारे जानकारी ।"
 
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
-msgstr ""
+msgstr "येदि अनुरोध गरिएको सूचना <strong>पहिले नै</strong> इन्टरनेटमा छ भने, त्यसलाई लिङ्क गर्नुहोला।"
 
 msgid " Offer better ways of <strong>wording the request</strong> to get the information. "
-msgstr ""
+msgstr "जानकारी प्राप्त गर्नको लागि <strong>अनुरोधमा अनुकुल शब्दको</strong> प्रयोग् गर्नुहोस्।"
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "यदि सम्भव छ भने, लिंकहरुमा भएका जानकारी कसरी प्रयोग गर्नु भयो, बताउनु होस्।"
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
-msgstr ""
+msgstr "जानकारी खोज्नेहरु यो जानकारी <strong>आन्य कहाँ</strong> पाउन सक्छन्, सुझाव दिनुहोस्।"
 
 msgid " You are already being emailed updates about the request."
-msgstr ""
+msgstr "तपाईंलाई इमेल मार्फत यो अनुरोधको बारेमा जानकारीहरु पठाई सकिएको छ।"
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr "तपाईंलाई पनि इमेल मार्फत यो अनुरोधको बारेमा जानकारीहरु पठाईने छ।"
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "स्थिति हेरी छानिएको : '{{status}}'"
 
 msgid " when you send this message."
-msgstr ""
+msgstr "जब तपाई यो सन्देश पठाउनुहुन्छ।"
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr ""
@@ -89,37 +92,37 @@ msgid "'Pollution levels over time for the River Tyne'"
 msgstr ""
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "'{{link_to_authority}}', सार्वजनिक अख्तियार"
 
 msgid "'{{link_to_request}}', a request"
-msgstr ""
+msgstr "'{{link_to_request}}', अनुरोध"
 
 msgid "'{{link_to_user}}', a person"
-msgstr ""
+msgstr "'{{link_to_user}}', व्यक्ति"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(लुकाउने)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "(अथवा <a href=\"{{url}}\">साइन इन गर्नुहोस्</a>)"
 
 msgid "(show)"
-msgstr ""
+msgstr "(देखाउनुहोस्)"
 
 msgid "*unknown*"
-msgstr ""
+msgstr "*अज्ञात*"
 
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
-msgstr ""
+msgstr ",\\n\\n\\n\\nतपाईकै,\\n\\n{{user_name}}"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
-msgstr ""
+msgstr "<a href=\"{{browse_url}}\">सबै हेर्नुहोस्</a> अथवा <a href=\"{{add_url}}\">हामीलाई थप्न भन्नुहोस्</a>।"
 
 msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
 msgstr ""
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\">तपाईं आफ्नो बारेमा निजी जानकारी अनुरोध गर्न चाहनुहुन्छ?</a>"
 
 msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
 msgstr ""
@@ -187,7 +190,7 @@ msgid "<strong>Advice</strong> on how to get a response that will satisfy the re
 msgstr ""
 
 msgid "<strong>All the information</strong> has been sent"
-msgstr ""
+msgstr "<strong>सम्पूर्ण सुचना </strong> पठाइएको छ"
 
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr ""
@@ -298,7 +301,7 @@ msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
 msgid "Add a widget"
-msgstr ""
+msgstr "विजेट थप्नुहोस्"
 
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr ""
@@ -322,7 +325,7 @@ msgid "Administration URL:"
 msgstr ""
 
 msgid "Advanced search"
-msgstr ""
+msgstr "उन्नत खोज"
 
 msgid "Advanced search tips"
 msgstr ""
@@ -349,7 +352,7 @@ msgid "Also send me alerts by email"
 msgstr ""
 
 msgid "Alter your subscription"
-msgstr ""
+msgstr "सदस्यता अनुरोध बदल्नुहोस्"
 
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
 msgstr ""
@@ -364,7 +367,7 @@ msgid "An Environmental Information request"
 msgstr ""
 
 msgid "An anonymous user"
-msgstr ""
+msgstr "एक अज्ञात प्रयोगकर्ता"
 
 msgid "Annotation added to request"
 msgstr ""
@@ -1506,10 +1509,10 @@ msgid "Matching authorities"
 msgstr ""
 
 msgid "Message"
-msgstr "सूचना"
+msgstr "सन्देश"
 
 msgid "Message has been removed"
-msgstr "सूचना हटाएको छ"
+msgstr "सन्देश हटाइएको छ"
 
 msgid "Message sent using {{site_name}} contact form, "
 msgstr ""
