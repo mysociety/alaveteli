@@ -110,7 +110,11 @@ to match the new templates.
     app/views/general/_responsive_footer.html.erb
     app/views/help/unhappy.html.erb
     app/views/info_request_batch/show.html.erb
+    app/views/layouts/contact_mailer.text.erb
     app/views/layouts/default.html.erb
+    app/views/layouts/outgoing_mailer.text.erb
+    app/views/layouts/request_mailer.text.erb
+    app/views/layouts/user_mailer.text.erb
     app/views/outgoing_mailer/_followup_footer.text.erb
     app/views/public_body/_body_listing_single.html.erb
     app/views/public_body/_list_sidebar_extra.html.erb
@@ -148,6 +152,7 @@ to match the new templates.
     app/views/request_mailer/overdue_alert.text.erb
     app/views/request_mailer/very_overdue_alert.text.erb
     app/views/track/_tracking_links.html.erb
+    app/views/track_mailer/event_digest.text.erb
     app/views/user/_change_receive_email.html.erb
     app/views/user/_signin.html.erb
     app/views/user/_signup.html.erb
@@ -162,6 +167,7 @@ to match the new templates.
     app/views/user/signchangepassword_send_confirm.html.erb
     app/views/user/wall.html.erb
     app/views/user/wrong_user.html.erb
+    app/views/user_mailer/confirm_login.text.erb
     app/views/widgets/show.html.erb
 
 # Version 0.23.2.0
