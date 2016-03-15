@@ -13,6 +13,33 @@ ARGUMENTS
 OPTIONS
   -d diff tool including arguments (default: /usr/bin/git diff)
   -h display this help message
+
+EXAMPLES
+
+  script/diff-theme-override \\
+  $(script/current-theme -v)/lib/views/help/about.html.erb
+
+  Diff a single overridden file with the alaveteli-core version.
+
+  find \$(script/current-theme -v) -type f -name "*.erb" -exec \\
+  script/diff-theme-override -d "/usr/bin/git diff --name-only" \\
+  {} \; 2>/dev/null
+
+  Just get the names of overridden view templates.
+
+  find \$(script/current-theme -v) -type f -name "*.erb" -exec \\
+  script/diff-theme-override -d "/usr/bin/git diff --numstat" {} \;
+
+  Get a picture of the number of changes between overridden view templates
+
+  find \$(script/current-theme -v) -type f -name "*.erb" -exec \\
+    script/diff-theme-override -d "vim -d" {} \; 2>/dev/null
+
+  Open each template in vim's diff mode, which compares the current version of
+  the alaveteli-core template with the override in your theme. You can
+  reconcile the changes in vim. Exiting vim will open the next file until you've
+  covered all overriden templates.
+
 EOF
 }
 
