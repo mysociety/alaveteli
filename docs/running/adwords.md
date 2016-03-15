@@ -614,7 +614,7 @@ And then choose how much you are going to bid.
 
 <div class="attention-box helpful-hint">
   <p>
-    <strong>Note:</strong> It’s worth remembering at this point that you are
+    <strong>Note</strong>: It’s worth remembering at this point that you are
     not paying ‘real’ money: your Google Grant covers all costs. However, you
     will still see the same options that paying users do, for example, for
     adding your credit card details, so it’s easy to worry that your ads are
