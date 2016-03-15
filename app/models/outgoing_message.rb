@@ -31,14 +31,16 @@ class OutgoingMessage < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  STATUS_TYPES = %w(ready sent failed).freeze
+  MESSAGE_TYPES = %w(initial_request followup).freeze
   WHAT_DOING_VALUES = %w(normal_sort internal_review new_information)
 
   # To override the default letter
   attr_accessor :default_letter
 
   validates_presence_of :info_request
-  validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
-  validates_inclusion_of :message_type, :in => ['initial_request', 'followup']
+  validates_inclusion_of :status, :in => STATUS_TYPES
+  validates_inclusion_of :message_type, :in => MESSAGE_TYPES
   validate :template_changed
   validate :body_uses_mixed_capitals
   validate :body_has_signature
@@ -207,7 +209,7 @@ class OutgoingMessage < ActiveRecord::Base
 
   # An admin function
   def prepare_message_for_resend
-    if ['initial_request', 'followup'].include?(message_type) and status == 'sent'
+    if MESSAGE_TYPES.include?(message_type) and status == 'sent'
       self.status = 'ready'
     else
       raise "Message id #{id} has type '#{message_type}' status " \
