@@ -1337,10 +1337,14 @@ world outcomes, you’ll stand a better chance of being accepted on the scheme.
 ## Thanks for reading!
 
 You can find lots more about Google Adwords on their own Help pages at
-[https://support.google.com/adwords](https://support.google.com/adwords) — and
-you can often find the answers to questions by Googling them, because whatever
-problem you have, the chances are that it has been experienced by others, and
-solved, before.
+[https://support.google.com/adwords](https://support.google.com/adwords).
+There's also a 'help' button at the top right of every page in Adwords. You can
+ask questions via email, live chat or phone, and if you hit problems, this is
+often the quickest way of getting a definitive answer.
+
+Additionally, you can often find the answers to questions by Googling them,
+because whatever problem you have, the chances are that it has been experienced
+by others, and solved, before.
 
 Do also feel free to drop us a line at mySociety, and we’ll do our best to
 answer your questions: our email address is international@mysociety.org.
