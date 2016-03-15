@@ -222,9 +222,10 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def title
     if event_type == 'sent'
-      return info_request.title
+      info_request.title
+    else
+      ''
     end
-    ''
   end
 
   def filetype
@@ -232,9 +233,11 @@ class InfoRequestEvent < ActiveRecord::Base
       unless incoming_message
         raise "event type is 'response' but no incoming message for event id #{id}"
       end
-      return incoming_message.get_present_file_extensions
+
+      incoming_message.get_present_file_extensions
+    else
+      ''
     end
-    ''
   end
 
   def tags
@@ -267,9 +270,10 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def visible
     if event_type == 'comment'
-      return comment.visible
+      comment.visible
+    else
+      true
     end
-    true
   end
 
   # We store YAML version of parameters in the database
