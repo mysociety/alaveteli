@@ -39,7 +39,10 @@ class OutgoingMessage < ActiveRecord::Base
   validates_presence_of :info_request
   validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
   validates_inclusion_of :message_type, :in => ['initial_request', 'followup']
-  validate :format_of_body
+  validate :template_changed
+  validate :body_uses_mixed_capitals
+  validate :body_has_signature
+  validate :what_doing_value
 
   belongs_to :info_request
   belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
@@ -384,6 +387,18 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def format_of_body
+    warn %q([DEPRECATION] OutgoingMessage#format_of_body will be removed in
+            0.26. It has been broken up in to OutgoingMessage#template_changed,
+            OutgoingMessage#body_uses_mixed_capitals,
+            OutgoingMessage#body_has_signature and
+            OutgoingMessage#what_doing_value).squish
+    template_changed
+    body_uses_mixed_capitals
+    body_has_signature
+    what_doing_value
+  end
+
+  def template_changed
     if body.empty? || body =~ /\A#{Regexp.escape(letter_template.salutation(default_message_replacements))}\s+#{Regexp.escape(letter_template.signoff(default_message_replacements))}/ || body =~ /#{Regexp.escape(Template::InternalReview.details_placeholder)}/
       if message_type == 'followup'
         if what_doing == 'internal_review'
@@ -397,15 +412,21 @@ class OutgoingMessage < ActiveRecord::Base
         raise "Message id #{id} has type '#{message_type}' which validate can't handle"
       end
     end
+  end
 
+  def body_has_signature
     if body =~ /#{letter_template.signoff(default_message_replacements)}\s*\Z/m
       errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => letter_template.signoff(default_message_replacements)))
     end
+  end
 
+  def body_uses_mixed_capitals
     unless MySociety::Validate.uses_mixed_capitals(body)
       errors.add(:body, _('Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.'))
     end
+  end
 
+  def what_doing_value
     if what_doing.nil? || !WHAT_DOING_VALUES.include?(what_doing)
       errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
     end
