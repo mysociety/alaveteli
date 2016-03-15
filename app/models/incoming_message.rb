@@ -39,6 +39,9 @@ require 'iconv' unless String.method_defined?(:encode)
 class IncomingMessage < ActiveRecord::Base
   include AdminColumn
   extend MessageProminence
+
+  MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
+
   belongs_to :info_request
   validates_presence_of :info_request
 
@@ -598,8 +601,6 @@ class IncomingMessage < ActiveRecord::Base
     raise "internal error" if text.nil?
     return text
   end
-
-  MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
   # Returns text version of attachment text
   def get_attachment_text_full
