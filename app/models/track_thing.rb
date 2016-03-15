@@ -80,7 +80,7 @@ class TrackThing < ActiveRecord::Base
 
   def self.create_track_for_public_body(public_body, event_type = nil)
     query = "requested_from:#{ public_body.url_name }"
-    if InfoRequestEvent.enumerate_event_types.include?(event_type)
+    if InfoRequestEvent::EVENT_TYPES.include?(event_type)
       query += " variety:#{ event_type }"
     end
     new(:track_type => 'public_body_updates',

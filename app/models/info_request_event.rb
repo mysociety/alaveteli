@@ -25,6 +25,27 @@ class InfoRequestEvent < ActiveRecord::Base
   include AdminColumn
   extend XapianQueries
 
+  EVENT_TYPES = [
+    'sent',
+    'resent',
+    'followup_sent',
+    'followup_resent',
+
+    'edit', # title etc. edited (in admin interface)
+    'edit_outgoing', # outgoing message edited (in admin interface)
+    'edit_comment', # comment edited (in admin interface)
+    'destroy_incoming', # deleted an incoming message (in admin interface)
+    'destroy_outgoing', # deleted an outgoing message (in admin interface)
+    'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
+    'edit_incoming', # incoming message edited (in admin interface)
+    'move_request', # changed user or public body (in admin interface)
+    'hide', # hid a request (in admin interface)
+    'manual', # you did something in the db by hand
+    'response',
+    'comment',
+    'status_update'
+  ].freeze
+
   belongs_to :info_request
   validates_presence_of :info_request
 
@@ -42,29 +63,12 @@ class InfoRequestEvent < ActiveRecord::Base
   after_create :update_request, :if => :response?
 
   def self.enumerate_event_types
-    [
-      'sent',
-      'resent',
-      'followup_sent',
-      'followup_resent',
-
-      'edit', # title etc. edited (in admin interface)
-      'edit_outgoing', # outgoing message edited (in admin interface)
-      'edit_comment', # comment edited (in admin interface)
-      'destroy_incoming', # deleted an incoming message (in admin interface)
-      'destroy_outgoing', # deleted an outgoing message (in admin interface)
-      'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
-      'edit_incoming', # incoming message edited (in admin interface)
-      'move_request', # changed user or public body (in admin interface)
-      'hide', # hid a request (in admin interface)
-      'manual', # you did something in the db by hand
-      'response',
-      'comment',
-      'status_update'
-    ]
+    warn %q([DEPRECATION] InfoRequestEvent.enumerate_event_types will be removed
+            in 0.26. Use InfoRequestEvent::EVENT_TYPES instead).squish
+    EVENT_TYPES
   end
 
-  validates_inclusion_of :event_type, :in => enumerate_event_types
+  validates_inclusion_of :event_type, :in => EVENT_TYPES
 
   # user described state (also update in info_request)
   validate :must_be_valid_state
