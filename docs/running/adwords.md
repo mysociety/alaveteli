@@ -414,7 +414,7 @@ concept groups, like this:
 
 Each concept will form one Ad Group.
 
-### Setting up Adwords
+## 4. Setting up Adwords
 
 <div class="attention-box info">
   <h4>Action</h4>
@@ -828,7 +828,7 @@ The full details of setting up Conversions is beyond the scope of this guide,
 though. If you want to know more, see Google’s
 [support pages on this topic](https://support.google.com/adwords/answer/1722054).
 
-## Advanced Google Ads
+## 6. Advanced Google Ads
 
 If you’ve followed all the advice above, you have a good foundation for your
 Adwords account. Let it run for a few weeks, then come back and read through
