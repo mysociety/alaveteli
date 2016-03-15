@@ -5,7 +5,8 @@
   <li>
     <%= _("To send your request to another authority, first copy the text of " \
           "your request below, then <a href=\"{{find_authority_url}}\">find " \
-          "the other authority</a>.", :find_authority_url => "/new") %>
+          "the other authority</a>.",
+          :find_authority_url => select_authority_path) %>
   </li>
   <li>
     <%= _("If you would like to contest the authority's claim that they do " \
