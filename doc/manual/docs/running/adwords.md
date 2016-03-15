@@ -37,11 +37,13 @@ in the UK, [WhatDoTheyKnow.com](http://whatdotheyknow.com).
   * [Landing pages](#landing-pages)
   * [Plan your Ad Groups](#plan-your-ad-groups)
 4. [Setting up Adwords](#setting-up-adwords)
+  * [Set up a campaign](#set-up-a-campaign)
+5. [Building Adwords](#building-adwords)
   * [Bids](#bids)
   * [Why all this preparation?](#why-all-this-preparation)
-5. [Maintaining your account](#maintaining-your-account)
+6. [Maintaining your account](#maintaining-your-account)
   * [Understanding your account’s performance](#understanding-your-accounts-performance)
-6. [Advanced Google Ads](#advanced-google-ads)
+7. [Advanced Google Ads](#advanced-google-ads)
   * [Other methods for finding keywords](#other-methods-for-finding-keywords)
        * [The content of your site](#the-content-of-your-site)
        * [Your most popular requests](#your-most-popular-requests)
@@ -451,8 +453,86 @@ should reflect the keywords as closely as possible).
 <img src="{{ site.baseurl }}assets/img/adwords-image10.jpg" class="with-border" alt="ads screenshot" />
 
 Thanks to all the action points we went through above, you have all the
-information you need to start setting up your Adwords account, beginning by
-building your first Ad Group.
+information you need to start setting up your Adwords account.
+
+<div class="attention-box helpful-hint">
+  <p>
+    If you have already set up your account, skip this part and go to the next
+    section, <a href="#building-adwords">Building Adwords</a>.
+  </p>
+</div>
+
+<div class="attention-box info">
+  <h4>Action</h4>
+  <p>
+    Go to <a href="https://adwords.google.com">https://adwords.google.com</a>
+    and click on ‘Start Now’
+  </p>
+</div>
+
+Use the email address under which you applied for your Google Grant, and input
+the URL of your Alaveteli website.
+
+### Set up a campaign
+
+Each campaign contains Ad Groups for a single website. An account can contain
+any number of campaigns, but if your account is funded by a Google Grant, any
+website you promote must have been accepted on the scheme.
+
+If you have received the grant for a single site, you will only have one
+campaign. You can give it the same name as your Alaveteli site.
+
+<div class="attention-box helpful-hint">
+  <p>
+    <strong>Note</strong>: Settings that you input now will affect your entire
+    campaign — but you’ll have a chance to tweak them later. You can access
+    settings via the ‘Settings’ tab on any Ad Group or Campaign page. So don’t
+    worry too much; nothing is set in stone.
+  </p>
+</div>
+
+<strong>Budget</strong>: Your budget is dictated by the grant: with $10,000 per
+month, your daily budget is around $333.00. Even though Google decides this
+figure, you still need to put it in!
+
+Don’t worry about the section asking for your credit card details. You are
+seeing the same page as paying customers. Choose to skip the section where it
+asks for your credit card details. Payment will be taken care of by Google.
+
+<strong>Bid strategy</strong>: This allows you to decide whether you want to
+pay per 1,000 impressions (times your ad is displayed) or per click. We
+recommend per-click (CPC) as it is more results-based.
+
+<strong>Geographical reach and language of your ads</strong>: Does it make
+sense to target only people who live in your own country? Only people who speak
+the language/s that your site uses? There is more information about language
+targeting here:
+[https://support.google.com/adwords/answer/1722078?ctx=tltp&authuser=0](https://support.google.com/adwords/answer/1722078?ctx=tltp&authuser=0)
+
+<div class="attention-box helpful-hint">
+  <p>
+    <strong>Note</strong>: Later, you may wish to change these settings for
+    each of your Ad Groups: for example, if you have more than one language on
+    your site, it would make sense to make an Ad Group for each language, and
+    set the geographic reach or language targets differently for each. But for
+    now, don’t worry - pick one for the purposes of account set-up.
+  </p>
+</div>
+
+<strong>Types of ad and the networks where they will be shown</strong>: The
+grant only allows you to create text ads, and to display them on Google search,
+so even though you will see options such as video ads and displaying on
+partners’ websites, ignore them.
+
+<strong>Devices</strong>: Do you wish your ads to appear on mobile, tablets, or
+all devices? Unless you have a good reason, we recommend showing your ads on
+every type of device.
+
+You have now filled in enough information to start creating your ads.
+
+## 5. Building Adwords
+
+Let's build your first Ad Group.
 
 <div class="attention-box info">
   <h4>Action</h4>
@@ -702,7 +782,7 @@ It’s a highly satisfying user experience, and that’s why Google also rewards
 this kind of approach by giving your ads a higher quality score, resulting in
 higher or more consistent placing.
 
-## 5.  Maintaining your account
+## 6. Maintaining your account
 
 One of the conditions of your Google Grant is that you will log in at a minimum
 of once a fortnight to maintain your account.
@@ -828,7 +908,7 @@ The full details of setting up Conversions is beyond the scope of this guide,
 though. If you want to know more, see Google’s
 [support pages on this topic](https://support.google.com/adwords/answer/1722054).
 
-## 6. Advanced Google Ads
+## 7. Advanced Google Ads
 
 If you’ve followed all the advice above, you have a good foundation for your
 Adwords account. Let it run for a few weeks, then come back and read through
