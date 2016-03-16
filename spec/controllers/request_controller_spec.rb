@@ -35,7 +35,10 @@ describe RequestController, "when listing recent requests" do
 end
 
 describe RequestController, "when changing things that appear on the request page" do
-  render_views
+
+  before do
+    PurgeRequest.destroy_all
+  end
 
   it "should purge the downstream cache when mail is received" do
     # HACK: The holding pen is now being called (and created, if
@@ -50,52 +53,65 @@ describe RequestController, "when changing things that appear on the request pag
     receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
     expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
+
   it "should purge the downstream cache when a comment is added" do
     ir = info_requests(:fancy_dog_request)
     new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
     expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
+
   it "should purge the downstream cache when a followup is made" do
     session[:user_id] = users(:bob_smith_user).id
     ir = info_requests(:fancy_dog_request)
-    post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :submitted_followup => 1
+    outgoing = FactoryGirl.create(:outgoing_message, :info_request_id => ir.id,
+                                                     :status => 'ready',
+                                                     :message_type => 'followup',
+                                                     :body => "What a useless response! You suck.",
+                                                     :what_doing => 'normal_sort')
     expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
+
   it "should purge the downstream cache when the request is categorised" do
     ir = info_requests(:fancy_dog_request)
     ir.set_described_state('waiting_clarification')
     expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
+
   it "should purge the downstream cache when the authority data is changed" do
     ir = info_requests(:fancy_dog_request)
     ir.public_body.name = "Something new"
     ir.public_body.save!
     expect(PurgeRequest.all.map{|x| x.model_id}).to match_array(ir.public_body.info_requests.map{|x| x.id})
   end
+
   it "should purge the downstream cache when the user name is changed" do
     ir = info_requests(:fancy_dog_request)
     ir.user.name = "Something new"
     ir.user.save!
     expect(PurgeRequest.all.map{|x| x.model_id}).to match_array(ir.user.info_requests.map{|x| x.id})
   end
+
   it "should not purge the downstream cache when non-visible user details are changed" do
     ir = info_requests(:fancy_dog_request)
     ir.user.hashed_password = "some old hash"
     ir.user.save!
     expect(PurgeRequest.all.count).to eq(0)
   end
+
   it "should purge the downstream cache when censor rules have changed" do
     # TODO: really, CensorRules should execute expiry logic as part
     # of the after_save of the model. Currently this is part of
     # the AdminCensorRuleController logic, so must be tested from
     # there. Leaving this stub test in place as a reminder
   end
+
   it "should purge the downstream cache when something is hidden by an admin" do
     ir = info_requests(:fancy_dog_request)
     ir.prominence = 'hidden'
     ir.save!
     expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
+
   it "should not create more than one entry for any given resource" do
     ir = info_requests(:fancy_dog_request)
     ir.prominence = 'hidden'
@@ -106,6 +122,7 @@ describe RequestController, "when changing things that appear on the request pag
     ir.save!
     expect(PurgeRequest.all.count).to eq(1)
   end
+
 end
 
 describe RequestController, "when showing one request" do
@@ -1203,7 +1220,6 @@ describe RequestController, "when making a new request" do
   before do
     @user = mock_model(User, :id => 3481, :name => 'Testy')
     allow(@user).to receive(:get_undescribed_requests).and_return([])
-    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(false)
     allow(@user).to receive(:can_file_requests?).and_return(true)
     allow(@user).to receive(:locale).and_return("en")
     allow(User).to receive(:find).and_return(@user)
@@ -1214,7 +1230,6 @@ describe RequestController, "when making a new request" do
 
   it "should allow you to have one undescribed request" do
     allow(@user).to receive(:get_undescribed_requests).and_return([ 1 ])
-    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(false)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
     expect(response).to render_template('new')
@@ -1222,18 +1237,9 @@ describe RequestController, "when making a new request" do
 
   it "should fail if more than one request undescribed" do
     allow(@user).to receive(:get_undescribed_requests).and_return([ 1, 2 ])
-    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(false)
     session[:user_id] = @user.id
     get :new, :public_body_id => @body.id
     expect(response).to render_template('new_please_describe')
-  end
-
-  it "should allow you if more than one request undescribed but are allowed to leave requests undescribed" do
-    allow(@user).to receive(:get_undescribed_requests).and_return([ 1, 2 ])
-    allow(@user).to receive(:can_leave_requests_undescribed?).and_return(true)
-    session[:user_id] = @user.id
-    get :new, :public_body_id => @body.id
-    expect(response).to render_template('new')
   end
 
   it "should fail if user is banned" do
@@ -1247,82 +1253,7 @@ describe RequestController, "when making a new request" do
 
 end
 
-describe RequestController, "when viewing an individual response for reply/followup" do
-  render_views
 
-  before(:each) do
-    load_raw_emails_data
-  end
-
-  it "should ask for login if you are logged in as wrong person" do
-    session[:user_id] = users(:silly_name_user).id
-    get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    expect(response).to render_template('user/wrong_user')
-  end
-
-  it "should show the response if you are logged in as right person" do
-    session[:user_id] = users(:bob_smith_user).id
-    get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    expect(response).to render_template('show_response')
-  end
-
-  it "should offer the opportunity to reply to the main address" do
-    session[:user_id] = users(:bob_smith_user).id
-    get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    expect(response.body).to have_css("div#other_recipients ul li", :text => "the main FOI contact address for")
-  end
-
-  it "should offer an opportunity to reply to another address" do
-    session[:user_id] = users(:bob_smith_user).id
-    ir = info_requests(:fancy_dog_request)
-    ir.allow_new_responses_from = "anybody"
-    ir.save!
-    receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "Frob <frob@bonce.com>")
-    get :show_response, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-    expect(response.body).to have_css("div#other_recipients ul li", :text => "Frob")
-  end
-
-  context 'when a request is hidden' do
-
-    before do
-      ir = info_requests(:fancy_dog_request)
-      ir.prominence = 'hidden'
-      ir.save!
-
-      session[:user_id] = users(:bob_smith_user).id
-    end
-
-    it "should not show individual responses, even if request owner" do
-      get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-      expect(response).to render_template('request/hidden')
-    end
-
-    it 'should respond to a json request for a hidden request with a 403 code and no body' do
-      get :show_response, :id => info_requests(:fancy_dog_request).id,
-        :incoming_message_id => incoming_messages(:useless_incoming_message),
-        :format => 'json'
-
-      expect(response.code).to eq('403')
-    end
-
-  end
-
-  describe 'when viewing a response for an external request' do
-
-    it 'should show a message saying that external requests cannot be followed up' do
-      get :show_response, :id => info_requests(:external_request).id
-      expect(response).to render_template('request/followup_bad')
-      expect(assigns[:reason]).to eq('external')
-    end
-
-    it 'should be successful' do
-      get :show_response, :id => info_requests(:external_request).id
-      expect(response).to be_success
-    end
-
-  end
-
-end
 
 describe RequestController, "when classifying an information request" do
 
@@ -1670,7 +1601,8 @@ describe RequestController, "when classifying an information request" do
 
       def expect_redirect(status, redirect_path)
         post_status(status)
-        expect(response).to redirect_to("http://test.host/#{redirect_path}")
+        expect(response).
+          to redirect_to("http://" + "test.host/#{redirect_path}".squeeze("/"))
       end
 
       context 'when status is updated to "waiting_response"' do
@@ -1738,13 +1670,19 @@ describe RequestController, "when classifying an information request" do
         it 'should redirect to the "response url" when there is a last response' do
           incoming_message = mock_model(IncomingMessage)
           allow(@dog_request).to receive(:get_last_public_response).and_return(incoming_message)
-          expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
+          expected_url = new_request_incoming_followup_path(
+                          :request_id => @dog_request.id,
+                          :incoming_message_id => @dog_request.get_last_public_response.id)
+          expect_redirect('waiting_clarification', expected_url)
         end
 
-        it 'should redirect to the "response no followup url" when there are no events
+        it 'should redirect to the "followup no incoming url" when there are no events
                     needing description' do
           allow(@dog_request).to receive(:get_last_public_response).and_return(nil)
-          expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
+          expected_url = new_request_followup_path(
+                          :request_id => @dog_request.id,
+                          :incoming_message_id => nil)
+          expect_redirect('waiting_clarification', expected_url)
         end
 
       end
@@ -1782,7 +1720,10 @@ describe RequestController, "when classifying an information request" do
       context 'when status is updated to "gone postal"' do
 
         it 'should redirect to the "respond to last url"' do
-          expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_public_response.id}?gone_postal=1")
+          expected_url = new_request_incoming_followup_path(
+                          :request_id => @dog_request.id,
+                          :incoming_message_id => @dog_request.get_last_public_response.id)
+          expect_redirect('gone_postal', "#{expected_url}?gone_postal=1")
         end
 
       end
@@ -1824,417 +1765,15 @@ describe RequestController, "when classifying an information request" do
       context 'when status is updated to "user_withdrawn"' do
 
         it 'should redirect to the "respond to last url url" ' do
-          expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_public_response.id}")
+          expected_url = new_request_incoming_followup_path(
+                          :request_id => @dog_request.id,
+                          :incoming_message_id => @dog_request.get_last_public_response.id)
+          expect_redirect('user_withdrawn', expected_url)
         end
 
       end
+
     end
-
-  end
-
-end
-
-describe RequestController, "when sending a followup message" do
-  render_views
-
-  before(:each) do
-    load_raw_emails_data
-  end
-
-  it "should require login" do
-    post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    expect(response).to redirect_to(:controller => 'user',
-                                    :action => 'signin',
-                                    :token => get_last_post_redirect.token)
-  end
-
-  it "should not let you if you are logged in as the wrong user" do
-    session[:user_id] = users(:silly_name_user).id
-    post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    expect(response).to render_template('user/wrong_user')
-  end
-
-  it "should give an error and render 'show_response' template when a body isn't given" do
-    session[:user_id] = users(:bob_smith_user).id
-    post :show_response, :outgoing_message => { :body => "", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-
-    # TODO: how do I check the error message here?
-    expect(response).to render_template('show_response')
-  end
-
-  it "should show preview when input is good" do
-    session[:user_id] = users(:bob_smith_user).id
-    post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 1
-    expect(response).to render_template('followup_preview')
-  end
-
-  it "should allow re-editing of a preview" do
-    session[:user_id] = users(:bob_smith_user).id
-    post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 0, :reedit => "Re-edit this request"
-    expect(response).to render_template('show_response')
-  end
-
-  it "should send the follow up message if you are the right user" do
-    # fake that this is a clarification
-    info_requests(:fancy_dog_request).set_described_state('waiting_clarification')
-    expect(info_requests(:fancy_dog_request).described_state).to eq('waiting_clarification')
-    expect(info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state).to eq('waiting_clarification')
-
-    # make the followup
-    session[:user_id] = users(:bob_smith_user).id
-
-    post :show_response,
-    :outgoing_message => {
-      :body => "What a useless response! You suck.",
-      :what_doing => 'normal_sort'
-    },
-      :id => info_requests(:fancy_dog_request).id,
-      :incoming_message_id => incoming_messages(:useless_incoming_message),
-      :submitted_followup => 1
-
-    # check it worked
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(1)
-    mail = deliveries[0]
-    expect(mail.body).to match(/What a useless response! You suck./)
-    expect(mail.to_addrs.first.to_s).to eq("foiperson@localhost")
-
-    expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
-
-    # and that the status changed
-    info_requests(:fancy_dog_request).reload
-    expect(info_requests(:fancy_dog_request).described_state).to eq('waiting_response')
-    expect(info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state).to eq('waiting_clarification')
-  end
-
-  it "should give an error if the same followup is submitted twice" do
-    session[:user_id] = users(:bob_smith_user).id
-
-    # make the followup once
-    post :show_response, :outgoing_message => { :body => "Stop repeating yourself!", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
-
-    # second time should give an error
-    post :show_response, :outgoing_message => { :body => "Stop repeating yourself!", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-    # TODO: how do I check the error message here?
-    expect(response).to render_template('show_response')
-  end
-
-end
-
-# TODO: Stuff after here should probably be in request_mailer_spec.rb - but then
-# it can't check the URLs in the emails I don't think, ugh.
-
-describe RequestController, "sending overdue request alerts" do
-  render_views
-
-  before(:each) do
-    load_raw_emails_data
-  end
-
-  it "should send an overdue alert mail to creators of overdue requests" do
-    chicken_request = info_requests(:naughty_chicken_request)
-    chicken_request.outgoing_messages[0].last_sent_at = Time.now - 30.days
-    chicken_request.outgoing_messages[0].save!
-
-    RequestMailer.alert_overdue_requests
-
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-    mail = chicken_mails[0]
-
-    expect(mail.body).to match(/promptly, as normally/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
-
-    mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
-    mail_url = $1
-    mail_token = $2
-
-    expect(session[:user_id]).to be_nil
-    controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    expect(session[:user_id]).to eq(info_requests(:naughty_chicken_request).user.id)
-
-    expect(response).to render_template('show_response')
-    expect(assigns[:info_request]).to eq(info_requests(:naughty_chicken_request))
-  end
-
-  it "should include clause for schools when sending an overdue alert mail to creators of overdue requests" do
-    chicken_request = info_requests(:naughty_chicken_request)
-    chicken_request.outgoing_messages[0].last_sent_at = Time.now - 30.days
-    chicken_request.outgoing_messages[0].save!
-
-    chicken_request.public_body.tag_string = "school"
-    chicken_request.public_body.save!
-
-    RequestMailer.alert_overdue_requests
-
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-    mail = chicken_mails[0]
-
-    expect(mail.body).to match(/promptly, as normally/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
-  end
-
-  it "should send not actually send the overdue alert if the user is banned but should
-        record it as sent" do
-    user = info_requests(:naughty_chicken_request).user
-    user.ban_text = 'Banned'
-    user.save!
-    expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to eq(0)
-    RequestMailer.alert_overdue_requests
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(0)
-    expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
-  end
-
-  it "should send a very overdue alert mail to creators of very overdue requests" do
-    chicken_request = info_requests(:naughty_chicken_request)
-    chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
-    chicken_request.outgoing_messages[0].save!
-
-    RequestMailer.alert_overdue_requests
-
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-    mail = chicken_mails[0]
-
-    expect(mail.body).to match(/required by law/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:naughty_chicken_request).user.email)
-
-    mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
-    mail_url = $1
-    mail_token = $2
-
-    expect(session[:user_id]).to be_nil
-    controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    expect(session[:user_id]).to eq(info_requests(:naughty_chicken_request).user.id)
-
-    expect(response).to render_template('show_response')
-    expect(assigns[:info_request]).to eq(info_requests(:naughty_chicken_request))
-  end
-
-  it "should not resend alerts to people who've already received them" do
-    chicken_request = info_requests(:naughty_chicken_request)
-    chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
-    chicken_request.outgoing_messages[0].save!
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-  end
-
-  it 'should send alerts for requests where the last event forming the initial request is a followup
-        being sent following a request for clarification' do
-    chicken_request = info_requests(:naughty_chicken_request)
-    chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
-    chicken_request.outgoing_messages[0].save!
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-
-    # Request is waiting clarification
-    chicken_request.set_described_state('waiting_clarification')
-
-    # Followup message is sent
-    outgoing_message = OutgoingMessage.new(:status => 'ready',
-                                           :message_type => 'followup',
-                                           :info_request_id => chicken_request.id,
-                                           :body => 'Some text',
-                                           :what_doing => 'normal_sort')
-
-    outgoing_message.sendable?
-    mail_message = OutgoingMailer.followup(
-      outgoing_message.info_request,
-      outgoing_message,
-      outgoing_message.incoming_message_followup
-    ).deliver
-    outgoing_message.record_email_delivery(mail_message.to_addrs.join(', '), mail_message.message_id)
-
-    outgoing_message.save!
-
-    chicken_request = InfoRequest.find(chicken_request.id)
-
-    # Last event forming the request is now the followup
-    expect(chicken_request.last_event_forming_initial_request.event_type).to eq('followup_sent')
-
-    # This isn't overdue, so no email
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(1)
-
-    # Make the followup older
-    outgoing_message.last_sent_at = Time.now - 60.days
-    outgoing_message.save!
-
-    # Now it should be alerted on
-    RequestMailer.alert_overdue_requests
-    chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
-    expect(chicken_mails.size).to eq(2)
-  end
-
-end
-
-describe RequestController, "sending unclassified new response reminder alerts" do
-  render_views
-
-  before(:each) do
-    load_raw_emails_data
-  end
-
-  it "should send an alert" do
-    RequestMailer.alert_new_response_reminders
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(3) # sufficiently late it sends reminders too
-    mail = deliveries[0]
-    expect(mail.body).to match(/To let everyone know/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
-    mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
-    mail_url = $1
-    mail_token = $2
-
-    expect(session[:user_id]).to be_nil
-    controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    expect(session[:user_id]).to eq(info_requests(:fancy_dog_request).user.id)
-
-    expect(response).to render_template('show')
-    expect(assigns[:info_request]).to eq(info_requests(:fancy_dog_request))
-    # TODO: should check anchor tag here :) that it goes to last new response
-  end
-
-end
-
-describe RequestController, "clarification required alerts" do
-  render_views
-  before(:each) do
-    load_raw_emails_data
-  end
-
-  it "should send an alert" do
-    ir = info_requests(:fancy_dog_request)
-    ir.set_described_state('waiting_clarification')
-    # this is pretty horrid, but will do :) need to make it waiting
-    # clarification more than 3 days ago for the alerts to go out.
-    ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
-    ir.reload
-
-    RequestMailer.alert_not_clarified_request
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(1)
-    mail = deliveries[0]
-    expect(mail.body).to match(/asked you to explain/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
-    mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
-    mail_url = $1
-    mail_token = $2
-
-    expect(session[:user_id]).to be_nil
-    controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
-    expect(session[:user_id]).to eq(info_requests(:fancy_dog_request).user.id)
-
-    expect(response).to render_template('show_response')
-    expect(assigns[:info_request]).to eq(info_requests(:fancy_dog_request))
-  end
-
-  it "should not send an alert if you are banned" do
-    ir = info_requests(:fancy_dog_request)
-    ir.set_described_state('waiting_clarification')
-
-    ir.user.ban_text = 'Banned'
-    ir.user.save!
-
-    # this is pretty horrid, but will do :) need to make it waiting
-    # clarification more than 3 days ago for the alerts to go out.
-    ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
-    ir.reload
-
-    RequestMailer.alert_not_clarified_request
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(0)
-  end
-
-end
-
-describe RequestController, "comment alerts" do
-  render_views
-  before(:each) do
-    load_raw_emails_data
-  end
-
-  it "should send an alert (once and once only)" do
-    # delete fixture comment and make new one, so is in last month (as
-    # alerts are only for comments in last month, see
-    # RequestMailer.alert_comment_on_request)
-    existing_comment = info_requests(:fancy_dog_request).comments[0]
-    existing_comment.info_request_events[0].destroy
-    existing_comment.destroy
-    new_comment = info_requests(:fancy_dog_request).add_comment('I really love making annotations.', users(:silly_name_user))
-
-    # send comment alert
-    RequestMailer.alert_comment_on_request
-    deliveries = ActionMailer::Base.deliveries
-    mail = deliveries[0]
-    expect(mail.body).to match(/has annotated your/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
-    mail.body.to_s =~ /(http:\/\/.*)/
-    mail_url = $1
-    expect(mail_url).to match("/request/why_do_you_have_such_a_fancy_dog#comment-#{new_comment.id}")
-
-    # check if we send again, no more go out
-    deliveries.clear
-    RequestMailer.alert_comment_on_request
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(0)
-  end
-
-  it "should not send an alert when you comment on your own request" do
-    # delete fixture comment and make new one, so is in last month (as
-    # alerts are only for comments in last month, see
-    # RequestMailer.alert_comment_on_request)
-    existing_comment = info_requests(:fancy_dog_request).comments[0]
-    existing_comment.info_request_events[0].destroy
-    existing_comment.destroy
-    new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
-
-    # try to send comment alert
-    RequestMailer.alert_comment_on_request
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(0)
-  end
-
-  it 'should not send an alert for a comment on an external request' do
-    external_request = info_requests(:external_request)
-    external_request.add_comment("This external request is interesting", users(:silly_name_user))
-    # try to send comment alert
-    RequestMailer.alert_comment_on_request
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(0)
-  end
-
-  it "should send an alert when there are two new comments" do
-    # add two comments - the second one sould be ignored, as is by the user who made the request.
-    # the new comment here, will cause the one in the fixture to be picked up as a new comment by alert_comment_on_request also.
-    new_comment = info_requests(:fancy_dog_request).add_comment('Not as daft as this one', users(:silly_name_user))
-    new_comment = info_requests(:fancy_dog_request).add_comment('Or this one!!!', users(:bob_smith_user))
-
-    RequestMailer.alert_comment_on_request
-
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(1)
-    mail = deliveries[0]
-    expect(mail.body).to match(/There are 2 new annotations/)
-    expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
-    mail.body.to_s =~ /(http:\/\/.*)/
-    mail_url = $1
-    expect(mail_url).to match("/request/why_do_you_have_such_a_fancy_dog#comment-#{comments(:silly_comment).id}")
 
   end
 
@@ -2502,7 +2041,7 @@ describe RequestController, "when caching fragments" do
                             :info_request_id => 132,
                             :id => 44,
                             :get_attachments_for_display => nil,
-                            :apply_masks! => nil,
+                            :apply_masks => nil,
                             :user_can_view? => true,
                             :all_can_view? => true)
     attachment = FactoryGirl.build(:body_text, :filename => long_name)

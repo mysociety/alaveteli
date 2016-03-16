@@ -46,6 +46,12 @@ unless File.exists? theme_directory
   exit 1
 end
 
+def show_themes
+  $available_themes.each do |theme_name|
+    STDERR.puts "  #{theme_name}"
+  end
+end
+
 # Assume that any directory directly under theme_directory is a theme:
 $available_themes = Dir.entries(theme_directory).find_all do |local_theme_name|
   next if [".", ".."].index local_theme_name
@@ -63,17 +69,20 @@ if $available_themes.empty?
   exit
 end
 
-def usage_and_exit
+if ARGV.length == 1
+  requested_theme = ARGV[0]
+else
   STDERR.puts "Usage: #{$0} <THEME-NAME>"
-  $available_themes.each do |theme_name|
-    STDERR.puts "  #{theme_name}"
-  end
+  show_themes
   exit 1
 end
 
-usage_and_exit unless ARGV.length == 1
-requested_theme = ARGV[0]
-usage_and_exit unless $available_themes.include? requested_theme
+unless $available_themes.include? requested_theme
+  STDERR.puts "Theme '#{requested_theme}' not found in '#{theme_directory}'"
+  STDERR.puts "Available themes:"
+  show_themes
+  exit 1
+end
 
 full_theme_path = File.join theme_directory, requested_theme
 

@@ -49,6 +49,7 @@ namespace :config_files do
       :vhost_dir => ENV['VHOST_DIR'],
       :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
       :site => ENV.fetch('SITE') { 'foi' },
+      :cpus => ENV.fetch('CPUS') { '1' },
       :rails_env => ENV.fetch('RAILS_ENV') { 'development' }
     }
 
@@ -92,5 +93,37 @@ namespace :config_files do
       puts line
     end
   end
+
+  desc 'Convert miscellaneous example scripts. This does not check for required environment variables for the script, so please check the script file itself.'
+  task :convert_script => :environment do
+    example = 'rake config_files:convert_script SCRIPT_FILE=config/run-with-rbenv-path.example'
+    check_for_env_vars(['SCRIPT_FILE'], example)
+
+    replacements = {
+      :user => ENV.fetch('DEPLOY_USER') { 'alaveteli' },
+      :vhost_dir => ENV.fetch('VHOST_DIR') { '/var/www/alaveteli' },
+      :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
+      :site => ENV.fetch('SITE') { 'foi' },
+      :cpus => ENV.fetch('CPUS') { '1' },
+      :rails_env => ENV.fetch('RAILS_ENV') { 'development' }
+    }
+
+    # Generate the template for potential further processing
+    converted = convert_ugly(ENV['SCRIPT_FILE'], replacements)
+
+    # gsub the RAILS_ENV in to the generated template if its not set by the
+    # hard coded config file
+    unless File.exists?("#{ Rails.root }/config/rails_env.rb")
+      converted.each do |line|
+        line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
+        line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
+      end
+    end
+
+    converted.each do |line|
+      puts line
+    end
+  end
+
 
 end

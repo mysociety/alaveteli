@@ -24,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2016-01-06 22:49+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2016-03-07 15:33+0000\n"
+"PO-Revision-Date: 2016-03-07 15:38+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -233,9 +233,6 @@ msgstr "<strong>הערה:</strong>\\n    אנו נשלח הודעת אימות �
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr ""
 
-msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
-msgstr " <strong>הערה:<strong/> בקרוב יישלח אליכם דואר אלקטרוני. עקוב אחר ההוראות המצויות בו על מנת לשנות את הסיסמא."
-
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
 msgstr "<strong>הערה:</strong> אתם שולחים בקשה לעצמכם, כנראה כדי לנסות לראות איך זה עובד."
 
@@ -298,6 +295,9 @@ msgstr "בקשה חסרה"
 
 msgid "A {{site_name}} user"
 msgstr "משתמש {{site_name}}"
+
+msgid "API"
+msgstr ""
 
 msgid "About you:"
 msgstr "אודותיך:"
@@ -415,6 +415,9 @@ msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "האם אתם הבעלים של\\n            זכויות יוצרים מסחריות על עמוד זה?"
+
+msgid "Ask EU Authorities"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "בקשו מסמכים או מידע <strong>מסוימים</strong>. אתר זה אינו מיועד לבקשות כלליות."
@@ -542,9 +545,6 @@ msgstr "CensorRule|טקסט"
 msgid "Change email on {{site_name}}"
 msgstr "שנו דואר אלקטרוני לאתר {{site_name}}"
 
-msgid "Change password on {{site_name}}"
-msgstr "שנו סיסמה לאתר {{site_name}}"
-
 msgid "Change profile photo"
 msgstr "שנה תמונת פרופיל"
 
@@ -658,6 +658,9 @@ msgstr "אינה נחשבת ע\"י המנהלים כבקשה מתאימה ומו
 
 msgid "Considered by administrators as vexatious and hidden from site."
 msgstr "נחשב על ידי מנהלים כמרגיז ומוסתר מהאתר."
+
+msgid "Contact us"
+msgstr ""
 
 msgid "Contact {{recipient}}"
 msgstr "צרו קשר עם {{recipient}}"
@@ -962,8 +965,8 @@ msgstr "הודעת עדכון"
 msgid "Follow up message sent by requester"
 msgstr "הודעת עדכון נשלחה על ידי המבקש"
 
-msgid "Follow up messages to existing requests are sent to "
-msgstr "הודעות מעקב לבקשות קיימות נשלחות ל- "
+msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgstr ""
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "מעקב נשלח ל- {{public_body_name}} ע״י {{info_request_user}} בתאריך {{date}}."
@@ -1000,8 +1003,8 @@ msgstr "חוק חופש המידע "
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "החלטת הממשלה אינה חלה על הרשות הזאת, אז אינכם יכולים לבקש ממנה מידע. "
 
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
-msgstr "החלטת הממשלה אינה תקפה לרשות זו. הודעות המשך לבקשה קיימת נשלחות ל- "
+msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "חוק חופש המידע אינו בתוקף לגבי {{public_body_name}}."
@@ -1057,8 +1060,17 @@ msgstr "שלום! יש לנו  <a href=\"{{url}}\">הודעה חשובה</a> ל�
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr "שלום! יש לנו <a href=\"{{url}}\">הודעה חשובה</a> למבקרים ממדינות אחרות"
 
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
+
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "שלום! אתם יכולים להגיש בקשות ב{{country_name}} באתר {{link_to_website}}"
+
+msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
 
 msgid "Hello, {{username}}!"
 msgstr "שלום, {{username}}!"
@@ -1228,12 +1240,6 @@ msgstr "אם אתם כותבים על הבקשות האלה (למשל בפורו
 msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
 msgstr "אם אתם כותבים על הבקשות האלה (למשל בפורום או בבלוג) נא קשרו לדף זה, <a href=\"{{url}}\">והוסיפו הערה</a> למטה כדי שאנשים אחרים ידעו על כך."
 
-msgid "If you're new to {{site_name}}"
-msgstr "אם אתם חדשים באתר {{site_name}}"
-
-msgid "If you've used {{site_name}} before"
-msgstr "אם השתמשתם באתר  {{site_name}} before לפני"
-
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "אם הדפדפן שלכם מקבל עוגיות ואתם רואים הודעה זו, \\n אז כנראה שיש תקלה בשרת שלנו."
 
@@ -1348,6 +1354,9 @@ msgstr "InfoRequest|Handle תגובות שנדחו"
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
+msgid "InfoRequest|Last public response at"
+msgstr ""
+
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law היו בשימוש"
 
@@ -1393,11 +1402,11 @@ msgstr "פריטים המתאימים לתנאים הבאים מוצגים כע�
 msgid "Items sent in last month"
 msgstr "פריטים שנשלחו בחודש שעבר"
 
-msgid "Joined in"
-msgstr "הצטרף/פה"
+msgid "Joined in {{year}}."
+msgstr ""
 
-msgid "Joined {{site_name}} in"
-msgstr "הצטרף/פה ל-  {{site_name}}ב- "
+msgid "Joined {{site_name}} in {{year}}"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "רק עוד דבר אחד"
@@ -1995,6 +2004,9 @@ msgstr ""
 msgid "Print your one time passcode"
 msgstr ""
 
+msgid "Privacy and cookies"
+msgstr ""
+
 msgid "Profile photo"
 msgstr "תמונת פרופיל"
 
@@ -2301,6 +2313,9 @@ msgstr "התגובה לבקשה זו <strong>מתעכבת מאוד</strong>."
 msgid "Response to your request"
 msgstr "תגובה לבקשה שלך"
 
+msgid "Response to {{law_used_short}} request"
+msgstr ""
+
 msgid "Response:"
 msgstr "תגובה:"
 
@@ -2494,9 +2509,6 @@ msgstr "נושא"
 
 msgid "Subject:"
 msgstr "נושא:"
-
-msgid "Submit"
-msgstr "שלח"
 
 msgid "Submit Search"
 msgstr ""
@@ -2699,9 +2711,6 @@ msgstr "מגיש הבקשה נסוג ממנה מסיבה כלשהי"
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "התגובה לבקשתכם <strong>התעכבה</strong>.  תוכלו לומר, \\n            שעל-פי החלטת הממשלה הרשות היתה צריכה כבר להגיב בדרך כלל\\n            <strong>מייד</strong> ו- "
 
-msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
-msgstr ""
-
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "התשובה לשאלתך <strong>מתעכבת מאוד</strong>. בהתאם להחלטת הממשלה,\\n הרשות היתה צריכה להגיב זה מכבר."
 
@@ -2759,11 +2768,11 @@ msgstr "אז תוכלו לעדכן את מצב הבקשה שלכם ל- "
 msgid "Then you can upload an FOI response. "
 msgstr "אז תוכלו להעלות בקשת מידע"
 
-msgid "Then you can write follow up message to "
-msgstr "אז תוכלו לרשום הודעת מעקב ל- "
+msgid "Then you can write follow up message to {{authority_name}}."
+msgstr ""
 
-msgid "Then you can write your reply to "
-msgstr "אז תוכלו לכתוב את התגובה שלכם ל- "
+msgid "Then you can write your reply to {{authority_name}}."
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "לאחר מכן תעקוב אחר כל הבקשות החדשות."
@@ -3050,14 +3059,14 @@ msgstr "כדי לשחק במשחק סיווג הקטגוריות"
 msgid "To post your annotation"
 msgstr "כדי לפרסם את ההערה שלך"
 
-msgid "To reply to "
-msgstr "בתשובה אל"
+msgid "To reply to {{authority_name}}."
+msgstr ""
 
 msgid "To report this request"
 msgstr "לדיווח על הבקשה"
 
-msgid "To send a follow up message to "
-msgstr "לשלוח הודעת מעקב אל"
+msgid "To send a follow up message to {{authority_name}}"
+msgstr ""
 
 msgid "To send a message to "
 msgstr "לשלוח הודעה אל"
@@ -3233,6 +3242,9 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3240,6 +3252,9 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3256,6 +3271,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3393,9 +3411,6 @@ msgstr "שלחנו דוא\"ל לכתובת החדשה שהזנתם. אנא לח�
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "שלחנו לכם דואר אלקטרוני ואתם צריכים להקליק על הקישור בהודעה לפני שתוכלו להמשיך."
 
-msgid "We've sent you an email, click the link in it, then you can change your password."
-msgstr "שלחנו לכם הודעת דוא\"ל עם קישור. הקליקו עליו כדי לשנות את הסיסמה."
-
 msgid "What are you doing?"
 msgstr "מה אתם עושים?"
 
@@ -3456,11 +3471,11 @@ msgstr "האם תרצה לראות אתר אינטרנט כזה בישראל?"
 msgid "Write a reply"
 msgstr "לכתוב תשובה"
 
-msgid "Write a reply to "
-msgstr "כתבו תשובה אל"
+msgid "Write a reply to {{authority_name}}"
+msgstr ""
 
-msgid "Write your FOI follow up message to "
-msgstr "כתבו את בקשת המעקב למידע ל-"
+msgid "Write your FOI follow up message to {{authority_name}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "כתבו את בקשתכם <strong>בשפה פשוטה ומדויקת</strong>."
@@ -3468,7 +3483,7 @@ msgstr "כתבו את בקשתכם <strong>בשפה פשוטה ומדויקת</s
 msgid "You"
 msgstr "אתם"
 
-msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
+msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
 
 msgid "You are already following new requests"
@@ -3894,9 +3909,6 @@ msgstr "פרטים"
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr "display_status עובד רק לגבי הצעות המתקבלות ונשלחות עכשיו"
 
-msgid "during term time"
-msgstr "במהלך התקופה"
-
 msgid "e.g. Ministry of Defence"
 msgstr ""
 
@@ -3905,9 +3917,6 @@ msgstr "ערכו את הטקסט עליכם"
 
 msgid "email address"
 msgstr ""
-
-msgid "even during holidays"
-msgstr "גם בימי חג"
 
 msgid "everything"
 msgstr "הכל"
@@ -3923,9 +3932,6 @@ msgstr "התעכב"
 
 msgid "hide quoted sections"
 msgstr "הסתר פסקאות מצוטטות"
-
-msgid "in term time"
-msgstr "בתקופת הזמן"
 
 msgid "in the category ‘{{category_name}}’"
 msgstr "בקטגוריה ‘{{category_name}}’"
@@ -3944,9 +3950,6 @@ msgstr "רק כדי לראות איך זה עובד"
 
 msgid "left an annotation"
 msgstr "השאיר הודעה"
-
-msgid "made."
-msgstr "בוצע"
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "תואם לתווית ‘{{tag_name}}’"
@@ -4043,6 +4046,9 @@ msgstr "אל {{public_body}}"
 msgid "type your search term here"
 msgstr ""
 
+msgid "unknown reason"
+msgstr ""
+
 msgid "unknown reason "
 msgstr "סיבה לא ידוע"
 
@@ -4069,6 +4075,11 @@ msgstr "מה זה?"
 
 msgid "{{count}} FOI requests found"
 msgstr "נמצאו {{count}} בקשות מידע "
+
+msgid "{{count}} annotation made."
+msgid_plural "{{count}} annotations made."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

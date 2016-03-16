@@ -123,6 +123,7 @@ class PublicBodyController < ApplicationController
 
     @tag = params[:tag]
 
+    @country_code = AlaveteliConfiguration.iso_country_code
     @locale = I18n.locale.to_s
     underscore_locale = @locale.gsub '-', '_'
     underscore_default_locale = I18n.default_locale.to_s.gsub '-', '_'

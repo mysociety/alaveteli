@@ -13,7 +13,9 @@
 
     <% if @post_redirect.post_params["controller"] == "admin_general" %>
       <% unless AlaveteliConfiguration::disable_emergency_user %>
-        <p id="superuser_message" class="superuser_message"><%= _("Don't have a superuser account yet?") %> <%= link_to _("Sign in as the emergency user"), URI.parse(@post_redirect.uri).path + "?emergency=1" %></p>
+        <p id="superuser_message" class="superuser_message">
+          <%= _("Don't have a superuser account yet?") %>
+          <%= link_to _("Sign in as the emergency user"), URI.parse(@post_redirect.uri).path + "?emergency=1" %></p>
       <% end %>
     <% end %>
 
@@ -28,7 +30,8 @@
         <% if @post_redirect.reason_params[:web].empty? %>
           <%= _('Please create an account or sign in') %>
         <% else %>
-          <%= _('{{reason}}, create an account or sign in', :reason => @post_redirect.reason_params[:web]) %>
+          <%= _('{{reason}}, create an account or sign in',
+          :reason => @post_redirect.reason_params[:web]) %>
         <% end %>
       </h1>
     <% end %>

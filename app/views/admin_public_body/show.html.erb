@@ -88,6 +88,13 @@
 <h2>Requests</h2>
 <%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @info_requests } %>
 <%= will_paginate(@info_requests, :class => "paginator") %>
+
 <hr>
+
 <h2>Track things</h2>
 <%= render :partial => 'admin_track/some_tracks', :locals => { :track_things => @public_body.track_things, :include_destroy => true } %>
+
+<hr>
+
+<h2>Censor rules</h2>
+<%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @public_body.censor_rules, :public_body => @public_body } %>

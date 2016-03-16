@@ -46,17 +46,7 @@
     <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <% end %>
-    <% if @title %>
-      <meta property="og:title" content="<%= @title %>" />
-      <meta property="og:type" content="article" />
-    <% else %>
-      <meta property="og:title" content="<%= _('Make and browse Freedom of Information (FOI) requests') %>" />
-      <meta property="og:type" content="website" />
-    <% end %>
-    <%= content_for :open_graph_tags %>
-    <meta property="og:site_name" content="<%= site_name %>" />
-    <meta property="og:url" content="<%= request.original_url %>" />
-    <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path('logo.png')}" %>" />
+    <%= render :partial => 'general/opengraph_tags' %>
     <%= render :partial => 'general/before_head_end' %>
   </head>
   <body class="<%= 'front' if params[:action] == 'frontpage' %>">

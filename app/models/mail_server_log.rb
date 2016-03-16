@@ -67,10 +67,8 @@ class MailServerLog < ActiveRecord::Base
   def self.load_exim_log_data(f, done)
     order = 0
     f.each do |line|
-      sanitised_line = scrub(line)
       order = order + 1
-      emails = email_addresses_on_line(sanitised_line)
-      create_mail_server_logs(emails, sanitised_line, order, done)
+      create_exim_log_line(line, done, order)
     end
   end
 
@@ -180,6 +178,12 @@ class MailServerLog < ActiveRecord::Base
       end
     end
     ok
+  end
+
+  def self.create_exim_log_line(line, done, order = 1)
+    sanitised_line = scrub(line)
+    emails = email_addresses_on_line(sanitised_line)
+    create_mail_server_logs(emails, sanitised_line, order, done)
   end
 
   private

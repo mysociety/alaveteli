@@ -25,9 +25,11 @@
   </div>
   <div class="results_section">
     <div class="results_block">
-      <%= render :partial => 'public_body/body_listing', :locals => { :public_bodies => @public_bodies } %>
+      <%= render :partial => 'public_body/body_listing',
+                 :locals => { :public_bodies => @public_bodies } %>
     </div>
-    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @info_request_batch.public_bodies.count) %>
+    <%= will_paginate WillPaginate::Collection.new(
+          @page, @per_page, @info_request_batch.public_bodies.count) %>
   </div>
 
 <% end %>

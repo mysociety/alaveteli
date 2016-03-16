@@ -82,8 +82,8 @@ module Alaveteli
     ENV['RECAPTCHA_PRIVATE_KEY'] = ::AlaveteliConfiguration::recaptcha_private_key
 
     # Insert a bit of middleware code to prevent uneeded cookie setting.
-    require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
-    config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+    require "#{Rails.root}/lib/strip_empty_sessions"
+    config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
 
     # Strip non-UTF-8 request parameters
     config.middleware.insert 0, Rack::UTF8Sanitizer

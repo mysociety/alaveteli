@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-06 10:01+0000\n"
-"PO-Revision-Date: 2016-01-06 22:49+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2016-03-07 15:33+0000\n"
+"PO-Revision-Date: 2016-03-07 15:38+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/mysociety/alaveteli/language/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -221,9 +221,6 @@ msgstr "<strong>Opomba:</strong>Poslali vam bomo sporočilo na vaš novi e-pošt
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr ""
 
-msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
-msgstr "<strong>Opomba:</strong>\\n Poslali vam bomo e-pošto. Sledite navodilom v njej, da spremenite\\n vaše geslo."
-
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
 msgstr "<strong>Opomba:</strong> Sporočilo pošiljate sami sebi, verjetno da preverjate kako deluje sistem."
 
@@ -286,6 +283,9 @@ msgstr "Provokativen zahtevek"
 
 msgid "A {{site_name}} user"
 msgstr "Uporabnik strani {{site_name}}"
+
+msgid "API"
+msgstr ""
 
 msgid "About you:"
 msgstr "O meni:"
@@ -403,6 +403,9 @@ msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Ali ste lastnik katere od avtorskih vsebin na tej strani?"
+
+msgid "Ask EU Authorities"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Sprašujte za <strong>konkretne</strong> dokumente ali informacije, ta stran ni primerna za splošna vprašanja."
@@ -530,9 +533,6 @@ msgstr "PraviloCenzure|Besedilo"
 msgid "Change email on {{site_name}}"
 msgstr "Spremenite e-poštni naslov na strani {{site_name}}"
 
-msgid "Change password on {{site_name}}"
-msgstr "Spremenite geslo na spletni strani {{site_name}}"
-
 msgid "Change profile photo"
 msgstr "Spremenite profilno sliko"
 
@@ -646,6 +646,9 @@ msgstr "Po mnenju administratorjev to ni zahtevek za IJZ in je bil umaknjen s sp
 
 msgid "Considered by administrators as vexatious and hidden from site."
 msgstr "Po mnenju administratorjev je ta prispevek provokativen in je bil odstranjen s spletne strani."
+
+msgid "Contact us"
+msgstr ""
 
 msgid "Contact {{recipient}}"
 msgstr "Kontaktiraj {{recipient}}"
@@ -947,8 +950,8 @@ msgstr "Odziv"
 msgid "Follow up message sent by requester"
 msgstr "Odziv, poslan s strani prosilca"
 
-msgid "Follow up messages to existing requests are sent to "
-msgstr "Odzivi na obstoječe zahtevke so poslani k"
+msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgstr ""
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Odziv poslan na {{public_body_name}} s strani {{info_request_user}} v {{date}}."
@@ -987,8 +990,8 @@ msgstr "Zakon o dostopu do informacij javnega značaja"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Zakon o dostopu do informacij javnega značaja ne velja za ta subjekt, zato mu ne morete poslati zahtevka."
 
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
-msgstr "Zakon o dostopu do informacij javnega značaja ne velja več za ta organ. Odzivi na obstoječe zahtevke so poslani na"
+msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""
@@ -1044,8 +1047,17 @@ msgstr "Živjo! Imamo  <a href=\"{{url}}\">pomembno novico</a> za obiskovalce iz
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr "Pozdravljeni! Imamo <a href=\"{{url}}\">pomembno sporočilo</a> za obiskovalce iz drugih držav"
 
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
+
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Živijo! Zahtevke po informacijah javnega značaja znotraj {{country_name}} lahko naredite na {{link_to_website}}"
+
+msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
 
 msgid "Hello, {{username}}!"
 msgstr "Zdravo, {{username}}!"
@@ -1215,12 +1227,6 @@ msgstr ""
 msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
 msgstr ""
 
-msgid "If you're new to {{site_name}}"
-msgstr "Če ste novi na strani {{site_name}}"
-
-msgid "If you've used {{site_name}} before"
-msgstr "Če ste stran {{site_name}} že uporabljali"
-
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "Če vaš brskalnik podpira piškotke in vidite to sporočilo, potem je verjetno\\n prišlo do napake na strežniku."
 
@@ -1335,6 +1341,9 @@ msgstr "InfoZahtevek|Obravnavaj zavrnjene odzive"
 msgid "InfoRequest|Idhash"
 msgstr "InfoZahtevek|Preverjevalna vsota"
 
+msgid "InfoRequest|Last public response at"
+msgstr ""
+
 msgid "InfoRequest|Law used"
 msgstr "InfoZahtevek|Uporabljen zakon"
 
@@ -1380,11 +1389,11 @@ msgstr "Na vašem zidu so prikazani predmeti, ki ustrezajo sledečim pogojem."
 msgid "Items sent in last month"
 msgstr "Stvari, poslane v zadnjem mesecu"
 
-msgid "Joined in"
-msgstr "Se je pridružil"
+msgid "Joined in {{year}}."
+msgstr ""
 
-msgid "Joined {{site_name}} in"
-msgstr "Se je pridružil {{site_name}} v"
+msgid "Joined {{site_name}} in {{year}}"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Še ena stvar"
@@ -1984,6 +1993,9 @@ msgstr ""
 msgid "Print your one time passcode"
 msgstr ""
 
+msgid "Privacy and cookies"
+msgstr ""
+
 msgid "Profile photo"
 msgstr "Profilna slika"
 
@@ -2290,6 +2302,9 @@ msgstr "Rok za odgovor na ta zahtevek je <strong>potekel</strong>."
 msgid "Response to your request"
 msgstr "Odgovor na vaš zahtevek"
 
+msgid "Response to {{law_used_short}} request"
+msgstr ""
+
 msgid "Response:"
 msgstr "Odgovor:"
 
@@ -2485,9 +2500,6 @@ msgstr "Zadeva"
 
 msgid "Subject:"
 msgstr "Zadeva:"
-
-msgid "Submit"
-msgstr "Pošlji"
 
 msgid "Submit Search"
 msgstr ""
@@ -2690,9 +2702,6 @@ msgstr "Prosilec je iz nekega razloga preklical zahtevek"
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Odgovor na vaš zahtevek je bil <strong>odložen</strong>. Organ bi po zakonu moral odgovoriti <strong>v roku</strong> in"
 
-msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
-msgstr ""
-
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Rok za odgovor na vaš zahtevek <strong>je potekel</strong>. Po zakonu bi organ, ne glede na vse okoliščine, do zdaj moral odgovoriti"
 
@@ -2750,11 +2759,11 @@ msgstr "Zatem lahko posodobite stanje vaših zahtevkov na"
 msgid "Then you can upload an FOI response. "
 msgstr "Zatem lahko naložite odgovor na zahtevek IJZ"
 
-msgid "Then you can write follow up message to "
-msgstr "Zatem lahko napišete odziv na "
+msgid "Then you can write follow up message to {{authority_name}}."
+msgstr ""
 
-msgid "Then you can write your reply to "
-msgstr "Zatem lahko napišete odgovor na"
+msgid "Then you can write your reply to {{authority_name}}."
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Po tem boste spremljali vse nove zahtevke za IJZ"
@@ -3047,14 +3056,14 @@ msgstr "Za igranje igre razvrščanja zahtevkov"
 msgid "To post your annotation"
 msgstr "Da objavite vaš zaznamek"
 
-msgid "To reply to "
-msgstr "Za odgovor na"
+msgid "To reply to {{authority_name}}."
+msgstr ""
 
 msgid "To report this request"
 msgstr "Da prijavite ta zahtevek"
 
-msgid "To send a follow up message to "
-msgstr "Da pošljete odziv na "
+msgid "To send a follow up message to {{authority_name}}"
+msgstr ""
 
 msgid "To send a message to "
 msgstr "Da pošljete sporočilo "
@@ -3230,6 +3239,9 @@ msgstr "Uporabniki praviloma ne morejo naenkrat poslati več enakih zahtevkov or
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3238,6 +3250,9 @@ msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
 msgstr "Uporabnik|Lahko ustvari paketne zahtevke"
+
+msgid "User|Dob"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3253,6 +3268,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3394,9 +3412,6 @@ msgstr "Poslali smo vam e-pošto na vaš nov naslov. Klikniti boste morali na po
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Poslali smo vam e-pošto, v kateri je povezava, ki jo morate klikniti, preden lahko nadaljujete."
 
-msgid "We've sent you an email, click the link in it, then you can change your password."
-msgstr "Poslali smo vam e-pošto, kliknite na povezavo v njej, da spremenite vaše geslo."
-
 msgid "What are you doing?"
 msgstr "Kaj delate?"
 
@@ -3457,11 +3472,11 @@ msgstr "Bi želeli videt spletno stran kakršna je ta v vaši državi?"
 msgid "Write a reply"
 msgstr "Napišite odgovor"
 
-msgid "Write a reply to "
-msgstr "Napišite odgovor"
+msgid "Write a reply to {{authority_name}}"
+msgstr ""
 
-msgid "Write your FOI follow up message to "
-msgstr "Napišite vaš odziv na"
+msgid "Write your FOI follow up message to {{authority_name}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Zapišite vaš zahtevek v <strong>enostavnem in nedvoumnem jeziku</strong>."
@@ -3469,8 +3484,8 @@ msgstr "Zapišite vaš zahtevek v <strong>enostavnem in nedvoumnem jeziku</stron
 msgid "You"
 msgstr "Vi"
 
-msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "Enak paket zahtevkov ste ustvarili že {{date}}. Lahko si ogledate <a href=\"{{existing_batch}}\">obstoječ paket</a> ali uredite vsebino spodaj, da ustvarite nov, podoben paket zahtevkov."
+msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
+msgstr ""
 
 msgid "You are already following new requests"
 msgstr "Že spremljate nove zahtevke"
@@ -3889,9 +3904,6 @@ msgstr "podrobnosti"
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr "display_status trenutno deluje le za dohodna in odhodna sporočila"
 
-msgid "during term time"
-msgstr "med obdobjem"
-
 msgid "e.g. Ministry of Defence"
 msgstr "npr. Ministrstvo za obrambo"
 
@@ -3900,9 +3912,6 @@ msgstr "uredi vaš opis"
 
 msgid "email address"
 msgstr ""
-
-msgid "even during holidays"
-msgstr "tudi ob praznikih"
 
 msgid "everything"
 msgstr "vse"
@@ -3918,9 +3927,6 @@ msgstr "so zakasnjene."
 
 msgid "hide quoted sections"
 msgstr "skrij citirane odseke"
-
-msgid "in term time"
-msgstr "v obdobju"
 
 msgid "in the category ‘{{category_name}}’"
 msgstr "v kategoriji '{{category_name}}'"
@@ -3939,9 +3945,6 @@ msgstr "da vidite kako deluje"
 
 msgid "left an annotation"
 msgstr "je dodal zaznamek"
-
-msgid "made."
-msgstr "narejeno."
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "ki ustreza znački '{{tag_name}}'"
@@ -4038,6 +4041,9 @@ msgstr "za {{public_body}}"
 msgid "type your search term here"
 msgstr "vpišite iskalne besede"
 
+msgid "unknown reason"
+msgstr ""
+
 msgid "unknown reason "
 msgstr "neznan razlog"
 
@@ -4064,6 +4070,13 @@ msgstr "kaj je to?"
 
 msgid "{{count}} FOI requests found"
 msgstr "najdenih {{count}} zahtevkov IJZ"
+
+msgid "{{count}} annotation made."
+msgid_plural "{{count}} annotations made."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

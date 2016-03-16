@@ -21,4 +21,19 @@ jQuery ->
       success: (data, textStatus, jqXHR) ->
         $('#request_hidden_user_explanation_field').val(data)
   )
+  $('#incoming_messages').on('change', 'input[class=delete-checkbox]', ->
+    selected = if $('#ids').val() isnt ""
+      $('#ids').val().split(',')
+    else
+      []
+    if this.checked
+      selected.push this.value
+      $('#ids').val(selected.join(','))
+      $('input[value="Delete selected messages"]').attr("disabled", false)
+    else
+      selected = selected.filter (e) => e isnt this.value
+      $('#ids').val(selected.join(','))
+      if $('#ids').val() == ""
+        $('input[value="Delete selected messages"]').attr("disabled", true)
+  )
 

@@ -55,5 +55,6 @@
     </ul>
   <% end %>
 
-  <%= render :partial => "list_sidebar_extra" %>
+  <%= render :partial => "list_sidebar_extra",
+             :locals => { :country_code => @country_code } %>
 </div>

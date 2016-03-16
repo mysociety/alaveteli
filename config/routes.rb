@@ -50,8 +50,6 @@ Alaveteli::Application.routes.draw do
 
   match '/request/:id/describe' => 'request#describe_state', :as => :describe_state
   match '/request/:url_title/describe/:described_state' => 'request#describe_state_message', :as => :describe_state_message
-  match '/request/:id/response' => 'request#show_response', :as => :show_response_no_followup
-  match '/request/:id/response/:incoming_message_id' => 'request#show_response', :as => :show_response
   match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html', :format => false, :as => :get_attachment_as_html
   match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment', :format => false, :as => :get_attachment
 
@@ -59,6 +57,13 @@ Alaveteli::Application.routes.draw do
 
   match '/upload/request/:url_title' => 'request#upload_response', :as => :upload_response
   match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
+  ####
+
+  #### Followups controller
+  match '/request/:request_id/followups/new' => 'followups#new', :as => :new_request_followup
+  match '/request/:request_id/followups/new/:incoming_message_id' => 'followups#new', :as => :new_request_incoming_followup
+  match '/request/:request_id/followups/preview' => 'followups#preview', :as => :preview_request_followups, :via => :post
+  match '/request/:request_id/followups' => 'followups#create', :as => :request_followups, :via => :post
   ####
 
   resources :health_checks, :only => [:index]
@@ -186,6 +191,9 @@ Alaveteli::Application.routes.draw do
       post 'mass_tag_add', :on => :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
+      resources :censor_rules,
+        :controller => 'admin_censor_rule',
+        :only => [:new, :create]
     end
   end
   ####
@@ -248,9 +256,7 @@ Alaveteli::Application.routes.draw do
       post 'hide', :on => :member
       resources :censor_rules,
         :controller => 'admin_censor_rule',
-        :only => [:new, :create],
-        :name_prefix => 'request_'
-
+        :only => [:new, :create]
     end
   end
   ####
@@ -285,6 +291,11 @@ Alaveteli::Application.routes.draw do
     :only => [:edit, :update, :destroy] do
       post 'redeliver', :on => :member
     end
+    resource :incoming_messages,
+      :controller => 'admin_incoming_message',
+      :only => [:bulk_destroy] do
+        post 'bulk_destroy'
+      end
   end
   ####
 
@@ -311,9 +322,8 @@ Alaveteli::Application.routes.draw do
       post 'modify_comment_visibility', :on => :collection
       resources :censor_rules,
         :controller => 'admin_censor_rule',
-        :only => [:new, :create],
-        :name_prefix => 'user_'
-    end
+        :only => [:new, :create]
+      end
   end
   ####
 
@@ -328,8 +338,7 @@ Alaveteli::Application.routes.draw do
   #### AdminCensorRule controller
   scope '/admin', :as => 'admin' do
     resources :censor_rules,
-      :controller => 'admin_censor_rule',
-      :except => [:index, :new, :create]
+      :controller => 'admin_censor_rule'
   end
 
   #### AdminSpamAddresses controller

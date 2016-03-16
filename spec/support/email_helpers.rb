@@ -26,3 +26,11 @@ end
 def parse_all_incoming_messages
   IncomingMessage.find(:all).each{ |x| x.parse_raw_email! }
 end
+
+def load_mail_server_logs(log)
+  batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
+
+  log.split("\n").each_with_index do |line, index|
+    MailServerLog.create_exim_log_line(line, batch, index + 1)
+  end
+end

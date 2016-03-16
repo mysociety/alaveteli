@@ -6,9 +6,9 @@ require 'spork'
 #require 'spork/ext/ruby-debug'
 require 'simplecov'
 require 'coveralls'
-# Generate coverage locally in html as well as in coveralls.io
+
+# Generate coverage in coveralls.io
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter
 ]
 SimpleCov.start('rails') do
@@ -30,6 +30,8 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
+  # prevent Test::Unit's AutoRunner from executing during RSpec's rake task on JRuby
+  Test::Unit.run = true if defined?(Test::Unit) && Test::Unit.respond_to?(:run=)
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
