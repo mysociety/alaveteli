@@ -23,6 +23,114 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+
+describe IncomingMessage do
+
+  describe '#apply_masks' do
+
+    before(:each) do
+      @im = incoming_messages(:useless_incoming_message)
+
+      @default_opts = { :last_edit_editor => 'unknown',
+                        :last_edit_comment => 'none' }
+
+      load_raw_emails_data
+    end
+
+    it 'replaces text with global censor rules' do
+      data = 'There was a mouse called Stilton, he wished that he was blue'
+      expected = 'There was a mouse called Stilton, he said that he was blue'
+
+      opts = { :text => 'wished',
+               :replacement => 'said' }.merge(@default_opts)
+      CensorRule.create!(opts)
+
+      result = @im.apply_masks(data, 'text/plain')
+
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with censor rules belonging to the info request' do
+      data = 'There was a mouse called Stilton.'
+      expected = 'There was a cat called Jarlsberg.'
+
+      rules = [
+        { :text => 'Stilton', :replacement => 'Jarlsberg' },
+        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+      ]
+
+      rules.each do |rule|
+        @im.info_request.censor_rules << CensorRule.new(rule.merge(@default_opts))
+      end
+
+      result = @im.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with censor rules belonging to the user' do
+      data = 'There was a mouse called Stilton.'
+      expected = 'There was a cat called Jarlsberg.'
+
+      rules = [
+        { :text => 'Stilton', :replacement => 'Jarlsberg' },
+        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+      ]
+
+      rules.each do |rule|
+        @im.info_request.user.censor_rules << CensorRule.new(rule.merge(@default_opts))
+      end
+
+      result = @im.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with masks belonging to the info request' do
+      data = "He emailed #{ @im.info_request.incoming_email }"
+      expected = "He emailed [FOI ##{ @im.info_request.id } email]"
+      result = @im.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with global masks' do
+      data = 'His email address was stilton@example.org'
+      expected = 'His email address was [email address]'
+      result = @im.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text in binary files' do
+      data = 'His email address was stilton@example.org'
+      expected = 'His email address was xxxxxxx@xxxxxxx.xxx'
+      result = @im.apply_masks(data, 'application/vnd.ms-word')
+      expect(result).to eq(expected)
+    end
+
+  end
+
+  describe '#_extract_text' do
+
+    it 'does not generate incompatible character encodings' do
+      if String.respond_to?(:encode)
+        message = FactoryGirl.create(:incoming_message)
+        FactoryGirl.create(:body_text,
+                           :body => 'hí',
+                           :incoming_message => message,
+                           :url_part_number => 2)
+        FactoryGirl.create(:pdf_attachment,
+                           :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
+                           :incoming_message => message,
+                           :url_part_number => 3)
+        message.reload
+
+        expect{ message._extract_text }.
+          to_not raise_error
+      end
+    end
+
+  end
+
+end
+
 describe IncomingMessage, 'when validating' do
 
   it 'should be valid with valid prominence values' do
@@ -494,84 +602,6 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
 
 end
 
-
-describe IncomingMessage, " when censoring data" do
-
-  before(:each) do
-    @test_data = "There was a mouse called Stilton, he wished that he was blue."
-
-    @im = incoming_messages(:useless_incoming_message)
-
-    @censor_rule_1 = CensorRule.new
-    @censor_rule_1.text = "Stilton"
-    @censor_rule_1.replacement = "Jarlsberg"
-    @censor_rule_1.last_edit_editor = "unknown"
-    @censor_rule_1.last_edit_comment = "none"
-    @im.info_request.censor_rules << @censor_rule_1
-
-    @censor_rule_2 = CensorRule.new
-    @censor_rule_2.text = "blue"
-    @censor_rule_2.replacement = "yellow"
-    @censor_rule_2.last_edit_editor = "unknown"
-    @censor_rule_2.last_edit_comment = "none"
-    @im.info_request.censor_rules << @censor_rule_2
-
-    @regex_censor_rule = CensorRule.new
-    @regex_censor_rule.text = 'm[a-z][a-z][a-z]e'
-    @regex_censor_rule.regexp = true
-    @regex_censor_rule.replacement = 'cat'
-    @regex_censor_rule.last_edit_editor = 'unknown'
-    @regex_censor_rule.last_edit_comment = 'none'
-    @im.info_request.censor_rules << @regex_censor_rule
-    load_raw_emails_data
-  end
-
-  it "should replace censor text" do
-    data = "There was a mouse called Stilton, he wished that he was blue."
-    @im.apply_masks!(data, "application/vnd.ms-word")
-    expect(data).to eq("There was a xxxxx called xxxxxxx, he wished that he was xxxx.")
-  end
-
-  it "should apply censor rules to From: addresses" do
-    allow(@im).to receive(:mail_from).and_return("Stilton Mouse")
-    allow(@im).to receive(:last_parsed).and_return(Time.now)
-    safe_mail_from = @im.safe_mail_from
-    expect(safe_mail_from).to eq("Jarlsberg Mouse")
-  end
-
-end
-
-describe IncomingMessage, " when censoring whole users" do
-
-  before(:each) do
-    @test_data = "There was a mouse called Stilton, he wished that he was blue."
-
-    @im = incoming_messages(:useless_incoming_message)
-
-    @censor_rule_1 = CensorRule.new
-    @censor_rule_1.text = "Stilton"
-    @censor_rule_1.replacement = "Gorgonzola"
-    @censor_rule_1.last_edit_editor = "unknown"
-    @censor_rule_1.last_edit_comment = "none"
-    @im.info_request.user.censor_rules << @censor_rule_1
-    load_raw_emails_data
-  end
-
-  it "should apply censor rules to HTML files" do
-    data = @test_data.dup
-    @im.apply_masks!(data, 'text/html')
-    expect(data).to eq("There was a mouse called Gorgonzola, he wished that he was blue.")
-  end
-
-  it "should replace censor text to Word documents" do
-    data = @test_data.dup
-    @im.apply_masks!(data, "application/vnd.ms-word")
-    expect(data).to eq("There was a mouse called xxxxxxx, he wished that he was blue.")
-  end
-
-end
-
-
 describe IncomingMessage, " when uudecoding bad messages" do
 
   it "decodes a valid uuencoded attachment" do
@@ -791,32 +821,6 @@ describe IncomingMessage, "when extracting attachments" do
 
       expect(im._get_attachment_text_internal.valid_encoding?).to be true
     end
-  end
-
-end
-
-describe IncomingMessage do
-
-  describe '#_extract_text' do
-
-    it 'does not generate incompatible character encodings' do
-      if String.respond_to?(:encode)
-        message = FactoryGirl.create(:incoming_message)
-        FactoryGirl.create(:body_text,
-                           :body => 'hí',
-                           :incoming_message => message,
-                           :url_part_number => 2)
-        FactoryGirl.create(:pdf_attachment,
-                           :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
-                           :incoming_message => message,
-                           :url_part_number => 3)
-        message.reload
-
-        expect{ message._extract_text }.
-          to_not raise_error
-      end
-    end
-
   end
 
 end

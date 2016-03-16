@@ -2,43 +2,42 @@
 <div id="main_content" class="main_content">
   <h1><%= @title %></h1>
 
-  <p><%= _("This page of public body statistics is currently \
-experimental, so there are some caveats that should be borne \
-in mind:") %></p>
+  <p><%= _("This page of public body statistics is currently experimental, " \
+              "so there are some caveats that should be borne in mind:") %></p>
 
   <ul>
-    <li><%= _("The percentages are calculated with respect to \
-the total number of requests, which includes invalid \
-requests; this is a known problem that will be fixed in a \
-later release.") %></li>
+    <li><%= _("The percentages are calculated with respect to the total " \
+                 "number of requests, which includes invalid requests; " \
+                 "this is a known problem that will be fixed in a " \
+                 "later release.") %></li>
 
-    <li><%= _("The classification of requests (e.g. to say \
-whether they were successful or not) is done manually by users \
-and administrators of the site, which means that they are \
-subject to error.") %></li>
+    <li><%= _("The classification of requests (e.g. to say whether they " \
+                 "were successful or not) is done manually by users and " \
+                 "administrators of the site, which means that they are " \
+                 "subject to error.") %></li>
 
-    <li><%= _("Requests are considered successful if they were \
-classified as either 'Successful' or 'Partially Successful'.") %></li>
+    <li><%= _("Requests are considered successful if they were classified " \
+                 "as either 'Successful' or 'Partially Successful'.") %></li>
 
-    <li><%= _("Requests are considered overdue if they are in \
-the 'Overdue' or 'Very Overdue' states.") %></li>
+    <li><%= _("Requests are considered overdue if they are in the 'Overdue' " \
+                 "or 'Very Overdue' states.") %></li>
 
-    <li><%= _("The error bars shown are 95% confidence intervals \
-for the hypothesized underlying proportion (i.e. that which \
-you would obtain by making an infinite number of requests \
-through this site to that authority). In other words, the \
-population being sampled is all the current and future \
-requests to the authority through this site, rather than, \
-say, all requests that have been made to the public body by \
-any means.") %></li>
+    <li><%= _("The error bars shown are 95% confidence intervals for the " \
+                 "hypothesized underlying proportion (i.e. that which you " \
+                 "would obtain by making an infinite number of requests " \
+                 "through this site to that authority). In other words, the " \
+                 "population being sampled is all the current and future " \
+                 "requests to the authority through this site, rather than, " \
+                 "say, all requests that have been made to the public body by "\
+                 "any means.") %></li>
 
     <li><%= _("Unclassified or hidden requests are not counted.") %></li>
   </ul>
 
-  <p><%= _("These graphs were partly inspired by \
-<a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some \
-statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks \
-are due to him.") %></p>
+  <p><%= _("These graphs were partly inspired by "\
+             "<a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">" \
+             "some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, " \
+             "so thanks are due to him.") %></p>
 
   <% @graph_list.each do |graph_data| %>
     <h3 class="public-body-ranking-title"><%= graph_data['title']%></h3>

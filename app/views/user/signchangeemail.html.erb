@@ -1,4 +1,5 @@
-<% @title = _('Change your email address used on {{site_name}}', :site_name => site_name) %>
+<% @title = _('Change your email address used on {{site_name}}',
+              :site_name => site_name) %>
 
 <% raise _('internal error') if not @user %>
 
@@ -7,7 +8,8 @@
     <%= foi_error_messages_for :signchangeemail %>
 
     <div class="form_note">
-      <h1><% _('Change your email address used on {{site_name}}', :site_name => site_name) %></h1>
+      <h1><% _('Change your email address used on {{site_name}}',
+               :site_name => site_name) %></h1>
     </div>
 
     <p>

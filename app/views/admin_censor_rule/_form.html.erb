@@ -8,6 +8,12 @@
   <% unless user.nil? %>
     <%= user_both_links(user) %>
   <% end %>
+  <% unless public_body.nil? %>
+    <%= public_body_both_links(public_body) %>
+  <% end %>
+  <% if info_request.nil? && user.nil? && public_body.nil? %>
+    <strong>everything</strong>
+  <% end %>
 </div>
 
 <div class="control-group">
@@ -43,7 +49,7 @@
 <div class="control-group">
   <label for="censor_rule_last_edit_comment" class="control-label">Comment for this edit</label>
   <div class="controls">
-    <%= text_area 'censor_rule', 'last_edit_comment', :rows => 2, :class => "span6"  %>
+    <%= text_area 'censor_rule', 'last_edit_comment', :value => '', :rows => 2, :class => "span6" %>
     <div class="help-block">
       put purpose of the rule, and why the change
     </div>

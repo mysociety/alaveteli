@@ -62,31 +62,6 @@ module ApplicationHelper
     return LanguageNames::get_language_name(locale)
   end
 
-  # (unfortunately) ugly way of getting id of generated form element
-  # ids
-  # see http://chrisblunt.com/2009/10/12/rails-getting-the-id-of-form-fields-inside-a-fields_for-block/
-  def sanitized_object_name(object_name)
-    warn %q([DEPRECATION] sanitized_object_name will be removed in Alaveteli
-           release 0.24).squish
-    object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/,"_").sub(/_$/,"")
-  end
-
-  def sanitized_method_name(method_name)
-    warn %q([DEPRECATION] sanitized_method_name will be removed in Alaveteli
-          release 0.24).squish
-    method_name.sub(/\?$/, "")
-  end
-
-  def form_tag_id(object_name, method_name, locale=nil)
-    warn %q([DEPRECATION] form_tag_id will be removed in Alaveteli
-           release 0.24).squish
-    if locale.nil?
-      return "#{sanitized_object_name(object_name.to_s)}_#{sanitized_method_name(method_name.to_s)}"
-    else
-      return "#{sanitized_object_name(object_name.to_s)}_#{sanitized_method_name(method_name.to_s)}__#{locale.to_s}"
-    end
-  end
-
   def admin_value(v)
     if v.nil?
       nil
@@ -171,5 +146,9 @@ module ApplicationHelper
         :event_comment_user => user_link_absolute(event.comment.user),
         :date => date)
     end
+  end
+
+  def can_ask_the_eu?(code)
+    WorldFOIWebsites.can_ask_the_eu?(code)
   end
 end

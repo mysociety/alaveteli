@@ -164,8 +164,6 @@ class UserController < ApplicationController
     end
   end
 
-  # Followed link in user account confirmation email.
-  # If you change this, change ApplicationController.test_code_redirect_by_email_token also
   def confirm
     post_redirect = PostRedirect.find_by_email_token(params[:email_token])
 
@@ -209,79 +207,6 @@ class UserController < ApplicationController
       redirect_to URI.parse(params[:r]).path
     else
       redirect_to :controller => "general", :action => "frontpage"
-    end
-  end
-
-  # Change password (TODO: and perhaps later email) - requires email authentication
-  def signchangepassword
-    warn %q([DEPRECATION] UserController#signchangepassword has been replaced
-            with PasswordChangesController as of 0.23. It will be removed in
-            0.24. See doc/CHANGES.md for information on how to revert to
-            UserController#signchangepassword).
-            squish
-
-    if @user and ((not session[:user_circumstance]) or (session[:user_circumstance] != "change_password"))
-      # Not logged in via email, so send confirmation
-      params[:submitted_signchangepassword_send_confirm] = true
-      params[:signchangepassword] = { :email => @user.email }
-    end
-
-    if params[:submitted_signchangepassword_send_confirm]
-      # They've entered the email, check it is OK and user exists
-      unless MySociety::Validate.is_valid_email(params[:signchangepassword][:email])
-        flash[:error] = _("That doesn't look like a valid email address. Please check you have typed it correctly.")
-        render :action => 'signchangepassword_send_confirm'
-        return
-      end
-      user_signchangepassword = User.find_user_by_email(params[:signchangepassword][:email])
-      if user_signchangepassword
-        # Send email with login link to go to signchangepassword page
-        url = signchangepassword_url
-        if params[:pretoken]
-          url += "?pretoken=" + params[:pretoken]
-        end
-        post_redirect = PostRedirect.new(:uri => url , :post_params => {},
-                                         :reason_params => {
-                                           :web => "",
-                                           :email => _("Then you can change your password on {{site_name}}",:site_name=>site_name),
-                                           :email_subject => _("Change your password on {{site_name}}",:site_name=>site_name)
-                                         },
-                                         :circumstance => "change_password" # special login that lets you change your password
-                                         )
-        post_redirect.user = user_signchangepassword
-        post_redirect.save!
-        url = confirm_url(:email_token => post_redirect.email_token)
-        UserMailer.confirm_login(user_signchangepassword, post_redirect.reason_params, url).deliver
-      else
-        # User not found, but still show confirm page to not leak fact user exists
-      end
-
-      render :action => 'signchangepassword_confirm'
-    elsif @user.nil?
-      # Not logged in, prompt for email
-      render :action => 'signchangepassword_send_confirm'
-    else
-      # Logged in via special email change password link, so can offer form to change password
-      raise "internal error" unless (session[:user_circumstance] == "change_password")
-
-      if params[:submitted_signchangepassword_do]
-        @user.password = params[:user][:password]
-        @user.password_confirmation = params[:user][:password_confirmation]
-        if @user.valid?
-          @user.save!
-          flash[:notice] = _("Your password has been changed.")
-          if params[:pretoken] and not params[:pretoken].empty?
-            post_redirect = PostRedirect.find_by_token(params[:pretoken])
-            do_post_redirect post_redirect
-          else
-            redirect_to user_url(@user)
-          end
-        else
-          render :action => 'signchangepassword'
-        end
-      else
-        render :action => 'signchangepassword'
-      end
     end
   end
 

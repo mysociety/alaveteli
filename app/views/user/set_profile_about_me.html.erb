@@ -1,4 +1,5 @@
-<% @title = _('Change the text about you on your profile at {{site_name}}', :site_name=>site_name) %>
+<% @title = _('Change the text about you on your profile at {{site_name}}',
+              :site_name=>site_name) %>
 
 <% raise _('internal error') if not @user %>
 
@@ -8,8 +9,8 @@
   <div class="form_note">
     <h1><%= _('Edit text about you') %></h1>
 
-    <p> 
-      <%= _('What are you investigating using Freedom of Information?') %> 
+    <p>
+      <%= _('What are you investigating using Freedom of Information?') %>
     </p>
 
     <p>

@@ -171,24 +171,19 @@ INCLUDE_DEFAULT_LOCALE_IN_URLS: true
 AUTHORITY_MUST_RESPOND: true
 
 # The REPLY...AFTER_DAYS settings define how many days must have passed before
-# an answer to a request is officially late. The SPECIAL case is for some types
-# of authority (for example: in the UK, schools) which are granted a bit longer
-# than everyone else to respond to questions.
+# an answer to a request is officially late.
 #
 # REPLY_LATE_AFTER_DAYS - Integer (default: 20)
 # REPLY_VERY_LATE_AFTER_DAYS - Integer (default: 40)
-# SPECIAL_REPLY_VERY_LATE_AFTER_DAYS - Integer (default: 60)
 #
 # Examples:
 #
 #   REPLY_LATE_AFTER_DAYS: 20
 #   REPLY_VERY_LATE_AFTER_DAYS: 40
-#   SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
 #
 # ---
 REPLY_LATE_AFTER_DAYS: 20
 REPLY_VERY_LATE_AFTER_DAYS: 40
-SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
 
 # The WORKING_OR_CALENDAR_DAYS setting can be either "working" (the default) or
 # "calendar", and determines which days are counted when calculating whether a
@@ -890,3 +885,15 @@ ENABLE_WIDGETS: false
 #
 # ---
 ENABLE_TWO_FACTOR_AUTH: false
+
+# Enable referral of requests to external reviewers. This is likely to be an
+# Information Commissioner or similar.
+#
+# EXTERNAL_REVIEWERS – String (default: '')
+#
+# Examples:
+#
+#   EXTERNAL_REVIEWERS: ico@example.net
+#
+# ---
+EXTERNAL_REVIEWERS: ''

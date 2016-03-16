@@ -74,8 +74,9 @@ class InfoRequest < ActiveRecord::Base
   has_many :widget_votes, :dependent => :destroy
   has_many :comments, :order => 'created_at', :dependent => :destroy
   has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
-  has_many :mail_server_logs, :order => 'mail_server_log_done_id', :dependent => :destroy
+  has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
   attr_accessor :is_batch_request_template
+  attr_reader :followup_bad_reason
 
   has_tag_string
 
@@ -113,7 +114,16 @@ class InfoRequest < ActiveRecord::Base
   validate :title_formatting, :on => :create
 
   after_initialize :set_defaults
+  after_save :update_counter_cache
+  after_destroy :update_counter_cache
+  after_update :reindex_some_request_events
   before_destroy :expire
+  before_save :purge_in_cache
+  # make sure the url_title is unique but don't update
+  # existing requests unless the title is being changed
+  before_save :update_url_title,
+    :if => Proc.new { |request| request.title_changed? }
+  before_validation :compute_idhash
 
   def self.enumerate_states
     states = [
@@ -159,8 +169,9 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def must_be_valid_state
-    errors.add(:described_state, "is not a valid state") if
-    !InfoRequest.enumerate_states.include? described_state
+    unless InfoRequest.enumerate_states.include?(described_state)
+      errors.add(:described_state, "is not a valid state")
+    end
   end
 
   def is_batch_request_template?
@@ -220,7 +231,6 @@ class InfoRequest < ActiveRecord::Base
 
   # If the URL name has changed, then all request: queries will break unless
   # we update index for every event. Also reindex if prominence changes.
-  after_update :reindex_some_request_events
   def reindex_some_request_events
     if changes.include?('url_title') || changes.include?('prominence') || changes.include?('user_id')
       reindex_request_events
@@ -241,7 +251,7 @@ class InfoRequest < ActiveRecord::Base
     ret
   end
 
-  def expire
+  def expire(options={})
     # Clear out cached entries, by removing files from disk (the built in
     # Rails fragment cache made doing this and other things too hard)
     foi_fragment_cache_directories.each{ |dir| FileUtils.rm_rf(dir) }
@@ -251,7 +261,7 @@ class InfoRequest < ActiveRecord::Base
 
     # Remove the database caches of body / attachment text (the attachment text
     # one is after privacy rules are applied)
-    clear_in_database_caches!
+    clear_in_database_caches! unless options[:preserve_database_cache]
 
     # also force a search reindexing (so changed text reflected in search)
     reindex_request_events
@@ -272,16 +282,30 @@ class InfoRequest < ActiveRecord::Base
     update_url_title
   end
 
+  # Public: url_title attribute reader
+  #
+  # opts - Hash of options (default: {})
+  #        :collapse - Set true to strip the numeric section. Use this to group
+  #                    lots of similar requests by url_title.
+  #
+  # Returns a String
+  def url_title(opts = {})
+    _url_title = super()
+    return _url_title.gsub(/[_0-9]+$/, "") if opts[:collapse]
+    _url_title
+  end
+
   def update_url_title
+    return unless title
     url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
     # For request with same title as others, add on arbitary numeric identifier
     unique_url_title = url_title
     suffix_num = 2 # as there's already one without numeric suffix
-    while not InfoRequest.find_by_url_title(unique_url_title,
-                                            :conditions => id.nil? ? nil : ["id <> ?", id]
-                                           ).nil?
-                                           unique_url_title = url_title + "_" + suffix_num.to_s
-                                           suffix_num = suffix_num + 1
+    while InfoRequest.
+            find_by_url_title(unique_url_title,
+                              :conditions => id.nil? ? nil : ["id <> ?", id])
+      unique_url_title = "#{url_title}_#{suffix_num}"
+      suffix_num = suffix_num + 1
     end
     write_attribute(:url_title, unique_url_title)
   end
@@ -337,30 +361,6 @@ class InfoRequest < ActiveRecord::Base
         'Re: ' + incoming_message.subject
       end
     end
-  end
-
-  def law_used_full
-    warn %q([DEPRECATION] law_used_full will be replaced with
-      InfoRequest#law_used_human(:full) as of 0.24).squish
-    law_used_human(:full)
-  end
-
-  def law_used_short
-    warn %q([DEPRECATION] law_used_short will be replaced with
-      InfoRequest#law_used_human(:short) as of 0.24).squish
-    law_used_human(:short)
-  end
-
-  def law_used_act
-    warn %q([DEPRECATION] law_used_act will will be replaced with
-      InfoRequest#law_used_human(:act) as of 0.24).squish
-    law_used_human(:act)
-  end
-
-  def law_used_with_a
-    warn %q([DEPRECATION] law_used_with_a will be removed in Alaveteli
-           release 0.24).squish
-    law_used_human(:with_a)
   end
 
   def law_used_human(key = :full)
@@ -525,11 +525,11 @@ class InfoRequest < ActiveRecord::Base
   # states which require administrator action (hence email administrators
   # when they are entered, and offer state change dialog to them)
   def self.requires_admin_states
-    ['requires_admin', 'error_message', 'attention_requested']
+    %w(requires_admin error_message attention_requested)
   end
 
   def requires_admin?
-    ['requires_admin', 'error_message', 'attention_requested'].include?(described_state)
+    self.class.requires_admin_states.include?(described_state)
   end
 
   # Report this request for administrator attention
@@ -691,25 +691,28 @@ class InfoRequest < ActiveRecord::Base
     last_sent.outgoing_message.last_sent_at
   end
 
+  def late_calculator
+    @late_calculator ||= DefaultLateCalculator.new
+  end
+
   # How do we cope with case where extra info was required from the requester
   # by the public body in order to fulfill the request, as per sections 1(3)
   # and 10(6b) ? For clarifications this is covered by
   # last_event_forming_initial_request. There may be more obscure
   # things, e.g. fees, not properly covered.
   def date_response_required_by
-    Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::reply_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
+    Holiday.due_date_from(date_initial_request_last_sent_at,
+                          late_calculator.reply_late_after_days,
+                          AlaveteliConfiguration.working_or_calendar_days)
   end
 
   # This is a long stop - even with UK public interest test extensions, 40
   # days is a very long time.
   def date_very_overdue_after
-    if public_body.is_school?
-      # schools have 60 working days maximum (even over a long holiday)
-      Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::special_reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
-    else
-      # public interest test ICO guidance gives 40 working maximum
-      Holiday.due_date_from(date_initial_request_last_sent_at, AlaveteliConfiguration::reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
-    end
+    # public interest test ICO guidance gives 40 working maximum
+    Holiday.due_date_from(date_initial_request_last_sent_at,
+                          late_calculator.reply_very_late_after_days,
+                          AlaveteliConfiguration.working_or_calendar_days)
   end
 
   # Where the initial request is sent to
@@ -864,13 +867,6 @@ class InfoRequest < ActiveRecord::Base
     InfoRequest.get_status_description(calculate_status(cached_value_ok))
   end
 
-  # Completely delete this request and all objects depending on it
-  def fully_destroy
-    warn %q([DEPRECATION] InfoRequest#fully_destroy will be replaced with
-      InfoRequest#destroy as of 0.24).squish
-    destroy
-  end
-
   # Called by incoming_email - and used to be called to generate separate
   # envelope from address until we abandoned it.
   def magic_email(prefix_part)
@@ -885,8 +881,6 @@ class InfoRequest < ActiveRecord::Base
     magic_email += "@" + AlaveteliConfiguration::incoming_email_domain
     magic_email
   end
-
-  before_validation :compute_idhash
 
   def compute_idhash
     self.idhash = InfoRequest.hash_from_id(id)
@@ -938,15 +932,27 @@ class InfoRequest < ActiveRecord::Base
     last_response_created_at = last_public_response_clause
     age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
     params = { :conditions => ["awaiting_description = ?
-                                    AND #{last_response_created_at} < ?
+                                    AND last_public_response_at < ?
                                     AND url_title != 'holding_pen'
                                     AND user_id IS NOT NULL",
-                                      true, Time.now - age] }
+                                      true, Time.zone.now - age] }
     if include_last_response_time
-      params[:select] = "*, #{last_response_created_at} AS last_response_time"
-      params[:order] = 'last_response_time'
+      params[:order] = 'last_public_response_at'
     end
-    params
+    return params
+  end
+
+  def self.old_unclassified_params(extra_params, include_last_response_time=false)
+    age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
+    params = { :conditions => ["awaiting_description = ?
+                                    AND last_public_response_at < ?
+                                    AND url_title != 'holding_pen'
+                                    AND user_id IS NOT NULL",
+                                      true, Time.zone.now - age] }
+    if include_last_response_time
+      params[:order] = 'last_public_response_at'
+    end
+    return params
   end
 
   def self.old_unclassified_params(extra_params, include_last_response_time=false)
@@ -1018,6 +1024,39 @@ class InfoRequest < ActiveRecord::Base
     end
 
     directories
+  end
+
+  def is_followupable?(incoming_message)
+    if is_external?
+      @followup_bad_reason = "external"
+      false
+    elsif !OutgoingMailer.is_followupable?(self, incoming_message)
+      @followup_bad_reason = if public_body.is_requestable?
+        "unexpected followupable inconsistency"
+      else
+        public_body.not_requestable_reason
+      end
+      false
+    else
+      @followup_bad_reason = nil
+      true
+    end
+  end
+
+  def postal_email
+    if who_can_followup_to.size == 0
+      public_body.request_email
+    else
+      who_can_followup_to[-1][1]
+    end
+  end
+
+  def postal_email_name
+    if who_can_followup_to.size == 0
+      public_body.name
+    else
+      who_can_followup_to[-1][0]
+    end
   end
 
   def request_dirs
@@ -1092,15 +1131,31 @@ class InfoRequest < ActiveRecord::Base
     applicable_rules.flatten
   end
 
+  def apply_censor_rules_to_text(text)
+    applicable_censor_rules.
+      reduce(text) { |text, rule| rule.apply_to_text(text) }
+  end
+
   # Call groups of censor rules
   def apply_censor_rules_to_text!(text)
+    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_text! will be
+            removed in 0.25. Use the non-destructive
+            InfoRequest#apply_censor_rules_to_text instead).squish
     applicable_censor_rules.each do |censor_rule|
       censor_rule.apply_to_text!(text)
     end
     text
   end
 
+  def apply_censor_rules_to_binary(text)
+    applicable_censor_rules.
+      reduce(text) { |text, rule| rule.apply_to_binary(text) }
+  end
+
   def apply_censor_rules_to_binary!(binary)
+    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_binary! will be
+            removed in 0.25. Use the non-destructive
+            InfoRequest#apply_censor_rules_to_binary instead).squish
     applicable_censor_rules.each do |censor_rule|
       censor_rule.apply_to_binary!(binary)
     end
@@ -1113,9 +1168,9 @@ class InfoRequest < ActiveRecord::Base
     masks = [{ :to_replace => incoming_email,
                :replacement =>  _('[FOI #{{request}} email]',
                                   :request => id.to_s) },
-                                  { :to_replace => AlaveteliConfiguration::contact_email,
-                                    :replacement => _("[{{site_name}} contact email]",
-                                                      :site_name => AlaveteliConfiguration::site_name)} ]
+             { :to_replace => AlaveteliConfiguration::contact_email,
+               :replacement => _("[{{site_name}} contact email]",
+                                 :site_name => AlaveteliConfiguration::site_name)} ]
     if public_body.is_followupable?
       masks << { :to_replace => public_body.request_email,
                  :replacement => _("[{{public_body}} request email]",
@@ -1209,7 +1264,6 @@ class InfoRequest < ActiveRecord::Base
     ret
   end
 
-  before_save :purge_in_cache
   def purge_in_cache
     if AlaveteliConfiguration::varnish_host.present? && id
       # we only do this for existing info_requests (new ones have a nil id)
@@ -1224,8 +1278,6 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  after_save :update_counter_cache
-  after_destroy :update_counter_cache
   # This method updates the count columns of the PublicBody that
   # store the number of "not held", "to some extent successful" and
   # "both visible and classified" requests when saving or destroying

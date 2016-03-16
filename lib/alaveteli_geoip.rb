@@ -48,7 +48,7 @@ class AlaveteliGeoIP
       elsif gaze_url
         country_code_from_gaze(ip)
       end
-    country_code = current_code if country_code.empty?
+    country_code = current_code if country_code.blank?
     country_code
   end
 

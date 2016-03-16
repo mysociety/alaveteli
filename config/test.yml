@@ -36,8 +36,6 @@ USE_DEFAULT_BROWSER_LANGUAGE: true
 # How many days should have passed before an answer to a request is officially late?
 REPLY_LATE_AFTER_DAYS: 20
 REPLY_VERY_LATE_AFTER_DAYS: 40
-# We give some types of authority like schools a bit longer than everyone else
-SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
 
 # example searches for the home page, semicolon delimited.
 FRONTPAGE_SEARCH_EXAMPLES: 'Geraldine Quango; Department for Humpadinking'

@@ -1,7 +1,7 @@
 <% @title = _("Preview follow up to '") + h(@info_request.public_body.name) + "'" %>
 
 <div id="followup" class="followup">
-  <%= form_for(@outgoing_message, :html => { :id => 'preview_form' }, :url => (@incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => @incoming_message.id)) + "#followup" ) do |o| %>
+  <%= form_for(@outgoing_message, :html => { :id => 'preview_form' }, :url => (@incoming_message.nil? ? request_followups_url(:request_id => @info_request.id) : request_followups_url(:request_id => @info_request.id, :incoming_message_id => @incoming_message.id)) + "#followup") do |o| %>
 
     <% if @internal_review %>
       <h1><%= _('Now preview your message asking for an internal review') %></h1>
@@ -40,8 +40,7 @@
 
     <p>
       <%= hidden_field_tag(:submitted_followup, 1) %>
-      <%= hidden_field_tag(:preview, 0 ) %>
-      <% if @internal_review_pass_on %>
+      <% if @internal_review %>
         <%= hidden_field_tag(:internal_review, 1 ) %>
       <% end %>
       <%= submit_tag _("Re-edit this message"), :name => 'reedit' %>

@@ -1,5 +1,6 @@
 <% if @batch %>
-  <% @title = _("Preview new {{law_used_short}} request", :law_used_short => h(@info_request.law_used_human(:short)))  %>
+  <% @title = _("Preview new {{law_used_short}} request",
+                :law_used_short => h(@info_request.law_used_human(:short))) %>
 <% else %>
   <% @title = _("Preview new {{law_used_short}} request to '{{public_body_name}}", :law_used_short => h(@info_request.law_used_human(:short)), :public_body_name => h(@info_request.public_body.name)) %>
 <% end %>
@@ -17,7 +18,9 @@
                         "(<a href=\"{{url}}\">details</a>).",
                         :url => (help_privacy_path+"#public_request").html_safe)) %>
           </li>
-          <li><%= _('<a href="{{url}}">Do you want to request private information about yourself?</a>', :url => (help_requesting_path+"#data_protection").html_safe) %></li>
+          <li><%= _('<a href="{{url}}">Do you want to request private ' \
+                      'information about yourself?</a>',
+                    :url => (help_requesting_path+"#data_protection").html_safe) %></li>
         </ul>
       </div>
     </div>
@@ -61,7 +64,8 @@
         <%= hidden_field_tag(:submitted_new_request, 1) %>
         <%= hidden_field_tag(:preview, 0 ) %>
         <%= submit_tag _("Edit your request"), :name => 'reedit', :id => 'reedit_button' %>
-        <%= submit_tag _("Send request"), :name => 'submit', :id => 'submit_button' %>
+        <%= submit_tag _("Send request"), :disable_with => _("Sending..."),
+                                          :name => 'submit', :id => 'submit_button' %>
       </p>
 
       <% if !@info_request.tag_string.empty? %>

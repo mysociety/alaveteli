@@ -29,7 +29,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
-  describe '.new' do
+  describe 'creating a new request' do
 
     it 'sets the default law used' do
       expect(InfoRequest.new.law_used).to eq('foi')
@@ -46,6 +46,51 @@ describe InfoRequest do
       info_request.update_attributes(:public_body_id => body.id)
       expect_any_instance_of(InfoRequest).not_to receive(:law_used=).and_call_original
       InfoRequest.find(info_request.id)
+    end
+
+    it "sets the url_title from the supplied title" do
+      info_request = FactoryGirl.create(:info_request, :title => "Test title")
+      expect(info_request.url_title).to eq("test_title")
+    end
+
+    it "ignores any supplied url_title and sets it from the title instead" do
+      info_request = FactoryGirl.create(:info_request, :title => "Real title",
+                                                       :url_title => "ignore_me")
+      expect(info_request.url_title).to eq("real_title")
+    end
+
+    it "adds the next sequential number to the url_title to make it unique" do
+      allow(InfoRequest).to receive(:find_by_url_title).
+        with("test_title", :conditions => nil).
+          and_return(mock_model(InfoRequest))
+      allow(InfoRequest).to receive(:find_by_url_title).
+        with("test_title_2", :conditions => nil).
+          and_return(mock_model(InfoRequest))
+
+      # not found - we can use this one
+      allow(InfoRequest).to receive(:find_by_url_title).
+        with("test_title_3", :conditions => nil).
+          and_return(nil)
+
+      info_request = InfoRequest.new(:title => "Test title")
+      expect(info_request.url_title).to eq("test_title_3")
+    end
+
+    context "when a race condition creates a duplicate between new and save" do
+      # this appears to be happening in the request#new controller method
+      # we suspect (hope?) it's an accidental double press of 'Save'
+
+      it "picks the next available url_title instead of failing" do
+        public_body = FactoryGirl.create(:public_body)
+        user = FactoryGirl.create(:user)
+        first_request = InfoRequest.new(:title => "Test title",
+                                        :user => user,
+                                        :public_body => public_body)
+        second_request = FactoryGirl.create(:info_request, :title => "Test title")
+        first_request.save!
+        expect(first_request.url_title).to eq("test_title_2")
+      end
+
     end
 
   end
@@ -488,6 +533,18 @@ describe InfoRequest do
 
   end
 
+  describe "#url_title" do
+    let(:request) { FactoryGirl.create(:info_request, :title => "Test 101") }
+
+    it "returns the url_title" do
+      expect(request.url_title).to eq('test_101')
+    end
+
+    it "collapses the url title if requested" do
+      expect(request.url_title(:collapse => true)).to eq("test")
+    end
+  end
+
   describe '#move_to_public_body' do
 
     context 'with no options' do
@@ -655,6 +712,22 @@ describe InfoRequest do
 
   end
 
+  describe '#expire' do
+
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    it "clears the database caches" do
+      expect(info_request).to receive(:clear_in_database_caches!)
+      info_request.expire
+    end
+
+    it "does not clear the database caches if passed the preserve_database_cache option" do
+      expect(info_request).not_to receive(:clear_in_database_caches!)
+      info_request.expire(:preserve_database_cache => true)
+    end
+
+  end
+
   describe '#initial_request_text' do
 
     it 'returns an empty string if the first outgoing message is hidden' do
@@ -682,6 +755,98 @@ describe InfoRequest do
     it 'returns false if there is not an external url' do
       info_request = InfoRequest.new(:external_url => nil)
       expect(info_request.is_external?).to eq(false)
+    end
+
+  end
+
+  describe '#late_calculator' do
+
+    it 'returns a DefaultLateCalculator' do
+      expect(subject.late_calculator).
+        to be_instance_of(DefaultLateCalculator)
+    end
+
+    it 'caches the late calculator' do
+      expect(subject.late_calculator).to equal(subject.late_calculator)
+    end
+
+  end
+
+  describe "#is_followupable?" do
+
+    let(:message_without_reply_to) { FactoryGirl.create(:incoming_message) }
+    let(:valid_request) { FactoryGirl.create(:info_request) }
+    let(:unfollowupable_body) { FactoryGirl.create(:public_body, :request_email => "") }
+
+    context "it is possible to reply to the public body" do
+
+      it "returns true" do
+        expect(valid_request.is_followupable?(message_without_reply_to)).
+          to eq(true)
+      end
+
+      it "should not set a followup_bad_reason" do
+        valid_request.is_followupable?(message_without_reply_to)
+        expect(valid_request.followup_bad_reason).to be_nil
+      end
+
+    end
+
+
+    context "the message has a valid reply address" do
+
+      let(:request) do
+        FactoryGirl.create(:info_request, :public_body => unfollowupable_body)
+      end
+      let(:dummy_message) { double(IncomingMessage) }
+
+      before do
+        allow(dummy_message).to receive(:valid_to_reply_to?) { true }
+      end
+
+      it "returns true" do
+        expect(request.is_followupable?(dummy_message)).to eq(true)
+      end
+
+      it "should not set a followup_bad_reason" do
+        request.is_followupable?(dummy_message)
+        expect(request.followup_bad_reason).to be_nil
+      end
+
+    end
+
+    context "an external request" do
+
+      let(:info_request) { InfoRequest.new(:external_url => "demo_url") }
+
+      it "returns false" do
+        expect(info_request.is_followupable?(message_without_reply_to)).
+          to eq(false)
+      end
+
+      it "sets followup_bad_reason to 'external'" do
+        info_request.is_followupable?(message_without_reply_to)
+        expect(info_request.followup_bad_reason).to eq("external")
+      end
+
+    end
+
+    context "belongs to an unfollowupable PublicBody" do
+
+      let(:request) do
+        FactoryGirl.create(:info_request, :public_body => unfollowupable_body)
+      end
+
+      it "returns false" do
+        expect(request.is_followupable?(message_without_reply_to)).to eq(false)
+      end
+
+      it "sets followup_bad_reason to the public body's not_requestable_reason" do
+        request.is_followupable?(message_without_reply_to)
+        expect(request.followup_bad_reason).
+          to eq(unfollowupable_body.not_requestable_reason)
+      end
+
     end
 
   end
@@ -1025,6 +1190,62 @@ describe InfoRequest do
 
   end
 
+  describe "#postal_email" do
+
+    let(:public_body) do
+      FactoryGirl.create(:public_body, :request_email => "test@localhost")
+    end
+
+    context "there is no list of incoming messages to followup" do
+
+      it "returns the public body's request_email" do
+        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        expect(request.postal_email).to eq("test@localhost")
+      end
+
+    end
+
+    context "there is a list of incoming messages to followup" do
+
+      it "returns the email address from the last message in the chain" do
+        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        incoming_message = FactoryGirl.create(:plain_incoming_message,
+                                              :info_request => request)
+        request.log_event("response", {:incoming_message_id => incoming_message.id})
+        expect(request.postal_email).to eq("bob@example.com")
+      end
+
+    end
+
+  end
+
+  describe "#postal_email_name" do
+
+    let(:public_body) { FactoryGirl.create(:public_body, :name => "Ministry of Test") }
+
+    context "there is no list of incoming messages to followup" do
+
+      it "returns the public body name" do
+        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        expect(request.postal_email_name).to eq("Ministry of Test")
+      end
+
+    end
+
+    context "there is a list of incoming messages to followup" do
+
+      it "returns the email name from the last message in the chain" do
+        request = FactoryGirl.create(:info_request, :public_body => public_body)
+        incoming_message = FactoryGirl.create(:plain_incoming_message,
+                                              :info_request => request)
+        request.log_event("response", {:incoming_message_id => incoming_message.id})
+        expect(request.postal_email_name).to eq("Bob Responder")
+      end
+
+    end
+
+  end
+
   describe "when calculating the status" do
 
     before do
@@ -1094,58 +1315,6 @@ describe InfoRequest do
       when_overdue = Time.utc(2007, 11, 10, 00, 01) + 16.days
       allow(Time).to receive(:now).and_return(when_overdue)
       expect(@ir.calculate_status).to eq('waiting_response_overdue')
-    end
-
-  end
-
-  describe "when calculating the status for a school" do
-
-    before do
-      @ir = info_requests(:naughty_chicken_request)
-      @ir.public_body.tag_string = "school"
-      expect(@ir.public_body.is_school?).to eq(true)
-    end
-
-    it "has expected sent date" do
-      expect(@ir.last_event_forming_initial_request.outgoing_message.last_sent_at.strftime("%F")).to eq('2007-10-14')
-    end
-
-    it "has correct due date" do
-      expect(@ir.date_response_required_by.strftime("%F")).to eq('2007-11-09')
-    end
-
-    it "has correct very overdue after date" do
-      expect(@ir.date_very_overdue_after.strftime("%F")).to eq('2008-01-11') # 60 working days for schools
-    end
-
-    it "isn't overdue on due date (20 working days after request sent)" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-      expect(@ir.calculate_status).to eq('waiting_response')
-    end
-
-    it "is overdue a day after due date (20 working days after request sent)" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
-    end
-
-    it "is still overdue 40 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 12, 10, 23, 59))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
-    end
-
-    it "is still overdue the day after 40 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
-    end
-
-    it "is still overdue 60 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2008, 01, 11, 23, 59))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
-    end
-
-    it "is very overdue the day after 60 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2008, 01, 12, 00, 01))
-      expect(@ir.calculate_status).to eq('waiting_response_very_overdue')
     end
 
   end
@@ -1291,7 +1460,7 @@ describe InfoRequest do
 
       def create_old_unclassified_holding_pen
         request = FactoryGirl.create(:info_request, :user => user,
-                                                    :url_title => 'holding_pen',
+                                                    :title => 'Holding pen',
                                                     :created_at => old_date)
         message = FactoryGirl.create(:incoming_message, :created_at => old_date,
                                                         :info_request => request)
@@ -1418,91 +1587,35 @@ describe InfoRequest do
 
   end
 
-  describe 'when applying censor rules' do
+  describe '#apply_censor_rules_to_text' do
 
-    before do
-      @global_rule = mock_model(CensorRule, :apply_to_text! => nil,
-                                :apply_to_binary! => nil)
-      @user_rule = mock_model(CensorRule, :apply_to_text! => nil,
-                              :apply_to_binary! => nil)
-      @request_rule = mock_model(CensorRule, :apply_to_text! => nil,
-                                 :apply_to_binary! => nil)
-      @body_rule = mock_model(CensorRule, :apply_to_text! => nil,
-                              :apply_to_binary! => nil)
-      @user = mock_model(User, :censor_rules => [@user_rule])
-      @body = mock_model(PublicBody, :censor_rules => [@body_rule])
-      @info_request = InfoRequest.new(:prominence => 'normal',
-                                      :awaiting_description => true,
-                                      :title => 'title')
-      allow(@info_request).to receive(:user).and_return(@user)
-      allow(@info_request).to receive(:censor_rules).and_return([@request_rule])
-      allow(@info_request).to receive(:public_body).and_return(@body)
-      @text = 'some text'
-      allow(CensorRule).to receive(:global).and_return(double('global context', :all => [@global_rule]))
+    it 'applies each censor rule to the text' do
+      rule_1 = FactoryGirl.build(:censor_rule, :text => '1')
+      rule_2 = FactoryGirl.build(:censor_rule, :text => '2')
+      info_request = FactoryGirl.build(:info_request)
+      allow(info_request).
+        to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
+
+      expected = '[REDACTED] 3 [REDACTED]'
+
+      expect(info_request.apply_censor_rules_to_text('1 3 2')).to eq(expected)
     end
 
-    context "when applying censor rules to text" do
+  end
 
-      it "applies a global censor rule" do
-        expect(@global_rule).to receive(:apply_to_text!).with(@text)
-        @info_request.apply_censor_rules_to_text!(@text)
-      end
+  describe '#apply_censor_rules_to_binary' do
 
-      it 'applies a user rule' do
-        expect(@user_rule).to receive(:apply_to_text!).with(@text)
-        @info_request.apply_censor_rules_to_text!(@text)
-      end
+    it 'applies each censor rule to the text' do
+      rule_1 = FactoryGirl.build(:censor_rule, :text => '1')
+      rule_2 = FactoryGirl.build(:censor_rule, :text => '2')
+      info_request = FactoryGirl.build(:info_request)
+      allow(info_request).
+        to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
 
-      it 'does not raise an error if there is no user' do
-        @info_request.user_id = nil
-        expect{ @info_request.apply_censor_rules_to_text!(@text) }.not_to raise_error
-      end
+      text = '1 3 2'
+      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
 
-      it 'applies a rule from the body associated with the request' do
-        expect(@body_rule).to receive(:apply_to_text!).with(@text)
-        @info_request.apply_censor_rules_to_text!(@text)
-      end
-
-      it 'applies a request rule' do
-        expect(@request_rule).to receive(:apply_to_text!).with(@text)
-        @info_request.apply_censor_rules_to_text!(@text)
-      end
-
-      it 'does not raise an error if the request is a batch request template' do
-        allow(@info_request).to receive(:public_body).and_return(nil)
-        @info_request.is_batch_request_template = true
-        expect{ @info_request.apply_censor_rules_to_text!(@text) }.not_to raise_error
-      end
-
-    end
-
-    context 'when applying censor rules to binary files' do
-
-      it "applies a global censor rule" do
-        expect(@global_rule).to receive(:apply_to_binary!).with(@text)
-        @info_request.apply_censor_rules_to_binary!(@text)
-      end
-
-      it 'applies a user rule' do
-        expect(@user_rule).to receive(:apply_to_binary!).with(@text)
-        @info_request.apply_censor_rules_to_binary!(@text)
-      end
-
-      it 'does not raise an error if there is no user' do
-        @info_request.user_id = nil
-        expect{ @info_request.apply_censor_rules_to_binary!(@text) }.not_to raise_error
-      end
-
-      it 'applies a rule from the body associated with the request' do
-        expect(@body_rule).to receive(:apply_to_binary!).with(@text)
-        @info_request.apply_censor_rules_to_binary!(@text)
-      end
-
-      it 'applies a request rule' do
-        expect(@request_rule).to receive(:apply_to_binary!).with(@text)
-        @info_request.apply_censor_rules_to_binary!(@text)
-      end
-
+      expect(info_request.apply_censor_rules_to_binary(text)).to eq('x 3 x')
     end
 
   end

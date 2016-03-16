@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd `dirname $0`
+bundle exec rake --silent reminder:public_holidays
+

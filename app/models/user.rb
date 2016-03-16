@@ -301,7 +301,9 @@ class User < ActiveRecord::Base
 
   # Can the user make new requests, without having to describe state of (most) existing ones?
   def can_leave_requests_undescribed?
-    # TODO: should be flag in database really
+    warn %q([DEPRECATION] User#can_leave_requests_undescribed? will be removed
+         in Alaveteli release 0.25).squish
+
     if url_name == "heather_brooke" || url_name == "heather_brooke_2"
       return true
     end

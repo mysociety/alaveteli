@@ -151,7 +151,8 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that they need to clarify their request
   def not_clarified_alert(info_request, incoming_message)
-    respond_url = show_response_url(:id => info_request.id, :incoming_message_id => incoming_message.id)
+    respond_url = new_request_incoming_followup_url(:request_id => info_request.id,
+                                                    :incoming_message_id => incoming_message.id)
     respond_url = respond_url + "#followup"
 
     post_redirect = PostRedirect.new(
@@ -242,24 +243,25 @@ class RequestMailer < ApplicationMailer
     info_requests = InfoRequest.find(:all,
                                      :conditions => [
                                        "described_state = 'waiting_response'
-                 AND awaiting_description = ?
-                 AND user_id is not null
-                 AND (SELECT id
-                      FROM user_info_request_sent_alerts
-                      WHERE alert_type = 'very_overdue_1'
-                      AND info_request_id = info_requests.id
-                      AND user_id = info_requests.user_id
-                      AND info_request_event_id = (SELECT max(id)
-                                                   FROM info_request_events
-                                                   WHERE event_type in ('sent',
-                                                                        'followup_sent',
-                                                                        'resent',
-                                                                        'followup_resent')
-                      AND info_request_id = info_requests.id)
-                      ) IS NULL", false
-    ],
-    :include => [ :user ]
-                                    )
+                AND awaiting_description = ?
+                AND user_id is not null
+                AND (SELECT id
+                  FROM user_info_request_sent_alerts
+                  WHERE alert_type = 'very_overdue_1'
+                  AND info_request_id = info_requests.id
+                  AND user_id = info_requests.user_id
+                  AND info_request_event_id = (SELECT max(id)
+                                               FROM info_request_events
+                                               WHERE event_type in ('sent',
+                                                                    'followup_sent',
+                                                                    'resent',
+                                                                    'followup_resent')
+                  AND info_request_id = info_requests.id)
+                ) IS NULL", false
+      ],
+      :include => [ :user ]
+    )
+
     for info_request in info_requests
       alert_event_id = info_request.last_event_forming_initial_request.id
       # Only overdue requests
@@ -274,14 +276,18 @@ class RequestMailer < ApplicationMailer
         end
 
         # For now, just to the user who created the request
-        sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ?
-                                                                               AND user_id = ?
-                                                                               AND info_request_id = ?
-                                                                               AND info_request_event_id = ?",
-                                                                                 alert_type,
-                                                                                 info_request.user_id,
-                                                                                 info_request.id,
-                                                                                 alert_event_id])
+        sent_already = UserInfoRequestSentAlert.
+                        find(:first,
+                             :conditions =>
+                                [ "alert_type = ? " \
+                                  "AND user_id = ? " \
+                                  "AND info_request_id = ? " \
+                                  "AND info_request_event_id = ?",
+                                  alert_type,
+                                  info_request.user_id,
+                                  info_request.id,
+                                  alert_event_id
+                                ])
         if sent_already.nil?
           # Alert not yet sent for this user, so send it
           store_sent = UserInfoRequestSentAlert.new
@@ -322,10 +328,22 @@ class RequestMailer < ApplicationMailer
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
       if alert_event_id.nil?
-        raise "internal error, no last response while making alert new response reminder, request id " + info_request.id.to_s
+        raise "internal error, no last response while making alert new " \
+                "response reminder, request id " + info_request.id.to_s
       end
       # To the user who created the request
-      sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?", type_code, info_request.user_id, info_request.id, alert_event_id])
+      sent_already = UserInfoRequestSentAlert.
+                      find(:first,
+                           :conditions => [
+                                            "alert_type = ? " \
+                                             "AND user_id = ? " \
+                                             "AND info_request_id = ? " \
+                                             "AND info_request_event_id = ?",
+                                             type_code,
+                                             info_request.user_id,
+                                             info_request.id,
+                                             alert_event_id
+                                          ])
       if sent_already.nil?
         # Alert not yet sent for this user
         store_sent = UserInfoRequestSentAlert.new
@@ -343,15 +361,37 @@ class RequestMailer < ApplicationMailer
   # Send email alerts for requests which need clarification. Goes out 3 days
   # after last update of event.
   def self.alert_not_clarified_request
-    info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and described_state = 'waiting_clarification' and info_requests.updated_at < ?", false, Time.now - 3.days ], :include => [ :user ], :order => "info_requests.id" )
+    info_requests = InfoRequest.
+                      find(:all,
+                           :conditions =>
+                            [
+                              "awaiting_description = ?
+                               AND described_state = 'waiting_clarification'
+                               AND info_requests.updated_at < ?",
+                              false,
+                              Time.now - 3.days
+                            ],
+                            :include => [ :user ], :order => "info_requests.id")
     for info_request in info_requests
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
       if alert_event_id.nil?
-        raise "internal error, no last response while making alert not clarified reminder, request id " + info_request.id.to_s
+        raise "internal error, no last response while making alert not " \
+                "clarified reminder, request id " + info_request.id.to_s
       end
       # To the user who created the request
-      sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'not_clarified_1' and user_id = ? and info_request_id = ? and info_request_event_id = ?", info_request.user_id, info_request.id, alert_event_id])
+      sent_already = UserInfoRequestSentAlert.
+                      find(:first,
+                           :conditions =>
+                            [
+                              "alert_type = 'not_clarified_1'
+                               AND user_id = ?
+                               AND info_request_id = ?
+                               AND info_request_event_id = ?",
+                              info_request.user_id,
+                              info_request.id,
+                              alert_event_id
+                            ])
       if sent_already.nil?
         # Alert not yet sent for this user
         store_sent = UserInfoRequestSentAlert.new
@@ -362,7 +402,10 @@ class RequestMailer < ApplicationMailer
         # Only send the alert if the user can act on it by making a followup
         # (otherwise they are banned, and there is no point sending it)
         if info_request.user.can_make_followup?
-          RequestMailer.not_clarified_alert(info_request, last_response_message).deliver
+          RequestMailer.not_clarified_alert(
+            info_request,
+            last_response_message
+          ).deliver
         end
         store_sent.save!
       end
@@ -384,21 +427,28 @@ class RequestMailer < ApplicationMailer
     # That that patch has not been applied, despite bribes of beer, is
     # typical of the lack of quality of Rails.
 
-    info_requests = InfoRequest.find(:all,
-                                     :conditions => [
-                                       "info_requests.id in (
-                    select info_request_id
-                    from info_request_events
-                    where event_type = 'comment'
-                    and created_at > (now() - '1 month'::interval)
-                )"
-    ],
-    :include => [ { :info_request_events => :user_info_request_sent_alerts } ],
-    :order => "info_requests.id, info_request_events.created_at"
-                                    )
-    for info_request in info_requests
+    info_requests = InfoRequest.
+                      find(
+                        :all,
+                        :conditions =>
+                          [
+                            "info_requests.id in (
+                              select info_request_id
+                              from info_request_events
+                              where event_type = 'comment'
+                              and created_at > (now() - '1 month'::interval)
+                            )"
+                          ],
+                        :include =>
+                          [{
+                            :info_request_events => :user_info_request_sent_alerts
+                          }],
+                        :order => "info_requests.id, info_request_events.created_at"
+                      )
 
+    for info_request in info_requests
       next if info_request.is_external?
+
       # Count number of new comments to alert on
       earliest_unalerted_comment_event = nil
       last_comment_event = nil
@@ -426,9 +476,16 @@ class RequestMailer < ApplicationMailer
         store_sent.alert_type = 'comment_1'
         store_sent.info_request_event_id = last_comment_event.id
         if count > 1
-          RequestMailer.comment_on_alert_plural(info_request, count, earliest_unalerted_comment_event.comment).deliver
+          RequestMailer.comment_on_alert_plural(
+            info_request,
+            count,
+            earliest_unalerted_comment_event.comment
+          ).deliver
         elsif count == 1
-          RequestMailer.comment_on_alert(info_request, last_comment_event.comment).deliver
+          RequestMailer.comment_on_alert(
+            info_request,
+            last_comment_event.comment
+          ).deliver
         else
           raise "internal error"
         end

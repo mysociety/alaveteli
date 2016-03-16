@@ -36,9 +36,11 @@ MAILTO=!!(*= $mailto *)!!
 43 2 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/request-creation-graph
 48 2 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/user-use-graph
 
-# Once a year :)
-0 0 1 11 * !!(*= $user *)!! /bin/echo "A year has passed, please update the public holidays for the Freedom of Information site, thank you."
+# Once a week (very early Monday morning)
+54 2 * * 1 !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/cleanup-holding-pen
 
+# Once a year :)
+0 0 1 11 * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-public-holiday-reminder
 
 
 

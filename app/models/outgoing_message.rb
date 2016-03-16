@@ -31,6 +31,8 @@ class OutgoingMessage < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  WHAT_DOING_VALUES = %w(normal_sort internal_review new_information)
+
   # To override the default letter
   attr_accessor :default_letter
 
@@ -66,73 +68,24 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def self.placeholder_salutation
-    _("Dear [Authority name],")
+    warn %q([DEPRECATION] OutgoingMessage.placeholder_salutation will be
+            replaced with
+            OutgoingMessage::Template::BatchRequest.placeholder_salutation as of
+            0.25).squish
+    Template::BatchRequest.placeholder_salutation
   end
 
-  def self.fill_in_salutation(body, public_body)
-    body.gsub(placeholder_salutation, default_salutation(public_body))
-  end
-
-  # How the default letter starts and ends
-  def get_salutation
-    if info_request.is_batch_request_template?
-      return OutgoingMessage.placeholder_salutation
-    end
-
-    ret = ""
-    if message_type == 'followup' &&
-        !incoming_message_followup.nil? &&
-        !incoming_message_followup.safe_mail_from.nil? &&
-        incoming_message_followup.valid_to_reply_to?
-
-      ret += OutgoingMailer.name_for_followup(info_request, incoming_message_followup)
-    else
-      return OutgoingMessage.default_salutation(info_request.public_body)
-    end
-    salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
-  end
-
-  def get_signoff
-    if message_type == 'followup' &&
-        !incoming_message_followup.nil? &&
-        !incoming_message_followup.safe_mail_from.nil? &&
-        incoming_message_followup.valid_to_reply_to?
-
-      _("Yours sincerely,")
-    else
-      _("Yours faithfully,")
-    end
+  def self.fill_in_salutation(text, public_body)
+    text.gsub(Template::BatchRequest.placeholder_salutation,
+              default_salutation(public_body))
   end
 
   def get_internal_review_insert_here_note
     _("GIVE DETAILS ABOUT YOUR COMPLAINT HERE")
   end
 
-  def get_default_letter
-    return default_letter if default_letter
-
-    if what_doing == 'internal_review'
-      letter = _("Please pass this on to the person who conducts Freedom of Information reviews.")
-      letter += "\n\n"
-      letter += _("I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'.",
-                  :public_body_name => info_request.public_body.name,
-                  :info_request_title => info_request.title)
-      letter += "\n\n\n\n [ #{ get_internal_review_insert_here_note } ] \n\n\n\n"
-      letter += _("A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}",
-                  :url => request_url(info_request))
-      letter += "\n"
-    else
-      ""
-    end
-  end
-
   def get_default_message
-    msg = get_salutation
-    msg += "\n\n"
-    msg += get_default_letter
-    msg += "\n\n"
-    msg += get_signoff
-    msg += "\n\n"
+    letter_template.body(default_message_replacements)
   end
 
   def set_signature_name(name)
@@ -208,6 +161,47 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  # Public: Return logged Message-ID attributes for this OutgoingMessage.
+  # Note that these are not the MTA ID: https://en.wikipedia.org/wiki/Message-ID
+  #
+  # Returns an Array
+  def smtp_message_ids
+    info_request_events.
+      order('created_at ASC').
+        map { |event| event.params[:smtp_message_id] }.
+          compact
+  end
+
+  # Public: Return logged MTA IDs for this OutgoingMessage.
+  # Currently only implemented for exim.
+  #
+  # Returns an Array
+  def mta_ids
+    case AlaveteliConfiguration.mta_log_type.to_sym
+    when :exim
+      exim_mta_ids
+    when :postfix
+      []
+    else
+      raise 'Unexpected MTA type'
+    end
+  end
+
+  # Public: Return the MTA logs for this message.
+  # Currently only implemented for exim.
+  #
+  # Returns an Array.
+  def mail_server_logs
+    case AlaveteliConfiguration.mta_log_type.to_sym
+    when :exim
+      exim_mail_server_logs
+    when :postfix
+      []
+    else
+      raise 'Unexpected MTA type'
+    end
+  end
+
   # An admin function
   def prepare_message_for_resend
     if ['initial_request', 'followup'].include?(message_type) and status == 'sent'
@@ -255,25 +249,16 @@ class OutgoingMessage < ActiveRecord::Base
   def get_body_for_html_display
     text = body.strip
     self.remove_privacy_sensitive_things!(text)
-    # reparagraph and wrap it so is good preview of emails
-    text = MySociety::Format.wrap_email_body_by_lines(text)
     text = CGI.escapeHTML(text)
     text = MySociety::Format.make_clickable(text, :contract => 1)
     text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
-    text = text.gsub(/\n/, '<br>')
+    text = ActionController::Base.helpers.simple_format(text)
     text.html_safe
   end
 
   # Return body for display as text
   def get_body_for_text_display
     get_text_for_indexing(strip_salutation=false)
-  end
-
-
-  def fully_destroy
-    warn %q([DEPRECATION] OutgoingMessage#fully_destroy will be replaced with
-      OutgoingMessage#destroy as of 0.24).squish
-    destroy
   end
 
   def purge_in_cache
@@ -285,6 +270,56 @@ class OutgoingMessage < ActiveRecord::Base
       info_request_events.each do |event|
         event.xapian_mark_needs_index
       end
+    end
+  end
+
+  # How the default letter starts and ends
+  def get_salutation
+    warn %q([DEPRECATION] OutgoingMessage#get_salutation will be replaced with
+            OutgoingMessage::Template classes in 0.25).squish
+
+    if info_request.is_batch_request_template?
+      return OutgoingMessage.placeholder_salutation
+    end
+
+    ret = ""
+    if replying_to_incoming_message?
+      ret += OutgoingMailer.name_for_followup(info_request, incoming_message_followup)
+    else
+      return OutgoingMessage.default_salutation(info_request.public_body)
+    end
+    salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
+  end
+
+  def get_signoff
+    warn %q([DEPRECATION] OutgoingMessage#get_signoff will be replaced with
+            OutgoingMessage::Template classes in 0.25).squish
+    
+    if replying_to_incoming_message?
+      _("Yours sincerely,")
+    else
+      _("Yours faithfully,")
+    end
+  end
+
+  def get_default_letter
+    warn %q([DEPRECATION] OutgoingMessage#get_default_letter will be replaced
+            with OutgoingMessage::Template classes in 0.25).squish
+    
+    return default_letter if default_letter
+
+    if what_doing == 'internal_review'
+      letter = _("Please pass this on to the person who conducts Freedom of Information reviews.")
+      letter += "\n\n"
+      letter += _("I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'.",
+                  :public_body_name => info_request.public_body.name,
+                  :info_request_title => info_request.title)
+      letter += "\n\n\n\n [ #{ get_internal_review_insert_here_note } ] \n\n\n\n"
+      letter += _("A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}",
+                  :url => request_url(info_request))
+      letter += "\n"
+    else
+      ""
     end
   end
 
@@ -307,8 +342,49 @@ class OutgoingMessage < ActiveRecord::Base
     self.body = get_default_message if raw_body.nil?
   end
 
+  def letter_template
+    @letter_template ||=
+      if what_doing == 'internal_review'
+        Template::InternalReview.new
+      elsif info_request.is_batch_request_template?
+        Template::BatchRequest.new
+      elsif replying_to_incoming_message?
+        Template::IncomingMessageFollowup.new
+      else
+        Template::InitialRequest.new
+      end
+  end
+
+  def default_message_replacements
+    opts = {}
+
+    if info_request
+      opts[:url] = request_url(info_request) if info_request.url_title
+      opts[:info_request_title] = info_request.title if info_request.title
+    end
+
+    opts[:public_body_name] =
+      if replying_to_incoming_message?
+        OutgoingMailer.
+          name_for_followup(info_request, incoming_message_followup)
+      else
+        info_request.try(:public_body).try(:name)
+      end
+
+    opts[:letter] = default_letter if default_letter
+
+    opts
+  end
+
+  def replying_to_incoming_message?
+    message_type == 'followup' &&
+      incoming_message_followup &&
+        incoming_message_followup.safe_mail_from &&
+          incoming_message_followup.valid_to_reply_to?
+  end
+
   def format_of_body
-    if body.empty? || body =~ /\A#{Regexp.escape(get_salutation)}\s+#{Regexp.escape(get_signoff)}/ || body =~ /#{Regexp.escape(get_internal_review_insert_here_note)}/
+    if body.empty? || body =~ /\A#{Regexp.escape(letter_template.salutation(default_message_replacements))}\s+#{Regexp.escape(letter_template.signoff(default_message_replacements))}/ || body =~ /#{Regexp.escape(Template::InternalReview.details_placeholder)}/
       if message_type == 'followup'
         if what_doing == 'internal_review'
           errors.add(:body, _("Please give details explaining why you want a review"))
@@ -322,16 +398,37 @@ class OutgoingMessage < ActiveRecord::Base
       end
     end
 
-    if body =~ /#{get_signoff}\s*\Z/m
-      errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => get_signoff))
+    if body =~ /#{letter_template.signoff(default_message_replacements)}\s*\Z/m
+      errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => letter_template.signoff(default_message_replacements)))
     end
 
     unless MySociety::Validate.uses_mixed_capitals(body)
       errors.add(:body, _('Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.'))
     end
 
-    if what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(what_doing)
+    if what_doing.nil? || !WHAT_DOING_VALUES.include?(what_doing)
       errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
+    end
+  end
+
+  def exim_mta_ids
+    lines = smtp_message_ids.map do |smtp_message_id|
+      info_request.
+        mail_server_logs.
+          where("line ILIKE :q", q: "%#{ smtp_message_id }%").
+            where("line ILIKE :marker", marker: "%<=%").
+              last.
+                try(:line)
+    end
+
+    lines.compact.map { |line| line.split(' ').fourth.strip }
+  end
+
+  def exim_mail_server_logs
+    mta_ids.flat_map do |mta_id|
+      info_request.
+        mail_server_logs.
+          where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
     end
   end
 

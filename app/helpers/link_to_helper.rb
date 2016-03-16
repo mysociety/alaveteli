@@ -56,9 +56,9 @@ module LinkToHelper
   def respond_to_last_url(info_request, options = {})
     last_response = info_request.get_last_public_response
     if last_response.nil?
-      show_response_no_followup_url(options.merge(:id => info_request.id))
+      new_request_followup_url(options.merge(:request_id => info_request.id))
     else
-      show_response_url(options.merge(:id => info_request.id, :incoming_message_id => last_response.id))
+      new_request_incoming_followup_url(options.merge(:request_id => info_request.id, :incoming_message_id => last_response.id))
     end
   end
 
@@ -252,15 +252,6 @@ module LinkToHelper
     else
       return help_unhappy_url(:url_title => info_request.url_title)
     end
-  end
-
-  #I18n locale switcher
-
-  def locale_switcher(locale, params)
-    warn %q([DEPRECATION] locale_switcher will be removed in Alaveteli
-           release 0.24).squish
-    params['locale'] = locale
-    return url_for(params)
   end
 
   private

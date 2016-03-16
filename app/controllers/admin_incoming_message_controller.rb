@@ -31,9 +31,42 @@ class AdminIncomingMessageController < AdminController
                                              { :editor => admin_current_user,
                                               :deleted_incoming_message_id => @incoming_message.id })
     # expire cached files
-    @incoming_message.info_request.expire
+    @incoming_message.info_request.expire(:preserve_database_cache => true)
     flash[:notice] = 'Incoming message successfully destroyed.'
     redirect_to admin_request_url(@incoming_message.info_request)
+  end
+
+  def bulk_destroy
+    if params[:commit] == "No"
+      redirect_to(admin_request_url(params[:request_id]))
+    end
+
+    @incoming_messages = IncomingMessage.where(:id => params[:ids].split(","))
+    if params[:commit] == "Yes"
+      errors = []
+      info_request = InfoRequest.find(params[:request_id])
+      @incoming_messages.each do |message|
+        begin
+          message.destroy
+          info_request.log_event("destroy_incoming",
+                                 { :editor => admin_current_user,
+                                   :deleted_incoming_message_id => message.id })
+        rescue
+          errors << message.id
+        end
+      end
+      info_request.expire(:preserve_database_cache => true)
+      if errors.empty?
+        flash[:notice] = "Incoming messages successfully destroyed."
+      else
+        flash[:error] = <<-EOF.strip_heredoc
+          Only some incoming messages were destroyed.
+          Incoming Messages #{ errors.join(', ') } could not be destroyed.
+          Try destroying them individually.
+        EOF
+      end
+      redirect_to(admin_request_url(params[:request_id]))
+    end
   end
 
   def redeliver
