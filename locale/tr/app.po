@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-07 15:38+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2016-03-11 15:55+0000\n"
+"Last-Translator: Baris Altintas <info@platform24.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -396,7 +396,7 @@ msgid "Applies to"
 msgstr "Aşağıdakine uygulanabilir"
 
 msgid "Are we missing a public authority?"
-msgstr "Veritabanımızda eksik bir kamu kurumu mu var?"
+msgstr "Aradığım kurumu bulamıyorum"
 
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "İki aşamalı doğrulamayı devreden çıkarmak istediğinize emin misiniz?"
@@ -462,7 +462,7 @@ msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Toplu istek  {{date}} tarihinde {{info_request_user}} tarafından oluşturuldu"
 
 msgid "Beginning with"
-msgstr "Şu kurumdan başlayarak"
+msgstr "Aramak istediğiniz kurumun baş harfini tıklayınız"
 
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
 msgstr " <a href=\"{{requests_url}}\">{{number_of_requests}} Başvuruyu </a> ve <a href=\"{{authorities_url}}\">{{number_of_authorities}} kurumu</a> görün"
@@ -483,7 +483,7 @@ msgid "Browse and search requests"
 msgstr "Başvurulara bak ve başvurularda ara"
 
 msgid "Browse requests"
-msgstr "Başvuruları gezin"
+msgstr "Başvuruları inceleyin"
 
 msgid "By law, they have to respond."
 msgstr "Yasaya göre cevap vermek zorundalar. "
@@ -980,7 +980,7 @@ msgstr "Şifrenizi mi unuttunuz?"
 msgid "Found {{count}} public authority {{description}}"
 msgid_plural "Found {{count}} public authorities {{description}}"
 msgstr[0] "{{count}} kamu kuruluşu bulundu {{description}}"
-msgstr[1] "{{count}} kamu kuruluşu bulundu {{description}}"
+msgstr[1] "{{count}} kurum bulundu {{description}}"
 
 msgid "Freedom of Information"
 msgstr "Bilgi Edinme Hakkı"
@@ -1100,7 +1100,7 @@ msgid "Home page of authority"
 msgstr "Kurumun ana sayfası"
 
 msgid "How it works"
-msgstr "Nasıl çalışır"
+msgstr "Bilgi edinmek için izlemeniz gereken adımlar"
 
 msgid "However, you have the right to request environmental information under a different law"
 msgstr "Ancak çevre ile ilgili bilgi edinmek için farklı bir yasa çerçevesinde başvuru yapma hakkına sahipsiniz"
@@ -1429,7 +1429,7 @@ msgid "Link to this"
 msgstr "Buna bağlantı ver"
 
 msgid "List of all authorities (CSV)"
-msgstr "Tüm kurumların listesi (CSV dosyası)"
+msgstr "Tüm kurumların listesi "
 
 msgid "Listing FOI requests"
 msgstr "Bilgi Edinme Başvuruları listeleniyor"
@@ -1507,7 +1507,7 @@ msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "'{{public_body_name}}' adlı kuruma bir  {{law_used_short}} başvurusu  yapın"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
-msgstr "Bilgi Edinme Başvurusu yapın ve yapılmış başvuruları gezin"
+msgstr "Bilgi Edinme Başvurusu yapın ve yapılmış olan başvuruları inceleyin"
 
 msgid "Many requests"
 msgstr "Çok sayıda başvuru"
@@ -1678,7 +1678,7 @@ msgid "One person found"
 msgstr "Bir kişi bulundu"
 
 msgid "One public authority found"
-msgstr "Bir kamu kuruluşu bulundu"
+msgstr "Bir kurum bulundu"
 
 msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
 msgstr "Sadece gerçekten kullanılan kısaltmaları ekleyin, bunun dışındaki durumlarda kısaltma alanını boş bırakın. Sayfanın adresi olan URL bağalntısında kısaltma veya kurumun uzun adı kullanılıyor olabilir. URL'nin bozulması konusunda endişelenmeyin çünkü geçmişte kullanılan adrese göre yeniden yönlendirme yapılıyor "
@@ -2411,7 +2411,7 @@ msgid "Show most relevant results first"
 msgstr "En ilgili sonuçları önce göster"
 
 msgid "Show only..."
-msgstr "Sadece şunları göster.."
+msgstr "Alfabetik sıraya göre kurumlar"
 
 msgid "Showing"
 msgstr "Gösteriliyor"
@@ -3215,7 +3215,7 @@ msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Li
 msgstr "Aradığınız kelimeleri aynen içeren bir arama yapmak için tırnak işareti kullanın. Ör:<strong><code>\"Beylikdüzü Belediye Meclisi\"</code></strong>"
 
 msgid "Use this site to make your request for information – we'll show you how."
-msgstr "Bilgi edinme başvurunuzu yapmak için bu siteyi kullanın - nasıl yapacağınızı göstereceğiz. "
+msgstr "Bu site aracılığıyla bilgi edinme hakkından faydalanmak için önce üye olunuz.  "
 
 msgid "User"
 msgstr "Kullanıcı"
@@ -3317,7 +3317,7 @@ msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr " {{user_name}} tarafından yapılmış Bilgi Edinme Başvurularına bakın:"
 
 msgid "View authorities"
-msgstr "Kurum ve kuruluşları görün"
+msgstr "Bilgi isteyebileceğiniz kurumlar"
 
 msgid "View email"
 msgstr "Emaili görün"
@@ -3365,7 +3365,7 @@ msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to
 msgstr "Sorunuzun cevaplanması için deneyebileceğiniz diğer yöntemler hakkında başka <a href=\"{{other_means_url}}\">önerilerimiz </a> de var."
 
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
-msgstr "Her şeyi siteye ekliyoruz. İyi haber! Şimdi cevabı aldığınıza göre, herkesin bu bilgiye erişim olanağı oldu. "
+msgstr "Sorunuz ve kurumdan gelen cevap sitemizde yayınlanacaktır. "
 
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr "Email adresinizi <a href=\"{{url}}\"> sizin istediğiniz ya da kanunun emrettiği durumlar dışında</a> kimseyle paylaşmayacağız. "
@@ -3377,7 +3377,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Email adresinizi sizin istediğiniz ya da kanunun emrettiği durumlar dışında kimseyle paylaşmayacağız. "
 
 msgid "We'll drop you an email as soon as your request gets a response."
-msgstr "Başvurunuza bir cevap gelir gelmez sizi emaille haberdar edeceğiz. "
+msgstr "Bilgi istediğiniz kurumu listeden seçiniz. Karşınıza gelen formu doldurunuz. "
 
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
 msgstr "İstediğiniz bilgiyi tamamıyla elde edebilmiş olmanıza memnun olduk. Bu bilgiyi kullanarak bir şeyler yazarsanız veya başka bir şekilde değerlendirirseniz, siteye tekrar uğrayıp aldığınız bilgiyle ne yaptığınızı paylaşan bir açıklama notu eklerseniz çok seviniriz."
@@ -3585,7 +3585,7 @@ msgid "You have now changed your email address used on {{site_name}}"
 msgstr "{{site_name}} sitesinde kullandığınız email adresini değiştirdiniz"
 
 msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
-msgstr "Kamu kaynaklarıyla işleyen her kurum ve kuruluştan bilgi isteme ve cevap alma <strong>hakkına</strong> sahipsiniz. {{site_name}}, Bilgi Edinme Başvurusu yapmanıza yardımcı olur. Ayrıca yapılan tüm başvuruları sitede yayınlar. "
+msgstr "Kamu kaynaklarıyla işleyen her kurum ve kuruluştan bilgi isteme ve cevap alma <strong>hakkına</strong> sahipsiniz. Bu site üzerinden yapacağınız Bilgi Edinme Başvurusu ilgili kuruma hızla intikal ettirilecek, sorunuz ve verilen cevap herkese açık kolarak yayınlanacaktır. Bilgi edinmek için şu adımları takip ediniz."
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr "Zaten bir {{site_name}} hesabınız varken, yeni\\n bir hesap oluşturmaya çalıştınız. Kullanıcı adınız ve şifreniz eskisi gibi duruyor.\\n\\nLütfen aşağıdaki bağlantıyı tıklayın. "
@@ -4057,7 +4057,7 @@ msgid "what's that?"
 msgstr "Bu nedir?"
 
 msgid "{{count}} FOI requests found"
-msgstr "{{count}} sayıda bilgi edinme başvurusu bulundu"
+msgstr "{{count}} adet bilgi edinme başvurusu bulundu"
 
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
