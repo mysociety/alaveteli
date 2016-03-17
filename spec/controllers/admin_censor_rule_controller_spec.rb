@@ -7,7 +7,7 @@ describe AdminCensorRuleController do
   describe 'GET index' do
 
     before do
-      3.times { FactoryGirl.create(:global_censor_rule) }
+      @global_rules = 3.times.map { FactoryGirl.create(:global_censor_rule) }
       get :index
     end
 
@@ -15,8 +15,11 @@ describe AdminCensorRuleController do
       expect(response).to be_success
     end
 
-    it 'collects all censor rules' do
-      expect(assigns[:censor_rules]).to eq(CensorRule.all)
+    it 'collects admin censor rules' do
+      FactoryGirl.create(:info_request_censor_rule)
+      FactoryGirl.create(:public_body_censor_rule)
+      FactoryGirl.create(:user_censor_rule)
+      expect(assigns[:censor_rules]).to match_array(@global_rules)
     end
 
     it 'renders the correct template' do

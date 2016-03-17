@@ -131,6 +131,12 @@ body.admin {
     }
   }
 
+  /* Censor Rules */
+  .censor-rule-list td.text,
+  .censor-rule-list td.replacement {
+    max-width: 380px;
+  }
+
   /* Holidays */
   .day_select {
     width: 75px;
