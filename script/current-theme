@@ -1,0 +1,50 @@
+#!/bin/bash
+set -e
+
+function usage {
+  cat <<EOF
+Usage: $( basename $0 )
+
+OPTIONS
+  -h display this help message
+  -v print the full path to the theme
+EOF
+}
+
+function alaveteli_dir {
+  echo "$(dirname "{BASH_SOURCE[0]}")"
+}
+
+function main {
+  echo $(basename $(verbose))
+}
+
+function verbose {
+  echo $(readlink $(alaveteli_dir)/public/alavetelitheme | sed 's/\/public//')
+}
+
+while getopts "hv" opt; do
+  case $opt in
+    h)
+      usage
+      exit 0
+      ;;
+    v)
+      verbose
+      exit 0
+      ;;
+    \:)
+      echo "Option -$OPTARG requires an argument" >&2
+      echo ""
+      exit 1
+      ;;
+    \?)
+      echo "Invalid option -$OPTARG" >&2
+      echo ""
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+main
