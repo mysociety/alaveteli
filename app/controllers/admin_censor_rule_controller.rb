@@ -12,7 +12,7 @@ class AdminCensorRuleController < AdminController
   before_filter :set_subject_and_censor_rule_and_form_url, :only => [:new, :create]
 
   def index
-    @censor_rules = CensorRule.all
+    @censor_rules = CensorRule.global
   end
 
   def new
