@@ -1,6 +1,6 @@
 <div class="row">
   <% if censor_rules.size > 0 %>
-    <table class="table table-condensed table-hover span12">
+    <table class="table table-condensed table-hover span12 censor-rule-list">
       <tr>
         <th>Id</th>
         <% CensorRule.content_columns.each do |column| %>
@@ -11,9 +11,9 @@
 
       <% censor_rules.each do |censor_rule| %>
         <tr class="<%= cycle('odd', 'even') %>">
-          <td><%=h censor_rule.id %></td>
+          <td class="id"><%=h censor_rule.id %></td>
           <% CensorRule.content_columns.map { |c| c.name }.each do |column| %>
-            <td><%=h censor_rule.send(column) %></td>
+            <td class="<%= column %>"><%=h censor_rule.send(column) %></td>
           <% end %>
           <td>
             <%= link_to "Edit", edit_admin_censor_rule_path(censor_rule) %>
