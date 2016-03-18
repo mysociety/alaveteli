@@ -12,7 +12,7 @@ describe InfoRequest::ResponseRejection::Bounce do
 
     it 'does nothing and returns true if the mail has no From address' do
       raw_email = <<-EOF.strip_heredoc
-      To: FOI Person <authority@example.com>
+      To: Requester <request-333-xxx@example.com>
       Subject: No From header
       Hello, World
       EOF
@@ -26,7 +26,7 @@ describe InfoRequest::ResponseRejection::Bounce do
       info_request = object_double(InfoRequest.new, :is_external? => true)
       raw_email = <<-EOF.strip_heredoc
       From: sender@example.com
-      To: FOI Person <authority@example.com>
+      To: Requester <request-333-xxx@example.com>
       Subject: External
       Hello, World
       EOF
@@ -40,7 +40,7 @@ describe InfoRequest::ResponseRejection::Bounce do
       info_request = FactoryGirl.create(:info_request)
       raw_email = <<-EOF.strip_heredoc
       From: sender@example.com
-      To: FOI Person <authority@example.com>
+      To: Requester <request-333-xxx@example.com>
       Subject: External
       Hello, World
       EOF
