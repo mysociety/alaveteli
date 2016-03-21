@@ -118,6 +118,12 @@ describe AlaveteliTextMasker do
         expect(result).not_to eq("")
       end
 
+      it 'returns the uncensored original if there is nothing to censor' do
+        pdf = load_file_fixture('interesting.pdf')
+        result = class_instance.apply_masks(pdf, "application/pdf")
+        expect(result).to eq(pdf)
+      end
+
       it 'keeps the uncensored original if uncompression of a PDF fails' do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
