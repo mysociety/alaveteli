@@ -144,6 +144,8 @@ module AlaveteliTextMasker
         else
           recompressed_text
         end
+      else
+        text
       end
     end
   end
