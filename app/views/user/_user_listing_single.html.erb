@@ -21,12 +21,13 @@
            '{{count}} requests made.',
            request_count,
            :count => request_count) %>
-
-    <% annotation_count = display_user.comments.visible.size %>
-    <%= n_('{{count}} annotation made.',
-           '{{count}} annotations made.',
-           annotation_count,
-           :count => annotation_count) %>
+    <% if AlaveteliConfiguration::enable_annotations %>
+      <% annotation_count = display_user.comments.visible.size %>
+      <%= n_('{{count}} annotation made.',
+             '{{count}} annotations made.',
+             annotation_count,
+             :count => annotation_count) %>
+    <% end %>
 
     <%= _('Joined in {{year}}.', :year => display_user.created_at.year) %>
   </span>

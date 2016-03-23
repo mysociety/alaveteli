@@ -217,9 +217,12 @@
         missed one.
         For technical reasons we don't always remove them from attachments, such as certain PDFs.</p>
       <p>If you need to know what an address was that we've removed, please <a
-        href="<%= help_contact_path %>">get in touch with us</a>. Occasionally, an email address
-        forms an important part of a response and we will post it up in an obscured
-        form in an annotation.
+        href="<%= help_contact_path %>">get in touch with us</a>.
+        <% if AlaveteliConfiguration::enable_annotations %>
+          Occasionally, an email address forms an important part of a response
+          and we will post it up in an obscured form in an annotation.
+        <% end %>
+      </p>
     </dd>
 
     <dt id="copyright"><a id="commercial"></a>What is your policy on copyright of documents?<a href="#copyright">#</a> </dt>
