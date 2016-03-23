@@ -90,9 +90,12 @@
         run your campaign, we encourage you to use it to get the information you
         need. We also encourage to run your campaign elsewhere - one effective
         and very easy way is to <%= link_to 'start your own blog',
-          "http://wordpress.com/"%>. You are welcome to link to your campaign
+          "http://wordpress.com/"%>.
+        <% if AlaveteliConfiguration.enable_annotations %>
+          You are welcome to link to your campaign
           from this site in an annotation to your request (you can make
           annotations after submitting the request).
+        <% end %>
       </p>
 
     </dd>
@@ -273,16 +276,18 @@
       you can always make the same request again via WhatDoTheyKnow.
     </dd>
 
-    <dt id="moderation">How do you moderate request annotations? <a href="#moderation">#</a> </dt>
+    <% if AlaveteliConfiguration::enable_annotations %>
+      <dt id="moderation">How do you moderate request annotations? <a href="#moderation">#</a> </dt>
 
-    <dd>
-      <p>Annotations on WhatDoTheyKnow are to help
-        people get the information they want, or to give them pointers to places they
-        can go to help them act on it. We reserve the right to remove anything else.
-      </p>
-      <p>Endless, political discussions are not allowed.
-        Post a link to a suitable forum or campaign site elsewhere.</p>
       <dd>
+        <p>Annotations on WhatDoTheyKnow are to help
+          people get the information they want, or to give them pointers to places they
+          can go to help them act on it. We reserve the right to remove anything else.
+        </p>
+        <p>Endless, political discussions are not allowed.
+          Post a link to a suitable forum or campaign site elsewhere.</p>
+      <dd>
+    <% end %>
 
   </dl>
 
