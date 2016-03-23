@@ -129,7 +129,18 @@ class OutgoingMessage < ActiveRecord::Base
   #
   # Returns a String
   def subject
-    info_request.email_subject_request(:html => false)
+    if message_type == 'followup'
+      if what_doing == 'internal_review'
+        _("Internal review of {{email_subject}}",
+          :email_subject => info_request.email_subject_request(:html => false))
+      else
+        info_request.
+          email_subject_followup(:incoming_message => incoming_message_followup,
+                                 :html => false)
+      end
+    else
+      info_request.email_subject_request(:html => false)
+    end
   end
 
   # Public: The body text of the OutgoingMessage. The text is cleaned and
