@@ -124,14 +124,6 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/marsoum-41.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Marsoum 41</h3>
-                        <p class="deployment__country">Tunisia</p>
-                        <p class="deployment__link"><a href="http://www.marsoum41.org/en">http://www.marsoum41.org/en</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/nu-va-suparati.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Nu Vă Supărați</h3>
                         <p class="deployment__country">Romania</p>
