@@ -55,18 +55,6 @@ in any language, and within any legislation</p>
                   </div><!--
                   --><div class="deployments__unit--major">
                     <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/tu-derecho-a-saber.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Tu Derecho A Saber</h3>
-                        <p class="deployment__country">Spain</p>
-                        <p class="deployment__link"><a href="http://tuderechoasaber.es/ ">http://tuderechoasaber.es/ </a></p>
-                        <div class="deployment__description">
-                            <p>Tu Derecho A Saber was launched in 2012, before Spain had passed a Freedom of Information act, and against a background of political dissent.</p>
-                            <p>Spain now has its Right to Know, but Tu Derecho A Saber remains an example of how you can run a site based on Alaveteli, even if your jurisdiction has no such laws in place.</p>
-                        </div>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--major">
-                    <div class="deployment--major">
                         <img src="{{ site.baseurl }}assets/img/ask-the-eu.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Ask the EU</h3>
                         <p class="deployment__country">Europe</p>
