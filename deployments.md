@@ -101,6 +101,19 @@ in any language, and within any legislation</p>
                             <p> Now thanks to <a href="http://codeforcroatia.org">Code for Croatia</a>, an HrOpen expert group and <a href="http://gong.hr">GONG</a>, Croatians have an easier path to free public information from nearly 6,000 public authorities.</p>
                         </div>
                     </div>
+                </div><!--
+                 --><div class="deployments__unit--major">
+                    <div class="deployment--major">
+                        <img src="{{ site.baseurl }}assets/img/right-to-know-malaysia.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">RightToKnow</h3>
+                        <p class="deployment__country">Malaysia</p>
+                        <p class="deployment__link"><a href="http://foi.sinarproject.org">http://foi.sinarproject.org/</a></p>
+                        <div class="deployment__description">
+                            <p>Imamo pravo znati (We Have A Right To Know) represents the 20th installation of Alaveteli.</p>
+
+                            <p> Now thanks to <a href="http://codeforcroatia.org">Code for Croatia</a>, an HrOpen expert group and <a href="http://gong.hr">GONG</a>, Croatians have an easier path to free public information from nearly 6,000 public authorities.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -208,14 +221,6 @@ in any language, and within any legislation</p>
                         <h3 class="deployment__title">Mimes Brønn</h3>
                         <p class="deployment__country">Norway</p>
                         <p class="deployment__link"><a href="https://www.mimesbronn.no">https://www.mimesbronn.no/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/right-to-know-malaysia.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">RightToKnow</h3>
-                        <p class="deployment__country">Malaysia</p>
-                        <p class="deployment__link"><a href="http://foi.sinarproject.org">http://foi.sinarproject.org/</a></p>
                     </div>
                 </div><!--
                 --><div class="deployments__unit--minor">
