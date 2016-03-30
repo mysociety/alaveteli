@@ -119,6 +119,40 @@ describe IncomingMessage do
 
   end
 
+  describe '#sent_at' do
+
+    it 'uses the Date header if the mail has one' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Date: Fri, 9 Dec 2011 10:42:02 -0200
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.sent_at).
+        to eq(DateTime.parse('Fri, 9 Dec 2011 10:42:02 -0200').in_time_zone)
+    end
+
+    it 'uses the created_at attribute if there is no Date header' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.sent_at).to eq(message.created_at)
+    end
+
+  end
+
   describe '#apply_masks' do
 
     before(:each) do
@@ -442,12 +476,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
     message = ir.incoming_messages[1]
     expect(message.mail.parts.size).to eq(2)
     expect(message.mail.multipart?).to eq(true)
-  end
-
-  it "should return the mail Date header date for sent at" do
-    @im.parse_raw_email!(true)
-    @im.reload
-    expect(@im.sent_at).to eq(@im.mail.date)
   end
 
   it "should correctly fold various types of footer" do

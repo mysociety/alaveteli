@@ -161,6 +161,12 @@ class IncomingMessage < ActiveRecord::Base
     parse_raw_email!
     super
   end
+
+  # Public: The date and time the email was sent. Uses the Date header if
+  # present in the email, otherwise uses the record's created_at attribute.
+  # #sent_at overrides the ActiveRecord provided #sent_at
+  #
+  # Returns an ActiveSupport::TimeWithZone
   def sent_at
     parse_raw_email!
     super
