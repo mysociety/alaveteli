@@ -171,6 +171,20 @@ class IncomingMessage < ActiveRecord::Base
     super
   end
 
+  # Public: The display name of the email sender.
+  # #mail_from overrides the ActiveRecord provided #mail_from
+  #
+  # Examples:
+  #
+  #   # From: John Doe <john@example.com>
+  #   incoming_message.mail_from
+  #   # => 'John Doe'
+  #
+  #   # From: john@example.com
+  #   incoming_message.mail_from
+  #   # => nil
+  #
+  # Returns a String or nil
   def mail_from
     parse_raw_email!
     super

@@ -26,6 +26,54 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage do
 
+  describe '#mail_from' do
+
+    it 'returns the name in the From: field of an email' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from).to eq('FOI Person')
+    end
+
+    it 'returns nil if there is no name in the From: field of an email' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: authority@example.com
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from).to be_nil
+    end
+
+    it 'unquotes RFC 2047 headers' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: =?iso-8859-1?Q?Coordena=E7=E3o_de_Relacionamento=2C_Pesquisa_e_Informa=E7?=
+      	=?iso-8859-1?Q?=E3o/CEDI?= <geraldinequango@localhost>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from).
+        to eq('Coordenação de Relacionamento, Pesquisa e Informação/CEDI')
+    end
+
+  end
+
   describe '#apply_masks' do
 
     before(:each) do
@@ -386,7 +434,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    expect(message.mail_from).to eq("Coordenação de Relacionamento, Pesquisa e Informação/CEDI")
     expect(message.subject).to eq("Câmara Responde:  Banco de ideias")
   end
 
