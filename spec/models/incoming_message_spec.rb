@@ -101,6 +101,28 @@ describe IncomingMessage do
 
   end
 
+  describe '#safe_mail_from' do
+
+    it 'applies the info request censor rules to mail_from' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      FactoryGirl.create(:censor_rule,
+                         :text => 'Person',
+                         :info_request => message.info_request)
+
+      expect(message.safe_mail_from).to eq('FOI [REDACTED]')
+    end
+
+  end
+
   describe '#mail_from_domain' do
 
     it 'returns the domain part of the email address in the From header' do

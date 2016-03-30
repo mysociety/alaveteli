@@ -211,6 +211,20 @@ class IncomingMessage < ActiveRecord::Base
     super
   end
 
+  # Public: The display name of the email sender with the associated
+  # InfoRequest's censor rules applied.
+  #
+  # Example:
+  #
+  #   # Given a CensorRule that redacts the word 'Person':
+  #
+  #   incoming_message.mail_from
+  #   # => FOI Person
+  #
+  #   incoming_message.safe_mail_from
+  #   # => FOI [REDACTED]
+  #
+  # Returns a String
   def safe_mail_from
     if mail_from
       info_request.apply_censor_rules_to_text(mail_from)
