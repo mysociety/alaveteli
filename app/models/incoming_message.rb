@@ -150,9 +150,6 @@ class IncomingMessage < ActiveRecord::Base
   end
 
   # The cached fields mentioned in the previous comment
-  # TODO: there must be a nicer way to do this without all that
-  # repetition.  I tried overriding method_missing but got some
-  # unpredictable results.
 
   # Public: Can this message be replied to?
   # Caches the value set by _calculate_valid_to_reply_to in #parse_raw_email!
