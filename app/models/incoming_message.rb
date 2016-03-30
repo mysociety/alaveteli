@@ -166,6 +166,20 @@ class IncomingMessage < ActiveRecord::Base
     super
   end
 
+  # Public: The subject of an email.
+  # #subject overrides the ActiveRecord provided #subject
+  #
+  # Examples:
+  #
+  #   # Subject: A response to your FOI request
+  #   incoming_message.subject
+  #   # => 'A response to your FOI request'
+  #
+  #   # No subject header
+  #   incoming_message.subject
+  #   # => nil
+  #
+  # Returns a String or nil
   def subject
     parse_raw_email!
     super

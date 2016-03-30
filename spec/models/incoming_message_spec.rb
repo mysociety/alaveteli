@@ -74,6 +74,51 @@ describe IncomingMessage do
 
   end
 
+  describe '#subject' do
+
+    it 'returns the Subject: field of an email' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.subject).to eq('A response')
+    end
+
+    it 'returns nil if there is no Subject: field' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.subject).to be_nil
+    end
+
+    it 'unquotes RFC 2047 headers' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: =?iso-8859-1?Q?C=E2mara_Responde=3A__Banco_de_ideias?=
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.subject).to eq('Câmara Responde:  Banco de ideias')
+    end
+
+  end
+
   describe '#apply_masks' do
 
     before(:each) do
@@ -428,13 +473,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
     message.parse_raw_email!
     expect(message.get_main_body_text_part.charset).to eq("iso-8859-1")
     expect(message.get_main_body_text_internal).to include("política")
-  end
-
-  it "should unquote RFC 2047 headers" do
-    ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
-    message = ir.incoming_messages[1]
-    expect(message.subject).to eq("Câmara Responde:  Banco de ideias")
   end
 
   it 'should deal with GB18030 text even if the charset is missing' do
