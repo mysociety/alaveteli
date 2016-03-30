@@ -101,6 +101,37 @@ describe IncomingMessage do
 
   end
 
+  describe '#mail_from_domain' do
+
+    it 'returns the domain part of the email address in the From header' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@mail.example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from_domain).to eq('mail.example.com')
+    end
+
+    it 'returns an empty string if there is no From header' do
+      raw_email_data = <<-EOF.strip_heredoc
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from_domain).to eq('')
+    end
+
+  end
+
   describe '#subject' do
 
     it 'returns the Subject: field of an email' do
