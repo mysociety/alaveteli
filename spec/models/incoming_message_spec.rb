@@ -26,6 +26,33 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage do
 
+  describe '#valid_to_reply_to' do
+
+    it 'is true if _calculate_valid_to_reply_to is true' do
+      message = FactoryGirl.create(:incoming_message)
+      allow(message).to receive(:_calculate_valid_to_reply_to).and_return(true)
+      message.parse_raw_email!(true)
+      expect(message.valid_to_reply_to).to eq(true)
+    end
+
+    it 'is false if _calculate_valid_to_reply_to is false' do
+      message = FactoryGirl.create(:incoming_message)
+      allow(message).to receive(:_calculate_valid_to_reply_to).and_return(false)
+      message.parse_raw_email!(true)
+      expect(message.valid_to_reply_to).to eq(false)
+    end
+
+  end
+
+  describe '#valid_to_reply_to?' do
+
+    it 'returns the value of #valid_to_reply_to' do
+      message = FactoryGirl.create(:incoming_message)
+      expect(message.valid_to_reply_to?).to eq(message.valid_to_reply_to)
+    end
+
+  end
+
   describe '#mail_from' do
 
     it 'returns the name in the From: field of an email' do

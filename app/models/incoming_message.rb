@@ -149,18 +149,22 @@ class IncomingMessage < ActiveRecord::Base
     raw_email.destroy_file_representation!
   end
 
-  def valid_to_reply_to?
-    return self.valid_to_reply_to
-  end
-
   # The cached fields mentioned in the previous comment
   # TODO: there must be a nicer way to do this without all that
   # repetition.  I tried overriding method_missing but got some
   # unpredictable results.
+
+  # Public: Can this message be replied to?
+  # Caches the value set by _calculate_valid_to_reply_to in #parse_raw_email!
+  # #valid_to_reply_to overrides the ActiveRecord provided #valid_to_reply_to
+  #
+  # Returns a Boolean
   def valid_to_reply_to
     parse_raw_email!
     super
   end
+
+  alias_method :valid_to_reply_to?, :valid_to_reply_to
 
   # Public: The date and time the email was sent. Uses the Date header if
   # present in the email, otherwise uses the record's created_at attribute.
