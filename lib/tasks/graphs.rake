@@ -103,15 +103,19 @@ namespace :graphs do
 
         plot_datasets(graph_param_sets, plot.data)
 
-        # plot cumulative user totals
-        options.merge!({
-          :title => "cumulative total number of users",
-          :axes => "x1y2",
-          :with => "lines",
-          :linewidth => 1,
-          :linecolor => COLOURS[:lightgreen],
-          :using => "1:3"})
-        plot_data_from_columns(all_users, options, plot.data)
+        # skip this if there is just a single datapoint
+        # (counts the number of values in the first column)
+        if all_users[0].size > 1
+          # plot cumulative user totals
+          options.merge!({
+            :title => "cumulative total number of users",
+            :axes => "x1y2",
+            :with => "lines",
+            :linewidth => 1,
+            :linecolor => COLOURS[:lightgreen],
+            :using => "1:3"})
+          plot_data_from_columns(all_users, options, plot.data)
+        end
       end
     end
   end
@@ -192,7 +196,10 @@ namespace :graphs do
         all_requests = select_as_columns(sql)
 
         # nothing to do, bail
-        abort "warning: no request data to graph, skipping task" unless all_requests
+        # (both nil and a single datapoint will result in an undrawable graph)
+        unless all_requests and all_requests[0].size > 1
+          abort "warning: no request data to graph, skipping task"
+        end
 
         # start plotting the data from largest to smallest so
         # that the shorter bars overlay the taller bars
