@@ -45,11 +45,13 @@ namespace :graphs do
         # primary y-axis
         plot.set("ytics nomirror")
         plot.ylabel("number of users on the calendar day")
+        plot.yrange("[0:]")
 
         # secondary y-axis
         plot.set("y2tics tc lt 2")
         plot.set('y2label "cumulative total number of users" tc lt 2')
         plot.set('format y2 "%.0f"')
+        plot.y2range("[0:]")
 
         # start plotting the data from largest to smallest so
         # that the shorter bars overlay the taller bars
@@ -151,11 +153,13 @@ namespace :graphs do
 
         # primary y-axis
         plot.ylabel("number of requests created on the calendar day")
+        plot.yrange("[0:]")
 
         # secondary y-axis
         plot.set("y2tics tc lt 2")
         plot.set('y2label "cumulative total number of requests" tc lt 2')
         plot.set('format y2 "%.0f"')
+        plot.y2range("[0:]")
 
         # get the data, plot the graph
 
