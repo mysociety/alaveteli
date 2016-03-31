@@ -23,6 +23,16 @@ If you want to use this for a
 you must
 [change the configuration]({{ page.baseurl }}/docs/customising/config/#staging_site).
 
+<div class="attention-box warning">
+  <p>
+    As <a href="{{ page.baseurl }}/docs/installing/vagrant/">Vagrant</a> now
+    seems to be the most popular way to try out Alaveteli, we are no longer 
+    updating the AMI with every release so the AMI is not guaranteed to include 
+    the latest version of Alaveteli. However, we will be happy to update the AMI 
+    on request, <a href="{{ page.baseurl }}/community/">just get in touch!</a>
+  </p>
+</div>
+
 <div class="attention-box">
   <p>
     <strong>What's in the AMI?</strong>
