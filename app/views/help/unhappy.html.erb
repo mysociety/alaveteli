@@ -70,8 +70,12 @@ in your complaint or print out the whole page of your request and all attachment
 </p>
 
 <p><%= site_name %> has no special facilities for handling a request at this stage - it
-  passes into the Information Commissioner's system. You can leave annotations on your
-  request keeping people informed of progress.</p>
+  passes into the Information Commissioner's system.
+  <% if AlaveteliConfiguration::enable_annotations %>
+    You can leave annotations on your request keeping people informed of
+    progress.
+  <% end %>
+</p>
 
 <p>A warning. There is a backlog of work at the Information Commissioner, and
   it can take literally years to get resolution from them. If you reach this point,

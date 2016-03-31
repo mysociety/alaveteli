@@ -88,14 +88,21 @@
 
           <div>
             <h3 class="title"><%= _("Search in") %></h3>
-            <% [["sent", _("messages from users")],
-                ["response", _("messages from authorities")],
-                ["comment", _("comments")]].each_with_index do |item, index|
-                  variety, title = item %>
+            <% filters = if AlaveteliConfiguration.enable_annotations
+                 [["sent", _("messages from users")],
+                  ["response", _("messages from authorities")],
+                  ["comment", _("comments")]]
+               else
+                 [["sent", _("messages from users")],
+                  ["response", _("messages from authorities")]]
+               end %>
 
-                <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
-                <%= label_tag("request_variety_#{index}", title) %> <br/>
-              <% end %>
+            <% filters.each_with_index do |item, index| %>
+              <% variety, title = item %>
+
+              <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
+              <%= label_tag("request_variety_#{index}", title) %> <br/>
+            <% end %>
           </div>
 
           <div id="date_range" class="date_range">
