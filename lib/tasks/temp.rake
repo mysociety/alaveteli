@@ -1,40 +1,6 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
-    desc 'Rewrite cached HTML attachment headers to use responsive CSS'
-    task :responsive_attachments => :environment do
-        example = 'rake responsive_attachments PATTERN="./cache/views/request/*/*/response/*/attach/html/*/*.html"'
-        check_for_env_vars(['PATTERN'],example)
-        pattern = ENV['PATTERN']
-        replacement_head_content = <<-EOF
-<!--[if LTE IE 7]>
-<link href="/assets/responsive/application-lte-ie7.css" media="all" rel="stylesheet" title="Main" type="text/css" />
-<![endif]-->
-
-<!--[if IE 8]>
-<link href="/assets/responsive/application-ie8.css" media="all" rel="stylesheet" title="Main" type="text/css" />
-<![endif]-->
-
-<!--[if GT IE 8]><!-->
-<link href="/assets/responsive/application.css" media="all" rel="stylesheet" title="Main" type="text/css" />
-<!--<![endif]-->
-
-<script type="text/javascript" src="//use.typekit.net/csi1ugd.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-EOF
-
-
-        Dir.glob(pattern) do |cached_html_file|
-            puts cached_html_file
-            text = File.read(cached_html_file)
-            text.sub!(/<link [^>]*href="(\/assets\/application.css|\/stylesheets\/main.css|https?:\/\/www.whatdotheyknow.com\/stylesheets\/main.css)[^>]*>/, replacement_head_content)
-            text.sub!(/<\/div>(\s*This is an HTML version of an attachment to the Freedom of Information request.*?)<\/div>/m, '</div><p class="view_html_description">\1</p></div>')
-            text.sub!(/<iframe src='http:\/\/docs.google.com\/viewer/, "<iframe src='https://docs.google.com/viewer")
-            text.sub!(/<\/head>/, '<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>')
-            File.open(cached_html_file, 'w') { |file| file.write(text) }
-        end
-    end
-
   desc 'Analyse rails log specified by LOG_FILE to produce a list of request volume'
   task :request_volume => :environment do
     example = 'rake log_analysis:request_volume LOG_FILE=log/access_log OUTPUT_FILE=/tmp/log_analysis.csv'
