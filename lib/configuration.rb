@@ -15,6 +15,7 @@ MySociety::Config.load_default
 
 module AlaveteliConfiguration
   if !const_defined?(:DEFAULTS)
+
     DEFAULTS = {
       :ADMIN_PASSWORD => '',
       :ADMIN_USERNAME => '',
