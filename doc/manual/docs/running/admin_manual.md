@@ -43,6 +43,7 @@ In this guide:
       <li><a href="#hiding-a-request">Hiding a request</a></li>
       <li><a href="#deleting-a-request">Deleting a request</a></li>
       <li><a href="#hiding-an-incoming-or-outgoing-message">Hiding an incoming or outgoing message</a></li>
+      <li><a href="#deleting-an-incoming-or-outgoing-message">Deleting an incoming or outgoing message</a></li>
       <li><a href="#editing-an-outgoing-message">Editing an outgoing message</a></li>
       <li><a href="#editing-or-hiding-annotations-comments">Editing or hiding annotations (comments)</a></li>
       <li><a href="#hiding-certain-text-from-a-request-using-censor-rules">Hiding certain text from a request</a></li>
@@ -836,6 +837,20 @@ admins). If you can, add some text in the box 'Reason for prominence'.
 This will be displayed as part of the information that will appear on
 the request page where the message used to be, telling people that it
 has been hidden.
+
+### Deleting an incoming or outgoing message
+
+Incoming and outgoing messages can also be deleted entirely. This is only
+usually appropriate in the case of content, such as spam messages, that
+will never need to be accessed again. Otherwise, we recommend hiding
+messages instead. As with hiding, this can be done from the message's page
+in the admin interface. The admin page for the message can be accessed by
+following the links from the "Outgoing messages" or "Incoming messages" sections of
+the request's admin page, or directly from the public request page by clicking
+on the 'admin' link on the message itself. Once you are on the
+message's admin page, you can delete it by using the "Destroy message" button
+for an incoming message or the "Destroy outgoing message" button for an
+outgoing message.
 
 ### Editing an outgoing message
 
