@@ -199,7 +199,7 @@ describe PublicBodyController, "when listing bodies" do
                                         public_bodies(:sensible_walks_public_body),
                                         public_bodies(:silly_walks_public_body) ])
     expect(assigns[:tag]).to eq("all")
-    expect(assigns[:description]).to eq("")
+    expect(assigns[:description]).to eq("Found 6 public authorities")
   end
 
   it 'list bodies in collate order according to the locale with the fallback set' do
@@ -274,7 +274,7 @@ describe PublicBodyController, "when listing bodies" do
       expect(response).to render_template('list')
       expect(assigns[:public_bodies]).to eq([ public_bodies(:geraldine_public_body), public_bodies(:humpadink_public_body) ])
       expect(assigns[:tag]).to eq("all")
-      expect(assigns[:description]).to eq("")
+      expect(assigns[:description]).to eq("Found 2 public authorities")
     end
   end
 
@@ -290,7 +290,8 @@ describe PublicBodyController, "when listing bodies" do
     expect(response).to render_template('list')
     expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
     expect(assigns[:tag]).to eq(category.category_tag)
-    expect(assigns[:description]).to eq("in the category ‘#{category.title}’")
+    expect(assigns[:description]).
+      to eq("Found 1 public authority in the category ‘#{category.title}’")
 
     get :list, :tag => "other"
     expect(response).to render_template('list')
