@@ -203,7 +203,7 @@ it individually).
 
 For instructions, see:
 
-* how to [edit or hide annotations]({{ page.baseurl }}/docs/running/requests/#editing-or-hiding-annotations-comments)
+* how to [edit or hide annotations]({{ page.baseurl }}/docs/running/admin_manual/#editing-or-hiding-annotations-comments)
 
 ## Deleting
 
