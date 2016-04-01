@@ -228,20 +228,6 @@ class ApiController < ApplicationController
       @events = @events.where("info_request_events.created_at > ?", event.created_at)
     end
 
-    # We take a "since" parameter that allows the client
-    # to restrict to events more recent than a certain other event
-    if since_event_id
-      begin
-        event = InfoRequestEvent.find(since_event_id)
-      rescue ActiveRecord::RecordNotFound
-        render :json => {"errors" => [
-          "Event ID #{since_event_id} not found" ] },
-          :status => 500
-          return
-      end
-      @events = @events.where("info_request_events.created_at > ?", event.created_at)
-    end
-
 
     if feed_type == "atom"
       render :template => "api/request_events", :formats => ['atom'], :layout => false
