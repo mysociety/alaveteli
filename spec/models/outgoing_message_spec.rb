@@ -96,6 +96,161 @@ describe OutgoingMessage do
     end
   end
 
+  describe '#from' do
+
+    it 'returns the value to use in the From: header of the mail' do
+      user = FactoryGirl.create(:user, :name => 'Spec User 862')
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+      expected = "Spec User 862 <request-#{ request.id }-#{ request.idhash }@localhost>"
+      expect(message.from).to eq(expected)
+    end
+
+  end
+
+  describe '#to' do
+
+    it 'returns the value to use in the To: header of the mail' do
+      body = FactoryGirl.create(:public_body, :name => 'Example Public Body',
+                                              :short_name => 'EPB')
+      request = FactoryGirl.create(:info_request, :public_body => body)
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+      expected = 'FOI requests at EPB <request@example.com>'
+      expect(message.to).to eq(expected)
+    end
+
+    it 'returns the value to use in the To: header of a followup mail with a valid address' do
+      message = FactoryGirl.build(:internal_review_request)
+
+      followup =
+        mock_model(IncomingMessage, :from_email => 'specific@example.com',
+                                    :safe_mail_from => 'Specific Person',
+                                    :valid_to_reply_to? => true)
+      allow(message).to receive(:incoming_message_followup).and_return(followup)
+
+      expected = 'Specific Person <specific@example.com>'
+      expect(message.to).to eq(expected)
+    end
+
+    it 'returns the value to use in the To: header of a followup mail with an invalid address' do
+      body = FactoryGirl.create(:public_body, :name => 'Example Public Body',
+                                              :short_name => 'EPB')
+      request = FactoryGirl.create(:info_request, :public_body => body)
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+
+      followup =
+        mock_model(IncomingMessage, :valid_to_reply_to? => false)
+      allow(message).to receive(:incoming_message_followup).and_return(followup)
+
+      expected = 'FOI requests at EPB <request@example.com>'
+      expect(message.to).to eq(expected)
+    end
+
+  end
+
+  describe '#subject' do
+
+    it 'returns the value to use in the Subject: header of an initial mail' do
+      request = FactoryGirl.create(:info_request, :title => 'Example Request')
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+      expected = 'Freedom of Information request - Example Request'
+      expect(message.subject).to eq(expected)
+    end
+
+    context 'the outgoing message has no incoming_message_followup' do
+
+      it 'returns the value to use in the Subject: header of a followup mail' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+        allow(message).to receive(:incoming_message_followup).and_return(nil)
+        expected = 'Re: Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+    end
+
+    context 'the incoming_message_followup does not have a valid reply_to' do
+
+      it 'returns the value to use in the Subject: header of a followup mail' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+
+        followup =
+          mock_model(IncomingMessage, :valid_to_reply_to? => false)
+        allow(message).
+          to receive(:incoming_message_followup).and_return(followup)
+
+        expected = 'Re: Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+    end
+
+    context 'the incoming_message_followup does not have a subject' do
+
+      it 'returns the value to use in the Subject: header of a followup mail' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+
+        followup = mock_model(IncomingMessage, :subject => nil,
+                                               :valid_to_reply_to? => true)
+        allow(message).
+          to receive(:incoming_message_followup).and_return(followup)
+
+        expected = 'Re: Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+    end
+
+    context 'the incoming_message_followup has a subject' do
+
+      it 'returns the subject if it is already prefixed with Re:' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+
+        followup =
+          mock_model(IncomingMessage,
+           :valid_to_reply_to? => true,
+           :subject => 'Re: Freedom of Information request - Example Request')
+        allow(message).
+          to receive(:incoming_message_followup).and_return(followup)
+
+        expected = 'Re: Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+      it 'prefixes the subject if it is not prefixed with Re:' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+
+        followup =
+          mock_model(IncomingMessage,
+           :valid_to_reply_to? => true,
+           :subject => 'Freedom of Information request - Example Request')
+        allow(message).
+          to receive(:incoming_message_followup).and_return(followup)
+
+        expected = 'Re: Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+    end
+
+    it 'returns the value to use in the Subject: header of an internal review' do
+      request = FactoryGirl.create(:info_request, :title => 'Example Request')
+      message = FactoryGirl.build(:internal_review_request, :info_request => request)
+      expected = 'Internal review of Freedom of Information request - Example Request'
+      expect(message.subject).to eq(expected)
+    end
+
+  end
+
   describe '#body' do
 
     it 'returns the body attribute' do
