@@ -33,7 +33,10 @@ class OutgoingMessage < ActiveRecord::Base
 
   STATUS_TYPES = %w(ready sent failed).freeze
   MESSAGE_TYPES = %w(initial_request followup).freeze
-  WHAT_DOING_VALUES = %w(normal_sort internal_review new_information).freeze
+  WHAT_DOING_VALUES = %w(normal_sort
+                         internal_review
+                         external_review
+                         new_information).freeze
 
   # To override the default letter
   attr_accessor :default_letter
