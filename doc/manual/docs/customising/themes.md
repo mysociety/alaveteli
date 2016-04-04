@@ -17,16 +17,19 @@ by editing the [config settings]({{ page.baseurl }}/docs/customising/config/).
 But if you want to change the way the site looks, or add more specific
 behaviour, you'll need to make a **theme**.
 
-You don't need to be a programmer in order to make simple changes, but you will
-need to be confident enough to copy and change some files. If you're not sure
-about this, [ask for help](/community/)!
-
 <div class="attention-box info">
   A theme is the way you tell Alaveteli which parts of your site look and behave
   differently from the core site. These differences are implemented as a
   collection of files (separate from the core Alaveteli source code), which
   Alaveteli uses to override its default code.
 </div>
+
+You don't need to be a programmer in order to make simple changes, but you will
+need to be confident enough to copy and change some files. If you're not sure
+about this, [ask for help](/community/)!
+
+The easiest way to create a new theme is to
+**[follow these steps]({{ page.baseurl }}/docs/customising/make_a_new_theme)**.
 
 <div class="attention-box warning">
   When you customise Alaveteli, you should <strong>always use this
@@ -65,13 +68,10 @@ getting the git repo from the URL specified in the config setting
 [`THEME_URLS`]({{ page.baseurl }}/docs/customising/config/#theme_urls). This is
 why your theme must be in its own git repo.
 
-One way to create your own theme is to fork the `alavetelitheme` theme from
-[https://github.com/mysociety/alavetelitheme](https://github.com/mysociety/alavetelitheme)
-(giving it your own theme name), edit it or add files, and deploy it with `themes:install`.
-Alternatively, since your site already has the default theme's files within it,
-you can duplicate `alivetelitheme` (in `lib/themes/`) and change its name.
+The easiest way to create a new theme is to
+**[follow these steps]({{ page.baseurl }}/docs/customising/make_a_new_theme)**.
 
-<div class="attention-box helpful-hint">
+<div class="attention-box info">
   Here's an example of a complex theme in action: see the theme repo at
   <a href="https://github.com/mysociety/whatdotheyknow-theme">https://github.com/mysociety/whatdotheyknow-theme</a>.
   This is the theme for UK's Alaveteli instance
