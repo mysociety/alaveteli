@@ -83,6 +83,15 @@ TIME_ZONE: UTC
 # ---
 BLOG_FEED: ''
 
+# BLOG_TIMEOUT -  Integer seconds before reading the blog feed fails (default: 60)
+#
+# Examples:
+#
+#   BLOG_TIMEOUT: 90
+#
+# ---
+BLOG_TIMEOUT: 60
+
 # Makes your Facebook page/group name available to the application.
 #
 # FACEBOOK_USERNAME - String Facebook username (default: nil)
