@@ -104,14 +104,14 @@ in any language, and within any legislation</p>
                 </div><!--
                  --><div class="deployments__unit--major">
                     <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/right-to-know-malaysia.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">RightToKnow</h3>
-                        <p class="deployment__country">Malaysia</p>
-                        <p class="deployment__link"><a href="http://foi.sinarproject.org">http://foi.sinarproject.org/</a></p>
+                        <img src="{{ site.baseurl }}assets/img/right-to-know.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Right To Know</h3>
+                        <p class="deployment__country">Australia</p>
+                        <p class="deployment__link"><a href="https://www.righttoknow.org.au/">https://www.righttoknow.org.au/</a></p>
                         <div class="deployment__description">
-                            <p>Imamo pravo znati (We Have A Right To Know) represents the 20th installation of Alaveteli.</p>
+                            <p>Australia has had a Freedom of Information Act since 1982, which allows anyone, anywhere in the world to ask Australian public authorities for information in their custody.</p>
 
-                            <p> Now thanks to <a href="http://codeforcroatia.org">Code for Croatia</a>, an HrOpen expert group and <a href="http://gong.hr">GONG</a>, Croatians have an easier path to free public information from nearly 6,000 public authorities.</p>
+                            <p>In 2012 the <a href="https://www.openaustraliafoundation.org.au/">OpenAustralia Foundation</a> launched Right To Know to make the process of obtaining information under the Act easier, as historically the process has been too difficult and time consuming for ordinary citizens. </p>
                         </div>
                     </div>
                 </div>
@@ -121,10 +121,10 @@ in any language, and within any legislation</p>
             <div class="grid-row">
                 <div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/right-to-know.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Right To Know</h3>
-                        <p class="deployment__country">Australia</p>
-                        <p class="deployment__link"><a href="https://www.righttoknow.org.au/">https://www.righttoknow.org.au/</a></p>
+                        <img src="{{ site.baseurl }}assets/img/right-to-know-malaysia.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">RightToKnow</h3>
+                        <p class="deployment__country">Malaysia</p>
+                        <p class="deployment__link"><a href="http://foi.sinarproject.org">http://foi.sinarproject.org/</a></p>
                     </div>
                 </div><!--
                 --><div class="deployments__unit--minor">
