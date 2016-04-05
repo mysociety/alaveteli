@@ -38,6 +38,22 @@ describe InfoRequest::ResponseRejection::Bounce do
       expect(described_class.new(*args).reject).to eq(true)
     end
 
+    it 'does nothing and returns true if the mail is from the ' \
+       'request address regardless of case' do
+      info_request = object_double(InfoRequest.new,
+                                   :incoming_email => 'request-333-xxx@example.com')
+      raw_email = <<-EOF.strip_heredoc
+      To: Requester <Request-333-xxx@example.com>
+      From: Bad person <Request-333-xxx@example.com>
+      Subject: Spoofed from address
+      Hello, World
+      EOF
+      email = MailHandler.mail_from_raw_email(raw_email)
+      args = [info_request, email, double('raw_email_data')]
+
+      expect(described_class.new(*args).reject).to eq(true)
+    end
+
     it 'does nothing and returns true if the info_request is external' do
       info_request = object_double(InfoRequest.new,
                                    :is_external? => true,
