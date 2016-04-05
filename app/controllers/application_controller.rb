@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
   # is not replayable forever
   SESSION_TTL = 3.hours
   def validate_session_timestamp
-    if session[:user_id] && session.key?(:ttl) && session[:ttl] < SESSION_TTL.ago
+    if session[:user_id] && session[:ttl] && session[:ttl] < SESSION_TTL.ago
       clear_session_credentials
     end
   end
@@ -147,6 +147,7 @@ class ApplicationController < ActionController::Base
     session[:admin_name] = nil
     session[:change_password_post_redirect_id] = nil
     session[:post_redirect_token] = nil
+    session[:ttl] = nil
   end
 
   def render_exception(exception)

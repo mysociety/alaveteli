@@ -717,6 +717,13 @@ describe UserController, "when signing out" do
     expect(response).to redirect_to(:controller => 'request', :action => 'list')
   end
 
+  it "clears the session ttl" do
+    session[:user_id] = users(:bob_smith_user).id
+    session[:ttl] = Time.now
+    get :signout
+    expect(session[:ttl]).to be_nil
+  end
+
 end
 
 describe UserController, "when sending another user a message" do
