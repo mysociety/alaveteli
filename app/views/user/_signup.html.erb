@@ -12,8 +12,8 @@
             '(<a href="{{why_url}}">why?</a>) on this website and in search ' \
             'engines. <a href="{{help_url}}">Thinking of using a ' \
             'pseudonym?</a>',
-            :why_url => (help_privacy_path+"#public_request").html_safe,
-            :help_url => (help_privacy_path+"#real_name").html_safe) %>
+            :why_url => help_privacy_path(:anchor => "public_request").html_safe,
+            :help_url => help_privacy_path(:anchor => "real_name").html_safe) %>
     </div>
 
     <p>

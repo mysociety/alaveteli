@@ -97,11 +97,11 @@
       <%= _('Response to this request is <strong>delayed</strong>.') %>
       <%= _('By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and',:public_body_link=>public_body_link(@info_request.public_body)) %>
       <%= _('by') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-      (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>)
+      (<%= link_to _('details'), help_requesting_path(:anchor => 'quickly_response') %>)
     <% elsif @status == 'waiting_response_very_overdue' %>
       <%= _('Response to this request is <strong>long overdue</strong>.') %>
       <%= _('By law, under all circumstances, {{public_body_link}} should have responded by now',:public_body_link => public_body_link(@info_request.public_body)) %>
-      (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>).
+      (<%= link_to _('details'), help_requesting_path(:anchor => 'quickly_response') %>).
 
       <% if !@info_request.is_external? %>
         <%= _('You can <strong>complain</strong> by') %>
@@ -119,7 +119,7 @@
       <% if @is_owning_user && !@info_request.is_external? %>
         <%=h @info_request.public_body.name %> <%= _('is <strong>waiting for your clarification</strong>.') %>
         <%= _('Please') %>
-        <%= link_to _("send a follow up message"), respond_to_last_path(@info_request) + '#followup' %>.
+        <%= link_to _("send a follow up message"), respond_to_last_path(@info_request, :anchor => 'followup') %>.
       <% else %>
         <%= _('The request is <strong>waiting for clarification</strong>.') %>
         <% if !@info_request.is_external? %>

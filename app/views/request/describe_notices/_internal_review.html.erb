@@ -6,5 +6,5 @@
         "or be told if it will take longer (<a href=\"{{review_url}}\">" \
         "details</a>).",
         :late_number_of_days => AlaveteliConfiguration.reply_late_after_days,
-        :review_url => unhappy_url(info_request) + "#internal_review") %>
+        :review_url => unhappy_url(info_request, :anchor => 'internal_review')) %>
 </p>
