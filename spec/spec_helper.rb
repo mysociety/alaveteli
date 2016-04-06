@@ -7,10 +7,14 @@ require 'spork'
 require 'simplecov'
 require 'coveralls'
 
-# Generate coverage in coveralls.io
+cov_formats = [Coveralls::SimpleCov::Formatter]
+cov_formats << SimpleCov::Formatter::HTMLFormatter if ENV['COVERAGE'] == 'local'
+
+# Generate coverage in coveralls.io and locally if requested
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  Coveralls::SimpleCov::Formatter
+  *cov_formats
 ]
+
 SimpleCov.start('rails') do
   add_filter  'commonlib'
   add_filter  'vendor/plugins'
