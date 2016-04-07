@@ -9,6 +9,17 @@
 * Added a new config option `ENABLE_ANNOTATIONS` to allow turning off the
   annotations feature (comments on requests) (Steve Day, Gareth Rees)
 
+* Added a rake task, `themes:check_help_sections` to identify missing help
+  templates and sections in themes that are referred to in Alaveteli. Removed
+  example help templates from core to `alavetelitheme`.
+
+
+## Upgrade Notes
+
+* Run `bundle exec rake themes:check_help_sections` to check that your theme
+  contains all the necessary help files. The example files have now been moved
+  from Alaveteli to the example theme `alavetelitheme`.
+
 ## Upgrade Notes
 
 # Version 0.24.0.0
