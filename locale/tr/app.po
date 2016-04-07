@@ -322,9 +322,8 @@ msgstr "Kamu kurumu ekleyin - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Kamu kurumu ekleyin:"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "{{date}} tarihinde eklendi"
+msgstr "{{date}} tarihinde eklendi."
 
 msgid "Admin level is not included in list"
 msgstr "Admin düzeyi listede gösterilmemektedir"

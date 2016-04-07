@@ -350,9 +350,8 @@ msgstr ""
 msgid "Add the authority:"
 msgstr ""
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Hozzáadva: {{date}} -n"
+msgstr "Hozzáadva: {{date}} -n."
 
 msgid "Admin level is not included in list"
 msgstr "Az adminisztrátori szint nem szerepel a listában "

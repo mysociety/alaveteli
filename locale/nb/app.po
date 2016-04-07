@@ -327,9 +327,8 @@ msgstr "Legg til myndighet - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Legg til myndigheten:"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Lagt til {{date}}"
+msgstr "Lagt til {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Administrasjonsnivå er ikke med i listen"

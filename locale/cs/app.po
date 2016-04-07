@@ -361,9 +361,8 @@ msgstr "Přidejte instituci- {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Přidejte instituci:"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Vloženo {{date}}"
+msgstr "Vloženo {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Úroveň admin není součástí seznamu. "

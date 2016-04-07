@@ -317,9 +317,8 @@ msgstr ""
 msgid "Add the authority:"
 msgstr ""
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "新增於 {{date}}"
+msgstr "新增於 {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr ""

@@ -354,9 +354,8 @@ msgstr ""
 msgid "Add the authority:"
 msgstr ""
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Añadido el {{date}}"
+msgstr "Añadido el {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Nivel de Administrador no incluido en la lista"

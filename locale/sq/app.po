@@ -347,9 +347,8 @@ msgstr "Shto institucionin"
 msgid "Add the authority:"
 msgstr "Shto nje institucion"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Shtuar më {{date}}"
+msgstr "Shtuar më {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Niveli i administratorit nuk është i përfshir në listë"

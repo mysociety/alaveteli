@@ -320,9 +320,8 @@ msgstr "Aggiungi amministrazione - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Aggiungi l'amministrazione:"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Aggiunto il {{date}}"
+msgstr "Aggiunto il {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Il livello di amministratore non è incluso nella lista"

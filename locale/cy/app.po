@@ -330,9 +330,8 @@ msgstr "Ychwanegu awdurdod - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Ychwanegu'r awdurdod:"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Ychwanegwyd ar {{date}}"
+msgstr "Ychwanegwyd ar {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Nid yw lefel admin wedi ei gynnwys yn rhestr"

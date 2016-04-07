@@ -337,9 +337,8 @@ msgstr ""
 msgid "Add the authority:"
 msgstr ""
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr " {{date}} egunean gehituta"
+msgstr " {{date}} egunean gehituta."
 
 msgid "Admin level is not included in list"
 msgstr "Administratzailearen maila ez da sartzen zerrendan"

@@ -317,9 +317,8 @@ msgstr "Ongeraho umuyobozi - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Ongeraho umuyobozi:"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Byashyizweho ku wa {{date}}"
+msgstr "Byashyizweho ku wa {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Urwego rw'ubuyobozi ntabwo buri kuri uru rutonde"

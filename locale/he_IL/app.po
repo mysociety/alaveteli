@@ -331,9 +331,8 @@ msgstr "וסף רשות - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "הוסיפו את הרשות:"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "התווסף בתאריך {{date}}"
+msgstr "התווסף בתאריך {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "הרשאת ניהול אינה כלולה ברשימה"

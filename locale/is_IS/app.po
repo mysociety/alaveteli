@@ -315,9 +315,8 @@ msgstr "Bæta við stjórnvaldi - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Bæta við stjórnvaldinu:"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Bætt við þann {{date}}"
+msgstr "Bætt við þann {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr ""

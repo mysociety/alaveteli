@@ -318,9 +318,8 @@ msgstr "Добавяне на орган - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Добавяне на органа:"
 
-#, fuzzy
 msgid "Added on {{date}}."
-msgstr "Добавено на {{date}}"
+msgstr "Добавено на {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Администраторското ниво не е включено в списъка"
