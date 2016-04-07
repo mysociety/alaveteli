@@ -8,11 +8,11 @@
 # louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-07 15:38+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2016-04-07 16:36+0100\n"
+"PO-Revision-Date: 2016-04-07 13:58+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/mysociety/alaveteli/language/mk_MK/)\n"
 "Language: mk_MK\n"
 "MIME-Version: 1.0\n"
@@ -229,7 +229,12 @@ msgstr "<strong>Забелешка за приватност:</strong> Ваша�
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Некои од информациите</strong> беа испратени "
 
-msgid "<strong>Thank</strong> the public authority or "
+#, fuzzy
+msgid "<strong>Thank</strong> the public authority or the requester."
+msgstr "<strong>Заблагодарете</strong> му се ја имателот или "
+
+#, fuzzy
+msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Заблагодарете</strong> му се ја имателот или "
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
@@ -237,9 +242,6 @@ msgstr ""
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
 msgstr ""
-
-msgid "<strong>did not have</strong> the information requested."
-msgstr "<strong>ја немаше</strong> бараната информација."
 
 msgid "?"
 msgstr ""
@@ -313,7 +315,8 @@ msgstr ""
 msgid "Add the authority:"
 msgstr ""
 
-msgid "Added on {{date}}"
+#, fuzzy
+msgid "Added on {{date}}."
 msgstr "Додадено на {{date}}"
 
 msgid "Admin level is not included in list"
@@ -400,8 +403,9 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Дали сте сопственик на било кои комерцијални авторски права на оваа страница?"
 
+#, fuzzy
 msgid "Ask EU Authorities"
-msgstr ""
+msgstr "иматели"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Побарајте <strong>специфични</strong> документи или информации, оваа страна не е соодветна за општи побарувања."
@@ -473,6 +477,10 @@ msgid "Browse all requests &rarr;"
 msgstr ""
 
 msgid "Browse and search requests"
+msgstr "Видете и пребарајте барања"
+
+#, fuzzy
+msgid "Browse and search requests (page {{count}})"
 msgstr "Видете и пребарајте барања"
 
 msgid "Browse requests"
@@ -565,10 +573,12 @@ msgstr "Објаснување"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Објаснете го своето барање за слободен пристап до информации - "
 
-msgid "Classify an FOI response from "
+#, fuzzy
+msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Класифицарајте го одговорот од "
 
 msgid "Clear photo"
@@ -706,7 +716,8 @@ msgstr "Мртов."
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
 msgstr "Одложен одговор на вашето барање за слободен пристап - "
 
 msgid "Delayed."
@@ -847,7 +858,8 @@ msgstr "Барања за слободен пристап до информац�
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Барања за слободен пристап до информации {{start_count}} до {{end_count}} од {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr "Одговор на барање за слободен пристап до информации бара администрирање ({{reason}}) - {{title}}"
 
 msgid "Failed"
@@ -984,8 +996,9 @@ msgstr "Закон за слободен пристап до информаци�
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Законот за Слободен пристап до информации не се однесува за овој имател, затоа не можете да направите\\n                барање до нив."
 
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+#, fuzzy
+msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgstr "Законот за Слободен пристап до информации не се однесува за овој имател, затоа не можете да направите\\n                барање до нив."
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""
@@ -1041,17 +1054,20 @@ msgstr "Здраво! Имаме  <a href=\"{{url}}\">важна порака</a
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr ""
 
+#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr ""
+msgstr "Здраво! Имаме  <a href=\"{{url}}\">важна порака</a> за посетителите надвор од {{country_name}}"
 
+#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr ""
+msgstr "Здраво! Имаме  <a href=\"{{url}}\">важна порака</a> за посетителите надвор од {{country_name}}"
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Здраво! Може да направите барање за слободен пристап до информации во рамки на {{country_name}} на {{link_to_website}}"
 
+#, fuzzy
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
-msgstr ""
+msgstr "Здраво! Може да направите барање за слободен пристап до информации во рамки на {{country_name}} на {{link_to_website}}"
 
 msgid "Hello, {{username}}!"
 msgstr "Здраво, {{username}}!"
@@ -1335,8 +1351,9 @@ msgstr "InfoRequest|Handle rejected responses"
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
+#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr ""
+msgstr "InfoRequest|Handle rejected responses"
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"
@@ -1386,8 +1403,9 @@ msgstr "Случаи кои се испратени последниов мес�
 msgid "Joined in {{year}}."
 msgstr ""
 
+#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr ""
+msgstr "тимот на {{site_name}}"
 
 msgid "Just one more thing"
 msgstr "Само уште една работа"
@@ -1404,10 +1422,12 @@ msgstr ""
 msgid "Keywords"
 msgstr "Клучни зборови"
 
-msgid "Last authority viewed: "
+#, fuzzy
+msgid "Last authority viewed: {{authority_url}}"
 msgstr "Последен прегледан имател: "
 
-msgid "Last request viewed: "
+#, fuzzy
+msgid "Last request viewed: {{request_url}}"
 msgstr "Последно видено барање: "
 
 msgid "Learn more &rarr;"
@@ -1515,7 +1535,8 @@ msgstr "Пораката беше отстранета"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Пораката е испратена преку контакт формата од {{site_name}}, "
 
-msgid "Missing contact details for '"
+#, fuzzy
+msgid "Missing contact details for '{{authority_name}}'"
 msgstr "Недостасуваат контакт-детали за '"
 
 msgid "More about this authority"
@@ -1566,7 +1587,8 @@ msgstr "Нова лозинка: (повторно)"
 msgid "New response to '{{title}}'"
 msgstr "Нов одговор до '{{title}}'"
 
-msgid "New response to your FOI request - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
 msgstr "Нов одговор до вашето барање за слободен пристап - "
 
 msgid "New response to your request"
@@ -1889,7 +1911,8 @@ msgstr "Ве молиме изберете го секое барање по р�
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Ве молиме најавете се на дното со вашето име или променете го \"{{signoff}}\" потпис"
 
-msgid "Please sign in as "
+#, fuzzy
+msgid "Please sign in as {{user_name}}"
 msgstr "Ве молиме најавете се како "
 
 msgid "Please tell us more:"
@@ -2294,8 +2317,9 @@ msgstr "Одговорот на ова барање е со <strong>многу �
 msgid "Response to your request"
 msgstr "Одговор на вашето барање"
 
+#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr ""
+msgstr "Нов одговор до {{law_used_short}} барање"
 
 msgid "Response:"
 msgstr "Одговор:"
@@ -2348,7 +2372,8 @@ msgstr "Видете ја одбиената порака"
 msgid "Send a followup"
 msgstr "Испратете реакција"
 
-msgid "Send a message to "
+#, fuzzy
+msgid "Send a message to {{user_name}}"
 msgstr "Испратете порака до"
 
 msgid "Send a public follow up message to {{person_or_body}}"
@@ -2366,8 +2391,13 @@ msgstr ""
 msgid "Send message"
 msgstr "Испратете порака"
 
-msgid "Send message to "
+#, fuzzy
+msgid "Send message to {{user_name}}"
 msgstr "Испратете порака до"
+
+#, fuzzy
+msgid "Send message to {{user_name}} just to see how it works"
+msgstr "само да видите како работи"
 
 msgid "Send request"
 msgstr "Испратете барање"
@@ -2431,7 +2461,8 @@ msgstr "Слични барања"
 msgid "Simple search"
 msgstr "Едноставно пребарување"
 
-msgid "Some notes have been added to your FOI request - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr "Додадени се неколку белешки во вашето барање - "
 
 msgid "Some of the information requested has been received"
@@ -2440,7 +2471,8 @@ msgstr "Дел од побараните информации се примен�
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Некои од луѓето кои имаат направено барања не немаат известено дали тие се\\nуспешни или не. Ни треба <strong>вашата</strong> помош &ndash;\\nИзберете едно од барањата, прочитајте го и известете ги сите дали \\nинформациите се обезбедени или не. Сите ќе бидат мошне благодарни."
 
-msgid "Somebody added a note to your FOI request - "
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
 msgstr "Некој додаде белешка на вашето барање - "
 
 msgid "Someone has updated the status of your request"
@@ -2548,7 +2580,8 @@ msgstr "Ви благодариме што помагате да го одржи
 msgid "Thank you for making an annotation!"
 msgstr "Ви благодариме што направивте белешка!"
 
-msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to "
+#, fuzzy
+msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
 msgstr "Ви благодариме што одговоривте на ова барање за слободен пристап до информации од јавен карактер! Вашиот одговор е објавен подолу и пратена е врска до вашето барање по е-пошта до "
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
@@ -2674,7 +2707,8 @@ msgstr "Барањето <strong>чека за класификација</stron
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Барањето е <strong>делумно успешно</strong>."
 
-msgid "The request was <strong>refused</strong> by"
+#, fuzzy
+msgid "The request was <strong>refused</strong> by {{authority_name}}."
 msgstr "Барањето е <strong>одбиено</strong> by"
 
 msgid "The request was <strong>successful</strong>."
@@ -2719,7 +2753,8 @@ msgstr "Тогаш можете да ја промените адресата з
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Тогаш можете да ја промените лозинката на {{site_name}}"
 
-msgid "Then you can classify the FOI response you have got from "
+#, fuzzy
+msgid "Then you can classify the FOI response you have got from {{authority_name}}."
 msgstr "Тогаш можете да го класифицирате одговорот кој го добивте од "
 
 msgid "Then you can download a zip file of {{info_request_title}}."
@@ -2737,23 +2772,27 @@ msgstr "Тогаш можете да ја играте играта за кат�
 msgid "Then you can report the request '{{title}}'"
 msgstr "Тогаш можете да го пријавите барањето '{{title}}'"
 
-msgid "Then you can send a message to "
+#, fuzzy
+msgid "Then you can send a message to {{user_name}}."
 msgstr "Тогаш можете да пратите порака до"
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Тогаш можете да се најавите на {{site_name}}"
 
-msgid "Then you can update the status of your request to "
+#, fuzzy
+msgid "Then you can update the status of your request to {{authority_name}}."
 msgstr "Тогаш можете да го ажурирате статусот на вашето барање до "
 
 msgid "Then you can upload an FOI response. "
 msgstr "Тогаш можете да прикачите одговор. "
 
+#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr ""
+msgstr "Не може да се испрати порака за реакција до {{username}}"
 
+#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr ""
+msgstr "Тогаш можете да ја промените лозинката на {{site_name}}"
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Тогаш ќе ги следите сите нови барања."
@@ -2995,8 +3034,11 @@ msgstr "За да ја промените адресата за е-пошта к
 msgid "To classify the response to this FOI request"
 msgstr "За да го класифицирате одговорот на ова барање за слободен пристап до информации"
 
-msgid "To do that please send a private email to "
-msgstr "За да го направите тоа, ве молиме испратете приватна е-пошта до "
+#, fuzzy
+msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
+msgstr ""
+"со Вашата поштенска адреса и побарајте од нив да одоговорат на ова барање.\n"
+"            Можете да ги контактирате и по телефон."
 
 msgid "To do this, first click on the link below."
 msgstr "За да го напрвите ова, прво кликнете на врската подолу."
@@ -3040,16 +3082,19 @@ msgstr "За да ја играте играта за категоризациј
 msgid "To post your annotation"
 msgstr "За да ја објавите вашата белешка"
 
+#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr ""
+msgstr "Не може да се испрати одговор на {{username}}"
 
 msgid "To report this request"
 msgstr "За да го пријавите ова барање"
 
+#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr ""
+msgstr "Не може да се испрати порака за реакција до {{username}}"
 
-msgid "To send a message to "
+#, fuzzy
+msgid "To send a message to {{user_name}}"
 msgstr "За да пратите порака до "
 
 msgid "To send your FOI request"
@@ -3061,7 +3106,8 @@ msgstr "За да го испратите вашето барање до дру�
 msgid "To update the status of this FOI request"
 msgstr "За да го ажурирате статусот на ова барање"
 
-msgid "To upload a response, you must be logged in using an email address from "
+#, fuzzy
+msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
 msgstr "За да прикачите одговор, мора да сте најавени со адресата за е-пошта од "
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
@@ -3157,14 +3203,9 @@ msgstr "Не може да се испрати порака за реакциј�
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-msgid "Unexpected search result type "
+#, fuzzy
+msgid "Unexpected search result type {{result_type}}"
 msgstr "Неочекуван тип на резултат од пребарување "
-
-msgid "Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr ""
-"За жал, не ја знаеме адресата за е-пошта за слободен пристап до информации\n"
-"за тој имател, така што не можеме да го потврдиме ова.\n"
-"Ве молиме <a href=\"{{url}}\">контактирајте не</a> за да ја разјасниме ситуацијава."
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
@@ -3195,7 +3236,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr "Ажурирајте го статусот за ова барање"
 
-msgid "Update the status of your request to "
+#, fuzzy
+msgid "Update the status of your request to {{authority_name}}"
 msgstr "Ажурирајте го статусот на вашето барање до "
 
 msgid "Upload FOI response"
@@ -3240,8 +3282,9 @@ msgstr "User|Текст за исклучување"
 msgid "User|Can make batch requests"
 msgstr ""
 
+#, fuzzy
 msgid "User|Dob"
-msgstr ""
+msgstr "Корисник"
 
 msgid "User|Email"
 msgstr "User|Е-пошта"
@@ -3461,20 +3504,20 @@ msgstr "Дали би сакале да имате ваква интернет-�
 msgid "Write a reply"
 msgstr "Напишете одговор"
 
+#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr ""
+msgstr "Не може да се испрати одговор на {{username}}"
 
+#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr ""
+msgstr "Не може да се испрати порака за реакција до {{username}}"
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Напишете го вашето барање со <strong>едноставен, прецизен речник</strong>."
 
-msgid "You"
-msgstr "Вие"
-
+#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr ""
+msgstr "{{existing_request_user}} веќе\\n го има поднесено истото барање на ден {{date}}. Можете да го погледнете <a href=\"{{existing_request}}\">постоечкото барање</a>,\\n или да ги промените деталите и да направите ново, слично барање."
 
 msgid "You are already following new requests"
 msgstr "Веќе ги следите новите барања"
@@ -3595,6 +3638,10 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Знаете што ја предизвика оваа грешка и можете <strong>да предложите решение</strong>, како што е важечка адреса за е-пошта."
 
+#, fuzzy
+msgid "You left an annotation ({{date}})"
+msgstr "остави белешка"
+
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Можете да <strong>вклучите прилози</strong>. Ако сакате да прикачите\\n датотека која е голема за е-пошта, тогаш користете ја формата подолу."
 
@@ -3670,7 +3717,8 @@ msgstr "И понатаму ќе бидете во можност да го ви
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Регистрирани сте. <a href=\"#\" id=\"send-request\">Продолжете со испраќање на вашето барање</a>"
 
-msgid "You're long overdue a response to your FOI request - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
 msgstr "Одговорот на вашето барање е со значително пречекорен рок - "
 
 msgid "You're not following anything."
@@ -3802,10 +3850,11 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Вашата {{count}} белешка"
 msgstr[1] "Вашите {{count}} белешки"
 
-msgid "Your {{count}} batch requests"
+#, fuzzy
+msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} барање"
+msgstr[1] "{{count}} барања"
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""
@@ -3888,11 +3937,6 @@ msgstr "од {{user_link_absolute}}"
 msgid "comments"
 msgstr "коментари"
 
-msgid "containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr ""
-"со Вашата поштенска адреса и побарајте од нив да одоговорат на ова барање.\n"
-"            Можете да ги контактирате и по телефон."
-
 msgid "details"
 msgstr "детали"
 
@@ -3914,9 +3958,6 @@ msgstr "се"
 msgid "external"
 msgstr "надворешен"
 
-msgid "has reported an"
-msgstr "пријави"
-
 msgid "have delayed."
 msgstr "е одложен."
 
@@ -3932,14 +3973,9 @@ msgstr "внатрешна грешка"
 msgid "internal reviews"
 msgstr "внатрешна ревизија"
 
-msgid "is <strong>waiting for your clarification</strong>."
-msgstr "<strong>чека на Ваше објаснување</strong>."
-
-msgid "just to see how it works"
-msgstr "само да видите како работи"
-
-msgid "left an annotation"
-msgstr "остави белешка"
+#, fuzzy
+msgid "logged in as user {{user_name}}"
+msgstr "Не може да се испрати одговор на {{username}}"
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "одговара на клучниот збор ‘{{tag_name}}’"
@@ -3968,11 +4004,11 @@ msgstr "најдоцна до"
 msgid "normally"
 msgstr "вообичаено"
 
+msgid "not logged in"
+msgstr ""
+
 msgid "not requestable due to: {{reason}}"
 msgstr "барањето не е возможно бидејќи: {{reason}}"
-
-msgid "please sign in as "
-msgstr "Ве молиме најавете се како "
 
 msgid "requesting an internal review"
 msgstr "барање на внатрешна ревизија"
@@ -3985,9 +4021,6 @@ msgstr ""
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr ""
-
-msgid "response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "одговор зошто бара реакција од администраторот. Погледнете и одговорете на оваа \\nза да ги известите што ќе направите за ова прашање."
 
 msgid "send a follow up message"
 msgstr "испратете реакција"
@@ -4021,9 +4054,6 @@ msgstr "главниот контакт за барања за слободен 
 msgid "the main FOI contact at {{public_body}}"
 msgstr "главниот контакт за барања за слободен пристап до информации  од јавен карактер за {{public_body}}"
 
-msgid "the requester"
-msgstr "барателот"
-
 msgid "the {{site_name}} team"
 msgstr "тимот на {{site_name}}"
 
@@ -4036,13 +4066,15 @@ msgstr "за {{public_body}}"
 msgid "type your search term here"
 msgstr ""
 
+#, fuzzy
 msgid "unknown reason"
-msgstr ""
+msgstr "непозната причина "
 
 msgid "unknown reason "
 msgstr "непозната причина "
 
-msgid "unknown status "
+#, fuzzy
+msgid "unknown status {{status}}"
 msgstr "непознат статус "
 
 msgid "unresolved requests"
@@ -4063,13 +4095,22 @@ msgstr "корисници"
 msgid "what's that?"
 msgstr "што е тоа?"
 
+#, fuzzy
+msgid "{{authority_name}} <strong>did not have</strong> the information requested."
+msgstr "<strong>ја немаше</strong> бараната информација."
+
+#, fuzzy
+msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
+msgstr "<strong>чека на Ваше објаснување</strong>."
+
 msgid "{{count}} FOI requests found"
 msgstr "пронајдени се {{count}} барања за слободен пристап до информации од јавен карактерznačaja"
 
+#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Вашата {{count}} белешка"
+msgstr[1] "Вашите {{count}} белешки"
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
@@ -4128,6 +4169,17 @@ msgstr "{{public_body}} испрати порака до {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, Ве молиме најавете се или креирајте нов профил."
 
+#, fuzzy
+msgid "{{reason}}, please sign in as {{user_name}}."
+msgstr "Тогаш можете да се најавите на {{site_name}}"
+
+#, fuzzy
+msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
+msgstr ""
+"За жал, не ја знаеме адресата за е-пошта за слободен пристап до информации\n"
+"за тој имател, така што не можеме да го потврдиме ова.\n"
+"Ве молиме <a href=\"{{url}}\">контактирајте не</a> за да ја разјасниме ситуацијава."
+
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} кои одговараат на '{{query}}'"
 
@@ -4172,8 +4224,16 @@ msgstr ""
 "{{user_name}} додаде белешка за вашето барање за {{law_used_short}}.\n"
 "Следете го овој линк за да го видите коментарот."
 
+#, fuzzy
+msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "одговор зошто бара реакција од администраторот. Погледнете и одговорете на оваа \\nза да ги известите што ќе направите за ова прашање."
+
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} го искористи{{site_name}} за да ви ја испрати пораката подолу."
+
+#, fuzzy
+msgid "{{user_name}} left an annotation ({{date}})"
+msgstr "{{username}} остави белешка:"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} испрати реакција до {{public_body}}"
@@ -4198,3 +4258,18 @@ msgstr "{{user}} го поднесе ова барање за {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "To do that please send a private email to "
+#~ msgstr "За да го направите тоа, ве молиме испратете приватна е-пошта до "
+
+#~ msgid "You"
+#~ msgstr "Вие"
+
+#~ msgid "has reported an"
+#~ msgstr "пријави"
+
+#~ msgid "please sign in as "
+#~ msgstr "Ве молиме најавете се како "
+
+#~ msgid "the requester"
+#~ msgstr "барателот"

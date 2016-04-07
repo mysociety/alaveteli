@@ -13,11 +13,11 @@
 # Pinar Dag <pinar.dag@dagmedya.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-21 14:38+0000\n"
-"Last-Translator: Baris Altintas <info@platform24.org>\n"
+"POT-Creation-Date: 2016-04-07 16:36+0100\n"
+"PO-Revision-Date: 2016-04-07 13:58+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -234,7 +234,12 @@ msgstr "<strong>Gizlilik notu:</strong> Şifrenizin verileceği kimseler"
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "İstediğim bilginin<strong>bir kısmı</strong> gönderildi "
 
-msgid "<strong>Thank</strong> the public authority or "
+#, fuzzy
+msgid "<strong>Thank</strong> the public authority or the requester."
+msgstr "Kamu kuruluşuna <strong>teşekkür edin</strong> ya da "
+
+#, fuzzy
+msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "Kamu kuruluşuna <strong>teşekkür edin</strong> ya da "
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
@@ -242,9 +247,6 @@ msgstr "Bir cevap geldiğinde veya {{late_number_of_days}} işgünü sonrası ha
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
 msgstr "Gönderimler gerçekleştiğinde sizi<strong>e-mail ile bilgilendireceğiz</strong>. Herhangi bir gönderiminize yanıt gelir, veya kurumlar  {{late_number_of_days}} iş günü geçmesine rağmen yanıt vermemişse, gene email ile bilgilendireceğiz. "
-
-msgid "<strong>did not have</strong> the information requested."
-msgstr "İstenen bilgi kurumun elinde <strong>bulunmuyordu</strong>"
 
 msgid "?"
 msgstr "?"
@@ -320,7 +322,8 @@ msgstr "Kamu kurumu ekleyin - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Kamu kurumu ekleyin:"
 
-msgid "Added on {{date}}"
+#, fuzzy
+msgid "Added on {{date}}."
 msgstr "{{date}} tarihinde eklendi"
 
 msgid "Admin level is not included in list"
@@ -407,8 +410,9 @@ msgstr "Emin misiniz? Eğer bir kerelik geçiş kodunuzu yeniden üretirseniz, �
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Bu sayfada herhangi bir ticari telif hakkının sahibi misiniz?"
 
+#, fuzzy
 msgid "Ask EU Authorities"
-msgstr ""
+msgstr "kamu kuruluşları"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "<strong>Belirli</strong> belgeler ya da bilgi isteyin. Bu web sitesi, genel sorgulamalar için uygun değildir. "
@@ -480,6 +484,10 @@ msgid "Browse all requests &rarr;"
 msgstr "Tüm başvurulara bak  &rarr;"
 
 msgid "Browse and search requests"
+msgstr "Başvurulara bak ve başvurularda ara"
+
+#, fuzzy
+msgid "Browse and search requests (page {{count}})"
 msgstr "Başvurulara bak ve başvurularda ara"
 
 msgid "Browse requests"
@@ -572,10 +580,12 @@ msgstr "Açıklık getirme"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Açıklık getirmek için yazılan metin {{info_request_user}} tarafından  {{public_body_name}} kurumuna {{date}}  tarihinde iletildi "
 
-msgid "Clarify your FOI request - "
+#, fuzzy
+msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Bilgi Edinme Başvurunuza açıklık getirin -"
 
-msgid "Classify an FOI response from "
+#, fuzzy
+msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Şu kurumdan gelen bir Bilgi Edinme Başvurusu cevabını sınıflandır"
 
 msgid "Clear photo"
@@ -713,7 +723,8 @@ msgstr "İşlevsiz durumda."
 msgid "Delayed"
 msgstr "Gecikme"
 
-msgid "Delayed response to your FOI request - "
+#, fuzzy
+msgid "Delayed response to your FOI request - {{request_title}}"
 msgstr "Bilgi edinme başvurunuza gecikmeli olarak cevap verildi"
 
 msgid "Delayed."
@@ -854,7 +865,8 @@ msgstr "'{{user_name}}' tarafından yapılan bilgi edinme başvuruları"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Toplam  {{total_count}} başvurudan  {{start_count}} -  {{end_count}}  arası başvurular "
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
+#, fuzzy
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr "Bilgi edinme başvurusuna gelen cevapla  yöneticinin ilgilenmesini gerekiyor ({{reason}}) - {{title}}"
 
 msgid "Failed"
@@ -991,8 +1003,9 @@ msgstr "Bilgi Edinme Hakkı Kanunu"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Bu kurum/kuruluş Bilgi  Edinme Hakkı Kanunu kapsamının dışındadır, bu yüzden başvuru yapılamaz."
 
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+#, fuzzy
+msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgstr "Bu kurum/kuruluş Bilgi  Edinme Hakkı Kanunu kapsamının dışındadır, bu yüzden başvuru yapılamaz."
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "{{public_body_name}} Bilgi Edinme Hakkı Kanunu kapsamı dışına alınmıştır."
@@ -1048,17 +1061,20 @@ msgstr "Merhaba! {{country_name}} dışından gelen kullanıcılar için <a href
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr "Merhaba! Diğer ülkelerden gelen ziyaretçiler için  <a href=\"{{url}}\">önemli bir mesajımız</a> var"
 
+#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr ""
+msgstr "Merhaba! Diğer ülkelerden gelen ziyaretçiler için  <a href=\"{{url}}\">önemli bir mesajımız</a> var"
 
+#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr ""
+msgstr "Merhaba! {{country_name}} dışından gelen kullanıcılar için <a href=\"{{url}}\">önemli bir mesajımız</a> var.  "
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Merhaba! {{link_to_website}} sitesinde  {{country_name}} için bilgi edinme başvuruları yapabilirsiniz. "
 
+#, fuzzy
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
-msgstr ""
+msgstr "Merhaba! {{link_to_website}} sitesinde  {{country_name}} için bilgi edinme başvuruları yapabilirsiniz. "
 
 msgid "Hello, {{username}}!"
 msgstr "Merhaba, {{username}}!"
@@ -1344,8 +1360,9 @@ msgstr "InfoRequest|Handle reddedilmiş başvurular"
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
+#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr ""
+msgstr "InfoRequest|Handle reddedilmiş başvurular"
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"
@@ -1395,8 +1412,9 @@ msgstr "Geçen ay gönderilen başlıklar"
 msgid "Joined in {{year}}."
 msgstr ""
 
+#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr ""
+msgstr " {{site_name}} ekibi"
 
 msgid "Just one more thing"
 msgstr "Bir şey daha var"
@@ -1413,10 +1431,12 @@ msgstr "Başvurularınızı güncelleyin"
 msgid "Keywords"
 msgstr "Anahtar sözcükler"
 
-msgid "Last authority viewed: "
+#, fuzzy
+msgid "Last authority viewed: {{authority_url}}"
 msgstr "Görüntülenen en son kurum:"
 
-msgid "Last request viewed: "
+#, fuzzy
+msgid "Last request viewed: {{request_url}}"
 msgstr "Görüntülenen en son başvuru:"
 
 msgid "Learn more &rarr;"
@@ -1524,7 +1544,8 @@ msgstr "İleti buradan kaldırılmıştır"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "İleti {{site_name}} iletişim formu doldurularak gönderildi"
 
-msgid "Missing contact details for '"
+#, fuzzy
+msgid "Missing contact details for '{{authority_name}}'"
 msgstr "' için iletişim bilgisi eksik"
 
 msgid "More about this authority"
@@ -1575,7 +1596,8 @@ msgstr "Yeni şifre: (tekrar)"
 msgid "New response to '{{title}}'"
 msgstr "'{{title}}' başlıklı başvurunuza yeni cevap"
 
-msgid "New response to your FOI request - "
+#, fuzzy
+msgid "New response to your FOI request - {{request_title}}"
 msgstr "Bilgi edinme başvurunuza yeni bir cevap -"
 
 msgid "New response to your request"
@@ -1898,7 +1920,8 @@ msgstr "Lütfen sırayla aşağıdaki başvuruları seçin ve olumlu sonuç verm
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Lütfen en alttaki satıra kendi adınızı girin veya \"{{signoff}}\" imzanızı değiştirin"
 
-msgid "Please sign in as "
+#, fuzzy
+msgid "Please sign in as {{user_name}}"
 msgstr "Kullanıcı olarak giriş yapın"
 
 msgid "Please tell us more:"
@@ -2303,8 +2326,9 @@ msgstr "Bu başvuruya verilmesi gereken cevap için <strong>yasal süre dolalı 
 msgid "Response to your request"
 msgstr "Başvurunuza gelen cevap"
 
+#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr ""
+msgstr "{{law_used_short}} Başvuruya yeni bir cevap "
 
 msgid "Response:"
 msgstr "Cevap:"
@@ -2360,7 +2384,8 @@ msgstr "Geri dönen mesajı görün"
 msgid "Send a followup"
 msgstr "Bir takip iletisi gönderin"
 
-msgid "Send a message to "
+#, fuzzy
+msgid "Send a message to {{user_name}}"
 msgstr "Şu kişi veya kuruma bir mesaj gönder"
 
 msgid "Send a public follow up message to {{person_or_body}}"
@@ -2378,8 +2403,13 @@ msgstr "Emaili bana gönder"
 msgid "Send message"
 msgstr "Mesajı gönder"
 
-msgid "Send message to "
+#, fuzzy
+msgid "Send message to {{user_name}}"
 msgstr "Şu adrese mesaj gönder"
+
+#, fuzzy
+msgid "Send message to {{user_name}} just to see how it works"
+msgstr "nasıl çalıştığını bir görün"
 
 msgid "Send request"
 msgstr "Başvuruyu gönder"
@@ -2443,7 +2473,8 @@ msgstr "Benzer başvurular"
 msgid "Simple search"
 msgstr "Basit arama"
 
-msgid "Some notes have been added to your FOI request - "
+#, fuzzy
+msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr "Bilgi Edinme Başvurunuza bazı notlar eklendi"
 
 msgid "Some of the information requested has been received"
@@ -2452,7 +2483,8 @@ msgstr "İstenilen bilginin bir kısmı alındı"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Başvuru yapan kişilerden bazıları başvurularının nasıl sonuçlandığını\\n bize söylemedi. Bu konuda <strong>sizin</strong> yardımınıza ihtiyacımız var &ndash;\\nbu başvurulardan birini seçin, okuyun ve istenilen bilginin\\n verilip verilmediğini herkesin bilmesini sağlayın. Bunu yaparsanız, herkese büyük faydası dokunacak."
 
-msgid "Somebody added a note to your FOI request - "
+#, fuzzy
+msgid "Somebody added a note to your FOI request - {{request_title}}"
 msgstr "Birisi Bilgi Edinme Başvurunuza bir not ekledi - "
 
 msgid "Someone has updated the status of your request"
@@ -2560,7 +2592,8 @@ msgstr "Siteyi düzenli tutmamıza yardım ettiğiniz için teşekkürler!"
 msgid "Thank you for making an annotation!"
 msgstr "Bir açıklama notu eklediğiniz için teşekkürler!"
 
-msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to "
+#, fuzzy
+msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
 msgstr "Bu Bilgi Edinme Başvurusuna cevap verdiğiniz için teşekkür ederiz! Cevabınız aşağıya eklendi ve bağlantı şu kişiye email ile gönderildi"
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
@@ -2686,7 +2719,8 @@ msgstr "Bu başvuruya <strong>açıklık getirmeniz bekleniyor</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Bu başvuru <strong>kısmen olumlu</strong> sonuçlandı."
 
-msgid "The request was <strong>refused</strong> by"
+#, fuzzy
+msgid "The request was <strong>refused</strong> by {{authority_name}}."
 msgstr "Başvuru <strong>reddedildi</strong>, şu kurum tarafından"
 
 msgid "The request was <strong>successful</strong>."
@@ -2731,7 +2765,8 @@ msgstr "Sonra {{site_name}} için kullandığınız email adresini değiştirebi
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Sonra {{site_name}}'daki şifrenizi değiştirebilirsiniz"
 
-msgid "Then you can classify the FOI response you have got from "
+#, fuzzy
+msgid "Then you can classify the FOI response you have got from {{authority_name}}."
 msgstr "Sonra aşağıdaki kurumdan aldığınız Bilgi Edinme Hakkı başvurusu cevabını sınıflandırabilirsiniz"
 
 msgid "Then you can download a zip file of {{info_request_title}}."
@@ -2749,23 +2784,27 @@ msgstr "Sonra bilgi edinme başvurusu kategorize etme oyununu oynayabilirsiniz"
 msgid "Then you can report the request '{{title}}'"
 msgstr "Sonra '{{title}}' başvurusunu şikayet edebilirsiniz"
 
-msgid "Then you can send a message to "
+#, fuzzy
+msgid "Then you can send a message to {{user_name}}."
 msgstr "Sonra şu kişi veya kuruma bir mesaj iletebilirsiniz"
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Sonra {{site_name}}'na giriş yapabilirsiniz"
 
-msgid "Then you can update the status of your request to "
+#, fuzzy
+msgid "Then you can update the status of your request to {{authority_name}}."
 msgstr "Sonra başvurunuzun durumunu şöyle güncelleyebilirsiniz"
 
 msgid "Then you can upload an FOI response. "
 msgstr "Sonra Bilgi Edinme Başvurusu'na gelen bir cevabı siteye yükleyebilirsiniz "
 
+#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr ""
+msgstr " {{username}} adlı kullanıcıya takip iletisi gönderilemedi"
 
+#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr ""
+msgstr "Sonra {{site_name}}'daki şifrenizi değiştirebilirsiniz"
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Bütün yeni Bilgi Edinme Başvurularını izliyor olacaksınız."
@@ -3007,8 +3046,11 @@ msgstr "{{site_name}} sitesinde kullandığınız email adresini değiştirmek i
 msgid "To classify the response to this FOI request"
 msgstr "Bu Bilgi Edinme Başvurusuna gelen cevabı sınıflandırmak için"
 
-msgid "To do that please send a private email to "
-msgstr "Bunu yapmak için lütfen aşağıdaki adrese özel bir email gönderin"
+#, fuzzy
+msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
+msgstr ""
+"posta adresinizi dahil ederek ve bu başvuruya yanıt vermelerini rica ederek.\\n Alternatif olarak onlara telefon açabilirsiniz. \n"
+" and asking them to reply to this request.\\n Or you could phone them."
 
 msgid "To do this, first click on the link below."
 msgstr "Bunu yapmak için lütfen aşağıdaki bağlantıyı tıklayın"
@@ -3052,16 +3094,19 @@ msgstr "Başvuru sınıflandırma oyunu oynamak için"
 msgid "To post your annotation"
 msgstr "Açıklayıcı not eklemek için"
 
+#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr ""
+msgstr " {{username}} adlı kullanıcıya yanıt gönderilemedi"
 
 msgid "To report this request"
 msgstr "Bu başvuruyu şikayet etmek için"
 
+#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr ""
+msgstr " {{username}} adlı kullanıcıya takip iletisi gönderilemedi"
 
-msgid "To send a message to "
+#, fuzzy
+msgid "To send a message to {{user_name}}"
 msgstr "Kişi veya kuruma mesaj göndermek için"
 
 msgid "To send your FOI request"
@@ -3073,7 +3118,8 @@ msgstr "Bilgi edinme başvurunuzu başka bir kuruma göndermek için, önce aşa
 msgid "To update the status of this FOI request"
 msgstr "Bu Bilgi Edinme başvurusunun durumunu güncellemek için"
 
-msgid "To upload a response, you must be logged in using an email address from "
+#, fuzzy
+msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
 msgstr "Siteye bir cevap yüklemek için, aşağıdaki kurumdan bir email adresi kullanarak giriş yapmalısınız"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
@@ -3169,11 +3215,9 @@ msgstr " {{username}} adlı kullanıcıya takip iletisi gönderilemedi"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Sınıflandırılmamış olan veya gizli tutulan başvurular sayılmamaktadır"
 
-msgid "Unexpected search result type "
+#, fuzzy
+msgid "Unexpected search result type {{result_type}}"
 msgstr "Beklenmedik arama sonucu "
-
-msgid "Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "Ne yazık ki, söz konusu kurumun bilgi edinme biriminin email adresini bilmiyoruz, bu yüzden bunu doğrulayamıyoruz. Sorunu gidermek için bizimle <a href=\"{{url}}\">iletişime us</a>geçin."
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Ne yazık ki {{public_body_names}} için çalışan bir email adresi elimizde yok"
@@ -3202,7 +3246,8 @@ msgstr "Adresi güncelle:"
 msgid "Update the status of this request"
 msgstr "Bu başvurunun durumunu güncelle"
 
-msgid "Update the status of your request to "
+#, fuzzy
+msgid "Update the status of your request to {{authority_name}}"
 msgstr "Şu kuruma yaptığınız başvurunun durumunu güncelle"
 
 msgid "Upload FOI response"
@@ -3247,8 +3292,9 @@ msgstr "User|Ban text"
 msgid "User|Can make batch requests"
 msgstr "User|Can make batch requests"
 
+#, fuzzy
 msgid "User|Dob"
-msgstr ""
+msgstr "Kullanıcı"
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3464,20 +3510,20 @@ msgstr "Kendi ülkenizde böyle bir web sitesi olmasını ister misiniz?"
 msgid "Write a reply"
 msgstr "Bir cevap yazın"
 
+#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr ""
+msgstr " {{username}} adlı kullanıcıya yanıt gönderilemedi"
 
+#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr ""
+msgstr " {{username}} adlı kullanıcıya takip iletisi gönderilemedi"
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Başvurunuzu <strong>sade, net bir dille</strong> yazın."
 
-msgid "You"
-msgstr "Siz"
-
+#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr ""
+msgstr "{{existing_request_user}} aynı başvuruyu {{date}} tarihinde zaten\\n oluşturdu. Bu durumda <a href=\"{{existing_request}}\">var olan başvuruyu</a> inceleyebilir,\\n ya da aşağıda detayları düzenleyerek benzer ama yeni bir başvuru oluşturabilirsiniz."
 
 msgid "You are already following new requests"
 msgstr "Yeni başvuruları zaten takip ediyorsunuz"
@@ -3593,6 +3639,10 @@ msgstr "Zaten bir {{site_name}} hesabınız varken, yeni\\n bir hesap oluşturma
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Hatanın nedenini biliyorsanız <strong>bir çözüm önerebilirsiniz</strong>; ör: çalışan bir mail adresi gibi. "
 
+#, fuzzy
+msgid "You left an annotation ({{date}})"
+msgstr "bir açıklama notu bıraktı"
+
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Başvurunuza <strong>ek dosya</strong> ekleyebilirsiniz. Eklemek istediğiniz dosya email ile iletmek için çok büyükse\\n aşağıdaki formu kullanın. "
 
@@ -3665,7 +3715,8 @@ msgstr "Siteye giriş yaptığınızda hala görebileceksiniz. Bu kararı tartı
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Giriş yaptınız. <a href=\"#\" id=\"send-request\">Başvurunuzu göndermeye devam edin</a>"
 
-msgid "You're long overdue a response to your FOI request - "
+#, fuzzy
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
 msgstr "Bilgi edinme başvurunuzun şimdiye kadar çoktan yanıtlanmış olması gerekirdi - "
 
 msgid "You're not following anything."
@@ -3795,7 +3846,8 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Sizin eklediğiniz {{count}} açıklama notu"
 msgstr[1] "Sizin eklediğiniz {{count}} açıklama notu"
 
-msgid "Your {{count}} batch requests"
+#, fuzzy
+msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Sizin yaptığınız {{count}} toplu başvurular"
 msgstr[1] "Sizin yaptığınız {{count}} toplu başvurular"
@@ -3881,11 +3933,6 @@ msgstr " {{user_link_absolute}} tarafından "
 msgid "comments"
 msgstr "yorumlar"
 
-msgid "containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr ""
-"posta adresinizi dahil ederek ve bu başvuruya yanıt vermelerini rica ederek.\\n Alternatif olarak onlara telefon açabilirsiniz. \n"
-" and asking them to reply to this request.\\n Or you could phone them."
-
 msgid "details"
 msgstr "detaylar"
 
@@ -3907,9 +3954,6 @@ msgstr "her şey"
 msgid "external"
 msgstr "dış"
 
-msgid "has reported an"
-msgstr "raporladı"
-
 msgid "have delayed."
 msgstr "erteledi"
 
@@ -3925,14 +3969,9 @@ msgstr "iç hata"
 msgid "internal reviews"
 msgstr "iç denetimler"
 
-msgid "is <strong>waiting for your clarification</strong>."
-msgstr " <strong>açıklık getirmeniz bekleniyor</strong>."
-
-msgid "just to see how it works"
-msgstr "nasıl çalıştığını bir görün"
-
-msgid "left an annotation"
-msgstr "bir açıklama notu bıraktı"
+#, fuzzy
+msgid "logged in as user {{user_name}}"
+msgstr "Sayın {{user_name}},"
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "‘{{tag_name}}’ etiketine uyan"
@@ -3961,11 +4000,11 @@ msgstr "şu tarihten önce"
 msgid "normally"
 msgstr "normalde"
 
+msgid "not logged in"
+msgstr ""
+
 msgid "not requestable due to: {{reason}}"
 msgstr "şu nedenle bu bilgi istenilemez: {{reason}}"
-
-msgid "please sign in as "
-msgstr "lütfen kullanıcı olarak giriş yapın "
 
 msgid "requesting an internal review"
 msgstr "kurum içi inceleme isteniyor"
@@ -3978,9 +4017,6 @@ msgstr "olumlu sonuçlanan başvurular"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "olumlu sonuçlanan ve '{{query}}' satırındaki sözcükleri içeren başvurular "
-
-msgid "response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "cevabın site yöneticisi tarafından gözden geçirilmesi gerekli. Bir göz atın ve bu\\n email adresine cevap vererek onlara bu konuda ne yapacağınızı yazın. "
 
 msgid "send a follow up message"
 msgstr "bir takip iletisi gönder"
@@ -4014,9 +4050,6 @@ msgstr " {{public_body}} adlı kamu kuruluşu için ana Bilgi Edinme adresi"
 msgid "the main FOI contact at {{public_body}}"
 msgstr " {{public_body}} adlı kamu kuruluşundaki başlıca Bilgi Edinme sorumlusu "
 
-msgid "the requester"
-msgstr "başvuran"
-
 msgid "the {{site_name}} team"
 msgstr " {{site_name}} ekibi"
 
@@ -4029,13 +4062,15 @@ msgstr "{{public_body}} adlı kamu kuruluşuna"
 msgid "type your search term here"
 msgstr "aradığınız terimi buraya girin "
 
+#, fuzzy
 msgid "unknown reason"
-msgstr ""
+msgstr "bilinmeyen sebep"
 
 msgid "unknown reason "
 msgstr "bilinmeyen sebep"
 
-msgid "unknown status "
+#, fuzzy
+msgid "unknown status {{status}}"
 msgstr "bilinmeyen durum"
 
 msgid "unresolved requests"
@@ -4056,13 +4091,22 @@ msgstr "kullanıcılar"
 msgid "what's that?"
 msgstr "Bu nedir?"
 
+#, fuzzy
+msgid "{{authority_name}} <strong>did not have</strong> the information requested."
+msgstr "İstenen bilgi kurumun elinde <strong>bulunmuyordu</strong>"
+
+#, fuzzy
+msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
+msgstr " <strong>açıklık getirmeniz bekleniyor</strong>."
+
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} adet bilgi edinme başvurusu bulundu"
 
+#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sizin eklediğiniz {{count}} açıklama notu"
+msgstr[1] "Sizin eklediğiniz {{count}} açıklama notu"
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
@@ -4121,6 +4165,14 @@ msgstr "{{public_body}} adlı kamu kuruluşu  {{user_name}} adlı kullanıcıya 
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, hesap oluşturun ya da giriş yapın "
 
+#, fuzzy
+msgid "{{reason}}, please sign in as {{user_name}}."
+msgstr "Sonra {{site_name}}'na giriş yapabilirsiniz"
+
+#, fuzzy
+msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
+msgstr "Ne yazık ki, söz konusu kurumun bilgi edinme biriminin email adresini bilmiyoruz, bu yüzden bunu doğrulayamıyoruz. Sorunu gidermek için bizimle <a href=\"{{url}}\">iletişime us</a>geçin."
+
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} eşleşen '{{query}}'"
 
@@ -4163,8 +4215,16 @@ msgstr "{{user_name}} bir açıklama notu ekledi"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} adlı kullanıcı,  {{law_used_short}} \\nbaşvurunuza bir açıklama notu ekledi. Ne yazdığını görmek için bu bağlantıyı tıklayın."
 
+#, fuzzy
+msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "cevabın site yöneticisi tarafından gözden geçirilmesi gerekli. Bir göz atın ve bu\\n email adresine cevap vererek onlara bu konuda ne yapacağınızı yazın. "
+
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}}, {{site_name}} sitesini kullanarak size aşağıdaki mesajı gönderdi. "
+
+#, fuzzy
+msgid "{{user_name}} left an annotation ({{date}})"
+msgstr "{{username}} bir açıklama notu ekledi:"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}}, {{public_body}} adlı kuruma başvurusuyla ilgili bir takip mesajı gönderdi"
@@ -4189,3 +4249,18 @@ msgstr "{{user}}, bu {{law_used_full}} başvurusunu gerçekleştirdi"
 
 msgid "« Back to search results"
 msgstr "« Arama sonuçlarına dön"
+
+#~ msgid "To do that please send a private email to "
+#~ msgstr "Bunu yapmak için lütfen aşağıdaki adrese özel bir email gönderin"
+
+#~ msgid "You"
+#~ msgstr "Siz"
+
+#~ msgid "has reported an"
+#~ msgstr "raporladı"
+
+#~ msgid "please sign in as "
+#~ msgstr "lütfen kullanıcı olarak giriş yapın "
+
+#~ msgid "the requester"
+#~ msgstr "başvuran"
