@@ -249,9 +249,8 @@ msgstr "<strong>חלק מהמידע</strong> נשלח "
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>הודו</strong> לרשות הציבורית או "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>הודו</strong> לרשות הציבורית או "
+msgstr "<strong>הודו</strong> לרשות הציבורית או {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>אנחנו נשלח לכם דוא״ל</strong> כאשר תתקבל תשובה, או אחרי {{late_number_of_days}} ימי עבודה אם הרשות לא תשיב עד אז."

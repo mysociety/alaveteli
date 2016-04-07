@@ -236,9 +236,8 @@ msgstr "<strong>Част от информацията</strong> е изпрат�
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "Да <strong>благодарите</strong> на публичния орган или "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "Да <strong>благодарите</strong> на публичния орган или "
+msgstr "Да <strong>благодарите</strong> на публичния орган или {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr ""

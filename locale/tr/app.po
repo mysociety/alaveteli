@@ -238,9 +238,8 @@ msgstr "İstediğim bilginin<strong>bir kısmı</strong> gönderildi "
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "Kamu kuruluşuna <strong>teşekkür edin</strong> ya da "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "Kamu kuruluşuna <strong>teşekkür edin</strong> ya da "
+msgstr "Kamu kuruluşuna <strong>teşekkür edin</strong> ya da {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "Bir cevap geldiğinde veya {{late_number_of_days}} işgünü sonrası hala cevap gelmemişse, bu durumu</strong>size e-mail aracılığıyla bildireceğiz <strong>"

@@ -245,9 +245,8 @@ msgstr "<strong>بعض المعلومات</strong> تم ارسالها "
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>شكر</strong> السلطة العامة أو "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>شكر</strong> السلطة العامة أو "
+msgstr "<strong>شكر</strong> السلطة العامة أو {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr ""

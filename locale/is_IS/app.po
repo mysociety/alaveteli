@@ -233,9 +233,8 @@ msgstr "<strong>Sum gögnin</strong> hafa verið send"
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Þakkaðu</strong> stjórnvaldinu "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Þakkaðu</strong> stjórnvaldinu "
+msgstr "<strong>Þakkaðu</strong> stjórnvaldinu {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Við sendum þér tölvupóst</strong> þegar svar hefur borist, eða eftir {{late_number_of_days}} virka daga ef stjórnvaldið hefur ekki svarað."

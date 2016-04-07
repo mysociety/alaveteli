@@ -261,9 +261,8 @@ msgstr "<strong>Disa nga informacionet</strong> janë dërguar "
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Falënderoji</strong> institucion publik ose "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Falënderoji</strong> institucion publik ose "
+msgstr "<strong>Falënderoji</strong> institucion publik ose {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong> Ne do ju dergojme mesazh ne posten elektronike</strong> kur nje pergjigje ka ardhur, ose pas {{late_number_of_days}} ditesh pune nese institucioni perkates nuk eshte pergjigjur ende."

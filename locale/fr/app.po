@@ -262,9 +262,8 @@ msgstr "<strong>Certaines informations</strong> ont été envoyées "
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Remerciez</strong> l'autorité publique ou"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Remerciez</strong> l'autorité publique ou"
+msgstr "<strong>Remerciez</strong> l'autorité publique ou {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong> Nous vous enverrons un email </strong> au cas où il y a une réponse sinon ça sera après {{late_number_of_days}} jours ouvrables si l’autorité n’a pas encore répondu."

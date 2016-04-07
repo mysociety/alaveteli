@@ -275,9 +275,8 @@ msgstr "<strong>Některé informace</strong> byly odeslány"
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Poděkujte</strong> instituci, nebo"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Poděkujte</strong> instituci, nebo"
+msgstr "<strong>Poděkujte</strong> instituci, nebo {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>E-mail obdržíte </strong> až bude k dispozici odpověď, nebo za {{late_number_of_days}} dnů, pokud instituce doposud neodpověděla."

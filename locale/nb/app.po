@@ -245,9 +245,8 @@ msgstr "<strong>Noe av informasjonen</strong> ble sendt"
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Takk</strong> myndigheten eller "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Takk</strong> myndigheten eller "
+msgstr "<strong>Takk</strong> myndigheten eller {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Vi sender deg en e-post</strong> når det kommer svar, eller etter {{late_number_of_days}} virkedager hvis myndighetene ikke har svart deg innen den tid."

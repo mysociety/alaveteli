@@ -248,9 +248,8 @@ msgstr "<strong>Anfonwyd rhan o'r wybodaeth</strong>"
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Diolch</strong> i'r awdurdod cyhoeddus neu"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Diolch</strong> i'r awdurdod cyhoeddus neu"
+msgstr "<strong>Diolch</strong> i'r awdurdod cyhoeddus neu {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr ""

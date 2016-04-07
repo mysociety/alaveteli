@@ -253,9 +253,8 @@ msgstr "<strong>Unele dintre informaţii</strong> au fost trimise."
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Mulţumiri </strong> autorităţii publice sau "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Mulţumiri </strong> autorităţii publice sau "
+msgstr "<strong>Mulţumiri </strong> autorităţii publice sau {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Vă vom trimite un email</strong> când există un răspuns, sau după {{late_number_of_days}} de zile lucrătoare, dacă autoritatea nu a răspuns până atunci."

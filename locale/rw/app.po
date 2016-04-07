@@ -235,9 +235,8 @@ msgstr "<strong>Hari amakuru</strong> yamaze kwoherezwa "
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Shimira</strong> umuyobozi cyangwa "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Shimira</strong> umuyobozi cyangwa "
+msgstr "<strong>Shimira</strong> umuyobozi cyangwa {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Tuzakoherereza imeli</strong> nibagusubiza, cyangwa se nyuma y'iminsi {{late_number_of_days}} y'akazi umuyobozi ni aba atarasubiza."

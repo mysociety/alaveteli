@@ -272,9 +272,8 @@ msgstr "<strong>Parte da informação</strong> foi enviada "
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Agradeça</strong> o órgão público ou"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Agradeça</strong> o órgão público ou"
+msgstr "<strong>Agradeça</strong> o órgão público ou {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Enviaremos um email</strong> quando houver resposta, ou após {{late_number_of_days}} dias úteis se a entidade pública ainda não tiver respondido."

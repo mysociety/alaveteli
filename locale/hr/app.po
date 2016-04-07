@@ -262,9 +262,8 @@ msgstr "<strong>Dio informacija</strong> je poslan "
 msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Zahvali</strong> javnoj vlasti ili "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Zahvali</strong> javnoj vlasti ili "
+msgstr "<strong>Zahvali</strong> javnoj vlasti ili {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Poslat ćemo Vam e-mail</strong> ako stigne odgovor ili nakon {{late_number_of_days}} radnih dana ukoliko tijelo javne vlasti nije odgovorilo do tada."
