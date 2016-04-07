@@ -214,14 +214,14 @@ solo son relevantes en el Reino Unido. Puede utilizar estas páginas como inspir
 debería revisar su contenido basándose en su jurisdicción. Las páginas importantes que deben
 traducirse son:
 
-* [Información](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.rhtml): por qué existe el sitio web, por qué funciona, etc.
-* [Contacto](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.rhtml): formas de ponerse en contacto.
-* [Créditos](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.rhtml): quién participa en el sitio. Incluye una sección importante sobre cómo pueden los usuarios colaborar en el proyecto.
-* [Agentes](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.rhtml): información para los agentes que tratan con la información pública en los distintos organismos. Reciben un enlace que conduce a esta página en los correos que el sitio les envía.
-* [Privacidad](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.rhtml): política de privacidad e información que aclara que las solicitudes aparecerán en internet. Informe a los usuarios  de que pueden utilizar seudónimos en su jurisdicción.
-* [Solicitudes](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.rhtml): la página de ayuda principal para realizar solicitudes. Cómo funciona, cómo decidir a quién escribir, qué se puede esperar en cuanto a respuestas se refiere, cómo efectuar reclamaciones, etc.
-* [Descontento](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.rhtml): los usuarios son dirigidos a esta página cuando una solicitud no ha sido satisfactoria (por ejemplo, si la solicitud ha sido rechazada o cuando el organismo insiste en recibir una solicitud por correo postal). La página debería animarles a continuar intentándolo, por ejemplo, iniciando una nueva solicitud o dirigiéndola a otro organismo.
-* [Motivos para utilizar el correo](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.rhtml): un breve texto informativo que explica a los usuarios por qué deberían insistir en obtener respuestas por correo electrónico. Se muestra junto a las solicitudes que han «pasado al correo postal».
+* [Información](https://github.com/mysociety/alavetelitheme/blob/master/lib/views/help/about.rhtml): por qué existe el sitio web, por qué funciona, etc.
+* [Contacto](https://github.com/mysociety/alavetelitheme/blob/master/lib/views/help/contact.rhtml): formas de ponerse en contacto.
+* [Créditos](https://github.com/mysociety/alavetelitheme/blob/master/lib/views/help/credits.rhtml): quién participa en el sitio. Incluye una sección importante sobre cómo pueden los usuarios colaborar en el proyecto.
+* [Agentes](https://github.com/mysociety/alavetelitheme/blob/master/lib/views/help/officers.rhtml): información para los agentes que tratan con la información pública en los distintos organismos. Reciben un enlace que conduce a esta página en los correos que el sitio les envía.
+* [Privacidad](https://github.com/mysociety/alavetelitheme/blob/master/lib/views/help/privacy.rhtml): política de privacidad e información que aclara que las solicitudes aparecerán en internet. Informe a los usuarios  de que pueden utilizar seudónimos en su jurisdicción.
+* [Solicitudes](https://github.com/mysociety/alavetelitheme/blob/master/lib/views/help/requesting.rhtml): la página de ayuda principal para realizar solicitudes. Cómo funciona, cómo decidir a quién escribir, qué se puede esperar en cuanto a respuestas se refiere, cómo efectuar reclamaciones, etc.
+* [Descontento](https://github.com/mysociety/alavetelitheme/blob/master/lib/views/help/unhappy.rhtml): los usuarios son dirigidos a esta página cuando una solicitud no ha sido satisfactoria (por ejemplo, si la solicitud ha sido rechazada o cuando el organismo insiste en recibir una solicitud por correo postal). La página debería animarles a continuar intentándolo, por ejemplo, iniciando una nueva solicitud o dirigiéndola a otro organismo.
+* [Motivos para utilizar el correo](https://github.com/mysociety/alavetelitheme/blob/master/lib/views/help/_why_they_should_reply_by_email.rhtml): un breve texto informativo que explica a los usuarios por qué deberían insistir en obtener respuestas por correo electrónico. Se muestra junto a las solicitudes que han «pasado al correo postal».
 
 Las páginas de ayuda contienen código HTML. Su asistente técnico debería poder darle soporte al respecto.
 
