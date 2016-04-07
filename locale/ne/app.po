@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-15 09:21+0000\n"
-"Last-Translator: Pawan Kumar Kandel <pkkandel1@gmail.com>\n"
+"PO-Revision-Date: 2016-03-18 11:51+0000\n"
+"Last-Translator: arjun gautam <arjun.gautam.1694@gmail.com>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -125,7 +125,7 @@ msgid "<a href=\"{{url}}\">Do you want to request private information about your
 msgstr "<a href=\"{{url}}\">तपाईं आफ्नो बारेमा निजी जानकारी अनुरोध गर्न चाहनुहुन्छ?</a>"
 
 msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
-msgstr ""
+msgstr "<a href=\"{{url}}\">यसलाई <strong>केन्द्रित</strong> राख्नु होला</a>, तपाईंले जे चाहनुहुन्छ प्राप्त गर्न बढी सम्भावना हुनेछु।"
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr ""
@@ -135,17 +135,17 @@ msgstr ""
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<div class=\"alaveteli-widget__count\">{{count}}</div> मान्छे जान्न चाहन्छन्"
+msgstr[1] "<div class=\"alaveteli-widget__count\">{{count}}</div> मान्छे जान्न चाहन्छन्"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
-msgstr ""
+msgstr "<p>सबै सकियो! तपाई सहयोगको लागि धेरै धेरै धन्यवाद। </p><p>तपाईलाई <a href=\"{{helpus_url}}\">आन्य कुराहरूमा</a> पनि मदत गर्न सक्नुहुन्छ {{site_name}}।</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr ""
+msgstr "<p>तपाईको प्रोफाइलमा आफ्नो बारेमा पाठ परिवर्तन गर्नु भएकोमा धन्यवाद।</p>\\n<p><strong>अर्को...</strong> आफ्नो प्रोफाइल तस्वीर पनि तपाई अपलोड गर्न सक्नुहुन्छ।</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr ""
+msgstr "<p>आफ्नो प्रोफाइल फोटो अप्डेट गर्नु भएकोमा धन्यवाद।</p>\\n <p><strong>अर्को...</strong> तपाई आफ्नो प्रोफाइलमा तपाइको आफ्नो बारेमा र तपाईको अनुसन्धानको बारेमा केही पाठ राख्न सक्नु हुन्छ। </p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
 msgstr ""
