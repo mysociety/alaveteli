@@ -19,7 +19,7 @@ in any language, and within any legislation</p>
             <div class="grid-row">
             <div class="deployments__unit--major">
                     <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/what-do-they-know.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/what-do-they-know.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">WhatDoTheyKnow</h3>
                         <p class="deployment__country">United Kingdom</p>
                         <p class="deployment__link"><a href="https://www.whatdotheyknow.com/">https://www.whatdotheyknow.com/</a></p>
@@ -31,7 +31,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--major">
                     <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/ki-mit-tud.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/ki-mit-tud.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Ki Mit Tud</h3>
                         <p class="deployment__country">Hungary</p>
                         <p class="deployment__link"><a href="http://kimittud.atlatszo.hu/">http://kimittud.atlatszo.hu/</a></p>
@@ -43,7 +43,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--major">
                       <div class="deployment--major">
-                          <img src="{{ site.baseurl }}assets/img/fyi.jpg" class="deployment__screenshot" />
+                          <img src="{{ site.baseurl }}assets/img/fyi.jpg" class="deployment__screenshot" alt=""/>
                           <h3 class="deployment__title">FYI </h3>
                           <p class="deployment__country">New Zealand</p>
                           <p class="deployment__link"><a href="https://fyi.org.nz/">https://fyi.org.nz/</a></p>
@@ -55,19 +55,7 @@ in any language, and within any legislation</p>
                   </div><!--
                   --><div class="deployments__unit--major">
                     <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/tu-derecho-a-saber.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Tu Derecho A Saber</h3>
-                        <p class="deployment__country">Spain</p>
-                        <p class="deployment__link"><a href="http://tuderechoasaber.es/ ">http://tuderechoasaber.es/ </a></p>
-                        <div class="deployment__description">
-                            <p>Tu Derecho A Saber was launched in 2012, before Spain had passed a Freedom of Information act, and against a background of political dissent.</p>
-                            <p>Spain now has its Right to Know, but Tu Derecho A Saber remains an example of how you can run a site based on Alaveteli, even if your jurisdiction has no such laws in place.</p>
-                        </div>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--major">
-                    <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/ask-the-eu.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/ask-the-eu.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Ask the EU</h3>
                         <p class="deployment__country">Europe</p>
                         <p class="deployment__link"><a href="http://www.asktheeu.org/">http://www.asktheeu.org/</a></p>
@@ -79,7 +67,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--major">
                     <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/ukraine.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/ukraine.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Доступ до правди</h3>
                         <p class="deployment__country">Ukraine</p>
                         <p class="deployment__link"><a href="https://dostup.pravda.com.ua/">https://dostup.pravda.com.ua/</a></p>
@@ -91,7 +79,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--major">
                     <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/informace-pro-vsechny.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/informace-pro-vsechny.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Info Pro Všechny</h3>
                         <p class="deployment__country">Czech Republic</p>
                         <p class="deployment__link"><a href="http://www.infoprovsechny.cz/">http://www.infoprovsechny.cz/</a></p>
@@ -103,7 +91,7 @@ in any language, and within any legislation</p>
                 </div><!--
                  --><div class="deployments__unit--major">
                     <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/imamo-pravo-znati.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/imamo-pravo-znati.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Imamo pravo znati</h3>
                         <p class="deployment__country">Croatia</p>
                         <p class="deployment__link"><a href="http://imamopravoznati.org/">http://imamopravoznati.org/</a></p>
@@ -113,6 +101,19 @@ in any language, and within any legislation</p>
                             <p> Now thanks to <a href="http://codeforcroatia.org">Code for Croatia</a>, an HrOpen expert group and <a href="http://gong.hr">GONG</a>, Croatians have an easier path to free public information from nearly 6,000 public authorities.</p>
                         </div>
                     </div>
+                </div><!--
+                 --><div class="deployments__unit--major">
+                    <div class="deployment--major">
+                        <img src="{{ site.baseurl }}assets/img/right-to-know.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">Right To Know</h3>
+                        <p class="deployment__country">Australia</p>
+                        <p class="deployment__link"><a href="https://www.righttoknow.org.au/">https://www.righttoknow.org.au/</a></p>
+                        <div class="deployment__description">
+                            <p>Australia has had a Freedom of Information Act since 1982, which allows anyone, anywhere in the world to ask Australian public authorities for information in their custody.</p>
+
+                            <p>In 2012 the <a href="https://www.openaustraliafoundation.org.au/">OpenAustralia Foundation</a> launched Right To Know to make the process of obtaining information under the Act easier, as historically the process has been too difficult and time consuming for ordinary citizens. </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,15 +121,15 @@ in any language, and within any legislation</p>
             <div class="grid-row">
                 <div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/right-to-know.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Right To Know</h3>
-                        <p class="deployment__country">Australia</p>
-                        <p class="deployment__link"><a href="https://www.righttoknow.org.au/">https://www.righttoknow.org.au/</a></p>
+                        <img src="{{ site.baseurl }}assets/img/right-to-know-malaysia.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">RightToKnow</h3>
+                        <p class="deployment__country">Malaysia</p>
+                        <p class="deployment__link"><a href="http://foi.sinarproject.org">http://foi.sinarproject.org/</a></p>
                     </div>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/que-sabes.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/que-sabes.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Que Sabes</h3>
                         <p class="deployment__country">Uruguay</p>
                         <p class="deployment__link"><a href="http://www.quesabes.org/">http://www.quesabes.org/</a></p>
@@ -136,15 +137,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/marsoum-41.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Marsoum 41</h3>
-                        <p class="deployment__country">Tunisia</p>
-                        <p class="deployment__link"><a href="http://www.marsoum41.org/en">http://www.marsoum41.org/en</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/nu-va-suparati.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/nu-va-suparati.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Nu Vă Supărați</h3>
                         <p class="deployment__country">Romania</p>
                         <p class="deployment__link"><a href="http://nuvasuparati.info/">http://nuvasuparati.info/ </a></p>
@@ -152,7 +145,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/pravo-da-znam.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/pravo-da-znam.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Pravo Da Znam</h3>
                         <p class="deployment__country">Bosnia</p>
                         <p class="deployment__link"><a href="http://www.pravodaznam.ba/">http://www.pravodaznam.ba/</a></p>
@@ -160,7 +153,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/ask-data.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/ask-data.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Ask Data</h3>
                         <p class="deployment__country">Israel</p>
                         <p class="deployment__link"><a href="http://askdata.org.il/">http://askdata.org.il/</a></p>
@@ -176,7 +169,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/da-zanamo-svi.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/da-zanamo-svi.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Da Zanamo Svi</h3>
                         <p class="deployment__country">Serbia</p>
                         <p class="deployment__link"><a href="http://daznamosvi.rs/sr">http://daznamosvi.rs/sr</a></p>
@@ -184,7 +177,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/sobanukirwa.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/sobanukirwa.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Sobanukirwa</h3>
                         <p class="deployment__country">Rwanda</p>
                         <p class="deployment__link"><a href="https://sobanukirwa.rw/">https://sobanukirwa.rw/</a></p>
@@ -192,7 +185,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/diritto-di-sapere.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/diritto-di-sapere.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Chiedi</h3>
                         <p class="deployment__country">Italy</p>
                         <p class="deployment__link"><a href="https://chiedi.dirittodisapere.it/">https://chiedi.dirittodisapere.it/</a></p>
@@ -200,7 +193,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/access-info-hk.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/access-info-hk.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">accessinfo.hk</h3>
                         <p class="deployment__country">Hong Kong</p>
                         <p class="deployment__link"><a href="https://accessinfo.hk/">https://accessinfo.hk/</a></p>
@@ -208,7 +201,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/ask-your-gov-uganda.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/ask-your-gov-uganda.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Ask Your Gov</h3>
                         <p class="deployment__country">Uganda</p>
                         <p class="deployment__link"><a href="http://askyourgov.ug">http://askyourgov.ug/</a></p>
@@ -216,7 +209,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/nos-queremos-saber.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/nos-queremos-saber.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Nós Queremos Saber</h3>
                         <p class="deployment__country">Portugal</p>
                         <p class="deployment__link"><a href="http://nosqueremossaber.org">http://nosqueremossaber.org/</a></p>
@@ -224,7 +217,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/mimes-bronn.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/mimes-bronn.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Mimes Brønn</h3>
                         <p class="deployment__country">Norway</p>
                         <p class="deployment__link"><a href="https://www.mimesbronn.no">https://www.mimesbronn.no/</a></p>
@@ -232,15 +225,7 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/right-to-know-malaysia.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">RightToKnow</h3>
-                        <p class="deployment__country">Malaysia</p>
-                        <p class="deployment__link"><a href="http://foi.sinarproject.org">http://foi.sinarproject.org/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/queremo-saber.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/queremo-saber.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">QueremoSaber</h3>
                         <p class="deployment__country">Paraguay</p>
                         <p class="deployment__link"><a href="http://queremosaber.org.py">http://queremosaber.org.py/</a></p>
@@ -248,10 +233,18 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/derecho-a-preguntar.jpg" class="deployment__screenshot" />
+                        <img src="{{ site.baseurl }}assets/img/derecho-a-preguntar.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Derecho A Preguntar</h3>
                         <p class="deployment__country">Nicaragua</p>
                         <p class="deployment__link"><a href="https://derechoapreguntar.org">https://derechoapreguntar.org/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/infolib.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">InfoLib</h3>
+                        <p class="deployment__country">Liberia</p>
+                        <p class="deployment__link"><a href="http://infolib.org.lr/">http://infolib.org.lr/</a></p>
                     </div>
                 </div>
             </div>
