@@ -1,8 +1,8 @@
 // ...
 //= require jquery
-//= require jquery.ui.tabs
-//= require jquery.ui.sortable
-//= require jquery.ui.effect-highlight
+//= require jquery-ui/tabs
+//= require jquery-ui/sortable
+//= require jquery-ui/effect-highlight
 //= require bootstrap-collapse
 //= require bootstrap-tab
 //= require bootstrap-dropdown
