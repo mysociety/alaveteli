@@ -1547,9 +1547,8 @@ msgstr "El mensaje ha sido eliminado"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Mensaje enviado utilizando la sección \"contáctenos\" en {{site_name}}, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Faltan datos de contacto para '"
+msgstr "Faltan datos de contacto para '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Más información acerca de esta institución"

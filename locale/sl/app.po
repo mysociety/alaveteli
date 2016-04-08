@@ -1534,9 +1534,8 @@ msgstr "Sporočilo je bilo odstranjeno"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Sporočilo je bilo poslano z uporabo obrazca na {{site_name}},"
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Manjkajo kontaktne informacije za '"
+msgstr "Manjkajo kontaktne informacije za '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Več o tem organu"

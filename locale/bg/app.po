@@ -1530,9 +1530,8 @@ msgstr "Съобщението беше премахнато"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Съобщението е изпратено чрез формата за контакти на {{site_name}}, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Липсват детайли за контакт за '"
+msgstr "Липсват детайли за контакт за '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Още за този орган"

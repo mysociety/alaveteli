@@ -1582,9 +1582,8 @@ msgstr "Mesazhi eshte fshire"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Mesazhi i dërguar duke përdorur kontakt formën e {{site_name}}, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Mungojnë të dhënat për '"
+msgstr "Mungojnë të dhënat për '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Më shumë për këtë autoritet"

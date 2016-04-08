@@ -1528,9 +1528,8 @@ msgstr "Пораката беше отстранета"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Пораката е испратена преку контакт формата од {{site_name}}, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Недостасуваат контакт-детали за '"
+msgstr "Недостасуваат контакт-детали за '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Повеќе за овој имател"

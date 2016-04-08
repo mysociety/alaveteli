@@ -1592,9 +1592,8 @@ msgstr "Poruka je uklonjena"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Poruka poslana koristeći {{site_name}} formular za kontakt, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Nedostaje kontakt adresa za '"
+msgstr "Nedostaje kontakt adresa za '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Više o ovom tijelu javne vlasti"

@@ -1589,9 +1589,8 @@ msgstr ""
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Mensagem enviada por meio do formulário de contato do {{site_name}},"
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Faltam dados de contato para '"
+msgstr "Faltam dados de contato para '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Mais informações sobre este órgão público"

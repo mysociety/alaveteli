@@ -1543,9 +1543,8 @@ msgstr "Melding har vorte fjerna"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Melding sendt ved hjelp av kontaktskjema for {{site_name}},"
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Manglar kontaktdetaljar for '"
+msgstr "Manglar kontaktdetaljar for '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Meir om denne styresmakta"

@@ -1544,9 +1544,8 @@ msgstr ""
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "تم بعث الرسالة باستخدام {{site_name}} نموذج الاتصال, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "تنقصنا بيانات اتصال ل '"
+msgstr "تنقصنا بيانات اتصال ل '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "المزيد عن هذه السلطة"

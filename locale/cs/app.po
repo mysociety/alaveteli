@@ -1621,9 +1621,8 @@ msgstr "Zpráva byla smazána"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Zpráva zaslána pomocí kontaktního formuláře stránek {{site_name}}, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Chybějící kontakt pro"
+msgstr "Chybějící kontakt pro '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Více o této instituci"

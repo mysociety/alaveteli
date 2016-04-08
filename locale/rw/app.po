@@ -1530,9 +1530,8 @@ msgstr "Ubutumwa bwakuweho"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Ubutumwa bwoherejwe hakoreshejwe ifishi yo kwohereza ubutumwa ya {{site_name}} , "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Harabura umwirondoro wa '"
+msgstr "Harabura umwirondoro wa '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Ibindi kuri uyu muyobozi"

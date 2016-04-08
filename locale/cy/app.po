@@ -1545,9 +1545,8 @@ msgstr "Neges wedi cael ei dileu"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Neges a anfonwyd gan ddefnyddio ffurflen gysylltu {{site_name}}, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Manylion cyswllt ar goll ar gyfer '"
+msgstr "Manylion cyswllt ar goll ar gyfer '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Rhagor am yr awdurdod hwn"

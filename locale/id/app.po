@@ -1643,9 +1643,8 @@ msgstr ""
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Pesan dikirim menggunakan {{site_name}} kontak dari, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Kehilangan rincian kontak untuk '"
+msgstr "Kehilangan rincian kontak untuk '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Lebih jauh tentang otoritas ini"

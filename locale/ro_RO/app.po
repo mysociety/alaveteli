@@ -1551,9 +1551,8 @@ msgstr "Mesajul a fost șters"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Mesaj trimis utilizând formularul de contact al {{site_name}} "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Lipsă detalii contact pentru  '"
+msgstr "Lipsă detalii contact pentru  '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Mai multe despre această autoritate"

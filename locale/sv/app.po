@@ -1532,9 +1532,8 @@ msgstr "Meddelandet har tagits bort"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Meddelandet skickades genom användning av {{site_name}} kontaktformuläret, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Saknar kontaktdetaljer för '"
+msgstr "Saknar kontaktdetaljer för '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Mer om den här myndigheten"

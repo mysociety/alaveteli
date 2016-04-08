@@ -1632,9 +1632,8 @@ msgstr ""
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Üzenet elküldve a {{site_name}} kapcsolatfelvételi űrlapján, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Hiányzó kapcsolattartási adatok: "
+msgstr "Hiányzó kapcsolattartási adatok: '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "További információ erről az adatgazdáról"

@@ -1582,9 +1582,8 @@ msgstr "Nachricht wurde entfernt"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Nachricht gesendet über {{site_name}} Kontaktformular, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Folgende Kontaktdetails fehlen:"
+msgstr "Folgende Kontaktdetails fehlen: '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Weitere Informationen zu dieser Behörde"

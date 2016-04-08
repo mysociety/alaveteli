@@ -1564,9 +1564,8 @@ msgstr ""
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Mezua bidali da {{site_name}} erabiliz, "
 
-#, fuzzy
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr "Kontaktuaren datuak falta dira '"
+msgstr "Kontaktuaren datuak falta dira '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Erakunde honi buruzko informazio gehiago"
