@@ -3702,9 +3702,8 @@ msgstr "Vous pourrez toujours le voir lorsque vous serez connecté au site. Veui
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Vous y êtes! <a href=\"#\" id=\"send-request\"> Poursuivez l'envoi de votre demande </a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Vous attendez depuis longtemps une réponse à votre demande d'accès aux documents -"
+msgstr "Vous attendez depuis longtemps une réponse à votre demande d'accès aux documents - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Vous ne suivez rien."

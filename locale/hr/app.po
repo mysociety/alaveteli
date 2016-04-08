@@ -3814,9 +3814,8 @@ msgstr "Još uvijek će Vam biti vidljivo kad ste prijavljeni na stranici. Molim
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Prijavljeni ste. <a href=\"#\" id=\"send-request\">Nastavite sa slanjem Vašeg zahtjeva</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Prilično kasni odgovor na vaš PPI zahtjev - "
+msgstr "Prilično kasni odgovor na vaš PPI zahtjev - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Ne pratite ništa."

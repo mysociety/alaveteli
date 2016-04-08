@@ -3718,9 +3718,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Ești autentificat.<a href=\"#\" id=\"send-request\">Continuă pentru transmiterea solicitării tale</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "A fost depășit de mult termenul de răspuns la solicitarea de acces la informații -"
+msgstr "A fost depășit de mult termenul de răspuns la solicitarea de acces la informații - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Nu urmărești nimic."

@@ -3690,9 +3690,8 @@ msgstr "Ni uzajya uba winjiye ku rubuga uzakomeza ubashe kukibona. Subiza iyi im
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Winjiye. <a href=\"#\" id=\"send-request\">Komeza wohereze ikibazo cyawe</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyararengeranye -"
+msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyararengeranye - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Nta kintu uri gukurikira."

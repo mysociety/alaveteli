@@ -3690,9 +3690,8 @@ msgstr "Вие все още ще можете да го виждате, ког�
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Влязохте. <a href=\"#\" id=\"send-request\">Продължаване с изпращането на Заявлението Ви</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Отговорът на ДдИ Заявлението Ви твърде много закъсня - "
+msgstr "Отговорът на ДдИ Заявлението Ви твърде много закъсня - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Вие не следите нищо."

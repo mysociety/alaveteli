@@ -3888,9 +3888,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "La resposta a la teva sol·licitud està <strong>molt endarrerida</strong> - "
+msgstr "La resposta a la teva sol·licitud està <strong>molt endarrerida</strong> - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr ""

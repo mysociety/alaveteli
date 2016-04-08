@@ -3790,9 +3790,8 @@ msgstr "I dalje ćete moći da ga vidite kada ste prijavljeni na sistem. Molimo 
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Prijavili ste se. <a href=\"#\" id=\"send-request\">Nastavite podnošenje zahteva</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Odgovor na Vaš zahtev za slobodan pristup informacijama od javnog značaja kasni - "
+msgstr "Odgovor na Vaš zahtev za slobodan pristup informacijama od javnog značaja kasni - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Trenutno ne pratite ništa pomoću e-mail biltena."

@@ -3702,9 +3702,8 @@ msgstr "Siteye giriş yaptığınızda hala görebileceksiniz. Bu kararı tartı
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Giriş yaptınız. <a href=\"#\" id=\"send-request\">Başvurunuzu göndermeye devam edin</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Bilgi edinme başvurunuzun şimdiye kadar çoktan yanıtlanmış olması gerekirdi - "
+msgstr "Bilgi edinme başvurunuzun şimdiye kadar çoktan yanıtlanmış olması gerekirdi - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Hiçbir şeyi takip etmiyorsunuz."

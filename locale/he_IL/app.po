@@ -3707,9 +3707,8 @@ msgstr "עדיין תוכלו לצפות כאשר תהיו מחוברים לאת
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "אתם בפנים. <a href=\"#\" id=\"send-request\">המשיכו בשליחת הבקשה</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "אתם מתעכבים בתגובתכם לבקשת חופש המידע – "
+msgstr "אתם מתעכבים בתגובתכם לבקשת חופש המידע – {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "אתם לא עוקבים אחר דבר."

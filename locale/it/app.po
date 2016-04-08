@@ -3702,9 +3702,8 @@ msgstr "Continuerai a vederlo anche quando avrai effettuato l'accesso. Per favor
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Hai effettuato l'accesso. <a href=\"#\" id=\"send-request\">Continua e spedisci la tua richiesta</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "La risposta alla tua richiesta di accesso è in forte ritardo -"
+msgstr "La risposta alla tua richiesta di accesso è in forte ritardo - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Non stai seguendo nulla al momento."

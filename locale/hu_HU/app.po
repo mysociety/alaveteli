@@ -3897,9 +3897,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Bejelentkezett. <a href=\"#\" id=\"send-request\">Igénylés elküldésének folytatása</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Közérdekűadat-igénylésére már rég választ kellett volna kapnia - "
+msgstr "Közérdekűadat-igénylésére már rég választ kellett volna kapnia - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Ön nem követ semmit."

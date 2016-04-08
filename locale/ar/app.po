@@ -3732,9 +3732,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "انت في. <a href=\"#\" id=\"ارسل-طلب\">واصل ارسال طلبك</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "طال انتظارك للاجابة على طلبك بخصوص حرة النفاذ للمعلومة"
+msgstr "طال انتظارك للاجابة على طلبك بخصوص حرة النفاذ للمعلومة {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "لست متابعا لأي شيء"

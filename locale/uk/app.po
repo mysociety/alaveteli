@@ -3817,9 +3817,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Ви затримуєте відповідь на інформаційний запит - "
+msgstr "Ви затримуєте відповідь на інформаційний запит - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Ви нічого не відслідковуєте"

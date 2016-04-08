@@ -3707,9 +3707,8 @@ msgstr "Du vil fortsatt være i stand til å se den når du er pålogget nettste
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Du er inne. <a href=\"#\" id=\"send-request\">Fortsett innsending av din henvendelse</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Du har nå ventet altfor lenge på svar på innsynshenvendelsen -  "
+msgstr "Du har nå ventet altfor lenge på svar på innsynshenvendelsen - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Du følger ingenting."

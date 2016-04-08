@@ -3664,9 +3664,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Vertraagde reactie op uw Wob verzoek -"
+msgstr ""
 
 msgid "You're not following anything."
 msgstr ""

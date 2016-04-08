@@ -3692,9 +3692,8 @@ msgstr "Du kommer fortfarande kunna att se när du är inloggad på sajten. Vän
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Du är inne. <a href=\"#\" id=\"send-request\">Fortsätt skicka din begäran</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Du är väldigt sen med ett svar till din begäran om allmän handling - "
+msgstr "Du är väldigt sen med ett svar till din begäran om allmän handling - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Du följer inte något."

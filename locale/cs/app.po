@@ -3867,9 +3867,8 @@ msgstr "Náhled Vám bude po přihlášení stále k dispozici. Prosím odpověz
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Odesláno. <a href=\"#\" id=\"send-request\"> Můžete vznést další dotaz.</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Dlouho jste nereagovali na odpověď ke svému dotazu –"
+msgstr "Dlouho jste nereagovali na odpověď ke svému dotazu – {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Nesledujete žádný vznesený dotaz."

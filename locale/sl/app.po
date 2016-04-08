@@ -3708,9 +3708,8 @@ msgstr "Še vedno ga boste lahko videl, kadar boste prijavljeni na strani. Če m
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Prijavljeni ste. <a href=\"#\" id=\"send-request\">Nadaljujte s pošiljanjem vašega zahtevka</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Rok za vaš zahtevek IJZ je že potekel - "
+msgstr "Rok za vaš zahtevek IJZ je že potekel - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Ne spremljate ničesar."

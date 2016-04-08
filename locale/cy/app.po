@@ -3719,9 +3719,8 @@ msgstr "Byddwch yn dal yn gallu ei weld tra byddwch wedi mewngofnodi i'r wefan. 
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Rydych wedi mewngofnodi. <a href=\"#\"  id=\"send-request\"> Parhau i anfon eich cais</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Dylech fod wedi derbyn ymateb i'ch cais Rhyddid Gwybodaeth ers tro- "
+msgstr "Dylech fod wedi derbyn ymateb i'ch cais Rhyddid Gwybodaeth ers tro- {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Nid ydych yn dilyn dim."

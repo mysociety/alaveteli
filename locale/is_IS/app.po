@@ -3673,9 +3673,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Hjálpaðu okkur við að flokka beiðnir sem hafa ekki verið uppfærðar"
+msgstr ""
 
 msgid "You're not following anything."
 msgstr "Þú ert ekki að fylgjast með neinu."

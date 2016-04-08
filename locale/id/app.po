@@ -3902,9 +3902,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Anda telah masuk. <a href=\"#\" id=\"send-request\">Lanjut mengirim permintaan Anda</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Anda telah lama menunda respon terhadap permintaan FOI Anda - "
+msgstr "Anda telah lama menunda respon terhadap permintaan FOI Anda - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Anda tidak mengikuti apapun."

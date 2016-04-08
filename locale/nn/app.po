@@ -3710,9 +3710,8 @@ msgstr "Du vil enno vera i stand til å sjå henne når du er pålogga på netts
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Du er inne. <a href=\"#\" id=\"send-request\">Hald fram innsending av din førespurnad</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Du har venta altfor lenge med å svara på din førespurnad - "
+msgstr "Du har venta altfor lenge med å svara på din førespurnad - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Du følgjer ikkje noko."

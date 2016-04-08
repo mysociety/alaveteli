@@ -3771,9 +3771,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Neue Antwort zu Ihrer IFG-Anfrage"
+msgstr ""
 
 msgid "You're not following anything."
 msgstr "Sie folgen nichts."

@@ -3788,9 +3788,8 @@ msgstr "Mund te vazhdoni ta shihni ate ndersa jeni te kycur ne kete faqe. Ju lut
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Jeni brenda. <a href=\"#\" id=\"send-request\">Vazhdoni te dergoni kerkesat tuaja</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Ju keni një përgjigje tejet të vonuar për kërkesën tuaj te Drejtes se Informimit"
+msgstr "Ju keni një përgjigje tejet të vonuar për kërkesën tuaj te Drejtes se Informimit {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Nuk po ndiqni ndonjë gjë."

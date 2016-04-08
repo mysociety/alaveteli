@@ -3893,9 +3893,8 @@ msgstr "Podrás seguir viéndola en la web al identificarte. Por favor responde 
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Bienvenido. <a href=\"#\" id=\"send-request\">Ahora puede continuar mandando su solicitud</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "La respuesta a tu solicitud de información está muy retrasada - "
+msgstr "La respuesta a tu solicitud de información está muy retrasada - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "No estás recibiendo actualizaciones por correo."

@@ -3704,9 +3704,8 @@ msgstr "И понатаму ќе бидете во можност да го ви
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Регистрирани сте. <a href=\"#\" id=\"send-request\">Продолжете со испраќање на вашето барање</a>"
 
-#, fuzzy
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr "Одговорот на вашето барање е со значително пречекорен рок - "
+msgstr "Одговорот на вашето барање е со значително пречекорен рок - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Не следите ништо."
