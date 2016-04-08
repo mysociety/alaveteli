@@ -750,9 +750,8 @@ msgstr "Jofunks."
 msgid "Delayed"
 msgstr "Vonuar"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Përgjigje e vonuar në kërkesën tënde - "
+msgstr "Përgjigje e vonuar në kërkesën tënde - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Vonuar."

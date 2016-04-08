@@ -714,9 +714,8 @@ msgstr "Ntikora."
 msgid "Delayed"
 msgstr "Cyakerewe"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyatinze gusubizwa -"
+msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyatinze gusubizwa - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Cyakerewe."

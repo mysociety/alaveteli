@@ -753,9 +753,8 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Odgođen odgovor na Vaš Zahtjev o slobodnom pristupu informacijama  - "
+msgstr "Odgođen odgovor na Vaš Zahtjev o slobodnom pristupu informacijama  - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Odgođen"

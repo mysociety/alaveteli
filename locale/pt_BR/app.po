@@ -767,9 +767,8 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "A resposta ao seu pedido de informação está atrasada."
+msgstr "A resposta ao seu pedido de informação está atrasada - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Atrasado."

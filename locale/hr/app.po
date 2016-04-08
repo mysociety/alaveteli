@@ -748,9 +748,8 @@ msgstr "Defunkc."
 msgid "Delayed"
 msgstr "Odgođeno"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Odgovor na Vaš PPI zahtjev kasni  - "
+msgstr "Odgovor na Vaš PPI zahtjev kasni  - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Odgovor kasni."

@@ -712,9 +712,8 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Vertraagde reactie op uw Wob verzoek -"
+msgstr "Vertraagde reactie op uw Wob verzoek - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Vertraagd."

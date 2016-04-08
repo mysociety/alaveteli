@@ -776,9 +776,8 @@ msgstr "Nefunkční."
 msgid "Delayed"
 msgstr "Zpoždění"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Zpožděná odpověď na váš dotaz –"
+msgstr "Zpožděná odpověď na váš dotaz – {{request_title}}"
 
 msgid "Delayed."
 msgstr "Zpoždění."

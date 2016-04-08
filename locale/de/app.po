@@ -751,9 +751,8 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Neue Antwort zu Ihrer IFG-Anfrage"
+msgstr ""
 
 msgid "Delayed."
 msgstr "Verzögert."

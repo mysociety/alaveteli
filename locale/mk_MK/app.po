@@ -712,9 +712,8 @@ msgstr "Мртов."
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Одложен одговор на вашето барање за слободен пристап - "
+msgstr "Одложен одговор на вашето барање за слободен пристап - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Одложен."

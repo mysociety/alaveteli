@@ -741,9 +741,8 @@ msgstr "Inactif."
 msgid "Delayed"
 msgstr "En retard"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Retards de réponse à votre demande d'accès"
+msgstr "Retards de réponse à votre demande d'accès {{request_title}}"
 
 msgid "Delayed."
 msgstr "En retard."

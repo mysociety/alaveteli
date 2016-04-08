@@ -731,9 +731,8 @@ msgstr "מבוטל."
 msgid "Delayed"
 msgstr "מעוכב"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "עיכוב בתגובה לבקשה"
+msgstr "עיכוב בתגובה לבקשה {{request_title}}"
 
 msgid "Delayed."
 msgstr "מעוכב."

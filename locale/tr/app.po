@@ -719,9 +719,8 @@ msgstr "İşlevsiz durumda."
 msgid "Delayed"
 msgstr "Gecikme"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Bilgi edinme başvurunuza gecikmeli olarak cevap verildi"
+msgstr "Bilgi edinme başvurunuza gecikmeli olarak cevap verildi - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Gecikmeli."

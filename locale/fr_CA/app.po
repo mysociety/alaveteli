@@ -726,9 +726,8 @@ msgstr "Disparu"
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Réponse différée à votre demande d'accès aux documents - "
+msgstr "Réponse différée à votre demande d'accès aux documents - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Différé."

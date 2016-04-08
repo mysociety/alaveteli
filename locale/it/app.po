@@ -719,9 +719,8 @@ msgstr "Defunct"
 msgid "Delayed"
 msgstr "In attesa"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Risposta in attesa per la tua richiesta - "
+msgstr "Risposta in attesa per la tua richiesta - {{request_title}}"
 
 msgid "Delayed."
 msgstr "In attesa"

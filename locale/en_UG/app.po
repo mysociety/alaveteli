@@ -708,9 +708,8 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Delayed response to your ATI request - "
+msgstr "Delayed response to your ATI request - {{request_title}}"
 
 msgid "Delayed."
 msgstr ""

@@ -724,9 +724,8 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "تاخر الاجابة على طلب حرية النفاذ الى المعلومة - "
+msgstr "تاخر الاجابة على طلب حرية النفاذ الى المعلومة - {{request_title}}"
 
 msgid "Delayed."
 msgstr "مؤجل"

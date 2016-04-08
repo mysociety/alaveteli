@@ -724,9 +724,8 @@ msgstr "Nedlagt."
 msgid "Delayed"
 msgstr "Forsinket"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Forsinket svar på din innsynshenvendelse - "
+msgstr "Forsinket svar på din innsynshenvendelse - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Forsinket."

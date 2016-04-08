@@ -726,9 +726,8 @@ msgstr "Neupotrebljivo."
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Odloženi odgovor na Vaš ZOSPIOJ zahtev  - "
+msgstr "Odloženi odgovor na Vaš ZOSPIOJ zahtev  - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Odložen"

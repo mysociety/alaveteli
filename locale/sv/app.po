@@ -716,9 +716,8 @@ msgstr "Avliden"
 msgid "Delayed"
 msgstr "Försenad"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Försenat svar för din begäran om allmän handling - "
+msgstr "Försenat svar för din begäran om allmän handling - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Försenad."

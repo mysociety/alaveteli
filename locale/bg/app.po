@@ -715,9 +715,8 @@ msgstr "Неработещ."
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Закъснява отговорът на Вашето заявление за ДдИ - "
+msgstr "Закъснява отговорът на Вашето заявление за ДдИ - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Закъснялo."

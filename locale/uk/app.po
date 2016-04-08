@@ -758,9 +758,8 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Відстрочена відповідь на ваш запит - "
+msgstr "Відстрочена відповідь на ваш запит - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Затримується"

@@ -712,9 +712,8 @@ msgstr "Úrelt."
 msgid "Delayed"
 msgstr "Seinkað"
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Hjálpaðu okkur við að flokka beiðnir sem hafa ekki verið uppfærðar"
+msgstr "Hjálpaðu okkur við að flokka beiðnir sem hafa ekki verið uppfærðar {{request_title}}"
 
 msgid "Delayed."
 msgstr "Seinkað."

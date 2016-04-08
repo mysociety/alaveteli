@@ -727,9 +727,8 @@ msgstr "Wedi darfod."
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Ymateb hwyr i'ch cais Rh.G. -"
+msgstr "Ymateb hwyr i'ch cais Rh.G. - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Hwyr."

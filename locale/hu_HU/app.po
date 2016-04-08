@@ -759,9 +759,8 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-#, fuzzy
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr "Késedelmes válasz a közérdekű adatok igénylésére - "
+msgstr "Késedelmes válasz a közérdekű adatok igénylésére - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Késedelmes. "
