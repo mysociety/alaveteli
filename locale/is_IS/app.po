@@ -4020,9 +4020,8 @@ msgstr "*óþekkt*"
 msgid "unknown reason "
 msgstr ""
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr " síað eftir stöðu: '{{status}}'"
+msgstr ""
 
 msgid "unresolved requests"
 msgstr "ólokið"

@@ -4061,9 +4061,8 @@ msgstr "motiv necunoscut"
 msgid "unknown reason "
 msgstr "motiv necunoscut"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "stare necunocută"
+msgstr "stare necunocută {{status}}"
 
 msgid "unresolved requests"
 msgstr "cereri nesoluţionate"

@@ -4042,9 +4042,8 @@ msgstr "motivo sconosciuto"
 msgid "unknown reason "
 msgstr "motivo sconosciuto"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "stato sconosciuto"
+msgstr "stato sconosciuto {{status}}"
 
 msgid "unresolved requests"
 msgstr "richieste in sospeso"

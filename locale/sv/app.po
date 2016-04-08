@@ -4032,9 +4032,8 @@ msgstr "oklar anledning "
 msgid "unknown reason "
 msgstr "oklar anledning "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "oklar status "
+msgstr "oklar status {{status}}"
 
 msgid "unresolved requests"
 msgstr "olösta förfrågningar"

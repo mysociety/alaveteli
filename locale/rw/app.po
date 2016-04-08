@@ -4030,9 +4030,8 @@ msgstr "impamvu itazwi"
 msgid "unknown reason "
 msgstr "impamvu itazwi"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "irangamimerere itazwi"
+msgstr "irangamimerere itazwi {{status}}"
 
 msgid "unresolved requests"
 msgstr "ibibazo bitasubijwe"

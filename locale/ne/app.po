@@ -4010,9 +4010,8 @@ msgstr "*अज्ञात*"
 msgid "unknown reason "
 msgstr ""
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "स्थिति हेरी छानिएको : '{{status}}'"
+msgstr ""
 
 msgid "unresolved requests"
 msgstr ""

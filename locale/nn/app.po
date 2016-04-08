@@ -4050,9 +4050,8 @@ msgstr "ukjend grunn "
 msgid "unknown reason "
 msgstr "ukjend grunn "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "ukjend status "
+msgstr "ukjend status {{status}}"
 
 msgid "unresolved requests"
 msgstr "uavklarte førespurnader"

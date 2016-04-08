@@ -4008,9 +4008,8 @@ msgstr "不明原因"
 msgid "unknown reason "
 msgstr "不明原因"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "未知狀態"
+msgstr "未知狀態 {{status}}"
 
 msgid "unresolved requests"
 msgstr "尚未解決的要求"

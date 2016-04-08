@@ -4135,9 +4135,8 @@ msgstr "arsye e panjohur "
 msgid "unknown reason "
 msgstr "arsye e panjohur "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "status i panjohur "
+msgstr "status i panjohur {{status}}"
 
 msgid "unresolved requests"
 msgstr "kërkesat e pazgjidhura"

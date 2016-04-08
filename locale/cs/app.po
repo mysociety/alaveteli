@@ -4217,9 +4217,8 @@ msgstr "neznámé důvody"
 msgid "unknown reason "
 msgstr "neznámé důvody"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "stav neznámý"
+msgstr "stav neznámý {{status}}"
 
 msgid "unresolved requests"
 msgstr "nevyřešené dotazy"

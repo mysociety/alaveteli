@@ -4030,9 +4030,8 @@ msgstr "непозната причина "
 msgid "unknown reason "
 msgstr "непозната причина "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "непознато състояние "
+msgstr "непознато състояние {{status}}"
 
 msgid "unresolved requests"
 msgstr "неудовлетворени заявления"

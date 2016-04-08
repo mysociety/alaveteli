@@ -4241,9 +4241,8 @@ msgstr "ismeretlen ok "
 msgid "unknown reason "
 msgstr "ismeretlen ok "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "ismeretlen állapot "
+msgstr "ismeretlen állapot {{status}}"
 
 msgid "unresolved requests"
 msgstr "megoldatlan igénylések"

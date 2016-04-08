@@ -4014,9 +4014,8 @@ msgstr "*onbekend*"
 msgid "unknown reason "
 msgstr ""
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "gefilterd op status: '{{status}}'"
+msgstr ""
 
 msgid "unresolved requests"
 msgstr ""

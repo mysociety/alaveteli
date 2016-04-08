@@ -4100,9 +4100,8 @@ msgstr "arrazoi ezezaguna"
 msgid "unknown reason "
 msgstr "arrazoi ezezaguna"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "egoera ezezaguna"
+msgstr "egoera ezezaguna {{status}}"
 
 msgid "unresolved requests"
 msgstr "konpondu gabeko eskabideak"

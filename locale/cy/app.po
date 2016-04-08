@@ -4065,9 +4065,8 @@ msgstr "rheswm anhysbys "
 msgid "unknown reason "
 msgstr "rheswm anhysbys "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "statws anhysbys "
+msgstr "statws anhysbys {{status}}"
 
 msgid "unresolved requests"
 msgstr "ceisiadau heb eu datrys"

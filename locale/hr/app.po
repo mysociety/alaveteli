@@ -4161,9 +4161,8 @@ msgstr "nepoznat razlog "
 msgid "unknown reason "
 msgstr "nepoznat razlog "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "nepoznat status "
+msgstr "nepoznat status {{status}}"
 
 msgid "unresolved requests"
 msgstr "neriješeni zahtjevi"

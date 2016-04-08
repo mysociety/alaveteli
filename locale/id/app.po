@@ -4246,9 +4246,8 @@ msgstr "alasan tidak diketahui "
 msgid "unknown reason "
 msgstr "alasan tidak diketahui "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "status tidak diketahui "
+msgstr "status tidak diketahui {{status}}"
 
 msgid "unresolved requests"
 msgstr "permintaan yang belum terselesaikan"

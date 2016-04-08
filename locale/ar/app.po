@@ -4084,9 +4084,8 @@ msgstr "سبب مجهول"
 msgid "unknown reason "
 msgstr "سبب مجهول"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "حالة مجهولة"
+msgstr "حالة مجهولة {{status}}"
 
 msgid "unresolved requests"
 msgstr "طلبات لم يتم حلها"

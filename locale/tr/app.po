@@ -4042,9 +4042,8 @@ msgstr "bilinmeyen sebep"
 msgid "unknown reason "
 msgstr "bilinmeyen sebep"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "bilinmeyen durum"
+msgstr "bilinmeyen durum {{status}}"
 
 msgid "unresolved requests"
 msgstr "sonuçlanmamış başvurular"

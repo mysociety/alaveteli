@@ -4054,9 +4054,8 @@ msgstr "neznan razlog"
 msgid "unknown reason "
 msgstr "neznan razlog"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "neznan status"
+msgstr "neznan status {{status}}"
 
 msgid "unresolved requests"
 msgstr "nerešeni zahtevki"

@@ -4059,9 +4059,8 @@ msgstr "סיבה לא ידוע"
 msgid "unknown reason "
 msgstr "סיבה לא ידוע"
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "ססטוס לא ידוע"
+msgstr "ססטוס לא ידוע {{status}}"
 
 msgid "unresolved requests"
 msgstr "בקשות שלא נענו"

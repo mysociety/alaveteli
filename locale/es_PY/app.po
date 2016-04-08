@@ -4240,9 +4240,8 @@ msgstr "motivo desconocido "
 msgid "unknown reason "
 msgstr "motivo desconocido "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "estado desconocido "
+msgstr "estado desconocido {{status}}"
 
 msgid "unresolved requests"
 msgstr "solicitudes no resueltas"

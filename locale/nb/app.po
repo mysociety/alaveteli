@@ -4047,9 +4047,8 @@ msgstr "ukjent grunn "
 msgid "unknown reason "
 msgstr "ukjent grunn "
 
-#, fuzzy
 msgid "unknown status {{status}}"
-msgstr "ukjent status "
+msgstr "ukjent status {{status}}"
 
 msgid "unresolved requests"
 msgstr "uavklarte"
