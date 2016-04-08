@@ -578,9 +578,8 @@ msgstr "Tydliggörandet skickades till {{public_body_name}} av {{info_request_us
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Tydliggör din begäran om allmän handling - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Klassificera ett svar på begäran om offentlig handling från"
+msgstr "Klassificera ett svar på begäran om offentlig handling från {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Rensa foto"

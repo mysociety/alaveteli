@@ -576,9 +576,8 @@ msgstr "Ibisobanuro byohererejwe {{public_body_name}} na {{info_request_user}} k
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Sobanura ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Shyingura igisubizo cy'ubwisanzure bwo kumenya amakuru cyatanzwe na"
+msgstr "Shyingura igisubizo cy'ubwisanzure bwo kumenya amakuru cyatanzwe na {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Ifoto igaragara neza"

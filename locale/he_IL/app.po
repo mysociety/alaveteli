@@ -590,9 +590,8 @@ msgstr "הבהרה נשלח ל- {{public_body_name}} ע״י {{info_request_user}
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "הבהירו את בקשת המידע - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "קטלג בקשה מאת"
+msgstr "קטלג בקשה מאת {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "הסר צילום"

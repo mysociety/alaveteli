@@ -607,9 +607,8 @@ msgstr "Pojašnjenje poslano {{public_body_name}} od {{info_request_user}} dana 
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Pojasnite svoj zahtjev za pristup informacijama - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Klasificirajte odgovor na zahtjev za pristup informacijama od"
+msgstr "Klasificirajte odgovor na zahtjev za pristup informacijama od {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Obrišite sliku"

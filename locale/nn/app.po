@@ -589,9 +589,8 @@ msgstr "Klargjering send til {{public_body_name}} av {{info_request_user}} den {
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Klargjer din krav om innsyn - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Klassifiser eit innsynsvar frå"
+msgstr "Klassifiser eit innsynsvar frå {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Slett bilete"

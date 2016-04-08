@@ -625,9 +625,8 @@ msgstr ""
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr ""
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Clasifique una solicitud de "
+msgstr "Clasifique una solicitud de {{authority_name}}"
 
 msgid "Clear photo"
 msgstr ""

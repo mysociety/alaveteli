@@ -577,9 +577,8 @@ msgstr "Изпратено е пояснение до {{public_body_name}} от 
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Пояснете Вашето Заявление за ДдИ - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Класифициране на отговор за ДдИ от "
+msgstr "Класифициране на отговор за ДдИ от {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Премахни снимката"

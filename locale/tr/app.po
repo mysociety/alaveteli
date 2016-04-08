@@ -581,9 +581,8 @@ msgstr "Açıklık getirmek için yazılan metin {{info_request_user}} tarafınd
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Bilgi Edinme Başvurunuza açıklık getirin - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Şu kurumdan gelen bir Bilgi Edinme Başvurusu cevabını sınıflandır"
+msgstr "Şu kurumdan gelen bir Bilgi Edinme Başvurusu cevabını sınıflandır {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Fotoğrafı sil"

@@ -574,9 +574,8 @@ msgstr "Útskýring send til  {{public_body_name}} frá {{info_request_user}} þ
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Útskýrðu beiðnina - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Flokkaðu upplýsingabeiðni frá"
+msgstr "Flokkaðu upplýsingabeiðni frá {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Hreinsa mynd"

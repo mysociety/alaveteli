@@ -578,9 +578,8 @@ msgstr "Pojasnilo poslano na {{public_body_name}} s strani {{info_request_user}}
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Pojasnite vaš zahtevek za IJZ - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Razvrstite odgovor od"
+msgstr "Razvrstite odgovor od {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Odstrani sliko"

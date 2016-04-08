@@ -600,9 +600,8 @@ msgstr ""
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr ""
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Sailaktu _____-tik emandako erantzuna "
+msgstr "Sailaktu _____-tik emandako erantzuna {{authority_name}}"
 
 msgid "Clear photo"
 msgstr ""

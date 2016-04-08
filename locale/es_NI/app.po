@@ -625,9 +625,8 @@ msgstr "Aclaración enviada a {{public_body_name}} por {{info_request_user}} el 
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Clarifica tu solicitud de información - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Clasifique una solicitud de "
+msgstr "Clasifique una solicitud de {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Borrar foto"

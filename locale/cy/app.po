@@ -589,9 +589,8 @@ msgstr "Eglurhad a anfonwyd at {{public_body_name}} gan {{info_request_user}} ar
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Eglurwch eich cais Rhyddid Gwybodaeth - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Dosbarthwch ymateb Rh.G. oddiwrth"
+msgstr "Dosbarthwch ymateb Rh.G. oddiwrth {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Gwaredwch y ffoto"

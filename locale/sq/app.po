@@ -612,9 +612,8 @@ msgstr "Sqarimi u dërgua tek {{public_body_name}} nga {{info_request_user}} më
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Sqaro kërkesën tënde QDP - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Klasifiko një përgjigje për kërkesë për informatë zyrtare prej "
+msgstr "Klasifiko një përgjigje për kërkesë për informatë zyrtare prej {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Fshij foton"

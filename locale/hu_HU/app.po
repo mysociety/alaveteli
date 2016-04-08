@@ -617,9 +617,8 @@ msgstr ""
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "A közérdekűadat-igénylés pontosítása {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "-tól/-től származó közérdekű adat igénylésére érkező válasz besorolása "
+msgstr "-tól/-től származó közérdekű adat igénylésére érkező válasz besorolása {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Jó minőségű fénykép"

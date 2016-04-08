@@ -588,9 +588,8 @@ msgstr ""
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Razjasnite Vaš Zahtev za slobodan pristup informacijama od javnog značaja - {{request_title}}"
 
-#, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
-msgstr "Klasifikujte odgovor na ZOSPIOJ zahtev od"
+msgstr "Klasifikujte odgovor na ZOSPIOJ zahtev od {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Ukloni fotografiju"
