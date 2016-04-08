@@ -3194,9 +3194,8 @@ msgstr "Impossible d'envoyer un message de suivi à {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Type de résultat de recherche inattendu"
+msgstr "Type de résultat de recherche inattendu {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""

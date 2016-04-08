@@ -3326,9 +3326,8 @@ msgstr "Nelze poslat odpověď uživateli {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Nezařazené a skryté žádosti nejsou zahrnuty."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Neočekávané výsledky vyhledávání "
+msgstr "Neočekávané výsledky vyhledávání {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Bohužel nemáme správnou e-mailovou adresu pro {{public_body_names}}."

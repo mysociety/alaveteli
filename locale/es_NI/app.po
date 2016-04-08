@@ -3349,9 +3349,8 @@ msgstr "No se pudo enviar la respuesta a {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Solicitudes no clasificadas u ocultas no se cuentan."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Se encontró un tipo de resultado inesperado "
+msgstr "Se encontró un tipo de resultado inesperado {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Lamentablemente, no tenemos una dirección que funcione para {{public_body_names}}."

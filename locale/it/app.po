@@ -3194,9 +3194,8 @@ msgstr "Impossibile inviare ulteriori messaggi a {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Le richieste nascoste o non classificate non vengono conteggiate."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Unexpected search result type"
+msgstr "Unexpected search result type {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Non abbiamo un indirizzo valido per {{public_body_names}}."

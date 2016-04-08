@@ -3182,9 +3182,8 @@ msgstr "Не може да се испрати порака за реакциј�
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Неочекуван тип на резултат од пребарување "
+msgstr "Неочекуван тип на резултат од пребарување {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""

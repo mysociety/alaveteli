@@ -3177,9 +3177,8 @@ msgstr "Unable to send follow up message to {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Unclassified or hidden requests are not counted."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Unexpected search result type "
+msgstr "Unexpected search result type {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Unfortunately, we do not have a working address for {{public_body_names}}."

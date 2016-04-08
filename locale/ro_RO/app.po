@@ -3208,9 +3208,8 @@ msgstr "Nu se poate trimite un mesaj de urmărire către {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Tip neaşteptat de  rezultat la căutare"
+msgstr "Tip neaşteptat de  rezultat la căutare {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""

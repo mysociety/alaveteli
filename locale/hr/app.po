@@ -3289,9 +3289,8 @@ msgstr "Ne možemo poslati popratnu poruku za {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Neklasificirani i skriveni zahtjevi se ne broje."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Neočekivani tip rezultata pretraživanja"
+msgstr "Neočekivani tip rezultata pretraživanja {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Nažalost, nemamo važeću adresu za {{public_body_names}}."

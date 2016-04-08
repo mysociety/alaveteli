@@ -3216,9 +3216,8 @@ msgstr "غير قادر على بعث رسالة متابعة ل {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "نوع نتيجة البحث غير متوقع "
+msgstr "نوع نتيجة البحث غير متوقع {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""

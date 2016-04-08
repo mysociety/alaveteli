@@ -3263,9 +3263,8 @@ msgstr "E pamundur per te derguar një mesazh vijues tek {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Kerkesat e paklasifikuara apo te fshehura nuk numerohen."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Lloji i papritur i rezultatit të kërkuar "
+msgstr "Lloji i papritur i rezultatit të kërkuar {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Per fat te keq, nuk kemi adresen funksionale te {{public_body_names}}."

@@ -3194,9 +3194,8 @@ msgstr "Klarte ikke sende oppfølgningsmelding til {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Skjulte og uklassifiserte henvendelser blir ikke talt med."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Uventet type søke resultat "
+msgstr "Uventet type søke resultat {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Desverre har vi ikke en fungerende adresse for "

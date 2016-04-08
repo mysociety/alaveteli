@@ -3196,9 +3196,8 @@ msgstr "Ni bilo možno poslati odziva osebi {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Nerazvrščeni ali skriti zahtevki ne štejejo."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Nepričakovan tip rezultata pri iskanju"
+msgstr "Nepričakovan tip rezultata pri iskanju {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Žal nimamo delujočega e-naslova za {{public_body_names}}."

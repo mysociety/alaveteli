@@ -3239,9 +3239,8 @@ msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Ustegabeko emaitza aurkitu da "
+msgstr "Ustegabeko emaitza aurkitu da {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""

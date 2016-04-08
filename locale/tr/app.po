@@ -3194,9 +3194,8 @@ msgstr " {{username}} adlı kullanıcıya takip iletisi gönderilemedi"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Sınıflandırılmamış olan veya gizli tutulan başvurular sayılmamaktadır"
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Beklenmedik arama sonucu "
+msgstr "Beklenmedik arama sonucu {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Ne yazık ki {{public_body_names}} için çalışan bir email adresi elimizde yok"

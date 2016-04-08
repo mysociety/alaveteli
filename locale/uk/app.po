@@ -3284,9 +3284,8 @@ msgstr "Неможливо надіслати повідомленя корис�
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Неочікуваний результат пошуку"
+msgstr "Неочікуваний результат пошуку {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""

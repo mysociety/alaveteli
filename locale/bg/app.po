@@ -3182,9 +3182,8 @@ msgstr "Не бе възможно да се изпрати пояснителн
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Не се броят некласифицирани или скрити заявления."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Неочакван тип резултат на търсене "
+msgstr "Неочакван тип резултат на търсене {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "За съжаление, ние не разполагаме с работещ адрес за {{public_body_names}}."

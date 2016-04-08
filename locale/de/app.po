@@ -3255,9 +3255,8 @@ msgstr "Nachfrage an {{username}} kann nicht gesendet werden"
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Unerwartetes Suchergebnis"
+msgstr "Unerwartetes Suchergebnis {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""

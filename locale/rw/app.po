@@ -3182,9 +3182,8 @@ msgstr "Ntibishoboka kwoherereza {{username}} ubutumwa bwo gukurikirana"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Ibibazo byashyinguwe cyangwa ibyahishwe ntabwo bibarwa."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Ubwoko bw'igisubizo cy'ubushakashatsi cyitari cyiteguwe"
+msgstr "Ubwoko bw'igisubizo cy'ubushakashatsi cyitari cyiteguwe {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Ku bw'amahirwe make, ntabwo dufite imeli ikora ya {{public_body_names}}."

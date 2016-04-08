@@ -3207,9 +3207,8 @@ msgstr "Yn methu anfon neges ddilynol i {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Nid yw ceisiadau di-ddosbarth neu cudd yn cael eu cyfrif."
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "Canlyniad chwiliad o fath annisgwyl "
+msgstr "Canlyniad chwiliad o fath annisgwyl {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Yn anffodus, nid oes gennym cyfeiriad cywir ar gyfer {{public_body_names}}."

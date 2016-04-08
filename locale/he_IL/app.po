@@ -3199,9 +3199,8 @@ msgstr "לא ניתן לשלוח הודעת מעקב ל- {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-#, fuzzy
 msgid "Unexpected search result type {{result_type}}"
-msgstr "תוצאת חיפוש לא צפויה"
+msgstr "תוצאת חיפוש לא צפויה {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
