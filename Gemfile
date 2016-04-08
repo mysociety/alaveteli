@@ -10,7 +10,7 @@ gem 'active_model_otp', :git => 'https://github.com/mysociety/active_model_otp.g
 gem 'charlock_holmes', '~> 0.6.9.4'
 gem 'dynamic_form', '~> 1.1.4'
 gem 'exception_notification', '~> 3.0.1'
-gem 'fancybox-rails', '~> 0.2.1'
+gem 'fancybox-rails', '~> 0.3.1'
 gem 'foundation-rails', '~> 5.2.1.0'
 gem 'geoip', '~> 1.6.1'
 gem 'gnuplot', '2.6.2'
