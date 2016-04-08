@@ -3108,9 +3108,8 @@ msgstr ""
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "لبعث رسالة الى"
+msgstr "لبعث رسالة الى {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "لبعث طلبك لحرية النفاذ للمعلومة"

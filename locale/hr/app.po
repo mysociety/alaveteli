@@ -3181,9 +3181,8 @@ msgstr "Da biste prijavili ovaj zahtjev"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "Da biste poslali poruku "
+msgstr "Da biste poslali poruku {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Da biste poslali Vaš Zahtjev za pristup informacijama."

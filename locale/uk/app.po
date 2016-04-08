@@ -3176,9 +3176,8 @@ msgstr ""
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "Щоб відправити повідомлення "
+msgstr "Щоб відправити повідомлення {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Щоб відправити запит "

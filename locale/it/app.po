@@ -3086,9 +3086,8 @@ msgstr "Per segnalare questa richiesta"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "Per mandare un messaggio a"
+msgstr "Per mandare un messaggio a {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Per mandare la tua richiesta di accesso"

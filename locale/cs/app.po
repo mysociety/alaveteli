@@ -3218,9 +3218,8 @@ msgstr "Pro nahlášení tohoto dotazu"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr "Abyste mohli poslat zprávu pro {{authority_name}}"
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "Poslat zprávu "
+msgstr "Poslat zprávu {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Vznést dotaz"

@@ -3074,9 +3074,8 @@ msgstr "За да го пријавите ова барање"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "За да пратите порака до "
+msgstr "За да пратите порака до {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "За да го пратите вашето барање"

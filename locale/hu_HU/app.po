@@ -3244,9 +3244,8 @@ msgstr ""
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "Ha üzenet szeretne küldeni a következőnek: "
+msgstr "Ha üzenet szeretne küldeni a következőnek: {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Ha el szeretné küldeni közérdekűadat-igénylését "

@@ -3155,9 +3155,8 @@ msgstr "Per te raportuar kete kerkese"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "Për të dërguar mesazh tek "
+msgstr "Për të dërguar mesazh tek {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Për të dërguar kërkesën tuaj për te Drejten e Informimit"

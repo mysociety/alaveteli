@@ -3086,9 +3086,8 @@ msgstr "For å rapportere denne henvendelsen"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "For å sende en melding til "
+msgstr "For å sende en melding til {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "For å sende en innsynshenvendelse"

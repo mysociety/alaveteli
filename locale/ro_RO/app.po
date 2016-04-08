@@ -3100,9 +3100,8 @@ msgstr ""
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send a message to {{user_name}}"
-msgstr "Pentru a trimite un mesaj la"
+msgstr "Pentru a trimite un mesaj la {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Pentru a trimite solicitarea ta"
