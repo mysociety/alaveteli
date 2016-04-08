@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.22.2'
 
-gem 'pg', '~> 0.17.1'
+gem 'pg', '~> 0.18.4'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
