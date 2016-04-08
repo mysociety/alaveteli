@@ -2371,9 +2371,8 @@ msgstr "Poglejte sporočilo o nedostavi"
 msgid "Send a followup"
 msgstr "Pošljite odziv"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Pošljite sporočilo na"
+msgstr "Pošljite sporočilo na {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Pošljite javni odziv za {{person_or_body}}"

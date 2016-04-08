@@ -2382,9 +2382,8 @@ msgstr "Ver mensaje rebotado"
 msgid "Send a followup"
 msgstr "Enviar un seguimiento a la respuesta"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Enviar un mensaje a "
+msgstr "Enviar un mensaje a {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Enviar seguimiento públicamente a {{person_or_body}}"

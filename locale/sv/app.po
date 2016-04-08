@@ -2367,9 +2367,8 @@ msgstr "Se studsat meddelande"
 msgid "Send a followup"
 msgstr "Skicka en uppföljning"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Skicka ett meddelande till "
+msgstr "Skicka ett meddelande till {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Skicka ett publikt uppföljningsmeddelande till {{person_or_body}}"

@@ -2365,9 +2365,8 @@ msgstr "Reba ubutumwa butagiye"
 msgid "Send a followup"
 msgstr "Ohereza ubutumwa bwo gurikirana"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Oherereza ubutumwa "
+msgstr "Oherereza ubutumwa {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Oherereza {{person_or_body}} ubutumwa rusange bwo gukurikirana"

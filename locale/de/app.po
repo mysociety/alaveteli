@@ -2423,9 +2423,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr "Nachfrage senden"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Nachricht senden an"
+msgstr "Nachricht senden an {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Öffentliche Nachfrage an {{person_or_body}} senden"

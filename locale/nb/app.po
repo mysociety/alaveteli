@@ -2375,9 +2375,8 @@ msgstr "See sprett (bounce) melding"
 msgid "Send a followup"
 msgstr "Send en oppfølgning"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Send en melding til "
+msgstr "Send en melding til {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Send en offentlig oppfølgningsmelding til {{person_or_body}}"

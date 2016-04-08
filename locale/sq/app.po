@@ -2427,9 +2427,8 @@ msgstr "Shih mesazhin e kthyer mbrapsh"
 msgid "Send a followup"
 msgstr "Dërgo mesazh vijues"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Dërgo mesazh te "
+msgstr "Dërgo mesazh te {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Dërgo mesazh publik vijues për {{person_or_body}}"

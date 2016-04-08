@@ -2360,9 +2360,8 @@ msgstr "See bounce message"
 msgid "Send a followup"
 msgstr "Send a followup"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Send a message to "
+msgstr "Send a message to {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Send a public follow up message to {{person_or_body}}"

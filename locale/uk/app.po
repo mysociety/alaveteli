@@ -2456,9 +2456,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr "Надішліть додатковий запит"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Надіслати повідомлення до "
+msgstr "Надіслати повідомлення до {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Надішліть публічний уточнювальний запит"

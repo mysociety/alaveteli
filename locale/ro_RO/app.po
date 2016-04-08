@@ -2387,9 +2387,8 @@ msgstr "Vezi mesajul întors"
 msgid "Send a followup"
 msgstr "Trimiteţi o urmărire"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Trimite un mesaj"
+msgstr "Trimite un mesaj {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Trimite un mesaj de urmărire public către {{person_or_body}}"

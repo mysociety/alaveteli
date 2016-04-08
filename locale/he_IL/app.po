@@ -2382,9 +2382,8 @@ msgstr "ראו הודעת תגובה"
 msgid "Send a followup"
 msgstr "לשלוח הודעת המשך"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "שלחו הודעה אל"
+msgstr "שלחו הודעה אל {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "שלחו הודעת המשך ציבורית ל{{person_or_body}}"

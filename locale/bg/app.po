@@ -2365,9 +2365,8 @@ msgstr "Вижте върнатото съобщение"
 msgid "Send a followup"
 msgstr "Изпращане на пояснително съобщение"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Изпращане съобщение до "
+msgstr "Изпращане съобщение до {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Изпращане на публично пояснително съобщение до {{person_or_body}}"

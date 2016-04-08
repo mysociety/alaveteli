@@ -2382,9 +2382,8 @@ msgstr "Gweler neges bownsio"
 msgid "Send a followup"
 msgstr "Anfon neges ddilynol"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Anfonwch neges i "
+msgstr "Anfonwch neges i {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Anfonwch neges gyhoeddus ddilynol i {{person_or_body}} "

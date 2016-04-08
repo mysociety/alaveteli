@@ -2363,9 +2363,8 @@ msgstr "Видете ја одбиената порака"
 msgid "Send a followup"
 msgstr "Испратете реакција"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Испратете порака до"
+msgstr "Испратете порака до {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Испратете јавна порака со реакција на {{person_or_body}}"

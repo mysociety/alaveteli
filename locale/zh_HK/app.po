@@ -2359,9 +2359,8 @@ msgstr "查看退回訊息"
 msgid "Send a followup"
 msgstr "傳送一項跟進訊息"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "傳送一項訊息至"
+msgstr "傳送一項訊息至 {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "傳送一項公開的跟進訊息至{{person_or_body}}"

@@ -2357,9 +2357,8 @@ msgstr "Sjá skeyti sem hafa skoppað"
 msgid "Send a followup"
 msgstr "Senda svar/viðbót"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Senda skilaboð til "
+msgstr "Senda skilaboð til {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Senda opinbera viðbót til {{person_or_body}}"

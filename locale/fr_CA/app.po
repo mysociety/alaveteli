@@ -2377,9 +2377,8 @@ msgstr "Voir le message de rebond"
 msgid "Send a followup"
 msgstr "Envoyer un message de suivi"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Envoyer un message à  "
+msgstr "Envoyer un message à {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Envoyer un message de suivi au {{person_or_body}}"

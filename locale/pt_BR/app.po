@@ -2424,9 +2424,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr "Enviar um mensagem de acompanhamento"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Enviar uma mensagem para "
+msgstr "Enviar uma mensagem para {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Enviar uma mensagem de acompanhamento de seu pedido para {{person_or_body}}"

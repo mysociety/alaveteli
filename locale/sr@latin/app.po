@@ -2401,9 +2401,8 @@ msgstr "Postavite poruku u slučaju odbijanja"
 msgid "Send a followup"
 msgstr "Pošaljite reakciju"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Pošalji poruku za "
+msgstr "Pošalji poruku za {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Pošaljite javnu reakciju za {{person_or_body}}"

@@ -2467,9 +2467,8 @@ msgstr "Prohlédněte si odmítnutou zprávu"
 msgid "Send a followup"
 msgstr "Odpovědět"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Pošlete zprávu pro  "
+msgstr "Pošlete zprávu pro {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Odpovězte veřejně {{person_or_body}}"

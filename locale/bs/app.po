@@ -2460,9 +2460,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr ""
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Pošalji poruku za "
+msgstr "Pošalji poruku za {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr ""

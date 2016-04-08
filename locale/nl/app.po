@@ -2357,9 +2357,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr ""
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Wijzig uw e-mail op {{site_name}}"
+msgstr ""
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr ""

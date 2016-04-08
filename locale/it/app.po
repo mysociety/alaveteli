@@ -2373,9 +2373,8 @@ msgstr "Visualizza messaggio di errore"
 msgid "Send a followup"
 msgstr "Invia ulteriore messaggio"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Invia messaggio a  "
+msgstr "Invia messaggio a {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Invia ulteriore messaggio pubblico a {{person_or_body}}"

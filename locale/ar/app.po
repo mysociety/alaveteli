@@ -2383,9 +2383,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr "ابعث متابعة "
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "إرسال رسالة إلى"
+msgstr "إرسال رسالة إلى {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "ابعث رسالة متابعة علنية ل {{person_or_body}}"

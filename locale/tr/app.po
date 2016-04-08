@@ -2375,9 +2375,8 @@ msgstr "Geri dönen mesajı görün"
 msgid "Send a followup"
 msgstr "Bir takip iletisi gönderin"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Şu kişi veya kuruma bir mesaj gönder"
+msgstr "Şu kişi veya kuruma bir mesaj gönder {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr " {{person_or_body}} adlı kişi veya kuruma herkesçe görülebilir bir takip mesajı gönderin"

@@ -2483,9 +2483,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr "Emlékeztető üzenet küldése</a> - Rákérdezhet az adatgazdánál, hogy hogy áll az igénylése.<a>"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Üzenet küldése. Címzett: "
+msgstr "Üzenet küldése. Címzett: {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Nyilvános nyomon követés küldése {{person_or_body}} részére "

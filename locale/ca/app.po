@@ -2480,9 +2480,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr "Enviar una resposta"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Envia un missatge a "
+msgstr "Envia un missatge a {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Responder públicamente a {{person_or_body}}"

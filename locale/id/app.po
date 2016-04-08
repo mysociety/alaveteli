@@ -2491,9 +2491,8 @@ msgstr "Lihan pesan kembali"
 msgid "Send a followup"
 msgstr "Kirim tindak lanjut"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Kirim pesan ke "
+msgstr "Kirim pesan ke {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Kirim pesan tindak lanjut terbuka kepada {{person_or_body}}"

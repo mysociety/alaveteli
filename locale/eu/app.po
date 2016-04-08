@@ -2404,9 +2404,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr "Bidali erantzuna"
 
-#, fuzzy
 msgid "Send a message to {{user_name}}"
-msgstr "Bidal iezaiozu ______-ri mezua"
+msgstr "Bidal iezaiozu ______-ri mezua {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Erantzun {{person_or_body}}-ri publikoki."
