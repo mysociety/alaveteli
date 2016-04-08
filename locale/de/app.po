@@ -4272,9 +4272,8 @@ msgstr "Antwort als Administrator-Check bedürftig. Schau nach und antworte auf 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} hat {{site_name}} verwendet, um Ihnen die unten angezeigte Nachricht zu senden."
 
-#, fuzzy
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "{{username}} hat eine Nachricht hinterlassen"
+msgstr "{{user_name}} hat eine Nachricht hinterlassen ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} hat eine Nachfrage an {{public_body}} gesendet"

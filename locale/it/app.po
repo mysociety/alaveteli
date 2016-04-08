@@ -4192,9 +4192,8 @@ msgstr "risposta che necessita dell'attenzione dell'amministratore. Dai un'occhi
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} ha usato {{site_name}} per inviare il messaggio qui sotto."
 
-#, fuzzy
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "{{username}} ha aggiunto una nota:"
+msgstr "{{user_name}} ha aggiunto una nota ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} ha inviato un secondo messaggio a {{public_body}}"

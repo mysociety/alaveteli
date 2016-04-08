@@ -4195,9 +4195,8 @@ msgstr "respuesta necesita intervención del administrador. Revísela, y contest
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} ha utilizado {{site_name}} para enviarle el siguiente mensaje."
 
-#, fuzzy
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "{{username}} dejó un comentario:"
+msgstr "{{user_name}} dejó un comentario ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} envió un mensaje de seguimiento a {{public_body}}"

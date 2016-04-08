@@ -4393,9 +4393,8 @@ msgstr ""
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} ha usado {{site_name}} para enviarle el siguiente mensaje."
 
-#, fuzzy
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "{{username}} ha deixat un comentari:"
+msgstr "{{user_name}} ha deixat un comentari ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} envió un mensaje a {{public_body}}"

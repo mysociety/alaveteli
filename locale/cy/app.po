@@ -4221,9 +4221,8 @@ msgstr "ymateb sydd angen sylw gweinyddwr. Cymerwch olwg, ac ymatebwch i'r e-bos
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "Defnyddiodd {{user_name}} {{site_name}} i anfon y neges isod atoch."
 
-#, fuzzy
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "Gadawodd {{user_name}} anodiad:"
+msgstr "Gadawodd {{user_name}} anodiad ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "Anfonodd {{user_name}} neges ddilynol i {{public_body}} "

@@ -4359,9 +4359,8 @@ msgstr ""
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} je koristio {{site_name}} da Vam pošalje poruku ispod."
 
-#, fuzzy
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "{{username}} je ostavio napomenu:"
+msgstr "{{user_name}} je ostavio napomenu ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr ""

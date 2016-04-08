@@ -4178,9 +4178,8 @@ msgstr "отговор като нуждаещ се от вниманието н
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} използва {{site_name}} за да Ви изпрати писмото по-долу."
 
-#, fuzzy
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "{{username}} остави коментар:"
+msgstr "{{user_name}} остави коментар ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} изпрати пояснително съобщение до {{public_body}}"
