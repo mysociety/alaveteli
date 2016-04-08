@@ -591,9 +591,8 @@ msgstr "Clarificare"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Clarificare trimisă către {{public_body_name}} ce către {{info_request_user}} la data de {{date}}."
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Clarifică solicitarea de acces la informații - "
+msgstr "Clarifică solicitarea de acces la informații - {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

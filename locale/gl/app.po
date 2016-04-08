@@ -620,9 +620,8 @@ msgstr "Aclaración"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Actualizaciones para la solicitud '{{request_title}}'"
+msgstr ""
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

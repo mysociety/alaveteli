@@ -575,9 +575,8 @@ msgstr "Tydliggörande"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Tydliggörandet skickades till {{public_body_name}} av {{info_request_user}} den {{date}}."
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Tydliggör din begäran om allmän handling -"
+msgstr "Tydliggör din begäran om allmän handling - {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

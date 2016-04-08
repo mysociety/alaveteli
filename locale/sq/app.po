@@ -609,9 +609,8 @@ msgstr "Sqarim"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Sqarimi u dërgua tek {{public_body_name}} nga {{info_request_user}} më {{date}}."
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Sqaro kërkesën tënde QDP - "
+msgstr "Sqaro kërkesën tënde QDP - {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

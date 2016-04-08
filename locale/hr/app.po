@@ -604,9 +604,8 @@ msgstr "Objašnjenje"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Pojašnjenje poslano {{public_body_name}} od {{info_request_user}} dana {{date}}."
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Pojasnite svoj zahtjev za pristup informacijama - "
+msgstr "Pojasnite svoj zahtjev za pristup informacijama - {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

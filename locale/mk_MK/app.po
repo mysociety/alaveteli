@@ -571,9 +571,8 @@ msgstr "Објаснување"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Објаснете го своето барање за слободен пристап до информации - "
+msgstr "Објаснете го своето барање за слободен пристап до информации - {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

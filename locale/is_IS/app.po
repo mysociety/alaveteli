@@ -571,9 +571,8 @@ msgstr "Útskýring"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Útskýring send til  {{public_body_name}} frá {{info_request_user}} þann {{date}}."
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Útskýrðu beiðnina -"
+msgstr "Útskýrðu beiðnina - {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

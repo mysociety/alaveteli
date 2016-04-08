@@ -573,9 +573,8 @@ msgstr "Ibisobanuro"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Ibisobanuro byohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Sobanura ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
+msgstr "Sobanura ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru - {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

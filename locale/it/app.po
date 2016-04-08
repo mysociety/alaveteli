@@ -578,9 +578,8 @@ msgstr "Chiarificazione"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Chiarimento sulla richiesta spedito {{public_body_name}} da {{info_request_user}} il {{date}}."
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Spiega meglio l'oggetto della tua richiesta di accesso -"
+msgstr "Spiega meglio l'oggetto della tua richiesta di accesso - {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

@@ -625,9 +625,8 @@ msgstr "Vysvětlení"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Upřesnění bylo odesláno {{public_body_name}} od uživatele {{info_request_user}} dne {{date}}."
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Upřesněte svůj dotaz – "
+msgstr "Upřesněte svůj dotaz – {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

@@ -614,9 +614,8 @@ msgstr "Pontosítás"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "A közérdekűadat-igénylés pontosítása"
+msgstr "A közérdekűadat-igénylés pontosítása {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"

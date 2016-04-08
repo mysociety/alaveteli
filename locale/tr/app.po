@@ -578,9 +578,8 @@ msgstr "Açıklık getirme"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Açıklık getirmek için yazılan metin {{info_request_user}} tarafından  {{public_body_name}} kurumuna {{date}}  tarihinde iletildi "
 
-#, fuzzy
 msgid "Clarify your FOI request - {{request_title}}"
-msgstr "Bilgi Edinme Başvurunuza açıklık getirin -"
+msgstr "Bilgi Edinme Başvurunuza açıklık getirin - {{request_title}}"
 
 #, fuzzy
 msgid "Classify an FOI response from {{authority_name}}"
