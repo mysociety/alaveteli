@@ -15,6 +15,7 @@ MySociety::Config.load_default
 
 module AlaveteliConfiguration
   if !const_defined?(:DEFAULTS)
+
     DEFAULTS = {
       :ADMIN_PASSWORD => '',
       :ADMIN_USERNAME => '',
@@ -69,7 +70,6 @@ module AlaveteliConfiguration
       :REPLY_LATE_AFTER_DAYS => 20,
       :REPLY_VERY_LATE_AFTER_DAYS => 40,
       :RESPONSIVE_STYLING => true,
-      :RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS => 6,
       :SITE_NAME => 'Alaveteli',
       :SKIP_ADMIN_AUTH => false,
       :SMTP_MAILER_ADDRESS => 'localhost',
@@ -79,6 +79,7 @@ module AlaveteliConfiguration
       :SMTP_MAILER_PASSWORD => '',
       :SMTP_MAILER_AUTHENTICATION => 'plain',
       :SMTP_MAILER_ENABLE_STARTTLS_AUTO => true,
+      :RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS => 6,
       :SPECIAL_REPLY_VERY_LATE_AFTER_DAYS => 60,
       :SURVEY_URL => '',
       :SEND_SURVEY_MAILS => true,
