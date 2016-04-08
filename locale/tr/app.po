@@ -2751,9 +2751,8 @@ msgstr "Sonra {{site_name}} için kullandığınız email adresini değiştirebi
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Sonra {{site_name}}'daki şifrenizi değiştirebilirsiniz"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "Sonra aşağıdaki kurumdan aldığınız Bilgi Edinme Hakkı başvurusu cevabını sınıflandırabilirsiniz"
+msgstr "Sonra aşağıdaki kurumdan aldığınız Bilgi Edinme Hakkı başvurusu cevabını sınıflandırabilirsiniz {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Sonra {{info_request_title}} başvurusunu zip dosyası formatında bilgisayarınıza yükleyebilirsiniz"

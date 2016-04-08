@@ -2813,9 +2813,8 @@ msgstr "Me as mund të ndryshoni adresën tuaj të emailit që përdoret në {{s
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Me pas mund të ndryshoni fjalëkalimin që përdoret në {{site_name}}"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "Me pas mund të klasifikoni përgjigjet e marra nga "
+msgstr "Me pas mund të klasifikoni përgjigjet e marra nga {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Me pas mund të shkarkosh dokumentat e zip-uara te {{info_request_title}}."

@@ -2749,9 +2749,8 @@ msgstr "Puoi cambiare il tuo indirizzo email su {{site_name}}"
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Così potrai cambiare la password su {{site_name}}"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "Così potrai classificare la risposta ricevuta alla tua richiesta di accesso"
+msgstr "Così potrai classificare la risposta ricevuta alla tua richiesta di accesso {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Così potrai scaricare un file compresso di {{info_request_title}}."

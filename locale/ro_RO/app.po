@@ -2764,9 +2764,8 @@ msgstr "Apoi poți modifica adresa de email utilizată pe  {{site_name}}"
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Apoi poţi modifica parola ta pe {{site_name}}"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "Apoi poți clasifica răspunsul la solicitare pe care l-ai primit de la "
+msgstr "Apoi poți clasifica răspunsul la solicitare pe care l-ai primit de la {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Apoi puteţi descărca un fişier zip cu  {{info_request_title}}."

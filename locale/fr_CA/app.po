@@ -2753,9 +2753,8 @@ msgstr "Vous pourrez alors changer l'adresse courriel utilisée sur {{site_name}
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Vous pourrez alors changer votre mot de passe sur {{site_name}}"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "Vous pourrez ensuite classer la réponse que vous aurez obtenu de"
+msgstr "Vous pourrez ensuite classer la réponse que vous aurez obtenu de {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Vous pourrez ensuite télécharger un fichier zip de {{info_request_title}}."

@@ -2732,9 +2732,8 @@ msgstr ""
 msgid "Then you can change your password on {{site_name}}"
 msgstr "然後你可以更改你在 {{site_name}} 網站的密碼"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "然後你可以更改你在 {{site_name}} 網站的密碼"
+msgstr ""
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr ""

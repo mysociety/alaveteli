@@ -2760,9 +2760,8 @@ msgstr "Yna gallwch newid eich cyfeiriad e-bost a ddefnyddir ar {{site_name}}"
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Yna gallwch newid eich cyfrinair ar {{site_name}}"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "Yna gallwch ddosbarthu'r ymateb Rhyddid Gwybodaeth yr ydych wedi'i gael gan "
+msgstr "Yna gallwch ddosbarthu'r ymateb Rhyddid Gwybodaeth yr ydych wedi'i gael gan {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Yna gallwch lawrlwytho ffeil zip o {{info_request_title}}."

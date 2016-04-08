@@ -2806,9 +2806,8 @@ msgstr "können Sie Ihre auf {{site_name}} verwendete Email-Adresse beenden"
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Dann können Sie Ihr Passwort unter {{site_name}} ändern"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "Dann klassifizieren Sie die IFG-Anfrage welche Sie erhalten haben, von"
+msgstr "Dann klassifizieren Sie die IFG-Anfrage welche Sie erhalten haben, von {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Dann können Sie eine Zip-Datei von {{info_request_title}} herunterladen. "

@@ -2741,9 +2741,8 @@ msgstr "След това ще можете да промените имейл �
 msgid "Then you can change your password on {{site_name}}"
 msgstr "След това ще може да промените паролата си в {{site_name}}"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "След това може да класифицирате отговора за ДдИ, който сте получили от "
+msgstr "След това може да класифицирате отговора за ДдИ, който сте получили от {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "След това ще може да свалите {{info_request_title}} като zip файл."

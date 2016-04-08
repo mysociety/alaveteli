@@ -2827,9 +2827,8 @@ msgstr "Tada možete promijeniti Vašu adresu e-pošte korištenu na {{site_name
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Tada možete promijeniti Vašu lozinku na {{site_name}}"
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "Tada možete klasificirati odgovor na zahtjev za pristup informacijama koji ste dobili od"
+msgstr "Tada možete klasificirati odgovor na zahtjev za pristup informacijama koji ste dobili od {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Tada možete preuzeti zip datoteku {{info_request_title}}."

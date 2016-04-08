@@ -2792,9 +2792,8 @@ msgstr "Orduan {{site_name}}-ean erabili duzun posta aldatu ahal izango duzu."
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Orduan {{site_name}}-ean erabili duzun pasahitza aldatu ahal izango duzu."
 
-#, fuzzy
 msgid "Then you can classify the FOI response you have got from {{authority_name}}."
-msgstr "Orduan _______-tik jaso duzun erantzuna sailkatu ahal izango duzu."
+msgstr "Orduan _______-tik jaso duzun erantzuna sailkatu ahal izango duzu. {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Orduan {{info_request_title}}-tik deskargatu ahal izango duzu ZIP fitxategia."
