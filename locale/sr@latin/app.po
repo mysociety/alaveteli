@@ -1939,9 +1939,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Molimo da se na dnu potpišete svojim imenom, ili izmenite  \"{{signoff}}\" potpis"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Molimo prijavite se kao "
+msgstr "Molimo prijavite se kao {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

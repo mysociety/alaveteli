@@ -1901,9 +1901,8 @@ msgstr "Ве молиме изберете го секое барање по р�
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Ве молиме најавете се на дното со вашето име или променете го \"{{signoff}}\" потпис"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Ве молиме најавете се како "
+msgstr "Ве молиме најавете се како {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

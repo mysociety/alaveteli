@@ -1920,9 +1920,8 @@ msgstr "Dewiswch bob un o'r ceisiadau hyn yn ei dro, a <strong>gadewch i bawb wy
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Llofnodwch ar y gwaelod gyda'ch enw, neu newidiwch y llofnod \"{{signoff}}\""
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Mewngofnodwch fel "
+msgstr "Mewngofnodwch fel {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Dywedwch mwy wrthym:"

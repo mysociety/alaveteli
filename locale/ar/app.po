@@ -1921,9 +1921,8 @@ msgstr "الرجاء اختيار كل من هذه الطلبات بدوره,و 
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr ""
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "يرجى تسجيل الدخول ك"
+msgstr "يرجى تسجيل الدخول ك {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

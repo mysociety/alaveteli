@@ -2018,9 +2018,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Kérjük, írja alá nevét a lap alján vagy módosítsa a \"{{signoff}}\" aláírást "
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Jelentkezzen be mint "
+msgstr "Jelentkezzen be mint {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

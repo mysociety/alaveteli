@@ -1909,9 +1909,8 @@ msgstr "Prosimo izberite vsakega od teh zahtevkov po vrsti in <strong>dajte vsem
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Prosimo, podpišite se spodaj z vašim imenom ali pa spremenite podpis \"{{signoff}}\"."
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Prijavite se kot"
+msgstr "Prijavite se kot {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Prosimo povejte nam več:"

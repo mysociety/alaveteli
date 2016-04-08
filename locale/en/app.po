@@ -1898,9 +1898,8 @@ msgstr "Please select each of these requests in turn, and <strong>let everyone k
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Please sign in as "
+msgstr "Please sign in as {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Please tell us more:"

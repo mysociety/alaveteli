@@ -1903,9 +1903,8 @@ msgstr "Hitamo kimwe kimwe muri ibi bibazo, hanyuma <strong>umenyeshe buri wese<
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Andika izina ryawe nk'umukono hano hasi ,cyangwa se ureke \"{{signoff}}\" gushyiraho umukono"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Injira nka"
+msgstr "Injira nka {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Tubwire birenzeho:"

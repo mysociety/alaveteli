@@ -1920,9 +1920,8 @@ msgstr "אנא בחר כל אחת מהבקשות הבאות, <strong>וספר ל
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "חתמו למטה בשמכם, או שנו את \"{{signoff}}\" החתימה"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "נא התחברו כ"
+msgstr "נא התחברו כ {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

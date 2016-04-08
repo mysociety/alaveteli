@@ -1896,9 +1896,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Vinsamlegast undirritaðu beiðnina neðst með nafninu þínu, eða breyttu \"{{signoff}}\" undirskriftinni"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Skráðu þig inn sem"
+msgstr "Skráðu þig inn sem {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Vinsamlegast segðu okkur meira:"

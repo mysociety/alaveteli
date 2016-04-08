@@ -1962,9 +1962,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Te lutem nënshkruaj në fund me emrin tënd, ose ndrysho \"{{signoff}}\" nënshkrimin"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Të lutem kyçu si "
+msgstr "Të lutem kyçu si {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Te lutem na thuaj me shume"

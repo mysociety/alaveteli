@@ -1948,9 +1948,8 @@ msgstr "Por favor, selecione uma solicitação por vez e <strong>deixe todo mund
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Por favor, assine com seu nome ao fim da mensagem, ou altere a sua \"{{signoff}}\" assinatura"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Faça o login como "
+msgstr "Faça o login como {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Por favor dê-nos mais detalhes:"

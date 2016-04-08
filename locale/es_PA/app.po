@@ -1920,9 +1920,8 @@ msgstr "Por favor seleccione cada una de estas solicitudes, y <strong>haga saber
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Por favor, firme con su nombre en la parte inferior, o cambie la firma \"{{signoff}}\""
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Por favor abra una sesión como "
+msgstr "Por favor abra una sesión como {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Por favor díganos más:"

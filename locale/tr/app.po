@@ -1910,9 +1910,8 @@ msgstr "Lütfen sırayla aşağıdaki başvuruları seçin ve olumlu sonuç verm
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Lütfen en alttaki satıra kendi adınızı girin veya \"{{signoff}}\" imzanızı değiştirin"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Kullanıcı olarak giriş yapın"
+msgstr "Kullanıcı olarak giriş yapın {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Lütfen daha fazla bilgi verin:"

@@ -1915,9 +1915,8 @@ msgstr "Veuillez choisir ces demandes une par une et <strong> laisser tout le mo
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Veuillez signer votre nom au bas ou changer la \"{{signoff}}\" signature"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Veuillez vous connecter en tant que "
+msgstr "Veuillez vous connecter en tant que {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

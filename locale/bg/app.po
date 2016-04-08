@@ -1903,9 +1903,8 @@ msgstr "Моля, влезте във всяко от тези заявлени�
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Моля, подпишете долу с Вашето име, или променете \"{{signoff}}\" подписа"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Моля, влезте като "
+msgstr "Моля, влезте като {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Молим, кажете ни повече:"

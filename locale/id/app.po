@@ -2026,9 +2026,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Mohon tandatangani bagian bawah dengan nama Anda, atau ubah \"{{signoff}}\" tanda tangan"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Silakan masuk sebagai"
+msgstr "Silakan masuk sebagai {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

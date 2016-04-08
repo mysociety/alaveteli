@@ -1897,9 +1897,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr ""
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "請登入為"
+msgstr ""
 
 msgid "Please tell us more:"
 msgstr ""

@@ -1994,9 +1994,8 @@ msgstr "Будь ласка, оберіть кожен з цих запитів 
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Будь ласка, зазначте своє ім’я внизу"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Будь ласка, увійдіть як "
+msgstr "Будь ласка, увійдіть як {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

@@ -1911,9 +1911,8 @@ msgstr "Seleziona una di queste richieste e <strong>segnala</strong> se hanno ri
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Firma alla fine con il tuo nome o modifica la firma \"{{signoff}}\""
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Accedi come"
+msgstr "Accedi come {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Dicci di più:"

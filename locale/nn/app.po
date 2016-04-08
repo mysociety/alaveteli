@@ -1916,9 +1916,8 @@ msgstr "Vel kvar av desse førespurnadene etter tur, og <strong>la alle få vita
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Ver så snill å signar på slutten med namnet ditt, eller endre «{{signoff}}»-signaturen."
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Logg deg inn som "
+msgstr "Logg deg inn som {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Fortel oss meir:"

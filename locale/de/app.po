@@ -1958,9 +1958,8 @@ msgstr "Bitte wählen Sie diese Anfragen der Reihe nach aus und <strong>lassen S
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Bitte unterschreiben Sie unten mit Ihrem Namen oder ändern Sie Ihre \"{{signoff}}\" Signatur"
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Anmelden als"
+msgstr "Anmelden als {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

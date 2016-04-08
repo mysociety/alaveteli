@@ -1925,9 +1925,8 @@ msgstr "Te rugăm să selectezi fiecare solicitare pe rând și <strong>să spui
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Te rugăm să semnezi la finalul paginii cu numele tău sau modifică semnătura \"{{signoff}}\" "
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Vă rugăm înscrieţi-vă ca"
+msgstr "Vă rugăm înscrieţi-vă ca {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Vă rugăm elaborați:"

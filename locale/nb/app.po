@@ -1913,9 +1913,8 @@ msgstr "Velg hver av disse henvendelsene etter tur, og <strong>la alle få vite<
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Vær så snill å signer på slutten med ditt navn, eller endre «{{signoff}}»-signaturen."
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Logg deg inn som "
+msgstr "Logg deg inn som {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Fortell oss mer:"

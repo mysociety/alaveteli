@@ -1939,9 +1939,8 @@ msgstr "Mesedez, aukera itzazu eskabideak banan banan, eta <strong>jakinarazi </
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Mesedez, beheko aldean sinatu zure izenarekin, edo aldatu sinadura \"{{signoff}}\""
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Mesedez, ireki saioa ___________  bezala"
+msgstr "Mesedez, ireki saioa ___________  bezala {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""

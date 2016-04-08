@@ -2002,9 +2002,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Podepište se na konci dopisu svým jménem, nebo změňte \"{{signoff}}\" podpis. "
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Přihlašte se jako"
+msgstr "Přihlašte se jako {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Prosím sdělte nám více"

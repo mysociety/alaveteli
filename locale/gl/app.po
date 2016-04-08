@@ -2017,9 +2017,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Por favor, firma con tu nombre en la parte inferior, o cambia la firma \"{{signoff}}\""
 
-#, fuzzy
 msgid "Please sign in as {{user_name}}"
-msgstr "Por favor abre una sesión como "
+msgstr "Por favor abre una sesión como {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""
