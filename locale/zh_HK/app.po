@@ -1576,9 +1576,8 @@ msgstr ""
 msgid "New response to '{{title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "有關你的要求的回應"
+msgstr ""
 
 msgid "New response to your request"
 msgstr ""

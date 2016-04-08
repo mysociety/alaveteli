@@ -1581,9 +1581,8 @@ msgstr "Ijambo banga rishya: (nanone)"
 msgid "New response to '{{title}}'"
 msgstr "Igisubizo gishya kuri '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Igisubizo gishya ku kibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
+msgstr "Igisubizo gishya ku kibazo cyawe cy'ubwisanzure bwo kumenya amakuru - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Igisubizo gishya ku kibazo cyawe"

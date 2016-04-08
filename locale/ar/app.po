@@ -1595,9 +1595,8 @@ msgstr "كلمة العبور الجديدة: (مرة أخرى)"
 msgid "New response to '{{title}}'"
 msgstr "ردّ جديد على '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "ردّ جديد على مطلبكم في حق النفاذ إلى المعلومة - "
+msgstr "ردّ جديد على مطلبكم في حق النفاذ إلى المعلومة - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "ردّ جديد على مطلبكم"

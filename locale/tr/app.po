@@ -1588,9 +1588,8 @@ msgstr "Yeni şifre: (tekrar)"
 msgid "New response to '{{title}}'"
 msgstr "'{{title}}' başlıklı başvurunuza yeni cevap"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Bilgi edinme başvurunuza yeni bir cevap -"
+msgstr "Bilgi edinme başvurunuza yeni bir cevap - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Başvurunuza yeni bir cevap"

@@ -1579,9 +1579,8 @@ msgstr "Нова лозинка: (повторно)"
 msgid "New response to '{{title}}'"
 msgstr "Нов одговор до '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Нов одговор до вашето барање за слободен пристап - "
+msgstr "Нов одговор до вашето барање за слободен пристап - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Нов одговор до вашето барање"

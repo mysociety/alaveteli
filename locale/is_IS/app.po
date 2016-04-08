@@ -1573,9 +1573,8 @@ msgstr "Nýtt lykilorð (aftur):"
 msgid "New response to '{{title}}'"
 msgstr "Nýtt svar við '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Nýtt svar við upplýsingabeiðninni þinni"
+msgstr "Nýtt svar við upplýsingabeiðninni þinni {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Nýtt svar við beiðninni þinn"

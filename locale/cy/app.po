@@ -1596,9 +1596,8 @@ msgstr "Cyfrinair newydd: (eto)"
 msgid "New response to '{{title}}'"
 msgstr "Ymateb newydd i '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Ymateb newydd i'ch cais Rhyddid Gwybodaeth - "
+msgstr "Ymateb newydd i'ch cais Rhyddid Gwybodaeth - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Ymateb newydd i'ch cais"

@@ -1598,9 +1598,8 @@ msgstr "סיסמה חדשה (שוב):"
 msgid "New response to '{{title}}'"
 msgstr "תשובה חדשה ל'{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "תגובה חדשה לבקשה שלך -"
+msgstr "תגובה חדשה לבקשה שלך - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "תגובה חדשה לבקשה שלך"

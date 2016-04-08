@@ -1602,9 +1602,8 @@ msgstr "Parola nouă (din nou) :"
 msgid "New response to '{{title}}'"
 msgstr "Răspuns nou la '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Răspuns nou la cererea ta de acces la informații - "
+msgstr "Răspuns nou la cererea ta de acces la informații - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Răspuns nou la cererea ta"

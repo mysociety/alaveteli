@@ -1694,9 +1694,8 @@ msgstr "Kode sandi baru: (lagi)"
 msgid "New response to '{{title}}'"
 msgstr "Respon baru untuk '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Respon baru untuk permintaan FOI Anda -"
+msgstr "Respon baru untuk permintaan FOI Anda - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Respon baru untuk permintaan Anda"

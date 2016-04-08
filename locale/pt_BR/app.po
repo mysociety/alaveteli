@@ -1640,9 +1640,8 @@ msgstr "Nova senha: (de novo)"
 msgid "New response to '{{title}}'"
 msgstr "Nova resposta para '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Nova resposta para seu pedido de acesso à informação -"
+msgstr "Nova resposta para seu pedido de acesso à informação - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Nova resposta para o seu pedido"

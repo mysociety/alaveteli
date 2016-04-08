@@ -1605,9 +1605,8 @@ msgstr "Nova lozinka: (ponovo)"
 msgid "New response to '{{title}}'"
 msgstr "Novi odgovor na '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Novi odgovor na Vaš zahtev po Zakonu o slobodnom pristupu informacijama od javnog značaja  - "
+msgstr "Novi odgovor na Vaš zahtev po Zakonu o slobodnom pristupu informacijama od javnog značaja  - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Novi odgovor na Vaš zahtev"

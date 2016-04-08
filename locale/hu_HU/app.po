@@ -1683,9 +1683,8 @@ msgstr "Új jelszó: (újból) "
 msgid "New response to '{{title}}'"
 msgstr "Új válasz a(z) '{{title}}' igénylésre"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Új válasz közérdekű adatok igénylésére - "
+msgstr "Új válasz közérdekű adatok igénylésére - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Új válasz igénylésére - "

@@ -1668,9 +1668,8 @@ msgstr "Новий пароль (ще раз):"
 msgid "New response to '{{title}}'"
 msgstr "Нова відповідь '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Нова відповідь на ваш запит - "
+msgstr "Нова відповідь на ваш запит - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Нова відповідь на ваш запит "

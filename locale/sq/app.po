@@ -1633,9 +1633,8 @@ msgstr "Fjalëkalim i ri: (përsërite)"
 msgid "New response to '{{title}}'"
 msgstr "Përgjigje e re '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Përgjigje e re ndaj kërkesën tuaj për te Drejten e Informimit - "
+msgstr "Përgjigje e re ndaj kërkesën tuaj për te Drejten e Informimit - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Përgjigje e re për kërkesën tUAJ"

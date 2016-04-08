@@ -1633,9 +1633,8 @@ msgstr "Neues Passwort: (erneut eingeben)"
 msgid "New response to '{{title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Neue Antwort zu Ihrer IFG-Anfrage"
+msgstr "Neue Antwort zu Ihrer IFG-Anfrage {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Neue Antwort auf Ihre Anfrage"

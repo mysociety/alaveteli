@@ -1570,9 +1570,8 @@ msgstr ""
 msgid "New response to '{{title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "New response to your ATI request - "
+msgstr "New response to your ATI request - {{request_title}}"
 
 msgid "New response to your request"
 msgstr ""

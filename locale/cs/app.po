@@ -1672,9 +1672,8 @@ msgstr "Nové heslo (znovu):"
 msgid "New response to '{{title}}'"
 msgstr "Nová odpověď na '{{title}}'"
 
-#, fuzzy
 msgid "New response to your FOI request - {{request_title}}"
-msgstr "Nová odpověď na váš dotaz - "
+msgstr "Nová odpověď na váš dotaz - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Nová odpověď na váš dotaz "
