@@ -1,57 +1,6 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
-  task :sync_xapian => :environment do
-    InfoRequest.where(["updated_at >= ?", DateTime.new(2016, 2, 11, 9, 30)]).find_each do |info_request|
-      info_request.reindex_request_events
-    end
-
-    User.where(["updated_at >= ?", DateTime.new(2016, 2, 11, 9, 30)]).find_each do |user|
-      user.xapian_mark_needs_index
-      user.reindex_referencing_models
-    end
-
-    PublicBody.where(["updated_at >= ?", DateTime.new(2016, 2, 11, 9, 30)]).find_each do |public_body|
-      public_body.xapian_mark_needs_index
-    end
-
-  end
-
-
-    desc 'Rewrite cached HTML attachment headers to use responsive CSS'
-    task :responsive_attachments => :environment do
-        example = 'rake responsive_attachments PATTERN="./cache/views/request/*/*/response/*/attach/html/*/*.html"'
-        check_for_env_vars(['PATTERN'],example)
-        pattern = ENV['PATTERN']
-        replacement_head_content = <<-EOF
-<!--[if LTE IE 7]>
-<link href="/assets/responsive/application-lte-ie7.css" media="all" rel="stylesheet" title="Main" type="text/css" />
-<![endif]-->
-
-<!--[if IE 8]>
-<link href="/assets/responsive/application-ie8.css" media="all" rel="stylesheet" title="Main" type="text/css" />
-<![endif]-->
-
-<!--[if GT IE 8]><!-->
-<link href="/assets/responsive/application.css" media="all" rel="stylesheet" title="Main" type="text/css" />
-<!--<![endif]-->
-
-<script type="text/javascript" src="//use.typekit.net/csi1ugd.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-EOF
-
-
-        Dir.glob(pattern) do |cached_html_file|
-            puts cached_html_file
-            text = File.read(cached_html_file)
-            text.sub!(/<link [^>]*href="(\/assets\/application.css|\/stylesheets\/main.css|https?:\/\/www.whatdotheyknow.com\/stylesheets\/main.css)[^>]*>/, replacement_head_content)
-            text.sub!(/<\/div>(\s*This is an HTML version of an attachment to the Freedom of Information request.*?)<\/div>/m, '</div><p class="view_html_description">\1</p></div>')
-            text.sub!(/<iframe src='http:\/\/docs.google.com\/viewer/, "<iframe src='https://docs.google.com/viewer")
-            text.sub!(/<\/head>/, '<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>')
-            File.open(cached_html_file, 'w') { |file| file.write(text) }
-        end
-    end
-
   desc 'Analyse rails log specified by LOG_FILE to produce a list of request volume'
   task :request_volume => :environment do
     example = 'rake log_analysis:request_volume LOG_FILE=log/access_log OUTPUT_FILE=/tmp/log_analysis.csv'
@@ -84,20 +33,6 @@ EOF
       end
       csv << ['Total number of visits']
       csv << [processed]
-    end
-
-  end
-
-  desc 'Output all the requests made to the top 20 public bodies'
-  task :get_top20_body_requests => :environment do
-
-    require 'csv'
-    puts CSV.generate_line(["public_body_id", "public_body_name", "request_created_timestamp", "request_title", "request_body"])
-
-    PublicBody.limit(20).order('info_requests_visible_count DESC').each do |body|
-      body.info_requests.where(:prominence => 'normal').find_each do |request|
-        puts CSV.generate_line([request.public_body.id, request.public_body.name, request.created_at, request.url_title, request.initial_request_text.gsub("\r\n", " ").gsub("\n", " ")])
-      end
     end
 
   end
