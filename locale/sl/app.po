@@ -857,9 +857,8 @@ msgstr "Zahtevki za IJZ od '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Zahtevki od {{start_count}} do {{end_count}} od {{total_count}} skupaj"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Odgovor na zahtevek za IJZ zahteva administratorja ({{reason}}) - {{title}}"
+msgstr "Odgovor na zahtevek za IJZ zahteva administratorja ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Neuspešno"

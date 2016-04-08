@@ -856,9 +856,8 @@ msgstr "Заявления за ДдИ от '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Заявления за ДдИ {{start_count}} до {{end_count}} от {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Отговорът за ДдИ изисква администратор ({{reason}}) - {{title}}"
+msgstr "Отговорът за ДдИ изисква администратор ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Провалено"

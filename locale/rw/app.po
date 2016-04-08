@@ -855,9 +855,8 @@ msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru bya {{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru {{start_count}} kugera kuri {{end_count}} bya {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Igisubizo cy'ubwisanzur bwo kumenya amakuru kirasaba umuyobozi w'urubuga ({{reason}}) - {{title}}"
+msgstr "Igisubizo cy'ubwisanzur bwo kumenya amakuru kirasaba umuyobozi w'urubuga ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Yanze"

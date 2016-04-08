@@ -865,9 +865,8 @@ msgstr "Innsynshenvendelse fra '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Innsynshenvendelser {{start_count}} til {{end_count}} av {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Innsynssvar krever administrator ({{reason}}) - {{title}}"
+msgstr "Innsynssvar krever administrator ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Feilet"

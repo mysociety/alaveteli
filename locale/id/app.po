@@ -920,9 +920,8 @@ msgstr "Permintaan FOI oleh '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Permintaan FOI {{start_count}} sampai{{end_count}} dari{{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Jawaban permintaan membutuhkan {{{reason}}} - {{title}}"
+msgstr "Jawaban permintaan membutuhkan {{{reason}}} - {{request_title}}"
 
 msgid "Failed"
 msgstr ""

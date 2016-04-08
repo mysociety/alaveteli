@@ -865,9 +865,8 @@ msgstr "مطالب حرية المعلومة المقدمة من قبل '{{user_
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "مطالب لحرية النفاذ للمعلومة {{start_count}} ل {{end_count}}من {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "رد حرية النفاذ للمعلومة يتطلف مشرفا ({{reason}}) - {{title}}"
+msgstr "رد حرية النفاذ للمعلومة يتطلف مشرفا ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr ""

@@ -873,9 +873,8 @@ msgstr "Solicitare de informații de către '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Solicitări de informații de la  {{start_count}} la {{end_count}} din {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Răspunsul  la solicitare necesită ({{reason}}) - {{title}} administratorului"
+msgstr "Răspunsul  la solicitare necesită ({{reason}}) - {{request_title}} administratorului"
 
 msgid "Failed"
 msgstr ""

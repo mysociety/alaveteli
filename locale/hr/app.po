@@ -893,9 +893,8 @@ msgstr "Zahtjevi za pristup informacijama od '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Zahtjevi za pristup informacijama {{start_count}} do {{end_count}} od {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "PPI odgovor zahtijeva administraciju ({{reason}}) - {{title}}"
+msgstr "PPI odgovor zahtijeva administraciju ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Nije uspjelo"

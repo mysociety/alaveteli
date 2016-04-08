@@ -849,9 +849,8 @@ msgstr "ATI requests by '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "ATI requests {{start_count}} to {{end_count}} of {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "ATI response requires admin ({{reason}}) - {{title}}"
+msgstr "ATI response requires admin ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr ""

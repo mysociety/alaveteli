@@ -924,9 +924,8 @@ msgstr "Dotaz vznesený uživatelem '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Dotazy {{start_count}} do {{end_count}} z {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Odpověď vyžaduje zásah administrátora -  ({{reason}}) - {{title}}"
+msgstr "Odpověď vyžaduje zásah administrátora -  ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Nezdařilo se"

@@ -868,9 +868,8 @@ msgstr "Ceisiadau Rhyddid Gwybodaeth gan '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Ceisiadau Rhyddid Gwybodaeth {{start_count}} i {{end_count}} o {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Mae ar Ymateb Rhyddid Gwybodaeth angen gweinyddu ({{reason}}) - {{title}}"
+msgstr "Mae ar Ymateb Rhyddid Gwybodaeth angen gweinyddu ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Methwyd"

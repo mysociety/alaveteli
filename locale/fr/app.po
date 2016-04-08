@@ -882,9 +882,8 @@ msgstr "Demandes DAI de '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Demandes DAI {{start_count}} à {{end_count}} sur {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Réponse necessitant  l'administration ({{reason}}) - {{title}}"
+msgstr "Réponse necessitant  l'administration ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Echoué"

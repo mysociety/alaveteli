@@ -857,9 +857,8 @@ msgstr "Förfrågningar om allmänna handlingar av '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Förfrågningar om allmänna handlingar av {{start_count}} till {{end_count}} av {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Begärandets svar kräver admin ({{reason}}) - {{title}}"
+msgstr "Begärandets svar kräver admin ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Misslyckades"

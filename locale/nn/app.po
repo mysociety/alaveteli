@@ -868,9 +868,8 @@ msgstr "Krav om innsyn frå «{{user_name}}»"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Krav om innsyn {{start_count}} til {{end_count}} av {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Innsynssvar krev administrator ({{reason}}) - {{title}}"
+msgstr "Innsynssvar krev administrator ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Feilte"

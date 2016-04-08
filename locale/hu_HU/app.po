@@ -908,9 +908,8 @@ msgstr "'{{user_name}}' által igényelt közérdekű adatok "
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "közérdekűadat-igénylések: {{start_count}} - {{end_count}}, összesen: {{total_count}} "
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "A közérdekűadat-igénylés megválaszolásához adminisztrátori beavatkozás szükséges ({{reason}}) - {{title}}"
+msgstr "A közérdekűadat-igénylés megválaszolásához adminisztrátori beavatkozás szükséges ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr ""

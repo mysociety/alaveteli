@@ -873,9 +873,8 @@ msgstr "ZOSPIOJ zahtevi od strane '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "ZOSPIOJ zahtevi {{start_count}} do {{end_count}} od ukupno {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Odgovor na Zahtev za slobodan pristup informacijama od javnog značaja zahteva administratorsku dozvolu  -  ({{reason}}) - {{title}}"
+msgstr "Odgovor na Zahtev za slobodan pristup informacijama od javnog značaja zahteva administratorsku dozvolu  -  ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr ""

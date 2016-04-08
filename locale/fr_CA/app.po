@@ -867,9 +867,8 @@ msgstr "Demandes d'accès aux documents par '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Demandes d'accès aux documents de {{start_count}} à {{end_count}} sur {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "La réponse à la demande d'accès aux documents nécessite l'attention d'un administrateur ({{reason}}) - {{title}}"
+msgstr "La réponse à la demande d'accès aux documents nécessite l'attention d'un administrateur ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr ""

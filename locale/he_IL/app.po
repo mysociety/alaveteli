@@ -872,9 +872,8 @@ msgstr "בקשה לקבלת מידע, שהוגשה על-ידי '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "בקשות לקבלת מידע {{start_count}} עד {{end_count}} מתוך {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "התגובה דורשת התערבות מנהל  ({{reason}}) - {{title}}"
+msgstr "התגובה דורשת התערבות מנהל  ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "נכשל"

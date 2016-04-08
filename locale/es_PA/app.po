@@ -866,9 +866,8 @@ msgstr "Solicitudes de acceso a la información por '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Solicitudes de acceso a la información {{start_count}} a {{end_count}} de {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "La respuesta a la solicitud de información necesita de un administrador ({{reason}}) - {{title}}"
+msgstr "La respuesta a la solicitud de información necesita de un administrador ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Fallido"

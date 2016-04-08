@@ -899,9 +899,8 @@ msgstr "Kërkesa për DI nga '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Kërkesat për DI{{start_count}} deri {{end_count}} prej {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Pergjigja per DI kerkon admin ({{reason}}) - {{title}}"
+msgstr "Pergjigja per DI kerkon admin ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Deshtoi"

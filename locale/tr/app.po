@@ -860,9 +860,8 @@ msgstr "'{{user_name}}' tarafından yapılan bilgi edinme başvuruları"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Toplam  {{total_count}} başvurudan  {{start_count}} -  {{end_count}}  arası başvurular "
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Bilgi edinme başvurusuna gelen cevapla  yöneticinin ilgilenmesini gerekiyor ({{reason}}) - {{title}}"
+msgstr "Bilgi edinme başvurusuna gelen cevapla  yöneticinin ilgilenmesini gerekiyor ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "İşlem başarısız"

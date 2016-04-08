@@ -850,9 +850,8 @@ msgstr "FOI requests by '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 
-#, fuzzy
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "FOI response requires admin ({{reason}}) - {{title}}"
+msgstr "FOI response requires admin ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Failed"
