@@ -2570,9 +2570,8 @@ msgstr "Hasonló igénylések "
 msgid "Simple search"
 msgstr "Egyszerű keresés "
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Közérdekűadat-igényléséhez hozzászóltak - "
+msgstr "Közérdekűadat-igényléséhez hozzászóltak - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Az igényelt információ egy része megérkezett "

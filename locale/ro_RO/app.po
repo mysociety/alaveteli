@@ -2475,9 +2475,8 @@ msgstr "Cereri similare"
 msgid "Simple search"
 msgstr "Căutare simplă"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Au fost adăugate câteva note la solicitarea ta de acces la informații - "
+msgstr "Au fost adăugate câteva note la solicitarea ta de acces la informații - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Câteva informaţii solicitate au fost primite"

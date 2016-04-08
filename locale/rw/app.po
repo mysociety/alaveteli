@@ -2452,9 +2452,8 @@ msgstr "Ibindi bibazo bisa n'iki"
 msgid "Simple search"
 msgstr "Gushaka byoroshye"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Hari amagambo yongewe mu kibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
+msgstr "Hari amagambo yongewe mu kibazo cyawe cy'ubwisanzure bwo kumenya amakuru - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Amwe mu makuru yasabwe yakiriwe"

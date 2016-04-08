@@ -2444,9 +2444,8 @@ msgstr "類似的索取資料要求"
 msgid "Simple search"
 msgstr "簡單搜尋"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "你的索取資料要求已加入一些備註"
+msgstr "你的索取資料要求已加入一些備註 {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr ""

@@ -2462,9 +2462,8 @@ msgstr "Benzer başvurular"
 msgid "Simple search"
 msgstr "Basit arama"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Bilgi Edinme Başvurunuza bazı notlar eklendi"
+msgstr "Bilgi Edinme Başvurunuza bazı notlar eklendi {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "İstenilen bilginin bir kısmı alındı"

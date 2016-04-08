@@ -2577,9 +2577,8 @@ msgstr "Permintaan serupa"
 msgid "Simple search"
 msgstr "Pencarian sederhana"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Beberapa catatan telah ditambahkan ke permintaan FOI Anda - "
+msgstr "Beberapa catatan telah ditambahkan ke permintaan FOI Anda - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Beberapa informasi yang diminta sudah diterima"

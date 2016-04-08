@@ -2454,9 +2454,8 @@ msgstr "Liknande förfrågningar"
 msgid "Simple search"
 msgstr "Enkel sökning"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Några kommentarer har lagts till i din begäran om allmän handling - "
+msgstr "Några kommentarer har lagts till i din begäran om allmän handling - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "En del av den begärda informationen har tagits emot"

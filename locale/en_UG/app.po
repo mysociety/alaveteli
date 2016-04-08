@@ -2438,9 +2438,8 @@ msgstr ""
 msgid "Simple search"
 msgstr ""
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Some notes have been added to your ATI request - "
+msgstr "Some notes have been added to your ATI request - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr ""

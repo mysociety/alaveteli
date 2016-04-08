@@ -2469,9 +2469,8 @@ msgstr "Solicitudes similares"
 msgid "Simple search"
 msgstr "Búsqueda básica"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Nuevos comentarios a su solicitud de acceso a información - "
+msgstr "Nuevos comentarios a su solicitud de acceso a información - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Parte de la información solicitada ha sido recibida"

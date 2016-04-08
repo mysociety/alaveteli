@@ -2489,9 +2489,8 @@ msgstr "Slični zahtevi"
 msgid "Simple search"
 msgstr "Jednostavna pretraga"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Beleške su dodate na Vaš zahtev po ZOSPIOJ - "
+msgstr "Beleške su dodate na Vaš zahtev po ZOSPIOJ - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Deo traženih informacija je primljen"

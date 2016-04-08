@@ -2491,9 +2491,8 @@ msgstr "Antzeko eskabideak"
 msgid "Simple search"
 msgstr "Oinarrizko bilaketa"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berriak - "
+msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berriak - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Eskatutako informazio zati bat jaso da"

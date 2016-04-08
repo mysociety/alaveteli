@@ -2555,9 +2555,8 @@ msgstr "Podobné dotazy"
 msgid "Simple search"
 msgstr "Jednoduché hledání"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "K vašemu dotazu byly přidány nějaké poznámky – "
+msgstr "K vašemu dotazu byly přidány nějaké poznámky – {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Některé z požadovaných informací byly obdrženy"

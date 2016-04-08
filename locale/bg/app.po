@@ -2452,9 +2452,8 @@ msgstr "Подобни заявления"
 msgid "Simple search"
 msgstr "Опростено търсене"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Някои бележки бяха добавени към заявлението Ви за ДдИ - "
+msgstr "Някои бележки бяха добавени към заявлението Ви за ДдИ - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Част от поисканата информация беше получена"

@@ -2469,9 +2469,8 @@ msgstr "בקשות דומות"
 msgid "Simple search"
 msgstr "חיפוש פשוט"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "התווספו הערות לבקשה שלך"
+msgstr "התווספו הערות לבקשה שלך {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "חלק מהמידע המבוקש התקבל"

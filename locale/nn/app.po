@@ -2465,9 +2465,8 @@ msgstr "Liknande førespurnader"
 msgid "Simple search"
 msgstr "Enkelt søk"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Nokre merknader er lagt til innsynskravet ditt – "
+msgstr "Nokre merknader er lagt til innsynskravet ditt – {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Noko av den etterspurde informasjonen er motteke"

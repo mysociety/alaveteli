@@ -2462,9 +2462,8 @@ msgstr "Lignende henvendelser"
 msgid "Simple search"
 msgstr "Enkelt søk"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Nen merknader har blitt lagt til innsynshenvendelsen din - "
+msgstr "Nen merknader har blitt lagt til innsynshenvendelsen din - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Noe av den forespurte informasjonen er mottatt"

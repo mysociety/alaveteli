@@ -2544,9 +2544,8 @@ msgstr "Подібні запити"
 msgid "Simple search"
 msgstr "Простий пошук"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Підтвердіть, що хочете відслідковувати запит '{{request_title}}'"
+msgstr ""
 
 msgid "Some of the information requested has been received"
 msgstr "Дещо з запитаної інформації було отримано"

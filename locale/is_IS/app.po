@@ -2444,9 +2444,8 @@ msgstr "Svipaðar beiðnir"
 msgid "Simple search"
 msgstr "Einföld leit"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Athugasemdum hefur verið bætti við upplýsingabeiðnina þína -"
+msgstr "Athugasemdum hefur verið bætti við upplýsingabeiðnina þína - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Eitthvað af gögnunum sem þú baðst um hefur borist"

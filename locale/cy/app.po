@@ -2471,9 +2471,8 @@ msgstr "Ceisiadau tebyg"
 msgid "Simple search"
 msgstr "Chwiliad syml"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Mae rhai nodiadau wedi cael eu hychwanegu at eich cais Rhyddid Gwybodaeth - "
+msgstr "Mae rhai nodiadau wedi cael eu hychwanegu at eich cais Rhyddid Gwybodaeth - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Mae peth o'r wybodaeth y gwnaed cais amdani wedi ei dderbyn."

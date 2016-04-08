@@ -2450,9 +2450,8 @@ msgstr "Слични барања"
 msgid "Simple search"
 msgstr "Едноставно пребарување"
 
-#, fuzzy
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr "Додадени се неколку белешки во вашето барање - "
+msgstr "Додадени се неколку белешки во вашето барање - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Дел од побараните информации се примени"
