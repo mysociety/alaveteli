@@ -2766,9 +2766,8 @@ msgstr "Ubwo ushobora kwohereza ubutumwa kuri"
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Ubwo ushobora kwinjira kuri {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Ubwo ushobora guhindura irangamimerere y'ikibazo kuri"
+msgstr "Ubwo ushobora guhindura irangamimerere y'ikibazo kuri {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Ubwo ushobora gushyiraho igisubizo cy'ubwisanzure bwo kumenya amakuru"

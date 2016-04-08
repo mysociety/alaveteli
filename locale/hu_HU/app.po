@@ -2912,9 +2912,8 @@ msgstr "Ezután üzenetet küldhet a következőnek: "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Ezután bejelentkezhet a {{site_name}} weboldalra "
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Ezután frissítheti igénylésének állapotát a következőre: "
+msgstr "Ezután frissítheti igénylésének állapotát a következőre: {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Ezután feltöltheti a közérdekű adat igénylésére kapott választ. "

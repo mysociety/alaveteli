@@ -2774,9 +2774,8 @@ msgstr "Zatem lahko pošljete sporočilo "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Zatem se lahko prijavite na {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Zatem lahko posodobite stanje vaših zahtevkov na"
+msgstr "Zatem lahko posodobite stanje vaših zahtevkov na {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Zatem lahko naložite odgovor na zahtevek IJZ"

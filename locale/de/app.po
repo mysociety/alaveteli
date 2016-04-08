@@ -2831,9 +2831,8 @@ msgstr "Dann können Sie eine Nachricht senden an"
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Dann können Sie sich auf {{site_name}} einloggen. "
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Dann können Sie den Status Ihrer Nachricht aktualisieren"
+msgstr "Dann können Sie den Status Ihrer Nachricht aktualisieren {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Dann können Sie eine IFG-Antwort hochladen. "

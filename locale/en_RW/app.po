@@ -2750,9 +2750,8 @@ msgstr ""
 msgid "Then you can sign in to {{site_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "The contact email address for ATI requests to the authority."
+msgstr ""
 
 msgid "Then you can upload an FOI response. "
 msgstr "Then you can upload an ATI response. "

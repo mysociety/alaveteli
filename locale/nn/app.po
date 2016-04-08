@@ -2781,9 +2781,8 @@ msgstr "Så kan du senda ei melding til "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Deretter kan du logga inn på {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Så kan du oppdater status på førespurnaden til "
+msgstr "Så kan du oppdater status på førespurnaden til {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Så kan du senda ein innsynsbegjæring"

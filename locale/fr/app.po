@@ -2795,9 +2795,8 @@ msgstr "Ensuite vous pouvez envoyer un message à "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Ensuite vous pouvez vous connecter à {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Ensuite vous pouvez mettre à jour l'état de votre demande à"
+msgstr "Ensuite vous pouvez mettre à jour l'état de votre demande à {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Ensuite vous pouvez uploader une réponse à la demande d'accès."

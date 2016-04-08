@@ -2789,9 +2789,8 @@ msgstr "Apoi puteţi trimite un mesaj către "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Apoi poţi să intri în contul tău de pe {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Apoi poţi să actualizezi starea solicitării tale în"
+msgstr "Apoi poţi să actualizezi starea solicitării tale în {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Apoi poți uploada un răspuns la o solicitare."

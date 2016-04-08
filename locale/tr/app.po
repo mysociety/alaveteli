@@ -2776,9 +2776,8 @@ msgstr "Sonra şu kişi veya kuruma bir mesaj iletebilirsiniz"
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Sonra {{site_name}}'na giriş yapabilirsiniz"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Sonra başvurunuzun durumunu şöyle güncelleyebilirsiniz"
+msgstr "Sonra başvurunuzun durumunu şöyle güncelleyebilirsiniz {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Sonra Bilgi Edinme Başvurusu'na gelen bir cevabı siteye yükleyebilirsiniz "

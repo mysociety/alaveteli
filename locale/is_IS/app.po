@@ -2759,9 +2759,8 @@ msgstr "{{public_body}} sendi svar til {{user_name}}"
 msgid "Then you can sign in to {{site_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Uppfæra stöðu þessarar beiðnar"
+msgstr ""
 
 msgid "Then you can upload an FOI response. "
 msgstr ""

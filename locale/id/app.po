@@ -2919,9 +2919,8 @@ msgstr "Maka Anda dapat mengirimkan pesan kepada "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Maka Anda dapat masuk ke {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Maka Anda dapat memperbarui status permintaan Anda kepada "
+msgstr "Maka Anda dapat memperbarui status permintaan Anda kepada {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Maka Anda dapat memuat respon FOI. "

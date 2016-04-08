@@ -2893,9 +2893,8 @@ msgstr "Poté můžete poslat zprávu uživateli nebo instituci"
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Poté se můžete přihlásit na stránkách {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Poté můžete aktualizovat status svého dotazu na "
+msgstr "Poté můžete aktualizovat status svého dotazu na {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Poté můžete nahrát odpověď na váš dotaz."

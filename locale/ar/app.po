@@ -2788,9 +2788,8 @@ msgstr "ثم يمكنك بعث رسالة"
 msgid "Then you can sign in to {{site_name}}"
 msgstr "ثم يمكنك تسجيل دخولك ل {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "ثم بامكانك نحيين حالة طلباتك ل"
+msgstr "ثم بامكانك نحيين حالة طلباتك ل {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "بامكانك تحميل طلب لحريةالنفاذ الى المعلومة ."

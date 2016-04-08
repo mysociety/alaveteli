@@ -2768,9 +2768,8 @@ msgstr "Sedan kan du skicka meddelande till "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Sedan kan du logga in på {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Sedan kan du uppdatera statusen för din begäran till "
+msgstr "Sedan kan du uppdatera statusen för din begäran till {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Sedan kan du ladda upp ett svar till din begäran om allmän handling. "

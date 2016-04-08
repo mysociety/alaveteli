@@ -2764,9 +2764,8 @@ msgstr "Тогаш можете да пратите порака до"
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Тогаш можете да се најавите на {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Тогаш можете да го ажурирате статусот на вашето барање до "
+msgstr "Тогаш можете да го ажурирате статусот на вашето барање до {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Тогаш можете да прикачите одговор. "

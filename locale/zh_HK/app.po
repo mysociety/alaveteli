@@ -2757,9 +2757,8 @@ msgstr "然後你可以登入 {{site_name}}"
 msgid "Then you can sign in to {{site_name}}"
 msgstr "然後你可以登入 {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "將你的要求的狀態更新為"
+msgstr ""
 
 msgid "Then you can upload an FOI response. "
 msgstr ""

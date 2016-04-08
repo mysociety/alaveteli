@@ -2860,9 +2860,8 @@ msgstr "Після цього ви зможете надіслати повід�
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Далі ви можете увійти на сайт"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Далі ви можете змінити статус свого запиту на "
+msgstr "Далі ви можете змінити статус свого запиту на {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Далі ви можеет завантажити відповідь. "

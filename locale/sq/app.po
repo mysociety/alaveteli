@@ -2838,9 +2838,8 @@ msgstr "Me pas mund të dërgon mesazh te "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Me pas mund të kyçesh në {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Me pas mund të perditesosh statusin e kërkesës tuaj për "
+msgstr "Me pas mund të perditesosh statusin e kërkesës tuaj për {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Me pas mund të ngarkoni një përgjigje ndaj kërkesës për te Drejten e Informimit. "

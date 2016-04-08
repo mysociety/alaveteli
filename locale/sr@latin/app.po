@@ -2829,9 +2829,8 @@ msgstr "Tada možete poslati poruku za "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Tada se možete prijaviti na {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Tada možete ažurirati status vašeg zahteva prema"
+msgstr "Tada možete ažurirati status vašeg zahteva prema {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Tada možete učitati odgovor na zahtev po ZOSPIOJ."

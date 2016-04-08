@@ -2785,9 +2785,8 @@ msgstr "Yna, gallwch anfon neges i "
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Yna gallwch lofnodi i mewn i {{site_name}}"
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Yna gallwch ddiweddaru statws eich cais i "
+msgstr "Yna gallwch ddiweddaru statws eich cais i {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Yna gallwch lwytho ymateb Rhyddid Gwybodaeth i fyny. "

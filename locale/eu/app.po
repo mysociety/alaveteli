@@ -2817,9 +2817,8 @@ msgstr "Orduan _____-ri mezu bat bidali ahal izango diozu"
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Orduan {{site_name}}-ra sartu ahal izango duzu."
 
-#, fuzzy
 msgid "Then you can update the status of your request to {{authority_name}}."
-msgstr "Orduan gaurkotu ahal izango duzu zure eskabidearen egoera"
+msgstr "Orduan gaurkotu ahal izango duzu zure eskabidearen egoera {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Orduan erantzuna igo ahal izango duzu. "
