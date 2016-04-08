@@ -2324,3 +2324,39 @@ describe RequestController, "#select_authorities" do
   end
 
 end
+
+describe RequestController, "when the site is in read_only mode" do
+  before do
+    allow(AlaveteliConfiguration).to receive(:read_only).and_return("Down for maintenance")
+  end
+
+  it "redirects to the frontpage_url" do
+    get :new
+    expect(response).to redirect_to frontpage_url
+  end
+
+  it "shows a flash message to alert the user" do
+    get :new
+    expected_message = '<p>Alaveteli is currently in maintenance. You ' \
+                       'can only view existing requests. You cannot make ' \
+                       'new ones, add followups or annotations, or ' \
+                       'otherwise change the database.</p> '\
+                       '<p>Down for maintenance</p>'
+    expect(flash[:notice]).to eq expected_message
+  end
+
+  context "when annotations are disabled" do
+    before do
+      allow(AlaveteliConfiguration).to receive(:enable_annotations).and_return(false)
+    end
+
+    it "doesn't mention annotations in the flash message" do
+      get :new
+      expected_message = '<p>Alaveteli is currently in maintenance. You ' \
+                         'can only view existing requests. You cannot make ' \
+                         'new ones, add followups or otherwise change the ' \
+                         'database.</p> <p>Down for maintenance</p>'
+      expect(flash[:notice]).to eq expected_message
+    end
+  end
+end

@@ -40,14 +40,22 @@
 
         <h2><%= _("Keep your request up to date") %></h2>
 
-        <p>
-          <%= _('If you write about this request ' \
-                '(for example in a forum or a blog) ' \
-                'please link to this page, and <a href="{{url}}">add an ' \
-                'annotation</a> below telling people ' \
-                'about your writing.',
-                :url => new_comment_url(:url_title => @info_request.url_title).html_safe) %>
-        </p>
+        <% if AlaveteliConfiguration.enable_annotations %>
+          <p>
+            <%= _('If you write about this request ' \
+                  '(for example in a forum or a blog) ' \
+                  'please link to this page, and <a href="{{url}}">add an ' \
+                  'annotation</a> below telling people ' \
+                  'about your writing.',
+                  :url => new_comment_url(:url_title => @info_request.url_title).html_safe) %>
+          </p>
+        <% else %>
+          <p>
+            <%= _('If you write about this request ' \
+                  '(for example in a forum or a blog) ' \
+                  'please link to this page.') %>
+          </p>
+        <% end %>
       </div>
 
       <div class="request-sent-message__column-2">

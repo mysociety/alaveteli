@@ -62,6 +62,12 @@ describe OutgoingMessage do
       expect(message).to be_valid
     end
 
+    it 'allows a value of external_review' do
+      message =
+        FactoryGirl.build(:initial_request, :what_doing => 'external_review')
+      expect(message).to be_valid
+    end
+
     it 'allows a value of new_information' do
       message =
         FactoryGirl.build(:initial_request, :what_doing => 'new_information')

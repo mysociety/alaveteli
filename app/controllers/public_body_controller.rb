@@ -158,19 +158,6 @@ class PublicBodyController < ApplicationController
       where_parameters.concat [@tag]
     end
 
-    if @tag == 'all'
-      @description = ''
-    elsif @tag.size == 1
-      @description = _("beginning with ‘{{first_letter}}’", :first_letter => @tag)
-    else
-      category_name = PublicBodyCategory.get.by_tag[@tag]
-      if category_name.nil?
-        @description = _("matching the tag ‘{{tag_name}}’", :tag_name => @tag)
-      else
-        @description = _("in the category ‘{{category_name}}’", :category_name => category_name)
-      end
-    end
-
     I18n.with_locale(@locale) do
 
       if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
@@ -221,6 +208,41 @@ class PublicBodyController < ApplicationController
               joins(:translations).
                 order('public_body_translations.name').
                   paginate(:page => params[:page], :per_page => 100)
+        end
+      end
+
+    @description =
+      if @tag == 'all'
+        n_('Found {{count}} public authority',
+           'Found {{count}} public authorities',
+           @public_bodies.total_entries,
+           :count => @public_bodies.total_entries)
+      elsif @tag.size == 1
+        n_('Found {{count}} public authority beginning with ' \
+           '‘{{first_letter}}’',
+           'Found {{count}} public authorities beginning with ' \
+           '‘{{first_letter}}’',
+           @public_bodies.total_entries,
+           :count => @public_bodies.total_entries,
+           :first_letter => @tag)
+      else
+        category_name = PublicBodyCategory.get.by_tag[@tag]
+        if category_name.nil?
+          n_('Found {{count}} public authority matching the tag ' \
+             '‘{{tag_name}}’',
+             'Found {{count}} public authorities matching the tag ' \
+             '‘{{tag_name}}’',
+             @public_bodies.total_entries,
+             :count => @public_bodies.total_entries,
+             :tag_name => @tag)
+        else
+          n_('Found {{count}} public authority in the category ' \
+             '‘{{category_name}}’',
+             'Found {{count}} public authorities in the category ' \
+             '‘{{category_name}}’',
+             @public_bodies.total_entries,
+             :count => @public_bodies.total_entries,
+             :category_name => category_name)
         end
       end
 

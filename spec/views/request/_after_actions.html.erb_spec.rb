@@ -78,4 +78,27 @@ describe 'when displaying actions that can be taken with regard to a request' do
         end
     end
 
+    it "should display a link to annotate the request" do
+        render :partial => 'request/after_actions'
+        expect(response.body).to have_css('div#anyone_actions') do |div|
+            expect(div).to have_css('a', :text => 'Add an annotation (to help the requester or others)')
+        end
+    end
+
+    it "should not display a link to annotate the request if comments are disabled on it" do
+        allow(@mock_request).to receive(:comments_allowed).and_return(false)
+        render :partial => 'request/after_actions'
+        expect(response.body).to have_css('div#anyone_actions') do |div|
+            expect(div).not_to have_css('a', :text => 'Add an annotation (to help the requester or others)')
+        end
+    end
+
+    it "should not display a link to annotate the request if comments are disabled globally" do
+        allow(AlaveteliConfiguration).to receive(:enable_annotations).and_return(false)
+        render :partial => 'request/after_actions'
+        expect(response.body).to have_css('div#anyone_actions') do |div|
+            expect(div).not_to have_css('a', :text => 'Add an annotation (to help the requester or others)')
+        end
+    end
+
 end

@@ -2,6 +2,13 @@
 
 ## Highlighted Features
 
+* Added some early-stage scripts (`script/current-theme`,
+  `script/diff-theme-override`) to help with upgrading theme overrides. Both
+  have a `-h` option with usage information (Gareth Rees)
+
+* Added a new config option `ENABLE_ANNOTATIONS` to allow turning off the
+  annotations feature (comments on requests) (Steve Day, Gareth Rees)
+
 ## Upgrade Notes
 
 # Version 0.24.0.0

@@ -1,8 +1,14 @@
+<% if AlaveteliConfiguration.enable_annotations %>
 <p>
   <%= _("We're glad you got all the information that you wanted. If you " \
         "write about or make use of the information, please come back and " \
         "add an annotation below saying what you did.") %>
 </p>
+<% else %>
+<p>
+  <%= _("We're glad you got all the information that you wanted.") %>
+</p>
+<% end %>
 <% if AlaveteliConfiguration::donation_url.present? %>
   <p>
     <%= _("If you found {{site_name}} useful, <a href=\"{{donation_url}}\">" \
