@@ -39,7 +39,12 @@ class GeneralController < ApplicationController
     @feed_url = "#{@feed_url}#{separator}lang=#{I18n.locale}"
     @blog_items = []
     if not @feed_url.empty?
-      content = quietly_try_to_open(@feed_url)
+      timeout = if AlaveteliConfiguration.blog_timeout.blank?
+        60
+      else
+        AlaveteliConfiguration.blog_timeout
+      end
+      content = quietly_try_to_open(@feed_url, timeout)
       if !content.empty?
         @data = XmlSimple.xml_in(content)
         @channel = @data['channel'][0]

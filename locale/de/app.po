@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-07 15:38+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2016-03-18 21:25+0000\n"
+"Last-Translator: arne <arne.semsrott@okfn.de>\n"
 "Language-Team: German (http://www.transifex.com/mysociety/alaveteli/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -251,10 +251,10 @@ msgid "<strong>Note:</strong> We will send you an email to confirm you are the o
 msgstr ""
 
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
-msgstr ""
+msgstr "<strong>Achtung:</strong> Sie senden eine Nachricht an sich selbst, vermutlich um herauszufinden, wie es funktioniert. "
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
-msgstr ""
+msgstr "<strong>Datenschutzhinweis:</strong> Ihr Foto wird öffentlich im Internet angezeigt werden, wo immer Sie {{site_name}} nutzen."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
 msgstr "<strong>Datenschutzhinweis:</strong> Ihre Nachricht als auch alle entsprechenden Reaktionen werden auf dieser Webseite veröffentlicht."
@@ -266,7 +266,7 @@ msgid "<strong>Thank</strong> the public authority or "
 msgstr "<strong>Danken Sie</strong> der Behörde oder "
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
-msgstr ""
+msgstr "<strong>Wir werden Ihnen schreiben</strong>, wenn es eine Antwort gibt oder nach {{late_number_of_days}} Arbeitstagen, falls die Behörde bis dahin nicht geantwortet hat."
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
 msgstr ""
@@ -275,7 +275,7 @@ msgid "<strong>did not have</strong> the information requested."
 msgstr "Die angefragten Informationen waren <strong>nicht vorhanden</strong>."
 
 msgid "?"
-msgstr ""
+msgstr "?"
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -287,7 +287,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr "Eine <strong>Zusammenfassung</strong> of the response if you have received it by post. "
 
 msgid "A Freedom of Information request"
-msgstr ""
+msgstr "Eine Anfrage nach dem Informationsfreiheitsgesetz"
 
 msgid "A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}"
 msgstr ""
@@ -316,7 +316,7 @@ msgid "A {{site_name}} user"
 msgstr "Ein/Eine {{site_name}} Benutzer/in"
 
 msgid "API"
-msgstr ""
+msgstr "API"
 
 msgid "About you:"
 msgstr "Zu Ihrer Person:"
@@ -438,7 +438,7 @@ msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Halten Sie die Urheberrechte dieser Seite?"
 
 msgid "Ask EU Authorities"
-msgstr ""
+msgstr "EU-Behörden anfragen"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Fragen Sie nach <strong>spezifischen</strong> Dokumenten oder Informationen. Diese Seite ist nicht für generelle Anfragen vorgesehen. "
@@ -548,7 +548,7 @@ msgid "Cancel, return to your profile page"
 msgstr "Abbrechen, zurück zur Profilseite"
 
 msgid "Censor rule"
-msgstr ""
+msgstr "Zensur-Regel"
 
 msgid "CensorRule|Last edit comment"
 msgstr "CensorRule|Last edit comment"
@@ -3389,7 +3389,7 @@ msgid "View email"
 msgstr "Email ansehen"
 
 msgid "View other requests to {{public_body}}"
-msgstr ""
+msgstr "Andere Anfrage an {{public_body}} ansehen"
 
 msgid "View your two factor authentication one time passcode"
 msgstr ""
@@ -3552,13 +3552,13 @@ msgid "You are already following new requests"
 msgstr "Sie folgen bereits neuen Antworten"
 
 msgid "You are already following things matching this search"
-msgstr ""
+msgstr "Sie folgen einer solchen Suchanfrage bereits per Email"
 
 msgid "You are already following this person"
-msgstr ""
+msgstr "Sie folgen dieser Person bereits via Email"
 
 msgid "You are already following this request"
-msgstr ""
+msgstr "Sie folgen dieser Anfrage bereits via Email"
 
 msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
 msgstr ""
@@ -3582,7 +3582,7 @@ msgid "You are currently receiving notification of new activity on your wall by 
 msgstr ""
 
 msgid "You are following all new successful responses"
-msgstr ""
+msgstr "Sie werden per Email über neue erfolgreiche Antworten informiert "
 
 msgid "You are no longer following '{{link_to_authority}}', a public authority."
 msgstr ""
@@ -3740,7 +3740,7 @@ msgid "You're long overdue a response to your FOI request - "
 msgstr ""
 
 msgid "You're not following anything."
-msgstr ""
+msgstr "Sie folgen nichts."
 
 msgid "You've now cleared your profile photo"
 msgstr "Sie haben Ihr Profilbild nun gelöscht"
@@ -3914,7 +3914,7 @@ msgid "all requests"
 msgstr "alle Anfragen"
 
 msgid "all requests or comments"
-msgstr ""
+msgstr "alle Anfragen oder Kommentare"
 
 msgid "all requests or comments matching text '{{query}}'"
 msgstr ""
@@ -3923,7 +3923,7 @@ msgid "also called {{public_body_short_name}}"
 msgstr "auch genannt: {{public_body_short_name}}"
 
 msgid "an anonymous user"
-msgstr ""
+msgstr "Ein anonymer Benutzer"
 
 msgid "and"
 msgstr "und"
@@ -3970,19 +3970,19 @@ msgid "display_status only works for incoming and outgoing messages right now"
 msgstr "Anzeigestatus funktioniert momentan nur für ein- und ausgehende Nachrichten"
 
 msgid "e.g. Ministry of Defence"
-msgstr ""
+msgstr "z.B. Verteidigungsministerium"
 
 msgid "edit text about you"
 msgstr "Bearbeiten Sie den Infotext zu Ihrer Person"
 
 msgid "email address"
-msgstr ""
+msgstr "Emailadresse"
 
 msgid "everything"
 msgstr "alles"
 
 msgid "external"
-msgstr ""
+msgstr "extern"
 
 msgid "has reported an"
 msgstr "hat berichtet"

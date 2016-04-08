@@ -23,6 +23,7 @@ module AlaveteliConfiguration
       :AVAILABLE_LOCALES => '',
       :BLACKHOLE_PREFIX => 'do-not-reply-to-this-address',
       :BLOG_FEED => '',
+      :BLOG_TIMEOUT => 60,
       :CACHE_FRAGMENTS => true,
       :CONTACT_EMAIL => 'contact@localhost',
       :CONTACT_NAME => 'Alaveteli',
