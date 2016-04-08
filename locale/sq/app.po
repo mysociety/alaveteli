@@ -2763,9 +2763,8 @@ msgstr "Kërkesa është në <strong>pritje për sqarim</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Kërkesa ishte <strong>pjesërisht e suksesshme</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Kërkesa u <strong>refuzua</strong> nga"
+msgstr "Kërkesa u <strong>refuzua</strong> nga {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Kërkesa ishte e <strong>suksesshme</strong>."

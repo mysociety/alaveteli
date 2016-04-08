@@ -2839,9 +2839,8 @@ msgstr "Permintaan sedang <strong>menunggu klarifikasi</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Permintaan <strong>sebagian berhasil</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Permintaan <strong>ditolak</strong> oleh"
+msgstr "Permintaan <strong>ditolak</strong> oleh {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Permintaan <strong>berhasil</strong>."

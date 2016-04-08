@@ -2758,9 +2758,8 @@ msgstr "<strong>Klärung</strong> der Anfrage wird erwartet."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Ihre Anfrage war <strong>teilweise erfolgreich</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Die Anfrage wurde <strong>abgelehnt</strong> durch"
+msgstr "Die Anfrage wurde <strong>abgelehnt</strong> durch {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Die Anfrage war <strong>erfolgreich</strong>."

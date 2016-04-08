@@ -2718,9 +2718,8 @@ msgstr "Cererea  <strong>aşteapă clarificare</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Cererea a fost  <strong> parţial reuşită</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Cererea a fost <strong>refuzată</strong> de către"
+msgstr "Cererea a fost <strong>refuzată</strong> de către {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Cererea a fost <strong>reuşită</strong>"

@@ -2815,9 +2815,8 @@ msgstr "Dotaz <strong>čeká na upřesnění</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Dotaz byl <strong>částečně úspěšný</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Dotaz byl <strong>odmítnut</strong> "
+msgstr "Dotaz byl <strong>odmítnut</strong> {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Dotaz byl <strong>úspěšný</strong>."

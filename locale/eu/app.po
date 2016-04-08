@@ -2742,9 +2742,8 @@ msgstr "Eskabidea <strong>azalpenaren zain</strong> dago."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Eskabidea <strong>aldizka arrakastatsua</strong> izan da."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Eskabidea ez du _______-k  <strong>onartu</strong> "
+msgstr "Eskabidea ez du _______-k  <strong>onartu</strong> {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Eskabidea <strong>arrakastatsua</strong> izan da."

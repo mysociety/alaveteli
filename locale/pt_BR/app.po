@@ -2756,9 +2756,8 @@ msgstr "Esse pedido esta <strong>aguardando explicações adicionais</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Esse pedido foi <strong>parcialmente atendido</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Esse pedido foi <strong>recusado</strong> por"
+msgstr "Esse pedido foi <strong>recusado</strong> por {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Esse pedido foi <strong>atendido</strong>."

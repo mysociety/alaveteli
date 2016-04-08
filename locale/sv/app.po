@@ -2697,9 +2697,8 @@ msgstr "Begäran <strong>väntar på förtydligande</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Begäran var <strong>delvis framgångsrik</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Begäran blev <strong>nekad</strong> av"
+msgstr "Begäran blev <strong>nekad</strong> av {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Begäran blev <strong>lyckad</strong>."

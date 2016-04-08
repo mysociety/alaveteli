@@ -2688,9 +2688,8 @@ msgstr ""
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Þessi beiðni flokkast sem <strong>'Gögn bárust að hluta' (heppnuð)</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Þessi beiðni flokkast sem <strong>'Gögn bárust' (heppnuð)</strong>."
+msgstr ""
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Þessi beiðni flokkast sem <strong>'Gögn bárust' (heppnuð)</strong>."

@@ -2686,9 +2686,8 @@ msgstr ""
 msgid "The request was <strong>partially successful</strong>."
 msgstr ""
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "你的索取資料要求即將 <strong>送出</strong>！"
+msgstr ""
 
 msgid "The request was <strong>successful</strong>."
 msgstr ""

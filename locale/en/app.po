@@ -2690,9 +2690,8 @@ msgstr "The request is <strong>waiting for clarification</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "The request was <strong>partially successful</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "The request was <strong>refused</strong> by"
+msgstr "The request was <strong>refused</strong> by {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "The request was <strong>successful</strong>."

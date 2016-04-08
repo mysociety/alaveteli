@@ -2707,9 +2707,8 @@ msgstr "La demande est <strong>en attente de clarification</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "La demande est <strong>partiellement réussie</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "La demande est <strong>rejetée</strong> par"
+msgstr "La demande est <strong>rejetée</strong> par {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "La demande est <strong>réussie</strong>."

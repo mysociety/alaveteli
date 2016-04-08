@@ -2708,9 +2708,8 @@ msgstr "Innsynsførespurnaden <strong>ventar på avklaring</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Innsynsførespurnaden var <strong>delvis vellukka</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Innsynsførespurnaden vart <strong>avvist</strong> av "
+msgstr "Innsynsførespurnaden vart <strong>avvist</strong> av {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Innsynsførespurnaden var <strong>vellukka</strong>."

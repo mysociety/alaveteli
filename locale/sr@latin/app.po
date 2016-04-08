@@ -2749,9 +2749,8 @@ msgstr "Zahtev <strong>čeka na razjašnjenje</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Zahtev je <strong>delimično uspešan</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Zahtev je <strong>odbijen</strong> od strane"
+msgstr "Zahtev je <strong>odbijen</strong> od strane {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Zahtev je <strong>uspešan</strong>."

@@ -2682,9 +2682,8 @@ msgstr ""
 msgid "The request was <strong>partially successful</strong>."
 msgstr ""
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "The request was refused by the public agency"
+msgstr "The request was <strong>refused</strong> by the public agency {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr ""

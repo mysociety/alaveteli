@@ -2695,9 +2695,8 @@ msgstr "Ikibazo <strong>gitegereje ibisobanuro</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Ikibazo <strong>cyasubijwe igice</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Ikibazo <strong>cyanzwe</strong> na"
+msgstr "Ikibazo <strong>cyanzwe</strong> na {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Ikibazo <strong>cyarasubijwe</strong>."

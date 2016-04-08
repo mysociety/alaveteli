@@ -2693,9 +2693,8 @@ msgstr "Барањето <strong>чека за класификација</stron
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Барањето е <strong>делумно успешно</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Барањето е <strong>одбиено</strong> by"
+msgstr "Барањето е <strong>одбиено</strong> by {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Барањето беше <strong>успешно</strong>."

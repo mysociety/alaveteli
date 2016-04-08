@@ -2714,9 +2714,8 @@ msgstr "Mae'r cais yn <strong>aros am eglurhad</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Roedd y cais yn <strong>rhannol lwyddiannus</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "<strong>Gwrthodwyd</strong> y cais gan"
+msgstr "<strong>Gwrthodwyd</strong> y cais gan {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Roedd y cais yn <strong>llwyddiannus</strong>."

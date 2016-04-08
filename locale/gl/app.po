@@ -2831,9 +2831,8 @@ msgstr "La solicitud está <strong>esperando aclaración</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "La solicitud fue <strong>parcialmente exitosa</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "La solicitud fue <strong>rechazada</strong> por"
+msgstr "La solicitud fue <strong>rechazada</strong> por {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "La solicitud fue <strong>exitosa</strong>."

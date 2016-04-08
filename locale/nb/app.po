@@ -2705,9 +2705,8 @@ msgstr "Innsynshenvendelsen <strong>venter på avklaring</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Innsynshenvendelsen var <strong>delvis vellykket</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Innsynshenvendelsen ble <strong>avvist</strong> av "
+msgstr "Innsynshenvendelsen ble <strong>avvist</strong> av {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Innsynshenvendelsen var <strong>vellykket</strong>."

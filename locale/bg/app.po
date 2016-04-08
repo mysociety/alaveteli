@@ -2695,9 +2695,8 @@ msgstr "Заявлението <strong>очаква пояснение</strong>.
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Заявлението беше <strong>частично успешно</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Заявлението беше <strong>отказано</strong> от"
+msgstr "Заявлението беше <strong>отказано</strong> от {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Заявлението беше <strong>успешно</strong>."

@@ -2705,9 +2705,8 @@ msgstr "Bu başvuruya <strong>açıklık getirmeniz bekleniyor</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Bu başvuru <strong>kısmen olumlu</strong> sonuçlandı."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Başvuru <strong>reddedildi</strong>, şu kurum tarafından"
+msgstr "Başvuru <strong>reddedildi</strong>, şu kurum tarafından {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Başvuru <strong>kısmen olumlu</strong> sonuçlandı."

@@ -2717,9 +2717,8 @@ msgstr "الطلب <strong>بانتظار توضيح</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "الطلب كان <strong>ناجحا جزئيا</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "تم <strong>رفص الطلب</strong> من طرف"
+msgstr "تم <strong>رفص الطلب</strong> من طرف {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "كان الطلب <strong>ناجحا</strong>."

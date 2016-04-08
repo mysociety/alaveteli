@@ -2832,9 +2832,8 @@ msgstr "Az igénylés <strong>pontosításra vár</strong>. "
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Az igénylés <strong>részben sikeres volt</strong>. "
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Az igénylést <strong>elutasította</strong> a(z) "
+msgstr "Az igénylést <strong>elutasította</strong> a(z) {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Az igénylés <strong>sikeres volt</strong>. "

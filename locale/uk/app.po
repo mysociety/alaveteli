@@ -2787,9 +2787,8 @@ msgstr "Запит чекає на уточнення"
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Запит був частково успішним."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Запит було відхилено "
+msgstr "Запит було відхилено {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Запит був успішним."

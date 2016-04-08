@@ -2703,9 +2703,8 @@ msgstr "Zahtevek <strong>čaka na pojasnilo</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Zahtevku je bilo <strong>delno ugodeno</strong>."
 
-#, fuzzy
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr "Zahtevek je <strong>zavrnil</strong> "
+msgstr "Zahtevek je <strong>zavrnil</strong> {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Zahtevku je bilo <strong>ugodeno</strong>."
