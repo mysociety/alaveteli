@@ -3991,12 +3991,11 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} Zahtjeva za slobodan pristup informacijama pronađeno"
-msgstr[1] "{{count}} Zahtjeva za slobodan pristup informacijama pronađeno"
-msgstr[2] "{{count}} Zahtjeva za slobodan pristup informacijama pronađeno"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""

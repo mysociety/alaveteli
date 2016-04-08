@@ -3796,10 +3796,9 @@ msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] ""
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} 宗要求"
+msgstr[0] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""

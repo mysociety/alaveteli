@@ -3950,7 +3950,6 @@ msgstr[0] "Vaša {{count}} bilješka"
 msgstr[1] "Vaše {{count}} bilješke"
 msgstr[2] "Vaših {{count}} pribilješki"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Vaš {{count}} skupni zahtjev"

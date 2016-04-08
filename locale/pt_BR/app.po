@@ -3897,11 +3897,10 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Seu {{count}} comentário"
 msgstr[1] "Seus {{count}} comentários"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} pedido"
-msgstr[1] "{{count}} pedidos"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""

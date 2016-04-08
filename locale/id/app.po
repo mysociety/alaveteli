@@ -4037,10 +4037,9 @@ msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] "Anotasi {{count}} Anda"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} permintaan-permintaan"
+msgstr[0] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""

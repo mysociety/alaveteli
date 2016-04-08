@@ -4025,11 +4025,10 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Tu {{count}} comentario"
 msgstr[1] "Els teus {{count}} comentaris"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} sol·licitud"
-msgstr[1] "{{count}} sol·licituds"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""

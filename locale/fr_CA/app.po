@@ -3832,11 +3832,10 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Votre {{count}} annotation"
 msgstr[1] "Vos {{count}} annotations"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} demande"
-msgstr[1] "{{count}} demandes"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""

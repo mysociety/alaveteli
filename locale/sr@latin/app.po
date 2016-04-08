@@ -3924,12 +3924,11 @@ msgstr[0] "Vaš {{count}} komentar"
 msgstr[1] "Vaša {{count}} komentara"
 msgstr[2] "Vaših {{count}} komentara"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} zahtev"
-msgstr[1] "{{count}} zahteva"
-msgstr[2] "{{count}} zahteva"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""

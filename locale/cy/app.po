@@ -3853,7 +3853,6 @@ msgstr[1] "Eich {{count}} anodiad"
 msgstr[2] "Eich {{count}} anodiad"
 msgstr[3] "Eich {{count}} anodiad"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Eich {{count}} swp o geisiadau"

@@ -3842,7 +3842,6 @@ msgstr[1] "Vaša {{count}} zaznamka"
 msgstr[2] "Vaši {{count}} zaznamki"
 msgstr[3] "Vaših {{count}} zaznamkov"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Vaš {{count}} paketni zahtevek"

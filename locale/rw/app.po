@@ -3820,7 +3820,6 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Insobanuro yawe {{count}} "
 msgstr[1] "Insobanuro zawe {{count}} "
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Ibibazo byawe wabajije abayobozi benshi {{count}} "

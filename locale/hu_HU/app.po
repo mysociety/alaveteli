@@ -4031,11 +4031,10 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Az ön {{count}} hozzászólása"
 msgstr[1] "Az ön {{count}} hozzászólása"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} igénylés"
-msgstr[1] "{{count}} igénylés"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""

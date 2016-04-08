@@ -3850,12 +3850,11 @@ msgstr[0] "A {{count}}  -a adnotare a dvs."
 msgstr[1] "A {{count}}  -a adnotare a dvs."
 msgstr[2] "A {{count}}  -a adnotare a ta"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}}  cerere"
-msgstr[1] "{{count}} cereri"
-msgstr[2] "{{count}} solicitări"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""

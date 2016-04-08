@@ -4006,7 +4006,6 @@ msgstr[0] "Vaše {{count}} poznámka"
 msgstr[1] "Vaše {{count}} poznámky"
 msgstr[2] "Vašich {{count}} poznámek"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Vaše {{count}} hromadná žádost"

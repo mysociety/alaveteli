@@ -3870,7 +3870,6 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "{{count}} تم ايجاد طلبات حرية النفاذ الى المعلومة"

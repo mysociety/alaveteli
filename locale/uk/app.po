@@ -3956,12 +3956,11 @@ msgstr[0] "Ваш коментар"
 msgstr[1] "Ваші {{count}} коментарі"
 msgstr[2] "Ваші {{count}} коментарів"
 
-#, fuzzy
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} запит"
-msgstr[1] "{{count}} запити"
-msgstr[2] "{{count}} запитів"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Your {{law_used_full}} request has been sent"
 msgstr ""
