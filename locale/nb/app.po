@@ -4068,9 +4068,8 @@ msgstr "brukere"
 msgid "what's that?"
 msgstr "hva er det?"
 
-#, fuzzy
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
-msgstr "<strong>hadde ikke</strong> informasjonen du ba om."
+msgstr "{{authority_name}} <strong>hadde ikke</strong> informasjonen du ba om."
 
 #, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."

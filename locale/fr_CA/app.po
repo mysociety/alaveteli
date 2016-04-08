@@ -4066,9 +4066,8 @@ msgstr "utilisateurs"
 msgid "what's that?"
 msgstr "Qu'est-ce que c'est?"
 
-#, fuzzy
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
-msgstr "<strong>n'avait pas </strong> les informations demandées."
+msgstr "{{authority_name}} <strong>n'avait pas </strong> les informations demandées."
 
 #, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."

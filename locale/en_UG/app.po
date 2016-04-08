@@ -4030,9 +4030,8 @@ msgstr ""
 msgid "what's that?"
 msgstr ""
 
-#, fuzzy
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
-msgstr "The public agency does not have the information requested"
+msgstr "{{authority_name}} <strong>does not have</strong> the information requested."
 
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr ""

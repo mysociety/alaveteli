@@ -4262,9 +4262,8 @@ msgstr "felhasználók"
 msgid "what's that?"
 msgstr "mi ez? "
 
-#, fuzzy
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
-msgstr "<strong>nem kapta meg</strong> a kért információt. "
+msgstr "{{authority_name}} <strong>nem kapta meg</strong> a kért információt."
 
 #, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."

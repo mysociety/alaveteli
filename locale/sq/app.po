@@ -4156,9 +4156,8 @@ msgstr "përdoruesit"
 msgid "what's that?"
 msgstr "Çfarë është ajo?"
 
-#, fuzzy
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
-msgstr "<strong>nuk e kanë</strong> informacionin e kërkuar."
+msgstr "{{authority_name}} <strong>nuk e kanë</strong> informacionin e kërkuar."
 
 #, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
