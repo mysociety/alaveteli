@@ -3188,9 +3188,9 @@ msgstr "Untuk mengganti alamat email Anda yang digunakan di {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "Untuk mengklasifikasi respon terhadap permintaan FOI ini"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
+"Untuk melakukan hal itu, silakan mengirimkan email pribadi ke {{postal_email}} {{postal_email_link}} "
 "berisi alamat pos Anda, dan meminta mereka untuk membalas permintaan ini.\n"
 "            Atau Anda dapat menelepon mereka."
 

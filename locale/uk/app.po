@@ -3121,6 +3121,7 @@ msgstr ""
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
+"Щоб зробити це, надішліть особистого листа до {{postal_email}} {{postal_email_link}} "
 
 msgid "To do this, first click on the link below."
 msgstr "Щоб зробити це, для початку натисніть на посилання внизу."

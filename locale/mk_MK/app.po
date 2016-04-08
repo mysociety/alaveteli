@@ -3014,9 +3014,9 @@ msgstr "За да ја промените адресата за е-пошта к
 msgid "To classify the response to this FOI request"
 msgstr "За да го класифицирате одговорот на ова барање за слободен пристап до информации"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
+"За да го направите тоа, ве молиме испратете приватна е-пошта до {{postal_email}} {{postal_email_link}} "
 "со Вашата поштенска адреса и побарајте од нив да одоговорат на ова барање.\n"
 "            Можете да ги контактирате и по телефон."
 

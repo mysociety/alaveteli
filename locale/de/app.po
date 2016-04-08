@@ -3087,9 +3087,9 @@ msgstr "Um Ihre auf {{site_name}} verwendete Email-Adresse zu ändern"
 msgid "To classify the response to this FOI request"
 msgstr "Um die Antwort auf diese IFG-Anfrage zu klassifizieren"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
+"Senden Sie uns hierfür bitte eine private Email {{postal_email}} {{postal_email_link}} "
 "Ihre Postanschrift beinhaltend und Sie fragend auf diese Afrage zu antworten.\n"
 "            Oder Sie könnten Sie anrufen."
 

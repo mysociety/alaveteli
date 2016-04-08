@@ -3042,9 +3042,8 @@ msgstr "Pentru a modifica adresa de email utilizată pe {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "Pentru a clasifica răspunsul la această solicitare de acces la informații"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "conținând adresa ta poștală și cerându-le să îți răspundă la această solicitare.\\n Sau le-ai putea telefona."
+msgstr "Pentru a face aceasta, vă rugăm trimiteţi un email privat la {{postal_email}} {{postal_email_link}} conținând adresa ta poștală și cerându-le să îți răspundă la această solicitare.\\n Sau le-ai putea telefona."
 
 msgid "To do this, first click on the link below."
 msgstr "Pentru a face aceasta, mai întâi daţi click pe linkul de mai jos"

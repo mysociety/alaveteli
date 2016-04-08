@@ -3033,9 +3033,8 @@ msgstr "לשנות את כתובת הדואר האלקטרוני שבה משתמ
 msgid "To classify the response to this FOI request"
 msgstr "כדי לסווג את התגובה לבקשת מידע זו"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "אשר כולל את כתובת המגורים שלכם, ובו אתם מבקשים מהם להגיב לבקשה.\\n לחילופין, תוכלו להתקשר אליהם."
+msgstr "כדי לבצע זאת, יש לשלוח דוא\"ל ל- {{postal_email}} {{postal_email_link}} אשר כולל את כתובת המגורים שלכם, ובו אתם מבקשים מהם להגיב לבקשה.\\n לחילופין, תוכלו להתקשר אליהם."
 
 msgid "To do this, first click on the link below."
 msgstr "כדי לבצע זאת, הקליקו תחילה על הקישור מתחת"

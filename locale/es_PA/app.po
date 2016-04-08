@@ -3033,9 +3033,8 @@ msgstr "Cambiar la dirección de correo utilizada en {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "Reclasificar la respuesta a esta solicitud"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "que incluya su dirección postal, y solicitándoles que contesten a su solicitud.\\n O puede llamarles por teléfono."
+msgstr "Para hacerlo, por favor envíe un correo privado a {{postal_email}} {{postal_email_link}} que incluya su dirección postal, y solicitándoles que contesten a su solicitud.\\n O puede llamarles por teléfono."
 
 msgid "To do this, first click on the link below."
 msgstr "Para hacerlo, elija primero el siguiente enlace."

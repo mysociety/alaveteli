@@ -3016,9 +3016,8 @@ msgstr "Kugirango uhindure imeli ikoreshwa kuri {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "Gushyingura igisubizo cy'iki kibazo cy'ubwisanzure bwo kumenya amakuru"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "irimo aho ubarizwa, ndetse ubasaba gusubiza iki kibazo. \\n            Cyangwa ushobora kubaterefona."
+msgstr "Kugirango ubashe gukora ibyo, ohereza imeli bwite kuri {{postal_email}} {{postal_email_link}} irimo aho ubarizwa, ndetse ubasaba gusubiza iki kibazo. \\n            Cyangwa ushobora kubaterefona."
 
 msgid "To do this, first click on the link below."
 msgstr "Kugirango ubashe kubikora, banza ukande ku ihuza rikurikira."

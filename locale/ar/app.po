@@ -3050,9 +3050,8 @@ msgstr "لتغيير عنوان بريد الالكتروني المستخدم �
 msgid "To classify the response to this FOI request"
 msgstr "لتصنيف الرد على هذا الطلب لحرية النفاذ للمعلومة"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "تحتوي على عنوانك البريدي, تطلب منهم الرد على هذا الطلب .\\n            او بامكانك مهاتفتهم."
+msgstr "للقيام بذلك يرجى ارسال رسالة الكترونية ل {{postal_email}} {{postal_email_link}} تحتوي على عنوانك البريدي, تطلب منهم الرد على هذا الطلب .\\n            او بامكانك مهاتفتهم."
 
 msgid "To do this, first click on the link below."
 msgstr "للقيام بذلك, اضغط اولا على الرابط اسفله."

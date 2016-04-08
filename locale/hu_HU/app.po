@@ -3182,9 +3182,9 @@ msgstr "Ha módosítani szeretné a {{site_name}} weboldalon használt e-mail c�
 msgid "To classify the response to this FOI request"
 msgstr "Ha osztályozni szeretné az erre a közérdekűadat-igénylésre érkezett választ "
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
+"Ehhez küldjön magánban e-mailt a következőnek: {{postal_email}} {{postal_email_link}} "
 "tartalmazza az ön postai címét, és kéri őket, hogy válaszoljanak erre az igénylésére.\n"
 "           Telefonon is kapcsolatba léphet velük. "
 

@@ -3011,9 +3011,8 @@ msgstr "To change your email address used on {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "To classify the response to this FOI request"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "containing your postal address, and asking them to reply to this request.\\n            Or you could phone them."
+msgstr "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request.\\n            Or you could phone them."
 
 msgid "To do this, first click on the link below."
 msgstr "To do this, first click on the link below."

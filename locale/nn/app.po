@@ -3033,9 +3033,8 @@ msgstr "For å endra e-postadressa di brukt på {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "For å klassifisera svaret til dette innsynskravet"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "inneheld posten din-adresse, og spør dei om å svara på denne førespurnaden.\\n            Eller du kan ringa dei."
+msgstr "For å gjera det, ver venleg og send ei privat e-post til {{postal_email}} {{postal_email_link}} inneheld posten din-adresse, og spør dei om å svara på denne førespurnaden.\\n            Eller du kan ringa dei."
 
 msgid "To do this, first click on the link below."
 msgstr "For å gjera dette, klikk først på lenkja nedanfor."

@@ -3041,9 +3041,8 @@ msgstr "I newid eich cyfeiriad e-bost a ddefnyddir ar {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "I ddosbarthu'r ymateb i'r cais Rhyddid Gwybodaeth hwn"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "gan gynnwys eich cyfeiriad post, a gofyn iddynt i ymateb i'r cais hwn. Neu fe allech chi eu ffonio."
+msgstr "I wneud hynny, anfonwch e-bost preifat i {{postal_email}} {{postal_email_link}} gan gynnwys eich cyfeiriad post, a gofyn iddynt i ymateb i'r cais hwn. Neu fe allech chi eu ffonio."
 
 msgid "To do this, first click on the link below."
 msgstr "I wneud hyn, cliciwch yn gyntaf ar y ddolen isod."

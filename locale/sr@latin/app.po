@@ -3092,9 +3092,9 @@ msgstr "Da biste promenili Vašu e-mail adresu korišćenu na {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "Da biste klasifikovali odgovor na ovaj Zahtev za slobodan pristup informacijama od javnog značaja"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
+"Da biste to uradili molimo pošaljite privatni e-mail za {{postal_email}} {{postal_email_link}} "
 "sa Vašom poštanskom adresom i tražite da odgovore na ovaj zahtev.\n"
 "            Ili im možete kontaktirati telefonom."
 

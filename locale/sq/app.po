@@ -3093,9 +3093,9 @@ msgstr "Për të ndryshuar adresen tuaj te postes elektronike të përdorur në 
 msgid "To classify the response to this FOI request"
 msgstr "Për të klasifikuar përgjigjen e kësaj kërkese për te Drejten e Informimit"
 
-#, fuzzy
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
+"Për të bërë këtë ju lutem dërgoni një email privat te {{postal_email}} {{postal_email_link}} "
 "përmban adresën tuaj postale, dhe duke u kërkuar atyre të përgjigjen në këtë kërkesë. \n"
 "          Ose ju mund t'iu telefononi atyre."
 
