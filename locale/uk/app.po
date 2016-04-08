@@ -2552,9 +2552,8 @@ msgstr "Дещо з запитаної інформації було отрим�
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr ""
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Нові оновленн для запиту '{{request_title}}'"
+msgstr ""
 
 msgid "Someone has updated the status of your request"
 msgstr ""

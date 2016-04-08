@@ -2470,9 +2470,8 @@ msgstr "İstenilen bilginin bir kısmı alındı"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Başvuru yapan kişilerden bazıları başvurularının nasıl sonuçlandığını\\n bize söylemedi. Bu konuda <strong>sizin</strong> yardımınıza ihtiyacımız var &ndash;\\nbu başvurulardan birini seçin, okuyun ve istenilen bilginin\\n verilip verilmediğini herkesin bilmesini sağlayın. Bunu yaparsanız, herkese büyük faydası dokunacak."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Birisi Bilgi Edinme Başvurunuza bir not ekledi - "
+msgstr "Birisi Bilgi Edinme Başvurunuza bir not ekledi - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Biri başvurunuzun durumunu güncelledi"

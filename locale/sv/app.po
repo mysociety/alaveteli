@@ -2462,9 +2462,8 @@ msgstr "En del av den begärda informationen har tagits emot"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Vissa människor som har gjort förfrågningar har inte låtit oss veta om de var  framgångsrika eller inte. Vi behöver <strong>din</strong> hjälp &ndash; välj en av dessa förfrågningar, läs den, och låt alla veta om information har eller inte har lämnats. Alla kommer vara ytterst tacksamma."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Någon lade till en kommentar till din begäran om allmän handling - "
+msgstr "Någon lade till en kommentar till din begäran om allmän handling - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Någon har uppdaterat statusen för din begäran"

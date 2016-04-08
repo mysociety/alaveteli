@@ -2522,9 +2522,8 @@ msgstr "Disa nga informacionet e kërkuara janë marrë"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Disa persona që kanë bërë kërkesa nuk na kanë bere te ditur nese ishin të sukseshme apo jo. Kemi nevojë për ndihmën <strong>tuaj &ndash;  përzgjidh një nga këto kërkesa, lexoje atë, dhe njofto të tjerët nese keni marre informacionin e kërkuara. Të gjithë do të jenë shumë mirënjohës për këtë."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Dikush ka shtuar një shënim në kërkesën tuaj per te Drejten e Informimit -"
+msgstr "Dikush ka shtuar një shënim në kërkesën tuaj per te Drejten e Informimit - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Dikush ka perditesuar statusin e kerkeses suaj"

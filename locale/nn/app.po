@@ -2473,9 +2473,8 @@ msgstr "Noko av den etterspurde informasjonen er motteke"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Nokre som har sendt inn førespurnader har ikkje fortalt oss om dei var\\nvellukka eller ikkje. Vi treng <strong>di hjelp</strong> &ndash;\\nVel ein av førespurnadene, les ho, og la alle få vita om\\n den etterspurde information er gjeve. Alle vil bli svært takknemlege."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Nokon har lagt til ein merknad på innsynskravet ditt - "
+msgstr "Nokon har lagt til ein merknad på innsynskravet ditt - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Nokre har oppdatert status på førespurnaden din"

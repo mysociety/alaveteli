@@ -2501,9 +2501,8 @@ msgstr ""
 "Eskabidea egin zuten zenbaitek ez digute jakinarazi arrakasta izan zuten ala ez. <strong>Zure</strong> laguntza behar dugu &ndash;\n"
 "aukera ezazu eskabideren bat, irakurri eta jakinarazi informazioa lortu duen ala ez. Guztion eskerrona izango duzu."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berria - "
+msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berria - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr ""

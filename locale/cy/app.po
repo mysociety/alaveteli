@@ -2479,9 +2479,8 @@ msgstr "Mae peth o'r wybodaeth y gwnaed cais amdani wedi ei dderbyn."
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Nid yw rhai pobl sydd wedi gwneud ceisiadau wedi rhoi gwybod i ni a oeddynt yn llwyddiannus ai peidio. Mae angen <strong>eich</strong> help - dewisiwch un o'r ceisiadau hyn, ei ddarllen, a gadael i bawb wybod a yw'r wybodaeth wedi cael ei darparu. Bydd pawb yn eithriadol o ddiolchgar."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Ychwanegodd rhywun nodyn at eich cais Rhyddid Gwybodaeth - "
+msgstr "Ychwanegodd rhywun nodyn at eich cais Rhyddid Gwybodaeth - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Mae rhywun wedi diweddaru statws eich cais"

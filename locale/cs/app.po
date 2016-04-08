@@ -2566,9 +2566,8 @@ msgstr ""
 "vyberte si dotaz, přečtěte si ji a rozhodněte, zda byl zodpovězen.\n"
 "Všichni vám budou vděční."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Někdo přidal poznámku k vašemu dotazu – "
+msgstr "Někdo přidal poznámku k vašemu dotazu – {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Někdo aktualizoval status vašeho dotazu"

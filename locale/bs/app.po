@@ -2560,9 +2560,8 @@ msgstr ""
 "odaberite jedan od ovih zahtjeva, pročitajte ga, i sviju obavijestite da li su\n"
 "informacije dobijene ili ne. Svi će Vam biti veoma zahvalni."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Neko je dodao komentar na Vaš Zahtjev za slobodan pristup informacijama."
+msgstr "Neko je dodao komentar na Vaš Zahtjev za slobodan pristup informacijama. {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr ""

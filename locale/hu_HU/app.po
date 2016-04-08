@@ -2582,9 +2582,8 @@ msgstr ""
 "kérjük válassza ki a kívánt igénylést, olvassa el, és tájékoztasson mindenkit, hogy a kért\n"
 "információt megtalálta-e. Ezért mindenki nagyon hálás lesz."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Közérdekűadat-igényléséhez valaki hozzászólt - "
+msgstr "Közérdekűadat-igényléséhez valaki hozzászólt - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Valaki módosította az igénylés állapotát"

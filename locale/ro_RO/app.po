@@ -2483,9 +2483,8 @@ msgstr "Câteva informaţii solicitate au fost primite"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "O parte din cei ce au trimis solicitări nu ne-au anunțat dacă acestea au avut sau nu succes. Avem nevoie de <strong>ajutorul și de contribuția</strong> ta;\\nalege un dintre aceste solicitări, citește-o, și spune-ne dacă \\ninformațiile au fost furnizate sau nu. Toată lumea va fi recunoascătoare."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Cineva a adăugat o notă la solicitarea ta de acces la informații - "
+msgstr "Cineva a adăugat o notă la solicitarea ta de acces la informații - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Cineva a actualizat starea solicitării tale"

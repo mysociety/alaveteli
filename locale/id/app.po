@@ -2589,9 +2589,8 @@ msgstr ""
 "pilih satu dari antara permintaan ini, bacalah, dan beri tahukan semua orang apakah \n"
 "informasi sudah disediakan atau belum. Semua orang akan sangat berterima kasih."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Seseorang menambahkan catatan kepada permintaan FOI Anda -"
+msgstr "Seseorang menambahkan catatan kepada permintaan FOI Anda - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Seseorang memperbarui status permintaan Anda"

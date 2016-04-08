@@ -2458,9 +2458,8 @@ msgstr "Дел од побараните информации се примен�
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Некои од луѓето кои имаат направено барања не немаат известено дали тие се\\nуспешни или не. Ни треба <strong>вашата</strong> помош &ndash;\\nИзберете едно од барањата, прочитајте го и известете ги сите дали \\nинформациите се обезбедени или не. Сите ќе бидат мошне благодарни."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Некој додаде белешка на вашето барање - "
+msgstr "Некој додаде белешка на вашето барање - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Некој го ажурираше статусот на вашето барање"

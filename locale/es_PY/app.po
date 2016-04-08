@@ -2577,9 +2577,8 @@ msgstr ""
 "elije una de las solicitudes, léela, y háznos saber si se ha obtenido o no\n"
 "la información. Todos te estaremos agradecidos."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Nuevo comentario en tu solicitud de acceso a información - "
+msgstr "Nuevo comentario en tu solicitud de acceso a información - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Alguien ha actualizado el estado de tu solicitud"

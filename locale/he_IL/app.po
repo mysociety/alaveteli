@@ -2477,9 +2477,8 @@ msgstr "חלק מהמידע המבוקש התקבל"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "חלק מהאנשים אשר הגישו בקשות לא עדכנו האם הן הצליחו או לא. \\n אנו <strong>זקוקים לעזרתך</strong> -\\n בחר באחת מהבקשות, קרא אותה, ואפשר לכולם לדעת האם המידע סופק. \\n כולנו נהיה אסירי תודה."
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "התווספה הערה לבקשה שלך"
+msgstr "התווספה הערה לבקשה שלך {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "מישהו עדכן את הססטוס של הדרישה שלך"

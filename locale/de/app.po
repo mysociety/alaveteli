@@ -2518,9 +2518,8 @@ msgstr "Ein Teil der angefragten Informationen wurde erhalten."
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Nicht alle Anfragensteller haben uns über den Erfolg Ihrer Anfragen informiert. Wir sind auf <strong>Ihre</strong> Hilfe angewiesen. Wählen Sie eine dieser Anfragen, lesen Sie sie und teilen Sie uns mit, ob die gewünschte Information zur Verfügung gestellt wurde. Alle Nutzer wären Ihnen ausgesprochen dankbar. "
 
-#, fuzzy
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr "Neue Aktualisierungen der Anfrage '{{request_title}}'"
+msgstr ""
 
 msgid "Someone has updated the status of your request"
 msgstr "Jemand hat den Status Ihrer Anfrage aktualisiert"
