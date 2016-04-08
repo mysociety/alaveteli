@@ -4022,7 +4022,6 @@ msgstr "kuri {{public_body}}"
 msgid "type your search term here"
 msgstr "andika ijambo ushaka hano"
 
-#, fuzzy
 msgid "unknown reason"
 msgstr "impamvu itazwi"
 

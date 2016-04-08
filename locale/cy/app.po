@@ -4057,9 +4057,8 @@ msgstr "i {{public_body}} "
 msgid "type your search term here"
 msgstr ""
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "rheswm anhysbys "
+msgstr "rheswm anhysbys"
 
 msgid "unknown reason "
 msgstr "rheswm anhysbys "

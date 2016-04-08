@@ -4034,7 +4034,6 @@ msgstr "{{public_body}} adlı kamu kuruluşuna"
 msgid "type your search term here"
 msgstr "aradığınız terimi buraya girin "
 
-#, fuzzy
 msgid "unknown reason"
 msgstr "bilinmeyen sebep"
 

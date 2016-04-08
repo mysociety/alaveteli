@@ -4238,9 +4238,8 @@ msgstr "kepada {{public_body}}"
 msgid "type your search term here"
 msgstr ""
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "alasan tidak diketahui "
+msgstr "alasan tidak diketahui"
 
 msgid "unknown reason "
 msgstr "alasan tidak diketahui "

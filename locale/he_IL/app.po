@@ -4051,7 +4051,6 @@ msgstr "אל {{public_body}}"
 msgid "type your search term here"
 msgstr ""
 
-#, fuzzy
 msgid "unknown reason"
 msgstr "סיבה לא ידוע"
 

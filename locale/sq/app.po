@@ -4127,9 +4127,8 @@ msgstr "për {{public_body}}"
 msgid "type your search term here"
 msgstr "shtypni frazat e kerkimit tuaj ketu"
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "arsye e panjohur "
+msgstr "arsye e panjohur"
 
 msgid "unknown reason "
 msgstr "arsye e panjohur "

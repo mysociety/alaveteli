@@ -4195,9 +4195,8 @@ msgstr "za {{public_body}}"
 msgid "type your search term here"
 msgstr ""
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "nepoznat razlog "
+msgstr "nepoznat razlog"
 
 msgid "unknown reason "
 msgstr "nepoznat razlog "

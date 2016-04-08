@@ -4209,7 +4209,6 @@ msgstr "pro instituci {{public_body}}"
 msgid "type your search term here"
 msgstr "zadejte hledaný termín"
 
-#, fuzzy
 msgid "unknown reason"
 msgstr "neznámé důvody"
 

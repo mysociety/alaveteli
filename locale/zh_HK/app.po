@@ -4000,7 +4000,6 @@ msgstr "給{{public_body}}"
 msgid "type your search term here"
 msgstr "在這裡輸入你的搜尋文字"
 
-#, fuzzy
 msgid "unknown reason"
 msgstr "不明原因"
 

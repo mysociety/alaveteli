@@ -4024,9 +4024,8 @@ msgstr "till {{public_body}}"
 msgid "type your search term here"
 msgstr "skriv in din sökterm här"
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "oklar anledning "
+msgstr "okänd anledning"
 
 msgid "unknown reason "
 msgstr "oklar anledning "

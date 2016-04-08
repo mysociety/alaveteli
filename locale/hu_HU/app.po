@@ -4233,9 +4233,8 @@ msgstr "{{public_body}} részére "
 msgid "type your search term here"
 msgstr ""
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "ismeretlen ok "
+msgstr "ismeretlen ok"
 
 msgid "unknown reason "
 msgstr "ismeretlen ok "

@@ -4022,9 +4022,8 @@ msgstr "дo {{public_body}}"
 msgid "type your search term here"
 msgstr ""
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "непозната причина "
+msgstr "непозната причина"
 
 msgid "unknown reason "
 msgstr "непозната причина "

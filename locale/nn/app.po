@@ -4042,9 +4042,8 @@ msgstr "til {{public_body}}"
 msgid "type your search term here"
 msgstr "skriv inn søketerm her"
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "ukjend grunn "
+msgstr "ukjend grunn"
 
 msgid "unknown reason "
 msgstr "ukjend grunn "

@@ -4003,9 +4003,8 @@ msgstr ""
 msgid "type your search term here"
 msgstr ""
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "*अज्ञात*"
+msgstr ""
 
 msgid "unknown reason "
 msgstr ""

@@ -4012,9 +4012,8 @@ msgstr "til {{public_body}}"
 msgid "type your search term here"
 msgstr ""
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "*óþekkt*"
+msgstr ""
 
 msgid "unknown reason "
 msgstr ""

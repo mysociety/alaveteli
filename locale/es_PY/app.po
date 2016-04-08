@@ -4232,9 +4232,8 @@ msgstr "a {{public_body}}"
 msgid "type your search term here"
 msgstr "Escriba el término de búsqueda aquí"
 
-#, fuzzy
 msgid "unknown reason"
-msgstr "motivo desconocido "
+msgstr "motivo desconocido"
 
 msgid "unknown reason "
 msgstr "motivo desconocido "
