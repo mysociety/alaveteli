@@ -3222,9 +3222,8 @@ msgstr "Обновете адреса:"
 msgid "Update the status of this request"
 msgstr "Обновяване състоянието на това заявление"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Обновяване състоянието на Ваше заявление към"
+msgstr "Обновяване състоянието на Ваше заявление към {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Качване на отговор за ДдИ"

@@ -3224,9 +3224,8 @@ msgstr "Uppdatera adressen:"
 msgid "Update the status of this request"
 msgstr "Uppdatera statusen för denna begäran"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Uppdatera statusen för din begäran för att"
+msgstr "Uppdatera statusen för din begäran för att {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Ladda upp svar om allmän handling"

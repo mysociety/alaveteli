@@ -3236,9 +3236,8 @@ msgstr "Posodobi naslov:"
 msgid "Update the status of this request"
 msgstr "Posodobite stanje tega zahtevka"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Posodobite stanje vašega zahtevka za"
+msgstr "Posodobite stanje vašega zahtevka za {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Naloži odgovor na zahtevek IJZ"

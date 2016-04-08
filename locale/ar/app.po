@@ -3256,9 +3256,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr "حين حالة هذا الطلب"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "حين حالة طلبك ل"
+msgstr "حين حالة طلبك ل {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "حمل طلب حرية النفاذ للمعلومة"

@@ -3331,9 +3331,8 @@ msgstr "Ažurirajte adresu:"
 msgid "Update the status of this request"
 msgstr "Ažurirati status ovog zahtjeva"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Ažurirajte status Vašeg zahtjeva"
+msgstr "Ažurirajte status Vašeg zahtjeva {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Učitajte odgovor na zahtjev za pristup informacijama"

@@ -3394,9 +3394,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr "Az adatigénylés státuszának frissítése"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Igénylése állapotának frissítése a következőre: "
+msgstr "Igénylése állapotának frissítése a következőre: {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Közérdekűadat-igénylésre kapott válasz"

@@ -3303,9 +3303,8 @@ msgstr "Perditeso adresen"
 msgid "Update the status of this request"
 msgstr "Perditeso statusin e kësaj kërkese"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Perditeso statusin e kërkesës tuaj për "
+msgstr "Perditeso statusin e kërkesës tuaj për {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Ngarko pergjigjen per te Drejten per Informim"

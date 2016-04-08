@@ -3247,9 +3247,8 @@ msgstr "Diweddaru'r cyfeiriad:"
 msgid "Update the status of this request"
 msgstr "Diweddaru statws y cais hwn"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Diweddaru statws eich cais i "
+msgstr "Diweddaru statws eich cais i {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Llwytho ymateb Rhyddid Gwybodaeth i fyny"

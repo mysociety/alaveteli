@@ -3400,9 +3400,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr "Memperbarui status untuk permintaan ini"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Memperbarui status permintaan Anda kepada"
+msgstr "Memperbarui status permintaan Anda kepada {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Unggah respon FOI"

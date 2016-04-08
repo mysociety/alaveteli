@@ -3201,9 +3201,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr ""
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Wijzig de tekst over u op uw profiel bij {{site_name}}"
+msgstr ""
 
 msgid "Upload FOI response"
 msgstr ""

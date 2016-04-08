@@ -3366,9 +3366,8 @@ msgstr "Aktualizujte adresu:"
 msgid "Update the status of this request"
 msgstr "Aktualizovat stav tohoto dotazu"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Aktualizujte stav svého dotazu vzneseného na "
+msgstr "Aktualizujte stav svého dotazu vzneseného na {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Nahrajte odpověď na dotaz "

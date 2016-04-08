@@ -3224,9 +3224,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr "Ажурирајте го статусот за ова барање"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Ажурирајте го статусот на вашето барање до "
+msgstr "Ажурирајте го статусот на вашето барање до {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Прикачи одговор"

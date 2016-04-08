@@ -3206,9 +3206,8 @@ msgstr "更新地址："
 msgid "Update the status of this request"
 msgstr "更新此要求的狀態"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "將你的要求的狀態更新為"
+msgstr "將你的要求的狀態更新為 {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "上載索取資料要求的回應"

@@ -3234,9 +3234,8 @@ msgstr "Adresi güncelle:"
 msgid "Update the status of this request"
 msgstr "Bu başvurunun durumunu güncelle"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Şu kuruma yaptığınız başvurunun durumunu güncelle"
+msgstr "Şu kuruma yaptığınız başvurunun durumunu güncelle {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Bilgi Edinme Başvurusu cevabını siteye yükle"

@@ -3198,9 +3198,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr ""
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Confirm your ATI request to {{public_body_name}}"
+msgstr ""
 
 msgid "Upload FOI response"
 msgstr "Upload ATI response"

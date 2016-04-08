@@ -3222,9 +3222,8 @@ msgstr "Vugurura aderesi:"
 msgid "Update the status of this request"
 msgstr "Vugurura irangamimerere ry'iki kibazo"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Vugurura irangamimerere ry'ikibazo cyawe ribe"
+msgstr "Vugurura irangamimerere ry'ikibazo cyawe ribe {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Shyiraho igisubizo cy'ubwisanzure bwo kumenya amakuru"

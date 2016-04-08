@@ -3234,9 +3234,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr "Mettre à jour l'état de cette demande"
 
-#, fuzzy
 msgid "Update the status of your request to {{authority_name}}"
-msgstr "Mettre à jour l'état de cette demande à"
+msgstr "Mettre à jour l'état de cette demande à {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Soumettre une réponse"
