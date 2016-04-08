@@ -3088,9 +3088,8 @@ msgstr "För att skicka din skicka din begäran till en annan myndighet, kopiera
 msgid "To update the status of this FOI request"
 msgstr "För att uppdatera statusen för denna begäran om allmän handling"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "För att ladda upp ett svar måste du vara inloggad genom att använda en e-postadress från "
+msgstr "För att ladda upp ett svar måste du vara inloggad genom att använda en e-postadress från {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "För att använda den avancerad sökning, kombinera fraser och etiketter som beskrivet i söktipsen nedanför."

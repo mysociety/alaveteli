@@ -3100,9 +3100,8 @@ msgstr "Da bi poslali zahtevek še kakemu organu, najprej kopirajte besedilo spo
 msgid "To update the status of this FOI request"
 msgstr "Da posodobite status tega zahtevka za IJZ"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Da naložite odgovor morate biti prijavljeni z e-pošto "
+msgstr "Da naložite odgovor morate biti prijavljeni z e-pošto {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Da uporabite napredno iskanje, združite fraze in označbe kot je opisano v namigih spodaj."

@@ -3193,9 +3193,8 @@ msgstr "Za slanje zahtjeva drugom tijelu javne vlasti prvo kopirajte tekst Vaše
 msgid "To update the status of this FOI request"
 msgstr "Da biste ažurirali status Vašeg Zahtjeva za pristup informacijama."
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Da biste postavili odgovor, morate biti prijavljeni koristeći pritom adresu e-pošte sa"
+msgstr "Da biste postavili odgovor, morate biti prijavljeni koristeći pritom adresu e-pošte sa {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Da biste koristili napredno pretraživanje, kombinirajte fraze i oznake kao što je opisano u savjetima za pretragu ispod."

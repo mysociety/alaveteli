@@ -3137,9 +3137,8 @@ msgstr "Para enviar o seu pedido de informação a outra entidade: primeiro, cop
 msgid "To update the status of this FOI request"
 msgstr "Para atualizar a situação desse pedido de informação"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Para enviar uma resposta, você deve estar logado usando um email de "
+msgstr "Para enviar uma resposta, você deve estar logado usando um email de {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Para usar a pesquisa avançada, combinar frases e etiquetas, conforme descrito nas dicas de pesquisa abaixo."

@@ -3111,9 +3111,8 @@ msgstr "I anfon eich cais i awdurdod arall, yn gyntaf copiwch destun eich cais i
 msgid "To update the status of this FOI request"
 msgstr "I roi'r wybodaeth ddiweddaraf i statws y cais Rhyddid Gwybodaeth hwn"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "I lwytho ymateb i fyny, rhaid i chi fod wedi mewngofnodi gan ddefnyddio cyfeiriad e-bost gan "
+msgstr "I lwytho ymateb i fyny, rhaid i chi fod wedi mewngofnodi gan ddefnyddio cyfeiriad e-bost gan {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "I ddefnyddio'r chwiliad uwch, cyfunwch ymadroddion a labeli fel y'i disgrifir yn yr awgrymiadau chwilio isod."

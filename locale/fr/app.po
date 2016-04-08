@@ -3115,9 +3115,8 @@ msgstr "Pour envoyer votre demande à une autre autorité, d'abord copier le tex
 msgid "To update the status of this FOI request"
 msgstr "Pour mettre à jour le statut de cette demande "
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Pour télécharger une réponse, vous devez être connecté en utilisant une adresse e-mail de"
+msgstr "Pour télécharger une réponse, vous devez être connecté en utilisant une adresse e-mail de {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Pour utiliser la recherche avancée, associez les termes et les étiquettes comme indiqué dans les conseils ci-dessous."

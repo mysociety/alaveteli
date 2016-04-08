@@ -3230,9 +3230,8 @@ msgstr "Jak vznést stejný dotaz na jinou instituci: nejdříve zkopírujte ní
 msgid "To update the status of this FOI request"
 msgstr "Aktualizovat stav dotazu"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Abyste mohli nahrát odpověď, musíte být přihlášeni pod e-mailovou adresou "
+msgstr "Abyste mohli nahrát odpověď, musíte být přihlášeni pod e-mailovou adresou {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Použijte pokročilé vyhledávání. Můžete kombinovat části vět a názvy tak, jak je uvedeno níže v návodu"

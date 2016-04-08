@@ -3086,9 +3086,8 @@ msgstr "Да изпратите заявлението си до друг орг
 msgid "To update the status of this FOI request"
 msgstr "За да обновите състоянието на това заявление за ДдИ"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "За да качите отговор, трябва да сте влезли, използвайки имейл адрес от "
+msgstr "За да качите отговор, трябва да сте влезли, използвайки имейл адрес от {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "За да използвате разширено търсене, комбинирайте фрази и етикети, както е описано в съветите по-долу."

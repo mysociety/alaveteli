@@ -3143,9 +3143,8 @@ msgstr ""
 msgid "To update the status of this FOI request"
 msgstr "Zure informazio eskabidearen egoera gaurkotzeko"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Erantzun bat igotzeko ______-ko posta helbide batekin erregistratuta egon behar duzu"
+msgstr "Erantzun bat igotzeko ______-ko posta helbide batekin erregistratuta egon behar duzu {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Bilaketa aurreratua erabiltzeko, balia zaitez perpaus eta hitz gakoez, ondoko argibideetan adierazten den moduan."

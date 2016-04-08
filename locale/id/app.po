@@ -3262,9 +3262,8 @@ msgstr "Untuk mengirim permintaan Anda ke otoritas lain, pertama salin kalimat p
 msgid "To update the status of this FOI request"
 msgstr "Untuk memperbarui status dari permintaan FOI ini"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Untuk memuat respon, Anda harus masuk menggunakan alamat email dari "
+msgstr "Untuk memuat respon, Anda harus masuk menggunakan alamat email dari {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Untuk menggunakan pencarian lanjutan, kombinasikan frase dan label seperti yang dijelaskan dalam tips pencarian di bawah."

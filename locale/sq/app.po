@@ -3167,9 +3167,8 @@ msgstr "Per te derguar kerkesen tek nje institucion tjeter, me pare kopjoj tekst
 msgid "To update the status of this FOI request"
 msgstr "Për të perditesuar statusin e kësaj kërkese për te Drejten e Informimit."
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Per te ngarkuar një përgjigje, duhet të kyçesh duke përdorur një adrese elektronike nga "
+msgstr "Per te ngarkuar një përgjigje, duhet të kyçesh duke përdorur një adrese elektronike nga {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Për të përdorur kërkimin e avancuar, kombino fraza dhe etiketa siç përshkruhet në këshilla për kërkime që shihni më poshtë."

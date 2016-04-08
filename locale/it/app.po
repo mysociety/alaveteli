@@ -3098,9 +3098,8 @@ msgstr "Per inviare la stessa richiesta a un'altra amministrazione, copia il tes
 msgid "To update the status of this FOI request"
 msgstr "Per aggiornare lo stato della tua richiesta di accesso"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Per caricare una risposta devi accedere al tuo account usando un indirizzo email da"
+msgstr "Per caricare una risposta devi accedere al tuo account usando un indirizzo email da {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Per usare la ricerca avanzata utilizza frasi e categorie come descritto nei suggerimenti qui sotto."

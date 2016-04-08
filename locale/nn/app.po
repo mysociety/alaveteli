@@ -3103,9 +3103,8 @@ msgstr "For å sende førespurnaden til ei anna myndigheit, må du fyrst kopiere
 msgid "To update the status of this FOI request"
 msgstr "For å oppdatera status på dette innsynskravet"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "For å lasta opp eit svar, må du vera pålogga med ei e-postadresse frå "
+msgstr "For å lasta opp eit svar, må du vera pålogga med ei e-postadresse frå {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "For å bruka avansert søk, kombiner frasar og merkelappar som skildra i søketipsene under."

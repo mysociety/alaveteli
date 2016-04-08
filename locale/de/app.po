@@ -3159,9 +3159,8 @@ msgstr ""
 msgid "To update the status of this FOI request"
 msgstr "Um den Status dieser IFG-Anfrage zu aktualisieren"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Um eine Antwort hochzuladen müssen Sie angemeldet sein und dafür eine folgende Email-Adresse benutzen:"
+msgstr "Um eine Antwort hochzuladen müssen Sie angemeldet sein und dafür eine folgende Email-Adresse benutzen: {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Um die erweiterte Suchoption zu nutzen, kombinieren Sie Formulierungen und Kennzeichen, wie in den unten aufgeführten Suchhinweisen beschrieben. "

@@ -3120,9 +3120,8 @@ msgstr "<li>لكي يتم بعث رسالتكم إلى مؤسسة أخرى،أو
 msgid "To update the status of this FOI request"
 msgstr "لتحيين حالة طلب حرية النفاذ للمعلومة هذا"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr " لتحميل رد, عليك تسجيل دخولك باستخدام عنوان بريد الكتروني من "
+msgstr "لتحميل رد, عليك تسجيل دخولك باستخدام عنوان بريد الكتروني من {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "لاستخدام البحث المتقدم , ادمج عبارات و رقعة تعريف كم تم وصف ذلك في نصائح الحث اسفله."

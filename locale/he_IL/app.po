@@ -3103,9 +3103,8 @@ msgstr "כדי לשלוח בקשת מידע לרשות אחרת, העתיקו א
 msgid "To update the status of this FOI request"
 msgstr "כדי לעדכן את הסטטוס של בקשת מידע זו"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "כדי להגיב עליכם להיות מחוברים עם כתובת דוא\"ל מ- "
+msgstr "כדי להגיב עליכם להיות מחוברים עם כתובת דוא\"ל מ- {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "כדי להשתמש בחיפוש המתקדם, שלב ביטויים ותוויות כפי שמתואר בטיפים על החיפוש למטה"

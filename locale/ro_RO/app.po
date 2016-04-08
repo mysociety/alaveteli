@@ -3112,9 +3112,8 @@ msgstr "Pentru a trimite solicitarea către o altă autoritate, copiază întâi
 msgid "To update the status of this FOI request"
 msgstr "Pentru a actualiza starea acestei solicitări de acces la informații"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Pentru a încărca un răspuns trebuie să fiţi intrat în cont, folosind o adresă de email de la"
+msgstr "Pentru a încărca un răspuns trebuie să fiţi intrat în cont, folosind o adresă de email de la {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Pentru a utiliza căutarea avansată, combinaţi fraze şi etichete după cum este descris în trucurile de căutare de mai jos"

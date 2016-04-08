@@ -3098,9 +3098,8 @@ msgstr "Bilgi edinme başvurunuzu başka bir kuruma göndermek için, önce aşa
 msgid "To update the status of this FOI request"
 msgstr "Bu Bilgi Edinme başvurusunun durumunu güncellemek için"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Siteye bir cevap yüklemek için, aşağıdaki kurumdan bir email adresi kullanarak giriş yapmalısınız"
+msgstr "Siteye bir cevap yüklemek için, aşağıdaki kurumdan bir email adresi kullanarak giriş yapmalısınız {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Gelişmiş aramayı kullanmak için, sözcükleri ve etiketleri aşağıda verilen arama ipuçlarında anlatıldığı gibi birleştirin. "

@@ -3086,9 +3086,8 @@ msgstr "Kugirango woherereze ikibazo cyawe undi muyobozi, andukura ikibazo cyawe
 msgid "To update the status of this FOI request"
 msgstr "Kuvugurura irangamimerere ry'iki kibazo cy'ubwisanzure bwo kumenya amakuru"
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "Kugirango ushyireho igisubizo, ugomba kuba winjiye ukoresheje imeli aderesi ya"
+msgstr "Kugirango ushyireho igisubizo, ugomba kuba winjiye ukoresheje imeli aderesi ya {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Kugirango ukore ubushakashatsi bwimbitse, huza interuro n'uturango nk'uko bigaragazwa mu mabanga yo gushaka akurikira."

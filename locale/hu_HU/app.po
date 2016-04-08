@@ -3256,9 +3256,8 @@ msgstr "Ha igénylését egy másik adatgazdának is el szeretné küldeni, elő
 msgid "To update the status of this FOI request"
 msgstr "Ha frissíteni szeretné ennek a közérdekűadat-igénylésnek az állapotát "
 
-#, fuzzy
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr "A válasz feltöltéséhez be kell jelentkeznie a következőtől való e-mail címmel: "
+msgstr "A válasz feltöltéséhez be kell jelentkeznie a következőtől való e-mail címmel: {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Az összetett keresés funkció használatához kombinálja a kifejezéseket és a címkéket a keresési tippekben olvasható módon. "
