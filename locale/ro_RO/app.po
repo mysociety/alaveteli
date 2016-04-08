@@ -1439,9 +1439,8 @@ msgstr "Ține solicitările actualizate"
 msgid "Keywords"
 msgstr "Cuvinte cheie"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Ultima autoritate vizionată"
+msgstr "Ultima autoritate vizionată {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"

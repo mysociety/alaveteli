@@ -1503,9 +1503,8 @@ msgstr ""
 msgid "Keywords"
 msgstr "Ключові слова"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Останній переглянутий розпорядник інформації: "
+msgstr "Останній переглянутий розпорядник інформації: {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"

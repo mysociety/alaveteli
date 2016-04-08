@@ -1426,9 +1426,8 @@ msgstr "Mantieni le tue richieste aggiornate"
 msgid "Keywords"
 msgstr "Parole chiave"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Ultima amministrazione visualizzata"
+msgstr "Ultima amministrazione visualizzata {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"

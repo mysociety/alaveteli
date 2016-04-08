@@ -1463,9 +1463,8 @@ msgstr "Mantenha os seus pedidos actualizados"
 msgid "Keywords"
 msgstr "Palavras-chave"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Último órgão público visualizado:"
+msgstr "Último órgão público visualizado: {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"

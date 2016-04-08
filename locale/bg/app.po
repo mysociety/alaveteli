@@ -1418,9 +1418,8 @@ msgstr ""
 msgid "Keywords"
 msgstr "Ключови думи"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Последно гледан орган: "
+msgstr "Последно гледан орган: {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"

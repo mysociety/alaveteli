@@ -1518,9 +1518,8 @@ msgstr ""
 msgid "Keywords"
 msgstr "Kulcsszavak:"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Legutóbb megtekintett adatgazda: "
+msgstr "Legutóbb megtekintett adatgazda: {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"

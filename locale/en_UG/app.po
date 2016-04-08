@@ -1408,9 +1408,8 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Last agency viewed: "
+msgstr "Last agency viewed: {{authority_url}}"
 
 msgid "Last request viewed: {{request_url}}"
 msgstr ""

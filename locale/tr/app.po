@@ -1425,9 +1425,8 @@ msgstr "Başvurularınızı güncelleyin"
 msgid "Keywords"
 msgstr "Anahtar sözcükler"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Görüntülenen en son kurum:"
+msgstr "Görüntülenen en son kurum: {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"

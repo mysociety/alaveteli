@@ -1435,9 +1435,8 @@ msgstr "שמרו על הבקשות שלכם מעודכנות"
 msgid "Keywords"
 msgstr "מילות מפתח"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "הרשות האחרונה שנצפתה:"
+msgstr "הרשות האחרונה שנצפתה: {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"

@@ -1452,9 +1452,8 @@ msgstr ""
 msgid "Keywords"
 msgstr "Hitz gakoak"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Bisitatu den azken erakundea: "
+msgstr "Bisitatu den azken erakundea: {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"

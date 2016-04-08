@@ -1428,9 +1428,8 @@ msgstr "Hold henvendelsene dine oppdaterte"
 msgid "Keywords"
 msgstr "Nøkkelord"
 
-#, fuzzy
 msgid "Last authority viewed: {{authority_url}}"
-msgstr "Siste myndighet du så på:"
+msgstr "Siste myndighet du så på: {{authority_url}}"
 
 #, fuzzy
 msgid "Last request viewed: {{request_url}}"
