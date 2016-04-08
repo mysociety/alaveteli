@@ -2798,9 +2798,8 @@ msgstr "Apoi poți uploada un răspuns la o solicitare."
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Apoi poţi modifica parola ta pe {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "După aceea vei urmări toate solicitările de acces la informații noi."

@@ -2797,9 +2797,8 @@ msgstr "بامكانك تحميل طلب لحريةالنفاذ الى المع�
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "ثم يمكنك تغيير كلمة السر على {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "ثم ستتمكن من متابعة كل الطلبات الجديدة لحرية النفاذ الى المعلومة."

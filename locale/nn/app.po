@@ -2790,9 +2790,8 @@ msgstr "Så kan du senda ein innsynsbegjæring"
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Så kan du byta passordet på {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Dermed vil du følgja alle nye krav om innsyn."

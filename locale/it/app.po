@@ -2783,9 +2783,8 @@ msgstr "Puoi caricare una risposta a una richiesta di accesso."
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Così potrai cambiare la password su {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Riceverai gli aggiornamenti di tutte le nuove richieste di accesso."

@@ -2794,9 +2794,8 @@ msgstr "Yna gallwch lwytho ymateb Rhyddid Gwybodaeth i fyny. "
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Yna gallwch newid eich cyfrinair ar {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Yna byddwch yn dilyn yr holl geisiadau Rhyddid Gwybodaeth newydd."

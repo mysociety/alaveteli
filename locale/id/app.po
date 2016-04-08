@@ -2928,9 +2928,8 @@ msgstr "Maka Anda dapat memuat respon FOI. "
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Maka Anda dapat mengubah password Anda pada {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Kemudian Anda dapat mengikuti semua permintaan."

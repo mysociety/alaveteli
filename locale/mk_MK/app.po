@@ -2773,9 +2773,8 @@ msgstr "Тогаш можете да прикачите одговор. "
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Тогаш можете да ја промените лозинката на {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Тогаш ќе ги следите сите нови барања."

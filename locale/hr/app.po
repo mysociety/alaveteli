@@ -2861,9 +2861,8 @@ msgstr "Tada možete postaviti odgovor na zahtjev za pristup informacijama."
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Tada možete promijeniti Vašu lozinku na {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Tada ćete pratiti sve nove zahtjeve za pristup informacijama. "

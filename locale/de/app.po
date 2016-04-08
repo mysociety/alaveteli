@@ -2840,9 +2840,8 @@ msgstr "Dann können Sie eine IFG-Antwort hochladen. "
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Dann können Sie Ihr Passwort unter {{site_name}} ändern"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr ""

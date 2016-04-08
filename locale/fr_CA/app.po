@@ -2787,9 +2787,8 @@ msgstr "Vous pourrez ensuite mettre en ligne une réponse."
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Vous pourrez alors changer votre mot de passe sur {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Vous suivrez ensuite toutes les nouvelles demandes d'accès aux documents."

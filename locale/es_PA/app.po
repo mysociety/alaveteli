@@ -2792,9 +2792,8 @@ msgstr "A continuación podrá subir una respuesta. "
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "A continuación podrá cambiar su contraseña en {{site_name}}"
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr "A continuación recibirá actualizaciones por correo electrónico de todas las nuevas solicitudes."

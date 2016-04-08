@@ -2826,9 +2826,8 @@ msgstr "Orduan erantzuna igo ahal izango duzu. "
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Orduan {{site_name}}-ean erabili duzun pasahitza aldatu ahal izango duzu."
+msgstr ""
 
 msgid "Then you will be following all new FOI requests."
 msgstr ""

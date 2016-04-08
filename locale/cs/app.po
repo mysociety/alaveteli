@@ -2902,9 +2902,8 @@ msgstr "Poté můžete nahrát odpověď na váš dotaz."
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr "Poté můžete napsat odpověď pro {{authority_name}}."
 
-#, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
-msgstr "Poté můžete změnit heslo na stránkách {{site_name}}"
+msgstr "Pak můžete napsat svou odpověď pro {{authority_name}}."
 
 msgid "Then you will be following all new FOI requests."
 msgstr "Poté budete sledovat všechny nově vznesené dotazy."
