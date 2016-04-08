@@ -3071,9 +3071,8 @@ msgstr "Ntibishoboka kwoherereza {{username}} igisubizo"
 msgid "To report this request"
 msgstr "Kugaragaza iki kibazo"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Ntibishoboka kwoherereza {{username}} ubutumwa bwo gukurikirana"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

@@ -3088,9 +3088,8 @@ msgstr "לא ניתן לשלוח תגובה ל- {{username}}"
 msgid "To report this request"
 msgstr "לדיווח על הבקשה"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "לא ניתן לשלוח הודעת מעקב ל- {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

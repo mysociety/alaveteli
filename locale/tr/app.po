@@ -3083,9 +3083,8 @@ msgstr " {{username}} adlı kullanıcıya yanıt gönderilemedi"
 msgid "To report this request"
 msgstr "Bu başvuruyu şikayet etmek için"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr " {{username}} adlı kullanıcıya takip iletisi gönderilemedi"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

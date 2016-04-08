@@ -3211,9 +3211,8 @@ msgstr "Ne možemo poslati poruku za {{username}}"
 msgid "To report this request"
 msgstr ""
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Ne možemo poslati popratnu pokuku za {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

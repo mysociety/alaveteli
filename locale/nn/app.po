@@ -3088,9 +3088,8 @@ msgstr "Klarte ikkje senda svar til {{username}}"
 msgid "To report this request"
 msgstr "For å rapportera denne førespurnaden"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Klarte ikkje senda oppfølgingsmelding til {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

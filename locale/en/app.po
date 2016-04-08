@@ -3066,9 +3066,8 @@ msgstr "Unable to send a reply to {{username}}"
 msgid "To report this request"
 msgstr "To report this request"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Unable to send follow up message to {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

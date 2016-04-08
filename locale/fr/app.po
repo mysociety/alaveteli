@@ -3100,9 +3100,8 @@ msgstr "Impossible d'envoyer une réponse à {{username}}"
 msgid "To report this request"
 msgstr "Pour présenter cette demande"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Impossible d'envoyer un message de suivi à {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

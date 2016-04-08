@@ -3062,9 +3062,8 @@ msgstr ""
 msgid "To report this request"
 msgstr ""
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Senda opinbera viðbót til {{person_or_body}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

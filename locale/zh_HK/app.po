@@ -3057,9 +3057,8 @@ msgstr ""
 msgid "To report this request"
 msgstr "舉報這項要求"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "發出一項跟進訊息。"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

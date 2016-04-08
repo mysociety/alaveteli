@@ -3122,9 +3122,8 @@ msgstr "Não foi possível enviar uma mensagem para {{username}}"
 msgid "To report this request"
 msgstr "Denunciar este pedido"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Não foi possível mandar uma mensagem de acompanhamento para {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

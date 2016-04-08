@@ -3215,9 +3215,8 @@ msgstr "Nelze poslat odpověď uživateli {{username}}"
 msgid "To report this request"
 msgstr "Pro nahlášení tohoto dotazu"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Nelze poslat odpověď uživateli {{username}}"
+msgstr "Abyste mohli poslat zprávu pro {{authority_name}}"
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

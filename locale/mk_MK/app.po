@@ -3071,9 +3071,8 @@ msgstr "Не може да се испрати одговор на {{username}}"
 msgid "To report this request"
 msgstr "За да го пријавите ова барање"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Не може да се испрати порака за реакција до {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

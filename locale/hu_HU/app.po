@@ -3241,9 +3241,8 @@ msgstr "Nem sikerült választ küldeni {{username}} részére "
 msgid "To report this request"
 msgstr ""
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Nem sikerült nyomon követési üzenetet küldeni {{username}} részére "
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

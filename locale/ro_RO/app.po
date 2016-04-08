@@ -3097,9 +3097,8 @@ msgstr "Nu se poate trimite un răspuns către  {{username}}"
 msgid "To report this request"
 msgstr ""
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Nu se poate trimite un mesaj de urmărire către {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

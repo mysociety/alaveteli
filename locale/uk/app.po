@@ -3173,9 +3173,8 @@ msgstr "Неможливо надіслати відповідь користу�
 msgid "To report this request"
 msgstr ""
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Неможливо надіслати повідомленя користувачу {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

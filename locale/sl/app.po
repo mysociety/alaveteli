@@ -3085,9 +3085,8 @@ msgstr "Ni bilo možno poslati odgovora osebi {{username}}"
 msgid "To report this request"
 msgstr "Da prijavite ta zahtevek"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Ni bilo možno poslati odziva osebi {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

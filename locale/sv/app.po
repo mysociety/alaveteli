@@ -3073,9 +3073,8 @@ msgstr "Kunde inte skicka svar till {{username}}"
 msgid "To report this request"
 msgstr "För att rapportera denna begäran"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Kunde inte skicka uppföljningsmeddelande till {{username}}"
+msgstr "För att skicka ett uppföljningsmeddelande till {{authority_name}}"
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

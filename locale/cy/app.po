@@ -3096,9 +3096,8 @@ msgstr "Yn methu anfon ateb i {{username}}"
 msgid "To report this request"
 msgstr "I roi gwybod am y cais hwn"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Yn methu anfon neges ddilynol i {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

@@ -3144,9 +3144,8 @@ msgstr "Antwort an {{username}} kann nicht gesendet werden"
 msgid "To report this request"
 msgstr "Diese Anfrage melden"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Nachfrage an {{username}} kann nicht gesendet werden"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

@@ -3128,9 +3128,8 @@ msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
 msgid "To report this request"
 msgstr ""
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"

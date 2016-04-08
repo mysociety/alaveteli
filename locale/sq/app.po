@@ -3152,9 +3152,8 @@ msgstr "E pamundur per të dërguar përgjigje te {{username}}"
 msgid "To report this request"
 msgstr "Per te raportuar kete kerkese"
 
-#, fuzzy
 msgid "To send a follow up message to {{authority_name}}"
-msgstr "E pamundur per te derguar një mesazh vijues tek {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "To send a message to {{user_name}}"
