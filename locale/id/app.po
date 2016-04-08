@@ -2509,9 +2509,8 @@ msgstr ""
 msgid "Send message"
 msgstr "Kirim pesan"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Kirim pesan kepada"
+msgstr "Kirim pesan kepada {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

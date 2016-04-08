@@ -2485,9 +2485,8 @@ msgstr "Pošli mi tento e-mail"
 msgid "Send message"
 msgstr "Vznést dotaz"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Vznést dotaz na "
+msgstr "Vznést dotaz na {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

@@ -2400,9 +2400,8 @@ msgstr ""
 msgid "Send message"
 msgstr "שלחו הודעה"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "שלחו הודעה"
+msgstr "שלחו הודעה {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

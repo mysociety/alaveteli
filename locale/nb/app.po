@@ -2393,9 +2393,8 @@ msgstr "Send meg en e-post"
 msgid "Send message"
 msgstr "Send melding"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Send melding til "
+msgstr "Send melding til {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

@@ -2375,9 +2375,8 @@ msgstr ""
 msgid "Send message"
 msgstr "Senda skilaboð"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Senda skilaboð til "
+msgstr "Senda skilaboð til {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

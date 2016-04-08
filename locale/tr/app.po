@@ -2393,9 +2393,8 @@ msgstr "Emaili bana gönder"
 msgid "Send message"
 msgstr "Mesajı gönder"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Şu adrese mesaj gönder"
+msgstr "Şu adrese mesaj gönder {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

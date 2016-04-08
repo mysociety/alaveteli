@@ -2383,9 +2383,8 @@ msgstr ""
 msgid "Send message"
 msgstr "Ohereza ubutumwa"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Oherereza ubutumwa"
+msgstr "Oherereza ubutumwa {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

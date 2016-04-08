@@ -2383,9 +2383,8 @@ msgstr ""
 msgid "Send message"
 msgstr "Изпращане на съобщение"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Изпращане на съобщение до "
+msgstr "Изпращане на съобщение до {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

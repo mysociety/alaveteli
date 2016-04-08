@@ -2445,9 +2445,8 @@ msgstr "Me dergoni posten elektronike"
 msgid "Send message"
 msgstr "Dërgo mesazh"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Dërgo mesazh tek "
+msgstr "Dërgo mesazh tek {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

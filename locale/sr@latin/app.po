@@ -2419,9 +2419,8 @@ msgstr ""
 msgid "Send message"
 msgstr "Pošalji poruku"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Pošalji poruku za"
+msgstr "Pošalji poruku za {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

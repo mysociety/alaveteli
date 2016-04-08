@@ -2391,9 +2391,8 @@ msgstr "Inviami l'email"
 msgid "Send message"
 msgstr "Invia messaggio"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Invia messaggio a "
+msgstr "Invia messaggio a {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

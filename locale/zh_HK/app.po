@@ -2377,9 +2377,8 @@ msgstr ""
 msgid "Send message"
 msgstr "傳送訊息"
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "傳送訊息至"
+msgstr "傳送訊息至 {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr ""

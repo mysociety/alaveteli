@@ -2501,9 +2501,8 @@ msgstr ""
 msgid "Send message"
 msgstr "Üzenet küldése "
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "Üzenet küldése a következőnek: "
+msgstr "Üzenet küldése a következőnek: {{user_name}}"
 
 #, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"

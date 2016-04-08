@@ -2370,9 +2370,8 @@ msgstr ""
 msgid "Send message"
 msgstr ""
 
-#, fuzzy
 msgid "Send message to {{user_name}}"
-msgstr "ATI requests by '{{user_name}}'"
+msgstr ""
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr ""
