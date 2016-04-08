@@ -9,7 +9,8 @@ gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versio
 gem 'active_model_otp', :git => 'https://github.com/mysociety/active_model_otp.git', :ref => '0eb977b4c6dafd'
 gem 'charlock_holmes', '~> 0.7.3'
 gem 'dynamic_form', '~> 1.1.4'
-gem 'exception_notification', '~> 3.0.1'
+# 4.1.0 has a bug in it which is fixed in a later version which does not have Ruby 1.9.3 support
+gem 'exception_notification', '4.0.1'
 gem 'fancybox-rails', '~> 0.2.1'
 gem 'foundation-rails', '~> 5.2.1.0'
 gem 'geoip', '~> 1.6.1'
