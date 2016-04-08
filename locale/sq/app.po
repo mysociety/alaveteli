@@ -3562,13 +3562,11 @@ msgstr "A dëshiron të shohësh një faqe te tille interneti në vendin tuaj?"
 msgid "Write a reply"
 msgstr "Shkruaj një përgjigje"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "E pamundur per të dërguar përgjigje te {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "E pamundur per te derguar një mesazh vijues tek {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Shkruaje kërkesën tënde me <strong>gjuhë të thjeshtë, dhe të saktë</strong>."

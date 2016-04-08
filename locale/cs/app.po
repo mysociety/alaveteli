@@ -3636,13 +3636,11 @@ msgstr "Would you like to see a website like this in your country?"
 msgid "Write a reply"
 msgstr "Napište odpověď"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Nelze poslat odpověď uživateli {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Nelze poslat odpověď uživateli {{username}}"
+msgstr "Napište svou odpověď pro {{authority_name}}"
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr ""

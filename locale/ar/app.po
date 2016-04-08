@@ -3517,13 +3517,11 @@ msgstr "هل ترغب في ايجاد موقع كهذا في بلدك؟"
 msgid "Write a reply"
 msgstr "اكتب ردا"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "غير قادر على ارسال رد ل {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "غير قادر على بعث رسالة متابعة ل {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "اكتب طلبك <strong>بلغة بسيطة ودقيقة</strong>."

@@ -3475,13 +3475,11 @@ msgstr "Искате ли да видите сайт като този за Ва
 msgid "Write a reply"
 msgstr "Напишете отговор"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Не е възможно изпращане на отговор до {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Не бе възможно да се изпрати пояснително съобщение до {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Напишете заявлението си <strong>ясно и конкретно</strong>."

@@ -3493,13 +3493,11 @@ msgstr "Bi želeli videt spletno stran kakršna je ta v vaši državi?"
 msgid "Write a reply"
 msgstr "Napišite odgovor"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Ni bilo možno poslati odgovora osebi {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Ni bilo možno poslati odziva osebi {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Zapišite vaš zahtevek v <strong>enostavnem in nedvoumnem jeziku</strong>."

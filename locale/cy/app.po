@@ -3504,13 +3504,11 @@ msgstr "A fyddech yn hoffi gweld gwefan fel hon yn eich gwlad?"
 msgid "Write a reply"
 msgstr "Ysgrifennwch ateb"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Yn methu anfon ateb i {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Yn methu anfon neges ddilynol i {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Ysgrifennwch eich cais mewn <strong>iaith syml, gryno</strong>."

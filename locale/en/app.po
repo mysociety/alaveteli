@@ -3470,13 +3470,11 @@ msgstr "Would you like to see a website like this in your country?"
 msgid "Write a reply"
 msgstr "Write a reply"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Unable to send a reply to {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Unable to send follow up message to {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Write your request in <strong>simple, precise language</strong>."

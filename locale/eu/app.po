@@ -3535,13 +3535,11 @@ msgstr "Zure herrialdean honelako web orrialdea ikustea gustatuko litzaizuke?"
 msgid "Write a reply"
 msgstr "Idatzi erantzun bat"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Idatz ezazu zure eskabidea <strong>hizkera erraz eta argi</strong> batez."

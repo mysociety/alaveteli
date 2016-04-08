@@ -3475,13 +3475,11 @@ msgstr "Urashaka kubona urubuga rwa interineti nk'uru mu gihugu cyawe?"
 msgid "Write a reply"
 msgstr "Andika igisubizo"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Ntibishoboka kwoherereza {{username}} igisubizo"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Ntibishoboka kwoherereza {{username}} ubutumwa bwo gukurikirana"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Andika ikibazo cyawe <strong>mu magambo yoroshye kandi urasa ku ntego</strong>."

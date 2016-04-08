@@ -3526,13 +3526,11 @@ msgstr "Você gostaria de um site como este no seu país?"
 msgid "Write a reply"
 msgstr "Escreva uma resposta"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Não foi possível enviar uma mensagem para {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Não foi possível mandar uma mensagem de acompanhamento para {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Escreva seu pedido de <strong>forma simples</strong>."

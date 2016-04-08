@@ -3487,13 +3487,11 @@ msgstr "Kendi ülkenizde böyle bir web sitesi olmasını ister misiniz?"
 msgid "Write a reply"
 msgstr "Bir cevap yazın"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr " {{username}} adlı kullanıcıya yanıt gönderilemedi"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr " {{username}} adlı kullanıcıya takip iletisi gönderilemedi"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Başvurunuzu <strong>sade, net bir dille</strong> yazın."

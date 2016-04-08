@@ -3587,13 +3587,11 @@ msgstr "Хочете мати такий сайт у своїй країні?"
 msgid "Write a reply"
 msgstr "Напишіть відповідь"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Неможливо надіслати відповідь користувачу {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Неможливо надіслати повідомленя користувачу {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Використовуйте в запиті просту, зрозумілу мову."

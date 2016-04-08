@@ -3503,13 +3503,11 @@ msgstr "Ai dori să vezi un web-site ca acesta în ţara ta?"
 msgid "Write a reply"
 msgstr "Scrie un răspuns"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Nu se poate trimite un răspuns către  {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Nu se poate trimite un mesaj de urmărire către {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Formulează solicitarea ta într-un <strong>limbaj precis, simplu</strong>."

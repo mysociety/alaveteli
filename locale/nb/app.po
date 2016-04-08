@@ -3492,13 +3492,11 @@ msgstr "Skulle du like å se en tilsvarende nettside i ditt land?"
 msgid "Write a reply"
 msgstr "Skriv et svar"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Klarte ikke sende svar til {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Klarte ikke sende oppfølgningsmelding til {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Skriv henvendelsen i <strong>enkelt, nøyaktig språk</strong>."

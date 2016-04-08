@@ -3504,13 +3504,11 @@ msgstr "Soutenez-vous la création d'un site similaire dans votre pays ?"
 msgid "Write a reply"
 msgstr "écrire une réponse "
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Impossible d'envoyer une réponse à {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Impossible d'envoyer un message de suivi à {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Formulez votre demande en langage  <strong>simple et  precis </strong>."

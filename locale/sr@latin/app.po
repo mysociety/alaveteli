@@ -3567,13 +3567,11 @@ msgstr "Da li biste želeli da imate ovakav sistem u Vašoj zemlji?"
 msgid "Write a reply"
 msgstr "Napišite odgovor"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Ne možemo poslati odgovor za {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Ne možemo poslati reakciju za {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Pišite Vaš zahtev <strong>jednostavnim, preciznim jezikom</strong>."

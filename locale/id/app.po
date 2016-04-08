@@ -3669,13 +3669,11 @@ msgstr "Apakah Anda ingin melihat website seperti ini di negara Anda?"
 msgid "Write a reply"
 msgstr "Tulis balasan"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Tidak dapat mengirimkan balasan kepada {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Tidak dapat mengirimkan pesan tindak lanjut kepada {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Tulis permintaan Anda dalam <strong>bahasa yang sederhana, tepat</strong>."

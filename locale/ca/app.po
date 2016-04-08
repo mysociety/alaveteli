@@ -3655,13 +3655,11 @@ msgstr "¿Te gustaría ver una web como esta en tu país?"
 msgid "Write a reply"
 msgstr "Escribir una respuesta"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "No se pudo enviar la respuesta a {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "No se pudo enviar la respuesta a {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Escriu la teva sol·licitud en un <strong>llenguatge senzill i clar</strong>."

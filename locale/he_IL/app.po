@@ -3492,13 +3492,11 @@ msgstr "האם תרצה לראות אתר אינטרנט כזה בישראל?"
 msgid "Write a reply"
 msgstr "לכתוב תשובה"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "לא ניתן לשלוח תגובה ל- {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "לא ניתן לשלוח הודעת מעקב ל- {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "כתבו את בקשתכם <strong>בשפה פשוטה ומדויקת</strong>."

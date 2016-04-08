@@ -3481,13 +3481,11 @@ msgstr "Дали би сакале да имате ваква интернет-�
 msgid "Write a reply"
 msgstr "Напишете одговор"
 
-#, fuzzy
 msgid "Write a reply to {{authority_name}}"
-msgstr "Не може да се испрати одговор на {{username}}"
+msgstr ""
 
-#, fuzzy
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "Не може да се испрати порака за реакција до {{username}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Напишете го вашето барање со <strong>едноставен, прецизен речник</strong>."
