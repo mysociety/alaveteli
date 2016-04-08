@@ -3206,9 +3206,8 @@ msgstr "Zahrát si hru na kategorizaci dotazů"
 msgid "To post your annotation"
 msgstr "Vložit anotaci"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Nelze poslat odpověď uživateli {{username}}"
+msgstr "Pro odpověď pro {{authority_name}}."
 
 msgid "To report this request"
 msgstr "Pro nahlášení tohoto dotazu"

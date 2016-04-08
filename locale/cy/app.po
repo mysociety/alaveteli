@@ -3087,9 +3087,8 @@ msgstr "I chwarae'r gêm categoreiddio cais"
 msgid "To post your annotation"
 msgstr "I bostio eich anodiad"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Yn methu anfon ateb i {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr "I roi gwybod am y cais hwn"

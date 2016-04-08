@@ -3062,9 +3062,8 @@ msgstr "Gukina umukino wo gutandukanya ibibazo"
 msgid "To post your annotation"
 msgstr "Gushyiraho insobanuro yawe"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Ntibishoboka kwoherereza {{username}} igisubizo"
+msgstr ""
 
 msgid "To report this request"
 msgstr "Kugaragaza iki kibazo"

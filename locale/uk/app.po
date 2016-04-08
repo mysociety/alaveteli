@@ -3164,9 +3164,8 @@ msgstr ""
 msgid "To post your annotation"
 msgstr "Щоб опублікувати свій коментар"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Неможливо надіслати відповідь користувачу {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr ""

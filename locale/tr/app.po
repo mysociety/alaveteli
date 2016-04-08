@@ -3074,9 +3074,8 @@ msgstr "Başvuru sınıflandırma oyunu oynamak için"
 msgid "To post your annotation"
 msgstr "Açıklayıcı not eklemek için"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr " {{username}} adlı kullanıcıya yanıt gönderilemedi"
+msgstr ""
 
 msgid "To report this request"
 msgstr "Bu başvuruyu şikayet etmek için"

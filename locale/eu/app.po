@@ -3119,9 +3119,8 @@ msgstr "Eskabideak bersailkatzeko jolasean aritu"
 msgid "To post your annotation"
 msgstr "Gehitu zure iruzkina"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
+msgstr ""
 
 msgid "To report this request"
 msgstr ""

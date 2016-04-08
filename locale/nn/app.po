@@ -3079,9 +3079,8 @@ msgstr "For å spela spelet om kategorisering av førespurnadskrav"
 msgid "To post your annotation"
 msgstr "For å posta kommentaren din"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Klarte ikkje senda svar til {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr "For å rapportera denne førespurnaden"

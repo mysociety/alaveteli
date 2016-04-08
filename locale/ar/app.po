@@ -3096,9 +3096,8 @@ msgstr "للعب لعبة تصنيف الطلب"
 msgid "To post your annotation"
 msgstr "لنشر ملاحظتك"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "غير قادر على ارسال رد ل {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr ""

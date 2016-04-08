@@ -3074,9 +3074,8 @@ msgstr "For å spille henvendelseskategoriseringsspillet"
 msgid "To post your annotation"
 msgstr "For å poste din kommentar"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Klarte ikke sende svar til {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr "For å rapportere denne henvendelsen"

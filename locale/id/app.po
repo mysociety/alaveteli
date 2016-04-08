@@ -3238,9 +3238,8 @@ msgstr "Untuk memainkan permainan kategorisasi permintaan"
 msgid "To post your annotation"
 msgstr "Untuk memposting anotasi Anda"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Tidak dapat mengirimkan balasan kepada {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr ""

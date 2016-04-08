@@ -3143,9 +3143,8 @@ msgstr "Për të luajtur në lojën e kategorizimit të kërkesave"
 msgid "To post your annotation"
 msgstr "Për të postuar shënimin tuaj"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "E pamundur per të dërguar përgjigje te {{username}}"
+msgstr "ër tiu përgjigjur {{authority_name}}."
 
 msgid "To report this request"
 msgstr "Per te raportuar kete kerkese"

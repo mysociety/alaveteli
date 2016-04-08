@@ -3064,9 +3064,8 @@ msgstr "För att spela kategoriseringsspelet av förfrågningar"
 msgid "To post your annotation"
 msgstr "För att posta din kommentar"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Kunde inte skicka svar till {{username}}"
+msgstr "För att svara till {{authority_name}}."
 
 msgid "To report this request"
 msgstr "För att rapportera denna begäran"

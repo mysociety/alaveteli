@@ -3088,9 +3088,8 @@ msgstr "Pentru a juca jocu categorisirea cererii"
 msgid "To post your annotation"
 msgstr "Pentru a posta adnotarea ta"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Nu se poate trimite un răspuns către  {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr ""

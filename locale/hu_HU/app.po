@@ -3232,9 +3232,8 @@ msgstr "Ha osztályozni szeretné az igénylést "
 msgid "To post your annotation"
 msgstr "Ha hozzá szeretne szólni "
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Nem sikerült választ küldeni {{username}} részére "
+msgstr ""
 
 msgid "To report this request"
 msgstr ""

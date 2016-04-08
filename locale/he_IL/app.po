@@ -3079,9 +3079,8 @@ msgstr "כדי לשחק במשחק סיווג הקטגוריות"
 msgid "To post your annotation"
 msgstr "כדי לפרסם את ההערה שלך"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "לא ניתן לשלוח תגובה ל- {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr "לדיווח על הבקשה"

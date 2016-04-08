@@ -3062,9 +3062,8 @@ msgstr "За да играете играта по категоризиране 
 msgid "To post your annotation"
 msgstr "За да публикувате коментара си"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Не е възможно изпращане на отговор до {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr "За да докладвате това заявление"

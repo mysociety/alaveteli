@@ -3074,9 +3074,8 @@ msgstr "Per aiutarci a classificare le richieste"
 msgid "To post your annotation"
 msgstr "Per pubblicare la tua annotazione"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Impossibile inviare una risposta a {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr "Per segnalare questa richiesta"

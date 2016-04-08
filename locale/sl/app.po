@@ -3076,9 +3076,8 @@ msgstr "Za igranje igre razvrščanja zahtevkov"
 msgid "To post your annotation"
 msgstr "Da objavite vaš zaznamek"
 
-#, fuzzy
 msgid "To reply to {{authority_name}}."
-msgstr "Ni bilo možno poslati odgovora osebi {{username}}"
+msgstr ""
 
 msgid "To report this request"
 msgstr "Da prijavite ta zahtevek"
