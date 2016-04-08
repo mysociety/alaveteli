@@ -1428,9 +1428,8 @@ msgstr "Anahtar sözcükler"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Görüntülenen en son kurum: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Görüntülenen en son başvuru:"
+msgstr "Görüntülenen en son başvuru: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Daha fazla bilgi  &rarr;"

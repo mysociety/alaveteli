@@ -1510,9 +1510,8 @@ msgstr "Klíčová slova"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Naposled prohlížená instituce: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Naposled prohlížený dotaz: "
+msgstr "Naposled prohlížený dotaz: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Zjistěte více &rarr;"

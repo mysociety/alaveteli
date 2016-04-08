@@ -1431,9 +1431,8 @@ msgstr "Nøkkelord"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Siste myndighet du så på: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Siste henvendelse du så på:"
+msgstr "Siste henvendelse du så på: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Lær mer &rarr;"

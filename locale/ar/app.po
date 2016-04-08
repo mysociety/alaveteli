@@ -1435,9 +1435,8 @@ msgstr "كلمات البحث"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "آخر مؤسسة تمّ الإطلاع عليها : {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "آخر مطلب وقع الإطلاع عليه: "
+msgstr "آخر مطلب وقع الإطلاع عليه: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""

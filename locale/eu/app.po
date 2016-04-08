@@ -1455,9 +1455,8 @@ msgstr "Hitz gakoak"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Bisitatu den azken erakundea: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Ikusi den azken eskabidea: "
+msgstr "Ikusi den azken eskabidea: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""

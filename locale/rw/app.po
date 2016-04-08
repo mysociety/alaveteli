@@ -1421,9 +1421,8 @@ msgstr "Amagamboshingiro"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Umuyobozi uheruka kureba: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Ikibazo giheruka kurebwa:"
+msgstr "Ikibazo giheruka kurebwa: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""

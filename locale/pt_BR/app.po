@@ -1480,9 +1480,8 @@ msgstr "Palavras-chave"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Último órgão público visualizado: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Último pedido visualizado:"
+msgstr "Último pedido visualizado: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""

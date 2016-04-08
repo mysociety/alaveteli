@@ -1532,9 +1532,8 @@ msgstr "Katakunci"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Otoritas terakhir yang dilihat: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Permintaan terakhir yang dilihat: "
+msgstr "Permintaan terakhir yang dilihat: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""

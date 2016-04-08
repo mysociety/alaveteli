@@ -1438,9 +1438,8 @@ msgstr "מילות מפתח"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "הרשות האחרונה שנצפתה: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "בקשה אחרונה שנצפתה:"
+msgstr "בקשה אחרונה שנצפתה: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""

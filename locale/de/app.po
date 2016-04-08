@@ -1473,9 +1473,8 @@ msgstr "Stichwörter"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Zuletzt angesehene Behörde: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Zuletzt angesehene Anfrage:"
+msgstr "Zuletzt angesehene Anfrage: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""

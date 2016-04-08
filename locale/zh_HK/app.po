@@ -1416,9 +1416,8 @@ msgstr "關鍵字"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr ""
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "最後已讀要求:"
+msgstr "最後已讀要求: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""

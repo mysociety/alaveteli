@@ -1425,9 +1425,8 @@ msgstr "Ključne besede"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Zadnji pregledani organ: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Zadnji pregledani zahtevek:"
+msgstr "Zadnji pregledani zahtevek: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""

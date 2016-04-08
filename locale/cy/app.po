@@ -1436,9 +1436,8 @@ msgstr "Allweddeiriau"
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Yr awdurdod diwethaf edrychwyd arno: {{authority_url}}"
 
-#, fuzzy
 msgid "Last request viewed: {{request_url}}"
-msgstr "Y cais diwethaf edrychwyd arno: "
+msgstr "Y cais diwethaf edrychwyd arno: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""
