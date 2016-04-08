@@ -4029,9 +4029,8 @@ msgstr "這是甚麼？"
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
 msgstr ""
 
-#, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
-msgstr "正在 <strong>等待你澄清某些事項</strong>。"
+msgstr "{{authority_name}} 正在 <strong>等待你澄清某些事項</strong>。"
 
 msgid "{{count}} FOI requests found"
 msgstr "找到 {{count}} 宗要求"

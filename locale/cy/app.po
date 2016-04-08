@@ -4085,9 +4085,8 @@ msgstr "beth yw hynny?"
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
 msgstr "{{authority_name}} Nid oedd gan y wybodaeth y gofynnwyd amdani."
 
-#, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
-msgstr "yn <strong>aros am eich eglurhad</strong>."
+msgstr "{{authority_name}} yn <strong>aros am eich eglurhad</strong>."
 
 msgid "{{count}} FOI requests found"
 msgstr "Daethpwyd o hyd i {{count}} cais Rhyddid Gwybodaeth"

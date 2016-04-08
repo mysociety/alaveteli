@@ -4070,9 +4070,8 @@ msgstr "kva er det?"
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
 msgstr "{{authority_name}} <strong>hadde ikkje</strong> informasjonen du bad om."
 
-#, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
-msgstr "<strong>ventar på dine avklaringer</strong>"
+msgstr "{{authority_name}} <strong>ventar på dine avklaringer</strong>"
 
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} krav om innsyn funnet"

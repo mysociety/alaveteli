@@ -4155,9 +4155,8 @@ msgstr "Çfarë është ajo?"
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
 msgstr "{{authority_name}} <strong>nuk e kanë</strong> informacionin e kërkuar."
 
-#, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
-msgstr "është duke <strong>pritur për sqarimin tuaj</strong>."
+msgstr "{{authority_name}} është duke <strong>pritur për sqarimin tuaj</strong>."
 
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} Kërkesa për te Drejten e Informimit u gjetën"

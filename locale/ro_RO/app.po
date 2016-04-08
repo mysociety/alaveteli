@@ -4081,9 +4081,8 @@ msgstr "ce este aceasta?"
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
 msgstr "{{authority_name}} <strong>nu au avut</strong>  informaţia solicitată."
 
-#, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
-msgstr " <strong>aşteaptă clarificarea ta</strong>."
+msgstr "{{authority_name}} <strong>aşteaptă clarificarea ta</strong>."
 
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} solicitări de acces la informații găsite"

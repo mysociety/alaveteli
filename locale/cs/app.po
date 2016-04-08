@@ -4237,9 +4237,8 @@ msgstr "co je to?"
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
 msgstr "{{authority_name}} <strong>neměli</strong> požadované informace."
 
-#, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
-msgstr "<strong>čeká na vaše vysvětlení</strong>."
+msgstr "{{authority_name}} <strong>čeká na vaše vysvětlení</strong>."
 
 msgid "{{count}} FOI requests found"
 msgstr "nalezeno {{count}} dotazy / dotazů "

@@ -4066,9 +4066,8 @@ msgstr "што е тоа?"
 msgid "{{authority_name}} <strong>did not have</strong> the information requested."
 msgstr "{{authority_name}} <strong>ја немаше</strong> бараната информација."
 
-#, fuzzy
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
-msgstr "<strong>чека на Ваше објаснување</strong>."
+msgstr "{{authority_name}} <strong>чека на Ваше објаснување</strong>."
 
 msgid "{{count}} FOI requests found"
 msgstr "пронајдени се {{count}} барања за слободен пристап до информации од јавен карактерznačaja"
