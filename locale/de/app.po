@@ -4215,9 +4215,9 @@ msgstr "{{reason}}, erstellen Sie einen Account oder loggen sich ein"
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "Dann können Sie sich auf {{site_name}} einloggen. "
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
+"{{reason}}."
 "Leider ist uns die IFG-Emailadresse dieser Behörde nicht bekannt, somit können wir dies nicht bestätigen.\n"
 "Bitte <a href=\"{{url}}\">kontaktieren Sie uns</a> zur Klärung der Angelegenheit."
 

@@ -4333,9 +4333,9 @@ msgstr "{{reason}}, sisplau inicia sessió o dóna d'alta un nou compte."
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "Entonces podrá entrar a {{site_name}}"
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
+"{{reason}}."
 "Desgraciadamente no tenemos la dirección\n"
 "de correo para este organismo, así que no podemos validarlo.\n"
 "Por favor <a href=\"{{url}}\">contáctenos</a> para arreglarlo."

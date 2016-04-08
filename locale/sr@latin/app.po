@@ -4234,9 +4234,9 @@ msgstr "{{reason}}, molimo prijavite se na sistem ili se registrujte."
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "Tada se možete prijaviti na {{site_name}}"
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
+"{{reason}}."
 "Nažalost nemamo e-mail adresu za ZOSPI\n"
 "te ustanove, tako da ne možemo da ovo validiramo.\n"
 "Molimo <a href=\"{{url}}\">kontaktirajte nas</a> da to razjasnimo."

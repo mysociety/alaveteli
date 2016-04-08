@@ -4340,9 +4340,9 @@ msgstr "{{reason}}, silakan masuk atau membuat akun baru."
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "Maka Anda dapat masuk ke {{site_name}}"
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
+"{{reason}}."
 "Sayangnya kami tidak mengetahui FOI \n"
 "alamat email untuk otoritas tersebut, sehingga kami tidak dapat memvalidasi ini.\n"
 "Silakan <a href=\"{{url}}\">hubungi kami</a> untuk mengatasinya."
