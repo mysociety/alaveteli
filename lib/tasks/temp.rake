@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+
   desc 'Analyse rails log specified by LOG_FILE to produce a list of request volume'
   task :request_volume => :environment do
     example = 'rake log_analysis:request_volume LOG_FILE=log/access_log OUTPUT_FILE=/tmp/log_analysis.csv'

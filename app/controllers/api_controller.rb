@@ -168,17 +168,17 @@ class ApiController < ApplicationController
     if InfoRequest.allowed_incoming_states.include?(new_state)
       ActiveRecord::Base.transaction do
         event = @request.log_event("status_update",
-        { :script => "#{@public_body.name} on behalf of requester via API",
-        :old_described_state => @request.described_state,
-        :described_state => new_state,
-        })
+                                   { :script => "#{@public_body.name} on behalf of requester via API",
+                                     :old_described_state => @request.described_state,
+                                     :described_state => new_state,
+                                     })
         @request.set_described_state(new_state)
       end
     else
       render :json => {
         "errors" => ["'#{new_state}' is not a valid request state" ]
       },
-      :status => 500
+        :status => 500
       return
     end
 
@@ -197,20 +197,20 @@ class ApiController < ApplicationController
     event_type_clause = "event_type in ('sent', 'followup_sent', 'resent', 'followup_resent')"
 
     @events = InfoRequestEvent.where(event_type_clause) \
-    .joins(:info_request) \
-    .where("public_body_id = ?", @public_body.id) \
-    .includes([{:info_request => :user}, :outgoing_message]) \
-    .order('info_request_events.created_at DESC')
+      .joins(:info_request) \
+      .where("public_body_id = ?", @public_body.id) \
+      .includes([{:info_request => :user}, :outgoing_message]) \
+      .order('info_request_events.created_at DESC')
 
     if since_date_str
       begin
         since_date = Date.strptime(since_date_str, "%Y-%m-%d")
       rescue ArgumentError
         render :json => {"errors" => [
-          "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')" ] },
+        "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')" ] },
           :status => 500
-          return
-       end
+        return
+      end
       @events = @events.where("info_request_events.created_at >= ?", since_date)
     end
 
@@ -221,9 +221,9 @@ class ApiController < ApplicationController
         event = InfoRequestEvent.find(since_event_id)
       rescue ActiveRecord::RecordNotFound
         render :json => {"errors" => [
-          "Event ID #{since_event_id} not found" ] },
+        "Event ID #{since_event_id} not found" ] },
           :status => 500
-          return
+        return
       end
       @events = @events.where("info_request_events.created_at > ?", event.created_at)
     end
