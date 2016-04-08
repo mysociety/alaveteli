@@ -2774,9 +2774,8 @@ msgstr "Sedan kan du uppdatera statusen för din begäran till {{authority_name}
 msgid "Then you can upload an FOI response. "
 msgstr "Sedan kan du ladda upp ett svar till din begäran om allmän handling. "
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Kunde inte skicka uppföljningsmeddelande till {{username}}"
+msgstr "Då kan du skriva uppföljningsmeddelande till {{authority_name}}."
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

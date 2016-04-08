@@ -2893,9 +2893,8 @@ msgstr "Tada možete ažurirati status vašeg zahtjeva prema {{authority_name}}.
 msgid "Then you can upload an FOI response. "
 msgstr "Tada možete postaviti odgovor na Zahtjev o slobodnom pristupu informacijama."
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Ne možemo poslati popratnu pokuku za {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

@@ -2770,9 +2770,8 @@ msgstr "Тогаш можете да го ажурирате статусот н
 msgid "Then you can upload an FOI response. "
 msgstr "Тогаш можете да прикачите одговор. "
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Не може да се испрати порака за реакција до {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

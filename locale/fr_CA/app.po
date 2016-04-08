@@ -2784,9 +2784,8 @@ msgstr "Vous pourrez ensuite mettre à jour le statut de votre demande à {{auth
 msgid "Then you can upload an FOI response. "
 msgstr "Vous pourrez ensuite mettre en ligne une réponse."
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Impossible d'envoyer un message de suivi à {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

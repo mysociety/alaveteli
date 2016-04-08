@@ -2780,9 +2780,8 @@ msgstr "Zatem lahko posodobite stanje vaših zahtevkov na {{authority_name}}."
 msgid "Then you can upload an FOI response. "
 msgstr "Zatem lahko naložite odgovor na zahtevek IJZ"
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Ni bilo možno poslati odziva osebi {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

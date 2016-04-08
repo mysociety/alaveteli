@@ -2789,9 +2789,8 @@ msgstr "אז תוכלו לעדכן את מצב הבקשה שלכם ל- {{authori
 msgid "Then you can upload an FOI response. "
 msgstr "אז תוכלו להעלות בקשת מידע"
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "לא ניתן לשלוח הודעת מעקב ל- {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

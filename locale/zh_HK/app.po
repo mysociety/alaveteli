@@ -2763,9 +2763,8 @@ msgstr ""
 msgid "Then you can upload an FOI response. "
 msgstr ""
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "傳送一項公開的跟進訊息至{{person_or_body}}"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

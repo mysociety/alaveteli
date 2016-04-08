@@ -2837,9 +2837,8 @@ msgstr "Dann können Sie den Status Ihrer Nachricht aktualisieren {{authority_na
 msgid "Then you can upload an FOI response. "
 msgstr "Dann können Sie eine IFG-Antwort hochladen. "
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Nachfrage an {{username}} kann nicht gesendet werden"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

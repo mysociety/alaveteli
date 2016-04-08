@@ -2772,9 +2772,8 @@ msgstr "Ubwo ushobora guhindura irangamimerere y'ikibazo kuri {{authority_name}}
 msgid "Then you can upload an FOI response. "
 msgstr "Ubwo ushobora gushyiraho igisubizo cy'ubwisanzure bwo kumenya amakuru"
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Ntibishoboka kwoherereza {{username}} ubutumwa bwo gukurikirana"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

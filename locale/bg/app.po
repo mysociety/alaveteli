@@ -2772,9 +2772,8 @@ msgstr "След това ще можете да обновите статуса
 msgid "Then you can upload an FOI response. "
 msgstr "След това ще може да качите отговор за ДдИ. "
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Не бе възможно да се изпрати пояснително съобщение до {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

@@ -2787,9 +2787,8 @@ msgstr "Så kan du oppdater status på førespurnaden til {{authority_name}}."
 msgid "Then you can upload an FOI response. "
 msgstr "Så kan du senda ein innsynsbegjæring"
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Klarte ikkje senda oppfølgingsmelding til {{username}}"
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

@@ -2823,9 +2823,8 @@ msgstr "Orduan gaurkotu ahal izango duzu zure eskabidearen egoera {{authority_na
 msgid "Then you can upload an FOI response. "
 msgstr "Orduan erantzuna igo ahal izango duzu. "
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
+msgstr ""
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

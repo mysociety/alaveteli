@@ -2844,9 +2844,8 @@ msgstr "Me pas mund të perditesosh statusin e kërkesës tuaj për {{authority_
 msgid "Then you can upload an FOI response. "
 msgstr "Me pas mund të ngarkoni një përgjigje ndaj kërkesës për te Drejten e Informimit. "
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "E pamundur per te derguar një mesazh vijues tek {{username}}"
+msgstr "Më pas mund të dërgoni mesazh te {{authority_name}}."
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."

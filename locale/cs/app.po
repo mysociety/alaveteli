@@ -2899,9 +2899,8 @@ msgstr "Poté můžete aktualizovat status svého dotazu na {{authority_name}}."
 msgid "Then you can upload an FOI response. "
 msgstr "Poté můžete nahrát odpověď na váš dotaz."
 
-#, fuzzy
 msgid "Then you can write follow up message to {{authority_name}}."
-msgstr "Nelze poslat odpověď uživateli {{username}}"
+msgstr "Poté můžete napsat odpověď pro {{authority_name}}."
 
 #, fuzzy
 msgid "Then you can write your reply to {{authority_name}}."
