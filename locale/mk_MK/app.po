@@ -4135,9 +4135,8 @@ msgstr "{{public_body}} испрати порака до {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, Ве молиме најавете се или креирајте нов профил."
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "Тогаш можете да се најавите на {{site_name}}"
+msgstr "{{reason}}, Ве молиме најавете се како {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""

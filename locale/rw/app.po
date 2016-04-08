@@ -4119,9 +4119,8 @@ msgstr "{{public_body}} yoherereje igisubizo {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, injira cyangwa ufungure indi konti."
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "Ubwo ushobora kwinjira kuri {{site_name}}"
+msgstr "{{reason}}, injira nka {{user_name}}."
 
 #, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."

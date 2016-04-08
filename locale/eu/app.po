@@ -4191,9 +4191,8 @@ msgstr "{{public_body}}-k {{user_name}}-ri erantzun dio."
 msgid "{{reason}}, create an account or sign in"
 msgstr ""
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "Orduan {{site_name}}-ra sartu ahal izango duzu."
+msgstr "{{reason}}, mesedez, ireki ezazu saioa _______ bezala {{user_name}}."
 
 #, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."

@@ -4114,9 +4114,8 @@ msgstr "{{public_body}} sent a response to {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, create an account or sign in"
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "Then you can sign in to {{site_name}}"
+msgstr "{{reason}}, please sign in as {{user_name}}."
 
 #, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."

@@ -4148,9 +4148,8 @@ msgstr "{{public_body}} שלח/ה תגובה ל-  {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, בבקשה התחברו או צרו חשבון חדש."
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "אז תוכלו להיכנס לאתר {{site_name}}"
+msgstr "{{reason}}, בבקשה התחבר כ {{user_name}}."
 
 #, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."

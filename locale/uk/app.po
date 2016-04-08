@@ -4260,9 +4260,8 @@ msgstr "{{public_body}} відповів(-ла) користувачу {{user_na
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, будь ласка, увійдіть або авторизуйтесь."
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "Далі ви можете увійти на сайт"
+msgstr "{{reason}}, будь ласка, увійдіть як {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""

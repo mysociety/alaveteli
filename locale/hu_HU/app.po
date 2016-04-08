@@ -4333,9 +4333,8 @@ msgstr "{{public_body}} választ küldött {{user_name}} részére "
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, jelentkezzen be vagy hozzon létre új fiókot"
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "Ezután bejelentkezhet a {{site_name}} weboldalra "
+msgstr "{{reason}}, jelentkezzen be mint {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""

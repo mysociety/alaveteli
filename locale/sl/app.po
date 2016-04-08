@@ -4151,9 +4151,8 @@ msgstr "Organ {{public_body}} je odgovoril {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, prosimo prijavite se ali ustvarite nov račun."
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "Zatem se lahko prijavite na {{site_name}}"
+msgstr "{{reason}}, prosimo, prijavite se kot {{user_name}}."
 
 #, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."

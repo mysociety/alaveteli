@@ -4139,9 +4139,8 @@ msgstr "{{public_body}} sende eit svar til {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, ver venleg og logg inn eller lag ein ny konto."
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "Deretter kan du logga inn på {{site_name}}"
+msgstr "{{reason}}, logg deg inn som {{user_name}}."
 
 #, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
