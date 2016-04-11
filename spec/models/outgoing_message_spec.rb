@@ -444,6 +444,18 @@ describe OutgoingMessage do
         expect(message.smtp_message_ids).to eq([smtp_id])
       end
 
+      it 'removes the enclosing angle brackets' do
+        message = FactoryGirl.create(:initial_request)
+        smtp_id = message.info_request_events.first.params[:smtp_message_id]
+        old_format_smtp_id = "<#{ smtp_id }>"
+        message.
+          info_request_events.
+            first.
+              update_attributes(:params => {
+                                  :smtp_message_id => old_format_smtp_id })
+        expect(message.smtp_message_ids).to eq([smtp_id])
+      end
+
       it 'returns an empty array if the smtp_message_id was not logged' do
         message = FactoryGirl.create(:initial_request)
         message.info_request_events.first.update_attributes(:params => {})
