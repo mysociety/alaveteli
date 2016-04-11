@@ -21,7 +21,7 @@ gem 'jquery-rails', '~> 3.1.4'
 gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'json', '~> 1.8.1'
 gem 'holidays', '~> 2.2.0'
-gem 'iso_country_codes', '~> 0.6.1'
+gem 'iso_country_codes', '~> 0.7.3'
 gem 'mahoro', '~> 0.4'
 gem 'memcache-client', '~> 1.8.5'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_19]
