@@ -232,9 +232,8 @@ msgstr "<strong>私隱聲明：</strong> 以下人士將得悉你的電郵地址
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "已提供<strong>部份資料</strong>"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "已要求作出<strong>澄清</strong>"
+msgstr ""
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr ""

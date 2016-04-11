@@ -231,9 +231,8 @@ msgstr "<strong>Icyitonderwa:</strong> Ubutumwa bwayu n'igisubizo cyose\\n      
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Hari amakuru</strong> yamaze kwoherezwa "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Shimira</strong> umuyobozi cyangwa "
+msgstr "<strong>Shimira</strong> umuyobozi cyangwa uwabajije."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Shimira</strong> umuyobozi cyangwa {{user_name}}."

@@ -229,9 +229,8 @@ msgstr "<strong>Забелешка за приватност:</strong> Ваша�
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Некои од информациите</strong> беа испратени "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Заблагодарете</strong> му се ја имателот или "
+msgstr "<strong>Заблагодарете</strong> му се ја имателот или барателот."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Заблагодарете</strong> му се ја имателот или {{user_name}}."

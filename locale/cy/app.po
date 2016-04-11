@@ -244,9 +244,8 @@ msgstr "<strong>Rhybudd preifatrwydd:</strong> Bydd eich neges, ac unrhyw ymateb
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Anfonwyd rhan o'r wybodaeth</strong>"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Diolch</strong> i'r awdurdod cyhoeddus neu"
+msgstr "<strong>Diolch</strong> i'r awdurdod cyhoeddus neu y ceisydd."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Diolch</strong> i'r awdurdod cyhoeddus neu {{user_name}}."

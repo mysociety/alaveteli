@@ -257,9 +257,8 @@ msgstr ""
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Disa nga informacionet</strong> janë dërguar "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Falënderoji</strong> institucion publik ose "
+msgstr "<strong>Falënderoji</strong> institucion publik ose kërkuesi."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Falënderoji</strong> institucion publik ose {{user_name}}."

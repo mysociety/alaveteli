@@ -270,9 +270,8 @@ msgstr ""
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Beberapa informasi</strong> telah dikirimkan "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Berterima kasih kepada</strong> otoritas publik atau "
+msgstr "<strong>Berterima kasih kepada</strong> otoritas publik atau peminta informasi."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Berterima kasih kepada</strong> otoritas publik atau {{user_name}}."

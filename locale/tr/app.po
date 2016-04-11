@@ -234,9 +234,8 @@ msgstr "<strong>Gizlilik notu:</strong> Şifrenizin verileceği kimseler"
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "İstediğim bilginin<strong>bir kısmı</strong> gönderildi "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "Kamu kuruluşuna <strong>teşekkür edin</strong> ya da "
+msgstr "Kamu kuruluşuna <strong>teşekkür edin</strong> ya da başvuran."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "Kamu kuruluşuna <strong>teşekkür edin</strong> ya da {{user_name}}."

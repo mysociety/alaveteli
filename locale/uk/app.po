@@ -265,9 +265,8 @@ msgstr ""
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "Інформація була надіслана частково."
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Подякуйте</strong> розпоряднику інформації або "
+msgstr "<strong>Подякуйте</strong> розпоряднику інформації або автор запиту."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Подякуйте</strong> розпоряднику інформації або {{user_name}}."

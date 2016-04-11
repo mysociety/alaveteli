@@ -245,9 +245,8 @@ msgstr "<strong>אזהרת פרטיות:</strong> <strong>אזהרת פרטיו�
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>חלק מהמידע</strong> נשלח "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>הודו</strong> לרשות הציבורית או "
+msgstr "<strong>הודו</strong> לרשות הציבורית או המבקש."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>הודו</strong> לרשות הציבורית או {{user_name}}."

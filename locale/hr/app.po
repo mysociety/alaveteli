@@ -258,9 +258,8 @@ msgstr "<strong>Upozorenje o privatnosti:</strong> Vaša poruka i bilo koji\\n o
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Dio informacija</strong> je poslan "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Zahvali</strong> javnoj vlasti ili "
+msgstr "<strong>Zahvali</strong> javnoj vlasti ili osoba koja je podnijela zahtjev."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Zahvali</strong> javnoj vlasti ili {{user_name}}."

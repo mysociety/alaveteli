@@ -264,9 +264,8 @@ msgstr ""
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Az információk egy része</strong> el lett küldve "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Köszönje meg</strong> a közintézménynek vagy"
+msgstr "<strong>Köszönje meg</strong> a közintézménynek vagy igénylő."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Köszönje meg</strong> a közintézménynek vagy {{user_name}}."

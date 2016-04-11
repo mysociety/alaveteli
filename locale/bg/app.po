@@ -232,9 +232,8 @@ msgstr "<strong>Предупреждение за лични данни:</strong
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Част от информацията</strong> е изпратена "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "Да <strong>благодарите</strong> на публичния орган или "
+msgstr "Да <strong>благодарите</strong> на публичния орган или заявителят."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "Да <strong>благодарите</strong> на публичния орган или {{user_name}}."

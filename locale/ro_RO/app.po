@@ -249,9 +249,8 @@ msgstr "<strong>Alertă de confidențialitate:</strong> Mesajul tău și orice r
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Unele dintre informaţii</strong> au fost trimise."
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Mulţumiri </strong> autorităţii publice sau "
+msgstr "<strong>Mulţumiri </strong> autorităţii publice sau solicitantul."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Mulţumiri </strong> autorităţii publice sau {{user_name}}."

@@ -271,9 +271,8 @@ msgstr ""
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Některé informace</strong> byly odeslány"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Poděkujte</strong> instituci, nebo"
+msgstr "<strong>Poděkujte</strong> instituci, nebo tazatel."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Poděkujte</strong> instituci, nebo {{user_name}}."

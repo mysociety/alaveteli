@@ -244,9 +244,8 @@ msgstr "<strong>Personvern sitt OBS:</strong> Meldinga di og alle svar\\n\\n    
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Noko av informasjonen</strong> vart sendt"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Takk</strong> styresmakta eller "
+msgstr "<strong>Takk</strong> styresmakta eller spørjaren."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Takk</strong> styresmakta eller {{user_name}}."

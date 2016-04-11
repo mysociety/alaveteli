@@ -258,9 +258,8 @@ msgstr "<strong>Avertissement de confidentialité:</strong> Votre message, et to
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Certaines informations</strong> ont été envoyées "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Remerciez</strong> l'autorité publique ou"
+msgstr "<strong>Remerciez</strong> l'autorité publique ou Le demandeur."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Remerciez</strong> l'autorité publique ou {{user_name}}."

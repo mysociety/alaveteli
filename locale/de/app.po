@@ -262,9 +262,8 @@ msgstr "<strong>Datenschutzhinweis:</strong> Ihre Nachricht als auch alle entspr
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "Information wurde teilweise gesendet"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Danken Sie</strong> der Behörde oder "
+msgstr "<strong>Danken Sie</strong> der Behörde oder der Anfragesteller."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Danken Sie</strong> der Behörde oder {{user_name}}."

@@ -233,9 +233,8 @@ msgstr "<strong>Sekretessvarning:</strong> Ditt meddelande, och något svar på 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>En del av informationen</strong> har skickats "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Tacka</strong> den publika myndigheten eller "
+msgstr "<strong>Tacka</strong> den publika myndigheten eller den frågande."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Tacka</strong> den publika myndigheten eller {{user_name}}."
