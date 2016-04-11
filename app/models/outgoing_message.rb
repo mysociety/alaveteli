@@ -177,7 +177,10 @@ class OutgoingMessage < ActiveRecord::Base
     info_request_events.
       order('created_at ASC').
         map { |event| event.params[:smtp_message_id] }.
-          compact
+          compact.
+            map do |smtp_id|
+              smtp_id.match(/<(.*)>/) { |m| m.captures.first } || smtp_id
+            end
   end
 
   # Public: Return logged MTA IDs for this OutgoingMessage.
