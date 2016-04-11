@@ -157,7 +157,7 @@ GEM
       tilt
     highline (1.6.19)
     hike (1.2.3)
-    holidays (2.2.0)
+    holidays (3.2.0)
     htmlentities (4.3.4)
     i18n (0.7.0)
     icalendar (1.4.3)
@@ -366,7 +366,7 @@ DEPENDENCIES
   gettext_i18n_rails (~> 0.9.4)
   globalize3!
   gnuplot (= 2.6.2)
-  holidays (~> 2.2.0)
+  holidays (~> 3.2.0)
   htmlentities (~> 4.3.4)
   icalendar (= 1.4.3)
   iso_country_codes (~> 0.6.1)
