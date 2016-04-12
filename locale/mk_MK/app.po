@@ -2380,9 +2380,8 @@ msgstr "Испратете порака"
 msgid "Send message to {{user_name}}"
 msgstr "Испратете порака до {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "само да видите како работи"
+msgstr "Испратете порака до {{user_name}} само да видите како работи"
 
 msgid "Send request"
 msgstr "Испратете барање"

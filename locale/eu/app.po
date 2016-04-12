@@ -2422,9 +2422,8 @@ msgstr "Bidali mezua"
 msgid "Send message to {{user_name}}"
 msgstr "Bidali _____-ri mezua {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "nola funtzionatzen duen ikustearren"
+msgstr "Bidali _____-ri mezua {{user_name}} nola funtzionatzen duen ikustearren"
 
 msgid "Send request"
 msgstr "Bidali eskabidea"

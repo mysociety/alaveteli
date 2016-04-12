@@ -2399,9 +2399,8 @@ msgstr "Anfon neges"
 msgid "Send message to {{user_name}}"
 msgstr "Anfon neges i {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "dim ond i weld sut mae'n gweithio"
+msgstr "Anfon neges i {{user_name}} dim ond i weld sut mae'n gweithio"
 
 msgid "Send request"
 msgstr "Anfon cais"

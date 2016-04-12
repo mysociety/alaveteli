@@ -2411,9 +2411,8 @@ msgstr "Envoyer un message "
 msgid "Send message to {{user_name}}"
 msgstr "Envoyer un message à {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "Juste pour voir comment ça marche"
+msgstr "Envoyer un message à {{user_name}} juste pour voir comment ça marche"
 
 msgid "Send request"
 msgstr "Envoyer une demande "

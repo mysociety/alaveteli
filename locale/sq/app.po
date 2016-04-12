@@ -2444,9 +2444,8 @@ msgstr "Dërgo mesazh"
 msgid "Send message to {{user_name}}"
 msgstr "Dërgo mesazh tek {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "vetëm për të parë se si funksionon"
+msgstr "Dërgo mesazh tek {{user_name}} vetëm për të parë se si funksionon"
 
 msgid "Send request"
 msgstr "Dërgo kërkesën"

@@ -2440,9 +2440,8 @@ msgstr "Nachricht senden"
 msgid "Send message to {{user_name}}"
 msgstr "Nachricht senden an {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "um zu sehen wie es funktioniert"
+msgstr "Nachricht senden an {{user_name}} um zu sehen wie es funktioniert"
 
 msgid "Send request"
 msgstr "Anfrage senden"

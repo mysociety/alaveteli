@@ -2500,9 +2500,8 @@ msgstr "Üzenet küldése "
 msgid "Send message to {{user_name}}"
 msgstr "Üzenet küldése a következőnek: {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "Csak hogy megnézzük, hogyan működik "
+msgstr "Üzenet küldése a következőnek: {{user_name}} Csak hogy megnézzük, hogyan működik "
 
 msgid "Send request"
 msgstr "Igénylés küldése "

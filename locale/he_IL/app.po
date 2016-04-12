@@ -2399,9 +2399,8 @@ msgstr "שלחו הודעה"
 msgid "Send message to {{user_name}}"
 msgstr "שלחו הודעה {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "רק כדי לראות איך זה עובד"
+msgstr "שלחו הודעה {{user_name}} רק כדי לראות איך זה עובד"
 
 msgid "Send request"
 msgstr "שלחו בקשה"

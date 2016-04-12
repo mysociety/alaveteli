@@ -2508,9 +2508,8 @@ msgstr "Kirim pesan"
 msgid "Send message to {{user_name}}"
 msgstr "Kirim pesan kepada {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "hanya untuk melihat cara kerjanya"
+msgstr "Kirim pesan kepada {{user_name}} hanya untuk melihat cara kerjanya"
 
 msgid "Send request"
 msgstr "Kirim permintaan"

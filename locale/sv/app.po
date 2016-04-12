@@ -2384,9 +2384,8 @@ msgstr "Skicka meddelande"
 msgid "Send message to {{user_name}}"
 msgstr "Skicka meddelande till {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "bara för att se hur det fungerar"
+msgstr "Skicka meddelande till {{user_name}} bara för att se hur det fungerar"
 
 msgid "Send request"
 msgstr "Skicka begäran"

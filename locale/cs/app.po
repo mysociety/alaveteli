@@ -2484,9 +2484,8 @@ msgstr "Vznést dotaz"
 msgid "Send message to {{user_name}}"
 msgstr "Vznést dotaz na {{user_name}}"
 
-#, fuzzy
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr "můžete si tak otestovat, že systém funguje"
+msgstr "Vznést dotaz na {{user_name}} můžete si tak otestovat, že systém funguje"
 
 msgid "Send request"
 msgstr "Vznést dotaz"
