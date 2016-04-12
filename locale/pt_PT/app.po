@@ -4226,9 +4226,8 @@ msgstr "{{user_name}} adicionou um comentário"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} fez anotações em seu pedido de\\n{{law_used_short}}. Siga este link para saber o que foi escrito."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "esta resposta necessita de atenção do administrador. Responda este e-mail para que eles saibam o que você fará sobre isso."
+msgstr "{{user_name}} reportou um {{law_used}} esta resposta necessita de atenção do administrador. Responda este e-mail para que eles saibam o que você fará sobre isso."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} usou o {{site_name}} para enviar-lhe a mensagem abaixo."

@@ -4258,9 +4258,8 @@ msgstr ""
 "{{user_name}} hat Ihres {{law_used_short}} \n"
 "Anfrage kommentiert. Folgen Sie diesem Link, um die Anmerkung zu sehen."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "Antwort als Administrator-Check bedürftig. Schau nach und antworte auf diese Email, um sie wissen zu lassen was Du damit tun wirst. "
+msgstr "{{user_name}} hat berichtet {{law_used}} Antwort als Administrator-Check bedürftig. Schau nach und antworte auf diese Email, um sie wissen zu lassen was Du damit tun wirst."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} hat {{site_name}} verwendet, um Ihnen die unten angezeigte Nachricht zu senden."

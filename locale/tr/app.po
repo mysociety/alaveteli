@@ -4176,9 +4176,8 @@ msgstr "{{user_name}} bir açıklama notu ekledi"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} adlı kullanıcı,  {{law_used_short}} \\nbaşvurunuza bir açıklama notu ekledi. Ne yazdığını görmek için bu bağlantıyı tıklayın."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "cevabın site yöneticisi tarafından gözden geçirilmesi gerekli. Bir göz atın ve bu\\n email adresine cevap vererek onlara bu konuda ne yapacağınızı yazın. "
+msgstr "{{user_name}} raporladı {{law_used}} cevabın site yöneticisi tarafından gözden geçirilmesi gerekli. Bir göz atın ve bu\\n email adresine cevap vererek onlara bu konuda ne yapacağınızı yazın."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}}, {{site_name}} sitesini kullanarak size aşağıdaki mesajı gönderdi. "

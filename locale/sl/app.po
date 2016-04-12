@@ -4195,9 +4195,8 @@ msgstr "{{user_name}} je dodal zaznamek"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} je dodal zaznamek na vaš zahtevek za {{law_used_short}}.\\n Sledite tej povezavi, da vidite kaj je napisal."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "odgovor, da potrebuje ukrepanje administratorjev. Poglejte in odgovorite na to e-pošto ter jim sporočite kaj boste storili."
+msgstr "{{user_name}} je poročal o {{law_used}} odgovor, da potrebuje ukrepanje administratorjev. Poglejte in odgovorite na to e-pošto ter jim sporočite kaj boste storili."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} je uporabil {{site_name}}, da vam je poslal spodnje sporočilo."

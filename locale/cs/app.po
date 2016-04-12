@@ -4362,9 +4362,8 @@ msgstr ""
 "Uživatel {{user_name}} uložil poznámku k vašemu dotazu. \n"
 "Kliknutím na dotaz si ji přečtete."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "administrátorovi. Podívejte se prosím na vznesený dotaz i odpověď. Až uděláte nezbytné kroky, odpovězte na tento e-mail a stručně je popište."
+msgstr "{{user_name}} nahlásil {{law_used}} administrátorovi. Podívejte se prosím na vznesený dotaz i odpověď. Až uděláte nezbytné kroky, odpovězte na tento e-mail a stručně je popište."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "Uživatel {{user_name}} využil stránek {{site_name}} pro zaslání níže uvedené zprávy:"

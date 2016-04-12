@@ -4272,9 +4272,8 @@ msgstr "{{user_name}} shtoi një shënim"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} ka lënë shënim në kërkesën tënde. Ndiqni këtë lidhje për të parë se çfarë kane shkruar."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "përgjigje që ka nevojë për vëmendjen e administratorit. Hidhni një sy, dhe përgjigju ketij mesazhi, për t'i njoftuar se çfarë do të bëni lidhur me të."
+msgstr "{{user_name}} ka raportuar një {{law_used}} përgjigje që ka nevojë për vëmendjen e administratorit. Hidhni një sy, dhe përgjigju ketij mesazhi, për t'i njoftuar se çfarë do të bëni lidhur me të."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} ka përdorur {{site_name}} për të dërguar mesazhin e posht shënuar."

@@ -4163,9 +4163,8 @@ msgstr "{{user_name}} yongeyeho ibisobanuro"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} yatanze ibisobanuro {{law_used_short}} \\nku kibazo cyawe. Kurikira aka kayoboro urebe ibyo banditse."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "subiza ko gikenewe kurebwa n'abayobozi b'urubuga. Gisome, hanyuma usubize iyi\\nimeli ubabwire icyo ugiye kubikoraho."
+msgstr "{{user_name}} yagaragaje {{law_used}} subiza ko gikenewe kurebwa n'abayobozi b'urubuga. Gisome, hanyuma usubize iyi\\nimeli ubabwire icyo ugiye kubikoraho."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} yakoresheje {{site_name}} akwoherereza ubutumwa buri hepfo."

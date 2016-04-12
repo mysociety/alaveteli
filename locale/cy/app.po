@@ -4206,9 +4206,8 @@ msgstr "Ychwanegodd {{user_name}} anodiad"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Mae {{user_name}} wedi anodi eich cais {{law_used_short}}. Dilynwch y ddolen hon i weld beth ysgrifennodd."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "ymateb sydd angen sylw gweinyddwr. Cymerwch olwg, ac ymatebwch i'r e-bost hwn i roi gwybod iddynt beth yr ydych yn mynd i'w wneud am y peth."
+msgstr "{{user_name}} wedi adrodd {{law_used}} ymateb sydd angen sylw gweinyddwr. Cymerwch olwg, ac ymatebwch i'r e-bost hwn i roi gwybod iddynt beth yr ydych yn mynd i'w wneud am y peth."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "Defnyddiodd {{user_name}} {{site_name}} i anfon y neges isod atoch."

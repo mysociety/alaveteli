@@ -4180,9 +4180,8 @@ msgstr "{{user_name}} la til en merknad"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} har skrevet en merknad på din {{law_used_short}} \\nhenvendelse. Følg lenken nedenfor for å se hva de skrev."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "respons som trenger oppmerksomhet fra en administrator.  Ta en titt, og svar\\npå denne eposten for å la dem vite hva du kommer til å gjøre med det."
+msgstr "{{user_name}} har rapportert en {{law_used}} respons som trenger oppmerksomhet fra en administrator.  Ta en titt, og svar\\npå denne eposten for å la dem vite hva du kommer til å gjøre med det."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} har brukt {{site_name}} for å sende deg meldingen nedenfor."

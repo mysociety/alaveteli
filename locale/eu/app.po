@@ -4239,9 +4239,8 @@ msgstr ""
 "{{user_name}}-k zure {{law_used_short}} eskabidearen iruzkina egin du. \n"
 "Jarraitu esteka honi idatzi duena ikusteko."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "erantzunak administratzailearen parte hartzea behar du. Berrikusi eta erantzun iezaiozu email honi adierazteko honen inguruan zer egingo duzun."
+msgstr "{{user_name}} _______ bat salatu du. {{law_used}} erantzunak administratzailearen parte hartzea behar du. Berrikusi eta erantzun iezaiozu email honi adierazteko honen inguruan zer egingo duzun."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}}-k {{site_name}} erabili du ondoko mezua bidaltzeko."

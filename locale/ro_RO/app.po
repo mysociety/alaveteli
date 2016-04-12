@@ -4198,9 +4198,8 @@ msgstr "{{user_name}} a adăugat o adnotare"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} a adnotat solicitarea {{law_used_short}} \\n. Utilizează acest link pentru a vedea ce au scris."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "răspuns ca având nevoie de atenția administratorului. Uită-te pe el și răspunde la acest\\nemail pentru a-i anunța cu privire la ce vei face în legătură cu aceasta."
+msgstr "{{user_name}} a fost raportat un {{law_used}} răspuns ca având nevoie de atenția administratorului. Uită-te pe el și răspunde la acest\\nemail pentru a-i anunța cu privire la ce vei face în legătură cu aceasta."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} a utilizat  {{site_name}} pentru a vă trimite mesajul de mai jos"

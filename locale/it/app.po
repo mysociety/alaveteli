@@ -4177,9 +4177,8 @@ msgstr ""
 "{{user_name}} ha aggiunto un'annotazione alla tua richiesta di {{law_used_short}}. \n"
 "Clicca sul link per vedere cosa ha scritto."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "risposta che necessita dell'attenzione dell'amministratore. Dai un'occhiata e rispondi a questa email per far sapere loro cosa farai a riguardo."
+msgstr "{{user_name}} ha segnalato un {{law_used}} risposta che necessita dell'attenzione dell'amministratore. Dai un'occhiata e rispondi a questa email per far sapere loro cosa farai a riguardo."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} ha usato {{site_name}} per inviare il messaggio qui sotto."
