@@ -2307,9 +2307,8 @@ msgstr "Igisubizo kuri iki kibazo <strong>cyararengeranye</strong>."
 msgid "Response to your request"
 msgstr "Igisubizo ku kibazo cyawe"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Igisubizo gishya ku kibazo cya {{law_used_short}} "
+msgstr ""
 
 msgid "Response:"
 msgstr "Igisubizo:"

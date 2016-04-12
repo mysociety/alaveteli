@@ -2317,9 +2317,8 @@ msgstr "Svaret for denne henvendelsen er <strong>svært forsinket</strong>."
 msgid "Response to your request"
 msgstr "Svar på din henvendelse"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Nytt svar på {{law_used_short}}-henvendelse"
+msgstr ""
 
 msgid "Response:"
 msgstr "Svar:"

@@ -2329,9 +2329,8 @@ msgstr "Răspunsul la această cerere este <strong> mult peste termen</strong>."
 msgid "Response to your request"
 msgstr "Răspuns la solicitarea ta"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Răspuns nou la cererea  {{law_used_short}} "
+msgstr ""
 
 msgid "Response:"
 msgstr "Răspuns:"

@@ -2366,9 +2366,8 @@ msgstr "A resposta deste pedido está <strong>muito atrasada</strong>."
 msgid "Response to your request"
 msgstr "Resposta para seu pedido"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Nova resposta a um pedido de informação via {{law_used_short}}"
+msgstr ""
 
 msgid "Response:"
 msgstr "Resposta:"

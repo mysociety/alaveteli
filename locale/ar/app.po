@@ -2325,9 +2325,8 @@ msgstr "الردّ على هذا المطلب <strong>تأخر كثيراً</str
 msgid "Response to your request"
 msgstr "الردّ على مطلبكم"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "ردّ جديد على {{law_used_short}} المطلب"
+msgstr ""
 
 msgid "Response:"
 msgstr "الردّ:"

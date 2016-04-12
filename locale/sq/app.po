@@ -2366,9 +2366,8 @@ msgstr "Përgjigja e kësaj kërkese është <strong>vonuar.</strong>"
 msgid "Response to your request"
 msgstr "përgjigje për kërkesën tënde"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Përgjigje e re për kërkesën {{law_used_short}}"
+msgstr "Përgjigja e kërkesës për {{law_used_short}}"
 
 msgid "Response:"
 msgstr "Përgjigja:"

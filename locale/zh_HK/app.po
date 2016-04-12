@@ -2301,9 +2301,8 @@ msgstr "此索取資料要求的回應已經<strong>嚴重逾期</strong>。"
 msgid "Response to your request"
 msgstr "有關你的要求的回應"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "提出一個{{law_used_short}}要求"
+msgstr ""
 
 msgid "Response:"
 msgstr "回應："

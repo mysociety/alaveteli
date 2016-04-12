@@ -2336,9 +2336,8 @@ msgstr "La réponse à cette demande est <strong> très en retard </ strong"
 msgid "Response to your request"
 msgstr "Réponse a vôtre requête "
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Nouvelle réponse à la {{law_used_short}} demande "
+msgstr ""
 
 msgid "Response:"
 msgstr "Réponse:"

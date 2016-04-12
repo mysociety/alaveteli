@@ -2362,9 +2362,8 @@ msgstr "Die Antwort auf diese Anfrage ist <strong>lange im Rückstand</strong>."
 msgid "Response to your request"
 msgstr "Reagieren Sie auf Ihre Anfrage"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Neue Antwort auf {{law_used_short}} Anfrage"
+msgstr ""
 
 msgid "Response:"
 msgstr "Antwort:"

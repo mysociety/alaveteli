@@ -2344,9 +2344,8 @@ msgstr "Eskabide honen erantzuna <strong>oso atzeratuta</strong> dago."
 msgid "Response to your request"
 msgstr "Zure eskabidearen erantzuna"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Zure {{law_used_short}} eskabideari egindako erantzun berria"
+msgstr ""
 
 msgid "Response:"
 msgstr "Erantzun:"

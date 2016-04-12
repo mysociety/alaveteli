@@ -2309,9 +2309,8 @@ msgstr "Svar på denna begäran är <strong>mycket försenad</strong>."
 msgid "Response to your request"
 msgstr "Svar till din begäran"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Nytt svar till {{law_used_short}}-begäran"
+msgstr "Svar till {{law_used_short}} begäran"
 
 msgid "Response:"
 msgstr "Svar:"

@@ -2420,9 +2420,8 @@ msgstr "La resposta a aquesta sol·licitud està <strong>molt endarrerida</stron
 msgid "Response to your request"
 msgstr "Respuesta a tu solicitud"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Nueva respuesta a tu solicitud {{law_used_short}}"
+msgstr ""
 
 msgid "Response:"
 msgstr "Respuesta:"

@@ -2315,9 +2315,8 @@ msgstr "I tempi di risposta a questa richiesta <strong>sono scaduti</strong>."
 msgid "Response to your request"
 msgstr "Risposta alla tua richiesta"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Nuova risposta alla richiesta secondo la legge {{law_used_short}}"
+msgstr ""
 
 msgid "Response:"
 msgstr "Risposta:"

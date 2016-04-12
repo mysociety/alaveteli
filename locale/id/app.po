@@ -2430,9 +2430,8 @@ msgstr "Respon atas permintaan ini <strong>sudah lama terlambat</strong>."
 msgid "Response to your request"
 msgstr "Respon terhadap permintaan Anda"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Respon baru untuk {{law_used_short}} permintaan"
+msgstr ""
 
 msgid "Response:"
 msgstr "Respon:"

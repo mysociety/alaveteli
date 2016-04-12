@@ -2406,9 +2406,8 @@ msgstr "Odpověď na tento dotaz <strong>má velké zpoždění</strong>."
 msgid "Response to your request"
 msgstr "Odpověď na váš dotaz"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Nové odpovědi na {{law_used_short}} dotaz"
+msgstr "Odpověď na {{law_used_short}} dotaz"
 
 msgid "Response:"
 msgstr "Odpověď: "

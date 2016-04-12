@@ -2324,9 +2324,8 @@ msgstr "Mae'r ymateb i'r cais hwn yn <strong>hwyr iawn</strong>."
 msgid "Response to your request"
 msgstr "Ymateb i'ch cais"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Ymateb newydd i'r cais {{law_used_short}} "
+msgstr ""
 
 msgid "Response:"
 msgstr "Ymateb:"

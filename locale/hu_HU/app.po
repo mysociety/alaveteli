@@ -2422,9 +2422,8 @@ msgstr "Az igénylést már <strong>régen meg kellett volna válaszolni</strong
 msgid "Response to your request"
 msgstr "Válasz igénylésére "
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Új válasz a(z) {{law_used_short}} igénylésre "
+msgstr ""
 
 msgid "Response:"
 msgstr "Válasz: "

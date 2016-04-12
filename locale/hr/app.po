@@ -2379,9 +2379,8 @@ msgstr "Odgovor na ovaj zahtjev <strong>kasni</strong>."
 msgid "Response to your request"
 msgstr "Odgovor na Vaš zahtjev"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Novi odgovor na zahtjev za {{law_used_short}}"
+msgstr ""
 
 msgid "Response:"
 msgstr "Odgovor:"

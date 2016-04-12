@@ -2305,9 +2305,8 @@ msgstr "Одговорот на ова барање е со <strong>многу �
 msgid "Response to your request"
 msgstr "Одговор на вашето барање"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Нов одговор до {{law_used_short}} барање"
+msgstr ""
 
 msgid "Response:"
 msgstr "Одговор:"

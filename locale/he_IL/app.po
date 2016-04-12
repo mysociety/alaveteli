@@ -2324,9 +2324,8 @@ msgstr "התגובה לבקשה זו <strong>מתעכבת מאוד</strong>."
 msgid "Response to your request"
 msgstr "תגובה לבקשה שלך"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "תגובה חדשה לבקשת {{law_used_short}}"
+msgstr ""
 
 msgid "Response:"
 msgstr "תגובה:"

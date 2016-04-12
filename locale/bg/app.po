@@ -2307,9 +2307,8 @@ msgstr "Отговорът на това заявление е <strong>знач�
 msgid "Response to your request"
 msgstr "Отговор на Ваше заявление"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Нов отговор на заявление за {{law_used_short}}"
+msgstr ""
 
 msgid "Response:"
 msgstr "Отговор:"

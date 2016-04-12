@@ -2398,9 +2398,8 @@ msgstr "Відповідь на цей запит прострочена"
 msgid "Response to your request"
 msgstr "Відповідь на ваш запит"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Нова відповідь на запит"
+msgstr ""
 
 msgid "Response:"
 msgstr "Відповідь:"

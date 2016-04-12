@@ -2302,9 +2302,8 @@ msgstr "Response to this request is <strong>long overdue</strong>."
 msgid "Response to your request"
 msgstr "Response to your request"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "New response to {{law_used_short}} request"
+msgstr ""
 
 msgid "Response:"
 msgstr "Response:"

@@ -2320,9 +2320,8 @@ msgstr "Svaret for denne førespurnaden er <strong>svært forseinka</strong>."
 msgid "Response to your request"
 msgstr "Svar på din førespurnad"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Nytt svar på {{law_used_short}}-førespurnad"
+msgstr ""
 
 msgid "Response:"
 msgstr "Svar:"

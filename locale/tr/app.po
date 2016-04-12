@@ -2314,9 +2314,8 @@ msgstr "Bu başvuruya verilmesi gereken cevap için <strong>yasal süre dolalı 
 msgid "Response to your request"
 msgstr "Başvurunuza gelen cevap"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "{{law_used_short}} Başvuruya yeni bir cevap "
+msgstr ""
 
 msgid "Response:"
 msgstr "Cevap:"

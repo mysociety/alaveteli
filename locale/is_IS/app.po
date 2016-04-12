@@ -2301,9 +2301,8 @@ msgstr ""
 msgid "Response to your request"
 msgstr "Svar við beiðninni þinni"
 
-#, fuzzy
 msgid "Response to {{law_used_short}} request"
-msgstr "Svar við beiðninni þinni"
+msgstr ""
 
 msgid "Response:"
 msgstr "Svar:"
