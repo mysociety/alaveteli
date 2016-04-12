@@ -2576,9 +2576,8 @@ msgstr "Merci de nous aider à maintenir le site en ordre!"
 msgid "Thank you for making an annotation!"
 msgstr "Merci pour votre annotation!"
 
-#, fuzzy
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
-msgstr "Merci d'avoir répondu à cette demande d'accès aux documents! Votre réponse a été publiée ci-dessous et un lien vers votre réponse a été envoyé par courriel à "
+msgstr "Merci d'avoir répondu à cette demande d'accès aux documents! Votre réponse a été publiée ci-dessous et un lien vers votre réponse a été envoyé par courriel à {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Merci d'avoir mis à jour le statut de la demande  '<a href=\"{{url}}\">{{info_request_title}}</a>'. Il y a encore quelques demandes ci-dessous à classer."

@@ -2566,9 +2566,8 @@ msgstr "Tack för att du hjälper oss att hålla ordning på den här sidan!"
 msgid "Thank you for making an annotation!"
 msgstr "Tack för att du gör en kommentar!"
 
-#, fuzzy
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
-msgstr "Tack för att du svarar på denna begäran om allmän handling! Ditt svar har blivit publicerast nedan och en länk till ditt svar har mejlats till "
+msgstr "Tack för att du svarar på denna begäran om allmän handling! Ditt svar har blivit publicerast nedan och en länk till ditt svar har mejlats till {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Tack för att du uppdaterar statusen för begäran '<a href=\"{{url}}\">{{info_request_title}}</a>'. Det finns några fler förfrågningar nedan för dig att klassificera."

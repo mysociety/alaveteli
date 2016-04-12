@@ -2642,9 +2642,8 @@ msgstr "Hvala što nam pomažete da održavamo ovu mrežnu stranicu urednom!"
 msgid "Thank you for making an annotation!"
 msgstr "Hvala što ste napravili pribilješku!"
 
-#, fuzzy
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
-msgstr "Hvala na Vašem odgovoru na ovaj Zahtjev za pristup informacijama! Vaš je odgovor objavljen ispod, a poveznica na Vaš odgovor poslana je elektroničkom poštom za"
+msgstr "Hvala na Vašem odgovoru na ovaj Zahtjev za pristup informacijama! Vaš je odgovor objavljen ispod, a poveznica na Vaš odgovor poslana je elektroničkom poštom za {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Hvala na ažuriranju statusa zahtjeva '<a href=\"{{url}}\">{{info_request_title}}</a>'. Ispod je još nekoliko zahtjeva koje možete klasificirati."

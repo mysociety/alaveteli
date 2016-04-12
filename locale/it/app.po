@@ -2572,9 +2572,8 @@ msgstr "Grazie per averci dato una mano a tenere il sito in ordine!"
 msgid "Thank you for making an annotation!"
 msgstr "Grazie per aver aggiunto un'annotazione!"
 
-#, fuzzy
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
-msgstr "Grazie per aver risposto a questa richiesta di accesso! La tua risposta è stata pubblicata qui sotto e un link alla tua risposta è stato spedito a "
+msgstr "Grazie per aver risposto a questa richiesta di accesso! La tua risposta è stata pubblicata qui sotto e un link alla tua risposta è stato spedito a {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Grazie per aver aggiornato lo stato della richiesta '<a href=\"{{url}}\">{{info_request_title}}</a>'. Qui sotto ci sono altre richieste che puoi aiutarci a classificare."

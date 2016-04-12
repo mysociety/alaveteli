@@ -2562,9 +2562,8 @@ msgstr "Ви благодариме што помагате да го одржи
 msgid "Thank you for making an annotation!"
 msgstr "Ви благодариме што направивте белешка!"
 
-#, fuzzy
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
-msgstr "Ви благодариме што одговоривте на ова барање за слободен пристап до информации од јавен карактер! Вашиот одговор е објавен подолу и пратена е врска до вашето барање по е-пошта до "
+msgstr "Ви благодариме што одговоривте на ова барање за слободен пристап до информации од јавен карактер! Вашиот одговор е објавен подолу и пратена е врска до вашето барање по е-пошта до {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Ви благодариме за ажурирање на статусот на барањето '<a href=\"{{url}}\">{{info_request_title}}</a>'. Постојат уште неколку барања подолу кои може да ги класифицирате."

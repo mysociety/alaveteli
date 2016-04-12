@@ -2564,9 +2564,8 @@ msgstr "Murakoze kudufasha kugira isuku kuri uru rubuga!"
 msgid "Thank you for making an annotation!"
 msgstr "Murakoze gutanga ibisobanuro!"
 
-#, fuzzy
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
-msgstr "Murakoze gusubiza iki kibazo cy'ubwisanzure bwo kumenya amakuru! Igisubizo cyawe cyatangajwe aha hakurikira, n'ihuza ku gisubizo cyawe yohererejwe "
+msgstr "Murakoze gusubiza iki kibazo cy'ubwisanzure bwo kumenya amakuru! Igisubizo cyawe cyatangajwe aha hakurikira, n'ihuza ku gisubizo cyawe yohererejwe {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Urakoze kuvugurura irangamimerere y'ikibazo '<a href=\"{{url}}\">{{info_request_title}}</a>'. Hari ibindi bibazo hepfo bitegereje ko ubishyingura."

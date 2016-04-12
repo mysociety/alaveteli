@@ -2587,9 +2587,8 @@ msgstr "Vă mulţumim pentru că ne ajutaţi să menţinem acest site îngrijit 
 msgid "Thank you for making an annotation!"
 msgstr "Vă mulţumim pentru adnotarea făcută!"
 
-#, fuzzy
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
-msgstr "Vă mulţumim pentru răspunsul la această solicitare de acces la informații! Răspunsul dvs. a fost publicat mai jos şi un link către răspunsul dvs. a fost trimis prin email către"
+msgstr "Vă mulţumim pentru răspunsul la această solicitare de acces la informații! Răspunsul dvs. a fost publicat mai jos şi un link către răspunsul dvs. a fost trimis prin email către {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Vă mulţumim pentru actualizarea stării pentru cererea  '<a href=\"{{url}}\">{{info_request_title}}</a>'. Mai există câteva cereri mai jos pe care ar trebui să le clasificaţi."
