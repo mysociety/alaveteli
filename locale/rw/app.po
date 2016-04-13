@@ -3590,9 +3590,8 @@ msgstr "Umaze kugerageza kwiyandikisha kuri {{site_name}}, kandi\\nwari usanzwe 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Uzi aho ikosa ryavuye kandi ushobora <strong>gutanga ibitekerezo ku gisubizo</strong>, nka imeli ikora."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "yasize igisobanuro"
+msgstr "Wowe yasize igisobanuro ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Ushobora <strong>gushyiraho indi migereka</strong>. Niba wifuza gushyiraho umugereka \\n  munini utajya kuri imeli, koresha ifishi ikurikira."

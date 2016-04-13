@@ -3658,9 +3658,8 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Badakizu zerk eragin duen errorea eta <strong>irtenbidea iradoki</a> ahal duzu, hala nola helbide elektroniko ez baliagarria."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "iruzkin bat utzi du"
+msgstr "Zu iruzkin bat utzi du ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr ""

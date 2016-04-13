@@ -3590,9 +3590,8 @@ msgstr "Вие току-що се опитахте да се регистрир�
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Знаете кое е предизвикало грешката и можете да <strong>предложите решение</strong>, като работещ имейл адрес."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "остави коментар"
+msgstr "Вие остави коментар ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Можете <strong>да добавяте файлове</strong>. Ако искате да прикрепите\\nфайл, твърде голям за имейл, ползвайте формата по-долу."

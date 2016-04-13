@@ -3619,9 +3619,8 @@ msgstr "Rydych newydd geisio i gofrestru ar {{site_name}}, er bod gennych gyfrif
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Rydych yn gwybod beth achosodd y gwall, a gallwch <strong>awgrymu datrysiad</ strong>, fel cyfeiriad e-bost sy'n gweithio."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "gadael anodiad"
+msgstr "Chi gadael anodiad ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Gallwch <strong>gynnwys atodiadau</ strong>. Os hoffech chi atodi ffeil sy'n rhy fawr ar gyfer e-bost, defnyddiwch y ffurflen isod."

@@ -3687,9 +3687,8 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Ju e dini se çfarë shkaktoi gabimin dhe mund të <strong>sugjeroni një zgjidhje,</strong>p.sh. nje adresë funksionale të institucionit."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "ka lënë një shënim"
+msgstr "Ju ka lënë një shënim ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Ju keni mundesine <strong>te perfshini dokumente te bashkangjitura</strong>. Nese deshironi t'i bashkangjisni nje dokument qe eshte shume i madh per mesazhin elektronik, perdorni formularin si me poshte."

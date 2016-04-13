@@ -3795,9 +3795,8 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Anda tahu apa yang menyebabkan kesalahan tersebut, dan dapat <strong>menyarankan solusi</strong>, seperti alamat email yang bekerja."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "tinggalkan anotasi"
+msgstr "Anda tinggalkan anotasi ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Anda dapat <strong>mengikutsertakan lampiran</strong>. Jika Anda hendak melampirkan sebuah\\n file yang terlalu besar untuk email, gunakan formulir di bawah."

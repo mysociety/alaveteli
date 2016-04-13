@@ -3607,9 +3607,8 @@ msgstr "ניסיתם להירשם לאתר {{site_name}}, כאשר\\nכבר יש
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "בהכירכם את הסיבה לתקלה, תוכלו <strong>להציע פתרון</strong>, כמו כתובת דוא\"ל פעילה.."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "השאיר הודעה"
+msgstr "אתם השאיר הודעה ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "אתם יכולים <strong>לצרף קבצים</strong>. אם ברצונכם לצרף  \\n  קובץ שהוא גדול מדי לדוא\"ל, אנא השתמשו בטופס למטה."

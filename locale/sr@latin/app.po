@@ -3688,9 +3688,8 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Znate šta je uzrok ove greške i možete <strong>predložiti rešenje</strong>, poput ispravne e-mail adrese."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "ostavio napomenu"
+msgstr "Vi ostavio napomenu ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Možete <strong>ubaciti priloge</strong>. Ako želite ubaciti datoteku\\n preveliku za e-mail poruke, koristite obrazac ispod."

@@ -3585,9 +3585,8 @@ msgstr "You just tried to sign up to {{site_name}}, when you\\nalready have an a
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "left an annotation"
+msgstr "You left an annotation ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."

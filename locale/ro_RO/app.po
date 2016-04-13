@@ -3618,9 +3618,8 @@ msgstr "Tocmai ai încercat să te înregistrezi la {{site_name}}, când ai \\nd
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Ştiţi ce a cauzat eroarea şi puteţi <strong>sugera o soluţie</strong>, cum ar fi o adresă de email valabilă."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "lăsaţi o adnotare"
+msgstr "Tu lăsaţi o adnotare ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Poți <strong>include atașamente</strong>. Dacă vrei să atașezi un\\n fișier prea mare pentru email, utilizează formularul de mai jos."

@@ -3674,9 +3674,8 @@ msgstr "Sie haben soeben versucht sich als neuer Nutzer von AskTheEU.org zu regi
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Sie kennen die Ursache des Fehlers und können eine <strong>Lösung anbieten</strong>, wie z.B. eine funktionierende Email-Adresse. "
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "Anmerkung hinterlassen"
+msgstr "Sie Anmerkung hinterlassen ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr ""

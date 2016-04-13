@@ -3603,9 +3603,8 @@ msgstr "Zaten bir {{site_name}} hesabınız varken, yeni\\n bir hesap oluşturma
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Hatanın nedenini biliyorsanız <strong>bir çözüm önerebilirsiniz</strong>; ör: çalışan bir mail adresi gibi. "
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "bir açıklama notu bıraktı"
+msgstr "Siz bir açıklama notu bıraktı ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Başvurunuza <strong>ek dosya</strong> ekleyebilirsiniz. Eklemek istediğiniz dosya email ile iletmek için çok büyükse\\n aşağıdaki formu kullanın. "

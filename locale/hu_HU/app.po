@@ -3788,9 +3788,8 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "ön tudja, hogy mi okozta a hibát, és tud <strong>megoldást javasolni</strong>, mint például egy ténylegesen működő e-mail címet. "
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "szóljon hozzá"
+msgstr "ön szóljon hozzá ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "<strong>Mellékleteket is csatolhat</strong>. Ha olyan fájlt szeretne csatolni, amely\\n e-mailben történő küldéshez túl nagy, használja az alábbi űrlapot. "

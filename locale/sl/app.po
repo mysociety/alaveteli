@@ -3608,9 +3608,8 @@ msgstr "Poskusili ste ustvariti nov račun na {{site_name}}, a ga že imate. Va�
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Če veste kaj je povzročilo napako, lahko <strong>predlagate rešitev</strong>, na primer delujoč e-poštni naslov."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "je dodal zaznamek"
+msgstr "Vi je dodal zaznamek ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "<strong>Dodate lahko priponke.</strong> Če želite pripeti datoteko, ki je prevelika za pošiljanje po e-pošti, uporabite spodnji obrazec."

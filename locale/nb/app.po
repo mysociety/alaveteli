@@ -3607,9 +3607,8 @@ msgstr "Du forsøkte å registrere deg på {{site_name}}, når du allerede\\nhar
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Du vet hva som forårsaket feilen, og kan <strong>foreslå en løsning</strong>, som en fungerende e-post adresse."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "la igjen en merknad"
+msgstr "Du la igjen en merknad ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Du kan velge å <strong>legge med vedlegg</strong>. Om du vil legge med en\\nfil som er for stor for e-post, kan du bruke skjema under."

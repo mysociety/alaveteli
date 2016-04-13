@@ -3592,9 +3592,8 @@ msgstr "Du försökte just registrera dig till {{site_name}}, när du redan har 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Du vet vad som orsakade felet, och kan <strong>föreslå en lösning</strong>, såsom en fungerande e-postadress."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "lämnade en kommentar"
+msgstr "Du lämnade en kommentar ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Du kan <strong>inkludera bilagor</strong>. Om du skulle vilja bifoga en fil som är för stor för e-postmeddelanden, använd formuläret nedan."

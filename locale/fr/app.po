@@ -3619,9 +3619,8 @@ msgstr "Vous avez  essayé de vous inscrire sur  {{site_name}}, alors que  vous 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Vous savez ce qui a causé l'erreur et pouvez <strong>recommender une solution </strong> , une adresse mail valide par exemple."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "a laissé une remarque"
+msgstr "Vous a laissé une remarque ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Vous pouvez <strong> inclure des pièces jointes </ strong>. Si vous souhaitez joindre un fichier \\n trop volumineux  pour le courrier électronique, utiliser le formulaire ci-dessous."

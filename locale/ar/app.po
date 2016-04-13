@@ -3632,9 +3632,8 @@ msgstr "لقد حاولت للتو تسجيل دخولك ل {{site_name}}, في 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "انت تعرف سبب الخطأ, وتستطيع <strong>اقتراح حل</strong>, مثل مد بريد الكتروني صحيح."
 
-#, fuzzy
 msgid "You left an annotation ({{date}})"
-msgstr "ترك ملاحظة"
+msgstr "انت ترك ملاحظة ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "بامكانك <strong>تضمين ملحقات</strong>. اذا كنت ترغب في الحاق \\n  ملف كبير ليبعث على البريد الاكتروني, استعمل الصيغة اسفله."
