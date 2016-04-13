@@ -1412,9 +1412,8 @@ msgstr "Eitemau a anfonwyd yn y mis diwethaf"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "tîm {{site_name}}"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Dim ond un peth arall"

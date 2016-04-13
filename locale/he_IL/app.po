@@ -1414,9 +1414,8 @@ msgstr "פריטים שנשלחו בחודש שעבר"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "צוות האתר {{site_name}}"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "רק עוד דבר אחד"

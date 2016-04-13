@@ -1399,9 +1399,8 @@ msgstr "Saker skickade den senaste månaden"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "till {{site_name}} arbetsgrupp"
+msgstr "Gick med på {{site_name}} under {{year}}"
 
 msgid "Just one more thing"
 msgstr "Bara en sak till"

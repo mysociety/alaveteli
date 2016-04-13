@@ -1397,9 +1397,8 @@ msgstr "Ibintu byoherejwe mu kwezi gushize"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "itsinda rya {{site_name}} "
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Ikindi kintu kimwe gusa"

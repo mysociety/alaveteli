@@ -1479,9 +1479,8 @@ msgstr ""
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "{{site_name}} tim"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr ""

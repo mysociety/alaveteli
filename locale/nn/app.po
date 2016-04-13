@@ -1410,9 +1410,8 @@ msgstr "Oppføringer sendt siste månad"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "{{site_name}}-gjengen"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Berre ein ting til"

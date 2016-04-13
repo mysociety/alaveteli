@@ -1397,9 +1397,8 @@ msgstr "Неща, изпратени през последния месец"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "екипът на {{site_name}}"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Само още едно нещо"

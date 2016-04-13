@@ -1507,9 +1507,8 @@ msgstr "Item terkirim pada akhir bulan"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "tim {{site_name}}"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Satu hal lagi"

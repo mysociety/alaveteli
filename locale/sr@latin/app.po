@@ -1421,9 +1421,8 @@ msgstr "Poslato prošlog meseca"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "tim {{site_name}}"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Samo još jedna stvar"

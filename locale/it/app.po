@@ -1405,9 +1405,8 @@ msgstr "Elementi inviati lo scorso mese"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "lo staff di {{site_name}} "
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Ancora una cosa"

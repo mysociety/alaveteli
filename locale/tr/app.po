@@ -1404,9 +1404,8 @@ msgstr "Geçen ay gönderilen başlıklar"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr " {{site_name}} ekibi"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Bir şey daha var"

@@ -1442,9 +1442,8 @@ msgstr "Pedidos enviados no último mês"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "a equipe do {{site_name}}"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Só mais um detalhe"

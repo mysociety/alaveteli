@@ -1401,9 +1401,8 @@ msgstr "Stvari, poslane v zadnjem mesecu"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "ekipa {{site_name}}"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr "Še ena stvar"

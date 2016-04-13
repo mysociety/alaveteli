@@ -1449,9 +1449,8 @@ msgstr "Artikuj te derguar muajin e kaluar"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "ekipi i {{site_name}}"
+msgstr "Regjistruar tek {{site_name}} në {{year}}"
 
 msgid "Just one more thing"
 msgstr "Dhe dicka tjeter"

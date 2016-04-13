@@ -1393,9 +1393,8 @@ msgstr "上個月發送的項目"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "{{site_name}}網站團隊"
+msgstr ""
 
 msgid "Just one more thing"
 msgstr ""

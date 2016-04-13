@@ -1486,9 +1486,8 @@ msgstr "Odesláno poslední měsíc"
 msgid "Joined in {{year}}."
 msgstr ""
 
-#, fuzzy
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "Tým stránek {{site_name}}"
+msgstr "Registrován na {{site_name}} v {{year}}"
 
 msgid "Just one more thing"
 msgstr "Popište stručně co se stalo"
