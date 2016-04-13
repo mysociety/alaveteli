@@ -3473,9 +3473,8 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Andika ikibazo cyawe <strong>mu magambo yoroshye kandi urasa ku ntego</strong>."
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "{{existing_request_user}} wamaze\\n      gutanga icyo kibazo kuwa {{date}}. Ushobora kureba <a href=\"{{existing_request}}\">ikibazo gisanzwe</a>,\\n      cyangwa se ugahindura ibisobanuro bikurikira ugatanga ikindi ikibazo gisa na cyakindi."
+msgstr ""
 
 msgid "You are already following new requests"
 msgstr "Wamaze gukurikira ibindi bibazo"

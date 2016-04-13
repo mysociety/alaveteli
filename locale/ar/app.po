@@ -3515,9 +3515,8 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "اكتب طلبك <strong>بلغة بسيطة ودقيقة</strong>."
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "{{existing_request_user}} قد سبق له أن\\n      قام بنفس الطلب بتاريخ {{date}}.يمكنك أن تشاهد <a href=\"{{existing_request}}\">الطلب الموجود</a>,\\n      أو تحوير التفاصيل أسفله للقيام بطلب جديد وان كان مشابها."
+msgstr ""
 
 msgid "You are already following new requests"
 msgstr "سبق لك أن بدأت متابعة طلبات جديدة"

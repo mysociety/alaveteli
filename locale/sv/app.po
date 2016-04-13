@@ -3475,9 +3475,8 @@ msgstr "Skriv ditt svar angående begäran om allmän handling till {{authority_
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Skriv din begäran i <strong>enkelt, exakt språk</strong>."
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "{{existing_request_user}} har redan skapat samma begäran den {{date}}. Du kan ändra se <a href=\"{{existing_request}}\">den existerande begäran</a>, eller redigera detaljerna nedaför för att göra en ny men liknande begäran."
+msgstr "Du har redan skapat samma serie av förfrågningar den {{date}}. Du kan ändra se den <a href=\"{{existing_batch}}\">existerande serie</a>, eller redigera detaljerna nedan för att göra en ny men liknande serie av förfrågningar."
 
 msgid "You are already following new requests"
 msgstr "Du följer redan nya förfrågningar"

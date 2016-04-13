@@ -3490,9 +3490,8 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Skriv henvendelsen i <strong>enkelt, nøyaktig språk</strong>."
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "{{existing_request_user}} har allerede laget samme henvendelse den {{date}}. Du kan enten se på den <a href=\"{{existing_request}}\">eksisterende henvendelsen</a>, eller redigere detaljene under for å lage en ny men lignende henvendelse."
+msgstr ""
 
 msgid "You are already following new requests"
 msgstr "Du følger allerede nye henvendelser"

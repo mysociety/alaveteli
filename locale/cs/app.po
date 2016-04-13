@@ -3638,9 +3638,8 @@ msgstr ""
 "Svůj dotaz formulujte v jasných bodech. \n"
 "Pokud žádáte o více nesouvisejících informací, rozdělte je do více dotazů. "
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "{{existing_request_user}} již vznesl stejný dotaz dne {{date}}. Můžete si <a href=\"{{existing_request}}\">tento dotaz</a> přečíst, nebo vzneste podobný, ale podle svých potřeb upravený dotaz."
+msgstr "Stejný hromadný dotaz byl již vytvořen dne {{date}}. Zobrazte si <a href=\"{{existing_batch}}\">existing batch</a>, nebo upravte parametry k položení nového podobného hromadného dotazu."
 
 msgid "You are already following new requests"
 msgstr "Nově vznesené dotazy již sledujete."

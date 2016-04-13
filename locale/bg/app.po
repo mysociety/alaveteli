@@ -3473,9 +3473,8 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Напишете заявлението си <strong>ясно и конкретно</strong>."
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "{{existing_request_user}} вече\\n отправи същото заявление на {{date}}. Вие можете да разгледате <a href=\"{{existing_request}}\">съществуващото Заявление</a>,\\n или да редактирате детайли по-долу за да направите ново подобно Заявление."
+msgstr ""
 
 msgid "You are already following new requests"
 msgstr "Вие вече следвате новите заявления"
