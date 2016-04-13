@@ -2897,9 +2897,8 @@ msgstr "Entonces podrá jugar al juego de clasificar solicitudes"
 msgid "Then you can report the request '{{title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "Then you can send a message to {{user_name}}."
-msgstr "Entonces podrá mandar un mensaje a"
+msgstr "Entonces podrá mandar un mensaje a {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Entonces podrá entrar a {{site_name}}"

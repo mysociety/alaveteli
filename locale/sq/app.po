@@ -2823,9 +2823,8 @@ msgstr "Me pas  ti mund të luash lojën për kategorizim të kërkesave."
 msgid "Then you can report the request '{{title}}'"
 msgstr "Me pas mund të raportoni kërkesën '{{title}}'"
 
-#, fuzzy
 msgid "Then you can send a message to {{user_name}}."
-msgstr "Me pas mund të dërgon mesazh te "
+msgstr "Me pas mund të dërgon mesazh te {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Me pas mund të kyçesh në {{site_name}}"

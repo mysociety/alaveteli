@@ -2766,9 +2766,8 @@ msgstr "Då kan du delta i spelet om kategorisering av førespurnader."
 msgid "Then you can report the request '{{title}}'"
 msgstr "Deretter kan du rapportera førespurnaden «{{title}}»"
 
-#, fuzzy
 msgid "Then you can send a message to {{user_name}}."
-msgstr "Så kan du senda ei melding til "
+msgstr "Så kan du senda ei melding til {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Deretter kan du logga inn på {{site_name}}"

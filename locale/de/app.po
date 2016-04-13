@@ -2817,9 +2817,8 @@ msgstr "Dann können Sie die helden einige Anfraggen zuzuordnen. "
 msgid "Then you can report the request '{{title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "Then you can send a message to {{user_name}}."
-msgstr "Dann können Sie eine Nachricht senden an"
+msgstr "Dann können Sie eine Nachricht senden an {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Dann können Sie sich auf {{site_name}} einloggen. "

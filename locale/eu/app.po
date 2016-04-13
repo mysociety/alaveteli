@@ -2803,9 +2803,8 @@ msgstr "Orduan eskabideak sailkatzeko jolasean jokatu ahal izango duzu."
 msgid "Then you can report the request '{{title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "Then you can send a message to {{user_name}}."
-msgstr "Orduan _____-ri mezu bat bidali ahal izango diozu"
+msgstr "Orduan _____-ri mezu bat bidali ahal izango diozu {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Orduan {{site_name}}-ra sartu ahal izango duzu."

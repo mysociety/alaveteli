@@ -2768,9 +2768,8 @@ msgstr "אז תוכלו לשחק במשחק סיווג הבקשות"
 msgid "Then you can report the request '{{title}}'"
 msgstr "לאחר מכן תוכלו לדווח על הבקשה '{{title}}'"
 
-#, fuzzy
 msgid "Then you can send a message to {{user_name}}."
-msgstr "אז תוכלו לשלוח הודעה ל- "
+msgstr "אז תוכלו לשלוח הודעה ל- {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "אז תוכלו להיכנס לאתר {{site_name}}"

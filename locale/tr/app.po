@@ -2761,9 +2761,8 @@ msgstr "Sonra bilgi edinme başvurusu kategorize etme oyununu oynayabilirsiniz"
 msgid "Then you can report the request '{{title}}'"
 msgstr "Sonra '{{title}}' başvurusunu şikayet edebilirsiniz"
 
-#, fuzzy
 msgid "Then you can send a message to {{user_name}}."
-msgstr "Sonra şu kişi veya kuruma bir mesaj iletebilirsiniz"
+msgstr "Sonra şu kişi veya kuruma bir mesaj iletebilirsiniz {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Sonra {{site_name}}'na giriş yapabilirsiniz"
