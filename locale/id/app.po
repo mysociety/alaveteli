@@ -1057,11 +1057,9 @@ msgstr ""
 "Hukum Freedom of Information tidak berlaku kepada otoritas ini, jadi Anda tidak dapat mengajukan\n"
 "                permintaan kepadanya."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr ""
-"Hukum Freedom of Information tidak berlaku kepada otoritas ini, jadi Anda tidak dapat mengajukan\n"
-"                permintaan kepadanya."
+
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""

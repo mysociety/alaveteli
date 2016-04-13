@@ -1003,9 +1003,8 @@ msgstr "Loi portant sur le droit d'accès aux documents"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Le droit d'accès aux documents ne s'applique pas à cet organisme. Vous ne pouvez donc pas \\n lui adresser de demandes."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Le droit d'accès aux documents ne s'applique pas à cet organisme. Vous ne pouvez donc pas \\n lui adresser de demandes."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""

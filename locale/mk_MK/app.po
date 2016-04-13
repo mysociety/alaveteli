@@ -989,9 +989,8 @@ msgstr "Закон за слободен пристап до информаци�
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Законот за Слободен пристап до информации не се однесува за овој имател, затоа не можете да направите\\n                барање до нив."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Законот за Слободен пристап до информации не се однесува за овој имател, затоа не можете да направите\\n                барање до нив."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""

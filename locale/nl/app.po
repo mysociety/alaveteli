@@ -990,9 +990,8 @@ msgstr "Wet openbaarheid van bestuur"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Wet openbaarheid van bestuur is niet van toepassing op deze instantie, u kunt daar geen verzoek voor indienen."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Wet openbaarheid van bestuur is niet van toepassing op deze instantie, u kunt daar geen verzoek voor indienen."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""

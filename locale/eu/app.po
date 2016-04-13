@@ -1019,9 +1019,8 @@ msgstr "Informaziorako Sarbidearen Legea"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Informaziorako Sarbidearen Legea ez zaio erakunde honi aplikatzen, horregatik ezin diozu informazio eskabidea bidali."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Informaziorako Sarbidearen Legea ez zaio erakunde honi aplikatzen, horregatik ezin diozu informazio eskabidea bidali."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""

@@ -1035,9 +1035,8 @@ msgstr "Ligji per te Drejten e Informimit "
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Ligji per te Drejten e Informimit nuk aplikohet per kete institucion, keshtu qe nuk mund te dergoni nje kerkese per te"
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Ligji per te Drejten e Informimit nuk aplikohet per kete institucion, keshtu qe nuk mund te dergoni nje kerkese per te"
+msgstr "Ligjet mbi Lirinë e Informacionit nuk janë të aplikueshme për këtë autoritet. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "Ligji per te Drejten e Informimit nuk aplikohet me per  {{public_body_name}}."

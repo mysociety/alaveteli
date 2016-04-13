@@ -991,9 +991,8 @@ msgstr "Igikorwa cy'ubwisanzure bwo kumenya amakuru"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Itegeko ry'ubwisanzure bwo kumenya amakuru ntabwo rireba uyu muyobozi, rero ntushobora gutanga\\n                ikibazo kirireba."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Itegeko ry'ubwisanzure bwo kumenya amakuru ntabwo rireba uyu muyobozi, rero ntushobora gutanga\\n                ikibazo kirireba."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "Itegeko ry'ubwisanzure bwo kumenya amakuru ntirikireba {{public_body_name}}."

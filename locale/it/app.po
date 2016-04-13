@@ -996,9 +996,8 @@ msgstr "Freedom of Information Act"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Il diritto di accesso non si applica a questa amministrazione, quindi non puoi inviare una richiesta."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Il diritto di accesso non si applica a questa amministrazione, quindi non puoi inviare una richiesta."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "La legge sul diritto di accesso non si applica più a {{public_body_name}}."

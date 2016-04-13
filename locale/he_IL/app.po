@@ -1008,9 +1008,8 @@ msgstr "חוק חופש המידע "
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "החלטת הממשלה אינה חלה על הרשות הזאת, אז אינכם יכולים לבקש ממנה מידע. "
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "החלטת הממשלה אינה חלה על הרשות הזאת, אז אינכם יכולים לבקש ממנה מידע. "
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "חוק חופש המידע אינו בתוקף לגבי {{public_body_name}}."

@@ -1048,11 +1048,8 @@ msgstr ""
 "Ви не можете зробити запит до цього органу влади, оскільки до нього не застосовується\n"
 "законодавство про доступ до інформації."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr ""
-"Ви не можете зробити запит до цього органу влади, оскільки до нього не застосовується\n"
-"законодавство про доступ до інформації."
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""

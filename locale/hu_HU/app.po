@@ -1046,11 +1046,8 @@ msgstr ""
 "Az információ szabadságáról szóló törvény nem vonatkozik erre a közintézményre, így nekik nem nyújthat be \n"
 "                igénylést. "
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr ""
-"Az információ szabadságáról szóló törvény nem vonatkozik erre a közintézményre, így nekik nem nyújthat be \n"
-"                igénylést. "
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""

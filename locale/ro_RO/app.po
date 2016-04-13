@@ -1010,9 +1010,8 @@ msgstr "Actul \"Libertatea de Informare\""
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Legea accesului la informații de interes public nu se aplică acestei autorități, prin urmare nu poți face\\n o solicitare în acest sens."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Legea accesului la informații de interes public nu se aplică acestei autorități, prin urmare nu poți face\\n o solicitare în acest sens."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""

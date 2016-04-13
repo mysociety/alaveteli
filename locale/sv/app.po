@@ -993,9 +993,8 @@ msgstr "Offentlighetsprincipen i Tryckfrihetsförordningen"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Offentlighetsprincipen gäller inte för denna myndighet, så du kan inte göra en begäran till den."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Offentlighetsprincipen gäller inte för denna myndighet, så du kan inte göra en begäran till den."
+msgstr "Offentlighetsprincipen gäller inte längre för denna myndighet. Uppföljningsmeddelanden till existerande förfrågningar skickas till <strong>{{authority_email}}</strong>."
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "Offentlighetsprincipen gäller inte längre för {{public_body_name}}."

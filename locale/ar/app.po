@@ -1005,9 +1005,8 @@ msgstr "قانون حرية المعلومات "
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "قانون حرية المعلومات لا ينطبق على هذه السلطة  ,لذلك ليس بامكانك تقديم مطلب لها\\n."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "قانون حرية المعلومات لا ينطبق على هذه السلطة  ,لذلك ليس بامكانك تقديم مطلب لها\\n."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""

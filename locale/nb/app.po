@@ -1001,9 +1001,8 @@ msgstr "Offentlighetslova"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Offentlighetslova gjelder ikke for denne etaten, så du kan ikke sende dem en\\n innsynshenvendelse."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Offentlighetslova gjelder ikke for denne etaten, så du kan ikke sende dem en\\n innsynshenvendelse."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "Offentlighetslova gjelder ikke lenger for {{public_body_name}}."

@@ -996,9 +996,8 @@ msgstr "Bilgi Edinme Hakkı Kanunu"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Bu kurum/kuruluş Bilgi  Edinme Hakkı Kanunu kapsamının dışındadır, bu yüzden başvuru yapılamaz."
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "Bu kurum/kuruluş Bilgi  Edinme Hakkı Kanunu kapsamının dışındadır, bu yüzden başvuru yapılamaz."
+msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "{{public_body_name}} Bilgi Edinme Hakkı Kanunu kapsamı dışına alınmıştır."
