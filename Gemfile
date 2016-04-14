@@ -50,7 +50,7 @@ gem 'gettext_i18n_rails', '~> 1.5.0'
 gem 'gettext', '~> 3.2.2'
 gem 'globalize3', :git => 'https://github.com/globalize/globalize.git', :ref => '5fd95f2389dff1'
 gem 'locale', '~> 2.1.2'
-gem 'routing-filter', '~> 0.3.1'
+gem 'routing-filter', '~> 0.4.0'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.2'
 

@@ -257,8 +257,8 @@ GEM
       mime-types (>= 1.16)
     rmagick (2.15.4)
     rotp (2.1.1)
-    routing-filter (0.3.1)
-      actionpack
+    routing-filter (0.4.0.1)
+      actionpack (< 4.2)
     rspec-activemodel-mocks (1.0.3)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
@@ -396,7 +396,7 @@ DEPENDENCIES
   rdoc (~> 3.12.2)
   recaptcha (~> 0.4.0)
   rmagick (~> 2.15.0)
-  routing-filter (~> 0.3.1)
+  routing-filter (~> 0.4.0)
   rspec-activemodel-mocks (~> 1.0.1)
   rspec-rails (~> 3.4.0)
   ruby-msg (~> 1.5.0)!
