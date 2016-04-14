@@ -12,7 +12,7 @@ module AdminColumn
 
   def for_admin_column
     self.class.content_columns.reject { |c| self.class.non_admin_columns.include?(c.name) }.each do |column|
-      yield(column.human_name, send(column.name), column.type.to_s, column.name)
+      yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
     end
   end
 end
