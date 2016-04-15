@@ -4,10 +4,16 @@
 
     <p id="sign_in_reason" class="sign_in_reason">
       <% if @post_redirect.reason_params[:web].empty? %>
-        <%= _('Please sign in as ')%><%= link_to h(@post_redirect.reason_params[:user_name]), @post_redirect.reason_params[:user_url] %>.
+        <%= _('Please sign in as {{user_name}}',
+              :user_name => link_to(
+                              h(@post_redirect.reason_params[:user_name]),
+                              @post_redirect.reason_params[:user_url])) %>
       <% else %>
-        <%= @post_redirect.reason_params[:web] %>,
-        <%= _('please sign in as ')%><%= link_to h(@post_redirect.reason_params[:user_name]), @post_redirect.reason_params[:user_url] %>.
+        <%= _('{{reason}}, please sign in as {{user_name}}.',
+              :reason => @post_redirect.reason_params[:web],
+              :user_name => link_to(
+                              h(@post_redirect.reason_params[:user_name]),
+                              @post_redirect.reason_params[:user_url])) %>
       <% end %>
     </p>
 
