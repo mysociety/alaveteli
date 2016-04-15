@@ -1102,9 +1102,8 @@ msgstr "Përshëndetje! Kemi një <a href=\"{{url}}\">mesazh të rëndësishëm<
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Pershendetje! Ju mund te beni nje kerkese per te Drejten e Informimit brenda {{country_name}} tek {{link_to_website}}"
 
-#, fuzzy
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
-msgstr "Pershendetje! Ju mund te beni nje kerkese per te Drejten e Informimit brenda {{country_name}} tek {{link_to_website}}"
+msgstr "Përshëndetje! Ti mund të bësh kërkesa për informata zyrtare për autoritetet e {{country_name}} në {{link_to_website}} dhe tek Institucionet e BE-së ne {{link_to_asktheeu}}"
 
 msgid "Hello, {{username}}!"
 msgstr "Përshëndetje, {{username}}!"

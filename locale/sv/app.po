@@ -1057,9 +1057,8 @@ msgstr "Hej! Vi har ett <a href=\"{{url}}\">viktigt meddelande</a> för besökar
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Hej! Du kan göra förfrågningar om allmänna handlingar i {{country_name}} på {{link_to_website}}"
 
-#, fuzzy
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
-msgstr "Hej! Du kan göra förfrågningar om allmänna handlingar i {{country_name}} på {{link_to_website}}"
+msgstr "Hej! Du kan också göra förfrågningar om allmän handling inom {{country_name} vid {{link_to_website}} och till EU-institutioner vid {{link_to_asktheeu}}"
 
 msgid "Hello, {{username}}!"
 msgstr "Hej, {{username}}!"

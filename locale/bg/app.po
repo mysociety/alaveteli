@@ -1056,9 +1056,8 @@ msgstr ""
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Здравейте! Вие можете да отправяте заявления за достъп до обществена информация за {{country_name}} на {{link_to_website}}"
 
-#, fuzzy
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
-msgstr "Здравейте! Вие можете да отправяте заявления за достъп до обществена информация за {{country_name}} на {{link_to_website}}"
+msgstr ""
 
 msgid "Hello, {{username}}!"
 msgstr "Здравей, {{username}}!"

@@ -1125,9 +1125,8 @@ msgstr "Dobrý den, pokud nejste z {{country_name}} máme pro vás <a href=\"{{u
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Dobrý den, můžete vznést dotaz v zemi {{country_name}} na stránkách {{link_to_website}}"
 
-#, fuzzy
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
-msgstr "Dobrý den, můžete vznést dotaz v zemi {{country_name}} na stránkách {{link_to_website}}"
+msgstr "Dobrý den. Dotaz o svobodném přístupu k informacím můžete vznést v {{country_name}} na {{link_to_website}} a k institucím Evropské unie na {{link_to_asktheeu}}"
 
 msgid "Hello, {{username}}!"
 msgstr "Přihlášen/a jako  {{username}}!"

@@ -1070,9 +1070,8 @@ msgstr ""
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Helo! Rydych chi'n gallu gwneud ceisiadau Rhyddid Gwybodaeth o fewn {{country_name}} yma:{{link_to_website}}"
 
-#, fuzzy
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
-msgstr "Helo! Rydych chi'n gallu gwneud ceisiadau Rhyddid Gwybodaeth o fewn {{country_name}} yma:{{link_to_website}}"
+msgstr ""
 
 msgid "Hello, {{username}}!"
 msgstr "Helo, {{username}}!"

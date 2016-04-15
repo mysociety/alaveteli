@@ -1069,9 +1069,8 @@ msgstr ""
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "مرحباً! بإمكانكم تقديم مطالب حق النفاذ إلى المعلومة من داخل {{country_name}} على هذا الموقع {{link_to_website}}"
 
-#, fuzzy
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
-msgstr "مرحباً! بإمكانكم تقديم مطالب حق النفاذ إلى المعلومة من داخل {{country_name}} على هذا الموقع {{link_to_website}}"
+msgstr ""
 
 msgid "Hello, {{username}}!"
 msgstr "مرحباً, {{username}}!"
