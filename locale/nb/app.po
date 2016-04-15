@@ -487,9 +487,8 @@ msgstr "Vis henvendelser &rarr;"
 msgid "Browse and search requests"
 msgstr "Vis og søk i henvendelser"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Vis og søk i henvendelser"
+msgstr "Vis og søk i henvendelser (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Vis henvendelser"

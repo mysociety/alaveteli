@@ -477,9 +477,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Shaka ibibazo"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Shaka ibibazo"
+msgstr "Shaka ibibazo (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Shaka ibibazo"

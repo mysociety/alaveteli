@@ -476,9 +476,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Skoða allar upplýsingabeiðnir"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Skoða allar upplýsingabeiðnir"
+msgstr "Skoða allar upplýsingabeiðnir (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Skoða upplýsingabeiðnir"

@@ -508,9 +508,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Pregledajte i pretražite zahtjeve"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Pregledajte i pretražite zahtjeve"
+msgstr "Pregledajte i pretražite zahtjeve (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Zahtjevi"

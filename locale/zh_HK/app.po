@@ -478,9 +478,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "瀏覽及搜尋要求"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "瀏覽及搜尋要求"
+msgstr "瀏覽及搜尋要求 (page {{count}})"
 
 msgid "Browse requests"
 msgstr "瀏覽要求"

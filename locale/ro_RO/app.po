@@ -495,9 +495,8 @@ msgstr "Consultați toate solicitările &rarr;"
 msgid "Browse and search requests"
 msgstr "Vezi şi caută cereri"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Vezi şi caută cereri"
+msgstr "Vezi şi caută cereri (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Vezi cereri"

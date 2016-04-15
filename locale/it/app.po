@@ -482,9 +482,8 @@ msgstr "Guarda tutte le richieste &rarr;"
 msgid "Browse and search requests"
 msgstr "Guarda e cerca richieste"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Guarda e cerca richieste"
+msgstr "Guarda e cerca richieste (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Guarda richieste"

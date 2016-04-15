@@ -516,9 +516,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Böngészés az adatigénylések között"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Böngészés az adatigénylések között"
+msgstr "Böngészés az adatigénylések között (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Adatigénylések"

@@ -489,9 +489,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Parcourir les demandes passées"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Parcourir les demandes passées"
+msgstr "Parcourir les demandes passées (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Voir les demandes"

@@ -490,9 +490,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Gweld a chwilio ceisiadau"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Gweld a chwilio ceisiadau"
+msgstr "Gweld a chwilio ceisiadau (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Gweld ceisiadau"

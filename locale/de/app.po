@@ -514,9 +514,8 @@ msgstr "Alle Anfragen durchsuchen"
 msgid "Browse and search requests"
 msgstr "Ansehen und Suchen von Anfragen"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Ansehen und Suchen von Anfragen"
+msgstr "Ansehen und Suchen von Anfragen (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Anfragen ansehen"

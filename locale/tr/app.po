@@ -482,9 +482,8 @@ msgstr "Tüm başvurulara bak  &rarr;"
 msgid "Browse and search requests"
 msgstr "Başvurulara bak ve başvurularda ara"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Başvurulara bak ve başvurularda ara"
+msgstr "Başvurulara bak ve başvurularda ara (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Başvuruları inceleyin"

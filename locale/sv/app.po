@@ -479,9 +479,8 @@ msgstr "Bläddra bland alla förfrågningar &rarr;"
 msgid "Browse and search requests"
 msgstr "Bläddra och sök efter förfrågningar"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Bläddra och sök efter förfrågningar"
+msgstr "Bläddra och sök efter förfrågningar (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Bläddra bland förfrågningar"

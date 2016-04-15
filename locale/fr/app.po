@@ -504,9 +504,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Visualiser et parcourir les demandes d'information"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Visualiser et parcourir les demandes d'information"
+msgstr "Visualiser et parcourir les demandes d'information (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Voir les demandes"

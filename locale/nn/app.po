@@ -490,9 +490,8 @@ msgstr "Vis alle førespurnader &arr;"
 msgid "Browse and search requests"
 msgstr "Vis og søk i førespurnader"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Vis og søk i førespurnader"
+msgstr "Vis og søk i førespurnader (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Vis førespurnader"

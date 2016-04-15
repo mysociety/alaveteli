@@ -500,9 +500,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Ikusi eta bilatu eskabideak"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Ikusi eta bilatu eskabideak"
+msgstr "Ikusi eta bilatu eskabideak (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Ikusi eskabideak"

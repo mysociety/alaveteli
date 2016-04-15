@@ -472,9 +472,8 @@ msgstr "Browse all requests &rarr;"
 msgid "Browse and search requests"
 msgstr "Browse and search requests"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Browse and search requests"
+msgstr "Browse and search requests (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Browse requests"

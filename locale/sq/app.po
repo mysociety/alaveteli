@@ -511,9 +511,8 @@ msgstr "Shfleto të gjitha kërkesat &rarr;"
 msgid "Browse and search requests"
 msgstr "Shiko dhe kërko kërkesat"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Shiko dhe kërko kërkesat"
+msgstr "Shiko dhe kërko kërkesat (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Shiko kërkesat"

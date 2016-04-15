@@ -527,9 +527,8 @@ msgstr "Zobrazit dotazy &rarr;"
 msgid "Browse and search requests"
 msgstr "Prohledávejte a prohlížejte dotazy"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Prohledávejte a prohlížejte dotazy"
+msgstr "Prohledávejte a prohlížejte dotazy (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Zobrazit dotazy"

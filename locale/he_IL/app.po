@@ -491,9 +491,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "צפו וחפשו בקשות מידע"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "צפו וחפשו בקשות מידע"
+msgstr "צפו וחפשו בקשות מידע (page {{count}})"
 
 msgid "Browse requests"
 msgstr "בקשות מידע"

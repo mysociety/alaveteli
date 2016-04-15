@@ -530,9 +530,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Visualizar ou buscar pedidos"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Visualizar ou buscar pedidos"
+msgstr "Visualizar ou buscar pedidos (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Ver pedidos"

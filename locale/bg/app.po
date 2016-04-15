@@ -478,9 +478,8 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Преглед и търсене на заявления"
 
-#, fuzzy
 msgid "Browse and search requests (page {{count}})"
-msgstr "Преглед и търсене на заявления"
+msgstr "Преглед и търсене на заявления (page {{count}})"
 
 msgid "Browse requests"
 msgstr "Преглед на заявления"
