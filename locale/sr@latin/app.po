@@ -17,7 +17,7 @@
 # Goran Vučković <vucko@acm.org>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3081,8 +3081,7 @@ msgstr "Da biste klasifikovali odgovor na ovaj Zahtev za slobodan pristup inform
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Da biste to uradili molimo pošaljite privatni e-mail za {{postal_email}} {{postal_email_link}} "
-"sa Vašom poštanskom adresom i tražite da odgovore na ovaj zahtev.\n"
+"Da biste to uradili molimo pošaljite privatni e-mail za {{postal_email}} {{postal_email_link}} sa Vašom poštanskom adresom i tražite da odgovore na ovaj zahtev.\n"
 "            Ili im možete kontaktirati telefonom."
 
 msgid "To do this, first click on the link below."
@@ -4215,8 +4214,7 @@ msgstr "{{reason}}, molimo prijavite se kao {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
-"{{reason}}."
-"Nažalost nemamo e-mail adresu za ZOSPI\n"
+"{{reason}}.Nažalost nemamo e-mail adresu za ZOSPI\n"
 "te ustanove, tako da ne možemo da ovo validiramo.\n"
 "Molimo <a href=\"{{url}}\">kontaktirajte nas</a> da to razjasnimo."
 
@@ -4296,18 +4294,3 @@ msgstr "{{user}} je podneo/la ovaj zahtev pozivajući se na {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Da biste to uradili molimo pošaljite privatni e-mail za"
-
-#~ msgid "You"
-#~ msgstr "Vi"
-
-#~ msgid "has reported an"
-#~ msgstr "je prijavio/la"
-
-#~ msgid "please sign in as "
-#~ msgstr "molimo prijavite se kao "
-
-#~ msgid "the requester"
-#~ msgstr "podnosilac zahteva"

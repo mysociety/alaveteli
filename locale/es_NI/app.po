@@ -18,7 +18,7 @@
 # Victor Diaz <victor.diaz@cwpanama.net>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3168,8 +3168,7 @@ msgstr "Reclasificar la respuesta a esta solicitud"
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Para hacerlo, por favor mande un correo privado a {{postal_email}} {{postal_email_link}} "
-"incluyendo tu dirección postal, y pidiéndoles que contesten a tu solicitud.\n"
+"Para hacerlo, por favor mande un correo privado a {{postal_email}} {{postal_email_link}} incluyendo tu dirección postal, y pidiéndoles que contesten a tu solicitud.\n"
 "            O prueba a llamarles por teléfono."
 
 msgid "To do this, first click on the link below."
@@ -4365,8 +4364,7 @@ msgstr ""
 
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} ha denunciado un {{law_used}} "
-"respuesta necesita intervención del administrador. Revísela, y conteste a este\n"
+"{{user_name}} ha denunciado un {{law_used}} respuesta necesita intervención del administrador. Revísela, y conteste a este\n"
 "correo para indicarles qué va a hacer al respecto."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
@@ -4398,18 +4396,3 @@ msgstr "{{user}} hizo esta solicitud de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "«Volver a los resultados de búsqueda"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Para hacerlo, por favor mande un correo privado a "
-
-#~ msgid "You"
-#~ msgstr "Tú"
-
-#~ msgid "has reported an"
-#~ msgstr "ha denunciado un"
-
-#~ msgid "please sign in as "
-#~ msgstr "por favor abra una sesión como "
-
-#~ msgid "the requester"
-#~ msgstr "el solicitante"

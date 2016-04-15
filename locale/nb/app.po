@@ -20,7 +20,7 @@
 # pere <pere-transifex@hungry.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -4197,18 +4197,3 @@ msgstr "{{user}} sendte denne henvendelsen om {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Tilbake til søkeresultatene"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "For å gjøre det, vennligst send en privat e-post til"
-
-#~ msgid "You"
-#~ msgstr "Du"
-
-#~ msgid "has reported an"
-#~ msgstr "har rapportert en"
-
-#~ msgid "please sign in as "
-#~ msgstr "logg deg inn som "
-
-#~ msgid "the requester"
-#~ msgstr "henvenderen"

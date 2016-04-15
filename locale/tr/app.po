@@ -13,7 +13,7 @@
 # Pinar Dag <pinar.dag@dagmedya.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3015,8 +3015,7 @@ msgstr "Bu Bilgi Edinme Başvurusuna gelen cevabı sınıflandırmak için"
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Bunu yapmak için lütfen aşağıdaki adrese özel bir email gönderin {{postal_email}} {{postal_email_link}} "
-"posta adresinizi dahil ederek ve bu başvuruya yanıt vermelerini rica ederek.\\n Alternatif olarak onlara telefon açabilirsiniz. \n"
+"Bunu yapmak için lütfen aşağıdaki adrese özel bir email gönderin {{postal_email}} {{postal_email_link}} posta adresinizi dahil ederek ve bu başvuruya yanıt vermelerini rica ederek.\\n Alternatif olarak onlara telefon açabilirsiniz. \n"
 " and asking them to reply to this request.\\n Or you could phone them."
 
 msgid "To do this, first click on the link below."
@@ -4193,18 +4192,3 @@ msgstr "{{user}}, bu {{law_used_full}} başvurusunu gerçekleştirdi"
 
 msgid "« Back to search results"
 msgstr "« Arama sonuçlarına dön"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Bunu yapmak için lütfen aşağıdaki adrese özel bir email gönderin"
-
-#~ msgid "You"
-#~ msgstr "Siz"
-
-#~ msgid "has reported an"
-#~ msgstr "raporladı"
-
-#~ msgid "please sign in as "
-#~ msgstr "lütfen kullanıcı olarak giriş yapın "
-
-#~ msgid "the requester"
-#~ msgstr "başvuran"

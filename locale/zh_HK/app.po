@@ -12,7 +12,7 @@
 # spions kwong, 2015-2016
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -4166,12 +4166,3 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr "« 返回搜尋結果"
-
-#~ msgid "You"
-#~ msgstr "你"
-
-#~ msgid "has reported an"
-#~ msgstr "已報告一項"
-
-#~ msgid "the requester"
-#~ msgstr "索取資料人士"

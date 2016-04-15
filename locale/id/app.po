@@ -17,7 +17,7 @@
 # Agung Riyadi <ariadi01@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -1057,7 +1057,6 @@ msgstr ""
 
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr ""
-
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""
@@ -3176,8 +3175,7 @@ msgstr "Untuk mengklasifikasi respon terhadap permintaan FOI ini"
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Untuk melakukan hal itu, silakan mengirimkan email pribadi ke {{postal_email}} {{postal_email_link}} "
-"berisi alamat pos Anda, dan meminta mereka untuk membalas permintaan ini.\n"
+"Untuk melakukan hal itu, silakan mengirimkan email pribadi ke {{postal_email}} {{postal_email_link}} berisi alamat pos Anda, dan meminta mereka untuk membalas permintaan ini.\n"
 "            Atau Anda dapat menelepon mereka."
 
 msgid "To do this, first click on the link below."
@@ -4317,8 +4315,7 @@ msgstr "{{reason}}, silakan masuk sebagai {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
-"{{reason}}."
-"Sayangnya kami tidak mengetahui FOI \n"
+"{{reason}}.Sayangnya kami tidak mengetahui FOI \n"
 "alamat email untuk otoritas tersebut, sehingga kami tidak dapat memvalidasi ini.\n"
 "Silakan <a href=\"{{url}}\">hubungi kami</a> untuk mengatasinya."
 
@@ -4368,8 +4365,7 @@ msgstr ""
 
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} telah melaporkan {{law_used}} "
-"permintaan membutuhkan perhatian Administrator. Lihat dan balas ke\n"
+"{{user_name}} telah melaporkan {{law_used}} permintaan membutuhkan perhatian Administrator. Lihat dan balas ke\n"
 "surat elektronik untuk memberitahu mereka apa yang akan anda lakukan."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
@@ -4401,18 +4397,3 @@ msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Untuk melakukan hal itu, silakan mengirimkan email pribadi ke "
-
-#~ msgid "You"
-#~ msgstr "Anda"
-
-#~ msgid "has reported an"
-#~ msgstr "telah melaporkan"
-
-#~ msgid "please sign in as "
-#~ msgstr "silakan masuk sebagai "
-
-#~ msgid "the requester"
-#~ msgstr "peminta informasi"

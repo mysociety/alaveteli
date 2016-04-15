@@ -15,7 +15,7 @@
 # Victor Diaz <victor.diaz@cwpanama.net>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -4197,18 +4197,3 @@ msgstr "{{user}} hizo esta solicitud de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "«Volver a los resultados de búsqueda"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Para hacerlo, por favor envíe un correo privado a "
-
-#~ msgid "You"
-#~ msgstr "Usted"
-
-#~ msgid "has reported an"
-#~ msgstr "ha denunciado un"
-
-#~ msgid "please sign in as "
-#~ msgstr "por favor inicie sesión como "
-
-#~ msgid "the requester"
-#~ msgstr "el solicitante"

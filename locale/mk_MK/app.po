@@ -8,7 +8,7 @@
 # louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3003,8 +3003,7 @@ msgstr "За да го класифицирате одговорот на ова
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"За да го направите тоа, ве молиме испратете приватна е-пошта до {{postal_email}} {{postal_email_link}} "
-"со Вашата поштенска адреса и побарајте од нив да одоговорат на ова барање.\n"
+"За да го направите тоа, ве молиме испратете приватна е-пошта до {{postal_email}} {{postal_email_link}} со Вашата поштенска адреса и побарајте од нив да одоговорат на ова барање.\n"
 "            Можете да ги контактирате и по телефон."
 
 msgid "To do this, first click on the link below."
@@ -4122,8 +4121,7 @@ msgstr "{{reason}}, Ве молиме најавете се како {{user_name
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
-"{{reason}}."
-"За жал, не ја знаеме адресата за е-пошта за слободен пристап до информации\n"
+"{{reason}}.За жал, не ја знаеме адресата за е-пошта за слободен пристап до информации\n"
 "за тој имател, така што не можеме да го потврдиме ова.\n"
 "Ве молиме <a href=\"{{url}}\">контактирајте не</a> за да ја разјасниме ситуацијава."
 
@@ -4203,18 +4201,3 @@ msgstr "{{user}} го поднесе ова барање за {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "За да го направите тоа, ве молиме испратете приватна е-пошта до "
-
-#~ msgid "You"
-#~ msgstr "Вие"
-
-#~ msgid "has reported an"
-#~ msgstr "пријави"
-
-#~ msgid "please sign in as "
-#~ msgstr "Ве молиме најавете се како "
-
-#~ msgid "the requester"
-#~ msgstr "барателот"

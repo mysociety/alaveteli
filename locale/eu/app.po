@@ -11,7 +11,7 @@
 # sroberto <ertoba@yahoo.es>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3062,8 +3062,7 @@ msgstr "Eskabide honen erantzuna birsailkatu"
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Hau egiteko, mesedez bidal iezaiozu mezu pribatua ______-ri {{postal_email}} {{postal_email_link}} "
-"zure posta helbidea erantsiz, eta zure eskabideari erantzun diezaioten eskatuz.\n"
+"Hau egiteko, mesedez bidal iezaiozu mezu pribatua ______-ri {{postal_email}} {{postal_email_link}} zure posta helbidea erantsiz, eta zure eskabideari erantzun diezaioten eskatuz.\n"
 "            Edo froga ezazu telefonoz deitzen."
 
 msgid "To do this, first click on the link below."
@@ -4255,15 +4254,3 @@ msgstr "{{user}}-k {{law_used_full}} eskabidea egin zuen"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Hau egiteko, mesedez bidal iezaiozu mezu pribatua ______-ri"
-
-#~ msgid "You"
-#~ msgstr "Zu"
-
-#~ msgid "has reported an"
-#~ msgstr "_______ bat salatu du."
-
-#~ msgid "please sign in as "
-#~ msgstr "mesedez, ireki ezazu saioa _______ bezala"

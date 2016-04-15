@@ -13,7 +13,7 @@
 # Marco Giustini <info@marcogiustini.info>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -4194,18 +4194,3 @@ msgstr "{{user}} ha fatto questa {{law_used_full}} richiesta"
 
 msgid "« Back to search results"
 msgstr "« Torna ai risultati della ricerca"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Per farlo invia una email privata a "
-
-#~ msgid "You"
-#~ msgstr "Tu"
-
-#~ msgid "has reported an"
-#~ msgstr "ha segnalato un"
-
-#~ msgid "please sign in as "
-#~ msgstr "entra come"
-
-#~ msgid "the requester"
-#~ msgstr "il richiedente"

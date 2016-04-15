@@ -29,7 +29,7 @@
 # Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -4166,8 +4166,7 @@ msgstr "{{reason}}, faça o login como {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
-"{{reason}}."
-"Infelizmente nós não sabemos o email de contato para esse orgão, então não podemos validar isso.\n"
+"{{reason}}.Infelizmente nós não sabemos o email de contato para esse orgão, então não podemos validar isso.\n"
 "Por favor <a href=\"{{url}}\">entre em contato</a> para corrigirmos isso."
 
 msgid "{{search_results}} matching '{{query}}'"
@@ -4244,18 +4243,3 @@ msgstr "{{user}} fez esse pedido de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Resultados da pesquisa"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Para fazer isso, por favor, envie um email privado para "
-
-#~ msgid "You"
-#~ msgstr "Você"
-
-#~ msgid "has reported an"
-#~ msgstr "reportou um"
-
-#~ msgid "please sign in as "
-#~ msgstr "faça o login como"
-
-#~ msgid "the requester"
-#~ msgstr "o solicitante"

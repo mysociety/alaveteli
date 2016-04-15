@@ -10,7 +10,7 @@
 # zejn <zejn@kiberpipa.org>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -4212,18 +4212,3 @@ msgstr "{{user}} je naredil zahtevek {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Za to prosimo pošljite zasebno e-pošto "
-
-#~ msgid "You"
-#~ msgstr "Vi"
-
-#~ msgid "has reported an"
-#~ msgstr "je poročal o"
-
-#~ msgid "please sign in as "
-#~ msgstr "prosimo, prijavite se kot "
-
-#~ msgid "the requester"
-#~ msgstr "prosilec"

@@ -14,7 +14,7 @@
 # hiiri <murahoid@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3108,8 +3108,7 @@ msgid "To classify the response to this FOI request"
 msgstr ""
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr ""
-"Щоб зробити це, надішліть особистого листа до {{postal_email}} {{postal_email_link}} "
+msgstr "Щоб зробити це, надішліть особистого листа до {{postal_email}} {{postal_email_link}} "
 
 msgid "To do this, first click on the link below."
 msgstr "Щоб зробити це, для початку натисніть на посилання внизу."
@@ -4326,18 +4325,3 @@ msgstr "{{user}} зробив (-ла) цей запит"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Щоб зробити це, надішліть особистого листа до "
-
-#~ msgid "You"
-#~ msgstr "Ви"
-
-#~ msgid "has reported an"
-#~ msgstr "повідомив про"
-
-#~ msgid "please sign in as "
-#~ msgstr "будь ласка, увійдіть як "
-
-#~ msgid "the requester"
-#~ msgstr "автор запиту"

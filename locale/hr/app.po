@@ -20,7 +20,7 @@
 # Žana Počuča <zana.fakin@gmail.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3110,8 +3110,7 @@ msgstr "Da biste klasificirali odgovor na ovaj zahtjev za pristup informacijama"
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Da biste to učinili, molimo pošaljite privatnu e-poštu {{postal_email}} {{postal_email_link}} "
-"s Vašom poštanskom adresom, tražite da odgovore na ovaj zahtjev.\n"
+"Da biste to učinili, molimo pošaljite privatnu e-poštu {{postal_email}} {{postal_email_link}} s Vašom poštanskom adresom, tražite da odgovore na ovaj zahtjev.\n"
 "            Ili ih možete kontaktirati telefonom."
 
 msgid "To do this, first click on the link below."
@@ -4241,8 +4240,7 @@ msgstr "{{reason}}, molimo prijavite se kao {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
-"{{reason}}."
-"Nažalost nismo u posjedu adrese e-pošte službenika za informiranje\n"
+"{{reason}}.Nažalost nismo u posjedu adrese e-pošte službenika za informiranje\n"
 "tog tijela javne vlasti, tako da nismo u mogućnosti odobriti ovo.\n"
 "Molimo <a href=\"{{url}}\">kontaktirajte nas</a> da to razjasnimo."
 
@@ -4320,18 +4318,3 @@ msgstr "{{user}} je podnio/la ovaj zahtjev za {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Povratak na rezultate pretrage"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Da biste to učinili, molimo pošaljite privatnu e-poštu"
-
-#~ msgid "You"
-#~ msgstr "Vi"
-
-#~ msgid "has reported an"
-#~ msgstr "je prijavio/la"
-
-#~ msgid "please sign in as "
-#~ msgstr "molimo prijavite se kao "
-
-#~ msgid "the requester"
-#~ msgstr "osoba koja je podnijela zahtjev"

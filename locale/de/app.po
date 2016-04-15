@@ -17,7 +17,7 @@
 # stefanw <stefanwehrmeyer@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3079,8 +3079,7 @@ msgstr "Um die Antwort auf diese IFG-Anfrage zu klassifizieren"
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Senden Sie uns hierfür bitte eine private Email {{postal_email}} {{postal_email_link}} "
-"Ihre Postanschrift beinhaltend und Sie fragend auf diese Afrage zu antworten.\n"
+"Senden Sie uns hierfür bitte eine private Email {{postal_email}} {{postal_email_link}} Ihre Postanschrift beinhaltend und Sie fragend auf diese Afrage zu antworten.\n"
 "            Oder Sie könnten Sie anrufen."
 
 msgid "To do this, first click on the link below."
@@ -4196,8 +4195,7 @@ msgstr "{{reason}}, Bitte melden Sie sich an als {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
-"{{reason}}."
-"Leider ist uns die IFG-Emailadresse dieser Behörde nicht bekannt, somit können wir dies nicht bestätigen.\n"
+"{{reason}}.Leider ist uns die IFG-Emailadresse dieser Behörde nicht bekannt, somit können wir dies nicht bestätigen.\n"
 "Bitte <a href=\"{{url}}\">kontaktieren Sie uns</a> zur Klärung der Angelegenheit."
 
 msgid "{{search_results}} matching '{{query}}'"
@@ -4276,18 +4274,3 @@ msgstr "{{user}} hat diese {{law_used_full}} Anfrage gestellt"
 
 msgid "« Back to search results"
 msgstr "« Zurück zu den Suchergebnissen"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Senden Sie uns hierfür bitte eine private Email"
-
-#~ msgid "You"
-#~ msgstr "Sie"
-
-#~ msgid "has reported an"
-#~ msgstr "hat berichtet"
-
-#~ msgid "please sign in as "
-#~ msgstr "Bitte melden Sie sich an als"
-
-#~ msgid "the requester"
-#~ msgstr "der Anfragesteller"

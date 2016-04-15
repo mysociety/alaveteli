@@ -27,7 +27,7 @@
 # Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -4215,18 +4215,3 @@ msgstr "{{user}} a făcut această cerere {{law_used_full}} "
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Pentru a face aceasta, vă rugăm trimiteţi un email privat la"
-
-#~ msgid "You"
-#~ msgstr "Tu"
-
-#~ msgid "has reported an"
-#~ msgstr "a fost raportat un"
-
-#~ msgid "please sign in as "
-#~ msgstr "vă rugăm să vă înscrieţi ca"
-
-#~ msgid "the requester"
-#~ msgstr "solicitantul"

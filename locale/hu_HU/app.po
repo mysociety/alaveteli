@@ -12,7 +12,7 @@
 # Orsolya Batta <orsibatta@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3169,8 +3169,7 @@ msgstr "Ha osztályozni szeretné az erre a közérdekűadat-igénylésre érkez
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Ehhez küldjön magánban e-mailt a következőnek: {{postal_email}} {{postal_email_link}} "
-"tartalmazza az ön postai címét, és kéri őket, hogy válaszoljanak erre az igénylésére.\n"
+"Ehhez küldjön magánban e-mailt a következőnek: {{postal_email}} {{postal_email_link}} tartalmazza az ön postai címét, és kéri őket, hogy válaszoljanak erre az igénylésére.\n"
 "           Telefonon is kapcsolatba léphet velük. "
 
 msgid "To do this, first click on the link below."
@@ -4315,8 +4314,7 @@ msgstr "{{reason}}, jelentkezzen be mint {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
-"{{reason}}."
-"Sajnos nem ismerjük az adatgazda\n"
+"{{reason}}.Sajnos nem ismerjük az adatgazda\n"
 "közérdekű adatigényléshez használt e-mail címét, így ezt nem tudjuk hitelesíteni.\n"
 "Kérjük, <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>, hogy megoldjuk a problémát. "
 
@@ -4366,8 +4364,7 @@ msgstr ""
 
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
-"{{user_name}} bejelentett {{law_used}} "
-"válasz, amelyet meg kell vizsgálnia az adminisztrátornak. Nézze meg, és válaszoljon erre az\n"
+"{{user_name}} bejelentett {{law_used}} válasz, amelyet meg kell vizsgálnia az adminisztrátornak. Nézze meg, és válaszoljon erre az\n"
 "e-mail üzenetre, és tájékoztassa őket, hogy mit fog tenni. "
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
@@ -4399,18 +4396,3 @@ msgstr "{{user}} küldte ezt a {{law_used_full}} igénylést "
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Ehhez küldjön magánban e-mailt a következőnek:"
-
-#~ msgid "You"
-#~ msgstr "ön"
-
-#~ msgid "has reported an"
-#~ msgstr "bejelentett"
-
-#~ msgid "please sign in as "
-#~ msgstr "jelentkezzen be mint "
-
-#~ msgid "the requester"
-#~ msgstr "igénylő"

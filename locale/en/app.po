@@ -5,7 +5,7 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
@@ -4175,18 +4175,3 @@ msgstr "{{user}} made this {{law_used_full}} request"
 
 msgid "« Back to search results"
 msgstr "« Back to search results"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "To do that please send a private email to "
-
-#~ msgid "You"
-#~ msgstr "You"
-
-#~ msgid "has reported an"
-#~ msgstr "has reported an"
-
-#~ msgid "please sign in as "
-#~ msgstr "please sign in as "
-
-#~ msgid "the requester"
-#~ msgstr "the requester"

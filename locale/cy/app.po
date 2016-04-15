@@ -21,7 +21,7 @@
 # PerryX <wyeboy@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -4223,18 +4223,3 @@ msgstr "Gwnaeth {{user}} y cais {{law_used_full}} hwn"
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "I wneud hynny, anfonwch e-bost preifat i "
-
-#~ msgid "You"
-#~ msgstr "Chi"
-
-#~ msgid "has reported an"
-#~ msgstr "wedi adrodd"
-
-#~ msgid "please sign in as "
-#~ msgstr "mewnlofnodwch fel "
-
-#~ msgid "the requester"
-#~ msgstr "y ceisydd"

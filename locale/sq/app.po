@@ -19,7 +19,7 @@
 # Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3082,8 +3082,7 @@ msgstr "Për të klasifikuar përgjigjen e kësaj kërkese për te Drejten e Inf
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Për të bërë këtë ju lutem dërgoni një email privat te {{postal_email}} {{postal_email_link}} "
-"përmban adresën tuaj postale, dhe duke u kërkuar atyre të përgjigjen në këtë kërkesë. \n"
+"Për të bërë këtë ju lutem dërgoni një email privat te {{postal_email}} {{postal_email_link}} përmban adresën tuaj postale, dhe duke u kërkuar atyre të përgjigjen në këtë kërkesë. \n"
 "          Ose ju mund t'iu telefononi atyre."
 
 msgid "To do this, first click on the link below."
@@ -4286,18 +4285,3 @@ msgstr "{{user}} bëri këtë kërkesë {{law_used_full}} "
 
 msgid "« Back to search results"
 msgstr "« Kthehu tek rezultatet e kërkimit"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Për të bërë këtë ju lutem dërgoni një email privat te"
-
-#~ msgid "You"
-#~ msgstr "Ju"
-
-#~ msgid "has reported an"
-#~ msgstr "ka raportuar një"
-
-#~ msgid "please sign in as "
-#~ msgstr "Të lutem kyçu si "
-
-#~ msgid "the requester"
-#~ msgstr "kërkuesi"

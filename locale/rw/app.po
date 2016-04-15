@@ -10,7 +10,7 @@
 # Stephen Abbott Pugh <stephendabbott@gmail.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -4180,18 +4180,3 @@ msgstr "{{user}} yatanze iki {{law_used_full}} kibazo"
 
 msgid "« Back to search results"
 msgstr "« Subira ku rutonde rw'ibyavuye mu ishakisha"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Kugirango ubashe gukora ibyo, ohereza imeli bwite kuri"
-
-#~ msgid "You"
-#~ msgstr "Wowe"
-
-#~ msgid "has reported an"
-#~ msgstr "yagaragaje"
-
-#~ msgid "please sign in as "
-#~ msgstr "injira nka"
-
-#~ msgid "the requester"
-#~ msgstr "uwabajije"

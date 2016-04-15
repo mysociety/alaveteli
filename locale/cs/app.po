@@ -20,7 +20,7 @@
 # louisecrow <louise@mysociety.org>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
 "PO-Revision-Date: 2016-04-07 13:58+0000\n"
@@ -3147,8 +3147,7 @@ msgstr "Pro utřídění dotazů"
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
-"Aby se tak stalo, prosíme pošlete e-mail soukromou cestou {{postal_email}} {{postal_email_link}} "
-"obsahující vaši poštovní adresu, a žádající o odpověď na tento dotaz.\n"
+"Aby se tak stalo, prosíme pošlete e-mail soukromou cestou {{postal_email}} {{postal_email_link}} obsahující vaši poštovní adresu, a žádající o odpověď na tento dotaz.\n"
 "            Nebo jim můžete zavolat."
 
 msgid "To do this, first click on the link below."
@@ -4299,8 +4298,7 @@ msgstr "{{reason}}, prosíme přihlašte se jako {{user_name}}."
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
-"{{reason}}."
-"Bohužel nemáme e-mailovou adresu této instituce\n"
+"{{reason}}.Bohužel nemáme e-mailovou adresu této instituce\n"
 "pro vznášení dotazů, proto tento údaj nemůžeme ověřit.\n"
 "Prosíme <a href=\"{{url}}\">kontaktujte nás</a> abychom to vyřešili."
 
@@ -4380,18 +4378,3 @@ msgstr "{{user}} vznesl tento {{law_used_full}} "
 
 msgid "« Back to search results"
 msgstr "« Zpět na výsledky hledání"
-
-#~ msgid "To do that please send a private email to "
-#~ msgstr "Aby se tak stalo, prosíme pošlete e-mail soukromou cestou"
-
-#~ msgid "You"
-#~ msgstr "Vy"
-
-#~ msgid "has reported an"
-#~ msgstr "nahlásil"
-
-#~ msgid "please sign in as "
-#~ msgstr "prosíme přihlašte se jako"
-
-#~ msgid "the requester"
-#~ msgstr "tazatel"
