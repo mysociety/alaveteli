@@ -3653,12 +3653,8 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Igénylését <strong>egyszerűen és pontosan fogalmazza meg</strong>!"
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
-"{{existing_request_user}} már létrehozta\n"
-"     ugyanezt az igénylést {{date}} napon. Megtekintheti a <a href=\"{{existing_request}}\">meglevő igénylést</a>,\n"
-"     vagy módosíthatja az adatokat az alábbiakban egy új, de hasonló igénylés létrehozásához. "
 
 msgid "You are already following new requests"
 msgstr "Ön már követi az új igényléseket"

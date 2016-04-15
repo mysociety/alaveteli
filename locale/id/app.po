@@ -3660,12 +3660,8 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Tulis permintaan Anda dalam <strong>bahasa yang sederhana, tepat</strong>."
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
-"{{existing_request_user}} sudah\n"
-"      menciptakan permintaan yang sama pada {{date}}. Anda dapat menampilkan <a href=\"{{existing_request}}\">permintaan yang sudah ada</a>,\n"
-"      atau merubah rincian di bawah untuk membuat permintaan baru tetapi serupa."
 
 msgid "You are already following new requests"
 msgstr "Anda telah mengikuti permintaan baru"

@@ -3546,12 +3546,8 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Formulieren Sie Ihre Anfrage in <strong>schlicht und präzise </strong>."
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
-"{{existing_request_user}} already\n"
-"      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\n"
-"      or edit the details below to make a new but similar request."
 
 msgid "You are already following new requests"
 msgstr "Sie folgen bereits neuen Antworten"
