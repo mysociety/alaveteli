@@ -9,9 +9,9 @@
 # louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-15 14:53+0100\n"
+"POT-Creation-Date: 2016-04-15 16:04+0100\n"
 "PO-Revision-Date: 2016-04-15 14:15+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Galician (http://www.transifex.com/mysociety/alaveteli/language/gl/)\n"
