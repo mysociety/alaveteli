@@ -1049,9 +1049,8 @@ msgstr "Muraho! Dufite <a href=\"{{url}}\">ubutumwa bw'ingenzi</a>ku bashyitsi b
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
 msgstr ""
 
-#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr "Muraho! Dufite <a href=\"{{url}}\">ubutumwa bw'ingenzi</a> bw'abasura bava hanze ya {{country_name}}"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Muraho! Ushobora gutanga ikibazo ku bwisanzure bwo kumenya amakuru uri  {{country_name}} ukoresheje {{link_to_website}}"

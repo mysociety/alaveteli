@@ -1050,9 +1050,8 @@ msgstr "Здравейте! Ние имаме <a href=\"{{url}}\">важно с�
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
 msgstr ""
 
-#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr "Здравейте! Имаме <a href=\"{{url}}\">важно съобщение</a> за посетители извън {{country_name}}"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Здравейте! Вие можете да отправяте заявления за достъп до обществена информация за {{country_name}} на {{link_to_website}}"

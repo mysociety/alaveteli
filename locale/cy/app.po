@@ -1064,9 +1064,8 @@ msgstr "Helo! Mae gennym neges bwysig href=\"{{url}}\"> <a </a> i ymwelwyr mewn 
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
 msgstr ""
 
-#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr "Helo! Mae gennym <a href=\"{{url}}\">neges bwysig</a> i ymwelwyr y tu allan i {{country_name}}"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Helo! Rydych chi'n gallu gwneud ceisiadau Rhyddid Gwybodaeth o fewn {{country_name}} yma:{{link_to_website}}"

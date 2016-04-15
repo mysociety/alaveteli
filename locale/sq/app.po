@@ -1096,9 +1096,8 @@ msgstr "Pershendetje! Kemi nje<a href=\"{{url}}\">mesazh te rendesishem</a> per 
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
 msgstr "Përshëndetje! Kemi një <a href=\"{{url}}\">mesazh të rëndësishëm</a> për vizitorët nga vende të tjera. Ju mun të bëni kërkesa mbi Lirinë e Informacionit në Institucionet e BE-së në {{link_to_asktheeu}}"
 
-#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr "Pershendetje! Kemi nje <a href=\"{{url}}\">mesazh te rendesishem</a> per vizitoret jashte{{country_name}}"
+msgstr "Përshëndetje! Kemi një <a href=\"{{url}}\">mesazh të rëndësishëm</a> për vizitorët jashtë {{country_name}}. Ju mund të bëni kërkesa mbi Lirinë e Informacionit në Institucionet e BE-së në {{link_to_asktheeu}}"
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Pershendetje! Ju mund te beni nje kerkese per te Drejten e Informimit brenda {{country_name}} tek {{link_to_website}}"
