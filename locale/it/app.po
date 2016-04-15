@@ -4115,9 +4115,8 @@ msgstr "{{reason}}, per favore entra o crea un nuovo account."
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "{{reason}}, entra come {{user_name}}."
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "Non abbiamo un indirizzo email per le richieste di accesso a quella amministrazione, quindi non possiamo convalidare la tua richiesta.  <a href=\"{{url}}\">Contattaci</a> per risolvere il problema."
+msgstr "{{reason}}. Non abbiamo un indirizzo email per le richieste di accesso a quella amministrazione, quindi non possiamo convalidare la tua richiesta.  <a href=\"{{url}}\">Contattaci</a> per risolvere il problema."
 
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "'{{query}}' ha prodotto {{search_results}} "

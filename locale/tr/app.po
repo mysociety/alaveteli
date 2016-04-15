@@ -4116,9 +4116,8 @@ msgstr "{{reason}}, hesap oluşturun ya da giriş yapın "
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "{{reason}}, lütfen kullanıcı olarak giriş yapın {{user_name}}."
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "Ne yazık ki, söz konusu kurumun bilgi edinme biriminin email adresini bilmiyoruz, bu yüzden bunu doğrulayamıyoruz. Sorunu gidermek için bizimle <a href=\"{{url}}\">iletişime us</a>geçin."
+msgstr "{{reason}}. Ne yazık ki, söz konusu kurumun bilgi edinme biriminin email adresini bilmiyoruz, bu yüzden bunu doğrulayamıyoruz. Sorunu gidermek için bizimle <a href=\"{{url}}\">iletişime us</a>geçin."
 
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} eşleşen '{{query}}'"

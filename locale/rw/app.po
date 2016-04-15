@@ -4103,9 +4103,8 @@ msgstr "{{reason}}, injira cyangwa ufungure indi konti."
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "{{reason}}, injira nka {{user_name}}."
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "Ku bw'amahirwe make, ntabwo tuzi\\nimeli y'uwo muyobozi y'ubwisanzure bwo kumenya amakuru, rero ntabwo ibi dushobora kubiha agaciro.\\nTuragusaba <a href=\"{{url}}\">kutwandikira</a> kugirango tubikemure."
+msgstr "{{reason}}. Ku bw'amahirwe make, ntabwo tuzi\\nimeli y'uwo muyobozi y'ubwisanzure bwo kumenya amakuru, rero ntabwo ibi dushobora kubiha agaciro.\\nTuragusaba <a href=\"{{url}}\">kutwandikira</a> kugirango tubikemure."
 
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} bihuye na '{{query}}'"

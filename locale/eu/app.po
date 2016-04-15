@@ -4180,9 +4180,8 @@ msgstr ""
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "{{reason}}, mesedez, ireki ezazu saioa _______ bezala {{user_name}}."
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "Zoritxarrez ez dugu erakunde honetako posta helbidea, beraz ezin izan dugu balioztatu. Mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a> hau konpontzeko."
+msgstr "{{reason}}. Zoritxarrez ez dugu erakunde honetako posta helbidea, beraz ezin izan dugu balioztatu. Mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a> hau konpontzeko."
 
 msgid "{{search_results}} matching '{{query}}'"
 msgstr " '{{query}}'-k aurkitu ditu {{search_results}}"

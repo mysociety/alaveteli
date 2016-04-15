@@ -4132,9 +4132,8 @@ msgstr "{{reason}}, בבקשה התחברו או צרו חשבון חדש."
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "{{reason}}, בבקשה התחבר כ {{user_name}}."
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "לצערנו, איננו מכירים את FOI\\nכתובת הדוא\"ל של רשות זו, ולכן איננו יכולים לאמת אותה.\\nאנא <a href=\"{{url}}\">צרו איתנו קשר</a> כדי לטפל בכך."
+msgstr "{{reason}}. לצערנו, איננו מכירים את FOI\\nכתובת הדוא\"ל של רשות זו, ולכן איננו יכולים לאמת אותה.\\nאנא <a href=\"{{url}}\">צרו איתנו קשר</a> כדי לטפל בכך."
 
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} תואם '{{query}}'"

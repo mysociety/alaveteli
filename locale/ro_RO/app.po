@@ -4138,9 +4138,8 @@ msgstr "{{reason}}, te rugăm să te autentifici sau să te înregistrezi."
 msgid "{{reason}}, please sign in as {{user_name}}."
 msgstr "{{reason}}, vă rugăm să vă înscrieţi ca {{user_name}}."
 
-#, fuzzy
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "Din păcate, nu ştim adresa de email pentru solicitări de acces la informaţii pentru respectiva autoritate, deci nu putem valida această solicitare. \\nTe rugăm <a href=\"{{url}}\">să ne contactezi</a> pentru a vedea cum putem rezolva situaţia."
+msgstr "{{reason}}. Din păcate, nu ştim adresa de email pentru solicitări de acces la informaţii pentru respectiva autoritate, deci nu putem valida această solicitare. \\nTe rugăm <a href=\"{{url}}\">să ne contactezi</a> pentru a vedea cum putem rezolva situaţia."
 
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} corespunzătoare '{{query}}'"
