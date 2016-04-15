@@ -4086,9 +4086,8 @@ msgstr ""
 msgid "{{reason}}, create an account or sign in"
 msgstr "因為 {{reason}} ，請先登入或者註冊。"
 
-#, fuzzy
 msgid "{{reason}}, please sign in as {{user_name}}."
-msgstr "然後你可以登入 {{site_name}}"
+msgstr ""
 
 msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
