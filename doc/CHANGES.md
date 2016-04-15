@@ -4,6 +4,39 @@
 
 ## Upgrade Notes
 
+# Version 0.24.1.0
+
+## Highlighted Features
+
+ * Removed many cases of dynamic string composition, making Alaveteli easier to
+   localise (Liz Conlan, Louise Crow).
+
+## Upgrade Notes
+
+ * Please update any overridden templates in the list below so that the phrases in
+   them will be translated correctly.
+
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/comment/_single_comment.html.erb
+    app/views/comment/new.html.erb
+    app/views/contact_mailer/to_admin_message.text.erb
+    app/views/followups/new.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/request/new_bad_contact.html.erb
+    app/views/request/show.html.erb
+    app/views/request/similar.html.erb
+    app/views/request/upload_response.html.erb
+    app/views/request_mailer/requires_admin.text.erb
+    app/views/user/show.html.erb
+    app/views/user/sign.html.erb
+    app/views/user/wrong_user_unknown_email.html.erb
+
 # Version 0.24.0.0
 
 ## Highlighted Features

@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-15 16:04+0100\n"
-"PO-Revision-Date: 2016-04-15 14:47+0000\n"
+"POT-Creation-Date: 2016-04-07 16:36+0100\n"
+"PO-Revision-Date: 2016-04-07 13:58+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -257,17 +257,17 @@ msgstr ""
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Disa nga informacionet</strong> janë dërguar "
 
-msgid "<strong>Thank</strong> the public authority or "
-msgstr "<strong>Falënderoji</strong> institucion publik ose "
+msgid "<strong>Thank</strong> the public authority or the requester."
+msgstr "<strong>Falënderoji</strong> institucion publik ose kërkuesi."
+
+msgid "<strong>Thank</strong> the public authority or {{user_name}}."
+msgstr "<strong>Falënderoji</strong> institucion publik ose {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong> Ne do ju dergojme mesazh ne posten elektronike</strong> kur nje pergjigje ka ardhur, ose pas {{late_number_of_days}} ditesh pune nese institucioni perkates nuk eshte pergjigjur ende."
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
 msgstr "<strong>Ne do ju dergojme mesazh ne posten elektronike </strong> kur kerkesat jane derguar. Ne gjithashtu do ju dergojme mesazh kur te keni marre pergjigje, ose pas {{late_number_of_days}} ditesh pune institucioni perkates nuk eshte pergjigjur ende."
-
-msgid "<strong>did not have</strong> the information requested."
-msgstr "<strong>nuk e kanë</strong> informacionin e kërkuar."
 
 msgid "?"
 msgstr "?"
@@ -345,8 +345,8 @@ msgstr "Shto institucionin"
 msgid "Add the authority:"
 msgstr "Shto nje institucion"
 
-msgid "Added on {{date}}"
-msgstr "Shtuar më {{date}}"
+msgid "Added on {{date}}."
+msgstr "Shtuar më {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Niveli i administratorit nuk është i përfshir në listë"
@@ -511,6 +511,9 @@ msgstr "Shfleto të gjitha kërkesat &rarr;"
 msgid "Browse and search requests"
 msgstr "Shiko dhe kërko kërkesat"
 
+msgid "Browse and search requests (page {{count}})"
+msgstr "Shiko dhe kërko kërkesat (page {{count}})"
+
 msgid "Browse requests"
 msgstr "Shiko kërkesat"
 
@@ -603,11 +606,11 @@ msgstr "Sqarim"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Sqarimi u dërgua tek {{public_body_name}} nga {{info_request_user}} më {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "Sqaro kërkesën tënde QDP - "
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Sqaro kërkesën tënde QDP - {{request_title}}"
 
-msgid "Classify an FOI response from "
-msgstr "Klasifiko një përgjigje për kërkesë për informatë zyrtare prej "
+msgid "Classify an FOI response from {{authority_name}}"
+msgstr "Klasifiko një përgjigje për kërkesë për informatë zyrtare prej {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Fshij foton"
@@ -744,8 +747,8 @@ msgstr "Jofunks."
 msgid "Delayed"
 msgstr "Vonuar"
 
-msgid "Delayed response to your FOI request - "
-msgstr "Përgjigje e vonuar në kërkesën tënde - "
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Përgjigje e vonuar në kërkesën tënde - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Vonuar."
@@ -893,8 +896,8 @@ msgstr "Kërkesa për DI nga '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Kërkesat për DI{{start_count}} deri {{end_count}} prej {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Pergjigja per DI kerkon admin ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Pergjigja per DI kerkon admin ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Deshtoi"
@@ -1030,7 +1033,7 @@ msgstr "Ligji per te Drejten e Informimit "
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Ligji per te Drejten e Informimit nuk aplikohet per kete institucion, keshtu qe nuk mund te dergoni nje kerkese per te"
 
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr "Ligjet mbi Lirinë e Informacionit nuk janë të aplikueshme për këtë autoritet. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
@@ -1458,11 +1461,11 @@ msgstr "Mbani kerkesat tuaja te perditesuara"
 msgid "Keywords"
 msgstr "Fjalët kyçe"
 
-msgid "Last authority viewed: "
-msgstr "Institucioni i fundit i pare: "
+msgid "Last authority viewed: {{authority_url}}"
+msgstr "Institucioni i fundit i pare: {{authority_url}}"
 
-msgid "Last request viewed: "
-msgstr "Kerkesa e fundit e pare: "
+msgid "Last request viewed: {{request_url}}"
+msgstr "Kerkesa e fundit e pare: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Meso me teper &rarr;"
@@ -1569,8 +1572,8 @@ msgstr "Mesazhi eshte fshire"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Mesazhi i dërguar duke përdorur kontakt formën e {{site_name}}, "
 
-msgid "Missing contact details for '"
-msgstr "Mungojnë të dhënat për '"
+msgid "Missing contact details for '{{authority_name}}'"
+msgstr "Mungojnë të dhënat për '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Më shumë për këtë autoritet"
@@ -1620,8 +1623,8 @@ msgstr "Fjalëkalim i ri: (përsërite)"
 msgid "New response to '{{title}}'"
 msgstr "Përgjigje e re '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Përgjigje e re ndaj kërkesën tuaj për te Drejten e Informimit - "
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Përgjigje e re ndaj kërkesën tuaj për te Drejten e Informimit - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Përgjigje e re për kërkesën tUAJ"
@@ -1950,8 +1953,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Te lutem nënshkruaj në fund me emrin tënd, ose ndrysho \"{{signoff}}\" nënshkrimin"
 
-msgid "Please sign in as "
-msgstr "Të lutem kyçu si "
+msgid "Please sign in as {{user_name}}"
+msgstr "Të lutem kyçu si {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Te lutem na thuaj me shume"
@@ -2412,8 +2415,8 @@ msgstr "Shih mesazhin e kthyer mbrapsh"
 msgid "Send a followup"
 msgstr "Dërgo mesazh vijues"
 
-msgid "Send a message to "
-msgstr "Dërgo mesazh te "
+msgid "Send a message to {{user_name}}"
+msgstr "Dërgo mesazh te {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Dërgo mesazh publik vijues për {{person_or_body}}"
@@ -2430,8 +2433,11 @@ msgstr "Me dergoni posten elektronike"
 msgid "Send message"
 msgstr "Dërgo mesazh"
 
-msgid "Send message to "
-msgstr "Dërgo mesazh tek "
+msgid "Send message to {{user_name}}"
+msgstr "Dërgo mesazh tek {{user_name}}"
+
+msgid "Send message to {{user_name}} just to see how it works"
+msgstr "Dërgo mesazh tek {{user_name}} vetëm për të parë se si funksionon"
 
 msgid "Send request"
 msgstr "Dërgo kërkesën"
@@ -2495,8 +2501,8 @@ msgstr "Kërkesa të ngjashme"
 msgid "Simple search"
 msgstr "Kërkim i thjeshtë"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Disa shënime (komente) iu janë shtuar kërkesës tënde për te Drejten e Informimit-"
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Disa shënime (komente) iu janë shtuar kërkesës tënde për te Drejten e Informimit- {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Disa nga informacionet e kërkuara janë marrë"
@@ -2504,8 +2510,8 @@ msgstr "Disa nga informacionet e kërkuara janë marrë"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Disa persona që kanë bërë kërkesa nuk na kanë bere te ditur nese ishin të sukseshme apo jo. Kemi nevojë për ndihmën <strong>tuaj &ndash;  përzgjidh një nga këto kërkesa, lexoje atë, dhe njofto të tjerët nese keni marre informacionin e kërkuara. Të gjithë do të jenë shumë mirënjohës për këtë."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Dikush ka shtuar një shënim në kërkesën tuaj per te Drejten e Informimit -"
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Dikush ka shtuar një shënim në kërkesën tuaj per te Drejten e Informimit - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Dikush ka perditesuar statusin e kerkeses suaj"
@@ -2614,8 +2620,8 @@ msgstr "Faleminderit për ndihmën tënde për mbajtjen e rregullt dhe të organ
 msgid "Thank you for making an annotation!"
 msgstr "Faleminderit që keni bërë një shënim!"
 
-msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to "
-msgstr "Faleminderit që i jeni përgjigjur kësaj kërkese për te Drejten e Informimit. Përgjigja yte është publikuar më poshtë, si dhe lidhja për përgjigjen tuaj i është derguar me email  "
+msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
+msgstr "Faleminderit që i jeni përgjigjur kësaj kërkese për te Drejten e Informimit. Përgjigja yte është publikuar më poshtë, si dhe lidhja për përgjigjen tuaj i është derguar me email {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Faleminderit për perditesimin e statusit të kërkesës ' <a href=\"{{url}}\">{{info_request_title}}</a> '. Ka disa kërkesa të tjera për ty për ti klasifikuar."
@@ -2744,8 +2750,8 @@ msgstr "Kërkesa është në <strong>pritje për sqarim</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Kërkesa ishte <strong>pjesërisht e suksesshme</strong>."
 
-msgid "The request was <strong>refused</strong> by"
-msgstr "Kërkesa u <strong>refuzua</strong> nga"
+msgid "The request was <strong>refused</strong> by {{authority_name}}."
+msgstr "Kërkesa u <strong>refuzua</strong> nga {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Kërkesa ishte e <strong>suksesshme</strong>."
@@ -2793,8 +2799,8 @@ msgstr "Me as mund të ndryshoni adresën tuaj të emailit që përdoret në {{s
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Me pas mund të ndryshoni fjalëkalimin që përdoret në {{site_name}}"
 
-msgid "Then you can classify the FOI response you have got from "
-msgstr "Me pas mund të klasifikoni përgjigjet e marra nga "
+msgid "Then you can classify the FOI response you have got from {{authority_name}}."
+msgstr "Me pas mund të klasifikoni përgjigjet e marra nga {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Me pas mund të shkarkosh dokumentat e zip-uara te {{info_request_title}}."
@@ -2811,14 +2817,14 @@ msgstr "Me pas  ti mund të luash lojën për kategorizim të kërkesave."
 msgid "Then you can report the request '{{title}}'"
 msgstr "Me pas mund të raportoni kërkesën '{{title}}'"
 
-msgid "Then you can send a message to "
-msgstr "Me pas mund të dërgon mesazh te "
+msgid "Then you can send a message to {{user_name}}."
+msgstr "Me pas mund të dërgon mesazh te {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Me pas mund të kyçesh në {{site_name}}"
 
-msgid "Then you can update the status of your request to "
-msgstr "Me pas mund të perditesosh statusin e kërkesës tuaj për "
+msgid "Then you can update the status of your request to {{authority_name}}."
+msgstr "Me pas mund të perditesosh statusin e kërkesës tuaj për {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Me pas mund të ngarkoni një përgjigje ndaj kërkesës për te Drejten e Informimit. "
@@ -3074,8 +3080,10 @@ msgstr "Për të ndryshuar adresen tuaj te postes elektronike të përdorur në 
 msgid "To classify the response to this FOI request"
 msgstr "Për të klasifikuar përgjigjen e kësaj kërkese për te Drejten e Informimit"
 
-msgid "To do that please send a private email to "
-msgstr "Për të bërë këtë ju lutem dërgoni një email privat te"
+msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
+msgstr ""
+"Për të bërë këtë ju lutem dërgoni një email privat te {{postal_email}} {{postal_email_link}} përmban adresën tuaj postale, dhe duke u kërkuar atyre të përgjigjen në këtë kërkesë. \n"
+"          Ose ju mund t'iu telefononi atyre."
 
 msgid "To do this, first click on the link below."
 msgstr "Për ta bërë këtë, së pari kliko në lidhjne si më poshtë."
@@ -3130,8 +3138,8 @@ msgstr "Per te raportuar kete kerkese"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-msgid "To send a message to "
-msgstr "Për të dërguar mesazh tek "
+msgid "To send a message to {{user_name}}"
+msgstr "Për të dërguar mesazh tek {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Për të dërguar kërkesën tuaj për te Drejten e Informimit"
@@ -3142,8 +3150,8 @@ msgstr "Per te derguar kerkesen tek nje institucion tjeter, me pare kopjoj tekst
 msgid "To update the status of this FOI request"
 msgstr "Për të perditesuar statusin e kësaj kërkese për te Drejten e Informimit."
 
-msgid "To upload a response, you must be logged in using an email address from "
-msgstr "Per te ngarkuar një përgjigje, duhet të kyçesh duke përdorur një adrese elektronike nga "
+msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
+msgstr "Per te ngarkuar një përgjigje, duhet të kyçesh duke përdorur një adrese elektronike nga {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Për të përdorur kërkimin e avancuar, kombino fraza dhe etiketa siç përshkruhet në këshilla për kërkime që shihni më poshtë."
@@ -3238,11 +3246,8 @@ msgstr "E pamundur per te derguar një mesazh vijues tek {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Kerkesat e paklasifikuara apo te fshehura nuk numerohen."
 
-msgid "Unexpected search result type "
-msgstr "Lloji i papritur i rezultatit të kërkuar "
-
-msgid "Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "Për fat të keq nuk e dimë adresën elektronike për dergimin e kërkesave te se Drejtes per Informimt për këtë institucion, kështu që ne nuk mund ta vlefshmerojmekëtë. Të lutem të <a href=\"{{url}}\">na kontakton</a> për ta rregulluar atë."
+msgid "Unexpected search result type {{result_type}}"
+msgstr "Lloji i papritur i rezultatit të kërkuar {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Per fat te keq, nuk kemi adresen funksionale te {{public_body_names}}."
@@ -3271,8 +3276,8 @@ msgstr "Perditeso adresen"
 msgid "Update the status of this request"
 msgstr "Perditeso statusin e kësaj kërkese"
 
-msgid "Update the status of your request to "
-msgstr "Perditeso statusin e kërkesës tuaj për "
+msgid "Update the status of your request to {{authority_name}}"
+msgstr "Perditeso statusin e kërkesës tuaj për {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Ngarko pergjigjen per te Drejten per Informim"
@@ -3548,13 +3553,8 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Shkruaje kërkesën tënde me <strong>gjuhë të thjeshtë, dhe të saktë</strong>."
 
-msgid "You"
-msgstr "Ju"
-
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
-"{{existing_request_user}} tashmë\n"
-"     ka krijuar të njëjtën kërkesë me {{date}}. Mund ta shohësh <a href=\"{{existing_request}}\">kërkesën ekzistuese</a>     apo të redaktosh të dhënat e mëposhtme për të bërë një kërkesë të re, por të ngjashme."
 
 msgid "You are already following new requests"
 msgstr "Tashmë jeni duke ndjekur kërkesat e reja"
@@ -3675,6 +3675,9 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Ju e dini se çfarë shkaktoi gabimin dhe mund të <strong>sugjeroni një zgjidhje,</strong>p.sh. nje adresë funksionale të institucionit."
 
+msgid "You left an annotation ({{date}})"
+msgstr "Ju ka lënë një shënim ({{date}})"
+
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Ju keni mundesine <strong>te perfshini dokumente te bashkangjitura</strong>. Nese deshironi t'i bashkangjisni nje dokument qe eshte shume i madh per mesazhin elektronik, perdorni formularin si me poshte."
 
@@ -3750,8 +3753,8 @@ msgstr "Mund te vazhdoni ta shihni ate ndersa jeni te kycur ne kete faqe. Ju lut
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Jeni brenda. <a href=\"#\" id=\"send-request\">Vazhdoni te dergoni kerkesat tuaja</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Ju keni një përgjigje tejet të vonuar për kërkesën tuaj te Drejtes se Informimit"
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Ju keni një përgjigje tejet të vonuar për kërkesën tuaj te Drejtes se Informimit {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Nuk po ndiqni ndonjë gjë."
@@ -3887,7 +3890,7 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "{{count}} shënim i juaj"
 msgstr[1] "{{count}} shënime tuaja"
 
-msgid "Your {{count}} batch requests"
+msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "{{count}} list kerkese prej jush"
 msgstr[1] "{{count}} list kerkesash prej jush"
@@ -3973,11 +3976,6 @@ msgstr "nga {{user_link_absolute}}"
 msgid "comments"
 msgstr "komentet"
 
-msgid "containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr ""
-"përmban adresën tuaj postale, dhe duke u kërkuar atyre të përgjigjen në këtë kërkesë. \n"
-"          Ose ju mund t'iu telefononi atyre."
-
 msgid "details"
 msgstr "detajet"
 
@@ -3999,9 +3997,6 @@ msgstr "gjithçka"
 msgid "external"
 msgstr "i jashtëm"
 
-msgid "has reported an"
-msgstr "ka raportuar një"
-
 msgid "have delayed."
 msgstr "kanë vonuar."
 
@@ -4017,14 +4012,8 @@ msgstr "gabim i brendshëm i sistemit"
 msgid "internal reviews"
 msgstr "rishqyrtimet i brendshem"
 
-msgid "is <strong>waiting for your clarification</strong>."
-msgstr "është duke <strong>pritur për sqarimin tuaj</strong>."
-
-msgid "just to see how it works"
-msgstr "vetëm për të parë se si funksionon"
-
-msgid "left an annotation"
-msgstr "ka lënë një shënim"
+msgid "logged in as user {{user_name}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "që përputhen me etiketën ‘{{tag_name}}’"
@@ -4053,11 +4042,11 @@ msgstr "jo më vonë se"
 msgid "normally"
 msgstr "normalisht"
 
+msgid "not logged in"
+msgstr ""
+
 msgid "not requestable due to: {{reason}}"
 msgstr "e pakerkueshme per asye se: {{reason}}"
-
-msgid "please sign in as "
-msgstr "Të lutem kyçu si "
 
 msgid "requesting an internal review"
 msgstr "kërkon rishqyrtim te brenshem"
@@ -4070,9 +4059,6 @@ msgstr "kerkesat qe jane te suksesshme"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "kerkesat qe jane te suksesshme qe perputhen me tekstin '{{query}}'"
-
-msgid "response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "përgjigje që ka nevojë për vëmendjen e administratorit. Hidhni një sy, dhe përgjigju ketij mesazhi, për t'i njoftuar se çfarë do të bëni lidhur me të."
 
 msgid "send a follow up message"
 msgstr "Dërgo një mesazh vijues"
@@ -4106,9 +4092,6 @@ msgstr "adresa kryesore kontaktuese për te Drejten e Informimit tek {{public_bo
 msgid "the main FOI contact at {{public_body}}"
 msgstr "kontakti kryesor për te Drejten e Informimit tek {{public_body}}"
 
-msgid "the requester"
-msgstr "kërkuesi"
-
 msgid "the {{site_name}} team"
 msgstr "ekipi i {{site_name}}"
 
@@ -4127,8 +4110,8 @@ msgstr "arsye e panjohur"
 msgid "unknown reason "
 msgstr "arsye e panjohur "
 
-msgid "unknown status "
-msgstr "status i panjohur "
+msgid "unknown status {{status}}"
+msgstr "status i panjohur {{status}}"
 
 msgid "unresolved requests"
 msgstr "kërkesat e pazgjidhura"
@@ -4147,6 +4130,12 @@ msgstr "përdoruesit"
 
 msgid "what's that?"
 msgstr "Çfarë është ajo?"
+
+msgid "{{authority_name}} <strong>did not have</strong> the information requested."
+msgstr "{{authority_name}} <strong>nuk e kanë</strong> informacionin e kërkuar."
+
+msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
+msgstr "{{authority_name}} është duke <strong>pritur për sqarimin tuaj</strong>."
 
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} Kërkesa për te Drejten e Informimit u gjetën"
@@ -4216,6 +4205,12 @@ msgstr "{{public_body}} dërgoi një përgjigje për {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, krijo nje llogari te re ose kyçu"
 
+msgid "{{reason}}, please sign in as {{user_name}}."
+msgstr "{{reason}}, Të lutem kyçu si {{user_name}}."
+
+msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
+msgstr "{{reason}}. Për fat të keq nuk e dimë adresën elektronike për dergimin e kërkesave te se Drejtes per Informimt për këtë institucion, kështu që ne nuk mund ta vlefshmerojmekëtë. Të lutem të <a href=\"{{url}}\">na kontakton</a> për ta rregulluar atë."
+
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} që përputhen me '{{query}}'"
 
@@ -4258,8 +4253,14 @@ msgstr "{{user_name}} shtoi një shënim"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} ka lënë shënim në kërkesën tënde. Ndiqni këtë lidhje për të parë se çfarë kane shkruar."
 
+msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} ka raportuar një {{law_used}} përgjigje që ka nevojë për vëmendjen e administratorit. Hidhni një sy, dhe përgjigju ketij mesazhi, për t'i njoftuar se çfarë do të bëni lidhur me të."
+
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} ka përdorur {{site_name}} për të dërguar mesazhin e posht shënuar."
+
+msgid "{{user_name}} left an annotation ({{date}})"
+msgstr "{{user_name}} ka lënë një shënim ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} dërgoi mesazh vijurd për {{public_body}}"

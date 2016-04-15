@@ -108,16 +108,20 @@
         <%= link_to _("requesting an internal review"), new_request_followup_path(:request_id => @info_request.id) + "?internal_review=1#followup" %>.
       <% end %>
     <% elsif @status == 'not_held' %>
-      <%= public_body_link(@info_request.public_body) %> <%= _('<strong>did not have</strong> the information requested.') %>
+      <%= _('{{authority_name}} <strong>did not have</strong> the information ' \
+               'requested.',
+            :authority_name => public_body_link(@info_request.public_body)) %>
     <% elsif @status == 'rejected' %>
-      <%= _('The request was <strong>refused</strong> by') %> <%= public_body_link(@info_request.public_body) %>.
+      <%= _('The request was <strong>refused</strong> by {{authority_name}}.',
+            :authority_name => public_body_link(@info_request.public_body)) %>
     <% elsif @status == 'successful' %>
       <%= _('The request was <strong>successful</strong>.') %>
     <% elsif @status == 'partially_successful' %>
       <%= _('The request was <strong>partially successful</strong>.') %>
     <% elsif @status == 'waiting_clarification' %>
       <% if @is_owning_user && !@info_request.is_external? %>
-        <%=h @info_request.public_body.name %> <%= _('is <strong>waiting for your clarification</strong>.') %>
+        <%= _('{{authority_name}} is <strong>waiting for your clarification</strong>.',
+              :authority_name => h(@info_request.public_body.name)) %>
         <%= _('Please') %>
         <%= link_to _("send a follow up message"), respond_to_last_path(@info_request) + '#followup' %>.
       <% else %>
