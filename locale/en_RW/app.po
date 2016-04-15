@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
+"POT-Creation-Date: 2016-04-15 16:04+0100\n"
 "PO-Revision-Date: 2014-11-18 19:29+0200\n"
 "Last-Translator: Stephen Abbott Pugh <stephendabbott@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -982,6 +982,9 @@ msgstr "Access to information act"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Access to information law does not apply to this authority, so you cannot make\\n                a request to it."
 
+msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgstr ""
+
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "Access to information law no longer applies to {{public_body_name}}."
 
@@ -1044,6 +1047,9 @@ msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Hello! You can make access to information requests within {{country_name}} at {{link_to_website}}"
+
+msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
 
 msgid "Hello, {{username}}!"
 msgstr ""
@@ -3445,6 +3451,9 @@ msgid "Write a reply"
 msgstr ""
 
 msgid "Write a reply to {{authority_name}}"
+msgstr ""
+
+msgid "Write your FOI follow up message to {{authority_name}}"
 msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."

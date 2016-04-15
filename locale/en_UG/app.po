@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
+"POT-Creation-Date: 2016-04-15 16:04+0100\n"
 "PO-Revision-Date: 2014-01-31 09:14+0000\n"
 "Last-Translator: Louise Crow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -395,6 +395,9 @@ msgid "Are you sure? If you regenerate your one time passcode you will need to u
 msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
+msgstr ""
+
+msgid "Ask EU Authorities"
 msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
@@ -978,6 +981,9 @@ msgstr "Access to Information Act"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Access to Information law does not apply to this agency, so you cannot make\\n                a request to it."
 
+msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgstr ""
+
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "Access to Information law no longer applies to {{public_body_name}}."
 
@@ -1040,6 +1046,9 @@ msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Hello! You can make Access to Information requests within {{country_name}} at {{link_to_website}}"
+
+msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
 
 msgid "Hello, {{username}}!"
 msgstr ""
@@ -3441,6 +3450,9 @@ msgid "Write a reply"
 msgstr ""
 
 msgid "Write a reply to {{authority_name}}"
+msgstr ""
+
+msgid "Write your FOI follow up message to {{authority_name}}"
 msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."

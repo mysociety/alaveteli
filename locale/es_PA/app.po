@@ -8,6 +8,7 @@
 # gaba <gabelula@gmail.com>, 2012,2014
 # Gareth Rees <gareth@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2016
 # skenaja <alex@alexskene.com>, 2011
 # vdiaz <vdiaz@antai.gob.pa>, 2014-2015
 # vdiaz <vdiaz@antai.gob.pa>, 2014
@@ -15,11 +16,11 @@
 # Victor Diaz <victor.diaz@cwpanama.net>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-29 07:34+0000\n"
-"Last-Translator: steve_mysociety <steve@mysociety.org>\n"
+"POT-Creation-Date: 2016-04-15 16:04+0100\n"
+"PO-Revision-Date: 2016-04-15 14:41+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/language/es_PA/)\n"
 "Language: es_PA\n"
 "MIME-Version: 1.0\n"
