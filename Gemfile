@@ -75,7 +75,7 @@ end
 
 group :test, :development do
   gem 'bullet', '~> 5.0.0'
-  gem 'factory_girl_rails', '~> 1.7'
+  gem 'factory_girl_rails', '~> 4.7.0'
   gem 'pry', '~> 0.10.3'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '3.2.0'
