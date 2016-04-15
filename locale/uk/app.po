@@ -4182,12 +4182,11 @@ msgstr "{{authority_name}} чекає на <strong>уточнення або р�
 msgid "{{count}} FOI requests found"
 msgstr "Знайдено таку кількість запитів: {{count}}"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Ваш коментар"
-msgstr[1] "Ваші {{count}} коментарі"
-msgstr[2] "Ваші {{count}} коментарів"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

@@ -4031,10 +4031,9 @@ msgstr "{{authority_name}} 正在 <strong>等待你澄清某些事項</strong>�
 msgid "{{count}} FOI requests found"
 msgstr "找到 {{count}} 宗要求"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "{{count}} 宗要求"
+msgstr[0] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

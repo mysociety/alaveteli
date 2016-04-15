@@ -4062,11 +4062,10 @@ msgstr "{{authority_name}} <strong>чека на Ваше објаснување
 msgid "{{count}} FOI requests found"
 msgstr "пронајдени се {{count}} барања за слободен пристап до информации од јавен карактерznačaja"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Вашата {{count}} белешка"
-msgstr[1] "Вашите {{count}} белешки"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

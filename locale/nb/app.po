@@ -4062,11 +4062,10 @@ msgstr "{{authority_name}} <strong>venter på dine avklaringer</strong>"
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} innsynshenvendelser funnet"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Din {{count}} merknad"
-msgstr[1] "Dine {{count}} merknader"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

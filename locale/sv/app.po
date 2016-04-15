@@ -4047,11 +4047,10 @@ msgstr "{{authority_name}} <strong>väntar på ditt förtydligande</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} förfrågningar om allmänna handlingar funna"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Din {{count}} kommentar"
-msgstr[1] "Dina {{count}} kommentarer"
+msgstr[0] "{{count}} anteckning gjord."
+msgstr[1] "{{count}} anteckningar gjorda."
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

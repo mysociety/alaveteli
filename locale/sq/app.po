@@ -4152,11 +4152,10 @@ msgstr "{{authority_name}} është duke <strong>pritur për sqarimin tuaj</stron
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} Kërkesa për te Drejten e Informimit u gjetën"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "{{count}} shënim i juaj"
-msgstr[1] "{{count}} shënime tuaja"
+msgstr[0] "{{count}} shënime të bëra."
+msgstr[1] "{{count}} shënime të bëra."
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

@@ -4253,11 +4253,10 @@ msgstr "{{authority_name}} está <strong>esperando su aclaración</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} sol·licituds d'informació trobades"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Tu {{count}} comentario"
-msgstr[1] "Els teus {{count}} comentaris"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

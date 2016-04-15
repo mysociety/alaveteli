@@ -4122,11 +4122,10 @@ msgstr "{{authority_name}} está </strong>esperando por sua classificação</str
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} pedidos de acesso a informação encontrados"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Seu {{count}} comentário"
-msgstr[1] "Seus {{count}} comentários"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

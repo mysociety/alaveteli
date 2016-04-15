@@ -4045,11 +4045,10 @@ msgstr "{{authority_name}} itegereje<strong>igisobanuro cyawe</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "ibibazo {{count}} by'ubwisanzure bwo kumenya amakuru byabonetse "
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Insobanuro yawe {{count}} "
-msgstr[1] "Insobanuro zawe {{count}} "
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

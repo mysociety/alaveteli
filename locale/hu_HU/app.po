@@ -4256,11 +4256,10 @@ msgstr "{{authority_name}} az ön <strong>pontosítására vár</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "A fent megadott szempontoknak az eddigi adatigénylések közül az alábbi {{count}} felel meg:"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Az ön {{count}} hozzászólása"
-msgstr[1] "Az ön {{count}} hozzászólása"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

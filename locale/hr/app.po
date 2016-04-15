@@ -4177,12 +4177,11 @@ msgstr "{{authority_name}} <strong>čeka Vaše objašnjenje</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "Pronađeno {{count}} zahtjeva za pristup informacijama"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Vaša {{count}} bilješka"
-msgstr[1] "Vaše {{count}} bilješke"
-msgstr[2] "Vaših {{count}} pribilješki"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

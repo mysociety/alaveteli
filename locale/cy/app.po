@@ -4080,12 +4080,11 @@ msgstr "{{authority_name}} yn <strong>aros am eich eglurhad</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "Daethpwyd o hyd i {{count}} cais Rhyddid Gwybodaeth"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Eich {{count}} anodiad"
-msgstr[1] "Eich {{count}} anodiad"
-msgstr[2] "Eich {{count}} anodiad"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 msgstr[3] "Eich {{count}} anodiad"
 
 msgid "{{count}} follower"

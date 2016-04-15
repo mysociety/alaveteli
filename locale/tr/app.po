@@ -4058,11 +4058,10 @@ msgstr "{{authority_name}} <strong>açıklık getirmeniz bekleniyor</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} adet bilgi edinme başvurusu bulundu"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Sizin eklediğiniz {{count}} açıklama notu"
-msgstr[1] "Sizin eklediğiniz {{count}} açıklama notu"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

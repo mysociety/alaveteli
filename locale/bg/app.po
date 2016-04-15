@@ -4045,11 +4045,10 @@ msgstr "{{authority_name}} <strong>очаква Вашето пояснение<
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} намерени заявления за ДдИ"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "{{count}} Ваш коментар"
-msgstr[1] "{{count}} Ваши коментара"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

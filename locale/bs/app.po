@@ -4221,12 +4221,11 @@ msgstr "{{authority_name}} <strong>čeka na Vaše objašnjenje</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} Zahtjeva za slobodan pristup informacijama pronađeno"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Postaj napomenu"
-msgstr[1] "Postaj napomenu"
-msgstr[2] "Postaj napomenu"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

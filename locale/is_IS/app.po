@@ -4040,11 +4040,10 @@ msgstr ""
 msgid "{{count}} FOI requests found"
 msgstr "Fundnar upplýsingabeiðnir: {{count}}"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "{{count}} beiðni send."
-msgstr[1] "{{count}} beiðnir sendar."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

@@ -4076,12 +4076,11 @@ msgstr "{{authority_name}} <strong>aşteaptă clarificarea ta</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} solicitări de acces la informații găsite"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "A {{count}}  -a adnotare a dvs."
-msgstr[1] "A {{count}}  -a adnotare a dvs."
-msgstr[2] "A {{count}}  -a adnotare a ta"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

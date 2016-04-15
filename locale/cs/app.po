@@ -4233,12 +4233,11 @@ msgstr "{{authority_name}} <strong>čeká na vaše vysvětlení</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "nalezeno {{count}} dotazy / dotazů "
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Vaše {{count}} poznámka"
-msgstr[1] "Vaše {{count}} poznámky"
-msgstr[2] "Vašich {{count}} poznámek"
+msgstr[0] "poznámka"
+msgstr[1] "poznámek"
+msgstr[2] "bylo vytvořeno {{count}} poznámek."
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

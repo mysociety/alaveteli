@@ -4118,11 +4118,10 @@ msgstr "{{authority_name}} zure <strong>azalpenaren zain</strong> dago."
 msgid "{{count}} FOI requests found"
 msgstr "aurkitutako {{count}} informazio eskabide"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Zure iruzkin {{count}} "
-msgstr[1] "Zure {{count}} iruzkinak"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

@@ -4262,10 +4262,9 @@ msgstr "{{authority_name}} sedang <strong>menunggu klarifikasi Anda</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} permintaan FOI ditemukan"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Anotasi {{count}} Anda"
+msgstr[0] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

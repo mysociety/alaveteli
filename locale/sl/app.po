@@ -4069,12 +4069,11 @@ msgstr "{{authority_name}} <strong>čaka na vaša pojasnila</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "najdenih {{count}} zahtevkov IJZ"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Vaš {{count}} zaznamek"
-msgstr[1] "Vaša {{count}} zaznamka"
-msgstr[2] "Vaši {{count}} zaznamki"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 msgstr[3] "Vaših {{count}} zaznamkov"
 
 msgid "{{count}} follower"

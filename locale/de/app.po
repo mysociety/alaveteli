@@ -4135,11 +4135,10 @@ msgstr "{{authority_name}} <strong>Ihre Erläuterung wird erwartet</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} IFG-Anfragen gefunden"
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "Ihre {{count}} Anmerkunge"
-msgstr[1] "Ihre {{count}} Anmerkungen"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

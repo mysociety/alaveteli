@@ -4074,11 +4074,10 @@ msgstr "{{authority_name}} <strong>ממתין להבהרות שלכם</strong>."
 msgid "{{count}} FOI requests found"
 msgstr "נמצאו {{count}} בקשות מידע "
 
-#, fuzzy
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] "הערה {{count}} שלכם"
-msgstr[1] "{{count}} ההערות שלכם"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
