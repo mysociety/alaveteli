@@ -4054,9 +4054,8 @@ msgstr "внутрішня помилка"
 msgid "internal reviews"
 msgstr "внутрішні перевірки"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Неможливо надіслати відповідь користувачу {{username}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr ""

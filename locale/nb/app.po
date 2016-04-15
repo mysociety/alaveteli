@@ -3934,9 +3934,8 @@ msgstr "intern feil"
 msgid "internal reviews"
 msgstr "klager"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Kjære {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "treffer taggen '{{tag_name}}'"

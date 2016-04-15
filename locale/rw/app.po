@@ -3917,9 +3917,8 @@ msgstr "ikosa ry'imbere"
 msgid "internal reviews"
 msgstr "amagenzura"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Nyakubahwa {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "bihuye n'ikimenyetso ‘{{tag_name}}’"

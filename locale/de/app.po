@@ -4007,9 +4007,8 @@ msgstr "interner Fehler"
 msgid "internal reviews"
 msgstr "interne Prüfung"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Antwort an {{username}} kann nicht gesendet werden"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr ""

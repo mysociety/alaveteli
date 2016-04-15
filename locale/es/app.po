@@ -4140,9 +4140,8 @@ msgstr "error interno"
 msgid "internal reviews"
 msgstr "revisiones internas"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Estimado {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "con la etiqueta ‘{{tag_name}}’"

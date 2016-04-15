@@ -3990,9 +3990,8 @@ msgstr "barneko errorea"
 msgid "internal reviews"
 msgstr "barneko berrikusketak"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "‘{{tag_name}}’ hitz gakoaz"

@@ -4134,9 +4134,8 @@ msgstr "error interno"
 msgid "internal reviews"
 msgstr "revisiones internas"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "No se pudo enviar la respuesta a {{username}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "con la etiqueta ‘{{tag_name}}’"

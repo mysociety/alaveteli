@@ -4105,9 +4105,8 @@ msgstr "vnitřní chyba"
 msgid "internal reviews"
 msgstr "vnitřní kontrola"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Milý {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "odpovídající štítku ‘{{tag_name}}’"

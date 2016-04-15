@@ -3917,9 +3917,8 @@ msgstr "вътрешна грешка"
 msgid "internal reviews"
 msgstr "вътрешни разглеждания"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Уважаеми {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "съвпадащ с маркера ‘{{tag_name}}’"

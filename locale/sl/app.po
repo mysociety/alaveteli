@@ -3941,9 +3941,8 @@ msgstr "interna napaka"
 msgid "internal reviews"
 msgstr "interne revizije"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "S spoštovanjem, {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "ki ustreza znački '{{tag_name}}'"

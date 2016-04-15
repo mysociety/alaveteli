@@ -3919,9 +3919,8 @@ msgstr "internt fel"
 msgid "internal reviews"
 msgstr "interna granskningar"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Hej {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "matchar taggen ‘{{tag_name}}’"

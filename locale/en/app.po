@@ -3912,9 +3912,8 @@ msgstr "internal error"
 msgid "internal reviews"
 msgstr "internal reviews"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Dear {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "matching the tag ‘{{tag_name}}’"

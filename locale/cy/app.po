@@ -3952,9 +3952,8 @@ msgstr "gwall mewnol"
 msgid "internal reviews"
 msgstr "adolygiadau mewnol"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Annwyl {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "yn matsio'r tag '{{tag_name}}'"

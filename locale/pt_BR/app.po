@@ -3994,9 +3994,8 @@ msgstr "erro interno"
 msgid "internal reviews"
 msgstr "avaliações internas"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Não foi possível enviar uma mensagem para {{username}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "Casando com a tag ‘{{tag_name}}’"

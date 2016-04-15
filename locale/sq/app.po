@@ -4024,9 +4024,8 @@ msgstr "gabim i brendshëm i sistemit"
 msgid "internal reviews"
 msgstr "rishqyrtimet i brendshem"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "I/E nderuar {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "që përputhen me etiketën ‘{{tag_name}}’"

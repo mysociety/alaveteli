@@ -3934,9 +3934,8 @@ msgstr "внатрешна грешка"
 msgid "internal reviews"
 msgstr "внатрешна ревизија"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Не може да се испрати одговор на {{username}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "одговара на клучниот збор ‘{{tag_name}}’"

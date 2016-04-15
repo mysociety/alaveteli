@@ -4134,9 +4134,8 @@ msgstr "kegagalan sistem"
 msgid "internal reviews"
 msgstr "kajian internal"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Tidak dapat mengirimkan balasan kepada {{username}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "cocok dengan label ‘{{tag_name}}’"

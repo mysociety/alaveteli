@@ -4049,9 +4049,8 @@ msgstr "interna greška"
 msgid "internal reviews"
 msgstr "požurnice"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Poštovani {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "odgovara oznaci ‘{{tag_name}}’"

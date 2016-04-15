@@ -4128,9 +4128,8 @@ msgstr "belső hiba "
 msgid "internal reviews"
 msgstr "belső felülvizsgálatok "
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Nem sikerült választ küldeni {{username}} részére "
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "‘{{tag_name}}’ címkének megfelelő "

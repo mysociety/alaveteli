@@ -3978,9 +3978,8 @@ msgstr "erro interno"
 msgid "internal reviews"
 msgstr "avaliações internas"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Caro/a {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "Casando com a tag ‘{{tag_name}}’"

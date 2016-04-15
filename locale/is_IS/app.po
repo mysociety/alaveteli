@@ -3912,9 +3912,8 @@ msgstr ""
 msgid "internal reviews"
 msgstr ""
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Kæri/kæra {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr ""

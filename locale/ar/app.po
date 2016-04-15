@@ -3971,9 +3971,8 @@ msgstr "خطأ داخلي"
 msgid "internal reviews"
 msgstr "مراجعات داخلية"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "غير قادر على ارسال رد ل {{username}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "متوافق مع الفئة ‘{{tag_name}}’"

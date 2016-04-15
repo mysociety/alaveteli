@@ -3946,9 +3946,8 @@ msgstr "שגיאה פנימית"
 msgid "internal reviews"
 msgstr "ביקורות פנימיות"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "{{user_name}} יקר/ה,"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "תואם לתווית ‘{{tag_name}}’"

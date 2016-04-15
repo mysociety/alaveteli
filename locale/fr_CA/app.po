@@ -3932,9 +3932,8 @@ msgstr "erreur interne"
 msgid "internal reviews"
 msgstr "révisions internes"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Impossible d'envoyer une réponse à {{username}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "correspondant au tag ‘{{tag_name}}’"

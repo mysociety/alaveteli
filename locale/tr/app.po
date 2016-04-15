@@ -3930,9 +3930,8 @@ msgstr "iç hata"
 msgid "internal reviews"
 msgstr "iç denetimler"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Sayın {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "‘{{tag_name}}’ etiketine uyan"

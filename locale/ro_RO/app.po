@@ -3948,9 +3948,8 @@ msgstr "eroare internă"
 msgid "internal reviews"
 msgstr "revizuire internă"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Stimat/Stimată {{user_name}},"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "corespunzător etichetei ‘{{tag_name}}’"

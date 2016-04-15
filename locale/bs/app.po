@@ -4093,9 +4093,8 @@ msgstr "interna greška"
 msgid "internal reviews"
 msgstr "urgencije"
 
-#, fuzzy
 msgid "logged in as user {{user_name}}"
-msgstr "Ne možemo poslati poruku za {{username}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr ""
