@@ -230,9 +230,8 @@ msgstr " <strong>Privacy opmerking:</strong> Jouw e-mailadres zal worden gegeven
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong> Een deel van de informatie </ strong> is verzonden"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Bedankt</strong> de instantie of"
+msgstr ""
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Bedankt</strong> de instantie of {{user_name}}."

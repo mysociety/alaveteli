@@ -229,9 +229,8 @@ msgstr "<strong>Persónuvernd:</strong> Netfangið þitt verður gefið"
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Sum gögnin</strong> hafa verið send"
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Þakkaðu</strong> stjórnvaldinu "
+msgstr ""
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Þakkaðu</strong> stjórnvaldinu {{user_name}}."

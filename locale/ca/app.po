@@ -268,9 +268,8 @@ msgstr ""
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "S'ha enviat <strong>part de la informació</strong> "
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Dóna les gràcies</strong> a l'organisme públic o "
+msgstr ""
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Dóna les gràcies</strong> a l'organisme públic o {{user_name}}."

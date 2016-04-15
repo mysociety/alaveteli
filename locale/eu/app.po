@@ -251,9 +251,8 @@ msgstr "<strong>Pribatutasun oharra:</strong> Zure mezua, eta edozein erantzun, 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr " <strong>Informazioaren zati bat</strong> bidalita dago."
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Eman eskerrak</strong> erakunde publikoari edo "
+msgstr ""
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Eman eskerrak</strong> erakunde publikoari edo {{user_name}}."

@@ -226,9 +226,8 @@ msgstr ""
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr ""
 
-#, fuzzy
 msgid "<strong>Thank</strong> the public authority or the requester."
-msgstr "<strong>Thank</strong> the public agency or "
+msgstr "strong>Thank</strong> the public agency or the requester."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Thank</strong> the public agency or {{user_name}}."
