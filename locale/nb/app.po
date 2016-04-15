@@ -3258,9 +3258,8 @@ msgstr "Bruker|Ban tekst"
 msgid "User|Can make batch requests"
 msgstr "Bruker|Can make batch requests"
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Bruker"
+msgstr ""
 
 msgid "User|Email"
 msgstr "Bruker|E-post"

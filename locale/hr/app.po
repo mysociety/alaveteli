@@ -3356,9 +3356,8 @@ msgstr "Korisnik|tekst isključenja"
 msgid "User|Can make batch requests"
 msgstr "Korisnik|Može raditi skupne zahtjeve"
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Korisnik/ca"
+msgstr ""
 
 msgid "User|Email"
 msgstr "Korisnik|E-mail"

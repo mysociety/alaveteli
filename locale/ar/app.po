@@ -3280,9 +3280,8 @@ msgstr "مستخدم|منع النص"
 msgid "User|Can make batch requests"
 msgstr ""
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "المستخدم"
+msgstr ""
 
 msgid "User|Email"
 msgstr "المستخدم|البريد الالكتروني"

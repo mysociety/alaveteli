@@ -3328,9 +3328,8 @@ msgstr "Përdoruesi|Tekst i ndaluar"
 msgid "User|Can make batch requests"
 msgstr "Përdoruesi|Mund te beje nje liste kerkesash"
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Përdoruesi"
+msgstr ""
 
 msgid "User|Email"
 msgstr "Përdoruesi |Posta elektronike"

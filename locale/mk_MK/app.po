@@ -3249,9 +3249,8 @@ msgstr "User|Текст за исклучување"
 msgid "User|Can make batch requests"
 msgstr ""
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Корисник"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|Е-пошта"

@@ -3237,9 +3237,8 @@ msgstr "使用者｜封禁字眼"
 msgid "User|Can make batch requests"
 msgstr "使用者｜可以同時向多個部門提出索取資料要求"
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "使用者"
+msgstr ""
 
 msgid "User|Email"
 msgstr "使用者｜電郵"

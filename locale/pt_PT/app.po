@@ -3297,9 +3297,8 @@ msgstr "Usuário | Banir texto"
 msgid "User|Can make batch requests"
 msgstr ""
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Usuário"
+msgstr ""
 
 msgid "User|Email"
 msgstr "Usuário | E-mail"

@@ -3246,9 +3246,8 @@ msgstr "User|Текст при блокиране"
 msgid "User|Can make batch requests"
 msgstr "User|Може да създава размножени заявления"
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Потребител"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|Имейл"

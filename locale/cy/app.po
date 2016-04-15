@@ -3271,9 +3271,8 @@ msgstr "User|Gwahardd testun"
 msgid "User|Can make batch requests"
 msgstr "Defnyddiwr | A all wneud ceisiadau swp"
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Defnyddiwr"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|E-bost"

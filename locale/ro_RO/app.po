@@ -3272,9 +3272,8 @@ msgstr "Utilizator|Text interzis"
 msgid "User|Can make batch requests"
 msgstr ""
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Utilizator"
+msgstr ""
 
 msgid "User|Email"
 msgstr "Utilizator|Email"

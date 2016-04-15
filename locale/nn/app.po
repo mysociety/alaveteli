@@ -3263,9 +3263,8 @@ msgstr "Nytter|Ban tekst"
 msgid "User|Can make batch requests"
 msgstr "User|Can make batch requests"
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Nytter"
+msgstr ""
 
 msgid "User|Email"
 msgstr "Nytter|E-post"

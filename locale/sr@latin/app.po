@@ -3327,9 +3327,8 @@ msgstr "User|Tekst isključenja"
 msgid "User|Can make batch requests"
 msgstr ""
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Korisnik"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|E-mail"

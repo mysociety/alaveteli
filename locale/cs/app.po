@@ -3391,7 +3391,6 @@ msgstr "User | Zakázat text"
 msgid "User|Can make batch requests"
 msgstr "Uživatel|Může vznášet hromadné dotazy"
 
-#, fuzzy
 msgid "User|Dob"
 msgstr "Uživatel"
 

@@ -3248,9 +3248,8 @@ msgstr "Användare|Bannlys text"
 msgid "User|Can make batch requests"
 msgstr "Användare|Kan göra serieförfrågningar"
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Användare"
+msgstr ""
 
 msgid "User|Email"
 msgstr "Användare|E-postadress"

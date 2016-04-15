@@ -3260,9 +3260,8 @@ msgstr "User|Ban text"
 msgid "User|Can make batch requests"
 msgstr "Uporabnik|Lahko ustvari paketne zahtevke"
 
-#, fuzzy
 msgid "User|Dob"
-msgstr "Uporabni"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|Email"
