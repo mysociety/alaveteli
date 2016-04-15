@@ -1350,9 +1350,8 @@ msgstr "InfoRequest|Håndter avviste svar"
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "InfoRequest|Håndter avviste svar"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"

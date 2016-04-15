@@ -1347,9 +1347,8 @@ msgstr "InfoRequest|Handle reddedilmiş başvurular"
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "InfoRequest|Handle reddedilmiş başvurular"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"

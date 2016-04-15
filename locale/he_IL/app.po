@@ -1357,9 +1357,8 @@ msgstr "InfoRequest|Handle תגובות שנדחו"
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "InfoRequest|Handle תגובות שנדחו"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law היו בשימוש"

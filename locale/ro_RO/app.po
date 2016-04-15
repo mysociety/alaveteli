@@ -1361,9 +1361,8 @@ msgstr "CerereInfo | Prelucrare răspunsuri respinse"
 msgid "InfoRequest|Idhash"
 msgstr "CerereInfo |Idhash"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "CerereInfo | Prelucrare răspunsuri respinse"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "CerereInfo | Lege utilizată"

@@ -1426,9 +1426,8 @@ msgstr "InfoRequestEvent | Řešit odmítnuté odpovědi "
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequestEventIdhash ??"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "InfoRequestEvent | Řešit odmítnuté odpovědi "
+msgstr "Dotaz|Poslední odpověď od instituce "
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequestEvent | Podle zákona"

@@ -1354,9 +1354,8 @@ msgstr " طلب المعلومة|التعامل مع الردود الملغاة
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr " طلب المعلومة|التعامل مع الردود الملغاة"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "طلب المعلومة|القانون المعتمد"

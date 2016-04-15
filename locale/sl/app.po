@@ -1344,9 +1344,8 @@ msgstr "InfoZahtevek|Obravnavaj zavrnjene odzive"
 msgid "InfoRequest|Idhash"
 msgstr "InfoZahtevek|Preverjevalna vsota"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "InfoZahtevek|Obravnavaj zavrnjene odzive"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoZahtevek|Uporabljen zakon"

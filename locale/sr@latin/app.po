@@ -1364,9 +1364,8 @@ msgstr "InfoRequest|Razrešavanje odbijenih odgovora"
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "InfoRequest|Razrešavanje odbijenih odgovora"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Primenjeni zakon"

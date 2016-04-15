@@ -1392,9 +1392,8 @@ msgstr "KerkeseInformacioni|Trajton pergjigjet e refuzuara"
 msgid "InfoRequest|Idhash"
 msgstr "KerkeseInformacioni||Idhash"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "KerkeseInformacioni|Trajton pergjigjet e refuzuara"
+msgstr "InfoRequest|Last public response at"
 
 msgid "InfoRequest|Law used"
 msgstr "KerkeseInformacioni| Ligji i përdorur"

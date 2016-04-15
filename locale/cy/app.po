@@ -1355,9 +1355,8 @@ msgstr "InfoRequest|Trin ymatebion a wrthodwyd"
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "InfoRequest|Trin ymatebion a wrthodwyd"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Y gyfraith a ddefnyddiwyd "

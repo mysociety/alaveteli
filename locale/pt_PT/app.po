@@ -1385,9 +1385,8 @@ msgstr "InfoRequest | Administrar respostas rejeitadas"
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
-#, fuzzy
 msgid "InfoRequest|Last public response at"
-msgstr "InfoRequest | Administrar respostas rejeitadas"
+msgstr ""
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest | Lei utilizada"
