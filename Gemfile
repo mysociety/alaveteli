@@ -79,7 +79,7 @@ group :test, :development do
   gem 'pry', '~> 0.10.3'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '~> 3.4.0'
-  gem 'test-unit', '~> 3.0'
+  gem 'test-unit', '~> 3.1.0'
   gem 'spork-rails', '~> 3.2.1'
   gem 'pry-nav', '~> 0.2.4'
 end
