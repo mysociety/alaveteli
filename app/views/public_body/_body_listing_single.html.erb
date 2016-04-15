@@ -29,7 +29,7 @@
            :count => public_body.info_requests.visible.size) %>
     <br>
     <span class="date_added">
-      <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
+      <%= _("Added on {{date}}.", :date => simple_date(public_body.created_at)) %>
     </span>
     <br>
     <% if public_body.special_not_requestable_reason? %>

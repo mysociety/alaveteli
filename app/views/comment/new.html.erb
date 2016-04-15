@@ -42,7 +42,13 @@
     <li><%= _(' <strong>Summarise</strong> the content of any information returned. ')%></li>
     <li><%= _(" Say how you\'ve <strong>used the information</strong>, with " \
                 "links if possible.")%> </li>
-    <li> <%= _('<strong>Thank</strong> the public authority or ')%><%=h (@info_request.user_name ? @info_request.user_name : _('the requester')) %>. </li>
+    <li>
+      <%= @info_request.user_name ?
+        _("<strong>Thank</strong> the public authority or {{user_name}}.",
+              :user_name => h(@info_request.user_name)) :
+        _("<strong>Thank</strong> the public authority or the requester.")
+      %>
+    </li>
   <% end %>
 
   <% if [ 'partially_successful' ].include?(@info_request.described_state) %>

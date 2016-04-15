@@ -1,9 +1,11 @@
 <%= raw @message %>
 
 ---------------------------------------------------------------------
-<%= raw @reported_by.name %> <%= _('has reported an')%> <%= raw @info_request.law_used_human(:short) %>
-<%= _('response as needing administrator attention. Take a look, and reply ' \
-      'to this email to let them know what you are going to do about it.') %>
+<%= _('{{user_name}} has reported an {{law_used}} response as needing ' \
+       'administrator attention. Take a look, and reply to this email to ' \
+       'let them know what you are going to do about it.',
+    :user_name => raw(@reported_by.name),
+    :law_used => raw(@info_request.law_used_human(:short))) %>
 
 Request '<%= raw @info_request.title %>':
 <%= @url %>

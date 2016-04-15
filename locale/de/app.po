@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-18 21:25+0000\n"
-"Last-Translator: arne <arne.semsrott@okfn.de>\n"
+"POT-Creation-Date: 2016-04-07 16:36+0100\n"
+"PO-Revision-Date: 2016-04-07 13:58+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/mysociety/alaveteli/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -262,17 +262,17 @@ msgstr "<strong>Datenschutzhinweis:</strong> Ihre Nachricht als auch alle entspr
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "Information wurde teilweise gesendet"
 
-msgid "<strong>Thank</strong> the public authority or "
-msgstr "<strong>Danken Sie</strong> der Behörde oder "
+msgid "<strong>Thank</strong> the public authority or the requester."
+msgstr "<strong>Danken Sie</strong> der Behörde oder der Anfragesteller."
+
+msgid "<strong>Thank</strong> the public authority or {{user_name}}."
+msgstr "<strong>Danken Sie</strong> der Behörde oder {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Wir werden Ihnen schreiben</strong>, wenn es eine Antwort gibt oder nach {{late_number_of_days}} Arbeitstagen, falls die Behörde bis dahin nicht geantwortet hat."
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
 msgstr ""
-
-msgid "<strong>did not have</strong> the information requested."
-msgstr "Die angefragten Informationen waren <strong>nicht vorhanden</strong>."
 
 msgid "?"
 msgstr "?"
@@ -348,8 +348,8 @@ msgstr "Behörde hinzufügen - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Füge die Behörde hinzu:"
 
-msgid "Added on {{date}}"
-msgstr "Hinzugefügt am {{date}}"
+msgid "Added on {{date}}."
+msgstr "Hinzugefügt am {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Administrative Ebene ist in Liste nicht enthalten"
@@ -514,6 +514,9 @@ msgstr "Alle Anfragen durchsuchen"
 msgid "Browse and search requests"
 msgstr "Ansehen und Suchen von Anfragen"
 
+msgid "Browse and search requests (page {{count}})"
+msgstr "Ansehen und Suchen von Anfragen (page {{count}})"
+
 msgid "Browse requests"
 msgstr "Anfragen ansehen"
 
@@ -604,11 +607,11 @@ msgstr "Klärung"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
+msgid "Clarify your FOI request - {{request_title}}"
 msgstr ""
 
-msgid "Classify an FOI response from "
-msgstr "Klassifizieren Sie eine IFG-Anfrage von"
+msgid "Classify an FOI response from {{authority_name}}"
+msgstr "Klassifizieren Sie eine IFG-Anfrage von {{authority_name}}"
 
 msgid "Clear photo"
 msgstr ""
@@ -745,7 +748,7 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
+msgid "Delayed response to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "Delayed."
@@ -894,7 +897,7 @@ msgstr "IFG-Anfrage von '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "IFG-Anfragen {{start_count}} bis {{end_count}} von {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr ""
 
 msgid "Failed"
@@ -1031,7 +1034,7 @@ msgstr "Informationsfreiheitsgesetz"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr ""
 
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
@@ -1461,11 +1464,11 @@ msgstr ""
 msgid "Keywords"
 msgstr "Stichwörter"
 
-msgid "Last authority viewed: "
-msgstr "Zuletzt angesehene Behörde: "
+msgid "Last authority viewed: {{authority_url}}"
+msgstr "Zuletzt angesehene Behörde: {{authority_url}}"
 
-msgid "Last request viewed: "
-msgstr "Zuletzt angesehene Anfrage:"
+msgid "Last request viewed: {{request_url}}"
+msgstr "Zuletzt angesehene Anfrage: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""
@@ -1572,8 +1575,8 @@ msgstr "Nachricht wurde entfernt"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Nachricht gesendet über {{site_name}} Kontaktformular, "
 
-msgid "Missing contact details for '"
-msgstr "Folgende Kontaktdetails fehlen:"
+msgid "Missing contact details for '{{authority_name}}'"
+msgstr "Folgende Kontaktdetails fehlen: '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Weitere Informationen zu dieser Behörde"
@@ -1623,8 +1626,8 @@ msgstr "Neues Passwort: (erneut eingeben)"
 msgid "New response to '{{title}}'"
 msgstr ""
 
-msgid "New response to your FOI request - "
-msgstr "Neue Antwort zu Ihrer IFG-Anfrage"
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Neue Antwort zu Ihrer IFG-Anfrage {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Neue Antwort auf Ihre Anfrage"
@@ -1949,8 +1952,8 @@ msgstr "Bitte wählen Sie diese Anfragen der Reihe nach aus und <strong>lassen S
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Bitte unterschreiben Sie unten mit Ihrem Namen oder ändern Sie Ihre \"{{signoff}}\" Signatur"
 
-msgid "Please sign in as "
-msgstr "Anmelden als"
+msgid "Please sign in as {{user_name}}"
+msgstr "Anmelden als {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""
@@ -2411,8 +2414,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr "Nachfrage senden"
 
-msgid "Send a message to "
-msgstr "Nachricht senden an"
+msgid "Send a message to {{user_name}}"
+msgstr "Nachricht senden an {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Öffentliche Nachfrage an {{person_or_body}} senden"
@@ -2429,8 +2432,11 @@ msgstr ""
 msgid "Send message"
 msgstr "Nachricht senden"
 
-msgid "Send message to "
-msgstr "Nachricht senden an"
+msgid "Send message to {{user_name}}"
+msgstr "Nachricht senden an {{user_name}}"
+
+msgid "Send message to {{user_name}} just to see how it works"
+msgstr "Nachricht senden an {{user_name}} um zu sehen wie es funktioniert"
 
 msgid "Send request"
 msgstr "Anfrage senden"
@@ -2494,7 +2500,7 @@ msgstr "Ähnliche Anfragen"
 msgid "Simple search"
 msgstr "Einfache Suche"
 
-msgid "Some notes have been added to your FOI request - "
+msgid "Some notes have been added to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "Some of the information requested has been received"
@@ -2503,7 +2509,7 @@ msgstr "Ein Teil der angefragten Informationen wurde erhalten."
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Nicht alle Anfragensteller haben uns über den Erfolg Ihrer Anfragen informiert. Wir sind auf <strong>Ihre</strong> Hilfe angewiesen. Wählen Sie eine dieser Anfragen, lesen Sie sie und teilen Sie uns mit, ob die gewünschte Information zur Verfügung gestellt wurde. Alle Nutzer wären Ihnen ausgesprochen dankbar. "
 
-msgid "Somebody added a note to your FOI request - "
+msgid "Somebody added a note to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "Someone has updated the status of your request"
@@ -2613,8 +2619,8 @@ msgstr "vielen Dank für die Ihre Mithilfe die Seite aktuell zu halten. "
 msgid "Thank you for making an annotation!"
 msgstr "Vielen Dank für Ihre Anmerkung"
 
-msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to "
-msgstr "Vielen Dank für Ihre IFG-Anfrage! Ihre Antwort wird unten angezeigt und ein Link zu Ihrer Antwort wurde gesendet an"
+msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
+msgstr "Vielen Dank für Ihre IFG-Anfrage! Ihre Antwort wird unten angezeigt und ein Link zu Ihrer Antwort wurde gesendet an {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Herzlichen Dank für die Aktualisierung der Anfrage '<a href=\"{{url}}\">{{info_request_title}}</a>'. Untenstehend finden Sie einige weitere Anfragen, welche durch Sie zugeordnet werden sollten."
@@ -2742,8 +2748,8 @@ msgstr "<strong>Klärung</strong> der Anfrage wird erwartet."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Ihre Anfrage war <strong>teilweise erfolgreich</strong>."
 
-msgid "The request was <strong>refused</strong> by"
-msgstr "Die Anfrage wurde <strong>abgelehnt</strong> durch"
+msgid "The request was <strong>refused</strong> by {{authority_name}}."
+msgstr "Die Anfrage wurde <strong>abgelehnt</strong> durch {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Die Anfrage war <strong>erfolgreich</strong>."
@@ -2789,8 +2795,8 @@ msgstr "können Sie Ihre auf {{site_name}} verwendete Email-Adresse beenden"
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Dann können Sie Ihr Passwort unter {{site_name}} ändern"
 
-msgid "Then you can classify the FOI response you have got from "
-msgstr "Dann klassifizieren Sie die IFG-Anfrage welche Sie erhalten haben, von"
+msgid "Then you can classify the FOI response you have got from {{authority_name}}."
+msgstr "Dann klassifizieren Sie die IFG-Anfrage welche Sie erhalten haben, von {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Dann können Sie eine Zip-Datei von {{info_request_title}} herunterladen. "
@@ -2807,14 +2813,14 @@ msgstr "Dann können Sie die helden einige Anfraggen zuzuordnen. "
 msgid "Then you can report the request '{{title}}'"
 msgstr ""
 
-msgid "Then you can send a message to "
-msgstr "Dann können Sie eine Nachricht senden an"
+msgid "Then you can send a message to {{user_name}}."
+msgstr "Dann können Sie eine Nachricht senden an {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Dann können Sie sich auf {{site_name}} einloggen. "
 
-msgid "Then you can update the status of your request to "
-msgstr "Dann können Sie den Status Ihrer Nachricht aktualisieren"
+msgid "Then you can update the status of your request to {{authority_name}}."
+msgstr "Dann können Sie den Status Ihrer Nachricht aktualisieren {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Dann können Sie eine IFG-Antwort hochladen. "
@@ -3071,8 +3077,10 @@ msgstr "Um Ihre auf {{site_name}} verwendete Email-Adresse zu ändern"
 msgid "To classify the response to this FOI request"
 msgstr "Um die Antwort auf diese IFG-Anfrage zu klassifizieren"
 
-msgid "To do that please send a private email to "
-msgstr "Senden Sie uns hierfür bitte eine private Email"
+msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
+msgstr ""
+"Senden Sie uns hierfür bitte eine private Email {{postal_email}} {{postal_email_link}} Ihre Postanschrift beinhaltend und Sie fragend auf diese Afrage zu antworten.\n"
+"            Oder Sie könnten Sie anrufen."
 
 msgid "To do this, first click on the link below."
 msgstr "Klicken Sie hierfür bitte auf den unten angezeigten Link."
@@ -3125,8 +3133,8 @@ msgstr "Diese Anfrage melden"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-msgid "To send a message to "
-msgstr "Um eine Nachricht zu senden an "
+msgid "To send a message to {{user_name}}"
+msgstr "Um eine Nachricht zu senden an {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Um Ihre IFG-Anfrage zu senden"
@@ -3137,8 +3145,8 @@ msgstr ""
 msgid "To update the status of this FOI request"
 msgstr "Um den Status dieser IFG-Anfrage zu aktualisieren"
 
-msgid "To upload a response, you must be logged in using an email address from "
-msgstr "Um eine Antwort hochzuladen müssen Sie angemeldet sein und dafür eine folgende Email-Adresse benutzen:"
+msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
+msgstr "Um eine Antwort hochzuladen müssen Sie angemeldet sein und dafür eine folgende Email-Adresse benutzen: {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Um die erweiterte Suchoption zu nutzen, kombinieren Sie Formulierungen und Kennzeichen, wie in den unten aufgeführten Suchhinweisen beschrieben. "
@@ -3233,13 +3241,8 @@ msgstr "Nachfrage an {{username}} kann nicht gesendet werden"
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-msgid "Unexpected search result type "
-msgstr "Unerwartetes Suchergebnis"
-
-msgid "Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr ""
-"Leider ist uns die IFG-Emailadresse dieser Behörde nicht bekannt, somit können wir dies nicht bestätigen.\n"
-"Bitte <a href=\"{{url}}\">kontaktieren Sie uns</a> zur Klärung der Angelegenheit."
+msgid "Unexpected search result type {{result_type}}"
+msgstr "Unerwartetes Suchergebnis {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
@@ -3268,8 +3271,8 @@ msgstr "Adresse aktualisieren:"
 msgid "Update the status of this request"
 msgstr "Status der Anfrage aktualisieren"
 
-msgid "Update the status of your request to "
-msgstr "Aktualisieren Sie den Status Ihrer Anfrage an"
+msgid "Update the status of your request to {{authority_name}}"
+msgstr "Aktualisieren Sie den Status Ihrer Anfrage an {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "IFG-Antwort hochladen:"
@@ -3542,9 +3545,6 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Formulieren Sie Ihre Anfrage in <strong>schlicht und präzise </strong>."
 
-msgid "You"
-msgstr "Sie"
-
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
 
@@ -3664,6 +3664,9 @@ msgstr "Sie haben soeben versucht sich als neuer Nutzer von AskTheEU.org zu regi
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Sie kennen die Ursache des Fehlers und können eine <strong>Lösung anbieten</strong>, wie z.B. eine funktionierende Email-Adresse. "
 
+msgid "You left an annotation ({{date}})"
+msgstr "Sie Anmerkung hinterlassen ({{date}})"
+
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr ""
 
@@ -3736,7 +3739,7 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-msgid "You're long overdue a response to your FOI request - "
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
 msgstr ""
 
 msgid "You're not following anything."
@@ -3872,7 +3875,7 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Ihre {{count}} Anmerkunge"
 msgstr[1] "Ihre {{count}} Anmerkungen"
 
-msgid "Your {{count}} batch requests"
+msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] ""
 msgstr[1] ""
@@ -3958,11 +3961,6 @@ msgstr "durch {{user_link_absolute}}"
 msgid "comments"
 msgstr "Anmerkungen"
 
-msgid "containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr ""
-"Ihre Postanschrift beinhaltend und Sie fragend auf diese Afrage zu antworten.\n"
-"            Oder Sie könnten Sie anrufen."
-
 msgid "details"
 msgstr "Details"
 
@@ -3984,9 +3982,6 @@ msgstr "alles"
 msgid "external"
 msgstr "extern"
 
-msgid "has reported an"
-msgstr "hat berichtet"
-
 msgid "have delayed."
 msgstr "haben verspätet."
 
@@ -4002,14 +3997,8 @@ msgstr "interner Fehler"
 msgid "internal reviews"
 msgstr "interne Prüfung"
 
-msgid "is <strong>waiting for your clarification</strong>."
-msgstr "<strong>Ihre Erläuterung wird erwartet</strong>."
-
-msgid "just to see how it works"
-msgstr "um zu sehen wie es funktioniert"
-
-msgid "left an annotation"
-msgstr "Anmerkung hinterlassen"
+msgid "logged in as user {{user_name}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr ""
@@ -4038,11 +4027,11 @@ msgstr "nicht später als"
 msgid "normally"
 msgstr "normalerweise"
 
-msgid "not requestable due to: {{reason}}"
+msgid "not logged in"
 msgstr ""
 
-msgid "please sign in as "
-msgstr "Bitte melden Sie sich an als"
+msgid "not requestable due to: {{reason}}"
+msgstr ""
 
 msgid "requesting an internal review"
 msgstr "Interne Prüfung beantragen "
@@ -4055,9 +4044,6 @@ msgstr ""
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr ""
-
-msgid "response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "Antwort als Administrator-Check bedürftig. Schau nach und antworte auf diese Email, um sie wissen zu lassen was Du damit tun wirst. "
 
 msgid "send a follow up message"
 msgstr "Nachfrage versenden"
@@ -4091,9 +4077,6 @@ msgstr "die Haupt-Kontaktadresse für {{public_body}}"
 msgid "the main FOI contact at {{public_body}}"
 msgstr "der Hauptkontakt für {{public_body}}"
 
-msgid "the requester"
-msgstr "der Anfragesteller"
-
 msgid "the {{site_name}} team"
 msgstr "das {{site_name}} Team"
 
@@ -4107,13 +4090,13 @@ msgid "type your search term here"
 msgstr ""
 
 msgid "unknown reason"
-msgstr ""
+msgstr "unbekannte Ursache"
 
 msgid "unknown reason "
 msgstr "unbekannte Ursache"
 
-msgid "unknown status "
-msgstr "unbekannter Status"
+msgid "unknown status {{status}}"
+msgstr "unbekannter Status {{status}}"
 
 msgid "unresolved requests"
 msgstr "ungelöste Anfragen"
@@ -4132,6 +4115,12 @@ msgstr "Nutzer"
 
 msgid "what's that?"
 msgstr "Was ist das?"
+
+msgid "{{authority_name}} <strong>did not have</strong> the information requested."
+msgstr "{{authority_name}} Die angefragten Informationen waren <strong>nicht vorhanden</strong>."
+
+msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
+msgstr "{{authority_name}} <strong>Ihre Erläuterung wird erwartet</strong>."
 
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} IFG-Anfragen gefunden"
@@ -4201,6 +4190,14 @@ msgstr "{{public_body}} hat eine Antwort an {{user_name}} gesendet"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, erstellen Sie einen Account oder loggen sich ein"
 
+msgid "{{reason}}, please sign in as {{user_name}}."
+msgstr "{{reason}}, Bitte melden Sie sich an als {{user_name}}."
+
+msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
+msgstr ""
+"{{reason}}.Leider ist uns die IFG-Emailadresse dieser Behörde nicht bekannt, somit können wir dies nicht bestätigen.\n"
+"Bitte <a href=\"{{url}}\">kontaktieren Sie uns</a> zur Klärung der Angelegenheit."
+
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} passen zu '{{query}}'"
 
@@ -4245,8 +4242,14 @@ msgstr ""
 "{{user_name}} hat Ihres {{law_used_short}} \n"
 "Anfrage kommentiert. Folgen Sie diesem Link, um die Anmerkung zu sehen."
 
+msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} hat berichtet {{law_used}} Antwort als Administrator-Check bedürftig. Schau nach und antworte auf diese Email, um sie wissen zu lassen was Du damit tun wirst."
+
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} hat {{site_name}} verwendet, um Ihnen die unten angezeigte Nachricht zu senden."
+
+msgid "{{user_name}} left an annotation ({{date}})"
+msgstr "{{user_name}} hat eine Nachricht hinterlassen ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} hat eine Nachfrage an {{public_body}} gesendet"

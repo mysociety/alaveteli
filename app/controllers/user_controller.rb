@@ -294,9 +294,12 @@ class UserController < ApplicationController
     #
     # "authenticated?" has done the redirect to signin page for us
     return unless authenticated?(
-        :web => _("To send a message to ") + CGI.escapeHTML(@recipient_user.name),
-        :email => _("Then you can send a message to ") + @recipient_user.name + ".",
-        :email_subject => _("Send a message to ") + @recipient_user.name
+        :web => _("To send a message to {{user_name}}",
+                  :user_name => CGI.escapeHTML(@recipient_user.name)),
+        :email => _("Then you can send a message to {{user_name}}.",
+                    :user_name => @recipient_user.name),
+        :email_subject => _("Send a message to {{user_name}}",
+                            :user_name => @recipient_user.name)
       )
 
     if params[:submitted_contact_form]
