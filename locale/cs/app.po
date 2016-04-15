@@ -1021,7 +1021,7 @@ msgid "Follow up message sent by requester"
 msgstr "Odpověď zaslána uživatelem"
 
 msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr "Další zprávy týkající se existující žádosti obdrží <strong>{{authority_email}}</strong>"
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Uživatel {{info_request_user}}  odeslal odpověď {{public_body_name}} dne {{date}}."
@@ -1478,7 +1478,7 @@ msgid "Items sent in last month"
 msgstr "Odesláno poslední měsíc"
 
 msgid "Joined in {{year}}."
-msgstr ""
+msgstr "Registrován od {{year}}."
 
 msgid "Joined {{site_name}} in {{year}}"
 msgstr "Registrován na {{site_name}} v {{year}}"
@@ -3619,7 +3619,7 @@ msgid "Write a reply"
 msgstr "Napište odpověď"
 
 msgid "Write a reply to {{authority_name}}"
-msgstr ""
+msgstr "Odpovězte {{authority_name}}"
 
 msgid "Write your FOI follow up message to {{authority_name}}"
 msgstr "Napište svou odpověď pro {{authority_name}}"

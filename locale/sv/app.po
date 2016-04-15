@@ -954,7 +954,7 @@ msgid "Follow up message sent by requester"
 msgstr "Uppföljningsmeddelande skickat av användaren"
 
 msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr ""Uppföljningsmeddelanden till existerande förfrågningar skickas till <strong>{{authority_email}}</strong>."
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Uppföljning skickades till {{public_body_name}} av {{info_request_user}} den {{date}}."
@@ -1391,7 +1391,7 @@ msgid "Items sent in last month"
 msgstr "Saker skickade den senaste månaden"
 
 msgid "Joined in {{year}}."
-msgstr ""
+msgstr "Gick med under {{year}}."
 
 msgid "Joined {{site_name}} in {{year}}"
 msgstr "Gick med på {{site_name}} under {{year}}"
@@ -3243,7 +3243,7 @@ msgid "User|Can make batch requests"
 msgstr "Användare|Kan göra serieförfrågningar"
 
 msgid "User|Dob"
-msgstr ""
+msgstr "User|Dob"
 
 msgid "User|Email"
 msgstr "Användare|E-postadress"
@@ -3460,7 +3460,7 @@ msgid "Write a reply"
 msgstr "Skriv ett svar"
 
 msgid "Write a reply to {{authority_name}}"
-msgstr ""
+msgstr "Skriv ett svar till {{authority_name}}"
 
 msgid "Write your FOI follow up message to {{authority_name}}"
 msgstr "Skriv ditt svar angående begäran om allmän handling till {{authority_name}}"

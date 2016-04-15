@@ -996,7 +996,7 @@ msgid "Follow up message sent by requester"
 msgstr "Mesazhi vijues është dërguar nga kërkuesi"
 
 msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr "Mesazhet pasuese për kërkesat ekzistuese dërgohen tek <strong>{{authority_email}}</strong>."
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Mesazhi vijues derguar {{public_body_name}} nga {{info_request_user}} me {{date}}."
@@ -1441,7 +1441,7 @@ msgid "Items sent in last month"
 msgstr "Artikuj te derguar muajin e kaluar"
 
 msgid "Joined in {{year}}."
-msgstr ""
+msgstr "Regjistruar në {{year}}."
 
 msgid "Joined {{site_name}} in {{year}}"
 msgstr "Regjistruar tek {{site_name}} në {{year}}"
@@ -3130,7 +3130,7 @@ msgid "To post your annotation"
 msgstr "Për të postuar shënimin tuaj"
 
 msgid "To reply to {{authority_name}}."
-msgstr "ër tiu përgjigjur {{authority_name}}."
+msgstr "Për tiu përgjigjur {{authority_name}}."
 
 msgid "To report this request"
 msgstr "Per te raportuar kete kerkese"
@@ -3322,7 +3322,7 @@ msgid "User|Can make batch requests"
 msgstr "Përdoruesi|Mund te beje nje liste kerkesash"
 
 msgid "User|Dob"
-msgstr ""
+msgstr "User|Dob"
 
 msgid "User|Email"
 msgstr "Përdoruesi |Posta elektronike"
