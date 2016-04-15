@@ -4361,9 +4361,9 @@ msgstr ""
 "{{user_name}} ha comentado tu solicitud {{law_used_short}}. \n"
 "Sigue este enlace para ver lo que ha escrito."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
+"{{user_name}} ha denunciado un {{law_used}} "
 "respuesta necesita intervención del administrador. Revísela, y conteste a este\n"
 "correo para indicarles qué va a hacer al respecto."
 

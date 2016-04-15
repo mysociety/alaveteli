@@ -4364,9 +4364,9 @@ msgstr ""
 "Az ön {{law_used_short}} tárgyú igényléséhez {{user_name}} hozzászólt,\n"
 "melyet elolvashat a hivatkozásra kattintva."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
+"{{user_name}} bejelentett {{law_used}} "
 "válasz, amelyet meg kell vizsgálnia az adminisztrátornak. Nézze meg, és válaszoljon erre az\n"
 "e-mail üzenetre, és tájékoztassa őket, hogy mit fog tenni. "
 

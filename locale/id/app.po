@@ -4366,9 +4366,9 @@ msgstr ""
 "{{user_name}} telah menganotasi permintaan {{law_used_short}} \n"
 "Anda. Ikuti tatutan ini untuk melihat apa yang mereka tulis."
 
-#, fuzzy
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
+"{{user_name}} telah melaporkan {{law_used}} "
 "permintaan membutuhkan perhatian Administrator. Lihat dan balas ke\n"
 "surat elektronik untuk memberitahu mereka apa yang akan anda lakukan."
 
