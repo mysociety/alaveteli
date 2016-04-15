@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-15 16:04+0100\n"
-"PO-Revision-Date: 2016-04-15 14:15+0000\n"
+"POT-Creation-Date: 2016-04-07 16:36+0100\n"
+"PO-Revision-Date: 2016-04-07 13:58+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -251,17 +251,17 @@ msgstr "<strong>Pribatutasun oharra:</strong> Zure mezua, eta edozein erantzun, 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr " <strong>Informazioaren zati bat</strong> bidalita dago."
 
-msgid "<strong>Thank</strong> the public authority or "
-msgstr "<strong>Eman eskerrak</strong> erakunde publikoari edo "
+msgid "<strong>Thank</strong> the public authority or the requester."
+msgstr ""
+
+msgid "<strong>Thank</strong> the public authority or {{user_name}}."
+msgstr "<strong>Eman eskerrak</strong> erakunde publikoari edo {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr ""
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
 msgstr ""
-
-msgid "<strong>did not have</strong> the information requested."
-msgstr "<strong>ez zeukan</strong> eskatutako informazioa."
 
 msgid "?"
 msgstr ""
@@ -335,8 +335,8 @@ msgstr ""
 msgid "Add the authority:"
 msgstr ""
 
-msgid "Added on {{date}}"
-msgstr " {{date}} egunean gehituta"
+msgid "Added on {{date}}."
+msgstr " {{date}} egunean gehituta."
 
 msgid "Admin level is not included in list"
 msgstr "Administratzailearen maila ez da sartzen zerrendan"
@@ -499,6 +499,9 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Ikusi eta bilatu eskabideak"
 
+msgid "Browse and search requests (page {{count}})"
+msgstr "Ikusi eta bilatu eskabideak (page {{count}})"
+
 msgid "Browse requests"
 msgstr "Ikusi eskabideak"
 
@@ -591,11 +594,11 @@ msgstr "Azalpena"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
+msgid "Clarify your FOI request - {{request_title}}"
 msgstr ""
 
-msgid "Classify an FOI response from "
-msgstr "Sailaktu _____-tik emandako erantzuna "
+msgid "Classify an FOI response from {{authority_name}}"
+msgstr "Sailaktu _____-tik emandako erantzuna {{authority_name}}"
 
 msgid "Clear photo"
 msgstr ""
@@ -732,8 +735,8 @@ msgstr ""
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Zure informaziorako sarbidearen eskabidea atzeratuta dabil - "
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Zure informaziorako sarbidearen eskabidea atzeratuta dabil - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Atzeratuta."
@@ -876,7 +879,7 @@ msgstr "'{{user_name}}'-k egindako informazio eskabideak"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Eskabideak {{start_count}}-tik {{end_count}}-ra, {{total_count}} guztira"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr ""
 
 msgid "Failed"
@@ -1013,7 +1016,7 @@ msgstr "Informaziorako Sarbidearen Legea"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Informaziorako Sarbidearen Legea ez zaio erakunde honi aplikatzen, horregatik ezin diozu informazio eskabidea bidali."
 
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
@@ -1442,11 +1445,11 @@ msgstr ""
 msgid "Keywords"
 msgstr "Hitz gakoak"
 
-msgid "Last authority viewed: "
-msgstr "Bisitatu den azken erakundea: "
+msgid "Last authority viewed: {{authority_url}}"
+msgstr "Bisitatu den azken erakundea: {{authority_url}}"
 
-msgid "Last request viewed: "
-msgstr "Ikusi den azken eskabidea: "
+msgid "Last request viewed: {{request_url}}"
+msgstr "Ikusi den azken eskabidea: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""
@@ -1553,8 +1556,8 @@ msgstr ""
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Mezua bidali da {{site_name}} erabiliz, "
 
-msgid "Missing contact details for '"
-msgstr "Kontaktuaren datuak falta dira '"
+msgid "Missing contact details for '{{authority_name}}'"
+msgstr "Kontaktuaren datuak falta dira '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Erakunde honi buruzko informazio gehiago"
@@ -1604,8 +1607,8 @@ msgstr "Pasahitza berria: (berriro)"
 msgid "New response to '{{title}}'"
 msgstr ""
 
-msgid "New response to your FOI request - "
-msgstr "Zure informazio eskabideari egindako erantzun berria - "
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Zure informazio eskabideari egindako erantzun berria - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Zure eskabideari egindako erantzun berria"
@@ -1929,8 +1932,8 @@ msgstr "Mesedez, aukera itzazu eskabideak banan banan, eta <strong>jakinarazi </
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Mesedez, beheko aldean sinatu zure izenarekin, edo aldatu sinadura \"{{signoff}}\""
 
-msgid "Please sign in as "
-msgstr "Mesedez, ireki saioa ___________  bezala"
+msgid "Please sign in as {{user_name}}"
+msgstr "Mesedez, ireki saioa ___________  bezala {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""
@@ -2391,8 +2394,8 @@ msgstr ""
 msgid "Send a followup"
 msgstr "Bidali erantzuna"
 
-msgid "Send a message to "
-msgstr "Bidal iezaiozu ______-ri mezua"
+msgid "Send a message to {{user_name}}"
+msgstr "Bidal iezaiozu ______-ri mezua {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Erantzun {{person_or_body}}-ri publikoki."
@@ -2409,8 +2412,11 @@ msgstr ""
 msgid "Send message"
 msgstr "Bidali mezua"
 
-msgid "Send message to "
-msgstr "Bidali _____-ri mezua"
+msgid "Send message to {{user_name}}"
+msgstr "Bidali _____-ri mezua {{user_name}}"
+
+msgid "Send message to {{user_name}} just to see how it works"
+msgstr "Bidali _____-ri mezua {{user_name}} nola funtzionatzen duen ikustearren"
 
 msgid "Send request"
 msgstr "Bidali eskabidea"
@@ -2474,8 +2480,8 @@ msgstr "Antzeko eskabideak"
 msgid "Simple search"
 msgstr "Oinarrizko bilaketa"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berriak - "
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berriak - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Eskatutako informazio zati bat jaso da"
@@ -2485,8 +2491,8 @@ msgstr ""
 "Eskabidea egin zuten zenbaitek ez digute jakinarazi arrakasta izan zuten ala ez. <strong>Zure</strong> laguntza behar dugu &ndash;\n"
 "aukera ezazu eskabideren bat, irakurri eta jakinarazi informazioa lortu duen ala ez. Guztion eskerrona izango duzu."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berria - "
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berria - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr ""
@@ -2593,8 +2599,8 @@ msgstr "Eskerrik asko web hau ordenean mantentzen laguntzeagatik!"
 msgid "Thank you for making an annotation!"
 msgstr "Eskerrik asko iruzkina egiteagatik!"
 
-msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to "
-msgstr "Eskerrik asko informazio eskabide honi erantzuteagatik! Zure erantzuna jarraian argitaratuko da eta zure erantzunaren esteka ______-ri bidaliko zaio."
+msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
+msgstr "Eskerrik asko informazio eskabide honi erantzuteagatik! Zure erantzuna jarraian argitaratuko da eta zure erantzunaren esteka ______-ri bidaliko zaio. {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Eskerrik asko  '<a href=\"{{url}}\">{{info_request_title}}</a>' eskabidearen egoera gaurkotzeagatik. Jarraian sailatu daitezkeen beste eskabide batzuk erakutsiko dizkizugu."
@@ -2725,8 +2731,8 @@ msgstr "Eskabidea <strong>azalpenaren zain</strong> dago."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Eskabidea <strong>aldizka arrakastatsua</strong> izan da."
 
-msgid "The request was <strong>refused</strong> by"
-msgstr "Eskabidea ez du _______-k  <strong>onartu</strong> "
+msgid "The request was <strong>refused</strong> by {{authority_name}}."
+msgstr "Eskabidea ez du _______-k  <strong>onartu</strong> {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Eskabidea <strong>arrakastatsua</strong> izan da."
@@ -2774,8 +2780,8 @@ msgstr "Orduan {{site_name}}-ean erabili duzun posta aldatu ahal izango duzu."
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Orduan {{site_name}}-ean erabili duzun pasahitza aldatu ahal izango duzu."
 
-msgid "Then you can classify the FOI response you have got from "
-msgstr "Orduan _______-tik jaso duzun erantzuna sailkatu ahal izango duzu."
+msgid "Then you can classify the FOI response you have got from {{authority_name}}."
+msgstr "Orduan _______-tik jaso duzun erantzuna sailkatu ahal izango duzu. {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Orduan {{info_request_title}}-tik deskargatu ahal izango duzu ZIP fitxategia."
@@ -2792,14 +2798,14 @@ msgstr "Orduan eskabideak sailkatzeko jolasean jokatu ahal izango duzu."
 msgid "Then you can report the request '{{title}}'"
 msgstr ""
 
-msgid "Then you can send a message to "
-msgstr "Orduan _____-ri mezu bat bidali ahal izango diozu"
+msgid "Then you can send a message to {{user_name}}."
+msgstr "Orduan _____-ri mezu bat bidali ahal izango diozu {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Orduan {{site_name}}-ra sartu ahal izango duzu."
 
-msgid "Then you can update the status of your request to "
-msgstr "Orduan gaurkotu ahal izango duzu zure eskabidearen egoera"
+msgid "Then you can update the status of your request to {{authority_name}}."
+msgstr "Orduan gaurkotu ahal izango duzu zure eskabidearen egoera {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Orduan erantzuna igo ahal izango duzu. "
@@ -3054,8 +3060,10 @@ msgstr "{{site_name}}-ean erabili den posta helbidea aldatu"
 msgid "To classify the response to this FOI request"
 msgstr "Eskabide honen erantzuna birsailkatu"
 
-msgid "To do that please send a private email to "
-msgstr "Hau egiteko, mesedez bidal iezaiozu mezu pribatua ______-ri"
+msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
+msgstr ""
+"Hau egiteko, mesedez bidal iezaiozu mezu pribatua ______-ri {{postal_email}} {{postal_email_link}} zure posta helbidea erantsiz, eta zure eskabideari erantzun diezaioten eskatuz.\n"
+"            Edo froga ezazu telefonoz deitzen."
 
 msgid "To do this, first click on the link below."
 msgstr "Hau egiteko, lehenbizi egin klik beheko estekan."
@@ -3108,8 +3116,8 @@ msgstr ""
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-msgid "To send a message to "
-msgstr "______-ri mezua bidaltzeko"
+msgid "To send a message to {{user_name}}"
+msgstr "______-ri mezua bidaltzeko {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Zure informazio eskabidea bidaltzeko"
@@ -3120,8 +3128,8 @@ msgstr ""
 msgid "To update the status of this FOI request"
 msgstr "Zure informazio eskabidearen egoera gaurkotzeko"
 
-msgid "To upload a response, you must be logged in using an email address from "
-msgstr "Erantzun bat igotzeko ______-ko posta helbide batekin erregistratuta egon behar duzu"
+msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
+msgstr "Erantzun bat igotzeko ______-ko posta helbide batekin erregistratuta egon behar duzu {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Bilaketa aurreratua erabiltzeko, balia zaitez perpaus eta hitz gakoez, ondoko argibideetan adierazten den moduan."
@@ -3216,11 +3224,8 @@ msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-msgid "Unexpected search result type "
-msgstr "Ustegabeko emaitza aurkitu da "
-
-msgid "Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "Zoritxarrez ez dugu erakunde honetako posta helbidea, beraz ezin izan dugu balioztatu. Mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a> hau konpontzeko."
+msgid "Unexpected search result type {{result_type}}"
+msgstr "Ustegabeko emaitza aurkitu da {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
@@ -3249,8 +3254,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr "Gaurkotu eskabide honen egoera"
 
-msgid "Update the status of your request to "
-msgstr "Gaurkotu ________-ri egindako eskabidearen egoera"
+msgid "Update the status of your request to {{authority_name}}"
+msgstr "Gaurkotu ________-ri egindako eskabidearen egoera {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr ""
@@ -3523,9 +3528,6 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Idatz ezazu zure eskabidea <strong>hizkera erraz eta argi</strong> batez."
 
-msgid "You"
-msgstr "Zu"
-
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
 
@@ -3646,6 +3648,9 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Badakizu zerk eragin duen errorea eta <strong>irtenbidea iradoki</a> ahal duzu, hala nola helbide elektroniko ez baliagarria."
 
+msgid "You left an annotation ({{date}})"
+msgstr "Zu iruzkin bat utzi du ({{date}})"
+
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr ""
 
@@ -3718,8 +3723,8 @@ msgstr ""
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Zure informazio eskabidearen erantzuna oso atzeratuta dago - "
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Zure informazio eskabidearen erantzuna oso atzeratuta dago - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr ""
@@ -3853,7 +3858,7 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Zure iruzkin {{count}} "
 msgstr[1] "Zure {{count}} iruzkinak"
 
-msgid "Your {{count}} batch requests"
+msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] ""
 msgstr[1] ""
@@ -3939,11 +3944,6 @@ msgstr "{{user_link_absolute}}-k"
 msgid "comments"
 msgstr "iruzkinak"
 
-msgid "containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr ""
-"zure posta helbidea erantsiz, eta zure eskabideari erantzun diezaioten eskatuz.\n"
-"            Edo froga ezazu telefonoz deitzen."
-
 msgid "details"
 msgstr "xehetasunak"
 
@@ -3965,9 +3965,6 @@ msgstr "dena"
 msgid "external"
 msgstr ""
 
-msgid "has reported an"
-msgstr "_______ bat salatu du."
-
 msgid "have delayed."
 msgstr "atzeratuta daude."
 
@@ -3983,14 +3980,8 @@ msgstr "barneko errorea"
 msgid "internal reviews"
 msgstr "barneko berrikusketak"
 
-msgid "is <strong>waiting for your clarification</strong>."
-msgstr "zure <strong>azalpenaren zain</strong> dago."
-
-msgid "just to see how it works"
-msgstr "nola funtzionatzen duen ikustearren"
-
-msgid "left an annotation"
-msgstr "iruzkin bat utzi du"
+msgid "logged in as user {{user_name}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "‘{{tag_name}}’ hitz gakoaz"
@@ -4019,11 +4010,11 @@ msgstr "______ baino beranduago ez"
 msgid "normally"
 msgstr "normalean"
 
-msgid "not requestable due to: {{reason}}"
+msgid "not logged in"
 msgstr ""
 
-msgid "please sign in as "
-msgstr "mesedez, ireki ezazu saioa _______ bezala"
+msgid "not requestable due to: {{reason}}"
+msgstr ""
 
 msgid "requesting an internal review"
 msgstr "barneko berrikusketa bat eskatuta"
@@ -4036,9 +4027,6 @@ msgstr ""
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr ""
-
-msgid "response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "erantzunak administratzailearen parte hartzea behar du. Berrikusi eta erantzun iezaiozu email honi adierazteko honen inguruan zer egingo duzun."
 
 msgid "send a follow up message"
 msgstr "Bidal ezazu jarraipen mezu bat"
@@ -4072,9 +4060,6 @@ msgstr "{{public_body}}-ren harremanetarako helbidea"
 msgid "the main FOI contact at {{public_body}}"
 msgstr "{{public_body}}-ren helbidea"
 
-msgid "the requester"
-msgstr ""
-
 msgid "the {{site_name}} team"
 msgstr "{{site_name}}-ko taldea"
 
@@ -4088,13 +4073,13 @@ msgid "type your search term here"
 msgstr ""
 
 msgid "unknown reason"
-msgstr ""
+msgstr "arrazoi ezezaguna"
 
 msgid "unknown reason "
 msgstr "arrazoi ezezaguna"
 
-msgid "unknown status "
-msgstr "egoera ezezaguna"
+msgid "unknown status {{status}}"
+msgstr "egoera ezezaguna {{status}}"
 
 msgid "unresolved requests"
 msgstr "konpondu gabeko eskabideak"
@@ -4113,6 +4098,12 @@ msgstr "erabiltzaileak"
 
 msgid "what's that?"
 msgstr "Zer da hau?"
+
+msgid "{{authority_name}} <strong>did not have</strong> the information requested."
+msgstr "{{authority_name}} <strong>ez zeukan</strong> eskatutako informazioa."
+
+msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
+msgstr "{{authority_name}} zure <strong>azalpenaren zain</strong> dago."
 
 msgid "{{count}} FOI requests found"
 msgstr "aurkitutako {{count}} informazio eskabide"
@@ -4181,6 +4172,12 @@ msgstr "{{public_body}}-k {{user_name}}-ri erantzun dio."
 msgid "{{reason}}, create an account or sign in"
 msgstr ""
 
+msgid "{{reason}}, please sign in as {{user_name}}."
+msgstr "{{reason}}, mesedez, ireki ezazu saioa _______ bezala {{user_name}}."
+
+msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
+msgstr "{{reason}}. Zoritxarrez ez dugu erakunde honetako posta helbidea, beraz ezin izan dugu balioztatu. Mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a> hau konpontzeko."
+
 msgid "{{search_results}} matching '{{query}}'"
 msgstr " '{{query}}'-k aurkitu ditu {{search_results}}"
 
@@ -4225,8 +4222,14 @@ msgstr ""
 "{{user_name}}-k zure {{law_used_short}} eskabidearen iruzkina egin du. \n"
 "Jarraitu esteka honi idatzi duena ikusteko."
 
+msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} _______ bat salatu du. {{law_used}} erantzunak administratzailearen parte hartzea behar du. Berrikusi eta erantzun iezaiozu email honi adierazteko honen inguruan zer egingo duzun."
+
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}}-k {{site_name}} erabili du ondoko mezua bidaltzeko."
+
+msgid "{{user_name}} left an annotation ({{date}})"
+msgstr "{{user_name}}-k iruzkin bat utzi du ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}}-k {{public_body}}-ri bidali dio mezu bat"
