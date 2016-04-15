@@ -76,12 +76,12 @@ end
 group :test, :development do
   gem 'bullet', '~> 5.0.0'
   gem 'factory_girl_rails', '~> 4.7.0'
-  gem 'pry', '~> 0.10.3'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'test-unit', '~> 3.1.0'
   gem 'spork-rails', '~> 4.0.0'
-  gem 'pry-nav', '~> 0.2.4'
+  gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
+  gem 'pry-byebug', '~> 3.3.0', :platforms => :ruby_20
 end
 
 group :development do
@@ -92,6 +92,5 @@ group :development do
 end
 
 group :debug do
-  gem 'debugger', '~> 1.6.0', :platforms => :ruby_19
   gem 'annotate', '~> 2.7.0'
 end
