@@ -407,9 +407,8 @@ msgstr "Sei sicuro? Se rigeneri la tua password monouso ricordati di salvarla o 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Possiedi i diritti commerciali di questa pagina?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "amministrazioni"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Devi chiedere <strong>specifici</strong> documenti o informazioni, non fare richieste generiche."

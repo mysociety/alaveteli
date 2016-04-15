@@ -404,9 +404,8 @@ msgstr "Är du säker? Om du förnyar ditt engångslösenord kommer du att behö
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Är du ägare till någon kommersiell upphovsrätt på denna sida?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "myndigheter"
+msgstr "Fråga EU-myndigheter"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Be om <strong>särskilda</strong> dokument eller information, denna webbplats är inte lämplig för allmänna frågor."

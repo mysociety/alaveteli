@@ -402,9 +402,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Waba ufite uburenganzira kuri bimwe mu bicuruzwa byamamazwa hano?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "abayobozi"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Saba <strong></strong> impapuro cyangwa amakuru yihariye, uru rubuga ntabwo rukwiye kubarizwaho ibintu biri rusange."

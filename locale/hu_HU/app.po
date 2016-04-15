@@ -439,9 +439,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Tulajdonosa az oldalon található bármely kereskedelmi célú szerzői jognak?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "közintézmények"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Kérése irányulhat <strong>konkrét</strong> dokumentumokra vagy információkra, de az oldal általános tudakozódásra nem alkalmas. "

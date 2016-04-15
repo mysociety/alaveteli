@@ -412,9 +412,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Da li ste vlasnik autorskih prava (kopirajta) na bilo šta na ovoj stranici?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "ustanove"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Tražite <strong>konkretne</strong> dokumente ili informacije, ovaj sistem namenjen za opšte upite."

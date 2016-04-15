@@ -420,9 +420,8 @@ msgstr "Ești sigur? Dacă renunți la codul tău de acces de unică folosință
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Ai un drept de Proprietate Intelectuală asupra vreunei mărci de pe pagina aceasta?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "autorităţi"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Cere documente sau informaţii  <strong>precise</strong>, acest site nu este potrivit pentru solicitări generale."

@@ -415,9 +415,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Ai chi yw perchennog unrhyw hawlfraint masnachol ar y dudalen hon?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "awdurdodau"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Gofynnwch am ddogfennau neu wybodaeth <strong>benodol</strong>. Nid yw'r wefan hon yn addas ar gyfer ymholiadau cyffredinol."

@@ -415,9 +415,8 @@ msgstr "Er du sikker? Dersom du regenererer eingongspasskoden din må du oppdate
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Eig du kommersielle åndsverksrettar på denne sida?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "styresmakter"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Spør om <strong>spesifikke</strong> dokument, informasjon eller rettleiing om noko som gjeld deg."

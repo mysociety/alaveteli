@@ -412,9 +412,8 @@ msgstr "Er du sikker? Om du lager engangspassordet på nytt vil du måtte oppdat
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Er du eier av kommersielle åndsverksrettigheter på denne siden?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "myndigheter"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Spør om <strong>spesifikke</strong> dokumenter, informasjon eller veiledning om noe som angår deg."

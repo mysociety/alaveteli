@@ -434,9 +434,8 @@ msgstr "Jeni i sigurte? Nese rigjeneroni kodekalimin e vetem nje here, atehere d
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "A je pronar i ndonjë të drejte autoriale komerciale në këtë faqe?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "institucionet"
+msgstr "Pyet Autoritetet e BE-së"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Kërko dokumente apo informata <strong>specifike</strong>, kjo faqe nuk është e përshtatshme për pyetje të përgjithshme."

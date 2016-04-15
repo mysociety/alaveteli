@@ -451,9 +451,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Apakah Anda pemilik dari hak cipta komersial di halaman ini?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "otoritas"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Meminta <strong>dokumen atau informasi</strong> spesifik, situs ini tidak cocok untuk pertanyaan umum."

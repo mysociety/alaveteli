@@ -448,9 +448,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Posseeix el copyright d'alguna informació d'aquesta pàgina?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "organismes"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Demana documents o informació <strong>específica</strong>, aquesta web no està pensada per resoldre dubtes generals."

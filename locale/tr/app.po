@@ -407,9 +407,8 @@ msgstr "Emin misiniz? Eğer bir kerelik geçiş kodunuzu yeniden üretirseniz, �
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Bu sayfada herhangi bir ticari telif hakkının sahibi misiniz?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "kamu kuruluşları"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "<strong>Belirli</strong> belgeler ya da bilgi isteyin. Bu web sitesi, genel sorgulamalar için uygun değildir. "

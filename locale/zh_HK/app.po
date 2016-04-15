@@ -403,9 +403,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "你在此頁面是否擁有任何商業版權？"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "政府部門或公營機構"
+msgstr ""
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr ""

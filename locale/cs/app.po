@@ -450,9 +450,8 @@ msgstr "Jste si jisti? Pokud obnovíte váš jednorázový přístupový kód, b
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Jste vlastníkem nějakých autorských práv na této stránce?"
 
-#, fuzzy
 msgid "Ask EU Authorities"
-msgstr "instituce"
+msgstr "Zeptejte se institucí EU"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Požádejte o <strong>konkrétní</strong> dokumenty nebo informace, tyto stránky nejsou určeny pro obecné dotazy."
