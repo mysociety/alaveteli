@@ -41,10 +41,12 @@ Alaveteli::Application.configure do
   end
 
   if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-    middleware.use ExceptionNotifier,
-      :email_prefix => exception_notifier_prefix,
-      :sender_address => AlaveteliConfiguration::exception_notifications_from,
-      :exception_recipients => AlaveteliConfiguration::exception_notifications_to
+    middleware.use ExceptionNotification::Rack,
+      :email => {
+        :email_prefix => exception_notifier_prefix,
+        :sender_address => AlaveteliConfiguration::exception_notifications_from,
+        :exception_recipients => AlaveteliConfiguration::exception_notifications_to
+      }
   end
 
   require 'rack/ssl'

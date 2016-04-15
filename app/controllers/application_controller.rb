@@ -20,9 +20,6 @@ class ApplicationController < ActionController::Base
   # assign our own handler method for non-local exceptions
   rescue_from Exception, :with => :render_exception
 
-  # Add some security-related headers (see config/initializers/secure_headers.rb)
-  ensure_security_headers
-
   # Standard headers, footers and navigation for whole site
   layout "default"
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
@@ -171,7 +168,7 @@ class ApplicationController < ActionController::Base
       message << "  " << backtrace.join("\n  ")
       Rails.logger.fatal("#{message}\n\n")
       if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-        ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
+        ExceptionNotifier.notify_exception(exception, :env => request.env)
       end
       @status = 500
     end
