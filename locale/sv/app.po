@@ -6,6 +6,7 @@
 # Translators:
 # Kristoffer Grundström <kristoffer.grundstrom1983@gmail.com>, 2015
 # Lord Cobol <mattias@invaliddesign.com>, 2016
+# louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
 # Mattias A, 2015-2016
 # Mattias OKFSE, 2015
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-04-06 16:59+0000\n"
-"Last-Translator: Mattias A\n"
+"POT-Creation-Date: 2016-04-15 14:53+0100\n"
+"PO-Revision-Date: 2016-04-15 14:48+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -264,7 +265,7 @@ msgid "A full history of my FOI request and all correspondence is available on t
 msgstr "En fullständig historik över min begäran om allmän handling och all korrespondens finns tillgänglig på Internet via den här adressen: {{url}}"
 
 msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "En ny förfrågning, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, skickades till {{public_body_name}} av {{info_request_user}} den {{date}}."
+msgstr "En ny begäran, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, skickades till {{public_body_name}} av {{info_request_user}} den {{date}}."
 
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "En rad sammanfattning av den information som du begär, t.ex."
@@ -1010,7 +1011,7 @@ msgid "From"
 msgstr "Från"
 
 msgid "From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "Från förfrågningens sida, försök svara på ett visst meddelande, snarare än att skicka en generell uppföljning. Om du behöver göra en generell uppföljning och vet en e-postadress som kommer att gå till rätt ställe, <a href=\"{{url}}\">skicka det till oss</a>."
+msgstr "Från begärans sida, försök svara på ett visst meddelande, snarare än att skicka en generell uppföljning. Om du behöver göra en generell uppföljning och vet en e-postadress som kommer att gå till rätt ställe, <a href=\"{{url}}\">skicka det till oss</a>."
 
 msgid "From:"
 msgstr "Från:"
@@ -1783,7 +1784,7 @@ msgid "Please <strong>go to the following requests</strong>, and let us know if 
 msgstr "Vänligen <strong>gå till följande förfrågningar</strong>, och låt oss veta om det fanns information i det senaste svaret på dem."
 
 msgid "Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href=\"{{new_request_link}}\">file a new request</a>."
-msgstr "Vänligen skriv <strong>endast</strong> direktrelaterade meddelanden till din begäran {{request_link}}. Om du vill be om information som inte var i dn ursprungliga begäran, lämna <a href=\"{{new_request_link}}\">då in en ny begäran</a>."
+msgstr "Vänligen skriv <strong>endast</strong> direktrelaterade meddelanden till din begäran {{request_link}}. Om du vill be om information som inte var i din ursprungliga begäran, lämna <a href=\"{{new_request_link}}\">då in en ny begäran</a>."
 
 msgid "Please ask for environmental information only"
 msgstr "Vänligen fråga endast om miljöinformation"
@@ -2607,7 +2608,7 @@ msgid "The accounts have been left as they previously were."
 msgstr "Räkenskaperna har lämnats som de tidigare var."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Myndigheten <strong>inte har</strong> informationen <small>(kanskede berättar om vem som har den)</small>"
+msgstr "Myndigheten <strong>har inte</strong> informationen <small>(kanske de berättar om vem som har den)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "E-postadressen för myndigheten ser inte ut att vara en giltig adress"
@@ -3469,7 +3470,7 @@ msgid "You"
 msgstr "Du"
 
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "Du har redan skapat samma serie av förfrågningar den {{date}}. Du kan ändra se den <a href=\"{{existing_batch}}\">existerande serie</a>, eller redigera detaljerna nedan för att göra en ny men liknande serie av förfrågningar."
+msgstr "Du har redan skapat samma serie av förfrågningar den {{date}}. Du kan ändra se den <a href=\\\"{{existing_batch}}\\\">existerande serie</a>, eller redigera detaljerna nedan för att göra en ny men liknande serie av förfrågningar."
 
 msgid "You are already following new requests"
 msgstr "Du följer redan nya förfrågningar"
@@ -3844,7 +3845,7 @@ msgid "and"
 msgstr "och"
 
 msgid "and we'll suggest <strong>what to do next</strong>"
-msgstr "och vi kommer föreslå <strong>vad som </strong>"
+msgstr "och vi kommer att föreslå <strong>vad som skall göras härnäst</strong>"
 
 msgid "anything matching text '{{query}}'"
 msgstr "vad som helst som matchar texten '{{query}}'"

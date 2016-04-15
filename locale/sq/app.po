@@ -12,7 +12,7 @@
 # driton <dritoni.h@gmail.com>, 2011
 # Hana Huntova <>, 2012
 # louisecrow <louise@mysociety.org>, 2014
-# louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014,2016
 # Valon <vbrestovci@gmail.com>, 2011
 # Valon <vbrestovci@gmail.com>, 2011-2012
 # Valon <vbrestovci@gmail.com>, 2011
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-22 17:33+0000\n"
-"Last-Translator: Dorian Kavaja <dorik2k@gmail.com>\n"
+"POT-Creation-Date: 2016-04-15 14:53+0100\n"
+"PO-Revision-Date: 2016-04-15 14:47+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
@@ -3122,7 +3122,7 @@ msgid "To post your annotation"
 msgstr "Për të postuar shënimin tuaj"
 
 msgid "To reply to {{authority_name}}."
-msgstr "Për tiu përgjigjur {{authority_name}}."
+msgstr "Për tiu përgjigjur {{authority_name}}"
 
 msgid "To report this request"
 msgstr "Per te raportuar kete kerkese"
@@ -3543,7 +3543,7 @@ msgid "Write a reply to {{authority_name}}"
 msgstr ""
 
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr "To send a follow up message to {{authority_name}}"
+msgstr ""
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Shkruaje kërkesën tënde me <strong>gjuhë të thjeshtë, dhe të saktë</strong>."
