@@ -1059,9 +1059,8 @@ msgstr "Hei! Vi har ei  <a href=\"{{url}}\">viktig melding</a> til vitjande som 
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr "Hei!  Vi har ei <a href=\"{{url}}\">viktig melding</a> til vitjande i andre land"
 
-#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr "Hei!  Vi har ei <a href=\"{{url}}\">viktig melding</a> til vitjande i andre land"
+msgstr ""
 
 #, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"

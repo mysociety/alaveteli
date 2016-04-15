@@ -1065,9 +1065,8 @@ msgstr "Dobrodošli! Imamo <a href=\"{{url}}\">važnu poruku</a> za posetioce ko
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr ""
 
-#, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr "Dobrodošli! Imamo <a href=\"{{url}}\">važnu poruku</a> za posetioce koji pristupaju iz zemlje koja nije {{country_name}}"
+msgstr ""
 
 #, fuzzy
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
