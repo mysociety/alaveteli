@@ -87,7 +87,7 @@ end
 group :development do
   gem 'capistrano', '~> 2.15.4'
   gem 'mailcatcher', '~> 0.5.12'
-  gem 'quiet_assets', '~> 1.0.2'
+  gem 'quiet_assets', '~> 1.1.0'
   gem 'rdoc', '~> 3.12.2'
 end
 
