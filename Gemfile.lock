@@ -80,7 +80,7 @@ GEM
     bootstrap-sass (2.3.1.2)
       sass (~> 3.2)
     builder (3.0.4)
-    bullet (4.14.6)
+    bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
     capistrano (2.15.4)
@@ -350,7 +350,7 @@ DEPENDENCIES
   acts_as_versioned!
   annotate (~> 2.7.0)
   bootstrap-sass (~> 2.3.1.2)
-  bullet (~> 4.14.6)
+  bullet (~> 5.0.0)
   capistrano (~> 2.15.4)
   capybara (~> 2.7.0)
   charlock_holmes (~> 0.7.3)
