@@ -76,6 +76,12 @@ Alaveteli::Application.routes.draw do
 
   resources :info_request_batch, :only => :show
 
+  #### OutgoingMessage controller
+  resources :outgoing_messages, :only => [] do
+    resources :mail_server_logs, :only => [:index]
+  end
+  ####
+
   #### User controller
   # Use /profile for things to do with the currently signed in user.
   # Use /user/XXXX for things that anyone can see about that user.
