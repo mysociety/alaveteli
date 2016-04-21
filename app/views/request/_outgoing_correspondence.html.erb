@@ -5,8 +5,11 @@
     <%= render :partial => 'request/restricted_correspondence', :locals => {:message => outgoing_message } %>
 
     <h2>
-      <%= _("From:") %> <%= @info_request.user_name %><br>
-      <br><%= simple_date(info_request_event.created_at) %>
+      <%= _("From:") %> <%= @info_request.user_name %>
+      <br>
+      <br>
+      <%= simple_date(info_request_event.created_at) %>
+      (<%= link_to _('Logs'), outgoing_message_mail_server_logs_path(outgoing_message) %>)
     </h2>
 
     <%= render :partial => 'request/bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
