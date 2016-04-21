@@ -203,7 +203,7 @@ it individually).
 
 For instructions, see:
 
-* how to [edit or hide annotations]({{ page.baseurl }}/docs/running/requests/#editing-or-hiding-annotations-comments)
+* how to [edit or hide annotations]({{ page.baseurl }}/docs/running/admin_manual/#editing-or-hiding-annotations-comments)
 
 ## Deleting
 
@@ -211,15 +211,15 @@ In general, you should only delete material (that is, destroy it) if you're
 sure it has no content that you, as administrator, will need to access, and
 if nothing else depends on it now or later. For example, you should delete obvious
 spam messages, but perhaps not an outgoing request that might elicit a genuine
-response from the target body (even if you know it's not a valid Freedom of 
+response from the target body (even if you know it's not a valid Freedom of
 Information request).
 
 <div class="attention-box info">
   Remember that under normal circumstances Alaveteli will have sent the request
   before you delete it. Deleting it after it has been sent removes it from the
   site, and means any responses that are sent back to this request will instead
-  end up in the 
-  <a href="{{ page.baseurl }}/docs/glossary/#hoding_pen" class="glossary__link">holding pen</a>. 
+  end up in the
+  <a href="{{ page.baseurl }}/docs/glossary/#holding_pen" class="glossary__link">holding pen</a>.
   This is why it is generally better to
   <a href="{{ page.baseurl }}/docs/running/requests/#hiding-a-request">hide the request</a>
   instead.
