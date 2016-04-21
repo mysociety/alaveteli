@@ -221,7 +221,7 @@ Click the **Edit metadata** button.
       Are comments allowed?
     </td>
     <td>
-      The <strong>Are comments allowed?</strong> setting simply you choose to 
+      The <strong>Are comments allowed?</strong> setting simply allows you to choose to
       allow or forbid annotations and comments on this request.
       <p>
         Note that this won&rsquo;t hide any annotations that have already
