@@ -273,7 +273,7 @@ THEME_URLS:
 # ---
 THEME_BRANCH: false
 
-# Does a user needs to sign in to start the New Request process?
+# Does a user need to sign in to start the New Request process?
 #
 # FORCE_REGISTRATION_ON_NEW_REQUEST - Boolean (default: false)
 #
