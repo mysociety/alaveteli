@@ -103,6 +103,46 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  # Public: The value to be used in the From: header of an OutgoingMailer
+  # message.
+  #
+  # Returns a String
+  def from
+    info_request.incoming_name_and_email
+  end
+
+  # Public: The value to be used in the To: header of an OutgoingMailer message.
+  #
+  # Returns a String
+  def to
+    if replying_to_incoming_message?
+      # calling safe_mail_from from so censor rules are run
+      MailHandler.address_from_name_and_email(incoming_message_followup.safe_mail_from,
+                                              incoming_message_followup.from_email)
+    else
+      info_request.recipient_name_and_email
+    end
+  end
+
+  # Public: The value to be used in the Subject: header of an OutgoingMailer
+  # message.
+  #
+  # Returns a String
+  def subject
+    if message_type == 'followup'
+      if what_doing == 'internal_review'
+        _("Internal review of {{email_subject}}",
+          :email_subject => info_request.email_subject_request(:html => false))
+      else
+        info_request.
+          email_subject_followup(:incoming_message => incoming_message_followup,
+                                 :html => false)
+      end
+    else
+      info_request.email_subject_request(:html => false)
+    end
+  end
+
   # Public: The body text of the OutgoingMessage. The text is cleaned and
   # CensorRules are applied.
   #
