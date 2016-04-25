@@ -5,6 +5,7 @@
 
   <%= form_tag(list_public_bodies_default_url, :method => "get", :id=>"search_form") do %>
     <div>
+      <label for="public_body_query"><%=_('Find an authority')%></label>
       <%= text_field_tag(:public_body_query, params[:public_body_query], { :title => "type your search term here" } ) %>
       <%= submit_tag(_("Search")) %>
     </div>

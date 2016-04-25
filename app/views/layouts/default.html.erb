@@ -122,7 +122,8 @@
     <div id="link_box"><span class="close-button">X</span>
       <%= _("Paste this link into emails, tweets, and anywhere else:") %>
       <br />
-      <input type="text">
+      <label class="visually-hidden" for="link_box__text">Link</label>
+      <input type="text" id="link_box__text">
     </div>
     <%
         unless AlaveteliConfiguration::ga_code.empty? || (@user && @user.super?) %>
