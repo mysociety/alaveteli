@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-07 15:38+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2016-04-07 16:36+0100\n"
+"PO-Revision-Date: 2016-04-15 18:10+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/mysociety/alaveteli/language/sr@latin/)\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -241,17 +241,17 @@ msgstr "<strong>Upozorenje u vezi privatnosti:</strong> Vaša poruka i odgovori\
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Deo informacija</strong> je poslat"
 
-msgid "<strong>Thank</strong> the public authority or "
-msgstr "<strong>Zahvalite</strong> javnoj ustanovi ili "
+msgid "<strong>Thank</strong> the public authority or the requester."
+msgstr "<strong>Zahvalite</strong> javnoj ustanovi ili podnosilac zahteva."
+
+msgid "<strong>Thank</strong> the public authority or {{user_name}}."
+msgstr "<strong>Zahvalite</strong> javnoj ustanovi ili {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr ""
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
 msgstr ""
-
-msgid "<strong>did not have</strong> the information requested."
-msgstr "<strong>nije imao</strong> traženu informaciju."
 
 msgid "?"
 msgstr ""
@@ -325,8 +325,8 @@ msgstr ""
 msgid "Add the authority:"
 msgstr ""
 
-msgid "Added on {{date}}"
-msgstr "Dodato {{date}}"
+msgid "Added on {{date}}."
+msgstr "Dodato {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Nivo administratora nije uključen u listu"
@@ -489,6 +489,9 @@ msgstr ""
 msgid "Browse and search requests"
 msgstr "Pregledaj i pretraži zahteve"
 
+msgid "Browse and search requests (page {{count}})"
+msgstr "Pregledaj i pretraži zahteve (page {{count}})"
+
 msgid "Browse requests"
 msgstr "Pregled zahteva"
 
@@ -579,11 +582,11 @@ msgstr "Objašnjenje"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-msgid "Clarify your FOI request - "
-msgstr "Razjasnite Vaš Zahtev za slobodan pristup informacijama od javnog značaja - "
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Razjasnite Vaš Zahtev za slobodan pristup informacijama od javnog značaja - {{request_title}}"
 
-msgid "Classify an FOI response from "
-msgstr "Klasifikujte odgovor na ZOSPIOJ zahtev od"
+msgid "Classify an FOI response from {{authority_name}}"
+msgstr "Klasifikujte odgovor na ZOSPIOJ zahtev od {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Ukloni fotografiju"
@@ -720,8 +723,8 @@ msgstr "Neupotrebljivo."
 msgid "Delayed"
 msgstr ""
 
-msgid "Delayed response to your FOI request - "
-msgstr "Odloženi odgovor na Vaš ZOSPIOJ zahtev  - "
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Odloženi odgovor na Vaš ZOSPIOJ zahtev  - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Odložen"
@@ -867,8 +870,8 @@ msgstr "ZOSPIOJ zahtevi od strane '{{user_name}}'"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "ZOSPIOJ zahtevi {{start_count}} do {{end_count}} od ukupno {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Odgovor na Zahtev za slobodan pristup informacijama od javnog značaja zahteva administratorsku dozvolu  -  ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Odgovor na Zahtev za slobodan pristup informacijama od javnog značaja zahteva administratorsku dozvolu  -  ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr ""
@@ -1005,7 +1008,7 @@ msgstr "Zakon o slobodnom pristupu informacijama od javnog značaja"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Zakon o slobodnom pristupu informacijama od javnog značaja ne važi za ovu ustanovu,\\n pa im zato ne možete podnositi zahteve."
 
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
@@ -1430,11 +1433,11 @@ msgstr ""
 msgid "Keywords"
 msgstr "Ključne reči"
 
-msgid "Last authority viewed: "
-msgstr "Poslednja pregledana ustanova: "
+msgid "Last authority viewed: {{authority_url}}"
+msgstr "Poslednja pregledana ustanova: {{authority_url}}"
 
-msgid "Last request viewed: "
-msgstr "Poslednji pregledani zahtev: "
+msgid "Last request viewed: {{request_url}}"
+msgstr "Poslednji pregledani zahtev: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr ""
@@ -1541,8 +1544,8 @@ msgstr "Poruka je uklonjena"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Poruka poslata koristeći formular za kontakt na sajtu {{site_name}},"
 
-msgid "Missing contact details for '"
-msgstr "Nedostaju detalji za kontakt za '"
+msgid "Missing contact details for '{{authority_name}}'"
+msgstr "Nedostaju detalji za kontakt za '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Još o ovoj ustanovi"
@@ -1592,8 +1595,8 @@ msgstr "Nova lozinka: (ponovo)"
 msgid "New response to '{{title}}'"
 msgstr "Novi odgovor na '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Novi odgovor na Vaš zahtev po Zakonu o slobodnom pristupu informacijama od javnog značaja  - "
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Novi odgovor na Vaš zahtev po Zakonu o slobodnom pristupu informacijama od javnog značaja  - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Novi odgovor na Vaš zahtev"
@@ -1927,8 +1930,8 @@ msgstr ""
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Molimo da se na dnu potpišete svojim imenom, ili izmenite  \"{{signoff}}\" potpis"
 
-msgid "Please sign in as "
-msgstr "Molimo prijavite se kao "
+msgid "Please sign in as {{user_name}}"
+msgstr "Molimo prijavite se kao {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr ""
@@ -2386,8 +2389,8 @@ msgstr "Postavite poruku u slučaju odbijanja"
 msgid "Send a followup"
 msgstr "Pošaljite reakciju"
 
-msgid "Send a message to "
-msgstr "Pošalji poruku za "
+msgid "Send a message to {{user_name}}"
+msgstr "Pošalji poruku za {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Pošaljite javnu reakciju za {{person_or_body}}"
@@ -2404,8 +2407,11 @@ msgstr ""
 msgid "Send message"
 msgstr "Pošalji poruku"
 
-msgid "Send message to "
-msgstr "Pošalji poruku za"
+msgid "Send message to {{user_name}}"
+msgstr "Pošalji poruku za {{user_name}}"
+
+msgid "Send message to {{user_name}} just to see how it works"
+msgstr "Pošalji poruku za {{user_name}} samo da vidite kako radi"
 
 msgid "Send request"
 msgstr "Pošalji zahtev"
@@ -2470,8 +2476,8 @@ msgstr "Slični zahtevi"
 msgid "Simple search"
 msgstr "Jednostavna pretraga"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Beleške su dodate na Vaš zahtev po ZOSPIOJ - "
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Beleške su dodate na Vaš zahtev po ZOSPIOJ - {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Deo traženih informacija je primljen"
@@ -2483,8 +2489,8 @@ msgstr ""
 "odaberite jedan od ovih zahteva, pročitajte ga - i obavestite sve da li su\n"
 "informacije dobijene ili ne. Svi će Vam biti veoma zahvalni."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Neko je dodao komentar na Vaš zahtev po ZOSPIOJ."
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Neko je dodao komentar na Vaš zahtev po ZOSPIOJ. {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Neko je promenio status Vašeg zahteva"
@@ -2593,8 +2599,8 @@ msgstr "Hvala što nam pomažete da održavamo ovaj sistem u urednom stanju!"
 msgid "Thank you for making an annotation!"
 msgstr "Hvala što ste upisali napomenu!"
 
-msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to "
-msgstr "Hvala na Vašem odgovoru na ovaj Zahtev za slobodan pristup informacijama od javnog značaja! Vaš odgovor je objavljen ispod i link na Vaš odgovor je poslat putem e-mail poruke za"
+msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
+msgstr "Hvala na Vašem odgovoru na ovaj Zahtev za slobodan pristup informacijama od javnog značaja! Vaš odgovor je objavljen ispod i link na Vaš odgovor je poslat putem e-mail poruke za {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Hvala na ažuriranju statusa zahteva '<a href=\"{{url}}\">{{info_request_title}}</a>'. Postoji još nekoliko zahteva ispod koje takođe možete klasifikovati."
@@ -2730,8 +2736,8 @@ msgstr "Zahtev <strong>čeka na razjašnjenje</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Zahtev je <strong>delimično uspešan</strong>."
 
-msgid "The request was <strong>refused</strong> by"
-msgstr "Zahtev je <strong>odbijen</strong> od strane"
+msgid "The request was <strong>refused</strong> by {{authority_name}}."
+msgstr "Zahtev je <strong>odbijen</strong> od strane {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Zahtev je <strong>uspešan</strong>."
@@ -2784,8 +2790,8 @@ msgstr "Tada možete promeniti Vašu e-mail adresu korištenu na {{site_name}}"
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Tada možete promeniti Vašu lozinku na {{site_name}}"
 
-msgid "Then you can classify the FOI response you have got from "
-msgstr "Tada možete klasifikovati ZOSPIOJ odgovor koji ste dobili od"
+msgid "Then you can classify the FOI response you have got from {{authority_name}}."
+msgstr "Tada možete klasifikovati ZOSPIOJ odgovor koji ste dobili od {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Tada možete preuzeti {{info_request_title}} u formi zip arhive."
@@ -2802,14 +2808,14 @@ msgstr "Tada možete igrati igru kategorizacije zatjeva."
 msgid "Then you can report the request '{{title}}'"
 msgstr "Onda možete prijaviti zahtev '{{title}}'"
 
-msgid "Then you can send a message to "
-msgstr "Tada možete poslati poruku za "
+msgid "Then you can send a message to {{user_name}}."
+msgstr "Tada možete poslati poruku za {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Tada se možete prijaviti na {{site_name}}"
 
-msgid "Then you can update the status of your request to "
-msgstr "Tada možete ažurirati status vašeg zahteva prema"
+msgid "Then you can update the status of your request to {{authority_name}}."
+msgstr "Tada možete ažurirati status vašeg zahteva prema {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Tada možete učitati odgovor na zahtev po ZOSPIOJ."
@@ -3073,8 +3079,10 @@ msgstr "Da biste promenili Vašu e-mail adresu korišćenu na {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "Da biste klasifikovali odgovor na ovaj Zahtev za slobodan pristup informacijama od javnog značaja"
 
-msgid "To do that please send a private email to "
-msgstr "Da biste to uradili molimo pošaljite privatni e-mail za"
+msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
+msgstr ""
+"Da biste to uradili molimo pošaljite privatni e-mail za {{postal_email}} {{postal_email_link}} sa Vašom poštanskom adresom i tražite da odgovore na ovaj zahtev.\n"
+"            Ili im možete kontaktirati telefonom."
 
 msgid "To do this, first click on the link below."
 msgstr "Da biste ovo uradili, prvo kliknite na link ispod."
@@ -3127,8 +3135,8 @@ msgstr "Da biste prijavili ovaj zahtev"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-msgid "To send a message to "
-msgstr "Da biste poslali poruku za "
+msgid "To send a message to {{user_name}}"
+msgstr "Da biste poslali poruku za {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "Da biste poslali Vaš Zahtev za slobodan pristup informacijama od javnog značaja"
@@ -3139,8 +3147,8 @@ msgstr "Da biste poslali zahtev nekoj drugoj ustanovi, prvo kopirajte tekst Vaš
 msgid "To update the status of this FOI request"
 msgstr "Da biste ažurirali status Vašeg Zahteva za slobodan pristup informacijama od javnog značaja"
 
-msgid "To upload a response, you must be logged in using an email address from "
-msgstr "Da biste učitali odgovor, morate biti prijavljeni koristeći e-mail adresu sa "
+msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
+msgstr "Da biste učitali odgovor, morate biti prijavljeni koristeći e-mail adresu sa {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "Da biste koristili napredno pretraživanje, kombinujte fraze i oznake kao što je opisano u savetima za pretragu ispod."
@@ -3235,14 +3243,8 @@ msgstr "Ne možemo poslati reakciju za {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-msgid "Unexpected search result type "
-msgstr "Neočekivani tip rezultata pretrage"
-
-msgid "Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr ""
-"Nažalost nemamo e-mail adresu za ZOSPI\n"
-"te ustanove, tako da ne možemo da ovo validiramo.\n"
-"Molimo <a href=\"{{url}}\">kontaktirajte nas</a> da to razjasnimo."
+msgid "Unexpected search result type {{result_type}}"
+msgstr "Neočekivani tip rezultata pretrage {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
@@ -3273,8 +3275,8 @@ msgstr ""
 msgid "Update the status of this request"
 msgstr "Ažurirajte status ovog zahteva"
 
-msgid "Update the status of your request to "
-msgstr "Ažurirajte status Vašeg zahteva za "
+msgid "Update the status of your request to {{authority_name}}"
+msgstr "Ažurirajte status Vašeg zahteva za {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Učitajte odgovor"
@@ -3556,9 +3558,6 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Pišite Vaš zahtev <strong>jednostavnim, preciznim jezikom</strong>."
 
-msgid "You"
-msgstr "Vi"
-
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
 
@@ -3681,6 +3680,9 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Znate šta je uzrok ove greške i možete <strong>predložiti rešenje</strong>, poput ispravne e-mail adrese."
 
+msgid "You left an annotation ({{date}})"
+msgstr "Vi ostavio napomenu ({{date}})"
+
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Možete <strong>ubaciti priloge</strong>. Ako želite ubaciti datoteku\\n preveliku za e-mail poruke, koristite obrazac ispod."
 
@@ -3756,8 +3758,8 @@ msgstr "I dalje ćete moći da ga vidite kada ste prijavljeni na sistem. Molimo 
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Prijavili ste se. <a href=\"#\" id=\"send-request\">Nastavite podnošenje zahteva</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Odgovor na Vaš zahtev za slobodan pristup informacijama od javnog značaja kasni - "
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Odgovor na Vaš zahtev za slobodan pristup informacijama od javnog značaja kasni - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Trenutno ne pratite ništa pomoću e-mail biltena."
@@ -3890,7 +3892,7 @@ msgstr[0] "Vaš {{count}} komentar"
 msgstr[1] "Vaša {{count}} komentara"
 msgstr[2] "Vaših {{count}} komentara"
 
-msgid "Your {{count}} batch requests"
+msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] ""
 msgstr[1] ""
@@ -3977,11 +3979,6 @@ msgstr "od strane {{user_link_absolute}}"
 msgid "comments"
 msgstr "komentari"
 
-msgid "containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr ""
-"sa Vašom poštanskom adresom i tražite da odgovore na ovaj zahtev.\n"
-"            Ili im možete kontaktirati telefonom."
-
 msgid "details"
 msgstr "detalji"
 
@@ -4003,9 +4000,6 @@ msgstr "sve"
 msgid "external"
 msgstr "spoljni"
 
-msgid "has reported an"
-msgstr "je prijavio/la"
-
 msgid "have delayed."
 msgstr "je odložen."
 
@@ -4021,14 +4015,8 @@ msgstr "interna greška"
 msgid "internal reviews"
 msgstr "urgencije"
 
-msgid "is <strong>waiting for your clarification</strong>."
-msgstr "<strong>čeka na Vaše razjašnjenje</strong>."
-
-msgid "just to see how it works"
-msgstr "samo da vidite kako radi"
-
-msgid "left an annotation"
-msgstr "ostavio napomenu"
+msgid "logged in as user {{user_name}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "odgovara privesku ‘{{tag_name}}’"
@@ -4057,11 +4045,11 @@ msgstr "najkasnije do"
 msgid "normally"
 msgstr "po običaju"
 
+msgid "not logged in"
+msgstr ""
+
 msgid "not requestable due to: {{reason}}"
 msgstr "zahtev nije moguć zato što: {{reason}}"
-
-msgid "please sign in as "
-msgstr "molimo prijavite se kao "
 
 msgid "requesting an internal review"
 msgstr "zahteva urgenciju"
@@ -4074,9 +4062,6 @@ msgstr ""
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr ""
-
-msgid "response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "odgovor pošto zahteva akciju administratora. Pogledajte i odgovorite na ovo\\npošaljite e-mail da im kažete šta planirate da uradite u vezi toga."
 
 msgid "send a follow up message"
 msgstr "pošaljite reakciju"
@@ -4110,9 +4095,6 @@ msgstr "glavne kontakt adrese za Zahteve o slobodnom pristupu informacijama od j
 msgid "the main FOI contact at {{public_body}}"
 msgstr "glavni kontakt za Zahteve o slobodnom pristupu informacijama od javnog značaja u ustanovi {{public_body}}"
 
-msgid "the requester"
-msgstr "podnosilac zahteva"
-
 msgid "the {{site_name}} team"
 msgstr "tim {{site_name}}"
 
@@ -4126,13 +4108,13 @@ msgid "type your search term here"
 msgstr ""
 
 msgid "unknown reason"
-msgstr ""
+msgstr "nepoznat razlog"
 
 msgid "unknown reason "
 msgstr "nepoznat razlog "
 
-msgid "unknown status "
-msgstr "nepoznat status "
+msgid "unknown status {{status}}"
+msgstr "nepoznat status {{status}}"
 
 msgid "unresolved requests"
 msgstr "nerešeni zahtevi"
@@ -4151,6 +4133,12 @@ msgstr "korisnici"
 
 msgid "what's that?"
 msgstr "šta je to?"
+
+msgid "{{authority_name}} <strong>did not have</strong> the information requested."
+msgstr "{{authority_name}} <strong>nije imao</strong> traženu informaciju."
+
+msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
+msgstr "{{authority_name}} <strong>čeka na Vaše razjašnjenje</strong>."
 
 msgid "{{count}} FOI requests found"
 msgstr "pronađen/o {{count}} Zahtev/a za slobodan pristup informacijama od javnog značaja"
@@ -4221,6 +4209,15 @@ msgstr "{{public_body}} su poslali poruku za korisnika {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, molimo prijavite se na sistem ili se registrujte."
 
+msgid "{{reason}}, please sign in as {{user_name}}."
+msgstr "{{reason}}, molimo prijavite se kao {{user_name}}."
+
+msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
+msgstr ""
+"{{reason}}. Nažalost nemamo e-mail adresu za ZOSPI\n"
+"te ustanove, tako da ne možemo da ovo validiramo.\n"
+"Molimo <a href=\"{{url}}\">kontaktirajte nas</a> da to razjasnimo."
+
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} odgovaraju upitu '{{query}}'"
 
@@ -4265,8 +4262,14 @@ msgstr ""
 "{{user_name}} su komentarisali Vaš zahtev vezan za {{law_used_short}}.\n"
 "Pratite ovaj link da vidite šta su napisali."
 
+msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} je prijavio/la {{law_used}} odgovor pošto zahteva akciju administratora. Pogledajte i odgovorite na ovo\\npošaljite e-mail da im kažete šta planirate da uradite u vezi toga."
+
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} je upotrebio/la sistem {{site_name}} da Vam pošalje poruku ispod."
+
+msgid "{{user_name}} left an annotation ({{date}})"
+msgstr "{{user_name}} je ostavio/la napomenu ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} je poslao/la reakciju za {{public_body}}"

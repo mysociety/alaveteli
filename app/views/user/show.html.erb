@@ -91,9 +91,14 @@
       </p>
 
       <p>
-        <%= link_to _('Send message to ') + h(@display_user.name), contact_user_path(:id => @display_user.id) %>
         <% if @is_you %>
-          (<%= _('just to see how it works') %>)
+          <%= link_to _('Send message to {{user_name}} just to see how it works',
+                        :user_name => h(@display_user.name)),
+                      contact_user_path(:id => @display_user.id) %>
+        <% else %>
+          <%= link_to _('Send message to {{user_name}}',
+                        :user_name => h(@display_user.name)),
+                      contact_user_path(:id => @display_user.id) %>
         <% end %>
       </p>
 
@@ -135,7 +140,7 @@
 <% if @show_batches %>
   <% if @is_you && !@display_user.info_request_batches.empty? %>
     <h2 class="batch_results" id="batch_requests">
-      <%= n_('Your {{count}} batch requests',
+      <%= n_('Your {{count}} batch request',
              'Your {{count}} batch requests',
              @display_user.info_request_batches.size,
              :count => @display_user.info_request_batches.size) %>

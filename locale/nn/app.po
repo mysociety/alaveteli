@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:33+0000\n"
-"PO-Revision-Date: 2016-03-07 15:38+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2016-04-07 16:36+0100\n"
+"PO-Revision-Date: 2016-04-15 18:11+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/mysociety/alaveteli/language/nn/)\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
@@ -244,17 +244,17 @@ msgstr "<strong>Personvern sitt OBS:</strong> Meldinga di og alle svar\\n\\n    
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Noko av informasjonen</strong> vart sendt"
 
-msgid "<strong>Thank</strong> the public authority or "
-msgstr "<strong>Takk</strong> styresmakta eller "
+msgid "<strong>Thank</strong> the public authority or the requester."
+msgstr "<strong>Takk</strong> styresmakta eller spørjaren."
+
+msgid "<strong>Thank</strong> the public authority or {{user_name}}."
+msgstr "<strong>Takk</strong> styresmakta eller {{user_name}}."
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Vi sender deg ein e-post</strong> når det finst svar, eller e. {{late_number_of_days}} virkedager viss styresmaktene ikkje har svara innan den tida."
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
 msgstr "<strong>Vi sender deg ein e-post</strong> når dei er vorte sendt. Vi vil òg senda deg ein e-post når det finst svar på nokon av dei, eller e. {{late_number_of_days}} virkedager viss styresmaktene ikkje har svara innan den tida."
-
-msgid "<strong>did not have</strong> the information requested."
-msgstr "<strong>hadde ikkje</strong> informasjonen du bad om."
 
 msgid "?"
 msgstr "?"
@@ -328,8 +328,8 @@ msgstr "Legg til styresmakt - {{public_body_name}}"
 msgid "Add the authority:"
 msgstr "Legg til styresmakta:"
 
-msgid "Added on {{date}}"
-msgstr "Lagt til {{date}}"
+msgid "Added on {{date}}."
+msgstr "Lagt til {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Administrasjonsnivå er ikkje med i lista"
@@ -490,6 +490,9 @@ msgstr "Vis alle førespurnader &arr;"
 msgid "Browse and search requests"
 msgstr "Vis og søk i førespurnader"
 
+msgid "Browse and search requests (page {{count}})"
+msgstr "Vis og søk i førespurnader (page {{count}})"
+
 msgid "Browse requests"
 msgstr "Vis førespurnader"
 
@@ -580,11 +583,11 @@ msgstr "Klargjering"
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Klargjering send til {{public_body_name}} av {{info_request_user}} den {{date}}."
 
-msgid "Clarify your FOI request - "
-msgstr "Klargjer din krav om innsyn - "
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Klargjer din krav om innsyn - {{request_title}}"
 
-msgid "Classify an FOI response from "
-msgstr "Klassifiser eit innsynsvar frå"
+msgid "Classify an FOI response from {{authority_name}}"
+msgstr "Klassifiser eit innsynsvar frå {{authority_name}}"
 
 msgid "Clear photo"
 msgstr "Slett bilete"
@@ -721,8 +724,8 @@ msgstr "Nedlagt."
 msgid "Delayed"
 msgstr "Forseinka"
 
-msgid "Delayed response to your FOI request - "
-msgstr "Forseinka svar på din krav om innsyn - "
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Forseinka svar på din krav om innsyn - {{request_title}}"
 
 msgid "Delayed."
 msgstr "Forseinka."
@@ -862,8 +865,8 @@ msgstr "Krav om innsyn frå «{{user_name}}»"
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Krav om innsyn {{start_count}} til {{end_count}} av {{total_count}}"
 
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr "Innsynssvar krev administrator ({{reason}}) - {{title}}"
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "Innsynssvar krev administrator ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Feilte"
@@ -999,7 +1002,7 @@ msgstr "Offentleglova"
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Offentleglova gjeld ikkje for denne etaten, så du kan ikkje senda dei ein\\n krav om innsyn."
 
-msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
+msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
 msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
@@ -1419,11 +1422,11 @@ msgstr "Hald førespurnadene dine oppdaterte"
 msgid "Keywords"
 msgstr "Nøkkelord"
 
-msgid "Last authority viewed: "
-msgstr "Siste styresmakt du såg på:"
+msgid "Last authority viewed: {{authority_url}}"
+msgstr "Siste styresmakt du såg på: {{authority_url}}"
 
-msgid "Last request viewed: "
-msgstr "Siste førespurnad du såg på:"
+msgid "Last request viewed: {{request_url}}"
+msgstr "Siste førespurnad du såg på: {{request_url}}"
 
 msgid "Learn more &rarr;"
 msgstr "Lær meir &rarr;"
@@ -1530,8 +1533,8 @@ msgstr "Melding har vorte fjerna"
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Melding sendt ved hjelp av kontaktskjema for {{site_name}},"
 
-msgid "Missing contact details for '"
-msgstr "Manglar kontaktdetaljar for '"
+msgid "Missing contact details for '{{authority_name}}'"
+msgstr "Manglar kontaktdetaljar for '{{authority_name}}'"
 
 msgid "More about this authority"
 msgstr "Meir om denne styresmakta"
@@ -1581,8 +1584,8 @@ msgstr "Nytt passord: (igjen)"
 msgid "New response to '{{title}}'"
 msgstr "Nytt svar til '{{title}}'"
 
-msgid "New response to your FOI request - "
-msgstr "Nytt svar på din krav om innsyn - "
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Nytt svar på din krav om innsyn - {{request_title}}"
 
 msgid "New response to your request"
 msgstr "Nytt svar på henvenndelsen din"
@@ -1904,8 +1907,8 @@ msgstr "Vel kvar av desse førespurnadene etter tur, og <strong>la alle få vita
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr "Ver så snill å signar på slutten med namnet ditt, eller endre «{{signoff}}»-signaturen."
 
-msgid "Please sign in as "
-msgstr "Logg deg inn som "
+msgid "Please sign in as {{user_name}}"
+msgstr "Logg deg inn som {{user_name}}"
 
 msgid "Please tell us more:"
 msgstr "Fortel oss meir:"
@@ -2363,8 +2366,8 @@ msgstr "See sprett (bounce) melding"
 msgid "Send a followup"
 msgstr "Send ei oppfølging"
 
-msgid "Send a message to "
-msgstr "Send ei melding til "
+msgid "Send a message to {{user_name}}"
+msgstr "Send ei melding til {{user_name}}"
 
 msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Send ei offentleg oppfølgingsmelding til {{person_or_body}}"
@@ -2381,8 +2384,11 @@ msgstr "Send meg eposten"
 msgid "Send message"
 msgstr "Send melding"
 
-msgid "Send message to "
-msgstr "Send melding til "
+msgid "Send message to {{user_name}}"
+msgstr "Send melding til {{user_name}}"
+
+msgid "Send message to {{user_name}} just to see how it works"
+msgstr "Send melding til {{user_name}} berre for å sjå korleis det fungerer"
 
 msgid "Send request"
 msgstr "Send førespurnad"
@@ -2446,8 +2452,8 @@ msgstr "Liknande førespurnader"
 msgid "Simple search"
 msgstr "Enkelt søk"
 
-msgid "Some notes have been added to your FOI request - "
-msgstr "Nokre merknader er lagt til innsynskravet ditt – "
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Nokre merknader er lagt til innsynskravet ditt – {{request_title}}"
 
 msgid "Some of the information requested has been received"
 msgstr "Noko av den etterspurde informasjonen er motteke"
@@ -2455,8 +2461,8 @@ msgstr "Noko av den etterspurde informasjonen er motteke"
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Nokre som har sendt inn førespurnader har ikkje fortalt oss om dei var\\nvellukka eller ikkje. Vi treng <strong>di hjelp</strong> &ndash;\\nVel ein av førespurnadene, les ho, og la alle få vita om\\n den etterspurde information er gjeve. Alle vil bli svært takknemlege."
 
-msgid "Somebody added a note to your FOI request - "
-msgstr "Nokon har lagt til ein merknad på innsynskravet ditt - "
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Nokon har lagt til ein merknad på innsynskravet ditt - {{request_title}}"
 
 msgid "Someone has updated the status of your request"
 msgstr "Nokre har oppdatert status på førespurnaden din"
@@ -2563,8 +2569,8 @@ msgstr "Takk for at du hjelper oss med å halda tenesta ryddig!"
 msgid "Thank you for making an annotation!"
 msgstr "Takk for at du laga ein merknad!"
 
-msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to "
-msgstr "Takk for at du svara på dette innsynskravet! Svaret ditt har no vorte publisert under, og ei lenkje til svaret er sendt på e-post til "
+msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
+msgstr "Takk for at du svara på dette innsynskravet! Svaret ditt har no vorte publisert under, og ei lenkje til svaret er sendt på e-post til {{user_name}}."
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr "Takk for at du oppdaterer status på innsynskravet «<a href=\"{{url}}\">{{info_request_title}}</a>». Det finst fleire førespurnader under som du kan klassifisera."
@@ -2689,8 +2695,8 @@ msgstr "Innsynsførespurnaden <strong>ventar på avklaring</strong>."
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Innsynsførespurnaden var <strong>delvis vellukka</strong>."
 
-msgid "The request was <strong>refused</strong> by"
-msgstr "Innsynsførespurnaden vart <strong>avvist</strong> av "
+msgid "The request was <strong>refused</strong> by {{authority_name}}."
+msgstr "Innsynsførespurnaden vart <strong>avvist</strong> av {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
 msgstr "Innsynsførespurnaden var <strong>vellukka</strong>."
@@ -2736,8 +2742,8 @@ msgstr "Så kan du endra e-postadressa brukt på {{site_name}}"
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Så kan du byta passordet på {{site_name}}"
 
-msgid "Then you can classify the FOI response you have got from "
-msgstr "Så kan du klassifisera svaret på innsynsbegjæringen som du fekk frå "
+msgid "Then you can classify the FOI response you have got from {{authority_name}}."
+msgstr "Så kan du klassifisera svaret på innsynsbegjæringen som du fekk frå {{authority_name}}."
 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Deretter kan du lasta ned ein zip-fil med {{info_request_title}}."
@@ -2754,14 +2760,14 @@ msgstr "Då kan du delta i spelet om kategorisering av førespurnader."
 msgid "Then you can report the request '{{title}}'"
 msgstr "Deretter kan du rapportera førespurnaden «{{title}}»"
 
-msgid "Then you can send a message to "
-msgstr "Så kan du senda ei melding til "
+msgid "Then you can send a message to {{user_name}}."
+msgstr "Så kan du senda ei melding til {{user_name}}."
 
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Deretter kan du logga inn på {{site_name}}"
 
-msgid "Then you can update the status of your request to "
-msgstr "Så kan du oppdater status på førespurnaden til "
+msgid "Then you can update the status of your request to {{authority_name}}."
+msgstr "Så kan du oppdater status på førespurnaden til {{authority_name}}."
 
 msgid "Then you can upload an FOI response. "
 msgstr "Så kan du senda ein innsynsbegjæring"
@@ -3014,8 +3020,8 @@ msgstr "For å endra e-postadressa di brukt på {{site_name}}"
 msgid "To classify the response to this FOI request"
 msgstr "For å klassifisera svaret til dette innsynskravet"
 
-msgid "To do that please send a private email to "
-msgstr "For å gjera det, ver venleg og send ei privat e-post til"
+msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
+msgstr "For å gjera det, ver venleg og send ei privat e-post til {{postal_email}} {{postal_email_link}} inneheld posten din-adresse, og spør dei om å svara på denne førespurnaden.\\n            Eller du kan ringa dei."
 
 msgid "To do this, first click on the link below."
 msgstr "For å gjera dette, klikk først på lenkja nedanfor."
@@ -3068,8 +3074,8 @@ msgstr "For å rapportera denne førespurnaden"
 msgid "To send a follow up message to {{authority_name}}"
 msgstr ""
 
-msgid "To send a message to "
-msgstr "For å senda ei melding til "
+msgid "To send a message to {{user_name}}"
+msgstr "For å senda ei melding til {{user_name}}"
 
 msgid "To send your FOI request"
 msgstr "For å senda ein krav om innsyn"
@@ -3080,8 +3086,8 @@ msgstr "For å sende førespurnaden til ei anna myndigheit, må du fyrst kopiere
 msgid "To update the status of this FOI request"
 msgstr "For å oppdatera status på dette innsynskravet"
 
-msgid "To upload a response, you must be logged in using an email address from "
-msgstr "For å lasta opp eit svar, må du vera pålogga med ei e-postadresse frå "
+msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
+msgstr "For å lasta opp eit svar, må du vera pålogga med ei e-postadresse frå {{authority_name}}"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "For å bruka avansert søk, kombiner frasar og merkelappar som skildra i søketipsene under."
@@ -3176,11 +3182,8 @@ msgstr "Klarte ikkje senda oppfølgingsmelding til {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr "Skjulte og uklassifiserte førespurnader vert ikkje talt med."
 
-msgid "Unexpected search result type "
-msgstr "Uventa type søkja resultat "
-
-msgid "Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr "Desverre veit vi ikkje e-post-adressa som bør vert til brukt krav om innsyn for denne\\nmyndigheten, så vi kan ikkje validera dette.\\n<a href=\"{{url}}\">Ta kontakt</a> for å finna ut av dette."
+msgid "Unexpected search result type {{result_type}}"
+msgstr "Uventa type søkja resultat {{result_type}}"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Desverre har vi ikkje ei fungerande adresse for "
@@ -3209,8 +3212,8 @@ msgstr "Oppdater adressa:"
 msgid "Update the status of this request"
 msgstr "Oppdater status på denne førespurnaden"
 
-msgid "Update the status of your request to "
-msgstr "Oppdater status på førespurnaden din til "
+msgid "Update the status of your request to {{authority_name}}"
+msgstr "Oppdater status på førespurnaden din til {{authority_name}}"
 
 msgid "Upload FOI response"
 msgstr "Last opp innsynssvar"
@@ -3483,9 +3486,6 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Skriv førespurnaden i <strong>enkelt, nøyaktig språk</strong>."
 
-msgid "You"
-msgstr "Du"
-
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
 
@@ -3603,6 +3603,9 @@ msgstr "Du freista å registrera deg på {{site_name}}, når du allereie\\nhar e
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Du veit kva som forårsaka feilen, og kan <strong>foreslå ei løysing</strong>, som ei fungerande e-postadresse."
 
+msgid "You left an annotation ({{date}})"
+msgstr "Du la igjen ein merknad ({{date}})"
+
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Du kan velja å <strong>leggja med vedlegg</strong>. Om du vil leggja med ein\\nfil som er for stor for e-post, kan du bruka skjema under."
 
@@ -3675,8 +3678,8 @@ msgstr "Du vil enno vera i stand til å sjå henne når du er pålogga på netts
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Du er inne. <a href=\"#\" id=\"send-request\">Hald fram innsending av din førespurnad</a>"
 
-msgid "You're long overdue a response to your FOI request - "
-msgstr "Du har venta altfor lenge med å svara på din førespurnad - "
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "Du har venta altfor lenge med å svara på din førespurnad - {{request_title}}"
 
 msgid "You're not following anything."
 msgstr "Du følgjer ikkje noko."
@@ -3805,7 +3808,7 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Din {{count}} merknad"
 msgstr[1] "Dine {{count}} bemerkninger"
 
-msgid "Your {{count}} batch requests"
+msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Din {{count}} samlekrav"
 msgstr[1] "Dine {{count}} samlekrav"
@@ -3891,9 +3894,6 @@ msgstr "av {{user_link_absolute}}"
 msgid "comments"
 msgstr "kommentarar"
 
-msgid "containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr "inneheld posten din-adresse, og spør dei om å svara på denne førespurnaden.\\n            Eller du kan ringa dei."
-
 msgid "details"
 msgstr "detaljar"
 
@@ -3915,9 +3915,6 @@ msgstr "alt"
 msgid "external"
 msgstr "ekstern"
 
-msgid "has reported an"
-msgstr "har rapportert ein"
-
 msgid "have delayed."
 msgstr "er vorte forseinka."
 
@@ -3933,14 +3930,8 @@ msgstr "intern feil"
 msgid "internal reviews"
 msgstr "klager"
 
-msgid "is <strong>waiting for your clarification</strong>."
-msgstr "<strong>ventar på dine avklaringer</strong>"
-
-msgid "just to see how it works"
-msgstr "berre for å sjå korleis det fungerer"
-
-msgid "left an annotation"
-msgstr "la igjen ein merknad"
+msgid "logged in as user {{user_name}}"
+msgstr ""
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "treffar taggen '{{tag_name}}'"
@@ -3969,11 +3960,11 @@ msgstr "ikkje seinare enn"
 msgid "normally"
 msgstr "vanlegvis"
 
+msgid "not logged in"
+msgstr ""
+
 msgid "not requestable due to: {{reason}}"
 msgstr "kan ikkje be om fordi: {{reason}}"
-
-msgid "please sign in as "
-msgstr "logg deg inn som "
 
 msgid "requesting an internal review"
 msgstr "be om ein intern gjennomgang"
@@ -3986,9 +3977,6 @@ msgstr "vellukka førespurnader"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "vellukka førespurnader som samsvarer med teksta «{{query}}»"
-
-msgid "response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "respons som treng merksemd frå ein administrator.  Ta ein titt, og svar\\npå denne e-posten for å la dei vita kva du kjem til å gjera med det."
 
 msgid "send a follow up message"
 msgstr "send ei oppfølgingsmelding"
@@ -4022,9 +4010,6 @@ msgstr "postmottaket hos {{public_body}}"
 msgid "the main FOI contact at {{public_body}}"
 msgstr "postmottaket hos {{public_body}}"
 
-msgid "the requester"
-msgstr "spørjaren"
-
 msgid "the {{site_name}} team"
 msgstr "{{site_name}}-gjengen"
 
@@ -4038,13 +4023,13 @@ msgid "type your search term here"
 msgstr "skriv inn søketerm her"
 
 msgid "unknown reason"
-msgstr ""
+msgstr "ukjend grunn"
 
 msgid "unknown reason "
 msgstr "ukjend grunn "
 
-msgid "unknown status "
-msgstr "ukjend status "
+msgid "unknown status {{status}}"
+msgstr "ukjend status {{status}}"
 
 msgid "unresolved requests"
 msgstr "uavklarte førespurnader"
@@ -4063,6 +4048,12 @@ msgstr "brukarar"
 
 msgid "what's that?"
 msgstr "kva er det?"
+
+msgid "{{authority_name}} <strong>did not have</strong> the information requested."
+msgstr "{{authority_name}} <strong>hadde ikkje</strong> informasjonen du bad om."
+
+msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
+msgstr "{{authority_name}} <strong>ventar på dine avklaringer</strong>"
 
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} krav om innsyn funnet"
@@ -4129,6 +4120,12 @@ msgstr "{{public_body}} sende eit svar til {{user_name}}"
 msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, ver venleg og logg inn eller lag ein ny konto."
 
+msgid "{{reason}}, please sign in as {{user_name}}."
+msgstr "{{reason}}, logg deg inn som {{user_name}}."
+
+msgid "{{reason}}. Unfortunately we don't know the FOI email address for that authority, so we can't validate this. Please <a href=\"{{url}}\">contact us</a> to sort it out."
+msgstr "{{reason}}. Desverre veit vi ikkje e-post-adressa som bør vert til brukt krav om innsyn for denne\\nmyndigheten, så vi kan ikkje validera dette.\\n<a href=\"{{url}}\">Ta kontakt</a> for å finna ut av dette."
+
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} traff '{{query}}'"
 
@@ -4171,8 +4168,14 @@ msgstr "{{user_name}} la til ein bemerkning"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{user_name}} har skrive ein merknad på din {{law_used_short}} \\nførespurnad. Følg lenkja nedanfor for å sjå kva dei skreiv."
 
+msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgstr "{{user_name}} har rapportert ein {{law_used}} respons som treng merksemd frå ein administrator.  Ta ein titt, og svar\\npå denne e-posten for å la dei vita kva du kjem til å gjera med det."
+
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "{{user_name}} har brukt {{site_name}} for å senda deg meldinga nedanfor."
+
+msgid "{{user_name}} left an annotation ({{date}})"
+msgstr "{{user_name}} la igjen ein bemerkning ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "{{user_name}} sende ei oppfølgingsmelding til {{public_body}}"
