@@ -11,16 +11,16 @@
 # FOI Monkey <>, 2012
 # KerstiRu <kersti@access-info.org>, 2011
 # KerstiRu <kersti@access-info.org>, 2011
-# louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014,2016
 # louisecrow <louise@mysociety.org>, 2014,2016
 # Philipp Brocar <brocar@fra-uni.net>, 2015
 # stefanw <stefanwehrmeyer@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-04-07 13:58+0000\n"
+"PO-Revision-Date: 2016-04-15 17:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/mysociety/alaveteli/language/de/)\n"
 "Language: de\n"
