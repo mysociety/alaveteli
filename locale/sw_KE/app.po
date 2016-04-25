@@ -6,10 +6,10 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-04-07 13:58+0000\n"
+"PO-Revision-Date: 2016-04-15 16:56+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Swahili (Kenya) (http://www.transifex.com/mysociety/alaveteli/language/sw_KE/)\n"
 "Language: sw_KE\n"

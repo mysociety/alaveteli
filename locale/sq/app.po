@@ -11,7 +11,7 @@
 # Dorian Kavaja <dorik2k@gmail.com>, 2016
 # driton <dritoni.h@gmail.com>, 2011
 # Hana Huntova <>, 2012
-# louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014,2016
 # louisecrow <louise@mysociety.org>, 2014,2016
 # Valon <vbrestovci@gmail.com>, 2011
 # Valon <vbrestovci@gmail.com>, 2011-2012
@@ -19,10 +19,10 @@
 # Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-04-07 13:58+0000\n"
+"PO-Revision-Date: 2016-04-15 17:10+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -3555,6 +3555,8 @@ msgstr "Shkruaje kërkesën tënde me <strong>gjuhë të thjeshtë, dhe të sakt
 
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
+"{{existing_request_user}} tashmë\n"
+"     ka krijuar të njëjtën kërkesë me {{date}}. Mund ta shohësh <a href=\"{{existing_request}}\">kërkesën ekzistuese</a>     apo të redaktosh të dhënat e mëposhtme për të bërë një kërkesë të re, por të ngjashme."
 
 msgid "You are already following new requests"
 msgstr "Tashmë jeni duke ndjekur kërkesat e reja"
