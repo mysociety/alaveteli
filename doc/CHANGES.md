@@ -11,6 +11,11 @@
 * Added a new config option `ENABLE_ANNOTATIONS` to allow turning off the
   annotations feature (comments on requests) (Steve Day, Gareth Rees)
 
+* Added a new config option `USE_RECAPTCHA_FOR_REGISTRATION` to allow reCAPTCHA
+  to be used for all new signups as a measure to reduce the number of new spam
+  accounts being created (defaults to false so will only change site behaviour
+  if configured) (Liz Conlan)
+
 ## Upgrade Notes
 
 # Version 0.24.1.0

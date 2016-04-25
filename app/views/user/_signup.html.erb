@@ -37,7 +37,7 @@
       <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 40, :autocomplete => "off" } %>
     </p>
 
-    <% if @request_from_foreign_country %>
+    <% if @use_recaptcha %>
       <%= recaptcha_tags %>
     <% end %>
 

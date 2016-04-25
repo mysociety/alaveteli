@@ -273,12 +273,23 @@ THEME_URLS:
 # ---
 THEME_BRANCH: false
 
-# Does a user needs to sign in to start the New Request process?
+# Does a user need to sign in to start the New Request process?
 #
 # FORCE_REGISTRATION_ON_NEW_REQUEST - Boolean (default: false)
 #
 # ---
 FORCE_REGISTRATION_ON_NEW_REQUEST: false
+
+# Does a user need to pass a RECAPTCHA test before being allowed to
+# register (a measure to discourage widescale creation of spam accounts).
+# Relies on RECAPTCHA being configured using:
+#  - RECAPTCHA_PUBLIC_KEY
+#  - RECAPTCHA_PRIVATE_KEY
+#
+# USE_RECAPTCHA_FOR_REGISTRATION - Boolean (default: false)
+#
+# ---
+USE_RECAPTCHA_FOR_REGISTRATION: false
 
 # Your email domain for incoming mail.
 #
