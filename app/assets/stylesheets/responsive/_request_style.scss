@@ -95,6 +95,38 @@ a img.attachment_image {
   text-align: center;
 }
 
+.correspondence_delivery {
+  background-color: #eee;
+
+  // Cruft that comes from the page we ajax in
+  h1 {
+    display: none;
+  }
+
+  // "This message has been delivered" etc
+  h2 {
+    text-align: inherit;
+    font-size: 1.2em;
+  }
+
+  pre {
+    font-size: 0.8em;
+    padding: 0.5em 1em;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+}
+
+.toggle-delivery-log {
+  // Pre-load the spinner image by hiding it outside the element bounds
+  background: transparent image-url('loader-000-on-fff-16px.gif') -100px -100px no-repeat;
+}
+
+.toggle-delivery-log--loading {
+  background-position: 100% 50%;
+  padding-right: 24px;
+}
+
 
 /* Event history details */
 

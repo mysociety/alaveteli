@@ -9,7 +9,7 @@
       <br>
       <br>
       <%= simple_date(info_request_event.created_at) %>
-      (<%= link_to _('Logs'), outgoing_message_mail_server_logs_path(outgoing_message) %>)
+      <%= link_to _('(Show delivery log)'), outgoing_message_mail_server_logs_path(outgoing_message), :class => "toggle-delivery-log js-toggle-delivery-log" %>
     </h2>
 
     <%= render :partial => 'request/bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>

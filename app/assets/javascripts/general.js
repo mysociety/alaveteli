@@ -65,4 +65,54 @@ $(document).ready(function() {
     $this.unbind("mouseup");
     return false;
   });
+
+  $('.js-toggle-delivery-log').on('click', function(e){
+    e.preventDefault();
+
+    var $correspondence = $(this).parents('.correspondence');
+    var url = $(this).attr('href');
+    var $correspondence_delivery = $correspondence.find('.correspondence_delivery');
+
+    if( $correspondence_delivery.length ){
+      removeCorrespondenceDeliveryBox($correspondence_delivery);
+    } else {
+      loadCorrespondenceDeliveryBox($correspondence, url);
+    }
+  });
+
+  var loadCorrespondenceDeliveryBox = function loadCorrespondenceDeliveryBox($correspondence, url){
+    var $toggle = $correspondence.find('.js-toggle-delivery-log');
+    var $correspondence_delivery = $('<div>')
+      .addClass('correspondence_delivery')
+      .hide()
+      .insertBefore( $correspondence.find('.correspondence_text') );
+
+    $toggle.addClass('toggle-delivery-log--loading');
+
+    $.ajax({
+      url: url,
+      dataType: "html"
+    }).done(function(html){
+      var $deliveryDiv = $(html).find('.controller_mail_server_logs');
+      $correspondence_delivery.html( $deliveryDiv.html() );
+      $correspondence_delivery.slideDown(200);
+
+    }).fail(function(){
+      // TODO: This string needs to be translated!!
+      var msgHtml = '<p>We couldn&rsquo;t load the logs for this message.</p>';
+      msgHtml += '<p>Try <a href="' + url + '" target="_blank">opening the logs in a new window</a>.</p>';
+      $correspondence_delivery.html( msgHtml );
+      $correspondence_delivery.slideDown(200);
+
+    }).always(function(){
+      $toggle.removeClass('toggle-delivery-log--loading');
+
+    });
+  }
+
+  var removeCorrespondenceDeliveryBox = function removeCorrespondenceDeliveryBox($correspondence_delivery){
+    $correspondence_delivery.slideUp(200, function(){
+      $correspondence_delivery.remove();
+    });
+  }
 })
