@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Refactored `OutgoingMailer` to get "To:", "From:" and "Subject:" from the
+  `OutgoingMessage` instance (Gareth Rees)
 * Added some early-stage scripts (`script/current-theme`,
   `script/diff-theme-override`) to help with upgrading theme overrides. Both
   have a `-h` option with usage information (Gareth Rees)
