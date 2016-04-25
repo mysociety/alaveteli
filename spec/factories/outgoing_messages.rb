@@ -11,7 +11,15 @@ FactoryGirl.define do
         body 'Some information please'
         what_doing 'normal_sort'
       end
+    end
 
+    factory :new_information_followup do
+      ignore do
+        status 'ready'
+        message_type 'followup'
+        body 'I clarify my request'
+        what_doing 'new_information'
+      end
     end
 
     factory :internal_review_request do
@@ -21,7 +29,6 @@ FactoryGirl.define do
         body 'I want a review'
         what_doing 'internal_review'
       end
-
     end
 
     # FIXME: This here because OutgoingMessage has an after_initialize,
