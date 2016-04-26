@@ -98,9 +98,7 @@ $(document).ready(function() {
       $correspondence_delivery.slideDown(200);
 
     }).fail(function(){
-      // TODO: This string needs to be translated!!
-      var msgHtml = '<p>We couldn&rsquo;t load the logs for this message.</p>';
-      msgHtml += '<p>Try <a href="' + url + '" target="_blank">opening the logs in a new window</a>.</p>';
+      var msgHtml = $('.js-delivery-log-ajax-error').html();
       $correspondence_delivery.html( msgHtml );
       $correspondence_delivery.slideDown(200);
 
