@@ -9,8 +9,13 @@
       <br>
       <br>
       <%= simple_date(info_request_event.created_at) %>
-      (<%= link_to _('Logs'), outgoing_message_mail_server_logs_path(outgoing_message) %>)
+      <%= link_to _('(Show delivery log)'), outgoing_message_mail_server_logs_path(outgoing_message), :class => "toggle-delivery-log js-toggle-delivery-log" %>
     </h2>
+
+    <div class="js-delivery-log-ajax-error" hidden aria-hidden="true" style="display: none; visibility: hidden;">
+        <p><%= _('We couldn’t load the mail server logs for this message.') %></p>
+        <p><%= link_to _('Try opening the logs in a new window.'), outgoing_message_mail_server_logs_path(outgoing_message), :target => '_blank' %></p>
+    </div>
 
     <%= render :partial => 'request/bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
 
