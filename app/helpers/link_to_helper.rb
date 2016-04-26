@@ -16,7 +16,7 @@ module LinkToHelper
   end
 
   def request_path(info_request, options = {})
-    request_url(info_request, {:only_path => true}.merge(options))
+    request_url(info_request, options.merge(:only_path => true))
   end
 
   def request_link(info_request, cls=nil)
@@ -32,24 +32,24 @@ module LinkToHelper
     message_url(incoming_message, options)
   end
 
-  def incoming_message_path(incoming_message)
-    message_path(incoming_message)
+  def incoming_message_path(incoming_message, options = {})
+    message_path(incoming_message, options)
   end
 
   def outgoing_message_url(outgoing_message, options = {})
     message_url(outgoing_message, options)
   end
 
-  def outgoing_message_path(outgoing_message)
-    message_path(outgoing_message)
+  def outgoing_message_path(outgoing_message, options = {})
+    message_path(outgoing_message, options)
   end
 
   def comment_url(comment, options = {})
     request_url(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
   end
 
-  def comment_path(comment)
-    comment_url(comment, :only_path => true)
+  def comment_path(comment, options = {})
+    comment_url(comment, options.merge(:only_path => true))
   end
 
   # Respond to request
@@ -62,8 +62,8 @@ module LinkToHelper
     end
   end
 
-  def respond_to_last_path(info_request)
-    respond_to_last_url(info_request, :only_path => true)
+  def respond_to_last_path(info_request, options = {})
+    respond_to_last_url(info_request, options.merge(:only_path => true))
   end
 
   # Public bodies
@@ -71,8 +71,8 @@ module LinkToHelper
     public_body.url_name.nil? ? '' : show_public_body_url(options.merge(:url_name => public_body.url_name))
   end
 
-  def public_body_path(public_body)
-    public_body_url(public_body, :only_path => true)
+  def public_body_path(public_body, options = {})
+    public_body_url(public_body, options.merge(:only_path => true))
   end
 
   def public_body_link_short(public_body)
@@ -92,8 +92,8 @@ module LinkToHelper
     show_user_url(options.merge(:url_name => user.url_name))
   end
 
-  def user_path(user)
-    user_url(user, :only_path => true)
+  def user_path(user, options = {})
+    user_url(user, options.merge(:only_path => true))
   end
 
   def user_link(user, cls=nil)
@@ -201,12 +201,12 @@ module LinkToHelper
     end
   end
 
-  def do_track_path(track_thing, feed = 'track')
-    do_track_url(track_thing, feed, :only_path => true)
+  def do_track_path(track_thing, feed = 'track', options = {})
+    do_track_url(track_thing, feed, options.merge(:only_path => true))
   end
 
   # General pages.
-  def search_url(query, params = nil)
+  def search_url(query, options = nil)
     if query.kind_of?(Array)
       query = query - ["", nil]
       query = query.join("/")
@@ -215,8 +215,8 @@ module LinkToHelper
                     :action => 'search',
                     :combined => query,
                     :view => nil}
-    if !params.nil?
-      routing_info = params.merge(routing_info)
+    if !options.nil?
+      routing_info = options.merge(routing_info)
     end
     url = url_for(routing_info)
     # Here we can't escape the slashes, as RFC 2396 doesn't allow slashes
@@ -242,15 +242,15 @@ module LinkToHelper
   end
 
   # About page URLs
-  def about_url
-    return help_general_url(:action => 'about')
+  def about_url(options = {})
+    help_general_url(options.merge(:action => 'about'))
   end
 
-  def unhappy_url(info_request = nil)
+  def unhappy_url(info_request = nil, options = {})
     if info_request.nil?
-      return help_general_url(:action => 'unhappy')
+      return help_general_url(options.merge(:action => 'unhappy'))
     else
-      return help_unhappy_url(:url_title => info_request.url_title)
+      return help_unhappy_url(options.merge(:url_title => info_request.url_title))
     end
   end
 
@@ -269,8 +269,8 @@ module LinkToHelper
     request_url(message.info_request, options.merge(default_options))
   end
 
-  def message_path(message)
-    message_url(message, :only_path => true)
+  def message_path(message, options = {})
+    message_url(message, options.merge(:only_path => true))
   end
 
 end

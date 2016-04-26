@@ -925,12 +925,12 @@ class RequestController < ApplicationController
                      "request in order to get a reply, as we will ask " \
                      "for it on the next screen (<a href=\"{{url}}\">" \
                      "details</a>).</p>",
-                     :url => (help_privacy_path+"#email_address").html_safe)
+                     :url => (help_privacy_path(:anchor => "email_address")).html_safe)
       else
         message += _("<p>You do not need to include your email in the " \
                      "request in order to get a reply (<a href=\"{{url}}\">" \
                      "details</a>).</p>",
-                     :url => (help_privacy_path+"#email_address").html_safe)
+                     :url => (help_privacy_path(:anchor => "email_address")).html_safe)
       end
       message += _("<p>We recommend that you edit your request and remove " \
                    "the email address. If you leave it, the email address " \

@@ -97,10 +97,10 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that the public body is late in replying
   def overdue_alert(info_request, user)
-    respond_url = respond_to_last_url(info_request) + "#followup"
+    respond_url = respond_to_last_url(info_request, :anchor => "followup")
 
     post_redirect = PostRedirect.new(
-      :uri => respond_to_last_url(info_request) + "#followup",
+      :uri => respond_to_last_url(info_request, :anchor => "followup"),
       :user_id => user.id)
     post_redirect.save!
     url = confirm_url(:email_token => post_redirect.email_token)
@@ -118,10 +118,10 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that the public body is very late in replying
   def very_overdue_alert(info_request, user)
-    respond_url = respond_to_last_url(info_request) + "#followup"
+    respond_url = respond_to_last_url(info_request, :anchor => "followup")
 
     post_redirect = PostRedirect.new(
-      :uri => respond_to_last_url(info_request) + "#followup",
+      :uri => respond_to_last_url(info_request, :anchor => "followup"),
       :user_id => user.id)
     post_redirect.save!
     @url = confirm_url(:email_token => post_redirect.email_token)
@@ -141,7 +141,7 @@ class RequestMailer < ApplicationMailer
     # Make a link going to the form to describe state, and which logs the
     # user in.
     post_redirect = PostRedirect.new(
-      :uri => request_url(info_request) + "#describe_state_form_1",
+      :uri => request_url(info_request, :anchor => "describe_state_form_1"),
       :user_id => info_request.user.id)
     post_redirect.save!
     @url = confirm_url(:email_token => post_redirect.email_token)
@@ -166,9 +166,8 @@ class RequestMailer < ApplicationMailer
   # Tell the requester that they need to clarify their request
   def not_clarified_alert(info_request, incoming_message)
     respond_url = new_request_incoming_followup_url(:request_id => info_request.id,
-                                                    :incoming_message_id => incoming_message.id)
-    respond_url = respond_url + "#followup"
-
+                                                    :incoming_message_id => incoming_message.id,
+                                                    :anchor => 'followup')
     post_redirect = PostRedirect.new(
       :uri => respond_url,
       :user_id => info_request.user.id)
