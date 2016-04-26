@@ -2,6 +2,6 @@
 *= require_self
 *= require normalize
 *= require responsive/ie8
-*= require jquery.ui.datepicker
-*= require jquery.ui.tabs
+*= require jquery-ui/datepicker
+*= require jquery-ui/tabs
 */
