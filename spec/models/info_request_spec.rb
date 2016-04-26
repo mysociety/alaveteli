@@ -745,6 +745,28 @@ describe InfoRequest do
 
   end
 
+  describe '.find_existing' do
+
+    it 'returns a request with the params given' do
+      info_request = FactoryGirl.create(:info_request)
+      expect(InfoRequest.find_existing(info_request.title,
+                                       info_request.public_body_id,
+                                       'Some information please'))
+        .to eq(info_request)
+    end
+
+  end
+
+  describe '#find_existing_outgoing_message' do
+
+    it 'returns an outgoing message with the body text given' do
+      info_request = FactoryGirl.create(:info_request)
+      expect(info_request.find_existing_outgoing_message('Some information please'))
+        .to eq(info_request.outgoing_messages.first)
+    end
+
+  end
+
   describe '#is_external?' do
 
     it 'returns true if there is an external url' do
