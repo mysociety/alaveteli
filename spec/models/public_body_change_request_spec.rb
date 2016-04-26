@@ -93,6 +93,38 @@ describe PublicBodyChangeRequest, 'get_user_email' do
 
 end
 
+describe PublicBodyChangeRequest, '.new_body_requests' do
+  let(:new_request) { FactoryGirl.create(:add_body_request) }
+  let(:update_request) { FactoryGirl.create(:update_body_request) }
+
+  it "returns requests where the public_body_id is nil" do
+    expect(PublicBodyChangeRequest.new_body_requests).
+      to eq([new_request])
+  end
+end
+
+describe PublicBodyChangeRequest, '.body_update_requests' do
+  let(:new_request) { FactoryGirl.create(:add_body_request) }
+  let(:update_request) { FactoryGirl.create(:update_body_request) }
+
+  it "returns requests where the public_body_id is not nil" do
+    expect(PublicBodyChangeRequest.body_update_requests).to eq([update_request])
+  end
+end
+
+describe PublicBodyChangeRequest, '.open' do
+  let(:open_request) do
+    FactoryGirl.create(:update_body_request, :is_open => true)
+  end
+
+  let(:closed_request) do
+    FactoryGirl.create(:update_body_request, :is_open => false)
+  end
+
+  it "returns requests where the is_open is true" do
+    expect(PublicBodyChangeRequest.open).to eq([open_request])
+  end
+end
 
 describe PublicBodyChangeRequest, 'get_public_body_name' do
 
