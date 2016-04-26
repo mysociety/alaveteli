@@ -171,6 +171,10 @@ class OutgoingMessage < ActiveRecord::Base
     read_attribute(:body)
   end
 
+  def apply_masks(text, content_type)
+    info_request.apply_masks(text, content_type)
+  end
+
   # Used to give warnings when writing new messages
   def contains_email?
     MySociety::Validate.email_find_regexp.match(body)
