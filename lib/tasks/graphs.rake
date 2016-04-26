@@ -6,6 +6,12 @@ namespace :graphs do
   include Graphs
 
   task :generate_user_use_graph => :environment do
+    minimum_data_size = if ENV["MINIMUM_DATA_SIZE"]
+      ENV["MINIMUM_DATA_SIZE"].to_i
+    else
+      1
+    end
+
     # set the local font path for the current task
     ENV["GDFONTPATH"] = "/usr/share/fonts/truetype/ttf-bitstream-vera"
 
@@ -83,7 +89,13 @@ namespace :graphs do
         all_users = select_as_columns(aggregate_signups)
 
         # nothing to do, bail
-        abort "warning: no user data to graph, skipping task" unless all_users
+        unless all_users and all_users[0].size >= minimum_data_size
+          if verbose
+            exit "warning: no request data to graph, skipping task"
+          else
+            exit!
+          end
+        end
 
         plot_data_from_columns(all_users, options, plot.data)
 
@@ -121,6 +133,12 @@ namespace :graphs do
   end
 
   task :generate_request_creation_graph => :environment do
+    minimum_data_size = if ENV["MINIMUM_DATA_SIZE"]
+      ENV["MINIMUM_DATA_SIZE"].to_i
+    else
+      2
+    end
+
     # set the local font path for the current task
     ENV["GDFONTPATH"] = "/usr/share/fonts/truetype/ttf-bitstream-vera"
 
@@ -197,8 +215,12 @@ namespace :graphs do
 
         # nothing to do, bail
         # (both nil and a single datapoint will result in an undrawable graph)
-        unless all_requests and all_requests[0].size > 1
-          abort "warning: no request data to graph, skipping task"
+        unless all_requests and all_requests[0].size >= minimum_data_size
+          if verbose
+            abort "warning: no request data to graph, skipping task"
+          else
+            exit!
+          end
         end
 
         # start plotting the data from largest to smallest so
