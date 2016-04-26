@@ -780,7 +780,7 @@ describe UserController, "when sending another user a message" do
     expect(mail.body).to include("Bob Smith has used #{AlaveteliConfiguration::site_name} to send you the message below")
     expect(mail.body).to include("Just a test!")
     #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # TODO: fix some nastiness with quoting name_and_email
-    expect(mail.from_addrs.first.to_s).to eq(users(:bob_smith_user).email)
+    expect(mail.header['Reply-To'].to_s).to match(users(:bob_smith_user).email)
   end
 
 end

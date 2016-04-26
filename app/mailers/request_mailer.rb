@@ -67,7 +67,11 @@ class RequestMailer < ApplicationMailer
     headers('Return-Path' => blackhole_email,
             'Reply-To' => user.name_and_email)
 
-    mail(:from => user.name_and_email,
+    # From is an address we control so that strict DMARC senders don't get refused
+    mail(:from => MailHandler.address_from_name_and_email(
+                    user.name,
+                    blackhole_email
+                  ),
          :to => contact_from_name_and_email,
          :subject => _("FOI response requires admin ({{reason}}) - " \
                         "{{request_title}}",
