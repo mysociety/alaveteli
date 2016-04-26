@@ -186,6 +186,10 @@ class MailServerLog < ActiveRecord::Base
     create_mail_server_logs(emails, sanitised_line, order, done)
   end
 
+  def is_owning_user?(user)
+    info_request.is_owning_user?(user)
+  end
+
   private
 
   def self.create_mail_server_logs(emails, line, order, done)
