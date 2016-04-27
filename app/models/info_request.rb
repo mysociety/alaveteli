@@ -1162,6 +1162,12 @@ class InfoRequest < ActiveRecord::Base
     binary
   end
 
+  def apply_masks(text, content_type)
+    mask_options = { :censor_rules => applicable_censor_rules,
+                     :masks => masks }
+    AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
+  end
+
   # Masks we apply to text associated with this request convert email addresses
   # we know about into textual descriptions of them
   def masks
