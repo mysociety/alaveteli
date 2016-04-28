@@ -12,25 +12,26 @@ class AdminGeneralController < AdminController
     @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
     @error_message_requests = InfoRequest.find_in_state('error_message')
     @attention_requests = InfoRequest.find_in_state('attention_requested')
-    @blank_contacts = PublicBody.
-      includes(:tags, :translations).
-        where(:request_email => "").
-          order(:updated_at).
-            select { |pb| !pb.defunct? }
-    @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20,
-                                                          :conditions => ["prominence = 'normal'"])
-    @holding_pen_messages = InfoRequest.
-      includes(:incoming_messages => :raw_email).
-        holding_pen_request.
-          incoming_messages
-    @new_body_requests = PublicBodyChangeRequest.
-      includes(:public_body, :user).
-        new_body_requests.
-          open
-    @body_update_requests = PublicBodyChangeRequest.
-      includes(:public_body, :user).
-        body_update_requests.
-          open
+    @blank_contacts = PublicBody
+      .includes(:tags, :translations)
+        .where(:request_email => "")
+          .order(:updated_at)
+            .select { |pb| !pb.defunct? }
+    @old_unclassified = InfoRequest.where_old_unclassified
+                                     .limit(20)
+                                       .where(:prominence => 'normal')
+    @holding_pen_messages = InfoRequest
+      .includes(:incoming_messages => :raw_email)
+        .holding_pen_request
+          .incoming_messages
+    @new_body_requests = PublicBodyChangeRequest
+      .includes(:public_body, :user)
+        .new_body_requests
+          .open
+    @body_update_requests = PublicBodyChangeRequest
+      .includes(:public_body, :user)
+        .body_update_requests
+          .open
   end
 
   def timeline
@@ -88,12 +89,12 @@ class AdminGeneralController < AdminController
         end
       end
       # get all the models in the slice, eagerly loading the associations we use in the view
-      public_body_versions = PublicBody.versioned_class.find(:all,
-                                                             :conditions => ['id in (?)', public_body_version_ids.keys],
-                                                             :include => [ { :public_body => :translations }])
-      info_request_events = InfoRequestEvent.find(:all,
-                                                  :conditions => ['id in (?)', info_request_event_ids.keys],
-                                                  :include => [:info_request])
+      public_body_versions = PublicBody.versioned_class.
+        includes(:public_body => :translations).
+          find(public_body_version_ids.keys)
+      info_request_events = InfoRequestEvent.
+        includes(:info_request).
+          find(info_request_event_ids.keys)
       @events = []
       # drop the models into a combined array, ordered by their position in the timestamp slice
       public_body_versions.each do |version|

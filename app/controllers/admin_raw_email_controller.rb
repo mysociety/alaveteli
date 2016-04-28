@@ -24,9 +24,9 @@ class AdminRawEmailController < AdminController
           @public_bodies = if domain.nil?
             []
           else
-            PublicBody.where("lower(request_email) like lower('%'||?||'%')",
-                             domain).
-              order('name')
+            PublicBody.
+              where("lower(request_email) like lower('%'||?||'%')", domain).
+                order('name')
           end
 
           # 2. Match the email address in the message without matching the hash
