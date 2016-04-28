@@ -386,4 +386,50 @@ describe TrackController do
       expect(tt.track_query).to eq("requested_from:" + geraldine.url_name + " variety:sent")
     end
   end
+
+  describe 'POST delete_all_type' do
+
+    let(:track_thing) { FactoryGirl.create(:search_track) }
+
+    context 'when the user passed in the params is not logged in' do
+
+      it 'redirects to the signin page' do
+        post :delete_all_type, :user => track_thing.tracking_user.id,
+                               :track_type => 'search_query'
+        expect(response).to redirect_to(:controller => 'user',
+                                        :action => 'signin',
+                                        :token => get_last_post_redirect.token)
+      end
+
+    end
+
+    context 'when the user passed in the params is logged in' do
+
+      it 'deletes all tracks for the user of the type passed in the params' do
+        post :delete_all_type, {:user => track_thing.tracking_user.id,
+                                :track_type => 'search_query',
+                                :r => '/'},
+                               {:user_id => track_thing.tracking_user.id}
+        expect(TrackThing.where(:id => track_thing.id)).to be_empty
+      end
+
+      it 'redirects to the redirect path in the param passed' do
+        post :delete_all_type, {:user => track_thing.tracking_user.id,
+                        :track_type => 'search_query',
+                        :r => '/'},
+                       {:user_id => track_thing.tracking_user.id}
+        expect(response).to redirect_to('/')
+      end
+
+      it 'shows a message telling the user what has happened' do
+        post :delete_all_type, {:user => track_thing.tracking_user.id,
+                        :track_type => 'search_query',
+                        :r => '/'},
+                       {:user_id => track_thing.tracking_user.id}
+        expect(flash[:notice]).to eq("You will no longer be emailed updates for those alerts")
+      end
+
+    end
+
+  end
 end
