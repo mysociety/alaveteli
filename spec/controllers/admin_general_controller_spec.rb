@@ -18,16 +18,22 @@ describe AdminGeneralController do
   describe 'when viewing the timeline' do
 
     it 'should assign an array of events in order of descending date to the view' do
+
+      info_request = FactoryGirl.create(:info_request)
+      public_body = FactoryGirl.create(:public_body)
+
+      first_event = info_request.log_event('edit', {})
+      public_body.name = 'Changed name'
+      public_body.save!
+      public_body_version = public_body.reverse_sorted_versions.first
+      second_event = info_request.log_event('edit', {})
+
       get :timeline, :all => 1
-      previous_event = nil
-      previous_event_at = nil
-      assigns[:events].each do |event, event_at|
-        if previous_event
-          expect(event_at <= previous_event_at).to be true
-        end
-        previous_event = event
-        previous_event_at = event_at
-      end
+
+      expect(assigns[:events].first.first).to  eq(second_event)
+      expect(assigns[:events].second.first).to eq(public_body_version)
+      expect(assigns[:events].third.first).to eq(first_event)
+
     end
 
   end
