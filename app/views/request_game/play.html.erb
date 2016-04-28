@@ -19,7 +19,12 @@
       <tr>
         <td> <%= index += 1 %>. <td>
         <td> <%= user_link(classifications.user) %> </td>
-        <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
+        <td>
+
+        <%= n_("{{number_of_requests}} request",
+               "{{number_of_requests}} requests",
+               classifications.cnt,
+               :number_of_requests => classifications.cnt) %> </td>
       </tr>
     <% end %>
   </table>
@@ -30,7 +35,10 @@
       <tr>
         <td> <%= index += 1 %>. <td>
         <td> <%= user_link(classifications.user) %> </td>
-        <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
+        <td> <%= n_("{{number_of_requests}} request",
+                    "{{number_of_requests}} requests",
+                    classifications.cnt,
+                    :number_of_requests => classifications.cnt) %> </td>
       </tr>
     <% end %>
   </table>
