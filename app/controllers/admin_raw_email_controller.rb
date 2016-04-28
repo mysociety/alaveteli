@@ -21,12 +21,12 @@ class AdminRawEmailController < AdminController
           # is associated with, so we can display that.
           email = @raw_email.incoming_message.from_email
           domain = PublicBody.extract_domain_from_email(email)
-
-          if domain.nil?
-            @public_bodies = []
+          @public_bodies = if domain.nil?
+            []
           else
-            @public_bodies = PublicBody.find(:all, :order => "name",
-                                             :conditions => [ "lower(request_email) like lower('%'||?||'%')", domain ])
+            PublicBody.where("lower(request_email) like lower('%'||?||'%')",
+                             domain).
+              order('name')
           end
 
           # 2. Match the email address in the message without matching the hash
