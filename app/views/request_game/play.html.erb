@@ -6,27 +6,39 @@
           :size => "250x125",
           :alt => "A chart showing #{@percentage}% of requests have been categorised",
           :title => "#{@percentage}% of requests have been categorised" %>
-    <br><%= pluralize(@missing, 'request')%> left to categorise / <%= @total %> total
+    <br><%= n_("{{number_of_requests}} request left to categorise / {{total_number_of_requests}} total",
+               "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total",
+               @missing,
+               :number_of_requests => number_with_delimiter(@missing),
+               :total_number_of_requests => number_with_delimiter(@total)) %>
   </p>
 
-  <h2>Top recent players</h2>
+  <h2><%= _("Top recent players") %></h2>
   <table>
     <% @league_table_28_days.each_with_index do |classifications, index| %>
       <tr>
         <td> <%= index += 1 %>. <td>
         <td> <%= user_link(classifications.user) %> </td>
-        <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
+        <td>
+
+        <%= n_("{{number_of_requests}} request",
+               "{{number_of_requests}} requests",
+               classifications.cnt,
+               :number_of_requests => classifications.cnt) %> </td>
       </tr>
     <% end %>
   </table>
 
-  <h2>All time best players</h2>
+  <h2><%= _("All time best players") %></h2>
   <table>
     <% @league_table_all_time.each_with_index do |classifications, index| %>
       <tr>
         <td> <%= index += 1 %>. <td>
         <td> <%= user_link(classifications.user) %> </td>
-        <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
+        <td> <%= n_("{{number_of_requests}} request",
+                    "{{number_of_requests}} requests",
+                    classifications.cnt,
+                    :number_of_requests => classifications.cnt) %> </td>
       </tr>
     <% end %>
   </table>
