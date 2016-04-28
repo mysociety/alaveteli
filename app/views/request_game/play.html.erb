@@ -6,7 +6,11 @@
           :size => "250x125",
           :alt => "A chart showing #{@percentage}% of requests have been categorised",
           :title => "#{@percentage}% of requests have been categorised" %>
-    <br><%= pluralize(@missing, 'request')%> left to categorise / <%= @total %> total
+    <br><%= n_("{{number_of_requests}} request left to categorise / {{total_number_of_requests}} total",
+               "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total",
+               @missing,
+               :number_of_requests => number_with_delimiter(@missing),
+               :total_number_of_requests => number_with_delimiter(@total)) %>
   </p>
 
   <h2><%= _("Top recent players") %></h2>
