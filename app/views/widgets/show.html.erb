@@ -3,12 +3,14 @@
 </head>
 <body>
 <% unless AlaveteliConfiguration::ga_code.empty?  %>
-  <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-  </script>
-  <script type="text/javascript">
-    var pageTracker = _gat._getTracker("<%= AlaveteliConfiguration::ga_code %>");
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '<%= AlaveteliConfiguration::ga_code %>', 'auto');
+  ga('send', 'pageview');
   </script>
 <% end %>
   <div class="alaveteli-widget">
@@ -37,24 +39,24 @@
       <% elsif @existing_track %>
         <%= link_to update_url(:track_id => @existing_track.id, :track_medium => "delete", :r => show_user_profile_url(:url_name => @user.url_name)), :target => '_top',
           :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--unsubscribe',
-          :onclick => "if (pageTracker) { pageTracker._trackEvent('widgets', 'unsubscribe', window.top.location.href, 1)};" do %>
+          :onclick => "if (ga) { ga('send', 'event', 'Widget Clicked', 'Unsubscribe', window.top.location.href, 1)};" do %>
             <%= _('Unsubscribe') %>
         <% end %>
       <% elsif @existing_vote %>
         <%= link_to track_request_url(:url_title => @info_request.url_title, :feed => 'track'), :target => '_top',
           :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--sign-in-to-track',
-          :onclick => "if (pageTracker) { pageTracker._trackEvent('widgets', 'track', window.top.location.href, 1)};" do %>
+          :onclick => "if (ga) { ga('send', 'event', 'Widget Clicked', 'Sign in to track', window.top.location.href, 1)};" do %>
           <%= _('Sign in to track this request') %>
         <% end %>
       <% elsif @user %>
         <%= link_to do_track_path(@track_thing), :target => '_top',
           :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--create-track',
-          :onclick => "if (pageTracker) { pageTracker._trackEvent('widget', 'vote', window.top.location.href, 1)};" do %>
+          :onclick => "if (ga) { ga('send', 'Widget Clicked', 'Vote', window.top.location.href, 1)};" do %>
           <%= _('I also want to know!') %>
         <% end %>
       <% else %>
         <%= form_tag request_widget_votes_url(@info_request), :method => 'post', :target => '_top' do %>
-          <%= submit_tag _('I also want to know!'), :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--create-vote', :onclick => 'if (pageTracker) { pageTracker._trackEvent("widget", "vote", window.top.location.href, 1)};' %>
+          <%= submit_tag _('I also want to know!'), :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--create-vote', :onclick => 'if (ga) { ga("send", Widget Clicked", "Vote", window.top.location.href, 1)};' %>
         <% end %>
       <% end %>
     </div>
