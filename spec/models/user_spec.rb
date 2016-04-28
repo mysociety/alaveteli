@@ -756,7 +756,7 @@ describe User do
 
     it 'it raises an error on save if the record is invalid' do
       user = FactoryGirl.build(:user, :email => nil, :email_confirmed => false)
-      expect { user.confirm! }.to raise_error
+      expect { user.confirm! }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
   end

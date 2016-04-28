@@ -70,28 +70,27 @@ end
 group :test do
   gem 'fakeweb', '~> 1.3.0'
   gem 'coveralls', :require => false
-  gem 'capybara', '~> 2.5.0'
+  gem 'capybara', '~> 2.7.0'
 end
 
 group :test, :development do
-  gem 'bullet', '~> 4.14.6'
-  gem 'factory_girl_rails', '~> 1.7'
-  gem 'pry', '~> 0.10.3'
+  gem 'bullet', '~> 5.0.0'
+  gem 'factory_girl_rails', '~> 4.7.0'
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
-  gem 'rspec-rails', '3.2.0'
-  gem 'test-unit', '~> 3.0'
-  gem 'spork-rails', '~> 3.2.1'
-  gem 'pry-nav', '~> 0.2.4'
+  gem 'rspec-rails', '~> 3.4.0'
+  gem 'test-unit', '~> 3.1.0'
+  gem 'spork-rails', '~> 4.0.0'
+  gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
+  gem 'pry-byebug', '~> 3.3.0', :platforms => :ruby_20
 end
 
 group :development do
   gem 'capistrano', '~> 2.15.4'
   gem 'mailcatcher', '~> 0.5.12'
-  gem 'quiet_assets', '~> 1.0.2'
+  gem 'quiet_assets', '~> 1.1.0'
   gem 'rdoc', '~> 3.12.2'
 end
 
 group :debug do
-  gem 'debugger', '~> 1.6.0', :platforms => :ruby_19
   gem 'annotate', '~> 2.7.0'
 end

@@ -5,7 +5,7 @@ FactoryGirl.define do
     info_request
 
     factory :initial_request do
-      ignore do
+      transient do
         status 'ready'
         message_type 'initial_request'
         body 'Some information please'
@@ -14,7 +14,7 @@ FactoryGirl.define do
     end
 
     factory :new_information_followup do
-      ignore do
+      transient do
         status 'ready'
         message_type 'followup'
         body 'I clarify my request'
@@ -23,7 +23,7 @@ FactoryGirl.define do
     end
 
     factory :internal_review_request do
-      ignore do
+      transient do
         status 'ready'
         message_type 'followup'
         body 'I want a review'
@@ -42,7 +42,7 @@ FactoryGirl.define do
                                             :body => body,
                                             :what_doing => what_doing }) }
 
-    after_create do |outgoing_message|
+    after(:create) do |outgoing_message|
       outgoing_message.sendable?
       outgoing_message.record_email_delivery(
         'test@example.com',

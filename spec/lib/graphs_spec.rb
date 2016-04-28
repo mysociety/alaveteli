@@ -31,7 +31,8 @@ describe Graphs do
 
     it "raises an error if there is a mistake in the SQL statement" do
       sql = "SELECT * FROM there_is_no_table_here"
-      expect {dummy_class.select_as_columns(sql)}.to raise_error
+      expect {dummy_class.select_as_columns(sql)}.
+        to raise_error(ActiveRecord::StatementInvalid)
     end
 
   end
