@@ -720,7 +720,7 @@ class IncomingMessage < ActiveRecord::Base
 
   # Search all info requests for
   def self.find_all_unknown_mime_types
-    for incoming_message in IncomingMessage.find(:all)
+    IncomingMessage.find_each do |incoming_message|
       for attachment in incoming_message.get_attachments_for_display
         raise "internal error incoming_message " + incoming_message.id.to_s if attachment.content_type.nil?
         if AlaveteliFileTypes.mimetype_to_extension(attachment.content_type).nil?

@@ -36,9 +36,7 @@ describe TrackController do
 
     it "should require login when making new track" do
       get :track_request, :url_title => ir.url_title, :feed => 'track'
-      expect(response).to redirect_to(:controller => 'user',
-                                      :action => 'signin',
-                                      :token => get_last_post_redirect.token)
+      expect(response).to redirect_to(signin_path(:token => get_last_post_redirect.token))
     end
 
     it "should set no-cache headers on the login redirect" do
@@ -184,7 +182,7 @@ describe TrackController do
                     :track_medium => 'delete',
                     :r => 'http://example.com'},
                    {:user_id => track_thing.tracking_user.id}
-      expect(TrackThing.find(:first, :conditions => ['id = ? ', track_thing.id])).to eq(nil)
+      expect(TrackThing.where(:id => track_thing.id).first).to eq(nil)
     end
 
     it 'should redirect to a URL on the site' do
