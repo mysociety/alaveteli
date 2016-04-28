@@ -4,27 +4,38 @@
 
 <p>
   <% if @public_body.is_requestable? %>
-    <%= _('{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority.', :site_name=>site_name, :request_email=> h(@public_body.request_email))%>
+    <%= _('{{site_name}} sends new requests to <strong>{{request_email}}</strong> ' \
+             'for this authority.',
+          :site_name => site_name,
+          :request_email => h(@public_body.request_email))%>
   <% else %>
     <% if @public_body.not_requestable_reason == 'not_apply' %>
-      <p><%= _('Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to ')%><strong><%=h @public_body.request_email%></strong>.
+      <p><%= _('Freedom of Information law no longer applies to this ' \
+                  'authority. Follow up messages to existing requests are ' \
+                  'sent to <strong>{{authority_email}}</strong>.',
+               :authority_email => h(@public_body.request_email)) %>
       </p>
     <% elsif @public_body.not_requestable_reason == 'defunct' %>
       <p><%=h @public_body.name %> no longer exists.
-        <%= _('Follow up messages to existing requests are sent to ')%><strong><%=h @public_body.request_email%></strong>.
+        <%= _('Follow up messages to existing requests are sent to ' \
+                 '<strong>{{authority_email}}</strong>.',
+              :authority_email => h(@public_body.request_email)) %>
       </p>
     <% elsif @public_body.not_requestable_reason == 'bad_contact' %>
-      <p><%= _('We do not have a working request email address for this authority.')%>
+      <p><%= _('We do not have a working request email address for this ' \
+                  'authority.')%>
     </p>
     <% else %>
-      <% raise "unknown reason " + @reason %>
+      <% raise _("unknown reason" + @reason) %>
     <% end %>
   <% end %>
 </p>
 
 <p>
   <% if @public_body.has_request_email? %>
-    <%=  raw(_('If the address is wrong, or you know a better address, please <a href="{{url}}">contact us</a>.', :url => help_contact_path.html_safe)) %>
+    <%=  raw(_('If the address is wrong, or you know a better address, ' \
+                  'please <a href="{{url}}">contact us</a>.',
+               :url => help_contact_path.html_safe)) %>
   <% else %>
     <%= raw(_('If you know the address to use, then please <a href="{{url}}">' \
               'send it to us</a>. You may be able to find the address on ' \

@@ -62,6 +62,12 @@ describe OutgoingMessage do
       expect(message).to be_valid
     end
 
+    it 'allows a value of external_review' do
+      message =
+        FactoryGirl.build(:initial_request, :what_doing => 'external_review')
+      expect(message).to be_valid
+    end
+
     it 'allows a value of new_information' do
       message =
         FactoryGirl.build(:initial_request, :what_doing => 'new_information')
@@ -94,6 +100,168 @@ describe OutgoingMessage do
       outgoing_message.destroy
       expect(InfoRequestEvent.where(:outgoing_message_id => outgoing_message.id)).to be_empty
     end
+  end
+
+  describe '#from' do
+
+    it 'uses the user name and request magic email' do
+      user = FactoryGirl.create(:user, :name => 'Spec User 862')
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+      expected = "Spec User 862 <request-#{ request.id }-#{ request.idhash }@localhost>"
+      expect(message.from).to eq(expected)
+    end
+
+  end
+
+  describe '#to' do
+
+    context 'when sending an initial request' do
+
+      it 'uses the public body name and email' do
+        body = FactoryGirl.create(:public_body, :name => 'Example Public Body',
+                                                :short_name => 'EPB')
+        request = FactoryGirl.create(:info_request, :public_body => body)
+        message = FactoryGirl.build(:initial_request, :info_request => request)
+        expected = 'FOI requests at EPB <request@example.com>'
+        expect(message.to).to eq(expected)
+      end
+
+    end
+
+    context 'when following up to an incoming message' do
+
+      it 'uses the safe_mail_from if the incoming message has a valid address' do
+        message = FactoryGirl.build(:internal_review_request)
+
+        followup =
+          mock_model(IncomingMessage, :from_email => 'specific@example.com',
+                                      :safe_mail_from => 'Specific Person',
+                                      :valid_to_reply_to? => true)
+        allow(message).to receive(:incoming_message_followup).and_return(followup)
+
+        expected = 'Specific Person <specific@example.com>'
+        expect(message.to).to eq(expected)
+      end
+
+      it 'uses the public body address if the incoming message has an invalid address' do
+        body = FactoryGirl.create(:public_body, :name => 'Example Public Body',
+                                                :short_name => 'EPB')
+        request = FactoryGirl.create(:info_request, :public_body => body)
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+
+        followup =
+          mock_model(IncomingMessage, :from_email => 'invalid@example',
+                                      :safe_mail_from => 'Specific Person',
+                                      :valid_to_reply_to? => false)
+        allow(message).to receive(:incoming_message_followup).and_return(followup)
+
+        expected = 'FOI requests at EPB <request@example.com>'
+        expect(message.to).to eq(expected)
+      end
+
+    end
+
+  end
+
+  describe '#subject' do
+
+    context 'when sending an initial request' do
+
+      it 'uses the request title with the law prefixed' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:initial_request, :info_request => request)
+        expected = 'Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+    end
+
+    context 'when sending a followup that is not a reply to an incoming message' do
+
+      it 'prefixes the initial request subject with Re:' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+        allow(message).to receive(:incoming_message_followup).and_return(nil)
+        expected = 'Re: Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+    end
+
+    context 'when following up to an incoming message' do
+
+      it 'uses the request title prefixed with Re: if the incoming message does not have a valid reply address' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+
+        followup =
+          mock_model(IncomingMessage, :valid_to_reply_to? => false)
+        allow(message).
+          to receive(:incoming_message_followup).and_return(followup)
+
+        expected = 'Re: Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+      it 'uses the request title prefixed with Re: if the incoming message does not have a subject' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+
+        followup = mock_model(IncomingMessage, :subject => nil,
+                                               :valid_to_reply_to? => true)
+        allow(message).
+          to receive(:incoming_message_followup).and_return(followup)
+
+        expected = 'Re: Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+      it 'uses the incoming message subject if it is already prefixed with Re:' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+
+        followup =
+          mock_model(IncomingMessage, :valid_to_reply_to? => true,
+                                      :subject => 'Re: FOI REF#123456789')
+        allow(message).
+          to receive(:incoming_message_followup).and_return(followup)
+
+        expect(message.subject).to eq('Re: FOI REF#123456789')
+      end
+
+      it 'prefixes the incoming message subject if it is not prefixed with Re:' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:new_information_followup,
+                                    :info_request => request)
+
+        followup =
+          mock_model(IncomingMessage, :valid_to_reply_to? => true,
+                                      :subject => 'FOI REF#123456789')
+        allow(message).
+          to receive(:incoming_message_followup).and_return(followup)
+
+        expect(message.subject).to eq('Re: FOI REF#123456789')
+      end
+
+    end
+
+    context 'when requesting an internal review' do
+
+      it 'prefixes the request title with the internal review message' do
+        request = FactoryGirl.create(:info_request, :title => 'Example Request')
+        message = FactoryGirl.build(:internal_review_request, :info_request => request)
+        expected = 'Internal review of Freedom of Information request - Example Request'
+        expect(message.subject).to eq(expected)
+      end
+
+    end
+
   end
 
   describe '#body' do
@@ -435,6 +603,18 @@ describe OutgoingMessage do
       it 'returns one smtp_message_id when a message has been sent once' do
         message = FactoryGirl.create(:initial_request)
         smtp_id = message.info_request_events.first.params[:smtp_message_id]
+        expect(message.smtp_message_ids).to eq([smtp_id])
+      end
+
+      it 'removes the enclosing angle brackets' do
+        message = FactoryGirl.create(:initial_request)
+        smtp_id = message.info_request_events.first.params[:smtp_message_id]
+        old_format_smtp_id = "<#{ smtp_id }>"
+        message.
+          info_request_events.
+            first.
+              update_attributes(:params => {
+                                  :smtp_message_id => old_format_smtp_id })
         expect(message.smtp_message_ids).to eq([smtp_id])
       end
 

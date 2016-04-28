@@ -64,7 +64,8 @@ ALAVETELI_OS = ENV['ALAVETELI_VAGRANT_OS'] || 'precise64'
 
 SUPPORTED_OPERATING_SYSTEMS = {
   'precise64' => 'https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box',
-  'wheezy64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box'
+  'wheezy64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box',
+  'jessie64' => 'https://atlas.hashicorp.com/puppetlabs/boxes/debian-8.2-64-nocm'
 }
 
 def box
@@ -78,7 +79,11 @@ end
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = box
+  config.vm.box = if box == 'jessie64'
+    'puppetlabs/debian-8.2-64-nocm'
+  else
+    box
+  end
   config.vm.box_url = box_url
   config.vm.network :private_network, :ip => "10.10.10.30"
 
@@ -127,6 +132,18 @@ To start your alaveteli instance:
 * bundle exec rails server
 EOF
 
+  if ALAVETELI_OS == 'jessie64'
+    # workaround for dynamic MOTD support on jessie
+    # adapted from: https://oitibs.com/debian-jessie-dynamic-motd/
+    config.vm.provision :shell, :inline => "mkdir /etc/update-motd.d/"
+    config.vm.provision :shell, :inline => "cd /etc/update-motd.d/ && touch 00-header && touch 10-sysinfo && touch 90-footer
+"
+    config.vm.provision :shell, :inline => "echo '#!/bin/sh' >> /etc/update-motd.d/90-footer"
+    config.vm.provision :shell, :inline => "echo '[ -f /etc/motd.tail ] && cat /etc/motd.tail || true' >> /etc/update-motd.d/90-footer"
+    config.vm.provision :shell, :inline => "chmod +x /etc/update-motd.d/*"
+    config.vm.provision :shell, :inline => "rm /etc/motd"
+    config.vm.provision :shell, :inline => "ln -s /var/run/motd /etc/motd"
+  end
   config.vm.provision :shell, :inline => "echo '#{ motd }' >> /etc/motd.tail"
 
   # Display next steps info at the end of a successful install

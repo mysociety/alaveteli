@@ -88,14 +88,21 @@
 
           <div>
             <h3 class="title"><%= _("Search in") %></h3>
-            <% [["sent", _("messages from users")],
-                ["response", _("messages from authorities")],
-                ["comment", _("comments")]].each_with_index do |item, index|
-                  variety, title = item %>
+            <% filters = if AlaveteliConfiguration.enable_annotations
+                 [["sent", _("messages from users")],
+                  ["response", _("messages from authorities")],
+                  ["comment", _("comments")]]
+               else
+                 [["sent", _("messages from users")],
+                  ["response", _("messages from authorities")]]
+               end %>
 
-                <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
-                <%= label_tag("request_variety_#{index}", title) %> <br/>
-              <% end %>
+            <% filters.each_with_index do |item, index| %>
+              <% variety, title = item %>
+
+              <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
+              <%= label_tag("request_variety_#{index}", title) %> <br/>
+            <% end %>
           </div>
 
           <div id="date_range" class="date_range">
@@ -164,7 +171,7 @@
       <%= will_paginate WillPaginate::Collection.new(@page, @bodies_per_page, @max_bodies) %>
     </div>
   <% elsif @variety_postfix == 'bodies' %>
-    <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', :browse_url => list_public_bodies_default_path.html_safe, :add_url => (help_requesting_path + '#missing_body').html_safe)) %></p>
+    <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', :browse_url => list_public_bodies_default_path.html_safe, :add_url => help_requesting_path(:anchor => 'missing_body').html_safe)) %></p>
   <% end %>
 
   <% if @xapian_users_hits > 0 %>

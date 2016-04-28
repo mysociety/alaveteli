@@ -291,6 +291,11 @@ Alaveteli::Application.routes.draw do
     :only => [:edit, :update, :destroy] do
       post 'redeliver', :on => :member
     end
+    resource :incoming_messages,
+      :controller => 'admin_incoming_message',
+      :only => [:bulk_destroy] do
+        post 'bulk_destroy'
+      end
   end
   ####
 

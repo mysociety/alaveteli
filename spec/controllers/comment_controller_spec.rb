@@ -57,9 +57,22 @@ describe CommentController, "when commenting on a request" do
     expect(response).to render_template('new')
   end
 
-  it "should not allow comments if comments are not allowed" do
+  it "should not allow comments if comments are not allowed on the request" do
     session[:user_id] = users(:silly_name_user).id
     info_request = info_requests(:spam_1_request)
+
+    post :new, :url_title => info_request.url_title,
+      :comment => { :body => "I demand to be heard!" },
+      :type => 'request', :submitted_comment => 1, :preview => 0
+
+    expect(response).to redirect_to(show_request_path(info_request.url_title))
+    expect(flash[:notice]).to eq('Comments are not allowed on this request')
+  end
+
+  it "should not allow comments if comments are not allowed globally" do
+    allow(AlaveteliConfiguration).to receive(:enable_annotations).and_return(false)
+    session[:user_id] = users(:silly_name_user).id
+    info_request = info_requests(:fancy_dog_request)
 
     post :new, :url_title => info_request.url_title,
       :comment => { :body => "I demand to be heard!" },

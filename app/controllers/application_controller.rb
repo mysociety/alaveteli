@@ -230,17 +230,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # get the local locale
-  def locale_from_params(*args)
-    warn %q([DEPRECATION] locale_from_params will be removed in Alaveteli
-               release 0.24).squish
-    if params[:show_locale]
-      params[:show_locale]
-    else
-      I18n.locale.to_s
-    end
-  end
-
   private
 
   def user?
@@ -354,9 +343,15 @@ class ApplicationController < ActionController::Base
   #
   def check_read_only
     if !AlaveteliConfiguration::read_only.empty?
-      flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
-                         :site_name => site_name,
-                         :read_only => AlaveteliConfiguration::read_only)
+      if AlaveteliConfiguration::enable_annotations
+        flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
+                           :site_name => site_name,
+                           :read_only => AlaveteliConfiguration::read_only)
+      else
+        flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>",
+                           :site_name => site_name,
+                           :read_only => AlaveteliConfiguration::read_only)
+      end
       redirect_to frontpage_url
     end
 

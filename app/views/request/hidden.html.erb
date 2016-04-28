@@ -13,7 +13,8 @@
 </p>
 <% if @info_request.prominence == 'requester_only' %>
   <p>
-    <%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> to view the request.',
+    <%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> ' \
+    	     'to view the request.',
           :url => signin_url(:r => request.fullpath).html_safe) %>
   </p>
 <% end %>

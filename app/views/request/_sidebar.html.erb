@@ -24,18 +24,31 @@
         <% elsif @info_request.prominence == 'requester_only' %>
           <%# The eccentric formatting of the following string is in order that it be identical
               to the corresponding string in request/show.html.erb %>
-          <p><%= _('This request is hidden, so that only you the requester can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %></p>
+          <p><%= _('This request is hidden, so that only you the requester ' \
+                      'can see it. Please <a href="{{url}}">contact us</a> ' \
+                      'if you are not sure why.',
+                   :url => help_requesting_path.html_safe) %></p>
         <% else %>
-          <p><%= _('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="{{url}}">contact us</a>.', :url => help_requesting_path.html_safe) %></p>
+          <p><%= _('This request has been marked for review by the site ' \
+                     'administrators, who have not hidden it at this time. ' \
+                     'If you believe it should be hidden, please ' \
+                     '<a href="{{url}}">contact us</a>.',
+                   :url => help_requesting_path.html_safe) %></p>
         <% end %>
       <% else %>
-        <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
-        <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
+        <p><%= _('Requests for personal information and vexatious requests ' \
+                    'are not considered valid for FOI purposes ' \
+                    '(<a href="/help/about">read more</a>).') %></p>
+        <p><%= _('If you believe this request is not suitable, you can report ' \
+                    'it for attention by the site administrators') %></p>
         <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title), :class => 'report-this-request' %>
       <% end %>
   <% else %>
-    <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
-    <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
+    <p><%= _('Requests for personal information and vexatious requests are ' \
+                'not considered valid for FOI purposes ' \
+                '(<a href="/help/about">read more</a>).') %></p>
+    <p><%= _('If you believe this request is not suitable, you can report it ' \
+                'for attention by the site administrators') %></p>
     <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %>
   <% end %>
 
@@ -59,5 +72,5 @@
 
   <!-- this link with this wording is here for legal reasons, discuss with
     board and our lawyer before changing or removing it -->
-  <p><small><%= link_to _('Are you the owner of any commercial copyright on this page?'), help_officers_path+"#copyright" %></small></p>
+  <p><small><%= link_to _('Are you the owner of any commercial copyright on this page?'), help_officers_path(:anchor => "copyright") %></small></p>
 </div>

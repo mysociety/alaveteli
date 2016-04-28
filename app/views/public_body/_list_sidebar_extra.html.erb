@@ -4,7 +4,7 @@
   </p>
 <% end %>
 <p>
-  <%= link_to _('Are we missing a public authority?'), help_requesting_path + '#missing_body' %>
+  <%= link_to _('Are we missing a public authority?'), help_requesting_path(:anchor => 'missing_body') %>
 </p>
 <p>
   <%= link_to _('List of all authorities (CSV)'), all_public_bodies_csv_path %>

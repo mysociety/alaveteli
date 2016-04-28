@@ -74,7 +74,7 @@ class InfoRequest < ActiveRecord::Base
   has_many :widget_votes, :dependent => :destroy
   has_many :comments, :order => 'created_at', :dependent => :destroy
   has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
-  has_many :mail_server_logs, :order => 'mail_server_log_done_id', :dependent => :destroy
+  has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
@@ -251,7 +251,7 @@ class InfoRequest < ActiveRecord::Base
     ret
   end
 
-  def expire
+  def expire(options={})
     # Clear out cached entries, by removing files from disk (the built in
     # Rails fragment cache made doing this and other things too hard)
     foi_fragment_cache_directories.each{ |dir| FileUtils.rm_rf(dir) }
@@ -261,7 +261,7 @@ class InfoRequest < ActiveRecord::Base
 
     # Remove the database caches of body / attachment text (the attachment text
     # one is after privacy rules are applied)
-    clear_in_database_caches!
+    clear_in_database_caches! unless options[:preserve_database_cache]
 
     # also force a search reindexing (so changed text reflected in search)
     reindex_request_events
@@ -361,30 +361,6 @@ class InfoRequest < ActiveRecord::Base
         'Re: ' + incoming_message.subject
       end
     end
-  end
-
-  def law_used_full
-    warn %q([DEPRECATION] law_used_full will be replaced with
-      InfoRequest#law_used_human(:full) as of 0.24).squish
-    law_used_human(:full)
-  end
-
-  def law_used_short
-    warn %q([DEPRECATION] law_used_short will be replaced with
-      InfoRequest#law_used_human(:short) as of 0.24).squish
-    law_used_human(:short)
-  end
-
-  def law_used_act
-    warn %q([DEPRECATION] law_used_act will will be replaced with
-      InfoRequest#law_used_human(:act) as of 0.24).squish
-    law_used_human(:act)
-  end
-
-  def law_used_with_a
-    warn %q([DEPRECATION] law_used_with_a will be removed in Alaveteli
-           release 0.24).squish
-    law_used_human(:with_a)
   end
 
   def law_used_human(key = :full)
@@ -883,19 +859,12 @@ class InfoRequest < ActiveRecord::Base
     elsif respond_to?(:theme_display_status)
       theme_display_status(status)
     else
-      raise _("unknown status ") + status
+      raise _("unknown status {{status}}", :status => status)
     end
   end
 
   def display_status(cached_value_ok=false)
     InfoRequest.get_status_description(calculate_status(cached_value_ok))
-  end
-
-  # Completely delete this request and all objects depending on it
-  def fully_destroy
-    warn %q([DEPRECATION] InfoRequest#fully_destroy will be replaced with
-      InfoRequest#destroy as of 0.24).squish
-    destroy
   end
 
   # Called by incoming_email - and used to be called to generate separate

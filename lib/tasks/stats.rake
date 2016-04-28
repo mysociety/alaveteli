@@ -268,4 +268,16 @@ namespace :stats do
       end
     end
   end
+
+  desc 'Output all the requests made to the top 20 public bodies'
+  task :get_top20_body_requests => :environment do
+    require 'csv'
+    puts CSV.generate_line(["public_body_id", "public_body_name", "request_created_timestamp", "request_title", "request_body"])
+
+    PublicBody.limit(20).order('info_requests_visible_count DESC').each do |body|
+      body.info_requests.where(:prominence => 'normal').find_each do |request|
+        puts CSV.generate_line([request.public_body.id, request.public_body.name, request.created_at, request.url_title, request.initial_request_text.gsub("\r\n", " ").gsub("\n", " ")])
+      end
+    end
+  end
 end

@@ -39,6 +39,9 @@ require 'iconv' unless String.method_defined?(:encode)
 class IncomingMessage < ActiveRecord::Base
   include AdminColumn
   extend MessageProminence
+
+  MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
+
   belongs_to :info_request
   validates_presence_of :info_request
 
@@ -146,37 +149,103 @@ class IncomingMessage < ActiveRecord::Base
     raw_email.destroy_file_representation!
   end
 
-  def valid_to_reply_to?
-    return self.valid_to_reply_to
-  end
-
   # The cached fields mentioned in the previous comment
-  # TODO: there must be a nicer way to do this without all that
-  # repetition.  I tried overriding method_missing but got some
-  # unpredictable results.
+
+  # Public: Can this message be replied to?
+  # Caches the value set by _calculate_valid_to_reply_to in #parse_raw_email!
+  # #valid_to_reply_to overrides the ActiveRecord provided #valid_to_reply_to
+  #
+  # Returns a Boolean
   def valid_to_reply_to
     parse_raw_email!
     super
   end
+
+  alias_method :valid_to_reply_to?, :valid_to_reply_to
+
+  # Public: The date and time the email was sent. Uses the Date header if
+  # present in the email, otherwise uses the record's created_at attribute.
+  # #sent_at overrides the ActiveRecord provided #sent_at
+  #
+  # Returns an ActiveSupport::TimeWithZone
   def sent_at
     parse_raw_email!
     super
   end
 
+  # Public: The subject of an email.
+  # #subject overrides the ActiveRecord provided #subject
+  #
+  # Examples:
+  #
+  #   # Subject: A response to your FOI request
+  #   incoming_message.subject
+  #   # => 'A response to your FOI request'
+  #
+  #   # No subject header
+  #   incoming_message.subject
+  #   # => nil
+  #
+  # Returns a String or nil
   def subject
     parse_raw_email!
     super
   end
 
+  # Public: The display name of the email sender.
+  # #mail_from overrides the ActiveRecord provided #mail_from
+  #
+  # Examples:
+  #
+  #   # From: John Doe <john@example.com>
+  #   incoming_message.mail_from
+  #   # => 'John Doe'
+  #
+  #   # From: john@example.com
+  #   incoming_message.mail_from
+  #   # => nil
+  #
+  # Returns a String or nil
   def mail_from
     parse_raw_email!
     super
   end
 
+  # Public: The display name of the email sender with the associated
+  # InfoRequest's censor rules applied.
+  #
+  # Example:
+  #
+  #   # Given a CensorRule that redacts the word 'Person':
+  #
+  #   incoming_message.mail_from
+  #   # => FOI Person
+  #
+  #   incoming_message.safe_mail_from
+  #   # => FOI [REDACTED]
+  #
+  # Returns a String
   def safe_mail_from
     if mail_from
       info_request.apply_censor_rules_to_text(mail_from)
     end
+  end
+
+  # Public: The domain part of the email address in the From header.
+  # #mail_from_domain overrides the ActiveRecord provided #mail_from_domain
+  #
+  #   # From: John Doe <john@example.com>
+  #   incoming_message.mail_from_domain
+  #   # => 'example.com'
+  #
+  #   # No From header
+  #   incoming_message.mail_from_domain
+  #   # => ''
+  #
+  # Returns a String
+  def mail_from_domain
+    parse_raw_email!
+    super
   end
 
   def specific_from_name?
@@ -185,11 +254,6 @@ class IncomingMessage < ActiveRecord::Base
 
   def from_public_body?
     safe_mail_from.nil? || (mail_from_domain == info_request.public_body.request_email_domain)
-  end
-
-  def mail_from_domain
-    parse_raw_email!
-    super
   end
 
   # This method updates the cached column of the InfoRequest that
@@ -599,8 +663,6 @@ class IncomingMessage < ActiveRecord::Base
     return text
   end
 
-  MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
-
   # Returns text version of attachment text
   def get_attachment_text_full
     text = self._get_attachment_text_internal
@@ -654,12 +716,6 @@ class IncomingMessage < ActiveRecord::Base
   # Has message arrived "recently"?
   def recently_arrived
     (Time.now - self.created_at) <= 3.days
-  end
-
-  def fully_destroy
-    warn %q([DEPRECATION] IncomingMessage#fully_destroy will be replaced with
-      IncomingMessage#destroy as of 0.24).squish
-    destroy
   end
 
   # Search all info requests for

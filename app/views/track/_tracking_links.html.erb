@@ -5,7 +5,8 @@
 %>
 
 <% if own_request %>
-  <p><%= _('This is your own request, so you will be automatically emailed when new responses arrive.')%></p>
+  <p><%= _('This is your own request, so you will be automatically emailed ' \
+              'when new responses arrive.') %></p>
 <% elsif existing_track %>
   <p><%= track_thing.params[:verb_on_page_already] %></p>
 

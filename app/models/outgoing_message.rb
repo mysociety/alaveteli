@@ -31,15 +31,23 @@ class OutgoingMessage < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
-  WHAT_DOING_VALUES = %w(normal_sort internal_review new_information)
+  STATUS_TYPES = %w(ready sent failed).freeze
+  MESSAGE_TYPES = %w(initial_request followup).freeze
+  WHAT_DOING_VALUES = %w(normal_sort
+                         internal_review
+                         external_review
+                         new_information).freeze
 
   # To override the default letter
   attr_accessor :default_letter
 
   validates_presence_of :info_request
-  validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
-  validates_inclusion_of :message_type, :in => ['initial_request', 'followup']
-  validate :format_of_body
+  validates_inclusion_of :status, :in => STATUS_TYPES
+  validates_inclusion_of :message_type, :in => MESSAGE_TYPES
+  validate :template_changed
+  validate :body_uses_mixed_capitals
+  validate :body_has_signature
+  validate :what_doing_value
 
   belongs_to :info_request
   belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
@@ -92,6 +100,46 @@ class OutgoingMessage < ActiveRecord::Base
     # TODO: We use raw_body here to get unstripped one
     if raw_body == get_default_message
       self.body = raw_body + name
+    end
+  end
+
+  # Public: The value to be used in the From: header of an OutgoingMailer
+  # message.
+  #
+  # Returns a String
+  def from
+    info_request.incoming_name_and_email
+  end
+
+  # Public: The value to be used in the To: header of an OutgoingMailer message.
+  #
+  # Returns a String
+  def to
+    if replying_to_incoming_message?
+      # calling safe_mail_from from so censor rules are run
+      MailHandler.address_from_name_and_email(incoming_message_followup.safe_mail_from,
+                                              incoming_message_followup.from_email)
+    else
+      info_request.recipient_name_and_email
+    end
+  end
+
+  # Public: The value to be used in the Subject: header of an OutgoingMailer
+  # message.
+  #
+  # Returns a String
+  def subject
+    if message_type == 'followup'
+      if what_doing == 'internal_review'
+        _("Internal review of {{email_subject}}",
+          :email_subject => info_request.email_subject_request(:html => false))
+      else
+        info_request.
+          email_subject_followup(:incoming_message => incoming_message_followup,
+                                 :html => false)
+      end
+    else
+      info_request.email_subject_request(:html => false)
     end
   end
 
@@ -169,7 +217,10 @@ class OutgoingMessage < ActiveRecord::Base
     info_request_events.
       order('created_at ASC').
         map { |event| event.params[:smtp_message_id] }.
-          compact
+          compact.
+            map do |smtp_id|
+              smtp_id.match(/<(.*)>/) { |m| m.captures.first } || smtp_id
+            end
   end
 
   # Public: Return logged MTA IDs for this OutgoingMessage.
@@ -204,7 +255,7 @@ class OutgoingMessage < ActiveRecord::Base
 
   # An admin function
   def prepare_message_for_resend
-    if ['initial_request', 'followup'].include?(message_type) and status == 'sent'
+    if MESSAGE_TYPES.include?(message_type) and status == 'sent'
       self.status = 'ready'
     else
       raise "Message id #{id} has type '#{message_type}' status " \
@@ -259,13 +310,6 @@ class OutgoingMessage < ActiveRecord::Base
   # Return body for display as text
   def get_body_for_text_display
     get_text_for_indexing(strip_salutation=false)
-  end
-
-
-  def fully_destroy
-    warn %q([DEPRECATION] OutgoingMessage#fully_destroy will be replaced with
-      OutgoingMessage#destroy as of 0.24).squish
-    destroy
   end
 
   def purge_in_cache
@@ -391,6 +435,18 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def format_of_body
+    warn %q([DEPRECATION] OutgoingMessage#format_of_body will be removed in
+            0.26. It has been broken up in to OutgoingMessage#template_changed,
+            OutgoingMessage#body_uses_mixed_capitals,
+            OutgoingMessage#body_has_signature and
+            OutgoingMessage#what_doing_value).squish
+    template_changed
+    body_uses_mixed_capitals
+    body_has_signature
+    what_doing_value
+  end
+
+  def template_changed
     if body.empty? || body =~ /\A#{Regexp.escape(letter_template.salutation(default_message_replacements))}\s+#{Regexp.escape(letter_template.signoff(default_message_replacements))}/ || body =~ /#{Regexp.escape(Template::InternalReview.details_placeholder)}/
       if message_type == 'followup'
         if what_doing == 'internal_review'
@@ -404,15 +460,21 @@ class OutgoingMessage < ActiveRecord::Base
         raise "Message id #{id} has type '#{message_type}' which validate can't handle"
       end
     end
+  end
 
+  def body_has_signature
     if body =~ /#{letter_template.signoff(default_message_replacements)}\s*\Z/m
       errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => letter_template.signoff(default_message_replacements)))
     end
+  end
 
+  def body_uses_mixed_capitals
     unless MySociety::Validate.uses_mixed_capitals(body)
       errors.add(:body, _('Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.'))
     end
+  end
 
+  def what_doing_value
     if what_doing.nil? || !WHAT_DOING_VALUES.include?(what_doing)
       errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
     end

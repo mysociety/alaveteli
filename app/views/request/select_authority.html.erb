@@ -21,11 +21,12 @@ $(document).ready(function() {
         <%= _("First, type in the <strong>name of the public authority" \
               "</strong> you'd like information from.") %>
         <% if AlaveteliConfiguration.authority_must_respond %>
-          <%= _(%Q(<strong>By law, they have to respond</strong> (<a href="{{url}}">why?</a>).),
+          <%= _('<strong>By law, they have to respond</strong> ' \
+                  '(<a href="{{url}}">why?</a>).',
                 :url => (help_about_path(:anchor => 'whybother_them')).html_safe) %>
         <% end %>
       </p>
-
+      <label for="query" class="visually-hidden"><%=_('Authority name')%></label>
       <%= text_field_tag :query, params[:query], { :size => 30,
                                                    :title => _('type your search term here'),
                                                    :placeholder => _('e.g. Ministry of Defence') } %>
@@ -36,7 +37,8 @@ $(document).ready(function() {
     <% if AlaveteliConfiguration.allow_batch_requests && @user && @user.can_make_batch_requests? %>
       <div id="batch_request_link" class="batch_request_link">
         <p>
-          <%= _('Or make a <a href="{{url}}">batch request</a> to <strong>multiple authorities</strong> at once.',
+          <%= _('Or make a <a href="{{url}}">batch request</a> to ' \
+                   '<strong>multiple authorities</strong> at once.',
                 :url => select_authorities_path) %>
         </p>
       </div>
@@ -51,7 +53,8 @@ $(document).ready(function() {
 <div id="select_authority_help" class="select_authority_help">
   <p class="info"><%= _("Can't find the one you want?") %></p>
   <p class="actions">
-    <%= raw _('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.',
+    <%= raw _('<a href="{{browse_url}}">Browse all</a> or ' \
+                 '<a href="{{add_url}}">ask us to add one</a>.',
               :browse_url => list_public_bodies_default_path.html_safe,
               :add_url => help_requesting_path(:anchor => 'missing_body')
              ).html_safe %>

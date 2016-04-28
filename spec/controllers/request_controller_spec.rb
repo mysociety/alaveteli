@@ -35,7 +35,10 @@ describe RequestController, "when listing recent requests" do
 end
 
 describe RequestController, "when changing things that appear on the request page" do
-  render_views
+
+  before do
+    PurgeRequest.destroy_all
+  end
 
   it "should purge the downstream cache when mail is received" do
     # HACK: The holding pen is now being called (and created, if
@@ -50,6 +53,7 @@ describe RequestController, "when changing things that appear on the request pag
     receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
     expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
+
   it "should purge the downstream cache when a comment is added" do
     ir = info_requests(:fancy_dog_request)
     new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
@@ -72,36 +76,42 @@ describe RequestController, "when changing things that appear on the request pag
     ir.set_described_state('waiting_clarification')
     expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
+
   it "should purge the downstream cache when the authority data is changed" do
     ir = info_requests(:fancy_dog_request)
     ir.public_body.name = "Something new"
     ir.public_body.save!
     expect(PurgeRequest.all.map{|x| x.model_id}).to match_array(ir.public_body.info_requests.map{|x| x.id})
   end
+
   it "should purge the downstream cache when the user name is changed" do
     ir = info_requests(:fancy_dog_request)
     ir.user.name = "Something new"
     ir.user.save!
     expect(PurgeRequest.all.map{|x| x.model_id}).to match_array(ir.user.info_requests.map{|x| x.id})
   end
+
   it "should not purge the downstream cache when non-visible user details are changed" do
     ir = info_requests(:fancy_dog_request)
     ir.user.hashed_password = "some old hash"
     ir.user.save!
     expect(PurgeRequest.all.count).to eq(0)
   end
+
   it "should purge the downstream cache when censor rules have changed" do
     # TODO: really, CensorRules should execute expiry logic as part
     # of the after_save of the model. Currently this is part of
     # the AdminCensorRuleController logic, so must be tested from
     # there. Leaving this stub test in place as a reminder
   end
+
   it "should purge the downstream cache when something is hidden by an admin" do
     ir = info_requests(:fancy_dog_request)
     ir.prominence = 'hidden'
     ir.save!
     expect(PurgeRequest.all.first.model_id).to eq(ir.id)
   end
+
   it "should not create more than one entry for any given resource" do
     ir = info_requests(:fancy_dog_request)
     ir.prominence = 'hidden'
@@ -112,6 +122,7 @@ describe RequestController, "when changing things that appear on the request pag
     ir.save!
     expect(PurgeRequest.all.count).to eq(1)
   end
+
 end
 
 describe RequestController, "when showing one request" do
@@ -2312,4 +2323,40 @@ describe RequestController, "#select_authorities" do
 
   end
 
+end
+
+describe RequestController, "when the site is in read_only mode" do
+  before do
+    allow(AlaveteliConfiguration).to receive(:read_only).and_return("Down for maintenance")
+  end
+
+  it "redirects to the frontpage_url" do
+    get :new
+    expect(response).to redirect_to frontpage_url
+  end
+
+  it "shows a flash message to alert the user" do
+    get :new
+    expected_message = '<p>Alaveteli is currently in maintenance. You ' \
+                       'can only view existing requests. You cannot make ' \
+                       'new ones, add followups or annotations, or ' \
+                       'otherwise change the database.</p> '\
+                       '<p>Down for maintenance</p>'
+    expect(flash[:notice]).to eq expected_message
+  end
+
+  context "when annotations are disabled" do
+    before do
+      allow(AlaveteliConfiguration).to receive(:enable_annotations).and_return(false)
+    end
+
+    it "doesn't mention annotations in the flash message" do
+      get :new
+      expected_message = '<p>Alaveteli is currently in maintenance. You ' \
+                         'can only view existing requests. You cannot make ' \
+                         'new ones, add followups or otherwise change the ' \
+                         'database.</p> <p>Down for maintenance</p>'
+      expect(flash[:notice]).to eq expected_message
+    end
+  end
 end
