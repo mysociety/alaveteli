@@ -56,6 +56,7 @@ require 'alaveteli_text_masker'
 require 'database_collation'
 require 'alaveteli_geoip'
 require 'default_late_calculator'
+require 'analytics_event'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

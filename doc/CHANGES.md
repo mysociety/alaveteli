@@ -21,6 +21,8 @@
   example help templates from core to `alavetelitheme`.
 * Migrate from using the legacy `ga.js` Google Analytics code to the current
   "universal" `analytics.js` version (Liz Conlan)
+* Added a helper and new lib file to standardise click tracking with Google
+  Analytics events (Liz Conlan)
 
 ## Upgrade Notes
 
