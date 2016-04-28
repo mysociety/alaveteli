@@ -428,7 +428,7 @@ class ApplicationController < ActionController::Base
       rescue RuntimeError => e
         if e.message =~ /^QueryParserError: Wildcard/
           # Wildcard expands to too many terms
-          logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message}"
+          logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message.force_encoding('UTF-8')}"
 
           user_query =  ActsAsXapian.query_parser.parse_query(
             query,
