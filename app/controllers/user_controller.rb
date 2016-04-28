@@ -115,6 +115,7 @@ class UserController < ApplicationController
       # Successful login
       if @user_signin.email_confirmed
         session[:user_id] = @user_signin.id
+        session[:ttl] = nil
         session[:user_circumstance] = nil
         session[:remember_me] = params[:remember_me] ? true : false
 

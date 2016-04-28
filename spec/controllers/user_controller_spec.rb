@@ -501,14 +501,54 @@ describe UserController, "when signing in" do
     expect(assigns[:post_redirect]).to eq(nil)
   end
 
-  # No idea how to test this in the test framework :(
-  #    it "should have set a long lived cookie if they picked remember me, session cookie if they didn't" do
-  #        get :signin, :r => "/list"
-  #        response.should render_template('sign')
-  #        post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' } }
-  #        session[:user_id].should == users(:bob_smith_user).id
-  #        raise session.options.to_yaml # check cookie lasts a month
-  #    end
+  it "sets a the cookie expiry to nil on next page load" do
+    post :signin, { :user_signin => { :email => 'bob@localhost',
+                                      :password => 'jonespassword' } }
+    get :show, :url_name => users(:bob_smith_user).url_name
+    expect(request.env['rack.session.options'][:expire_after]).to be_nil
+  end
+
+  context "checking 'remember_me'" do
+    let(:user) do
+      FactoryGirl.create(:user,
+                         :password => 'password',
+                         :email_confirmed => true)
+    end
+
+    def do_signin(email, password)
+      post :signin, { :user_signin => { :email => email,
+                                        :password => password },
+                      :remember_me => "1" }
+    end
+
+    before do
+      # fake an expired previous session which has not been reset
+      # (i.e. it timed out rather than the user signing out manually)
+      session[:ttl] = Time.now - 2.months
+    end
+
+    it "logs the user in" do
+      do_signin(user.email, 'password')
+      expect(session[:user_id]).to eq(user.id)
+    end
+
+    it "sets session[:remember_me] to true" do
+      do_signin(user.email, 'password')
+      expect(session[:remember_me]).to eq(true)
+    end
+
+    it "clears the session[:ttl] value" do
+      do_signin(user.email, 'password')
+      expect(session[:ttl]).to be_nil
+    end
+
+    it "sets a long lived cookie on next page load" do
+      do_signin(user.email, 'password')
+      get :show, :url_name => user.url_name
+      expect(request.env['rack.session.options'][:expire_after]).to eq(1.month)
+    end
+
+  end
 
   it "should ask you to confirm your email if it isn't confirmed, after log in" do
     get :signin, :r => "/list"
@@ -715,6 +755,13 @@ describe UserController, "when signing out" do
     get :signout, :r => '/list'
     expect(session[:user_id]).to be_nil
     expect(response).to redirect_to(:controller => 'request', :action => 'list')
+  end
+
+  it "clears the session ttl" do
+    session[:user_id] = users(:bob_smith_user).id
+    session[:ttl] = Time.now
+    get :signout
+    expect(session[:ttl]).to be_nil
   end
 
 end
