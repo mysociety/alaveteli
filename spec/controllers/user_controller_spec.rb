@@ -350,6 +350,31 @@ describe UserController, "when showing a user" do
 
   end
 
+  context 'when the user being shown is logged in' do
+
+    it "assigns the user's undescribed requests" do
+      info_request = FactoryGirl.create(:info_request, :user => @user)
+      allow_any_instance_of(User).
+        to receive(:get_undescribed_requests).
+          and_return([info_request])
+      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
+      expect(assigns[:undescribed_requests]).to eq([info_request])
+    end
+
+    it "assigns the user's track things" do
+      search_track = FactoryGirl.create(:search_track, :tracking_user => @user)
+      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
+      expect(assigns[:track_things]).to eq([search_track])
+    end
+
+    it "assigns the user's grouped track things" do
+      search_track = FactoryGirl.create(:search_track, :tracking_user => @user)
+      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
+      expect(assigns[:track_things_grouped]).to eq({'search_query' => [search_track]})
+    end
+
+  end
+
   context "when viewing a user's own requests" do
 
     render_views
