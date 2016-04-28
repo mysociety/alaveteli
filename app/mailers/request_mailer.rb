@@ -272,9 +272,7 @@ class RequestMailer < ApplicationMailer
 
   # Send email alerts for overdue requests
   def self.alert_overdue_requests
-    info_requests = InfoRequest.find(:all,
-                                     :conditions => [
-                                       "described_state = 'waiting_response'
+    info_requests = InfoRequest.where("described_state = 'waiting_response'
                 AND awaiting_description = ?
                 AND user_id is not null
                 AND (SELECT id
@@ -289,10 +287,7 @@ class RequestMailer < ApplicationMailer
                                                                     'resent',
                                                                     'followup_resent')
                   AND info_request_id = info_requests.id)
-                ) IS NULL", false
-      ],
-      :include => [ :user ]
-    )
+                ) IS NULL", false).includes(:user)
 
     for info_request in info_requests
       alert_event_id = info_request.last_event_forming_initial_request.id
@@ -394,16 +389,13 @@ class RequestMailer < ApplicationMailer
   # after last update of event.
   def self.alert_not_clarified_request
     info_requests = InfoRequest.
-                      find(:all,
-                           :conditions =>
-                            [
-                              "awaiting_description = ?
-                               AND described_state = 'waiting_clarification'
-                               AND info_requests.updated_at < ?",
-                              false,
-                              Time.now - 3.days
-                            ],
-                            :include => [ :user ], :order => "info_requests.id")
+                      where("awaiting_description = ?
+                             AND described_state = 'waiting_clarification'
+                             AND info_requests.updated_at < ?",
+                             false,
+                             Time.now - 3.days
+                            ).
+                      includes(:user).order("info_requests.id")
     for info_request in info_requests
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
