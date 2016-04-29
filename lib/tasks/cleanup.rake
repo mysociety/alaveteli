@@ -11,7 +11,7 @@ namespace :cleanup do
                                                       ['redeliver_incoming',
                                                       'destroy_incoming']]) do |event|
       puts event.inspect
-      if ! dryrun
+      if not dryrun
         event.destroy
       end
     end
