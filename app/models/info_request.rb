@@ -1439,7 +1439,7 @@ class InfoRequest < ActiveRecord::Base
     will_be_rejected = (response_rejector && response_rejection) ? true : false
 
     if will_be_rejected && response_rejection.reject(response_rejector.reason)
-      logger.info "Rejected incoming mail: #{ response_rejector.reason }"
+      logger.info "Rejected incoming mail: #{ response_rejector.reason } request: #{ id }"
       false
     else
       true
