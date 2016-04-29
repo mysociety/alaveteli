@@ -10,7 +10,7 @@ namespace :cleanup do
     holding_pen.info_request_events.find_each(:conditions => ['event_type in (?)',
                                                 ['redeliver_incoming',
                                                  'destroy_incoming']]) do |event|
-      puts event.inspect
+      $stderr.puts event.inspect if verbose or dryrun
       if not dryrun
         event.destroy
       end
