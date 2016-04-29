@@ -33,7 +33,9 @@ namespace :stats do
                          month_start, month_end+1]
 
       request_count = InfoRequest.where(date_conditions).count
-      visible_comments_count = Comment.visible.where(date_conditions).count
+      visible_comments_count = Comment.visible.where('comments.created_at >= ?
+                                                      AND comments.created_at < ?',
+                                                      month_start, month_end+1).count
 
       track_conditions = ['track_type = ?
                            AND track_medium = ?
