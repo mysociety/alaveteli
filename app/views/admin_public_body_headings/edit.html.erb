@@ -24,7 +24,7 @@
         <%= f.submit "Destroy #{ @public_body_heading.name }",
           :name => @public_body_heading.name,
           :class => "btn btn-danger",
-          :confirm => 'Are you sure?' %>
+          :data => { :confirm => 'Are you sure?' } %>
         <span class="help-block">
           <ul>
             <li>Destroying a category heading only destroys the heading itself.</li>

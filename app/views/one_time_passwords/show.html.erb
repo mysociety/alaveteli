@@ -36,7 +36,8 @@
                                 'time passcode you will need to update your ' \
                                 'password manager or re-print it.') %>
         <%= link_to one_time_password_path, :method => :put,
-                                            :confirm => confirmation_msg,
+                                            :data => {
+                                                :confirm => confirmation_msg },
                                             :class => 'action-item__action' do %>
           <%= _('Regenerate one time passcode') %>
         <% end %>
@@ -45,7 +46,7 @@
         <% confirmation_msg = _('Are you sure you want to disable two factor ' \
                                 'authentication?') %>
         <%= link_to one_time_password_path, :method => :delete,
-                                            :confirm => confirmation_msg,
+                                            :data => { :confirm => confirmation_msg },
                                             :class => 'action-item__action' do %>
           <%= _('Disable two factor authentication') %>
         <% end %>

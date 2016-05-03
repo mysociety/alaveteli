@@ -43,7 +43,9 @@
 
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'delete' do %>
   <div>
-    <%= submit_tag "Destroy outgoing message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?" %>
+    <%= submit_tag "Destroy outgoing message",
+          :class => "btn btn-danger",
+          :data => { :confirm => "This is permanent! Are you sure?" } %>
   </div>
 <% end %>
 
