@@ -79,8 +79,10 @@ class HelpController < ApplicationController
   private
 
   def catch_spam
-    if request.post? && !params[:contact][:comment].empty?
-      redirect_to frontpage_url
+    if request.post? && params[:contact]
+      if !params[:contact][:comment].blank? || !params[:contact].key?(:comment)
+        redirect_to frontpage_url
+      end
     end
   end
 
