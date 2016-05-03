@@ -24,7 +24,7 @@ class RequestGameController < ApplicationController
     end
 
     @league_table_28_days = RequestClassification.league_table(10, [ "created_at >= ?", Time.now - 28.days ])
-    @league_table_all_time = RequestClassification.league_table(10)
+    @league_table_all_time = RequestClassification.league_table(10, nil)
     @play_urls = true
   end
 
