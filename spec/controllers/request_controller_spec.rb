@@ -1096,7 +1096,7 @@ describe RequestController, "when creating a new request" do
       :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
       :submitted_new_request => 1, :preview => 0
 
-    ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"])
+    ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?")
     expect(ir_array.size).to eq(1)
     ir = ir_array[0]
     expect(ir.outgoing_messages.size).to eq(1)
@@ -1148,7 +1148,8 @@ describe RequestController, "when creating a new request" do
       :outgoing_message => { :body => "This is a sensible letter. It is too long to be boring." },
       :submitted_new_request => 1, :preview => 0
 
-    ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"], :order => "id")
+    ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?")
+                             .order("id")
     expect(ir_array.size).to eq(2)
 
     ir = ir_array[0]
