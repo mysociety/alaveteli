@@ -723,7 +723,7 @@ module ActsAsXapian
       # Save time by running the indexing in one go and in-process
       for model_class in model_classes
         STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
-        model_class.find(:all).each do |model|
+        model_class.find_each do |model|
           STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
           model.xapian_index(terms, values, texts)
         end
