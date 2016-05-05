@@ -420,8 +420,9 @@ module ActsAsXapian
       # for each class, look up all ids
       chash = {}
       for cls, ids in lhash
-        conditions = [ "#{cls.constantize.table_name}.#{cls.constantize.primary_key} in (?)", ids ]
-        found = cls.constantize.find(:all, :conditions => conditions, :include => cls.constantize.xapian_options[:eager_load])
+        found = cls.constantize
+          .includes(cls.constantize.xapian_options[:eager_load])
+            .find(ids)
         for f in found
           chash[[cls, f.id]] = f
         end
