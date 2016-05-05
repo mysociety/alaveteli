@@ -26,7 +26,7 @@
       <%= form_tag admin_censor_rule_path(@censor_rule), :method => 'delete', :class => "form form-inline" do |f| %>
         <%= submit_tag "Destroy censor rule",
                        :class => "btn btn-danger",
-                       :confirm => 'Are you sure?' %>
+                       :data => { :confirm => 'Are you sure?' } %>
         <span class="help-block">
           Destroying a censor rule permanently destroys the rule
         </span>

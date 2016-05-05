@@ -41,7 +41,7 @@
             <td><%= spam.email %></td>
             <td><%= link_to 'Remove', admin_spam_address_path(spam),
               :method => :delete,
-              :confirm => 'This is permanent! Are you sure?',
+              :data => { :confirm => 'This is permanent! Are you sure?' },
               :class => 'btn btn-mini btn-danger' %></td>
           </tr>
         <% end %>

@@ -18,6 +18,6 @@ Delete these messages?
   <%= hidden_field_tag(:request_id, params[:request_id]) %>
   <%= submit_tag("Yes",
                  { :class => "btn btn-danger",
-                   :confirm => 'Are you sure?' }) %>
+                   :data => { :confirm => 'Are you sure?' } }) %>
   <%= submit_tag("No", { :class => "btn btn-button" }) %>
 <% end %>
