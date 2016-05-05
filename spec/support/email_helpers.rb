@@ -24,7 +24,7 @@ def get_fixture_mail(filename)
 end
 
 def parse_all_incoming_messages
-  IncomingMessage.find(:all).each{ |x| x.parse_raw_email! }
+  IncomingMessage.find_each{ |message| message.parse_raw_email! }
 end
 
 def load_mail_server_logs(log)
