@@ -1,15 +1,10 @@
 # -*- encoding : utf-8 -*-
 class MoveRawEmailToFilesystem < ActiveRecord::Migration
   def self.up
-    batch_size = 10
-    0.step(RawEmail.count, batch_size) do |i|
-      RawEmail.find(:all, :limit => batch_size, :offset => i, :order => :id).each do |raw_email|
-        if !File.exists?(raw_email.filepath)
-          STDERR.puts "converting raw_email " + raw_email.id.to_s
-          raw_email.data = raw_email.dbdata
-          #raw_email.dbdata = nil
-          #raw_email.save!
-        end
+    RawEmail.find_each(:batch_size => 10) do |raw_email|
+      if !File.exists?(raw_email.filepath)
+        STDERR.puts "converting raw_email #{raw_email.id.to_s}"
+        raw_email.data = raw_email.dbdata
       end
     end
   end
