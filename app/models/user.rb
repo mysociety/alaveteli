@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
   # This SQL statement is useful for seeing how spread out users are at the moment:
   # select extract(hour from last_daily_track_email) as h, count(*) from users group by extract(hour from last_daily_track_email) order by h;
   def self.spread_alert_times_across_day
-    self.find(:all).each do |user|
+    self.find_each do |user|
       user.last_daily_track_email = User.random_time_in_last_day
       user.save!
     end
