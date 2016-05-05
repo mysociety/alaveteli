@@ -143,9 +143,11 @@ module HasTagString
   module ClassMethods
     # Find all public bodies with a particular tag
     def find_by_tag(tag_as_string)
-      return HasTagStringTag.find(:all, :conditions =>
-                                  ['name = ? and model = ?', tag_as_string, self.to_s ]
-                                  ).map { |t| t.tagged_model }.sort { |a,b| a.name <=> b.name }.uniq
+      return HasTagStringTag.where(:name => tag_as_string,
+                                   :model => self.to_s)
+                              .map { |t| t.tagged_model }
+                                .sort { |a,b| a.name <=> b.name }
+                                  .uniq
     end
   end
 
