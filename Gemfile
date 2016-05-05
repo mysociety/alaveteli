@@ -46,11 +46,11 @@ gem 'xml-simple', '~> 1.1.2', :require => 'xmlsimple'
 gem 'zip', '~> 2.0.2'
 
 # Gems related to internationalisation
-gem 'gettext_i18n_rails', '~> 0.9.4' # Later versions cause error (see blame)
-gem 'gettext', '~> 2.3.9'
+gem 'gettext_i18n_rails', '~> 1.5.0'
+gem 'gettext', '~> 3.2.2'
 gem 'globalize3', :git => 'https://github.com/globalize/globalize.git', :ref => '5fd95f2389dff1'
-gem 'locale', '~> 2.0.8'
-gem 'routing-filter', '~> 0.3.1'
+gem 'locale', '~> 2.1.2'
+gem 'routing-filter', '~> 0.4.0'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.2'
 
