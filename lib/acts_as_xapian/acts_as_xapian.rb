@@ -784,7 +784,7 @@ module ActsAsXapian
           @@db_path = ActsAsXapian.db_path + ".new"
           ActsAsXapian.writable_init
           STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
-          model_class.find(:all, :limit => batch_size, :offset => i, :order => :id).each do |model|
+          model_class.limit(batch_size).offset(i).order('id').each do |model|
             STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
             model.xapian_index(terms, values, texts)
           end
