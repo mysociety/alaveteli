@@ -63,7 +63,7 @@ describe ReportsController, "when reporting a request (logged in)" do
     expect(deliveries.size).to eq(1)
     mail = deliveries[0]
     expect(mail.subject).to match(/attention_requested/)
-    expect(mail.from).to include(@user.email)
+    expect(mail.header['Reply-To'].to_s).to include(@user.email)
     expect(mail.body).to include(@user.name)
   end
 
