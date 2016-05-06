@@ -331,6 +331,86 @@ describe OutgoingMessage do
 
   end
 
+  describe '#apply_masks' do
+
+    before(:each) do
+      @message = FactoryGirl.create(:initial_request)
+
+      @default_opts = { :last_edit_editor => 'unknown',
+                        :last_edit_comment => 'none' }
+
+    end
+
+    it 'replaces text with global censor rules' do
+      data = 'There was a mouse called Stilton, he wished that he was blue'
+      expected = 'There was a mouse called Stilton, he said that he was blue'
+
+      opts = { :text => 'wished',
+               :replacement => 'said' }.merge(@default_opts)
+      CensorRule.create!(opts)
+
+      result = @message.apply_masks(data, 'text/plain')
+
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with censor rules belonging to the info request' do
+      data = 'There was a mouse called Stilton.'
+      expected = 'There was a cat called Jarlsberg.'
+
+      rules = [
+        { :text => 'Stilton', :replacement => 'Jarlsberg' },
+        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+      ]
+
+      rules.each do |rule|
+        @message.info_request.censor_rules << CensorRule.new(rule.merge(@default_opts))
+      end
+
+      result = @message.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with censor rules belonging to the user' do
+      data = 'There was a mouse called Stilton.'
+      expected = 'There was a cat called Jarlsberg.'
+
+      rules = [
+        { :text => 'Stilton', :replacement => 'Jarlsberg' },
+        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+      ]
+
+      rules.each do |rule|
+        @message.info_request.user.censor_rules << CensorRule.new(rule.merge(@default_opts))
+      end
+
+      result = @message.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with masks belonging to the info request' do
+      data = "He emailed #{ @message.info_request.incoming_email }"
+      expected = "He emailed [FOI ##{ @message.info_request.id } email]"
+      result = @message.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with global masks' do
+      data = 'His email address was stilton@example.org'
+      expected = 'His email address was [email address]'
+      result = @message.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text in binary files' do
+      data = 'His email address was stilton@example.org'
+      expected = 'His email address was xxxxxxx@xxxxxxx.xxx'
+      result = @message.apply_masks(data, 'application/vnd.ms-word')
+      expect(result).to eq(expected)
+    end
+
+  end
+
   describe '#get_default_message' do
 
     context 'an initial_request' do

@@ -182,11 +182,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_hidden(template='request/hidden')
+  def render_hidden(template='request/hidden', opts = {})
+    response_code = opts.delete(:response_code) { 403 } # forbidden
+    options = { :template => template, :status => response_code }.merge(opts)
+
     respond_to do |format|
-      response_code = 403 # forbidden
-      format.html{ render :template => template, :status => response_code }
-      format.any{ render :nothing => true, :status => response_code }
+      format.html { render(options) }
+      format.any { render :nothing => true, :status => response_code }
     end
     false
   end
