@@ -16,6 +16,6 @@
   <li>
     <%= _("We have <a href=\"{{other_means_url}}\">suggestions</a> on other " \
           "means to answer your question.",
-          :other_means_url => unhappy_url(info_request) + "#other_means") %>
+          :other_means_url => unhappy_url(info_request, :anchor => 'other_means')) %>
   </li>
 </ul>

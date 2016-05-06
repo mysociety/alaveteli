@@ -172,7 +172,7 @@ class ApplicationController < ActionController::Base
       message << "  " << backtrace.join("\n  ")
       Rails.logger.fatal("#{message}\n\n")
       if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-        ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
+        ExceptionNotifier.notify_exception(exception, :env => request.env)
       end
       @status = 500
     end
@@ -434,7 +434,7 @@ class ApplicationController < ActionController::Base
       rescue RuntimeError => e
         if e.message =~ /^QueryParserError: Wildcard/
           # Wildcard expands to too many terms
-          logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message}"
+          logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message.force_encoding('UTF-8')}"
 
           user_query =  ActsAsXapian.query_parser.parse_query(
             query,

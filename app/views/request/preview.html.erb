@@ -16,11 +16,11 @@
           <li><%= raw(_("Your name, request and any responses will appear in " \
                         "<strong>search engines</strong> " \
                         "(<a href=\"{{url}}\">details</a>).",
-                        :url => (help_privacy_path+"#public_request").html_safe)) %>
+                        :url => help_privacy_path(:anchor => "public_request").html_safe)) %>
           </li>
           <li><%= _('<a href="{{url}}">Do you want to request private ' \
                       'information about yourself?</a>',
-                    :url => (help_requesting_path+"#data_protection").html_safe) %></li>
+                    :url => help_requesting_path(:anchor => "data_protection").html_safe) %></li>
         </ul>
       </div>
     </div>

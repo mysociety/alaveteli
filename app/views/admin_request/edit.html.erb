@@ -53,7 +53,7 @@
 
   <%= form_tag admin_request_path(@info_request), :method => :delete do %>
     <p>
-      <strong>This is permanent and irreversible!</strong> <%= submit_tag 'Destroy request entirely', :class => 'btn btn-danger', :confirm => "Are you sure you want to destroy this request?" %>
+      <strong>This is permanent and irreversible!</strong> <%= submit_tag 'Destroy request entirely', :class => 'btn btn-danger', :data => { :confirm => "Are you sure you want to destroy this request?" } %>
     <br>Use it mainly if someone posts private information, e.g. made a Data Protection request. It
     destroys all responses and tracks as well.
     </p>

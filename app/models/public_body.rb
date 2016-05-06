@@ -149,7 +149,7 @@ class PublicBody < ActiveRecord::Base
           unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
             from = previous.send(c.name)
             to = self.send(c.name)
-            memo << { :name => c.human_name, :from => from, :to => to } if from != to
+            memo << { :name => c.name.humanize, :from => from, :to => to } if from != to
           end
           memo
         }

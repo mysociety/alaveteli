@@ -45,7 +45,7 @@ describe PublicBodyChangeRequestsController do
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       expect(mail.subject).to match(/Add authority - New Body/)
-      expect(mail.from).to include(@email)
+      expect(mail.header['Reply-To'].to_s).to include(@email)
       expect(mail.to).to include('postmaster@localhost')
       expect(mail.body).to include('new_body@example.com')
       expect(mail.body).to include('New Body')
@@ -119,7 +119,7 @@ describe PublicBodyChangeRequestsController do
         expect(deliveries.size).to eq(1)
         mail = deliveries[0]
         expect(mail.subject).to match(/Update email address - #{@public_body.name}/)
-        expect(mail.from).to include(@email)
+        expect(mail.header['Reply-To'].to_s).to include(@email)
         expect(mail.to).to include('postmaster@localhost')
         expect(mail.body).to include('new_body@example.com')
         expect(mail.body).to include(@public_body.name)

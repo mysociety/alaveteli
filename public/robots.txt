@@ -29,6 +29,7 @@ Disallow: */signin
 Allow: */request/*/response/*/attach/*
 Disallow: */request/*/response/
 Disallow: */body/*/view_email$
+Disallow: */change_request/*
 
 # The following adding Jan 2012 to stop robots crawling pages
 # generated in error (see

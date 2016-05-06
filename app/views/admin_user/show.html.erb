@@ -68,7 +68,7 @@
   <tr>
     <th>Id</th>
     <% for column in PostRedirect.content_columns %>
-      <th><%= column.human_name %></th>
+      <th><%= column.name.humanize %></th>
     <% end %>
   </tr>
 

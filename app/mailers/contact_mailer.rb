@@ -11,9 +11,11 @@ class ContactMailer < ApplicationMailer
     @message, @logged_in_user, @last_request, @last_body = message, logged_in_user, last_request, last_body
 
     # Return path is an address we control so that SPF checks are done on it.
-    headers('Return-Path' => blackhole_email, 'Reply-To' => MailHandler.address_from_name_and_email(name, email))
+    headers('Return-Path' => blackhole_email,
+            'Reply-To' => MailHandler.address_from_name_and_email(name, email))
 
-    mail(:from => MailHandler.address_from_name_and_email(name, email),
+    # From is an address we control so that strict DMARC senders don't get refused
+    mail(:from => MailHandler.address_from_name_and_email(name, blackhole_email),
          :to => contact_from_name_and_email,
          :subject => subject)
   end
@@ -32,7 +34,7 @@ class ContactMailer < ApplicationMailer
     # someone's email addresses from transitory bounce messages.
     headers('Return-Path' => blackhole_email, 'Reply-To' => from_user.name_and_email)
 
-    mail(:from => from_user.name_and_email,
+    mail(:from => MailHandler.address_from_name_and_email(from_user.name, blackhole_email),
          :to => recipient_user.name_and_email,
          :subject => subject)
   end
@@ -50,7 +52,21 @@ class ContactMailer < ApplicationMailer
   # Send a request to the administrator to add an authority
   def add_public_body(change_request)
     @change_request = change_request
-    mail(:from => MailHandler.address_from_name_and_email(@change_request.get_user_name, @change_request.get_user_email),
+
+
+    # Return path is an address we control so that SPF checks are done on it.
+    headers('Return-Path' =>  blackhole_email,
+            'Reply-To' => MailHandler.address_from_name_and_email(
+                            @change_request.get_user_name,
+                            @change_request.get_user_email
+                          )
+            )
+
+    # From is an address we control so that strict DMARC senders don't get refused
+    mail(:from => MailHandler.address_from_name_and_email(
+                    @change_request.get_user_name,
+                    blackhole_email
+                  ),
          :to => contact_from_name_and_email,
          :subject => _('Add authority - {{public_body_name}}',
                        :public_body_name => @change_request.get_public_body_name))
@@ -59,7 +75,20 @@ class ContactMailer < ApplicationMailer
   # Send a request to the administrator to update an authority email address
   def update_public_body_email(change_request)
     @change_request = change_request
-    mail(:from => MailHandler.address_from_name_and_email(@change_request.get_user_name, @change_request.get_user_email),
+
+    # Return path is an address we control so that SPF checks are done on it.
+    headers('Return-Path' => blackhole_email,
+            'Reply-To' => MailHandler.address_from_name_and_email(
+                            @change_request.get_user_name,
+                            @change_request.get_user_email
+                          )
+            )
+
+    # From is an address we control so that strict DMARC senders don't get refused
+    mail(:from => MailHandler.address_from_name_and_email(
+                    @change_request.get_user_name,
+                    blackhole_email
+                  ),
          :to => contact_from_name_and_email,
          :subject => _('Update email address - {{public_body_name}}',
                        :public_body_name => @change_request.get_public_body_name))

@@ -33,9 +33,13 @@ class PublicBodyChangeRequest < ActiveRecord::Base
   validate :user_email_format, :unless => proc{ |change_request| change_request.user_email.blank? }
   validate :body_email_format, :unless => proc{ |change_request| change_request.public_body_email.blank? }
 
-  scope :new_body_requests, :conditions => ['public_body_id IS NULL'], :order => 'created_at'
-  scope :body_update_requests, :conditions => ['public_body_id IS NOT NULL'], :order => 'created_at'
-  scope :open, :conditions => ['is_open = ?', true]
+  scope :new_body_requests, -> {
+    where(public_body_id: nil).order("created_at")
+  }
+  scope :body_update_requests, -> {
+    where("public_body_id IS NOT NULL").order("created_at")
+  }
+  scope :open, -> { where(is_open: true) }
 
   def self.from_params(params, user)
     change_request = new

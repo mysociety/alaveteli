@@ -27,8 +27,13 @@
                                 :related => _('mySocietyIntl:Helping people set ' \
                                                 'up sites like {{site_name}} ' \
                                                 'all over the world',
-                                              :site_name => site_name)
-                              }.to_query, :class => 'share-link' %>
+                                              :site_name => site_name),
+                              }.to_query, :class => 'share-link',
+                                          :onclick => track_analytics_event(
+                                            AnalyticsEvent::Category::OUTBOUND,
+                                            AnalyticsEvent::Action::TWITTER_EXIT,
+                                            :label => "Share Request") %>
+
 
         <%= link_to image_tag("next-step-facebook.png",
                               :alt => _("Share on Facebook"),
@@ -36,7 +41,11 @@
                               :height => "37"),
                               "https://www.facebook.com/sharer/sharer.php?" << {
                                 :u => request.url
-                              }.to_query, :class => 'share-link' %>
+                              }.to_query, :class => 'share-link',
+                                          :onclick => track_analytics_event(
+                                            AnalyticsEvent::Category::OUTBOUND,
+                                            AnalyticsEvent::Action::FACEBOOK_EXIT,
+                                            :label => "Share Request") %>
 
         <h2><%= _("Keep your request up to date") %></h2>
 

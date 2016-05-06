@@ -33,7 +33,8 @@ describe AdminInfoRequestEventController do
 
     it 'raises an exception if the event is not a response' do
       @info_request_event = FactoryGirl.create(:sent_event)
-      expect{ put :update, :id => @info_request_event }.to raise_error
+      expect{ put :update, :id => @info_request_event }.
+        to raise_error(RuntimeError, "can only mark responses as requires clarification")
     end
 
   end

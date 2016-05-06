@@ -9,11 +9,21 @@
     }.to_query
   %>
 
-  <%= link_to _("Tweet this request"), tweet_link %>
+  <%= link_to _("Tweet this request"),
+              tweet_link,
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::OUTBOUND,
+                AnalyticsEvent::Action::TWITTER_EXIT,
+                :label => "Request sidebar") %>
 </div>
 
 <div class="act_link act_link--wordpress">
-  <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
+  <%= link_to _("Start your own blog"),
+              "http://wordpress.com/",
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::OUTBOUND,
+                AnalyticsEvent::Action::WORDPRESS_EXIT,
+                :label => "Request sidebar") %>
 </div>
 
 <% if AlaveteliConfiguration::enable_widgets %>

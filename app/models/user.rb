@@ -459,7 +459,7 @@ class User < ActiveRecord::Base
       end.compact
     end
     columns.each do |column|
-      yield(column.human_name, send(column.name), column.type.to_s, column.name)
+      yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
     end
   end
 

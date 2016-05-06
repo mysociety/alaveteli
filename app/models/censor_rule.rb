@@ -47,9 +47,11 @@ class CensorRule < ActiveRecord::Base
                         :last_edit_comment,
                         :last_edit_editor
 
-  scope :global, { :conditions => { :info_request_id => nil,
-                                    :user_id => nil,
-                                    :public_body_id => nil } }
+  scope :global, -> {
+    where(info_request_id: nil,
+          user_id: nil,
+          public_body_id: nil)
+  }
 
   def apply_to_text(text_to_censor)
     return nil if text_to_censor.nil?

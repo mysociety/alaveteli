@@ -17,7 +17,7 @@
 
   <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
   <%= will_paginate(@public_bodies) %><br/>
-  <%= link_to _("Can't find the one you want?"), help_requesting_path + '#missing_body' %>
+  <%= link_to _("Can't find the one you want?"), help_requesting_path(:anchor => 'missing_body') %>
 </div>
 
 <div id="right_column_flip" class="right_column_flip">

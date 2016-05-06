@@ -16,8 +16,32 @@
   have a `-h` option with usage information (Gareth Rees)
 * Added a new config option `ENABLE_ANNOTATIONS` to allow turning off the
   annotations feature (comments on requests) (Steve Day, Gareth Rees)
+* Added a rake task, `themes:check_help_sections` to identify missing help
+  templates and sections in themes that are referred to in Alaveteli. Removed
+  example help templates from core to `alavetelitheme`.
+* Migrate from using the legacy `ga.js` Google Analytics code to the current
+  "universal" `analytics.js` version (Liz Conlan)
+* Added a helper and new lib file to standardise click tracking with Google
+  Analytics events (Liz Conlan)
 
 ## Upgrade Notes
+
+* Run `bundle exec rake themes:check_help_sections` to check that your theme
+  contains all the necessary help files. The example files have now been moved
+  from Alaveteli to the example theme `alavetelitheme`.
+* The upgrade of Google Analytics affects any custom GA scripts embedded in
+  template pages. You will need to go through your theme customisations to see
+  whether or not you are affected. Changes include:
+    * There is no longer a `pageTracker` object on the page, you must make your
+      calls against `ga` instead
+    * Core function calls like `_getTracker` and `_trackEvent` have been replaced
+      by newer equivalents
+    * The main method of tracking page views has changed from
+      `pageTracker._trackPageView()` to `ga('send', 'pageview')`
+    * The main method of sending tracking events has changed from
+       `pageTracker._trackEvent(category, action)` to
+       `ga('send', 'event', category, action)`
+  Full information on how to check and adjust for these changes is available [in Google's migration guide](https://developers.google.com/analytics/devguides/collection/upgrade/#upgrade-guides)
 
 # Version 0.24.1.0
 

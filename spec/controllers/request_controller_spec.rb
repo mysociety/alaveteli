@@ -1377,12 +1377,19 @@ describe RequestController, "when classifying an information request" do
         end
 
         it "should send a mail from the user who changed the state to requires_admin" do
-          post :describe_state, :incoming_message => { :described_state => "requires_admin", :message => "a message" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
+          post :describe_state, :incoming_message =>
+                                  { :described_state => "requires_admin",
+                                    :message => "a message" },
+                                :id => @dog_request.id,
+                                :incoming_message_id =>
+                                  incoming_messages(:useless_incoming_message),
+                                :last_info_request_event_id =>
+                                  @dog_request.last_event_id_needing_description
 
           deliveries = ActionMailer::Base.deliveries
           expect(deliveries.size).to eq(1)
           mail = deliveries[0]
-          expect(mail.from_addrs.first.to_s).to eq(users(:silly_name_user).email)
+          expect(mail.header['Reply-To'].to_s).to match(users(:silly_name_user).email)
         end
       end
     end
