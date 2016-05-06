@@ -43,6 +43,20 @@ div.correspondence {
   }
 }
 
+.correspondence_delivery {
+  padding: 1em;
+  margin: 0 -1em;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    padding: 1.2em;
+    margin: 0 -1.2em;
+  }
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+}
+
 
 /* Event history details */
 #request_details {

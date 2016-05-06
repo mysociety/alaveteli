@@ -219,4 +219,23 @@ describe MailServerLog do
       end
     end
   end
+
+  describe '#is_owning_user?' do
+
+    it 'returns true if the user is the owning user of the info request' do
+      log = FactoryGirl.build(:mail_server_log)
+      request = mock_model(InfoRequest, :is_owning_user? => true)
+      allow(log).to receive(:info_request).and_return(request)
+      expect(log.is_owning_user?(double(:user))).to eq(true)
+    end
+
+    it 'returns false if the user is not the owning user of the info request' do
+      log = FactoryGirl.build(:mail_server_log)
+      request = mock_model(InfoRequest, :is_owning_user? => false)
+      allow(log).to receive(:info_request).and_return(request)
+      expect(log.is_owning_user?(double(:user))).to eq(false)
+    end
+
+  end
+
 end
