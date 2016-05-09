@@ -102,7 +102,7 @@
         </div>
       <% else %>
         <p id="to_public_body" class="to_public_body">
-          <span class="to_public_body_label">To:</span>
+          <span class="to_public_body_label"><%= _('To:') %></span>
           <%= h(@info_request.public_body.name) %>
         </p>
       <% end %>
