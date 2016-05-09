@@ -92,5 +92,5 @@ group :development do
 end
 
 group :debug do
-  gem 'annotate', '~> 2.7.0'
+  gem 'annotate', '~> 2.7.1'
 end
