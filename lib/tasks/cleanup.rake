@@ -6,12 +6,12 @@ namespace :cleanup do
     if dryrun
       $stderr.puts "This is a dryrun - nothing will be deleted"
     end
-    holding_pen = InfoRequest.find_by_url_title('holding_pen')
-    old_events = holding_pen.info_request_events.find_each(:conditions => ['event_type in (?)',
-                                                      ['redeliver_incoming',
-                                                      'destroy_incoming']]) do |event|
-      puts event.inspect
-      if ! dryrun
+    holding_pen = InfoRequest.holding_pen_request
+    holding_pen.info_request_events.find_each(:conditions => ['event_type in (?)',
+                                                ['redeliver_incoming',
+                                                 'destroy_incoming']]) do |event|
+      $stderr.puts event.inspect if verbose or dryrun
+      if not dryrun
         event.destroy
       end
     end
