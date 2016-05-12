@@ -21,7 +21,7 @@ describe MailServerLogsController do
 
       it 'sets the subject as an outgoing message' do
         message = mock_model(OutgoingMessage, :id => '1',
-                                              :user_can_view? => true,
+                                              :is_owning_user? => true,
                                               :mail_server_logs => @logs)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
@@ -31,7 +31,7 @@ describe MailServerLogsController do
 
       it 'renders hidden when the message cannot be viewed' do
         message = mock_model(OutgoingMessage, :id => '1',
-                                              :user_can_view? => false,
+                                              :is_owning_user? => false,
                                               :mail_server_logs => @logs)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
@@ -41,7 +41,7 @@ describe MailServerLogsController do
 
       it 'sets the title' do
         message = mock_model(OutgoingMessage, :id => '1',
-                                              :user_can_view? => true,
+                                              :is_owning_user? => true,
                                               :mail_server_logs => @logs)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
@@ -52,7 +52,7 @@ describe MailServerLogsController do
 
       it 'assigns the mail server log lines' do
         message = mock_model(OutgoingMessage, :id => '1',
-                                              :user_can_view? => true,
+                                              :is_owning_user? => true,
                                               :mail_server_logs => @logs)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
@@ -60,27 +60,9 @@ describe MailServerLogsController do
         expect(assigns[:mail_server_logs]).to eq(@logs.map(&:line))
       end
 
-      it 'redacts email addresses if the user is not the request owner' do
-        message = FactoryGirl.create(:initial_request)
-        info_request = message.info_request
-
-        line = %Q(2015-11-22 00:37:01 [17622] 1a0IeK-0004aB-Na => body@example.com <body@example.com> F=<#{ info_request.incoming_email }> P=<#{ info_request.incoming_email }> R=dnslookup T=remote_smtp S=4137 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as 8878A680030" QT=1s DT=0s\n)
-        log = mock_model(MailServerLog, :line => line,
-                                        :is_owning_user? => false)
-        allow(message).to receive(:mail_server_logs).and_return([log])
-
-        allow(OutgoingMessage).
-          to receive(:find).with(message.id.to_s).and_return(message)
-        get :index, :outgoing_message_id => message.id
-
-        expected = [%Q(2015-11-22 00:37:01 [17622] 1a0IeK-0004aB-Na => [email address] <[email address]> F=<[FOI ##{ info_request.id } email]> P=<[FOI ##{ info_request.id } email]> R=dnslookup T=remote_smtp S=4137 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as 8878A680030" QT=1s DT=0s\n)]
-
-        expect(assigns[:mail_server_logs]).to eq(expected)
-      end
-
       it 'renders the index template if the request is for HTML' do
         message = mock_model(OutgoingMessage, :id => '1',
-                                              :user_can_view? => true,
+                                              :is_owning_user? => true,
                                               :mail_server_logs => @logs)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
@@ -90,7 +72,7 @@ describe MailServerLogsController do
 
       it 'renders the logs as text if the request is for TEXT' do
         message = mock_model(OutgoingMessage, :id => '1',
-                                              :user_can_view? => true,
+                                              :is_owning_user? => true,
                                               :mail_server_logs => @logs)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
