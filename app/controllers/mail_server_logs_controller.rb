@@ -9,13 +9,7 @@ class MailServerLogsController < ApplicationController
         _('Mail Server Logs for Outgoing Message #{{id}}', :id => @subject.id)
       end
 
-    @mail_server_logs = @subject.mail_server_logs.map do |log|
-      if log.is_owning_user?(@user)
-        log.line
-      else
-        @subject.apply_masks(log.line, 'text/plain')
-      end
-    end
+    @mail_server_logs = @subject.mail_server_logs.map(&:line)
 
     respond_to do |format|
       format.html
@@ -33,7 +27,7 @@ class MailServerLogsController < ApplicationController
   end
 
   def check_prominence
-    unless @subject.user_can_view?(authenticated_user)
+    unless @subject.is_owning_user?(@user)
       return render_hidden('request/_hidden_correspondence',
                            :locals => { :message => @subject })
     end

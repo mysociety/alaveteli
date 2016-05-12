@@ -9,7 +9,7 @@
       <br>
       <br>
       <%= simple_date(info_request_event.created_at) %>
-      <% if @user && @user.admin_page_links? %>
+      <% if @user && outgoing_message.is_owning_user?(@user) %>
         (<%= link_to _('Show delivery log'), outgoing_message_mail_server_logs_path(outgoing_message), :class => "toggle-delivery-log js-toggle-delivery-log" %>)
       <% end %>
     </h2>

@@ -624,6 +624,24 @@ describe OutgoingMessage do
 
   end
 
+  describe '#is_owning_user?' do
+
+    it 'returns true if the user is the owning user of the info request' do
+      user = mock_model(User)
+      request = mock_model(InfoRequest, :is_owning_user? => true)
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+      expect(message.is_owning_user?(user)).to eq(true)
+    end
+
+    it 'returns false if the user is not the owning user of the info request' do
+      user = mock_model(User)
+      request = mock_model(InfoRequest, :is_owning_user? => false)
+      message = FactoryGirl.build(:initial_request, :info_request => request)
+      expect(message.is_owning_user?(user)).to eq(false)
+    end
+
+  end
+
   describe '#user_can_view?' do
 
     before do

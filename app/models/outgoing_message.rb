@@ -184,6 +184,10 @@ class OutgoingMessage < ActiveRecord::Base
     MySociety::Validate.contains_postcode?(body)
   end
 
+  def is_owning_user?(user)
+    info_request.is_owning_user?(user)
+  end
+
   def record_email_delivery(to_addrs, message_id, log_event_type = 'sent')
     self.last_sent_at = Time.now
     self.status = 'sent'
