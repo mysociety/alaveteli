@@ -9,9 +9,9 @@ GIT
       paper_trail (~> 2)
 
 GIT
-  remote: https://github.com/mysociety/active_model_otp.git
-  revision: 0eb977b4c6dafdecaa6d0861783ebb502de3981f
-  ref: 0eb977b4c6dafd
+  remote: https://github.com/heapsource/active_model_otp.git
+  revision: c342283fe564bfe03d1798cb025ab80ff4e93451
+  ref: c342283fe564bf
   specs:
     active_model_otp (1.2.0)
       activemodel
@@ -260,7 +260,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.15.4)
-    rotp (2.1.1)
+    rotp (3.0.1)
     routing-filter (0.4.0.1)
       actionpack (< 4.2)
     rspec-activemodel-mocks (1.0.3)
