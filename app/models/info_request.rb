@@ -955,19 +955,6 @@ class InfoRequest < ActiveRecord::Base
     return params
   end
 
-  def self.old_unclassified_params(extra_params, include_last_response_time=false)
-    age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
-    params = { :conditions => ["awaiting_description = ?
-                                    AND last_public_response_at < ?
-                                    AND url_title != 'holding_pen'
-                                    AND user_id IS NOT NULL",
-                                      true, Time.zone.now - age] }
-    if include_last_response_time
-      params[:order] = 'last_public_response_at'
-    end
-    return params
-  end
-
   def self.count_old_unclassified(extra_params={})
     params = old_unclassified_params(extra_params)
     add_conditions_from_extra_params(params, extra_params)
