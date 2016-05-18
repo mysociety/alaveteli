@@ -16,6 +16,8 @@ def normalize_string_to_utf8(s, suggested_character_encoding=nil)
   else
     CharlockHolmes::EncodingDetector.detect(s)[:encoding]
   end
+  guessed_encoding ||= ''
+
   # It's reasonably common for windows-1252 text to be mislabelled
   # as ISO-8859-1, so try that first if charlock_holmes guessed
   # that.  However, it can also easily misidentify UTF-8 strings as
