@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 namespace :gettext do
 
   desc 'Rewrite .po files into a consistent msgmerge format'
