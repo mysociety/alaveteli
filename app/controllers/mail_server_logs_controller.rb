@@ -9,7 +9,9 @@ class MailServerLogsController < ApplicationController
         _('Mail Server Logs for Outgoing Message #{{id}}', :id => @subject.id)
       end
 
-    @mail_server_logs = @subject.mail_server_logs.map(&:line)
+    @mail_server_logs = @subject.mail_server_logs.map do |log|
+      log.line(:redact_idhash => !@user.super?)
+    end
 
     respond_to do |format|
       format.html
