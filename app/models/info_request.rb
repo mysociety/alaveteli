@@ -425,17 +425,25 @@ class InfoRequest < ActiveRecord::Base
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and outgoing_messages.body = ?", title, public_body_id, body ], :include => [ :outgoing_messages ] )
+    InfoRequest.where("title = ?
+                       AND public_body_id = ?
+                       AND outgoing_messages.body = ?",
+                       title, public_body_id, body)
+      .includes(:outgoing_messages)
+        .first
   end
 
   def find_existing_outgoing_message(body)
     # TODO: can add other databases here which have regexp_replace
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       # Exclude spaces from the body comparison using regexp_replace
-      outgoing_messages.find(:first, :conditions => [ "regexp_replace(outgoing_messages.body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')", body ])
+      outgoing_messages.where("regexp_replace(outgoing_messages.body,
+                                              '[[:space:]]', '', 'g') =
+                               regexp_replace(?, '[[:space:]]', '', 'g')",
+                               body).first
     else
       # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
-      outgoing_messages.find(:first, :conditions => [ "outgoing_messages.body = ?", body ])
+      outgoing_messages.where("outgoing_messages.body = ?", body).first
     end
   end
 
