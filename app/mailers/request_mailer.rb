@@ -303,18 +303,15 @@ class RequestMailer < ApplicationMailer
         end
 
         # For now, just to the user who created the request
-        sent_already = UserInfoRequestSentAlert.
-                        find(:first,
-                             :conditions =>
-                                [ "alert_type = ? " \
-                                  "AND user_id = ? " \
-                                  "AND info_request_id = ? " \
-                                  "AND info_request_event_id = ?",
-                                  alert_type,
-                                  info_request.user_id,
-                                  info_request.id,
-                                  alert_event_id
-                                ])
+        sent_already = UserInfoRequestSentAlert
+          .where("alert_type = ? " \
+                 "AND user_id = ? " \
+                 "AND info_request_id = ? " \
+                 "AND info_request_event_id = ?",
+                 alert_type,
+                 info_request.user_id,
+                 info_request.id,
+                 alert_event_id).first
         if sent_already.nil?
           # Alert not yet sent for this user, so send it
           store_sent = UserInfoRequestSentAlert.new
@@ -359,18 +356,15 @@ class RequestMailer < ApplicationMailer
                 "response reminder, request id " + info_request.id.to_s
       end
       # To the user who created the request
-      sent_already = UserInfoRequestSentAlert.
-                      find(:first,
-                           :conditions => [
-                                            "alert_type = ? " \
-                                             "AND user_id = ? " \
-                                             "AND info_request_id = ? " \
-                                             "AND info_request_event_id = ?",
-                                             type_code,
-                                             info_request.user_id,
-                                             info_request.id,
-                                             alert_event_id
-                                          ])
+      sent_already = UserInfoRequestSentAlert
+        .where("alert_type = ? " \
+               "AND user_id = ? " \
+               "AND info_request_id = ? " \
+               "AND info_request_event_id = ?",
+               type_code,
+               info_request.user_id,
+               info_request.id,
+               alert_event_id).first
       if sent_already.nil?
         # Alert not yet sent for this user
         store_sent = UserInfoRequestSentAlert.new
@@ -404,18 +398,14 @@ class RequestMailer < ApplicationMailer
                 "clarified reminder, request id " + info_request.id.to_s
       end
       # To the user who created the request
-      sent_already = UserInfoRequestSentAlert.
-                      find(:first,
-                           :conditions =>
-                            [
-                              "alert_type = 'not_clarified_1'
-                               AND user_id = ?
-                               AND info_request_id = ?
-                               AND info_request_event_id = ?",
-                              info_request.user_id,
-                              info_request.id,
-                              alert_event_id
-                            ])
+      sent_already = UserInfoRequestSentAlert
+        .where("alert_type = 'not_clarified_1'
+               AND user_id = ?
+               AND info_request_id = ?
+               AND info_request_event_id = ?",
+               info_request.user_id,
+               info_request.id,
+               alert_event_id).first
       if sent_already.nil?
         # Alert not yet sent for this user
         store_sent = UserInfoRequestSentAlert.new
@@ -482,7 +472,10 @@ class RequestMailer < ApplicationMailer
         if e.event_type == 'comment' && e.comment.user_id != info_request.user_id
           last_comment_event = e if last_comment_event.nil?
 
-          alerted_for = e.user_info_request_sent_alerts.find(:first, :conditions => [ "alert_type = 'comment_1' and user_id = ?", info_request.user_id])
+          alerted_for = e.user_info_request_sent_alerts
+            .where("alert_type = 'comment_1'
+                    AND user_id = ?",
+                    info_request.user_id).first
           if alerted_for.nil?
             count = count + 1
             earliest_unalerted_comment_event = e
