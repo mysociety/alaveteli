@@ -43,6 +43,15 @@ FactoryGirl.define do
       external_url 'http://www.example.org/request/external'
     end
 
+    factory :old_unclassified_request do
+      after(:create) do |info_request, evaluator|
+        incoming_message = FactoryGirl.create(:incoming_message, :info_request => info_request)
+        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+        info_request.last_public_response_at = Time.now - 31.days
+        info_request.awaiting_description = true
+        info_request.save!
+      end
+    end
   end
 
 end
