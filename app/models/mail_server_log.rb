@@ -190,6 +190,20 @@ class MailServerLog < ActiveRecord::Base
     info_request.is_owning_user?(user)
   end
 
+  # Public: Overrides the ActiveRecord attribute accessor
+  #
+  # opts = Hash of options (default: {})
+  #        :redact_idhash - Redacts instances of the InfoRequest#idhash
+  #
+  # Returns a String
+  def line(opts = {})
+    line = read_attribute(:line).dup
+    if opts[:redact_idhash] && info_request && info_request.idhash
+      line.gsub!(info_request.idhash, _('[REDACTED]'))
+    end
+    line
+  end
+
   private
 
   def self.create_mail_server_logs(emails, line, order, done)

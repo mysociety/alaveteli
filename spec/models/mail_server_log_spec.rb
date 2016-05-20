@@ -220,6 +220,37 @@ describe MailServerLog do
     end
   end
 
+  describe '#line' do
+
+    it 'returns the line attribute' do
+      log = MailServerLog.new(:line => 'log line')
+      expect(log.line).to eq('log line')
+    end
+
+    context ':redact_idhash option is truthy' do
+
+      it 'redacts the info request id hash' do
+        log = FactoryGirl.create(:mail_server_log)
+        line = log.line += " #{ log.info_request.incoming_email }"
+        idhash = log.info_request.idhash
+        log.update_attributes!(:line => line)
+        expect(log.line(:redact_idhash => true)).to_not include(idhash)
+      end
+
+      it 'handles not having an associated info request' do
+        log = MailServerLog.new(:line => 'log line')
+        expect(log.line(:redact_idhash => true)).to eq('log line')
+      end
+
+      it 'handles the info request not having an idhash' do
+        request = FactoryGirl.build(:info_request)
+        log = MailServerLog.new(:line => 'log line', :info_request => request)
+        expect(log.line(:redact_idhash => true)).to eq('log line')
+      end
+
+    end
+  end
+
   describe '#is_owning_user?' do
 
     it 'returns true if the user is the owning user of the info request' do

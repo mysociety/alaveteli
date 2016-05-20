@@ -20,6 +20,7 @@ describe MailServerLogsController do
     context 'outgoing_message_id param' do
 
       it 'sets the subject as an outgoing message' do
+        session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
                                               :mail_server_logs => @logs)
@@ -30,6 +31,7 @@ describe MailServerLogsController do
       end
 
       it 'renders hidden when the message cannot be viewed' do
+        session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => false,
                                               :mail_server_logs => @logs)
@@ -40,6 +42,7 @@ describe MailServerLogsController do
       end
 
       it 'sets the title' do
+        session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
                                               :mail_server_logs => @logs)
@@ -50,7 +53,29 @@ describe MailServerLogsController do
         expect(assigns[:title]).to eq(expected)
       end
 
-      it 'assigns the mail server log lines' do
+      it 'assigns the redacted mail server log lines for the request owner' do
+        @logs.each do |log|
+          expect(log).
+            to receive(:line).with(:redact_idhash => true).and_return(log.line)
+        end
+
+        session[:user_id] = FactoryGirl.create(:user).id
+        message = mock_model(OutgoingMessage, :id => '1',
+                                              :is_owning_user? => true,
+                                              :mail_server_logs => @logs)
+        allow(OutgoingMessage).
+          to receive(:find).with(message.id).and_return(message)
+        get :index, :outgoing_message_id => message.id
+        expect(assigns[:mail_server_logs]).to eq(@logs.map(&:line))
+      end
+
+      it 'assigns the unredacted mail server log lines for an admin' do
+        @logs.each do |log|
+          expect(log).
+            to receive(:line).with(:redact_idhash => false).and_return(log.line)
+        end
+
+        session[:user_id] = FactoryGirl.create(:admin_user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
                                               :mail_server_logs => @logs)
@@ -61,6 +86,7 @@ describe MailServerLogsController do
       end
 
       it 'renders the index template if the request is for HTML' do
+        session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
                                               :mail_server_logs => @logs)
@@ -71,6 +97,7 @@ describe MailServerLogsController do
       end
 
       it 'renders the logs as text if the request is for TEXT' do
+        session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
                                               :mail_server_logs => @logs)
