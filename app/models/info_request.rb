@@ -940,6 +940,16 @@ class InfoRequest < ActiveRecord::Base
     return params
   end
 
+
+  def self.where_old_unclassified(age_in_days=nil)
+    age_in_days ||= OLD_AGE_IN_DAYS
+    where("awaiting_description = ?
+          AND last_public_response_at < ?
+          AND url_title != 'holding_pen'
+          AND user_id IS NOT NULL",
+          true, Time.zone.now - age_in_days)
+  end
+
   def self.count_old_unclassified(extra_params={})
     params = old_unclassified_params(extra_params)
     add_conditions_from_extra_params(params, extra_params)
