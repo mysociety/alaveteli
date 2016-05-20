@@ -5,12 +5,16 @@ describe AdminGeneralController do
 
   describe "when viewing front page of admin interface" do
 
-    render_views
-    before { basic_auth_login @request }
-
     it "should render the front page" do
       get :index
       expect(response).to render_template('index')
+    end
+
+    it 'assigns old unclassified requests' do
+      InfoRequest.destroy_all
+      @old_request = FactoryGirl.create(:old_unclassified_request)
+      get :index
+      expect(assigns[:old_unclassified]).to eq([@old_request])
     end
 
   end
