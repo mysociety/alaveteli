@@ -761,4 +761,13 @@ describe User do
 
   end
 
+  describe '.find_user_by_email' do
+
+    it 'finds a user by email case-insensitively' do
+      user = FactoryGirl.create(:user)
+      expect(User.find_user_by_email(user.email.upcase)).to eq(user)
+    end
+
+  end
+
 end

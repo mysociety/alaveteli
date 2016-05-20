@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
 
   # Case-insensitively find a user from their email
   def self.find_user_by_email(email)
-    self.find(:first, :conditions => [ 'lower(email) = lower(?)', email ] )
+    self.where('lower(email) = lower(?)', email).first
   end
 
   # The "internal admin" is a special user for internal use.
