@@ -770,4 +770,20 @@ describe User do
 
   end
 
+  describe '#about_me_already_exists?' do
+
+    it 'is true if the about_me text already exists for another user' do
+      FactoryGirl.create(:user, :about_me => '123')
+      user = FactoryGirl.build(:user, :about_me => '123')
+      expect(user.about_me_already_exists?).to eq(true)
+    end
+
+    it 'is false if the about_me text is unique to the user' do
+      User.update_all(:about_me => '')
+      user = FactoryGirl.build(:user, :about_me => '123')
+      expect(user.about_me_already_exists?).to eq(false)
+    end
+
+  end
+
 end
