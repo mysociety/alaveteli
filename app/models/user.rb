@@ -404,6 +404,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def about_me_already_exists?
+    self.class.where(:about_me => about_me).any?
+  end
+
   # Return about me text for display as HTML
   # TODO: Move this to a view helper
   def get_about_me_for_html_display
