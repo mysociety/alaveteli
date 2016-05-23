@@ -81,7 +81,7 @@
   #request_header_body, #request_header_subject, #typeahead_response {
     @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
-      @include grid-column($columns:8, $last-column:true);
+      @include grid-column($columns:8);
       @include ie8{
         padding-right: 0.9375em;
       }
@@ -113,7 +113,7 @@
 #request_advice, .preview-advice {
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
-    @include grid-column($columns:4, $push:8, $last-column:true);
+    @include grid-column($columns:4, $push:8);
     @include ie8{
       padding-left: 0.9375em;
     }
