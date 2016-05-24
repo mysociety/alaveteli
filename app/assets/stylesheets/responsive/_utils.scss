@@ -60,3 +60,12 @@ body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .vi
   display: none;
   visibility: hidden;
 }
+
+.show-with-keyboard-focus-only {
+  position: absolute;
+  left: -9999999px;
+  &:focus {
+    left: 0;
+    z-index: 100;
+  }
+}

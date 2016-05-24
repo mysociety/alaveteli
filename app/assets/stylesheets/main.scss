@@ -287,7 +287,7 @@ span.bottomline {
   padding:10px 0 0 42px;
 }
 
-/* full page request list only */ 
+/* full page request list only */
 .request_listing span.bottomline {
   width:35em;
   background-repeat:no-repeat;
@@ -357,7 +357,7 @@ span.desc {
   overflow:hidden;
 }
 
-/* full page request list only */ 
+/* full page request list only */
 .request_listing span.desc {
   width:25em;
   background-image:image-url('navimg/quote-open.png');
@@ -1912,4 +1912,12 @@ div.controller_help dt:hover > a:hover,div.controller_help h1:hover > a:hover,di
 
 #notice.request-sent-message {
   font-size: 1em;
+}
+
+.show-with-keyboard-focus-only {
+  position: absolute;
+  left: -9999999px;
+  &:focus {
+    left: 0;
+  }
 }

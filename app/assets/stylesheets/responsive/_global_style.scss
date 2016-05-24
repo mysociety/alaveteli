@@ -78,9 +78,9 @@ dt {
   margin-top: 1em;
   font-weight: bold;
   line-height: 1.5em;
-  @include respond-min( $main_menu-mobile_menu_cutoff ){	
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     font-size: 1.3125em;
-   }	
+   }
 }
 
 dd {
@@ -227,4 +227,13 @@ div.pagination {
 /* Search result highlighting */
 .highlight {
   background:#FF0;
+}
+
+/* Skip to links for keyboard users */
+.skip-to-link {
+  &:focus {
+    padding: 0.5em 0.8em;
+    background-color: #333;
+    color: #fff;
+  }
 }
