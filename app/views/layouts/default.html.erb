@@ -96,7 +96,7 @@
         <%= render :partial => 'general/header' %>
       <% end %>
       <div id="wrapper">
-        <div id="content">
+        <div id="content" role="main">
           <% unless params[:action] == 'frontpage' %>
             <% if flash[:notice] %>
               <div id="notice"><%= flash[:notice] %></div>
