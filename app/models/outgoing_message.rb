@@ -462,7 +462,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def template_changed
-    if body.empty? || body =~ /\A#{Regexp.escape(letter_template.salutation(default_message_replacements))}\s+#{Regexp.escape(letter_template.signoff(default_message_replacements))}/ || body =~ /#{Regexp.escape(Template::InternalReview.details_placeholder)}/
+    if body.empty? || body =~ /\A#{regex_escape(letter_template.body(default_message_replacements))}/
       if message_type == 'followup'
         if what_doing == 'internal_review'
           errors.add(:body, _("Please give details explaining why you want a review"))
@@ -475,6 +475,15 @@ class OutgoingMessage < ActiveRecord::Base
         raise "Message id #{id} has type '#{message_type}' which validate can't handle"
       end
     end
+  end
+
+  def regex_escape(content)
+    text = content.gsub("\r", "\n") #shouldn't happen, but just in case
+    # feels like this should need a gsub(/\//, '\/') but doesn't seem to
+    Regexp.escape(text.squeeze("\n")).
+      gsub("\\n", '\s*').
+      gsub('\ \s*', '\s*').
+      gsub('\s*\ ', '\s*')
   end
 
   def body_has_signature
