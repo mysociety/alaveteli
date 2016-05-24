@@ -48,6 +48,10 @@ Alaveteli::Application.routes.draw do
   match '/details/request/:url_title' => 'request#details', :as => :details_request
   match '/similar/request/:url_title' => 'request#similar', :as => :similar_request
 
+
+  match '/request/:url_title/successful' => 'request#successful', :as => :successful_request
+  match '/request/:url_title/partially_successful' => 'help#partially_successful', :as => :partially_successful_request
+  match '/request/:url_title/sent' => 'request#show', :as => :show_request_sent, :sent => true
   match '/request/:id/describe' => 'request#describe_state', :as => :describe_state
   match '/request/:url_title/describe/:described_state' => 'request#describe_state_message', :as => :describe_state_message
   match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html', :format => false, :as => :get_attachment_as_html

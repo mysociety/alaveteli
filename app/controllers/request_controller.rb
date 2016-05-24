@@ -68,6 +68,7 @@ class RequestController < ApplicationController
   end
 
   def show
+    flash.now[:request_sent] = params[:sent] == true
     if !AlaveteliConfiguration::varnish_host.blank?
       # If varnish is set up to accept PURGEs, then cache for a
       # long time
@@ -383,6 +384,26 @@ class RequestController < ApplicationController
 
     flash[:request_sent] = true
     redirect_to show_new_request_path(:url_title => @info_request.url_title)
+  end
+
+  def successful
+    @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+    partial_path = 'request/describe_notices'
+    if template_exists?('successful', [partial_path], true)
+      flash.now[:notice] = render_to_string(
+          :partial => "#{partial_path}/successful",
+          :locals => {:info_request => @info_request}
+      ).html_safe
+    end
+    assign_variables_for_show_template(@info_request)
+        # Sidebar stuff
+    @sidebar = true
+    @similar_cache_key = cache_key_for_similar_requests(@info_request, @locale)
+
+    # Track corresponding to this page
+    @track_thing = TrackThing.create_track_for_request(@info_request)
+    @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+    render 'show'
   end
 
   # Submitted to the describing state of messages form

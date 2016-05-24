@@ -24,6 +24,23 @@ class HelpController < ApplicationController
     end
   end
 
+  def partially_successful
+    @country_code = AlaveteliConfiguration.iso_country_code
+    @info_request = nil
+    if params[:url_title]
+      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+    end
+    partial_path = 'request/describe_notices'
+    if template_exists?('partially_successful', [partial_path], true)
+      flash.now[:notice] = render_to_string(
+          :partial => "#{partial_path}/partially_successful",
+          :locals => {:info_request => @info_request}
+      ).html_safe
+    end
+    render :unhappy
+
+  end
+
   def contact
     @contact_email = AlaveteliConfiguration::contact_email
 
