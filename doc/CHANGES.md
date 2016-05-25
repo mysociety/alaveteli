@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add ARIA landmark roles to improve accessibility (Martin Wright)
 * Add an endpoint to view outgoing message mail server logs and display them
   in the request thread (Gareth Rees)
 * Minor accessibility improvements (Martin Wright)
