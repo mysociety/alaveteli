@@ -6,5 +6,5 @@
 # Email: hello@mysociety.org. WWW: http://www.mysociety.org/
 
 cd `dirname $0`
-bundle exec rake "$@" graphs:generate_request_creation_graph
+bundle exec rake --silent "$@" graphs:generate_request_creation_graph
 
