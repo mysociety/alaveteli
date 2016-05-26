@@ -631,10 +631,10 @@ class PublicBody < ActiveRecord::Base
       y_value_column = "(cast(#{column} as float) / #{total_column})"
       where_clause = where_clause_for_stats minimum_requests, total_column
       where_clause += " AND #{column} IS NOT NULL"
-      public_bodies = PublicBody.select("*, #{y_value_column} AS y_value")
-                                  .order(ordering)
-                                    .where(where_clause)
-                                      .limit(n)
+      public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").
+                                  order(ordering).
+                                    where(where_clause).
+                                      limit(n)
       public_bodies.reverse! if highest
       y_values = public_bodies.map { |pb| pb.y_value.to_f }
 
@@ -676,16 +676,17 @@ class PublicBody < ActiveRecord::Base
       I18n.with_locale(locale) do
         if body_short_names.empty?
           # This is too slow
-          bodies = visible.where('public_body_translations.locale = ?',
-                                 underscore_locale)
-                            .order("info_requests_visible_count desc")
-                              .limit(32)
-                                .joins(:translations)
+          bodies = visible.
+                    where('public_body_translations.locale = ?',
+                           underscore_locale).
+                      order("info_requests_visible_count desc").
+                        limit(32).
+                          joins(:translations)
         else
           bodies = where("public_body_translations.locale = ?
                           AND public_bodies.url_name in (?)",
-                          underscore_locale, body_short_names)
-                     .joins(:translations)
+                          underscore_locale, body_short_names).
+                    joins(:translations)
         end
       end
       return bodies

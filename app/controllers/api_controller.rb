@@ -196,11 +196,11 @@ class ApiController < ApplicationController
 
     event_type_clause = "event_type in ('sent', 'followup_sent', 'resent', 'followup_resent')"
 
-    @events = InfoRequestEvent.where(event_type_clause) \
-      .joins(:info_request) \
-      .where("public_body_id = ?", @public_body.id) \
-      .includes([{:info_request => :user}, :outgoing_message]) \
-      .order('info_request_events.created_at DESC')
+    @events = InfoRequestEvent.where(event_type_clause).
+      joins(:info_request).
+        where("public_body_id = ?", @public_body.id).
+          includes([{:info_request => :user}, :outgoing_message]).
+            order('info_request_events.created_at DESC')
 
     if since_date_str
       begin

@@ -428,9 +428,9 @@ class InfoRequest < ActiveRecord::Base
     InfoRequest.where("title = ?
                        AND public_body_id = ?
                        AND outgoing_messages.body = ?",
-                       title, public_body_id, body)
-      .includes(:outgoing_messages)
-        .first
+                       title, public_body_id, body).
+      includes(:outgoing_messages).
+        first
   end
 
   def find_existing_outgoing_message(body)

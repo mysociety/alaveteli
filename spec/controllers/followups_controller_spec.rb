@@ -241,8 +241,8 @@ describe FollowupsController do
                     :request_id => request.id,
                     :incoming_message_id => message_id
 
-      expect(request.reload.get_last_public_response_event.calculated_state)
-         .to eq('waiting_clarification')
+      expect(request.reload.get_last_public_response_event.calculated_state).
+        to eq('waiting_clarification')
     end
 
     it "redirects to the request page" do

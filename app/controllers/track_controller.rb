@@ -220,8 +220,9 @@ class TrackController < ApplicationController
     track_type = params[:track_type]
 
     flash[:notice] = _("You will no longer be emailed updates for those alerts")
-    TrackThing.where(:track_type => track_type, :tracking_user_id => user_id) \
-      .destroy_all
+    TrackThing.
+      where(:track_type => track_type, :tracking_user_id => user_id).
+        destroy_all
     redirect_to URI.parse(params[:r]).path
   end
 

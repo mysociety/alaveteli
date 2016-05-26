@@ -420,9 +420,9 @@ module ActsAsXapian
       # for each class, look up all ids
       chash = {}
       for cls, ids in lhash
-        found = cls.constantize
-          .includes(cls.constantize.xapian_options[:eager_load])
-            .find(ids)
+        found = cls.constantize.
+          includes(cls.constantize.xapian_options[:eager_load]).
+            find(ids)
         for f in found
           chash[[cls, f.id]] = f
         end

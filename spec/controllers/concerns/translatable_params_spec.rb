@@ -45,8 +45,8 @@ describe TranslatableParams::WhitelistedParams do
                  :id => 40 }
       expected = { :name => 'Some name',
                    :status => 'good' }
-      expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params))
-        .to eq(expected)
+      expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params)).
+        to eq(expected)
     end
 
     it 'allows id in the translation params' do
@@ -55,8 +55,8 @@ describe TranslatableParams::WhitelistedParams do
                    { :id => 40,
                      :locale => 'en',
                      :name => 'Other name' } } }
-      expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params.dup))
-        .to eq(params)
+      expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params.dup)).
+        to eq(params)
     end
 
     it 'removes a non-whitelisted translation param' do
@@ -69,8 +69,8 @@ describe TranslatableParams::WhitelistedParams do
                    { :en =>
                     { :locale => 'en',
                       :name => 'Other name'} } }
-      expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params))
-        .to eq(expected)
+      expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params)).
+        to eq(expected)
     end
 
   end

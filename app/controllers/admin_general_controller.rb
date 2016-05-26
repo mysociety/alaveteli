@@ -12,26 +12,26 @@ class AdminGeneralController < AdminController
     @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
     @error_message_requests = InfoRequest.find_in_state('error_message')
     @attention_requests = InfoRequest.find_in_state('attention_requested')
-    @blank_contacts = PublicBody
-      .includes(:tags, :translations)
-        .where(:request_email => "")
-          .order(:updated_at)
-            .select { |pb| !pb.defunct? }
-    @old_unclassified = InfoRequest.where_old_unclassified
-                                     .limit(20)
-                                       .where(:prominence => 'normal')
-    @holding_pen_messages = InfoRequest
-      .includes(:incoming_messages => :raw_email)
-        .holding_pen_request
-          .incoming_messages
-    @new_body_requests = PublicBodyChangeRequest
-      .includes(:public_body, :user)
-        .new_body_requests
-          .open
-    @body_update_requests = PublicBodyChangeRequest
-      .includes(:public_body, :user)
-        .body_update_requests
-          .open
+    @blank_contacts = PublicBody.
+      includes(:tags, :translations).
+        where(:request_email => "").
+          order(:updated_at).
+            select { |pb| !pb.defunct? }
+    @old_unclassified = InfoRequest.where_old_unclassified.
+                                      limit(20).
+                                        where(:prominence => 'normal')
+    @holding_pen_messages = InfoRequest.
+      includes(:incoming_messages => :raw_email).
+        holding_pen_request.
+          incoming_messages
+    @new_body_requests = PublicBodyChangeRequest.
+      includes(:public_body, :user).
+        new_body_requests.
+          open
+    @body_update_requests = PublicBodyChangeRequest.
+      includes(:public_body, :user).
+        body_update_requests.
+          open
   end
 
   def timeline

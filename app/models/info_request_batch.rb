@@ -27,8 +27,8 @@ class InfoRequestBatch < ActiveRecord::Base
           AND title = ?
           AND body = ?
           AND info_request_batches_public_bodies.public_body_id in (?)',
-          user, title, body, public_body_ids)
-      .includes(:public_bodies).first
+          user, title, body, public_body_ids).
+      includes(:public_bodies).first
   end
 
   # Create a batch of information requests, returning a list of public bodies

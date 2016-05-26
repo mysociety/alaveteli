@@ -303,15 +303,16 @@ class RequestMailer < ApplicationMailer
         end
 
         # For now, just to the user who created the request
-        sent_already = UserInfoRequestSentAlert
-          .where("alert_type = ? " \
+        sent_already = UserInfoRequestSentAlert.
+          where("alert_type = ? " \
                  "AND user_id = ? " \
                  "AND info_request_id = ? " \
                  "AND info_request_event_id = ?",
                  alert_type,
                  info_request.user_id,
                  info_request.id,
-                 alert_event_id).first
+                 alert_event_id).
+            first
         if sent_already.nil?
           # Alert not yet sent for this user, so send it
           store_sent = UserInfoRequestSentAlert.new
@@ -344,9 +345,10 @@ class RequestMailer < ApplicationMailer
     end
   end
   def self.alert_new_response_reminders_internal(days_since, type_code)
-    info_requests = InfoRequest.where_old_unclassified(days_since)
-                                  .order('info_requests.id')
-                                    .includes(:user)
+    info_requests = InfoRequest.
+      where_old_unclassified(days_since).
+        order('info_requests.id').
+          includes(:user)
 
     info_requests.each do |info_request|
       alert_event_id = info_request.get_last_public_response_event_id
@@ -356,15 +358,16 @@ class RequestMailer < ApplicationMailer
                 "response reminder, request id " + info_request.id.to_s
       end
       # To the user who created the request
-      sent_already = UserInfoRequestSentAlert
-        .where("alert_type = ? " \
+      sent_already = UserInfoRequestSentAlert.
+        where("alert_type = ? " \
                "AND user_id = ? " \
                "AND info_request_id = ? " \
                "AND info_request_event_id = ?",
                type_code,
                info_request.user_id,
                info_request.id,
-               alert_event_id).first
+               alert_event_id).
+          first
       if sent_already.nil?
         # Alert not yet sent for this user
         store_sent = UserInfoRequestSentAlert.new
@@ -398,14 +401,15 @@ class RequestMailer < ApplicationMailer
                 "clarified reminder, request id " + info_request.id.to_s
       end
       # To the user who created the request
-      sent_already = UserInfoRequestSentAlert
-        .where("alert_type = 'not_clarified_1'
+      sent_already = UserInfoRequestSentAlert.
+        where("alert_type = 'not_clarified_1'
                AND user_id = ?
                AND info_request_id = ?
                AND info_request_event_id = ?",
                info_request.user_id,
                info_request.id,
-               alert_event_id).first
+               alert_event_id).
+          first
       if sent_already.nil?
         # Alert not yet sent for this user
         store_sent = UserInfoRequestSentAlert.new
@@ -472,10 +476,11 @@ class RequestMailer < ApplicationMailer
         if e.event_type == 'comment' && e.comment.user_id != info_request.user_id
           last_comment_event = e if last_comment_event.nil?
 
-          alerted_for = e.user_info_request_sent_alerts
-            .where("alert_type = 'comment_1'
+          alerted_for = e.user_info_request_sent_alerts.
+            where("alert_type = 'comment_1'
                     AND user_id = ?",
-                    info_request.user_id).first
+                    info_request.user_id).
+              first
           if alerted_for.nil?
             count = count + 1
             earliest_unalerted_comment_event = e
