@@ -74,8 +74,8 @@
     <% if is_admin? %>
       <%= render :partial => 'admin_general/admin_navbar' %>
     <% end %>
-
     <div class="entirebody">
+      <a href="#content" class="show-with-keyboard-focus-only skip-to-link" tabindex="0">Skip to content</a>
       <% popup_banner = render(:partial => "general/popup_banner").strip %>
       <% if popup_banner.present? and  ! @render_to_file %>
         <div id="everypage" class="popup">
@@ -139,5 +139,6 @@
     <% end %>
 
     <%= render :partial => 'general/before_body_end' %>
+    <a href="#content" class="show-with-keyboard-focus-only skip-to-link">Back to content</a>
   </body>
 </html>
