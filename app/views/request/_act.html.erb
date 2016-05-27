@@ -17,12 +17,12 @@
                 :label => "Request sidebar") %>
 </div>
 
-<div class="act_link act_link--wordpress">
-  <%= link_to _("Start your own blog"),
-              "http://wordpress.com/",
+<div class="act_link act_link--medium">
+  <%= link_to _("Write about this on Medium"),
+              "http://medium.com/",
               :onclick => track_analytics_event(
                 AnalyticsEvent::Category::OUTBOUND,
-                AnalyticsEvent::Action::WORDPRESS_EXIT,
+                AnalyticsEvent::Action::MEDIUM_EXIT,
                 :label => "Request sidebar") %>
 </div>
 
