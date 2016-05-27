@@ -17,14 +17,14 @@ class RequestClassification < ActiveRecord::Base
   # return classification instances representing the top n
   # users, with a 'cnt' attribute representing the number
   # of classifications the user has made.
-  def self.league_table(size, conditions=[])
-    find(:all,
-         :select => 'user_id, count(*) as cnt',
-         :conditions => conditions,
-         :group => 'user_id',
-         :order => 'cnt desc',
-         :limit => size,
-         :include => :user)
+  def self.league_table(size, conditions=nil)
+    query = select('user_id, count(*) as cnt').
+      group('user_id').
+        order('cnt desc').
+          limit(size).
+            includes(:user)
+    query = query.where(*conditions) if conditions
+    query
   end
 
 end

@@ -38,7 +38,8 @@ describe CommentController, "when commenting on a request" do
       :comment => { :body => "A good question, but why not also ask about nice chickens?" },
       :type => 'request', :submitted_comment => 1, :preview => 0
 
-    comment_array = Comment.find(:all, :conditions => ["body = ?", "A good question, but why not also ask about nice chickens?"])
+    comment_array = Comment.where(:body => "A good question, but why not " \
+                                           "also ask about nice chickens?")
     expect(comment_array.size).to eq(1)
     comment = comment_array[0]
 

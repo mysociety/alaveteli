@@ -91,22 +91,22 @@ describe AlaveteliGeoIP do
       it "returns the current code if the service domain doesn't exist" do
         allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://12123sdf14qsd.com')
         instance = AlaveteliGeoIP.new
-        expect(instance.country_code_from_ip('127.0.0.1'))
-          .to eq(instance.current_code)
+        expect(instance.country_code_from_ip('127.0.0.1')).
+          to eq(instance.current_code)
       end
 
       it "returns the current code if the service doesn't exist" do
         allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://www.google.com')
         instance = AlaveteliGeoIP.new
-        expect(instance.country_code_from_ip('127.0.0.1'))
-          .to eq(instance.current_code)
+        expect(instance.country_code_from_ip('127.0.0.1')).
+          to eq(instance.current_code)
       end
 
       it "returns the current code if the service isn't configured" do
         allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('')
         instance = AlaveteliGeoIP.new
-        expect(instance.country_code_from_ip('127.0.0.1'))
-          .to eq(instance.current_code)
+        expect(instance.country_code_from_ip('127.0.0.1')).
+          to eq(instance.current_code)
       end
 
 
@@ -116,8 +116,8 @@ describe AlaveteliGeoIP do
         allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://500.com')
         expect(Rails.logger).to receive(:warn).with /500\.com.*500 Error/
         instance = AlaveteliGeoIP.new
-        expect(instance.country_code_from_ip('127.0.0.1'))
-          .to eq(instance.current_code)
+        expect(instance.country_code_from_ip('127.0.0.1')).
+          to eq(instance.current_code)
       end
 
     end
@@ -129,8 +129,8 @@ describe AlaveteliGeoIP do
         geoip = double('FakeGeoIP', :country => CountryData.new('XX'))
         instance = AlaveteliGeoIP.new
         allow(instance).to receive(:geoip).and_return(geoip)
-        expect(instance.country_code_from_ip('127.0.0.1'))
-          .to eq('XX')
+        expect(instance.country_code_from_ip('127.0.0.1')).
+          to eq('XX')
       end
 
     end

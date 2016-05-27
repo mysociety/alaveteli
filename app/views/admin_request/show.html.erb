@@ -172,7 +172,7 @@
 <hr>
 <h2>Events</h2>
 <div class="accordion" id="events">
-  <% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
+  <% @info_request.info_request_events.each do |info_request_event| %>
     <div class="accordion-group">
       <div class="accordion-heading">
         <span class="item-title">
@@ -229,7 +229,7 @@
 <hr>
 <h2>Outgoing messages</h2>
 <div class="accordion" id="outgoing_messages">
-  <% for outgoing_message in @info_request.outgoing_messages.find(:all, :order => 'created_at') %>
+  <% @info_request.outgoing_messages.each do |outgoing_message| %>
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>

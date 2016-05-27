@@ -420,8 +420,9 @@ module ActsAsXapian
       # for each class, look up all ids
       chash = {}
       for cls, ids in lhash
-        conditions = [ "#{cls.constantize.table_name}.#{cls.constantize.primary_key} in (?)", ids ]
-        found = cls.constantize.find(:all, :conditions => conditions, :include => cls.constantize.xapian_options[:eager_load])
+        found = cls.constantize.
+          includes(cls.constantize.xapian_options[:eager_load]).
+            find(ids)
         for f in found
           chash[[cls, f.id]] = f
         end
@@ -723,7 +724,7 @@ module ActsAsXapian
       # Save time by running the indexing in one go and in-process
       for model_class in model_classes
         STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
-        model_class.find(:all).each do |model|
+        model_class.find_each do |model|
           STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
           model.xapian_index(terms, values, texts)
         end
@@ -783,7 +784,7 @@ module ActsAsXapian
           @@db_path = ActsAsXapian.db_path + ".new"
           ActsAsXapian.writable_init
           STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
-          model_class.find(:all, :limit => batch_size, :offset => i, :order => :id).each do |model|
+          model_class.limit(batch_size).offset(i).order('id').each do |model|
             STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
             model.xapian_index(terms, values, texts)
           end
