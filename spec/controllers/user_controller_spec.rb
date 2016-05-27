@@ -555,6 +555,8 @@ describe UserController, "when signing in" do
   end
 
   it "sets a the cookie expiry to nil on next page load" do
+    load_raw_emails_data
+    get_fixtures_xapian_index
     post :signin, { :user_signin => { :email => 'bob@localhost',
                                       :password => 'jonespassword' } }
     get :show, :url_name => users(:bob_smith_user).url_name
