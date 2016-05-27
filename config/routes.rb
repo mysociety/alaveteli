@@ -20,7 +20,7 @@ Alaveteli::Application.routes.draw do
   # Couldn't find a way to do this in routes which also picked up multiple other slashes
   # and dots and other characters that can appear in search query. So we sort it all
   # out in the controller.
-  match '/search/*combined/all' => 'general#search', :as => :search_general, :view => 'all'
+  match '/search/*combined/all' => 'general#search', :as => :search_general_all, :view => 'all'
   match '/search(/*combined)' => 'general#search', :as => :search_general
   match '/advancedsearch' => 'general#search_redirect', :as => :advanced_search, :advanced => true
   match '/version.:format' => 'general#version', :as => :version
