@@ -47,7 +47,7 @@ module PublicBodyHelper
       if index.zero?
         desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
       end
-      link_to(desc, list_public_bodies_path(category.category_tag))
+      link_to(desc, list_public_bodies_by_tag_path(category.category_tag))
     end
 
     if types.any?

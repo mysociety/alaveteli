@@ -122,7 +122,7 @@ Alaveteli::Application.routes.draw do
   match '/body/search_ahead' => 'public_body#search_typeahead', :as => :search_ahead_bodies
   match '/body' => 'public_body#list', :as => :list_public_bodies
   match '/body/list/all' => 'public_body#list', :as => :list_public_bodies_default
-  match '/body/list/:tag' => 'public_body#list', :as => :list_public_bodies
+  match '/body/list/:tag' => 'public_body#list', :as => :list_public_bodies_by_tag
   match '/local/:tag' => 'public_body#list_redirect', :as => :list_public_bodies_redirect
   match '/body/all-authorities.csv' => 'public_body#list_all_csv', :as => :all_public_bodies_csv
   match '/body/:url_name' => 'public_body#show', :as => :show_public_body, :view => 'all'
