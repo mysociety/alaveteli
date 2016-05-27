@@ -15,7 +15,7 @@ Alaveteli::Application.routes.draw do
   match '/' => 'general#frontpage', :as => :frontpage
   match '/blog' => 'general#blog', :as => :blog
   match '/search' => 'general#search_redirect', :as => :search_redirect
-  match '/search/all' => 'general#search_redirect', :as => :search_redirect
+  match '/search/all' => 'general#search_redirect', :as => :search_redirect_all
   # `combined` is the search query, and then if sorted a "/newest" at the end.
   # Couldn't find a way to do this in routes which also picked up multiple other slashes
   # and dots and other characters that can appear in search query. So we sort it all
