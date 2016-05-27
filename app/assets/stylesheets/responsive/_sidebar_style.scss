@@ -42,6 +42,13 @@
   display: inline-block;
 }
 
+.act_link--facebook a {
+  background-image: image-url('facebook-16.png');
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('facebook-32.png');
+  }
+}
+
 .act_link--medium a {
   background-image: image-url('medium-16.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {

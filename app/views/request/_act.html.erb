@@ -17,6 +17,19 @@
                 :label => "Request sidebar") %>
 </div>
 
+<div class="act_link act_link--facebook">
+  <% share_link = "https://www.facebook.com/sharer/sharer.php?" << {
+        :u => request.url
+      }.to_query %>
+
+  <%= link_to _("Share on Facebook"),
+              share_link,
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::OUTBOUND,
+                AnalyticsEvent::Action::FACEBOOK_EXIT,
+                :label => "Request sidebar") %>
+</div>
+
 <div class="act_link act_link--medium">
   <%= link_to _("Write about this on Medium"),
               "http://medium.com/",
