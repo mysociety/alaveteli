@@ -422,7 +422,8 @@ module ActsAsXapian
       for cls, ids in lhash
         found = cls.constantize.
           includes(cls.constantize.xapian_options[:eager_load]).
-            find(ids)
+            where("#{cls.constantize.table_name}.#{cls.constantize.primary_key}
+                   in (?)", ids)
         for f in found
           chash[[cls, f.id]] = f
         end
