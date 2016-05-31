@@ -15,12 +15,12 @@ Alaveteli::Application.routes.draw do
   match '/' => 'general#frontpage', :as => :frontpage
   match '/blog' => 'general#blog', :as => :blog
   match '/search' => 'general#search_redirect', :as => :search_redirect
-  match '/search/all' => 'general#search_redirect', :as => :search_redirect
+  match '/search/all' => 'general#search_redirect', :as => :search_redirect_all
   # `combined` is the search query, and then if sorted a "/newest" at the end.
   # Couldn't find a way to do this in routes which also picked up multiple other slashes
   # and dots and other characters that can appear in search query. So we sort it all
   # out in the controller.
-  match '/search/*combined/all' => 'general#search', :as => :search_general, :view => 'all'
+  match '/search/*combined/all' => 'general#search', :as => :search_general_all, :view => 'all'
   match '/search(/*combined)' => 'general#search', :as => :search_general
   match '/advancedsearch' => 'general#search_redirect', :as => :advanced_search, :advanced => true
   match '/version.:format' => 'general#version', :as => :version
@@ -122,7 +122,7 @@ Alaveteli::Application.routes.draw do
   match '/body/search_ahead' => 'public_body#search_typeahead', :as => :search_ahead_bodies
   match '/body' => 'public_body#list', :as => :list_public_bodies
   match '/body/list/all' => 'public_body#list', :as => :list_public_bodies_default
-  match '/body/list/:tag' => 'public_body#list', :as => :list_public_bodies
+  match '/body/list/:tag' => 'public_body#list', :as => :list_public_bodies_by_tag
   match '/local/:tag' => 'public_body#list_redirect', :as => :list_public_bodies_redirect
   match '/body/all-authorities.csv' => 'public_body#list_all_csv', :as => :all_public_bodies_csv
   match '/body/:url_name' => 'public_body#show', :as => :show_public_body, :view => 'all'
