@@ -82,9 +82,7 @@ group :test, :development do
   gem 'test-unit', '~> 3.1.0'
   gem 'spork-rails', '~> 4.0.0'
   gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
-  if RUBY_VERSION =~ /^2/
-    gem 'pry-byebug', '~> 3.4.0'
-  end
+  gem 'pry-byebug', '~> 3.4.0', :platforms => :ruby_20
 end
 
 group :development do
