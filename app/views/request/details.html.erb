@@ -35,7 +35,7 @@
   <th>link</th>
   </tr>
 
-  <% @info_request.info_request_event.each do |info_request_event| %>
+  <% @info_request.info_request_events.each do |info_request_event| %>
     <tr class="<%= cycle('odd', 'even') %>">
     <% for column in @columns %>
       <td>
