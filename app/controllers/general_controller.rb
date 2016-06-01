@@ -24,6 +24,8 @@ class GeneralController < ApplicationController
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
                            :title => _('Successful requests'),
                            :has_json => true } ]
+
+    respond_to :html
   end
 
   # Display blog entries
@@ -53,6 +55,8 @@ class GeneralController < ApplicationController
       end
     end
     @twitter_user = AlaveteliConfiguration::twitter_username
+
+    respond_to :html
   end
 
   # Just does a redirect from ?query= search to /query
