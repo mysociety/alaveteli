@@ -36,9 +36,7 @@ describe TrackController do
 
     it "should require login when making new track" do
       get :track_request, :url_title => ir.url_title, :feed => 'track'
-      expect(response).to redirect_to(:controller => 'user',
-                                      :action => 'signin',
-                                      :token => get_last_post_redirect.token)
+      expect(response).to redirect_to(signin_path(:token => get_last_post_redirect.token))
     end
 
     it "should set no-cache headers on the login redirect" do
@@ -184,7 +182,7 @@ describe TrackController do
                     :track_medium => 'delete',
                     :r => 'http://example.com'},
                    {:user_id => track_thing.tracking_user.id}
-      expect(TrackThing.find(:first, :conditions => ['id = ? ', track_thing.id])).to eq(nil)
+      expect(TrackThing.where(:id => track_thing.id).first).to eq(nil)
     end
 
     it 'should redirect to a URL on the site' do
@@ -385,5 +383,51 @@ describe TrackController do
       expect(tt.track_type).to eq('public_body_updates')
       expect(tt.track_query).to eq("requested_from:" + geraldine.url_name + " variety:sent")
     end
+  end
+
+  describe 'POST delete_all_type' do
+
+    let(:track_thing) { FactoryGirl.create(:search_track) }
+
+    context 'when the user passed in the params is not logged in' do
+
+      it 'redirects to the signin page' do
+        post :delete_all_type, :user => track_thing.tracking_user.id,
+                               :track_type => 'search_query'
+        expect(response).to redirect_to(:controller => 'user',
+                                        :action => 'signin',
+                                        :token => get_last_post_redirect.token)
+      end
+
+    end
+
+    context 'when the user passed in the params is logged in' do
+
+      it 'deletes all tracks for the user of the type passed in the params' do
+        post :delete_all_type, {:user => track_thing.tracking_user.id,
+                                :track_type => 'search_query',
+                                :r => '/'},
+                               {:user_id => track_thing.tracking_user.id}
+        expect(TrackThing.where(:id => track_thing.id)).to be_empty
+      end
+
+      it 'redirects to the redirect path in the param passed' do
+        post :delete_all_type, {:user => track_thing.tracking_user.id,
+                        :track_type => 'search_query',
+                        :r => '/'},
+                       {:user_id => track_thing.tracking_user.id}
+        expect(response).to redirect_to('/')
+      end
+
+      it 'shows a message telling the user what has happened' do
+        post :delete_all_type, {:user => track_thing.tracking_user.id,
+                        :track_type => 'search_query',
+                        :r => '/'},
+                       {:user_id => track_thing.tracking_user.id}
+        expect(flash[:notice]).to eq("You will no longer be emailed updates for those alerts")
+      end
+
+    end
+
   end
 end

@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 
   has_many :info_requests, :order => 'created_at desc'
   has_many :user_info_request_sent_alerts
-  has_many :post_redirects
+  has_many :post_redirects, :order => 'created_at desc'
   has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
   has_many :comments, :order => 'created_at desc'
   has_one :profile_photo
@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
 
   # Case-insensitively find a user from their email
   def self.find_user_by_email(email)
-    self.find(:first, :conditions => [ 'lower(email) = lower(?)', email ] )
+    self.where('lower(email) = lower(?)', email).first
   end
 
   # The "internal admin" is a special user for internal use.
@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
   # This SQL statement is useful for seeing how spread out users are at the moment:
   # select extract(hour from last_daily_track_email) as h, count(*) from users group by extract(hour from last_daily_track_email) order by h;
   def self.spread_alert_times_across_day
-    self.find(:all).each do |user|
+    self.find_each do |user|
       user.last_daily_track_email = User.random_time_in_last_day
       user.save!
     end
@@ -402,6 +402,10 @@ class User < ActiveRecord::Base
       self.profile_photo = new_profile_photo
       save
     end
+  end
+
+  def about_me_already_exists?
+    self.class.where(:about_me => about_me).any?
   end
 
   # Return about me text for display as HTML

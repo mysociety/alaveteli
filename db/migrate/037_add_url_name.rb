@@ -4,7 +4,7 @@ class AddUrlName < ActiveRecord::Migration
     add_column :public_bodies, :url_name, :text
     add_column :public_body_versions, :url_name, :text
 
-    PublicBody.find(:all).each do |public_body|
+    PublicBody.find_each do |public_body|
       public_body.update_url_name
       public_body.save!
     end

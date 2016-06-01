@@ -66,7 +66,7 @@ class InfoRequest < ActiveRecord::Base
   belongs_to :info_request_batch
   validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
-  has_many :info_request_events, :order => 'created_at', :dependent => :destroy
+  has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
   has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
   has_many :incoming_messages, :order => 'created_at', :dependent => :destroy
   has_many :user_info_request_sent_alerts, :dependent => :destroy
@@ -425,17 +425,25 @@ class InfoRequest < ActiveRecord::Base
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and outgoing_messages.body = ?", title, public_body_id, body ], :include => [ :outgoing_messages ] )
+    InfoRequest.where("title = ?
+                       AND public_body_id = ?
+                       AND outgoing_messages.body = ?",
+                       title, public_body_id, body).
+      includes(:outgoing_messages).
+        first
   end
 
   def find_existing_outgoing_message(body)
     # TODO: can add other databases here which have regexp_replace
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       # Exclude spaces from the body comparison using regexp_replace
-      outgoing_messages.find(:first, :conditions => [ "regexp_replace(outgoing_messages.body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')", body ])
+      outgoing_messages.where("regexp_replace(outgoing_messages.body,
+                                              '[[:space:]]', '', 'g') =
+                               regexp_replace(?, '[[:space:]]', '', 'g')",
+                               body).first
     else
       # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
-      outgoing_messages.find(:first, :conditions => [ "outgoing_messages.body = ?", body ])
+      outgoing_messages.where("outgoing_messages.body = ?", body).first
     end
   end
 
@@ -921,15 +929,16 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def self.last_public_response_clause
-    # TODO: Deprecate this method
+    warn %q([DEPRECATION] InfoRequest#last_public_response_clause will be removed
+              in 0.26).squish
     join_clause = "incoming_messages.id = info_request_events.incoming_message_id
                        AND incoming_messages.prominence = 'normal'"
     last_event_time_clause('response', 'incoming_messages', join_clause)
   end
 
-  def self.old_unclassified_params_old(extra_params, include_last_response_time=false)
-    # TODO: Remove this method post benchmark testing
-    last_response_created_at = last_public_response_clause
+  def self.old_unclassified_params(extra_params, include_last_response_time=false)
+    warn %q([DEPRECATION] InfoRequest#old_unclassified_params will be removed
+              in 0.26).squish
     age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
     params = { :conditions => ["awaiting_description = ?
                                     AND last_public_response_at < ?
@@ -942,39 +951,27 @@ class InfoRequest < ActiveRecord::Base
     return params
   end
 
-  def self.old_unclassified_params(extra_params, include_last_response_time=false)
-    age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
-    params = { :conditions => ["awaiting_description = ?
-                                    AND last_public_response_at < ?
-                                    AND url_title != 'holding_pen'
-                                    AND user_id IS NOT NULL",
-                                      true, Time.zone.now - age] }
-    if include_last_response_time
-      params[:order] = 'last_public_response_at'
-    end
-    return params
-  end
 
-  def self.old_unclassified_params(extra_params, include_last_response_time=false)
-    age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
-    params = { :conditions => ["awaiting_description = ?
-                                    AND last_public_response_at < ?
-                                    AND url_title != 'holding_pen'
-                                    AND user_id IS NOT NULL",
-                                      true, Time.zone.now - age] }
-    if include_last_response_time
-      params[:order] = 'last_public_response_at'
-    end
-    return params
+  def self.where_old_unclassified(age_in_days=nil)
+    age_in_days ||= OLD_AGE_IN_DAYS
+    where("awaiting_description = ?
+          AND last_public_response_at < ?
+          AND url_title != 'holding_pen'
+          AND user_id IS NOT NULL",
+          true, Time.zone.now - age_in_days)
   end
 
   def self.count_old_unclassified(extra_params={})
+    warn %q([DEPRECATION] InfoRequest#count_old_unclassified will be removed
+              in 0.26).squish
     params = old_unclassified_params(extra_params)
     add_conditions_from_extra_params(params, extra_params)
     count(:all, params)
   end
 
   def self.get_random_old_unclassified(limit, extra_params)
+    warn %q([DEPRECATION] InfoRequest#get_random_old_unclassified will be removed
+              in 0.26).squish
     params = old_unclassified_params({})
     add_conditions_from_extra_params(params, extra_params)
     params[:limit] = limit
@@ -983,21 +980,9 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def self.find_old_unclassified(extra_params={})
+    warn %q([DEPRECATION] InfoRequest#find_old_unclassified will be removed
+              in 0.26).squish
     params = old_unclassified_params(extra_params, include_last_response_time=true)
-    [:limit, :include, :offset].each do |extra|
-      params[extra] = extra_params[extra] if extra_params[extra]
-    end
-    if extra_params[:order]
-      params[:order] = extra_params[:order]
-      params.delete(:select)
-    end
-    add_conditions_from_extra_params(params, extra_params)
-    find(:all, params)
-  end
-
-  def self.find_old_unclassified_old(extra_params={})
-    # TODO: Remove this method post benchmark testing
-    params = old_unclassified_params_old(extra_params, include_last_response_time=true)
     [:limit, :include, :offset].each do |extra|
       params[extra] = extra_params[extra] if extra_params[extra]
     end

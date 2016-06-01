@@ -1288,6 +1288,11 @@ describe PublicBody, 'when asked for popular bodies' do
     expect(PublicBody.popular_bodies('he-IL')).to eq([public_bodies(:humpadink_public_body)])
   end
 
+  it 'returns example bodies if some are specified' do
+    allow(AlaveteliConfiguration).to receive(:frontpage_publicbody_examples).and_return('tgq')
+    expect(PublicBody.popular_bodies('en')).to eq([public_bodies(:geraldine_public_body)])
+  end
+
 end
 
 describe PublicBody do

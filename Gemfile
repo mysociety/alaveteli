@@ -6,13 +6,13 @@ gem 'pg', '~> 0.18.4'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
-gem 'active_model_otp', :git => 'https://github.com/mysociety/active_model_otp.git', :ref => '0eb977b4c6dafd'
+gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => 'c342283fe564bf'
 gem 'charlock_holmes', '~> 0.7.3'
 gem 'dynamic_form', '~> 1.1.4'
 # 4.1.0 has a bug in it which is fixed in a later version which does not have Ruby 1.9.3 support
 gem 'exception_notification', '4.0.1'
 gem 'fancybox-rails', '~> 0.3.1'
-gem 'foundation-rails', '~> 5.2.1.0'
+gem 'foundation-rails', '~> 5.5.3.2'
 gem 'geoip', '~> 1.6.1'
 gem 'gnuplot', '2.6.2'
 gem 'htmlentities', '~> 4.3.4'
@@ -34,6 +34,7 @@ gem 'rails-i18n', '~> 3.0.0'
 gem 'recaptcha', '~> 0.4.0', :require => 'recaptcha/rails'
 gem 'rmagick', '~> 2.15.0'
 gem 'ruby-msg', '~> 1.5.0',  :git => 'https://github.com/mysociety/ruby-msg.git', :ref => 'f9f928ed76c024b4bc3a08bc1a59beb62df36663'
+gem 'sass', '3.4.21' # pinned because later versions cause problems (see blame)
 gem 'secure_headers', '~> 2.4.0'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3'
@@ -46,7 +47,7 @@ gem 'xml-simple', '~> 1.1.2', :require => 'xmlsimple'
 gem 'zip', '~> 2.0.2'
 
 # Gems related to internationalisation
-gem 'gettext_i18n_rails', '~> 1.5.0'
+gem 'gettext_i18n_rails', '~> 1.7.0'
 gem 'gettext', '~> 3.2.2'
 gem 'globalize3', :git => 'https://github.com/globalize/globalize.git', :ref => '5fd95f2389dff1'
 gem 'locale', '~> 2.1.2'
@@ -57,7 +58,7 @@ gem 'unidecoder', '~> 1.1.2'
 group :assets do
   gem 'bootstrap-sass', '~> 2.3.2.2'
   gem 'sass-rails', '~> 3.2.3'
-  gem 'compass-rails', '2.0.0'
+  gem 'compass-rails', '3.0.2'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '~> 2.7.2'
   gem 'therubyracer', '~> 0.12.2'
@@ -81,7 +82,6 @@ group :test, :development do
   gem 'test-unit', '~> 3.1.0'
   gem 'spork-rails', '~> 4.0.0'
   gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
-  gem 'pry-byebug', '~> 3.4.0', :platforms => :ruby_20
 end
 
 group :development do

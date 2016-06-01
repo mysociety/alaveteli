@@ -28,7 +28,7 @@
 </div>
 
 <% if !@twitter_user.empty? %>
-  <div id="right_column" class="right_column">
+  <div id="right_column" class="right_column" role="complementary">
     <div class="act_link">
       <h2><%= _("Stay up to date") %></h2>
       <%= image_tag "twitter-16.png", :alt => "twitter icon", :class => "twitter-icon" %> <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on twitter") %></a><br/><br/>

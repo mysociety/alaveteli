@@ -63,7 +63,10 @@ class UserController < ApplicationController
 
     # All tracks for the user
     if @is_you
-      @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
+      @track_things = TrackThing.
+        where(:tracking_user_id => @display_user.id,
+              :track_medium => 'email_daily').
+          order('created_at desc')
       @track_things.each do |track_thing|
         # TODO: factor out of track_mailer.rb
         xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,

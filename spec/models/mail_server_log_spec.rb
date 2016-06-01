@@ -144,6 +144,46 @@ describe MailServerLog do
         log.close
       end
     end
+
+    describe '.request_exim_sent?' do
+
+      it "returns true when a log line says the message was sent" do
+        line = "Apr 28 15:53:37 server exim[12105]: 2016-04-28 15:53:37 " \
+               "[12105] 1avnJx-00039F-Hs <= " \
+               "foi+request-331612-13811a2b@example.com U=foi P=local " \
+               "S=1986 id=ogm-538593+572f16e888-166a@example.com " \
+               "T=\"Freedom of Information request - example request\" " \
+               "from <foi+request-331612-13811a2b@example.com> for " \
+               "foi@example.org foi@example.org"
+        info_request = FactoryGirl.create(:info_request)
+        allow(info_request).to receive(:incoming_email).
+          and_return('foi+request-331612-13811a2b@example.com')
+        info_request.mail_server_logs.create!(:line => line, :order => 1)
+        expect(MailServerLog.request_exim_sent?(info_request)).to be true
+      end
+
+      it 'returns false if a log of delivery has a different
+          envelope sender' do
+        line = "Apr 28 15:53:37 server exim[12105]: 2016-04-28 15:53:37 " \
+               "[12105] 1avnJx-00039F-Hs <= " \
+               "foi+request-331612-13811a2b@example.com U=foi P=local " \
+               "S=1986 id=ogm-538593+572f16e888-166a@example.com " \
+               "T=\"Freedom of Information request - example request\" " \
+               "from <alaveteli@example.com> for " \
+               "foi@example.org foi@example.org"
+        info_request = FactoryGirl.create(:info_request)
+        allow(info_request).to receive(:incoming_email).
+          and_return('foi+request-331612-13811a2b@example.com')
+        info_request.mail_server_logs.create!(:line => line, :order => 1)
+        expect(MailServerLog.request_exim_sent?(info_request)).to be false
+      end
+
+      it "returns false when no log lines say the message has been sent" do
+        info_request = FactoryGirl.create(:info_request)
+        expect(MailServerLog.request_exim_sent?(info_request)).to be false
+      end
+    end
+
   end
 
   context "Postfix" do
@@ -269,4 +309,45 @@ describe MailServerLog do
 
   end
 
+  describe '.check_recent_requests_have_been_sent' do
+
+    context 'if all recent requests have been sent' do
+
+      it 'returns true' do
+        info_request = FactoryGirl.create(:info_request,
+                                          :created_at => Time.now - 5.days)
+        allow(MailServerLog).to receive(:request_sent?).with(info_request).
+          and_return(true)
+        expect(MailServerLog.check_recent_requests_have_been_sent).to eq(true)
+      end
+
+    end
+
+    context 'if a recent request has not been sent' do
+
+      it 'returns false' do
+        info_request = FactoryGirl.create(:info_request,
+                                          :created_at => Time.now - 5.days)
+        allow(MailServerLog).to receive(:request_sent?).with(info_request).
+          and_return(false)
+        allow($stderr).to receive(:puts)
+        expect(MailServerLog.check_recent_requests_have_been_sent).to eq(false)
+      end
+
+      it 'outputs a message to stderr' do
+        info_request = FactoryGirl.create(:info_request,
+                                          :created_at => Time.now - 5.days)
+        allow(MailServerLog).to receive(:request_sent?).with(info_request).
+          and_return(false)
+        expected_message = "failed to find request sending in MTA logs for request " \
+                           "id #{info_request.id} #{info_request.url_title} (check " \
+                           "envelope from is being set to request address in Ruby, " \
+                           "and load-mail-server-logs crontab is working)"
+        expect($stderr).to receive(:puts).with(expected_message)
+        MailServerLog.check_recent_requests_have_been_sent
+      end
+
+    end
+
+  end
 end
