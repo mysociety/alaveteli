@@ -23,6 +23,8 @@
 #  comments_allowed          :boolean          default(TRUE), not null
 #  info_request_batch_id     :integer
 #  last_public_response_at   :datetime
+#  reject_incoming_at_mta    :boolean          default(FALSE), not null
+#  rejected_incoming_count   :integer          default(0)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

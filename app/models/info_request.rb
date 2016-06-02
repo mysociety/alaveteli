@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20151104131702
 #
 # Table name: info_requests
 #
@@ -24,6 +23,8 @@
 #  comments_allowed          :boolean          default(TRUE), not null
 #  info_request_batch_id     :integer
 #  last_public_response_at   :datetime
+#  reject_incoming_at_mta    :boolean          default(FALSE), not null
+#  rejected_incoming_count   :integer          default(0)
 #
 
 require 'digest/sha1'

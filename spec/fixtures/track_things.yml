@@ -4,7 +4,7 @@
 #
 #  id               :integer          not null, primary key
 #  tracking_user_id :integer          not null
-#  track_query      :string(255)      not null
+#  track_query      :string(500)      not null
 #  info_request_id  :integer
 #  tracked_user_id  :integer
 #  public_body_id   :integer
