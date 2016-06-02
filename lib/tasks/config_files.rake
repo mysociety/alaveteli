@@ -127,4 +127,10 @@ namespace :config_files do
   end
 
 
+  desc 'Produce a list of email addresses for which the MTA should reject messages at RCPT time'
+  task :generate_mta_rejection_list => :environment do
+    InfoRequest.where(:reject_incoming_at_mta => true).each do |info_request|
+      puts info_request.incoming_email
+    end
+  end
 end
