@@ -1231,7 +1231,7 @@ class InfoRequest < ActiveRecord::Base
     AND url_title <> 'holding_pen'
     EOF
 
-    # 'very_old' months since last change requests, don't allow any new
+    # 'very_old' months since last change to request, don't allow any new
     # incoming messages
     InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
     allow_new_responses_from = 'nobody'
