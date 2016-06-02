@@ -95,6 +95,48 @@ describe InfoRequest do
 
   end
 
+  describe '.reject_incoming_at_mta' do
+
+    before do
+      @request = FactoryGirl.create(:info_request)
+      @request.update_attributes(:updated_at => 6.months.ago,
+                                :rejected_incoming_count => 3,
+                                :allow_new_responses_from => 'nobody')
+      @options = {:rejection_threshold => 2,
+                  :age_in_months => 5,
+                  :dryrun => true}
+    end
+
+    it 'returns an count of requests updated ' do
+      expect(InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false))).
+        to eq(1)
+    end
+
+    it 'does nothing on a dryrun' do
+      InfoRequest.reject_incoming_at_mta(@options)
+      expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be false
+    end
+
+    it 'sets reject_incoming_at_mta on a request meeting the criteria passed' do
+      InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false))
+      expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be true
+    end
+
+    it 'does not set reject_incoming_at_mta on a request not meeting the
+        criteria passed' do
+      InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false,
+                                                        :age_in_months => 7))
+      expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be false
+    end
+
+    it 'yields an array of ids of the requests matching the criteria' do
+      InfoRequest.reject_incoming_at_mta(@options) do |ids|
+        expect(ids).to eq([@request.id])
+      end
+    end
+  end
+
+
   describe '.stop_new_responses_on_old_requests' do
 
     it 'does not affect requests that have been updated in the last 6 months' do

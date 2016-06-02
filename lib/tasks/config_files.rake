@@ -126,9 +126,37 @@ namespace :config_files do
     end
   end
 
+  desc 'Set reject_incoming_at_mta on old requests that are rejecting incoming mail'
+  task :set_reject_incoming_at_mta => :environment do
+    example = 'rake config_files:set_reject_incoming_at_mta REJECTED_THRESHOLD=5 AGE_IN_MONTHS=12'
+    check_for_env_vars(['REJECTED_THRESHOLD', 'AGE_IN_MONTHS'], example)
+    dryrun = ENV['DRYRUN'] != '0'
+    if dryrun
+      STDERR.puts "Only a dry run; info_requests will not be updated"
+    end
+    options = {:rejection_threshold => ENV['REJECTED_THRESHOLD'],
+               :age_in_months => ENV['AGE_IN_MONTHS'],
+               :dryrun => dryrun}
+
+    updated_count = InfoRequest.reject_incoming_at_mta(options) do |ids|
+      puts "Info Request\tRejected incoming count\tLast updated"
+      ids.each do |id|
+        info_request = InfoRequest.find(id)
+        puts "#{info_request.id}\t#{info_request.rejected_incoming_count}\t#{info_request.updated_at}"
+      end
+    end
+    puts "Updated #{updated_count} info requests"
+  end
 
   desc 'Produce a list of email addresses for which the MTA should reject messages at RCPT time'
   task :generate_mta_rejection_list => :environment do
+    example = 'rake config_files:generate_mta_rejection_list MTA=(exim|postfix)'
+    check_for_env_vars(['MTA'], example)
+    mta = ENV['MTA'].downcase
+    unless ['postfix', 'exim'].include? mta
+      puts "Error: Unrecognised MTA"
+      exit 1
+    end
     InfoRequest.where(:reject_incoming_at_mta => true).each do |info_request|
       puts info_request.incoming_email
     end
