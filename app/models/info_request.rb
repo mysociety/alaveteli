@@ -1201,6 +1201,23 @@ class InfoRequest < ActiveRecord::Base
     true
   end
 
+  def self.reject_incoming_at_mta(options)
+    query = InfoRequest.where(["updated_at < (now() -
+                                interval '#{options[:age_in_months]} months')
+                                AND allow_new_responses_from = 'nobody'
+                                AND rejected_incoming_count >= ?
+                                AND reject_incoming_at_mta = ?
+                                AND url_title <> 'holding_pen'",
+                                options[:rejection_threshold], false])
+    yield query.pluck(:id) if block_given?
+
+    if options[:dryrun]
+      0
+    else
+      query.update_all(:reject_incoming_at_mta => true)
+    end
+  end
+
   # This is called from cron regularly.
   def self.stop_new_responses_on_old_requests
     old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
