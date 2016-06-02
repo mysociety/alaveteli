@@ -237,6 +237,7 @@ describe InfoRequest do
         expect(holding_pen.incoming_messages.size).to eq(1)
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
+        expect(info_request.rejected_incoming_count).to eq(1)
       end
 
       it 'from anybody' do
@@ -270,6 +271,7 @@ describe InfoRequest do
               'no "From" address to check against'
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
+        expect(info_request.rejected_incoming_count).to eq(1)
       end
 
       it 'from authority_only rejects if the mail is not from the authority' do
@@ -285,6 +287,7 @@ describe InfoRequest do
               "recognise the address this reply was sent from"
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
+        expect(info_request.rejected_incoming_count).to eq(1)
       end
 
       it 'raises an error if there is an unknown allow_new_responses_from' do
@@ -422,7 +425,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
     end
 
@@ -451,6 +454,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
 
+      expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
     end
 
@@ -479,7 +483,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(ActionMailer::Base.deliveries).to be_empty
       ActionMailer::Base.deliveries.clear
     end
@@ -503,7 +507,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.rejected_incoming_count).to eq(0)
       expect(ActionMailer::Base.deliveries.size).to eq(1)
       ActionMailer::Base.deliveries.clear
     end
@@ -526,7 +530,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.rejected_incoming_count).to eq(0)
       expect(info_request.incoming_messages.size).to eq(1)
       ActionMailer::Base.deliveries.clear
     end
