@@ -148,6 +148,22 @@ namespace :config_files do
     puts "Updated #{updated_count} info requests"
   end
 
+  desc 'Unset reject_incoming_at_mta on a request'
+  task :unset_reject_incoming_at_mta => :environment do
+    example = 'rake config_files:unset_reject_incoming_at_mta REQUEST_ID=4'
+    check_for_env_vars(['REQUEST_ID'], example)
+    info_request = InfoRequest.find(ENV['REQUEST_ID'])
+    if info_request.reject_incoming_at_mta
+      info_request.reject_incoming_at_mta = false
+      info_request.allow_new_responses_from = 'authority_only'
+      info_request.save!
+      puts "reject_incoming_at_mta set to false for InfoRequest #{ENV['REQUEST_ID']}"
+    else
+      puts "Warning: reject_incoming_at_mta already false for " \
+           "InfoRequest #{ENV['REQUEST_ID']}"
+    end
+  end
+
   desc 'Produce a list of email addresses for which the MTA should reject messages at RCPT time'
   task :generate_mta_rejection_list => :environment do
     example = 'rake config_files:generate_mta_rejection_list MTA=(exim|postfix)'
