@@ -380,6 +380,27 @@ describe OutgoingMessage do
           not_to include("Please enter your letter requesting information")
       end
 
+      it "can cope with HTML entities in the message body" do
+        test_body = mock_model(PublicBody, :name => "D's Test Authority")
+
+        info_request = mock_model(InfoRequest, :public_body => test_body,
+                                               :url_title => 'a_test_title',
+                                               :title => 'a test title',
+                                               :applicable_censor_rules => [],
+                                               :apply_censor_rules_to_text! => nil,
+                                               :is_batch_request_template? => false)
+
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        outgoing_message.valid?
+        expect(outgoing_message.errors.messages[:body]).
+          not_to include("Please enter your letter requesting information")
+      end
+
       context "when default_letter text has been set" do
         before(:each) do
           allow_any_instance_of(OutgoingMessage).to receive(:default_letter).
