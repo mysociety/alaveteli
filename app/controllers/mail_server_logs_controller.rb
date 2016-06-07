@@ -13,6 +13,8 @@ class MailServerLogsController < ApplicationController
       log.line(:redact_idhash => !@user.super?)
     end
 
+    @delivery_status = @subject.delivery_status
+
     respond_to do |format|
       format.html
       format.text { render :text => @mail_server_logs.join }
