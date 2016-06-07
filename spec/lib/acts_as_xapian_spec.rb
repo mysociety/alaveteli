@@ -82,6 +82,7 @@ describe ActsAsXapian::Search do
   describe '#spelling_correction' do
 
     before :all do
+      load_raw_emails_data
       get_fixtures_xapian_index
       @alice = FactoryGirl.create(:public_body, :name => 'alice')
       @bob = FactoryGirl.create(:public_body, :name => 'bôbby')

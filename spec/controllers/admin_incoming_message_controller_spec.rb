@@ -251,7 +251,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
                             :ids => spam_ids.split(","),
                             :commit => "No"
 
-        expect(IncomingMessage.where(:id => spam_ids)).to eq([spam1, spam2])
+        expect(IncomingMessage.where(:id => spam_ids)).to match_array([spam1, spam2])
       end
 
       it "redirects back to the admin page for the request" do
