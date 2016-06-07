@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add delivery status parsing for Exim MTA (Gareth Rees)
 * Add accepted formats to commonly probed routes (Gareth Rees)
 * Added a library to give a spam score to a user (Gareth Rees)
 * Add ARIA landmark roles to improve accessibility (Martin Wright)
