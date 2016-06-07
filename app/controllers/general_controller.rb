@@ -81,6 +81,13 @@ class GeneralController < ApplicationController
   def search
     # TODO: Why is this so complicated with arrays and stuff? Look at the route
     # in config/routes.rb for comments.
+
+    # respond with a 404 and do not execute the search if request was not for html
+    unless request.format.html?
+      respond_to { |format| format.any { head :not_found } }
+      return
+    end
+
     combined = params[:combined].split("/")
     @sortby = nil
     @bodies = @requests = @users = true
