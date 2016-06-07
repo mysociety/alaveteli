@@ -51,12 +51,10 @@ parameters you can add to those URLs, either in the URL or from a form:
 * `body` - as an alternative to `default_letter`, this sets the default entire text of the request, so you can customise the salutation and signoff.
 * `tags` - space separated list of tags, so you can find and link up any requests made later, e.g. `openlylocal spending_id:12345`. The `:` indicates it is a machine tag. The values of machine tags may also include colons, useful for URIs.
 
-## Write API
+## Write API (Experimental)
 
 The write API is designed to be used by public bodies to create their own
-requests in the system. Currently used by mySociety's [FOI
-Register](https://github.com/mysociety/foi-register) software to support using
-Alaveteli as a disclosure log for all FOI activity at a particular public body.
+requests in the system.
 
 All requests must include an API key as a variable `k`. This key can be viewed
 on each authority's page in the admin interface. Other variables should be sent
