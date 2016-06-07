@@ -13,6 +13,7 @@ describe MailServerLogsController do
     @logs = lines.map do |line|
       mock_model(MailServerLog, :line => line, :is_owning_user? => true)
     end
+    @status = MailServerLog::EximDeliveryStatus.new(:normal_message_delivery)
   end
 
   describe 'GET index' do
@@ -23,7 +24,8 @@ describe MailServerLogsController do
         session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
-                                              :mail_server_logs => @logs)
+                                              :mail_server_logs => @logs,
+                                              :delivery_status => @status)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
         get :index, :outgoing_message_id => message.id
@@ -34,7 +36,8 @@ describe MailServerLogsController do
         session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => false,
-                                              :mail_server_logs => @logs)
+                                              :mail_server_logs => @logs,
+                                              :delivery_status => @status)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
         get :index, :outgoing_message_id => message.id
@@ -45,7 +48,8 @@ describe MailServerLogsController do
         session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
-                                              :mail_server_logs => @logs)
+                                              :mail_server_logs => @logs,
+                                              :delivery_status => @status)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
         get :index, :outgoing_message_id => message.id
@@ -62,7 +66,8 @@ describe MailServerLogsController do
         session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
-                                              :mail_server_logs => @logs)
+                                              :mail_server_logs => @logs,
+                                              :delivery_status => @status)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
         get :index, :outgoing_message_id => message.id
@@ -78,18 +83,37 @@ describe MailServerLogsController do
         session[:user_id] = FactoryGirl.create(:admin_user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
-                                              :mail_server_logs => @logs)
+                                              :mail_server_logs => @logs,
+                                              :delivery_status => @status)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
         get :index, :outgoing_message_id => message.id
         expect(assigns[:mail_server_logs]).to eq(@logs.map(&:line))
       end
 
+      it 'assigns the delivery status of the message' do
+        @logs.each do |log|
+          expect(log).
+            to receive(:line).with(:redact_idhash => false).and_return(log.line)
+        end
+
+        session[:user_id] = FactoryGirl.create(:admin_user).id
+        message = mock_model(OutgoingMessage, :id => '1',
+                                              :is_owning_user? => true,
+                                              :mail_server_logs => @logs,
+                                              :delivery_status => @status)
+        allow(OutgoingMessage).
+          to receive(:find).with(message.id).and_return(message)
+        get :index, :outgoing_message_id => message.id
+        expect(assigns[:delivery_status]).to eq(@status)
+      end
+
       it 'renders the index template if the request is for HTML' do
         session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
-                                              :mail_server_logs => @logs)
+                                              :mail_server_logs => @logs,
+                                              :delivery_status => @status)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
         get :index, :outgoing_message_id => message.id
@@ -100,7 +124,8 @@ describe MailServerLogsController do
         session[:user_id] = FactoryGirl.create(:user).id
         message = mock_model(OutgoingMessage, :id => '1',
                                               :is_owning_user? => true,
-                                              :mail_server_logs => @logs)
+                                              :mail_server_logs => @logs,
+                                              :delivery_status => @status)
         allow(OutgoingMessage).
           to receive(:find).with(message.id).and_return(message)
         get :index, :format => 'text',
