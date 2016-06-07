@@ -1063,6 +1063,72 @@ describe OutgoingMessage do
 
     end
 
+    describe '#delivery_status' do
+
+      it 'returns a delivery status for the most recent line with a parsable status' do
+        log_lines = <<-EOF.strip_heredoc.split("\n")
+        2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= request-123-abc987@example.net U=alaveteli P=local S=2252 id=ogm-14+537f69734b97c-1ebd@localhost T="FOI Request about stuff" from <request-123-abc987@example.net> for authority@example.com authority@example.com
+        2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => authority@example.com F=<request-123-abc987@example.net> P=<request-123-abc987@example.net> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+        EOF
+        logs = log_lines.map { |line| MailServerLog.new(:line => line) }
+        message = FactoryGirl.create(:initial_request)
+        allow(message).to receive(:mail_server_logs).and_return(logs)
+        status = MailServerLog::EximDeliveryStatus.new(:normal_message_delivery)
+        expect(message.delivery_status).to eq(status)
+      end
+
+      it 'returns a delivery status for a redelivered message' do
+        log_lines = <<-EOF.strip_heredoc.split("\n")
+        2016-04-06 12:01:07 [14928] 1anlCt-0003sm-LG <= request-326806-hk82iwn7@localhost U=alaveteli P=local S=1923 id=ogm-531356+5704ec7388370-456e@localhost T="Freedom of Information request - Some Information" from <request-326806-hk82iwn7@localhost> for foi@example.net foi@example.net
+        2016-04-06 12:01:08 [14933] 1anlCt-0003sm-LG ** foi@example.net F=<request-326806-hk82iwn7@localhost>: all relevant MX records point to non-existent hosts
+        2016-04-06 12:01:08 [14933] 1anlCt-0003sm-LG ** foi@example.net F=<request-326806-hk82iwn7@localhost>: all relevant MX records point to non-existent hosts
+        2016-04-06 12:01:08 [14935] 1anlCu-0003st-1p <= <> R=1anlCt-0003sm-LG U=Debian-exim P=local S=2934 T="Mail delivery failed: returning message to sender" from <> for request-326806-hk82iwn7@localhost
+        2016-04-22 13:13:03 [24970] 1atZxH-0006Uk-KF <= request-326806-hk82iwn7@localhost U=alaveteli P=local S=1923 id=ogm-531356+571a154f7b7c5-2a7e@localhost T="Freedom of Information request - Some Information" from <request-326806-hk82iwn7@localhost> for foi@example.net foi@example.net
+        2016-04-22 13:24:41 [29720] 1atZxH-0006Uk-KF => foi@example.net F=<request-326806-hk82iwn7@localhost> P=<request-326806-hk82iwn7@localhost> R=dnslookup T=remote_smtp S=1975 H=mail.example.net [213.161.89.103]:25 X=TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256 CV=no DN="ST=CA,L=CU,O=TREND,OU=IMSVA,CN=IMSVA.TREND" C="250 2.0.0 Ok: queued as 8D6E6AA66C" QT=11m38s DT=0s
+        EOF
+        logs = log_lines.map { |line| MailServerLog.new(:line => line) }
+        message = FactoryGirl.create(:initial_request)
+        allow(message).to receive(:mail_server_logs).and_return(logs)
+        status = MailServerLog::EximDeliveryStatus.new(:normal_message_delivery)
+        expect(message.delivery_status).to eq(status)
+      end
+
+      it 'returns a delivery status for a bounced message' do
+        log_lines = <<-EOF.strip_heredoc.split("\n")
+        2016-04-06 12:01:07 [14928] 1anlCt-0003sm-LG <= request-326806-hk82iwn7@localhost U=alaveteli P=local S=1923 id=ogm-326806+5704ec7388370-456e@localhost.com T="Freedom of Information request - Computers" from <request-326806-hk82iwn7@localhost> for foi@authority.net foi@authority.net
+        2016-04-06 12:01:08 [14933] 1anlCt-0003sm-LG ** foi@authority.net F=<request-326806-hk82iwn7@localhost>: all relevant MX records point to non-existent hosts
+        2016-04-06 12:01:08 [14933] 1anlCt-0003sm-LG ** foi@authority.net F=<request-326806-hk82iwn7@localhost>: all relevant MX records point to non-existent hosts
+        2016-04-06 12:01:08 [14935] 1anlCu-0003st-1p <= <> R=1anlCt-0003sm-LG U=Debian-exim P=local S=2934 T="Mail delivery failed: returning message to sender" from <> for request-326806-hk82iwn7@localhost
+        EOF
+        logs = log_lines.map { |line| MailServerLog.new(:line => line) }
+        message = FactoryGirl.create(:initial_request)
+        allow(message).to receive(:mail_server_logs).and_return(logs)
+        status = MailServerLog::EximDeliveryStatus.new(:bounce_arrival)
+        expect(message.delivery_status).to eq(status)
+      end
+
+      it 'returns a :sent delivery status when using postfix' do
+        # Postfix delivery status parsing is not yet implemented
+        allow(AlaveteliConfiguration).
+          to receive(:mta_log_type).and_return('postfix')
+        log_lines = <<-EOF.strip_heredoc.split("\n")
+        Oct  3 16:39:35 host postfix/pickup[2257]: CB55836EE58C: uid=1003 from=<foi+request-14-e0e09f97@example.com>
+        Oct  3 16:39:35 host postfix/cleanup[7674]: CB55836EE58C: message-id=<ogm-15+506bdda7a4551-20ee@example.com>
+        Oct  3 16:39:35 host postfix/qmgr[1673]: 9634B16F7F7: from=<foi+request-10-1234@example.com>, size=368, nrcpt=1 (queue active)
+        Oct  3 16:39:35 host postfix/qmgr[15615]: CB55836EE58C: from=<foi+request-14-e0e09f97@example.com>, size=1695, nrcpt=1 (queue active)
+        Oct  3 16:39:38 host postfix/smtp[7676]: CB55836EE58C: to=<foi@some.gov.au>, relay=aspmx.l.google.com[74.125.25.27]:25, delay=2.5, delays=0.13/0.02/1.7/0.59, dsn=2.0.0, status=sent (250 2.0.0 OK 1349246383 j9si1676296paw.328)
+        Oct  3 16:39:38 host postfix/smtp[1681]: 9634B16F7F7: to=<kdent@example.com>, relay=none, delay=46, status=deferred (connect to 216.150.150.131[216.150.150.131]: No route to host)
+        Oct  3 16:39:38 host postfix/qmgr[15615]: CB55836EE58C: removed
+        EOF
+        logs = log_lines.map { |line| MailServerLog.new(:line => line) }
+        message = FactoryGirl.create(:initial_request)
+        allow(message).to receive(:mail_server_logs).and_return(logs)
+        status = MailServerLog::PostfixDeliveryStatus.new(:sent)
+        expect(message.delivery_status).to eq(status)
+      end
+
+    end
+
   end
 
 end

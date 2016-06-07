@@ -261,6 +261,13 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  def delivery_status
+    mail_server_logs.
+      map { |log| log.line(:decorate => true).delivery_status }.
+        compact.
+          last
+  end
+
   # An admin function
   def prepare_message_for_resend
     if MESSAGE_TYPES.include?(message_type) and status == 'sent'
