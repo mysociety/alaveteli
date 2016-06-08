@@ -10,6 +10,7 @@ module AnalyticsEvent
 
   module Action
     FACEBOOK_EXIT = 'Facebook Exit'
+    MEDIUM_EXIT = 'Medium Exit'
     TWITTER_EXIT = 'Twitter Exit'
     WORDPRESS_EXIT = 'WordPress Exit'
     WIDGET_VOTE = 'Vote'

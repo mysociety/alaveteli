@@ -392,4 +392,18 @@ describe GeneralController, 'when using xapian search' do
     expect(response).to redirect_to(:action => 'search', :combined => "")
   end
 
+  context "when passed a non-HTML request" do
+
+    it "responds with a 404" do
+      get :search, :combined => '"fancy dog"', :format => :json
+      expect(response.status).to eq(404)
+    end
+
+    it "does not call the search" do
+      expect(controller).not_to receive(:perform_search)
+      get :search, :combined => '"fancy dog"', :format => :json
+    end
+
+  end
+
 end
