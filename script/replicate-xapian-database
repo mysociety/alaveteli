@@ -33,7 +33,7 @@ trap "echo Caught SIGCHLD; jobs -l" SIGCHLD
 xapian-replicate-server -p "$PORT" --one-shot "$XAPIAN_DB_DIR" &
 
 # Start client on remote host
-ssh -n "$REMOTEUSER"@"$REMOTEHOST" -- xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
+ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
 
 # Wait for both to finish
 wait || exit 1
