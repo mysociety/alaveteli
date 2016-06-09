@@ -84,6 +84,7 @@ $(document).ready(function() {
     var $toggle = $correspondence.find('.js-toggle-delivery-log');
     var $correspondence_delivery = $('<div>')
       .addClass('correspondence_delivery')
+      .addClass('correspondence_delivery--' + $toggle.attr('data-delivery-status'))
       .hide()
       .insertBefore( $correspondence.find('.correspondence_text') );
 
