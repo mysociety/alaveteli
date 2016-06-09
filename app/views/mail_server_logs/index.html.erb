@@ -1,6 +1,8 @@
 <h1><%= @title %></h1>
 
 <% if @mail_server_logs.any? %>
+  <h2><%= @delivery_status.humanize %></h2>
+
   <p>
     <%= _("These logs show what happened to this message as it passed through " \
           "our {{mta_type}} mail server. You can send these logs to an " \
