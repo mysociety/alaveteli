@@ -6,6 +6,8 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
     @title = _('Delivery Status for Outgoing Message #{{id}}',
                :id => @outgoing_message.id)
 
+    @delivery_status = @outgoing_message.delivery_status
+
     @show_mail_server_logs = @outgoing_message.is_owning_user?(@user)
 
     if @show_mail_server_logs
@@ -13,8 +15,6 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
         log.line(:redact_idhash => !@user.super?)
       end
     end
-
-    @delivery_status = @outgoing_message.delivery_status
 
     respond_to :html
   end
