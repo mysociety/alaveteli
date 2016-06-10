@@ -78,7 +78,7 @@ Alaveteli::Application.routes.draw do
 
   #### OutgoingMessage controller
   resources :outgoing_messages, :only => [] do
-    resources :mail_server_logs, :only => [:index]
+    resource :delivery_status, :only => [:show], :module => 'outgoing_messages'
   end
   ####
 
