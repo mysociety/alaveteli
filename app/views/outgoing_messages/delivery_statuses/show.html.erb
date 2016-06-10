@@ -2,6 +2,7 @@
 
 <% if @delivery_status %>
   <h2><%= @delivery_status.humanize %></h2>
+  <%= render :partial => @delivery_status.simple.to_s %>
 <% else %>
   <h2><%= _("We couldn't determine the delivery status of this message") %></h2>
 <% end %>
