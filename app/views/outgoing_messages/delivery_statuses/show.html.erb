@@ -1,6 +1,10 @@
 <h1><%= @title %></h1>
 
-<h2><%= @delivery_status.humanize %></h2>
+<% if @delivery_status %>
+  <h2><%= @delivery_status.humanize %></h2>
+<% else %>
+  <h2><%= _("We couldn't determine the delivery status of this message") %></h2>
+<% end %>
 
 <% if @show_mail_server_logs %>
   <% if @mail_server_logs.any? %>
