@@ -72,6 +72,100 @@ To be used in this way, SpamAssassin should be configured so that it just adds a
 
 If there is a lot of spam in the <a href="{{ page.baseurl }}/docs/running/holding_pen">holding pen</a>, you can delete it using the incoming message checkboxes on the admin page for the holding pen request. Find the holding pen by searching for 'holding_pen' on the requests page of the admin interface. In the 'incoming messages' section of the admin page for the holding pen request, you will see checkboxes and a 'Delete selected messages' button that you can use to delete multiple spam messages in one go.
 
+### Advanced feature - rejection of incoming messages at the MTA
+
+<div class="attention-box info">
+  To set this up you will need the ability to run `rake` tasks from the command line on your copy of Alaveteli, and the ability to change the configuration files of your MTA.
+</div>
+
+For requests that are finished but are receiving lots of incoming spam, there is the option to reject incoming messages at the MTA before they ever reach Alaveteli. One reason to do this is to reduce the load on the server that runs Alaveteli as processing incoming messages in Alaveteli does use some resources.
+
+You can generate a list of requests for which you may want to reject incoming mail at the MTA by executing:
+
+`bundle exec config_files:set_reject_incoming_at_mta REJECTED_THRESHOLD=5 AGE_IN_MONTHS=12`
+
+This will print out a list of requests that have **allow new responses from...**  set to  `nobody`, haven't been updated for at least a year and have received at least 5 incoming messages that were rejected. You can adjust the `REJECTED_THRESHOLD` and `AGE_IN_MONTHS` params until you get a suitable set of requests.
+
+Run the task with the additional parameter `DRYRUN=0`. This will flag each of these requests as rejecting incoming messages at the MTA. Within Alaveteli, this means that a warning will appear on these requests in the admin interface saying that mail for them is being rejected at the MTA, and admins will not be able to change the **allow new responses from...** and **handle rejected responses** settings for them.
+
+To produce a list of the email addresses associated with requests that are set to reject incoming mail at the MTA, you can use the task:
+
+    rake config_files:generate_mta_rejection_list MTA=exim
+
+Your MTA parameter should either be `exim` or `postfix`, depending on which MTA you're using. Save the output to a file `recipient-reject` in your Alaveteli `config` directory.
+
+Now you need to configure your MTA to actually reject mail for these request addresses at SMTP time.
+
+#### Exim configuration
+
+Edit the file `/etc/exim4/conf.d/acl/30_exim4-config_check_rcpt` to add the following lines before the final `accept` statement:
+
+    # Deny recipient addresses that now just get spam
+    deny   recipients     = /var/www/alaveteli/config/recipient-reject
+
+_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
+
+Now, execute the commands:
+
+    update-exim4.conf
+    service exim4 restart
+
+Incoming mail for any address in the file `/var/www/alaveteli/config/recipient-reject` should now be rejected by Exim. You can test this by running a simulated SMTP session in Exim:
+
+    exim -bh [some remote IP address]
+
+To test the mail rejection, issue the following commands in the session
+
+    HELO X
+
+    MAIL FROM: <test@local.domain>
+
+    RCPT TO: <foi+request-1234@example.com>
+
+If `foi+request-1234@example.com` is listed in your `recipient-reject` file, you should see the line
+`550 Administrative prohibition` in the response from Exim.
+
+#### Postfix configuration
+
+Add a line to  `/etc/postfix/main.cf` to indicate that Postfix should be checking the recipient-reject file,
+and not delivering messages for other destinations.
+
+    cat >> /etc/postfix/main.cf <<EOF
+    smtpd_recipient_restrictions=check_recipient_access hash:/var/www/alaveteli/config/recipient-reject,reject_unauth_destination
+
+_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
+
+Now, create a postfix lookup table from the file
+
+    postmap /var/www/alaveteli/config/recipient-reject
+
+Finally, restart postfix
+
+    service postfix restart
+
+Incoming mail for any address in `/var/www/alaveteli/config/recipient-reject` should now be rejected by Postfix. You can test this by initiating an SMTP session with the server:
+
+    telnet localhost 25
+
+To test the mail rejection, issue the following commands in the session
+
+    HELO X
+
+    MAIL FROM: <test@local.domain>
+
+    RCPT TO: <foi+request-1234@example.com>
+
+If `foi+request-1234@example.com` is listed in your `recipient-reject` file, you should see the line
+`554 5.7.1 <foi+request-1234@example.com>: Recipient address rejected: Access denied` in the response from Postfix.
+
+#### Unsetting rejection of incoming messages at the MTA
+
+You can unset the rejection of incoming messages at the MTA for a given request using the rake task `unset_reject_incoming_at_mta` e.g
+
+    bundle exec rake config_files:unset_reject_incoming_at_mta REQUEST_ID=4
+
+This will unset the flag that shows that mail is being rejected at the MTA, and set **allow new responses from...** to `authority_only` for the request.
+
 ## Spammy user profiles
 
 Spammers may create user accounts on Alaveteli just to publish spam links on their profile pages. You can find profiles with links in them by searching for "http" in the front end of Alaveteli and then selecting to show only users. You can delete spam user profiles - for more details on how to do this, see the admin manual section on [deleting a user]({{ page.baseurl }}/docs/running/admin_manual/#deleting-a-user).
