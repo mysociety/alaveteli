@@ -330,15 +330,15 @@ describe OutgoingMessage do
     end
 
     context "validation" do
-      let(:public_body) { mock_model(PublicBody, :name => 'a test public body') }
+      let(:public_body) do
+        FactoryGirl.create(:public_body, :name => 'a test public body')
+      end
 
       let(:info_request) do
-        mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => false)
+        FactoryGirl.create(:info_request,
+                           :public_body => public_body,
+                           :url_title => 'a_test_title',
+                           :title => 'A test title')
       end
 
       it "adds an error message if the text has not been changed" do
@@ -381,14 +381,13 @@ describe OutgoingMessage do
       end
 
       it "can cope with HTML entities in the message body" do
-        test_body = mock_model(PublicBody, :name => "D's Test Authority")
+        test_body = FactoryGirl.create(:public_body,
+                                       :name => "D's Test Authority")
 
-        info_request = mock_model(InfoRequest, :public_body => test_body,
-                                               :url_title => 'a_test_title',
-                                               :title => 'a test title',
-                                               :applicable_censor_rules => [],
-                                               :apply_censor_rules_to_text! => nil,
-                                               :is_batch_request_template? => false)
+        info_request = FactoryGirl.create(:info_request,
+                                          :public_body => test_body,
+                                          :url_title => 'a_test_title',
+                                          :title => 'A test title')
 
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
@@ -439,6 +438,40 @@ describe OutgoingMessage do
           outgoing_message.valid?
           expect(outgoing_message.errors.messages[:body]).
             to include("Please enter your letter requesting information")
+        end
+
+        context "when a censor rule changes the default text" do
+
+          before do
+            opts = { :text => 'Regulation 1049/2001',
+                   :replacement => 'the law',
+                   :last_edit_editor => 'unknown',
+                   :last_edit_comment => 'none' }
+            CensorRule.create!(opts)
+
+            outgoing_message.apply_masks(outgoing_message.body, 'text/plain')
+          end
+
+          it "copes with a global censor rule that affects the default text" do
+            outgoing_message.valid?
+            expect(outgoing_message.errors.messages[:body]).
+              to include("Please enter your letter requesting information")
+          end
+
+          it "copes with a global censor rule that affects the signature text" do
+            opts = { :text => 'Yours faithfully,',
+                   :replacement => 'Cheers!',
+                   :last_edit_editor => 'unknown',
+                   :last_edit_comment => 'none' }
+            CensorRule.create!(opts)
+            outgoing_message.apply_masks(outgoing_message.body, 'text/plain')
+
+            outgoing_message.valid?
+            expect(outgoing_message.errors.messages[:body]).
+              to include("Please sign at the bottom with your name, or alter " \
+                     "the \"Yours faithfully,\" signature")
+          end
+
         end
 
       end
