@@ -85,12 +85,9 @@ group :test, :development do
 end
 
 group :development do
+  gem 'annotate', '~> 2.7.1'
   gem 'capistrano', '~> 2.15.4'
   gem 'mailcatcher', '~> 0.5.12'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'rdoc', '~> 3.12.2'
-end
-
-group :debug do
-  gem 'annotate', '~> 2.7.1'
 end
