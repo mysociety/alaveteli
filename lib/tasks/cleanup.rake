@@ -24,7 +24,10 @@ namespace :cleanup do
 
     results = {}
     User.includes(:info_requests).
-      where("info_requests.user_id IS NULL AND about_me LIKE '%http%' AND ban_text = ''").
+      where("info_requests.user_id IS NULL
+             AND about_me LIKE '%http%'
+             AND ban_text = ''
+             AND confirmed_not_spam = ?", false).
         order("users.created_at DESC").find_each do |user|
           results[user.id] = spam_scorer.score(user)
     end

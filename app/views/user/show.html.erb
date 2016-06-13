@@ -91,14 +91,16 @@
       </p>
 
       <p>
-        <% if @is_you %>
-          <%= link_to _('Send message to {{user_name}} just to see how it works',
-                        :user_name => h(@display_user.name)),
-                      contact_user_path(:id => @display_user.id) %>
-        <% else %>
-          <%= link_to _('Send message to {{user_name}}',
-                        :user_name => h(@display_user.name)),
-                      contact_user_path(:id => @display_user.id) %>
+        <% unless @display_user.banned? %>
+          <% if @is_you %>
+            <%= link_to _('Send message to {{user_name}} just to see how it works',
+                          :user_name => h(@display_user.name)),
+                        contact_user_path(:id => @display_user.id) %>
+          <% else %>
+            <%= link_to _('Send message to {{user_name}}',
+                          :user_name => h(@display_user.name)),
+                        contact_user_path(:id => @display_user.id) %>
+          <% end %>
         <% end %>
       </p>
 
