@@ -7,7 +7,7 @@
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
 # codefornepal <codefornepal@gmail.com>, 2015
 # Pawan Kumar Kandel <pkkandel1@gmail.com>, 2016
-# Saroj  Dhakal <lotusnagarkot@gmail.com>, 2016
+# Saroj Dhakal <lotusnagarkot@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

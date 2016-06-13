@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-04-15 17:10+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2016-05-10 15:05+0000\n"
+"Last-Translator: Mattias A\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgid "<p>You do not need to include your email in the request in order to get a
 msgstr "<p>Du behöver inte inkludera din e-post i begäran för att få ett svar, då vi kommer att be om det på nästa skärm (<a href=\"{{url}}\">detaljer</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
-msgstr "<p>Din ansökan innehåller ett <strong>postnummer</strong>. Om det inte direkt relaterar till ämnet för din begäran, ta bort alla adresser då det kommer att <strong>visas offentligt på Internet</strong>.</p>"
+msgstr "<p>Din ansökan innehåller ett <strong>postnummer</strong>. Om det inte direkt relaterar till ämnet för din begäran, ta bort alla adresser eftersom det kommer att <strong>visas offentligt på Internet</strong>.</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} är för närvarande i underhåll. Du kan bara visa befintliga önskemål. Du kan inte göra några nya, lägga till uppföljningar eller kommentarer, eller annars ändra i databasen.</p> <p>{{read_only}}</p>"
@@ -254,7 +254,7 @@ msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em>
 msgstr "En<a href=\"{{request_url}}\">uppföljning</a> till <em>{{request_title}}</em> skickades till {{public_body_name}} av {{info_request_user}} den {{date}}."
 
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
-msgstr "Ett <a href=\"{{request_url}}\">svar</a> till <em>{{request_title}}</em> skickades av {{public_body_name}} till {{info_request_user}} den {{datum}}. Status på begäran är: {{request_status}}"
+msgstr "Ett <a href=\"{{request_url}}\">svar</a> till <em>{{request_title}}</em> skickades av {{public_body_name}} till {{info_request_user}} den {{date}}. Status på begäran är: {{request_status}}"
 
 msgid "A <strong>summary</strong> of the response if you have received it by post. "
 msgstr "En <strong>sammanfattning</strong> av svaret om du har fått den per post."
@@ -458,7 +458,7 @@ msgid "Banned users cannot edit their profile"
 msgstr "Bannlysta användare kan inte redigera sin profil"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
-msgstr "Batchen skapades av {{info_request_user}} den {{datum}}."
+msgstr "Bunten skapades av {{info_request_user}} den {{date}}."
 
 msgid "Beginning with"
 msgstr "Börjar med"
@@ -1063,7 +1063,7 @@ msgid "Hello! You can make Freedom of Information requests within {{country_name
 msgstr "Hej! Du kan också göra förfrågningar om allmän handling inom {{country_name} vid {{link_to_website}} och till EU-institutioner vid {{link_to_asktheeu}}"
 
 msgid "Hello, {{username}}!"
-msgstr "Hej, {{username}}!"
+msgstr "Hej {{username}}!"
 
 msgid "Help"
 msgstr "Hjälp"
@@ -1396,7 +1396,7 @@ msgid "Joined in {{year}}."
 msgstr "Gick med under {{year}}."
 
 msgid "Joined {{site_name}} in {{year}}"
-msgstr "Gick med på {{site_name}} under {{year}}"
+msgstr "Gick med i {{site_name}} under {{year}}"
 
 msgid "Just one more thing"
 msgstr "Bara en sak till"
@@ -2238,16 +2238,16 @@ msgid "Request has been removed"
 msgstr "Begäran har tagits bort"
 
 msgid "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "Begäran skickad till {{public_body_name}} av {{info_request_user}} på {{datum}}."
+msgstr "Begäran skickad till {{public_body_name}} av {{info_request_user}} den {{date}}."
 
 msgid "Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}."
-msgstr "Begäran till {{public_body_name}} av {{info_request_user}}. Kommenterad av{{event_comment_user}} på {{datum}}."
+msgstr "Begäran till {{public_body_name}} av {{info_request_user}}. Kommenterad av {{event_comment_user}} den {{date}}."
 
 msgid "Requested from {{public_body_name}} by {{info_request_user}} on {{date}}"
-msgstr "Begärt från {{public_body_name}} av {{info_request_user}} på {{datum}}"
+msgstr "Begärt från {{public_body_name}} av {{info_request_user}} den {{date}}"
 
 msgid "Requested on {{date}}"
-msgstr "Begärd på {{datum}}"
+msgstr "Begärd den {{date}}"
 
 msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
 msgstr "Begäran anses förfallna om de är i 'Försenade' eller 'Mycket försenade' statusar."
@@ -2286,7 +2286,7 @@ msgid "Response"
 msgstr "Svar"
 
 msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "Svar från {{public_body_name}} till {{info_request_user}} på {{datum}}."
+msgstr "Svar från {{public_body_name}} till {{info_request_user}} den {{date}}."
 
 msgid "Response from a public authority"
 msgstr "Svar från en publik myndighet"
@@ -2389,8 +2389,8 @@ msgstr "Skickar..."
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
-msgstr[0] "Skickat till en myndighet av {{info_request_user}} på {{datum}}."
-msgstr[1] "Skickat till {{authority_count}} myndighetern av {{info_request_user}} på {{date}}."
+msgstr[0] "Skickat till en myndighet av {{info_request_user}} den {{date}}."
+msgstr[1] "Skickat till {{authority_count}} myndigheter av {{info_request_user}} den {{date}}."
 
 msgid "Set your profile photo"
 msgstr "Ställ in din profilbild"
@@ -3915,7 +3915,7 @@ msgid "internal reviews"
 msgstr "interna granskningar"
 
 msgid "logged in as user {{user_name}}"
-msgstr ""
+msgstr "inloggad som användare {{user_name}}"
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr "matchar taggen ‘{{tag_name}}’"
@@ -3945,7 +3945,7 @@ msgid "normally"
 msgstr "normalt"
 
 msgid "not logged in"
-msgstr ""
+msgstr "inte inloggad"
 
 msgid "not requestable due to: {{reason}}"
 msgstr "inte möjlig att begära på grund av: {{reason}}"
