@@ -11,7 +11,7 @@
 # baragouiner <graham.craig@gmail.com>, 2013
 # baragouiner <graham.craig@gmail.com>, 2013
 # Huw Waters <huwwaters@gmail.com>, 2013
-# Huw Waters <huwwaters@gmail.com>, 2013,2015
+# Huw Waters <huwwaters@gmail.com>, 2013,2015-2016
 # hywelm <hywelm.jones@talk21.com>, 2013
 # hywelm <hywelm.jones@talk21.com>, 2013
 # hywelm <hywelm.jones@talk21.com>, 2013
@@ -24,8 +24,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-04-15 17:47+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2016-05-20 23:02+0000\n"
+"Last-Translator: Huw Waters <huwwaters@gmail.com>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -686,7 +686,7 @@ msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and 
 msgstr "Methwyd â deall y ffeil ddelwedd yr ydych yn llwytho i fyny. Cefnogir PNG, JPEG, GIF a llawer o fformatau ffeil delwedd cyffredin eraill."
 
 msgid "Create a new account"
-msgstr ""
+msgstr "Creu cyfrif newydd"
 
 msgid "Create a widget for this request"
 msgstr ""
@@ -2411,7 +2411,7 @@ msgid "Set your profile photo"
 msgstr "Gosodwch lun eich proffil"
 
 msgid "Share on Facebook"
-msgstr ""
+msgstr "Rhannu ar Facebook"
 
 msgid "Share your batch request"
 msgstr ""
