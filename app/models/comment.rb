@@ -24,7 +24,7 @@ class Comment < ActiveRecord::Base
   include AdminColumn
   strip_attributes :allow_empty => true
 
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   belongs_to :info_request
   has_many :info_request_events # in practice only ever has one
 
