@@ -38,7 +38,8 @@ describe AdminUserController, "when updating a user" do
                                                    :admin_level => user.admin_level,
                                                    :ban_text => user.ban_text,
                                                    :about_me => user.about_me,
-                                                   :no_limit => user.no_limit}}
+                                                   :no_limit => user.no_limit,
+                                                   :confirmed_not_spam => user.confirmed_not_spam}}
     expect(flash[:notice]).to eq('User successfully updated.')
     expect(response).to be_redirect
     user = User.find(user.id)
@@ -54,7 +55,8 @@ describe AdminUserController, "when updating a user" do
                                                    :admin_level => user.admin_level,
                                                    :ban_text => user.ban_text,
                                                    :about_me => user.about_me,
-                                                   :no_limit => user.no_limit}}
+                                                   :no_limit => user.no_limit,
+                                                   :confirmed_not_spam => user.confirmed_not_spam}}
     user = User.find(user.id)
     expect(user.email).to eq('user1@localhost')
   end

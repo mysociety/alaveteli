@@ -54,6 +54,15 @@
       <%= link_to "View raw email", admin_raw_email_path(incoming_message.raw_email_id), :class => "btn" %>
     </div>
   </div>
+  <div class="control-group">
+    <label class="control-label">Download</label>
+    <div class="controls">
+      <%= link_to "Download",  admin_raw_email_path(incoming_message.raw_email, :format => 'txt'), :class => "btn" %>
+    </div>
+  </div>
+
+
 <% end %>
+
 
 </fieldset>

@@ -55,13 +55,36 @@ describe UserSpamScorer do
   describe '#score' do
 
     it 'returns 0 if no mappings return true' do
-      user = mock_model(User, :name => 'Bob Smith')
+      user_attrs = { :name => 'Bob Smith',
+                     :comments => [],
+                     :track_things => [] }
+      user = mock_model(User, user_attrs)
       scorer = described_class.new(:score_mappings => {})
       expect(scorer.score(user)).to eq(0)
     end
 
+    it 'returns 0 if the user has comments' do
+      user_attrs = { :name => 'dubious',
+                     :comments => [double],
+                     :track_things => [] }
+      user = mock_model(User, user_attrs)
+      expect(subject.score(user)).to eq(0)
+    end
+
+    it 'returns 0 if the user has track_things' do
+      user_attrs = { :name => 'dubious',
+                     :comments => [],
+                     :track_things => [double] }
+      user = mock_model(User, user_attrs)
+      expect(subject.score(user)).to eq(0)
+    end
+
     it 'increases the score for each score mapping that returns true' do
-      user = mock_model(User, :name => 'Spammer', :email_domain => 'mail.ru')
+      user_attrs = { :name => 'Spammer',
+                     :email_domain => 'mail.ru',
+                     :comments => [],
+                     :track_things => [] }
+      user = mock_model(User, user_attrs)
       opts = { :score_mappings => { :name_is_all_lowercase? => 1,
                                     :name_is_one_word? => 2,
                                     :email_from_spam_domain? => 3 } }
@@ -70,7 +93,10 @@ describe UserSpamScorer do
     end
 
     it 'raises an error if a mapping is invalid' do
-      user = mock_model(User, :name => 'Bob Smith')
+      user_attrs = { :name => 'Bob Smith',
+                     :comments => [],
+                     :track_things => [] }
+      user = mock_model(User, user_attrs)
       scorer = described_class.new(:score_mappings => { :invalid_method => 1 })
       expect{ scorer.score(user) }.to raise_error(NoMethodError)
     end

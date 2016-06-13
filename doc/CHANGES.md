@@ -30,6 +30,9 @@
   "universal" `analytics.js` version (Liz Conlan)
 * Added a helper and new lib file to standardise click tracking with Google
   Analytics events (Liz Conlan)
+* The raw email associated with an incoming message can now be downloaded from
+  the admin page for that message without having to view the raw email first
+  (Louise Crow)
 
 ## Upgrade Notes
 
