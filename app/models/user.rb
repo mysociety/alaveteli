@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   has_many :post_redirects, :order => 'created_at desc'
   has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
   has_many :comments, :order => 'created_at desc'
+  has_many :public_body_change_requests, :order => 'created_at desc'
   has_one :profile_photo
   has_many :censor_rules, :order => 'created_at desc'
   has_many :info_request_batches, :order => 'created_at desc'
