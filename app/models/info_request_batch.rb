@@ -14,7 +14,7 @@
 
 class InfoRequestBatch < ActiveRecord::Base
   has_many :info_requests
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   has_and_belongs_to_many :public_bodies
 
   validates_presence_of :user

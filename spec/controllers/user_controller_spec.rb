@@ -407,8 +407,8 @@ describe UserController, "when showing a user" do
                          :event_type => 'comment',
                          :comment => comment2,
                          :info_request => shown_request)
-      expect(@user.comments.size).to eq(2)
-      expect(@user.comments.visible.size).to eq(1)
+      expect(@user.reload.comments.size).to eq(2)
+      expect(@user.reload.comments.visible.size).to eq(1)
       update_xapian_index
 
       make_request

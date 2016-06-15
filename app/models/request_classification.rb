@@ -11,7 +11,7 @@
 #
 
 class RequestClassification < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   belongs_to :info_request_event
 
   # return classification instances representing the top n

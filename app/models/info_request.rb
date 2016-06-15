@@ -59,7 +59,7 @@ class InfoRequest < ActiveRecord::Base
                   'email. You can use a phrase, rather than a full sentence.')
   }
 
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   validate :must_be_internal_or_external
 
   belongs_to :public_body, :counter_cache => true
