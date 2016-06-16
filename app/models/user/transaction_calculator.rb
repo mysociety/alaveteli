@@ -47,6 +47,36 @@ class User
       end
     end
 
+    # Public: Hash of total transactions grouped by month.
+    # Months with no transactions are not included
+    #
+    # Returns a Hash
+    def total_per_month
+      results = transaction_associations.reduce({}) do |memo, assoc|
+        # Get the grouped counts for the association
+        assoc_results =
+          user.
+            send(assoc).
+              group("DATE_TRUNC('month', created_at)").
+                reorder("date_trunc_month_created_at").
+                  count
+
+        # Add the counts to existing keys, or set new keys if they don't exist
+        assoc_results.each do |key, value|
+          memo[key] ||= 0
+          memo[key] += value
+        end
+
+        memo
+      end
+
+      # Convert DateTime keys to String keys
+      results.reduce({}) do |memo, pair|
+        memo[pair.first.to_date.to_s] = pair.last
+        memo
+      end
+    end
+
     private
 
     def range_total_count(range)

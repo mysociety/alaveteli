@@ -144,4 +144,29 @@ describe User::TransactionCalculator do
 
   end
 
+  describe '#total_per_month' do
+
+    it 'returns a hash containing the total transactions grouped by month' do
+      time_travel_to(Date.parse('2016-01-05')) do
+        FactoryGirl.create(:comment, :user => user)
+      end
+
+      time_travel_to(Date.parse('2016-01-05')) do
+        FactoryGirl.create(:info_request, :user => user)
+      end
+
+      time_travel_to(Date.parse('2016-01-05') + 1.hour) do
+        FactoryGirl.create(:info_request, :user => user)
+      end
+
+      time_travel_to(Date.parse('2016-03-06')) do
+        FactoryGirl.create(:comment, :user => user)
+      end
+
+      expect(subject.total_per_month).
+        to eq({ '2016-01-01' => 3, '2016-03-01' => 1 })
+    end
+
+  end
+
 end
