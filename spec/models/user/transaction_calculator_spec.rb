@@ -169,4 +169,28 @@ describe User::TransactionCalculator do
 
   end
 
+  describe '#average_per_month' do
+
+    it 'returns the average transactions per month' do
+      time_travel_to(Date.parse('2016-01-01'))
+      user = FactoryGirl.create(:user)
+      back_to_the_present
+
+      time_travel_to(Date.parse('2016-02-01')) do
+        3.times { FactoryGirl.create(:comment, :user => user) }
+      end
+
+      time_travel_to(Date.parse('2016-04-01')) do
+        3.times { FactoryGirl.create(:comment, :user => user) }
+      end
+
+      subject = described_class.new(user)
+
+      time_travel_to(Date.parse('2016-04-30')) do
+        expect(subject.average_per_month).to eq(1.5)
+      end
+    end
+
+  end
+
 end

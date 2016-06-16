@@ -77,6 +77,14 @@ class User
       end
     end
 
+    # Public: Returns the average transactions per month since the User was
+    # created.
+    #
+    # Returns a Float
+    def average_per_month
+      total / approx_user_age_in_months.to_f
+    end
+
     private
 
     def range_total_count(range)
@@ -102,6 +110,11 @@ class User
       else
         raise ArgumentError, "Invalid range `:#{ symbol }'"
       end
+    end
+
+    def approx_user_age_in_months
+      difference_in_days = Time.zone.now.to_date - user.created_at.to_date
+      (difference_in_days / 30).floor
     end
   end
 end
