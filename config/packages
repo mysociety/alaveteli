@@ -31,7 +31,6 @@ rdoc | rdoc1.9.1
 ruby
 ruby1.9.1
 ruby1.9.1-dev
-rubygems (>= 1.8.15)
 sqlite3
 tnef (>= 1.4.5)
 ttf-bitstream-vera
