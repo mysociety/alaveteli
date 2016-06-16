@@ -183,6 +183,12 @@ class User < ActiveRecord::Base
                 user.name, true, user.id).order(:created_at)
   end
 
+  def transactions(*associations)
+    opts = {}
+    opts[:transaction_associations] = associations if associations.any?
+    TransactionCalculator.new(self, opts)
+  end
+
   def created_at_numeric
     # format it here as no datetime support in Xapian's value ranges
     created_at.strftime("%Y%m%d%H%M%S")
