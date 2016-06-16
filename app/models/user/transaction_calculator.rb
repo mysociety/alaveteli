@@ -85,6 +85,11 @@ class User
       total / approx_user_age_in_months.to_f
     end
 
+    def ==(other)
+      user == other.user &&
+        transaction_associations.sort == other.transaction_associations.sort
+    end
+
     private
 
     def range_total_count(range)

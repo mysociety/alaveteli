@@ -193,4 +193,32 @@ describe User::TransactionCalculator do
 
   end
 
+  describe '#==' do
+
+    it 'returns true if the user and transactions are equal' do
+      expect(described_class.new(user)).to eq(described_class.new(user))
+    end
+
+    it 'returns true if the transactions are in a different order' do
+      list1 = [:comments, :info_requests]
+      list2 = [:info_requests, :comments]
+      calc1 = described_class.new(user, :transaction_associations => list1)
+      calc2 = described_class.new(user, :transaction_associations => list2)
+      expect(calc1).to eq(calc2)
+    end
+
+    it 'returns false if the user is different' do
+      expect(described_class.new(user)).not_to eq(described_class.new(User.new))
+    end
+
+    it 'returns false if the transactions are different' do
+      list1 = [:comments, :info_requests]
+      list2 = [:comments]
+      calc1 = described_class.new(user, :transaction_associations => list1)
+      calc2 = described_class.new(user, :transaction_associations => list2)
+      expect(calc1).not_to eq(calc2)
+    end
+
+  end
+
 end
