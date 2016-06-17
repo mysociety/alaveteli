@@ -58,4 +58,29 @@ module Mail
 
   end
 
+  module Encodings
+
+    def Encodings.collapse_adjacent_encodings(str)
+      lines = str.split(/(\?\=)\s*/).each_slice(2).map(&:join).each_slice(2).map(&:join)
+      results = []
+      previous_encoding = nil
+
+      lines.each do |line|
+        encoding = split_value_encoding_from_string(line)
+        return lines if results.empty? && encoding == "B"
+
+        if encoding == previous_encoding
+          line = results.pop + line
+          line.gsub!(/\?\=\=\?.+?\?[QqBb]\?/m, '')
+        end
+
+        previous_encoding = encoding
+        results << line
+      end
+
+      results
+    end
+
+  end
+
 end
