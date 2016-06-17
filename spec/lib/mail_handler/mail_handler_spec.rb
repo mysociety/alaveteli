@@ -57,6 +57,13 @@ describe 'when creating a mail object from raw data' do
     expect(mail.subject).to eq('hello')
   end
 
+
+  it 'should handle a UTF-7 subject' do
+    mail = get_fixture_mail('utf-7-subject.email')
+    expect(mail.subject).
+      to eq('Va+AWE-e emailov+AOE- zpr+AOE-va byla p+AVk-evzata')
+  end
+
   it 'should convert a Windows-1252 body mislabelled as ISO-8859-1 to UTF-8' do
     mail = get_fixture_mail('mislabelled-as-iso-8859-1.email')
     body = MailHandler.get_part_body(mail)

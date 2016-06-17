@@ -38,18 +38,22 @@ module Mail
   class Ruby19
 
     def self.b_value_decode(str)
-      match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
+      match = str.match(/\=\?(.+)?\?[Bb]\?(.*)\?\=/m)
       if match
         charset = match[1]
         str = Ruby19.decode_base64(match[2])
-        # Rescue an ArgumentError arising from an unknown encoding.
-        begin
-          str.force_encoding(pick_encoding(charset))
-        rescue ArgumentError
-        end
+        # The commented line below is the actual implementation in a217776
+        # (https://git.io/vozPG) but we don't have a `charset_encoder` object
+        # available, so revert to the behaviour of the default
+        # Mail::Ruby19::StrictCharsetEncoder#encode (https://git.io/vozXb).
+        # str = charset_encoder.encode(str, charset)
+        str.force_encoding(Mail::Ruby19.pick_encoding(charset))
       end
-      decoded = str.encode("utf-8", :invalid => :replace, :replace => "")
-      decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
+      decoded = str.encode(Encoding::UTF_8, :undef => :replace, :invalid => :replace, :replace => "")
+      decoded.valid_encoding? ? decoded : decoded.encode(Encoding::UTF_16LE, :invalid => :replace, :replace => "").encode(Encoding::UTF_8)
+    rescue Encoding::UndefinedConversionError, ArgumentError, Encoding::ConverterNotFoundError
+      warn "Encoding conversion failed #{$!}"
+      str.dup.force_encoding(Encoding::UTF_8)
     end
 
   end
