@@ -20,11 +20,13 @@ describe OutgoingMessages::DeliveryStatusesController do
 
     it 'assigns the outgoing message' do
       session[:user_id] = FactoryGirl.create(:user).id
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => true,
-                                            :is_owning_user? => true,
-                                            :mail_server_logs => @logs,
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => true,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
@@ -33,11 +35,28 @@ describe OutgoingMessages::DeliveryStatusesController do
 
     it 'renders hidden when the message cannot be viewed' do
       session[:user_id] = FactoryGirl.create(:user).id
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => false,
-                                            :is_owning_user? => false,
-                                            :mail_server_logs => @logs,
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => false,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => false,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
+      allow(OutgoingMessage).
+        to receive(:find).with(message.id).and_return(message)
+      get :show, :outgoing_message_id => message.id
+      expect(response).to render_template('request/_hidden_correspondence')
+    end
+
+    it 'renders hidden when the request cannot be viewed' do
+      session[:user_id] = FactoryGirl.create(:user).id
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => false),
+                :is_owning_user? => false,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
@@ -46,11 +65,13 @@ describe OutgoingMessages::DeliveryStatusesController do
 
     it 'sets the title' do
       session[:user_id] = FactoryGirl.create(:user).id
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => true,
-                                            :is_owning_user? => true,
-                                            :mail_server_logs => @logs,
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => true,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
@@ -65,11 +86,13 @@ describe OutgoingMessages::DeliveryStatusesController do
       end
 
       session[:user_id] = FactoryGirl.create(:admin_user).id
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => true,
-                                            :is_owning_user? => true,
-                                            :mail_server_logs => @logs,
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => true,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
@@ -78,11 +101,13 @@ describe OutgoingMessages::DeliveryStatusesController do
 
     it 'sets show_mail_server_logs to true if the user is an owner' do
       session[:user_id] = FactoryGirl.create(:user).id
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => true,
-                                            :is_owning_user? => true,
-                                            :mail_server_logs => @logs,
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => true,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
@@ -91,11 +116,13 @@ describe OutgoingMessages::DeliveryStatusesController do
 
     it 'sets show_mail_server_logs to false if the user is not an owner' do
       session[:user_id] = FactoryGirl.create(:user).id
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => true,
-                                            :is_owning_user? => false,
-                                            :mail_server_logs => @logs,
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => false,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
@@ -109,11 +136,13 @@ describe OutgoingMessages::DeliveryStatusesController do
       end
 
       session[:user_id] = FactoryGirl.create(:user).id
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => true,
-                                            :is_owning_user? => true,
-                                            :mail_server_logs => @logs,
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => true,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
@@ -127,11 +156,13 @@ describe OutgoingMessages::DeliveryStatusesController do
       end
 
       session[:user_id] = FactoryGirl.create(:admin_user).id
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => true,
-                                            :is_owning_user? => true,
-                                            :mail_server_logs => @logs,
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => true,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
@@ -139,11 +170,13 @@ describe OutgoingMessages::DeliveryStatusesController do
     end
 
     it 'does not assign mail server logs for a regular user' do
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => true,
-                                            :is_owning_user? => false,
-                                            :mail_server_logs => [],
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => false,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
@@ -152,11 +185,13 @@ describe OutgoingMessages::DeliveryStatusesController do
 
     it 'renders the show template' do
       session[:user_id] = FactoryGirl.create(:user).id
-      message = mock_model(OutgoingMessage, :id => '1',
-                                            :user_can_view? => true,
-                                            :is_owning_user? => true,
-                                            :mail_server_logs => @logs,
-                                            :delivery_status => @status)
+      attrs = { :id => '1',
+                :user_can_view? => true,
+                :info_request => double(:user_can_view? => true),
+                :is_owning_user? => true,
+                :mail_server_logs => @logs,
+                :delivery_status => @status }
+      message = mock_model(OutgoingMessage, attrs)
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, :outgoing_message_id => message.id
