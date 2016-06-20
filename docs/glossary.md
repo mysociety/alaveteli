@@ -92,7 +92,7 @@ Definitions
         </li>
         <li>
           For lots more about running an Alaveteli site, see the
-          <a href="{{ page.baseurl }}/running/admin_manual">adminstrator's guide</a>.
+          <a href="{{ page.baseurl }}/running/admin_manual">administrator's guide</a>.
         </li>
       </ul>
     </div>
@@ -190,7 +190,7 @@ Definitions
           Authorities are usually, but not always, public bodies that are obliged by the local
           <a href="#foi" class="glossary__link">Freedom of Information</a> (FoI) law to respond. Sometimes an
           Alaveteli site is set up in a jurisdiction that does not yet have FoI law. In the UK,
-          we add some authorites to our <a href="https://www.whatdotheyknow.com">WhaDoTheyKnow</a>
+          we add some authorities to our <a href="https://www.whatdotheyknow.com">WhaDoTheyKnow</a>
           site that are not subject to FoI law, but which have either voluntarily submitted themselves
           to it, or which we believe should be accountable in this way.
         </li>
@@ -214,7 +214,6 @@ Definitions
     enabled, but Alaveteli does support it. To allow batch requests to be sent,
     you need to both enable the feature and then grant permission to use it
     on a user-by-user basis.
-    </p>
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -476,8 +475,8 @@ Definitions
   </dt>
   <dd>
     <p>
-      In the absence of a <a href="#geoip-database">GeoIP database</a>, Alateveli uses
-      mySociety's gazeteer service, called Gaze, to determine each user's country from
+      In the absence of a <a href="#geoip-database">GeoIP database</a>, Alaveteli uses
+      mySociety's gazetteer service, called Gaze, to determine each user's country from
       their incoming IP address. This lets the site suggest an Alaveteli site in their
       country, if one exists.
     </p>
@@ -639,7 +638,7 @@ Definitions
     A <strong>Mail Transfer Agent</strong> is the the program which actually sends
     and receives email. Alaveteli sends email on behalf of its users, and processes
     the <a href="#response" class="glossary__link">responses</a> and replies it receives.
-    All this email goes through the MTA, which is a seperate service on your system.
+    All this email goes through the MTA, which is a separate service on your system.
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -673,7 +672,7 @@ Definitions
         </li>
         <li>
           the <a href="http://newrelic.com">New Relic website</a>: if you've enabled the service,
-          you can log in to inspect the perfomance analytics
+          you can log in to inspect the performance analytics
         </li>
       </ul>
     </div>
@@ -751,7 +750,7 @@ Definitions
   </dt>
   <dd>
     Alaveteli works by <strong>publishing</strong> the
-    <a href="#response" class="glossary__link">responses</a> it recieves to the
+    <a href="#response" class="glossary__link">responses</a> it receives to the
     <a href="#foi" class="glossary__link">Freedom of Information</a>
     <a href="#request" class="glossary__link">requests</a> that its users send.
     It does this by processing the emails it receives and presenting them
@@ -1195,7 +1194,7 @@ Definitions
     <p>
       In fact, WhatDoTheyKnow predates Alaveteli because the site started in
       2008, and was the foundation of the redeployable, customisable
-      Alaveteli plattorm released in 2011.
+      Alaveteli platform released in 2011.
     </p>
     <div class="more-info">
       <p>More information:</p>
