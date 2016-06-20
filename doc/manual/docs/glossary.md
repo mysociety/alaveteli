@@ -733,6 +733,7 @@ Definitions
       to <code>0</code>. Note that if you <em>change</em> this setting after you've
       deployed, the <code>rails_env.rb</code> file that enables Rails's production
       mode won't be created until you run <code>rails-post-deploy</code>.
+    </p>
     <p>
       If you have a staging server, the system environment of your staging and
       production servers should be identical.
