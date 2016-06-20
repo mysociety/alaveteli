@@ -1242,14 +1242,17 @@ SHARED_DIRECTORIES:
     <a name="allow_batch_requests"><code>ALLOW_BATCH_REQUESTS</code></a>
   </dt>
   <dd>
-     Allow some users to make batch requests to multiple authorities. Once
-     this is set to true, you can enable batch requests for an individual
-     user via the user admin page.
+    Allow some users to make batch requests to multiple authorities. Once
+    this is set to true, you can enable batch requests for an individual
+    user via the user admin page. The admin manual has
+    <a href="{{ page.baseurl }}/docs/running/admin_manual/#batch-requests">more
+    about batch requests</a> including why you should be cautious about enabling
+    this feature.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>ALLOW_BATCH_REQUESTS: false</code>
+          <code>ALLOW_BATCH_REQUESTS: false</code>
         </li>
       </ul>
     </div>
