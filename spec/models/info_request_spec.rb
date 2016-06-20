@@ -23,6 +23,8 @@
 #  comments_allowed          :boolean          default(TRUE), not null
 #  info_request_batch_id     :integer
 #  last_public_response_at   :datetime
+#  reject_incoming_at_mta    :boolean          default(FALSE), not null
+#  rejected_incoming_count   :integer          default(0)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -94,6 +96,48 @@ describe InfoRequest do
     end
 
   end
+
+  describe '.reject_incoming_at_mta' do
+
+    before do
+      @request = FactoryGirl.create(:info_request)
+      @request.update_attributes(:updated_at => 6.months.ago,
+                                :rejected_incoming_count => 3,
+                                :allow_new_responses_from => 'nobody')
+      @options = {:rejection_threshold => 2,
+                  :age_in_months => 5,
+                  :dryrun => true}
+    end
+
+    it 'returns an count of requests updated ' do
+      expect(InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false))).
+        to eq(1)
+    end
+
+    it 'does nothing on a dryrun' do
+      InfoRequest.reject_incoming_at_mta(@options)
+      expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be false
+    end
+
+    it 'sets reject_incoming_at_mta on a request meeting the criteria passed' do
+      InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false))
+      expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be true
+    end
+
+    it 'does not set reject_incoming_at_mta on a request not meeting the
+        criteria passed' do
+      InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false,
+                                                        :age_in_months => 7))
+      expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be false
+    end
+
+    it 'yields an array of ids of the requests matching the criteria' do
+      InfoRequest.reject_incoming_at_mta(@options) do |ids|
+        expect(ids).to eq([@request.id])
+      end
+    end
+  end
+
 
   describe '.stop_new_responses_on_old_requests' do
 
@@ -237,6 +281,7 @@ describe InfoRequest do
         expect(holding_pen.incoming_messages.size).to eq(1)
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
+        expect(info_request.rejected_incoming_count).to eq(1)
       end
 
       it 'from anybody' do
@@ -270,6 +315,7 @@ describe InfoRequest do
               'no "From" address to check against'
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
+        expect(info_request.rejected_incoming_count).to eq(1)
       end
 
       it 'from authority_only rejects if the mail is not from the authority' do
@@ -285,6 +331,7 @@ describe InfoRequest do
               "recognise the address this reply was sent from"
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
+        expect(info_request.rejected_incoming_count).to eq(1)
       end
 
       it 'raises an error if there is an unknown allow_new_responses_from' do
@@ -422,7 +469,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
     end
 
@@ -451,6 +498,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
 
+      expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
     end
 
@@ -479,7 +527,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(ActionMailer::Base.deliveries).to be_empty
       ActionMailer::Base.deliveries.clear
     end
@@ -503,7 +551,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.rejected_incoming_count).to eq(0)
       expect(ActionMailer::Base.deliveries.size).to eq(1)
       ActionMailer::Base.deliveries.clear
     end
@@ -526,7 +574,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.rejected_incoming_count).to eq(0)
       expect(info_request.incoming_messages.size).to eq(1)
       ActionMailer::Base.deliveries.clear
     end

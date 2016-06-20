@@ -33,6 +33,9 @@
 * The raw email associated with an incoming message can now be downloaded from
   the admin page for that message without having to view the raw email first
   (Louise Crow)
+* There is now the ability to flag a request to have incoming mail rejected at
+  SMTP time - requires special configuration at the MTA level. For more information on
+  usage, see [the documentation on spam handling](http://alaveteli.org/docs/running/handling_spam/#advanced-feature---rejection-of-incoming-messages-at-the-mta) (Louise Crow)
 
 ## Upgrade Notes
 

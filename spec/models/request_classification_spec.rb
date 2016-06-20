@@ -1,4 +1,15 @@
 # -*- encoding : utf-8 -*-
+# == Schema Information
+#
+# Table name: request_classifications
+#
+#  id                    :integer          not null, primary key
+#  user_id               :integer
+#  info_request_event_id :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AboutMeValidator do
