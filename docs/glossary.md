@@ -20,6 +20,7 @@ Definitions
   <li><a href="#alaveteli">Alaveteli</a></li>
   <li><a href="#agnostic">asker agnostic</a></li>
   <li><a href="#authority">authority</a></li>
+  <li><a href="#batch-request">batch request</a></li>
   <li><a href="#blackhole">black hole</a></li>
   <li><a href="#bounce-message">bounce message</a></li>
   <li><a href="#capistrano">Capistrano</a></li>
@@ -196,6 +197,38 @@ Definitions
         <li>
           You can organise your authorities using
           <a href="{{ page.baseurl }}/docs/running/categories_and_tags/">categories and tags</a>.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="batch-request">batch request</a>
+  </dt>
+  <dd>
+    Normally, when a user submits a <a href="#request"
+    class="glossary__link">request</a>, it is sent to a single <a
+    href="#authority" class="glossary__link">authority</a>. A <strong>batch
+    request</strong> is when a user submits a single request that is then sent
+    to <em>multiple</em> authorities. By default, this capability is not
+    enabled, but Alaveteli does support it. To allow batch requests to be sent,
+    you need to both enable the feature and then grant permission to use it
+    on a user-by-user basis.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          The admin manual has
+          <a href="{{ page.baseurl }}/docs/running/admin_manual/#batch-requests">more about batch requests</a> including why we don't enable them by default.
+        </li>
+        <li>
+          The config variable that enables the feature is
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>.
+        </li>
+        <li>
+          Alaveteli <a href="#publish" class="glossary__link">publishes</a> the
+          requests as separate pages, one for each authority in the batch.
         </li>
       </ul>
     </div>
