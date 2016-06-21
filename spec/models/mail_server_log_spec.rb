@@ -267,6 +267,30 @@ describe MailServerLog do
       expect(log.line).to eq('log line')
     end
 
+    context ':decorate option is truthy' do
+
+      context 'using the :exim MTA' do
+
+        it 'returns an EximLine containing the line attribute' do
+          log = MailServerLog.new(:line => 'log line')
+          expect(log.line(:decorate => true)).
+            to eq(MailServerLog::EximLine.new('log line'))
+        end
+
+      end
+
+      context 'using the :postfix MTA' do
+
+        it 'returns a PostfixLine containing the line attribute' do
+          log = MailServerLog.new(:line => 'log line')
+          expect(log.line(:decorate => true)).
+            to eq(MailServerLog::PostfixLine.new('log line'))
+        end
+
+      end
+
+    end
+
     context ':redact_idhash option is truthy' do
 
       it 'redacts the info request id hash' do
@@ -276,6 +300,16 @@ describe MailServerLog do
         log.update_attributes!(:line => line)
         expect(log.line(:redact_idhash => true)).to_not include(idhash)
       end
+
+      it 'redacts the info request id when decorated' do
+        log = FactoryGirl.create(:mail_server_log)
+        line = log.line += " #{ log.info_request.incoming_email }"
+        idhash = log.info_request.idhash
+        log.update_attributes!(:line => line)
+        expect(log.line(:redact_idhash => true, :decorate => true).to_s).
+          to_not include(idhash)
+      end
+
 
       it 'handles not having an associated info request' do
         log = MailServerLog.new(:line => 'log line')
