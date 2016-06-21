@@ -13,12 +13,34 @@
   </p>
 
   <p>
-    <label for="info_request_allow_new_responses_from"><strong>Allow new responses</strong> from</label>
-    <%= select( 'info_request', "allow_new_responses_from", [ "anybody", "authority_only", "nobody" ] ) %>;
-    <label for="info_request_handle_rejected_responses"><strong>Handle rejected responses</strong> with</label>
-    <%= select( 'info_request', "handle_rejected_responses", [ "bounce", "holding_pen", "blackhole" ] ) %>
+    <% if @info_request.reject_incoming_at_mta? %>
+      <% new_response_options_disabled = true %>
+      <div class="alert alert-warning" role="alert">
+        Mail for this request is automatically being rejected at the mail server due to spam, so you can't
+        change the values set for '<strong>Allow new responses</strong> from' and
+        '<strong>Handle rejected responses</strong> with'
+      </div>
+    <% else %>
+      <% new_response_options_disabled = false %>
+    <% end %>
+    <label for="info_request_allow_new_responses_from">
+      <strong>Allow new responses</strong> from
+    </label>
+    <%= select( 'info_request',
+                "allow_new_responses_from",
+                [ "anybody", "authority_only", "nobody" ],
+                {},
+                { :disabled => new_response_options_disabled } ) %>;
+    <label for="info_request_handle_rejected_responses">
+      <strong>Handle rejected responses</strong> with
+    </label>
+    <%= select( 'info_request', "handle_rejected_responses",
+                [ "bounce", "holding_pen", "blackhole" ],
+                {},
+                { :disabled => new_response_options_disabled } ) %>
     <br>
     ('authority_only' means email From: domain of authority request email or any domain that has previously sent a response; 'nobody' also stops requester making followups; take care when using 'blackhole' which just drops mail)
+
   </p>
 
   <p><label for="info_request_described_state"><strong>Described state</strong></label>

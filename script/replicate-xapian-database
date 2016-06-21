@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Usage: $0 <RAILS_ENV> <DAEMON_NAME> <PORT> <REMOTEHOST> <REMOTEUSER> <REMOTEPATH> <SSH_IDENTITY_FILE>
+
+# Exit on error
+set -e
+
+#
+cd "$(dirname "$0")"/..
+
+# Enable job control and batch mode
+set -mb
+
+# Args
+export RAILS_ENV=$1
+DAEMON_NAME=$2
+PORT="$3"
+REMOTEHOST="$4"
+REMOTEUSER="$5"
+REMOTEPATH="$6"
+IDENTITY_FILE="$7"
+
+# Vars
+LOCALHOST="$(hostname -f)"
+DBNAME="$RAILS_ENV"
+
+XAPIAN_DB_DIR="$( pwd )/lib/acts_as_xapian/xapiandbs"
+
+# Set traps
+trap "echo Caught SIGCHLD; jobs -l" SIGCHLD
+
+# Start server
+xapian-replicate-server -p "$PORT" --one-shot "$XAPIAN_DB_DIR" &
+
+# Start client on remote host
+ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
+
+# Wait for both to finish
+wait || exit 1
+
+# Done
+exit 0

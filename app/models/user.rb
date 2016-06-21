@@ -12,7 +12,7 @@
 #  updated_at              :datetime         not null
 #  email_confirmed         :boolean          default(FALSE), not null
 #  url_name                :text             not null
-#  last_daily_track_email  :datetime         default(Sat Jan 01 00:00:00 UTC 2000)
+#  last_daily_track_email  :datetime         default(2000-01-01 00:00:00 UTC)
 #  admin_level             :string(255)      default("none"), not null
 #  ban_text                :text             default(""), not null
 #  about_me                :text             default(""), not null
@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   has_many :post_redirects, :order => 'created_at desc'
   has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
   has_many :comments, :order => 'created_at desc'
+  has_many :public_body_change_requests, :order => 'created_at desc'
   has_one :profile_photo
   has_many :censor_rules, :order => 'created_at desc'
   has_many :info_request_batches, :order => 'created_at desc'

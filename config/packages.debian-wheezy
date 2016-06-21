@@ -24,14 +24,13 @@ postgresql-client
 python-yaml
 rake
 ruby-dev
-ruby1.9.3
-rubygems
+ruby
 sqlite3
 tnef
+ttf-bitstream-vera
 unrtf
 unzip
 uuid-dev
 wkhtmltopdf-static
 wv
 xapian-tools
-ttf-bitstream-vera

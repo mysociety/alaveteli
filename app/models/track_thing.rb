@@ -38,7 +38,7 @@ class TrackThing < ActiveRecord::Base
 
   belongs_to :info_request
   belongs_to :public_body
-  belongs_to :tracking_user, :class_name => 'User'
+  belongs_to :tracking_user, :class_name => 'User', :counter_cache => true
   belongs_to :tracked_user, :class_name => 'User'
   has_many :track_things_sent_emails, :dependent => :destroy
 

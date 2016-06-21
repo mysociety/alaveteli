@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-04-22 19:27+0000\n"
-"Last-Translator: Baris Altintas <info@platform24.org>\n"
+"PO-Revision-Date: 2016-06-03 12:46+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +119,7 @@ msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nSaygılarımla,\\n\\n{{user_name}}"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
-msgstr "<a href=\"{{browse_url}}\">Tüm kurumlara bakın</a> veya bizim <a href=\"{{add_url}}\">eklememizi isteyin</a>."
+msgstr "<a href=\"{{browse_url}}\">Tüm kurumlara bakın</a> veya herhangi bir kurumu <a href=\"{{add_url}}\">eklememizi isteyin</a>."
 
 msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"{{url}}\">Bir açıklama ekleyin</a> (böylece başvuru yapan birine ya da bu konuda bilgiye ihtiyacı olabilecek başkalarına yardımcı olabilirsiniz)"
@@ -202,7 +202,7 @@ msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</
 msgstr "<strong>Yasaya göre cevap vermek zorundalar</strong> (<a href=\"{{url}}\">neden?</a>)."
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr "<strong> Kendim hakkında bilgi isteyebilir miyim?</strong>\\n⇥⇥⇥<a href=\"{{url}}\">Hayır!</a>"
+msgstr "<strong> Kendim hakkında bilgi isteyebilir miyim?</strong>\\n<a href=\"{{url}}\">Hayır!</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Bizden söylemesi!</strong> Bu verileri düzgün bir biçimde kullanabilmek için  {{site_name}} sitesinde kullanıcı davranışlarını iyi bilmeniz gerek. Başvuruların, \\nnasıl ve kim tarafından kategorize edildiğinin anlaşılması çok kolay değildir ve kullanıcı hataları veya kullanıcıların aklının karıştığı noktalar olacaktır. Aynı şekilde 4982 Sayılı Bilgi Edinme Hakkı Kanununu da anlamanız ve kurumların kanunu kullanması hakkında bilgi sahibi olmanız gerekecek. Tüm bunlara ek olarak üst sınıf bir istatistikçi olmanız gerekli. Lütfen sorularınız olursa bizimle\\n<a href=\"{{contact_path}}\">iletişime geçen</a>."
@@ -270,7 +270,7 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr "   {{info_request_user}}  tarafından yapılan <em><a href=\"{{request_url}}\">{{request_title}}</a></em> başlıklı yeni bir başvuru  {{date}} tarihinde {{public_body_name}}  adlı kuruma iletilmiştir. "
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr "İstediğiniz bilginin tek satırlık bir özeti,  \\n⇥⇥⇥vb. "
+msgstr "İstediğiniz bilginin tek satırlık bir özeti,  \\nvb. "
 
 msgid "A public authority"
 msgstr "Bir kamu kuruluşu"
@@ -288,7 +288,7 @@ msgid "A {{site_name}} user"
 msgstr "Bir {{site_name}}  kullanıcısı"
 
 msgid "API"
-msgstr ""
+msgstr "API"
 
 msgid "About you:"
 msgstr "Hakkınızda:"
@@ -408,7 +408,7 @@ msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Bu sayfada herhangi bir ticari telif hakkının sahibi misiniz?"
 
 msgid "Ask EU Authorities"
-msgstr ""
+msgstr "AB Kurumlarına Sorun"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "<strong>Belirli</strong> belgeler ya da bilgi isteyin. Bu web sitesi, genel sorgulamalar için uygun değildir. "
@@ -654,7 +654,7 @@ msgid "Considered by administrators as vexatious and hidden from site."
 msgstr "Yöneticiler tarafından kötü niyetli bir başvuru olarak kabul edilmiş ve sitede gizlenmiş "
 
 msgid "Contact us"
-msgstr ""
+msgstr "Bize ulaşın"
 
 msgid "Contact {{recipient}}"
 msgstr "İletişim  {{recipient}}"
@@ -885,7 +885,7 @@ msgid "Find the authorities to write to"
 msgstr "Mesaj yazılacak kamu kurum ve kuruluşlarını bulun"
 
 msgid "First, did your other requests succeed?"
-msgstr "Öncelikle, diğer başşvurularınız olumlu sonuçlandı mı?"
+msgstr "Öncelikle, diğer başvurularınız olumlu sonuçlandı mı?"
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
 msgstr "Öncelikle, bilgi edinme başvurusu yapacağınız <strong>kamu kuruluşunun adını yazın<strong>. "
@@ -957,7 +957,7 @@ msgid "Follow up message sent by requester"
 msgstr "Başvuruyu yapan kişi tarafından gönderilmiş takip mesajı"
 
 msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr "Var olan başvurularla ilgili gönderilen takip mesajları <strong>{{authority_email}}</strong> adresine gönderilmektedir. "
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Başvuruyla ilgili takip mesajı  {{public_body_name}} adlı kuruma  {{date}} tarihinde {{info_request_user}} tarafından gönderilmiştir"
@@ -995,7 +995,7 @@ msgid "Freedom of Information law does not apply to this authority, so you canno
 msgstr "Bu kurum/kuruluş Bilgi  Edinme Hakkı Kanunu kapsamının dışındadır, bu yüzden başvuru yapılamaz."
 
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr "Bu kurum  Bilgi Edinme Hakkı Kanunu kapsamından çıkarılmıştır. Var olan başvurularla ilgili gönderilen takip mesajları <strong>{{authority_email}}</strong> adresine gönderilmektedir. "
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "{{public_body_name}} Bilgi Edinme Hakkı Kanunu kapsamı dışına alınmıştır."
@@ -1137,8 +1137,8 @@ msgstr "Bu başvuruyu <strong>geri çekmek</strong>istiyorum"
 
 msgid "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>"
 msgstr ""
-"Hala sorduğum bilgilnin gönderilmesini<strong>bekliyorum</strong> \n"
-" <small>(belki başvurunuzun kurumun eline geçtiğine dair bir cevap almışsınızdır)</small>"
+"Hâlâ istediğim bilginin gönderilmesini <strong>bekliyorum</strong> \n"
+" <small>. (belki başvurunuzun kurumun eline geçtiğine dair bir cevap almışsınızdır)</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
 msgstr "Hala kurum için denetim gerçekleşmesini <strong>bekliyorum </strong>"
@@ -1198,7 +1198,7 @@ msgid "If you can, scan in or photograph the response, and <strong>send us a cop
 msgstr "Eğer mümkün olabiliyorsa, aldığınız cevabı taratabilir veya resmini çekebilir ve siteye yüklememiz için <strong>bize\\n gönderebilirsiniz</strong>."
 
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
-msgstr "Bir kamu kurum veya kuruluşunun Bilgi Edinme Departmanı'nda çalışıyorsanız ve bu hizmeti yararlı buluyorsanız, lütfen çalıştığınız kuruluştaki web yöneticisinden sitenizin Bilgi Edinme bölümünde bizim sitemize bir bağlantı sağlamasını isteyin."
+msgstr "Bir kamu kurum veya kuruluşunun Bilgi Edinme Departmanı'nda çalışıyorsanız ve bu hizmeti yararlı buluyorsanız, lütfen çalıştığınız kuruluştaki web yöneticisinden sitenizin Bilgi Edinme bölümünde sitemize bir bağlantı sağlamasını isteyin."
 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "{{site_name}} sitesini yararlı bulduysanız, <a href=\"{{donation_url}}\">buradan</a> bağış yapabilirsiniz."
@@ -2609,7 +2609,7 @@ msgid "That doesn't look like a valid email address. Please check you have typed
 msgstr "Bu geçerli bir email adresine benzemiyor. Lütfen doğru yazdığınızdan emin olun."
 
 msgid "The <strong>review has finished</strong> and overall:"
-msgstr " <strong>İnceleme sonuçandı</strong> ve genel olarak:"
+msgstr " <strong>İnceleme sonuçlandı</strong> ve genel olarak:"
 
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "4982 Sayılı Bilgi Edinme Hakkı Kanunu <strong>kapsamı dışındadır</strong>"
@@ -2807,7 +2807,7 @@ msgid "There is <strong>more than one person</strong> who uses this site and has
 msgstr "Bu siteyi kullanan ve aynı ada sahip <strong>birden fazla kişi var</strong>\\n Bu kullanıcılardan biri aşağıda gösteriliyor, sizin kastettğiniz başka biri olabilir. "
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
-msgstr "Bir gün içinde yapabileceğiniz bilgi edinme başvurusu sınırlıdır çünkü kamu kurum ve kuruluşlarının çok sayıda gönderilmiş uygunsuz başvuruyla bir mesaj bombardmanına maruz kalmasını istemiyoruz. Eğer sizin durumunuzda bu sınırın kaldırılması için iyi bir neden olduğunu düşünüyorsanız lütfen bizle  <a href='{{help_contact_path}}'>iletişime geçin</a>."
+msgstr "Bir gün içinde yapabileceğiniz bilgi edinme başvurusu sınırlıdır çünkü kamu kurum ve kuruluşlarının çok sayıda gönderilmiş uygunsuz başvuruyla bir mesaj bombardmanına maruz kalmasını istemiyoruz. Eğer sizin durumunuzda bu sınırın kaldırılması için iyi bir neden olduğunu düşünüyorsanız lütfen bizimle  <a href='{{help_contact_path}}'>iletişime geçin</a>."
 
 msgid "There is nothing to display yet."
 msgstr "Henüz gösterilecek bir şey yok. "
@@ -3241,7 +3241,7 @@ msgid "User|About me"
 msgstr "User|About me"
 
 msgid "User|Address"
-msgstr ""
+msgstr "User|Address"
 
 msgid "User|Admin level"
 msgstr "User|Admin level"
@@ -3253,7 +3253,7 @@ msgid "User|Can make batch requests"
 msgstr "User|Can make batch requests"
 
 msgid "User|Dob"
-msgstr ""
+msgstr "User|Dob"
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3364,7 +3364,7 @@ msgid "We do not have a working {{law_used_full}} address for {{public_body_name
 msgstr "{{public_body_name}} için çalışan bir {{public_body_name}} emaili elimizde yok."
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
-msgstr "Bu başvuruya gelen en son cevabın\\n bilgi içerip içermediğini bilmiyoruz\\n &ndash;\\n⇥ {{user_link}} iseniz lütfen siteye <a href=\"{{url}}\">giriş yapın</a> ve başvurunuzun durumunu herkesle paylaşın."
+msgstr "Bu başvuruya gelen en son cevabın\\n bilgi içerip içermediğini bilmiyoruz\\n &ndash;\\n {{user_link}} iseniz lütfen siteye <a href=\"{{url}}\">giriş yapın</a> ve başvurunuzun durumunu herkesle paylaşın."
 
 msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
 msgstr "Sorunuzun cevaplanması için deneyebileceğiniz diğer yöntemler hakkında başka <a href=\"{{other_means_url}}\">önerilerimiz </a> de var."

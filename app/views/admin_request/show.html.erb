@@ -6,6 +6,12 @@
   <div class="accordion" id="info_request">
     <div class="accordion-group">
       <div class="accordion-heading">
+
+        <% if @info_request.reject_incoming_at_mta? %>
+          <div class="alert alert-warning" role="alert">
+            Mail for this request is automatically being rejected at the mail server due to spam.
+          </div>
+        <% end %>
         <span class="item-title">
           <a href="#metadata_<%=@info_request.id%>" data-toggle="collapse" data-parent="#info_request"><%= chevron_down %></a>Request metadata
         </span>

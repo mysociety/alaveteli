@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20151104131702
 #
 # Table name: info_requests
 #
@@ -24,6 +23,8 @@
 #  comments_allowed          :boolean          default(TRUE), not null
 #  info_request_batch_id     :integer
 #  last_public_response_at   :datetime
+#  reject_incoming_at_mta    :boolean          default(FALSE), not null
+#  rejected_incoming_count   :integer          default(0)
 #
 
 require 'digest/sha1'
@@ -59,7 +60,7 @@ class InfoRequest < ActiveRecord::Base
                   'email. You can use a phrase, rather than a full sentence.')
   }
 
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   validate :must_be_internal_or_external
 
   belongs_to :public_body, :counter_cache => true
@@ -1201,6 +1202,23 @@ class InfoRequest < ActiveRecord::Base
     true
   end
 
+  def self.reject_incoming_at_mta(options)
+    query = InfoRequest.where(["updated_at < (now() -
+                                interval '#{options[:age_in_months]} months')
+                                AND allow_new_responses_from = 'nobody'
+                                AND rejected_incoming_count >= ?
+                                AND reject_incoming_at_mta = ?
+                                AND url_title <> 'holding_pen'",
+                                options[:rejection_threshold], false])
+    yield query.pluck(:id) if block_given?
+
+    if options[:dryrun]
+      0
+    else
+      query.update_all(:reject_incoming_at_mta => true)
+    end
+  end
+
   # This is called from cron regularly.
   def self.stop_new_responses_on_old_requests
     old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
@@ -1214,7 +1232,7 @@ class InfoRequest < ActiveRecord::Base
     AND url_title <> 'holding_pen'
     EOF
 
-    # 'very_old' months since last change requests, don't allow any new
+    # 'very_old' months since last change to request, don't allow any new
     # incoming messages
     InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
     allow_new_responses_from = 'nobody'
@@ -1430,6 +1448,7 @@ class InfoRequest < ActiveRecord::Base
     will_be_rejected = (response_rejector && response_rejection) ? true : false
 
     if will_be_rejected && response_rejection.reject(response_rejector.reason)
+      self.increment!(:rejected_incoming_count)
       logger.info "Rejected incoming mail: #{ response_rejector.reason } request: #{ id }"
       false
     else
