@@ -2,6 +2,13 @@
 class MailServerLog::PostfixLine
   include Comparable
 
+  LOG_LINE_FLAGS = {
+    'status=sent' =>        :sent,
+    'status=deferred' =>    :deferred,
+    'status=bounced' =>     :bounced,
+    'status=expired' =>     :expired
+  }.freeze
+
   def initialize(line)
     @line = line.to_s
   end
@@ -15,7 +22,9 @@ class MailServerLog::PostfixLine
   end
 
   def delivery_status
-    MailServerLog::PostfixDeliveryStatus.new(:sent)
+    flag = LOG_LINE_FLAGS.keys.find { |flag| to_s.include?(flag) }
+    status = LOG_LINE_FLAGS[flag]
+    MailServerLog::PostfixDeliveryStatus.new(status) if status
   end
 
   def inspect

@@ -2,8 +2,29 @@
 class MailServerLog::PostfixDeliveryStatus
   include Comparable
 
-  def initialize(status = :sent)
-    @status = :sent
+  HUMANIZED = {
+    :delivered => _('This message has been delivered.'),
+    :failed => _('This message could not be delivered.'),
+    :sent => _('This message has been sent.')
+  }.freeze
+
+  DELIVERED_FLAGS = [
+    :sent
+  ].freeze
+
+  SENT_FLAGS = [
+    :deferred
+  ].freeze
+
+  FAILED_FLAGS = [
+    :bounced,
+    :expired
+  ].freeze
+
+  MTA_FLAGS = (DELIVERED_FLAGS | SENT_FLAGS | FAILED_FLAGS).freeze
+
+  def initialize(status)
+    @status = assert_valid_status(status)
   end
 
   def delivered?
@@ -19,11 +40,18 @@ class MailServerLog::PostfixDeliveryStatus
   end
 
   def simple
-    :sent
+    case status
+    when *DELIVERED_FLAGS
+      :delivered
+    when *SENT_FLAGS
+      :sent
+    when *FAILED_FLAGS
+      :failed
+    end
   end
 
   def humanize
-    _('This message has been sent.')
+    HUMANIZED[simple]
   end
 
   def <=>(other)
@@ -46,4 +74,12 @@ class MailServerLog::PostfixDeliveryStatus
   private
 
   attr_reader :status
+
+  def assert_valid_status(status)
+    if MTA_FLAGS.include?(status)
+      status
+    else
+      raise ArgumentError, "Invalid MTA status: #{ status }"
+    end
+  end
 end
