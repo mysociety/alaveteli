@@ -429,6 +429,23 @@ describe User do
 
   end
 
+  describe '#transactions' do
+
+    it 'returns a TransactionCalculator with the default transaction set' do
+      user = User.new
+      expect(user.transactions).to eq(User::TransactionCalculator.new(user))
+    end
+
+    it 'returns a TransactionCalculator with a custom transaction set' do
+      user = User.new
+      calculator =
+        User::TransactionCalculator.
+          new(user, :transaction_associations => [:comments, :info_requests])
+      expect(user.transactions(:comments, :info_requests)).to eq(calculator)
+    end
+
+  end
+
   describe '#valid?' do
 
     context 'with require_otp' do

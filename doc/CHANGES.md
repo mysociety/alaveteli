@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add an interface to calculate transaction stats per user (Gareth Rees)
 * Imrpove sharing options on request sidebar (Gareth Rees, Martin Wright)
 * Prevent the search route from processing non-HTML requests (Liz Conlan)
 * Add accepted formats to commonly probed routes (Gareth Rees)

@@ -72,6 +72,7 @@ group :test do
   gem 'fakeweb', '~> 1.3.0'
   gem 'coveralls', :require => false
   gem 'capybara', '~> 2.7.0'
+  gem 'delorean', '~> 2.1.0'
 end
 
 group :test, :development do

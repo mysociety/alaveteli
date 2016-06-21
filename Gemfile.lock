@@ -97,6 +97,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     charlock_holmes (0.7.3)
+    chronic (0.10.2)
     chunky_png (1.3.5)
     coderay (1.1.1)
     coffee-rails (3.2.2)
@@ -137,6 +138,8 @@ GEM
       debugger-ruby_core_source (~> 1.3.5)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.3.8)
+    delorean (2.1.0)
+      chronic
     diff-lcs (1.2.5)
     dynamic_form (1.1.4)
     erubis (2.7.0)
@@ -371,6 +374,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   compass-rails (= 3.0.2)
   coveralls
+  delorean (~> 2.1.0)
   dynamic_form (~> 1.1.4)
   exception_notification (= 4.0.1)
   factory_girl_rails (~> 4.7.0)
