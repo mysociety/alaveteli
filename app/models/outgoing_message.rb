@@ -462,7 +462,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def template_changed
-    if body.empty? || body =~ /\A#{Regexp.escape(letter_template.salutation(default_message_replacements))}\s+#{Regexp.escape(letter_template.signoff(default_message_replacements))}/ || body =~ /#{Regexp.escape(Template::InternalReview.details_placeholder)}/
+    if body.empty? || HTMLEntities.new.decode(raw_body) =~ /\A#{template_regex(letter_template.body(default_message_replacements))}/
       if message_type == 'followup'
         if what_doing == 'internal_review'
           errors.add(:body, _("Please give details explaining why you want a review"))
@@ -477,8 +477,17 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  def template_regex(template_text)
+    text = template_text.gsub("\r", "\n") # in case we have '\r\n' or even '\r's all the way down
+    # feels like this should need a gsub(/\//, '\/') but doesn't seem to
+    Regexp.escape(text.squeeze("\n")).
+      gsub("\\n", '\s*').
+      gsub('\ \s*', '\s*').
+      gsub('\s*\ ', '\s*')
+  end
+
   def body_has_signature
-    if body =~ /#{letter_template.signoff(default_message_replacements)}\s*\Z/m
+    if raw_body =~ /#{template_regex(letter_template.signoff(default_message_replacements))}\s*\Z/m
       errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => letter_template.signoff(default_message_replacements)))
     end
   end

@@ -329,6 +329,187 @@ describe OutgoingMessage do
       expect(message.body(:censor_rules => censor_rules)).to eq(expected)
     end
 
+    context "validation" do
+      let(:public_body) do
+        FactoryGirl.create(:public_body, :name => 'a test public body')
+      end
+
+      let(:info_request) do
+        FactoryGirl.create(:info_request,
+                           :public_body => public_body,
+                           :url_title => 'a_test_title',
+                           :title => 'A test title')
+      end
+
+      it "adds an error message if the text has not been changed" do
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        outgoing_message.valid?
+        expect(outgoing_message.errors.messages[:body]).
+          to include("Please enter your letter requesting information")
+      end
+
+      it "adds an error message if the signature block is incomplete" do
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        outgoing_message.valid?
+        expect(outgoing_message.errors.messages[:body]).
+          to include("Please sign at the bottom with your name, or alter the " \
+                     "\"Yours faithfully,\" signature")
+      end
+
+      it "does not add the 'enter your letter' error if the text has been changed" do
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        outgoing_message.body = "Dear a test public body,\n\nI would like some information please.\n\nYours faithfully,\n\n"
+
+        outgoing_message.valid?
+        expect(outgoing_message.errors.messages[:body]).
+          not_to include("Please enter your letter requesting information")
+      end
+
+      it "can cope with HTML entities in the message body" do
+        test_body = FactoryGirl.create(:public_body,
+                                       :name => "D's Test Authority")
+
+        info_request = FactoryGirl.create(:info_request,
+                                          :public_body => test_body,
+                                          :url_title => 'a_test_title',
+                                          :title => 'A test title')
+
+        outgoing_message =
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+
+        outgoing_message.valid?
+        expect(outgoing_message.errors.messages[:body]).
+          not_to include("Please enter your letter requesting information")
+      end
+
+      context "when default_letter text has been set" do
+        before(:each) do
+          allow_any_instance_of(OutgoingMessage).to receive(:default_letter).
+            and_return("\n\nIn accordance with Regulation 1049/2001\n\n")
+        end
+
+        let(:outgoing_message) do
+          OutgoingMessage.new(:status => 'ready',
+                              :message_type => 'initial_request',
+                              :what_doing => 'normal_sort',
+                              :info_request => info_request)
+        end
+
+        it "adds the default_letter text to the message body" do
+          expect(outgoing_message.body).
+            to include("In accordance with Regulation 1049/2001")
+        end
+
+        it "adds an error message if the text has not been changed" do
+          outgoing_message.valid?
+          expect(outgoing_message.errors.messages[:body]).
+            to include("Please enter your letter requesting information")
+        end
+
+        it "is not fooled by changes to the line spacing" do
+          outgoing_message.body = "Dear a test public body,\n\n  In accordance with Regulation 1049/2001\n\n\n\n\n\nYours faithfully,"
+
+          outgoing_message.valid?
+          expect(outgoing_message.errors.messages[:body]).
+            to include("Please enter your letter requesting information")
+        end
+
+        it "does not break when given a mix of linebreak encodings" do
+          outgoing_message.body = "Dear a test public body,\r\nIn accordance with Regulation 1049/2001\r\nYours faithfully,"
+
+          outgoing_message.valid?
+          expect(outgoing_message.errors.messages[:body]).
+            to include("Please enter your letter requesting information")
+        end
+
+        context "when a censor rule changes the default text" do
+
+          before do
+            opts = { :text => 'Regulation 1049/2001',
+                   :replacement => 'the law',
+                   :last_edit_editor => 'unknown',
+                   :last_edit_comment => 'none' }
+            CensorRule.create!(opts)
+
+            outgoing_message.apply_masks(outgoing_message.body, 'text/plain')
+          end
+
+          it "copes with a global censor rule that affects the default text" do
+            outgoing_message.valid?
+            expect(outgoing_message.errors.messages[:body]).
+              to include("Please enter your letter requesting information")
+          end
+
+          it "copes with a global censor rule that affects the signature text" do
+            opts = { :text => 'Yours faithfully,',
+                   :replacement => 'Cheers!',
+                   :last_edit_editor => 'unknown',
+                   :last_edit_comment => 'none' }
+            CensorRule.create!(opts)
+            outgoing_message.apply_masks(outgoing_message.body, 'text/plain')
+
+            outgoing_message.valid?
+            expect(outgoing_message.errors.messages[:body]).
+              to include("Please sign at the bottom with your name, or alter " \
+                     "the \"Yours faithfully,\" signature")
+          end
+
+        end
+
+      end
+
+      context "when it's an internal review" do
+
+        it "adds an error message if the text has not been changed" do
+          outgoing_message =
+            OutgoingMessage.new(:status => 'ready',
+                                :message_type => 'followup',
+                                :what_doing => 'internal_review',
+                                :info_request => info_request)
+
+          outgoing_message.valid?
+          expect(outgoing_message.errors.messages[:body]).
+            to include("Please give details explaining why you want a review")
+        end
+
+      end
+
+      context "when it's an followup" do
+
+        it "adds an error message if the text has not been changed" do
+          outgoing_message =
+            OutgoingMessage.new(:status => 'ready',
+                                :message_type => 'followup',
+                                :what_doing => 'normal_sort',
+                                :info_request => info_request)
+
+          outgoing_message.valid?
+          expect(outgoing_message.errors.messages[:body]).
+            to include("Please enter your follow up message")
+        end
+
+      end
+
+    end
+
   end
 
   describe '#apply_masks' do
