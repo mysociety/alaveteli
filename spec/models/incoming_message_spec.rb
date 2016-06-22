@@ -1019,14 +1019,53 @@ describe IncomingMessage, "when extracting attachments" do
 end
 
 describe IncomingMessage, 'when getting the body of a message for html display' do
+  let(:incoming_message) { IncomingMessage.new }
 
   it 'should replace any masked email addresses with a link to the help page' do
-    incoming_message = IncomingMessage.new
     body_text = 'there was an [email address] here'
-    allow(incoming_message).to receive(:get_main_body_text_folded).and_return(body_text)
-    allow(incoming_message).to receive(:get_main_body_text_unfolded).and_return(body_text)
-    expected = 'there was an [<a href="/help/officers#mobiles">email address</a>] here'
+    allow(incoming_message).to receive(:get_main_body_text_folded).
+      and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_unfolded).
+      and_return(body_text)
+
+    expected = '<p>there was an [<a href="/help/officers#mobiles">email ' \
+               'address</a>] here</p>'
     expect(incoming_message.get_body_for_html_display).to eq(expected)
+  end
+
+  it "interprets single line breaks as <br> tags" do
+    body_text = "Hello,\nI am a test message\nWith multiple lines"
+    allow(incoming_message).to receive(:get_main_body_text_folded).
+      and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_unfolded).
+      and_return(body_text)
+
+    expected = "<p>Hello,\n<br />I am a test message\n<br />With " \
+               "multiple lines</p>"
+    expect(incoming_message.get_body_for_html_display).to include(expected)
+  end
+
+  it "interprets double line breaks as <p> tags" do
+    body_text = "Hello,\n\nI am a test message\n\nWith multiple lines"
+    allow(incoming_message).to receive(:get_main_body_text_folded).
+      and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_unfolded).
+      and_return(body_text)
+
+    expected = "<p>Hello,</p>\n\n<p>I am a test message</p>\n\n<p>With " \
+               "multiple lines</p>"
+    expect(incoming_message.get_body_for_html_display).to include(expected)
+  end
+
+  it "removes excess linebreaks" do
+    body_text = "Line 1\n\n\n\n\n\n\n\n\n\nLine 2"
+    allow(incoming_message).to receive(:get_main_body_text_folded).
+      and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_unfolded).
+      and_return(body_text)
+
+    expected = "<p>Line 1</p>\n\n<p>Line 2</p>"
+    expect(incoming_message.get_body_for_html_display).to include(expected)
   end
 
 end
