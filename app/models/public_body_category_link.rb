@@ -10,7 +10,7 @@
 #
 
 class PublicBodyCategoryLink < ActiveRecord::Base
-  attr_accessible :public_body_category_id, :public_body_heading_id, :category_display_order
+  include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :public_body_category
   belongs_to :public_body_heading
