@@ -8,8 +8,7 @@
 #
 
 class PublicBodyHeading < ActiveRecord::Base
-  attr_accessible :locale, :name, :display_order, :translated_versions,
-    :translations_attributes
+  include ActiveModel::ForbiddenAttributesProtection
 
   has_many :public_body_category_links, :dependent => :destroy
   has_many :public_body_categories, :order => :category_display_order, :through => :public_body_category_links
