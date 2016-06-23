@@ -18,6 +18,7 @@
 #
 
 class PublicBodyChangeRequest < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :user, :counter_cache => true
   belongs_to :public_body
