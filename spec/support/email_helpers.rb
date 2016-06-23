@@ -29,8 +29,15 @@ end
 
 def load_mail_server_logs(log)
   batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
-
-  log.split("\n").each_with_index do |line, index|
-    MailServerLog.create_exim_log_line(line, batch, index + 1)
+  mta_log_type = AlaveteliConfiguration.mta_log_type.to_sym
+  io_stream = StringIO.new(log)
+  case mta_log_type
+  when :exim
+    MailServerLog.load_exim_log_data(io_stream, batch)
+  when :postfix
+    MailServerLog.load_postfix_log_data(io_stream, batch)
+  else
+    raise "Unexpected MTA type: #{ mta_log_type }"
   end
+
 end

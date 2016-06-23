@@ -281,6 +281,10 @@ describe MailServerLog do
 
       context 'using the :postfix MTA' do
 
+        before do
+          allow(AlaveteliConfiguration).to receive(:mta_log_type).and_return('postfix')
+        end
+
         it 'returns a PostfixLine containing the line attribute' do
           log = MailServerLog.new(:line => 'log line')
           expect(log.line(:decorate => true)).

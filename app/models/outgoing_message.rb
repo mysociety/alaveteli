@@ -232,7 +232,6 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   # Public: Return logged MTA IDs for this OutgoingMessage.
-  # Currently only implemented for exim.
   #
   # Returns an Array
   def mta_ids
@@ -240,14 +239,13 @@ class OutgoingMessage < ActiveRecord::Base
     when :exim
       exim_mta_ids
     when :postfix
-      []
+      postfix_mta_ids
     else
       raise 'Unexpected MTA type'
     end
   end
 
   # Public: Return the MTA logs for this message.
-  # Currently only implemented for exim.
   #
   # Returns an Array.
   def mail_server_logs
@@ -255,7 +253,7 @@ class OutgoingMessage < ActiveRecord::Base
     when :exim
       exim_mail_server_logs
     when :postfix
-      []
+      postfix_mail_server_logs
     else
       raise 'Unexpected MTA type'
     end
@@ -360,7 +358,7 @@ class OutgoingMessage < ActiveRecord::Base
   def get_signoff
     warn %q([DEPRECATION] OutgoingMessage#get_signoff will be replaced with
             OutgoingMessage::Template classes in 0.25).squish
-    
+
     if replying_to_incoming_message?
       _("Yours sincerely,")
     else
@@ -371,7 +369,7 @@ class OutgoingMessage < ActiveRecord::Base
   def get_default_letter
     warn %q([DEPRECATION] OutgoingMessage#get_default_letter will be replaced
             with OutgoingMessage::Template classes in 0.25).squish
-    
+
     return default_letter if default_letter
 
     if what_doing == 'internal_review'
@@ -518,6 +516,25 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def exim_mail_server_logs
+    mta_ids.flat_map do |mta_id|
+      info_request.
+        mail_server_logs.
+          where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
+    end
+  end
+
+  def postfix_mta_ids
+    lines = smtp_message_ids.map do |smtp_message_id|
+      info_request.
+        mail_server_logs.
+          where("line ILIKE :q", q: "%#{ smtp_message_id }%").
+              last.
+                try(:line)
+    end
+    lines.compact.map { |line| line.split(' ')[5].strip.chomp(':') }
+  end
+
+  def postfix_mail_server_logs
     mta_ids.flat_map do |mta_id|
       info_request.
         mail_server_logs.

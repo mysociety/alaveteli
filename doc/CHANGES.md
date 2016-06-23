@@ -44,6 +44,7 @@
 * There is now the ability to flag a request to have incoming mail rejected at
   SMTP time - requires special configuration at the MTA level. For more information on
   usage, see [the documentation on spam handling](http://alaveteli.org/docs/running/handling_spam/#advanced-feature---rejection-of-incoming-messages-at-the-mta) (Louise Crow)
+* Show the delivery status of outgoing messages (Gareth Rees, Zarino Zappia)
 
 ## Upgrade Notes
 
