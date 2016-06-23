@@ -38,6 +38,7 @@ gem 'sass', '3.4.21' # pinned because later versions cause problems (see blame)
 gem 'secure_headers', '~> 3.1.2'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3'
+gem 'strong_parameters', '~> 0.2.3'
 gem 'syslog_protocol', '~> 0.9.2'
 gem 'thin', '~> 1.5.1'
 gem 'vpim', '~> 13.11.11'
