@@ -615,15 +615,9 @@ describe AdminPublicBodyCategoriesController do
     it 'destroys non-empty public body categories' do
       PublicBodyCategory.destroy_all
 
-      # FIXME: Couldn't create the PublicBodyCategory with a Factory
-      # because #authorities= doesn't exist?
-      # undefined method `authorities=' for
-      # #<PublicBodyCategory:0x7f55cbb84f70>
-      authority = FactoryGirl.create(:public_body, :tag_string => 'empty')
-      category = PublicBodyCategory.create(:title => "In-Use Category",
-                                           :category_tag => "empty",
-                                           :description => "-",
-                                           :authorities => [authority])
+      tag = 'empty'
+      authority = FactoryGirl.create(:public_body, :tag_string => tag)
+      category = FactoryGirl.create(:public_body_category, :category_tag => tag)
 
       expect{
         post :destroy, :id => category.id
