@@ -619,7 +619,7 @@ describe AdminPublicBodyCategoriesController do
       # because #authorities= doesn't exist?
       # undefined method `authorities=' for
       # #<PublicBodyCategory:0x7f55cbb84f70>
-      authority = FactoryGirl.create(:public_body)
+      authority = FactoryGirl.create(:public_body, :tag_string => 'empty')
       category = PublicBodyCategory.create(:title => "In-Use Category",
                                            :category_tag => "empty",
                                            :description => "-",
