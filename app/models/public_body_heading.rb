@@ -43,3 +43,7 @@ class PublicBodyHeading < ActiveRecord::Base
     end
   end
 end
+
+PublicBodyHeading::Translation.class_eval do
+  include ActiveModel::ForbiddenAttributesProtection
+end
