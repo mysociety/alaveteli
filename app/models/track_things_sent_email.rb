@@ -19,6 +19,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackThingsSentEmail < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   belongs_to :info_request_event
   belongs_to :user
   belongs_to :public_body
