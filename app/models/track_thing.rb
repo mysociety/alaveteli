@@ -26,6 +26,8 @@ require 'set'
 # TODO: TrackThing looks like a good candidate for single table inheritance
 
 class TrackThing < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   # { TRACK_TYPE => DESCRIPTION }
   TRACK_TYPES = { 'request_updates'         => _('Individual requests'),
                   'all_new_requests'        => _('Many requests'),
