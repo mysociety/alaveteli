@@ -18,6 +18,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class MailServerLog < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   belongs_to :info_request
   belongs_to :mail_server_log_done
 
