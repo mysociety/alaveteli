@@ -133,6 +133,8 @@ class PublicBody < ActiveRecord::Base
   #
   # [1] http://git.io/vIetK
   class Version
+    include ActiveModel::ForbiddenAttributesProtection
+
     def last_edit_comment_for_html_display
       text = self.last_edit_comment.strip
       text = CGI.escapeHTML(text)
