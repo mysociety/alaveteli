@@ -609,6 +609,7 @@ module ActsAsXapian
   # Offline indexing job queue model, create with migration made
   # using "script/generate acts_as_xapian" as described in ../README.txt
   class ActsAsXapianJob < ActiveRecord::Base
+    include ActiveModel::ForbiddenAttributesProtection
   end
 
   # Update index with any changes needed, call this offline. Usually call it
