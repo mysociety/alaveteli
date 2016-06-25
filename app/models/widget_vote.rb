@@ -11,10 +11,11 @@
 #
 
 class WidgetVote < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   belongs_to :info_request
   validates :info_request, :presence => true
 
-  attr_accessible :cookie
   validates :cookie, length: { is: 20 }
   validates :cookie, uniqueness: { scope: :info_request_id }
 end
