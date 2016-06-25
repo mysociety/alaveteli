@@ -22,6 +22,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Holiday < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
 
   validates_presence_of :day
 
