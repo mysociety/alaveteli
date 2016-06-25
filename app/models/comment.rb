@@ -21,6 +21,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include AdminColumn
   strip_attributes :allow_empty => true
 

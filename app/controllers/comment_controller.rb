@@ -14,10 +14,8 @@ class CommentController < ApplicationController
 
   def new
     if params[:comment]
-      @comment = Comment.new(params[:comment].merge({
-                                                      :comment_type => 'request',
-                                                      :user => @user
-      }))
+      @comment = Comment.new(comment_params.merge({ :comment_type => 'request',
+                                                    :user => @user }))
     end
 
     if params[:comment]
@@ -77,6 +75,10 @@ class CommentController < ApplicationController
   end
 
   private
+
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
 
   def find_info_request
     if params[:type] == 'request'
