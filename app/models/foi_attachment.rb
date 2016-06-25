@@ -24,6 +24,8 @@
 require 'digest'
 
 class FoiAttachment < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   belongs_to :incoming_message
   validates_presence_of :content_type
   validates_presence_of :filename
