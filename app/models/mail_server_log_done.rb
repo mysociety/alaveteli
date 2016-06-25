@@ -16,5 +16,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class MailServerLogDone < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   has_many :mail_server_logs
 end
