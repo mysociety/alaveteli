@@ -29,6 +29,8 @@
 require 'openssl' # for random bytes function
 
 class PostRedirect < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   CIRCUMSTANCES = %w(login_as change_password change_email normal)
 
   # Optional, does a login confirm before redirect for use in email links.
