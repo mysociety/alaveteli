@@ -35,7 +35,7 @@ class AdminCommentController < AdminController
 
   def comment_params
     if params[:comment]
-      params[:comment].slice(:body, :visible)
+      params.require(:comment).permit(:body, :visible)
     else
       {}
     end
