@@ -13,6 +13,8 @@
 #
 
 class InfoRequestBatch < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   has_many :info_requests
   belongs_to :user, :counter_cache => true
   has_and_belongs_to_many :public_bodies
