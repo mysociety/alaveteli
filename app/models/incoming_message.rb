@@ -37,6 +37,7 @@ require 'zip/zip'
 require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include AdminColumn
   extend MessageProminence
 
