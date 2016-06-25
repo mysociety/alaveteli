@@ -32,6 +32,7 @@ require 'securerandom'
 require 'set'
 
 class PublicBody < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include AdminColumn
 
   class ImportCSVDryRun < StandardError ; end
