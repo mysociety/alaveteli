@@ -23,6 +23,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CensorRule < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include AdminColumn
   belongs_to :info_request
   belongs_to :user
