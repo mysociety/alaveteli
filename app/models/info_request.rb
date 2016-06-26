@@ -31,6 +31,7 @@ require 'digest/sha1'
 require 'fileutils'
 
 class InfoRequest < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include AdminColumn
   include Rails.application.routes.url_helpers
 

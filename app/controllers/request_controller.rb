@@ -229,7 +229,7 @@ class RequestController < ApplicationController
                                                      params[:outgoing_message][:body],
                                                      params[:public_body_ids])
 
-    @info_request = InfoRequest.create_from_attributes(params[:info_request],
+    @info_request = InfoRequest.create_from_attributes(info_request_params,
                                                        params[:outgoing_message],
                                                        authenticated_user)
     @outgoing_message = @info_request.outgoing_messages.first
@@ -317,7 +317,7 @@ class RequestController < ApplicationController
     @existing_request = InfoRequest.find_existing(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
 
     # Create both FOI request and the first request message
-    @info_request = InfoRequest.create_from_attributes(params[:info_request],
+    @info_request = InfoRequest.create_from_attributes(info_request_params,
                                                        params[:outgoing_message])
     @outgoing_message = @info_request.outgoing_messages.first
 
@@ -772,6 +772,16 @@ class RequestController < ApplicationController
 
   private
 
+  def info_request_params(batch = false)
+    if batch
+      unless params[:info_request].nil? || params[:info_request].empty?
+        params.require(:info_request).permit(:title, :tag_string)
+      end
+    else
+      params.require(:info_request).permit(:title, :public_body_id)
+    end
+  end
+
   def assign_variables_for_show_template(info_request)
     @info_request = info_request
     @info_request_events = info_request.info_request_events
@@ -887,7 +897,9 @@ class RequestController < ApplicationController
     params[:info_request][:title] = params[:title] if params[:title]
     params[:info_request][:tag_string] = params[:tags] if params[:tags]
 
-    @info_request = InfoRequest.new(params[:info_request])
+    @info_request = InfoRequest.new(info_request_params(batch))
+    @info_request.public_body = params[:info_request][:public_body]
+
     if batch
       @info_request.is_batch_request_template = true
     end
