@@ -195,13 +195,14 @@ class AdminRequestController < AdminController
 
   def info_request_params
     if params[:info_request]
-      params[:info_request].slice(:title,
-                                  :prominence,
-                                  :awaiting_description,
-                                  :allow_new_responses_from,
-                                  :handle_rejected_responses,
-                                  :tag_string,
-                                  :comments_allowed)
+      params.require(:info_request).permit(:title,
+                                           :prominence,
+                                           :described_state,
+                                           :awaiting_description,
+                                           :allow_new_responses_from,
+                                           :handle_rejected_responses,
+                                           :tag_string,
+                                           :comments_allowed)
     else
       {}
     end
