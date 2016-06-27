@@ -71,7 +71,8 @@ class AdminOutgoingMessageController < AdminController
 
   def outgoing_message_params
     if params[:outgoing_message]
-      params[:outgoing_message].slice(:prominence, :prominence_reason, :body)
+      params.require(:outgoing_message).
+        permit(:prominence, :prominence_reason, :body)
     else
       {}
     end

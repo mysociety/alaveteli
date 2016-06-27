@@ -123,7 +123,14 @@ class FollowupsController < ApplicationController
                                      :info_request_id => @info_request.id
     })
     params_outgoing_message[:what_doing] = 'internal_review' if @internal_review
-    params_outgoing_message
+
+    parameters = ActionController::Parameters.new(params_outgoing_message)
+    parameters.permit(:body,
+                      :status,
+                      :message_type,
+                      :incoming_message_followup,
+                      :info_request_id,
+                      :what_doing)
   end
 
   def send_followup
