@@ -909,7 +909,14 @@ class InfoRequest < ActiveRecord::Base
       :message_type => 'initial_request',
       :what_doing => 'normal_sort'
     }
-    outgoing_message = OutgoingMessage.new(outgoing_message_atts.merge(default_message_params))
+
+    attrs = outgoing_message_atts.merge(default_message_params)
+
+    if attrs.respond_to?(:permit)
+      attrs.permit(:body, :what_doing, :status, :message_type, :what_doing)
+    end
+
+    outgoing_message = OutgoingMessage.new(attrs)
     info_request.outgoing_messages << outgoing_message
     outgoing_message.info_request = info_request
     info_request.user = user

@@ -26,6 +26,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include AdminColumn
   extend MessageProminence
   include Rails.application.routes.url_helpers

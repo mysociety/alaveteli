@@ -236,7 +236,7 @@ class RequestController < ApplicationController
                                                      params[:public_body_ids])
 
     @info_request = InfoRequest.create_from_attributes(info_request_params(@batch),
-                                                       params[:outgoing_message],
+                                                       outgoing_message_params,
                                                        authenticated_user)
     @outgoing_message = @info_request.outgoing_messages.first
     @info_request.is_batch_request_template = true
@@ -326,7 +326,7 @@ class RequestController < ApplicationController
 
     # Create both FOI request and the first request message
     @info_request = InfoRequest.create_from_attributes(info_request_params,
-                                                       params[:outgoing_message])
+                                                       outgoing_message_params)
     @outgoing_message = @info_request.outgoing_messages.first
 
     # Maybe we lost the address while they're writing it
@@ -790,6 +790,10 @@ class RequestController < ApplicationController
     end
   end
 
+  def outgoing_message_params
+    params.require(:outgoing_message).permit(:body, :what_doing)
+  end
+
   def assign_variables_for_show_template(info_request)
     @info_request = info_request
     @info_request_events = info_request.info_request_events
@@ -911,11 +915,20 @@ class RequestController < ApplicationController
       @info_request.is_batch_request_template = true
     end
     params[:info_request_id] = @info_request.id
-    params[:outgoing_message] = {} if !params[:outgoing_message]
-    params[:outgoing_message][:body] = params[:body] if params[:body]
-    params[:outgoing_message][:default_letter] = params[:default_letter] if params[:default_letter]
-    params[:outgoing_message][:info_request] = @info_request
-    @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
+
+    # Manually permit params because strong params was too difficult given the
+    # non-standard arrangement.
+    message_params = {}
+    message_params[:body] = params[:body] if params[:body]
+    message_params[:default_letter] = params[:default_letter] if params[:default_letter]
+    # No idea why this line is needed, even though the OutgoingMessage is being
+    # built from @info_request
+    message_params[:info_request] = @info_request
+
+    parameters = ActionController::Parameters.new(message_params)
+    parameters.permit(:body, :default_letter)
+
+    @outgoing_message = @info_request.outgoing_messages.build(message_params)
     @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
     if batch
