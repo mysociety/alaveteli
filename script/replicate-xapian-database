@@ -24,9 +24,9 @@ if [ "x$8" != "x" ]; then
     REMOTE_LOCKFILE_PATH="$8"
 
     if [ "x$9" != "x" ]; then
-        REMOTE_RUNWITHLOCKFILE_BIN = "$9"
+        REMOTE_RUNWITHLOCKFILE_BIN="$9"
     else
-        REMOTE_RUNWITHLOCKFILE_BIN = "run-with-lockfile"
+        REMOTE_RUNWITHLOCKFILE_BIN="run-with-lockfile"
     fi
 else
     REMOTE_LOCKFILE_PATH=""
