@@ -23,7 +23,7 @@ class MailServerLog::EximLine
   end
 
   def <=>(other)
-    to_s <=> other.to_s
+    self.class <=> other.class && to_s <=> other.to_s
   end
 
   def to_s

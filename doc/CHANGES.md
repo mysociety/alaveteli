@@ -2,6 +2,13 @@
 
 ## Highlighted Features
 
+* Fixed bug in `OutgoingMessage.template_changed` which allowed a new request to
+  be submitted without changes to the default text if:
+   - the site (theme) overrode the core default text via `default_letter`
+   - the authority name contained any characters which were encoded as
+     HTMLEntities
+   - a global censor rule changed the template text
+  Only the first case is known to affect a live site (Liz Conlan)
 * Add an interface to calculate transaction stats per user (Gareth Rees)
 * Imrpove sharing options on request sidebar (Gareth Rees, Martin Wright)
 * Prevent the search route from processing non-HTML requests (Liz Conlan)
@@ -37,6 +44,7 @@
 * There is now the ability to flag a request to have incoming mail rejected at
   SMTP time - requires special configuration at the MTA level. For more information on
   usage, see [the documentation on spam handling](http://alaveteli.org/docs/running/handling_spam/#advanced-feature---rejection-of-incoming-messages-at-the-mta) (Louise Crow)
+* Show the delivery status of outgoing messages (Gareth Rees, Zarino Zappia)
 
 ## Upgrade Notes
 
