@@ -48,7 +48,11 @@ xapian-replicate-server -p "$PORT" --one-shot "$XAPIAN_DB_DIR" &
 if [ "x$REMOTE_LOCKFILE_PATH" = "x" ]; then
     ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
 else
-    ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- "$REMOTE_RUNWITHLOCKFILE_BIN" "$REMOTE_LOCKFILE_PATH" "xapian-replicate -h $LOCALHOST -p $PORT --one-shot -m $DBNAME $REMOTEPATH/$DBNAME" &
+    # Use printf to force the command to be escaped/quoted so it survives being passed through the SSH wormhole
+    # See: http://stackoverflow.com/questions/6592376/prevent-ssh-from-breaking-up-shell-script-parameters
+    COMMAND="xapian-replicate -h $LOCALHOST -p $PORT --one-shot -m $DBNAME $REMOTEPATH/$DBNAME"
+    COMMAND_QUOTED=$(printf "%q" "$COMMAND")
+    ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- "$REMOTE_RUNWITHLOCKFILE_BIN" "$REMOTE_LOCKFILE_PATH" "$COMMAND_QUOTED" &
 fi
 
 # Print jobs list
