@@ -45,7 +45,7 @@ trap "echo Caught SIGCHLD; jobs -l" SIGCHLD
 xapian-replicate-server -p "$PORT" --one-shot "$XAPIAN_DB_DIR" &
 
 # Start client on remote host
-if [ "x$REMOTE_LOCKFILE_PATH" = "x"]; then
+if [ "x$REMOTE_LOCKFILE_PATH" = "x" ]; then
     ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
 else
     ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- "$REMOTE_RUNWITHLOCKFILE_BIN" "$REMOTE_LOCKFILE_PATH" xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
