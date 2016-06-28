@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: $0 <RAILS_ENV> <DAEMON_NAME> <PORT> <REMOTEHOST> <REMOTEUSER> <REMOTEPATH> <SSH_IDENTITY_FILE>
+# Usage: $0 <RAILS_ENV> <DAEMON_NAME> <PORT> <REMOTEHOST> <REMOTEUSER> <REMOTEPATH> <SSH_IDENTITY_FILE> [<REMOTE_LOCKFILE_PATH> [<REMOTE_RUN_WITH_LOCKFILE_BINARY_PATH>]]
 
 # Exit on error
 set -e
@@ -20,6 +20,18 @@ REMOTEUSER="$5"
 REMOTEPATH="$6"
 IDENTITY_FILE="$7"
 
+if [ "x$8" != "x" ]; then
+    REMOTE_LOCKFILE_PATH="$8"
+
+    if [ "x$9" != "x" ]; then
+        REMOTE_RUNWITHLOCKFILE_BIN = "$9"
+    else
+        REMOTE_RUNWITHLOCKFILE_BIN = "run-with-lockfile"
+    fi
+else
+    REMOTE_LOCKFILE_PATH=""
+fi
+
 # Vars
 LOCALHOST="$(hostname -f)"
 DBNAME="$RAILS_ENV"
@@ -33,7 +45,14 @@ trap "echo Caught SIGCHLD; jobs -l" SIGCHLD
 xapian-replicate-server -p "$PORT" --one-shot "$XAPIAN_DB_DIR" &
 
 # Start client on remote host
-ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
+if [ "x$REMOTE_LOCKFILE_PATH" = "x"]; then
+    ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
+else
+    ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- "$REMOTE_RUNWITHLOCKFILE_BIN" "$REMOTE_LOCKFILE_PATH" xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
+fi
+
+# Print jobs list
+jobs -l
 
 # Wait for both to finish
 wait || exit 1
