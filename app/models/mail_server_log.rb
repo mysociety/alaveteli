@@ -203,13 +203,15 @@ class MailServerLog < ActiveRecord::Base
   #
   # opts = Hash of options (default: {})
   #        :redact_idhash - Redacts instances of the InfoRequest#idhash
+  #        :decorate - Wrap the line in a decorator appropriate to the MTA
   #
-  # Returns a String
+  # Returns a String, EximLine or PostfixLine
   def line(opts = {})
     line = read_attribute(:line).dup
     if opts[:redact_idhash] && info_request && info_request.idhash
       line.gsub!(info_request.idhash, _('[REDACTED]'))
     end
+    line = line_decorator.new(line) if opts[:decorate]
     line
   end
 
@@ -223,6 +225,18 @@ class MailServerLog < ActiveRecord::Base
       else
         puts "Warning: Could not find request with email #{email}"
       end
+    end
+  end
+
+  def line_decorator
+    mta = AlaveteliConfiguration.mta_log_type.to_sym
+    case mta
+    when :exim
+      EximLine
+    when :postfix
+      PostfixLine
+    else
+      raise "Unexpected MTA type: #{ mta }"
     end
   end
 

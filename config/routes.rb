@@ -105,7 +105,7 @@ Alaveteli::Application.routes.draw do
 
   match '/request/:id/describe' => 'request#describe_state',
         :as => :describe_state,
-        :via => :post
+        :via => [:post, :put]
   match '/request/:url_title/describe/:described_state' => 'request#describe_state_message',
         :as => :describe_state_message,
         :via => :get
@@ -157,7 +157,7 @@ Alaveteli::Application.routes.draw do
 
   #### OutgoingMessage controller
   resources :outgoing_messages, :only => [] do
-    resources :mail_server_logs, :only => [:index]
+    resource :delivery_status, :only => [:show], :module => 'outgoing_messages'
   end
   ####
 
@@ -204,7 +204,7 @@ Alaveteli::Application.routes.draw do
         :via => :get
   match '/user/contact/:id' => 'user#contact',
         :as => :contact_user,
-        :via => :get
+        :via => [:get, :post]
 
   match '/profile/change_email' => 'user#signchangeemail',
         :as => :signchangeemail,
@@ -224,7 +224,7 @@ Alaveteli::Application.routes.draw do
         :via => :get
   match '/profile/set_about_me' => 'user#set_profile_about_me',
         :as => :set_profile_about_me,
-        :via => :post
+        :via => [:get, :post]
   match '/profile/set_receive_alerts' => 'user#set_receive_email_alerts',
         :as => :set_receive_email_alerts
 
@@ -273,7 +273,7 @@ Alaveteli::Application.routes.draw do
         :via => :get
   match '/body/:url_name/view_email' => 'public_body#view_email',
         :as => :view_public_body_email,
-        :via => :get
+        :via => [:get, :post]
   match '/body/:url_name/:tag' => 'public_body#show',
         :as => :show_public_body_tag,
         :via => :get

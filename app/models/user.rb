@@ -12,7 +12,7 @@
 #  updated_at              :datetime         not null
 #  email_confirmed         :boolean          default(FALSE), not null
 #  url_name                :text             not null
-#  last_daily_track_email  :datetime         default(Sat Jan 01 00:00:00 UTC 2000)
+#  last_daily_track_email  :datetime         default(2000-01-01 00:00:00 UTC)
 #  admin_level             :string(255)      default("none"), not null
 #  ban_text                :text             default(""), not null
 #  about_me                :text             default(""), not null
@@ -181,6 +181,12 @@ class User < ActiveRecord::Base
   def self.find_similar_named_users(user)
     User.where('name ILIKE ? AND email_confirmed = ? AND id <> ?',
                 user.name, true, user.id).order(:created_at)
+  end
+
+  def transactions(*associations)
+    opts = {}
+    opts[:transaction_associations] = associations if associations.any?
+    TransactionCalculator.new(self, opts)
   end
 
   def created_at_numeric

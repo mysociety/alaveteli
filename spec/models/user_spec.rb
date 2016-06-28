@@ -12,7 +12,7 @@
 #  updated_at              :datetime         not null
 #  email_confirmed         :boolean          default(FALSE), not null
 #  url_name                :text             not null
-#  last_daily_track_email  :datetime         default(Sat Jan 01 00:00:00 UTC 2000)
+#  last_daily_track_email  :datetime         default(2000-01-01 00:00:00 UTC)
 #  admin_level             :string(255)      default("none"), not null
 #  ban_text                :text             default(""), not null
 #  about_me                :text             default(""), not null
@@ -425,6 +425,23 @@ describe User do
     it 'is false if the user is not an admin' do
       user = double(:super? => false)
       expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
+    end
+
+  end
+
+  describe '#transactions' do
+
+    it 'returns a TransactionCalculator with the default transaction set' do
+      user = User.new
+      expect(user.transactions).to eq(User::TransactionCalculator.new(user))
+    end
+
+    it 'returns a TransactionCalculator with a custom transaction set' do
+      user = User.new
+      calculator =
+        User::TransactionCalculator.
+          new(user, :transaction_associations => [:comments, :info_requests])
+      expect(user.transactions(:comments, :info_requests)).to eq(calculator)
     end
 
   end

@@ -84,6 +84,7 @@ $(document).ready(function() {
     var $toggle = $correspondence.find('.js-toggle-delivery-log');
     var $correspondence_delivery = $('<div>')
       .addClass('correspondence_delivery')
+      .addClass('correspondence_delivery--' + $toggle.attr('data-delivery-status'))
       .hide()
       .insertBefore( $correspondence.find('.correspondence_text') );
 
@@ -93,10 +94,9 @@ $(document).ready(function() {
       url: url,
       dataType: "html"
     }).done(function(html){
-      var $deliveryDiv = $(html).find('.controller_mail_server_logs');
+      var $deliveryDiv = $(html).find('.controller_delivery_statuses');
       $correspondence_delivery.html( $deliveryDiv.html() );
       $correspondence_delivery.slideDown(200);
-
     }).fail(function(){
       var msgHtml = $('.js-delivery-log-ajax-error').html();
       $correspondence_delivery.html( msgHtml );
@@ -104,7 +104,6 @@ $(document).ready(function() {
 
     }).always(function(){
       $toggle.removeClass('toggle-delivery-log--loading');
-
     });
   }
 
