@@ -16,7 +16,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class ProfilePhoto < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
   # deliberately don't strip_attributes, so keeps raw photo properly
 
   WIDTH = 96

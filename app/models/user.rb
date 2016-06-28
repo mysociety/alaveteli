@@ -37,7 +37,6 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
   strip_attributes :allow_empty => true
 
   attr_accessor :password_confirmation, :no_xapian_reindex

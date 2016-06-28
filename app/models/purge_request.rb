@@ -18,8 +18,6 @@
 #
 
 class PurgeRequest < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   def self.purge_all
     done_something = false
 

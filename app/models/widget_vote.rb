@@ -11,8 +11,6 @@
 #
 
 class WidgetVote < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   belongs_to :info_request
   validates :info_request, :presence => true
 

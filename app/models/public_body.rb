@@ -32,7 +32,6 @@ require 'securerandom'
 require 'set'
 
 class PublicBody < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
   include AdminColumn
 
   class ImportCSVDryRun < StandardError ; end
@@ -104,7 +103,6 @@ class PublicBody < ActiveRecord::Base
 
   # Cannot be grouped at top as it depends on the `translates` macro
   class Translation
-    include ActiveModel::ForbiddenAttributesProtection
     include PublicBodyDerivedFields
     strip_attributes :allow_empty => true
   end
@@ -133,8 +131,6 @@ class PublicBody < ActiveRecord::Base
   #
   # [1] http://git.io/vIetK
   class Version
-    include ActiveModel::ForbiddenAttributesProtection
-
     def last_edit_comment_for_html_display
       text = self.last_edit_comment.strip
       text = CGI.escapeHTML(text)

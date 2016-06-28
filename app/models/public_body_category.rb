@@ -8,8 +8,6 @@
 #
 
 class PublicBodyCategory < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   has_many :public_body_category_links, :dependent => :destroy
   has_many :public_body_headings, :through => :public_body_category_links
 
@@ -52,8 +50,6 @@ class PublicBodyCategory < ActiveRecord::Base
 end
 
 PublicBodyCategory::Translation.class_eval do
-  include ActiveModel::ForbiddenAttributesProtection
-
   with_options :if => lambda { |t| !t.default_locale? && t.required_attribute_submitted? } do |required|
     required.validates :title, :presence => { :message => "Title can't be blank" }
     required.validates :description, :presence => { :message => "Description can't be blank" }
