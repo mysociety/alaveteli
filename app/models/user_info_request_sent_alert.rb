@@ -18,8 +18,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class UserInfoRequestSentAlert < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   ALERT_TYPES = [
     'overdue_1', # tell user that info request has become overdue
     'very_overdue_1', # tell user that info request has become very overdue

@@ -8,8 +8,6 @@
 #
 
 class PublicBodyHeading < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   has_many :public_body_category_links, :dependent => :destroy
   has_many :public_body_categories, :order => :category_display_order, :through => :public_body_category_links
   default_scope -> { order("display_order ASC") }
@@ -42,8 +40,4 @@ class PublicBodyHeading < ActiveRecord::Base
       0
     end
   end
-end
-
-PublicBodyHeading::Translation.class_eval do
-  include ActiveModel::ForbiddenAttributesProtection
 end

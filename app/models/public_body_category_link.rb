@@ -10,8 +10,6 @@
 #
 
 class PublicBodyCategoryLink < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   belongs_to :public_body_category
   belongs_to :public_body_heading
   validates_presence_of :public_body_category

@@ -11,7 +11,6 @@ module HasTagString
   # Represents one tag of one model.
   # The migration to make this is currently only in WDTK code.
   class HasTagStringTag < ActiveRecord::Base
-    include ActiveModel::ForbiddenAttributesProtection
     # TODO: strip_attributes
 
     validates_presence_of :name

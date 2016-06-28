@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update parameter whitelisting to Rails' strong parameters (Gareth Rees)
 * Fixed bug in `OutgoingMessage.template_changed` which allowed a new request to
   be submitted without changes to the default text if:
    - the site (theme) overrode the core default text via `default_letter`
@@ -64,6 +65,9 @@
        `pageTracker._trackEvent(category, action)` to
        `ga('send', 'event', category, action)`
   Full information on how to check and adjust for these changes is available [in Google's migration guide](https://developers.google.com/analytics/devguides/collection/upgrade/#upgrade-guides)
+* Models now have `ForbiddenAttributesProtection` enabled, so you'll need to
+  permit params that can be mass assigned in any overridden or custom controller
+  actions. See <https://github.com/rails/strong_parameters>.
 
 # Version 0.24.1.0
 
