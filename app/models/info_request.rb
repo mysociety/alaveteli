@@ -1117,9 +1117,7 @@ class InfoRequest < ActiveRecord::Base
     unless is_batch_request_template?
       applicable_rules << public_body.censor_rules
     end
-    if user && !user.censor_rules.empty?
-      applicable_rules << user.censor_rules
-    end
+    applicable_rules << user.censor_rules if user
     applicable_rules.flatten
   end
 
