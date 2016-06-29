@@ -24,7 +24,7 @@ describe Holiday do
   describe " when calculating due date" do
 
     def due_date(ymd)
-      return Holiday.due_date_from_working_days(Date.strptime(ymd), 20).strftime("%F")
+      Holiday.due_date_from_working_days(Date.strptime(ymd), 20).strftime("%F")
     end
 
     context "in working days" do
