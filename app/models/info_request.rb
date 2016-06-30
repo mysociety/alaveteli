@@ -1448,8 +1448,7 @@ class InfoRequest < ActiveRecord::Base
     will_be_rejected = (response_rejector && response_rejection) ? true : false
     if will_be_rejected && response_rejection.reject(response_rejector.reason)
       # update without changing the updated_at field
-      self.update_column(:rejected_incoming_count,
-        self.increment(:rejected_incoming_count).rejected_incoming_count)
+      self.update_column(:rejected_incoming_count, self.rejected_incoming_count.next)
       logger.info "Rejected incoming mail: #{ response_rejector.reason } request: #{ id }"
       false
     else
