@@ -77,9 +77,53 @@ Another One,another@example.com,Otro organismo,a_tag
   overwritten – e.g.  email addresses changed back.
 </p>
 
-<p><strong>Note:</strong> The import tag will also be added to the imported bodies
-  if no tags are provided in the CSV file or if the import mode is set to
-  "Add new tags to existing ones".
+
+<p><strong>Optional import tag:</strong></p>
+
+<p>
+  The import tag behaviour is controlled by the tag behaviour dropdown.
+</p>
+
+<p>
+  <strong>Add new tags to existing ones:</strong>
+</p>
+
+<p>
+  With a new body:
+  <ul>
+    <li>it uses the import tag when no tag_string is specified in the CSV</li>
+    <li>it uses the import tag <em>and</em> the tag_string specified in the CSV</li>
+  </ul>
+</p>
+
+<p>
+  With an existing body with tags:
+  <ul>
+    <li>it uses the original tags, the import tag <em>and</em> the new tag_string specified in the CSV</li>
+  </ul>
+</p>
+
+<p>
+  <strong>Replace existing tags with new ones:</strong>
+</p>
+
+<p>
+  With a new body:
+  <ul>
+    <li>it uses the import tag when no tag_string is specified in the CSV</li>
+    <li>it uses the import tag <em>and</em> the tags specified in the CSV</li>
+  </ul>
+</p>
+
+<p>
+  With an existing body with tags:
+  <ul>
+    <li>it uses the import tag and the tag_string specified in the CSV</li>
+  </ul>
+</p>
+
+<p>
+  The import tag feature does not work for existing bodies without tags.
 </p>
 
 <p><strong>Note:</strong> You should wrap all values in double quotes
