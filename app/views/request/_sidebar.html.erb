@@ -54,7 +54,7 @@
   <%= render :partial => 'request/act' %>
   <%= render :partial => 'request/next_actions' %>
 
-  <% cache_if_caching_fragments(@similar_cache_key, :expires_in => 1.day) do %>
+  <% cache_if_caching_fragments(@similar_cache_key, :expires_in => 3.days) do %>
     <% xapian_similar, xapian_similar_more = @info_request.similar_requests %>
     <% if !xapian_similar.nil? && xapian_similar.results.size > 0 %>
       <h2><%= _('Similar requests')%></h2>
