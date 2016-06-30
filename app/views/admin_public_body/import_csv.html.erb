@@ -2,6 +2,17 @@
 
 <h1><%=@title%></h1>
 
+<br>
+<div class="row">
+  <div class="span8">
+    <div class="alert alert-info">
+      <p>Full documentation on uploading public authority data can be found <%= link_to ' on alaveteli.org',
+        'http://alaveteli.org/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data', :target => '_blank' %>.
+      </p>
+    </div>
+  </div>
+</div>
+
 <% if not @notes.empty? %>
   <pre id="notice"><%=@notes %></pre>
 <% end %>
@@ -48,6 +59,7 @@
 &#35;name,request_email,name.es,tag_string
 An Authority,a@example.com,Un organismo,a_tag another_tag
 Another One,another@example.com,Otro organismo,a_tag
+"Authority, Test",test@example.com,"Organismo de prueba","test_tag_1 test_tag_2"
 </pre>
 
 <p><strong>Supported fields:</strong>
@@ -68,6 +80,11 @@ Another One,another@example.com,Otro organismo,a_tag
 <p><strong>Note:</strong> The import tag will also be added to the imported bodies
   if no tags are provided in the CSV file or if the import mode is set to
   "Add new tags to existing ones".
+</p>
+
+<p><strong>Note:</strong> You should wrap all values in double quotes
+  (<code>"</code>) if they include commas (<code>,</code>) or spaces (See above
+  example).
 </p>
 
 <div class="form-actions">
