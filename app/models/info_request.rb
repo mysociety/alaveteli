@@ -492,7 +492,6 @@ class InfoRequest < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       comment.body = body
       comment.user = user
-      comment.comment_type = 'request'
       comment.info_request = self
       comment.save!
 
