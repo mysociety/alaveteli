@@ -14,8 +14,7 @@ class CommentController < ApplicationController
 
   def new
     if params[:comment]
-      @comment = Comment.new(comment_params.merge({ :comment_type => 'request',
-                                                    :user => @user }))
+      @comment = Comment.new(comment_params.merge({ :user => @user }))
     end
 
     if params[:comment]
