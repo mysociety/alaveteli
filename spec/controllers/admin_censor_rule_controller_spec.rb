@@ -173,7 +173,7 @@ describe AdminCensorRuleController do
     context 'a global censor rule' do
 
       before(:each) do
-        @censor_rule_params = FactoryGirl.build(:global_censor_rule).serializable_hash
+        @censor_rule_params = FactoryGirl.attributes_for(:global_censor_rule)
         # last_edit_editor gets set in the controller
         @censor_rule_params.delete(:last_edit_editor)
       end
@@ -241,7 +241,7 @@ describe AdminCensorRuleController do
     context 'request_id param' do
 
       before(:each) do
-        @censor_rule_params = FactoryGirl.build(:info_request_censor_rule).serializable_hash
+        @censor_rule_params = FactoryGirl.attributes_for(:info_request_censor_rule)
         # last_edit_editor gets set in the controller
         @censor_rule_params.delete(:last_edit_editor)
         @info_request = FactoryGirl.create(:info_request)
@@ -328,7 +328,7 @@ describe AdminCensorRuleController do
 
       before(:each) do
         @user = FactoryGirl.create(:user)
-        @censor_rule_params = FactoryGirl.build(:user_censor_rule, :user => @user).serializable_hash
+        @censor_rule_params = FactoryGirl.attributes_for(:user_censor_rule, :user => @user)
         # last_edit_editor gets set in the controller
         @censor_rule_params.delete(:last_edit_editor)
       end
@@ -404,7 +404,7 @@ describe AdminCensorRuleController do
     context 'body_id param' do
 
       before(:each) do
-        @censor_rule_params = FactoryGirl.build(:public_body_censor_rule).serializable_hash
+        @censor_rule_params = FactoryGirl.attributes_for(:public_body_censor_rule)
         # last_edit_editor gets set in the controller
         @censor_rule_params.delete(:last_edit_editor)
         @public_body = FactoryGirl.create(:public_body)
