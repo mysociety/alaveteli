@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Format incoming message HTML with <p> and <br> tags (Liz Conlan)
 * Fixed bug in `OutgoingMessage.template_changed` which allowed a new request to
   be submitted without changes to the default text if:
    - the site (theme) overrode the core default text via `default_letter`
