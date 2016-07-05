@@ -83,7 +83,7 @@ class GeneralController < ApplicationController
     # in config/routes.rb for comments.
 
     # respond with a 404 and do not execute the search if request was not for html
-    unless request.format.html?
+    if request.format && !request.format.html?
       respond_to { |format| format.any { head :not_found } }
       return
     end
