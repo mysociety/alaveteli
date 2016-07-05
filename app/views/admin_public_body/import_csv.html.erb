@@ -2,17 +2,6 @@
 
 <h1><%=@title%></h1>
 
-<br>
-<div class="row">
-  <div class="span8">
-    <div class="alert alert-info">
-      <p>Full documentation on uploading public authority data can be found <%= link_to ' on alaveteli.org',
-        'http://alaveteli.org/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data', :target => '_blank' %>.
-      </p>
-    </div>
-  </div>
-</div>
-
 <% if not @notes.empty? %>
   <pre id="notice"><%=@notes %></pre>
 <% end %>
@@ -47,90 +36,6 @@
        %>
 </p>
 
-<p><strong>CSV file format:</strong> The first row should be a list
-  of fields, starting with <code>#</code>. The fields <code>name</code> and
-  <code>request_email</code> are required; additionally, translated values are
-  supported by adding the locale name to the field name,
-  e.g. <code>name.es</code>, <code>name.de</code>&hellip;<br />
-  <strong>Example:</strong>
-</p>
-
-<pre>
-&#35;name,request_email,name.es,tag_string
-An Authority,a@example.com,Un organismo,a_tag another_tag
-Another One,another@example.com,Otro organismo,a_tag
-"Authority, Test",test@example.com,"Organismo de prueba","test_tag_1 test_tag_2"
-</pre>
-
-<p><strong>Supported fields:</strong>
-  <ul>
-    <% PublicBody.csv_import_fields.each do |field, notes| %>
-      <li><code><%= field %></code> <%= sanitize(notes) %></li>
-    <% end %>
-  </ul>
-</p>
-
-<p><strong>Note:</strong> Choose <strong>dry run</strong> to test, without
-  actually altering the database. Choose <strong>upload</strong> to actually
-  make the changes. In either case, you will be shown any errors, or details
-  of the changes.  When uploading, any changes since last import will be
-  overwritten – e.g.  email addresses changed back.
-</p>
-
-
-<p><strong>Optional import tag:</strong></p>
-
-<p>
-  The import tag behaviour is controlled by the tag behaviour dropdown.
-</p>
-
-<p>
-  <strong>Add new tags to existing ones:</strong>
-</p>
-
-<p>
-  With a new body:
-  <ul>
-    <li>it uses the import tag when no tag_string is specified in the CSV</li>
-    <li>it uses the import tag <em>and</em> the tag_string specified in the CSV</li>
-  </ul>
-</p>
-
-<p>
-  With an existing body with tags:
-  <ul>
-    <li>it uses the original tags, the import tag <em>and</em> the new tag_string specified in the CSV</li>
-  </ul>
-</p>
-
-<p>
-  <strong>Replace existing tags with new ones:</strong>
-</p>
-
-<p>
-  With a new body:
-  <ul>
-    <li>it uses the import tag when no tag_string is specified in the CSV</li>
-    <li>it uses the import tag <em>and</em> the tags specified in the CSV</li>
-  </ul>
-</p>
-
-<p>
-  With an existing body with tags:
-  <ul>
-    <li>it uses the import tag and the tag_string specified in the CSV</li>
-  </ul>
-</p>
-
-<p>
-  The import tag feature does not work for existing bodies without tags.
-</p>
-
-<p><strong>Note:</strong> You should wrap all values in double quotes
-  (<code>"</code>) if they include commas (<code>,</code>) or spaces (See above
-  example).
-</p>
-
 <div class="form-actions">
   <p>
     <%= submit_tag 'Dry run', :class => 'btn btn-success' %>
@@ -141,15 +46,107 @@ Another One,another@example.com,Otro organismo,a_tag
 
 <hr>
 
-<div id="standard-tags">
-  <h2>Standard tags:</h2>
+<div class="row">
+  <div class="span8">
+    <div class="alert alert-info">
+      <p><strong>CSV file format:</strong> The first row should be a list
+        of fields, starting with <code>#</code>. The fields <code>name</code> and
+        <code>request_email</code> are required; additionally, translated values are
+        supported by adding the locale name to the field name,
+        e.g. <code>name.es</code>, <code>name.de</code>&hellip;<br />
+        <strong>Example:</strong>
+      </p>
 
-  <ul>
-    <% PublicBodyCategory.get().by_tag().each do |category, description| %>
-      <% if category != "other" %>
-        <li><strong><%= category %></strong>=<%= description %></li>
+      <pre>&#35;name,request_email,name.es,tag_string
+An Authority,a@example.com,Un organismo,a_tag another_tag
+Another One,another@example.com,Otro organismo,a_tag
+"Authority, Test",test@example.com,"Organismo de prueba","test_tag_1 test_tag_2"</pre>
+
+      <p><strong>Supported fields:</strong>
+        <ul>
+          <% PublicBody.csv_import_fields.each do |field, notes| %>
+            <li><code><%= field %></code> <%= sanitize(notes) %></li>
+          <% end %>
+        </ul>
+      </p>
+
+      <p><strong>Note:</strong> Choose <strong>dry run</strong> to test, without
+        actually altering the database. Choose <strong>upload</strong> to actually
+        make the changes. In either case, you will be shown any errors, or details
+        of the changes.  When uploading, any changes since last import will be
+        overwritten – e.g.  email addresses changed back.
+      </p>
+
+      <p><strong>Note:</strong> You should wrap all values in double quotes
+        (<code>"</code>) if they include commas (<code>,</code>) or spaces (See above
+        example).
+      </p>
+
+      <p><strong>Optional import tag:</strong></p>
+
+      <p>
+        The import tag behaviour is controlled by the tag behaviour dropdown.
+      </p>
+
+      <p>
+        <strong>Add new tags to existing ones:</strong>
+      </p>
+
+      <p>
+        With a new body:
+        <ul>
+          <li>it uses the import tag when no tag_string is specified in the CSV</li>
+          <li>it uses the import tag <em>and</em> the tag_string specified in the CSV</li>
+        </ul>
+      </p>
+
+      <p>
+        With an existing body with tags:
+        <ul>
+          <li>it uses the original tags, the import tag <em>and</em> the new tag_string specified in the CSV</li>
+        </ul>
+      </p>
+
+      <p>
+        <strong>Replace existing tags with new ones:</strong>
+      </p>
+
+      <p>
+        With a new body:
+        <ul>
+          <li>it uses the import tag when no tag_string is specified in the CSV</li>
+          <li>it uses the import tag <em>and</em> the tags specified in the CSV</li>
+        </ul>
+      </p>
+
+      <p>
+        With an existing body with tags:
+        <ul>
+          <li>it uses the import tag and the tag_string specified in the CSV</li>
+        </ul>
+      </p>
+
+      <p>
+        The import tag feature does not work for existing bodies without tags.
+      </p>
+
+      <hr />
+
+      <p>Read more about <%= link_to 'uploading Public Authorities on alaveteli.org',
+        'http://alaveteli.org/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data', :target => '_blank' %>.
+      </p>
+    </div>
+  </div>
+
+  <div id="standard-tags" class="span4">
+    <h2>Standard tags:</h2>
+
+    <ul>
+      <% PublicBodyCategory.get().by_tag().each do |category, description| %>
+        <% if category != "other" %>
+          <li><strong><%= category %></strong>=<%= description %></li>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
+    </ul>
+  </div>
 </div>
-
