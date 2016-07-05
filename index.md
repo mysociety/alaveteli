@@ -131,7 +131,7 @@ title: Welcome
         <div class="get-started__item get-started__item">
             <h3>Get the code</h3>
             <p>Alaveteli is open source and available to view, download and modify on GitHub</p>
-            <p><a href="https://github.com/mysociety/alaveteli/" class="button">Github</a></p>
+            <p><a href="https://github.com/mysociety/alaveteli/" class="button">GitHub</a></p>
         </div>
     </div><!--
     --><div class="get-started__grid-unit">
