@@ -229,7 +229,7 @@ class RequestController < ApplicationController
                                                      params[:outgoing_message][:body],
                                                      params[:public_body_ids])
 
-    @info_request = InfoRequest.create_from_attributes(info_request_params,
+    @info_request = InfoRequest.create_from_attributes(info_request_params(@batch),
                                                        outgoing_message_params,
                                                        authenticated_user)
     @outgoing_message = @info_request.outgoing_messages.first
