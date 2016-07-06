@@ -783,7 +783,7 @@ class RequestController < ApplicationController
   end
 
   def outgoing_message_params
-    params.require(:outgoing_message).permit(:body)
+    params.require(:outgoing_message).permit(:body, :what_doing)
   end
 
   def assign_variables_for_show_template(info_request)

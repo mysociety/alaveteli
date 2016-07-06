@@ -905,7 +905,7 @@ class InfoRequest < ActiveRecord::Base
     attrs = outgoing_message_atts.merge(default_message_params)
 
     if attrs.respond_to?(:permit)
-      attrs.permit(:status, :message_type, :what_doing)
+      attrs.permit(:body, :what_doing, :status, :message_type, :what_doing)
     end
 
     outgoing_message = OutgoingMessage.new(attrs)
