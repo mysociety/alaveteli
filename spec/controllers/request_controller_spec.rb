@@ -26,6 +26,11 @@ describe RequestController, "when listing recent requests" do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
+  it "returns 404 for non html requests" do
+    get :list, :view => "all", :format => :json
+    expect(response.status).to eq(404)
+  end
+
   it 'should not raise an error for a page param of less than zero, but should treat it as
         a param of 1' do
     expect{ get :list, :view => 'all', :page => "-1" }.not_to raise_error
