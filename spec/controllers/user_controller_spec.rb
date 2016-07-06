@@ -783,13 +783,13 @@ describe UserController, "when signing up" do
   end
 
   it 'accepts only whitelisted parameters' do
-    post :signup, { :user_signup => { :email => 'silly@localhost',
-                                      :name => 'New Person',
-                                      :password => 'sillypassword',
-                                      :password_confirmation => 'sillypassword',
-                                      :admin_level => 'super' } }
-
-    expect(assigns(:user_signup).admin_level).to eq('none')
+    expect {
+      post :signup, { :user_signup => { :email => 'silly@localhost',
+                                        :name => 'New Person',
+                                        :password => 'sillypassword',
+                                        :password_confirmation => 'sillypassword',
+                                        :admin_level => 'super' } }
+    }.to raise_error(ActionController::UnpermittedParameters)
   end
 
   # TODO: need to do bob@localhost signup and check that sends different email
