@@ -167,6 +167,12 @@ class RequestController < ApplicationController
   end
 
   def list
+    # respond with a 404 without a database lookup if request was not for html
+    if request.format && !request.format.html?
+      respond_to { |format| format.any { head :not_found } }
+      return
+    end
+
     medium_cache
     @view = params[:view]
     @locale = I18n.locale.to_s
