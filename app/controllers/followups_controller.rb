@@ -119,7 +119,7 @@ class FollowupsController < ApplicationController
     params_outgoing_message.merge!({
                                      :status => 'ready',
                                      :message_type => 'followup',
-                                     :incoming_message_followup => @incoming_message,
+                                     :incoming_message_followup_id => @incoming_message.id,
                                      :info_request_id => @info_request.id
     })
     params_outgoing_message[:what_doing] = 'internal_review' if @internal_review
@@ -128,7 +128,7 @@ class FollowupsController < ApplicationController
     parameters.permit(:body,
                       :status,
                       :message_type,
-                      :incoming_message_followup,
+                      :incoming_message_followup_id,
                       :info_request_id,
                       :what_doing)
   end
@@ -173,7 +173,6 @@ class FollowupsController < ApplicationController
   end
 
   def set_outgoing_message
-    outgoing_message_params
     @outgoing_message = OutgoingMessage.new(outgoing_message_params)
     @outgoing_message.set_signature_name(@user.name) if @user
   end
