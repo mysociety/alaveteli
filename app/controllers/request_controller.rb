@@ -778,7 +778,7 @@ class RequestController < ApplicationController
         params.require(:info_request).permit(:title, :tag_string)
       end
     else
-      params.require(:info_request).permit(:title, :public_body_id)
+      params.require(:info_request).permit(:title, :public_body_id, :tag_string)
     end
   end
 
