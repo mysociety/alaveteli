@@ -197,6 +197,7 @@ class AdminRequestController < AdminController
     if params[:info_request]
       params.require(:info_request).permit(:title,
                                            :prominence,
+                                           :described_state,
                                            :awaiting_description,
                                            :allow_new_responses_from,
                                            :handle_rejected_responses,
