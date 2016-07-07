@@ -14,6 +14,15 @@ class UserProfile::AboutMeController < ApplicationController
 
     @user.about_me = params[:user][:about_me]
 
+    unless @user.confirmed_not_spam?
+      if UserSpamScorer.new.spam?(@user)
+        flash[:error] =
+          _('That text looks like spam, so we have not updated your about me')
+        redirect_to user_url(@user)
+        return
+      end
+    end
+
     if @user.save
       if @user.profile_photo
         flash[:notice] = _("You have now changed the text about you on your profile.")

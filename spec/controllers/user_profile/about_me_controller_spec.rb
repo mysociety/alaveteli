@@ -188,6 +188,61 @@ describe UserProfile::AboutMeController do
 
     end
 
+    context 'with spam attributes and a non-whitelisted user' do
+
+      let(:user) { FactoryGirl.create(:user, :name => 'JWahewKjWhebCd') }
+
+      before :each do
+        UserSpamScorer.spam_score_threshold = 1
+        UserSpamScorer.score_mappings =
+          { :about_me_includes_currency_symbol? => 20 }
+        session[:user_id] = user.id
+      end
+
+      after(:each) { UserSpamScorer.reset }
+
+      it 'sets an error message' do
+        put :update, :user => { :about_me => 'http://example.com/$£$£$' }
+        msg = 'That text looks like spam, so we have not updated your about me'
+        expect(flash[:error]).to eq(msg)
+      end
+
+      it 'redirects to the user page' do
+        put :update, :user => { :about_me => 'http://example.com/$£$£$' }
+        expect(response).
+          to redirect_to(show_user_path(:url_name => user.url_name))
+      end
+
+      it 'does not update the user about_me' do
+        put :update, :user => { :about_me => 'http://example.com/$£$£$' }
+        expect(user.reload.about_me).to eq('')
+      end
+
+    end
+
+    context 'with spam attributes and a whitelisted user' do
+
+      let(:user) do
+        FactoryGirl.create(:user, :name => 'JWahewKjWhebCd',
+                                  :confirmed_not_spam => true)
+      end
+
+      before :each do
+        UserSpamScorer.spam_score_threshold = 1
+        UserSpamScorer.score_mappings =
+          { :about_me_includes_currency_symbol? => 20 }
+        session[:user_id] = user.id
+      end
+
+      after(:each) { UserSpamScorer.reset }
+
+      it 'updates the user about_me' do
+        # By whitelisting we're giving them the benefit of the doubt
+        put :update, :user => { :about_me => 'http://example.com/$£$£$' }
+        expect(user.reload.about_me).to eq('http://example.com/$£$£$')
+      end
+
+    end
 
   end
 
