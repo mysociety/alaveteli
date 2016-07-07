@@ -925,10 +925,13 @@ class RequestController < ApplicationController
     # built from @info_request
     message_params[:info_request] = @info_request
 
-    parameters = ActionController::Parameters.new(message_params)
-    parameters.permit(:body, :default_letter)
+    message_params = ActionController::Parameters.new(message_params)
+    permitted = message_params.permit(:body, :default_letter, :what_doing)
 
-    @outgoing_message = @info_request.outgoing_messages.build(message_params)
+    @outgoing_message = OutgoingMessage.new(:info_request => @info_request)
+    @outgoing_message.body = permitted[:body]
+    @outgoing_message.default_letter = permitted[:default_letter]
+    @outgoing_message.what_doing = permitted[:what_doing]
     @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
     if batch
