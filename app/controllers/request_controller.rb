@@ -331,7 +331,7 @@ class RequestController < ApplicationController
 
     # Maybe we lost the address while they're writing it
     unless @info_request.public_body.is_requestable?
-      render :action => 'new_' + @info_request.public_body.not_requestable_reason
+      render :action => "new_#{ @info_request.public_body.not_requestable_reason }"
       return
     end
 
