@@ -24,7 +24,7 @@
                               :url => request.url,
                               :via => AlaveteliConfiguration.twitter_username,
                               :text => "'#{ @info_request_batch.title }'",
-                              :related => _('mySocietyIntl:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
+                              :related => _('mySociety:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
                             }.to_query, :class => 'share-link',
                                         :onclick => track_analytics_event(
                                           AnalyticsEvent::Category::OUTBOUND,
