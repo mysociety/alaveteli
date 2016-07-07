@@ -68,7 +68,7 @@ class InfoRequest < ActiveRecord::Base
   validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
   has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
-  has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
+  has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy, :inverse_of => :info_request
   has_many :incoming_messages, :order => 'created_at', :dependent => :destroy
   has_many :user_info_request_sent_alerts, :dependent => :destroy
   has_many :track_things, :order => 'created_at desc', :dependent => :destroy
