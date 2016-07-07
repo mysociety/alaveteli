@@ -1126,30 +1126,9 @@ class InfoRequest < ActiveRecord::Base
       reduce(text) { |text, rule| rule.apply_to_text(text) }
   end
 
-  # Call groups of censor rules
-  def apply_censor_rules_to_text!(text)
-    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_text! will be
-            removed in 0.25. Use the non-destructive
-            InfoRequest#apply_censor_rules_to_text instead).squish
-    applicable_censor_rules.each do |censor_rule|
-      censor_rule.apply_to_text!(text)
-    end
-    text
-  end
-
   def apply_censor_rules_to_binary(text)
     applicable_censor_rules.
       reduce(text) { |text, rule| rule.apply_to_binary(text) }
-  end
-
-  def apply_censor_rules_to_binary!(binary)
-    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_binary! will be
-            removed in 0.25. Use the non-destructive
-            InfoRequest#apply_censor_rules_to_binary instead).squish
-    applicable_censor_rules.each do |censor_rule|
-      censor_rule.apply_to_binary!(binary)
-    end
-    binary
   end
 
   def apply_masks(text, content_type)

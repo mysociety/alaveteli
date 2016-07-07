@@ -317,17 +317,6 @@ class User < ActiveRecord::Base
     )
   end
 
-  # Can the user make new requests, without having to describe state of (most) existing ones?
-  def can_leave_requests_undescribed?
-    warn %q([DEPRECATION] User#can_leave_requests_undescribed? will be removed
-         in Alaveteli release 0.25).squish
-
-    if url_name == "heather_brooke" || url_name == "heather_brooke_2"
-      return true
-    end
-    return false
-  end
-
   # Does the user magically gain powers as if they owned every request?
   # e.g. Can classify it
   def owns_every_request?

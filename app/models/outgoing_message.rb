@@ -75,14 +75,6 @@ class OutgoingMessage < ActiveRecord::Base
     _("Dear {{public_body_name}},", :public_body_name => public_body.name)
   end
 
-  def self.placeholder_salutation
-    warn %q([DEPRECATION] OutgoingMessage.placeholder_salutation will be
-            replaced with
-            OutgoingMessage::Template::BatchRequest.placeholder_salutation as of
-            0.25).squish
-    Template::BatchRequest.placeholder_salutation
-  end
-
   def self.fill_in_salutation(text, public_body)
     text.gsub(Template::BatchRequest.placeholder_salutation,
               default_salutation(public_body))
@@ -334,56 +326,6 @@ class OutgoingMessage < ActiveRecord::Base
       info_request_events.each do |event|
         event.xapian_mark_needs_index
       end
-    end
-  end
-
-  # How the default letter starts and ends
-  def get_salutation
-    warn %q([DEPRECATION] OutgoingMessage#get_salutation will be replaced with
-            OutgoingMessage::Template classes in 0.25).squish
-
-    if info_request.is_batch_request_template?
-      return OutgoingMessage.placeholder_salutation
-    end
-
-    ret = ""
-    if replying_to_incoming_message?
-      ret += OutgoingMailer.name_for_followup(info_request, incoming_message_followup)
-    else
-      return OutgoingMessage.default_salutation(info_request.public_body)
-    end
-    salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
-  end
-
-  def get_signoff
-    warn %q([DEPRECATION] OutgoingMessage#get_signoff will be replaced with
-            OutgoingMessage::Template classes in 0.25).squish
-
-    if replying_to_incoming_message?
-      _("Yours sincerely,")
-    else
-      _("Yours faithfully,")
-    end
-  end
-
-  def get_default_letter
-    warn %q([DEPRECATION] OutgoingMessage#get_default_letter will be replaced
-            with OutgoingMessage::Template classes in 0.25).squish
-
-    return default_letter if default_letter
-
-    if what_doing == 'internal_review'
-      letter = _("Please pass this on to the person who conducts Freedom of Information reviews.")
-      letter += "\n\n"
-      letter += _("I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'.",
-                  :public_body_name => info_request.public_body.name,
-                  :info_request_title => info_request.title)
-      letter += "\n\n\n\n [ #{ get_internal_review_insert_here_note } ] \n\n\n\n"
-      letter += _("A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}",
-                  :url => request_url(info_request))
-      letter += "\n"
-    else
-      ""
     end
   end
 

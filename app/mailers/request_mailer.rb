@@ -527,12 +527,6 @@ class RequestMailer < ApplicationMailer
     })
   end
 
-  def mail_user_with_info_request_title(user, subject, info_request)
-    warn %q([DEPRECATION] RequestMailer#mail_user_with_info_request_title
-              will be removed in Alaveteli release 0.25).squish
-    mail_user(user, subject + info_request.title.html_safe)
-  end
-
   def mail_user(user, subject)
     mail({
       :from => contact_from_name_and_email,
