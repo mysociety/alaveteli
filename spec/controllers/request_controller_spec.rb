@@ -1229,9 +1229,7 @@ describe RequestController, "when making a new request" do
     allow(@user).to receive(:can_file_requests?).and_return(true)
     allow(@user).to receive(:locale).and_return("en")
     allow(User).to receive(:find).and_return(@user)
-
-    @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true, :name => "Test Quango")
-    allow(PublicBody).to receive(:find).and_return(@body)
+    @body = FactoryGirl.create(:public_body, :name => 'Test Quango')
   end
 
   it "should allow you to have one undescribed request" do
