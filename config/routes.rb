@@ -205,11 +205,9 @@ Alaveteli::Application.routes.draw do
   match '/user/contact/:id' => 'user#contact',
         :as => :contact_user,
         :via => [:get, :post]
-
   match '/profile/change_email' => 'user#signchangeemail',
         :as => :signchangeemail,
         :via => [:get, :post]
-
   match '/profile/set_photo' => 'user#set_profile_photo',
         :as => :set_profile_photo,
         :via => [:get, :post]
@@ -222,9 +220,14 @@ Alaveteli::Application.routes.draw do
   match '/profile/draft_photo/:id.png' => 'user#get_draft_profile_photo',
         :as => :get_draft_profile_photo,
         :via => :get
-  match '/profile/set_about_me' => 'user#set_profile_about_me',
-        :as => :set_profile_about_me,
-        :via => [:get, :post]
+
+  namespace :profile, :module => 'user_profile' do
+    resource :about_me, :only => [:edit, :update], :controller => 'about_me'
+  end
+
+  # Legacy route for setting about_me
+  match '/profile/set_about_me' => redirect('/profile/about_me/edit')
+
   match '/profile/set_receive_alerts' => 'user#set_receive_email_alerts',
         :as => :set_receive_email_alerts
 

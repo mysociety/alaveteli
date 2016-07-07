@@ -441,6 +441,10 @@ class UserController < ApplicationController
 
   # Change about me text on your profile page
   def set_profile_about_me
+    warn %q([DEPRECATION] UserController#set_profile_about_me has been replaced
+            with UserProfile::AboutMeController and will be removed in Alaveteli
+            release 0.26).squish
+
     if authenticated_user.nil?
       flash[:error] = _("You need to be logged in to change the text about you on your profile.")
       redirect_to frontpage_url

@@ -31,31 +31,6 @@ describe UserController do
 
   end
 
-  describe 'POST set_profile_about_me' do
-
-    context 'user is banned' do
-
-      before(:each) do
-        @user = FactoryGirl.create(:user, :ban_text => 'Causing trouble')
-        session[:user_id] = @user.id
-
-        post :set_profile_about_me, :submitted_about_me => '1',
-          :about_me => 'Bad stuff'
-      end
-
-      it 'redirects to the profile page' do
-        expect(response).to redirect_to(set_profile_about_me_path)
-      end
-
-      it 'renders an error message' do
-        msg = 'Banned users cannot edit their profile'
-        expect(flash[:error]).to eq(msg)
-      end
-
-    end
-
-  end
-
   describe 'GET confirm' do
 
     context 'if the post redirect cannot be found' do
