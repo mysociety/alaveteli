@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20131024114346
 #
 # Table name: public_bodies
 #
@@ -25,7 +24,7 @@
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer
+#  info_requests_visible_count            :integer          default(0), not null
 #
 
 require 'csv'

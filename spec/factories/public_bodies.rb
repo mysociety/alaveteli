@@ -24,7 +24,7 @@
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer
+#  info_requests_visible_count            :integer          default(0), not null
 #
 
 FactoryGirl.define do
