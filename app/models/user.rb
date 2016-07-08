@@ -62,6 +62,10 @@ class User < ActiveRecord::Base
     'super',
   ], :message => N_('Admin level is not included in list')
 
+  validates_length_of :about_me,
+    :maximum => 500,
+    :message => _("Please keep it shorter than 500 characters")
+
   validates :email, :uniqueness => {
                       :case_sensitive => false,
                       :message => _("This email is already in use") }

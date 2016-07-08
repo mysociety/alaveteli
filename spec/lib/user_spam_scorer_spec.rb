@@ -3,11 +3,123 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UserSpamScorer do
 
+  after(:each) { described_class.reset }
+
+  describe '.currency_symbols' do
+
+    it 'sets a default currency_symbols value' do
+      expect(described_class.currency_symbols).
+        to eq(described_class::DEFAULT_CURRENCY_SYMBOLS)
+    end
+
+    it 'sets a custom currency_symbols value' do
+      described_class.currency_symbols = %w(£ $)
+      expect(described_class.currency_symbols).to eq(%w(£ $))
+    end
+
+  end
+
+  describe '.score_mappings' do
+
+    it 'sets a default score_mappings value' do
+      expect(described_class.score_mappings).
+        to eq(described_class::DEFAULT_SCORE_MAPPINGS)
+    end
+
+    it 'sets a custom score_mappings value' do
+      described_class.score_mappings = { :name_is_one_word? => 7 }
+      expect(described_class.score_mappings).to eq({ :name_is_one_word? => 7 })
+    end
+
+  end
+
+  describe '.spam_domains' do
+
+    it 'sets a default spam_domains value' do
+      expect(described_class.spam_domains).
+        to eq(described_class::DEFAULT_SPAM_DOMAINS)
+    end
+
+    it 'sets a custom spam_domains value' do
+      described_class.spam_domains = %w(example.com)
+      expect(described_class.spam_domains).to eq(%w(example.com))
+    end
+
+  end
+
+  describe '.spam_formats' do
+
+    it 'sets a default spam_formats value' do
+      expect(described_class.spam_formats).
+        to eq(described_class::DEFAULT_SPAM_FORMATS)
+    end
+
+    it 'sets a custom spam_formats value' do
+      described_class.spam_formats = [/\A.*$/]
+      expect(described_class.spam_formats).to eq([/\A.*$/])
+    end
+
+  end
+
+  describe '.spam_score_threshold' do
+
+    it 'sets a default spam_score_threshold value' do
+      expect(described_class.spam_score_threshold).
+        to eq(described_class::DEFAULT_SPAM_SCORE_THRESHOLD)
+    end
+
+    it 'sets a custom spam_score_threshold value' do
+      described_class.spam_score_threshold = 1
+      expect(described_class.spam_score_threshold).to eq(1)
+    end
+
+  end
+
+  describe '.spam_tlds' do
+
+    it 'sets a default spam_tlds value' do
+      expect(described_class.spam_tlds).
+        to eq(described_class::DEFAULT_SPAM_TLDS)
+    end
+
+    it 'sets a custom spam_tlds value' do
+      described_class.spam_tlds = %w(ru)
+      expect(described_class.spam_tlds).to eq(%w(ru))
+    end
+
+  end
+
+  describe '.reset' do
+
+    it 'resets the class instance variables' do
+      attrs = described_class::CLASS_ATTRIBUTES
+
+      defaults = attrs.reduce({}) do |memo, key|
+        memo[key] = described_class.const_get("DEFAULT_#{ key }".upcase)
+        memo
+      end
+
+      described_class.spam_domains = %w(example.net)
+      described_class.reset
+
+      current = attrs.reduce({}) do |memo, key|
+        memo[key] = described_class.send(key)
+        memo
+      end
+
+      expect(current).to eq(defaults)
+    end
+
+    it 'returns the list of attributes that were reset' do
+      expect(described_class.reset).to eq(described_class::CLASS_ATTRIBUTES)
+    end
+
+  end
+
   describe '.new' do
 
     it 'sets a default currency_symbols value' do
-      expect(subject.currency_symbols).
-        to eq(described_class::DEFAULT_CURRENCY_SYMBOLS)
+      expect(subject.currency_symbols).to eq(described_class.currency_symbols)
     end
 
     it 'sets a custom currency_symbols value' do
@@ -16,8 +128,7 @@ describe UserSpamScorer do
     end
 
     it 'sets a default score_mappings value' do
-      expect(subject.score_mappings).
-        to eq(described_class::DEFAULT_SCORE_MAPPINGS)
+      expect(subject.score_mappings).to eq(described_class.score_mappings)
     end
 
     it 'sets a custom score_mappings value' do
@@ -26,8 +137,7 @@ describe UserSpamScorer do
     end
 
     it 'sets a default spam_domains value' do
-      expect(subject.spam_domains).
-        to eq(described_class::DEFAULT_SPAM_DOMAINS)
+      expect(subject.spam_domains).to eq(described_class.spam_domains)
     end
 
     it 'sets a custom spam_domains value' do
@@ -36,8 +146,7 @@ describe UserSpamScorer do
     end
 
     it 'sets a default spam_formats value' do
-      expect(subject.spam_formats).
-        to eq(described_class::DEFAULT_SPAM_FORMATS)
+      expect(subject.spam_formats).to eq(described_class.spam_formats)
     end
 
     it 'sets a custom spam_formats value' do
@@ -45,9 +154,54 @@ describe UserSpamScorer do
       expect(scorer.spam_formats).to eq([/spam/])
     end
 
+    it 'sets a default spam_score_threshold value' do
+      expect(subject.spam_score_threshold).
+        to eq(described_class.spam_score_threshold)
+    end
+
+    it 'sets a custom spam_score_threshold value' do
+      scorer = described_class.new(:spam_score_threshold => 1)
+      expect(scorer.spam_score_threshold).to eq(1)
+    end
+
     it 'sets a default spam_tlds value' do
-      expect(subject.spam_tlds).
-        to eq(described_class::DEFAULT_SPAM_TLDS)
+      expect(subject.spam_tlds).to eq(described_class.spam_tlds)
+    end
+
+    it 'sets a custom spam_tlds value' do
+      scorer = described_class.new(:spam_tlds => %w(com))
+      expect(scorer.spam_tlds).to eq(%w(com))
+    end
+
+  end
+
+  describe '#spam?' do
+
+    it 'returns true if the user spam score is above the threshold' do
+      user_attrs = { :name => 'spammer', :comments => [], :track_things => [] }
+      user = mock_model(User, user_attrs)
+      attrs = { :score_mappings => { :name_is_one_word? => 100 },
+                :spam_score_threshold => 5 }
+      scorer = described_class.new(attrs)
+      expect(scorer.spam?(user)).to eq(true)
+    end
+
+    it 'returns false if the user spam score is equal to the threshold' do
+      user_attrs = { :name => 'genuine', :comments => [], :track_things => [] }
+      user = mock_model(User, user_attrs)
+      attrs = { :score_mappings => { :name_is_one_word? => 5 },
+                :spam_score_threshold => 5 }
+      scorer = described_class.new(attrs)
+      expect(scorer.spam?(user)).to eq(false)
+    end
+
+    it 'returns false if the user spam score is below the threshold' do
+      user_attrs = { :name => 'genuine', :comments => [], :track_things => [] }
+      user = mock_model(User, user_attrs)
+      attrs = { :score_mappings => { :name_is_one_word? => 5 },
+                :spam_score_threshold => 100 }
+      scorer = described_class.new(attrs)
+      expect(scorer.spam?(user)).to eq(false)
     end
 
   end

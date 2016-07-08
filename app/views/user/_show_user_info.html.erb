@@ -3,7 +3,7 @@
     <%= image_tag "quote-marks.png", :class => "comment_quote" %>
     <%= @display_user.get_about_me_for_html_display %>
     <% if @is_you %>
-      (<%= link_to _("edit text about you"), set_profile_about_me_path %>)
+      (<%= link_to _("edit text about you"), edit_profile_about_me_path %>)
     <% end %>
   </div>
 <% end %>

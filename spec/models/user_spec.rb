@@ -160,6 +160,12 @@ describe User, " when saving" do
     expect(@user.errors[:hashed_password].size).to eq(1)
   end
 
+  it "does not allow a long about_me" do
+    @user.about_me = 'a' * 501
+    @user.valid?
+    expect(@user.errors[:about_me].size).to eq(1)
+  end
+
   it "should save with reasonable name, password and email" do
     @user.name = "Mr. Reasonable"
     @user.password = "insecurepassword"

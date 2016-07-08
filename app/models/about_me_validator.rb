@@ -13,6 +13,8 @@ class AboutMeValidator
   validates_length_of :about_me, :maximum => 500, :message => _("Please keep it shorter than 500 characters")
 
   def initialize(attributes = {})
+    warn %q([DEPRECATION] AboutMeValidator has been deprecated and will be
+            removed in Alaveteli release 0.26).squish
     attributes.each do |name, value|
       send("#{name}=", value)
     end
