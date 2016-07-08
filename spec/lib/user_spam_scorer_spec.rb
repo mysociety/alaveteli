@@ -48,6 +48,10 @@ describe UserSpamScorer do
     it 'sets a default spam_tlds value' do
       expect(subject.spam_tlds).
         to eq(described_class::DEFAULT_SPAM_TLDS)
+
+    it 'sets a custom spam_tlds value' do
+      scorer = described_class.new(:spam_tlds => %w(com))
+      expect(scorer.spam_tlds).to eq(%w(com))
     end
 
   end
