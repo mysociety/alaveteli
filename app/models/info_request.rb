@@ -513,7 +513,7 @@ class InfoRequest < ActiveRecord::Base
         :title => 'Holding pen',
         :described_state => 'waiting_response',
         :awaiting_description => false,
-        :prominence  => 'backpage'
+        :prominence  => 'hidden'
       )
       om = OutgoingMessage.new({
         :status => 'ready',
