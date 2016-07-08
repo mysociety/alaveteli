@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent spam users using the "about me" page to propagate spam (Gareth Rees)
 * Format incoming message HTML with `<p>` and `<br>` tags (Liz Conlan)
 * Add an interface to calculate transaction stats per user (Gareth Rees)
 * Fixed bug in `OutgoingMessage.template_changed` which allowed a new request to
@@ -57,6 +58,13 @@
 
 ## Upgrade Notes
 
+* `UserController#set_profile_about_me` has been deprecated. If you have
+  overridden it in your theme, you will need to port your customisations to
+  `UserProfile::AboutMeController`. You should also update
+  `profile_set_about_me` routes to `edit_profile_about_me` (for GET requests)
+  and `profile_about_me` (for PUT requests).
+* `AboutMeValidator` has been deprecated. The behaviour is now directly included
+  in `User`.
 * Run `bundle exec rake themes:check_help_sections` to check that your theme
   contains all the necessary help files. The example files have now been moved
   from Alaveteli to the example theme `alavetelitheme`.
