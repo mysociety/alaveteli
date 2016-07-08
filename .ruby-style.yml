@@ -66,7 +66,7 @@ Style/AndOr:
 Style/ArrayJoin:
   Description: 'Use Array#join instead of Array#*.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#array-join'
-  Enabled: false
+  Enabled: true
 
 Style/AsciiComments:
   Description: 'Use only ascii symbols in comments.'
@@ -132,7 +132,7 @@ Style/CharacterLiteral:
 Style/ClassAndModuleCamelCase:
   Description: 'Use CamelCase for classes and modules.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#camelcase-classes'
-  Enabled: false
+  Enabled: true
 
 Style/ClassAndModuleChildren:
   Description: 'Checks style of children classes and modules.'
@@ -145,7 +145,7 @@ Style/ClassCheck:
 Style/ClassMethods:
   Description: 'Use self when defining module/class methods.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#def-self-class-methods'
-  Enabled: false
+  Enabled: true
 
 Style/ClassVars:
   Description: 'Avoid the use of class variables.'
@@ -187,7 +187,7 @@ Style/ConditionalAssignment:
 Style/ConstantName:
   Description: 'Constants should use SCREAMING_SNAKE_CASE.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#screaming-snake-case'
-  Enabled: false
+  Enabled: true
 
 Style/DefWithParentheses:
   Description: 'Use def with parentheses when there are arguments.'
@@ -241,7 +241,7 @@ Style/EmptyCaseCondition:
 Style/EmptyLineBetweenDefs:
   Description: 'Use empty lines between defs.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#empty-lines-between-methods'
-  Enabled: false
+  Enabled: true
 
 Style/EmptyLines:
   Description: "Don't use several empty lines in a row."
@@ -328,7 +328,7 @@ Style/FlipFlop:
 Style/For:
   Description: 'Checks use of for or each in multiline loops.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-for-loops'
-  Enabled: false
+  Enabled: true
 
 Style/FormatString:
   Description: 'Enforce the use of Kernel#sprintf, Kernel#format or String#%.'
@@ -381,7 +381,7 @@ Style/IndentationConsistency:
 Style/IndentationWidth:
   Description: 'Use 2 spaces for indentation.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-indentation'
-  Enabled: false
+  Enabled: true
 
 Style/IdenticalConditionalBranches:
   Description: >-
@@ -447,7 +447,7 @@ Style/MethodDefParentheses:
 Style/MethodName:
   Description: 'Use the configured style when naming methods.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#snake-case-symbols-methods-vars'
-  Enabled: false
+  Enabled: true
 
 Style/ModuleFunction:
   Description: 'Checks for usage of `extend self` in modules.'
@@ -560,7 +560,7 @@ Style/NilComparison:
 Style/NonNilCheck:
   Description: 'Checks for redundant nil checks.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-non-nil-checks'
-  Enabled: false
+  Enabled: true
 
 Style/Not:
   Description: 'Use ! instead of not.'
@@ -985,7 +985,7 @@ Metrics/CyclomaticComplexity:
 Metrics/LineLength:
   Description: 'Limit lines to 80 characters.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
-  Enabled: false
+  Enabled: true
 
 Metrics/MethodLength:
   Description: 'Avoid methods longer than 10 lines of code.'
