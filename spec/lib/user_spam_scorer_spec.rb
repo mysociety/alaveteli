@@ -105,8 +105,7 @@ describe UserSpamScorer do
   describe '.new' do
 
     it 'sets a default currency_symbols value' do
-      expect(subject.currency_symbols).
-        to eq(described_class::DEFAULT_CURRENCY_SYMBOLS)
+      expect(subject.currency_symbols).to eq(described_class.currency_symbols)
     end
 
     it 'sets a custom currency_symbols value' do
@@ -115,8 +114,7 @@ describe UserSpamScorer do
     end
 
     it 'sets a default score_mappings value' do
-      expect(subject.score_mappings).
-        to eq(described_class::DEFAULT_SCORE_MAPPINGS)
+      expect(subject.score_mappings).to eq(described_class.score_mappings)
     end
 
     it 'sets a custom score_mappings value' do
@@ -125,8 +123,7 @@ describe UserSpamScorer do
     end
 
     it 'sets a default spam_domains value' do
-      expect(subject.spam_domains).
-        to eq(described_class::DEFAULT_SPAM_DOMAINS)
+      expect(subject.spam_domains).to eq(described_class.spam_domains)
     end
 
     it 'sets a custom spam_domains value' do
@@ -135,8 +132,7 @@ describe UserSpamScorer do
     end
 
     it 'sets a default spam_formats value' do
-      expect(subject.spam_formats).
-        to eq(described_class::DEFAULT_SPAM_FORMATS)
+      expect(subject.spam_formats).to eq(described_class.spam_formats)
     end
 
     it 'sets a custom spam_formats value' do
@@ -145,8 +141,8 @@ describe UserSpamScorer do
     end
 
     it 'sets a default spam_tlds value' do
-      expect(subject.spam_tlds).
-        to eq(described_class::DEFAULT_SPAM_TLDS)
+      expect(subject.spam_tlds).to eq(described_class.spam_tlds)
+    end
 
     it 'sets a custom spam_tlds value' do
       scorer = described_class.new(:spam_tlds => %w(com))

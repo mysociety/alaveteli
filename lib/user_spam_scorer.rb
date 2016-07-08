@@ -48,19 +48,15 @@ class UserSpamScorer
     end
   end
 
-  attr_reader :currency_symbols
-  attr_reader :score_mappings
-  attr_reader :spam_domains
-  attr_reader :spam_formats
-  attr_reader :spam_tlds
+  # Instance attribute accessors
+  CLASS_ATTRIBUTES.each do |key|
+    attr_reader key
+  end
 
-  # TODO: Add class accessors for default values so that they can be customised
   def initialize(opts = {})
-    @currency_symbols = opts.fetch(:currency_symbols, DEFAULT_CURRENCY_SYMBOLS)
-    @score_mappings = opts.fetch(:score_mappings, DEFAULT_SCORE_MAPPINGS)
-    @spam_domains = opts.fetch(:spam_domains, DEFAULT_SPAM_DOMAINS)
-    @spam_formats = opts.fetch(:spam_formats, DEFAULT_SPAM_FORMATS)
-    @spam_tlds = opts.fetch(:spam_tlds, DEFAULT_SPAM_TLDS)
+    CLASS_ATTRIBUTES.each do |key|
+      instance_variable_set("@#{ key }", opts.fetch(key, self.class.send(key)))
+    end
   end
 
   def score(user)
