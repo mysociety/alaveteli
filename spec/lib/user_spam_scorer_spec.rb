@@ -61,6 +61,20 @@ describe UserSpamScorer do
 
   end
 
+  describe '.spam_score_threshold' do
+
+    it 'sets a default spam_score_threshold value' do
+      expect(described_class.spam_score_threshold).
+        to eq(described_class::DEFAULT_SPAM_SCORE_THRESHOLD)
+    end
+
+    it 'sets a custom spam_score_threshold value' do
+      described_class.spam_score_threshold = 1
+      expect(described_class.spam_score_threshold).to eq(1)
+    end
+
+  end
+
   describe '.spam_tlds' do
 
     it 'sets a default spam_tlds value' do
@@ -138,6 +152,16 @@ describe UserSpamScorer do
     it 'sets a custom spam_formats value' do
       scorer = described_class.new(:spam_formats => [/spam/])
       expect(scorer.spam_formats).to eq([/spam/])
+    end
+
+    it 'sets a default spam_score_threshold value' do
+      expect(subject.spam_score_threshold).
+        to eq(described_class.spam_score_threshold)
+    end
+
+    it 'sets a custom spam_score_threshold value' do
+      scorer = described_class.new(:spam_score_threshold => 1)
+      expect(scorer.spam_score_threshold).to eq(1)
     end
 
     it 'sets a default spam_tlds value' do

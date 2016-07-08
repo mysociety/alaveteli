@@ -21,12 +21,14 @@ class UserSpamScorer
     /\Ahttps?:\/\/[^\s]+\n{2,}.+$/,
     /\A.*\n{2,}.*\n{2,}https?:\/\/[^\s]+$/
   ]
+  DEFAULT_SPAM_SCORE_THRESHOLD = 4
   DEFAULT_SPAM_TLDS = %w(ru pl)
 
   CLASS_ATTRIBUTES = [:currency_symbols,
                       :score_mappings,
                       :spam_domains,
                       :spam_formats,
+                      :spam_score_threshold,
                       :spam_tlds]
 
   # Class attribute accessors
