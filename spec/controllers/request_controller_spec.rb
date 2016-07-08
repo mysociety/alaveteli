@@ -1094,6 +1094,16 @@ describe RequestController, "when creating a new request" do
     expect(response).to render_template('new')
   end
 
+  it "re-editing preserves the message body" do
+    post :new, :info_request => { :public_body_id => @body.id,
+    :title => "Why is your quango called Geraldine?", :tag_string => "" },
+      :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+      :submitted_new_request => 1, :preview => 0,
+      :reedit => "Re-edit this request"
+    expect(assigns[:outgoing_message].body).
+      to include('This is a silly letter. It is too short to be interesting.')
+  end
+
   it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
     session[:user_id] = @user.id
     post :new, :info_request => { :public_body_id => @body.id,
@@ -2124,6 +2134,13 @@ describe RequestController, "#new_batch" do
         params = @default_post_params.merge(:preview => 0, :reedit => 1)
         post :new_batch, params, { :user_id => @user.id }
         expect(response).to render_template('new')
+      end
+
+      it "re-editing preserves the message body" do
+        params = @default_post_params.merge(:preview => 0, :reedit => 1)
+        post :new_batch, params, { :user_id => @user.id }
+        expect(assigns[:outgoing_message].body).
+          to include('This is a silly letter.')
       end
 
       context "on success" do

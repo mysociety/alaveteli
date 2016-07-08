@@ -918,20 +918,24 @@ class RequestController < ApplicationController
 
     # Manually permit params because strong params was too difficult given the
     # non-standard arrangement.
-    message_params = {}
-    message_params[:body] = params[:body] if params[:body]
-    message_params[:default_letter] = params[:default_letter] if params[:default_letter]
-    # No idea why this line is needed, even though the OutgoingMessage is being
-    # built from @info_request
-    message_params[:info_request] = @info_request
+    message_params =
+      if params[:outgoing_message]
+        { :outgoing_message => params[:outgoing_message] }
+      else
+        { :outgoing_message => {} }
+      end
+
+    message_params[:outgoing_message][:body] ||= params[:body] if params[:body]
+    message_params[:outgoing_message][:default_letter] ||= params[:default_letter] if params[:default_letter]
 
     message_params = ActionController::Parameters.new(message_params)
-    permitted = message_params.permit(:body, :default_letter, :what_doing)
+    permitted = message_params.
+      permit(:outgoing_message => [:body, :default_letter, :what_doing])
 
     @outgoing_message = OutgoingMessage.new(:info_request => @info_request)
-    @outgoing_message.body = permitted[:body]
-    @outgoing_message.default_letter = permitted[:default_letter]
-    @outgoing_message.what_doing = permitted[:what_doing]
+    @outgoing_message.body = permitted[:outgoing_message][:body]
+    @outgoing_message.default_letter = permitted[:outgoing_message][:default_letter]
+    @outgoing_message.what_doing = permitted[:outgoing_message][:what_doing]
     @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
     if batch
