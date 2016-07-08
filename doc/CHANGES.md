@@ -78,6 +78,87 @@
 * This release includes an update to the commonlib submodule - you
   should be warned about this when running `rails-post-deploy`.
 
+## Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin_censor_rule/_show.html.erb
+    app/views/admin_censor_rule/edit.html.erb
+    app/views/admin_holidays/_edit_form.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_incoming_message/bulk_destroy.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body_categories/edit.html.erb
+    app/views/admin_public_body_headings/edit.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_spam_addresses/index.html.erb
+    app/views/admin_track/_some_tracks.html.erb
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/followups/new.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_footer.html.erb
+    app/views/general/_frontpage_how_it_works.html.erb
+    app/views/general/_frontpage_search_box.html.erb
+    app/views/general/_header.html.erb
+    app/views/general/_responsive_footer.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/_topnav.html.erb
+    app/views/general/blog.html.erb
+    app/views/general/exception_caught.html.erb
+    app/views/general/search.html.erb
+    app/views/help/_sidebar.html.erb
+    app/views/help/_why_they_should_reply_by_email.html.erb
+    app/views/help/about.html.erb
+    app/views/help/alaveteli.html.erb
+    app/views/help/api.html.erb
+    app/views/help/contact.html.erb
+    app/views/help/credits.html.erb
+    app/views/help/officers.html.erb
+    app/views/help/privacy.html.erb
+    app/views/help/requesting.html.erb
+    app/views/help/unhappy.html.erb
+    app/views/info_request_batch/_batch_sent.html.erb
+    app/views/layouts/default.html.erb
+    app/views/one_time_passwords/show.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/list.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_act.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_wall_listing.html.erb
+    app/views/request/describe_notices/_internal_review.html.erb
+    app/views/request/describe_notices/_not_held.html.erb
+    app/views/request/describe_notices/_successful.html.erb
+    app/views/request/details.html.erb
+    app/views/request/new.html.erb
+    app/views/request/preview.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request/show.html.erb
+    app/views/request_game/play.html.erb
+    app/views/request_mailer/requires_admin.text.erb
+    app/views/user/_show_user_info.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/_user_listing_single.html.erb
+    app/views/user/banned.html.erb
+    app/views/user/contact.html.erb
+    app/views/user/no_cookies.html.erb
+    app/views/user/river.html.erb
+    app/views/user/set_draft_profile_photo.html.erb
+    app/views/user/show.html.erb
+    app/views/user/wall.html.erb
+    app/views/widgets/show.html.erb
+
 # Version 0.24.1.0
 
 ## Highlighted Features
