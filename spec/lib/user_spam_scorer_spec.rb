@@ -3,6 +3,105 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UserSpamScorer do
 
+  after(:each) { described_class.reset }
+
+  describe '.currency_symbols' do
+
+    it 'sets a default currency_symbols value' do
+      expect(described_class.currency_symbols).
+        to eq(described_class::DEFAULT_CURRENCY_SYMBOLS)
+    end
+
+    it 'sets a custom currency_symbols value' do
+      described_class.currency_symbols = %w(£ $)
+      expect(described_class.currency_symbols).to eq(%w(£ $))
+    end
+
+  end
+
+  describe '.score_mappings' do
+
+    it 'sets a default score_mappings value' do
+      expect(described_class.score_mappings).
+        to eq(described_class::DEFAULT_SCORE_MAPPINGS)
+    end
+
+    it 'sets a custom score_mappings value' do
+      described_class.score_mappings = { :name_is_one_word? => 7 }
+      expect(described_class.score_mappings).to eq({ :name_is_one_word? => 7 })
+    end
+
+  end
+
+  describe '.spam_domains' do
+
+    it 'sets a default spam_domains value' do
+      expect(described_class.spam_domains).
+        to eq(described_class::DEFAULT_SPAM_DOMAINS)
+    end
+
+    it 'sets a custom spam_domains value' do
+      described_class.spam_domains = %w(example.com)
+      expect(described_class.spam_domains).to eq(%w(example.com))
+    end
+
+  end
+
+  describe '.spam_formats' do
+
+    it 'sets a default spam_formats value' do
+      expect(described_class.spam_formats).
+        to eq(described_class::DEFAULT_SPAM_FORMATS)
+    end
+
+    it 'sets a custom spam_formats value' do
+      described_class.spam_formats = [/\A.*$/]
+      expect(described_class.spam_formats).to eq([/\A.*$/])
+    end
+
+  end
+
+  describe '.spam_tlds' do
+
+    it 'sets a default spam_tlds value' do
+      expect(described_class.spam_tlds).
+        to eq(described_class::DEFAULT_SPAM_TLDS)
+    end
+
+    it 'sets a custom spam_tlds value' do
+      described_class.spam_tlds = %w(ru)
+      expect(described_class.spam_tlds).to eq(%w(ru))
+    end
+
+  end
+
+  describe '.reset' do
+
+    it 'resets the class instance variables' do
+      attrs = described_class::CLASS_ATTRIBUTES
+
+      defaults = attrs.reduce({}) do |memo, key|
+        memo[key] = described_class.const_get("DEFAULT_#{ key }".upcase)
+        memo
+      end
+
+      described_class.spam_domains = %w(example.net)
+      described_class.reset
+
+      current = attrs.reduce({}) do |memo, key|
+        memo[key] = described_class.send(key)
+        memo
+      end
+
+      expect(current).to eq(defaults)
+    end
+
+    it 'returns the list of attributes that were reset' do
+      expect(described_class.reset).to eq(described_class::CLASS_ATTRIBUTES)
+    end
+
+  end
+
   describe '.new' do
 
     it 'sets a default currency_symbols value' do

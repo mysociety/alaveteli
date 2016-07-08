@@ -23,6 +23,31 @@ class UserSpamScorer
   ]
   DEFAULT_SPAM_TLDS = %w(ru pl)
 
+  CLASS_ATTRIBUTES = [:currency_symbols,
+                      :score_mappings,
+                      :spam_domains,
+                      :spam_formats,
+                      :spam_tlds]
+
+  # Class attribute accessors
+  CLASS_ATTRIBUTES.each do |key|
+    define_singleton_method "#{ key }=" do |value|
+      instance_variable_set("@#{ key }", value)
+    end
+
+    define_singleton_method key do
+      value = instance_variable_get("@#{ key }") ||
+        const_get("DEFAULT_#{ key }".upcase)
+      instance_variable_set("@#{ key }", value)
+    end
+  end
+
+  def self.reset
+    CLASS_ATTRIBUTES.each do |key|
+      instance_variable_set("@#{ key }", const_get("DEFAULT_#{ key }".upcase))
+    end
+  end
+
   attr_reader :currency_symbols
   attr_reader :score_mappings
   attr_reader :spam_domains
