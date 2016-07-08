@@ -12,24 +12,24 @@ class UserSpamScorer
     :about_me_is_spam_format? => 1,
     :about_me_includes_anchor_tag? => 1,
     :about_me_already_exists? => 4
-  }
+  }.freeze
 
-  DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢)
-  DEFAULT_SPAM_DOMAINS = %w(mail.ru temp-mail.de tempmail.de shitmail.de)
+  DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢).freeze
+  DEFAULT_SPAM_DOMAINS = %w(mail.ru temp-mail.de tempmail.de shitmail.de).freeze
   DEFAULT_SPAM_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,
     /\Ahttps?:\/\/[^\s]+\n{2,}.+$/,
     /\A.*\n{2,}.*\n{2,}https?:\/\/[^\s]+$/
-  ]
+  ].freeze
   DEFAULT_SPAM_SCORE_THRESHOLD = 4
-  DEFAULT_SPAM_TLDS = %w(ru pl)
+  DEFAULT_SPAM_TLDS = %w(ru pl).freeze
 
   CLASS_ATTRIBUTES = [:currency_symbols,
                       :score_mappings,
                       :spam_domains,
                       :spam_formats,
                       :spam_score_threshold,
-                      :spam_tlds]
+                      :spam_tlds].freeze
 
   # Class attribute accessors
   CLASS_ATTRIBUTES.each do |key|
