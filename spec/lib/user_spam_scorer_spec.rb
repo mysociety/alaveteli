@@ -175,6 +175,37 @@ describe UserSpamScorer do
 
   end
 
+  describe '#spam?' do
+
+    it 'returns true if the user spam score is above the threshold' do
+      user_attrs = { :name => 'spammer', :comments => [], :track_things => [] }
+      user = mock_model(User, user_attrs)
+      attrs = { :score_mappings => { :name_is_one_word? => 100 },
+                :spam_score_threshold => 5 }
+      scorer = described_class.new(attrs)
+      expect(scorer.spam?(user)).to eq(true)
+    end
+
+    it 'returns false if the user spam score is equal to the threshold' do
+      user_attrs = { :name => 'genuine', :comments => [], :track_things => [] }
+      user = mock_model(User, user_attrs)
+      attrs = { :score_mappings => { :name_is_one_word? => 5 },
+                :spam_score_threshold => 5 }
+      scorer = described_class.new(attrs)
+      expect(scorer.spam?(user)).to eq(false)
+    end
+
+    it 'returns false if the user spam score is below the threshold' do
+      user_attrs = { :name => 'genuine', :comments => [], :track_things => [] }
+      user = mock_model(User, user_attrs)
+      attrs = { :score_mappings => { :name_is_one_word? => 5 },
+                :spam_score_threshold => 100 }
+      scorer = described_class.new(attrs)
+      expect(scorer.spam?(user)).to eq(false)
+    end
+
+  end
+
   describe '#score' do
 
     it 'returns 0 if no mappings return true' do
