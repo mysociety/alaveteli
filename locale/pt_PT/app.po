@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 16:42+0000\n"
+"POT-Creation-Date: 2016-07-11 17:39+0000\n"
 "PO-Revision-Date: 2016-07-11 16:44+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/mysociety/alaveteli/language/pt_PT/)\n"
@@ -4370,15 +4370,3 @@ msgstr "{{user}} fez esse pedido de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Resultados da pesquisa"
-
-#~ msgid " - wall"
-#~ msgstr " - wall"
-
-#~ msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
-#~ msgstr "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
-
-#~ msgid "Start your own blog"
-#~ msgstr "Start your own blog"
-
-#~ msgid "Would you like to see a website like this in your country?"
-#~ msgstr "Would you like to see a website like this in your country?"
