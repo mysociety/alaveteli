@@ -65,6 +65,15 @@ describe PasswordChangesController do
       end
     end
 
+    context 'when no user is signed in and no email is submitted' do
+
+      it 're-renders the form' do
+        post :create
+        expect(response).to render_template(:new)
+      end
+
+    end
+
     context 'when receiving an email address of an existing user' do
 
       it 'assigns the user' do
