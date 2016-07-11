@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-04-15 17:45+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2016-07-11 16:42+0000\n"
+"PO-Revision-Date: 2016-07-11 16:44+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/mysociety/alaveteli/language/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -36,9 +36,6 @@ msgstr " (tu)"
 
 msgid " - view and make Freedom of Information requests"
 msgstr " - Envia i cerca entre sol·licituds d'accés a informació"
-
-msgid " - wall"
-msgstr ""
 
 msgid " < "
 msgstr ""
@@ -102,6 +99,9 @@ msgstr "'{{link_to_request}}', una sol·licitud"
 
 msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', una persona"
+
+msgid "(You will be asked to sign in as {{user_name}})"
+msgstr ""
 
 msgid "(hide)"
 msgstr ""
@@ -179,6 +179,9 @@ msgstr "<p>La teva sol•licitud inclou un <strong>codi postal</strong>. Excepte
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} està temporalment en manteniment. Només pot veure sol•licituds existents. No pot crear una nova, afegir comentari, enviar respostes o qualsevol altre operació que modifiqui la base de dades.</p> <p>{{read_only}}</p>"
+
+msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
+msgstr ""
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:rafael_nadal</code></strong> per cercar comentaris fets per l'usuari  'rafael_nadal'."
@@ -273,6 +276,9 @@ msgstr ""
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Dóna les gràcies</strong> a l'organisme públic o {{user_name}}."
+
+msgid "<strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason."
+msgstr ""
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr ""
@@ -386,6 +392,9 @@ msgstr "All the options below can use <strong>status</strong> or <strong>latest_
 msgid "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
 msgstr "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
 
+msgid "All time best players"
+msgstr ""
+
 msgid "Also called {{other_name}}."
 msgstr "També conegut com a {{other_name}}."
 
@@ -476,6 +485,12 @@ msgstr "Adjunto:"
 msgid "Authority email:"
 msgstr ""
 
+msgid "Authority has transferred your request to a different public body."
+msgstr ""
+
+msgid "Authority name"
+msgstr ""
+
 msgid "Authority:"
 msgstr ""
 
@@ -496,6 +511,9 @@ msgstr ""
 
 msgid "Awaiting response."
 msgstr "Esperant resposta."
+
+msgid "Banned from this site"
+msgstr ""
 
 msgid "Banned users cannot edit their profile"
 msgstr ""
@@ -714,6 +732,9 @@ msgstr ""
 msgid "Contains personal information"
 msgstr ""
 
+msgid "Cookies not enabled"
+msgstr ""
+
 msgid "Could not identify the request from the email address"
 msgstr "No hemos podido identificar la solicitud a partir de la dirección de correo"
 
@@ -769,6 +790,9 @@ msgstr "Respuesta retrasada a tu solicitud de acceso a información - {{request_
 
 msgid "Delayed."
 msgstr "Endarrerit."
+
+msgid "Delivery Status for Outgoing Message #{{id}}"
+msgstr ""
 
 msgid "Delivery error"
 msgstr "Error en el lliurament"
@@ -877,12 +901,6 @@ msgstr ""
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr ""
-
-msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
-"Tot el que escriguis en aquesta pàgina, incloent <strong>el teu nom</strong>, \n"
-"                estarà <strong>disponible públicament</strong> en\n"
-"                aquesta web per sempre (<a href=\"{{url}}\">per què?</a>)."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
@@ -1034,10 +1052,25 @@ msgstr ""
 msgid "Forgotten your password?"
 msgstr "Has oblidat la teva contrassenya?"
 
-msgid "Found {{count}} public authority {{description}}"
-msgid_plural "Found {{count}} public authorities {{description}}"
-msgstr[0] "Trobat {{count}} organismo {{description}}"
-msgstr[1] "Trobats {{count}} organismes {{description}}"
+msgid "Found {{count}} public authority"
+msgid_plural "Found {{count}} public authorities"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
+msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Found {{count}} public authority in the category ‘{{category_name}}’"
+msgid_plural "Found {{count}} public authorities in the category ‘{{category_name}}’"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
+msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Freedom of Information"
 msgstr "accés a la informació"
@@ -1236,6 +1269,9 @@ msgstr "Si l'adreça és incorrecta, o en coneix una de més actualitzada, sispl
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
 msgstr ""
 
+msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
+msgstr ""
+
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
 msgstr ""
 "Si no es correcto, o te gustaría enviar una respuesta a la solicitud\n"
@@ -1314,6 +1350,9 @@ msgid "If you write about these requests (for example in a forum or a blog) plea
 msgstr ""
 
 msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
+msgstr ""
+
+msgid "If you write about this request (for example in a forum or a blog) please link to this page."
 msgstr ""
 
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
@@ -1444,6 +1483,12 @@ msgstr "InfoRequest|Law used"
 msgid "InfoRequest|Prominence"
 msgstr "InfoRequest|Prominence"
 
+msgid "InfoRequest|Reject incoming at mta"
+msgstr ""
+
+msgid "InfoRequest|Rejected incoming count"
+msgstr ""
+
 msgid "InfoRequest|Title"
 msgstr "InfoRequest|Title"
 
@@ -1475,6 +1520,9 @@ msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "¿Es {{email_address}} la dirección incorrecta para solicitudes {{type_of_request}} a {{public_body_name}}? Si es así, por favor contáctenos usando el siguiente formulario:"
+
+msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
+msgstr ""
 
 msgid "It may be that your browser is not set to accept a thing called \"cookies\", or cannot do so.  If you can, please enable cookies, or try using a different browser.  Then press refresh to have another go."
 msgstr ""
@@ -1607,6 +1655,9 @@ msgstr "Hacer una solicitud {{law_used_short}} a '{{public_body_name}}'"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Realiza una solicitud de información o mira las ya realizadas"
+
+msgid "Make sure the information you are asking for is not already publicly available."
+msgstr ""
 
 msgid "Many requests"
 msgstr ""
@@ -2302,6 +2353,9 @@ msgstr "Leer el blog"
 msgid "Received an error message, such as delivery failure."
 msgstr "Se ha recibido un mensaje de error, un fallo al entregar el mensaje por ejemplo."
 
+msgid "Recent Events"
+msgstr ""
+
 msgid "Recently described results first"
 msgstr "Resultados descritos recientemente primero"
 
@@ -2333,6 +2387,9 @@ msgid "Reported for administrator attention."
 msgstr ""
 
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
+msgstr ""
+
+msgid "Request '{{request_title}}':"
 msgstr ""
 
 msgid "Request an internal review"
@@ -2604,9 +2661,6 @@ msgstr ""
 msgid "SpamAddress|Email"
 msgstr ""
 
-msgid "Start your own blog"
-msgstr "Crea tu propio blog"
-
 msgid "Start your own request"
 msgstr ""
 
@@ -2728,6 +2782,9 @@ msgstr ""
 
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "No parece ser una dirección de correo válida. Por favor comprueba que la ha escrito correctamente."
+
+msgid "That text looks like spam, so we have not updated your about me"
+msgstr ""
 
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr "La <strong>revisión ha finalizado</strong> y en resumen:"
@@ -2972,6 +3029,9 @@ msgstr "No se han encontrado resultados para tu búsqueda."
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr ""
 
+msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
+msgstr ""
+
 msgid "They are going to reply <strong>by post</strong>"
 msgstr "Van a responder <strong>por correo ordinario</strong>"
 
@@ -3015,6 +3075,9 @@ msgstr ""
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr "Esta es la versión sólo-texto de la solicitud de información \"{{request_title}}\".  La versión más actualizada y completa está disponible en {{full_url}}"
 
+msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
+msgstr ""
+
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Esta es la versión HTML de un fichero adjunto a una solicitud de acceso a la información"
 
@@ -3032,10 +3095,19 @@ msgstr "Esta es tu solicitud, por lo que recibirás correos automáticamente cua
 msgid "This is your request"
 msgstr ""
 
+msgid "This message could not be delivered."
+msgstr ""
+
+msgid "This message has been delivered."
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
+msgid "This message has been sent."
 msgstr ""
 
 msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
@@ -3264,6 +3336,9 @@ msgstr "Hoy"
 msgid "Too many requests"
 msgstr ""
 
+msgid "Top recent players"
+msgstr ""
+
 msgid "Track thing"
 msgstr ""
 
@@ -3281,6 +3356,12 @@ msgstr "TrackThing|Track query"
 
 msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
+
+msgid "Transferred."
+msgstr ""
+
+msgid "Try opening the logs in a new window."
+msgstr ""
 
 msgid "Turn off email alerts"
 msgstr ""
@@ -3396,9 +3477,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3408,7 +3486,10 @@ msgstr "User|Ban text"
 msgid "User|Can make batch requests"
 msgstr ""
 
-msgid "User|Dob"
+msgid "User|Comments count"
+msgstr ""
+
+msgid "User|Confirmed not spam"
 msgstr ""
 
 msgid "User|Email"
@@ -3426,7 +3507,10 @@ msgstr "User|Email confirmed"
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
 
-msgid "User|Identity card number"
+msgid "User|Info request batches count"
+msgstr ""
+
+msgid "User|Info requests count"
 msgstr ""
 
 msgid "User|Last daily track email"
@@ -3450,11 +3534,20 @@ msgstr ""
 msgid "User|Otp secret key"
 msgstr ""
 
+msgid "User|Public body change requests count"
+msgstr ""
+
 msgid "User|Receive email alerts"
+msgstr ""
+
+msgid "User|Request classifications count"
 msgstr ""
 
 msgid "User|Salt"
 msgstr "User|Salt"
+
+msgid "User|Track things count"
+msgstr ""
 
 msgid "User|Url name"
 msgstr "User|Url name"
@@ -3513,6 +3606,15 @@ msgstr ""
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr ""
 
+msgid "We couldn't determine the delivery status of this message"
+msgstr ""
+
+msgid "We couldn’t display any logs for this message."
+msgstr ""
+
+msgid "We couldn’t load the mail server logs for this message."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr "No tenemos una dirección de correo válida para este organismo."
 
@@ -3546,6 +3648,9 @@ msgstr ""
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
 
+msgid "We're glad you got all the information that you wanted."
+msgstr ""
+
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
 msgstr "Ens plau saber que has obtingut tota la informació que vas demanar. Si escrius sobre ella, o la utilitzes, si us plau torna i afegeix un comentari a continuació explicant el que ha fet."
 
@@ -3565,10 +3670,16 @@ msgid_plural "We're waiting for {{user}} to read recent responses and update the
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "We've received a delivery status notification from the mailserver belonging to the authority."
+msgstr ""
+
 msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr ""
 "Hemos enviado un correo a tu nueva dirección de correo. Necesitarás seguir el enlace\n"
 "incluido en él para que se actualice tu dirección de correo."
+
+msgid "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. This can take some time."
+msgstr ""
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr ""
@@ -3633,13 +3744,13 @@ msgstr "Retirada por el autor."
 msgid "Wk"
 msgstr "Wk"
 
-msgid "Would you like to see a website like this in your country?"
-msgstr "¿Te gustaría ver una web como esta en tu país?"
-
 msgid "Write a reply"
 msgstr "Escribir una respuesta"
 
 msgid "Write a reply to {{authority_name}}"
+msgstr ""
+
+msgid "Write about this on Medium"
 msgstr ""
 
 msgid "Write your FOI follow up message to {{authority_name}}"
@@ -3815,6 +3926,9 @@ msgid "You want to <strong>give your postal address</strong> to the authority in
 msgstr "Quieres <strong>darle tu dirección postal</strong> al organismo en privado."
 
 msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
+msgstr ""
+
+msgid "You will be unable to make new requests, send follow ups or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
@@ -4018,6 +4132,9 @@ msgstr ""
 msgid "[FOI #{{request}} email]"
 msgstr ""
 
+msgid "[REDACTED]"
+msgstr ""
+
 msgid "[{{public_body}} request email]"
 msgstr ""
 
@@ -4063,9 +4180,6 @@ msgstr ""
 msgid "authorities"
 msgstr "organismes"
 
-msgid "beginning with ‘{{first_letter}}’"
-msgstr "començant per ‘{{first_letter}}’"
-
 msgid "but followupable"
 msgstr ""
 
@@ -4105,9 +4219,6 @@ msgstr "han retrasado."
 msgid "hide quoted sections"
 msgstr ""
 
-msgid "in the category ‘{{category_name}}’"
-msgstr "en la categoría ‘{{category_name}}’"
-
 msgid "internal error"
 msgstr "error interno"
 
@@ -4116,9 +4227,6 @@ msgstr "revisiones internas"
 
 msgid "logged in as user {{user_name}}"
 msgstr ""
-
-msgid "matching the tag ‘{{tag_name}}’"
-msgstr "con la etiqueta ‘{{tag_name}}’"
 
 msgid "messages from authorities"
 msgstr "mensajes de organismos"
@@ -4132,7 +4240,7 @@ msgstr ""
 msgid "move..."
 msgstr ""
 
-msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
+msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
 msgid "new requests"
@@ -4212,6 +4320,9 @@ msgstr "motivo desconocido"
 msgid "unknown reason "
 msgstr "motivo desconocido "
 
+msgid "unknown status "
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "estat desconegut {{status}}"
 
@@ -4286,6 +4397,16 @@ msgstr "hace {{length_of_time}}"
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} comentarios"
 
+msgid "{{number_of_requests}} request"
+msgid_plural "{{number_of_requests}} requests"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{number_of_requests}} request left to categorise / {{total_number_of_requests}} total"
+msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{public_body_link}} answered a request about"
 msgstr ""
 
@@ -4352,6 +4473,9 @@ msgstr ""
 msgid "{{user_name}} - user profile"
 msgstr ""
 
+msgid "{{user_name}} - wall"
+msgstr ""
+
 msgid "{{user_name}} added an annotation"
 msgstr "{{user_name}} añadió un comentario"
 
@@ -4394,3 +4518,15 @@ msgstr "{{user}} va fer aquesta sol·licitud de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid " - wall"
+#~ msgstr " - wall"
+
+#~ msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
+#~ msgstr "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
+
+#~ msgid "Start your own blog"
+#~ msgstr "Start your own blog"
+
+#~ msgid "Would you like to see a website like this in your country?"
+#~ msgstr "Would you like to see a website like this in your country?"

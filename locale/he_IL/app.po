@@ -24,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-04-15 18:10+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2016-07-11 16:42+0000\n"
+"PO-Revision-Date: 2016-07-11 16:44+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -45,9 +45,6 @@ msgstr "(אתם)"
 
 msgid " - view and make Freedom of Information requests"
 msgstr "– צפו והגישו בקשות למידע"
-
-msgid " - wall"
-msgstr " - קיר"
 
 msgid " < "
 msgstr ""
@@ -112,6 +109,9 @@ msgstr "'{{link_to_request}}', בקשה"
 msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', משתמש"
 
+msgid "(You will be asked to sign in as {{user_name}})"
+msgstr ""
+
 msgid "(hide)"
 msgstr "(הסתר)"
 
@@ -173,6 +173,9 @@ msgstr "<p>הבקשה כוללת <strong>מיקוד דואר</strong>. אם המ
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} נמצא כעת בתחזוקה. ניתן לצפות בבקשות בלבד. לא ניתן להגיש בקשות חדשות, לעקוב, להוסיף הערות, או לעשות כל שינוי במידע שבאתר.</p> <p>{{read_only}}</p>"
+
+msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
+msgstr ""
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>הערה_על-ידי:גיל_ללוש</code></strong>כדי לחפש הערות של גיל ללוש, הכניסו את השם כמו בכתובת אינטרנט."
@@ -250,6 +253,9 @@ msgstr "<strong>הודו</strong> לרשות הציבורית או המבקש."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>הודו</strong> לרשות הציבורית או {{user_name}}."
+
+msgid "<strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason."
+msgstr ""
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>אנחנו נשלח לכם דוא״ל</strong> כאשר תתקבל תשובה, או אחרי {{late_number_of_days}} ימי עבודה אם הרשות לא תשיב עד אז."
@@ -359,6 +365,9 @@ msgstr "ניתן להוסיף <strong>סטטוס</strong> או <strong>סטטו�
 msgid "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
 msgstr "כל האפשרויות למטה יכולות לעשות שימוש<strong>במגוון</strong> או <strong>מגוון_אחרון</strong> לפני הנקודותיים. לדוגמה, <strong>מגוון:נשלח</strong> יתאים לבקשות שנשלחו <em>כבר</em> בעבר; <strong>מגוון_אחרון:נשלח</strong> יתאים רק לבקשות שמסומנות <em>כרגע</em>ככאלו שנשלחו."
 
+msgid "All time best players"
+msgstr ""
+
 msgid "Also called {{other_name}}."
 msgstr "גם נקרא {{other_name}}"
 
@@ -443,6 +452,12 @@ msgstr "קובץ מצורף: "
 msgid "Authority email:"
 msgstr "דוא״ל הרשות:"
 
+msgid "Authority has transferred your request to a different public body."
+msgstr ""
+
+msgid "Authority name"
+msgstr ""
+
 msgid "Authority:"
 msgstr "רשות:"
 
@@ -463,6 +478,9 @@ msgstr "ממתין לתשובה"
 
 msgid "Awaiting response."
 msgstr "ממתין לתשובה."
+
+msgid "Banned from this site"
+msgstr ""
 
 msgid "Banned users cannot edit their profile"
 msgstr "משתמשים חסומים אינם יכולים לעדכן את הפרופיל שלהם"
@@ -677,6 +695,9 @@ msgstr "מכיל מידע פוגע"
 msgid "Contains personal information"
 msgstr "מכיל מידע אישי"
 
+msgid "Cookies not enabled"
+msgstr ""
+
 msgid "Could not identify the request from the email address"
 msgstr "לא ניתן היה לזהות את הבקשה מכתובת הדואר האלקטרוני"
 
@@ -733,6 +754,9 @@ msgstr "עיכוב בתגובה לבקשה {{request_title}}"
 
 msgid "Delayed."
 msgstr "מעוכב."
+
+msgid "Delivery Status for Outgoing Message #{{id}}"
+msgstr ""
 
 msgid "Delivery error"
 msgstr "שגיאה בשליחה"
@@ -841,9 +865,6 @@ msgstr "אירוע {{id}}"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr ""
-
-msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
-msgstr "כל מה שתזינו בדף הזה, יוצג <strong>פתוח לציבור</strong> באתר הזה לתמיד (<a href=\"{{url}}\">למה?</a>)."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "כל מה שתזינו בדף הזה, כולל <strong>השם שלכם</strong>, יוצג <strong>פתוח לציבור</strong> באתר הזה לתמיד(<a href=\"{{url}}\">למה?</a>)."
@@ -992,10 +1013,25 @@ msgstr "מצטערים, איננו יכולים לשלוח הודעות מעקב
 msgid "Forgotten your password?"
 msgstr "שכחתם את הסיסמה?"
 
-msgid "Found {{count}} public authority {{description}}"
-msgid_plural "Found {{count}} public authorities {{description}}"
-msgstr[0] "נמצאה רשות ציבורית אחת {{description}}"
-msgstr[1] "נמצאו {{count}} רשויות ציבוריות {{description}}"
+msgid "Found {{count}} public authority"
+msgid_plural "Found {{count}} public authorities"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
+msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Found {{count}} public authority in the category ‘{{category_name}}’"
+msgid_plural "Found {{count}} public authorities in the category ‘{{category_name}}’"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
+msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Freedom of Information"
 msgstr "המידע"
@@ -1180,6 +1216,9 @@ msgstr "אם הכתובת שגוייה, או יש לכם כתובת אחרת, נ
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
 msgstr "אם השגיאה נגרמה כתוצאה מכתובת דוא\"ל שגויה, ואתם יכולים למצוא כתובת עדכנית של הגוף הציבורי, אנא ספרו לנו בעזרת הטופס למטה."
 
+msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
+msgstr ""
+
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
 msgstr "אם המידע אינו נכון, או אם ברצונכם לשלוח תגובה מאוחרת למבקש /n או אימייל בנושא אחר אל {{user}}, אנא צרו קשר עם  {{contact_email}}  עבור עזרה."
 
@@ -1242,6 +1281,9 @@ msgstr "אם אתם כותבים על הבקשות האלה (למשל בפורו
 
 msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
 msgstr "אם אתם כותבים על הבקשות האלה (למשל בפורום או בבלוג) נא קשרו לדף זה, <a href=\"{{url}}\">והוסיפו הערה</a> למטה כדי שאנשים אחרים ידעו על כך."
+
+msgid "If you write about this request (for example in a forum or a blog) please link to this page."
+msgstr ""
 
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "אם הדפדפן שלכם מקבל עוגיות ואתם רואים הודעה זו, \\n אז כנראה שיש תקלה בשרת שלנו."
@@ -1366,6 +1408,12 @@ msgstr "InfoRequest|Law היו בשימוש"
 msgid "InfoRequest|Prominence"
 msgstr "InfoRequest|Prominence"
 
+msgid "InfoRequest|Reject incoming at mta"
+msgstr ""
+
+msgid "InfoRequest|Rejected incoming count"
+msgstr ""
+
 msgid "InfoRequest|Title"
 msgstr "InfoRequest|Title"
 
@@ -1395,6 +1443,9 @@ msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "האם הכתובת  {{email_address}} היא הנכונה לבקשת {{type_of_request}} אל {{public_body_name}}? אם לא, נא צרו איתנו קשר באמצעות טופס זה:"
+
+msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
+msgstr ""
 
 msgid "It may be that your browser is not set to accept a thing called \"cookies\", or cannot do so.  If you can, please enable cookies, or try using a different browser.  Then press refresh to have another go."
 msgstr "ייתכן והדפדפן שלכם מוגדר שלא לקבל \"עוגיות\" (\"cookies\") ,\\nאו לא מצליח לעשות כן.  בדקו את הגדרות הדפדפן שלכם או השתמשו בדפדפן\\nאחר. לאחר מכן נסו שוב."
@@ -1521,6 +1572,9 @@ msgstr "יצירת בקשת {{law_used_short}} ל '{{public_body_name}}'"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "יצירה וצפייה בבקשות"
+
+msgid "Make sure the information you are asking for is not already publicly available."
+msgstr ""
 
 msgid "Many requests"
 msgstr "דרישות שונות"
@@ -2205,6 +2259,9 @@ msgstr "בלוג"
 msgid "Received an error message, such as delivery failure."
 msgstr "התקבלה הודעת שגיאה, כגון, שגיאת מסירה"
 
+msgid "Recent Events"
+msgstr ""
+
 msgid "Recently described results first"
 msgstr "תוצאות אחרונות מופיעות ראשונות"
 
@@ -2236,6 +2293,9 @@ msgid "Reported for administrator attention."
 msgstr "דווח לטיפול מנהל."
 
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
+msgstr ""
+
+msgid "Request '{{request_title}}':"
 msgstr ""
 
 msgid "Request an internal review"
@@ -2498,9 +2558,6 @@ msgstr ""
 msgid "SpamAddress|Email"
 msgstr ""
 
-msgid "Start your own blog"
-msgstr "צרו את הבלוג שלכם"
-
 msgid "Start your own request"
 msgstr ""
 
@@ -2614,6 +2671,9 @@ msgstr "תודה שסייעתם לשמור על  <strong>בהירות וארגו
 
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "כתובת הדוא\"ל לא חוקית. נא בידקו אותה שנית."
+
+msgid "That text looks like spam, so we have not updated your about me"
+msgstr ""
 
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr "<strong>הבחינה הסתיימה</strong> ובסך הכל:"
@@ -2845,6 +2905,9 @@ msgstr "אין תוצאות שמתאימות לחיפוש שלך."
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr ""
 
+msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
+msgstr ""
+
 msgid "They are going to reply <strong>by post</strong>"
 msgstr "הם עומדים להשיב <strong>בפוסט</strong>"
 
@@ -2884,6 +2947,9 @@ msgstr ""
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr "זוהי גרסת טקסט של בקשת המידע \"{{request_title}}\".  הגרסה האחרונה, המלאה, זמינה ברשת בכתובת {{full_url}}"
 
+msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
+msgstr ""
+
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "זו גרסת HTML של נספח לבקשת המידע "
 
@@ -2899,10 +2965,19 @@ msgstr "זו בקשה שלכם, כך שתקבלו דוא\"ל מייד כשיגי
 msgid "This is your request"
 msgstr ""
 
+msgid "This message could not be delivered."
+msgstr ""
+
+msgid "This message has been delivered."
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
+msgid "This message has been sent."
 msgstr ""
 
 msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
@@ -3113,6 +3188,9 @@ msgstr "היום"
 msgid "Too many requests"
 msgstr "יותר מדי בקשות"
 
+msgid "Top recent players"
+msgstr ""
+
 msgid "Track thing"
 msgstr "עקבו אחרי משהו"
 
@@ -3130,6 +3208,12 @@ msgstr "TrackThing|Track שאילתה"
 
 msgid "TrackThing|Track type"
 msgstr "TrackThing|Track סוג"
+
+msgid "Transferred."
+msgstr ""
+
+msgid "Try opening the logs in a new window."
+msgstr ""
 
 msgid "Turn off email alerts"
 msgstr "כיבוי התראות בדוא\"ל"
@@ -3245,9 +3329,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3257,7 +3338,10 @@ msgstr "User|Ban text"
 msgid "User|Can make batch requests"
 msgstr ""
 
-msgid "User|Dob"
+msgid "User|Comments count"
+msgstr ""
+
+msgid "User|Confirmed not spam"
 msgstr ""
 
 msgid "User|Email"
@@ -3275,7 +3359,10 @@ msgstr "User|Email confirmed"
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
 
-msgid "User|Identity card number"
+msgid "User|Info request batches count"
+msgstr ""
+
+msgid "User|Info requests count"
 msgstr ""
 
 msgid "User|Last daily track email"
@@ -3299,11 +3386,20 @@ msgstr ""
 msgid "User|Otp secret key"
 msgstr ""
 
+msgid "User|Public body change requests count"
+msgstr ""
+
 msgid "User|Receive email alerts"
 msgstr "User|Receive email alerts"
 
+msgid "User|Request classifications count"
+msgstr ""
+
 msgid "User|Salt"
 msgstr "User|Salt"
+
+msgid "User|Track things count"
+msgstr ""
 
 msgid "User|Url name"
 msgstr "User|Url name"
@@ -3362,6 +3458,15 @@ msgstr "בקשה זו אינה עומדת בקריטריונים, ולכן מו�
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "תויג כבעייתי, ולכן מוסתר ממשתמשים אחרים."
 
+msgid "We couldn't determine the delivery status of this message"
+msgstr ""
+
+msgid "We couldn’t display any logs for this message."
+msgstr ""
+
+msgid "We couldn’t load the mail server logs for this message."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr "אין ברשותנו כתובת דוא\"ל פעילה להגשת בקשות מידע לרשות זו."
 
@@ -3389,6 +3494,9 @@ msgstr "אנחנו לא נחשוף את כתובות המייל שלכם לאף 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr ""
 
+msgid "We're glad you got all the information that you wanted."
+msgstr ""
+
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
 msgstr "אנו שמחים שקיבלת את מלוא המידע המבוקש. אם אתם עושים שימוש כלשהו במידע, אנא חיזרו לכאן והוסיפו הערה על אופן השימוש."
 
@@ -3408,8 +3516,14 @@ msgid_plural "We're waiting for {{user}} to read recent responses and update the
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "We've received a delivery status notification from the mailserver belonging to the authority."
+msgstr ""
+
 msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr "שלחנו דוא\"ל לכתובת החדשה שהזנתם. אנא לחצו על הקישור המופיע במכתב\\nבשביל לאשר את שינוי הכתובת."
+
+msgid "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. This can take some time."
+msgstr ""
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "שלחנו לכם דואר אלקטרוני ואתם צריכים להקליק על הקישור בהודעה לפני שתוכלו להמשיך."
@@ -3468,13 +3582,13 @@ msgstr "בוטל על-ידי מגיש הבקשה"
 msgid "Wk"
 msgstr "Wk"
 
-msgid "Would you like to see a website like this in your country?"
-msgstr "האם תרצה לראות אתר אינטרנט כזה בישראל?"
-
 msgid "Write a reply"
 msgstr "לכתוב תשובה"
 
 msgid "Write a reply to {{authority_name}}"
+msgstr ""
+
+msgid "Write about this on Medium"
 msgstr ""
 
 msgid "Write your FOI follow up message to {{authority_name}}"
@@ -3640,6 +3754,9 @@ msgid "You want to <strong>give your postal address</strong> to the authority in
 msgstr "אתם מעוניינים <strong>למסור את כתובת הדואר שלכם</strong> לרשות באופן פרטי."
 
 msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
+msgstr ""
+
+msgid "You will be unable to make new requests, send follow ups or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
@@ -3843,6 +3960,9 @@ msgstr ""
 msgid "[FOI #{{request}} email]"
 msgstr "[FOI #{{request}} email]"
 
+msgid "[REDACTED]"
+msgstr ""
+
 msgid "[{{public_body}} request email]"
 msgstr "[{{public_body}}הדוא\"ל המבוקש]"
 
@@ -3888,9 +4008,6 @@ msgstr "ב- "
 msgid "authorities"
 msgstr "רשויות"
 
-msgid "beginning with ‘{{first_letter}}’"
-msgstr "להתחיל ב-  ‘{{first_letter}}’"
-
 msgid "but followupable"
 msgstr "אבל ניתן לעקוב אחריהם"
 
@@ -3930,9 +4047,6 @@ msgstr "התעכב"
 msgid "hide quoted sections"
 msgstr "הסתר פסקאות מצוטטות"
 
-msgid "in the category ‘{{category_name}}’"
-msgstr "בקטגוריה ‘{{category_name}}’"
-
 msgid "internal error"
 msgstr "שגיאה פנימית"
 
@@ -3941,9 +4055,6 @@ msgstr "ביקורות פנימיות"
 
 msgid "logged in as user {{user_name}}"
 msgstr ""
-
-msgid "matching the tag ‘{{tag_name}}’"
-msgstr "תואם לתווית ‘{{tag_name}}’"
 
 msgid "messages from authorities"
 msgstr "מסר מהרשויות"
@@ -3957,7 +4068,7 @@ msgstr ""
 msgid "move..."
 msgstr "להעביר..."
 
-msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
+msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
 msgstr ""
 
 msgid "new requests"
@@ -4037,6 +4148,9 @@ msgstr "סיבה לא ידוע"
 msgid "unknown reason "
 msgstr "סיבה לא ידוע"
 
+msgid "unknown status "
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "ססטוס לא ידוע {{status}}"
 
@@ -4108,6 +4222,16 @@ msgstr "לפני {{length_of_time}}"
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} הערות"
 
+msgid "{{number_of_requests}} request"
+msgid_plural "{{number_of_requests}} requests"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{number_of_requests}} request left to categorise / {{total_number_of_requests}} total"
+msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{public_body_link}} answered a request about"
 msgstr "{{public_body_link}} השיב לבקשה בנושא"
 
@@ -4171,6 +4295,9 @@ msgstr ""
 msgid "{{user_name}} - user profile"
 msgstr "פרופיל משתמש - {{user_name}}"
 
+msgid "{{user_name}} - wall"
+msgstr ""
+
 msgid "{{user_name}} added an annotation"
 msgstr "{{user_name}} הוסיף הערה"
 
@@ -4209,3 +4336,15 @@ msgstr "{{user}} הגיש את בקשת {{law_used_full}} הזו"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid " - wall"
+#~ msgstr " - wall"
+
+#~ msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
+#~ msgstr "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
+
+#~ msgid "Start your own blog"
+#~ msgstr "Start your own blog"
+
+#~ msgid "Would you like to see a website like this in your country?"
+#~ msgstr "Would you like to see a website like this in your country?"

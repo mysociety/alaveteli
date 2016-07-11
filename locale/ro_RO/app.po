@@ -30,9 +30,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-06-14 15:19+0000\n"
-"Last-Translator: Andra Ciuraru <andra.ciuraru@gmail.com>\n"
+"POT-Creation-Date: 2016-07-11 16:42+0000\n"
+"PO-Revision-Date: 2016-07-11 16:44+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -51,9 +51,6 @@ msgstr "(tu)"
 
 msgid " - view and make Freedom of Information requests"
 msgstr "- vezi cum arată şi trimite o solicitare de acces la informaţii"
-
-msgid " - wall"
-msgstr " - perete"
 
 msgid " < "
 msgstr "<"
@@ -118,6 +115,9 @@ msgstr "'{{link_to_request}}', o solicitare"
 msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', o persoană"
 
+msgid "(You will be asked to sign in as {{user_name}})"
+msgstr ""
+
 msgid "(hide)"
 msgstr "(ascunde)"
 
@@ -180,6 +180,9 @@ msgstr "<p>Solicitarea ta conţine  un <strong>cod poştal</strong>.  Dacă nu e
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} este momentan în mentenanţă. Poţi vedea numai solicitările deja existente. Nu poţi adăuga solicitări noi, nici comentarii, adnotări sau alte modificări asupra bazei de date.</p> <p>{{read_only}}</p>"
+
+msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
+msgstr ""
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>comentariu_de:tony_bowden</code></strong> pentru a cauta adnotări făcute de Tony Bowden, tastaţi numele aşa cum apare în URL."
@@ -255,6 +258,9 @@ msgstr "<strong>Mulţumiri </strong> autorităţii publice sau solicitantul."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Mulţumiri </strong> autorităţii publice sau {{user_name}}."
+
+msgid "<strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason."
+msgstr ""
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Vă vom trimite un email</strong> când există un răspuns, sau după {{late_number_of_days}} de zile lucrătoare, dacă autoritatea nu a răspuns până atunci."
@@ -364,6 +370,9 @@ msgstr "Toate opţiunile de mai jos pot  utiliza <strong>statut</strong> sau <st
 msgid "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
 msgstr "Toate opţiunile de mai jos pot  utiliza <strong>varietatea </strong> sau de doua puncte :.  De exemplu, <strong>varietate:trimis</strong> va întruni toate cererile care  <em>ever</em> au fost trimise; <strong>ultima_varietate:trimis</strong> va întruni numai cererile care   sunt <em>în acest moment</em> marcate ca trimise."
 
+msgid "All time best players"
+msgstr ""
+
 msgid "Also called {{other_name}}."
 msgstr "De asemenea numit şi  {{other_name}}."
 
@@ -448,6 +457,12 @@ msgstr "Ataşament:"
 msgid "Authority email:"
 msgstr "Adresa de email a autorității:"
 
+msgid "Authority has transferred your request to a different public body."
+msgstr ""
+
+msgid "Authority name"
+msgstr ""
+
 msgid "Authority:"
 msgstr "Autoritatea:"
 
@@ -468,6 +483,9 @@ msgstr "Așteaptă un răspuns."
 
 msgid "Awaiting response."
 msgstr "Aşteaptă răspunsul."
+
+msgid "Banned from this site"
+msgstr ""
 
 msgid "Banned users cannot edit their profile"
 msgstr "Utilizatorii care au fost blocați nu pot să își editeze profilul."
@@ -682,6 +700,9 @@ msgstr "Conține informație cu caracter defăimător"
 msgid "Contains personal information"
 msgstr "Conține informație cu caracter personal"
 
+msgid "Cookies not enabled"
+msgstr ""
+
 msgid "Could not identify the request from the email address"
 msgstr "Nu se poate identifica solicitarea de la această adresă de email"
 
@@ -735,6 +756,9 @@ msgstr "Amânare răspuns la solicitarea ta de acces la informații - {{request_
 
 msgid "Delayed."
 msgstr "Amânat."
+
+msgid "Delivery Status for Outgoing Message #{{id}}"
+msgstr ""
 
 msgid "Delivery error"
 msgstr "Eroare de livrare"
@@ -843,9 +867,6 @@ msgstr "Eveniment {{id}}"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Fiecare cetățean are dreptul să acceseze informațiile deținute de instituțiile publice."
-
-msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
-msgstr "Tot ceea ce postezi pe această pagină  \\n va fi <strong>făcut public</strong> pe\\n acest website permanent (<a href=\"{{url}}\">de ce?</a>)."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Tot ce introduci pe această pagină, inclusiv  <strong>numele tău</strong>, \\n va fi <strong>făcut public</strong> pe\\n acest website permanent (<a href=\"{{url}}\">de ce?</a>)."
@@ -994,11 +1015,29 @@ msgstr "Follow up-urile nu pot fi trimise pentru această solicitare, pentru că
 msgid "Forgotten your password?"
 msgstr "Aţi uitat parola ?"
 
-msgid "Found {{count}} public authority {{description}}"
-msgid_plural "Found {{count}} public authorities {{description}}"
-msgstr[0] "Găsit {{count}} autoritate publică {{description}}"
-msgstr[1] "Găsit {{count}} autorităţi publice {{description}}"
-msgstr[2] "Găsit autorităţi publice {{description}}"
+msgid "Found {{count}} public authority"
+msgid_plural "Found {{count}} public authorities"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
+msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Found {{count}} public authority in the category ‘{{category_name}}’"
+msgid_plural "Found {{count}} public authorities in the category ‘{{category_name}}’"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
+msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Freedom of Information"
 msgstr "Libertatea de Informare"
@@ -1185,6 +1224,9 @@ msgstr "Dacă adresa este greşită sau dacă cunoaşteţi o altă adresă, vă 
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
 msgstr "Dacă eroarea a fost una determinată de eșecul livrării și poți să găsești o adresă pentru solicitări de informații pentru această autoritate, te rugăm să ne transmiți utilizând formularul de mai jos."
 
+msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
+msgstr ""
+
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
 msgstr "Dacă acesta este inexact sau dacă dorești să trimiți un răspuns cu întârziere la solicitare \\nsau un email legat de un alt subiect către {{user}}, te rugăm\\n să ne trimiți un email {{contact_email}} pentru asistență."
 
@@ -1247,6 +1289,9 @@ msgstr "Dacă scrii despre aceste solicitări (spre exemplu pe un forum sau un b
 
 msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
 msgstr "Dacă scrii despre această solicitare (spre exemplu pe un forum sau un blog) te rugăm folosește adresa acestei pagini, și <a href=\"{{url}}\">adaugă o adnotare</a> mai jos anunțând alte persoane."
+
+msgid "If you write about this request (for example in a forum or a blog) please link to this page."
+msgstr ""
 
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "Dacă browser-ul tău este setat să accepte cookies și poți vedea acest mesaj, \\natunci probabil există o defecțiune la serverul nostru."
@@ -1371,6 +1416,12 @@ msgstr "SolicitareInfo | Lege utilizată"
 msgid "InfoRequest|Prominence"
 msgstr "SolicitareInfo|Status"
 
+msgid "InfoRequest|Reject incoming at mta"
+msgstr ""
+
+msgid "InfoRequest|Rejected incoming count"
+msgstr ""
+
 msgid "InfoRequest|Title"
 msgstr "SolicitareInfo | Titlu"
 
@@ -1400,6 +1451,9 @@ msgstr "Parolă de unică folosință invalidă"
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Este  {{email_address}} o adresă greşită pentru o {{type_of_request}} cerere adresată  {{public_body_name}}? Dacă da, vă rugăm să ne contactaţi utilizând acest formular :"
+
+msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
+msgstr ""
 
 msgid "It may be that your browser is not set to accept a thing called \"cookies\", or cannot do so.  If you can, please enable cookies, or try using a different browser.  Then press refresh to have another go."
 msgstr "Este posibil ca browser-ul tău să nu fie setat să accepte \"cookies\",\\nsau să nu poată face asta. Poți modifica setările sau să încerci să folosești un alt\\nbrowser. Apasă refresh pentru a încerca din nou."
@@ -1526,6 +1580,9 @@ msgstr "Faceţi o nouă solicitare {{law_used_short}} către '{{public_body_name
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Faceţi şi vizualizaţi solicitări de acces la informații"
+
+msgid "Make sure the information you are asking for is not already publicly available."
+msgstr ""
 
 msgid "Many requests"
 msgstr "Multe solicitări"
@@ -2211,6 +2268,9 @@ msgstr "Citește blog"
 msgid "Received an error message, such as delivery failure."
 msgstr "S-a primit un mesaj de eroare, cum ar fi eroarea de livarare."
 
+msgid "Recent Events"
+msgstr ""
+
 msgid "Recently described results first"
 msgstr "Prima dată rezultatele recent descrise"
 
@@ -2243,6 +2303,9 @@ msgstr "Raportaţi în atenţia administratorului"
 
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
 msgstr "Raportând o solicitare notificați administratorii site-ului. Aceștia vor răspunde cât mai curând posibil."
+
+msgid "Request '{{request_title}}':"
+msgstr ""
 
 msgid "Request an internal review"
 msgstr "Solicitați o evaluare internă"
@@ -2505,9 +2568,6 @@ msgstr "Adresă de spam"
 msgid "SpamAddress|Email"
 msgstr "SpamAddress|Email"
 
-msgid "Start your own blog"
-msgstr "Incepeţi propriul jurnal"
-
 msgid "Start your own request"
 msgstr "Pornește o solicitare nouă"
 
@@ -2621,6 +2681,9 @@ msgstr "Mulțumim că ne ajuți să ținem lucrurile în ordine. Dacă ai nevoie
 
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "Aceasta nu pare a fi o adresa de email validă. Vă rugăm verificaţi că aţi tastat corect."
+
+msgid "That text looks like spam, so we have not updated your about me"
+msgstr ""
 
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr "<strong>Revizia s-a finalizat</strong> şi per ansamblu:"
@@ -2853,6 +2916,9 @@ msgstr "Nu sunt rezultate care satisfac interogarea ta."
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Aceste grafice au fost în parte inspirate de <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">statisticile create de Mark Goodge pentru WhatDoTheyKnow</a>, așa că îi mulțumim."
 
+msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
+msgstr ""
+
 msgid "They are going to reply <strong>by post</strong>"
 msgstr "Ei vor răspunde  <strong>prin postarea </strong>"
 
@@ -2892,6 +2958,9 @@ msgstr "Acesta este profilul utilizatorului <a href=\"{{profile_url}}\">{{user_n
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr "Aceasta este o versiune text-simplu a solicitării  \"{{request_title}}\".  Ultima versiune, completă, este disponibila online la  {{full_url}}"
 
+msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
+msgstr ""
+
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Aceasta este o versiune HTML  a unui ataşament la solicitarea de acces la informații"
 
@@ -2907,11 +2976,20 @@ msgstr "Aceasta este solicitarea proprie, aşa că ți se va comunica automat pr
 msgid "This is your request"
 msgstr "Aceasta este solicitarea dumneavoastră"
 
+msgid "This message could not be delivered."
+msgstr ""
+
+msgid "This message has been delivered."
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr "Această solicitare a fost ascunsă"
 
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "Acest mesaj a fost ascuns. Există motive variate pentru care am făcut asta, ne cerem scuze dar nu putem fi mai specifici."
+
+msgid "This message has been sent."
+msgstr ""
 
 msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
 msgstr "Această solicitare este evidenţiată ca \"ascunsă\". O puteți vedea doar pentru că sunteți autentificat ca super utilizator."
@@ -3123,6 +3201,9 @@ msgstr "Azi"
 msgid "Too many requests"
 msgstr "Prea multe cereri"
 
+msgid "Top recent players"
+msgstr ""
+
 msgid "Track thing"
 msgstr "Urmărește acest lucru"
 
@@ -3140,6 +3221,12 @@ msgstr "TrackThing|Track query"
 
 msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
+
+msgid "Transferred."
+msgstr ""
+
+msgid "Try opening the logs in a new window."
+msgstr ""
 
 msgid "Turn off email alerts"
 msgstr "Opriţi alertele prin email"
@@ -3255,9 +3342,6 @@ msgstr "Utilizatorii de obicei nu pot face solicitări multiple către mai multe
 msgid "User|About me"
 msgstr "Utilizator|Despre mine"
 
-msgid "User|Address"
-msgstr "Utilizator|Adresă"
-
 msgid "User|Admin level"
 msgstr "Utilizator|Nivel administrator"
 
@@ -3267,8 +3351,11 @@ msgstr "Utilizator|Text interzis"
 msgid "User|Can make batch requests"
 msgstr "Utilizator|Poate face solicitări multiple"
 
-msgid "User|Dob"
-msgstr "Utilizator|Dob"
+msgid "User|Comments count"
+msgstr ""
+
+msgid "User|Confirmed not spam"
+msgstr ""
 
 msgid "User|Email"
 msgstr "Utilizator|Email"
@@ -3285,8 +3372,11 @@ msgstr "Utilizator|Email confirmat"
 msgid "User|Hashed password"
 msgstr "Utilizator|Parola criptată"
 
-msgid "User|Identity card number"
-msgstr "Utilizator|Număr card de identitate"
+msgid "User|Info request batches count"
+msgstr ""
+
+msgid "User|Info requests count"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "Utilizator|Ultima urmărire zilnica email"
@@ -3309,11 +3399,20 @@ msgstr "Utilizator|Parolă de unică folosință activată"
 msgid "User|Otp secret key"
 msgstr "Utilizator|Codul secret al parolei de unică folosință"
 
+msgid "User|Public body change requests count"
+msgstr ""
+
 msgid "User|Receive email alerts"
 msgstr "Utilizator|Primește alerte prin email"
 
+msgid "User|Request classifications count"
+msgstr ""
+
 msgid "User|Salt"
 msgstr "Utilizator|Sare"
+
+msgid "User|Track things count"
+msgstr ""
 
 msgid "User|Url name"
 msgstr "Utilizator|Nume URL"
@@ -3372,6 +3471,15 @@ msgstr "Considerăm că nu este o solicitare de informații validă, așa că am
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Considerăm că este ofensator, așa că am ascuns-o celorlalți utilizatori."
 
+msgid "We couldn't determine the delivery status of this message"
+msgstr ""
+
+msgid "We couldn’t display any logs for this message."
+msgstr ""
+
+msgid "We couldn’t load the mail server logs for this message."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr "Nu avem o adresă de email valabilă pentru cererile adresate acestei autoritate."
 
@@ -3399,6 +3507,9 @@ msgstr "Nu îţi vom dezvălui adresa de email nimănui în afara cazurilor în 
 msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Vă vom trimite un email imediat ce veți primi un răspuns."
 
+msgid "We're glad you got all the information that you wanted."
+msgstr ""
+
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
 msgstr "Ne bucurăm tare mult că ai obţinut informaţiile pe care le doreai! Dacă vei scrie despre cum ţi-au folosit aceste informaţii, te rugăm să completezi mai jos un scurt istoric care va fi util celor ce vor face solicitări similare."
 
@@ -3420,8 +3531,14 @@ msgstr[0] "Așteptăm ca {{user}} să citească răspunsul recent și să îi ac
 msgstr[1] "Așteptăm ca {{user}} să citească răspunsurile recente și să le actualizeze statusurile."
 msgstr[2] "Așteptăm ca {{user}} să citească răspunsurile recente și să le actualizeze statusurile."
 
+msgid "We've received a delivery status notification from the mailserver belonging to the authority."
+msgstr ""
+
 msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr "Ţi-am trimis un email la noua ta adresă de email. Va trebui să accesezi link-ul din el\\nînainte pentru ca adresa de email să îţi fie schimbată."
+
+msgid "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. This can take some time."
+msgstr ""
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Ţi-am trimis un email şi va trebui să accesezi link-ul din el înainte de a putea\\ncontinua."
@@ -3480,14 +3597,14 @@ msgstr "Retras de către solicitant."
 msgid "Wk"
 msgstr "Wk"
 
-msgid "Would you like to see a website like this in your country?"
-msgstr "Ai dori să vezi un web-site ca acesta în ţara ta?"
-
 msgid "Write a reply"
 msgstr "Scrie un răspuns"
 
 msgid "Write a reply to {{authority_name}}"
 msgstr "Scrie un răspuns către {{authority_name}}"
+
+msgid "Write about this on Medium"
+msgstr ""
 
 msgid "Write your FOI follow up message to {{authority_name}}"
 msgstr "Scrie un mesaj ulterior instituției {{authority_name}}"
@@ -3653,6 +3770,9 @@ msgstr "Vrei să <strong>să specifici adresa ta poştală</strong> către autor
 
 msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
 msgstr "Ți se va da un cod unic OTP când vei activa autentificarea în doi pași. Păstrează acest cod privat. Îl poți ține în managerul de parole sau îl poți pune undeva în siguranță."
+
+msgid "You will be unable to make new requests, send follow ups or send messages to other users. You may continue to view other requests, and set up email alerts."
+msgstr ""
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr "Nu vei mai putea face noi solicitări, trimite follow up-uri, adăuga adnotări sau\\ntrimite mesaje altor utilizatori. Poți continua să vizualizezi alte solicitări și să setezi\\n alerte prin email."
@@ -3846,6 +3966,9 @@ msgstr "[Adresa URL a instituției va fi inserată aici]"
 msgid "[FOI #{{request}} email]"
 msgstr "[FOI #{{request}} email]"
 
+msgid "[REDACTED]"
+msgstr ""
+
 msgid "[{{public_body}} request email]"
 msgstr "[{{public_body}} email cerere]"
 
@@ -3891,9 +4014,6 @@ msgstr "la"
 msgid "authorities"
 msgstr "autorităţi"
 
-msgid "beginning with ‘{{first_letter}}’"
-msgstr "începând cu  ‘{{first_letter}}’"
-
 msgid "but followupable"
 msgstr "dar care poate fi urmărit"
 
@@ -3933,9 +4053,6 @@ msgstr "a fost amânata"
 msgid "hide quoted sections"
 msgstr "ascunde secţiunile citate"
 
-msgid "in the category ‘{{category_name}}’"
-msgstr "în  categoria ‘{{category_name}}’"
-
 msgid "internal error"
 msgstr "eroare internă"
 
@@ -3944,9 +4061,6 @@ msgstr "revizuire internă"
 
 msgid "logged in as user {{user_name}}"
 msgstr "atutentificat ca {{user_name}}"
-
-msgid "matching the tag ‘{{tag_name}}’"
-msgstr "corespunzător etichetei ‘{{tag_name}}’"
 
 msgid "messages from authorities"
 msgstr "mesaje de la autorităţi"
@@ -3960,8 +4074,8 @@ msgstr "telefon mobil"
 msgid "move..."
 msgstr "treci..."
 
-msgid "mySocietyIntl:Helping people set up sites like {{site_name}} all over the world"
-msgstr "mySocietyIntl:Ajută oamenii să instaleze site-uri ca {{site_name}} în toată lumea"
+msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
+msgstr ""
 
 msgid "new requests"
 msgstr "solicitări noi"
@@ -4040,6 +4154,9 @@ msgstr "motiv necunoscut"
 msgid "unknown reason "
 msgstr "motiv necunoscut"
 
+msgid "unknown status "
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "stare necunocută {{status}}"
 
@@ -4115,6 +4232,18 @@ msgstr "{{length_of_time}} înainte"
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} comentarii"
 
+msgid "{{number_of_requests}} request"
+msgid_plural "{{number_of_requests}} requests"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "{{number_of_requests}} request left to categorise / {{total_number_of_requests}} total"
+msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
 msgid "{{public_body_link}} answered a request about"
 msgstr "{{public_body_link}} a răspuns la o solicitare despre"
 
@@ -4178,6 +4307,9 @@ msgstr "{{user_name}} - Autentificare în doi pași"
 msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - profil utilizator"
 
+msgid "{{user_name}} - wall"
+msgstr ""
+
 msgid "{{user_name}} added an annotation"
 msgstr "{{user_name}} a adăugat o adnotare"
 
@@ -4216,3 +4348,15 @@ msgstr "{{user}} a făcut această cerere {{law_used_full}} "
 
 msgid "« Back to search results"
 msgstr "« Înapoi la rezultatele căutării"
+
+#~ msgid " - wall"
+#~ msgstr " - wall"
+
+#~ msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
+#~ msgstr "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
+
+#~ msgid "Start your own blog"
+#~ msgstr "Start your own blog"
+
+#~ msgid "Would you like to see a website like this in your country?"
+#~ msgstr "Would you like to see a website like this in your country?"
