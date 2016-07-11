@@ -798,6 +798,23 @@ describe User do
       expect(User.find_user_by_email(user.email.upcase)).to eq(user)
     end
 
+    it 'returns nil when passed nil' do
+      expect(User.find_user_by_email(nil)).to eq(nil)
+    end
+
+    it 'returns nil when passed an empty string' do
+      expect(User.find_user_by_email('')).to eq(nil)
+    end
+
+    it 'returns nil when passed a whitespace string' do
+      expect(User.find_user_by_email('  ')).to eq(nil)
+    end
+
+    it 'matches a padded email' do
+      user = FactoryGirl.create(:user)
+      expect(User.find_user_by_email(" #{user.email} ")).to eq(user)
+    end
+
   end
 
   describe '#about_me_already_exists?' do
