@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Compress all images to improve PageSpeed (Martin Wright)
 * Prevent spam users using the "about me" page to propagate spam (Gareth Rees)
 * Format incoming message HTML with <p> and <br> tags (Liz Conlan)
 * Fixed bug in `OutgoingMessage.template_changed` which allowed a new request to
