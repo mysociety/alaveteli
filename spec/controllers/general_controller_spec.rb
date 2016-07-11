@@ -399,6 +399,11 @@ describe GeneralController, 'when using xapian search' do
       expect(response.status).to eq(404)
     end
 
+    it "treats invalid formats as html" do
+      get :search, :combined => '"fancy dog"', :format => "invalid format"
+      expect(response.status).to eq(200)
+    end
+
     it "does not call the search" do
       expect(controller).not_to receive(:perform_search)
       get :search, :combined => '"fancy dog"', :format => :json

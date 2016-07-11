@@ -12,30 +12,57 @@ class UserSpamScorer
     :about_me_is_spam_format? => 1,
     :about_me_includes_anchor_tag? => 1,
     :about_me_already_exists? => 4
-  }
+  }.freeze
 
-  DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢)
-  DEFAULT_SPAM_DOMAINS = %w(mail.ru temp-mail.de tempmail.de shitmail.de)
+  DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢).freeze
+  DEFAULT_SPAM_DOMAINS = %w(mail.ru temp-mail.de tempmail.de shitmail.de).freeze
   DEFAULT_SPAM_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,
     /\Ahttps?:\/\/[^\s]+\n{2,}.+$/,
     /\A.*\n{2,}.*\n{2,}https?:\/\/[^\s]+$/
-  ]
-  DEFAULT_SPAM_TLDS = %w(ru pl)
+  ].freeze
+  DEFAULT_SPAM_SCORE_THRESHOLD = 4
+  DEFAULT_SPAM_TLDS = %w(ru pl).freeze
 
-  attr_reader :currency_symbols
-  attr_reader :score_mappings
-  attr_reader :spam_domains
-  attr_reader :spam_formats
-  attr_reader :spam_tlds
+  CLASS_ATTRIBUTES = [:currency_symbols,
+                      :score_mappings,
+                      :spam_domains,
+                      :spam_formats,
+                      :spam_score_threshold,
+                      :spam_tlds].freeze
 
-  # TODO: Add class accessors for default values so that they can be customised
+  # Class attribute accessors
+  CLASS_ATTRIBUTES.each do |key|
+    define_singleton_method "#{ key }=" do |value|
+      instance_variable_set("@#{ key }", value)
+    end
+
+    define_singleton_method key do
+      value = instance_variable_get("@#{ key }") ||
+        const_get("DEFAULT_#{ key }".upcase)
+      instance_variable_set("@#{ key }", value)
+    end
+  end
+
+  def self.reset
+    CLASS_ATTRIBUTES.each do |key|
+      instance_variable_set("@#{ key }", const_get("DEFAULT_#{ key }".upcase))
+    end
+  end
+
+  # Instance attribute accessors
+  CLASS_ATTRIBUTES.each do |key|
+    attr_reader key
+  end
+
   def initialize(opts = {})
-    @currency_symbols = opts.fetch(:currency_symbols, DEFAULT_CURRENCY_SYMBOLS)
-    @score_mappings = opts.fetch(:score_mappings, DEFAULT_SCORE_MAPPINGS)
-    @spam_domains = opts.fetch(:spam_domains, DEFAULT_SPAM_DOMAINS)
-    @spam_formats = opts.fetch(:spam_formats, DEFAULT_SPAM_FORMATS)
-    @spam_tlds = opts.fetch(:spam_tlds, DEFAULT_SPAM_TLDS)
+    CLASS_ATTRIBUTES.each do |key|
+      instance_variable_set("@#{ key }", opts.fetch(key, self.class.send(key)))
+    end
+  end
+
+  def spam?(user)
+    score(user) > spam_score_threshold
   end
 
   def score(user)

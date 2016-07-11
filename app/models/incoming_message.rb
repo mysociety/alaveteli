@@ -294,14 +294,6 @@ class IncomingMessage < ActiveRecord::Base
     AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
   end
 
-  def apply_masks!(text, content_type)
-    warn %q([DEPRECATION] IncomingMessage#apply_masks! will be removed in 0.25.
-            Use the non-destructive IncomingMessage#apply_masks instead).squish
-    mask_options = { :censor_rules => info_request.applicable_censor_rules,
-                     :masks => info_request.masks }
-    AlaveteliTextMasker.apply_masks!(text, content_type, mask_options)
-  end
-
   # Lotus notes quoting yeuch!
   def remove_lotus_quoting(text, replacement = "FOLDED_QUOTED_SECTION")
     text = text.dup
@@ -647,9 +639,8 @@ class IncomingMessage < ActiveRecord::Base
     end
     text.strip!
 
-    text = text.gsub(/\n/, '<br>')
-    text = text.gsub(/(?:<br>\s*){2,}/, '<br><br>') # remove excess linebreaks that unnecessarily space it out
-    return text.html_safe
+    text = ActionController::Base.helpers.simple_format(text)
+    text.html_safe
   end
 
 

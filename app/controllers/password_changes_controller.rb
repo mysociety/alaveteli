@@ -16,6 +16,12 @@ class PasswordChangesController < ApplicationController
   end
 
   def create
+    unless @user || params[:password_change_user]
+      @email_field_options = {}
+      render :new
+      return
+    end
+
     email = @user ? @user.email : params[:password_change_user][:email]
 
     unless MySociety::Validate.is_valid_email(email)

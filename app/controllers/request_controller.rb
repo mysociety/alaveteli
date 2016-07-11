@@ -167,6 +167,12 @@ class RequestController < ApplicationController
   end
 
   def list
+    # respond with a 404 without a database lookup if request was not for html
+    if request.format && !request.format.html?
+      respond_to { |format| format.any { head :not_found } }
+      return
+    end
+
     medium_cache
     @view = params[:view]
     @locale = I18n.locale.to_s
@@ -782,6 +788,7 @@ class RequestController < ApplicationController
     @new_responses_count = info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
     # For send followup link at bottom
     @last_response = info_request.get_last_public_response
+    @follower_count = @info_request.track_things.count + 1
   end
 
   def make_request_zip(info_request, file_path)

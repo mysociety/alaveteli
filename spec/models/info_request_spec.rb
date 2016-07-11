@@ -272,6 +272,8 @@ describe InfoRequest do
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
+        updated_at = info_request.updated_at = 5.days.ago
+        info_request.save!
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         holding_pen = InfoRequest.holding_pen_request
@@ -281,7 +283,8 @@ describe InfoRequest do
         expect(holding_pen.incoming_messages.size).to eq(1)
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
-        expect(info_request.rejected_incoming_count).to eq(1)
+        expect(info_request.reload.rejected_incoming_count).to eq(1)
+        expect(info_request.reload.updated_at).to eq(updated_at)
       end
 
       it 'from anybody' do
@@ -306,6 +309,8 @@ describe InfoRequest do
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
+        updated_at = info_request.updated_at = 5.days.ago
+        info_request.save!
         email, raw_email = email_and_raw_email(:from => '')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.size).to eq(0)
@@ -316,12 +321,15 @@ describe InfoRequest do
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.rejected_incoming_count).to eq(1)
+        expect(info_request.reload.updated_at).to eq(updated_at)
       end
 
       it 'from authority_only rejects if the mail is not from the authority' do
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
+        updated_at = info_request.updated_at = 5.days.ago
+        info_request.save!
         email, raw_email = email_and_raw_email(:from => 'spam@example.net')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.size).to eq(0)
@@ -332,6 +340,7 @@ describe InfoRequest do
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.rejected_incoming_count).to eq(1)
+        expect(info_request.reload.updated_at).to eq(updated_at)
       end
 
       it 'raises an error if there is an unknown allow_new_responses_from' do

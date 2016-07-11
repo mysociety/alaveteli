@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20131024114346
 #
 # Table name: public_bodies
 #
@@ -25,7 +24,7 @@
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer
+#  info_requests_visible_count            :integer          default(0), not null
 #
 
 require 'csv'
@@ -235,12 +234,6 @@ class PublicBody < ActiveRecord::Base
   # Regulations?
   def eir_only?
     has_tag?('eir_only')
-  end
-
-  # Schools are allowed more time in holidays, so we change some wordings
-  def is_school?
-    warn %q([DEPRECATION] PublicBody#is_school? will be removed in 0.25)
-    has_tag?('school')
   end
 
   def site_administration?

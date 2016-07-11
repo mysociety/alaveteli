@@ -662,24 +662,25 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  # Find last outgoing message which  was:
+  # Find last InfoRequestEvent which  was:
   # -- sent at all
   # -- OR the same message was resent
   # -- OR the public body requested clarification, and a follow up was sent
   def last_event_forming_initial_request
     last_sent = nil
     expecting_clarification = false
-    for event in info_request_events
+
+    info_request_events.each do |event|
       if event.described_state == 'waiting_clarification'
         expecting_clarification = true
       end
 
-      if [ 'sent', 'resent', 'followup_sent', 'followup_resent' ].include?(event.event_type)
+      if %w(sent resent followup_sent followup_resent).include?(event.event_type)
         if last_sent.nil?
           last_sent = event
         elsif event.event_type == 'resent'
           last_sent = event
-        elsif expecting_clarification and event.event_type == 'followup_sent'
+        elsif expecting_clarification && event.event_type == 'followup_sent'
           # TODO: this needs to cope with followup_resent, which it doesn't.
           # Not really easy to do, and only affects cases where followups
           # were resent after a clarification.
@@ -688,9 +689,14 @@ class InfoRequest < ActiveRecord::Base
         end
       end
     end
+
     if last_sent.nil?
-      raise "internal error, last_event_forming_initial_request gets nil for request " + id.to_s + " outgoing messages count " + outgoing_messages.size.to_s + " all events: " + info_request_events.to_yaml
+      raise "internal error, last_event_forming_initial_request gets nil for " \
+            "request #{ id } outgoing messages count " \
+            "#{ outgoing_messages.size } all events: " \
+            "#{ info_request_events.to_yaml }"
     end
+
     last_sent
   end
 
@@ -1111,9 +1117,7 @@ class InfoRequest < ActiveRecord::Base
     unless is_batch_request_template?
       applicable_rules << public_body.censor_rules
     end
-    if user && !user.censor_rules.empty?
-      applicable_rules << user.censor_rules
-    end
+    applicable_rules << user.censor_rules if user
     applicable_rules.flatten
   end
 
@@ -1122,30 +1126,9 @@ class InfoRequest < ActiveRecord::Base
       reduce(text) { |text, rule| rule.apply_to_text(text) }
   end
 
-  # Call groups of censor rules
-  def apply_censor_rules_to_text!(text)
-    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_text! will be
-            removed in 0.25. Use the non-destructive
-            InfoRequest#apply_censor_rules_to_text instead).squish
-    applicable_censor_rules.each do |censor_rule|
-      censor_rule.apply_to_text!(text)
-    end
-    text
-  end
-
   def apply_censor_rules_to_binary(text)
     applicable_censor_rules.
       reduce(text) { |text, rule| rule.apply_to_binary(text) }
-  end
-
-  def apply_censor_rules_to_binary!(binary)
-    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_binary! will be
-            removed in 0.25. Use the non-destructive
-            InfoRequest#apply_censor_rules_to_binary instead).squish
-    applicable_censor_rules.each do |censor_rule|
-      censor_rule.apply_to_binary!(binary)
-    end
-    binary
   end
 
   def apply_masks(text, content_type)
@@ -1446,9 +1429,9 @@ class InfoRequest < ActiveRecord::Base
       end
 
     will_be_rejected = (response_rejector && response_rejection) ? true : false
-
     if will_be_rejected && response_rejection.reject(response_rejector.reason)
-      self.increment!(:rejected_incoming_count)
+      # update without changing the updated_at field
+      self.update_column(:rejected_incoming_count, self.rejected_incoming_count.next)
       logger.info "Rejected incoming mail: #{ response_rejector.reason } request: #{ id }"
       false
     else
