@@ -662,24 +662,25 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  # Find last outgoing message which  was:
+  # Find last InfoRequestEvent which  was:
   # -- sent at all
   # -- OR the same message was resent
   # -- OR the public body requested clarification, and a follow up was sent
   def last_event_forming_initial_request
     last_sent = nil
     expecting_clarification = false
-    for event in info_request_events
+
+    info_request_events.each do |event|
       if event.described_state == 'waiting_clarification'
         expecting_clarification = true
       end
 
-      if [ 'sent', 'resent', 'followup_sent', 'followup_resent' ].include?(event.event_type)
+      if %w(sent resent followup_sent followup_resent).include?(event.event_type)
         if last_sent.nil?
           last_sent = event
         elsif event.event_type == 'resent'
           last_sent = event
-        elsif expecting_clarification and event.event_type == 'followup_sent'
+        elsif expecting_clarification && event.event_type == 'followup_sent'
           # TODO: this needs to cope with followup_resent, which it doesn't.
           # Not really easy to do, and only affects cases where followups
           # were resent after a clarification.
@@ -688,9 +689,14 @@ class InfoRequest < ActiveRecord::Base
         end
       end
     end
+
     if last_sent.nil?
-      raise "internal error, last_event_forming_initial_request gets nil for request " + id.to_s + " outgoing messages count " + outgoing_messages.size.to_s + " all events: " + info_request_events.to_yaml
+      raise "internal error, last_event_forming_initial_request gets nil for " \
+            "request #{ id } outgoing messages count " \
+            "#{ outgoing_messages.size } all events: " \
+            "#{ info_request_events.to_yaml }"
     end
+
     last_sent
   end
 
@@ -1111,9 +1117,7 @@ class InfoRequest < ActiveRecord::Base
     unless is_batch_request_template?
       applicable_rules << public_body.censor_rules
     end
-    if user && !user.censor_rules.empty?
-      applicable_rules << user.censor_rules
-    end
+    applicable_rules << user.censor_rules if user
     applicable_rules.flatten
   end
 

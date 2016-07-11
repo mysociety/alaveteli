@@ -8,11 +8,13 @@
       <%= _("From:") %> <%= @info_request.user_name %>
       <br>
       <br>
-      <% delivery_status = outgoing_message.delivery_status %>
-      <% if delivery_status %>
-        <%= link_to outgoing_message_delivery_status_path(outgoing_message), :class => "toggle-delivery-log toggle-delivery-log--#{outgoing_message.delivery_status.simple} js-toggle-delivery-log", :'data-delivery-status' => outgoing_message.delivery_status.simple do -%>
-          <%= outgoing_message.delivery_status.simple.to_s.humanize -%>
-        <% end -%>
+      <% cache_if_caching_fragments("outgoing_messages/#{ outgoing_message.id }/delivery_status", :expires_in => 6.hours) do %>
+        <% delivery_status = outgoing_message.delivery_status %>
+        <% if delivery_status %>
+          <%= link_to outgoing_message_delivery_status_path(outgoing_message), :class => "toggle-delivery-log toggle-delivery-log--#{outgoing_message.delivery_status.simple} js-toggle-delivery-log", :'data-delivery-status' => outgoing_message.delivery_status.simple do -%>
+            <%= outgoing_message.delivery_status.simple.to_s.humanize -%>
+          <% end -%>
+        <% end %>
       <% end %>
 
       <%= simple_date(info_request_event.created_at) %>
