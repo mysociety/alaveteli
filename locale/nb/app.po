@@ -24,8 +24,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-07 16:36+0100\n"
-"PO-Revision-Date: 2016-04-25 09:46+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2016-07-08 12:58+0000\n"
+"Last-Translator: pere <pere-transifex@hungry.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -414,7 +414,7 @@ msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Er du eier av kommersielle åndsverksrettigheter på denne siden?"
 
 msgid "Ask EU Authorities"
-msgstr ""
+msgstr "Spør EU-myndigheter"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Spør om <strong>spesifikke</strong> dokumenter, informasjon eller veiledning om noe som angår deg."
@@ -2902,10 +2902,10 @@ msgid "This message has been hidden. There are various reasons why we might have
 msgstr "Denne meldingen har blitt skjult.  Det er ulike årsaker til at vi kan ha gjort dette, og vi beklager at vi ikke kan være mer spesifikk her."
 
 msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Denne meldingen er fremhevet som «skjult».  Du kan kun se den på grunn av at du er logget inn som superbruker."
+msgstr "Denne meldingen er markert som «skjult».  Du kan kun se den på grunn av at du er logget inn som superbruker."
 
 msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "Denne meldingen er fremhevet som «skjult».  {{reason}} Du kan kun se den på grunn av at du er logget inn som superbruker."
+msgstr "Denne meldingen er markert som «skjult».  {{reason}} Du kan kun se den på grunn av at du er logget inn som superbruker."
 
 msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Denne meldingen er skjult, slik at kun du, innsenderen, kan se den.  <a href=\"{{url}}\">Ta kontakt</a> hvis du er usikker på hvorfor."
@@ -2969,7 +2969,7 @@ msgid "This request has had an unusual response, and <strong>requires attention<
 msgstr "Denne henvendelsen har et uvanlig svar, og <strong>krever oppmerksomhet</strong> fra {{site_name}}-gruppen."
 
 msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Denne meldingen er fremhevet som «skjult».  Du kan kun se den på grunn av at\\n du er logget inn som superbruker."
+msgstr "Denne meldingen er markert som «skjult».  Du kan kun se den på grunn av at\\n du er logget inn som superbruker."
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Denne henvendelsen er skjult, slik at bare du som innsender kan se den.  Vær så snill <a href=\"{{url}}\">å ta kontakt</a> hvis du er usikker på hvorfor."
@@ -3242,7 +3242,7 @@ msgid "User|About me"
 msgstr "Bruker|Om meg"
 
 msgid "User|Address"
-msgstr ""
+msgstr "User|Address"
 
 msgid "User|Admin level"
 msgstr "Bruker|Admin nivå"
@@ -3254,7 +3254,7 @@ msgid "User|Can make batch requests"
 msgstr "Bruker|Can make batch requests"
 
 msgid "User|Dob"
-msgstr ""
+msgstr "User|Dob"
 
 msgid "User|Email"
 msgstr "Bruker|E-post"
@@ -3272,7 +3272,7 @@ msgid "User|Hashed password"
 msgstr "Bruker|Hashet passord"
 
 msgid "User|Identity card number"
-msgstr ""
+msgstr "User|Identity card number"
 
 msgid "User|Last daily track email"
 msgstr "Bruker|Siste daglige track e-post"
@@ -3476,7 +3476,7 @@ msgid "Write a reply"
 msgstr "Skriv et svar"
 
 msgid "Write a reply to {{authority_name}}"
-msgstr ""
+msgstr "Skriv et svar til {{authority_name}}"
 
 msgid "Write your FOI follow up message to {{authority_name}}"
 msgstr ""
@@ -4058,8 +4058,8 @@ msgstr "{{count}} innsynshenvendelser funnet"
 
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} merknad laget."
+msgstr[1] "{{count}} merknader laget."
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
