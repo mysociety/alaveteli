@@ -13,6 +13,8 @@ $alaveteli_route_extensions.each do |f|
 end
 
 Alaveteli::Application.routes.draw do
+  root 'general#frontpage'
+
   #### General contoller
   match '/' => 'general#frontpage',
         :as => :frontpage,
