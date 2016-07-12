@@ -54,7 +54,7 @@
 * `UserController#set_profile_about_me` has been deprecated. If you have
   overridden it in your theme, you will need to port your customisations to
   `UserProfile::AboutMeController`. You should also update
-  `profile_set_about_me` routes to `edit_profile_about_me` (for GET requests)
+  `set_profile_about_me` routes to `edit_profile_about_me` (for GET requests)
   and `profile_about_me` (for PUT requests).
 * `AboutMeValidator` has been deprecated. The behaviour is now directly included
   in `User`.
