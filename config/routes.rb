@@ -226,7 +226,8 @@ Alaveteli::Application.routes.draw do
   end
 
   # Legacy route for setting about_me
-  match '/profile/set_about_me' => redirect('/profile/about_me/edit')
+  match '/profile/set_about_me' => redirect('/profile/about_me/edit'),
+        :as => :set_profile_about_me
 
   match '/profile/set_receive_alerts' => 'user#set_receive_email_alerts',
         :as => :set_receive_email_alerts
