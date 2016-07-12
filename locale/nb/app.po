@@ -6,6 +6,7 @@
 # Translators:
 # andreli <andre@lindhjem.net>, 2013
 # atluxity <atluxity@1kb.no>, 2014
+# Ben W <bwng@openmailbox.org>, 2016
 # Carl Petter F. Sky <carl.sky@gmail.com>, 2015
 # Gareth Rees <gareth@mysociety.org>, 2016
 # gorm <gormer@gmail.com>, 2015
@@ -24,8 +25,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-11 17:39+0000\n"
-"PO-Revision-Date: 2016-07-11 16:44+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2016-07-11 20:00+0000\n"
+"Last-Translator: Ben W <bwng@openmailbox.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +110,7 @@ msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', en person"
 
 msgid "(You will be asked to sign in as {{user_name}})"
-msgstr ""
+msgstr "(Du vil bli bedt om å logge på som {{user_name}})"
 
 msgid "(hide)"
 msgstr "(skjul)"
@@ -450,10 +451,10 @@ msgid "Authority email:"
 msgstr "Myndighet e-post:"
 
 msgid "Authority has transferred your request to a different public body."
-msgstr ""
+msgstr "Organet har overført din henvendelse til et annet offentlig myndighet."
 
 msgid "Authority name"
-msgstr ""
+msgstr "Myndighets navn"
 
 msgid "Authority:"
 msgstr "Myndighet:"
@@ -477,7 +478,7 @@ msgid "Awaiting response."
 msgstr "Venter på svar."
 
 msgid "Banned from this site"
-msgstr ""
+msgstr "Utestengt fra nettstedet"
 
 msgid "Banned users cannot edit their profile"
 msgstr "Bannlyste brukere kan ikke redigere profilen sin"
@@ -693,7 +694,7 @@ msgid "Contains personal information"
 msgstr "Inneholder personlig informasjon"
 
 msgid "Cookies not enabled"
-msgstr ""
+msgstr "Cookies ikke aktivert"
 
 msgid "Could not identify the request from the email address"
 msgstr "Kunne ikke finne henvendelsen ut fra e-post-adressen"
@@ -750,7 +751,7 @@ msgid "Delayed."
 msgstr "Forsinket."
 
 msgid "Delivery Status for Outgoing Message #{{id}}"
-msgstr ""
+msgstr "Leveringsstatus for utgående melding #{{id}}"
 
 msgid "Delivery error"
 msgstr "Leveringsfeil"
@@ -1009,8 +1010,8 @@ msgstr "Glemt passordet?"
 
 msgid "Found {{count}} public authority"
 msgid_plural "Found {{count}} public authorities"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fant {{count}} offentlig myndighet"
+msgstr[1] "Fant {{count}} offentlige myndigheter"
 
 msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
 msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
@@ -2056,7 +2057,7 @@ msgid "Print your one time passcode"
 msgstr "Skriv ut engangspassord"
 
 msgid "Privacy and cookies"
-msgstr ""
+msgstr "Personvern og cookies"
 
 msgid "Profile photo"
 msgstr "Profilbilde"
@@ -2962,10 +2963,10 @@ msgid "This is your request"
 msgstr "Dette er din henvendelse"
 
 msgid "This message could not be delivered."
-msgstr ""
+msgstr "Meldingen kunne ikke leveres."
 
 msgid "This message has been delivered."
-msgstr ""
+msgstr "Meldingen er blitt levert."
 
 msgid "This message has been hidden."
 msgstr "Denne meldingen har blitt skjult."
@@ -2974,7 +2975,7 @@ msgid "This message has been hidden. There are various reasons why we might have
 msgstr "Denne meldingen har blitt skjult.  Det er ulike årsaker til at vi kan ha gjort dette, og vi beklager at vi ikke kan være mer spesifikk her."
 
 msgid "This message has been sent."
-msgstr ""
+msgstr "Meldingen er blitt sendt."
 
 msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
 msgstr "Denne meldingen er markert som «skjult».  Du kan kun se den på grunn av at du er logget inn som superbruker."
@@ -3206,7 +3207,7 @@ msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
 
 msgid "Transferred."
-msgstr ""
+msgstr "Overført."
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3455,10 +3456,10 @@ msgid "We consider it to be vexatious, and have therefore hidden it from other u
 msgstr "Vi ser på den som sjikanøs, og har derfor skjult den for de andre brukerne."
 
 msgid "We couldn't determine the delivery status of this message"
-msgstr ""
+msgstr "Vi kunne ikke bestemme leveringsstatus for denne meldingen"
 
 msgid "We couldn’t display any logs for this message."
-msgstr ""
+msgstr "Vi kunne ikke vise noen logger for denne meldingen."
 
 msgid "We couldn’t load the mail server logs for this message."
 msgstr ""
@@ -3494,7 +3495,7 @@ msgid "We'll drop you an email as soon as your request gets a response."
 msgstr "Vi sender deg en epost så fort det kommer svar på henvendelsen."
 
 msgid "We're glad you got all the information that you wanted."
-msgstr ""
+msgstr "Vi er glad for at du fikk all informasjonen som du ville."
 
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
 msgstr "Vi er glad du fikk all informasjonen du ønsket.  Hvis du skriver om det eller gjør bruk av informasjonen, vær så snill å kom tilbake hit og legg inn en merknad under som forteller hva du gjorde."
@@ -3590,7 +3591,7 @@ msgid "Write a reply to {{authority_name}}"
 msgstr "Skriv et svar til {{authority_name}}"
 
 msgid "Write about this on Medium"
-msgstr ""
+msgstr "Skriv om dette på Medium"
 
 msgid "Write your FOI follow up message to {{authority_name}}"
 msgstr ""
@@ -4138,7 +4139,7 @@ msgid "unknown reason "
 msgstr "ukjent grunn "
 
 msgid "unknown status "
-msgstr ""
+msgstr "ukjent status"
 
 msgid "unknown status {{status}}"
 msgstr "ukjent status {{status}}"
@@ -4213,8 +4214,8 @@ msgstr "{{number_of_comments}} kommentarer"
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{number_of_requests}} henvendelse"
+msgstr[1] "{{number_of_requests}} henvendelser"
 
 msgid "{{number_of_requests}} request left to categorise / {{total_number_of_requests}} total"
 msgid_plural "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
