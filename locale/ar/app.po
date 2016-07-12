@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 17:39+0000\n"
-"PO-Revision-Date: 2016-07-11 16:44+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"PO-Revision-Date: 2016-07-12 11:56+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/mysociety/alaveteli/language/ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -446,9 +446,6 @@ msgid "Attachment:"
 msgstr "ملحق"
 
 msgid "Authority email:"
-msgstr ""
-
-msgid "Authority has transferred your request to a different public body."
 msgstr ""
 
 msgid "Authority name"
@@ -2689,9 +2686,6 @@ msgstr "شكرا جزيلا على مساعدتنا في الحفاظ على ك�
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "هذا لا يبدو كعنوان بريد الكتروني صالح.الرجاء التأكد من أنك كتبته بطريقة صحيحة."
 
-msgid "That text looks like spam, so we have not updated your about me"
-msgstr ""
-
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr "تم <strong>اتمام المراجعة</strong> بطريقة شاملة:"
 
@@ -2968,9 +2962,6 @@ msgstr ""
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr " هذه نسخة نص مجرد  بخصوص حرية النفاذ للمعلومة \"{{request_title}}\". يمكنك الحصول على النسخة الأخيرة الكاملة على {{full_url}}"
 
-msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
-msgstr ""
-
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr " هذه النسخة من ملحق حرية النفاذ الى المعلومة ترد في صيغة    لغة توصيف النصوص المترابطة  HTML"
 
@@ -3237,9 +3228,6 @@ msgstr "تتبع|تتبع السؤال"
 
 msgid "TrackThing|Track type"
 msgstr "تتبع شيئا|نوع المتابعة"
-
-msgid "Transferred."
-msgstr ""
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3724,6 +3712,9 @@ msgstr "لا تستطيع طلب معلومات عن البيئة الا من خ
 msgid "You can regenerate your one time passcode at any time."
 msgstr ""
 
+msgid "You can't update your profile text at this time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "لديك اجابة جديدة على {{law_used_full}} طلب "
 
@@ -4184,9 +4175,6 @@ msgstr "سبب مجهول"
 
 msgid "unknown reason "
 msgstr "سبب مجهول"
-
-msgid "unknown status "
-msgstr ""
 
 msgid "unknown status {{status}}"
 msgstr "حالة مجهولة {{status}}"

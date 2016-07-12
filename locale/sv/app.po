@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 17:39+0000\n"
-"PO-Revision-Date: 2016-07-11 16:44+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"PO-Revision-Date: 2016-07-12 11:56+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -441,9 +441,6 @@ msgstr "Bilaga:"
 
 msgid "Authority email:"
 msgstr "Myndighetens e-postadress:"
-
-msgid "Authority has transferred your request to a different public body."
-msgstr ""
 
 msgid "Authority name"
 msgstr ""
@@ -2659,9 +2656,6 @@ msgstr "Tack så mycket för att du hjälper hålla allt <strong>snyggt och orga
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "Det där ser inte ut att vara en giltig e-postadress. Vänligen kontrollera att du har skrivit den  korrekt."
 
-msgid "That text looks like spam, so we have not updated your about me"
-msgstr ""
-
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr "<strong>Granskningen har avslutats</strong> och på det hela taget:"
 
@@ -2934,9 +2928,6 @@ msgstr "Det här är <a href=\"{{profile_url}}\">{{user_name}}s</a> flöde"
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr "Detta är en vanlig textversion av en begäran om allmän handling\"{{request_title}}\".  Den senaste, fullständiga versionen, finns tillgänglig online på {{full_url}}"
 
-msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
-msgstr ""
-
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Detta är en HTML-version av en bilaga till begäran om allmän handling"
 
@@ -3195,9 +3186,6 @@ msgstr "TrackThing|Track query"
 
 msgid "TrackThing|Track type"
 msgstr "TrackThing|Track query"
-
-msgid "Transferred."
-msgstr ""
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3674,6 +3662,9 @@ msgstr "Du kan endast begära information om miljön från denna myndighet."
 msgid "You can regenerate your one time passcode at any time."
 msgstr "Du kan förnya ditt engångslösenord när som helst."
 
+msgid "You can't update your profile text at this time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Du har ett nytt svar på {{law_used_full}} begäran "
 
@@ -4122,9 +4113,6 @@ msgstr "okänd anledning"
 
 msgid "unknown reason "
 msgstr "oklar anledning "
-
-msgid "unknown status "
-msgstr ""
 
 msgid "unknown status {{status}}"
 msgstr "oklar status {{status}}"

@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 17:39+0000\n"
-"PO-Revision-Date: 2016-07-11 16:44+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"PO-Revision-Date: 2016-07-12 11:56+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -442,9 +442,6 @@ msgstr "Ek:"
 
 msgid "Authority email:"
 msgstr "Kurum emaili:"
-
-msgid "Authority has transferred your request to a different public body."
-msgstr ""
 
 msgid "Authority name"
 msgstr ""
@@ -2665,9 +2662,6 @@ msgstr "Her şeyi <strong>derli toplu ve organize</strong>bir şekilde tutmamız
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "Bu geçerli bir email adresine benzemiyor. Lütfen doğru yazdığınızdan emin olun."
 
-msgid "That text looks like spam, so we have not updated your about me"
-msgstr ""
-
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr " <strong>İnceleme sonuçlandı</strong> ve genel olarak:"
 
@@ -2940,9 +2934,6 @@ msgstr "Bu <a href=\"{{profile_url}}\">{{user_name}} adlı kullanıcının</a> d
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr "Bu,  \"{{request_title}}\" başlıklı Bilgi Edinme Başvurusunun sade metin halidir. En son ve tam hali internette  {{full_url}} adresinde bulunabilir."
 
-msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
-msgstr ""
-
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Bu, Bilgi Edinme Başvurusunda bulunan ek dosyasnın HTML sürümü"
 
@@ -3203,9 +3194,6 @@ msgstr "TrackThing|Track query"
 
 msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
-
-msgid "Transferred."
-msgstr ""
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3682,6 +3670,9 @@ msgstr "Bu kuruluştan yalnızca çevre ile ilgili bilgi isteyebilirsiniz.  "
 msgid "You can regenerate your one time passcode at any time."
 msgstr "Tek kullanımlık giriş kodunu her zaman yeniden oluşturabilirsiniz. "
 
+msgid "You can't update your profile text at this time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "{{law_used_full}} başvurunuza yeni bir yanıt geldi"
 
@@ -4130,9 +4121,6 @@ msgstr "bilinmeyen sebep"
 
 msgid "unknown reason "
 msgstr "bilinmeyen sebep"
-
-msgid "unknown status "
-msgstr ""
 
 msgid "unknown status {{status}}"
 msgstr "bilinmeyen durum {{status}}"

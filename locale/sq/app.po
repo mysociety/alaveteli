@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 17:39+0000\n"
-"PO-Revision-Date: 2016-07-11 16:44+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"PO-Revision-Date: 2016-07-12 11:56+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
@@ -471,9 +471,6 @@ msgstr "Shtojca (attachment):"
 
 msgid "Authority email:"
 msgstr "Posta elektronike e institucionit"
-
-msgid "Authority has transferred your request to a different public body."
-msgstr ""
 
 msgid "Authority name"
 msgstr ""
@@ -2720,9 +2717,6 @@ msgstr "Shumë faleminderit për ndihmën për të mbajtur të tërat të <stron
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "Kjo nuk duket si një adrese e vlefshme. Të lutem kontrollo që ke shtypur saktë."
 
-msgid "That text looks like spam, so we have not updated your about me"
-msgstr ""
-
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr "<strong>Rishqyrtimi ka përfunduar</strong> dhe përfundimi është:"
 
@@ -2999,9 +2993,6 @@ msgstr "Ky eshte <a href=\"{{profile_url}}\">{{user_name}}'s</a>"
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr "Ky është versioni tekstual (plain text) i kërkesës për te Drejten e Informimit\"{{request_title}}\".  Versioni i fundit dhe i plotë është tek {{full_url}}"
 
-msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
-msgstr ""
-
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Ky është version HTML i shtojcës (attachment) ndaj kërkesës për te Drejten e Informimit"
 
@@ -3269,9 +3260,6 @@ msgstr "GjurmoGjera |Pyetje per gjurmimin"
 
 msgid "TrackThing|Track type"
 msgstr "GjurmoGjera | Lloji gjurmimit"
-
-msgid "Transferred."
-msgstr ""
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3758,6 +3746,9 @@ msgstr "Ju mund të kërkoni vetem informacione në lidhje me mjedisin nga ky In
 msgid "You can regenerate your one time passcode at any time."
 msgstr "Ju mund të rigjeneroni kodkalimin tuaj te vetem nje here ne cdo kohe. "
 
+msgid "You can't update your profile text at this time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Ju keni një përgjigje të re për {{law_used_full}}  kërkesën "
 
@@ -4219,9 +4210,6 @@ msgstr "arsye e panjohur"
 
 msgid "unknown reason "
 msgstr "arsye e panjohur "
-
-msgid "unknown status "
-msgstr ""
 
 msgid "unknown status {{status}}"
 msgstr "status i panjohur {{status}}"

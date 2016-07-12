@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 17:39+0000\n"
-"PO-Revision-Date: 2016-07-11 16:44+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"PO-Revision-Date: 2016-07-12 11:56+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/mysociety/alaveteli/language/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -439,9 +439,6 @@ msgstr "Priloga:"
 
 msgid "Authority email:"
 msgstr "E-poštni naslov organa:"
-
-msgid "Authority has transferred your request to a different public body."
-msgstr ""
 
 msgid "Authority name"
 msgstr ""
@@ -2669,9 +2666,6 @@ msgstr "Hvala, ker pomagate skrbeti, da je spletna stran <strong>lepa in urejena
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "Vnešeno ni veljaven e-poštni naslov. Prosimo, preverite če ste ga vtipkali pravilno."
 
-msgid "That text looks like spam, so we have not updated your about me"
-msgstr ""
-
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr "<strong>Revizija je končana</strong>, izsledki:"
 
@@ -2946,9 +2940,6 @@ msgstr "To je zid uporabnika <a href=\"{{profile_url}}\">{{user_name}}</a>"
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr "To je tekstovna različica zahtevka za informacije javnega značaja \"{{request_title}}\". Zadnja in polna različica je na voljo na spletu na {{full_url}}"
 
-msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
-msgstr ""
-
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "To je HTML različica priloge k zahtevku za informacije javnega značaja"
 
@@ -3211,9 +3202,6 @@ msgstr "TrackThing|Track query"
 
 msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
-
-msgid "Transferred."
-msgstr ""
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3694,6 +3682,9 @@ msgstr "Od tega organa lahko zahtevate zgolj informacije o okolju."
 msgid "You can regenerate your one time passcode at any time."
 msgstr ""
 
+msgid "You can't update your profile text at this time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Na {{law_used_full}} zahtevek ste prejeli nov odgovor"
 
@@ -4148,9 +4139,6 @@ msgstr "neznan razlog"
 
 msgid "unknown reason "
 msgstr "neznan razlog"
-
-msgid "unknown status "
-msgstr ""
 
 msgid "unknown status {{status}}"
 msgstr "neznan status {{status}}"

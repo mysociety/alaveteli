@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 17:39+0000\n"
-"PO-Revision-Date: 2016-07-11 16:44+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"PO-Revision-Date: 2016-07-12 11:56+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/mysociety/alaveteli/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -440,9 +440,6 @@ msgstr "Allegato:"
 
 msgid "Authority email:"
 msgstr "Email della pubblica amministrazione:"
-
-msgid "Authority has transferred your request to a different public body."
-msgstr ""
 
 msgid "Authority name"
 msgstr ""
@@ -2661,9 +2658,6 @@ msgstr "Grazie per averci aiutato <strong>a fare ordine</strong>. Se ne hai biso
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "Questo non è un indirizzo email valido. Per favore controlla di aver scritto correttamente."
 
-msgid "That text looks like spam, so we have not updated your about me"
-msgstr ""
-
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr "La <strong>revisione è finita</strong>:"
 
@@ -2940,9 +2934,6 @@ msgstr ""
 "Questa è una versione testuale della richiesta di accesso \"{{request_title}}\". \n"
 "La versione completa è disponibile online qui {{full_url}}"
 
-msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
-msgstr ""
-
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Questa è una versione HTML dell'allegato alla richiesta di accesso"
 
@@ -3201,9 +3192,6 @@ msgstr "TrackThing|Track query"
 
 msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
-
-msgid "Transferred."
-msgstr ""
 
 msgid "Try opening the logs in a new window."
 msgstr ""
@@ -3680,6 +3668,9 @@ msgstr "Per quanto riguarda questa amministrazione puoi fare solo richieste rela
 msgid "You can regenerate your one time passcode at any time."
 msgstr "Puoi rigenerare la tua password monouso in ogni momento."
 
+msgid "You can't update your profile text at this time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Hai una nuova risposta alla richiesta fatta secondo la {{law_used_full}}"
 
@@ -4128,9 +4119,6 @@ msgstr "motivo sconosciuto"
 
 msgid "unknown reason "
 msgstr "motivo sconosciuto"
-
-msgid "unknown status "
-msgstr ""
 
 msgid "unknown status {{status}}"
 msgstr "stato sconosciuto {{status}}"

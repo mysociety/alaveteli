@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 17:39+0000\n"
-"PO-Revision-Date: 2016-07-11 16:44+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"PO-Revision-Date: 2016-07-12 11:56+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -437,9 +437,6 @@ msgid "Attachment:"
 msgstr ""
 
 msgid "Authority email:"
-msgstr ""
-
-msgid "Authority has transferred your request to a different public body."
 msgstr ""
 
 msgid "Authority name"
@@ -2656,9 +2653,6 @@ msgstr ""
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr ""
 
-msgid "That text looks like spam, so we have not updated your about me"
-msgstr ""
-
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr ""
 
@@ -2931,9 +2925,6 @@ msgstr ""
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr ""
 
-msgid "This is an FOI request done via the {{site_name}} website. This footer has been overriden by the sample Alaveteli theme."
-msgstr ""
-
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr ""
 
@@ -3191,9 +3182,6 @@ msgid "TrackThing|Track query"
 msgstr ""
 
 msgid "TrackThing|Track type"
-msgstr ""
-
-msgid "Transferred."
 msgstr ""
 
 msgid "Try opening the logs in a new window."
@@ -3671,6 +3659,9 @@ msgstr ""
 msgid "You can regenerate your one time passcode at any time."
 msgstr ""
 
+msgid "You can't update your profile text at this time."
+msgstr ""
+
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr ""
 
@@ -4118,9 +4109,6 @@ msgid "unknown reason"
 msgstr ""
 
 msgid "unknown reason "
-msgstr ""
-
-msgid "unknown status "
 msgstr ""
 
 msgid "unknown status {{status}}"
