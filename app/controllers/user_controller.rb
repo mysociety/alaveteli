@@ -393,7 +393,7 @@ class UserController < ApplicationController
         flash[:notice] = _("<p>Thanks for updating your profile photo.</p>" \
                 "<p><strong>Next...</strong> You can put some text about " \
                 "you and your research on your profile.</p>")
-        redirect_to set_profile_about_me_url
+        redirect_to edit_profile_about_me_path
       else
         flash[:notice] = _("Thank you for updating your profile photo")
         redirect_to user_url(@user)
