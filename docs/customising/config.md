@@ -107,6 +107,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <code><a href="#cookie_store_session_secret">COOKIE_STORE_SESSION_SECRET</a></code>
 <br> <code><a href="#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
 <br> <code><a href="#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
+<br> <code><a href="#use_recaptcha_for_registration">USE_RECAPTCHA_FOR_REGISTRATION</a></code>
 <br> <code><a href="#geoip_database">GEOIP_DATABASE</a></code>
 <br> <code><a href="#gaze_url">GAZE_URL</a></code>
 <br> <code><a href="#ga_code">GA_CODE</a></code> (GA=Google Analytics)
@@ -1033,6 +1034,29 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
         </li>
         <li>
             <code>RECAPTCHA_PRIVATE_KEY: '7HjPjGBBBBBCBBBpuTy8a33sgnGG7A'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+   <dt>
+    <a name="use_recaptcha_for_registration"><code>USE_RECAPTCHA_FOR_REGISTRATION</code></a>
+  </dt>
+  <dd>
+    Do new users need to complete a Recaptcha before they can create their account?
+    <p>
+      Intended to deter spambots from creating accounts on Alaveteli.
+    </p>
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            We recommend you don't use Recaptcha for new user signups as some
+            legitimate users have reported that they had problems signing up
+            for an account and it has not had a measurable impact on spam
+            user signups where it has been deployed:
+            <br>
+            <code>USE_RECAPTCHA_FOR_REGISTRATION: false</code>
         </li>
       </ul>
     </div>
