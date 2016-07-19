@@ -960,7 +960,13 @@ class InfoRequest < ActiveRecord::Base
 
 
   def self.where_old_unclassified(age_in_days=nil)
-    age_in_days ||= OLD_AGE_IN_DAYS
+    age_in_days =
+      if age_in_days
+        age_in_days.days
+      else
+        OLD_AGE_IN_DAYS
+      end
+
     where("awaiting_description = ?
           AND last_public_response_at < ?
           AND url_title != 'holding_pen'
