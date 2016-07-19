@@ -125,6 +125,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#public_body_list_fallback_to_default_locale">PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</a></code>
 <br> <code><a href="#enable_widgets">ENABLE_WIDGETS</a></code>
 <br> <code><a href="#enable_two_factor_auth">ENABLE_TWO_FACTOR_AUTH</a></code>
+<br> <code><a href="#enable_annotations">ENABLE_ANNOTATIONS</a></code>
 
 ### External public services:
 
@@ -1308,6 +1309,29 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>ENABLE_TWO_FACTOR_AUTH: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_annotations"><code>ENABLE_ANNOTATIONS</code></a>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.25.0.0
+      </p>
+    </div>
+
+    Enable the annotations (comments on requests) feature. Annotations are on
+    by default as they've been a standard feature for some time, but this
+    setting allows new sites to turn them off if they're not desired.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_ANNOTATIONS: true</code>
         </li>
       </ul>
     </div>
