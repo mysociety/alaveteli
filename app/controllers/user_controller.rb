@@ -62,7 +62,10 @@ class UserController < ApplicationController
 
     # All tracks for the user
     if @is_you
-      @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
+      @track_things = TrackThing.
+        where(:tracking_user_id => @display_user.id,
+              :track_medium => 'email_daily').
+          order('created_at desc')
       @track_things.each do |track_thing|
         # TODO: factor out of track_mailer.rb
         xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
@@ -133,10 +136,10 @@ class UserController < ApplicationController
   # Create new account form
   def signup
     work_out_post_redirect
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false
+    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _("There was an error with the words you entered, please try again.")
       error = true
@@ -390,7 +393,7 @@ class UserController < ApplicationController
         flash[:notice] = _("<p>Thanks for updating your profile photo.</p>" \
                 "<p><strong>Next...</strong> You can put some text about " \
                 "you and your research on your profile.</p>")
-        redirect_to set_profile_about_me_url
+        redirect_to edit_profile_about_me_url
       else
         flash[:notice] = _("Thank you for updating your profile photo")
         redirect_to user_url(@user)
@@ -401,9 +404,6 @@ class UserController < ApplicationController
   end
 
   def clear_profile_photo
-    unless request.post?
-      raise "Can only clear profile photo from POST request"
-    end
 
     # check they are logged in (the upload photo option is anyway only available when logged in)
     if authenticated_user.nil?
@@ -441,6 +441,10 @@ class UserController < ApplicationController
 
   # Change about me text on your profile page
   def set_profile_about_me
+    warn %q([DEPRECATION] UserController#set_profile_about_me has been replaced
+            with UserProfile::AboutMeController and will be removed in Alaveteli
+            release 0.26).squish
+
     if authenticated_user.nil?
       flash[:error] = _("You need to be logged in to change the text about you on your profile.")
       redirect_to frontpage_url

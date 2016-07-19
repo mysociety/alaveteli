@@ -4,7 +4,7 @@
       <tr>
         <th>Id</th>
         <% CensorRule.content_columns.each do |column| %>
-          <th><%= column.human_name %></th>
+          <th><%= column.name.humanize %></th>
         <% end %>
         <th>Actions</th>
       </tr>

@@ -38,7 +38,10 @@
     <label class="control-label" for="destroy_message_<%= incoming_message.id %>">Destroy message</label>
     <div class="controls">
       <%= hidden_field_tag 'incoming_message_id', incoming_message.id, :id => nil %>
-      <%= submit_tag "Destroy message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?", :id => "destroy_message_#{incoming_message.id}" %>
+      <%= submit_tag "Destroy message",
+                     :class => "btn btn-danger",
+                     :data => { :confirm => "This is permanent! Are you sure?" },
+                     :id => "destroy_message_#{incoming_message.id}" %>
     </div>
   </div>
 <% end %>
@@ -51,6 +54,15 @@
       <%= link_to "View raw email", admin_raw_email_path(incoming_message.raw_email_id), :class => "btn" %>
     </div>
   </div>
+  <div class="control-group">
+    <label class="control-label">Download</label>
+    <div class="controls">
+      <%= link_to "Download",  admin_raw_email_path(incoming_message.raw_email, :format => 'txt'), :class => "btn" %>
+    </div>
+  </div>
+
+
 <% end %>
+
 
 </fieldset>

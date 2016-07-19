@@ -57,6 +57,16 @@
   }
 }
 
+.bodies-list {
+  li {
+    margin-bottom: 0.35em;
+    a {
+      font-weight: bold;
+    }
+  }
+
+}
+
 .request-listing {
   a {
     font-weight: 600;
@@ -65,7 +75,11 @@
 
 .request-listing__request-body {
   p {
-    line-height: 1.35em;
+    line-height: 1.55em;
+    @include respond-min($main_menu-mobile_menu_cutoff) {
+      line-height: 1.35em;
+    }
+
   }
   a {
     &:hover,

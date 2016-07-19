@@ -26,6 +26,213 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage do
 
+  describe '#valid_to_reply_to' do
+
+    it 'is true if _calculate_valid_to_reply_to is true' do
+      message = FactoryGirl.create(:incoming_message)
+      allow(message).to receive(:_calculate_valid_to_reply_to).and_return(true)
+      message.parse_raw_email!(true)
+      expect(message.valid_to_reply_to).to eq(true)
+    end
+
+    it 'is false if _calculate_valid_to_reply_to is false' do
+      message = FactoryGirl.create(:incoming_message)
+      allow(message).to receive(:_calculate_valid_to_reply_to).and_return(false)
+      message.parse_raw_email!(true)
+      expect(message.valid_to_reply_to).to eq(false)
+    end
+
+  end
+
+  describe '#valid_to_reply_to?' do
+
+    it 'returns the value of #valid_to_reply_to' do
+      message = FactoryGirl.create(:incoming_message)
+      expect(message.valid_to_reply_to?).to eq(message.valid_to_reply_to)
+    end
+
+  end
+
+  describe '#mail_from' do
+
+    it 'returns the name in the From: field of an email' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from).to eq('FOI Person')
+    end
+
+    it 'returns nil if there is no name in the From: field of an email' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: authority@example.com
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from).to be_nil
+    end
+
+    it 'unquotes RFC 2047 headers' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: =?iso-8859-1?Q?Coordena=E7=E3o_de_Relacionamento=2C_Pesquisa_e_Informa=E7?=
+      	=?iso-8859-1?Q?=E3o/CEDI?= <geraldinequango@localhost>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from).
+        to eq('Coordenação de Relacionamento, Pesquisa e Informação/CEDI')
+    end
+
+  end
+
+  describe '#safe_mail_from' do
+
+    it 'applies the info request censor rules to mail_from' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      FactoryGirl.create(:censor_rule,
+                         :text => 'Person',
+                         :info_request => message.info_request)
+
+      expect(message.safe_mail_from).to eq('FOI [REDACTED]')
+    end
+
+  end
+
+  describe '#mail_from_domain' do
+
+    it 'returns the domain part of the email address in the From header' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@mail.example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from_domain).to eq('mail.example.com')
+    end
+
+    it 'returns an empty string if there is no From header' do
+      raw_email_data = <<-EOF.strip_heredoc
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.mail_from_domain).to eq('')
+    end
+
+  end
+
+  describe '#subject' do
+
+    it 'returns the Subject: field of an email' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.subject).to eq('A response')
+    end
+
+    it 'returns nil if there is no Subject: field' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.subject).to be_nil
+    end
+
+    it 'unquotes RFC 2047 headers' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: =?iso-8859-1?Q?C=E2mara_Responde=3A__Banco_de_ideias?=
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.subject).to eq('Câmara Responde:  Banco de ideias')
+    end
+
+  end
+
+  describe '#sent_at' do
+
+    it 'uses the Date header if the mail has one' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Date: Fri, 9 Dec 2011 10:42:02 -0200
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.sent_at).
+        to eq(DateTime.parse('Fri, 9 Dec 2011 10:42:02 -0200').in_time_zone)
+    end
+
+    it 'uses the created_at attribute if there is no Date header' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryGirl.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.sent_at).to eq(message.created_at)
+    end
+
+  end
+
   describe '#apply_masks' do
 
     before(:each) do
@@ -351,12 +558,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
     expect(message.mail.multipart?).to eq(true)
   end
 
-  it "should return the mail Date header date for sent at" do
-    @im.parse_raw_email!(true)
-    @im.reload
-    expect(@im.sent_at).to eq(@im.mail.date)
-  end
-
   it "should correctly fold various types of footer" do
     Dir.glob(File.join(RSpec.configuration.fixture_path, "files", "email-folding-example-*.txt")).each do |file|
       message = File.read(file)
@@ -380,14 +581,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
     message.parse_raw_email!
     expect(message.get_main_body_text_part.charset).to eq("iso-8859-1")
     expect(message.get_main_body_text_internal).to include("política")
-  end
-
-  it "should unquote RFC 2047 headers" do
-    ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
-    message = ir.incoming_messages[1]
-    expect(message.mail_from).to eq("Coordenação de Relacionamento, Pesquisa e Informação/CEDI")
-    expect(message.subject).to eq("Câmara Responde:  Banco de ideias")
   end
 
   it 'should deal with GB18030 text even if the charset is missing' do
@@ -826,14 +1019,53 @@ describe IncomingMessage, "when extracting attachments" do
 end
 
 describe IncomingMessage, 'when getting the body of a message for html display' do
+  let(:incoming_message) { IncomingMessage.new }
 
   it 'should replace any masked email addresses with a link to the help page' do
-    incoming_message = IncomingMessage.new
     body_text = 'there was an [email address] here'
-    allow(incoming_message).to receive(:get_main_body_text_folded).and_return(body_text)
-    allow(incoming_message).to receive(:get_main_body_text_unfolded).and_return(body_text)
-    expected = 'there was an [<a href="/help/officers#mobiles">email address</a>] here'
+    allow(incoming_message).to receive(:get_main_body_text_folded).
+      and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_unfolded).
+      and_return(body_text)
+
+    expected = '<p>there was an [<a href="/help/officers#mobiles">email ' \
+               'address</a>] here</p>'
     expect(incoming_message.get_body_for_html_display).to eq(expected)
+  end
+
+  it "interprets single line breaks as <br> tags" do
+    body_text = "Hello,\nI am a test message\nWith multiple lines"
+    allow(incoming_message).to receive(:get_main_body_text_folded).
+      and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_unfolded).
+      and_return(body_text)
+
+    expected = "<p>Hello,\n<br />I am a test message\n<br />With " \
+               "multiple lines</p>"
+    expect(incoming_message.get_body_for_html_display).to include(expected)
+  end
+
+  it "interprets double line breaks as <p> tags" do
+    body_text = "Hello,\n\nI am a test message\n\nWith multiple lines"
+    allow(incoming_message).to receive(:get_main_body_text_folded).
+      and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_unfolded).
+      and_return(body_text)
+
+    expected = "<p>Hello,</p>\n\n<p>I am a test message</p>\n\n<p>With " \
+               "multiple lines</p>"
+    expect(incoming_message.get_body_for_html_display).to include(expected)
+  end
+
+  it "removes excess linebreaks" do
+    body_text = "Line 1\n\n\n\n\n\n\n\n\n\nLine 2"
+    allow(incoming_message).to receive(:get_main_body_text_folded).
+      and_return(body_text)
+    allow(incoming_message).to receive(:get_main_body_text_unfolded).
+      and_return(body_text)
+
+    expected = "<p>Line 1</p>\n\n<p>Line 2</p>"
+    expect(incoming_message.get_body_for_html_display).to include(expected)
   end
 
 end

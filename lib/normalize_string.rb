@@ -11,7 +11,11 @@ def normalize_string_to_utf8(s, suggested_character_encoding=nil)
   # Make a list of encodings to try:
   to_try = []
 
-  guessed_encoding = CharlockHolmes::EncodingDetector.detect(s)[:encoding]
+  guessed_encoding = if CharlockHolmes::EncodingDetector.detect(s).blank?
+    ''
+  else
+    CharlockHolmes::EncodingDetector.detect(s)[:encoding]
+  end
   guessed_encoding ||= ''
 
   # It's reasonably common for windows-1252 text to be mislabelled

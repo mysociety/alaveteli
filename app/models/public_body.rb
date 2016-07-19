@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20131024114346
 #
 # Table name: public_bodies
 #
@@ -25,7 +24,7 @@
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer
+#  info_requests_visible_count            :integer          default(0), not null
 #
 
 require 'csv'
@@ -149,7 +148,7 @@ class PublicBody < ActiveRecord::Base
           unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
             from = previous.send(c.name)
             to = self.send(c.name)
-            memo << { :name => c.human_name, :from => from, :to => to } if from != to
+            memo << { :name => c.name.humanize, :from => from, :to => to } if from != to
           end
           memo
         }
@@ -235,12 +234,6 @@ class PublicBody < ActiveRecord::Base
   # Regulations?
   def eir_only?
     has_tag?('eir_only')
-  end
-
-  # Schools are allowed more time in holidays, so we change some wordings
-  def is_school?
-    warn %q([DEPRECATION] PublicBody#is_school? will be removed in 0.25)
-    has_tag?('school')
   end
 
   def site_administration?
@@ -358,7 +351,7 @@ class PublicBody < ActiveRecord::Base
         set_of_existing = Set.new
         internal_admin_body_id = PublicBody.internal_admin_body.id
         I18n.with_locale(I18n.default_locale) do
-          bodies = (tag.nil? || tag.empty?) ? PublicBody.find(:all, :include => :translations) : PublicBody.find_by_tag(tag)
+          bodies = (tag.nil? || tag.empty?) ? PublicBody.includes(:translations) : PublicBody.find_by_tag(tag)
           for existing_body in bodies
             # Hide InternalAdminBody from import notes
             next if existing_body.id == internal_admin_body_id
@@ -631,7 +624,10 @@ class PublicBody < ActiveRecord::Base
       y_value_column = "(cast(#{column} as float) / #{total_column})"
       where_clause = where_clause_for_stats minimum_requests, total_column
       where_clause += " AND #{column} IS NOT NULL"
-      public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").order(ordering).where(where_clause).limit(n)
+      public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").
+                                  order(ordering).
+                                    where(where_clause).
+                                      limit(n)
       public_bodies.reverse! if highest
       y_values = public_bodies.map { |pb| pb.y_value.to_f }
 
@@ -668,23 +664,22 @@ class PublicBody < ActiveRecord::Base
       # get some example searches and public bodies to display
       # either from config, or based on a (slow!) query if not set
       body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/)
-      locale_condition = 'public_body_translations.locale = ?'
       underscore_locale = locale.gsub '-', '_'
-      conditions = [locale_condition, underscore_locale]
       bodies = []
       I18n.with_locale(locale) do
         if body_short_names.empty?
           # This is too slow
-          bodies = visible.find(:all,
-                                :order => "info_requests_visible_count desc",
-                                :limit => 32,
-                                :conditions => conditions,
-                                :joins => :translations
-                                )
+          bodies = visible.
+                    where('public_body_translations.locale = ?',
+                           underscore_locale).
+                      order("info_requests_visible_count desc").
+                        limit(32).
+                          joins(:translations)
         else
-          conditions[0] += " and public_bodies.url_name in (?)"
-          conditions << body_short_names
-          bodies = find(:all, :conditions => conditions, :joins => :translations)
+          bodies = where("public_body_translations.locale = ?
+                          AND public_bodies.url_name in (?)",
+                          underscore_locale, body_short_names).
+                    joins(:translations)
         end
       end
       return bodies

@@ -7,7 +7,7 @@
 class GiveIncomingMessagesEvents < ActiveRecord::Migration
   def self.up
     ActiveRecord::Base.transaction do
-      IncomingMessage.find(:all).each do |incoming_message|
+      IncomingMessage.find_each do |incoming_message|
         info_request_event = InfoRequestEvent.new
         info_request_event.event_type = 'response'
         info_request_event.params = { :incoming_message_id => incoming_message.id }

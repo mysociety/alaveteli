@@ -9,7 +9,7 @@ class CreateInfoRequestEvents < ActiveRecord::Migration
     end
 
     # Create the missing events for requests already sent
-    InfoRequest.find(:all).each do |info_request|
+    InfoRequest.find_each do |info_request|
       info_request_event = InfoRequestEvent.new
       info_request_event.event_type = 'sent'
       info_request_event.params = { :email => info_request.recipient_email, :outgoing_message_id => info_request.outgoing_messages[0].id }

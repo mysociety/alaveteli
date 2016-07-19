@@ -3,28 +3,35 @@
 #
 # Table name: users
 #
-#  id                      :integer          not null, primary key
-#  email                   :string(255)      not null
-#  name                    :string(255)      not null
-#  hashed_password         :string(255)      not null
-#  salt                    :string(255)      not null
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  email_confirmed         :boolean          default(FALSE), not null
-#  url_name                :text             not null
-#  last_daily_track_email  :datetime         default(Sat Jan 01 00:00:00 UTC 2000)
-#  admin_level             :string(255)      default("none"), not null
-#  ban_text                :text             default(""), not null
-#  about_me                :text             default(""), not null
-#  locale                  :string(255)
-#  email_bounced_at        :datetime
-#  email_bounce_message    :text             default(""), not null
-#  no_limit                :boolean          default(FALSE), not null
-#  receive_email_alerts    :boolean          default(TRUE), not null
-#  can_make_batch_requests :boolean          default(FALSE), not null
-#  otp_enabled             :boolean          default(FALSE)
-#  otp_secret_key          :string(255)
-#  otp_counter             :integer          default(1)
+#  id                                :integer          not null, primary key
+#  email                             :string(255)      not null
+#  name                              :string(255)      not null
+#  hashed_password                   :string(255)      not null
+#  salt                              :string(255)      not null
+#  created_at                        :datetime         not null
+#  updated_at                        :datetime         not null
+#  email_confirmed                   :boolean          default(FALSE), not null
+#  url_name                          :text             not null
+#  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
+#  admin_level                       :string(255)      default("none"), not null
+#  ban_text                          :text             default(""), not null
+#  about_me                          :text             default(""), not null
+#  locale                            :string(255)
+#  email_bounced_at                  :datetime
+#  email_bounce_message              :text             default(""), not null
+#  no_limit                          :boolean          default(FALSE), not null
+#  receive_email_alerts              :boolean          default(TRUE), not null
+#  can_make_batch_requests           :boolean          default(FALSE), not null
+#  otp_enabled                       :boolean          default(FALSE), not null
+#  otp_secret_key                    :string(255)
+#  otp_counter                       :integer          default(1)
+#  confirmed_not_spam                :boolean          default(FALSE), not null
+#  comments_count                    :integer          default(0), not null
+#  info_requests_count               :integer          default(0), not null
+#  track_things_count                :integer          default(0), not null
+#  request_classifications_count     :integer          default(0), not null
+#  public_body_change_requests_count :integer          default(0), not null
+#  info_request_batches_count        :integer          default(0), not null
 #
 
 require 'digest/sha1'
@@ -37,9 +44,10 @@ class User < ActiveRecord::Base
 
   has_many :info_requests, :order => 'created_at desc'
   has_many :user_info_request_sent_alerts
-  has_many :post_redirects
+  has_many :post_redirects, :order => 'created_at desc'
   has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
   has_many :comments, :order => 'created_at desc'
+  has_many :public_body_change_requests, :order => 'created_at desc'
   has_one :profile_photo
   has_many :censor_rules, :order => 'created_at desc'
   has_many :info_request_batches, :order => 'created_at desc'
@@ -53,6 +61,10 @@ class User < ActiveRecord::Base
     'none',
     'super',
   ], :message => N_('Admin level is not included in list')
+
+  validates_length_of :about_me,
+    :maximum => 500,
+    :message => _("Please keep it shorter than 500 characters")
 
   validates :email, :uniqueness => {
                       :case_sensitive => false,
@@ -106,7 +118,8 @@ class User < ActiveRecord::Base
 
   # Case-insensitively find a user from their email
   def self.find_user_by_email(email)
-    self.find(:first, :conditions => [ 'lower(email) = lower(?)', email ] )
+    return nil if email.blank?
+    self.where('lower(email) = lower(?)', email.strip).first
   end
 
   # The "internal admin" is a special user for internal use.
@@ -157,7 +170,7 @@ class User < ActiveRecord::Base
   # This SQL statement is useful for seeing how spread out users are at the moment:
   # select extract(hour from last_daily_track_email) as h, count(*) from users group by extract(hour from last_daily_track_email) order by h;
   def self.spread_alert_times_across_day
-    self.find(:all).each do |user|
+    self.find_each do |user|
       user.last_daily_track_email = User.random_time_in_last_day
       user.save!
     end
@@ -180,6 +193,12 @@ class User < ActiveRecord::Base
   def self.find_similar_named_users(user)
     User.where('name ILIKE ? AND email_confirmed = ? AND id <> ?',
                 user.name, true, user.id).order(:created_at)
+  end
+
+  def transactions(*associations)
+    opts = {}
+    opts[:transaction_associations] = associations if associations.any?
+    TransactionCalculator.new(self, opts)
   end
 
   def created_at_numeric
@@ -299,17 +318,6 @@ class User < ActiveRecord::Base
     )
   end
 
-  # Can the user make new requests, without having to describe state of (most) existing ones?
-  def can_leave_requests_undescribed?
-    warn %q([DEPRECATION] User#can_leave_requests_undescribed? will be removed
-         in Alaveteli release 0.25).squish
-
-    if url_name == "heather_brooke" || url_name == "heather_brooke_2"
-      return true
-    end
-    return false
-  end
-
   # Does the user magically gain powers as if they owned every request?
   # e.g. Can classify it
   def owns_every_request?
@@ -404,6 +412,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def about_me_already_exists?
+    self.class.where(:about_me => about_me).any?
+  end
+
   # Return about me text for display as HTML
   # TODO: Move this to a view helper
   def get_about_me_for_html_display
@@ -459,7 +471,7 @@ class User < ActiveRecord::Base
       end.compact
     end
     columns.each do |column|
-      yield(column.human_name, send(column.name), column.type.to_s, column.name)
+      yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
     end
   end
 

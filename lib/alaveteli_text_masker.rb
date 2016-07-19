@@ -43,57 +43,6 @@ module AlaveteliTextMasker
     end
   end
 
-  # Replaces all email addresses in (possibly binary) data
-  # Also applies custom masks and censor items
-  def apply_masks!(text, content_type, options = {})
-    warn %q([DEPRECATION] AlaveteliTextMasker#apply_masks! will be removed
-            in 0.25. Use the non-destructive AlaveteliTextMasker#apply_masks
-            instead).squish
-    # See if content type is one that we mask - things like zip files and
-    # images may get broken if we try to. We err on the side of masking too
-    # much, as many unknown types will really be text.
-
-    # Special cases for some content types
-    case content_type
-    when *DoNotBinaryMask
-      # do nothing
-    when *TextMask
-      apply_text_masks!(text, options)
-    when 'application/pdf'
-      apply_pdf_masks!(text, options)
-    else
-      apply_binary_masks!(text, options)
-    end
-  end
-
-  def apply_pdf_masks!(text, options = {})
-    warn %q([DEPRECATION] AlaveteliTextMasker#apply_pdf_masks! will be removed
-            in 0.25. Use AlaveteliTextMasker.apply_masks, which will implement
-            a private AlaveteliTextMasker.apply_pdf_masks).squish
-    uncompressed_text = uncompress_pdf(text)
-    # if we managed to uncompress the PDF...
-    if !uncompressed_text.blank?
-      # then censor stuff (making a copy so can compare again in a bit)
-      censored_uncompressed_text = uncompressed_text.dup
-      apply_binary_masks!(censored_uncompressed_text, options)
-      # if the censor rule removed something...
-      if censored_uncompressed_text != uncompressed_text
-        # then use the altered file (recompressed)
-        recompressed_text = compress_pdf(censored_uncompressed_text)
-        if recompressed_text.blank?
-          # buggy versions of pdftk sometimes fail on
-          # compression, I don't see it's a disaster in
-          # these cases to save an uncompressed version?
-          recompressed_text = censored_uncompressed_text
-          Rails.logger.warn "Unable to compress PDF; problem with your pdftk version?"
-        end
-        if !recompressed_text.blank?
-          text.replace recompressed_text
-        end
-      end
-    end
-  end
-
   private
 
   def uncompress_pdf(text)
@@ -187,51 +136,6 @@ module AlaveteliTextMasker
     text
   end
 
-  # Replace text in place
-  def apply_binary_masks!(text, options = {})
-    warn %q([DEPRECATION] AlaveteliTextMasker#apply_binary_masks! will be
-            removed in 0.25. Use the non-destructive
-            AlaveteliTextMasker#apply_binary_masks instead).squish
-    # Keep original size, so can check haven't resized it
-    orig_size = text.size
-
-    # Replace ASCII email addresses...
-    text.gsub!(MySociety::Validate.email_find_regexp) do |email|
-      email.gsub(/[^@.]/, 'x')
-    end
-
-    # And replace UCS-2 ones (for Microsoft Office documents)...
-    # Find emails, by finding them in parts of text that have ASCII
-    # equivalents to the UCS-2
-    ascii_chars = text.gsub(/\0/, "")
-    emails = ascii_chars.scan(MySociety::Validate.email_find_regexp)
-
-    # Convert back to UCS-2, making a mask at the same time
-    if String.method_defined?(:encode)
-      emails.map! do |email|
-        # We want the ASCII representation of UCS-2
-        [email[0].encode('UTF-16LE').force_encoding('US-ASCII'),
-         email[0].gsub(/[^@.]/, 'x').encode('UTF-16LE').force_encoding('US-ASCII')]
-      end
-    else
-      emails.map! {|email| [
-          Iconv.conv('ucs-2le', 'ascii', email[0]),
-          Iconv.conv('ucs-2le', 'ascii', email[0].gsub(/[^@.]/, 'x'))
-      ] }
-    end
-
-    # Now search and replace the UCS-2 email with the UCS-2 mask
-    for email, mask in emails
-      text.gsub!(email, mask)
-    end
-
-    # Replace censor items
-    censor_rules = options[:censor_rules] || []
-    censor_rules.each{ |censor_rule| censor_rule.apply_to_binary!(text) }
-    raise "internal error in apply_binary_masks!" if text.size != orig_size
-    return text
-  end
-
   # Remove any email addresses, login links and mobile phone numbers
   def default_text_masks
     [{ :to_replace => MySociety::Validate.email_find_regexp,
@@ -253,18 +157,6 @@ module AlaveteliTextMasker
     end
 
     censor_rules.reduce(text) { |text, rule| rule.apply_to_text(text) }
-  end
-
-  def apply_text_masks!(text, options = {})
-    warn %q([DEPRECATION] AlaveteliTextMasker#apply_text_masks! will be removed
-            in 0.25. Use the non-destructive
-            AlaveteliTextMasker#apply_text_masks instead).squish
-    masks = options[:masks] || []
-    masks += default_text_masks
-    censor_rules = options[:censor_rules] || []
-    masks.each{ |mask| text.gsub!(mask[:to_replace], mask[:replacement]) }
-    censor_rules.each{ |censor_rule| censor_rule.apply_to_text!(text) }
-    text
   end
 
 end

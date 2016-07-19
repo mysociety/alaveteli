@@ -9,7 +9,9 @@
   <li><%= _('<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href="{{varieties_url}}">table of varieties</a> below.', :varieties_url => "#varieties") %></li>
   <li><%= _('<strong><code>requested_from:home_office</code></strong> to search requests from the Home Office, typing the name as in the URL.')%></li>
   <li><%= _('<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL.') %></li>
-  <li><%= _('<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL.')%></li>
+  <% if AlaveteliConfiguration.enable_annotations %>
+    <li><%= _('<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL.')%></li>
+  <% end %>
   <li><%= _('<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL.')%>
   <li><%= _('<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>', :list_of_file_extensions => IncomingMessage.get_all_file_extensions)%></li>
   <li><%= _('Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January.')%></li>
@@ -49,7 +51,9 @@
   # the initial request
   _('Follow up message sent by requester') %></td></tr>
   <tr><td><strong><%=search_link('variety:response')%></strong></td><td><%= _('Response from a public authority') %></td></tr>
-  <tr><td><strong><%=search_link('variety:comment')%></strong></td><td><%= _('Annotation added to request') %></td></tr>
+  <% if AlaveteliConfiguration.enable_annotations %>
+    <tr><td><strong><%=search_link('variety:comment')%></strong></td><td><%= _('Annotation added to request') %></td></tr>
+  <% end %>
   <tr><td><strong><%=search_link('variety:authority')%></strong></td><td><%= _('A public authority') %></td></tr>
   <tr><td><strong><%=search_link('variety:user')%></strong></td><td><%= _('A {{site_name}} user', :site_name=>site_name) %></td></tr>
 </table>

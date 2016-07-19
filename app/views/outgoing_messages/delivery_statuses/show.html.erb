@@ -1,0 +1,26 @@
+<h1><%= @title %></h1>
+
+<% if @delivery_status %>
+  <h2><%= @delivery_status.humanize %></h2>
+  <%= render :partial => @delivery_status.simple.to_s %>
+<% else %>
+  <h2><%= _("We couldn't determine the delivery status of this message") %></h2>
+<% end %>
+
+<% if @show_mail_server_logs %>
+  <% if @mail_server_logs.any? %>
+    <p>
+      <%= _("These logs show what happened to this message as it passed through " \
+            "our {{mta_type}} mail server. You can send these logs to an " \
+            "authority to help them diagnose problems receiving email from " \
+            "{{site_name}}.",
+            :mta_type => AlaveteliConfiguration.mta_log_type.capitalize,
+            :site_name => AlaveteliConfiguration.site_name) %>
+    </p>
+
+    <pre><%= @mail_server_logs.join %></pre>
+  <% else %>
+    <h2><%= _("We couldn’t display any logs for this message.") %></h2>
+    <p><%= _("If this is a recent message, check back tomorrow, as we check for new logs periodically.") %></p>
+  <% end %>
+<% end %>

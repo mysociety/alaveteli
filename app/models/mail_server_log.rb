@@ -165,15 +165,24 @@ class MailServerLog < ActiveRecord::Base
     # Get all requests sent for from 2 to 10 days ago. The 2 day gap is
     # because we load mail server log lines via cron at best an hour after they
     # are made)
-    irs = InfoRequest.find(:all, :conditions => [ "created_at < ? and created_at > ? and user_id is not null", Time.now - 2.day, Time.now - 10.days ] )
+    info_requests = InfoRequest.where("created_at < ?
+                                      AND created_at > ?
+                                      AND user_id IS NOT null",
+                                      Time.now - 2.days,
+                                      Time.now - 10.days)
 
     # Go through each request and check it
     ok = true
-    irs.each do |ir|
-      unless request_sent?(ir)
+    info_requests.each do |info_request|
+      unless request_sent?(info_request)
         # It's very important the envelope from is set for avoiding spam filter reasons - this
         # effectively acts as a check for that.
-        $stderr.puts("failed to find request sending in MTA logs for request id " + ir.id.to_s + " " + ir.url_title + " (check envelope from is being set to request address in Ruby, and load-mail-server-logs crontab is working)") # *** don't comment out this STDERR line, it is the point of the function!
+
+        # *** don't comment out this STDERR line, it is the point of the function!
+        $stderr.puts("failed to find request sending in MTA logs for request " \
+                     "id #{info_request.id} #{info_request.url_title} (check " \
+                     "envelope from is being set to request address in Ruby, " \
+                     "and load-mail-server-logs crontab is working)")
         ok = false
       end
     end
@@ -186,6 +195,26 @@ class MailServerLog < ActiveRecord::Base
     create_mail_server_logs(emails, sanitised_line, order, done)
   end
 
+  def is_owning_user?(user)
+    info_request.is_owning_user?(user)
+  end
+
+  # Public: Overrides the ActiveRecord attribute accessor
+  #
+  # opts = Hash of options (default: {})
+  #        :redact_idhash - Redacts instances of the InfoRequest#idhash
+  #        :decorate - Wrap the line in a decorator appropriate to the MTA
+  #
+  # Returns a String, EximLine or PostfixLine
+  def line(opts = {})
+    line = read_attribute(:line).dup
+    if opts[:redact_idhash] && info_request && info_request.idhash
+      line.gsub!(info_request.idhash, _('[REDACTED]'))
+    end
+    line = line_decorator.new(line) if opts[:decorate]
+    line
+  end
+
   private
 
   def self.create_mail_server_logs(emails, line, order, done)
@@ -196,6 +225,18 @@ class MailServerLog < ActiveRecord::Base
       else
         puts "Warning: Could not find request with email #{email}"
       end
+    end
+  end
+
+  def line_decorator
+    mta = AlaveteliConfiguration.mta_log_type.to_sym
+    case mta
+    when :exim
+      EximLine
+    when :postfix
+      PostfixLine
+    else
+      raise "Unexpected MTA type: #{ mta }"
     end
   end
 

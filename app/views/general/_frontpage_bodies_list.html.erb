@@ -1,11 +1,11 @@
 <%- popular_bodies = PublicBody.popular_bodies(@locale) %>
 <% if popular_bodies.size > 0 %>
-  <div id="examples_0" class="examples_0">
+  <div id="examples_0" class="examples_0 bodies-list">
     <h3><%= _("Who can I request information from?") %></h3>
 
-    <%= _("{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
+    <h4><%= _("{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
           :site_name => site_name,
-          :number_of_authorities => number_with_delimiter(PublicBody.visible.count)) %>
+          :number_of_authorities => number_with_delimiter(PublicBody.visible.count)) %></h4>
 
     <ul>
       <% popular_bodies.each do |popular_body| %>
@@ -16,9 +16,7 @@
     </ul>
 
     <p>
-      <strong>
-        <%= link_to _('Browse all authorities...'), list_public_bodies_default_path %>
-      </strong>
+      <%= link_to _('Browse all authorities...'), list_public_bodies_default_path %>
     </p>
   </div>
 <% end %>

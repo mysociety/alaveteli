@@ -1,6 +1,10 @@
 /* Style for request page */
 
-div.correspondence {
+$color-delivery-sent: #2688dc !default; // blue
+$color-delivery-delivered: #69952F !default; // green
+$color-delivery-failed: #D83838 !default; // red
+
+.correspondence {
   border: 1px solid #ccc;
   margin: 0 0 1em;
 
@@ -93,6 +97,113 @@ a img.attachment_image {
 
 #track-request .feed_link {
   text-align: center;
+}
+
+.correspondence_delivery {
+  background-color: #eee;
+
+  // Cruft that comes from the page we ajax in
+  h1 {
+    display: none;
+  }
+
+  // "This message has been delivered" etc
+  h2 {
+    text-align: inherit;
+    font-size: 1.2em;
+  }
+
+  pre {
+    font-size: 0.8em;
+    padding: 0.5em 1em;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+}
+
+.correspondence_delivery--sent {
+  background-color: mix(#fff, $color-delivery-sent, 85%);
+}
+
+.correspondence_delivery--delivered {
+  background-color: mix(#fff, $color-delivery-delivered, 85%);
+}
+
+.correspondence_delivery--failed {
+  background-color: mix(#fff, $color-delivery-failed, 85%);
+}
+
+.toggle-delivery-log {
+  padding-right: 8px + 16px;
+  margin-right: 4px; // remember also ~4px from whitespace character after inline element
+  background: transparent none 100% 50% no-repeat;
+  background-size: 16px 16px;
+
+  // Preload the spinner image, because the ajax request
+  // will likely block it from loading when we actually need it.
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent image-url('loader-000-on-fff-16px.gif') 0 0 no-repeat;
+    background-size: 16px 16px;
+  }
+}
+
+.toggle-delivery-log--sent {
+  background-image: image-url('delivery-status/sent.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('delivery-status/sent@2x.png');
+  }
+
+  &, &:link, &:visited {
+    color: $color-delivery-sent;
+  }
+
+  &:hover, &:focus {
+    color: darken($color-delivery-sent, 10%);
+  }
+}
+
+.toggle-delivery-log--delivered {
+  background-image: image-url('delivery-status/delivered.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('delivery-status/delivered@2x.png');
+  }
+
+  &, &:link, &:visited {
+    color: $color-delivery-delivered;
+  }
+
+  &:hover, &:focus {
+    color: darken($color-delivery-delivered, 10%);
+  }
+}
+
+.toggle-delivery-log--failed {
+  background-image: image-url('delivery-status/failed.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('delivery-status/failed@2x.png');
+  }
+
+  &, &:link, &:visited {
+    color: $color-delivery-failed;
+  }
+
+  &:hover, &:focus {
+    color: darken($color-delivery-failed, 10%);
+  }
+}
+
+.toggle-delivery-log--loading {
+  background-image: image-url('loader-000-on-fff-16px.gif');
 }
 
 

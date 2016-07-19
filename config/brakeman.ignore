@@ -56,8 +56,107 @@
       "message": "Model attribute used in file name",
       "fingerprint": "5ed20f867c17c814cfe117906161a26f37b986d694996c9fd0089d4f971dc1d0",
       "note": "InfoRequest.download_zip_dir does not contain user input"
+    },
+    {
+      "warning_type": "Cross Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "420ab8a51b345201db44650fad5693d358438f533916b4ce7ccefddcf66a812a",
+      "message": "Unsafe model attribute in link_to href",
+      "file": "app/views/info_request_batch/_batch_sent.html.erb",
+      "line": 26,
+      "link": "http://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(image_tag(\"next-step-twitter.png\", :alt => _(\"Tweet it\"), :width => \"120\", :height => \"37\"), (\"https://twitter.com/intent/tweet?\" << { :url => request.url, :via => AlaveteliConfiguration.twitter_username, :text => (\"'#{InfoRequestBatch.find(params[:id]).title}'\"), :related => _(\"mySociety:Helping people set up sites like {{site_name}} all over the world\", :site_name => site_name) }.to_query), :class => \"share-link\", :onclick => track_analytics_event(\"Outbound Link\", \"Twitter Exit\", :label => \"Share Batch Request\"))",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "InfoRequestBatchController",
+          "method": "show",
+          "line": 9,
+          "file": "app/controllers/info_request_batch_controller.rb"
+        },
+        {
+          "type": "template",
+          "name": "info_request_batch/show",
+          "line": 4,
+          "file": "app/views/info_request_batch/show.html.erb"
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "info_request_batch/_batch_sent"
+      },
+      "user_input": "InfoRequestBatch.find(params[:id])",
+      "confidence": "Medium"
+    },
+    {
+      "warning_type": "Cross Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "8de21c128c14959c2930acb4b1d9f9de47f0edbc9afb71696b8d4d1c3acff4e3",
+      "message": "Unsafe model attribute in link_to href",
+      "file": "app/views/request/_request_sent.html.erb",
+      "line": 26,
+      "link": "http://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(image_tag(\"next-step-twitter.png\", :alt => _(\"Tweet it\"), :width => \"120\", :height => \"37\"), (\"https://twitter.com/intent/tweet?\" << { :url => request.url, :via => AlaveteliConfiguration.twitter_username, :text => (\"'#{InfoRequest.find_by_url_title!(params[:url_title]).title}'\"), :related => _(\"mySociety:Helping people set up sites like {{site_name}} all over the world\", :site_name => site_name) }.to_query), :class => \"share-link\", :onclick => track_analytics_event(\"Outbound Link\", \"Twitter Exit\", :label => \"Share Request\"))",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "RequestController",
+          "method": "show",
+          "line": 131,
+          "file": "app/controllers/request_controller.rb"
+        },
+        {
+          "type": "template",
+          "name": "request/show",
+          "line": 12,
+          "file": "app/views/request/show.html.erb"
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "request/_request_sent"
+      },
+      "user_input": "InfoRequest.find_by_url_title!(params[:url_title])",
+      "confidence": "Medium"
+    },
+    {
+      "warning_type": "Cross Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "a645f004007d067c67ab31c0a07c33453e100a485ef0cd3b12abde950202b62e",
+      "message": "Unsafe model attribute in link_to href",
+      "file": "app/views/request/_act.html.erb",
+      "line": 13,
+      "link": "http://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(_(\"Tweet this request\"), (\"https://twitter.com/share?\" << { :url => request.url, :via => AlaveteliConfiguration.twitter_username, :text => (\"'#{InfoRequest.find_by_url_title!(params[:url_title]).title}'\"), :related => _(\"mySociety:Helping people set up sites like {{site_name}} all over the world\", :site_name => site_name) }.to_query), :onclick => track_analytics_event(\"Outbound Link\", \"Twitter Exit\", :label => \"Request sidebar\"))",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "RequestController",
+          "method": "show",
+          "line": 131,
+          "file": "app/controllers/request_controller.rb"
+        },
+        {
+          "type": "template",
+          "name": "request/show",
+          "line": 182,
+          "file": "app/views/request/show.html.erb"
+        },
+        {
+          "type": "template",
+          "name": "request/_sidebar",
+          "line": 54,
+          "file": "app/views/request/_sidebar.html.erb"
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "request/_act"
+      },
+      "user_input": "InfoRequest.find_by_url_title!(params[:url_title])",
+      "confidence": "Medium"
     }
   ],
-  "updated": "Thu Oct 02 10:43:19 +0000 2014",
-  "brakeman_version": "2.6.2"
+  "updated": "Tue Jul 12 11:00:19 +0000 2016",
+  "brakeman_version": "3.3.2"
 }

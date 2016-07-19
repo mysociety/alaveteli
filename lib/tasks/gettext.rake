@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 namespace :gettext do
 
   desc 'Rewrite .po files into a consistent msgmerge format'
@@ -32,6 +33,18 @@ namespace :gettext do
     Dir.glob("#{ theme_locale_path(theme) }/*/app.po") do |po_file|
       GetText::msgmerge(po_file, po_file, 'alaveteli',
                         :msgmerge => [:sort_output, :no_location, :no_wrap])
+    end
+  end
+
+  desc 'Remove fuzzy translations'
+  task :remove_fuzzy do
+    require "alaveteli_gettext/fuzzy_cleaner.rb"
+    fuzzy_cleaner = AlaveteliGetText::FuzzyCleaner.new
+
+    Dir.glob("locale/**/app.po").each do |po_file|
+      lines = File.read(po_file)
+      output = fuzzy_cleaner.clean_po(lines)
+      File.open(po_file, "w") { |f| f.puts(output) }
     end
   end
 

@@ -12,19 +12,16 @@ class FactorOutRawEmail < ActiveRecord::Migration
       execute "ALTER TABLE incoming_messages ADD CONSTRAINT fk_incoming_messages_raw_email FOREIGN KEY (raw_email_id) REFERENCES raw_emails(id)"
     end
 
-    batch_size = 10
-    0.step(IncomingMessage.count, batch_size) do |i|
-      IncomingMessage.find(:all, :limit => batch_size, :offset => i, :order => :id).each do |incoming_message|
-        if incoming_message.raw_email_id.nil?
-          STDERR.puts "doing incoming_message id " + incoming_message.id.to_s
-          ActiveRecord::Base.transaction do
-            raw_email = RawEmail.new
-            raw_email.data = incoming_message.raw_data
-            incoming_message.raw_email = raw_email
-            incoming_message.raw_data = nil
-            raw_email.save!
-            incoming_message.save!
-          end
+    IncomingMessage.find_each(:batch_size => 10) do |incoming_message|
+      if incoming_message.raw_email_id.nil?
+        STDERR.puts "doing incoming_message id #{incoming_message.id}"
+        ActiveRecord::Base.transaction do
+          raw_email = RawEmail.new
+          raw_email.data = incoming_message.raw_data
+          incoming_message.raw_email = raw_email
+          incoming_message.raw_data = nil
+          raw_email.save!
+          incoming_message.save!
         end
       end
     end

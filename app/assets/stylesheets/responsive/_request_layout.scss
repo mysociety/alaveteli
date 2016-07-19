@@ -1,5 +1,5 @@
 /* Layout for request page */
-div.correspondence {
+.correspondence {
   word-wrap: break-word;
 }
 
@@ -40,6 +40,20 @@ div.correspondence {
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column(8, $collapse: true);
     }
+  }
+}
+
+.correspondence_delivery {
+  padding: 1em;
+  margin: 0 -1em;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    padding: 1.2em;
+    margin: 0 -1.2em;
+  }
+
+  & > :last-child {
+    margin-bottom: 0;
   }
 }
 

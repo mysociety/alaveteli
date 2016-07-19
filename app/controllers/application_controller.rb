@@ -20,9 +20,6 @@ class ApplicationController < ActionController::Base
   # assign our own handler method for non-local exceptions
   rescue_from Exception, :with => :render_exception
 
-  # Add some security-related headers (see config/initializers/secure_headers.rb)
-  ensure_security_headers
-
   # Standard headers, footers and navigation for whole site
   layout "default"
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
@@ -172,7 +169,7 @@ class ApplicationController < ActionController::Base
       message << "  " << backtrace.join("\n  ")
       Rails.logger.fatal("#{message}\n\n")
       if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-        ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
+        ExceptionNotifier.notify_exception(exception, :env => request.env)
       end
       @status = 500
     end
@@ -182,11 +179,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_hidden(template='request/hidden')
+  def render_hidden(template='request/hidden', opts = {})
+    response_code = opts.delete(:response_code) { 403 } # forbidden
+    options = { :template => template, :status => response_code }.merge(opts)
+
     respond_to do |format|
-      response_code = 403 # forbidden
-      format.html{ render :template => template, :status => response_code }
-      format.any{ render :nothing => true, :status => response_code }
+      format.html { render(options) }
+      format.any { render :nothing => true, :status => response_code }
     end
     false
   end
@@ -344,9 +343,15 @@ class ApplicationController < ActionController::Base
   #
   def check_read_only
     if !AlaveteliConfiguration::read_only.empty?
-      flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
-                         :site_name => site_name,
-                         :read_only => AlaveteliConfiguration::read_only)
+      if AlaveteliConfiguration::enable_annotations
+        flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
+                           :site_name => site_name,
+                           :read_only => AlaveteliConfiguration::read_only)
+      else
+        flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>",
+                           :site_name => site_name,
+                           :read_only => AlaveteliConfiguration::read_only)
+      end
       redirect_to frontpage_url
     end
 

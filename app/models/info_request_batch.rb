@@ -14,7 +14,7 @@
 
 class InfoRequestBatch < ActiveRecord::Base
   has_many :info_requests
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   has_and_belongs_to_many :public_bodies
 
   validates_presence_of :user
@@ -23,12 +23,12 @@ class InfoRequestBatch < ActiveRecord::Base
 
   #  When constructing a new batch, use this to check user hasn't double submitted.
   def self.find_existing(user, title, body, public_body_ids)
-    find(:first, :conditions => ['user_id = ?
-                                      AND title = ?
-                                      AND body = ?
-                                      AND info_request_batches_public_bodies.public_body_id in (?)',
-                                 user, title, body, public_body_ids],
-         :include => :public_bodies)
+    where('user_id = ?
+          AND title = ?
+          AND body = ?
+          AND info_request_batches_public_bodies.public_body_id in (?)',
+          user, title, body, public_body_ids).
+      includes(:public_bodies).first
   end
 
   # Create a batch of information requests, returning a list of public bodies

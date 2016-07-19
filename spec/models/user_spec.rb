@@ -3,28 +3,35 @@
 #
 # Table name: users
 #
-#  id                      :integer          not null, primary key
-#  email                   :string(255)      not null
-#  name                    :string(255)      not null
-#  hashed_password         :string(255)      not null
-#  salt                    :string(255)      not null
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  email_confirmed         :boolean          default(FALSE), not null
-#  url_name                :text             not null
-#  last_daily_track_email  :datetime         default(Sat Jan 01 00:00:00 UTC 2000)
-#  admin_level             :string(255)      default("none"), not null
-#  ban_text                :text             default(""), not null
-#  about_me                :text             default(""), not null
-#  locale                  :string(255)
-#  email_bounced_at        :datetime
-#  email_bounce_message    :text             default(""), not null
-#  no_limit                :boolean          default(FALSE), not null
-#  receive_email_alerts    :boolean          default(TRUE), not null
-#  can_make_batch_requests :boolean          default(FALSE), not null
-#  otp_enabled             :boolean          default(FALSE)
-#  otp_secret_key          :string(255)
-#  otp_counter             :integer          default(1)
+#  id                                :integer          not null, primary key
+#  email                             :string(255)      not null
+#  name                              :string(255)      not null
+#  hashed_password                   :string(255)      not null
+#  salt                              :string(255)      not null
+#  created_at                        :datetime         not null
+#  updated_at                        :datetime         not null
+#  email_confirmed                   :boolean          default(FALSE), not null
+#  url_name                          :text             not null
+#  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
+#  admin_level                       :string(255)      default("none"), not null
+#  ban_text                          :text             default(""), not null
+#  about_me                          :text             default(""), not null
+#  locale                            :string(255)
+#  email_bounced_at                  :datetime
+#  email_bounce_message              :text             default(""), not null
+#  no_limit                          :boolean          default(FALSE), not null
+#  receive_email_alerts              :boolean          default(TRUE), not null
+#  can_make_batch_requests           :boolean          default(FALSE), not null
+#  otp_enabled                       :boolean          default(FALSE), not null
+#  otp_secret_key                    :string(255)
+#  otp_counter                       :integer          default(1)
+#  confirmed_not_spam                :boolean          default(FALSE), not null
+#  comments_count                    :integer          default(0), not null
+#  info_requests_count               :integer          default(0), not null
+#  track_things_count                :integer          default(0), not null
+#  request_classifications_count     :integer          default(0), not null
+#  public_body_change_requests_count :integer          default(0), not null
+#  info_request_batches_count        :integer          default(0), not null
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -151,6 +158,12 @@ describe User, " when saving" do
     @user.email = "silly@localhost"
     @user.valid?
     expect(@user.errors[:hashed_password].size).to eq(1)
+  end
+
+  it "does not allow a long about_me" do
+    @user.about_me = 'a' * 501
+    @user.valid?
+    expect(@user.errors[:about_me].size).to eq(1)
   end
 
   it "should save with reasonable name, password and email" do
@@ -425,6 +438,23 @@ describe User do
     it 'is false if the user is not an admin' do
       user = double(:super? => false)
       expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
+    end
+
+  end
+
+  describe '#transactions' do
+
+    it 'returns a TransactionCalculator with the default transaction set' do
+      user = User.new
+      expect(user.transactions).to eq(User::TransactionCalculator.new(user))
+    end
+
+    it 'returns a TransactionCalculator with a custom transaction set' do
+      user = User.new
+      calculator =
+        User::TransactionCalculator.
+          new(user, :transaction_associations => [:comments, :info_requests])
+      expect(user.transactions(:comments, :info_requests)).to eq(calculator)
     end
 
   end
@@ -756,7 +786,49 @@ describe User do
 
     it 'it raises an error on save if the record is invalid' do
       user = FactoryGirl.build(:user, :email => nil, :email_confirmed => false)
-      expect { user.confirm! }.to raise_error
+      expect { user.confirm! }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+  end
+
+  describe '.find_user_by_email' do
+
+    it 'finds a user by email case-insensitively' do
+      user = FactoryGirl.create(:user)
+      expect(User.find_user_by_email(user.email.upcase)).to eq(user)
+    end
+
+    it 'returns nil when passed nil' do
+      expect(User.find_user_by_email(nil)).to eq(nil)
+    end
+
+    it 'returns nil when passed an empty string' do
+      expect(User.find_user_by_email('')).to eq(nil)
+    end
+
+    it 'returns nil when passed a whitespace string' do
+      expect(User.find_user_by_email('  ')).to eq(nil)
+    end
+
+    it 'matches a padded email' do
+      user = FactoryGirl.create(:user)
+      expect(User.find_user_by_email(" #{user.email} ")).to eq(user)
+    end
+
+  end
+
+  describe '#about_me_already_exists?' do
+
+    it 'is true if the about_me text already exists for another user' do
+      FactoryGirl.create(:user, :about_me => '123')
+      user = FactoryGirl.build(:user, :about_me => '123')
+      expect(user.about_me_already_exists?).to eq(true)
+    end
+
+    it 'is false if the about_me text is unique to the user' do
+      User.update_all(:about_me => '')
+      user = FactoryGirl.build(:user, :about_me => '123')
+      expect(user.about_me_already_exists?).to eq(false)
     end
 
   end

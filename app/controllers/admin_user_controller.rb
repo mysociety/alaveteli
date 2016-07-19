@@ -88,7 +88,8 @@ class AdminUserController < AdminController
                                 :ban_text,
                                 :about_me,
                                 :no_limit,
-                                :can_make_batch_requests)
+                                :can_make_batch_requests,
+                                :confirmed_not_spam)
     else
       {}
     end

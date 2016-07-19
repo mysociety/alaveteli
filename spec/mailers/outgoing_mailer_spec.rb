@@ -13,14 +13,6 @@ describe OutgoingMailer, " when working out follow up names and addresses" do
                                    :safe_mail_from => 'Specific Person')
   end
 
-  def expect_address(info_request, incoming_message, expected_result)
-    mail = create_message_from(from_line)
-    name = MailHandler.get_from_name(mail)
-    email = MailHandler.get_from_address(mail)
-    address = MailHandler.address_from_name_and_email(name, email).to_s
-    expect([name, email, address]).to eq(expected_result)
-  end
-
   describe 'if there is no incoming message being replied to' do
 
     it 'should return the name and email address of the public body' do

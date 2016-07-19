@@ -39,6 +39,9 @@ require 'iconv' unless String.method_defined?(:encode)
 class IncomingMessage < ActiveRecord::Base
   include AdminColumn
   extend MessageProminence
+
+  MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
+
   belongs_to :info_request
   validates_presence_of :info_request
 
@@ -146,37 +149,103 @@ class IncomingMessage < ActiveRecord::Base
     raw_email.destroy_file_representation!
   end
 
-  def valid_to_reply_to?
-    return self.valid_to_reply_to
-  end
-
   # The cached fields mentioned in the previous comment
-  # TODO: there must be a nicer way to do this without all that
-  # repetition.  I tried overriding method_missing but got some
-  # unpredictable results.
+
+  # Public: Can this message be replied to?
+  # Caches the value set by _calculate_valid_to_reply_to in #parse_raw_email!
+  # #valid_to_reply_to overrides the ActiveRecord provided #valid_to_reply_to
+  #
+  # Returns a Boolean
   def valid_to_reply_to
     parse_raw_email!
     super
   end
+
+  alias_method :valid_to_reply_to?, :valid_to_reply_to
+
+  # Public: The date and time the email was sent. Uses the Date header if
+  # present in the email, otherwise uses the record's created_at attribute.
+  # #sent_at overrides the ActiveRecord provided #sent_at
+  #
+  # Returns an ActiveSupport::TimeWithZone
   def sent_at
     parse_raw_email!
     super
   end
 
+  # Public: The subject of an email.
+  # #subject overrides the ActiveRecord provided #subject
+  #
+  # Examples:
+  #
+  #   # Subject: A response to your FOI request
+  #   incoming_message.subject
+  #   # => 'A response to your FOI request'
+  #
+  #   # No subject header
+  #   incoming_message.subject
+  #   # => nil
+  #
+  # Returns a String or nil
   def subject
     parse_raw_email!
     super
   end
 
+  # Public: The display name of the email sender.
+  # #mail_from overrides the ActiveRecord provided #mail_from
+  #
+  # Examples:
+  #
+  #   # From: John Doe <john@example.com>
+  #   incoming_message.mail_from
+  #   # => 'John Doe'
+  #
+  #   # From: john@example.com
+  #   incoming_message.mail_from
+  #   # => nil
+  #
+  # Returns a String or nil
   def mail_from
     parse_raw_email!
     super
   end
 
+  # Public: The display name of the email sender with the associated
+  # InfoRequest's censor rules applied.
+  #
+  # Example:
+  #
+  #   # Given a CensorRule that redacts the word 'Person':
+  #
+  #   incoming_message.mail_from
+  #   # => FOI Person
+  #
+  #   incoming_message.safe_mail_from
+  #   # => FOI [REDACTED]
+  #
+  # Returns a String
   def safe_mail_from
     if mail_from
       info_request.apply_censor_rules_to_text(mail_from)
     end
+  end
+
+  # Public: The domain part of the email address in the From header.
+  # #mail_from_domain overrides the ActiveRecord provided #mail_from_domain
+  #
+  #   # From: John Doe <john@example.com>
+  #   incoming_message.mail_from_domain
+  #   # => 'example.com'
+  #
+  #   # No From header
+  #   incoming_message.mail_from_domain
+  #   # => ''
+  #
+  # Returns a String
+  def mail_from_domain
+    parse_raw_email!
+    super
   end
 
   def specific_from_name?
@@ -185,11 +254,6 @@ class IncomingMessage < ActiveRecord::Base
 
   def from_public_body?
     safe_mail_from.nil? || (mail_from_domain == info_request.public_body.request_email_domain)
-  end
-
-  def mail_from_domain
-    parse_raw_email!
-    super
   end
 
   # This method updates the cached column of the InfoRequest that
@@ -228,14 +292,6 @@ class IncomingMessage < ActiveRecord::Base
     mask_options = { :censor_rules => info_request.applicable_censor_rules,
                      :masks => info_request.masks }
     AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
-  end
-
-  def apply_masks!(text, content_type)
-    warn %q([DEPRECATION] IncomingMessage#apply_masks! will be removed in 0.25.
-            Use the non-destructive IncomingMessage#apply_masks instead).squish
-    mask_options = { :censor_rules => info_request.applicable_censor_rules,
-                     :masks => info_request.masks }
-    AlaveteliTextMasker.apply_masks!(text, content_type, mask_options)
   end
 
   # Lotus notes quoting yeuch!
@@ -583,9 +639,8 @@ class IncomingMessage < ActiveRecord::Base
     end
     text.strip!
 
-    text = text.gsub(/\n/, '<br>')
-    text = text.gsub(/(?:<br>\s*){2,}/, '<br><br>') # remove excess linebreaks that unnecessarily space it out
-    return text.html_safe
+    text = ActionController::Base.helpers.simple_format(text)
+    text.html_safe
   end
 
 
@@ -598,8 +653,6 @@ class IncomingMessage < ActiveRecord::Base
     raise "internal error" if text.nil?
     return text
   end
-
-  MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
   # Returns text version of attachment text
   def get_attachment_text_full
@@ -658,7 +711,7 @@ class IncomingMessage < ActiveRecord::Base
 
   # Search all info requests for
   def self.find_all_unknown_mime_types
-    for incoming_message in IncomingMessage.find(:all)
+    IncomingMessage.find_each do |incoming_message|
       for attachment in incoming_message.get_attachments_for_display
         raise "internal error incoming_message " + incoming_message.id.to_s if attachment.content_type.nil?
         if AlaveteliFileTypes.mimetype_to_extension(attachment.content_type).nil?

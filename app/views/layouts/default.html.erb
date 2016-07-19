@@ -74,8 +74,8 @@
     <% if is_admin? %>
       <%= render :partial => 'admin_general/admin_navbar' %>
     <% end %>
-
     <div class="entirebody">
+      <a href="#content" class="show-with-keyboard-focus-only skip-to-link" tabindex="0">Skip to content</a>
       <% popup_banner = render(:partial => "general/popup_banner").strip %>
       <% if popup_banner.present? and  ! @render_to_file %>
         <div id="everypage" class="popup">
@@ -96,7 +96,7 @@
         <%= render :partial => 'general/header' %>
       <% end %>
       <div id="wrapper">
-        <div id="content">
+        <div id="content" role="main">
           <% unless params[:action] == 'frontpage' %>
             <% if flash[:notice] %>
               <div id="notice"><%= flash[:notice] %></div>
@@ -122,21 +122,23 @@
     <div id="link_box"><span class="close-button">X</span>
       <%= _("Paste this link into emails, tweets, and anywhere else:") %>
       <br />
-      <input type="text">
+      <label class="visually-hidden" for="link_box__text">Link</label>
+      <input type="text" id="link_box__text">
     </div>
     <%
         unless AlaveteliConfiguration::ga_code.empty? || (@user && @user.super?) %>
-      <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-      </script>
-      <script type="text/javascript">
-        var pageTracker = _gat._getTracker("<%= AlaveteliConfiguration::ga_code %>");
-        pageTracker._trackPageview();
-      </script>
+      <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+      ga('create', '<%= AlaveteliConfiguration::ga_code %>', 'auto');
+      ga('send', 'pageview');
+      </script>
     <% end %>
 
     <%= render :partial => 'general/before_body_end' %>
+    <a href="#content" class="show-with-keyboard-focus-only skip-to-link">Back to content</a>
   </body>
 </html>

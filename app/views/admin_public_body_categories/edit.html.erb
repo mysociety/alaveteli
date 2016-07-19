@@ -24,7 +24,7 @@
         <%= f.submit "Destroy #{ @public_body_category.title }",
           :title => @public_body_category.title,
           :class => "btn btn-danger",
-          :confirm => 'Are you sure?' %>
+          :data => { :confirm => 'Are you sure?' } %>
         <span class="help-block">
           Destroying a category does not destroy the public authorities
           associated with the category.

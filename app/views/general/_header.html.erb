@@ -1,4 +1,4 @@
-<div id="banner" class="banner">
+<div id="banner" class="banner" role="banner">
   <div id="banner_inner" class="banner_inner">
     <div class="lang"><%= render :partial => 'general/locale_switcher' %></div>
 
@@ -21,7 +21,7 @@
     <% end %>
 
     <div id="navigation_search" class="navigation_search">
-      <form id="navigation_search_form" class="navigation_search_form" method="get" action="<%= search_redirect_path %>">
+      <form id="navigation_search_form" class="navigation_search_form" method="get" action="<%= search_redirect_path %>" role="search">
         <p>
           <%= text_field_tag 'query', params[:query], { :class => "navigation_search_query", :size => 40, :id => "navigation_search_query", :title => "type your search term here" } %>
           <input id="navigation_search_button" class="navigation_search_button" type="submit" value="search">

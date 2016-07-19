@@ -10,8 +10,8 @@ class TrackMailer < ApplicationMailer
     @user, @email_about_things = user, email_about_things
 
     post_redirect = PostRedirect.new(
-      :uri => user_url(user) + "#email_subscriptions",
-    :user_id => user.id)
+      :uri => user_url(user, :anchor => "email_subscriptions"),
+      :user_id => user.id)
     post_redirect.save!
     @unsubscribe_url = confirm_url(:email_token => post_redirect.email_token)
 
@@ -36,7 +36,7 @@ class TrackMailer < ApplicationMailer
   # weeks.
 
   # Useful query to run by hand to see how many alerts are due:
-  #   User.find(:all, :conditions => [ "last_daily_track_email < ?", Time.now - 1.day ]).size
+  #   User.where("last_daily_track_email < ?", Time.now - 1.day).size
   def self.alert_tracks
     done_something = false
     now = Time.now
@@ -46,7 +46,8 @@ class TrackMailer < ApplicationMailer
       next if !user.should_be_emailed? || !user.receive_email_alerts
 
       email_about_things = []
-      track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ? and track_medium = ?", user.id, 'email_daily' ])
+      track_things = TrackThing.where(:tracking_user_id => user.id,
+                                      :track_medium => 'email_daily')
       for track_thing in track_things
         # What have we alerted on already?
         #
@@ -56,7 +57,7 @@ class TrackMailer < ApplicationMailer
         # earlier, so this is safe (with a week long margin of error). If the alerts break
         # for a whole week, then they will miss some items. Tough.
         done_info_request_events = {}
-        tt_sent = track_thing.track_things_sent_emails.find(:all, :conditions => ['created_at > ?', now - 14.days])
+        tt_sent = track_thing.track_things_sent_emails.where('created_at > ?', now - 14.days)
         for t in tt_sent
           if not t.info_request_event_id.nil?
             done_info_request_events[t.info_request_event_id] = 1

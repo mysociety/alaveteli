@@ -1,27 +1,52 @@
 # -*- encoding : utf-8 -*-
+# == Schema Information
+#
+# Table name: outgoing_messages
+#
+#  id                           :integer          not null, primary key
+#  info_request_id              :integer          not null
+#  body                         :text             not null
+#  status                       :string(255)      not null
+#  message_type                 :string(255)      not null
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  last_sent_at                 :datetime
+#  incoming_message_followup_id :integer
+#  what_doing                   :string(255)      not null
+#  prominence                   :string(255)      default("normal"), not null
+#  prominence_reason            :text
+#
+
 FactoryGirl.define do
 
   factory :outgoing_message do
     info_request
 
     factory :initial_request do
-      ignore do
+      transient do
         status 'ready'
         message_type 'initial_request'
         body 'Some information please'
         what_doing 'normal_sort'
       end
+    end
 
+    factory :new_information_followup do
+      transient do
+        status 'ready'
+        message_type 'followup'
+        body 'I clarify my request'
+        what_doing 'new_information'
+      end
     end
 
     factory :internal_review_request do
-      ignore do
+      transient do
         status 'ready'
         message_type 'followup'
         body 'I want a review'
         what_doing 'internal_review'
       end
-
     end
 
     # FIXME: This here because OutgoingMessage has an after_initialize,
@@ -35,7 +60,7 @@ FactoryGirl.define do
                                             :body => body,
                                             :what_doing => what_doing }) }
 
-    after_create do |outgoing_message|
+    after(:create) do |outgoing_message|
       outgoing_message.sendable?
       outgoing_message.record_email_delivery(
         'test@example.com',

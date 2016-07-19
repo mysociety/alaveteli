@@ -144,6 +144,46 @@ describe MailServerLog do
         log.close
       end
     end
+
+    describe '.request_exim_sent?' do
+
+      it "returns true when a log line says the message was sent" do
+        line = "Apr 28 15:53:37 server exim[12105]: 2016-04-28 15:53:37 " \
+               "[12105] 1avnJx-00039F-Hs <= " \
+               "foi+request-331612-13811a2b@example.com U=foi P=local " \
+               "S=1986 id=ogm-538593+572f16e888-166a@example.com " \
+               "T=\"Freedom of Information request - example request\" " \
+               "from <foi+request-331612-13811a2b@example.com> for " \
+               "foi@example.org foi@example.org"
+        info_request = FactoryGirl.create(:info_request)
+        allow(info_request).to receive(:incoming_email).
+          and_return('foi+request-331612-13811a2b@example.com')
+        info_request.mail_server_logs.create!(:line => line, :order => 1)
+        expect(MailServerLog.request_exim_sent?(info_request)).to be true
+      end
+
+      it 'returns false if a log of delivery has a different
+          envelope sender' do
+        line = "Apr 28 15:53:37 server exim[12105]: 2016-04-28 15:53:37 " \
+               "[12105] 1avnJx-00039F-Hs <= " \
+               "foi+request-331612-13811a2b@example.com U=foi P=local " \
+               "S=1986 id=ogm-538593+572f16e888-166a@example.com " \
+               "T=\"Freedom of Information request - example request\" " \
+               "from <alaveteli@example.com> for " \
+               "foi@example.org foi@example.org"
+        info_request = FactoryGirl.create(:info_request)
+        allow(info_request).to receive(:incoming_email).
+          and_return('foi+request-331612-13811a2b@example.com')
+        info_request.mail_server_logs.create!(:line => line, :order => 1)
+        expect(MailServerLog.request_exim_sent?(info_request)).to be false
+      end
+
+      it "returns false when no log lines say the message has been sent" do
+        info_request = FactoryGirl.create(:info_request)
+        expect(MailServerLog.request_exim_sent?(info_request)).to be false
+      end
+    end
+
   end
 
   context "Postfix" do
@@ -218,5 +258,134 @@ describe MailServerLog do
         expect(MailServerLog.request_postfix_sent?(ir)).to be false
       end
     end
+  end
+
+  describe '#line' do
+
+    it 'returns the line attribute' do
+      log = MailServerLog.new(:line => 'log line')
+      expect(log.line).to eq('log line')
+    end
+
+    context ':decorate option is truthy' do
+
+      context 'using the :exim MTA' do
+
+        it 'returns an EximLine containing the line attribute' do
+          log = MailServerLog.new(:line => 'log line')
+          expect(log.line(:decorate => true)).
+            to eq(MailServerLog::EximLine.new('log line'))
+        end
+
+      end
+
+      context 'using the :postfix MTA' do
+
+        before do
+          allow(AlaveteliConfiguration).to receive(:mta_log_type).and_return('postfix')
+        end
+
+        it 'returns a PostfixLine containing the line attribute' do
+          log = MailServerLog.new(:line => 'log line')
+          expect(log.line(:decorate => true)).
+            to eq(MailServerLog::PostfixLine.new('log line'))
+        end
+
+      end
+
+    end
+
+    context ':redact_idhash option is truthy' do
+
+      it 'redacts the info request id hash' do
+        log = FactoryGirl.create(:mail_server_log)
+        line = log.line += " #{ log.info_request.incoming_email }"
+        idhash = log.info_request.idhash
+        log.update_attributes!(:line => line)
+        expect(log.line(:redact_idhash => true)).to_not include(idhash)
+      end
+
+      it 'redacts the info request id when decorated' do
+        log = FactoryGirl.create(:mail_server_log)
+        line = log.line += " #{ log.info_request.incoming_email }"
+        idhash = log.info_request.idhash
+        log.update_attributes!(:line => line)
+        expect(log.line(:redact_idhash => true, :decorate => true).to_s).
+          to_not include(idhash)
+      end
+
+
+      it 'handles not having an associated info request' do
+        log = MailServerLog.new(:line => 'log line')
+        expect(log.line(:redact_idhash => true)).to eq('log line')
+      end
+
+      it 'handles the info request not having an idhash' do
+        request = FactoryGirl.build(:info_request)
+        log = MailServerLog.new(:line => 'log line', :info_request => request)
+        expect(log.line(:redact_idhash => true)).to eq('log line')
+      end
+
+    end
+  end
+
+  describe '#is_owning_user?' do
+
+    it 'returns true if the user is the owning user of the info request' do
+      log = FactoryGirl.build(:mail_server_log)
+      request = mock_model(InfoRequest, :is_owning_user? => true)
+      allow(log).to receive(:info_request).and_return(request)
+      expect(log.is_owning_user?(double(:user))).to eq(true)
+    end
+
+    it 'returns false if the user is not the owning user of the info request' do
+      log = FactoryGirl.build(:mail_server_log)
+      request = mock_model(InfoRequest, :is_owning_user? => false)
+      allow(log).to receive(:info_request).and_return(request)
+      expect(log.is_owning_user?(double(:user))).to eq(false)
+    end
+
+  end
+
+  describe '.check_recent_requests_have_been_sent' do
+
+    context 'if all recent requests have been sent' do
+
+      it 'returns true' do
+        info_request = FactoryGirl.create(:info_request,
+                                          :created_at => Time.now - 5.days)
+        allow(MailServerLog).to receive(:request_sent?).with(info_request).
+          and_return(true)
+        expect(MailServerLog.check_recent_requests_have_been_sent).to eq(true)
+      end
+
+    end
+
+    context 'if a recent request has not been sent' do
+
+      it 'returns false' do
+        info_request = FactoryGirl.create(:info_request,
+                                          :created_at => Time.now - 5.days)
+        allow(MailServerLog).to receive(:request_sent?).with(info_request).
+          and_return(false)
+        allow($stderr).to receive(:puts)
+        expect(MailServerLog.check_recent_requests_have_been_sent).to eq(false)
+      end
+
+      it 'outputs a message to stderr' do
+        info_request = FactoryGirl.create(:info_request,
+                                          :created_at => Time.now - 5.days)
+        allow(MailServerLog).to receive(:request_sent?).with(info_request).
+          and_return(false)
+        expected_message = "failed to find request sending in MTA logs for request " \
+                           "id #{info_request.id} #{info_request.url_title} (check " \
+                           "envelope from is being set to request address in Ruby, " \
+                           "and load-mail-server-logs crontab is working)"
+        expect($stderr).to receive(:puts).with(expected_message)
+        MailServerLog.check_recent_requests_have_been_sent
+      end
+
+    end
+
   end
 end

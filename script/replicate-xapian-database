@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Usage: $0 <RAILS_ENV> <DAEMON_NAME> <PORT> <REMOTEHOST> <REMOTEUSER> <REMOTEPATH> <SSH_IDENTITY_FILE> [<REMOTE_LOCKFILE_PATH> [<REMOTE_RUN_WITH_LOCKFILE_BINARY_PATH>]]
+
+# Exit on error
+set -e
+
+#
+cd "$(dirname "$0")"/..
+
+# Enable job control and batch mode
+set -mb
+
+# Args
+export RAILS_ENV=$1
+DAEMON_NAME=$2
+PORT="$3"
+REMOTEHOST="$4"
+REMOTEUSER="$5"
+REMOTEPATH="$6"
+IDENTITY_FILE="$7"
+
+if [ "x$8" != "x" ]; then
+    REMOTE_LOCKFILE_PATH="$8"
+
+    if [ "x$9" != "x" ]; then
+        REMOTE_RUNWITHLOCKFILE_BIN="$9"
+    else
+        REMOTE_RUNWITHLOCKFILE_BIN="run-with-lockfile"
+    fi
+else
+    REMOTE_LOCKFILE_PATH=""
+fi
+
+# Vars
+LOCALHOST="$(hostname -f)"
+DBNAME="$RAILS_ENV"
+
+XAPIAN_DB_DIR="$( pwd )/lib/acts_as_xapian/xapiandbs"
+
+# Set traps
+trap "echo Caught SIGCHLD; jobs -l" SIGCHLD
+
+# Start server
+xapian-replicate-server -p "$PORT" --one-shot "$XAPIAN_DB_DIR" &
+
+# Start client on remote host
+if [ "x$REMOTE_LOCKFILE_PATH" = "x" ]; then
+    ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- xapian-replicate -h "$LOCALHOST" -p "$PORT" --one-shot -m "$DBNAME" "$REMOTEPATH/$DBNAME" &
+else
+    # Use printf to force the command to be escaped/quoted so it survives being passed through the SSH wormhole
+    # See: http://stackoverflow.com/questions/6592376/prevent-ssh-from-breaking-up-shell-script-parameters
+    COMMAND="xapian-replicate -h $LOCALHOST -p $PORT --one-shot -m $DBNAME $REMOTEPATH/$DBNAME"
+    COMMAND_QUOTED=$(printf "%q" "$COMMAND")
+    ssh -n -i "$IDENTITY_FILE" "$REMOTEUSER"@"$REMOTEHOST" -- "$REMOTE_RUNWITHLOCKFILE_BIN" "$REMOTE_LOCKFILE_PATH" "$COMMAND_QUOTED" &
+fi
+
+# Print jobs list
+jobs -l
+
+# Wait for both to finish
+wait || exit 1
+
+# Done
+exit 0

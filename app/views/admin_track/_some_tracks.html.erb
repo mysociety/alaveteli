@@ -44,7 +44,7 @@
               <% TrackThing.content_columns.each do |column| %>
                 <tr>
                   <td>
-                    <b><%=column.human_name%></b>
+                    <b><%=column.name.humanize%></b>
                   </td>
                   <td>
                     <% if column.type.to_s == 'datetime' %>

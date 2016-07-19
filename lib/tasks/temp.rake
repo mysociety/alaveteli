@@ -133,4 +133,17 @@ namespace :temp do
     end
 
   end
+
+  desc 'Set reject_incoming_at_mta on a list of requests identified by request address'
+  task :set_reject_incoming_at_mta_from_list => :environment do
+    example = 'rake temp:set_reject_incoming_at_mta_from_list FILE=/tmp/rejection_list.txt'
+    check_for_env_vars(['FILE'], example)
+    f = File.read(ENV['FILE'])
+    f.each_line do |line|
+      info_request = InfoRequest.find_by_incoming_email(line.strip)
+      info_request.reject_incoming_at_mta = true
+      info_request.save!
+    end
+  end
+
 end

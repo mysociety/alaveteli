@@ -1,4 +1,19 @@
 # -*- encoding : utf-8 -*-
+# == Schema Information
+#
+# Table name: comments
+#
+#  id              :integer          not null, primary key
+#  user_id         :integer          not null
+#  comment_type    :string(255)      default("internal_error"), not null
+#  info_request_id :integer
+#  body            :text             not null
+#  visible         :boolean          default(TRUE), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  locale          :text             default(""), not null
+#
+
 FactoryGirl.define do
 
   factory :comment do

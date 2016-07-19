@@ -24,6 +24,8 @@ class GeneralController < ApplicationController
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
                            :title => _('Successful requests'),
                            :has_json => true } ]
+
+    respond_to :html
   end
 
   # Display blog entries
@@ -53,6 +55,8 @@ class GeneralController < ApplicationController
       end
     end
     @twitter_user = AlaveteliConfiguration::twitter_username
+
+    respond_to :html
   end
 
   # Just does a redirect from ?query= search to /query
@@ -77,6 +81,13 @@ class GeneralController < ApplicationController
   def search
     # TODO: Why is this so complicated with arrays and stuff? Look at the route
     # in config/routes.rb for comments.
+
+    # respond with a 404 and do not execute the search if request was not for html
+    if request.format && !request.format.html?
+      respond_to { |format| format.any { head :not_found } }
+      return
+    end
+
     combined = params[:combined].split("/")
     @sortby = nil
     @bodies = @requests = @users = true

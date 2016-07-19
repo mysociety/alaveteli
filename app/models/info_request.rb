@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20151104131702
 #
 # Table name: info_requests
 #
@@ -24,6 +23,8 @@
 #  comments_allowed          :boolean          default(TRUE), not null
 #  info_request_batch_id     :integer
 #  last_public_response_at   :datetime
+#  reject_incoming_at_mta    :boolean          default(FALSE), not null
+#  rejected_incoming_count   :integer          default(0)
 #
 
 require 'digest/sha1'
@@ -59,14 +60,14 @@ class InfoRequest < ActiveRecord::Base
                   'email. You can use a phrase, rather than a full sentence.')
   }
 
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   validate :must_be_internal_or_external
 
   belongs_to :public_body, :counter_cache => true
   belongs_to :info_request_batch
   validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
-  has_many :info_request_events, :order => 'created_at', :dependent => :destroy
+  has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
   has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
   has_many :incoming_messages, :order => 'created_at', :dependent => :destroy
   has_many :user_info_request_sent_alerts, :dependent => :destroy
@@ -80,7 +81,7 @@ class InfoRequest < ActiveRecord::Base
 
   has_tag_string
 
-  scope :visible, :conditions => {:prominence => "normal"}
+  scope :visible, -> { where(prominence: "normal") }
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
@@ -425,17 +426,25 @@ class InfoRequest < ActiveRecord::Base
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and outgoing_messages.body = ?", title, public_body_id, body ], :include => [ :outgoing_messages ] )
+    InfoRequest.where("title = ?
+                       AND public_body_id = ?
+                       AND outgoing_messages.body = ?",
+                       title, public_body_id, body).
+      includes(:outgoing_messages).
+        first
   end
 
   def find_existing_outgoing_message(body)
     # TODO: can add other databases here which have regexp_replace
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       # Exclude spaces from the body comparison using regexp_replace
-      outgoing_messages.find(:first, :conditions => [ "regexp_replace(outgoing_messages.body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')", body ])
+      outgoing_messages.where("regexp_replace(outgoing_messages.body,
+                                              '[[:space:]]', '', 'g') =
+                               regexp_replace(?, '[[:space:]]', '', 'g')",
+                               body).first
     else
       # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
-      outgoing_messages.find(:first, :conditions => [ "outgoing_messages.body = ?", body ])
+      outgoing_messages.where("outgoing_messages.body = ?", body).first
     end
   end
 
@@ -504,7 +513,7 @@ class InfoRequest < ActiveRecord::Base
         :title => 'Holding pen',
         :described_state => 'waiting_response',
         :awaiting_description => false,
-        :prominence  => 'backpage'
+        :prominence  => 'hidden'
       )
       om = OutgoingMessage.new({
         :status => 'ready',
@@ -653,24 +662,25 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  # Find last outgoing message which  was:
+  # Find last InfoRequestEvent which  was:
   # -- sent at all
   # -- OR the same message was resent
   # -- OR the public body requested clarification, and a follow up was sent
   def last_event_forming_initial_request
     last_sent = nil
     expecting_clarification = false
-    for event in info_request_events
+
+    info_request_events.each do |event|
       if event.described_state == 'waiting_clarification'
         expecting_clarification = true
       end
 
-      if [ 'sent', 'resent', 'followup_sent', 'followup_resent' ].include?(event.event_type)
+      if %w(sent resent followup_sent followup_resent).include?(event.event_type)
         if last_sent.nil?
           last_sent = event
         elsif event.event_type == 'resent'
           last_sent = event
-        elsif expecting_clarification and event.event_type == 'followup_sent'
+        elsif expecting_clarification && event.event_type == 'followup_sent'
           # TODO: this needs to cope with followup_resent, which it doesn't.
           # Not really easy to do, and only affects cases where followups
           # were resent after a clarification.
@@ -679,9 +689,14 @@ class InfoRequest < ActiveRecord::Base
         end
       end
     end
+
     if last_sent.nil?
-      raise "internal error, last_event_forming_initial_request gets nil for request " + id.to_s + " outgoing messages count " + outgoing_messages.size.to_s + " all events: " + info_request_events.to_yaml
+      raise "internal error, last_event_forming_initial_request gets nil for " \
+            "request #{ id } outgoing messages count " \
+            "#{ outgoing_messages.size } all events: " \
+            "#{ info_request_events.to_yaml }"
     end
+
     last_sent
   end
 
@@ -921,15 +936,16 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def self.last_public_response_clause
-    # TODO: Deprecate this method
+    warn %q([DEPRECATION] InfoRequest#last_public_response_clause will be removed
+              in 0.26).squish
     join_clause = "incoming_messages.id = info_request_events.incoming_message_id
                        AND incoming_messages.prominence = 'normal'"
     last_event_time_clause('response', 'incoming_messages', join_clause)
   end
 
-  def self.old_unclassified_params_old(extra_params, include_last_response_time=false)
-    # TODO: Remove this method post benchmark testing
-    last_response_created_at = last_public_response_clause
+  def self.old_unclassified_params(extra_params, include_last_response_time=false)
+    warn %q([DEPRECATION] InfoRequest#old_unclassified_params will be removed
+              in 0.26).squish
     age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
     params = { :conditions => ["awaiting_description = ?
                                     AND last_public_response_at < ?
@@ -942,39 +958,27 @@ class InfoRequest < ActiveRecord::Base
     return params
   end
 
-  def self.old_unclassified_params(extra_params, include_last_response_time=false)
-    age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
-    params = { :conditions => ["awaiting_description = ?
-                                    AND last_public_response_at < ?
-                                    AND url_title != 'holding_pen'
-                                    AND user_id IS NOT NULL",
-                                      true, Time.zone.now - age] }
-    if include_last_response_time
-      params[:order] = 'last_public_response_at'
-    end
-    return params
-  end
 
-  def self.old_unclassified_params(extra_params, include_last_response_time=false)
-    age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
-    params = { :conditions => ["awaiting_description = ?
-                                    AND last_public_response_at < ?
-                                    AND url_title != 'holding_pen'
-                                    AND user_id IS NOT NULL",
-                                      true, Time.zone.now - age] }
-    if include_last_response_time
-      params[:order] = 'last_public_response_at'
-    end
-    return params
+  def self.where_old_unclassified(age_in_days=nil)
+    age_in_days ||= OLD_AGE_IN_DAYS
+    where("awaiting_description = ?
+          AND last_public_response_at < ?
+          AND url_title != 'holding_pen'
+          AND user_id IS NOT NULL",
+          true, Time.zone.now - age_in_days)
   end
 
   def self.count_old_unclassified(extra_params={})
+    warn %q([DEPRECATION] InfoRequest#count_old_unclassified will be removed
+              in 0.26).squish
     params = old_unclassified_params(extra_params)
     add_conditions_from_extra_params(params, extra_params)
     count(:all, params)
   end
 
   def self.get_random_old_unclassified(limit, extra_params)
+    warn %q([DEPRECATION] InfoRequest#get_random_old_unclassified will be removed
+              in 0.26).squish
     params = old_unclassified_params({})
     add_conditions_from_extra_params(params, extra_params)
     params[:limit] = limit
@@ -983,21 +987,9 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def self.find_old_unclassified(extra_params={})
+    warn %q([DEPRECATION] InfoRequest#find_old_unclassified will be removed
+              in 0.26).squish
     params = old_unclassified_params(extra_params, include_last_response_time=true)
-    [:limit, :include, :offset].each do |extra|
-      params[extra] = extra_params[extra] if extra_params[extra]
-    end
-    if extra_params[:order]
-      params[:order] = extra_params[:order]
-      params.delete(:select)
-    end
-    add_conditions_from_extra_params(params, extra_params)
-    find(:all, params)
-  end
-
-  def self.find_old_unclassified_old(extra_params={})
-    # TODO: Remove this method post benchmark testing
-    params = old_unclassified_params_old(extra_params, include_last_response_time=true)
     [:limit, :include, :offset].each do |extra|
       params[extra] = extra_params[extra] if extra_params[extra]
     end
@@ -1125,9 +1117,7 @@ class InfoRequest < ActiveRecord::Base
     unless is_batch_request_template?
       applicable_rules << public_body.censor_rules
     end
-    if user && !user.censor_rules.empty?
-      applicable_rules << user.censor_rules
-    end
+    applicable_rules << user.censor_rules if user
     applicable_rules.flatten
   end
 
@@ -1136,30 +1126,15 @@ class InfoRequest < ActiveRecord::Base
       reduce(text) { |text, rule| rule.apply_to_text(text) }
   end
 
-  # Call groups of censor rules
-  def apply_censor_rules_to_text!(text)
-    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_text! will be
-            removed in 0.25. Use the non-destructive
-            InfoRequest#apply_censor_rules_to_text instead).squish
-    applicable_censor_rules.each do |censor_rule|
-      censor_rule.apply_to_text!(text)
-    end
-    text
-  end
-
   def apply_censor_rules_to_binary(text)
     applicable_censor_rules.
       reduce(text) { |text, rule| rule.apply_to_binary(text) }
   end
 
-  def apply_censor_rules_to_binary!(binary)
-    warn %q([DEPRECATION] InfoRequest#apply_censor_rules_to_binary! will be
-            removed in 0.25. Use the non-destructive
-            InfoRequest#apply_censor_rules_to_binary instead).squish
-    applicable_censor_rules.each do |censor_rule|
-      censor_rule.apply_to_binary!(binary)
-    end
-    binary
+  def apply_masks(text, content_type)
+    mask_options = { :censor_rules => applicable_censor_rules,
+                     :masks => masks }
+    AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
   end
 
   # Masks we apply to text associated with this request convert email addresses
@@ -1210,6 +1185,24 @@ class InfoRequest < ActiveRecord::Base
     true
   end
 
+  def self.reject_incoming_at_mta(options)
+    query = InfoRequest.where(["updated_at < (now() -
+                                interval ?)
+                                AND allow_new_responses_from = 'nobody'
+                                AND rejected_incoming_count >= ?
+                                AND reject_incoming_at_mta = ?
+                                AND url_title <> 'holding_pen'",
+                                "#{options[:age_in_months]} months",
+                                options[:rejection_threshold], false])
+    yield query.pluck(:id) if block_given?
+
+    if options[:dryrun]
+      0
+    else
+      query.update_all(:reject_incoming_at_mta => true)
+    end
+  end
+
   # This is called from cron regularly.
   def self.stop_new_responses_on_old_requests
     old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
@@ -1223,7 +1216,7 @@ class InfoRequest < ActiveRecord::Base
     AND url_title <> 'holding_pen'
     EOF
 
-    # 'very_old' months since last change requests, don't allow any new
+    # 'very_old' months since last change to request, don't allow any new
     # incoming messages
     InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
     allow_new_responses_from = 'nobody'
@@ -1437,8 +1430,9 @@ class InfoRequest < ActiveRecord::Base
       end
 
     will_be_rejected = (response_rejector && response_rejection) ? true : false
-
     if will_be_rejected && response_rejection.reject(response_rejector.reason)
+      # update without changing the updated_at field
+      self.update_column(:rejected_incoming_count, self.rejected_incoming_count.next)
       logger.info "Rejected incoming mail: #{ response_rejector.reason } request: #{ id }"
       false
     else

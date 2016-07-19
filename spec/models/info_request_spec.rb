@@ -23,6 +23,8 @@
 #  comments_allowed          :boolean          default(TRUE), not null
 #  info_request_batch_id     :integer
 #  last_public_response_at   :datetime
+#  reject_incoming_at_mta    :boolean          default(FALSE), not null
+#  rejected_incoming_count   :integer          default(0)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -94,6 +96,95 @@ describe InfoRequest do
     end
 
   end
+
+  describe '.holding_pen_request' do
+
+    context 'when the holding pen exists' do
+
+      it 'finds a request with title "Holding pen"' do
+        holding_pen = FactoryGirl.create(:info_request, :title => 'Holding pen')
+        expect(InfoRequest.holding_pen_request).to eq(holding_pen)
+      end
+
+    end
+
+    context 'when no holding pen exists' do
+
+      before do
+        InfoRequest.where(:title => 'Holding pen').destroy_all
+        @holding_pen = InfoRequest.holding_pen_request
+      end
+
+      it 'creates a holding pen request' do
+        expect(@holding_pen.title).to eq('Holding pen')
+      end
+
+      it 'creates the holding pen as hidden' do
+        expect(@holding_pen.prominence).to eq('hidden')
+      end
+
+      it 'creates the holding pen to the internal admin body' do
+        expect(@holding_pen.public_body).to eq(PublicBody.internal_admin_body)
+      end
+
+      it 'creates the holding pen from the internal admin user' do
+        expect(@holding_pen.user).to eq(User.internal_admin_user)
+      end
+
+      it 'sets a message on the holding pen' do
+        expected_message = 'This is the holding pen request. It shows ' \
+                           'responses that were sent to invalid addresses, ' \
+                           'and need moving to the correct request by an ' \
+                           'adminstrator.'
+        expect(@holding_pen.outgoing_messages.first.body).
+          to eq(expected_message)
+      end
+
+    end
+
+  end
+
+  describe '.reject_incoming_at_mta' do
+
+    before do
+      @request = FactoryGirl.create(:info_request)
+      @request.update_attributes(:updated_at => 6.months.ago,
+                                :rejected_incoming_count => 3,
+                                :allow_new_responses_from => 'nobody')
+      @options = {:rejection_threshold => 2,
+                  :age_in_months => 5,
+                  :dryrun => true}
+    end
+
+    it 'returns an count of requests updated ' do
+      expect(InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false))).
+        to eq(1)
+    end
+
+    it 'does nothing on a dryrun' do
+      InfoRequest.reject_incoming_at_mta(@options)
+      expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be false
+    end
+
+    it 'sets reject_incoming_at_mta on a request meeting the criteria passed' do
+      InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false))
+      expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be true
+    end
+
+    it 'does not set reject_incoming_at_mta on a request not meeting the
+        criteria passed' do
+      InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false,
+                                                        :age_in_months => 7))
+      expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be false
+    end
+
+    it 'yields an array of ids of the requests matching the criteria' do
+      InfoRequest.reject_incoming_at_mta(@options) do |ids|
+        expect(ids).to eq([@request.id])
+      end
+    end
+  end
+
 
   describe '.stop_new_responses_on_old_requests' do
 
@@ -228,6 +319,8 @@ describe InfoRequest do
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
+        updated_at = info_request.updated_at = 5.days.ago
+        info_request.save!
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         holding_pen = InfoRequest.holding_pen_request
@@ -237,6 +330,8 @@ describe InfoRequest do
         expect(holding_pen.incoming_messages.size).to eq(1)
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
+        expect(info_request.reload.rejected_incoming_count).to eq(1)
+        expect(info_request.reload.updated_at).to eq(updated_at)
       end
 
       it 'from anybody' do
@@ -261,6 +356,8 @@ describe InfoRequest do
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
+        updated_at = info_request.updated_at = 5.days.ago
+        info_request.save!
         email, raw_email = email_and_raw_email(:from => '')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.size).to eq(0)
@@ -270,12 +367,16 @@ describe InfoRequest do
               'no "From" address to check against'
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
+        expect(info_request.rejected_incoming_count).to eq(1)
+        expect(info_request.reload.updated_at).to eq(updated_at)
       end
 
       it 'from authority_only rejects if the mail is not from the authority' do
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
+        updated_at = info_request.updated_at = 5.days.ago
+        info_request.save!
         email, raw_email = email_and_raw_email(:from => 'spam@example.net')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.size).to eq(0)
@@ -285,6 +386,8 @@ describe InfoRequest do
               "recognise the address this reply was sent from"
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
+        expect(info_request.rejected_incoming_count).to eq(1)
+        expect(info_request.reload.updated_at).to eq(updated_at)
       end
 
       it 'raises an error if there is an unknown allow_new_responses_from' do
@@ -422,7 +525,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
     end
 
@@ -451,6 +554,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
 
+      expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
     end
 
@@ -479,7 +583,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(ActionMailer::Base.deliveries).to be_empty
       ActionMailer::Base.deliveries.clear
     end
@@ -503,7 +607,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.rejected_incoming_count).to eq(0)
       expect(ActionMailer::Base.deliveries.size).to eq(1)
       ActionMailer::Base.deliveries.clear
     end
@@ -526,7 +630,7 @@ describe InfoRequest do
       EOF
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
-
+      expect(info_request.rejected_incoming_count).to eq(0)
       expect(info_request.incoming_messages.size).to eq(1)
       ActionMailer::Base.deliveries.clear
     end
@@ -741,6 +845,28 @@ describe InfoRequest do
     it 'returns the text of the first outgoing message if it is visible' do
       info_request = FactoryGirl.create(:info_request)
       expect(info_request.initial_request_text).to eq('Some information please')
+    end
+
+  end
+
+  describe '.find_existing' do
+
+    it 'returns a request with the params given' do
+      info_request = FactoryGirl.create(:info_request)
+      expect(InfoRequest.find_existing(info_request.title,
+                                       info_request.public_body_id,
+                                       'Some information please')).
+        to eq(info_request)
+    end
+
+  end
+
+  describe '#find_existing_outgoing_message' do
+
+    it 'returns an outgoing message with the body text given' do
+      info_request = FactoryGirl.create(:info_request)
+      expect(info_request.find_existing_outgoing_message('Some information please')).
+        to eq(info_request.outgoing_messages.first)
     end
 
   end
@@ -1180,7 +1306,7 @@ describe InfoRequest do
 
     it "copes with indexing after item is deleted" do
       load_raw_emails_data
-      IncomingMessage.find(:all).each{|x| x.parse_raw_email!}
+      IncomingMessage.find_each{ |message| message.parse_raw_email! }
       rebuild_xapian_index
       # delete event from underneath indexing; shouldn't cause error
       info_request_events(:useless_incoming_message_event).save!
@@ -1619,6 +1745,86 @@ describe InfoRequest do
     end
 
   end
+
+  describe '#apply_masks' do
+
+    before(:each) do
+      @request = FactoryGirl.create(:info_request)
+
+      @default_opts = { :last_edit_editor => 'unknown',
+                        :last_edit_comment => 'none' }
+    end
+
+    it 'replaces text with global censor rules' do
+      data = 'There was a mouse called Stilton, he wished that he was blue'
+      expected = 'There was a mouse called Stilton, he said that he was blue'
+
+      opts = { :text => 'wished',
+               :replacement => 'said' }.merge(@default_opts)
+      CensorRule.create!(opts)
+
+      result = @request.apply_masks(data, 'text/plain')
+
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with censor rules belonging to the info request' do
+      data = 'There was a mouse called Stilton.'
+      expected = 'There was a cat called Jarlsberg.'
+
+      rules = [
+        { :text => 'Stilton', :replacement => 'Jarlsberg' },
+        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+      ]
+
+      rules.each do |rule|
+        @request.censor_rules << CensorRule.new(rule.merge(@default_opts))
+      end
+
+      result = @request.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with censor rules belonging to the user' do
+      data = 'There was a mouse called Stilton.'
+      expected = 'There was a cat called Jarlsberg.'
+
+      rules = [
+        { :text => 'Stilton', :replacement => 'Jarlsberg' },
+        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+      ]
+
+      rules.each do |rule|
+        @request.user.censor_rules << CensorRule.new(rule.merge(@default_opts))
+      end
+
+      result = @request.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with masks belonging to the info request' do
+      data = "He emailed #{ @request.incoming_email }"
+      expected = "He emailed [FOI ##{ @request.id } email]"
+      result = @request.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text with global masks' do
+      data = 'His email address was stilton@example.org'
+      expected = 'His email address was [email address]'
+      result = @request.apply_masks(data, 'text/plain')
+      expect(result).to eq(expected)
+    end
+
+    it 'replaces text in binary files' do
+      data = 'His email address was stilton@example.org'
+      expected = 'His email address was xxxxxxx@xxxxxxx.xxx'
+      result = @request.apply_masks(data, 'application/vnd.ms-word')
+      expect(result).to eq(expected)
+    end
+
+  end
+
 
   describe 'when an instance is asked if all can view it' do
 

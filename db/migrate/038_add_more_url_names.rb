@@ -3,7 +3,7 @@ class AddMoreUrlNames < ActiveRecord::Migration
   def self.up
     add_column :users, :url_name, :text
 
-    User.find(:all).each do |user|
+    User.find_each do |user|
       user.update_url_name
       user.save!
     end

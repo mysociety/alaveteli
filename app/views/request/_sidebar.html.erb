@@ -1,13 +1,12 @@
-<div id="right_column" class="sidebar right_column">
+<div id="right_column" class="sidebar right_column" role="complementary">
   <div id="track-request" class="track-request">
     <h2><%= _('Follow this request') %></h2>
 
-    <% follower_count = TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
     <p>
       <%= n_("There is {{count}} person following this request",
              "There are {{count}} people following this request",
-             follower_count,
-             :count => follower_count) %>
+             @follower_count,
+             :count => @follower_count) %>
     </p>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user && @info_request.user == @user, :location => 'sidebar' } %>
     <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
@@ -55,16 +54,31 @@
   <%= render :partial => 'request/act' %>
   <%= render :partial => 'request/next_actions' %>
 
-  <% cache_if_caching_fragments(@similar_cache_key, :expires_in => 1.day) do %>
+  <% cache_if_caching_fragments(@similar_cache_key, :expires_in => 3.days) do %>
     <% xapian_similar, xapian_similar_more = @info_request.similar_requests %>
     <% if !xapian_similar.nil? && xapian_similar.results.size > 0 %>
       <h2><%= _('Similar requests')%></h2>
-      <% for result in xapian_similar.results %>
-        <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+
+      <% utm_params = { :utm_source => site_name.downcase,
+                        :utm_medium => 'link',
+                        :utm_content => 'sidebar_similar_requests',
+                        :utm_campaign => 'alaveteli-experiments-87' } %>
+
+      <% xapian_similar.results.each do |result| %>
+        <%= render :partial => 'request/request_listing_short_via_event',
+                   :locals => { :event => result[:model],
+                                :info_request => result[:model].info_request,
+                                :utm_params => utm_params } %>
       <% end %>
+
       <% if xapian_similar_more %>
-        <p><%= link_to _("More similar requests"), similar_request_path(@info_request.url_title) %></p>
+        <p>
+          <%= link_to similar_request_path(@info_request.url_title, utm_params) do %>
+            <%= _("More similar requests") %>
+          <% end %>
+        </p>
       <% end %>
+
     <% end %>
   <% end %>
 
@@ -72,5 +86,5 @@
 
   <!-- this link with this wording is here for legal reasons, discuss with
     board and our lawyer before changing or removing it -->
-  <p><small><%= link_to _('Are you the owner of any commercial copyright on this page?'), help_officers_path+"#copyright" %></small></p>
+  <p><small><%= link_to _('Are you the owner of any commercial copyright on this page?'), help_officers_path(:anchor => "copyright") %></small></p>
 </div>

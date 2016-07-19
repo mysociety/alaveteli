@@ -1,4 +1,4 @@
-<div class="footer" id="footer">
+<div class="footer" id="footer" role="contentinfo">
   <div class="row">
     <div class="footer__about">
       <h2><%= site_name %></h2>
@@ -25,12 +25,12 @@
         <ul>
           <% unless AlaveteliConfiguration::twitter_username.blank? %>
           <li>
-            <a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>" class="social-link social-link--twitter">@<%= AlaveteliConfiguration::twitter_username %></a>
+            <a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>" class="social-link social-link--twitter" onclick="<%= track_analytics_event(AnalyticsEvent::Category::OUTBOUND, AnalyticsEvent::Action::TWITTER_EXIT, :label => "Footer link")%>">@<%= AlaveteliConfiguration::twitter_username %></a>
           </li>
           <% end %>
           <% unless AlaveteliConfiguration::facebook_username.blank? %>
           <li>
-            <a href="https://facebook.com/<%= AlaveteliConfiguration::facebook_username %>" class="social-link social-link--facebook">/<%= AlaveteliConfiguration::facebook_username %></a>
+            <a href="https://facebook.com/<%= AlaveteliConfiguration::facebook_username %>" class="social-link social-link--facebook" onclick="<%= track_analytics_event(AnalyticsEvent::Category::OUTBOUND, AnalyticsEvent::Action::FACEBOOK_EXIT, :label => "Footer link")%>">/<%= AlaveteliConfiguration::facebook_username %></a>
           </li>
           <% end %>
         </ul>

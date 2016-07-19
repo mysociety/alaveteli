@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 namespace :stats do
 
   desc 'Produce monthly transaction stats for a period starting START_YEAR'
@@ -33,7 +34,9 @@ namespace :stats do
                          month_start, month_end+1]
 
       request_count = InfoRequest.where(date_conditions).count
-      visible_comments_count = Comment.visible.where(date_conditions).count
+      visible_comments_count = Comment.visible.where('comments.created_at >= ?
+                                                      AND comments.created_at < ?',
+                                                      month_start, month_end+1).count
 
       track_conditions = ['track_type = ?
                            AND track_medium = ?
@@ -265,6 +268,18 @@ namespace :stats do
           end
           puts "#{request_line}\n"
         end
+      end
+    end
+  end
+
+  desc 'Output all the requests made to the top 20 public bodies'
+  task :get_top20_body_requests => :environment do
+    require 'csv'
+    puts CSV.generate_line(["public_body_id", "public_body_name", "request_created_timestamp", "request_title", "request_body"])
+
+    PublicBody.limit(20).order('info_requests_visible_count DESC').each do |body|
+      body.info_requests.where(:prominence => 'normal').find_each do |request|
+        puts CSV.generate_line([request.public_body.id, request.public_body.name, request.created_at, request.url_title, request.initial_request_text.gsub("\r\n", " ").gsub("\n", " ")])
       end
     end
   end

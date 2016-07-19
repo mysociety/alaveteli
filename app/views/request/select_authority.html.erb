@@ -26,7 +26,7 @@ $(document).ready(function() {
                 :url => (help_about_path(:anchor => 'whybother_them')).html_safe) %>
         <% end %>
       </p>
-
+      <label for="query" class="visually-hidden"><%=_('Authority name')%></label>
       <%= text_field_tag :query, params[:query], { :size => 30,
                                                    :title => _('type your search term here'),
                                                    :placeholder => _('e.g. Ministry of Defence') } %>

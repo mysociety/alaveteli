@@ -1,4 +1,4 @@
-
+# -*- encoding : utf-8 -*-
 require Rails.root.join('commonlib', 'rblib', 'git')
 
 namespace :themes do
@@ -134,6 +134,125 @@ namespace :themes do
       # Old version of the above, for backwards compatibility
       install_theme(AlaveteliConfiguration::theme_url, verbose, deprecated=true)
     end
+  end
+
+
+  def locale_extensions(locale)
+    locale_extensions = if locale == I18n.default_locale
+      ['']
+    else
+      [".#{locale}"]
+    end
+    if locale != I18n.default_locale && locale.to_s.include?('_')
+      locale_extensions << ".#{locale.to_s.split('_').first}"
+    end
+    locale_extensions
+  end
+
+  def template_file(template_name, theme_name, locale)
+    locale_extensions(locale).each do |locale_extension|
+      filename = "#{template_name}#{locale_extension}.html.erb"
+      filepath = "lib/themes/#{theme_name}/lib/views/help/#{filename}"
+      if File.exists?(filepath)
+        return filepath
+      end
+    end
+    nil
+  end
+
+  def missing_help_info?(help_template_info, locale, theme_name)
+    template_file = template_file(help_template_info[:name], theme_name, locale)
+    missing_templates = []
+    missing_sections = []
+    if !template_file
+      missing_templates <<  template_file
+      puts "Missing help template:  #{help_template_info[:name]} #{locale}"
+    else
+      contents = File.read(template_file)
+      help_template_info[:sections].each do |section|
+        if !contents.include?("##{section}")
+          missing_sections << section
+          puts "Missing section: #{section} in template #{help_template_info[:name]}"
+        end
+      end
+    end
+    if missing_templates.empty? && missing_sections.empty?
+      false
+    else
+      true
+    end
+  end
+
+  desc "Check that all help sections referred to in the application are present in theme"
+  task :check_help_sections => :environment do
+
+  intro_message = <<-EOF
+
+Checking that all help templates linked to from Alaveteli are present in the theme,
+and that all sections linked to from Alaveteli are present in the templates. For
+missing templates, see the examples in the alavetelitheme theme. For
+missing sections, create a section in the relevant template. For example, if the
+section 'example' is listed as missing, create a section with the following HTML
+structure:
+
+  <dt id="example">Section title <a href="#example">#</a> </dt>
+  <dd>Contents of the section
+  </dd>
+
+EOF
+    puts intro_message
+    theme_names = AlaveteliConfiguration::theme_urls.map do |theme_url|
+      theme_url_to_theme_name(theme_url)
+    end
+
+    help_templates_info = [{:name => 'about',
+                            :sections => ['whybother_them']},
+                           {:name => 'alaveteli',
+                            :sections => []},
+                           {:name => 'api',
+                            :sections => []},
+                           {:name => 'contact',
+                            :sections => []},
+                           {:name => 'credits',
+                            :sections => ['helpus']},
+                           {:name => 'officers',
+                            :sections => ['copyright']},
+                           {:name => 'privacy',
+                            :sections => ['email_address',
+                                          'full_address',
+                                          'postal_answer',
+                                          'public_request',
+                                          'real_name'
+                                          ]},
+                           {:name => 'requesting',
+                            :sections => ['focused',
+                                          'data_protection',
+                                          'missing_body',
+                                          'quickly_response',
+                                          ]},
+                           {:name => 'unhappy',
+                            :sections => ['internal_review',
+                                          'other_means'
+                                          ]},
+                           {:name => '_why_they_should_reply_by_email',
+                            :sections => []}]
+    theme_names.each do |theme_name|
+      I18n.available_locales.each do |locale|
+        puts ""
+        puts "theme: #{theme_name} locale: #{locale}"
+        puts ""
+        missing = false
+        help_templates_info.each do |help_template_info|
+          if missing_help_info?(help_template_info, locale, theme_name)
+            missing = true
+          end
+        end
+        if !missing
+          puts "No missing templates or sections"
+        end
+      end
+    end
+
   end
 
 end

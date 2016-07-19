@@ -26,6 +26,11 @@ describe RequestController, "when listing recent requests" do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
+  it "returns 404 for non html requests" do
+    get :list, :view => "all", :format => :json
+    expect(response.status).to eq(404)
+  end
+
   it 'should not raise an error for a page param of less than zero, but should treat it as
         a param of 1' do
     expect{ get :list, :view => 'all', :page => "-1" }.not_to raise_error
@@ -1096,7 +1101,7 @@ describe RequestController, "when creating a new request" do
       :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
       :submitted_new_request => 1, :preview => 0
 
-    ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"])
+    ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?")
     expect(ir_array.size).to eq(1)
     ir = ir_array[0]
     expect(ir.outgoing_messages.size).to eq(1)
@@ -1148,7 +1153,8 @@ describe RequestController, "when creating a new request" do
       :outgoing_message => { :body => "This is a sensible letter. It is too long to be boring." },
       :submitted_new_request => 1, :preview => 0
 
-    ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"], :order => "id")
+    ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?").
+                            order("id")
     expect(ir_array.size).to eq(2)
 
     ir = ir_array[0]
@@ -1377,12 +1383,19 @@ describe RequestController, "when classifying an information request" do
         end
 
         it "should send a mail from the user who changed the state to requires_admin" do
-          post :describe_state, :incoming_message => { :described_state => "requires_admin", :message => "a message" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
+          post :describe_state, :incoming_message =>
+                                  { :described_state => "requires_admin",
+                                    :message => "a message" },
+                                :id => @dog_request.id,
+                                :incoming_message_id =>
+                                  incoming_messages(:useless_incoming_message),
+                                :last_info_request_event_id =>
+                                  @dog_request.last_event_id_needing_description
 
           deliveries = ActionMailer::Base.deliveries
           expect(deliveries.size).to eq(1)
           mail = deliveries[0]
-          expect(mail.from_addrs.first.to_s).to eq(users(:silly_name_user).email)
+          expect(mail.header['Reply-To'].to_s).to match(users(:silly_name_user).email)
         end
       end
     end
@@ -2323,4 +2336,40 @@ describe RequestController, "#select_authorities" do
 
   end
 
+end
+
+describe RequestController, "when the site is in read_only mode" do
+  before do
+    allow(AlaveteliConfiguration).to receive(:read_only).and_return("Down for maintenance")
+  end
+
+  it "redirects to the frontpage_url" do
+    get :new
+    expect(response).to redirect_to frontpage_url
+  end
+
+  it "shows a flash message to alert the user" do
+    get :new
+    expected_message = '<p>Alaveteli is currently in maintenance. You ' \
+                       'can only view existing requests. You cannot make ' \
+                       'new ones, add followups or annotations, or ' \
+                       'otherwise change the database.</p> '\
+                       '<p>Down for maintenance</p>'
+    expect(flash[:notice]).to eq expected_message
+  end
+
+  context "when annotations are disabled" do
+    before do
+      allow(AlaveteliConfiguration).to receive(:enable_annotations).and_return(false)
+    end
+
+    it "doesn't mention annotations in the flash message" do
+      get :new
+      expected_message = '<p>Alaveteli is currently in maintenance. You ' \
+                         'can only view existing requests. You cannot make ' \
+                         'new ones, add followups or otherwise change the ' \
+                         'database.</p> <p>Down for maintenance</p>'
+      expect(flash[:notice]).to eq expected_message
+    end
+  end
 end

@@ -51,7 +51,9 @@
       <% if @xapian_requests %>
         <h2><%= _('On this page') %></h2>
         <a href="#foi_requests"><%= _('FOI requests') %></a>
-        <br><a href="#annotations"><%= _('Annotations') %></a>
+        <% if AlaveteliConfiguration::enable_annotations %>
+          <br><a href="#annotations"><%= _('Annotations') %></a>
+        <% end %>
       <% end %>
     </div>
 
@@ -89,14 +91,16 @@
       </p>
 
       <p>
-        <% if @is_you %>
-          <%= link_to _('Send message to {{user_name}} just to see how it works',
-                        :user_name => h(@display_user.name)),
-                      contact_user_path(:id => @display_user.id) %>
-        <% else %>
-          <%= link_to _('Send message to {{user_name}}',
-                        :user_name => h(@display_user.name)),
-                      contact_user_path(:id => @display_user.id) %>
+        <% unless @display_user.banned? %>
+          <% if @is_you %>
+            <%= link_to _('Send message to {{user_name}} just to see how it works',
+                          :user_name => h(@display_user.name)),
+                        contact_user_path(:id => @display_user.id) %>
+          <% else %>
+            <%= link_to _('Send message to {{user_name}}',
+                          :user_name => h(@display_user.name)),
+                        contact_user_path(:id => @display_user.id) %>
+          <% end %>
         <% end %>
       </p>
 
@@ -207,7 +211,7 @@
       <% end %>
     <% end %>
 
-    <% if @xapian_comments %>
+    <% if @xapian_comments && AlaveteliConfiguration::enable_annotations %>
       <% if @xapian_comments.results.empty? %>
         <% if @page == 1 %>
           <h2>

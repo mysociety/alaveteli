@@ -5,15 +5,38 @@
     :url => request.url,
     :via => AlaveteliConfiguration.twitter_username,
     :text => "'#{ @info_request.title }'",
-    :related => _('mySocietyIntl:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
+    :related => _('mySociety:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
     }.to_query
   %>
 
-  <%= link_to _("Tweet this request"), tweet_link %>
+  <%= link_to _("Tweet this request"),
+              tweet_link,
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::OUTBOUND,
+                AnalyticsEvent::Action::TWITTER_EXIT,
+                :label => "Request sidebar") %>
 </div>
 
-<div class="act_link act_link--wordpress">
-  <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
+<div class="act_link act_link--facebook">
+  <% share_link = "https://www.facebook.com/sharer/sharer.php?" << {
+        :u => request.url
+      }.to_query %>
+
+  <%= link_to _("Share on Facebook"),
+              share_link,
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::OUTBOUND,
+                AnalyticsEvent::Action::FACEBOOK_EXIT,
+                :label => "Request sidebar") %>
+</div>
+
+<div class="act_link act_link--medium">
+  <%= link_to _("Write about this on Medium"),
+              "http://medium.com/",
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::OUTBOUND,
+                AnalyticsEvent::Action::MEDIUM_EXIT,
+                :label => "Request sidebar") %>
 </div>
 
 <% if AlaveteliConfiguration::enable_widgets %>
