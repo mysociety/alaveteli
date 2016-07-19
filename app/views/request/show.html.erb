@@ -11,6 +11,13 @@
 <% if flash[:request_sent] %>
   <%= render :partial => 'request_sent',
              :locals => { :info_request => @info_request } %>
+  <% content_for :ga_pageview do %>
+    ga('send', 'pageview', '<%= show_new_request_path(@info_request.url_title) %>');
+  <% end %>
+<% else %>
+  <% content_for :ga_pageview do %>
+    ga('send', 'pageview', '<%= show_request_path(@info_request.url_title) %>');
+  <% end %>
 <% end %>
 
 <% if @info_request.prominence == 'hidden' %>

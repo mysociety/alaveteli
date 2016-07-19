@@ -1,3 +1,7 @@
+# develop
+
+* New requests are now recorded as virtual pageviews in Google Analytics (Louise Crow)
+
 # Version 0.25.0.0
 
 ## Highlighted Features
