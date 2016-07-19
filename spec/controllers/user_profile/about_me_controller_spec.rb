@@ -168,6 +168,32 @@ describe UserProfile::AboutMeController do
 
     end
 
+    context 'with invalid parameters' do
+
+      let(:user) { FactoryGirl.create(:user, :about_me => 'My bio') }
+
+      before :each do
+        session[:user_id] = user.id
+      end
+
+      it 'assigns the currently logged in user' do
+        put :update, :about_me => 'Updated text'
+        expect(assigns[:user]).to eq(user)
+      end
+
+      it 'does not update the user about_me' do
+        put :update, :about_me => 'Updated text'
+        expect(user.reload.about_me).to eq('My bio')
+      end
+
+      it 'redirects to the user page' do
+        put :update, :about_me => 'Updated text'
+        expect(response).
+          to redirect_to(show_user_path(:url_name => user.url_name))
+      end
+
+    end
+
     context 'with extra attributes' do
 
       let(:user) { FactoryGirl.create(:user) }
