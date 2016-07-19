@@ -48,6 +48,7 @@
   SMTP time - requires special configuration at the MTA level. For more information on
   usage, see [the documentation on spam handling](http://alaveteli.org/docs/running/handling_spam/#advanced-feature---rejection-of-incoming-messages-at-the-mta) (Louise Crow)
 * Show the delivery status of outgoing messages (Gareth Rees, Zarino Zappia)
+* The holding pen is now hidden by default in the front end interface (Louise Crow)
 
 ## Upgrade Notes
 
