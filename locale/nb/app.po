@@ -25,8 +25,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-07-12 11:56+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2016-07-13 19:54+0000\n"
+"Last-Translator: Ben W <bwng@openmailbox.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -175,7 +175,7 @@ msgid "<p>{{site_name}} is currently in maintenance. You can only view existing 
 msgstr "<p>Det utføres vedlikehold på {{site_name}}. Du kan bare se på eksisterende henvendelser. Du kan ikke opprette nye, legge til oppfølgingshenvendelser, notater eller endre på data.</p> <p>{{read_only}}</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p> Det utføres vedlikehold på{{site_name}}. Du kan bare se på eksisterende henvendelser. Du kan ikke opprette nye, legge til oppfølgingshenvendelser, notater eller endre på databasen.</p> <p>{{read_only}}</p>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:tony_bowden</code></strong> for å søke etter annoteringer fra Tony Bowden. Navnet skrives slik det kommer frem i URL."
@@ -982,7 +982,7 @@ msgid "Follow up message sent by requester"
 msgstr "Oppfølgingsbeskjed fra innsender av henvendelsen"
 
 msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr "Oppfølgingsbeskjeder på en eksisterende henvendelse sendes til <strong>{{authority_email}}</strong>."
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Oppfølging sendt til {{public_body_name}} av {{info_request_user}} den {{date}}."
@@ -1012,18 +1012,18 @@ msgstr[1] "Fant {{count}} offentlige myndigheter"
 
 msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
 msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fant {{count}}  offentlig myndighet som begynner med ‘{{first_letter}}’"
+msgstr[1] "Fant {{count}}  offentlige myndigheter som begynner med ‘{{first_letter}}’"
 
 msgid "Found {{count}} public authority in the category ‘{{category_name}}’"
 msgid_plural "Found {{count}} public authorities in the category ‘{{category_name}}’"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fant {{count}} offentlig myndighet i kategorien ‘{{category_name}}’"
+msgstr[1] "Fant {{count}} offentlige myndigheter i kategorien ‘{{category_name}}’"
 
 msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
 msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fant {{count}} offentlig myndighet som treffer taggen ‘{{tag_name}}’"
+msgstr[1] "Fant {{count}} offentlige myndigheter som treffer taggen ‘{{tag_name}}’"
 
 msgid "Freedom of Information"
 msgstr "innsyn etter Offentleglova"
@@ -1035,7 +1035,7 @@ msgid "Freedom of Information law does not apply to this authority, so you canno
 msgstr "Offentlighetslova gjelder ikke for denne etaten, så du kan ikke sende dem en\\n innsynshenvendelse."
 
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr "Offentlighetslova gjelder ikke lenger for denne myndigheten. Oppfølgingsbeskjeder til nåværende henvendelser blir sendt til <strong>{{authority_email}}</strong>."
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "Offentlighetslova gjelder ikke lenger for {{public_body_name}}."
@@ -1092,16 +1092,16 @@ msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors 
 msgstr "Hei!  Vi har en <a href=\"{{url}}\">viktig melding</a> til besøkende i andre land"
 
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr ""
+msgstr "Hei! Vi har en <a href=\"{{url}}\">viktig melding</a> til besøkende i andre land. Du kan også lage innsynshenvendelser for EU-institusjoner på {{link_to_asktheeu}}"
 
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}. You can also make Freedom of Information requests to EU institutions at {{link_to_asktheeu}}"
-msgstr ""
+msgstr "Hei! Vi har en <a href=\"{{url}}\">viktig beskjed</a> til besøkende som ikke er i {{country_name}}. Du kan også lage innsynshenvendelser for EU-institusjoner på {{link_to_asktheeu}}"
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Hei! Du kan lage en innsynshenvendelse for {{country_name}} på {{link_to_website}}"
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
-msgstr ""
+msgstr "Hei! Du kan lage innsynshenvendelser for {{country_name}} på {{link_to_website}} og til EU-institusjoner på {{link_to_asktheeu}}"
 
 msgid "Hello, {{username}}!"
 msgstr "Hei, {{username}}!"
@@ -1275,7 +1275,7 @@ msgid "If you write about this request (for example in a forum or a blog) please
 msgstr "Hvis du skriver om disse henvendelsene (for eksempel i et forum, eller i en blog) hadde det vært fint om du lenker til denne siden, og <a href=\"{{url}}\">legger til en merknad</a> nedenfor slik at andre kan lese tekstene dine."
 
 msgid "If you write about this request (for example in a forum or a blog) please link to this page."
-msgstr ""
+msgstr "Hvis du skriver om denne henvendelsen (for eksempel i et forum, eller i en blog) er det fint om du lenker til denne siden."
 
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
 msgstr "Dersom nettleseren er satt opp til å akseptere informasjonskapsler og du ser denne meldingen,\\nså er det mest sannsynlig noe feil med vår server."
@@ -1392,7 +1392,7 @@ msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
 msgid "InfoRequest|Last public response at"
-msgstr ""
+msgstr "InfoRequest|Siste offentlig svar på"
 
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"
@@ -1401,7 +1401,7 @@ msgid "InfoRequest|Prominence"
 msgstr "InfoRequest|Prominence"
 
 msgid "InfoRequest|Reject incoming at mta"
-msgstr ""
+msgstr "InfoRequest|Avvis innkommende på mta"
 
 msgid "InfoRequest|Rejected incoming count"
 msgstr ""
@@ -1566,7 +1566,7 @@ msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Lag og bla igjennom innsynshenvendelser"
 
 msgid "Make sure the information you are asking for is not already publicly available."
-msgstr ""
+msgstr "Pass på at informasjonen du ber om ikke allerede er offentlig tilgjengelig."
 
 msgid "Many requests"
 msgstr "Mange henvendelser"
@@ -2252,7 +2252,7 @@ msgid "Received an error message, such as delivery failure."
 msgstr "Mottokk en feilmelding, slik som feil ved levering."
 
 msgid "Recent Events"
-msgstr ""
+msgstr "Nylige Hendelser"
 
 msgid "Recently described results first"
 msgstr "Nylige beskrevne resultater først"
@@ -2288,7 +2288,7 @@ msgid "Reporting a request notifies the site administrators. They will respond a
 msgstr "Når en henvendelse meldes sendes det beskjed til nettstedet administratorer.  De vil svare så raskt som mulig."
 
 msgid "Request '{{request_title}}':"
-msgstr ""
+msgstr "Be om '{{request_title}}':"
 
 msgid "Request an internal review"
 msgstr "Skriv klage"
@@ -2369,7 +2369,7 @@ msgid "Response to your request"
 msgstr "Svar på din henvendelse"
 
 msgid "Response to {{law_used_short}} request"
-msgstr ""
+msgstr "Svar på {{law_used_short}}-henvendelse"
 
 msgid "Response:"
 msgstr "Svar:"
@@ -3135,7 +3135,7 @@ msgid "To report this request"
 msgstr "For å rapportere denne henvendelsen"
 
 msgid "To send a follow up message to {{authority_name}}"
-msgstr ""
+msgstr "For å sende en oppfølgningsmelding til  {{authority_name}}"
 
 msgid "To send a message to {{user_name}}"
 msgstr "For å sende en melding til {{user_name}}"
@@ -3198,7 +3198,7 @@ msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
 
 msgid "Try opening the logs in a new window."
-msgstr ""
+msgstr "Prøv å åpne loggene i et nytt vindu."
 
 msgid "Turn off email alerts"
 msgstr "Skru av e-postvarsling"
@@ -3327,7 +3327,7 @@ msgid "User|Comments count"
 msgstr ""
 
 msgid "User|Confirmed not spam"
-msgstr ""
+msgstr "Bruker|Bekreftet ikke spam"
 
 msgid "User|Email"
 msgstr "Bruker|E-post"
@@ -3450,7 +3450,7 @@ msgid "We couldn’t display any logs for this message."
 msgstr "Vi kunne ikke vise noen logger for denne meldingen."
 
 msgid "We couldn’t load the mail server logs for this message."
-msgstr ""
+msgstr "Vi kunne ikke vise mailserverloggene for denne meldingen."
 
 msgid "We do not have a working request email address for this authority."
 msgstr "Vi har ikke en gyldig e-post adresse for henvendelser for denne myndigheten"
@@ -3582,13 +3582,13 @@ msgid "Write about this on Medium"
 msgstr "Skriv om dette på Medium"
 
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr ""
+msgstr "Skriv din oppfølgningsmelding til {{authority_name}}"
 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Skriv henvendelsen i <strong>enkelt, nøyaktig språk</strong>."
 
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr ""
+msgstr "Du har allerede laget samme bunt med henvendelser den {{date}}. Du kan enten se på <a href=\"{{existing_batch}}\">den eksisterende bunten</a>, eller redigere detaljene under for å lage en ny men lignende bunt med henvendelser."
 
 msgid "You are already following new requests"
 msgstr "Du følger allerede nye henvendelser"
@@ -3750,7 +3750,7 @@ msgid "You will be given a one time passcode when you enable two factor authenti
 msgstr "Du vil få et engangspassord når du skrur på to-faktor autentisering. Ikke del dette passordet med noen. Du kan enten legge det inn i din \"password manager\", eller skrive det ut og legge det et trygt sted."
 
 msgid "You will be unable to make new requests, send follow ups or send messages to other users. You may continue to view other requests, and set up email alerts."
-msgstr ""
+msgstr "Du vil ikke kunne lage nye henvendelser, sende oppfølginger eller sende meldinger til andre brukere. Du kan fortsatt se på andre henvendelser, og sette opp e-postvarsling."
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
 msgstr "Du vil ikke kunne lage nye henvendelser, sende oppfølginger, legge inn\\nkommentarer eller sende meldinger til andre brukere.  Du kan fortsatt se andre\\nhenvendelser og sette opp e-postvarsling."
@@ -3942,7 +3942,7 @@ msgid "[FOI #{{request}} email]"
 msgstr "[Innsyns-e-postadresse #{{request}}]"
 
 msgid "[REDACTED]"
-msgstr ""
+msgstr "[SLADDET]"
 
 msgid "[{{public_body}} request email]"
 msgstr "[{{public_body}} henvendelses-e-postadresse]"
@@ -4050,7 +4050,7 @@ msgid "move..."
 msgstr "flytt..."
 
 msgid "mySociety:Helping people set up sites like {{site_name}} all over the world"
-msgstr ""
+msgstr "mySocietyIntl:Hjelper folk med å sette opp tjenester som {{site_name}} over hele verden"
 
 msgid "new requests"
 msgstr "nye henvendelser"
@@ -4274,7 +4274,7 @@ msgid "{{user_name}} - user profile"
 msgstr "{{user_name}} - brukerprofil"
 
 msgid "{{user_name}} - wall"
-msgstr ""
+msgstr "{{user_name}} - vegg"
 
 msgid "{{user_name}} added an annotation"
 msgstr "{{user_name}} la til en merknad"
