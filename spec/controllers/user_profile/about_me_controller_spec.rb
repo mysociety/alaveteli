@@ -229,7 +229,7 @@ describe UserProfile::AboutMeController do
 
       it 'sets an error message' do
         put :update, :user => { :about_me => 'http://example.com/$£$£$' }
-        msg = 'That text looks like spam, so we have not updated your about me'
+        msg = "You can't update your profile text at this time."
         expect(flash[:error]).to eq(msg)
       end
 

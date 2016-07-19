@@ -1187,11 +1187,12 @@ class InfoRequest < ActiveRecord::Base
 
   def self.reject_incoming_at_mta(options)
     query = InfoRequest.where(["updated_at < (now() -
-                                interval '#{options[:age_in_months]} months')
+                                interval ?)
                                 AND allow_new_responses_from = 'nobody'
                                 AND rejected_incoming_count >= ?
                                 AND reject_incoming_at_mta = ?
                                 AND url_title <> 'holding_pen'",
+                                "#{options[:age_in_months]} months",
                                 options[:rejection_threshold], false])
     yield query.pluck(:id) if block_given?
 
