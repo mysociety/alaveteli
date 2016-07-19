@@ -1,3 +1,14 @@
+# develop
+
+## Highlighted Features
+
+* Improve Public Body import from CSV documentation and page layout (Liz Conlan,
+  Gareth Rees)
+
+## Upgrade Notes
+
+### Changed Templates
+
 # Version 0.25.0.0
 
 ## Highlighted Features
