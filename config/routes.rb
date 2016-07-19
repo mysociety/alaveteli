@@ -336,7 +336,7 @@ Alaveteli::Application.routes.draw do
 
   match '/track/update/:track_id' => 'track#update',
         :as => :update,
-        :via => :get
+        :via => [:get, :post]
   match '/track/delete_all_type' => 'track#delete_all_type',
         :as => :delete_all_type,
         :via => :post
