@@ -97,6 +97,53 @@ describe InfoRequest do
 
   end
 
+  describe '.holding_pen_request' do
+
+    context 'when the holding pen exists' do
+
+      it 'finds a request with title "Holding pen"' do
+        holding_pen = FactoryGirl.create(:info_request, :title => 'Holding pen')
+        expect(InfoRequest.holding_pen_request).to eq(holding_pen)
+      end
+
+    end
+
+    context 'when no holding pen exists' do
+
+      before do
+        InfoRequest.where(:title => 'Holding pen').destroy_all
+        @holding_pen = InfoRequest.holding_pen_request
+      end
+
+      it 'creates a holding pen request' do
+        expect(@holding_pen.title).to eq('Holding pen')
+      end
+
+      it 'creates the holding pen as hidden' do
+        expect(@holding_pen.prominence).to eq('hidden')
+      end
+
+      it 'creates the holding pen to the internal admin body' do
+        expect(@holding_pen.public_body).to eq(PublicBody.internal_admin_body)
+      end
+
+      it 'creates the holding pen from the internal admin user' do
+        expect(@holding_pen.user).to eq(User.internal_admin_user)
+      end
+
+      it 'sets a message on the holding pen' do
+        expected_message = 'This is the holding pen request. It shows ' \
+                           'responses that were sent to invalid addresses, ' \
+                           'and need moving to the correct request by an ' \
+                           'adminstrator.'
+        expect(@holding_pen.outgoing_messages.first.body).
+          to eq(expected_message)
+      end
+
+    end
+
+  end
+
   describe '.reject_incoming_at_mta' do
 
     before do

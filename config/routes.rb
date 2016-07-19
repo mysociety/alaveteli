@@ -226,7 +226,8 @@ Alaveteli::Application.routes.draw do
   end
 
   # Legacy route for setting about_me
-  match '/profile/set_about_me' => redirect('/profile/about_me/edit')
+  match '/profile/set_about_me' => redirect('/profile/about_me/edit'),
+        :as => :set_profile_about_me
 
   match '/profile/set_receive_alerts' => 'user#set_receive_email_alerts',
         :as => :set_receive_email_alerts
@@ -335,7 +336,7 @@ Alaveteli::Application.routes.draw do
 
   match '/track/update/:track_id' => 'track#update',
         :as => :update,
-        :via => :get
+        :via => [:get, :post]
   match '/track/delete_all_type' => 'track#delete_all_type',
         :as => :delete_all_type,
         :via => :post
@@ -388,13 +389,13 @@ Alaveteli::Application.routes.draw do
   #### RequestGame controller
   match '/categorise/play' => 'request_game#play',
         :as => :categorise_play,
-        :via => :get
+        :via => [:get, :post]
   match '/categorise/request/:url_title' => 'request_game#show',
         :as => :categorise_request,
         :via => :get
   match '/categorise/stop' => 'request_game#stop',
         :as => :categorise_stop,
-        :via => :get
+        :via => :post
   ####
 
   #### AdminPublicBody controller

@@ -11,7 +11,6 @@ class UserController < ApplicationController
   layout :select_layout
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
-  before_filter :set_use_recaptcha, :only => [:signin, :signup]
 
   # Show page about a user
   def show
@@ -140,7 +139,8 @@ class UserController < ApplicationController
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false
-    if @use_recaptcha && !verify_recaptcha
+    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
+    if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _("There was an error with the words you entered, please try again.")
       error = true
     end
@@ -393,7 +393,7 @@ class UserController < ApplicationController
         flash[:notice] = _("<p>Thanks for updating your profile photo.</p>" \
                 "<p><strong>Next...</strong> You can put some text about " \
                 "you and your research on your profile.</p>")
-        redirect_to set_profile_about_me_url
+        redirect_to edit_profile_about_me_url
       else
         flash[:notice] = _("Thank you for updating your profile photo")
         redirect_to user_url(@user)
@@ -640,10 +640,5 @@ class UserController < ApplicationController
                        :email => _("Then you can sign in to {{site_name}}", :site_name => site_name),
                        :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
                      })
-  end
-
-  def set_use_recaptcha
-    @use_recaptcha = (AlaveteliConfiguration::use_recaptcha_for_registration ||
-                      country_from_ip != AlaveteliConfiguration::iso_country_code)
   end
 end

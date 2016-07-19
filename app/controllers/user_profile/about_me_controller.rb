@@ -12,12 +12,13 @@ class UserProfile::AboutMeController < ApplicationController
       return
     end
 
+    # TODO: Use strong params to require :user key
+    return redirect_to user_url(@user) unless params[:user]
     @user.about_me = params[:user][:about_me]
 
     unless @user.confirmed_not_spam?
       if UserSpamScorer.new.spam?(@user)
-        flash[:error] =
-          _('That text looks like spam, so we have not updated your about me')
+        flash[:error] = _("You can't update your profile text at this time.")
         redirect_to user_url(@user)
         return
       end

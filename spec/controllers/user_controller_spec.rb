@@ -448,34 +448,6 @@ describe UserController, "when signing in" do
     post_redirects[0]
   end
 
-  context "when checking whether to use reCAPTCHA" do
-    before do
-      allow(controller).to receive(:country_from_ip).
-        and_return(AlaveteliConfiguration::iso_country_code)
-    end
-
-    it "uses reCAPTCHA if USE_RECAPTCHA_FOR_REGISTRATION is set in config" do
-      allow(AlaveteliConfiguration).to receive(:use_recaptcha_for_registration).
-        and_return(true)
-      get :signin
-
-      expect(assigns[:use_recaptcha]).to eq(true)
-    end
-
-    it "uses reCAPTCHA if country_from_ip does not match" do
-      allow(controller).to receive(:country_from_ip).and_return('xx')
-      get :signin
-
-      expect(assigns[:use_recaptcha]).to eq(true)
-    end
-
-    it "does not use reCAPTCHA with default settings and country_from_ip match" do
-      get :signin
-      expect(assigns[:use_recaptcha]).to eq(false)
-    end
-
-  end
-
   it "should show sign in / sign up page" do
     get :signin
     expect(response.body).to have_css("input#signin_token", :visible => :hidden)
