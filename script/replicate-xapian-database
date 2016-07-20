@@ -40,7 +40,7 @@ XAPIAN_DB_DIR="$( pwd )/lib/acts_as_xapian/xapiandbs"
 
 # Set traps
 trap "echo Caught SIGCHLD; jobs -l" SIGCHLD
-trap "echo 'Caught SIGTERM, tidying up child processes...'; jobs -p | xargs kill -TERM; sleep 5s; jobs -p | xargs kill -KILL; trap - TERM; kill -TERM $$" TERM
+trap "echo 'Caught SIGTERM, tidying up child processes...'; trap - SIGCHLD; jobs -l; jobs -p | xargs --no-run-if-empty kill -TERM; sleep 5s; jobs -p | xargs --no-run-if-empty kill -KILL; jobs -l; trap - TERM; kill -TERM $$" TERM
 
 # Start server
 xapian-replicate-server -p "$PORT" --one-shot "$XAPIAN_DB_DIR" &
