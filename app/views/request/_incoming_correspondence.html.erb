@@ -1,21 +1,24 @@
-<div class="incoming correspondence box <%= incoming_message.prominence %>" id="incoming-<%=incoming_message.id.to_s%>">
-  <%- if not incoming_message.user_can_view?(@user) %>
-    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message }%>
-  <%- else %>
-    <%= render :partial => 'request/restricted_correspondence', :locals => {:message => incoming_message } %>
-
-    <h2>
+<div class="incoming correspondence <%= incoming_message.prominence %>" id="incoming-<%= incoming_message.id %>">
+  <div class="correspondence__header">
+    <div class="correspondence__header__from">
       <% if incoming_message.specific_from_name? %>
-        <%= _("From:") %> <%= incoming_message.safe_mail_from %><br>
+        <%= incoming_message.safe_mail_from %>,
       <% end %>
 
       <% if incoming_message.from_public_body? %>
-        <%= @info_request.public_body.name %><br>
+        <%= @info_request.public_body.name %>
       <% end %>
 
-      <br><%= simple_date(incoming_message.sent_at) %>
-    </h2>
+      <%= link_to incoming_message_path(incoming_message), :class => 'correspondence__header__date' do %>
+        <%= simple_date(incoming_message.sent_at) %>
+      <% end %>
+    </div>
+  </div>
 
+  <%- if not incoming_message.user_can_view?(@user) %>
+    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message } %>
+  <%- else %>
+    <%= render :partial => 'request/restricted_correspondence', :locals => {:message => incoming_message } %>
     <%= render :partial => 'request/bubble',
                :locals => { :incoming_message => incoming_message,
                             :body => incoming_message.get_body_for_html_display(@collapse_quotes),

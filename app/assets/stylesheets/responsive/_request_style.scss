@@ -5,7 +5,7 @@ $color-delivery-delivered: #69952F !default; // green
 $color-delivery-failed: #D83838 !default; // red
 
 .correspondence {
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   margin: 0 0 1em;
 
   h2 {
@@ -13,6 +13,12 @@ $color-delivery-failed: #D83838 !default; // red
     text-align:right;
     font-size:1em;
   }
+}
+
+.correspondence__header {
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ddd;
+  position: relative;
 }
 
 .preview_subject,
@@ -134,9 +140,8 @@ a img.attachment_image {
 }
 
 .toggle-delivery-log {
-  padding-right: 8px + 16px;
-  margin-right: 4px; // remember also ~4px from whitespace character after inline element
-  background: transparent none 100% 50% no-repeat;
+  padding-left: 8px + 16px;
+  background: transparent none 0 50% no-repeat;
   background-size: 16px 16px;
 
   // Preload the spinner image, because the ajax request
