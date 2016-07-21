@@ -33,6 +33,42 @@ $color-delivery-failed: #D83838 !default; // red
   }
 }
 
+.correspondence__footer {
+  background-color: #f4f4f4;
+  border-top: 1px solid #ddd;
+  position: relative;
+}
+
+.correspondence__footer__cplink {
+
+}
+
+.cplink__label {
+  color: #777;
+}
+
+input.cplink__field {
+  box-shadow: none;
+  border: 1px solid #E9E9E9;
+  border-right-color: #ddd; //so it appears part of the button, but still changes when this field is focused
+  color: #777;
+  border-radius: 3px 0 0 3px;
+}
+
+.cplink__button {
+  color: #777;
+  background-color: #eaeaea;
+  border: 1px solid #ddd;
+  border-left: 0;
+  border-radius: 0 3px 3px 0;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #eaeaea;
+    color: #333;
+  }
+}
+
 .preview_subject,
 .preview_to {
   font-weight: bold;
