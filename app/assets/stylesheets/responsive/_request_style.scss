@@ -21,6 +21,18 @@ $color-delivery-failed: #D83838 !default; // red
   position: relative;
 }
 
+.correspondence__header__date,
+.correspondence__header__date:visited {
+  font-size: 0.875em;
+  color: #777;
+  text-decoration: none;
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
 .preview_subject,
 .preview_to {
   font-weight: bold;

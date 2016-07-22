@@ -7,8 +7,12 @@
     <div class="correspondence__header">
       <div class="correspondence__header__from--with-delivery-status">
         <%= @info_request.user_name %>
-          <a class="correspondence__header__date" href="<%= outgoing_message_path(outgoing_message) %>"><%= simple_date(info_request_event.created_at) %></a>
+
+        <%= link_to outgoing_message_path(outgoing_message), :class => 'correspondence__header__date' do %>
+          <%= simple_date(info_request_event.created_at) %>
+        <% end %>
       </div>
+
       <% cache_if_caching_fragments("outgoing_messages/#{ outgoing_message.id }/delivery_status", :expires_in => 6.hours) do %>
         <% delivery_status = outgoing_message.delivery_status %>
         <% if delivery_status %>
