@@ -1,0 +1,16 @@
+<% @highlight_words ||= [] %>
+<% utm_params ||= {} %>
+
+<div class="request_short_listing">
+  <h3 class="request_short_listing__title">
+    <%= link_to request_path(info_request, utm_params) do %>
+      <%= highlight_words(info_request.title, @highlight_words) %>
+    <% end %>
+  </h3>
+
+  <p class="request_short_listing__authority">
+    <%= _('{{public_body_link_absolute}}',
+          :public_body_link_absolute =>
+            public_body_link(info_request.public_body)) %>
+  </p>
+</div>
