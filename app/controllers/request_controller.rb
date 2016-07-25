@@ -235,8 +235,8 @@ class RequestController < ApplicationController
                                                      params[:outgoing_message][:body],
                                                      params[:public_body_ids])
 
-    @info_request = InfoRequest.create_from_attributes(params[:info_request],
-                                                       params[:outgoing_message],
+    @info_request = InfoRequest.create_from_attributes(info_request_params(@batch),
+                                                       outgoing_message_params,
                                                        authenticated_user)
     @outgoing_message = @info_request.outgoing_messages.first
     @info_request.is_batch_request_template = true
@@ -310,6 +310,8 @@ class RequestController < ApplicationController
       return render_new_compose(batch=false)
     end
 
+    # CREATE ACTION
+
     # Check we have :public_body_id - spammers seem to be using :public_body
     # erroneously instead
     if params[:info_request][:public_body_id].blank?
@@ -323,13 +325,13 @@ class RequestController < ApplicationController
     @existing_request = InfoRequest.find_existing(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
 
     # Create both FOI request and the first request message
-    @info_request = InfoRequest.create_from_attributes(params[:info_request],
-                                                       params[:outgoing_message])
+    @info_request = InfoRequest.create_from_attributes(info_request_params,
+                                                       outgoing_message_params)
     @outgoing_message = @info_request.outgoing_messages.first
 
     # Maybe we lost the address while they're writing it
     unless @info_request.public_body.is_requestable?
-      render :action => 'new_' + @info_request.public_body.not_requestable_reason
+      render :action => "new_#{ @info_request.public_body.not_requestable_reason }"
       return
     end
 
@@ -778,6 +780,20 @@ class RequestController < ApplicationController
 
   private
 
+  def info_request_params(batch = false)
+    if batch
+      unless params[:info_request].nil? || params[:info_request].empty?
+        params.require(:info_request).permit(:title, :tag_string)
+      end
+    else
+      params.require(:info_request).permit(:title, :public_body_id, :tag_string)
+    end
+  end
+
+  def outgoing_message_params
+    params.require(:outgoing_message).permit(:body, :what_doing)
+  end
+
   def assign_variables_for_show_template(info_request)
     @info_request = info_request
     @info_request_events = info_request.info_request_events
@@ -863,28 +879,27 @@ class RequestController < ApplicationController
   end
 
   def render_new_compose(batch)
-
     params[:info_request] = { } if !params[:info_request]
 
-    # Read parameters in
+    # Reconstruct the params
     unless batch
       # first the public body (by URL name or id)
-      if params[:url_name]
-        if params[:url_name].match(/^[0-9]+$/)
-          params[:info_request][:public_body] = PublicBody.find(params[:url_name])
-        else
-          public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-          raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # TODO: proper 404
-          params[:info_request][:public_body] = public_body
+      params[:info_request][:public_body_id] ||=
+        if params[:url_name]
+          if params[:url_name].match(/^[0-9]+$/)
+            PublicBody.find(params[:url_name]).id
+          else
+            public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
+            raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # TODO: proper 404
+            public_body.id
+          end
+        elsif params[:public_body_id]
+          params[:public_body_id]
         end
-      elsif params[:public_body_id]
-        params[:info_request][:public_body] = PublicBody.find(params[:public_body_id])
-        # Explicitly load the association as this isn't done automatically in newer Rails versions
-      elsif params[:info_request][:public_body_id]
-        params[:info_request][:public_body] = PublicBody.find(params[:info_request][:public_body_id])
-      end
-      if !params[:info_request][:public_body]
-        # compulsory to have a body by here, or go to front page which is start of process
+
+      if !params[:info_request][:public_body_id]
+        # compulsory to have a body by here, or go to front page which is start
+        # of process
         redirect_to frontpage_url
         return
       end
@@ -894,16 +909,33 @@ class RequestController < ApplicationController
     params[:info_request][:title] = params[:title] if params[:title]
     params[:info_request][:tag_string] = params[:tags] if params[:tags]
 
-    @info_request = InfoRequest.new(params[:info_request])
+    @info_request = InfoRequest.new(info_request_params(batch))
+
     if batch
       @info_request.is_batch_request_template = true
     end
     params[:info_request_id] = @info_request.id
-    params[:outgoing_message] = {} if !params[:outgoing_message]
-    params[:outgoing_message][:body] = params[:body] if params[:body]
-    params[:outgoing_message][:default_letter] = params[:default_letter] if params[:default_letter]
-    params[:outgoing_message][:info_request] = @info_request
-    @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
+
+    # Manually permit params because strong params was too difficult given the
+    # non-standard arrangement.
+    message_params =
+      if params[:outgoing_message]
+        { :outgoing_message => params[:outgoing_message] }
+      else
+        { :outgoing_message => {} }
+      end
+
+    message_params[:outgoing_message][:body] ||= params[:body] if params[:body]
+    message_params[:outgoing_message][:default_letter] ||= params[:default_letter] if params[:default_letter]
+
+    message_params = ActionController::Parameters.new(message_params)
+    permitted = message_params.
+      permit(:outgoing_message => [:body, :default_letter, :what_doing])
+
+    @outgoing_message = OutgoingMessage.new(:info_request => @info_request)
+    @outgoing_message.body = permitted[:outgoing_message][:body]
+    @outgoing_message.default_letter = permitted[:outgoing_message][:default_letter]
+    @outgoing_message.what_doing = permitted[:outgoing_message][:what_doing]
     @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
     if batch
@@ -922,6 +954,7 @@ class RequestController < ApplicationController
       end
     end
     return
+
   end
 
   def render_new_preview

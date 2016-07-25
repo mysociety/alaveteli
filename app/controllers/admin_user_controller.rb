@@ -82,14 +82,14 @@ class AdminUserController < AdminController
 
   def user_params
     if params[:admin_user]
-      params[:admin_user].slice(:name,
-                                :email,
-                                :admin_level,
-                                :ban_text,
-                                :about_me,
-                                :no_limit,
-                                :can_make_batch_requests,
-                                :confirmed_not_spam)
+      params.require(:admin_user).permit(:name,
+                                         :email,
+                                         :admin_level,
+                                         :ban_text,
+                                         :about_me,
+                                         :no_limit,
+                                         :can_make_batch_requests,
+                                         :confirmed_not_spam)
     else
       {}
     end

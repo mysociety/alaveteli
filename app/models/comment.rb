@@ -5,7 +5,6 @@
 #
 #  id              :integer          not null, primary key
 #  user_id         :integer          not null
-#  comment_type    :string(255)      default("internal_error"), not null
 #  info_request_id :integer
 #  body            :text             not null
 #  visible         :boolean          default(TRUE), not null
@@ -29,7 +28,6 @@ class Comment < ActiveRecord::Base
   has_many :info_request_events # in practice only ever has one
 
   #validates_presence_of :user # breaks during construction of new ones :(
-  validates_inclusion_of :comment_type, :in => [ 'request' ]
   validate :check_body_has_content,
     :check_body_uses_mixed_capitals
 
