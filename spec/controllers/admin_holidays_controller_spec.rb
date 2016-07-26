@@ -47,7 +47,7 @@ describe AdminHolidaysController do
 
       it 'renders the new form partial' do
         xhr :get, :new
-        expect(response).to render_template('new_form')
+        expect(response).to render_template(:partial => '_new_form')
       end
     end
 
@@ -115,7 +115,7 @@ describe AdminHolidaysController do
 
       it 'renders the edit form partial' do
         xhr :get, :edit, :id => @holiday.id
-        expect(response).to render_template('edit_form')
+        expect(response).to render_template(:partial => '_edit_form')
       end
 
     end
