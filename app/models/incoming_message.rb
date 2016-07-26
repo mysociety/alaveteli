@@ -537,7 +537,7 @@ class IncomingMessage < ActiveRecord::Base
         content_type = 'application/octet-stream'
       end
       hexdigest = Digest::MD5.hexdigest(content)
-      attachment = foi_attachments.find_or_create_by_hexdigest(hexdigest)
+      attachment = foi_attachments.find_or_create_by(:hexdigest => hexdigest)
       attachment.update_attributes(:filename => filename,
                                    :content_type => content_type,
                                    :body => content)
@@ -563,7 +563,7 @@ class IncomingMessage < ActiveRecord::Base
     attachment_attributes = MailHandler.get_attachment_attributes(self.mail(force))
     attachments = []
     attachment_attributes.each do |attrs|
-      attachment = self.foi_attachments.find_or_create_by_hexdigest(attrs[:hexdigest])
+      attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
       attachment.update_attributes(attrs)
       attachment.save!
       attachments << attachment
