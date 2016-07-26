@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.22.4'
+gem 'rails', '4.0.13'
 
 gem 'pg', '~> 0.18.4'
 
@@ -9,6 +9,7 @@ gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versio
 gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => 'c342283fe564bf'
 gem 'cancancan', '1.12' # Pinned because 1.13 onwards don't support Ruby 1.9
 gem 'charlock_holmes', '~> 0.7.3'
+gem 'dalli', '~> 2.7.6'
 gem 'dynamic_form', '~> 1.1.4'
 # 4.1.0 has a bug in it which is fixed in a later version which does not have Ruby 1.9.3 support
 gem 'exception_notification', '4.0.1'
@@ -24,15 +25,14 @@ gem 'json', '~> 1.8.1'
 gem 'holidays', '~> 2.2.0'
 gem 'iso_country_codes', '~> 0.7.3'
 gem 'mahoro', '~> 0.4'
-gem 'memcache-client', '~> 1.8.5'
 gem 'newrelic_rpm'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_19]
 gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '< 1.7'
 gem 'open4', '~> 1.3.4'
-gem 'rack', '~> 1.4.6'
+gem 'rack', '~> 1.5.5'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
-gem 'rails-i18n', '~> 3.0.0'
+gem 'rails-i18n', '~> 4.0.9'
 gem 'recaptcha', '~> 0.4.0', :require => 'recaptcha/rails'
 gem 'rmagick', '~> 2.15.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
@@ -40,7 +40,6 @@ gem 'sass', '3.4.21' # pinned because later versions cause problems (see blame)
 gem 'secure_headers', '~> 3.1.2'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3'
-gem 'strong_parameters', '~> 0.2.3'
 gem 'syslog_protocol', '~> 0.9.2'
 gem 'thin', '~> 1.5.1'
 gem 'vpim', '~> 13.11.11'
@@ -56,17 +55,20 @@ gem 'gender_detector', '~> 1.0.0'
 gem 'gettext_i18n_rails', '~> 0.9.4' # Later versions cause error (see blame)
   gem 'fast_gettext', '< 1.2.0'
 gem 'gettext', '~> 2.3.9'
-gem 'globalize3', :git => 'https://github.com/globalize/globalize.git', :ref => '5fd95f2389dff1'
+gem 'globalize', '~> 4.0.3'
 gem 'locale', '~> 2.0.8'
 gem 'routing-filter', '~> 0.4.0'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.2'
 
+# mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
+gem 'mime-types', '< 3.0.0'
+
 group :assets do
   gem 'bootstrap-sass', '~> 2.3.2.2'
-  gem 'sass-rails', '~> 3.2.3'
+  gem 'sass-rails', '~> 5.0.5'
   gem 'compass-rails', '3.0.2'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails', '~> 4.0.1'
   gem 'uglifier', '~> 2.7.2'
   gem 'therubyracer', '~> 0.12.2'
 end
@@ -76,7 +78,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
   gem 'fakeweb', '~> 1.3.0'
-  gem 'coveralls', :require => false
+  gem 'coveralls', '< 0.8.5', :require => false
     gem 'tins', '< 1.3.1'
     gem 'term-ansicolor', '< 1.4'
   gem 'capybara', '~> 2.7.0'
@@ -97,7 +99,7 @@ group :development do
   gem 'annotate', '~> 2.7.1'
   gem 'capistrano', '~> 2.15.9'
     gem 'net-ssh', '< 3.0.0'
-  gem 'mailcatcher', '~> 0.5.12'
+  gem 'mailcatcher', '~> 0.6.4'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'rdoc', '~> 3.12.2'
   gem 'launchy', '~> 2.4.3'
