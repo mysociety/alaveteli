@@ -560,11 +560,11 @@ describe RequestMailer do
         user = @kitten_request.user
         user.ban_text = 'Banned'
         user.save!
-        expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to eq(0)
+        expect(UserInfoRequestSentAlert.where(:user_id => user.id).count).to eq(0)
         RequestMailer.alert_overdue_requests
 
         expect(kitten_mails.size).to eq(0)
-        expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
+        expect(UserInfoRequestSentAlert.where(:user_id => user.id).count).to be > 0
       end
     end
 
