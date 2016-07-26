@@ -649,7 +649,7 @@ describe UserController, "when signing up" do
     post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
                                       :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' }
                     }
-    expect(assigns[:user_signup].errors[:password]).to eq(['Please enter the same password twice'])
+    expect(assigns[:user_signup].errors[:password_confirmation]).to eq(['Please enter the same password twice'])
   end
 
   it "should be an error to sign up with a misformatted email" do
@@ -665,7 +665,7 @@ describe UserController, "when signing up" do
     post :signup, { :user_signup => { :email => 'in-use@localhost', :name => 'Mr Suspected-Hacker',
                                       :password => 'sillypassword', :password_confirmation => 'mistyped' }
                     }
-    expect(assigns[:user_signup].errors[:password]).to eq(['Please enter the same password twice'])
+    expect(assigns[:user_signup].errors[:password_confirmation]).to eq(['Please enter the same password twice'])
     expect(assigns[:user_signup].errors[:email]).to be_empty
   end
 
