@@ -67,15 +67,16 @@ class InfoRequest < ActiveRecord::Base
   belongs_to :info_request_batch
   validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
-  has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
-  has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
-  has_many :incoming_messages, :order => 'created_at', :dependent => :destroy
+  has_many :info_request_events, -> { order('created_at, id') }, :dependent => :destroy
+  has_many :outgoing_messages, -> { order('created_at') }, :dependent => :destroy
+  has_many :incoming_messages, -> { order('created_at') }, :dependent => :destroy
   has_many :user_info_request_sent_alerts, :dependent => :destroy
-  has_many :track_things, :order => 'created_at desc', :dependent => :destroy
+  has_many :track_things, -> { order('created_at desc') }, :dependent => :destroy
   has_many :widget_votes, :dependent => :destroy
-  has_many :comments, :order => 'created_at', :dependent => :destroy
-  has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
-  has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
+  has_many :comments, -> { order('created_at') }, :dependent => :destroy
+  has_many :censor_rules, -> { order('created_at desc') }, :dependent => :destroy
+  has_many :mail_server_logs, -> { order('mail_server_log_done_id, "order"') }, :dependent => :destroy
+
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
