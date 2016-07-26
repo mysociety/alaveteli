@@ -82,7 +82,7 @@ describe AdminPublicBodyHeadingsController do
       it 'saves the default locale translation' do
         post :create, :public_body_heading => @params
 
-        heading = PublicBodyHeading.find_by_name('New Heading')
+        heading = PublicBodyHeading.where(:name => 'New Heading').first
 
         I18n.with_locale(:en) do
           expect(heading.name).to eq('New Heading')
@@ -92,7 +92,7 @@ describe AdminPublicBodyHeadingsController do
       it 'saves the alternative locale translation' do
         post :create, :public_body_heading => @params
 
-        heading = PublicBodyHeading.find_by_name('New Heading')
+        heading = PublicBodyHeading.where(:name => 'New Heading').first
 
         I18n.with_locale(:es) do
           expect(heading.name).to eq('Mi Nuevo Heading')
