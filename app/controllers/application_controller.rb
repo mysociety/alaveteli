@@ -163,6 +163,8 @@ class ApplicationController < ActionController::Base
       sanitize_path(params)
     when PermissionDenied
       @status = 403
+    when ActionController::UnknownFormat
+      @status = 406
     else
       message = "\n#{@exception_class} (#{@exception_message}):\n"
       backtrace = Rails.backtrace_cleaner.clean(exception.backtrace, :silent)
