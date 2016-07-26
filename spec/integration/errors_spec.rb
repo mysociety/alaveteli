@@ -129,6 +129,11 @@ describe "When errors occur" do
       expect(response.code).to eq('403')
     end
 
+    it 'returns a 406 when an action does not support the format' do
+      get('/version.invalid-format')
+      expect(response.code).to eq('406')
+    end
+
     context "in the admin interface" do
 
       it 'should show a full trace for general errors' do
