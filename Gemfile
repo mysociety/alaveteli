@@ -59,14 +59,13 @@ gem 'unidecoder', '~> 1.1.2'
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0'
 
-group :assets do
-  gem 'bootstrap-sass', '~> 2.3.2.2'
-  gem 'sass-rails', '~> 5.0.5'
-  gem 'compass-rails', '3.0.2'
-  gem 'coffee-rails', '~> 4.0.1'
-  gem 'uglifier', '~> 2.7.2'
-  gem 'therubyracer', '~> 0.12.2'
-end
+# Assets
+gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'sass-rails', '~> 5.0.5'
+gem 'compass-rails', '3.0.2'
+gem 'coffee-rails', '~> 4.0.1'
+gem 'uglifier', '~> 2.7.2'
+gem 'therubyracer', '~> 0.12.2'
 
 group :test do
   gem 'fakeweb', '~> 1.3.0'
