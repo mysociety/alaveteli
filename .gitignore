@@ -22,7 +22,6 @@ TAGS
 !/public/adminbootstraptheme
 /vendor/bundle
 .bundle
-bin/
 config/aliases
 config/httpd.conf
 config/general*.yml
