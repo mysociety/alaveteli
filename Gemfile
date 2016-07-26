@@ -85,7 +85,8 @@ end
 
 group :development do
   gem 'annotate', '~> 2.7.1'
-  gem 'capistrano', '~> 2.15.4'
+  gem 'capistrano', '~> 2.15.9'
+    gem 'net-ssh', '< 3.0.0'
   gem 'mailcatcher', '~> 0.5.12'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'rdoc', '~> 3.12.2'
