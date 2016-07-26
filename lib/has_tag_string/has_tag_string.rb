@@ -155,7 +155,10 @@ module HasTagString
   # Main entry point, add has_tag_string to your model.
   module HasMethods
     def has_tag_string
-      has_many :tags, :conditions => "model = '" + self.to_s + "'", :foreign_key => "model_id", :class_name => 'HasTagString::HasTagStringTag'
+      klass = to_s
+      has_many :tags, -> { where(:model => klass) },
+               :foreign_key => "model_id",
+               :class_name => 'HasTagString::HasTagStringTag'
 
       include InstanceMethods
       self.class.send :include, ClassMethods

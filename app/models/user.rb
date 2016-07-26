@@ -42,15 +42,15 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation, :no_xapian_reindex
   attr_accessor :entered_otp_code
 
-  has_many :info_requests, :order => 'created_at desc'
+  has_many :info_requests, -> { order('created_at desc') }
   has_many :user_info_request_sent_alerts
-  has_many :post_redirects, :order => 'created_at desc'
-  has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
-  has_many :comments, :order => 'created_at desc'
-  has_many :public_body_change_requests, :order => 'created_at desc'
+  has_many :post_redirects, -> { order('created_at desc') }
+  has_many :track_things, -> { order('created_at desc') }, :foreign_key => 'tracking_user_id'
+  has_many :comments, -> { order('created_at desc') }
+  has_many :public_body_change_requests, -> { order('created_at desc') }
   has_one :profile_photo
-  has_many :censor_rules, :order => 'created_at desc'
-  has_many :info_request_batches, :order => 'created_at desc'
+  has_many :censor_rules, -> { order('created_at desc') }
+  has_many :info_request_batches, -> { order('created_at desc') }
   has_many :request_classifications
 
   validates_presence_of :email, :message => _("Please enter your email address")
