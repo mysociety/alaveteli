@@ -1,14 +1,16 @@
-<script type="text/javascript">
-$(document).ready(function() {
-  // Avoid triggering too often (on each keystroke) by using the debounce
-  // jQuery plugin:
-  // http://benalman.com/projects/jquery-throttle-debounce-plugin/
-  $("#query").keypress($.debounce( 300, function() {
-    // Do a type ahead search and display results
-    $("#typeahead_response").load("<%= search_ahead_bodies_url %>?query="+encodeURI(this.value));
-  }));
-});
-</script>
+<% content_for :javascript do %>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    // Avoid triggering too often (on each keystroke) by using the debounce
+    // jQuery plugin:
+    // http://benalman.com/projects/jquery-throttle-debounce-plugin/
+    $("#query").keypress($.debounce( 300, function() {
+      // Do a type ahead search and display results
+      $("#typeahead_response").load("<%= search_ahead_bodies_url %>?query="+encodeURI(this.value));
+    }));
+  });
+  </script>
+<% end %>
 
 <% @title = _("Find an authority")  %>
 

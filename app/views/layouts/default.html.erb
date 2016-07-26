@@ -19,16 +19,6 @@
       <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
     <% end %>
 
-    <%= javascript_include_tag "application" %>
-
-    <% if @profile_photo_javascript %>
-      <%= javascript_include_tag "profile-photos" %>
-      <%= stylesheet_link_tag "jquery.Jcrop.min.css" %>
-    <% end %>
-    <% if is_admin? %>
-      <%= javascript_include_tag "bootstrap-dropdown" %>
-    <% end %>
-
     <% if @feed_autodetect %>
       <% for feed in @feed_autodetect %>
         <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
@@ -50,27 +40,6 @@
     <%= render :partial => 'general/before_head_end' %>
   </head>
   <body class="<%= 'front' if params[:action] == 'frontpage' %>">
-    <% if AlaveteliConfiguration::force_registration_on_new_request && !@user %>
-      <%= javascript_include_tag 'fancybox.js' %>
-      <script type="text/javascript">
-        $(document).ready(function() {
-          $("#make-request-link").fancybox({
-            'modal': false,
-            'width': 950,
-            'height': 400,
-            'type': 'iframe',
-            'href': '/<%= FastGettext.locale %>/profile/sign_in?modal=1',
-            'onClosed': function() {
-              // modal_signin_successful variable set by modal dialog box
-              if (typeof modal_signin_successful != 'undefined' ) {
-                window.location.href = '<%= select_authority_url %>';
-              }
-            }
-          });
-        });
-      </script>
-    <% end %>
-
     <% if is_admin? %>
       <%= render :partial => 'admin_general/admin_navbar' %>
     <% end %>
@@ -137,6 +106,37 @@
       ga('send', 'pageview');
       </script>
     <% end %>
+
+    <%= javascript_include_tag "application" %>
+
+    <% if @profile_photo_javascript %>
+      <%= javascript_include_tag "profile-photos" %>
+      <%= stylesheet_link_tag "jquery.Jcrop.min.css" %>
+    <% end %>
+    <% if is_admin? %>
+      <%= javascript_include_tag "bootstrap-dropdown" %>
+    <% end %>
+    <% if AlaveteliConfiguration::force_registration_on_new_request && !@user %>
+      <%= javascript_include_tag 'fancybox.js' %>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $("#make-request-link").fancybox({
+            'modal': false,
+            'width': 950,
+            'height': 400,
+            'type': 'iframe',
+            'href': '/<%= FastGettext.locale %>/profile/sign_in?modal=1',
+            'onClosed': function() {
+              // modal_signin_successful variable set by modal dialog box
+              if (typeof modal_signin_successful != 'undefined' ) {
+                window.location.href = '<%= select_authority_url %>';
+              }
+            }
+          });
+        });
+      </script>
+    <% end %>
+    <%= content_for :javascript %>
 
     <%= render :partial => 'general/before_body_end' %>
     <a href="#content" class="show-with-keyboard-focus-only skip-to-link">Back to content</a>
