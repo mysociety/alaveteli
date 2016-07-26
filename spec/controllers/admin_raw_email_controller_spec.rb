@@ -58,7 +58,7 @@ describe AdminRawEmailController do
         end
 
         it 'assigns a default reason if no reason is given' do
-          @info_request_event.params_yaml = {}
+          @info_request_event.params_yaml = {}.to_yaml
           @info_request_event.save!
           get :show, :id => @incoming_message.raw_email.id
           expect(assigns[:rejected_reason]).to eq 'unknown reason'
