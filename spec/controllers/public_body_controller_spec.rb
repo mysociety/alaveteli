@@ -351,9 +351,9 @@ describe PublicBodyController, "when listing bodies" do
     expect(response.body).to have_content('1 request made')
   end
 
-  it 'should return a "406 Not Acceptable" code if asked for a json version of a list' do
-    get :list, :format => 'json'
-    expect(response.code).to eq('406')
+  it 'raises an UnknownFormat error if asked for a json version of a list' do
+    expect { get :list, :format => 'json' }.
+      to raise_error(ActionController::UnknownFormat)
   end
 
   it "should list authorities starting with a multibyte first letter" do
