@@ -108,11 +108,6 @@
     <% end %>
 
     <%= javascript_include_tag "application" %>
-
-    <% if @profile_photo_javascript %>
-      <%= javascript_include_tag "profile-photos" %>
-      <%= stylesheet_link_tag "jquery.Jcrop.min.css" %>
-    <% end %>
     <% if is_admin? %>
       <%= javascript_include_tag "bootstrap-dropdown" %>
     <% end %>
