@@ -7,9 +7,7 @@ cov_formats = [Coveralls::SimpleCov::Formatter]
 cov_formats << SimpleCov::Formatter::HTMLFormatter if ENV['COVERAGE'] == 'local'
 
 # Generate coverage in coveralls.io and locally if requested
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  *cov_formats
-]
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(*cov_formats)
 
 SimpleCov.start('rails') do
   add_filter  'commonlib'
