@@ -533,12 +533,12 @@ describe RequestMailer do
       user = @kitten_request.user
       user.ban_text = 'Banned'
       user.save!
-      expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to eq(0)
+      expect(UserInfoRequestSentAlert.where(:user_id => user.id).count).to eq(0)
       RequestMailer.alert_overdue_requests
 
       deliveries = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
       expect(deliveries.size).to eq(0)
-      expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
+      expect(UserInfoRequestSentAlert.where(:user_id => user.id).count).to be > 0
     end
 
     it "does not resend alerts to people who've already received them" do
