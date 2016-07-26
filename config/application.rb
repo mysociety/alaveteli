@@ -52,7 +52,7 @@ module Alaveteli
     config.after_initialize do |app|
       # Add a catch-all route to force routing errors to be handled by the application,
       # rather than by middleware.
-      app.routes.append{ match '*path', :to => 'general#not_found' }
+      app.routes.append { match '*path', :to => 'general#not_found', :via => [:get, :post] }
     end
 
     config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
