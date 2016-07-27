@@ -75,11 +75,7 @@ class PublicBody < ActiveRecord::Base
 
 
   # Every public body except for the internal admin one is visible
-  scope :visible, lambda {
-    {
-      :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
-    }
-  }
+  scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
   acts_as_xapian :texts => [:name, :short_name, :notes],
