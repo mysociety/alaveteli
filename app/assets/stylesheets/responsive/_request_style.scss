@@ -4,6 +4,16 @@ $color-delivery-sent: #2688dc !default; // blue
 $color-delivery-delivered: #69952F !default; // green
 $color-delivery-failed: #D83838 !default; // red
 
+.request-header__toolbar {
+  background-color: #f4f4f4;
+  padding: 0.5em;
+  @include clearfix;
+}
+
+.request-header__subtitle {
+  margin-top: 0.5em;
+}
+
 .correspondence {
   border: 1px solid #ddd;
   margin: 0 0 1em;
@@ -104,14 +114,6 @@ div.comment_in_request {
   margin-bottom: 0;
   text-align:right;
   line-height: 1em;
-}
-
-.user_photo_on_request img {
-  width:48px;
-  height:48px;
-  float:left;
-  vertical-align:middle;
-  margin-right:0.5em;
 }
 
 .user_photo_on_comment img {

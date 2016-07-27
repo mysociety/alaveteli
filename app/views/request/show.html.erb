@@ -76,57 +76,34 @@
   </div>
 <% end %>
 
-<div id="left_column" class="left_column">
-  <h1><%=h(@info_request.title)%></h1>
-
-  <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>
-    <p class="user_photo_on_request">
-      <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>" alt="">
-    </p>
-  <% end %>
-
-  <p class="subtitle">
-    <% if !@user.nil? && @user.admin_page_links? %>
-      <%= _('{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href="{{request_admin_url}}">admin</a>) to {{public_body_link}} (<a href="{{public_body_admin_url}}">admin</a>)',
-            :user => request_user_link(@info_request, _('An anonymous user')),
-            :law_used_full => h(@info_request.law_used_human(:full)),
-            :user_admin_link => user_admin_link_for_request(
-              @info_request, _('external'), _('admin')),
-            :request_admin_url => admin_request_url(@info_request),
-            :public_body_link => public_body_link(@info_request.public_body),
-            :public_body_admin_url => admin_body_url(@info_request.public_body)) %>
-    <% else %>
-      <%= _('{{user}} made this {{law_used_full}} request',
-            :user=>request_user_link(@info_request, _('An anonymous user')),
-            :law_used_full=>h(@info_request.law_used_human(:full))) %>
-      <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
-    <% end %>
-  </p>
-
-  <p id="request_status" class="request-status-message request_icon_line icon_<%= @info_request.calculate_status %>">
-    <% if @info_request.awaiting_description %>
-      <% if @is_owning_user && !@info_request.is_external? && !@render_to_file %>
-        <%= n_('Please <strong>answer the question above</strong> so we know ' \
-                  'whether the recent response contains useful information.',
-               'Please <strong>answer the question above</strong> so we know ' \
-                  'whether the recent responses contain useful information.',
-               @new_responses_count) %>
-      <% else %>
-        <%= _('This request has an <strong>unknown status</strong>.') %>
-
-        <% if @old_unclassified %>
-          <%= n_("We're waiting for someone to read a recent response and " \
-                    "update the status accordingly. Perhaps " \
-                    "<strong>you</strong> might like to help out by doing that?",
-                 "We're waiting for someone to read recent responses and " \
-                    "update the status accordingly. Perhaps " \
-                    "<strong>you</strong> might like to help out by doing that?",
+<div class="request-header">
+  <div class="row">
+    <div class="request-status">
+      <p id="request_status" class="request-status-message request_icon_line icon_<%= @info_request.calculate_status %>">
+      <% if @info_request.awaiting_description %>
+        <% if @is_owning_user && !@info_request.is_external? && !@render_to_file %>
+          <%= n_('Please <strong>answer the question above</strong> so we know ' \
+                    'whether the recent response contains useful information.',
+                 'Please <strong>answer the question above</strong> so we know ' \
+                    'whether the recent responses contain useful information.',
                  @new_responses_count) %>
         <% else %>
-          <%= n_("We're waiting for {{user}} to read a recent response and update the status.",
-                 "We're waiting for {{user}} to read recent responses and update the status.",
-                 @new_responses_count,
-                 :user => user_link_for_request(@info_request)) %>
+          <%= _('This request has an <strong>unknown status</strong>.') %>
+
+          <% if @old_unclassified %>
+            <%= n_("We're waiting for someone to read a recent response and " \
+                      "update the status accordingly. Perhaps " \
+                      "<strong>you</strong> might like to help out by doing that?",
+                   "We're waiting for someone to read recent responses and " \
+                      "update the status accordingly. Perhaps " \
+                      "<strong>you</strong> might like to help out by doing that?",
+                   @new_responses_count) %>
+          <% else %>
+            <%= n_("We're waiting for {{user}} to read a recent response and update the status.",
+                   "We're waiting for {{user}} to read recent responses and update the status.",
+                   @new_responses_count,
+                   :user => user_link_for_request(@info_request)) %>
+          <% end %>
         <% end %>
       <% end %>
     <% else %>
@@ -136,6 +113,45 @@
                       :redirect_to => request.fullpath) %>
     <% end %>
   </p>
+
+  </div>
+    <h1><%=h(@info_request.title)%></h1>
+
+    <div class="request-header__toolbar-container">
+      <div class="request-header__toolbar">
+        <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>
+          <div class=" request-header__profile-photo user_photo_on_request">
+            <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>" alt="">
+          </div>
+        <% end %>
+        <p class="request-header__subtitle <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>request-header__subtitle--narrow<% end %>">
+          <% if !@user.nil? && @user.admin_page_links? %>
+            <%= _('{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href="{{request_admin_url}}">admin</a>) to {{public_body_link}} (<a href="{{public_body_admin_url}}">admin</a>)',
+                  :user => request_user_link(@info_request, _('An anonymous user')),
+                  :law_used_full => h(@info_request.law_used_human(:full)),
+                  :user_admin_link => user_admin_link_for_request(
+                    @info_request, _('external'), _('admin')),
+                  :request_admin_url => admin_request_url(@info_request),
+                  :public_body_link => public_body_link(@info_request.public_body),
+                  :public_body_admin_url => admin_body_url(@info_request.public_body)) %>
+          <% else %>
+            <%= _('{{user}} made this {{law_used_full}} request',
+                  :user=>request_user_link(@info_request, _('An anonymous user')),
+                  :law_used_full=>h(@info_request.law_used_human(:full))) %>
+            <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
+          <% end %>
+        </p>
+        <% unless @render_to_file %>
+          <div class="request-header__toolbar-actions">
+            <%= render :partial => 'after_actions' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="left_column" class="left_column">
 
   <% for info_request_event in @info_request_events %>
     <% if info_request_event.visible %>
@@ -149,7 +165,7 @@
     </div>
   <% end %>
 
-  <%= render :partial => 'after_actions' %>
+
 </div>
 
 <%- if @sidebar %><%= render :partial => 'sidebar' %><% end %>

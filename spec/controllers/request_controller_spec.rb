@@ -165,14 +165,14 @@ describe RequestController, "when showing one request" do
 
   it 'should show actions the request owner can take' do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    expect(response.body).to have_css('div#owner_actions')
+    expect(response.body).to have_css('ul.owner_actions')
   end
 
   describe 'when the request does allow comments' do
     it 'should have a comment link' do
       get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
         { :user_id => users(:admin_user).id }
-      expect(response.body).to have_css('#anyone_actions', :text => "Add an annotation")
+      expect(response.body).to have_css('.anyone_actions', :text => "Add an annotation")
     end
   end
 
@@ -180,7 +180,7 @@ describe RequestController, "when showing one request" do
     it 'should not have a comment link' do
       get :show, { :url_title => 'spam_1' },
         { :user_id => users(:admin_user).id }
-      expect(response.body).not_to have_css('#anyone_actions', :text => "Add an annotation")
+      expect(response.body).not_to have_css('.anyone_actions', :text => "Add an annotation")
     end
   end
 
