@@ -279,7 +279,7 @@ class PublicBodyController < ApplicationController
 
     # Create the CSV
     csv = PublicBodyCSV.new
-    PublicBody.visible.find_each(:include => [:translations, :tags]) do |public_body|
+    PublicBody.includes(:translations, :tags).visible.find_each do |public_body|
       next if public_body.site_administration?
       csv << public_body
     end
