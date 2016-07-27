@@ -28,11 +28,11 @@ describe PublicBodyHelper do
 
     it 'links to the request page if the body has no contact email' do
       @body.request_email = ''
-      msg = %Q(<a href="/new/#{ @body.url_name }"
-               class="link_button_green">Make
-               a request to this authority</a>).squish
-
-               expect(public_body_not_requestable_reasons(@body)).to include(msg)
+      msg = <<-EOF.strip_heredoc.squish
+      <a class="link_button_green" href="/new/#{ @body.url_name }">Make a
+      request to this authority</a>
+      EOF
+      expect(public_body_not_requestable_reasons(@body)).to include(msg)
     end
 
     it 'returns the reasons in order of importance' do
