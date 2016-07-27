@@ -33,7 +33,7 @@ module Graphs
     hash_array = User.connection.select_all(sql)
     return if hash_array.empty?
     columns = hash_array.first.values.map { |val| [val] }
-    if hash_array.size > 1
+    if hash_array.to_ary.size > 1
       hash_array[1..-1].each do |result|
         result.values.each.with_index do |value, i|
           columns[i] << value
