@@ -1,4 +1,69 @@
 /* Layout for request page */
+
+
+.request-status {
+  @include grid-column(12);
+  margin-top: 1em;
+}
+
+.request-header {
+  width: 100%;
+  clear: both;
+  h1 {
+    @include grid-column(12);
+    margin-top: 0;
+  }
+}
+
+.request-header__toolbar-container {
+  @include grid-column(12);
+}
+
+.request-header__toolbar {
+  margin-bottom: 2em;
+  position: relative;
+}
+
+.request-header__profile-photo {
+  //we use --narrow when a profile photo is available
+  @include grid-column(2, $collapse:true);
+  img {
+    max-width: 100%;
+    padding-right: 1em;
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(1, $collapse:true);
+  }
+}
+
+.request-header__subtitle {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    margin-bottom: 0;
+    @include grid-column(10);
+  }
+}
+
+.request-header__subtitle--narrow {
+  //we use --narrow when a profile photo is available
+  @include grid-column(10, $collapse:true);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(6, $collapse:true);
+  }
+}
+
+.action-menu {
+  position: relative;
+  text-align: left;
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    text-align: right;
+    @include grid-column(2);
+  @media (min-width: $main_menu-mobile_menu_cutoff) {
+    text-align: right;
+  }
+}
+
 .correspondence {
   word-wrap: break-word;
 }
