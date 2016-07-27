@@ -99,7 +99,8 @@ describe ReportsController do
     context "not logged in" do
       it "should require the user to be logged in" do
         get :new, :request_id => info_request.url_title
-        expect(response).not_to render_template("new")
+        expect(response).
+          to redirect_to(signin_path(:token => PostRedirect.last.token))
       end
     end
 
