@@ -92,6 +92,25 @@
   padding: 0.6em 1.2em;
  }
 
+.attachments {}
+
+.list-of-attachments {
+  list-style: none outside none;
+  padding: 0 1em 1em;
+}
+
+.attachment {
+  padding: 0.5em 0 0;
+}
+
+.attachment__image {
+  float:left;
+  border:0;
+  vertical-align:middle;
+  margin:0 0.2em 0.2em 0;
+}
+
+
 /* Event history details */
 #request_details {
   table {

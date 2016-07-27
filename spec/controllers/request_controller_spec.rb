@@ -685,6 +685,7 @@ describe RequestController, "when showing one request" do
     it "should censor attachment names" do
       ir = info_requests(:fancy_dog_request)
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+      attachment_name_selector = '.attachment .attachment__name'
 
       # TODO: this is horrid, but don't know a better way.  If we
       # don't do this, the info_request_event to which the
@@ -702,7 +703,7 @@ describe RequestController, "when showing one request" do
 
       # so at this point, assigns[:info_request].incoming_messages[1].get_attachments_for_display is returning stuff, but the equivalent thing in the template isn't.
       # but something odd is that the above is return a whole load of attachments which aren't there in the controller
-      expect(response.body).to have_css("p.attachment strong") do |s|
+      expect(response.body).to have_css(attachment_name_selector) do |s|
         expect(s).to contain /hello world.txt/m
       end
 
@@ -716,7 +717,7 @@ describe RequestController, "when showing one request" do
       ir.censor_rules << censor_rule
       begin
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        expect(response.body).to have_css("p.attachment strong") do |s|
+        expect(response.body).to have_css(attachment_name_selector) do |s|
           expect(s).to contain /goodbye.txt/m
         end
       ensure

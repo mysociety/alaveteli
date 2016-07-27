@@ -117,21 +117,40 @@ div.comment_in_request {
   margin-right:0.5em;
 }
 
-a img.attachment_image {
-  float:left;
-  border:0;
-  vertical-align:middle;
-  margin:0 0.2em 0.2em 0;
+.attachments {
+  border: 1px solid #e9e9e9;
 }
 
-.attachments hr.top {
-  clear:both;
-  margin:0 0 1em;
+.attachments__header {
+  padding: 1em;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #e9e9e9;
+  h3 {
+    font-size: 1em;
+    margin: 0;
+  }
 }
 
-.attachments hr.bottom {
-  clear:both;
-  margin:1em 0 0;
+.attachment {
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.attachment__name {
+  margin-bottom: 0.25em;
+}
+
+.attachment__meta {
+  font-size: 0.875em;
+  color: #666;
+  a {
+    color: #666;
+    text-decoration: underline;
+    &:hover,
+    &:active,
+    &:focus {
+      color: #333;
+    }
+  }
 }
 
 .describe_state_form,#other_recipients {
