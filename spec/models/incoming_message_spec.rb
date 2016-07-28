@@ -840,9 +840,11 @@ describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should still work when parsed from the raw email" do
-    raw_email = load_file_fixture 'inline-uuencode.email'
-    mail = MailHandler.mail_from_raw_email(raw_email)
-    im = incoming_messages :useless_incoming_message
+    data = load_file_fixture('inline-uuencode.email')
+    mail = MailHandler.mail_from_raw_email(data)
+    im = incoming_messages(:useless_incoming_message)
+    raw_email = RawEmail.new
+    allow(raw_email).to receive(:data).and_return(data)
     allow(im).to receive(:raw_email).and_return(raw_email)
     allow(im).to receive(:mail).and_return(mail)
     im.parse_raw_email!(true)
