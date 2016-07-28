@@ -441,7 +441,7 @@ describe 'when getting attachment attributes' do
     attributes = MailHandler.get_attachment_attributes(mail)
     expect(attributes.length).to eq(1)
     expect(attributes[0][:body]).to match(/This is an acknowledgement of your email/)
-    expect(attributes[0][:content_type]).to eq("text/plain")
+    expect(attributes[0][:content_type]).to eq("text/html")
     expect(attributes[0][:url_part_number]).to eq(1)
   end
 
