@@ -201,14 +201,6 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/nos-queremos-saber.jpg" class="deployment__screenshot" alt=""/>
-                        <h3 class="deployment__title">Nós Queremos Saber</h3>
-                        <p class="deployment__country">Portugal</p>
-                        <p class="deployment__link"><a href="http://nosqueremossaber.org">http://nosqueremossaber.org/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/mimes-bronn.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Mimes Brønn</h3>
                         <p class="deployment__country">Norway</p>
