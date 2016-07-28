@@ -169,14 +169,6 @@ in any language, and within any legislation</p>
                 </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/da-zanamo-svi.jpg" class="deployment__screenshot" alt=""/>
-                        <h3 class="deployment__title">Da Zanamo Svi</h3>
-                        <p class="deployment__country">Serbia</p>
-                        <p class="deployment__link"><a href="http://daznamosvi.rs/sr">http://daznamosvi.rs/sr</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/sobanukirwa.jpg" class="deployment__screenshot" alt=""/>
                         <h3 class="deployment__title">Sobanukirwa</h3>
                         <p class="deployment__country">Rwanda</p>
@@ -205,14 +197,6 @@ in any language, and within any legislation</p>
                         <h3 class="deployment__title">Ask Your Gov</h3>
                         <p class="deployment__country">Uganda</p>
                         <p class="deployment__link"><a href="http://askyourgov.ug">http://askyourgov.ug/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/nos-queremos-saber.jpg" class="deployment__screenshot" alt=""/>
-                        <h3 class="deployment__title">Nós Queremos Saber</h3>
-                        <p class="deployment__country">Portugal</p>
-                        <p class="deployment__link"><a href="http://nosqueremossaber.org">http://nosqueremossaber.org/</a></p>
                     </div>
                 </div><!--
                 --><div class="deployments__unit--minor">
