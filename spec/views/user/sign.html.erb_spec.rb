@@ -5,7 +5,7 @@ describe 'user/sign' do
   describe 'when a not logged in user is redirected while trying to track a request' do
     before do
       html_title = "test's \"title\" of many HTML tags &c"
-      @rendered_title = 'test&#x27;s &quot;title&quot; of many HTML tags &amp;c'
+      @rendered_title = 'test&#39;s &quot;title&quot; of many HTML tags &amp;c'
       request = FactoryGirl.create(:info_request, :title => html_title)
       tracker = FactoryGirl.create(:request_update_track,
                                    :info_request => request,
@@ -19,7 +19,7 @@ describe 'user/sign' do
 
     it 'should show the first form for describing the state of the request' do
       render
-      expect(response).to match("To follow the request &#x27;#{@rendered_title}&#x27;")
+      expect(response).to match("To follow the request &#39;#{@rendered_title}&#39;")
     end
   end
 
