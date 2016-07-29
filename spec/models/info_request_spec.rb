@@ -316,22 +316,28 @@ describe InfoRequest do
     context 'allowing new responses' do
 
       it 'from nobody' do
+        time_travel_to(5.days.ago)
+
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
-        updated_at = info_request.updated_at = 5.days.ago
-        info_request.save!
+
+        back_to_the_present
+
+        updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         holding_pen = InfoRequest.holding_pen_request
         msg = 'This request has been set by an administrator to "allow new ' \
               'responses from nobody"'
+
         expect(info_request.incoming_messages.size).to eq(0)
         expect(holding_pen.incoming_messages.size).to eq(1)
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.reload.rejected_incoming_count).to eq(1)
-        expect(info_request.reload.updated_at).to eq(updated_at)
+        expect(info_request.reload.updated_at).
+          to be_within(1.second).of(updated_at)
       end
 
       it 'from anybody' do
@@ -353,11 +359,15 @@ describe InfoRequest do
       end
 
       it 'from authority_only rejects if there is no from address' do
+        time_travel_to(5.days.ago)
+
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
-        updated_at = info_request.updated_at = 5.days.ago
-        info_request.save!
+
+        back_to_the_present
+
+        updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => '')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.size).to eq(0)
@@ -368,15 +378,20 @@ describe InfoRequest do
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.rejected_incoming_count).to eq(1)
-        expect(info_request.reload.updated_at).to eq(updated_at)
+        expect(info_request.reload.updated_at).
+          to be_within(1.second).of(updated_at)
       end
 
       it 'from authority_only rejects if the mail is not from the authority' do
+        time_travel_to(5.days.ago)
+
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
-        updated_at = info_request.updated_at = 5.days.ago
-        info_request.save!
+
+        back_to_the_present
+
+        updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => 'spam@example.net')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.size).to eq(0)
@@ -387,7 +402,8 @@ describe InfoRequest do
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.rejected_incoming_count).to eq(1)
-        expect(info_request.reload.updated_at).to eq(updated_at)
+        expect(info_request.reload.updated_at).
+          to be_within(1.second).of(updated_at)
       end
 
       it 'raises an error if there is an unknown allow_new_responses_from' do
@@ -1883,8 +1899,6 @@ describe InfoRequest do
 
   describe 'keeping track of the last public response date' do
 
-    let(:old_date) { Time.zone.now - 21.days }
-    let(:recent_date) { Time.zone.now - 2.days }
     let(:user) { FactoryGirl.create(:user) }
 
     it 'does not set last_public_response_at date if there is no response' do
@@ -1893,111 +1907,127 @@ describe InfoRequest do
     end
 
     it 'sets last_public_response_at when a public response is added' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request)
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
-      expect(request.last_public_response_at).to eq(old_date)
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request)
+      event =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message,
+                                                :event_type => 'response')
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event.created_at)
     end
 
     it 'does not set last_public_response_at when a hidden response is added' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request,
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request,
                                                       :prominence => 'hidden')
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
+      event =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message,
+                                                :event_type => 'response')
+
       expect(request.last_public_response_at).to be_nil
     end
 
     it 'sets last_public_response_at to nil when the only response is hidden' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request)
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request)
       FactoryGirl.create(:info_request_event, :info_request => request,
                                               :incoming_message => message,
-                                              :created_at => old_date,
                                               :event_type => 'response')
-      message.prominence = 'hidden'
-      message.save
+
+      message.update_attributes(:prominence => 'hidden')
+
       expect(request.last_public_response_at).to be_nil
     end
 
     it 'reverts last_public_response_at when the latest response is hidden' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message1 = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                       :info_request => request)
-      message2 = FactoryGirl.create(:incoming_message, :created_at => recent_date,
-                                                       :info_request => request)
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message1,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message2,
-                                              :created_at => recent_date,
-                                              :event_type => 'response')
-      expect(request.last_public_response_at).to eq(recent_date)
-      message2.prominence = 'hidden'
-      message2.save
-      expect(request.last_public_response_at).to eq(old_date)
+      time_travel_to(21.days.ago)
+
+      request = FactoryGirl.create(:info_request, :user => user)
+      message1 = FactoryGirl.create(:incoming_message, :info_request => request)
+      event1 =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message1,
+                                                :event_type => 'response')
+
+      back_to_the_present
+      time_travel_to(2.days.ago)
+
+      message2 = FactoryGirl.create(:incoming_message, :info_request => request)
+      event2 =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message2,
+                                                :event_type => 'response')
+
+      back_to_the_present
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event2.created_at)
+
+      message2.update_attributes(:prominence => 'hidden')
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event1.created_at)
     end
 
     it 'sets last_public_response_at to nil when the only response is destroyed' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request)
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request)
       FactoryGirl.create(:info_request_event, :info_request => request,
                                               :incoming_message => message,
-                                              :created_at => old_date,
                                               :event_type => 'response')
       message.destroy
       expect(request.last_public_response_at).to be_nil
     end
 
     it 'reverts last_public_response_at when the latest response is destroyed' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message1 = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                       :info_request => request)
-      message2 = FactoryGirl.create(:incoming_message, :created_at => recent_date,
-                                                       :info_request => request)
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message1,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message2,
-                                              :created_at => recent_date,
-                                              :event_type => 'response')
-      expect(request.last_public_response_at).to eq(recent_date)
+      time_travel_to(21.days.ago)
+
+      request = FactoryGirl.create(:info_request, :user => user)
+      message1 = FactoryGirl.create(:incoming_message, :info_request => request)
+      event1 =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message1,
+                                                :event_type => 'response')
+
+      back_to_the_present
+      time_travel_to(2.days.ago)
+
+      message2 = FactoryGirl.create(:incoming_message, :info_request => request)
+      event2 =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message2,
+                                                :event_type => 'response')
+
+      back_to_the_present
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event2.created_at)
+
       message2.destroy
-      expect(request.last_public_response_at).to eq(old_date)
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event1.created_at)
     end
 
     it 'sets last_public_response_at when a hidden response is unhidden' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request,
+      time_travel_to(21.days.ago)
+
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request,
                                                       :prominence => 'hidden')
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
-      message.prominence = 'normal'
-      message.save
-      expect(request.last_public_response_at).to eq(old_date)
+      event =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message,
+                                                :event_type => 'response')
+      back_to_the_present
+
+      message.update_attributes(:prominence => 'normal')
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event.created_at)
     end
 
   end
