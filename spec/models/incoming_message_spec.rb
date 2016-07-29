@@ -489,6 +489,12 @@ describe 'when destroying a message' do
       to eq([outgoing_message])
   end
 
+  it 'destroys the associated raw email' do
+    raw_email = incoming_message.raw_email
+    incoming_message.destroy
+    expect(RawEmail.where(:id => raw_email.id)).to be_empty
+  end
+
   context 'with attachments' do
     let(:incoming_with_attachment) {
       FactoryGirl.create(:incoming_message_with_html_attachment)
