@@ -81,7 +81,14 @@
   <% if @attention_requests.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#attention-messages" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@attention_requests.size%></span><%= chevron_right %> Review requests marked by users as requiring your attention
+        <a class="accordion-toggle" href="#attention-messages"
+         data-toggle="collapse" data-parent="things-to-do">
+          <span class="label label-important">
+            <%= @attention_requests.size %>
+          </span>
+          <%= chevron_right %>
+          Review requests reported by users as requiring administrator
+          attention
         </a>
       </div>
       <div id="attention-messages" class="accordion-body collapse">
@@ -106,7 +113,14 @@
   <% if @requires_admin_requests.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#requires-admin" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@requires_admin_requests.size%></span><%= chevron_right %> These require administrator attention</a>
+        <a class="accordion-toggle" href="#requires-admin"
+         data-toggle="collapse" data-parent="things-to-do">
+          <span class="label label-important">
+            <%=@requires_admin_requests.size%>
+          </span>
+          <%= chevron_right %>
+          Review requests marked by the requester as requiring
+          administrator attention</a>
       </div>
       <div id="requires-admin" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
@@ -141,7 +155,7 @@
                   <%= public_body_both_links(@blank_contact) %>
                 </td>
                 <td class="span2">
-                  <%=simple_date(@blank_contact.updated_at)%>
+                  <%= simple_date(@blank_contact.updated_at) %>
                 </td>
               </tr>
             <% end %>
@@ -165,7 +179,7 @@
                   <%= request_both_links(@request) %>
                 </td>
                 <td class="span2">
-                  <%=simple_date(@request.get_last_public_response_event.created_at)%>
+                  <%= simple_date(@request.get_last_public_response_event.created_at) %>
                 </td>
               </tr>
             <% end %>
