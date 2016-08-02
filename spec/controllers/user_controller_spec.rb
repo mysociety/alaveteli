@@ -475,6 +475,16 @@ describe UserController, "when signing in" do
     expect(response).to render_template('sign')
   end
 
+  it "should show you the sign in page again if you get the email wrong" do
+    get :signin, :r => "/list"
+    expect(response).to render_template('sign')
+    post_redirect = get_last_postredirect
+    post :signin, :user_signin => { :email => 'unknown@localhost',
+                                    :password => 'NOTRIGHTPASSWORD' },
+                  :token => post_redirect.token
+    expect(response).to render_template('sign')
+  end
+
   it "should log in when you give right email/password, and redirect to where you were" do
     get :signin, :r => "/list"
     expect(response).to render_template('sign')

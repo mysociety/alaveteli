@@ -108,7 +108,9 @@ class UserController < ApplicationController
     return render :action => 'sign' unless params[:user_signin]
 
     if @post_redirect.present?
-      @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name])
+      @user_signin =
+        User.authenticate_from_form(user_signin_params,
+                                    @post_redirect.reason_params[:user_name])
     end
 
     if @post_redirect.nil? || @user_signin.errors.size > 0
@@ -522,6 +524,10 @@ class UserController < ApplicationController
 
   def user_params(key = :user)
     params.require(key).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def user_signin_params
+    params.require(:user_signin).permit(:email, :password)
   end
 
   def is_modal_dialog
