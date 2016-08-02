@@ -9,14 +9,10 @@
       'marked to no longer receive responses.',
       :title => @info_request.title) %>
 
-
-
 <%= _('If this is incorrect, or you would like to send a late response to ' \
       'the request or an email on another subject to {{user}}, then please ' \
       'email {{contact_email}} for help.', :user => @info_request.user.name,
       :contact_email => @contact_email) %>
-
-<%= _('Your original message is attached.') %>
 
 -- <%= _('the {{site_name}} team', :site_name => site_name) %>
 
