@@ -75,10 +75,11 @@ describe ApplicationMailer do
         expect(@mail.body).to match('Core only')
       end
 
-      it 'should render an empty body if the template is in neither core nor theme' do
+      it 'should raise a missing template error if the template is in
+          neither core nor theme' do
         prepend_theme_views('theme_one')
-        @mail = ApplicationMailer.neither
-        expect(@mail.body).to be_empty
+        expect{ @mail = ApplicationMailer.neither }
+          .to raise_error(ActionView::MissingTemplate)
       end
 
       it 'should render a multipart email using a theme template' do
@@ -121,10 +122,11 @@ describe ApplicationMailer do
         expect(@mail.body).to match('Core only')
       end
 
-      it 'should render an empty body if the template is in neither core nor theme' do
+      it 'should raise a missing template error if the template is in
+          neither core nor theme' do
         append_theme_views('theme_one')
-        @mail = ApplicationMailer.neither
-        expect(@mail.body).to be_empty
+        expect{ @mail = ApplicationMailer.neither }
+          .to raise_error(ActionView::MissingTemplate)
       end
 
       it 'should render a multipart email using a core template' do
