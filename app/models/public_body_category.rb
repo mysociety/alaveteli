@@ -7,13 +7,7 @@
 #  category_tag :text             not null
 #
 
-require 'forwardable'
-
 class PublicBodyCategory < ActiveRecord::Base
-  attr_accessible :locale, :category_tag, :title, :description,
-    :translated_versions, :translations_attributes,
-    :display_order
-
   has_many :public_body_category_links, :dependent => :destroy
   has_many :public_body_headings, :through => :public_body_category_links
 

@@ -29,7 +29,7 @@ class AdminSpamAddressesController < AdminController
 
   def spam_address_params
     if params[:spam_address]
-      params[:spam_address].slice(:email)
+      params.require(:spam_address).permit(:email)
     else
       {}
     end

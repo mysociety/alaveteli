@@ -23,6 +23,9 @@ Alaveteli::Application.configure do
   # Disable request forgery protection in test environment
   config.action_controller.allow_forgery_protection = false
 
+  # Raise if unpermitted request params are detected
+  config.action_controller.action_on_unpermitted_parameters = :raise
+
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
   if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
