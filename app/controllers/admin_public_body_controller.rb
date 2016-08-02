@@ -175,7 +175,7 @@ class AdminPublicBodyController < AdminController
                                               params[:tag_behaviour],
                                               true,
                                               admin_current_user,
-                                              I18n.available_locales)
+                                              FastGettext.default_available_locales)
 
         if errors.size == 0
           if dry_run_only
@@ -189,7 +189,7 @@ class AdminPublicBodyController < AdminController
                                                   params[:tag_behaviour],
                                                   false,
                                                   admin_current_user,
-                                                  I18n.available_locales)
+                                                  FastGettext.default_available_locales)
             if errors.size != 0
               raise "dry run mismatched real run"
             end
