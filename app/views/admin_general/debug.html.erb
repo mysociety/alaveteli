@@ -1,6 +1,6 @@
 <% @title = "Debug" %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
 <p>You are <%= @admin_current_user %></p>
 
@@ -8,46 +8,48 @@
 
 <p>
   Alaveteli version: <%= @current_version %>
-<br>
-<% if @current_branch == "(no branch)" %>
-  Alaveteli branch: (no branch)
-<% else %>
-  Alaveteli branch: <%= link_to @current_branch, @github_origin + @current_branch %>
-<% end %>
-<br>
-Alaveteli commit: <%= link_to @current_commit, @github_origin + @current_commit %>
-<br>
-RUBY_VERSION <%= RUBY_VERSION %>
-<br>
-Rails::VERSION::STRING <%= Rails::VERSION::STRING%>
-<br>
-Xapian::version_string <%= Xapian::version_string%>
+  <br>
+  <% if @current_branch == "(no branch)" %>
+    Alaveteli branch: (no branch)
+  <% else %>
+    Alaveteli branch: <%= link_to @current_branch, @github_origin + @current_branch %>
+  <% end %>
+  <br>
+  Alaveteli commit: <%= link_to @current_commit, @github_origin + @current_commit %>
+  <br>
+  RUBY_VERSION <%= RUBY_VERSION %>
+  <br>
+  Rails::VERSION::STRING <%= Rails::VERSION::STRING %>
+  <br>
+  Xapian::version_string <%= Xapian::version_string %>
 </p>
 
 <h2>Configuration</h2>
 
-<p>Rails env: <%= Rails.env %>
-<br>Rails root: <%= Rails.root %>
+<p>
+  Rails env: <%= Rails.env %>
+  <br>
+  Rails root: <%= Rails.root %>
 </p>
 
 <h2>Environment variables</h2>
 <table>
   <% @request_env.each do |k,v| %>
-    <tr><td><%= k%></td><td><%= v%></td></tr>
+    <tr><td><%= k %></td><td><%= v %></td></tr>
   <% end %>
 </table>
 
 <h2>Parameters</h2>
 <table>
   <% params.each do |k,v| %>
-    <tr><td><%= k%></td><td><%= v%></td></tr>
+    <tr><td><%= k %></td><td><%= v %></td></tr>
   <% end %>
 </table>
 
 <h2>Session</h2>
 <table>
   <% session.each do |k,v| %>
-    <tr><td><%= k%></td><td><%= v%></td></tr>
+    <tr><td><%= k %></td><td><%= v %></td></tr>
   <% end %>
 </table>
 
