@@ -33,11 +33,7 @@
 }
 
 .request_short_listing {
-  margin-top:1em;
-  h3 {
-    font-size: 1.3em;
-    margin-bottom: 0.33em;
-  }
+  margin-top: 1em;
   a {
     text-decoration: none;
     &:hover,
@@ -47,6 +43,21 @@
     }
   }
 }
+
+.request_short_listing__title {
+  font-weight: normal;
+  font-size: 1em; // ~16px
+  line-height: 1.25em;
+  margin-bottom: 0.2em;
+}
+
+.request_short_listing__authority {
+  font-size: 0.875em;
+  a {
+    color: #777;
+  }
+}
+
 
 $status-success: #69952F;
 $status-failure: #C1272D;

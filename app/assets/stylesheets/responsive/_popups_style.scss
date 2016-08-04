@@ -30,28 +30,3 @@
   overflow:hidden;
   float:right;
 }
-
-/* Box that appears when you click the link icon in a request thread */
-#link_box {
-  text-align:left;
-  background-color:#FFF;
-  opacity:0.9;
-  border-radius:6px;
-  -moz-border-radius:6px;
-  border:1px solid #444;
-  padding:5px;
-}
-
-#link_box .close-button {
-  background-color:#444;
-  margin-left:15px;
-  padding:0;
-}
-
-a.link_to_this {
-  display:inline-block;
-  width:20px;
-  letter-spacing:-1000em;
-  overflow:hidden;
-  background:image-url('link-icon.png') no-repeat;
-}

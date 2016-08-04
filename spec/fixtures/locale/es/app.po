@@ -1950,8 +1950,8 @@ msgid "Password: (again)"
 msgstr "Contraseña: (otra vez)"
 
 #: app/views/layouts/default.rhtml:153
-msgid "Paste this link into emails, tweets, and anywhere else:"
-msgstr "Pegue este enlace en correos, tweets, o cualquier otro sitio XOXO:"
+msgid "Back to content"
+msgstr "Volver al contenido XOXO"
 
 #: app/views/general/search.rhtml:177
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"

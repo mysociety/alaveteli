@@ -65,9 +65,11 @@
     </div>
   <% end %>
 
-  <script type="text/javascript">
-    var graphs_data = <%= @graph_list.to_json.html_safe %>;
-  </script>
-  <!--[if lte IE 8]><%= javascript_include_tag "excanvas.min.js" %><![endif]-->
-  <%= javascript_include_tag "stats" %>
+  <% content_for :javascript do %>
+    <script type="text/javascript">
+      var graphs_data = <%= @graph_list.to_json.html_safe %>;
+    </script>
+    <!--[if lte IE 8]><%= javascript_include_tag "excanvas.min.js" %><![endif]-->
+    <%= javascript_include_tag "stats" %>
+  <% end %>
 </div>

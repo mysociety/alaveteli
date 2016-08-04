@@ -5,13 +5,67 @@ $color-delivery-delivered: #69952F !default; // green
 $color-delivery-failed: #D83838 !default; // red
 
 .correspondence {
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   margin: 0 0 1em;
 
   h2 {
     margin-top: 0;
     text-align:right;
     font-size:1em;
+  }
+}
+
+.correspondence__header {
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+
+.correspondence__header__date,
+.correspondence__header__date:visited {
+  font-size: 0.875em;
+  color: #777;
+  text-decoration: none;
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+.correspondence__footer {
+  background-color: #f4f4f4;
+  border-top: 1px solid #ddd;
+  position: relative;
+}
+
+.correspondence__footer__cplink {
+
+}
+
+.cplink__label {
+  color: #777;
+}
+
+input.cplink__field {
+  box-shadow: none;
+  border: 1px solid #E9E9E9;
+  border-right-color: #ddd; //so it appears part of the button, but still changes when this field is focused
+  color: #777;
+  border-radius: 3px 0 0 3px;
+}
+
+.cplink__button {
+  color: #777;
+  background-color: #eaeaea;
+  border: 1px solid #ddd;
+  border-left: 0;
+  border-radius: 0 3px 3px 0;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #eaeaea;
+    color: #333;
   }
 }
 
@@ -63,21 +117,40 @@ div.comment_in_request {
   margin-right:0.5em;
 }
 
-a img.attachment_image {
-  float:left;
-  border:0;
-  vertical-align:middle;
-  margin:0 0.2em 0.2em 0;
+.attachments {
+  border: 1px solid #e9e9e9;
 }
 
-.attachments hr.top {
-  clear:both;
-  margin:0 0 1em;
+.attachments__header {
+  padding: 1em;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #e9e9e9;
+  h3 {
+    font-size: 1em;
+    margin: 0;
+  }
 }
 
-.attachments hr.bottom {
-  clear:both;
-  margin:1em 0 0;
+.attachment {
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.attachment__name {
+  margin-bottom: 0.25em;
+}
+
+.attachment__meta {
+  font-size: 0.875em;
+  color: #666;
+  a {
+    color: #666;
+    text-decoration: underline;
+    &:hover,
+    &:active,
+    &:focus {
+      color: #333;
+    }
+  }
 }
 
 .describe_state_form,#other_recipients {
@@ -134,9 +207,8 @@ a img.attachment_image {
 }
 
 .toggle-delivery-log {
-  padding-right: 8px + 16px;
-  margin-right: 4px; // remember also ~4px from whitespace character after inline element
-  background: transparent none 100% 50% no-repeat;
+  padding-left: 8px + 16px;
+  background: transparent none 0 50% no-repeat;
   background-size: 16px 16px;
 
   // Preload the spinner image, because the ajax request

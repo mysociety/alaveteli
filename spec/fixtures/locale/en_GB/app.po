@@ -1799,7 +1799,7 @@ msgid "Password: (again)"
 msgstr ""
 
 #: app/views/layouts/default.rhtml:153
-msgid "Paste this link into emails, tweets, and anywhere else:"
+msgid "Back to content"
 msgstr ""
 
 #: app/views/general/search.rhtml:177
