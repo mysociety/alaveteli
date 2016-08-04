@@ -147,6 +147,10 @@ class ApplicationController < ActionController::Base
     session[:ttl] = nil
   end
 
+  def show_detailed_exceptions?
+    true
+  end
+
   def render_exception(exception)
     # In development or the admin interface let Rails handle the exception
     # unless it's for the favicon as this breaks the REPL in better_errors
