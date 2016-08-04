@@ -79,7 +79,6 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'test-unit', '~> 3.1.0'
-  gem 'spork-rails', '~> 4.0.0'
   gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
 end
 

@@ -318,10 +318,6 @@ GEM
       eventmachine (~> 1.0.0)
       thin (>= 1.5, < 1.7)
     slop (3.6.0)
-    spork (1.0.0rc4)
-    spork-rails (4.0.0)
-      rails (>= 3.0.0, < 5)
-      spork (>= 1.0rc0)
     sprockets (2.2.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -426,7 +422,6 @@ DEPENDENCIES
   sass (= 3.4.21)
   sass-rails (~> 3.2.3)
   secure_headers (~> 3.1.2)
-  spork-rails (~> 4.0.0)
   statistics2 (~> 0.54)
   strip_attributes!
   strong_parameters (~> 0.2.3)
@@ -442,3 +437,6 @@ DEPENDENCIES
   xapian-full-alaveteli (~> 1.2.21.1)
   xml-simple (~> 1.1.2)
   zip (~> 2.0.2)
+
+BUNDLED WITH
+   1.12.5
