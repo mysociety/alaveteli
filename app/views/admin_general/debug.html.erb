@@ -32,21 +32,21 @@ Xapian::version_string <%= Xapian::version_string%>
 
 <h2>Environment variables</h2>
 <table>
-  <% for k,v in @request_env %>
+  <% @request_env.each do |k,v| %>
     <tr><td><%= k%></td><td><%= v%></td></tr>
   <% end %>
 </table>
 
 <h2>Parameters</h2>
 <table>
-  <% for k,v in params %>
+  <% params.each do |k,v| %>
     <tr><td><%= k%></td><td><%= v%></td></tr>
   <% end %>
 </table>
 
 <h2>Session</h2>
 <table>
-  <% for k,v in session %>
+  <% session.each do |k,v| %>
     <tr><td><%= k%></td><td><%= v%></td></tr>
   <% end %>
 </table>
