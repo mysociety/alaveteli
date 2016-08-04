@@ -105,6 +105,13 @@ describe "When administering the site" do
         expect(page).to have_content "joe_admin"
       end
     end
+
+    it "should show the current Alaveteli version" do
+      using_session(@admin) do
+        visit admin_debug_path
+        expect(page).to have_content ALAVETELI_VERSION
+      end
+    end
   end
 
   describe 'when administering the holding pen' do
