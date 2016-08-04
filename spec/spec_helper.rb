@@ -87,6 +87,14 @@ RSpec.configure do |config|
     ActionMailer::Base.deliveries = []
   end
 
+  # For integration tests, make sure the app renders exceptions rather
+  # than passing them to the test itself.
+  config.before(:each) do |example|
+    if [:request].include? example.metadata[:type]
+      Rails.application.config.action_dispatch.show_exceptions = true
+    end
+  end
+
   # Any test that messes with the locale needs to restore the state afterwards so that it
   # doesn't interfere with any subsequent tests. This is made more complicated by the
   # ApplicationController#set_gettext_locale which sets the locale and so you may be setting
