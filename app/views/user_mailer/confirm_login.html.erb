@@ -1,0 +1,19 @@
+<p><strong><%= raw @name %></strong>,<p>
+
+<p>
+  <%= _('Please click on the link below to confirm your email address.') %>
+  <%= raw @reasons[:email] %>
+</p>
+
+<p>
+  <%= link_to _('Confirm your account'), @url %>
+</p>
+
+<p>
+  <%= _('We will not reveal your email address to anybody ' \
+        'unless you or the law tell us to.') %>
+</p>
+
+<p>
+  -- <%= _('the {{site_name}} team', :site_name => site_name) %>
+</p>
