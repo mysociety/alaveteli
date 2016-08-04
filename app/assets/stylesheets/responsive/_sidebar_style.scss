@@ -27,6 +27,7 @@
   }
 }
 
+/* Old-style "act" */
 .act_link a {
   line-height: 1.5em;
   padding-left: 20px;
@@ -37,21 +38,24 @@
 }
 
 .act_link--facebook a {
-  background-image: image-url('facebook-16.png');
+  background-image: image-url('facebook.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url('facebook-32.png');
+    background-image: image-url('facebook@2.png');
   }
 }
 
 .act_link--medium a {
-  background-image: image-url('medium-16.png');
+  background-image: image-url('medium.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url('medium-32.png');
+    background-image: image-url('medium@2.png');
   }
 }
 
 .act_link--twitter a {
-  background-image: image-url('twitter-16.png');
+  background-image: image-url('twitter.png');
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('twitter@2.png');
+  }
 }
 
 .act_link--wordpress a {
@@ -60,4 +64,26 @@
 
 .act_link--widget a {
   background-image: image-url('widget.png');
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('widget@2.png');
+  }
 }
+
+/* New-style "share" */
+.sidebar__share {
+  .act_link {
+    display: inline-block;
+    margin-right: 0.5em;
+  }
+
+  .act_link a {
+    background-size: 24px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    @extend .image-replacement;
+  }
+}
+
