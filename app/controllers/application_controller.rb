@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   helper_method :anonymous_cache, :short_cache, :medium_cache, :long_cache
   def anonymous_cache(time)
     if session[:user_id].nil?
-      expires_in time, :public => true
+      headers['Cache-Control'] = "max-age=#{time}, public"
     end
   end
 
@@ -145,6 +145,10 @@ class ApplicationController < ActionController::Base
     session[:change_password_post_redirect_id] = nil
     session[:post_redirect_token] = nil
     session[:ttl] = nil
+  end
+
+  def show_detailed_exceptions?
+    true
   end
 
   def render_exception(exception)

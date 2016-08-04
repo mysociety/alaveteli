@@ -4,6 +4,13 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe "When errors occur" do
 
   def set_consider_all_requests_local(value)
+    method = Rails.application.method(:env_config)
+    allow(Rails.application).to receive(:env_config).with(no_args) do
+      method.call.merge(
+          'action_dispatch.show_exceptions' => true,
+          'consider_all_requests_local' => value
+      )
+    end
     @requests_local = Rails.application.config.consider_all_requests_local
     Rails.application.config.consider_all_requests_local = value
   end
