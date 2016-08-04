@@ -98,6 +98,15 @@ describe "When administering the site" do
     expect(holding_pen_messages.length).to eq(0)
   end
 
+  describe "the debug page" do
+    it "should show the current user name" do
+      using_session(@admin) do
+        visit admin_debug_path
+        expect(page).to have_content "joe_admin"
+      end
+    end
+  end
+
   describe 'when administering the holding pen' do
 
     it "shows a rejection reason for an incoming message from an invalid address" do
