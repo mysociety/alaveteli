@@ -37,7 +37,14 @@
         <%= _('<strong>Warning:</strong> This message has <strong>not yet ' \
                  'been sent</strong> for an unknown reason.') %>
       <% end %>
-      <%= link_to _("Link to this"), outgoing_message_path(outgoing_message), :class => "link_to_this" %>
-    </p>
+      </p>
+
+      <div class="correspondence__footer">
+        <div class="correspondence__footer__cplink">
+          <input type="text" id="cplink__field" class="cplink__field" value="<%= outgoing_message_url(outgoing_message) %>">
+          <button class="cplink__button button"><%= _('Link to this') %></button>
+        </div>
+      </div>
+
   <%- end %>
 </div>

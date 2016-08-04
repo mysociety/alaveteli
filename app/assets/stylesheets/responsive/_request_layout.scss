@@ -43,6 +43,12 @@
   }
 }
 
+.correspondence {
+  h2 {
+    padding: 1.2em 1.2em 0;
+  }
+}
+
 .correspondence_delivery {
   padding: 1em;
 
@@ -82,10 +88,46 @@
   padding: 1.2em;
 }
 
+.correspondence__footer {
+  padding: 0.6em 1.2em;
+ }
 
 /* Event history details */
 #request_details {
   table {
     margin-bottom:1em;
   }
+}
+
+.correspondence__footer__cplink {
+  @include flexbox();
+}
+
+.cplink__label {
+  @include flex(0 0 auto);
+  margin-right: 0.5em;
+  white-space: nowrap;
+  font-size: 0.875em;
+  height: 2em; //match cplink_field
+  padding: 0.5em 0;
+  line-height: 1em;
+}
+
+input.cplink__field {
+  @include flex(1 0 8em);
+  height: 2em;
+  padding: 0 0.5em;
+  margin-bottom: 0;
+  @include ie8 {
+    width: 100%;
+  }
+}
+
+.cplink__button {
+  @include flex(0 0 auto);
+  padding: 0.5em;
+  font-size: 0.875em;
+  height: 2em; //match cplink_field
+  margin-bottom: 0;
+  line-height: 1em;
 }

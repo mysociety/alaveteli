@@ -28,8 +28,14 @@
       <% if !@user.nil? && @user.admin_page_links? %>
         <%= link_to "Admin", edit_admin_incoming_message_path(incoming_message.id) %> |
       <% end %>
-
-      <%= link_to _("Link to this"), incoming_message_path(incoming_message), :class => "link_to_this" %>
     </p>
+
+    <div class="correspondence__footer">
+      <div class="correspondence__footer__cplink">
+        <input type="text" id="cplink__field" class="cplink__field" value="<%= incoming_message_url(incoming_message) %>">
+        <button class="cplink__button button"><%= _('Link to this') %></button>
+      </div>
+    </div>
+    
   <%- end %>
 </div>

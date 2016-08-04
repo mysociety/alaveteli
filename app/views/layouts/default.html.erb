@@ -119,12 +119,6 @@
       <% end %>
 
     </div>
-    <div id="link_box"><span class="close-button">X</span>
-      <%= _("Paste this link into emails, tweets, and anywhere else:") %>
-      <br />
-      <label class="visually-hidden" for="link_box__text">Link</label>
-      <input type="text" id="link_box__text">
-    </div>
     <%
         unless AlaveteliConfiguration::ga_code.empty? || (@user && @user.super?) %>
       <script>
@@ -139,6 +133,9 @@
     <% end %>
 
     <%= render :partial => 'general/before_body_end' %>
-    <a href="#content" class="show-with-keyboard-focus-only skip-to-link">Back to content</a>
+
+    <a href="#content" class="show-with-keyboard-focus-only skip-to-link">
+      <%= _('Back to content') %>
+    </a>
   </body>
 </html>
