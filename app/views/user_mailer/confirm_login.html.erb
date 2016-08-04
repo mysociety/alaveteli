@@ -6,7 +6,9 @@
 </p>
 
 <p>
-  <%= link_to _('Confirm your account'), @url %>
+  <%= link_to @url, :style => "color: #{ link_color }" do %>
+    <%= _('Confirm your account') %>
+  <% end %>
 </p>
 
 <p>
