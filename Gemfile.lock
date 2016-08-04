@@ -220,6 +220,8 @@ GEM
     rack (1.5.5)
     rack-protection (1.5.3)
       rack
+    rack-ssl (1.3.4)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-utf8_sanitizer (1.3.2)
@@ -391,6 +393,7 @@ DEPENDENCIES
   pry-debugger (~> 0.2.3)
   quiet_assets (~> 1.1.0)
   rack (~> 1.5.5)
+  rack-ssl (~> 1.3.2)
   rack-utf8_sanitizer (~> 1.3.0)
   rails (= 4.0.13)
   rails-i18n (~> 4.0.9)
