@@ -162,6 +162,10 @@ class ApplicationController < ActionController::Base
     false
   end
 
+  def show_detailed_exceptions?
+    true
+  end
+
   def render_exception(exception)
     # In development or the admin interface let Rails handle the exception
     # with its stack trace templates
