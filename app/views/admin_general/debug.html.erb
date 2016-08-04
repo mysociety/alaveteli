@@ -2,7 +2,7 @@
 
 <h1><%=@title%></h1>
 
-<p>You are <%= h @admin_current_user %></p>
+<p>You are <%= @admin_current_user %></p>
 
 <h2>Version numbers</h2>
 
@@ -17,37 +17,37 @@
 <br>
 Alaveteli commit: <%= link_to @current_commit, @github_origin + @current_commit %>
 <br>
-RUBY_VERSION <%=h RUBY_VERSION %>
+RUBY_VERSION <%= RUBY_VERSION %>
 <br>
-Rails::VERSION::STRING <%=h Rails::VERSION::STRING%>
+Rails::VERSION::STRING <%= Rails::VERSION::STRING%>
 <br>
-Xapian::version_string <%=h Xapian::version_string%>
+Xapian::version_string <%= Xapian::version_string%>
 </p>
 
 <h2>Configuration</h2>
 
-<p>Rails env: <%=h Rails.env %>
-<br>Rails root: <%=h Rails.root %>
+<p>Rails env: <%= Rails.env %>
+<br>Rails root: <%= Rails.root %>
 </p>
 
 <h2>Environment variables</h2>
 <table>
   <% for k,v in @request_env %>
-    <tr><td><%=h k%></td><td><%=h v%></td></tr>
+    <tr><td><%= k%></td><td><%= v%></td></tr>
   <% end %>
 </table>
 
 <h2>Parameters</h2>
 <table>
   <% for k,v in params %>
-    <tr><td><%=h k%></td><td><%=h v%></td></tr>
+    <tr><td><%= k%></td><td><%= v%></td></tr>
   <% end %>
 </table>
 
 <h2>Session</h2>
 <table>
   <% for k,v in session %>
-    <tr><td><%=h k%></td><td><%=h v%></td></tr>
+    <tr><td><%= k%></td><td><%= v%></td></tr>
   <% end %>
 </table>
 
