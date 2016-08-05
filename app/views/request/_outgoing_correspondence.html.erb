@@ -37,6 +37,10 @@
         <%= _('<strong>Warning:</strong> This message has <strong>not yet ' \
                  'been sent</strong> for an unknown reason.') %>
       <% end %>
+
+      <% if !@user.nil? && @user.admin_page_links? %>
+        <%= link_to "Admin", edit_admin_outgoing_message_path(outgoing_message.id) %>
+      <% end %>
       </p>
 
       <div class="correspondence__footer">
