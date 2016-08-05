@@ -26,7 +26,7 @@
 
     <p class="event_actions">
       <% if !@user.nil? && @user.admin_page_links? %>
-        <%= link_to "Admin", edit_admin_incoming_message_path(incoming_message.id) %> |
+        <%= link_to "Admin", edit_admin_incoming_message_path(incoming_message.id) %>
       <% end %>
     </p>
 
