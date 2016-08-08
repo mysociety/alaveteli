@@ -390,7 +390,7 @@ class RequestController < ApplicationController
     end
 
     flash[:request_sent] = true
-    redirect_to show_new_request_path(:url_title => @info_request.url_title)
+    redirect_to show_request_path(:url_title => @info_request.url_title)
   end
 
   # Submitted to the describing state of messages form
