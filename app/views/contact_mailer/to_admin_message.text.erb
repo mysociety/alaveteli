@@ -4,7 +4,8 @@
 <%= _('Message sent using {{site_name}} contact form, ',
       :site_name => site_name) %>
 <%= @logged_in_user ?
-  _("logged in as user {{user_name}}", :user_name => user_url(@logged_in_user)) :
+  _("logged in as user {{user_name}}",
+    :user_name => user_url(@logged_in_user)) :
   _("not logged in") %>
 <% if @last_request %>
 <%= _('Last request viewed: {{request_url}}',

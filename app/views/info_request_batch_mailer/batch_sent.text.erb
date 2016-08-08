@@ -1,4 +1,5 @@
-<%= _('Your batch request "{{title}}" has been sent', :title => @info_request_batch.title) %>
+<%= _('Your batch request "{{title}}" has been sent',
+      :title => @info_request_batch.title) %>
 
 
 <%= _('Follow this link to see the requests:')%>
@@ -6,8 +7,11 @@
 <%= @url %>
 
 <% if !@unrequestable.empty? %>
-<%= _('Unfortunately, we do not have a working address for {{public_body_names}}.',   :public_body_names => @unrequestable.map{|body| body.name}.join(",")) %>
-<%= _('You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:') %>
+<%= _('Unfortunately, we do not have a working address for ' \
+      '{{public_body_names}}.',
+      :public_body_names => @unrequestable.map{|body| body.name}.join(",")) %>
+<%= _('You may be able to find one on their website, or by phoning them ' \
+      'up and asking. If you manage to find one, then please send it to us:') %>
 
 <%= help_contact_url %>
 

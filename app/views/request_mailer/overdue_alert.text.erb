@@ -5,12 +5,12 @@
       :law_used_short => @info_request.law_used_human(:short),
       :title => @info_request.title) %>.
 
-<%= _('Click on the link below to send a message to {{public_body}} reminding ' \
-      'them to reply to your request.',
+<%= _('Click on the link below to send a message to {{public_body}} ' \
+      'reminding them to reply to your request.',
       :public_body => @info_request.public_body.name) %>
 
 <%= @url %>
 
--- <%= _('the {{site_name}} team', :site_name=>site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name) %>
 
 

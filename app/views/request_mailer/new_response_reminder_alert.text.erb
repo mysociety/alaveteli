@@ -1,10 +1,13 @@
-<%=_('To let everyone know, follow this link and then select the appropriate box.')%>
+<%=_('To let everyone know, follow this link and then select the ' \
+     'appropriate box.')%>
 
 <%=@url%>
 
-<%= _('Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on',:info_request=>@info_request.title)%>
+<%= _('Your request was called {{info_request}}. Letting everyone know ' \
+      'whether you got the information will help us keep tabs on',
+      :info_request => @info_request.title) %>
 <%= raw @info_request.public_body.name %>.
 
--- <%= _('the {{site_name}} team', :site_name=>site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name) %>
 
 
