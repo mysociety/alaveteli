@@ -30,8 +30,8 @@ describe "When creating requests" do
     using_session(admin) do
       visit confirm_path(:email_token => post_redirect.email_token)
 
-      expect(current_url).to match(%r(/request/(.+)/new))
-      current_url =~ %r(/request/(.+)/new)
+      expect(current_url).to match(%r(/request/(.+)))
+      current_url =~ %r(/request/(.+))
       url_title = $1
       info_request = InfoRequest.find_by_url_title(url_title)
       expect(info_request).not_to be_nil
