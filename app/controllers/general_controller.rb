@@ -35,6 +35,13 @@ class GeneralController < ApplicationController
     end
 
     medium_cache
+
+    get_blog_content
+
+    respond_to :html
+  end
+
+  def get_blog_content
     @feed_autodetect = []
     @feed_url = AlaveteliConfiguration::blog_feed
     separator = @feed_url.include?('?') ? '&' : '?'
@@ -55,8 +62,6 @@ class GeneralController < ApplicationController
       end
     end
     @twitter_user = AlaveteliConfiguration::twitter_username
-
-    respond_to :html
   end
 
   # Just does a redirect from ?query= search to /query
