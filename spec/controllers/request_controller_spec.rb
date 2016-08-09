@@ -1036,6 +1036,18 @@ describe RequestController, "when creating a new request" do
     expect(response).to render_template('new')
   end
 
+  it 'assigns a default text for the request' do
+    get :new, :public_body_id => @body.id
+    expect(assigns[:info_request].public_body).to eq(@body)
+    expect(response).to render_template('new')
+    default_message = <<-EOF.strip_heredoc
+    Dear Geraldine Quango,
+
+    Yours faithfully,
+    EOF
+    expect(assigns[:outgoing_message].body).to include(default_message.strip)
+  end
+
   it 'should display one meaningful error message when no message body is added' do
     post :new, :info_request => { :public_body_id => @body.id },
       :outgoing_message => { :body => "" },
@@ -1124,10 +1136,7 @@ describe RequestController, "when creating a new request" do
     mail = deliveries[0]
     expect(mail.body).to match(/This is a silly letter. It is too short to be interesting./)
 
-    expect(response).to redirect_to show_new_request_url(:url_title => ir.url_title)
-    # This test uses an explicit path because it's relied in
-    # Google Analytics goals:
-    expect(response.redirect_url).to match(/request\/why_is_your_quango_called_gerald\/new$/)
+    expect(response).to redirect_to show_request_url(:url_title => ir.url_title)
   end
 
   it "sets the request_sent flash to true if successful" do
@@ -1173,7 +1182,7 @@ describe RequestController, "when creating a new request" do
 
     expect(ir.url_title).not_to eq(ir2.url_title)
 
-    expect(response).to redirect_to show_new_request_url(:url_title => ir2.url_title)
+    expect(response).to redirect_to show_request_url(:url_title => ir2.url_title)
   end
 
   it 'should respect the rate limit' do
@@ -1185,14 +1194,14 @@ describe RequestController, "when creating a new request" do
     :title => "What is the answer to the ultimate question?", :tag_string => "" },
       :outgoing_message => { :body => "Please supply the answer from your files." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
+    expect(response).to redirect_to show_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "Why did the chicken cross the road?", :tag_string => "" },
       :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
+    expect(response).to redirect_to show_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "What's black and white and red all over?", :tag_string => "" },
@@ -1212,20 +1221,20 @@ describe RequestController, "when creating a new request" do
     :title => "What is the answer to the ultimate question?", :tag_string => "" },
       :outgoing_message => { :body => "Please supply the answer from your files." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
+    expect(response).to redirect_to show_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "Why did the chicken cross the road?", :tag_string => "" },
       :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
+    expect(response).to redirect_to show_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "What's black and white and red all over?", :tag_string => "" },
       :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'whats_black_and_white_and_red_al')
+    expect(response).to redirect_to show_request_url(:url_title => 'whats_black_and_white_and_red_al')
   end
 
 end

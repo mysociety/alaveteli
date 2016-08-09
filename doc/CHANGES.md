@@ -4,6 +4,9 @@
 
 * Improve Public Body import from CSV documentation and page layout (Liz Conlan,
   Gareth Rees)
+* Apache and nginx example files now have far-future expiration dates for static assets
+  to allow browser-based caching (Louise Crow)
+* New requests are now recorded as virtual pageviews in Google Analytics (Louise Crow)
 
 ## Upgrade Notes
 
@@ -12,8 +15,7 @@
   httpd.conf-example` and `config/nginx.conf.example`).
 
 ### Changed Templates
-* Apache and nginx example files now have far-future expiration dates for static assets
-  to allow browser-based caching (Louise Crow)
+
 
 # Version 0.25.0.0
 

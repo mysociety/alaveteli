@@ -390,7 +390,7 @@ class RequestController < ApplicationController
     end
 
     flash[:request_sent] = true
-    redirect_to show_new_request_path(:url_title => @info_request.url_title)
+    redirect_to show_request_path(:url_title => @info_request.url_title)
   end
 
   # Submitted to the describing state of messages form
@@ -933,9 +933,16 @@ class RequestController < ApplicationController
       permit(:outgoing_message => [:body, :default_letter, :what_doing])
 
     @outgoing_message = OutgoingMessage.new(:info_request => @info_request)
-    @outgoing_message.body = permitted[:outgoing_message][:body]
-    @outgoing_message.default_letter = permitted[:outgoing_message][:default_letter]
-    @outgoing_message.what_doing = permitted[:outgoing_message][:what_doing]
+
+    if permitted[:outgoing_message][:body]
+      @outgoing_message.body = permitted[:outgoing_message][:body]
+    end
+    if permitted[:outgoing_message][:default_letter]
+      @outgoing_message.default_letter = permitted[:outgoing_message][:default_letter]
+    end
+    if permitted[:outgoing_message][:what_doing]
+      @outgoing_message.what_doing = permitted[:outgoing_message][:what_doing]
+    end
     @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
     if batch

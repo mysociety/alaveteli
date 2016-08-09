@@ -97,7 +97,11 @@
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
       ga('create', '<%= AlaveteliConfiguration::ga_code %>', 'auto');
-      ga('send', 'pageview');
+      <% if content_for? :ga_pageview %>
+        <%= content_for :ga_pageview %>
+      <% else %>
+        ga('send', 'pageview');
+      <% end %>
       </script>
     <% end %>
 
