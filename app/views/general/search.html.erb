@@ -63,11 +63,13 @@
             ["all", _("everything")]]%>
           <% for variety, label in labels %>
             <li>
-            <% if @variety_postfix != variety %>
-              <%=  link_to label, search_path([params[:query], variety, @sort_postfix]) %>
-            <% else %>
-              <%= label %>
-            <% end %>
+              <% if @variety_postfix != variety %>
+                <%=  link_to label, search_path([params[:query], variety, @sort_postfix]) %>
+              <% else %>
+                <span>
+                  <%= label %>
+                </span>
+              <% end %>
             </li>
           <% end %>
           </ul>
