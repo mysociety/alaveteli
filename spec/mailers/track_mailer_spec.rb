@@ -169,6 +169,8 @@ describe TrackMailer do
   describe 'delivering the email' do
 
     before :each do
+      allow(AlaveteliConfiguration).to receive(:site_name).
+        and_return("L'information")
       @post_redirect = mock_model(PostRedirect, :save! => true,
                                   :email_token => "token")
       allow(PostRedirect).to receive(:new).and_return(@post_redirect)
@@ -196,6 +198,14 @@ describe TrackMailer do
       expect(mail['Precedence'].to_s).to eq('bulk')
 
       deliveries.clear
+    end
+
+    it "does not include HTMLEntities in the subject line" do
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+
+      expect(mail.subject).to eq "Your L'information email alert"
     end
 
     context "force ssl is off" do

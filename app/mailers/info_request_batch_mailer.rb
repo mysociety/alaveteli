@@ -21,6 +21,6 @@ class InfoRequestBatchMailer < ApplicationMailer
     mail(:from => contact_from_name_and_email,
          :to => user.name_and_email,
          :subject => _("Your batch request \"{{title}}\" has been sent",
-                       :title => info_request_batch.title))
+                       :title => info_request_batch.title.html_safe))
   end
 end

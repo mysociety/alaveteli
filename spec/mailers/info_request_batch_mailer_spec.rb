@@ -17,6 +17,13 @@ describe InfoRequestBatchMailer do
       expect(@mail.subject).to eq('Your batch request "Example title" has been sent')
     end
 
+    it "does not add HTMLEntities to the subject line" do
+      batch = FactoryGirl.create(:info_request_batch, :title => "Apostrophe's")
+      mail = InfoRequestBatchMailer.batch_sent(batch, @unrequestable, @user)
+      expect(mail.subject).
+        to eq('Your batch request "Apostrophe\'s" has been sent')
+    end
+
     it 'renders the receiver email' do
       expect(@mail.to).to eq([@user.email])
     end
