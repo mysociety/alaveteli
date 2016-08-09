@@ -2,7 +2,7 @@
 
 ---------------------------------------------------------------------
 <%= _('Message sent using {{site_name}} contact form, ',
-      :site_name => site_name) %>
+      :site_name => site_name.html_safe) %>
 <%= @logged_in_user ?
   _("logged in as user {{user_name}}",
     :user_name => user_url(@logged_in_user)) :

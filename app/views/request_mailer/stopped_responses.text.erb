@@ -1,22 +1,21 @@
 <%= _('The email that you, on behalf of {{public_body}}, sent to ' \
       '{{user}} to reply to an {{law_used_short}} request has not ' \
       'been delivered.',
-      :public_body => @info_request.public_body.name,
-      :user => @info_request.user.name,
-      :law_used_short => @info_request.law_used_human(:short)) %>
+      :public_body => @info_request.public_body.name.html_safe,
+      :user => @info_request.user.name.html_safe,
+      :law_used_short => @info_request.law_used_human(:short).html_safe) %>
 
 <%= _('This is because {{title}} is an old request that has been ' \
       'marked to no longer receive responses.',
-      :title => @info_request.title) %>
+      :title => @info_request.title.html_safe) %>
 
 <%= _('If this is incorrect, or you would like to send a late response to ' \
       'the request or an email on another subject to {{user}}, then please ' \
       'email {{contact_email}} for help.',
-      :user => @info_request.user.name,
-      :contact_email => @contact_email) %>
+      :user => @info_request.user.name.html_safe,
+      :contact_email => @contact_email.html_safe) %>
 
--- <%= _('the {{site_name}} team', :site_name => site_name) %>
-
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>
 
 
 

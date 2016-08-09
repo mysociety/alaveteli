@@ -1,7 +1,7 @@
 <%= _('{{public_body}} has asked you to explain part of your {{law_used}} ' \
       'request.',
-      :public_body => @info_request.public_body.name,
-      :law_used => @info_request.law_used_human(:short) ) %>
+      :public_body => @info_request.public_body.name.html_safe,
+      :law_used => @info_request.law_used_human(:short).html_safe ) %>
 
 <%= _('To do this, first click on the link below.') %>
 
@@ -10,4 +10,4 @@
 <%= _('You will only get an answer to your request if you follow up ' \
       'with the clarification.') %>
 
--- <%= _('the {{site_name}} team', :site_name => site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>

@@ -1,6 +1,6 @@
 <%= _("{{user_name}} would like a new authority added to {{site_name}}",
-      :user_name => @change_request.get_user_name,
-      :site_name => site_name) %>
+      :user_name => @change_request.get_user_name.html_safe,
+      :site_name => site_name.html_safe) %>
 
 <%= _("Authority:") %>
 <%= @change_request.get_public_body_name %>

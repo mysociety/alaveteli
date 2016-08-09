@@ -1,7 +1,7 @@
 <%= _("{{user_name}} would like the email address for {{public_body_name}} " \
       "to be updated",
-      :user_name => @change_request.get_user_name,
-      :public_body_name => @change_request.get_public_body_name) %>
+      :user_name => @change_request.get_user_name.html_safe,
+      :public_body_name => @change_request.get_public_body_name.html_safe) %>
 
 <%= _("Email:") %>
 <%= @change_request.public_body_email %>

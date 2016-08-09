@@ -5,9 +5,9 @@
 
 <%= _('Your request was called {{info_request}}. Letting everyone know ' \
       'whether you got the information will help us keep tabs on',
-      :info_request => @info_request.title) %>
+      :info_request => @info_request.title.html_safe) %>
 <%= raw @info_request.public_body.name %>.
 
--- <%= _('the {{site_name}} team', :site_name => site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>
 
 

@@ -1,18 +1,18 @@
 ---------------------------------------------------------------------
 <%= _('{{user_name}} has used {{site_name}} to send you the message below.',
-      :user_name => @from_user.name,
-      :site_name => site_name) %>
+      :user_name => @from_user.name.html_safe,
+      :site_name => site_name.html_safe) %>
 <%= _('Your details, including your email address, have not been given to ' \
       'anyone.') %>
 <%= _('If you reply to this message it will go directly to {{user_name}}, ' \
       'who will learn your email address. Only reply if that is okay.',
-      :user_name => @from_user.name) %>
+      :user_name => @from_user.name.html_safe) %>
 ---------------------------------------------------------------------
 
 <%= raw @message.strip %>
 
 ---------------------------------------------------------------------
 <%= _('View Freedom of Information requests made by {{user_name}}:',
-      :user_name => @from_user.name) %>
+      :user_name => @from_user.name.html_safe) %>
 <%= @from_user_url %>
 ---------------------------------------------------------------------
