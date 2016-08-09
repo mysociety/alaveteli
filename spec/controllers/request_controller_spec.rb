@@ -1036,6 +1036,18 @@ describe RequestController, "when creating a new request" do
     expect(response).to render_template('new')
   end
 
+  it 'assigns a default text for the request' do
+    get :new, :public_body_id => @body.id
+    expect(assigns[:info_request].public_body).to eq(@body)
+    expect(response).to render_template('new')
+    default_message = <<-EOF.strip_heredoc
+    Dear Geraldine Quango,
+
+    Yours faithfully,
+    EOF
+    expect(assigns[:outgoing_message].body).to include(default_message.strip)
+  end
+
   it 'should display one meaningful error message when no message body is added' do
     post :new, :info_request => { :public_body_id => @body.id },
       :outgoing_message => { :body => "" },
