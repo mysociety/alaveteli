@@ -189,7 +189,6 @@ describe RequestController, "when showing one request" do
       title = info_requests(:badger_request).url_title
       get :show, :url_title => title
       expect(response.body).not_to have_content("This request has been reported")
-      expect(response.body).to have_content("Offensive?")
     end
   end
 
@@ -200,7 +199,6 @@ describe RequestController, "when showing one request" do
     it "should inform the user" do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
       expect(response.body).to have_content("This request has been reported")
-      expect(response.body).not_to have_content("Offensive?")
     end
 
     context "and then deemed okay and left to complete" do
