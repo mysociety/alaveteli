@@ -19,24 +19,26 @@
         if event.event_type == 'response'
           url = incoming_message_url(event.incoming_message, :cachebust => true)
           main_text += _("{{public_body}} sent a response to {{user_name}}",
-            :public_body => event.info_request.public_body.name,
-            :user_name => event.info_request.user_name)
+            :public_body => event.info_request.public_body.name.html_safe,
+            :user_name => event.info_request.user_name.html_safe)
         elsif event.event_type == 'followup_sent'
           url = outgoing_message_url(event.outgoing_message, :cachebust => true)
           main_text += _("{{user_name}} sent a follow up message to " \
                          "{{public_body}}",
-                         :user_name => event.info_request.user_name,
-                         :public_body => event.info_request.public_body.name)
+                         :user_name => event.info_request.user_name.html_safe,
+                         :public_body => event.info_request.public_body.name.
+                                           html_safe)
         elsif event.event_type == 'sent'
           # this is unlikely to happen in real life, but happens in the test code
           url = outgoing_message_url(event.outgoing_message, :cachebust => true)
           main_text += _("{{user_name}} sent a request to {{public_body}}",
-                         :user_name => event.info_request.user_name,
-                         :public_body => event.info_request.public_body.name)
+                         :user_name => event.info_request.user_name.html_safe,
+                         :public_body => event.info_request.public_body.name.
+                                           html_safe)
         elsif event.event_type == 'comment'
           url = comment_url(event.comment)
           main_text += _("{{user_name}} added an annotation",
-                         :user_name => event.comment.user.name)
+                         :user_name => event.comment.user.name.html_safe)
         else
           raise "unknown type in event_digest " + event.event_type
         end
@@ -71,4 +73,4 @@
 <% _("Please click on the link below to cancel or alter these emails.") %>
 <%=@unsubscribe_url%>
 
--- <%= _('the {{site_name}} team', :site_name => site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>
