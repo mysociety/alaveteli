@@ -67,6 +67,12 @@
             <li>
               <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => @info_request.url_title) %>
             </li>
+
+            <li>
+              <%= render :partial => 'track/rss_feed',
+                         :locals => { :track_thing => @track_thing,
+                                      :location => 'action-menu' } %>
+            </li>
           </ul>
         </li>
       </ul>
