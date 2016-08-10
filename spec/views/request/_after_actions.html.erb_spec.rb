@@ -16,7 +16,12 @@ describe 'when displaying actions that can be taken with regard to a request' do
                                                 :comments_allowed? => true,
                                                 :url_title => 'test_request',
                                                 :all_can_view? => true)
+
+        @mock_track = mock_model(TrackThing, :track_type => 'request_updates',
+                                             :info_request => @mock_request)
+
         assign :info_request, @mock_request
+        assign :track_thing, @mock_track
     end
 
     describe 'if the request is old and unclassified' do
