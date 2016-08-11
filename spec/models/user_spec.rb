@@ -459,6 +459,77 @@ describe User do
 
   end
 
+  describe '#destroy' do
+
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'destroys any associated info_requests' do
+      info_request = FactoryGirl.create(:info_request)
+      info_request.user.reload.destroy
+      expect(InfoRequest.where(:id => info_request.id)).to be_empty
+    end
+
+    it 'destroys any associated user_info_request_sent_alerts' do
+      info_request = FactoryGirl.create(:info_request)
+      alert = user.user_info_request_sent_alerts.build(:info_request => info_request,
+                                                       :alert_type => 'overdue_1')
+      user.destroy
+      expect(UserInfoRequestSentAlert.where(:id => alert.id)).to be_empty
+    end
+
+    it 'destroys any associated post_redirects' do
+      post_redirect = PostRedirect.create(:uri => '/',
+                                          :user_id => user.id)
+      user.destroy
+      expect(PostRedirect.where(:id => post_redirect.id)).to be_empty
+    end
+
+    it 'destroys any associated track_things' do
+      track_thing = FactoryGirl.create(:search_track)
+      track_thing.tracking_user.destroy
+      expect(TrackThing.where(:id => track_thing.id)).to be_empty
+    end
+
+    it 'destroys any associated comments' do
+      comment = FactoryGirl.create(:comment)
+      comment.user.destroy
+      expect(Comment.where(:id => comment.id)).to be_empty
+    end
+
+    it 'destroys any associated public_body_change_requests' do
+      change_request = FactoryGirl.create(:add_body_request)
+      change_request.user.destroy
+      expect(PublicBodyChangeRequest.where(:id => change_request.id))
+        .to be_empty
+    end
+
+    it 'destroys any associated profile_photos' do
+      profile_photo = user.create_profile_photo(:data => 'xxx')
+      user.destroy
+      expect(ProfilePhoto.where(:id => profile_photo.id)).to be_empty
+    end
+
+    it 'destroys any associated censor_rules' do
+      censor_rule = FactoryGirl.create(:user_censor_rule)
+      censor_rule.user.destroy
+      expect(CensorRule.where(:id => censor_rule.id)).to be_empty
+    end
+
+    it 'destroys any associated info_request_batches' do
+      info_request_batch = FactoryGirl.create(:info_request_batch)
+      info_request_batch.user.destroy
+      expect(InfoRequestBatch.where(:id => info_request_batch.id)).to be_empty
+    end
+
+    it 'destroys any associated request_classifications' do
+      request_classification = FactoryGirl.create(:request_classification)
+      request_classification.user.destroy
+      expect(RequestClassification.where(:id => request_classification.id))
+        .to be_empty
+    end
+
+  end
+
   describe '#valid?' do
 
     context 'with require_otp' do

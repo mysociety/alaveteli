@@ -42,16 +42,34 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation, :no_xapian_reindex
   attr_accessor :entered_otp_code
 
-  has_many :info_requests, :order => 'created_at desc'
-  has_many :user_info_request_sent_alerts
-  has_many :post_redirects, :order => 'created_at desc'
-  has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
-  has_many :comments, :order => 'created_at desc'
-  has_many :public_body_change_requests, :order => 'created_at desc'
-  has_one :profile_photo
-  has_many :censor_rules, :order => 'created_at desc'
-  has_many :info_request_batches, :order => 'created_at desc'
-  has_many :request_classifications
+  has_many :info_requests,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :user_info_request_sent_alerts,
+           :dependent => :destroy
+  has_many :post_redirects,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :track_things,
+           :foreign_key => 'tracking_user_id',
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :comments,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :public_body_change_requests,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_one :profile_photo,
+          :dependent => :destroy
+  has_many :censor_rules,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :info_request_batches,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :request_classifications,
+           :dependent => :destroy
 
   validates_presence_of :email, :message => _("Please enter your email address")
   validates_presence_of :name, :message => _("Please enter your name")
