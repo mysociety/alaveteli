@@ -12,6 +12,7 @@
   h1 {
     @include grid-column(12);
     margin-top: 0;
+    margin-bottom: 0.5em;
   }
 }
 
@@ -38,9 +39,10 @@
 
 .request-header__subtitle {
   @include grid-column(12);
+  margin-top: 0;
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     margin-bottom: 0;
-    @include grid-column(10);
+    @include grid-column(8);
   }
 }
 
@@ -52,16 +54,36 @@
   }
 }
 
-.action-menu {
-  position: relative;
-  text-align: left;
+.request-header__toolbar-actions {
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     text-align: right;
-    @include grid-column(2);
-  @media (min-width: $main_menu-mobile_menu_cutoff) {
-    text-align: right;
+    @include grid-column(4);
+    justify-content: flex-end;
+    @include flexbox();
+    align-items: stretch;
   }
+}
+
+.after-actions {
+  .action-menu__button {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+a.track-request-action {
+  width: 100%;
+  margin-top: 0.5em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    margin-left: 1em;
+    margin-top: 0;
+  }
+}
+
+.action-menu {
+  position: relative;
+  text-align: left;
 }
 
 .correspondence {

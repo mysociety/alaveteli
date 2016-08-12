@@ -6,12 +6,33 @@ $color-delivery-failed: #D83838 !default; // red
 
 .request-header__toolbar {
   background-color: #f4f4f4;
-  padding: 0.5em;
+  padding: 1em;
   @include clearfix;
 }
 
-.request-header__subtitle {
-  margin-top: 0.5em;
+.request-header {
+  h1 {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      font-size: 3em
+    }
+  }
+}
+
+a.track-request-action {
+  background-color: #2688dc;
+  border: 1px solid #2688dc;
+  padding: 0.75em 1em;
+  line-height: 1em;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  text-align: left;
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none;
+    background-color: darken(#2688dc, 10%);
+  }
 }
 
 .correspondence {
