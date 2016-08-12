@@ -36,7 +36,7 @@ describe AttachmentToHTML::Adapters::Text do
     it 'creates hyperlinks for text that looks like a url' do
       attachment = FactoryGirl.build(:body_text, :body => 'http://www.whatdotheyknow.com')
       adapter = AttachmentToHTML::Adapters::Text.new(attachment)
-      expected = %Q(<a href='http://www.whatdotheyknow.com'>http://www.whatdotheyknow.com</a>)
+      expected = %Q(<a href="http://www.whatdotheyknow.com">http://www.whatdotheyknow.com</a>)
       expect(adapter.body).to eq(expected)
     end
 
