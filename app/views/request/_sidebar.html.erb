@@ -2,17 +2,6 @@
   <div class="new-request-cta">
     <%= render :partial => "general/new_request" %>
   </div>
-  <div id="track-request" class="track-request">
-    <h2><%= _('Follow this request') %></h2>
-
-    <p>
-      <%= n_("There is {{count}} person following this request",
-             "There are {{count}} people following this request",
-             @follower_count,
-             :count => @follower_count) %>
-    </p>
-    <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user && @info_request.user == @user, :location => 'sidebar' } %>
-  </div>
 
   <div class="request__special-status">
   <% if @info_request.attention_requested %>
