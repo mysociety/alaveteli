@@ -28,8 +28,9 @@
 
 .request_icon_line {
   background-repeat:no-repeat;
-  background-position:left center;
-  padding:0 0 0 42px;
+  background-position: 1.35em 1.25em;
+  padding: 1.25em 1.25em 1.25em 3.55em;
+  background-color: #f4f4f4;
 }
 
 .request_short_listing {
@@ -58,135 +59,176 @@
   }
 }
 
-
-$status-success: #69952F;
-$status-failure: #C1272D;
-$status-pending: #A68C2E;
+$status-success: #D8EDC7;
+$status-failure: #FFDBDB;
+$status-pending: #FFF3C9;
 
 /* Status lines and icons */
 .icon_waiting_classification {
   background-image:image-url('status/classification.png');
-  color: $status-pending;
+  background-color: $status-pending;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/classification@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_waiting_response,.icon_waiting_clarification {
   background-image:image-url('status/waiting.png');
-  color: $status-pending;
+  background-color: $status-pending;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/waiting@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_attention_requested  {
   background-image:image-url('status/reported.png');
-  color: $status-pending;
+  background-color: $status-failure;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/reported@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_not_held {
   background-image:image-url('status/notheld.png');
-  color: $status-pending;
+  background-color: $status-failure;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/notheld@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_successful {
   background-image:image-url('status/successful.png');
-  color: $status-success;
+  background-color: $status-success;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/successful@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_partially_successful {
   background-image:image-url('status/partiallysuccessful.png');
-  color: $status-success;
+  background-color: $status-success;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/partiallysuccessful@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_requires_admin {
   background-image:image-url('status/unusual.png');
-  color: $status-failure;
+  background-color: $status-pending;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/unusual@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_waiting_response_overdue {
   background-image:image-url('status/delayed.png');
-  color: $status-failure;
+  background-color: $status-failure;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/delayed@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_waiting_response_very_overdue{
   background-image:image-url('status/overdue.png');
-  color: $status-failure;
+  background-color: $status-failure;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/overdue@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_gone_postal {
   background-image:image-url('status/postal.png');
-  color: $status-pending;
+  background-color: $status-pending;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/postal@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_error_message {
   background-image:image-url('status/delivery_error.png');
-  color: $status-failure;
+  background-color: $status-pending;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/delivery_error@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_internal_review {
   background-image:image-url('status/review.png');
-  color: $status-pending;
+  background-color: $status-pending;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/review@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_user_withdrawn {
   background-image:image-url('status/withdrawn.png');
-  color: $status-pending;
+  background-color: $status-pending;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/withdrawn@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
 .icon_failed,.icon_rejected {
   background-image:image-url('status/refused.png');
-  color: $status-failure;
+  background-color: $status-failure;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/refused@2x.png');
+  }
+  .request_listing & {
+    background-color: transparent;
   }
 }
 
