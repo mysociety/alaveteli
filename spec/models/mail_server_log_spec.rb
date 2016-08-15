@@ -108,10 +108,10 @@ describe MailServerLog do
   context "Exim" do
     describe ".load_exim_log_data" do
       it "sanitizes each line in the log file" do
-        allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
+        AlaveteliConfiguration.stub!(:incoming_email_domain).and_return("example.com")
 
         ir = info_requests(:fancy_dog_request)
-        allow(InfoRequest).to receive(:find_by_incoming_email).with("request-1234@example.com").and_return(ir)
+        InfoRequest.stub!(:find_by_incoming_email).with("request-1234@example.com").and_return(ir)
 
         # Log files can contain stuff which isn't valid UTF-8 sometimes when
         # things go wrong.
