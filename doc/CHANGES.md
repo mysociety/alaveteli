@@ -13,6 +13,8 @@
 * You can improve the speed of your site by making sure that far-future expiration dates
   are being set on static assets - see the examples in the example config files (`config/
   httpd.conf-example` and `config/nginx.conf.example`).
+* Install the `geoip-database-contrib` package to automatically fetch latest
+  geoip databases.
 
 ### Changed Templates
 
