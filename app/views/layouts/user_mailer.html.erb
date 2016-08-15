@@ -1,12 +1,25 @@
-<!doctype html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title><%= site_name %></title>
-    <style></style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
   </head>
-  <body class="">
-    <%= yield  %>
+  <body style="<%= style[:body] %>">
+    <table cellspacing="0" cellpadding="6" border="0" width="100%" style="<%= style[:table] %>">
+      <tr>
+        <td></td>
+        <td width="<%= settings[:content_width] %>" style="<%= style[:body] %>">
+          <img src="<%= settings[:logo_url] %>" width="<%= settings[:logo_width] %>" height="<%= settings[:logo_height] %>" style="<%= style[:logo] %>" alt="<%= site_name %>" />
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td width="<%= settings[:content_width] %>" style="<%= style[:logo] %>">
+          <%= yield %>
+        </td>
+        <td></td>
+      </tr>
+    </table>
   </body>
 </html>
