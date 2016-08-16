@@ -2,20 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= stylesheet_link_tag 'mailers/application.css' %>
     <title></title>
   </head>
-  <body style="<%= style[:body] %>">
-    <table cellspacing="0" cellpadding="6" border="0" width="100%" style="<%= style[:table] %>">
+  <body>
+    <table cellspacing="0" cellpadding="6" border="0" width="100%">
       <tr>
         <td></td>
-        <td width="<%= settings[:content_width] %>" style="<%= style[:body] %>">
-          <img src="<%= settings[:logo_url] %>" width="<%= settings[:logo_width] %>" height="<%= settings[:logo_height] %>" style="<%= style[:logo] %>" alt="<%= site_name %>" />
+        <td width="480" class="container">
+          <%# TODO: Needs full URL %>
+          <%= image_tag 'logo.png',
+                        :alt => site_name,
+                        :size => '240x30',
+                        :class => 'logo' %>
         </td>
         <td></td>
       </tr>
       <tr>
         <td></td>
-        <td width="<%= settings[:content_width] %>" style="<%= style[:logo] %>">
+        <td width="480" class="container">
           <%= yield %>
         </td>
         <td></td>

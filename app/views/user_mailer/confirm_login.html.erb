@@ -1,21 +1,23 @@
-<p style="<%= style[:p] %>"><strong><%= raw @name %></strong>,<p>
+<p>
+  <strong><%= raw @name %></strong>,
+</p>
 
-<p style="<%= style[:p] %>">
+<p>
   <%= _('Please click on the link below to confirm your email address.') %>
   <%= raw @reasons[:email] %>
 </p>
 
-<p style="<%= style[:p] %>">
-  <%= link_to @url, :style => style[:button] do %>
+<p>
+  <%= link_to @url, :class => 'button' do %>
     <%= _('Confirm your account') %>
   <% end %>
 </p>
 
-<p style="<%= style[:p] %>">
+<p>
   <%= _('We will not reveal your email address to anybody ' \
         'unless you or the law tell us to.') %>
 </p>
 
-<p style="<%= style[:p_byline] %>">
+<p class="byline">
   &ndash; <%= _('the {{site_name}} team', :site_name => site_name) %>
 </p>
