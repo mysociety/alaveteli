@@ -6,7 +6,6 @@ class RemoveOldTagsForeignKey < ActiveRecord::Migration
     end
 
     add_index :has_tag_string_tags, [:model, :model_id, :name, :value], :name => 'by_model_and_model_id_and_name_and_value'
-    add_index :has_tag_string_tags, :name
   end
 
   def self.down
