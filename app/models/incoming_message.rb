@@ -734,7 +734,7 @@ class IncomingMessage < ActiveRecord::Base
         end
         text = MySociety::Format.simplify_angle_bracketed_urls(text)
         text = CGI.escapeHTML(text)
-        text = MySociety::Format.make_clickable(text, :contract => 1)
+        text = AlaveteliTextFormat.make_clickable(text, :contract => 1)
         text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
         if collapse_quoted_sections
             text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "FOLDED_QUOTED_SECTION")

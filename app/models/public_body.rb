@@ -273,7 +273,7 @@ class PublicBody < ActiveRecord::Base
         def last_edit_comment_for_html_display
             text = self.last_edit_comment.strip
             text = CGI.escapeHTML(text)
-            text = MySociety::Format.make_clickable(text)
+            text = AlaveteliTextFormat.make_clickable(text)
             text = text.gsub(/\n/, '<br>')
             return text
         end

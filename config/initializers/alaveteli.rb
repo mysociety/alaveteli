@@ -56,6 +56,7 @@ require 'public_body_csv'
 require 'category_and_heading_migrator'
 require 'public_body_categories'
 require 'routing_filters'
+require 'alaveteli_text_format'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

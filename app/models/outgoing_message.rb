@@ -246,7 +246,7 @@ class OutgoingMessage < ActiveRecord::Base
         # reparagraph and wrap it so is good preview of emails
         text = MySociety::Format.wrap_email_body_by_lines(text)
         text = CGI.escapeHTML(text)
-        text = MySociety::Format.make_clickable(text, :contract => 1)
+        text = AlaveteliTextFormat.make_clickable(text, :contract => 1)
         text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
         text = text.gsub(/\n/, '<br>')
         text.html_safe
