@@ -1,0 +1,51 @@
+@import "_settings";
+@import "_custom";
+
+body {
+  font-family: $body_font_family;
+  margin: 0;
+}
+
+table {
+  font-family: $body_font_family;
+}
+
+td {
+  font-family: $body_font_family;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+p {
+  font-family: $body_font_family;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0 0 1em 0;
+}
+
+.container {
+  margin: 0;
+  width: $content_width;
+}
+
+.button {
+  display: inline-block;
+  background-color: $button_background_color;
+  border: 10px solid $button_background_color;
+  border-width: 10px 15px;
+  border-radius: 5px;
+}
+
+.logo {
+  display: block;
+  margin-top: 1em;
+  width: $logo_width;
+  height: $logo_height;
+}
+
+.byline {
+  font-family: $body_font_family;
+  font-size: 16px;
+  line-height: 24px;
+  color: $byline_color;
+}
