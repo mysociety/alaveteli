@@ -6,6 +6,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class UserMailer < ApplicationMailer
+  include Roadie::Rails::Automatic
+
   def confirm_login(user, reasons, url)
     @reasons, @name, @url = reasons, user.name, url
     headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email) # we don't care about bounces when people are fiddling with their account
