@@ -6,6 +6,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class UserMailer < ApplicationMailer
+  self.asset_host = AlaveteliConfiguration.domain
   include Roadie::Rails::Automatic
 
   def confirm_login(user, reasons, url)
