@@ -130,8 +130,9 @@ describe PublicBodyHelper do
         public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
 
         anchor = %Q(<a href="/es/body/list/spec">Spec category</a>)
-        I18n.with_locale(:es) { expect(type_of_authority(public_body)
-                                      ).to eq(anchor) }
+        I18n.with_locale(:es) do
+          expect(type_of_authority(public_body)).to eq(anchor)
+        end
       end
 
     end
