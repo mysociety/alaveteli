@@ -59,6 +59,7 @@ require 'default_late_calculator'
 require 'analytics_event'
 require 'alaveteli_gettext/fuzzy_cleaner'
 require 'user_spam_scorer'
+require 'belongs_to_destroy_with_fk_constraint'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
