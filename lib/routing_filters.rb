@@ -33,3 +33,9 @@ module RoutingFilter
     end
   end
 end
+
+ActionDispatch::Routing::RouteSet::NamedRouteCollection::UrlHelper.class_eval do
+  def self.optimize_helper?(route)
+    false
+  end
+end
