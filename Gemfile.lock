@@ -8,6 +8,14 @@ GIT
       rotp
 
 GIT
+  remote: https://github.com/mikel/mail
+  revision: 06d1d7bbcd96de342a4a8a91bc903c1dc86354d5
+  branch: 2-6-stable
+  specs:
+    mail (2.6.5.edge)
+      mime-types (>= 1.16, < 4)
+
+GIT
   remote: https://github.com/mysociety/ruby-msg.git
   revision: fae72e547299ab1f8b23239a79f5a1d353426b40
   branch: ascii-encoding
@@ -196,8 +204,6 @@ GEM
     libv8 (3.16.14.17)
     locale (2.0.9)
     mahoro (0.4)
-    mail (2.6.4)
-      mime-types (>= 1.16, < 4)
     mailcatcher (0.6.4)
       activesupport (~> 4.0)
       eventmachine (= 1.0.9.1)
@@ -410,6 +416,7 @@ DEPENDENCIES
   launchy (~> 2.4.3)
   locale (~> 2.0.8)
   mahoro (~> 0.4)
+  mail!
   mailcatcher (~> 0.6.4)
   mime-types (< 3.0.0)
   net-http-local (~> 0.1.2)
