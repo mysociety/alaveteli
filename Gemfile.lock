@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/garethrees/mail
+  revision: dc8832fb7ead2651b19f4b30971ecc756b553da2
+  ref: dc8832f
+  specs:
+    mail (2.6.5.edge)
+      mime-types (>= 1.16, < 4)
+
+GIT
   remote: https://github.com/heapsource/active_model_otp.git
   revision: c342283fe564bfe03d1798cb025ab80ff4e93451
   ref: c342283fe564bf
@@ -184,8 +192,6 @@ GEM
     libv8 (3.16.14.15)
     locale (2.0.9)
     mahoro (0.4)
-    mail (2.6.4)
-      mime-types (>= 1.16, < 4)
     mailcatcher (0.6.4)
       activesupport (~> 4.0)
       eventmachine (= 1.0.9.1)
@@ -387,6 +393,7 @@ DEPENDENCIES
   launchy (~> 2.4.3)
   locale (~> 2.0.8)
   mahoro (~> 0.4)
+  mail!
   mailcatcher (~> 0.6.4)
   mime-types (< 3.0.0)
   net-http-local (~> 0.1.2)
