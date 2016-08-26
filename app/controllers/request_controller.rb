@@ -53,7 +53,7 @@ class RequestController < ApplicationController
           else
             body_ids = params[:public_body_ids]
           end
-          @public_bodies = PublicBody.where({:id => body_ids}).all
+          @public_bodies = PublicBody.where(:id => body_ids)
         end
       end
       format.json do
@@ -221,10 +221,13 @@ class RequestController < ApplicationController
     @batch = true
 
     I18n.with_locale(@locale) do
-      @public_bodies = PublicBody.where({:id => params[:public_body_ids]}).
-        includes(:translations).
-        order('public_body_translations.name').all
+      @public_bodies =
+        PublicBody.
+          where(:id => params[:public_body_ids]).
+            includes(:translations).
+              order('public_body_translations.name')
     end
+
     if params[:submitted_new_request].nil? || params[:reedit]
       return render_new_compose(batch=true)
     end
