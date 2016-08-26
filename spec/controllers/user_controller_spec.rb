@@ -403,24 +403,36 @@ describe UserController, "when showing a user" do
     end
 
     it "should search the user's contributions" do
-      get :show, :url_name => "bob_smith"
-      expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array(InfoRequest.all(
-      :conditions => "user_id = #{users(:bob_smith_user).id}"))
+      user = users(:bob_smith_user)
 
-      get :show, :url_name => "bob_smith", :user_query => "money"
-      expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array([
-        info_requests(:naughty_chicken_request),
-        info_requests(:another_boring_request),
-      ])
+      get :show, :url_name => "bob_smith"
+      actual =
+        assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+      expect(actual).to match_array(user.info_requests)
     end
 
-    it 'filters by the given request status' do
-      get :show, :url_name => 'bob_smith',
-        :user_query => 'money',
-        :request_latest_status => 'waiting_response'
-      expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array([
-        info_requests(:naughty_chicken_request)
-      ])
+    it 'filters by the given query' do
+      user = users(:bob_smith_user)
+
+      get :show, :url_name => user.url_name, :user_query => "money"
+      actual =
+        assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+      expect(actual).to match_array([info_requests(:naughty_chicken_request),
+                                     info_requests(:another_boring_request)])
+    end
+
+    it 'filters by the given query and request status' do
+      user = users(:bob_smith_user)
+
+      get :show, :url_name => user.url_name,
+                 :user_query => 'money',
+                 :request_latest_status => 'waiting_response'
+      actual =
+        assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+
+      expect(actual).to match_array([info_requests(:naughty_chicken_request)])
     end
 
     it "should not show unconfirmed users" do

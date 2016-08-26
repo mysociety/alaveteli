@@ -343,9 +343,11 @@ class InfoRequest < ActiveRecord::Base
     # For request with same title as others, add on arbitary numeric identifier
     unique_url_title = url_title
     suffix_num = 2 # as there's already one without numeric suffix
+    conditions = id ? ["id <> ?", id] : []
     while InfoRequest.
-            find_by_url_title(unique_url_title,
-                              :conditions => id.nil? ? nil : ["id <> ?", id])
+      where(:url_title => unique_url_title).
+        where(conditions).
+          first do
       unique_url_title = "#{url_title}_#{suffix_num}"
       suffix_num = suffix_num + 1
     end
