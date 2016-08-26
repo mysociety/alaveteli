@@ -114,7 +114,8 @@ describe ApiController, "when using the API" do
 
       # And make sure it worked
       expect(response).to be_success
-      incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
+      incoming_messages =
+        IncomingMessage.where(:info_request_id => request_id)
       expect(incoming_messages.count).to eq(1)
       incoming_message = incoming_messages[0]
 
@@ -143,10 +144,12 @@ describe ApiController, "when using the API" do
 
       # Make sure it worked
       expect(response).to be_success
-      followup_messages = OutgoingMessage.all(
-        :conditions => ["info_request_id = ? and message_type = 'followup'", request_id]
-      )
+
+      followup_messages =
+        OutgoingMessage.where(:info_request_id => request_id,
+                              :message_type => 'followup')
       expect(followup_messages.size).to eq(1)
+
       followup_message = followup_messages[0]
 
       expect(followup_message.last_sent_at).to eq(Time.iso8601(sent_at))
@@ -175,8 +178,10 @@ describe ApiController, "when using the API" do
 
       # And make sure it worked
       expect(response).to be_success
-      incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
-      expect(incoming_messages.count).to eq(1)
+
+      actual2 = IncomingMessage.where(:info_request_id => request_id).count
+      expect(actual2).to eq(1)
+
       request = InfoRequest.find_by_id(request_id)
       expect(request.described_state).to eq('successful')
     end
@@ -206,7 +211,8 @@ describe ApiController, "when using the API" do
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
       "'random_string' is not a valid request state"])
 
-      incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
+      incoming_messages =
+        IncomingMessage.where(:info_request_id => request_id)
       expect(incoming_messages.count).to eq(0)
       request = InfoRequest.find_by_id(request_id)
       expect(request.described_state).to eq('waiting_response')
@@ -332,10 +338,11 @@ describe ApiController, "when using the API" do
 
       # And make sure it worked
       expect(response).to be_success
-      incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
-      expect(incoming_messages.count).to eq(1)
-      incoming_message = incoming_messages[0]
 
+      incoming_messages = IncomingMessage.where(:info_request_id => request_id)
+      expect(incoming_messages.count).to eq(1)
+
+      incoming_message = incoming_messages[0]
       expect(incoming_message.sent_at).to eq(Time.iso8601(sent_at))
       expect(incoming_message.get_main_body_text_folded).to be_equal_modulo_whitespace_to(response_body)
 
