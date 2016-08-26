@@ -2570,50 +2570,66 @@ describe InfoRequest do
       expect(apply_filters(:latest_status => 'all')).to match_array(InfoRequest.all)
 
       # default sort order is the request with the most recently created event first
-      expect(apply_filters(:latest_status => 'all')).to eq(InfoRequest.all(
-        :order => "(SELECT max(info_request_events.created_at)
-                            FROM info_request_events
-                            WHERE info_request_events.info_request_id = info_requests.id)
-                            DESC"))
+      order_sql = <<-EOF.strip_heredoc
+      (SELECT max(info_request_events.created_at)
+       FROM info_request_events
+       WHERE info_request_events.info_request_id = info_requests.id)
+       DESC
+      EOF
+      expect(apply_filters(:latest_status => 'all')).
+        to eq(InfoRequest.all.order(order_sql))
 
-      expect(apply_filters(:latest_status => 'successful')).to match_array(InfoRequest.all(
-        :conditions => "id in (
-                    SELECT info_request_id
-                    FROM info_request_events
-                    WHERE NOT EXISTS (
-                        SELECT *
-                        FROM info_request_events later_events
-                        WHERE later_events.created_at > info_request_events.created_at
-                        AND later_events.info_request_id = info_request_events.info_request_id
-                        AND later_events.described_state IS NOT null
-                    )
-                    AND info_request_events.described_state IN ('successful', 'partially_successful')
-                )"))
+      conditions = <<-EOF.strip_heredoc
+      id in (
+        SELECT info_request_id
+        FROM info_request_events
+        WHERE NOT EXISTS (
+          SELECT *
+          FROM info_request_events later_events
+          WHERE later_events.created_at > info_request_events.created_at
+          AND later_events.info_request_id = info_request_events.info_request_id
+          AND later_events.described_state IS NOT null
+        )
+        AND info_request_events.described_state
+        IN ('successful', 'partially_successful')
+      )
+      EOF
+      expect(apply_filters(:latest_status => 'successful')).
+        to match_array(InfoRequest.where(conditions))
     end
 
     it "filters requests by date" do
       # The semantics of the search are that it finds any InfoRequest
       # that has any InfoRequestEvent created in the specified range
       filters = {:latest_status => 'all', :request_date_before => '13/10/2007'}
-      expect(apply_filters(filters)).to match_array(InfoRequest.all(
-        :conditions => "id IN (SELECT info_request_id
-                                       FROM info_request_events
-                                       WHERE created_at < '2007-10-13'::date)"))
+      conditions1 = <<-EOF
+      id IN (SELECT info_request_id
+             FROM info_request_events
+             WHERE created_at < '2007-10-13'::date)
+      EOF
+      expect(apply_filters(filters)).
+        to match_array(InfoRequest.where(conditions1))
 
       filters = {:latest_status => 'all', :request_date_after => '13/10/2007'}
-      expect(apply_filters(filters)).to match_array(InfoRequest.all(
-        :conditions => "id IN (SELECT info_request_id
-                                       FROM info_request_events
-                                       WHERE created_at > '2007-10-13'::date)"))
+      conditions2 = <<-EOF
+      id IN (SELECT info_request_id
+             FROM info_request_events
+             WHERE created_at > '2007-10-13'::date)
+      EOF
+      expect(apply_filters(filters)).
+        to match_array(InfoRequest.where(conditions2))
 
       filters = {:latest_status => 'all',
                  :request_date_after => '13/10/2007',
                  :request_date_before => '01/11/2007'}
-      expect(apply_filters(filters)).to match_array(InfoRequest.all(
-        :conditions => "id IN (SELECT info_request_id
-                                       FROM info_request_events
-                                       WHERE created_at BETWEEN '2007-10-13'::date
-                                       AND '2007-11-01'::date)"))
+      conditions3 = <<-EOF
+      id IN (SELECT info_request_id
+             FROM info_request_events
+             WHERE created_at BETWEEN '2007-10-13'::date
+             AND '2007-11-01'::date)
+      EOF
+      expect(apply_filters(filters)).
+        to match_array(InfoRequest.where(conditions3))
     end
 
     it "lists internal_review requests as unresolved ones" do
@@ -2621,18 +2637,25 @@ describe InfoRequest do
       # query, but it is close enough to give the same result with
       # the current set of test data.
       results = apply_filters(:latest_status => 'awaiting')
-      expect(results).to match_array(InfoRequest.all(
-        :conditions => "id IN (SELECT info_request_id
-                                       FROM info_request_events
-                                       WHERE described_state in (
-                        'waiting_response', 'waiting_clarification',
-                        'internal_review', 'gone_postal', 'error_message', 'requires_admin'
-                    ) and not exists (
-                        select *
-                        from info_request_events later_events
-                        where later_events.created_at > info_request_events.created_at
-                        and later_events.info_request_id = info_request_events.info_request_id
-                    ))"))
+      conditions = <<-EOF
+      id IN (
+        SELECT info_request_id
+        FROM info_request_events
+        WHERE described_state IN ('waiting_response',
+                                  'waiting_clarification',
+                                  'internal_review',
+                                  'gone_postal',
+                                  'error_message',
+                                  'requires_admin')
+        AND NOT EXISTS (
+          SELECT *
+          FROM info_request_events later_events
+          WHERE later_events.created_at > info_request_events.created_at
+          AND later_events.info_request_id = info_request_events.info_request_id
+        )
+      )
+      EOF
+      expect(results).to match_array(InfoRequest.where(conditions))
 
       expect(results.include?(info_requests(:fancy_dog_request))).to eq(false)
 
