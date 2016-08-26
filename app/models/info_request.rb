@@ -429,12 +429,15 @@ class InfoRequest < ActiveRecord::Base
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    InfoRequest.where("title = ?
-                       AND public_body_id = ?
-                       AND outgoing_messages.body = ?",
-                       title, public_body_id, body).
+    conditions = { :title => title,
+                   :public_body_id => public_body_id,
+                   :outgoing_messages => { :body => body } }
+
+    InfoRequest.
       includes(:outgoing_messages).
-        first
+        where(conditions).
+          references(:outgoing_messages).
+            first
   end
 
   def find_existing_outgoing_message(body)
