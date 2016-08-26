@@ -29,7 +29,7 @@ Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/in
 ### Target operating system
 
 These instructions assume a 64-bit version of Debian 7 (Wheezy)
-or Ubuntu 12.04 LTS (Precise). Debian is the best supported deployment platform. We also
+or Ubuntu 12.04 LTS (Precise) or 14.04 LTS (Trusty). Debian is the best supported deployment platform. We also
 have instructions for [installing on MacOS]({{ page.baseurl }}/docs/installing/macos/).
 
 ### Set the locale
@@ -44,13 +44,19 @@ Generate the locales you wish to make available. When the interactive screen ask
 
 Start a new SSH session to use your SSH locale.
 
-**Ubuntu Precise**
+**Ubuntu Precise/Trusty**
 
 Unset the default locale, as the SSH session should provide the locale required.
 
     update-locale LC_ALL=
 
 Start a new SSH session to use your SSH locale.
+
+If you're going to run the tests, you'll need to have the `en_GB` and `en_GB.UTF-8` locales installed.
+
+    locale-gen en_GB
+    locale-gen en_GB.UTF-8
+    update-locale
 
 ### Update the OS
 
@@ -636,13 +642,27 @@ Create a directory for optional Alaveteli configuration
 Copy the example VirtualHost configuration file. You will need to change all
 occurrences of `www.example.com` to your URL
 
+**Debian Wheezy and Ubuntu Precise**
+
     cp /var/www/alaveteli/config/httpd.conf-example \
       /etc/apache2/sites-available/alaveteli
 
+**Ubuntu Trusty**
+
+    cp /var/www/alaveteli/config/httpd.conf-example \
+      /etc/apache2/sites-available/alaveteli.conf
+
 Disable the default site and enable the `alaveteli` VirtualHost
+
+**Debian Wheezy and Ubuntu Precise**
 
     a2dissite default
     a2ensite alaveteli
+
+**Ubuntu Trusty**
+
+    a2dissite 000-default.conf
+    a2ensite alaveteli.conf
 
 Check the configuration and fix any issues
 
@@ -662,9 +682,17 @@ Enable the SSL apache mod
 Copy the SSL configuration – again changing `www.example.com` to your domain –
 and enable the VirtualHost
 
+**Debian Wheezy and Ubuntu Precise**
+
     cp /var/www/alaveteli/config/httpd-ssl.conf.example \
       /etc/apache2/sites-available/alaveteli_https
     a2ensite alaveteli_https
+
+**Ubuntu Trusty**
+
+    cp /var/www/alaveteli/config/httpd-ssl.conf.example \
+      /etc/apache2/sites-available/alaveteli_https.conf
+    a2ensite alaveteli_https.conf
 
 Force HTTPS requests from the HTTP VirtualHost
 
