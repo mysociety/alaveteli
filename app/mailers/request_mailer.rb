@@ -463,7 +463,8 @@ class RequestMailer < ApplicationMailer
       InfoRequest.
         includes(:info_request_events => :user_info_request_sent_alerts).
           where(conditions).
-            order('info_requests.id, info_request_events.created_at')
+            order('info_requests.id, info_request_events.created_at').
+              references(:info_request_events)
 
     info_requests.each do |info_request|
       next if info_request.is_external?

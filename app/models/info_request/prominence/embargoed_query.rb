@@ -7,7 +7,9 @@ class InfoRequest
       end
 
       def call
-        @relation.includes(:embargo).where('embargoes.id IS NOT NULL')
+        @relation.includes(:embargo).
+          where('embargoes.id IS NOT NULL').
+            references(:embargoes)
       end
     end
   end
