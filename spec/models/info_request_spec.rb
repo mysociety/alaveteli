@@ -62,18 +62,7 @@ describe InfoRequest do
     end
 
     it "adds the next sequential number to the url_title to make it unique" do
-      allow(InfoRequest).to receive(:find_by_url_title).
-        with("test_title", :conditions => nil).
-          and_return(mock_model(InfoRequest))
-      allow(InfoRequest).to receive(:find_by_url_title).
-        with("test_title_2", :conditions => nil).
-          and_return(mock_model(InfoRequest))
-
-      # not found - we can use this one
-      allow(InfoRequest).to receive(:find_by_url_title).
-        with("test_title_3", :conditions => nil).
-          and_return(nil)
-
+      2.times { FactoryGirl.create(:info_request, :title => 'Test title') }
       info_request = InfoRequest.new(:title => "Test title")
       expect(info_request.url_title).to eq("test_title_3")
     end
