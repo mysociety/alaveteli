@@ -74,7 +74,7 @@ module AlaveteliPro
 
     def self.expire_publishable
       beginning_of_day = Time.zone.now.beginning_of_day
-      find_each(:conditions => ['publish_at < ?', beginning_of_day]) do |embargo|
+      where(['publish_at < ?', beginning_of_day]).find_each do |embargo|
         embargo.info_request.log_event('expire_embargo', {})
         embargo.destroy
       end
