@@ -74,7 +74,8 @@ class AdminUserController < AdminController
   end
 
   def modify_comment_visibility
-    Comment.update_all(["visible = ?", !params[:hide_selected]], :id => params[:comment_ids])
+    Comment.where(:id => params[:comment_ids]).
+      update_all(:visible => !params[:hide_selected])
     redirect_to :back
   end
 
