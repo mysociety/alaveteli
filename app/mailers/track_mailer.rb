@@ -44,8 +44,7 @@ class TrackMailer < ApplicationMailer
     done_something = false
     now = Time.zone.now
     one_week_ago = now - 7.days
-    User.find_each(:conditions => [ "last_daily_track_email < ?",
-    now - 1.day ]) do |user|
+    User.where(["last_daily_track_email < ?", now - 1.day ]).find_each do |user|
       next if !user.should_be_emailed? || !user.receive_email_alerts
 
       email_about_things = []
