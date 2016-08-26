@@ -15,6 +15,7 @@ class InfoRequest
             .joins('LEFT OUTER JOIN embargoes
                     ON embargoes.info_request_id = info_requests.id')
               .where('embargoes.id IS NULL')
+                .references(:embargoes)
       end
     end
   end

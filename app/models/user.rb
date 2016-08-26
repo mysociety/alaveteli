@@ -118,7 +118,9 @@ class User < ActiveRecord::Base
   has_one_time_password :counter_based => true
 
   def self.pro
-    includes(:pro_account).where("pro_accounts.id IS NOT NULL")
+    includes(:pro_account).
+      where("pro_accounts.id IS NOT NULL").
+        references(:pro_accounts)
   end
 
   # Return user given login email, password and other form parameters (e.g. name)
