@@ -1069,7 +1069,7 @@ class InfoRequest < ActiveRecord::Base
 
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
-    applicable_rules = [censor_rules, CensorRule.global.all]
+    applicable_rules = [censor_rules, CensorRule.global]
     unless is_batch_request_template?
       applicable_rules << public_body.censor_rules
     end
