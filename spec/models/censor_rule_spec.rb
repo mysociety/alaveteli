@@ -225,7 +225,7 @@ describe 'when handling global rules' do
 
   end
 
-  describe 'the scope CensorRule.global.all' do
+  describe '.global' do
 
     before do
       @global_rule = CensorRule.create!(:text => 'hide me',
@@ -240,11 +240,11 @@ describe 'when handling global rules' do
     end
 
     it 'should include an instance without user_id, request_id or public_body_id' do
-      expect(CensorRule.global.all.include?(@global_rule)).to eq(true)
+      expect(CensorRule.global.include?(@global_rule)).to eq(true)
     end
 
     it 'should not include a request with user_id' do
-      expect(CensorRule.global.all.include?(@user_rule)).to eq(false)
+      expect(CensorRule.global.include?(@user_rule)).to eq(false)
     end
 
     after do
