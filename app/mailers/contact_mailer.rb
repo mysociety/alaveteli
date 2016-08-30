@@ -69,7 +69,8 @@ class ContactMailer < ApplicationMailer
                   ),
          :to => contact_from_name_and_email,
          :subject => _('Add authority - {{public_body_name}}',
-                       :public_body_name => @change_request.get_public_body_name))
+                       :public_body_name => @change_request.
+                                              get_public_body_name.html_safe))
   end
 
   # Send a request to the administrator to update an authority email address
@@ -91,7 +92,8 @@ class ContactMailer < ApplicationMailer
                   ),
          :to => contact_from_name_and_email,
          :subject => _('Update email address - {{public_body_name}}',
-                       :public_body_name => @change_request.get_public_body_name))
+                       :public_body_name => @change_request.
+                                              get_public_body_name.html_safe))
   end
 
 end

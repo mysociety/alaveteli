@@ -1,4 +1,7 @@
-<%= _("{{user_name}} would like the email address for {{public_body_name}} to be updated", :user_name => @change_request.get_user_name, :public_body_name => @change_request.get_public_body_name) %>
+<%= _("{{user_name}} would like the email address for {{public_body_name}} " \
+      "to be updated",
+      :user_name => @change_request.get_user_name.html_safe,
+      :public_body_name => @change_request.get_public_body_name.html_safe) %>
 
 <%= _("Email:") %>
 <%= @change_request.public_body_email %>
@@ -10,7 +13,9 @@
 <%= @change_request.notes %>
 
 <%= _('Update the address:') %>
-<%= edit_admin_body_path(@change_request.public_body, :change_request_id => @change_request.id, :only_path => false) %>
+<%= edit_admin_body_path(@change_request.public_body,
+                         :change_request_id => @change_request.id,
+                         :only_path => false) %>
 
 <%= _('Close the request and respond:') %>
 <%= edit_admin_change_request_url(@change_request, :only_path => false ) %>

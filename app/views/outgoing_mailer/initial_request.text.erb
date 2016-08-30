@@ -5,7 +5,12 @@
 <%= _('Please use this email address for all replies to this request:')%>
 <%= @info_request.incoming_email %>
 
-<%= _('Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:', :email_address => @info_request.public_body.request_email, :type_of_request =>  @info_request.law_used_human(:full), :public_body_name => @info_request.public_body.name)%>
+<%= _('Is {{email_address}} the wrong address for {{type_of_request}} ' \
+      'requests to {{public_body_name}}? If so, please contact us using ' \
+      'this form:',
+      :email_address => @info_request.public_body.request_email.html_safe,
+      :type_of_request => @info_request.law_used_human(:full).html_safe,
+      :public_body_name => @info_request.public_body.name.html_safe) %>
 <%= new_change_request_url(:body => @info_request.public_body.url_name) %>
 
 <%= render :partial => 'followup_footer' %>

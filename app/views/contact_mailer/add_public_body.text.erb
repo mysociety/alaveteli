@@ -1,4 +1,6 @@
-<%= _("{{user_name}} would like a new authority added to {{site_name}}", :user_name => @change_request.get_user_name, :site_name => site_name) %>
+<%= _("{{user_name}} would like a new authority added to {{site_name}}",
+      :user_name => @change_request.get_user_name.html_safe,
+      :site_name => site_name.html_safe) %>
 
 <%= _("Authority:") %>
 <%= @change_request.get_public_body_name %>
@@ -13,7 +15,8 @@
 <%= @change_request.notes %>
 
 <%= _('Add the authority:') %>
-<%= new_admin_body_url(:change_request_id => @change_request.id, :only_path => false ) %>
+<%= new_admin_body_url(:change_request_id => @change_request.id,
+                       :only_path => false ) %>
 
 <%= _('Close the request and respond:') %>
 <%= edit_admin_change_request_url(@change_request, :only_path => false ) %>
