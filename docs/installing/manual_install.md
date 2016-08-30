@@ -29,7 +29,7 @@ Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/in
 ### Target operating system
 
 These instructions assume a 64-bit version of Debian 7 (Wheezy)
-or Ubuntu 12.04 LTS (Precise). Debian is the best supported deployment platform. We also
+or Ubuntu 12.04 LTS (Precise) or 14.04 LTS (Trusty). Debian is the best supported deployment platform. We also
 have instructions for [installing on MacOS]({{ page.baseurl }}/docs/installing/macos/).
 
 ### Set the locale
@@ -44,13 +44,19 @@ Generate the locales you wish to make available. When the interactive screen ask
 
 Start a new SSH session to use your SSH locale.
 
-**Ubuntu Precise**
+**Ubuntu Precise/Trusty**
 
 Unset the default locale, as the SSH session should provide the locale required.
 
     update-locale LC_ALL=
 
 Start a new SSH session to use your SSH locale.
+
+If you're going to run the tests, you'll need to have the `en_GB` and `en_GB.UTF-8` locales installed.
+
+    locale-gen en_GB
+    locale-gen en_GB.UTF-8
+    update-locale
 
 ### Update the OS
 
@@ -636,13 +642,27 @@ Create a directory for optional Alaveteli configuration
 Copy the example VirtualHost configuration file. You will need to change all
 occurrences of `www.example.com` to your URL
 
+**Debian Wheezy and Ubuntu Precise**
+
     cp /var/www/alaveteli/config/httpd.conf-example \
       /etc/apache2/sites-available/alaveteli
 
+**Ubuntu Trusty**
+
+    cp /var/www/alaveteli/config/httpd.conf-example \
+      /etc/apache2/sites-available/alaveteli.conf
+
 Disable the default site and enable the `alaveteli` VirtualHost
+
+**Debian Wheezy and Ubuntu Precise**
 
     a2dissite default
     a2ensite alaveteli
+
+**Ubuntu Trusty**
+
+    a2dissite 000-default.conf
+    a2ensite alaveteli.conf
 
 Check the configuration and fix any issues
 
@@ -662,9 +682,17 @@ Enable the SSL apache mod
 Copy the SSL configuration – again changing `www.example.com` to your domain –
 and enable the VirtualHost
 
+**Debian Wheezy and Ubuntu Precise**
+
     cp /var/www/alaveteli/config/httpd-ssl.conf.example \
       /etc/apache2/sites-available/alaveteli_https
     a2ensite alaveteli_https
+
+**Ubuntu Trusty**
+
+    cp /var/www/alaveteli/config/httpd-ssl.conf.example \
+      /etc/apache2/sites-available/alaveteli_https.conf
+    a2ensite alaveteli_https.conf
 
 Force HTTPS requests from the HTTP VirtualHost
 
@@ -845,13 +873,19 @@ You should then be able to run the tests. Don't forget to restore <code>config/r
 
 </div>
 
+*   **When running tests, I see a failure with "PG::UndefinedObject: ERROR:
+    collation "en_GB" for encoding "UTF8" does not exist"**
+
+    You can install the "en_GB" collation manually:
+
+        psql -c 'CREATE COLLATION "en_GB" (LOCALE = "en_GB.utf8");' -U postgres alaveteli_test
 
 *   **Incoming emails aren't appearing in my Alaveteli install**
 
     See the [general email troubleshooting guide]({{ page.baseurl }}/docs/installing/email#general-email-troubleshooting).
 
-*   **Various tests fail with "*Your PostgreSQL connection does not support
-    unescape_bytea. Try upgrading to pg 0.9.0 or later.*"**
+*   **Various tests fail with "Your PostgreSQL connection does not support
+    unescape_bytea. Try upgrading to pg 0.9.0 or later."**
 
     You have an old version of `pg`, the ruby postgres driver.  In
     Ubuntu, for example, this is provided by the package `libdbd-pg-ruby`.
@@ -860,8 +894,8 @@ You should then be able to run the tests. Don't forget to restore <code>config/r
     gem with `gem install pg`
 
 *   **Some of the tests relating to mail are failing, with messages like
-    "*when using TMail should load an email with funny MIME settings'
-    FAILED*"**
+    "when using TMail should load an email with funny MIME settings'
+    FAILED"**
 
     This sounds like the tests are running using the `production`
     environment, rather than the `test` environment, for some reason.
