@@ -92,7 +92,7 @@ Definitions
         </li>
         <li>
           For lots more about running an Alaveteli site, see the
-          <a href="{{ page.baseurl }}/running/admin_manual">administrator's guide</a>.
+          <a href="{{ page.baseurl }}/docs/running/admin_manual">administrator's guide</a>.
         </li>
       </ul>
     </div>
