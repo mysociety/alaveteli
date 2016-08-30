@@ -884,8 +884,8 @@ You should then be able to run the tests. Don't forget to restore <code>config/r
 
     See the [general email troubleshooting guide]({{ page.baseurl }}/docs/installing/email#general-email-troubleshooting).
 
-*   **Various tests fail with "*Your PostgreSQL connection does not support
-    unescape_bytea. Try upgrading to pg 0.9.0 or later.*"**
+*   **Various tests fail with "Your PostgreSQL connection does not support
+    unescape_bytea. Try upgrading to pg 0.9.0 or later."**
 
     You have an old version of `pg`, the ruby postgres driver.  In
     Ubuntu, for example, this is provided by the package `libdbd-pg-ruby`.
@@ -894,8 +894,8 @@ You should then be able to run the tests. Don't forget to restore <code>config/r
     gem with `gem install pg`
 
 *   **Some of the tests relating to mail are failing, with messages like
-    "*when using TMail should load an email with funny MIME settings'
-    FAILED*"**
+    "when using TMail should load an email with funny MIME settings'
+    FAILED"**
 
     This sounds like the tests are running using the `production`
     environment, rather than the `test` environment, for some reason.
