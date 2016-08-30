@@ -873,6 +873,12 @@ You should then be able to run the tests. Don't forget to restore <code>config/r
 
 </div>
 
+*   **When running tests, I see a failure with "PG::UndefinedObject: ERROR:
+    collation "en_GB" for encoding "UTF8" does not exist"**
+
+    You can install the "en_GB" collation manually:
+
+        psql -c 'CREATE COLLATION "en_GB" (LOCALE = "en_GB.utf8");' -U postgres alaveteli_test
 
 *   **Incoming emails aren't appearing in my Alaveteli install**
 
