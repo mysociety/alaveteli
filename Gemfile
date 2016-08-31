@@ -72,7 +72,7 @@ end
 group :test, :development do
   gem 'bullet', '~> 4.14.6'
   gem 'factory_girl_rails', '~> 1.7'
-  gem 'rspec-rails', '~> 2.13.2'
+  gem 'rspec-rails', '~> 2.99.0'
   gem 'spork-rails', '~> 3.2.1'
 end
 
@@ -82,6 +82,7 @@ group :development do
   gem 'pry', '~> 0.9.6'
   gem 'quiet_assets', '~> 1.0.2'
   gem 'rdoc', '~> 3.12.2'
+  gem 'guard-rspec', '~> 4.5.0', :require => false
 end
 
 group :debug do
