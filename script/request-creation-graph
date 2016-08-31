@@ -17,11 +17,7 @@ cd `dirname $0`
 cd ../
 source commonlib/shlib/deployfns
 
-# TODO: this is nasty :)
-OPTION_FOI_DB_HOST=`grep "host:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
-OPTION_FOI_DB_PORT=`grep "port:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
-OPTION_FOI_DB_NAME=`grep "database:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
-OPTION_FOI_DB_USER=`grep "username:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
+read OPTION_FOI_DB_HOST OPTION_FOI_DB_PORT OPTION_FOI_DB_NAME OPTION_FOI_DB_USER OPTION_FOI_DB_PASSWORD <<<$(ruby -r yaml -e 'db = YAML::load(STDIN.read); pr = db["production"]; puts pr["host"], pr["port"], pr["database"], pr["username"], pr["password"]' < config/database.yml)
 
 SOURCEA=/tmp/foi-creation-rate-graph-data-$RANDOM$RANDOM
 SOURCEB=/tmp/foi-creation-rate-graph-data-$RANDOM$RANDOM
@@ -36,17 +32,17 @@ SOURCEJ=/tmp/foi-creation-rate-graph-data-$RANDOM$RANDOM
 SOURCEK=/tmp/foi-creation-rate-graph-data-$RANDOM$RANDOM
 GPSCRIPT=/tmp/foi-creation-rate-graph-script-$RANDOM$RANDOM
 
-#    where status in ('draft') 
+#    where status in ('draft')
 
 function grab_data {
-    echo "select 
+    echo "select
         date(created_at), count(*)
         from info_requests
         $1
         and prominence != 'backpage'
         group by date(created_at)
         order by date(created_at)
-        ;" | psql --host $OPTION_FOI_DB_HOST --port $OPTION_FOI_DB_PORT -A -F " " $OPTION_FOI_DB_NAME $OPTION_FOI_DB_USER | egrep -v "date|rows" >$2
+        ;" | PGPASSWORD=$OPTION_FOI_DB_PASSWORD psql --host $OPTION_FOI_DB_HOST --port $OPTION_FOI_DB_PORT -A -F " " $OPTION_FOI_DB_NAME $OPTION_FOI_DB_USER | egrep -v "date|rows" >$2
 }
 
 # rather nastily, work out the cumulative heights in reverse, so can plot impulses on top of each other
@@ -69,7 +65,7 @@ grab_data "where described_state not in ('waiting_response', 'waiting_clarificat
 grab_data "where described_state not in ('waiting_response', 'waiting_clarification', 'not_held', 'rejected', 'successful', 'partially_successful', 'requires_admin', 'gone_postal', 'internal_review', 'error_message')" $SOURCEK
 #user_withdrawn
 
-cat >$GPSCRIPT <<END 
+cat >$GPSCRIPT <<END
     unset border
     unset arrow
     set key left
@@ -82,8 +78,8 @@ cat >$GPSCRIPT <<END
     set xtics nomirror
     set xlabel "status of requests that were created on each calendar day"
 
-    set ytics nomirror 
-    set ylabel "number of requests created on the calendar day" 
+    set ytics nomirror
+    set ylabel "number of requests created on the calendar day"
     set y2tics tc lt 2
     set y2label "cumulative total number of requests" tc lt 2
     set format y2 "%.0f"
