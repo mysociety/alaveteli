@@ -89,6 +89,9 @@ module AlaveteliConfiguration
             :VARNISH_HOST => '',
             :WORKING_OR_CALENDAR_DAYS => 'working',
             :USE_BULLET_IN_DEVELOPMENT => false
+            :USE_RACK_INSIGHT_IN_DEVELOPMENT => false,
+            :RACK_INSIGHT_SECRET_KEY => 'this default is insecure as code is open source, please override in config/general',
+            :RACK_INSIGHT_DATABASE_PATH => 'tmp/rack_insight.sqlite'
           }
     end
 

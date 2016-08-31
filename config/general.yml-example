@@ -681,6 +681,19 @@ USE_MAILCATCHER_IN_DEVELOPMENT: true
 # ---
 USE_BULLET_IN_DEVELOPMENT: false
 
+# Debugging toolbar for Rack applications
+# https://github.com/pboling/rack-insight
+#
+# USE_RACK_INSIGHT_IN_DEVELOPMENT - Boolean (default: false)
+#
+# Examples:
+#
+# USE_RACK_INSIGHT_IN_DEVELOPMENT: true
+# RACK_INSIGHT_SECRET_KEY: some-secret-key
+# RACK_INSIGHT_DATABASE_PATH: /tmp/rack_insight.sqlite
+# ---
+USE_RACK_INSIGHT_IN_DEVELOPMENT: false
+
 # Use memcached to cache HTML fragments for better performance. This will
 # only have an effect in environments where
 # config.action_controller.perform_caching is set to true
