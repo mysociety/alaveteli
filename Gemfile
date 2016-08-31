@@ -55,7 +55,7 @@ group :assets do
   gem 'compass-rails', '2.0.0'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'therubyracer', '~> 0.12.0'
+  # gem 'therubyracer', '~> 0.12.0'
 end
 
 group :production do
