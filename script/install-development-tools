@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+set -e            # fail fast
+set -o pipefail   # don't ignore exit codes when piping output
+# set -x          # enable debugging
+
+# Install chruby and add the profile.d script
+install_chruby() {
+  if [ ! -f /usr/local/share/chruby/chruby.sh ]
+    then
+      echo 'Installing chruby'
+      pushd /usr/local/src/
+        # Install chruby
+        wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz
+        tar -xzvf chruby-0.3.8.tar.gz
+        cd chruby-0.3.8/
+        make install
+      popd
+
+        # Make chruby available to everyone
+      if [ ! -f /etc/profile.d/rbenv.sh ]
+        then
+          cat > /etc/profile.d/chruby.sh <<END
+if [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ]; then
+source /usr/local/share/chruby/chruby.sh
+fi     
+END
+        else
+          echo '/etc/profile.d/rbenv.sh already exists'
+      fi
+
+    else
+      echo 'chruby already installed'
+  fi
+}
+
+# Install the ruby-install tool for installing rubies
+install_ruby_install() {
+  if [ ! `type -t ruby-install`"" == 'file' ]
+    then
+      echo 'Installing ruby-install'
+      pushd /usr/local/src/
+        wget -O ruby-install-0.4.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.4.1.tar.gz
+        tar -xzvf ruby-install-0.4.1.tar.gz
+        cd ruby-install-0.4.1/
+        make install
+      popd
+    else
+      echo 'ruby-install already installed'
+  fi
+}
+
+# Install the rubies we support
+install_development_rubies() {
+  if [ -z $(ls -1 /opt/rubies | grep 'ruby-1.9') ]
+    then
+      echo 'Installing Ruby 1.9'
+      ruby-install ruby 1.9
+    else
+      echo 'Ruby 1.9 already installed'
+  fi
+
+  if [ -z $(ls -1 /opt/rubies | grep 'ruby-2.0') ]
+    then
+      echo 'Installing Ruby 2.0'
+      ruby-install ruby 2.0
+    else
+      echo 'Ruby 2.0 already installed'
+  fi
+}
+
+install_chruby
+install_ruby_install
+install_development_rubies
+
+echo 'Installed Ruby 1.9 and Ruby 2.0'
+echo 'You will need to start a new bash session for this to take effect'
