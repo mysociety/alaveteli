@@ -1,4 +1,4 @@
-<%= raw @name %>,
+<%= raw @name.force_encoding('utf8') %>,
 
 <%= _('Please click on the link below to confirm your email address.')%>
 <%= raw @reasons[:email] %> 

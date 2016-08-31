@@ -1,4 +1,4 @@
-<%= raw @name %>,
+<%= raw @name.force_encoding('utf-8') %>,
 
 <%= _('You just tried to sign up to {{site_name}}, when you
 already have an account. Your name and password have been
