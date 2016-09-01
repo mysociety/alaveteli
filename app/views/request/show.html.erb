@@ -129,79 +129,11 @@
                  :user => user_link_for_request(@info_request)) %>
         <% end %>
       <% end %>
-    <% elsif @status == 'waiting_response' %>
-      <%= _('Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and', :public_body_link=> public_body_link(@info_request.public_body)) %>
-      <%= _('normally') %>
-      <%= _('no later than') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-      (<%= link_to _("details"), "/help/requesting#quickly_response" %>).
-    <% elsif @status == 'waiting_response_overdue' %>
-      <%= _('Response to this request is <strong>delayed</strong>.') %>
-      <%= _('By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and',:public_body_link=>public_body_link(@info_request.public_body)) %>
-      <%= _('by') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-      (<%= link_to _('details'), help_requesting_path(:anchor => 'quickly_response') %>)
-    <% elsif @status == 'waiting_response_very_overdue' %>
-      <%= _('Response to this request is <strong>long overdue</strong>.') %>
-      <%= _('By law, under all circumstances, {{public_body_link}} should have responded by now',:public_body_link => public_body_link(@info_request.public_body)) %>
-      (<%= link_to _('details'), help_requesting_path(:anchor => 'quickly_response') %>).
-
-      <% if !@info_request.is_external? %>
-        <%= _('You can <strong>complain</strong> by') %>
-        <%= link_to _("requesting an internal review"), new_request_followup_path(:request_id => @info_request.id) + "?internal_review=1#followup" %>.
-      <% end %>
-    <% elsif @status == 'not_held' %>
-      <%= _('{{authority_name}} <strong>did not have</strong> the information ' \
-               'requested.',
-            :authority_name => public_body_link(@info_request.public_body)) %>
-    <% elsif @status == 'rejected' %>
-      <%= _('The request was <strong>refused</strong> by {{authority_name}}.',
-            :authority_name => public_body_link(@info_request.public_body)) %>
-    <% elsif @status == 'successful' %>
-      <%= _('The request was <strong>successful</strong>.') %>
-    <% elsif @status == 'partially_successful' %>
-      <%= _('The request was <strong>partially successful</strong>.') %>
-    <% elsif @status == 'waiting_clarification' %>
-      <% if @is_owning_user && !@info_request.is_external? %>
-        <%= _('{{authority_name}} is <strong>waiting for your clarification</strong>.',
-              :authority_name => h(@info_request.public_body.name)) %>
-        <%= _('Please') %>
-        <%= link_to _("send a follow up message"), respond_to_last_path(@info_request, :anchor => 'followup') %>.
-      <% else %>
-        <%= _('The request is <strong>waiting for clarification</strong>.') %>
-        <% if !@info_request.is_external? %>
-          <%= _('If you are {{user_link}}, please',
-                :user_link=>user_link_for_request(@info_request)) %>
-          <%= link_to _("sign in"), signin_path(:r => request.fullpath) %>
-          <%= _('to send a follow up message.') %>
-        <% end %>
-      <% end %>
-    <% elsif @status == 'gone_postal' %>
-      <%= _('The authority would like to / has <strong>responded by ' \
-               'post</strong> to this request.') %>
-    <% elsif @status == 'internal_review' %>
-      <%= _('Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request.',:public_body_link=>public_body_link(@info_request.public_body)) %>
-    <% elsif @status == 'error_message' %>
-      <%= _('There was a <strong>delivery error</strong> or similar, which ' \
-               'needs fixing by the {{site_name}} team.',
-            :site_name=>site_name) %>
-    <% elsif @status == 'requires_admin' %>
-      <%= _('This request has had an unusual response, and <strong>requires ' \
-              'attention</strong> from the {{site_name}} team.',
-            :site_name=>site_name) %>
-    <% elsif @status == 'user_withdrawn' %>
-      <%= _('This request has been <strong>withdrawn</strong> by the person ' \
-               'who made it. There may be an explanation in the correspondence below.') %>
-    <% elsif @status == 'attention_requested' %>
-      <%= _('This request has been <strong>reported</strong> as needing ' \
-               'administrator attention (perhaps because it is vexatious, or a ' \
-               'request for personal information)') %>
-    <% elsif @status == 'vexatious' %>
-      <%= _('This request has been <strong>hidden</strong> from the site, ' \
-               'because an administrator considers it vexatious') %>
-    <% elsif @status == 'not_foi' %>
-      <%= _('This request has been <strong>hidden</strong> from the site, ' \
-               'because an administrator considers it not to be an FOI request') %>
     <% else %>
-      <%= render :partial => 'general/custom_state_descriptions', :locals => { :status => @status } %>
+      <%= status_text(@info_request.calculate_status,
+                      :info_request => @info_request,
+                      :is_owning_user => @is_owning_user,
+                      :redirect_to => request.fullpath) %>
     <% end %>
   </p>
 
