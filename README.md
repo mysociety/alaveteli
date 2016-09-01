@@ -76,3 +76,6 @@ See more at [alaveteli.org](http://alaveteli.org/deployments/).
 
 Thanks to [Browserstack](https://www.browserstack.com/) who let us use their
 web-based cross-browser testing tools for this project.
+
+This product includes GeoLite data created by MaxMind, available from
+<a href="http://www.maxmind.com">http://www.maxmind.com</a>.
