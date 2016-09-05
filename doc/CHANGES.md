@@ -10,6 +10,13 @@
 
 ## Upgrade Notes
 
+* `InfoRequest.last_public_response_clause`,
+  `InfoRequest.old_unclassified_params`,
+  `InfoRequest.count_old_unclassified`,
+  `InfoRequest.get_random_old_unclassified` and
+  `InfoRequest.find_old_unclassified` have been removed. Use
+  `InfoRequest.where_old_unclassified` and additional ARel query methods where
+  necessary.
 * You can improve the speed of your site by making sure that far-future expiration dates
   are being set on static assets - see the examples in the example config files (`config/
   httpd.conf-example` and `config/nginx.conf.example`).
