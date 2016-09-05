@@ -31,9 +31,8 @@ class AdminUserController < AdminController
     end
 
     @admin_users =
-      users.
-        order(@sort_options[@sort_order]).
-          paginate :page => params[:page], :per_page => 100
+      users.order(@sort_options[@sort_order]).
+        paginate(:page => params[:page], :per_page => 100)
   end
 
   def show
@@ -52,8 +51,10 @@ class AdminUserController < AdminController
   end
 
   def banned
-    @banned_users = User.paginate :order => "name", :page => params[:page], :per_page => 100,
-      :conditions =>  ["ban_text <> ''"]
+    @banned_users =
+      User.where("ban_text <> ''").
+        order('name ASC').
+          paginate(:page => params[:page], :per_page => 100)
   end
 
   def show_bounce_message
