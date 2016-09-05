@@ -941,30 +941,6 @@ class InfoRequest < ActiveRecord::Base
           LIMIT 1)"
   end
 
-  def self.last_public_response_clause
-    warn %q([DEPRECATION] InfoRequest#last_public_response_clause will be removed
-              in 0.26).squish
-    join_clause = "incoming_messages.id = info_request_events.incoming_message_id
-                       AND incoming_messages.prominence = 'normal'"
-    last_event_time_clause('response', 'incoming_messages', join_clause)
-  end
-
-  def self.old_unclassified_params(extra_params, include_last_response_time=false)
-    warn %q([DEPRECATION] InfoRequest#old_unclassified_params will be removed
-              in 0.26).squish
-    age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
-    params = { :conditions => ["awaiting_description = ?
-                                    AND last_public_response_at < ?
-                                    AND url_title != 'holding_pen'
-                                    AND user_id IS NOT NULL",
-                                      true, Time.zone.now - age] }
-    if include_last_response_time
-      params[:order] = 'last_public_response_at'
-    end
-    return params
-  end
-
-
   def self.where_old_unclassified(age_in_days=nil)
     age_in_days =
       if age_in_days
@@ -978,39 +954,6 @@ class InfoRequest < ActiveRecord::Base
           AND url_title != 'holding_pen'
           AND user_id IS NOT NULL",
           true, Time.zone.now - age_in_days)
-  end
-
-  def self.count_old_unclassified(extra_params={})
-    warn %q([DEPRECATION] InfoRequest#count_old_unclassified will be removed
-              in 0.26).squish
-    params = old_unclassified_params(extra_params)
-    add_conditions_from_extra_params(params, extra_params)
-    count(:all, params)
-  end
-
-  def self.get_random_old_unclassified(limit, extra_params)
-    warn %q([DEPRECATION] InfoRequest#get_random_old_unclassified will be removed
-              in 0.26).squish
-    params = old_unclassified_params({})
-    add_conditions_from_extra_params(params, extra_params)
-    params[:limit] = limit
-    params[:order] = "random()"
-    find(:all, params)
-  end
-
-  def self.find_old_unclassified(extra_params={})
-    warn %q([DEPRECATION] InfoRequest#find_old_unclassified will be removed
-              in 0.26).squish
-    params = old_unclassified_params(extra_params, include_last_response_time=true)
-    [:limit, :include, :offset].each do |extra|
-      params[extra] = extra_params[extra] if extra_params[extra]
-    end
-    if extra_params[:order]
-      params[:order] = extra_params[:order]
-      params.delete(:select)
-    end
-    add_conditions_from_extra_params(params, extra_params)
-    find(:all, params)
   end
 
   def self.download_zip_dir
