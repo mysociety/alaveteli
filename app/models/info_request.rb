@@ -1316,7 +1316,7 @@ class InfoRequest < ActiveRecord::Base
       xapian_similar = ActsAsXapian::Similar.new([InfoRequestEvent],
                                                  info_request_events,
                                                  :limit => limit,
-                                                 :collapse_by_prefix => 'request_collapse')
+                                                 :collapse_by_prefix => 'request_title_collapse')
       xapian_similar_more = (xapian_similar.matches_estimated > limit)
     rescue
     end
