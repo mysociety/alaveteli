@@ -310,14 +310,29 @@ div.pagination {
     &:focus {
       background-color: transparent;
     }
+  }
+  a {
+    text-decoration: none;
+    color: #333;
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+  .action-menu__info-link {
     a {
-      text-decoration: none;
-      color: #333;
-      &:hover,
-      &:active,
-      &:focus {
-        text-decoration: underline;
-      }
+      font-size: 0.625em; //10px
+      display: inline-block;
+      line-height: 2.4em; //24px
+      margin-left: 0.8em;
+      background-color: rgba(0,0,0,0.05);
+      border-radius: 3px;
+      padding: 0 0.8em;
+      color: #2688dc;
+      letter-spacing: 0.1em;
+      position: relative;
+      top: -3px;
     }
   }
 }
