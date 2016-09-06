@@ -569,8 +569,7 @@ class UserController < ApplicationController
   end
 
   def set_display_user
-    # NOTE: Rails 4 syntax: User.find_by(url_name: url_name, email_confirmed: true)
-    User.find_by_url_name_and_email_confirmed!(params[:url_name], true)
+    User.find_by!(:url_name => params[:url_name], :email_confirmed => true)
   end
 
   def set_show_requests
