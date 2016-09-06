@@ -31,10 +31,6 @@ Alaveteli::Application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.5
-
   if AlaveteliConfiguration.use_mailcatcher_in_development
     # So is queued, rather than giving immediate errors
     config.action_mailer.delivery_method = :smtp
