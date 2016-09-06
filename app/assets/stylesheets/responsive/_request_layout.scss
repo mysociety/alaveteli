@@ -56,28 +56,52 @@
 
 .request-header__toolbar-actions {
   @include grid-column(12);
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    text-align: right;
-    @include grid-column(4);
+  @media (min-width: 30em) {
     justify-content: flex-end;
     @include flexbox();
     align-items: stretch;
   }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    text-align: right;
+    @include grid-column(4);
+
+  }
 }
 
+/*
+ * .after-actions and .feed_link_toolbar form the grid
+ * for the follow button and action menu. We want them to align
+ * side-by-side until there isn't enough room, when they stack
+ */
+
 .after-actions {
+  width: 100%;
+  @media (min-width: 30em) {
+    width: 50%;
+  }
   .action-menu__button {
     width: 100%;
     text-align: left;
+    margin-bottom: 0.5em;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      text-align: center;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.feed_link_toolbar {
+  width: 100%;
+  @media (min-width: 30em) {
+    width: 50%;
   }
 }
 
 a.track-request-action {
+  margin-top: 0;
   width: 100%;
-  margin-top: 0.5em;
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
+  @media (min-width: 30em) {
     margin-left: 1em;
-    margin-top: 0;
   }
 }
 
