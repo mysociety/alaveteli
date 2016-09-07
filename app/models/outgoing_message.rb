@@ -252,10 +252,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def delivery_status
-    mail_server_logs.
-      map { |log| log.line(:decorate => true).delivery_status }.
-        compact.
-          last
+    mail_server_logs.map(&:delivery_status).compact.last
   end
 
   # An admin function
