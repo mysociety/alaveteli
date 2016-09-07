@@ -107,7 +107,7 @@ Alaveteli::Application.routes.draw do
 
   match '/request/:id/describe' => 'request#describe_state',
         :as => :describe_state,
-        :via => [:post, :put]
+        :via => [:patch, :put, :post]
   match '/request/:url_title/describe/:described_state' => 'request#describe_state_message',
         :as => :describe_state_message,
         :via => :get
