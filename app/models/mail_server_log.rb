@@ -23,6 +23,8 @@ class MailServerLog < ActiveRecord::Base
 
   serialize :delivery_status, DeliveryStatusSerializer
 
+  before_create :calculate_delivery_status
+
   # Load in exim or postfix log file from disk, or update if we already have it
   # Assumes files are named with date, rather than cyclically.
   # Doesn't do anything if file hasn't been modified since it was last loaded.
@@ -218,10 +220,24 @@ class MailServerLog < ActiveRecord::Base
   end
 
   def delivery_status
-    @delivery_status ||= line(:decorate => true).delivery_status
+    # read in the status from the database if it's available
+    if attributes['delivery_status'].present?
+      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
+    else
+      # attempt to parse the status from the log line and store if successful
+      decorated = line(:decorate => true)
+      if decorated && decorated.delivery_status
+        self.delivery_status = decorated.delivery_status
+      end
+    end
   end
 
   private
+
+  def calculate_delivery_status
+    delivery_status
+    true
+  end
 
   def self.create_mail_server_logs(emails, line, order, done)
     emails.each do |email|
