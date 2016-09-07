@@ -435,12 +435,9 @@ describe UserController, "when showing a user" do
       expect(actual).to match_array([info_requests(:naughty_chicken_request)])
     end
 
-    it "should not show unconfirmed users" do
-      begin
-        get :show, :url_name => "unconfirmed_user"
-      rescue => e
-      end
-      expect(e).to be_an_instance_of(ActiveRecord::RecordNotFound)
+    it 'should not show unconfirmed users' do
+      expect { get :show, :url_name => 'unconfirmed_user' }.
+        to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
