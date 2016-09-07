@@ -23,6 +23,7 @@ end
 
 module ActiveRecord
   class FixtureSet
+
     def self.create_fixtures(fixtures_directory, fixture_set_names, class_names = {})
       fixture_set_names = Array(fixture_set_names).map(&:to_s)
       class_names = class_names.stringify_keys
