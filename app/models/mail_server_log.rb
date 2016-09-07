@@ -215,6 +215,10 @@ class MailServerLog < ActiveRecord::Base
     line
   end
 
+  def delivery_status
+    @delivery_status ||= line(:decorate => true).delivery_status
+  end
+
   private
 
   def self.create_mail_server_logs(emails, line, order, done)

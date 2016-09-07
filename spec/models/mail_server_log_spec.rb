@@ -329,6 +329,46 @@ describe MailServerLog do
     end
   end
 
+  describe '#delivery_status' do
+
+    context 'using the :exim MTA' do
+
+        it 'returns a delivery status for the log line' do
+          line = "Apr 28 15:53:37 server exim[12105]: 2016-04-28 15:53:37 " \
+               "[12105] 1avnJx-00039F-Hs <= " \
+               "foi+request-331612-13811a2b@example.com U=foi P=local " \
+               "S=1986 id=ogm-538593+572f16e888-166a@example.com " \
+               "T=\"Freedom of Information request - example request\" " \
+               "from <foi+request-331612-13811a2b@example.com> for " \
+               "foi@example.org foi@example.org"
+          log = MailServerLog.new(:line => line)
+          status = MailServerLog::EximDeliveryStatus.new(:message_arrival)
+          expect(log.delivery_status).to eq(status)
+        end
+
+      end
+
+      context 'using the :postfix MTA' do
+
+        before do
+          allow(AlaveteliConfiguration).to receive(:mta_log_type).and_return('postfix')
+        end
+
+        it 'returns a delivery status for the log line' do
+          line = "Oct 10 16:58:38 kedumba postfix/smtp[26358]: A664436F218D: " \
+                 "to=<contact@openaustraliafoundation.org.au>, " \
+                 "relay=aspmx.l.google.com[74.125.25.26]:25, delay=2.7, " \
+                 "delays=0.16/0.02/1.8/0.67, dsn=2.0.0, " \
+                 "status=sent (250 2.0.0 OK 1349848723 e6si653316paw.346)"
+          log = MailServerLog.new(:line => line)
+          status = MailServerLog::PostfixDeliveryStatus.new(:sent)
+          expect(log.delivery_status).to eq(status)
+        end
+
+      end
+
+  end
+
   describe '#is_owning_user?' do
 
     it 'returns true if the user is the owning user of the info request' do
