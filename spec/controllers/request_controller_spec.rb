@@ -1510,7 +1510,7 @@ describe RequestController do
       let(:external_request){ FactoryGirl.create(:external_request) }
 
       it 'should redirect to the request page' do
-        post :describe_state, :id => external_request.id
+        patch :describe_state, :id => external_request.id
         expect(response)
           .to redirect_to(show_request_path(external_request.url_title))
       end
@@ -1522,7 +1522,7 @@ describe RequestController do
       let(:info_request){ FactoryGirl.create(:info_request) }
 
       def post_status(status, info_request)
-        post :describe_state, :incoming_message => { :described_state => status },
+        patch :describe_state, :incoming_message => { :described_state => status },
           :id => info_request.id,
           :last_info_request_event_id => info_request.last_event_id_needing_description
       end
@@ -1621,7 +1621,7 @@ describe RequestController do
           context 'when the new status is "requires_admin"' do
             it "should send a mail to admins saying that the response requires admin
                and one to the requester noting the status change" do
-              post :describe_state, :incoming_message =>
+              patch :describe_state, :incoming_message =>
                                       { :described_state => "requires_admin",
                                         :message => "a message" },
                                     :id => info_request.id,
@@ -1647,7 +1647,7 @@ describe RequestController do
             context "if the params don't include a message" do
 
               it 'redirects to the message url' do
-                post :describe_state, :incoming_message =>
+                patch :describe_state, :incoming_message =>
                                         { :described_state => "requires_admin" },
                                       :id => info_request.id,
                                       :incoming_message_id =>
@@ -1773,7 +1773,7 @@ describe RequestController do
         end
 
         it "should let you know when you forget to select a status" do
-          post :describe_state, :id => info_request.id,
+          patch :describe_state, :id => info_request.id,
                                 :last_info_request_event_id =>
                                   info_request.last_event_id_needing_description
           expect(response).to redirect_to show_request_url(:url_title => info_request.url_title)
@@ -1782,7 +1782,7 @@ describe RequestController do
         end
 
         it "should not change the status if the request has changed while viewing it" do
-          post :describe_state, :incoming_message => { :described_state => "rejected" },
+          patch :describe_state, :incoming_message => { :described_state => "rejected" },
                                 :id => info_request.id,
                                 :last_info_request_event_id => 1
           expect(response)
@@ -1819,7 +1819,7 @@ describe RequestController do
 
         it "should go to the page asking for more information when classified
             as requires_admin" do
-          post :describe_state,
+          patch :describe_state,
             :incoming_message => { :described_state => "requires_admin" },
             :id => info_request.id,
             :incoming_message_id => info_request.incoming_messages.last,
@@ -1835,7 +1835,7 @@ describe RequestController do
 
         context "message is included when classifying as requires_admin" do
           it "should send an email including the message" do
-            post :describe_state,
+            patch :describe_state,
             :incoming_message => {
               :described_state => "requires_admin",
             :message => "Something weird happened" },
@@ -2045,7 +2045,7 @@ describe RequestController do
         context 'when status is updated to "requires admin"' do
 
           it 'should redirect to the "request url"' do
-            post :describe_state, :incoming_message => {
+            patch :describe_state, :incoming_message => {
                 :described_state => 'requires_admin',
                 :message => "A message"
               },
@@ -2061,7 +2061,7 @@ describe RequestController do
         context 'when status is updated to "error message"' do
 
           it 'should redirect to the "request url"' do
-            post :describe_state, :incoming_message => {
+            patch :describe_state, :incoming_message => {
                 :described_state => 'error_message',
                 :message => "A message"
               },
@@ -2077,7 +2077,7 @@ describe RequestController do
           context "if the params don't include a message" do
 
             it 'redirects to the message url' do
-              post :describe_state, :incoming_message =>
+              patch :describe_state, :incoming_message =>
                                       { :described_state => "error_message" },
                                     :id => info_request.id,
                                     :incoming_message_id =>
