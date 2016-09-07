@@ -76,6 +76,26 @@ describe MailServerLog do
       log = ir.mail_server_logs.first
       expect(log.line).to eq("This is a line of a logfile relevant to foi+request-1234@example.com\n")
     end
+
+    context "there is a delivery status" do
+      it "stores the delivery status" do
+        allow(InfoRequest).to receive(:find_by_incoming_email).
+          with("foi+request-1234@example.com").and_return(ir)
+        MailServerLog.load_file(file_fixture_name('exim-mainlog-2016-04-28'))
+        expect(ir.mail_server_logs[0].attributes['delivery_status']).
+          to eq(MailServerLog::EximDeliveryStatus.new(:message_arrival))
+      end
+    end
+
+    context "there is no delivery status" do
+      it "stores the delivery status" do
+        allow(InfoRequest).to receive(:find_by_incoming_email).
+          with("foi+request-1234@example.com").and_return(ir)
+        MailServerLog.load_file(text_log_path)
+        expect(ir.mail_server_logs[0].attributes).
+          to_not include(['delivery_status'])
+      end
+    end
   end
 
   describe ".email_addresses_on_line" do

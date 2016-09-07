@@ -21,6 +21,8 @@ class MailServerLog < ActiveRecord::Base
   belongs_to :info_request
   belongs_to :mail_server_log_done
 
+  serialize :delivery_status, DeliveryStatusSerializer
+
   # Load in exim or postfix log file from disk, or update if we already have it
   # Assumes files are named with date, rather than cyclically.
   # Doesn't do anything if file hasn't been modified since it was last loaded.
