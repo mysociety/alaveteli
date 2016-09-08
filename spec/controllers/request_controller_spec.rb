@@ -163,6 +163,12 @@ describe RequestController, "when showing one request" do
     expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
   end
 
+  it 'should return a 404 for GET requests to a malformed request URL' do
+    expect {
+      get :show, :url_title => '228%85'
+    }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
   it 'should show actions the request owner can take' do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
     expect(response.body).to have_css('div#owner_actions')
