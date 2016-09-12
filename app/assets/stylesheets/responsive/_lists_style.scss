@@ -59,6 +59,11 @@
   }
 }
 
+.body-listing__request-count {
+  font-size: 0.875em;
+  color: #666;
+}
+
 $status-success: #D8EDC7;
 $status-failure: #FFDBDB;
 $status-pending: #FFF3C9;

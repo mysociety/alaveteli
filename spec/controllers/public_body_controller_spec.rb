@@ -348,7 +348,7 @@ describe PublicBodyController, "when listing bodies" do
 
     allow(PublicBody).to receive(:where).and_return(fake_list)
     get :list
-    expect(response.body).to have_content('1 request made')
+    expect(response.body).to have_content('1 request.')
   end
 
   it 'should return a "406 Not Acceptable" code if asked for a json version of a list' do

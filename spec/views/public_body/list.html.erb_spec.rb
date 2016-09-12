@@ -36,7 +36,7 @@ describe "public_body/list" do
 
   it "should show the body's name" do
     render
-    expect(response).to have_css('span.head', :text => "Test Quango")
+    expect(response).to have_css('div.head', :text => "Test Quango")
   end
 
   it "should show total number visible of requests" do
