@@ -565,6 +565,11 @@ describe PublicBodyController, "when doing type ahead searches" do
     ])
   end
 
+  it "shows the number of bodies matching the keywords" do
+    get :search_typeahead, :query => "Geraldine Humpadinking"
+    expect(response.body).to match("2 matching authorities")
+  end
+
   it "should return requests matching the given keywords in any of their locales" do
     get :search_typeahead, :query => "baguette" # part of the spanish notes
     expect(response).to render_template('public_body/_search_ahead')
