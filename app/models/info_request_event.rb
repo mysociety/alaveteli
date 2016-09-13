@@ -98,7 +98,8 @@ class InfoRequestEvent < ActiveRecord::Base
                              [ :latest_status, 'L', "latest_status" ],
                              [ :waiting_classification, 'W', "waiting_classification" ],
                              [ :filetype, 'T', "filetype" ],
-                             [ :tags, 'U', "tag" ]
+                             [ :tags, 'U', "tag" ],
+                             [ :request_public_body_tags, 'X', "request_public_body_tag" ]
                             ],
                  :if => :indexed_by_search?,
                  :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
@@ -247,6 +248,10 @@ class InfoRequestEvent < ActiveRecord::Base
   def tags
     # this returns an array of strings, each gets indexed as separate term by acts_as_xapian
     info_request.tag_array_for_search
+  end
+
+  def request_public_body_tags
+    info_request.public_body.tag_array_for_search
   end
 
   def indexed_by_search?

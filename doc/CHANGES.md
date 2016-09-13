@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Search for requests made to a tagged set of public authorities (Henare Degan)
 * Allow format to be parsed correctly so JSON searches work (Henare Degan)
 * Improve styling of request status messages (Martin Wright)
 * Improve Public Body import from CSV documentation and page layout (Liz Conlan,
@@ -24,6 +25,10 @@
   httpd.conf-example` and `config/nginx.conf.example`).
 * Install the `geoip-database-contrib` package to automatically fetch latest
   geoip databases.
+* To make requests searchable based on their public body's tags you'll need to
+  reindex Xapian. To make this quicker you can selectively reindex just the
+  model and new term by running
+  `bundle exec rake xapian:rebuild_index models="InfoRequestEvent" terms="X"`
 
 ### Changed Templates
 
