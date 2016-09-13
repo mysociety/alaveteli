@@ -77,6 +77,12 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
     arel (3.0.3)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.0.4)
@@ -132,6 +138,7 @@ GEM
       simplecov (>= 0.7)
       thor
     daemons (1.1.9)
+    debug_inspector (0.0.2)
     debugger (1.6.8)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -369,6 +376,8 @@ DEPENDENCIES
   active_model_otp!
   acts_as_versioned!
   annotate (~> 2.7.1)
+  better_errors
+  binding_of_caller
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 5.1.0)
   capistrano (~> 2.15.4)
@@ -437,3 +446,6 @@ DEPENDENCIES
   xapian-full-alaveteli (~> 1.2.21.1)
   xml-simple (~> 1.1.2)
   zip (~> 2.0.2)
+
+BUNDLED WITH
+   1.12.5
