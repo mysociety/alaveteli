@@ -82,4 +82,20 @@ describe "When searching" do
     expect(response.body).to include("no results matching your query")
   end
 
+  it "should search for requests made to a tagged set of public authorities" do
+    get "/search/tag:popular_agency%20variety:sent/all"
+    # In the fixtures there are 2 public bodies with the popular_agency tag:
+    # - geraldine_public_body
+    # - humpadink_public_body
+    # and
+    n = 6
+    # requests to those public bodies:
+    # - fancy_dog_request
+    # - naughty_chicken_request
+    # - badger_request
+    # - boring_request
+    # - external_request
+    # - anonymous_external_request
+    expect(response.body).to include("FOI requests 1 to #{n} of #{n}")
+  end
 end
