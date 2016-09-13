@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve styling of request status messages (Martin Wright)
 * Improve Public Body import from CSV documentation and page layout (Liz Conlan,
   Gareth Rees)
 * Apache and nginx example files now have far-future expiration dates for static assets
