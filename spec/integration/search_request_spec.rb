@@ -83,7 +83,8 @@ describe "When searching" do
   end
 
   it "should search for requests made to a tagged set of public authorities" do
-    get "/search/tag:popular_agency%20variety:sent/all"
+    request_via_redirect("get", "/search/requests",
+                         query: "request_public_body_tag:popular_agency")
     # In the fixtures there are 2 public bodies with the popular_agency tag:
     # - geraldine_public_body
     # - humpadink_public_body
