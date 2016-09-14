@@ -87,12 +87,6 @@ class TrackController < ApplicationController
   def track_search_query
     @query = params[:query_array]
 
-    # TODO: more hackery to make alternate formats still work with query_array
-    if /^(.*)\.json$/.match(@query)
-      @query = $1
-      params[:format] = "json"
-    end
-
     @track_thing = TrackThing.create_track_for_search_query(@query)
 
     return atom_feed_internal if params[:feed] == 'feed'

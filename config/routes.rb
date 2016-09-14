@@ -327,11 +327,9 @@ Alaveteli::Application.routes.draw do
         :as => :track_user,
         :feed => /(track|feed)/,
         :via => :get
-  # TODO: :format doesn't work. See hacky code in the controller that makes up for this.
   match '/:feed/search/:query_array' => 'track#track_search_query',
         :as => :track_search,
         :feed => /(track|feed)/,
-        :constraints => { :query_array => /.*/ },
         :via => :get
 
   match '/track/update/:track_id' => 'track#update',
