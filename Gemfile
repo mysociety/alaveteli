@@ -80,6 +80,7 @@ group :test, :development do
   gem 'rspec-rails', '~> 3.4.0'
   gem 'test-unit', '~> 3.1.0'
   gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
+  gem 'pry-byebug', platforms: [:ruby_20, :ruby_21, :ruby_23]
 end
 
 group :development do
