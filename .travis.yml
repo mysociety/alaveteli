@@ -17,7 +17,6 @@ before_install:
   - sudo locale-gen --no-archive en_GB
   - sudo locale-gen --no-archive en_GB.UTF-8
   - sudo update-locale
-  - gem update --system 2.1.11
   - gem install rake --version=0.9.2.2
   - git submodule update --init --recursive
   - psql -c "create database template_utf8 template template0 encoding 'UTF-8';" -U postgres
