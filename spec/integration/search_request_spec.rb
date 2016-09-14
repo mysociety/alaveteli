@@ -82,4 +82,18 @@ describe "When searching" do
     expect(response.body).to include("no results matching your query")
   end
 
+  context 'using JSON format' do
+
+    it 'should return JSON formatted results' do
+      get '/feed/search/chicken.json'
+      response_data = JSON.parse(response.body, :symbolize_names => true)
+
+      expect(response.content_type).to eq(:json)
+      expect(response_data.size).to eql(1)
+      expect(response_data.first[:info_request][:title]).
+        to eq('How much public money is wasted on breeding naughty chickens?')
+    end
+
+  end
+
 end

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow format to be parsed correctly so JSON searches work (Henare Degan)
 * Improve styling of request status messages (Martin Wright)
 * Improve Public Body import from CSV documentation and page layout (Liz Conlan,
   Gareth Rees)
