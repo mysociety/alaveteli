@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Added favicon to `admin`, `no_chrome` and attachment to html layouts
+  (Gareth Rees)
 * Search for requests made to a tagged set of public authorities (Henare Degan)
 * Allow format to be parsed correctly so JSON searches work (Henare Degan)
 * Improve styling of request status messages (Martin Wright)
