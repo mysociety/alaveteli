@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-07-12 11:56+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2016-09-01 09:54+0000\n"
+"Last-Translator: Hana Hunt <hana@hana-hunt.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -398,7 +398,7 @@ msgid "All the options below can use <strong>variety</strong> or <strong>latest_
 msgstr "Všechny níže uvedené možnosti <strong>variety</strong> or <strong>latest_variety</strong> před dvojtečkou. Například, <strong>variety:sent</strong> zahrne dotazy, které byly <em>někdy</em> vzneseny; <strong>latest_variety:sent</strong> zahrne pouze dotazy <em>v současnosti</em> označené jako odeslané."
 
 msgid "All time best players"
-msgstr ""
+msgstr "Nejlepší hráči"
 
 msgid "Also called {{other_name}}."
 msgstr "Také se nazývá {{other_name}}."
@@ -489,7 +489,7 @@ msgid "Authority email:"
 msgstr "E-mailová adresa instituce"
 
 msgid "Authority name"
-msgstr ""
+msgstr "Název instituce"
 
 msgid "Authority:"
 msgstr "Instituce:"
