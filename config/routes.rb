@@ -592,5 +592,8 @@ Alaveteli::Application.routes.draw do
         :feed_type => '^(json|atom)$'
   ####
 
+  ### AlaveteliPro Engine
+  mount AlaveteliPro::Engine => "/pro"
+
   filter :conditionallyprependlocale
 end

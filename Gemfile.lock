@@ -42,6 +42,12 @@ GIT
     acts_as_versioned (0.6.0)
       activerecord (>= 3.0.9)
 
+PATH
+  remote: engines/alaveteli_pro
+  specs:
+    alaveteli_pro (0.0.1)
+      rails (~> 3.2.22.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -368,6 +374,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_otp!
   acts_as_versioned!
+  alaveteli_pro!
   annotate (~> 2.7.1)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 5.1.0)

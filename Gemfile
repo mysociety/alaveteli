@@ -57,6 +57,9 @@ gem 'routing-filter', '~> 0.4.0'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.2'
 
+# Alaveteli professional
+gem 'alaveteli_pro', :path => 'engines/alaveteli_pro'
+
 group :assets do
   gem 'bootstrap-sass', '~> 2.3.2.2'
   gem 'sass-rails', '~> 3.2.3'
