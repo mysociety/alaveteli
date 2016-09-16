@@ -376,8 +376,8 @@ DEPENDENCIES
   active_model_otp!
   acts_as_versioned!
   annotate (~> 2.7.1)
-  better_errors
-  binding_of_caller
+  better_errors (~> 2.1.1)
+  binding_of_caller (~> 0.7.2)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 5.1.0)
   capistrano (~> 2.15.4)
