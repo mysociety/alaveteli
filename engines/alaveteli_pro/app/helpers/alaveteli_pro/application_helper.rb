@@ -23,5 +23,9 @@ module AlaveteliPro
         super
       end
     end
+
+    def site_name
+      _("{{site_name}} Professional", site_name: AlaveteliConfiguration::site_name)
+    end
   end
 end
