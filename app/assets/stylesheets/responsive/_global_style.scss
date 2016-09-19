@@ -245,7 +245,6 @@ div.pagination {
 .action-menu__button {
   position: relative;
   padding-right: 1.5em;
-  padding: 1em 2em 1em 1em;
   &:hover,
   &:active,
   &:focus {
@@ -261,7 +260,7 @@ div.pagination {
   }
   &:after {
     border-color: #d8d8d8 transparent transparent transparent;
-    right: 0.5em;
+    right: 0;
     border-width: 0.38889rem;
     margin-top: -0.13889rem;
     border-style: solid;

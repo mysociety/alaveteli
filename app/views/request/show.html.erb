@@ -117,8 +117,8 @@
   </div>
     <h1><%=h(@info_request.title)%></h1>
 
-    <div class="request-header__toolbar-container">
-      <div class="request-header__toolbar">
+    <div class="request-header__action-bar-container">
+      <div class="request-header__action-bar">
         <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>
           <div class=" request-header__profile-photo user_photo_on_request">
             <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>" alt="">
@@ -142,7 +142,7 @@
           <% end %>
         </p>
         <% unless @render_to_file %>
-          <div class="request-header__toolbar-actions">
+          <div class="request-header__action-bar__actions">
             <%= render :partial => 'after_actions' %>
             <%= render :partial => 'track/tracking_links_simple', :locals => { :track_thing => @track_thing, :own_request => @info_request.user && @info_request.user == @user, :location => 'toolbar ' } %>
           </div>
