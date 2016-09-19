@@ -16,11 +16,11 @@
   }
 }
 
-.request-header__toolbar-container {
+.request-header__action-bar-container {
   @include grid-column(12);
 }
 
-.request-header__toolbar {
+.request-header__action-bar {
   margin-bottom: 2em;
   position: relative;
 }
@@ -38,24 +38,21 @@
 }
 
 .request-header__subtitle {
-  @include grid-column(12);
+  @include grid-column(12, $collapse:true);
   margin-top: 0;
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     margin-bottom: 0;
-    @include grid-column(8);
+    @include grid-column(7, $collapse:true);
   }
 }
 
 .request-header__subtitle--narrow {
   //we use --narrow when a profile photo is available
   @include grid-column(10, $collapse:true);
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    @include grid-column(6, $collapse:true);
-  }
 }
 
-.request-header__toolbar-actions {
-  @include grid-column(12);
+.request-header__action-bar__actions {
+  @include grid-column(12, $collapse:true);
   @media (min-width: 30em) {
     justify-content: flex-end;
     @include flexbox();
@@ -63,8 +60,15 @@
   }
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     text-align: right;
-    @include grid-column(4);
+    @include grid-column(5);
 
+  }
+  .action-bar__follow {
+    width: 100%;
+    text-align: left;
+    @include respond-min( 30em ){
+      width: 67%;
+    }
   }
 }
 
@@ -77,7 +81,7 @@
 .after-actions {
   width: 100%;
   @media (min-width: 30em) {
-    width: 50%;
+    width: 33%;
   }
   .action-menu__button {
     width: 100%;
