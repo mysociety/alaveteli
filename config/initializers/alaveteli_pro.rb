@@ -1,0 +1,1 @@
+AlaveteliPro.user_class = "User"
