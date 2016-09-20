@@ -271,3 +271,12 @@ input.cplink__field {
   margin-bottom: 0;
   line-height: 1em;
 }
+
+#reports_new {
+    form {
+      max-width: 38em;
+    }
+    textarea {
+      width: 100%;
+    }
+}
