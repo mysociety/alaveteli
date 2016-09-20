@@ -40,7 +40,8 @@ textarea{
 #user_profile_header,
 #general_blog,
 #request_show,
-#info_request_batch_show {
+#info_request_batch_show,
+#reports_new {
   @include grid-row($behavior: nest);
 }
 
