@@ -85,7 +85,7 @@
   position: relative;
 }
 
-.body_listing__header {
+.body-listing__header {
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     margin-right: 7em;
   }
@@ -93,6 +93,9 @@
 
 .body-listing__description {
   margin-bottom: 0.5em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    margin-right: 11.25em;
+  }
 }
 
 .body_listing__request-button {
@@ -100,6 +103,7 @@
     position: absolute;
     right: 0;
     top: 7px;
+    max-width: 10em;
   }
 }
 
