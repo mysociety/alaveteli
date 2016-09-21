@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cd "`dirname "${BASH_SOURCE[0]}"`"
-exec echo $PATH
+exec echo $PATH 1>&2
 exec bundle exec ./handle-mail-replies.rb "$@"
