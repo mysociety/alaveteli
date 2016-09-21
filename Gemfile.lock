@@ -225,7 +225,7 @@ GEM
     pkg-config (1.1.7)
     polyglot (0.3.5)
     power_assert (0.2.7)
-    pry (0.10.4)
+    pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
