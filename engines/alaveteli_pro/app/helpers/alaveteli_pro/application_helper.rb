@@ -25,7 +25,7 @@ module AlaveteliPro
     end
 
     def site_name
-      _("{{site_name}} Professional", site_name: AlaveteliConfiguration::site_name)
+      "#{AlaveteliPro.site_name} Professional"
     end
 
     def is_alaveteli_pro_user(user)
