@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 
-  mount AlaveteliPro::Engine => "/alaveteli_pro"
+  mount AlaveteliPro::Engine => "/pro"
 end
