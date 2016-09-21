@@ -17,6 +17,7 @@ before_install:
   - gem update bundler
   - bundle --version
   - which bundle
+  - echo $PATH
   - sudo locale-gen --no-archive en_GB
   - sudo locale-gen --no-archive en_GB.UTF-8
   - sudo update-locale
