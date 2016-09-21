@@ -27,5 +27,9 @@ module AlaveteliPro
     def site_name
       _("{{site_name}} Professional", site_name: AlaveteliConfiguration::site_name)
     end
+
+    def is_alaveteli_pro_user(user)
+      AlaveteliPro::Account.where(user: user).exists?
+    end
   end
 end

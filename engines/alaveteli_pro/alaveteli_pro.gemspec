@@ -16,7 +16,13 @@ Gem::Specification.new do |s|
                   "journalists and other professional FOI users."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
-  s.test_files = Dir["test/**/*"]
+  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 3.2.22.3"
+
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'capybara'
+  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'jquery-rails' # The dummy app needs it
+  s.add_development_dependency 'pg'
 end
