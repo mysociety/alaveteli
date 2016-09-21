@@ -15,6 +15,7 @@ env:
     - secure: "cbZMhxbih4k2syqykwVprnBBTyD9Rk9pVhwM2W1Oa3Y9QIn79giL2yTUrJi3+bapHHFedWstG1wkLxEalc/Ei1G4vWYDqXiOtdzYR/WMqqCyd8royrkusist+rVcolvZ2dTCu8uvmteQ6sE3/FsoayTlYJmWCNFWhAiWayaai8Q="
 before_install:
   - gem update bundler
+  - bundle --version
   - sudo locale-gen --no-archive en_GB
   - sudo locale-gen --no-archive en_GB.UTF-8
   - sudo update-locale
