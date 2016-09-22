@@ -1,0 +1,28 @@
+<h2>
+  <%= @info_request.title %>
+</h2>
+
+<p>
+  <%= _('{{public_body}} has asked you to explain part of your {{law_used}} request.',
+      :public_body => @info_request.public_body.name,
+      :law_used => @info_request.law_used_human(:short) ) %>
+</p>
+
+<p>
+  <%= _('To do this, first click on the link below.') %>
+</p>
+
+<p>
+  <%= link_to @url, :class => 'button' do %>
+    <%= _('Write a reply')%>
+  <% end %>
+</p>
+
+<p>
+  <%= _('You will only get an answer to your request if you follow up ' \
+      'with the clarification.') %>
+</p>
+
+<p class="byline">
+  &ndash; <%= _('the {{site_name}} team', :site_name => site_name) %>
+</p>

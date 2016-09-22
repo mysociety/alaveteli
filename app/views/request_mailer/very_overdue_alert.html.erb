@@ -1,0 +1,28 @@
+<h2>
+  <%= raw @info_request.public_body.name %> <%= _('are long overdue.')%>
+</h2>
+
+<p>
+  <%= _('They have not replied to your {{law_used_short}} request {{title}}, ' \
+      'as required by law',
+      :law_used_short => @info_request.law_used_human(:short),
+      :title => @info_request.title)%>.
+</p>
+
+<p>
+  <%= _('Click on the link below to send a message to {{public_body_name}} ' \
+      'telling them to reply to your request. You might like to ask for ' \
+      'an internal review, asking them to find out why response to the ' \
+      'request has been so slow.',
+      :public_body_name => @info_request.public_body.name) %>
+</p>
+
+<p>
+  <%= link_to @url, :class => 'button' do %>
+    <%= _('Send a reminder')%>
+  <% end %>
+</p>
+
+<p class="byline">
+  &ndash; <%= _('the {{site_name}} team', :site_name => site_name) %>
+</p>

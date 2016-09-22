@@ -1,0 +1,23 @@
+<h2>
+  <%= _("Was the response you got to your FOI " \
+        "request any good?") %>
+</h2>
+
+<p>
+  <%=_('To let everyone know, follow this link and then select the appropriate box.')%>
+</p>
+
+<p>
+  <%= link_to @url, :class => 'button' do %>
+    <%= _('Update the status of this request')%>
+  <% end %>
+</p>
+
+<p>
+  <%= _('Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on',:info_request=>@info_request.title)%>
+  <%= raw @info_request.public_body.name %>.
+</p>
+
+<p class="byline">
+  &ndash; <%= _('the {{site_name}} team', :site_name => site_name) %>
+</p>

@@ -1,0 +1,20 @@
+<h2>
+  <%= @info_request.title %>
+</h2>
+
+<p>
+  <%= _('{{user_name}} has annotated your {{law_used_short}} request. Follow ' \
+      'this link to see what they wrote.',
+      :user_name => @comment.user.name,
+      :law_used_short => @info_request.law_used_human(:short)) %>
+</p>
+
+<p>
+  <%= link_to @url, :class => 'button' do %>
+    <%= _('View request')%>
+  <% end %>
+</p>
+
+<p class="byline">
+  &ndash; <%= _('the {{site_name}} team', :site_name => site_name) %>
+</p>
