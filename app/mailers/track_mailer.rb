@@ -6,6 +6,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackMailer < ApplicationMailer
+  self.asset_host = AlaveteliConfiguration.domain
+  include Roadie::Rails::Automatic
 
   def event_digest(user, email_about_things)
     @user, @email_about_things = user, email_about_things
