@@ -11,7 +11,12 @@ $alaveteli_route_extensions.each do |f|
 end
 
 Alaveteli::Application.routes.draw do
-  #### General contoller
+
+  # This line mounts AlaveteliPro's routes at the root of your application.
+  # If you would like to change where this engine is mounted, simply change the :at option to something different.
+  #
+  mount AlaveteliPro::Engine, at: '/pro'
+          #### General contoller
   match '/' => 'general#frontpage',
         :as => :frontpage,
         :via => :get
@@ -591,9 +596,6 @@ Alaveteli::Application.routes.draw do
         :as => :api_body_request_events,
         :feed_type => '^(json|atom)$'
   ####
-
-  ### AlaveteliPro Engine
-  mount AlaveteliPro::Engine => "/pro"
 
   filter :conditionallyprependlocale
 end

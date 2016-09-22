@@ -1,2 +1,5 @@
+# What model class provides users?
 AlaveteliPro.user_class = "User"
-AlaveteliPro.site_name = AlaveteliConfiguration::site_name
+
+# What's the name of your Alaveteli Pro site?
+AlaveteliPro.site_name = "Alaveteli"
