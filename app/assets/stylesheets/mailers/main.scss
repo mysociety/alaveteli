@@ -63,18 +63,18 @@ p {
 }
 
 hr {
-  border: 1px solid #ddd;
-  border-width: 1px 0 0 0;
+  border: none;
+  border-top: $hr_border;
   margin: 32px 0;
 }
 
 .blockquote {
   padding: 0 0 0 32px;
-  font-style: italic;
+  font-style: $blockquote_font_style;
 }
 
 .highlight {
   padding: 0.1em 0.2em 0.2em 0.2em;
-  background: #ffffcc;
-  font-weight: bold;
+  background: $highlight_background_color;
+  font-weight: $highlight_font_weight;
 }
