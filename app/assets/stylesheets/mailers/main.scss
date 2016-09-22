@@ -16,6 +16,18 @@ td {
   line-height: 24px;
 }
 
+h1 {
+  font-family: $body_font_family;
+  font-size: 28px;
+  line-height: 34px;
+}
+
+h2 {
+  font-family: $body_font_family;
+  font-size: 21px;
+  line-height: 26px;
+}
+
 p {
   font-family: $body_font_family;
   font-size: 16px;
@@ -26,14 +38,6 @@ p {
 .container {
   margin: 0;
   width: $content_width;
-}
-
-.button {
-  display: inline-block;
-  background-color: $button_background_color;
-  border: 10px solid $button_background_color;
-  border-width: 10px 15px;
-  border-radius: 5px;
 }
 
 .logo {
@@ -48,4 +52,29 @@ p {
   font-size: 16px;
   line-height: 24px;
   color: $byline_color;
+}
+
+.button {
+  display: inline-block;
+  background-color: $button_background_color;
+  border: 10px solid $button_background_color;
+  border-width: 10px 15px;
+  border-radius: 5px;
+}
+
+hr {
+  border: 1px solid #ddd;
+  border-width: 1px 0 0 0;
+  margin: 32px 0;
+}
+
+.blockquote {
+  padding: 0 0 0 32px;
+  font-style: italic;
+}
+
+.highlight {
+  padding: 0.1em 0.2em 0.2em 0.2em;
+  background: #ffffcc;
+  font-weight: bold;
 }

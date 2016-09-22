@@ -6,6 +6,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackMailer < ApplicationMailer
+
   def event_digest(user, email_about_things)
     @user, @email_about_things = user, email_about_things
 

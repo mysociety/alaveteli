@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= stylesheet_link_tag 'mailers/application.css' %>
+    <title></title>
+  </head>
+  <body>
+    <table cellspacing="0" cellpadding="6" border="0" width="100%">
+      <tr>
+        <td></td>
+        <td width="480" class="container">
+          <%= image_tag 'logo.png',
+                        :alt => site_name,
+                        :size => '275x44',
+                        :class => 'logo' %>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td width="480" class="container">
+          <%= yield %>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+  </body>
+</html>
