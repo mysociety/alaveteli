@@ -7,6 +7,9 @@
 
 require 'action_mailer/version'
 class ApplicationMailer < ActionMailer::Base
+
+  layout 'default_mailer'
+
   # Include all the functions views get, as emails call similar things.
   helper :application
   include MailerHelper
