@@ -9,6 +9,7 @@ module AlaveteliPro
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'
       g.assets false
       g.helper false
+      g.template_engine :erb
     end
   end
 end
