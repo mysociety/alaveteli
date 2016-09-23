@@ -123,11 +123,14 @@ then
     bundle install $bundle_install_options
 fi
 
+echo "Checking submodules"
 bundle exec rake submodules:check
 
+echo "Installing themes"
 bundle exec rake themes:install
 
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
+    echo "Precompiling assets"
     bundle exec rake assets:precompile
 fi
