@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add better_errors for awesome debugging under Ruby 2.0 (Henare Degan)
 * Added favicon to `admin`, `no_chrome` and attachment to html layouts
   (Gareth Rees)
 * Search for requests made to a tagged set of public authorities (Henare Degan)
