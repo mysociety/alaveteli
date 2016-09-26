@@ -721,9 +721,8 @@ really need to render a user account redundant, you can do this:
 * Click on **change your password**, and then confirm by clicking on **Send me
   the email** — this will try to send an email, containing a confirmation link,
   but that email won't really go anywhere (because the email is `@invalid`)...
-* ...but you can access that link by going to the user's admin page, and
-  building it yourself. Find the *Otp secret key* and use it to make this URL:
-  <code><em>your_domain</em>/c/<em>secret_key</em></code>
+* ...but you can access that link by going to the user's admin page and
+  clicking the _email token_ link in their most recent _Post redirect_
 * Change the user's password to a random string
 * If the account is banned (see above), change the ban text to something neutral
 
