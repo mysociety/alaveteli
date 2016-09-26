@@ -116,5 +116,10 @@ module Alaveteli
       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
     ]
 
+    config.sass.load_paths += [
+      "#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive"
+    ]
+
+
   end
 end
