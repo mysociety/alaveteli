@@ -57,6 +57,13 @@ namespace :cleanup do
     end
   end
 
+  desc 'Reindex banned users'
+  task :reindex_banned_users => :environment do
+    User.where("ban_text <> ''").find_each do |user|
+      user.xapian_mark_needs_index
+    end
+  end
+
 end
 
 def display_user(user, spam_score)
