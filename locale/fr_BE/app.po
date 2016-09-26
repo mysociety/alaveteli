@@ -5,44 +5,31 @@
 # Translators:
 # Translators:
 # Adrien Chauvet <adr.chauvet@gmail.com>, 2013
-# skenaja <alex@alexskene.com>, 2011
-# andreas.pavlou <andreas@access-info.org>, 2013
 # andreas.pavlou <andreas@access-info.org>, 2013
 # Bbear <borisjf@post.harvard.edu>, 2011
 # Benoît Simard <contact@bsimard.com>, 2013
-# Bbear <borisjf@post.harvard.edu>, 2011
 # cegall, 2013
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2016
 # Claire, 2013
-# Claire, 2013
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2016
 # David Cabo <david.cabo@gmail.com>, 2013
-# Gareth Rees <gareth@mysociety.org>, 2015-2016
+# Liz Conlan <liz@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2013
-# louisecrow <louise@mysociety.org>, 2013-2015
-# mikaclau@gmail.com <mikaclau@gmail.com>, 2014-2015
-# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
+# mySociety <transifex@mysociety.org>, 2016
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
-# radhouane fazai <radhouanef@gmail.com>, 2013
-# rrobert <rrobertpolson@gmail.com>, 2013
 # rrobert <rrobertpolson@gmail.com>, 2013
 # sebbacon <seb.bacon@gmail.com>, 2012
-# sebbacon <seb.bacon@gmail.com>, 2012
-# Benoît Simard <contact@bsimard.com>, 2013
 # skenaja <alex@alexskene.com>, 2011
-# Stephen Abbott Pugh <stephendabbott@gmail.com>, 2014-2015
 # teymour <tanguim@gmail.com>, 2011
-# Teg-wende Idriss TINTO <tinto.jean@titinto.net>, 2015-2016
-# teymour <tanguim@gmail.com>, 2011
-# vickyanderica <victoria@access-info.org>, 2011
 # vickyanderica <victoria@access-info.org>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2016-09-21 10:05+0000\n"
-"Last-Translator: Christophe Van Gheluwe <info@vg-webdesign.be>\n"
+"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"PO-Revision-Date: 2016-09-26 11:10+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/fr_BE/)\n"
 "Language: fr_BE\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +89,7 @@ msgid " You are already being emailed updates about the request."
 msgstr "Un courriel vous a déjà été envoyé au sujet de cette demande."
 
 msgid " You will also be emailed updates about the request."
-msgstr "Vous recevrez également des courriels d'avancées liées à votre demande."
+msgstr "Vous recevrez également des emails d'avancées liées à votre demande."
 
 msgid " filtered by status: '{{status}}'"
 msgstr "Filtré par statut: '{{status}}'"
@@ -872,7 +859,7 @@ msgid "Event {{id}}"
 msgstr "Evénement {{id}}"
 
 msgid "Every citizen has the right to access information held by public authorities."
-msgstr "Chaque citoyen à la droit d'accéder aux informations détenues par les autorités publiques."
+msgstr "Chaque citoyen a la droit d'accéder aux informations détenues par les autorités publiques."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Tout ce que vous indiquez dans cette page, y compris <strong>votre nom </strong>,\\n va etre  <strong>public </strong> sur \\n ce site (<a href=\"{{url}}\">pourquoi?</a>)."
@@ -2762,13 +2749,13 @@ msgid "The request is <strong>waiting for clarification</strong>."
 msgstr "La demande est <strong>en attente de clarification</strong>."
 
 msgid "The request was <strong>partially successful</strong>."
-msgstr "La demande est <strong>partiellement aboutie</strong>."
+msgstr "La demande a <strong>partiellement aboutie</strong>."
 
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
 msgstr "La demande a été <strong>rejetée</strong> par {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
-msgstr "La demande est <strong>aboutie</strong>."
+msgstr "La demande a <strong>aboutie</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "La demande a été rejetée par l'autorité publique"
@@ -2780,7 +2767,7 @@ msgid "The requester has abandoned this request for some reason"
 msgstr "Le demandeur a renoncé à cette demande pour une raison quelconque"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
-msgstr "La réponse a votre demande a été <strong> retardée </strong> . Vous pouvez dire que \\n légalement ; l'organisme public aurait dû répondre \\n <strong>rapidement</strong> et "
+msgstr "La réponse à votre demande a été <strong>retardée</strong>. Vous pouvez dire que légalement l'autorité publique aurait dû répondre <strong>rapidement</strong> et "
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "La réponse a votre demande est  <strong>très en retard </strong>. Vous pouvez dire que selon la loi , en toutes circonstances, l'autorité aurait dû répondre \\n maintenant "
