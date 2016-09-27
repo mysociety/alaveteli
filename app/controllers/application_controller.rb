@@ -149,8 +149,8 @@ class ApplicationController < ActionController::Base
 
   def render_exception(exception)
     # In development or the admin interface let Rails handle the exception
-    # with its stack trace templates
-    if Rails.application.config.consider_all_requests_local || show_rails_exceptions?
+    # unless it's for the favicon as this breaks the REPL in better_errors
+    if (Rails.application.config.consider_all_requests_local || show_rails_exceptions?) && request.path != "/favicon.ico"
       raise exception
     end
 
