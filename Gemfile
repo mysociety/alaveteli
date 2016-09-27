@@ -88,4 +88,6 @@ group :development do
   gem 'mailcatcher', '~> 0.5.12'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'rdoc', '~> 3.12.2'
+  gem 'better_errors', '~> 2.1.1', :platforms => :ruby_20
+  gem 'binding_of_caller', '~> 0.7.2'
 end
