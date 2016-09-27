@@ -7,6 +7,7 @@ module AlaveteliPro
     # the less palatable alternative, which is namespacing everything in
     # alaveteli core with main_app.some_path.
     def method_missing(method, *args, &block)
+      puts "Trying main app"
       if method.to_s.end_with?('_path', '_url') and main_app.respond_to?(method)
         main_app.send(method, *args)
       else
