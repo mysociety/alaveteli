@@ -69,6 +69,10 @@
             </li>
 
             <li>
+              <%= link_to _('View event history details'), request_details_path(@info_request) %>
+            </li>
+
+            <li>
               <%= render :partial => 'track/rss_feed',
                          :locals => { :track_thing => @track_thing,
                                       :location => 'action-menu' } %>
