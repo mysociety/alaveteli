@@ -60,7 +60,7 @@
   }
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     text-align: right;
-    @include grid-column(5);
+    @include grid-column(5, $collapse:true);
 
   }
   .action-bar__follow {
@@ -68,6 +68,9 @@
     text-align: left;
     @include respond-min( 30em ){
       width: 67%;
+    }
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      text-align: right;
     }
   }
 }
@@ -79,9 +82,8 @@
  */
 
 .after-actions {
-  width: 100%;
-  @media (min-width: 30em) {
-    width: 33%;
+  @include respond-min( $main_menu-mobile_menu_cutoff) {
+    width: 19em;
   }
   .action-menu__button {
     width: 100%;
@@ -90,6 +92,7 @@
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       text-align: center;
       margin-bottom: 0;
+      text-align: right;
     }
   }
 }
