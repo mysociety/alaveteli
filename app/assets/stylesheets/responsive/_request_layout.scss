@@ -3,7 +3,7 @@
 
 .request-status {
   @include grid-column(12);
-  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .request-header {
@@ -11,7 +11,7 @@
   clear: both;
   h1 {
     @include grid-column(12);
-    margin-top: 0;
+    margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
 }

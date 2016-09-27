@@ -78,43 +78,7 @@
 
 <div class="request-header">
   <div class="row">
-    <div class="request-status">
-      <p id="request_status" class="request-status-message request_icon_line icon_<%= @info_request.calculate_status %>">
-      <% if @info_request.awaiting_description %>
-        <% if @is_owning_user && !@info_request.is_external? && !@render_to_file %>
-          <%= n_('Please <strong>answer the question above</strong> so we know ' \
-                    'whether the recent response contains useful information.',
-                 'Please <strong>answer the question above</strong> so we know ' \
-                    'whether the recent responses contain useful information.',
-                 @new_responses_count) %>
-        <% else %>
-          <%= _('This request has an <strong>unknown status</strong>.') %>
 
-          <% if @old_unclassified %>
-            <%= n_("We're waiting for someone to read a recent response and " \
-                      "update the status accordingly. Perhaps " \
-                      "<strong>you</strong> might like to help out by doing that?",
-                   "We're waiting for someone to read recent responses and " \
-                      "update the status accordingly. Perhaps " \
-                      "<strong>you</strong> might like to help out by doing that?",
-                   @new_responses_count) %>
-          <% else %>
-            <%= n_("We're waiting for {{user}} to read a recent response and update the status.",
-                   "We're waiting for {{user}} to read recent responses and update the status.",
-                   @new_responses_count,
-                   :user => user_link_for_request(@info_request)) %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% else %>
-      <%= status_text(@info_request.calculate_status,
-                      :info_request => @info_request,
-                      :is_owning_user => @is_owning_user,
-                      :redirect_to => request.fullpath) %>
-    <% end %>
-  </p>
-
-  </div>
     <h1><%=h(@info_request.title)%></h1>
 
     <div class="request-header__action-bar-container">
@@ -149,6 +113,41 @@
         <% end %>
       </div>
     </div>
+    <div class="request-status">
+      <p id="request_status" class="request-status-message request_icon_line icon_<%= @info_request.calculate_status %>">
+      <% if @info_request.awaiting_description %>
+        <% if @is_owning_user && !@info_request.is_external? && !@render_to_file %>
+          <%= n_('Please <strong>answer the question above</strong> so we know ' \
+                    'whether the recent response contains useful information.',
+                 'Please <strong>answer the question above</strong> so we know ' \
+                    'whether the recent responses contain useful information.',
+                 @new_responses_count) %>
+        <% else %>
+          <%= _('This request has an <strong>unknown status</strong>.') %>
+
+          <% if @old_unclassified %>
+            <%= n_("We're waiting for someone to read a recent response and " \
+                      "update the status accordingly. Perhaps " \
+                      "<strong>you</strong> might like to help out by doing that?",
+                   "We're waiting for someone to read recent responses and " \
+                      "update the status accordingly. Perhaps " \
+                      "<strong>you</strong> might like to help out by doing that?",
+                   @new_responses_count) %>
+          <% else %>
+            <%= n_("We're waiting for {{user}} to read a recent response and update the status.",
+                   "We're waiting for {{user}} to read recent responses and update the status.",
+                   @new_responses_count,
+                   :user => user_link_for_request(@info_request)) %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= status_text(@info_request.calculate_status,
+                        :info_request => @info_request,
+                        :is_owning_user => @is_owning_user,
+                        :redirect_to => request.fullpath) %>
+      <% end %>
+    </p>
+  </div>
   </div>
 </div>
 
