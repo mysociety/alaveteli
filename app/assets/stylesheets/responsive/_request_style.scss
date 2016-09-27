@@ -316,3 +316,23 @@ div.comment_in_request {
     background-color:#ddd;
   }
 }
+
+.copyright-notice {
+  border-top: 1px solid #ddd;
+  padding-top: 1.5em;
+  margin-top: 1.5em;
+  font-size: 0.875em;
+  line-height: 1.5em;
+  small {
+    font-size: 1em;
+  }
+  a {
+    color: #777;
+    text-decoration: none;
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
