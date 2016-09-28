@@ -77,6 +77,8 @@ group :test do
   gem 'delorean', '~> 2.1.0'
 end
 
+gem 'pry', '~> 0.10.4'
+
 group :test, :development do
   gem 'bullet', '~> 5.1.0'
   gem 'factory_girl_rails', '~> 4.7.0'
