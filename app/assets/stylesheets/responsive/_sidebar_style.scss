@@ -27,7 +27,6 @@
   }
 }
 
-/* Old-style "act" */
 .act_link a {
   line-height: 1.5em;
   padding-left: 20px;
@@ -68,22 +67,3 @@
     background-image: image-url('widget@2.png');
   }
 }
-
-/* New-style "share" */
-.sidebar__share {
-  .act_link {
-    display: inline-block;
-    margin-right: 0.5em;
-  }
-
-  .act_link a {
-    background-size: 24px;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    @extend .image-replacement;
-  }
-}
-
