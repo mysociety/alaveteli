@@ -117,7 +117,7 @@ module Alaveteli
     ]
 
     config.sass.load_paths += [
-      "#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive"
+      "#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/"
     ]
 
 
