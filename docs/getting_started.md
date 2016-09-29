@@ -12,7 +12,7 @@ redirect_from: /getting_started/
 </p>
 
 For inspiration, take a look at some of the existing Alaveteli websites, like
-[tuderechoasaber.es](http://tuderechoasaber.es) (Spain),
+[KiMitTud](http://kimittud.atlatszo.hu) (Hungary),
 [AskTheEU](http://www.asktheeu.org) (EU), or
 [WhatDoTheyKnow](https://www.whatdotheyknow.com) (UK). These sites all use the
 Alaveteli software, plus their own custom themes installed on top to make them
