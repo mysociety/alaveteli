@@ -119,6 +119,9 @@ module Alaveteli
     config.assets.prepend_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive")
     config.assets.prepend_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
 
+    config.assets.append_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive")
+    config.assets.append_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
+
     config.assets.paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive")
     config.assets.paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
 
