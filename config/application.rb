@@ -116,17 +116,17 @@ module Alaveteli
       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
     ]
 
-    config.assets.prepend_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive")
-    config.assets.prepend_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
+    #config.assets.prepend_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive")
+    #config.assets.prepend_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
 
-    config.assets.append_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive")
-    config.assets.append_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
+    #config.assets.append_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive")
+    #config.assets.append_path("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
 
-    config.assets.paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive")
-    config.assets.paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
+    #config.assets.paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive")
+    #config.assets.paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
 
-    config.assets.paths << "#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/"
-    config.assets.paths << "#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive"
+    #config.assets.paths << "#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/"
+    #config.assets.paths << "#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/responsive"
 
     #config.sass.load_paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
 
