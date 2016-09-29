@@ -116,7 +116,10 @@ module Alaveteli
       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
     ]
 
-    config.sass.load_paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
+    config.assets.paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
+    config.assets.paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
+
+    #config.sass.load_paths.unshift("#{Rails.root}/lib/themes/alavetelitheme/app/assets/stylesheets/")
 
 
   end
