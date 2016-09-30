@@ -9,8 +9,22 @@ require File.dirname(__FILE__) + '/../lib/configuration'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+$alaveteli_route_extensions = []
+
+def require_theme(theme_name)
+  theme_lib = Pathname.new(File.dirname(__FILE__)).join '..', 'lib', 'themes', theme_name, 'lib'
+  $LOAD_PATH.unshift theme_lib.to_s
+  theme_main_include = Pathname.new(File.dirname(__FILE__)).join '..', theme_lib, "railtie.rb"
+  if File.exists? theme_main_include
+    require theme_main_include
+  end
+end
+
+require_theme('alavetelitheme')
+
 module Alaveteli
   class Application < Rails::Application
+    config.railties_order = [Alavetelitheme::Engine, :main_app, :all]
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
