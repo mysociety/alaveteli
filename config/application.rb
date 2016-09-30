@@ -14,7 +14,7 @@ $alaveteli_route_extensions = []
 def require_theme(theme_name)
   theme_lib = Pathname.new(File.dirname(__FILE__)).join '..', 'lib', 'themes', theme_name, 'lib'
   $LOAD_PATH.unshift theme_lib.to_s
-  theme_main_include = Pathname.new(File.dirname(__FILE__)).join '..', theme_lib, "railtie.rb"
+  theme_main_include = Pathname.new(File.dirname(__FILE__)).join '..', theme_lib, "engine.rb"
   if File.exists? theme_main_include
     require theme_main_include
   end
