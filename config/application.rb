@@ -103,27 +103,27 @@ module Alaveteli
 
     # These additional precompiled asset files are actually
     # manifests that require the real asset files:
-    config.assets.precompile += ['admin.js',
-                                 'profile-photos.js',
-                                 'stats.js',
-                                 'fancybox.css',
-                                 'fancybox.js']
+    # config.assets.precompile += ['admin.js',
+    #                              'profile-photos.js',
+    #                              'stats.js',
+    #                              'fancybox.css',
+    #                              'fancybox.js']
     # ... while these are individual files that can't easily be
     # grouped:
-    config.assets.precompile += ['jquery.Jcrop.min.css',
-                                 'excanvas.min.js',
-                                 'select-authorities.js',
-                                 'new-request.js',
-                                 'fonts.css',
-                                 'print.css',
-                                 'admin.css',
-                                 'ie6.css',
-                                 'ie7.css',
-                                 'bootstrap-dropdown.js',
-                                 'widget.css',
-                                 'responsive/print.css',
-                                 'responsive/application-lte-ie7.css',
-                                 'responsive/application-ie8.css']
+    # config.assets.precompile += ['jquery.Jcrop.min.css',
+    #                              'excanvas.min.js',
+    #                              'select-authorities.js',
+    #                              'new-request.js',
+    #                              'fonts.css',
+    #                              'print.css',
+    #                              'admin.css',
+    #                              'ie6.css',
+    #                              'ie7.css',
+    #                              'bootstrap-dropdown.js',
+    #                              'widget.css',
+    #                              'responsive/print.css',
+    #                              'responsive/application-lte-ie7.css',
+    #                              'responsive/application-ie8.css']
 
     config.sass.load_paths += [
       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
