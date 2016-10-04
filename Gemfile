@@ -62,6 +62,9 @@ gem 'mime-types', '< 3.0.0'
 # Bugfix https://github.com/mikel/mail/pull/1023
 gem 'mail', :git => 'https://github.com/garethrees/mail', :ref => 'dc8832f'
 
+# Feature flags
+gem 'rollout'
+
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'sass-rails', '~> 5.0.5'

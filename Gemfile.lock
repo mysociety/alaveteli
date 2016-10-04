@@ -264,6 +264,7 @@ GEM
     recaptcha (0.4.0)
     ref (2.0.0)
     rmagick (2.15.4)
+    rollout (2.3.0)
     rotp (3.1.0)
     routing-filter (0.4.0.1)
       actionpack (< 4.2)
@@ -412,6 +413,7 @@ DEPENDENCIES
   rdoc (~> 3.12.2)
   recaptcha (~> 0.4.0)
   rmagick (~> 2.15.0)
+  rollout
   routing-filter (~> 0.4.0)
   rspec-activemodel-mocks (~> 1.0.1)
   rspec-rails (~> 3.4.0)
