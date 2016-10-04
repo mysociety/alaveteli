@@ -46,7 +46,7 @@
         <%= _('When you receive the paper response, please help others find ' \
                  'out what it says:') %>
         <ul>
-          <% if AlaveteliConfiguration.enable_annotations %>
+          <% if Alaveteli::Features.active?(Alaveteli::Features::ANNOTATIONS) %>
             <li><%= _('Add an annotation to your request with choice quotes, ' \
                       'or a <strong>summary of the response</strong>.') %></li>
           <% end %>

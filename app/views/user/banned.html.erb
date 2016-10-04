@@ -6,7 +6,7 @@
   <%= @details %>
 </p>
 
-<% if AlaveteliConfiguration::enable_annotations %>
+<% if Alaveteli::Features.active?(Alaveteli::Features::ANNOTATIONS) %>
   <p>
     <%= _('You will be unable to make new requests, send follow ups, add ' \
           'annotations or send messages to other users. You may continue ' \
