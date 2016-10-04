@@ -2391,7 +2391,7 @@ describe RequestController, "when the site is in read_only mode" do
 
   context "when annotations are disabled" do
     before do
-      allow(AlaveteliConfiguration).to receive(:enable_annotations).and_return(false)
+      allow(Alaveteli::Features).to receive(:active?).with(Alaveteli::Features::ANNOTATIONS).and_return(false)
     end
 
     it "doesn't mention annotations in the flash message" do

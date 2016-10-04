@@ -1,4 +1,4 @@
-<% if AlaveteliConfiguration.enable_annotations %>
+<% if Alaveteli::Features.active?(Alaveteli::Features::ANNOTATIONS) %>
 <p>
   <%= _("We're glad you got all the information that you wanted. If you " \
         "write about or make use of the information, please come back and " \

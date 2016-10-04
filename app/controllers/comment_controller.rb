@@ -98,7 +98,7 @@ class CommentController < ApplicationController
   # not usually hit this unless they are explicitly attempting to avoid the
   # comment block.
   def reject_unless_comments_allowed
-    unless AlaveteliConfiguration.enable_annotations && @info_request.comments_allowed?
+    unless Alaveteli::Features.active?(Alaveteli::Features::ANNOTATIONS) && @info_request.comments_allowed?
       redirect_to request_url(@info_request), :notice => "Comments are not allowed on this request"
     end
   end
