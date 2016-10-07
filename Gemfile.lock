@@ -42,6 +42,15 @@ GIT
     acts_as_versioned (0.6.0)
       activerecord (>= 3.0.9)
 
+PATH
+  remote: gems/alaveteli_features
+  specs:
+    alaveteli_features (0.0.1)
+      flipper
+      flipper-active_record
+      mime-types (< 3.0.0)
+      rails (~> 4.0.13)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -159,6 +168,10 @@ GEM
       railties (>= 3.1.0)
     fast_gettext (1.1.0)
     ffi (1.9.10)
+    flipper (0.9.2)
+    flipper-active_record (0.9.2)
+      activerecord (>= 3.2, < 6)
+      flipper (~> 0.9.2)
     foundation-rails (5.5.3.2)
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
@@ -369,6 +382,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_otp!
   acts_as_versioned!
+  alaveteli_features!
   annotate (~> 2.7.1)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 5.1.0)

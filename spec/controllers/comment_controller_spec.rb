@@ -71,7 +71,7 @@ describe CommentController, "when commenting on a request" do
   end
 
   it "should not allow comments if comments are not allowed globally" do
-    allow(AlaveteliConfiguration).to receive(:enable_annotations).and_return(false)
+    allow(controller).to receive(:feature_enabled?).with(:annotations).and_return(false)
     session[:user_id] = users(:silly_name_user).id
     info_request = info_requests(:fancy_dog_request)
 
