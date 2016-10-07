@@ -346,7 +346,7 @@ class ApplicationController < ActionController::Base
   #
   def check_read_only
     if !AlaveteliConfiguration::read_only.empty?
-      if AlaveteliConfiguration::enable_annotations
+      if feature_enabled?(:annotations)
         flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
                            :site_name => site_name,
                            :read_only => AlaveteliConfiguration::read_only)
