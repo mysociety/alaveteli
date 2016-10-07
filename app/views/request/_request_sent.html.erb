@@ -49,7 +49,7 @@
 
         <h2><%= _("Keep your request up to date") %></h2>
 
-        <% if AlaveteliConfiguration.enable_annotations %>
+        <% if feature_enabled?(:annotations) %>
           <p>
             <%= _('If you write about this request ' \
                   '(for example in a forum or a blog) ' \
