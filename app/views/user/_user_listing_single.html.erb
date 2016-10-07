@@ -21,7 +21,7 @@
            '{{count}} requests made.',
            request_count,
            :count => request_count) %>
-    <% if AlaveteliConfiguration::enable_annotations %>
+    <% if feature_enabled?(:annotations) %>
       <% annotation_count = display_user.comments.visible.size %>
       <%= n_('{{count}} annotation made.',
              '{{count}} annotations made.',
