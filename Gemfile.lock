@@ -19,8 +19,8 @@ GIT
 
 GIT
   remote: https://github.com/mysociety/ruby-msg.git
-  revision: f9f928ed76c024b4bc3a08bc1a59beb62df36663
-  ref: f9f928ed76c024b4bc3a08bc1a59beb62df36663
+  revision: 67abdfb77606259917e4a5421a4dcaed1996b487
+  branch: ascii-encoding
   specs:
     ruby-msg (1.5.2)
       ruby-ole (>= 1.2.8)
@@ -298,7 +298,7 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    ruby-ole (1.2.11.8)
+    ruby-ole (1.2.12)
     sass (3.4.21)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
