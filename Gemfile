@@ -70,6 +70,9 @@ gem 'coffee-rails', '~> 4.0.1'
 gem 'uglifier', '~> 2.7.2'
 gem 'therubyracer', '~> 0.12.2'
 
+# Feature flags
+gem 'alaveteli_features', :path => 'gems/alaveteli_features'
+
 group :test do
   gem 'fakeweb', '~> 1.3.0'
   gem 'coveralls', :require => false
