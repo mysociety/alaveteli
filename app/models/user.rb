@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
     if specific_user_login
       auth_fail_message = _("Either the email or password was not recognised, please try again.")
     else
-      auth_fail_message = _("Either the email or password was not recognised, please try again. Or create a new account using the form on the right.")
+      auth_fail_message = _("Either the email or password was not recognised, please try again. Or create a new account using the form on the left.")
     end
 
     user = find_user_by_email(params[:email])
