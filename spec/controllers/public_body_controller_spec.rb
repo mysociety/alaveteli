@@ -348,7 +348,7 @@ describe PublicBodyController, "when listing bodies" do
 
     allow(PublicBody).to receive(:where).and_return(fake_list)
     get :list
-    expect(response.body).to have_content('1 request made')
+    expect(response.body).to have_content('1 request.')
   end
 
   it 'should return a "406 Not Acceptable" code if asked for a json version of a list' do
@@ -563,6 +563,11 @@ describe PublicBodyController, "when doing type ahead searches" do
       public_bodies(:humpadink_public_body),
       public_bodies(:geraldine_public_body),
     ])
+  end
+
+  it "shows the number of bodies matching the keywords" do
+    get :search_typeahead, :query => "Geraldine Humpadinking"
+    expect(response.body).to match("2 matching authorities")
   end
 
   it "should return requests matching the given keywords in any of their locales" do
