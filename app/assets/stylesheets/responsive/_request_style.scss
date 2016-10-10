@@ -86,12 +86,17 @@ input.cplink__field {
 div.comment_in_request {
   border: 1px dotted #ccc;
   margin:0 0 1em 3em;
+  padding: 0;
 
   h2 {
     font-size:1em;
   }
   p {
     font-size: 0.9em;
+  }
+
+  .comment_content {
+    padding: 1.2em 1.2em 0 1.2em;
   }
 }
 
