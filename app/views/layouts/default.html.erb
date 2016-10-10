@@ -44,21 +44,25 @@
       <%= render :partial => 'admin_general/admin_navbar' %>
     <% end %>
     <div class="entirebody">
-      <a href="#content" class="show-with-keyboard-focus-only skip-to-link" tabindex="0">Skip to content</a>
-      <% popup_banner = render(:partial => "general/popup_banner").strip %>
-      <% if popup_banner.present? and  ! @render_to_file %>
-        <div id="everypage" class="popup">
-          <span class="popup-content">
-            <%= raw popup_banner %>
-          </span>
-          <span class="popup-close"><a href="#top" ><%= _('Close') %></a></span>
-        </div>
-      <% end %>
-      <div id="other-country-notice" class="popup">
-        <span class="popup-content">
-        </span>
-        <span class="popup-close"><a href="#top" ><%= _('Close') %></a></span>
-      </div>
+
+    <a href="#content" class="show-with-keyboard-focus-only skip-to-link" tabindex="0">Skip to content</a>
+      <!-- begin popups -->
+          <% popup_banner = render(:partial => "general/popup_banner").strip %>
+          <% if popup_banner.present? and  ! @render_to_file %>
+            <div class="popup popup--popup popup--standard" role="alert" id="standard-popup">
+              <div class="row">
+                <div class="popup__content">
+                  <%= raw popup_banner %>
+                  <a href="#top" class="popup__close js-popup__close" aria-label="<%= _('Close') %>">
+                    <span aria-hidden="true">&times;</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div id="country-message">
+          </div>
+      <!-- end popups -->
       <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
         <%= render :partial => 'general/responsive_header' %>
       <% else %>

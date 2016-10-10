@@ -1,23 +1,34 @@
-/* Layout for popup messages */
-
 .popup {
-  @include ie8{
-    width: 100%;
-  }
-}
-.popup .popup-content{
-  margin:0.5em;
-  width: 95%;
-  float: left;
+  position: relative;
 }
 
-.popup .popup-close {
-  display:inline-block;
-  overflow:hidden;
-  float:right;
-  padding:10px 0;
+.popup-container {
+  margin: 0.25em 0;
 }
 
-#other-country-notice{
+.popup__close {
+  position: absolute;
+  display: inline-block;;
+  top: -0.25em;
+  right: 0.9375rem; // equal to the padding of .popup minus padding
+  z-index: 50;
+  padding: 0.5em;
+}
+
+.popup__content {
+
+    padding-top: 1em;
+    padding-bottom: 1em;
+    @include grid-column(12);
+    @include ie8{
+      padding-left: 0.9375em;
+      padding-right: 0.9375em;
+    }
+}
+
+
+#link_box {
+  position:absolute;
+  z-index:999;
   display:none;
 }

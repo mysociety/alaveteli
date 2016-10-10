@@ -1,31 +1,47 @@
 $(document).ready(function() {
  // flash message for people coming from other countries
- if(window.location.search.substring(1).search("country_name") == -1) {
-    if (!$.cookie('has_seen_country_message')) {
-  $.ajax({
-    url: "/country_message",
-        dataType: 'html',
-        success: function(country_message){
+ var htmlWrapperFront = [
+                          '<div class="popup popup--popup popup--locality" role="alert" id="locality-popup">',
+                          ' <div class="row">',
+                          '   <div class="popup__content">',
+                        ];
+ var htmlWrapperBack = [
+                          '     <a href="#top" class="popup__close js-popup__close" aria-label="close">',
+                          '       <span aria-hidden="true">&times;</span>',
+                          '     </a>',
+                          '   </div>',
+                          ' </div>',
+                          '</div>',
+                        ];
+var wholeMessage = '';
+if(window.location.search.substring(1).search("country_name") == -1) {
+  if (!$.cookie('has_seen_country_message')) {
+    $.ajax({
+      url: "/country_message",
+      dataType: 'html',
+      success: function(country_message){
         if (country_message != ''){
-      $('#other-country-notice .popup-content').html(country_message);
-      $('body:not(.front) #other-country-notice').show()
+          wholeMessage = htmlWrapperFront.join('') + country_message + htmlWrapperBack.join('');
+          $('#country-message').html(wholeMessage);
+          $('body:not(.front) #locality-popup').show()
         }
-    }
-      })
+        $('#locality-popup .js-popup__close').click(function() {
+          $('#locality-popup').hide('slow');
+          $.cookie('has_seen_country_message', 1, {expires: 365, path: '/'});
+          return false;
+        });
+      }
+    })
+  }
+}
 
-     }
- }
+ // popups
+$('#standard-popup .js-popup__close').click(function() {
+  $('#standard-popup').hide('slow');
+  $.cookie('seen_foi2', 1, { expires: 7, path: '/' });
+  return false;
+});
 
- // popup messages
- $('#other-country-notice .popup-close').click(function() {
-   $('#other-country-notice').hide('slow');
-   $.cookie('has_seen_country_message', 1, {expires: 365, path: '/'});
-     });
- $('#everypage .popup-close').click(function() {
-   $('#everypage').hide('slow');
-   $.cookie('seen_foi2', 1, { expires: 7, path: '/' });
-   return false;
-   });
 
   // "link to this" box
   $('.cplink__button').click(function() {
@@ -45,7 +61,7 @@ $(document).ready(function() {
    })
 
    if($.cookie('seen_foi2') == 1) {
-     $('#everypage').hide();
+     //$('#standard-popup').hide();
    }
 
   // "Create widget" page
