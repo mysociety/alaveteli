@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-10-06 09:55+0000\n"
+"PO-Revision-Date: 2016-10-10 15:07+0000\n"
 "Last-Translator: Christophe Van Gheluwe <info@vg-webdesign.be>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/fr_BE/)\n"
 "Language: fr_BE\n"
@@ -469,7 +469,7 @@ msgid "Awaiting classification."
 msgstr "En attente de classement."
 
 msgid "Awaiting internal review."
-msgstr "En attente d'examen interne."
+msgstr "En attente de reconsidération."
 
 msgid "Awaiting response"
 msgstr "Réponse en attente"
@@ -610,7 +610,7 @@ msgid "Clear photo"
 msgstr "Supprimer la photo"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why response to the request has been so slow."
-msgstr "Cliquez sur le lien ci-dessous pour envoyer un message à {{public_body_name}} en leur demandant de répondre à votre demande. Vous voudrez peut-être demander un examen interne pour leur demander de comprendre pourquoi la réponse à la demande a été si lente."
+msgstr "Cliquez sur le lien ci-dessous pour envoyer un message à {{public_body_name}} en leur demandant de répondre à votre demande. Vous voudrez peut-être envoyer une demande de reconsidération pour leur demander des explications sur les raisons pour lesquelles la réponse à la demande a été si lente."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
 msgstr "Cliquer sur le lien ci-dessous pour envoyer un message à {{public_body}} afin de leur rappeler de répondre à votre demande."
@@ -721,7 +721,7 @@ msgid "Cultural sites and built structures (as they may be affected by the envir
 msgstr "Les sites culturels et les bâtiments (s'ils peuvent être affectés par les facteurs environnementaux listés ci dessus)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "Acutuellement <strong>en attente d'une réponse</strong> de {{public_body_link}}, ils doivent répondre rapidement et"
+msgstr "Actuellement <strong>en attente d'une réponse</strong> de {{public_body_link}}, l'autorité publique doit répondre rapidement et"
 
 msgid "Date:"
 msgstr "Date :"
@@ -1161,10 +1161,10 @@ msgid "I am asking for <strong>new information</strong>"
 msgstr "Je demande de <strong>nouvelles informations</strong>."
 
 msgid "I am requesting an <strong>internal review</strong>"
-msgstr "Je demande un <strong>examen interne</strong>."
+msgstr "Je demande une <strong>reconsidération</strong>."
 
 msgid "I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'."
-msgstr "J'écris pour demander un examen interne de ma demande '{{info_request_title}}' d'accès aux informations détenues par {{public_body_name}}."
+msgstr "J'écris pour demander une reconsidération de ma demande '{{info_request_title}}' d'accès aux informations détenues par {{public_body_name}}."
 
 msgid "I don't like these ones &mdash; give me some more!"
 msgstr "Je n'aime pas ceux-là  &mdash; Donnez m'en d'autres !"
@@ -1182,10 +1182,10 @@ msgid "I'm still <strong>waiting</strong> for my information <small>(maybe you g
 msgstr "Je suis encore <strong>en attente</strong> d'une réponse <small>(peut être vous avez reçu un accusé de réception)</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr "Je suis toujours en <strong>attente</strong> de l'examen interne"
+msgstr "Je suis toujours en <strong>attente</strong> d'une reconsidération"
 
 msgid "I'm waiting for an <strong>internal review</strong> response"
-msgstr "Je suis en attente d'une réponse au sujet d'un <strong>examen interne</strong>."
+msgstr "Je suis en attente d'une réponse au sujet d'une <strong>demande de reconsidération</strong>."
 
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "J'ai été invité à <strong>clarifier</strong> ma demande"
@@ -1422,16 +1422,16 @@ msgid "Information on emissions and discharges (e.g. noise, energy, radiation, w
 msgstr "Informations sur les émissions et les rejets (par exemple, le bruit, l'énergie, les radiations, les déchets)"
 
 msgid "Internal review"
-msgstr "Revue interne"
+msgstr "Demande de reconsidération"
 
 msgid "Internal review of {{email_subject}}"
-msgstr "Revue interne de {{email_subject}}"
+msgstr "Demande de reconsidération de {{email_subject}}"
 
 msgid "Internal review request"
-msgstr "Demande de révision interne"
+msgstr "Demande de reconsidération"
 
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "Demande d'évaluation interne envoyé à {{public_body_name}} par {{info_request_user}} le {{date}}."
+msgstr "Demande de reconsidération envoyée à {{public_body_name}} par {{info_request_user}} le {{date}}."
 
 msgid "Invalid one time password"
 msgstr "Mot de passe unique invalide"
@@ -1707,7 +1707,7 @@ msgid "Now preview your follow up"
 msgstr "Maintenant prévisualisez votre suivi"
 
 msgid "Now preview your message asking for an internal review"
-msgstr "Maintenant prévisualisez votre message de demande d'examen interne"
+msgstr "Maintenant prévisualisez votre message de demande de reconsidération"
 
 msgid "Number of requests"
 msgstr "Nombre de requêtes"
@@ -2294,10 +2294,10 @@ msgid "Request '{{request_title}}':"
 msgstr "Demande '{{request_title}}':"
 
 msgid "Request an internal review"
-msgstr "Demander une révision interne "
+msgstr "Demander une reconsidération"
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr "Demander une révision interne de {{person_or_body}}"
+msgstr "Demander une reconsidération de {{person_or_body}}"
 
 msgid "Request for personal information"
 msgstr "Demande d'information personnelle"
@@ -2560,7 +2560,7 @@ msgid "Stay up to date"
 msgstr "Restez à jour"
 
 msgid "Still awaiting an <strong>internal review</strong>"
-msgstr "En attente d'une <strong>révision interne</strong>"
+msgstr "En attente d'une <strong>reconsidération</strong>"
 
 msgid "Subject"
 msgstr "Sujet"
@@ -3424,10 +3424,10 @@ msgid "Waiting clarification."
 msgstr "En attente de clarification"
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
-msgstr "En attente  <strong>d'une révision interne</strong> par  {{public_body_link}} à propos de leur gestion de cette demande."
+msgstr "En attente  <strong>d'une reconsidération</strong> par  {{public_body_link}} à propos de leur gestion de cette demande."
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
-msgstr "En attente de la révision interne de l'autorité publique concernant leur gestion de la demande"
+msgstr "En attente de reconsidération de l'autorité publique concernant leur gestion de la demande"
 
 msgid "Waiting for the public authority to reply"
 msgstr "En attente de la réponse de l'autorité publique"
@@ -3821,7 +3821,7 @@ msgid "Your follow up message has been sent on its way."
 msgstr "Votre message de suivi a été envoyé."
 
 msgid "Your internal review request has been sent on its way."
-msgstr "Votre demande de révision interne a été envoyée."
+msgstr "Votre demande de reconsidération a été envoyée."
 
 msgid "Your message has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Votre message a été envoyé. Nous reviendrons vers vous bientôt."
@@ -4054,7 +4054,7 @@ msgid "new requests"
 msgstr "nouvelles demandes"
 
 msgid "no later than"
-msgstr "au plus tard"
+msgstr "au plus tard le"
 
 msgid "normally"
 msgstr "normalement"
