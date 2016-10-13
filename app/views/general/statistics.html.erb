@@ -40,7 +40,7 @@
              "some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, " \
              "so thanks are due to him.") %></p>
 
-  <% @graph_list.each do |graph_data| %>
+  <% @public_bodies.each do |graph_data| %>
     <h3 class="public-body-ranking-title"><%= graph_data['title']%></h3>
     <div class="public-body-ranking" id="<%= graph_data['id'] %>">
       <% if graph_data['x_values'] %>
@@ -96,7 +96,7 @@
 
   <% content_for :javascript do %>
     <script type="text/javascript">
-      var graphs_data = <%= @graph_list.to_json.html_safe %>;
+      var graphs_data = <%= @public_bodies.to_json.html_safe %>;
     </script>
     <!--[if lte IE 8]><%= javascript_include_tag "excanvas.min.js" %><![endif]-->
     <%= javascript_include_tag "stats" %>

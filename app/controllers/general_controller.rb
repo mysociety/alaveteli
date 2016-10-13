@@ -240,7 +240,7 @@ class GeneralController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("Page not enabled")
     end
 
-    @graph_list = Statistics.public_bodies
+    @public_bodies = Statistics.public_bodies
 
     @all_time_requesters = User.all_time_requesters
     @last_28_day_requesters = User.last_28_day_requesters
@@ -256,7 +256,7 @@ class GeneralController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => { public_bodies: @graph_list, users: users } }
+      format.json { render :json => { public_bodies: @public_bodies, users: users } }
     end
   end
 
