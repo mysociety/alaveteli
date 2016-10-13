@@ -7,7 +7,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'open-uri'
-require 'confidence_intervals'
 
 class GeneralController < ApplicationController
 

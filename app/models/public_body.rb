@@ -30,6 +30,7 @@
 require 'csv'
 require 'securerandom'
 require 'set'
+require 'confidence_intervals'
 
 class PublicBody < ActiveRecord::Base
   include AdminColumn
