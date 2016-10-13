@@ -33,9 +33,7 @@
     <% if @no_crawl %>
       <meta name="robots" content="noindex, nofollow">
     <% end %>
-    <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <% end %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= render :partial => 'general/opengraph_tags' %>
     <%= render :partial => 'general/before_head_end' %>
   </head>
@@ -59,11 +57,9 @@
         </span>
         <span class="popup-close"><a href="#top" ><%= _('Close') %></a></span>
       </div>
-      <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-        <%= render :partial => 'general/responsive_header' %>
-      <% else %>
-        <%= render :partial => 'general/header' %>
-      <% end %>
+
+      <%= render :partial => 'general/responsive_header' %>
+
       <div id="wrapper">
         <div id="content" role="main">
           <% unless params[:action] == 'frontpage' %>
@@ -81,11 +77,8 @@
           <div style="clear:both"></div>
         </div>
       </div>
-      <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-        <%= render :partial => 'general/responsive_footer' %>
-      <% else %>
-        <%= render :partial => 'general/footer' %>
-      <% end %>
+
+      <%= render :partial => 'general/responsive_footer' %>
 
     </div>
     <%
