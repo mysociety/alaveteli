@@ -240,69 +240,7 @@ class GeneralController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("Page not enabled")
     end
 
-    per_graph = 10
-    minimum_requests = AlaveteliConfiguration::minimum_requests_for_statistics
-    # Make sure minimum_requests is > 0 to avoid division-by-zero
-    minimum_requests = [minimum_requests, 1].max
-    total_column = 'info_requests_count'
-
-    @graph_list = []
-
-    [
-      [
-        total_column,
-        [{:title => _('Public bodies with the most requests'),
-          :y_axis => _('Number of requests'),
-          :highest => true}]
-      ],
-      [
-        'info_requests_successful_count',
-        [
-          {:title => _('Public bodies with the most successful requests'),
-           :y_axis => _('Percentage of total requests'),
-           :highest => true},
-          {:title => _('Public bodies with the fewest successful requests'),
-           :y_axis => _('Percentage of total requests'),
-           :highest => false}
-        ]
-      ],
-      [
-        'info_requests_overdue_count',
-        [{:title => _('Public bodies with most overdue requests'),
-          :y_axis => _('Percentage of requests that are overdue'),
-          :highest => true}]
-      ],
-      [
-        'info_requests_not_held_count',
-        [{:title => _('Public bodies that most frequently replied with "Not Held"'),
-          :y_axis => _('Percentage of total requests'),
-          :highest => true}]
-      ]
-    ].each do |column, graphs_properties|
-      graphs_properties.each do |graph_properties|
-        percentages = (column != total_column)
-        highest = graph_properties[:highest]
-
-        data = nil
-        if percentages
-          data = PublicBody.get_request_percentages(column,
-                                                    per_graph,
-                                                    highest,
-                                                    minimum_requests)
-        else
-          data = PublicBody.get_request_totals(per_graph,
-                                               highest,
-                                               minimum_requests)
-        end
-
-        if data
-          @graph_list.push simplify_stats_for_graphs(data,
-                                                     column,
-                                                     percentages,
-                                                     graph_properties)
-        end
-      end
-    end
+    @graph_list = Statistics.public_bodies
 
     @all_time_requesters = User.all_time_requesters
     @last_28_day_requesters = User.last_28_day_requesters
@@ -320,49 +258,6 @@ class GeneralController < ApplicationController
       format.html
       format.json { render :json => { public_bodies: @graph_list, users: users } }
     end
-  end
-
-  # This is a helper method to take data returned by the PublicBody
-  # model's statistics-generating methods, and converting them to
-  # simpler data structure that can be rendered by a Javascript
-  # graph library. (This could be a class method except that we need
-  # access to the URL helper public_body_path.)
-  def simplify_stats_for_graphs(data,
-                                column,
-                                percentages,
-                                graph_properties)
-    # Copy the data, only taking known-to-be-safe keys:
-    result = Hash.new { |h, k| h[k] = [] }
-    result.update Hash[data.select do |key, value|
-      ['y_values',
-       'y_max',
-       'totals',
-       'cis_below',
-       'cis_above'].include? key
-    end]
-
-    # Extract data about the public bodies for the x-axis,
-    # tooltips, and so on:
-    data['public_bodies'].each_with_index do |pb, i|
-      result['x_values'] << i
-      result['x_ticks'] << [i, pb.name]
-      result['tooltips'] << "#{pb.name} (#{result['totals'][i]})"
-      result['public_bodies'] << {
-        'name' => pb.name,
-        'url' => public_body_path(pb)
-      }
-    end
-
-    # Set graph metadata properties, like the title, axis labels, etc.
-    graph_id = "#{column}-"
-    graph_id += graph_properties[:highest] ? 'highest' : 'lowest'
-    result.update({
-      'id' => graph_id,
-      'x_axis' => _('Public Bodies'),
-      'y_axis' => graph_properties[:y_axis],
-      'errorbars' => percentages,
-      'title' => graph_properties[:title]
-    })
   end
 
   private
