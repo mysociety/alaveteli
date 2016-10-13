@@ -241,28 +241,16 @@ class GeneralController < ApplicationController
     end
 
     @public_bodies = Statistics.public_bodies
-
-    @all_time_requesters = User.all_time_requesters
-    @last_28_day_requesters = User.last_28_day_requesters
-    @all_time_commenters = User.all_time_commenters
-    @last_28_day_commenters = User.last_28_day_commenters
-
-    users = {
-      all_time_requesters: json_for_api(@all_time_requesters),
-      last_28_day_requesters: json_for_api(@last_28_day_requesters),
-      all_time_commenters: json_for_api(@all_time_commenters),
-      last_28_day_commenters: json_for_api(@last_28_day_commenters)
-    }
+    @users = Statistics.users
 
     respond_to do |format|
       format.html
-      format.json { render :json => { public_bodies: @public_bodies, users: users } }
+      format.json do
+        render json: {
+          public_bodies: @public_bodies,
+          users: Statistics.user_json_for_api(@users)
+        }
+      end
     end
-  end
-
-  private
-
-  def json_for_api(data)
-    data.map { |u,c| { user: u.json_for_api, count: c } }
   end
 end

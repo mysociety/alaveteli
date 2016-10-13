@@ -73,11 +73,11 @@
   <div class="leaderboard-block">
     <div class="leaderboard-item">
       <h4>Last 28 days</h4>
-      <%= render "people_leaderboard", users_with_counts: @last_28_day_requesters %>
+      <%= render "people_leaderboard", users_with_counts: @users[:last_28_day_requesters] %>
     </div>
     <div class="leaderboard-item">
       <h4>All time</h4>
-      <%= render "people_leaderboard", users_with_counts: @all_time_requesters %>
+      <%= render "people_leaderboard", users_with_counts: @users[:all_time_requesters] %>
     </div>
   </div>
 
@@ -86,11 +86,11 @@
   <div class="leaderboard-block">
     <div class="leaderboard-item">
       <h4>Last 28 days</h4>
-      <%= render "people_leaderboard", users_with_counts: @last_28_day_commenters %>
+      <%= render "people_leaderboard", users_with_counts: @users[:last_28_day_commenters] %>
     </div>
     <div class="leaderboard-item">
       <h4>All time</h4>
-      <%= render "people_leaderboard", users_with_counts: @all_time_commenters %>
+      <%= render "people_leaderboard", users_with_counts: @users[:all_time_commenters] %>
     </div>
   </div>
 

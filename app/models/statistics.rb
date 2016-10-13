@@ -110,5 +110,20 @@ class Statistics
         'title' => graph_properties[:title]
       })
     end
+
+    def users
+      {
+        all_time_requesters: User.all_time_requesters,
+        last_28_day_requesters: User.last_28_day_requesters,
+        all_time_commenters: User.all_time_commenters,
+        last_28_day_commenters: User.last_28_day_commenters
+      }
+    end
+
+    def user_json_for_api(user_statistics)
+      user_statistics.each do |k,v|
+        user_statistics[k] = v.map { |u,c| { user: u.json_for_api, count: c } }
+      end
+    end
   end
 end
