@@ -2,19 +2,21 @@ require "spec_helper"
 
 describe Statistics do
   describe ".simplify_stats_for_graphs" do
-    before(:each) do
-      @raw_count_data = PublicBody.get_request_totals(n=3,
-                                                      highest=true,
-                                                      minimum_requests=1)
-      @percentages_data = PublicBody.get_request_percentages(
+    let(:raw_count_data) do
+      PublicBody.get_request_totals(n=3, highest=true, minimum_requests=1)
+    end
+
+    let(:percentages_data) do
+      PublicBody.get_request_percentages(
         column='info_requests_successful_count',
         n=3,
         highest=false,
-      minimum_requests=1)
+        minimum_requests=1
+      )
     end
 
     it "should not include the real public body model instance" do
-      to_draw = Statistics.simplify_stats_for_graphs(@raw_count_data,
+      to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
                                                      column='blah_blah',
                                                      percentages=false,
                                                      {} )
@@ -23,12 +25,12 @@ describe Statistics do
     end
 
     it "should generate the expected id" do
-      to_draw = Statistics.simplify_stats_for_graphs(@raw_count_data,
+      to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
                                                      column='blah_blah',
                                                      percentages=false,
                                                      {:highest => true} )
       expect(to_draw['id']).to eq("blah_blah-highest")
-      to_draw = Statistics.simplify_stats_for_graphs(@raw_count_data,
+      to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
                                                      column='blah_blah',
                                                      percentages=false,
                                                      {:highest => false} )
@@ -36,7 +38,7 @@ describe Statistics do
     end
 
     it "should have exactly the expected keys" do
-      to_draw = Statistics.simplify_stats_for_graphs(@raw_count_data,
+      to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
                                                      column='blah_blah',
                                                      percentages=false,
                                                      {} )
@@ -45,7 +47,7 @@ describe Statistics do
                                        "x_axis", "x_ticks", "x_values",
                                        "y_axis", "y_max", "y_values"])
 
-      to_draw = Statistics.simplify_stats_for_graphs(@percentages_data,
+      to_draw = Statistics.simplify_stats_for_graphs(percentages_data,
                                                      column='whatever',
                                                      percentages=true,
                                                      {})
@@ -57,11 +59,11 @@ describe Statistics do
     end
 
     it "should have values of the expected class and length" do
-      [Statistics.simplify_stats_for_graphs(@raw_count_data,
+      [Statistics.simplify_stats_for_graphs(raw_count_data,
                                             column='blah_blah',
                                             percentages=false,
                                             {}),
-       Statistics.simplify_stats_for_graphs(@percentages_data,
+       Statistics.simplify_stats_for_graphs(percentages_data,
                                             column='whatever',
                                             percentages=true,
       {})].each do |to_draw|
