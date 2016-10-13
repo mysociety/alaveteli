@@ -304,9 +304,21 @@ class GeneralController < ApplicationController
       end
     end
 
+    @all_time_requesters = User.all_time_requesters
+    @last_28_day_requesters = User.last_28_day_requesters
+    @all_time_commenters = User.all_time_commenters
+    @last_28_day_commenters = User.last_28_day_commenters
+
+    users = {
+      all_time_requesters: json_for_api(@all_time_requesters),
+      last_28_day_requesters: json_for_api(@last_28_day_requesters),
+      all_time_commenters: json_for_api(@all_time_commenters),
+      last_28_day_commenters: json_for_api(@last_28_day_commenters)
+    }
+
     respond_to do |format|
       format.html
-      format.json { render :json => @graph_list }
+      format.json { render :json => { public_bodies: @graph_list, users: users } }
     end
   end
 
@@ -351,5 +363,11 @@ class GeneralController < ApplicationController
       'errorbars' => percentages,
       'title' => graph_properties[:title]
     })
+  end
+
+  private
+
+  def json_for_api(data)
+    data.map { |u,c| { user: u.json_for_api, count: c } }
   end
 end

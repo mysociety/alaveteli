@@ -1,4 +1,4 @@
-/* Style for public body stats page */
+/* Style for statistics page */
 .public-body-ranking .axisLabels {
   /* Justification for using !important here: the axis label color is
   set in the style attribute in Flot's Javascript to the same
@@ -8,4 +8,17 @@
   core support for axis labels.  So, just use !important to make
   the axes black rather than transparent grey for the moment: */
   color: #000 !important;
+}
+
+.leaderboard-people {
+  list-style: none;
+}
+
+.leaderboard-person-initial {
+  text-align: center;
+  background: lighten(desaturate(#2688dc, 50), 40);
+}
+
+a.leaderboard-person-details {
+  color: #333;
 }

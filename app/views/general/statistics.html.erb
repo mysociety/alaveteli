@@ -1,6 +1,7 @@
-<% @title = _("Public Body Statistics") %>
+<% @title = _("Statistics") %>
 <div id="main_content" class="main_content">
-  <h1 id="public_bodies"><%= @title %></h1>
+  <h1><%= @title %></h1>
+  <h2 id="public_bodies">Public Bodies</h2>
 
   <p><%= _("This page of public body statistics is currently experimental, " \
               "so there are some caveats that should be borne in mind:") %></p>
@@ -64,6 +65,34 @@
       <% end %>
     </div>
   <% end %>
+
+  <h2 id="people">People</h2>
+
+  <h3>Most frequent requesters</h3>
+
+  <div class="leaderboard-block">
+    <div class="leaderboard-item">
+      <h4>Last 28 days</h4>
+      <%= render "people_leaderboard", users_with_counts: @last_28_day_requesters %>
+    </div>
+    <div class="leaderboard-item">
+      <h4>All time</h4>
+      <%= render "people_leaderboard", users_with_counts: @all_time_requesters %>
+    </div>
+  </div>
+
+  <h3>Most frequent annotators</h3>
+
+  <div class="leaderboard-block">
+    <div class="leaderboard-item">
+      <h4>Last 28 days</h4>
+      <%= render "people_leaderboard", users_with_counts: @last_28_day_commenters %>
+    </div>
+    <div class="leaderboard-item">
+      <h4>All time</h4>
+      <%= render "people_leaderboard", users_with_counts: @all_time_commenters %>
+    </div>
+  </div>
 
   <% content_for :javascript do %>
     <script type="text/javascript">
