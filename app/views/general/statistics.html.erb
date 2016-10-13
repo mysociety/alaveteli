@@ -1,6 +1,14 @@
 <% @title = _("Statistics") %>
 <div id="main_content" class="main_content">
-  <h1><%= @title %></h1>
+  <h1><%= site_name %> <%= @title %></h1>
+
+  <p>
+    Here you can
+    <%= link_to "see how well public bodies have responded", "#public_bodies" %>
+    to requests on <%= site_name %> and
+    <%= link_to "meet the people most actively using it", "#people" %>.
+  </p>
+
   <h2 id="public_bodies">Public Bodies</h2>
 
   <p><%= _("This page of public body statistics is currently experimental, " \
