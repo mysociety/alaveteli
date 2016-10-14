@@ -447,7 +447,24 @@ describe User do
   end
 
   describe '.last_28_day_requesters' do
-    # TODO
+    it 'gets recent frequent requesters' do
+      user_with_3_requests = FactoryGirl.create(:user)
+      3.times { FactoryGirl.create(:info_request, user: user_with_3_requests) }
+      user_with_2_requests = FactoryGirl.create(:user)
+      2.times { FactoryGirl.create(:info_request, user: user_with_2_requests) }
+      user_with_1_request = FactoryGirl.create(:user)
+      FactoryGirl.create(:info_request, user: user_with_1_request)
+      user_with_an_old_request = FactoryGirl.create(:user)
+      FactoryGirl.create(:info_request, user: user_with_an_old_request, created_at: 2.months.ago)
+
+      expect(User.last_28_day_requesters).to eql(
+        {
+          user_with_3_requests => 3,
+          user_with_2_requests => 2,
+          user_with_1_request => 1
+        }
+      )
+    end
   end
 
   describe '.all_time_commenters' do
