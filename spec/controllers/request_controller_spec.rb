@@ -803,22 +803,36 @@ describe RequestController, "when handling prominence" do
       expect_hidden('hidden')
     end
 
-    it "should show request to requester and admin if logged in" do
+    it "should show not request if logged in but not the requester" do
       session[:user_id] = FactoryGirl.create(:user).id
       get :show, :url_title => @info_request.url_title
       expect_hidden('hidden')
+    end
 
+    it "should show request to requester" do
       session[:user_id] = @info_request.user.id
       get :show, :url_title => @info_request.url_title
       expect(response).to render_template('show')
+    end
 
+    it "shouild show request to admin" do
       session[:user_id] = FactoryGirl.create(:admin_user).id
       get :show, :url_title => @info_request.url_title
       expect(response).to render_template('show')
     end
 
-    it 'should not cache an attachment when showing an attachment to the requester or admin' do
+    it 'should not cache an attachment when showing an attachment to the requester' do
       session[:user_id] = @info_request.user.id
+      incoming_message = @info_request.incoming_messages.first
+      expect(@controller).not_to receive(:foi_fragment_cache_write)
+      get :get_attachment, :incoming_message_id => incoming_message.id,
+        :id => @info_request.id,
+        :part => 2,
+        :file_name => 'interesting.pdf'
+    end
+
+    it 'should not cache an attachment when showing an attachment to the admin' do
+      session[:user_id] = FactoryGirl.create(:admin_user).id
       incoming_message = @info_request.incoming_messages.first
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :get_attachment, :incoming_message_id => incoming_message.id,
