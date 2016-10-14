@@ -92,7 +92,21 @@ describe Statistics do
   end
 
   describe ".users" do
-    # TODO
+    it "creates a hash of user statistics" do
+      allow(User).to receive(:all_time_requesters).and_return([])
+      allow(User).to receive(:last_28_day_requesters).and_return([])
+      allow(User).to receive(:all_time_commenters).and_return([])
+      allow(User).to receive(:last_28_day_commenters).and_return([])
+
+      expect(Statistics.users).to eql(
+        {
+          all_time_requesters: [],
+          last_28_day_requesters: [],
+          all_time_commenters: [],
+          last_28_day_commenters: []
+        }
+      )
+    end
   end
 
   describe ".user_json_for_api" do
