@@ -442,6 +442,22 @@ describe User do
 
   end
 
+  describe '.all_time_requesters' do
+    # TODO
+  end
+
+  describe '.last_28_day_requesters' do
+    # TODO
+  end
+
+  describe '.all_time_commenters' do
+    # TODO
+  end
+
+  describe '.last_28_day_commenters' do
+    # TODO
+  end
+
   describe '#transactions' do
 
     it 'returns a TransactionCalculator with the default transaction set' do

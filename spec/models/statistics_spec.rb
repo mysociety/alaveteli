@@ -1,6 +1,10 @@
 require "spec_helper"
 
 describe Statistics do
+  describe ".public_bodies" do
+    # TODO
+  end
+
   describe ".simplify_stats_for_graphs" do
     let(:raw_count_data) do
       PublicBody.get_request_totals(n=3, highest=true, minimum_requests=1)
@@ -85,5 +89,13 @@ describe Statistics do
         end
       end
     end
+  end
+
+  describe ".users" do
+    # TODO
+  end
+
+  describe ".user_json_for_api" do
+    # TODO
   end
 end
