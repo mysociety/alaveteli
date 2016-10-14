@@ -2,12 +2,11 @@
 <div id="main_content" class="main_content">
   <h1><%= site_name %> <%= @title %></h1>
 
-  <p>
-    Here you can
-    <%= link_to "see how well public bodies have responded", "#public_bodies" %>
-    to requests on <%= site_name %> and
-    <%= link_to "meet the people most actively using it", "#people" %>.
-  </p>
+  <p><%= _('Here you can ' \
+           '<a href="#public_bodies">see how well public bodies have responded</a> ' \
+           'to requests on {{site_name}} and ' \
+           '<a href="#people">meet the people most actively using it</a>.',
+           site_name: site_name) %></p>
 
   <h2 id="public_bodies">Public Bodies</h2>
 
