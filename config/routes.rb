@@ -42,9 +42,11 @@ Alaveteli::Application.routes.draw do
   match '/version.:format' => 'general#version',
         :as => :version,
         :via => :get
-  get '/statistics' => 'general#statistics'
-  get '/body_statistics' => redirect('/statistics#public_bodies'), :as => :public_bodies_statistics
   #####
+
+  ##### Statistics controller
+  get '/statistics' => 'statistics#index'
+  get '/body_statistics' => redirect('/statistics#public_bodies'), :as => :public_bodies_statistics
 
   ##### Request controller
   match '/list/recent' => 'request#list',
