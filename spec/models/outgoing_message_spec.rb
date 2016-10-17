@@ -842,58 +842,6 @@ describe OutgoingMessage do
 
   end
 
-  describe '#user_can_view?' do
-
-    before do
-      @info_request = FactoryGirl.create(:info_request)
-      @outgoing_message = @info_request.outgoing_messages.first
-    end
-
-    context 'if the prominence is hidden' do
-
-      before do
-        @outgoing_message.prominence = 'hidden'
-      end
-
-      it 'should return true for an admin user' do
-        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:admin_user))).to be true
-      end
-
-      it 'should return false for a non-admin user' do
-        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:user))).to be false
-      end
-
-    end
-
-    context 'if the prominence is requester_only' do
-
-      before do
-        @outgoing_message.prominence = 'requester_only'
-      end
-
-      it 'should return true if the user owns the associated request' do
-        expect(@outgoing_message.user_can_view?(@info_request.user)).to be true
-      end
-
-      it 'should return false if the user does not own the associated request' do
-        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:user))).to be false
-      end
-    end
-
-    context 'if the prominence is normal' do
-
-      before do
-        @outgoing_message.prominence = 'normal'
-      end
-
-      it 'should return true for a non-admin user' do
-        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:user))).to be true
-      end
-
-    end
-
-  end
-
   describe '#smtp_message_ids' do
 
     context 'a sent message' do
