@@ -491,4 +491,121 @@ describe InfoRequestEvent do
     end
 
   end
+
+  describe "editing requests" do
+    let(:unchanged_params) do
+      { :editor => "henare",
+        :old_title => "How much wood does a woodpecker peck?",
+        :title => "How much wood does a woodpecker peck?",
+        :old_described_state => "rejected",
+        :described_state => "rejected",
+        :old_awaiting_description => false,
+        :awaiting_description => false,
+        :old_allow_new_responses_from => "anybody",
+        :allow_new_responses_from => "anybody",
+        :old_handle_rejected_responses => "bounce",
+        :handle_rejected_responses => "bounce",
+        :old_tag_string => "",
+        :tag_string => "",
+        :old_comments_allowed => true,
+        :comments_allowed => true }
+    end
+
+    it "should change type to hidden when only editing prominence to hidden" do
+      params = unchanged_params.merge({:old_prominence => "normal", :prominence => "hidden"})
+
+      ire = InfoRequestEvent.create!(:info_request => FactoryGirl.create(:info_request),
+                                     :event_type => "edit",
+                                     :params => params)
+
+      expect(ire.event_type).to eql "hide"
+    end
+
+    it "should change type to hidden when only editing prominence to requester_only" do
+      params = unchanged_params.merge({:old_prominence => "normal", :prominence => "requester_only"})
+
+      ire = InfoRequestEvent.create!(:info_request => FactoryGirl.create(:info_request),
+                                     :event_type => "edit",
+                                     :params => params)
+
+      expect(ire.event_type).to eql "hide"
+    end
+
+    it "should change type to hidden when only editing prominence to backpage" do
+      params = unchanged_params.merge({:old_prominence => "normal", :prominence => "backpage"})
+
+      ire = InfoRequestEvent.create!(:info_request => FactoryGirl.create(:info_request),
+                                     :event_type => "edit",
+                                     :params => params)
+
+      expect(ire.event_type).to eql "hide"
+    end
+  end
+
+  describe "#only_editing_prominence_to_hide?" do
+    let(:unchanged_params) do
+      { :editor => "henare",
+        :old_title => "How much wood does a woodpecker peck?",
+        :title => "How much wood does a woodpecker peck?",
+        :old_described_state => "rejected",
+        :described_state => "rejected",
+        :old_awaiting_description => false,
+        :awaiting_description => false,
+        :old_allow_new_responses_from => "anybody",
+        :allow_new_responses_from => "anybody",
+        :old_handle_rejected_responses => "bounce",
+        :handle_rejected_responses => "bounce",
+        :old_tag_string => "",
+        :tag_string => "",
+        :old_comments_allowed => true,
+        :comments_allowed => true }
+    end
+
+    it "should be true if only editing prominence to hidden" do
+      params = unchanged_params.merge({:old_prominence => "normal", :prominence => "hidden"})
+
+      ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+      expect(ire.only_editing_prominence_to_hide?).to be true
+    end
+
+    it "should be true if only editing prominence to requester_only" do
+      params = unchanged_params.merge({:old_prominence => "normal", :prominence => "requester_only"})
+
+      ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+      expect(ire.only_editing_prominence_to_hide?).to be true
+    end
+
+    it "should be true if only editing prominence to backpage" do
+      params = unchanged_params.merge({:old_prominence => "normal", :prominence => "backpage"})
+
+      ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+      expect(ire.only_editing_prominence_to_hide?).to be true
+    end
+
+    it "should be false if editing multiple conditions" do
+      params = unchanged_params.merge({ :old_prominence => "normal",
+                                        :prominence => "backpage",
+                                        :old_comments_allowed => true,
+                                        :comments_allowed => false })
+
+      ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+      expect(ire.only_editing_prominence_to_hide?).to be false
+    end
+
+    it "should be false it's not an edit" do
+      ire = InfoRequestEvent.new(:event_type => "resent")
+
+      expect(ire.only_editing_prominence_to_hide?).to be false
+    end
+
+    it "should be false it's already a hide event" do
+      ire = InfoRequestEvent.new(:event_type => "hide")
+
+      expect(ire.only_editing_prominence_to_hide?).to be false
+    end
+  end
 end
