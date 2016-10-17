@@ -91,7 +91,7 @@ class FollowupsController < ApplicationController
       render :template => 'user/banned'
       return
     end
-    if authenticated_user && !@info_request.user_can_view?(authenticated_user)
+    if authenticated_user && cannot?(:read, @info_request)
       return render_hidden
     end
   end
