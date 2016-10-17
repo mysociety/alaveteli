@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <%- if not incoming_message.user_can_view?(@user) %>
+  <%- if cannot?(:read, incoming_message) %>
     <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message } %>
   <%- else %>
     <%= render :partial => 'request/restricted_correspondence', :locals => {:message => incoming_message } %>
@@ -36,6 +36,6 @@
         <button class="cplink__button button"><%= _('Link to this') %></button>
       </div>
     </div>
-    
+
   <%- end %>
 </div>
