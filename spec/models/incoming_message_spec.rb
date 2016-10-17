@@ -400,63 +400,6 @@ describe IncomingMessage, "when the prominence is changed" do
 
 end
 
-describe IncomingMessage, 'when asked if a user can view it' do
-
-  before do
-    @user = mock_model(User)
-    @info_request = mock_model(InfoRequest)
-    @incoming_message = IncomingMessage.new(:info_request => @info_request)
-  end
-
-  context 'if the prominence is hidden' do
-
-    before do
-      @incoming_message.prominence = 'hidden'
-    end
-
-    it 'should return true if the user can view hidden things' do
-      allow(User).to receive(:view_hidden?).with(@user).and_return(true)
-      expect(@incoming_message.user_can_view?(@user)).to be true
-    end
-
-    it 'should return false if the user cannot view hidden things' do
-      allow(User).to receive(:view_hidden?).with(@user).and_return(false)
-      expect(@incoming_message.user_can_view?(@user)).to be false
-    end
-
-  end
-
-  context 'if the prominence is requester_only' do
-
-    before do
-      @incoming_message.prominence = 'requester_only'
-    end
-
-    it 'should return true if the user owns the associated request' do
-      allow(@info_request).to receive(:is_owning_user?).with(@user).and_return(true)
-      expect(@incoming_message.user_can_view?(@user)).to be true
-    end
-
-    it 'should return false if the user does not own the associated request' do
-      allow(@info_request).to receive(:is_owning_user?).with(@user).and_return(false)
-      expect(@incoming_message.user_can_view?(@user)).to be false
-    end
-  end
-
-  context 'if the prominence is normal' do
-
-    before do
-      @incoming_message.prominence = 'normal'
-    end
-
-    it 'should return true' do
-      expect(@incoming_message.user_can_view?(@user)).to be true
-    end
-
-  end
-
-end
-
 describe 'when destroying a message' do
   let(:incoming_message) { FactoryGirl.create(:plain_incoming_message) }
 
