@@ -241,7 +241,9 @@ class User < ActiveRecord::Base
                          limit(10).
                          count
     # TODO: Have user objects automatically instantiated like the InfoRequest queries above
-    commenters.map { |u_id,c| [User.find(u_id), c] }
+    result = {}
+    commenters.each { |user_id,count| result[User.find(user_id)] = count }
+    result
   end
 
   def self.last_28_day_commenters
@@ -254,7 +256,9 @@ class User < ActiveRecord::Base
                          limit(10).
                          count
     # TODO: Have user objects automatically instantiated like the InfoRequest queries above
-    commenters.map { |u_id,c| [User.find(u_id), c] }
+    result = {}
+    commenters.each { |user_id,count| result[User.find(user_id)] = count }
+    result
   end
 
   def transactions(*associations)
