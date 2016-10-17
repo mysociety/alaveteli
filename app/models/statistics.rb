@@ -68,10 +68,9 @@ class Statistics
       graph_list
     end
 
-    # This is a helper method to take data returned by the PublicBody
-    # model's statistics-generating methods, and converting them to
-    # simpler data structure that can be rendered by a Javascript
-    # graph library.
+    # This is a helper method to take data returned by the above method and
+    # converting them to simpler data structure that can be rendered by a
+    # Javascript graph library.
     def simplify_stats_for_graphs(data,
                                   column,
                                   percentages,
