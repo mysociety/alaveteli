@@ -1022,20 +1022,34 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def make_zip_cache_path(user)
+    # The zip file varies depending on user because it can include different
+    # messages depending on whether the user can access hidden or
+    # requester_only messages. We name it appropriately, so that every user
+    # with the right permissions gets a file with only the right things in.
     cache_file_dir = File.join(InfoRequest.download_zip_dir,
                                "download",
                                request_dirs,
                                last_update_hash)
-    cache_file_suffix = if all_can_view_all_correspondence?
-                          ""
-                        elsif Ability.can_view_with_prominence?('hidden', self, user)
-                          "_hidden"
-                        elsif Ability.can_view_with_prominence?('requester_only', self, user)
-                          "_requester_only"
-                        else
-                          ""
-                        end
+    cache_file_suffix = zip_cache_file_suffix(user)
     File.join(cache_file_dir, "#{url_title}#{cache_file_suffix}.zip")
+  end
+
+  def zip_cache_file_suffix(user)
+    # Simple short circuit for requests where everything is public
+    if all_can_view_all_correspondence?
+      ""
+    # If the user can view hidden things, they can view anything, so no need
+    # to go any further
+    elsif User.view_hidden?(user)
+      "_hidden"
+    # If the user can't view hidden things, but owns the request, they can
+    # see more than the public, so they get requester_only
+    elsif is_owning_user?(user)
+      "_requester_only"
+    # Everyone else can only see public stuff, which is the default case
+    else
+      ""
+    end
   end
 
   def is_old_unclassified?
@@ -1122,10 +1136,6 @@ class InfoRequest < ActiveRecord::Base
   def is_actual_owning_user?(user)
     return false unless user
     user.id == user_id
-  end
-
-  def user_can_view?(user)
-    Ability.can_view_with_prominence?(prominence, self, user)
   end
 
   # Is this request visible to everyone?

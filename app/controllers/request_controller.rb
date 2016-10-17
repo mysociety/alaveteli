@@ -89,7 +89,7 @@ class RequestController < ApplicationController
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
       # Test for whole request being hidden
-      if !@info_request.user_can_view?(authenticated_user)
+      if cannot?(:read, @info_request)
         return render_hidden
       end
 
@@ -138,7 +138,7 @@ class RequestController < ApplicationController
   def details
     long_cache
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-    if !@info_request.user_can_view?(authenticated_user)
+    if cannot?(:read, @info_request)
       return render_hidden
     end
     @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
@@ -157,7 +157,7 @@ class RequestController < ApplicationController
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
     raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
 
-    if !@info_request.user_can_view?(authenticated_user)
+    if cannot?(:read, @info_request)
       return render_hidden
     end
     @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
@@ -409,7 +409,7 @@ class RequestController < ApplicationController
     end
 
     # Check authenticated, and parameters set.
-    unless Ability::can_update_request_state?(authenticated_user, info_request)
+    unless can?(:update_request_state, info_request)
       authenticated_as_user?(
         info_request.user,
         :web => _("To classify the response to this FOI request"),
@@ -535,11 +535,11 @@ class RequestController < ApplicationController
     # Test for hidden
     incoming_message = IncomingMessage.find(params[:incoming_message_id])
     raise ActiveRecord::RecordNotFound.new("Message not found") if incoming_message.nil?
-    if !incoming_message.info_request.user_can_view?(authenticated_user)
+    if cannot?(:read, incoming_message.info_request)
       @info_request = incoming_message.info_request # used by view
       return render_hidden
     end
-    if !incoming_message.user_can_view?(authenticated_user)
+    if cannot?(:read, incoming_message)
       @incoming_message = incoming_message # used by view
       return render_hidden('request/hidden_correspondence')
     end
@@ -658,7 +658,7 @@ class RequestController < ApplicationController
     end
 
     # check permissions
-    raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
+    raise "internal error, pre-auth filter should have caught this" if cannot?(:read, @info_request)
     @attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(@incoming_message.get_attachments_for_display, @part_number, @original_filename)
     # If we can't find the right attachment, redirect to the incoming message:
     unless @attachment
@@ -767,7 +767,7 @@ class RequestController < ApplicationController
                               :info_request_title=>@info_request.title)
         )
         # Test for whole request being hidden or requester-only
-        if !@info_request.user_can_view?(@user)
+        if cannot?(:read, @info_request)
           return render_hidden
         end
         cache_file_path = @info_request.make_zip_cache_path(@user)
@@ -816,7 +816,7 @@ class RequestController < ApplicationController
       zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
       message_index = 0
       info_request.incoming_messages.each do |message|
-        next unless message.user_can_view?(authenticated_user)
+        next unless can?(:read, message)
         message_index += 1
         message.get_attachments_for_display.each do |attachment|
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
