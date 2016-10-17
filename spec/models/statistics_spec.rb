@@ -110,6 +110,13 @@ describe Statistics do
   end
 
   describe ".user_json_for_api" do
-    # TODO
+    it "creates more descriptive and sanitised JSON" do
+      user = FactoryGirl.create(:user)
+      test_data = { a_test_key: { user => 123 } }
+
+      expect(Statistics.user_json_for_api(test_data)).to eql(
+        { a_test_key: [{ user: user.json_for_api, count: 123 }] }
+      )
+    end
   end
 end
