@@ -472,7 +472,24 @@ describe User do
   end
 
   describe '.last_28_day_commenters' do
-    # TODO
+    it 'gets recent frequent commenters' do
+      user_with_3_comments = FactoryGirl.create(:user)
+      3.times { FactoryGirl.create(:comment, user: user_with_3_comments) }
+      user_with_2_comments = FactoryGirl.create(:user)
+      2.times { FactoryGirl.create(:comment, user: user_with_2_comments) }
+      user_with_1_comment = FactoryGirl.create(:user)
+      FactoryGirl.create(:comment, user: user_with_1_comment)
+      user_with_an_old_comment = FactoryGirl.create(:user)
+      FactoryGirl.create(:comment, user: user_with_an_old_comment, created_at: 2.months.ago)
+
+      expect(User.last_28_day_commenters).to eql(
+        {
+          user_with_3_comments => 3,
+          user_with_2_comments => 2,
+          user_with_1_comment => 1
+        }
+      )
+    end
   end
 
   describe '#transactions' do
