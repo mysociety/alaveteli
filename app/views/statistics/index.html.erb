@@ -138,11 +138,13 @@
     <%= javascript_include_tag "time_series" %>
     <script type="text/javascript">
       if (typeof timeSeries == 'function') {
-        timeSeries(
-          "#request-hide-events-data",
-          "<%= statistics_url(:format => 'json') %>",
-          "request hide events"
-        );
+        d3.json("<%= statistics_url(:format => 'json') %>", function(data) {
+          timeSeries(
+            "#request-hide-events-data",
+            data["requests"]["hides_by_week"],
+            "request hide events"
+          );
+        });
 
         // Make the table only visible to screen readers
         var table = document.querySelectorAll('#request-hide-events-data table')[0]
