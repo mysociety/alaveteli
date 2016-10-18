@@ -7,6 +7,7 @@
            'to requests on {{site_name}} and ' \
            '<a href="#people">meet the people most actively using it</a>.',
            site_name: site_name) %></p>
+  <% # TODO: Add bit about hidden requests %>
 
   <h2 id="public_bodies">Public Bodies</h2>
 
@@ -101,11 +102,55 @@
     </div>
   </div>
 
+  <h2 id="requests">Requests</h2>
+
+  <h3 id="request-hide-events">Hidden</h3>
+
+  <p>TODO: explain what this means</p>
+
+  <div id="request-hide-events-data">
+    <table>
+      <thead>
+        <tr>
+          <th>Week starting</th>
+          <th>Request hide events</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @request_hides_by_week.each do |row| %>
+          <tr>
+            <th><%= row.first %></th>
+            <td><%= row.last %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
   <% content_for :javascript do %>
     <script type="text/javascript">
       var graphs_data = <%= @public_bodies.to_json.html_safe %>;
     </script>
     <!--[if lte IE 8]><%= javascript_include_tag "excanvas.min.js" %><![endif]-->
     <%= javascript_include_tag "stats" %>
+
+    <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js" %>
+    <%= javascript_include_tag "time_series" %>
+    <script type="text/javascript">
+      timeSeries(
+        "#request-hide-events-data",
+        "<%= statistics_url(:format => 'json') %>",
+        "request hide events"
+      );
+
+      // Make the table only visible to screen readers
+      var table = document.querySelectorAll('#request-hide-events-data table')[0]
+
+      if (table.classList) {
+        table.classList.add('visually-hidden');
+      } else {
+        table.className += ' visually-hidden';
+      }
+    </script>
   <% end %>
 </div>
