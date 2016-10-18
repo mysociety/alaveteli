@@ -120,20 +120,26 @@ describe Statistics do
     end
   end
 
-  describe ".by_week_with_noughts" do
+  describe ".by_week_to_today_with_noughts" do
     it "adds missing weeks with noughts" do
       data = [
         ["2016-01-04", 2],
         ["2016-01-18", 1]
       ]
+      date_from = Date.new(2015, 12, 28)
+      fake_current_date = Date.new(2016, 1, 31)
 
-      expect(Statistics.by_week_with_noughts(data)).to eql(
-        [
-          ["2016-01-04", 2],
-          ["2016-01-11", 0],
-          ["2016-01-18", 1]
-        ]
-      )
+      time_travel_to(fake_current_date) do
+        expect(Statistics.by_week_to_today_with_noughts(data, date_from)).to eql(
+          [
+            ["2015-12-28", 0],
+            ["2016-01-04", 2],
+            ["2016-01-11", 0],
+            ["2016-01-18", 1],
+            ["2016-01-25", 0]
+          ]
+        )
+      end
     end
   end
 end
