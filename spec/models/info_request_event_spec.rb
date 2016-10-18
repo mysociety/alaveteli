@@ -596,13 +596,13 @@ describe InfoRequestEvent do
       expect(ire.only_editing_prominence_to_hide?).to be false
     end
 
-    it "should be false it's not an edit" do
+    it "should be false if it's not an edit" do
       ire = InfoRequestEvent.new(:event_type => "resent")
 
       expect(ire.only_editing_prominence_to_hide?).to be false
     end
 
-    it "should be false it's already a hide event" do
+    it "should be false if it's already a hide event" do
       ire = InfoRequestEvent.new(:event_type => "hide")
 
       expect(ire.only_editing_prominence_to_hide?).to be false
