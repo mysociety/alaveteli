@@ -561,28 +561,16 @@ describe InfoRequestEvent do
         :comments_allowed => true }
     end
 
-    it "should be true if only editing prominence to hidden" do
-      params = unchanged_params.merge({:old_prominence => "normal", :prominence => "hidden"})
+    it "should be false if it's not an edit" do
+      ire = InfoRequestEvent.new(:event_type => "resent")
 
-      ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
-
-      expect(ire.only_editing_prominence_to_hide?).to be true
+      expect(ire.only_editing_prominence_to_hide?).to be false
     end
 
-    it "should be true if only editing prominence to requester_only" do
-      params = unchanged_params.merge({:old_prominence => "normal", :prominence => "requester_only"})
+    it "should be false if it's already a hide event" do
+      ire = InfoRequestEvent.new(:event_type => "hide")
 
-      ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
-
-      expect(ire.only_editing_prominence_to_hide?).to be true
-    end
-
-    it "should be true if only editing prominence to backpage" do
-      params = unchanged_params.merge({:old_prominence => "normal", :prominence => "backpage"})
-
-      ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
-
-      expect(ire.only_editing_prominence_to_hide?).to be true
+      expect(ire.only_editing_prominence_to_hide?).to be false
     end
 
     it "should be false if editing multiple conditions" do
@@ -596,16 +584,34 @@ describe InfoRequestEvent do
       expect(ire.only_editing_prominence_to_hide?).to be false
     end
 
-    it "should be false if it's not an edit" do
-      ire = InfoRequestEvent.new(:event_type => "resent")
+    context "when only editing prominence to hidden" do
+      let(:params) { unchanged_params.merge({:old_prominence => "normal", :prominence => "hidden"}) }
 
-      expect(ire.only_editing_prominence_to_hide?).to be false
+      it do
+        ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+        expect(ire.only_editing_prominence_to_hide?).to be true
+      end
     end
 
-    it "should be false if it's already a hide event" do
-      ire = InfoRequestEvent.new(:event_type => "hide")
+    context "when only editing prominence to requester_only" do
+      let(:params) { unchanged_params.merge({:old_prominence => "normal", :prominence => "requester_only"}) }
 
-      expect(ire.only_editing_prominence_to_hide?).to be false
+      it "should be true if only editing prominence to requester_only" do
+        ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+        expect(ire.only_editing_prominence_to_hide?).to be true
+      end
+    end
+
+    context "when only editing prominence to backpage" do
+      let(:params) { unchanged_params.merge({:old_prominence => "normal", :prominence => "backpage"}) }
+
+      it "should be true if only editing prominence to backpage" do
+        ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+        expect(ire.only_editing_prominence_to_hide?).to be true
+      end
     end
 
     context "when the old prominence was hidden" do
