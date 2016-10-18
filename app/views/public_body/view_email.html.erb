@@ -51,6 +51,6 @@
     <% else %>
       <%= link_to _("Make a new FOI request"), new_request_to_body_path(:url_name => @public_body.url_name)%>
     <% end %>
-    to <%= h(@public_body.name) %>
+    <%= _("to") %> <%= h(@public_body.name) %>
   </strong>
 </div>
