@@ -124,5 +124,16 @@ class Statistics
         user_statistics[k] = v.map { |u,c| { user: u.json_for_api, count: c } }
       end
     end
+
+    def by_week_with_noughts(counts_by_week)
+      earliest_week = counts_by_week.first.first.to_date.at_beginning_of_week
+      latest_week = counts_by_week.to_a.last.first.to_date.at_beginning_of_week
+
+      (earliest_week..latest_week).step(7) do |date|
+        counts_by_week << [date.to_s, 0] unless counts_by_week.any? { |c| c.first == date.to_s }
+      end
+
+      counts_by_week.sort_by(&:first)
+    end
   end
 end

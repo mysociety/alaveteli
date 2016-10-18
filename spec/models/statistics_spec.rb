@@ -119,4 +119,21 @@ describe Statistics do
       )
     end
   end
+
+  describe ".by_week_with_noughts" do
+    it "adds missing weeks with noughts" do
+      data = [
+        ["2016-01-04", 2],
+        ["2016-01-18", 1]
+      ]
+
+      expect(Statistics.by_week_with_noughts(data)).to eql(
+        [
+          ["2016-01-04", 2],
+          ["2016-01-11", 0],
+          ["2016-01-18", 1]
+        ]
+      )
+    end
+  end
 end
