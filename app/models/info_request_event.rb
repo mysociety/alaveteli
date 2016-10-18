@@ -107,6 +107,10 @@ class InfoRequestEvent < ActiveRecord::Base
                  :if => :indexed_by_search?,
                  :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
 
+  def self.count_of_hides_by_week
+    where(event_type: "hide").group("date(date_trunc('week', created_at))").count
+  end
+
   def requested_by
     info_request.user_name_slug
   end

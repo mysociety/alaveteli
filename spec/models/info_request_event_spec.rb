@@ -119,6 +119,23 @@ describe InfoRequestEvent do
     end
   end
 
+  describe '.count_of_hides_by_week' do
+    it do
+      FactoryGirl.create(:hide_event, created_at: Time.utc(2016, 1, 4))
+      FactoryGirl.create(:hide_event, created_at: Time.utc(2016, 1, 7))
+      FactoryGirl.create(:edit_event, created_at: Time.utc(2016, 1, 11))
+      FactoryGirl.create(:edit_event, created_at: Time.utc(2016, 1, 18))
+      FactoryGirl.create(:hide_event, created_at: Time.utc(2016, 1, 24))
+
+      expect(InfoRequestEvent.count_of_hides_by_week).to eql(
+        {
+          "2016-01-04" => 2,
+          "2016-01-18" => 1
+        }
+      )
+    end
+  end
+
   describe '#described_at' do
     let(:ire) { FactoryGirl.create(:info_request_event) }
 

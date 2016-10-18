@@ -25,6 +25,12 @@ FactoryGirl.define do
     factory :sent_event do
       event_type 'sent'
     end
+    factory :edit_event do
+      event_type 'edit'
+    end
+    factory :hide_event do
+      event_type 'hide'
+    end
   end
 
 end
