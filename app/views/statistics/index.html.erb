@@ -137,19 +137,21 @@
     <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js" %>
     <%= javascript_include_tag "time_series" %>
     <script type="text/javascript">
-      timeSeries(
-        "#request-hide-events-data",
-        "<%= statistics_url(:format => 'json') %>",
-        "request hide events"
-      );
+      if (typeof timeSeries == 'function') {
+        timeSeries(
+          "#request-hide-events-data",
+          "<%= statistics_url(:format => 'json') %>",
+          "request hide events"
+        );
 
-      // Make the table only visible to screen readers
-      var table = document.querySelectorAll('#request-hide-events-data table')[0]
+        // Make the table only visible to screen readers
+        var table = document.querySelectorAll('#request-hide-events-data table')[0]
 
-      if (table.classList) {
-        table.classList.add('visually-hidden');
-      } else {
-        table.className += ' visually-hidden';
+        if (table.classList) {
+          table.classList.add('visually-hidden');
+        } else {
+          table.className += ' visually-hidden';
+        }
       }
     </script>
   <% end %>
