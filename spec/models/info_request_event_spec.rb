@@ -607,5 +607,35 @@ describe InfoRequestEvent do
 
       expect(ire.only_editing_prominence_to_hide?).to be false
     end
+
+    context "when the old prominence was hidden" do
+      let(:params) { unchanged_params.merge({:old_prominence => "hidden", :prominence => "requester_only"}) }
+
+      it do
+        ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+        expect(ire.only_editing_prominence_to_hide?).to be false
+      end
+    end
+
+    context "when the old prominence was requester_only" do
+      let(:params) { unchanged_params.merge({:old_prominence => "requester_only", :prominence => "hidden"}) }
+
+      it do
+        ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+        expect(ire.only_editing_prominence_to_hide?).to be false
+      end
+    end
+
+    context "when the old prominence was backpage" do
+      let(:params) { unchanged_params.merge({:old_prominence => "backpage", :prominence => "hidden"}) }
+
+      it do
+        ire = InfoRequestEvent.new(:event_type => "edit", :params => params)
+
+        expect(ire.only_editing_prominence_to_hide?).to be false
+      end
+    end
   end
 end
