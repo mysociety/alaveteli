@@ -305,7 +305,7 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def params
-    param_hash = YAML.load(params_yaml)
+    param_hash = YAML.load(params_yaml) || {}
     param_hash.each do |key, value|
       param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
     end

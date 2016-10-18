@@ -56,6 +56,12 @@ describe InfoRequestEvent do
       ire.params = example_params
       expect(ire.params).to eq(example_params)
     end
+
+    it "should allow params_yaml to be blank" do
+      ire.params_yaml = ''
+
+      expect(ire.params).to eql({})
+    end
   end
 
   describe 'when deciding if it is indexed by search' do
