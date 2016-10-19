@@ -20,9 +20,9 @@
 # louisecrow <louise@mysociety.org>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
 "PO-Revision-Date: 2016-09-01 09:54+0000\n"
 "Last-Translator: Hana Hunt <hana@hana-hunt.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
@@ -4281,6 +4281,9 @@ msgstr "hlavní kontakt pro vznesení dotazu na instituci {{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "Tým stránek {{site_name}}"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "poslat odpověď"

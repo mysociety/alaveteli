@@ -45,9 +45,9 @@
 # Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
 "PO-Revision-Date: 2016-07-12 11:56+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/mysociety/alaveteli/language/pt_BR/)\n"
@@ -4171,6 +4171,9 @@ msgstr "{{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "a equipe do {{site_name}}"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "enviar uma mensagem de acompanhamento."

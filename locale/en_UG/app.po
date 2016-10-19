@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
 "PO-Revision-Date: 2014-01-31 09:14+0000\n"
 "Last-Translator: Louise Crow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4088,6 +4088,9 @@ msgid "the main FOI contact at {{public_body}}"
 msgstr "the main ATI contact at {{public_body}}"
 
 msgid "the {{site_name}} team"
+msgstr ""
+
+msgid "to"
 msgstr ""
 
 msgid "to send a follow up message."

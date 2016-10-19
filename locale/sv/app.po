@@ -14,9 +14,9 @@
 # Mattias A, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
 "PO-Revision-Date: 2016-10-01 14:50+0000\n"
 "Last-Translator: Mattias A\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
@@ -4098,6 +4098,9 @@ msgstr "den huvudsakliga kontakten vid {{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "till {{site_name}} arbetsgrupp"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "för att skicka uppföljningsmeddelande."

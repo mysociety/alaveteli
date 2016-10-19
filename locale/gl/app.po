@@ -9,9 +9,9 @@
 # louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
 "PO-Revision-Date: 2016-07-12 11:56+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Galician (http://www.transifex.com/mysociety/alaveteli/language/gl/)\n"
@@ -4304,6 +4304,9 @@ msgstr "el contacto en {{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "el equipo de {{site_name}}"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "mandar un mensaje de seguimiento."

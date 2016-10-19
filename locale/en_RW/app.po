@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
 "PO-Revision-Date: 2014-01-31 09:14+0000\n"
 "Last-Translator: Louise Crow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -431,6 +431,9 @@ msgid "Attachment:"
 msgstr ""
 
 msgid "Authority email:"
+msgstr ""
+
+msgid "Authority name"
 msgstr ""
 
 msgid "Authority:"
@@ -984,6 +987,11 @@ msgstr ""
 
 msgid "Forgotten your password?"
 msgstr ""
+
+msgid "Found {{count}} public authority"
+msgid_plural "Found {{count}} public authorities"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
 msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
@@ -2262,6 +2270,9 @@ msgstr ""
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
 msgstr ""
 
+msgid "Request '{{request_title}}':"
+msgstr ""
+
 msgid "Request an internal review"
 msgstr ""
 
@@ -3317,6 +3328,9 @@ msgstr ""
 msgid "User|Info request batches count"
 msgstr ""
 
+msgid "User|Info requests count"
+msgstr ""
+
 msgid "User|Last daily track email"
 msgstr ""
 
@@ -3538,6 +3552,9 @@ msgid "Write a reply"
 msgstr ""
 
 msgid "Write a reply to {{authority_name}}"
+msgstr ""
+
+msgid "Write about this on Medium"
 msgstr ""
 
 msgid "Write your FOI follow up message to {{authority_name}}"
@@ -4071,6 +4088,9 @@ msgid "the main FOI contact at {{public_body}}"
 msgstr "the main ATI contact at {{public_body}}"
 
 msgid "the {{site_name}} team"
+msgstr ""
+
+msgid "to"
 msgstr ""
 
 msgid "to send a follow up message."

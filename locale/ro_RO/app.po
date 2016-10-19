@@ -30,9 +30,9 @@
 # Vitalie Zama <vitalie.zama@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
 "PO-Revision-Date: 2016-10-15 15:39+0000\n"
 "Last-Translator: Vitalie Zama <vitalie.zama@gmail.com>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
@@ -4131,6 +4131,9 @@ msgstr "principalul contact la  {{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "echipa {{site_name}}"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "a transmite un mesaj de urmărire"

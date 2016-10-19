@@ -22,9 +22,9 @@
 # vickyanderica <victoria@access-info.org>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
 "PO-Revision-Date: 2016-07-12 11:56+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/mysociety/alaveteli/language/fr_CA/)\n"
@@ -4109,6 +4109,9 @@ msgstr "responsable de l'accès aux documents du {{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "L'équipe de {{site_name}}"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "pour envoyer un message de suivi."
