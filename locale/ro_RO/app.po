@@ -24,16 +24,17 @@
 # Rodica Ardelean <rodxy@yahoo.com>, 2013
 # Rodica Ardelean <rodxy@yahoo.com>, 2013
 # Sabina Alexandra Ștefănescu <s.alexandra.stefanescu@gmail.com>, 2016
+# Vitalie Zama <vitalie.zama@gmail.com>, 2016
 # Vlad N. <vlad@nastasiu.com>, 2013
 # Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
-# Zama Vitalie <vitalie.zama@gmail.com>, 2016
+# Vitalie Zama <vitalie.zama@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-10-14 05:52+0000\n"
-"Last-Translator: Zama Vitalie <vitalie.zama@gmail.com>\n"
+"PO-Revision-Date: 2016-10-15 15:39+0000\n"
+"Last-Translator: Vitalie Zama <vitalie.zama@gmail.com>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -3194,7 +3195,7 @@ msgid "Too many requests"
 msgstr "Prea multe cereri"
 
 msgid "Top recent players"
-msgstr ""
+msgstr "Topul utilizatorilor."
 
 msgid "Track thing"
 msgstr "Urmărește acest lucru"
