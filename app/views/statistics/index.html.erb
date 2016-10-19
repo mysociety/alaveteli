@@ -11,7 +11,7 @@
            'over time.',
            site_name: site_name) %></p>
 
-  <h2 id="public_bodies">Public Bodies</h2>
+  <h2 id="public_bodies"><%= _("Public Bodies") %></h2>
 
   <p><%= _("This section on public body statistics is currently experimental, " \
               "so there are some caveats that should be borne in mind:") %></p>
@@ -76,54 +76,53 @@
     </div>
   <% end %>
 
-  <h2 id="people">People</h2>
+  <h2 id="people"><%= _("People") %></h2>
 
-  <h3>Most frequent requesters</h3>
+  <h3><%= _("Most frequent requesters") %></h3>
 
   <div class="leaderboard-block">
     <div class="leaderboard-item">
-      <h4>Last 28 days</h4>
+      <h4><%= _("Last 28 days") %></h4>
       <%= render "people_leaderboard", users_with_counts: @users[:last_28_day_requesters] %>
     </div>
     <div class="leaderboard-item">
-      <h4>All time</h4>
+      <h4><%= _("All time") %></h4>
       <%= render "people_leaderboard", users_with_counts: @users[:all_time_requesters] %>
     </div>
   </div>
 
-  <h3>Most frequent annotators</h3>
+  <h3><%= _("Most frequent annotators") %></h3>
 
   <div class="leaderboard-block">
     <div class="leaderboard-item">
-      <h4>Last 28 days</h4>
+      <h4><%= _("Last 28 days") %></h4>
       <%= render "people_leaderboard", users_with_counts: @users[:last_28_day_commenters] %>
     </div>
     <div class="leaderboard-item">
-      <h4>All time</h4>
+      <h4><%= _("All time") %></h4>
       <%= render "people_leaderboard", users_with_counts: @users[:all_time_commenters] %>
     </div>
   </div>
 
-  <h2 id="requests">Requests</h2>
+  <h2 id="requests"><%= _("Requests") %></h2>
 
-  <h3 id="request-hide-events">Hidden</h3>
+  <h3 id="request-hide-events"><%= _("Hidden") %></h3>
 
-  <p>
-    From time to time requests need to be hidden on <%= site_name %>.
-    This can happen for a number of reasons.
-    For example, the request could be about someone’s personal information that shouldn’t be public or the contents could be abusive.
-  </p>
+  <p><%= _("From time to time requests need to be hidden on {{site_name}}. " \
+           "This can happen for a number of reasons. " \
+           "For example, the request could be about someone’s personal information " \
+           "that shouldn’t be public or the contents could be abusive.",
+           site_name: site_name) %></p>
 
-  <p>
-    Here you can see how often <%= site_name %> administrators have hidden requests.
-  </p>
+  <p><%= _("Here you can see how often {{site_name}} administrators have hidden requests.",
+           site_name: site_name) %></p>
 
   <div id="request-hide-events-data">
     <table>
       <thead>
         <tr>
-          <th>Week starting</th>
-          <th>Request hide events</th>
+          <th><%= _("Week starting") %></th>
+          <th><%= _("Request hide events") %></th>
         </tr>
       </thead>
       <tbody>
