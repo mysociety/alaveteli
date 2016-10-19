@@ -140,6 +140,12 @@ class UserController < ApplicationController
     @user_signup = User.new(user_params(:user_signup))
     error = false
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
+
+    # temp blocking of new accounts
+    flash.now[:error] = "Sorry, we're currently unable to sign up new users, please try again later"
+    error = true
+    render :action => 'sign' and return
+
     if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _("There was an error with the words you entered, please try again.")
       error = true
