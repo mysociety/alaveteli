@@ -51,6 +51,10 @@
       <% end %>
 
       <p>
+        <%= recaptcha_tags %>
+      </p>
+
+      <p>
         <%= f.hidden_field(:title) %>
         <% if @batch %>
           <% params[:public_body_ids].each do |public_body_id| %>
