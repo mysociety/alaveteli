@@ -333,13 +333,6 @@ class RequestController < ApplicationController
       return
     end
 
-    # temp blocking of request sending from other countries
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
-    if @request_from_foreign_country
-      flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
-      render :action => 'new'
-      return
-    end
     # See if values were valid or not
     if @existing_request || !@info_request.valid?
       # We don't want the error "Outgoing messages is invalid", as in this
@@ -358,6 +351,15 @@ class RequestController < ApplicationController
 
     if user_exceeded_limit
       render :template => 'user/rate_limited'
+      return
+    end
+
+    # temp blocking of request sending from other countries
+    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
+
+    if @request_from_foreign_country || !verify_recaptcha
+      flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
+      render :action => 'new'
       return
     end
 
