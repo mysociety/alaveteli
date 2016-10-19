@@ -4,6 +4,7 @@
 #
 # Translators:
 # Translators:
+# Translators:
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
 # codefornepal <codefornepal@gmail.com>, 2015
 # Pawan Kumar Kandel <pkkandel1@gmail.com>, 2016
@@ -11,11 +12,11 @@
 # Saroj Dhakal <lotusnagarkot@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-07-12 11:56+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2016-10-19 12:09+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
