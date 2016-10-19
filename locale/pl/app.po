@@ -4,15 +4,16 @@
 #
 # Translators:
 # Translators:
+# Translators:
 # Ewa Modrzejewska <ewa.modrzejewska@art61.pl>, 2013
 # Ewa Modrzejewska <ewa.modrzejewska@art61.pl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-07-12 11:55+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
+"PO-Revision-Date: 2016-10-19 12:09+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Polish (http://www.transifex.com/mysociety/alaveteli/language/pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -4106,6 +4107,9 @@ msgid "the main FOI contact at {{public_body}}"
 msgstr ""
 
 msgid "the {{site_name}} team"
+msgstr ""
+
+msgid "to"
 msgstr ""
 
 msgid "to send a follow up message."

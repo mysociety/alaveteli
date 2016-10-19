@@ -4,6 +4,7 @@
 #
 # Translators:
 # Translators:
+# Translators:
 # elaste <3laste2000@gmail.com>, 2012
 # serramassuda <a.serramassuda@gmail.com>, 2012
 # Bruno <bgx@bol.com.br>, 2012
@@ -47,9 +48,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-07-12 11:56+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
+"PO-Revision-Date: 2016-10-19 12:09+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/mysociety/alaveteli/language/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -4171,6 +4172,9 @@ msgstr "{{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "a equipe do {{site_name}}"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "enviar uma mensagem de acompanhamento."
