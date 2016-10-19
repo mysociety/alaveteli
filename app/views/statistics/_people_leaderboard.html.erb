@@ -4,7 +4,7 @@
     <li class="leaderboard-person">
       <%= link_to user, class: "leaderboard-person-details" do %>
         <% if user.profile_photo %>
-          <img src="<%= get_profile_photo_url(url_name: user.url_name) %>" alt="Avatar image for <%= user.name %>" />
+          <img src="<%= get_profile_photo_url(url_name: user.url_name) %>" alt="<%= _("Avatar image for {{user_name}}", user_name: user.name) %>" />
         <% else %>
           <span class="leaderboard-person-initial"><%= user.name.first.upcase %></span>
         <% end %>
@@ -18,5 +18,5 @@
   <% end %>
   </ol>
 <% else %>
-  <p>Crickets. No one is here. It’s time to get the word out.</p>
+  <p><%= _("Crickets. No one is here. It’s time to get the word out.") %></p>
 <% end %>
