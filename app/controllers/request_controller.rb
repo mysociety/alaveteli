@@ -356,6 +356,15 @@ class RequestController < ApplicationController
       return
     end
 
+    # temp blocking of request sending from other countries
+    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
+
+    if @request_from_foreign_country || !verify_recaptcha
+      flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
+      render :action => 'new'
+      return
+    end
+
     if !authenticated?(
         :web => _("To send your FOI request").to_str,
         :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
