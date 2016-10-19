@@ -1,4 +1,4 @@
-function timeSeries(selector, data, title, metric_name) {
+function d3TimeSeries(selector, data, title, metric_name) {
 
   // Add the title
   var wrapper_element = document.querySelectorAll(selector)[0];

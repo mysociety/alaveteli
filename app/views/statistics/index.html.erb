@@ -146,9 +146,9 @@
     <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js" %>
     <%= javascript_include_tag "time_series" %>
     <script type="text/javascript">
-      if (typeof timeSeries == 'function') {
+      if (typeof d3TimeSeries == 'function') {
         d3.json("<%= statistics_url(:format => 'json') %>", function(data) {
-          timeSeries(
+          d3TimeSeries(
             "#request-hide-events-data",
             data["requests"]["hides_by_week"],
             "<%= _("Number of request hide events over time") %>",
