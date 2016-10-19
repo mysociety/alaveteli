@@ -1,4 +1,4 @@
-function timeSeries(selector, data, title, metric) {
+function timeSeries(selector, data, title, metric_name) {
 
   // Add the title
   var wrapper_element = document.querySelectorAll(selector)[0];
@@ -181,7 +181,7 @@ function timeSeries(selector, data, title, metric) {
         weekEndFormat = d3.time.format("%d %b %Y"),
         dateSpan = weekStartFormat(point.key) + " – " + weekEndFormat(weekEnd);
 
-    focusCalloutValue.text(point.values + " " + metric);
+    focusCalloutValue.text(point.values + " " + metric_name);
     focusCalloutDate.text(dateSpan);
   }
 
