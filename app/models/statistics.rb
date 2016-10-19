@@ -133,7 +133,7 @@ class Statistics
         counts_by_week << [date.to_s, 0] unless counts_by_week.any? { |c| c.first == date.to_s }
       end
 
-      counts_by_week.sort_by(&:first)
+      counts_by_week.sort
     end
   end
 end
