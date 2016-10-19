@@ -4,6 +4,7 @@
 #
 # Translators:
 # Translators:
+# Translators:
 # Aled Powell <cymrodor@gmail.com>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
 # baragouiner <graham.craig@gmail.com>, 2013
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-07-12 11:56+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
+"PO-Revision-Date: 2016-10-19 12:09+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -4135,6 +4136,9 @@ msgstr "prif gyswllt Rhyddid Gwybodaeth yn {{public_body}} "
 
 msgid "the {{site_name}} team"
 msgstr "tîm {{site_name}}"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "i anfon neges ddilynol."

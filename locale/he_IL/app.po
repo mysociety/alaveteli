@@ -4,6 +4,7 @@
 #
 # Translators:
 # Translators:
+# Translators:
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # Nir Hirshman <nirshman99@gmail.com>, 2013-2014
@@ -24,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-07-12 11:56+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
+"PO-Revision-Date: 2016-10-19 12:09+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -4123,6 +4124,9 @@ msgstr "איש הקשר העיקרי לבקשות מידע ב-  {{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "צוות האתר {{site_name}}"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "לשלוח הודעת מעקב."

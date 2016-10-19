@@ -4,6 +4,7 @@
 #
 # Translators:
 # Translators:
+# Translators:
 # andreas.pavlou <andreas@access-info.org>, 2016
 # andreas.pavlou <andreas@access-info.org>, 2016
 # arne <arne.semsrott@okfn.de>, 2015-2016
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-07-12 11:56+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
+"PO-Revision-Date: 2016-10-19 12:09+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/mysociety/alaveteli/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -4179,6 +4180,9 @@ msgstr "der Hauptkontakt für {{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "das {{site_name}} Team"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "um eine Nachfrage zu senden. "

@@ -4,6 +4,7 @@
 #
 # Translators:
 # Translators:
+# Translators:
 # Kristoffer Grundström <kristoffer.grundstrom1983@gmail.com>, 2015
 # Lord Cobol <mattias@invaliddesign.com>, 2016
 # louisecrow <louise@mysociety.org>, 2016
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 11:54+0000\n"
-"PO-Revision-Date: 2016-10-01 14:50+0000\n"
-"Last-Translator: Mattias A\n"
+"POT-Creation-Date: 2016-10-19 12:06+0000\n"
+"PO-Revision-Date: 2016-10-19 12:09+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -4098,6 +4099,9 @@ msgstr "den huvudsakliga kontakten vid {{public_body}}"
 
 msgid "the {{site_name}} team"
 msgstr "till {{site_name}} arbetsgrupp"
+
+msgid "to"
+msgstr ""
 
 msgid "to send a follow up message."
 msgstr "för att skicka uppföljningsmeddelande."
