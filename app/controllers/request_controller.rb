@@ -385,52 +385,7 @@ class RequestController < ApplicationController
       @info_request.user = authenticated_user
     end
 
-    spam_patterns =
-      [
-       /Freedom of Information request - [\{\[\|]/i,
-       /Sea?,?s?o?n?[ -.]\d+[ -]Epi?'?s?,?o?d?e?s?[ -.]\d+/i,
-       /\[Full-Watch\]/i,
-       /free-watch/i,
-       /Online Full 2016/i,
-       /HD | Special ".*?" Online/i,
-       /FULL .O?N?_?L?I?N?E? ?\.?MOVIE/i,
-       /\[Full 20x5\]/i,
-       /Putlocker/i,
-       /se?\d+ep?\d+/i,
-       /\[free\]/i,
-       /vodlocker/i,
-       /online free full/i,
-       /streaming 2016/i,
-       /films?-?hd/i,
-       /full online/i,
-       /\[DVDscr\]/i,
-       /W@tch/i,
-       /720p/i,
-       /1080p/i,
-       /MEGA.TV/i,
-       /1080.HD/i,
-       /\[Online-Free\]/i,
-       /\[HD\]/i,
-       /\{DOWNLOAD\}/i,
-       /\(\{Ganzer FIlm\}\)/i,
-       /\{leak\}/i,
-       /MEGASH[a|e]RE?/i,
-       /\[Official.HD\]/i,
-       /Completa.*?Ver Online Gratis/i,
-       /Assistir.*?Completa Film Portuguese/i,
-       /\[MP3\]/i,
-       /Watch.*?Movie Online/i,
-       /Gratuitement.*?TELECHARGER/i,
-       /full album/i,
-       /album complet/i,
-       /Album.*?Gratuit/i,
-       /Free.Download/i,
-       /\{FR\}/i,
-       /\[Album\]/i,
-       /watch.*?online free/i
-       ]
-
-    if spam_patterns.any?{ |spam_pattern| spam_pattern.match(@outgoing_message.subject) }
+    if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(@outgoing_message.subject) }
       flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
       if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
         e = Exception.new("Spam request from user #{@info_request.user.id}")
