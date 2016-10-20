@@ -141,10 +141,28 @@ class UserController < ApplicationController
     error = false
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
 
-    # temp blocking of new accounts
-    # flash.now[:error] = "Sorry, we're currently unable to sign up new users, please try again later"
-    # error = true
-    # render :action => 'sign' and return
+    # user_up might return nil, so just guard against that for now
+    if user_ip
+      # Generate a cache key that looks like:
+      # "signup_rate_limit_20161020-16_103_9_114_118"
+      prefix = Time.zone.now.strftime('%Y%m%d-%H')
+      ip_key = "#{ user_ip.to_s.gsub('.', '_') }"
+      signup_cache_key = "signup_rate_limit_#{ prefix }_#{ ip_key }"
+
+      if fragment_exist?(signup_cache_key)
+        signup_attempts = read_fragment(signup_cache_key).to_i
+
+        # temp blocking of new accounts
+        if signup_attempts >= 3
+          write_fragment(signup_cache_key, signup_attempts + 1)
+          flash.now[:error] = "Sorry, we're currently unable to sign up new users, please try again later"
+          error = true
+          render :action => 'sign' and return
+        end
+      else
+        write_fragment(signup_cache_key, 1)
+      end
+    end
 
     if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _("There was an error with the words you entered, please try again.")
