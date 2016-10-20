@@ -306,7 +306,7 @@ class OutgoingMessage < ActiveRecord::Base
     text = body.strip
     self.remove_privacy_sensitive_things!(text)
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, :contract => 1)
+    text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
     text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
     text = ActionController::Base.helpers.simple_format(text)
     text.html_safe
