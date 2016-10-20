@@ -152,8 +152,6 @@ class UserController < ApplicationController
       if fragment_exist?(signup_cache_key)
         signup_attempts = read_fragment(signup_cache_key).to_i
 
-        write_fragment(signup_cache_key, signup_attempts + 1)
-
         # temp blocking of new accounts
         if signup_attempts >= 3
           write_fragment(signup_cache_key, signup_attempts + 1)
