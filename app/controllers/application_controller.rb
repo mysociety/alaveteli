@@ -462,13 +462,16 @@ class ApplicationController < ActionController::Base
   end
 
   def country_from_ip
-    begin
-      ip = request.remote_ip
-    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
-      ip = nil
-    end
-    return AlaveteliGeoIP.country_code_from_ip(ip) if ip
+    return AlaveteliGeoIP.country_code_from_ip(user_ip) if user_ip
     AlaveteliConfiguration::iso_country_code
+  end
+
+  def user_ip
+    begin
+      request.remote_ip
+    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+      nil
+    end
   end
 
   def alaveteli_git_commit
