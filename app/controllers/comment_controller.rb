@@ -46,14 +46,16 @@ class CommentController < ApplicationController
         :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
       )
 
-      if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(params[:comment][:body]) }
-        flash.now[:error] = "Sorry, we're currently not able to add your annotation. Please try again later."
-        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-          e = Exception.new("Spam annotation from user #{@user.id}")
-          ExceptionNotifier.notify_exception(e, :env => request.env)
+      unless @user.confirmed_not_spam?
+        if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(params[:comment][:body]) }
+          flash.now[:error] = "Sorry, we're currently not able to add your annotation. Please try again later."
+          if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+            e = Exception.new("Spam annotation from user #{@user.id}")
+            ExceptionNotifier.notify_exception(e, :env => request.env)
+          end
+          render :action => 'new'
+          return
         end
-        render :action => 'new'
-        return
       end
       # Also subscribe to track for this request, so they get updates
       # (do this first, so definitely don't send alert)

@@ -354,20 +354,6 @@ class RequestController < ApplicationController
       return
     end
 
-    # temp blocking of request sending from other countries
-    ip_in_blocklist =
-      if AlaveteliConfiguration.domain == 'www.asktheeu.org'
-        %w(ID SG TH BD PH NP).include?(country_from_ip)
-      else
-        country_from_ip != AlaveteliConfiguration.iso_country_code && country_from_ip != '--'
-      end
-
-    if ip_in_blocklist || !verify_recaptcha
-      flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
-      render :action => 'new'
-      return
-    end
-
     if !authenticated?(
         :web => _("To send your FOI request").to_str,
         :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
@@ -385,14 +371,35 @@ class RequestController < ApplicationController
       @info_request.user = authenticated_user
     end
 
-    if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(@outgoing_message.subject) }
-      flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
-      if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-        e = Exception.new("Spam request from user #{@info_request.user.id}")
-        ExceptionNotifier.notify_exception(e, :env => request.env)
+    unless @user.confirmed_not_spam?
+
+      if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(@outgoing_message.subject) }
+        flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
+        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+          e = Exception.new("Spam request from user #{@info_request.user.id}")
+          ExceptionNotifier.notify_exception(e, :env => request.env)
+        end
+        render :action => 'new'
+        return
       end
-      render :action => 'new'
-      return
+
+      # temp blocking of request sending from other countries
+      ip_in_blocklist =
+        if AlaveteliConfiguration.domain == 'www.asktheeu.org'
+          %w(ID SG TH BD PH NP).include?(country_from_ip)
+        else
+          country_from_ip != AlaveteliConfiguration.iso_country_code && country_from_ip != '--'
+        end
+
+      if ip_in_blocklist || !verify_recaptcha
+        flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
+        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+          e = Exception.new("Possible blocked non-spam from #{@info_request.user.id}: #{@info_request.subject}")
+          ExceptionNotifier.notify_exception(e, :env => request.env)
+        end
+        render :action => 'new'
+        return
+      end
     end
 
     # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
