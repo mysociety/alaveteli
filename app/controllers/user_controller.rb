@@ -5,6 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+require 'pstore'
 require 'set'
 
 class UserController < ApplicationController
@@ -141,15 +142,11 @@ class UserController < ApplicationController
     error = false
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
 
-    # temp blocking of new accounts
-    # flash.now[:error] = "Sorry, we're currently unable to sign up new users, please try again later"
-    # error = true
-    # render :action => 'sign' and return
-
     if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _("There was an error with the words you entered, please try again.")
       error = true
     end
+
     @user_signup.valid?
     user_alreadyexists = User.find_user_by_email(params[:user_signup][:email].strip)
     if user_alreadyexists
@@ -166,6 +163,43 @@ class UserController < ApplicationController
         return
       else
         # New unconfirmed user
+
+        # Rate limit signups
+        if user_ip
+          # Initialize the store.
+          # The file will be created if it doesn't exist.
+          store = PStore.new(Rails.root + './tmp/signup_rate_limit.pstore')
+
+          ip_key = "#{ user_ip.to_s.gsub('.', '_') }"
+
+          store.transaction do
+            if store[ip_key]
+              store[ip_key] << Time.zone.now
+            else
+              store[ip_key] = [Time.zone.now]
+            end
+          end
+
+          # Current signups
+          signups = store.transaction { store.fetch(ip_key, []) }
+
+          # Purge old signups as they'll never count towards a rate limit
+          store.transaction do
+            store[ip_key] = recent_signups(store[ip_key])
+          end
+
+          # temp blocking of new accounts
+          if signups_in_last_hour(signups) >= 3
+            flash.now[:error] = "Sorry, we're currently unable to sign up new users, please try again later"
+            error = true
+            if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+              e = Exception.new("Rate limited signup from #{user_ip} email: #{@user_signup.email}")
+              ExceptionNotifier.notify_exception(e, :env => request.env)
+            end
+            render :action => 'sign' and return
+          end
+        end
+
         @user_signup.email_confirmed = false
         @user_signup.save!
         send_confirmation_mail @user_signup
@@ -646,5 +680,13 @@ class UserController < ApplicationController
                        :email => _("Then you can sign in to {{site_name}}", :site_name => site_name),
                        :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
                      })
+  end
+
+  def signups_in_last_hour(dates = [])
+    dates.count { |date| date > 1.hour.ago }
+  end
+
+  def recent_signups(dates = [])
+    dates.select { |date| date > 2.hours.ago }
   end
 end
