@@ -359,10 +359,13 @@ class RequestController < ApplicationController
       if AlaveteliConfiguration.domain == 'www.asktheeu.org'
         %w(ID SG TH BD PH NP).include?(country_from_ip)
       else
-        country_from_ip != AlaveteliConfiguration.iso_country_code
+        country_from_ip != AlaveteliConfiguration.iso_country_code && country_from_ip != '--'
       end
 
     if ip_in_blocklist || !verify_recaptcha
+      if ip_in_blocklist
+        warn "#{country_from_ip} #{AlaveteliConfiguration.iso_country_code}"
+      end
       flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
       render :action => 'new'
       return
