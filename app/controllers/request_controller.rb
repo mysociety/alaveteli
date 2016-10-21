@@ -384,7 +384,7 @@ class RequestController < ApplicationController
       end
 
       # temp blocking of request sending from other countries
-      ip_in_blocklist = %w(ID SG TH BD PH NP).include?(country_from_ip)
+      ip_in_blocklist = %w(ID SG TH BD PH NP).include?(country_from_ip) && country_from_ip != AlaveteliConfiguration.iso_country_code
 
 
       if ip_in_blocklist || !verify_recaptcha
