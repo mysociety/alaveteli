@@ -46,7 +46,7 @@ class CommentController < ApplicationController
         :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
       )
 
-      unless @user.confirmed_not_spam?
+      if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
         if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(params[:comment][:body]) }
           flash.now[:error] = "Sorry, we're currently not able to add your annotation. Please try again later."
           if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?

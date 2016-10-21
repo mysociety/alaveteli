@@ -1217,7 +1217,68 @@ describe RequestController, "when creating a new request" do
     expect(response).to redirect_to show_new_request_url(:url_title => 'whats_black_and_white_and_red_al')
   end
 
-  describe 'when checking for abuse' do
+  describe 'when rendering a reCAPTCHA' do
+
+    context 'when anti-spam is disabled' do
+
+      before do
+        allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
+          .and_return(false)
+      end
+
+      it 'sets render_recaptcha to false' do
+        post :new, :info_request => { :public_body_id => @body.id,
+          :title => "What's black and white and red all over?", :tag_string => "" },
+          :outgoing_message => { :body => "Please send info" },
+          :submitted_new_request => 1, :preview => 0
+        expect(assigns[:render_recaptcha]).to eq(false)
+      end
+    end
+
+    context 'when anti-spam is enabled' do
+
+      before do
+        allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
+          .and_return(true)
+      end
+
+      it 'sets render_recaptcha to true if there is no logged in user' do
+        post :new, :info_request => { :public_body_id => @body.id,
+          :title => "What's black and white and red all over?", :tag_string => "" },
+          :outgoing_message => { :body => "Please send info" },
+          :submitted_new_request => 1, :preview => 0
+        expect(assigns[:render_recaptcha]).to eq(true)
+      end
+
+      it 'sets render_recaptcha to true if there is a logged in user who is not
+            confirmed as not spam' do
+        session[:user_id] = FactoryGirl.create(:user).id
+        post :new, :info_request => { :public_body_id => @body.id,
+          :title => "What's black and white and red all over?", :tag_string => "" },
+          :outgoing_message => { :body => "Please send info" },
+          :submitted_new_request => 1, :preview => 0
+        expect(assigns[:render_recaptcha]).to eq(true)
+      end
+
+      it 'sets render_recaptcha to false if there is a logged in user who is
+            confirmed as not spam' do
+        session[:user_id] = FactoryGirl.create(:user,
+                                               :confirmed_not_spam => true).id
+        post :new, :info_request => { :public_body_id => @body.id,
+          :title => "What's black and white and red all over?", :tag_string => "" },
+          :outgoing_message => { :body => "Please send info" },
+          :submitted_new_request => 1, :preview => 0
+        expect(assigns[:render_recaptcha]).to eq(false)
+      end
+    end
+  end
+
+  describe 'when anti-spam is enabled' do
+
+    before do
+      allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
+        .and_return(true)
+    end
 
     let(:user) { FactoryGirl.create(:user,
                                     :confirmed_not_spam => false) }
@@ -1294,6 +1355,45 @@ describe RequestController, "when creating a new request" do
           :submitted_new_request => 1, :preview => 0
         expect(response)
           .to redirect_to show_new_request_url(:url_title => 'some_request_content')
+      end
+
+    end
+
+    context 'when the reCAPTCHA information is not correct' do
+
+      before do
+        allow(controller).to receive(:verify_recaptcha).and_return(false)
+      end
+
+      it 'shows an error message' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request text", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(flash[:error])
+          .to eq("There was an error with the reCAPTCHA information - please try again.")
+      end
+
+      it 'renders the compose interface' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request text", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response).to render_template("new")
+      end
+
+      it 'allows the request if the user is confirmed not spam' do
+        user.confirmed_not_spam = true
+        user.save!
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request text", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response)
+          .to redirect_to show_new_request_url(:url_title => 'some_request_text')
       end
 
     end
