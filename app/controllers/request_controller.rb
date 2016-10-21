@@ -387,16 +387,20 @@ class RequestController < ApplicationController
 
       # temp blocking of request sending from other countries
       ip_in_blocklist = %w(ID SG TH BD PH NP).include?(country_from_ip) && country_from_ip != AlaveteliConfiguration.iso_country_code
+      if !verify_recaptcha
+        flash.now[:error] = "There was an error with the reCAPTCHA information - please try again."
+        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+          e = Exception.new("Possible blocked non-spam (recaptcha) from #{@info_request.user_id}: #{@info_request.title}")
+          ExceptionNotifier.notify_exception(e, :env => request.env)
+        end
+        render :action => 'new'
+        return
+      end
 
-
-      if ip_in_blocklist || !verify_recaptcha
+      if ip_in_blocklist
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
         if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-          block_reason = 'recaptcha'
-          if ip_in_blocklist
-            block_reason = 'ip blocklist'
-          end
-          e = Exception.new("Possible blocked non-spam (#{block_reason}) from #{@info_request.user_id}: #{@info_request.title}")
+          e = Exception.new("Possible blocked non-spam (ip_in_blocklist) from #{@info_request.user_id}: #{@info_request.title}")
           ExceptionNotifier.notify_exception(e, :env => request.env)
         end
         render :action => 'new'
