@@ -246,6 +246,33 @@ describe UserProfile::AboutMeController do
 
     end
 
+    context 'with spam content and a non-whitelisted user' do
+
+      let(:user) { FactoryGirl.create(:user, :name => 'JWahewKjWhebCd') }
+
+      before :each do
+        session[:user_id] = user.id
+      end
+
+      it 'sets an error message' do
+        put :update, :user => { :about_me => '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+        msg = "You can't update your profile text at this time."
+        expect(flash[:error]).to eq(msg)
+      end
+
+      it 'redirects to the user page' do
+        put :update, :user => { :about_me => '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+        expect(response).
+          to redirect_to(show_user_path(:url_name => user.url_name))
+      end
+
+      it 'does not update the user about_me' do
+        put :update, :user => { :about_me => '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+        expect(user.reload.about_me).to eq('')
+      end
+
+    end
+
     context 'with spam attributes and a whitelisted user' do
 
       let(:user) do
