@@ -390,7 +390,11 @@ class RequestController < ApplicationController
       if ip_in_blocklist || !verify_recaptcha
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
         if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-          e = Exception.new("Possible blocked non-spam from #{@info_request.user.id}: #{@info_request.title}")
+          block_reason = 'recaptcha'
+          if ip_in_blocklist
+            block_reason = 'ip blocklist'
+          end
+          e = Exception.new("Possible blocked non-spam (#{block_reason}) from #{@info_request.user_id}: #{@info_request.title}")
           ExceptionNotifier.notify_exception(e, :env => request.env)
         end
         render :action => 'new'
