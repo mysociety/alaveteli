@@ -386,12 +386,8 @@ class RequestController < ApplicationController
       end
 
       # temp blocking of request sending from other countries
-      ip_in_blocklist =
-        if AlaveteliConfiguration.domain == 'www.asktheeu.org'
-          %w(ID SG TH BD PH NP).include?(country_from_ip)
-        else
-          country_from_ip != AlaveteliConfiguration.iso_country_code && country_from_ip != '--'
-        end
+      ip_in_blocklist = %w(ID SG TH BD PH NP).include?(country_from_ip)
+
 
       if ip_in_blocklist || !verify_recaptcha
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
