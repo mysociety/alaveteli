@@ -922,3 +922,17 @@ EXTERNAL_REVIEWERS: ''
 #
 # ---
 ENABLE_ANNOTATIONS: true
+
+# Restrict IP addresses from some countries from performing some actions.
+# If set, requests from IP addresses in the countries specified will be
+# prevented from making new requests on the site.
+#
+# RESTRICTED_COUNTRIES – String of space-separated uppercase ISO Alpha-2 codes
+# (default '')
+#
+# Examples:
+#
+#    RESTRICTED_COUNTRIES: 'GB ES'
+#
+# ---
+RESTRICTED_COUNTRIES: ''

@@ -1257,6 +1257,47 @@ describe RequestController, "when creating a new request" do
       end
 
     end
+
+    context 'when the request is from an IP address in a blocked country' do
+
+      before do
+        allow(AlaveteliConfiguration).to receive(:restricted_countries).and_return('PH')
+        allow(controller).to receive(:country_from_ip).and_return('PH')
+      end
+
+      it 'shows an error message' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request content", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(flash[:error])
+          .to eq("Sorry, we're currently not able to send your request. Please try again later.")
+      end
+
+      it 'renders the compose interface' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request content", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response).to render_template("new")
+      end
+
+      it 'allows the request if the user is confirmed not spam' do
+        user.confirmed_not_spam = true
+        user.save!
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request content", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response)
+          .to redirect_to show_new_request_url(:url_title => 'some_request_content')
+      end
+
+    end
+
   end
 
 end
