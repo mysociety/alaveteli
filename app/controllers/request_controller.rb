@@ -11,6 +11,7 @@ require 'open-uri'
 class RequestController < ApplicationController
   before_filter :check_read_only, :only => [ :new, :describe_state, :upload_response ]
   before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
+  before_filter :set_render_recaptcha, :only => [ :new ]
   MAX_RESULTS = 500
   PER_PAGE = 25
 
@@ -377,6 +378,16 @@ class RequestController < ApplicationController
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
         if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
           e = Exception.new("Spam request from user #{@info_request.user.id}")
+          ExceptionNotifier.notify_exception(e, :env => request.env)
+        end
+        render :action => 'new'
+        return
+      end
+
+     if @render_recaptcha && !verify_recaptcha
+        flash.now[:error] = "There was an error with the reCAPTCHA information - please try again."
+        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+          e = Exception.new("Possible blocked non-spam (recaptcha) from #{@info_request.user_id}: #{@info_request.title}")
           ExceptionNotifier.notify_exception(e, :env => request.env)
         end
         render :action => 'new'
@@ -982,5 +993,9 @@ class RequestController < ApplicationController
       flash.now[:error] = message.html_safe
     end
     render :action => 'preview'
+  end
+
+  def set_render_recaptcha
+    @render_recaptcha = !@user || !@user.confirmed_not_spam?
   end
 end
