@@ -372,7 +372,7 @@ class RequestController < ApplicationController
       @info_request.user = authenticated_user
     end
 
-    unless @user.confirmed_not_spam?
+    if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
 
       if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(@outgoing_message.subject) }
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
@@ -996,6 +996,7 @@ class RequestController < ApplicationController
   end
 
   def set_render_recaptcha
-    @render_recaptcha = !@user || !@user.confirmed_not_spam?
+    @render_recaptcha = AlaveteliConfiguration.enable_anti_spam &&
+      (!@user || !@user.confirmed_not_spam?)
   end
 end

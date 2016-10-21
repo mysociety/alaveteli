@@ -35,6 +35,7 @@ module AlaveteliConfiguration
       :DOMAIN => 'localhost:3000',
       :DONATION_URL => '',
       :ENABLE_ANNOTATIONS => true,
+      :ENABLE_ANTI_SPAM => false,
       :ENABLE_TWO_FACTOR_AUTH => false,
       :ENABLE_WIDGETS => false,
       :EXCEPTION_NOTIFICATIONS_FROM => 'errors@localhost',

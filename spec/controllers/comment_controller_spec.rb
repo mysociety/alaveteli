@@ -96,40 +96,49 @@ describe CommentController, "when commenting on a request" do
     expect(response).to render_template('user/banned')
   end
 
-  describe 'when handling a comment that looks like spam' do
+  describe 'when anti-spam is enabled' do
 
-    let(:user) { FactoryGirl.create(:user,
-                                :locale => 'en',
-                                :name => 'bob',
-                                :confirmed_not_spam => false) }
-    let(:body) { FactoryGirl.create(:public_body) }
-    let(:request) { FactoryGirl.create(:info_request) }
-
-    it 'shows an error message' do
-      session[:user_id] = user.id
-      post :new, :url_title => request.url_title,
-        :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
-        :type => 'request', :submitted_comment => 1, :preview => 0
-      expect(flash[:error])
-        .to eq("Sorry, we're currently not able to add your annotation. Please try again later.")
+    before(:each) do
+      allow(AlaveteliConfiguration).
+        to receive(:enable_anti_spam).and_return(true)
     end
 
-    it 'renders the compose interface' do
-      session[:user_id] = user.id
-      post :new, :url_title => request.url_title,
-        :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
-        :type => 'request', :submitted_comment => 1, :preview => 0
-      expect(response).to render_template('new')
-    end
+    describe 'when handling a comment that looks like spam' do
 
-    it 'allows the comment if the user is confirmed not spam' do
-      user.confirmed_not_spam = true
-      user.save!
-      session[:user_id] = user.id
-      post :new, :url_title => request.url_title,
-        :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
-        :type => 'request', :submitted_comment => 1, :preview => 0
-      expect(response).to redirect_to show_request_path(request.url_title)
+      let(:user) { FactoryGirl.create(:user,
+                                  :locale => 'en',
+                                  :name => 'bob',
+                                  :confirmed_not_spam => false) }
+      let(:body) { FactoryGirl.create(:public_body) }
+      let(:request) { FactoryGirl.create(:info_request) }
+
+      it 'shows an error message' do
+        session[:user_id] = user.id
+        post :new, :url_title => request.url_title,
+          :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
+          :type => 'request', :submitted_comment => 1, :preview => 0
+        expect(flash[:error])
+          .to eq("Sorry, we're currently not able to add your annotation. Please try again later.")
+      end
+
+      it 'renders the compose interface' do
+        session[:user_id] = user.id
+        post :new, :url_title => request.url_title,
+          :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
+          :type => 'request', :submitted_comment => 1, :preview => 0
+        expect(response).to render_template('new')
+      end
+
+      it 'allows the comment if the user is confirmed not spam' do
+        user.confirmed_not_spam = true
+        user.save!
+        session[:user_id] = user.id
+        post :new, :url_title => request.url_title,
+          :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
+          :type => 'request', :submitted_comment => 1, :preview => 0
+        expect(response).to redirect_to show_request_path(request.url_title)
+      end
+
     end
 
   end
