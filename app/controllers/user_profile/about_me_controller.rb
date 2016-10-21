@@ -22,6 +22,15 @@ class UserProfile::AboutMeController < ApplicationController
         redirect_to user_url(@user)
         return
       end
+      if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(@user.about_me) }
+        flash[:error] = "You can't update your profile text at this time."
+        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+          e = Exception.new("Spam profile from user #{@user.id}")
+          ExceptionNotifier.notify_exception(e, :env => request.env)
+        end
+        redirect_to user_url(@user)
+        return
+      end
     end
 
     if @user.save
