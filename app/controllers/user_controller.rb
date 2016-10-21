@@ -167,7 +167,7 @@ class UserController < ApplicationController
         # New unconfirmed user
 
         # Rate limit signups
-        if user_ip
+        if user_ip && user_ip != '0.0.0.0'
           # Initialize the store.
           # The file will be created if it doesn't exist.
           store = PStore.new(Rails.root + './tmp/signup_rate_limit.pstore')
