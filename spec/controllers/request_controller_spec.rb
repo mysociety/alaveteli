@@ -1217,6 +1217,48 @@ describe RequestController, "when creating a new request" do
     expect(response).to redirect_to show_new_request_url(:url_title => 'whats_black_and_white_and_red_al')
   end
 
+  describe 'when checking for abuse' do
+
+    let(:user) { FactoryGirl.create(:user,
+                                    :confirmed_not_spam => false) }
+    let(:body) { FactoryGirl.create(:public_body) }
+
+    context 'when the request subject line looks like spam' do
+
+      it 'shows an error message' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(flash[:error])
+          .to eq("Sorry, we're currently not able to send your request. Please try again later.")
+      end
+
+      it 'renders the compose interface' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response).to render_template("new")
+      end
+
+      it 'allows the request if the user is confirmed not spam' do
+        user.confirmed_not_spam = true
+        user.save!
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response)
+          .to redirect_to show_new_request_url(:url_title => 'hd_watch_jason_bourne_online_fre')
+      end
+
+    end
+  end
+
 end
 
 # These go with the previous set, but use mocks instead of fixtures.

@@ -370,6 +370,20 @@ class RequestController < ApplicationController
     else
       @info_request.user = authenticated_user
     end
+
+    unless @user.confirmed_not_spam?
+
+      if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(@outgoing_message.subject) }
+        flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
+        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+          e = Exception.new("Spam request from user #{@info_request.user.id}")
+          ExceptionNotifier.notify_exception(e, :env => request.env)
+        end
+        render :action => 'new'
+        return
+      end
+    end
+
     # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
     @info_request.save!
 
