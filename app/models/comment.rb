@@ -70,7 +70,7 @@ class Comment < ActiveRecord::Base
   def get_body_for_html_display
     text = body.strip
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, :contract => 1)
+    text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
     text = text.gsub(/\n/, '<br>')
     text.html_safe
   end
