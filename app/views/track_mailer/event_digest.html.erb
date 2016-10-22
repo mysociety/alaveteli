@@ -1,0 +1,69 @@
+<% for track_thing, alert_results, xapian_object in @email_about_things %>
+
+  <h1><%= track_thing.params[:title_in_email] %></h1>
+
+    <% @highlight_words = xapian_object.words_to_highlight(:regex => true) -%>
+    <% for result in alert_results.reverse -%>
+      <% if result[:model].class.to_s == "InfoRequestEvent" -%>
+        <% event = result[:model] -%>
+
+        <% if track_thing.info_request.nil? -%>
+          <h2><%= highlight_words(event.info_request.title, @highlight_words, false) %></h2>
+        <% end -%>
+
+        <% if event.event_type == 'response'
+          url = incoming_message_url(event.incoming_message, :cachebust => true)
+          url_to = _("Read full response")
+          what_happened = _("{{public_body}} sent a response to {{user_name}}", :public_body => event.info_request.public_body.name, :user_name => event.info_request.user_name)
+        elsif event.event_type == 'followup_sent'
+          url = outgoing_message_url(event.outgoing_message, :cachebust => true)
+          url_to = _("Read full message")
+          what_happened = _("{{user_name}} sent a follow up message to {{public_body}}", :user_name => event.info_request.user_name, :public_body => event.info_request.public_body.name)
+        elsif event.event_type == 'sent'
+          # this is unlikely to happen in real life, but happens in the test code
+          url = outgoing_message_url(event.outgoing_message, :cachebust => true)
+          url_to = _("Read full message")
+          what_happened = _("{{user_name}} sent a request to {{public_body}}", :user_name => event.info_request.user_name, :public_body => event.info_request.public_body.name)
+        elsif event.event_type == 'comment'
+          url = comment_url(event.comment)
+          url_to = _("Read full annotation")
+          what_happened = _("{{user_name}} added an annotation", :user_name => event.comment.user.name)
+        else
+          raise "unknown type in event_digest " + event.event_type
+        end %>
+
+        <p><%= what_happened %> (<%= simple_date(event.created_at, :format => :text) %>)</p>
+
+        <% if event.is_outgoing_message?
+          extract = highlight_and_excerpt(event.outgoing_message.get_text_for_indexing, @highlight_words, 150, true)
+        elsif event.is_incoming_message?
+          extract = highlight_and_excerpt(event.incoming_message.get_text_for_indexing_clipped, @highlight_words, 150, true)
+        elsif event.is_comment?
+          extract = highlight_and_excerpt(event.comment.body, @highlight_words, 150, true)
+        else
+          extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, true)
+        end %>
+
+        <p class="blockquote">
+            <%= extract %>
+            <a href="<%= url %>">(<%= url_to %>)</a>
+        </p>
+
+        <hr>
+
+      <% else %>
+        <% raise "need to add other types to TrackMailer.event_digest" %>
+      <% end %>
+
+    <% end %>
+
+<% end %>
+
+<p>
+  <%= _("No longer interested?") %>
+  <a href="<%=@unsubscribe_url%>"><%= _("Alter your subscription")%>.</a>
+</p>
+
+<p class="byline">
+  &ndash; <%= _('the {{site_name}} team', :site_name => site_name) %>
+</p>

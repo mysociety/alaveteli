@@ -1,0 +1,27 @@
+<h2>
+  <%= _('You have a new response to the {{law_used_full}} request ',
+      :law_used_full => @info_request.law_used_human(:full)) %>
+  '<%= raw @info_request.title %>'
+  <%=_('that you made to') %>
+  <%= raw @info_request.public_body.name %>.
+</h2>
+
+<p>
+  <%= link_to @url, :class => 'button' do %>
+    <%= _('Read full response')%>
+  <% end %>
+</p>
+
+<p>
+  <%= _('When you get there, please update the status to say if the response ' \
+    'contains any useful information.' ) %>
+</p>
+
+<p>
+  <%= _('Although all responses are automatically published, we depend on ' \
+    'you, the original requester, to evaluate them.') %>
+</p>
+
+<p class="byline">
+  &ndash; <%= _('the {{site_name}} team', :site_name => site_name) %>
+</p>
