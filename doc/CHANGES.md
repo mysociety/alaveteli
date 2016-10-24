@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Removed a reference to `MySociety::Config` (Caleb Tutty)
 * Hide admin navigation items in request PDF download (Gareth Rees)
 * Added a set of rake tasks to provide stats on user signups by email domain
   with the option to ban by domain if required (Liz Conlan)
