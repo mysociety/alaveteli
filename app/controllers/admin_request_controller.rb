@@ -21,9 +21,9 @@ class AdminRequestController < AdminController
     else
       info_requests = InfoRequest
     end
-    @info_requests = info_requests.paginate :order => "created_at desc",
+    @info_requests = info_requests.order('created_at DESC').paginate(
       :page => params[:page],
-      :per_page => 100
+      :per_page => 100)
   end
 
   def show

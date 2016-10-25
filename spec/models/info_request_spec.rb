@@ -62,18 +62,7 @@ describe InfoRequest do
     end
 
     it "adds the next sequential number to the url_title to make it unique" do
-      allow(InfoRequest).to receive(:find_by_url_title).
-        with("test_title", :conditions => nil).
-          and_return(mock_model(InfoRequest))
-      allow(InfoRequest).to receive(:find_by_url_title).
-        with("test_title_2", :conditions => nil).
-          and_return(mock_model(InfoRequest))
-
-      # not found - we can use this one
-      allow(InfoRequest).to receive(:find_by_url_title).
-        with("test_title_3", :conditions => nil).
-          and_return(nil)
-
+      2.times { FactoryGirl.create(:info_request, :title => 'Test title') }
       info_request = InfoRequest.new(:title => "Test title")
       expect(info_request.url_title).to eq("test_title_3")
     end
@@ -316,22 +305,28 @@ describe InfoRequest do
     context 'allowing new responses' do
 
       it 'from nobody' do
+        time_travel_to(5.days.ago)
+
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
-        updated_at = info_request.updated_at = 5.days.ago
-        info_request.save!
+
+        back_to_the_present
+
+        updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         holding_pen = InfoRequest.holding_pen_request
         msg = 'This request has been set by an administrator to "allow new ' \
               'responses from nobody"'
+
         expect(info_request.incoming_messages.size).to eq(0)
         expect(holding_pen.incoming_messages.size).to eq(1)
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.reload.rejected_incoming_count).to eq(1)
-        expect(info_request.reload.updated_at).to eq(updated_at)
+        expect(info_request.reload.updated_at).
+          to be_within(1.second).of(updated_at)
       end
 
       it 'from anybody' do
@@ -353,11 +348,15 @@ describe InfoRequest do
       end
 
       it 'from authority_only rejects if there is no from address' do
+        time_travel_to(5.days.ago)
+
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
-        updated_at = info_request.updated_at = 5.days.ago
-        info_request.save!
+
+        back_to_the_present
+
+        updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => '')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.size).to eq(0)
@@ -368,15 +367,20 @@ describe InfoRequest do
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.rejected_incoming_count).to eq(1)
-        expect(info_request.reload.updated_at).to eq(updated_at)
+        expect(info_request.reload.updated_at).
+          to be_within(1.second).of(updated_at)
       end
 
       it 'from authority_only rejects if the mail is not from the authority' do
+        time_travel_to(5.days.ago)
+
         attrs = { :allow_new_responses_from => 'authority_only',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
-        updated_at = info_request.updated_at = 5.days.ago
-        info_request.save!
+
+        back_to_the_present
+
+        updated_at = info_request.updated_at
         email, raw_email = email_and_raw_email(:from => 'spam@example.net')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.size).to eq(0)
@@ -387,7 +391,8 @@ describe InfoRequest do
         expect(holding_pen.info_request_events.last.params[:rejected_reason]).
           to eq(msg)
         expect(info_request.rejected_incoming_count).to eq(1)
-        expect(info_request.reload.updated_at).to eq(updated_at)
+        expect(info_request.reload.updated_at).
+          to be_within(1.second).of(updated_at)
       end
 
       it 'raises an error if there is an unknown allow_new_responses_from' do
@@ -1867,8 +1872,6 @@ describe InfoRequest do
 
   describe 'keeping track of the last public response date' do
 
-    let(:old_date) { Time.zone.now - 21.days }
-    let(:recent_date) { Time.zone.now - 2.days }
     let(:user) { FactoryGirl.create(:user) }
 
     it 'does not set last_public_response_at date if there is no response' do
@@ -1877,111 +1880,127 @@ describe InfoRequest do
     end
 
     it 'sets last_public_response_at when a public response is added' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request)
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
-      expect(request.last_public_response_at).to eq(old_date)
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request)
+      event =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message,
+                                                :event_type => 'response')
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event.created_at)
     end
 
     it 'does not set last_public_response_at when a hidden response is added' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request,
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request,
                                                       :prominence => 'hidden')
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
+      event =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message,
+                                                :event_type => 'response')
+
       expect(request.last_public_response_at).to be_nil
     end
 
     it 'sets last_public_response_at to nil when the only response is hidden' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request)
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request)
       FactoryGirl.create(:info_request_event, :info_request => request,
                                               :incoming_message => message,
-                                              :created_at => old_date,
                                               :event_type => 'response')
-      message.prominence = 'hidden'
-      message.save
+
+      message.update_attributes(:prominence => 'hidden')
+
       expect(request.last_public_response_at).to be_nil
     end
 
     it 'reverts last_public_response_at when the latest response is hidden' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message1 = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                       :info_request => request)
-      message2 = FactoryGirl.create(:incoming_message, :created_at => recent_date,
-                                                       :info_request => request)
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message1,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message2,
-                                              :created_at => recent_date,
-                                              :event_type => 'response')
-      expect(request.last_public_response_at).to eq(recent_date)
-      message2.prominence = 'hidden'
-      message2.save
-      expect(request.last_public_response_at).to eq(old_date)
+      time_travel_to(21.days.ago)
+
+      request = FactoryGirl.create(:info_request, :user => user)
+      message1 = FactoryGirl.create(:incoming_message, :info_request => request)
+      event1 =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message1,
+                                                :event_type => 'response')
+
+      back_to_the_present
+      time_travel_to(2.days.ago)
+
+      message2 = FactoryGirl.create(:incoming_message, :info_request => request)
+      event2 =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message2,
+                                                :event_type => 'response')
+
+      back_to_the_present
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event2.created_at)
+
+      message2.update_attributes(:prominence => 'hidden')
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event1.created_at)
     end
 
     it 'sets last_public_response_at to nil when the only response is destroyed' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request)
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request)
       FactoryGirl.create(:info_request_event, :info_request => request,
                                               :incoming_message => message,
-                                              :created_at => old_date,
                                               :event_type => 'response')
       message.destroy
       expect(request.last_public_response_at).to be_nil
     end
 
     it 'reverts last_public_response_at when the latest response is destroyed' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message1 = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                       :info_request => request)
-      message2 = FactoryGirl.create(:incoming_message, :created_at => recent_date,
-                                                       :info_request => request)
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message1,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message2,
-                                              :created_at => recent_date,
-                                              :event_type => 'response')
-      expect(request.last_public_response_at).to eq(recent_date)
+      time_travel_to(21.days.ago)
+
+      request = FactoryGirl.create(:info_request, :user => user)
+      message1 = FactoryGirl.create(:incoming_message, :info_request => request)
+      event1 =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message1,
+                                                :event_type => 'response')
+
+      back_to_the_present
+      time_travel_to(2.days.ago)
+
+      message2 = FactoryGirl.create(:incoming_message, :info_request => request)
+      event2 =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message2,
+                                                :event_type => 'response')
+
+      back_to_the_present
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event2.created_at)
+
       message2.destroy
-      expect(request.last_public_response_at).to eq(old_date)
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event1.created_at)
     end
 
     it 'sets last_public_response_at when a hidden response is unhidden' do
-      request = FactoryGirl.create(:info_request, :user => user,
-                                                  :created_at => old_date)
-      message = FactoryGirl.create(:incoming_message, :created_at => old_date,
-                                                      :info_request => request,
+      time_travel_to(21.days.ago)
+
+      request = FactoryGirl.create(:info_request, :user => user)
+      message = FactoryGirl.create(:incoming_message, :info_request => request,
                                                       :prominence => 'hidden')
-      FactoryGirl.create(:info_request_event, :info_request => request,
-                                              :incoming_message => message,
-                                              :created_at => old_date,
-                                              :event_type => 'response')
-      message.prominence = 'normal'
-      message.save
-      expect(request.last_public_response_at).to eq(old_date)
+      event =
+        FactoryGirl.create(:info_request_event, :info_request => request,
+                                                :incoming_message => message,
+                                                :event_type => 'response')
+      back_to_the_present
+
+      message.update_attributes(:prominence => 'normal')
+
+      expect(request.last_public_response_at).
+        to be_within(1.second).of(event.created_at)
     end
 
   end
@@ -2540,50 +2559,66 @@ describe InfoRequest do
       expect(apply_filters(:latest_status => 'all')).to match_array(InfoRequest.all)
 
       # default sort order is the request with the most recently created event first
-      expect(apply_filters(:latest_status => 'all')).to eq(InfoRequest.all(
-        :order => "(SELECT max(info_request_events.created_at)
-                            FROM info_request_events
-                            WHERE info_request_events.info_request_id = info_requests.id)
-                            DESC"))
+      order_sql = <<-EOF.strip_heredoc
+      (SELECT max(info_request_events.created_at)
+       FROM info_request_events
+       WHERE info_request_events.info_request_id = info_requests.id)
+       DESC
+      EOF
+      expect(apply_filters(:latest_status => 'all')).
+        to eq(InfoRequest.all.order(order_sql))
 
-      expect(apply_filters(:latest_status => 'successful')).to match_array(InfoRequest.all(
-        :conditions => "id in (
-                    SELECT info_request_id
-                    FROM info_request_events
-                    WHERE NOT EXISTS (
-                        SELECT *
-                        FROM info_request_events later_events
-                        WHERE later_events.created_at > info_request_events.created_at
-                        AND later_events.info_request_id = info_request_events.info_request_id
-                        AND later_events.described_state IS NOT null
-                    )
-                    AND info_request_events.described_state IN ('successful', 'partially_successful')
-                )"))
+      conditions = <<-EOF.strip_heredoc
+      id in (
+        SELECT info_request_id
+        FROM info_request_events
+        WHERE NOT EXISTS (
+          SELECT *
+          FROM info_request_events later_events
+          WHERE later_events.created_at > info_request_events.created_at
+          AND later_events.info_request_id = info_request_events.info_request_id
+          AND later_events.described_state IS NOT null
+        )
+        AND info_request_events.described_state
+        IN ('successful', 'partially_successful')
+      )
+      EOF
+      expect(apply_filters(:latest_status => 'successful')).
+        to match_array(InfoRequest.where(conditions))
     end
 
     it "filters requests by date" do
       # The semantics of the search are that it finds any InfoRequest
       # that has any InfoRequestEvent created in the specified range
       filters = {:latest_status => 'all', :request_date_before => '13/10/2007'}
-      expect(apply_filters(filters)).to match_array(InfoRequest.all(
-        :conditions => "id IN (SELECT info_request_id
-                                       FROM info_request_events
-                                       WHERE created_at < '2007-10-13'::date)"))
+      conditions1 = <<-EOF
+      id IN (SELECT info_request_id
+             FROM info_request_events
+             WHERE created_at < '2007-10-13'::date)
+      EOF
+      expect(apply_filters(filters)).
+        to match_array(InfoRequest.where(conditions1))
 
       filters = {:latest_status => 'all', :request_date_after => '13/10/2007'}
-      expect(apply_filters(filters)).to match_array(InfoRequest.all(
-        :conditions => "id IN (SELECT info_request_id
-                                       FROM info_request_events
-                                       WHERE created_at > '2007-10-13'::date)"))
+      conditions2 = <<-EOF
+      id IN (SELECT info_request_id
+             FROM info_request_events
+             WHERE created_at > '2007-10-13'::date)
+      EOF
+      expect(apply_filters(filters)).
+        to match_array(InfoRequest.where(conditions2))
 
       filters = {:latest_status => 'all',
                  :request_date_after => '13/10/2007',
                  :request_date_before => '01/11/2007'}
-      expect(apply_filters(filters)).to match_array(InfoRequest.all(
-        :conditions => "id IN (SELECT info_request_id
-                                       FROM info_request_events
-                                       WHERE created_at BETWEEN '2007-10-13'::date
-                                       AND '2007-11-01'::date)"))
+      conditions3 = <<-EOF
+      id IN (SELECT info_request_id
+             FROM info_request_events
+             WHERE created_at BETWEEN '2007-10-13'::date
+             AND '2007-11-01'::date)
+      EOF
+      expect(apply_filters(filters)).
+        to match_array(InfoRequest.where(conditions3))
     end
 
     it "lists internal_review requests as unresolved ones" do
@@ -2591,18 +2626,25 @@ describe InfoRequest do
       # query, but it is close enough to give the same result with
       # the current set of test data.
       results = apply_filters(:latest_status => 'awaiting')
-      expect(results).to match_array(InfoRequest.all(
-        :conditions => "id IN (SELECT info_request_id
-                                       FROM info_request_events
-                                       WHERE described_state in (
-                        'waiting_response', 'waiting_clarification',
-                        'internal_review', 'gone_postal', 'error_message', 'requires_admin'
-                    ) and not exists (
-                        select *
-                        from info_request_events later_events
-                        where later_events.created_at > info_request_events.created_at
-                        and later_events.info_request_id = info_request_events.info_request_id
-                    ))"))
+      conditions = <<-EOF
+      id IN (
+        SELECT info_request_id
+        FROM info_request_events
+        WHERE described_state IN ('waiting_response',
+                                  'waiting_clarification',
+                                  'internal_review',
+                                  'gone_postal',
+                                  'error_message',
+                                  'requires_admin')
+        AND NOT EXISTS (
+          SELECT *
+          FROM info_request_events later_events
+          WHERE later_events.created_at > info_request_events.created_at
+          AND later_events.info_request_id = info_request_events.info_request_id
+        )
+      )
+      EOF
+      expect(results).to match_array(InfoRequest.where(conditions))
 
       expect(results.include?(info_requests(:fancy_dog_request))).to eq(false)
 
@@ -2614,6 +2656,143 @@ describe InfoRequest do
       expect(results.include?(info_requests(:fancy_dog_request))).to eq(true)
     end
 
+  end
+
+  describe "making a zip cache path for a user" do
+    let(:non_owner) { FactoryGirl.create(:user) }
+    let(:owner) { request.user }
+    let(:admin) { FactoryGirl.create(:admin_user) }
+
+    let(:base_path) do
+      File.join(Rails.root, "cache", "zips", "test", "download", "123",
+                "123456", "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3")
+    end
+    let(:path) { File.join(base_path, "test.zip") }
+    let(:hidden_path) { File.join(base_path, "test_hidden.zip") }
+    let(:requester_only_path) { File.join(base_path, "test_requester_only.zip") }
+
+    # Slightly confusing - this runs *after* the let(:request) in each context
+    # below, so it's ok
+    before do
+      # Digest::SHA1.hexdigest("test")
+      test_hash = "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+      allow(request).to receive(:last_update_hash).and_return(test_hash)
+    end
+
+    shared_examples_for "a situation when everything is public" do
+      it "doesn't add a suffix for anyone" do
+        expect(request.make_zip_cache_path(nil)).to eq (path)
+        expect(request.make_zip_cache_path(non_owner)).to eq (path)
+        expect(request.make_zip_cache_path(admin)).to eq (path)
+        expect(request.make_zip_cache_path(owner)).to eq (path)
+      end
+    end
+
+    shared_examples_for "a situation when anything is not public" do
+      it "doesn't add a suffix for anonymous users" do
+        expect(request.make_zip_cache_path(nil)).to eq (path)
+      end
+
+      it "doesn't add a suffix for non owner users" do
+        expect(request.make_zip_cache_path(non_owner)).to eq (path)
+      end
+
+      it "adds a _hidden suffix for admin users" do
+        expect(request.make_zip_cache_path(admin)).to eq (hidden_path)
+      end
+
+      it "adds a requester_only suffix for owner users" do
+        expect(request.make_zip_cache_path(owner)).to eq (requester_only_path)
+      end
+    end
+
+    shared_examples_for "a request when any correspondence is not public" do
+      context "when an incoming message is hidden" do
+        before do
+          incoming = request.incoming_messages.first
+          incoming.prominence = "hidden"
+          incoming.save!
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
+
+      context "when an incoming message is requester_only" do
+        before do
+          incoming = request.incoming_messages.first
+          incoming.prominence = "requester_only"
+          incoming.save!
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
+
+      context "when an outgoing message is hidden" do
+        before do
+          outgoing = request.outgoing_messages.first
+          outgoing.prominence = "hidden"
+          outgoing.save!
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
+
+      context "when an outgoing message is requester_only" do
+        before do
+          outgoing = request.outgoing_messages.first
+          outgoing.prominence = "requester_only"
+          outgoing.save!
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
+    end
+
+    shared_examples_for "a request when anything is not public" do
+      context "when the request is not public but the correspondence is" do
+        it_behaves_like "a situation when anything is not public"
+      end
+
+      context "when the request is not public and neither is the correspondence" do
+        it_behaves_like "a request when any correspondence is not public"
+      end
+    end
+
+    context "when the request is public" do
+      let(:request) do
+        FactoryGirl.create(:info_request_with_incoming, id: 123456,
+                                                        title: "test")
+      end
+
+      context "when all correspondence is public" do
+        it_behaves_like "a situation when everything is public"
+      end
+
+      it_behaves_like "a request when any correspondence is not public"
+    end
+
+    context "when the request is hidden" do
+      let(:request) do
+        FactoryGirl.create(:info_request_with_incoming, id: 123456,
+                                                        title: "test",
+                                                        prominence: "hidden")
+      end
+
+      it_behaves_like "a request when anything is not public"
+    end
+
+    context "when the request is requester_only" do
+      let(:request) do
+        FactoryGirl.create(
+          :info_request_with_incoming,
+          id: 123456,
+          title: "test",
+          prominence: "requester_only"
+        )
+      end
+
+      it_behaves_like "a request when anything is not public"
+    end
   end
 
   def email_and_raw_email(opts = {})
@@ -2633,5 +2812,6 @@ describe InfoRequest do
     email = MailHandler.mail_from_raw_email(raw_email)
     [email, raw_email]
   end
+
 
 end

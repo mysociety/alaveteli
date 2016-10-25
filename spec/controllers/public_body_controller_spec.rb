@@ -28,21 +28,24 @@ describe PublicBodyController, "when showing a body" do
 
   it "should assign the requests (1)" do
     get :show, :url_name => "tgq", :view => 'all'
-    expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array(InfoRequest.all(
-    :conditions => ["public_body_id = ?", public_bodies(:geraldine_public_body).id]))
+    conditions = { :public_body_id => public_bodies(:geraldine_public_body).id }
+    actual = assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+    expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
   it "should assign the requests (2)" do
     get :show, :url_name => "tgq", :view => 'successful'
-    expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array(InfoRequest.all(
-      :conditions => ["described_state = ? and public_body_id = ?",
-                      "successful", public_bodies(:geraldine_public_body).id]))
+    conditions = { :described_state => 'successful',
+                   :public_body_id => public_bodies(:geraldine_public_body).id }
+    actual = assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+    expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
   it "should assign the requests (3)" do
     get :show, :url_name => "dfh", :view => 'all'
-    expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array(InfoRequest.all(
-    :conditions => ["public_body_id = ?", public_bodies(:humpadink_public_body).id]))
+    conditions = { :public_body_id => public_bodies(:humpadink_public_body).id }
+    actual = assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+    expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
   it "should display the body using same locale as that used in url_name" do
@@ -351,9 +354,9 @@ describe PublicBodyController, "when listing bodies" do
     expect(response.body).to have_content('1 request.')
   end
 
-  it 'should return a "406 Not Acceptable" code if asked for a json version of a list' do
-    get :list, :format => 'json'
-    expect(response.code).to eq('406')
+  it 'raises an UnknownFormat error if asked for a json version of a list' do
+    expect { get :list, :format => 'json' }.
+      to raise_error(ActionController::UnknownFormat)
   end
 
   it "should list authorities starting with a multibyte first letter" do

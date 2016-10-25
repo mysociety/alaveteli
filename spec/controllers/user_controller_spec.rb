@@ -403,32 +403,41 @@ describe UserController, "when showing a user" do
     end
 
     it "should search the user's contributions" do
+      user = users(:bob_smith_user)
+
       get :show, :url_name => "bob_smith"
-      expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array(InfoRequest.all(
-      :conditions => "user_id = #{users(:bob_smith_user).id}"))
+      actual =
+        assigns[:xapian_requests].results.map { |x| x[:model].info_request }
 
-      get :show, :url_name => "bob_smith", :user_query => "money"
-      expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array([
-        info_requests(:naughty_chicken_request),
-        info_requests(:another_boring_request),
-      ])
+      expect(actual).to match_array(user.info_requests)
     end
 
-    it 'filters by the given request status' do
-      get :show, :url_name => 'bob_smith',
-        :user_query => 'money',
-        :request_latest_status => 'waiting_response'
-      expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array([
-        info_requests(:naughty_chicken_request)
-      ])
+    it 'filters by the given query' do
+      user = users(:bob_smith_user)
+
+      get :show, :url_name => user.url_name, :user_query => "money"
+      actual =
+        assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+      expect(actual).to match_array([info_requests(:naughty_chicken_request),
+                                     info_requests(:another_boring_request)])
     end
 
-    it "should not show unconfirmed users" do
-      begin
-        get :show, :url_name => "unconfirmed_user"
-      rescue => e
-      end
-      expect(e).to be_an_instance_of(ActiveRecord::RecordNotFound)
+    it 'filters by the given query and request status' do
+      user = users(:bob_smith_user)
+
+      get :show, :url_name => user.url_name,
+                 :user_query => 'money',
+                 :request_latest_status => 'waiting_response'
+      actual =
+        assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+
+      expect(actual).to match_array([info_requests(:naughty_chicken_request)])
+    end
+
+    it 'should not show unconfirmed users' do
+      expect { get :show, :url_name => 'unconfirmed_user' }.
+        to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -659,7 +668,7 @@ describe UserController, "when signing up" do
     post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
                                       :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' }
                     }
-    expect(assigns[:user_signup].errors[:password]).to eq(['Please enter the same password twice'])
+    expect(assigns[:user_signup].errors[:password_confirmation]).to eq(['Please enter the same password twice'])
   end
 
   it "should be an error to sign up with a misformatted email" do
@@ -675,7 +684,7 @@ describe UserController, "when signing up" do
     post :signup, { :user_signup => { :email => 'in-use@localhost', :name => 'Mr Suspected-Hacker',
                                       :password => 'sillypassword', :password_confirmation => 'mistyped' }
                     }
-    expect(assigns[:user_signup].errors[:password]).to eq(['Please enter the same password twice'])
+    expect(assigns[:user_signup].errors[:password_confirmation]).to eq(['Please enter the same password twice'])
     expect(assigns[:user_signup].errors[:email]).to be_empty
   end
 

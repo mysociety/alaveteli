@@ -48,7 +48,7 @@
 
 <h2>Session</h2>
 <table>
-  <% session.each do |k,v| %>
+  <% session.to_hash.each do |k,v| %>
     <tr><td><%= k %></td><td><%= v %></td></tr>
   <% end %>
 </table>

@@ -34,7 +34,7 @@
   </ul>
   <div class="tab-content">
     <% @public_body_heading.ordered_translations.each do |translation| %>
-      <% if translation.locale.to_s == I18n.default_locale.to_s %>
+       <% if translation.locale.to_s == FastGettext.default_locale.to_s %>
         <%= fields_for('public_body_heading', @public_body_heading) do |t| %>
           <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
         <% end %>

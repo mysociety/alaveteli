@@ -237,7 +237,7 @@ EOF
                            {:name => '_why_they_should_reply_by_email',
                             :sections => []}]
     theme_names.each do |theme_name|
-      I18n.available_locales.each do |locale|
+      FastGettext.default_available_locales.each do |locale|
         puts ""
         puts "theme: #{theme_name} locale: #{locale}"
         puts ""

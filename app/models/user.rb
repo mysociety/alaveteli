@@ -43,30 +43,30 @@ class User < ActiveRecord::Base
   attr_accessor :entered_otp_code
 
   has_many :info_requests,
-           :order => 'created_at desc',
+           -> { order('created_at desc') },
            :dependent => :destroy
   has_many :user_info_request_sent_alerts,
            :dependent => :destroy
   has_many :post_redirects,
-           :order => 'created_at desc',
+           -> { order('created_at desc') },
            :dependent => :destroy
   has_many :track_things,
+           -> { order('created_at desc') },
            :foreign_key => 'tracking_user_id',
-           :order => 'created_at desc',
            :dependent => :destroy
   has_many :comments,
-           :order => 'created_at desc',
+           -> { order('created_at desc') },
            :dependent => :destroy
   has_many :public_body_change_requests,
-           :order => 'created_at desc',
+           -> { order('created_at desc') },
            :dependent => :destroy
   has_one :profile_photo,
           :dependent => :destroy
   has_many :censor_rules,
-           :order => 'created_at desc',
+           -> { order('created_at desc') },
            :dependent => :destroy
   has_many :info_request_batches,
-           :order => 'created_at desc',
+           -> { order('created_at desc') },
            :dependent => :destroy
   has_many :request_classifications,
            :dependent => :destroy
@@ -270,7 +270,8 @@ class User < ActiveRecord::Base
     # For user with same name as others, add on arbitary numeric identifier
     unique_url_name = url_name
     suffix_num = 2 # as there's already one without numeric suffix
-    while not User.find_by_url_name(unique_url_name, :conditions => id.nil? ? nil : ["id <> ?", id] ).nil?
+    conditions = id ? ["id <> ?", id] : []
+    while !User.where(:url_name => unique_url_name).where(conditions).first.nil?
       unique_url_name = url_name + "_" + suffix_num.to_s
       suffix_num = suffix_num + 1
     end
@@ -371,7 +372,11 @@ class User < ActiveRecord::Base
 
     # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
     return false if AlaveteliConfiguration.max_requests_per_user_per_day.blank?
-    recent_requests = InfoRequest.count(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", id])
+
+    recent_requests =
+      InfoRequest.
+        where(["user_id = ? AND created_at > now() - '1 day'::interval", id]).
+          count
 
     recent_requests >= AlaveteliConfiguration.max_requests_per_user_per_day
   end
@@ -383,9 +388,12 @@ class User < ActiveRecord::Base
   def next_request_permitted_at
     return nil if no_limit
 
-    n_most_recent_requests = InfoRequest.all(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", id],
-                                             :order => "created_at DESC",
-                                             :limit => AlaveteliConfiguration::max_requests_per_user_per_day)
+    n_most_recent_requests =
+      InfoRequest.
+        where(["user_id = ? AND created_at > now() - '1 day'::interval", id]).
+          order('created_at DESC').
+            limit(AlaveteliConfiguration.max_requests_per_user_per_day)
+
     return nil if n_most_recent_requests.size < AlaveteliConfiguration::max_requests_per_user_per_day
 
     nth_most_recent_request = n_most_recent_requests[-1]

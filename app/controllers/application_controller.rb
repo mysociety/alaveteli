@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   helper_method :anonymous_cache, :short_cache, :medium_cache, :long_cache
   def anonymous_cache(time)
     if session[:user_id].nil?
-      expires_in time, :public => true
+      headers['Cache-Control'] = "max-age=#{time}, public"
     end
   end
 
@@ -147,6 +147,10 @@ class ApplicationController < ActionController::Base
     session[:ttl] = nil
   end
 
+  def show_detailed_exceptions?
+    true
+  end
+
   def render_exception(exception)
     # In development or the admin interface let Rails handle the exception
     # with its stack trace templates
@@ -163,6 +167,8 @@ class ApplicationController < ActionController::Base
       sanitize_path(params)
     when PermissionDenied
       @status = 403
+    when ActionController::UnknownFormat
+      @status = 406
     else
       message = "\n#{@exception_class} (#{@exception_message}):\n"
       backtrace = Rails.backtrace_cleaner.clean(exception.backtrace, :silent)
@@ -293,6 +299,9 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  # For CanCanCan and other libs which need a Devise-like current_user method
+  alias_method :current_user, :authenticated_user
 
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,

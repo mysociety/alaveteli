@@ -67,15 +67,16 @@ class InfoRequest < ActiveRecord::Base
   belongs_to :info_request_batch
   validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
-  has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
-  has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
-  has_many :incoming_messages, :order => 'created_at', :dependent => :destroy
+  has_many :info_request_events, -> { order('created_at, id') }, :dependent => :destroy
+  has_many :outgoing_messages, -> { order('created_at') }, :dependent => :destroy
+  has_many :incoming_messages, -> { order('created_at') }, :dependent => :destroy
   has_many :user_info_request_sent_alerts, :dependent => :destroy
-  has_many :track_things, :order => 'created_at desc', :dependent => :destroy
+  has_many :track_things, -> { order('created_at desc') }, :dependent => :destroy
   has_many :widget_votes, :dependent => :destroy
-  has_many :comments, :order => 'created_at', :dependent => :destroy
-  has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
-  has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
+  has_many :comments, -> { order('created_at') }, :dependent => :destroy
+  has_many :censor_rules, -> { order('created_at desc') }, :dependent => :destroy
+  has_many :mail_server_logs, -> { order('mail_server_log_done_id, "order"') }, :dependent => :destroy
+
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
@@ -302,9 +303,11 @@ class InfoRequest < ActiveRecord::Base
     # For request with same title as others, add on arbitary numeric identifier
     unique_url_title = url_title
     suffix_num = 2 # as there's already one without numeric suffix
+    conditions = id ? ["id <> ?", id] : []
     while InfoRequest.
-            find_by_url_title(unique_url_title,
-                              :conditions => id.nil? ? nil : ["id <> ?", id])
+      where(:url_title => unique_url_title).
+        where(conditions).
+          first do
       unique_url_title = "#{url_title}_#{suffix_num}"
       suffix_num = suffix_num + 1
     end
@@ -426,12 +429,15 @@ class InfoRequest < ActiveRecord::Base
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    InfoRequest.where("title = ?
-                       AND public_body_id = ?
-                       AND outgoing_messages.body = ?",
-                       title, public_body_id, body).
+    conditions = { :title => title,
+                   :public_body_id => public_body_id,
+                   :outgoing_messages => { :body => body } }
+
+    InfoRequest.
       includes(:outgoing_messages).
-        first
+        where(conditions).
+          references(:outgoing_messages).
+            first
   end
 
   def find_existing_outgoing_message(body)
@@ -966,7 +972,7 @@ class InfoRequest < ActiveRecord::Base
     path = File.join("request", request_dirs)
     foi_cache_path = File.expand_path(File.join(Rails.root, 'cache', 'views'))
     directories << File.join(foi_cache_path, path)
-    I18n.available_locales.each do |locale|
+    FastGettext.default_available_locales.each do |locale|
       directories << File.join(foi_cache_path, locale.to_s, path)
     end
 
@@ -1016,20 +1022,34 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def make_zip_cache_path(user)
+    # The zip file varies depending on user because it can include different
+    # messages depending on whether the user can access hidden or
+    # requester_only messages. We name it appropriately, so that every user
+    # with the right permissions gets a file with only the right things in.
     cache_file_dir = File.join(InfoRequest.download_zip_dir,
                                "download",
                                request_dirs,
                                last_update_hash)
-    cache_file_suffix = if all_can_view_all_correspondence?
-                          ""
-                        elsif Ability.can_view_with_prominence?('hidden', self, user)
-                          "_hidden"
-                        elsif Ability.can_view_with_prominence?('requester_only', self, user)
-                          "_requester_only"
-                        else
-                          ""
-                        end
+    cache_file_suffix = zip_cache_file_suffix(user)
     File.join(cache_file_dir, "#{url_title}#{cache_file_suffix}.zip")
+  end
+
+  def zip_cache_file_suffix(user)
+    # Simple short circuit for requests where everything is public
+    if all_can_view_all_correspondence?
+      ""
+    # If the user can view hidden things, they can view anything, so no need
+    # to go any further
+    elsif User.view_hidden?(user)
+      "_hidden"
+    # If the user can't view hidden things, but owns the request, they can
+    # see more than the public, so they get requester_only
+    elsif is_owning_user?(user)
+      "_requester_only"
+    # Everyone else can only see public stuff, which is the default case
+    else
+      ""
+    end
   end
 
   def is_old_unclassified?
@@ -1068,7 +1088,7 @@ class InfoRequest < ActiveRecord::Base
 
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
-    applicable_rules = [censor_rules, CensorRule.global.all]
+    applicable_rules = [censor_rules, CensorRule.global]
     unless is_batch_request_template?
       applicable_rules << public_body.censor_rules
     end
@@ -1116,10 +1136,6 @@ class InfoRequest < ActiveRecord::Base
   def is_actual_owning_user?(user)
     return false unless user
     user.id == user_id
-  end
-
-  def user_can_view?(user)
-    Ability.can_view_with_prominence?(prominence, self, user)
   end
 
   # Is this request visible to everyone?

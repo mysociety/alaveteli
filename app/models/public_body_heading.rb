@@ -9,7 +9,7 @@
 
 class PublicBodyHeading < ActiveRecord::Base
   has_many :public_body_category_links, :dependent => :destroy
-  has_many :public_body_categories, :order => :category_display_order, :through => :public_body_category_links
+  has_many :public_body_categories, -> { order('public_body_category_links.category_display_order') }, :through => :public_body_category_links
   default_scope -> { order("display_order ASC") }
 
   translates :name

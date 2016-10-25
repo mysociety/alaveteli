@@ -60,7 +60,7 @@ PublicBodyCategory::Translation.class_eval do
   end
 
   def required_attribute_submitted?
-    PublicBodyCategory.required_translated_attributes.compact.any? do |attribute|
+    PublicBodyCategory.translated_attribute_names.compact.any? do |attribute|
       !read_attribute(attribute).blank?
     end
   end

@@ -55,9 +55,9 @@ class PublicBody < ActiveRecord::Base
     ]
   end
 
-  has_many :info_requests, :order => 'created_at desc'
-  has_many :track_things, :order => 'created_at desc', :dependent => :destroy
-  has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
+  has_many :info_requests, -> { order('created_at desc') }
+  has_many :track_things, -> { order('created_at desc') }, :dependent => :destroy
+  has_many :censor_rules, -> { order('created_at desc') }, :dependent => :destroy
 
   validates_presence_of :name, :message => N_("Name can't be blank")
   validates_presence_of :url_name, :message => N_("URL name can't be blank")
@@ -75,11 +75,7 @@ class PublicBody < ActiveRecord::Base
 
 
   # Every public body except for the internal admin one is visible
-  scope :visible, lambda {
-    {
-      :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
-    }
-  }
+  scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
   acts_as_xapian :texts => [:name, :short_name, :notes],
@@ -711,7 +707,7 @@ class PublicBody < ActiveRecord::Base
 
     # Read an attribute value (without using locale fallbacks if the attribute is translated)
     def read_attribute_value(name, locale)
-      if self.class.translates.include?(name.to_sym)
+      if self.class.translated?(name.to_sym)
         if globalize.stash.contains?(locale, name)
           globalize.stash.read(locale, name)
         else

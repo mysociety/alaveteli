@@ -14,7 +14,8 @@ describe TrackMailer do
 
     it 'should ask for all the users whose last daily track email was sent more than a day ago' do
       expected_conditions = [ "last_daily_track_email < ?", Time.utc(2007, 11, 11, 23, 59)]
-      expect(User).to receive(:find_each).with(:conditions => expected_conditions)
+      expect(User).
+        to receive(:where).with(expected_conditions).and_call_original
       TrackMailer.alert_tracks
     end
 
@@ -27,14 +28,19 @@ describe TrackMailer do
                            :url_name => 'test-name',
                            :get_locale => 'en',
                            :should_be_emailed? => true)
-        allow(User).to receive(:find_each).and_yield(@user)
+        klass = ActiveRecord::Relation::ActiveRecord_Relation_User
+        allow_any_instance_of(klass).to receive(:find_each).and_yield(@user)
         allow(@user).to receive(:receive_email_alerts).and_return(true)
         allow(@user).to receive(:no_xapian_reindex=)
       end
 
       it 'should ask for any daily track things for the user' do
-        expected_conditions = {:tracking_user_id => @user.id, :track_medium => "email_daily"}
-        expect(TrackThing).to receive(:where).with(expected_conditions).and_return([])
+        expected_conditions = {
+          :tracking_user_id => @user.id,
+          :track_medium => "email_daily"
+        }
+        expect(TrackThing).
+          to receive(:where).with(expected_conditions).and_return([])
         TrackMailer.alert_tracks
       end
 
@@ -130,7 +136,8 @@ describe TrackMailer do
                            :save! => true,
                            :url_name => 'test-name',
                            :should_be_emailed? => false)
-        allow(User).to receive(:find_each).and_yield(@user)
+        klass = ActiveRecord::Relation::ActiveRecord_Relation_User
+        allow_any_instance_of(klass).to receive(:find_each).and_yield(@user)
         allow(@user).to receive(:receive_email_alerts).and_return(true)
         allow(@user).to receive(:no_xapian_reindex=)
       end

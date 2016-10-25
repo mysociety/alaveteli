@@ -11,6 +11,8 @@ $alaveteli_route_extensions.each do |f|
 end
 
 Alaveteli::Application.routes.draw do
+  root to: 'general#frontpage'
+
   #### General contoller
   match '/' => 'general#frontpage',
         :as => :frontpage,
@@ -105,7 +107,7 @@ Alaveteli::Application.routes.draw do
 
   match '/request/:id/describe' => 'request#describe_state',
         :as => :describe_state,
-        :via => [:post, :put]
+        :via => [:patch, :put, :post]
   match '/request/:url_title/describe/:described_state' => 'request#describe_state_message',
         :as => :describe_state_message,
         :via => :get
@@ -227,10 +229,12 @@ Alaveteli::Application.routes.draw do
 
   # Legacy route for setting about_me
   match '/profile/set_about_me' => redirect('/profile/about_me/edit'),
-        :as => :set_profile_about_me
+        :as => :set_profile_about_me,
+        :via => [:get, :post]
 
   match '/profile/set_receive_alerts' => 'user#set_receive_email_alerts',
-        :as => :set_receive_email_alerts
+        :as => :set_receive_email_alerts,
+        :via => [:get, :post]
 
   match '/profile/river' => 'user#river',
         :as => :river,
@@ -587,7 +591,8 @@ Alaveteli::Application.routes.draw do
 
   match '/api/v2/body/:id/request_events.:feed_type' => 'api#body_request_events',
         :as => :api_body_request_events,
-        :feed_type => '^(json|atom)$'
+        :feed_type => '^(json|atom)$',
+        :via => :get
   ####
 
   filter :conditionallyprependlocale
