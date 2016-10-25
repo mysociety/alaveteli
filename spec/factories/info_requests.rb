@@ -78,13 +78,15 @@ FactoryGirl.define do
           :info_request => info_request,
           :created_at => Time.now - 31.days
         )
-        FactoryGirl.create(
-          :info_request_event,
-          :info_request => info_request,
-          :event_type => "response",
-          :incoming_message_id => incoming_message.id,
-          :created_at => Time.now - 31.days
-        )
+        info_request.info_request_events = [
+          FactoryGirl.create(
+            :info_request_event,
+            :info_request => info_request,
+            :event_type => "response",
+            :incoming_message_id => incoming_message.id,
+            :created_at => Time.now - 31.days
+          )
+        ]
         info_request.last_public_response_at = Time.now - 31.days
         info_request.awaiting_description = true
         info_request.save!
