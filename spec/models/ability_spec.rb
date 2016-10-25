@@ -88,10 +88,6 @@ describe Ability do
     context "given an old and unclassified request" do
       let(:request) { FactoryGirl.create(:old_unclassified_request) }
 
-      before do
-        allow(request).to receive(:is_old_unclassified?).and_return(true)
-      end
-
       context "when logged out" do
         let(:ability) { Ability.new(nil) }
 
