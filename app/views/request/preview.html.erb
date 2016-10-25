@@ -51,9 +51,23 @@
       <% end %>
 
       <% if @render_recaptcha %>
-      <p>
-        <%= recaptcha_tags %>
-      </p>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            var btn = $('#submit_button');
+            btn.prop('disabled', true);
+            var originalVal = btn.val();
+
+            btn.val('Loading...');
+            setTimeout(function() {
+              btn.prop('disabled', false);
+              btn.val(originalVal);
+            }, 4000);
+          });
+        </script>
+
+        <p>
+          <%= recaptcha_tags %>
+        </p>
       <% end %>
 
       <p>
