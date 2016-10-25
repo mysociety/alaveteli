@@ -803,7 +803,7 @@ describe RequestController, "when handling prominence" do
       expect_hidden('hidden')
     end
 
-    it "should show not request if logged in but not the requester" do
+    it "should not show request if logged in but not the requester" do
       session[:user_id] = FactoryGirl.create(:user).id
       get :show, :url_title => @info_request.url_title
       expect_hidden('hidden')
