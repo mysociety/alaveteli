@@ -32,6 +32,10 @@ shared_examples_for "a class with message prominence" do
       expect(owner_ability).to be_able_to(:read, resource)
     end
 
+    it 'should return true for an admin user' do
+      expect(admin_ability).to be_able_to(:read, resource)
+    end
+
     it 'should return false if the user does not own the right resource' do
       expect(other_user_ability).not_to be_able_to(:read, resource)
     end
