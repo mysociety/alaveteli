@@ -17,6 +17,10 @@ shared_examples_for "a class with message prominence" do
     it 'should return false for a non-admin user' do
       expect(other_user_ability).not_to be_able_to(:read, resource)
     end
+
+    it 'should return false for the owner' do
+      expect(owner_ability).not_to be_able_to(:read, resource)
+    end
   end
 
   context 'if the prominence is requester_only' do
