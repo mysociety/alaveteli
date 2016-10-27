@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Added an IP rate limiter and rate limit signups to 3 per hour per IP if
+  `ENABLE_ANTI_SPAM` is configured (Gareth Rees)
 * Added a reCAPTCHA to the new request process for users who are not signed in,
   or have not been marked as `confirmed_not_spam`. This is controlled
   independently through `NEW_REQUEST_RECAPTCHA` (Louise Crow, Gareth Rees)
