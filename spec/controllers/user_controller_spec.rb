@@ -739,6 +739,44 @@ describe UserController, "when signing up" do
     expect(assigns(:user_signup).admin_level).to eq('none')
   end
 
+  context 'when the IP is rate limited' do
+
+    before(:each) do
+      limiter = double
+      allow(limiter).to receive(:record)
+      allow(limiter).to receive(:limit?).and_return(true)
+      controller.stub(:ip_rate_limiter).and_return(limiter)
+    end
+
+    it 'blocks the signup' do
+      post :signup,
+           :user_signup => { :email => 'rate-limited@localhost',
+                             :name => 'New Person',
+                             :password => 'sillypassword',
+                             :password_confirmation => 'sillypassword' }
+      expect(User.where(:email => 'rate-limited@localhost').count).to eq(0)
+    end
+
+    it 're-renders the form' do
+      post :signup,
+           :user_signup => { :email => 'rate-limited@localhost',
+                             :name => 'New Person',
+                             :password => 'sillypassword',
+                             :password_confirmation => 'sillypassword' }
+      expect(response).to render_template('sign')
+    end
+
+    it 'sets a flash error' do
+      post :signup,
+           :user_signup => { :email => 'rate-limited@localhost',
+                             :name => 'New Person',
+                             :password => 'sillypassword',
+                             :password_confirmation => 'sillypassword' }
+      expect(flash[:error]).to match(/unable to sign up new users/)
+    end
+
+  end
+
   # TODO: need to do bob@localhost signup and check that sends different email
 end
 
