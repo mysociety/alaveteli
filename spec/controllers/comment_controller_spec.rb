@@ -98,6 +98,11 @@ describe CommentController, "when commenting on a request" do
 
   describe 'when anti-spam is enabled' do
 
+    before(:each) do
+      allow(AlaveteliConfiguration).
+        to receive(:enable_anti_spam).and_return(true)
+    end
+
     describe 'when handling a comment that looks like spam' do
 
       let(:user) { FactoryGirl.create(:user,
