@@ -11,7 +11,15 @@ class AdminCommentController < AdminController
 
   def index
     @title = 'Listing comments'
-    comments = Comment.order('created_at DESC')
+    @query = params[:query]
+
+    comments = if @query
+      Comment.where(["lower(body) LIKE lower('%'||?||'%')", @query]).
+        order('created_at DESC')
+    else
+      Comment.order('created_at DESC')
+    end
+
     @comments = comments.paginate :page => params[:page], :per_page => 100
   end
 

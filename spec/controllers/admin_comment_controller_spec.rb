@@ -20,6 +20,20 @@ describe AdminCommentController do
       expect(assigns[:comments]).to eq([comment_2, comment_1])
     end
 
+    it 'assigns the query' do
+      get :index, :query => 'hello'
+      expect(assigns[:query]).to eq('hello')
+    end
+
+    it 'filters comments by the search query' do
+      Comment.destroy_all
+      comment_1 = FactoryGirl.create(:comment, :body => 'Hello world')
+      comment_2 = FactoryGirl.create(:comment, :body => 'Hi! hello world')
+      comment_3 = FactoryGirl.create(:comment, :body => 'xyz')
+      get :index, :query => 'hello'
+      expect(assigns[:comments]).to eq([comment_2, comment_1])
+    end
+
     it 'renders the index template' do
       get :index
       expect(response).to render_template('index')
