@@ -9,6 +9,12 @@ class AdminCommentController < AdminController
 
   before_filter :set_comment, :only => [:edit, :update]
 
+  def index
+    @title = 'Listing comments'
+    comments = Comment.order('created_at DESC')
+    @comments = comments.paginate :page => params[:page], :per_page => 100
+  end
+
   def edit
   end
 

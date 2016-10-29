@@ -486,7 +486,7 @@ Alaveteli::Application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :comments,
       :controller => 'admin_comment',
-      :only => [:edit, :update]
+      :only => [:index, :edit, :update]
   end
   ####
 

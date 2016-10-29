@@ -76,6 +76,19 @@ class Comment < ActiveRecord::Base
     text.html_safe
   end
 
+  def for_admin_column(complete = false)
+    if complete
+      columns = self.class.content_columns
+    else
+      columns = self.class.content_columns.map do |c|
+        c if %w(body visible created_at updated_at).include?(c.name)
+      end.compact
+    end
+    columns.each do |column|
+      yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
+    end
+  end
+
   private
 
   def check_body_has_content
