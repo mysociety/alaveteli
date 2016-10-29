@@ -6,6 +6,9 @@
     <div class="accordion-heading accordion-toggle">
       <span class="item-title">
         <a href="#comment_<%= comment.id %>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+        <span class="comment-labels">
+          <%= comment_labels(comment) %>
+        </span>
         <%= link_to("#{ h(truncate(comment.body)) }", edit_admin_comment_path(comment))%>
       </span>
       <span class="item-metadata">
