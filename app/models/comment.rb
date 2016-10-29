@@ -25,7 +25,8 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user, :counter_cache => true
   belongs_to :info_request
-  has_many :info_request_events # in practice only ever has one
+  has_many :info_request_events, # in practice only ever has one
+           :dependent => :destroy
 
   #validates_presence_of :user # breaks during construction of new ones :(
   validate :check_body_has_content,

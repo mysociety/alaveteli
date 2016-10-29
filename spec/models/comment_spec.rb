@@ -41,4 +41,16 @@ describe Comment do
 
   end
 
+  describe '#destroy' do
+
+    it 'destroys the associated info_request_events' do
+      comment = FactoryGirl.create(:comment)
+      events = comment.info_request_events
+      comment.destroy
+      events.select { |event| event.reload && event.persisted? }
+      expect(events).to be_empty
+    end
+
+  end
+
 end
