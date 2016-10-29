@@ -62,6 +62,10 @@ class Comment < ActiveRecord::Base
     ret
   end
 
+  def hidden?
+    !visible?
+  end
+
   # So when takes changes it updates, or when made invisble it vanishes
   def event_xapian_update
     info_request_events.each { |event| event.xapian_mark_needs_index }

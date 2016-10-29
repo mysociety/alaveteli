@@ -41,6 +41,20 @@ describe Comment do
 
   end
 
+  describe '#hidden?' do
+
+    it 'returns true if the comment is not visible' do
+      comment = Comment.new(:visible => false)
+      expect(comment.hidden?).to eq(true)
+    end
+
+    it 'returns false if the comment is visible' do
+      comment = Comment.new(:visible => true)
+      expect(comment.hidden?).to eq(false)
+    end
+
+  end
+
   describe '#destroy' do
 
     it 'destroys the associated info_request_events' do
