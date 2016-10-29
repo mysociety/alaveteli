@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add "banned" label to banned users in admin users list for better visibility
+  (Gareth Rees)
 * Fix request counts for authorities on the body stats page (Henare Degan)
 * Cached mail server log delivery status (Liz Conlan, Gareth Rees)
 * Added favicon to `admin`, `no_chrome` and attachment to html layouts

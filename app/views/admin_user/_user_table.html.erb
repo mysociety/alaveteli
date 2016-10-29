@@ -4,9 +4,9 @@
     <div class="accordion-heading accordion-toggle">
       <span class="item-title">
         <a href="#user_<%= user.id %>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
-        <% if user.admin_level == "super" %>
-          <span class="label">superuser</span>
-        <% end %>
+        <span class="user-labels">
+          <%= user_labels(user) %>
+        </span>
         <%= link_to("#{ h(user.name) }", admin_user_path(user)) %>
         <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
       </span>
