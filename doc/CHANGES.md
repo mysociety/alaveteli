@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Added task to export last 2 days of requests (`cleanup:spam_requests`)
+  (Gareth Rees)
 * Added admin comments list page (Gareth Rees)
 * Add "banned" label to banned users in admin users list for better visibility
   (Gareth Rees)
