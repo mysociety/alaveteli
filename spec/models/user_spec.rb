@@ -833,4 +833,23 @@ describe User do
 
   end
 
+  describe '#indexed_by_search?' do
+
+    it 'is false if the user is unconfirmed' do
+      user = User.new(:email_confirmed => false, :ban_text => '')
+      expect(user.indexed_by_search?).to eq(false)
+    end
+
+    it 'is false if the user is banned' do
+      user = User.new(:email_confirmed => true, :ban_text => 'banned')
+      expect(user.indexed_by_search?).to eq(false)
+    end
+
+    it 'is true if the user is confirmed and not banned' do
+      user = User.new(:email_confirmed => true, :ban_text => '')
+      expect(user.indexed_by_search?).to eq(true)
+    end
+
+  end
+
 end

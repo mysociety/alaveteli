@@ -50,6 +50,12 @@
         </div>
       <% end %>
 
+      <% if !@user || !@user.confirmed_not_spam? %>
+      <p>
+        <%= recaptcha_tags %>
+      </p>
+      <% end %>
+
       <p>
         <%= f.hidden_field(:title) %>
         <% if @batch %>
