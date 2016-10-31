@@ -1329,7 +1329,7 @@ describe RequestController, "when creating a new request" do
             :outgoing_message => { :body => "Please supply the answer from your files." },
             :submitted_new_request => 1, :preview => 0
           expect(response)
-            .to redirect_to show_new_request_url(:url_title => 'some_request_text')
+            .to redirect_to show_request_path(:url_title => 'some_request_text')
         end
 
       end
@@ -1379,7 +1379,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(response)
-          .to redirect_to show_new_request_url(:url_title => 'hd_watch_jason_bourne_online_fre')
+          .to redirect_to show_request_path(:url_title => 'hd_watch_jason_bourne_online_fre')
       end
 
     end
@@ -1419,7 +1419,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(response)
-          .to redirect_to show_new_request_url(:url_title => 'some_request_content')
+          .to redirect_to show_request_path(:url_title => 'some_request_content')
       end
 
     end
