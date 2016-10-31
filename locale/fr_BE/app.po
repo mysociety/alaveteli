@@ -29,8 +29,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-10-19 12:11+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2016-10-28 07:50+0000\n"
+"Last-Translator: Christophe Van Gheluwe <info@vg-webdesign.be>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/fr_BE/)\n"
 "Language: fr_BE\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgid " Suggest <strong>where else</strong> the requester might find the informa
 msgstr " Suggérez <strong>un autre endroit</strong> où l'utilisateur pourrait trouver ces informations. "
 
 msgid " You are already being emailed updates about the request."
-msgstr "Un courriel vous a déjà été envoyé au sujet de cette demande."
+msgstr "Un email vous a déjà été envoyé au sujet de cette demande."
 
 msgid " You will also be emailed updates about the request."
 msgstr "Vous recevrez également des emails d'avancées liées à votre demande."
@@ -105,7 +105,7 @@ msgid "'Pollution levels over time for the River Tyne'"
 msgstr "« Évolution dans le temps des niveaux de pollution de la rivière Tyne »"
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr "'{{link_to_authority}}', une administration publique"
+msgstr "'{{link_to_authority}}', une autorité publique"
 
 msgid "'{{link_to_request}}', a request"
 msgstr "'{{link_to_request}}', une demande"
@@ -587,7 +587,7 @@ msgid "Check for mistakes if you typed or copied the address."
 msgstr "Vérifier les erreurs si vous avez tapé ou copié l'adresse."
 
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr "Vérifiez que vous n'avez inclus aucune <strong>informations personnelles</strong>."
+msgstr "Vérifiez que vous n'avez inclus aucune <strong>information personnelle</strong>."
 
 msgid "Choose a reason"
 msgstr "Choisissez la raison"
@@ -3675,7 +3675,7 @@ msgid "You can regenerate your one time passcode at any time."
 msgstr "Vous pouvez regénérer votre code d'accès unique à tout moment."
 
 msgid "You can't update your profile text at this time."
-msgstr "Vous pouvez actualiser votre texte de profil."
+msgstr "Vous ne pouvez pas actualiser votre texte de profil à cette étape."
 
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Vous avez une nouvelle réponse à la demande de {{law_used_full}}  "
@@ -4246,13 +4246,13 @@ msgid "{{site_name}} blog and tweets"
 msgstr "{{site_name}} blog et tweets"
 
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
-msgstr "{{site_name}} gère les demandes adressées à {{number_of_authorities}} autorités publiques, dont :"
+msgstr "{{site_name}} gère les demandes adressées à {{number_of_authorities}} autorités publiques, dont&nbsp;:"
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} envoie les nouvelles demandes à <strong>{{request_email}}</strong> pour cette autorité publique."
 
 msgid "{{site_name}} users have made {{number_of_requests}} requests, including:"
-msgstr "Les utilisateurs de {{site_name}} ont envoyé {{number_of_requests}} demandes, dont :"
+msgstr "Les utilisateurs de {{site_name}} ont envoyé {{number_of_requests}} demandes, dont&nbsp;:"
 
 msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
 msgstr "{{thing_changed}} a été changé de <code>{{from_value}}</code> vers <code>{{to_value}}</code>"
@@ -4312,7 +4312,7 @@ msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a hr
 msgstr "{{user}} ({{user_admin_link}}) a fait cette demande de {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) à {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}} a fait cette {{law_used_full}} demande"
+msgstr "{{user}} a fait cette demande de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Retour aux résultats de recherche"
