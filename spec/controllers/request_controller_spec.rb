@@ -1219,10 +1219,10 @@ describe RequestController, "when creating a new request" do
 
   describe 'when rendering a reCAPTCHA' do
 
-    context 'when anti-spam is disabled' do
+    context 'when new_request_recaptcha disabled' do
 
       before do
-        allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
+        allow(AlaveteliConfiguration).to receive(:new_request_recaptcha)
           .and_return(false)
       end
 
@@ -1235,10 +1235,10 @@ describe RequestController, "when creating a new request" do
       end
     end
 
-    context 'when anti-spam is enabled' do
+    context 'when new_request_recaptcha is enabled' do
 
       before do
-        allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
+        allow(AlaveteliConfiguration).to receive(:new_request_recaptcha)
           .and_return(true)
       end
 
@@ -1270,7 +1270,52 @@ describe RequestController, "when creating a new request" do
           :submitted_new_request => 1, :preview => 0
         expect(assigns[:render_recaptcha]).to eq(false)
       end
+
+      context 'when the reCAPTCHA information is not correct' do
+
+        before do
+          allow(controller).to receive(:verify_recaptcha).and_return(false)
+        end
+
+        let(:user) { FactoryGirl.create(:user,
+                                        :confirmed_not_spam => false) }
+        let(:body) { FactoryGirl.create(:public_body) }
+
+        it 'shows an error message' do
+          session[:user_id] = user.id
+          post :new, :info_request => { :public_body_id => body.id,
+          :title => "Some request text", :tag_string => "" },
+            :outgoing_message => { :body => "Please supply the answer from your files." },
+            :submitted_new_request => 1, :preview => 0
+          expect(flash[:error])
+            .to eq("There was an error with the reCAPTCHA information - please try again.")
+        end
+
+        it 'renders the compose interface' do
+          session[:user_id] = user.id
+          post :new, :info_request => { :public_body_id => body.id,
+          :title => "Some request text", :tag_string => "" },
+            :outgoing_message => { :body => "Please supply the answer from your files." },
+            :submitted_new_request => 1, :preview => 0
+          expect(response).to render_template("new")
+        end
+
+        it 'allows the request if the user is confirmed not spam' do
+          user.confirmed_not_spam = true
+          user.save!
+          session[:user_id] = user.id
+          post :new, :info_request => { :public_body_id => body.id,
+          :title => "Some request text", :tag_string => "" },
+            :outgoing_message => { :body => "Please supply the answer from your files." },
+            :submitted_new_request => 1, :preview => 0
+          expect(response)
+            .to redirect_to show_new_request_url(:url_title => 'some_request_text')
+        end
+
+      end
+
     end
+
   end
 
   describe 'when anti-spam is enabled' do
@@ -1355,45 +1400,6 @@ describe RequestController, "when creating a new request" do
           :submitted_new_request => 1, :preview => 0
         expect(response)
           .to redirect_to show_new_request_url(:url_title => 'some_request_content')
-      end
-
-    end
-
-    context 'when the reCAPTCHA information is not correct' do
-
-      before do
-        allow(controller).to receive(:verify_recaptcha).and_return(false)
-      end
-
-      it 'shows an error message' do
-        session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "Some request text", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
-        expect(flash[:error])
-          .to eq("There was an error with the reCAPTCHA information - please try again.")
-      end
-
-      it 'renders the compose interface' do
-        session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "Some request text", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
-        expect(response).to render_template("new")
-      end
-
-      it 'allows the request if the user is confirmed not spam' do
-        user.confirmed_not_spam = true
-        user.save!
-        session[:user_id] = user.id
-        post :new, :info_request => { :public_body_id => body.id,
-        :title => "Some request text", :tag_string => "" },
-          :outgoing_message => { :body => "Please supply the answer from your files." },
-          :submitted_new_request => 1, :preview => 0
-        expect(response)
-          .to redirect_to show_new_request_url(:url_title => 'some_request_text')
       end
 
     end

@@ -949,3 +949,11 @@ ENABLE_ANTI_SPAM: false
 #
 # ---
 RESTRICTED_COUNTRIES: ''
+
+# Show a reCAPTCHA on new request submission form if a user is not signed in or
+# not marked as confirmed_not_spam.
+#
+# NEW_REQUEST_RECAPTCHA – Boolean (default: false)
+#
+# ---
+NEW_REQUEST_RECAPTCHA: false

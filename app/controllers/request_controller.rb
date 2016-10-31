@@ -384,16 +384,6 @@ class RequestController < ApplicationController
         return
       end
 
-     if @render_recaptcha && !verify_recaptcha
-        flash.now[:error] = "There was an error with the reCAPTCHA information - please try again."
-        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-          e = Exception.new("Possible blocked non-spam (recaptcha) from #{@info_request.user_id}: #{@info_request.title}")
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
-        render :action => 'new'
-        return
-      end
-
       # temp blocking of request sending from other countries
       ip_in_blocklist = AlaveteliConfiguration.restricted_countries.include?(country_from_ip) &&
         country_from_ip != AlaveteliConfiguration.iso_country_code
@@ -402,6 +392,18 @@ class RequestController < ApplicationController
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
         if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
           e = Exception.new("Possible blocked non-spam (ip_in_blocklist) from #{@info_request.user_id}: #{@info_request.title}")
+          ExceptionNotifier.notify_exception(e, :env => request.env)
+        end
+        render :action => 'new'
+        return
+      end
+    end
+
+    if AlaveteliConfiguration.new_request_recaptcha && !@user.confirmed_not_spam?
+     if @render_recaptcha && !verify_recaptcha
+        flash.now[:error] = "There was an error with the reCAPTCHA information - please try again."
+        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+          e = Exception.new("Possible blocked non-spam (recaptcha) from #{@info_request.user_id}: #{@info_request.title}")
           ExceptionNotifier.notify_exception(e, :env => request.env)
         end
         render :action => 'new'
@@ -996,7 +998,7 @@ class RequestController < ApplicationController
   end
 
   def set_render_recaptcha
-    @render_recaptcha = AlaveteliConfiguration.enable_anti_spam &&
+    @render_recaptcha = AlaveteliConfiguration.new_request_recaptcha &&
       (!@user || !@user.confirmed_not_spam?)
   end
 end
