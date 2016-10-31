@@ -4,6 +4,7 @@ branches:
   only:
     - master
     - develop
+    - alaveteli-pro-develop
 rvm:
   - 1.9.3
   - 2.0.0
