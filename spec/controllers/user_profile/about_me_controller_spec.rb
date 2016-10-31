@@ -270,6 +270,69 @@ describe UserProfile::AboutMeController do
 
     end
 
+    context 'with anti-spam enabled, spam content and a non-whitelisted user' do
+
+      let(:user) { FactoryGirl.create(:user) }
+
+      before :each do
+        session[:user_id] = user.id
+        allow(AlaveteliConfiguration).to receive(:enable_anti_spam).and_return(true)
+      end
+
+      it 'sets an error message' do
+        put :update, :user => { :about_me => '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+        msg = "You can't update your profile text at this time."
+        expect(flash[:error]).to eq(msg)
+      end
+
+      it 'redirects to the user page' do
+        put :update, :user => { :about_me => '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+        expect(response).
+          to redirect_to(show_user_path(:url_name => user.url_name))
+      end
+
+      it 'does not update the user about_me' do
+        put :update, :user => { :about_me => '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+        expect(user.reload.about_me).to eq('')
+      end
+
+    end
+
+    context 'with anti-spam disabled, spam content and a non-whitelisted user' do
+
+      let(:user) { FactoryGirl.create(:user) }
+
+      before :each do
+        session[:user_id] = user.id
+        allow(AlaveteliConfiguration).to receive(:anti_spam_enabled).and_return(false)
+      end
+
+      it 'updates the user about_me' do
+        # By whitelisting we're giving them the benefit of the doubt
+        put :update, :user => { :about_me => '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+        expect(user.reload.about_me).to eq('[HD] Watch Jason Bourne Online free MOVIE Full-HD')
+      end
+
+    end
+
+    context 'with anti-spam enabled, spam content and a whitelisted user' do
+
+      let(:user) { FactoryGirl.create(:user, :confirmed_not_spam => true) }
+
+      before :each do
+        session[:user_id] = user.id
+        allow(AlaveteliConfiguration).to receive(:anti_spam_enabled).and_return(true)
+      end
+
+      it 'updates the user about_me' do
+        # By whitelisting we're giving them the benefit of the doubt
+        put :update, :user => { :about_me => '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+        expect(user.reload.about_me).to eq('[HD] Watch Jason Bourne Online free MOVIE Full-HD')
+      end
+
+    end
+
+
   end
 
 end

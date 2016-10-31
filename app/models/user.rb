@@ -439,7 +439,7 @@ class User < ActiveRecord::Base
   def get_about_me_for_html_display
     text = about_me.strip
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, :contract => 1)
+    text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
     text = text.gsub(/\n/, '<br>')
     text.html_safe
   end
@@ -477,7 +477,7 @@ class User < ActiveRecord::Base
   end
 
   def indexed_by_search?
-    email_confirmed
+    email_confirmed && !banned?
   end
 
   def for_admin_column(complete = false)

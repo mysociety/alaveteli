@@ -50,6 +50,12 @@
         </div>
       <% end %>
 
+      <% if @render_recaptcha %>
+      <p>
+        <%= recaptcha_tags %>
+      </p>
+      <% end %>
+
       <p>
         <%= f.hidden_field(:title) %>
         <% if @batch %>

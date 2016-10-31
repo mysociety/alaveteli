@@ -922,3 +922,38 @@ EXTERNAL_REVIEWERS: ''
 #
 # ---
 ENABLE_ANNOTATIONS: true
+
+# Enable anti-spam measures.
+# If ENABLE_ANTI_SPAM is set to true, Alaveteli will enforce a set of extra
+# restrictions to combat spam requests, annotations and profile content. This
+# will include the ability to restrict IP addresses from some countries from
+# performing some actions (see RESTRICTED_COUNTRIES), showing a reCAPTCHA
+# on new request submission, and preventing the submission of requests,
+# annotations and profile text matching a set of spam content patterns.
+#
+# ENABLE_ANTI_SPAM – Boolean (default: false)
+#
+# ---
+ENABLE_ANTI_SPAM: false
+
+# Restrict IP addresses from some countries from performing some actions.
+# If set, requests from IP addresses in the countries specified will be
+# prevented from making new requests on the site.
+#
+# RESTRICTED_COUNTRIES – String of space-separated uppercase ISO Alpha-2 codes
+# (default '')
+#
+# Examples:
+#
+#    RESTRICTED_COUNTRIES: 'GB ES'
+#
+# ---
+RESTRICTED_COUNTRIES: ''
+
+# Show a reCAPTCHA on new request submission form if a user is not signed in or
+# not marked as confirmed_not_spam.
+#
+# NEW_REQUEST_RECAPTCHA – Boolean (default: false)
+#
+# ---
+NEW_REQUEST_RECAPTCHA: false

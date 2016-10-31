@@ -34,6 +34,29 @@
 
 ### Changed Templates
 
+# Version 0.25.0.15
+
+## Highlighted Features
+
+* Added an IP rate limiter and rate limit signups to 3 per hour per IP if
+  `ENABLE_ANTI_SPAM` is configured (Gareth Rees)
+* Added a reCAPTCHA to the new request process for users who are not signed in,
+  or have not been marked as `confirmed_not_spam`. This is controlled
+  independently through `NEW_REQUEST_RECAPTCHA` (Louise Crow, Gareth Rees)
+* Allow the additional anti-spam measures to be turned on and off by setting
+  `ENABLE_ANTI_SPAM` (Louise Crow)
+* Ability to block requests from country-based IP ranges. See
+  `RESTRICTED_COUNTRIES` in `config/general.yml-example` for details
+  (Louise Crow)
+* Requests, about me text and comments are rejected if they match known spam
+  patterns (Louise Crow)
+* User-supplied links are now `rel=nofollow` (Louise Crow)
+* Remove banned users from the search index to prevent them appearing in search
+  results (Gareth Rees)
+
+## Upgrade Notes
+
+* Run `bundle exec rake cleanup:reindex_spam_users` to reindex banned users.
 
 # Version 0.25.0.0
 
