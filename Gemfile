@@ -66,6 +66,9 @@ group :assets do
   gem 'therubyracer', '~> 0.12.2'
 end
 
+# Feature flags
+gem 'alaveteli_features', :path => 'gems/alaveteli_features'
+
 group :test do
   gem 'fakeweb', '~> 1.3.0'
   gem 'coveralls', :require => false

@@ -93,7 +93,7 @@
 
           <div>
             <h3 class="title"><%= _("Search in") %></h3>
-            <% filters = if AlaveteliConfiguration.enable_annotations
+            <% filters = if feature_enabled?(:annotations)
                  [["sent", _("messages from users")],
                   ["response", _("messages from authorities")],
                   ["comment", _("comments")]]
