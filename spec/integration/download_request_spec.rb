@@ -293,7 +293,7 @@ describe 'when making a zipfile available' do
       it 'should not include the outgoing message in a download of the entire request
                 by a non-request owner but should retain them for owner and admin' do
 
-        # Non-owner can download zip with incoming and attachments
+        # Non-owner can download zip with original message initially
         non_owner = login(FactoryGirl.create(:user))
         info_request = FactoryGirl.create(:info_request)
 
@@ -302,7 +302,7 @@ describe 'when making a zipfile available' do
           expect(zip.read('correspondence.txt')).to match('Some information please')
         end
 
-        # Admin makes the incoming message requester only
+        # Admin makes the outgoing message requester only
         admin = login(FactoryGirl.create(:admin_user))
 
         using_session(admin) do

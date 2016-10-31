@@ -803,22 +803,36 @@ describe RequestController, "when handling prominence" do
       expect_hidden('hidden')
     end
 
-    it "should show request to requester and admin if logged in" do
+    it "should not show request if logged in but not the requester" do
       session[:user_id] = FactoryGirl.create(:user).id
       get :show, :url_title => @info_request.url_title
       expect_hidden('hidden')
+    end
 
+    it "should show request to requester" do
       session[:user_id] = @info_request.user.id
       get :show, :url_title => @info_request.url_title
       expect(response).to render_template('show')
+    end
 
+    it "shouild show request to admin" do
       session[:user_id] = FactoryGirl.create(:admin_user).id
       get :show, :url_title => @info_request.url_title
       expect(response).to render_template('show')
     end
 
-    it 'should not cache an attachment when showing an attachment to the requester or admin' do
+    it 'should not cache an attachment when showing an attachment to the requester' do
       session[:user_id] = @info_request.user.id
+      incoming_message = @info_request.incoming_messages.first
+      expect(@controller).not_to receive(:foi_fragment_cache_write)
+      get :get_attachment, :incoming_message_id => incoming_message.id,
+        :id => @info_request.id,
+        :part => 2,
+        :file_name => 'interesting.pdf'
+    end
+
+    it 'should not cache an attachment when showing an attachment to the admin' do
+      session[:user_id] = FactoryGirl.create(:admin_user).id
       incoming_message = @info_request.incoming_messages.first
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :get_attachment, :incoming_message_id => incoming_message.id,
@@ -2254,15 +2268,15 @@ end
 describe RequestController, "when caching fragments" do
   it "should not fail with long filenames" do
     long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
-    info_request = double(InfoRequest, :user_can_view? => true,
-                        :all_can_view? => true)
+    info_request = double(InfoRequest, :prominence => 'normal',
+                                       :all_can_view? => true)
     incoming_message = double(IncomingMessage, :info_request => info_request,
                             :parse_raw_email! => true,
                             :info_request_id => 132,
                             :id => 44,
                             :get_attachments_for_display => nil,
                             :apply_masks => nil,
-                            :user_can_view? => true,
+                            :prominence => 'normal',
                             :all_can_view? => true)
     attachment = FactoryGirl.build(:body_text, :filename => long_name)
     allow(IncomingMessage).to receive(:find).with("44").and_return(incoming_message)
