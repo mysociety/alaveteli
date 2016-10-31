@@ -477,7 +477,7 @@ class User < ActiveRecord::Base
   end
 
   def indexed_by_search?
-    email_confirmed
+    email_confirmed && !banned?
   end
 
   def for_admin_column(complete = false)
