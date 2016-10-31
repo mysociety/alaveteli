@@ -2,10 +2,11 @@
 
 ## Highlighted Features
 
+* Added a reCAPTCHA to the new request process for users who are not signed in,
+  or have not been marked as `confirmed_not_spam`. This is controlled
+  independently through `NEW_REQUEST_RECAPTCHA` (Louise Crow, Gareth Rees)
 * Allow the additional anti-spam measures to be turned on and off by setting
   `ENABLE_ANTI_SPAM` (Louise Crow)
-* Added a reCAPTCHA to the new request process for users who are not signed in,
-  or have not been marked as `confirmed_not_spam` (Louise Crow)
 * Ability to block requests from country-based IP ranges. See
   `RESTRICTED_COUNTRIES` in `config/general.yml-example` for details
   (Louise Crow)
