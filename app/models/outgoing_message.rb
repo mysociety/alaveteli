@@ -27,7 +27,7 @@
 
 class OutgoingMessage < ActiveRecord::Base
   include AdminColumn
-  extend MessageProminence
+  include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
@@ -62,7 +62,6 @@ class OutgoingMessage < ActiveRecord::Base
   after_update :xapian_reindex_after_update
 
   strip_attributes :allow_empty => true
-  has_prominence
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain
 

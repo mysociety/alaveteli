@@ -38,7 +38,7 @@ require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ActiveRecord::Base
   include AdminColumn
-  extend MessageProminence
+  include MessageProminence
 
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
@@ -56,8 +56,6 @@ class IncomingMessage < ActiveRecord::Base
   has_many :info_request_events, :dependent => :destroy
 
   belongs_to :raw_email, :dependent => :destroy
-
-  has_prominence
 
   after_destroy :update_request
   after_update :update_request
