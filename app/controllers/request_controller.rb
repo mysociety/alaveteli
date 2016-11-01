@@ -583,7 +583,8 @@ class RequestController < ApplicationController
     end
     # Is this a completely public request that we can cache attachments for
     # to be served up without authentication?
-    if incoming_message.info_request.all_can_view? && incoming_message.all_can_view?
+    if incoming_message.info_request.prominence(:decorate => true).is_public? &&
+      incoming_message.is_public?
       @files_can_be_cached = true
     end
   end
