@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Cache the delivery status of mail server logs'
+  task :cache_delivery_status => :environment do
+    MailServerLog.where(:delivery_status => nil).find_each do |mail_log|
+      mail_log.update_attributes(:delivery_status => mail_log.delivery_status)
+      puts "Cached MailServerLog#delivery_status of id: #{ mail_log.id }"
+    end
+  end
 
   desc 'Analyse rails log specified by LOG_FILE to produce a list of request volume'
   task :request_volume => :environment do
