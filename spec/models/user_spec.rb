@@ -935,4 +935,13 @@ describe User do
     end
   end
 
+  describe 'pro scope' do
+    it "only includes pro user" do
+      pro_user = FactoryGirl.create(:pro_user)
+      user = FactoryGirl.create(:user)
+      expect(User.pro.include?(pro_user)).to be true
+      expect(User.pro.include?(user)).to be false
+    end
+  end
+
 end
