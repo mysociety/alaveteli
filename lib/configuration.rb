@@ -84,6 +84,8 @@ module AlaveteliConfiguration
       :SMTP_MAILER_AUTHENTICATION => 'plain',
       :SMTP_MAILER_ENABLE_STARTTLS_AUTO => true,
       :RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS => 6,
+      :SURVEY_URL => '',
+      :SEND_SURVEY_MAILS => true,
       :THEME_BRANCH => false,
       :THEME_URL => "",
       :THEME_URLS => [],
