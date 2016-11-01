@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateProAccounts < ActiveRecord::Migration
   def change
     create_table :pro_accounts do |t|
