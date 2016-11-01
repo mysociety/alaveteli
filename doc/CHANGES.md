@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Added admin comments list page (Gareth Rees)
 * Add "banned" label to banned users in admin users list for better visibility
   (Gareth Rees)
 * Fix request counts for authorities on the body stats page (Henare Degan)
