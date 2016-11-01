@@ -76,6 +76,7 @@ class InfoRequest < ActiveRecord::Base
   has_many :comments, :order => 'created_at', :dependent => :destroy
   has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
   has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
+  has_one :embargo
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
