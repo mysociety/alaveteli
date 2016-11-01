@@ -137,7 +137,7 @@
       <% end %>
 
       <div class="controls" id="request_hidden_user_explanation_reasons">
-        <% if ['hidden', 'requester_only'].include? @info_request.prominence %>
+        <% if @info_request.prominence(:decorate => true).is_private? %>
           <p class="help-block">This request has already been hidden</p>
         <% else %>
           <label class="radio inline">
@@ -150,7 +150,7 @@
       </div>
     </div>
 
-    <% if !['hidden', 'requester_only'].include? @info_request.prominence %>
+    <% if !@info_request.prominence(:decorate => true).is_private? %>
       <% if ! @info_request.is_external? %>
 
         <div class="control-group" id="request_hidden_user_subject">

@@ -2306,7 +2306,7 @@ describe RequestController, "when caching fragments" do
   it "should not fail with long filenames" do
     long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
     info_request = double(InfoRequest, :prominence => 'normal',
-                                       :all_can_view? => true)
+                                       :is_public? => true)
     incoming_message = double(IncomingMessage, :info_request => info_request,
                             :parse_raw_email! => true,
                             :info_request_id => 132,
@@ -2314,7 +2314,7 @@ describe RequestController, "when caching fragments" do
                             :get_attachments_for_display => nil,
                             :apply_masks => nil,
                             :prominence => 'normal',
-                            :all_can_view? => true)
+                            :is_public? => true)
     attachment = FactoryGirl.build(:body_text, :filename => long_name)
     allow(IncomingMessage).to receive(:find).with("44").and_return(incoming_message)
     allow(IncomingMessage).to receive(:get_attachment_by_url_part_number_and_filename).and_return(attachment)
