@@ -1129,6 +1129,12 @@ describe InfoRequest do
       expect(info_request.errors[:public_body_id]).to be_empty
     end
 
+    it 'rejects an invalid prominence' do
+      info_request = InfoRequest.new(:prominence => 'something')
+      info_request.valid?
+      expect(info_request.errors[:prominence]).to include("is not included in the list")
+    end
+
   end
 
   describe 'when generating a user name slug' do
@@ -1809,31 +1815,21 @@ describe InfoRequest do
 
   end
 
+  describe '#prominence' do
 
-  describe 'when an instance is asked if all can view it' do
+    let(:info_request){ FactoryGirl.build(:info_request) }
 
-    before do
-      @info_request = InfoRequest.new
+    it 'returns the prominence of the request' do
+      expect(info_request.prominence).to eq("normal")
     end
 
-    it 'returns true if its prominence is normal' do
-      @info_request.prominence = 'normal'
-      expect(@info_request.all_can_view?).to eq(true)
-    end
+    context ':decorate option is true' do
 
-    it 'returns true if its prominence is backpage' do
-      @info_request.prominence = 'backpage'
-      expect(@info_request.all_can_view?).to eq(true)
-    end
+      it 'returns a prominence calculator' do
+        expect(InfoRequest.new.prominence(:decorate => true))
+          .to be_a(InfoRequest::Prominence::Calculator)
+      end
 
-    it 'returns false if its prominence is hidden' do
-      @info_request.prominence = 'hidden'
-      expect(@info_request.all_can_view?).to eq(false)
-    end
-
-    it 'returns false if its prominence is requester_only' do
-      @info_request.prominence = 'requester_only'
-      expect(@info_request.all_can_view?).to eq(false)
     end
 
   end
