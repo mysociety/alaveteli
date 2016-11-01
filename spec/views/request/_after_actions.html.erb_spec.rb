@@ -15,7 +15,7 @@ describe 'when displaying actions that can be taken with regard to a request' do
                                                 :public_body => @mock_body,
                                                 :comments_allowed? => true,
                                                 :url_title => 'test_request',
-                                                :all_can_view? => true)
+                                                :is_public? => true)
         assign :info_request, @mock_request
     end
 
