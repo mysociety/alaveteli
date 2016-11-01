@@ -999,4 +999,16 @@ describe User do
 
   end
 
+  describe '#pro?' do
+    it 'returns true if the user has a pro account' do
+      user = FactoryGirl.create(:pro_user)
+      expect(user.pro?).to be true
+    end
+
+    it 'returns false if the user doesnt have a pro account' do
+      user = FactoryGirl.create(:user)
+      expect(user.pro?).to be false
+    end
+  end
+
 end
