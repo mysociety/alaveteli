@@ -957,3 +957,18 @@ RESTRICTED_COUNTRIES: ''
 #
 # ---
 NEW_REQUEST_RECAPTCHA: false
+
+# Enable AlaveteliProfessional
+# If ENABLE_ALAVETELI_PRO is set to true, Alaveteli will include extra
+# functionality and account levels for professional FOI users, e.g.
+# journalists. Professional users have access to a new dashboard, a more
+# streamlined request process, and crucially, the ability to embargo their
+# requests so that they remain private.
+#
+# Enabling this is a large change, and this is still in Alpha development, so
+# you may want to contact the Alaveteli team before doing so.
+#
+# ENABLE_ALAVETELI_PRO – Boolean (default: false)
+#
+# ---
+ENABLE_ALAVETELI_PRO: false

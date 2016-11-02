@@ -14,3 +14,11 @@ if AlaveteliConfiguration.enable_annotations
 else
   AlaveteliFeatures.backend.disable(:annotations)
 end
+
+# AlaveteliPro
+# We enable alaveteli_pro globally based on the ENABLE_ALAVETELI_PRO config
+if AlaveteliConfiguration.enable_alaveteli_pro
+  AlaveteliFeatures.backend.enable(:alaveteli_pro)
+else
+  AlaveteliFeatures.backend.disable(:alaveteli_pro)
+end
