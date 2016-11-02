@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Make spam term checking configurable (Gareth Rees)
 * Exclude banned users from graphs and stats tasks (Liz Conlan)
 * New statistics page that includes user stats to show top requesters and
   annotators, and hidden  requests. Includes a new event type of "hide" to
