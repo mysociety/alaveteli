@@ -164,9 +164,10 @@ module MailHandler
         else
           content_type = 'application/octet-stream'
         end
-
+        if content_type == 'text/plain' && body.encoding.to_s == 'ASCII-8BIT'
+          body = convert_string_to_utf8(body, 'ASCII-8BIT').string
+        end
         text += get_attachment_text_one_file(content_type, body)
-
       end
     end
     return text
