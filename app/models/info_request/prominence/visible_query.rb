@@ -7,7 +7,7 @@ class InfoRequest
       end
 
       def call
-        @relation.where(prominence: 'normal')
+        @relation.where(prominence: 'normal').not_embargoed
       end
     end
   end
