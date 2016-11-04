@@ -339,6 +339,12 @@ describe "when getting the attachment text" do
     MailHandler.get_attachment_text_one_file('application/zip', "some string")
   end
 
+  it 'extracts plain text as UTF-8 from a zip file' do
+    zip_contents = load_file_fixture('example.zip')
+    text = MailHandler.get_attachment_text_one_file('application/zip', zip_contents)
+    expect(text.encoding.to_s).to eq('UTF-8')
+  end
+
 end
 
 describe 'when getting attachment attributes' do
