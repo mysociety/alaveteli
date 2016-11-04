@@ -4,10 +4,16 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 describe InfoRequest::Prominence::Calculator do
 
   let(:info_request){ FactoryGirl.build(:info_request) }
+  let(:embargoed_request){ FactoryGirl.create(:embargoed_request) }
 
   def expect_value(prominence, method, value)
     info_request.prominence = prominence
     expect(described_class.new(info_request).send(method)).to eq(value)
+  end
+
+  def expect_embargoed_value(prominence, method, value)
+    embargoed_request.prominence = prominence
+    expect(described_class.new(embargoed_request).send(method)).to eq(value)
   end
 
   describe '#is_public?' do
@@ -26,6 +32,26 @@ describe InfoRequest::Prominence::Calculator do
 
     it 'returns false if its prominence is requester_only' do
        expect_value('requester_only', :is_public?, false)
+    end
+
+    context 'when there is an embargo' do
+
+      it 'returns false if its prominence is normal' do
+        expect_embargoed_value('normal', :is_public?, false)
+      end
+
+      it 'returns false if its prominence is backpage' do
+        expect_embargoed_value('backpage', :is_public?, false)
+      end
+
+      it 'returns false if its prominence is hidden' do
+        expect_embargoed_value('hidden', :is_public?, false)
+      end
+
+      it 'returns false if its prominence is requester_only' do
+         expect_embargoed_value('requester_only', :is_public?, false)
+      end
+
     end
 
   end
@@ -48,6 +74,26 @@ describe InfoRequest::Prominence::Calculator do
        expect_value('requester_only', :is_searchable?, false)
     end
 
+    context 'when there is an embargo' do
+
+      it 'returns false if its prominence is normal' do
+        expect_embargoed_value('normal', :is_searchable?, false)
+      end
+
+      it 'returns false if its prominence is backpage' do
+        expect_embargoed_value('backpage', :is_searchable?, false)
+      end
+
+      it 'returns false if its prominence is hidden' do
+        expect_embargoed_value('hidden', :is_searchable?, false)
+      end
+
+      it 'returns false if its prominence is requester_only' do
+         expect_embargoed_value('requester_only', :is_searchable?, false)
+      end
+
+    end
+
   end
 
   describe '#is_private?' do
@@ -66,6 +112,27 @@ describe InfoRequest::Prominence::Calculator do
 
     it 'returns true if its prominence is requester_only' do
        expect_value('requester_only', :is_private?, true)
+    end
+
+
+    context 'when there is an embargo' do
+
+      it 'returns true if its prominence is normal' do
+        expect_embargoed_value('normal', :is_private?, true)
+      end
+
+      it 'returns true if its prominence is backpage' do
+        expect_embargoed_value('backpage', :is_private?, true)
+      end
+
+      it 'returns true if its prominence is hidden' do
+        expect_embargoed_value('hidden', :is_private?, true)
+      end
+
+      it 'returns true if its prominence is requester_only' do
+         expect_embargoed_value('requester_only', :is_private?, true)
+      end
+
     end
 
   end

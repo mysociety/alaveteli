@@ -7,19 +7,18 @@ class InfoRequest
         @info_request = info_request
       end
 
-      # Is this request visible to everyone?
       def is_public?
-        %w(normal backpage).include?(to_s)
+        %w(normal backpage).include?(to_s) && !@info_request.embargo
       end
 
       # Is this request findable via search?
       def is_searchable?
-        to_s == 'normal'
+        to_s == 'normal' && !@info_request.embargo
       end
 
       # Is this request hidden from some people?
       def is_private?
-        %w(hidden requester_only).include?(to_s)
+        return %w(hidden requester_only).include?(to_s) || @info_request.embargo.present?
       end
 
       # Is this request visible only to admins and the requester?

@@ -16,13 +16,18 @@ describe OutgoingMessages::DeliveryStatusesController do
     @status = MailServerLog::EximDeliveryStatus.new(:normal_message_delivery)
   end
 
+  def visible_info_request
+    mock_model(InfoRequest, { :prominence => 'normal',
+                              :embargo => nil })
+  end
+
   describe 'GET show' do
 
     it 'assigns the outgoing message' do
       session[:user_id] = FactoryGirl.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => true,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -37,7 +42,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       session[:user_id] = FactoryGirl.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'hidden',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => false,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -52,7 +57,8 @@ describe OutgoingMessages::DeliveryStatusesController do
       session[:user_id] = FactoryGirl.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'hidden'}),
+                :info_request => mock_model(InfoRequest, { :prominence => 'hidden',
+                                                           :embargo => nil }),
                 :is_owning_user? => false,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -67,7 +73,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       session[:user_id] = FactoryGirl.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => true,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -88,7 +94,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       session[:user_id] = FactoryGirl.create(:admin_user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => true,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -103,7 +109,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       session[:user_id] = FactoryGirl.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => true,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -118,7 +124,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       session[:user_id] = FactoryGirl.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => false,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -138,7 +144,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       session[:user_id] = FactoryGirl.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => true,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -158,7 +164,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       session[:user_id] = FactoryGirl.create(:admin_user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => true,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -172,7 +178,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     it 'does not assign mail server logs for a regular user' do
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => false,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
@@ -187,7 +193,7 @@ describe OutgoingMessages::DeliveryStatusesController do
       session[:user_id] = FactoryGirl.create(:user).id
       attrs = { :id => '1',
                 :prominence => 'normal',
-                :info_request => mock_model(InfoRequest, {:prominence => 'normal'}),
+                :info_request => visible_info_request,
                 :is_owning_user? => true,
                 :mail_server_logs => @logs,
                 :delivery_status => @status }
