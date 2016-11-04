@@ -923,4 +923,25 @@ describe User do
 
   end
 
+  describe '#pro?' do
+    it 'returns true if the user has a pro account' do
+      user = FactoryGirl.create(:pro_user)
+      expect(user.pro?).to be true
+    end
+
+    it 'returns false if the user doesnt have a pro account' do
+      user = FactoryGirl.create(:user)
+      expect(user.pro?).to be false
+    end
+  end
+
+  describe 'pro scope' do
+    it "only includes pro user" do
+      pro_user = FactoryGirl.create(:pro_user)
+      user = FactoryGirl.create(:user)
+      expect(User.pro.include?(pro_user)).to be true
+      expect(User.pro.include?(user)).to be false
+    end
+  end
+
 end

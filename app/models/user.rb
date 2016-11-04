@@ -70,6 +70,8 @@ class User < ActiveRecord::Base
            :dependent => :destroy
   has_many :request_classifications,
            :dependent => :destroy
+  has_one :pro_account,
+          :dependent => :destroy
 
   validates_presence_of :email, :message => _("Please enter your email address")
   validates_presence_of :name, :message => _("Please enter your name")
@@ -104,6 +106,10 @@ class User < ActiveRecord::Base
   :if => :indexed_by_search?
 
   has_one_time_password :counter_based => true
+
+  def self.pro
+    includes(:pro_account).where("pro_accounts.id IS NOT NULL")
+  end
 
   # Return user given login email, password and other form parameters (e.g. name)
   #
@@ -491,6 +497,10 @@ class User < ActiveRecord::Base
     columns.each do |column|
       yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
     end
+  end
+
+  def pro?
+    pro_account.present?
   end
 
   private

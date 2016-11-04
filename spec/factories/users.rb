@@ -47,6 +47,12 @@ FactoryGirl.define do
       name 'Admin User'
       admin_level 'super'
     end
+    factory :pro_user do
+      name 'Pro User'
+      after(:create) do |user, evaluator|
+        create(:pro_account, :user => user)
+      end
+    end
   end
 
 end
