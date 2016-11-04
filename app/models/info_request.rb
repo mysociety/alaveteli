@@ -83,6 +83,8 @@ class InfoRequest < ActiveRecord::Base
   has_tag_string
 
   scope :visible, Prominence::VisibleQuery.new
+  scope :embargoed, Prominence::EmbargoedQuery.new
+  scope :not_embargoed, Prominence::NotEmbargoedQuery.new
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
