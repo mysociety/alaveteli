@@ -174,6 +174,14 @@ class User < ActiveRecord::Base
     !user.nil? && user.super?
   end
 
+  def self.view_embargoed?(user)
+    self.view_hidden?(user)
+  end
+
+  def self.view_hidden_and_embargoed?(user)
+    view_hidden?(user) && view_embargoed?(user)
+  end
+
   # Should the user be kept logged into their own account
   # if they follow a /c/ redirect link belonging to another user?
   def self.stay_logged_in_on_redirect?(user)
