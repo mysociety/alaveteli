@@ -3,6 +3,49 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminCommentController do
 
+  describe 'GET index' do
+
+    it 'sets the title' do
+      get :index
+      expect(assigns[:title]).to eq('Listing comments')
+    end
+
+    it 'collects comments by creation date' do
+      Comment.destroy_all
+      time_travel_to(1.month.ago)
+      comment_1 = FactoryGirl.create(:comment)
+      back_to_the_present
+      comment_2 = FactoryGirl.create(:comment)
+      get :index
+      expect(assigns[:comments]).to eq([comment_2, comment_1])
+    end
+
+    it 'assigns the query' do
+      get :index, :query => 'hello'
+      expect(assigns[:query]).to eq('hello')
+    end
+
+    it 'filters comments by the search query' do
+      Comment.destroy_all
+      comment_1 = FactoryGirl.create(:comment, :body => 'Hello world')
+      comment_2 = FactoryGirl.create(:comment, :body => 'Hi! hello world')
+      comment_3 = FactoryGirl.create(:comment, :body => 'xyz')
+      get :index, :query => 'hello'
+      expect(assigns[:comments]).to eq([comment_2, comment_1])
+    end
+
+    it 'renders the index template' do
+      get :index
+      expect(response).to render_template('index')
+    end
+
+    it 'responds successfully' do
+      get :index
+      expect(response).to be_success
+    end
+
+  end
+
   describe 'GET edit' do
 
     before do
