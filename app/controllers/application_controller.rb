@@ -300,11 +300,17 @@ class ApplicationController < ActionController::Base
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
-  def do_post_redirect(post_redirect)
+  def do_post_redirect(post_redirect, user=nil)
     uri = URI.parse(post_redirect.uri).path
-
+    if feature_enabled?(:alaveteli_pro) && user && user.pro?
+      uri = override_post_redirect_for_pro(uri, post_redirect, user)
+    end
     session[:post_redirect_token] = post_redirect.token
+    uri = add_post_redirect_param_to_uri(uri)
+    redirect_to uri
+  end
 
+  def add_post_redirect_param_to_uri(uri)
     # TODO: what is the built in Ruby URI munging function that can do this
     # choice of & vs. ? more elegantly than this dumb if statement?
     if uri.include?("?")
@@ -322,7 +328,20 @@ class ApplicationController < ActionController::Base
         uri += "?post_redirect=1"
       end
     end
-    redirect_to uri
+    return uri
+  end
+
+  # A hook for us to override certain post redirects for pro users, e.g.
+  # if they start making a request, then we realise they're a pro when they
+  # log in, so we want to send them into the pro system
+  def override_post_redirect_for_pro(uri, post_redirect, user)
+    case uri
+    when "/new"
+      # TODO: Send this to the new 'draft' controller action for pros
+      # instead. I guess we could just update the uri, but we might need to
+      # tweak the saved params too.
+    end
+    return uri
   end
 
   # If we are in a faked redirect to POST request, then set post params.
