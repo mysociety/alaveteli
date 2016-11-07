@@ -168,3 +168,10 @@ body.admin {
 
 }
 
+/* Users */
+
+.user-labels {
+  .label ~ .label {
+    margin-left: 0.4em;
+  }
+}
