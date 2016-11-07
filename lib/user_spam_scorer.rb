@@ -15,7 +15,13 @@ class UserSpamScorer
   }.freeze
 
   DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢).freeze
-  DEFAULT_SPAM_DOMAINS = %w(mail.ru temp-mail.de tempmail.de shitmail.de).freeze
+  DEFAULT_SPAM_DOMAINS =
+    %w(mail.ru
+       temp-mail.de
+       tempmail.de
+       shitmail.de
+       yopmail.com
+       yandex.com).freeze
   DEFAULT_SPAM_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,
     /\Ahttps?:\/\/[^\s]+\n{2,}.+$/,
