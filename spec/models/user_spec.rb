@@ -944,4 +944,46 @@ describe User do
     end
   end
 
+  describe '.view_hidden?' do
+    it 'returns false if there is no user' do
+      expect(User.view_hidden?(nil)).to be false
+    end
+
+    it 'returns false if the user is not a superuser' do
+      expect(User.view_hidden?(FactoryGirl.build(:user))).to be false
+    end
+
+    it 'returns true if the user is an admin user' do
+      expect(User.view_hidden?(FactoryGirl.build(:admin_user))).to be true
+    end
+  end
+
+  describe '.view_embargoed' do
+    it 'returns false if there is no user' do
+      expect(User.view_embargoed?(nil)).to be false
+    end
+
+    it 'returns false if the user is not a superuser' do
+      expect(User.view_embargoed?(FactoryGirl.build(:user))).to be false
+    end
+
+    it 'returns true if the user is an admin user' do
+      expect(User.view_embargoed?(FactoryGirl.build(:admin_user))).to be true
+    end
+  end
+
+  describe '.view_hidden_and_embargoed' do
+    it 'returns false if there is no user' do
+      expect(User.view_hidden_and_embargoed?(nil)).to be false
+    end
+
+    it 'returns false if the user is not a superuser' do
+      expect(User.view_hidden_and_embargoed?(FactoryGirl.build(:user))).to be false
+    end
+
+    it 'returns true if the user is an admin user' do
+      expect(User.view_hidden_and_embargoed?(FactoryGirl.build(:admin_user))).to be true
+    end
+  end
+
 end
