@@ -8,6 +8,10 @@
       // Do a type ahead search and display results
       $("#typeahead_response").load("<%= search_ahead_bodies_url %>?query="+encodeURI(this.value));
     }));
+
+    if (!!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)) {
+      $('#query').removeAttr('required');
+    }
   });
   </script>
 <% end %>
@@ -31,6 +35,7 @@
       <label for="query" class="visually-hidden"><%=_('Authority name')%></label>
       <%= text_field_tag :query, params[:query], { :size => 30,
                                                    :title => _('type your search term here'),
+                                                   :required => true,
                                                    :placeholder => _('e.g. Ministry of Defence') } %>
       <%= hidden_field_tag :bodies, 1 %>
       <%= submit_tag _('Search') %>

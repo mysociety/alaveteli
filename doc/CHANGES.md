@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add `required` attribute to select authority form to prevent blank searches
+  (Gareth Rees)
 * Make spam term checking configurable (Gareth Rees)
 * Exclude banned users from graphs and stats tasks (Liz Conlan)
 * New statistics page that includes user stats to show top requesters and
