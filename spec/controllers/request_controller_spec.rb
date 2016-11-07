@@ -1375,6 +1375,10 @@ describe RequestController, "when creating a new request" do
 
   end
 
+  describe 'when a pro user uses the request form and then logs in' do
+    it 'should do what we decide is appropriate'
+  end
+
 end
 
 # These go with the previous set, but use mocks instead of fixtures.
