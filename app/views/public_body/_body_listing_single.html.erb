@@ -32,8 +32,8 @@
   <div class="bottomline body-listing__request-count">
     <%= n_('{{count}} request.',
            '{{count}} requests.',
-           public_body.info_requests.visible.size,
-           :count => public_body.info_requests.visible.size) %>
+           public_body.info_requests.is_searchable.size,
+           :count => public_body.info_requests.is_searchable.size) %>
   </div>
 
   <% if request_link && !public_body.special_not_requestable_reason? %>
