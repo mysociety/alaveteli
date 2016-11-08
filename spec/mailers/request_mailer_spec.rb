@@ -283,6 +283,16 @@ describe RequestMailer do
       expect{ send_alerts }.to raise_error(expected_message)
     end
 
+    context 'if the request is embargoed' do
+
+      it 'does not send the reminder' do
+        old_request.create_embargo(:publish_at => Time.now + 3.days)
+        expect(RequestMailer).not_to receive(:new_response_reminder_alert)
+        send_alerts
+      end
+
+    end
+
     context 'if an alert matching the attributes of the reminder to be sent has already been sent' do
 
       it 'should not send the reminder' do
