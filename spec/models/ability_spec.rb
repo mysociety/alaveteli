@@ -82,6 +82,68 @@ describe Ability do
     let!(:owner_ability) { Ability.new(resource.user) }
 
     it_behaves_like "a class with message prominence"
+
+    context 'when the request is embargoed' do
+      let!(:resource) { FactoryGirl.create(:embargoed_request) }
+      let(:admin_ability) { Ability.new(FactoryGirl.create(:admin_user)) }
+      let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
+
+      context 'if the prominence is hidden' do
+        before do
+          resource.prominence = 'hidden'
+        end
+
+        it 'should return true for an admin user' do
+          expect(admin_ability).to be_able_to(:read, resource)
+        end
+
+        it 'should return false for a non-admin user' do
+          expect(other_user_ability).not_to be_able_to(:read, resource)
+        end
+
+        it 'should return false for the owner' do
+          expect(owner_ability).not_to be_able_to(:read, resource)
+        end
+      end
+
+      context 'if the prominence is requester_only' do
+        before do
+          resource.prominence = 'requester_only'
+        end
+
+        it 'should return true if the user owns the right resource' do
+          expect(owner_ability).to be_able_to(:read, resource)
+        end
+
+        it 'should return true for an admin user' do
+          expect(admin_ability).to be_able_to(:read, resource)
+        end
+
+        it 'should return false if the user does not own the right resource' do
+          expect(other_user_ability).not_to be_able_to(:read, resource)
+        end
+      end
+
+      context 'if the prominence is normal' do
+        before do
+          resource.prominence = 'normal'
+        end
+
+        it 'should return false for a non-admin user' do
+          expect(other_user_ability).not_to be_able_to(:read, resource)
+        end
+
+        it 'should return true for an admin user' do
+          expect(admin_ability).to be_able_to(:read, resource)
+        end
+
+        it 'should return true if the user owns the right resource' do
+          expect(owner_ability).to be_able_to(:read, resource)
+        end
+      end
+
+    end
+
   end
 
   describe "updating request state of InfoRequests" do
