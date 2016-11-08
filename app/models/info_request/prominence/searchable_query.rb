@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class InfoRequest
   module Prominence
-    class VisibleQuery
+    class SearchableQuery
       def initialize(relation = InfoRequest)
         @relation = relation
       end
@@ -12,3 +12,4 @@ class InfoRequest
     end
   end
 end
+

@@ -82,9 +82,16 @@ class InfoRequest < ActiveRecord::Base
 
   has_tag_string
 
-  scope :visible, Prominence::VisibleQuery.new
+  scope :is_public, Prominence::PublicQuery.new
+  scope :is_searchable, Prominence::SearchableQuery.new
   scope :embargoed, Prominence::EmbargoedQuery.new
   scope :not_embargoed, Prominence::NotEmbargoedQuery.new
+
+  def self.visible
+    warn %q([DEPRECATION] InfoRequest#visible will be removed in
+        0.27. It has been replaced by InfoRequest#is_public).squish
+    self.is_public
+  end
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state

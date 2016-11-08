@@ -19,7 +19,7 @@ class GeneralController < ApplicationController
     successful_query = InfoRequestEvent.make_query_from_params( :latest_status => ['successful'] )
     @request_events, @request_events_all_successful = InfoRequest.recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
-    @number_of_requests = InfoRequest.visible.count
+    @number_of_requests = InfoRequest.is_searchable.count
     @number_of_authorities = PublicBody.visible.count
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
                            :title => _('Successful requests'),
@@ -220,7 +220,7 @@ class GeneralController < ApplicationController
           :alaveteli_version => ALAVETELI_VERSION,
           :ruby_version => RUBY_VERSION,
           :visible_public_body_count => PublicBody.visible.count,
-          :visible_request_count => InfoRequest.visible.count,
+          :visible_request_count => InfoRequest.is_searchable.count,
           :confirmed_user_count => User.not_banned.
                                      where(:email_confirmed => true).count,
           :visible_comment_count => Comment.visible.count,
