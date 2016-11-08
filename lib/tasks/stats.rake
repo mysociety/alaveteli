@@ -278,7 +278,7 @@ namespace :stats do
     puts CSV.generate_line(["public_body_id", "public_body_name", "request_created_timestamp", "request_title", "request_body"])
 
     PublicBody.limit(20).order('info_requests_visible_count DESC').each do |body|
-      body.info_requests.where(:prominence => 'normal').find_each do |request|
+      body.info_requests.is_searchable.find_each do |request|
         puts CSV.generate_line([request.public_body.id, request.public_body.name, request.created_at, request.url_title, request.initial_request_text.gsub("\r\n", " ").gsub("\n", " ")])
       end
     end

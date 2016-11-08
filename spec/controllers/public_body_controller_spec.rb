@@ -338,7 +338,7 @@ describe PublicBodyController, "when listing bodies" do
     visible_request = FactoryGirl.create(:info_request, :public_body => fake_pb)
     fake_pb.reload
     expect(fake_pb.info_requests.size).to eq(2)
-    expect(fake_pb.info_requests.visible.size).to eq(1)
+    expect(fake_pb.info_requests.is_searchable.size).to eq(1)
     fake_list = [fake_pb]
     allow(fake_list).to receive(:joins).and_return(fake_list)
     allow(fake_list).to receive(:paginate).and_return(fake_list)

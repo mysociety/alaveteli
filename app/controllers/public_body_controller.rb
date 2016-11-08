@@ -46,7 +46,7 @@ class PublicBodyController < ApplicationController
 
       set_last_body(@public_body)
 
-      @number_of_visible_requests = @public_body.info_requests.visible.count
+      @number_of_visible_requests = @public_body.info_requests.is_searchable.count
 
       @searched_to_send_request = false
       referrer = request.env['HTTP_REFERER']
