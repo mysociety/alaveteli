@@ -5,6 +5,8 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+include AlaveteliFeatures::Constraints
+
 # Allow easy extension from themes. Note these will have the highest priority.
 $alaveteli_route_extensions.each do |f|
   load File.join('config', f)
@@ -590,6 +592,16 @@ Alaveteli::Application.routes.draw do
   match '/api/v2/body/:id/request_events.:feed_type' => 'api#body_request_events',
         :as => :api_body_request_events,
         :feed_type => '^(json|atom)$'
+  ####
+
+  #### Alaveteli Pro
+  constraints FeatureConstraint.new(:alaveteli_pro) do
+    namespace :alaveteli_pro do
+      match '/' => 'dashboard#index',
+            :as => 'dashboard',
+            :via => :get
+    end
+  end
   ####
 
   filter :conditionallyprependlocale
