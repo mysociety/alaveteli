@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-10-28 07:50+0000\n"
+"PO-Revision-Date: 2016-11-07 17:12+0000\n"
 "Last-Translator: Christophe Van Gheluwe <info@vg-webdesign.be>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/fr_BE/)\n"
 "Language: fr_BE\n"
@@ -2750,13 +2750,13 @@ msgid "The request is <strong>waiting for clarification</strong>."
 msgstr "La demande est <strong>en attente de précision</strong>."
 
 msgid "The request was <strong>partially successful</strong>."
-msgstr "La demande a <strong>partiellement aboutie</strong>."
+msgstr "La demande a <strong>partiellement abouti</strong>."
 
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
 msgstr "La demande a été <strong>rejetée</strong> par {{authority_name}}."
 
 msgid "The request was <strong>successful</strong>."
-msgstr "La demande a <strong>aboutie</strong>."
+msgstr "La demande a <strong>abouti</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "La demande a été rejetée par l'autorité publique"
@@ -3956,7 +3956,7 @@ msgid "admin"
 msgstr "admin"
 
 msgid "all requests"
-msgstr "toutes les demandes"
+msgstr "Toutes les demandes"
 
 msgid "all requests or comments"
 msgstr "toutes les demandes ou commentaires"
@@ -4094,7 +4094,7 @@ msgid "simple_date_format"
 msgstr "simple_date_format"
 
 msgid "successful requests"
-msgstr "demandes ayant abouti"
+msgstr "Demandes ayant abouti"
 
 msgid "that you made to"
 msgstr "que vous avez fait à "
@@ -4135,7 +4135,7 @@ msgid "unknown status {{status}}"
 msgstr "état inconnu {{status}}"
 
 msgid "unresolved requests"
-msgstr "demandes n'ayant pas abouti"
+msgstr "Demandes non classées"
 
 msgid "unsubscribe"
 msgstr "se désabonner"
@@ -4144,7 +4144,7 @@ msgid "unsubscribe all"
 msgstr "désabonner tout "
 
 msgid "unsuccessful requests"
-msgstr "demandes n'ayant pas abouti"
+msgstr "Demandes n'ayant pas abouti"
 
 msgid "users"
 msgstr "utilisateurs"

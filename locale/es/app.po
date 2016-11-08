@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-11-02 22:20+0000\n"
+"PO-Revision-Date: 2016-11-08 03:16+0000\n"
 "Last-Translator: Maria Isabel Magaña <marisamagar94@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/mysociety/alaveteli/language/es/)\n"
 "Language: es\n"
@@ -279,7 +279,7 @@ msgid "<strong>Thank</strong> the public authority or the requester."
 msgstr "<strong>Da las gracias</strong> al organismo público o el solicitante."
 
 msgid "<strong>Thank</strong> the public authority or {{user_name}}."
-msgstr "<strong>Dé las gracias</strong> al organismo público o {{user_name}}."
+msgstr "<strong>Da las gracias</strong> al organismo público o {{user_name}}."
 
 msgid "<strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason."
 msgstr "<strong> Advertencia: </strong> Este mensaje <strong> no se ha enviado </strong> por una razón desconocida."
@@ -1969,8 +1969,8 @@ msgstr "Por favor usa el siguiente enlace para cancelar o editar estos correos."
 
 msgid "Please click on the link below to confirm that you want to change the email address that you use for {{site_name}} from {{old_email}} to {{new_email}}"
 msgstr ""
-"Por favor pulse en el siguiente enlace para confirmar que quiere \n"
-"cambiar la dirección de correo que utiliza en {{site_name}}\n"
+"Por favor pulsa en el siguiente enlace para confirmar que quieres \n"
+"cambiar la dirección de correo que utilizas en {{site_name}}\n"
 "de {{old_email}} a {{new_email}}"
 
 msgid "Please click on the link below to confirm your email address."
@@ -2970,7 +2970,7 @@ msgid "Then you will be following all new FOI requests."
 msgstr "Entonces recibirás actualizaciones por correo de todas las nuevas solicitudes."
 
 msgid "Then you will be notified whenever '{{user_name}}' requests something or gets a response."
-msgstr "Entonces vas a ser avisado cuando '{{user_name}}' haga algun pedido o reciba una respuesta."
+msgstr "Entonces, serás avisado cuando '{{user_name}}' haga algun pedido o reciba una respuesta."
 
 msgid "Then you will be notified whenever a new request or response matches your search."
 msgstr "Entonces recibirás correos siempre que una nueva solicitud o respuesta encaje con tu búsqueda."
@@ -3453,7 +3453,7 @@ msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Li
 msgstr "Utiliza comillas cuando quieras buscar una frase exacta, por ejemplo <strong><code>\"Consejo de Europa\"</code></strong>"
 
 msgid "Use this site to make your request for information – we'll show you how."
-msgstr "Utiliza este portral para realizar tus solicitudes de información; te mostraremos cómo."
+msgstr "Utiliza este portal para realizar tus solicitudes de información; te mostraremos cómo."
 
 msgid "User"
 msgstr "usuario"
