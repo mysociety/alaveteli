@@ -256,6 +256,19 @@ describe GeneralController, "when showing the frontpage" do
 
   end
 
+  describe 'when handling pro users' do
+    before do
+      @user = FactoryGirl.create(:pro_user)
+      session[:user_id] = @user.id
+      allow(controller).to receive(:feature_enabled?).with(:alaveteli_pro).and_return(true)
+    end
+
+    it 'should redirect pro users to the pro dashboard' do
+      get :frontpage
+      expect(@response).to redirect_to alaveteli_pro_dashboard_path
+    end
+  end
+
 end
 
 
