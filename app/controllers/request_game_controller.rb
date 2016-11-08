@@ -12,7 +12,7 @@ class RequestGameController < ApplicationController
 
     @missing = InfoRequest.
       where_old_unclassified.
-        where(:prominence => 'normal').
+        is_searchable.
           count
     @total = InfoRequest.count
     @done = @total - @missing
@@ -21,7 +21,7 @@ class RequestGameController < ApplicationController
       includes(:public_body, :user).
         where_old_unclassified.
           limit(3).
-            where(:prominence => 'normal').
+            is_searchable.
               order('random()')
 
     if @missing == 0
