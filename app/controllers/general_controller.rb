@@ -12,6 +12,8 @@ class GeneralController < ApplicationController
 
   MAX_RESULTS = 500
 
+  before_filter :redirect_pros_to_dashboard, only: :frontpage
+
   # New, improved front page!
   def frontpage
     medium_cache
@@ -231,6 +233,14 @@ class GeneralController < ApplicationController
             OutgoingMessage.where(:prominence => 'normal',
                                   :message_type => 'followup').count
       }}
+    end
+  end
+
+  private
+
+  def redirect_pros_to_dashboard
+    if feature_enabled?(:alaveteli_pro) && current_user && current_user.pro?
+      redirect_to alaveteli_pro_dashboard_path
     end
   end
 end
