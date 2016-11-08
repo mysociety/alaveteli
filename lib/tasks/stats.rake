@@ -212,11 +212,10 @@ namespace :stats do
       # described_state column, and instead need to be calculated:
       overdue_count = 0
       very_overdue_count = 0
-      InfoRequest.find_each(:batch_size => 200,
+      InfoRequest.is_searchable.find_each(:batch_size => 200,
                             :conditions => {
                               :public_body_id => public_body.id,
                               :awaiting_description => false,
-                              :prominence => 'normal'
       }) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'

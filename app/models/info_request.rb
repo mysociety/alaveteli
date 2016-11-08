@@ -1272,14 +1272,15 @@ class InfoRequest < ActiveRecord::Base
     success_states = ['successful', 'partially_successful']
     basic_params = {
       :public_body_id => public_body_id,
-      :prominence => 'normal'
     }
-    [['info_requests_not_held_count', {:awaiting_description => false, :described_state => 'not_held'}],
-     ['info_requests_successful_count', {:awaiting_description => false, :described_state => success_states}],
-     ['info_requests_visible_classified_count', {:awaiting_description => false}],
+    [['info_requests_not_held_count', { :awaiting_description => false,
+                                        :described_state => 'not_held' }],
+     ['info_requests_successful_count', { :awaiting_description => false,
+                                          :described_state => success_states }],
+     ['info_requests_visible_classified_count', { :awaiting_description => false }],
      ['info_requests_visible_count', {}]].each do |column, extra_params|
        params = basic_params.clone.update extra_params
-       public_body.send "#{column}=", InfoRequest.where(params).count
+       public_body.send "#{column}=", InfoRequest.where(params).is_searchable.count
      end
      public_body.without_revision do
        public_body.no_xapian_reindex = true
