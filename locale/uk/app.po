@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-10-26 18:58+0000\n"
+"PO-Revision-Date: 2016-11-05 12:31+0000\n"
 "Last-Translator: hiiri <murahoid@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
 "Language: uk\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr "(звертаємо вашу увагу на те, що Тут не місце для політичних сварок)"
+msgstr "(звертаємо вашу увагу на те, що тут не місце для політичних сварок)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
 msgstr "(<strong>Наберіться терпіння</strong>, це може тривати досить довго, особливо якщо файл великий!)"
@@ -427,9 +427,7 @@ msgid "Annotations are so anyone, including you, can help the requester with the
 msgstr "Коментарі покликані допомагати авторам запитів. Наприклад:"
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
-"Коментарі з’являються в публічному доступі, але\n"
-"        <strong>не</strong> надсилаються до розпорядника інформації."
+msgstr "Коментарі з’являються в публічному доступі, але <strong>не</strong> надсилаються до розпорядника {{public_body_name}}."
 
 msgid "Anonymous user"
 msgstr "Анонімний користувач"
