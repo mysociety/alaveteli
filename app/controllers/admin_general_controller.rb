@@ -19,7 +19,7 @@ class AdminGeneralController < AdminController
             select { |pb| !pb.defunct? }
     @old_unclassified = InfoRequest.where_old_unclassified.
                                       limit(20).
-                                        where(:prominence => 'normal')
+                                        is_searchable
     @holding_pen_messages = InfoRequest.
       includes(:incoming_messages => :raw_email).
         holding_pen_request.
