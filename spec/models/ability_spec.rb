@@ -215,4 +215,47 @@ describe Ability do
       end
     end
   end
+
+  describe "accessing Alaveteli Pro" do
+    subject(:ability) { Ability.new(user) }
+
+    context "when the user is a pro" do
+      let(:user) { FactoryGirl.create(:pro_user) }
+      it "should return true" do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(ability).to be_able_to(:access, :alaveteli_pro)
+        end
+      end
+    end
+
+    context "when the user is an admin" do
+      let(:user) { FactoryGirl.create(:admin_user) }
+
+      it "should return true" do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(ability).to be_able_to(:access, :alaveteli_pro)
+        end
+      end
+    end
+
+    context "when the user is a normal user" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      it "should return false" do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(ability).not_to be_able_to(:access, :alaveteli_pro)
+        end
+      end
+    end
+
+    context "when the user is nil" do
+      let(:user) { nil }
+
+      it "should return false" do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(ability).not_to be_able_to(:access, :alaveteli_pro)
+        end
+      end
+    end
+  end
 end
