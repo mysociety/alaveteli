@@ -1,5 +1,6 @@
 class Ability
   include CanCan::Ability
+  include AlaveteliFeatures::Helpers
 
   def initialize(user)
     # Define abilities for the passed in user here. For example:
@@ -44,6 +45,13 @@ class Ability
     # Viewing requests with prominence
     can :read, InfoRequest do |request|
       self.class.can_view_with_prominence?(request.prominence, request, user)
+    end
+
+    # Accessing alaveteli professional
+    if feature_enabled? :alaveteli_pro
+      if user && (user.super? || user.pro?)
+        can :access, :alaveteli_pro
+      end
     end
   end
 
