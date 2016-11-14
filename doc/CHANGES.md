@@ -2,6 +2,13 @@
 
 ## Highlighted Features
 
+* Added task to export last 2 days of requests (`cleanup:spam_requests`)
+  (Gareth Rees)
+* Added admin comments list page (Gareth Rees)
+* Add "banned" label to banned users in admin users list for better visibility
+  (Gareth Rees)
+* Fix request counts for authorities on the body stats page (Henare Degan)
+* Cached mail server log delivery status (Liz Conlan, Gareth Rees)
 * Added favicon to `admin`, `no_chrome` and attachment to html layouts
   (Gareth Rees)
 * Search for requests made to a tagged set of public authorities (Henare Degan)
@@ -15,6 +22,8 @@
 
 ## Upgrade Notes
 
+* To cache delivery status of existing mail server logs run
+  `bundle exec rake temp:cache_delivery_status` after deployment.
 * `InfoRequest.last_public_response_clause`,
   `InfoRequest.old_unclassified_params`,
   `InfoRequest.count_old_unclassified`,
