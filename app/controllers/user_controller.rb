@@ -147,7 +147,7 @@ class UserController < ApplicationController
       error = true
     end
     @user_signup.valid?
-    user_alreadyexists = User.find_user_by_email(params[:user_signup][:email].strip)
+    user_alreadyexists = User.find_user_by_email(params[:user_signup][:email])
     if user_alreadyexists
       # attempt to remove the 'already in use message' from the errors hash
       # so it doesn't get accidentally shown to the end user
