@@ -48,9 +48,17 @@
 
         <li class="action-menu__menu__item">
           <ul class="action-menu__menu__submenu anyone_actions">
-            <li>
-              <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %><span class="action-menu__info-link"><%= link_to _("Help"), help_about_path %></span>
-            </li>
+
+            <% if @info_request.attention_requested %>
+              <%# The request has already been reported %>
+              <li>
+                <%=  _("Report this request") %><span class="action-menu__info-link"><a href="#">Unavailable</a></span>
+              </li>
+            <% else %>
+              <li>
+               <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %><span class="action-menu__info-link"><%= link_to _("Help"), help_about_path %></span>
+              </li>
+            <% end %>
 
             <% if AlaveteliConfiguration.enable_annotations && @info_request.comments_allowed? %>
               <li>
