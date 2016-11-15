@@ -163,6 +163,9 @@
   page (Louise Crow)
 * Added strong parameters gem for better mass assignment security (Gareth Rees)
 * Added experimental Xapian database replication (Hazel Smith, Louise Crow)
+* Request prominence logic more consistent, embargoed requests introduced as an
+  Alaveteli Pro feature (Louise Crow)
+
 
 ## Upgrade Notes
 
