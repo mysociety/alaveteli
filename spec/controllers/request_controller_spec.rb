@@ -188,6 +188,13 @@ describe RequestController, "when showing one request" do
     it "should allow the user to report" do
       title = info_requests(:badger_request).url_title
       get :show, :url_title => title
+      expect(response.body).to have_css('.anyone_actions a',
+                                        :text => "Report this request")
+    end
+
+    it "does not show the request as having been reported" do
+      title = info_requests(:badger_request).url_title
+      get :show, :url_title => title
       expect(response.body).not_to have_content("This request has been reported")
     end
   end
@@ -196,15 +203,35 @@ describe RequestController, "when showing one request" do
     before :each do
       info_requests(:fancy_dog_request).report!("", "", nil)
     end
+
     it "should inform the user" do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
       expect(response.body).to have_content("This request has been reported")
+    end
+
+    it "does not allow the request to be reported again" do
+      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+      expect(response.body).not_to have_css('.anyone_actions a',
+                                            :text => "Report this request")
     end
 
     context "and then deemed okay and left to complete" do
       before :each do
         info_requests(:fancy_dog_request).set_described_state("successful")
       end
+
+      it "does not allow the request to be reported again" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        expect(response.body).not_to have_css('.anyone_actions a',
+                                              :text => "Report this request")
+      end
+
+      it "does not show the user the request has been reported message" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        expect(response.body).
+          not_to have_content("This request has been reported")
+      end
+
       it "should let the user know that the administrators have not hidden this request" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         expect(response.body).to match(/the site administrators.*have not hidden it/)
