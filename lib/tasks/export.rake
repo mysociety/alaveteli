@@ -26,27 +26,20 @@ class HasTagStringTag < ActiveRecord::Base
   self.table_name = "has_tag_string_tags"
 end
 
-def case_insensitive_user_censor(text, user)
-  # remove all instances of user's name (if there is a user)
-  if user == nil
-    return text
-  else
-    return case_insensitive_name_censor(text, user.name)
-  end
-  name = user.name
-end
 
-def case_insensitive_name_censor(text, name)
-  # remove all instances of name (case insensitive from text)
-  if text == nil
-    return nil
+# Remove all instances of user's name (if there is a user), otherwise
+#  return the original text unchanged
+#
+# text - the raw text that needs redaction
+# user - the user object (may be nil)
+#
+# Returns a String
+def case_insensitive_user_censor(text, user)
+  if user && text
+    text.gsub(/#{user.name}/i, "<REQUESTER>")
+  else
+    text
   end
-	loc = text.downcase.index(name.downcase)
-	while loc != nil
-		text = text[0...loc] + "<REQUESTER>" + text[loc+name.length..text.length]
-		loc = text.downcase.index(name.downcase)
-	end
-	return text
 end
 
 def name_censor_lambda(property)
