@@ -12,6 +12,8 @@
 * Apache and nginx example files now have far-future expiration dates for static assets
   to allow browser-based caching (Louise Crow)
 * New requests are now recorded as virtual pageviews in Google Analytics (Louise Crow)
+* Request prominence logic more consistent, embargoed requests introduced as an
+  Alaveteli Pro feature (Louise Crow)
 
 ## Upgrade Notes
 
