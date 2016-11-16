@@ -1,0 +1,113 @@
+$chart-fill-color: lighten(#2688dc, 65%);
+$chart-line-color: lighten(#2688dc, 20%);
+.chart {
+  @include clearfix();
+
+  svg {
+    overflow: visible;
+  }
+
+  text {
+    fill: #333;
+    font-size: .875em;
+  }
+
+  .chart-area {
+    fill: $chart-fill-color;
+  }
+
+  .y-axis,
+  .x-axis {
+    line {
+      stroke: #888;
+      stroke-width: 1px;
+    }
+
+    .domain {
+      display: none;
+    }
+  }
+}
+
+.chart-title {
+  width: 100%;
+  float: none;
+  clear: both;
+}
+
+.x-axis-baseline {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+.chart-line {
+  fill: none;
+  stroke: $chart-line-color;
+  stroke-width: 2px;
+
+  &.chart-clipping-below {
+    display: none;
+  }
+}
+
+.chart-area-stacked {
+  .axis {
+    line,
+    path {
+      fill: none;
+      stroke: #888;
+      stroke-width: 2px;
+    }
+  }
+}
+
+.chart-with-callout {
+  svg {
+    width: 100%;
+    height: auto;
+
+    @include respond-min(40em) {
+      float: left;
+      clear: left;
+      width: 80%;
+    }
+  }
+
+  .chart-callout {
+    @include respond-min(40em) {
+      float: right;
+      width: 20%;
+    }
+  }
+
+  text {
+    font-size: 1em;
+
+    @include respond-min(40em) {
+      font-size: .875em;
+    }
+  }
+}
+
+.chart-callout-heading {
+  display: block;
+}
+
+.chart-callout-subheading {
+  display: block;
+  font-weight: normal;
+}
+
+.chart-overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus {
+  circle {
+    stroke: $chart-line-color;
+    stroke-width: 2px;
+    fill: transparent;
+  }
+}

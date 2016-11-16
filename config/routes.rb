@@ -44,6 +44,10 @@ Alaveteli::Application.routes.draw do
         :via => :get
   #####
 
+  ##### Statistics controller
+  get '/statistics' => 'statistics#index'
+  get '/body_statistics' => redirect('/statistics#public_bodies'), :as => :public_bodies_statistics
+
   ##### Request controller
   match '/list/recent' => 'request#list',
         :as => :request_list_recent,
@@ -283,9 +287,6 @@ Alaveteli::Application.routes.draw do
         :via => :get
   match '/body/:url_name/:tag/:view' => 'public_body#show',
         :as => :show_public_body_tag_view,
-        :via => :get
-  match '/body_statistics' => 'public_body#statistics',
-        :as => :public_bodies_statistics,
         :via => :get
   ####
 

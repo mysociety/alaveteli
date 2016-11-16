@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Update EventType when only editing prominence to hide'
+  task :update_hide_event_type => :environment do
+    InfoRequestEvent.find_each do |event|
+      if event.only_editing_prominence_to_hide?
+        event.update_attributes!(event_type: "hide")
+      end
+    end
+  end
+
   desc 'Cache the delivery status of mail server logs'
   task :cache_delivery_status => :environment do
     MailServerLog.where(:delivery_status => nil).find_each do |mail_log|

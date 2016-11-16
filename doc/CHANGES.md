@@ -2,6 +2,11 @@
 
 ## Highlighted Features
 
+* New statistics page that includes user stats to show top requesters and
+  annotators, and hidden  requests. Includes a new event type of "hide" to
+  make tracking and reporting on hidden requests much simpler. Need to run
+  `rake temp:update_hide_event_type` to set up the data for this feature
+  (Henare Degan, Luke Bacon)
 * Added task to export last 2 days of requests (`cleanup:spam_requests`)
   (Gareth Rees)
 * Added admin comments list page (Gareth Rees)
@@ -40,6 +45,8 @@
   reindex Xapian. To make this quicker you can selectively reindex just the
   model and new term by running
   `bundle exec rake xapian:rebuild_index models="InfoRequestEvent" terms="X"`
+* To update events to use the new 'hide' event type you need to run
+  `rake temp:update_hide_event_type`
 
 ### Changed Templates
 
