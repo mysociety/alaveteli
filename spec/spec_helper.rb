@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'simplecov'
 require 'coveralls'
+require "alaveteli_features/spec_helpers"
 
 cov_formats = [Coveralls::SimpleCov::Formatter]
 cov_formats << SimpleCov::Formatter::HTMLFormatter if ENV['COVERAGE'] == 'local'
@@ -124,6 +125,9 @@ RSpec.configure do |config|
     end
   end
 end
+
+# Helper with_xxx methods for working with feature flags
+include AlaveteliFeatures::SpecHelpers
 
 # Use the before create job hook to simulate a race condition with
 # another process by creating an acts_as_xapian_job record for the
