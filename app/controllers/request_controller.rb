@@ -142,7 +142,12 @@ class RequestController < ApplicationController
     if cannot?(:read, @info_request)
       return render_hidden
     end
-    @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
+    @columns = ['id',
+                'event_type',
+                'created_at',
+                'described_state',
+                'last_described_at',
+                'calculated_state' ]
   end
 
   # Requests similar to this one
@@ -156,13 +161,15 @@ class RequestController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
     end
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-    raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
 
     if cannot?(:read, @info_request)
       return render_hidden
     end
-    @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
-                                               :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
+    @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent],
+                                               @info_request.info_request_events,
+                                               :offset => (@page - 1) * @per_page,
+                                               :limit => @per_page,
+                                               :collapse_by_prefix => 'request_collapse')
     @matches_estimated = @xapian_object.matches_estimated
     @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
   end
