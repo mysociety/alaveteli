@@ -214,6 +214,14 @@ describe RequestController, "when showing one request" do
     end
   end
 
+  context 'when the request is embargoed' do
+    it 'raises ActiveRecord::RecordNotFound' do
+      embargoed_request = FactoryGirl.create(:embargoed_request)
+      expect{ get :show, :url_title => embargoed_request.url_title }
+        .to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+
   describe 'when the request is being viewed by an admin' do
 
     describe 'if the request is awaiting description' do
@@ -2269,13 +2277,21 @@ describe RequestController, "when showing similar requests" do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
+  it 'raises ActiveRecord::RecordNotFound if the request is embargoed' do
+    badger_request.create_embargo(:publish_at => Time.now + 3.days)
+    expect {
+      get :similar, :url_title => badger_request.url_title
+    }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
 end
 
 describe RequestController, "when caching fragments" do
   it "should not fail with long filenames" do
     long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
     info_request = double(InfoRequest, :prominence => 'normal',
-                                       :is_public? => true)
+                                       :is_public? => true,
+                                       :embargo => nil)
     incoming_message = double(IncomingMessage, :info_request => info_request,
                             :parse_raw_email! => true,
                             :info_request_id => 132,
