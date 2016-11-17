@@ -76,22 +76,26 @@ class InfoRequest < ActiveRecord::Base
   has_many :comments, :order => 'created_at', :dependent => :destroy
   has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
   has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
+  has_one :embargo
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
   has_tag_string
 
-  scope :visible, -> { where(prominence: "normal") }
+  scope :is_public, Prominence::PublicQuery.new
+  scope :is_searchable, Prominence::SearchableQuery.new
+  scope :embargoed, Prominence::EmbargoedQuery.new
+  scope :not_embargoed, Prominence::NotEmbargoedQuery.new
+
+  def self.visible
+    warn %q([DEPRECATION] InfoRequest#visible will be removed in
+        0.27. It has been replaced by InfoRequest#is_public).squish
+    self.is_public
+  end
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
-
-  validates_inclusion_of :prominence, :in => [
-    'normal',
-    'backpage',
-    'hidden',
-    'requester_only'
-  ]
+  validates_inclusion_of :prominence, :in => Prominence::VALUES
 
   validates_inclusion_of :law_used, :in => [
     'foi', # Freedom of Information Act
@@ -169,6 +173,23 @@ class InfoRequest < ActiveRecord::Base
      _("Other")]
   end
 
+
+  # Public: Overrides the ActiveRecord attribute accessor
+  #
+  # opts = Hash of options (default: {})
+  #        :decorate - Wrap the string in a ProminenceCalculator decorator that
+  #        has methods indicating whether the InfoRequest is public, searchable
+  #        etc.
+  # Returns a String or ProminenceCalculator
+  def prominence(opts = {})
+    decorate = opts.fetch(:decorate, false)
+    if decorate
+      Prominence::Calculator.new(self)
+    else
+      read_attribute(:prominence)
+    end
+  end
+
   def must_be_valid_state
     unless InfoRequest.enumerate_states.include?(described_state)
       errors.add(:described_state, "is not a valid state")
@@ -177,6 +198,10 @@ class InfoRequest < ActiveRecord::Base
 
   def is_batch_request_template?
     is_batch_request_template == true
+  end
+
+  def indexed_by_search?
+    prominence(:decorate => true).is_searchable?
   end
 
   # The request must either be internal, in which case it has
@@ -776,7 +801,7 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def public_outgoing_events
-    info_request_events.select{|e| e.outgoing? && e.outgoing_message.all_can_view? }
+    info_request_events.select{|e| e.outgoing? && e.outgoing_message.is_public? }
   end
 
   # The last public outgoing message
@@ -789,7 +814,7 @@ class InfoRequest < ActiveRecord::Base
     return '' if outgoing_messages.empty?
     body_opts = { :censor_rules => applicable_censor_rules }
     first_message = outgoing_messages.first
-    first_message.all_can_view? ? first_message.get_text_for_indexing(true, body_opts) : ''
+    first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
   end
 
   # Returns index of last event which is described or nil if none described.
@@ -1030,7 +1055,7 @@ class InfoRequest < ActiveRecord::Base
 
   def zip_cache_file_suffix(user)
     # Simple short circuit for requests where everything is public
-    if all_can_view_all_correspondence?
+    if all_correspondence_is_public?
       ""
     # If the user can view hidden things, they can view anything, so no need
     # to go any further
@@ -1061,7 +1086,7 @@ class InfoRequest < ActiveRecord::Base
       end
       incoming_message.safe_mail_from
 
-      next if ! incoming_message.all_can_view?
+      next if ! incoming_message.is_public?
 
       email = OutgoingMailer.email_for_followup(self, incoming_message)
       name = OutgoingMailer.name_for_followup(self, incoming_message)
@@ -1132,22 +1157,22 @@ class InfoRequest < ActiveRecord::Base
     user.id == user_id
   end
 
-  # Is this request visible to everyone?
   def all_can_view?
-    %w(normal backpage).include?(prominence)
+    warn %q([DEPRECATION] InfoRequest#all_can_view? will be removed in
+    0.27. It has been replaced by InfoRequest.prominence#is_public?).squish
+    prominence(:decorate => true).is_public?
   end
 
   def all_can_view_all_correspondence?
-    all_can_view? &&
-      incoming_messages.all?{ |message| message.all_can_view? } &&
-      outgoing_messages.all?{ |message| message.all_can_view? }
+    warn %q([DEPRECATION] InfoRequest#all_can_view_all_correspondence? will be removed in
+    0.27. It has been replaced by InfoRequest#all_correspondence_is_public?).squish
+    all_correspondence_is_public?
   end
 
-  def indexed_by_search?
-    if prominence == 'backpage' || prominence == 'hidden' || prominence == 'requester_only'
-      return false
-    end
-    true
+  def all_correspondence_is_public?
+    prominence(:decorate => true).is_public? &&
+      incoming_messages.all?{ |message| message.is_public? } &&
+      outgoing_messages.all?{ |message| message.is_public? }
   end
 
   def self.reject_incoming_at_mta(options)
@@ -1245,14 +1270,15 @@ class InfoRequest < ActiveRecord::Base
     success_states = ['successful', 'partially_successful']
     basic_params = {
       :public_body_id => public_body_id,
-      :prominence => 'normal'
     }
-    [['info_requests_not_held_count', {:awaiting_description => false, :described_state => 'not_held'}],
-     ['info_requests_successful_count', {:awaiting_description => false, :described_state => success_states}],
-     ['info_requests_visible_classified_count', {:awaiting_description => false}],
+    [['info_requests_not_held_count', { :awaiting_description => false,
+                                        :described_state => 'not_held' }],
+     ['info_requests_successful_count', { :awaiting_description => false,
+                                          :described_state => success_states }],
+     ['info_requests_visible_classified_count', { :awaiting_description => false }],
      ['info_requests_visible_count', {}]].each do |column, extra_params|
        params = basic_params.clone.update extra_params
-       public_body.send "#{column}=", InfoRequest.where(params).count
+       public_body.send "#{column}=", InfoRequest.where(params).is_searchable.count
      end
      public_body.without_revision do
        public_body.no_xapian_reindex = true

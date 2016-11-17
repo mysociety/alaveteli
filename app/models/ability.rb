@@ -54,13 +54,24 @@ class Ability
   end
 
   def self.can_view_with_prominence?(prominence, info_request, user)
-    if prominence == 'hidden'
-      return User.view_hidden?(user)
+    if info_request.embargo
+      case prominence
+      when 'hidden'
+        User.view_hidden_and_embargoed?(user)
+      when 'requester_only'
+        info_request.is_actual_owning_user?(user) || User.view_hidden_and_embargoed?(user)
+      else
+        info_request.is_actual_owning_user?(user) || User.view_embargoed?(user)
+      end
+    else
+      case prominence
+      when 'hidden'
+        User.view_hidden?(user)
+      when 'requester_only'
+        info_request.is_actual_owning_user?(user) || User.view_hidden?(user)
+      else
+        true
+      end
     end
-    if prominence == 'requester_only'
-      return info_request.is_owning_user?(user)
-    end
-    return true
   end
-
 end

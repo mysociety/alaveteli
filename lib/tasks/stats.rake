@@ -212,11 +212,10 @@ namespace :stats do
       # described_state column, and instead need to be calculated:
       overdue_count = 0
       very_overdue_count = 0
-      InfoRequest.find_each(:batch_size => 200,
+      InfoRequest.is_searchable.find_each(:batch_size => 200,
                             :conditions => {
                               :public_body_id => public_body.id,
                               :awaiting_description => false,
-                              :prominence => 'normal'
       }) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'
@@ -278,7 +277,7 @@ namespace :stats do
     puts CSV.generate_line(["public_body_id", "public_body_name", "request_created_timestamp", "request_title", "request_body"])
 
     PublicBody.limit(20).order('info_requests_visible_count DESC').each do |body|
-      body.info_requests.where(:prominence => 'normal').find_each do |request|
+      body.info_requests.is_searchable.find_each do |request|
         puts CSV.generate_line([request.public_body.id, request.public_body.name, request.created_at, request.url_title, request.initial_request_text.gsub("\r\n", " ").gsub("\n", " ")])
       end
     end

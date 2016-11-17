@@ -32,7 +32,7 @@ class Comment < ActiveRecord::Base
     :check_body_uses_mixed_capitals
 
   scope :visible, -> {
-    joins(:info_request).merge(InfoRequest.visible).where(:visible => true)
+    joins(:info_request).merge(InfoRequest.is_searchable).where(:visible => true)
   }
 
   after_save :event_xapian_update
