@@ -2228,36 +2228,42 @@ describe RequestController, "when doing type ahead searches" do
 end
 
 describe RequestController, "when showing similar requests" do
-  render_views
 
   before do
     get_fixtures_xapian_index
     load_raw_emails_data
   end
 
-  it "should work" do
+  let(:badger_request){ info_requests(:badger_request) }
+
+  it "renders the 'similar' template" do
     get :similar, :url_title => info_requests(:badger_request).url_title
     expect(response).to render_template("request/similar")
+  end
+
+  it 'assigns the request' do
+    get :similar, :url_title => info_requests(:badger_request).url_title
     expect(assigns[:info_request]).to eq(info_requests(:badger_request))
   end
 
-  it "should show similar requests" do
-    badger_request = info_requests(:badger_request)
+  it "assigns a xapian object with similar requests" do
     get :similar, :url_title => badger_request.url_title
 
     # Xapian seems to think *all* the requests are similar
-    expect(assigns[:xapian_object].results.map{|x|x[:model].info_request}).to match_array(InfoRequest.all.reject {|x| x == badger_request})
+    results = assigns[:xapian_object].results
+    expected = InfoRequest.all.reject{ |request| request == badger_request }
+    expect(results.map{ |result| result[:model].info_request })
+      .to match_array(expected)
   end
 
-  it "should 404 for non-existent paths" do
+  it "raises ActiveRecord::RecordNotFound for non-existent paths" do
     expect {
       get :similar, :url_title => "there_is_really_no_such_path_owNAFkHR"
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-
-  it "should return 404 for pages we don't want to serve up" do
-    badger_request = info_requests(:badger_request)
+  it "raises ActiveRecord::RecordNotFound for pages beyond the last
+      page we want to show" do
     expect {
       get :similar, :url_title => badger_request.url_title, :page => 100
     }.to raise_error(ActiveRecord::RecordNotFound)
