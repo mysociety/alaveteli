@@ -2623,3 +2623,66 @@ describe RequestController, "when the site is in read_only mode" do
     end
   end
 end
+
+describe RequestController do
+
+  describe 'GET details' do
+
+    let(:info_request){ FactoryGirl.create(:info_request)}
+
+    it 'renders the details template' do
+      get :details, :url_title => info_request.url_title
+      expect(response).to render_template('details')
+    end
+
+    it 'assigns the info_request' do
+      get :details, :url_title => info_request.url_title
+      expect(assigns[:info_request]).to eq(info_request)
+    end
+
+    it 'assigns columns' do
+      get :details, :url_title => info_request.url_title
+      expected_columns = ['id',
+                          'event_type',
+                          'created_at',
+                          'described_state',
+                          'last_described_at',
+                          'calculated_state' ]
+      expect(assigns[:columns]).to eq expected_columns
+    end
+
+    context 'when the request is hidden' do
+
+      before do
+        info_request.prominence = 'hidden'
+        info_request.save!
+      end
+
+      it 'returns a 403' do
+        get :details, :url_title => info_request.url_title
+        expect(response.code).to eq("403")
+      end
+
+      it 'shows the hidden request template' do
+        get :details, :url_title => info_request.url_title
+        expect(response).to render_template("request/hidden")
+      end
+
+    end
+
+    context 'when the request is embargoed' do
+
+      before do
+        info_request.create_embargo(:publish_at => Time.now + 3.days)
+      end
+
+      it 'raises an ActiveRecord::RecordNotFound error' do
+        expect{ get :details, :url_title => info_request.url_title }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+
+  end
+
+end
