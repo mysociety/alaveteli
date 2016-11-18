@@ -1512,6 +1512,16 @@ describe RequestController do
           :last_info_request_event_id => info_request.last_event_id_needing_description
       end
 
+      context 'when the request is embargoed' do
+
+        let(:info_request){ FactoryGirl.create(:embargoed_request) }
+
+        it 'should raise ActiveRecord::NotFound' do
+          expect{ post_status('rejected', info_request) }
+            .to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
       it "should require login" do
         post_status('rejected', info_request)
         expect(response).to redirect_to(:controller => 'user',
