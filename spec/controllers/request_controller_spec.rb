@@ -1628,6 +1628,24 @@ describe RequestController do
               expect(status_update_mail.to)
                 .to match([info_request.user.email])
             end
+
+            context "if the params don't include a message" do
+
+              it 'redirects to the message url' do
+                post :describe_state, :incoming_message =>
+                                        { :described_state => "requires_admin" },
+                                      :id => info_request.id,
+                                      :incoming_message_id =>
+                                        info_request.incoming_messages.last,
+                                      :last_info_request_event_id =>
+                                        info_request.last_event_id_needing_description
+                expected_url = describe_state_message_url(
+                                 :url_title => info_request.url_title,
+                                 :described_state => 'requires_admin')
+                expect(response).to redirect_to(expected_url)
+              end
+
+            end
           end
         end
       end
@@ -2039,6 +2057,24 @@ describe RequestController do
               .to redirect_to(
                     show_request_url(:url_title => info_request.url_title)
                   )
+          end
+
+          context "if the params don't include a message" do
+
+            it 'redirects to the message url' do
+              post :describe_state, :incoming_message =>
+                                      { :described_state => "error_message" },
+                                    :id => info_request.id,
+                                    :incoming_message_id =>
+                                      info_request.incoming_messages.last,
+                                    :last_info_request_event_id =>
+                                      info_request.last_event_id_needing_description
+              expected_url = describe_state_message_url(
+                               :url_title => info_request.url_title,
+                               :described_state => 'error_message')
+              expect(response).to redirect_to(expected_url)
+            end
+
           end
 
         end
@@ -2727,4 +2763,36 @@ describe RequestController do
 
   end
 
+end
+
+describe RequestController do
+  describe 'GET describe_state_message' do
+    let(:info_request){ FactoryGirl.create(:info_request_with_incoming) }
+
+    it 'assigns the info_request to the view' do
+      get :describe_state_message, :url_title => info_request.url_title,
+                                   :described_state => 'error_message'
+      expect(assigns[:info_request]).to eq info_request
+    end
+
+    it 'assigns the described state to the view' do
+      get :describe_state_message, :url_title => info_request.url_title,
+                                   :described_state => 'error_message'
+      expect(assigns[:described_state]).to eq 'error_message'
+    end
+
+    it 'assigns the last info request event id to the view' do
+       get :describe_state_message, :url_title => info_request.url_title,
+                                   :described_state => 'error_message'
+      expect(assigns[:last_info_request_event_id])
+        .to eq info_request.last_event_id_needing_description
+    end
+
+    it 'assigns the title to the view' do
+      get :describe_state_message, :url_title => info_request.url_title,
+                                   :described_state => 'error_message'
+      expect(assigns[:title]).to eq "I've received an error message"
+    end
+
+  end
 end
