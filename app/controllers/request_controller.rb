@@ -474,7 +474,8 @@ class RequestController < ApplicationController
     end
 
     if params[:last_info_request_event_id].to_i != info_request.last_event_id_needing_description
-      flash[:error] = _("The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again.")
+      flash[:error] = _("The request has been updated since you originally loaded this page. " \
+                        "Please check for any new incoming messages below, and try again.")
       redirect_to request_url(info_request)
       return
     end
@@ -485,7 +486,8 @@ class RequestController < ApplicationController
     # the administrators.
     # If this message hasn't been included then ask for it
     if ["error_message", "requires_admin"].include?(described_state) && message.nil?
-      redirect_to describe_state_message_url(:url_title => info_request.url_title, :described_state => described_state)
+      redirect_to describe_state_message_url(:url_title => info_request.url_title,
+                                             :described_state => described_state)
       return
     end
 
