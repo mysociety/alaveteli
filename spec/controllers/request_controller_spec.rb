@@ -2794,5 +2794,17 @@ describe RequestController do
       expect(assigns[:title]).to eq "I've received an error message"
     end
 
+    context 'when the request is embargoed' do
+      let(:info_request){ FactoryGirl.create(:embargoed_request) }
+
+      it 'raises ActiveRecord::RecordNotFound' do
+        expect{ get :describe_state_message,
+                      :url_title => info_request.url_title,
+                      :described_state => 'error_message' }
+          .to raise_error(ActiveRecord::RecordNotFound)
+
+      end
+
+    end
   end
 end
