@@ -550,7 +550,7 @@ class RequestController < ApplicationController
 
   # Collect a message to include with the change of state
   def describe_state_message
-    @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+    @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
     @described_state = params[:described_state]
     @last_info_request_event_id = @info_request.last_event_id_needing_description
     @title = case @described_state
