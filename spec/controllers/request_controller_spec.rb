@@ -2164,7 +2164,6 @@ end
 
 
 describe RequestController, "authority uploads a response from the web interface" do
-  render_views
 
   before(:each) do
     # domain after the @ is used for authentication of FOI officers, so to test it
