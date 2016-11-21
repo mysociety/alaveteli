@@ -2140,6 +2140,16 @@ describe RequestController, "authority uploads a response from the web interface
     @foi_officer_user.save!
   end
 
+  context 'when the request is embargoed' do
+    let(:embargoed_request){ FactoryGirl.create(:embargoed_request)}
+
+    it 'raises an ActiveRecord::RecordNotFound error' do
+      expect{get :upload_response, :url_title => embargoed_request.url_title }
+        .to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+  end
+
   it "should require login to view the form to upload" do
     @ir = info_requests(:fancy_dog_request)
     expect(@ir.public_body.is_foi_officer?(@normal_user)).to eq(false)
