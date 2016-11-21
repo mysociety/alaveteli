@@ -2808,3 +2808,17 @@ describe RequestController do
     end
   end
 end
+describe RequestController do
+
+  describe 'GET download_entire_request' do
+    context 'when the request is embargoed' do
+      let(:info_request){ FactoryGirl.create(:embargoed_request) }
+
+      it 'raises ActiveRecord::RecordNotFound' do
+        expect{ get :download_entire_request,
+                    :url_title => info_request.url_title }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+end
