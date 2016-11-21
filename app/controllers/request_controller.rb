@@ -733,7 +733,7 @@ class RequestController < ApplicationController
   def upload_response
     @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
-      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
 
       @reason_params = {
         :web => _("To upload a response, you must be logged in using an " \
