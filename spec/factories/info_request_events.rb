@@ -20,11 +20,29 @@ FactoryGirl.define do
 
   factory :info_request_event do
     info_request
-    event_type 'response'
+    event_type 'edit'
     params_yaml ''
+
     factory :sent_event do
       event_type 'sent'
+      association :outgoing_message, :factory => :initial_request
     end
+
+    factory :response_event do
+      event_type 'response'
+      incoming_message
+    end
+
+    factory :followup_sent_event do
+      event_type 'followup_sent'
+      association :outgoing_message, :factory => :new_information_followup
+    end
+
+    factory :comment_event do
+      event_type 'comment'
+      association :comment
+    end
+
   end
 
 end

@@ -2817,6 +2817,7 @@ describe RequestController do
     end
   end
 end
+
 describe RequestController do
 
   describe 'GET download_entire_request' do
@@ -2830,4 +2831,58 @@ describe RequestController do
       end
     end
   end
+end
+
+describe RequestController do
+
+  describe 'GET show_request_event' do
+
+    context 'when the event is an incoming message' do
+      let(:event){ FactoryGirl.create(:response_event) }
+
+      it 'returns a 301 status' do
+        get :show_request_event, :info_request_event_id => event.id
+        expect(response.status).to eq(301)
+      end
+
+      it 'redirects to the incoming message path' do
+        get :show_request_event, :info_request_event_id => event.id
+        expect(response)
+          .to redirect_to(incoming_message_path(event.incoming_message))
+      end
+
+    end
+
+    context 'when the event is an outgoing message' do
+      let(:event){ FactoryGirl.create(:sent_event) }
+
+      it 'returns a 301 status' do
+        get :show_request_event, :info_request_event_id => event.id
+        expect(response.status).to eq(301)
+      end
+
+      it 'redirects to the outgoing message path' do
+        get :show_request_event, :info_request_event_id => event.id
+        expect(response)
+          .to redirect_to(outgoing_message_path(event.outgoing_message))
+      end
+    end
+
+    context 'for any other kind of event' do
+      let(:event){ FactoryGirl.create(:info_request_event) }
+
+      it 'returns a 301 status' do
+        get :show_request_event, :info_request_event_id => event.id
+        expect(response.status).to eq(301)
+      end
+
+      it 'redirects to the request path' do
+        get :show_request_event, :info_request_event_id => event.id
+        expect(response)
+          .to redirect_to(show_request_path(event.info_request.url_title))
+      end
+    end
+
+  end
+
 end
