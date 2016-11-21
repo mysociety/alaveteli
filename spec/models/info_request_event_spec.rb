@@ -238,18 +238,16 @@ describe InfoRequestEvent do
 
   describe '#filetype' do
     context 'a response event' do
-      let(:ire) { ire = FactoryGirl.create(:info_request_event) }
+      let(:ire) { ire = FactoryGirl.create(:response_event) }
 
       it 'should raise an error if there is not incoming_message' do
+        ire.incoming_message = nil
         expect { ire.filetype }.to raise_error.
           with_message(/event type is 'response' but no incoming message for event/)
       end
 
       it 'should return a blank string if there are no attachments' do
         info_request = ire.info_request
-        incoming = FactoryGirl.create(:plain_incoming_message,
-                                      :info_request => info_request)
-        ire.incoming_message = incoming
         expect(ire.filetype).to eq('')
       end
 
