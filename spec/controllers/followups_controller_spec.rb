@@ -10,6 +10,12 @@ describe FollowupsController do
 
   describe "GET new" do
 
+    it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
+      embargoed_request = FactoryGirl.create(:embargoed_request)
+      expect{ get :new, :request_id => embargoed_request.id }
+        .to raise_error(ActiveRecord::RecordNotFound)
+    end
+
     it "displays 'wrong user' message when not logged in as the request owner" do
       session[:user_id] = FactoryGirl.create(:user)
       get :new, :request_id => request.id,
@@ -127,6 +133,13 @@ describe FollowupsController do
         :what_doing => 'normal_sort' }
     end
 
+    it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
+      embargoed_request = FactoryGirl.create(:embargoed_request)
+      expect{ post :preview, :outgoing_message => dummy_message,
+                             :request_id => embargoed_request.id }
+        .to raise_error(ActiveRecord::RecordNotFound)
+    end
+
     it "redirects to the signin page if not logged in" do
       post :preview, :outgoing_message => dummy_message,
                      :request_id => request.id,
@@ -189,6 +202,13 @@ describe FollowupsController do
 
     before(:each) do
       session[:user_id] = request_user.id
+    end
+
+    it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
+      embargoed_request = FactoryGirl.create(:embargoed_request)
+      expect{ post :create, :outgoing_message => dummy_message,
+                            :request_id => embargoed_request.id }
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "redirects to the signin page if not logged in" do
