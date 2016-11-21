@@ -214,6 +214,24 @@ describe RequestController, "when showing one request" do
     end
   end
 
+  it "should censor attachment names" do
+    info_request = FactoryGirl.create(:info_request_with_html_attachment)
+    get :show, :url_title => info_request.url_title
+    expect(response.body).to have_css('.attachment .attachment__name') do |s|
+      expect(s).to contain /interesting.pdf/m
+    end
+    # Note that the censor rule applies to the original filename,
+    # not the display_filename:
+    info_request.censor_rules.create!(:text => 'interesting.pdf',
+                               :replacement => "Mouse.pdf",
+                               :last_edit_editor => 'unknown',
+                               :last_edit_comment => 'none')
+    get :show, :url_title => info_request.url_title
+    expect(response.body).to have_css('.attachment .attachment__name') do |s|
+      expect(s).to contain /Mouse.pdf/m
+    end
+  end
+
   context 'when the request is embargoed' do
     it 'raises ActiveRecord::RecordNotFound' do
       embargoed_request = FactoryGirl.create(:embargoed_request)
@@ -424,77 +442,25 @@ describe RequestController, "when showing one request" do
       expect(response).to render_template "request/show"
     end
   end
+end
 
-  describe 'when handling incoming mail' do
+describe RequestController do
+  describe 'GET get_attachment' do
 
-    render_views
+    let(:info_request){ FactoryGirl.create(:info_request_with_incoming_attachments) }
 
-    it "should receive incoming messages, send email to creator, and show them" do
-      ir = info_requests(:fancy_dog_request)
-      ir.incoming_messages.each { |x| x.parse_raw_email! }
-
-      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      size_before = assigns[:info_request_events].size
-
-      receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.body).to match(/You have a new response to the Freedom of Information request/)
-
-      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      expect(assigns[:info_request_events].size - size_before).to eq(1)
-    end
-
-    it "should download attachments" do
-      ir = info_requests(:fancy_dog_request)
-      ir.incoming_messages.each { |x| x.parse_raw_email!(true) }
-
-      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      expect(response.content_type).to eq("text/html")
-      size_before = assigns[:info_request_events].size
-
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-
-      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      expect(assigns[:info_request_events].size - size_before).to eq(1)
-      ir.reload
-
-      get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-      expect(response.content_type).to eq("text/plain")
-      expect(response.body).to have_content "Second hello"
-
-      get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => 'hello world.txt', :skip_cache => 1
-      expect(response.content_type).to eq("text/plain")
-      expect(response.body).to have_content "First hello"
+    def get_attachment(params = {})
+      default_params = { :incoming_message_id =>
+                           info_request.incoming_messages.first.id,
+                         :id => info_request.id,
+                         :part => 2,
+                         :file_name => 'interesting.pdf' }
+      get :get_attachment, default_params.merge(params)
     end
 
     it 'should cache an attachment on a request with normal prominence' do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-      ir.reload
       expect(@controller).to receive(:foi_fragment_cache_write)
-      get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
-        :id => ir.id,
-        :part => 2,
-        :file_name => 'hello world.txt'
-    end
-
-    it "should convert message body to UTF8" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('iso8859_2_raw_email.email', ir.incoming_email)
-      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      expect(response.body).to have_content "tënde"
-    end
-
-    it "should generate valid HTML verson of plain text attachments" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-      ir.reload
-      get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      expect(response.content_type).to eq("text/html")
-      expect(response.body).to have_content "Second hello"
+      get_attachment
     end
 
     # This is a regression test for a bug where URLs of this form were causing 500 errors
@@ -508,231 +474,134 @@ describe RequestController, "when showing one request" do
     #
     # https://github.com/mysociety/alaveteli/issues/351
     it "should return 404 for ugly URLs containing a request id that isn't an integer" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-      ir.reload
       ugly_id = "55195"
-      expect {
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      }.to raise_error(ActiveRecord::RecordNotFound)
-
-      expect {
-        get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-    it "should return 404 when incoming message and request ids don't match" do
-      ir = info_requests(:fancy_dog_request)
-      wrong_id = info_requests(:naughty_chicken_request).id
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-      ir.reload
-      expect {
-        get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-    it "should return 404 for ugly URLs contain a request id that isn't an integer, even if the integer prefix refers to an actual request" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-      ir.reload
-      ugly_id = "%d95" % [info_requests(:naughty_chicken_request).id]
-
-      expect {
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      }.to raise_error(ActiveRecord::RecordNotFound)
-
-      expect {
-        get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-    it "should return 404 when incoming message and request ids don't match" do
-      ir = info_requests(:fancy_dog_request)
-      wrong_id = info_requests(:naughty_chicken_request).id
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-      ir.reload
-      expect {
-        get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { get_attachment(:id => ugly_id) }
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    it "should generate valid HTML verson of PDF attachments" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
-      ir.reload
-      get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'fs 50379341.pdf.html', :skip_cache => 1
-      expect(response.content_type).to eq("text/html")
-      expect(response.body).to have_content "Walberswick Parish Council"
+    it "should return 404 when incoming message and request ids
+        don't match" do
+      expect { get_attachment(:id => info_request.id + 1) }
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    it "should not cause a reparsing of the raw email, even when the attachment can't be found" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-      ir.reload
-      attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
-      expect(attachment.body).to have_content "Second hello"
-
-      # change the raw_email associated with the message; this only be reparsed when explicitly asked for
-      ir.incoming_messages[1].raw_email.data = ir.incoming_messages[1].raw_email.data.sub("Second", "Third")
-      # asking for an attachment by the wrong filename should result in redirecting
-      # back to the incoming message, but shouldn't cause a reparse:
-      get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.baz.html', :skip_cache => 1
-      expect(response.status).to eq(303)
-
-      attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
-      expect(attachment.body).to have_content "Second hello"
-
-      # ...nor should asking for it by its correct filename...
-      get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      expect(response.body).not_to have_content "Third hello"
-
-      # ...but if we explicitly ask for attachments to be extracted, then they should be
-      force = true
-      ir.incoming_messages[1].parse_raw_email!(force)
-      ir.reload
-      attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
-      expect(attachment.body).to have_content "Third hello"
-      get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
-      expect(response.body).to have_content "Third hello"
+    it "should return 404 for ugly URLs contain a request id that isn't an
+        integer, even if the integer prefix refers to an actual request" do
+      ugly_id = "#{FactoryGirl.create(:info_request).id}95"
+      expect { get_attachment(:id => ugly_id) }
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    it "should redirect to the incoming message if there's a wrong part number and an ambiguous filename" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-      ir.reload
-
-      im = ir.incoming_messages[1]
-
-      attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(im.get_attachments_for_display, 5, 'hello world.txt')
+    it "should redirect to the incoming message if there's a wrong part number
+        and an ambiguous filename" do
+      incoming_message = info_request.incoming_messages.first
+      attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(
+        incoming_message.get_attachments_for_display,
+        5,
+        'interesting.pdf'
+      )
       expect(attachment).to be_nil
-
-      get :get_attachment_as_html, :incoming_message_id => im.id, :id => ir.id, :part => 5, :file_name => 'hello world.txt', :skip_cache => 1
+      get_attachment(:part => 5)
       expect(response.status).to eq(303)
       new_location = response.header['Location']
-      expect(new_location).to match(/request\/#{ir.url_title}#incoming-#{im.id}/)
+      expect(new_location)
+        .to match incoming_message_path(incoming_message)
     end
 
     it "should find a uniquely named filename even if the URL part number was wrong" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
-      ir.reload
-      get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 5, :file_name => 'fs 50379341.pdf', :skip_cache => 1
-      expect(response.content_type).to eq("application/pdf")
-    end
-
-    it "should treat attachments with unknown extensions as binary" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
-      ir.reload
-
-      get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.qwglhm', :skip_cache => 1
-      expect(response.content_type).to eq("application/octet-stream")
-      expect(response.body).to have_content "an unusual sort of file"
+      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      get :get_attachment, :incoming_message_id =>
+                             info_request.incoming_messages.first.id,
+                           :id => info_request.id,
+                           :part => 5,
+                           :file_name => 'interesting.html',
+                           :skip_cache => 1
+      expect(response.body).to match('dull')
     end
 
     it "should not download attachments with wrong file name" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-
-      get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'http://trying.to.hack'
+      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      get :get_attachment, :incoming_message_id =>
+                             info_request.incoming_messages.first.id,
+                           :id => info_request.id,
+                           :part => 2,
+                           :file_name => 'http://trying.to.hack',
+                           :skip_cache => 1
       expect(response.status).to eq(303)
     end
 
     it "should sanitise HTML attachments" do
-      incoming_message = FactoryGirl.create(:incoming_message_with_html_attachment)
-      get :get_attachment, :incoming_message_id => incoming_message.id,
-        :id => incoming_message.info_request.id,
-        :part => 2,
-        :file_name => 'interesting.html',
-        :skip_cache => 1
+      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      get :get_attachment, :incoming_message_id =>
+                              info_request.incoming_messages.first.id,
+                           :id => info_request.id,
+                           :part => 2,
+                           :file_name => 'interesting.html',
+                           :skip_cache => 1
       expect(response.body).not_to match("script")
       expect(response.body).not_to match("interesting")
       expect(response.body).to match('dull')
     end
 
-    it "should censor attachments downloaded directly" do
-      ir = info_requests(:fancy_dog_request)
-
-      censor_rule = CensorRule.new
-      censor_rule.text = "Second"
-      censor_rule.replacement = "Mouse"
-      censor_rule.last_edit_editor = "unknown"
-      censor_rule.last_edit_comment = "none"
-      ir.censor_rules << censor_rule
-
-      begin
-        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-        expect(response.content_type).to eq("text/plain")
-        expect(response.body).to have_content "Mouse hello"
-      ensure
-        ir.censor_rules.clear
-      end
+    it "censors attachments downloaded directly" do
+      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      info_request.censor_rules.create!(:text => 'dull',
+                                       :replacement => "Mouse",
+                                       :last_edit_editor => 'unknown',
+                                       :last_edit_comment => 'none')
+      get :get_attachment, :incoming_message_id =>
+                        info_request.incoming_messages.first.id,
+                     :id => info_request.id,
+                     :part => 2,
+                     :file_name => 'interesting.html',
+                     :skip_cache => 1
+      expect(response.content_type).to eq("text/html")
+      expect(response.body).to have_content "Mouse"
     end
 
     it "should censor with rules on the user (rather than the request)" do
-      ir = info_requests(:fancy_dog_request)
+      info_request = FactoryGirl.create(:info_request_with_html_attachment)
+      info_request.user.censor_rules.create!(:text => 'dull',
+                                       :replacement => "Mouse",
+                                       :last_edit_editor => 'unknown',
+                                       :last_edit_comment => 'none')
+      get :get_attachment, :incoming_message_id =>
+                        info_request.incoming_messages.first.id,
+                     :id => info_request.id,
+                     :part => 2,
+                     :file_name => 'interesting.html',
+                     :skip_cache => 1
+      expect(response.content_type).to eq("text/html")
+      expect(response.body).to have_content "Mouse"
+    end
+  end
+end
 
-      censor_rule = CensorRule.new
-      censor_rule.text = "Second"
-      censor_rule.replacement = "Mouse"
-      censor_rule.last_edit_editor = "unknown"
-      censor_rule.last_edit_comment = "none"
-      ir.user.censor_rules << censor_rule
+describe RequestController do
+  describe 'GET get_attachment_as_html' do
+    let(:info_request){ FactoryGirl.create(:info_request_with_incoming_attachments) }
 
-      begin
-        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-        ir.reload
-
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
-        expect(response.content_type).to eq("text/plain")
-        expect(response.body).to have_content "Mouse hello"
-      ensure
-        ir.user.censor_rules.clear
-      end
+    def get_html_attachment(params = {})
+      default_params = { :incoming_message_id =>
+                           info_request.incoming_messages.first.id,
+                         :id => info_request.id,
+                         :part => 2,
+                         :file_name => 'interesting.pdf.html' }
+      get :get_attachment_as_html, default_params.merge(params)
     end
 
-    it "should censor attachment names" do
-      ir = info_requests(:fancy_dog_request)
-      receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-      attachment_name_selector = '.attachment .attachment__name'
-
-      # TODO: this is horrid, but don't know a better way.  If we
-      # don't do this, the info_request_event to which the
-      # info_request is attached still uses the unmodified
-      # version from the fixture.
-      #event = info_request_events(:useless_incoming_message_event)
-      ir.reload
-      assert ir.info_request_events[3].incoming_message.get_attachments_for_display.count == 2
-      ir.save!
-      ir.incoming_messages.last.save!
-      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      assert assigns[:info_request].info_request_events[3].incoming_message.get_attachments_for_display.count == 2
-      # the issue is that the info_request_events have got cached on them the old info_requests.
-      # where i'm at: trying to replace those fields that got re-read from the raw email.  however tests are failing in very strange ways.  currently I don't appear to be getting any attachments parsed in at all when in the template (see "*****" in _correspondence.html.erb) but do when I'm in the code.
-
-      # so at this point, assigns[:info_request].incoming_messages[1].get_attachments_for_display is returning stuff, but the equivalent thing in the template isn't.
-      # but something odd is that the above is return a whole load of attachments which aren't there in the controller
-      expect(response.body).to have_css(attachment_name_selector) do |s|
-        expect(s).to contain /hello world.txt/m
-      end
-
-      censor_rule = CensorRule.new
-      # Note that the censor rule applies to the original filename,
-      # not the display_filename:
-      censor_rule.text = "hello-world.txt"
-      censor_rule.replacement = "goodbye.txt"
-      censor_rule.last_edit_editor = "unknown"
-      censor_rule.last_edit_comment = "none"
-      ir.censor_rules << censor_rule
-      begin
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        expect(response.body).to have_css(attachment_name_selector) do |s|
-          expect(s).to contain /goodbye.txt/m
-        end
-      ensure
-        ir.censor_rules.clear
-      end
+    it "should return 404 for ugly URLs containing a request id that isn't an integer" do
+      ugly_id = "55195"
+      expect { get_html_attachment(:id => ugly_id) }
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
 
+    it "should return 404 for ugly URLs contain a request id that isn't an
+        integer, even if the integer prefix refers to an actual request" do
+      ugly_id = "#{FactoryGirl.create(:info_request).id}95"
+      expect { get_html_attachment(:id => ugly_id) }
+        .to raise_error(ActiveRecord::RecordNotFound)
+    end
 
   end
 end

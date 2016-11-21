@@ -52,6 +52,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :info_request_with_html_attachment do
+      after(:create) do |info_request, evaluator|
+        incoming_message = create(:incoming_message_with_html_attachment, :info_request => info_request)
+        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+      end
+    end
+
     factory :info_request_with_incoming_attachments do
       after(:create) do |info_request, evaluator|
         incoming_message = create(:incoming_message_with_attachments, :info_request => info_request)
