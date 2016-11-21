@@ -567,6 +567,9 @@ class RequestController < ApplicationController
   # proper URL for the message the event refers to
   def show_request_event
     @info_request_event = InfoRequestEvent.find(params[:info_request_event_id])
+    if @info_request_event.info_request.embargo
+      raise ActiveRecord::RecordNotFound
+    end
     if @info_request_event.is_incoming_message?
       redirect_to incoming_message_url(@info_request_event.incoming_message), :status => :moved_permanently
     elsif @info_request_event.is_outgoing_message?
