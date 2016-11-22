@@ -75,6 +75,8 @@ FactoryGirl.define do
     factory :embargoed_request do
       after(:create) do |info_request, evaluator|
         embargo = create(:embargo, :info_request => info_request)
+        incoming_message = create(:incoming_message_with_attachments, :info_request => info_request)
+        info_request.log_event("response", {:incoming_message_id => incoming_message.id})
       end
     end
 
