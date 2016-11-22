@@ -10,6 +10,7 @@ class InfoRequestBatchPublicBody < ActiveRecord::Base
   self.table_name = "info_request_batches_public_bodies"
   belongs_to :info_request_batch
   belongs_to :public_body
+  default_scope -> { order("info_request_batch_id ASC, public_body_id ASC") }
 end
 
 class PublicBodyCategoryTranslation < ActiveRecord::Base
@@ -49,6 +50,22 @@ def name_censor_lambda(property)
   end
 end
 
+# clunky wrapper for Rails' find_each method to cope with tables that
+# don't have an integer type primary key
+def find_each_record(model)
+  # if the model has a primary key and the primary key is an integer
+  if model.primary_key && model.columns_hash[model.primary_key].type == :integer
+    model.find_each { |record| yield record }
+  else
+    limit = 1000
+    offset = 0
+    while offset <= model.count
+      model.limit(limit).offset(offset).each { |record| yield record }
+      offset += limit
+    end
+  end
+end
+
 
 # Exports a model
 #
@@ -59,8 +76,8 @@ end
 # Returns a String
 def csv_export(model, query=nil, header=nil, override={})
   # set query and header to default values unless supplied
-  query = model.all unless query
-  header = model.column_names unless header
+  query  ||= model
+  header ||= model.column_names
 
   now = Time.now.strftime("%d-%m-%Y")
   filename = "exports/#{model.name}-#{now}.csv"
@@ -69,7 +86,7 @@ def csv_export(model, query=nil, header=nil, override={})
 
   CSV.open(filename, "wb") do |csv|
     csv << header
-    query.each do |item|
+    find_each_record(query) do |item|
       line  = []
       header.each do |h|
         if override.key?(h) #do we have an override for this column?
@@ -98,7 +115,7 @@ task :research_export => :environment do
 
   #export public body information
   csv_export( PublicBody,
-              PublicBody.all,
+              nil,
               ["id",
               "short_name",
               "created_at",
@@ -114,7 +131,7 @@ task :research_export => :environment do
 
   #export non-personal user fields
   csv_export( User,
-              User.all,
+              nil,
               ["id",
               "name",
               "info_requests_count",
