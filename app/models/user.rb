@@ -71,6 +71,8 @@ class User < ActiveRecord::Base
   has_many :request_classifications,
            :dependent => :destroy
 
+  scope :not_banned, -> { where(ban_text: "") }
+
   validates_presence_of :email, :message => _("Please enter your email address")
   validates_presence_of :name, :message => _("Please enter your name")
   validates_presence_of :hashed_password, :message => _("Please enter a password")

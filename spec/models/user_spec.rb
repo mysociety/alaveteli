@@ -874,6 +874,15 @@ describe User do
 
   end
 
+  describe '.not_banned' do
+
+    it 'should not return banned users' do
+      user = FactoryGirl.create(:user, :ban_text => 'banned')
+      expect(User.not_banned).not_to include(user)
+    end
+
+  end
+
   describe '#confirm' do
 
     it 'confirms an unconfirmed user' do

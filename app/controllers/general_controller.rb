@@ -221,7 +221,8 @@ class GeneralController < ApplicationController
           :ruby_version => RUBY_VERSION,
           :visible_public_body_count => PublicBody.visible.count,
           :visible_request_count => InfoRequest.visible.count,
-          :confirmed_user_count => User.where(:email_confirmed => true).count,
+          :confirmed_user_count => User.not_banned.
+                                     where(:email_confirmed => true).count,
           :visible_comment_count => Comment.visible.count,
           :track_thing_count => TrackThing.count,
           :widget_vote_count => WidgetVote.count,

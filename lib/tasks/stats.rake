@@ -70,7 +70,7 @@ namespace :stats do
       follow_up_count = OutgoingMessage.where(followup_conditions).count
 
       confirmed_users_count =
-        User.
+        User.not_banned.
           where(:email_confirmed => true).
             where(date_conditions).
               count

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Exclude banned users from graphs and stats tasks (Liz Conlan)
 * New statistics page that includes user stats to show top requesters and
   annotators, and hidden  requests. Includes a new event type of "hide" to
   make tracking and reporting on hidden requests much simpler. Need to run
