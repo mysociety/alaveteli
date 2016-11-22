@@ -599,6 +599,17 @@ describe RequestController do
       expect(response.content_type).to eq("text/html")
       expect(response.body).to have_content "Mouse"
     end
+
+    it 'returns an ActiveRecord::RecordNotFound error for an embargoed request' do
+      info_request = FactoryGirl.create(:embargoed_request)
+      expect{ get :get_attachment, :incoming_message_id =>
+                                    info_request.incoming_messages.first.id,
+                                   :id => info_request.id,
+                                   :part => 2,
+                                   :file_name => 'interesting.pdf',
+                                   :skip_cache => 1 }
+        .to raise_error ActiveRecord::RecordNotFound
+    end
   end
 end
 
@@ -626,6 +637,16 @@ describe RequestController do
       ugly_id = "#{FactoryGirl.create(:info_request).id}95"
       expect { get_html_attachment(:id => ugly_id) }
         .to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'returns an ActiveRecord::RecordNotFound error for an embargoed request' do
+      info_request = FactoryGirl.create(:embargoed_request)
+      expect{ get :get_attachment_as_html, :incoming_message_id =>
+                                          info_request.incoming_messages.first.id,
+                                        :id => info_request.id,
+                                        :part => 2,
+                                        :file_name => 'interesting.pdf.html' }
+        .to raise_error ActiveRecord::RecordNotFound
     end
 
   end
