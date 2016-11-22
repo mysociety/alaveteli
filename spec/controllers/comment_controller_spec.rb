@@ -4,6 +4,16 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe CommentController, "when commenting on a request" do
   render_views
 
+  it 'returns a 404 when the info request is embargoed' do
+    embargoed_request = FactoryGirl.create(:embargoed_request)
+    expect{ post :new, :url_title => embargoed_request.url_title,
+                       :comment => { :body => "Some content" },
+                       :type => 'request',
+                       :submitted_comment => 1,
+                       :preview => 1 }
+      .to raise_error ActiveRecord::RecordNotFound
+  end
+
   it "should give an error and render 'new' template when body text is just some whitespace" do
     post :new, :url_title => info_requests(:naughty_chicken_request).url_title,
       :comment => { :body => "   " },
