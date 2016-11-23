@@ -376,7 +376,7 @@ class RequestController < ApplicationController
 
     if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
 
-      if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(@outgoing_message.subject) }
+      if AlaveteliSpamTermChecker.new.spam?(@outgoing_message.subject)
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
         if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
           e = Exception.new("Spam request from user #{@info_request.user.id}")
