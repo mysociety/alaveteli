@@ -7,6 +7,7 @@
 <div class="row">
   <%= form_tag({}, :method => "get", :class => "span12 form form-search") do %>
     <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query"} %>
+    <%= hidden_field_tag 'sort_order', @sort_order %>
     <%= submit_tag "Search", :class => "btn" %> (substring search, names and emails)
     <%= link_to 'Banned users', banned_admin_users_path, :class => "btn btn-info" %>
   <% end %>
