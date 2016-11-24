@@ -206,7 +206,9 @@ EOF
     end
 
     help_templates_info = [{:name => 'about',
-                            :sections => ['whybother_them']},
+                            :sections => ['whybother_them',
+                                          'reporting',
+                                          'reporting_unavailable']},
                            {:name => 'alaveteli',
                             :sections => []},
                            {:name => 'api',
