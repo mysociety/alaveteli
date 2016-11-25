@@ -2640,7 +2640,7 @@ end
 
 describe RequestController do
 
-  describe 'GET details' do
+  describe 'GET #details' do
 
     let(:info_request){ FactoryGirl.create(:info_request)}
 
@@ -2702,7 +2702,7 @@ describe RequestController do
 end
 
 describe RequestController do
-  describe 'GET describe_state_message' do
+  describe 'GET #describe_state_message' do
     let(:info_request){ FactoryGirl.create(:info_request_with_incoming) }
 
     it 'assigns the info_request to the view' do
@@ -2747,7 +2747,7 @@ end
 
 describe RequestController do
 
-  describe 'GET download_entire_request' do
+  describe 'GET #download_entire_request' do
     context 'when the request is embargoed' do
       let(:info_request){ FactoryGirl.create(:embargoed_request) }
 
@@ -2762,7 +2762,7 @@ end
 
 describe RequestController do
 
-  describe 'GET show_request_event' do
+  describe 'GET #show_request_event' do
 
     context 'when the event is an incoming message' do
       let(:event){ FactoryGirl.create(:response_event) }
