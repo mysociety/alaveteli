@@ -1,0 +1,26 @@
+/* Style for the requests page */
+
+.requests__header {
+  background-color: #f3f1eb;
+}
+
+.request {
+  border-bottom: 1px solid #ccc;
+}
+
+.request__title {
+  font-size: 1.25em;
+}
+
+.request__recipient,
+.request__created,
+.request__updated,
+.request__status,
+.request__actions {
+  font-size: 0.9em;
+}
+
+.request__meta__label {
+  font-size: 0.8em;
+  color: #999;
+}

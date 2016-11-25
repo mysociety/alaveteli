@@ -1,0 +1,48 @@
+<div class="dashboard">
+
+  <div class="dashboard-header">
+    <h1><%= _('Requests') %></h1>
+  </div>
+
+  <div class="dashboard-body">
+
+    <div class="dashboard-left-column">
+
+      <%= render partial: 'alaveteli_pro/dashboard/projects' %>
+
+    </div> <!-- .dashboard-left-column -->
+
+    <div class="dashboard-right-column">
+
+      <div class="requests">
+        <div class="requests__folder-title">
+          <h2><%= _('All requests') %></h2>
+        </div>
+        <div class="requests__header">
+          <div class="requests__search">
+            <input type="text" placeholder="<%= _('Search') %>">
+          </div>
+          <div class="requests__sort">
+            <label for="sort-options"><%= _('Sort by:') %></label>
+            <select id="sort-options">
+              <option><%= _('Last updated') %></option>
+              <option><%= _('First created') %></option>
+              <option><%= _('Title (A-Z)') %></option>
+            </select>
+          </div>
+        </div> <!-- .requests-header -->
+
+        <div class="requests__list">
+
+          <%= render partial: 'info_request', :collection => @info_requests %>
+
+
+        </div> <!-- .requests__list -->
+
+      </div> <!-- .requests -->
+
+    </div>  <!-- .dashboard-right-column -->
+
+  </div>  <!-- .dashboard-body -->
+
+</div>  <!-- .dashboard -->
