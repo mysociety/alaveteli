@@ -29,6 +29,13 @@ describe ReportsController do
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
+      it 'should 404 for embargoed requests' do
+        info_request = FactoryGirl.create(:embargoed_request)
+        expect {
+          post :create, :request_id => info_request.url_title
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
       it "should mark a request as having been reported" do
         expect(info_request.attention_requested).to eq(false)
 
@@ -78,6 +85,7 @@ describe ReportsController do
         expect(response).to render_template("new")
         expect(flash[:error]).to eq("Please choose a reason")
       end
+
     end
   end
 end
@@ -103,6 +111,19 @@ describe ReportsController do
       it "should show the form" do
         get :new, :request_id => info_request.url_title
         expect(response).to render_template("new")
+      end
+
+      it "should 404 for non-existent requests" do
+        expect {
+          get :new, :request_id => "hjksfdhjk_louytu_qqxxx"
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it 'should 404 for embargoed requests' do
+        info_request = FactoryGirl.create(:embargoed_request)
+        expect {
+          get :new, :request_id => info_request.url_title
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
