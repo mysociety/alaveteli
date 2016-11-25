@@ -86,6 +86,15 @@ describe WidgetVotesController do
 
     end
 
+    context 'when the request is embargoed' do
+
+      it 'should raise an ActiveRecord::RecordNotFound error' do
+        embargoed_request = FactoryGirl.create(:embargoed_request)
+        expect{
+          post :create, :request_id => embargoed_request.id
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
   end
 
 end
