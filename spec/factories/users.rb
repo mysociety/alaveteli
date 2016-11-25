@@ -43,10 +43,12 @@ FactoryGirl.define do
     hashed_password '6b7cd45a5f35fd83febc0452a799530398bfb6e8' # jonespassword
     email_confirmed true
     ban_text ""
+
     factory :admin_user do
       name 'Admin User'
       admin_level 'super'
     end
+
     factory :pro_user do
       name 'Pro User'
       after(:create) do |user, evaluator|
