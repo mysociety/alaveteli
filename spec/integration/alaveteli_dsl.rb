@@ -48,7 +48,7 @@ end
 def login(user)
   u = user.is_a?(User) ? user : users(user)
   alaveteli_session(u.id) do
-    visit signin_path
+    visit 'en/profile/sign_in'
     within '#signin_form' do
       fill_in "Your e-mail:", :with => u.email
       fill_in "Password:", :with => "jonespassword"
