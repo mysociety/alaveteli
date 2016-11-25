@@ -946,6 +946,24 @@ class InfoRequest < ActiveRecord::Base
     info_request
   end
 
+  def self.from_draft(draft)
+    info_request = new(:title => draft.title,
+                       :user => draft.user,
+                       :public_body => draft.public_body)
+    info_request.outgoing_messages.new(:body => draft.body,
+                                       :status => 'ready',
+                                       :message_type => 'initial_request',
+                                       :what_doing => 'normal_sort',
+                                       :info_request => info_request)
+    if draft.embargo_duration
+      info_request.embargo = Embargo.new(
+        :embargo_duration => draft.embargo_duration,
+        :info_request => info_request
+      )
+    end
+    info_request
+  end
+
   def self.hash_from_id(id)
     Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
   end

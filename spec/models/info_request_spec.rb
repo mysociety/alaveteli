@@ -2749,6 +2749,50 @@ describe InfoRequest do
     end
   end
 
+  describe ".from_draft" do
+    let(:draft) { FactoryGirl.create(:draft_info_request) }
+    let(:info_request) { InfoRequest.from_draft(draft) }
+
+    it "builds an info_request from the draft" do
+      expect(info_request.title).to eq draft.title
+      expect(info_request.public_body).to eq draft.public_body
+      expect(info_request.user).to eq draft.user
+      expect(info_request).not_to be_persisted
+    end
+
+    it "builds an initial outgoing message" do
+      expect(info_request.outgoing_messages.length).to eq 1
+      outgoing_message = info_request.outgoing_messages.first
+      expect(outgoing_message.body).to eq draft.body
+      expect(outgoing_message.info_request).to eq info_request
+      expect(outgoing_message.info_request).not_to be_persisted
+    end
+
+    context "when the draft has a duration" do
+      it "builds an embargo" do
+        expect(info_request.embargo).not_to be nil
+        embargo = info_request.embargo
+        expect(embargo.embargo_duration).to eq draft.embargo_duration
+        expect(embargo.info_request).to eq info_request
+        expect(embargo).not_to be_persisted
+      end
+    end
+
+    context "when the draft doesnt have a duration" do
+      let(:draft_with_no_duration) do
+        FactoryGirl.create(:draft_with_no_duration)
+      end
+
+      let(:request_with_no_embargo) do
+        InfoRequest.from_draft(draft_with_no_duration)
+      end
+
+      it "doesnt build an embargo" do
+        expect(request_with_no_embargo.embargo).to be nil
+      end
+    end
+  end
+
   def email_and_raw_email(opts = {})
     raw_email = opts[:raw_email] || <<-EOF.strip_heredoc
     From: EMAIL_FROM
