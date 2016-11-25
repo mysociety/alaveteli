@@ -43,6 +43,18 @@ FactoryGirl.define do
         incoming_message = create(:incoming_message, :info_request => info_request)
         info_request.log_event("response", {:incoming_message_id => incoming_message.id})
       end
+
+      factory :waiting_clarification_info_request do
+        after(:create) do |info_request, evaluator|
+          info_request.set_described_state('waiting_clarification')
+        end
+      end
+
+      factory :successful_request do
+        after(:create) do |info_request, evaluator|
+          info_request.set_described_state('successful')
+        end
+      end
     end
 
     factory :info_request_with_plain_incoming do

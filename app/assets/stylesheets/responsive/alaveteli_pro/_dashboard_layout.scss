@@ -1,0 +1,123 @@
+/* Layout for the dashboard */
+
+.dashboard-header,
+.dashboard-body {
+  @include flexbox;
+  padding: 1em;
+}
+
+.dashboard-left-column {
+  width: 30%;
+  padding-left: 2em;
+  padding-right: 1.5em;
+}
+
+.dashboard-right-column {
+  width: 70%;
+  padding-right: 2em;
+}
+
+.dashboard-header {
+  margin-top: 2em;
+  padding-left: 2em;
+  h1 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    display:block;
+    width:100%;
+    font-weight: bold;
+  }
+}
+
+.dashboard-profile__image {
+  float:left;
+  margin-right: 1em;
+  border-radius: 5px;
+}
+
+.dashboard-nav {
+  padding: 0;
+  margin: 0;
+  @include clearfix;
+}
+
+.dashboard-nav__item {
+  float: left;
+  padding-bottom: 0.5em;
+  padding-right: 1em;
+}
+
+.dashboard-nav__item--right {
+  float: right;
+}
+
+h1 {
+  margin-left: 1em;
+  margin-bottom: 1em;
+}
+
+.dashboard-folders,
+.dashboard-sub-folders {
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-sub-folders {
+  margin: 1em 0 2em 0;
+}
+
+.dashboard-folder {
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+}
+
+.dashboard-folder a,
+.dashboard-folder a:hover,
+.dashboard-folder--disabled .fake-link {
+  display: block;
+  padding: 0.5em 1em 0.5em 1em;
+  width: 100%;
+}
+
+.dashboard-folder--selected {
+  margin-bottom: 0;
+}
+
+.dashboard-folder__count {
+  float: right;
+}
+
+.dashboard-todo {
+  margin-bottom: 3em;
+}
+
+.dashboard-todo__list {
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-todo__title,
+.dashboard-activity__title {
+  padding-bottom: 1em;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.dashboard-todo__list__item,
+.dashboard-activity__item {
+  padding: 1em 0 1em 0;
+}
+
+.dashboard-activity__item {
+  @include flexbox;
+}
+
+.dashboard-activity__item__time {
+  flex: 0 0 25%;
+  padding-right: 2em;
+}
+
+.dashboard-activity__item__dashboard {
+  flex: 0 0 75%;
+  padding-left: 2em;
+}
