@@ -64,6 +64,14 @@ describe TrackController do
         .to raise_error(ActiveRecord::RecordNotFound)
     end
 
+    it "should 404 for embargoed requests" do
+      session[:user_id] = user.id
+      embargoed_request = FactoryGirl.create(:embargoed_request)
+      expect { get :track_request, :url_title => embargoed_request.url_title,
+                                   :feed => 'track' }
+        .to raise_error(ActiveRecord::RecordNotFound)
+    end
+
     context 'when getting feeds' do
 
       before do
