@@ -1,0 +1,41 @@
+<div class="request">
+  <h3 class="request__title">
+    <a href=""><%= info_request.title %></a>
+  </h3>
+
+  <div class="request__meta">
+
+    <div class="request__recipient">
+      <span class="request__meta__label"><%= _('Request to') %></span>
+      <%= info_request.public_body.name %>
+    </div>
+
+    <div class="request__created">
+      <span class="request__meta__label"><%= _('Created') %></span>
+      <%= info_request.created_at.strftime('%d-%m-%Y') %>
+    </div>
+
+    <div class="request__updated">
+      <span class="request__meta__label"><%= _('Updated') %></span>
+      <%= info_request.updated_at.strftime('%d-%m-%Y') %>
+    </div>
+
+    <div class="request__status">
+      <span class="request__meta__label"><%= _('Status') %></span>
+      <%= InfoRequest.get_status_description(info_request.described_state) %>
+    </div>
+
+    <div class="request__actions">
+      <select id="actions" class="actions">
+        <option><%= _('Actions') %></option>
+        <option><%= _('View') %></option>
+        <option><%= _('Update status') %></option>
+        <option><%= _('Send followup') %></option>
+        <option><%= _('Request internal review') %></option>
+        <option><%= _('Download zip file of correspondence') %></option>
+      </select>
+    </div>
+
+  </div> <!-- .request__meta -->
+
+</div> <!-- .request -->
