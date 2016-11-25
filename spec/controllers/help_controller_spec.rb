@@ -98,6 +98,14 @@ describe HelpController do
           .to raise_error ActiveRecord::RecordNotFound
       end
 
+      it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
+          is embargoed' do
+        info_request = FactoryGirl.create(:embargoed_request)
+        request.cookies["last_request_id"] = info_request.id
+        expect{ get :contact }
+          .to raise_error ActiveRecord::RecordNotFound
+      end
+
     end
 
   end
