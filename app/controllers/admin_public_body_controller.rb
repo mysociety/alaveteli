@@ -148,7 +148,7 @@ class AdminPublicBodyController < AdminController
         ")
     @stats = {
       "total" => PublicBody.count,
-      "entered" => PublicBody.count(:conditions => "publication_scheme != ''")
+      "entered" => PublicBody.where("publication_scheme != ''").count
     }
   end
 
