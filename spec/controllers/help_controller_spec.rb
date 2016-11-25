@@ -82,6 +82,24 @@ describe HelpController do
 
     end
 
+    context 'when a url_title param is supplied' do
+      let(:info_request){ FactoryGirl.create(:info_request) }
+
+      it 'assigns the last request' do
+        request.cookies["last_request_id"] = info_request.id
+        get :contact
+        expect(assigns[:last_request]).to eq info_request
+      end
+
+      it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
+          is not found' do
+        request.cookies["last_request_id"] = InfoRequest.maximum(:id)+1
+        expect{ get :contact }
+          .to raise_error ActiveRecord::RecordNotFound
+      end
+
+    end
+
   end
 
   describe 'POST #contact' do
