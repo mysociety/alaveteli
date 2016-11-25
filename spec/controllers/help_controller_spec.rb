@@ -13,6 +13,36 @@ describe HelpController do
 
   end
 
+  describe 'GET #unhappy' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    it 'shows the unhappy template' do
+      get :unhappy
+      expect(response).to render_template('help/unhappy')
+    end
+
+    it 'does not assign an info_request' do
+      get :unhappy
+      expect(assigns[:info_request]).to be nil
+    end
+
+    context 'when a url_title param is supplied' do
+
+      it 'assigns the info_request' do
+        get :unhappy, :url_title => info_request.url_title
+        expect(assigns[:info_request]).to eq info_request
+      end
+
+      it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
+          is not found' do
+        expect{ get :unhappy, :url_title => 'something_not_existing' }
+          .to raise_error ActiveRecord::RecordNotFound
+      end
+
+    end
+
+  end
+
   describe 'GET #about' do
 
     it 'shows the about page' do
