@@ -39,7 +39,7 @@ class WidgetVotesController < ApplicationController
   end
 
   def find_info_request
-    @info_request = InfoRequest.find(params[:request_id])
+    @info_request = InfoRequest.not_embargoed.find(params[:request_id])
   end
 
   def check_prominence
