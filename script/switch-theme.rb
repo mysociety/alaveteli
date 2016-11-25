@@ -139,4 +139,5 @@ You will need to:
   1. restart any development server you have running.
   2. run: bundle exec rake assets:clean
   3. run: bundle exec rake assets:precompile (if running in production mode)
+  4. run: bundle exec rake assets:link_non_digest (if running in production mode)
 """
