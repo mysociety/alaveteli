@@ -11,7 +11,6 @@ describe ReportsController, "when reporting a request when not logged in" do
 end
 
 describe ReportsController, "when reporting a request (logged in)" do
-  render_views
 
   before do
     @user = users(:robin_user)
