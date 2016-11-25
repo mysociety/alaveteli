@@ -1,0 +1,30 @@
+<ul class="dashboard-folders">
+  <li class="dashboard-folder dashboard-folder--top-level dashboard-folder--selected">
+    <a href="<%= alaveteli_pro_info_requests_path %>">
+      <%= _('All requests') %>
+      <span class="dashboard-folder__count"><%= @user.info_requests.count %></span>
+    </a>
+  </li>
+  <ul class="dashboard-sub-folders">
+
+    <li class="dashboard-folder">
+      <a href="<%= alaveteli_pro_info_requests_path(:phase => 'draft') %>">
+        <%= _('Drafts') %>
+        <span class="dashboard-folder__count">
+          <%= @user.draft_info_requests.count %>
+        </span>
+      </a>
+    </li>
+
+    <% InfoRequest::State.phases.each do |phase| %>
+    <li class="dashboard-folder">
+      <a href="<%= alaveteli_pro_info_requests_path(:phase => phase[:scope]) %>">
+        <%= phase[:name] %>
+        <span class="dashboard-folder__count">
+          <%= @user.info_requests.send(phase[:scope]).count %>
+        </span>
+      </a>
+    </li>
+    <% end %>
+  </ul>
+</ul>

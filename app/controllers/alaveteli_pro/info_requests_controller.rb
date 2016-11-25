@@ -9,6 +9,10 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   before_filter :set_draft
   before_filter :load_data_from_draft, only: [:preview, :create]
 
+  def index
+    @info_requests = current_user.info_requests
+  end
+
   def new
     if @draft_info_request
       load_data_from_draft

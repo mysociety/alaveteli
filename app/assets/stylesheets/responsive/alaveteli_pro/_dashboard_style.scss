@@ -1,0 +1,90 @@
+/* Style for the dashboard */
+
+.dashboard {
+  background-color: white;
+}
+
+.dashboard-header {
+  background-color: #e6e4df;
+  border: 1px solid #e1dfda;
+}
+
+.dashboard-nav {
+  list-style-type: none;
+  list-style: none;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.dashboard-nav__item {
+  border-bottom: 1px solid #DDDDDD;
+  // To overlap the bottom border with that of the containing list, making it
+  // appear continuous
+  margin-bottom: -2px;
+  a,
+  a:hover {
+    font-weight: normal;
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.dashboard-nav__item:hover,
+.dashboard-nav__item--highlighted {
+  border-bottom: 2px solid orange;
+  cursor: pointer;
+}
+
+.dashboard-folders,
+.dashboard-sub-folders {
+  list-style: none;
+  list-style-type: none;
+}
+
+.dashboard-folder a,
+.dashboard-folder a:hover,
+.dashboard-folder--disabled .fake-link {
+  color: black;
+  border-bottom: 1px solid #ccc;
+  text-decoration: none;
+}
+.dashboard-folder a:hover {
+  color: black;
+  border-bottom-color: orange;
+}
+
+.dashboard-folder--disabled {
+  color: #999;
+}
+
+.dashboard-folder--top-level {
+  background-color: #E9E9E9;
+  margin-bottom: 1em;
+  border-bottom: transparent;
+}
+
+.dashboard-folder--selected {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.dashboard-todo__list {
+  list-style: none;
+  list-style-type: none;
+}
+
+.dashboard-activity__title,
+.dashboard-todo__title {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.dashboard-todo__title,
+.dashboard-todo__list__item,
+.dashboard-activity__title,
+.dashboard-activity__item {
+  border-bottom: 1px solid #ccc;
+}
+
+.dashboard-activity__item__time {
+  color: #999;
+}

@@ -4,6 +4,25 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe AlaveteliPro::InfoRequestsController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
 
+  describe "GET #index" do
+    let(:info_request){ FactoryGirl.create(:info_request, :user => pro_user) }
+
+    before do
+      session[:user_id] = info_request.user.id
+    end
+
+    it "exists" do
+      get :index
+      expect(response.status).to be 200
+    end
+
+    it "assigns the user's InfoRequests" do
+      get :index
+      expect(assigns[:info_requests]).to eq [info_request]
+    end
+
+  end
+
   describe "#preview" do
     let(:draft) do
       FactoryGirl.create(:draft_info_request, body: nil, user: pro_user)
