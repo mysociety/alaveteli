@@ -8,7 +8,7 @@ describe FollowupsController do
   let(:request) { FactoryGirl.create(:info_request_with_incoming, :user => request_user) }
   let(:message_id) { request.incoming_messages[0].id }
 
-  describe "GET new" do
+  describe "GET #new" do
 
     it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
       embargoed_request = FactoryGirl.create(:embargoed_request)
@@ -126,7 +126,7 @@ describe FollowupsController do
 
   end
 
-  describe "POST preview" do
+  describe "POST #preview" do
 
     let(:dummy_message) do
       { :body => "What a useless response! You suck.",
@@ -193,7 +193,7 @@ describe FollowupsController do
 
   end
 
-  describe "POST create" do
+  describe "POST #create" do
 
     let(:dummy_message) do
       { :body => "What a useless response! You suck.",
