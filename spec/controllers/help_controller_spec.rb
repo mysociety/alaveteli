@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe HelpController do
   render_views
 
-  describe 'GET index' do
+  describe 'GET #index' do
 
     it 'redirects to the about page' do
       get :index
@@ -13,7 +13,7 @@ describe HelpController do
 
   end
 
-  describe 'GET about' do
+  describe 'GET #about' do
 
     it 'shows the about page' do
       get :about
@@ -23,7 +23,7 @@ describe HelpController do
 
   end
 
-  describe 'GET contact' do
+  describe 'GET #contact' do
 
     it 'shows contact form' do
       get :contact
@@ -48,7 +48,7 @@ describe HelpController do
 
   end
 
-  describe 'POST contact' do
+  describe 'POST #contact' do
 
     it 'sends a contact message' do
       post :contact, { :contact => {
