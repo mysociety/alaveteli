@@ -28,6 +28,25 @@ class HasTagStringTag < ActiveRecord::Base
 end
 
 
+
+
+#Tries to pick up gender from the first name
+def detects_gender(name)
+    gender_d = GenderDetector.new # gender detector
+    parts = name.split(" ")
+    first_name = parts[0] #assumption! 
+    gender_d.get_gender(first_name, :great_britain).to_s 
+end
+
+gender_lambda = lambda {|x| detects_gender(x.name)} 
+
+# Returns a lambda to pass to export function that censors x.property
+def name_censor_lambda(property)
+  lambda do |x|
+    case_insensitive_user_censor(x.send(property), x.info_request.user)
+  end
+end
+
 # Remove all instances of user's name (if there is a user), otherwise
 #  return the original text unchanged
 #
@@ -74,7 +93,7 @@ end
 # override - pass in lambdas to modify a given column based on values in the row
 #
 # Returns a String
-def csv_export(model, query=nil, header=nil, override={})
+def csv_export(model, query=nil, header=nil, override={}, header_map={})
   # set query and header to default values unless supplied
   query  ||= model
   header ||= model.column_names
@@ -84,8 +103,18 @@ def csv_export(model, query=nil, header=nil, override={})
   FileUtils.mkdir_p('exports')
   puts "exporting to: #{filename}"
 
+  #allow header names to be changed if we're transforming them enough they're a diff column
+  display_header = []
+  header.each do |h|
+    if header_map.key?(h) #do we have an override for this column name?
+      display_header.append(header_map[h])
+    else
+      display_header.append(h)
+    end
+  end  
+  
   CSV.open(filename, "wb") do |csv|
-    csv << header
+    csv << display_header
     find_each_record(query) do |item|
       line  = []
       header.each do |h|
@@ -139,7 +168,14 @@ task :research_export => :environment do
               "request_classifications_count",
               "public_body_change_requests_count",
               "info_request_batches_count",
-              ])
+              ],
+              override = {
+               "name" => gender_lambda,
+              },
+              header_map = {
+              "name" => "gender",
+              }
+              )
 
   #export InfoRequest Fields
   csv_export(InfoRequest,
