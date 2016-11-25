@@ -45,6 +45,9 @@ class User < ActiveRecord::Base
   has_many :info_requests,
            :order => 'created_at desc',
            :dependent => :destroy
+  has_many :draft_info_requests,
+           :order => 'created_at desc',
+           :dependent => :destroy
   has_many :user_info_request_sent_alerts,
            :dependent => :destroy
   has_many :post_redirects,
