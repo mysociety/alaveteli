@@ -8,7 +8,7 @@
   <ul class="dashboard-sub-folders">
 
     <li class="dashboard-folder">
-      <a href="<%= alaveteli_pro_info_requests_path(:phase => 'draft') %>">
+      <a href="<%= alaveteli_pro_info_requests_path('request_filter[filter]' => 'draft') %>">
         <%= _('Drafts') %>
         <span class="dashboard-folder__count">
           <%= @user.draft_info_requests.count %>
@@ -18,7 +18,7 @@
 
     <% InfoRequest::State.phases.each do |phase| %>
     <li class="dashboard-folder">
-      <a href="<%= alaveteli_pro_info_requests_path(:phase => phase[:scope]) %>">
+      <a href="<%= alaveteli_pro_info_requests_path('request_filter[filter]' => phase[:scope]) %>">
         <%= phase[:name] %>
         <span class="dashboard-folder__count">
           <%= @user.info_requests.send(phase[:scope]).count %>
