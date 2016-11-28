@@ -595,9 +595,11 @@ Alaveteli::Application.routes.draw do
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
     namespace :alaveteli_pro do
-      match '/' => 'dashboard#index',
-            :as => 'dashboard',
-            :via => :get
+      match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
+      resources :draft_info_requests, :only => [:create, :update]
+      resources :info_requests, :only => [:new, :create] do
+        get :preview, on: :new # /info_request/new/preview
+      end
     end
   end
   ####
