@@ -45,6 +45,14 @@ def alaveteli_session(session_id)
   end
 end
 
+def using_pro_session(session_id)
+  with_feature_enabled(:alaveteli_pro) do
+    using_session(session_id) do
+      yield
+    end
+  end
+end
+
 def login(user)
   u = user.is_a?(User) ? user : users(user)
   alaveteli_session(u.id) do
