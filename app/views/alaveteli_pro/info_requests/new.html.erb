@@ -1,0 +1,78 @@
+<% @title = _("Make an {{law_used_short}} request",
+            :law_used_short => h(@info_request.law_used_human(:short))) %>
+
+<%= form_tag([:alaveteli_pro, @draft_info_request],
+             method: @draft_info_request.id ? :put : :post,
+             html: { id: 'write_form', :class => 'new_info_request' }) do %>
+
+  <% fields_for @info_request do |f| %>
+
+    <div id="request_header" class="request_header">
+      <div id="request_header_body" class="request_header_body">
+        <h1><%= _("Make a request") %></h1>
+
+        <%= foi_error_messages_for :info_request, :outgoing_message %>
+
+        <% if !AlaveteliConfiguration::override_all_public_body_request_emails.blank? %>
+          <div class="warning">
+            <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => AlaveteliConfiguration::override_all_public_body_request_emails) %>
+          </div>
+        <% end %>
+
+        <p id="to_public_body" class="to_public_body">
+          <label for="info_request_public_body_id">
+            <span class="to_public_body_label"><%= _('To:') %></span>
+          </label>
+          <%= f.collection_select(:public_body_id, PublicBody.visible, :id, :name) %>
+        </p>
+      </div>
+    </div>
+
+    <div class="request_body">
+      <div id="request_advice" class="request_advice">
+        <%= render partial: "embargo_info" %>
+        <p>
+          <label class="form_label" for="embargo_embargo_duration">
+            <%= _('Set embargo:') %>
+          </label>
+          <%= fields_for :embargo do |e| %>
+            <%= e.select :embargo_duration,
+                         options_for_select(
+                           publish_at_options,
+                           :selected => @embargo ? @embargo.embargo_duration : ''
+                         ) %>
+          <% end %>
+        </p>
+      </div>
+      <div id="request_form" class="request_form">
+        <div id="request_header_subject" class="request_header_subject">
+          <p>
+            <label class="form_label" for="info_request_title">
+              <%= _('Summary:') %>
+            </label>
+            <%= f.text_field :title, :size => 50 %>
+          </p>
+
+          <div class="form_item_note">
+            <%= _("A one line summary of the information you are requesting, e.g.") %>
+          </div>
+        </div>
+
+        <%= fields_for @outgoing_message do |o| %>
+          <p>
+            <label class="form_label" for="outgoing_message_body">
+              <%= _('Your request:') %></label>
+            <%= o.text_area :body, :rows => 20, :cols => 60 %>
+          </p>
+        <% end %>
+
+        <div class="form_button">
+          <button><%= _("Save draft") %></button>
+          <button name="preview" value="true">
+            <%= _("Preview and send request") %>
+          </button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
