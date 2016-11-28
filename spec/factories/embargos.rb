@@ -8,11 +8,13 @@
 #  publish_at      :datetime         not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  embargo_duration :string(255)
 #
 
 FactoryGirl.define do
   factory :embargo do
     info_request
     publish_at Time.now + 3.months
+    embargo_duration "3_months"
   end
 end
