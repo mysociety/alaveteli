@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20161128095350
 #
 # Table name: mail_server_logs
 #
