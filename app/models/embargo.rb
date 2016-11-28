@@ -27,12 +27,22 @@ class Embargo < ActiveRecord::Base
     "12_months" => Proc.new { 12.months }
   }.freeze
 
+  DURATION_LABELS = {
+    "3_months" => _("3 Months"),
+    "6_months" => _("6 Months"),
+    "12_months" => _("12 Months")
+  }.freeze
+
   def allowed_durations
     DURATIONS.keys
   end
 
   def duration_as_duration
     DURATIONS[self.embargo_duration].call
+  end
+
+  def duration_label
+    DURATION_LABELS[self.embargo_duration]
   end
 
   def set_publish_at_from_duration
