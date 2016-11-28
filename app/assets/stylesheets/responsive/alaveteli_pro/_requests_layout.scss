@@ -10,6 +10,10 @@
   padding: 0.5em;
 }
 
+.requests__filter_form {
+  @include flexbox;
+}
+
 .requests__search,
 .requests__sort {
   @include flex(0 0 33%);

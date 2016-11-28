@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
 describe AlaveteliPro::InfoRequestsController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
@@ -16,9 +16,18 @@ describe AlaveteliPro::InfoRequestsController do
       expect(response.status).to be 200
     end
 
-    it "assigns the user's InfoRequests" do
+    it "assigns a request filter" do
       get :index
-      expect(assigns[:info_requests]).to eq [info_request]
+      expect(assigns[:request_filter]).to be_a RequestFilter
+    end
+
+    context 'when no filters, searches or sort params are passed' do
+
+      it "assigns the user's info requests" do
+        get :index
+        expect(assigns[:info_requests].size).to eq 1
+        expect(assigns[:info_requests].first).to eq info_request
+      end
     end
 
   end
