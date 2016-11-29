@@ -10,6 +10,7 @@
 #  line                    :text             not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  delivery_status         :string(255)
 #
 
 # We load log file lines for requests in here, for display in the admin interface.
