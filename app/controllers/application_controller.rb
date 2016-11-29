@@ -498,7 +498,7 @@ class ApplicationController < ActionController::Base
   # Returns a Hash
   def collect_locales
     @locales = { :current => FastGettext.locale, :available => [] }
-    FastGettext.default_available_locales.each do |possible_locale|
+    FastGettext.default_available_locales.map(&:to_s).each do |possible_locale|
       if possible_locale == FastGettext.locale
         @locales[:current] = possible_locale
       else
