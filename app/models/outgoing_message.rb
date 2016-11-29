@@ -386,18 +386,6 @@ class OutgoingMessage < ActiveRecord::Base
           incoming_message_followup.valid_to_reply_to?
   end
 
-  def format_of_body
-    warn %q([DEPRECATION] OutgoingMessage#format_of_body will be removed in
-            0.26. It has been broken up in to OutgoingMessage#template_changed,
-            OutgoingMessage#body_uses_mixed_capitals,
-            OutgoingMessage#body_has_signature and
-            OutgoingMessage#what_doing_value).squish
-    template_changed
-    body_uses_mixed_capitals
-    body_has_signature
-    what_doing_value
-  end
-
   def template_changed
     if body.empty? || HTMLEntities.new.decode(raw_body) =~ /\A#{template_regex(letter_template.body(default_message_replacements))}/
       if message_type == 'followup'
