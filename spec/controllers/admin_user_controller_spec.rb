@@ -4,15 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminUserController, "when administering users" do
   render_views
 
-  it "shows the index page" do
-    get :index
-  end
-
-  it "searches for 'bob'" do
-    get :index, :query => "bob"
-    expect(assigns[:admin_users]).to eq([ users(:bob_smith_user) ])
-  end
-
   it "shows a user" do
     get :show, :id => users(:bob_smith_user)
   end
@@ -64,6 +55,110 @@ describe AdminUserController, "when updating a user" do
 end
 
 describe AdminUserController do
+
+  describe 'GET index' do
+
+    it 'renders the index template' do
+      get :index
+      expect(response).to render_template('index')
+    end
+
+    it 'responds successfully' do
+      get :index
+      expect(response).to be_success
+    end
+
+    it 'sets a default sort order' do
+      get :index
+      expect(assigns[:sort_order]).to eq('name_asc')
+    end
+
+    it 'assigns the sort options' do
+      sort_options = { 'name_asc' => 'name ASC',
+                       'name_desc' => 'name DESC',
+                       'created_at_desc' => 'created_at DESC',
+                       'created_at_asc' => 'created_at ASC',
+                       'updated_at_desc' => 'updated_at DESC',
+                       'updated_at_asc' => 'updated_at ASC' }
+      get :index
+      expect(assigns[:sort_options]).to eq(sort_options)
+    end
+
+    it 'assigns a custom sort order if valid' do
+      get :index, :sort_order => 'created_at_asc'
+      expect(assigns[:sort_order]).to eq('created_at_asc')
+    end
+
+    it 'uses the default sort order if a custom sort order is invalid' do
+      get :index, :sort_order => 'invalid'
+      expect(assigns[:sort_order]).to eq('name_asc')
+    end
+
+    it 'sorts the records by name_asc' do
+      User.destroy_all
+      u1 = FactoryGirl.create(:user, :name => 'Bob')
+      u2 = FactoryGirl.create(:user, :name => 'Alice')
+      get :index, :sort_order => 'name_asc'
+      expect(assigns[:admin_users]).to eq([u2, u1])
+    end
+
+    it 'sorts the records by name_desc' do
+      User.destroy_all
+      u1 = FactoryGirl.create(:user, :name => 'Alice')
+      u2 = FactoryGirl.create(:user, :name => 'Bob')
+      get :index, :sort_order => 'name_desc'
+      expect(assigns[:admin_users]).to eq([u2, u1])
+    end
+
+    it 'sorts the records by created_at_asc' do
+      User.destroy_all
+      u1 = FactoryGirl.create(:user, :name => 'Bob')
+      u2 = FactoryGirl.create(:user, :name => 'Alice')
+      get :index, :sort_order => 'created_at_asc'
+      expect(assigns[:admin_users]).to eq([u1, u2])
+    end
+
+    it 'sorts the records by created_at_desc' do
+      User.destroy_all
+      u1 = FactoryGirl.create(:user, :name => 'Alice')
+      u2 = FactoryGirl.create(:user, :name => 'Bob')
+      get :index, :sort_order => 'created_at_desc'
+      expect(assigns[:admin_users]).to eq([u2, u1])
+    end
+
+    it 'sorts the records by updated_at_asc' do
+      User.destroy_all
+      u1 = FactoryGirl.create(:user, :name => 'Alice')
+      u2 = FactoryGirl.create(:user, :name => 'Bob')
+      u1.touch
+      get :index, :sort_order => 'updated_at_asc'
+      expect(assigns[:admin_users]).to eq([u2, u1])
+    end
+
+    it 'sorts the records by updated_at_desc' do
+      User.destroy_all
+      u1 = FactoryGirl.create(:user, :name => 'Bob')
+      u2 = FactoryGirl.create(:user, :name => 'Alice')
+      u1.touch
+      get :index, :sort_order => 'updated_at_desc'
+      expect(assigns[:admin_users]).to eq([u1, u2])
+    end
+
+    it "searches for 'bob'" do
+      get :index, :query => 'bob'
+      expect(assigns[:admin_users]).to eq([users(:bob_smith_user)])
+    end
+
+    it 'searches and sorts the records' do
+      User.destroy_all
+      u1 = FactoryGirl.create(:user, :name => 'Alice Smith')
+      u2 = FactoryGirl.create(:user, :name => 'Bob Smith')
+      u3 = FactoryGirl.create(:user, :name => 'John Doe')
+      get :index, :query => 'smith', :sort_order => 'name_desc'
+      expect(assigns[:admin_users]).to eq([u2, u1])
+    end
+
+  end
 
   describe 'POST modify_comment_visibility' do
 

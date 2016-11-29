@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Added sorting to admin users list (Gareth Rees)
 * Add `required` attribute to select authority form to prevent blank searches
   (Gareth Rees)
 * Make spam term checking configurable (Gareth Rees)
