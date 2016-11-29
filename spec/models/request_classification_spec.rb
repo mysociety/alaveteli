@@ -12,7 +12,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe AboutMeValidator do
+describe RequestClassification do
 
   describe '.league_table' do
 
