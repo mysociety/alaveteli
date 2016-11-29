@@ -1,1 +1,3 @@
 // ...
+//= require alaveteli_pro/selectize
+//= require alaveteli_pro/authority_select
