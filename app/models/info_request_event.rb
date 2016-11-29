@@ -65,12 +65,6 @@ class InfoRequestEvent < ActiveRecord::Base
   end
   after_create :update_request, :if => :response?
 
-  def self.enumerate_event_types
-    warn %q([DEPRECATION] InfoRequestEvent.enumerate_event_types will be removed
-            in 0.26. Use InfoRequestEvent::EVENT_TYPES instead).squish
-    EVENT_TYPES
-  end
-
   validates_inclusion_of :event_type, :in => EVENT_TYPES
 
   # user described state (also update in info_request)
