@@ -65,7 +65,7 @@ describe AdminPublicBodyCategoriesController do
       get :new
 
       translations = assigns(:public_body_category).translations.map{ |t| t.locale.to_s }.sort
-      available = I18n.available_locales.map{ |l| l.to_s }.sort
+      available = FastGettext.default_available_locales.map{ |l| l.to_s }.sort
 
       expect(translations).to eq(available)
     end
@@ -106,7 +106,7 @@ describe AdminPublicBodyCategoriesController do
         post :create, :public_body_category => @params,
           :headings => { "heading_#{ heading.id }" => heading.id }
 
-        category = PublicBodyCategory.find_by_title(@params[:translations_attributes]['en'][:title])
+        category = PublicBodyCategory.where(:title => @params[:translations_attributes]['en'][:title]).first
         expect(category.public_body_headings).to eq([heading])
       end
 
@@ -146,7 +146,7 @@ describe AdminPublicBodyCategoriesController do
       it 'saves the default locale translation' do
         post :create, :public_body_category => @params
 
-        category = PublicBodyCategory.find_by_title('New Category')
+        category = PublicBodyCategory.where(:title => 'New Category').first
 
         I18n.with_locale(:en) do
           expect(category.title).to eq('New Category')
@@ -156,7 +156,7 @@ describe AdminPublicBodyCategoriesController do
       it 'saves the alternative locale translation' do
         post :create, :public_body_category => @params
 
-        category = PublicBodyCategory.find_by_title('New Category')
+        category = PublicBodyCategory.where(:title => 'New Category').first
 
         I18n.with_locale(:es) do
           expect(category.title).to eq('Mi Nuevo Category')

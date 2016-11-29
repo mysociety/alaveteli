@@ -28,9 +28,9 @@ describe AboutMeValidator do
       league_table = RequestClassification.league_table(5, nil)
       expect(league_table.length).to eq(2)
       expect(league_table.first.user_id).to eq(@user_one.id)
-      expect(league_table.first.cnt).to eq("2")
+      expect(league_table.first.cnt).to eq(2)
       expect(league_table.second.user_id).to eq(@user_two.id)
-      expect(league_table.second.cnt).to eq("1")
+      expect(league_table.second.cnt).to eq(1)
     end
 
     it 'applies a limit param' do
@@ -42,7 +42,7 @@ describe AboutMeValidator do
       league_table = RequestClassification.league_table(1, ["user_id = ?", @user_two])
       expect(league_table.length).to eq(1)
       expect(league_table.first.user_id).to eq(@user_two.id)
-      expect(league_table.first.cnt).to eq("1")
+      expect(league_table.first.cnt).to eq(1)
     end
 
   end

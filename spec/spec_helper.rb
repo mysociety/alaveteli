@@ -7,9 +7,7 @@ cov_formats = [Coveralls::SimpleCov::Formatter]
 cov_formats << SimpleCov::Formatter::HTMLFormatter if ENV['COVERAGE'] == 'local'
 
 # Generate coverage in coveralls.io and locally if requested
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  *cov_formats
-]
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(*cov_formats)
 
 SimpleCov.start('rails') do
   add_filter  'commonlib'
@@ -87,6 +85,14 @@ RSpec.configure do |config|
   # cleared out correctly in controller specs. So, do it here for everything.
   config.before(:each) do
     ActionMailer::Base.deliveries = []
+  end
+
+  # For integration tests, make sure the app renders exceptions rather
+  # than passing them to the test itself.
+  config.before(:each) do |example|
+    if [:request].include? example.metadata[:type]
+      Rails.application.config.action_dispatch.show_exceptions = true
+    end
   end
 
   # Any test that messes with the locale needs to restore the state afterwards so that it

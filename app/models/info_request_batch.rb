@@ -23,12 +23,16 @@ class InfoRequestBatch < ActiveRecord::Base
 
   #  When constructing a new batch, use this to check user hasn't double submitted.
   def self.find_existing(user, title, body, public_body_ids)
-    where('user_id = ?
-          AND title = ?
-          AND body = ?
-          AND info_request_batches_public_bodies.public_body_id in (?)',
-          user, title, body, public_body_ids).
-      includes(:public_bodies).first
+    conditions = {
+      :user_id => user,
+      :title => title,
+      :body => body,
+      :info_request_batches_public_bodies => {
+        :public_body_id => public_body_ids
+      }
+    }
+
+    includes(:public_bodies).where(conditions).references(:public_bodies).first
   end
 
   # Create a batch of information requests, returning a list of public bodies
@@ -71,7 +75,7 @@ class InfoRequestBatch < ActiveRecord::Base
   end
 
   def self.send_batches
-    find_each(:conditions => "sent_at IS NULL") do |info_request_batch|
+    where(:sent_at => nil).find_each do |info_request_batch|
       unrequestable = info_request_batch.create_batch!
       mail_message = InfoRequestBatchMailer.batch_sent(info_request_batch,
                                                        unrequestable,

@@ -442,27 +442,23 @@ class RequestMailer < ApplicationMailer
     #   http://lists.rubyonrails.org/pipermail/rails-core/2006-July/001798.html
     # That that patch has not been applied, despite bribes of beer, is
     # typical of the lack of quality of Rails.
+    conditions = <<-EOF.strip_heredoc
+    info_requests.id in (
+      SELECT info_request_id
+      FROM info_request_events
+      WHERE event_type = 'comment'
+      AND created_at > (now() - '1 month'::interval)
+    )
+    EOF
 
-    info_requests = InfoRequest.
-                      find(
-                        :all,
-                        :conditions =>
-                          [
-                            "info_requests.id in (
-                              select info_request_id
-                              from info_request_events
-                              where event_type = 'comment'
-                              and created_at > (now() - '1 month'::interval)
-                            )"
-                          ],
-                        :include =>
-                          [{
-                            :info_request_events => :user_info_request_sent_alerts
-                          }],
-                        :order => "info_requests.id, info_request_events.created_at"
-                      )
+    info_requests =
+      InfoRequest.
+        includes(:info_request_events => :user_info_request_sent_alerts).
+          where(conditions).
+            order('info_requests.id, info_request_events.created_at').
+              references(:info_request_events)
 
-    for info_request in info_requests
+    info_requests.each do |info_request|
       next if info_request.is_external?
 
       # Count number of new comments to alert on

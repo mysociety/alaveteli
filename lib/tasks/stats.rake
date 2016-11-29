@@ -129,14 +129,20 @@ namespace :stats do
       month_end = month_start.end_of_month
       period = "#{month_start}-#{month_end}"
       date_condition_string = 'info_requests.created_at >= ? AND info_requests.created_at < ?'
+
       conditions = [date_condition_string + " " + public_body_condition_string,
                     month_start,
                     month_end+1,
                     public_body_ids]
-      request_count = InfoRequest.count(:conditions => conditions,
-                                        :include => :public_body)
 
-      total_count = InfoRequest.count(:conditions => [date_condition_string, month_start, month_end+1])
+      request_count =
+        InfoRequest.includes(:public_bodies).where(conditions).count
+
+      total_count =
+        InfoRequest.
+          where([date_condition_string, month_start, month_end+1]).
+            count
+
       if total_count > 0
         percent = ((request_count.to_f / total_count.to_f ) * 100).round(2)
       else
@@ -164,7 +170,7 @@ namespace :stats do
     public_bodies.each do |body|
       stats = quarters.map do |quarter|
         conditions = ['created_at >= ? AND created_at < ?', quarter[0], quarter[1]]
-        count = body.info_requests.count(:conditions => conditions)
+        count = body.info_requests.where(conditions).count
         count ? count : 0
       end
 
@@ -192,7 +198,7 @@ namespace :stats do
       stats = quarters.map do |quarter|
         conditions = ['created_at >= ? AND created_at < ? AND described_state = ?',
                       quarter[0], quarter[1], 'successful']
-        count = body.info_requests.count(:conditions => conditions)
+        count = body.info_requests.where(conditions).count
         count ? count : 0
       end
 
@@ -212,12 +218,12 @@ namespace :stats do
       # described_state column, and instead need to be calculated:
       overdue_count = 0
       very_overdue_count = 0
-      InfoRequest.find_each(:batch_size => 200,
-                            :conditions => {
-                              :public_body_id => public_body.id,
-                              :awaiting_description => false,
-                              :prominence => 'normal'
-      }) do |ir|
+      
+      conditions = { :public_body_id => public_body.id,
+                     :awaiting_description => false,
+                     :prominence => 'normal' }
+
+      InfoRequest.where(conditions).find_each(:batch_size => 200) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'
           very_overdue_count += 1

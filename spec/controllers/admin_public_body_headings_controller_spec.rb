@@ -19,7 +19,7 @@ describe AdminPublicBodyHeadingsController do
       get :new
 
       translations = assigns(:public_body_heading).translations.map{ |t| t.locale.to_s }.sort
-      available = I18n.available_locales.map{ |l| l.to_s }.sort
+      available = FastGettext.default_available_locales.map{ |l| l.to_s }.sort
 
       expect(translations).to eq(available)
     end
@@ -82,7 +82,7 @@ describe AdminPublicBodyHeadingsController do
       it 'saves the default locale translation' do
         post :create, :public_body_heading => @params
 
-        heading = PublicBodyHeading.find_by_name('New Heading')
+        heading = PublicBodyHeading.where(:name => 'New Heading').first
 
         I18n.with_locale(:en) do
           expect(heading.name).to eq('New Heading')
@@ -92,7 +92,7 @@ describe AdminPublicBodyHeadingsController do
       it 'saves the alternative locale translation' do
         post :create, :public_body_heading => @params
 
-        heading = PublicBodyHeading.find_by_name('New Heading')
+        heading = PublicBodyHeading.where(:name => 'New Heading').first
 
         I18n.with_locale(:es) do
           expect(heading.name).to eq('Mi Nuevo Heading')

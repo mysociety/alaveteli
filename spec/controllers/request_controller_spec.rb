@@ -163,6 +163,12 @@ describe RequestController, "when showing one request" do
     expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
   end
 
+  it 'should return a 404 for GET requests to a malformed request URL' do
+    expect {
+      get :show, :url_title => '228%85'
+    }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
   it 'should show actions the request owner can take' do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
     expect(response.body).to have_css('div#owner_actions')
@@ -1477,7 +1483,7 @@ describe RequestController, "when classifying an information request" do
     end
 
     it 'should redirect to the request page' do
-      post :describe_state, :id => @external_request.id
+      patch :describe_state, :id => @external_request.id
       expect(response).to redirect_to(:action => 'show',
                                   :controller => 'request',
                                   :url_title => @external_request.url_title)
@@ -1495,7 +1501,7 @@ describe RequestController, "when classifying an information request" do
     end
 
     def post_status(status)
-      post :describe_state, :incoming_message => { :described_state => status },
+      patch :describe_state, :incoming_message => { :described_state => status },
         :id => @dog_request.id,
         :last_info_request_event_id => @dog_request.last_event_id_needing_description
     end
@@ -1590,7 +1596,7 @@ describe RequestController, "when classifying an information request" do
         end
 
         it "should send a mail from the user who changed the state to requires_admin" do
-          post :describe_state, :incoming_message =>
+          patch :describe_state, :incoming_message =>
                                   { :described_state => "requires_admin",
                                     :message => "a message" },
                                 :id => @dog_request.id,
@@ -1712,7 +1718,7 @@ describe RequestController, "when classifying an information request" do
       end
 
       it "should let you know when you forget to select a status" do
-        post :describe_state, :id => @dog_request.id,
+        patch :describe_state, :id => @dog_request.id,
           :last_info_request_event_id => @dog_request.last_event_id_needing_description
         expect(response).to redirect_to show_request_url(:url_title => @dog_request.url_title)
         expect(flash[:error]).to eq(_("Please choose whether or not you got some of the information that you wanted."))
@@ -1721,7 +1727,7 @@ describe RequestController, "when classifying an information request" do
       it "should not change the status if the request has changed while viewing it" do
         allow(@dog_request).to receive(:last_event_id_needing_description).and_return(2)
 
-        post :describe_state, :incoming_message => { :described_state => "rejected" },
+        patch :describe_state, :incoming_message => { :described_state => "rejected" },
           :id => @dog_request.id, :last_info_request_event_id => 1
         expect(response).to redirect_to show_request_url(:url_title => @dog_request.url_title)
         expect(flash[:error]).to match(/The request has been updated since you originally loaded this page/)
@@ -1749,7 +1755,7 @@ describe RequestController, "when classifying an information request" do
       end
 
       it "should go to the page asking for more information when classified as requires_admin" do
-        post :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
+        patch :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
         expect(response).to redirect_to describe_state_message_url(:url_title => @dog_request.url_title, :described_state => "requires_admin")
 
         @dog_request.reload
@@ -1760,7 +1766,7 @@ describe RequestController, "when classifying an information request" do
 
       context "message is included when classifying as requires_admin" do
         it "should send an email including the message" do
-          post :describe_state,
+          patch :describe_state,
           :incoming_message => {
             :described_state => "requires_admin",
           :message => "Something weird happened" },
@@ -1959,7 +1965,7 @@ describe RequestController, "when classifying an information request" do
       context 'when status is updated to "requires admin"' do
 
         it 'should redirect to the "request url"' do
-          post :describe_state, :incoming_message => {
+          patch :describe_state, :incoming_message => {
             :described_state => 'requires_admin',
           :message => "A message" },
             :id => @dog_request.id,
@@ -1972,7 +1978,7 @@ describe RequestController, "when classifying an information request" do
       context 'when status is updated to "error message"' do
 
         it 'should redirect to the "request url"' do
-          post :describe_state, :incoming_message => {
+          patch :describe_state, :incoming_message => {
             :described_state => 'error_message',
           :message => "A message" },
             :id => @dog_request.id,
