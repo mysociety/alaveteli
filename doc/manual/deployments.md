@@ -230,6 +230,30 @@ in any language, and within any legislation</p>
                         <p class="deployment__country">Liberia</p>
                         <p class="deployment__link"><a href="http://infolib.org.lr/">http://infolib.org.lr/</a></p>
                     </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/transparencia-be.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">Transparencia</h3>
+                        <p class="deployment__country">Belgium</p>
+                        <p class="deployment__link"><a href="https://transparencia.be/">https://transparencia.be/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/queremos-datos.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">Queremosdatos</h3>
+                        <p class="deployment__country">Colombia</p>
+                        <p class="deployment__link"><a href="https://www.queremosdatos.co/">https://www.queremosdatos.co/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/fraga-staten.jpg" class="deployment__screenshot" alt=""/>
+                        <h3 class="deployment__title">Fråga Staten</h3>
+                        <p class="deployment__country">Sweden</p>
+                        <p class="deployment__link"><a href="https://fragastaten.se/">https://fragastaten.se/</a></p>
+                    </div>
                 </div>
             </div>
         </div>
