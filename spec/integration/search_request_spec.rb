@@ -113,4 +113,10 @@ describe "When searching" do
     # - anonymous_external_request
     expect(response.body).to include("FOI requests 1 to #{n} of #{n}")
   end
+
+  it 'correctly recognises feed searches' do
+    get "/feed/search/bob%202007/10/13..2007/11/13"
+    expect(response.body).
+      to include("Requests or responses matching your saved search")
+  end
 end

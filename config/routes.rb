@@ -331,6 +331,7 @@ Alaveteli::Application.routes.draw do
   match '/:feed/search/:query_array' => 'track#track_search_query',
         :as => :track_search,
         :feed => /(track|feed)/,
+        :constraints => { :query_array => /.*/ },
         :via => :get
 
   match '/track/update/:track_id' => 'track#update',
