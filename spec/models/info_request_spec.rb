@@ -2658,6 +2658,143 @@ describe InfoRequest do
 
   end
 
+  describe "making a zip cache path for a user" do
+    let(:non_owner) { FactoryGirl.create(:user) }
+    let(:owner) { request.user }
+    let(:admin) { FactoryGirl.create(:admin_user) }
+
+    let(:base_path) do
+      File.join(Rails.root, "cache", "zips", "test", "download", "123",
+                "123456", "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3")
+    end
+    let(:path) { File.join(base_path, "test.zip") }
+    let(:hidden_path) { File.join(base_path, "test_hidden.zip") }
+    let(:requester_only_path) { File.join(base_path, "test_requester_only.zip") }
+
+    # Slightly confusing - this runs *after* the let(:request) in each context
+    # below, so it's ok
+    before do
+      # Digest::SHA1.hexdigest("test")
+      test_hash = "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+      allow(request).to receive(:last_update_hash).and_return(test_hash)
+    end
+
+    shared_examples_for "a situation when everything is public" do
+      it "doesn't add a suffix for anyone" do
+        expect(request.make_zip_cache_path(nil)).to eq (path)
+        expect(request.make_zip_cache_path(non_owner)).to eq (path)
+        expect(request.make_zip_cache_path(admin)).to eq (path)
+        expect(request.make_zip_cache_path(owner)).to eq (path)
+      end
+    end
+
+    shared_examples_for "a situation when anything is not public" do
+      it "doesn't add a suffix for anonymous users" do
+        expect(request.make_zip_cache_path(nil)).to eq (path)
+      end
+
+      it "doesn't add a suffix for non owner users" do
+        expect(request.make_zip_cache_path(non_owner)).to eq (path)
+      end
+
+      it "adds a _hidden suffix for admin users" do
+        expect(request.make_zip_cache_path(admin)).to eq (hidden_path)
+      end
+
+      it "adds a requester_only suffix for owner users" do
+        expect(request.make_zip_cache_path(owner)).to eq (requester_only_path)
+      end
+    end
+
+    shared_examples_for "a request when any correspondence is not public" do
+      context "when an incoming message is hidden" do
+        before do
+          incoming = request.incoming_messages.first
+          incoming.prominence = "hidden"
+          incoming.save!
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
+
+      context "when an incoming message is requester_only" do
+        before do
+          incoming = request.incoming_messages.first
+          incoming.prominence = "requester_only"
+          incoming.save!
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
+
+      context "when an outgoing message is hidden" do
+        before do
+          outgoing = request.outgoing_messages.first
+          outgoing.prominence = "hidden"
+          outgoing.save!
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
+
+      context "when an outgoing message is requester_only" do
+        before do
+          outgoing = request.outgoing_messages.first
+          outgoing.prominence = "requester_only"
+          outgoing.save!
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
+    end
+
+    shared_examples_for "a request when anything is not public" do
+      context "when the request is not public but the correspondence is" do
+        it_behaves_like "a situation when anything is not public"
+      end
+
+      context "when the request is not public and neither is the correspondence" do
+        it_behaves_like "a request when any correspondence is not public"
+      end
+    end
+
+    context "when the request is public" do
+      let(:request) do
+        FactoryGirl.create(:info_request_with_incoming, id: 123456,
+                                                        title: "test")
+      end
+
+      context "when all correspondence is public" do
+        it_behaves_like "a situation when everything is public"
+      end
+
+      it_behaves_like "a request when any correspondence is not public"
+    end
+
+    context "when the request is hidden" do
+      let(:request) do
+        FactoryGirl.create(:info_request_with_incoming, id: 123456,
+                                                        title: "test",
+                                                        prominence: "hidden")
+      end
+
+      it_behaves_like "a request when anything is not public"
+    end
+
+    context "when the request is requester_only" do
+      let(:request) do
+        FactoryGirl.create(
+          :info_request_with_incoming,
+          id: 123456,
+          title: "test",
+          prominence: "requester_only"
+        )
+      end
+
+      it_behaves_like "a request when anything is not public"
+    end
+  end
+
   def email_and_raw_email(opts = {})
     raw_email = opts[:raw_email] || <<-EOF.strip_heredoc
     From: EMAIL_FROM
@@ -2675,5 +2812,6 @@ describe InfoRequest do
     email = MailHandler.mail_from_raw_email(raw_email)
     [email, raw_email]
   end
+
 
 end
