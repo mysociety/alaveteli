@@ -255,5 +255,7 @@
 <% end %>
 
 <% if @batch %>
-  <%= javascript_include_tag 'new-request.js' %>
+  <% content_for :javascript do %>
+    <%= javascript_include_tag 'new-request.js' %>
+  <% end %>
 <% end %>
