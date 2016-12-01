@@ -1073,6 +1073,18 @@ describe RequestController, "when creating a new request" do
     expect(assigns[:outgoing_message].body).to include(default_message.strip)
   end
 
+  it 'allows the default text to be set via the default_letter param' do
+    get :new, :url_name => @body.url_name, :default_letter => "test"
+    default_message = <<-EOF.strip_heredoc
+    Dear Geraldine Quango,
+
+    test
+
+    Yours faithfully,
+    EOF
+    expect(assigns[:outgoing_message].body).to include(default_message.strip)
+  end
+
   it 'should display one meaningful error message when no message body is added' do
     post :new, :info_request => { :public_body_id => @body.id },
       :outgoing_message => { :body => "" },

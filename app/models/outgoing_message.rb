@@ -326,6 +326,12 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  def default_letter=(text)
+    original_default = get_default_message.clone
+    @default_letter = text
+    self.body = get_default_message if raw_body == original_default
+  end
+
   private
 
   def set_info_request_described_state
