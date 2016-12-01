@@ -6,7 +6,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AlaveteliPro::BaseController < ApplicationController
+
   before_filter :pro_user_authenticated?
+  before_filter :set_pro_flag
 
   # A pro-specific version of user_authenticated? that pro controller actions
   # can use to check for (or force a login for) an authenticated pro user
@@ -31,4 +33,9 @@ class AlaveteliPro::BaseController < ApplicationController
     end
     return false
   end
+
+  def set_pro_flag
+   @in_pro_area = true
+  end
+
 end
