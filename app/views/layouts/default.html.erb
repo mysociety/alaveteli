@@ -110,9 +110,13 @@
     <% end %>
 
     <%= javascript_include_tag "application" %>
+    <% if @user && @user.pro? %>
+      <%= javascript_include_tag "pro" %>
+    <% end %>
     <% if is_admin? %>
       <%= javascript_include_tag "bootstrap-dropdown" %>
     <% end %>
+
     <% if AlaveteliConfiguration::force_registration_on_new_request && !@user %>
       <%= javascript_include_tag 'fancybox.js' %>
       <script type="text/javascript">

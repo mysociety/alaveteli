@@ -148,8 +148,8 @@
     width: $main_menu-mobile_menu_cutoff;
   }
 
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    padding-right: 15em; // Stop nav links disappearing behind search box
+  .account-link-menu-item {
+    float: right;
   }
 
   // Spread the nav elements horizontally on larger screens
@@ -279,4 +279,62 @@
       display: inline-block;
     }
   }
+}
+
+
+// Pro 'more' menu
+#navigation .more-menu {
+  position: absolute;
+  width: 275px;
+  text-align: left;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
+  padding: 1em;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      float: none;
+      display: block;
+      a {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.logged-in-menu {
+  position: absolute;
+  right: 0;
+  width: 275px;
+  background-color: white;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 1em;
+  z-index: 10;
+}
+
+.logged-in-menu__links {
+  border-bottom: 1px solid #CCC;
+  padding: 0 0 1em 0;
+  margin-bottom: 1em;
+}
+
+#navigation .logged-in-menu a,
+#navigation .logged-in-menu__signout-link a {
+  padding: 0;
+}
+
+
+
+.profile-summary {
+  border-bottom: 1px solid #CCC;
+  margin-bottom: 1em;
+}
+
+.dashboard-profile__image {
+  height: 50px;
+  width: 50px;
 }
