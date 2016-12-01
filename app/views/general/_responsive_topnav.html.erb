@@ -5,10 +5,8 @@
   <% else %>
     <%= render :partial => 'general/nav_items', :locals => { :make_request => true } %>
   <% end %>
-  <li class="account-link-menu-item" >
     <% if ! (controller.action_name == 'signin' or controller.action_name == 'signup' or controller.action_name == 'login') %>
       <%= render partial: 'general/log_in_bar' %>
     <% end %>
-  </li>
   </ul>
 </div>
