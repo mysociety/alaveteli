@@ -1,4 +1,4 @@
-<div id="topnav" class="topnav">
+<div id="topnav" class="topnav <%= @in_pro_area ? 'topnav--pro' : '' %>">
   <ul id="navigation" class="navigation" role="navigation">
 
     <li class="<%= 'selected' if params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action]) %>">
