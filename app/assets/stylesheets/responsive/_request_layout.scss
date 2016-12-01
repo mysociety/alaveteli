@@ -1,4 +1,147 @@
 /* Layout for request page */
+
+
+.request-status {
+  @include grid-column(12);
+  margin-bottom: 1em;
+}
+
+.request-header {
+  width: 100%;
+  clear: both;
+  h1 {
+    @include grid-column(12);
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+}
+
+.request-header__action-bar-container {
+  @include grid-column(12);
+}
+
+.request-header__action-bar {
+  margin-bottom: 2em;
+  position: relative;
+}
+
+.request-header__profile-photo {
+  //we use --narrow when a profile photo is available
+  @include grid-column(2, $collapse:true);
+  img {
+    max-width: 100%;
+    padding-right: 1em;
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(1, $collapse:true);
+  }
+}
+
+.request-header__subtitle {
+  @include grid-column(12, $collapse:true);
+  margin-top: 0;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    margin-bottom: 0;
+    @include grid-column(7, $collapse:true);
+  }
+}
+
+.request-header__subtitle--narrow {
+  //we use --narrow when a profile photo is available
+  @include grid-column(10, $collapse:true);
+}
+
+.request-header__action-bar__actions {
+  @include grid-column(12, $collapse:true);
+  @media (min-width: 30em) {
+    justify-content: flex-start;
+    @include flexbox();
+    align-items: stretch;
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    text-align: right;
+    justify-content: flex-end;
+    @include grid-column(5, $collapse:true);
+  }
+
+  /*
+   * .after-actions and .feed_link_toolbar form the grid
+   * for the follow button and action menu. We want them to align
+   * side-by-side until there isn't enough room, when they stack
+   */
+
+  .after-actions {
+    display: inline-block;
+    @include respond-min( $main_menu-mobile_menu_cutoff) {
+
+    }
+    .action-menu__button {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 0.5em;
+      margin-right: 1em;
+      @include respond-min( $main_menu-mobile_menu_cutoff ){
+        text-align: center;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+
+  .action-bar__follow {
+    display: inline-block;
+    margin: 0;
+    @include respond-min( 30em ){
+      width: 67%;
+    }
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      text-align: right;
+    }
+  }
+  .action-bar__follow-button {
+    text-decoration: underline;
+  }
+  .action-bar__follow-button,
+  .action-bar__follower-count {
+    margin: 0;
+  }
+
+  .action-bar__follower-count {
+    font-size: 0.875em;
+  }
+}
+
+.request-header__action-bar__actions--narrow {
+  //we use --narrow when a profile photo is available
+  @media (min-width: 30em) {
+    @include grid-column(10, $collapse:true);
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(5, $collapse:true);
+  }
+}
+
+
+.feed_link_toolbar {
+  width: 100%;
+  @media (min-width: 30em) {
+    width: 50%;
+  }
+}
+
+a.track-request-action {
+  margin-top: 0;
+  width: 100%;
+  @media (min-width: 30em) {
+    margin-left: 1em;
+  }
+}
+
+.action-menu {
+  position: relative;
+  text-align: left;
+}
+
 .correspondence {
   word-wrap: break-word;
 }
@@ -155,4 +298,13 @@ input.cplink__field {
   height: 2em; //match cplink_field
   margin-bottom: 0;
   line-height: 1em;
+}
+
+#reports_new {
+    form {
+      max-width: 38em;
+    }
+    textarea {
+      width: 100%;
+    }
 }

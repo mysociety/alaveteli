@@ -76,7 +76,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/classification@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -88,7 +89,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/waiting@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -100,7 +102,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/reported@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -112,7 +115,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/notheld@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -124,7 +128,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/successful@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -136,7 +141,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/partiallysuccessful@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -148,7 +154,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/unusual@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -160,7 +167,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/delayed@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -172,7 +180,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/overdue@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -184,7 +193,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/postal@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -196,7 +206,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/delivery_error@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -208,7 +219,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/review@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -220,7 +232,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/withdrawn@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }
@@ -232,7 +245,8 @@ $status-pending: #f4a140;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/refused@2x.png');
   }
-  .request_listing & {
+  .request_listing &,
+  .request-listing & {
     background-color: transparent;
   }
 }

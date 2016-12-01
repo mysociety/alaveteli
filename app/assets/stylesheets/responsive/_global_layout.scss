@@ -40,7 +40,8 @@ textarea{
 #user_profile_header,
 #general_blog,
 #request_show,
-#info_request_batch_show {
+#info_request_batch_show,
+#reports_new {
   @include grid-row($behavior: nest);
 }
 
@@ -120,5 +121,154 @@ textarea{
 
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     padding: 1.2em;
+  }
+}
+
+/*
+ * Action menus
+ */
+
+.action-menu {
+  list-style: none outside none;
+  margin: 0;
+  text-align: right;
+}
+
+.action-menu__button {
+  margin-bottom: 0;
+}
+
+.action-menu__menu {
+  padding: 1.25em;
+  text-align: left;
+  left: 0;
+  right: auto;
+  list-style: none outside none;
+  ul {
+    padding-left: 0;
+    list-style: none outside none;
+  }
+  li {
+    a {
+      padding: 0;
+    }
+  }
+}
+
+/*
+ * Action bar used at the top of many 'show' templates
+ */
+
+.action-bar__make-request,
+.action-bar__follow,
+.action-bar__follow-button,
+.action-bar__follower-count {
+ vertical-align: top;
+ font-size: 16px;
+ margin: 1em 0;
+ @include respond-min( 30em ){
+   display: inline-block;
+   margin:0 1em 0 0;
+ }
+}
+
+.action-bar__follow,
+.action-bar__follow-button,
+.action-bar__follower-count {
+  display: inline-block;
+  margin-right: 0;
+}
+
+
+
+/*
+ *  Drop-down style action button
+ */
+
+.action-menu__menu--right {
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    left: auto; /* dropdown left or right */
+    right: 0;
+  }
+}
+
+.action-menu__menu__submenu {
+  margin-top: 0.25em;
+}
+
+.action-menu__menu__heading + .action-menu__menu__submenu {
+  margin-bottom: 0.25em;
+}
+
+.action-menu__menu__item {
+  margin-bottom: 1.5em;
+  padding-bottom: 1em;
+  &:last-child {
+    margin-bottom: 0.5em;
+    padding-bottom: 0;
+  }
+  li {
+    margin-bottom: 0.5em;
+  }
+}
+
+.action-menu__menu__heading {
+  display: block;
+}
+
+.no-js {
+  // action menu becomes a hover-activated menu without javascript
+  .action-menu__menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    width: 280px;
+  }
+  .action-menu {
+    &:hover,
+    &:focus {
+      .action-menu__menu {
+        display: block;
+      }
+    }
+  }
+  .action-menu__button {
+    &:focus {
+      // we can show the menu with keyboard focus, but there's no way
+      // to operate it by keyboard without javascript
+      & + .action-menu__menu {
+        display: block;
+      }
+    }
+  }
+}
+
+.js-loaded {
+  .dropit {
+    list-style: none;
+  	padding: 0;
+  	margin: 0;
+  }
+
+  .dropit .dropit-trigger {
+    position: relative;
+   }
+
+  .dropit .dropit-submenu {
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+    display: none;
+
+    list-style: none;
+    margin: 10px 0 0 0;
+    min-width: 100%;
+    @include respond-min( 20em ){
+      min-width: 280px;
+    }
+  }
+
+  .dropit .dropit-open .dropit-submenu {
+    display: block;
   }
 }
