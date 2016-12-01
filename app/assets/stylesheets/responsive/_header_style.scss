@@ -18,3 +18,28 @@
     text-decoration: none;
   }
 }
+
+// New logged in menu styles
+.pro-pill {
+  font-size: 0.75em;
+  color: white;
+  background-color: purple;
+  border-radius: 2px;
+  padding: 0px 5px 3px 3px;
+  text-align: center;
+  margin-left: 0.5em;
+  // vertically center it with normal text
+  position: relative;
+  top: -0.15em;
+}
+
+#navigation .logged-in-menu li {
+  display: block;
+  float: none;
+}
+
+.dashboard-profile__image {
+   float: left;
+   margin-right: 1em;
+   border-radius: 5px;
+}
