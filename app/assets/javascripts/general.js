@@ -119,6 +119,16 @@ $('#standard-popup .js-popup__close').click(function() {
       $correspondence_delivery.remove();
     });
   }
+
+  var $accountLink = $('.js-account-link');
+  var $accountMenu = $('.js-account-menu');
+  $(function(){
+    $accountLink.click(function(e){
+      e.preventDefault();
+      $accountMenu.slideToggle(250);
+      return false;
+    });
+  });
 })
 
 

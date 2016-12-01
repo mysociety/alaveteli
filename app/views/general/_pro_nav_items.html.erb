@@ -7,7 +7,7 @@
   <%= link_to _("Dashboard"), alaveteli_pro_dashboard_path, :id => 'dashboard-link' %>
 </li>
 
-<li class="<%= 'selected' if alaveteli_pro_info_requests_path %>">
+<li class="<%= 'selected' if current_page? alaveteli_pro_info_requests_path %>">
   <%= link_to _("Requests"), alaveteli_pro_info_requests_path, :id => 'requests-link' %>
 </li>
 
