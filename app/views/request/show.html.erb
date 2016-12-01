@@ -106,7 +106,7 @@
           <% end %>
         </p>
         <% unless @render_to_file %>
-          <div class="request-header__action-bar__actions">
+          <div class="request-header__action-bar__actions <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>request-header__action-bar__actions--narrow<% end %>">
             <%= render :partial => 'after_actions' %>
             <%= render :partial => 'track/tracking_links_simple', :locals => { :track_thing => @track_thing, :own_request => @info_request.user && @info_request.user == @user, :location => 'toolbar ' } %>
           </div>
