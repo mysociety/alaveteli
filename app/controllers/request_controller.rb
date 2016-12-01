@@ -973,13 +973,15 @@ class RequestController < ApplicationController
     permitted = message_params.
       permit(:outgoing_message => [:body, :default_letter, :what_doing])
 
-    @outgoing_message = OutgoingMessage.new(:info_request => @info_request)
+    outgoing_message_params = {:info_request => @info_request}
+    if permitted[:outgoing_message][:default_letter]
+      outgoing_message_params.
+        merge!(:default_letter => permitted[:outgoing_message][:default_letter])
+    end
+    @outgoing_message = OutgoingMessage.new(outgoing_message_params)
 
     if permitted[:outgoing_message][:body]
       @outgoing_message.body = permitted[:outgoing_message][:body]
-    end
-    if permitted[:outgoing_message][:default_letter]
-      @outgoing_message.default_letter = permitted[:outgoing_message][:default_letter]
     end
     if permitted[:outgoing_message][:what_doing]
       @outgoing_message.what_doing = permitted[:outgoing_message][:what_doing]
