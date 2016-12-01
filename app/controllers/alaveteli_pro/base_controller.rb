@@ -27,8 +27,10 @@ class AlaveteliPro::BaseController < ApplicationController
           }
         )
       end
+      @pro_area = true
       return true
     end
     return false
   end
+
 end
