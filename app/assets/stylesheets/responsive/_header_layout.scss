@@ -179,7 +179,7 @@
 #navigation_search {
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     position: absolute;
-    top: 0;
+    top: 2.2em;
     right: 0;
   }
   form{
@@ -216,11 +216,6 @@
   }
 
   @include respond-min( $main_menu-mobile_menu_cutoff ){
-    position: absolute; // relative to #banner_content
-    top: 2em; // leave space for the language switcher
-    left: 40%; // leave space for the logo
-    right: 0;
-    bottom: 0;
 
     #logged_in_links {
       position: absolute;
@@ -246,8 +241,9 @@
 
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
     position: absolute;
-    right: 0;
-    top: 0;
+    left: ($logo-width + 40px);
+    top: 2.2em;
+    right: auto;
     border: 0;
   }
 
