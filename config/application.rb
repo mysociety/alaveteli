@@ -111,8 +111,7 @@ module Alaveteli
                                  'profile-photos.js',
                                  'stats.js',
                                  'fancybox.css',
-                                 'fancybox.js',
-                                 'pro.js']
+                                 'fancybox.js']
     # ... while these are individual files that can't easily be
     # grouped:
     config.assets.precompile += ['jquery.Jcrop.min.css',
