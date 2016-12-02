@@ -24,8 +24,9 @@
       <% if @user.pro? %>
         <li><%= link_to _("My dashboard"), alaveteli_pro_dashboard_path %></li>
         <li><%= link_to _("My requests"), alaveteli_pro_info_requests_path %></li>
-        <li><%= link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %></li>
-        <li><%= link_to _("My account"), "#" %></li>
+        <li><%= link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name)
+        %></li>
+        <li><%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
       <% else %>
         <li><%= link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %></li>
         <li><%= link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %></li>
