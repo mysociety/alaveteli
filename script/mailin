@@ -19,7 +19,7 @@ if [ ! "$ERROR_CODE" = "0" ]
 then
     # we should never get an error here, unless the database is down or similar
     echo "ERROR CODE: $ERROR_CODE"
-    echo "$OUTPUT"
+    echo `cat $OUTPUT`
 
     # send error to administators (use mutt for MIME encoding)
     SUBJ="Mail import error for $OPTION_DOMAIN"
