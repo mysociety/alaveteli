@@ -254,30 +254,6 @@
   }
 }
 
-
-// Pro 'more' menu
-#navigation .more-menu {
-  position: absolute;
-  width: 275px;
-  text-align: left;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
-  padding: 1em;
-
-  ul {
-    margin: 0;
-    padding: 0;
-    li {
-      float: none;
-      display: block;
-      a {
-        width: 100%;
-      }
-    }
-  }
-}
-
 .logged-in-menu {
   position: absolute;
   right: 0;
