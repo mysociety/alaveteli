@@ -33,6 +33,7 @@
     width: 100%;
     max-width: none;
     border: 1px solid #ccc;
+    font-size: 0.875em;
   }
 }
 
@@ -67,15 +68,23 @@
 .request {
   padding-top: 1em;
   padding-bottom: 1em;
-  margin-bottom: 1em;
 }
 
 .request__title {
   margin-top: 0;
+  margin-bottom: 0.75em;
 }
 
 .request__meta {
   @include flexbox;
+  flex-wrap: wrap;
+}
+
+.request__meta__label {
+  margin-top: 1em;
+  @include respond-min( $dashboard-collapse ){
+    margin-top: 0;
+  }
 }
 
 .request__recipient,
@@ -83,29 +92,68 @@
 .request__updated,
 .request__status,
 .request__actions {
-  margin-right: 1em;
+  @include respond-min( $dashboard-collapse ){
+    margin-right: 1em;
+  }
+  p {
+    margin-bottom: 0;
+  }
 }
 
 // TODO - the flex() rules for these add up to way less than 100%, yet the
 // elements still overflow their container. Not sure why. I've hacked it by
 // reducing the width of the select in the last element and floating it right
-.request__recipient,
-.request__status {
-  @include flex(0 0 15%);
+.request__recipient {
+  @include flex(1 0 100%);
+  @include respond-min( 24em ){
+    @include flex(1 0 75%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(8 0 0);
+  }
 }
 
 .request__created,
 .request__updated {
-  @include flex(0 0 15%);
+  @include flex(1 0 50%);
+  @include respond-min( 24em ){
+    @include flex(1 0 25%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(3 0 0);
+  }
+}
+
+
+.request__status {
+  @include flex(1 0 60%);
+  @include respond-min( 24em ){
+    @include flex(1 0 40%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(5 0 0);
+  }
 }
 
 .request__actions {
-  @include flex(0 0 31%); // No idea why this has to be 31% in particular
+  align-self: flex-end;
+  @include flex(1 0 40%);
+  @include respond-min( 24em ){
+    @include flex(1 0 35%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(3 0 0);
+    align-self: auto;
+  }
   @include clearfix;
   margin-right: 0;
   .actions {
     max-width: 90%;
     float: right;
+  }
+
+  select {
+    margin-bottom: 0;
   }
 
 }
