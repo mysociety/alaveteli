@@ -1,22 +1,25 @@
 <div class="dashboard">
 
   <div class="dashboard-header">
-    <h1><%= _('Requests') %></h1>
+    <div class="row">
+      <h1><%= _('Requests') %></h1>
+    </div>
   </div>
 
   <div class="dashboard-body">
+    <div class="row">
+      <div class="dashboard-left-column">
 
-    <div class="dashboard-left-column">
+        <%= render partial: 'alaveteli_pro/dashboard/projects' %>
 
-      <%= render partial: 'alaveteli_pro/dashboard/projects' %>
+      </div> <!-- .dashboard-left-column -->
 
-    </div> <!-- .dashboard-left-column -->
-
-    <% if @user.info_requests.empty? %>
-      <%= render partial: 'no_requests' %>
-    <% else %>
-      <%= render partial: 'request_list' %>
-    <% end %>
+        <% if @user.info_requests.empty? %>
+          <%= render partial: 'no_requests' %>
+        <% else %>
+          <%= render partial: 'request_list' %>
+        <% end %>
+      </div>
 
   </div>  <!-- .dashboard-body -->
 
