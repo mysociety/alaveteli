@@ -147,12 +147,6 @@ describe RequestController, "when showing one request" do
     expect(response).to render_template('show')
   end
 
-  it "should show the request" do
-    get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    expect(response).to be_success
-    expect(response.body).to include("Why do you have such a fancy dog?")
-  end
-
   it "should assign the request" do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
     expect(assigns[:info_request]).to eq(info_requests(:fancy_dog_request))
@@ -163,100 +157,6 @@ describe RequestController, "when showing one request" do
     expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
   end
 
-  it 'should show actions the request owner can take' do
-    get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    expect(response.body).to have_css('ul.owner_actions')
-  end
-
-  describe 'when the request does allow comments' do
-    it 'should have a comment link' do
-      get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
-        { :user_id => users(:admin_user).id }
-      expect(response.body).to have_css('.anyone_actions', :text => "Add an annotation")
-    end
-  end
-
-  describe 'when the request does not allow comments' do
-    it 'should not have a comment link' do
-      get :show, { :url_title => 'spam_1' },
-        { :user_id => users(:admin_user).id }
-      expect(response.body).not_to have_css('.anyone_actions', :text => "Add an annotation")
-    end
-  end
-
-  context "when the request has not yet been reported" do
-    it "should allow the user to report" do
-      title = info_requests(:badger_request).url_title
-      get :show, :url_title => title
-      expect(response.body).to have_css('.anyone_actions a',
-                                        :text => "Report this request")
-    end
-
-    it "does not show the request as having been reported" do
-      title = info_requests(:badger_request).url_title
-      get :show, :url_title => title
-      expect(response.body).not_to have_content("This request has been reported")
-    end
-  end
-
-  context "when the request has been reported for admin attention" do
-    before :each do
-      info_requests(:fancy_dog_request).report!("", "", nil)
-    end
-
-    it "should inform the user" do
-      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      expect(response.body).to have_content("This request has been reported")
-    end
-
-    it "does not allow the request to be reported again" do
-      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-      expect(response.body).not_to have_css('.anyone_actions a',
-                                            :text => "Report this request")
-    end
-
-    context "and then deemed okay and left to complete" do
-      before :each do
-        info_requests(:fancy_dog_request).set_described_state("successful")
-      end
-
-      it "does not allow the request to be reported again" do
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        expect(response.body).not_to have_css('.anyone_actions a',
-                                              :text => "Report this request")
-      end
-
-      it "does not show the user the request has been reported message" do
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        expect(response.body).
-          not_to have_content("This request has been reported")
-      end
-
-      it "should let the user know that the administrators have not hidden this request" do
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        expect(response.body).to match(/the site administrators.*have not hidden it/)
-      end
-    end
-  end
-
-  it "should censor attachment names" do
-    info_request = FactoryGirl.create(:info_request_with_html_attachment)
-    get :show, :url_title => info_request.url_title
-    expect(response.body).to have_css('.attachment .attachment__name') do |s|
-      expect(s).to contain /interesting.pdf/m
-    end
-    # Note that the censor rule applies to the original filename,
-    # not the display_filename:
-    info_request.censor_rules.create!(:text => 'interesting.pdf',
-                               :replacement => "Mouse.pdf",
-                               :last_edit_editor => 'unknown',
-                               :last_edit_comment => 'none')
-    get :show, :url_title => info_request.url_title
-    expect(response.body).to have_css('.attachment .attachment__name') do |s|
-      expect(s).to contain /Mouse.pdf/m
-    end
-  end
-
   context 'when the request is embargoed' do
     it 'raises ActiveRecord::RecordNotFound' do
       embargoed_request = FactoryGirl.create(:embargoed_request)
@@ -265,85 +165,15 @@ describe RequestController, "when showing one request" do
     end
   end
 
-  describe 'when the request is being viewed by an admin' do
-
-    describe 'if the request is awaiting description' do
-
-      before do
-        dog_request = info_requests(:fancy_dog_request)
-        dog_request.awaiting_description = true
-        dog_request.save!
-      end
-
-      it 'should show the describe state form' do
-        get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
-          { :user_id => users(:admin_user).id }
-        expect(response.body).to have_css('div.describe_state_form')
-      end
-
-      it 'should ask the user to use the describe state from' do
-        get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
-          { :user_id => users(:admin_user).id }
-        expect(response.body).to have_css('p#request_status', :text => "answer the question above")
-      end
-
-    end
-
-    describe 'if the request is waiting for a response and very overdue' do
-
-      before do
-        dog_request = info_requests(:fancy_dog_request)
-        dog_request.awaiting_description = false
-        dog_request.described_state = 'waiting_response'
-        dog_request.save!
-        expect(dog_request.calculate_status).to eq('waiting_response_very_overdue')
-      end
-
-      it 'should give a link to requesting an internal review' do
-        get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
-          { :user_id => users(:admin_user).id }
-        expect(response.body).to have_css('p#request_status', :text => "requesting an internal review")
-      end
-
-    end
-
-    describe 'if the request is waiting clarification' do
-
-      before do
-        dog_request = info_requests(:fancy_dog_request)
-        dog_request.awaiting_description = false
-        dog_request.described_state = 'waiting_clarification'
-        dog_request.save!
-        expect(dog_request.calculate_status).to eq('waiting_clarification')
-      end
-
-      it 'should give a link to make a followup' do
-        get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
-          { :user_id => users(:admin_user).id }
-        expect(response.body).to have_css('p#request_status a', :text => "send a follow up message")
-      end
-    end
-
-  end
-
   describe 'when showing an external request' do
-
-    describe 'when viewing with no logged in user' do
-
+    describe 'when viewing anonymously' do
       it 'should be successful' do
         get :show, { :url_title => 'balalas' }, { :user_id => nil }
         expect(response).to be_success
       end
-
-      it 'should not display actions the request owner can take' do
-        get :show, :url_title => 'balalas'
-        expect(response.body).not_to have_css('div#owner_actions')
-      end
-
     end
 
     describe 'when the request is being viewed by an admin' do
-
       def make_request
         get :show, { :url_title => 'balalas' }, { :user_id => users(:admin_user).id }
       end
@@ -352,67 +182,7 @@ describe RequestController, "when showing one request" do
         make_request
         expect(response).to be_success
       end
-
-      describe 'if the request is awaiting description' do
-
-        before do
-          external_request = info_requests(:external_request)
-          external_request.awaiting_description = true
-          external_request.save!
-        end
-
-        it 'should not show the describe state form' do
-          make_request
-          expect(response.body).not_to have_css('div.describe_state_form')
-        end
-
-        it 'should not ask the user to use the describe state form' do
-          make_request
-          expect(response.body).not_to have_css('p#request_status', :text => "answer the question above")
-        end
-
-      end
-
-      describe 'if the request is waiting for a response and very overdue' do
-
-        before do
-          external_request = info_requests(:external_request)
-          external_request.awaiting_description = false
-          external_request.described_state = 'waiting_response'
-          external_request.save!
-          expect(external_request.calculate_status).to eq('waiting_response_very_overdue')
-        end
-
-        it 'should not give a link to requesting an internal review' do
-          make_request
-          expect(response.body).not_to have_css('p#request_status', :text => "requesting an internal review")
-        end
-      end
-
-      describe 'if the request is waiting clarification' do
-
-        before do
-          external_request = info_requests(:external_request)
-          external_request.awaiting_description = false
-          external_request.described_state = 'waiting_clarification'
-          external_request.save!
-          expect(external_request.calculate_status).to eq('waiting_clarification')
-        end
-
-        it 'should not give a link to make a followup' do
-          make_request
-          expect(response.body).not_to have_css('p#request_status a', :text => "send a follow up message")
-        end
-
-        it 'should not give a link to sign in (in the request status paragraph)' do
-          make_request
-          expect(response.body).not_to have_css('p#request_status a', :text => "sign in")
-        end
-
-      end
-
     end
-
   end
 
   describe 'when handling an update_status parameter' do
