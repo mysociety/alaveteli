@@ -1,5 +1,6 @@
 # Welcome to Alaveteli!
 
+test
 [![Build Status](https://secure.travis-ci.org/mysociety/alaveteli.png)](http://travis-ci.org/mysociety/alaveteli) [![Dependency Status](https://gemnasium.com/mysociety/alaveteli.png)](https://gemnasium.com/mysociety/alaveteli) [![Coverage Status](https://coveralls.io/repos/mysociety/alaveteli/badge.png?branch=develop)](https://coveralls.io/r/mysociety/alaveteli) [![Code Climate](https://codeclimate.com/github/mysociety/alaveteli.png)](https://codeclimate.com/github/mysociety/alaveteli)
 [![Installability: Gold](http://img.shields.io/badge/installability-gold-ffd700.svg "Installability: Gold")](http://mysociety.github.io/installation-standards.html)
 
