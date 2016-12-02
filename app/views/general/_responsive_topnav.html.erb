@@ -1,10 +1,6 @@
 <div id="topnav" class="topnav <%= @pro_area ? 'pro' : '' %>">
   <ul id="navigation" class="navigation" role="navigation">
-  <% if @pro_area %>
-    <%= render :partial => 'general/pro_nav_items' %>
-  <% else %>
-    <%= render :partial => 'general/nav_items', :locals => { :make_request => true } %>
-  <% end %>
+    <%= render :partial => 'general/nav_items' %>
     <% if ! (controller.action_name == 'signin' or controller.action_name == 'signup' or controller.action_name == 'login') %>
       <%= render partial: 'general/log_in_bar' %>
     <% end %>
