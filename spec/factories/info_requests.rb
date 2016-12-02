@@ -119,6 +119,10 @@ FactoryGirl.define do
         info_request.save!
       end
     end
+
+    factory :awaiting_description do
+      awaiting_description true
+    end
   end
 
 end
