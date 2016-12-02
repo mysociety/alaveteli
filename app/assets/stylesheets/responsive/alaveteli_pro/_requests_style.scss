@@ -2,6 +2,7 @@
 
 .requests__header {
   background-color: #f3f1eb;
+  border-bottom: 1px solid #ccc;
 }
 
 .request {
@@ -23,4 +24,58 @@
 .request__meta__label {
   font-size: 0.8em;
   color: #999;
+}
+
+.requests__sort,
+.requests__filters {
+  label {
+    color: #777;
+  }
+  select {
+    border-color: transparent;
+    background-color: transparent;
+    cursor: pointer;
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: #ccc;
+      background-color: #fff;
+    }
+  }
+}
+
+/* Blank slate - when there are no requests to show */
+.blank-slate {
+
+}
+
+.blank-slate__requests {
+  @include respond-min( $dashboard-collapse ){
+    background-image: image-url('/assets/alaveteli-pro/blank-slate-requests.png');
+    background-repeat: no-repeat;
+    background-size: 676px 344px;
+    background-position: left bottom;
+    min-height: 344px;
+    padding: 2em 0;
+  }
+}
+
+.blank-slate__message {
+  background-color: #333;
+  color: #fff;
+  padding: 1.5em 2em 2em;
+  margin-bottom: 2em;
+  @include respond-min( $dashboard-collapse ){
+    max-width: 32em;
+    margin-left: 5em;
+  }
+  h2 {
+    color: #fff;
+    font-size: 1.3125em;
+  }
+
+  p {
+    font-size: 0.875em;
+    line-height: 1.4em;
+  }
 }
