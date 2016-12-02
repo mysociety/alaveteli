@@ -2,15 +2,23 @@
 
 .requests__header {
   background-color: #f3f1eb;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
 .request {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
 .request__title {
-  font-size: 1.25em;
+  font-size: 1.1875em; // 19px
+  a {
+    text-decoration: none;
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
 }
 
 .request__recipient,
@@ -18,11 +26,12 @@
 .request__updated,
 .request__status,
 .request__actions {
-  font-size: 0.9em;
+  font-size: 0.875em; // 14px
 }
 
 .request__meta__label {
-  font-size: 0.8em;
+  font-size: 0.75em; // 12px
+  line-height: 1em;
   color: #999;
 }
 
