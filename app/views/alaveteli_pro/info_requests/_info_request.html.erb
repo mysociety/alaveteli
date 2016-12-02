@@ -7,22 +7,22 @@
 
     <div class="request__recipient">
       <span class="request__meta__label"><%= _('Request to') %></span>
-      <%= info_request.public_body.name %>
+      <p><%= info_request.public_body.name %></p>
     </div>
 
     <div class="request__created">
       <span class="request__meta__label"><%= _('Created') %></span>
-      <%= info_request.created_at.strftime('%d-%m-%Y') %>
+      <p><%= info_request.created_at.strftime('%d-%m-%Y') %></p>
     </div>
 
     <div class="request__updated">
       <span class="request__meta__label"><%= _('Updated') %></span>
-      <%= info_request.updated_at.strftime('%d-%m-%Y') %>
+      <p><%= info_request.updated_at.strftime('%d-%m-%Y') %></p>
     </div>
 
     <div class="request__status">
       <span class="request__meta__label"><%= _('Status') %></span>
-      <%= InfoRequest.get_status_description(info_request.described_state) %>
+      <p><%= InfoRequest.get_status_description(info_request.described_state) %></p>
     </div>
 
     <div class="request__actions">
