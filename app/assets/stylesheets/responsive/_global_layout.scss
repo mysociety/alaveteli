@@ -6,9 +6,22 @@
   }
 }
 
+.wrapper--wide {
+  // used in alaveteli-pro for wide outside gutters of the layout container
+  // the rest of the grid remains the same
+  @extend .wrapper;
+  max-width: 72em;
+}
+
 /* Legacy ID-based wrapper */
 #wrapper {
   @extend .wrapper;
+}
+
+.alaveteli-pro {
+  #wrapper {
+    @extend .wrapper--wide;
+  }
 }
 
 /* A global 12 column element provides padding for all pages */
