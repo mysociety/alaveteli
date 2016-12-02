@@ -209,33 +209,6 @@
   }
 }
 
-#logged_in_bar{
-  a, .greeting {
-    display:block;
-    padding: 0.5em 1em;
-  }
-
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-
-    #logged_in_links {
-      position: absolute;
-      right: 0.9375em; // match the grid padding
-      top: 50%;
-      -webkit-transform: translateY(-50%); // vertically centre in Safari and Android
-      -ms-transform: translateY(-50%); // vertically centre in IE9
-      transform: translateY(-50%); // vertically centre in modern browsers
-      top: 0px\9; // fallback for IE8 and below (which don't support transform)
-      text-align: right;
-
-      a, .greeting{
-        display:inline;
-        font-weight: bold;
-        padding:0 0 0 1em;
-      }
-    }
-  }
-}
-
 .locale-list {
   border-bottom: 1px solid #e9e9e9;
 
