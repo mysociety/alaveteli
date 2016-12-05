@@ -18,9 +18,10 @@
 
   // …and show a button to reveal them
   .rsp_menu_button{
-    @include grid-column(4);
     padding: 1em 1em 0 1em;
-    float: right;
+    position: absolute;
+    top: 0.66em;
+    right: 0.9375rem;
     a {
       text-align: right;
       &.open{
