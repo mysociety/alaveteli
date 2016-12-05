@@ -149,7 +149,9 @@
   }
 
   .account-link-menu-item {
-    float: right;
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      float: right;
+    }
   }
 
   // Spread the nav elements horizontally on larger screens
@@ -256,65 +258,99 @@
 
 
 .js-loaded {
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
 
-  #navigation {
-    .logged-in-menu {
-      position: absolute;
-      right: 0;
-      width: 275px;
-      background-color: white;
-      border-bottom-right-radius: 5px;
-      border-bottom-left-radius: 5px;
-      padding: 1em;
-      z-index: 10;
+    #navigation {
 
-      a {
+      .logged-in-menu {
+        position: absolute;
+        right: 0;
+        width: 275px;
+        background-color: white;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding: 1em;
+        z-index: 10;
+
+        a {
+          padding: 0;
+        }
+
+        li {
+          display: block;
+          float: none;
+        }
+      }
+
+      .logged-in-menu__signout-link {
+        border-top: 1px solid #CCC;
+        padding: 1em 0 0 0;
+        margin-top: 1em;
+        a {
+          padding: 0;
+        }
+      }
+
+      .logged-in-menu__links {
         padding: 0;
       }
-
-      li {
-        display: block;
-        float: none;
-      }
     }
-
-    .logged-in-menu__signout-link {
-      border-top: 1px solid #CCC;
-      padding: 1em 0 0 0;
-      margin-top: 1em;
-      a {
-        padding: 0;
-      }
+    .profile-summary {
+      border-bottom: 1px solid #CCC;
+      margin-bottom: 1em;
     }
-
-    .logged-in-menu__links {
-      padding: 0;
-    }
-  }
-  .profile-summary {
-    border-bottom: 1px solid #CCC;
-    margin-bottom: 1em;
   }
 }
 
 #navigation .logged-in-menu li {
-  display: inline-block;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inline-block;
+  }
+}
+
+.account-link {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.js-loaded {
+  .account-link {
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      position: inherit;
+      right: inherit;
+      top: inherit;
+    }
+  }
 }
 
 .no-js {
-  .account-link {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
+
   .profile-summary {
     display: none
   }
-
 }
 
+.profile-summary {
+  display: none;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inherit;
+  }
+}
+
+.logged-in-menu__links {
+  padding: 0;
+}
+
+.js-loaded {
+  .logged-in-menu {
 
 
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      display: none;
+    }
+  }
+}
 
 .dashboard-profile__image {
   height: 50px;
