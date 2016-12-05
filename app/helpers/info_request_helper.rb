@@ -13,6 +13,25 @@ module InfoRequestHelper
     end
   end
 
+  def awaiting_description_text(info_request,
+                                new_responses_count,
+                                opts = {})
+    is_owning_user = opts.fetch(:is_owning_user, false)
+    render_to_file = opts.fetch(:render_to_file, false)
+    old_unclassified = opts.fetch(:old_unclassified, false)
+
+    if is_owning_user && !info_request.is_external? && !render_to_file
+      return awaiting_description_text_owner_please_answer(new_responses_count)
+    else
+      if old_unclassified
+        return awaiting_description_text_old_unclassified(new_responses_count)
+      else
+        return awaiting_description_text_other(info_request,
+                                               new_responses_count)
+      end
+    end
+  end
+
   private
 
   def status_text_waiting_response(opts = {})
@@ -188,6 +207,40 @@ module InfoRequestHelper
   def custom_state_description(status)
     render :partial => 'general/custom_state_descriptions',
            :locals => { :status => status }
+  end
+
+  def awaiting_description_text_owner_please_answer(new_responses_count)
+    n_('Please <strong>answer the question above</strong> so we know ' \
+          'whether the recent response contains useful information.',
+       'Please <strong>answer the question above</strong> so we know ' \
+          'whether the recent responses contain useful information.',
+        new_responses_count)
+  end
+
+  def awaiting_description_text_unknown
+    _('This request has an <strong>unknown status</strong>.')
+  end
+
+  def awaiting_description_text_old_unclassified(new_responses_count)
+    str = ''.html_safe
+    str += awaiting_description_text_unknown
+    str += ' '
+    str += n_('We\'re waiting for someone to read a recent response and ' \
+                'update the status accordingly. Perhaps ' \
+                '<strong>you</strong> might like to help out by doing that?',
+              'We\'re waiting for someone to read recent responses and ' \
+                'update the status accordingly. Perhaps ' \
+                '<strong>you</strong> might like to help out by doing that?',
+              new_responses_count)
+  end
+
+  def awaiting_description_text_other(info_request, new_responses_count)
+    n_('We\'re waiting for {{user}} to read a recent response and update ' \
+         'the status.',
+       'We\'re waiting for {{user}} to read recent responses and update ' \
+         'the status.',
+       new_responses_count,
+       user: user_link_for_request(info_request))
   end
 
 end

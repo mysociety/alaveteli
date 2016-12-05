@@ -409,4 +409,151 @@ describe InfoRequestHelper do
 
   end
 
+  describe '#awaiting_description_text' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    shared_examples_for "when we can't ask the user to update the status" do
+      context "when there's one new reponse" do
+        it 'asks the user to answer the question' do
+          expected = "We're waiting for " \
+                     "#{user_link_for_request(info_request)} to read a " \
+                     "recent response and update the status."
+          expect(message).to eq(expected)
+        end
+      end
+
+      context "when there's more than one new response" do
+        it 'asks the user to answer the question' do
+          expected = "We're waiting for " \
+                     "#{user_link_for_request(info_request)} to read " \
+                     "recent responses and update the status."
+          expect(plural_message).to eq(expected)
+        end
+      end
+    end
+
+    context 'owning user' do
+      context "when there's one new reponse" do
+        it 'asks the user to answer the question' do
+          expected = 'Please <strong>answer the question above</strong> so ' \
+                     'we know whether the recent response contains useful ' \
+                     'information.'
+          actual = awaiting_description_text(info_request,
+                                             1,
+                                             :is_owning_user => true,
+                                             :render_to_file => false,
+                                             :old_unclassified => false)
+          expect(actual).to eq(expected)
+        end
+      end
+
+      context "when there's more than one new response" do
+        it 'asks the user to answer the question' do
+          expected = 'Please <strong>answer the question above</strong> so ' \
+                     'we know whether the recent responses contain useful ' \
+                     'information.'
+          actual = awaiting_description_text(info_request,
+                                             3,
+                                             :is_owning_user => true,
+                                             :render_to_file => false,
+                                             :old_unclassified => true)
+          expect(actual).to eq(expected)
+        end
+      end
+    end
+
+    context 'old, unclassified request' do
+      context "when there's one new reponse" do
+        it 'asks the user to answer the question' do
+          expected = "This request has an <strong>unknown status</strong>. " \
+                     "We're waiting for someone to read a recent response " \
+                     "and update the status accordingly. Perhaps " \
+                     "<strong>you</strong> might like to help out by doing " \
+                     "that?"
+          actual = awaiting_description_text(info_request,
+                                             1,
+                                             :is_owning_user => false,
+                                             :render_to_file => false,
+                                             :old_unclassified => true)
+          expect(actual).to eq(expected)
+        end
+      end
+
+      context "when there's more than one new response" do
+        it 'asks the user to answer the question' do
+          expected = "This request has an <strong>unknown status</strong>. " \
+                     "We're waiting for someone to read recent responses " \
+                     "and update the status accordingly. Perhaps " \
+                     "<strong>you</strong> might like to help out by doing " \
+                     "that?"
+          actual = awaiting_description_text(info_request,
+                                             3,
+                                             :is_owning_user => false,
+                                             :render_to_file => false,
+                                             :old_unclassified => true)
+          expect(actual).to eq(expected)
+        end
+      end
+    end
+
+    context 'external request' do
+      it_behaves_like "when we can't ask the user to update the status" do
+        let(:info_request) { FactoryGirl.create(:external_request) }
+        let(:message) do
+          awaiting_description_text(info_request,
+                                    1,
+                                    :is_owning_user => true,
+                                    :render_to_file => false,
+                                    :old_unclassified => false)
+        end
+        let(:plural_message) do
+          awaiting_description_text(info_request,
+                                    3,
+                                    :is_owning_user => true,
+                                    :render_to_file => false,
+                                    :old_unclassified => false)
+        end
+      end
+    end
+
+    context 'rendering to a file' do
+      it_behaves_like "when we can't ask the user to update the status" do
+        let(:message) do
+          awaiting_description_text(info_request,
+                                    1,
+                                    :is_owning_user => true,
+                                    :render_to_file => true,
+                                    :old_unclassified => false)
+        end
+        let(:plural_message) do
+          awaiting_description_text(info_request,
+                                    3,
+                                    :is_owning_user => true,
+                                    :render_to_file => true,
+                                    :old_unclassified => false)
+        end
+      end
+    end
+
+    context 'non-owner viewing a recent request' do
+      it_behaves_like "when we can't ask the user to update the status" do
+        let(:message) do
+          awaiting_description_text(info_request,
+                                    1,
+                                    :is_owning_user => false,
+                                    :render_to_file => false,
+                                    :old_unclassified => false)
+        end
+        let(:plural_message) do
+          awaiting_description_text(info_request,
+                                    3,
+                                    :is_owning_user => false,
+                                    :render_to_file => false,
+                                    :old_unclassified => false)
+        end
+      end
+    end
+
+  end
+
 end
