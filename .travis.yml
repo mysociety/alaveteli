@@ -1,3 +1,4 @@
+group: deprecated
 language: ruby
 branches:
   only:
