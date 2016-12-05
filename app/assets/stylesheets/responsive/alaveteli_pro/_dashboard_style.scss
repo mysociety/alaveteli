@@ -39,16 +39,24 @@
   list-style-type: none;
 }
 
-.dashboard-folder a,
-.dashboard-folder a:hover,
-.dashboard-folder--disabled .fake-link {
-  color: black;
-  border-bottom: 1px solid #ccc;
+.dashboard-folder__name {
+  color: #999;
+  border-bottom: 1px solid #ddd;
   text-decoration: none;
 }
+
+a.dashboard-folder__name,
+a.dashboard-folder__name:visited {
+  color: #333;
+  &:hover,
+  &:active,
+  &:focus {
+
+  }
+}
+
 .dashboard-folder a:hover {
-  color: black;
-  border-bottom-color: orange;
+  background-color: #e6e4df;
 }
 
 .dashboard-folder--disabled {
@@ -56,14 +64,17 @@
 }
 
 .dashboard-folder--top-level {
-  background-color: #E9E9E9;
-  margin-bottom: 1em;
+  background-color: #f3f1eb;
   border-bottom: transparent;
 }
 
 .dashboard-folder--selected {
   font-weight: bold;
   font-size: 1em;
+  background-color: transparent;
+  a {
+    border-color: #333;
+  }
 }
 
 .dashboard-todo__list {
