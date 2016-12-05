@@ -29,8 +29,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-11-07 17:12+0000\n"
-"Last-Translator: Christophe Van Gheluwe <info@vg-webdesign.be>\n"
+"PO-Revision-Date: 2016-12-05 13:17+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/fr_BE/)\n"
 "Language: fr_BE\n"
 "MIME-Version: 1.0\n"
@@ -404,7 +404,7 @@ msgid "Annotations are so anyone, including you, can help the requester with the
 msgstr "Les commentaires sont faits pour que chacun, y compris vous, puissiez aider le demandeur avec sa demande. Par exemple :"
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
-msgstr "Les commentaires seront postés publiquement sur ce site mais ne seront <strong>pas</strong> envoyés à {{public_body_name}}."
+msgstr "Les commentaires seront postés publiquement sur ce site mais ne seront <strong>pas</strong> envoyés à l'autorité \"{{public_body_name}}\"."
 
 msgid "Anonymous user"
 msgstr "Utilisateur anonyme"
@@ -2864,7 +2864,7 @@ msgid "There are {{count}} new annotations on your {{info_request}} request. Fol
 msgstr "Il y a {{count}} nouveaux commentaires sur votre demande de {{info_request}}. Suivez ce lien pour les lire."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
-msgstr "Il y a plus <strong>d'une personne</strong> qui utilise ce site avec ce nom. Une de ces personnes est listée ci-dessous, peut être que vous cherchez une personne différente&nbsp;:"
+msgstr "Il y a plus <strong>d'une personne</strong> qui utilise ce site avec ce nom. Une de ces personnes est listée ci-dessous, peut-être que vous cherchez une personne différente&nbsp;:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Il y a une limite concernant le nombre de demandes que vous pouvez effectuer en une journée, parce que nous ne voulons pas que les autorités publiques soient bombardées avec un grand nombre de demandes inappropriées. Si vous estimez que vous avez une bonne raison de demander que la limite soit augmentée pour vous, veuillez <a href='{{help_contact_path}}'>nous contacter</a>."
@@ -2914,7 +2914,7 @@ msgid "They have not replied to your {{law_used_short}} request {{title}} prompt
 msgstr "Ils n'ont pas répondu à votre demande de {{law_used_short}} {{title}} rapidement, comme requis par la loi"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
-msgstr "Ils n'ont pas répondu à votre demande de {{law_used_short}} {{title}}, comme requis par la loi"
+msgstr "Ils n'ont pas répondu à votre demande de {{law_used_short}} {{title}}, dans le délai requis par la loi"
 
 msgid "Things to do with this request"
 msgstr "Que pouvez-vous faire avec cette demande ?"
@@ -3759,10 +3759,10 @@ msgid "You will now be emailed updates about '{{link_to_authority}}', a public a
 msgstr "Vous recevrez maintenant par email les mises à jour concernant '{{link_to_authority}}'."
 
 msgid "You will now be emailed updates about '{{link_to_request}}', a request."
-msgstr "Vous recevrez maintenant par email les mises à jour concernant '{{link_to_request}}', une demande."
+msgstr "Vous recevrez maintenant par email les mises à jour concernant la demande '{{link_to_request}}'."
 
 msgid "You will now be emailed updates about '{{link_to_user}}', a person."
-msgstr "Vous recevrez maintenant par email les mises à jour concernant '{{link_to_user}}', une personne."
+msgstr "Vous recevrez maintenant par email les mises à jour concernant l'utilisateur '{{link_to_user}}'."
 
 msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
 msgstr "Vous recevrez maintenant par email les mises à jour concernant <a href=\"{{search_url}}\">cette recherche</a>."
@@ -3927,7 +3927,7 @@ msgid "Yours faithfully,"
 msgstr "Veuillez agréer, Madame, Monsieur, l'expression de mes sentiments distingués."
 
 msgid "Yours sincerely,"
-msgstr "Je vous prie de croire, Madame, Monsieur, à l'assurance de mes salutations distinguées."
+msgstr "Je vous prie de croire, Madame, Monsieur, en l'assurance de mes salutations distinguées."
 
 msgid "Yours,"
 msgstr "Sincèrement,"
@@ -4097,7 +4097,7 @@ msgid "successful requests"
 msgstr "Demandes ayant abouti"
 
 msgid "that you made to"
-msgstr "que vous avez fait à "
+msgstr "que vous avez faite à "
 
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "L'adresse principale de demande d'accès à l'information au sein de {{public_body}}"
