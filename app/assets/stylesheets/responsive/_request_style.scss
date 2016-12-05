@@ -4,9 +4,29 @@ $color-delivery-sent: #2688dc !default; // blue
 $color-delivery-delivered: #69952F !default; // green
 $color-delivery-failed: #D83838 !default; // red
 
+.request-header__action-bar {
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
+  padding: 1em 0;
+  @include clearfix;
+}
+
+.request-header {
+  h1 {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      font-size: 3em
+    }
+  }
+}
+
+a.track-request-action {
+  white-space: nowrap;
+  text-align: left;
+}
+
 .correspondence {
   border: 1px solid #ddd;
-  margin: 0 0 1em;
+  margin: 0 0 2.5em;
 
   h2 {
     margin-top: 0;
@@ -104,14 +124,6 @@ div.comment_in_request {
   margin-bottom: 0;
   text-align:right;
   line-height: 1em;
-}
-
-.user_photo_on_request img {
-  width:48px;
-  height:48px;
-  float:left;
-  vertical-align:middle;
-  margin-right:0.5em;
 }
 
 .user_photo_on_comment img {
@@ -302,5 +314,25 @@ div.comment_in_request {
 
   tr.even {
     background-color:#ddd;
+  }
+}
+
+.copyright-notice {
+  border-top: 1px solid #ddd;
+  padding-top: 1.5em;
+  margin-top: 1.5em;
+  font-size: 0.875em;
+  line-height: 1.5em;
+  small {
+    font-size: 1em;
+  }
+  a {
+    color: #777;
+    text-decoration: none;
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: underline;
+    }
   }
 }

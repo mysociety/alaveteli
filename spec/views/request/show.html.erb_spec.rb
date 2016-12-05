@@ -17,10 +17,16 @@ describe 'request/show' do
                                       :user => mock_user)
   end
 
+  let(:mock_track) do
+    mock_model(TrackThing, :track_type => 'request_updates',
+                           :info_request => mock_request)
+  end
+
   def request_page
     assign :info_request, mock_request
     assign :info_request_events, []
     assign :status, mock_request.calculate_status
+    assign :track_thing, mock_track
     render
   end
 
