@@ -31,7 +31,7 @@
 
 <ul class="dashboard-folders">
 
-  <li class="dashboard-folder">
+  <li class="dashboard-folder dashboard-folder--top-level ">
     <% if @user.draft_info_requests.count != 0 %>
       <a href="<%= alaveteli_pro_info_requests_path('request_filter[filter]' => 'draft') %>" class="dashboard-folder__name">
     <% else %>
