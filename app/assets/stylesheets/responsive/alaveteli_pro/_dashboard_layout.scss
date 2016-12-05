@@ -72,19 +72,17 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
 }
 
 .dashboard-sub-folders {
-  margin: 1em 0 2em 0;
+  margin: 0 0 2em 0;
 }
 
 .dashboard-folder {
-  margin-bottom: 0.5em;
-  font-size: 0.9em;
+  margin-bottom: 0;
+  font-size: 0.875em;
 }
 
-.dashboard-folder a,
-.dashboard-folder a:hover,
-.dashboard-folder--disabled .fake-link {
+.dashboard-folder__name {
   display: block;
-  padding: 0.5em 1em 0.5em 1em;
+  padding: 0.6em 1em 0.6em 1em;
   width: 100%;
 }
 
