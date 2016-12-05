@@ -1,7 +1,6 @@
 <li id="logged_in_bar" class="logged_in_bar account-link-menu-item">
-
 <% if @user %>
-  <a href="#" class="account-link js-account-link"><%= @user.name.split.first %>
+  <a href="<%= show_user_profile_path(:url_name => @user.url_name) %>" class="account-link js-account-link"><%= @user.name.split.first %>
     <% if @user.pro? %>
       <span class="pro-pill">pro</span>
     <% end %>
@@ -32,10 +31,10 @@
         <li><%= link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %></li>
         <li><%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
       <% end %></li>
+      <li class="logged-in-menu__signout-link">
+        <%= link_to _("Sign out"), signout_path(:r => request.fullpath) %>
+      </li>
     </ul>
-    <div class="logged-in-menu__signout-link">
-      <%= link_to _("Sign out"), signout_path(:r => request.fullpath) %>
-    </div>
     </div>
   </div>
 <% else %>
