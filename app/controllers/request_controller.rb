@@ -12,6 +12,7 @@ class RequestController < ApplicationController
   before_filter :check_read_only, :only => [ :new, :describe_state, :upload_response ]
   before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
   before_filter :set_render_recaptcha, :only => [ :new ]
+  before_filter :redirect_numeric_id_to_url_title, :only => [:show]
   MAX_RESULTS = 500
   PER_PAGE = 25
 
@@ -78,14 +79,6 @@ class RequestController < ApplicationController
     end
     @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
-
-      # Look up by old style numeric identifiers
-      if params[:url_title].match(/^[0-9]+$/)
-        @info_request = InfoRequest.find(params[:url_title].to_i)
-        redirect_to request_url(@info_request, :format => params[:format])
-        return
-      end
-
       # Look up by new style text names
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
@@ -1066,5 +1059,13 @@ class RequestController < ApplicationController
   def set_render_recaptcha
     @render_recaptcha = AlaveteliConfiguration.new_request_recaptcha &&
       (!@user || !@user.confirmed_not_spam?)
+  end
+
+  def redirect_numeric_id_to_url_title
+    # Look up by old style numeric identifiers
+    if params[:url_title].match(/^[0-9]+$/)
+      @info_request = InfoRequest.find(params[:url_title].to_i)
+      redirect_to request_url(@info_request, :format => params[:format])
+    end
   end
 end
