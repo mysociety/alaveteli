@@ -1,5 +1,8 @@
 <div class="request">
   <h3 class="request__title">
+    <% if info_request.embargo %>
+      <span class="embargo-indicator embargo-indicator--small">Embargoed</span>
+    <% end %>
     <a href=""><%= info_request.title %></a>
   </h3>
 
