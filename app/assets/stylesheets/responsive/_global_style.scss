@@ -237,3 +237,50 @@ div.pagination {
     color: #fff;
   }
 }
+
+
+/* Tooltips */
+
+.has-tooltip {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  opacity: 0.666;
+  padding-top: 4px;
+  &:hover,
+  &:focus {
+    opacity: 1;
+    .tooltip {
+      display: block;
+    }
+  }
+}
+
+.tooltip {
+  display: none;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  padding: 0.4em 0.9em;
+  position: absolute;
+  z-index: 666;
+  top: -80%;
+  left: -496%;
+  font-size: 0.631578947em; //12px
+  white-space: nowrap;
+  line-height: 1;
+  &:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(51, 51, 51, 0);
+    border-top-color: #333333;
+    border-width: 6px;
+    margin-left: -6px;
+  }
+}

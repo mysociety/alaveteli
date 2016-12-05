@@ -86,6 +86,14 @@
   <% end %>
 
   <p class="subtitle">
+    Robin Houston
+    <a href="#" class="has-tooltip">
+      <%= image_tag "contribution-medal.png", :alt => "This user is contributor to the site" %>
+      <span class="tooltip">
+          <%= _('Valued contributor') %>
+      </span>
+    </a>
+
     <% if !@user.nil? && @user.admin_page_links? %>
       <%= _('{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href="{{request_admin_url}}">admin</a>) to {{public_body_link}} (<a href="{{public_body_admin_url}}">admin</a>)',
             :user => request_user_link(@info_request, _('An anonymous user')),
