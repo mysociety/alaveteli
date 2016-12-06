@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-12-04 09:38+0000\n"
+"PO-Revision-Date: 2016-12-06 16:21+0000\n"
 "Last-Translator: Mattias A\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
@@ -873,10 +873,10 @@ msgid "FOI requests by '{{user_name}}'"
 msgstr "Förfrågningar om allmänna handlingar av '{{user_name}}'"
 
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr "Förfrågningar om allmänna handlingar av {{start_count}} till {{end_count}} av {{total_count}}"
+msgstr "Förfrågningar om allmänna handlingar {{start_count}} till {{end_count}} av {{total_count}}"
 
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr "Begärandets svar kräver admin ({{reason}}) - {{request_title}}"
+msgstr "Förfrågans svar kräver moderator ({{reason}}) - {{request_title}}"
 
 msgid "Failed"
 msgstr "Misslyckades"
@@ -906,10 +906,10 @@ msgid "First, did your other requests succeed?"
 msgstr "Först och främst, lyckades dina andra förfrågningar?"
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
-msgstr "Skriv först in <strong>namnet på myndigheten</strong> som du skulle vilja få ut information ifrån."
+msgstr "Först, skriv in <strong>namnet på myndigheten</strong> som du skulle vilja få ut information ifrån."
 
 msgid "Foi attachment"
-msgstr "Allmän handlings bilaga"
+msgstr "Bilaga till allmän handling"
 
 msgid "FoiAttachment|Charset"
 msgstr "FoiAttachment|Charset"
@@ -1022,7 +1022,7 @@ msgid "Freedom of Information"
 msgstr "Offentlighetsprincipen"
 
 msgid "Freedom of Information Act"
-msgstr "Offentlighetsprincipen i Tryckfrihetsförordningen"
+msgstr "Offentlighetsprincipen"
 
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Offentlighetsprincipen gäller inte för denna myndighet, så du kan inte göra en begäran till den."
@@ -1034,7 +1034,7 @@ msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "Offentlighetsprincipen gäller inte längre för {{public_body_name}}."
 
 msgid "Freedom of Information requests made"
-msgstr "Förfrågningar om allmänna handlingar gjorda"
+msgstr "Gjorda förfrågningar om allmänna handlingar"
 
 msgid "Freedom of Information requests made by this person"
 msgstr "Förfrågningar om allmänna handlingar gjorda av denna person"
@@ -1043,7 +1043,7 @@ msgid "Freedom of Information requests made by you"
 msgstr "Förfrågningar om allmänna handlingar gjorda av dig"
 
 msgid "Freedom of Information requests made using this site"
-msgstr "Förfrågningar om allmänna handlingar gjorda genom denna sajt"
+msgstr "Förfrågningar om allmänna handlingar gjorda genom denna hemsida"
 
 msgid "From"
 msgstr "Från"
@@ -1103,7 +1103,7 @@ msgid "Help"
 msgstr "Hjälp"
 
 msgid "Help us classify requests that haven't been updated"
-msgstr "Hjälp om att klassificera förfrågningar som inte har blivit uppdaterade"
+msgstr "Hjälp oss att klassificera förfrågningar som inte har blivit uppdaterade"
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by {{site_name}} for intermediate events, which weren't given an explicit description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 msgstr "Här <strong>beskrivet</strong> betyder när en användare valt en status för begäran, och det senaste händelsen haft sin status uppdaterad till det värdet. <strong>kalkylerad</strong> sluter sig då till {{site_name}} för mellanliggande händelser, som inte gavs en tydlig beskrivning av en användare. Se <a href=\"{{search_path}}\">söktipsen</a> för beskrivningen av tillstånden."
@@ -1190,10 +1190,10 @@ msgid "I've received an <strong>error message</strong>"
 msgstr "Jag har fått ett <strong>felmeddelande</strong>"
 
 msgid "I've received an error message"
-msgstr "Jag tog emot ett felmeddelande"
+msgstr "Jag har fått ett felmeddelande"
 
 msgid "Id"
-msgstr "ID"
+msgstr "Id"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Om adressen är fel, eller om du vet en bättre adress, vänligen <a href=\"{{url}}\">kontakta oss</a>."
@@ -1280,7 +1280,7 @@ msgid "Include relevant links, such as to a campaign page, your blog or a twitte
 msgstr "Inkludera relevanta länkar, så som till en kampanjsida, din blog eller ett twitter-konto. De kommer att bli klickbara. T.ex."
 
 msgid "Incoming email address"
-msgstr "Inkommande e-postadresser"
+msgstr "Inkommande e-postadress"
 
 msgid "Incoming message"
 msgstr "Inkommande meddelande"
@@ -1328,10 +1328,10 @@ msgid "Info request"
 msgstr "Informationsbegäran"
 
 msgid "Info request batch"
-msgstr "Serie informationsbegäran"
+msgstr "Grupp av informationsförfrågningar"
 
 msgid "Info request event"
-msgstr "Informationsbegäranshändelse"
+msgstr "Informationstillfälle"
 
 msgid "InfoRequestBatch|Body"
 msgstr "InfoRequestBatch|Body"
@@ -1439,7 +1439,7 @@ msgid "Items matching the following conditions are currently displayed on your w
 msgstr "Saker som matchar de följande variablerna visas för närvarande på ditt flöde."
 
 msgid "Items sent in last month"
-msgstr "Saker skickade den senaste månaden"
+msgstr "Försändelser i förra månaden"
 
 msgid "Joined in {{year}}."
 msgstr "Gick med under {{year}}."
@@ -1475,7 +1475,7 @@ msgid "Let us know what you were doing when this message appeared and your brows
 msgstr "Vänligen låt oss veta vad du gjorde när detta meddelande uppstod och din webbläsare och operativsystem samt dess version."
 
 msgid "Link to this"
-msgstr "Länka till det här"
+msgstr "Länka till detta"
 
 msgid "List of all authorities (CSV)"
 msgstr "Lista av alla myndigheter (CSV)"
@@ -1499,7 +1499,7 @@ msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Logga in för att ladda ner en zip-fil av {{info_request_title}}"
 
 msgid "Log into the admin interface"
-msgstr "Logga in till gränssnittet för administration"
+msgstr "Logga in till det administrativa gränssnittet"
 
 msgid "Long overdue"
 msgstr "Mycket sena"
@@ -1529,10 +1529,10 @@ msgid "MailServerLog|Order"
 msgstr "MailServerLog|Order"
 
 msgid "Make a batch request"
-msgstr "Make a batch request"
+msgstr "Gör en massförfrågan"
 
 msgid "Make a new EIR request"
-msgstr "Gör en ny EIR-begäran"
+msgstr "Gör en ny begäran om miljöinformation"
 
 msgid "Make a new FOI request"
 msgstr "Gör en ny begäran om allmän handling"
@@ -1604,7 +1604,7 @@ msgid "Name is already taken"
 msgstr "Namnet är redan taget"
 
 msgid "Needs admin attention"
-msgstr "Behöver administratörens uppmärksamhet"
+msgstr "Behöver moderatorers uppmärksamhet"
 
 msgid "New Freedom of Information requests"
 msgstr "Nya förfrågningar om allmänna handlingar"
@@ -1634,10 +1634,10 @@ msgid "New response to your request"
 msgstr "Nytt svar till din begäran"
 
 msgid "New response to {{law_used_short}} request"
-msgstr "Nytt svar till {{law_used_short}}-begäran"
+msgstr "Nytt svar till begäran enligt {{law_used_short}}"
 
 msgid "New updates for the request '{{request_title}}'"
-msgstr "Nya uppdateringar för begäran '{{request_title}}'"
+msgstr "Nya uppdateringar för förfrågan '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "De nyaste resultaten först"
