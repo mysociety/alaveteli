@@ -4,10 +4,7 @@
 
 <%= render :partial => 'request_meta_tags' %>
 
-<% if flash[:request_sent] %>
-  <%= render :partial => 'request_sent',
-             :locals => { :info_request => @info_request } %>
-<% end %>
+<% if flash[:request_sent] %><%= render :partial => 'request_sent' %><% end %>
 
 <%= render :partial => 'ga_events' %>
 
