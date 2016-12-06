@@ -59,8 +59,8 @@ describe RequestFilter do
       expect_label('Clarification needed', 'clarification_needed')
     end
 
-    it 'is "Status unknown" when the filter is "other"' do
-      expect_label('Status unknown', 'other')
+    it 'is "Other" when the filter is "other"' do
+      expect_label('Other', 'other')
     end
 
     it 'is "Response received" when the filter is "response_received"' do
