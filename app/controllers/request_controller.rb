@@ -862,6 +862,9 @@ class RequestController < ApplicationController
     # For send followup link at bottom
     @last_response = info_request.get_last_public_response
     @follower_count = @info_request.track_things.count + 1
+    @show_profile_photo = !@info_request.is_external? &&  \
+                          @info_request.user.profile_photo && \
+                          !@render_to_file
   end
 
   def make_request_zip(info_request, file_path)
