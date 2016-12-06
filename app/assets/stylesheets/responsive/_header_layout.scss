@@ -12,7 +12,8 @@
   // Hide menu items by default on mobile
   #logged_in_bar,
   #topnav,
-  #user_locale_switcher{
+  #user_locale_switcher,
+  #navigation_search{
     display:none;
   }
 
@@ -93,7 +94,8 @@
       // Show menu items when menu is targeted
       #logged_in_bar,
       #topnav,
-      #user_locale_switcher{
+      #user_locale_switcher,
+      #navigation_search{
         display:block;
         clear:both;
       }
@@ -105,7 +107,8 @@
     #banner_nav,
     #logged_in_bar,
     #topnav,
-    #user_locale_switcher{
+    #user_locale_switcher,
+    #navigation_search{
       display:block;
     }
 
