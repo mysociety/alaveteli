@@ -75,4 +75,18 @@ describe Embargo, :type => :model do
       expect(embargo.publish_at).to eq expected_publish_at
     end
   end
+
+  describe 'expiring scope' do
+
+    it 'includes embargoes expiring in less than a week' do
+      embargo = FactoryGirl.create(:embargo, :publish_at => Time.now + 6.days)
+      expect(Embargo.expiring.include?(embargo)).to be true
+    end
+
+    it 'excludes embargoes expiring in more than a week' do
+      embargo = FactoryGirl.create(:embargo, :publish_at => Time.now + 8.days)
+      expect(Embargo.expiring.include?(embargo)).to be false
+    end
+
+  end
 end
