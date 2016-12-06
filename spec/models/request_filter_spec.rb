@@ -22,6 +22,50 @@ describe RequestFilter do
       request_filter.update_attributes(:order => 'created_at_asc')
       expect(request_filter.order).to eq 'created_at_asc'
     end
+
+    it 'does not assign an empty filter' do
+      request_filter = described_class.new
+      request_filter.update_attributes(:filter => '')
+      expect(request_filter.filter).to be nil
+    end
+
+  end
+
+  describe '#filter_label' do
+
+    def expect_label(label, filter)
+      request_filter = described_class.new
+      request_filter.update_attributes(:filter => filter)
+      expect(request_filter.filter_label).to eq label
+    end
+
+    it 'is "All requests" when the filter is empty' do
+      expect_label('All requests', '')
+    end
+
+    it 'is "Drafts" when the filter is "draft"' do
+      expect_label('Drafts', 'draft')
+    end
+
+    it 'is "Awaiting response" when the filter is "awaiting_response"' do
+      expect_label('Awaiting response', 'awaiting_response')
+    end
+
+    it 'is "Complete" when the filter is "complete"' do
+      expect_label('Complete', 'complete')
+    end
+
+    it 'is "Clarification needed" when the filter is "clarification_needed"' do
+      expect_label('Clarification needed', 'clarification_needed')
+    end
+
+    it 'is "Status unknown" when the filter is "other"' do
+      expect_label('Status unknown', 'other')
+    end
+
+    it 'is "Response received" when the filter is "response_received"' do
+      expect_label('Response received', 'response_received')
+    end
   end
 
   describe '#order_options' do
