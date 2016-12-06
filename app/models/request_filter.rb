@@ -25,17 +25,36 @@ class RequestFilter
 
   def results(user)
     if filter == 'draft'
-      info_requests = user.draft_info_requests
+      draft_info_request_results(user)
     else
-      info_requests = user.info_requests
+      info_request_results(user)
     end
+  end
+
+  def draft_info_request_results(user)
+    info_requests = user.draft_info_requests
+    info_requests = info_requests
+                        .includes(:public_body)
+                          .where("title ILIKE :q
+                                 OR body ILIKE :q
+                                 OR public_bodies.name ILIKE :q",
+                                 q: "%#{ search }%")
+    info_requests.reorder("draft_info_requests.#{order_value}")
+  end
+
+  def info_request_results(user)
+    info_requests = user.info_requests
     if !filter_value.blank?
       info_requests = info_requests.send(filter_value)
     end
-    if search
-      info_requests = info_requests.where("title ILIKE :q", q: "%#{ search }%")
-    end
-    info_requests.reorder(order_value)
+      info_requests = info_requests
+                      .includes(:public_body)
+                        .includes(:outgoing_messages)
+                            .where("title ILIKE :q
+                                   OR outgoing_messages.body ILIKE :q
+                                   OR public_bodies.name ILIKE :q",
+                                   q: "%#{ search }%")
+    info_requests.reorder("info_requests.#{order_value}")
   end
 
   def persisted?
