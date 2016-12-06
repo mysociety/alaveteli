@@ -34,7 +34,7 @@ class InfoRequest
           scope: :clarification_needed },
         { name: _('Complete'),
           scope: :complete },
-        { name: _('Status unknown'),
+        { name: _('Other'),
           scope: :other }
         ]
     end
