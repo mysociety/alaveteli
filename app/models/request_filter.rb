@@ -10,7 +10,7 @@ class RequestFilter
   end
 
   def attributes=(attributes)
-    self.filter = attributes[:filter]
+    self.filter = attributes[:filter] unless attributes[:filter].blank?
     self.order = attributes[:order]
     self.search = attributes[:search]
   end
@@ -19,13 +19,17 @@ class RequestFilter
     order_attributes.map { |atts| [atts[:label], atts[:param]] }
   end
 
+  def filter_label
+    filter_params.include?(@filter) ? filter_labels[@filter] : nil
+  end
+
   def results(user)
     if filter == 'draft'
       info_requests = user.draft_info_requests
     else
       info_requests = user.info_requests
     end
-    if filter_value
+    if !filter_value.blank?
       info_requests = info_requests.send(filter_value)
     end
     if search
@@ -71,12 +75,12 @@ class RequestFilter
   end
 
   def default_filters
-    [ { :param => '',
+    [ { :param => nil,
         :value => nil,
-        :label => 'All Requests' },
-      { :param => 'drafts',
-        :value => '',
-        :label => 'Drafts' },
+        :label => _('All requests') },
+      { :param => 'draft',
+        :value => nil,
+        :label => _('Drafts') },
      ]
   end
 
@@ -90,8 +94,16 @@ class RequestFilter
     default_filters + phase_filters
   end
 
+  def filter_options
+    filter_attributes.map {|atts| [atts[:label], atts[:param]] }
+  end
+
+  def filter_labels
+    Hash[ filter_options ].invert
+  end
+
   def filter_params
-    phase_filters.map{ |atts| atts[:param] }
+    filter_attributes.map{ |atts| atts[:param] }
   end
 
   def filter_values
