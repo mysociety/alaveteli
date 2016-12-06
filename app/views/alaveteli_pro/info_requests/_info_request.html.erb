@@ -2,8 +2,12 @@
   <h3 class="request__title">
     <% if info_request.embargo %>
       <span class="embargo-indicator embargo-indicator--small">Embargoed</span>
+      <% # TODO: insert embargoed request in progress url here %>
+      <a href=""><%= info_request.title %></a>
+    <% else %>
+      <%= link_to info_request.title, show_request_path(info_request) %>
     <% end %>
-    <a href=""><%= info_request.title %></a>
+
   </h3>
 
   <div class="request__meta">
