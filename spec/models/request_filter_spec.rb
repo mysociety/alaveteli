@@ -43,46 +43,42 @@ describe RequestFilter do
   end
 
   describe '#results' do
+    let(:user){ FactoryGirl.create(:user) }
 
     context 'when no attributes are supplied' do
 
       it 'sorts the requests by most recently updated' do
-        user = FactoryGirl.create(:user)
         first_request = FactoryGirl.create(:info_request, :user => user)
         second_request = FactoryGirl.create(:info_request, :user => user)
 
         request_filter = described_class.new
-        expect(request_filter.results(user.info_requests(true)))
+        expect(request_filter.results(user))
           .to eq([second_request, first_request])
       end
     end
 
     it 'applies a sort order' do
-      user = FactoryGirl.create(:user)
       first_request = FactoryGirl.create(:info_request, :user => user)
       second_request = FactoryGirl.create(:info_request, :user => user)
 
       request_filter = described_class.new
       request_filter.update_attributes(:order => 'created_at_asc')
-      expect(request_filter.results(user.info_requests(true)))
+      expect(request_filter.results(user))
         .to eq([first_request, second_request])
     end
 
-    it 'applies a filter ' do
-      user = FactoryGirl.create(:user)
+    it 'applies a filter' do
       complete_request = FactoryGirl.create(:successful_request,
                                             :user => user)
       incomplete_request = FactoryGirl.create(:info_request,
                                               :user => user)
-
       request_filter = described_class.new
       request_filter.update_attributes(:filter => 'complete')
-      expect(request_filter.results(user.info_requests(true)))
+      expect(request_filter.results(user))
         .to eq([complete_request])
     end
 
     it 'applies a search to the request titles' do
-      user = FactoryGirl.create(:user)
       dog_request = FactoryGirl.create(:info_request,
                                        :title => 'Where is my dog?',
                                        :user => user)
@@ -91,10 +87,45 @@ describe RequestFilter do
                                        :user => user)
       request_filter = described_class.new
       request_filter.update_attributes(:search => 'CAT')
-      expect(request_filter.results(user.info_requests(true)))
+      expect(request_filter.results(user))
         .to eq([cat_request])
     end
 
-  end
+    context 'when the filter is "draft"' do
 
+      it 'returns draft requests' do
+        draft_request = FactoryGirl.create(:draft_info_request,
+                                           :user => user)
+        request_filter = described_class.new
+        request_filter.update_attributes(:filter => 'draft')
+        expect(request_filter.results(user))
+          .to eq([draft_request])
+      end
+
+      it 'applies a search to the request titles' do
+        dog_request = FactoryGirl.create(:draft_info_request,
+                                         :title => 'Where is my dog?',
+                                         :user => user)
+        cat_request = FactoryGirl.create(:draft_info_request,
+                                         :title => 'Where is my cat?',
+                                         :user => user)
+        request_filter = described_class.new
+        request_filter.update_attributes(:search => 'CAT',
+                                         :filter => 'draft')
+        expect(request_filter.results(user))
+          .to eq([cat_request])
+      end
+
+      it 'applies a sort order' do
+        first_request = FactoryGirl.create(:draft_info_request, :user => user)
+        second_request = FactoryGirl.create(:draft_info_request, :user => user)
+
+        request_filter = described_class.new
+        request_filter.update_attributes(:order => 'created_at_asc',
+                                         :filter => 'draft')
+        expect(request_filter.results(user))
+          .to eq([first_request, second_request])
+      end
+    end
+  end
 end
