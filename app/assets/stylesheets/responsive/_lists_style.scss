@@ -82,7 +82,8 @@ $status-pending: #f4a140;
   }
 }
 
-.icon_waiting_response,.icon_waiting_clarification {
+.icon_waiting_response,
+.icon_waiting_clarification {
   background-image:image-url('status/waiting.png');
   background-color: $status-pending;
   background-size: 22px 22px;
@@ -162,7 +163,7 @@ $status-pending: #f4a140;
 
 .icon_waiting_response_overdue {
   background-image:image-url('status/delayed.png');
-  background-color: $status-failure;
+  background-color: $status-pending;
   background-size: 22px 22px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image:image-url('status/delayed@2x.png');
@@ -238,7 +239,8 @@ $status-pending: #f4a140;
   }
 }
 
-.icon_failed,.icon_rejected {
+.icon_failed,
+.icon_rejected {
   background-image:image-url('status/refused.png');
   background-color: $status-failure;
   background-size: 22px 22px;
