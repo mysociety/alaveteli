@@ -15,8 +15,10 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
       @request_filter.update_attributes(params[:request_filter])
     end
     info_requests = @request_filter.results(current_user)
-    @info_requests = info_requests.paginate :page => params[:page],
-                                            :per_page => 10
+    @page = params[:page] || 1
+    @per_page = 10
+    @info_requests = info_requests.paginate :page => @page,
+                                            :per_page => @per_page
 
   end
 
