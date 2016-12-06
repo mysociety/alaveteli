@@ -1,0 +1,38 @@
+<div class="request">
+  <h3 class="request__title">
+    <% if draft_info_request.embargo_duration %>
+      <span class="embargo-indicator embargo-indicator--small">Embargoed</span>
+    <% end %>
+    <%= link_to draft_info_request.title,
+                new_alaveteli_pro_info_request_path(:draft_id => draft_info_request.id) %>
+  </h3>
+
+  <div class="request__meta">
+
+    <div class="request__recipient">
+      <span class="request__meta__label"><%= _('Request to') %></span>
+      <p>
+        <% if draft_info_request.public_body %>
+          <%= draft_info_request.public_body.name %>
+        <% end %>
+      </p>
+    </div>
+
+    <div class="request__created">
+      <span class="request__meta__label"><%= _('Created') %></span>
+      <p><%= draft_info_request.created_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__updated">
+      <span class="request__meta__label"><%= _('Updated') %></span>
+      <p><%= draft_info_request.updated_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__status">
+      <span class="request__meta__label"><%= _('Status') %></span>
+      <p><%= _('Draft') %></p>
+    </div>
+
+  </div> <!-- .request__meta -->
+
+</div> <!-- .request -->

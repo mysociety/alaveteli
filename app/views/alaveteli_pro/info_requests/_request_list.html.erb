@@ -20,7 +20,11 @@
 
     <div class="requests__list">
 
-      <%= render partial: 'info_request', :collection => @info_requests %>
+      <% if @request_filter.filter == 'draft' %>
+        <%= render partial: 'draft_info_request', :collection => @info_requests %>
+      <% else %>
+        <%= render partial: 'info_request', :collection => @info_requests %>
+      <% end %>
       <%= will_paginate(@info_requests, :class => "paginator") %>
 
     </div> <!-- .requests__list -->
