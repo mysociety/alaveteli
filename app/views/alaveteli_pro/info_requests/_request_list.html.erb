@@ -25,8 +25,7 @@
       <% else %>
         <%= render partial: 'info_request', :collection => @info_requests %>
       <% end %>
-      <%= will_paginate(@info_requests, :class => "paginator") %>
-
+      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @info_requests.count) %>
     </div> <!-- .requests__list -->
 
   </div> <!-- .requests -->
