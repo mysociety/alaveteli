@@ -9,17 +9,13 @@
     <meta property="og:description" content="<%= @info_request.initial_request_text %>" />
   <% end %>
 <% end %>
+
 <% if flash[:request_sent] %>
   <%= render :partial => 'request_sent',
              :locals => { :info_request => @info_request } %>
-  <% content_for :ga_pageview do %>
-    ga('send', 'pageview', '<%= show_new_request_path(@info_request.url_title) %>');
-  <% end %>
-<% else %>
-  <% content_for :ga_pageview do %>
-    ga('send', 'pageview', '<%= show_request_path(@info_request.url_title) %>');
-  <% end %>
 <% end %>
+
+<%= render :partial => 'ga_events' %>
 
 <% if @info_request.prominence(:decorate => true).is_hidden? %>
   <p id="hidden_request">
