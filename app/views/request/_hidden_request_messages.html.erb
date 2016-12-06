@@ -1,0 +1,14 @@
+<% if @info_request.prominence(:decorate => true).is_hidden? %>
+  <p id="hidden_request">
+    <%= _("This request has prominence 'hidden'. You can only see it because " \
+          "you are logged in as a super user.") %>
+  </p>
+<% end %>
+
+<% if @info_request.prominence(:decorate => true).is_requester_only? %>
+  <p id="hidden_request">
+    <%= _("This request is hidden, so that only you the requester can see it. " \
+          "Please <a href=\"{{url}}\">contact us</a> if you are not sure why.",
+          :url => help_requesting_path.html_safe) %>
+  </p>
+<% end %>
