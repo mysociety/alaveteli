@@ -96,15 +96,11 @@ class RequestController < ApplicationController
       # This should come from defaults: { pro: true } in routes.rb
       @pro = params[:pro] == "1"
 
-      # Don't allow status update on external requests, otherwise accept param
-      if @info_request.is_external?
-        @update_status = false
-      else
-        @update_status = params[:update_status]
-      end
+      @update_status = can_update_status(@info_request)
 
       assign_variables_for_show_template(@info_request)
 
+      # Only owners (and people who own everything) can update status
       if @update_status
         return if !@is_owning_user && !authenticated_as_user?(
           @info_request.user,
@@ -855,6 +851,11 @@ class RequestController < ApplicationController
 
   def outgoing_message_params
     params.require(:outgoing_message).permit(:body, :what_doing)
+  end
+
+  def can_update_status(info_request)
+    # Don't allow status update on external requests, otherwise accept param
+    info_request.is_external? ? false : params[:update_status] == "1"
   end
 
   def assign_variables_for_show_template(info_request)
