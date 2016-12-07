@@ -47,10 +47,15 @@ class Ability
       self.class.can_view_with_prominence?(request.prominence, request, user)
     end
 
-    # Accessing alaveteli professional
     if feature_enabled? :alaveteli_pro
+      # Accessing alaveteli professional
       if user && (user.super? || user.pro?)
         can :access, :alaveteli_pro
+      end
+
+      # Extending embargoes
+      can :update, Embargo do |embargo|
+        user && (user == embargo.info_request.user || user.super?)
       end
     end
   end
