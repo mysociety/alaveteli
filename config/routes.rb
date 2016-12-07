@@ -603,6 +603,12 @@ Alaveteli::Application.routes.draw do
         get :preview, on: :new # /info_request/new/preview
       end
     end
+    # So that we can show a request using the existing controller from the
+    # pro context
+    match '/alaveteli_pro/info_requests/:url_title' => 'request#show',
+      :as => :show_alaveteli_pro_request,
+      :via => :get,
+      :defaults => { :pro => "1" }
   end
   ####
 
