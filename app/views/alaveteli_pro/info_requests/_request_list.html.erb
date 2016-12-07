@@ -9,6 +9,11 @@
       <%= form_for( @request_filter, :url => '', :method => 'get', :html => { :class => 'requests__filter_form' }) do |f| %>
         <div class="requests__search">
           <%= f.text_field :search, :placeholder => _('Search') %>
+          <button type="submit" class="requests__search__button">
+            <span class="visually-hidden">
+              <%= _("Submit Search") %>
+            </span>
+          </button>
         </div>
         <div class="requests__sort">
           <label for="sort-options"><%= _('Sort by') %></label>
