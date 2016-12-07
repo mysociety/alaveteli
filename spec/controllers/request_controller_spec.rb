@@ -237,6 +237,20 @@ describe RequestController, "when showing one request" do
       expect(response).to render_template "request/show"
     end
   end
+
+  describe 'when params[:pro] is true' do
+    it "should set @pro to true" do
+      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', pro: "1"
+      expect(assigns[:pro]).to be true
+    end
+  end
+
+  describe 'when params[:pro] is not set' do
+    it "should set @pro to false" do
+      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+      expect(assigns[:pro]).to be false
+    end
+  end
 end
 
 describe RequestController do
