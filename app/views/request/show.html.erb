@@ -64,7 +64,7 @@
 
 </div>
 
-<%- if @sidebar %><%= render :partial => 'sidebar' %><% end %>
+<%- if @sidebar %><%= render :partial => @sidebar_template %><% end %>
 
 <%= content_for :javascript do %>
   <%= javascript_include_tag 'request-attachments.js' %>
