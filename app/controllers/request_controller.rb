@@ -91,6 +91,11 @@ class RequestController < ApplicationController
 
       # assign variables from request parameters
       @collapse_quotes = !params[:unfold]
+
+      # TODO: make this the same as whatever we use in the pro layout
+      # This should come from defaults: { pro: true } in routes.rb
+      @pro = params[:pro] == "1"
+
       # Don't allow status update on external requests, otherwise accept param
       if @info_request.is_external?
         @update_status = false
