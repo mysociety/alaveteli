@@ -602,6 +602,7 @@ Alaveteli::Application.routes.draw do
       resources :info_requests, :only => [:new, :create, :index] do
         get :preview, on: :new # /info_request/new/preview
       end
+      resources :embargo_extensions, :only => [:create]
     end
     # So that we can show a request using the existing controller from the
     # pro context
