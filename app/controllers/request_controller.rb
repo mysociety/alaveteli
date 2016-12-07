@@ -121,6 +121,7 @@ class RequestController < ApplicationController
       # Sidebar stuff
       @sidebar = true
       @similar_cache_key = cache_key_for_similar_requests(@info_request, @locale)
+      @sidebar_template = @pro ? "alaveteli_pro/info_requests/sidebar" : "sidebar"
 
       # Track corresponding to this page
       @track_thing = TrackThing.create_track_for_request(@info_request)

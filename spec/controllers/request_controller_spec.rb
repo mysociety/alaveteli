@@ -239,16 +239,31 @@ describe RequestController, "when showing one request" do
   end
 
   describe 'when params[:pro] is true' do
-    it "should set @pro to true" do
+    before :each do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', pro: "1"
+    end
+
+    it "should set @pro to true" do
       expect(assigns[:pro]).to be true
+    end
+
+    it "should set @sidebar_template to the pro sidebar" do
+      expect(assigns[:sidebar_template]).
+        to eq ("alaveteli_pro/info_requests/sidebar")
     end
   end
 
   describe 'when params[:pro] is not set' do
-    it "should set @pro to false" do
+    before :each do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+    end
+
+    it "should set @pro to false" do
       expect(assigns[:pro]).to be false
+    end
+
+    it "should set @sidebar_template to the normal sidebar" do
+      expect(assigns[:sidebar_template]).to eq ("sidebar")
     end
   end
 end
