@@ -5,6 +5,10 @@ module AlaveteliDsl
     visit "/request/#{url_title}"
   end
 
+  def browse_pro_request(url_title)
+    visit "/alaveteli_pro/info_requests/#{url_title}"
+  end
+
   def create_request
     visit select_authority_path
     within(:css, '#search_form') do
