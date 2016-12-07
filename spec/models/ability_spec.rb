@@ -258,4 +258,38 @@ describe Ability do
       end
     end
   end
+
+  describe "Updating Embargoes" do
+    let(:embargo) { FactoryGirl.create(:embargo) }
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+
+    it "allows the info request owner to update it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).to be_able_to(:update, embargo)
+      end
+    end
+
+    it "allows admins to update it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(admin_user)
+        expect(ability).to be_able_to(:update, embargo)
+      end
+    end
+
+    it "doesnt allow anonymous users to update it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(nil)
+        expect(ability).not_to be_able_to(:update, embargo)
+      end
+    end
+
+    it "doesnt allow other users to update it" do
+      other_user = FactoryGirl.create(:user)
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(other_user)
+        expect(ability).not_to be_able_to(:update, embargo)
+      end
+    end
+  end
 end
