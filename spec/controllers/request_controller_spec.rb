@@ -276,6 +276,78 @@ describe RequestController, "when showing one request" do
       expect(assigns[:sidebar_template]).to eq ("sidebar")
     end
   end
+
+  describe "@show_top_describe_state_form" do
+    context "when @pro is true" do
+      it "is false" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
+                   :pro => "1",
+                   :update_status => "1"
+        expect(assigns[:show_top_describe_state_form]).to be false
+      end
+    end
+    context "when @pro is false" do
+      context "and @update_status is false" do
+        it "is false" do
+          info_request = info_requests(:naughty_chicken_request)
+          expect(info_request.awaiting_description).to be false
+          get :show, :url_title => info_request.url_title
+          expect(assigns[:show_top_describe_state_form]).to be false
+        end
+
+        context "but the request is awaiting_description" do
+          it "is true" do
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+            expect(assigns[:show_top_describe_state_form]).to be true
+          end
+        end
+      end
+      context "and @update_status is true" do
+        it "is true" do
+          session[:user_id] = users(:bob_smith_user).id
+          info_request = info_requests(:naughty_chicken_request)
+          expect(info_request.awaiting_description).to be false
+          get :show, :url_title => info_request.url_title,
+                     :update_status => "1"
+          expect(assigns[:show_top_describe_state_form]).to be true
+        end
+
+        context "and the request is awaiting_description" do
+          it "is true" do
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
+                       :update_status => "1"
+            expect(assigns[:show_top_describe_state_form]).to be true
+          end
+        end
+      end
+    end
+  end
+
+  describe "@show_bottom_describe_state_form" do
+    context "when @pro is true" do
+      it "is false" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
+                   :pro => "1"
+        expect(assigns[:show_bottom_describe_state_form]).to be false
+      end
+    end
+    context "when @pro is false" do
+      context "and the request is awaiting_description" do
+        it "is true" do
+          get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+          expect(assigns[:show_bottom_describe_state_form]).to be true
+        end
+      end
+      context "and the request is not awaiting_description" do
+        it "is false" do
+          info_request = info_requests(:naughty_chicken_request)
+          expect(info_request.awaiting_description).to be false
+          get :show, :url_title => info_request.url_title
+          expect(assigns[:show_bottom_describe_state_form]).to be false
+        end
+      end
+    end
+  end
 end
 
 describe RequestController do
