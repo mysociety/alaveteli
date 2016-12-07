@@ -62,4 +62,17 @@ describe Embargo, :type => :model do
       expect(embargo.publish_at).to eq Time.zone.today
     end
   end
+
+  describe 'extending' do
+    let(:embargo_extension) { FactoryGirl.create(:embargo_extension) }
+    let(:embargo) { embargo_extension.embargo }
+
+    it 'allows extending the embargo' do
+      old_publish_at = embargo.publish_at
+      expect(old_publish_at).to eq Time.zone.today + 3.months
+      embargo.extend(embargo_extension)
+      expected_publish_at = old_publish_at + 3.months
+      expect(embargo.publish_at).to eq expected_publish_at
+    end
+  end
 end

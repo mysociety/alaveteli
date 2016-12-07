@@ -38,18 +38,25 @@ class Embargo < ActiveRecord::Base
     DURATIONS.keys
   end
 
-  def duration_as_duration
-    DURATIONS[self.embargo_duration].call
+  def duration_as_duration(duration = nil)
+    duration ||= self.embargo_duration
+    DURATIONS[duration].call
   end
 
   def duration_label
     DURATION_LABELS[self.embargo_duration]
   end
 
+  def extend(extension)
+    self.publish_at += duration_as_duration(extension.extension_duration)
+    save
+  end
+
+  private
+
   def set_publish_at_from_duration
     unless self.publish_at.present? || self.embargo_duration.blank?
       self.publish_at = Time.zone.today + duration_as_duration
     end
   end
-
 end
