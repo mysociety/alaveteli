@@ -37,9 +37,9 @@ describe "request/show" do
     expect(rendered).to have_css("h1",:text => "Test request")
   end
 
-  describe "when a status update has been requested" do
+  describe "when told to show the top describe state form" do
     before do
-      assign :update_status, true
+      assign :show_top_describe_state_form, true
     end
 
     it "should show the first form for describing the state of the request" do
@@ -49,15 +49,9 @@ describe "request/show" do
     end
   end
 
-  describe "when it is awaiting a description" do
-    before :each do
-      allow(mock_request).to receive(:awaiting_description).and_return(true)
-      request_page
-    end
-
-    it "should show the first form for describing the state of the request" do
-      expect(rendered).
-        to have_css("div.describe_state_form#describe_state_form_1")
+  describe "when told to show the bottom describe state form" do
+    before do
+      assign :show_bottom_describe_state_form, true
     end
 
     it "should show the second form for describing the state of the request" do
@@ -116,23 +110,7 @@ describe "request/show" do
       assign :user, admin_user
       # Admins own every request
       assign :is_owning_user, true
-    end
 
-    context "and the request is awaiting description" do
-      before :each do
-        allow(mock_request).to receive(:awaiting_description).and_return(true)
-        request_page
-      end
-
-      it "should show the describe state form" do
-        expect(rendered).to have_css("div.describe_state_form")
-      end
-
-      it "should ask the user to use the describe state from" do
-        expect(response.body).to have_css(
-          "p#request_status",
-          :text => "answer the question above")
-      end
     end
 
     context "and the request is waiting for a response and very overdue" do
@@ -181,20 +159,6 @@ describe "request/show" do
     context 'when the request is being viewed by an admin' do
       before :each do
         assign :user, admin_user
-      end
-
-      context 'and the request is awaiting description' do
-        it 'should not show the describe state form' do
-          request_page
-          expect(rendered).not_to have_css('div.describe_state_form')
-        end
-
-        it 'should not ask the user to use the describe state form' do
-          request_page
-          expect(rendered).not_to have_css(
-            'p#request_status',
-            :text => "answer the question above")
-        end
       end
 
       context 'and the request is waiting for a response and very overdue' do

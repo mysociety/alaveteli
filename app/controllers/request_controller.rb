@@ -93,7 +93,6 @@ class RequestController < ApplicationController
       @collapse_quotes = !params[:unfold]
 
       # TODO: make this the same as whatever we use in the pro layout
-      # This should come from defaults: { pro: true } in routes.rb
       @pro = params[:pro] == "1"
 
       @update_status = can_update_status(@info_request)
@@ -872,6 +871,11 @@ class RequestController < ApplicationController
     @show_profile_photo = !@info_request.is_external? &&  \
                           @info_request.user.profile_photo && \
                           !@render_to_file
+    @show_top_describe_state_form = (@update_status || \
+                                     @info_request.awaiting_description ) && \
+                                    !@info_request.is_external?
+    @show_bottom_describe_state_form = @info_request.awaiting_description && \
+                                       !@info_request.is_external?
   end
 
   def make_request_zip(info_request, file_path)
