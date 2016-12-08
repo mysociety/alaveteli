@@ -104,3 +104,32 @@
   height: 19px;
   width: 14px;
 }
+
+.search-and-filter-overview {
+  color: #999;
+  strong {
+    font-weight: normal;
+    color: #333;
+  }
+}
+
+.clear-icon {
+  background-image: image-url('/assets/alaveteli-pro/clear-icon.png');
+  background-size: 8px 8px;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  padding: 0.5em;
+  margin-left: 0.3em;
+  position: relative;
+  top: 3px;
+  @extend .image-replacement;
+  opacity: 0.5;
+  &:hover,
+  &:active,
+  &:focus {
+    opacity: 1;
+  }
+}
