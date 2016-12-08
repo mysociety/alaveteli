@@ -20,7 +20,9 @@
   // appear continuous
   margin-bottom: -2px;
   a,
-  a:hover {
+  a:hover,
+  a:active,
+  a:focus {
     font-weight: normal;
     color: white;
     text-decoration: none;
@@ -55,8 +57,14 @@ a.dashboard-folder__name:visited {
   }
 }
 
-.dashboard-folder a:hover {
-  background-color: #e6e4df;
+.dashboard-folder {
+  a {
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: #e6e4df;
+    }
+  }
 }
 
 .dashboard-folder--disabled {
@@ -97,4 +105,61 @@ a.dashboard-folder__name:visited {
 
 .dashboard-activity__item__time {
   color: #999;
+}
+
+
+.status-icon {
+  background-image: image-url('/assets/alaveteli-pro/pro-status-icons.png');
+  background-position: 0 0;
+  background-size: 44px 283px;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+
+.status-icon--awaiting-response {
+  background-position: 0 -63px;
+}
+
+.status-icon--response-received {
+  background-position: 0 -127px;
+}
+
+.status-icon--clarification-needed {
+  background-position: 0 -192px;
+}
+
+.status-icon--complete {
+  background-position: 0 1px;
+}
+
+.status-icon--other {
+  background-position: 0 -256px;
+}
+
+.dashboard-folder {
+  .status-icon {
+    position: relative;
+    top: 4px;
+  }
+}
+
+.dashboard-folder {
+  a {
+    &:hover,
+    &:active,
+    &:focus {
+      .status-icon {
+        //changes to darker style for rollover
+        background-position-x: -23px;
+      }
+    }
+  }
+}
+
+.dashboard-folder__name--disabled {
+  .status-icon {
+    //make it less prominent when the folder name isn't clickable
+    opacity: 0.5;
+  }
 }

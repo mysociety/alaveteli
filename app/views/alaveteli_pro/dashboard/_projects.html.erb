@@ -13,8 +13,9 @@
       <% if @user.info_requests.send(phase[:scope]).count != 0 %>
         <a href="<%= alaveteli_pro_info_requests_path('request_filter[filter]' => phase[:scope]) %>" class="dashboard-folder__name">
       <% else %>
-        <span class="dashboard-folder__name">
+        <span class="dashboard-folder__name dashboard-folder__name--disabled">
       <% end %>
+        <span class="status-icon status-icon--<%= phase[:name].parameterize %>"></span>
         <%= phase[:name] %>
         <span class="dashboard-folder__count">
           <%= @user.info_requests.send(phase[:scope]).count %>
