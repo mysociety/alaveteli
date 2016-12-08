@@ -77,6 +77,9 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
 
 .dashboard-sub-folders {
   margin: 0 0 2em 0;
+  .dashboard-folder__name {
+    padding-left: 0.5em;
+  }
 }
 
 .dashboard-folder {
