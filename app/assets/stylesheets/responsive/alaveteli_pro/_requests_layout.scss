@@ -148,12 +148,22 @@
 
 
 .request__status {
+  position: relative;
+  padding-left: 25px;
   @include flex(1 0 60%);
   @include respond-min( 24em ){
     @include flex(1 0 40%);
   }
   @include respond-min( $dashboard-collapse ){
     @include flex(5 0 0);
+  }
+  p {
+
+  }
+  .status-icon {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
   }
 }
 
