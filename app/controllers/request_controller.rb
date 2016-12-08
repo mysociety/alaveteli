@@ -1074,7 +1074,13 @@ class RequestController < ApplicationController
     # Look up by old style numeric identifiers
     if params[:url_title].match(/^[0-9]+$/)
       @info_request = InfoRequest.find(params[:url_title].to_i)
-      redirect_to request_url(@info_request, :format => params[:format])
+      if params[:pro] == "1"
+        redirect_to show_alaveteli_pro_request_url(
+          :url_title => @info_request.url_title,
+          :format => params[:format])
+      else
+        redirect_to request_url(@info_request, :format => params[:format])
+      end
     end
   end
 end
