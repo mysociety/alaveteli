@@ -23,7 +23,9 @@
       <% end %>
 
     </div> <!-- .requests-header -->
-
+    <div class="search-and-filter-overview">
+      <p>Searching for <strong>search term</strong> in <strong>filter</strong> sorted by <strong>sort choice</strong> <a href="<% request.path %>" class="clear-icon">clear</a></p>
+    </div>
     <div class="requests__list">
 
       <% if @request_filter.filter == 'draft' %>
