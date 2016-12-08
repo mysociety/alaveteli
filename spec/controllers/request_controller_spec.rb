@@ -157,6 +157,16 @@ describe RequestController, "when showing one request" do
     expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
   end
 
+  context "when showing a request in the pro context" do
+    it "should redirect from a numeric URL to pretty one in the pro namespace" do
+      get :show, :url_title => info_requests(:naughty_chicken_request).id.to_s,
+                 :pro => "1"
+      expect(response).
+        to redirect_to(show_alaveteli_pro_request_path(
+          :url_title => info_requests(:naughty_chicken_request).url_title))
+    end
+  end
+
   context 'when the request is embargoed' do
     it 'raises ActiveRecord::RecordNotFound' do
       embargoed_request = FactoryGirl.create(:embargoed_request)
