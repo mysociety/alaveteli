@@ -14,5 +14,9 @@
         <input type="submit" value="<%= _("Extend") %>">
       </p>
     <% end %>
+    <%= button_to "Publish request",
+                  alaveteli_pro_embargo_path(@info_request.embargo),
+                  method: :delete,
+                  confirm: "Are you sure you want to publish this request?" %>
   <% end %>
 </div>
