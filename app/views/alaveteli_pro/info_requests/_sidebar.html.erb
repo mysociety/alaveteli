@@ -1,1 +1,18 @@
-This is the pro sidebar
+<div id="right_column" class="sidebar right_column" role="complementary">
+  <% if @info_request.embargo %>
+    <%= form_for([:alaveteli_pro,
+                  EmbargoExtension.new(embargo: @info_request.embargo)]) do |f| %>
+      <%= render partial: "alaveteli_pro/info_requests/embargo_info",
+                 locals: {embargo: @info_request.embargo, tense: :present} %>
+      <%= f.hidden_field :embargo_id %>
+      <p>
+        <label class="form_label" for="embargo_extension_extension_duration">
+          <%= _('Extend embargo:') %>
+        </label>
+        <%= f.select :extension_duration,
+                     options_for_select(embargo_extension_options) %>
+        <input type="submit" value="<%= _("Extend") %>">
+      </p>
+    <% end %>
+  <% end %>
+</div>
