@@ -30,7 +30,8 @@
 
     <div class="request_body">
       <div id="request_advice" class="request_advice">
-        <%= render partial: "embargo_info" %>
+        <%= render partial: "embargo_info",
+                   locals: { embargo: @embargo, tense: :future } %>
         <p>
           <label class="form_label" for="embargo_embargo_duration">
             <%= _('Set embargo:') %>
