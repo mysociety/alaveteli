@@ -7,19 +7,19 @@
 # Translators:
 # Ferents <ferencbaki89@gmail.com>, 2013
 # Ferents <ferencbaki89@gmail.com>, 2013
-# hiiri <murahoid@gmail.com>, 2012,2014
+# Natalie Hiirulainen <murahoid@gmail.com>, 2012,2014
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013-2014
-# hiiri <murahoid@gmail.com>, 2014,2016
-# hiiri <murahoid@gmail.com>, 2012
-# hiiri <murahoid@gmail.com>, 2012
+# Natalie Hiirulainen <murahoid@gmail.com>, 2014,2016
+# Natalie Hiirulainen <murahoid@gmail.com>, 2012
+# Natalie Hiirulainen <murahoid@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-10-26 18:58+0000\n"
-"Last-Translator: hiiri <murahoid@gmail.com>\n"
+"PO-Revision-Date: 2016-11-19 15:13+0000\n"
+"Last-Translator: Natalie Hiirulainen <murahoid@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr "(звертаємо вашу увагу на те, що Тут не місце для політичних сварок)"
+msgstr "(звертаємо вашу увагу на те, що тут не місце для політичних сварок)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
 msgstr "(<strong>Наберіться терпіння</strong>, це може тривати досить довго, особливо якщо файл великий!)"
@@ -427,9 +427,7 @@ msgid "Annotations are so anyone, including you, can help the requester with the
 msgstr "Коментарі покликані допомагати авторам запитів. Наприклад:"
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
-"Коментарі з’являються в публічному доступі, але\n"
-"        <strong>не</strong> надсилаються до розпорядника інформації."
+msgstr "Коментарі з’являються в публічному доступі, але <strong>не</strong> надсилаються до розпорядника {{public_body_name}}."
 
 msgid "Anonymous user"
 msgstr "Анонімний користувач"
@@ -1784,7 +1782,7 @@ msgid "Now preview your message asking for an internal review"
 msgstr "Попередній перегляд"
 
 msgid "Number of requests"
-msgstr ""
+msgstr "Кількість запитів"
 
 msgid "OR remove the existing photo"
 msgstr "АБО видалити існуюче фото"
@@ -1889,10 +1887,10 @@ msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Люди починаючи з {{start_count}} до {{end_count}} з {{total_count}}"
 
 msgid "Percentage of requests that are overdue"
-msgstr ""
+msgstr "Частка прострочених запитів"
 
 msgid "Percentage of total requests"
-msgstr ""
+msgstr "Частка від усіх запитів"
 
 msgid "Photo of you:"
 msgstr "Оберіть фото:"
@@ -1937,7 +1935,7 @@ msgid "Please choose a file containing your photo."
 msgstr "Будь ласка, оберіть файл, що містить ваше фото."
 
 msgid "Please choose a reason"
-msgstr ""
+msgstr "Будь ласка, оберіть причину"
 
 msgid "Please choose what sort of reply you are making."
 msgstr "Будь ласка, оберіть тип відповіді."
@@ -1985,7 +1983,7 @@ msgid "Please enter the message you want to send"
 msgstr "Будь ласка, введіть повідомлення, яке ви хочете відправити"
 
 msgid "Please enter the name of the authority"
-msgstr ""
+msgstr "Будь ласка, введіть назву розпорядника інформації"
 
 msgid "Please enter the same password twice"
 msgstr "Будь ласка, введіть один і той же пароль двічі"
@@ -2042,7 +2040,7 @@ msgid "Please sign in as {{user_name}}"
 msgstr "Будь ласка, увійдіть як {{user_name}}"
 
 msgid "Please tell us more:"
-msgstr ""
+msgstr "Розкажіть нам більше:"
 
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Будь ласка, введіть повідомлення або оберіть файл, що містить вашу відповідь."
@@ -2129,7 +2127,7 @@ msgid "Preview your public request"
 msgstr "Попередній перегляд запиту"
 
 msgid "Preview your request"
-msgstr ""
+msgstr "Попередній перегляд"
 
 msgid "Print your one time passcode"
 msgstr ""
@@ -2147,13 +2145,13 @@ msgid "ProfilePhoto|Draft"
 msgstr ""
 
 msgid "Public Bodies"
-msgstr ""
+msgstr "Розпорядники інформації"
 
 msgid "Public Body"
-msgstr ""
+msgstr "Розпорядник інформації"
 
 msgid "Public Body Statistics"
-msgstr ""
+msgstr "Статистика розпорядників інформації"
 
 msgid "Public authorities"
 msgstr "Розпорядники інформації"
@@ -2165,28 +2163,28 @@ msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr ""
 
 msgid "Public authority statistics"
-msgstr ""
+msgstr "Статистика розпорядників інформації"
 
 msgid "Public authority – {{name}}"
 msgstr "Розпорядник інформації – {{name}}"
 
 msgid "Public bodies that most frequently replied with \"Not Held\""
-msgstr ""
+msgstr "Розпрорядники, які найчастіше відповідають, що не мають інформації"
 
 msgid "Public bodies with most overdue requests"
-msgstr ""
+msgstr "Розпорядники з найбільшою кількістю просрочених запитів"
 
 msgid "Public bodies with the fewest successful requests"
-msgstr ""
+msgstr "Розпорядники з найменшою часткою успішних запитів"
 
 msgid "Public bodies with the most requests"
-msgstr ""
+msgstr "Розпорядники з найбільшою кількістю запитів"
 
 msgid "Public bodies with the most successful requests"
-msgstr ""
+msgstr "Розпорядники з найбільшою часткою успішних запитів"
 
 msgid "Public body"
-msgstr ""
+msgstr "Розпорядник інформації"
 
 msgid "Public body category"
 msgstr ""
