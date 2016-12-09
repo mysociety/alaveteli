@@ -25,6 +25,35 @@ class InfoRequest
       states
     end
 
+    def self.short_description(state)
+      descriptions = {
+            'waiting_classification'        => _("Awaiting classification"),
+            'waiting_response'              => _("Awaiting response"),
+            'waiting_response_overdue'      => _("Delayed"),
+            'waiting_response_very_overdue' => _("Long overdue"),
+            'not_held'                      => _("Information not held"),
+            'rejected'                      => _("Refused"),
+            'partially_successful'          => _("Partially successful"),
+            'successful'                    => _("Successful"),
+            'waiting_clarification'         => _("Waiting clarification"),
+            'gone_postal'                   => _("Handled by post"),
+            'internal_review'               => _("Awaiting internal review"),
+            'error_message'                 => _("Delivery error"),
+            'requires_admin'                => _("Unusual response"),
+            'attention_requested'           => _("Reported"),
+            'user_withdrawn'                => _("Withdrawn"),
+            'vexatious'                     => _("Vexatious"),
+            'not_foi'                       => _("Not an FOI request"),
+          }
+      if descriptions[state]
+        descriptions[state]
+      elsif InfoRequest.respond_to?(:theme_short_description)
+        InfoRequest.theme_short_description(state)
+      else
+        raise _("unknown status {{state}}", :state => state)
+      end
+    end
+
     def self.phases
       [ { capital_label: _('Awaiting response'),
           label: _('awaiting response'),
