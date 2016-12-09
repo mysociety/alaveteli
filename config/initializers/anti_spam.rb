@@ -43,6 +43,8 @@ Rails.application.config.after_initialize do
        /Free.Download/i,
        /\{FR\}/i,
        /\[Album\]/i,
-       /watch.*?online free/i
+       /watch.*?online free/i,
+       /bangalore.*?escort/i,
+       /escort.*?bangalore/i
        ].freeze
 end
