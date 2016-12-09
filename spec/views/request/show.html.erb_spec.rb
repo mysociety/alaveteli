@@ -213,6 +213,7 @@ describe "request/show" do
         assign :info_request, request_with_attachment
         assign :info_request_events, request_with_attachment.info_request_events
         assign :status, request_with_attachment.calculate_status
+        assign :track_thing, TrackThing.create_track_for_request(request_with_attachment)
         render
         expect(rendered).to have_css(".attachment .attachment__name") do |s|
           expect(s).to contain /interesting.pdf/m
@@ -230,6 +231,7 @@ describe "request/show" do
         assign :info_request, request_with_attachment
         assign :info_request_events, request_with_attachment.info_request_events
         assign :status, request_with_attachment.calculate_status
+        assign :track_thing, TrackThing.create_track_for_request(request_with_attachment)
         # For cancancan
         allow(view).to receive(:current_user).and_return(nil)
         allow(controller).to receive(:current_user).and_return(nil)
@@ -242,4 +244,23 @@ describe "request/show" do
       end
     end
   end
+
+  describe "follow links" do
+    context "when the request is a normal request" do
+      it "should show a follow link" do
+        request_page
+        expect(rendered).to have_css("a", text: "Follow")
+      end
+    end
+
+    context "when the request is a pro request" do
+      it "should not show a follow link" do
+        assign :pro, true
+        request_page
+        expect(rendered).not_to have_css("a", text: "Follow")
+      end
+    end
+  end
+
+  describe "action"
 end
