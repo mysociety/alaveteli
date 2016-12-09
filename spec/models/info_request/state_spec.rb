@@ -59,4 +59,16 @@ describe InfoRequest::State do
 
   end
 
+  describe :phase_params do
+
+    it 'returns hyphenised versions of the phases' do
+      expect(InfoRequest::State.phase_params)
+        .to eq({ :awaiting_response => "awaiting-response",
+                 :response_received => "response-received",
+                 :clarification_needed => "clarification-needed",
+                 :complete => "complete",
+                 :other => "other" })
+    end
+  end
+
 end
