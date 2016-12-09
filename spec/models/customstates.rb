@@ -38,7 +38,17 @@ module InfoRequestCustomStates
       elsif status == 'wrong_response'
         _("Wrong Response.")
       else
-        raise _("unknown status ") + status
+        raise _("unknown status {{status}}", :status => status)
+      end
+    end
+
+    def theme_short_description(status)
+      if status == 'deadline_extended'
+        _("Deadline extended")
+      elsif status == 'wrong_response'
+        _("Wrong Response")
+      else
+        raise _("unknown status {{status}}", :status => status)
       end
     end
 
