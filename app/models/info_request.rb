@@ -180,6 +180,12 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  # opts = Hash of options (default: {})
+  # Returns a StateCalculator
+  def state(opts = {})
+    State::Calculator.new(self)
+  end
+
   def must_be_valid_state
     unless State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
