@@ -13,6 +13,8 @@ class RequestController < ApplicationController
   before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
   before_filter :set_render_recaptcha, :only => [ :new ]
   before_filter :redirect_numeric_id_to_url_title, :only => [:show]
+  before_filter :redirect_embargoed_requests_for_pro_users, :only => [:show]
+  before_filter :redirect_public_requests_from_pro_context, :only => [:show]
   MAX_RESULTS = 500
   PER_PAGE = 25
 
@@ -1076,12 +1078,31 @@ class RequestController < ApplicationController
     # Look up by old style numeric identifiers
     if params[:url_title].match(/^[0-9]+$/)
       @info_request = InfoRequest.find(params[:url_title].to_i)
-      if params[:pro] == "1"
+      redirect_to request_url(@info_request, :format => params[:format])
+    end
+  end
+
+  def redirect_embargoed_requests_for_pro_users
+    # Pro users should see their embargoed requests in the pro page, so that
+    # if other site functions send them to a request page, they end up back in
+    # the pro area
+    if feature_enabled?(:alaveteli_pro) && params[:pro] != "1" && \
+       current_user && current_user.pro?
+      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      if @info_request.is_actual_owning_user?(current_user) && @info_request.embargo
         redirect_to show_alaveteli_pro_request_url(
-          :url_title => @info_request.url_title,
-          :format => params[:format])
-      else
-        redirect_to request_url(@info_request, :format => params[:format])
+          :url_title => @info_request.url_title)
+      end
+    end
+  end
+
+  def redirect_public_requests_from_pro_context
+    # Requests which aren't embargoed should always go to the normal request
+    # page, so that pro's seem them in that context after they publish them
+    if feature_enabled?(:alaveteli_pro) && params[:pro] == "1"
+      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      unless @info_request.embargo
+        redirect_to request_url(@info_request)
       end
     end
   end
