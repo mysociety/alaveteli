@@ -157,13 +157,49 @@ describe RequestController, "when showing one request" do
     expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
   end
 
-  context "when showing a request in the pro context" do
-    it "should redirect from a numeric URL to pretty one in the pro namespace" do
-      get :show, :url_title => info_requests(:naughty_chicken_request).id.to_s,
-                 :pro => "1"
-      expect(response).
-        to redirect_to(show_alaveteli_pro_request_path(
-          :url_title => info_requests(:naughty_chicken_request).url_title))
+
+  describe "redirecting pro users to the pro context" do
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+
+    context "when showing pros their own requests" do
+      context "when the request is embargoed" do
+        let(:info_request) do
+          FactoryGirl.create(:embargoed_request, user: pro_user)
+        end
+
+        it "should always redirect to the pro version of the page" do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user
+            get :show, url_title: info_request.url_title
+            expect(response).to redirect_to show_alaveteli_pro_request_path(
+              url_title: info_request.url_title)
+          end
+        end
+      end
+
+      context "when the request is not embargoed" do
+        let(:info_request) do
+          FactoryGirl.create(:info_request, user: pro_user)
+        end
+
+        it "should not redirect to the pro version of the page" do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user
+            get :show, url_title: info_request.url_title
+            expect(response).to be_success
+          end
+        end
+      end
+    end
+
+    context "when showing pros a someone else's request" do
+      it "should not redirect to the pro version of the page" do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user
+          get :show, url_title: 'why_do_you_have_such_a_fancy_dog'
+          expect(response).to be_success
+        end
+      end
     end
   end
 
