@@ -19,4 +19,20 @@
                   method: :delete,
                   confirm: "Are you sure you want to publish this request?" %>
   <% end %>
+  <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
+    <h2>Update status</h2>
+    <p>
+      <% InfoRequest.enumerate_states.each do |s| %>
+        <%# TODO - nice labels for these %>
+        <%= f.label :described_state, value: s do %>
+          <%# TODO - There's probably a good order for these %>
+          <%# TODO - not all states will be applicable %>
+          <%# TODO - refactor into a helper %>
+          <%= f.radio_button :described_state, s, checked: @info_request.described_state == s %>
+          <%= _(s.humanize) %>
+        <% end %>
+      <% end %>
+    </p>
+    <input type="submit" value="<%= _("Update") %>">
+  <% end %>
 </div>
