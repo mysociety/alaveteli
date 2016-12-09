@@ -26,15 +26,20 @@ class InfoRequest
     end
 
     def self.phases
-      [ { name: _('Awaiting response'),
+      [ { capital_label: _('Awaiting response'),
+          label: _('awaiting response'),
           scope: :awaiting_response },
-        { name: _('Response received'),
+        { capital_label: _('Response received'),
+          label: _('response received'),
           scope: :response_received },
-        { name: _('Clarification needed'),
+        { capital_label: _('Clarification needed'),
+          label: _('clarification needed'),
           scope: :clarification_needed },
-        { name: _('Complete'),
+        { capital_label: _('Complete'),
+          label: _('complete'),
           scope: :complete },
-        { name: _('Other'),
+        { capital_label: _('Other'),
+          label: _('other'),
           scope: :other }
         ]
     end
