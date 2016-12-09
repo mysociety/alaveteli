@@ -33,8 +33,17 @@
         </p>
         <% unless @render_to_file %>
           <div class="request-header__action-bar__actions <% if @show_profile_photo %>request-header__action-bar__actions--narrow<% end %>">
-            <%= render :partial => 'after_actions' %>
-            <%= render :partial => 'track/tracking_links_simple', :locals => { :track_thing => @track_thing, :own_request => @info_request.user && @info_request.user == @user, :location => 'toolbar ' } %>
+            <% if @pro %>
+              <%= render :partial => 'alaveteli_pro/info_requests/after_actions' %>
+            <% else %>
+              <%= render :partial => 'after_actions' %>
+              <%= render :partial => 'track/tracking_links_simple',
+                         :locals => {
+                            :track_thing => @track_thing,
+                            :own_request => @info_request.user && \
+                                            @info_request.user == @user,
+                            :location => 'toolbar ' } %>
+            <% end %>
           </div>
         <% end %>
       </div>
