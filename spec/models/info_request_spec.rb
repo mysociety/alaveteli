@@ -2813,3 +2813,14 @@ describe InfoRequest do
 
 
 end
+
+describe InfoRequest do
+
+  describe '#state' do
+
+    it 'returns a State::Calculator' do
+      expect(InfoRequest.new.state).to be_a InfoRequest::State::Calculator
+    end
+  end
+
+end

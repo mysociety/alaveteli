@@ -57,21 +57,29 @@ class InfoRequest
     def self.phases
       [ { capital_label: _('Awaiting response'),
           label: _('awaiting response'),
-          scope: :awaiting_response },
+          scope: :awaiting_response,
+          param: 'awaiting-response' },
         { capital_label: _('Response received'),
           label: _('response received'),
-          scope: :response_received },
+          scope: :response_received,
+          param: 'response-received' },
         { capital_label: _('Clarification needed'),
           label: _('clarification needed'),
-          scope: :clarification_needed },
+          scope: :clarification_needed,
+          param: 'clarification-needed' },
         { capital_label: _('Complete'),
           label: _('complete'),
-          scope: :complete },
+          scope: :complete,
+          param: 'complete' },
         { capital_label: _('Other'),
           label: _('other'),
-          scope: :other }
+          scope: :other,
+          param: 'other' }
         ]
     end
 
+    def self.phase_params
+      Hash[phases.map{ |atts| [ atts[:scope], atts[:param] ]}]
+    end
   end
 end
