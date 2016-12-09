@@ -14,13 +14,6 @@ describe 'when displaying actions that can be taken with regard to a pro request
     render :partial => 'alaveteli_pro/info_requests/after_actions'
   end
 
-  it 'should display a link to update the status of the request' do
-    render_view
-    expect(response.body).to have_css('.action-menu__menu__submenu') do |div|
-      expect(div).to have_css('a', :text => 'Update the status of this request')
-    end
-  end
-
   it 'should display a link to request a review' do
     render_view
     expect(response.body).to have_css('.action-menu__menu__submenu') do |div|
