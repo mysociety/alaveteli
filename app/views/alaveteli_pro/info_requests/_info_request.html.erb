@@ -29,7 +29,7 @@
 
     <div class="request__status">
       <span class="request__meta__label"><%= _('Status') %></span>
-      <p><span class="status-icon status-icon--<%= InfoRequest.get_status_description(info_request.described_state).parameterize %>"></span><%= InfoRequest::State.short_description(info_request.described_state) %></p>
+      <p><span class="status-icon status-icon--<%= InfoRequest::State.phase_params[info_request.state.phase] %>"></span><%= InfoRequest::State.short_description(info_request.described_state) %></p>
     </div>
 
     <div class="request__actions">
