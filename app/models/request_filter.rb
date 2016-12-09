@@ -16,11 +16,19 @@ class RequestFilter
   end
 
   def order_options
-    order_attributes.map { |atts| [atts[:label], atts[:param]] }
+    order_attributes.map { |atts| [atts[:capital_label], atts[:param]] }
+  end
+
+  def order_label
+    order_params.include?(@order) ? order_labels[@order] : order_labels[default_order]
   end
 
   def filter_label
-    filter_params.include?(@filter) ? filter_labels[@filter] : nil
+    filter_params.include?(@filter) ? filter_labels[@filter] : filter_labels[nil]
+  end
+
+  def filter_capital_label
+    filter_params.include?(@filter) ? filter_capital_labels[@filter] : filter_capital_labels[nil]
   end
 
   def results(user)
@@ -67,13 +75,16 @@ class RequestFilter
     [
      { :param => 'updated_at_desc',
        :value => 'updated_at DESC',
-       :label => _('Last updated') },
+       :label => _('last updated'),
+       :capital_label => _('Last updated') },
      { :param => 'created_at_asc',
        :value => 'created_at ASC',
-       :label => _('First created') },
+       :label => _('first created'),
+       :capital_label => _('First created') },
      { :param => 'title_asc',
        :value => 'title ASC',
-       :label => _('Title (A-Z)') }
+       :label => _('title (A-Z)'),
+       :capital_label => _('Title (A-Z)') }
     ]
   end
 
@@ -85,28 +96,39 @@ class RequestFilter
     Hash[order_attributes.map{ |atts| [ atts[:param], atts[:value] ] }]
   end
 
+  def order_capital_labels
+    Hash[ order_options ].invert
+  end
+
+  def order_labels
+    Hash[ order_attributes.map { |atts| [atts[:param], atts[:label]]} ]
+  end
+
   def order_value
-    order_params.include?(@order) ? order_values[@order] : default_order
+    order_params.include?(@order) ? order_values[@order] : order_values[default_order]
   end
 
   def default_order
-    'updated_at DESC'
+    'updated_at_desc'
   end
 
   def default_filters
     [ { :param => nil,
         :value => nil,
-        :label => _('All requests') },
+        :label => _('all requests'),
+        :capital_label => _('All requests') },
       { :param => 'draft',
         :value => nil,
-        :label => _('Drafts') },
+        :label => _('drafts'),
+        :capital_label => _('Drafts') },
      ]
   end
 
   def phase_filters
     InfoRequest::State.phases.map{ |phase| { :param => phase[:scope].to_s,
                                              :value => phase[:scope],
-                                             :label => phase[:name] }  }
+                                             :label => phase[:label],
+                                             :capital_label => phase[:capital_label] }  }
   end
 
   def filter_attributes
@@ -114,10 +136,10 @@ class RequestFilter
   end
 
   def filter_options
-    filter_attributes.map {|atts| [atts[:label], atts[:param]] }
+    filter_attributes.map {|atts| [atts[:capital_label], atts[:param]] }
   end
 
-  def filter_labels
+  def filter_capital_labels
     Hash[ filter_options ].invert
   end
 
@@ -129,8 +151,12 @@ class RequestFilter
     Hash[ filter_attributes.map{ |atts| [ atts[:param], atts[:value] ] } ]
   end
 
+  def filter_labels
+    Hash[ filter_attributes.map { |atts| [atts[:param], atts[:label]]} ]
+  end
+
   def filter_value
-    filter_params.include?(@filter) ? filter_values[@filter] : nil
+    filter_params.include?(@filter) ? filter_values[@filter] : filter_values[nil]
   end
 
 end

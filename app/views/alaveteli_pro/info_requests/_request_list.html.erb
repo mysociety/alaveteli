@@ -2,7 +2,7 @@
 
   <div class="requests">
     <div class="requests__folder-title">
-      <h2><%= @request_filter.filter_label %></h2>
+      <h2><%= @request_filter.filter_capital_label %></h2>
     </div>
     <div class="requests__header">
 
@@ -24,7 +24,30 @@
 
     </div> <!-- .requests-header -->
     <div class="search-and-filter-overview">
-      <p>Searching for <strong>search term</strong> in <strong>filter</strong> sorted by <strong>sort choice</strong> <a href="<% request.path %>" class="clear-icon">clear</a></p>
+      <p>
+      <% if @request_filter.search.present? %>
+        <%= _("Searching for <strong>{{search_term}}</strong> in <strong>" \
+              "{{filter_description}}</strong> sorted by <strong>" \
+              "{{order_description}}</strong> <a href=\"{{reset_url}}\"" \
+              " class=\"clear-icon\">clear</a>",
+              :reset_url => alaveteli_pro_info_requests_path,
+              :search_term => @request_filter.search,
+              :filter_description => @request_filter.filter_label,
+              :order_description => @request_filter.order_label) %>
+      <% elsif @request_filter.filter.present? %>
+        <%= _("<strong>{{filter_description}}</strong> sorted by <strong>" \
+              "{{order_description}}</strong> <a href=\"{{reset_url}}\"" \
+              " class=\"clear-icon\">clear</a>",
+              :reset_url => alaveteli_pro_info_requests_path,
+              :filter_description => @request_filter.filter_capital_label,
+              :order_description => @request_filter.order_label) %>
+      <% elsif @request_filter.order && @request_filter.order != @request_filter.default_order %>
+        <%= _("Sorted by <strong>{{order_description}}</strong>" \
+              " <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>",
+              :reset_url => alaveteli_pro_info_requests_path,
+              :order_description => @request_filter.order_label) %>
+      <% end %>
+      </p>
     </div>
     <div class="requests__list">
 

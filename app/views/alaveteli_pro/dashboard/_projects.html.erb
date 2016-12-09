@@ -15,8 +15,8 @@
       <% else %>
         <span class="dashboard-folder__name dashboard-folder__name--disabled">
       <% end %>
-        <span class="status-icon status-icon--<%= phase[:name].parameterize %>"></span>
-        <%= phase[:name] %>
+        <span class="status-icon status-icon--<%= phase[:label].parameterize %>"></span>
+        <%= phase[:capital_label] %>
         <span class="dashboard-folder__count">
           <%= @user.info_requests.send(phase[:scope]).count %>
         </span>
