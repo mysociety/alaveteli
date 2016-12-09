@@ -24,4 +24,39 @@ describe InfoRequest::State do
     end
 
   end
+
+  describe :short_description do
+
+    it 'returns a short description for a valid state' do
+      expect(InfoRequest::State.short_description('attention_requested'))
+        .to eq 'Reported'
+    end
+
+    it 'raises an error for an unknown state' do
+      expect{ InfoRequest::State.short_description('meow') }
+        .to raise_error 'unknown status meow'
+    end
+
+    context 'when a theme is in use' do
+
+      before do
+        InfoRequest.send(:require, File.expand_path(File.dirname(__FILE__) + '/../customstates'))
+        InfoRequest.send(:include, InfoRequestCustomStates)
+        InfoRequest.class_eval('@@custom_states_loaded = true')
+      end
+
+      it 'returns a short description for a theme state' do
+        expect(InfoRequest::State.short_description('deadline_extended'))
+          .to eq 'Deadline extended'
+      end
+
+      it 'raises an error for an unknown state' do
+        expect{ InfoRequest::State.short_description('meow') }
+          .to raise_error 'unknown status meow'
+      end
+
+    end
+
+  end
+
 end
