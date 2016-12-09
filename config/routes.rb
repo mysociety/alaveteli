@@ -599,7 +599,7 @@ Alaveteli::Application.routes.draw do
     namespace :alaveteli_pro do
       match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
       resources :draft_info_requests, :only => [:create, :update]
-      resources :info_requests, :only => [:new, :create, :index] do
+      resources :info_requests, :only => [:new, :create, :update, :index] do
         get :preview, on: :new # /info_request/new/preview
       end
       resources :embargoes, :only => [:destroy]
