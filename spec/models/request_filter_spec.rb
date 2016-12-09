@@ -31,12 +31,12 @@ describe RequestFilter do
 
   end
 
-  describe '#filter_label' do
+  describe '#filter_capital_label' do
 
     def expect_label(label, filter)
       request_filter = described_class.new
       request_filter.update_attributes(:filter => filter)
-      expect(request_filter.filter_label).to eq label
+      expect(request_filter.filter_capital_label).to eq label
     end
 
     it 'is "All requests" when the filter is empty' do
@@ -65,6 +65,43 @@ describe RequestFilter do
 
     it 'is "Response received" when the filter is "response_received"' do
       expect_label('Response received', 'response_received')
+    end
+  end
+
+  describe '#filter_label' do
+
+    def expect_label(label, filter)
+      request_filter = described_class.new
+      request_filter.update_attributes(:filter => filter)
+      expect(request_filter.filter_label).to eq label
+    end
+
+    it 'is "all requests" when the filter is empty' do
+      expect_label('all requests', '')
+    end
+
+    it 'is "drafts" when the filter is "draft"' do
+      expect_label('drafts', 'draft')
+    end
+
+    it 'is "awaiting response" when the filter is "awaiting_response"' do
+      expect_label('awaiting response', 'awaiting_response')
+    end
+
+    it 'is "complete" when the filter is "complete"' do
+      expect_label('complete', 'complete')
+    end
+
+    it 'is "clarification needed" when the filter is "clarification_needed"' do
+      expect_label('clarification needed', 'clarification_needed')
+    end
+
+    it 'is "other" when the filter is "other"' do
+      expect_label('other', 'other')
+    end
+
+    it 'is "response received" when the filter is "response_received"' do
+      expect_label('response received', 'response_received')
     end
   end
 
