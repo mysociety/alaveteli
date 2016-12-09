@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :if => :user?
   skip_before_filter :verify_authenticity_token, :unless => :user?
 
+  # Deal with access denied errors from CanCan
+  rescue_from CanCan::AccessDenied do |exception|
+    raise PermissionDenied
+  end
+
   # assign our own handler method for non-local exceptions
   rescue_from Exception, :with => :render_exception
 
