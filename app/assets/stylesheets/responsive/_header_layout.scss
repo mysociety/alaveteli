@@ -142,7 +142,7 @@
   }
 }
 
-#navigation {
+.navigation {
   list-style: none outside none;
   @include grid-row;
   padding: 0;
@@ -190,7 +190,7 @@
   }
   form{
     @include grid-row;
-    padding: 1em 1em 0;
+    padding: 1em 0 0;
     @include lte-ie7 {
       display: inline;
     }
@@ -264,7 +264,7 @@
 .js-loaded {
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
 
-    #navigation {
+    .navigation {
 
       .logged-in-menu {
         position: absolute;
@@ -306,16 +306,37 @@
   }
 }
 
-#navigation .logged-in-menu li {
+.navigation .logged-in-menu li {
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
     display: inline-block;
   }
 }
 
+.logged-in-menu {
+  li a {
+    font-size: 0.8125em;
+    padding: 0.615384615em 1.230769231em; //13px 16px
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    color: black;
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
+    li a {
+      font-size: 1em;
+      padding: 0.5em 1em;
+    }
+  }
+}
+
 .account-link {
-  position: absolute;
-  right: 0;
-  top: 0;
+  position: relative;
+  padding-right: 1.5em;
+  border-bottom: 1px solid #e9e9e9;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0;
+  }
 }
 
 .js-loaded {
@@ -324,6 +345,16 @@
       position: inherit;
       right: inherit;
       top: inherit;
+    }
+    &:after {
+        position: absolute;
+        top: 1em;
+        right: 0.5em;
+        margin-left: 1em;
+        font-size: 0.5em;
+        @include respond-min( $main_menu-mobile_menu_cutoff ){
+          content: "▼";
+        }
     }
   }
 }
