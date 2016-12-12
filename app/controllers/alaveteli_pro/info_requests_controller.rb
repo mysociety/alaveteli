@@ -44,7 +44,8 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
       @embargo.save if @embargo.present?
       send_initial_message(@outgoing_message)
       destroy_draft
-      redirect_to show_request_path(url_title: @info_request.url_title)
+      redirect_to show_alaveteli_pro_request_path(
+        url_title: @info_request.url_title)
     else
       show_errors
     end
