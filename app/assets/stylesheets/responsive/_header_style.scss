@@ -21,7 +21,7 @@
 
 // New logged in menu styles
 .pro-pill {
-  font-size: 0.75em;
+  font-size: 0.625rem;
   color: white;
   background-color: purple;
   border-radius: 2px;
@@ -30,6 +30,7 @@
   // vertically center it with normal text
   position: relative;
   top: -0.15em;
+  line-height: 1em;
 }
 
 .dashboard-profile__image {
