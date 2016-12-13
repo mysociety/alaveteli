@@ -50,7 +50,12 @@
     </div>
     <div class="request-status">
       <p id="request_status" class="request-status-message request_icon_line icon_<%= @info_request.calculate_status %>">
-        <%= render :partial => 'request_status' %>
+        <%= status_text(@info_request,
+                        :new_responses_count => @new_responses_count,
+                        :is_owning_user => @is_owning_user,
+                        :render_to_file => @render_to_file,
+                        :old_unclassified => @old_unclassified,
+                        :redirect_to => request.fullpath) %>
       </p>
     </div>
   </div>
