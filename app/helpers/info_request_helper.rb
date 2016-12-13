@@ -4,39 +4,43 @@ module InfoRequestHelper
   include DateTimeHelper
   include LinkToHelper
 
-  def status_text(status, opts = {})
+  def status_text(info_request, opts = {})
+    if info_request.awaiting_description
+      status = "awaiting_description"
+    else
+      status = info_request.calculate_status
+    end
     method = "status_text_#{ status }"
     if respond_to?(method, true)
-      send(method, opts)
+      send(method, info_request, opts)
     else
-      custom_state_description(status)
-    end
-  end
-
-  def awaiting_description_text(info_request,
-                                new_responses_count,
-                                opts = {})
-    is_owning_user = opts.fetch(:is_owning_user, false)
-    render_to_file = opts.fetch(:render_to_file, false)
-    old_unclassified = opts.fetch(:old_unclassified, false)
-
-    if is_owning_user && !info_request.is_external? && !render_to_file
-      return awaiting_description_text_owner_please_answer(new_responses_count)
-    else
-      if old_unclassified
-        return awaiting_description_text_old_unclassified(new_responses_count)
-      else
-        return awaiting_description_text_other(info_request,
-                                               new_responses_count)
-      end
+      custom_state_description(info_request, opts)
     end
   end
 
   private
 
-  def status_text_waiting_response(opts = {})
-    info_request = opts.fetch(:info_request)
+  def status_text_awaiting_description(info_request, opts = {})
+    new_responses_count = opts.fetch(:new_responses_count, 0)
+    is_owning_user = opts.fetch(:is_owning_user, false)
+    render_to_file = opts.fetch(:render_to_file, false)
+    old_unclassified = opts.fetch(:old_unclassified, false)
 
+    if is_owning_user && !info_request.is_external? && !render_to_file
+      return status_text_awaiting_description_owner_please_answer(
+        new_responses_count)
+    else
+      if old_unclassified
+        return status_text_awaiting_description_old_unclassified(
+          new_responses_count)
+      else
+        return status_text_awaiting_description_other(info_request,
+                                                      new_responses_count)
+      end
+    end
+  end
+
+  def status_text_waiting_response(info_request, opts = {})
     str = _('Currently <strong>waiting for a response</strong> from ' \
             '{{public_body_link}}, they must respond promptly and',
             :public_body_link => public_body_link(info_request.public_body))
@@ -53,9 +57,7 @@ module InfoRequestHelper
     str += ")."
   end
 
-  def status_text_waiting_response_overdue(opts = {})
-    info_request = opts.fetch(:info_request)
-
+  def status_text_waiting_response_overdue(info_request, opts = {})
     str = _('Response to this request is <strong>delayed</strong>.')
     str += ' '
     str += _('By law, {{public_body_link}} should normally have responded ' \
@@ -73,9 +75,7 @@ module InfoRequestHelper
     str += ")"
   end
 
-  def status_text_waiting_response_very_overdue(opts = {})
-    info_request = opts.fetch(:info_request)
-
+  def status_text_waiting_response_very_overdue(info_request, opts = {})
     str = _('Response to this request is <strong>long overdue</strong>.')
     str += ' '
     str += _('By law, under all circumstances, {{public_body_link}} should ' \
@@ -100,31 +100,26 @@ module InfoRequestHelper
     str
   end
 
-  def status_text_not_held(opts = {})
-    info_request = opts.fetch(:info_request)
-
+  def status_text_not_held(info_request, opts = {})
     _('{{authority_name}} <strong>did not have</strong> the information ' \
       'requested.',
       :authority_name => public_body_link(info_request.public_body))
   end
 
-  def status_text_rejected(opts = {})
-    info_request = opts.fetch(:info_request)
-
+  def status_text_rejected(info_request, opts = {})
     _('The request was <strong>refused</strong> by {{authority_name}}.',
       :authority_name => public_body_link(info_request.public_body))
   end
 
-  def status_text_successful(opts = {})
+  def status_text_successful(info_request, opts = {})
     _('The request was <strong>successful</strong>.')
   end
 
-  def status_text_partially_successful(opts = {})
+  def status_text_partially_successful(info_request, opts = {})
     _('The request was <strong>partially successful</strong>.')
   end
 
-  def status_text_waiting_clarification(opts = {})
-    info_request = opts.fetch(:info_request)
+  def status_text_waiting_clarification(info_request, opts = {})
     is_owning_user = opts.fetch(:is_owning_user)
 
     str = ''.html_safe
@@ -158,58 +153,56 @@ module InfoRequestHelper
     str
   end
 
-  def status_text_gone_postal(opts = {})
+  def status_text_gone_postal(info_request, opts = {})
     _('The authority would like to / has <strong>responded by ' \
       'post</strong> to this request.')
   end
 
-  def status_text_internal_review(opts = {})
-    info_request = opts.fetch(:info_request)
-
+  def status_text_internal_review(info_request, opts = {})
     _('Waiting for an <strong>internal review</strong> by ' \
       '{{public_body_link}} of their handling of this request.',
       :public_body_link => public_body_link(info_request.public_body))
   end
 
-  def status_text_error_message(opts = {})
+  def status_text_error_message(info_request, opts = {})
     _('There was a <strong>delivery error</strong> or similar, which ' \
       'needs fixing by the {{site_name}} team.',
       :site_name => site_name)
   end
 
-  def status_text_requires_admin(opts = {})
+  def status_text_requires_admin(info_request, opts = {})
     _('This request has had an unusual response, and <strong>requires ' \
       'attention</strong> from the {{site_name}} team.',
       :site_name => site_name)
   end
 
-  def status_text_user_withdrawn(opts = {})
+  def status_text_user_withdrawn(info_request, opts = {})
     _('This request has been <strong>withdrawn</strong> by the person ' \
       'who made it. There may be an explanation in the correspondence below.')
   end
 
-  def status_text_attention_requested(opts = {})
+  def status_text_attention_requested(info_request, opts = {})
     _('This request has been <strong>reported</strong> as needing ' \
       'administrator attention (perhaps because it is vexatious, or a ' \
       'request for personal information)')
   end
 
-  def status_text_vexatious(opts = {})
+  def status_text_vexatious(info_request, opts = {})
     _('This request has been <strong>hidden</strong> from the site, ' \
       'because an administrator considers it vexatious')
   end
 
-  def status_text_not_foi(opts = {})
+  def status_text_not_foi(info_request, opts = {})
     _('This request has been <strong>hidden</strong> from the site, ' \
       'because an administrator considers it not to be an FOI request')
   end
 
-  def custom_state_description(status)
+  def custom_state_description(info_request, opts = {})
     render :partial => 'general/custom_state_descriptions',
-           :locals => { :status => status }
+           :locals => { :status => info_request.calculate_status }
   end
 
-  def awaiting_description_text_owner_please_answer(new_responses_count)
+  def status_text_awaiting_description_owner_please_answer(new_responses_count)
     n_('Please <strong>answer the question above</strong> so we know ' \
           'whether the recent response contains useful information.',
        'Please <strong>answer the question above</strong> so we know ' \
@@ -217,13 +210,13 @@ module InfoRequestHelper
         new_responses_count)
   end
 
-  def awaiting_description_text_unknown
+  def status_text_awaiting_description_unknown
     _('This request has an <strong>unknown status</strong>.')
   end
 
-  def awaiting_description_text_old_unclassified(new_responses_count)
+  def status_text_awaiting_description_old_unclassified(new_responses_count)
     str = ''.html_safe
-    str += awaiting_description_text_unknown
+    str += status_text_awaiting_description_unknown
     str += ' '
     str += n_('We\'re waiting for someone to read a recent response and ' \
                 'update the status accordingly. Perhaps ' \
@@ -234,7 +227,7 @@ module InfoRequestHelper
               new_responses_count)
   end
 
-  def awaiting_description_text_other(info_request, new_responses_count)
+  def status_text_awaiting_description_other(info_request, new_responses_count)
     n_('We\'re waiting for {{user}} to read a recent response and update ' \
          'the status.',
        'We\'re waiting for {{user}} to read recent responses and update ' \
