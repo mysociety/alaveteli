@@ -133,6 +133,8 @@ end
 desc 'exports all non-personal information to export folder'
 task :research_export => :environment do
 
+  cut_off_date = Date.today
+
   csv_export(PublicBodyCategory)
   csv_export(PublicBodyHeading)
   csv_export(PublicBodyCategoryLink)
@@ -144,7 +146,7 @@ task :research_export => :environment do
 
   #export public body information
   csv_export( PublicBody,
-              nil,
+              PublicBody.where("created_at < ?", cut_off_date),
               ["id",
               "short_name",
               "created_at",
@@ -160,7 +162,8 @@ task :research_export => :environment do
 
   #export non-personal user fields
   csv_export( User,
-              nil,
+              User.where(ban_text: '').
+                where("updated_at < ?", cut_off_date),
               ["id",
               "name",
               "info_requests_count",
@@ -179,7 +182,8 @@ task :research_export => :environment do
 
   #export InfoRequest Fields
   csv_export(InfoRequest,
-             InfoRequest.where(prominence:"normal"),
+             InfoRequest.where(prominence: "normal").
+               where("updated_at < ?", cut_off_date),
              ["id",
               "title",
               "user_id",
@@ -198,8 +202,9 @@ task :research_export => :environment do
   # allow name_censor to some fields
   csv_export(IncomingMessage,
              IncomingMessage.includes(:info_request).
-               where(prominence:"normal").
-               where("info_requests.prominence = ?","normal"),
+               where(prominence: "normal").
+               where("info_requests.prominence = ?","normal").
+               where("incoming_messages.updated_at < ?", cut_off_date),
              ["id",
               "info_request_id",
               "created_at",
@@ -220,8 +225,9 @@ task :research_export => :environment do
   #export incoming messages - only where normal prominence, allow name_censor to some fields
   csv_export(OutgoingMessage,
              OutgoingMessage.includes(:info_request).
-                             where(prominence:"normal").
-                             where("info_requests.prominence = ?","normal"),
+               where(prominence:"normal").
+               where("info_requests.prominence = ?","normal").
+               where("outgoing_messages.updated_at < ?", cut_off_date),
              ["id",
               "info_request_id",
               "created_at",
@@ -239,7 +245,8 @@ task :research_export => :environment do
   #export incoming messages - only where normal prominence, allow name_censor to some fields
   csv_export(FoiAttachment,
              FoiAttachment.joins(incoming_message: :info_request).
-                           where("info_requests.prominence = ?","normal"),
+                           where("info_requests.prominence = ?","normal").
+                           where("incoming_messages.updated_at < ?", cut_off_date),
              ["id",
               "content_type",
               "filename",
