@@ -2,6 +2,14 @@
 
 ## Highlighted Features
 
+## Upgrade Notes
+
+### Changed Templates
+
+# 0.26.0.0
+
+## Highlighted Features
+
 * Moved user actions to an "action menu" on the request pages (Martin Wright,
   Gareth Rees, Liz Conlan)
 * Added sorting to admin users list (Gareth Rees)
