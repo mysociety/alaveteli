@@ -3,7 +3,7 @@ namespace :temp do
 
   desc 'Update EventType when only editing prominence to hide'
   task :update_hide_event_type => :environment do
-    InfoRequestEvent.find_each do |event|
+    InfoRequestEvent.where(:event_type => 'edit').find_each do |event|
       if event.only_editing_prominence_to_hide?
         event.update_attributes!(event_type: "hide")
       end
