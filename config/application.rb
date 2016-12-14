@@ -118,6 +118,7 @@ module Alaveteli
                                  'excanvas.min.js',
                                  'select-authorities.js',
                                  'new-request.js',
+                                 'time_series.js',
                                  'fonts.css',
                                  'print.css',
                                  'admin.css',
