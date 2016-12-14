@@ -39,4 +39,13 @@ module AdminHelper
     comment.visible? ? 'Visible' : 'Hidden'
   end
 
+  def sort_order_humanized(sort_order)
+    { 'name_asc' => 'Name ▲',
+      'name_desc' => 'Name ▼',
+      'created_at_asc' => 'Oldest',
+      'created_at_desc' => 'Newest',
+      'updated_at_asc' => 'Least Recently Updated',
+      'updated_at_desc' => 'Recently Updated' }.
+    fetch(sort_order.to_s) { sort_order.to_s.titleize }
+  end
 end

@@ -71,6 +71,8 @@ class User < ActiveRecord::Base
   has_many :request_classifications,
            :dependent => :destroy
 
+  scope :not_banned, -> { where(ban_text: "") }
+
   validates_presence_of :email, :message => _("Please enter your email address")
   validates_presence_of :name, :message => _("Please enter your name")
   validates_presence_of :hashed_password, :message => _("Please enter a password")
@@ -211,6 +213,54 @@ class User < ActiveRecord::Base
   def self.find_similar_named_users(user)
     User.where('name ILIKE ? AND email_confirmed = ? AND id <> ?',
                 user.name, true, user.id).order(:created_at)
+  end
+
+  def self.all_time_requesters
+    InfoRequest.visible.
+                joins(:user).
+                group(:user).
+                order("count_all DESC").
+                limit(10).
+                count
+  end
+
+  def self.last_28_day_requesters
+    # TODO: Refactor as it's basically the same as all_time_requesters
+    InfoRequest.visible.
+                where("info_requests.created_at >= ?", 28.days.ago).
+                joins(:user).
+                group(:user).
+                order("count_all DESC").
+                limit(10).
+                count
+  end
+
+  def self.all_time_commenters
+    commenters = Comment.visible.
+                         joins(:user).
+                         group("comments.user_id").
+                         order("count_all DESC").
+                         limit(10).
+                         count
+    # TODO: Have user objects automatically instantiated like the InfoRequest queries above
+    result = {}
+    commenters.each { |user_id,count| result[User.find(user_id)] = count }
+    result
+  end
+
+  def self.last_28_day_commenters
+    # TODO: Refactor as it's basically the same as all_time_commenters
+    commenters = Comment.visible.
+                         where("comments.created_at >= ?", 28.days.ago).
+                         joins(:user).
+                         group("comments.user_id").
+                         order("count_all DESC").
+                         limit(10).
+                         count
+    # TODO: Have user objects automatically instantiated like the InfoRequest queries above
+    result = {}
+    commenters.each { |user_id,count| result[User.find(user_id)] = count }
+    result
   end
 
   def transactions(*associations)

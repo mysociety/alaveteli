@@ -60,13 +60,10 @@ class InfoRequestEvent < ActiveRecord::Base
 
   validates_presence_of :event_type
 
-  after_create :update_request, :if => :response?
-
-  def self.enumerate_event_types
-    warn %q([DEPRECATION] InfoRequestEvent.enumerate_event_types will be removed
-            in 0.26. Use InfoRequestEvent::EVENT_TYPES instead).squish
-    EVENT_TYPES
+  before_save(:if => :only_editing_prominence_to_hide?) do
+    self.event_type = "hide"
   end
+  after_create :update_request, :if => :response?
 
   validates_inclusion_of :event_type, :in => EVENT_TYPES
 
@@ -103,6 +100,10 @@ class InfoRequestEvent < ActiveRecord::Base
                             ],
                  :if => :indexed_by_search?,
                  :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
+
+  def self.count_of_hides_by_week
+    where(event_type: "hide").group("date(date_trunc('week', created_at))").count.sort
+  end
 
   def requested_by
     info_request.user_name_slug
@@ -302,7 +303,7 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def params
-    param_hash = YAML.load(params_yaml)
+    param_hash = YAML.load(params_yaml) || {}
     param_hash.each do |key, value|
       param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
     end
@@ -386,6 +387,13 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def response?
     event_type == 'response'
+  end
+
+  def only_editing_prominence_to_hide?
+    event_type == 'edit' &&
+    params_diff[:new].keys == [:prominence] &&
+    params_diff[:old][:prominence] == "normal" &&
+    %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
   end
 
   # This method updates the cached column of the InfoRequest that

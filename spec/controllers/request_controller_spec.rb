@@ -165,14 +165,14 @@ describe RequestController, "when showing one request" do
 
   it 'should show actions the request owner can take' do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    expect(response.body).to have_css('div#owner_actions')
+    expect(response.body).to have_css('ul.owner_actions')
   end
 
   describe 'when the request does allow comments' do
     it 'should have a comment link' do
       get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
         { :user_id => users(:admin_user).id }
-      expect(response.body).to have_css('#anyone_actions', :text => "Add an annotation")
+      expect(response.body).to have_css('.anyone_actions', :text => "Add an annotation")
     end
   end
 
@@ -180,7 +180,7 @@ describe RequestController, "when showing one request" do
     it 'should not have a comment link' do
       get :show, { :url_title => 'spam_1' },
         { :user_id => users(:admin_user).id }
-      expect(response.body).not_to have_css('#anyone_actions', :text => "Add an annotation")
+      expect(response.body).not_to have_css('.anyone_actions', :text => "Add an annotation")
     end
   end
 
@@ -188,8 +188,14 @@ describe RequestController, "when showing one request" do
     it "should allow the user to report" do
       title = info_requests(:badger_request).url_title
       get :show, :url_title => title
+      expect(response.body).to have_css('.anyone_actions a',
+                                        :text => "Report this request")
+    end
+
+    it "does not show the request as having been reported" do
+      title = info_requests(:badger_request).url_title
+      get :show, :url_title => title
       expect(response.body).not_to have_content("This request has been reported")
-      expect(response.body).to have_content("Offensive?")
     end
   end
 
@@ -197,16 +203,35 @@ describe RequestController, "when showing one request" do
     before :each do
       info_requests(:fancy_dog_request).report!("", "", nil)
     end
+
     it "should inform the user" do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
       expect(response.body).to have_content("This request has been reported")
-      expect(response.body).not_to have_content("Offensive?")
+    end
+
+    it "does not allow the request to be reported again" do
+      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+      expect(response.body).not_to have_css('.anyone_actions a',
+                                            :text => "Report this request")
     end
 
     context "and then deemed okay and left to complete" do
       before :each do
         info_requests(:fancy_dog_request).set_described_state("successful")
       end
+
+      it "does not allow the request to be reported again" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        expect(response.body).not_to have_css('.anyone_actions a',
+                                              :text => "Report this request")
+      end
+
+      it "does not show the user the request has been reported message" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        expect(response.body).
+          not_to have_content("This request has been reported")
+      end
+
       it "should let the user know that the administrators have not hidden this request" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         expect(response.body).to match(/the site administrators.*have not hidden it/)
@@ -1042,6 +1067,18 @@ describe RequestController, "when creating a new request" do
     expect(response).to render_template('new')
     default_message = <<-EOF.strip_heredoc
     Dear Geraldine Quango,
+
+    Yours faithfully,
+    EOF
+    expect(assigns[:outgoing_message].body).to include(default_message.strip)
+  end
+
+  it 'allows the default text to be set via the default_letter param' do
+    get :new, :url_name => @body.url_name, :default_letter => "test"
+    default_message = <<-EOF.strip_heredoc
+    Dear Geraldine Quango,
+
+    test
 
     Yours faithfully,
     EOF

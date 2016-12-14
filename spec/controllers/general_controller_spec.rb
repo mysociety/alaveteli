@@ -17,6 +17,7 @@ describe GeneralController do
       # Create some constant God models for other factories
       user = FactoryGirl.create(:user)
       body = FactoryGirl.create(:public_body)
+      banned_user = FactoryGirl.create(:user, :ban_text => 'banned')
       info_request = FactoryGirl.create(:info_request,
                                         :user => user, :public_body => body)
       default_args = { :info_request => info_request,
@@ -410,5 +411,4 @@ describe GeneralController, 'when using xapian search' do
     end
 
   end
-
 end

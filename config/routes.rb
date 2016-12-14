@@ -44,6 +44,10 @@ Alaveteli::Application.routes.draw do
         :via => :get
   #####
 
+  ##### Statistics controller
+  get '/statistics' => 'statistics#index'
+  get '/body_statistics' => redirect('/statistics#public_bodies'), :as => :public_bodies_statistics
+
   ##### Request controller
   match '/list/recent' => 'request#list',
         :as => :request_list_recent,
@@ -284,9 +288,6 @@ Alaveteli::Application.routes.draw do
   match '/body/:url_name/:tag/:view' => 'public_body#show',
         :as => :show_public_body_tag_view,
         :via => :get
-  match '/body_statistics' => 'public_body#statistics',
-        :as => :public_bodies_statistics,
-        :via => :get
   ####
 
   resource :change_request, :only => [:new, :create], :controller => 'public_body_change_requests'
@@ -330,6 +331,7 @@ Alaveteli::Application.routes.draw do
   match '/:feed/search/:query_array' => 'track#track_search_query',
         :as => :track_search,
         :feed => /(track|feed)/,
+        :constraints => { :query_array => /.*/ },
         :via => :get
 
   match '/track/update/:track_id' => 'track#update',
@@ -486,7 +488,7 @@ Alaveteli::Application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :comments,
       :controller => 'admin_comment',
-      :only => [:edit, :update]
+      :only => [:index, :edit, :update]
   end
   ####
 
