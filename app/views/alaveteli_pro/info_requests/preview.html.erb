@@ -33,9 +33,9 @@
         <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
           <%= hidden_field_tag :draft_id, @draft_info_request.id %>
 
-          <%= link_to _("Edit your request"), "#{new_alaveteli_pro_info_request_path}?draft_id=#{@draft_info_request.id}" %>
           <%= submit_tag _("Send request"), :disable_with => _("Sending..."),
                                             :id => 'submit_button' %>
+          <%= link_to _("Edit your request"), "#{new_alaveteli_pro_info_request_path}?draft_id=#{@draft_info_request.id}" %>
         <% end %>
       </p>
     </div>

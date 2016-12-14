@@ -104,7 +104,7 @@
         </div>
       <% else %>
         <p id="to_public_body" class="to_public_body">
-          <span class="to_public_body_label"><%= _('To:') %></span>
+          <span class="to_public_body_label"><%= _('To') %></span>
           <%= h(@info_request.public_body.name) %>
         </p>
       <% end %>
@@ -205,9 +205,9 @@
     </div>
 
     <div id="request_form" class="request_form">
-      <div id="request_header_subject" class="request_header_subject">
+      <div id="request_subject" class="request_subject">
         <p>
-          <label class="form_label" for="typeahead_search"><%= _('Summary:') %></label>
+          <label class="form_label" for="typeahead_search"><%= _('Summary') %></label>
           <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
         </p>
 
@@ -223,7 +223,7 @@
       <%= fields_for :outgoing_message do |o| %>
         <p>
           <label class="form_label" for="outgoing_message_body">
-            <%= _('Your request:') %></label>
+            <%= _('Your request') %></label>
           <%= o.text_area :body, :rows => 20, :cols => 60 %>
         </p>
       <% end %>
