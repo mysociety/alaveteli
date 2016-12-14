@@ -64,6 +64,7 @@ ALAVETELI_OS = ENV['ALAVETELI_VAGRANT_OS'] || 'precise64'
 
 SUPPORTED_OPERATING_SYSTEMS = {
   'precise64' => 'https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box',
+  'trusty64' => 'https://atlas.hashicorp.com/ubuntu/boxes/trusty64/versions/20160714.0.0/providers/virtualbox.box',
   'wheezy64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box',
   'jessie64' => 'https://atlas.hashicorp.com/puppetlabs/boxes/debian-8.2-64-nocm'
 }
@@ -143,6 +144,8 @@ EOF
     config.vm.provision :shell, :inline => "chmod +x /etc/update-motd.d/*"
     config.vm.provision :shell, :inline => "rm /etc/motd"
     config.vm.provision :shell, :inline => "ln -s /var/run/motd /etc/motd"
+  elsif ALAVETELI_OS == 'trusty64'
+    config.vm.provision :shell, :inline => "echo '#{ motd }' >> /etc/motd"
   end
   config.vm.provision :shell, :inline => "echo '#{ motd }' >> /etc/motd.tail"
 

@@ -30,6 +30,7 @@
 require 'csv'
 require 'securerandom'
 require 'set'
+require 'confidence_intervals'
 
 class PublicBody < ActiveRecord::Base
   include AdminColumn
@@ -599,12 +600,12 @@ class PublicBody < ActiveRecord::Base
     # lowest) number of requests, but only returning data for those
     # with at least 'minimum_requests' requests.
     def self.get_request_totals(n, highest, minimum_requests)
-      ordering = "info_requests_count"
+      ordering = "info_requests_visible_count"
       ordering += " DESC" if highest
-      where_clause = where_clause_for_stats minimum_requests, 'info_requests_count'
+      where_clause = where_clause_for_stats minimum_requests, 'info_requests_visible_count'
       public_bodies = PublicBody.order(ordering).where(where_clause).limit(n)
       public_bodies.reverse! if highest
-      y_values = public_bodies.map { |pb| pb.info_requests_count }
+      y_values = public_bodies.map { |pb| pb.info_requests_visible_count }
       return {
         'public_bodies' => public_bodies,
         'y_values' => y_values,

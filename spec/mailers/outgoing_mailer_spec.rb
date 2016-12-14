@@ -121,4 +121,28 @@ describe OutgoingMailer, "when working out follow up subjects" do
 
     expect(OutgoingMailer.subject_for_followup(ir, om, :html => false)).to eq("Re: Freedom of Information request - Why do you have & such a fancy dog?")
   end
+
+  context "dealing with an internal review" do
+
+    it "prefixes the subject of the message with 'Internal review of " \
+          "Freedom of Information request'" do
+      request = FactoryGirl.create(:info_request_with_internal_review_request,
+                                   :title => "Test")
+      expect(OutgoingMailer.subject_for_followup(
+        request,
+        request.outgoing_messages.last)).
+          to eq("Internal review of Freedom of Information request - Test")
+    end
+
+    it "does not add HTMLEntities to the subject of the message" do
+      request = FactoryGirl.create(:info_request_with_internal_review_request,
+                                   :title => "Apostrophe's Test")
+      expect(OutgoingMailer.subject_for_followup(
+        request,
+        request.outgoing_messages.last)).
+          to eq("Internal review of Freedom of Information request - " \
+                "Apostrophe's Test")
+    end
+
+  end
 end

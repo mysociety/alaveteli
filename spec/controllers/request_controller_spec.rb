@@ -165,14 +165,14 @@ describe RequestController, "when showing one request" do
 
   it 'should show actions the request owner can take' do
     get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    expect(response.body).to have_css('div#owner_actions')
+    expect(response.body).to have_css('ul.owner_actions')
   end
 
   describe 'when the request does allow comments' do
     it 'should have a comment link' do
       get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
         { :user_id => users(:admin_user).id }
-      expect(response.body).to have_css('#anyone_actions', :text => "Add an annotation")
+      expect(response.body).to have_css('.anyone_actions', :text => "Add an annotation")
     end
   end
 
@@ -180,7 +180,7 @@ describe RequestController, "when showing one request" do
     it 'should not have a comment link' do
       get :show, { :url_title => 'spam_1' },
         { :user_id => users(:admin_user).id }
-      expect(response.body).not_to have_css('#anyone_actions', :text => "Add an annotation")
+      expect(response.body).not_to have_css('.anyone_actions', :text => "Add an annotation")
     end
   end
 
@@ -188,8 +188,14 @@ describe RequestController, "when showing one request" do
     it "should allow the user to report" do
       title = info_requests(:badger_request).url_title
       get :show, :url_title => title
+      expect(response.body).to have_css('.anyone_actions a',
+                                        :text => "Report this request")
+    end
+
+    it "does not show the request as having been reported" do
+      title = info_requests(:badger_request).url_title
+      get :show, :url_title => title
       expect(response.body).not_to have_content("This request has been reported")
-      expect(response.body).to have_content("Offensive?")
     end
   end
 
@@ -197,16 +203,35 @@ describe RequestController, "when showing one request" do
     before :each do
       info_requests(:fancy_dog_request).report!("", "", nil)
     end
+
     it "should inform the user" do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
       expect(response.body).to have_content("This request has been reported")
-      expect(response.body).not_to have_content("Offensive?")
+    end
+
+    it "does not allow the request to be reported again" do
+      get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+      expect(response.body).not_to have_css('.anyone_actions a',
+                                            :text => "Report this request")
     end
 
     context "and then deemed okay and left to complete" do
       before :each do
         info_requests(:fancy_dog_request).set_described_state("successful")
       end
+
+      it "does not allow the request to be reported again" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        expect(response.body).not_to have_css('.anyone_actions a',
+                                              :text => "Report this request")
+      end
+
+      it "does not show the user the request has been reported message" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        expect(response.body).
+          not_to have_content("This request has been reported")
+      end
+
       it "should let the user know that the administrators have not hidden this request" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         expect(response.body).to match(/the site administrators.*have not hidden it/)
@@ -685,6 +710,7 @@ describe RequestController, "when showing one request" do
     it "should censor attachment names" do
       ir = info_requests(:fancy_dog_request)
       receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+      attachment_name_selector = '.attachment .attachment__name'
 
       # TODO: this is horrid, but don't know a better way.  If we
       # don't do this, the info_request_event to which the
@@ -702,7 +728,7 @@ describe RequestController, "when showing one request" do
 
       # so at this point, assigns[:info_request].incoming_messages[1].get_attachments_for_display is returning stuff, but the equivalent thing in the template isn't.
       # but something odd is that the above is return a whole load of attachments which aren't there in the controller
-      expect(response.body).to have_css("p.attachment strong") do |s|
+      expect(response.body).to have_css(attachment_name_selector) do |s|
         expect(s).to contain /hello world.txt/m
       end
 
@@ -716,7 +742,7 @@ describe RequestController, "when showing one request" do
       ir.censor_rules << censor_rule
       begin
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        expect(response.body).to have_css("p.attachment strong") do |s|
+        expect(response.body).to have_css(attachment_name_selector) do |s|
           expect(s).to contain /goodbye.txt/m
         end
       ensure
@@ -1035,6 +1061,30 @@ describe RequestController, "when creating a new request" do
     expect(response).to render_template('new')
   end
 
+  it 'assigns a default text for the request' do
+    get :new, :public_body_id => @body.id
+    expect(assigns[:info_request].public_body).to eq(@body)
+    expect(response).to render_template('new')
+    default_message = <<-EOF.strip_heredoc
+    Dear Geraldine Quango,
+
+    Yours faithfully,
+    EOF
+    expect(assigns[:outgoing_message].body).to include(default_message.strip)
+  end
+
+  it 'allows the default text to be set via the default_letter param' do
+    get :new, :url_name => @body.url_name, :default_letter => "test"
+    default_message = <<-EOF.strip_heredoc
+    Dear Geraldine Quango,
+
+    test
+
+    Yours faithfully,
+    EOF
+    expect(assigns[:outgoing_message].body).to include(default_message.strip)
+  end
+
   it 'should display one meaningful error message when no message body is added' do
     post :new, :info_request => { :public_body_id => @body.id },
       :outgoing_message => { :body => "" },
@@ -1094,6 +1144,16 @@ describe RequestController, "when creating a new request" do
     expect(response).to render_template('new')
   end
 
+  it "re-editing preserves the message body" do
+    post :new, :info_request => { :public_body_id => @body.id,
+    :title => "Why is your quango called Geraldine?", :tag_string => "" },
+      :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+      :submitted_new_request => 1, :preview => 0,
+      :reedit => "Re-edit this request"
+    expect(assigns[:outgoing_message].body).
+      to include('This is a silly letter. It is too short to be interesting.')
+  end
+
   it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
     session[:user_id] = @user.id
     post :new, :info_request => { :public_body_id => @body.id,
@@ -1113,10 +1173,7 @@ describe RequestController, "when creating a new request" do
     mail = deliveries[0]
     expect(mail.body).to match(/This is a silly letter. It is too short to be interesting./)
 
-    expect(response).to redirect_to show_new_request_url(:url_title => ir.url_title)
-    # This test uses an explicit path because it's relied in
-    # Google Analytics goals:
-    expect(response.redirect_url).to match(/request\/why_is_your_quango_called_gerald\/new$/)
+    expect(response).to redirect_to show_request_url(:url_title => ir.url_title)
   end
 
   it "sets the request_sent flash to true if successful" do
@@ -1162,7 +1219,7 @@ describe RequestController, "when creating a new request" do
 
     expect(ir.url_title).not_to eq(ir2.url_title)
 
-    expect(response).to redirect_to show_new_request_url(:url_title => ir2.url_title)
+    expect(response).to redirect_to show_request_url(:url_title => ir2.url_title)
   end
 
   it 'should respect the rate limit' do
@@ -1174,14 +1231,14 @@ describe RequestController, "when creating a new request" do
     :title => "What is the answer to the ultimate question?", :tag_string => "" },
       :outgoing_message => { :body => "Please supply the answer from your files." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
+    expect(response).to redirect_to show_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "Why did the chicken cross the road?", :tag_string => "" },
       :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
+    expect(response).to redirect_to show_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "What's black and white and red all over?", :tag_string => "" },
@@ -1201,20 +1258,20 @@ describe RequestController, "when creating a new request" do
     :title => "What is the answer to the ultimate question?", :tag_string => "" },
       :outgoing_message => { :body => "Please supply the answer from your files." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
+    expect(response).to redirect_to show_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "Why did the chicken cross the road?", :tag_string => "" },
       :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
+    expect(response).to redirect_to show_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "What's black and white and red all over?", :tag_string => "" },
       :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
       :submitted_new_request => 1, :preview => 0
-    expect(response).to redirect_to show_new_request_url(:url_title => 'whats_black_and_white_and_red_al')
+    expect(response).to redirect_to show_request_url(:url_title => 'whats_black_and_white_and_red_al')
   end
 
   describe 'when rendering a reCAPTCHA' do
@@ -1309,7 +1366,7 @@ describe RequestController, "when creating a new request" do
             :outgoing_message => { :body => "Please supply the answer from your files." },
             :submitted_new_request => 1, :preview => 0
           expect(response)
-            .to redirect_to show_new_request_url(:url_title => 'some_request_text')
+            .to redirect_to show_request_path(:url_title => 'some_request_text')
         end
 
       end
@@ -1359,7 +1416,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(response)
-          .to redirect_to show_new_request_url(:url_title => 'hd_watch_jason_bourne_online_fre')
+          .to redirect_to show_request_path(:url_title => 'hd_watch_jason_bourne_online_fre')
       end
 
     end
@@ -1399,7 +1456,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(response)
-          .to redirect_to show_new_request_url(:url_title => 'some_request_content')
+          .to redirect_to show_request_path(:url_title => 'some_request_content')
       end
 
     end
@@ -1418,9 +1475,7 @@ describe RequestController, "when making a new request" do
     allow(@user).to receive(:can_file_requests?).and_return(true)
     allow(@user).to receive(:locale).and_return("en")
     allow(User).to receive(:find).and_return(@user)
-
-    @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true, :name => "Test Quango")
-    allow(PublicBody).to receive(:find).and_return(@body)
+    @body = FactoryGirl.create(:public_body, :name => 'Test Quango')
   end
 
   it "should allow you to have one undescribed request" do
@@ -2315,6 +2370,13 @@ describe RequestController, "#new_batch" do
         params = @default_post_params.merge(:preview => 0, :reedit => 1)
         post :new_batch, params, { :user_id => @user.id }
         expect(response).to render_template('new')
+      end
+
+      it "re-editing preserves the message body" do
+        params = @default_post_params.merge(:preview => 0, :reedit => 1)
+        post :new_batch, params, { :user_id => @user.id }
+        expect(assigns[:outgoing_message].body).
+          to include('This is a silly letter.')
       end
 
       context "on success" do

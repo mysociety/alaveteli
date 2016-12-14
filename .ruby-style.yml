@@ -109,6 +109,8 @@ Style/BlockDelimiters:
                 Prefer {...} over do...end for single-line blocks.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#single-line-blocks'
   Enabled: false
+  Exclude:
+    - 'spec/**/*'
 
 Style/BracesAroundHashParameters:
   Description: 'Enforce braces style around hash parameters.'

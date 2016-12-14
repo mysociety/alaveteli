@@ -15,12 +15,16 @@ namespace :graphs do
     # set the local font path for the current task
     ENV["GDFONTPATH"] = "/usr/share/fonts/truetype/ttf-bitstream-vera"
 
-    active_users = "SELECT DATE(created_at), COUNT(distinct user_id) " \
-                   "FROM info_requests GROUP BY DATE(created_at) " \
-                   "ORDER BY DATE(created_at)"
+    active_users = "SELECT DATE(ir.created_at), COUNT(distinct user_id) " \
+                   "FROM info_requests ir " \
+                   "JOIN users on ir.user_id = users.id " \
+                   "WHERE users.ban_text = '' " \
+                   "GROUP BY DATE(ir.created_at) " \
+                   "ORDER BY DATE(ir.created_at)"
 
     confirmed_users = "SELECT DATE(created_at), COUNT(*) FROM users " \
                       "WHERE email_confirmed = 't' " \
+                      "AND ban_text = '' " \
                       "GROUP BY DATE(created_at) " \
                       "ORDER BY DATE(created_at)"
 
@@ -29,7 +33,9 @@ namespace :graphs do
     # is reportedly available in MariaDB from 10.2 onward (and Postgres 9.1+)
     aggregate_signups = "SELECT DATE(created_at), COUNT(*), SUM(count(*)) " \
                         "OVER (ORDER BY DATE(created_at)) " \
-                        "FROM users GROUP BY DATE(created_at)"
+                        "FROM users " \
+                        "WHERE ban_text = '' " \
+                        "GROUP BY DATE(created_at)"
 
     Gnuplot.open(false) do |gp|
       Gnuplot::Plot.new(gp) do |plot|

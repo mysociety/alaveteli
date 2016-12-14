@@ -40,4 +40,10 @@ server {
         proxy_redirect off;
         proxy_pass http://alaveteli;
     }
+
+    # Allow browser asset caching
+    location ~* ^/(assets).*\.(ico|gif|jpe?g|png|js|css|svg|ttf|otf|eot|woff)$ {
+        expires 1y;
+    }
+
 }

@@ -64,6 +64,37 @@ namespace :cleanup do
     end
   end
 
+  desc 'Export of last 2 days of requests to search for spam'
+  task :spam_requests => :environment do
+    str = CSV.generate do |csv|
+      # Make headers
+      csv << [
+        'info_request_id',
+        'info_request_title',
+        'user_id',
+        'public_body_id',
+        'public_body_name',
+        'public_body_request_email',
+        'created_at',
+      ]
+
+      # Add rows
+      InfoRequest.where(:created_at => [2.days.ago..Time.zone.now]).find_each do |request|
+        csv << [
+         request.id,
+         request.title,
+         request.user_id,
+         request.public_body_id,
+         request.public_body.name,
+         request.public_body.request_email,
+         request.created_at.to_s,
+        ]
+      end
+    end
+
+    puts str
+  end
+
 end
 
 def display_user(user, spam_score)

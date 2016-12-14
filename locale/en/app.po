@@ -4,12 +4,13 @@
 #
 # Translators:
 # Translators:
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-07-12 11:56+0000\n"
+"POT-Creation-Date: 2016-12-06 16:35+0000\n"
+"PO-Revision-Date: 2016-12-06 16:36+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: English (http://www.transifex.com/mysociety/alaveteli/language/en/)\n"
 "Language: en\n"
@@ -114,8 +115,11 @@ msgstr ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 
-msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
-msgstr "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
+msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
+msgstr "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
+
+msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
+msgstr "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
@@ -169,6 +173,9 @@ msgstr "<strong><code>filetype:pdf</code></strong> to find all responses with PD
 
 msgid "<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL."
 msgstr "<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL."
+
+msgid "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
+msgstr "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
 msgstr "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
@@ -305,6 +312,9 @@ msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 msgid "Add a widget"
 msgstr "Add a widget"
 
+msgid "Add an annotation"
+msgstr "Add an annotation"
+
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 
@@ -316,9 +326,6 @@ msgstr "Add authority - {{public_body_name}}"
 
 msgid "Add the authority:"
 msgstr "Add the authority:"
-
-msgid "Added on {{date}}."
-msgstr "Added on {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Admin level is not included in list"
@@ -346,6 +353,9 @@ msgstr "All the options below can use <strong>status</strong> or <strong>latest_
 
 msgid "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
 msgstr "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
+
+msgid "All time"
+msgstr "All time"
 
 msgid "All time best players"
 msgstr "All time best players"
@@ -388,9 +398,6 @@ msgstr "Annotations will be posted publicly here, and are\\n        <strong>not<
 
 msgid "Anonymous user"
 msgstr "Anonymous user"
-
-msgid "Anyone:"
-msgstr "Anyone:"
 
 msgid "Applies to"
 msgstr "Applies to"
@@ -457,6 +464,9 @@ msgstr "Awaiting response"
 
 msgid "Awaiting response."
 msgstr "Awaiting response."
+
+msgid "Back to content"
+msgstr "Back to content"
 
 msgid "Banned from this site"
 msgstr "Banned from this site"
@@ -608,9 +618,6 @@ msgstr "Comment"
 msgid "Comment|Body"
 msgstr "Comment|Body"
 
-msgid "Comment|Comment type"
-msgstr "Comment|Comment type"
-
 msgid "Comment|Locale"
 msgstr "Comment|Locale"
 
@@ -694,6 +701,9 @@ msgstr "Create a widget for this request"
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Created by {{info_request_user}} on {{date}}."
+
+msgid "Crickets. No one is here. It’s time to get the word out."
+msgstr "Crickets. No one is here. It’s time to get the word out."
 
 msgid "Crop your profile photo"
 msgstr "Crop your profile photo"
@@ -800,8 +810,8 @@ msgstr "Edit your request"
 msgid "Either the email or password was not recognised, please try again."
 msgstr "Either the email or password was not recognised, please try again."
 
-msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
-msgstr "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
+msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
+msgstr "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
 
 msgid "Email doesn't look like a valid address"
 msgstr "Email doesn't look like a valid address"
@@ -832,9 +842,6 @@ msgstr "Environmental Information Regulations requests made using this site"
 
 msgid "Event history"
 msgstr "Event history"
-
-msgid "Event history details"
-msgstr "Event history details"
 
 msgid "Event {{id}}"
 msgstr "Event {{id}}"
@@ -1042,6 +1049,9 @@ msgstr "From"
 msgid "From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 
+msgid "From time to time requests need to be hidden on {{site_name}}. This can happen for a number of reasons. For example, the request could be about someone’s personal information that shouldn’t be public or the contents could be abusive."
+msgstr "From time to time requests need to be hidden on {{site_name}}. This can happen for a number of reasons. For example, the request could be about someone’s personal information that shouldn’t be public or the contents could be abusive."
+
 msgid "From:"
 msgstr "From:"
 
@@ -1102,8 +1112,20 @@ msgstr "Here <strong>described</strong> means when a user selected a status for 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Here is the message you wrote, in case you would like to copy the text and save it for later."
 
+msgid "Here you can <a href=\"#public_bodies\">see how well public bodies have responded</a> to requests on {{site_name}} and <a href=\"#people\">meet the people most actively using it</a>. You can also find <a href=\"#requests\">statistics about requests</a> over time."
+msgstr "Here you can <a href=\"#public_bodies\">see how well public bodies have responded</a> to requests on {{site_name}} and <a href=\"#people\">meet the people most actively using it</a>. You can also find <a href=\"#requests\">statistics about requests</a> over time."
+
+msgid "Here you can see how often {{site_name}} administrators have hidden requests."
+msgstr "Here you can see how often {{site_name}} administrators have hidden requests."
+
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Hi! We need your help. The person who made the following request\\n    hasn't told us whether or not it was successful. Would you mind taking\\n    a moment to read it and help us keep the place tidy for everyone?\\n    Thanks."
+
+msgid "Hidden"
+msgstr "Hidden"
+
+msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
+msgstr "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
 
 msgid "Hide request"
 msgstr "Hide request"
@@ -1213,8 +1235,8 @@ msgstr "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> t
 msgid "If you are {{user_link}}, please"
 msgstr "If you are {{user_link}}, please"
 
-msgid "If you believe this request is not suitable, you can report it for attention by the site administrators"
-msgstr "If you believe this request is not suitable, you can report it for attention by the site administrators"
+msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
+msgstr "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "If you can't click on it in the email, you'll have to <strong>select and copy\\nit</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\\nyou would type the address of any other webpage."
@@ -1432,6 +1454,9 @@ msgstr "Items matching the following conditions are currently displayed on your 
 msgid "Items sent in last month"
 msgstr "Items sent in last month"
 
+msgid "Joined in {{year}}"
+msgstr "Joined in {{year}}"
+
 msgid "Joined in {{year}}."
 msgstr "Joined in {{year}}."
 
@@ -1452,6 +1477,9 @@ msgstr "Keep your requests up to date"
 
 msgid "Keywords"
 msgstr "Keywords"
+
+msgid "Last 28 days"
+msgstr "Last 28 days"
 
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Last authority viewed: {{authority_url}}"
@@ -1513,6 +1541,9 @@ msgstr "MailServerLogDone|Filename"
 msgid "MailServerLogDone|Last stat"
 msgstr "MailServerLogDone|Last stat"
 
+msgid "MailServerLog|Delivery status"
+msgstr "MailServerLog|Delivery status"
+
 msgid "MailServerLog|Line"
 msgstr "MailServerLog|Line"
 
@@ -1521,12 +1552,6 @@ msgstr "MailServerLog|Order"
 
 msgid "Make a batch request"
 msgstr "Make a batch request"
-
-msgid "Make a new EIR request"
-msgstr "Make a new EIR request"
-
-msgid "Make a new FOI request"
-msgstr "Make a new FOI request"
 
 msgid "Make a request"
 msgstr "Make a request"
@@ -1555,9 +1580,6 @@ msgstr "Make sure the information you are asking for is not already publicly ava
 msgid "Many requests"
 msgstr "Many requests"
 
-msgid "Matching authorities"
-msgstr "Matching authorities"
-
 msgid "Message"
 msgstr "Message"
 
@@ -1575,6 +1597,12 @@ msgstr "More about this authority"
 
 msgid "More similar requests"
 msgstr "More similar requests"
+
+msgid "Most frequent annotators"
+msgstr "Most frequent annotators"
+
+msgid "Most frequent requesters"
+msgstr "Most frequent requesters"
 
 msgid "My profile"
 msgstr "My profile"
@@ -1690,6 +1718,9 @@ msgstr "Now preview your follow up"
 msgid "Now preview your message asking for an internal review"
 msgstr "Now preview your message asking for an internal review"
 
+msgid "Number of request hide events over time"
+msgstr "Number of request hide events over time"
+
 msgid "Number of requests"
 msgstr "Number of requests"
 
@@ -1785,9 +1816,6 @@ msgstr "Password is not correct"
 
 msgid "Password:"
 msgstr "Password:"
-
-msgid "Paste this link into emails, tweets, and anywhere else:"
-msgstr "Paste this link into emails, tweets, and anywhere else:"
 
 msgid "People"
 msgstr "People"
@@ -2040,6 +2068,9 @@ msgstr "Print your one time passcode"
 msgid "Privacy and cookies"
 msgstr "Privacy and cookies"
 
+msgid "Profile image for {{user_name}}"
+msgstr "Profile image for {{user_name}}"
+
 msgid "Profile photo"
 msgstr "Profile photo"
 
@@ -2054,9 +2085,6 @@ msgstr "Public Bodies"
 
 msgid "Public Body"
 msgstr "Public Body"
-
-msgid "Public Body Statistics"
-msgstr "Public Body Statistics"
 
 msgid "Public authorities"
 msgstr "Public authorities"
@@ -2217,9 +2245,6 @@ msgstr "Query is too long"
 msgid "RSS feed"
 msgstr "RSS feed"
 
-msgid "RSS feed of updates"
-msgstr "RSS feed of updates"
-
 msgid "Re-edit this annotation"
 msgstr "Re-edit this annotation"
 
@@ -2286,6 +2311,12 @@ msgstr "Request for personal information"
 msgid "Request has been removed"
 msgstr "Request has been removed"
 
+msgid "Request hidden"
+msgstr "Request hidden"
+
+msgid "Request hide events"
+msgstr "Request hide events"
+
 msgid "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 
@@ -2298,6 +2329,9 @@ msgstr "Requested from {{public_body_name}} by {{info_request_user}} on {{date}}
 msgid "Requested on {{date}}"
 msgstr "Requested on {{date}}"
 
+msgid "Requests"
+msgstr "Requests"
+
 msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
 msgstr "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
 
@@ -2306,6 +2340,9 @@ msgstr "Requests are considered successful if they were classified as either 'Su
 
 msgid "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
 msgstr "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
+
+msgid "Requests like this"
+msgstr "Requests like this"
 
 msgid "Requests or responses matching your saved search"
 msgstr "Requests or responses matching your saved search"
@@ -2486,9 +2523,6 @@ msgstr "Sign out"
 msgid "Sign up"
 msgstr "Sign up"
 
-msgid "Similar requests"
-msgstr "Similar requests"
-
 msgid "Simple search"
 msgstr "Simple search"
 
@@ -2522,6 +2556,9 @@ msgstr "Sorry, there was a problem processing this page"
 msgid "Sorry, we couldn't find that page"
 msgstr "Sorry, we couldn't find that page"
 
+msgid "Sorry, we're currently unable to sign up new users, please try again later"
+msgstr "Sorry, we're currently unable to sign up new users, please try again later"
+
 msgid "Source URL:"
 msgstr "Source URL:"
 
@@ -2536,6 +2573,9 @@ msgstr "SpamAddress|Email"
 
 msgid "Start your own request"
 msgstr "Start your own request"
+
+msgid "Statistics"
+msgstr "Statistics"
 
 msgid "Stay up to date"
 msgstr "Stay up to date"
@@ -2626,6 +2666,9 @@ msgstr "Thank you! Hope you don't have to wait much longer."
 
 msgid "Thank you! Hopefully your wait isn't too long."
 msgstr "Thank you! Hopefully your wait isn't too long."
+
+msgid "Thank you! We'll look into what happened and try and fix it up."
+msgstr "Thank you! We'll look into what happened and try and fix it up."
 
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
 msgstr "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
@@ -2852,11 +2895,6 @@ msgstr "There is a limit on the number of requests you can make in a day, becaus
 msgid "There is nothing to display yet."
 msgstr "There is nothing to display yet."
 
-msgid "There is {{count}} person following this request"
-msgid_plural "There are {{count}} people following this request"
-msgstr[0] "There is {{count}} person following this request"
-msgstr[1] "There are {{count}} people following this request"
-
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 
@@ -2895,9 +2933,6 @@ msgstr "They have not replied to your {{law_used_short}} request {{title}} promp
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
 msgstr "They have not replied to your {{law_used_short}} request {{title}}, \\nas required by law"
-
-msgid "Things to do with this request"
-msgstr "Things to do with this request"
 
 msgid "Things you're following"
 msgstr "Things you're following"
@@ -2961,9 +2996,6 @@ msgstr "This message is hidden, so that only you, the requester, can see it. Ple
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "This message is hidden, so that only you, the requester, can see it. {{reason}}"
-
-msgid "This page of public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
-msgstr "This page of public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
 
 msgid "This particular request is finished:"
 msgstr "This particular request is finished:"
@@ -3031,6 +3063,9 @@ msgstr "This request requires administrator attention"
 
 msgid "This request was not made via {{site_name}}"
 msgstr "This request was not made via {{site_name}}"
+
+msgid "This section on public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
+msgstr "This section on public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
 
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which authorities respond to requests, the number of requests\\nwhich require a postal response and much more."
@@ -3137,9 +3172,6 @@ msgstr "To upload a response, you must be logged in using an email address from 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "To use the advanced search, combine phrases and labels as described in the search tips below."
 
-msgid "To view the email address that we use to send FOI requests to {{public_body_name}}, please enter these words."
-msgstr "To view the email address that we use to send FOI requests to {{public_body_name}}, please enter these words."
-
 msgid "To view the response, click on the link below."
 msgstr "To view the response, click on the link below."
 
@@ -3230,11 +3262,14 @@ msgstr "Unable to send a reply to {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Unable to send follow up message to {{username}}"
 
-msgid "Unclassified or hidden requests are not counted."
-msgstr "Unclassified or hidden requests are not counted."
+msgid "Unavailable"
+msgstr "Unavailable"
 
 msgid "Unexpected search result type {{result_type}}"
 msgstr "Unexpected search result type {{result_type}}"
+
+msgid "Unfollow"
+msgstr "Unfollow"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Unfortunately, we do not have a working address for {{public_body_names}}."
@@ -3296,6 +3331,9 @@ msgstr "Users cannot usually make batch requests to multiple authorities at once
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr "User|Address"
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3310,6 +3348,9 @@ msgstr "User|Comments count"
 
 msgid "User|Confirmed not spam"
 msgstr "User|Confirmed not spam"
+
+msgid "User|Dob"
+msgstr "User|Dob"
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3394,6 +3435,9 @@ msgstr "View authorities"
 
 msgid "View email"
 msgstr "View email"
+
+msgid "View event history details"
+msgstr "View event history details"
 
 msgid "View other requests to {{public_body}}"
 msgstr "View other requests to {{public_body}}"
@@ -3494,6 +3538,9 @@ msgstr "We've sent this message but we have not received a confirmation of recei
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "We've sent you an email, and you'll need to click the link in it before you can\\ncontinue."
+
+msgid "Week starting"
+msgstr "Week starting"
 
 msgid "What are you doing?"
 msgstr "What are you doing?"
@@ -3825,9 +3872,6 @@ msgstr "Your name, request and any responses will appear in <strong>search engin
 msgid "Your name:"
 msgstr "Your name:"
 
-msgid "Your original message is attached."
-msgstr "Your original message is attached."
-
 msgid "Your password has been changed."
 msgstr "Your password has been changed."
 
@@ -4044,6 +4088,9 @@ msgstr "not logged in"
 msgid "not requestable due to: {{reason}}"
 msgstr "not requestable due to: {{reason}}"
 
+msgid "request hide events"
+msgstr "request hide events"
+
 msgid "requesting an internal review"
 msgstr "requesting an internal review"
 
@@ -4091,9 +4138,6 @@ msgstr "the main FOI contact at {{public_body}}"
 msgid "the {{site_name}} team"
 msgstr "the {{site_name}} team"
 
-msgid "to"
-msgstr ""
-
 msgid "to send a follow up message."
 msgstr "to send a follow up message."
 
@@ -4136,6 +4180,11 @@ msgstr "{{authority_name}} <strong>did not have</strong> the information request
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} is <strong>waiting for your clarification</strong>."
 
+msgid "{{count}} Attachment"
+msgid_plural "{{count}} Attachments"
+msgstr[0] "{{count}} Attachment"
+msgstr[1] "{{count}} Attachments"
+
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} FOI requests found"
 
@@ -4149,6 +4198,11 @@ msgid_plural "{{count}} followers"
 msgstr[0] "{{count}} follower"
 msgstr[1] "{{count}} followers"
 
+msgid "{{count}} matching authority"
+msgid_plural "{{count}} matching authorities"
+msgstr[0] "{{count}} matching authority"
+msgstr[1] "{{count}} matching authorities"
+
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
 msgstr[0] "{{count}} request"
@@ -4159,14 +4213,19 @@ msgid_plural "{{count}} requests made."
 msgstr[0] "{{count}} request made."
 msgstr[1] "{{count}} requests made."
 
+msgid "{{count}} request."
+msgid_plural "{{count}} requests."
+msgstr[0] "{{count}} request."
+msgstr[1] "{{count}} requests."
+
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} already\\n            created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n            or edit the details below to make a new but similar request."
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
 msgstr "{{foi_law}} requests to '{{public_body_name}}'"
 
-msgid "{{info_request_user_name}} only:"
-msgstr "{{info_request_user_name}} only:"
+msgid "{{info_request_user_name}}"
+msgstr "{{info_request_user_name}}"
 
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} request - {{title}}"
@@ -4190,17 +4249,20 @@ msgid_plural "{{number_of_requests}} requests left to categorise / {{total_numbe
 msgstr[0] "{{number_of_requests}} request left to categorise / {{total_number_of_requests}} total"
 msgstr[1] "{{number_of_requests}} requests left to categorise / {{total_number_of_requests}} total"
 
+msgid "{{public_body_link_absolute}}"
+msgstr "{{public_body_link_absolute}}"
+
 msgid "{{public_body_link}} answered a request about"
 msgstr "{{public_body_link}} answered a request about"
 
 msgid "{{public_body_link}} was sent a request about"
 msgstr "{{public_body_link}} was sent a request about"
 
+msgid "{{public_body_name}}"
+msgstr "{{public_body_name}}"
+
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-
-msgid "{{public_body_name}} only:"
-msgstr "{{public_body_name}} only:"
 
 msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
 msgstr "{{public_body}} has asked you to explain part of your {{law_used}} request."

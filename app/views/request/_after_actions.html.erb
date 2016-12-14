@@ -1,63 +1,98 @@
-<div id="after_actions" class="after_actions">
-  <h2><%= _('Things to do with this request') %></h2>
+<div id="after_actions" class="after-actions">
+  <ul class="action-menu after-actions__action-menu">
+    <li>
+      <a href="#" class="action-menu__button">Actions</a>
 
-  <div id="anyone_actions" class="anyone_actions">
-    <strong><%= _('Anyone:') %></strong>
+      <ul class="action-menu__menu action-menu__menu--right">
+        <% unless @info_request.is_external? %>
+          <li class="action-menu__menu__item">
+            <span class="action-menu__menu__heading">
+              <%= _('{{info_request_user_name}}',
+                    :info_request_user_name => h(@info_request.user_name)) %>
+            </span>
 
-    <ul>
-      <% if AlaveteliConfiguration.enable_annotations && @info_request.comments_allowed? %>
-        <li>
-          <%= raw(_('<a href="{{url}}">Add an annotation</a> (to help the ' \
-                      'requester or others)',
-                    :url => new_comment_url(:url_title => @info_request.url_title).html_safe)) %>
-        </li>
-      <% end %>
+            <ul class="action-menu__menu__submenu owner_actions">
+              <li>
+                <% if @last_response.nil? %>
+                  <%= link_to _("Send a followup"), new_request_followup_path(:request_id => @info_request.id, :anchor => 'followup') %>
+                <% else %>
+                  <%= link_to _("Write a reply"), new_request_incoming_followup_path(:request_id => @info_request.id, :incoming_message_id => @last_response.id, :anchor => 'followup') %>
+                <% end %>
+              </li>
 
-      <% if @old_unclassified %>
-        <li>
-          <%= link_to _('Update the status of this request'), '#describe_state_form_1' %>
-        </li>
-      <% end %>
+              <% if !@old_unclassified %>
+                <li>
+                  <%= link_to _("Update the status of this request"), request_path(@info_request, :update_status => 1) %>
+                </li>
+              <% end %>
 
-      <li>
-        <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => @info_request.url_title) %>
-      </li>
-    </ul>
-  </div>
-
-  <% if ! @info_request.is_external? %>
-    <div id="owner_actions" class="owner_actions">
-      <strong><%= _('{{info_request_user_name}} only:',:info_request_user_name=>h(@info_request.user_name)) %></strong>
-
-      <ul>
-        <li>
-          <% if @last_response.nil? %>
-            <%= link_to _("Send a followup"), new_request_followup_path(:request_id => @info_request.id, :anchor => 'followup') %>
-          <% else %>
-            <%= link_to _("Write a reply"), new_request_incoming_followup_path(:request_id => @info_request.id, :incoming_message_id => @last_response.id, :anchor => 'followup') %>
-          <% end %>
-        </li>
-
-        <% if !@old_unclassified %>
-          <li>
-            <%= link_to _("Update the status of this request"), request_path(@info_request, :update_status => 1) %>
+              <li>
+                <%= link_to _("Request an internal review"), new_request_followup_path(:request_id => @info_request.id, :internal_review => '1', :anchor => 'followup') %>
+              </li>
+            </ul>
           </li>
         <% end %>
 
-        <li>
-          <%= link_to _("Request an internal review"), new_request_followup_path(:request_id => @info_request.id, :internal_review => '1', :anchor => 'followup') %>
+        <li class="action-menu__menu__item">
+          <span class="action-menu__menu__heading">
+            <%= _('{{public_body_name}}',
+                  :public_body_name => h(@info_request.public_body.name)) %>
+          </span>
+
+          <ul class="action-menu__menu__submenu public_body_actions">
+            <li>
+              <%= link_to _("Respond to request"), upload_response_path(:url_title => @info_request.url_title) %>
+            </li>
+          </ul>
+        </li>
+
+        <li class="action-menu__menu__item">
+          <ul class="action-menu__menu__submenu anyone_actions">
+
+            <% if @info_request.attention_requested %>
+              <%# The request has already been reported %>
+              <li>
+                <%=  _("Report this request") %>
+                <span class="action-menu__info-link">
+                  <%= link_to _("Unavailable"), help_about_path(:anchor => "reporting_unavailable") %>
+                </span>
+              </li>
+            <% else %>
+              <li>
+               <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %><span class="action-menu__info-link">
+                <%= link_to _("Help"), help_about_path(:anchor => "reporting") %>
+              </span>
+              </li>
+            <% end %>
+
+            <% if AlaveteliConfiguration.enable_annotations && @info_request.comments_allowed? %>
+              <li>
+                <%= link_to _('Add an annotation'), new_comment_path(:url_title => @info_request.url_title) %>
+              </li>
+            <% end %>
+
+            <% if @old_unclassified %>
+              <li>
+                <%= link_to _('Update the status of this request'), '#describe_state_form_1' %>
+              </li>
+            <% end %>
+
+            <li>
+              <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => @info_request.url_title) %>
+            </li>
+
+            <li>
+              <%= link_to _('View event history details'), request_details_path(@info_request) %>
+            </li>
+
+            <li>
+              <%= render :partial => 'track/rss_feed',
+                         :locals => { :track_thing => @track_thing,
+                                      :location => 'action-menu' } %>
+            </li>
+          </ul>
         </li>
       </ul>
-    </div>
-  <% end %>
-
-  <div id="public_body_actions" class="public_body_actions">
-    <strong><%= _('{{public_body_name}} only:',:public_body_name=>h(@info_request.public_body.name) ) %> </strong>
-
-    <ul>
-      <li>
-        <%= link_to _("Respond to request"), upload_response_path(:url_title => @info_request.url_title) %>
-      </li>
-    </ul>
-  </div>
+    </li>
+  </ul>
 </div>

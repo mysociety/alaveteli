@@ -1,0 +1,47 @@
+<h1><%= @title %></h1>
+
+<%= form_tag({}, :method => :get, :class => 'form form-search') do %>
+  <%= text_field_tag 'query', params[:query], { :size => 30, :class => 'input-large search-query' } %>
+  <%= submit_tag 'Search', :class => 'btn' %> (substring search, body)
+<% end %>
+
+<div class="accordion" id="users">
+<% @comments.each do |comment| %>
+  <div class="accordion-group">
+    <div class="accordion-heading accordion-toggle">
+      <span class="item-title">
+        <a href="#comment_<%= comment.id %>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+        <span class="comment-labels">
+          <%= comment_labels(comment) %>
+        </span>
+        <%= link_to("#{ h(truncate(comment.body)) }", edit_admin_comment_path(comment))%>
+      </span>
+      <span class="item-metadata">
+        created <%=I18n.l(comment.created_at, :format => "%e %B %Y %H:%M:%S")%>
+    </span>
+    </div>
+
+    <div id="comment_<%= comment.id %>" class="accordion-body collapse">
+      <table class="table table-striped table-condensed">
+        <tbody>
+          <% comment.for_admin_column do |name, value, type|%>
+            <tr>
+              <td><b><%= h name %></b></td>
+              <td>
+                <% if type == 'datetime' %>
+                  <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
+                  (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                <% else %>
+                  <%= h value %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= will_paginate(@comments, :class => "paginator") %>

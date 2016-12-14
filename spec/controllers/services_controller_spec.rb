@@ -29,10 +29,10 @@ describe ServicesController, "when returning a message for people in other count
 
   it "shows a message if user location has a deployed FOI website" do
     allow(AlaveteliConfiguration).to receive(:iso_country_code).and_return("ZZ")
-    allow(controller).to receive(:country_from_ip).and_return('ES')
+    allow(controller).to receive(:country_from_ip).and_return('DE')
     get :other_country_message
     expect(response.body).
-      to match(/You can make Freedom of Information requests within España at/)
+      to match(/requests within Deutschland at/)
   end
 
   it "shows a message when user not in same country as deployed alaveteli and user country has no FOI website" do
@@ -52,9 +52,9 @@ describe ServicesController, "when returning a message for people in other count
 
   it "shows an EU message if the user location has a deployed FOI website and is covered by AskTheEU" do
     allow(AlaveteliConfiguration).to receive(:iso_country_code).and_return("DE")
-    allow(controller).to receive(:country_from_ip).and_return('ES')
+    allow(controller).to receive(:country_from_ip).and_return('GB')
     get :other_country_message
-    expect(response.body).to match(/within España at/)
+    expect(response.body).to match(/within United Kingdom at/)
     expect(response.body).to match(/EU institutions/)
   end
 

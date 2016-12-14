@@ -36,7 +36,9 @@ body,
 .learn-more-foi,
 #header_right,
 #user_profile_search form,
-#user_not_logged_in  {
+#user_not_logged_in,
+.request-header__toolbar-actions,
+.correspondence__footer  {
     display: none !important;
 }
 
@@ -140,8 +142,18 @@ ul, img {
     width: 100%;
 }
 
+.request-header__toolbar {
+  padding: 0;
+  background: transparent;
+}
+
 p.subtitle {
     margin-bottom: 0.5em;
+}
+
+.request-header__subtitle {
+  width: 100%;
+  padding: 0;
 }
 
 .request_icon_line {

@@ -39,10 +39,14 @@ DBNAME="$RAILS_ENV"
 XAPIAN_DB_DIR="$( pwd )/lib/acts_as_xapian/xapiandbs"
 
 # Set traps
-trap "echo Caught SIGCHLD; jobs -l" SIGCHLD
+trap "jobs -ln" SIGCHLD
+trap "echo 'Caught SIGTERM, tidying up child processes...'; jobs -p | xargs --no-run-if-empty kill -TERM; sleep 5s; jobs -p | xargs --no-run-if-empty kill -KILL; sleep 2s; trap - TERM; kill -TERM $$" TERM
 
 # Start server
 xapian-replicate-server -p "$PORT" --one-shot "$XAPIAN_DB_DIR" &
+
+# Wait for a moment to give the server a chance to start up and listen
+sleep 2s
 
 # Start client on remote host
 if [ "x$REMOTE_LOCKFILE_PATH" = "x" ]; then

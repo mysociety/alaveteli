@@ -1,5 +1,8 @@
 <% @title = _("Change profile photo") %>
-<% @profile_photo_javascript = true %>
+<% content_for :javascript do %>
+  <%= javascript_include_tag "profile-photos" %>
+  <%= stylesheet_link_tag "jquery.Jcrop.min.css" %>
+<% end %>
 
 <% raise "internal error" if not @user %>
 

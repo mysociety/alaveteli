@@ -30,7 +30,7 @@ module DateTimeHelper
   end
 
   # Usually-correct HTML formatting of a DateTime-ish object
-  # Use LinkToHelper#simple_date with desired formatting options
+  # Use DateTimeHelper#simple_date with desired formatting options
   #
   # date - a DateTime, Date or Time
   #
@@ -41,7 +41,7 @@ module DateTimeHelper
   end
 
   # Usually-correct plain text formatting of a DateTime-ish object
-  # Use LinkToHelper#simple_date with desired formatting options
+  # Use DateTimeHelper#simple_date with desired formatting options
   #
   # date - a DateTime, Date or Time
   #

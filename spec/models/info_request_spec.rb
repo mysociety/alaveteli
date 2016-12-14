@@ -1498,31 +1498,6 @@ describe InfoRequest do
 
   describe 'when asked for old unclassified requests' do
 
-    it 'asks for requests using any limit param supplied' do
-      expect(InfoRequest).to receive(:find).
-        with(:all, hash_including(:limit => 5))
-      InfoRequest.find_old_unclassified(:limit => 5)
-    end
-
-    it 'asks for requests using any offset param supplied' do
-      expect(InfoRequest).to receive(:find).
-        with(:all, hash_including(:offset => 100))
-      InfoRequest.find_old_unclassified(:offset => 100)
-    end
-
-    it 'does not limit the number of requests returned by default' do
-      expect(InfoRequest).to receive(:find).
-        with(:all, hash_excluding(:limit => anything))
-      InfoRequest.find_old_unclassified
-    end
-
-    it 'adds extra conditions if supplied' do
-      expect(InfoRequest).to receive(:find).
-        with(:all, hash_including(
-          {:conditions => include(/prominence != 'backpage'/)}))
-      InfoRequest.find_old_unclassified({:conditions => ["prominence != 'backpage'"]})
-    end
-
     context "returning records" do
       let(:recent_date) { Time.zone.now - 20.days }
       let(:old_date) { Time.zone.now - 22.days }
@@ -1602,31 +1577,31 @@ describe InfoRequest do
 
       it "returns records over 21 days old" do
         old_unclassified_request = create_old_unclassified_request
-        results = InfoRequest.find_old_unclassified
+        results = InfoRequest.where_old_unclassified
         expect(results).to include(old_unclassified_request)
       end
 
       it "does not return records less than 21 days old" do
         recent_unclassified_request = create_recent_unclassified_request
-        results = InfoRequest.find_old_unclassified
+        results = InfoRequest.where_old_unclassified
         expect(results).not_to include(recent_unclassified_request)
       end
 
       it "only returns records with an associated user" do
         old_unclassified_no_user = create_old_unclassified_no_user
-        results = InfoRequest.find_old_unclassified
+        results = InfoRequest.where_old_unclassified
         expect(results).not_to include(old_unclassified_no_user)
       end
 
       it "only returns records which are awaiting description" do
         old_unclassified_described = create_old_unclassified_described
-        results = InfoRequest.find_old_unclassified
+        results = InfoRequest.where_old_unclassified
         expect(results).not_to include(old_unclassified_described)
       end
 
       it "does not return anything which is in the holding pen" do
         old_unclassified_holding_pen = create_old_unclassified_holding_pen
-        results = InfoRequest.find_old_unclassified
+        results = InfoRequest.where_old_unclassified
         expect(results).not_to include(old_unclassified_holding_pen)
       end
     end
@@ -1637,16 +1612,22 @@ describe InfoRequest do
 
     it "does not return requests that don't have normal prominence" do
       dog_request = info_requests(:fancy_dog_request)
-      old_unclassified = InfoRequest.get_random_old_unclassified(1, :conditions => ["prominence = 'normal'"])
+      old_unclassified =
+        InfoRequest.where_old_unclassified.
+          where(:prominence => 'normal').limit(1).order('random()')
       expect(old_unclassified.length).to eq(1)
       expect(old_unclassified.first).to eq(dog_request)
       dog_request.prominence = 'requester_only'
       dog_request.save!
-      old_unclassified = InfoRequest.get_random_old_unclassified(1, :conditions => ["prominence = 'normal'"])
+      old_unclassified =
+        InfoRequest.where_old_unclassified.
+          where(:prominence => 'normal').limit(1).order('random()')
       expect(old_unclassified.length).to eq(0)
       dog_request.prominence = 'hidden'
       dog_request.save!
-      old_unclassified = InfoRequest.get_random_old_unclassified(1, :conditions => ["prominence = 'normal'"])
+      old_unclassified =
+        InfoRequest.where_old_unclassified.
+          where(:prominence => 'normal').limit(1).order('random()')
       expect(old_unclassified.length).to eq(0)
     end
 
@@ -1656,15 +1637,18 @@ describe InfoRequest do
 
     it "does not return requests that don't have normal prominence" do
       dog_request = info_requests(:fancy_dog_request)
-      old_unclassified = InfoRequest.count_old_unclassified(:conditions => ["prominence = 'normal'"])
+      old_unclassified = InfoRequest.where_old_unclassified.
+        where(:prominence => 'normal').count
       expect(old_unclassified).to eq(1)
       dog_request.prominence = 'requester_only'
       dog_request.save!
-      old_unclassified = InfoRequest.count_old_unclassified(:conditions => ["prominence = 'normal'"])
+      old_unclassified = InfoRequest.where_old_unclassified.
+        where(:prominence => 'normal').count
       expect(old_unclassified).to eq(0)
       dog_request.prominence = 'hidden'
       dog_request.save!
-      old_unclassified = InfoRequest.count_old_unclassified(:conditions => ["prominence = 'normal'"])
+      old_unclassified = InfoRequest.where_old_unclassified.
+        where(:prominence => 'normal').count
       expect(old_unclassified).to eq(0)
     end
 

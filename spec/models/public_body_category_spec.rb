@@ -27,7 +27,8 @@ describe PublicBodyCategory do
 
     it 'should require a unique tag' do
       existing = FactoryGirl.create(:public_body_category)
-      expect(PublicBodyCategory.new(:email => existing.category_tag)).not_to be_valid
+      expect(PublicBodyCategory.new(:category_tag => existing.category_tag)).
+        not_to be_valid
     end
 
     it 'should require a description' do

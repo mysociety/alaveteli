@@ -5,7 +5,6 @@
 #
 #  id              :integer          not null, primary key
 #  user_id         :integer          not null
-#  comment_type    :string(255)      default("internal_error"), not null
 #  info_request_id :integer
 #  body            :text             not null
 #  visible         :boolean          default(TRUE), not null
@@ -26,10 +25,10 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user, :counter_cache => true
   belongs_to :info_request
-  has_many :info_request_events # in practice only ever has one
+  has_many :info_request_events, # in practice only ever has one
+           :dependent => :destroy
 
   #validates_presence_of :user # breaks during construction of new ones :(
-  validates_inclusion_of :comment_type, :in => [ 'request' ]
   validate :check_body_has_content,
     :check_body_uses_mixed_capitals
 
@@ -63,6 +62,10 @@ class Comment < ActiveRecord::Base
     ret
   end
 
+  def hidden?
+    !visible?
+  end
+
   # So when takes changes it updates, or when made invisble it vanishes
   def event_xapian_update
     info_request_events.each { |event| event.xapian_mark_needs_index }
@@ -75,6 +78,19 @@ class Comment < ActiveRecord::Base
     text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
     text = text.gsub(/\n/, '<br>')
     text.html_safe
+  end
+
+  def for_admin_column(complete = false)
+    if complete
+      columns = self.class.content_columns
+    else
+      columns = self.class.content_columns.map do |c|
+        c if %w(body visible created_at updated_at).include?(c.name)
+      end.compact
+    end
+    columns.each do |column|
+      yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
+    end
   end
 
   private

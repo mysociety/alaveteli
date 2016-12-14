@@ -442,6 +442,73 @@ describe User do
 
   end
 
+  describe '.all_time_requesters' do
+    it 'gets most frequent requesters' do
+      # FIXME: This uses fixtures. Change it to use factories when we can.
+      expect(User.all_time_requesters).to eql(
+        {
+          users(:bob_smith_user) => 5,
+          users(:robin_user) => 2,
+          users(:another_user) => 1
+        }
+      )
+    end
+  end
+
+  describe '.last_28_day_requesters' do
+    it 'gets recent frequent requesters' do
+      user_with_3_requests = FactoryGirl.create(:user)
+      3.times { FactoryGirl.create(:info_request, user: user_with_3_requests) }
+      user_with_2_requests = FactoryGirl.create(:user)
+      2.times { FactoryGirl.create(:info_request, user: user_with_2_requests) }
+      user_with_1_request = FactoryGirl.create(:user)
+      FactoryGirl.create(:info_request, user: user_with_1_request)
+      user_with_an_old_request = FactoryGirl.create(:user)
+      FactoryGirl.create(:info_request, user: user_with_an_old_request, created_at: 2.months.ago)
+
+      expect(User.last_28_day_requesters).to eql(
+        {
+          user_with_3_requests => 3,
+          user_with_2_requests => 2,
+          user_with_1_request => 1
+        }
+      )
+    end
+  end
+
+  describe '.all_time_commenters' do
+    it 'gets most frequent commenters' do
+      # FIXME: This uses fixtures. Change it to use factories when we can.
+      expect(User.all_time_commenters).to eql(
+        {
+          users(:bob_smith_user) => 1,
+          users(:silly_name_user) => 1
+        }
+      )
+    end
+  end
+
+  describe '.last_28_day_commenters' do
+    it 'gets recent frequent commenters' do
+      user_with_3_comments = FactoryGirl.create(:user)
+      3.times { FactoryGirl.create(:comment, user: user_with_3_comments) }
+      user_with_2_comments = FactoryGirl.create(:user)
+      2.times { FactoryGirl.create(:comment, user: user_with_2_comments) }
+      user_with_1_comment = FactoryGirl.create(:user)
+      FactoryGirl.create(:comment, user: user_with_1_comment)
+      user_with_an_old_comment = FactoryGirl.create(:user)
+      FactoryGirl.create(:comment, user: user_with_an_old_comment, created_at: 2.months.ago)
+
+      expect(User.last_28_day_commenters).to eql(
+        {
+          user_with_3_comments => 3,
+          user_with_2_comments => 2,
+          user_with_1_comment => 1
+        }
+      )
+    end
+  end
+
   describe '#transactions' do
 
     it 'returns a TransactionCalculator with the default transaction set' do
@@ -455,6 +522,77 @@ describe User do
         User::TransactionCalculator.
           new(user, :transaction_associations => [:comments, :info_requests])
       expect(user.transactions(:comments, :info_requests)).to eq(calculator)
+    end
+
+  end
+
+  describe '#destroy' do
+
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'destroys any associated info_requests' do
+      info_request = FactoryGirl.create(:info_request)
+      info_request.user.reload.destroy
+      expect(InfoRequest.where(:id => info_request.id)).to be_empty
+    end
+
+    it 'destroys any associated user_info_request_sent_alerts' do
+      info_request = FactoryGirl.create(:info_request)
+      alert = user.user_info_request_sent_alerts.build(:info_request => info_request,
+                                                       :alert_type => 'overdue_1')
+      user.destroy
+      expect(UserInfoRequestSentAlert.where(:id => alert.id)).to be_empty
+    end
+
+    it 'destroys any associated post_redirects' do
+      post_redirect = PostRedirect.create(:uri => '/',
+                                          :user_id => user.id)
+      user.destroy
+      expect(PostRedirect.where(:id => post_redirect.id)).to be_empty
+    end
+
+    it 'destroys any associated track_things' do
+      track_thing = FactoryGirl.create(:search_track)
+      track_thing.tracking_user.destroy
+      expect(TrackThing.where(:id => track_thing.id)).to be_empty
+    end
+
+    it 'destroys any associated comments' do
+      comment = FactoryGirl.create(:comment)
+      comment.user.destroy
+      expect(Comment.where(:id => comment.id)).to be_empty
+    end
+
+    it 'destroys any associated public_body_change_requests' do
+      change_request = FactoryGirl.create(:add_body_request)
+      change_request.user.destroy
+      expect(PublicBodyChangeRequest.where(:id => change_request.id))
+        .to be_empty
+    end
+
+    it 'destroys any associated profile_photos' do
+      profile_photo = user.create_profile_photo(:data => 'xxx')
+      user.destroy
+      expect(ProfilePhoto.where(:id => profile_photo.id)).to be_empty
+    end
+
+    it 'destroys any associated censor_rules' do
+      censor_rule = FactoryGirl.create(:user_censor_rule)
+      censor_rule.user.destroy
+      expect(CensorRule.where(:id => censor_rule.id)).to be_empty
+    end
+
+    it 'destroys any associated info_request_batches' do
+      info_request_batch = FactoryGirl.create(:info_request_batch)
+      info_request_batch.user.destroy
+      expect(InfoRequestBatch.where(:id => info_request_batch.id)).to be_empty
+    end
+
+    it 'destroys any associated request_classifications' do
+      request_classification = FactoryGirl.create(:request_classification)
+      request_classification.user.destroy
+      expect(RequestClassification.where(:id => request_classification.id))
+        .to be_empty
     end
 
   end
@@ -732,6 +870,15 @@ describe User do
     it 'is not banned if the user has no ban_text' do
       user = FactoryGirl.build(:user, :ban_text => '')
       expect(user).to_not be_banned
+    end
+
+  end
+
+  describe '.not_banned' do
+
+    it 'should not return banned users' do
+      user = FactoryGirl.create(:user, :ban_text => 'banned')
+      expect(User.not_banned).not_to include(user)
     end
 
   end

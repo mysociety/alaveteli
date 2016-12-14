@@ -1,8 +1,10 @@
+<%# TODO: I don't think this partial is used any more, so should be removed %>
 <% if info_requests.empty? %>
   <%= _('None found.') %>
 <% else %>
-  <% for info_request in info_requests %>
-    <%= render :partial => 'request/request_listing_single', :locals => { :info_request => info_request } %>
+  <% info_requests.each do |info_request| %>
+    <%= render :partial => 'request/request_listing_single',
+               :locals => { :info_request => info_request } %>
   <% end %>
 <% end %>
 

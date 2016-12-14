@@ -82,4 +82,41 @@ describe "When searching" do
     expect(response.body).to include("no results matching your query")
   end
 
+  context 'using JSON format' do
+
+    it 'should return JSON formatted results' do
+      get '/feed/search/chicken.json'
+      response_data = JSON.parse(response.body, :symbolize_names => true)
+
+      expect(response.content_type).to eq(:json)
+      expect(response_data.size).to eql(1)
+      expect(response_data.first[:info_request][:title]).
+        to eq('How much public money is wasted on breeding naughty chickens?')
+    end
+
+  end
+
+  it "should search for requests made to a tagged set of public authorities" do
+    request_via_redirect("get", "/search/requests",
+                         :query => "request_public_body_tag:popular_agency")
+    # In the fixtures there are 2 public bodies with the popular_agency tag:
+    # - geraldine_public_body
+    # - humpadink_public_body
+    # and
+    n = 6
+    # requests to those public bodies:
+    # - fancy_dog_request
+    # - naughty_chicken_request
+    # - badger_request
+    # - boring_request
+    # - external_request
+    # - anonymous_external_request
+    expect(response.body).to include("FOI requests 1 to #{n} of #{n}")
+  end
+
+  it 'correctly recognises feed searches' do
+    get "/feed/search/bob%202007/10/13..2007/11/13"
+    expect(response.body).
+      to include("Requests or responses matching your saved search")
+  end
 end

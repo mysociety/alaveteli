@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 # replicate original file-based PublicBodyCategories functionality
+require 'forwardable'
+
 class PublicBodyCategory::CategoryCollection
   include Enumerable
   extend Forwardable

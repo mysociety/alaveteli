@@ -24,9 +24,10 @@ module TranslatableParams
 
     # Return a whitelisted params hash given the raw params
     # params - the param hash to be whitelisted
-    def whitelist(params)
+    def whitelist(raw_parameters)
+      params = ActionController::Parameters.new(raw_parameters)
       sliced_params = params.slice(*model_keys)
-      slice_translations_params(sliced_params)
+      slice_translations_params(sliced_params).permit!
     end
 
     private

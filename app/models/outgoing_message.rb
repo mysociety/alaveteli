@@ -252,10 +252,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def delivery_status
-    mail_server_logs.
-      map { |log| log.line(:decorate => true).delivery_status }.
-        compact.
-          last
+    mail_server_logs.map(&:delivery_status).compact.last
   end
 
   # An admin function
@@ -329,6 +326,12 @@ class OutgoingMessage < ActiveRecord::Base
     end
   end
 
+  def default_letter=(text)
+    original_default = get_default_message.clone
+    @default_letter = text
+    self.body = get_default_message if raw_body == original_default
+  end
+
   private
 
   def set_info_request_described_state
@@ -387,18 +390,6 @@ class OutgoingMessage < ActiveRecord::Base
       incoming_message_followup &&
         incoming_message_followup.safe_mail_from &&
           incoming_message_followup.valid_to_reply_to?
-  end
-
-  def format_of_body
-    warn %q([DEPRECATION] OutgoingMessage#format_of_body will be removed in
-            0.26. It has been broken up in to OutgoingMessage#template_changed,
-            OutgoingMessage#body_uses_mixed_capitals,
-            OutgoingMessage#body_has_signature and
-            OutgoingMessage#what_doing_value).squish
-    template_changed
-    body_uses_mixed_capitals
-    body_has_signature
-    what_doing_value
   end
 
   def template_changed

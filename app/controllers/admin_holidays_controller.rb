@@ -58,7 +58,8 @@ class AdminHolidaysController < AdminController
 
   def holiday_params
     if params[:holiday]
-      params[:holiday].slice(:description, 'day(1i)', 'day(2i)', 'day(3i)')
+      params.require(:holiday).
+        permit(:description, 'day(1i)', 'day(2i)', 'day(3i)')
     else
       {}
     end

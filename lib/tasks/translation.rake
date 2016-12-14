@@ -11,7 +11,11 @@ namespace :translation do
     output_file.write("Subject line: #{mail_object.subject}\n")
     output_file.write("\n")
     if mail_object.parts.empty?
-      output_file.write(mail_object.to_s)
+      mail_object.header.fields.each do |field|
+        output_file.write("#{field.name}: #{Mail::Encodings.value_decode(field)}\n")
+      end
+      output_file.write("\n")
+      output_file.write(mail_object.decoded)
     else
       mail_object.parts.each do |part|
         output_file.write("Message part **\n")

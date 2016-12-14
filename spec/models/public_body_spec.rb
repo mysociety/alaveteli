@@ -1209,18 +1209,20 @@ describe PublicBody, " when override all public body request emails set" do
 end
 
 describe PublicBody, "when calculating statistics" do
-
-  it "should not include unclassified or hidden requests in percentages" do
+  it "should not include hidden requests in totals" do
     with_hidden_and_successful_requests do
       totals_data = PublicBody.get_request_totals(n=3,
                                                   highest=true,
                                                   minimum_requests=1)
-      # For the total number of requests, we still include
-      # hidden or unclassified requests:
-      expect(totals_data['public_bodies'][-1].name).to eq("Geraldine Quango")
-      expect(totals_data['totals'][-1]).to eq(4)
 
-      # However, for percentages, don't include the hidden or
+      expect(totals_data['public_bodies'][-1].name).to eq("Geraldine Quango")
+      expect(totals_data['totals'][-1]).to eq(3)
+    end
+  end
+
+  it "should not include unclassified or hidden requests in percentages" do
+    with_hidden_and_successful_requests do
+      # For percentages don't include the hidden or
       # unclassified requests.  So, for the Geraldine Quango
       # we've made sure that there are only two visible and
       # classified requests, one of which is successful, so the

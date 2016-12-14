@@ -1,6 +1,22 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Update EventType when only editing prominence to hide'
+  task :update_hide_event_type => :environment do
+    InfoRequestEvent.where(:event_type => 'edit').find_each do |event|
+      if event.only_editing_prominence_to_hide?
+        event.update_attributes!(event_type: "hide")
+      end
+    end
+  end
+
+  desc 'Cache the delivery status of mail server logs'
+  task :cache_delivery_status => :environment do
+    MailServerLog.where(:delivery_status => nil).find_each do |mail_log|
+      mail_log.update_attributes(:delivery_status => mail_log.delivery_status)
+      puts "Cached MailServerLog#delivery_status of id: #{ mail_log.id }"
+    end
+  end
 
   desc 'Analyse rails log specified by LOG_FILE to produce a list of request volume'
   task :request_volume => :environment do

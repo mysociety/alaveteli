@@ -55,7 +55,7 @@ class IncomingMessage < ActiveRecord::Base
   # never really has many info_request_events, but could in theory
   has_many :info_request_events, :dependent => :destroy
 
-  belongs_to :raw_email
+  belongs_to :raw_email, :dependent => :destroy
 
   has_prominence
 

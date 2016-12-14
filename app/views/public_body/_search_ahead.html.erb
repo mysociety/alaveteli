@@ -1,6 +1,9 @@
 <% if !@xapian_requests.nil? %>
   <% if @xapian_requests.results.size > 0 %>
-    <p><%= _('Matching authorities') %></p>
+    <p><%= n_('{{count}} matching authority',
+              '{{count}} matching authorities',
+              @xapian_requests.results.size,
+              :count => @xapian_requests.results.size) %></p>
   <% else %>
     <p><%= _('No results found.') %></p>
   <% end %>

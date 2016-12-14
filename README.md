@@ -71,3 +71,11 @@ We have some more notes for developers [on the project site](http://alaveteli.or
 * [fyi.org.nz](https://fyi.org.nz)
 
 See more at [alaveteli.org](http://alaveteli.org/deployments/).
+
+## Acknowledgements
+
+Thanks to [Browserstack](https://www.browserstack.com/) who let us use their
+web-based cross-browser testing tools for this project.
+
+This product includes GeoLite data created by MaxMind, available from
+<a href="http://www.maxmind.com">http://www.maxmind.com</a>.

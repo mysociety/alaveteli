@@ -50,6 +50,11 @@ describe FollowupsController do
       end
 
       it "shows the followup form" do
+        get :new, :request_id => request.id
+        expect(response).to render_template('new')
+      end
+
+      it "shows the followup form when replying to an incoming message" do
         get :new, :request_id => request.id, :incoming_message_id => message_id
         expect(response).to render_template('new')
       end

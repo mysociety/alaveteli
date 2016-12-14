@@ -46,6 +46,8 @@ module Alaveteli
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
+    config.active_record.whitelist_attributes = false
+
     # Use SQL instead of Active Record's schema dumper when creating the test database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,
     # like if you have constraints or database-specific column types
@@ -116,6 +118,7 @@ module Alaveteli
                                  'excanvas.min.js',
                                  'select-authorities.js',
                                  'new-request.js',
+                                 'time_series.js',
                                  'fonts.css',
                                  'print.css',
                                  'admin.css',

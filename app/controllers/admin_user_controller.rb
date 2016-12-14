@@ -17,13 +17,23 @@ class AdminUserController < AdminController
 
   def index
     @query = params[:query]
-    if @query
-      users = User.where(["lower(name) like lower('%'||?||'%') or
-                                 lower(email) like lower('%'||?||'%')", @query, @query])
+
+    @sort_options = index_sort_options
+
+    @sort_order =
+      @sort_options.key?(params[:sort_order]) ? params[:sort_order] : 'name_asc'
+
+    users = if @query
+      User.where(["lower(name) LIKE lower('%'||?||'%') OR " \
+                  "lower(email) LIKE lower('%'||?||'%')", @query, @query])
     else
-      users = User
+      User
     end
-    @admin_users = users.paginate :order => "name", :page => params[:page], :per_page => 100
+
+    @admin_users =
+      users.
+        order(@sort_options[@sort_order]).
+          paginate :page => params[:page], :per_page => 100
   end
 
   def show
@@ -82,14 +92,14 @@ class AdminUserController < AdminController
 
   def user_params
     if params[:admin_user]
-      params[:admin_user].slice(:name,
-                                :email,
-                                :admin_level,
-                                :ban_text,
-                                :about_me,
-                                :no_limit,
-                                :can_make_batch_requests,
-                                :confirmed_not_spam)
+      params.require(:admin_user).permit(:name,
+                                         :email,
+                                         :admin_level,
+                                         :ban_text,
+                                         :about_me,
+                                         :no_limit,
+                                         :can_make_batch_requests,
+                                         :confirmed_not_spam)
     else
       {}
     end
@@ -100,4 +110,12 @@ class AdminUserController < AdminController
     @admin_user = User.find(params[:id])
   end
 
+  def index_sort_options
+    { 'name_asc' => 'name ASC',
+      'name_desc' => 'name DESC',
+      'created_at_desc' => 'created_at DESC',
+      'created_at_asc' => 'created_at ASC',
+      'updated_at_desc' => 'updated_at DESC',
+      'updated_at_asc' => 'updated_at ASC' }
+  end
 end

@@ -1,3 +1,160 @@
+# develop
+
+## Highlighted Features
+
+## Upgrade Notes
+
+### Changed Templates
+
+# 0.26.0.0
+
+## Highlighted Features
+
+* Moved user actions to an "action menu" on the request pages (Martin Wright,
+  Gareth Rees, Liz Conlan)
+* Added sorting to admin users list (Gareth Rees)
+* Add `required` attribute to select authority form to prevent blank searches
+  (Gareth Rees)
+* Make spam term checking configurable (Gareth Rees)
+* Exclude banned users from graphs and stats tasks (Liz Conlan)
+* New statistics page that includes user stats to show top requesters and
+  annotators, and hidden  requests. Includes a new event type of "hide" to
+  make tracking and reporting on hidden requests much simpler. Need to run
+  `rake temp:update_hide_event_type` to set up the data for this feature
+  (Henare Degan, Luke Bacon)
+* Added task to export last 2 days of requests (`cleanup:spam_requests`)
+  (Gareth Rees)
+* Added admin comments list page (Gareth Rees)
+* Add "banned" label to banned users in admin users list for better visibility
+  (Gareth Rees)
+* Fix request counts for authorities on the body stats page (Henare Degan)
+* Cached mail server log delivery status (Liz Conlan, Gareth Rees)
+* Improved display of authority list in search results (Martin Wright)
+* Added favicon to `admin`, `no_chrome` and attachment to html layouts
+  (Gareth Rees)
+* Search for requests made to a tagged set of public authorities (Henare Degan)
+* Allow format to be parsed correctly so JSON searches work (Henare Degan)
+* Improve styling of request status messages (Martin Wright)
+* Stopped HTML Entities being included in emails (Liz Conlan)
+* Added support for Ubuntu 14.04 LTS (Trusty Tahr) (Louise Crow)
+* Stopped including the original mail in bounce messages to prevent us
+  redistributing spam (Louise Crow)
+* Added more modern request status icons from the default Alaveteli theme
+  (Louise Crow)
+* Made search interfaces more consistent (Martin Wright, Louise Crow)
+* Added a package to automate updating the geoip databases (Henare Degan)
+* New requests are now recorded as virtual pageviews in Google Analytics (Louise Crow)
+* Fixed broken table cell markup (Luke Bacon)
+* Added an admin link to outgoing correspondence (Gareth Rees)
+* Fixed some minor bugs on the admin debug page (Henare Degan)
+* Moved Javascript to end of body tag (Louse Crow)
+* Improve Public Body import from CSV documentation and page layout (Liz Conlan,
+  Gareth Rees)
+* Apache and nginx example files now have far-future expiration dates for static assets
+  to allow browser-based caching (Louise Crow)
+* Improved design of request correspondence boxes (Martin Wright).
+* Improved the listing of similar requests in the request page sidebar (Martin
+  Wright)
+* Added a "Make a Request" call to action to the sidebar of the request pages
+  (Martin Wright)
+* Fixed some missing markup on request description notices (Sam Smith)
+* Improved wording of lists of requests requiring attention on the admin summary
+  page (Louise Crow)
+* Added strong parameters gem for better mass assignment security (Gareth Rees)
+* Added experimental Xapian database replication (Hazel Smith, Louise Crow)
+
+## Upgrade Notes
+
+* To cache delivery status of existing mail server logs run
+  `bundle exec rake temp:cache_delivery_status` after deployment.
+* `InfoRequest.last_public_response_clause`,
+  `InfoRequest.old_unclassified_params`,
+  `InfoRequest.count_old_unclassified`,
+  `InfoRequest.get_random_old_unclassified` and
+  `InfoRequest.find_old_unclassified` have been removed. Use
+  `InfoRequest.where_old_unclassified` and additional ARel query methods where
+  necessary.
+* You can improve the speed of your site by making sure that far-future expiration dates
+  are being set on static assets - see the examples in the example config files (`config/
+  httpd.conf-example` and `config/nginx.conf.example`).
+* Install the `geoip-database-contrib` package to automatically fetch latest
+  geoip databases.
+* To make requests searchable based on their public body's tags you'll need to
+  reindex Xapian. To make this quicker you can selectively reindex just the
+  model and new term by running
+  `bundle exec rake xapian:rebuild_index models="InfoRequestEvent" terms="X"`
+* To update events to use the new 'hide' event type you need to run
+  `rake temp:update_hide_event_type`
+* If you've added Javascript to overriden view templates, you should wrap it
+  in a `content_for :javascript` block. See http://api.rubyonrails.org/v3.2.22/classes/ActionView/Helpers/CaptureHelper.html#method-i-content_for
+  for more information.
+* If you've overridden models that use `attr_accessible` or `attr_protected`,
+  you'll need to update them as per the [strong parameters migration guide]
+  (https://github.com/rails/strong_parameters#migration-path-to-rails-4).
+* There are some database structure updates so remember to `rake db:migrate`
+
+### Changed Templates
+
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/debug.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_public_body/import_csv.html.erb
+    app/views/admin_public_body/new.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/contact_mailer/add_public_body.text.erb
+    app/views/contact_mailer/to_admin_message.text.erb
+    app/views/contact_mailer/update_public_body_email.text.erb
+    app/views/contact_mailer/user_message.text.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_footer.html.erb
+    app/views/general/_frontpage_hero.html.erb
+    app/views/general/_localised_datepicker.html.erb
+    app/views/general/_new_request.html.erb
+    app/views/general/_popup_banner.html.erb
+    app/views/general/blog.html.erb
+    app/views/general/search.html.erb
+    app/views/info_request_batch_mailer/batch_sent.text.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/layouts/no_chrome.html.erb
+    app/views/outgoing_mailer/initial_request.text.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/_search_ahead.html.erb
+    app/views/public_body/statistics.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/public_body/view_email_captcha.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_listing.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_view_html_stylesheet.html.erb
+    app/views/request/describe_notices/_requires_admin.html.erb
+    app/views/request/new.html.erb
+    app/views/request/select_authorities.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request/show.html.erb
+    app/views/request_game/play.html.erb
+    app/views/request_mailer/comment_on_alert.text.erb
+    app/views/request_mailer/comment_on_alert_plural.text.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/request_mailer/new_response_reminder_alert.text.erb
+    app/views/request_mailer/not_clarified_alert.text.erb
+    app/views/request_mailer/old_unclassified_updated.text.erb
+    app/views/request_mailer/overdue_alert.text.erb
+    app/views/request_mailer/stopped_responses.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/track_mailer/event_digest.text.erb
+    app/views/user/set_crop_profile_photo.html.erb
+    app/views/user_mailer/already_registered.text.erb
+    app/views/user_mailer/changeemail_already_used.text.erb
+    app/views/user_mailer/changeemail_confirm.text.erb
+    app/views/user_mailer/confirm_login.text.erb
+
 # Version 0.25.0.15
 
 ## Highlighted Features
@@ -60,7 +217,7 @@
 * Added a workaround for a compatibility issue with Xapian character encoding
   (Louise Crow)
 * Minor accessibility improvements (Martin Wright)
-* Add a task to output a CSV of the requests made to the top 20 authorities 
+* Add a task to output a CSV of the requests made to the top 20 authorities
   (Nick Jackson)
 * Allow local code coverage to be generated by setting `COVERAGE=local` in the
   environment when running rspec (Liz Conlan)

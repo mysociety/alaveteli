@@ -24,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-19 12:06+0000\n"
-"PO-Revision-Date: 2016-10-19 12:09+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2016-12-06 16:35+0000\n"
+"PO-Revision-Date: 2016-12-06 16:36+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -130,8 +130,11 @@ msgstr ",\\n\\n\\n\\nYr eiddoch,\\n\\n{{user_name}}"
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Porwch y cyfan</a> neu <a href=\"{{add_url}}\">ofyn i ni ychwanegu un</a>."
 
-msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
-msgstr "<a href=\"{{url}}\">Ychwanegwch anodiad</a> (i helpu'r sawl sy'n gwneud y cais neu eraill)"
+msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
+msgstr ""
+
+msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
+msgstr ""
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<strong>Nodyn Preifatrwydd:</strong> Os ydych am wneud cais am wybodaeth breifat amdanoch eich hun, yna <a href=\"{{url}}\">cliciwch yma</a>."
@@ -187,6 +190,9 @@ msgstr "<strong><code>filetype:pdf</code></strong> i ddod o hyd i holl ymatebion
 
 msgid "<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL."
 msgstr "<strong><code>cais:</code></strong> i gyfyngu i gais penodol, teipiwch y teitl fel yn yr URL."
+
+msgid "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
+msgstr ""
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
 msgstr "<strong><code>requested_by: julian_todd</code></strong> i chwilio ceisiadau a wnaed gan Julian Todd, teipiwch yr enw fel yn yr URL."
@@ -323,6 +329,9 @@ msgstr "ActsAsXapian :: ActsAsXapianJob | Model"
 msgid "Add a widget"
 msgstr ""
 
+msgid "Add an annotation"
+msgstr ""
+
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr ""
 
@@ -334,9 +343,6 @@ msgstr "Ychwanegu awdurdod - {{public_body_name}}"
 
 msgid "Add the authority:"
 msgstr "Ychwanegu'r awdurdod:"
-
-msgid "Added on {{date}}."
-msgstr "Ychwanegwyd ar {{date}}."
 
 msgid "Admin level is not included in list"
 msgstr "Nid yw lefel admin wedi ei gynnwys yn rhestr"
@@ -364,6 +370,9 @@ msgstr "Gall yr holl opsiynau isod defnyddio <strong>status</strong> neu <strong
 
 msgid "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
 msgstr "Gall yr holl opsiynau isod defnyddio <strong>variety</strong> neu <strong>latest_variety</strong> cyn y colon. Er enghraifft, bydd <strong>variety:sent</strong> yn matsio ceisiadau sydd <em>erioed</em> wedi eu hanfon; bydd <strong>latest_variety:sent</strong> yn matsio ceisiadau yn unig sydd <em>ar hyn o bryd < /em> wedi eu marcio eu bod wedi eu hanfon."
+
+msgid "All time"
+msgstr ""
 
 msgid "All time best players"
 msgstr ""
@@ -406,9 +415,6 @@ msgstr "Bydd anodiadau yn cael eu postio yn gyhoeddus yma, ac <strong>nid ydynt<
 
 msgid "Anonymous user"
 msgstr "Defnyddiwr dienw"
-
-msgid "Anyone:"
-msgstr "Unrhywun:"
 
 msgid "Applies to"
 msgstr "Yn berthnasol i"
@@ -475,6 +481,9 @@ msgstr ""
 
 msgid "Awaiting response."
 msgstr "Yn aros am ymateb."
+
+msgid "Back to content"
+msgstr ""
 
 msgid "Banned from this site"
 msgstr ""
@@ -626,9 +635,6 @@ msgstr "Sylw"
 msgid "Comment|Body"
 msgstr "Sylw|Corff"
 
-msgid "Comment|Comment type"
-msgstr "Sylw|Math o sylw"
-
 msgid "Comment|Locale"
 msgstr "Sylw|Locale"
 
@@ -712,6 +718,9 @@ msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Crëwyd gan {{info_request_user}} ar {{date}}."
+
+msgid "Crickets. No one is here. It’s time to get the word out."
+msgstr ""
 
 msgid "Crop your profile photo"
 msgstr "Tociwch lun eich proffil"
@@ -818,8 +827,8 @@ msgstr "Golygu'r cais hwn"
 msgid "Either the email or password was not recognised, please try again."
 msgstr "Nid yw naill ai'r e-bost neu'r cyfrinair wedi ei adnabod, ceisiwch eto os gwelwch yn dda."
 
-msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
-msgstr "Nid yw naill ai'r e-bost neu'r cyfrinair wedi ei adnabod, ceisiwch eto, os gwelwch yn dda . Neu crewch gyfrif newydd gan ddefnyddio'r ffurflen ar y dde."
+msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
+msgstr ""
 
 msgid "Email doesn't look like a valid address"
 msgstr "Dydy'r cyfeiriad ebost ddim yn edrych yn ddilys"
@@ -850,9 +859,6 @@ msgstr "Ceisiadau Rheoliadau Amgylcheddol Gwybodaeth a wnaed gan ddefnyddio'r we
 
 msgid "Event history"
 msgstr "Hanes y digwyddiad"
-
-msgid "Event history details"
-msgstr "Hanes y digwyddiad: manylion"
 
 msgid "Event {{id}}"
 msgstr "Digwyddiad {{id}}"
@@ -1068,6 +1074,9 @@ msgstr "Oddi wrth"
 msgid "From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr "O'r dudalen gwneud cais, ceisiwch ateb i neges benodol, yn hytrach nag anfon neges ddilynol gyffredinol. Os oes angen i chi wneud neges gyffredinol, ac yn gwybod e-bost a fydd yn mynd i'r lle iawn,  <a href=\"{{url}}\">anfon atom</a> os gwelwch yn dda."
 
+msgid "From time to time requests need to be hidden on {{site_name}}. This can happen for a number of reasons. For example, the request could be about someone’s personal information that shouldn’t be public or the contents could be abusive."
+msgstr ""
+
 msgid "From:"
 msgstr "Oddi wrth:"
 
@@ -1128,8 +1137,20 @@ msgstr "Yma mae <strong>wedi ei ddisgrifio</strong> yn golygu pan fydd defnyddiw
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Dyma'r neges ysgrifennoch, rhag ofn yr hoffech gopïo'r testun a'i gadw ar gyfer yn ddiweddarach."
 
+msgid "Here you can <a href=\"#public_bodies\">see how well public bodies have responded</a> to requests on {{site_name}} and <a href=\"#people\">meet the people most actively using it</a>. You can also find <a href=\"#requests\">statistics about requests</a> over time."
+msgstr ""
+
+msgid "Here you can see how often {{site_name}} administrators have hidden requests."
+msgstr ""
+
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Hiya! Rydym angen eich help. Dydy'r person a wnaeth y cais canlynol sydd ddim wedi dweud wrthym ai oedd yn llwyddiannus. A fyddech chi'n meddwl cymryd eiliad i'w ddarllen a'n helpu ni i gadw'r lle'n daclus i bawb? Diolch."
+
+msgid "Hidden"
+msgstr ""
+
+msgid "Hidden requests are not counted. Unclassified requests do not count towards the percentages."
+msgstr ""
 
 msgid "Hide request"
 msgstr "Cuddio cais"
@@ -1239,8 +1260,8 @@ msgstr "Os chi sy'n gwneud y cais, gallwch <a href=\"{{url}}\">fewngofnodi</a> i
 msgid "If you are {{user_link}}, please"
 msgstr "Os {{user_link}} ydych chi, os gwelwch yn dda, "
 
-msgid "If you believe this request is not suitable, you can report it for attention by the site administrators"
-msgstr "Os ydych yn credu nad yw'r cais hwn yn addas, gallwch roi gwybod i weinyddwyr y safle at eu sylw"
+msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
+msgstr ""
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr "Os nad ydych yn gallu ei glicio yn yr ebost bydd rhaid <strong>ei ddewis a'i gopïo</strong> o'r e-bost. Yna, <strong>gludwch e i mewn i'ch porwr</strong>, i'r lle y byddech yn teipio cyfeiriad unrhyw dudalen we arall."
@@ -1458,6 +1479,9 @@ msgstr "Mae eitemau sy'n cyfateb i'r amodau canlynol yn cael eu harddangos ar hy
 msgid "Items sent in last month"
 msgstr "Eitemau a anfonwyd yn y mis diwethaf"
 
+msgid "Joined in {{year}}"
+msgstr ""
+
 msgid "Joined in {{year}}."
 msgstr ""
 
@@ -1478,6 +1502,9 @@ msgstr ""
 
 msgid "Keywords"
 msgstr "Allweddeiriau"
+
+msgid "Last 28 days"
+msgstr ""
 
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Yr awdurdod diwethaf edrychwyd arno: {{authority_url}}"
@@ -1539,6 +1566,9 @@ msgstr "MailServerLogDone|EnwFfeil"
 msgid "MailServerLogDone|Last stat"
 msgstr "MailServerLogDone|Ystaedegyn diwethaf"
 
+msgid "MailServerLog|Delivery status"
+msgstr ""
+
 msgid "MailServerLog|Line"
 msgstr "MailServerLog|Llinell"
 
@@ -1547,12 +1577,6 @@ msgstr "MailServerLog|Archeb"
 
 msgid "Make a batch request"
 msgstr "Gwneud cais swp"
-
-msgid "Make a new EIR request"
-msgstr "Gwneud cais EIR newydd"
-
-msgid "Make a new FOI request"
-msgstr "Gwneud cais Rhyddid Gwybodaeth newydd"
 
 msgid "Make a request"
 msgstr "Gwneud cais"
@@ -1581,9 +1605,6 @@ msgstr ""
 msgid "Many requests"
 msgstr "Llawer o geisiadau"
 
-msgid "Matching authorities"
-msgstr ""
-
 msgid "Message"
 msgstr "Neges"
 
@@ -1601,6 +1622,12 @@ msgstr "Rhagor am yr awdurdod hwn"
 
 msgid "More similar requests"
 msgstr "Rhagor o geisiadau tebyg"
+
+msgid "Most frequent annotators"
+msgstr ""
+
+msgid "Most frequent requesters"
+msgstr ""
 
 msgid "My profile"
 msgstr "Fy mhroffil"
@@ -1716,6 +1743,9 @@ msgstr "Nawr rhagolygwch eich neges ddilynol"
 msgid "Now preview your message asking for an internal review"
 msgstr "Nawr bwrwch ragolwg ar eich neges yn gofyn am adolygiad mewnol"
 
+msgid "Number of request hide events over time"
+msgstr ""
+
 msgid "Number of requests"
 msgstr "Nifer y ceisiadau"
 
@@ -1811,9 +1841,6 @@ msgstr "Nid yw'r cyfrinair yn gywir"
 
 msgid "Password:"
 msgstr "Cyfrinair"
-
-msgid "Paste this link into emails, tweets, and anywhere else:"
-msgstr "Gludwch y ddolen hon i e-bost, trydariadau, ac unrhyw le arall:"
 
 msgid "People"
 msgstr "Pobl"
@@ -2068,6 +2095,9 @@ msgstr ""
 msgid "Privacy and cookies"
 msgstr ""
 
+msgid "Profile image for {{user_name}}"
+msgstr ""
+
 msgid "Profile photo"
 msgstr "Photo proffil"
 
@@ -2082,9 +2112,6 @@ msgstr "Cyrff Cyhoeddus"
 
 msgid "Public Body"
 msgstr "Corff Cyhoeddus"
-
-msgid "Public Body Statistics"
-msgstr "Ystadegau Cyrff Cyhoeddus"
 
 msgid "Public authorities"
 msgstr "Awdurdodau cyhoeddus"
@@ -2245,9 +2272,6 @@ msgstr ""
 msgid "RSS feed"
 msgstr "Porthiant RSS"
 
-msgid "RSS feed of updates"
-msgstr "Porthiant RSS o ddiweddariadau"
-
 msgid "Re-edit this annotation"
 msgstr "Ail-golygu yr anodiad hwn"
 
@@ -2314,6 +2338,12 @@ msgstr "Cais am wybodaeth bersonol"
 msgid "Request has been removed"
 msgstr "Cais wedi cael ei dynnu"
 
+msgid "Request hidden"
+msgstr ""
+
+msgid "Request hide events"
+msgstr ""
+
 msgid "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Cais wedi ei anfon i {{public_body_name}} gan {{info_request_user}} ar {{date}}."
 
@@ -2326,6 +2356,9 @@ msgstr "Gofynnwyd amdani o {{public_body_name}} gan {{info_request_user}} ar {{d
 msgid "Requested on {{date}}"
 msgstr "Gofynnwyd amdani ar {{date}}"
 
+msgid "Requests"
+msgstr ""
+
 msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
 msgstr "Ystyrir bod ceisiadau yn hwyr os ydynt yn 'Hwyr' neu'n 'Hwyr Iawn'."
 
@@ -2334,6 +2367,9 @@ msgstr "Ystyrir bod ceisiadau yn llwyddiannus os ydynt yn cael eu dosbarthu fel 
 
 msgid "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
 msgstr "Nid ystyrir bod ceisiadau am wybodaeth bersonol a cheisiadau blinderus yn ddilys at ddibenion Rhyddid Gwybodaeth (<a href=\"/help/about\">darllenwch ragor</a>)."
+
+msgid "Requests like this"
+msgstr ""
 
 msgid "Requests or responses matching your saved search"
 msgstr "Ceisiadau neu ymatebion sy'n cyfateb i'r chwiliad a gadwyd gennych"
@@ -2516,9 +2552,6 @@ msgstr "Allgofnodwch"
 msgid "Sign up"
 msgstr "Cofrestrwch"
 
-msgid "Similar requests"
-msgstr "Ceisiadau tebyg"
-
 msgid "Simple search"
 msgstr "Chwiliad syml"
 
@@ -2552,6 +2585,9 @@ msgstr "Mae'n ddrwg gennym, roedd problem wrth brosesu'r dudalen hon"
 msgid "Sorry, we couldn't find that page"
 msgstr "Mae'n ddrwg gennym, ni allem ddod o hyd i'r dudalen honno"
 
+msgid "Sorry, we're currently unable to sign up new users, please try again later"
+msgstr ""
+
 msgid "Source URL:"
 msgstr "URL y Ffynhonnell:"
 
@@ -2565,6 +2601,9 @@ msgid "SpamAddress|Email"
 msgstr "SpamAddress |Ebost"
 
 msgid "Start your own request"
+msgstr ""
+
+msgid "Statistics"
 msgstr ""
 
 msgid "Stay up to date"
@@ -2656,6 +2695,9 @@ msgstr "Diolch yn fawr! Gobeithio na fydd yn rhaid i chi aros lawer yn hwy."
 
 msgid "Thank you! Hopefully your wait isn't too long."
 msgstr "Diolch yn fawr! Gobeithio na fydd rhaid i chi aros yn rhy hir."
+
+msgid "Thank you! We'll look into what happened and try and fix it up."
+msgstr ""
 
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
 msgstr "Diolch yn fawr! Mae eich cais yn ddyledus ers tro, gan ei fod fwy na {{very_late_number_of_days}} diwrnod gwaith yn hwyr. Dylai'r rhan fwyaf o geisiadau gael eu hateb o fewn {{late_number_of_days}} diwrnod gwaith. Efallai yr hoffech chi gwyno am hyn, gweler isod."
@@ -2882,13 +2924,6 @@ msgstr "Mae cyfyngiad ar y nifer o geisiadau y gallwch eu gwneud mewn diwrnod, o
 msgid "There is nothing to display yet."
 msgstr "Does dim i'w ddangos eto."
 
-msgid "There is {{count}} person following this request"
-msgid_plural "There are {{count}} people following this request"
-msgstr[0] "Mae {{count}} person yn dilyn y cais hwn"
-msgstr[1] "Mae {{count}} person yn dilyn y cais hwn"
-msgstr[2] "Mae {{count}} person yn dilyn y cais hwn"
-msgstr[3] "Mae {{count}} person yn dilyn y cais hwn"
-
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Roedd <strong>gwall cyflenwi</strong> neu rywbeth tebyg, sy angen ei drwsio gan dîm {{site_name}}."
 
@@ -2927,9 +2962,6 @@ msgstr "Nid ydynt wedi ymateb i'ch cais {{title}} {{law_used_short}} yn brydlon,
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
 msgstr "Nid ydynt wedi ateb i'ch cais {{title}} {{law_used_short}}, fel sy'n ofynnol yn ôl y gyfraith"
-
-msgid "Things to do with this request"
-msgstr "Pethau i'w gwneud gyda'r cais hwn"
 
 msgid "Things you're following"
 msgstr "Pethau rydych yn eu dilyn"
@@ -2993,9 +3025,6 @@ msgstr "Mae'r cais hwn wedi ei guddio, fel mai dim ond chi y ceisydd all ei weld
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Mae'r cais hwn wedi ei guddio, fel mai dim ond chi y ceisydd all ei weld. {{reason}} "
-
-msgid "This page of public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
-msgstr "Mae'r dudalen hon o ystadegau corff cyhoeddus yn arbrofol ar hyn o bryd, felly mae rhai cafeatau y dylid eu cadw mewn cof:"
 
 msgid "This particular request is finished:"
 msgstr "Mae'r cais penodol hwn wedi gorffen:"
@@ -3067,6 +3096,9 @@ msgstr "Mae angen sylw gweinyddwr ar y cais hwn"
 
 msgid "This request was not made via {{site_name}}"
 msgstr "Ni wnaed y cais hwn drwy {{site_name}}"
+
+msgid "This section on public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
+msgstr ""
 
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Mae'r tabl hwn yn dangos manylion technegol y digwyddiadau mewnol a ddigwyddodd  i'r cais hwn ar {{site_name}}. Gallai hwn gael ei ddefnyddio i gynhyrchu gwybodaeth am ba mor gyflym y mae awdurdodau yn ymateb i geisiadau, nifer y ceisiadau sy'n gofyn am ymateb drwy'r post a llawer mwy."
@@ -3173,9 +3205,6 @@ msgstr "I lwytho ymateb i fyny, rhaid i chi fod wedi mewngofnodi gan ddefnyddio 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr "I ddefnyddio'r chwiliad uwch, cyfunwch ymadroddion a labeli fel y'i disgrifir yn yr awgrymiadau chwilio isod."
 
-msgid "To view the email address that we use to send FOI requests to {{public_body_name}}, please enter these words."
-msgstr "I weld y cyfeiriad e-bost yr ydym yn ei ddefnyddio i anfon ceisiadau Rhyddid Gwybodaeth i {{public_body_name}}, nodwch y geiriau hyn."
-
 msgid "To view the response, click on the link below."
 msgstr "I weld yr ymateb, cliciwch ar y ddolen isod."
 
@@ -3266,11 +3295,14 @@ msgstr "Yn methu anfon ateb i {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Yn methu anfon neges ddilynol i {{username}}"
 
-msgid "Unclassified or hidden requests are not counted."
-msgstr "Nid yw ceisiadau di-ddosbarth neu cudd yn cael eu cyfrif."
+msgid "Unavailable"
+msgstr ""
 
 msgid "Unexpected search result type {{result_type}}"
 msgstr "Canlyniad chwiliad o fath annisgwyl {{result_type}}"
+
+msgid "Unfollow"
+msgstr ""
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Yn anffodus, nid oes gennym cyfeiriad cywir ar gyfer {{public_body_names}}."
@@ -3332,6 +3364,9 @@ msgstr "Ni all defnyddwyr fel arfer wneud ceisiadau swp i awdurdodau lluosog yr 
 msgid "User|About me"
 msgstr "User|Amdanaf i"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Lefel weinyddu"
 
@@ -3345,6 +3380,9 @@ msgid "User|Comments count"
 msgstr ""
 
 msgid "User|Confirmed not spam"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3430,6 +3468,9 @@ msgstr "Gweld yr awdurdodau"
 
 msgid "View email"
 msgstr "Gweld e-bost"
+
+msgid "View event history details"
+msgstr ""
 
 msgid "View other requests to {{public_body}}"
 msgstr ""
@@ -3534,6 +3575,9 @@ msgstr ""
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
 msgstr "Rydyn ni wedi anfon e-bost atoch, a bydd angen i chi glicio ar y ddolen ynddo cyn y gallwch barhau."
+
+msgid "Week starting"
+msgstr ""
 
 msgid "What are you doing?"
 msgstr "Beth ydych chi'n ei wneud?"
@@ -3865,9 +3909,6 @@ msgstr "Bydd eich enw, cais ac unrhyw ymatebion yn ymddangos mewn <strong>peiria
 msgid "Your name:"
 msgstr "Eich enw:"
 
-msgid "Your original message is attached."
-msgstr "Mae eich neges wreiddiol yn atodedig."
-
 msgid "Your password has been changed."
 msgstr "Mae eich cyfrinair wedi cael ei newid."
 
@@ -4090,6 +4131,9 @@ msgstr ""
 msgid "not requestable due to: {{reason}}"
 msgstr "dim modd gwneud cais o achos i: {{reason}}"
 
+msgid "request hide events"
+msgstr ""
+
 msgid "requesting an internal review"
 msgstr "yn gofyn am adolygiad mewnol"
 
@@ -4137,9 +4181,6 @@ msgstr "prif gyswllt Rhyddid Gwybodaeth yn {{public_body}} "
 msgid "the {{site_name}} team"
 msgstr "tîm {{site_name}}"
 
-msgid "to"
-msgstr ""
-
 msgid "to send a follow up message."
 msgstr "i anfon neges ddilynol."
 
@@ -4182,6 +4223,13 @@ msgstr "{{authority_name}} Nid oedd gan y wybodaeth y gofynnwyd amdani."
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} yn <strong>aros am eich eglurhad</strong>."
 
+msgid "{{count}} Attachment"
+msgid_plural "{{count}} Attachments"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
 msgid "{{count}} FOI requests found"
 msgstr "Daethpwyd o hyd i {{count}} cais Rhyddid Gwybodaeth"
 
@@ -4194,6 +4242,13 @@ msgstr[3] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "{{count}} matching authority"
+msgid_plural "{{count}} matching authorities"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -4213,14 +4268,21 @@ msgstr[1] "Cais {{count}} a wnaed."
 msgstr[2] "Cais {{count}} a wnaed."
 msgstr[3] "Cais {{count}} a wnaed."
 
+msgid "{{count}} request."
+msgid_plural "{{count}} requests."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "Creodd {{existing_request_user}} yr un cais eisoes ar {{date}}. Gallwch naill ai weld y <a href=\"{{existing_request}}\">cais presennol</a>, neu newid y manylion isod i wneud cais newydd ond tebyg."
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
 msgstr "{{foi_law}} yn gofyn i '{{public_body_name}}'"
 
-msgid "{{info_request_user_name}} only:"
-msgstr "{{info_request_user_name}} yn unig:"
+msgid "{{info_request_user_name}}"
+msgstr ""
 
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Cais {{law_used_full}} - {{title}}"
@@ -4248,17 +4310,20 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
+msgid "{{public_body_link_absolute}}"
+msgstr ""
+
 msgid "{{public_body_link}} answered a request about"
 msgstr "{{public_body_link}}  ateb cais am"
 
 msgid "{{public_body_link}} was sent a request about"
 msgstr "{{public_body_link}} Anfonwyd cais am"
 
-msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgid "{{public_body_name}}"
 msgstr ""
 
-msgid "{{public_body_name}} only:"
-msgstr "{{public_body_name}} yn unig:"
+msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr ""
 
 msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
 msgstr "Mae {{public_body}} wedi gofyn i chi i egluro rhan o'ch cais {{law_used}}."

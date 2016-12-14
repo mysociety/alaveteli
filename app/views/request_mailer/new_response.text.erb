@@ -1,5 +1,5 @@
 <%= _('You have a new response to the {{law_used_full}} request ',
-      :law_used_full => @info_request.law_used_human(:full)) %>
+      :law_used_full => @info_request.law_used_human(:full).html_safe) %>
 '<%= raw @info_request.title %>' <%=_('that you made to') %>
 <%= raw @info_request.public_body.name %>.
 
@@ -13,6 +13,6 @@
 <%= _('Although all responses are automatically published, we depend on ' \
       'you, the original requester, to evaluate them.') %>
 
--- <%= _('the {{site_name}} team', :site_name => site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>
 
 

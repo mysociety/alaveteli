@@ -48,6 +48,25 @@ describe OutgoingMessage do
 
   end
 
+  describe '#default_letter' do
+
+    it 'reloads the default body when set after initialization' do
+      req = FactoryGirl.build(:info_request)
+      message = described_class.new(:info_request => req)
+      message.default_letter = 'test'
+      expect(message.body).to include('test')
+    end
+
+    it 'does not replace the body if it has already been changed' do
+      req = FactoryGirl.build(:info_request)
+      message = described_class.new(:info_request => req)
+      message.body = 'toast'
+      message.default_letter = 'test'
+      expect(message.body).not_to include('test')
+    end
+
+  end
+
   describe '#what_doing' do
 
     it 'allows a value of normal_sort' do

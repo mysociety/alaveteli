@@ -25,7 +25,7 @@ class UserProfile::AboutMeController < ApplicationController
     end
 
     if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
-      if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(@user.about_me) }
+      if AlaveteliSpamTermChecker.new.spam?(@user.about_me)
         flash[:error] = "You can't update your profile text at this time."
         if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
           e = Exception.new("Spam profile from user #{@user.id}")

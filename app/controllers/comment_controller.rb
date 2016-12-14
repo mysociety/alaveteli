@@ -14,10 +14,7 @@ class CommentController < ApplicationController
 
   def new
     if params[:comment]
-      @comment = Comment.new(params[:comment].merge({
-                                                      :comment_type => 'request',
-                                                      :user => @user
-      }))
+      @comment = Comment.new(comment_params.merge({ :user => @user }))
     end
 
     if params[:comment]
@@ -47,7 +44,7 @@ class CommentController < ApplicationController
       )
 
       if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
-        if SPAM_PATTERNS.any?{ |spam_pattern| spam_pattern.match(params[:comment][:body]) }
+        if AlaveteliSpamTermChecker.new.spam?(params[:comment][:body])
           flash.now[:error] = "Sorry, we're currently not able to add your annotation. Please try again later."
           if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
             e = Exception.new("Spam annotation from user #{@user.id}")
@@ -88,6 +85,10 @@ class CommentController < ApplicationController
   end
 
   private
+
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
 
   def find_info_request
     if params[:type] == 'request'

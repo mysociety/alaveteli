@@ -108,7 +108,9 @@ class UserController < ApplicationController
     return render :action => 'sign' unless params[:user_signin]
 
     if @post_redirect.present?
-      @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name])
+      @user_signin =
+        User.authenticate_from_form(user_signin_params,
+                                    @post_redirect.reason_params[:user_name])
     end
 
     if @post_redirect.nil? || @user_signin.errors.size > 0
@@ -145,7 +147,7 @@ class UserController < ApplicationController
       error = true
     end
     @user_signup.valid?
-    user_alreadyexists = User.find_user_by_email(params[:user_signup][:email].strip)
+    user_alreadyexists = User.find_user_by_email(params[:user_signup][:email])
     if user_alreadyexists
       # attempt to remove the 'already in use message' from the errors hash
       # so it doesn't get accidentally shown to the end user
@@ -467,51 +469,6 @@ class UserController < ApplicationController
   end
 
   # Change about me text on your profile page
-  def set_profile_about_me
-    warn %q([DEPRECATION] UserController#set_profile_about_me has been replaced
-            with UserProfile::AboutMeController and will be removed in Alaveteli
-            release 0.26).squish
-
-    if authenticated_user.nil?
-      flash[:error] = _("You need to be logged in to change the text about you on your profile.")
-      redirect_to frontpage_url
-      return
-    end
-
-    unless params[:submitted_about_me]
-      params[:about_me] = {}
-      params[:about_me][:about_me] = @user.about_me
-      @about_me = AboutMeValidator.new(params[:about_me])
-      render :action => 'set_profile_about_me'
-      return
-    end
-
-    if @user.banned?
-      flash[:error] = _('Banned users cannot edit their profile')
-      redirect_to set_profile_about_me_path
-      return
-    end
-
-    @about_me = AboutMeValidator.new(params[:about_me])
-    unless @about_me.valid?
-      render :action => 'set_profile_about_me'
-      return
-    end
-
-    @user.about_me = @about_me.about_me
-    @user.save!
-    if @user.profile_photo
-      flash[:notice] = _("You have now changed the text about you on your profile.")
-      redirect_to user_url(@user)
-    else
-      flash[:notice] = _("<p>Thanks for changing the text about you on your " \
-                         "profile.</p><p><strong>Next...</strong> You can " \
-                         "upload a profile photograph too.</p>")
-      redirect_to set_profile_photo_url
-    end
-  end
-
-  # Change about me text on your profile page
   def set_receive_email_alerts
     if authenticated_user.nil?
       flash[:error] = _("You need to be logged in to edit your profile.")
@@ -548,7 +505,11 @@ class UserController < ApplicationController
   end
 
   def user_params(key = :user)
-    params[key].slice(:name, :email, :password, :password_confirmation)
+    params.require(key).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def user_signin_params
+    params.require(:user_signin).permit(:email, :password)
   end
 
   def is_modal_dialog

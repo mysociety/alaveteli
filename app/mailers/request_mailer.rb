@@ -43,8 +43,6 @@ class RequestMailer < ApplicationMailer
     headers('Return-Path' => blackhole_email,   # we don't care about bounces, likely from spammers
             'Auto-Submitted' => 'auto-replied') # http://tools.ietf.org/html/rfc3834
 
-    attachments.inline["original.eml"] = raw_email_data
-
     @info_request = info_request
     @contact_email = AlaveteliConfiguration::contact_email
 

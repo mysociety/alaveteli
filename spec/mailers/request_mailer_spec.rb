@@ -126,7 +126,8 @@ describe RequestMailer do
       deliveries.clear
     end
 
-    it "should return incoming mail to sender when a request is stopped fully for spam" do
+    it "should send a notice to sender when a request is stopped
+        fully for spam" do
       # mark request as anti-spam
       ir = info_requests(:fancy_dog_request)
       ir.allow_new_responses_from = 'nobody'
@@ -143,15 +144,8 @@ describe RequestMailer do
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       expect(mail.to).to eq([ 'geraldinequango@localhost' ])
-      # check attached bounce is good copy of incoming-request-plain.email
-      expect(mail.multipart?).to eq(true)
-      expect(mail.parts.size).to eq(2)
-      message_part = mail.parts[0].to_s
-      bounced_mail = MailHandler.mail_from_raw_email(mail.parts[1].body.to_s)
-      expect(bounced_mail.to).to eq([ ir.incoming_email ])
-      expect(bounced_mail.from).to eq([ 'geraldinequango@localhost' ])
-      expect(bounced_mail.body.include?("That's so totally a rubbish question")).to be true
-      expect(message_part.include?("marked to no longer receive responses")).to be true
+      expect(mail.multipart?).to eq(false)
+      expect(mail.body).to include("marked to no longer receive responses")
       deliveries.clear
     end
 

@@ -42,16 +42,36 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation, :no_xapian_reindex
   attr_accessor :entered_otp_code
 
-  has_many :info_requests, :order => 'created_at desc'
-  has_many :user_info_request_sent_alerts
-  has_many :post_redirects, :order => 'created_at desc'
-  has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
-  has_many :comments, :order => 'created_at desc'
-  has_many :public_body_change_requests, :order => 'created_at desc'
-  has_one :profile_photo
-  has_many :censor_rules, :order => 'created_at desc'
-  has_many :info_request_batches, :order => 'created_at desc'
-  has_many :request_classifications
+  has_many :info_requests,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :user_info_request_sent_alerts,
+           :dependent => :destroy
+  has_many :post_redirects,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :track_things,
+           :foreign_key => 'tracking_user_id',
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :comments,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :public_body_change_requests,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_one :profile_photo,
+          :dependent => :destroy
+  has_many :censor_rules,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :info_request_batches,
+           :order => 'created_at desc',
+           :dependent => :destroy
+  has_many :request_classifications,
+           :dependent => :destroy
+
+  scope :not_banned, -> { where(ban_text: "") }
 
   validates_presence_of :email, :message => _("Please enter your email address")
   validates_presence_of :name, :message => _("Please enter your name")
@@ -97,7 +117,7 @@ class User < ActiveRecord::Base
     if specific_user_login
       auth_fail_message = _("Either the email or password was not recognised, please try again.")
     else
-      auth_fail_message = _("Either the email or password was not recognised, please try again. Or create a new account using the form on the right.")
+      auth_fail_message = _("Either the email or password was not recognised, please try again. Or create a new account using the form on the left.")
     end
 
     user = find_user_by_email(params[:email])
@@ -193,6 +213,54 @@ class User < ActiveRecord::Base
   def self.find_similar_named_users(user)
     User.where('name ILIKE ? AND email_confirmed = ? AND id <> ?',
                 user.name, true, user.id).order(:created_at)
+  end
+
+  def self.all_time_requesters
+    InfoRequest.visible.
+                joins(:user).
+                group(:user).
+                order("count_all DESC").
+                limit(10).
+                count
+  end
+
+  def self.last_28_day_requesters
+    # TODO: Refactor as it's basically the same as all_time_requesters
+    InfoRequest.visible.
+                where("info_requests.created_at >= ?", 28.days.ago).
+                joins(:user).
+                group(:user).
+                order("count_all DESC").
+                limit(10).
+                count
+  end
+
+  def self.all_time_commenters
+    commenters = Comment.visible.
+                         joins(:user).
+                         group("comments.user_id").
+                         order("count_all DESC").
+                         limit(10).
+                         count
+    # TODO: Have user objects automatically instantiated like the InfoRequest queries above
+    result = {}
+    commenters.each { |user_id,count| result[User.find(user_id)] = count }
+    result
+  end
+
+  def self.last_28_day_commenters
+    # TODO: Refactor as it's basically the same as all_time_commenters
+    commenters = Comment.visible.
+                         where("comments.created_at >= ?", 28.days.ago).
+                         joins(:user).
+                         group("comments.user_id").
+                         order("count_all DESC").
+                         limit(10).
+                         count
+    # TODO: Have user objects automatically instantiated like the InfoRequest queries above
+    result = {}
+    commenters.each { |user_id,count| result[User.find(user_id)] = count }
+    result
   end
 
   def transactions(*associations)

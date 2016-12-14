@@ -23,7 +23,8 @@ class TrackMailer < ApplicationMailer
 
     mail(:from => contact_from_name_and_email,
          :to => user.name_and_email,
-         :subject => _("Your {{site_name}} email alert", :site_name => site_name))
+         :subject => _("Your {{site_name}} email alert",
+                       :site_name => site_name.html_safe))
   end
 
   def contact_from_name_and_email
