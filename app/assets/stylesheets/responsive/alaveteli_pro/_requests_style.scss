@@ -37,10 +37,13 @@
 
 .requests__sort,
 .requests__filters {
+  font-size: 0.8125em;
   label {
     color: #777;
+    font-size: 1em;
   }
   select {
+    font-size: 1em;
     border-color: transparent;
     background-color: transparent;
     cursor: pointer;
@@ -90,6 +93,11 @@
     font-size: 0.875em;
     line-height: 1.4em;
   }
+}
+
+.new-request-button,
+.new-request-button:visited {
+  color: #fff;
 }
 
 .embargo-indicator {
