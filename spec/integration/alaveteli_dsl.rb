@@ -18,8 +18,8 @@ module AlaveteliDsl
     within(:css, '.body_listing') do
       find_link('Make a request').click
     end
-    fill_in 'Summary:', :with => "Why is your quango called Geraldine?"
-    fill_in 'Your request:', :with => "This is a silly letter. It is too short to be interesting."
+    fill_in 'Summary', :with => "Why is your quango called Geraldine?"
+    fill_in 'Your request', :with => "This is a silly letter. It is too short to be interesting."
 
     find_button('Preview your public request').click
     find_button('Send request').click
