@@ -115,6 +115,9 @@ a.dashboard-folder__name:visited {
   width: 22px;
   height: 22px;
   display: inline-block;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/pro-status-icons@2.png');
+  }
 }
 
 .status-icon--awaiting-response {

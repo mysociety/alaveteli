@@ -62,10 +62,13 @@
   @include respond-min( $dashboard-collapse ){
     background-image: image-url('/assets/alaveteli-pro/blank-slate-requests.png');
     background-repeat: no-repeat;
-    background-size: 676px 344px;
+    background-size: 683px 348px;
     background-position: left bottom;
-    min-height: 344px;
+    min-height: 348px;
     padding: 2em 0;
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url('alaveteli-pro/blank-slate-requests@2.png');
+    }
   }
 }
 
@@ -103,6 +106,9 @@
   background-size: 14px 19px;
   height: 19px;
   width: 14px;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/embargo-lock--small@2.png');
+  }
 }
 
 .search-and-filter-overview {
@@ -127,6 +133,9 @@
   top: 3px;
   @extend .image-replacement;
   opacity: 0.5;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/clear-icon@2.png');
+  }
   &:hover,
   &:active,
   &:focus {
