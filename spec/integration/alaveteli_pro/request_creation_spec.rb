@@ -13,10 +13,10 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To:"
-        fill_in "Summary:", with: "Does the pro request form work?"
-        fill_in "Your request:", with: "A very short letter."
-        select "3 Months", from: "Set embargo:"
+        select public_body.name, from: "To"
+        fill_in "Summary", with: "Does the pro request form work?"
+        fill_in "Your request", with: "A very short letter."
+        select "3 Months", from: "Embargo"
         click_button "Save draft"
 
         # Redirected back to new request form
@@ -31,12 +31,12 @@ describe "creating requests in alaveteli_pro" do
                                      "until #{Time.zone.today + 3.months}")
 
         # The page should pre-fill the form with data from the draft
-        expect(page).to have_select("To:", selected: public_body.name)
-        expect(page).to have_field("Summary:",
+        expect(page).to have_select("To", selected: public_body.name)
+        expect(page).to have_field("Summary",
                                    with: "Does the pro request form work?")
-        expect(page).to have_field("Your request:",
+        expect(page).to have_field("Your request",
                                    with: "A very short letter.")
-        expect(page).to have_select("Set embargo:", selected: "3 Months")
+        expect(page).to have_select("Embargo", selected: "3 Months")
       end
     end
 
@@ -45,11 +45,11 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To:"
-        fill_in "Summary:", with: "Does the pro request form work?"
-        fill_in "Your request:", with: "A very short letter."
-        select "3 Months", from: "Set embargo:"
-        click_button "Preview and send request"
+        select public_body.name, from: "To"
+        fill_in "Summary", with: "Does the pro request form work?"
+        fill_in "Your request", with: "A very short letter."
+        select "3 Months", from: "Embargo"
+        click_button "Preview and send"
 
         # Preview page
         drafts = DraftInfoRequest.where(title: "Does the pro request form work?")
@@ -73,11 +73,11 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To:"
-        fill_in "Summary:", with: "Does the pro request form work?"
-        fill_in "Your request:", with: "A very short letter."
-        select "3 Months", from: "Set embargo:"
-        click_button "Preview and send request"
+        select public_body.name, from: "To"
+        fill_in "Summary", with: "Does the pro request form work?"
+        fill_in "Your request", with: "A very short letter."
+        select "3 Months", from: "Embargo"
+        click_button "Preview and send"
 
         # Preview page
         click_button "Send request"
@@ -114,25 +114,25 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To:"
-        fill_in "Summary:", with: "Does the pro request form work?"
-        fill_in "Your request:", with: "A very short letter."
-        select "3 Months", from: "Set embargo:"
-        click_button "Preview and send request"
+        select public_body.name, from: "To"
+        fill_in "Summary", with: "Does the pro request form work?"
+        fill_in "Your request", with: "A very short letter."
+        select "3 Months", from: "Embargo"
+        click_button "Preview and send"
 
         # Preview page
         click_link "Edit your request"
 
         # New request form again
         # The page should pre-fill the form with data from the draft
-        expect(page).to have_select("To:", selected: public_body.name)
-        expect(page).to have_field("Summary:",
+        expect(page).to have_select("To", selected: public_body.name)
+        expect(page).to have_field("Summary",
                                    with: "Does the pro request form work?")
-        expect(page).to have_field("Your request:",
+        expect(page).to have_field("Your request",
                                    with: "A very short letter.")
-        expect(page).to have_select("Set embargo:", selected: "3 Months")
+        expect(page).to have_select("Embargo", selected: "3 Months")
 
-        fill_in "Your request:", with: "A very short letter, edited."
+        fill_in "Your request", with: "A very short letter, edited."
         click_button "Save draft"
 
         # Redirected back to new request form
@@ -144,7 +144,7 @@ describe "creating requests in alaveteli_pro" do
 
         expect(page).to have_content("Your draft has been saved!")
 
-        click_button "Preview and send request"
+        click_button "Preview and send"
 
         # Preview page again
         expect(page).to have_content("Preview your request")
@@ -165,8 +165,8 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To:"
-        click_button "Preview and send request"
+        select public_body.name, from: "To"
+        click_button "Preview and send"
 
         # New request form with errors
         expect(page).to have_content "Please enter a summary of your " \
@@ -182,7 +182,7 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To:"
+        select public_body.name, from: "To"
         click_button "Save draft"
 
         # New request form with errors
