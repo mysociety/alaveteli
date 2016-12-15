@@ -64,7 +64,7 @@
 
 .requests__sort {
   @include flex(1 0 100%);
-  max-width: 12em;
+  max-width: 15em;
   @include respond-min( 24em ){
     @include flex(1 2 50%);
   }
