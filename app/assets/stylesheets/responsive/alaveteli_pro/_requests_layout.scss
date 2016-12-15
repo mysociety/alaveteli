@@ -52,6 +52,9 @@
   width: 16px;
   height: 20px;
   margin-top: -8px; //vertically center in the search box
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/search--light@2.png');
+  }
   &:hover,
   &:active,
   &:focus {
@@ -162,8 +165,11 @@
   }
   .status-icon {
     position: absolute;
-    bottom: 8px;
+    top: 1.45em;
     left: 0;
+    @include respond-min( $dashboard-collapse ){
+      top: 0.7em;
+    }
   }
 }
 
