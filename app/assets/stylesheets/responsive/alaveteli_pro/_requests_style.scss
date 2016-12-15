@@ -63,7 +63,7 @@
 
 .blank-slate__requests {
   @include respond-min( $dashboard-collapse ){
-    background-image: image-url('/assets/alaveteli-pro/blank-slate-requests.png');
+    background-image: image-url('alaveteli-pro/blank-slate-requests.png');
     background-repeat: no-repeat;
     background-size: 683px 348px;
     background-position: left bottom;
@@ -110,7 +110,7 @@
 }
 
 .embargo-indicator--small {
-  background-image: image-url('/assets/alaveteli-pro/embargo-lock--small.png');
+  background-image: image-url('alaveteli-pro/embargo-lock--small.png');
   background-size: 14px 19px;
   height: 19px;
   width: 14px;
@@ -128,7 +128,7 @@
 }
 
 .clear-icon {
-  background-image: image-url('/assets/alaveteli-pro/clear-icon.png');
+  background-image: image-url('alaveteli-pro/clear-icon.png');
   background-size: 8px 8px;
   background-position: center;
   background-repeat: no-repeat;
