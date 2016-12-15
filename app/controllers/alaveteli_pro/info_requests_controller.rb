@@ -12,7 +12,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   def index
     @request_filter = RequestFilter.new
     if params[:request_filter]
-      @request_filter.update_attributes(params[:request_filter])
+      @request_filter.update_attributes(request_filter_params)
     end
     info_requests = @request_filter.results(current_user)
     @page = params[:page] || 1
@@ -105,6 +105,11 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
         mail_message.message_id
       )
     end
+  end
+
+
+  def request_filter_params
+    params.require(:request_filter).permit(:filter, :order, :search)
   end
 
 end
