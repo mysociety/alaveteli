@@ -125,8 +125,17 @@ $('#standard-popup .js-popup__close').click(function() {
   $(function(){
     $accountLink.click(function(e){
       e.preventDefault();
+      e.stopPropagation();
       $accountMenu.slideToggle(250);
       return false;
+    });
+    $(document).click( function(){
+      // hide the menu when we click off it
+      $accountMenu.slideUp(250);
+    });
+    $accountMenu.click(function(e){
+      // but don't hide when we click the menu
+      e.stopPropagation();
     });
   });
 })
