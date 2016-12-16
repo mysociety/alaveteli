@@ -50,6 +50,10 @@ FactoryGirl.define do
     factory :hide_event do
       event_type 'hide'
     end
+
+    factory :resent_event do
+      event_type 'resent'
+    end
   end
 
 end
