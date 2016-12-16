@@ -84,7 +84,6 @@
       margin-bottom: 0.5em;
       margin-right: 1em;
       @include respond-min( $main_menu-mobile_menu_cutoff ){
-        text-align: center;
         margin-bottom: 0;
       }
     }
