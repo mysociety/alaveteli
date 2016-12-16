@@ -8,5 +8,6 @@
 class AlaveteliPro::DashboardController < AlaveteliPro::BaseController
   def index
     @user = current_user
+    @to_do_list = ToDoList::List.new(@user)
   end
 end

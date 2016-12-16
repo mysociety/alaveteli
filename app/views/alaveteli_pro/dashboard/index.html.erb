@@ -1,2 +1,42 @@
-<h1>Your dashboard</h1>
-<p>Welcome to your dashboard <%= @user.name %></p>
+
+<div class="dashboard">
+
+  <div class="dashboard-header">
+    <div class="row">
+      <h1><%= _("Your dashboard") %></h1>
+    </div>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="row">
+      <div class="dashboard-left-column">
+
+        <%= render partial: 'alaveteli_pro/dashboard/projects' %>
+
+      </div> <!-- .dashboard-left-column -->
+
+
+    <div class="dashboard-right-column">
+
+      <div class="dashboard-todo">
+
+        <h2 class="dashboard-todo__title"><%= _("Things to do today") %></h2>
+
+        <ul class="dashboard-todo__list">
+
+         <%= render partial: 'to_do_item', collection: @to_do_list.active_items %>
+
+        </ul>
+
+      </div>  <!-- .dashboard-todo -->
+
+
+
+    </div>  <!-- .dashboard-right-column -->
+
+
+   </div>
+
+  </div>  <!-- .dashboard-body -->
+
+</div>  <!-- .dashboard -->
