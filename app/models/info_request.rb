@@ -691,9 +691,29 @@ class InfoRequest < ActiveRecord::Base
   # -- OR the same message was resent
   # -- OR the public body requested clarification, and a follow up was sent
   def last_event_forming_initial_request
-    last_sent = nil
-    expecting_clarification = false
+    info_request_event_id = read_attribute(:last_event_forming_initial_request_id)
+    last_sent = if info_request_event_id
+      InfoRequestEvent.find_by_id(info_request_event_id)
+    else
+      calculate_last_event_forming_initial_request
+    end
 
+    if last_sent.nil?
+      raise "internal error, last_event_forming_initial_request gets nil for " \
+            "request #{ id } outgoing messages count " \
+            "#{ outgoing_messages.size } all events: " \
+            "#{ info_request_events.to_yaml }"
+    end
+
+    last_sent
+  end
+
+  def calculate_last_event_forming_initial_request
+    # TODO: This can be removed when last_event_forming_initial_request_id has
+    # been populated for all requests
+
+    expecting_clarification = false
+    last_sent = nil
     info_request_events.each do |event|
       if event.described_state == 'waiting_clarification'
         expecting_clarification = true
@@ -713,42 +733,67 @@ class InfoRequest < ActiveRecord::Base
         end
       end
     end
-
-    if last_sent.nil?
-      raise "internal error, last_event_forming_initial_request gets nil for " \
-            "request #{ id } outgoing messages count " \
-            "#{ outgoing_messages.size } all events: " \
-            "#{ info_request_events.to_yaml }"
-    end
-
     last_sent
   end
 
+  # History of some things that have happened
+  def log_event(type, params)
+    event = info_request_events.create!(:event_type => type, :params => params)
+    set_due_dates(event) if event.resets_due_dates?
+    event
+  end
+
+  def set_due_dates(sent_event)
+    self.last_event_forming_initial_request_id = sent_event.id
+    self.date_initial_request_last_sent_at = sent_event.created_at.to_date
+    self.date_response_required_by = calculate_date_response_required_by
+    self.date_very_overdue_after = calculate_date_very_overdue_after
+    save!
+  end
+
+  # TODO: once date_initial_request_sent_at is populated for all
+  # requests, this can be removed
   # The last time that the initial request was sent/resent
   def date_initial_request_last_sent_at
+    date = read_attribute(:date_initial_request_last_sent_at)
+    return date.to_date if date
+    calculate_date_initial_request_last_sent_at
+  end
+
+  # TODO: once date_initial_request_sent_at is populated for all
+  # requests, this can be removed
+  def calculate_date_initial_request_last_sent_at
     last_sent = last_event_forming_initial_request
-    last_sent.outgoing_message.last_sent_at
+    last_sent.outgoing_message.last_sent_at.to_date
   end
 
   def late_calculator
     @late_calculator ||= DefaultLateCalculator.new
   end
 
-  # How do we cope with case where extra info was required from the requester
-  # by the public body in order to fulfill the request, as per sections 1(3)
-  # and 10(6b) ? For clarifications this is covered by
-  # last_event_forming_initial_request. There may be more obscure
-  # things, e.g. fees, not properly covered.
+  # TODO: once date_response_required_by is populated for all
+  # requests, this can be removed
   def date_response_required_by
+    date = read_attribute(:date_response_required_by)
+    return date if date
+    calculate_date_response_required_by
+  end
+
+  def calculate_date_response_required_by
     Holiday.due_date_from(date_initial_request_last_sent_at,
                           late_calculator.reply_late_after_days,
                           AlaveteliConfiguration.working_or_calendar_days)
   end
 
-  # This is a long stop - even with UK public interest test extensions, 40
-  # days is a very long time.
+  # TODO: once date_very_overdue_after is populated for all
+  # requests, this can be removed
   def date_very_overdue_after
-    # public interest test ICO guidance gives 40 working maximum
+    date = read_attribute(:date_very_overdue_after)
+    return date if date
+    calculate_date_very_overdue_after
+  end
+
+  def calculate_date_very_overdue_after
     Holiday.due_date_from(date_initial_request_last_sent_at,
                           late_calculator.reply_very_late_after_days,
                           AlaveteliConfiguration.working_or_calendar_days)
@@ -771,10 +816,6 @@ class InfoRequest < ActiveRecord::Base
         recipient_email)
   end
 
-  # History of some things that have happened
-  def log_event(type, params)
-    info_request_events.create!(:event_type => type, :params => params)
-  end
 
   def public_response_events
     condition = <<-SQL
