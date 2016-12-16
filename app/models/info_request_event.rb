@@ -346,6 +346,31 @@ class InfoRequestEvent < ActiveRecord::Base
     comment_id? or (comment if new_record?)
   end
 
+  def resets_due_dates?
+     is_request_sending? || is_clarification?
+  end
+
+  def is_request_sending?
+    ['sent', 'resent'].include?(event_type)
+  end
+
+  def is_clarification?
+    waiting_clarification = false
+    # A follow up is a clarification only if it's the first
+    # follow up when the request is in a state of
+    # waiting for clarification
+    previous_events(:reverse => true).each do |event|
+      if event.described_state == 'waiting_clarification'
+        waiting_clarification = true
+        break
+      end
+      if event.event_type == 'followup_sent'
+        break
+      end
+    end
+    waiting_clarification && event_type == 'followup_sent'
+  end
+
   # Display version of status
   def display_status
     if is_incoming_message?
@@ -459,6 +484,16 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   private
+
+  def previous_events(opts = {})
+    order = opts[:reverse] ? 'created_at DESC' : 'created_at'
+    events = self
+              .class
+                .where(:info_request_id => info_request_id)
+                  .where('created_at < ?', self.created_at)
+                    .order(order)
+
+  end
 
   def sibling_events(opts = {})
     order = opts[:reverse] ? 'created_at DESC' : 'created_at'
