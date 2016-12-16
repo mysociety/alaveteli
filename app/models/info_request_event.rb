@@ -71,7 +71,7 @@ class InfoRequestEvent < ActiveRecord::Base
   validate :must_be_valid_state
 
   def must_be_valid_state
-    if described_state and !InfoRequest.enumerate_states.include?(described_state)
+    if described_state and !InfoRequest::State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
     end
   end

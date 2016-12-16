@@ -9,6 +9,19 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   before_filter :set_draft
   before_filter :load_data_from_draft, only: [:preview, :create]
 
+  def index
+    @request_filter = RequestFilter.new
+    if params[:request_filter]
+      @request_filter.update_attributes(request_filter_params)
+    end
+    info_requests = @request_filter.results(current_user)
+    @page = params[:page] || 1
+    @per_page = 10
+    @info_requests = info_requests.paginate :page => @page,
+                                            :per_page => @per_page
+
+  end
+
   def new
     if @draft_info_request
       load_data_from_draft
@@ -93,4 +106,10 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
       )
     end
   end
+
+
+  def request_filter_params
+    params.require(:request_filter).permit(:filter, :order, :search)
+  end
+
 end

@@ -87,6 +87,13 @@ class InfoRequest < ActiveRecord::Base
   scope :embargoed, Prominence::EmbargoedQuery.new
   scope :not_embargoed, Prominence::NotEmbargoedQuery.new
 
+
+  scope :awaiting_response, State::AwaitingResponseQuery.new
+  scope :response_received, State::ResponseReceivedQuery.new
+  scope :clarification_needed, State::ClarificationNeededQuery.new
+  scope :complete, State::CompleteQuery.new
+  scope :other, State::OtherQuery.new
+
   def self.visible
     warn %q([DEPRECATION] InfoRequest#visible will be removed in
         0.27. It has been replaced by InfoRequest#is_public).squish
@@ -131,26 +138,9 @@ class InfoRequest < ActiveRecord::Base
   before_validation :compute_idhash
 
   def self.enumerate_states
-    states = [
-      'waiting_response',
-      'waiting_clarification',
-      'gone_postal',
-      'not_held',
-      'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
-      'successful',
-      'partially_successful',
-      'internal_review',
-      'error_message',
-      'requires_admin',
-      'user_withdrawn',
-      'attention_requested',
-      'vexatious',
-      'not_foi'
-    ]
-    if @@custom_states_loaded
-      states += InfoRequest.theme_extra_states
-    end
-    states
+    warn %q([DEPRECATION] InfoRequest.enumerate_states will be removed in
+    0.28. It has been replaced by InfoRequest::States#all).squish
+    State.all
   end
 
   # Subset of states accepted via the API
@@ -190,8 +180,14 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  # opts = Hash of options (default: {})
+  # Returns a StateCalculator
+  def state(opts = {})
+    State::Calculator.new(self)
+  end
+
   def must_be_valid_state
-    unless InfoRequest.enumerate_states.include?(described_state)
+    unless State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
     end
   end
@@ -251,6 +247,10 @@ class InfoRequest < ActiveRecord::Base
     include InfoRequestCustomStates
     @@custom_states_loaded = true
   rescue MissingSourceFile, NameError
+  end
+
+  def self.custom_states_loaded
+    @@custom_states_loaded
   end
 
   OLD_AGE_IN_DAYS = 21.days
