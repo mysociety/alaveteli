@@ -64,6 +64,8 @@ describe InfoRequest::State do
     it 'returns hyphenised versions of the phases' do
       expect(InfoRequest::State.phase_params)
         .to eq({ :awaiting_response => "awaiting-response",
+                 :overdue => "overdue",
+                 :very_overdue => "very-overdue",
                  :response_received => "response-received",
                  :clarification_needed => "clarification-needed",
                  :complete => "complete",
