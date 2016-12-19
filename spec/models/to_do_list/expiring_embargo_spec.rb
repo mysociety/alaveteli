@@ -47,7 +47,7 @@ describe ToDoList::ExpiringEmbargo do
         FactoryGirl.create(:expiring_embargo, :user => embargo.user)
         expect(@expiring_embargo.url)
           .to eq alaveteli_pro_info_requests_path('request_filter[filter]' =>
-                                                    'embargoed')
+                                                    'embargoes_expiring')
       end
 
     end

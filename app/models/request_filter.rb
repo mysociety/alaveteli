@@ -121,6 +121,11 @@ class RequestFilter
         :value => nil,
         :label => _('drafts'),
         :capital_label => _('Drafts') },
+      { :param => 'embargoes_expiring',
+        :value => :embargo_expiring,
+        :label => _('requests with expiring embargoes'),
+        :capital_label => _('Requests with expiring embargoes')
+      }
      ]
   end
 
