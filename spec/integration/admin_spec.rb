@@ -17,7 +17,7 @@ describe "When administering the site" do
     using_session(@admin) do
       visit admin_user_path bob_smith_user
       find_button('Log in as Bob Smith (also confirms their email)').click
-      expect(page).to have_content 'Hello, Bob Smith!'
+      expect(page).to have_content 'Bob Smith'
     end
   end
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>">
+<html lang="<%= I18n.locale %>" class="no-js">
   <head>
     <meta charset="utf-8">
     <%= csrf_meta_tags %>
@@ -38,8 +38,14 @@
     <% end %>
     <%= render :partial => 'general/opengraph_tags' %>
     <%= render :partial => 'general/before_head_end' %>
+    <!-- Replace the html tag's no-js class with js -->
+    <script>
+      (function(H){
+        H.className = H.className.replace(/\bno-js\b/,'js-loaded')
+      })(document.documentElement);
+    </script>
   </head>
-  <body class="<%= 'front' if params[:action] == 'frontpage' %> no-js <% if @in_pro_area %>alaveteli-pro<% end %>">
+  <body class="<%= 'front' if params[:action] == 'frontpage' %> <% if @in_pro_area %>alaveteli-pro<% end %>">
     <% if is_admin? %>
       <%= render :partial => 'admin_general/admin_navbar' %>
     <% end %>
@@ -113,6 +119,7 @@
     <% if is_admin? %>
       <%= javascript_include_tag "bootstrap-dropdown" %>
     <% end %>
+
     <% if AlaveteliConfiguration::force_registration_on_new_request && !@user %>
       <%= javascript_include_tag 'fancybox.js' %>
       <script type="text/javascript">
