@@ -66,6 +66,11 @@ describe RequestFilter do
     it 'is "Response received" when the filter is "response_received"' do
       expect_label('Response received', 'response_received')
     end
+
+    it 'is "Requests with expiring embargoes" when the filter is
+        "embargoes_expiring"' do
+      expect_label('Requests with expiring embargoes', 'embargoes_expiring')
+    end
   end
 
   describe '#filter_label' do
@@ -102,6 +107,11 @@ describe RequestFilter do
 
     it 'is "response received" when the filter is "response_received"' do
       expect_label('response received', 'response_received')
+    end
+
+    it 'is "requests with expiring embargoes" when the filter
+        is "embargoes_expiring"' do
+      expect_label('requests with expiring embargoes', 'embargoes_expiring')
     end
   end
 

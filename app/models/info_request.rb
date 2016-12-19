@@ -87,7 +87,7 @@ class InfoRequest < ActiveRecord::Base
   scope :is_searchable, Prominence::SearchableQuery.new
   scope :embargoed, Prominence::EmbargoedQuery.new
   scope :not_embargoed, Prominence::NotEmbargoedQuery.new
-
+  scope :embargo_expiring, Prominence::EmbargoExpiringQuery.new
 
   scope :awaiting_response, State::AwaitingResponseQuery.new
   scope :response_received, State::ResponseReceivedQuery.new
