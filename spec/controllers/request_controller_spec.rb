@@ -384,6 +384,28 @@ describe RequestController, "when showing one request" do
       end
     end
   end
+
+  it "should set @state_transitions for the request" do
+    info_request = FactoryGirl.create(:info_request)
+    expected_transitions = {
+      "pending" => {
+        "waiting_response"      => "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>",
+        "waiting_clarification" => "<strong>Clarification</strong> has been requested",
+        "gone_postal"           => "A response will be sent <strong>by post</strong>"
+      },
+      "complete" => {
+        "not_held"              => "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
+        "partially_successful"  =>"<strong>Some of the information</strong> has been sent ",
+        "successful"            =>"<strong>All the information</strong> has been sent",
+        "rejected"              =>"The request has been <strong>refused</strong>"
+      },
+      "other" => {
+        "error_message"         =>"An <strong>error message</strong> has been received"
+      }
+    }
+    get :show, :url_title => info_request.url_title
+    expect(assigns(:state_transitions)).to eq(expected_transitions)
+  end
 end
 
 describe RequestController do
