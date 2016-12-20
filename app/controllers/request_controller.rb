@@ -115,6 +115,11 @@ class RequestController < ApplicationController
         )
       end
 
+      # What state transitions can the request go into
+      @state_transitions = @info_request.state.transitions(
+        is_owning_user: @is_owning_user,
+        user_asked_to_update_status: @update_status || @pro)
+
       # Sidebar stuff
       @sidebar = true
       @similar_cache_key = cache_key_for_similar_requests(@info_request, @locale)
