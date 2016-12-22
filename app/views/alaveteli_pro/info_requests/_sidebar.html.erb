@@ -24,7 +24,7 @@
     <p>
       <% @state_transitions.each do |group, transitions| %>
         <% transitions.each do |state, label| %>
-          <%= f.label :described_state, value: state do %>
+          <%= f.label :described_state, value: state, class: state.dasherize do %>
             <%= f.radio_button :described_state,
                                state,
                                checked: @info_request.described_state == state %>
