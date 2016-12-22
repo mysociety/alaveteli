@@ -4,7 +4,14 @@ class InfoRequest
     module Transitions
       def self.transition_label(to_state, opts = {})
         is_owning_user = opts.fetch(:is_owning_user)
-        user = is_owning_user ? "owner" : "other_user"
+        is_pro_user = opts.fetch(:is_pro_user, false)
+        if is_pro_user
+          user = "pro"
+        elsif is_owning_user
+          user = "owner"
+        else
+          user = "other_user"
+        end
         method = "#{user}_#{to_state}_transition_label"
         if respond_to?(method, true)
           send(method, opts)
@@ -118,6 +125,50 @@ class InfoRequest
 
       def self.other_user_error_message_transition_label(opts = {})
         _("An <strong>error message</strong> has been received")
+      end
+
+      def self.pro_waiting_response_transition_label(opts = {})
+        _("Waiting for a response")
+      end
+
+      def self.pro_not_held_transition_label(opts = {})
+        _("Information not held")
+      end
+
+      def self.pro_rejected_transition_label(opts = {})
+        _("Refused")
+      end
+
+      def self.pro_partially_successful_transition_label(opts = {})
+        _("Partially successful")
+      end
+
+      def self.pro_successful_transition_label(opts = {})
+        _("Successful")
+      end
+
+      def self.pro_waiting_clarification_transition_label(opts = {})
+        _("Waiting for clarification")
+      end
+
+      def self.pro_gone_postal_transition_label(opts = {})
+        _("Replying by post")
+      end
+
+      def self.pro_internal_review_transition_label(opts = {})
+        _("Waiting for an internal review")
+      end
+
+      def self.pro_error_message_transition_label(opts = {})
+        _("There's an error message")
+      end
+
+      def self.pro_requires_admin_transition_label(opts = {})
+        _("Requires administrator attention")
+      end
+
+      def self.pro_user_withdrawn_transition_label(opts = {})
+        _("I want to withdraw this request")
       end
     end
   end
