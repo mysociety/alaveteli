@@ -7,3 +7,4 @@
 //= require dropit
 //= require general
 //= require ba-throttle-debounce
+//= require alaveteli_pro/alaveteli_pro
