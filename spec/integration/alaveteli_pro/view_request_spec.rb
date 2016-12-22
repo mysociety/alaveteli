@@ -113,7 +113,7 @@ describe "viewing requests in alaveteli_pro" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       expect(page).to have_content("Update status")
-      expect(find_field("Waiting response")).to be_checked
+      expect(find_field("Waiting for a response")).to be_checked
       choose("Partially successful")
       click_button("Update")
       expect(info_request.reload.described_state).to eq ("partially_successful")

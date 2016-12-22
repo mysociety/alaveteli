@@ -29,6 +29,14 @@ describe InfoRequest::State::Transitions do
           expect(actual).to eq(expected)
         end
       end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "Waiting for a response"
+          actual = subject.transition_label("waiting_response", is_pro_user: true, is_owning_user: true)
+          expect(actual).to eq(expected)
+        end
+      end
     end
 
     context "when the to_state is waiting_clarification" do
@@ -44,6 +52,14 @@ describe InfoRequest::State::Transitions do
         it "returns the right label" do
           expected = "<strong>Clarification</strong> has been requested"
           actual = subject.transition_label("waiting_clarification", is_owning_user: false)
+          expect(actual).to eq(expected)
+        end
+      end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "Waiting for clarification"
+          actual = subject.transition_label("waiting_clarification", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end
       end
@@ -65,6 +81,14 @@ describe InfoRequest::State::Transitions do
           expect(actual).to eq(expected)
         end
       end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "Replying by post"
+          actual = subject.transition_label("gone_postal", is_pro_user: true, is_owning_user: true)
+          expect(actual).to eq(expected)
+        end
+      end
     end
 
     context "when the to_state is not_held" do
@@ -80,6 +104,14 @@ describe InfoRequest::State::Transitions do
         it "returns the right label" do
           expected = "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
           actual = subject.transition_label("not_held", is_owning_user: false)
+          expect(actual).to eq(expected)
+        end
+      end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "Information not held"
+          actual = subject.transition_label("not_held", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end
       end
@@ -101,6 +133,14 @@ describe InfoRequest::State::Transitions do
           expect(actual).to eq(expected)
         end
       end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "Refused"
+          actual = subject.transition_label("rejected", is_pro_user: true, is_owning_user: true)
+          expect(actual).to eq(expected)
+        end
+      end
     end
 
     context "when the to_state is successful" do
@@ -119,6 +159,14 @@ describe InfoRequest::State::Transitions do
           expect(actual).to eq(expected)
         end
       end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "Successful"
+          actual = subject.transition_label("successful", is_pro_user: true, is_owning_user: true)
+          expect(actual).to eq(expected)
+        end
+      end
     end
 
     context "when the to_state is partially_successful" do
@@ -134,6 +182,14 @@ describe InfoRequest::State::Transitions do
         it "returns the right label" do
           expected = "<strong>Some of the information</strong> has been sent "
           actual = subject.transition_label("partially_successful", is_owning_user: false)
+          expect(actual).to eq(expected)
+        end
+      end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "Partially successful"
+          actual = subject.transition_label("partially_successful", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end
       end
@@ -175,6 +231,24 @@ describe InfoRequest::State::Transitions do
           end
         end
       end
+
+      context "and is_pro_user is true" do
+        context "and the current_state is internal_review" do
+          it "returns the right label" do
+            expected = "Waiting for an internal review"
+            actual = subject.transition_label("internal_review", is_pro_user: true, is_owning_user: true, in_internal_review: true)
+            expect(actual).to eq(expected)
+          end
+        end
+
+        context "and the current_state is not internal_review" do
+          it "returns the right label" do
+            expected = "Waiting for an internal review"
+            actual = subject.transition_label("internal_review", is_pro_user: true, is_owning_user: true, in_internal_review: false)
+            expect(actual).to eq(expected)
+          end
+        end
+      end
     end
 
     context "when the to_state is error_message" do
@@ -190,6 +264,14 @@ describe InfoRequest::State::Transitions do
         it "returns the right label" do
           expected = "An <strong>error message</strong> has been received"
           actual = subject.transition_label("error_message", is_owning_user: false)
+          expect(actual).to eq(expected)
+        end
+      end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "There's an error message"
+          actual = subject.transition_label("error_message", is_pro_user: true, is_owning_user: true)
           expect(actual).to eq(expected)
         end
       end
@@ -211,6 +293,14 @@ describe InfoRequest::State::Transitions do
           end.to raise_error(RuntimeError)
         end
       end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "Requires administrator attention"
+          actual = subject.transition_label("requires_admin", is_pro_user: true, is_owning_user: true)
+          expect(actual).to eq(expected)
+        end
+      end
     end
 
     context "when the to_state is user_withdrawn" do
@@ -229,6 +319,14 @@ describe InfoRequest::State::Transitions do
           end.to raise_error(RuntimeError)
         end
       end
+
+      context "and is_pro_user is true" do
+        it "returns the right label" do
+          expected = "I want to withdraw this request"
+          actual = subject.transition_label("user_withdrawn", is_pro_user: true, is_owning_user: true)
+          expect(actual).to eq(expected)
+        end
+      end
     end
 
     context "when the to_state is attention_requested" do
@@ -244,6 +342,14 @@ describe InfoRequest::State::Transitions do
         it "does not have a label" do
           expect do
             subject.transition_label("attention_requested", is_owning_user: false)
+          end.to raise_error(RuntimeError)
+        end
+      end
+
+      context "and is_pro_user is false" do
+        it "does not have a label" do
+          expect do
+            subject.transition_label("attention_requested", is_pro_user: true, is_owning_user: true)
           end.to raise_error(RuntimeError)
         end
       end
@@ -265,6 +371,14 @@ describe InfoRequest::State::Transitions do
           end.to raise_error(RuntimeError)
         end
       end
+
+      context "and is_pro_user is false" do
+        it "does not have a label" do
+          expect do
+            subject.transition_label("vexatious", is_pro_user: true, is_owning_user: true)
+          end.to raise_error(RuntimeError)
+        end
+      end
     end
 
     context "when the to_state is not_foi" do
@@ -280,6 +394,14 @@ describe InfoRequest::State::Transitions do
         it "does not have a label" do
           expect do
             subject.transition_label("not_foi", is_owning_user: false)
+          end.to raise_error(RuntimeError)
+        end
+      end
+
+      context "and is_pro_user is false" do
+        it "does not have a label" do
+          expect do
+            subject.transition_label("not_foi", is_pro_user: true, is_owning_user: true)
           end.to raise_error(RuntimeError)
         end
       end
