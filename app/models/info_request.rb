@@ -3,28 +3,32 @@
 #
 # Table name: info_requests
 #
-#  id                        :integer          not null, primary key
-#  title                     :text             not null
-#  user_id                   :integer
-#  public_body_id            :integer          not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  described_state           :string(255)      not null
-#  awaiting_description      :boolean          default(FALSE), not null
-#  prominence                :string(255)      default("normal"), not null
-#  url_title                 :text             not null
-#  law_used                  :string(255)      default("foi"), not null
-#  allow_new_responses_from  :string(255)      default("anybody"), not null
-#  handle_rejected_responses :string(255)      default("bounce"), not null
-#  idhash                    :string(255)      not null
-#  external_user_name        :string(255)
-#  external_url              :string(255)
-#  attention_requested       :boolean          default(FALSE)
-#  comments_allowed          :boolean          default(TRUE), not null
-#  info_request_batch_id     :integer
-#  last_public_response_at   :datetime
-#  reject_incoming_at_mta    :boolean          default(FALSE), not null
-#  rejected_incoming_count   :integer          default(0)
+#  id                                    :integer          not null, primary key
+#  title                                 :text             not null
+#  user_id                               :integer
+#  public_body_id                        :integer          not null
+#  created_at                            :datetime         not null
+#  updated_at                            :datetime         not null
+#  described_state                       :string(255)      not null
+#  awaiting_description                  :boolean          default(FALSE), not null
+#  prominence                            :string(255)      default("normal"), not null
+#  url_title                             :text             not null
+#  law_used                              :string(255)      default("foi"), not null
+#  allow_new_responses_from              :string(255)      default("anybody"), not null
+#  handle_rejected_responses             :string(255)      default("bounce"), not null
+#  idhash                                :string(255)      not null
+#  external_user_name                    :string(255)
+#  external_url                          :string(255)
+#  attention_requested                   :boolean          default(FALSE)
+#  comments_allowed                      :boolean          default(TRUE), not null
+#  info_request_batch_id                 :integer
+#  last_public_response_at               :datetime
+#  reject_incoming_at_mta                :boolean          default(FALSE), not null
+#  rejected_incoming_count               :integer          default(0)
+#  date_initial_request_last_sent_at     :date
+#  date_response_required_by             :date
+#  date_very_overdue_after               :date
+#  last_event_forming_initial_request_id :integer
 #
 
 require 'digest/sha1'
