@@ -15,7 +15,9 @@ class RequestController < ApplicationController
   before_filter :redirect_numeric_id_to_url_title, :only => [:show]
   before_filter :redirect_embargoed_requests_for_pro_users, :only => [:show]
   before_filter :redirect_public_requests_from_pro_context, :only => [:show]
+  before_filter :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
   helper_method :state_transitions_empty?
+
   MAX_RESULTS = 500
   PER_PAGE = 25
 
@@ -1131,6 +1133,18 @@ class RequestController < ApplicationController
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       unless @info_request.embargo
         redirect_to request_url(@info_request)
+      end
+    end
+  end
+
+  def redirect_new_form_to_pro_version
+    # Pros should use the pro version of the form
+    if feature_enabled?(:alaveteli_pro) && current_user && current_user.pro?
+      if params[:url_name]
+        redirect_to(
+          new_alaveteli_pro_info_request_url(public_body: params[:url_name]))
+      else
+        redirect_to new_alaveteli_pro_info_request_url
       end
     end
   end
