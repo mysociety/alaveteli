@@ -907,6 +907,16 @@ describe RequestController, "when searching for an authority" do
     get_fixtures_xapian_index
   end
 
+  it "should redirect pros to the info request form for pros" do
+    with_feature_enabled(:alaveteli_pro) do
+      pro_user = FactoryGirl.create(:pro_user)
+      public_body = FactoryGirl.create(:public_body)
+      session[:user_id] = pro_user.id
+      get :select_authority
+      expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
+    end
+  end
+
   it "should return nothing for the empty query string" do
     session[:user_id] = @user.id
     get :select_authority, :query => ""
@@ -977,6 +987,18 @@ describe RequestController, "when creating a new request" do
     @body.save!
     get :new, :public_body_id => @body.id
     expect(response).to render_template('new_bad_contact')
+  end
+
+  it "should redirect pros to the pro version" do
+    with_feature_enabled(:alaveteli_pro) do
+      pro_user = FactoryGirl.create(:pro_user)
+      public_body = FactoryGirl.create(:public_body)
+      session[:user_id] = pro_user.id
+      get :new, :url_name => public_body.url_name
+      expected_url = new_alaveteli_pro_info_request_url(
+        public_body: public_body.url_name)
+      expect(response).to redirect_to(expected_url)
+    end
   end
 
   it "should accept a public body parameter" do
