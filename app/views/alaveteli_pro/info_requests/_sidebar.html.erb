@@ -19,20 +19,24 @@
                   method: :delete,
                   confirm: "Are you sure you want to publish this request?" %>
   <% end %>
-  <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
-    <h2>Update status</h2>
-    <p>
-      <% @state_transitions.each do |group, transitions| %>
-        <% transitions.each do |state, label| %>
-          <%= f.label :described_state, value: state, class: state.dasherize do %>
-            <%= f.radio_button :described_state,
-                               state,
-                               checked: @info_request.described_state == state %>
-            <%= label %>
+  <% unless @state_transitions[:pending].empty? && \
+            @state_transitions[:complete].empty?
+            @state_transitions[:other].empty? %>
+    <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
+      <h2>Update status</h2>
+      <p>
+        <% @state_transitions.each do |group, transitions| %>
+          <% transitions.each do |state, label| %>
+            <%= f.label :described_state, value: state, class: state.dasherize do %>
+              <%= f.radio_button :described_state,
+                                 state,
+                                 checked: @info_request.described_state == state %>
+              <%= label %>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
-    </p>
-    <input type="submit" value="<%= _("Update") %>">
+      </p>
+      <input type="submit" value="<%= _("Update") %>">
+    <% end %>
   <% end %>
 </div>
