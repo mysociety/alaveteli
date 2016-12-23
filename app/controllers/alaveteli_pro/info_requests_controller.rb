@@ -7,6 +7,7 @@
 
 class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   before_filter :set_draft
+  before_filter :set_public_body, only: [:new]
   before_filter :load_data_from_draft, only: [:preview, :create]
 
   def index
@@ -84,6 +85,12 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     end
   end
 
+  def set_public_body
+    if params[:public_body]
+      @public_body = PublicBody.find_by_url_name(params[:public_body])
+    end
+  end
+
   def load_data_from_draft
     @info_request = InfoRequest.from_draft(@draft_info_request)
     @outgoing_message = @info_request.outgoing_messages.first
@@ -91,8 +98,8 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   def create_initial_objects
-    @draft_info_request = DraftInfoRequest.new
-    @info_request = InfoRequest.new
+    @draft_info_request = DraftInfoRequest.new(public_body: @public_body)
+    @info_request = InfoRequest.new(public_body: @public_body)
     @outgoing_message = OutgoingMessage.new(info_request: @info_request)
     # TODO: set duration based on current user's account settings
     @embargo = Embargo.new(info_request: @info_request)
