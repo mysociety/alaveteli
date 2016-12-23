@@ -118,6 +118,9 @@ describe "viewing requests in alaveteli_pro" do
       click_button("Update")
       expect(info_request.reload.described_state).to eq ("partially_successful")
       expect(page).to have_content("Your request has been updated!")
+      # The form should still be there to allow us to go back if we updated
+      # by mistake
+      expect(page).to have_content("Update status")
       expect(find_field("Partially successful")).to be_checked
     end
   end
