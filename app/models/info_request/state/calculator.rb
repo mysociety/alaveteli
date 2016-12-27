@@ -83,7 +83,7 @@ class InfoRequest
       def transitions(opts = {})
         cached_value_ok = opts.fetch(:cached_value_ok, false)
         state = @info_request.calculate_status(cached_value_ok)
-        if complete_states(include_admin_states: true).include?(state)
+        if admin_states.include?(state)
           return {
             pending: {},
             complete: {},
@@ -125,16 +125,18 @@ class InfoRequest
 
       def complete_states(opts = {})
         # States from which a request can go no further, because it's complete
-        states = [
+        [
           'not_held',
           'partially_successful',
           'successful',
           'rejected'
         ]
-        if opts.fetch(:include_admin_states, false)
-          states += ['not_foi', 'vexatious']
-        end
-        states
+      end
+
+      def admin_states(opts = {})
+        # States which only an admin can put a request into, and from which
+        # a normal user can't get the request out again
+        ['not_foi', 'vexatious']
       end
 
       def other_states(opts = {})

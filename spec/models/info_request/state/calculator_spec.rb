@@ -34,7 +34,7 @@ describe InfoRequest::State::Calculator do
   end
 
   describe '#transitions' do
-    context "when the request is complete" do
+    context "when the request is in an admin state" do
       let(:empty_hash) do
         {
           pending: {},
@@ -43,19 +43,10 @@ describe InfoRequest::State::Calculator do
         }
       end
 
-      let(:complete_states) do
-        [
-          'not_held',
-          'partially_successful',
-          'successful',
-          'rejected',
-          'not_foi',
-          'vexatious'
-        ]
-      end
+      let(:admin_states) { ['not_foi', 'vexatious'] }
 
       it "always returns an empty hash" do
-        complete_states.each do |state|
+        admin_states.each do |state|
           info_request.set_described_state(state)
           transitions = calculator.transitions(
             is_owning_user: true,
@@ -174,6 +165,20 @@ describe InfoRequest::State::Calculator do
         it_behaves_like(
           "#transitions for some other user",
           ['waiting_response', 'waiting_clarification', 'gone_postal'])
+      end
+    end
+
+    context "when the request is complete" do
+      context "and the user is the owner" do
+        it_behaves_like(
+          "#transitions for an owner",
+          ['not_held', 'partially_successful', 'successful', 'rejected'])
+      end
+
+      context "and the user is some other user" do
+        it_behaves_like(
+          "#transitions for some other user",
+          ['not_held', 'partially_successful', 'successful', 'rejected'])
       end
     end
 
