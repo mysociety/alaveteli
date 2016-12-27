@@ -2,6 +2,21 @@
 class InfoRequest
   module State
     module Transitions
+      # Returns a label for the given state, suitable for using in a form to
+      # update the status of a request.
+      #
+      # @param to_state [String] the state which the request will be
+      #   transitioned to if the user chooses this option.
+      # @param [Hash] opts extra options for controlling which label is
+      #   returned.
+      # @option opts [Boolean] :is_owning_user does the current user own the
+      #   request or not? (required).
+      # @option opts [Boolean] :is_pro_user is the current user a pro?
+      #   (optional, defaults to false).
+      # @option opts [Boolean] :in_internal_review is the request currently in
+      #   the internal_review state? (optional, defaults to false).
+      #
+      # @return [String] a label for the given state.
       def self.transition_label(to_state, opts = {})
         is_owning_user = opts.fetch(:is_owning_user)
         is_pro_user = opts.fetch(:is_pro_user, false)
@@ -22,6 +37,19 @@ class InfoRequest
         end
       end
 
+      # Returns a hash, with the given states as keys and their accompanying
+      # labels as values.
+      #
+      # @see .transition_label for the full list of options available to
+      #   control which labels are returned, all options passed to this method
+      #   will be passed through.
+      #
+      # @param states [Array<String>] a list of states for which labels are
+      #   required.
+      # @param opts [Hash] a hash of options which will be passed through to
+      #   .transition_label
+      #
+      # @return [Hash] a hash of state => label
       def self.labelled_hash(states, opts = {})
         hash = {}
         states.each do |state|
