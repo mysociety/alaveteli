@@ -15,6 +15,7 @@ class RequestController < ApplicationController
   before_filter :redirect_numeric_id_to_url_title, :only => [:show]
   before_filter :redirect_embargoed_requests_for_pro_users, :only => [:show]
   before_filter :redirect_public_requests_from_pro_context, :only => [:show]
+  helper_method :state_transitions_empty?
   MAX_RESULTS = 500
   PER_PAGE = 25
 
@@ -116,10 +117,7 @@ class RequestController < ApplicationController
       end
 
       # What state transitions can the request go into
-      @state_transitions = @info_request.state.transitions(
-        is_pro_user: @pro,
-        is_owning_user: @is_owning_user,
-        user_asked_to_update_status: @update_status || @pro)
+      assign_state_transition_variables
 
       # Sidebar stuff
       @sidebar = true
@@ -884,6 +882,30 @@ class RequestController < ApplicationController
                                      @info_request.awaiting_description )
     @show_bottom_describe_state_form = !@pro && \
                                        @info_request.awaiting_description
+    @show_owner_update_status_action = !@old_unclassified
+    @show_other_user_update_status_action = @old_unclassified
+  end
+
+  def assign_state_transition_variables
+    @state_transitions = @info_request.state.transitions(
+      is_pro_user: @pro,
+      is_owning_user: @is_owning_user,
+      user_asked_to_update_status: @update_status || @pro)
+
+    # If there are no available transitions, we shouldn't show any options
+    # to update the status
+    if state_transitions_empty?(@state_transitions)
+      @show_top_describe_state_form = false
+      @show_bottom_describe_state_form = false
+      @show_owner_update_status_action = false
+      @show_other_user_update_status_action = false
+    end
+  end
+
+  def state_transitions_empty?(transitions)
+    transitions[:pending].empty? && \
+      transitions[:complete].empty? && \
+      transitions[:other].empty?
   end
 
   def make_request_zip(info_request, file_path)
