@@ -338,6 +338,7 @@ describe RequestController, "when showing one request" do
           end
         end
       end
+
       context "and @update_status is true" do
         it "is true" do
           session[:user_id] = users(:bob_smith_user).id
@@ -357,6 +358,15 @@ describe RequestController, "when showing one request" do
         end
       end
     end
+
+    context "when there are no valid state transitions" do
+      it "is false" do
+        info_request = FactoryGirl.create(:info_request)
+        info_request.set_described_state('not_foi')
+        get :show, :url_title => info_request.url_title
+        expect(assigns[:show_top_describe_state_form]).to be false
+      end
+    end
   end
 
   describe "@show_bottom_describe_state_form" do
@@ -367,6 +377,7 @@ describe RequestController, "when showing one request" do
         expect(assigns[:show_bottom_describe_state_form]).to be false
       end
     end
+
     context "when @pro is false" do
       context "and the request is awaiting_description" do
         it "is true" do
@@ -374,6 +385,7 @@ describe RequestController, "when showing one request" do
           expect(assigns[:show_bottom_describe_state_form]).to be true
         end
       end
+
       context "and the request is not awaiting_description" do
         it "is false" do
           info_request = info_requests(:naughty_chicken_request)
@@ -381,6 +393,15 @@ describe RequestController, "when showing one request" do
           get :show, :url_title => info_request.url_title
           expect(assigns[:show_bottom_describe_state_form]).to be false
         end
+      end
+    end
+
+    context "when there are no valid state transitions" do
+      it "is false" do
+        info_request = FactoryGirl.create(:info_request)
+        info_request.set_described_state('not_foi')
+        get :show, :url_title => info_request.url_title
+        expect(assigns[:show_bottom_describe_state_form]).to be false
       end
     end
   end
@@ -395,16 +416,68 @@ describe RequestController, "when showing one request" do
       },
       "complete" => {
         "not_held"              => "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
-        "partially_successful"  =>"<strong>Some of the information</strong> has been sent ",
-        "successful"            =>"<strong>All the information</strong> has been sent",
-        "rejected"              =>"The request has been <strong>refused</strong>"
+        "partially_successful"  => "<strong>Some of the information</strong> has been sent ",
+        "successful"            => "<strong>All the information</strong> has been sent",
+        "rejected"              => "The request has been <strong>refused</strong>"
       },
       "other" => {
-        "error_message"         =>"An <strong>error message</strong> has been received"
+        "error_message"         => "An <strong>error message</strong> has been received"
       }
     }
     get :show, :url_title => info_request.url_title
     expect(assigns(:state_transitions)).to eq(expected_transitions)
+  end
+
+  describe "showing update status actions" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    before do
+      session[:user_id] = user.id
+    end
+
+    context "when the request is old and unclassified" do
+      let(:info_request) { FactoryGirl.create(:old_unclassified_request) }
+
+      it "@show_owner_update_status_action should be false" do
+        expect(info_request.is_old_unclassified?).to be true
+        get :show, :url_title => info_request.url_title
+        expect(assigns[:show_owner_update_status_action]).to be false
+      end
+
+      it "@show_other_user_update_status_action should be true" do
+        expect(info_request.is_old_unclassified?).to be true
+        get :show, :url_title => info_request.url_title
+        expect(assigns[:show_other_user_update_status_action]).to be true
+      end
+    end
+
+    context "when the request is not old and unclassified" do
+      let(:info_request) { FactoryGirl.create(:info_request) }
+
+      it "@show_owner_update_status_action should be true" do
+        get :show, :url_title => info_request.url_title
+        expect(assigns[:show_owner_update_status_action]).to be true
+      end
+
+      it "@show_other_user_update_status_action should be false" do
+        get :show, :url_title => info_request.url_title
+        expect(assigns[:show_other_user_update_status_action]).to be false
+      end
+    end
+
+    context "when there are no state_transitions" do
+      let(:info_request) { FactoryGirl.create(:info_request) }
+
+      before do
+        info_request.set_described_state('not_foi')
+      end
+
+      it "should hide all status update options" do
+        get :show, :url_title => info_request.url_title
+        expect(assigns[:show_owner_update_status_action]).to be false
+        expect(assigns[:show_other_user_update_status_action]).to be false
+      end
+    end
   end
 end
 

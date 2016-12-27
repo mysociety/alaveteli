@@ -14,9 +14,22 @@ describe 'when displaying actions that can be taken with regard to a request' do
     assign :track_thing, track_thing
   end
 
-  describe 'if the request is old and unclassified' do
+  context 'if @show_owner_update_status_action is true' do
     before do
-      assign :old_unclassified, true
+      assign :show_owner_update_status_action, false
+    end
+
+    it 'should display a link for the request owner to update the status of the request' do
+      render :partial => 'request/after_actions'
+      expect(response.body).to have_css('ul.owner_actions') do |div|
+        expect(div).to have_css('a', :text => 'Update the status of this request')
+      end
+    end
+  end
+
+  context 'if @show_owner_update_status_action is false' do
+    before do
+      assign :show_owner_update_status_action, false
     end
 
     it 'should not display a link for the request owner to update the status of the request' do
@@ -24,6 +37,12 @@ describe 'when displaying actions that can be taken with regard to a request' do
       expect(response.body).to have_css('ul.owner_actions') do |div|
         expect(div).not_to have_css('a', :text => 'Update the status of this request')
       end
+    end
+  end
+
+  context 'if @show_other_user_update_status_action is true' do
+    before do
+      assign :show_other_user_update_status_action, false
     end
 
     it 'should display a link for anyone to update the status of the request' do
@@ -34,16 +53,9 @@ describe 'when displaying actions that can be taken with regard to a request' do
     end
   end
 
-  describe 'if the request is not old and unclassified' do
+  context 'if @show_other_user_update_status_action is false' do
     before do
-      assign :old_unclassified, false
-    end
-
-    it 'should display a link for the request owner to update the status of the request' do
-      render :partial => 'request/after_actions'
-      expect(response.body).to have_css('ul.owner_actions') do |div|
-        expect(div).to have_css('a', :text => 'Update the status of this request')
-      end
+      assign :show_other_user_update_status_action, false
     end
 
     it 'should not display a link for anyone to update the status of the request' do
