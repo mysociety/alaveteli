@@ -31,9 +31,9 @@ class InfoRequest
         if respond_to?(method, true)
           send(method, opts)
         else
-          raise _("No transition_label for {{state}}. Should an {{user}} " \
-                  "be transitioning to this state? (looking for method " \
-                  "named {{method}})", state: to_state, user: user, method: method)
+          raise "No transition_label for #{to_state}. Should an #{user} " \
+                "be transitioning to this state? (looking for method " \
+                "named #{method})"
         end
       end
 
@@ -147,7 +147,7 @@ class InfoRequest
         else
           # To match what would happen if this method didn't exist, because
           # it shouldn't for this situation
-          raise _("Only the request owner can request an internal_review.")
+          raise "Only the request owner can request an internal_review."
         end
       end
 
