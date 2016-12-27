@@ -19,9 +19,7 @@
                   method: :delete,
                   confirm: "Are you sure you want to publish this request?" %>
   <% end %>
-  <% unless @state_transitions[:pending].empty? && \
-            @state_transitions[:complete].empty?
-            @state_transitions[:other].empty? %>
+  <% unless state_transitions_empty?(@state_transitions) %>
     <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
       <h2>Update status</h2>
       <p>
