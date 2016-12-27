@@ -20,7 +20,7 @@
                 <% end %>
               </li>
 
-              <% if !@old_unclassified %>
+              <% if @show_owner_update_status_action %>
                 <li>
                   <%= link_to _("Update the status of this request"), request_path(@info_request, :update_status => 1) %>
                 </li>
@@ -71,7 +71,7 @@
               </li>
             <% end %>
 
-            <% if @old_unclassified %>
+            <% if @show_other_user_update_status_action %>
               <li>
                 <%= link_to _('Update the status of this request'), '#describe_state_form_1' %>
               </li>
