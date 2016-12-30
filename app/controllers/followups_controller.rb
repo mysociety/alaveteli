@@ -165,7 +165,11 @@ class FollowupsController < ApplicationController
   end
 
   def set_info_request
-    @info_request = InfoRequest.not_embargoed.find(params[:request_id].to_i)
+    if current_user && current_user.pro?
+      @info_request = current_user.info_requests.find(params[:request_id].to_i)
+    else
+      @info_request = InfoRequest.not_embargoed.find(params[:request_id].to_i)
+    end
   end
 
   def set_last_request_data
