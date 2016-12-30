@@ -57,10 +57,10 @@ describe "viewing requests in alaveteli_pro" do
     end
   end
 
-  xit "allows the user to send a follow up" do
+  it "allows the user to send a follow up" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
-      click_link("Send follow up")
+      click_link("Send a followup")
       expect(page).to have_content "Send a public follow up message to the " \
                                    "main FOI contact at " \
                                    "#{info_request.public_body.name}"
@@ -72,13 +72,14 @@ describe "viewing requests in alaveteli_pro" do
     end
   end
 
-  xit "allows the user to write a reply" do
+  it "allows the user to write a reply" do
+    info_request = FactoryGirl.create(:info_request_with_plain_incoming,
+                                      user: pro_user)
+    embargo = FactoryGirl.create(:embargo, info_request: info_request)
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       click_link("Write a reply")
-      expect(page).to have_content "Send a public reply to the " \
-                                   "main FOI contact at " \
-                                   "#{info_request.public_body.name}"
+      expect(page).to have_content "Send a public reply to"
       fill_in("outgoing_message_body", with: "Testing replies")
       choose("Anything else, such as clarifying, prompting, thanking")
       click_button("Preview your message")
