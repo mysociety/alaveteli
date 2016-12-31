@@ -2783,12 +2783,41 @@ describe RequestController do
 
   describe 'GET #download_entire_request' do
     context 'when the request is embargoed' do
-      let(:info_request){ FactoryGirl.create(:embargoed_request) }
+      let(:user) { FactoryGirl.create(:user) }
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:info_request) do
+        FactoryGirl.create(:embargoed_request, user: pro_user)
+      end
 
-      it 'raises ActiveRecord::RecordNotFound' do
-        expect{ get :download_entire_request,
-                    :url_title => info_request.url_title }
-          .to raise_error(ActiveRecord::RecordNotFound)
+      context 'and the user is not logged in' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect{ get :download_entire_request,
+                      :url_title => info_request.url_title }
+            .to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'and the user is logged in but not the owner' do
+        before do
+          session[:user_id] = user.id
+        end
+
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect{ get :download_entire_request,
+                      :url_title => info_request.url_title }
+            .to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'and the user is the owner' do
+        before do
+          session[:user_id] = pro_user.id
+        end
+
+        it 'allows the download' do
+          get :download_entire_request, :url_title => info_request.url_title
+          expect(response).to be_success
+        end
       end
     end
   end

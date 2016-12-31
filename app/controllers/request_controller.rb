@@ -811,7 +811,12 @@ class RequestController < ApplicationController
   def download_entire_request
     @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
-      @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
+      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      # Check for access and hide emargoed requests immediately, so that we
+      # don't leak any info to people who can't access them
+      if @info_request.embargo && cannot?(:read, @info_request)
+        render_hidden
+      end
       if authenticated?(
           :web => _("To download the zip file"),
           :email => _("Then you can download a zip file of {{info_request_title}}.",
