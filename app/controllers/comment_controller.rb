@@ -92,8 +92,10 @@ class CommentController < ApplicationController
 
   def find_info_request
     if params[:type] == 'request'
-      @info_request =
-        InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
+      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      if @info_request.embargo && cannot?(:read, @info_request)
+        raise ActiveRecord::RecordNotFound
+      end
     else
       raise "Unknown type #{ params[:type] }"
     end

@@ -42,13 +42,11 @@ describe "viewing requests in alaveteli_pro" do
     end
   end
 
-  xit "allows the user to add an annotation" do
+  it "allows the user to add an annotation" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       click_link("Add an annotation")
-      # TODO - currently fails because the request is embargoed, and so the
-      # comment controller returns a 404 for it.
-      expect(page).to have_content "Add an annotation to #{info_request.title}"
+      expect(page).to have_content "Add an annotation to “#{info_request.title}”"
       fill_in("comment_body", with: "Testing annotations")
       click_button("Preview your annotation")
       click_button("Post annotation")
