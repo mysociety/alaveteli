@@ -88,11 +88,12 @@ describe "viewing requests in alaveteli_pro" do
     end
   end
 
-  xit "allows the user to download the entire request" do
+  it "allows the user to download the entire request" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       click_link("Download a zip file of all correspondence")
-      page.response_headers["Content-Disposition"].should == "attachment"
+      expected = /attachment; filename="example_title_.*\.zip"/
+      expect(page.response_headers["Content-Disposition"]).to match(expected)
     end
   end
 
