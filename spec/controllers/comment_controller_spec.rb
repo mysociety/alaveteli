@@ -4,14 +4,53 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe CommentController, "when commenting on a request" do
   render_views
 
-  it 'returns a 404 when the info request is embargoed' do
-    embargoed_request = FactoryGirl.create(:embargoed_request)
-    expect{ post :new, :url_title => embargoed_request.url_title,
-                       :comment => { :body => "Some content" },
-                       :type => 'request',
-                       :submitted_comment => 1,
-                       :preview => 1 }
-      .to raise_error ActiveRecord::RecordNotFound
+  describe 'dealing with embargoed requests' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:embargoed_request) do
+      FactoryGirl.create(:embargoed_request, user: pro_user)
+    end
+
+    context "when the user is not logged in" do
+      it 'returns a 404 when the info request is embargoed' do
+        expect{ post :new, :url_title => embargoed_request.url_title,
+                           :comment => { :body => "Some content" },
+                           :type => 'request',
+                           :submitted_comment => 1,
+                           :preview => 1 }
+          .to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+
+    context "when the user is logged in but not the request owner" do
+      before do
+        session[:user_id] = user.id
+      end
+
+      it 'returns a 404 when the info request is embargoed' do
+        expect{ post :new, :url_title => embargoed_request.url_title,
+                           :comment => { :body => "Some content" },
+                           :type => 'request',
+                           :submitted_comment => 1,
+                           :preview => 1 }
+          .to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+
+    context "when the user is the request owner" do
+      before do
+        session[:user_id] = pro_user.id
+      end
+
+      it 'allows them to comment' do
+        post :new, :url_title => embargoed_request.url_title,
+                   :comment => { :body => "Some content" },
+                   :type => 'request',
+                   :submitted_comment => 1,
+                   :preview => 1
+        expect(response).to be_success
+      end
+    end
   end
 
   it "should give an error and render 'new' template when body text is just some whitespace" do
