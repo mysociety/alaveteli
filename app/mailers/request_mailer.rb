@@ -345,9 +345,8 @@ class RequestMailer < ApplicationMailer
   def self.alert_new_response_reminders_internal(days_since, type_code)
     info_requests = InfoRequest.
       where_old_unclassified(days_since).
-        not_embargoed.
-          order('info_requests.id').
-            includes(:user)
+        order('info_requests.id').
+          includes(:user)
 
     info_requests.each do |info_request|
       alert_event_id = info_request.get_last_public_response_event_id
