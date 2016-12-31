@@ -285,10 +285,13 @@ describe RequestMailer do
 
     context 'if the request is embargoed' do
 
-      it 'does not send the reminder' do
+      it 'sends the reminder' do
         old_request.create_embargo(:publish_at => Time.zone.now + 3.days)
-        expect(RequestMailer).not_to receive(:new_response_reminder_alert)
         send_alerts
+        deliveries = ActionMailer::Base.deliveries
+        mail = deliveries[0]
+        expect(mail.body).to match(/#{old_request.title}/)
+        expect(mail.body).to match(/Letting everyone know whether you got the information/)
       end
 
     end
