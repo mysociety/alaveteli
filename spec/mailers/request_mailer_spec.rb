@@ -821,6 +821,20 @@ describe RequestMailer do
       expect(mail_url).to match("/request/why_do_you_have_such_a_fancy_dog#comment-#{comments(:silly_comment).id}")
     end
 
+    it "should send alerts for comments on embargoed requests" do
+      info_request = FactoryGirl.create(:embargoed_request)
+      new_comment = info_request.add_comment(
+        "Test comment on embargoed_request",
+        FactoryGirl.create(:user))
+
+      RequestMailer.alert_comment_on_request
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+      expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+    end
+
   end
 
 end
