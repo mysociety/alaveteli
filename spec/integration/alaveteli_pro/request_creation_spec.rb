@@ -195,5 +195,43 @@ describe "creating requests in alaveteli_pro" do
                                          'faithfully," signature'
       end
     end
+
+    it "redirects to the pro page if the user starts the normal process" do
+      # Make a request in the normal way
+      with_feature_enabled(:alaveteli_pro) do
+        create_request
+
+        # Sign in page
+        within '#signin_form' do
+          fill_in "Your e-mail:", with: pro_user.email
+          fill_in "Password:", with: "jonespassword"
+          click_button "Sign in"
+        end
+
+        # The post redirect process should save a Draft
+        expect(DraftInfoRequest.count).to eq 1
+
+        # Pro request form
+        expect(page).to have_content("Thanks for logging in. We've saved your " \
+                                    "request as a draft, in case you wanted to " \
+                                    "add an embargo before sending it. You can " \
+                                    "set that (or just send it straight away) " \
+                                    "using the form below.")
+        expect(page).to have_select("To", selected: "Geraldine Quango")
+        expect(page).to have_field("Summary",
+                                   with: "Why is your quango called Geraldine?")
+        expect(page).to have_field("Your request",
+                                   with: "This is a silly letter. It is too short to be interesting.")
+
+        select "3 Months", from: "Embargo"
+        click_button "Preview and send"
+
+        # Preview page
+        click_button "Send request"
+
+        # Request page
+        expect(page).to have_selector("h1", text: "Why is your quango called Geraldine?")
+      end
+    end
   end
 end
