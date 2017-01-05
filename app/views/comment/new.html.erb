@@ -95,9 +95,16 @@
 
 <p>
   <span class="big">
-    <%= _('Annotations will be posted publicly here, and are ' \
-          '<strong>not</strong> sent to {{public_body_name}}.',
-          :public_body_name => h(@info_request.public_body.name)) %>
+    <% if @info_request.embargo %>
+      <%= _('When your request\'s embargo expires, any annotations you add ' \
+            'will also be public. However, they are <strong>not</strong> ' \
+            'sent to {{public_body_name}}.',
+            :public_body_name => h(@info_request.public_body.name)) %>
+    <% else %>
+      <%= _('Annotations will be posted publicly here, and are ' \
+            '<strong>not</strong> sent to {{public_body_name}}.',
+            :public_body_name => h(@info_request.public_body.name)) %>
+    <% end %>
   </span>
 
   <% if @info_request.is_external? %>
