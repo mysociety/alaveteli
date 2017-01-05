@@ -10,17 +10,14 @@
     <% name_for_followup = h(OutgoingMailer.name_for_followup(@info_request, incoming_message)) %>
   <% end %>
 
-  <% if @internal_review %>
-    <h1><%= _('Request an internal review from {{person_or_body}}',
-              :person_or_body => name_for_followup) %></h1>
-  <% elsif incoming_message.nil? || !incoming_message.valid_to_reply_to? %>
-    <h2><%= _('Send a public follow up message to {{person_or_body}}',
-              :person_or_body => name_for_followup) %>
-    </h2>
+  <% if @info_request.embargo %>
+    <%= render partial: 'alaveteli_pro/followups/embargoed_form_title',
+               locals: { incoming_message: incoming_message,
+                         name_for_followup: name_for_followup } %>
   <% else %>
-    <h2><%= _('Send a public reply to {{person_or_body}}',
-            :person_or_body => name_for_followup) %>
-    </h2>
+    <%= render partial: 'form_title',
+               locals: { incoming_message: incoming_message,
+                         name_for_followup: name_for_followup } %>
   <% end %>
 
   <% if @info_request.who_can_followup_to(incoming_message).count > 0 %>
