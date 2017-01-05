@@ -11,6 +11,7 @@ class CommentController < ApplicationController
   before_filter :create_track_thing, :only => [ :new ]
   before_filter :reject_unless_comments_allowed, :only => [ :new ]
   before_filter :reject_if_user_banned, :only => [ :new ]
+  before_filter :set_in_pro_area, :only => [ :new ]
 
   def new
     if params[:comment]
@@ -122,6 +123,10 @@ class CommentController < ApplicationController
       @details = authenticated_user.can_fail_html
       render :template => 'user/banned'
     end
+  end
+
+  def set_in_pro_area
+    @in_pro_area = @info_request.embargo.present?
   end
 
 end
