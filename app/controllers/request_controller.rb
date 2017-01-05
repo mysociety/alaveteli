@@ -97,8 +97,7 @@ class RequestController < ApplicationController
       # assign variables from request parameters
       @collapse_quotes = !params[:unfold]
 
-      # TODO: make this the same as whatever we use in the pro layout
-      @pro = params[:pro] == "1"
+      @in_pro_area = params[:pro] == "1"
 
       @update_status = can_update_status(@info_request)
 
@@ -124,7 +123,7 @@ class RequestController < ApplicationController
       # Sidebar stuff
       @sidebar = true
       @similar_cache_key = cache_key_for_similar_requests(@info_request, @locale)
-      @sidebar_template = @pro ? "alaveteli_pro/info_requests/sidebar" : "sidebar"
+      @sidebar_template = @in_pro_area ? "alaveteli_pro/info_requests/sidebar" : "sidebar"
 
       # Track corresponding to this page
       @track_thing = TrackThing.create_track_for_request(@info_request)
@@ -884,10 +883,10 @@ class RequestController < ApplicationController
     @show_profile_photo = !@info_request.is_external? &&  \
                           @info_request.user.profile_photo && \
                           !@render_to_file
-    @show_top_describe_state_form = !@pro && \
+    @show_top_describe_state_form = !@in_pro_area && \
                                     (@update_status || \
                                      @info_request.awaiting_description )
-    @show_bottom_describe_state_form = !@pro && \
+    @show_bottom_describe_state_form = !@in_pro_area && \
                                        @info_request.awaiting_description
     @show_owner_update_status_action = !@old_unclassified
     @show_other_user_update_status_action = @old_unclassified
@@ -895,9 +894,9 @@ class RequestController < ApplicationController
 
   def assign_state_transition_variables
     @state_transitions = @info_request.state.transitions(
-      is_pro_user: @pro,
+      is_pro_user: @in_pro_area,
       is_owning_user: @is_owning_user,
-      user_asked_to_update_status: @update_status || @pro)
+      user_asked_to_update_status: @update_status || @in_pro_area)
 
     # If there are no available transitions, we shouldn't show any options
     # to update the status

@@ -289,8 +289,8 @@ describe RequestController, "when showing one request" do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', pro: "1"
     end
 
-    it "should set @pro to true" do
-      expect(assigns[:pro]).to be true
+    it "should set @in_pro_area to true" do
+      expect(assigns[:in_pro_area]).to be true
     end
 
     it "should set @sidebar_template to the pro sidebar" do
@@ -304,8 +304,8 @@ describe RequestController, "when showing one request" do
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
     end
 
-    it "should set @pro to false" do
-      expect(assigns[:pro]).to be false
+    it "should set @in_pro_area to false" do
+      expect(assigns[:in_pro_area]).to be false
     end
 
     it "should set @sidebar_template to the normal sidebar" do
@@ -314,7 +314,7 @@ describe RequestController, "when showing one request" do
   end
 
   describe "@show_top_describe_state_form" do
-    context "when @pro is true" do
+    context "when @in_pro_area is true" do
       it "is false" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
                    :pro => "1",
@@ -322,7 +322,7 @@ describe RequestController, "when showing one request" do
         expect(assigns[:show_top_describe_state_form]).to be false
       end
     end
-    context "when @pro is false" do
+    context "when @in_pro_area is false" do
       context "and @update_status is false" do
         it "is false" do
           info_request = info_requests(:naughty_chicken_request)
@@ -370,7 +370,7 @@ describe RequestController, "when showing one request" do
   end
 
   describe "@show_bottom_describe_state_form" do
-    context "when @pro is true" do
+    context "when @in_pro_area is true" do
       it "is false" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
                    :pro => "1"
@@ -378,7 +378,7 @@ describe RequestController, "when showing one request" do
       end
     end
 
-    context "when @pro is false" do
+    context "when @in_pro_area is false" do
       context "and the request is awaiting_description" do
         it "is true" do
           get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'

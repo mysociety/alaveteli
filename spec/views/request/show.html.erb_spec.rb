@@ -255,7 +255,7 @@ describe "request/show" do
 
     context "when the request is a pro request" do
       it "should not show a follow link" do
-        assign :pro, true
+        assign :in_pro_area, true
         request_page
         expect(rendered).not_to have_css("a", text: "Follow")
       end
