@@ -212,4 +212,20 @@ describe CommentController, "when commenting on a request" do
 
   end
 
+  context 'when commenting on an embargoed request' do
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:embargoed_request) do
+      FactoryGirl.create(:embargoed_request, user: pro_user)
+    end
+
+    it "sets @in_pro_area" do
+      session[:user_id] = pro_user.id
+      with_feature_enabled(:alaveteli_pro) do
+        get :new, :url_title => embargoed_request.url_title,
+                  :type => 'request'
+        expect(assigns[:in_pro_area]).to eq true
+      end
+    end
+  end
+
 end
