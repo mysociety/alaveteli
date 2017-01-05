@@ -7,6 +7,7 @@ describe FollowupsController do
   let(:request_user) { FactoryGirl.create(:user) }
   let(:request) { FactoryGirl.create(:info_request_with_incoming, :user => request_user) }
   let(:message_id) { request.incoming_messages[0].id }
+  let(:pro_user) { FactoryGirl.create(:pro_user) }
 
   describe "GET #new" do
 
@@ -19,8 +20,6 @@ describe FollowupsController do
     end
 
     context "when a pro user is logged in" do
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
-
       before do
         session[:user_id] = pro_user.id
       end
@@ -147,6 +146,21 @@ describe FollowupsController do
 
     end
 
+    context 'when viewing a response for an embargoed request' do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:embargoed_request) do
+        FactoryGirl.create(:embargoed_request, user: pro_user)
+      end
+
+      it "sets @in_pro_area" do
+        session[:user_id] = pro_user.id
+        with_feature_enabled(:alaveteli_pro) do
+          get :new, :request_id => embargoed_request.id
+          expect(assigns[:in_pro_area]).to eq true
+        end
+      end
+    end
+
   end
 
   describe "POST #preview" do
@@ -235,6 +249,21 @@ describe FollowupsController do
         expect(response).to render_template('new')
       end
 
+    end
+
+    context 'when viewing a response for an embargoed request' do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:embargoed_request) do
+        FactoryGirl.create(:embargoed_request, user: pro_user)
+      end
+
+      it "sets @in_pro_area" do
+        session[:user_id] = pro_user.id
+        with_feature_enabled(:alaveteli_pro) do
+          get :new, :request_id => embargoed_request.id
+          expect(assigns[:in_pro_area]).to eq true
+        end
+      end
     end
 
   end

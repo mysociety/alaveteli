@@ -9,7 +9,8 @@ class FollowupsController < ApplicationController
                 :check_request_matches_incoming_message,
                 :set_params,
                 :set_internal_review,
-                :set_outgoing_message
+                :set_outgoing_message,
+                :set_in_pro_area
 
   before_filter :check_reedit, :only => [:preview, :create]
 
@@ -192,5 +193,9 @@ class FollowupsController < ApplicationController
   def set_postal_addresses
     @postal_email = @info_request.postal_email
     @postal_email_name = @info_request.postal_email_name
+  end
+
+  def set_in_pro_area
+    @in_pro_area = @info_request.embargo.present?
   end
 end
