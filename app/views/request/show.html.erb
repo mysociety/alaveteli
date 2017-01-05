@@ -33,7 +33,7 @@
         </p>
         <% unless @render_to_file %>
           <div class="request-header__action-bar__actions <% if @show_profile_photo %>request-header__action-bar__actions--narrow<% end %>">
-            <% if @pro %>
+            <% if @in_pro_area %>
               <%= render :partial => 'alaveteli_pro/info_requests/after_actions' %>
             <% else %>
               <%= render :partial => 'after_actions' %>
