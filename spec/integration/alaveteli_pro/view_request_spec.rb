@@ -59,7 +59,7 @@ describe "viewing requests in alaveteli_pro" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       click_link("Send a followup")
-      expect(page).to have_content "Send a public follow up message to the " \
+      expect(page).to have_content "Send a follow up message to the " \
                                    "main FOI contact at " \
                                    "#{info_request.public_body.name}"
       fill_in("outgoing_message_body", with: "Testing follow ups")
@@ -77,7 +77,7 @@ describe "viewing requests in alaveteli_pro" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       click_link("Write a reply")
-      expect(page).to have_content "Send a public reply to"
+      expect(page).to have_content "Send a reply to"
       fill_in("outgoing_message_body", with: "Testing replies")
       choose("Anything else, such as clarifying, prompting, thanking")
       click_button("Preview your message")
