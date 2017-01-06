@@ -12,10 +12,6 @@ repo, which is included as a submodule in the `theme/` directory.
 
 If you're building locally, and you change the theme, rebuild it with:
 
-    sass --update --style=compressed theme/sass/global.scss:assets/css/global.css
-
-There's also an Alaveteli-specific stylesheet, so do:
-
     sass --update --style=compressed assets/sass/alaveteli-org.scss:assets/css/alaveteli-org.css
 
 You can use `--watch` instead of `--update` to continually monitor for changes.
