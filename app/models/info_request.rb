@@ -65,7 +65,8 @@ class InfoRequest < ActiveRecord::Base
 
   belongs_to :public_body, :counter_cache => true
   belongs_to :info_request_batch
-  validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
+  validates_presence_of :public_body_id, :message => N_("Please select an authority"),
+                                         :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
   has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
   has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
