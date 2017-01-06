@@ -1128,7 +1128,7 @@ class InfoRequest < ActiveRecord::Base
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
     applicable_rules = [censor_rules, CensorRule.global.all]
-    unless is_batch_request_template?
+    unless public_body.blank?
       applicable_rules << public_body.censor_rules
     end
     applicable_rules << user.censor_rules if user
