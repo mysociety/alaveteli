@@ -9,7 +9,7 @@ class InfoRequest
       def call
         @relation.includes(:embargo)
           .where('embargoes.id IS NOT NULL')
-            .where("embargoes.publish_at <= ?", Time.now + 1.week)
+            .where("embargoes.publish_at <= ?", Time.zone.now + 1.week)
       end
     end
   end
