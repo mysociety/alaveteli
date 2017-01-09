@@ -35,7 +35,7 @@ class Embargo < ActiveRecord::Base
     "12_months" => _("12 Months")
   }.freeze
 
-  scope :expiring, -> { where("publish_at <= ?", Time.now + 1.week) }
+  scope :expiring, -> { where("publish_at <= ?", Time.zone.now + 1.week) }
 
   def allowed_durations
     DURATIONS.keys
