@@ -15,27 +15,15 @@
 
       </div> <!-- .dashboard-left-column -->
 
+      <% if @to_do_list.active_items.empty? && @user.info_requests.empty? && @user.draft_info_requests.empty? %>
+        <%= render partial: 'no_to_dos' %>
+      <% elsif @to_do_list.active_items.empty? %>
+        <%= render partial: 'done_to_dos' %>
+      <% else %>
+        <%= render partial: 'to_do_list' %>
+      <% end %>
 
-    <div class="dashboard-right-column">
-
-      <div class="dashboard-todo">
-
-        <h2 class="dashboard-todo__title"><%= _("Things to do today") %></h2>
-
-        <ul class="dashboard-todo__list">
-
-         <%= render partial: 'to_do_item', collection: @to_do_list.active_items %>
-
-        </ul>
-
-      </div>  <!-- .dashboard-todo -->
-
-
-
-    </div>  <!-- .dashboard-right-column -->
-
-
-   </div>
+  </div>
 
   </div>  <!-- .dashboard-body -->
 
