@@ -8,7 +8,7 @@
 	       "in {{can_make_another_request}}.",
 	     :max_requests_per_user_per_day => AlaveteliConfiguration::max_requests_per_user_per_day,
 	     :can_make_another_request => distance_of_time_in_words(
-	     	Time.now, @next_request_permitted_at)) %></p>
+      Time.zone.now, @next_request_permitted_at)) %></p>
 
 <p><%= _("There is a limit on the number of requests you can make in a day, " \
 	        "because we don’t want public authorities to be bombarded with " \

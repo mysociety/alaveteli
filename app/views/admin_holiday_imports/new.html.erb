@@ -11,9 +11,9 @@
       <label class="control-label">Choose the years to import holidays for</label>
       <div class="controls">
         <label for="import_start_year" class="inline">Start year:</label>
-        <%= f.select :start_year, (Time.now.year)..(Time.now.year + 5) %>
+        <%= f.select :start_year, (Time.zone.now.year)..(Time.zone.now.year + 5) %>
         <label for="import_end_year" class="inline">End year:</label>
-        <%= f.select :end_year, (Time.now.year)..(Time.now.year + 5) %>
+        <%= f.select :end_year, (Time.zone.now.year)..(Time.zone.now.year + 5) %>
       </div>
     </div>
 

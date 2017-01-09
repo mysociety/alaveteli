@@ -7,8 +7,8 @@ namespace :stats do
     check_for_env_vars(['START_YEAR'], example)
     start_year = (ENV['START_YEAR']).to_i
     start_month = (ENV['START_MONTH'] || 1).to_i
-    end_year = (ENV['END_YEAR'] || Time.now.year).to_i
-    end_month = (ENV['END_MONTH'] || Time.now.month).to_i
+    end_year = (ENV['END_YEAR'] || Time.zone.now.year).to_i
+    end_month = (ENV['END_MONTH'] || Time.zone.now.month).to_i
 
     month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
 
@@ -106,8 +106,8 @@ namespace :stats do
     first_request_datetime = InfoRequest.minimum(:created_at)
     start_year = first_request_datetime.strftime("%Y").to_i
     start_month = first_request_datetime.strftime("%m").to_i
-    end_year = Time.now.strftime("%Y").to_i
-    end_month = Time.now.strftime("%m").to_i
+    end_year = Time.zone.now.strftime("%Y").to_i
+    end_month = Time.zone.now.strftime("%m").to_i
     puts "Start year: #{start_year}"
     puts "Start month: #{start_month}"
     puts "End year: #{end_year}"

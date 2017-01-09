@@ -37,26 +37,26 @@ class AdminGeneralController < AdminController
   def timeline
     # Recent events
     @events_title = "Events in last two days"
-    date_back_to = Time.now - 2.days
+    date_back_to = Time.zone.now - 2.days
     if params[:hour]
       @events_title = "Events in last hour"
-      date_back_to = Time.now - 1.hour
+      date_back_to = Time.zone.now - 1.hour
     end
     if params[:day]
       @events_title = "Events in last day"
-      date_back_to = Time.now - 1.day
+      date_back_to = Time.zone.now - 1.day
     end
     if params[:week]
       @events_title = "Events in last week"
-      date_back_to = Time.now - 1.week
+      date_back_to = Time.zone.now - 1.week
     end
     if params[:month]
       @events_title = "Events in last month"
-      date_back_to = Time.now - 1.month
+      date_back_to = Time.zone.now - 1.month
     end
     if params[:all]
       @events_title = "Events, all time"
-      date_back_to = Time.now - 1000.years
+      date_back_to = Time.zone.now - 1000.years
     end
 
     # Get an array of event attributes within the timespan in the format

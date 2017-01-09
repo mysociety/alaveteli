@@ -11,9 +11,9 @@
       <%= comment.user ?
         _("{{user_name}} left an annotation ({{date}})",
             :user_name => user_link(comment.user),
-            :date => simple_date(comment.created_at || Time.now)) :
+            :date => simple_date(comment.created_at || Time.zone.now)) :
         _("You left an annotation ({{date}})",
-            :date => simple_date(comment.created_at || Time.now)) %>
+            :date => simple_date(comment.created_at || Time.zone.now)) %>
     </h2>
 
     <div class="comment_in_request_text">

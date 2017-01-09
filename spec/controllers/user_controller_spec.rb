@@ -536,7 +536,7 @@ describe UserController, "when signing in" do
     before do
       # fake an expired previous session which has not been reset
       # (i.e. it timed out rather than the user signing out manually)
-      session[:ttl] = Time.now - 2.months
+      session[:ttl] = Time.zone.now - 2.months
     end
 
     it "logs the user in" do
@@ -809,7 +809,7 @@ describe UserController, "when signing out" do
 
   it "clears the session ttl" do
     session[:user_id] = users(:bob_smith_user).id
-    session[:ttl] = Time.now
+    session[:ttl] = Time.zone.now
     get :signout
     expect(session[:ttl]).to be_nil
   end
@@ -1082,7 +1082,7 @@ describe UserController, "when viewing the wall" do
     get :wall, :url_name => user.url_name
     expect(assigns[:feed_results][0]).not_to eq(ire)
 
-    ire.created_at = Time.now
+    ire.created_at = Time.zone.now
     ire.save!
     get :wall, :url_name => user.url_name
     expect(assigns[:feed_results][0]).to eq(ire)

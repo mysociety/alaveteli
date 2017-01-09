@@ -19,8 +19,8 @@ class HolidayImport
 
   def initialize(opts = {})
     @populated = false
-    @start_year = opts.fetch(:start_year, Time.now.year).to_i
-    @end_year = opts.fetch(:end_year, Time.now.year).to_i
+    @start_year = opts.fetch(:start_year, Time.zone.now.year).to_i
+    @end_year = opts.fetch(:end_year, Time.zone.now.year).to_i
     @start_date = Date.civil(start_year, 1, 1)
     @end_date = Date.civil(end_year, 12, 31)
     @source = opts.fetch(:source, 'suggestions')

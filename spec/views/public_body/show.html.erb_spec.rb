@@ -78,7 +78,7 @@ def mock_event
         :outgoing_message => nil, :is_outgoing_message? => false,
         :comment => nil,          :is_comment? => false,
         :event_type => 'sent',
-        :created_at => Time.now - 4.days,
+        :created_at => Time.zone.now - 4.days,
         :search_text_main => ''
     )
 end
