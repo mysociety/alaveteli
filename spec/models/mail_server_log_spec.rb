@@ -229,7 +229,7 @@ describe MailServerLog do
         ir2 = info_requests(:naughty_chicken_request)
         allow(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-14-e0e09f97@example.com").and_return(ir1)
         allow(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-10-1234@example.com").and_return(ir2)
-        MailServerLog.load_postfix_log_data(log, MailServerLogDone.new(:filename => "foo", :last_stat => DateTime.now))
+        MailServerLog.load_postfix_log_data(log, MailServerLogDone.new(:filename => "foo", :last_stat => Time.zone.now))
         # TODO: Check that each log line is attached to the correct request
         expect(ir1.mail_server_logs.count).to eq(5)
         expect(ir1.mail_server_logs[0].order).to eq(1)
@@ -447,7 +447,7 @@ describe MailServerLog do
 
       it 'returns true' do
         info_request = FactoryGirl.create(:info_request,
-                                          :created_at => Time.now - 5.days)
+                                          :created_at => Time.zone.now - 5.days)
         allow(MailServerLog).to receive(:request_sent?).with(info_request).
           and_return(true)
         expect(MailServerLog.check_recent_requests_have_been_sent).to eq(true)
@@ -459,7 +459,7 @@ describe MailServerLog do
 
       it 'returns false' do
         info_request = FactoryGirl.create(:info_request,
-                                          :created_at => Time.now - 5.days)
+                                          :created_at => Time.zone.now - 5.days)
         allow(MailServerLog).to receive(:request_sent?).with(info_request).
           and_return(false)
         allow($stderr).to receive(:puts)
@@ -468,7 +468,7 @@ describe MailServerLog do
 
       it 'outputs a message to stderr' do
         info_request = FactoryGirl.create(:info_request,
-                                          :created_at => Time.now - 5.days)
+                                          :created_at => Time.zone.now - 5.days)
         allow(MailServerLog).to receive(:request_sent?).with(info_request).
           and_return(false)
         expected_message = "failed to find request sending in MTA logs for request " \

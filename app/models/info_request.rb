@@ -550,7 +550,7 @@ class InfoRequest < ActiveRecord::Base
         :status => 'ready',
         :message_type => 'initial_request',
         :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
-        :last_sent_at => Time.now,
+        :last_sent_at => Time.zone.now,
         :what_doing => 'normal_sort'
 
       })
@@ -630,9 +630,9 @@ class InfoRequest < ActiveRecord::Base
     return described_state unless described_state == "waiting_response"
     # Compare by date, so only overdue on next day, not if 1 second late
     return 'waiting_response_very_overdue' if
-    Time.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
+    Time.zone.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
     return 'waiting_response_overdue' if
-    Time.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
+    Time.zone.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
     return 'waiting_response'
   end
 
@@ -665,7 +665,7 @@ class InfoRequest < ActiveRecord::Base
         event.set_calculated_state!(curr_state)
 
         if event.last_described_at.nil? # TODO: actually maybe this isn't needed
-          event.last_described_at = Time.now
+          event.last_described_at = Time.zone.now
           event.save!
         end
         curr_state = nil
@@ -1141,7 +1141,7 @@ class InfoRequest < ActiveRecord::Base
 
   def is_old_unclassified?
     !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_public_response_event &&
-      Time.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS
+      Time.zone.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS
   end
 
   # List of incoming messages to followup, by unique email

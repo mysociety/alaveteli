@@ -195,8 +195,8 @@ class User < ActiveRecord::Base
 
   # Used for default values of last_daily_track_email
   def self.random_time_in_last_day
-    earliest_time = Time.now - 1.day
-    latest_time = Time.now
+    earliest_time = Time.zone.now - 1.day
+    latest_time = Time.zone.now
     earliest_time + rand(latest_time - earliest_time).seconds
   end
 
@@ -526,7 +526,7 @@ class User < ActiveRecord::Base
   end
 
   def record_bounce(message)
-    self.email_bounced_at = Time.now
+    self.email_bounced_at = Time.zone.now
     self.email_bounce_message = message
     save!
   end

@@ -41,7 +41,7 @@ describe InfoRequestHelper do
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response")
-        allow(info_request).to receive(:date_response_required_by).and_return(Time.now)
+        allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
 
         response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
                         'title="2014-12-31 00:00:00 UTC">' \
@@ -69,7 +69,7 @@ describe InfoRequestHelper do
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response_overdue")
-        allow(info_request).to receive(:date_response_required_by).and_return(Time.now)
+        allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
 
         response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
                         'title="2014-12-31 00:00:00 UTC">' \
@@ -98,7 +98,7 @@ describe InfoRequestHelper do
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response_very_overdue")
-        allow(info_request).to receive(:date_response_required_by).and_return(Time.now)
+        allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
 
         response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
                         'title="2014-12-31 00:00:00 UTC">' \
@@ -125,7 +125,7 @@ describe InfoRequestHelper do
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
         allow(info_request).to receive(:calculate_status).and_return("waiting_response_very_overdue")
-        allow(info_request).to receive(:date_response_required_by).and_return(Time.now)
+        allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
         allow(info_request).to receive(:is_external?).and_return(true)
 
         response_date = '<time datetime="2014-12-31T00:00:00Z" ' \

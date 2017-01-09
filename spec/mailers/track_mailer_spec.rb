@@ -45,7 +45,7 @@ describe TrackMailer do
       end
 
       it 'should update the time of the user\'s last daily tracking email' do
-        expect(@user).to receive(:last_daily_track_email=).with(Time.now)
+        expect(@user).to receive(:last_daily_track_email=).with(Time.zone.now)
         expect(@user).to receive(:save!)
         TrackMailer.alert_tracks
       end
@@ -155,7 +155,7 @@ describe TrackMailer do
       end
 
       it 'should not update the time of the user\'s last daily tracking email' do
-        expect(@user).not_to receive(:last_daily_track_email=).with(Time.now)
+        expect(@user).not_to receive(:last_daily_track_email=).with(Time.zone.now)
         expect(@user).not_to receive(:save!)
         TrackMailer.alert_tracks
       end
