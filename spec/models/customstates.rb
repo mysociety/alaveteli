@@ -12,15 +12,15 @@ module InfoRequestCustomStates
     return self.described_state unless waiting_response
     if self.described_state == 'deadline_extended'
       return 'deadline_extended' if
-      Time.now.strftime("%Y-%m-%d") < self.date_deadline_extended.strftime("%Y-%m-%d")
+      Time.zone.now.strftime("%Y-%m-%d") < self.date_deadline_extended.strftime("%Y-%m-%d")
       return 'waiting_response_very_overdue'  if
-      Time.now.strftime("%Y-%m-%d") > Holiday.due_date_from_working_days(self.date_deadline_extended, 15).strftime("%Y-%m-%d")
+      Time.zone.now.strftime("%Y-%m-%d") > Holiday.due_date_from_working_days(self.date_deadline_extended, 15).strftime("%Y-%m-%d")
       return 'waiting_response_overdue'
     end
     return 'waiting_response_very_overdue' if
-    Time.now.strftime("%Y-%m-%d") > self.date_very_overdue_after.strftime("%Y-%m-%d")
+    Time.zone.now.strftime("%Y-%m-%d") > self.date_very_overdue_after.strftime("%Y-%m-%d")
     return 'waiting_response_overdue' if
-    Time.now.strftime("%Y-%m-%d") > self.date_response_required_by.strftime("%Y-%m-%d")
+    Time.zone.now.strftime("%Y-%m-%d") > self.date_response_required_by.strftime("%Y-%m-%d")
     return 'waiting_response'
   end
 

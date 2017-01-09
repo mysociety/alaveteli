@@ -222,7 +222,7 @@ describe ApiController, "when using the API" do
         :id => request_id,
       :correspondence_json => {
         'direction' => 'request',
-        'sent_at' => Time.now.iso8601,
+        'sent_at' => Time.zone.now.iso8601,
         'body' => 'xxx'
       }.to_json
 
@@ -244,7 +244,7 @@ describe ApiController, "when using the API" do
         :id => request_id,
       :correspondence_json => {
         'direction' => 'request',
-        'sent_at' => Time.now.iso8601,
+        'sent_at' => Time.zone.now.iso8601,
         'body' => 'xxx'
       }.to_json
 
@@ -295,7 +295,7 @@ describe ApiController, "when using the API" do
         :id => info_requests(:external_request).id,
       :correspondence_json => {
         'direction' => 'request',
-        'sent_at' => Time.now.iso8601,
+        'sent_at' => Time.zone.now.iso8601,
         'body' => 'Are you joking, or are you serious?'
       }.to_json,
       :attachments => [

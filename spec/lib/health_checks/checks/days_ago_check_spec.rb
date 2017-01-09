@@ -19,7 +19,7 @@ describe HealthChecks::Checks::DaysAgoCheck do
   describe :ok? do
 
     it 'is successful if the subject is in the last day' do
-      check = HealthChecks::Checks::DaysAgoCheck.new { Time.now }
+      check = HealthChecks::Checks::DaysAgoCheck.new { Time.zone.now }
       expect(check.ok?).to be true
     end
 
@@ -50,14 +50,14 @@ describe HealthChecks::Checks::DaysAgoCheck do
   describe :success_message do
 
     it 'includes the check subject in the default message' do
-      subject = Time.now
+      subject = Time.zone.now
       check = HealthChecks::Checks::DaysAgoCheck.new { subject }
       expect(check.failure_message).to include(subject.to_s)
     end
 
     it 'includes the check subject in a custom message' do
       params = { :success_message => 'This check succeeded' }
-      subject = Time.now
+      subject = Time.zone.now
       check = HealthChecks::Checks::DaysAgoCheck.new(params) { subject }
       expect(check.success_message).to include(subject.to_s)
     end

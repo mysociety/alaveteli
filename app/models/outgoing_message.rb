@@ -180,7 +180,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def record_email_delivery(to_addrs, message_id, log_event_type = 'sent')
-    self.last_sent_at = Time.now
+    self.last_sent_at = Time.zone.now
     self.status = 'sent'
     save!
 
