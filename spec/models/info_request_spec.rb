@@ -1381,39 +1381,113 @@ describe InfoRequest do
   describe "when calculating the status" do
 
     before do
-      @ir = info_requests(:naughty_chicken_request)
+      time_travel_to Time.utc(2007, 10, 14, 23, 59) do
+        @info_request = FactoryGirl.create(:info_request)
+      end
     end
 
     it "has expected sent date" do
-      expect(@ir.last_event_forming_initial_request.outgoing_message.last_sent_at.strftime("%F")).to eq('2007-10-14')
+      expect(@info_request.
+               last_event_forming_initial_request.
+                 outgoing_message.last_sent_at.
+                   strftime("%F")).to eq('2007-10-14')
     end
 
     it "has correct due date" do
-      expect(@ir.date_response_required_by.strftime("%F")).to eq('2007-11-09')
+      expect(@info_request.
+               date_response_required_by.
+                 strftime("%F")).to eq('2007-11-09')
     end
 
     it "has correct very overdue after date" do
-      expect(@ir.date_very_overdue_after.strftime("%F")).to eq('2007-12-10')
+      expect(@info_request.
+               date_very_overdue_after.
+                 strftime("%F")).to eq('2007-12-10')
     end
 
     it "isn't overdue on due date (20 working days after request sent)" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-      expect(@ir.calculate_status).to eq('waiting_response')
+      time_travel_to(Time.utc(2007, 11, 9, 23, 59)) do
+        expect(@info_request.calculate_status).to eq('waiting_response')
+      end
     end
 
     it "is overdue a day after due date (20 working days after request sent)" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
+      time_travel_to(Time.utc(2007, 11, 10, 00, 01)) do
+        expect(@info_request.calculate_status).to eq('waiting_response_overdue')
+      end
     end
 
     it "is still overdue 40 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 12, 10, 23, 59))
-      expect(@ir.calculate_status).to eq('waiting_response_overdue')
+      time_travel_to(Time.utc(2007, 12, 10, 23, 59)) do
+        expect(@info_request.calculate_status).to eq('waiting_response_overdue')
+      end
     end
 
     it "is very overdue the day after 40 working days after request sent" do
-      allow(Time).to receive(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
-      expect(@ir.calculate_status).to eq('waiting_response_very_overdue')
+      time_travel_to(Time.utc(2007, 12, 11, 00, 01)) do
+        expect(@info_request.
+                 calculate_status).to eq('waiting_response_very_overdue')
+      end
+    end
+
+    context 'when in a timezone offset from UTC' do
+
+      before do
+        @default_zone = Time.zone
+        zone = ActiveSupport::TimeZone["Australia/Sydney"]
+        Time.zone = zone
+        time_travel_to zone.parse("2007-10-14 23:59") do
+          @info_request = FactoryGirl.create(:info_request)
+        end
+      end
+
+      after do
+        Time.zone = @default_zone
+      end
+
+      it "has expected sent date" do
+        expect(@info_request.
+                 last_event_forming_initial_request.
+                   outgoing_message.last_sent_at.
+                     strftime("%F")).to eq('2007-10-14')
+      end
+
+      it "has correct due date" do
+        expect(@info_request.
+                 date_response_required_by.
+                   strftime("%F")).to eq('2007-11-09')
+      end
+
+      it "has correct very overdue after date" do
+        expect(@info_request.
+                 date_very_overdue_after.
+                   strftime("%F")).to eq('2007-12-10')
+      end
+
+      it "isn't overdue on due date (20 working days after request sent)" do
+        time_travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-11-09 23:59")) do
+          expect(@info_request.calculate_status).to eq('waiting_response')
+        end
+      end
+
+      it "is overdue a day after due date (20 working days after request sent)" do
+        time_travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-11-10 00:01")) do
+          expect(@info_request.calculate_status).to eq('waiting_response_overdue')
+        end
+      end
+
+      it "is still overdue 40 working days after request sent" do
+        time_travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-12-10 23:59")) do
+          expect(@info_request.calculate_status).to eq('waiting_response_overdue')
+        end
+      end
+
+      it "is very overdue the day after 40 working days after request sent" do
+        time_travel_to(ActiveSupport::TimeZone["Sydney"].parse("2007-12-11 00:01")) do
+          expect(@info_request.
+                   calculate_status).to eq('waiting_response_very_overdue')
+        end
+      end
     end
 
   end
@@ -1668,7 +1742,7 @@ describe InfoRequest do
                                          :prominence => 'normal',
                                          :awaiting_description => true)
       @comment_event = FactoryGirl.create(:info_request_event,
-                                          :created_at => Time.now - 23.days,
+                                          :created_at => Time.zone.now - 23.days,
                                           :event_type => 'comment',
                                           :info_request => @info_request)
       @incoming_message = FactoryGirl.create(:incoming_message,
@@ -1676,7 +1750,7 @@ describe InfoRequest do
                                              :info_request => @info_request)
       @response_event = FactoryGirl.create(:info_request_event,
                                            :info_request => @info_request,
-                                           :created_at => Time.now - 22.days,
+                                           :created_at => Time.zone.now - 22.days,
                                            :event_type => 'response',
                                            :incoming_message => @incoming_message)
       @info_request.update_attribute(:awaiting_description, true)
@@ -1693,7 +1767,7 @@ describe InfoRequest do
     end
 
     it 'returns false if its last response event occurred less than 21 days ago' do
-      @response_event.update_attribute(:created_at, Time.now - 20.days)
+      @response_event.update_attribute(:created_at, Time.zone.now - 20.days)
       expect(@info_request.is_old_unclassified?).to be false
     end
 

@@ -198,6 +198,6 @@ other_request_outgoing_message_event:
   outgoing_message_id: 10
   info_request_id: 111
   event_type: sent
-  created_at: <%= Time.now %>
+  created_at: <%= Time.now.utc %>
   described_state: waiting_response
   calculated_state: waiting_response

@@ -137,7 +137,7 @@ class ApplicationController < ActionController::Base
   end
 
   def persist_session_timestamp
-    session[:ttl] = Time.now if session[:user_id] && !session[:remember_me]
+    session[:ttl] = Time.zone.now if session[:user_id] && !session[:remember_me]
   end
 
   # Logout form

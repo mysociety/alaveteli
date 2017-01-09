@@ -453,7 +453,7 @@ class InfoRequestEvent < ActiveRecord::Base
   def set_calculated_state!(state)
     unless calculated_state == state
       self.calculated_state = state
-      self.last_described_at = Time.now
+      self.last_described_at = Time.zone.now
       save!
     end
   end

@@ -2308,7 +2308,7 @@ describe RequestController, "when showing similar requests" do
   end
 
   it 'raises ActiveRecord::RecordNotFound if the request is embargoed' do
-    badger_request.create_embargo(:publish_at => Time.now + 3.days)
+    badger_request.create_embargo(:publish_at => Time.zone.now + 3.days)
     expect {
       get :similar, :url_title => badger_request.url_title
     }.to raise_error(ActiveRecord::RecordNotFound)
@@ -2703,7 +2703,7 @@ describe RequestController do
     context 'when the request is embargoed' do
 
       before do
-        info_request.create_embargo(:publish_at => Time.now + 3.days)
+        info_request.create_embargo(:publish_at => Time.zone.now + 3.days)
       end
 
       it 'raises an ActiveRecord::RecordNotFound error' do
@@ -2795,7 +2795,7 @@ describe RequestController do
       end
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
-        event.info_request.create_embargo(:publish_at => Time.now + 1.day)
+        event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
         expect{ get :show_request_event, :info_request_event_id => event.id }
           .to raise_error ActiveRecord::RecordNotFound
       end
@@ -2816,7 +2816,7 @@ describe RequestController do
       end
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
-        event.info_request.create_embargo(:publish_at => Time.now + 1.day)
+        event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
         expect{ get :show_request_event, :info_request_event_id => event.id }
           .to raise_error ActiveRecord::RecordNotFound
       end
@@ -2837,7 +2837,7 @@ describe RequestController do
       end
 
       it 'raises ActiveRecord::RecordNotFound when the request is embargoed' do
-        event.info_request.create_embargo(:publish_at => Time.now + 1.day)
+        event.info_request.create_embargo(:publish_at => Time.zone.now + 1.day)
         expect{ get :show_request_event, :info_request_event_id => event.id }
           .to raise_error ActiveRecord::RecordNotFound
       end
