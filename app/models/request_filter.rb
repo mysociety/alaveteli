@@ -69,6 +69,10 @@ class RequestFilter
     false
   end
 
+  def default_order
+    'updated_at_desc'
+  end
+
   private
 
   def order_attributes
@@ -106,10 +110,6 @@ class RequestFilter
 
   def order_value
     order_params.include?(@order) ? order_values[@order] : order_values[default_order]
-  end
-
-  def default_order
-    'updated_at_desc'
   end
 
   def default_filters
