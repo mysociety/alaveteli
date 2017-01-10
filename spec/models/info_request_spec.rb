@@ -1118,7 +1118,7 @@ describe InfoRequest do
     it 'requires a public body id by default' do
       info_request = InfoRequest.new
       info_request.valid?
-      expect(info_request.errors[:public_body_id]).to include("can't be blank")
+      expect(info_request.errors[:public_body_id]).to include("Please select an authority")
     end
 
     it 'does not require a public body id if it is a batch request template' do

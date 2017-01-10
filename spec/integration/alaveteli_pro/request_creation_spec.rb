@@ -165,15 +165,17 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
         click_button "Preview and send"
 
         # New request form with errors
         expect(page).to have_content "Please enter a summary of your " \
                                      "request"
+        expect(page).to have_content "Please enter your letter requesting " \
+                                     "information"
         expect(page).to have_content 'Please sign at the bottom with ' \
                                      'your name, or alter the "Yours ' \
                                      'faithfully," signature'
+        expect(page).to have_content "Please select an authority"
       end
     end
 

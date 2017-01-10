@@ -65,7 +65,8 @@ class InfoRequest < ActiveRecord::Base
 
   belongs_to :public_body, :counter_cache => true
   belongs_to :info_request_batch
-  validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
+  validates_presence_of :public_body_id, :message => N_("Please select an authority"),
+                                         :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
   has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
   has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
@@ -1126,7 +1127,7 @@ class InfoRequest < ActiveRecord::Base
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
     applicable_rules = [censor_rules, CensorRule.global.all]
-    unless is_batch_request_template?
+    unless public_body.blank?
       applicable_rules << public_body.censor_rules
     end
     applicable_rules << user.censor_rules if user
