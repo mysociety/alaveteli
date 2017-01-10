@@ -263,7 +263,7 @@ textarea{
     display: none;
 
     list-style: none;
-    margin: 10px 0 0 0;
+    margin: 10px 0 60px 0;
     min-width: 100%;
     @include respond-min( 20em ){
       min-width: 280px;

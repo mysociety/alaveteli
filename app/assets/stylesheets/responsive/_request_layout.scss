@@ -261,6 +261,23 @@ a.track-request-action {
   display: inline-block;
 }
 
+/* Request correspondence footer action menu */
+.request-footer__action-bar__actions {
+  @include grid-column(12, $collapse:true);
+  @media (min-width: 30em) {
+    justify-content: flex-start;
+    @include flexbox();
+    align-items: stretch;
+  }
+
+  float: none;
+
+  .after-actions {
+    .action-menu__button {
+      margin-right: 1em;
+    }
+  }
+}
 
 /* Event history details */
 #request_details {
