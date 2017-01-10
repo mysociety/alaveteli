@@ -1,8 +1,20 @@
 # develop
 
 ## Highlighted Features
+* Time in application time zone is used where appropriate in code, this fixes
+a bug in due date calculation for zones offset from UTC (Louise Crow)
 
 ## Upgrade Notes
+* Please update any overriden templates and theme code that reference times and
+  dates to reference the local time zone where appropriate. e.g.
+
+  Time.now => Time.zone.now
+  Date.today => Date.current
+  DateTime.parse => Time.zone.parse
+
+  See https://robots.thoughtbot.com/its-about-time-zones for a description of
+  how Rails handles time zones
+
 
 ### Changed Templates
 
