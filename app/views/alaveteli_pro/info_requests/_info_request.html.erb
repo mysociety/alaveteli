@@ -28,17 +28,6 @@
       <p><span class="status-icon status-icon--<%= InfoRequest::State.phase_params[info_request.state.phase] %>"></span><%= InfoRequest::State.short_description(info_request.described_state) %></p>
     </div>
 
-    <div class="request__actions">
-      <select id="actions" class="actions">
-        <option><%= _('Actions') %></option>
-        <option><%= _('View') %></option>
-        <option><%= _('Update status') %></option>
-        <option><%= _('Send followup') %></option>
-        <option><%= _('Request internal review') %></option>
-        <option><%= _('Download zip file of correspondence') %></option>
-      </select>
-    </div>
-
   </div> <!-- .request__meta -->
 
 </div> <!-- .request -->
