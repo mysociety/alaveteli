@@ -6,6 +6,25 @@
 
 ### Changed Templates
 
+# 0.26.0.1
+
+## Highlighted Features
+
+* Minor tweaks to unify the action bars used on the authority and request pages
+  (Martin Wright)
+* Added the new action menu to the bottom of the correspondence thread after
+  user feedback (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just makes a couple of template and style tweaks. You may need to
+  update styles for the authority and request page action bars.
+
+### Changed Templates
+
+    app/views/admin_public_body/edit.html.erb
+    app/views/widgets/show.html.erb
+
 # 0.26.0.0
 
 ## Highlighted Features

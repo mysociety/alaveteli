@@ -755,7 +755,7 @@ describe UserController, "when signing up" do
       limiter = double
       allow(limiter).to receive(:record)
       allow(limiter).to receive(:limit?).and_return(true)
-      controller.stub(:ip_rate_limiter).and_return(limiter)
+      allow(controller).to receive(:ip_rate_limiter).and_return(limiter)
     end
 
     it 'blocks the signup' do

@@ -11,7 +11,9 @@ describe 'when making a zipfile available' do
   def inspect_zip_download(session, info_request)
     using_session(session) do
       visit show_request_path(info_request)
-      find_link('Download a zip file of all correspondence').click
+      within('.request-header__action-bar') do
+        find_link('Download a zip file of all correspondence').click
+      end
 
       Tempfile.open('download') do |f|
         f.binmode

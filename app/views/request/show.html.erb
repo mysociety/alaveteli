@@ -165,6 +165,17 @@
     </div>
   <% end %>
 
+  <% unless @render_to_file %>
+    <div class="request-footer__action-bar-container">
+      <div class="request-footer__action-bar__actions">
+        <%= render :partial => 'after_actions' %>
+        <%= render :partial => 'track/tracking_links_simple',
+                   :locals => { :track_thing => @track_thing,
+                                :own_request => @info_request.user && @info_request.user == @user,
+                                :location => 'toolbar' } %>
+      </div>
+    </div>
+  <% end %>
 
 </div>
 
