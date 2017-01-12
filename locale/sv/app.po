@@ -6,7 +6,7 @@
 # Translators:
 # Translators:
 # Kristoffer Grundström <kristoffer.grundstrom1983@gmail.com>, 2015
-# Lord Cobol <mattias@invaliddesign.com>, 2016
+# Lord Cobol, 2016
 # louisecrow <louise@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
@@ -1280,7 +1280,7 @@ msgid "If you would like to contest the authority's claim that they do not hold 
 msgstr "Om du skulle vilja bestrida myndighetens påstående att de inte har informationen, här är<a href=\"{{complain_url}}\">hur du överklagar</a>."
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
-msgstr "Om du vill att vi ska häva detta förbud, då du kan artigt<a href=\"/help/contact\">kontakta oss</a> för att ge skäl.\n"
+msgstr "Om du vill att vi ska häva detta förbud, då du kan artigt<a href=\"/help/contact\">kontakta oss</a> för att ge skäl."
 
 msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
 msgstr "Om du skriver om dessa förfrågningar (till exempel i en tidning, ett forum eller en blogg) vänligen länka till den här sidan."
@@ -3981,9 +3981,7 @@ msgstr "[{{site_name}} e-postadress för kontakt]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr ""
-"\n"
-"\n"
-"[ {{site_name}} notera: Texten ovanför var dåligt kodad, och har fått konstiga tecken borttagna. ]"
+"\\n\\n[ {{site_name}} notera: Texten ovanför var dåligt kodad, och har fått konstiga tecken borttagna. ]"
 
 msgid "admin"
 msgstr "administratör"

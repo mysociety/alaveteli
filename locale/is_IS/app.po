@@ -7,14 +7,14 @@
 # Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
-# Páll Hilmarsson <pallih@kaninka.net>, 2015-2016
+# Páll Hilmarsson <pallih@kaninka.net>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-06 16:35+0000\n"
-"PO-Revision-Date: 2016-12-12 00:46+0000\n"
-"Last-Translator: Ölvir Gíslason <olvirg@gmail.com>\n"
+"PO-Revision-Date: 2017-01-10 08:51+0000\n"
+"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
 "MIME-Version: 1.0\n"
@@ -1002,7 +1002,7 @@ msgstr "Gleymdirðu lykilorðinu þínu?"
 msgid "Found {{count}} public authority"
 msgid_plural "Found {{count}} public authorities"
 msgstr[0] "Fann {{count}} stjórnvald"
-msgstr[1] "Fann {{stjórnvöld}}"
+msgstr[1] "Fann {{count}} stjórnvöld"
 
 msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
 msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
