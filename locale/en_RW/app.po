@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 16:35+0000\n"
+"POT-Creation-Date: 2017-01-12 08:44-0800\n"
 "PO-Revision-Date: 2014-01-31 09:14+0000\n"
 "Last-Translator: Louise Crow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2327,6 +2327,9 @@ msgstr ""
 msgid "Requested on {{date}}"
 msgstr ""
 
+msgid "Requests"
+msgstr ""
+
 msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
 msgstr ""
 
@@ -3326,9 +3329,6 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr ""
 
@@ -3342,9 +3342,6 @@ msgid "User|Comments count"
 msgstr ""
 
 msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -4193,6 +4190,11 @@ msgid_plural "{{count}} followers"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} matching authority"
+msgid_plural "{{count}} matching authorities"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
 msgstr[0] ""
@@ -4203,10 +4205,18 @@ msgid_plural "{{count}} requests made."
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{count}} request."
+msgid_plural "{{count}} requests."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr ""
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
+msgstr ""
+
+msgid "{{info_request_user_name}}"
 msgstr ""
 
 msgid "{{law_used_full}} request - {{title}}"
