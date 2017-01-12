@@ -5,7 +5,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Kristoffer Grundström <kristoffer.grundstrom1983@gmail.com>, 2015
+# Lord Cobol, 2016
 # Lord Cobol, 2016
 # louisecrow <louise@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2016
@@ -17,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 16:35+0000\n"
-"PO-Revision-Date: 2016-12-11 12:04+0000\n"
-"Last-Translator: Mattias A\n"
+"POT-Creation-Date: 2017-01-12 08:44-0800\n"
+"PO-Revision-Date: 2017-01-12 16:56+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -3339,9 +3341,6 @@ msgstr "Användare brukar vanligtvis inte kunna göra massbegäran till flera my
 msgid "User|About me"
 msgstr "Användare|Om mig"
 
-msgid "User|Address"
-msgstr "User|Adress"
-
 msgid "User|Admin level"
 msgstr "Användare|Admin nivå"
 
@@ -3356,9 +3355,6 @@ msgstr "User|Comments count"
 
 msgid "User|Confirmed not spam"
 msgstr "User|Confirmed not spam"
-
-msgid "User|Dob"
-msgstr "User|Dob"
 
 msgid "User|Email"
 msgstr "Användare|E-postadress"
@@ -3980,8 +3976,7 @@ msgid "[{{site_name}} contact email]"
 msgstr "[{{site_name}} e-postadress för kontakt]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\\n\\n[ {{site_name}} notera: Texten ovanför var dåligt kodad, och har fått konstiga tecken borttagna. ]"
+msgstr "\\n\\n[ {{site_name}} notera: Texten ovanför var dåligt kodad, och har fått konstiga tecken borttagna. ]"
 
 msgid "admin"
 msgstr "administratör"

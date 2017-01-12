@@ -5,6 +5,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # atluxity <atluxity@1kb.no>, 2014
 # Ben W <bwng@openmailbox.org>, 2016
@@ -25,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 16:35+0000\n"
-"PO-Revision-Date: 2016-12-06 16:36+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2017-01-12 08:44-0800\n"
+"PO-Revision-Date: 2017-01-12 15:04+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -3349,9 +3350,6 @@ msgstr "Brukere kan normalt ikke lage bunthenvendelser til flere myndigheter på
 msgid "User|About me"
 msgstr "Bruker|Om meg"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "Bruker|Admin nivå"
 
@@ -3366,9 +3364,6 @@ msgstr ""
 
 msgid "User|Confirmed not spam"
 msgstr "Bruker|Bekreftet ikke spam"
-
-msgid "User|Dob"
-msgstr ""
 
 msgid "User|Email"
 msgstr "Bruker|E-post"

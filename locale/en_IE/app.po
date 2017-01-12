@@ -5,6 +5,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # John Cross <mrjohncross@googlemail.com>, 2012
 # handelaar <john@handelaar.org>, 2011
 # John Cross <mrjohncross@googlemail.com>, 2012
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 16:35+0000\n"
-"PO-Revision-Date: 2016-12-06 16:36+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2017-01-12 08:44-0800\n"
+"PO-Revision-Date: 2017-01-12 15:04+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: English (Ireland) (http://www.transifex.com/mysociety/alaveteli/language/en_IE/)\n"
 "Language: en_IE\n"
 "MIME-Version: 1.0\n"
@@ -3336,9 +3337,6 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr ""
 
@@ -3352,9 +3350,6 @@ msgid "User|Comments count"
 msgstr ""
 
 msgid "User|Confirmed not spam"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"

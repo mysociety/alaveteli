@@ -5,6 +5,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
 # Páll Hilmarsson <pallih@kaninka.net>, 2015-2017
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 16:35+0000\n"
-"PO-Revision-Date: 2017-01-10 08:51+0000\n"
-"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>\n"
+"POT-Creation-Date: 2017-01-12 08:44-0800\n"
+"PO-Revision-Date: 2017-01-12 15:07+0000\n"
+"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
 "MIME-Version: 1.0\n"
@@ -3334,9 +3335,6 @@ msgstr "Notendur geta yfirleitt ekki sent hópbeiðnir til margra stjórnvalda �
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr "User|Address"
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3351,9 +3349,6 @@ msgstr "User|Comments count"
 
 msgid "User|Confirmed not spam"
 msgstr "User|Confirmed not spam"
-
-msgid "User|Dob"
-msgstr "User|Dob"
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3975,9 +3970,7 @@ msgid "[{{site_name}} contact email]"
 msgstr "[{{site_name}} samskiptanetfang]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\\n\\n[ {{site_name}} ath.: Ofangreindur texti var illa kóðaður og framandi tákn voru fjarlægð úr honum. ]"
+msgstr "\\n\\n[ {{site_name}} ath.: Ofangreindur texti var illa kóðaður og framandi tákn voru fjarlægð úr honum. ]"
 
 msgid "admin"
 msgstr "stjórnandi"
