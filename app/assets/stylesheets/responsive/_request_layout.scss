@@ -84,7 +84,6 @@
       margin-bottom: 0.5em;
       margin-right: 1em;
       @include respond-min( $main_menu-mobile_menu_cutoff ){
-        text-align: center;
         margin-bottom: 0;
       }
     }
@@ -107,10 +106,6 @@
   .action-bar__follow-button,
   .action-bar__follower-count {
     margin: 0;
-  }
-
-  .action-bar__follower-count {
-    font-size: 0.875em;
   }
 }
 
@@ -265,6 +260,23 @@ a.track-request-action {
   display: inline-block;
 }
 
+/* Request correspondence footer action menu */
+.request-footer__action-bar__actions {
+  @include grid-column(12, $collapse:true);
+  @media (min-width: 30em) {
+    justify-content: flex-start;
+    @include flexbox();
+    align-items: stretch;
+  }
+
+  float: none;
+
+  .after-actions {
+    .action-menu__button {
+      margin-right: 1em;
+    }
+  }
+}
 
 /* Event history details */
 #request_details {
