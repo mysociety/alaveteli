@@ -3039,6 +3039,16 @@ describe InfoRequest do
       expect(event.params).to eq :param => 'value'
     end
 
+    context 'if options are passed' do
+
+      it 'sets :created_at on the event using the :created_at param' do
+        time = Time.zone.now.beginning_of_day
+        event = info_request.log_event("overdue", {}, { :created_at => time })
+        expect(event.created_at).to eq time
+      end
+
+    end
+
     context 'if the event resets due dates' do
 
       it 'sets the due dates for the request' do
@@ -3094,6 +3104,153 @@ describe InfoRequest do
         .to eq Date.parse('2015-02-26')
     end
 
+  end
+
+  describe '.log_overdue_events' do
+
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    context 'when an InfoRequest is not overdue' do
+
+      it 'does not create an event' do
+        time_travel_to(Date.parse('2014-12-31')){ info_request }
+        time_travel_to(Date.parse('2015-01-15')) do
+          InfoRequest.log_overdue_events
+          overdue_events = info_request.
+                             info_request_events(true).
+                               where(:event_type => 'overdue')
+          expect(overdue_events.size).to eq 0
+        end
+      end
+
+    end
+
+    context 'when an InfoRequest is overdue and does not have an overdue event' do
+
+      it "creates an overdue event at the beginning of the first day
+          after the request's due date" do
+        time_travel_to(Date.parse('2014-12-31')){ info_request }
+
+        time_travel_to(Date.parse('2015-01-30')) do
+          InfoRequest.log_overdue_events
+          overdue_events = info_request.
+                             info_request_events(true).
+                               where(:event_type => 'overdue')
+          expect(overdue_events.size).to eq 1
+          overdue_event = overdue_events.first
+          expect(overdue_event.created_at).to eq Time.zone.parse('2015-01-29').beginning_of_day
+        end
+      end
+    end
+
+    context 'when an InfoRequest has been overdue, and has an overdue event
+             but has had its due dates reset' do
+
+      it "creates an overdue event at the beginning of the first day
+          after the request's due date" do
+        time_travel_to(Date.parse('2014-12-31')){ info_request }
+
+        time_travel_to(Date.parse('2015-01-30')) do
+          InfoRequest.log_overdue_events
+        end
+
+        time_travel_to(Date.parse('2015-02-01')) do
+          info_request.log_event('resent', {})
+        end
+
+        time_travel_to(Date.parse('2015-03-01')) do
+          InfoRequest.log_overdue_events
+          overdue_events = info_request.
+                             info_request_events(true).
+                               where(:event_type => 'overdue')
+          expect(overdue_events.size).to eq 2
+          overdue_event = overdue_events.first
+          expect(overdue_event.created_at)
+            .to eq Time.zone.parse('2015-01-29').beginning_of_day
+          overdue_event = overdue_events.second
+          expect(overdue_event.created_at)
+            .to eq Time.zone.parse('2015-02-28').beginning_of_day
+        end
+
+
+      end
+
+    end
+
+  end
+
+  describe '.log_very_overdue_events' do
+
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    context 'when a request is not very overdue' do
+
+      it 'should not create an event' do
+
+        time_travel_to(Date.parse('2014-12-31')){ info_request }
+
+        time_travel_to(Date.parse('2015-01-30')) do
+          InfoRequest.log_very_overdue_events
+          very_overdue_events = info_request.
+                                  info_request_events(true).
+                                    where(:event_type => 'very_overdue')
+          expect(very_overdue_events.size).to eq 0
+        end
+      end
+    end
+
+    context 'when an InfoRequest is very overdue and does not have an overdue event' do
+
+      it "creates an overdue event at the beginning of the first day
+          after the request's date_very_overdue_after" do
+        time_travel_to(Date.parse('2014-12-31')){ info_request }
+
+        time_travel_to(Date.parse('2015-02-28')) do
+          InfoRequest.log_very_overdue_events
+          very_overdue_events = info_request.
+                                  info_request_events(true).
+                                    where(:event_type => 'very_overdue')
+          expect(very_overdue_events.size).to eq 1
+          very_overdue_event = very_overdue_events.first
+          expect(very_overdue_event.created_at).
+            to eq Time.zone.parse('2015-02-26').beginning_of_day
+        end
+      end
+    end
+
+    context 'when an InfoRequest has been very overdue, and has a very_overdue
+             event but has had its due dates reset' do
+
+      it "creates a very_overdue event at the beginning of the first day
+          after the request's date_very_overdue_after" do
+        time_travel_to(Date.parse('2014-12-31')){ info_request }
+
+        time_travel_to(Date.parse('2015-02-28')) do
+          InfoRequest.log_very_overdue_events
+        end
+
+        time_travel_to(Date.parse('2015-03-01')) do
+          info_request.log_event('resent', {})
+        end
+
+        time_travel_to(Date.parse('2015-04-30')) do
+          InfoRequest.log_very_overdue_events
+          very_overdue_events = info_request.
+                                  info_request_events(true).
+                                    where(:event_type => 'very_overdue')
+          expect(very_overdue_events.size).to eq 2
+          very_overdue_event = very_overdue_events.first
+          expect(very_overdue_event.created_at).
+            to eq Time.zone.parse('2015-02-26').beginning_of_day
+          very_overdue_event = very_overdue_events.second
+          expect(very_overdue_event.created_at).
+            to eq Time.zone.parse('2015-04-25').beginning_of_day
+        end
+
+
+      end
+
+    end
   end
 
 end
