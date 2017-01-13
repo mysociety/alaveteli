@@ -54,6 +54,19 @@ FactoryGirl.define do
     factory :resent_event do
       event_type 'resent'
     end
+
+    factory :overdue_event do
+      event_type 'overdue'
+    end
+
+    factory :very_overdue_event do
+      event_type 'very_overdue'
+    end
+
+    factory :expire_embargo_event do
+      event_type 'expire_embargo'
+    end
+
   end
 
 end

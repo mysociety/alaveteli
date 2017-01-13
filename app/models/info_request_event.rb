@@ -43,7 +43,10 @@ class InfoRequestEvent < ActiveRecord::Base
     'manual', # you did something in the db by hand
     'response', # an incoming message is received
     'comment', # an annotation is added
-    'status_update' # someone updates the status of the request
+    'status_update', # someone updates the status of the request
+    'overdue', # the request becomes overdue
+    'very_overdue', # the request becomes very overdue
+    'expire_embargo' # an embargo on the request expires
   ].freeze
 
   belongs_to :info_request
