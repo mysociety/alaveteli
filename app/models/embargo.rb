@@ -63,6 +63,14 @@ class Embargo < ActiveRecord::Base
     Time.zone.now + 1.week
   end
 
+  def self.expire_publishable
+    beginning_of_day = Time.zone.now.beginning_of_day
+    find_each(:conditions => ['publish_at < ?', beginning_of_day]) do |embargo|
+      embargo.info_request.log_event('expire_embargo', {})
+      embargo.destroy
+    end
+  end
+
   private
 
   def set_publish_at_from_duration
