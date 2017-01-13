@@ -6,6 +6,18 @@
 
 ### Changed Templates
 
+# 0.26.0.3
+
+## Highlighted Features
+
+* Updated translations for Italian translations to fix a bug that prevents
+  mail sending from working properly if there are double quotes in the string
+  used when constructing to email's to field (Liz Conlan)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
 # 0.26.0.2
 
 ## Highlighted Features
