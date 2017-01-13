@@ -104,7 +104,21 @@ describe InfoRequestEvent do
       followup_event = FactoryGirl.build(:followup_sent_event,
                                          :outgoing_message => outgoing_message)
       expect(followup_event.indexed_by_search?).to be_truthy
+    end
 
+    it 'returns a falsey value for an overdue event' do
+      overdue_event = FactoryGirl.build(:overdue_event)
+      expect(overdue_event.indexed_by_search?).to be_falsey
+    end
+
+    it 'returns a falsey value for a very overdue event' do
+      very_overdue_event = FactoryGirl.build(:very_overdue_event)
+      expect(very_overdue_event.indexed_by_search?).to be_falsey
+    end
+
+    it 'returns a falsey value for an embargo expiry event' do
+      expire_embargo_event = FactoryGirl.build(:expire_embargo_event)
+      expect(expire_embargo_event.indexed_by_search?).to be_falsey
     end
   end
 
