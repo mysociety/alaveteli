@@ -10,6 +10,7 @@
 # Claudio Cesarano <claudio@dirittodisapere.it>, 2015-2016
 # Giancarlo <pinet@pinet.it>, 2015
 # guido romeo <guido.romeo@gmail.com>, 2015
+# Liz Conlan <liz@mysociety.org>, 2017
 # louisecrow <louise@mysociety.org>, 2014-2015
 # Marco Giustini <info@marcogiustini.info>, 2013
 # Marco Giustini <info@marcogiustini.info>, 2013
@@ -18,7 +19,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
+"PO-Revision-Date: 2017-01-13 14:39+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/mysociety/alaveteli/language/it/)\n"
 "Language: it\n"
@@ -4243,7 +4244,7 @@ msgid "{{law_used_full}} request - {{title}}"
 msgstr "Richiesta di accesso secondo il {{law_used_full}}  - {{title}}"
 
 msgid "{{law_used}} requests at {{public_body}}"
-msgstr "Richieste di accesso inviate a \"{{public_body}}\" secondo il {{law_used}}"
+msgstr "Richieste di accesso inviate a '{{public_body}}' secondo il {{law_used}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} fa"
