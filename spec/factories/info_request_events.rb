@@ -26,21 +26,31 @@ FactoryGirl.define do
     factory :sent_event do
       event_type 'sent'
       association :outgoing_message, :factory => :initial_request
+      info_request { outgoing_message.info_request }
     end
 
     factory :response_event do
       event_type 'response'
       incoming_message
+      info_request { incoming_message.info_request }
     end
 
     factory :followup_sent_event do
       event_type 'followup_sent'
       association :outgoing_message, :factory => :new_information_followup
+      info_request { outgoing_message.info_request }
+    end
+
+    factory :followup_resent_event do
+      event_type 'followup_resent'
+      association :outgoing_message, :factory => :new_information_followup
+      info_request { outgoing_message.info_request }
     end
 
     factory :comment_event do
       event_type 'comment'
       association :comment
+      info_request { comment.info_request }
     end
 
     factory :edit_event do
@@ -53,6 +63,8 @@ FactoryGirl.define do
 
     factory :resent_event do
       event_type 'resent'
+      association :outgoing_message, :factory => :initial_request
+      info_request { outgoing_message.info_request }
     end
 
     factory :overdue_event do
