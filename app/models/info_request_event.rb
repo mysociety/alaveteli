@@ -41,9 +41,9 @@ class InfoRequestEvent < ActiveRecord::Base
     'move_request', # changed user or public body (in admin interface)
     'hide', # hid a request (in admin interface)
     'manual', # you did something in the db by hand
-    'response',
-    'comment',
-    'status_update'
+    'response', # an incoming message is received
+    'comment', # an annotation is added
+    'status_update' # someone updates the status of the request
   ].freeze
 
   belongs_to :info_request
