@@ -743,10 +743,13 @@ class InfoRequest < ActiveRecord::Base
     last_sent
   end
 
-  # History of some things that have happened
-  def log_event(type, params)
+  # Log an event to the history of some things that have happened to this request
+  def log_event(type, params, options = {})
     event = info_request_events.create!(:event_type => type, :params => params)
     set_due_dates(event) if event.resets_due_dates?
+    if options[:created_at]
+      event.update_column(:created_at, options[:created_at])
+    end
     event
   end
 
@@ -1461,7 +1464,46 @@ class InfoRequest < ActiveRecord::Base
     attributes['last_event_time'].try(:to_datetime)
   end
 
+  def self.log_overdue_events
+    log_overdue_event_type('overdue')
+  end
+
+  def self.log_very_overdue_events
+    log_overdue_event_type('very_overdue')
+  end
+
   private
+
+  def self.log_overdue_event_type(event_type)
+    date_field = case event_type
+    when 'overdue'
+      'date_response_required_by'
+    when 'very_overdue'
+      'date_very_overdue_after'
+    else
+      raise ArgumentError("Event type #{event_type} not handled")
+    end
+    find_each(:conditions => ["awaiting_description = ?
+                               AND described_state = ?
+                               AND #{date_field} < ?
+                               AND (SELECT id
+                                    FROM info_request_events
+                                    WHERE info_request_id = info_requests.id
+                                    AND event_type = ?
+                                    AND created_at > info_requests.#{date_field})
+                                    IS NULL",
+                              false,
+                              'waiting_response',
+                              Time.zone.today,
+                              event_type],
+              :batch_size => 100) do |info_request|
+      # Date to DateTime representing beginning of day
+      created_at = info_request.send(date_field).beginning_of_day + 1.day
+      info_request.log_event(event_type, { :event_created_at => Time.zone.now },
+                                         { :created_at => created_at })
+    end
+
+  end
 
   def accept_incoming?(email, raw_email_data)
     # See if new responses are prevented
