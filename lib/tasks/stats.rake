@@ -232,6 +232,13 @@ namespace :stats do
     end
   end
 
+  desc 'Add InfoRequestEvents for the points when requests became overdue
+        and very overdue'
+  task :update_overdue_info_request_events => :environment do
+    InfoRequest.log_overdue_events
+    InfoRequest.log_very_overdue_events
+  end
+
   desc 'Print a list of the admin URLs of requests with hidden material'
   task :list_hidden => :environment do
     include Rails.application.routes.url_helpers
