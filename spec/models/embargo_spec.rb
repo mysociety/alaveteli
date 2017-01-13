@@ -99,4 +99,46 @@ describe Embargo, :type => :model do
     end
 
   end
+
+  describe '.expire_publishable' do
+
+    context 'for an embargo whose publish_at date has passed' do
+      it 'should delete the embargo' do
+        embargo = FactoryGirl.create(:embargo)
+        info_request = embargo.info_request
+        time_travel_to(Time.zone.today + 4.months) do
+          Embargo.expire_publishable
+          info_request = InfoRequest.find(info_request.id)
+          expect(info_request.embargo).to be_nil
+        end
+      end
+
+      it 'should log the embargo expiry' do
+        embargo = FactoryGirl.create(:embargo)
+        info_request = embargo.info_request
+        time_travel_to(Time.zone.today + 4.months) do
+          Embargo.expire_publishable
+          info_request = InfoRequest.find(info_request.id)
+          expiry_events = info_request.
+                            info_request_events.
+                              where(:event_type => 'expire_embargo')
+          expect(expiry_events.size).to eq 1
+        end
+      end
+    end
+
+    context 'for an embargo whose publish_at date is today' do
+      it 'should not expire the embargo' do
+        embargo = FactoryGirl.create(:embargo)
+        info_request = embargo.info_request
+        time_travel_to(Time.zone.today + 3.months) do
+          Embargo.expire_publishable
+          info_request = InfoRequest.find(info_request.id)
+          expect(info_request.embargo).not_to be_nil
+        end
+      end
+    end
+
+  end
+
 end
