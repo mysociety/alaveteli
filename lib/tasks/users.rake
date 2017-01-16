@@ -1,31 +1,11 @@
 # -*- encoding : utf-8 -*-
-namespace :email_domain_actions do
+namespace :users do
 
-  desc "Lists top 20 most used email domains"
-  task :top20 => :environment do
-    # the limit of 20 is fairly arbitrary but I imagine this being more
-    # annoying than useful otherwise
-
+  desc "Lists email domains, most popular first"
+  task :count_per_domain => :environment do
     from = ENV["START_DATE"]
 
-    sql = if from
-      "SELECT substring(email, position('@' in email)+1) AS domain, " \
-      "COUNT(id) AS count " \
-      "FROM users " \
-      "WHERE admin_level = 'none' AND created_at >= '#{from}' " \
-      "GROUP BY domain " \
-      "ORDER BY count DESC " \
-      "LIMIT 20"
-    else
-      "SELECT substring(email, position('@' in email)+1) AS domain, " \
-      "COUNT(id) AS count " \
-      "FROM users " \
-      "WHERE admin_level = 'none' " \
-      "GROUP BY domain " \
-      "ORDER BY count DESC " \
-      "LIMIT 20"
-    end
-    results = User.connection.select_all(sql)
+    results = UserStats.list_user_domains(:start_date => from)
 
     column1_width = results.map { |x| x["domain"].length }.sort.last
 
@@ -41,7 +21,7 @@ namespace :email_domain_actions do
   end
 
   desc "Lists per domain stats"
-  task :stats => :environment do
+  task :stats_by_domain => :environment do
     raise "must supply a DOMAIN value" unless ENV["DOMAIN"]
     domain = ENV["DOMAIN"]
     from = ENV["START_DATE"]
@@ -109,12 +89,12 @@ namespace :email_domain_actions do
   end
 
   desc "Bans all users for a specific domain"
-  task :ban_users => :environment do
+  task :ban_by_domain => :environment do
     raise "must supply a DOMAIN value" unless ENV["DOMAIN"]
     domain = ENV["DOMAIN"]
     from = ENV["START_DATE"]
 
-    Rake.application.invoke_task("email_domain_actions:stats")
+    Rake.application.invoke_task("users:stats_by_domain")
 
     p ""
 
