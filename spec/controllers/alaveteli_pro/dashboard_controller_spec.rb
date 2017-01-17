@@ -18,5 +18,34 @@ describe AlaveteliPro::DashboardController do
       get :index
       expect(assigns[:user]).to eq user
     end
+
+    it 'assigns @page to 1 by default' do
+      get :index
+      expect(assigns[:page]).to eq 1
+    end
+
+    context 'if a page param is passed' do
+
+      it 'assigns @page a numerical page param' do
+        get :index, :page => 2
+        expect(assigns[:page]).to eq 2
+      end
+
+      it 'does not assign a non-numerical page param' do
+        get :index, :page => 'foo'
+        expect(assigns[:page]).to eq 1
+      end
+    end
+
+    it 'assigns @per_page' do
+      get :index
+      expect(assigns[:per_page]).to eq 10
+    end
+
+    it 'assigns @activity_list' do
+      get :index
+      expect(assigns[:activity_list]).to be_a ActivityList::List
+    end
+
   end
 end
