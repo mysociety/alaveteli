@@ -27,31 +27,31 @@ namespace :users do
     from = ENV["START_DATE"]
 
     total_users = if from
-      User.where("email like ?", "%@#{domain}").
-           where(:admin_level => 'none').
-           where("created_at >= ?", from).
-           count
+      User.where("email LIKE ?", "%@#{domain}").
+        where(:admin_level => 'none').
+        where("created_at >= ?", from).
+        count
     else
-      User.where("email like ?", "%@#{domain}").
-           where(:admin_level => 'none').
-           count
+      User.where("email LIKE ?", "%@#{domain}").
+        where(:admin_level => 'none').
+        count
     end
 
-    spammers = if from
+    banned = if from
       User.where("email like ?", "%@#{domain}").
-           where("ban_text != ''").
-           where("created_at >= ?", from).
-           count
+        where("ban_text != ''").
+        where("created_at >= ?", from).
+        count
     else
       User.where("email like ?", "%@#{domain}").
-           where("ban_text != ''").
-           count
+        where("ban_text != ''").
+        count
     end
 
-    spam_percent = if total_users == 0
+    banned_percent = if total_users == 0
       0
     else
-      (spammers.to_f / total_users * 100).round
+      (banned.to_f / total_users * 100).round
     end
 
     # When we have Rails 4 across the board, we get to say "where.not" and
@@ -72,7 +72,7 @@ namespace :users do
           ") AND id NOT IN ( " \
           "  SELECT DISTINCT user_id FROM comments " \
           "  WHERE user_id IS NOT NULL " \
-          ") AND email like '%@#{domain}'"
+          ") AND email LIKE '%@#{domain}'"
     sql += "AND created_at >= '#{from}'" if from
     dormant = User.connection.select_all(sql).first["count"]
 
@@ -84,8 +84,8 @@ namespace :users do
 
     p "Since #{from}..." if from
     p "total users: #{total_users}"
-    p "     spam %: #{spam_percent}% (#{spammers})"
-    p "  dormant %: #{dormant_percent}% (#{dormant})"
+    p "   banned %: #{banned} (#{banned_percent}%)"
+    p "  dormant %: #{dormant} (#{dormant_percent}%)"
   end
 
   desc "Bans all users for a specific domain"
