@@ -1,0 +1,12 @@
+<div class="dashboard-activity__item">
+  <div class="dashboard-activity__item__time">
+    <%= activity_list_item.event_time %>
+  </div>
+  <div class="dashboard-activity__item__description">
+    <p>
+      <%= activity_item_description(activity_list_item) %>
+      <%= link_to activity_list_item.call_to_action,
+                  activity_list_item.call_to_action_url %>
+    </p>
+  </div>
+</div>
