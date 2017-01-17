@@ -85,16 +85,9 @@ namespace :users do
     input = STDIN.gets.strip
 
     if input.downcase == "y"
-      count = if from
-        User.where("email like ?", "%@#{domain}").
-             where(:admin_level => 'none').
-             where("created_at >= ?", from).
-             update_all(:ban_text => "Banned for use of #{domain} email")
-      else
-        User.where("email like ?", "%@#{domain}").
-             where(:admin_level => 'none').
-             update_all(:ban_text => "Banned for use of #{domain} email")
-    end
+      to_ban = UserStats.unbanned_by_domain(domain, from)
+      count = to_ban.
+        update_all(:ban_text => "Banned for use of #{domain} email")
       p "#{count} accounts banned"
     else
       p "No action taken"

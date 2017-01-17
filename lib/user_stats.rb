@@ -56,4 +56,18 @@ class UserStats
     User.connection.select_all(sql).first["count"].to_i
   end
 
+  # Returns all the Users of a given domain who have not yet been banned and
+  # do not have admin privileges
+  def self.unbanned_by_domain(domain, start_date=nil)
+    eligible = User.where("email LIKE ?", "%@#{domain}").
+      where(:admin_level => 'none').
+      where(:ban_text => '')
+
+    if start_date
+      eligible.where("created_at >= ?", start_date)
+    else
+      eligible
+    end
+  end
+
 end
