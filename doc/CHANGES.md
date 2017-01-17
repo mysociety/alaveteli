@@ -2,7 +2,17 @@
 
 ## Highlighted Features
 
+* This release rolls out the first implementation of Alaveteli Pro - a service
+  for use by journalists and campaigners. Includes ability to embargo requests,
+  and dashboard for managing to-do items and requests. This is functionality
+  being piloted in the UK and is not yet recommended for use in other locales
+  (Steve Day, Martin Wright, Louise Crow)
+
 ## Upgrade Notes
+
+* To store the significant dates for requests in the database, you must run
+  `bundle exec rake temp:populate_request_due_dates` after deployment.
+* There are some database structure updates so remember to `rake db:migrate`
 
 ### Changed Templates
 

@@ -1,2 +1,30 @@
-<h1>Your dashboard</h1>
-<p>Welcome to your dashboard <%= @user.name %></p>
+
+<div class="dashboard">
+
+  <div class="dashboard-header">
+    <div class="row">
+      <h1><%= _("Your dashboard") %></h1>
+    </div>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="row">
+      <div class="dashboard-left-column">
+
+        <%= render partial: 'alaveteli_pro/dashboard/projects' %>
+
+      </div> <!-- .dashboard-left-column -->
+
+      <% if @to_do_list.active_items.empty? && @user.info_requests.empty? && @user.draft_info_requests.empty? %>
+        <%= render partial: 'no_to_dos' %>
+      <% elsif @to_do_list.active_items.empty? %>
+        <%= render partial: 'done_to_dos' %>
+      <% else %>
+        <%= render partial: 'to_do_list' %>
+      <% end %>
+
+  </div>
+
+  </div>  <!-- .dashboard-body -->
+
+</div>  <!-- .dashboard -->

@@ -3,28 +3,32 @@
 #
 # Table name: info_requests
 #
-#  id                        :integer          not null, primary key
-#  title                     :text             not null
-#  user_id                   :integer
-#  public_body_id            :integer          not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  described_state           :string(255)      not null
-#  awaiting_description      :boolean          default(FALSE), not null
-#  prominence                :string(255)      default("normal"), not null
-#  url_title                 :text             not null
-#  law_used                  :string(255)      default("foi"), not null
-#  allow_new_responses_from  :string(255)      default("anybody"), not null
-#  handle_rejected_responses :string(255)      default("bounce"), not null
-#  idhash                    :string(255)      not null
-#  external_user_name        :string(255)
-#  external_url              :string(255)
-#  attention_requested       :boolean          default(FALSE)
-#  comments_allowed          :boolean          default(TRUE), not null
-#  info_request_batch_id     :integer
-#  last_public_response_at   :datetime
-#  reject_incoming_at_mta    :boolean          default(FALSE), not null
-#  rejected_incoming_count   :integer          default(0)
+#  id                                    :integer          not null, primary key
+#  title                                 :text             not null
+#  user_id                               :integer
+#  public_body_id                        :integer          not null
+#  created_at                            :datetime         not null
+#  updated_at                            :datetime         not null
+#  described_state                       :string(255)      not null
+#  awaiting_description                  :boolean          default(FALSE), not null
+#  prominence                            :string(255)      default("normal"), not null
+#  url_title                             :text             not null
+#  law_used                              :string(255)      default("foi"), not null
+#  allow_new_responses_from              :string(255)      default("anybody"), not null
+#  handle_rejected_responses             :string(255)      default("bounce"), not null
+#  idhash                                :string(255)      not null
+#  external_user_name                    :string(255)
+#  external_url                          :string(255)
+#  attention_requested                   :boolean          default(FALSE)
+#  comments_allowed                      :boolean          default(TRUE), not null
+#  info_request_batch_id                 :integer
+#  last_public_response_at               :datetime
+#  reject_incoming_at_mta                :boolean          default(FALSE), not null
+#  rejected_incoming_count               :integer          default(0)
+#  date_initial_request_last_sent_at     :date
+#  date_response_required_by             :date
+#  date_very_overdue_after               :date
+#  last_event_forming_initial_request_id :integer
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -2811,16 +2815,285 @@ describe InfoRequest do
     [email, raw_email]
   end
 
-
-end
-
-describe InfoRequest do
-
   describe '#state' do
 
     it 'returns a State::Calculator' do
       expect(InfoRequest.new.state).to be_a InfoRequest::State::Calculator
     end
+  end
+
+end
+
+describe InfoRequest do
+
+  describe '#date_initial_request_last_sent_at' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    context 'when there is a value stored in the database' do
+
+      it 'returns the date the initial request was last sent' do
+        expect(info_request).not_to receive(:last_event_forming_initial_request)
+        expect(info_request.date_initial_request_last_sent_at)
+          .to eq Time.now.to_date
+      end
+    end
+
+    context 'when there is no value stored in the database' do
+
+      it 'calculates the date the initial request was last sent' do
+        info_request.send(:write_attribute, :date_initial_request_last_sent_at, nil)
+        expect(info_request)
+          .to receive(:last_event_forming_initial_request)
+            .and_call_original
+        expect(info_request.date_initial_request_last_sent_at)
+          .to eq Time.now.to_date
+      end
+    end
+
+  end
+
+  describe '#calculate_date_initial_request_last_sent_at' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    it 'returns a date' do
+      expect(info_request.calculate_date_initial_request_last_sent_at)
+        .to be_a Date
+    end
+
+    it 'returns the last sending event of the request' do
+      expect(info_request.calculate_date_initial_request_last_sent_at)
+        .to eq(Time.now.to_date)
+    end
+
+  end
+
+  describe '#last_event_forming_initial_request' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    context 'when there is a value in the database' do
+
+      it 'returns the last sending event of the request from the database' do
+        sending_event = info_request
+                          .info_request_events
+                            .first
+        expect(info_request).not_to receive(:info_request_events)
+        expect(info_request.last_event_forming_initial_request)
+          .to eq sending_event
+      end
+
+      it 'raises an error if the request has never been sent' do
+        info_request.send(:write_attribute, :last_event_forming_initial_request_id,
+                          InfoRequestEvent.maximum(:id)+1)
+        expect{ info_request.last_event_forming_initial_request }
+          .to raise_error(RuntimeError)
+      end
+
+    end
+
+    context 'when there is no value in the database' do
+
+      before do
+        info_request.send(:write_attribute, :last_event_forming_initial_request_id, nil)
+      end
+
+      it 'returns the most recent "sent" event' do
+        sending_event = info_request
+                          .info_request_events
+                            .first
+        expect(info_request.last_event_forming_initial_request)
+          .to eq sending_event
+      end
+
+      it 'returns the most recent "resent" event' do
+        outgoing_message = info_request.outgoing_messages.first
+        outgoing_message.record_email_delivery('', '', 'resent')
+        resending_event = info_request
+                            .info_request_events(true)
+                              .detect{ |e| e.event_type == 'resent'}
+        expect(info_request.last_event_forming_initial_request)
+          .to eq resending_event
+      end
+
+      it 'returns the most recent "followup_sent" event after a request
+          for clarification' do
+      # Request is waiting clarification
+      info_request.set_described_state('waiting_clarification')
+
+      # Followup message is sent
+      outgoing_message = OutgoingMessage.new(:status => 'ready',
+                                             :message_type => 'followup',
+                                             :info_request_id => info_request.id,
+                                             :body => 'Some text',
+                                             :what_doing => 'normal_sort')
+      outgoing_message.record_email_delivery('', '')
+      followup_event = info_request
+                            .info_request_events(true)
+                              .detect{ |e| e.event_type == 'followup_sent'}
+        expect(info_request.last_event_forming_initial_request)
+          .to eq followup_event
+      end
+
+      it 'raises an error if the request has never been sent' do
+        info_request.info_request_events.destroy_all
+        expect{ info_request.last_event_forming_initial_request }
+          .to raise_error(RuntimeError)
+      end
+
+    end
+
+  end
+
+  describe '#date_response_required_by' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    context 'when there is a value stored in the database' do
+
+      it 'returns the date a response is required by' do
+        time_travel_to(Date.parse('2014-12-31')) do
+          expect(info_request.date_response_required_by)
+            .to eq Date.parse('2015-01-28')
+        end
+      end
+
+    end
+
+    context 'when there is no value stored in the database' do
+
+      it 'returns the date a response is required by' do
+        time_travel_to(Date.parse('2014-12-31')) do
+          info_request.send(:write_attribute, :date_response_required_by, nil)
+          expect(info_request)
+            .to receive(:calculate_date_response_required_by)
+              .and_call_original
+          expect(info_request.date_response_required_by)
+            .to eq Date.parse('2015-01-28')
+        end
+      end
+
+    end
+
+  end
+
+  describe '#calculate_date_response_required_by' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    it 'returns the date a response is required by' do
+      time_travel_to(Date.parse('2014-12-31')) do
+        expect(info_request.calculate_date_response_required_by)
+          .to eq Date.parse('2015-01-28')
+      end
+    end
+
+  end
+
+  describe '#date_very_overdue_after' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    context 'when there is a value stored in the database' do
+
+      it 'returns the date a response is very overdue after' do
+        time_travel_to(Date.parse('2014-12-31')) do
+          expect(info_request.date_very_overdue_after)
+            .to eq Date.parse('2015-02-25')
+        end
+      end
+
+    end
+
+    context 'when there is no value stored in the database' do
+
+      it 'returns the date a response is very overdue after' do
+        time_travel_to(Date.parse('2014-12-31')) do
+          info_request.send(:write_attribute, :date_very_overdue_after, nil)
+          expect(info_request)
+            .to receive(:calculate_date_very_overdue_after)
+              .and_call_original
+          expect(info_request.date_very_overdue_after)
+            .to eq Date.parse('2015-02-25')
+        end
+      end
+
+    end
+
+  end
+
+  describe '#calculate_date_very_overdue_after' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    it 'returns the date a response is required by' do
+      time_travel_to(Date.parse('2014-12-31')) do
+        expect(info_request.calculate_date_very_overdue_after)
+          .to eq Date.parse('2015-02-25')
+      end
+    end
+
+  end
+
+  describe '#log_event' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    it 'creates an event with the type and params passed' do
+      info_request.log_event("resent", :param => 'value')
+      event = info_request.info_request_events(true).last
+      expect(event.event_type).to eq 'resent'
+      expect(event.params).to eq :param => 'value'
+    end
+
+    context 'if the event resets due dates' do
+
+      it 'sets the due dates for the request' do
+        # initial request sent
+        time_travel_to(Date.parse('2014-12-31')){ info_request }
+
+        time_travel_to(Date.parse('2015-01-01')) do
+          event = info_request.log_event("resent", :param => 'value')
+          expect(info_request.last_event_forming_initial_request_id)
+            .to eq event.id
+          expect(info_request.date_initial_request_last_sent_at)
+            .to eq Date.parse('2015-01-01')
+          expect(info_request.date_response_required_by)
+            .to eq Date.parse('2015-01-29')
+          expect(info_request.date_very_overdue_after)
+            .to eq Date.parse('2015-02-26')
+        end
+      end
+
+    end
+  end
+
+  describe '#set_due_dates' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    before do
+      # initial request sent
+      time_travel_to(Date.parse('2014-12-31')){ info_request }
+      # due dates updated based on new event
+      time_travel_to(Date.parse('2015-01-01')) do
+        @event = FactoryGirl.create(:sent_event)
+        info_request.set_due_dates(@event)
+      end
+    end
+
+    it 'sets the last event forming the intial request to the event' do
+      expect(info_request.last_event_forming_initial_request_id)
+        .to eq @event.id
+    end
+
+    it 'sets the initial_request_last_sent_at value' do
+      expect(info_request.date_initial_request_last_sent_at)
+        .to eq Date.parse('2015-01-01')
+    end
+
+    it 'sets the date_response_required_by value' do
+      expect(info_request.date_response_required_by)
+        .to eq Date.parse('2015-01-29')
+    end
+
+    it 'sets the date_very_overdue_after value' do
+      expect(info_request.date_very_overdue_after)
+        .to eq Date.parse('2015-02-26')
+    end
+
   end
 
 end

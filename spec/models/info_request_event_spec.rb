@@ -665,4 +665,80 @@ describe InfoRequestEvent do
       end
     end
   end
+
+  describe '#resets_due_dates?' do
+
+    it 'returns true if the event is a sending of the request' do
+      info_request_event = FactoryGirl.create(:sent_event)
+      expect(info_request_event.resets_due_dates?).to be true
+    end
+
+    it 'returns true if the event is a clarification' do
+      info_request = FactoryGirl.create(:info_request)
+      info_request.set_described_state('waiting_clarification')
+      event = info_request.log_event('followup_sent', {})
+      expect(event.resets_due_dates?).to be true
+    end
+
+    it 'returns false if the event is neither a sending of the request or a
+        clarification' do
+      info_request_event = FactoryGirl.create(:response_event)
+      expect(info_request_event.resets_due_dates?).to be false
+    end
+  end
+
+
+  describe '#is_request_sending?' do
+
+    it 'returns true if the event type is "sent"' do
+      info_request_event = FactoryGirl.create(:sent_event)
+      expect(info_request_event.is_request_sending?).to be true
+    end
+
+    it 'returns true if the event type is "resent"' do
+      info_request_event = FactoryGirl.create(:resent_event)
+      expect(info_request_event.is_request_sending?).to be true
+    end
+
+    it 'returns false if the event type is not "sent" or "resent"' do
+      info_request_event = FactoryGirl.create(:response_event)
+      expect(info_request_event.is_request_sending?).to be false
+    end
+  end
+
+
+  describe '#is_clarification?' do
+
+    it 'should return false if there has been no request for clarification' do
+      info_request = FactoryGirl.create(:info_request_with_incoming)
+      event = info_request.log_event('followup_sent', {})
+      expect(event.is_clarification?).to be false
+    end
+
+    it 'should return true if the event is the first followup after a request
+        for clarification' do
+      info_request = FactoryGirl.create(:info_request_with_incoming)
+      info_request.set_described_state('waiting_clarification')
+      event = info_request.log_event('followup_sent', {})
+      expect(event.is_clarification?).to be true
+    end
+
+    it 'should return false if there was a request for clarification but there
+        has since been a followup' do
+      info_request = FactoryGirl.create(:info_request_with_incoming)
+      info_request.set_described_state('waiting_clarification')
+      info_request.log_event('followup_sent', {})
+      event = info_request.log_event('followup_sent', {})
+      expect(event.is_clarification?).to be false
+    end
+
+    it 'should return false if there was a request for clarification after
+        this event' do
+      info_request = FactoryGirl.create(:info_request_with_incoming)
+      event = info_request.log_event('followup_sent', {})
+      info_request.set_described_state('waiting_clarification')
+      expect(event.is_clarification?).to be false
+    end
+  end
+
 end

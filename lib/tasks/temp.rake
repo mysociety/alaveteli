@@ -1,6 +1,21 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Populate the last_event_forming_initial_request_id,
+        date_initial_request_last_sent_at,
+        date_response_required_by and date_very_overdue_after
+        fields for all requests'
+  task :populate_request_due_dates => :environment do
+    ActiveRecord::Base.record_timestamps = false
+    begin
+      InfoRequest.find_each do |info_request|
+        info_request.set_due_dates(info_request.last_event_forming_initial_request)
+      end
+    ensure
+      ActiveRecord::Base.record_timestamps = true
+    end
+  end
+
   desc 'Update EventType when only editing prominence to hide'
   task :update_hide_event_type => :environment do
     InfoRequestEvent.where(:event_type => 'edit').find_each do |event|

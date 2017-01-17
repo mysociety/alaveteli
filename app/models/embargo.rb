@@ -15,6 +15,7 @@
 class Embargo < ActiveRecord::Base
   belongs_to :info_request
   has_many :embargo_extensions
+  has_one :user, :through => :info_request
   validates_presence_of :info_request
   validates_presence_of :publish_at
   validates_inclusion_of :embargo_duration,
@@ -34,6 +35,8 @@ class Embargo < ActiveRecord::Base
     "12_months" => _("12 Months")
   }.freeze
 
+  scope :expiring, -> { where("publish_at <= ?", expiring_soon_time) }
+
   def allowed_durations
     DURATIONS.keys
   end
@@ -50,6 +53,10 @@ class Embargo < ActiveRecord::Base
   def extend(extension)
     self.publish_at += duration_as_duration(extension.extension_duration)
     save
+  end
+
+  def self.expiring_soon_time
+    Time.zone.now + 1.week
   end
 
   private
