@@ -54,27 +54,7 @@ namespace :users do
       (banned.to_f / total_users * 100).round
     end
 
-    # When we have Rails 4 across the board, we get to say "where.not" and
-    # we rewrite this using the ORM
-    # example code here: http://stackoverflow.com/a/23389130), until then...
-    #
-    # Reminder - check that the returned ids in the subquery does not include
-    # null values otherwise this will unexpectedly return 0
-    # (see http://stackoverflow.com/a/19528722) this should not be a thing but
-    # is happening on WDTK with the info_requests table for some reason
-    sql = "SELECT count(*) FROM users " \
-          "WHERE id NOT IN ( " \
-          "  SELECT DISTINCT user_id FROM info_requests " \
-          "  WHERE user_id IS NOT NULL " \
-          ") AND id NOT IN ( " \
-          "  SELECT DISTINCT tracking_user_id FROM track_things " \
-          "  WHERE tracking_user_id IS NOT NULL " \
-          ") AND id NOT IN ( " \
-          "  SELECT DISTINCT user_id FROM comments " \
-          "  WHERE user_id IS NOT NULL " \
-          ") AND email LIKE '%@#{domain}'"
-    sql += "AND created_at >= '#{from}'" if from
-    dormant = User.connection.select_all(sql).first["count"]
+    dormant = UserStats.count_dormant_users(domain)
 
     dormant_percent = if total_users == 0
       0
