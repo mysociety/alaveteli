@@ -15,16 +15,27 @@
 
       </div> <!-- .dashboard-left-column -->
 
-      <% if @to_do_list.active_items.empty? && @user.info_requests.empty? && @user.draft_info_requests.empty? %>
-        <%= render partial: 'no_to_dos' %>
-      <% elsif @to_do_list.active_items.empty? %>
-        <%= render partial: 'done_to_dos' %>
-      <% else %>
-        <%= render partial: 'to_do_list' %>
-      <% end %>
+      <div class="dashboard-right-column">
+        <% if @to_do_list.active_items.empty? && @user.info_requests.empty? && @user.draft_info_requests.empty? %>
+          <%= render partial: 'no_to_dos' %>
+        <% elsif @to_do_list.active_items.empty? %>
+          <%= render partial: 'done_to_dos' %>
+        <% else %>
+          <%= render partial: 'to_do_list' %>
+        <% end %>
 
-  </div>
 
+        <div class="dashboard-activity">
+          <h2 class="dashboard-activity__title">Activity</h2>
+          <%= render partial: 'activity_list_item', :collection => @activity_list.current_items %>
+          <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @activity_list.events.count) %>
+
+        </div> <!-- .dashboard-activity -->
+
+      </div>  <!-- .dashboard-right-column -->
+
+
+   </div>
   </div>  <!-- .dashboard-body -->
 
 </div>  <!-- .dashboard -->
