@@ -6,6 +6,16 @@
 
 ### Changed Templates
 
+# 0.26.0.4
+
+## Highlighted Features
+
+* Updated translations for Italian locales (Liz Conlan)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
 # 0.26.0.3
 
 ## Highlighted Features
