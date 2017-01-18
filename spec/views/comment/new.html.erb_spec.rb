@@ -17,6 +17,10 @@ describe "comment/new.html.erb" do
                          "to #{info_request.public_body.name}."
       expect(rendered).to have_content(expected_content)
     end
+
+    it "renders the professional comment suggestions" do
+      expect(view).to render_template(partial: "alaveteli_pro/comment/_suggestions")
+    end
   end
 
   context "when the request is not embargoed" do
@@ -31,6 +35,10 @@ describe "comment/new.html.erb" do
       expected_content = "Annotations will be posted publicly here, and " \
                          "are not sent to #{info_request.public_body.name}."
       expect(rendered).to have_content(expected_content)
+    end
+
+    it "renders the normal comment suggestions" do
+      expect(view).to render_template(partial: "comment/_suggestions")
     end
   end
 end
