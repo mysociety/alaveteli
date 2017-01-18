@@ -2,7 +2,23 @@
   $(function(){
     var $select = $('.js-authority-select');
     var $message = $('.js-outgoing-message-body');
-    var authorityName = '';
+    var defaultAuthorityName = $message.data('salutation-body-name');
+    var currentAuthorityName = defaultAuthorityName;
+    var salutationTemplate = $message.data('salutation-template');
+
+    var updateSalutation = function updateSalutation(value) {
+      var oldAuthorityName = currentAuthorityName;
+      var oldSalutation = salutationTemplate.replace(defaultAuthorityName, oldAuthorityName);
+      var oldMessage = $message.val();
+
+      var newAuthorityName = $select.find('option:selected').text();
+      var newSalutation = salutationTemplate.replace(defaultAuthorityName, newAuthorityName);
+      var newMessage = oldMessage.replace(oldSalutation, newSalutation);
+
+      $message.val(newMessage);
+      currentAuthorityName = newAuthorityName;
+    };
+
     $select.selectize({
       valueField: 'id',
       labelField: 'name',
@@ -21,18 +37,7 @@
           return html;
         }
       },
-      onChange: function(value) {
-        var oldAuthorityName = authorityName;
-        var oldSalutation = 'Dear ' + oldAuthorityName + ',';
-        var oldMessage = $message.val();
-
-        var newAuthorityName = $select.find('option:selected').text();
-        var newSalutation = 'Dear ' + newAuthorityName + ',';
-        var newMessage = oldMessage.replace(oldSalutation, newSalutation);
-
-        $message.val(newMessage);
-        authorityName = newAuthorityName;
-      }
+      onChange: updateSalutation
     });
   });
 })(window.jQuery);
