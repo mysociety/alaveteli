@@ -68,7 +68,11 @@
           <p>
             <label class="form_label" for="outgoing_message_body">
               <%= _('Your request') %></label>
-            <%= o.text_area :body, :rows => 20, :cols => 60, :class => 'js-outgoing-message-body' %>
+            <%= o.text_area :body, :rows => 20,
+                                   :cols => 60,
+                                   :class => 'js-outgoing-message-body',
+                                   'data-salutation-template' => OutgoingMessage::Template::InitialRequest.placeholder_salutation,
+                                   'data-salutation-body-name' => OutgoingMessage::Template::InitialRequest.placeholder_body_name %>
           </p>
         <% end %>
 
