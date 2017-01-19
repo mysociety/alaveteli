@@ -496,6 +496,25 @@ describe RequestMailer do
         to eq('do-not-reply-to-this-address@localhost')
     end
 
+    context "when the user is not a pro" do
+      it "sends the request to the normal contact address" do
+        expect(RequestMailer.requires_admin(info_request).to).
+          to eq([AlaveteliConfiguration.contact_email])
+      end
+    end
+
+    context "when the user is a pro" do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_request) { FactoryGirl.create(:info_request, user: pro_user) }
+
+      it "sends the request to the pro contact address" do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(RequestMailer.requires_admin(pro_request).to).
+            to eq([AlaveteliConfiguration.pro_contact_email])
+        end
+      end
+    end
+
   end
 
   describe "sending overdue request alerts", :focus => true do
