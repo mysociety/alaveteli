@@ -67,6 +67,8 @@ module AlaveteliConfiguration
       :PRODUCTION_MAILER_DELIVERY_METHOD => 'sendmail',
       :PUBLIC_BODY_STATISTICS_PAGE => false,
       :PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE => false,
+      :PRO_CONTACT_EMAIL => 'pro-contact@localhost',
+      :PRO_CONTACT_NAME => 'Alaveteli Professional',
       :RAW_EMAILS_LOCATION => 'files/raw_emails',
       :READ_ONLY => '',
       :RECAPTCHA_PRIVATE_KEY => 'x',
