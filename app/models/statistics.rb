@@ -89,7 +89,7 @@ class Statistics
       # tooltips, and so on:
       data['public_bodies'].each_with_index do |pb, i|
         result['x_values'] << i
-        result['x_ticks'] << [i, pb.name]
+        result['x_ticks'] << [i, pb.short_or_long_name.truncate(30)]
         result['tooltips'] << "#{pb.name} (#{result['totals'][i]})"
         result['public_bodies'] << {
           'name' => pb.name,

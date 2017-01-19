@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Prevent long authority names overflowing on statistics page (Gareth Rees)
+
 ## Upgrade Notes
 
 ### Changed Templates
