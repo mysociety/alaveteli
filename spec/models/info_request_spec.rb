@@ -1105,6 +1105,14 @@ describe InfoRequest do
                    "email. You can use a phrase, rather than a full sentence.")
     end
 
+    it 'rejects a summary which is less than 3 chars long' do
+      info_request = InfoRequest.new(:title => 'Re')
+      info_request.valid?
+      expect(info_request.errors[:title]).
+        to include('Summary is too short. Please be a little more ' \
+                   'descriptive about the information you are asking for.')
+    end
+
     it 'rejects a summary that just says "FOI requests"' do
       info_request = InfoRequest.new(:title => 'FOI requests')
       info_request.valid?

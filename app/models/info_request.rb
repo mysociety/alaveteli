@@ -63,6 +63,13 @@ class InfoRequest < ActiveRecord::Base
     :message => _('Please keep the summary short, like in the subject of an ' \
                   'email. You can use a phrase, rather than a full sentence.')
   }
+  validates :title, :length => {
+    :minimum => 3,
+    :message => _('Summary is too short. Please be a little more descriptive ' \
+                  'about the information you are asking for.'),
+    :unless => Proc.new { |info_request| info_request.title.blank? },
+    :on => :create
+  }
 
   belongs_to :user, :counter_cache => true
   validate :must_be_internal_or_external
