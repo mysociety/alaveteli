@@ -6,6 +6,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class RequestMailer < ApplicationMailer
+  include AlaveteliFeatures::Helpers
+
   # Used when an FOI officer uploads a response from their web browser - this is
   # the "fake" email used to store in the same format in the database as if they
   # had emailed it.
@@ -55,6 +57,11 @@ class RequestMailer < ApplicationMailer
   # An FOI response is outside the scope of the system, and needs admin attention
   def requires_admin(info_request, set_by = nil, message = "")
     user = set_by || info_request.user
+    to = if feature_enabled?(:alaveteli_pro) and user and user.pro?
+     pro_contact_from_name_and_email
+    else
+      contact_from_name_and_email
+    end
     @reported_by = user
     @url = request_url(info_request)
     @admin_url = admin_request_url(info_request)
@@ -70,7 +77,7 @@ class RequestMailer < ApplicationMailer
                     user.name,
                     blackhole_email
                   ),
-         :to => contact_from_name_and_email,
+         :to => to,
          :subject => _("FOI response requires admin ({{reason}}) - " \
                         "{{request_title}}",
                        :reason => info_request.described_state,
