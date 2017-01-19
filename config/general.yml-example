@@ -972,3 +972,31 @@ NEW_REQUEST_RECAPTCHA: false
 #
 # ---
 ENABLE_ALAVETELI_PRO: false
+
+# Contact email address for Alaveteli Professional.
+# Requests made through Alaveteli Professional may be embargoed, meaning that
+# the user has an expectation that they're private, and this can include
+# being private from some of the site's administration team. Even if this is
+# not the case, you may wish to redirect pro support email away from the usual
+# email address for everybody else. These details allow you to specify a
+# different address.
+#
+# If you want all support mail to go to the same address, make this the same
+# as CONTACT_EMAIL.
+#
+# PRO_CONTACT_EMAIL - String email address (default: pro-contact@localhost)
+#
+# ---
+PRO_CONTACT_EMAIL: 'pro-contact@localhost'
+
+# Contact name for Alaveteli Professional.
+# The corresponding name to address emails to when sending email to
+# PRO_CONTACT_EMAIL.
+#
+# If you want all support mail to go to the same address, make this the same
+# as CONTACT_NAME.
+#
+# PRO_CONTACT_NAME - String contact name (default: Alaveteli Professional)
+#
+# ---
+PRO_CONTACT_NAME: 'Alaveteli Professional'
