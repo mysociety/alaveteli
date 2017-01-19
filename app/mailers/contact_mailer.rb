@@ -6,9 +6,17 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class ContactMailer < ApplicationMailer
+  include AlaveteliFeatures::Helpers
+
   # Send message to administrator
   def to_admin_message(name, email, subject, message, logged_in_user, last_request, last_body)
     @message, @logged_in_user, @last_request, @last_body = message, logged_in_user, last_request, last_body
+
+    to = if feature_enabled?(:alaveteli_pro) && @logged_in_user && @logged_in_user.pro?
+      pro_contact_from_name_and_email
+    else
+      contact_from_name_and_email
+    end
 
     # Return path is an address we control so that SPF checks are done on it.
     headers('Return-Path' => blackhole_email,
@@ -16,7 +24,7 @@ class ContactMailer < ApplicationMailer
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail(:from => MailHandler.address_from_name_and_email(name, blackhole_email),
-         :to => contact_from_name_and_email,
+         :to => to,
          :subject => subject)
   end
 
