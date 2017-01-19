@@ -661,7 +661,7 @@ describe AdminPublicBodyController, "when importing a csv" do
         post :import_csv, { :csv_file => @file_object,
                             :commit => 'Dry run'}
         temporary_filename = assigns[:temporary_csv_file]
-        expect(temporary_filename).to match(/csv_upload-#{Time.now.strftime("%Y%m%d")}-\d{1,5}/)
+        expect(temporary_filename).to match(/csv_upload-#{Time.zone.now.strftime("%Y%m%d")}-\d{1,5}/)
       end
 
     end

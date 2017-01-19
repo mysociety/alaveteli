@@ -42,7 +42,7 @@ describe InfoRequestBatchController, "when showing a request" do
   context 'when the batch has been sent' do
 
     it 'should assign info_requests to the view' do
-      @info_request_batch.sent_at = Time.now
+      @info_request_batch.sent_at = Time.zone.now
       @info_request_batch.save!
       make_request
       expect(assigns[:info_requests].sort).to eq([@first_request, @second_request])

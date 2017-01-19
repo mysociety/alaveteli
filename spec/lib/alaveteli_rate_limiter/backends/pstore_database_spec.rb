@@ -34,9 +34,9 @@ describe AlaveteliRateLimiter::Backends::PStoreDatabase do
     it 'returns the values for the key' do
       subject = described_class.new(:path => test_path)
 
-      expected = [DateTime.parse('2016-10-21'),
-                  DateTime.parse('2016-10-21'),
-                  DateTime.parse('2016-10-21')]
+      expected = [Time.zone.parse('2016-10-21'),
+                  Time.zone.parse('2016-10-21'),
+                  Time.zone.parse('2016-10-21')]
 
       subject.set('key', expected)
 
@@ -46,11 +46,11 @@ describe AlaveteliRateLimiter::Backends::PStoreDatabase do
     it 'only includes values recorded for the given key' do
       subject = described_class.new(:path => test_path)
 
-      expected = [DateTime.parse('2016-10-21'),
-                  DateTime.parse('2016-10-21'),
-                  DateTime.parse('2016-10-21')]
+      expected = [Time.zone.parse('2016-10-21'),
+                  Time.zone.parse('2016-10-21'),
+                  Time.zone.parse('2016-10-21')]
 
-      unexpected = [DateTime.parse('2016-09-21')]
+      unexpected = [Time.zone.parse('2016-09-21')]
 
       subject.set('key1', expected)
       subject.set('key2', unexpected)
@@ -74,7 +74,7 @@ describe AlaveteliRateLimiter::Backends::PStoreDatabase do
       subject.record('key')
       subject.record('key')
       subject.record('key')
-      expected = [DateTime.parse('2016-10-21')]
+      expected = [Time.zone.parse('2016-10-21')]
       subject.set('key', expected)
 
       expect(subject.get('key')).to eq(expected)

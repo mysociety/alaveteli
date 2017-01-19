@@ -37,10 +37,10 @@ class TrackMailer < ApplicationMailer
   # weeks.
 
   # Useful query to run by hand to see how many alerts are due:
-  #   User.where("last_daily_track_email < ?", Time.now - 1.day).size
+  #   User.where("last_daily_track_email < ?", Time.zone.now - 1.day).size
   def self.alert_tracks
     done_something = false
-    now = Time.now
+    now = Time.zone.now
     one_week_ago = now - 7.days
     User.find_each(:conditions => [ "last_daily_track_email < ?",
     now - 1.day ]) do |user|

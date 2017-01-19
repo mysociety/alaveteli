@@ -44,7 +44,7 @@ class InfoRequestBatch < ActiveRecord::Base
           unrequestable << public_body
         end
       end
-      self.sent_at = Time.now
+      self.sent_at = Time.zone.now
       self.save!
     end
     created.each do |info_request|

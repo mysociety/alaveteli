@@ -174,8 +174,8 @@ class MailServerLog < ActiveRecord::Base
     info_requests = InfoRequest.where("created_at < ?
                                       AND created_at > ?
                                       AND user_id IS NOT null",
-                                      Time.now - 2.days,
-                                      Time.now - 10.days)
+                                      Time.zone.now - 2.days,
+                                      Time.zone.now - 10.days)
 
     # Go through each request and check it
     ok = true
