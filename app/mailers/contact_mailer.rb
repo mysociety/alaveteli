@@ -49,9 +49,17 @@ class ContactMailer < ApplicationMailer
 
   # Send message to a user from the administrator
   def from_admin_message(recipient_name, recipient_email, subject, message)
-    @message, @from_user = message, contact_from_name_and_email
+    @message = message
     @recipient_name, @recipient_email = recipient_name, recipient_email
-    mail(:from => contact_from_name_and_email,
+
+    recipient_user = User.find_by_email(recipient_email)
+    @from_user = if feature_enabled?(:alaveteli_pro) && recipient_user && recipient_user.pro?
+      pro_contact_from_name_and_email
+    else
+      contact_from_name_and_email
+    end
+
+    mail(:from => @from_user,
          :to => MailHandler.address_from_name_and_email(@recipient_name, @recipient_email),
          :bcc => AlaveteliConfiguration::contact_email,
          :subject => subject)
