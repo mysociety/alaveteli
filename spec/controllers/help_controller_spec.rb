@@ -67,6 +67,48 @@ describe HelpController do
       expect(response).to render_template('help/contact')
     end
 
+    context 'when the user is a pro' do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+
+      before do
+        session[:user_id] = pro_user.id
+      end
+
+      it 'sets @contact_email to the pro contact address' do
+        with_feature_enabled(:alaveteli_pro) do
+          get :contact
+          expect(assigns[:contact_email]).
+            to eq AlaveteliConfiguration.pro_contact_email
+        end
+      end
+    end
+
+    context 'when the user is a normal user' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it 'sets @contact_email to the normal contact address' do
+        with_feature_enabled(:alaveteli_pro) do
+          get :contact
+          expect(assigns[:contact_email]).
+            to eq AlaveteliConfiguration.contact_email
+        end
+      end
+    end
+
+    context 'when the user is logged out' do
+      it 'sets @contact_email to the normal contact address' do
+        with_feature_enabled(:alaveteli_pro) do
+          get :contact
+          expect(assigns[:contact_email]).
+            to eq AlaveteliConfiguration.contact_email
+        end
+      end
+    end
+
     describe 'when requesting a page in a supported locale' do
 
       before do
