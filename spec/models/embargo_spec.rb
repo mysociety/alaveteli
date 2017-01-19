@@ -47,6 +47,15 @@ describe Embargo, :type => :model do
     expect(embargo).to be_valid
   end
 
+  it 'has an embargo duration of three months by default' do
+    expect(Embargo.new.embargo_duration).to eq "3_months"
+  end
+
+  it 'allows the embargo duration to be set' do
+    expect(Embargo.new(embargo_duration: "6_months").
+      embargo_duration).to eq "6_months"
+  end
+
   describe 'setting publish_at' do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
