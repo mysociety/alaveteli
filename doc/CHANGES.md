@@ -6,6 +6,18 @@
 
 ### Changed Templates
 
+# 0.26.0.5
+
+## Highlighted Features
+
+* Added an instruction line to the translation source to warn against using
+  double quotes for the email name translation string (Liz Conlan)
+* Updated translations for Italy and Nepal (Liz Conlan)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
 # 0.26.0.4
 
 ## Highlighted Features
