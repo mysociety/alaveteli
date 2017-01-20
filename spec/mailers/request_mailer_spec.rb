@@ -689,13 +689,14 @@ describe RequestMailer do
       load_raw_emails_data
     end
 
+    def force_updated_at_to_past(request)
+      request.update_column(:updated_at, Time.zone.now - 5.days)
+    end
+
     it "should send an alert" do
       ir = info_requests(:fancy_dog_request)
       ir.set_described_state('waiting_clarification')
-      # this is pretty horrid, but will do :) need to make it waiting
-      # clarification more than 3 days ago for the alerts to go out.
-      ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.zone.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
-      ir.reload
+      force_updated_at_to_past(ir)
 
       RequestMailer.alert_not_clarified_request
 
@@ -721,15 +722,26 @@ describe RequestMailer do
       ir.user.ban_text = 'Banned'
       ir.user.save!
 
-      # this is pretty horrid, but will do :) need to make it waiting
-      # clarification more than 3 days ago for the alerts to go out.
-      ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.zone.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
-      ir.reload
+      force_updated_at_to_past(ir)
 
       RequestMailer.alert_not_clarified_request
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(0)
+    end
+
+    it "should alert about embargoed requests" do
+      info_request = FactoryGirl.create(:embargoed_request)
+      info_request.set_described_state('waiting_clarification')
+      force_updated_at_to_past(info_request)
+
+      RequestMailer.alert_not_clarified_request
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+      expect(mail.body).to match(/asked you to explain/)
+      expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
     end
 
   end
