@@ -62,12 +62,12 @@ describe Embargo, :type => :model do
     it 'sets publish_at from duration during creation' do
       embargo = Embargo.create(info_request: info_request,
                                embargo_duration: "3_months")
-      expect(embargo.publish_at).to eq (Time.zone.now + 3.months).beginning_of_day
+      expect(embargo.publish_at).to eq Time.zone.now.beginning_of_day + 3.months
     end
 
     it 'doesnt set publish_at from duration if its already set' do
       embargo = Embargo.create(info_request: info_request,
-                               publish_at: Time.zone.today,
+                               publish_at: Time.zone.now.beginning_of_day,
                                embargo_duration: "3_months")
       expect(embargo.publish_at).to eq Time.zone.today
     end
@@ -79,7 +79,7 @@ describe Embargo, :type => :model do
 
     it 'allows extending the embargo' do
       old_publish_at = embargo.publish_at
-      expect(old_publish_at).to eq (Time.zone.now + 3.months).beginning_of_day
+      expect(old_publish_at).to eq Time.zone.now.beginning_of_day + 3.months
       embargo.extend(embargo_extension)
       expected_publish_at = old_publish_at + 3.months
       expect(embargo.publish_at).to eq expected_publish_at
