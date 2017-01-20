@@ -6,6 +6,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Antonella <anapolitano@gmail.com>, 2014-2015
 # Claudio Cesarano <claudio@dirittodisapere.it>, 2015-2016
 # Giancarlo <pinet@pinet.it>, 2015
@@ -19,7 +20,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-16 09:59+0000\n"
+"PO-Revision-Date: 2017-01-20 13:35+0000\n"
 "Last-Translator: Liz Conlan <liz@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/mysociety/alaveteli/language/it/)\n"
 "Language: it\n"
@@ -4244,7 +4245,7 @@ msgid "{{law_used_full}} request - {{title}}"
 msgstr "Richiesta di accesso secondo il {{law_used_full}}  - {{title}}"
 
 msgid "{{law_used}} requests at {{public_body}}"
-msgstr "Richieste di accesso inviate a {{public_body}} secondo il {{law_used}}"
+msgstr "Destinatario delle richieste di {{law_used}} o generalizzato indirizzate a '{{public_body}}'"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} fa"
