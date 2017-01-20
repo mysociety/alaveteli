@@ -14,7 +14,7 @@
 FactoryGirl.define do
   factory :embargo do
     info_request
-    publish_at (Time.zone.now + 3.months).beginning_of_day
+    publish_at Time.zone.now.beginning_of_day + 3.months
     embargo_duration "3_months"
 
     factory :expiring_embargo do
