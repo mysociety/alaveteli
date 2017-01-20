@@ -21,7 +21,7 @@ class Embargo < ActiveRecord::Base
   validates_inclusion_of :embargo_duration,
                          in: lambda { |e| e.allowed_durations },
                          allow_nil: true
-  after_initialize :set_publish_at_from_duration
+  after_initialize :set_default_duration, :set_publish_at_from_duration
 
   DURATIONS = {
     "3_months" => Proc.new { 3.months },
@@ -36,6 +36,10 @@ class Embargo < ActiveRecord::Base
   }.freeze
 
   scope :expiring, -> { where("publish_at <= ?", expiring_soon_time) }
+
+  def set_default_duration
+    self.embargo_duration  ||= "3_months"
+  end
 
   def allowed_durations
     DURATIONS.keys
