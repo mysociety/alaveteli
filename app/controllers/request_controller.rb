@@ -861,7 +861,10 @@ class RequestController < ApplicationController
         message_index += 1
         message.get_attachments_for_display.each do |attachment|
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
-          zipfile.get_output_stream(filename) { |f| f.puts(attachment.body) }
+          zipfile.get_output_stream(filename) do |f|
+            body = message.apply_masks(attachment.default_body, attachment.content_type)
+            f.puts(body)
+          end
         end
       end
     end
