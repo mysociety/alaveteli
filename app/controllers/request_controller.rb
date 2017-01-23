@@ -809,11 +809,11 @@ class RequestController < ApplicationController
           return render_hidden
         end
         cache_file_path = @info_request.make_zip_cache_path(@user)
-        if !File.exists?(cache_file_path)
+        # if !File.exists?(cache_file_path)
           FileUtils.mkdir_p(File.dirname(cache_file_path))
           make_request_zip(@info_request, cache_file_path)
           File.chmod(0644, cache_file_path)
-        end
+        # end
         send_file(cache_file_path, :filename => "#{@info_request.url_title}.zip")
       end
     end
@@ -858,7 +858,10 @@ class RequestController < ApplicationController
         message_index += 1
         message.get_attachments_for_display.each do |attachment|
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
-          zipfile.get_output_stream(filename) { |f| f.puts(attachment.body) }
+          zipfile.get_output_stream(filename) do |f|
+            body = message.apply_masks(attachment.default_body, attachment.content_type)
+            f.puts(attachment.body)
+          end
         end
       end
     end
