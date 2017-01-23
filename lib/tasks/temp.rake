@@ -1,6 +1,65 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Remove cached zip download files with censor rules'
+  task :remove_cached_zip_downloads_with_censor_rules => :environment do
+    requests_with_censor_rules.each do |info_request|
+      FileUtils.rm_rf(info_request.download_zip_dir)
+    end
+  end
+
+  desc 'Audit cached zip download files with censor rules'
+  task :audit_cached_zip_downloads_with_censor_rules => :environment do
+    puts [ "Info Request ID",
+           "URL Title",
+           "Censor rule IDs",
+           "Censor rule patterns",
+           "Cached file types"
+         ].join("\t")
+    requests_with_censor_rules.each do |info_request|
+      find_cached_zip_downloads(info_request)
+    end
+  end
+
+  def requests_with_censor_rules
+    info_requests_with_rules = CensorRule.
+                                where("info_request_id IS NOT NULL").
+                                  pluck("info_request_id")
+    info_requests_with_user_rules = User.
+                                      joins(:censor_rules, :info_requests).
+                                        pluck("info_requests.id")
+    info_requests_with_public_body_rules = PublicBody.
+                                             joins(:censor_rules, :info_requests).
+                                               pluck("info_requests.id")
+    info_requests_to_audit = (info_requests_with_rules +
+                              info_requests_with_user_rules +
+                              info_requests_with_public_body_rules).uniq
+    InfoRequest.find(info_requests_to_audit)
+  end
+
+  def find_cached_zip_downloads(info_request)
+    if File.exists?(info_request.download_zip_dir)
+      cached_types = []
+      cached_zips = Dir.glob(File.join(info_request.download_zip_dir, "**", "*.zip"))
+      cached_zips.each do |zip|
+        file_name = File.basename(zip, '.zip')
+        if file_name.ends_with('requester_only')
+          cached_types << :requester_only
+        elsif file_name.ends_with('hidden')
+          cached_types << :hidden
+        else
+          cached_types << :public
+        end
+      end
+      puts [ info_request.id,
+             info_request.url_title,
+             info_request.applicable_censor_rules.map{ |rule| rule.id }.join(","),
+             info_request.applicable_censor_rules.map{ |rule| rule.text }.join(","),
+             cached_types.uniq.join(",")
+           ].join("\t")
+    end
+  end
+
   desc 'Update EventType when only editing prominence to hide'
   task :update_hide_event_type => :environment do
     InfoRequestEvent.where(:event_type => 'edit').find_each do |event|
