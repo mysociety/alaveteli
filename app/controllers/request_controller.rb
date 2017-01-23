@@ -860,7 +860,7 @@ class RequestController < ApplicationController
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
           zipfile.get_output_stream(filename) do |f|
             body = message.apply_masks(attachment.default_body, attachment.content_type)
-            f.puts(attachment.body)
+            f.puts(body)
           end
         end
       end
