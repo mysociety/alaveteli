@@ -2,11 +2,11 @@
 module AlaveteliPro::InfoRequestsHelper
   def publish_at_options
     options = { _("Publish immediately") => '' }
-    options.merge(Embargo::DURATION_LABELS.invert)
+    options.merge(AlaveteliPro::Embargo::DURATION_LABELS.invert)
   end
 
   def embargo_extension_options
-    Embargo::DURATION_LABELS.invert
+    AlaveteliPro::Embargo::DURATION_LABELS.invert
   end
 
   def body_for_selectize(body)

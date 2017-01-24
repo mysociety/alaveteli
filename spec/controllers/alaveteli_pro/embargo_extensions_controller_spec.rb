@@ -14,8 +14,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :create,
-                 embargo_extension: { embargo_id: embargo.id,
-                                      extension_duration: "3_months" }
+                 alaveteli_pro_embargo_extension:
+                   { embargo_id: embargo.id,
+                     extension_duration: "3_months" }
           end
         end
 
@@ -41,8 +42,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
           with_feature_enabled(:alaveteli_pro) do
             session[:user_id] = pro_user.id
             post :create,
-                 embargo_extension: { embargo_id: embargo.id,
-                                      extension_duration: "3_months" }
+                 alaveteli_pro_embargo_extension:
+                   { embargo_id: embargo.id,
+                     extension_duration: "3_months" }
           end
         end
 
@@ -75,8 +77,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
       it "raises a CanCan::AccessDenied error" do
         expect do
           post :create,
-               embargo_extension: { embargo_id: embargo.id,
-                                    extension_duration: "3_months" }
+               alaveteli_pro_embargo_extension:
+                 { embargo_id: embargo.id,
+                   extension_duration: "3_months" }
         end.to raise_error(CanCan::AccessDenied)
       end
     end
@@ -86,7 +89,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         with_feature_enabled(:alaveteli_pro) do
           session[:user_id] = pro_user.id
           post :create,
-               embargo_extension: { embargo_id: embargo.id }
+               alaveteli_pro_embargo_extension: { embargo_id: embargo.id }
         end
       end
 

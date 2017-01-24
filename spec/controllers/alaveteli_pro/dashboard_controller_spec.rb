@@ -44,7 +44,7 @@ describe AlaveteliPro::DashboardController do
 
     it 'assigns @activity_list' do
       get :index
-      expect(assigns[:activity_list]).to be_a ActivityList::List
+      expect(assigns[:activity_list]).to be_a AlaveteliPro::ActivityList::List
     end
 
   end

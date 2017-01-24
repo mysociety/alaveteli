@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RequestFilter do
+describe AlaveteliPro::RequestFilter do
 
   describe '#update_attributes' do
 
