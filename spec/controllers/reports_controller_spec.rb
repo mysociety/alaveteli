@@ -88,9 +88,6 @@ describe ReportsController do
 
     end
   end
-end
-
-describe ReportsController do
 
   describe "GET #new" do
     let(:info_request){ FactoryGirl.create(:info_request) }
@@ -124,6 +121,28 @@ describe ReportsController do
         expect {
           get :new, :request_id => info_request.url_title
         }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      context "when passed a comment id" do
+        render_views
+
+        let(:comment) do
+          FactoryGirl.create(:comment, :info_request => info_request)
+        end
+
+        it "ignores the comment id if it does not belong to the request" do
+          new_comment = FactoryGirl.create(:comment)
+          get :new, :request_id => info_request.url_title,
+                    :comment_id => new_comment.id
+          expect(response.body).to match(info_request.report_reasons.first)
+        end
+
+        it "alters the reasons dropdown if comment id is valid" do
+          get :new, :request_id => info_request.url_title,
+                    :comment_id => comment.id
+          expect(response.body).
+            to match(comment.report_reasons.first)
+        end
       end
 
     end

@@ -14,7 +14,7 @@
     <%= form_tag request_report_path(:request_id => @info_request.url_title) do %>
       <p>
         <label class="form_label" for="reason">Reason:</label>
-        <%= select_tag :reason, options_for_select(@info_request.report_reasons, @reason), :prompt =>  _("Choose a reason") %>
+        <%= select_tag :reason, options_for_select(@report_reasons, @reason), :prompt => _("Choose a reason") %>
       </p>
       <p>
         <label class="form_label" for="message"><%= _("Please tell us more:") %></label>

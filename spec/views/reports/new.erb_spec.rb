@@ -2,9 +2,10 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe 'reports/new.html.erb' do
-  let(:info_request) { mock_model(InfoRequest, :url_title => "foo", :report_reasons => ["Weird"]) }
+  let(:info_request) { FactoryGirl.create(:info_request) }
   before :each do
     assign(:info_request, info_request)
+    assign(:report_reasons, info_request.report_reasons)
   end
 
   it "should show a form" do

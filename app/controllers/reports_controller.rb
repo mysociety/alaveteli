@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class ReportsController < ApplicationController
+
+  before_filter :set_request_data
+
   def create
-    @info_request = InfoRequest
-                      .not_embargoed
-                        .find_by_url_title!(params[:request_id])
     @reason = params[:reason]
     @message = params[:message]
     if @reason.empty?
@@ -23,13 +23,22 @@ class ReportsController < ApplicationController
   end
 
   def new
-    @info_request = InfoRequest
-                      .not_embargoed
-                        .find_by_url_title!(params[:request_id])
     if authenticated?(
         :web => _("To report this request"),
         :email => _("Then you can report the request '{{title}}'", :title => @info_request.title),
       :email_subject => _("Report an offensive or unsuitable request"))
     end
   end
+
+  private
+
+  def set_request_data
+    @info_request = InfoRequest.
+                      not_embargoed.
+                      find_by_url_title!(params[:request_id])
+    @comment = @info_request.comments.where(:id => params[:comment_id]).first
+    reportable = @comment || @info_request
+    @report_reasons = reportable.report_reasons
+  end
+
 end
