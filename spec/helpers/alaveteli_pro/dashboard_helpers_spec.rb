@@ -11,7 +11,7 @@ describe AlaveteliPro::DashboardHelper do
       user = FactoryGirl.create(:user)
       comment = FactoryGirl.create(:comment, :user => user)
       event = FactoryGirl.create(:comment_event, :comment => comment)
-      activity = ActivityList::Comment.new(event)
+      activity = AlaveteliPro::ActivityList::Comment.new(event)
 
       expected = "#{user_link user} added a new annotation on your request " \
                  "to #{public_body_link comment.info_request.public_body} " \
