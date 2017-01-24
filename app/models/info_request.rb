@@ -81,7 +81,7 @@ class InfoRequest < ActiveRecord::Base
   has_many :comments, :order => 'created_at', :dependent => :destroy
   has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
   has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
-  has_one :embargo
+  has_one :embargo, :class_name => "AlaveteliPro::Embargo"
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
@@ -1009,7 +1009,7 @@ class InfoRequest < ActiveRecord::Base
                                        :what_doing => 'normal_sort',
                                        :info_request => info_request)
     if draft.embargo_duration
-      info_request.embargo = Embargo.new(
+      info_request.embargo = AlaveteliPro::Embargo.new(
         :embargo_duration => draft.embargo_duration,
         :info_request => info_request
       )

@@ -11,7 +11,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   before_filter :load_data_from_draft, only: [:preview, :create]
 
   def index
-    @request_filter = RequestFilter.new
+    @request_filter = AlaveteliPro::RequestFilter.new
     if params[:request_filter]
       @request_filter.update_attributes(request_filter_params)
     end
@@ -102,7 +102,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     @info_request = InfoRequest.new(public_body: @public_body)
     @outgoing_message = OutgoingMessage.new(info_request: @info_request)
     # TODO: set duration based on current user's account settings
-    @embargo = Embargo.new(info_request: @info_request)
+    @embargo = AlaveteliPro::Embargo.new(info_request: @info_request)
   end
 
   def destroy_draft

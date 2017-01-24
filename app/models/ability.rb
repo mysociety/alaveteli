@@ -54,7 +54,7 @@ class Ability
       end
 
       # Extending embargoes
-      can :update, Embargo do |embargo|
+      can :update, AlaveteliPro::Embargo do |embargo|
         user && (user == embargo.info_request.user || user.super?)
       end
     end

@@ -1,12 +1,11 @@
 <div id="right_column" class="sidebar right_column" role="complementary">
   <% if @info_request.embargo %>
-    <%= form_for([:alaveteli_pro,
-                  EmbargoExtension.new(embargo: @info_request.embargo)]) do |f| %>
+    <%= form_for([AlaveteliPro::EmbargoExtension.new(embargo: @info_request.embargo)]) do |f| %>
       <%= render partial: "alaveteli_pro/info_requests/embargo_info",
                  locals: {embargo: @info_request.embargo, tense: :present} %>
       <%= f.hidden_field :embargo_id %>
       <p>
-        <label class="form_label" for="embargo_extension_extension_duration">
+        <label class="form_label" for="alaveteli_pro_embargo_extension_extension_duration">
           <%= _('Extend embargo:') %>
         </label>
         <%= f.select :extension_duration,
