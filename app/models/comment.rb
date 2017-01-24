@@ -95,6 +95,13 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def report_reasons
+    [_("Comment contains defamatory material"),
+     _("Comment contains personal information"),
+     _("Vexatious comment")
+    ]
+  end
+
   private
 
   def check_body_has_content
