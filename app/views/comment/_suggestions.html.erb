@@ -71,3 +71,8 @@
                :site_name=>site_name) %> </li>
   <% end %>
 </ul>
+<% content_for :public_warning do %>
+  <%= _('Annotations will be posted publicly here, and are ' \
+              '<strong>not</strong> sent to {{public_body_name}}.',
+              :public_body_name => h(@info_request.public_body.name)) %>
+<% end %>
