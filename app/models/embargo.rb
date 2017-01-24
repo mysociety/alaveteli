@@ -67,7 +67,7 @@ class Embargo < ActiveRecord::Base
 
   def set_publish_at_from_duration
     unless self.publish_at.present? || self.embargo_duration.blank?
-      self.publish_at = (Time.zone.now + duration_as_duration).beginning_of_day
+      self.publish_at = Time.zone.now.beginning_of_day + duration_as_duration
     end
   end
 end
