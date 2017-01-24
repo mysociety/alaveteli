@@ -1,0 +1,13 @@
+<%= n_('The following embargo is expiring in the next week. If you do not ' \
+       'wish this request to go public when the embargo expires, please ' \
+       'click on the link below to extend it.',
+       'The following embargoes are expiring in the next week. If you do ' \
+       'not wish for any of these requests to go public when their ' \
+       'embargoes expire, please click on the links below to extend them.',
+       @info_requests.count) %>
+
+<% @info_requests.each do |info_request| %>
+  <%= request_url(info_request) %>
+<% end %>
+
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>
