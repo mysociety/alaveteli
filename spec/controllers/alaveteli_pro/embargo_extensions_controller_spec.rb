@@ -25,7 +25,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         end
 
         it "sets a flash message" do
-          expect(flash[:notice]).to eq "Your Embargo has been extended! It "\
+          expect(flash[:notice]).to eq "Your embargo has been extended! It "\
                                        "will now expire on " \
                                        "#{Time.zone.today + 6.months}."
         end
@@ -53,7 +53,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         end
 
         it "sets a flash message" do
-          expect(flash[:notice]).to eq "Your Embargo has been extended! It "\
+          expect(flash[:notice]).to eq "Your embargo has been extended! It "\
                                        "will now expire on " \
                                        "#{Time.zone.today + 6.months}."
         end

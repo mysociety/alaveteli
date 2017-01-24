@@ -13,7 +13,7 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
     @embargo_extension = AlaveteliPro::EmbargoExtension.new(embargo_extension_params)
     if @embargo_extension.save
       @embargo.extend(@embargo_extension)
-      flash[:notice] = _("Your Embargo has been extended! It will now " \
+      flash[:notice] = _("Your embargo has been extended! It will now " \
                          "expire on {{expiry_date}}.",
                          expiry_date: @embargo.publish_at.to_date)
     else
