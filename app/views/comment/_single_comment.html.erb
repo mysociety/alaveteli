@@ -25,10 +25,12 @@
     <p class="event_actions">
       <% if comment.id %>
         <% if @user && @user.admin_page_links? %>
-          <%= link_to "Admin", edit_admin_comment_path(comment) %>
+          <%= link_to "Admin", edit_admin_comment_path(comment) %> |
         <% end %>
 
-        <!-- | <%= link_to _('Report abuse'), comment_path(comment) %> -->
+        <%= link_to _('Report abuse'),
+              new_request_report_path(:request_id => @info_request.url_title,
+                                      :comment_id => comment.id) %>
       <% end %>
     </p>
   </div>
