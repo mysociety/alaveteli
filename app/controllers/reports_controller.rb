@@ -5,7 +5,13 @@ class ReportsController < ApplicationController
 
   def create
     @reason = params[:reason]
-    @message = params[:message]
+    @message = if @comment
+      "#{params[:message]}\n\nThe user wishes to draw attention to the " \
+      "comment: #{comment_url(@comment)}"
+    else
+      params[:message]
+    end
+
     if @reason.empty?
       flash[:error] = _("Please choose a reason")
       render "new"
