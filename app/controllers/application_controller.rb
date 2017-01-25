@@ -301,6 +301,7 @@ class ApplicationController < ActionController::Base
 
   # For CanCanCan and other libs which need a Devise-like current_user method
   alias_method :current_user, :authenticated_user
+  helper_method :current_user
 
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,
