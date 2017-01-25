@@ -16,23 +16,23 @@ describe 'when displaying actions that can be taken with regard to a pro request
 
   it 'should display a link to request a review' do
     render_view
-    expect(response.body).to have_css('.action-menu__menu__submenu') do |div|
-      expect(div).to have_css('a', :text => 'Request an internal review')
+    within('.action-menu__menu__submenu') do
+      expect(rendered).to have_css('a', :text => 'Request an internal review')
     end
   end
 
   it 'should display the link to download the entire request' do
     render_view
-    expect(response.body).to have_css('.action-menu__menu__submenu') do |div|
-      expect(div).to have_css('a', :text => 'Download a zip file of all correspondence')
+    within('.action-menu__menu__submenu') do
+      expect(rendered).to have_css('a', :text => 'Download a zip file of all correspondence')
     end
   end
 
   it "should display a link to annotate the request" do
     with_feature_enabled(:annotations) do
       render_view
-      expect(response.body).to have_css('.action-menu__menu__submenu') do |div|
-          expect(div).to have_css('a', :text => 'Add an annotation (to help the requester or others)')
+      within('.action-menu__menu__submenu') do
+        expect(rendered).to have_css('a', :text => 'Add an annotation (to help the requester or others)')
       end
     end
   end
@@ -41,8 +41,8 @@ describe 'when displaying actions that can be taken with regard to a pro request
     with_feature_enabled(:annotations) do
       info_request.comments_allowed = false
       render_view
-      expect(response.body).to have_css('.action-menu__menu__submenu') do |div|
-          expect(div).not_to have_css('a', :text => 'Add an annotation')
+      within('.action-menu__menu__submenu') do
+        expect(rendered).not_to have_css('a', :text => 'Add an annotation')
       end
     end
   end
@@ -50,8 +50,8 @@ describe 'when displaying actions that can be taken with regard to a pro request
   it "should not display a link to annotate the request if comments are disabled globally" do
     with_feature_disabled(:annotations) do
       render_view
-      expect(response.body).to have_css('.action-menu__menu__submenu') do |div|
-        expect(div).not_to have_css('a', :text => 'Add an annotation')
+      within('.action-menu__menu__submenu') do
+        expect(rendered).not_to have_css('a', :text => 'Add an annotation')
       end
     end
   end
@@ -66,8 +66,8 @@ describe 'when displaying actions that can be taken with regard to a pro request
 
     it "should display a link to reply" do
       render_view
-      expect(response.body).to have_css('.action-menu__menu__submenu') do |div|
-        expect(div).to have_css('a', :text => 'Write a reply')
+      within('.action-menu__menu__submenu') do
+        expect(rendered).to have_css('a', :text => 'Write a reply')
       end
     end
   end
@@ -79,8 +79,8 @@ describe 'when displaying actions that can be taken with regard to a pro request
 
     it "should display a link to send a follow up" do
       render_view
-      expect(response.body).to have_css('.action-menu__menu__submenu') do |div|
-        expect(div).to have_css('a', :text => 'Send a follow up')
+      within('.action-menu__menu__submenu') do
+        expect(rendered).to have_css('a', :text => 'Send a follow up')
       end
     end
   end
