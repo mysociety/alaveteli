@@ -15,29 +15,28 @@
         </div>
       <% end %>
 
-        <p id="to_public_body_search" class="to_public_body">
-          <label for="public_body_query">
-            <span class="to_public_body_label"><%= _('To') %></span>
-          </label>
-          <input type="text"
-                 name="query"
-                 id="public_body_query"
-                 placeholder="<%= _('Search for an authority') %>"
-                 class="js-authority-select public-body-query"
-                 data-search-url="/alaveteli_pro/public_bodies"
-                 <% if @info_request.public_body %>
-                   value="<%= @info_request.public_body.name %>"
-                   data-initial-authority="<%= {
-                       :id => @info_request.public_body.id,
-                       :name => @info_request.public_body.name,
-                       :notes => @info_request.public_body.notes,
-                       :info_requests_visible_count => @info_request.public_body.info_requests_visible_count
-                     }.to_json %>"
-                 <% end %>>
-        </p>
+      <p id="to_public_body_search" class="to_public_body">
+        <label for="public_body_query">
+          <span class="to_public_body_label"><%= _('To') %></span>
+        </label>
+        <input type="text"
+               name="query"
+               id="public_body_query"
+               placeholder="<%= _('Search for an authority') %>"
+               class="js-authority-select public-body-query"
+               data-search-url="/alaveteli_pro/public_bodies"
+               <% if @info_request.public_body %>
+                 value="<%= @info_request.public_body.name %>"
+                 data-initial-authority="<%= {
+                     :id => @info_request.public_body.id,
+                     :name => @info_request.public_body.name,
+                     :notes => @info_request.public_body.notes,
+                     :info_requests_visible_count => @info_request.public_body.info_requests_visible_count
+                   }.to_json %>"
+               <% end %>>
+      </p>
 
-        <input type="submit" value="<%= _('Search') %>" class="js-authority-select-submit public-body-query__submit">
-
+      <input type="submit" value="<%= _('Search') %>" class="js-authority-select-submit public-body-query__submit">
     </div>
   </div>
 </form>
@@ -52,23 +51,21 @@
     <%= f.hidden_field(:public_body_id, :class => 'js-public-body-id') %>
 
     <div class="request_body">
+
       <div id="request_advice" class="request_advice">
-        <%= render partial: "embargo_info",
-                   locals: { embargo: @embargo, tense: :future } %>
-        <p>
-          <label class="form_label" for="embargo_embargo_duration">
-            <%= _('Embargo') %>
-          </label>
-          <%= fields_for :embargo do |e| %>
-            <%= e.select :embargo_duration,
-                         options_for_select(
-                           publish_at_options,
-                           :selected => @embargo ? @embargo.embargo_duration : ''
-                         ) %>
-          <% end %>
-        </p>
+
       </div>
       <div id="request_form" class="request_form">
+        <div id="to_public_body" class="to_public_body">
+          <label for="info_request_public_body_id" class="form_label">
+            <span class="to_public_body_label"><%= _('To') %></span>
+          </label>
+          <%= f.select(
+            :public_body_id,
+            public_body_options(@info_request.public_body_id),
+            { :prompt => _('Select an authority') },
+            { :class => 'js-authority-select' }) %>
+        </div>
         <div id="request_subject" class="request_subject">
           <p>
             <label class="form_label" for="info_request_title">
@@ -94,7 +91,24 @@
                                    'data-salutation-body-name' => OutgoingMessage::Template::InitialRequest.placeholder_body_name %>
           </p>
         <% end %>
-
+        <div class="request_embargo">
+          <p>
+            <label class="form_label" for="embargo_embargo_duration">
+              <%= _('Embargo') %>
+            </label>
+            <%= fields_for :embargo do |e| %>
+              <%= e.select :embargo_duration,
+                           options_for_select(
+                             publish_at_options,
+                             :selected => @embargo ? @embargo.embargo_duration : ''
+                           ) %>
+            <% end %>
+          </p>
+          <div class="form_item_note">
+            <%= render partial: "embargo_info",
+                     locals: { embargo: @embargo, tense: :future } %>
+           </div>
+        </div>
         <div class="form_button">
 
           <button><%= _("Save draft") %></button>
