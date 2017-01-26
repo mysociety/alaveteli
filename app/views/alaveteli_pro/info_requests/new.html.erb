@@ -20,8 +20,18 @@
           </div>
         <% end %>
 
-        <p id="to_public_body" class="to_public_body">
-          <label for="info_request_public_body_id">
+
+      </div>
+    </div>
+
+    <div class="request_body">
+
+      <div id="request_advice" class="request_advice">
+
+      </div>
+      <div id="request_form" class="request_form">
+        <div id="to_public_body" class="to_public_body">
+          <label for="info_request_public_body_id" class="form_label">
             <span class="to_public_body_label"><%= _('To') %></span>
           </label>
           <%= f.select(
@@ -29,28 +39,7 @@
             public_body_options(@info_request.public_body_id),
             { :prompt => _('Select an authority') },
             { :class => 'js-authority-select' }) %>
-        </p>
-      </div>
-    </div>
-
-    <div class="request_body">
-      <div id="request_advice" class="request_advice">
-        <%= render partial: "embargo_info",
-                   locals: { embargo: @embargo, tense: :future } %>
-        <p>
-          <label class="form_label" for="embargo_embargo_duration">
-            <%= _('Embargo') %>
-          </label>
-          <%= fields_for :embargo do |e| %>
-            <%= e.select :embargo_duration,
-                         options_for_select(
-                           publish_at_options,
-                           :selected => @embargo ? @embargo.embargo_duration : ''
-                         ) %>
-          <% end %>
-        </p>
-      </div>
-      <div id="request_form" class="request_form">
+        </div>
         <div id="request_subject" class="request_subject">
           <p>
             <label class="form_label" for="info_request_title">
@@ -71,7 +60,24 @@
             <%= o.text_area :body, :rows => 20, :cols => 60, :class => 'js-outgoing-message-body' %>
           </p>
         <% end %>
-
+        <div class="request_embargo">
+          <p>
+            <label class="form_label" for="embargo_embargo_duration">
+              <%= _('Embargo') %>
+            </label>
+            <%= fields_for :embargo do |e| %>
+              <%= e.select :embargo_duration,
+                           options_for_select(
+                             publish_at_options,
+                             :selected => @embargo ? @embargo.embargo_duration : ''
+                           ) %>
+            <% end %>
+          </p>
+          <div class="form_item_note">
+            <%= render partial: "embargo_info",
+                     locals: { embargo: @embargo, tense: :future } %>
+           </div>
+        </div>
         <div class="form_button">
 
           <button><%= _("Save draft") %></button>
