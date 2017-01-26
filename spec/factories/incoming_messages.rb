@@ -38,6 +38,10 @@ FactoryGirl.define do
       incoming_message.raw_email.data = "somedata"
     end
 
+    factory :hidden_incoming_message do
+      prominence 'hidden'
+    end
+
     factory :plain_incoming_message do
       last_parsed { nil }
       sent_at { nil }

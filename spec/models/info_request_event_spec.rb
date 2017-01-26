@@ -65,57 +65,60 @@ describe InfoRequestEvent do
   end
 
   describe 'when deciding if it is indexed by search' do
-    let(:comment) { mock_model(Comment) }
-    let(:incoming_message) { mock_model(IncomingMessage) }
-    let(:outgoing_message) { mock_model(OutgoingMessage) }
-    let(:info_request) { mock_model(InfoRequest, :indexed_by_search? => true) }
 
-    it 'should return a falsey value for a comment that is not visible' do
-      allow(comment).to receive(:visible).and_return(false)
-      info_request_event = InfoRequestEvent.new(:event_type => 'comment',
-                                                :comment => comment,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_falsey
+    it 'returns a falsey value for a comment that is not visible' do
+      comment = FactoryGirl.create(:hidden_comment)
+      comment_event = FactoryGirl.build(:comment_event, :comment => comment)
+      expect(comment_event.indexed_by_search?).to be_falsey
     end
 
-    it 'should return a truthy value for a comment that is visible' do
-      allow(comment).to receive(:visible).and_return(true)
-      info_request_event = InfoRequestEvent.new(:event_type => 'comment',
-                                                :comment => comment,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_truthy
+    it 'returns a truthy value for a comment that is visible' do
+      comment = FactoryGirl.create(:comment)
+      comment_event = FactoryGirl.build(:comment_event, :comment => comment)
+      expect(comment_event.indexed_by_search?).to be_truthy
     end
 
-    it 'should return a truthy value for an incoming message that is not indexed by search' do
-      allow(incoming_message).to receive(:indexed_by_search?).and_return false
-      info_request_event = InfoRequestEvent.new(:event_type => 'response',
-                                                :incoming_message => incoming_message,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_falsey
+    it 'returns a falsey value for an incoming message that is not indexed by search' do
+      incoming_message = FactoryGirl.create(:hidden_incoming_message)
+      response_event = FactoryGirl.build(:response_event,
+                                         :incoming_message => incoming_message)
+      expect(response_event.indexed_by_search?).to be_falsey
     end
 
-    it 'should return a truthy value for an incoming message that is indexed by search' do
-      allow(incoming_message).to receive(:indexed_by_search?).and_return true
-      info_request_event = InfoRequestEvent.new(:event_type => 'response',
-                                                :incoming_message => incoming_message,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_truthy
+    it 'returns a truthy value for an incoming message that is indexed by search' do
+      incoming_message = FactoryGirl.create(:incoming_message)
+      response_event = FactoryGirl.build(:response_event,
+                                         :incoming_message => incoming_message)
+      expect(response_event.indexed_by_search?).to be_truthy
     end
 
-    it 'should return a falsey value for an outgoing message that is not indexed by search' do
-      allow(outgoing_message).to receive(:indexed_by_search?).and_return false
-      info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
-                                                :outgoing_message => outgoing_message,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_falsey
+    it 'returns a falsey value for an outgoing message that is not indexed by search' do
+      outgoing_message = FactoryGirl.create(:hidden_followup)
+      followup_event = FactoryGirl.build(:followup_sent_event,
+                                         :outgoing_message => outgoing_message)
+      expect(followup_event.indexed_by_search?).to be_falsey
     end
 
-    it 'should return a truthy value for an outgoing message that is indexed by search' do
-      allow(outgoing_message).to receive(:indexed_by_search?).and_return true
-      info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
-                                                :outgoing_message => outgoing_message,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_truthy
+    it 'returns a truthy value for an outgoing message that is indexed by search' do
+      outgoing_message = FactoryGirl.create(:new_information_followup)
+      followup_event = FactoryGirl.build(:followup_sent_event,
+                                         :outgoing_message => outgoing_message)
+      expect(followup_event.indexed_by_search?).to be_truthy
+    end
+
+    it 'returns a falsey value for an overdue event' do
+      overdue_event = FactoryGirl.build(:overdue_event)
+      expect(overdue_event.indexed_by_search?).to be_falsey
+    end
+
+    it 'returns a falsey value for a very overdue event' do
+      very_overdue_event = FactoryGirl.build(:very_overdue_event)
+      expect(very_overdue_event.indexed_by_search?).to be_falsey
+    end
+
+    it 'returns a falsey value for an embargo expiry event' do
+      expire_embargo_event = FactoryGirl.build(:expire_embargo_event)
+      expect(expire_embargo_event.indexed_by_search?).to be_falsey
     end
   end
 
