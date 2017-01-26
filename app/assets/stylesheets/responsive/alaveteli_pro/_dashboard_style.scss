@@ -174,3 +174,18 @@ a.dashboard-folder__name:visited {
     opacity: 0.5;
   }
 }
+
+.dashboard-todo__zero {
+  //inbox zero!
+  background-image: image-url('alaveteli-pro/high-five.png');
+  background-position: 0.5em;
+  background-size: 76px 76px;
+  background-color: #f3f1eb;
+  background-repeat: no-repeat;
+  padding: 1.5em 1.5em 1.5em 96px;
+  margin-top: 1em;
+  border-radius: 5px;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/high-five@2.png');
+  }
+}
