@@ -77,7 +77,7 @@ class InfoRequest
       end
 
       def self.owner_successful_transition_label(opts = {})
-        _("I've received <strong>all the information")
+        _("I've received <strong>all the information</strong>")
       end
 
       def self.owner_waiting_clarification_transition_label(opts = {})

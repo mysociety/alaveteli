@@ -146,7 +146,7 @@ describe InfoRequest::State::Transitions do
     context "when the to_state is successful" do
       context "and is_owning_user is true" do
         it "returns the right label" do
-          expected = "I've received <strong>all the information"
+          expected = "I've received <strong>all the information</strong>"
           actual = subject.transition_label("successful", is_owning_user: true)
           expect(actual).to eq(expected)
         end
@@ -419,7 +419,7 @@ describe InfoRequest::State::Transitions do
 
     it "returns a hash of labelled states" do
       actual = subject.labelled_hash(['successful'], {is_owning_user: true})
-      expected = {"successful" => "I've received <strong>all the information"}
+      expected = {"successful" => "I've received <strong>all the information</strong>"}
       expect(expected).to eq(actual)
     end
   end
