@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require "spec_helper"
 require "external_command"
+require_relative "/../../script/handle-mail-replies.rb"
 
 def mail_reply_test(email_filename)
   Dir.chdir Rails.root do
@@ -94,5 +95,19 @@ describe "When filtering" do
   it "should detect an ABCMail-style out-of-office" do
     r = mail_reply_test("track-response-abcmail-oof.email")
     expect(r.status).to eq(2)
+  end
+end
+
+describe "#forward_on" do
+  describe "non-bounce messages" do
+    let(:raw_email) { load_file_fixture("normal-contact-reply.email") }
+    let(:message) { MailHandler.mail_from_raw_email(raw_email) }
+
+    it "should forward the message to sendmail" do
+      expect(IO).
+        to receive(:popen).
+        with("/usr/sbin/sendmail -i user-support@localhost", "wb")
+      forward_on(raw_email, message)
+    end
   end
 end
