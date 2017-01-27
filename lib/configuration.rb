@@ -44,6 +44,7 @@ module AlaveteliConfiguration
       :FORCE_REGISTRATION_ON_NEW_REQUEST => false,
       :FORCE_SSL => true,
       :FORWARD_NONBOUNCE_RESPONSES_TO => 'user-support@localhost',
+      :FORWARD_PRO_NONBOUNCE_RESPONSES_TO => 'pro-user-support@localhost',
       :FRONTPAGE_PUBLICBODY_EXAMPLES => '',
       :GA_CODE => '',
       :GAZE_URL => '',
