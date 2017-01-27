@@ -521,23 +521,4 @@ class RequestMailer < ApplicationMailer
     end
   end
 
-  private
-
-  def auto_generated_headers
-    headers({
-      'Return-Path' => blackhole_email,
-      'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-      'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-      'X-Auto-Response-Suppress' => 'OOF',
-    })
-  end
-
-  def mail_user(user, subject)
-    mail({
-      :from => contact_from_name_and_email,
-      :to => user.name_and_email,
-      :subject => subject,
-    })
-  end
-
 end
