@@ -128,7 +128,7 @@ span#to_public_body {
   }
 }
 
-#request_form {
+.request_form {
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:8, $pull:4);
