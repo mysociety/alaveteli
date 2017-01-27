@@ -68,7 +68,7 @@ describe InfoRequest::State::Calculator do
           complete: {
             "not_held"              => "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
             "partially_successful"  => "I've received <strong>some of the information</strong>",
-            "successful"            => "I've received <strong>all the information",
+            "successful"            => "I've received <strong>all the information</strong>",
             "rejected"              => "My request has been <strong>refused</strong>"
           },
           other: {
@@ -89,7 +89,7 @@ describe InfoRequest::State::Calculator do
           complete: {
             "not_held"              => "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
             "partially_successful"  => "I've received <strong>some of the information</strong>",
-            "successful"            => "I've received <strong>all the information",
+            "successful"            => "I've received <strong>all the information</strong>",
             "rejected"              => "My request has been <strong>refused</strong>"
           },
           other: {
