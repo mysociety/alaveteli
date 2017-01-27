@@ -9,13 +9,62 @@
   }
 }
 
-.selectize-control.plugin-remove_button .remove-single {
-  top: 0px;
-  right: 0px;
-  text-decoration: none;
+#to_public_body {
+  font-size: 1em;
+  font-weight: normal;
 }
 
 .to_public_body_label {
   color: #333;
-  font-size: 0.782608696em; //18px
+}
+
+
+// Overrides for selectize plugin
+.selectize-dropdown,
+.selectize-input,
+.selectize-input input {
+  font-size: 1em;
+  line-height: 1.5em;
+}
+
+.selectize-input {
+  padding: 0.3125em 0.5em; //5px 8px
+  height: 2.3125rem;
+  border-color: #bbb;
+  input {
+    /* because the plugin assumes you'd never ever want to change the text size
+    we have to make sure the placeholder isn't in a weird vertical position */
+    position: relative;
+    top: -0.3125em;
+  }
+}
+
+.selectize-dropdown [data-selectable],
+.selectize-dropdown .optgroup-header {
+  padding: 1em 0.5em;
+}
+
+.selectize-dropdown .active {
+  background-color: #e6e4df;
+}
+
+.recipient-result {
+  .name {
+    margin-bottom: 0.25em;
+    margin-top: 0.5em;
+  }
+  .description {
+    margin-bottom: 0.5em;
+    opacity: 0.66;
+  }
+  .requests {
+    margin-bottom: 0.5em;
+    opacity: 0.66;
+  }
+}
+
+.selectize-control.plugin-remove_button .remove-single {
+  top: 0px;
+  right: 0px;
+  text-decoration: none;
 }
