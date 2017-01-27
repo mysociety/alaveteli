@@ -10,6 +10,7 @@ class ApplicationMailer < ActionMailer::Base
   # Include all the functions views get, as emails call similar things.
   helper :application
   include MailerHelper
+  include AlaveteliFeatures::Helpers
 
   # This really should be the default - otherwise you lose any information
   # about the errors, and have to do error checking on return codes.
@@ -21,16 +22,24 @@ class ApplicationMailer < ActionMailer::Base
 
   def mail_user(user, subject)
     mail({
-      :from => contact_from_name_and_email
+      :from => contact_for_user(user),
       :to => user.name_and_email,
       :subject => subject,
     })
   end
 
-  def auto_generated_headers
+  def contact_for_user(user)
+    if feature_enabled?(:alaveteli_pro) and user and user.pro?
+      pro_contact_from_name_and_email
+    else
+      contact_from_name_and_email
+    end
+  end
+
+  def auto_generated_headers(user)
     headers({
       'Return-Path' => blackhole_email,
-      'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
+      'Reply-To' => contact_for_user(user), # not much we can do if the user's email is broken
       'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
       'X-Auto-Response-Suppress' => 'OOF',
     })
