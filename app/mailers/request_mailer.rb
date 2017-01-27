@@ -117,7 +117,7 @@ class RequestMailer < ApplicationMailer
     @url = confirm_url(:email_token => post_redirect.email_token)
     @info_request = info_request
 
-    auto_generated_headers
+    auto_generated_headers(user)
     mail_user(
       user,
       _("Delayed response to your FOI request - {{request_title}}",
@@ -136,7 +136,7 @@ class RequestMailer < ApplicationMailer
     @url = confirm_url(:email_token => post_redirect.email_token)
     @info_request = info_request
 
-    auto_generated_headers
+    auto_generated_headers(user)
     mail_user(
       user,
       _("You're long overdue a response to your FOI request - {{request_title}}",
@@ -157,7 +157,7 @@ class RequestMailer < ApplicationMailer
     @incoming_message = incoming_message
     @info_request = info_request
 
-    auto_generated_headers
+    auto_generated_headers(user)
     mail_user(info_request.user, _("Was the response you got to your FOI " \
                                       "request any good?"))
   end
@@ -167,7 +167,7 @@ class RequestMailer < ApplicationMailer
     @url = request_url(info_request)
     @info_request = info_request
 
-    auto_generated_headers
+    auto_generated_headers(user)
     mail_user(info_request.user, _("Someone has updated the status of " \
                                       "your request"))
   end
@@ -185,7 +185,7 @@ class RequestMailer < ApplicationMailer
     @incoming_message = incoming_message
     @info_request = info_request
 
-    auto_generated_headers
+    auto_generated_headers(user)
     mail_user(
       info_request.user,
       _("Clarify your FOI request - {{request_title}}",
@@ -198,7 +198,7 @@ class RequestMailer < ApplicationMailer
     @comment, @info_request = comment, info_request
     @url = comment_url(comment)
 
-    auto_generated_headers
+    auto_generated_headers(user)
     mail_user(
       info_request.user,
       _("Somebody added a note to your FOI request - {{request_title}}",
@@ -212,7 +212,7 @@ class RequestMailer < ApplicationMailer
     @count, @info_request = count, info_request
     @url = comment_url(earliest_unalerted_comment)
 
-    auto_generated_headers
+    auto_generated_headers(user)
     mail_user(
       info_request.user,
       _("Some notes have been added to your FOI request - {{request_title}}",
