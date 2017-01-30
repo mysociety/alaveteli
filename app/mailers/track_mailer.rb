@@ -6,6 +6,12 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackMailer < ApplicationMailer
+  # Note that this is different from all the other mailers, as tracks are
+  # sent from a different email address and have different bounce handling.
+  def contact_from_name_and_email
+    "#{AlaveteliConfiguration::track_sender_name} <#{AlaveteliConfiguration::track_sender_email}>"
+  end
+
   def event_digest(user, email_about_things)
     @user, @email_about_things = user, email_about_things
 
@@ -25,10 +31,6 @@ class TrackMailer < ApplicationMailer
          :to => user.name_and_email,
          :subject => _("Your {{site_name}} email alert",
                        :site_name => site_name.html_safe))
-  end
-
-  def contact_from_name_and_email
-    "#{AlaveteliConfiguration::track_sender_name} <#{AlaveteliConfiguration::track_sender_email}>"
   end
 
   # Send email alerts for tracked things.  Never more than one email
