@@ -14,6 +14,7 @@ namespace :stats do
 
     headers = ['Period',
                'Requests sent',
+               'Pro requests sent',
                'Visible comments',
                'Track this request email signups',
                'Comments on own requests',
@@ -34,6 +35,9 @@ namespace :stats do
                          month_start, month_end+1]
 
       request_count = InfoRequest.where(date_conditions).count
+      pro_request_count = InfoRequest.pro.where('info_requests.created_at >= ?
+                                                AND info_requests.created_at < ?',
+                                                month_start, month_end+1).count
       visible_comments_count = Comment.visible.where('comments.created_at >= ?
                                                       AND comments.created_at < ?',
                                                       month_start, month_end+1).count
@@ -88,6 +92,7 @@ namespace :stats do
 
       puts [period,
             request_count,
+            pro_request_count,
             visible_comments_count,
             email_request_track_count,
             comment_on_own_request_count,
