@@ -18,7 +18,7 @@ describe AlaveteliPro::InfoRequestsController do
 
     it "assigns a request filter" do
       get :index
-      expect(assigns[:request_filter]).to be_a RequestFilter
+      expect(assigns[:request_filter]).to be_a AlaveteliPro::RequestFilter
     end
 
     context 'when no filters, searches or sort params are passed' do

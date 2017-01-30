@@ -7,7 +7,7 @@
 
 class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
   def destroy
-    @embargo = Embargo.find(params[:id])
+    @embargo = AlaveteliPro::Embargo.find(params[:id])
     @info_request = @embargo.info_request
     authorize! :update, @embargo
     if @embargo.destroy

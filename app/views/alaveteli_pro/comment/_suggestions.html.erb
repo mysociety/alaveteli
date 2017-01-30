@@ -32,3 +32,9 @@
                :site_name=>site_name) %> </li>
   <% end %>
 </ul>
+<% content_for :public_warning do %>
+  <%= _('When your request\'s embargo expires, any annotations you add ' \
+        'will also be public. However, they are <strong>not</strong> ' \
+        'sent to {{public_body_name}}.',
+        :public_body_name => h(@info_request.public_body.name)) %>
+<% end %>
