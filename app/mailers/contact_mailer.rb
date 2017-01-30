@@ -12,36 +12,22 @@ class ContactMailer < ApplicationMailer
   def to_admin_message(name, email, subject, message, logged_in_user, last_request, last_body)
     @message, @logged_in_user, @last_request, @last_body = message, logged_in_user, last_request, last_body
 
-    to = if feature_enabled?(:alaveteli_pro) && @logged_in_user && @logged_in_user.pro?
-      pro_contact_from_name_and_email
-    else
-      contact_from_name_and_email
-    end
-
-    # Return path is an address we control so that SPF checks are done on it.
-    headers('Return-Path' => blackhole_email,
-            'Reply-To' => MailHandler.address_from_name_and_email(name, email))
+    reply_to_address = MailHandler.address_from_name_and_email(name, email)
+    set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail(:from => MailHandler.address_from_name_and_email(name, blackhole_email),
-         :to => to,
+         :to => contact_for_user(@logged_in_user),
          :subject => subject)
   end
-
-  # We always set Reply-To when we set Return-Path to be different from From,
-  # since some email clients seem to erroneously use the envelope from when
-  # they shouldn't, and this might help. (Have had mysterious cases of a
-  # reply coming in duplicate from a public body to both From and envelope
-  # from)
 
   # Send message to another user
   def user_message(from_user, recipient_user, from_user_url, subject, message)
     @message, @from_user, @recipient_user, @from_user_url = message, from_user, recipient_user, from_user_url
 
-    # Do not set envelope from address to the from_user, so they can't get
-    # someone's email addresses from transitory bounce messages.
-    headers('Return-Path' => blackhole_email, 'Reply-To' => from_user.name_and_email)
+    set_reply_to_headers(nil, 'Reply-To' => from_user.name_and_email)
 
+    # From is an address we control so that strict DMARC senders don't get refused
     mail(:from => MailHandler.address_from_name_and_email(from_user.name, blackhole_email),
          :to => recipient_user.name_and_email,
          :subject => subject)
@@ -53,13 +39,8 @@ class ContactMailer < ApplicationMailer
     @recipient_name, @recipient_email = recipient_name, recipient_email
 
     recipient_user = User.find_by_email(recipient_email)
-    @from_user = if feature_enabled?(:alaveteli_pro) && recipient_user && recipient_user.pro?
-      pro_contact_from_name_and_email
-    else
-      contact_from_name_and_email
-    end
 
-    mail(:from => @from_user,
+    mail(:from => contact_for_user(recipient_user),
          :to => MailHandler.address_from_name_and_email(@recipient_name, @recipient_email),
          :bcc => AlaveteliConfiguration::contact_email,
          :subject => subject)
@@ -69,14 +50,10 @@ class ContactMailer < ApplicationMailer
   def add_public_body(change_request)
     @change_request = change_request
 
-
-    # Return path is an address we control so that SPF checks are done on it.
-    headers('Return-Path' =>  blackhole_email,
-            'Reply-To' => MailHandler.address_from_name_and_email(
-                            @change_request.get_user_name,
-                            @change_request.get_user_email
-                          )
-            )
+    reply_to_address = MailHandler.address_from_name_and_email(
+      @change_request.get_user_name,
+      @change_request.get_user_email)
+    set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail(:from => MailHandler.address_from_name_and_email(
@@ -93,13 +70,10 @@ class ContactMailer < ApplicationMailer
   def update_public_body_email(change_request)
     @change_request = change_request
 
-    # Return path is an address we control so that SPF checks are done on it.
-    headers('Return-Path' => blackhole_email,
-            'Reply-To' => MailHandler.address_from_name_and_email(
-                            @change_request.get_user_name,
-                            @change_request.get_user_email
-                          )
-            )
+    reply_to_address = MailHandler.address_from_name_and_email(
+      @change_request.get_user_name,
+      @change_request.get_user_email)
+    set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail(:from => MailHandler.address_from_name_and_email(
