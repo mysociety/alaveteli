@@ -20,6 +20,7 @@ namespace :stats do
                'Comments on own requests',
                'Follow up messages sent',
                'Confirmed users',
+               'Confirmed pro users',
                'Request classifications',
                'Public body change requests',
                'Widget votes',
@@ -79,6 +80,14 @@ namespace :stats do
             where(date_conditions).
               count
 
+      pro_confirmed_users_count =
+        User.pro.not_banned.
+          where(:email_confirmed => true).
+            where('users.created_at >= ?
+                   AND users.created_at < ?',
+                   month_start, month_end+1).
+              count
+
       request_classifications_count =
         RequestClassification.where(date_conditions).count
 
@@ -98,6 +107,7 @@ namespace :stats do
             comment_on_own_request_count,
             follow_up_count,
             confirmed_users_count,
+            pro_confirmed_users_count,
             request_classifications_count,
             public_body_change_requests_count,
             widget_votes_count,
