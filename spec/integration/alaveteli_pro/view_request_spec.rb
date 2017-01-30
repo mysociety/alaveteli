@@ -45,7 +45,7 @@ describe "viewing requests in alaveteli_pro" do
   it "allows the user to add an annotation" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
-      click_link("Add an annotation")
+      first(:link, 'Add an annotation').click
       expect(page).to have_content "Add an annotation to “#{info_request.title}”"
       fill_in("comment_body", with: "Testing annotations")
       click_button("Preview your annotation")
@@ -58,7 +58,7 @@ describe "viewing requests in alaveteli_pro" do
   it "allows the user to send a follow up" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
-      click_link("Send a followup")
+      first(:link, 'Send a followup').click
       expect(page).to have_content "Send a follow up message to the " \
                                    "main FOI contact at " \
                                    "#{info_request.public_body.name}"
@@ -76,7 +76,7 @@ describe "viewing requests in alaveteli_pro" do
     embargo = FactoryGirl.create(:embargo, info_request: info_request)
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
-      click_link("Write a reply")
+      first(:link, "Write a reply").click
       expect(page).to have_content "Send a reply to"
       fill_in("outgoing_message_body", with: "Testing replies")
       choose("Anything else, such as clarifying, prompting, thanking")
@@ -89,7 +89,7 @@ describe "viewing requests in alaveteli_pro" do
   it "allows the user to download the entire request" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
-      click_link("Download a zip file of all correspondence")
+      first(:link, "Download a zip file of all correspondence").click
       expected = /attachment; filename="example_title_.*\.zip"/
       expect(page.response_headers["Content-Disposition"]).to match(expected)
     end
@@ -98,7 +98,7 @@ describe "viewing requests in alaveteli_pro" do
   it "allows the user to request an internal review" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
-      click_link("Request an internal review")
+      first(:link, "Request an internal review").click
       expect(page).to have_content "Request an internal review from " \
                                    "the main FOI contact at " \
                                    "#{info_request.public_body.name}"
