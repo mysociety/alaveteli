@@ -103,7 +103,7 @@ class InfoRequest < ActiveRecord::Base
 
   def self.visible
     warn %q([DEPRECATION] InfoRequest#visible will be removed in
-        0.27. It has been replaced by InfoRequest#is_public).squish
+        0.28. It has been replaced by InfoRequest#is_public).squish
     self.is_public
   end
 
@@ -1228,13 +1228,13 @@ class InfoRequest < ActiveRecord::Base
 
   def all_can_view?
     warn %q([DEPRECATION] InfoRequest#all_can_view? will be removed in
-    0.27. It has been replaced by InfoRequest.prominence#is_public?).squish
+    0.28. It has been replaced by InfoRequest.prominence#is_public?).squish
     prominence(:decorate => true).is_public?
   end
 
   def all_can_view_all_correspondence?
     warn %q([DEPRECATION] InfoRequest#all_can_view_all_correspondence? will be removed in
-    0.27. It has been replaced by InfoRequest#all_correspondence_is_public?).squish
+    0.28. It has been replaced by InfoRequest#all_correspondence_is_public?).squish
     all_correspondence_is_public?
   end
 
