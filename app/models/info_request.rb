@@ -87,6 +87,7 @@ class InfoRequest < ActiveRecord::Base
 
   has_tag_string
 
+  scope :pro, ProQuery.new
   scope :is_public, Prominence::PublicQuery.new
   scope :is_searchable, Prominence::SearchableQuery.new
   scope :embargoed, Prominence::EmbargoedQuery.new
