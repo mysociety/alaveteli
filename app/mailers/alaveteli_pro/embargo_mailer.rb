@@ -13,7 +13,7 @@ module AlaveteliPro
           UserInfoRequestSentAlert.where(
             info_request_id: info_request.id,
             user_id: user.id,
-            alert_type: 'embargo_expiring',
+            alert_type: 'embargo_expiring_1',
             info_request_event_id: alert_event_id).exists?
         end
         next if info_requests.empty?
@@ -23,7 +23,7 @@ module AlaveteliPro
           UserInfoRequestSentAlert.create(
             user: user,
             info_request: info_request,
-            alert_type: 'embargo_expiring',
+            alert_type: 'embargo_expiring_1',
             info_request_event_id: alert_event_id)
         end
       end
