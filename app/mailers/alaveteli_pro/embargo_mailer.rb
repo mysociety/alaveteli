@@ -9,7 +9,7 @@ module AlaveteliPro
     def self.alert_expiring
       InfoRequest.embargo_expiring.group_by(&:user).each do |user, info_requests|
         info_requests.reject! do |info_request|
-          alert_event_id = info_request.last_event_forming_initial_request.id
+          alert_event_id = info_request.last_embargo_set_event.id
           UserInfoRequestSentAlert.where(
             info_request_id: info_request.id,
             user_id: user.id,
@@ -19,7 +19,7 @@ module AlaveteliPro
         next if info_requests.empty?
         expiring_alert(user, info_requests)
         info_requests.each do |info_request|
-          alert_event_id = info_request.last_event_forming_initial_request.id
+          alert_event_id = info_request.last_embargo_set_event.id
           UserInfoRequestSentAlert.create(
             user: user,
             info_request: info_request,
