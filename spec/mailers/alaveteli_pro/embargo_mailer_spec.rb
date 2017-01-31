@@ -4,6 +4,7 @@ require 'spec_helper'
 describe AlaveteliPro::EmbargoMailer do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
   let(:pro_user_2) { FactoryGirl.create(:pro_user) }
+  let(:embargo_extension) { FactoryGirl.create(:embargo_extension) }
 
   let!(:expiring_1) do
     FactoryGirl.create(:embargo_expiring_request, user: pro_user)
@@ -35,6 +36,20 @@ describe AlaveteliPro::EmbargoMailer do
       ActionMailer::Base.deliveries.clear
       AlaveteliPro::EmbargoMailer.alert_expiring
       expect(ActionMailer::Base.deliveries.size).to eq 0
+    end
+
+    it 'sends an alert about an expiring embargo extension' do
+      AlaveteliPro::EmbargoMailer.alert_expiring
+      expect(ActionMailer::Base.deliveries.size).to eq 2
+
+      ActionMailer::Base.deliveries.clear
+      expiring_3.embargo.extend(embargo_extension)
+      time_travel_to(AlaveteliPro::Embargo.three_months_from_now - 3.days) do
+        AlaveteliPro::EmbargoMailer.alert_expiring
+        mails = ActionMailer::Base.deliveries
+        expect(mails.detect{ |mail| mail.to == [pro_user_2.email] }).
+          not_to be_nil
+      end
     end
 
     it 'creates UserInfoRequestSentAlert records for each expiring request' do
