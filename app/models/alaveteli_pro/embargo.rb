@@ -22,6 +22,8 @@ module AlaveteliPro
                            in: lambda { |e| e.allowed_durations },
                            allow_nil: true
     after_initialize :set_default_duration, :set_publish_at_from_duration
+    around_save :add_set_embargo_event
+    attr_accessor :extension
 
     # We're using some approximations here as months are not always the same length
     # and we want embargo arithmetic to be predictable
@@ -61,6 +63,7 @@ module AlaveteliPro
     end
 
     def extend(extension)
+      self.extension = extension
       self.publish_at += duration_as_duration(extension.extension_duration)
       save
     end
@@ -90,6 +93,18 @@ module AlaveteliPro
     end
 
     private
+
+    def add_set_embargo_event
+      publish_at_changed = self.publish_at_changed?
+      yield
+      if publish_at_changed
+        params = { :embargo_id => self.id }
+        if extension
+          params[:embargo_extension_id] = extension.id
+        end
+        info_request.log_event('set_embargo', params)
+      end
+    end
 
     def set_publish_at_from_duration
       unless self.publish_at.present? || self.embargo_duration.blank?
