@@ -23,7 +23,7 @@ describe "viewing requests in alaveteli_pro" do
                                    "#{old_publish_at.to_date}")
       select "3 Months", from: "Extend embargo:"
       click_button("Extend")
-      expected_publish_at = old_publish_at + 3.months
+      expected_publish_at = old_publish_at + AlaveteliPro::Embargo::THREE_MONTHS
       expect(embargo.reload.publish_at).to eq(expected_publish_at)
       expect(page).to have_content("This request is embargoed until " \
                                    "#{expected_publish_at.to_date} ")
