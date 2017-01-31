@@ -22,10 +22,8 @@ describe AlaveteliPro::EmbargoMailer do
       AlaveteliPro::EmbargoMailer.alert_expiring
       mails = ActionMailer::Base.deliveries
       expect(mails.size).to eq 2
-      # We don't know the order, so find each mail in this slightly awkward
-      # way. These would probably get an IndexError if they didn't exist
-      first_mail = mails.select{ |mail| mail.to == [pro_user.email] }[0]
-      second_mail = mails.select{ |mail| mail.to == [pro_user_2.email] }[0]
+      first_mail = mails.detect{ |mail| mail.to == [pro_user.email] }
+      second_mail = mails.detect{ |mail| mail.to == [pro_user_2.email] }
       expect(first_mail).not_to be nil
       expect(second_mail).not_to be nil
     end
