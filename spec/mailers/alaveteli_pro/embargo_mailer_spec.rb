@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe EmbargoMailer do
+describe AlaveteliPro::EmbargoMailer do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
   let(:pro_user_2) { FactoryGirl.create(:pro_user) }
 
@@ -19,7 +19,7 @@ describe EmbargoMailer do
 
   describe '.alert_expiring' do
     it 'only sends one email per user' do
-      EmbargoMailer.alert_expiring
+      AlaveteliPro::EmbargoMailer.alert_expiring
       mails = ActionMailer::Base.deliveries
       expect(mails.size).to eq 2
       # We don't know the order, so find each mail in this slightly awkward
@@ -31,11 +31,11 @@ describe EmbargoMailer do
     end
 
     it 'only sends an alert about an expiring embargo once' do
-      EmbargoMailer.alert_expiring
+      AlaveteliPro::EmbargoMailer.alert_expiring
       expect(ActionMailer::Base.deliveries.size).to eq 2
 
       ActionMailer::Base.deliveries.clear
-      EmbargoMailer.alert_expiring
+      AlaveteliPro::EmbargoMailer.alert_expiring
       expect(ActionMailer::Base.deliveries.size).to eq 0
     end
 
@@ -53,7 +53,7 @@ describe EmbargoMailer do
         user_id: pro_user_2.id)
       ).not_to exist
 
-      EmbargoMailer.alert_expiring
+      AlaveteliPro::EmbargoMailer.alert_expiring
 
       expect(UserInfoRequestSentAlert.where(
         info_request_id: expiring_1.id,
@@ -73,7 +73,7 @@ describe EmbargoMailer do
   describe '#expiring_alert' do
     context "when there's just one embargo" do
       before do
-        EmbargoMailer.expiring_alert(pro_user, [expiring_1])
+        AlaveteliPro::EmbargoMailer.expiring_alert(pro_user, [expiring_1])
         @mail = ActionMailer::Base.deliveries[0]
       end
 
@@ -102,7 +102,7 @@ describe EmbargoMailer do
 
     context "when there are multiple embargoes" do
       before do
-        EmbargoMailer.expiring_alert(pro_user, [expiring_1, expiring_2])
+        AlaveteliPro::EmbargoMailer.expiring_alert(pro_user, [expiring_1, expiring_2])
         @mail = ActionMailer::Base.deliveries[0]
       end
 
