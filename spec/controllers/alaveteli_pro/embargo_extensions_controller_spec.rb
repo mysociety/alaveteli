@@ -21,13 +21,15 @@ describe AlaveteliPro::EmbargoExtensionsController do
         end
 
         it "updates the embargo" do
-          expect(embargo.reload.publish_at.to_date).to eq Time.zone.today + 6.months
+          expect(embargo.reload.publish_at).
+            to eq AlaveteliPro::Embargo.six_months_from_now
         end
 
         it "sets a flash message" do
-          expect(flash[:notice]).to eq "Your embargo has been extended! It "\
-                                       "will now expire on " \
-                                       "#{Time.zone.today + 6.months}."
+          expect(flash[:notice]).
+            to eq "Your embargo has been extended! It "\
+              "will now expire on " \
+              "#{AlaveteliPro::Embargo.six_months_from_now.to_date}."
         end
 
         it "redirects to the request show page" do
@@ -49,13 +51,15 @@ describe AlaveteliPro::EmbargoExtensionsController do
         end
 
         it "updates the embargo" do
-          expect(embargo.reload.publish_at.to_date).to eq Time.zone.today + 6.months
+          expect(embargo.reload.publish_at).
+            to eq AlaveteliPro::Embargo.six_months_from_now
         end
 
         it "sets a flash message" do
-          expect(flash[:notice]).to eq "Your embargo has been extended! It "\
-                                       "will now expire on " \
-                                       "#{Time.zone.today + 6.months}."
+          expect(flash[:notice]).
+            to eq "Your embargo has been extended! It "\
+              "will now expire on " \
+              "#{AlaveteliPro::Embargo.six_months_from_now.to_date}."
         end
 
         it "redirects to the request show page" do

@@ -23,10 +23,16 @@ module AlaveteliPro
                            allow_nil: true
     after_initialize :set_default_duration, :set_publish_at_from_duration
 
+    # We're using some approximations here as months are not always the same length
+    # and we want embargo arithmetic to be predictable
+    THREE_MONTHS = 91.days
+    SIX_MONTHS = 182.days
+    TWELVE_MONTHS = 364.days
+
     DURATIONS = {
-      "3_months" => Proc.new { 3.months },
-      "6_months" => Proc.new { 6.months },
-      "12_months" => Proc.new { 12.months }
+      "3_months" => Proc.new { THREE_MONTHS },
+      "6_months" => Proc.new { SIX_MONTHS },
+      "12_months" => Proc.new { TWELVE_MONTHS }
     }.freeze
 
     DURATION_LABELS = {
@@ -69,6 +75,18 @@ module AlaveteliPro
         embargo.info_request.log_event('expire_embargo', {})
         embargo.destroy
       end
+    end
+
+    def self.three_months_from_now
+      Time.zone.now.beginning_of_day + THREE_MONTHS
+    end
+
+    def self.six_months_from_now
+      Time.zone.now.beginning_of_day + SIX_MONTHS
+    end
+
+    def self.twelve_months_from_now
+      Time.zone.now.beginning_of_day + TWELVE_MONTHS
     end
 
     private
