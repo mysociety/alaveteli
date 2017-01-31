@@ -65,7 +65,7 @@ describe AlaveteliPro::Embargo, :type => :model do
       expect(embargo.publish_at).to eq AlaveteliPro::Embargo.three_months_from_now
     end
 
-    it 'doesnt set publish_at from duration if its already set' do
+    it "doesn't set publish_at from duration if its already set" do
       embargo = AlaveteliPro::Embargo.create(info_request: info_request,
                                publish_at: Time.zone.now.beginning_of_day,
                                embargo_duration: "3_months")
@@ -102,7 +102,7 @@ describe AlaveteliPro::Embargo, :type => :model do
   describe '.expire_publishable' do
 
     context 'for an embargo whose publish_at date has passed' do
-      it 'should delete the embargo' do
+      it 'deletes the embargo' do
         embargo = FactoryGirl.create(:embargo)
         info_request = embargo.info_request
         time_travel_to(Time.zone.today + 4.months) do
@@ -112,7 +112,7 @@ describe AlaveteliPro::Embargo, :type => :model do
         end
       end
 
-      it 'should log the embargo expiry' do
+      it 'logs the embargo expiry' do
         embargo = FactoryGirl.create(:embargo)
         info_request = embargo.info_request
         time_travel_to(Time.zone.today + 4.months) do
@@ -127,7 +127,7 @@ describe AlaveteliPro::Embargo, :type => :model do
     end
 
     context 'for an embargo whose publish_at date is today' do
-      it 'should not expire the embargo' do
+      it 'does not expire the embargo' do
         embargo = FactoryGirl.create(:embargo)
         info_request = embargo.info_request
         time_travel_to(AlaveteliPro::Embargo.three_months_from_now) do
