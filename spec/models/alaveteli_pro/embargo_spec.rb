@@ -73,6 +73,21 @@ describe AlaveteliPro::Embargo, :type => :model do
     end
   end
 
+  describe 'saving' do
+    let(:embargo_extension) { FactoryGirl.create(:embargo_extension) }
+    let(:embargo) { embargo_extension.embargo }
+
+    it 'records an "set_embargo" event on the request' do
+      latest_event = embargo.info_request.info_request_events.last
+      expect(latest_event.event_type).to eq 'set_embargo'
+      expect(latest_event.params[:embargo_id]).
+        to eq embargo.id
+      expect(latest_event.params[:embargo_extension_id]).
+        to be_nil
+    end
+
+  end
+
   describe 'extending' do
     let(:embargo_extension) { FactoryGirl.create(:embargo_extension) }
     let(:embargo) { embargo_extension.embargo }
@@ -82,6 +97,14 @@ describe AlaveteliPro::Embargo, :type => :model do
       expect(old_publish_at).to eq AlaveteliPro::Embargo.three_months_from_now
       embargo.extend(embargo_extension)
       expect(embargo.publish_at).to eq AlaveteliPro::Embargo.six_months_from_now
+    end
+
+    it 'records an "set_embargo" event on the request' do
+      embargo.extend(embargo_extension)
+      latest_event = embargo.info_request.info_request_events.last
+      expect(latest_event.event_type).to eq 'set_embargo'
+      expect(latest_event.params[:embargo_extension_id]).
+        to eq embargo_extension.id
     end
   end
 
