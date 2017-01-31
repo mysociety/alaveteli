@@ -1852,7 +1852,7 @@ describe RequestController do
               the response is overdue' do
             # Create the request with today's date
             info_request
-            time_travel_to(1.month.from_now) do
+            time_travel_to(info_request.date_response_required_by + 2.days) do
               expect_redirect('waiting_response',
                               show_request_path(info_request.url_title))
               expect(flash[:notice]).to match(/should have got a response/)
@@ -1863,7 +1863,7 @@ describe RequestController do
               response is very overdue' do
             # Create the request with today's date
             info_request
-            time_travel_to(2.month.from_now) do
+            time_travel_to(info_request.date_very_overdue_after + 2.days) do
               expect_redirect('waiting_response',
                               help_unhappy_path(info_request.url_title))
               expect(flash[:notice]).to match(/is long overdue/)
