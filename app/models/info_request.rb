@@ -810,6 +810,13 @@ class InfoRequest < ActiveRecord::Base
                           AlaveteliConfiguration.working_or_calendar_days)
   end
 
+  def last_embargo_set_event
+    info_request_events.
+      where(:event_type => 'set_embargo').
+        reorder('created_at DESC').
+          first
+  end
+
   # Where the initial request is sent to
   def recipient_email
     public_body.request_email
