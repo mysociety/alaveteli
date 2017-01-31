@@ -3327,4 +3327,37 @@ describe InfoRequest do
     end
   end
 
+  describe '#last_embargo_set_event' do
+
+    context 'if no embargo has been set' do
+      let(:info_request){ FactoryGirl.create(:info_request) }
+
+      it 'returns nil' do
+        expect(info_request.last_embargo_set_event).to be_nil
+      end
+
+    end
+
+    context 'if embargos have been set' do
+      let(:embargo){ FactoryGirl.create(:embargo) }
+      let(:embargo_extension){ FactoryGirl.create(:embargo_extension) }
+
+      it 'returns the last "set_embargo" event' do
+        last_embargo_set_event = embargo.info_request.last_embargo_set_event
+        expect(last_embargo_set_event.event_type).to eq 'set_embargo'
+        expect(last_embargo_set_event.params[:embargo_id]).
+          to eq embargo.id
+        expect(last_embargo_set_event.params[:embargo_extension_id]).
+          to be_nil
+        embargo.extend(embargo_extension)
+        last_embargo_set_event = embargo.info_request.last_embargo_set_event
+        expect(last_embargo_set_event.event_type).to eq 'set_embargo'
+        expect(last_embargo_set_event.params[:embargo_extension_id]).
+          to eq embargo_extension.id
+      end
+
+    end
+
+  end
+
 end
