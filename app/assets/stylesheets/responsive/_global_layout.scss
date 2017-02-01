@@ -22,6 +22,13 @@
   #wrapper {
     @extend .wrapper--wide;
   }
+  #request_show {
+    /* The pro dashboard uses /wrapper--wide but we don't want all pro pages to
+     * TODO: there is a better way of doing this
+     */
+     max-width: 64em;
+     margin: 0 auto;
+  }
 }
 
 /* A global 12 column element provides padding for all pages */
