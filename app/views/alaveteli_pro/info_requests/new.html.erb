@@ -23,10 +23,7 @@
 
     <div class="pro-canvas-body">
       <div class="row">
-        <div id="request_advice" class="request_advice">
-
-        </div>
-        <div id="request_form" class="request_form">
+        <div class="request-to-header">
           <div id="to_public_body" class="to_public_body">
             <label for="info_request_public_body_id" class="form_label">
               <span class="to_public_body_label"><%= _('To') %></span>
@@ -37,6 +34,12 @@
               { :prompt => _('Select an authority') },
               { :class => 'js-authority-select' }) %>
           </div>
+        </div>
+        <div id="request_advice" class="request_advice">
+
+        </div>
+        <div id="request_form" class="request_form">
+
           <div id="request_subject" class="request_subject">
             <p>
               <label class="form_label" for="info_request_title">

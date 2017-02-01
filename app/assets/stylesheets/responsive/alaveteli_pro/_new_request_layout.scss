@@ -1,1 +1,14 @@
 /* Layout for the new request page */
+.request-to-header {
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+}
+.to_public_body {
+  padding: 1.5em 1.5em 2em;
+  background-color: #F3F1EB;
+  border-radius: 3px;
+  margin: 1em 0 1.5em !important;
+}
