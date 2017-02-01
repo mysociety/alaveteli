@@ -1,30 +1,30 @@
 <% @title = _("Make an {{law_used_short}} request",
             :law_used_short => h(@info_request.law_used_human(:short))) %>
 
-<form action="<%= alaveteli_pro_select_authority_path %>" method="get" class="new_info_request">
+<div class="pro-canvas">
 
-  <div class="pro-canvas">
-    <div class="pro-canvas-header">
-      <div class="row">
-        <h1><%= _("Make a request") %></h1>
-      </div>
+  <div class="pro-canvas-header">
+    <div class="row">
+      <h1><%= _("Make a request") %></h1>
     </div>
+  </div>
 
-    <%= foi_error_messages_for :info_request, :outgoing_message %>
+  <%= foi_error_messages_for :info_request, :outgoing_message %>
 
-    <% if !AlaveteliConfiguration::override_all_public_body_request_emails.blank? %>
-      <div class="warning">
-        <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => AlaveteliConfiguration::override_all_public_body_request_emails) %>
-      </div>
-    <% end %>
+  <% if !AlaveteliConfiguration::override_all_public_body_request_emails.blank? %>
+    <div class="warning">
+      <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => AlaveteliConfiguration::override_all_public_body_request_emails) %>
+    </div>
+  <% end %>
 
-    <div class="pro-canvas-body">
-      <div class="row">
-        <div id="request_advice" class="request_advice">
-          <%# Intentionally empty for now, it's part of the layout %>
-        </div>
+  <div class="pro-canvas-body">
 
-        <div class="request_form">
+    <div class="row">
+
+      <div class="request-to-header">
+        <form action="<%= alaveteli_pro_select_authority_path %>"
+              method="get"
+              class="new_info_request">
           <p id="to_public_body" class="to_public_body">
             <label for="public_body_query">
               <span class="to_public_body_label"><%= _('To') %></span>
@@ -44,31 +44,24 @@
                          :info_requests_visible_count => @info_request.public_body.info_requests_visible_count
                        }.to_json %>"
                    <% end %>>
+            <input type="submit"
+                   value="<%= _('Search') %>"
+                   class="js-authority-select-submit public-body-query__submit">
           </p>
-          <input type="submit" value="<%= _('Search') %>" class="js-authority-select-submit public-body-query__submit">
+        </form>
+      </div> <!-- .request-to-header -->
 
-        </div> <!-- .request_form -->
 
-      </div>  <!-- .row -->
+      <div id="request_advice" class="request_advice">
+        <%# Intentionally empty for now, it's part of the layout %>
+      </div>
 
-    </div> <!-- .pro-canvas-body -->
+      <div id="request_form" class="request_form">
 
-  </div> <!-- .pro-canvas -->
-
-</form>
-
-<%= form_tag([:alaveteli_pro, @draft_info_request],
-     method: @draft_info_request.id ? :put : :post,
-     :id => 'write_form',
-     :class => 'new_info_request') do %>
-
-  <div class="pro-canvas">
-    <div class="pro-canvas-body">
-      <div class="row">
-        <div id="request_advice" class="request_advice">
-          <%# Intentionally empty for now, it's part of the layout %>
-        </div>
-        <div class="request_form">
+        <%= form_tag([:alaveteli_pro, @draft_info_request],
+         method: @draft_info_request.id ? :put : :post,
+         :id => 'write_form',
+         :class => 'new_info_request') do %>
 
           <%= fields_for @info_request do |f| %>
 
@@ -127,12 +120,12 @@
 
           <% end %>
 
-        </div>  <!-- .request_form -->
+        <% end %>
 
-      </div>  <!-- .row -->
+      </div>  <!-- .request_form -->
 
-    </div>  <!-- .pro-canvas-body -->
+    </div>  <!-- .row -->
 
-  </div>  <!-- .pro-canvas -->
+  </div>  <!-- .pro-canvas-body -->
 
-<% end %>
+</div> <!-- .pro-canvas -->
