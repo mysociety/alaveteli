@@ -21,7 +21,6 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def mail_user(user, subject)
-    auto_generated_headers('Reply-To' => contact_for_user(user))
     mail({
       :from => contact_for_user(user),
       :to => user.name_and_email,
@@ -29,7 +28,7 @@ class ApplicationMailer < ActionMailer::Base
     })
   end
 
-  def contact_for_user(user)
+  def contact_for_user(user = nil)
     if feature_enabled?(:alaveteli_pro) and user and user.pro?
       pro_contact_from_name_and_email
     else
@@ -37,8 +36,16 @@ class ApplicationMailer < ActionMailer::Base
     end
   end
 
-  # Set Return-Path, Reply-To and other miscellaneous headers that give us a
-  # better mail sending experience (from hard won experience).
+  # Set headers that mark an email as being auto-generated and suppress out of
+  # office responses to them
+  def set_auto_generated_headers(opts = {})
+    headers({
+      'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
+      'X-Auto-Response-Suppress' => 'OOF',
+    })
+  end
+
+  # Set Return-Path and Reply-To headers
   #
   # Note:
   # - We set Return-Path, so you should always set Reply-To to be different
@@ -51,11 +58,10 @@ class ApplicationMailer < ActionMailer::Base
   # - When sending emails from one user to another, do not set envelope from
   #   address to the from_user, so they can't get someone's email addresses
   #   from transitory bounce messages.
-  def auto_generated_headers(opts = {})
+  def set_reply_to_headers(user = nil, opts = {})
     default_opts = {
       'Return-Path' => blackhole_email,
-      'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-      'X-Auto-Response-Suppress' => 'OOF',
+      'Reply-To' => contact_for_user(user)
     }
     default_opts.merge!(opts)
     headers(default_opts)
