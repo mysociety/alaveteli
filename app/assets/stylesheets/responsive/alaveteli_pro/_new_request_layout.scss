@@ -7,7 +7,10 @@
   }
 }
 .to_public_body {
-  padding: 1.5em 1.5em 2em;
+  padding: 1em;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    padding: 1.5em 1.5em 2em;
+  }
   background-color: #F3F1EB;
   border-radius: 3px;
   margin: 1em 0 1.5em !important;

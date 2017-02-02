@@ -1,0 +1,31 @@
+.pro-canvas {
+  padding-bottom: 3em;
+}
+
+.pro-canvas-header {
+  margin-top: 2em;
+  padding-left: 0.9375em;
+  padding-right: 0.9375em;
+  h1 {
+    margin-top: 0.4em;
+    margin-bottom: 0.5em;
+    display: block;
+    width: 100%;
+  }
+}
+
+.pro-canvas-body {
+  padding-top: 2em;
+}
+
+.embargo-sidebar-heading {
+  .embargo-indicator {
+    margin-right: 0.5em;
+    position: relative;
+    top: 3px;
+  }
+}
+
+.extend-embargo-sidebar {
+  padding-top: 1.5em;
+}
