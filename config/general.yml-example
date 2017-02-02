@@ -558,6 +558,18 @@ GAZE_URL: http://gaze.mysociety.org
 # ---
 FORWARD_NONBOUNCE_RESPONSES_TO: user-support@localhost
 
+# The email address to which non-bounce responses to emails sent out to
+# Alaveteli Professional users by Alaveteli should be forwarded
+#
+# FORWARD_PRO_NONBOUNCE_RESPONSES_TO - String (default: pro-user-support@localhost)
+#
+# Examples:
+#
+#   FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@example.com
+#
+# ---
+FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
+
 # Path to a program that converts an HTML page in a file to PDF. Also used to
 # download a zip file of all the correspondence for a request. It should take
 # two arguments: the URL, and a path to an output file.
