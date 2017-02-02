@@ -14,11 +14,13 @@ namespace :stats do
 
     headers = ['Period',
                'Requests sent',
+               'Pro requests sent',
                'Visible comments',
                'Track this request email signups',
                'Comments on own requests',
                'Follow up messages sent',
                'Confirmed users',
+               'Confirmed pro users',
                'Request classifications',
                'Public body change requests',
                'Widget votes',
@@ -34,6 +36,9 @@ namespace :stats do
                          month_start, month_end+1]
 
       request_count = InfoRequest.where(date_conditions).count
+      pro_request_count = InfoRequest.pro.where('info_requests.created_at >= ?
+                                                AND info_requests.created_at < ?',
+                                                month_start, month_end+1).count
       visible_comments_count = Comment.visible.where('comments.created_at >= ?
                                                       AND comments.created_at < ?',
                                                       month_start, month_end+1).count
@@ -75,6 +80,14 @@ namespace :stats do
             where(date_conditions).
               count
 
+      pro_confirmed_users_count =
+        User.pro.not_banned.
+          where(:email_confirmed => true).
+            where('users.created_at >= ?
+                   AND users.created_at < ?',
+                   month_start, month_end+1).
+              count
+
       request_classifications_count =
         RequestClassification.where(date_conditions).count
 
@@ -88,11 +101,13 @@ namespace :stats do
 
       puts [period,
             request_count,
+            pro_request_count,
             visible_comments_count,
             email_request_track_count,
             comment_on_own_request_count,
             follow_up_count,
             confirmed_users_count,
+            pro_confirmed_users_count,
             request_classifications_count,
             public_body_change_requests_count,
             widget_votes_count,
