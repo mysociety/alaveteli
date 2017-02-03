@@ -625,6 +625,14 @@ describe IncomingMessage, " when dealing with incoming mail" do
     end
   end
 
+  it 'should insert some text for messages without a body', :focus => true do
+    ir = info_requests(:fancy_dog_request)
+    receive_incoming_mail('no-body.email', ir.incoming_email)
+    message = ir.incoming_messages[1]
+    message.parse_raw_email!
+    expect(message.get_main_body_text_internal).
+      to eq "[ Email has no body, please see attachments ]"
+  end
 
   it "should load an email with funny MIME settings" do
     ActionMailer::Base.deliveries.clear

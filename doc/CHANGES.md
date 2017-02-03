@@ -1,10 +1,26 @@
-# develop
+# 0.26.0.7
 
 ## Highlighted Features
 
+* Fix a bug in the handling of incoming mail with no body, just
+  attachments (Louise Crow)
+
+# 0.26.0.6
+
+## Highlighted Features
+
+* Apply text masks and censor rules to attachments when downloading a whole
+  request as a Zip file (Louise Crow, Gareth Rees)
+
 ## Upgrade Notes
 
-### Changed Templates
+* Check what information may have been released by auditing cached zip
+  downloads:
+  `bundle exec rake temp:audit_cached_zip_downloads_with_censor_rules`. Save
+  this information somewhere to refer back to.
+* Clear all cached Zip downloads so that masks and censor rules are applied the
+  next time they are accessed:
+  `bundle exec rake temp:remove_cached_zip_downloads`.
 
 # 0.26.0.5
 

@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
-  desc 'Remove cached zip download files with censor rules'
-  task :remove_cached_zip_downloads_with_censor_rules => :environment do
-    requests_with_censor_rules.each do |info_request|
-      FileUtils.rm_rf(info_request.download_zip_dir)
-    end
+  desc 'Remove cached zip download files'
+  task :remove_cached_zip_downloads => :environment do
+    FileUtils.rm_rf(InfoRequest.download_zip_dir)
   end
 
   desc 'Audit cached zip download files with censor rules'
