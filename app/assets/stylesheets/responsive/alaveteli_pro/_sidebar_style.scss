@@ -1,5 +1,68 @@
+// Request status picker
+// The list of options is presented as a basic form without JS, and a custom
+// dropdown kind of thing when JS is available
+.status-picker__options {
+  list-style: none;
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
 .js-loaded {
+
   .embargo__submit {
     display: none;
+  }
+
+  .status-picker__submit {
+    display: none;
+  }
+
+  .status-picker__button {
+    position: relative;
+    padding-right: 1.5em;
+    &:hover,
+    &:active,
+    &:focus {
+      outline: 0;
+      color: #333333;
+      &:after {
+        border-top-color: #bbb;
+      }
+    }
+    &:focus {
+      outline: auto 2px Highlight;
+      outline: auto 5px -webkit-focus-ring-color;
+    }
+    &:after {
+      border-color: #d8d8d8 transparent transparent transparent;
+      right: 0;
+      border-width: 0.38889rem;
+      margin-top: -0.13889rem;
+      border-style: solid;
+      content: "";
+      display: block;
+      height: 0;
+      position: absolute;
+      top: 50%;
+      width: 0;
+    }
+  }
+
+  .status-picker__option {
+    label {
+      font-size: 1em;
+      padding: 0.25em;
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+    input {
+      display: none;
+    }
+  }
+
+  .status-picker__option--selected label {
+    font-weight: bold;
   }
 }
