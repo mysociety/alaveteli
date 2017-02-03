@@ -465,7 +465,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Add an annotation if the text had to be scrubbed
-    if part.body_as_text.scrubbed?
+    if part && part.body_as_text.scrubbed?
       text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
                 :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
     end

@@ -1,3 +1,4 @@
+
 # develop
 
 ## Highlighted Features
@@ -7,6 +8,13 @@
 ## Upgrade Notes
 
 ### Changed Templates
+
+# 0.26.0.7
+
+## Highlighted Features
+
+* Fix a bug in the handling of incoming mail with no body, just
+  attachments (Louise Crow)
 
 # 0.26.0.6
 
