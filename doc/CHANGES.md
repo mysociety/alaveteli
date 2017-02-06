@@ -4,6 +4,8 @@
 ## Highlighted Features
 
 * Prevent long authority names overflowing on statistics page (Gareth Rees)
+* Fix css bug which allowed some "visually-hidden" elements to affect page
+  length (Liz Conlan)
 
 ## Upgrade Notes
 
