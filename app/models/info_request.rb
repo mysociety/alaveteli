@@ -740,6 +740,8 @@ class InfoRequest < ActiveRecord::Base
 
   def recipient_name_and_email
     MailHandler.address_from_name_and_email(
+      # TRANSLATORS: Please don't use double quotes (") in this translation
+      # or it will break the site's ability to send emails to authorities!
       _("{{law_used}} requests at {{public_body}}",
         :law_used => law_used_human(:short),
         :public_body => public_body.short_or_long_name),
