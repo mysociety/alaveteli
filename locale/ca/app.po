@@ -6,6 +6,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # David Cabo <david.cabo@gmail.com>, 2012,2014
 # ecapfri <ecapfri@yahoo.es>, 2012
 # ecapfri <ecapfri@yahoo.es>, 2012

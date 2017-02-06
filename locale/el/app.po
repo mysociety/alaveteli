@@ -6,13 +6,15 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Andreas Nedelkos <vandreas2004@yahoo.gr>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"PO-Revision-Date: 2017-02-01 21:57+0000\n"
+"Last-Translator: Andreas Nedelkos <vandreas2004@yahoo.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el/)\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +74,7 @@ msgid " You are already being emailed updates about the request."
 msgstr ""
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr "Επίσης θα σας σταλεί email για το αίτημα."
 
 msgid " filtered by status: '{{status}}'"
 msgstr ""
