@@ -23,6 +23,10 @@ class InfoRequest
               :clarification_needed
             when 'waiting_response'
               :awaiting_response
+            when 'waiting_response_overdue'
+              :overdue
+            when 'waiting_response_very_overdue'
+              :very_overdue
             when 'gone_postal',
                  'internal_review',
                  'error_message',

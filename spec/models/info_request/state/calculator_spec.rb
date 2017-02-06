@@ -10,6 +10,20 @@ describe InfoRequest::State::Calculator do
       expect(calculator.phase).to eq(:awaiting_response)
     end
 
+    it 'returns :overdue when the request is in state "waiting_response_overdue"' do
+      time_travel_to(info_request.date_response_required_by + 2.days) do
+        expect(info_request.calculate_status).to eq "waiting_response_overdue"
+        expect(calculator.phase).to eq(:overdue)
+      end
+    end
+
+    it 'returns :very_overdue when the request is in state "waiting_response_very_overdue"' do
+      time_travel_to(info_request.date_very_overdue_after + 2.days) do
+        expect(info_request.calculate_status).to eq "waiting_response_very_overdue"
+        expect(calculator.phase).to eq(:very_overdue)
+      end
+    end
+
     it 'returns :clarification_needed when the request is in state "waiting_clarification"' do
       info_request.set_described_state('waiting_clarification')
       expect(calculator.phase).to eq(:clarification_needed)
