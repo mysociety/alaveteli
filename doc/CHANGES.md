@@ -1,3 +1,13 @@
+0.26.0.8
+
+## Highlighted Features
+
+* Updated translations from Transifex (Louise Crow)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
 # 0.26.0.7
 
 ## Highlighted Features
