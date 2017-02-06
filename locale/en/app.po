@@ -4225,7 +4225,6 @@ msgstr "{{info_request_user_name}}"
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} request - {{title}}"
 
-#, Please don't use double quotes (") in this translation or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} requests at {{public_body}}"
 

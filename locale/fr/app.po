@@ -6,7 +6,8 @@
 # Translators:
 # Translators:
 # Translators:
-# Adrien Chauvet <adr.chauvet@gmail.com>, 2013
+# Translators:
+# Adrien Chauvet, 2013
 # skenaja <alex@alexskene.com>, 2011
 # andreas.pavlou <andreas@access-info.org>, 2013
 # andreas.pavlou <andreas@access-info.org>, 2013
