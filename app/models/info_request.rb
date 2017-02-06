@@ -147,7 +147,7 @@ class InfoRequest < ActiveRecord::Base
 
   def self.enumerate_states
     warn %q([DEPRECATION] InfoRequest.enumerate_states will be removed in
-    0.28. It has been replaced by InfoRequest::States#all).squish
+    0.28. It has been replaced by InfoRequest::State#all).squish
     State.all
   end
 
