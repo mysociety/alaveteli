@@ -7,6 +7,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aida Martinez <amartinez@antai.gob.pa>, 2016
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # gaba <gabelula@gmail.com>, 2012,2014
@@ -24,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/language/es_PA/)\n"
 "Language: es_PA\n"
 "MIME-Version: 1.0\n"
@@ -475,6 +476,9 @@ msgstr "En espera de la clasificación"
 msgid "Awaiting classification."
 msgstr "Esperando clasificación."
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "Esperando revisión interna."
 
@@ -609,6 +613,9 @@ msgstr "Elegir su foto de perfil"
 msgid "Clarification"
 msgstr "Aclaración"
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Aclaración enviada a {{public_body_name}} por {{info_request_user}} el {{date}}."
 
@@ -644,6 +651,9 @@ msgstr "Comment|Locale"
 
 msgid "Comment|Visible"
 msgstr "Comment|Visible"
+
+msgid "Complete"
+msgstr ""
 
 msgid "Confirm password:"
 msgstr "Contraseña: (otra vez)"
@@ -743,6 +753,9 @@ msgstr "Señores [Authority name],"
 
 msgid "Dear {{name}},"
 msgstr "Estimado {{name}},"
+
+msgid "Dear {{placeholder_body_name}},"
+msgstr ""
 
 msgid "Dear {{public_body_name}},"
 msgstr "Señores {{public_body_name}},"
@@ -1201,6 +1214,9 @@ msgstr "Ya no deseo seguir clasificando"
 msgid "I like this request"
 msgstr "Me gusta esta solicitud"
 
+msgid "I want to withdraw this request"
+msgstr ""
+
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Me gustaría <strong>retirar esta solicitud</strong>"
 
@@ -1216,8 +1232,8 @@ msgstr "Estoy esperando por una respuesta de la <strong>revisión interna</stron
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Me han pedido que <strong>aclare</strong> mi solicitud"
 
-msgid "I've received <strong>all the information"
-msgstr "He recibido <strong>toda la información"
+msgid "I've received <strong>all the information</strong>"
+msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "He recibido <strong>parte de la información</strong>"
@@ -1407,6 +1423,15 @@ msgstr "InfoRequest|Awaiting description"
 msgid "InfoRequest|Comments allowed"
 msgstr "InfoRequest|Comments allowed"
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
 
@@ -1442,6 +1467,9 @@ msgstr "InfoRequest|Title"
 
 msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Url title"
+
+msgid "Information not held"
+msgstr ""
 
 msgid "Information not held."
 msgstr "Información no disponible."
@@ -1832,8 +1860,14 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
 msgstr "Éxito parcial"
+
+msgid "Partially successful"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Parcialmente exitosa."
@@ -1989,6 +2023,9 @@ msgstr "Por favor, solicite información sólo de estas categorías, <strong>no 
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Por favor envíe este mensaje a la persona responsable de revisar las solicitudes de acceso a la información."
+
+msgid "Please select an authority"
+msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr "Por favor seleccione cada una de estas solicitudes, y <strong>haga saber</strong>\\nsi han tenido éxito o no."
@@ -2293,6 +2330,9 @@ msgstr "Eventos recientes"
 msgid "Recently described results first"
 msgstr "Mostrar primero los resultados descritos recientemente "
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr "Rechazada."
 
@@ -2305,6 +2345,9 @@ msgstr "Rechazado"
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Recuérdame (mantiene la sesión abierta; no lo use en un ordenador público)"
 
+msgid "Replying by post"
+msgstr ""
+
 msgid "Report abuse"
 msgstr "Denuncie abuso"
 
@@ -2316,6 +2359,9 @@ msgstr "Reportar esta solicitud"
 
 msgid "Report this request"
 msgstr "Denunciar esta solicitud"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "Requerir la atención del administrador"
@@ -2383,6 +2429,9 @@ msgstr "Solicitudes similares a '{{request_title}}' (page {{page}})"
 msgid "Requests will be sent to the following bodies:"
 msgstr "Las solicitudes se enviarán a las siguientes instituciones:"
 
+msgid "Requires administrator attention"
+msgstr ""
+
 msgid "Respond by email"
 msgstr "Contestar por correo"
 
@@ -2403,6 +2452,9 @@ msgstr "Respuesta por {{public_body_name}} a {{info_request_user}} el {{date}}."
 
 msgid "Response from a public authority"
 msgstr "Respuesta de una institución pública"
+
+msgid "Response received"
+msgstr ""
 
 msgid "Response to '{{title}}'"
 msgstr "Respuesta a '{{title}}'"
@@ -2604,6 +2656,9 @@ msgstr "Inicie su propia solicitud"
 msgid "Statistics"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr "Manténgase al día"
 
@@ -2649,8 +2704,8 @@ msgstr "Exitosa."
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "Sugerir al creador de la solicitud cómo puede encontrar el <strong>resto de la información</strong>."
 
-msgid "Summary:"
-msgstr "Resumen:"
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Tabla de estados"
@@ -2939,6 +2994,9 @@ msgstr "No se encontraron solicitudes para su búsqueda."
 
 msgid "There were no results matching your query."
 msgstr "No se han encontrado resultados para su búsqueda."
+
+msgid "There's an error message"
+msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Estas gráficas fueron parcialmente inspiradas por <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">algunas de  las estadísticas que  Mark Goodge produjo para WhatDoTheyKnow</a>, así que las gracias se las debemos a él."
@@ -3436,6 +3494,9 @@ msgstr "User|Url name"
 msgid "Version {{version}}"
 msgstr "Versión {{version}}"
 
+msgid "Very overdue"
+msgstr ""
+
 msgid "Vexatious"
 msgstr "Lenguaje inapropiado "
 
@@ -3466,11 +3527,23 @@ msgstr "Ver otras solicitudes a {{public_body}}"
 msgid "View your two factor authentication one time passcode"
 msgstr "Ver la contraseña de una sola vez de dos factores de autenticación"
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Esperando aclaración."
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Esperando una <strong>revisión interna</strong> por parte de {{public_body_link}} de cómo han respondido a esta solicitud."
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
+msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Esperando que ls institución pública termine una revisión interna de su respuesta a la solicitud"
@@ -3905,6 +3978,9 @@ msgstr "Su contraseña:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Su foto será visible públicamente <strong>en Internet</strong>, cada vez que haga algo en {{site_name}}."
 
+msgid "Your request"
+msgstr ""
+
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr "Su solicitud '{{request}}' en {{url}} ha sido revisada por los moderadores."
 
@@ -3925,9 +4001,6 @@ msgstr "Su solicitud para agregar {{public_body_name}} a {{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "El nombre de su solicitud era {{info_request}}. Déjenos saber si has recibido la información para ayudarnos a llevar un mejor control"
-
-msgid "Your request:"
-msgstr "Su solicitud:"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Sus solicitudes serán <strong>enviadas</strong> shortly!"
@@ -3980,6 +4053,9 @@ msgstr "Saludos,"
 msgid "[Authority URL will be inserted here]"
 msgstr "[La URL de la Institución Pública se insertará aqui]"
 
+msgid "[Authority name]"
+msgstr ""
+
 msgid "[FOI #{{request}} email]"
 msgstr "[Dirección de correo de la solicitud de acceso a la información #{{request}}]"
 
@@ -4031,6 +4107,9 @@ msgstr "en"
 msgid "authorities"
 msgstr "instituciones públicas"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr "pero con posibilidad de seguimiento"
 
@@ -4040,8 +4119,14 @@ msgstr "antes de"
 msgid "by {{user_link_absolute}}"
 msgstr "por {{user_link_absolute}}"
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "comentarios"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr "detalles"
@@ -4109,6 +4194,12 @@ msgstr "No esta conectado"
 msgid "not requestable due to: {{reason}}"
 msgstr "no puede recibir solicitudes por: {{reason}}"
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr ""
 
@@ -4123,6 +4214,9 @@ msgstr "solicitudes exitosas"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "texto que coincida con las solicitudes exitosas '{{query}}'"
+
+msgid "response received"
+msgstr ""
 
 msgid "send a follow up message"
 msgstr "envíe un mensaje de seguimiento"
@@ -4174,6 +4268,9 @@ msgstr "motivo desconocido"
 msgid "unknown reason "
 msgstr "motivo desconocido "
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "estado desconocido {{status}}"
 
@@ -4191,6 +4288,9 @@ msgstr "solicitudes fallidas"
 
 msgid "users"
 msgstr "usuarios"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "¿Qué es eso?"
@@ -4251,6 +4351,8 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "solicitud de {{law_used_full}} - {{title}}"
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} a {{public_body}}"
 

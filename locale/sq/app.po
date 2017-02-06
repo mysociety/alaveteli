@@ -7,6 +7,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # arianit <ardob11@gmail.com>, 2012
 # arianit <ardob11@gmail.com>, 2012
 # bresta <bresta@gmail.com>, 2011
@@ -24,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/mysociety/alaveteli/language/sq/)\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
@@ -496,6 +497,9 @@ msgstr "Ne pritje te klasifikimit"
 msgid "Awaiting classification."
 msgstr "Në pritje të klasifikimit."
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "Në pritje për rishqyrtim te brendshem."
 
@@ -630,6 +634,9 @@ msgstr "Zgjedh fotografinë për profilin tënd"
 msgid "Clarification"
 msgstr "Sqarim"
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Sqarimi u dërgua tek {{public_body_name}} nga {{info_request_user}} më {{date}}."
 
@@ -665,6 +672,9 @@ msgstr "Koment | Lokale"
 
 msgid "Comment|Visible"
 msgstr "Koment | i/e dukshëm"
+
+msgid "Complete"
+msgstr ""
 
 msgid "Confirm password:"
 msgstr "Fjalëkalimi: (përsërite)"
@@ -764,6 +774,9 @@ msgstr "I/E nderuar"
 
 msgid "Dear {{name}},"
 msgstr "I/E nderuar "
+
+msgid "Dear {{placeholder_body_name}},"
+msgstr ""
 
 msgid "Dear {{public_body_name}},"
 msgstr "Të nderuar {{public_body_name}},"
@@ -1228,6 +1241,9 @@ msgstr "Nuk dua të rregullojë e organizoj më tutje!"
 msgid "I like this request"
 msgstr "Më pëlqen kjë kërkesë"
 
+msgid "I want to withdraw this request"
+msgstr ""
+
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Do të doja të <strong>tërheqë këtë kërkesë</strong>"
 
@@ -1243,8 +1259,8 @@ msgstr "Po pres përgjigje nga <strong>rishqyrtimi i brendshem</strong>"
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Më kanë kërkuar të <strong>qartësojë</strong> kërkesën time"
 
-msgid "I've received <strong>all the information"
-msgstr "Kam marrë <strong>të gjithe informacionin</strong>"
+msgid "I've received <strong>all the information</strong>"
+msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "Kam marrë <strong>disa prej informacioneve</strong>"
@@ -1437,6 +1453,15 @@ msgstr "KerkeseInformacioni|Ne pritje te pershkrimit"
 msgid "InfoRequest|Comments allowed"
 msgstr "InfoRequest|Comments allowed"
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
 
@@ -1472,6 +1497,9 @@ msgstr "KerkeseInformacioni| Titulli"
 
 msgid "InfoRequest|Url title"
 msgstr "KerkeseInformacioni| Titulli Url"
+
+msgid "Information not held"
+msgstr ""
 
 msgid "Information not held."
 msgstr "Informacioni nuk u mbajt."
@@ -1860,8 +1888,14 @@ msgstr "MesazhDales | Statusi"
 msgid "OutgoingMessage|What doing"
 msgstr "MesazhDales | Cfare behet"
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
 msgstr "Sukses i pjesshem"
+
+msgid "Partially successful"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Pjesërisht e suksesshme."
@@ -2022,6 +2056,9 @@ msgstr ""
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Ju lutem kalojeni kete tek personi i cili shqyrton kerkesat per te Drejten e Informimit"
+
+msgid "Please select an authority"
+msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr ""
@@ -2328,6 +2365,9 @@ msgstr ""
 msgid "Recently described results first"
 msgstr "Rezultatet e përshkruara së fundi radhiti të parat"
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr "Refuzuar."
 
@@ -2340,6 +2380,9 @@ msgstr "Refuzuar"
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Më kutjo mua (të mban signed in më gjatë; mos e përdorni në kompjutera publik)"
 
+msgid "Replying by post"
+msgstr ""
+
 msgid "Report abuse"
 msgstr "Raporto abuzimin"
 
@@ -2351,6 +2394,9 @@ msgstr "Raporto kerkesen"
 
 msgid "Report this request"
 msgstr "Raporto këtë kërkesë"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "Raportuar për vëmendjen e administratorit."
@@ -2418,6 +2464,9 @@ msgstr "Kerkesa te ngjashme me '{{request_title}}' (page {{page}})"
 msgid "Requests will be sent to the following bodies:"
 msgstr "Kerkesat do te dergohen tek institucionet ne vijim"
 
+msgid "Requires administrator attention"
+msgstr ""
+
 msgid "Respond by email"
 msgstr "Përgjigju me poste elektronike"
 
@@ -2438,6 +2487,9 @@ msgstr "Pergjigja nga {{public_body_name}} per {{info_request_user}} on {{date}}
 
 msgid "Response from a public authority"
 msgstr "Përgjigje nga një institucion publik"
+
+msgid "Response received"
+msgstr ""
 
 msgid "Response to '{{title}}'"
 msgstr "Përgjigja ndaj '{{title}}'"
@@ -2644,6 +2696,9 @@ msgstr "Nise kërkesën tënde"
 msgid "Statistics"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr "Qëndro i informuar rreth risive"
 
@@ -2689,8 +2744,8 @@ msgstr "Suksesshme."
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "Sugjero si kërkuesi mund të gjen pjesën <strong>tjetër të informacionit</strong>."
 
-msgid "Summary:"
-msgstr "Përmbledhje:"
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Tabela e statuseve"
@@ -2987,6 +3042,9 @@ msgstr "Nuk ka kërkesa që përputhen me kërkimin tuaj."
 
 msgid "There were no results matching your query."
 msgstr "Nuk ka kërkesa që përputhen me kërkimin tuaj."
+
+msgid "There's an error message"
+msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Keto grafiqe pjeserisht jane frymezuar nga <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">disa statistika qe Mark Goodge ka prodhuar per CfareDineAta</a>, keshtu qe e falenderojme per kete."
@@ -3493,6 +3551,9 @@ msgstr "Përdoruesi | Emri Url"
 msgid "Version {{version}}"
 msgstr "Versioni {{version}}"
 
+msgid "Very overdue"
+msgstr ""
+
 msgid "Vexatious"
 msgstr "Shqetesuese"
 
@@ -3523,11 +3584,23 @@ msgstr "Shih kerkesa te tjera {{public_body}}"
 msgid "View your two factor authentication one time passcode"
 msgstr "Shih kodkalimin tuaj te vetem nje here me verifikimin dy faktorial "
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Duke pritur sqarim."
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Duke pritur për <strong>rishqyrtim te brendshem</strong> nga {{public_body_link}} për trajtimin e kësaj kërkese."
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
+msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Duke pritur që institucioni publik të përfundoj rishikimin e brendshem të trajtimit të tyre të kërkesës në fjalë"
@@ -3985,6 +4058,9 @@ msgstr "Fjalëkalimi juaj:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Fotografia juaj do te shfaqet ne publik <strong>ne Internet</strong>, sa here qe ben dicka ne {{site_name}}."
 
+msgid "Your request"
+msgstr ""
+
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr "Kerkesa juaj'{{request}}' tek {{url}} eshte shqyrtuar nga moderatoret."
 
@@ -4005,9 +4081,6 @@ msgstr "Kerkesa juaj per te perditesuar{{public_body_name}} tek{{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Kërkesa juaj eshte emëruar {{info_request}}. Nëse i lejoni të tjerër ta dinë a keni marrë informacionit qe kerkoni në pergjigje, do të na mundësoni edhe ne mbikqyrjen e tyre "
-
-msgid "Your request:"
-msgstr "Kërkesa juaj:"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Kerkesa juaj do te <strong>dergohet</strong> se shpejti!"
@@ -4060,6 +4133,9 @@ msgstr "Respekte"
 msgid "[Authority URL will be inserted here]"
 msgstr "[URL e institucionit do vendoset ketu]"
 
+msgid "[Authority name]"
+msgstr ""
+
 msgid "[FOI #{{request}} email]"
 msgstr "[Mesazhi per #{{request}} per te Drejten e Informimit]"
 
@@ -4111,6 +4187,9 @@ msgstr "tek"
 msgid "authorities"
 msgstr "institucionet"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr "por i mundshem per t'u ndjekur"
 
@@ -4120,8 +4199,14 @@ msgstr "nga"
 msgid "by {{user_link_absolute}}"
 msgstr "nga {{user_link_absolute}}"
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "komentet"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr "detajet"
@@ -4189,6 +4274,12 @@ msgstr ""
 msgid "not requestable due to: {{reason}}"
 msgstr "e pakerkueshme per asye se: {{reason}}"
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr ""
 
@@ -4203,6 +4294,9 @@ msgstr "kerkesat qe jane te suksesshme"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "kerkesat qe jane te suksesshme qe perputhen me tekstin '{{query}}'"
+
+msgid "response received"
+msgstr ""
 
 msgid "send a follow up message"
 msgstr "Dërgo një mesazh vijues"
@@ -4254,6 +4348,9 @@ msgstr "arsye e panjohur"
 msgid "unknown reason "
 msgstr "arsye e panjohur "
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "status i panjohur {{status}}"
 
@@ -4271,6 +4368,9 @@ msgstr "kërkesat e pasuksesshme"
 
 msgid "users"
 msgstr "përdoruesit"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "Çfarë është ajo?"
@@ -4334,6 +4434,8 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Kërkesë për {{law_used_full}} - {{title}}"
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "kerkesa {{law_used}} tek {{public_body}}"
 

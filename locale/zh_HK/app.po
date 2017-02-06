@@ -7,6 +7,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -463,6 +464,9 @@ msgstr ""
 msgid "Awaiting classification."
 msgstr "等待分類中。"
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "正等待內部審核。"
 
@@ -595,6 +599,9 @@ msgstr ""
 msgid "Clarification"
 msgstr ""
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -629,6 +636,9 @@ msgid "Comment|Locale"
 msgstr ""
 
 msgid "Comment|Visible"
+msgstr ""
+
+msgid "Complete"
 msgstr ""
 
 msgid "Confirm password:"
@@ -728,6 +738,9 @@ msgid "Dear [Authority name],"
 msgstr ""
 
 msgid "Dear {{name}},"
+msgstr ""
+
+msgid "Dear {{placeholder_body_name}},"
 msgstr ""
 
 msgid "Dear {{public_body_name}},"
@@ -1181,6 +1194,9 @@ msgstr ""
 msgid "I like this request"
 msgstr "我喜歡這項索取資料要求"
 
+msgid "I want to withdraw this request"
+msgstr ""
+
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "本人希望<strong>撤回這項公開資料要求</strong>"
 
@@ -1196,7 +1212,7 @@ msgstr ""
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "我被要求<strong>澄清</strong>我的要求。"
 
-msgid "I've received <strong>all the information"
+msgid "I've received <strong>all the information</strong>"
 msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
@@ -1385,6 +1401,15 @@ msgstr ""
 msgid "InfoRequest|Comments allowed"
 msgstr ""
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr ""
 
@@ -1419,6 +1444,9 @@ msgid "InfoRequest|Title"
 msgstr ""
 
 msgid "InfoRequest|Url title"
+msgstr ""
+
+msgid "Information not held"
 msgstr ""
 
 msgid "Information not held."
@@ -1808,7 +1836,13 @@ msgstr ""
 msgid "OutgoingMessage|What doing"
 msgstr ""
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
+msgstr ""
+
+msgid "Partially successful"
 msgstr ""
 
 msgid "Partially successful."
@@ -1963,6 +1997,9 @@ msgid "Please only request information that comes under those categories, <stron
 msgstr ""
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
+msgstr ""
+
+msgid "Please select an authority"
 msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
@@ -2268,6 +2305,9 @@ msgstr ""
 msgid "Recently described results first"
 msgstr ""
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr ""
 
@@ -2278,6 +2318,9 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
+
+msgid "Replying by post"
 msgstr ""
 
 msgid "Report abuse"
@@ -2291,6 +2334,9 @@ msgstr "報告此要求"
 
 msgid "Report this request"
 msgstr "舉報此要求"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "已向管理員作出舉報"
@@ -2358,6 +2404,9 @@ msgstr "與 {{request_title}} 第{{page}}頁相似的要求"
 msgid "Requests will be sent to the following bodies:"
 msgstr ""
 
+msgid "Requires administrator attention"
+msgstr ""
+
 msgid "Respond by email"
 msgstr ""
 
@@ -2378,6 +2427,9 @@ msgstr ""
 
 msgid "Response from a public authority"
 msgstr "政府部門或公營機構的回應"
+
+msgid "Response received"
+msgstr ""
 
 msgid "Response to '{{title}}'"
 msgstr "有關「{{title}}」的回應"
@@ -2578,6 +2630,9 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr "保持更新"
 
@@ -2623,8 +2678,8 @@ msgstr "成功。"
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr ""
 
-msgid "Summary:"
-msgstr "摘要："
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr ""
@@ -2913,6 +2968,9 @@ msgstr "沒有符合你查詢的請求。"
 
 msgid "There were no results matching your query."
 msgstr "沒有符合你查詢的結果。"
+
+msgid "There's an error message"
+msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr ""
@@ -3408,6 +3466,9 @@ msgstr ""
 msgid "Version {{version}}"
 msgstr "第 {{version}} 版本"
 
+msgid "Very overdue"
+msgstr ""
+
 msgid "Vexatious"
 msgstr "困擾的"
 
@@ -3438,10 +3499,22 @@ msgstr "查閱其他向{{public_body}}作出的查詢"
 msgid "View your two factor authentication one time passcode"
 msgstr ""
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "正在等候澄清。"
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
+msgstr ""
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
 msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
@@ -3875,6 +3948,9 @@ msgstr "您的密碼："
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr ""
 
+msgid "Your request"
+msgstr ""
+
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr ""
 
@@ -3895,9 +3971,6 @@ msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr ""
-
-msgid "Your request:"
-msgstr "你的要求："
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "你的索取資料要求即將 <strong>送出</strong>！"
@@ -3946,6 +4019,9 @@ msgstr "市民"
 
 msgid "[Authority URL will be inserted here]"
 msgstr "[部門／機構的網址會在這裡加入]"
+
+msgid "[Authority name]"
+msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[索取資料要求 #{{request}} 電郵]"
@@ -3998,6 +4074,9 @@ msgstr "於"
 msgid "authorities"
 msgstr "政府部門或公營機構"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr "但可以跟進"
 
@@ -4007,8 +4086,14 @@ msgstr "由"
 msgid "by {{user_link_absolute}}"
 msgstr "由 {{user_link_absolute}}"
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "意見"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr ""
@@ -4076,6 +4161,12 @@ msgstr ""
 msgid "not requestable due to: {{reason}}"
 msgstr ""
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr ""
 
@@ -4089,6 +4180,9 @@ msgid "requests which are successful"
 msgstr ""
 
 msgid "requests which are successful matching text '{{query}}'"
+msgstr ""
+
+msgid "response received"
 msgstr ""
 
 msgid "send a follow up message"
@@ -4141,6 +4235,9 @@ msgstr "不明原因"
 msgid "unknown reason "
 msgstr "不明原因"
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "未知狀態 {{status}}"
 
@@ -4158,6 +4255,9 @@ msgstr "失敗案件"
 
 msgid "users"
 msgstr "用戶"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "這是甚麼？"
@@ -4211,6 +4311,8 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr ""
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr ""
 
