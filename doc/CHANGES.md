@@ -65,7 +65,8 @@
     app/views/user/rate_limited.html.erb
     app/views/user/show.html.erb
     app/views/widgets/show.html.erb
-0.26.0.8
+
+# 0.26.0.8
 
 ## Highlighted Features
 
