@@ -59,6 +59,15 @@ class DatabaseCollation
         map { |row| row['collname'] }
   end
 
+  def database_encoding
+    sql = <<-EOF.strip_heredoc.squish
+    SELECT encoding FROM pg_database
+    WHERE datname = '#{ connection.current_database }';
+    EOF
+
+    @database_encoding ||= connection.execute(sql).first["encoding"]
+  end
+
   def adapter_name
     @adapter_name ||= connection.adapter_name
   end
