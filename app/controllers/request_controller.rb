@@ -1115,6 +1115,11 @@ class RequestController < ApplicationController
     # Look up by old style numeric identifiers
     if params[:url_title].match(/^[0-9]+$/)
       @info_request = InfoRequest.find(params[:url_title].to_i)
+      # We don't want to leak the title of embargoed or hidden requests, so
+      # don't even redirect on if the user can't access the request
+      if cannot?(:read, @info_request)
+        return render_hidden
+      end
       redirect_to request_url(@info_request, :format => params[:format])
     end
   end

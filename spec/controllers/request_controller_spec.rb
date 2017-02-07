@@ -209,6 +209,12 @@ describe RequestController, "when showing one request" do
       expect{ get :show, :url_title => embargoed_request.url_title }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
+
+    it "doesn't even redirect from a numeric id" do
+      embargoed_request = FactoryGirl.create(:embargoed_request)
+      expect{ get :show, :url_title => embargoed_request.id }
+        .to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe 'when showing an external request' do
