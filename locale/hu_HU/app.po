@@ -7,6 +7,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # Orsolya Batta <orsibatta@gmail.com>, 2013
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/mysociety/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
 "MIME-Version: 1.0\n"
@@ -501,6 +502,9 @@ msgstr ""
 msgid "Awaiting classification."
 msgstr "Besorolásra vár"
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "Belső felülvizsgálatra vár"
 
@@ -635,6 +639,9 @@ msgstr "Profilkép feltöltése"
 msgid "Clarification"
 msgstr "Pontosítás"
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -672,6 +679,9 @@ msgstr "Comment|Locale"
 
 msgid "Comment|Visible"
 msgstr "Comment|Visible"
+
+msgid "Complete"
+msgstr ""
 
 msgid "Confirm password:"
 msgstr "Jelszó: (újból) "
@@ -772,6 +782,9 @@ msgid "Dear [Authority name],"
 msgstr ""
 
 msgid "Dear {{name}},"
+msgstr ""
+
+msgid "Dear {{placeholder_body_name}},"
 msgstr ""
 
 msgid "Dear {{public_body_name}},"
@@ -1249,6 +1262,9 @@ msgstr "Nem szeretnék többet rendet rakni most! "
 msgid "I like this request"
 msgstr "Kedvelem ezt az igénylést"
 
+msgid "I want to withdraw this request"
+msgstr ""
+
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "<strong>Vissza szeretném vonni az igénylést</strong> "
 
@@ -1266,8 +1282,8 @@ msgstr "A <strong>belső felülvizsgálat</strong> eredményére várok "
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Megkértek, hogy <strong>pontosítsam</strong> igénylésemet "
 
-msgid "I've received <strong>all the information"
-msgstr "Megkaptam az <strong>összes információt "
+msgid "I've received <strong>all the information</strong>"
+msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "Megkaptam <strong>az információk egy részét</strong>."
@@ -1478,6 +1494,15 @@ msgstr "InfoRequest|Awaiting description"
 msgid "InfoRequest|Comments allowed"
 msgstr "InfoRequest|Comments allowed"
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
 
@@ -1513,6 +1538,9 @@ msgstr "InfoRequest|Title"
 
 msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Url title"
+
+msgid "Information not held"
+msgstr ""
 
 msgid "Information not held."
 msgstr "Az információ hiányára hivatkozva le lett zárva"
@@ -1908,7 +1936,13 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
+msgstr ""
+
+msgid "Partially successful"
 msgstr ""
 
 msgid "Partially successful."
@@ -2075,6 +2109,9 @@ msgstr ""
 "            idejét</strong> vagy a nyilvánosságét azzal, hogy ide nem tartozó információkat kér. "
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
+msgstr ""
+
+msgid "Please select an authority"
 msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
@@ -2382,6 +2419,9 @@ msgstr ""
 msgid "Recently described results first"
 msgstr "Elöl a legutóbb ismertetett eredmények "
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr "El lett utasítva"
 
@@ -2392,6 +2432,9 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
+
+msgid "Replying by post"
 msgstr ""
 
 msgid "Report abuse"
@@ -2405,6 +2448,9 @@ msgstr ""
 
 msgid "Report this request"
 msgstr "Igénylés jelentése"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "Bejelentve az adminisztrátornak."
@@ -2472,6 +2518,9 @@ msgstr ""
 msgid "Requests will be sent to the following bodies:"
 msgstr ""
 
+msgid "Requires administrator attention"
+msgstr ""
+
 msgid "Respond by email"
 msgstr "Válasz küldése e-mailben "
 
@@ -2492,6 +2541,9 @@ msgstr ""
 
 msgid "Response from a public authority"
 msgstr "Válasz érkezett a közintézménytől "
+
+msgid "Response received"
+msgstr ""
 
 msgid "Response to '{{title}}'"
 msgstr "Válasz a(z) '{{title}}' igénylésre"
@@ -2702,6 +2754,9 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr "Legyen naprakész "
 
@@ -2747,8 +2802,8 @@ msgstr "Sikeres"
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "Adjon tanácsot arra vonatkozóan, hogy az igénylő hogyan találhatja meg a <strong>hiányzó információkat</strong>. "
 
-msgid "Summary:"
-msgstr "Tárgy:"
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Állapottáblázat"
@@ -3059,6 +3114,9 @@ msgstr "Nincsen a lekérdezésének megfelelő igénylés. "
 
 msgid "There were no results matching your query."
 msgstr "Nincsen a lekérdezésének megfelelő eredmény. "
+
+msgid "There's an error message"
+msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr ""
@@ -3582,6 +3640,9 @@ msgstr "User|Url name"
 msgid "Version {{version}}"
 msgstr ""
 
+msgid "Very overdue"
+msgstr ""
+
 msgid "Vexatious"
 msgstr ""
 
@@ -3612,11 +3673,23 @@ msgstr ""
 msgid "View your two factor authentication one time passcode"
 msgstr ""
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Pontosításra vár."
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "A(z) {{public_body_link}} által végrehajtandó, az igénylés kezelésével kapcsolatos <strong>belső felülvizsgálatra</strong> várakozik. "
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
+msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Az adatgazda által végrehajtott, az igénylés kezelésével kapcsolatos belső felülvizsgálat befejezésére várakozik "
@@ -4087,6 +4160,9 @@ msgstr "Az ön jelszava: "
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Profilképe az <strong>interneten</strong> nyilvánosan megjelenik, ha a {{site_name}} weboldalon valamilyen műveletet hajt végre."
 
+msgid "Your request"
+msgstr ""
+
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr ""
 
@@ -4107,9 +4183,6 @@ msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Igénylésének címe: {{info_request}}. Ha megkapta az információt, és ezt közzéteszi, azzal segít nekünk is, hogy követni tudjuk az eseményeket "
-
-msgid "Your request:"
-msgstr "Az ön igénylése: "
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr ""
@@ -4160,6 +4233,9 @@ msgid "Yours,"
 msgstr ""
 
 msgid "[Authority URL will be inserted here]"
+msgstr ""
+
+msgid "[Authority name]"
 msgstr ""
 
 msgid "[FOI #{{request}} email]"
@@ -4213,6 +4289,9 @@ msgstr ""
 msgid "authorities"
 msgstr "közintézmények"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr ""
 
@@ -4222,8 +4301,14 @@ msgstr "által"
 msgid "by {{user_link_absolute}}"
 msgstr "{{user_link_absolute}} által "
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "megjegyzések"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr "részletek"
@@ -4291,6 +4376,12 @@ msgstr ""
 msgid "not requestable due to: {{reason}}"
 msgstr ""
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr ""
 
@@ -4304,6 +4395,9 @@ msgid "requests which are successful"
 msgstr ""
 
 msgid "requests which are successful matching text '{{query}}'"
+msgstr ""
+
+msgid "response received"
 msgstr ""
 
 msgid "send a follow up message"
@@ -4356,6 +4450,9 @@ msgstr "ismeretlen ok"
 msgid "unknown reason "
 msgstr "ismeretlen ok "
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "ismeretlen állapot {{status}}"
 
@@ -4373,6 +4470,9 @@ msgstr "sikertelen igénylések "
 
 msgid "users"
 msgstr "felhasználók"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "mi ez? "
@@ -4436,6 +4536,8 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} igénylés - {{title}} "
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} igénylések {{public_body}} adatgazdánál"
 

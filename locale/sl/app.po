@@ -7,6 +7,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # zejn <zejn@kiberpipa.org>, 2013-2014
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/mysociety/alaveteli/language/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -464,6 +465,9 @@ msgstr ""
 msgid "Awaiting classification."
 msgstr "Čaka na klasifikacijo."
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "Čaka na interno revizijo."
 
@@ -596,6 +600,9 @@ msgstr "Izberite vašo profilno sliko"
 msgid "Clarification"
 msgstr "Pojasnilo"
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Pojasnilo poslano na {{public_body_name}} s strani {{info_request_user}} v {{date}}."
 
@@ -631,6 +638,9 @@ msgstr "Komentar|Jezik"
 
 msgid "Comment|Visible"
 msgstr "Komentar|Vidnost"
+
+msgid "Complete"
+msgstr ""
 
 msgid "Confirm password:"
 msgstr "Geslo (ponovno):"
@@ -730,6 +740,9 @@ msgstr "Spoštovani [naziv organa],"
 
 msgid "Dear {{name}},"
 msgstr "Dragi {{name}},"
+
+msgid "Dear {{placeholder_body_name}},"
+msgstr ""
 
 msgid "Dear {{public_body_name}},"
 msgstr "Dragi {{public_body_name}},"
@@ -1194,6 +1207,9 @@ msgstr "Ta moment ne želim več urejati!"
 msgid "I like this request"
 msgstr "Všeč mi je ta zahtevek"
 
+msgid "I want to withdraw this request"
+msgstr ""
+
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Želel bi <strong>umakniti to zahtevo</strong>"
 
@@ -1209,8 +1225,8 @@ msgstr "Čakam na odziv glede <strong>interne revizije</strong>"
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Od mene se zahteva, da <strong>pojasnim</strong> moj zahtevek"
 
-msgid "I've received <strong>all the information"
-msgstr "Prejel sem <strong>vse zahtevane informacije"
+msgid "I've received <strong>all the information</strong>"
+msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "Prejel sem <strong>delne informacije</strong>"
@@ -1398,6 +1414,15 @@ msgstr "InfoZahtevek|Čakam opis"
 msgid "InfoRequest|Comments allowed"
 msgstr "InfoRequest|Komentarji dovoljeni"
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr "InfoZahtevek|Opisano stanje"
 
@@ -1433,6 +1458,9 @@ msgstr "InfoZahtevek|Naslov"
 
 msgid "InfoRequest|Url title"
 msgstr "InfoZahtevek|Naslov v URL"
+
+msgid "Information not held"
+msgstr ""
 
 msgid "Information not held."
 msgstr "Teh informacij ni"
@@ -1821,7 +1849,13 @@ msgstr "IzhodnoSporočilo|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "IzhodnoSporočilo|Cilj"
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
+msgstr ""
+
+msgid "Partially successful"
 msgstr ""
 
 msgid "Partially successful."
@@ -1980,6 +2014,9 @@ msgstr "Prosimo zahtevajte le informacije, ki spadajo v te kategorije in <strong
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Prosimo, posredujte to osebi, odgovorni za dostop do informacij javnega značaja."
+
+msgid "Please select an authority"
+msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr "Prosimo izberite vsakega od teh zahtevkov po vrsti in <strong>dajte vsem vedeti</strong>,\\n če so bili ugodeni ali ne."
@@ -2284,6 +2321,9 @@ msgstr ""
 msgid "Recently described results first"
 msgstr "Nedavno opisani rezultati najprej"
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr "Zavrnjeno."
 
@@ -2294,6 +2334,9 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
+
+msgid "Replying by post"
 msgstr ""
 
 msgid "Report abuse"
@@ -2307,6 +2350,9 @@ msgstr "Prijavi zahtevek"
 
 msgid "Report this request"
 msgstr "Prijavite ta zahtevek"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "Prijavljeno administratorjem."
@@ -2374,6 +2420,9 @@ msgstr "Zahtevki, podobni '{{request_title}}' (stran {{page}})"
 msgid "Requests will be sent to the following bodies:"
 msgstr "Zahtevki bodo poslani sledečim organom:"
 
+msgid "Requires administrator attention"
+msgstr ""
+
 msgid "Respond by email"
 msgstr "Odgovorite prek e-pošte"
 
@@ -2394,6 +2443,9 @@ msgstr "Odgovor {{public_body_name}} za {{info_request_user}} v {{date}}."
 
 msgid "Response from a public authority"
 msgstr "Odgovor od javnega organa"
+
+msgid "Response received"
+msgstr ""
 
 msgid "Response to '{{title}}'"
 msgstr "Odgovor na '{{title}}'"
@@ -2597,6 +2649,9 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr "Ostanite na tekočem"
 
@@ -2642,8 +2697,8 @@ msgstr "Ugodeno."
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "Predlagaj kako lahko prosilec najde <strong>preostanek zahtevanih informacij</strong>."
 
-msgid "Summary:"
-msgstr "Povzetek:"
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Preglednica stanj"
@@ -2932,6 +2987,9 @@ msgstr "Poizvedbi ne ustreza noben zahtevek."
 
 msgid "There were no results matching your query."
 msgstr "Vaša poizvedba ni vrnila rezultatov."
+
+msgid "There's an error message"
+msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Ti grafi so bili delno povzeti po <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">statistikah, ki jih je izračunal Mark Goodge</a>, za kar se mu zahvaljujemo."
@@ -3433,6 +3491,9 @@ msgstr "User|Url name"
 msgid "Version {{version}}"
 msgstr "Različica {{version}}"
 
+msgid "Very overdue"
+msgstr ""
+
 msgid "Vexatious"
 msgstr "Nadležen"
 
@@ -3463,11 +3524,23 @@ msgstr ""
 msgid "View your two factor authentication one time passcode"
 msgstr ""
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Čaka pojasnilo."
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Čaka na <strong>interno revizijo</strong> s strani {{public_body_link}}."
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
+msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Čaka na javni organ, da konča interno revizijo obravnavanja tega zahtevka."
@@ -3906,6 +3979,9 @@ msgstr "Vaše geslo:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Vaša slika bo prikazana <strong>javno na internetu</strong>, kjerkoli naredite kaj na {{site_name}}."
 
+msgid "Your request"
+msgstr ""
+
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr "Moderatorji so pregledali vaš zahtevek '{{request}}' na naslovu {{url}}."
 
@@ -3926,9 +4002,6 @@ msgstr "Vaš zahtevek, da se posodobi {{public_body_name}} na {{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Vaš zahtevek je bil poimenovan {{info_request}}. Če boste razjasnili, če ste prejeli informacije, nam bo pomagalo vrednotiti"
-
-msgid "Your request:"
-msgstr "Vaš zahtevek:"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr ""
@@ -3987,6 +4060,9 @@ msgstr "S spoštovanjem,"
 msgid "[Authority URL will be inserted here]"
 msgstr "[Spletni URL naslov bo vstavljen tu]"
 
+msgid "[Authority name]"
+msgstr ""
+
 msgid "[FOI #{{request}} email]"
 msgstr "[IJZ epošta #{{request}}]"
 
@@ -4038,6 +4114,9 @@ msgstr "pri"
 msgid "authorities"
 msgstr "organi"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr "lahko spremljate"
 
@@ -4047,8 +4126,14 @@ msgstr "od"
 msgid "by {{user_link_absolute}}"
 msgstr "od {{user_link_absolute}}"
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "komentarji"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr "podrobnosti"
@@ -4116,6 +4201,12 @@ msgstr ""
 msgid "not requestable due to: {{reason}}"
 msgstr "ni možno zahtevati zaradi: {{reason}}"
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr ""
 
@@ -4130,6 +4221,9 @@ msgstr "ugodeni zahtevki"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "ugodeni zahtevki, ki ustrezajo besedilu '{{query}}'"
+
+msgid "response received"
+msgstr ""
 
 msgid "send a follow up message"
 msgstr "odzovite se na sporočilo"
@@ -4181,6 +4275,9 @@ msgstr "neznan razlog"
 msgid "unknown reason "
 msgstr "neznan razlog"
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "neznan status {{status}}"
 
@@ -4198,6 +4295,9 @@ msgstr "zavrnjeni zahtevki"
 
 msgid "users"
 msgstr "uporabniki"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "kaj je to?"
@@ -4272,6 +4372,8 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "zahtevek za {{law_used_full}} - {{title}}"
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "zahtevki {{law_used}} za {{public_body}}"
 

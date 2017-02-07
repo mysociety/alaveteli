@@ -6,6 +6,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class RequestMailer < ApplicationMailer
+  include AlaveteliFeatures::Helpers
+
   # Used when an FOI officer uploads a response from their web browser - this is
   # the "fake" email used to store in the same format in the database as if they
   # had emailed it.
@@ -61,16 +63,14 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
     @message = message
 
-    # Return path is an address we control so that SPF checks are done on it.
-    headers('Return-Path' => blackhole_email,
-            'Reply-To' => user.name_and_email)
+    set_reply_to_headers(nil, 'Reply-To' => user.name_and_email)
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail(:from => MailHandler.address_from_name_and_email(
                     user.name,
                     blackhole_email
                   ),
-         :to => contact_from_name_and_email,
+         :to => contact_for_user(user),
          :subject => _("FOI response requires admin ({{reason}}) - " \
                         "{{request_title}}",
                        :reason => info_request.described_state,
@@ -84,17 +84,16 @@ class RequestMailer < ApplicationMailer
     @url = incoming_message_url(incoming_message, :cachebust => true)
     @incoming_message, @info_request = incoming_message, info_request
 
-    headers('Return-Path' => blackhole_email,
-            'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-            'X-Auto-Response-Suppress' => 'OOF')
+    set_reply_to_headers(info_request.user)
+    set_auto_generated_headers
 
-    mail(:from => contact_from_name_and_email,
-         :to => info_request.user.name_and_email,
-         :subject => _("New response to your FOI request - {{request_title}}",
-                       :request_title => info_request.title.html_safe),
-         :charset => "UTF-8",
-         # not much we can do if the user's email is broken
-         :reply_to => contact_from_name_and_email)
+    mail(
+      :from => contact_for_user(info_request.user),
+      :to => info_request.user.name_and_email,
+      :subject => _("New response to your FOI request - {{request_title}}",
+                    :request_title => info_request.title.html_safe),
+      :charset => "UTF-8"
+    )
   end
 
   # Tell the requester that the public body is late in replying
@@ -110,7 +109,9 @@ class RequestMailer < ApplicationMailer
     @url = confirm_url(:email_token => post_redirect.email_token)
     @info_request = info_request
 
-    auto_generated_headers
+    set_reply_to_headers(user)
+    set_auto_generated_headers
+
     mail_user(
       user,
       _("Delayed response to your FOI request - {{request_title}}",
@@ -129,7 +130,9 @@ class RequestMailer < ApplicationMailer
     @url = confirm_url(:email_token => post_redirect.email_token)
     @info_request = info_request
 
-    auto_generated_headers
+    set_reply_to_headers(user)
+    set_auto_generated_headers
+
     mail_user(
       user,
       _("You're long overdue a response to your FOI request - {{request_title}}",
@@ -150,7 +153,8 @@ class RequestMailer < ApplicationMailer
     @incoming_message = incoming_message
     @info_request = info_request
 
-    auto_generated_headers
+    set_reply_to_headers(info_request.user)
+    set_auto_generated_headers
     mail_user(info_request.user, _("Was the response you got to your FOI " \
                                       "request any good?"))
   end
@@ -160,7 +164,8 @@ class RequestMailer < ApplicationMailer
     @url = request_url(info_request)
     @info_request = info_request
 
-    auto_generated_headers
+    set_reply_to_headers(info_request.user)
+    set_auto_generated_headers
     mail_user(info_request.user, _("Someone has updated the status of " \
                                       "your request"))
   end
@@ -178,7 +183,8 @@ class RequestMailer < ApplicationMailer
     @incoming_message = incoming_message
     @info_request = info_request
 
-    auto_generated_headers
+    set_reply_to_headers(info_request.user)
+    set_auto_generated_headers
     mail_user(
       info_request.user,
       _("Clarify your FOI request - {{request_title}}",
@@ -191,7 +197,8 @@ class RequestMailer < ApplicationMailer
     @comment, @info_request = comment, info_request
     @url = comment_url(comment)
 
-    auto_generated_headers
+    set_reply_to_headers(info_request.user)
+    set_auto_generated_headers
     mail_user(
       info_request.user,
       _("Somebody added a note to your FOI request - {{request_title}}",
@@ -205,7 +212,8 @@ class RequestMailer < ApplicationMailer
     @count, @info_request = count, info_request
     @url = comment_url(earliest_unalerted_comment)
 
-    auto_generated_headers
+    set_reply_to_headers(info_request.user)
+    set_auto_generated_headers
     mail_user(
       info_request.user,
       _("Some notes have been added to your FOI request - {{request_title}}",
@@ -388,7 +396,7 @@ class RequestMailer < ApplicationMailer
                              AND described_state = 'waiting_clarification'
                              AND info_requests.updated_at < ?",
                              false,
-                             Time.now - 3.days
+                             Time.zone.now - 3.days
                             ).
                       includes(:user).order("info_requests.id")
     for info_request in info_requests
@@ -512,25 +520,6 @@ class RequestMailer < ApplicationMailer
         store_sent.save!
       end
     end
-  end
-
-  private
-
-  def auto_generated_headers
-    headers({
-      'Return-Path' => blackhole_email,
-      'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-      'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-      'X-Auto-Response-Suppress' => 'OOF',
-    })
-  end
-
-  def mail_user(user, subject)
-    mail({
-      :from => contact_from_name_and_email,
-      :to => user.name_and_email,
-      :subject => subject,
-    })
   end
 
 end

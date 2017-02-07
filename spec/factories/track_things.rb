@@ -18,29 +18,46 @@
 FactoryGirl.define do
 
   factory :track_thing do
+    track_medium 'email_daily'
+    track_query 'Example Query'
+    track_type 'search_query'
     association :tracking_user, :factory => :user
-    factory :search_track do
-      track_medium 'email_daily'
-      track_type 'search_query'
-      track_query 'Example Query'
-    end
+    factory :search_track
     factory :user_track do
       association :tracked_user, :factory => :user
       track_type 'user_updates'
+      after(:create) do |track_thing, evaluator|
+        track_thing.track_query = "requested_by:#{ user.url_name }" \
+                                  " OR commented_by: #{ user.url_name }"
+        track_thing.save
+      end
     end
     factory :public_body_track do
       association :public_body, :factory => :public_body
       track_type 'public_body_updates'
+      after(:create) do |track_thing, evaluator|
+        track_thing.track_query = "requested_from:" \
+                                  "#{ track_thing.public_body.url_name }"
+        track_thing.save
+      end
     end
     factory :request_update_track do
       association :info_request, :factory => :info_request
       track_type 'request_updates'
+      after(:create) do |track_thing, evaluator|
+        track_thing.track_query = "request:" \
+                                  "#{ track_thing.info_request.url_title }"
+        track_thing.save
+      end
     end
     factory :successful_request_track do
       track_type 'all_successful_requests'
+      track_query 'variety:response ' \
+        '(status:successful OR status:partially_successful)'
     end
     factory :new_request_track do
       track_type 'all_new_requests'
+      track_query 'variety:sent'
     end
   end
 

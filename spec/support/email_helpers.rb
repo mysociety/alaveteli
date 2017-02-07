@@ -28,7 +28,7 @@ def parse_all_incoming_messages
 end
 
 def load_mail_server_logs(log)
-  batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.now)
+  batch = MailServerLogDone.create(:filename => 'spec', :last_stat => Time.zone.now)
   mta_log_type = AlaveteliConfiguration.mta_log_type.to_sym
   io_stream = StringIO.new(log)
   case mta_log_type

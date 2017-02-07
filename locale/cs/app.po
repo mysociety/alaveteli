@@ -7,6 +7,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
 # Hana Hunt <hana@hana-hunt.cz>, 2016
 # Hana Huntova <>, 2012-2015
@@ -25,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -512,6 +513,9 @@ msgstr "Čeká se na zařazení"
 msgid "Awaiting classification."
 msgstr "Čeká se zařazení."
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "Čeká se na doplnění dotazu."
 
@@ -646,6 +650,9 @@ msgstr "Vyberte své profilové foto:"
 msgid "Clarification"
 msgstr "Vysvětlení"
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Upřesnění bylo odesláno {{public_body_name}} od uživatele {{info_request_user}} dne {{date}}."
 
@@ -681,6 +688,9 @@ msgstr "Komentář | Lokalita"
 
 msgid "Comment|Visible"
 msgstr "Komentář | Viditelný"
+
+msgid "Complete"
+msgstr ""
 
 msgid "Confirm password:"
 msgstr "Heslo (znovu):"
@@ -785,6 +795,9 @@ msgstr ""
 
 msgid "Dear {{name}},"
 msgstr "Vážený/á {{name}},"
+
+msgid "Dear {{placeholder_body_name}},"
+msgstr ""
 
 msgid "Dear {{public_body_name}},"
 msgstr ""
@@ -1257,6 +1270,9 @@ msgstr "Teď už nechci dělat další úpravy!"
 msgid "I like this request"
 msgstr "Líbí se mi tento dotaz"
 
+msgid "I want to withdraw this request"
+msgstr ""
+
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Chci <strong>zrušit dotaz</strong>"
 
@@ -1274,8 +1290,8 @@ msgstr "Čekám na <strong>doplnění</strong> dotazu"
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Byl/a jsem požádán/a o <strong>vyjasnění</strong> mého dotazu"
 
-msgid "I've received <strong>all the information"
-msgstr "Obdržel jsem <strong>veškeré informace"
+msgid "I've received <strong>all the information</strong>"
+msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "Obdržel jsem <strong>nějaké informace</strong>"
@@ -1474,6 +1490,15 @@ msgstr "InfoRequestEvent | Očekává se popis"
 msgid "InfoRequest|Comments allowed"
 msgstr "Info o dotazu|Komentáře dovoleny"
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr "InfoRequestEvent | Popsaný status"
 
@@ -1509,6 +1534,9 @@ msgstr "InfoRequestEvent|Název"
 
 msgid "InfoRequest|Url title"
 msgstr "InfoRequestEvent|Název URL"
+
+msgid "Information not held"
+msgstr ""
 
 msgid "Information not held."
 msgstr "Informace není k dispozici."
@@ -1902,8 +1930,14 @@ msgstr "Odchozí zpráva | Status"
 msgid "OutgoingMessage|What doing"
 msgstr "Odchozí zpráva | Co dělá"
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
 msgstr "Částečně úspěšné."
+
+msgid "Partially successful"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Částečně úspěšné."
@@ -2065,6 +2099,9 @@ msgstr "Požádejte o informace, které jsou uvedeny v těchto kategoriích, <st
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Prosím předejte to poradenskému týmu v Otevřete, posoudí postup ve Vašem případě."
+
+msgid "Please select an authority"
+msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr ""
@@ -2371,6 +2408,9 @@ msgstr ""
 msgid "Recently described results first"
 msgstr "Jako první naposled aktualizované výsledky"
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr "Odmítnuto."
 
@@ -2383,6 +2423,9 @@ msgstr "Zamítnuto"
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Zapamatovat mé údaje (zašrktněte, pokud chcete být déle přihlášeni; nezaškrtávejte, pokud jste na veřejně přístupném počítači)."
 
+msgid "Replying by post"
+msgstr ""
+
 msgid "Report abuse"
 msgstr "Nahlásit zneužití"
 
@@ -2394,6 +2437,9 @@ msgstr "Nahlásit tento dotaz"
 
 msgid "Report this request"
 msgstr "Nahlásit tento dotaz"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "Administrátor byl již upozorněn."
@@ -2461,6 +2507,9 @@ msgstr "Podobné žádosti '{{request_title}}' (page {{page}})"
 msgid "Requests will be sent to the following bodies:"
 msgstr "Žádost bude odeslána následujícím institucím:"
 
+msgid "Requires administrator attention"
+msgstr ""
+
 msgid "Respond by email"
 msgstr "Odpovězte e-mailem"
 
@@ -2481,6 +2530,9 @@ msgstr "Odpověď od {{public_body_name}} pro {{info_request_user}} dne {{date}}
 
 msgid "Response from a public authority"
 msgstr "Odpověď od instituce "
+
+msgid "Response received"
+msgstr ""
 
 msgid "Response to '{{title}}'"
 msgstr "Odpověď na '{{title}}'"
@@ -2691,6 +2743,9 @@ msgstr "Vzneste svůj dotaz"
 msgid "Statistics"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr "Buďte informováni"
 
@@ -2736,8 +2791,8 @@ msgstr "Úspěch."
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "Doporučte, jak tazatel může najít <strong>úplné informace</strong>."
 
-msgid "Summary:"
-msgstr "Předmět:"
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Tabulka stavů"
@@ -3045,6 +3100,9 @@ msgstr "Nejsou tu žádné dotazy shodné s vaším vyhledáváním."
 
 msgid "There were no results matching your query."
 msgstr "Nemáme žádné výsledky pro vaše kritéria vyhledávání."
+
+msgid "There's an error message"
+msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Tyto grafy vycházejí částečně z  <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\"> statistických údajů, které Mark Goodge vytvořil pro WhatDoTheyKnow</a>, tímto mu děkujeme. "
@@ -3558,6 +3616,9 @@ msgstr "User | Název URL"
 msgid "Version {{version}}"
 msgstr "Version {{version}}"
 
+msgid "Very overdue"
+msgstr ""
+
 msgid "Vexatious"
 msgstr "Nevhodný"
 
@@ -3588,11 +3649,23 @@ msgstr "Prohlížejte další dotazy vnesené na {{public_body}}"
 msgid "View your two factor authentication one time passcode"
 msgstr "Zobrazte své jednorázovvý přístupový kód k dvoufaktorovému ověření"
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Čeká se na vysvětlení. "
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Stále <strong>čekám</strong> na doplnění dotazu institucí či jmenovitě jejím pracovníkem {{public_body_link}}."
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
+msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Čekám, až instituce doplní požadované informace k mému dotazu"
@@ -4067,6 +4140,9 @@ msgstr "Vaše heslo:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "<strong>Důležité upozornění:</strong> Vaše fotografie bude zveřejněna na stránkách Informace pro všechny pokaždé, kdy vznesete dotaz nebo přidáte komentář."
 
+msgid "Your request"
+msgstr ""
+
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr "Vaše žádost '{{request}}' v {{url}} byla upravena adminstrátorem."
 
@@ -4087,9 +4163,6 @@ msgstr "Vaše žádost o úpravu {{public_body_name}} na {{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Informace se týká vašeho dotazu {{info_request}}. Můžete všechny informovat, zda jste požadovanou informaci obdrželi a bude tak přehled o odpovědích této instituce"
-
-msgid "Your request:"
-msgstr "Váš dotaz:"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Vaše žádost bude hned<strong>poslána</strong>!"
@@ -4145,6 +4218,9 @@ msgstr "S pozdravem,"
 msgid "[Authority URL will be inserted here]"
 msgstr "[zde bude vložena adresa internetových stránek instituce]"
 
+msgid "[Authority name]"
+msgstr ""
+
 msgid "[FOI #{{request}} email]"
 msgstr "[FOI #{{request}} e-mail] ??"
 
@@ -4196,6 +4272,9 @@ msgstr "na"
 msgid "authorities"
 msgstr "instituce"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr "ale "
 
@@ -4205,8 +4284,14 @@ msgstr "od"
 msgid "by {{user_link_absolute}}"
 msgstr "by {{user_link_absolute}}"
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "komentáře / komentářů"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr "detaily"
@@ -4274,6 +4359,12 @@ msgstr "nepřihlášen"
 msgid "not requestable due to: {{reason}}"
 msgstr "nelze žádat kvůli {{reason}}"
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr ""
 
@@ -4288,6 +4379,9 @@ msgstr "úspěšné žádosti"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "žádosti, které se shodují s '{{query}}'"
+
+msgid "response received"
+msgstr ""
 
 msgid "send a follow up message"
 msgstr "poslat odpověď"
@@ -4339,6 +4433,9 @@ msgstr "neznámé důvody"
 msgid "unknown reason "
 msgstr "neznámé důvody"
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "stav neznámý {{status}}"
 
@@ -4356,6 +4453,9 @@ msgstr "nezodpovězené dotazy"
 
 msgid "users"
 msgstr "uživatelé"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "co je to?"
@@ -4423,6 +4523,8 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Žádost o informace podle {{law_used_full}} - {{title}}"
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} dotazy vznesené na instituci {{public_body}}"
 

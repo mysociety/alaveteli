@@ -22,7 +22,7 @@ describe "track_mailer/event_digest" do
 
   describe "tracking a response" do
     let(:event) do
-      FactoryGirl.create(:info_request_event,
+      FactoryGirl.create(:response_event,
                          :incoming_message => request.incoming_messages.last,
                          :info_request => request)
     end
@@ -51,7 +51,7 @@ describe "track_mailer/event_digest" do
 
   describe "tracking a followup" do
     let(:event) do
-      FactoryGirl.create(:info_request_event,
+      FactoryGirl.create(:response_event,
                          :outgoing_message => request.outgoing_messages.last,
                          :info_request => request,
                          :event_type => 'followup_sent')

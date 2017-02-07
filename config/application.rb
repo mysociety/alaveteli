@@ -126,6 +126,8 @@ module Alaveteli
                                  'ie7.css',
                                  'bootstrap-dropdown.js',
                                  'widget.css',
+                                 'request-attachments.js',
+                                 'alaveteli_pro/request-index.js',
                                  'responsive/print.css',
                                  'responsive/application-lte-ie7.css',
                                  'responsive/application-ie8.css']

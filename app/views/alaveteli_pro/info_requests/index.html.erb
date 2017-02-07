@@ -1,0 +1,29 @@
+<div class="dashboard">
+
+  <div class="dashboard-header">
+    <div class="row">
+      <h1><%= _('Requests') %></h1>
+    </div>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="row">
+      <div class="dashboard-left-column">
+
+        <%= render partial: 'alaveteli_pro/dashboard/projects' %>
+
+      </div> <!-- .dashboard-left-column -->
+
+        <% if @user.info_requests.empty? && @user.draft_info_requests.empty? %>
+          <%= render partial: 'no_requests' %>
+        <% else %>
+          <%= render partial: 'request_list' %>
+        <% end %>
+      </div>
+
+  </div>  <!-- .dashboard-body -->
+
+</div>  <!-- .dashboard -->
+<% content_for :javascript do %>
+ <%= javascript_include_tag 'alaveteli_pro/request-index.js' %>
+<% end %>

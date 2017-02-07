@@ -76,9 +76,8 @@
 /* /new/[body_name] page */
 #request_header {
   @include grid-row($behavior: nest);
-
   /* Restrict width of form elements on wide screens */
-  #request_header_body, #request_header_subject, #typeahead_response {
+  #request_header_body, #typeahead_response {
     @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column($columns:8);
@@ -90,11 +89,11 @@
       }
     }
   }
+}
 
-  span#to_public_body {
-    display:block;
-    margin-bottom:15px;
-  }
+span#to_public_body {
+  display:block;
+  margin-bottom:15px;
 }
 
 #typeahead_response .close-button {
@@ -103,6 +102,12 @@
 
 .request_body {
   @include grid-row($behavior: nest);
+}
+
+.request_subject {
+  input[type=text] {
+    width: 100%;
+  }
 }
 
 #request_body_header {

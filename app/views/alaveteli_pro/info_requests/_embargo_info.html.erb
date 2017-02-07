@@ -1,0 +1,18 @@
+<h2>Embargo</h2>
+<% if embargo && embargo.publish_at %>
+  <p>
+    <% if tense == :future %>
+      <%= _("This request will be embargoed until {{embargo_publish_at}}",
+            embargo_publish_at: embargo.publish_at.to_date) %>
+    <% else %>
+      <%= _("This request is embargoed until {{embargo_publish_at}}",
+            embargo_publish_at: embargo.publish_at.to_date) %>
+    <% end %>
+  </p>
+<% else %>
+  <% if tense == :future %>
+    <p><%= _("This request will be published immediately") %></p>
+  <% else %>
+    <p><%= _("This request is public") %></p>
+  <% end %>
+<% end %>

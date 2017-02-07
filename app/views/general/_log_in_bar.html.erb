@@ -1,0 +1,38 @@
+<li id="logged_in_bar" class="logged_in_bar account-link-menu-item">
+<% if @user %>
+  <a href="<%= show_user_profile_path(:url_name => @user.url_name) %>" class="account-link js-account-link"><%= @user.name.split.first %>
+    <% if @user.pro? %>
+      <span class="pro-pill">pro</span>
+    <% end %>
+  </a>
+  <div class="logged-in-menu js-account-menu">
+    <div class="profile-summary">
+      <p class="dashboard-profile">
+        <% if @user.profile_photo %>
+          <img src="<%= get_profile_photo_url(:url_name => @user.url_name) %>" class="dashboard-profile__image">
+        <% end %>
+        <span class="dashboard-profile__name"><%= @user.name %>
+          <% if @user.pro? %>
+            <span class="pro-pill">pro</span></span>
+          <% end %>
+        <br/>
+        <span class="dashboard-profile__email"><%= @user.email %></span>
+      </p>
+    </div>
+    <ul class="logged-in-menu__links">
+      <% if @user.pro? %>
+        <%= render :partial => 'alaveteli_pro/general/log_in_bar_links' %>
+      <% else %>
+        <li><%= link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %></li>
+        <li><%= link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %></li>
+        <li><%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
+      <% end %></li>
+      <li class="logged-in-menu__signout-link">
+        <%= link_to _("Sign out"), signout_path(:r => request.fullpath) %>
+      </li>
+    </ul>
+    </div>
+<% else %>
+  <%= link_to _("Sign in or sign up"), signin_path(:r => request.fullpath) %>
+<% end %>
+</li>

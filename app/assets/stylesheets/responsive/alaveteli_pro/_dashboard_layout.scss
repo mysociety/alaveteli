@@ -1,0 +1,137 @@
+/* Layout for the dashboard */
+
+$dashboard-collapse: 50em; //where the dashboard layout needs to change
+
+.dashboard-left-column {
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include grid-column(3);
+  }
+}
+
+.dashboard-right-column {
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include grid-column(9);
+  }
+}
+
+.dashboard-header {
+  margin-top: 2em;
+  padding-left: 0.9375em;
+  padding-right: 0.9375em;
+  h1 {
+    @include grid-column(12);
+    font-size: 3em;
+    margin-top: 0.4em;
+    margin-bottom: 0.5em;
+    display: block;
+    width: 100%;
+    font-weight: bold;
+  }
+}
+
+.dashboard-body {
+  padding-top: 2em;
+}
+
+.dashboard-profile__image {
+  float:left;
+  margin-right: 1em;
+  border-radius: 5px;
+}
+
+.dashboard-nav {
+  padding: 0;
+  margin: 0;
+  @include clearfix;
+}
+
+.dashboard-nav__item {
+  float: left;
+  padding-bottom: 0.5em;
+  padding-right: 1em;
+}
+
+.dashboard-nav__item--right {
+  float: right;
+}
+
+.dashboard-folders,
+.dashboard-sub-folders {
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-folders {
+  margin-bottom: 2em;
+}
+
+.dashboard-sub-folders {
+  margin: 0 0 2em 0;
+  .dashboard-folder__name {
+    padding-left: 0.5em;
+  }
+}
+
+.dashboard-folder {
+  margin-bottom: 0;
+  font-size: 0.9375em; //15px
+}
+
+.dashboard-folder__name {
+  display: block;
+  padding: 0.666em 1em 0.666em 1em;
+  width: 100%;
+}
+
+.dashboard-folder--selected {
+  margin-bottom: 0;
+}
+
+.dashboard-folder__count {
+  float: right;
+}
+
+.dashboard-todo {
+  margin-bottom: 3em;
+}
+
+.dashboard-todo__list {
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-todo__title,
+.dashboard-activity__title {
+  padding-bottom: 1em;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.dashboard-todo__list__item,
+.dashboard-activity__item {
+  padding: 1em 0 1em 0;
+}
+
+.dashboard-activity__item {
+  @include flexbox;
+}
+
+.dashboard-activity__item__time {
+  flex: 0 0 25%;
+  padding-right: 2em;
+}
+
+.dashboard-activity__item__dashboard {
+  flex: 0 0 75%;
+  padding-left: 2em;
+}

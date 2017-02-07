@@ -3,28 +3,32 @@
 #
 # Table name: info_requests
 #
-#  id                        :integer          not null, primary key
-#  title                     :text             not null
-#  user_id                   :integer
-#  public_body_id            :integer          not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  described_state           :string(255)      not null
-#  awaiting_description      :boolean          default(FALSE), not null
-#  prominence                :string(255)      default("normal"), not null
-#  url_title                 :text             not null
-#  law_used                  :string(255)      default("foi"), not null
-#  allow_new_responses_from  :string(255)      default("anybody"), not null
-#  handle_rejected_responses :string(255)      default("bounce"), not null
-#  idhash                    :string(255)      not null
-#  external_user_name        :string(255)
-#  external_url              :string(255)
-#  attention_requested       :boolean          default(FALSE)
-#  comments_allowed          :boolean          default(TRUE), not null
-#  info_request_batch_id     :integer
-#  last_public_response_at   :datetime
-#  reject_incoming_at_mta    :boolean          default(FALSE), not null
-#  rejected_incoming_count   :integer          default(0)
+#  id                                    :integer          not null, primary key
+#  title                                 :text             not null
+#  user_id                               :integer
+#  public_body_id                        :integer          not null
+#  created_at                            :datetime         not null
+#  updated_at                            :datetime         not null
+#  described_state                       :string(255)      not null
+#  awaiting_description                  :boolean          default(FALSE), not null
+#  prominence                            :string(255)      default("normal"), not null
+#  url_title                             :text             not null
+#  law_used                              :string(255)      default("foi"), not null
+#  allow_new_responses_from              :string(255)      default("anybody"), not null
+#  handle_rejected_responses             :string(255)      default("bounce"), not null
+#  idhash                                :string(255)      not null
+#  external_user_name                    :string(255)
+#  external_url                          :string(255)
+#  attention_requested                   :boolean          default(FALSE)
+#  comments_allowed                      :boolean          default(TRUE), not null
+#  info_request_batch_id                 :integer
+#  last_public_response_at               :datetime
+#  reject_incoming_at_mta                :boolean          default(FALSE), not null
+#  rejected_incoming_count               :integer          default(0)
+#  date_initial_request_last_sent_at     :date
+#  date_response_required_by             :date
+#  date_very_overdue_after               :date
+#  last_event_forming_initial_request_id :integer
 #
 
 require 'digest/sha1'
@@ -65,7 +69,8 @@ class InfoRequest < ActiveRecord::Base
 
   belongs_to :public_body, :counter_cache => true
   belongs_to :info_request_batch
-  validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
+  validates_presence_of :public_body_id, :message => N_("Please select an authority"),
+                                         :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
   has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
   has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
@@ -76,22 +81,36 @@ class InfoRequest < ActiveRecord::Base
   has_many :comments, :order => 'created_at', :dependent => :destroy
   has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
   has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
+  has_one :embargo, :class_name => "AlaveteliPro::Embargo"
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
   has_tag_string
 
-  scope :visible, -> { where(prominence: "normal") }
+  scope :pro, ProQuery.new
+  scope :is_public, Prominence::PublicQuery.new
+  scope :is_searchable, Prominence::SearchableQuery.new
+  scope :embargoed, Prominence::EmbargoedQuery.new
+  scope :not_embargoed, Prominence::NotEmbargoedQuery.new
+  scope :embargo_expiring, Prominence::EmbargoExpiringQuery.new
+
+  scope :awaiting_response, State::AwaitingResponseQuery.new
+  scope :response_received, State::ResponseReceivedQuery.new
+  scope :clarification_needed, State::ClarificationNeededQuery.new
+  scope :complete, State::CompleteQuery.new
+  scope :other, State::OtherQuery.new
+  scope :overdue, State::OverdueQuery.new
+  scope :very_overdue, State::VeryOverdueQuery.new
+
+  def self.visible
+    warn %q([DEPRECATION] InfoRequest#visible will be removed in
+        0.28. It has been replaced by InfoRequest#is_public).squish
+    self.is_public
+  end
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
-
-  validates_inclusion_of :prominence, :in => [
-    'normal',
-    'backpage',
-    'hidden',
-    'requester_only'
-  ]
+  validates_inclusion_of :prominence, :in => Prominence::VALUES
 
   validates_inclusion_of :law_used, :in => [
     'foi', # Freedom of Information Act
@@ -127,26 +146,9 @@ class InfoRequest < ActiveRecord::Base
   before_validation :compute_idhash
 
   def self.enumerate_states
-    states = [
-      'waiting_response',
-      'waiting_clarification',
-      'gone_postal',
-      'not_held',
-      'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
-      'successful',
-      'partially_successful',
-      'internal_review',
-      'error_message',
-      'requires_admin',
-      'user_withdrawn',
-      'attention_requested',
-      'vexatious',
-      'not_foi'
-    ]
-    if @@custom_states_loaded
-      states += InfoRequest.theme_extra_states
-    end
-    states
+    warn %q([DEPRECATION] InfoRequest.enumerate_states will be removed in
+    0.28. It has been replaced by InfoRequest::State#all).squish
+    State.all
   end
 
   # Subset of states accepted via the API
@@ -169,14 +171,41 @@ class InfoRequest < ActiveRecord::Base
      _("Other")]
   end
 
+
+  # Public: Overrides the ActiveRecord attribute accessor
+  #
+  # opts = Hash of options (default: {})
+  #        :decorate - Wrap the string in a ProminenceCalculator decorator that
+  #        has methods indicating whether the InfoRequest is public, searchable
+  #        etc.
+  # Returns a String or ProminenceCalculator
+  def prominence(opts = {})
+    decorate = opts.fetch(:decorate, false)
+    if decorate
+      Prominence::Calculator.new(self)
+    else
+      read_attribute(:prominence)
+    end
+  end
+
+  # opts = Hash of options (default: {})
+  # Returns a StateCalculator
+  def state(opts = {})
+    State::Calculator.new(self)
+  end
+
   def must_be_valid_state
-    unless InfoRequest.enumerate_states.include?(described_state)
+    unless State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
     end
   end
 
   def is_batch_request_template?
     is_batch_request_template == true
+  end
+
+  def indexed_by_search?
+    prominence(:decorate => true).is_searchable?
   end
 
   # The request must either be internal, in which case it has
@@ -226,6 +255,10 @@ class InfoRequest < ActiveRecord::Base
     include InfoRequestCustomStates
     @@custom_states_loaded = true
   rescue MissingSourceFile, NameError
+  end
+
+  def self.custom_states_loaded
+    @@custom_states_loaded
   end
 
   OLD_AGE_IN_DAYS = 21.days
@@ -518,7 +551,7 @@ class InfoRequest < ActiveRecord::Base
         :status => 'ready',
         :message_type => 'initial_request',
         :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
-        :last_sent_at => Time.now,
+        :last_sent_at => Time.zone.now,
         :what_doing => 'normal_sort'
 
       })
@@ -598,9 +631,9 @@ class InfoRequest < ActiveRecord::Base
     return described_state unless described_state == "waiting_response"
     # Compare by date, so only overdue on next day, not if 1 second late
     return 'waiting_response_very_overdue' if
-    Time.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
+    Time.zone.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
     return 'waiting_response_overdue' if
-    Time.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
+    Time.zone.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
     return 'waiting_response'
   end
 
@@ -633,7 +666,7 @@ class InfoRequest < ActiveRecord::Base
         event.set_calculated_state!(curr_state)
 
         if event.last_described_at.nil? # TODO: actually maybe this isn't needed
-          event.last_described_at = Time.now
+          event.last_described_at = Time.zone.now
           event.save!
         end
         curr_state = nil
@@ -666,9 +699,29 @@ class InfoRequest < ActiveRecord::Base
   # -- OR the same message was resent
   # -- OR the public body requested clarification, and a follow up was sent
   def last_event_forming_initial_request
-    last_sent = nil
-    expecting_clarification = false
+    info_request_event_id = read_attribute(:last_event_forming_initial_request_id)
+    last_sent = if info_request_event_id
+      InfoRequestEvent.find_by_id(info_request_event_id)
+    else
+      calculate_last_event_forming_initial_request
+    end
 
+    if last_sent.nil?
+      raise "internal error, last_event_forming_initial_request gets nil for " \
+            "request #{ id } outgoing messages count " \
+            "#{ outgoing_messages.size } all events: " \
+            "#{ info_request_events.to_yaml }"
+    end
+
+    last_sent
+  end
+
+  def calculate_last_event_forming_initial_request
+    # TODO: This can be removed when last_event_forming_initial_request_id has
+    # been populated for all requests
+
+    expecting_clarification = false
+    last_sent = nil
     info_request_events.each do |event|
       if event.described_state == 'waiting_clarification'
         expecting_clarification = true
@@ -688,45 +741,80 @@ class InfoRequest < ActiveRecord::Base
         end
       end
     end
-
-    if last_sent.nil?
-      raise "internal error, last_event_forming_initial_request gets nil for " \
-            "request #{ id } outgoing messages count " \
-            "#{ outgoing_messages.size } all events: " \
-            "#{ info_request_events.to_yaml }"
-    end
-
     last_sent
   end
 
+  # Log an event to the history of some things that have happened to this request
+  def log_event(type, params, options = {})
+    event = info_request_events.create!(:event_type => type, :params => params)
+    set_due_dates(event) if event.resets_due_dates?
+    if options[:created_at]
+      event.update_column(:created_at, options[:created_at])
+    end
+    event
+  end
+
+  def set_due_dates(sent_event)
+    self.last_event_forming_initial_request_id = sent_event.id
+    self.date_initial_request_last_sent_at = sent_event.created_at.to_date
+    self.date_response_required_by = calculate_date_response_required_by
+    self.date_very_overdue_after = calculate_date_very_overdue_after
+    save!
+  end
+
+  # TODO: once date_initial_request_sent_at is populated for all
+  # requests, this can be removed
   # The last time that the initial request was sent/resent
   def date_initial_request_last_sent_at
+    date = read_attribute(:date_initial_request_last_sent_at)
+    return date.to_date if date
+    calculate_date_initial_request_last_sent_at
+  end
+
+  # TODO: once date_initial_request_sent_at is populated for all
+  # requests, this can be removed
+  def calculate_date_initial_request_last_sent_at
     last_sent = last_event_forming_initial_request
-    last_sent.outgoing_message.last_sent_at
+    last_sent.outgoing_message.last_sent_at.to_date
   end
 
   def late_calculator
     @late_calculator ||= DefaultLateCalculator.new
   end
 
-  # How do we cope with case where extra info was required from the requester
-  # by the public body in order to fulfill the request, as per sections 1(3)
-  # and 10(6b) ? For clarifications this is covered by
-  # last_event_forming_initial_request. There may be more obscure
-  # things, e.g. fees, not properly covered.
+  # TODO: once date_response_required_by is populated for all
+  # requests, this can be removed
   def date_response_required_by
+    date = read_attribute(:date_response_required_by)
+    return date if date
+    calculate_date_response_required_by
+  end
+
+  def calculate_date_response_required_by
     Holiday.due_date_from(date_initial_request_last_sent_at,
                           late_calculator.reply_late_after_days,
                           AlaveteliConfiguration.working_or_calendar_days)
   end
 
-  # This is a long stop - even with UK public interest test extensions, 40
-  # days is a very long time.
+  # TODO: once date_very_overdue_after is populated for all
+  # requests, this can be removed
   def date_very_overdue_after
-    # public interest test ICO guidance gives 40 working maximum
+    date = read_attribute(:date_very_overdue_after)
+    return date if date
+    calculate_date_very_overdue_after
+  end
+
+  def calculate_date_very_overdue_after
     Holiday.due_date_from(date_initial_request_last_sent_at,
                           late_calculator.reply_very_late_after_days,
                           AlaveteliConfiguration.working_or_calendar_days)
+  end
+
+  def last_embargo_set_event
+    info_request_events.
+      where(:event_type => 'set_embargo').
+        reorder('created_at DESC').
+          first
   end
 
   # Where the initial request is sent to
@@ -740,16 +828,14 @@ class InfoRequest < ActiveRecord::Base
 
   def recipient_name_and_email
     MailHandler.address_from_name_and_email(
+      # TRANSLATORS: Please don't use double quotes (") in this translation
+      # or it will break the site's ability to send emails to authorities!
       _("{{law_used}} requests at {{public_body}}",
         :law_used => law_used_human(:short),
         :public_body => public_body.short_or_long_name),
         recipient_email)
   end
 
-  # History of some things that have happened
-  def log_event(type, params)
-    info_request_events.create!(:event_type => type, :params => params)
-  end
 
   def public_response_events
     condition = <<-SQL
@@ -776,7 +862,7 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def public_outgoing_events
-    info_request_events.select{|e| e.outgoing? && e.outgoing_message.all_can_view? }
+    info_request_events.select{|e| e.outgoing? && e.outgoing_message.is_public? }
   end
 
   # The last public outgoing message
@@ -789,7 +875,7 @@ class InfoRequest < ActiveRecord::Base
     return '' if outgoing_messages.empty?
     body_opts = { :censor_rules => applicable_censor_rules }
     first_message = outgoing_messages.first
-    first_message.all_can_view? ? first_message.get_text_for_indexing(true, body_opts) : ''
+    first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
   end
 
   # Returns index of last event which is described or nil if none described.
@@ -921,6 +1007,24 @@ class InfoRequest < ActiveRecord::Base
     info_request
   end
 
+  def self.from_draft(draft)
+    info_request = new(:title => draft.title,
+                       :user => draft.user,
+                       :public_body => draft.public_body)
+    info_request.outgoing_messages.new(:body => draft.body,
+                                       :status => 'ready',
+                                       :message_type => 'initial_request',
+                                       :what_doing => 'normal_sort',
+                                       :info_request => info_request)
+    if draft.embargo_duration
+      info_request.embargo = AlaveteliPro::Embargo.new(
+        :embargo_duration => draft.embargo_duration,
+        :info_request => info_request
+      )
+    end
+    info_request
+  end
+
   def self.hash_from_id(id)
     Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
   end
@@ -1016,25 +1120,39 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def make_zip_cache_path(user)
+    # The zip file varies depending on user because it can include different
+    # messages depending on whether the user can access hidden or
+    # requester_only messages. We name it appropriately, so that every user
+    # with the right permissions gets a file with only the right things in.
     cache_file_dir = File.join(InfoRequest.download_zip_dir,
                                "download",
                                request_dirs,
                                last_update_hash)
-    cache_file_suffix = if all_can_view_all_correspondence?
-                          ""
-                        elsif Ability.can_view_with_prominence?('hidden', self, user)
-                          "_hidden"
-                        elsif Ability.can_view_with_prominence?('requester_only', self, user)
-                          "_requester_only"
-                        else
-                          ""
-                        end
+    cache_file_suffix = zip_cache_file_suffix(user)
     File.join(cache_file_dir, "#{url_title}#{cache_file_suffix}.zip")
+  end
+
+  def zip_cache_file_suffix(user)
+    # Simple short circuit for requests where everything is public
+    if all_correspondence_is_public?
+      ""
+    # If the user can view hidden things, they can view anything, so no need
+    # to go any further
+    elsif User.view_hidden?(user)
+      "_hidden"
+    # If the user can't view hidden things, but owns the request, they can
+    # see more than the public, so they get requester_only
+    elsif is_owning_user?(user)
+      "_requester_only"
+    # Everyone else can only see public stuff, which is the default case
+    else
+      ""
+    end
   end
 
   def is_old_unclassified?
     !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_public_response_event &&
-      Time.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS
+      Time.zone.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS
   end
 
   # List of incoming messages to followup, by unique email
@@ -1047,7 +1165,7 @@ class InfoRequest < ActiveRecord::Base
       end
       incoming_message.safe_mail_from
 
-      next if ! incoming_message.all_can_view?
+      next if ! incoming_message.is_public?
 
       email = OutgoingMailer.email_for_followup(self, incoming_message)
       name = OutgoingMailer.name_for_followup(self, incoming_message)
@@ -1069,7 +1187,7 @@ class InfoRequest < ActiveRecord::Base
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
     applicable_rules = [censor_rules, CensorRule.global.all]
-    unless is_batch_request_template?
+    unless public_body.blank?
       applicable_rules << public_body.censor_rules
     end
     applicable_rules << user.censor_rules if user
@@ -1118,26 +1236,22 @@ class InfoRequest < ActiveRecord::Base
     user.id == user_id
   end
 
-  def user_can_view?(user)
-    Ability.can_view_with_prominence?(prominence, self, user)
-  end
-
-  # Is this request visible to everyone?
   def all_can_view?
-    %w(normal backpage).include?(prominence)
+    warn %q([DEPRECATION] InfoRequest#all_can_view? will be removed in
+    0.28. It has been replaced by InfoRequest.prominence#is_public?).squish
+    prominence(:decorate => true).is_public?
   end
 
   def all_can_view_all_correspondence?
-    all_can_view? &&
-      incoming_messages.all?{ |message| message.all_can_view? } &&
-      outgoing_messages.all?{ |message| message.all_can_view? }
+    warn %q([DEPRECATION] InfoRequest#all_can_view_all_correspondence? will be removed in
+    0.28. It has been replaced by InfoRequest#all_correspondence_is_public?).squish
+    all_correspondence_is_public?
   end
 
-  def indexed_by_search?
-    if prominence == 'backpage' || prominence == 'hidden' || prominence == 'requester_only'
-      return false
-    end
-    true
+  def all_correspondence_is_public?
+    prominence(:decorate => true).is_public? &&
+      incoming_messages.all?{ |message| message.is_public? } &&
+      outgoing_messages.all?{ |message| message.is_public? }
   end
 
   def self.reject_incoming_at_mta(options)
@@ -1235,14 +1349,15 @@ class InfoRequest < ActiveRecord::Base
     success_states = ['successful', 'partially_successful']
     basic_params = {
       :public_body_id => public_body_id,
-      :prominence => 'normal'
     }
-    [['info_requests_not_held_count', {:awaiting_description => false, :described_state => 'not_held'}],
-     ['info_requests_successful_count', {:awaiting_description => false, :described_state => success_states}],
-     ['info_requests_visible_classified_count', {:awaiting_description => false}],
+    [['info_requests_not_held_count', { :awaiting_description => false,
+                                        :described_state => 'not_held' }],
+     ['info_requests_successful_count', { :awaiting_description => false,
+                                          :described_state => success_states }],
+     ['info_requests_visible_classified_count', { :awaiting_description => false }],
      ['info_requests_visible_count', {}]].each do |column, extra_params|
        params = basic_params.clone.update extra_params
-       public_body.send "#{column}=", InfoRequest.where(params).count
+       public_body.send "#{column}=", InfoRequest.where(params).is_searchable.count
      end
      public_body.without_revision do
        public_body.no_xapian_reindex = true
@@ -1357,7 +1472,46 @@ class InfoRequest < ActiveRecord::Base
     attributes['last_event_time'].try(:to_datetime)
   end
 
+  def self.log_overdue_events
+    log_overdue_event_type('overdue')
+  end
+
+  def self.log_very_overdue_events
+    log_overdue_event_type('very_overdue')
+  end
+
   private
+
+  def self.log_overdue_event_type(event_type)
+    date_field = case event_type
+    when 'overdue'
+      'date_response_required_by'
+    when 'very_overdue'
+      'date_very_overdue_after'
+    else
+      raise ArgumentError("Event type #{event_type} not handled")
+    end
+    find_each(:conditions => ["awaiting_description = ?
+                               AND described_state = ?
+                               AND #{date_field} < ?
+                               AND (SELECT id
+                                    FROM info_request_events
+                                    WHERE info_request_id = info_requests.id
+                                    AND event_type = ?
+                                    AND created_at > info_requests.#{date_field})
+                                    IS NULL",
+                              false,
+                              'waiting_response',
+                              Time.zone.today,
+                              event_type],
+              :batch_size => 100) do |info_request|
+      # Date to DateTime representing beginning of day
+      created_at = info_request.send(date_field).beginning_of_day + 1.day
+      info_request.log_event(event_type, { :event_created_at => Time.zone.now },
+                                         { :created_at => created_at })
+    end
+
+  end
 
   def accept_incoming?(email, raw_email_data)
     # See if new responses are prevented

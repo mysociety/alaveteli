@@ -1,5 +1,5 @@
 <div class="outgoing correspondence" id="outgoing-<%= outgoing_message.id %>">
-  <%- if not outgoing_message.user_can_view?(@user) %>
+  <%- if cannot?(:read, outgoing_message) %>
     <%= render :partial => 'request/hidden_correspondence', :locals => { :message => outgoing_message } %>
   <%- else %>
     <%= render :partial => 'request/restricted_correspondence', :locals => {:message => outgoing_message } %>
