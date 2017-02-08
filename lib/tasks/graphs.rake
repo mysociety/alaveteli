@@ -149,12 +149,15 @@ namespace :graphs do
     ENV["GDFONTPATH"] = "/usr/share/fonts/truetype/ttf-bitstream-vera"
 
     def assemble_sql(where_clause="")
-      "SELECT DATE(created_at), COUNT(*) " \
+      "SELECT DATE(info_requests.created_at), COUNT(*) " \
               "FROM info_requests " \
+              "LEFT OUTER JOIN embargoes " \
+              "ON embargoes.info_request_id = info_requests.id " \
               "WHERE #{where_clause} " \
-              "AND PROMINENCE != 'backpage' " \
-              "GROUP BY DATE(created_at)" \
-              "ORDER BY DATE(created_at)"
+              "AND PROMINENCE = 'normal' " \
+              "AND (embargoes.id IS NULL) " \
+              "GROUP BY DATE(info_requests.created_at)" \
+              "ORDER BY DATE(info_requests.created_at)"
     end
 
     def state_exclusion_sql(states)

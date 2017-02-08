@@ -21,6 +21,7 @@ FactoryGirl.define do
 
   factory :outgoing_message do
     info_request
+    prominence 'normal'
 
     factory :initial_request do
       transient do
@@ -28,6 +29,7 @@ FactoryGirl.define do
         message_type 'initial_request'
         body 'Some information please'
         what_doing 'normal_sort'
+        prominence 'normal'
       end
     end
 
@@ -37,6 +39,7 @@ FactoryGirl.define do
         message_type 'followup'
         body 'I clarify my request'
         what_doing 'new_information'
+        prominence 'normal'
       end
     end
 
@@ -46,6 +49,17 @@ FactoryGirl.define do
         message_type 'followup'
         body 'I want a review'
         what_doing 'internal_review'
+        prominence 'normal'
+      end
+    end
+
+    factory :hidden_followup do
+      transient do
+        status 'ready'
+        message_type 'followup'
+        body 'I clarify my request'
+        what_doing 'new_information'
+        prominence 'hidden'
       end
     end
 
@@ -58,7 +72,8 @@ FactoryGirl.define do
     initialize_with { OutgoingMessage.new({ :status => status,
                                             :message_type => message_type,
                                             :body => body,
-                                            :what_doing => what_doing }) }
+                                            :what_doing => what_doing,
+                                            :prominence => prominence }) }
 
     after(:create) do |outgoing_message|
       outgoing_message.sendable?

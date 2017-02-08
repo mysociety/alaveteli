@@ -1,0 +1,52 @@
+<ul class="dashboard-folders">
+  <li class="dashboard-folder dashboard-folder--top-level dashboard-folder--selected">
+    <a href="<%= alaveteli_pro_info_requests_path %>" class="dashboard-folder__name">
+      <%= _('All requests') %>
+      <span class="dashboard-folder__count"><%= @user.info_requests.count %></span>
+    </a>
+  </li>
+  <ul class="dashboard-sub-folders">
+
+
+    <% InfoRequest::State.phases.each do |phase| %>
+    <li class="dashboard-folder">
+      <% if @user.info_requests.send(phase[:scope]).count != 0 %>
+        <a href="<%= alaveteli_pro_info_requests_path('request_filter[filter]' => phase[:scope]) %>" class="dashboard-folder__name">
+      <% else %>
+        <span class="dashboard-folder__name dashboard-folder__name--disabled">
+      <% end %>
+        <span class="status-icon status-icon--<%= phase[:param] %>"></span>
+        <%= phase[:capital_label] %>
+        <span class="dashboard-folder__count">
+          <%= @user.info_requests.send(phase[:scope]).count %>
+        </span>
+      <% if @user.info_requests.send(phase[:scope]).count != 0 %>
+        </a>
+      <% else %>
+        </span>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+</ul>
+
+<ul class="dashboard-folders">
+
+  <li class="dashboard-folder dashboard-folder--top-level ">
+    <% if @user.draft_info_requests.count != 0 %>
+      <a href="<%= alaveteli_pro_info_requests_path('request_filter[filter]' => 'draft') %>" class="dashboard-folder__name">
+    <% else %>
+      <span class="dashboard-folder__name">
+    <% end %>
+    <%= _('Drafts') %>
+    <span class="dashboard-folder__count">
+      <%= @user.draft_info_requests.count %>
+    </span>
+    <% if @user.draft_info_requests.count != 0 %>
+      </a>
+    <% else %>
+      </span>
+    <% end %>
+  </li>
+
+</ul>

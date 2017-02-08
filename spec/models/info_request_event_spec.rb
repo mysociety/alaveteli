@@ -65,57 +65,60 @@ describe InfoRequestEvent do
   end
 
   describe 'when deciding if it is indexed by search' do
-    let(:comment) { mock_model(Comment) }
-    let(:incoming_message) { mock_model(IncomingMessage) }
-    let(:outgoing_message) { mock_model(OutgoingMessage) }
-    let(:info_request) { mock_model(InfoRequest, :indexed_by_search? => true) }
 
-    it 'should return a falsey value for a comment that is not visible' do
-      allow(comment).to receive(:visible).and_return(false)
-      info_request_event = InfoRequestEvent.new(:event_type => 'comment',
-                                                :comment => comment,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_falsey
+    it 'returns a falsey value for a comment that is not visible' do
+      comment = FactoryGirl.create(:hidden_comment)
+      comment_event = FactoryGirl.build(:comment_event, :comment => comment)
+      expect(comment_event.indexed_by_search?).to be_falsey
     end
 
-    it 'should return a truthy value for a comment that is visible' do
-      allow(comment).to receive(:visible).and_return(true)
-      info_request_event = InfoRequestEvent.new(:event_type => 'comment',
-                                                :comment => comment,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_truthy
+    it 'returns a truthy value for a comment that is visible' do
+      comment = FactoryGirl.create(:comment)
+      comment_event = FactoryGirl.build(:comment_event, :comment => comment)
+      expect(comment_event.indexed_by_search?).to be_truthy
     end
 
-    it 'should return a truthy value for an incoming message that is not indexed by search' do
-      allow(incoming_message).to receive(:indexed_by_search?).and_return false
-      info_request_event = InfoRequestEvent.new(:event_type => 'response',
-                                                :incoming_message => incoming_message,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_falsey
+    it 'returns a falsey value for an incoming message that is not indexed by search' do
+      incoming_message = FactoryGirl.create(:hidden_incoming_message)
+      response_event = FactoryGirl.build(:response_event,
+                                         :incoming_message => incoming_message)
+      expect(response_event.indexed_by_search?).to be_falsey
     end
 
-    it 'should return a truthy value for an incoming message that is indexed by search' do
-      allow(incoming_message).to receive(:indexed_by_search?).and_return true
-      info_request_event = InfoRequestEvent.new(:event_type => 'response',
-                                                :incoming_message => incoming_message,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_truthy
+    it 'returns a truthy value for an incoming message that is indexed by search' do
+      incoming_message = FactoryGirl.create(:incoming_message)
+      response_event = FactoryGirl.build(:response_event,
+                                         :incoming_message => incoming_message)
+      expect(response_event.indexed_by_search?).to be_truthy
     end
 
-    it 'should return a falsey value for an outgoing message that is not indexed by search' do
-      allow(outgoing_message).to receive(:indexed_by_search?).and_return false
-      info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
-                                                :outgoing_message => outgoing_message,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_falsey
+    it 'returns a falsey value for an outgoing message that is not indexed by search' do
+      outgoing_message = FactoryGirl.create(:hidden_followup)
+      followup_event = FactoryGirl.build(:followup_sent_event,
+                                         :outgoing_message => outgoing_message)
+      expect(followup_event.indexed_by_search?).to be_falsey
     end
 
-    it 'should return a truthy value for an outgoing message that is indexed by search' do
-      allow(outgoing_message).to receive(:indexed_by_search?).and_return true
-      info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
-                                                :outgoing_message => outgoing_message,
-                                                :info_request => info_request)
-      expect(info_request_event.indexed_by_search?).to be_truthy
+    it 'returns a truthy value for an outgoing message that is indexed by search' do
+      outgoing_message = FactoryGirl.create(:new_information_followup)
+      followup_event = FactoryGirl.build(:followup_sent_event,
+                                         :outgoing_message => outgoing_message)
+      expect(followup_event.indexed_by_search?).to be_truthy
+    end
+
+    it 'returns a falsey value for an overdue event' do
+      overdue_event = FactoryGirl.build(:overdue_event)
+      expect(overdue_event.indexed_by_search?).to be_falsey
+    end
+
+    it 'returns a falsey value for a very overdue event' do
+      very_overdue_event = FactoryGirl.build(:very_overdue_event)
+      expect(very_overdue_event.indexed_by_search?).to be_falsey
+    end
+
+    it 'returns a falsey value for an embargo expiry event' do
+      expire_embargo_event = FactoryGirl.build(:expire_embargo_event)
+      expect(expire_embargo_event.indexed_by_search?).to be_falsey
     end
   end
 
@@ -238,18 +241,16 @@ describe InfoRequestEvent do
 
   describe '#filetype' do
     context 'a response event' do
-      let(:ire) { ire = FactoryGirl.create(:info_request_event) }
+      let(:ire) { ire = FactoryGirl.create(:response_event) }
 
       it 'should raise an error if there is not incoming_message' do
+        ire.incoming_message = nil
         expect { ire.filetype }.to raise_error.
           with_message(/event type is 'response' but no incoming message for event/)
       end
 
       it 'should return a blank string if there are no attachments' do
         info_request = ire.info_request
-        incoming = FactoryGirl.create(:plain_incoming_message,
-                                      :info_request => info_request)
-        ire.incoming_message = incoming
         expect(ire.filetype).to eq('')
       end
 
@@ -667,4 +668,80 @@ describe InfoRequestEvent do
       end
     end
   end
+
+  describe '#resets_due_dates?' do
+
+    it 'returns true if the event is a sending of the request' do
+      info_request_event = FactoryGirl.create(:sent_event)
+      expect(info_request_event.resets_due_dates?).to be true
+    end
+
+    it 'returns true if the event is a clarification' do
+      info_request = FactoryGirl.create(:info_request)
+      info_request.set_described_state('waiting_clarification')
+      event = info_request.log_event('followup_sent', {})
+      expect(event.resets_due_dates?).to be true
+    end
+
+    it 'returns false if the event is neither a sending of the request or a
+        clarification' do
+      info_request_event = FactoryGirl.create(:response_event)
+      expect(info_request_event.resets_due_dates?).to be false
+    end
+  end
+
+
+  describe '#is_request_sending?' do
+
+    it 'returns true if the event type is "sent"' do
+      info_request_event = FactoryGirl.create(:sent_event)
+      expect(info_request_event.is_request_sending?).to be true
+    end
+
+    it 'returns true if the event type is "resent"' do
+      info_request_event = FactoryGirl.create(:resent_event)
+      expect(info_request_event.is_request_sending?).to be true
+    end
+
+    it 'returns false if the event type is not "sent" or "resent"' do
+      info_request_event = FactoryGirl.create(:response_event)
+      expect(info_request_event.is_request_sending?).to be false
+    end
+  end
+
+
+  describe '#is_clarification?' do
+
+    it 'should return false if there has been no request for clarification' do
+      info_request = FactoryGirl.create(:info_request_with_incoming)
+      event = info_request.log_event('followup_sent', {})
+      expect(event.is_clarification?).to be false
+    end
+
+    it 'should return true if the event is the first followup after a request
+        for clarification' do
+      info_request = FactoryGirl.create(:info_request_with_incoming)
+      info_request.set_described_state('waiting_clarification')
+      event = info_request.log_event('followup_sent', {})
+      expect(event.is_clarification?).to be true
+    end
+
+    it 'should return false if there was a request for clarification but there
+        has since been a followup' do
+      info_request = FactoryGirl.create(:info_request_with_incoming)
+      info_request.set_described_state('waiting_clarification')
+      info_request.log_event('followup_sent', {})
+      event = info_request.log_event('followup_sent', {})
+      expect(event.is_clarification?).to be false
+    end
+
+    it 'should return false if there was a request for clarification after
+        this event' do
+      info_request = FactoryGirl.create(:info_request_with_incoming)
+      event = info_request.log_event('followup_sent', {})
+      info_request.set_described_state('waiting_clarification')
+      expect(event.is_clarification?).to be false
+    end
+  end
+
 end

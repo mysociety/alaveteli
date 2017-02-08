@@ -6,6 +6,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # atluxity <atluxity@1kb.no>, 2014
 # Ben W <bwng@openmailbox.org>, 2016
@@ -26,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -473,6 +475,9 @@ msgstr "Venter på klassifisering"
 msgid "Awaiting classification."
 msgstr "Venter på kategorisering."
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "Venter på behandling av klage."
 
@@ -605,6 +610,9 @@ msgstr "Velg ditt profil-bilde"
 msgid "Clarification"
 msgstr "Klargjøring"
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Klargjøring sendt til {{public_body_name}} av {{info_request_user}} den {{date}}."
 
@@ -640,6 +648,9 @@ msgstr "Kommentar|Lokalisering"
 
 msgid "Comment|Visible"
 msgstr "Kommentar|Synlig"
+
+msgid "Complete"
+msgstr ""
 
 msgid "Confirm password:"
 msgstr "Passord: (igjen)"
@@ -739,6 +750,9 @@ msgstr "Kjære [Authority name],"
 
 msgid "Dear {{name}},"
 msgstr "Kjære {{name}},"
+
+msgid "Dear {{placeholder_body_name}},"
+msgstr ""
 
 msgid "Dear {{public_body_name}},"
 msgstr "Kjære {{public_body_name}},"
@@ -1195,6 +1209,9 @@ msgstr "Jeg vil ikke rydde mer nå!"
 msgid "I like this request"
 msgstr "Jeg liker denne henvendelsen"
 
+msgid "I want to withdraw this request"
+msgstr ""
+
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Jeg ønsker å <strong>trekke denne henvendelsen</strong>"
 
@@ -1210,8 +1227,8 @@ msgstr "Jeg venter på at <strong>klagen</strong> blir behandlet"
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Jeg har blitt spurt om å <strong>klargjøre</strong> henvendelsen min"
 
-msgid "I've received <strong>all the information"
-msgstr "Jeg har fått <strong>alt av informasjonen"
+msgid "I've received <strong>all the information</strong>"
+msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "Jeg har mottatt <strong>en del av informasjonen</strong>"
@@ -1399,6 +1416,15 @@ msgstr "InfoRequest|Awaiting description"
 msgid "InfoRequest|Comments allowed"
 msgstr "InfoRequest|Comments allowed"
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
 
@@ -1434,6 +1460,9 @@ msgstr "InfoRequest|Title"
 
 msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Url title"
+
+msgid "Information not held"
+msgstr ""
 
 msgid "Information not held."
 msgstr "Har ikke informasjonen."
@@ -1822,8 +1851,14 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
 msgstr "Delvis suksess"
+
+msgid "Partially successful"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Delvis vellykket."
@@ -1979,6 +2014,9 @@ msgstr "Vær så snill og kun spør om informasjon som hører under disse katego
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Vær så snill å send denne videre til personen som vurderer innsynsklager."
+
+msgid "Please select an authority"
+msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr "Velg hver av disse henvendelsene etter tur, og <strong>la alle få vite</strong>\\nom de nå er vellykket eller ikke."
@@ -2283,6 +2321,9 @@ msgstr "Nylige Hendelser"
 msgid "Recently described results first"
 msgstr "Nylige beskrevne resultater først"
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr "Avslått"
 
@@ -2295,6 +2336,9 @@ msgstr "Avvist"
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Husk meg (lar deg være logget inn lengre, ikke bruk dette på en offentlig datamaskin)"
 
+msgid "Replying by post"
+msgstr ""
+
 msgid "Report abuse"
 msgstr "Meld misbruk"
 
@@ -2306,6 +2350,9 @@ msgstr "Meld henvendelse"
 
 msgid "Report this request"
 msgstr "Rapporter henvendelsen"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "Rapportert til admininstrator"
@@ -2373,6 +2420,9 @@ msgstr "Henvendelser som ligner '{{request_title}}' (side {{page}})"
 msgid "Requests will be sent to the following bodies:"
 msgstr "Henvendelser vil bli sendt til følgende instanser:"
 
+msgid "Requires administrator attention"
+msgstr ""
+
 msgid "Respond by email"
 msgstr "Svar med e-post"
 
@@ -2393,6 +2443,9 @@ msgstr "Svar fra {{public_body_name}} til {{info_request_user}} den {{date}}."
 
 msgid "Response from a public authority"
 msgstr "Svar fra en offentlig myndighet"
+
+msgid "Response received"
+msgstr ""
 
 msgid "Response to '{{title}}'"
 msgstr "Svar på "
@@ -2594,6 +2647,9 @@ msgstr "Lag din egen forespørsel"
 msgid "Statistics"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr "Hold deg oppdatert"
 
@@ -2639,8 +2695,8 @@ msgstr "Vellykket."
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "Foreslår hvordan henvenderen kan få <strong>resten av informasjonen/dokumentene</strong>"
 
-msgid "Summary:"
-msgstr "Oppsummering:"
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Tabell over statuser"
@@ -2931,6 +2987,9 @@ msgstr "Det var ingen henvendelser som tilfredsstiller ditt søk."
 
 msgid "There were no results matching your query."
 msgstr "Det var ingen resultater som tilfredsstiller ditt søk."
+
+msgid "There's an error message"
+msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Disse grafene er delvis inspirert av <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">endel statistikk som Mark Goodge lagde for WhatDoTheyKnow</a>, så han fortjener en takk."
@@ -3428,6 +3487,9 @@ msgstr "Bruker|Url navn"
 msgid "Version {{version}}"
 msgstr "Versjon {{version}}"
 
+msgid "Very overdue"
+msgstr ""
+
 msgid "Vexatious"
 msgstr "Sjikane"
 
@@ -3458,11 +3520,23 @@ msgstr "Se andre henvendelser til {{public_body}}"
 msgid "View your two factor authentication one time passcode"
 msgstr "Vis to-faktor autentisering engangspassord"
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Venter avklaring"
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Venter på <strong>klagebehandling</strong>."
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
+msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Venter på at myndigheten skal utføre klagebehandling på denne henvendelsen/klagen"
@@ -3902,6 +3976,9 @@ msgstr "Ditt passord:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Bildet ditt vil bli vist offentlig <strong>på Internett</strong>,\\n hver gang du gjør noe på {{site_name}}."
 
+msgid "Your request"
+msgstr ""
+
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr "Din henvendelse «{{request}}» på {{url}} har blitt sjekket av moderatorer."
 
@@ -3922,9 +3999,6 @@ msgstr "Din henvendelse om å oppdatere {{public_body_name}} på {{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Din henvendelse ble kalt {{info_request}}. Ved å la alle vite hvorvidt du fikk informasjonen, hjelper du oss å holde orden på"
-
-msgid "Your request:"
-msgstr "Henvendelsen:"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Din henvendelse blir straks <strong>sendt</strong>!"
@@ -3977,6 +4051,9 @@ msgstr "Med hilsen,"
 msgid "[Authority URL will be inserted here]"
 msgstr "[Myndighets-URL vil bli satt inn her]"
 
+msgid "[Authority name]"
+msgstr ""
+
 msgid "[FOI #{{request}} email]"
 msgstr "[Innsyns-e-postadresse #{{request}}]"
 
@@ -4028,6 +4105,9 @@ msgstr "ved"
 msgid "authorities"
 msgstr "myndigheter"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr "men oppfølgbar"
 
@@ -4037,8 +4117,14 @@ msgstr "av"
 msgid "by {{user_link_absolute}}"
 msgstr "av {{user_link_absolute}}"
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "kommentarer"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr "detaljer"
@@ -4106,6 +4192,12 @@ msgstr "ikke logget inn"
 msgid "not requestable due to: {{reason}}"
 msgstr "kan ikke be om fordi: {{reason}}"
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr ""
 
@@ -4120,6 +4212,9 @@ msgstr "vellykkede henvendelser"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "vellykkede henvendelser som stemmer med teksten «{{query}}»"
+
+msgid "response received"
+msgstr ""
 
 msgid "send a follow up message"
 msgstr "send en oppfølgningsmelding"
@@ -4171,6 +4266,9 @@ msgstr "ukjent grunn"
 msgid "unknown reason "
 msgstr "ukjent grunn "
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "ukjent status {{status}}"
 
@@ -4188,6 +4286,9 @@ msgstr "mislykkede"
 
 msgid "users"
 msgstr "brukere"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "hva er det?"
@@ -4248,6 +4349,8 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} - {{title}}"
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} til {{public_body}}"
 

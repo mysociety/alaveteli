@@ -29,7 +29,8 @@ class UserInfoRequestSentAlert < ActiveRecord::Base
     # recent response
     'not_clarified_1', # reminder that user has to explain part of the
     # request
-    'comment_1' # tell user that info request has a new comment
+    'comment_1', # tell user that info request has a new comment
+    'embargo_expiring_1' # tell user that their embargo is expiring
   ]
 
   belongs_to :user

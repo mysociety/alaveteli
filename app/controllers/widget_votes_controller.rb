@@ -39,11 +39,11 @@ class WidgetVotesController < ApplicationController
   end
 
   def find_info_request
-    @info_request = InfoRequest.find(params[:request_id])
+    @info_request = InfoRequest.not_embargoed.find(params[:request_id])
   end
 
   def check_prominence
-    unless @info_request.prominence == 'normal'
+    unless @info_request.prominence(:decorate => true).is_searchable?
       render :nothing => true, :status => :forbidden
     end
   end

@@ -9,7 +9,8 @@ class FollowupsController < ApplicationController
                 :check_request_matches_incoming_message,
                 :set_params,
                 :set_internal_review,
-                :set_outgoing_message
+                :set_outgoing_message,
+                :set_in_pro_area
 
   before_filter :check_reedit, :only => [:preview, :create]
 
@@ -91,7 +92,7 @@ class FollowupsController < ApplicationController
       render :template => 'user/banned'
       return
     end
-    if authenticated_user && !@info_request.user_can_view?(authenticated_user)
+    if authenticated_user && cannot?(:read, @info_request)
       return render_hidden
     end
   end
@@ -165,7 +166,11 @@ class FollowupsController < ApplicationController
   end
 
   def set_info_request
-    @info_request = InfoRequest.find(params[:request_id].to_i)
+    if current_user && current_user.pro?
+      @info_request = current_user.info_requests.find(params[:request_id].to_i)
+    else
+      @info_request = InfoRequest.not_embargoed.find(params[:request_id].to_i)
+    end
   end
 
   def set_last_request_data
@@ -188,5 +193,9 @@ class FollowupsController < ApplicationController
   def set_postal_addresses
     @postal_email = @info_request.postal_email
     @postal_email_name = @info_request.postal_email_name
+  end
+
+  def set_in_pro_area
+    @in_pro_area = @info_request.embargo.present?
   end
 end

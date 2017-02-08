@@ -58,6 +58,60 @@ namespace :temp do
     end
   end
 
+  desc 'Populate the last_event_forming_initial_request_id,
+        date_initial_request_last_sent_at,
+        date_response_required_by and date_very_overdue_after
+        fields for all requests'
+  task :populate_request_due_dates => :environment do
+    ActiveRecord::Base.record_timestamps = false
+    begin
+      InfoRequest.find_each do |info_request|
+        info_request.set_due_dates(info_request.last_event_forming_initial_request)
+      end
+    ensure
+      ActiveRecord::Base.record_timestamps = true
+    end
+  end
+
+  def backload_overdue(event_type, verbose)
+    UserInfoRequestSentAlert.
+      where(['alert_type = ?
+              AND info_request_event_id IS NOT NULL',
+              "#{event_type}_1"]).
+        find_each do |overdue_alert|
+
+      event_forming_request = InfoRequestEvent.find(overdue_alert.info_request_event_id)
+      days_to_count = case event_type
+                      when 'overdue'
+                        overdue_alert.info_request.late_calculator.reply_late_after_days
+                      when 'very_overdue'
+                        overdue_alert.info_request.late_calculator.reply_very_late_after_days
+                      else
+                        raise "Unknown event type #{event_type}"
+                      end
+      due_date = Holiday.due_date_from(event_forming_request.created_at,
+                                       days_to_count,
+                                       AlaveteliConfiguration.working_or_calendar_days)
+      created_at = due_date.beginning_of_day + 1.day
+      overdue_alert.info_request.log_event(event_type, {}, { :created_at => created_at })
+      if verbose
+        puts "Logging #{event_type} for #{overdue_alert.info_request.id}"
+      end
+    end
+  end
+
+  desc 'Backload overdue InfoRequestEvents'
+  task :backload_overdue_info_request_events => :environment do
+    verbose = ENV['VERBOSE'] == '1'
+    backload_overdue('overdue', verbose)
+  end
+
+  desc 'Backload very overdue InfoRequestEvents'
+  task :backload_very_overdue_info_request_events => :environment do
+    verbose = ENV['VERBOSE'] == '1'
+    backload_overdue('very_overdue', verbose)
+  end
+
   desc 'Update EventType when only editing prominence to hide'
   task :update_hide_event_type => :environment do
     InfoRequestEvent.where(:event_type => 'edit').find_each do |event|

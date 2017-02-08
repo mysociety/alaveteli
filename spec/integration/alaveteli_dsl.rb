@@ -5,6 +5,10 @@ module AlaveteliDsl
     visit "/request/#{url_title}"
   end
 
+  def browse_pro_request(url_title)
+    visit "/alaveteli_pro/info_requests/#{url_title}"
+  end
+
   def create_request
     visit select_authority_path
     within(:css, '#search_form') do
@@ -14,8 +18,8 @@ module AlaveteliDsl
     within(:css, '.body_listing') do
       find_link('Make a request').click
     end
-    fill_in 'Summary:', :with => "Why is your quango called Geraldine?"
-    fill_in 'Your request:', :with => "This is a silly letter. It is too short to be interesting."
+    fill_in 'Summary', :with => "Why is your quango called Geraldine?"
+    fill_in 'Your request', :with => "This is a silly letter. It is too short to be interesting."
 
     find_button('Preview your public request').click
     find_button('Send request').click
@@ -45,10 +49,18 @@ def alaveteli_session(session_id)
   end
 end
 
+def using_pro_session(session_id)
+  with_feature_enabled(:alaveteli_pro) do
+    using_session(session_id) do
+      yield
+    end
+  end
+end
+
 def login(user)
   u = user.is_a?(User) ? user : users(user)
   alaveteli_session(u.id) do
-    visit signin_path
+    visit 'en/profile/sign_in'
     within '#signin_form' do
       fill_in "Your e-mail:", :with => u.email
       fill_in "Password:", :with => "jonespassword"

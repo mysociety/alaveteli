@@ -11,7 +11,7 @@
         <%= _("This request has prominence 'hidden'. You can only see it " \
               "because you are logged in as a super user.") %>
       </p>
-    <% elsif @info_request.prominence == 'requester_only' %>
+    <% elsif @info_request.prominence(:decorate => true).is_requester_only? %>
       <h2><%= _('Request hidden') %></h2>
       <%# The eccentric formatting of the following string is in order that it be identical
           to the corresponding string in request/show.html.erb %>

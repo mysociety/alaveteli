@@ -7,8 +7,36 @@ describe FollowupsController do
   let(:request_user) { FactoryGirl.create(:user) }
   let(:request) { FactoryGirl.create(:info_request_with_incoming, :user => request_user) }
   let(:message_id) { request.incoming_messages[0].id }
+  let(:pro_user) { FactoryGirl.create(:pro_user) }
 
-  describe "GET new" do
+  describe "GET #new" do
+
+    context "when not logged in" do
+      it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
+        embargoed_request = FactoryGirl.create(:embargoed_request)
+        expect{ get :new, :request_id => embargoed_request.id }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context "when a pro user is logged in" do
+      before do
+        session[:user_id] = pro_user.id
+      end
+
+      it 'finds their own embargoed requests' do
+        embargoed_request = FactoryGirl.create(:embargoed_request,
+                                               user: pro_user)
+        get :new, :request_id => embargoed_request.id
+        expect(response).to be_success
+      end
+
+      it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
+        embargoed_request = FactoryGirl.create(:embargoed_request)
+        expect{ get :new, :request_id => embargoed_request.id }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
 
     it "displays 'wrong user' message when not logged in as the request owner" do
       session[:user_id] = FactoryGirl.create(:user)
@@ -118,21 +146,66 @@ describe FollowupsController do
 
     end
 
+    context 'when viewing a response for an embargoed request' do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:embargoed_request) do
+        FactoryGirl.create(:embargoed_request, user: pro_user)
+      end
+
+      it "sets @in_pro_area" do
+        session[:user_id] = pro_user.id
+        with_feature_enabled(:alaveteli_pro) do
+          get :new, :request_id => embargoed_request.id
+          expect(assigns[:in_pro_area]).to eq true
+        end
+      end
+    end
+
   end
 
-  describe "POST preview" do
+  describe "POST #preview" do
 
     let(:dummy_message) do
       { :body => "What a useless response! You suck.",
         :what_doing => 'normal_sort' }
     end
 
-    it "redirects to the signin page if not logged in" do
-      post :preview, :outgoing_message => dummy_message,
-                     :request_id => request.id,
-                     :incoming_message_id => message_id
-      expect(response).
-        to redirect_to(signin_url(:token => get_last_post_redirect.token))
+    context "when not logged in" do
+      it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
+        embargoed_request = FactoryGirl.create(:embargoed_request)
+        expect{ post :preview, :outgoing_message => dummy_message,
+                               :request_id => embargoed_request.id }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it "redirects to the signin page" do
+        post :preview, :outgoing_message => dummy_message,
+                       :request_id => request.id,
+                       :incoming_message_id => message_id
+        expect(response).
+          to redirect_to(signin_url(:token => get_last_post_redirect.token))
+      end
+    end
+
+    context "when a pro user is logged in" do
+      before do
+        session[:user_id] = pro_user.id
+      end
+
+      it 'finds their own embargoed requests' do
+        embargoed_request = FactoryGirl.create(:embargoed_request,
+                                               user: pro_user)
+        post :preview, :outgoing_message => dummy_message,
+                       :request_id => embargoed_request.id
+        expect(response).to be_success
+      end
+
+      it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
+        embargoed_request = FactoryGirl.create(:embargoed_request)
+        expect{ post :preview, :outgoing_message => dummy_message,
+                               :request_id => embargoed_request.id }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
 
     it "displays a wrong user message when not logged in as the request owner" do
@@ -178,9 +251,24 @@ describe FollowupsController do
 
     end
 
+    context 'when viewing a response for an embargoed request' do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:embargoed_request) do
+        FactoryGirl.create(:embargoed_request, user: pro_user)
+      end
+
+      it "sets @in_pro_area" do
+        session[:user_id] = pro_user.id
+        with_feature_enabled(:alaveteli_pro) do
+          get :new, :request_id => embargoed_request.id
+          expect(assigns[:in_pro_area]).to eq true
+        end
+      end
+    end
+
   end
 
-  describe "POST create" do
+  describe "POST #create" do
 
     let(:dummy_message) do
       { :body => "What a useless response! You suck.",
@@ -191,13 +279,47 @@ describe FollowupsController do
       session[:user_id] = request_user.id
     end
 
-    it "redirects to the signin page if not logged in" do
-      session[:user_id] = nil
-      post :create, :outgoing_message => dummy_message,
-                    :request_id => request.id,
-                    :incoming_message_id => message_id
-      expect(response).
-        to redirect_to(signin_url(:token => get_last_post_redirect.token))
+    context "when not logged in" do
+      before do
+        session[:user_id] = nil
+      end
+
+      it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
+        embargoed_request = FactoryGirl.create(:embargoed_request)
+        expect{ post :create, :outgoing_message => dummy_message,
+                              :request_id => embargoed_request.id }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it "redirects to the signin page" do
+        post :create, :outgoing_message => dummy_message,
+                      :request_id => request.id,
+                      :incoming_message_id => message_id
+        expect(response).
+          to redirect_to(signin_url(:token => get_last_post_redirect.token))
+      end
+    end
+
+    context "when a pro user is logged in" do
+      before do
+        session[:user_id] = pro_user.id
+      end
+
+      it 'finds their own embargoed requests' do
+        embargoed_request = FactoryGirl.create(:embargoed_request,
+                                               user: pro_user)
+        expected_url = show_request_url(:url_title => embargoed_request.url_title)
+        post :create, :outgoing_message => dummy_message,
+                      :request_id => embargoed_request.id
+        expect(response).to redirect_to(expected_url)
+      end
+
+      it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
+        embargoed_request = FactoryGirl.create(:embargoed_request)
+        expect{ post :create, :outgoing_message => dummy_message,
+                              :request_id => embargoed_request.id }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
 
     it "only allows the request owner to make a followup" do

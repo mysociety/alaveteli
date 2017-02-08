@@ -6,18 +6,42 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Amit Shrestha <amitshrestha37@gmail.com>, 2017
+# Anjesh Ojha <anjeshojha67@gmail.com>, 2017
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
+# Ashchal Shrestha <ashchal93@gmail.com>, 2017
+# Bibek Pokhrel <bibekpokhrel500@gmail.com>, 2017
+# Bidhan Rai <bidhanrai424@gmail.com>, 2017
+# Bipul Bikram Thapa <bipulthapa23@gmail.com>, 2017
 # codefornepal <codefornepal@gmail.com>, 2015
+# Garurav Parajuli <gaurav.parajulii@gmail.com>, 2017
+# Kiran Kumar Chaudhary <hellokiran2020@gmail.com>, 2017
+# Nikesh Balami <nikeshbalami@gmail.com>, 2017
+# Nishan Khatri <khatrinishan123@gmail.com>, 2017
+# Nootan Ghimire <nootan.ghimire@gmail.com>, 2017
 # Pawan Kumar Kandel <pkkandel1@gmail.com>, 2016
+# Prahant Subedi <prashantsubedi92@gmail.com>, 2017
+# Rajan Maharjan <rajanmaharjan25@gmail.com>, 2017
+# Rajan Prasad <prasadrajankalwar@gmail.com>, 2017
+# Robin Ranabhat <robinnarsingha123@gmail.com>, 2017
+# Sagun Maharjan <lordw039@gmail.com>, 2017
+# sakar ghimire <sacar.ghimire@gmail.com>, 2017
+# sandip dulal <sandipdulal@gmail.com>, 2017
 # Saroj Dhakal <lotusnagarkot@gmail.com>, 2016
 # Saroj Dhakal <lotusnagarkot@gmail.com>, 2016-2017
+# Saugat Adhikari <saugatadh91@gmail.com>, 2017
+# Shubham Joshi <ycleptshubham@gmail.com>, 2017
+# subash aryal <subasharyal54@gmail.com>, 2017
+# Yudeep Rajbhandari <endlessveins@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-15 06:08+0000\n"
-"Last-Translator: Saroj Dhakal <lotusnagarkot@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +59,7 @@ msgid " (you)"
 msgstr " (तपाईँ)"
 
 msgid " - view and make Freedom of Information requests"
-msgstr " - सूचना अनुरोधको हाक हेर्नुहोस् र बनाउनहोस्"
+msgstr " - सूचना अनुरोधको हक हेर्नुहोस् र बनाउनुहोस्"
 
 msgid " < "
 msgstr " < "
@@ -59,7 +83,7 @@ msgid " Advise on how to <strong>best clarify</strong> the request."
 msgstr " <strong>राम्रोसंग अनुरोध स्पष्टीकरण</strong> गर्न सल्लाह दिनुहोस्।"
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
-msgstr " अख्तियारसंग <strong>अन्य कस्ता कागजातहरु अनुरोध गर्न सकिन्छन</strong> भन्ने बारे जानकारी । "
+msgstr " अख्तियारसँग <strong>अन्य कस्ता कागजातहरू अनुरोध गर्न सकिन्छन्</strong> भन्ने बारे जानकारी । "
 
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
 msgstr " येदि अनुरोध गरिएको सूचना <strong>पहिले नै</strong> इन्टरनेटमा छ भने, त्यसलाई लिङ्क गर्नुहोला। "
@@ -68,16 +92,16 @@ msgid " Offer better ways of <strong>wording the request</strong> to get the inf
 msgstr " जानकारी प्राप्त गर्नको लागि <strong>अनुरोधमा अनुकुल शब्दको</strong> प्रयोग् गर्नुहोस्। "
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr " यदि सम्भव छ भने, लिंकहरुमा भएका जानकारी कसरी प्रयोग गर्नु भयो, बताउनु होस्।"
+msgstr " यदि सम्भव छ भने, लिङ्कहरूमा भएका जानकारी कसरी प्रयोग गर्नु भयो, बताउनुहोस्।"
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
-msgstr " जानकारी खोज्नेहरु यो जानकारी <strong>आन्य कहाँ</strong> पाउन सक्छन्, सुझाव दिनुहोस्। "
+msgstr " जानकारी खोज्नेहरू यो जानकारी <strong>अन्य कहाँ</strong> पाउन सक्छन्, सुझाव दिनुहोस्। "
 
 msgid " You are already being emailed updates about the request."
-msgstr " तपाईंलाई इमेल मार्फत यो अनुरोधको बारेमा जानकारीहरु पठाई सकिएको छ।"
+msgstr " तपाईँलाई इमेल मार्फत यो अनुरोधको बारेमा जानकारीहरू पठाइ सकिएको छ।"
 
 msgid " You will also be emailed updates about the request."
-msgstr " तपाईंलाई पनि इमेल मार्फत यो अनुरोधको बारेमा जानकारीहरु पठाईने छ।"
+msgstr " तपाईँलाई पनि इमेल मार्फत यो अनुरोधको बारेमा जानकारीहरू पठाइने छ।"
 
 msgid " filtered by status: '{{status}}'"
 msgstr " स्थिति हेरी छानिएको : '{{status}}'"
@@ -86,10 +110,10 @@ msgid " when you send this message."
 msgstr " जब तपाईँ यो सन्देश पठाउनुहुन्छ।"
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'वडा स्तरमा वेल्सको आपराधिक तथ्याङ्क'"
 
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "'समय अन्तरालमा टाइन नदीको प्रदूषण स्तर' "
 
 msgid "'{{link_to_authority}}', a public authority"
 msgstr "'{{link_to_authority}}', सार्वजनिक निकाय"
@@ -122,7 +146,7 @@ msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask 
 msgstr "<a href=\"{{browse_url}}\">सबै हेर्नुहोस्</a> अथवा <a href=\"{{add_url}}\">हामीलाई थप्न भन्नुहोस्</a>।"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "{{public_body_name}} लाई <a href=\"{{new_request_link}}\">एक EIR अनुरोध</a> गर्नुहोस् "
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr "to {{public_body_name}} लाई<a href=\"{{new_request_link}}\">एक नयाँ FOI अनुरोध तयार पार्नुहोस्</a> "
@@ -172,31 +196,33 @@ msgid "<p>{{site_name}} is currently in maintenance. You can only view existing 
 msgstr "<p>{{site_name}} हाल मर्मतमा रहेको छ। तपाईँले पहिले नै रहेको अनुरोधहरू मात्र हेर्न  सक्नुहुन्छ। You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>commented_by:tony_bowden</code></strong> Tony Bowdenद्वारा गरिएको  टिप्पणी खोजी गर्न URL मा भएको जस्तो नाम टाइप गर्नुहोस्|"
 
 msgid "<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
-msgstr ""
+msgstr "<strong><code>filetype:pdf</code></strong>PDF संलग्न सबै  प्रतिक्रियाहरू बारे थाहा पाउनको लागि । अथवा यसको प्रयास गर्नुहोस् : <code>{{list_of_file_extensions}} </code>  "
 
 msgid "<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL."
-msgstr ""
+msgstr "<strong><code>अनुरोध:</code></strong> एउटा विशेष अनुरोधलाई बन्देज गर्न, शीर्षकलाई युरल मा जस्तै टाइप गर्ने |"
 
 msgid "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
-msgstr ""
+msgstr "<strong><code>request_public_body_tag:charity</code></strong>दीएको tag सार्वजनिक अधिकारलाई गरिएको अनुरोध खोज्न|"
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>requested_by:julian_todd</code></strong> Julian Todd द्वारा अनुरोध गरिएको कुराहरू खोज गर्न,URL मा देखाइए जस्तो नाम टाइप गर्नुहोस्।"
 
 msgid "<strong><code>requested_from:home_office</code></strong> to search requests from the Home Office, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>requested_from:home_office</code></strong> गृह कार्यालयबाट गरिएको अनुरोधहरू खोज्न URL मा भएको जस्तै नाम लेख्ने "
 
 msgid "<strong><code>status:</code></strong> to select based on the status or historical status of the request, see the <a href=\"{{statuses_url}}\">table of statuses</a> below."
-msgstr ""
+msgstr "<strong><code>स्थिति </code></strong> स्थिति अथवा ऐतिहासिक स्थिति को आधारमा अनुरोध हेर्न, हेर्नुहोस  <a href=\"{{statuses_url}}\">स्थिति टेबल </a> तल "
 
 msgid "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr ""
+"<strong><code>tag:charity</code></strong>सबै सम्बन्धित सार्वजनिक अधिकारीहरू वा अनुरोध  थाहा पाउन | तपाईँ  विविध ट्यागहरू र ट्याग भ्यालु समावेश गर्न सक्नुहुन्छ,\\n उदाहरणका लागि<code>tag:openlylocal AND tag:financial_transaction:335633</code> पूर्वनिर्धारितद्वारा कुनै पनि  ट्याग\\n रहन सक्छ,तपाईँले\n"
+" <code>र</code>राख्नै  पर्ने हुन्छ,यदि तपाईँलाई रहेका परिणाम मात्रा चाहिने भए|"
 
 msgid "<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
-msgstr ""
+msgstr "<strong><code>प्रकार:</code></strong> खोज्न चाहिने कुरा चुन्न हेर्नुहोस्  <a href=\"{{varieties_url}}\">प्रकारका टेबलहरू </a> तल "
 
 msgid "<strong>Advice</strong> on how to get a response that will satisfy the requester. </li>"
 msgstr "<strong>Advice</strong> on how to get a response that will satisfy the requester. </li>"
@@ -205,7 +231,7 @@ msgid "<strong>All the information</strong> has been sent"
 msgstr "<strong>सम्पूर्ण  जानकारीहरू </strong> पठाइएको छ"
 
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
-msgstr ""
+msgstr "<strong>कुनै पनि चिज</strong> जस्तै स्पष्टीकरण दिने, सोधपुछ गर्ने, धन्यवाद ज्ञापन गर्ने"
 
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>कानुनतः, उनीहरूले जवाफ दिनै पर्छ।</strong> (<a href=\"{{url}}\">किन?</a>)."
@@ -214,7 +240,7 @@ msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}
 msgstr "<strong>मैले आफ्नै बारेमा जानकारी माग्न मिल्छ?</strong> <a href=\"{{url}}\">मिल्दैन!</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr ""
+msgstr "<strong>Caveat emptor!</strong>यो आँकडा प्रयोग गर्न तपाईँलाई {{site_name}}को प्रयोगकर्ता  चालचलनको राम्रो ज्ञान चाहिन्छ | कसरी \\n किन र को बाट गरिएको अनुरोध अलग गर्नु  त्यति सजिलो हुन्न र त्यहाँ प्रयोगकर्ता त्रुटी हुन सक्छ| तपाईँले  FOI नियम र\\n त्यसको नियमावली बुझ्न जरुरी हुन्छ|अनि तपाईँलाई एउटा राम्रो तथ्याङ्क शास्त्री हुन जरुरी छ | कृपया \\n <a href=\"{{contact_path}}\">हाम्रो सम्पर्क</a>मा हामीलाई प्रश्न सहित सम्पर्क गर्नु होला|"
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>स्पष्टीकरण</strong> अनुरोध गरियो"
@@ -238,7 +264,7 @@ msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the 
 msgstr "<strong>गोपनीयता टिपोट:</strong>{{site_name}} मा हरपटक केही गर्नु भए पछि, तपाईँको फोटो इन्टरनेटमा सार््वजनिक हुने छ।"
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr ""
+msgstr "<strong>गोपनियता चेतावनी:</strong> तपाईँको सन्देश र तपाईँको प्रतिक्रिया\\n    सबै यो वेबसाइटमा सार्वजनिक रूपमा देखाइने छ ।"
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>केही जानकारी</strong> पठाइएको छ "
@@ -253,46 +279,46 @@ msgid "<strong>Warning:</strong> This message has <strong>not yet been sent</str
 msgstr "<strong>चेतावनी:</strong>यो सन्देश  कुनै अज्ञात कारणले गर्दा <strong>अझै पठाइएको छैन </strong>।"
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
-msgstr ""
+msgstr "<strong>हामी तपाईँलाई इमेल गर्नेछौँ</strong> जब कुनै प्रतिक्रिया आउने छ, वा केही दिन सम्म पनि {{late_number_of_days}} सम्बन्धित निकायले प्रतिक्रिया नदिएको खण्डमा ।"
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
-msgstr ""
+msgstr "<strong>हामीले तपाईँलाई इमेल गर्छौँ</strong> वहाँहरुलाई पठास सके पछि  वहाँहरू कसैलाई केहि प्रतिक्रिया आए पछि  अथवा  काम गर्ने दिन सके पछि पनि केहि जवाफ न आए पछि हामीले तपाईँलाई इमेल गर्छौँ  {{late_number_of_days}} "
 
 msgid "?"
 msgstr "?"
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "{{public_body_name}} लाई  {{info_request_user}} को रूपमा  {{date}} मा  <em>{{request_title}}</em> को अनुरोधको लागि<a href=\"{{request_url}}\">ताकेता </a>  पठाइएको थियो"
 
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
-msgstr ""
+msgstr "{{public_body_name}} द्वारा  <em>{{request_title}}</em> को <a href=\"{{request_url}}\"> प्रतिक्रिया  {{date}} मितिमा  {{info_request_user}} लाई दिइएको छ | अनुरोधको स्टेटस्  {{request_status}}"
 
 msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr ""
+msgstr " तपाईँले पोस्ट गरेर प्राप्त गर्नुभएको <strong>प्रतिक्रियाको सारांश</strong>"
 
 msgid "A Freedom of Information request"
 msgstr "सूचनाको हकको लागि अनुरोध"
 
 msgid "A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}"
-msgstr ""
+msgstr "मेरो FOI अनुरोधको  एक पूर्ण इतिहास र सबै पत्राचार  इन्टरनेटको यस ठेगानामा उपलब्ध छ: {{url}}"
 
 msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "एउटा नयाँ अनुरोध, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, {{info_request_user}} द्वारा {{date}}मा {{public_body_name}}लाई पठाइएको छ।"
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr ""
+msgstr "तपाईँले अनुरोध गर्नु भएको जानकारीको छोटो सारांश  \\n⇥⇥⇥उदाहरण. "
 
 msgid "A public authority"
 msgstr "एक सार्वजनिक निकाय"
 
 msgid "A response will be sent <strong>by post</strong>"
-msgstr ""
+msgstr "प्रतिक्रिया <strong>Post</strong> द्वारा पठाइने छ"
 
 msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr ""
+msgstr "अनौठो प्रतिक्रिया आयो, {{site_name}} द्वारा ध्यान आवश्यकता"
 
 msgid "A vexatious request"
-msgstr ""
+msgstr "कष्ट प्रद अनुरोध"
 
 msgid "A {{site_name}} user"
 msgstr "{{site_name}} प्रयोगकर्ता"
@@ -307,13 +333,13 @@ msgid "Act on what you've learnt"
 msgstr "आफूले सिकेका कुरामा सक्रिय हुनुहोस्"
 
 msgid "Acts as xapian/acts as xapian job"
-msgstr ""
+msgstr "जापीयन जस्तै /जापीयन जस्तै काम "
 
 msgid "ActsAsXapian::ActsAsXapianJob|Action"
-msgstr ""
+msgstr "जापीयन जस्तै::जापीयन जस्तै काम|कार्य"
 
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
-msgstr ""
+msgstr "जापीयन जस्तै::जापीयन जस्तै काम|मोडेल"
 
 msgid "Add a widget"
 msgstr "विजेट थप्नुहोस्"
@@ -325,7 +351,7 @@ msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "यसमा थप जानकारी थप्नुहोस् &ldquo;{{request_title}}&rdquo;"
 
 msgid "Add an annotation to your request with choice quotes, or a <strong>summary of the response</strong>."
-msgstr ""
+msgstr "विकल्प उद्धरणसँग आफ्नो अनुरोध गर्न उद्धरण थप्नुहोस्,वा\\n एक <strong>प्रतिक्रियाको सारांश</strong>."
 
 msgid "Add authority - {{public_body_name}}"
 msgstr "{{public_body_name}} - निकाय थप्नुहोस्"
@@ -346,19 +372,19 @@ msgid "Advanced search tips"
 msgstr "उन्नत खोज युक्तिहरू"
 
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
-msgstr ""
+msgstr "कानुनी छ भने सल्लाह अन्यथा गुनासो गर्ने ।"
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
-msgstr ""
+msgstr "हावा, पानी, माटो, जमिन जीव जन्तु (लगायत तिनीहरू ले मान्छे माथि के प्रभाव पर्छन \\n)"
 
 msgid "All of the information requested has been received"
-msgstr ""
+msgstr "अनुरोध गर्नुभएको सबै जानकारी प्राप्त भएको छ"
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
-msgstr ""
+msgstr "तल दिएका सबै विकल्पहरूले कोलोन भन्दा अगाडि <strong>status</strong> वा<strong>latest_status</strong> प्रयोग गर्न सक्छन्। उदाहरणका लागि<strong>status:not_held</strong> ले <em>कहिले पनि</em> चिन्ह नलगाएको अनुरोधहरू देखाउनेछ; <strong>latest_status:not_held</strong> ले <em>वर्तमानमा</em> चिन्ह नलगाएको अनुरोधहरू मात्र देखाउनेछ |"
 
 msgid "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
-msgstr ""
+msgstr "तल रहेका सबै  विकल्प <strong>variety</strong> or <strong>latest_variety</strong> कोलोन भन्दा अघी प्रयोग गर्न मिल्छ | उदाहरणका लागि <strong>variety:sent</strong>पठाएअका अनुरोधहरूसँग मिल्न जान्छ;<strong>latest_variety:sent</strong><em>अहिले</em>पठाइसकेका अनुरोधहरूसँग मात्र मिल्छन् |"
 
 msgid "All time"
 msgstr "सबै समयको"
@@ -376,10 +402,10 @@ msgid "Alter your subscription"
 msgstr "सदस्यता अनुरोध बदल्नुहोस्"
 
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
-msgstr ""
+msgstr "सबै प्रतिक्रियाहरू स्वचालित रूपमा प्रकाशित छन्, तैपनि हामी तिनीहरूलाई मूल्याङ्कन गर्न, \\ n तपाईँले, मूल REQUESTER भर पर्छन्।"
 
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
-msgstr ""
+msgstr "एक <a href=\"{{request_url}}\"> एनोटेशन </a> गर्न <em> {{request_title}} </ b> द्वारा गरिएको थियो {{event_comment_user}} मा {{date}}"
 
 msgid "An <strong>error message</strong> has been received"
 msgstr "<strong>त्रुटी सन्देश</strong> प्राप्त भएको छ"
@@ -400,7 +426,7 @@ msgid "Annotations are so anyone, including you, can help the requester with the
 msgstr "Annotations are so anyone, including you, can help the requester with their request. उदाहरणको लागि:"
 
 msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "उद्धरणहरू सार्वजनिक यहाँ पोस्ट गरिनेछ, र छन्\\n<strong>छैन</strong>पठाइएको {{public_body_name}}"
 
 msgid "Anonymous user"
 msgstr "अज्ञात प्रयोगकर्ता"
@@ -412,7 +438,7 @@ msgid "Are we missing a public authority?"
 msgstr "के हामीले सार्वजनिक निकाय छुटाएका छौँ?"
 
 msgid "Are you sure you want to disable two factor authentication?"
-msgstr ""
+msgstr "के तपाईँ दुई तहको प्रमाणीकरणलाई रद्द गर्न चाहनु हुन्छ ?"
 
 msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
 msgstr "निश्चित हुनुहुन्छ ? If you regenerate your one time passcode you will need to update your password manager or re-print it."
@@ -462,6 +488,9 @@ msgstr "वर्गिकरण कुर्दै"
 msgid "Awaiting classification."
 msgstr "वर्गिकरण कुर्दै।"
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "आन्तरिक पुनरावलोकन कुर्दै।"
 
@@ -493,7 +522,7 @@ msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word y
 msgstr "शब्द चयन कसरी गर्ने भन्ने जान्न<a href='{{url}}'>अन्य अनुरोधहरू</a>हेर्नुहोस् ।"
 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
-msgstr "'{{public_body_name}}' को लागि आफ्नो अनुरोध कस्तो बनाउने भन्ने जान्न  <a href='{{url}}'></a> अन्य अनुरोधहरू</a> हेर्नुहोस्"
+msgstr "'{{public_body_name}}' को लागि आफ्नो अनुरोध कस्तो बनाउने भन्ने जान्न  <a href='{{url}}'>अन्य अनुरोधहरू</a> हेर्नुहोस्।"
 
 msgid "Browse all authorities..."
 msgstr "सबै निकायहरू हेर्नुहोस्..."
@@ -594,6 +623,9 @@ msgstr "आफ्नो प्रोफाइल फोटो जाँच्न
 msgid "Clarification"
 msgstr "स्पष्टिकरण"
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "{{info_request_user}} द्वारा {{date}} मा {{public_body_name}}लाई स्पष्टोक्ति  पठाइयो।"
 
@@ -607,10 +639,12 @@ msgid "Clear photo"
 msgstr "फोटो हटाउनुहोस्"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why response to the request has been so slow."
-msgstr ""
+msgstr "मेसेज पठाउन दिएको लिङ्कमा थिच्नु होस् {{public_body_name}} वहाँहरूलाई तपाईँको अनुरोध को उत्तर दिन तपाईँले अन्तर्वार्ताको लागि सोध्न चाहनु हुन्छ  होला \\n,सोध्दै कि अनुरोधको उत्तर पठाउन किन ढिला भएको हो "
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
 msgstr ""
+"एउटा सन्देश पठाउन तलको लिङ्कमा क्लिक गर्नुहोस् {{public_body}}\n"
+"तपाईँको अनुरोध जवाफ तिनीहरूलाई सम्झाएर गर्न |"
 
 msgid "Close"
 msgstr "बन्द गर्नुहोस्"
@@ -630,8 +664,11 @@ msgstr "Comment|Locale"
 msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
-msgid "Confirm password:"
+msgid "Complete"
 msgstr ""
+
+msgid "Confirm password:"
+msgstr "पासवर्डलाई फेरि लेख्नुहोस् :"
 
 msgid "Confirm you want to follow all successful FOI requests"
 msgstr "सबै सफल FOI बारे उत्सुक हुनुहुन्छ भन्ने कुरा निश्वित गर्नुहोस्।"
@@ -715,10 +752,10 @@ msgid "Crop your profile photo"
 msgstr "तपाईँको प्रोफाइल फोटो काट्नुहोस्"
 
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
-msgstr ""
+msgstr "सांस्कृतिक साइटहरू र निर्माण संरचना (तिनीहरूद्वारा \\ प्रभावित रूपमा N सक्छ पर्यावरण कारक माथि सूचीबद्ध)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr ""
+msgstr "हाल प्रतिक्रिया </ strong> देखि लागि प्रतीक्षा <strong> {{public_body_link}}, तिनीहरूले द्रुत प्रतिक्रिया हुनु पर्छ र"
 
 msgid "Date:"
 msgstr "मिति:"
@@ -728,6 +765,9 @@ msgstr "श्री [Authority name],"
 
 msgid "Dear {{name}},"
 msgstr "आदरणीय {{name}},"
+
+msgid "Dear {{placeholder_body_name}},"
+msgstr ""
 
 msgid "Dear {{public_body_name}},"
 msgstr "श्री {{public_body_name}},"
@@ -742,13 +782,13 @@ msgid "Delayed"
 msgstr "ढिलाइ गरिएको"
 
 msgid "Delayed response to your FOI request - {{request_title}}"
-msgstr ""
+msgstr "तपाईँको सूचनाको अधिकार अन्तर्गतको अनुरोधको ढिलाइ गरिएको प्रतिक्रिया - {{request_title}}"
 
 msgid "Delayed."
 msgstr "ढिलाइ गरिएको।"
 
 msgid "Delivery Status for Outgoing Message #{{id}}"
-msgstr ""
+msgstr "बाहिर जाने सन्देशको वितरण स्थिति #{{id}}"
 
 msgid "Delivery error"
 msgstr "हस्तान्तरण त्रुटी"
@@ -805,7 +845,7 @@ msgid "Edit"
 msgstr "सम्पादन"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
-msgstr ""
+msgstr "सम्पादन र थप <strong> थप विवरण माथि सन्देश </ strong> \\ n तपाईँ आफ्नो प्रतिक्रियासँग असन्तुष्ट छन् किन बुझायो।"
 
 msgid "Edit text about you"
 msgstr "आफ्नो बारेमा पाठ सम्पादन गर्नहोस्"
@@ -814,37 +854,37 @@ msgid "Edit your request"
 msgstr "तपाईँको अनुरोध सम्पादन गर्नुहोस्"
 
 msgid "Either the email or password was not recognised, please try again."
-msgstr ""
+msgstr "इमेल वा पासवर्ड मिलेन , फेरि प्रयास गर्नुहोस्।"
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
-msgstr ""
+msgstr "इमेल वा पासवर्ड या त पहिचान थियो, फेरि प्रयास गर्नुहोस्। वा नयाँ खाता बायाँ मा फारम प्रयोग गरेर सिर्जना गर्नुहोस्।"
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "इमेल मान्य ठेगाना जस्तो देखिदैन"
 
 msgid "Email me future updates to this request"
-msgstr ""
+msgstr "मलाई यो अनुरोध सम्बन्धित सूचना भविष्यमा इमेल गर्नुहोला । "
 
 msgid "Email:"
 msgstr "इमेल:"
 
 msgid "Enable two factor authentication"
-msgstr ""
+msgstr "दुई चरण प्रमाणीकरण सक्षम"
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
-msgstr ""
+msgstr "तपाईँ स्पेसद्वारा विभाजित प्राप्त गर्न चाहने शब्दहरू प्रविष्ट गर्नुहोस्, जस्तै <Strong> चढाइ सडक खण्ड </ strong>"
 
 msgid "Enter your response below. You may attach one file (use email, or <a href=\"{{url}}\">contact us</a> if you need more)."
-msgstr ""
+msgstr "तपाईँको सुझाव दिनुहोस् | कुनै फाइल संलग्न गर्न सक्नुहुन्छ ( इमेल गर्नुहोस्, अथवा \\n <a href=\"{{url}}\"> सम्पर्क गर्नुहोस्</a> थप आवश्यकता)."
 
 msgid "Environmental Information Regulations"
 msgstr "वातावरणीय जानकारी नियमावलीहरू"
 
 msgid "Environmental Information Regulations requests made"
-msgstr ""
+msgstr "वातावरण सूचना नियम अनुरोध गरियो "
 
 msgid "Environmental Information Regulations requests made using this site"
-msgstr ""
+msgstr "यस वेबसाइट प्रयोग गरी वातावरण सूचना नियम अनुरोधहरू गरियो "
 
 msgid "Event history"
 msgstr "इभेन्ट इतिहास"
@@ -853,10 +893,10 @@ msgid "Event {{id}}"
 msgstr "इभेन्ट {{id}}"
 
 msgid "Every citizen has the right to access information held by public authorities."
-msgstr ""
+msgstr "हरेक नागरिकलाई साधारण अधिकारीहरूद्वारा राखिएको सूचनाको पहुँचको हक छ "
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
-msgstr ""
+msgstr "तपाईँ ले यो पेजमा लेख्नु भएको हरेक कुराहरू,तपाईँको सहित<strong>नाम</strong>सहित,\\n<strong> सार्वजनिक रूपमा</strong>वेवसाइटमा देखाइनेछ <a href=\"{{url}}\">सधैँ भरी </a>"
 
 msgid "FOI"
 msgstr "FOI"
@@ -877,10 +917,10 @@ msgid "FOI requests by '{{user_name}}'"
 msgstr "'{{user_name}}' द्वारा गरिएका FOI अनुरोधहरू"
 
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr ""
+msgstr "{{total_count}} को {{start_count}} देखि {{end_count}} सम्मको FOI अनुरोधहरू"
 
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
-msgstr ""
+msgstr "FOI प्रतिक्रियालाई एडमिनको  ({{reason}}) - {{request_title}} चाहिन्छ "
 
 msgid "Failed"
 msgstr "असफल भयो"
@@ -895,25 +935,25 @@ msgid "Filter"
 msgstr "फिल्टर"
 
 msgid "Filter by Request Status (optional)"
-msgstr ""
+msgstr "अनुरोध स्थिति द्वारा छनौट  (वैकल्पिक)"
 
 msgid "Find an authority"
-msgstr ""
+msgstr "सम्बन्धित निकाय पत्ता लगाउनुहोस्"
 
 msgid "Find the authorities"
-msgstr ""
+msgstr "सम्बन्धित निकायहरू पत्ता लगाउनुहोस्"
 
 msgid "Find the authorities to write to"
-msgstr ""
+msgstr "लेख्न पाउने अधिकारीहरू खोजी गर्ने "
 
 msgid "First, did your other requests succeed?"
-msgstr ""
+msgstr "पहिलो, के तपाईँको अर्को अनुरोध सफल भयो?"
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
-msgstr ""
+msgstr "पहिला , तपाईंले  जानकारी चाहेको \\n सार्वजनिक अख्तियारको नाम <strong> मा  </ strong> लेख्नुहोस।"
 
 msgid "Foi attachment"
-msgstr ""
+msgstr "Foi संलग्न"
 
 msgid "FoiAttachment|Charset"
 msgstr "FoiAttachment|Charset"
@@ -934,34 +974,34 @@ msgid "FoiAttachment|Url part number"
 msgstr "FoiAttachment|Url part number"
 
 msgid "FoiAttachment|Within rfc822 subject"
-msgstr ""
+msgstr "FoiAttachment | rfc822 विषय भित्र"
 
 msgid "Follow"
 msgstr "उत्सुकता देखाउनुहोस्"
 
 msgid "Follow all new requests"
-msgstr ""
+msgstr "सबै अनुरोधलाई पछ्याउनुहोस्"
 
 msgid "Follow new successful responses"
-msgstr ""
+msgstr "नयाँ सफल प्रतिक्रियाहरूलाई पछ्याउनुहोस्"
 
 msgid "Follow requests to {{public_body_name}}"
-msgstr ""
+msgstr "{{public_body_name}} मा अनुरोधलाई पछ्याउनुहोस्"
 
 msgid "Follow these requests"
-msgstr ""
+msgstr "यी अनुरोध पछ्याउनुहोस्"
 
 msgid "Follow things matching this search"
-msgstr ""
+msgstr "यो खोजसंग मिल्ने कुराहरू पालना गर्ने "
 
 msgid "Follow this link to see the request:"
-msgstr ""
+msgstr "यो लिंक पालना अनुरोध हेर्न:"
 
 msgid "Follow this link to see the requests:"
-msgstr ""
+msgstr "अनुरोध हेर्न यो लिङ्कलाई पछ्याउनुहोस्:"
 
 msgid "Follow this person"
-msgstr ""
+msgstr "यो मान्छेलाई पछ्याउनुहोस्। "
 
 msgid "Follow this request"
 msgstr "यस अनुरोधलाई पछ्याउनुहोस्"
@@ -976,114 +1016,116 @@ msgstr "ताकेता गर्नुहोस्"
 #. further message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up message sent by requester"
-msgstr ""
+msgstr "अनुरोध्कर्ता ले पठाएको सन्देशलाई पछ्यौनुहोस"
 
 msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr "अवस्थित अनुरोध गर्न सन्देशहरू पालन गर्न पठाइएका छन् <strong> {{authority_email}} </ strong>"
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
+"फल्लोअप्  {{info_request_user}} द्वारा {{public_body_name}} लाई  {{date}} मा पठाइएको छ |\n"
+" "
 
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
-msgstr ""
+msgstr "स्पामका  कारण यो अनुरोधमा ताकेता र नयाँ प्रतिकिर्या बन्द गरिएको छ|कृपया  <a href=\"{{url}}\">हामीलाई संपर्क गर्नुहोस्</a>यदी तपाईं {{user_link}} हुनुहुन्छ र ताकेता पठाउन चाहनुहुन्छ|"
 
 msgid "Follow us on twitter"
-msgstr ""
+msgstr "Twitter मा हामीलाई पछ्याउनुहोस्"
 
 msgid "Following"
-msgstr ""
+msgstr "पछ्याउँदै"
 
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
-msgstr ""
+msgstr "यस अनुरोधको लागि ताकेताहरू पठाउन सकिन्न, यो बाह्या रूपमा बनाइएको थियो, र अनुरोधकर्ताको सहमतिमा {{public_body_name}} द्वारा प्रकाशन गरिएको थियो।"
 
 msgid "Forgotten your password?"
-msgstr ""
+msgstr "आफ्नो पासवर्ड भुल्नुभयो?"
 
 msgid "Found {{count}} public authority"
 msgid_plural "Found {{count}} public authorities"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} अाधिकारिक निकाय फेला भयो"
+msgstr[1] "{{count}} आधिकारिक निकायहरू फेला भयो"
 
 msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
 msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "‘{{first_letter}}’ बाट सुरु हुने {{count}} आधिकारिक निकाय भेटियो"
+msgstr[1] "‘{{first_letter}}’ बाट सुरु हुने {{count}} आधिकारिक निकायहरू भेटिए"
 
 msgid "Found {{count}} public authority in the category ‘{{category_name}}’"
 msgid_plural "Found {{count}} public authorities in the category ‘{{category_name}}’"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{category_name}}को {{count}} सार्बजनिक निकाय भेटियो"
+msgstr[1] "{{category_name}} का {{count}} सार्वजनिक निकायहरू भेटिए"
 
 msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
 msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{tag_name}}को {{count}} सार्बजनिक निकाय भेटियो"
+msgstr[1] "{{tag_name}}का {{count}} सार्वजनिक निकायहरू भेटिए"
 
 msgid "Freedom of Information"
-msgstr ""
+msgstr "सूचनाको लागि स्वतन्त्रता"
 
 msgid "Freedom of Information Act"
-msgstr ""
+msgstr "सूचना कार्यको स्वतन्त्रता "
 
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
-msgstr ""
+msgstr "सूचनाको लागि स्वतन्त्रता यो निकाय को लागि मान्य छैन, त्यसैले तपाईँले यो अनुरोध पेस गर्न हुनुहुँदैन ।"
 
 msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr "सूचनाको स्वतन्त्रताको नियम अब यस आधिकारिक निकायमा लागु हुन्न। हालका अनुरोधको लागि ताकेता सन्देशहरू <strong>{{authority_email}}</strong>मा पठाइन्छ।"
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
-msgstr ""
+msgstr "सूचना व्यवस्था स्वतन्त्रता अब {{public_body_name}}मा लागू हुँदैन"
 
 msgid "Freedom of Information requests made"
-msgstr ""
+msgstr "सूचना को स्वतन्त्रताको लागि गरिएको अनुरोध"
 
 msgid "Freedom of Information requests made by this person"
-msgstr ""
+msgstr "सूचना को स्वतन्त्रताका लागि यो व्यक्तिद्वारा गरिएको अनुरोध"
 
 msgid "Freedom of Information requests made by you"
-msgstr ""
+msgstr "तपाईँले बनाउनु भएको सूचना अनुरोधको स्वतन्त्रता"
 
 msgid "Freedom of Information requests made using this site"
-msgstr ""
+msgstr "सूचना अनुरोधको स्वतन्त्रता यो साइट प्रयोग गरेर बनाइएको हो"
 
 msgid "From"
-msgstr ""
+msgstr " बाट"
 
 msgid "From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "अनुरोध पानाबाठ सबै सन्देशको लागि एउटै सामान्य ताकेता लेख्नु भन्दा निश्छित सन्देशलाई जवाफ लेख्ने प्रयास गर्नुहोला  If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr "अनुरोध पानाबाट सबै सन्देशको लागि एउटै सामान्य ताकेता लेख्नु भन्दा निश्चित सन्देशलाई जवाफ लेख्ने प्रयास गर्नुहोला  If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 
 msgid "From time to time requests need to be hidden on {{site_name}}. This can happen for a number of reasons. For example, the request could be about someone’s personal information that shouldn’t be public or the contents could be abusive."
-msgstr ""
+msgstr "समय समयमा {{site_name}}मा अनुरोध लुकाएर राखनु पर्ने हुन्छ|यो बिभिन्न कारण ले हुन सक्छ|उदाहरणका लागि,अनुरोध कसैको ब्यक्तिगत जानकारी पनि हुन सक्छ जुन सार्वजनिक गर्न मिल्दैन वा अनुरोध अपमानित किसिमको पनि हुन सक्छ|"
 
 msgid "From:"
-msgstr ""
+msgstr "बाट:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
-msgstr ""
+msgstr "तपाईँको सिकायतलाई यहाँ व्याख्या गर्नु होस्"
 
 msgid "Got an account?"
-msgstr ""
+msgstr "तपाईंको खाता छ?"
 
 msgid "Handled by post"
-msgstr ""
+msgstr "पोस्ट द्वारा नियन्त्रण गरेको"
 
 msgid "Handled by post."
-msgstr ""
+msgstr "हुलाकद्वारा पठाइएको"
 
 msgid "Has tag string/has tag string tag"
-msgstr ""
+msgstr "ट्याग् इस्टिरिङ् छ​/ट्याग् इस्टिरिङ् ट्याग् छ​"
 
 msgid "HasTagString::HasTagStringTag|Model"
-msgstr ""
+msgstr "HasTagString::HasTagStringTag|Model"
 
 msgid "HasTagString::HasTagStringTag|Name"
-msgstr ""
+msgstr "HasTagString::HasTagStringTag|Name"
 
 msgid "HasTagString::HasTagStringTag|Value"
-msgstr ""
+msgstr "HasTagString::HasTagStringTag|Value"
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "नमस्ते! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
@@ -1110,19 +1152,19 @@ msgid "Help"
 msgstr "सहायता"
 
 msgid "Help us classify requests that haven't been updated"
-msgstr ""
+msgstr "हामीलाई अद्यावधिक नगरिएको अनुरोध वर्गीकरण गर्न मदत गर्नुहोस् ।"
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by {{site_name}} for intermediate events, which weren't given an explicit description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
-msgstr ""
+msgstr "यहाँ <strong>देखाइएको</strong> मतलब जब कुनै प्रयोगकर्ताले कुनै पनि अनुरोध छान्छन्, र\\nकुनै घटनाले त्यसको मान परिवर्तन गर्छ। <strong>गणन गर्दा</strong> प्राप्तहुने \\n{{site_name}} बिचका घटनाहरू, जुन प्रष्ट थिएनन्\\nप्रयोगकर्ताका टिप्पणीहरू। हेर्नुहोस् <a href=\"{{search_path}}\">खोज सुझावहरू</a> स्थितिबारे थप जानकारीको लागि।"
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
-msgstr ""
+msgstr "येदि तपाइलाई पछि पाठ कपी गरेर सुरछित गर्न मन लग्यो भने, तपाइले लेख्नुभएको सन्देश यहाँ छ"
 
 msgid "Here you can <a href=\"#public_bodies\">see how well public bodies have responded</a> to requests on {{site_name}} and <a href=\"#people\">meet the people most actively using it</a>. You can also find <a href=\"#requests\">statistics about requests</a> over time."
-msgstr ""
+msgstr "यहाँ तपाईँले <a href=\"#public_bodies\"> सार्वजनिक निकायहरूले कस्तो प्रतिक्रिया दिएका छन् हेरी ​</a> {{site_name}}मा अनुरोध गर्न र​ <a href=\"#people\">सबैभन्दा सक्रिय भइ प्रयोग गर्ने व्यक्तिहरू भेट्न​ सकिन्छ​</a>। तपाईँ समयको क्रमसँगै अनुरोध बारेमा<a href=\"#requests\"> तथ्याङ्क पनि पाउन सक्नुहुन्छ </a>। "
 
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
-msgstr ""
+msgstr "यहाँ तपाईँहरूले {{SITE_NAME}} प्रशासकहरूले कतिपटक​ लुकाको अनुरोधहरू देख्न सक्नुहुन्छ​।"
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "नमस्ते! हामीलाई तपाईँको सहयोग चाहिएको छ। The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? धन्यवाद।"
@@ -1158,142 +1200,145 @@ msgid "How it works"
 msgstr "यसले कसरी काम गर्छ"
 
 msgid "However, you have the right to request environmental information under a different law"
-msgstr ""
+msgstr "तथापि, तपाईंसँग फरक कानुन अन्तर्गत पर्यावरण \\n जानकारी अनुरोध गर्ने अधिकार छ"
 
 msgid "Human health and safety"
-msgstr ""
+msgstr "मानव स्वास्थ्य र सुरक्षा"
 
 msgid "I also want to know!"
-msgstr ""
+msgstr "म पनि जान्न चाहन्छु!"
 
 msgid "I am asking for <strong>new information</strong>"
-msgstr ""
+msgstr "<strong>नयाँ सुचना</strong> को लागि सोधपुछ गर्दै छु"
 
 msgid "I am requesting an <strong>internal review</strong>"
-msgstr ""
+msgstr "<strong>आन्तरिक विवरण</strong> को लागि अनुरोध गर्दै छु"
 
 msgid "I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'."
-msgstr ""
+msgstr "मेरो FOI अनुरोध '{{info_request_title}}' को ह्यान्डलिङ गर्ने {{public_body_name}}'को एउटा आन्तरिक पुनरावलोकनको लागि म अनुरोध लेख्दै छु।"
 
 msgid "I don't like these ones &mdash; give me some more!"
-msgstr ""
+msgstr "मलाई यि र एस्ता मन पर्दैन ,मलाई अझै दिनुस्!"
 
 msgid "I don't want to do any more tidying now!"
-msgstr ""
+msgstr "मलाई अरु सफा गर्न मन छैन|"
 
 msgid "I like this request"
 msgstr "यो अनुरोध मन पर्‍यो"
 
-msgid "I would like to <strong>withdraw this request</strong>"
+msgid "I want to withdraw this request"
 msgstr ""
+
+msgid "I would like to <strong>withdraw this request</strong>"
+msgstr "म <strong>यो अनुरोध फिर्ता</strong> गर्न चाहन्छु"
 
 msgid "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>"
-msgstr ""
+msgstr "म अझै मेरो जानकारीको लागि <strong>पर्खिरहेको</strong> छु\\n <small>(तपाइ संग स्वीकृति हुन सक्छ कि)</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr ""
+msgstr "म अझै आन्तरिक पुनरावलोकन <strong>पर्खिरहेको</strong> छु"
 
 msgid "I'm waiting for an <strong>internal review</strong> response"
-msgstr ""
+msgstr "म एउटा आन्तरिक <strong>समिक्षा प्रतिक्रिया</strong> पर्खिरहेको छु"
 
 msgid "I've been asked to <strong>clarify</strong> my request"
-msgstr ""
+msgstr "मेरो अनुरोधको स्पष्टिकरण गर्न मलाइ आग्रह गरिएको छ"
 
-msgid "I've received <strong>all the information"
+msgid "I've received <strong>all the information</strong>"
 msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
-msgstr ""
+msgstr "मैले केही <strong>जानकारीहरु पाए"
 
 msgid "I've received an <strong>error message</strong>"
-msgstr ""
+msgstr "मैले एउटा <strong>त्रुटि सन्देस</strong> पाए"
 
 msgid "I've received an error message"
-msgstr ""
+msgstr "मैले एउटा त्रुटि सन्देस पाए"
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
-msgstr ""
+msgstr "यदि ठेगाना गलत छ भने, वा तपाइलाइ अझ राम्रो ठेगाना थाहा छ भने, कृपया <a href=\"{{url}}\">हामीलाइ सम्पर्क गर्नुहोला</a>।"
 
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
-msgstr ""
+msgstr "यदी त्रुटि ढुवानी विफल्ता हो भने,अनी तपाईंले अधिकारसम्बन्धी नविनतम FOI ठेगाना भेटनु भयो भने,तल को फोर्म प्रयोग गरेर भन्नुहोस्|"
 
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
-msgstr ""
+msgstr "यदि यो हालको सन्देश हो भने, भोलि जाँच गर्नुहोस्, किन भने हामी समय समयमा नयाँ लगको लागि जाँच गर्छाै ।"
 
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
-msgstr ""
+msgstr "यदी यो गलत छ वा तपाईंलाई अनुरोध र ईमेलको अर्को बिषयमा ढिलो प्रतिकृया,दिन चाहनुहुन्छ  भने {{user}},कृपया  सहयोग को लागि ईमेल गर्नुहोस{{contact_email}}|"
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
-msgstr ""
+msgstr "यदि तपाइ आधिकारिक निकायबाट\\n पाउनु भएको प्रतिक्रिया देखि असन्तुष्ट हुनुहुन्छ भने, तपाईसंग गुनासोको (<a href=\"{{url}}\"> विवरण </a>) दिने गर्ने\\n अधिकार छ।"
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
-msgstr ""
+msgstr "यदि तपाइलाइ अझै समस्या भैरहेको छ भने, कृपया <a href=\"{{url}}\">हामीलाइ सम्पर्क गर्नुहोला</a>।"
 
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr ""
+msgstr "यदि तपाइ अनुरोधकर्ता हो भने, सन्देश हेर्नको लागि <a href=\"{{url}}\">साइन इन</a> गर्न सक्नुहुन्छ।"
 
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr ""
+msgstr "यदि तपाइ अनुरोधकर्ता हो भने, अनुरोध हेर्नको लागि <a href=\"{{url}}\">साइन इन</a> गर्न सक्नुहुन्छ।"
 
 msgid "If you are {{user_link}}, please"
-msgstr ""
+msgstr "यदि तपाइ {{user_link}} हो भने, कृपया"
 
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
-msgstr ""
+msgstr "यदि तपाइलाई यो अनुरोध ठिक लाग्दैन भने , तपाइले यो फारमद्वारा साइटप्रबन्ध को ध्यानाकर्सन गर्न सक्नुहुन्छ"
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
-msgstr ""
+msgstr "तपाईं इमेल मा क्लिक गर्न सक्नुहुन्न भने, तपाईं <strong> चयन र प्रतिलिपि \\n   </ strong>इमेल बाट गर्नुहोस । त्यसपछि <strong> आफ्नो ब्राउजर मा पेस्ट गर्नुहोस </ strong> जुन ठाउँमा \\ n तपाईँ कुनै पनि अन्य वेबपेज को ठेगाना टाइप गर्नुहुन्थ्यो ।"
 
 msgid "If you can, scan in or photograph the response, and <strong>send us a copy to upload</strong>."
-msgstr ""
+msgstr "यदि सक्नुहुन्छ भने, प्रतिक्रियालाइ स्क्यान वा तस्वीरिकरण गरेर, हामीलाई\\n एक प्रतिलिपि अपलोड गर्न <strong> पठाउनुहोस्</ strong> ।"
 
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
-msgstr ""
+msgstr "तपाईं यो सेवा एक अ्याफ ओ इ अधिकारीको रूपमा उपयोगी ठान्नु भयो भने, कृपया आफ्नो वेब प्रबन्धकलाइ हामीलाई आफ्नो संगठनको अ्याफ ओ इ पृष्ठमा लिंक गर्न अनुरोध गर्नुहोला।"
 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr ""
+msgstr "तपाइले  {{site_name}}लाइ उपयोगी पाउनुभएमा, यसलाइ चलाउने कोषलाइ <a href=\"{{donation_url}}\">दान गर्नुहोस्</a>।"
 
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr ""
+msgstr "तपाईंले इमेल  <strong> ६ भन्दा अधिक महिना पहिले </ strong>पाउनु भयो भने, लग इन् लिंकले काम गर्ने छैन। कृपया तपाईं सुरुदेखि जे गरिरहेका हुनुहुन्थ्यो त्यहि गर्ने र्प्रयास गर्नुहोस्।"
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
-msgstr ""
+msgstr "  तपाईले आफ्नो अनुरोध फिर्ता लिया छ कि छैन ,अख्तियारलाई बताउन तल एक सन्देश लेख्नुहोस्। अन्यथा उनीहरूलाई फिर्ता लिया बारे थाहा हुने छैन।"
 
 msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
-msgstr ""
+msgstr "तपाईंले प्रयोग गर्न ठेगाना थाहा छ भने कृपया href=\"{{url}}\"> </a> हामीलाई पठाउनुहोस्  </a>। \\ n तपाईँ त्यो  वेबसाइटको ठेगाना सोधेर वा तिनीहरूलाई फोन गरेर  पत्ता लगाउन सक्षम हुन सक्छ।"
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will learn your email address. Only reply if that is okay."
-msgstr ""
+msgstr "यदी तपाईंले यो सन्देशमा प्रतिकिर्या दिनु भयो भने यो सिधै {{user_name}}मा जानेछ,अनी तपाईंले\\n तपाईं को ईमेल  ठेगाना थाहा पाउनु हुनेछ| यदी  ठीक  भएमा प्रतिकिर्या दिनुहोस् |"
 
 msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr ""
+msgstr "यदी तपाईं वेभ आधारित ईमेल प्रयोग गर्नुहुन्छ  वा तपाईं सँग \"जन्क मेल\" छ भने,\\nबल्क/स्पाम मेल हेर्नुहोला|कहिले ,काही हाम्रो सन्देश त्यसरी पनि जान सक्छ|"
 
 msgid "If you want to try and get the rest of the information, here's what to do now."
-msgstr ""
+msgstr "यदी तपाई बाँकी सूचना पनि प्राप्त गर्न चाहनुहुन्छ भने, अब के गर्ने बारे यहाँ छ।"
 
 msgid "If you would like to contest the authority's claim that they do not hold the information, here is <a href=\"{{complain_url}}\">how to complain</a>."
-msgstr ""
+msgstr " अधिकारिसँग जानकारी नभएको कारण अधिकारिको निधो सँग प्रतिस्पर्धा गर्न चाहनु हुन्छ भने <a href=\"{{complain_url}}\">यहाँ गर्नुहोस्</a>."
 
 msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
-msgstr ""
+msgstr "यदी तपाईंलाई यो निषेध हटाउन मन छ भने,तपाईं नम्र भइ\\n<a href=\"/help/contact\">हामीलाई  सम्पर्क गर्नुहोस्</a>कारणहरु  हरु पनि दिनुहोला|\\n"
 
 msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
-msgstr ""
+msgstr "तपाईं यी अनुरोधहरु (उदाहरणका लागि एक मंच वा ब्लगमा)  लेख्नुहुनछ भने यो पृष्ठमा लिङ्क गर्नुहोस्।"
 
 msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
-msgstr ""
+msgstr "तपाई यी अनुरोधहरु (उदाहरणका लागि एक फोरम वा ब्लगमा) लेख्नुहुनछ भने यो पृष्ठमा लिङ्क गर्नुहोस्, र मानिसहरुलाइ तपाइको लेख बारे भन्न <a href=\"{{url}}\">एउटा एन्नोटेसन थप्नुहोस्</a>।"
 
 msgid "If you write about this request (for example in a forum or a blog) please link to this page."
-msgstr ""
+msgstr "तपाई यी अनुरोधहरु (उदाहरणका लागि एक फोरम वा ब्लगमा) लेख्नुहुनछ भने यो पृष्ठमा लिङ्क गर्नुहोस्।"
 
 msgid "If your browser is set to accept cookies and you are seeing this message, then there is probably a fault with our server."
-msgstr ""
+msgstr "कुकीजहरू स्वीकार गर्न तपाईंको ब्राउजर सेट छ र यो सन्देश देखिरहनुभएको छ \\nभने सायद हाम्रो सर्भरमा कुनै त्रुटि छ।"
 
 msgid "Improve your account security"
-msgstr ""
+msgstr "तपाईको खाताको सुरक्षा सुधार गर्नुहोस्"
 
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. उदाहरण."
@@ -1305,7 +1350,7 @@ msgid "Incoming message"
 msgstr "आगन्तुक शन्देस"
 
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
-msgstr ""
+msgstr "आएका सन्देशहरुमा न्युनतमअंकभन्दा धेरै  स्पाम अंक रहेको छ| ({{spam_threshold}})."
 
 msgid "IncomingMessage|Cached attachment text clipped"
 msgstr "IncomingMessage|Cached attachment text clipped"
@@ -1341,16 +1386,16 @@ msgid "IncomingMessage|Valid to reply to"
 msgstr "IncomingMessage|Valid to reply to"
 
 msgid "Individual requests"
-msgstr ""
+msgstr "व्यक्तिगत अनुरोधहरु"
 
 msgid "Info request"
 msgstr "जानकारीको लागि अनुरोध"
 
 msgid "Info request batch"
-msgstr ""
+msgstr "सूचना अनुरोध ब्याच"
 
 msgid "Info request event"
-msgstr ""
+msgstr "सूचना अनुरोध घटना"
 
 msgid "InfoRequestBatch|Body"
 msgstr "InfoRequestBatch|Body"
@@ -1388,6 +1433,15 @@ msgstr "InfoRequest|Awaiting description"
 msgid "InfoRequest|Comments allowed"
 msgstr "InfoRequest|Comments allowed"
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
 
@@ -1424,41 +1478,44 @@ msgstr "InfoRequest|Title"
 msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Url title"
 
-msgid "Information not held."
+msgid "Information not held"
 msgstr ""
 
+msgid "Information not held."
+msgstr "सूचना राखिएको छैन"
+
 msgid "Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)"
-msgstr ""
+msgstr "बाहिर निकाल्ने अथवा छोड्ने प्रति सूचना (जस्तै : हल्ला, शक्ति,\\n विकिरण,काम नलाग्ने पदार्थ )"
 
 msgid "Internal review"
 msgstr "आन्तरिक पुनरावलोकन"
 
 msgid "Internal review of {{email_subject}}"
-msgstr ""
+msgstr "{{email_subject}}को आन्तरिक समीक्षा"
 
 msgid "Internal review request"
 msgstr "आन्तरिक पुनरावलोकन अनुरोध"
 
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "{{date}} मा  {{info_request_user}} द्वारा {{public_body_name}} लाई गरिएको आन्तरिक पुनरावलोकन अनुरोध "
 
 msgid "Invalid one time password"
 msgstr "अमान्य एक पटकको पासवर्ड"
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr ""
+msgstr "के {{EMAIL_ADDRESS}} गलत ठेगाना हो {{type_of_request}} जस्तो र्अनुरोधका लागि {{public_body_name}}? हो भने, यो फारम प्रयोग गरेर हामीलाई सम्पर्क गर्नुहोस्:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
-msgstr ""
+msgstr "यो सन्देश पठाउदा  केही समस्या आएको  देखिन्छ। यो एउटा प्राविधिक समस्या, वा हामी आधिकारिक निकायका  लागि  इमेल ठेगानामा  भएको समस्या हुन सक्छ।"
 
 msgid "It may be that your browser is not set to accept a thing called \"cookies\", or cannot do so.  If you can, please enable cookies, or try using a different browser.  Then press refresh to have another go."
-msgstr ""
+msgstr "शायद तपाईं को  ब्राउजर \"cookies स्वीकार गर्ने बनाइेको छैन वा गर्न सक्दैन |सक्नुहुन्छ भने कूकी समर्थ गर्ने बनाउनु वा अर्को ब्राउजर प्रयोग गर्नु होस्|अनी रिफ्रेश थिच्नुहोला |"
 
 msgid "Items matching the following conditions are currently displayed on your wall."
-msgstr ""
+msgstr "निम्न अवस्थामा मिल्ने वस्तुहरू हाल आफ्नो पर्खाल प्रदर्शित छन्।"
 
 msgid "Items sent in last month"
-msgstr ""
+msgstr "अगिल्लो महिना पठाइएका सामाग्रीहरु"
 
 msgid "Joined in {{year}}"
 msgstr "{{year}} मा सामेल भएको"
@@ -1476,112 +1533,112 @@ msgid "Keep this passcode safe. You will need it to confirm your account when ch
 msgstr "पासकोड सुरक्षित राख्नुहोस्। You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
 
 msgid "Keep your request up to date"
-msgstr ""
+msgstr "तपाईँको अनुरोध दस्तुरुस्त राखीदिनु होला"
 
 msgid "Keep your requests up to date"
-msgstr ""
+msgstr " अद्यावधिक आफ्नो अनुरोध राख"
 
 msgid "Keywords"
-msgstr ""
+msgstr "किवोर्ड्स"
 
 msgid "Last 28 days"
-msgstr ""
+msgstr "अन्तिम 28 दिनहरु"
 
 msgid "Last authority viewed: {{authority_url}}"
-msgstr ""
+msgstr "अन्तिम अधिकार हेरिएको: {{authority_url}}"
 
 msgid "Last request viewed: {{request_url}}"
-msgstr ""
+msgstr "अन्तिम पटक हेरिएको: {{request_url}} "
 
 msgid "Learn more &rarr;"
 msgstr "थप जान्नुहोस् &rarr;"
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
-msgstr ""
+msgstr "यो सन्देस देख्दा तपाइले के गरिरहनु भएको थियो हामीलाइ थाहा दिनुहोस् र तपाइको ब्राउजर र अपरेटिङ सिस्टमको प्रकार र भर्जन।"
 
 msgid "Link to this"
 msgstr "यसको लिङ्क"
 
 msgid "List of all authorities (CSV)"
-msgstr ""
+msgstr "सबै अधिकारहरूको तालिका (CSV)"
 
 msgid "Listing FOI requests"
-msgstr ""
+msgstr "FOI अनुरोधको  सूचीकरण"
 
 msgid "Listing public authorities"
-msgstr ""
+msgstr "सार्वजनिक निकायहरू उल्लेख गर्दै"
 
 msgid "Listing public authorities matching '{{query}}'"
-msgstr ""
+msgstr "मिल्दो सार्वजनिक अधिकारीहरु सूची '{{query}}'"
 
 msgid "Listing tracks"
-msgstr ""
+msgstr "बाटो उल्लेख गर्दै"
 
 msgid "Listing users"
-msgstr ""
+msgstr "प्रयोगकर्ताहरु लाई उल्लेख गर्देे"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
-msgstr ""
+msgstr "{{info_request_title}} को जिप फाइल डाउनलोड गर्न लग इन मा जानुहोस "
 
 msgid "Log into the admin interface"
-msgstr ""
+msgstr "प्रशासनिक माध्यममा लग इन गर्नुहोस"
 
 msgid "Long overdue"
-msgstr ""
+msgstr "धेर्रै बाँकी"
 
 msgid "Long overdue."
-msgstr ""
+msgstr "लामो बाँकी । "
 
 msgid "Made between"
-msgstr ""
+msgstr "बिच"
 
 msgid "Mail server log"
-msgstr ""
+msgstr "मेल सर्भर लग"
 
 msgid "Mail server log done"
-msgstr ""
+msgstr "हुलाक सरवर अभिलेख गरियो "
 
 msgid "MailServerLogDone|Filename"
-msgstr ""
+msgstr "मेल सरभर लग डन फाईलकोनाम     "
 
 msgid "MailServerLogDone|Last stat"
-msgstr ""
+msgstr "मेल सर्भर लग गरिसक्कियो|अन्तिम तथ्यांक "
 
 msgid "MailServerLog|Delivery status"
-msgstr ""
+msgstr "मेल सर्भर लग गरिसक्केको |Delivery status "
 
 msgid "MailServerLog|Line"
-msgstr ""
+msgstr "मेल सर्भर लग लाइन"
 
 msgid "MailServerLog|Order"
-msgstr ""
+msgstr "MailServerLog | आदेश"
 
 msgid "Make a batch request"
-msgstr ""
+msgstr "एक ब्याच अनुरोध गरनुहोस।"
 
 msgid "Make a request"
-msgstr ""
+msgstr "अनुरोध गरनुहोस"
 
 msgid "Make a request &raquo;"
-msgstr ""
+msgstr "अनुरोध गर्नुहोस्;"
 
 msgid "Make a request to these authorities"
-msgstr ""
+msgstr "यस निकायलाई अनुरोध गर्नुहोस"
 
 msgid "Make a request to this authority"
-msgstr ""
+msgstr "यस निकायलाई अनुरोध गर्नुहोस "
 
 msgid "Make an {{law_used_short}} request"
-msgstr ""
+msgstr "{{law_used_short}} अनुरोध गर्नुहोस् "
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
-msgstr ""
+msgstr " '{{public_body_name}}' को लागि एउटा {{law_used_short}} अनुरोध तयार गर्नुहोस्"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
-msgstr ""
+msgstr "बनाउन र खोज्न जानकारीको स्वतन्त्रता (FOI)को अनुरोध गर्नुहोस् ।"
 
 msgid "Make sure the information you are asking for is not already publicly available."
-msgstr ""
+msgstr "तपाइले चाहेको  जानकारी पहिले नै  सार्वजनिक रूपमा उपलब्ध छ कि छैन  पक्का गर्नुहोस ।"
 
 msgid "Many requests"
 msgstr "धेरै अनुरोधहरू"
@@ -1593,22 +1650,22 @@ msgid "Message has been removed"
 msgstr "सन्देश हटाइएको छ"
 
 msgid "Message sent using {{site_name}} contact form, "
-msgstr ""
+msgstr "{{SITE_NAME}} फारम प्रयोग गरी पठाएको सन्देश,"
 
 msgid "Missing contact details for '{{authority_name}}'"
-msgstr ""
+msgstr "'{{authority_name}}' कोलागि छुटेको सम्पर्क विवरण "
 
 msgid "More about this authority"
-msgstr ""
+msgstr "यस निकायको बारेमा थप जानकारी"
 
 msgid "More similar requests"
-msgstr ""
+msgstr "धेरै समान अनुरोध "
 
 msgid "Most frequent annotators"
-msgstr ""
+msgstr "सबैभन्दा बारम्बार टिप्पणीकर्ता "
 
 msgid "Most frequent requesters"
-msgstr ""
+msgstr "सबैभन्दा बारम्बार अनुरोधकर्ता"
 
 msgid "My profile"
 msgstr "मेरो प्रोफाइल"
@@ -1632,16 +1689,16 @@ msgid "Needs admin attention"
 msgstr "एड्मिनको सहायता चाहिएको छ"
 
 msgid "New Freedom of Information requests"
-msgstr ""
+msgstr "सूचना अनुरोधको नयाँ स्वतन्त्रता"
 
 msgid "New censor rule"
-msgstr ""
+msgstr "नयाँ सेन्सर नियम"
 
 msgid "New e-mail:"
 msgstr "नयाँ इमेल:"
 
 msgid "New email doesn't look like a valid address"
-msgstr ""
+msgstr "नयाँ इमेल मान्य ठेगाना जस्तो देखिदैन"
 
 msgid "New password:"
 msgstr "नयाँ पासवर्ड:"
@@ -1653,19 +1710,19 @@ msgid "New response to '{{title}}'"
 msgstr "'{{title}}' को लागि नयाँ जवाफ"
 
 msgid "New response to your FOI request - {{request_title}}"
-msgstr ""
+msgstr "तपाइको FOI - {{request_title}} अनुरोधमा नयाँ प्रतिक्रिया"
 
 msgid "New response to your request"
-msgstr ""
+msgstr "तपाईंको अनुरोधमा नयाँ प्रतिक्रिया"
 
 msgid "New response to {{law_used_short}} request"
-msgstr ""
+msgstr "{{law_used_short}} अनुरोधमा नयाँ प्रतिक्रिया"
 
 msgid "New updates for the request '{{request_title}}'"
-msgstr ""
+msgstr "'{{request_title}}' अनुरोधको लागि नयाँ अपडेट "
 
 msgid "Newest results first"
-msgstr ""
+msgstr "नयाँ  परिणाम पहिला "
 
 msgid "Next"
 msgstr "अर्को"
@@ -1686,7 +1743,7 @@ msgid "No tracked things found."
 msgstr "चिनो लगाएको कुनै पनि सामग्री भेटिएन"
 
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
-msgstr ""
+msgstr "कसैले पनि यस वेबसाइट प्रयोग गरि  {{public_body_name}} लाई कुनै सूचना प्रति को स्वतन्त्रता को अनुरॊध गरेको छैन"
 
 msgid "None found."
 msgstr "कुनै पनि भेटिएन"
@@ -1707,7 +1764,7 @@ msgid "Not held"
 msgstr "रोकिएको छैन"
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
-msgstr ""
+msgstr "ख्याल राख्नुहोस् कि अनुरोध्कर्ताले तपाइले गरेको टिप्पणिबारे सूचित हुदैन​, किनभने {{public_body_name}}को तर्फबाट अनुरोध प्रकाशित भएको हुन्छ​।"
 
 msgid "Notes:"
 msgstr "टिपोटहरू:"
@@ -1743,16 +1800,16 @@ msgid "Old e-mail:"
 msgstr "पुरानो इमेल:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
-msgstr ""
+msgstr "पुरानो इमेल ठेगाना तपाई लगइन हुनुभएको ठेगाना जस्तै छैन"
 
 msgid "Old email doesn't look like a valid address"
-msgstr ""
+msgstr "पुरानो इमेल मान्य देखिदैन "
 
 msgid "On this page"
 msgstr "यो पानामा"
 
 msgid "One FOI request found"
-msgstr ""
+msgstr "एउटा FOI अनुरोध भेटियो "
 
 msgid "One person found"
 msgstr "एक व्यक्ति भेटियो"
@@ -1761,22 +1818,22 @@ msgid "One public authority found"
 msgstr "एक सार्वजनिक निकाय भेटियो"
 
 msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr ""
+msgstr "संक्षिप्त प्रयोग हुन्छन् भने मात्रै राख्ने, नत्र खाली छोडिदिने | URL मा छोटो अथवा लामो  नाममात्र प्रयोग गरिन्छ | URL नाम परिवर्तन गर्दा चिन्ता नगर्नु होस,"
 
 msgid "Only requests made using {{site_name}} are shown."
-msgstr ""
+msgstr "प्रयोग गरेर  मात्र अनुरोध {{SITE_NAME}} देखाइएको छ।"
 
 msgid "Only the authority can reply to this request, and I don't recognise the address this reply was sent from"
-msgstr ""
+msgstr "यस ठेगानादेखि पठाइएको ठेगाना पहिचान गरिएन केवल निकायले मात्र यस अनुरोधको जवाफ दिन सक्नुहुन्छ "
 
 msgid "Only the authority can reply to this request, but there is no \"From\" address to check against"
-msgstr ""
+msgstr "केवल अधिकारिक निकायले यस अनुरोधको जवाफ दिन सक्नेछ, तर त्यहाँ कहाँ \"बाट\" जाँचगर्ने तरिका छैन "
 
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
-msgstr ""
+msgstr "सही एक समय पासकोड आफ्नो खाता पासवर्ड अनुमति दिन्छ इमेल टोकन मार्फत आफ्नो खाता पुष्टि र प्रवेश मात्र सही संयोजन परिवर्तन गर्न।"
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr ""
+msgstr "अथवा धेरै <strong>आधिकारिक निकायहरूलाई</strong> एकैसाथ <a href=\"{{url}}\">ब्याच अनुरोध</a> गर्नुहोस्।"
 
 msgid "Original request sent"
 msgstr "मूल अनुरोध पठाइयो"
@@ -1811,8 +1868,14 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
 msgstr "आंशिक सफल"
+
+msgid "Partially successful"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "आंशिकरूपमा सफल"
@@ -1839,72 +1902,74 @@ msgid "Photo of you:"
 msgstr "तपाईँको फोटो:"
 
 msgid "Plans and administrative measures that affect these matters"
-msgstr ""
+msgstr "योजना र परिधीहरू जसले ती मामलामा प्रभाब पार्छन् "
 
 msgid "Play the request categorisation game"
-msgstr ""
+msgstr "अनुरोध वर्गीकरण खेल खेल्नुहोस "
 
 msgid "Play the request categorisation game!"
-msgstr ""
+msgstr "अनुरोध गरिएको  वर्गीकरण खेल सुरु गर्नुस!"
 
 msgid "Please"
 msgstr "कृपया"
 
 msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
+msgstr "तपाईँसँग केही प्रश्नहरू भए कृपया <a href=\"{{url}}\">मा सम्पर्क गर्नुहोला |"
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
-msgstr ""
+msgstr "कृपया  <a href=\"{{url}}\"> हामी संग सम्पर्कमा रहनुहोस </a>ताकि हामी  यसलाई समाधान गर्न सक्छौ"
 
 msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
 msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "कृपया <strong> माथिको प्रस्नको जबाफ दिनुहोस </strong> जसकारण हामी हालको प्रतिक्रियामा काम लाग्ने सूचना छ या छैन थाहा पाउछौ | "
+msgstr[1] "कृपया <strong> माथिको प्रस्नको जबाफ दिनुहोस </strong> जसकारण हामी हालको प्रतिक्रियामा काम लाग्ने सूचना छ या छैन थाहा पाउछौ | "
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
-msgstr ""
+msgstr "कृपया  <strong>तलको अनुरोधमा जानुहोस  </strong>, अनि त्यहाँ हालको प्रतिक्रियामा सूचना थियो या थिएन हामीलाई थाहा दिनुहोस | "
 
 msgid "Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href=\"{{new_request_link}}\">file a new request</a>."
 msgstr ""
+"कृपया तपाइको अनुरोधसँग{{request_link}} सम्भंधित सन्देश  <strong>मात्र</strong>  लेख्नुहोला ।\n"
+"यदि तपाईलाई मूल अनुरोधबाहेक को जानकारी जन्न मन छ भने <a href=\"{{new_request_link}}\">नया अनुरोधका लागी</a> "
 
 msgid "Please ask for environmental information only"
-msgstr ""
+msgstr "कृपया पर्यावरण सम्बन्धित  जानकारीका लागि मात्र अनुरोध  गर्नुहोला"
 
 msgid "Please check the URL (i.e. the long code of letters and numbers) is copied correctly from your email."
-msgstr ""
+msgstr "कृपया आफ्नो इमेल बाट URL (अर्थात् अक्षर र नम्बर को लामो कोड)को  सहि प्रतिलिपि गरिएको छ कि छैन जाँच गर्नुहोस्।"
 
 msgid "Please choose a file containing your photo."
-msgstr ""
+msgstr "कृपया आफ्नो फोटो समावेश गरेको फाइल छनौट गर्नुहोस्।"
 
 msgid "Please choose a reason"
 msgstr "कृपया एक कारण छान्नुहोस्"
 
 msgid "Please choose what sort of reply you are making."
-msgstr ""
+msgstr "कृपया छनोट गर्नुस कि तपाइ कस्तो प्रकारको उतर दिदैहुनुन्छ"
 
 msgid "Please choose whether or not you got some of the information that you wanted."
-msgstr ""
+msgstr "तपाईंले  चाहेको जानकारी तपाइले पाउनुभयो कि भएन छनौट गर्नुहोस्।"
 
 msgid "Please click on the link below to cancel or alter these emails."
-msgstr ""
+msgstr "इमेल बदल्न वा रद्ध गर्न तल दिईएको लिंक थिच्नुहोस "
 
 msgid "Please click on the link below to confirm that you want to change the email address that you use for {{site_name}} from {{old_email}} to {{new_email}}"
-msgstr ""
+msgstr "तपाईंले {{SITE_NAME}} मा प्रयोग गर्ने पुरानो {{old_email}} इमेल ठेगाना  नयाँ {{new_email}}मा परिवर्तन गर्न चाहनुहुन्छ भने तलको लिंकमा क्लिक गर्नुहोस्"
 
 msgid "Please click on the link below to confirm your email address."
-msgstr ""
+msgstr "तपाइको इमेल पुस्टि गर्न तल दिएको लिंक थिच्नुहोस "
 
 msgid "Please create an account or sign in"
-msgstr ""
+msgstr "कृपया खाता सिर्जना गर्नुहोस वा साइन इन गर्नुहोस ।"
 
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
-msgstr ""
+msgstr "कृपया विषयमा अनुरोधको बारेमा थप कुरा वर्णन गर्नुहोस्। त्यहाँ एक FOI अनुरोध हो भन्न कुनै आवश्यकता छैन, हामी जसरी भएपनि त्य्स कुरा हालछौ ।"
 
 msgid "Please don't upload offensive pictures. We will take down images that we consider inappropriate."
-msgstr ""
+msgstr "कृपया आपत्तिजनक तस्वीर अपलोड नगर्नुहोला । हामी अनुपयुक्त तस्बिरहरू हटाउने छौ ।"
 
 msgid "Please enable \"cookies\" to carry on"
-msgstr ""
+msgstr "कृपया पूरा गर्न \"कुकीहरू\" खुल्ला गर्नुहोस "
 
 msgid "Please enter a password"
 msgstr "कृपया पासवर्ड हाल्नुहोस्"
@@ -1934,85 +1999,88 @@ msgid "Please enter your email address"
 msgstr "कृपया तपाईँको इमेल ठेगाना हाल्नुहोस्"
 
 msgid "Please enter your follow up message"
-msgstr ""
+msgstr "कृपया आफ्नो  पालन अप संदेश लेख्नुहोस्"
 
 msgid "Please enter your letter requesting information"
-msgstr ""
+msgstr "कृपया आफ्नो पत्र अनुरोध जानकारी गर्नुहोस् "
 
 msgid "Please enter your name"
-msgstr ""
+msgstr "कृपया आफ्नो नाम प्रविष्ट गर्नुहोस्"
 
 msgid "Please enter your name, not your email address, in the name field."
-msgstr ""
+msgstr "कृपया नाम खण्डमा इमेल ठेगाना होइन , आफ्नो नाम पेश गर्नुहोस "
 
 msgid "Please enter your new email address"
-msgstr ""
+msgstr "कृपया आफ्नो नयाँ इमेल ठेगाना हल्नुहोस"
 
 msgid "Please enter your old email address"
-msgstr ""
+msgstr "कृपया आफ्नो पुरानो इमेल ठेगाना हल्नुहोश"
 
 msgid "Please enter your password"
-msgstr ""
+msgstr "कृपया आफ्नो पासवर्ड प्रविष्ट गर्नुहोस"
 
 msgid "Please give details explaining why you want a review"
-msgstr ""
+msgstr "कृपया किन समीक्षा चाहियो भनेर बिवरण दिनुहोस् "
 
 msgid "Please keep it shorter than 500 characters"
-msgstr ""
+msgstr "कृपया 500 अक्षर भन्दा छोटो राख्नुहोस "
 
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
-msgstr ""
+msgstr "कृपया सारांश छोटो, इमेलको विषयमा जस्तै राख्नुहोस्। तपाईं बरु पूर्ण वाक्य भन्दा, एक वाक्यांश प्रयोग गर्न सक्नुहुन्छ।"
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
-msgstr ""
+msgstr "कृपया ती विभाग अन्तर्गत आउने जानकारीहरू मात्र अनुरोध गर्नुहोला <strong> तपाईंको समय बर्वाद \\n </ strong> वा सार्वजनिक अख्तियारको समय असम्बन्धित जानकारी अनुरोध गरेर  बर्बाद नगर्नुहोस ।"
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
+msgstr "कृपया यो ,सूचना समीक्षा को स्वतन्त्रता आयोजना गर्नेलाई पठाउनुहोस् |"
+
+msgid "Please select an authority"
 msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
-msgstr ""
+msgstr "कृपया यी सबै अनुरोधहरू पालैपालो छान्नुहोस् , अनि ती सूचनाहरू सफल छन् या छैनन् <strong> सबैलाई थाहा दिनुहोस </strong> | "
 
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
-msgstr ""
+msgstr "कृपया मुनी आफ्नो नाम लेखी साइन इन गर्नुहोस् अथवा  \"{{signoff}}\" सहीलाई बदल गर्नुहोस् |"
 
 msgid "Please sign in as {{user_name}}"
-msgstr ""
+msgstr "कृपया {{user_name}}बाट  साइन इन गर्नुहोस्"
 
 msgid "Please tell us more:"
-msgstr ""
+msgstr "कृपया हामीलाई थप बताउनुहोस:"
 
 msgid "Please type a message and/or choose a file containing your response."
-msgstr ""
+msgstr "एउटा सन्देश टाइप गर्नुहोस् र / वा तपाईँको प्रतिक्रिया समावेश गरेको फाइल चयन गर्नुहोस्।"
 
 msgid "Please use this email address for all replies to this request:"
-msgstr ""
+msgstr "कृपया यो इमेल ठेगाना  अनुरोधको  सबै जवाफहरूको लागि प्रयोग गर्नुहोस् :"
 
 msgid "Please write a summary with some text in it"
-msgstr ""
+msgstr "कृपया यसमा केही पाठ सारांश लेखनुहोस"
 
 msgid "Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read."
-msgstr ""
+msgstr "कृपया सारांश वर्ण मिलाएर  लेख्नुहोस् | येसरी गर्दा अरुलाई पढ्न सजिलो हुन्छ |  "
 
 msgid "Please write your annotation using a mixture of capital and lower case letters. This makes it easier for others to read."
-msgstr ""
+msgstr "कृपया "
 
 msgid "Please write your follow up message containing the necessary clarifications below."
-msgstr ""
+msgstr "कृपया तलको आवश्यक स्पष्टिकरणमा समावेश आफ्नो ताकेता सन्देश लेख्नुहोस्।"
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
-msgstr ""
+msgstr "कृपया आफ्नो सन्देश राजधानी र कम अक्षरहरूको मिश्रण प्रयोगगरी लेख्नुहोस्। यसले अरूलाई पढ्नको लागि सजिलो बनाउँछ।"
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
-msgstr ""
+msgstr "पोइन्ट गर्छ <strong>सम्बन्धित जानकारी</strong>, अभियान वा  फोरम जुनचाई काम लाग्नसक्छ। "
 
 msgid "Possible related requests"
-msgstr ""
+msgstr "सम्भावित सम्बन्धित अनुरोधहरु"
 
 msgid "Post annotation"
-msgstr ""
+msgstr "पोस्ट टिप्पणीकर्ता"
 
 msgid "Post redirect"
-msgstr ""
+msgstr "पोस्ट पुन: निर्देशन"
 
 msgid "PostRedirect|Circumstance"
 msgstr "PostRedirect|Circumstance"
@@ -2033,13 +2101,13 @@ msgid "PostRedirect|Uri"
 msgstr "PostRedirect|Uri"
 
 msgid "Posted on {{date}} by {{author}}"
-msgstr ""
+msgstr "{{लेखक}} द्वारा यस {{date}}मा  प्रकाशित भएको थियो "
 
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
-msgstr ""
+msgstr "अलाभेटेलीद्वारा <a href=\"http://www.alaveteli.org/\"> </a> संचालित"
 
 msgid "Prefer not to receive emails?"
-msgstr ""
+msgstr "यो इमेलप्रति रुची के नगर्नु ?"
 
 msgid "Prev"
 msgstr "अघिल्लो"
@@ -2081,10 +2149,10 @@ msgid "Profile photo"
 msgstr "प्रोफाल फोटो"
 
 msgid "ProfilePhoto|Data"
-msgstr ""
+msgstr "ProfilePhoto|Data"
 
 msgid "ProfilePhoto|Draft"
-msgstr ""
+msgstr "ProfilePhoto|Draft"
 
 msgid "Public Bodies"
 msgstr "सार्वजनिक निकायहरू"
@@ -2231,7 +2299,7 @@ msgid "PublicBody|Version"
 msgstr "PublicBody|Version"
 
 msgid "Publication scheme"
-msgstr ""
+msgstr "प्रकाशन योजना"
 
 msgid "Purge request"
 msgstr "अनुरोध सफा गर्नुहोस"
@@ -2272,6 +2340,9 @@ msgstr "हालैका घटनाहरू"
 msgid "Recently described results first"
 msgstr "हालै बताइएका नतिजाहरू पहिले"
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr "अस्विकार गरियो।"
 
@@ -2284,6 +2355,9 @@ msgstr "फर्काइयो"
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "मलाई सम्झनुहोस् (लामो समयसम्म प्रवेश गराइराख्छ;सार्वजनिक कम्प्युटरमा प्रयोग नगर्नुहोस्)"
 
+msgid "Replying by post"
+msgstr ""
+
 msgid "Report abuse"
 msgstr "दुरुपयोग उजुर गर्नुहोस्"
 
@@ -2295,6 +2369,9 @@ msgstr "अनुरोधबारे उजुर गर्नुहोस्"
 
 msgid "Report this request"
 msgstr "यस अनुरोध बारे उजुर गर्नुहोस्"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "प्रवन्धकको ध्यान चाहिने भनेर चिनो लगाइएको।"
@@ -2321,13 +2398,13 @@ msgid "Request hidden"
 msgstr "अनुरोध लुकाइयो"
 
 msgid "Request hide events"
-msgstr "यसलाई लुकाउने अनुरोधहरू"
+msgstr "अनुरोधहरूलाई लुकाउने घटनाहरू"
 
 msgid "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr " {{public_body_name}}लाई  {{info_request_user}}द्वारा  {{date}}मा अनुरोध पठाइएको छ |"
 
 msgid "Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}."
-msgstr ""
+msgstr "{{info_request_user}} द्वारा {{public_body_name}} लाई अनुरोध .{{date}} मा {{event_comment_user}}द्वारा गरिएको"
 
 msgid "Requested from {{public_body_name}} by {{info_request_user}} on {{date}}"
 msgstr " {{date}} मा  {{info_request_user}} द्वारा {{public_body_name}} बाट अनुरोध गरिएको "
@@ -2339,27 +2416,30 @@ msgid "Requests"
 msgstr "अनुरोधहरू"
 
 msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
-msgstr ""
+msgstr "यदि अनुरोधहरू 'बाँकी' अथवा 'एकदमै बाँकी' अवस्थामा छन् भने बाँकी भनेर जानिन्छ | "
 
 msgid "Requests are considered successful if they were classified as either 'Successful' or 'Partially Successful'."
-msgstr ""
+msgstr "अनुरोधहरु कि त 'सफल' वा 'आंशिक' रूपमा वर्गीकृत भए भने सफल मानिन्छ।"
 
 msgid "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
-msgstr ""
+msgstr "निजि जानकारी र VEXATIOUS अनुरोधका बारे अनुरोधकालागी गरिएको अनुरोध  FOI कार्यका लागी (<a href=\"/help/about\">read more</a>).मान्य हुनेछैन।"
 
 msgid "Requests like this"
 msgstr "यस्तै अरू अनुरोधहरू"
 
 msgid "Requests or responses matching your saved search"
-msgstr ""
+msgstr "सुरक्षित खोजसँग मिल्दो अनुरोध वा प्रतिक्रियाहरू |"
 
 msgid "Requests similar to '{{request_title}}'"
-msgstr ""
+msgstr "'{{request_title}}' जस्तै अनुरोधहरु"
 
 msgid "Requests similar to '{{request_title}}' (page {{page}})"
-msgstr ""
+msgstr "अनुरोधहरु  '{{request_title}}' (पृष्ठ {{पृष्ठ}}) को जस्तै छ "
 
 msgid "Requests will be sent to the following bodies:"
+msgstr "अनुरोधहरु निम्न निकायहरुमा पठाइने छन्"
+
+msgid "Requires administrator attention"
 msgstr ""
 
 msgid "Respond by email"
@@ -2369,34 +2449,37 @@ msgid "Respond to request"
 msgstr "अनुरोधको जवाफ लेख्नुहोस्"
 
 msgid "Respond to the FOI request '{{request}}' made by {{user}}"
-msgstr ""
+msgstr "{{प्रयोगकर्ता}}को  FOI अनुरोधको '{{अनुरोध}}'  प्रतिक्रिया दिनुहोस्"
 
 msgid "Respond using the web"
-msgstr ""
+msgstr "वेब प्रयोगगरी प्रतिक्रिया दिनुहोस्"
 
 msgid "Response"
 msgstr "जवाफ"
 
 msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "{{public_body_name}} द्वारा {{info_request_user}} लाई {{date}} मा प्रतिक्रिया जनाइयो।"
 
 msgid "Response from a public authority"
 msgstr "सार्वजनिक निकायबाट जवाफ"
 
-msgid "Response to '{{title}}'"
+msgid "Response received"
 msgstr ""
+
+msgid "Response to '{{title}}'"
+msgstr " प्रतिक्रिया गर्न '{{title}}'"
 
 msgid "Response to this request is <strong>delayed</strong>."
-msgstr ""
+msgstr "यस अनुरोधको प्रतिक्रिया<strong>ढिलाइ गरिएको</strong> छ।"
 
 msgid "Response to this request is <strong>long overdue</strong>."
-msgstr ""
+msgstr "यो अनुरोधको प्रतिक्रिया <strong> धेरै बाँकी </strong> छ"
 
 msgid "Response to your request"
-msgstr ""
+msgstr "तपाईंको अनुरोधको प्रतिक्रिया "
 
 msgid "Response to {{law_used_short}} request"
-msgstr ""
+msgstr "{{law_used_short}} अनुरोधको प्रतिक्रियाको रूपमा"
 
 msgid "Response:"
 msgstr "जवाफ:"
@@ -2414,22 +2497,22 @@ msgid "Search"
 msgstr "खोज्नुहोस्"
 
 msgid "Search Freedom of Information requests, public authorities and users"
-msgstr ""
+msgstr "सूचना अनुरोधको स्वतन्त्रता , साधारण अधिकार र प्रयोगकर्ताहरु खोज्नुहोस्"
 
 msgid "Search contributions by this person"
-msgstr ""
+msgstr "यो व्यक्तिको योगदान खोज्नुहोस्। "
 
 msgid "Search for the authorities you'd like information from:"
-msgstr ""
+msgstr "जानकारी चाहनुहुन्छ भने सम्बन्धित निकायलाई खोज्नुहोस"
 
 msgid "Search in"
-msgstr ""
+msgstr "यहाँ खोज्नुहोस"
 
 msgid "Search in their website for this information &rarr;"
-msgstr ""
+msgstr "यो जानकारीको लागि उनको वेबसाइटमा खोजनुहोस।"
 
 msgid "Search over<br/><strong>{{number_of_requests}} requests</strong> <span>and</span><br/><strong>{{number_of_authorities}} authorities</strong>"
-msgstr ""
+msgstr "<br/>\\n <strong>{{number_of_requests}} अनुरोध </strong> <span> र </span><br/>\\n <strong>{{number_of_authorities}} निकायहरु</strong> को खोज गर्नुहोस्"
 
 msgid "Search queries"
 msgstr "खोज क्वेरी"
@@ -2438,40 +2521,40 @@ msgid "Search results"
 msgstr "खोज नतिजा"
 
 msgid "Search the site to find what you were looking for."
-msgstr ""
+msgstr "साइट खोज गरि तपाइलाइ चाइएको कुरा थापाऊनुहोस "
 
 msgid "Search your contributions"
-msgstr ""
+msgstr "तपाईंको योगदान खोज"
 
 msgid "See bounce message"
-msgstr ""
+msgstr "फर्किेएका सन्देश हेर्नुहोस् ।"
 
 msgid "Send a followup"
-msgstr ""
+msgstr "फलोअप पठाउनुहोस्"
 
 msgid "Send a message to {{user_name}}"
-msgstr ""
+msgstr "{{user_name}} लाई सन्देश पठाउनुहोस्"
 
 msgid "Send a public follow up message to {{person_or_body}}"
-msgstr ""
+msgstr "{{मान्छे_वा_निकाय}} लाई एउटा सार्बजनिक ताकेता सन्देश पठाउनुहोस"
 
 msgid "Send a public reply to {{person_or_body}}"
-msgstr ""
+msgstr "{{person_or_body}} लाइ सार्बाजानिक जवाफ पठाउ "
 
 msgid "Send follow up to '{{title}}'"
-msgstr ""
+msgstr "'{{title}}' को लागि ताकेता पठाउनुहोस्"
 
 msgid "Send me the email"
-msgstr ""
+msgstr "मलाई इमेल पठाउनुहोस्"
 
 msgid "Send message"
-msgstr ""
+msgstr "सान्देस पठाउ"
 
 msgid "Send message to {{user_name}}"
-msgstr ""
+msgstr "{{user_name}} लाई सन्देश पठाउनु होस |"
 
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr ""
+msgstr "कसरी काम गर्छ भनेर हेर्नका लागि{{user_name}} लाई सन्देश पठाउनुहोस |"
 
 msgid "Send request"
 msgstr "अनुरोध पठाउनुहोस्"
@@ -2481,29 +2564,29 @@ msgstr "पठाउँदै..."
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{date}} मा {{info_request_user}} द्वारा एउटा  निकायलाई पठाइएको | "
+msgstr[1] "{{date}} मा {{info_request_user}} द्वारा {{authority_count}} निकायहरुलाई पठाइएको | "
 
 msgid "Set your profile photo"
-msgstr ""
+msgstr "अाफ्नो प्रोफाईल तस्बिर राख्नुहोस्"
 
 msgid "Share on Facebook"
-msgstr ""
+msgstr "फेस्‌बूकमा बाँड्नुहोस्।  "
 
 msgid "Share your batch request"
-msgstr ""
+msgstr "श्रृंखलाबद्ध अनुरोध साझेदारी गर्नुहोस् ।"
 
 msgid "Share your request"
-msgstr ""
+msgstr "अाफ्नो अनुरोध बाँडनुहोस्।"
 
 msgid "Short name is already taken"
-msgstr ""
+msgstr "छोटो नाम अगाडि नै लिएको छ।"
 
 msgid "Show most relevant results first"
-msgstr ""
+msgstr "सान्दर्भिक परिणाम पहिले देखा‌‌‌‌उनुहोस्।"
 
 msgid "Show only..."
-msgstr ""
+msgstr "देखाउनुहोस् मात्र..."
 
 msgid "Showing"
 msgstr "देखाउँदै"
@@ -2512,7 +2595,7 @@ msgid "Sign in"
 msgstr "साइन इन"
 
 msgid "Sign in as the emergency user"
-msgstr ""
+msgstr "आपतकालीन प्रयोगकर्ताको रूपमा साइन इन गर्नुहोस्।"
 
 msgid "Sign in or make a new account"
 msgstr "साइन इन गर्नुहोस् या नयाँ खाता बनाउनुहोस्"
@@ -2521,7 +2604,7 @@ msgid "Sign in or sign up"
 msgstr "साइन इन या साइन अप"
 
 msgid "Sign in to track this request"
-msgstr ""
+msgstr "यो अनुरोध पछयाउन साइन इन गर्नुहोस्"
 
 msgid "Sign out"
 msgstr "साइन आउट गर्नुहोस्"
@@ -2533,40 +2616,40 @@ msgid "Simple search"
 msgstr "साधारण खोज"
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
-msgstr ""
+msgstr "तपाईँको FOI request - {{request_title}} मा केहि नोटहरू थपीएको छ।"
 
 msgid "Some of the information requested has been received"
-msgstr ""
+msgstr "अनुरोध गर्नुभएका केही जानकारी पराप्त भएका छन"
 
 msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
-msgstr ""
+msgstr "केही मानिसहरू जसले अनुरोध गरेका छन् उनीहरूले हामीलाई कुनै पनि जानकारी दिएका छैनन् तिनीहरू \\nसफल भए या असफल भए। हामीलाई <strong>your</strong>सहायता चाहिएको छ &ndash;\\nनिम्न अनुरोधहरू छान्न, पढ्न, र सबैलाई थाह दिन\\nजानकारी प्रदान गरियो कि गरिएन भनेर। सबै जना धेरै नै आभारी हुने छन्।"
 
 msgid "Somebody added a note to your FOI request - {{request_title}}"
-msgstr ""
+msgstr "तपाईँको FOI अनुरोध - {{request_title}} मा कसैले टिपोट थपिदिनु भएको छ"
 
 msgid "Someone has updated the status of your request"
-msgstr ""
+msgstr "कसैले तपाईँको अनुरोधको स्थिति परिमार्जन गरेका छन"
 
 msgid "Someone, perhaps you, just tried to change their email address on {{site_name}} from {{old_email}} to {{new_email}}."
-msgstr ""
+msgstr "कोही , सायद तपाईँले, भर्खरै इमेल ठेगाना परिवर्तन {{site_name}} मा \\n {{old_email}} बाट  {{new_email}} मा परिवर्तन गरियो"
 
 msgid "Sorry - you cannot respond to this request via {{site_name}}, because this is a copy of the request originally at {{link_to_original_request}}."
-msgstr ""
+msgstr "माफी - तपाइले यो अनुरोध मा यो  {{site_name}} द्वारा प्रतिक्रिया दिन सक्नुहुन्न ,किनकि यो तअर्कै प्रतिक्रिया {{link_to_original_request}}  को कपी हो। "
 
 msgid "Sorry, but only {{user_name}} is allowed to do that."
-msgstr ""
+msgstr " माफ गर्नुहोस् तर {{user_name}} लाई मात्र यो गर्ने अनुमति छ |"
 
 msgid "Sorry, there was a problem processing this page"
-msgstr ""
+msgstr "माफ गर्नुहोस्, यो पृष्ठ प्रशोधनमा एउटा समस्या थियो"
 
 msgid "Sorry, we couldn't find that page"
-msgstr ""
+msgstr "माफ गर्नुहोस्, हामीले पृष्ठ फेला पार्न सकेनौ"
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
-msgstr ""
+msgstr "माफ गर्नुहोस्, हामी अहिले नयाँ प्रयोगकर्ता साइन अप गर्न असमर्थ छौं, कृपया पछि फेरि प्रयास गर्नुहोस्"
 
 msgid "Source URL:"
-msgstr ""
+msgstr "URL स्रोत:"
 
 msgid "Source:"
 msgstr "स्रोत:"
@@ -2575,13 +2658,16 @@ msgid "Spam address"
 msgstr "स्प्याम ठेगाना"
 
 msgid "SpamAddress|Email"
-msgstr ""
+msgstr "SpamAddress|Email"
 
 msgid "Start your own request"
 msgstr "तपाईँको आफ्नै अनुरोध सुरु गर्नुहोस्"
 
 msgid "Statistics"
 msgstr "तथ्याङ्क"
+
+msgid "Status"
+msgstr ""
 
 msgid "Stay up to date"
 msgstr "अद्यावधिक रहनुहोस्"
@@ -2626,10 +2712,10 @@ msgid "Successful."
 msgstr "सफल।"
 
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
-msgstr ""
+msgstr "अनुरोधकर्ताले कसरी <strong>बाँकी जानकारी</strong> पाउन सक्छन् बारे सुझाव दिनुहोस्।"
 
-msgid "Summary:"
-msgstr "सारांश:"
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "स्थितीको सूची"
@@ -2647,22 +2733,25 @@ msgid "Tags:"
 msgstr "ट्यागहरूः"
 
 msgid "Thank you for helping us keep the site tidy!"
-msgstr ""
+msgstr "हामीलाई साइट सुग्घर राख्न मदत गर्नुभएकोमा धन्यवाद!"
 
 msgid "Thank you for making an annotation!"
-msgstr ""
+msgstr "एक टिप्पणी बनाउनको लागि धन्यवाद!"
 
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to {{user_name}}."
-msgstr ""
+msgstr "यो FOI अनुरोधमा प्रतिक्रिया दिनुभएकोमा तपाइलाई धन्यबाद! तपाइको प्रतिक्रिया तल प्रकाशित गरिएको छ, र तपाइको प्रतिक्रियाको लिंक {{user_name}} लाई इमेल गरिएको छ |"
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
 msgstr ""
+"यो अनुरोध '<a href=\"{{url}}\">{{info_request_title}}</a>' को स्तिथि अपडेट गरिदिनुभाको मा धन्यवाद।\n"
+"अन्य अनुरोधहरू तल छन् तपाईको मन्जुरी को लागी \n"
+"।"
 
 msgid "Thank you for updating this request!"
-msgstr ""
+msgstr "यो अनुरोध अद्यावधिक गर्नभयकोमा धन्यवाद"
 
 msgid "Thank you for updating your profile photo"
-msgstr ""
+msgstr "तपाइको प्रोफाइल चित्र अपडेट गरिएको छ"
 
 msgid "Thank you! Here are some ideas on what to do next:"
 msgstr "तपाईँलाई धन्यवाद! Here are some ideas on what to do next:"
@@ -2680,136 +2769,138 @@ msgid "Thank you! Your request is long overdue, by more than {{very_late_number_
 msgstr "तपाईँलाई धन्यवाद! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
-msgstr ""
+msgstr "धन्यवाद सहयोगको लागि - तपाइको कामले यो सबैको सफलता \\ प्रतिक्रियाहरू फेला लागि सजिलो बनाउनेछ र शायद हामीलाई लिग टेबल बनाउन दिन्छ ..."
 
 msgid "Thanks for your suggestion to add {{public_body_name}}. It's been added to the site here:"
-msgstr ""
+msgstr "तपाईंको थप सुझावहरुका लागि धन्यवाद {{public_body_name}}। यसलाई यहाँ साइटमा थपिएको छ:"
 
 msgid "Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address."
-msgstr ""
+msgstr " इमेल ठेगाना अद्यावधिक गर्नको लागि तपाईंको सुझावको लागि धन्यवाद {{public_body_name}} गर्न {{public_body_email}}। यो अब गरिएको छ र कुनै पनि नयाँ अनुरोध नयाँ ठेगानामा पठाइने छ।"
 
 msgid "Thanks very much - this will help others find useful stuff. We'll also, if you need it, give advice on what to do next about your requests."
-msgstr ""
+msgstr "धेरै धन्यवाद - यसले अरूलाई उपयोगी सामान फेला पार्न मद्दत गर्नेछ। हामीले पनि, तपाईंलाई आवश्यक छ भने, अनुरोध अनुसार अब के गर्ने मा सल्लाह  दिनेछौ ।"
 
 msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>. We'll also, if you need it, give you advice on what to do next about each of your requests."
-msgstr ""
+msgstr "सफा र व्यवस्ठित राखिदिनु भएकोमा यहाँहरूलाई धन्यवाद ।  यहाँको अनुरोध अनुरुप हामीले पनि, यस पश्चात के गर्ने भनेर सल्लाह दिनेछौ । "
 
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
-msgstr ""
+msgstr "त्यो मान्य इमेल ठेगाना जस्तो देखिदैन। कृपया तपाईंले यसलाई सही टाइप गर्नुभएको छ।"
 
 msgid "The <strong>review has finished</strong> and overall:"
-msgstr ""
+msgstr "समग्रमा </strong> समीक्षा सकिएको </strong> छ"
 
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
-msgstr ""
+msgstr " स्वतन्त्रता सूचना एन, यो माथि </strong>लागू हुदैन "
 
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
-msgstr ""
+msgstr "तपाइले इमेल अद्द्रेस भेट्नु भएको युरएल .यो छेत्र ठिक छ ,तर यदि तपाइले अक्तियार को पेज को लिंक प्रदान गरेमा निकै ठुलो सहयोग हुनेथ्यो, किनकि सजिल्लो हुनेछ हामीलाई ।"
 
 msgid "The accounts have been left as they previously were."
-msgstr ""
+msgstr "पहिला जस्तो खाता छोडिएको थियो अहिले नि तेस्तै छोडिएको छ "
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr ""
+msgstr "अख्तियार संग सूचना <strong>छैन</strong>(हुनसकछ उनीहरूलाई थाहा छ कि को संग छ भन्नेर )"
 
 msgid "The authority email doesn't look like a valid address"
-msgstr ""
+msgstr "निकायको इमेल मान्य देखियको छैन "
 
 msgid "The authority only has a <strong>paper copy</strong> of the information."
-msgstr ""
+msgstr "यो निकाय संग सूचनाको <strong> कागज कपी </strong> मात्र छ"
 
 msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
-msgstr ""
+msgstr "अख्तियारले भने अनुसार​ तिनिहरूलाइ मान्य अ्याफ ओ इ अनुरोध हुनलाइ केवल एक इमेल मात्र नभइ<strong> एक हुलाकि \\nठेगाना चाहिन्छ​</strong>"
 
 msgid "The authority would like to / has <strong>responded by post</strong> to this request."
-msgstr ""
+msgstr "अख्तियारले यस  </ strong>अनुरोधको  <strong> प्रतिक्रिया पोस्ट द्वारा दिएको छ |"
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
-msgstr ""
+msgstr "अनुरोध को वर्गीकरण ( उदाहरण.  तिनीहरु सफल थिए वा थिएनन् भनेर ) म्यानुअललि प्रयोगकर्ता र प्रशासनले गर्छन्,जो तिनीहरूले त्रुटिको  विषय भन्ने कुरो  हो|"
 
 msgid "The contact email address for FOI requests to the authority."
-msgstr ""
+msgstr "आधिकारिक निकायलाइ FOI अनुरोधहरुको लागि सम्पर्क इमेल ठेगाना।"
 
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
-msgstr ""
+msgstr "{{law_used_short}} अनुरोध लाई जबाफ दिन {{public_body}} को तर्फबाट\\n{{user}} लाई पठाइएको इमेल पुगेन | "
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
-msgstr ""
+msgstr "देखाइएको त्रुटी सन्देश 95% कन्फिडेन्स अन्तरालमा छन् कुनै पनि भित्री भागको परिकल्पना अनुसार (जस्तै. तपाईँले कुनै पनि साइटको माध्यमबाट कयौँपटक अनुरोध गरेर पाउन सकिन्छ )। अर्को शब्दमा भन्नुपर्दा कुनै पनि अनुरोध अन्तर्गत हालका र भविष्यका कुनै पनि अनुरोधहरू र यस साइटबाट निकायहरूमा गरिएका अनुरोधहरू जुन पनि कुनै तरिकाबाट यस सर्वेक्षण अन्तर्गत रहनेछन् ।   "
 
 msgid "The last incoming message was created in the last day"
-msgstr ""
+msgstr "पछिल्लो आगमन सन्देश अन्तिम दिनमा सिर्जना गरिएको थियो"
 
 msgid "The last incoming message was created over a day ago"
-msgstr ""
+msgstr "पछिल्लो आगमन सन्देश एक दिन अघि सिर्जना गरिएको थियो"
 
 msgid "The last outgoing message was created in the last day"
-msgstr ""
+msgstr "पछिल्लो बहिर्गमन सन्देश अन्तिम दिन मा सिर्जना गरिएको थियो"
 
 msgid "The last outgoing message was created over a day ago"
-msgstr ""
+msgstr "पछिल्लो बहिर्गमन सन्देश एक दिन अघि सिर्जना गरिएको थियो"
 
 msgid "The last user was created in the last day"
-msgstr ""
+msgstr "पछिल्लो प्रयोगकर्ता अन्तिम दिन मा सिर्जना गरिएको थियो"
 
 msgid "The last user was created over a day ago"
-msgstr ""
+msgstr "अन्तिम प्रयोगकर्ता एकदिन अगाडी बनेको थियो "
 
 msgid "The page doesn't exist. Things you can try now:"
-msgstr ""
+msgstr "पृष्ठ अवस्थित छैन। तपाईंले अब प्रयास गर्न सक्ने कुराहरू:"
 
 msgid "The percentages are calculated with respect to the total number of requests, which includes invalid requests; this is a known problem that will be fixed in a later release."
-msgstr ""
+msgstr "यी प्रतिशतहरुको गणना कुल प्रतिक्रियाहरूको आधारमा हुन्छ, जस्मा अवैध प्रतिक्रियाहरु पर्छन् , यो समस्या परिचित छ जुन पछिको जारीमा स्थिर हुनेछ । "
 
 msgid "The public authority does not have the information requested"
-msgstr ""
+msgstr "सार्वजनिक निकायमा अनुरोध गर्नुभएको जानकारी छैन"
 
 msgid "The public authority would like part of the request explained"
-msgstr ""
+msgstr "सार्वजनिक आधिकारिक निकाय प्रस्तुत अनुरोधको एक्काइको विवरण चाहन्छ "
 
 msgid "The public authority would like to / has responded by post"
-msgstr ""
+msgstr " पोस्टद्वारा  सार्वाजनिक निकायलाइ प्रतिक्रिया दिईएको छ "
 
 msgid "The request has been <strong>refused</strong>"
-msgstr ""
+msgstr "अनुरोध <strong>बहिस्कार</strong> गरिएको छ"
 
 msgid "The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again."
-msgstr ""
+msgstr "तपाईंले यो पृष्ठ लोड  गरेदेखि सो अनुरोध अद्यावधिक गरिएको छ। कृपया कुनै पनि नयाँ आगमन सन्देशहरू तल जाँच गर्नुहोला , र फेरि प्रयास गर्नुहोस्।"
 
 msgid "The request is <strong>waiting for clarification</strong>."
-msgstr ""
+msgstr "अनुरोध <strong>स्पस्टिकरणको लागि कुरिरहेको </strong>छ"
 
 msgid "The request was <strong>partially successful</strong>."
-msgstr ""
+msgstr "अनुरोध <strong>आंशिक रुपमा सफल</strong> भएको थियो"
 
 msgid "The request was <strong>refused</strong> by {{authority_name}}."
-msgstr ""
+msgstr "{{authority_name}}द्वारा अनुरोध बहिष्कार गरिएको थियो।"
 
 msgid "The request was <strong>successful</strong>."
-msgstr ""
+msgstr "अनुरोध <strong> सफल भयछ </strong>"
 
 msgid "The request was refused by the public authority"
-msgstr ""
+msgstr "सार्बाजानिक निकायद्वारा अनुरोध अस्विकार गरिएको छ "
 
 msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
+"यो सन्देश लुकाइएको छ। यसका धेरै कारनहरु हुन सक्छन, खुलासा गर्न नमिलेको मा माफी मग्दचम\n"
+"। कृपया हाम्लाई   <a\\n href=\"{{url}}\">contact us</a> कुनै कुरा सोध्नछ भने ।"
 
 msgid "The requester has abandoned this request for some reason"
-msgstr ""
+msgstr "अनुरोधकर्ताद्वारा यो अनुरोध केहि कारणबस निषेध गरिएको छ"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
-msgstr ""
+msgstr "तपाई को अनुरोधको प्रतिक्रिया <strong>ढिलाई</strong> गरिएको छ। अक्तियारद्वारा <strong>कडा </strong> प्रतिक्रिया गरिएको भनेर बुझ्न सकिन्छ।"
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
-msgstr ""
+msgstr "तपाई को अनुरोधको प्रतिक्रिया <strong>ढिलाई</strong> गरिएको छ। अक्तियारद्वारा <strong>कडा </strong> प्रतिक्रिया गरिएको भनेर बुझ्न सकिन्छ।"
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
-msgstr ""
+msgstr "खोज सूचकांक हाल अफलाइन छ, त्यसैले यस निकायका सूचना अनुरोध को स्वतन्त्रताका अनुरोध देखाउन सक्दैनौ।"
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
-msgstr ""
+msgstr "खोज सूचकांक हाललाई अफलाइन छ, त्यसैले हामीले यस व्यक्तिले बनाएको  स्वतन्त्रता को  जानकारी अनुरोथ देखाउन सक्दैन।"
 
 msgid "The widget will look like this:"
-msgstr ""
+msgstr "तपाइको विजेट येस्तो दखिने छ:"
 
 msgid "The {{site_name}} team."
 msgstr "{{site_name}} समूह"
@@ -2863,91 +2954,96 @@ msgid "Then you can write your reply to {{authority_name}}."
 msgstr "त्यसपछि {{authority_name}} जवाफ लेख्न सक्नुहुन्छ।"
 
 msgid "Then you will be following all new FOI requests."
-msgstr ""
+msgstr "त्यसपछि तपाईं सबै नयाँ FOI अनुरोध पालना गर्नुहुनेछ।"
 
 msgid "Then you will be notified whenever '{{user_name}}' requests something or gets a response."
-msgstr ""
+msgstr "जब '{{user_name}}' ले केहि अनुरोध गर्छ या प्रतिक्रिया प्राप्त गर्छ, तब तपाइलाई जानकारी गरिनेछ |"
 
 msgid "Then you will be notified whenever a new request or response matches your search."
-msgstr ""
+msgstr "नयाँ अनुरोध वा प्रतिक्रिया जब तपाईको खोजसँग मेल खाएमा सूचित गरिनेछ।"
 
 msgid "Then you will be notified whenever an FOI request succeeds."
-msgstr ""
+msgstr "जब FOI अनुरोध सफल हुन्छ तब तपाइलाई जानकारी गरिनेछ"
 
 msgid "Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'."
-msgstr ""
+msgstr "जब कसैले केहि अनुरोध गर्छ वा '{{public_body_name}}'बाट प्रतिक्रिया पाउछ, त्यसपछि तपाइलाइ सुचित गरिनेछ।"
 
 msgid "Then you will be updated whenever the request '{{request_title}}' is updated."
-msgstr ""
+msgstr "अनुरोध '{{request_title}}' अद्यावधिक हुनासाथ तपाइलाइ पनि अद्यावधिक गरिनेछ।"
 
 msgid "Then you'll be allowed to send FOI requests."
-msgstr ""
+msgstr "तेस्पछि तपाईले FOI अनुरोध पठाउन सक्नुहुन्छ "
 
 msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr ""
+msgstr "त्यसपछि तपाइको {{public_body_name}} FOI अनुरोध पठाइने छ |"
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
-msgstr ""
+msgstr "त्यसपछि तपाइको {{info_request_title}} को टिप्पणी लाई पेस गरिनेछ |"
 
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "There are {{count}} new annotations on your {{info_request}} request. यो लिङ्कमा क्लिक गरेर उहाँले के लेख्नु भयो भ्ने हेर्नुहोस्"
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
-msgstr ""
+msgstr "यो साइट प्रयोग गर्ने <strong>एकजना भन्दा बढी</strong> छन र यो नाम पनि धेरै पल्ट प्रयोग भएको छ ।\\n त्यसमध्य एउटा तल उल्लिखित छ, तपाइले भिन्नै सोचेको हुनसक्छ।"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
-msgstr ""
+msgstr "एक दिनमा कति सन्देश पठाउने भन्ने सीमाना छ, किन भने सार्वजनिक निकायहरू हाम्रो साइटबाट प्राप्त हुने अनुरोधहरूबाट ग्रसित नहुन्। यदि तपाईँको यस सीमालाई हटाइनु पर्छ भन्ने तपाईँसँग कुनै कारण छ भने <a href='{{help_contact_path}}'>थाह दिनुहोस्</a>।"
 
 msgid "There is nothing to display yet."
-msgstr ""
+msgstr "हालसम्म देखाउनको लागी केहि छैन |"
 
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
-msgstr ""
+msgstr "त्यहा एउटा <strong>वितरण त्रुटि</strong> थियो वा त्यस्तै, जुनलाइ {{site_name}} टोली द्वारा फिक्सिंग चाहिन्छ।"
 
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr ""
+msgstr "reCAPTCHA मा त्रुटी थियो | कृपया पुन: प्रयास गर्नुहोस् |"
 
 msgid "There was an error with the words you entered, please try again."
-msgstr ""
+msgstr "तपाइले लेख्नु भएको सब्दहरुमा गल्ति देखिन्छ |कृपया पुन प्रयास गर्नुहोस् |"
 
 msgid "There was no data calculated for this graph yet."
-msgstr ""
+msgstr "यो ग्राफको लागि अहिलेसम्म कुनै पनि डाटा तयार गरिएको थिएन| "
 
 msgid "There were no requests matching your query."
-msgstr ""
+msgstr "तपाइको प्रस्न संग मेल खाने कुनै पनि अनुरोधहरु थिएनन्|"
 
 msgid "There were no results matching your query."
+msgstr "तपाइको प्रस्न संग मेल खाने कुनै पनि नतिजा थिएनन्|"
+
+msgid "There's an error message"
 msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
-msgstr ""
+msgstr "यीलाई  रेखांकन आंशिक प्रेरित <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">ले गर्यो । Mark Goodge ले  WhatDoTheyKnow को लागि बनाएका केहि तथ्याङ्कहरु ।त्यसैले धन्यवाद उहाँलाई जान्छ।"
 
 msgid "These logs show what happened to this message as it passed through our {{mta_type}} mail server. You can send these logs to an authority to help them diagnose problems receiving email from {{site_name}}."
-msgstr ""
+msgstr "यी लगहरूले यस सन्देशलाई {{mta_type}} मेल सर्भर मार्फत प्रसारण हुँदा के भयो भन्ने देखाउँछ। {{site_name}} बाट इमेल पाउँदा के त्रुटी भयो भन्ने थाह पाउन तपाईँले यी लगहरू निकायलाई पठाउन सक्नुहुन्छ।"
 
 msgid "They are going to reply <strong>by post</strong>"
-msgstr ""
+msgstr "तिनीहरूले जवाफ <strong> पोस्टबाट </strong>  दिने छन् |"
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr ""
+msgstr "तिनीहरूसंग <strong>जानकारी</strong> छैन <small>(सायद भएको मान्छे उनीहरूलाइ थाहा छ)</small>"
 
 msgid "They have been given the following explanation:"
-msgstr ""
+msgstr "उनीहरूलाई उल्लिखित विवरण दिएयको छ:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr ""
+msgstr "सामान्य कानुनी जरुरत अनुसारको {{law_used_short}} अनुरोधलाई{{title}}  , उनीहरूले जवाफ द्रुतरुपमा जवाफ दिएका छैनन् |"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
-msgstr ""
+msgstr "तिनीहरूले तपाइको {{law_used_short}} अनुरोध {{title}} को जवाफ दिएकाछैनन्, \\nनियमले चाहे बमोजिम"
 
 msgid "Things you're following"
-msgstr ""
+msgstr "तपाइले पछ्यौनुभएको कुराहरु"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
-msgstr ""
+msgstr "यो आधिकारिक निकाय अब रहेन ,त्यसैले तपाईं यसलाई अनुरोध गर्न सक्नुहुन्न ।"
 
 msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
 msgstr ""
+"यसले निकै ठुलो वर्ग का जानकारी राख्छ <strong>प्राकृतिक र \n"
+"कृत्रिम बातावरण</strong> को बारे, जस्तै :"
 
 msgid "This email is already in use"
 msgstr "यो इमेल पहिले देखि नै प्रयोगमा छ"
@@ -2965,13 +3061,13 @@ msgid "This is an HTML version of an attachment to the Freedom of Information re
 msgstr "यो सूचनाकको हकक अनुरोधको  संलग्नको HTML संस्करण हो"
 
 msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr ""
+msgstr "{{title}} पुरानो अनुरोध भएकाले\\nनया प्रतिक्रिया लिन नमिल्ने भनेर चिनाइएको छ"
 
 msgid "This is the first version."
-msgstr ""
+msgstr "यो पहिलो संस्करण हो|"
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
-msgstr ""
+msgstr "यो तपाइको आफ्नै अनुरोध हो, त्यसैले जब नया प्रतिक्रिया आउछ तपाइलाई स्वोचालित रुपमा इमेल गरिनेछ |"
 
 msgid "This is your request"
 msgstr "यो तपाईँको अनुरोध हो"
@@ -2989,203 +3085,205 @@ msgid "This message has been hidden. There are various reasons why we might have
 msgstr "यो सन्देश लुकाइएको छ। There are various reasons why we might have done this, sorry we can't be more specific here."
 
 msgid "This message has been sent."
-msgstr ""
+msgstr "यो सन्देश पठाइएको छ|"
 
 msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "यो सन्देशको प्रतिष्ठा 'लुकईएको' छ | तपाई super user को रुपमा लग इन हुनुभएकाले मात्र तपाईले यो देख्न सक्नु भएको छ | "
 
 msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "यो सन्देशको प्रतिष्ठा 'लुकईएको' छ | {{reason}} तपाई super user को रुपमा लग इन हुनुभएकाले मात्र तपाईले यो देख्न सक्नु भएको छ | "
 
 msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr ""
+msgstr "यो सन्देश लुकाइएको छ ,ताकि तपाईं,अनुरोध्कर्ताले हेर्न सक्नुहुन्छ . यदि  तपाईं पक्का हुनुहुन्न  भने कृपया   <a href=\"{{url}}\">हामीलाई सम्पर्क गर्नुहोस् </a> "
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
-msgstr ""
+msgstr "यो सन्देश लुकाइएको छ , त्यसैले आभेधकले हेर्न सक्छ  {{reason}}"
 
 msgid "This particular request is finished:"
-msgstr ""
+msgstr "यो विशेष अनुरोध समाप्त भएको छ:"
 
 msgid "This person has made no Freedom of Information requests using this site."
-msgstr ""
+msgstr "यो व्यक्तिले सूचना स्वोतान्त्रताको कुनै पनि अनुरोध गरेको छैन |"
 
 msgid "This person's annotations"
-msgstr ""
+msgstr "यो व्यक्तिको टिप्पणी"
 
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "यो व्यक्तिको {{count}} सूचना अनुरोधको स्वोतन्त्रता"
+msgstr[1] "यो व्यक्तिको {{count}} सूचना अनुरोधको स्वोतान्त्रता "
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "यो मान्छेको टिप्पणी{{count}}"
+msgstr[1] "यो मान्छेका टिप्पणी{{count}}"
 
 msgid "This request <strong>requires administrator attention</strong>"
-msgstr ""
+msgstr "यो अनुरोधलाई <strong> प्रसासनिक ध्यानाकर्सन </strong> चाहिन्छ "
 
 msgid "This request has already been reported for administrator attention"
-msgstr ""
+msgstr "यो अनुरोध पहिले नै प्रशासकिय  ध्यानको  लागि रिपोर्ट गरिएको छ"
 
 msgid "This request has an <strong>unknown status</strong>."
 msgstr ""
+"यो अनुरोध को  <strong>अज्ञात \n"
+"स्थिति छ</strong>."
 
 msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr ""
+msgstr "यो अनुरोध साइटबाट <strong> लुकेको </ strong> छ किनभने एक प्रशासकले यस्लाइ अ्याफ ओ इ अनुरोध मान्दैन​।"
 
 msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr ""
+msgstr "यो अनुरोध<strong>  साइटबाट  </strong> लुकाइएको छ किनभने प्रशासकले      यसलाई अफसोसजनक मानेको छ"
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr ""
+msgstr "प्रशासक को ध्यान चाहिएको संधर्वमा यो अनुरोधलाई <strong>गुनासो</strong> गरिएको छ (सायद किनभने,यो  रिसउठ्दो छ, वा यो व्यक्तिगत जानकारी को अनुरोध हुनसक्छ )"
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
-msgstr ""
+msgstr "तपाइको अनुरोध बनाउने कर्ताले <strong> फिर्ता लिएको</strong> छ |\\n यसको व्याख्याको पत्राचार तल गरिएको छ | "
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
-msgstr ""
+msgstr "यो अनुरोध साइट प्रशासकद्वारा समीक्षाको लागि चिन्ह लगाइएको छ , जुन  यो समयमा लुकेको छैन ।यदी  तपाईंलाई यो  लुकेको हुनुपर्छ भन्ने विश्वास लाग्छ भने, कृपया यसमा<a href=\"{{url}}\"> हामीलाई सम्पर्क गर्नुहोस् । </a>"
 
 msgid "This request has been reported for administrator attention"
-msgstr ""
+msgstr "यो अनुरोध , प्रशासकको ध्यानको लागि रिपोर्ट गरिएको छ"
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
-msgstr ""
+msgstr "यो अनुरोध \"कसैको नयाँ  प्रतिक्रियाहरूलाई  अनुमति नगर्ने  \" प्रशासकद्वारा सेट गरिएको छ ।"
 
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
-msgstr ""
+msgstr "यस अनुरोधमा एक असामान्य प्रतिक्रिया छ, र  {{SITE_NAME}} टोलीको <strong> ध्यान आवश्यक छ । </ strong> "
 
 msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "यो अनुरोधको प्रतिष्ठा 'लुकेाइएको' छ। तपाई एक सुपर प्रयोगकर्ताको रूपमा लग इन हुनुभएकोले\\n यसलाइ तपाइले मात्र देख्नुभएको छ।"
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr ""
+msgstr " यो अनुरोध लुकेको छ, त्यसैले तपाईं अनुरोधकर्ताले मात्र यसलाई हेर्न सक्नुहुनेछ ।कृपया तपाईं निरधक्क हुनुहुन्न भने हामीलाई \\ n <a href=\"{{url}}\"> सम्पर्क </a> गर्नुहोला ।"
 
 msgid "This request is still in progress:"
-msgstr ""
+msgstr "यो अनुरोध पूरा हुने प्रकियामा छ"
 
 msgid "This request requires administrator attention"
-msgstr ""
+msgstr "यो अनुरोधको लागी आधिकारिक मान्छे को निगरानी जरुरत छ"
 
 msgid "This request was not made via {{site_name}}"
-msgstr ""
+msgstr "यो अनुरोध यो{{site_name}} बाट गरिएको थिएन"
 
 msgid "This section on public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
-msgstr ""
+msgstr "सार्वजनिक शरीर तथ्याङ्कको  यो खण्ड हाल प्रयोगात्मक छ, त्यसैले मनमा केही निरंतरएहरु आउनुपर्छ"
 
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
-msgstr ""
+msgstr "यस सूचीले {{site_name}} मा \\nरहेका अनुरोधहरूको आन्तरिक घटनाहरू देखाउँछ। यो प्रयोग गरेर कुन निकायहरूले कति समय लगाउँछन् भन्ने जानकारी निकाल्न सकिन्छ\\nर कसलाई कति वटा अनुरोधहरू छन् भन्ने पनि\\nकतिलाई हुलाकद्वारा जवाफ दिनु पर्छ इत्यादि। "
 
 msgid "This user has been banned from {{site_name}} "
-msgstr ""
+msgstr "यो प्रयोगकर्ता यस {{site_name}} बाट निषेध गरिएको छ |"
 
 msgid "This was not possible because there is already an account using the email address {{email}}."
-msgstr ""
+msgstr "यो सम्भव थिएन​ किनभने त्यहाँ पहिले नै \\nइमेल ठेगाना{{email}} प्रयोग गरेको एउटा खाता छ।"
 
 msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
-msgstr ""
+msgstr "तपाईले  गरिराख्नु भएको काममा अरुलाई पनि संलग्न गराउन सजिलो बनाउनको लागि यो तपाइको  {{site_name}} प्रोफाइलमा देखिने छ "
 
 msgid "To"
 msgstr "लाई"
 
 msgid "To add a widget for <b>{{info_request_title}}</b>, copy and paste the following code to your web page:"
-msgstr ""
+msgstr "<b>{{info_request_title}}</b> मा विजेट थप गर्नको लागि निम्न कोड आफ्नो वेबपेजमा कपी र पेस्ट गर्नुहोस्"
 
 msgid "To cancel these alerts"
-msgstr ""
+msgstr "चेतावनी हटाउनको लागि |"
 
 msgid "To cancel this alert"
-msgstr ""
+msgstr "यो चेतावनी रद्द गर्नको लागि "
 
 msgid "To carry on, you need to sign in or make an account. Unfortunately, there was a technical problem trying to do this."
-msgstr ""
+msgstr "अगाडि बढ्न , तपाईँले साइन इन वा खाता बनाउन आवश्यक छ। दुर्भाग्यवश, यो कार्य  गर्दा प्राविधिक समस्या देखियो ।"
 
 msgid "To change your email address used on {{site_name}}"
-msgstr ""
+msgstr "{{site_name}}मा प्रयोग भएको आफ्नो इमेल ठेगाना परिवर्तन गर्न"
 
 msgid "To classify the response to this FOI request"
-msgstr ""
+msgstr "यो FOI अनुरोधको  प्रतिक्रियाको वर्गीकरण गर्न"
 
 msgid "To do that please send a private email to {{postal_email}} {{postal_email_link}} containing your postal address, and asking them to reply to this request. Or you could phone them."
-msgstr ""
+msgstr "यो गर्न कृपया एउटा निजि इमेल {{postal_email}} {{postal_email_link}}मा आफ्नो हुलाकि ठेगाना, र अनुरोधको जवाफ दिन भनि पठाउनुहोस्।\\n अथवा तिनीहरूलाई फोन​ गर्नुहोस्।"
 
 msgid "To do this, first click on the link below."
-msgstr ""
+msgstr "यो गर्न का लागी , पहिला तलको लिंक मा क्लिक गर्नुहोस "
 
 msgid "To download the zip file"
-msgstr ""
+msgstr "जिप फाइल डाउनलोड गर्न"
 
 msgid "To follow all successful requests"
-msgstr ""
+msgstr "सबै सफल अनुरोधहरु पछ्याउँन को लागि"
 
 msgid "To follow new requests"
-msgstr ""
+msgstr "नया अनुरोध पछ्याउनु का लागी"
 
 msgid "To follow requests and responses matching your search"
-msgstr ""
+msgstr "तपाइको खोज संग मेल खाने अनुरोध र प्रतिक्रियालाई पछ्याउन"
 
 msgid "To follow requests by '{{user_name}}'"
-msgstr ""
+msgstr "'{{user_name}}' को अनुरोधलाई पछ्याउन"
 
 msgid "To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'"
-msgstr ""
+msgstr "आधिकारिक निकाय '{{public_body_name}}' मा {{site_name}} प्रयोग गरी बनाइएको अनुरोध पालना गर्न"
 
 msgid "To follow the request '{{request_title}}'"
-msgstr ""
+msgstr "अनुरोध पालनागर्नको लागि '{{अनुरोध}}'"
 
 msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr ""
+msgstr "साइटलाई सफा राख्न, कसैले  \\n{{law_used_full}} \\n तपाईँले  {{public_body}} लाई गर्नु भएको अनुरोध {{title}} , लाई \"{{display_status}}\" मा परिवर्तन गर्नु भएको छ, यदि तपाईँ यससँग सहमत हुनुहुन्न भने कृपया यस अनुरोधको लागि मिल्दो वर्गिकरण राख्नुहोस्"
 
 msgid "To let everyone know, follow this link and then select the appropriate box."
-msgstr ""
+msgstr "सबैलाई थाहा दिनको लागि, यो लिंक पक्षयाउनु होस् र त्यसपछि उपयुक्त बाकस चयन गर्नुहोस्।"
 
 msgid "To log into the administrative interface"
-msgstr ""
+msgstr "प्रवन्धकीय इन्टरफेसमा लगइन गर्नको लागि"
 
 msgid "To make a batch request"
-msgstr ""
+msgstr "एक मुष्ट अनुरोध पेश गर्न को लागि"
 
 msgid "To play the request categorisation game"
-msgstr ""
+msgstr "अनुरोध वर्गीकरण खेल खेल्नको लागि "
 
 msgid "To post your annotation"
-msgstr ""
+msgstr "तपाइको टिप्पणी पेस गर्न"
 
 msgid "To reply to {{authority_name}}."
-msgstr ""
+msgstr "{{authority_name}} लाई जबाफ दिन"
 
 msgid "To report this request"
-msgstr ""
+msgstr "यो अनुरोधलाई खबर गर्नको लागि"
 
 msgid "To send a follow up message to {{authority_name}}"
-msgstr ""
+msgstr "{{authority_name}} लाई ताकेता सन्देश पठाउनकोलागि |"
 
 msgid "To send a message to {{user_name}}"
-msgstr ""
+msgstr " {{user_name}} लाई सन्देश पठाउन"
 
 msgid "To send your FOI request"
-msgstr ""
+msgstr "तपाइको FOI अनुरोध पठाउन "
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
-msgstr ""
+msgstr "अरू अधिकारिक निकायलाई अनुरोध पठाउन,पहिला आफ्नो अनुरोध तल पेस गर्नुहोस अनि <a href=\"{{find_authority_url}}\"> अरू   निकाय खोज्नुहोस"
 
 msgid "To update the status of this FOI request"
-msgstr ""
+msgstr "यस FOI अनुरोधको स्थिती अद्यावधि गर्नको लागि"
 
 msgid "To upload a response, you must be logged in using an email address from {{authority_name}}"
-msgstr ""
+msgstr "प्रतिक्रिया अपलोड गर्न, तपाईँले {{authority_name}}को एउटा इमेल ठेगाना प्रयोग गरेर लग इन हुनुपर्छ"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
-msgstr ""
+msgstr "उन्नत खोज प्रयोग गर्न, तलको खोज सुझावहरूमा वाक्यांश र लेबल संयोजन गर्नुहोस् ।"
 
 msgid "To view the response, click on the link below."
-msgstr ""
+msgstr "प्रतिक्रिया हेर्न तलको लिङ्क मा थिच्नुहोस"
 
 msgid "To view your two factor authentication details"
-msgstr ""
+msgstr "आफ्नो दुई कारक प्रमाणीकरण विवरण हेर्न"
 
 msgid "To {{public_body_link_absolute}}"
-msgstr ""
+msgstr "{{public_body_link_absolute}} लाई"
 
 msgid "To:"
 msgstr "लाई:"
@@ -3230,28 +3328,28 @@ msgid "Tweet this request"
 msgstr "यस अनुरोधलाई ट्विट गर्नुहोस्"
 
 msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
-msgstr ""
+msgstr "दुई कारक प्रमाणीकरणले आफ्नो पासवर्ड रिसेट गर्न थप जानकारी मागेरआफ्नो खातामा अतिरिक्त सुरक्षा थप्छ।"
 
 msgid "Two factor authentication could not be disabled"
-msgstr ""
+msgstr "तपाईँको दुई चरणीय प्रमाणीहरू रद्द गर्ने सकिएन"
 
 msgid "Two factor authentication could not be enabled"
-msgstr ""
+msgstr "दुई कारक प्रमाणीकरण सक्षम हुन सकेन"
 
 msgid "Two factor authentication disabled"
-msgstr ""
+msgstr "दुई चरणीय प्रमाणीहरू रद्द गरिएको"
 
 msgid "Two factor authentication enabled"
-msgstr ""
+msgstr "दुई चरणीय प्रमाणीहरू चालु गरिएको"
 
 msgid "Two factor one time passcode updated"
-msgstr ""
+msgstr "दुई कारक एक समय पासकोड अद्यावधिक सफल"
 
 msgid "Two factor one time passcode:"
-msgstr ""
+msgstr "दुई कारक एक समय पासकोड:"
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
-msgstr ""
+msgstr "कुराहरू जनवरीको पाहिलो २ हप्ताहरूमा भएको मात्र देखाउन <strong><code>01/01/2008..14/01/2008</code></strong>  लेख्नुहोस्।"
 
 msgid "URL name can't be blank"
 msgstr "URL नाम खाली हुन सक्दैन"
@@ -3278,10 +3376,10 @@ msgid "Unfollow"
 msgstr "पछ्याउन बन्द गर्नुहोस्"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
-msgstr ""
+msgstr "दुर्भाग्यवश, हामीसँग काम गर्ने{{public_body_names}} ठेगाना छैन।"
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
-msgstr ""
+msgstr "दुर्रभाग्यबस हामीसंग चालु {{info_request_law_used_full}}\\n ठेगाना छैन "
 
 msgid "Unknown"
 msgstr "अज्ञात"
@@ -3311,13 +3409,13 @@ msgid "Upload FOI response"
 msgstr "FOI जवाफ अपलोड गर्नुहोस्"
 
 msgid "Use OR (in capital letters) where you don't mind which word,  e.g. <strong><code>commons OR lords</code></strong>"
-msgstr ""
+msgstr "जहाँ तपाई कुन शब्द भनेर आपत्ति जनाउनुहुन्न त्यहाँ OR(in capital letters) प्रयोग गर्नुहोस्, जस्तै <strong><code>commons OR lords </code> </strong>"
 
 msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Liverpool City Council\"</code></strong>"
-msgstr ""
+msgstr "जब तपाईं एक सटीक वाक्यांश पाउन चाहनुहुन्छ, उद्धरण प्रयोग गर्नुहोस्, जस्तै <strong><code>\"लिभरपूल शहर परिषद\"</code></strong>"
 
 msgid "Use this site to make your request for information – we'll show you how."
-msgstr ""
+msgstr "जानकारीको लागि आफ्नो अनुरोध गर्न यो साइट प्रयोग गर्नुहोस् - हामी तपाईंलाई देखाउने छौँ कसरी।"
 
 msgid "User"
 msgstr "प्रयोगकर्ता"
@@ -3329,10 +3427,10 @@ msgid "User – {{name}}"
 msgstr "प्रयोगकर्ता – {{name}}"
 
 msgid "UserInfoRequestSentAlert|Alert type"
-msgstr ""
+msgstr "UserInfoRequestSentAlert|Alert को प्रकार"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr ""
+msgstr "प्रयोगकर्ता छैन सामान्यतया हामी सार्वजनिक अधिकारीहरु अनुपयुक्त अनुरोध को ठूलो संख्या संग bombarded गर्न चाहँदैनन् किनभने एकैचोटि धेरै अधिकारीहरु गर्न ब्याच अनुरोध गर्न सक्छन्। कृपया तपाईं एकैचोटि धेरै अधिकारीहरु गर्न नै अनुरोध पठाउन असल कारण छ लाग्छ भने हामीलाई सम्पर्क href=\"{{url}}\"> </a> <a> गर्नुहोला |"
 
 msgid "User|About me"
 msgstr "User|About me"
@@ -3413,22 +3511,25 @@ msgid "User|Url name"
 msgstr "User|Url name"
 
 msgid "Version {{version}}"
+msgstr "संस्करण {{version}}"
+
+msgid "Very overdue"
 msgstr ""
 
 msgid "Vexatious"
-msgstr ""
+msgstr "पालना"
 
 msgid "View FOI email address"
-msgstr ""
+msgstr "FOI इमेल ठेगाना हेर्नुहोस"
 
 msgid "View FOI email address for '{{public_body_name}}'"
-msgstr ""
+msgstr " '{{public_body_name}}' को लागि इमेल ठेगाना हेर्नुहोस्"
 
 msgid "View FOI email address for {{public_body_name}}"
-msgstr ""
+msgstr "{{public_body_name}} को लागि FOI इमेल ठेगाना  हेर्नुहोस्"
 
 msgid "View Freedom of Information requests made by {{user_name}}:"
-msgstr ""
+msgstr "{{user_name}}ले गरेको सूचना को स्वतन्त्रताको अनुरोध हेर्नुहोस्:"
 
 msgid "View authorities"
 msgstr "निकायहरू हेर्नुहोस्"
@@ -3445,99 +3546,111 @@ msgstr "{{public_body}} लाई गरिएका अन्य अनुर�
 msgid "View your two factor authentication one time passcode"
 msgstr "तपाईँको दुई चरणीय प्रमाणीहरू एक पटककको पासकोड हेर्नुहोस्"
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "स्पष्टिकरण कुर्दै."
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
+msgstr "ह्यान्डलिङ अफ  रीकवेस्टको<strong>आन्तरिक समीक्षाको </strong> लागि {{public_body_link}} द्वारा  प्रतीक्षा गर्दै  |"
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
 msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
-msgstr ""
+msgstr "सार्वजनिक अख्तियारलाई अनुरोध ह्यान्डलिङको आन्तरिक पुनरावलोकन सकाउन  प्रतीक्षा गर्दै गर्न"
 
 msgid "Waiting for the public authority to reply"
-msgstr ""
+msgstr " सार्वजनिक अख्तियारलाई जवाफ दिनको लागि प्रतीक्षा गर्दै "
 
 msgid "Want to know something?"
 msgstr "केही जान्न चाहनुहुन्छ?"
 
 msgid "Was the response you got to your FOI request any good?"
-msgstr ""
+msgstr "के तपाईंको FOI अनुरोधको प्रतिक्रिया कुनै पनि राम्रो थियो?"
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
-msgstr ""
+msgstr "हामीलाइ यो FOI अनुरोध मान्य छैन, र यसैले अन्य प्रयोगकर्ता देखि यो लुकाएका छौ"
 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
-msgstr ""
+msgstr "हामीले यसलाई अफसोसनाक सम्जेकोले अन्य प्रयोगकर्ताबाट लुकाइएको छ |"
 
 msgid "We couldn't determine the delivery status of this message"
-msgstr ""
+msgstr "हामीले यो सन्देशको डेलिभरी स्थिति निर्धारण गर्न सकेनौ"
 
 msgid "We couldn’t display any logs for this message."
-msgstr ""
+msgstr "हामीले यो सन्देशका लागि कुनै पनि लग प्रदर्शन गर्न सकिएन।"
 
 msgid "We couldn’t load the mail server logs for this message."
-msgstr ""
+msgstr "हामीले  यस् सन्देशको  लागि मेल सर्भर लग लोड गर्न सकेनौ।"
 
 msgid "We do not have a working request email address for this authority."
-msgstr ""
+msgstr "हामी संग यो निकायको लागि काम गर्ने अनुरोध इमेल ठेगाना छैन | "
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
-msgstr ""
+msgstr "{{public_body_name}}को लागि हामीसँग {{law_used_full}} को ठेगाना छैन"
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
-msgstr ""
+msgstr "यो अनुरोधका लागि हालको प्रतिक्रियामा सूचना छ या छैन हामीलाई थाहा छैन\\n र ndash;\\n->एदी तपाई {{user_link}} हो भने कृपया <a href=\"{{url}}\">साईन इन</a> गर्नुहोस् र सबैलाई थाहा दिनुहोस् |"
 
 msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
-msgstr ""
+msgstr "तपाईंको प्रश्नको जवाफ दिन हामी संग अन्य  <a href=\"{{other_means_url}}\">  साधनहरु </a>  छन् ।"
 
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
 msgstr "We publish it all online. उत्तम! Now you have your answer, and everybody else can access it too."
 
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
-msgstr ""
+msgstr "हामी तपाइको इमेल ठेगाना तबसम्म सार्वजनिक गर्ने छैनौ जबसम्म <a href=\"{{url}}\">तपाई आफै वा कानुनले</a>. भन्दैन"
 
 msgid "We will not reveal your email address to anybody unless you or the law tell us to."
-msgstr ""
+msgstr " हामी तपाइको इमेल ठेगाना तबसम्म सार्वजनिक गर्ने छैनौ जबसम्म तपाई आफै वा कानुनले भन्दैन "
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
-msgstr ""
+msgstr "हामीले तपाईं/कानुनले हामीलाई नबताएसम्म तपाइको इमेल ठेगाना देखाउने छैनौ।"
 
 msgid "We'll drop you an email as soon as your request gets a response."
-msgstr ""
+msgstr "तपाइको अनुरोधको प्रतिक्रिया आउने बितिकै हामी तपाइलाई  इमेल पठाऊनेछौ | "
 
 msgid "We're glad you got all the information that you wanted."
-msgstr ""
+msgstr "हामी  खुशीछौ तपाईंले चाहेको सबै जानकारी तपाइले पाउनुभयो।"
 
 msgid "We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did."
-msgstr ""
+msgstr "हामी  खुशीछौ तपाईंले चाहेको सबै जानकारी तपाइले पाउनुभयो।यदि तपाइले यस जानकारीको प्रयोग गर्नुभयो भने के गर्नु भयो भन्दै एनोटेसन दिनुहोला"
 
 msgid "We're glad you got some of the information that you wanted."
-msgstr ""
+msgstr "हामी  खुशीछौ तपाईंले चाहेको जानकारी तपाइले पाउनुभयो।"
 
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
-msgstr ""
+msgstr "हामी तपाईं चाहेको जानकारी पायकोमा खुशी छ। यदि तपाईंले {{SITE_NAME}} उपयोगी पाउनु भयो भने, दानपट्टीमा<a href=\"{{donation_url}}\">दान </a> गर्नुहोला।"
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "हाल प्रतिक्रियाहरू पढ्न र तदनुसार स्थिति अद्यावधिक गर्न  हामी कसैको प्रतीक्षा गर्दै छौ । सायद <strong> तपाईं </ strong> सहयोग गर्न चाहनु हुन्छ ?"
+msgstr[1] "हाल प्रतिक्रियाहरू पढ्न र तदनुसार स्थिति अद्यावधिक गर्न  हामी कसैको प्रतीक्षा गर्दै छौ । सायद <strong> तपाईं </ strong> सहयोग गर्न चाहनु हुन्छ ?"
 
 msgid "We're waiting for {{user}} to read a recent response and update the status."
 msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{प्रयोगकर्ता}}को हालको प्रतिक्रिया पढ्न र स्थिति अद्यावधिक गर्न हामी प्रतीक्षा गर्दै छौ"
+msgstr[1] "{{प्रयोगकर्ता}}को हालको प्रतिक्रियाहरू पढ्न र स्थिति अद्यावधिक गर्न हामी प्रतीक्षा गर्दै छौ"
 
 msgid "We've received a delivery status notification from the mailserver belonging to the authority."
-msgstr ""
+msgstr "हामी मेल सर्भर आधिकारिक निकायबाट डेलिभरी स्थितिको सूचना पाएका छौ।"
 
 msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
-msgstr ""
+msgstr "हामी तपाईंको नयाँ इमेल ठेगाना मा एक इमेल पठाएका छौं। तपाईं आफ्नो इमेल ठेगाना परिवर्तन गर्न लिंकमा क्लिक गर्न आवश्यक छ।"
 
 msgid "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. This can take some time."
 msgstr "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. यसले केही समय लिन्छ।"
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can continue."
-msgstr ""
+msgstr "हामीले तपाइलाई इमेल पठाएका छौ र  अगाडी प्रस्थान हुन तपाइले त्यस इमेलमा रहेको लिंकमा क्लिक गर्नुपर्नेछ "
 
 msgid "Week starting"
 msgstr "हप्ताको सुरु"
@@ -3546,31 +3659,31 @@ msgid "What are you doing?"
 msgstr "के गर्दै हुनुहुन्छ?"
 
 msgid "What are you investigating using Freedom of Information?"
-msgstr ""
+msgstr "सुचनाको स्वोतान्त्रता प्रयोग गरेर तपाईले के छानबिन गर्दै हुनुहुन्छ?"
 
 msgid "What best describes the status of this request now?"
-msgstr ""
+msgstr "अहिले यो अनुरोधको स्थितिलाई कुन कुराले उत्तम ब्याख्या गर्छ?"
 
 msgid "What information has been released?"
-msgstr ""
+msgstr "के जानकारी जारी गरिएको छ?"
 
 msgid "What information has been requested?"
-msgstr ""
+msgstr "के जानकारीहरु अनुरोध गरिएको थियो ?"
 
 msgid "What next?"
 msgstr "अब के गर्ने?"
 
 msgid "When you get there, please update the status to say if the response contains any useful information."
-msgstr ""
+msgstr "तपाई त्यहाँ पुगेपछि ,सूचनामा कुनै कामलाग्दो सूचना छ भने कृपया आफ्नो स्थिति अपडेट गरिदिनु होला।"
 
 msgid "When you receive the paper response, please help others find out what it says:"
-msgstr ""
+msgstr "जब तपाइले कागज प्रतिक्रिया पाउनु हुन्छ, कृपया अरुलाई यसले के भन्छ भनेर बुजौन सहयोग पुराउनु होस | "
 
 msgid "When you want to change your account password, you will also need to enter your two factor one time passcode. Your one time passcode can only be used once, so a new one will be generated after you've successfully changed your password. You'll need to update your password manager or print the new passcode."
-msgstr ""
+msgstr "तपाईं आफ्नो खाता पासवर्ड परिवर्तन गर्न चाहनुहुन्छ भने, तपाईं पनि आफ्नो दुई कारक एक समय पासकोड राख्न आवश्यक छ। आफ्नो एक समय पासकोड एक पटक मात्र प्रयोग गर्न सकिन्छ, त्यसैले तपाईं सफलतापूर्वक आफ्नो पासवर्ड परिवर्तन गरेपछि एउटा नयाँ उत्पन्न हुनेछ। तपाईं आफ्नो पासवर्ड प्रबन्धक अद्यावधिक वा नयाँ पासकोड छाप्न आवश्यक छ।"
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
-msgstr ""
+msgstr "काम सकिए पछि, <strong>यहाँ आउनुहोस्</strong>, <a href=\"{{url}}\">पाना पुनः लोड गर्नुहोस्</a> नयाँ अनुरोध दर्ता गर्नुहोस्"
 
 msgid "Which of these is happening?"
 msgstr "यि मध्ये कुन कुन भइरहेका छन्?"
@@ -3579,13 +3692,13 @@ msgid "Who can I request information from?"
 msgstr "म जानकारी कोकोबाट अनुरोध गर्न  सक्छु ?"
 
 msgid "Why specifically do you consider this request unsuitable?"
-msgstr ""
+msgstr "तपाइले एस अनुरोधलाई किन अनुपयुक्त ठान्नुहुन्छ ?"
 
 msgid "Widget vote"
 msgstr "भोट विजेट"
 
 msgid "WidgetVote|Cookie"
-msgstr ""
+msgstr "WidgetVotelCookie"
 
 msgid "Withdrawn"
 msgstr "फिर्ता लिइयो"
@@ -3606,232 +3719,232 @@ msgid "Write about this on Medium"
 msgstr "यसबारे Medium मा लेख्नुहोस्"
 
 msgid "Write your FOI follow up message to {{authority_name}}"
-msgstr ""
+msgstr "{{authority_name}}मा तपाईंले FOI सन्देश लेख्नुहोस्"
 
 msgid "Write your request in <strong>simple, precise language</strong>."
-msgstr ""
+msgstr "<strong>सटीक, सरल भाषामा</strong> आफ्नो अनुरोध लेख्नुहोस्"
 
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr ""
+msgstr "तपाईँले त्यही लामबद्ध अनुरोध {{date}} मा गरी सक्नु भएको छ।तपाईँले <a href=\"{{existing_batch}}\">पहिले देखिको अनुरोध</a> हेर्न , या जानकारीहरू सम्पादन गरेर नयाँ तर उस्तै अनुरोधहरू बनाउन सक्नुहुन्छ।"
 
 msgid "You are already following new requests"
-msgstr ""
+msgstr "तपाईँ नयाँ अनुरोधहरुलाई पछ्याईँ सक्नु भएको छ"
 
 msgid "You are already following things matching this search"
-msgstr ""
+msgstr "तपाईंले खोजेको कुरा पहिले नै पछ्याउनु भएको छ"
 
 msgid "You are already following this person"
-msgstr ""
+msgstr "तपाईँले यो व्याक्तिलाई पछ्याईँ सक्नु भएको छ"
 
 msgid "You are already following this request"
-msgstr ""
+msgstr "तपाईँले यो अनुरोधहरुलाई पछ्याईँ सक्नु भएको छ"
 
 msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
-msgstr ""
+msgstr "तपाईंले पहिले नै सार्वजनिक निकायमा {{link_to_authority}} सदस्य हुनुहुन्छ।"
 
 msgid "You are already subscribed to '{{link_to_request}}', a request."
-msgstr ""
+msgstr "तपाईंले पहिले नै अनुरोधमा'{{link_to_request}}',सदस्य हुनुहुन्छ।"
 
 msgid "You are already subscribed to '{{link_to_user}}', a person."
-msgstr ""
+msgstr "तपाइ '{{link_to_user}}' संग सदसित हुनुहुन्छ | "
 
 msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
-msgstr ""
+msgstr "तपाईंले पहिले नै यो <a href=\"{{search_url}}\"></a> खोजको  सदस्य हुनुहुन्छ।"
 
 msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "तपाईंले पहिले नै कुनै पनि  नयाँ अनुरोध<a href=\"{{new_requests_url}}\"> </a>को सदस्य हुनुहुन्छ।"
 
 msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "तपाईँ पहिले नै<a href=\"{{successful_requests_url}}\">सफल अनुरोधहरू</a> पछ्याइरहनु भएको छ।"
 
 msgid "You are currently receiving notification of new activity on your wall by email."
-msgstr ""
+msgstr "तपाईंको हालको इमेलबाट तपाईंको पर्खालमा नयाँ गतिविधिको सूचना प्राप्त गर्दै हुनुहुन्छ।"
 
 msgid "You are following all new successful responses"
-msgstr ""
+msgstr "तपाइले सबै नया सफल प्रतिक्रियाहरूलाई पछ्याउदै हुनुहुन्छ"
 
 msgid "You are no longer following '{{link_to_authority}}', a public authority."
-msgstr ""
+msgstr "सार्वजनिक निकाय '{{link_to_authority}}'लाई अब उप्रान्त तपाईंले पक्षयाउनु भएको छैन।"
 
 msgid "You are no longer following '{{link_to_request}}', a request."
-msgstr ""
+msgstr "तपाईं अनुरोध'{{link_to_request}}'मा अब निम्न पक्षयाउन सक्नुहुन्न ।"
 
 msgid "You are no longer following '{{link_to_user}}', a person."
-msgstr ""
+msgstr "तपाईं  व्यक्ति{{link_to_user}}लाई अब निम्न पक्षयाउन सक्नुहुन्न"
 
 msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "तपाईँले <a href=\"{{new_requests_url}}\">नयाँ अनुरोधहरू</a> पछ्याइरहनु भएको छैन।"
 
 msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
-msgstr ""
+msgstr "तपाईँ <a href=\"{{search_url}}\">यो खोज</a> पछ्याइरहनु भएको छैन।"
 
 msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "तपाईँ <a href=\"{{successful_requests_url}}\">सफल अनुरोधहरू</a> पछ्याइरहनु भएको छैन।"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
-msgstr ""
+msgstr "अब तपाईं '{{link_to_authority}}', एउटा सार्वजनिक अख्तियारबारे अद्यावधिकहरु  <a href=\"{{wall_url_user}}\">पछ्याउनु </a>हुदैछ​।"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
-msgstr ""
+msgstr "तपाईँ अहिले '{{link_to_request}}', अनुरोधहरूको अद्यावधिकहरू <a href=\"{{wall_url_user}}\">पछ्याइरहनु भएको</a> छ।"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
-msgstr ""
+msgstr "तपाईँ अहिले '{{link_to_user}}', व्यक्तिको बारेमा अद्यावधिकहरू <a href=\"{{wall_url_user}}\">पछ्याइरहनु</a> भएको छ।"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "तपाईँ अहिले <a href=\"{{new_requests_url}}\">नयाँ अनुरोधहरूको</a> बारेमा अद्यवाधिकहरू <a href=\"{{wall_url_user}}\">पछ्याइरहनु भएको छ।"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
-msgstr ""
+msgstr "अब तपाईं <a href=\"{{search_url}}\">यस् खोज बारे</a> अद्यावधिक <a href=\"{{wall_url_user}}\">निम्न गर्दै हुनुहुन्छ |"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "अब तपाई <a href=\"{{successful_requests_url}}\">सफल प्रतिक्रिया</a>को बारेमा अद्यावधिकलाई <a href=\"{{wall_url_user}}\">पछ्याउदै </a> हुनुहुन्छ |"
 
 msgid "You can <strong>complain</strong> by"
-msgstr ""
+msgstr "<strong>गुनासो</strong> को लागी"
 
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
-msgstr ""
+msgstr "तपाईं आफ्नो अनुरोध र निम्न  प्रयोगकर्ता<a href=\"{{profile_url}}\"> आफ्नो प्रोफाइल पेजमा परिवर्तन गर्न सक्नुहुन्छ |"
 
 msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr ""
+msgstr "अनुरोधका लागि तपाई यो पेज मुख्य JSON\\nपेजको रुपमा computer-readable ढाँचा मा पाउन सक्नु हुन्छ | <a href=\"{{api_path}}\">API दस्तावेज</a> हेर्नुहोस | "
 
 msgid "You can only request information about the environment from this authority."
-msgstr ""
+msgstr "तपाइले यस अधिकारिक निकायमा वातावरणबारे मात्र जानकारी अनुरोध गर्न सक्नुहुन्छ"
 
 msgid "You can regenerate your one time passcode at any time."
-msgstr ""
+msgstr "तपाईँ आफ्नो एकल प्रयोग भएको गोप्य शब्द जुन बेला पनि बनाउँन सक्नु हुने छ"
 
 msgid "You can't update your profile text at this time."
-msgstr ""
+msgstr "तपाईं यो समयमा आफ्नो प्रोफाइल पाठ अपडेट गर्न सक्नुहुन्न।"
 
 msgid "You have a new response to the {{law_used_full}} request "
-msgstr ""
+msgstr "{{law_used_full}} अनुरोधमा एउटा नया प्रतिक्रिया आएको छ"
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "तपाईँले बग भेटाउनु भएको छ।  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
-msgstr ""
+msgstr "तपाईंले नयाँ अनुरोधमा दर सीमा भेटाउनु भ​एको छ​। प्रयोगकर्ताहरु सामान्यतया २४-घण्टाको अवधिमा {{max_requests_per_user_per_day}} अनुरोधमा सिमित छन्। तपाईं {{can_make_another_request}}मा अर्को अनुरोध गर्न सक्षम हुनुहुनेछ।"
 
 msgid "You have made no Freedom of Information requests using this site."
-msgstr ""
+msgstr "तपाईंले यो साइट प्रयोगगरी सूचना अनुरोधको कुनै स्वतन्त्रता गर्नुभएको छैन।"
 
 msgid "You have now changed the text about you on your profile."
-msgstr ""
+msgstr "तपाईँले  site_name मा रहेको आफ्नो  प्रोफाइलमा आफ्नो बारेमा रहेको पाठ परिवर्तन गर्नु भएको छ"
 
 msgid "You have now changed your email address used on {{site_name}}"
-msgstr ""
+msgstr "तपाइले {{site_name}} मा प्रयोग भएको आफ्नो इमेल परिवर्तन गर्नुभएको छ "
 
 msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
-msgstr ""
+msgstr "तपाईसंग कुनै पनि सार्वजनिक-आर्थिक सहायता संगठनसंग जानकारीको अनुरोध गर्ने र जवाफ पाउने<strong>हक</strong> छ ।{{site_name}} ले तपाइलाई सुचनाको अधिकार अन्तर्गतको अनुरोध गर्न सहयोग गर्छ ।यसले  सबै अनुरोध अनलाइन प्रकाशित पनि गर्छ ।"
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
-msgstr ""
+msgstr "तपाईको पहिलै खाता भएता पनि,तपाईले भर्खर {{site_name}}मा \\n साइन अप गर्न प्रयास गर्नु भयो । तपाईको नाम र  पासओर्ड\\n  अघिल्लो पटक जस्तो छाडिएको थियो त्यस्तै राखिएको छ । \\n \\n कृपया तल दिइएको लिंकमा थिच्नुहोस्।     "
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
-msgstr ""
+msgstr "तपाईँलाई कसरी त्रुटी भयो भन्ने थाह छ, र तपाईँले <strong>समाधान सुझाव </strong>,गर्न सक्नुहुन्छ"
 
 msgid "You left an annotation ({{date}})"
-msgstr ""
+msgstr "तपाईंले एउटा टिप्पणी छोडनुभयो ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
-msgstr ""
+msgstr "तपाइ <strong>फाइलहरु संलग्न गर्नसक्नु हुन्छ </strong>| यदि तपाईलाइ ठुलो फाइलहरु इमेलको लागि संलग्न गर्न चाहानुहुन्छ भने, तल दिएको फारम प्रयोग गर्नुहोस्  "
 
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please <a href=\"{{help_url}}\">send it to us</a>."
-msgstr ""
+msgstr "तपाइले आफ्नो ववेबसाइटमा\\n यस्तै एउटा पाउना सक्नु हुन्छ वा उनीहरूलाई फोन  गर्नसक्नुहुन्छ | यदि तपाइले\\n एउटा भेटाउन सक्नुहुन्छ भन्ने कृपया <a href=\"{{help_url}}\"> मा हमलाईनि पठाउनुहोस|"
 
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
-msgstr ""
+msgstr "तपाईं उनीहरूको वेबसाइटमा वा तिनीहरूलाई फोन गरेर र सोधेर  पाउन सक्नु  हुन्छ। तपाईंले पाउनु  भएमा  कृपया हामीलाई पनि पठाउनुहोस् "
 
 msgid "You need to be logged in to change the text about you on your profile."
-msgstr ""
+msgstr "तपाईंले पाठ परिवर्तन गर्न आफ्नो प्रोफाइलमा लग इन गर्न आवश्यक छ।"
 
 msgid "You need to be logged in to change your profile photo."
-msgstr ""
+msgstr "तपाईंले आफ्नो प्रोफाइल फोटो परिवर्तन गर्नका लागि लग इन गर्न आवश्यक छ "
 
 msgid "You need to be logged in to clear your profile photo."
-msgstr ""
+msgstr "तपाईंले प्रोफाइलको तस्बिर हटाउन आफ्नो प्रोफाइलमा लग इन गर्न आवश्यक छ।"
 
 msgid "You need to be logged in to edit your profile."
-msgstr ""
+msgstr "तपाईंले प्रोफाइल परिवर्तन गर्न आफ्नो प्रोफाइलमा लग इन गर्न आवश्यक छ।"
 
 msgid "You need to be logged in to report a request for administrator attention"
-msgstr ""
+msgstr "तपाईंल़े प्रशासक ध्यानका लागि अनुरोध गर्न रिपोर्टमा लग इन गर्न आवश्यक छ "
 
 msgid "You previously submitted that exact follow up message for this request."
-msgstr ""
+msgstr "तपाईंले पहिले यो अनुरोधको लागि यहि नै सन्देश पेश गर्नुभएको थियो।"
 
 msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
-msgstr ""
+msgstr "तपाईं {{late_number_of_days}} दिन भित्र प्रतिक्रिया प्राप्त गर्नुपर्छ वा तपाईलाई जानकारी गराइने छ (<a href=\"{{review_url}}\"> विवरण </a>)।"
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
-msgstr ""
+msgstr "तपाईंले  इमेल द्वारा अनुरोधको  प्रतिलिपि प्राप्त गरेको हुनुपर्छ , "
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
-msgstr ""
+msgstr "तपाईं <strong> आफ्नो हुलाक ठेगाना </ strong>अख्तियारलाइ गोप्य रुपमा दिन चाहानुहुन्छ​।"
 
 msgid "You will be given a one time passcode when you enable two factor authentication. Do not share this passcode. You can either keep it in your password manager, or print it and keep it somewhere safe."
 msgstr "You will be given a one time passcode when you enable two factor authentication. यो पासकोड अरुलाई नदिनुहोला। You can either keep it in your password manager, or print it and keep it somewhere safe."
 
 msgid "You will be unable to make new requests, send follow ups or send messages to other users. You may continue to view other requests, and set up email alerts."
-msgstr ""
+msgstr "तपाईं नयाँ अनुरोध बनाउन , फलो अप्स पठाउन वा अन्य प्रयोगकर्तालाई सन्देश पठाउन असमर्थ हुनुहुनेछ। तपाईं अन्य अनुरोध हेर्न , र इमेल अलर्ट सेट अप जारी गर्न सक्नुहुन्छ |"
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or send messages to other users. You may continue to view other requests, and set up email alerts."
-msgstr ""
+msgstr "तपाईं नयाँ अनुरोध पठाउन,ताकेता गर्न, टिप्पणी थप्न वा अन्य प्रयोगकर्तालाई सन्देश पठाउन  असमर्थ हुनुहुनेछ । तपाईंले जारी भएको अन्य अनुरोध हेर्न  र सेट \\nअप\\nइमेल चेतावनी हेर्न सक्नु हुनेछ । "
 
 msgid "You will no longer be emailed updates for those alerts"
-msgstr ""
+msgstr "तपाईं अब ती सतर्कता लागि इमेल  गरिने छैन "
 
 msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
-msgstr ""
+msgstr "अब तपाईंलाई '{{link_to_authority}}', एक सार्वजनिक अख्तियार बारेमा अद्यावधिक इमेल गरिने छ"
 
 msgid "You will now be emailed updates about '{{link_to_request}}', a request."
-msgstr ""
+msgstr "अब तपाईंलाई '{{link_to_request}}', एक अनुरोध बारेमा अद्यावधिक इमेल गरिने छ।"
 
 msgid "You will now be emailed updates about '{{link_to_user}}', a person."
-msgstr ""
+msgstr "अब तपाईंलाई '{{link_to_user}}', एक व्यक्तिका बारे अद्यावधिक इमेल पठाइने छ।"
 
 msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
-msgstr ""
+msgstr "तपाईलाई अब  <a href=\"{{search_url}}\">यस खोजी</a> को अद्यावदितको इमेल गरिने छ"
 
 msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "अब तपाईंलाई <a href=\"{{successful_requests_url}}\"> को सफल अनुरोधहरुकोअद्यावधिक इमेल पाउनु हुनेछ "
 
 msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "तपाईँले अब  कुनै पनि <a href=\"{{new_requests_url}}\">नया अनुरोध</a> को बारेमा इमेलद्वारा जानकारी पाउनुहुनेछ।"
 
 msgid "You will only get an answer to your request if you follow up with the clarification."
-msgstr ""
+msgstr "यदि तपाइले स्पष्टीकरण को पालना गर्नु भयो भने तपाइले अनुरोध गर्नुभएको उतर पाऊनुहुन्छ"
 
 msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
-msgstr ""
+msgstr "तपाईं अझै पनि साइटमा लग इन गर्दा यो हेर्न सक्नुहुनेछ। तपाइले यो निर्णय छलफल गर्न चाहनुहुन्छ भने कृपया यो इमेलको जवाफ दिनुहोस्।"
 
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "तपाईँ भित्रिसक्नु भयो। <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 
 msgid "You're long overdue a response to your FOI request - {{request_title}}"
-msgstr ""
+msgstr "तपाईँसँग लामो समयदेखि थाँती रहेको FOI अनुरोध छ - {{request_title}}"
 
 msgid "You're not following anything."
-msgstr ""
+msgstr "तपाईँले केही पनि फलो गर्नु भएको छैन"
 
 msgid "You've now cleared your profile photo"
-msgstr ""
+msgstr "तपाइले आफ्नो प्रोफाइल पोटो हटाउनु भएको छ "
 
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
-msgstr ""
+msgstr "तपाइको <strong>नाम सार्वजनिक हुनेछ </strong>\\n (<a href=\"{{why_url}}\">किन?</a>)\\n यो वेबसाइट र अन्य सर्च इन्जिनमा  \\n <a href=\"{{help_url}}\">पर्यायवाची सब्द प्रयोग गर्ने सोच्दै हुनुहुन्छ?</a>"
 
 msgid "Your annotations"
-msgstr ""
+msgstr "तपाइको टिप्पणीहरु"
 
 msgid "Your batch request \"{{title}}\" has been sent"
-msgstr ""
+msgstr "तपाईंको श्रृंखलाबद्ध अनुरोध \"{{title}}\" पठाइएको छ"
 
 msgid "Your current one time passcode:"
-msgstr ""
+msgstr "तपाईको वर्तमान एकल प्रयोग गोप्य शब्द"
 
 msgid "Your details, including your email address, have not been given to anyone."
-msgstr ""
+msgstr "तपाइको इमेल ठेगाना सहित सबै  विवरण, कसैलाई पनि  दिइएको छैन।"
 
 msgid "Your e-mail:"
 msgstr "तपाईँको इमेल:"
@@ -3844,33 +3957,37 @@ msgstr "तपाईँको इमेल:"
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr ""
+"तपाईंको ताकेता पठाइएको छैन किनभने यो अनुरोध स्पाम रोक्न बन्द गरिएको छ | कृपया \n"
+"<a href=\"{{url}}\">हामीलाई संपर्क गर्नुहोस्</a>यदी तपाईंलाई साच्चै नै तकेता पठाउनु पर्ने भएको छ भने|"
 
 msgid "Your follow up message has been sent on its way."
-msgstr ""
+msgstr "तपाईंको फलोअप सन्देश पठाइएको छ।"
 
 msgid "Your internal review request has been sent on its way."
-msgstr ""
+msgstr "तपाइको आन्तरिक समिक्षा अनुरोधलाई पठाइएको छ|"
 
 msgid "Your message has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
+"तपाइको संदेश पठाइएको छ। सम्पर्कमा रहनुभएकोमा धन्यवाद ! हामी चाँडैनै तपाइलाई प्रतिक्रिया दिनेछौं\n"
+"।"
 
 msgid "Your message to {{recipient_user_name}} has been sent"
-msgstr ""
+msgstr "तपाईंको सन्देश {{recipient_user_name}} लाई पठाइएको छ"
 
 msgid "Your message to {{recipient_user_name}} has been sent!"
-msgstr ""
+msgstr "तपाईंको सन्देश {{recipient_user_name}} लाई पठाइएको छ!"
 
 msgid "Your message will appear in <strong>search engines</strong>"
-msgstr ""
+msgstr "तपाइको सन्देस <strong>खोजी इन्जिनहरुमा</strong> देखिनेछन्।"
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
-msgstr ""
+msgstr "तपाइको नाम र एन्नोटेसनहरू <strong>खोजी इन्जिनहरुमा</strong> देखिनेछन्।"
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
-msgstr ""
+msgstr "तपाइको नाम, अनुरोध र कुनै प्रतिक्रियाहरु <strong>खोजी इन्जिनहरुमा</strong> देखिनेछन्\\n (<a href=\"{{url}}\">विवरणहरू</a>)।"
 
 msgid "Your name:"
-msgstr ""
+msgstr "तपाइको  नाम"
 
 msgid "Your password has been changed."
 msgstr "तपाईंको प्रवेश शब्द परिवर्तन गरिएको छ।"
@@ -3879,70 +3996,70 @@ msgid "Your password has been changed. You also have a new one time passcode whi
 msgstr "तपाईंको प्रवेश शब्द परिवर्तन गरिएको छ। You also have a new one time passcode which you'll need next time you want to change your password"
 
 msgid "Your password:"
-msgstr ""
+msgstr "तपाइको पासवर्ड"
 
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
+msgstr "तपाइको फोटो <strong>इन्टरनेटमा</strong> सार्वजनिक रुपमा देखाइनेछ,\\n जहिँकहिँ  {{site_name}}मा केहि गर्नुभएमा।"
+
+msgid "Your request"
 msgstr ""
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
-msgstr ""
+msgstr "{{url}}मा तपाइको अनुरोध '{{request}}' सञ्चालकहरू द्वारा समिक्षित भएको छ।"
 
 msgid "Your request on {{site_name}} hidden"
-msgstr ""
+msgstr "{{site_name}} मा तपाइको अनुरोध लुकेको"
 
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr ""
+msgstr "आधिकारिक निकाय थप्नको लागि तपाइको अनुरोध पठाइएको छ। सम्पर्कमा रहनुभएकोमा धन्यवाद! हामी चाँडै तपाईलाइ प्रतिक्रिया दिनेछाैं।"
 
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr ""
+msgstr "{{site_name}} मा {{public_body_name}} थप्न तपाइको अनुरोध"
 
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr ""
+msgstr "तपाइको {{public_body_name}}को ठेगाना अद्यावधिक गर्ने अनुरोध पठाइएको छ। हामीसंग सम्पर्कमा रहनुभएकोमा धन्यवाद! हामी चाँडै तपाइहरुलाइ प्रतिक्रिया दिनेछाै।"
 
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr ""
+msgstr "{{public_body_name}}मा {{site_name}} अद्यावधिक गर्न तपाइको अनुरोध"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr ""
-
-msgid "Your request:"
-msgstr ""
+msgstr "तपाईको अनुरोधलाइ {{info_request}} भनिएको थियो। तपाइले जानकारी पाउनुभयो कि भएन भनेर सबैलाइ थाहा दिदा हामीलाइ ट्याबहरू खुल्ला राख्न सहयोग गर्छ"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
-msgstr ""
+msgstr "तपाइको अनुरोधहरू छिटैनै <strong>पठाईने छ</strong>"
 
 msgid "Your response to an FOI request was not delivered"
-msgstr ""
+msgstr "तपाइको FOI अनुरोध को प्रतिक्रिया वितरित भएन"
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
-msgstr ""
+msgstr "तपाइको प्रतिक्रिया <strong>इन्टरनेटमा देखिनेछ</strong>, <a href=\"{{url}}\">जान्नको लागि यँहा पढ्नुहोस्</a> र अरु प्रश्नका उत्तरहरु।"
 
 msgid "Your right to know"
-msgstr ""
+msgstr "तपाईँको जान्ने अधिकार"
 
 msgid "Your selected authorities"
-msgstr ""
+msgstr "तपाइले छान्नुभएको  आधिकारिक निकायहरु"
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
-msgstr ""
+msgstr " {{site_name}}को <strong>प्रशासकहरूले</strong> अनुरोध प्रति गर्न सक्ने कार्य बारेमा तपाइको विचारहरु।"
 
 msgid "Your {{count}} Freedom of Information request"
 msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "तपाइको {{count}} सुचनाको अधिकार अन्तर्गतको अनुरोध"
+msgstr[1] "तपाइको {{count}} सुचनाको अधिकार अन्तर्गतको अनुरोध"
 
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "तपाइको {{count}} एन्नोटेसनहरु"
+msgstr[1] "तपाइको {{count}} टिप्पणीहरु"
 
 msgid "Your {{count}} batch request"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "तपाइको {{count}} ब्याच अनुरोधहरु"
+msgstr[1] "तपाइको {{count}} ब्याच अनुरोधहरु"
 
 msgid "Your {{law_used_full}} request has been sent"
-msgstr ""
+msgstr "तपाइको {{law_used_full}} अनुरोध पठाइएको छ"
 
 msgid "Your {{site_name}} email alert"
 msgstr "तपाईँको {{site_name}} इमेल सूचक"
@@ -3957,19 +4074,22 @@ msgid "Yours,"
 msgstr "धन्यवाद,"
 
 msgid "[Authority URL will be inserted here]"
+msgstr "[निकायको URL यहाँ सम्मिलित गरिनेछ]"
+
+msgid "[Authority name]"
 msgstr ""
 
 msgid "[FOI #{{request}} email]"
-msgstr ""
+msgstr "[FOI #{{अनुरोध}} इमेल]"
 
 msgid "[REDACTED]"
-msgstr ""
+msgstr "[REDACTED]"
 
 msgid "[{{public_body}} request email]"
-msgstr ""
+msgstr "[{{public_body}} अनुरोध इमेल]"
 
 msgid "[{{site_name}} contact email]"
-msgstr ""
+msgstr "[{{site_name}} सम्पर्क इमेल]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ] "
@@ -4010,6 +4130,9 @@ msgstr "मा"
 msgid "authorities"
 msgstr "निकायहरू"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr "तर पुनः ताकेता गर्न  मिल्ने"
 
@@ -4019,14 +4142,20 @@ msgstr "द्वारा"
 msgid "by {{user_link_absolute}}"
 msgstr "{{user_link_absolute}} द्वारा"
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "टिप्पणीहरू"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr "पुरा जानकारी"
 
 msgid "display_status only works for incoming and outgoing messages right now"
-msgstr ""
+msgstr "display_statusले अहिले आगमन र बहिर्गमन सन्देशहरू लागि मात्र  काम गर्दछ।"
 
 msgid "e.g. Ministry of Defence"
 msgstr "e.g. रक्षा मन्त्रालय"
@@ -4088,6 +4217,12 @@ msgstr "प्रवेश (लग ईन) नगरिएकोप्रवे�
 msgid "not requestable due to: {{reason}}"
 msgstr "अनुरोध गर्न  असमर्थताको कारण: {{reason}}"
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr "यस अनुरोधलाई लुकाउने अनुरोधहरू"
 
@@ -4103,11 +4238,14 @@ msgstr "सफल रहेका अनुरोधहरू"
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "'{{query}}' सँग मिल्दो सफल अनुरोधहरू"
 
+msgid "response received"
+msgstr ""
+
 msgid "send a follow up message"
 msgstr "ताकेता सन्देश पठाउनुहोस्"
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr ""
+msgstr "यदि ठेगाना फेला पार्न सक्नुहुन्न भने <strong> खाली </ strong> (खाली स्ट्रिङ) राख्नसक्नुहुन्छ; यी इमेलहरु <strong> सार्वजनिक </ strong> हुन र CAPTCHA को सहायताले जसले पनि हेर्न सक्छ"
 
 msgid "show quoted sections"
 msgstr "उद्वरित खण्डहरू लुकाउनेउद्वरित खण्डहरू देखाउने"
@@ -4125,7 +4263,7 @@ msgid "that you made to"
 msgstr "तपाईँले गर्नुभएको"
 
 msgid "the main FOI contact address for {{public_body}}"
-msgstr ""
+msgstr "{{public_body}} को लागि सुचनाको हक अन्तरगतको प्रमुख सम्पर्क ठेगाना "
 
 #. This phrase completes the following sentences:
 #. Request an internal review from...
@@ -4153,6 +4291,9 @@ msgstr "अज्ञात कारण"
 msgid "unknown reason "
 msgstr "अज्ञात कारण "
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "अज्ञात स्थिती {{status}}"
 
@@ -4170,6 +4311,9 @@ msgstr "असफल अनुरोधहरू"
 
 msgid "users"
 msgstr "प्रयोगकर्ताहरू"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "त्यो के हो?"
@@ -4230,6 +4374,8 @@ msgstr "{{info_request_user_name}}"
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} अनुरोध - {{title}}"
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{public_body}}मा {{law_used}} अनुरोधहरू"
 
@@ -4253,7 +4399,7 @@ msgstr[1] ""
 "{{number_of_requests}} अनुरोधहरू वर्गिकरण गर्न  बाँकी / {{total_number_of_requests}}कुल अनुरोधहरू"
 
 msgid "{{public_body_link_absolute}}"
-msgstr ""
+msgstr "{{public_body_link_absolute}}"
 
 msgid "{{public_body_link}} answered a request about"
 msgstr "{{public_body_link}} ले निम्न अनुरोधको जावाफ दियो"
@@ -4289,19 +4435,19 @@ msgid "{{site_name}} blog and tweets"
 msgstr "{{site_name}} ब्लग र ट्विटहरू"
 
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
-msgstr ""
+msgstr "{{SITE_NAME}}ले {{number_of_authorities}} निकायहरु संगको अनुरोधहरु समेट्छ, लगायत:"
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
-msgstr ""
+msgstr "{{site_name}}ले यस आधिकारिक निकायको लागि <strong>{{request_email}}</strong>मा नयाँ अनुरोधहरु पठाउँछ।"
 
 msgid "{{site_name}} users have made {{number_of_requests}} requests, including:"
-msgstr ""
+msgstr "{{SITE_NAME}} प्रयोगकर्ताले  {{number_of_requests}}  अनुरोध सहित गरेका छन्:"
 
 msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr ""
+msgstr "{{thing_changed}} <code>{{from_value}}</code>बाट <code>{{to_value}}</code>मा बदलिएको थियो"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
-msgstr ""
+msgstr "{{title}}को  {{public_body}}को लागि -सूचना हकको अनुरोध ।"
 
 msgid "{{title}} - a batch request"
 msgstr "{{title}} - व्याच अनुरोध"

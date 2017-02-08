@@ -1,0 +1,205 @@
+/* Layout for the requests page */
+
+.requests__folder-title {
+  h2 {
+    font-size: 2.375em;
+    margin-top: 0;
+    font-weight: bold;
+    margin-bottom: 0.75em;
+  }
+}
+.requests__header {
+  padding: 0.5em;
+  width: 100%;
+  form {
+    margin-bottom: 0;
+  }
+}
+
+.requests__filter_form {
+  @include flexbox;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.requests__search {
+  @include flex(1 0 100%);
+  margin-bottom: 1em;
+  position: relative;
+  @include respond-min( $dashboard-collapse ){
+    @include flex(7 0 0);
+    margin-bottom: 0;
+  }
+  input[type=text]{
+    width: 100%;
+    max-width: none;
+    border: 1px solid #ccc;
+    font-size: 0.875em;
+  }
+}
+
+.requests__search__button {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  background-image: image-url('/assets/alaveteli-pro/search--light.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 20px;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  width: 16px;
+  height: 20px;
+  margin-top: -8px; //vertically center in the search box
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/search--light@2.png');
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: transparent;
+  }
+}
+
+.requests__sort {
+  @include flex(1 0 100%);
+  max-width: 15em;
+  @include respond-min( 24em ){
+    @include flex(1 2 50%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(4 2 0);
+    text-align: right;
+  }
+}
+
+.requests__search,
+.requests__sort {
+  input, select, label {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+  select {
+    max-width: 60%;
+    padding-right: 2em;
+  }
+}
+
+.requests__list {
+  margin-top: 0.5em;
+}
+
+.request {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.request__title {
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+
+.request__meta {
+  @include flexbox;
+  flex-wrap: wrap;
+}
+
+.request__meta__label {
+  margin-top: 1em;
+  @include respond-min( $dashboard-collapse ){
+    margin-top: 0;
+  }
+}
+
+.request__recipient,
+.request__created,
+.request__updated,
+.request__status,
+.request__actions {
+  @include respond-min( $dashboard-collapse ){
+    margin-right: 1em;
+  }
+  p {
+    margin-bottom: 0;
+  }
+}
+
+// TODO - the flex() rules for these add up to way less than 100%, yet the
+// elements still overflow their container. Not sure why. I've hacked it by
+// reducing the width of the select in the last element and floating it right
+.request__recipient {
+  @include flex(1 0 100%);
+  @include respond-min( 24em ){
+    @include flex(1 0 75%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(8 0 0);
+  }
+}
+
+.request__created,
+.request__updated {
+  @include flex(1 0 50%);
+  @include respond-min( 24em ){
+    @include flex(1 0 25%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(3 0 0);
+  }
+}
+
+
+.request__status {
+  position: relative;
+  padding-left: 25px;
+  @include flex(1 0 60%);
+  @include respond-min( 24em ){
+    @include flex(1 0 40%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(5 0 0);
+  }
+  p {
+
+  }
+  .status-icon {
+    position: absolute;
+    top: 1.45em;
+    left: 0;
+    @include respond-min( $dashboard-collapse ){
+      top: 0.7em;
+    }
+  }
+}
+
+.request__actions {
+  align-self: flex-end;
+  @include flex(1 0 40%);
+  @include respond-min( 24em ){
+    @include flex(1 0 35%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(3 0 0);
+    align-self: auto;
+  }
+  @include clearfix;
+  margin-right: 0;
+  .actions {
+    max-width: 90%;
+    float: right;
+  }
+
+  select {
+    margin-bottom: 0;
+  }
+
+}
+
+.request__meta__label {
+  display: block;
+}
+
+.search-and-filter-overview {
+  margin: 1em 0 0;
+}

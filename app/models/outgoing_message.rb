@@ -27,7 +27,7 @@
 
 class OutgoingMessage < ActiveRecord::Base
   include AdminColumn
-  extend MessageProminence
+  include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
@@ -62,7 +62,6 @@ class OutgoingMessage < ActiveRecord::Base
   after_update :xapian_reindex_after_update
 
   strip_attributes :allow_empty => true
-  has_prominence
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain
 
@@ -181,7 +180,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def record_email_delivery(to_addrs, message_id, log_event_type = 'sent')
-    self.last_sent_at = Time.now
+    self.last_sent_at = Time.zone.now
     self.status = 'sent'
     save!
 

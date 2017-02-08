@@ -45,6 +45,14 @@ class User < ActiveRecord::Base
   has_many :info_requests,
            :order => 'created_at desc',
            :dependent => :destroy
+  has_many :info_request_events,
+           :through => :info_requests,
+           :order => 'created_at desc'
+  has_many :embargoes,
+           :through => :info_requests
+  has_many :draft_info_requests,
+           :order => 'created_at desc',
+           :dependent => :destroy
   has_many :user_info_request_sent_alerts,
            :dependent => :destroy
   has_many :post_redirects,
@@ -70,6 +78,8 @@ class User < ActiveRecord::Base
            :dependent => :destroy
   has_many :request_classifications,
            :dependent => :destroy
+  has_one :pro_account,
+          :dependent => :destroy
 
   scope :not_banned, -> { where(ban_text: "") }
 
@@ -106,6 +116,10 @@ class User < ActiveRecord::Base
   :if => :indexed_by_search?
 
   has_one_time_password :counter_based => true
+
+  def self.pro
+    includes(:pro_account).where("pro_accounts.id IS NOT NULL")
+  end
 
   # Return user given login email, password and other form parameters (e.g. name)
   #
@@ -168,6 +182,14 @@ class User < ActiveRecord::Base
     !user.nil? && user.super?
   end
 
+  def self.view_embargoed?(user)
+    self.view_hidden?(user)
+  end
+
+  def self.view_hidden_and_embargoed?(user)
+    view_hidden?(user) && view_embargoed?(user)
+  end
+
   # Should the user be kept logged into their own account
   # if they follow a /c/ redirect link belonging to another user?
   def self.stay_logged_in_on_redirect?(user)
@@ -176,8 +198,8 @@ class User < ActiveRecord::Base
 
   # Used for default values of last_daily_track_email
   def self.random_time_in_last_day
-    earliest_time = Time.now - 1.day
-    latest_time = Time.now
+    earliest_time = Time.zone.now - 1.day
+    latest_time = Time.zone.now
     earliest_time + rand(latest_time - earliest_time).seconds
   end
 
@@ -507,7 +529,7 @@ class User < ActiveRecord::Base
   end
 
   def record_bounce(message)
-    self.email_bounced_at = Time.now
+    self.email_bounced_at = Time.zone.now
     self.email_bounce_message = message
     save!
   end
@@ -541,6 +563,10 @@ class User < ActiveRecord::Base
     columns.each do |column|
       yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
     end
+  end
+
+  def pro?
+    pro_account.present?
   end
 
   private

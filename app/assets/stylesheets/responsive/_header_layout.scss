@@ -12,15 +12,17 @@
   // Hide menu items by default on mobile
   #logged_in_bar,
   #topnav,
-  #user_locale_switcher{
+  #user_locale_switcher,
+  #navigation_search{
     display:none;
   }
 
   // …and show a button to reveal them
   .rsp_menu_button{
-    @include grid-column(4);
     padding: 1em 1em 0 1em;
-    float: right;
+    position: absolute;
+    top: 0.66em;
+    right: 0.9375rem;
     a {
       text-align: right;
       &.open{
@@ -92,7 +94,8 @@
       // Show menu items when menu is targeted
       #logged_in_bar,
       #topnav,
-      #user_locale_switcher{
+      #user_locale_switcher,
+      #navigation_search{
         display:block;
         clear:both;
       }
@@ -104,7 +107,8 @@
     #banner_nav,
     #logged_in_bar,
     #topnav,
-    #user_locale_switcher{
+    #user_locale_switcher,
+    #navigation_search{
       display:block;
     }
 
@@ -138,7 +142,7 @@
   }
 }
 
-#navigation {
+.navigation {
   list-style: none outside none;
   @include grid-row;
   padding: 0;
@@ -148,8 +152,10 @@
     width: $main_menu-mobile_menu_cutoff;
   }
 
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    padding-right: 15em; // Stop nav links disappearing behind search box
+  .account-link-menu-item {
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      float: right;
+    }
   }
 
   // Spread the nav elements horizontally on larger screens
@@ -179,12 +185,12 @@
 #navigation_search {
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     position: absolute;
-    top: 0;
+    top: 2.2em;
     right: 0;
   }
   form{
     @include grid-row;
-    padding: 1em 1em 0;
+    padding: 1em 0 0;
     @include lte-ie7 {
       display: inline;
     }
@@ -209,45 +215,14 @@
   }
 }
 
-#logged_in_bar{
-  a, .greeting {
-    display:block;
-    padding: 0.5em 1em;
-  }
-
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    position: absolute; // relative to #banner_content
-    top: 2em; // leave space for the language switcher
-    left: 40%; // leave space for the logo
-    right: 0;
-    bottom: 0;
-
-    #logged_in_links {
-      position: absolute;
-      right: 0.9375em; // match the grid padding
-      top: 50%;
-      -webkit-transform: translateY(-50%); // vertically centre in Safari and Android
-      -ms-transform: translateY(-50%); // vertically centre in IE9
-      transform: translateY(-50%); // vertically centre in modern browsers
-      top: 0px\9; // fallback for IE8 and below (which don't support transform)
-      text-align: right;
-
-      a, .greeting{
-        display:inline;
-        font-weight: bold;
-        padding:0 0 0 1em;
-      }
-    }
-  }
-}
-
 .locale-list {
   border-bottom: 1px solid #e9e9e9;
 
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
     position: absolute;
-    right: 0;
-    top: 0;
+    left: ($logo-width + 40px);
+    top: 2.2em;
+    right: auto;
     border: 0;
   }
 
@@ -283,4 +258,151 @@
       display: inline-block;
     }
   }
+}
+
+
+.js-loaded {
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+
+    .navigation {
+
+      .logged-in-menu {
+        position: absolute;
+        right: 0.935em; //line up with grid boundaries
+        width: 275px;
+        background-color: white;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding: 1em;
+        z-index: 10;
+
+        a {
+          padding: 0;
+        }
+
+        li {
+          display: block;
+          float: none;
+        }
+      }
+
+      .logged-in-menu__signout-link {
+        border-top: 1px solid #CCC;
+        padding: 1em 0 0 0;
+        margin-top: 1em;
+        a {
+          padding: 0;
+        }
+      }
+
+      .logged-in-menu__links {
+        padding: 0;
+      }
+    }
+    .profile-summary {
+      border-bottom: 1px solid #CCC;
+      margin-bottom: 1em;
+    }
+  }
+}
+
+.navigation .logged-in-menu li {
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inline-block;
+  }
+}
+
+.logged-in-menu {
+  li a {
+    font-size: 0.8125em;
+    padding: 0.615384615em 1.230769231em; //13px 16px
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    color: black;
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
+    li a {
+      font-size: 1em;
+      padding: 0.5em 1em;
+    }
+  }
+}
+
+.account-link {
+  position: relative;
+  padding-right: 1.5em;
+  border-bottom: 1px solid #e9e9e9;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0;
+  }
+}
+
+.js-loaded {
+  .account-link {
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      position: inherit;
+      right: inherit;
+      top: inherit;
+    }
+    &:after {
+        position: absolute;
+        top: 1em;
+        right: 0.5em;
+        margin-left: 1em;
+        font-size: 0.5em;
+        @include respond-min( $main_menu-mobile_menu_cutoff ){
+          content: "▼";
+        }
+    }
+  }
+}
+
+.no-js {
+
+  .profile-summary {
+    display: none
+  }
+}
+
+.profile-summary {
+  display: none;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inherit;
+  }
+}
+
+.logged-in-menu__links {
+  padding: 0;
+}
+
+.js-loaded {
+  .logged-in-menu {
+
+
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      display: none;
+    }
+  }
+}
+
+.dashboard-profile__name {
+  font-size: 1.3125em;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  .pro-pill {
+    right: 0;
+    position: absolute;
+  }
+}
+
+.dashboard-profile__email {
+  color: #777;
+}
+
+.dashboard-profile__image {
+  height: 50px;
+  width: 50px;
 }

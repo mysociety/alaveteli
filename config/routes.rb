@@ -5,6 +5,8 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+include AlaveteliFeatures::Constraints
+
 # Allow easy extension from themes. Note these will have the highest priority.
 $alaveteli_route_extensions.each do |f|
   load File.join('config', f)
@@ -590,6 +592,26 @@ Alaveteli::Application.routes.draw do
   match '/api/v2/body/:id/request_events.:feed_type' => 'api#body_request_events',
         :as => :api_body_request_events,
         :feed_type => '^(json|atom)$'
+  ####
+
+  #### Alaveteli Pro
+  constraints FeatureConstraint.new(:alaveteli_pro) do
+    namespace :alaveteli_pro do
+      match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
+      resources :draft_info_requests, :only => [:create, :update]
+      resources :info_requests, :only => [:new, :create, :update, :index] do
+        get :preview, on: :new # /info_request/new/preview
+      end
+      resources :embargoes, :only => [:destroy]
+      resources :embargo_extensions, :only => [:create]
+    end
+    # So that we can show a request using the existing controller from the
+    # pro context
+    match '/alaveteli_pro/info_requests/:url_title' => 'request#show',
+      :as => :show_alaveteli_pro_request,
+      :via => :get,
+      :defaults => { :pro => "1" }
+  end
   ####
 
   filter :conditionallyprependlocale

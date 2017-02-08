@@ -12,6 +12,12 @@ class RequestController < ApplicationController
   before_filter :check_read_only, :only => [ :new, :describe_state, :upload_response ]
   before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
   before_filter :set_render_recaptcha, :only => [ :new ]
+  before_filter :redirect_numeric_id_to_url_title, :only => [:show]
+  before_filter :redirect_embargoed_requests_for_pro_users, :only => [:show]
+  before_filter :redirect_public_requests_from_pro_context, :only => [:show]
+  before_filter :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
+  helper_method :state_transitions_empty?
+
   MAX_RESULTS = 500
   PER_PAGE = 25
 
@@ -78,19 +84,11 @@ class RequestController < ApplicationController
     end
     @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
-
-      # Look up by old style numeric identifiers
-      if params[:url_title].match(/^[0-9]+$/)
-        @info_request = InfoRequest.find(params[:url_title].to_i)
-        redirect_to request_url(@info_request, :format => params[:format])
-        return
-      end
-
       # Look up by new style text names
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
       # Test for whole request being hidden
-      if !@info_request.user_can_view?(authenticated_user)
+      if cannot?(:read, @info_request)
         return render_hidden
       end
 
@@ -98,15 +96,14 @@ class RequestController < ApplicationController
 
       # assign variables from request parameters
       @collapse_quotes = !params[:unfold]
-      # Don't allow status update on external requests, otherwise accept param
-      if @info_request.is_external?
-        @update_status = false
-      else
-        @update_status = params[:update_status]
-      end
+
+      @in_pro_area = params[:pro] == "1"
+
+      @update_status = can_update_status(@info_request)
 
       assign_variables_for_show_template(@info_request)
 
+      # Only owners (and people who own everything) can update status
       if @update_status
         return if !@is_owning_user && !authenticated_as_user?(
           @info_request.user,
@@ -120,9 +117,13 @@ class RequestController < ApplicationController
         )
       end
 
+      # What state transitions can the request go into
+      assign_state_transition_variables
+
       # Sidebar stuff
       @sidebar = true
       @similar_cache_key = cache_key_for_similar_requests(@info_request, @locale)
+      @sidebar_template = @in_pro_area ? "alaveteli_pro/info_requests/sidebar" : "sidebar"
 
       # Track corresponding to this page
       @track_thing = TrackThing.create_track_for_request(@info_request)
@@ -139,10 +140,15 @@ class RequestController < ApplicationController
   def details
     long_cache
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-    if !@info_request.user_can_view?(authenticated_user)
+    if cannot?(:read, @info_request)
       return render_hidden
     end
-    @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
+    @columns = ['id',
+                'event_type',
+                'created_at',
+                'described_state',
+                'last_described_at',
+                'calculated_state' ]
   end
 
   # Requests similar to this one
@@ -156,13 +162,15 @@ class RequestController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
     end
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-    raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
 
-    if !@info_request.user_can_view?(authenticated_user)
+    if cannot?(:read, @info_request)
       return render_hidden
     end
-    @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
-                                               :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
+    @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent],
+                                               @info_request.info_request_events,
+                                               :offset => (@page - 1) * @per_page,
+                                               :limit => @per_page,
+                                               :collapse_by_prefix => 'request_collapse')
     @matches_estimated = @xapian_object.matches_estimated
     @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
   end
@@ -436,7 +444,7 @@ class RequestController < ApplicationController
 
   # Submitted to the describing state of messages form
   def describe_state
-    info_request = InfoRequest.find(params[:id].to_i)
+    info_request = InfoRequest.not_embargoed.find(params[:id].to_i)
     set_last_request(info_request)
 
     # If this is an external request, go to the request page - we don't allow
@@ -447,7 +455,7 @@ class RequestController < ApplicationController
     end
 
     # Check authenticated, and parameters set.
-    unless Ability::can_update_request_state?(authenticated_user, info_request)
+    unless can?(:update_request_state, info_request)
       authenticated_as_user?(
         info_request.user,
         :web => _("To classify the response to this FOI request"),
@@ -467,7 +475,8 @@ class RequestController < ApplicationController
     end
 
     if params[:last_info_request_event_id].to_i != info_request.last_event_id_needing_description
-      flash[:error] = _("The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again.")
+      flash[:error] = _("The request has been updated since you originally loaded this page. " \
+                        "Please check for any new incoming messages below, and try again.")
       redirect_to request_url(info_request)
       return
     end
@@ -478,7 +487,8 @@ class RequestController < ApplicationController
     # the administrators.
     # If this message hasn't been included then ask for it
     if ["error_message", "requires_admin"].include?(described_state) && message.nil?
-      redirect_to describe_state_message_url(:url_title => info_request.url_title, :described_state => described_state)
+      redirect_to describe_state_message_url(:url_title => info_request.url_title,
+                                             :described_state => described_state)
       return
     end
 
@@ -541,7 +551,7 @@ class RequestController < ApplicationController
 
   # Collect a message to include with the change of state
   def describe_state_message
-    @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+    @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
     @described_state = params[:described_state]
     @last_info_request_event_id = @info_request.last_event_id_needing_description
     @title = case @described_state
@@ -558,6 +568,9 @@ class RequestController < ApplicationController
   # proper URL for the message the event refers to
   def show_request_event
     @info_request_event = InfoRequestEvent.find(params[:info_request_event_id])
+    if @info_request_event.info_request.embargo
+      raise ActiveRecord::RecordNotFound
+    end
     if @info_request_event.is_incoming_message?
       redirect_to incoming_message_url(@info_request_event.incoming_message), :status => :moved_permanently
     elsif @info_request_event.is_outgoing_message?
@@ -573,17 +586,18 @@ class RequestController < ApplicationController
     # Test for hidden
     incoming_message = IncomingMessage.find(params[:incoming_message_id])
     raise ActiveRecord::RecordNotFound.new("Message not found") if incoming_message.nil?
-    if !incoming_message.info_request.user_can_view?(authenticated_user)
+    if cannot?(:read, incoming_message.info_request)
       @info_request = incoming_message.info_request # used by view
       return render_hidden
     end
-    if !incoming_message.user_can_view?(authenticated_user)
+    if cannot?(:read, incoming_message)
       @incoming_message = incoming_message # used by view
       return render_hidden('request/hidden_correspondence')
     end
     # Is this a completely public request that we can cache attachments for
     # to be served up without authentication?
-    if incoming_message.info_request.all_can_view? && incoming_message.all_can_view?
+    if incoming_message.info_request.prominence(:decorate => true).is_public? &&
+      incoming_message.is_public?
       @files_can_be_cached = true
     end
   end
@@ -696,7 +710,7 @@ class RequestController < ApplicationController
     end
 
     # check permissions
-    raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
+    raise "internal error, pre-auth filter should have caught this" if cannot?(:read, @info_request)
     @attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(@incoming_message.get_attachments_for_display, @part_number, @original_filename)
     # If we can't find the right attachment, redirect to the incoming message:
     unless @attachment
@@ -723,7 +737,7 @@ class RequestController < ApplicationController
   def upload_response
     @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
-      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
 
       @reason_params = {
         :web => _("To upload a response, you must be logged in using an " \
@@ -797,6 +811,11 @@ class RequestController < ApplicationController
     @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      # Check for access and hide emargoed requests immediately, so that we
+      # don't leak any info to people who can't access them
+      if @info_request.embargo && cannot?(:read, @info_request)
+        render_hidden
+      end
       if authenticated?(
           :web => _("To download the zip file"),
           :email => _("Then you can download a zip file of {{info_request_title}}.",
@@ -805,7 +824,7 @@ class RequestController < ApplicationController
                               :info_request_title=>@info_request.title)
         )
         # Test for whole request being hidden or requester-only
-        if !@info_request.user_can_view?(@user)
+        if cannot?(:read, @info_request)
           return render_hidden
         end
         cache_file_path = @info_request.make_zip_cache_path(@user)
@@ -821,6 +840,16 @@ class RequestController < ApplicationController
 
   private
 
+  def render_hidden(template='request/hidden', opts = {})
+    # An embargoed is totally hidden - no indication that anything exists there
+    # to see
+    if @info_request && @info_request.embargo
+      raise ActiveRecord::RecordNotFound
+    else
+      return super(template, opts)
+    end
+  end
+
   def info_request_params(batch = false)
     if batch
       unless params[:info_request].nil? || params[:info_request].empty?
@@ -835,6 +864,11 @@ class RequestController < ApplicationController
     params.require(:outgoing_message).permit(:body, :what_doing)
   end
 
+  def can_update_status(info_request)
+    # Don't allow status update on external requests, otherwise accept param
+    info_request.is_external? ? false : params[:update_status] == "1"
+  end
+
   def assign_variables_for_show_template(info_request)
     @info_request = info_request
     @info_request_events = info_request.info_request_events
@@ -846,6 +880,38 @@ class RequestController < ApplicationController
     # For send followup link at bottom
     @last_response = info_request.get_last_public_response
     @follower_count = @info_request.track_things.count + 1
+    @show_profile_photo = !@info_request.is_external? &&  \
+                          @info_request.user.profile_photo && \
+                          !@render_to_file
+    @show_top_describe_state_form = !@in_pro_area && \
+                                    (@update_status || \
+                                     @info_request.awaiting_description )
+    @show_bottom_describe_state_form = !@in_pro_area && \
+                                       @info_request.awaiting_description
+    @show_owner_update_status_action = !@old_unclassified
+    @show_other_user_update_status_action = @old_unclassified
+  end
+
+  def assign_state_transition_variables
+    @state_transitions = @info_request.state.transitions(
+      is_pro_user: @in_pro_area,
+      is_owning_user: @is_owning_user,
+      user_asked_to_update_status: @update_status || @in_pro_area)
+
+    # If there are no available transitions, we shouldn't show any options
+    # to update the status
+    if state_transitions_empty?(@state_transitions)
+      @show_top_describe_state_form = false
+      @show_bottom_describe_state_form = false
+      @show_owner_update_status_action = false
+      @show_other_user_update_status_action = false
+    end
+  end
+
+  def state_transitions_empty?(transitions)
+    transitions[:pending].empty? && \
+      transitions[:complete].empty? && \
+      transitions[:other].empty?
   end
 
   def make_request_zip(info_request, file_path)
@@ -854,7 +920,7 @@ class RequestController < ApplicationController
       zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
       message_index = 0
       info_request.incoming_messages.each do |message|
-        next unless message.user_can_view?(authenticated_user)
+        next unless can?(:read, message)
         message_index += 1
         message.get_attachments_for_display.each do |attachment|
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
@@ -1043,5 +1109,55 @@ class RequestController < ApplicationController
   def set_render_recaptcha
     @render_recaptcha = AlaveteliConfiguration.new_request_recaptcha &&
       (!@user || !@user.confirmed_not_spam?)
+  end
+
+  def redirect_numeric_id_to_url_title
+    # Look up by old style numeric identifiers
+    if params[:url_title].match(/^[0-9]+$/)
+      @info_request = InfoRequest.find(params[:url_title].to_i)
+      # We don't want to leak the title of embargoed or hidden requests, so
+      # don't even redirect on if the user can't access the request
+      if cannot?(:read, @info_request)
+        return render_hidden
+      end
+      redirect_to request_url(@info_request, :format => params[:format])
+    end
+  end
+
+  def redirect_embargoed_requests_for_pro_users
+    # Pro users should see their embargoed requests in the pro page, so that
+    # if other site functions send them to a request page, they end up back in
+    # the pro area
+    if feature_enabled?(:alaveteli_pro) && params[:pro] != "1" && \
+       current_user && current_user.pro?
+      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      if @info_request.is_actual_owning_user?(current_user) && @info_request.embargo
+        redirect_to show_alaveteli_pro_request_url(
+          :url_title => @info_request.url_title)
+      end
+    end
+  end
+
+  def redirect_public_requests_from_pro_context
+    # Requests which aren't embargoed should always go to the normal request
+    # page, so that pro's seem them in that context after they publish them
+    if feature_enabled?(:alaveteli_pro) && params[:pro] == "1"
+      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      unless @info_request.embargo
+        redirect_to request_url(@info_request)
+      end
+    end
+  end
+
+  def redirect_new_form_to_pro_version
+    # Pros should use the pro version of the form
+    if feature_enabled?(:alaveteli_pro) && current_user && current_user.pro?
+      if params[:url_name]
+        redirect_to(
+          new_alaveteli_pro_info_request_url(public_body: params[:url_name]))
+      else
+        redirect_to new_alaveteli_pro_info_request_url
+      end
+    end
   end
 end

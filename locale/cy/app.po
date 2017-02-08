@@ -6,6 +6,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Aled Powell <cymrodor@gmail.com>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
 # baragouiner <graham.craig@gmail.com>, 2013
@@ -25,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -474,6 +476,9 @@ msgstr ""
 msgid "Awaiting classification."
 msgstr "Yn aros am gael ei ddosbarthu."
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "Yn aros am adolygiad mewnol."
 
@@ -606,6 +611,9 @@ msgstr "Dewiswch eich llun proffil"
 msgid "Clarification"
 msgstr "Eglurhad"
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Eglurhad a anfonwyd at {{public_body_name}} gan {{info_request_user}} ar {{date}}."
 
@@ -641,6 +649,9 @@ msgstr "Sylw|Locale"
 
 msgid "Comment|Visible"
 msgstr "Sylw|Gweladwy"
+
+msgid "Complete"
+msgstr ""
 
 msgid "Confirm password:"
 msgstr "Cyfrinair: (eto)"
@@ -740,6 +751,9 @@ msgstr "Annwyl [Authority name],"
 
 msgid "Dear {{name}},"
 msgstr "Annwyl {{name}},"
+
+msgid "Dear {{placeholder_body_name}},"
+msgstr ""
 
 msgid "Dear {{public_body_name}},"
 msgstr "Annwyl {{public_body_name}},"
@@ -1204,6 +1218,9 @@ msgstr "Nid wyf am wneud rhagor o dacluso nawr!"
 msgid "I like this request"
 msgstr "Rwy'n hoffi'r cais hwn"
 
+msgid "I want to withdraw this request"
+msgstr ""
+
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Hoffwn <strong<dynnu</strong>'r cais hwn"
 
@@ -1219,8 +1236,8 @@ msgstr "Rwy'n disgwyl am ymateb <strong>yr adolygiad mewnol</strong>"
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Gofynnwyd i mi <strong>egluro</strong> fy nghais"
 
-msgid "I've received <strong>all the information"
-msgstr "Rwyf wedi derbyn <strong>yr holl wybodaeth</strong>"
+msgid "I've received <strong>all the information</strong>"
+msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "Rwyf wedi derbyn <strong>rhan o'r wybodaeth</strong>"
@@ -1408,6 +1425,15 @@ msgstr "InfoRequest|Yn disgwyl ei ddisgrifio"
 msgid "InfoRequest|Comments allowed"
 msgstr "InfoRequest|Caniateir sylwadau "
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Cyflwr disgrifiedig"
 
@@ -1443,6 +1469,9 @@ msgstr "InfoRequest|Teitl"
 
 msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Teitl url"
+
+msgid "Information not held"
+msgstr ""
 
 msgid "Information not held."
 msgstr "Gwybodaeth heb ei gadw."
@@ -1831,7 +1860,13 @@ msgstr "OutgoingMessage|Statws"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|Beth sy'n digwydd"
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
+msgstr ""
+
+msgid "Partially successful"
 msgstr ""
 
 msgid "Partially successful."
@@ -1990,6 +2025,9 @@ msgstr "Dim ond gwybodaeth sy'n dod o dan y categorïau hynny ddylech chi ofyn a
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Trosglwyddwch hwn i'r person sy'n cynnal adolygiadau Rhyddid Gwybodaeth os gwelwch yn dda."
+
+msgid "Please select an authority"
+msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr "Dewiswch bob un o'r ceisiadau hyn yn ei dro, a <strong>gadewch i bawb wybod </strong> a ydyn nhw wedi bod yn llwyddiannus eto, neu beidio."
@@ -2294,6 +2332,9 @@ msgstr ""
 msgid "Recently described results first"
 msgstr "Canlyniadau a ddisgrifiwyd yn ddiweddar yn gyntaf"
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr "Gwrthodwyd."
 
@@ -2304,6 +2345,9 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
+
+msgid "Replying by post"
 msgstr ""
 
 msgid "Report abuse"
@@ -2317,6 +2361,9 @@ msgstr "Rhoi gwybod am gais"
 
 msgid "Report this request"
 msgstr "Rhoi gwybod am y cais hwn"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "Adroddwyd am sylw gweinyddwr."
@@ -2384,6 +2431,9 @@ msgstr "Ceisiadau tebyg i '{{request_title}}' (page{{page}})"
 msgid "Requests will be sent to the following bodies:"
 msgstr "Ceir ceisiadau eu hanfon i'r cyrff canlynol:"
 
+msgid "Requires administrator attention"
+msgstr ""
+
 msgid "Respond by email"
 msgstr "Ymateb drwy e-bost"
 
@@ -2404,6 +2454,9 @@ msgstr "Ymateb gan {{public_body_name}} i {{info_request_user}} ar {{date}}."
 
 msgid "Response from a public authority"
 msgstr "Ymateb gan awdurdod cyhoeddus"
+
+msgid "Response received"
+msgstr ""
 
 msgid "Response to '{{title}}'"
 msgstr "Ymateb i '{{title}}'"
@@ -2607,6 +2660,9 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr "Parha yn gyfoes"
 
@@ -2652,8 +2708,8 @@ msgstr "Llwyddiannus."
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "Awgrymwch sut y gall y ceisydd ddod o hyd i <strong>weddill y wybodaeth </strong>."
 
-msgid "Summary:"
-msgstr "Crynodeb:"
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Tabl o statws"
@@ -2942,6 +2998,9 @@ msgstr "Nid oedd unrhyw geisiadau yn cyfateb i'ch ymholiad."
 
 msgid "There were no results matching your query."
 msgstr "Ni chafwyd canlyniadau sy'n cyfateb i'ch ymholiad."
+
+msgid "There's an error message"
+msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Mae'r graffiau hyn wedi eu hysbrydoli yn rhannol gan <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">rai ystadegau a gynhyrchodd Mark Goodge ar gyfer WhatDoTheyKnow</a>, felly mae diolch yn ddyledus iddo."
@@ -3443,6 +3502,9 @@ msgstr "User|Enw Url"
 msgid "Version {{version}}"
 msgstr "Fersiwn {{version}}"
 
+msgid "Very overdue"
+msgstr ""
+
 msgid "Vexatious"
 msgstr "Blinderus"
 
@@ -3473,11 +3535,23 @@ msgstr ""
 msgid "View your two factor authentication one time passcode"
 msgstr ""
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Yn disgwyl eglurhad."
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Yn disgwyl am  <strong>adolygiad mewnol</strong> gan {{public_body_link}} o'u triniaeth o'r cais hwn."
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
+msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Yn disgwyl i'r awdurdod cyhoeddus gwblhau adolygiad mewnol o'u triniaeth o'r cais"
@@ -3916,6 +3990,9 @@ msgstr "Eich cyfrinair:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Bydd eich llun yn cael ei ddangos yn gyhoeddus <strong>ar y Rhyngrwyd</strong>, lle bynnag y byddwch yn gwneud rhywbeth ar {{site_name}}."
 
+msgid "Your request"
+msgstr ""
+
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr "Mae eich cais '{{request}}' yn {{url}} wedi cael ei adolygu gan safonwyr."
 
@@ -3936,9 +4013,6 @@ msgstr "Eich cais i ddiweddaru {{public_body_name}} ar {{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Cafodd eich cais ei alw'n {{info_request}}. Bydd gadael i bawb wybod a gawsoch y wybodaeth yn ein helpu i gadw golwg"
-
-msgid "Your request:"
-msgstr "Eich cais:"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr ""
@@ -3997,6 +4071,9 @@ msgstr "Yr eiddoch,"
 msgid "[Authority URL will be inserted here]"
 msgstr "[Bydd cyfeiriad URL yr awdurdod yn ymddangos yma]"
 
+msgid "[Authority name]"
+msgstr ""
+
 msgid "[FOI #{{request}} email]"
 msgstr "[Cais Rhyddid Gwybodaeth e-bost #{{request}} ]"
 
@@ -4048,6 +4125,9 @@ msgstr "yn"
 msgid "authorities"
 msgstr "awdurdodau"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr "ond â modd mynd ar ei ôl"
 
@@ -4057,8 +4137,14 @@ msgstr "erbyn"
 msgid "by {{user_link_absolute}}"
 msgstr "gan {{user_link_absolute}} "
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "sylwadau"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr "manylion"
@@ -4126,6 +4212,12 @@ msgstr ""
 msgid "not requestable due to: {{reason}}"
 msgstr "dim modd gwneud cais o achos i: {{reason}}"
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr ""
 
@@ -4140,6 +4232,9 @@ msgstr "ceisiadau sy'n llwyddiannus"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "ceisiadau sy'n destun paru llwyddiannus '{{query}}'"
+
+msgid "response received"
+msgstr ""
 
 msgid "send a follow up message"
 msgstr "anfon neges ddilynol"
@@ -4191,6 +4286,9 @@ msgstr "rheswm anhysbys"
 msgid "unknown reason "
 msgstr "rheswm anhysbys "
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "statws anhysbys {{status}}"
 
@@ -4208,6 +4306,9 @@ msgstr "ceisiadau aflwyddiannus"
 
 msgid "users"
 msgstr "defnyddwyr"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "beth yw hynny?"
@@ -4282,6 +4383,8 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Cais {{law_used_full}} - {{title}}"
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "ceisiadau {{law_used}}   yn {{public_body}}"
 

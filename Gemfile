@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.22.3'
+gem 'rails', '3.2.22.4'
 
 gem 'pg', '~> 0.18.4'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
 gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => 'c342283fe564bf'
+gem 'cancancan', '1.12' # Pinned because 1.13 onwards don't support Ruby 1.9
 gem 'charlock_holmes', '~> 0.7.3'
 gem 'dynamic_form', '~> 1.1.4'
 # 4.1.0 has a bug in it which is fixed in a later version which does not have Ruby 1.9.3 support
@@ -65,6 +66,9 @@ group :assets do
   gem 'uglifier', '~> 2.7.2'
   gem 'therubyracer', '~> 0.12.2'
 end
+
+# Feature flags
+gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
   gem 'fakeweb', '~> 1.3.0'

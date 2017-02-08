@@ -7,18 +7,20 @@ namespace :stats do
     check_for_env_vars(['START_YEAR'], example)
     start_year = (ENV['START_YEAR']).to_i
     start_month = (ENV['START_MONTH'] || 1).to_i
-    end_year = (ENV['END_YEAR'] || Time.now.year).to_i
-    end_month = (ENV['END_MONTH'] || Time.now.month).to_i
+    end_year = (ENV['END_YEAR'] || Time.zone.now.year).to_i
+    end_month = (ENV['END_MONTH'] || Time.zone.now.month).to_i
 
     month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
 
     headers = ['Period',
                'Requests sent',
+               'Pro requests sent',
                'Visible comments',
                'Track this request email signups',
                'Comments on own requests',
                'Follow up messages sent',
                'Confirmed users',
+               'Confirmed pro users',
                'Request classifications',
                'Public body change requests',
                'Widget votes',
@@ -34,6 +36,9 @@ namespace :stats do
                          month_start, month_end+1]
 
       request_count = InfoRequest.where(date_conditions).count
+      pro_request_count = InfoRequest.pro.where('info_requests.created_at >= ?
+                                                AND info_requests.created_at < ?',
+                                                month_start, month_end+1).count
       visible_comments_count = Comment.visible.where('comments.created_at >= ?
                                                       AND comments.created_at < ?',
                                                       month_start, month_end+1).count
@@ -75,6 +80,14 @@ namespace :stats do
             where(date_conditions).
               count
 
+      pro_confirmed_users_count =
+        User.pro.not_banned.
+          where(:email_confirmed => true).
+            where('users.created_at >= ?
+                   AND users.created_at < ?',
+                   month_start, month_end+1).
+              count
+
       request_classifications_count =
         RequestClassification.where(date_conditions).count
 
@@ -88,11 +101,13 @@ namespace :stats do
 
       puts [period,
             request_count,
+            pro_request_count,
             visible_comments_count,
             email_request_track_count,
             comment_on_own_request_count,
             follow_up_count,
             confirmed_users_count,
+            pro_confirmed_users_count,
             request_classifications_count,
             public_body_change_requests_count,
             widget_votes_count,
@@ -106,8 +121,8 @@ namespace :stats do
     first_request_datetime = InfoRequest.minimum(:created_at)
     start_year = first_request_datetime.strftime("%Y").to_i
     start_month = first_request_datetime.strftime("%m").to_i
-    end_year = Time.now.strftime("%Y").to_i
-    end_month = Time.now.strftime("%m").to_i
+    end_year = Time.zone.now.strftime("%Y").to_i
+    end_month = Time.zone.now.strftime("%m").to_i
     puts "Start year: #{start_year}"
     puts "Start month: #{start_month}"
     puts "End year: #{end_year}"
@@ -212,11 +227,10 @@ namespace :stats do
       # described_state column, and instead need to be calculated:
       overdue_count = 0
       very_overdue_count = 0
-      InfoRequest.find_each(:batch_size => 200,
+      InfoRequest.is_searchable.find_each(:batch_size => 200,
                             :conditions => {
                               :public_body_id => public_body.id,
                               :awaiting_description => false,
-                              :prominence => 'normal'
       }) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'
@@ -231,6 +245,13 @@ namespace :stats do
         public_body.save!
       end
     end
+  end
+
+  desc 'Add InfoRequestEvents for the points when requests became overdue
+        and very overdue'
+  task :update_overdue_info_request_events => :environment do
+    InfoRequest.log_overdue_events
+    InfoRequest.log_very_overdue_events
   end
 
   desc 'Print a list of the admin URLs of requests with hidden material'
@@ -278,7 +299,7 @@ namespace :stats do
     puts CSV.generate_line(["public_body_id", "public_body_name", "request_created_timestamp", "request_title", "request_body"])
 
     PublicBody.limit(20).order('info_requests_visible_count DESC').each do |body|
-      body.info_requests.where(:prominence => 'normal').find_each do |request|
+      body.info_requests.is_searchable.find_each do |request|
         puts CSV.generate_line([request.public_body.id, request.public_body.name, request.created_at, request.url_title, request.initial_request_text.gsub("\r\n", " ").gsub("\n", " ")])
       end
     end

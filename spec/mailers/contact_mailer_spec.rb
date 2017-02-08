@@ -54,6 +54,99 @@ describe ContactMailer do
         to eq("Add authority - Apostrophe's")
     end
 
+    context "when the user is a pro user" do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+
+      it "sends messages to the pro contact address" do
+        with_feature_enabled(:alaveteli_pro) do
+          message = ContactMailer.to_admin_message(pro_user.name,
+                                                   pro_user.email,
+                                                   "test subject",
+                                                   "test message",
+                                                   pro_user,
+                                                   nil,
+                                                   nil)
+          expect(message.to).to eq [AlaveteliConfiguration.pro_contact_email]
+        end
+      end
+    end
+
+    context "when the user is a normal user" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      it "sends messages to the normal contact address" do
+        with_feature_enabled(:alaveteli_pro) do
+          message = ContactMailer.to_admin_message(user.name,
+                                                   user.email,
+                                                   "test subject",
+                                                   "test message",
+                                                   user,
+                                                   nil,
+                                                   nil)
+          expect(message.to).to eq [AlaveteliConfiguration.contact_email]
+        end
+      end
+    end
+
+    context "when no user is a provided" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      it "sends messages to the normal contact address" do
+        with_feature_enabled(:alaveteli_pro) do
+          message = ContactMailer.to_admin_message(user.name,
+                                                   user.email,
+                                                   "test subject",
+                                                   "test message",
+                                                   nil,
+                                                   nil,
+                                                   nil)
+          expect(message.to).to eq [AlaveteliConfiguration.contact_email]
+        end
+      end
+    end
+
+  end
+
+  describe "#from_admin_message" do
+    context "when the receiving user is a pro user" do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+
+      it "sends messages from the pro contact address" do
+        with_feature_enabled(:alaveteli_pro) do
+          message = ContactMailer.from_admin_message(pro_user.name,
+                                                     pro_user.email,
+                                                     "test subject",
+                                                     "test message")
+          expect(message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+        end
+      end
+    end
+
+    context "when the receiving user is a normal user" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      it "sends messages from the normal contact address" do
+        with_feature_enabled(:alaveteli_pro) do
+          message = ContactMailer.from_admin_message(user.name,
+                                                     user.email,
+                                                     "test subject",
+                                                     "test message")
+          expect(message.from).to eq [AlaveteliConfiguration.contact_email]
+        end
+      end
+    end
+
+    context "when no receiving user can be found" do
+      it "sends messages from the normal contact address" do
+        with_feature_enabled(:alaveteli_pro) do
+          message = ContactMailer.from_admin_message("test user name",
+                                                     "no-such-user@localhost",
+                                                     "test subject",
+                                                     "test message")
+          expect(message.from).to eq [AlaveteliConfiguration.contact_email]
+        end
+      end
+    end
   end
 
 end

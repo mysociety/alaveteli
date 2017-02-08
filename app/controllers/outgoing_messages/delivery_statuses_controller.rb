@@ -26,8 +26,8 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
   end
 
   def check_prominence
-    unless @outgoing_message.user_can_view?(@user) &&
-      @outgoing_message.info_request.user_can_view?(@user)
+    unless can?(:read, @outgoing_message) && \
+           can?(:read, @outgoing_message.info_request)
         return render_hidden('request/_hidden_correspondence',
                              :locals => { :message => @outgoing_message })
     end
