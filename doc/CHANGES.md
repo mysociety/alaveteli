@@ -1,4 +1,4 @@
-# develop
+# 0.27.0.0
 
 ## Highlighted Features
 * Time in application time zone is used where appropriate in code, this fixes
@@ -6,6 +6,8 @@
 * Prevent long authority names overflowing on statistics page (Gareth Rees)
 * Fix css bug which allowed some "visually-hidden" elements to affect page
   length (Liz Conlan)
+* Header now contains pull-down menu for user-specific links, which has
+  swapped place with the search box (Martin Wright)
 * This release rolls out the first implementation of Alaveteli Pro - a service
   for use by journalists and campaigners. Includes ability to embargo requests,
   and dashboard for managing to-do items and requests. This is functionality
@@ -65,7 +67,8 @@
     app/views/user/rate_limited.html.erb
     app/views/user/show.html.erb
     app/views/widgets/show.html.erb
-0.26.0.8
+
+# 0.26.0.8
 
 ## Highlighted Features
 
