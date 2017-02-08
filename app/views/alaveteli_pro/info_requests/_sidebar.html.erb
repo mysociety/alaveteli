@@ -1,12 +1,12 @@
 <div id="right_column" class="sidebar right_column" role="complementary">
   <% if @info_request.embargo %>
   <div class="sidebar__section">
-    <h2 class="embargo-sidebar-heading"><i class="embargo-indicator embargo-indicator--small"></i> Embargo</h2>
+    <h2 class="embargo-sidebar-heading"><i class="embargo-indicator embargo-indicator--small"></i> <%= _("Embargo") %></h2>
     <%= form_for([AlaveteliPro::EmbargoExtension.new(embargo: @info_request.embargo)]) do |f| %>
       <%= render partial: "alaveteli_pro/info_requests/embargo_info",
                  locals: {embargo: @info_request.embargo, tense: :present} %>
       <%= f.hidden_field :embargo_id %>
-    <label class="houdini-label" for="input1">Change embargo</label>
+    <label class="houdini-label" for="input1"><%= _("Change embargo") %></label>
     <input class="houdini-input" type="checkbox" id="input1">
     <div class="houdini-target extend-embargo-sidebar">
       <p>
@@ -28,7 +28,7 @@
   <% unless state_transitions_empty?(@state_transitions) %>
     <div class="sidebar__section">
     <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
-      <h2>Update status</h2>
+      <h2><%= _("Update status") %></h2>
       <p>
         <% @state_transitions.each do |group, transitions| %>
           <% transitions.each do |state, label| %>
