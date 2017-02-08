@@ -558,6 +558,18 @@ GAZE_URL: http://gaze.mysociety.org
 # ---
 FORWARD_NONBOUNCE_RESPONSES_TO: user-support@localhost
 
+# The email address to which non-bounce responses to emails sent out to
+# Alaveteli Professional users by Alaveteli should be forwarded
+#
+# FORWARD_PRO_NONBOUNCE_RESPONSES_TO - String (default: pro-user-support@localhost)
+#
+# Examples:
+#
+#   FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@example.com
+#
+# ---
+FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
+
 # Path to a program that converts an HTML page in a file to PDF. Also used to
 # download a zip file of all the correspondence for a request. It should take
 # two arguments: the URL, and a path to an output file.
@@ -957,3 +969,46 @@ RESTRICTED_COUNTRIES: ''
 #
 # ---
 NEW_REQUEST_RECAPTCHA: false
+
+# Enable AlaveteliProfessional
+# If ENABLE_ALAVETELI_PRO is set to true, Alaveteli will include extra
+# functionality and account levels for professional FOI users, e.g.
+# journalists. Professional users have access to a new dashboard, a more
+# streamlined request process, and crucially, the ability to embargo their
+# requests so that they remain private.
+#
+# Enabling this is a large change, and this is still in Alpha development, so
+# you may want to contact the Alaveteli team before doing so.
+#
+# ENABLE_ALAVETELI_PRO – Boolean (default: false)
+#
+# ---
+ENABLE_ALAVETELI_PRO: false
+
+# Contact email address for Alaveteli Professional.
+# Requests made through Alaveteli Professional may be embargoed, meaning that
+# the user has an expectation that they're private, and this can include
+# being private from some of the site's administration team. Even if this is
+# not the case, you may wish to redirect pro support email away from the usual
+# email address for everybody else. These details allow you to specify a
+# different address.
+#
+# If you want all support mail to go to the same address, make this the same
+# as CONTACT_EMAIL.
+#
+# PRO_CONTACT_EMAIL - String email address (default: pro-contact@localhost)
+#
+# ---
+PRO_CONTACT_EMAIL: 'pro-contact@localhost'
+
+# Contact name for Alaveteli Professional.
+# The corresponding name to address emails to when sending email to
+# PRO_CONTACT_EMAIL.
+#
+# If you want all support mail to go to the same address, make this the same
+# as CONTACT_NAME.
+#
+# PRO_CONTACT_NAME - String contact name (default: Alaveteli Professional)
+#
+# ---
+PRO_CONTACT_NAME: 'Alaveteli Professional'

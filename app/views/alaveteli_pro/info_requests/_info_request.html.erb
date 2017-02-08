@@ -1,0 +1,33 @@
+<div class="request">
+  <h3 class="request__title">
+    <% if info_request.embargo %>
+      <span class="embargo-indicator embargo-indicator--small">Embargoed</span>
+    <% end %>
+    <%= link_to info_request.title, show_request_path(info_request.url_title) %>
+  </h3>
+
+  <div class="request__meta">
+
+    <div class="request__recipient">
+      <span class="request__meta__label"><%= _('Request to') %></span>
+      <p><%= info_request.public_body.name %></p>
+    </div>
+
+    <div class="request__created">
+      <span class="request__meta__label"><%= _('Created') %></span>
+      <p><%= info_request.created_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__updated">
+      <span class="request__meta__label"><%= _('Updated') %></span>
+      <p><%= info_request.updated_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__status">
+      <span class="request__meta__label"><%= _('Status') %></span>
+      <p><span class="status-icon status-icon--<%= InfoRequest::State.phase_params[info_request.state.phase] %>"></span><%= InfoRequest::State.short_description(info_request.described_state) %></p>
+    </div>
+
+  </div> <!-- .request__meta -->
+
+</div> <!-- .request -->

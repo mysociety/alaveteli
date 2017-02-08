@@ -283,6 +283,19 @@ describe RequestMailer do
       expect{ send_alerts }.to raise_error(expected_message)
     end
 
+    context 'if the request is embargoed' do
+
+      it 'sends the reminder' do
+        old_request.create_embargo(:publish_at => Time.zone.now + 3.days)
+        send_alerts
+        deliveries = ActionMailer::Base.deliveries
+        mail = deliveries[0]
+        expect(mail.body).to match(/#{old_request.title}/)
+        expect(mail.body).to match(/Letting everyone know whether you got the information/)
+      end
+
+    end
+
     context 'if an alert matching the attributes of the reminder to be sent has already been sent' do
 
       it 'should not send the reminder' do
@@ -483,72 +496,90 @@ describe RequestMailer do
         to eq('do-not-reply-to-this-address@localhost')
     end
 
+    context "when the user is not a pro" do
+      it "sends the request to the normal contact address" do
+        expect(RequestMailer.requires_admin(info_request).to).
+          to eq([AlaveteliConfiguration.contact_email])
+      end
+    end
+
+    context "when the user is a pro" do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+      let(:pro_request) { FactoryGirl.create(:info_request, user: pro_user) }
+
+      it "sends the request to the pro contact address" do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(RequestMailer.requires_admin(pro_request).to).
+            to eq([AlaveteliConfiguration.pro_contact_email])
+        end
+      end
+    end
+
   end
 
-  describe "sending overdue request alerts" do
-
-    let(:request_date) { Time.zone.parse('2010-12-12') }
-    let(:overdue_date) { request_date - 31.days }
-    let(:very_overdue_date) { request_date - 61.days }
+  describe "sending overdue request alerts", :focus => true do
 
     before(:each) do
       @kitten_request = FactoryGirl.create(:info_request,
                                            :title => "Do you really own a kitten?")
-      @kitten_request.outgoing_messages[0].last_sent_at = overdue_date
-      @kitten_request.outgoing_messages[0].save!
+    end
+
+    def kitten_mails
+      ActionMailer::Base.deliveries.select{ |mail| mail.body =~ /kitten/ }
     end
 
     it 'should not create HTML entities in the subject line' do
-      mail = RequestMailer.overdue_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:user))
+      info_request = FactoryGirl.create(:info_request,
+                                        :title => "Here's a request")
+      mail = RequestMailer.overdue_alert(info_request, info_request.user)
       expect(mail.subject).to eq "Delayed response to your FOI request - Here's a request"
     end
 
     it "sends an overdue alert mail to request creators" do
-      allow(Time).to receive(:now).and_return(request_date)
-      RequestMailer.alert_overdue_requests
+      time_travel_to(31.days.from_now) do
+        RequestMailer.alert_overdue_requests
 
-      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
-      expect(kitten_mails.size).to eq(1)
-      mail = kitten_mails[0]
+        expect(kitten_mails.size).to eq(1)
+        mail = kitten_mails[0]
 
-      expect(mail.body).to match(/promptly, as normally/)
-      expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
+        expect(mail.body).to match(/promptly, as normally/)
+        expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
 
-      mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
-      mail_url = $1
-      mail_token = $2
+        mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+        mail_url = $1
+        mail_token = $2
 
-      post_redirect = PostRedirect.find_by_email_token(mail_token)
-      expect(post_redirect.uri).
-        to match(new_request_followup_path(@kitten_request.id))
+        post_redirect = PostRedirect.find_by_email_token(mail_token)
+        expect(post_redirect.uri).
+          to match(new_request_followup_path(@kitten_request.id))
+      end
     end
 
     it "does not send the alert if the user is banned but records it as sent" do
-      user = @kitten_request.user
-      user.ban_text = 'Banned'
-      user.save!
-      expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to eq(0)
-      RequestMailer.alert_overdue_requests
+      time_travel_to(31.days.from_now) do
+        user = @kitten_request.user
+        user.ban_text = 'Banned'
+        user.save!
+        expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to eq(0)
+        RequestMailer.alert_overdue_requests
 
-      deliveries = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
-      expect(deliveries.size).to eq(0)
-      expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
+        expect(kitten_mails.size).to eq(0)
+        expect(UserInfoRequestSentAlert.find_all_by_user_id(user.id).count).to be > 0
+      end
     end
 
     it "does not resend alerts to people who've already received them" do
-      RequestMailer.alert_overdue_requests
-      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
-      expect(kitten_mails.size).to eq(1)
-      RequestMailer.alert_overdue_requests
-      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
-      expect(kitten_mails.size).to eq(1)
+      time_travel_to(31.days.from_now) do
+        RequestMailer.alert_overdue_requests
+        expect(kitten_mails.size).to eq(1)
+        ActionMailer::Base.deliveries.clear
+        RequestMailer.alert_overdue_requests
+        expect(kitten_mails.size).to eq(0)
+      end
     end
 
     it "sends alerts for requests where the last event forming the initial
           request is a followup being sent following a request for clarification" do
-      RequestMailer.alert_overdue_requests
-      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
-      expect(kitten_mails.size).to eq(1)
 
       # Request is waiting clarification
       @kitten_request.set_described_state('waiting_clarification')
@@ -570,53 +601,74 @@ describe RequestMailer do
 
       outgoing_message.save!
 
-      kitten_request = InfoRequest.find(@kitten_request.id)
-
       # Last event forming the request is now the followup
+      kitten_request = InfoRequest.find(@kitten_request.id)
       expect(kitten_request.last_event_forming_initial_request.event_type).to eq('followup_sent')
 
-      # This isn't overdue, so no email
-      RequestMailer.alert_overdue_requests
-      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
-      expect(kitten_mails.size).to eq(1)
+      time_travel_to(31.days.from_now) do
+        RequestMailer.alert_overdue_requests
+        expect(kitten_mails.size).to eq(1)
+        ActionMailer::Base.deliveries.clear
+      end
+    end
 
-      # Make the followup older
-      outgoing_message.last_sent_at = very_overdue_date
-      outgoing_message.save!
+    it "sends alerts for embargoed requests" do
+      info_request = FactoryGirl.create(:embargoed_request)
 
-      # Now it should be alerted on
-      RequestMailer.alert_overdue_requests
-      kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
-      expect(kitten_mails.size).to eq(2)
+      time_travel_to(31.days.from_now) do
+        RequestMailer.alert_overdue_requests
+
+        mails = ActionMailer::Base.deliveries.select do |mail|
+          mail.body =~ /#{info_request.title}/
+        end
+        mail = mails[0]
+        expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+      end
     end
 
     context "very overdue alerts" do
 
       it 'should not create HTML entities in the subject line' do
-        mail = RequestMailer.very_overdue_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:user))
-        expect(mail.subject).to eq "You're long overdue a response to your FOI request - Here's a request"
+        info_request = FactoryGirl.create(:info_request,
+                                          :title => "Here's a request")
+        mail = RequestMailer.very_overdue_alert(info_request,
+                                                info_request.user)
+        expect(mail.subject).to eq "You're long overdue a response " \
+                                   "to your FOI request - Here's a request"
       end
 
       it "sends a very overdue alert mail to creators of very overdue requests" do
-        @kitten_request.outgoing_messages[0].last_sent_at = very_overdue_date
-        @kitten_request.outgoing_messages[0].save!
+        time_travel_to(Time.now + 61.days) do
+          RequestMailer.alert_overdue_requests
+          expect(kitten_mails.size).to eq(1)
+          mail = kitten_mails[0]
 
-        RequestMailer.alert_overdue_requests
+          expect(mail.body).to match(/required by law/)
+          expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
 
-        kitten_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /kitten/}
-        expect(kitten_mails.size).to eq(1)
-        mail = kitten_mails[0]
+          mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+          mail_url = $1
+          mail_token = $2
 
-        expect(mail.body).to match(/required by law/)
-        expect(mail.to_addrs.first.to_s).to eq(@kitten_request.user.email)
+          post_redirect = PostRedirect.find_by_email_token(mail_token)
+          expect(post_redirect.uri).
+            to match(new_request_followup_path(@kitten_request.id))
+        end
+      end
 
-        mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
-        mail_url = $1
-        mail_token = $2
+      it "sends very overdue alerts for embargoed requests" do
+        info_request = FactoryGirl.create(:embargoed_request)
 
-        post_redirect = PostRedirect.find_by_email_token(mail_token)
-        expect(post_redirect.uri).
-          to match(new_request_followup_path(@kitten_request.id))
+        time_travel_to(61.days.from_now) do
+          RequestMailer.alert_overdue_requests
+          mails = ActionMailer::Base.deliveries.select do |mail|
+            mail.body =~ /#{info_request.title}/
+          end
+          mail = mails[0]
+          # Check that this is a very overdue email, not just an overdue one
+          expect(mail.body).not_to match(/promptly/)
+          expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+        end
       end
 
     end
@@ -656,13 +708,14 @@ describe RequestMailer do
       load_raw_emails_data
     end
 
+    def force_updated_at_to_past(request)
+      request.update_column(:updated_at, Time.zone.now - 5.days)
+    end
+
     it "should send an alert" do
       ir = info_requests(:fancy_dog_request)
       ir.set_described_state('waiting_clarification')
-      # this is pretty horrid, but will do :) need to make it waiting
-      # clarification more than 3 days ago for the alerts to go out.
-      ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.zone.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
-      ir.reload
+      force_updated_at_to_past(ir)
 
       RequestMailer.alert_not_clarified_request
 
@@ -688,15 +741,26 @@ describe RequestMailer do
       ir.user.ban_text = 'Banned'
       ir.user.save!
 
-      # this is pretty horrid, but will do :) need to make it waiting
-      # clarification more than 3 days ago for the alerts to go out.
-      ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.zone.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
-      ir.reload
+      force_updated_at_to_past(ir)
 
       RequestMailer.alert_not_clarified_request
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(0)
+    end
+
+    it "should alert about embargoed requests" do
+      info_request = FactoryGirl.create(:embargoed_request)
+      info_request.set_described_state('waiting_clarification')
+      force_updated_at_to_past(info_request)
+
+      RequestMailer.alert_not_clarified_request
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+      expect(mail.body).to match(/asked you to explain/)
+      expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
     end
 
   end
@@ -774,6 +838,20 @@ describe RequestMailer do
       mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
       expect(mail_url).to match("/request/why_do_you_have_such_a_fancy_dog#comment-#{comments(:silly_comment).id}")
+    end
+
+    it "should send alerts for comments on embargoed requests" do
+      info_request = FactoryGirl.create(:embargoed_request)
+      new_comment = info_request.add_comment(
+        "Test comment on embargoed_request",
+        FactoryGirl.create(:user))
+
+      RequestMailer.alert_comment_on_request
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+      expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
     end
 
   end

@@ -89,7 +89,7 @@ class Statistics
       # tooltips, and so on:
       data['public_bodies'].each_with_index do |pb, i|
         result['x_values'] << i
-        result['x_ticks'] << [i, pb.name]
+        result['x_ticks'] << [i, pb.short_or_long_name.truncate(30)]
         result['tooltips'] << "#{pb.name} (#{result['totals'][i]})"
         result['public_bodies'] << {
           'name' => pb.name,
@@ -127,7 +127,7 @@ class Statistics
 
     def by_week_to_today_with_noughts(counts_by_week, start_date)
       earliest_week = start_date.to_date.at_beginning_of_week
-      latest_week = Date.today.at_beginning_of_week
+      latest_week = Date.current.at_beginning_of_week
 
       (earliest_week..latest_week).step(7) do |date|
         counts_by_week << [date.to_s, 0] unless counts_by_week.any? { |c| c.first == date.to_s }

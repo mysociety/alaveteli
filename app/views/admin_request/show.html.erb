@@ -44,8 +44,8 @@
                   <% end %>
                   <% if column_name == 'described_state' %>
                     <ul>
-                      <li><strong>Initial request last sent at:</strong> <%= @info_request.calculate_status %></li>
-                      <li><strong>Initial request last sent at:</strong> <%=@info_request.date_initial_request_last_sent_at.to_date %></li>
+                      <li><strong>Request status:</strong> <%= @info_request.calculate_status %></li>
+                      <li><strong>Date initial request last sent at:</strong> <%= @info_request.date_initial_request_last_sent_at %></li>
                       <li><strong>Date response required by:</strong> <%= @info_request.date_response_required_by %></li>
                       <li><strong>Very overdue after:</strong> <%= @info_request.date_very_overdue_after %></li>
                     </ul>
@@ -137,7 +137,7 @@
       <% end %>
 
       <div class="controls" id="request_hidden_user_explanation_reasons">
-        <% if ['hidden', 'requester_only'].include? @info_request.prominence %>
+        <% if @info_request.prominence(:decorate => true).is_private? %>
           <p class="help-block">This request has already been hidden</p>
         <% else %>
           <label class="radio inline">
@@ -150,7 +150,7 @@
       </div>
     </div>
 
-    <% if !['hidden', 'requester_only'].include? @info_request.prominence %>
+    <% if !@info_request.prominence(:decorate => true).is_private? %>
       <% if ! @info_request.is_external? %>
 
         <div class="control-group" id="request_hidden_user_subject">

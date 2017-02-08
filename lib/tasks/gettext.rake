@@ -25,6 +25,20 @@ namespace :gettext do
     )
   end
 
+  desc "Update pot/po files for Alaveteli Pro."
+  task :find_alaveteli_pro => :environment do
+    load_gettext
+    msgmerge = Rails.application.config.gettext_i18n_rails.msgmerge
+    msgmerge ||= %w[--sort-output --no-location --no-wrap]
+    GetText.update_pofiles_org(
+      text_domain,
+      pro_files_to_translate,
+      "version 0.0.1",
+      :po_root => pro_locale_path,
+      :msgmerge => msgmerge
+    )
+  end
+
   desc 'Rewrite theme .po files into a consistent msgmerge format'
   task :clean_theme do
     theme = find_theme(ENV['THEME'])
@@ -99,6 +113,25 @@ namespace :gettext do
       exit(1)
     end
     file
+  end
+
+  def files_to_translate
+    files = FileList.new("{app,lib,config,#{locale_path}}/**/*.{rb,erb}") do |fl|
+      fl.exclude(/\balaveteli_pro\b/)
+    end
+    files
+  end
+
+  def pro_files_to_translate
+    files = FileList.new do |fl|
+      fl.include('app/{models,views,helpers,controllers}/alaveteli_pro/**/*.{rb,erb}')
+      fl.include('lib/alaveteli_pro/**/*.{rb,erb}')
+    end
+    files
+  end
+
+  def pro_locale_path
+    Rails.root.join "locale_alaveteli_pro"
   end
 
   def theme_files_to_translate(theme)

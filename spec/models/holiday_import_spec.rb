@@ -39,8 +39,8 @@ describe HolidayImport do
 
   it 'defaults to importing holidays for the current year' do
     holiday_import = HolidayImport.new
-    expect(holiday_import.start_year).to eq(Time.now.year)
-    expect(holiday_import.end_year).to eq(Time.now.year)
+    expect(holiday_import.start_year).to eq(Time.zone.now.year)
+    expect(holiday_import.end_year).to eq(Time.zone.now.year)
   end
 
   it 'allows the start and end year to be set' do

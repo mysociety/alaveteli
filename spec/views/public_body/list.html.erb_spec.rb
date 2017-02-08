@@ -14,7 +14,7 @@ describe "public_body/list" do
       :eir_only? => nil,
       :publication_scheme => '')
     pb_info_requests = [1, 2, 3, 4]
-    allow(pb_info_requests).to receive(:visible).and_return([2, 3, 4])
+    allow(pb_info_requests).to receive(:is_searchable).and_return([2, 3, 4])
 
     allow(@pb).to receive(:info_requests).and_return(pb_info_requests)
 

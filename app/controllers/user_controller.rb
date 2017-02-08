@@ -127,7 +127,7 @@ class UserController < ApplicationController
         if is_modal_dialog
           render :action => 'signin_successful'
         else
-          do_post_redirect @post_redirect
+          do_post_redirect @post_redirect, @user_signin
         end
       else
         send_confirmation_mail @user_signin
@@ -231,7 +231,7 @@ class UserController < ApplicationController
 
     session[:user_circumstance] = post_redirect.circumstance
 
-    do_post_redirect post_redirect
+    do_post_redirect post_redirect, @user
   end
 
   def signout

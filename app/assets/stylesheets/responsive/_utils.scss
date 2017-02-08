@@ -64,6 +64,7 @@ $lte-ie7: false !default;
   height: 1px !important;
   width: 1px !important;
   overflow: hidden;
+  display: block;
 }
 body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .visually-hidden button { display: none !important; }
 

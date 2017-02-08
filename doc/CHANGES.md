@@ -1,4 +1,74 @@
-0.26.0.8
+# 0.27.0.0
+
+## Highlighted Features
+* Time in application time zone is used where appropriate in code, this fixes
+  a bug in due date calculation for zones offset from UTC (Louise Crow)
+* Prevent long authority names overflowing on statistics page (Gareth Rees)
+* Fix css bug which allowed some "visually-hidden" elements to affect page
+  length (Liz Conlan)
+* Header now contains pull-down menu for user-specific links, which has
+  swapped place with the search box (Martin Wright)
+* This release rolls out the first implementation of Alaveteli Pro - a service
+  for use by journalists and campaigners. Includes ability to embargo requests,
+  and dashboard for managing to-do items and requests. This is functionality
+  being piloted in the UK and is not yet recommended for use in other locales
+  (Steve Day, Martin Wright, Louise Crow)
+
+## Upgrade Notes
+* Please update any overriden templates and theme code that reference times and
+  dates to reference the local time zone where appropriate. e.g.
+
+  Time.now => Time.zone.now
+  Date.today => Date.current
+  DateTime.parse => Time.zone.parse
+
+  See https://robots.thoughtbot.com/its-about-time-zones for a description of
+  how Rails handles time zones
+* To store the significant dates for requests in the database, you must run
+  `bundle exec rake temp:populate_request_due_dates` after deployment.
+* There are some database structure updates so remember to `rake db:migrate`
+
+### Changed Templates
+    app/views/admin_holiday_imports/new.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/comment/_single_comment.text.erb
+    app/views/comment/new.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/followups/new.html.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_frontpage_search_box.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/blog.html.erb
+    app/views/general/search.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/default.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_describe_state.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_incoming_correspondence.text.erb
+    app/views/request/_other_describe_state.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.text.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_wall_listing.html.erb
+    app/views/request/describe_notices/_successful.html.erb
+    app/views/request/hidden.html.erb
+    app/views/request/new.html.erb
+    app/views/request/show.html.erb
+    app/views/user/_user_listing_single.html.erb
+    app/views/user/banned.html.erb
+    app/views/user/rate_limited.html.erb
+    app/views/user/show.html.erb
+    app/views/widgets/show.html.erb
+
+# 0.26.0.8
 
 ## Highlighted Features
 
@@ -151,6 +221,9 @@
   page (Louise Crow)
 * Added strong parameters gem for better mass assignment security (Gareth Rees)
 * Added experimental Xapian database replication (Hazel Smith, Louise Crow)
+* Request prominence logic more consistent, embargoed requests introduced as an
+  Alaveteli Pro feature (Louise Crow)
+
 
 ## Upgrade Notes
 

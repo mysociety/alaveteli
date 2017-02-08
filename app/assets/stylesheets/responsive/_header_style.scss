@@ -1,5 +1,5 @@
 /* Header style */
-#navigation {
+.navigation {
   border-bottom: 1px solid #e9e9e9;
 }
 
@@ -17,4 +17,24 @@
   a {
     text-decoration: none;
   }
+}
+
+// New logged in menu styles
+.pro-pill {
+  font-size: 0.625rem;
+  color: white;
+  background-color: purple;
+  border-radius: 2px;
+  padding: 0px 5px 3px 3px;
+  text-align: center;
+  // vertically center it with normal text
+  position: relative;
+  top: -0.15em;
+  line-height: 1em;
+}
+
+.dashboard-profile__image {
+   float: left;
+   margin-right: 1em;
+   border-radius: 5px;
 }

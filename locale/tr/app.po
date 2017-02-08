@@ -7,6 +7,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 08:44-0800\n"
-"PO-Revision-Date: 2017-01-12 15:04+0000\n"
-"Last-Translator: Liz Conlan <liz@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-06 18:53+0000\n"
+"PO-Revision-Date: 2017-02-06 18:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -467,6 +468,9 @@ msgstr "Sınıflandırma bekleniyor"
 msgid "Awaiting classification."
 msgstr "Sınıflandırma bekleniyor."
 
+msgid "Awaiting internal review"
+msgstr ""
+
 msgid "Awaiting internal review."
 msgstr "Kurum içi inceleme bekleniyor."
 
@@ -599,6 +603,9 @@ msgstr "Profil resminizi seçin"
 msgid "Clarification"
 msgstr "Açıklık getirme"
 
+msgid "Clarification needed"
+msgstr ""
+
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Açıklık getirmek için yazılan metin {{info_request_user}} tarafından  {{public_body_name}} kurumuna {{date}}  tarihinde iletildi "
 
@@ -634,6 +641,9 @@ msgstr "Comment|Locale"
 
 msgid "Comment|Visible"
 msgstr "Comment|Visible"
+
+msgid "Complete"
+msgstr ""
 
 msgid "Confirm password:"
 msgstr "Şifrenizi doğrulayın:"
@@ -733,6 +743,9 @@ msgstr "Dear [Authority name] Yetkilisi,"
 
 msgid "Dear {{name}},"
 msgstr "Sayın  {{name}},"
+
+msgid "Dear {{placeholder_body_name}},"
+msgstr ""
 
 msgid "Dear {{public_body_name}},"
 msgstr "Sayın {{public_body_name}},"
@@ -1189,6 +1202,9 @@ msgstr "Şu anda daha fazla ortalığı toparlama ile uğraşmak istemiyorum!"
 msgid "I like this request"
 msgstr "Bu başvuruyu beğendim"
 
+msgid "I want to withdraw this request"
+msgstr ""
+
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Bu başvuruyu <strong>geri çekmek</strong>istiyorum"
 
@@ -1206,8 +1222,8 @@ msgstr "<strong>Kurum içi denetim </strong>sonucunu bekliyorum"
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Başvurumu <strong>daha net bir biçimde ifade etmem</strong> istendi"
 
-msgid "I've received <strong>all the information"
-msgstr "İstediğim tüm <strong>bilgiyi aldım"
+msgid "I've received <strong>all the information</strong>"
+msgstr ""
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "İstediğim bilginin <strong>bir kısmını </strong>aldım"
@@ -1395,6 +1411,15 @@ msgstr "InfoRequest|Awaiting description"
 msgid "InfoRequest|Comments allowed"
 msgstr "nfoRequest|Comments izin veriliyor"
 
+msgid "InfoRequest|Date initial request last sent at"
+msgstr ""
+
+msgid "InfoRequest|Date response required by"
+msgstr ""
+
+msgid "InfoRequest|Date very overdue after"
+msgstr ""
+
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described durum"
 
@@ -1430,6 +1455,9 @@ msgstr "InfoRequest|Title"
 
 msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Url title"
+
+msgid "Information not held"
+msgstr ""
 
 msgid "Information not held."
 msgstr "Bu bilgi kurumun elinde bulunmuyor"
@@ -1818,8 +1846,14 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
+msgid "Overdue"
+msgstr ""
+
 msgid "Partial success"
 msgstr "Kısmen olumlu cevap"
+
+msgid "Partially successful"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Kısmen olumlu "
@@ -1975,6 +2009,9 @@ msgstr "Lütfen yalnızca var olan kategorilerde bulunan bilgiyi isteyin. Lütfe
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Lütfen bunu Bilgi Edinme Hakkı başvurularını inceleyen kişiye iletin. "
+
+msgid "Please select an authority"
+msgstr ""
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr "Lütfen sırayla aşağıdaki başvuruları seçin ve olumlu sonuç vermediğini belirterek başvurunuzun başarılı olup olmadığını <strong>herkesin bilmesini</strong>\\n sağlayın."
@@ -2279,6 +2316,9 @@ msgstr ""
 msgid "Recently described results first"
 msgstr "Yakın zamanda tanımlanmış sonuçlar önce gösterilmektedir"
 
+msgid "Refused"
+msgstr ""
+
 msgid "Refused."
 msgstr "Reddedildi"
 
@@ -2291,6 +2331,9 @@ msgstr "Reddedildi"
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Beni hatırla (siteye giriş yaptıktan sonra, daha uzun süre kalmanızı sağlar. Halka açık bir bilgisayarda kullanmayın)"
 
+msgid "Replying by post"
+msgstr ""
+
 msgid "Report abuse"
 msgstr "Kötüye kullanım bildir"
 
@@ -2302,6 +2345,9 @@ msgstr "Başvuruyu şikayet et"
 
 msgid "Report this request"
 msgstr "Bu başvuruyu şikayet et"
+
+msgid "Reported"
+msgstr ""
 
 msgid "Reported for administrator attention."
 msgstr "Bu başvuru yöneticinin gözden geçirmesi için rapor edildi"
@@ -2369,6 +2415,9 @@ msgstr " '{{request_title}}' (page {{page}}) başvurusuna benzeyen başvurular"
 msgid "Requests will be sent to the following bodies:"
 msgstr "Bilgi edinme başvuruları aşağıdaki kurumlara iletilecektir:"
 
+msgid "Requires administrator attention"
+msgstr ""
+
 msgid "Respond by email"
 msgstr "Email ile cevap ver"
 
@@ -2389,6 +2438,9 @@ msgstr " {{date}} tarihinde {{public_body_name}} tarafından {{info_request_user
 
 msgid "Response from a public authority"
 msgstr "Bir kamu kuruluşundan gelen cevap"
+
+msgid "Response received"
+msgstr ""
 
 msgid "Response to '{{title}}'"
 msgstr "'{{title}}' başvurusuna verilen cevap "
@@ -2593,6 +2645,9 @@ msgstr "Bilgi edinme başvurunuzu yapmaya başlayın"
 msgid "Statistics"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr "Gelişmelerden haberdar olun"
 
@@ -2638,8 +2693,8 @@ msgstr "Olumlu."
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "Başvuran kişinin istediği bilginin <strong>geri kalanını</strong> nasıl edinebileceği konusunda öneride bulunun."
 
-msgid "Summary:"
-msgstr "Özet:"
+msgid "Summary"
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Durum tablosu"
@@ -2928,6 +2983,9 @@ msgstr "Sorgunuza uyan başvuru bulunamadı"
 
 msgid "There were no results matching your query."
 msgstr "Sorgunuza uyan sonuç bulunamadı."
+
+msgid "There's an error message"
+msgstr ""
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Bu grafikler kısmen <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\"> WhatDoTheyKnow (Ne Biliyorlar) adlı bilgi edinme sitesi için Mark Goodge'ün ürettiği grafiklerden</a> esinlenerek oluşturuldu. Bu yüzden ona teşekkür ederiz. "
@@ -3427,6 +3485,9 @@ msgstr "User|Url name"
 msgid "Version {{version}}"
 msgstr "Versiyon {{version}}"
 
+msgid "Very overdue"
+msgstr ""
+
 msgid "Vexatious"
 msgstr "Taciz amaçlı yapılmış başvuru"
 
@@ -3457,11 +3518,23 @@ msgstr "{{public_body}} adlı kuruluşa yapılan diğer başvurulara bakın"
 msgid "View your two factor authentication one time passcode"
 msgstr "İki aşamalı tek kullanımlık giriş kodunuza bakın"
 
+msgid "Waiting clarification"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Açıklık getirilmesi bekleniyor."
 
+msgid "Waiting for a response"
+msgstr ""
+
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Bu başvuruyu işleme koyma şekilleri hakkında {{public_body_link}} tarafından gerçekleştirilecek <strong>kurum içi inceleme</strong> bekleniyor."
+
+msgid "Waiting for an internal review"
+msgstr ""
+
+msgid "Waiting for clarification"
+msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Kamu kuruluşunun başvuruyu işleme koyma şekliyle ilgili gerçekleştireceği kurum içi inceleme bekleniyor"
@@ -3896,6 +3969,9 @@ msgstr "Şifreniz:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Resminiz, İnternet'te ve {{site_name}} üzerinde aktif olduğunuz her yerde kamuya açık bir şekilde görünür olacak."
 
+msgid "Your request"
+msgstr ""
+
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr " {{url}} adresindeki '{{request}}' başvurunuz moderatörler tarafından gözden geçirildi."
 
@@ -3916,9 +3992,6 @@ msgstr "{{site_name}}sitesinde {{public_body_name}}kuruluşunu güncelleme iste�
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Başvurunuzu başlığı şuydu: {{info_request}}. İstediğiniz bilgiyi alıp almadığınız hakkında herkese bilgi vermeniz bizim de bu kuruluşun performansını izlememize yardımcı olur"
-
-msgid "Your request:"
-msgstr "Başvurunuz:"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Başvurularınız kısa süre içinde <strong>gönderilecek</strong>!"
@@ -3971,6 +4044,9 @@ msgstr "Saygılar,"
 msgid "[Authority URL will be inserted here]"
 msgstr "[Kamu kuruluşunun URL adresi buraya eklenecek]"
 
+msgid "[Authority name]"
+msgstr ""
+
 msgid "[FOI #{{request}} email]"
 msgstr "[Bilgi Edinme Başvuruları  #{{request}} email]"
 
@@ -4022,6 +4098,9 @@ msgstr "şurada"
 msgid "authorities"
 msgstr "kamu kuruluşları"
 
+msgid "awaiting response"
+msgstr ""
+
 msgid "but followupable"
 msgstr "ama takip mesajı gönderilebilir"
 
@@ -4031,8 +4110,14 @@ msgstr "tarafından"
 msgid "by {{user_link_absolute}}"
 msgstr " {{user_link_absolute}} tarafından "
 
+msgid "clarification needed"
+msgstr ""
+
 msgid "comments"
 msgstr "yorumlar"
+
+msgid "complete"
+msgstr ""
 
 msgid "details"
 msgstr "detaylar"
@@ -4100,6 +4185,12 @@ msgstr ""
 msgid "not requestable due to: {{reason}}"
 msgstr "şu nedenle bu bilgi istenilemez: {{reason}}"
 
+msgid "other"
+msgstr ""
+
+msgid "overdue"
+msgstr ""
+
 msgid "request hide events"
 msgstr ""
 
@@ -4114,6 +4205,9 @@ msgstr "olumlu sonuçlanan başvurular"
 
 msgid "requests which are successful matching text '{{query}}'"
 msgstr "olumlu sonuçlanan ve '{{query}}' satırındaki sözcükleri içeren başvurular "
+
+msgid "response received"
+msgstr ""
 
 msgid "send a follow up message"
 msgstr "bir takip iletisi gönder"
@@ -4165,6 +4259,9 @@ msgstr "bilinmeyen sebep"
 msgid "unknown reason "
 msgstr "bilinmeyen sebep"
 
+msgid "unknown status {{state}}"
+msgstr ""
+
 msgid "unknown status {{status}}"
 msgstr "bilinmeyen durum {{status}}"
 
@@ -4182,6 +4279,9 @@ msgstr "olumsuz sonuçlanan başvurular"
 
 msgid "users"
 msgstr "kullanıcılar"
+
+msgid "very overdue"
+msgstr ""
 
 msgid "what's that?"
 msgstr "Bu nedir?"
@@ -4242,6 +4342,8 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} başvuru - {{title}}"
 
+#. Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr " {{public_body}} adlı kurumdaki  {{law_used}} başvuruları"
 

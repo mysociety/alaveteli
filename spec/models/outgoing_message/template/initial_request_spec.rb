@@ -26,9 +26,17 @@ describe OutgoingMessage::Template::InitialRequest do
 
   describe '#salutation' do
 
-    it 'returns the salutation' do
-      expect(subject.salutation(:public_body_name => 'A body')).
-        to eq('Dear A body,')
+    context 'when a public_body_name is given' do
+      it 'returns the salutation' do
+        expect(subject.salutation(:public_body_name => 'A body')).
+          to eq('Dear A body,')
+      end
+    end
+
+    context 'when no public_body_name is given' do
+      it 'returns the default salutation' do
+        expect(subject.salutation).to eq('Dear [Authority name],')
+      end
     end
 
   end

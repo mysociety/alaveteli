@@ -8,7 +8,7 @@ describe AdminInfoRequestEventController do
     describe 'when handling valid data' do
 
       before do
-        @info_request_event = FactoryGirl.create(:info_request_event)
+        @info_request_event = FactoryGirl.create(:response_event)
         put :update, :id => @info_request_event
       end
 

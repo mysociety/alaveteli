@@ -51,7 +51,7 @@
       <% if @xapian_requests %>
         <h2><%= _('On this page') %></h2>
         <a href="#foi_requests"><%= _('FOI requests') %></a>
-        <% if AlaveteliConfiguration::enable_annotations %>
+        <% if feature_enabled?(:annotations) %>
           <br><a href="#annotations"><%= _('Annotations') %></a>
         <% end %>
       <% end %>
@@ -211,7 +211,7 @@
       <% end %>
     <% end %>
 
-    <% if @xapian_comments && AlaveteliConfiguration::enable_annotations %>
+    <% if @xapian_comments && feature_enabled?(:annotations) %>
       <% if @xapian_comments.results.empty? %>
         <% if @page == 1 %>
           <h2>

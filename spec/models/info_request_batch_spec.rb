@@ -141,7 +141,7 @@ describe InfoRequestBatch, "when sending batches" do
                                             :public_bodies => [@first_public_body,
                                                                @second_public_body],
                                             :user => @user,
-                                            :sent_at => Time.now})
+                                            :sent_at => Time.zone.now})
   end
 
   it 'should send requests and notifications for only unsent batch requests' do

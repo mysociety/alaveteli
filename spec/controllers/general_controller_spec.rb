@@ -152,9 +152,9 @@ describe GeneralController, "when showing the frontpage" do
     info_request = mock_model(InfoRequest, :public_body => public_body,
                               :title => 'Example Request',
                               :url_title => 'example_request')
-    info_request_event = mock_model(InfoRequestEvent, :created_at => Time.now,
+    info_request_event = mock_model(InfoRequestEvent, :created_at => Time.zone.now,
                                     :info_request => info_request,
-                                    :described_at => Time.now,
+                                    :described_at => Time.zone.now,
                                     :search_text_main => 'example text')
     xapian_result = double('xapian result', :results => [{:model => info_request_event}])
     allow(controller).to receive(:perform_search).and_return(xapian_result)
@@ -231,7 +231,7 @@ describe GeneralController, "when showing the frontpage" do
     it 'should set a time to live on a non "remember me" session' do
       get :frontpage
       expect(response.body).to match @user.name
-      expect(session[:ttl]).to be_within(1).of(Time.now)
+      expect(session[:ttl]).to be_within(1).of(Time.zone.now)
     end
 
     it 'should not set a time to live on a "remember me" session' do
@@ -242,7 +242,7 @@ describe GeneralController, "when showing the frontpage" do
     end
 
     it 'should end a logged-in session whose ttl has expired' do
-      session[:ttl] = Time.now - 4.hours
+      session[:ttl] = Time.zone.now - 4.hours
       get :frontpage
       expect(session[:user_id]).to be_nil
     end
@@ -254,6 +254,19 @@ describe GeneralController, "when showing the frontpage" do
       expect(response).to have_http_status(200)
     end
 
+  end
+
+  describe 'when handling pro users' do
+    before do
+      @user = FactoryGirl.create(:pro_user)
+      session[:user_id] = @user.id
+      allow(controller).to receive(:feature_enabled?).with(:alaveteli_pro).and_return(true)
+    end
+
+    it 'should redirect pro users to the pro dashboard' do
+      get :frontpage
+      expect(@response).to redirect_to alaveteli_pro_dashboard_path
+    end
   end
 
 end

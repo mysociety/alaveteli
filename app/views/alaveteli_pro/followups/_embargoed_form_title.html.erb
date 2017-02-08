@@ -1,0 +1,17 @@
+<% if @internal_review %>
+  <h1><%= _('Request an internal review from {{person_or_body}}',
+            :person_or_body => name_for_followup) %></h1>
+<% elsif incoming_message.nil? || !incoming_message.valid_to_reply_to? %>
+  <h2><%= _('Send a follow up message to {{person_or_body}}',
+            :person_or_body => name_for_followup) %>
+  </h2>
+<% else %>
+  <h2><%= _('Send a reply to {{person_or_body}}',
+          :person_or_body => name_for_followup) %>
+  </h2>
+<% end %>
+<p>
+  <strong>
+    <%= _("Note: This message will be made public when the embargo ends") %>
+  </strong>
+</p>

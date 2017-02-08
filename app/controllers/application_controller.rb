@@ -17,12 +17,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :if => :user?
   skip_before_filter :verify_authenticity_token, :unless => :user?
 
+  # Deal with access denied errors from CanCan
+  rescue_from CanCan::AccessDenied do |exception|
+    raise PermissionDenied
+  end
+
   # assign our own handler method for non-local exceptions
   rescue_from Exception, :with => :render_exception
 
   # Standard headers, footers and navigation for whole site
   layout "default"
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
+  include AlaveteliPro::PostRedirectHandler
 
   # Note: a filter stops the chain if it redirects or renders something
   before_filter :authentication_check
@@ -132,7 +138,7 @@ class ApplicationController < ActionController::Base
   end
 
   def persist_session_timestamp
-    session[:ttl] = Time.now if session[:user_id] && !session[:remember_me]
+    session[:ttl] = Time.zone.now if session[:user_id] && !session[:remember_me]
   end
 
   # Logout form
@@ -294,14 +300,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # For CanCanCan and other libs which need a Devise-like current_user method
+  alias_method :current_user, :authenticated_user
+  helper_method :current_user
+
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
-  def do_post_redirect(post_redirect)
+  def do_post_redirect(post_redirect, user=nil)
     uri = URI.parse(post_redirect.uri).path
-
+    if feature_enabled?(:alaveteli_pro) && user && user.pro?
+      uri = override_post_redirect_for_pro(uri, post_redirect, user)
+    end
     session[:post_redirect_token] = post_redirect.token
+    uri = add_post_redirect_param_to_uri(uri)
+    redirect_to uri
+  end
 
+  def add_post_redirect_param_to_uri(uri)
     # TODO: what is the built in Ruby URI munging function that can do this
     # choice of & vs. ? more elegantly than this dumb if statement?
     if uri.include?("?")
@@ -319,7 +335,7 @@ class ApplicationController < ActionController::Base
         uri += "?post_redirect=1"
       end
     end
-    redirect_to uri
+    return uri
   end
 
   # If we are in a faked redirect to POST request, then set post params.
@@ -343,7 +359,7 @@ class ApplicationController < ActionController::Base
   #
   def check_read_only
     if !AlaveteliConfiguration::read_only.empty?
-      if AlaveteliConfiguration::enable_annotations
+      if feature_enabled?(:annotations)
         flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
                            :site_name => site_name,
                            :read_only => AlaveteliConfiguration::read_only)

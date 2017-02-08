@@ -6,6 +6,12 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackMailer < ApplicationMailer
+  # Note that this is different from all the other mailers, as tracks are
+  # sent from a different email address and have different bounce handling.
+  def contact_from_name_and_email
+    "#{AlaveteliConfiguration::track_sender_name} <#{AlaveteliConfiguration::track_sender_email}>"
+  end
+
   def event_digest(user, email_about_things)
     @user, @email_about_things = user, email_about_things
 
@@ -27,20 +33,16 @@ class TrackMailer < ApplicationMailer
                        :site_name => site_name.html_safe))
   end
 
-  def contact_from_name_and_email
-    "#{AlaveteliConfiguration::track_sender_name} <#{AlaveteliConfiguration::track_sender_email}>"
-  end
-
   # Send email alerts for tracked things.  Never more than one email
   # a day, nor about events which are more than a week old, nor
   # events about which emails have been sent within the last two
   # weeks.
 
   # Useful query to run by hand to see how many alerts are due:
-  #   User.where("last_daily_track_email < ?", Time.now - 1.day).size
+  #   User.where("last_daily_track_email < ?", Time.zone.now - 1.day).size
   def self.alert_tracks
     done_something = false
-    now = Time.now
+    now = Time.zone.now
     one_week_ago = now - 7.days
     User.find_each(:conditions => [ "last_daily_track_email < ?",
     now - 1.day ]) do |user|

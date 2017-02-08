@@ -41,9 +41,13 @@ class InfoRequestEvent < ActiveRecord::Base
     'move_request', # changed user or public body (in admin interface)
     'hide', # hid a request (in admin interface)
     'manual', # you did something in the db by hand
-    'response',
-    'comment',
-    'status_update'
+    'response', # an incoming message is received
+    'comment', # an annotation is added
+    'status_update', # someone updates the status of the request
+    'overdue', # the request becomes overdue
+    'very_overdue', # the request becomes very overdue
+    'expire_embargo', # an embargo on the request expires
+    'set_embargo' # an embargo is added or extended
   ].freeze
 
   belongs_to :info_request
@@ -71,7 +75,7 @@ class InfoRequestEvent < ActiveRecord::Base
   validate :must_be_valid_state
 
   def must_be_valid_state
-    if described_state and !InfoRequest.enumerate_states.include?(described_state)
+    if described_state and !InfoRequest::State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
     end
   end
@@ -346,6 +350,31 @@ class InfoRequestEvent < ActiveRecord::Base
     comment_id? or (comment if new_record?)
   end
 
+  def resets_due_dates?
+     is_request_sending? || is_clarification?
+  end
+
+  def is_request_sending?
+    ['sent', 'resent'].include?(event_type)
+  end
+
+  def is_clarification?
+    waiting_clarification = false
+    # A follow up is a clarification only if it's the first
+    # follow up when the request is in a state of
+    # waiting for clarification
+    previous_events(:reverse => true).each do |event|
+      if event.described_state == 'waiting_clarification'
+        waiting_clarification = true
+        break
+      end
+      if event.event_type == 'followup_sent'
+        break
+      end
+    end
+    waiting_clarification && event_type == 'followup_sent'
+  end
+
   # Display version of status
   def display_status
     if is_incoming_message?
@@ -453,12 +482,22 @@ class InfoRequestEvent < ActiveRecord::Base
   def set_calculated_state!(state)
     unless calculated_state == state
       self.calculated_state = state
-      self.last_described_at = Time.now
+      self.last_described_at = Time.zone.now
       save!
     end
   end
 
   private
+
+  def previous_events(opts = {})
+    order = opts[:reverse] ? 'created_at DESC' : 'created_at'
+    events = self
+              .class
+                .where(:info_request_id => info_request_id)
+                  .where('created_at < ?', self.created_at)
+                    .order(order)
+
+  end
 
   def sibling_events(opts = {})
     order = opts[:reverse] ? 'created_at DESC' : 'created_at'

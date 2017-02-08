@@ -8,11 +8,11 @@
 class RequestGameController < ApplicationController
 
   def play
-    session[:request_game] = Time.now
+    session[:request_game] = Time.zone.now
 
     @missing = InfoRequest.
       where_old_unclassified.
-        where(:prominence => 'normal').
+        is_searchable.
           count
     @total = InfoRequest.count
     @done = @total - @missing
@@ -21,7 +21,7 @@ class RequestGameController < ApplicationController
       includes(:public_body, :user).
         where_old_unclassified.
           limit(3).
-            where(:prominence => 'normal').
+            is_searchable.
               order('random()')
 
     if @missing == 0
@@ -30,7 +30,8 @@ class RequestGameController < ApplicationController
                          :site_name => site_name)
     end
 
-    @league_table_28_days = RequestClassification.league_table(10, [ "created_at >= ?", Time.now - 28.days ])
+    @league_table_28_days = RequestClassification.league_table(10,
+      [ "created_at >= ?", Time.zone.now - 28.days ])
     @league_table_all_time = RequestClassification.league_table(10)
     @play_urls = true
   end

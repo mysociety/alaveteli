@@ -4,6 +4,55 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe CommentController, "when commenting on a request" do
   render_views
 
+  describe 'dealing with embargoed requests' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:embargoed_request) do
+      FactoryGirl.create(:embargoed_request, user: pro_user)
+    end
+
+    context "when the user is not logged in" do
+      it 'returns a 404 when the info request is embargoed' do
+        expect{ post :new, :url_title => embargoed_request.url_title,
+                           :comment => { :body => "Some content" },
+                           :type => 'request',
+                           :submitted_comment => 1,
+                           :preview => 1 }
+          .to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+
+    context "when the user is logged in but not the request owner" do
+      before do
+        session[:user_id] = user.id
+      end
+
+      it 'returns a 404 when the info request is embargoed' do
+        expect{ post :new, :url_title => embargoed_request.url_title,
+                           :comment => { :body => "Some content" },
+                           :type => 'request',
+                           :submitted_comment => 1,
+                           :preview => 1 }
+          .to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+
+    context "when the user is the request owner" do
+      before do
+        session[:user_id] = pro_user.id
+      end
+
+      it 'allows them to comment' do
+        post :new, :url_title => embargoed_request.url_title,
+                   :comment => { :body => "Some content" },
+                   :type => 'request',
+                   :submitted_comment => 1,
+                   :preview => 1
+        expect(response).to be_success
+      end
+    end
+  end
+
   it "should give an error and render 'new' template when body text is just some whitespace" do
     post :new, :url_title => info_requests(:naughty_chicken_request).url_title,
       :comment => { :body => "   " },
@@ -71,7 +120,7 @@ describe CommentController, "when commenting on a request" do
   end
 
   it "should not allow comments if comments are not allowed globally" do
-    allow(AlaveteliConfiguration).to receive(:enable_annotations).and_return(false)
+    allow(controller).to receive(:feature_enabled?).with(:annotations).and_return(false)
     session[:user_id] = users(:silly_name_user).id
     info_request = info_requests(:fancy_dog_request)
 
@@ -161,6 +210,22 @@ describe CommentController, "when commenting on a request" do
 
     end
 
+  end
+
+  context 'when commenting on an embargoed request' do
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:embargoed_request) do
+      FactoryGirl.create(:embargoed_request, user: pro_user)
+    end
+
+    it "sets @in_pro_area" do
+      session[:user_id] = pro_user.id
+      with_feature_enabled(:alaveteli_pro) do
+        get :new, :url_title => embargoed_request.url_title,
+                  :type => 'request'
+        expect(assigns[:in_pro_area]).to eq true
+      end
+    end
   end
 
 end
