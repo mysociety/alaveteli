@@ -149,7 +149,7 @@ namespace :graphs do
     ENV["GDFONTPATH"] = "/usr/share/fonts/truetype/ttf-bitstream-vera"
 
     def assemble_sql(where_clause="")
-      "SELECT DATE(created_at), COUNT(*) " \
+      "SELECT DATE(info_requests.created_at), COUNT(*) " \
               "FROM info_requests " \
               "LEFT OUTER JOIN embargoes " \
               "ON embargoes.info_request_id = info_requests.id " \
