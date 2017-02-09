@@ -61,6 +61,7 @@ require 'user_spam_scorer'
 require 'alaveteli_rate_limiter'
 require 'alaveteli_spam_term_checker'
 require 'alaveteli_pro/post_redirect_handler'
+require 'user_stats'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
