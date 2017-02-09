@@ -223,6 +223,7 @@ class MailServerLog < ActiveRecord::Base
     end
 
     if opts[:redact]
+      line = strip_syslog_prefix(line)
       line = redact_hostname(line) if sent_to_smarthost?(line)
       line =
         redact_idhash(line, info_request.idhash) if info_request.try(:idhash)
@@ -272,6 +273,16 @@ class MailServerLog < ActiveRecord::Base
       PostfixLine
     else
       raise "Unexpected MTA type: #{ mta }"
+    end
+  end
+
+  def strip_syslog_prefix(line)
+    prefix_regexp = /\A(.*?\s)\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}.*\z/
+    match = line.match(prefix_regexp).try(:[], 1)
+    if match
+      line.gsub(match, '')
+    else
+      line
     end
   end
 

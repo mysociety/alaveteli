@@ -364,6 +364,18 @@ describe MailServerLog do
         redacted = log.line(:redact => true)
         expect(redacted).to include('secret.ukcod.org.uk [127.0.0.1]:25')
       end
+
+      it 'strips syslog prefixes' do
+        log = MailServerLog.new(:line => <<-EOF.squish)
+        Jan  1 16:26:57 secret exim[15407]: 2017-01-01 16:26:57
+        [15407] 1cNiyG-00040U-Ls => body@example.com…
+        EOF
+
+        expect(log.line(:redact => true)).to eq(<<-EOF.squish)
+        2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls => body@example.com…
+        EOF
+      end
+
     end
   end
 
