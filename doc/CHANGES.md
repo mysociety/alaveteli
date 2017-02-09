@@ -6,6 +6,11 @@
   with the option to ban by domain if required (Liz Conlan)
 * Added a data export task to help with research (Alex Parsons)
 
+# 0.27.0.2
+
+## Highlighted Features
+* Made `script/alert-expiring-embargoes` executable (Louise Crow)
+
 # 0.27.0.1
 
 ## Highlighted Features
