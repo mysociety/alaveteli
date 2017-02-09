@@ -65,8 +65,13 @@ namespace :temp do
   task :populate_request_due_dates => :environment do
     ActiveRecord::Base.record_timestamps = false
     begin
-      InfoRequest.find_each do |info_request|
-        info_request.set_due_dates(info_request.last_event_forming_initial_request)
+      InfoRequest.find_each(:conditions => 'last_event_forming_initial_request_id is NULL') do |info_request|
+        sent_event = info_request.last_event_forming_initial_request
+        info_request.last_event_forming_initial_request_id = sent_event.id
+        info_request.date_initial_request_last_sent_at = sent_event.created_at.to_date
+        info_request.date_response_required_by = info_request.calculate_date_response_required_by
+        info_request.date_very_overdue_after = info_request.calculate_date_very_overdue_after
+        info_request.save(:validate => false)
       end
     ensure
       ActiveRecord::Base.record_timestamps = true
