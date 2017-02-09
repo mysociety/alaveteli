@@ -1,3 +1,12 @@
+# 0.27.0.1
+
+## Highlighted Features
+* Added some more documentation on the 0.27.0.0 release (Louise Crow)
+* Fixed `rake temp:populate_request_due_dates` to not validate requests
+  on saving, or try to populate fields that have already been populated
+  (Louise Crow)
+* Fixed a typo in the `delete-expired-embargoes` script
+
 # 0.27.0.0
 
 ## Highlighted Features
@@ -15,6 +24,8 @@
   (Steve Day, Martin Wright, Louise Crow)
 
 ## Upgrade Notes
+* You can run this release without using the Alaveteli Pro functionality - by
+  default it is switched off.
 * Please update any overriden templates and theme code that reference times and
   dates to reference the local time zone where appropriate. e.g.
 
@@ -26,6 +37,10 @@
   how Rails handles time zones
 * To store the significant dates for requests in the database, you must run
   `bundle exec rake temp:populate_request_due_dates` after deployment.
+* To store events identifying at what point requests became overdue and very
+  overdue, you must run `bundle exec rake temp:backload_overdue_info_request_events`
+  and `bundle exec rake temp:backload_very_overdue_info_request_events`.
+
 * There are some database structure updates so remember to `rake db:migrate`
 
 ### Changed Templates
