@@ -11,7 +11,7 @@ describe "When creating requests" do
   it "should associate the request with the requestor, even if it is approved by an admin" do
     using_session(without_login) do
       # This is a test for https://github.com/mysociety/alaveteli/issues/446
-      create_request
+      create_request(public_bodies(:geraldine_public_body))
       # Now log in as an unconfirmed user.
       visit signin_path :token => get_last_post_redirect.token
       within '#signin_form' do

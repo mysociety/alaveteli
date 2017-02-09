@@ -4,9 +4,13 @@ require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
 describe "creating requests in alaveteli_pro" do
   context "when writing a new request from scratch" do
-    let!(:public_body) { FactoryGirl.create(:public_body) }
+    let!(:public_body) { FactoryGirl.create(:public_body, :name => 'example') }
     let!(:pro_user) { FactoryGirl.create(:pro_user) }
     let!(:pro_user_session) { login(pro_user) }
+
+    before do
+      update_xapian_index
+    end
 
     it "allows us to save a draft" do
       using_pro_session(pro_user_session) do
@@ -199,7 +203,7 @@ describe "creating requests in alaveteli_pro" do
     it "redirects to the pro page if the user starts the normal process" do
       # Make a request in the normal way
       with_feature_enabled(:alaveteli_pro) do
-        create_request
+        create_request(public_body)
 
         # Sign in page
         within '#signin_form' do
@@ -217,7 +221,8 @@ describe "creating requests in alaveteli_pro" do
                                     "add an embargo before sending it. You can " \
                                     "set that (or just send it straight away) " \
                                     "using the form below.")
-        expect(page).to have_select("To", selected: "Geraldine Quango")
+        expect(page).to have_select("To", selected: public_body.name)
+
         expect(page).to have_field("Summary",
                                    with: "Why is your quango called Geraldine?")
         expect(page).to have_field("Your request",
