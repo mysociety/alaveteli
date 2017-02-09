@@ -27,7 +27,13 @@
           <%= f.text_field(:public_body_id,
             { :placeholder => _('Search for an authority'),
               :class => 'js-authority-select',
-              'data-search-url' => '/alaveteli_pro/public_bodies'
+              'data-search-url' => '/alaveteli_pro/public_bodies',
+              'data-initial-authority' => {
+                :id => @info_request.public_body ? @info_request.public_body.id : nil,
+                :name => @info_request.public_body ? @info_request.public_body.name : nil,
+                :notes => @info_request.public_body ? @info_request.public_body.notes : nil,
+                :infoRequestsVisibleCount => @info_request.public_body ? @info_request.public_body.info_requests_visible_count : nil
+              }.to_json
             }) %>
         </p>
       </div>
