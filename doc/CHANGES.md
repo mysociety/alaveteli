@@ -1,3 +1,12 @@
+# 0.27.0.1
+
+## Highlighted Features
+* Added some more documentation on the 0.27.0.0 release (Louise Crow)
+* Fixed `rake temp:populate_request_due_dates` to not validate requests
+  on saving, or try to populate fields that have already been populated
+  (Louise Crow)
+* Fixed a typo in the `delete-expired-embargoes` script
+
 # 0.27.0.0
 
 ## Highlighted Features
