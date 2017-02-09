@@ -1,3 +1,10 @@
+# develop
+
+## Highlighted Features
+
+* Added a set of rake tasks to provide stats on user signups by email domain
+  with the option to ban by domain if required (Liz Conlan)
+
 # 0.27.0.1
 
 ## Highlighted Features
