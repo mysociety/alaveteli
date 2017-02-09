@@ -12,7 +12,7 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
 
     if @show_mail_server_logs
       @mail_server_logs = @outgoing_message.mail_server_logs.map do |log|
-        log.line(:redact_idhash => !@user.super?)
+        log.line(:redact => !@user.super?)
       end
     end
 
