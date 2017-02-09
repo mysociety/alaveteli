@@ -5,13 +5,14 @@
     var defaultAuthorityName = $message.data('salutation-body-name');
     var currentAuthorityName = defaultAuthorityName;
     var salutationTemplate = $message.data('salutation-template');
+    var searchUrl = $select.data('search-url');
 
-    var updateSalutation = function updateSalutation(value) {
+    var updateSalutation = function updateSalutation(value, $item) {
       var oldAuthorityName = currentAuthorityName;
       var oldSalutation = salutationTemplate.replace(defaultAuthorityName, oldAuthorityName);
       var oldMessage = $message.val();
 
-      var newAuthorityName = $select.find('option:selected').text();
+      var newAuthorityName = $item.text();
       var newSalutation = salutationTemplate.replace(defaultAuthorityName, newAuthorityName);
       var newMessage = oldMessage.replace(oldSalutation, newSalutation);
 
@@ -22,7 +23,8 @@
     $select.selectize({
       valueField: 'id',
       labelField: 'name',
-      searchField: 'name',
+      searchField: ['name', 'notes'],
+      sortField: ['weight'],
       options: [],
       create: false,
       maxItems: 1,
@@ -37,7 +39,14 @@
           return html;
         }
       },
-      onChange: updateSalutation
+      onItemAdd: updateSalutation,
+      load: function(query, callback) {
+        if (!query.length) return callback();
+        $.getJSON(
+            searchUrl + '/' + encodeURIComponent(query),
+            callback
+          ).fail(callback);
+      }
     });
   });
 })(window.jQuery);
