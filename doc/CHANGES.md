@@ -1,3 +1,8 @@
+# 0.27.0.2
+
+## Highlighted Features
+* Made `script/alert-expiring-embargoes` executable (Louise Crow)
+
 # 0.27.0.1
 
 ## Highlighted Features
