@@ -15,6 +15,8 @@
   (Steve Day, Martin Wright, Louise Crow)
 
 ## Upgrade Notes
+* You can run this release without using the Alaveteli Pro functionality - by
+  default it is switched off.
 * Please update any overriden templates and theme code that reference times and
   dates to reference the local time zone where appropriate. e.g.
 
