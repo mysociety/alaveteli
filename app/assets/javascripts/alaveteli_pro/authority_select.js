@@ -2,10 +2,20 @@
   $(function(){
     var $select = $('.js-authority-select');
     var $message = $('.js-outgoing-message-body');
-    var defaultAuthorityName = $message.data('salutation-body-name');
-    var currentAuthorityName = defaultAuthorityName;
-    var salutationTemplate = $message.data('salutation-template');
     var searchUrl = $select.data('search-url');
+    var initialOptions = [];
+    var initialAuthority;
+    if($select.data('initial-authority').id) {
+      initialAuthority = $select.data('initial-authority');
+      initialOptions = [initialAuthority];
+    }
+    var defaultAuthorityName = $message.data('salutation-body-name');
+    var salutationTemplate = $message.data('salutation-template');
+
+    var currentAuthorityName = defaultAuthorityName;
+    if (initialAuthority) {
+      currentAuthorityName = initialAuthority.name;
+    }
 
     var updateSalutation = function updateSalutation(value, $item) {
       var oldAuthorityName = currentAuthorityName;
@@ -25,7 +35,7 @@
       labelField: 'name',
       searchField: ['name', 'notes'],
       sortField: ['weight'],
-      options: [],
+      options: initialOptions,
       create: false,
       maxItems: 1,
       render: {
