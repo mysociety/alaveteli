@@ -604,7 +604,11 @@ Alaveteli::Application.routes.draw do
       end
       resources :embargoes, :only => [:destroy]
       resources :embargo_extensions, :only => [:create]
+      match '/public_bodies/:query' => 'public_bodies#search',
+            :via => :get,
+            :as => :public_bodies_search
     end
+
     # So that we can show a request using the existing controller from the
     # pro context
     match '/alaveteli_pro/info_requests/:url_title' => 'request#show',

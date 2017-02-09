@@ -17,7 +17,7 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
+        fill_in "To", with: public_body.id
         fill_in "Summary", with: "Does the pro request form work?"
         fill_in "Your request", with: "A very short letter."
         select "3 Months", from: "Embargo"
@@ -35,7 +35,7 @@ describe "creating requests in alaveteli_pro" do
           "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
 
         # The page should pre-fill the form with data from the draft
-        expect(page).to have_select("To", selected: public_body.name)
+        expect(page).to have_field("To", with: public_body.id)
         expect(page).to have_field("Summary",
                                    with: "Does the pro request form work?")
         expect(page).to have_field("Your request",
@@ -49,7 +49,7 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
+        fill_in "To", with: public_body.id
         fill_in "Summary", with: "Does the pro request form work?"
         fill_in "Your request", with: "A very short letter."
         select "3 Months", from: "Embargo"
@@ -77,7 +77,7 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
+        fill_in "To", with: public_body.id
         fill_in "Summary", with: "Does the pro request form work?"
         fill_in "Your request", with: "A very short letter."
         select "3 Months", from: "Embargo"
@@ -118,7 +118,7 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
+        fill_in "To", with: public_body.id
         fill_in "Summary", with: "Does the pro request form work?"
         fill_in "Your request", with: "A very short letter."
         select "3 Months", from: "Embargo"
@@ -129,7 +129,7 @@ describe "creating requests in alaveteli_pro" do
 
         # New request form again
         # The page should pre-fill the form with data from the draft
-        expect(page).to have_select("To", selected: public_body.name)
+        expect(page).to have_field("To", with: public_body.id)
         expect(page).to have_field("Summary",
                                    with: "Does the pro request form work?")
         expect(page).to have_field("Your request",
@@ -188,7 +188,7 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
+        fill_in "To", with: public_body.name
         click_button "Save draft"
 
         # New request form with errors
@@ -222,7 +222,6 @@ describe "creating requests in alaveteli_pro" do
                                     "set that (or just send it straight away) " \
                                     "using the form below.")
         expect(page).to have_select("To", selected: public_body.name)
-
         expect(page).to have_field("Summary",
                                    with: "Why is your quango called Geraldine?")
         expect(page).to have_field("Your request",

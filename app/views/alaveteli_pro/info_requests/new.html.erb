@@ -24,11 +24,11 @@
           <label for="info_request_public_body_id">
             <span class="to_public_body_label"><%= _('To') %></span>
           </label>
-          <%= f.select(
-            :public_body_id,
-            public_body_options(@info_request.public_body_id),
-            { :prompt => _('Select an authority') },
-            { :class => 'js-authority-select' }) %>
+          <%= f.text_field(:public_body_id,
+            { :placeholder => _('Search for an authority'),
+              :class => 'js-authority-select',
+              'data-search-url' => '/alaveteli_pro/public_bodies'
+            }) %>
         </p>
       </div>
     </div>
