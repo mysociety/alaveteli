@@ -4,6 +4,7 @@
 
 * Added a set of rake tasks to provide stats on user signups by email domain
   with the option to ban by domain if required (Liz Conlan)
+* Added a data export task to help with research (Alex Parsons)
 
 # 0.27.0.1
 
