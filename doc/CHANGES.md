@@ -26,6 +26,10 @@
   how Rails handles time zones
 * To store the significant dates for requests in the database, you must run
   `bundle exec rake temp:populate_request_due_dates` after deployment.
+* To store events identifying at what point requests became overdue and very
+  overdue, you must run `bundle exec rake temp:backload_overdue_info_request_events`
+  and `bundle exec rake temp:backload_very_overdue_info_request_events`.
+
 * There are some database structure updates so remember to `rake db:migrate`
 
 ### Changed Templates
