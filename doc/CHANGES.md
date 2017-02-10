@@ -45,7 +45,12 @@
 * To store events identifying at what point requests became overdue and very
   overdue, you must run `bundle exec rake temp:backload_overdue_info_request_events`
   and `bundle exec rake temp:backload_very_overdue_info_request_events`.
-
+* This release contains some fairly extensive template changes, including the header
+  change mentioned in Highlighted Features. If you're deploying in place (rather
+  than using capistrano), you may find you need to run `bundle exec rake
+  assets:clean`, `bundle exec rake
+  assets:precompile` and restart your app server to fully flush cached old
+  templates.
 * There are some database structure updates so remember to `rake db:migrate`
 
 ### Changed Templates
