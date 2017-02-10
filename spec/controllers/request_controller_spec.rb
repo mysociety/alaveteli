@@ -913,16 +913,6 @@ describe RequestController, "when searching for an authority" do
     get_fixtures_xapian_index
   end
 
-  it "should redirect pros to the info request form for pros" do
-    with_feature_enabled(:alaveteli_pro) do
-      pro_user = FactoryGirl.create(:pro_user)
-      public_body = FactoryGirl.create(:public_body)
-      session[:user_id] = pro_user.id
-      get :select_authority
-      expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
-    end
-  end
-
   it "should return nothing for the empty query string" do
     session[:user_id] = @user.id
     get :select_authority, :query => ""
@@ -967,6 +957,39 @@ describe RequestController, "when searching for an authority" do
     expect(flash[:search_params]).to eq(search_params)
   end
 
+  describe 'when params[:pro] is true' do
+    it "should set @in_pro_area to true" do
+      get :select_authority, pro: "1"
+      expect(assigns[:in_pro_area]).to be true
+    end
+
+    it "should not redirect pros to the info request form for pros" do
+      with_feature_enabled(:alaveteli_pro) do
+        pro_user = FactoryGirl.create(:pro_user)
+        public_body = FactoryGirl.create(:public_body)
+        session[:user_id] = pro_user.id
+        get :select_authority, pro: "1"
+        expect(response).to be_success
+      end
+    end
+  end
+
+  describe 'when params[:pro] is not set' do
+    it "should set @in_pro_area to false" do
+      get :select_authority
+      expect(assigns[:in_pro_area]).to be false
+    end
+
+    it "should redirect pros to the info request form for pros" do
+      with_feature_enabled(:alaveteli_pro) do
+        pro_user = FactoryGirl.create(:pro_user)
+        public_body = FactoryGirl.create(:public_body)
+        session[:user_id] = pro_user.id
+        get :select_authority
+        expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
+      end
+    end
+  end
 end
 
 describe RequestController, "when creating a new request" do

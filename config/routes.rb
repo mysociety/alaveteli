@@ -615,6 +615,13 @@ Alaveteli::Application.routes.draw do
       :as => :show_alaveteli_pro_request,
       :via => :get,
       :defaults => { :pro => "1" }
+
+    # So that we can show the authority selection screen using the existing
+    # controller but in a pro context
+    match '/alaveteli_pro/select_authority' => 'request#select_authority',
+        :as => :alaveteli_pro_select_authority,
+        :via => :get,
+        :defaults => { :pro => "1" }
   end
   ####
 
