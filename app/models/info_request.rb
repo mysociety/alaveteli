@@ -63,6 +63,13 @@ class InfoRequest < ActiveRecord::Base
     :message => _('Please keep the summary short, like in the subject of an ' \
                   'email. You can use a phrase, rather than a full sentence.')
   }
+  validates :title, :length => {
+    :minimum => 3,
+    :message => _('Summary is too short. Please be a little more descriptive ' \
+                  'about the information you are asking for.'),
+    :unless => Proc.new { |info_request| info_request.title.blank? },
+    :on => :create
+  }
 
   belongs_to :user, :counter_cache => true
   validate :must_be_internal_or_external
@@ -1603,12 +1610,22 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def title_formatting
-    if title && !MySociety::Validate.uses_mixed_capitals(title, 10)
+    return unless title
+    unless MySociety::Validate.uses_mixed_capitals(title, 1) ||
+      title_starts_with_number || title_is_acronym(6)
       errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
     end
-    if title && title =~ /^(FOI|Freedom of Information)\s*requests?$/i
+    if title =~ /^(FOI|Freedom of Information)\s*requests?$/i
       errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
     end
+  end
+
+  def title_is_acronym(max_length)
+    title.upcase == title && title.length <= max_length && !title.include?(" ")
+  end
+
+  def title_starts_with_number
+    title.include?(" ") && title.split(" ").first =~ /^\d+$/
   end
 
   def self.add_conditions_from_extra_params(params, extra_params)

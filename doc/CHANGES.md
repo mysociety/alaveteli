@@ -5,6 +5,10 @@
 * Added a set of rake tasks to provide stats on user signups by email domain
   with the option to ban by domain if required (Liz Conlan)
 * Added a data export task to help with research (Alex Parsons)
+* Add slightly stricter constraints to InfoRequest summaries to prevent really
+  short titles like "re" from being used while still allowing acronyms like
+  RNIB through - only affects new requests, pre-existing requests which don't
+  meet these new requirements will still be treated as valid (Liz Conlan)
 
 # 0.27.0.2
 
