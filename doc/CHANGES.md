@@ -1,4 +1,11 @@
-0.26.0.8
+# 0.26.0.9
+
+## Highlighted Features
+
+* Fix a bug that meant a Postgres collation that was not compatible with the
+  local database encoding could be chosen (Liz Conlan)
+
+# 0.26.0.8
 
 ## Highlighted Features
 
