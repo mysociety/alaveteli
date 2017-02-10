@@ -3,8 +3,6 @@ require 'spec_helper'
 RSpec.describe AlaveteliPro::PublicBodiesController do
 
   describe "#search" do
-    # Note: these specs rely on the global fixture data loaded by spec_helper
-    # because they need public bodies to be indexed in Xapian
     let!(:pro_user) { FactoryGirl.create(:pro_user) }
     let!(:body) { FactoryGirl.create(:public_body, :name => 'example') }
 
