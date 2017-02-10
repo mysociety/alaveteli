@@ -1,3 +1,8 @@
+# 0.27.0.3
+
+## Highlighted Features
+* Added some more documentation on the 0.27.0.0 release (Louise Crow)
+
 # 0.27.0.2
 
 ## Highlighted Features
