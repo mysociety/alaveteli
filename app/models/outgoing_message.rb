@@ -448,11 +448,33 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def exim_mail_server_logs
-    mta_ids.flat_map do |mta_id|
+    logs = mta_ids.flat_map do |mta_id|
       info_request.
         mail_server_logs.
           where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
     end
+
+    more_mta_ids = logs.flat_map do |log|
+      line = log.line(:decorate => true)
+      if line.delivery_status.delivered?
+        # TODO: Non-greedy?
+        # match = line.match(/C=".*id=(\w+-\w+-\w+).*"/)
+        match = line.to_s.match(/C=".*?id=(?<message_id>\w+-\w+-\w+).*"/)
+        match[:message_id] if match
+      end
+    end
+
+    more_mta_ids.compact!
+
+    more_logs = more_mta_ids.flat_map do |mta_id|
+      info_request.
+        mail_server_logs.
+          where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
+    end
+
+    # Need to call #uniq because the more_logs query pulls out the initial
+    # delivery line
+    (logs + more_logs).uniq
   end
 
   def postfix_mta_ids
