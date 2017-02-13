@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Handle parsing mail server logs when using a smarthost (Gareth Rees)
 * Removed a reference to `MySociety::Config` (Caleb Tutty)
 * Hide admin navigation items in request PDF download (Gareth Rees)
 * Added a set of rake tasks to provide stats on user signups by email domain
@@ -13,6 +14,9 @@
   meet these new requirements will still be treated as valid (Liz Conlan)
 
 ## Upgrade Notes
+
+* The `:redact_idhash` option of `MailServerLog#line` has been replaced by the
+  `:redact` option. It will be removed in release 0.29.
 
 ### Changed Templates
 
