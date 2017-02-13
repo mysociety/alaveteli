@@ -78,6 +78,7 @@ group :test do
   gem 'coveralls', :require => false
   gem 'capybara', '~> 2.7.0'
   gem 'delorean', '~> 2.1.0'
+  gem 'poltergeist'
 end
 
 group :test, :development do
