@@ -36,6 +36,10 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 # Use test-specific translations
 AlaveteliLocalization.set_default_text_domain('app', File.join(File.dirname(__FILE__), 'fixtures', 'locale'))
 
+# Use Poltergeist to run javascript integration tests with Capybara
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
