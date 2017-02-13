@@ -40,6 +40,21 @@ AlaveteliLocalization.set_default_text_domain('app', File.join(File.dirname(__FI
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
 
+# Monkey patch ActiveRecord so that capybara and poltergeist can share a
+# connection
+class ActiveRecord::Base
+  mattr_accessor :shared_connection
+  @@shared_connection = nil
+
+  def self.connection
+    @@shared_connection || retrieve_connection
+  end
+end
+
+# Forces all threads to share the same connection. This works on
+# Capybara because it starts the web server in a thread.
+ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
