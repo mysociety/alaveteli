@@ -208,15 +208,27 @@ class MailServerLog < ActiveRecord::Base
   # Public: Overrides the ActiveRecord attribute accessor
   #
   # opts = Hash of options (default: {})
-  #        :redact_idhash - Redacts instances of the InfoRequest#idhash
+  #        :redact_idhash – DEPRECATED
+  #        :redact - Redacts potentially sensitive information from the line
   #        :decorate - Wrap the line in a decorator appropriate to the MTA
   #
   # Returns a String, EximLine or PostfixLine
   def line(opts = {})
     line = read_attribute(:line).dup
-    if opts[:redact_idhash] && info_request && info_request.idhash
-      line.gsub!(info_request.idhash, _('[REDACTED]'))
+
+    opts[:redact] ||= if opts[:redact_idhash]
+      warn %q([DEPRECATION] The :redact_idhash option of MailServerLog#line has
+      been replaced with :redact. :redact_idhash will be removed in 0.29).squish
+      opts[:redact_idhash]
     end
+
+    if opts[:redact]
+      line = strip_syslog_prefix(line)
+      line = redact_hostname(line) if sent_to_smarthost?(line)
+      line =
+        redact_idhash(line, info_request.idhash) if info_request.try(:idhash)
+    end
+
     line = line_decorator.new(line) if opts[:decorate]
     line
   end
@@ -262,6 +274,34 @@ class MailServerLog < ActiveRecord::Base
     else
       raise "Unexpected MTA type: #{ mta }"
     end
+  end
+
+  def strip_syslog_prefix(line)
+    prefix_regexp = /\A(.*?\s)\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}.*\z/
+    match = line.match(prefix_regexp).try(:[], 1)
+    if match
+      line.gsub(match, '')
+    else
+      line
+    end
+  end
+
+  def sent_to_smarthost?(line)
+    line.match(/R=(\w+)/).try(:[], 1).to_s.downcase == 'send_to_smarthost'
+  end
+
+  def redact_hostname(line)
+    hostname_regexp = /H=(.*?\s\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]\:\d{1,5})/
+    match = line.match(hostname_regexp).try(:[], 1)
+    if match
+      line.gsub(match, _('[REDACTED]'))
+    else
+      line
+    end
+  end
+
+  def redact_idhash(line, idhash)
+    line.gsub(idhash, _('[REDACTED]'))
   end
 
 end

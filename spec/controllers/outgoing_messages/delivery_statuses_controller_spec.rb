@@ -88,7 +88,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     it 'assigns the delivery status of the message' do
       @logs.each do |log|
         expect(log).
-          to receive(:line).with(:redact_idhash => false).and_return(log.line)
+          to receive(:line).with(:redact => false).and_return(log.line)
       end
 
       session[:user_id] = FactoryGirl.create(:admin_user).id
@@ -138,7 +138,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     it 'assigns the redacted mail server log lines for the request owner' do
       @logs.each do |log|
         expect(log).
-          to receive(:line).with(:redact_idhash => true).and_return(log.line)
+          to receive(:line).with(:redact => true).and_return(log.line)
       end
 
       session[:user_id] = FactoryGirl.create(:user).id
@@ -158,7 +158,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     it 'assigns the unredacted mail server log lines for an admin' do
       @logs.each do |log|
         expect(log).
-          to receive(:line).with(:redact_idhash => false).and_return(log.line)
+          to receive(:line).with(:redact => false).and_return(log.line)
       end
 
       session[:user_id] = FactoryGirl.create(:admin_user).id
