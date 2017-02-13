@@ -49,6 +49,9 @@ gem 'xapian-full-alaveteli', '~> 1.2.21.1'
 gem 'xml-simple', '~> 1.1.2', :require => 'xmlsimple'
 gem 'zip', '~> 2.0.2'
 
+# Gems only used by the research export task
+gem 'gender_detector', '~> 1.0.0'
+
 # Gems related to internationalisation
 gem 'gettext_i18n_rails', '~> 0.9.4' # Later versions cause error (see blame)
 gem 'gettext', '~> 2.3.9'

@@ -54,9 +54,23 @@ class DatabaseCollation
   end
 
   def supported_collations
-    @supported_collations ||= connection.
-      execute(%q(SELECT collname FROM pg_collation;)).
-        map { |row| row['collname'] }
+    sql = <<-EOF.strip_heredoc.squish
+    SELECT collname FROM pg_collation
+    WHERE collencoding = '-1'
+    OR collencoding = '#{ database_encoding }';
+    EOF
+
+    @supported_collations ||=
+      connection.execute(sql).map { |row| row['collname'] }
+  end
+
+  def database_encoding
+    sql = <<-EOF.strip_heredoc.squish
+    SELECT encoding FROM pg_database
+    WHERE datname = '#{ connection.current_database }';
+    EOF
+
+    @database_encoding ||= connection.execute(sql).first["encoding"]
   end
 
   def adapter_name

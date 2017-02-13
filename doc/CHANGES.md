@@ -1,3 +1,42 @@
+# develop
+
+## Highlighted Features
+
+* Handle parsing mail server logs when using a smarthost (Gareth Rees)
+* Removed a reference to `MySociety::Config` (Caleb Tutty)
+* Hide admin navigation items in request PDF download (Gareth Rees)
+* Added a set of rake tasks to provide stats on user signups by email domain
+  with the option to ban by domain if required (Liz Conlan)
+* Added a data export task to help with research (Alex Parsons)
+* Add slightly stricter constraints to InfoRequest summaries to prevent really
+  short titles like "re" from being used while still allowing acronyms like
+  RNIB through - only affects new requests, pre-existing requests which don't
+  meet these new requirements will still be treated as valid (Liz Conlan)
+
+## Upgrade Notes
+
+* The `:redact_idhash` option of `MailServerLog#line` has been replaced by the
+  `:redact` option. It will be removed in release 0.29.
+
+### Changed Templates
+
+# 0.27.0.4
+
+## Highlighted Features
+
+* Fix a bug that meant a Postgres collation that was not compatible with the
+  local database encoding could be chosen (Liz Conlan)
+
+# 0.27.0.3
+
+## Highlighted Features
+* Added some more documentation on the 0.27.0.0 release (Louise Crow)
+
+# 0.27.0.2
+
+## Highlighted Features
+* Made `script/alert-expiring-embargoes` executable (Louise Crow)
+
 # 0.27.0.1
 
 ## Highlighted Features
@@ -40,7 +79,12 @@
 * To store events identifying at what point requests became overdue and very
   overdue, you must run `bundle exec rake temp:backload_overdue_info_request_events`
   and `bundle exec rake temp:backload_very_overdue_info_request_events`.
-
+* This release contains some fairly extensive template changes, including the header
+  change mentioned in Highlighted Features. If you're deploying in place (rather
+  than using capistrano), you may find you need to run `bundle exec rake
+  assets:clean`, `bundle exec rake
+  assets:precompile` and restart your app server to fully flush cached old
+  templates.
 * There are some database structure updates so remember to `rake db:migrate`
 
 ### Changed Templates
@@ -82,6 +126,12 @@
     app/views/user/rate_limited.html.erb
     app/views/user/show.html.erb
     app/views/widgets/show.html.erb
+# 0.26.0.9
+
+## Highlighted Features
+
+* Fix a bug that meant a Postgres collation that was not compatible with the
+  local database encoding could be chosen (Liz Conlan)
 
 # 0.26.0.8
 
