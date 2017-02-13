@@ -220,3 +220,73 @@ describe "creating requests in alaveteli_pro" do
     end
   end
 end
+
+describe "creating requests in alaveteli_pro with js", :js => true do
+  let!(:public_body) { FactoryGirl.create(:public_body) }
+  let!(:pro_user) { FactoryGirl.create(:pro_user) }
+  let!(:pro_user_session) { login(pro_user) }
+
+  before do
+    update_xapian_index
+  end
+
+  it "allows us to save a draft with js" do
+    using_pro_session(pro_user_session) do
+      visit 'en/profile/sign_in'
+      within '#signin_form' do
+        fill_in "Your e-mail:", :with => pro_user.email
+        fill_in "Password:", :with => "jonespassword"
+        click_button "Sign in"
+      end
+
+      # New request form
+      visit new_alaveteli_pro_info_request_path
+
+      expect(page).to have_content "Make a request"
+
+      # This is annoying, because it's not what a user would do, but this
+      # seems to be the only way we can make selectize perform an AJAX call
+      page.execute_script("$('#public_body_query-selectized').val('#{public_body.name}')")
+      page.execute_script("$('#public_body_query-selectized').keyup()")
+
+      within '.selectize-dropdown' do
+        find('.recipient-result').first.click
+      end
+
+      fill_in "Summary", with: "Does the pro request form work?"
+      fill_in "Your request", with: "A very short letter."
+      select "3 Months", from: "Embargo"
+
+      # Check that the hidden input is filled in
+      expected_input = "<input class=\"js-public-body-id\" " \
+                       "id=\"info_request_public_body_id\" " \
+                       "name=\"info_request\\[public_body_id\\]\" " \
+                       "type=\"hidden\" value=\"#{public_body.id}\" \\/>"
+      # Capybara doesn't like matching hidden inputs because users don't see
+      # them, hence why we're using a more fragile regex
+      expect(page.html).to match(/#{expected_input}/)
+
+      click_button "Save draft"
+
+      # Redirected back to new request form
+      drafts = DraftInfoRequest.where(title: "Does the pro request form work?")
+      expect(drafts).to exist
+      draft = drafts.first
+      expect(draft.body).to eq "A very short letter."
+      expect(draft.embargo_duration).to eq "3_months"
+
+      expect(page).to have_content("Your draft has been saved!")
+      expect(page).to have_content("This request will be embargoed " \
+        "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+
+      # The page should pre-fill the form with data from the draft
+      puts page.html
+      expect(page).to have_field("To", with: public_body.name)
+      expect(page).to have_field("Summary",
+                                 with: "Does the pro request form work?")
+      expect(page).to have_field("Your request",
+                                 with: "A very short letter.")
+      expect(page).to have_select("Embargo", selected: "3 Months")
+    end
+  end
+end
