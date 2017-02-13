@@ -1,3 +1,10 @@
+# 0.27.0.4
+
+## Highlighted Features
+
+* Fix a bug that meant a Postgres collation that was not compatible with the
+  local database encoding could be chosen (Liz Conlan)
+
 # 0.27.0.3
 
 ## Highlighted Features
@@ -97,6 +104,12 @@
     app/views/user/rate_limited.html.erb
     app/views/user/show.html.erb
     app/views/widgets/show.html.erb
+# 0.26.0.9
+
+## Highlighted Features
+
+* Fix a bug that meant a Postgres collation that was not compatible with the
+  local database encoding could be chosen (Liz Conlan)
 
 # 0.26.0.8
 
