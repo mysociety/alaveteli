@@ -880,16 +880,32 @@ class RequestController < ApplicationController
     # For send followup link at bottom
     @last_response = info_request.get_last_public_response
     @follower_count = @info_request.track_things.count + 1
-    @show_profile_photo = !@info_request.is_external? &&  \
-                          @info_request.user.profile_photo && \
-                          !@render_to_file
-    @show_top_describe_state_form = !@in_pro_area && \
-                                    (@update_status || \
-                                     @info_request.awaiting_description )
-    @show_bottom_describe_state_form = !@in_pro_area && \
-                                       @info_request.awaiting_description
-    @show_owner_update_status_action = !@old_unclassified
-    @show_other_user_update_status_action = @old_unclassified
+
+    @show_profile_photo = !!(
+      !@info_request.is_external? &&
+      @info_request.user.profile_photo &&
+      !@render_to_file
+    )
+
+    @show_top_describe_state_form = !!(
+      !@in_pro_area &&
+      (@update_status || @info_request.awaiting_description) &&
+      !@render_to_file
+    )
+
+    @show_bottom_describe_state_form = !!(
+      !@in_pro_area &&
+      @info_request.awaiting_description &&
+      !@render_to_file
+    )
+
+    @show_owner_update_status_action = !!(
+      !@old_unclassified && !@render_to_file
+    )
+
+    @show_other_user_update_status_action = !!(
+      @old_unclassified && !@render_to_file
+    )
   end
 
   def assign_state_transition_variables
@@ -909,6 +925,7 @@ class RequestController < ApplicationController
   end
 
   def state_transitions_empty?(transitions)
+    return true if transitions.nil?
     transitions[:pending].empty? && \
       transitions[:complete].empty? && \
       transitions[:other].empty?
@@ -936,9 +953,9 @@ class RequestController < ApplicationController
   def make_request_summary_file(info_request)
     done = false
     convert_command = AlaveteliConfiguration::html_to_pdf_command
+    @render_to_file = true
     assign_variables_for_show_template(info_request)
     if !convert_command.blank? && File.exists?(convert_command)
-      @render_to_file = true
       html_output = render_to_string(:template => 'request/show')
       tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
       tmp_input.write(html_output)

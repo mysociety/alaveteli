@@ -2826,6 +2826,24 @@ describe RequestController do
         end
       end
     end
+
+    context 'when the request is unclassified' do
+
+      it 'does not render the describe state form' do
+        info_request = FactoryGirl.create(:info_request)
+        info_request.update_attributes(:awaiting_description => true)
+        info_request.expire
+        session[:user_id] = info_request.user_id
+        get :download_entire_request, :url_title => info_request.url_title
+        expect(assigns[:show_top_describe_state_form]).to eq(false)
+        expect(assigns[:show_bottom_describe_state_form]).to eq(false)
+        expect(assigns[:show_owner_update_status_action]).to eq(false)
+        expect(assigns[:show_other_user_update_status_action]).to eq(false)
+        expect(assigns[:show_profile_photo]).to eq(false)
+      end
+
+    end
+
   end
 end
 
