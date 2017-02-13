@@ -26,6 +26,26 @@ module AlaveteliDsl
     expect(page).to have_content('To send your FOI request, create an account or sign in')
   end
 
+  # Visit and fill out the pro-specific new request form
+  # Note: you'll need to create a body using the FactoryGirl factories before
+  # calling this method, and be logged in as a pro user.
+  def create_pro_request
+    visit new_alaveteli_pro_info_request_path
+    expect(page).to have_content "Make a request"
+    # For some reason we can't search for the whole name, Xapian won't
+    # find it, but it has indexed the body
+    fill_in "To", with: "Example"
+    click_button "Search"
+
+    within ".body_listing" do
+      find_link('Make a request').click
+    end
+
+    fill_in "Summary", with: "Does the pro request form work?"
+    fill_in "Your request", with: "A very short letter."
+    select "3 Months", from: "Embargo"
+  end
+
 end
 
 def hide_incoming_message(incoming_message, prominence, reason)
