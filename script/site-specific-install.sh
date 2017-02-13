@@ -156,6 +156,13 @@ postfix reload
 
 install_website_packages
 
+# Install PhantomJS
+wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+tar -xjf phantomjs-2.1.1-linux-x86_64.tar.bz2
+# TODO - what should we do to get this in a predictable place and get it into
+# $PATH on every system we need to support?
+sudo ln -s /home/vagrant/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
+
 # use ruby 2.1.5 or 1.9.3 if it's already the default (i.e. 'jessie', 'trusty')
 if ruby --version | grep -q 'ruby 2.1.5' > /dev/null
 then
