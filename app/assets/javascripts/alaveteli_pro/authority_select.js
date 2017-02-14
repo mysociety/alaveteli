@@ -27,7 +27,13 @@
       var oldSalutation = salutationTemplate.replace(defaultAuthorityName, oldAuthorityName);
       var oldMessage = $message.val();
 
-      var newAuthorityName = $item.text();
+      // The selected item contains the name of the authority and the remove
+      // button (which is a link), so this gets only the text node from the
+      // DOM, ignoring the remove button. A naive .text() would return the
+      // multiplication symbol in that button too.
+      var newAuthorityName = $item.contents().filter(function(){
+        return this.nodeType === Node.TEXT_NODE;
+      })[0].nodeValue;
       var newSalutation = salutationTemplate.replace(defaultAuthorityName, newAuthorityName);
       var newMessage = oldMessage.replace(oldSalutation, newSalutation);
 
@@ -68,7 +74,8 @@
             searchUrl + '/' + encodeURIComponent(query),
             callback
           ).fail(callback);
-      }
+      },
+      plugins: ['remove_button']
     });
   });
 })(window.jQuery);
