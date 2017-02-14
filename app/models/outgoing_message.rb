@@ -456,7 +456,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     smarthost_mta_ids = logs.flat_map do |log|
       line = log.line(:decorate => true)
-      if line.delivery_status.delivered?
+      if line.delivery_status.try(:delivered?)
         match = line.to_s.match(/C=".*?id=(?<message_id>\w+-\w+-\w+).*"/)
         match[:message_id] if match
       end
