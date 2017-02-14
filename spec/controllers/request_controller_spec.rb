@@ -958,18 +958,43 @@ describe RequestController, "when searching for an authority" do
   end
 
   describe 'when params[:pro] is true' do
-    it "should set @in_pro_area to true" do
-      get :select_authority, pro: "1"
-      expect(assigns[:in_pro_area]).to be true
+    context "and a pro user is logged in " do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+
+      before do
+        session[:user_id] = pro_user.id
+      end
+
+      it "should set @in_pro_area to true" do
+        get :select_authority, pro: "1"
+        expect(assigns[:in_pro_area]).to be true
+      end
+
+      it "should not redirect pros to the info request form for pros" do
+        with_feature_enabled(:alaveteli_pro) do
+          public_body = FactoryGirl.create(:public_body)
+          get :select_authority, pro: "1"
+          expect(response).to be_success
+        end
+      end
     end
 
-    it "should not redirect pros to the info request form for pros" do
-      with_feature_enabled(:alaveteli_pro) do
-        pro_user = FactoryGirl.create(:pro_user)
-        public_body = FactoryGirl.create(:public_body)
-        session[:user_id] = pro_user.id
+    context "and a pro user is not logged in" do
+      before do
+        session[:user_id] = nil
+      end
+
+      it "should set @in_pro_area to false" do
         get :select_authority, pro: "1"
-        expect(response).to be_success
+        expect(assigns[:in_pro_area]).to be false
+      end
+
+      it "should not redirect users to the info request form for pros" do
+        with_feature_enabled(:alaveteli_pro) do
+          public_body = FactoryGirl.create(:public_body)
+          get :select_authority, pro: "1"
+          expect(response).to be_success
+        end
       end
     end
   end

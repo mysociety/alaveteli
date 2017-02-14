@@ -40,7 +40,7 @@ class RequestController < ApplicationController
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
-    @in_pro_area = params[:pro] == "1"
+    @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.pro?
     if !params[:query].nil?
       query = params[:query]
       flash[:search_params] = params.slice(:query, :bodies, :page)
