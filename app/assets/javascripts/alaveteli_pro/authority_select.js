@@ -2,7 +2,6 @@
   $(function(){
     var $select = $('.js-authority-select');
     var $publicBodyId = $('.js-public-body-id');
-    var $submit = $('.js-authority-select-submit');
     var $message = $('.js-outgoing-message-body');
     var searchUrl = $select.data('search-url');
     var initialOptions = [];
@@ -39,8 +38,6 @@
     var updatePublicBodyIdField = function updatePublicBodyIdField(id) {
       $publicBodyId.val(id);
     };
-
-    $submit.hide();
 
     $select.selectize({
       valueField: 'id',

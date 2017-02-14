@@ -23,9 +23,8 @@
                  name="query"
                  id="public_body_query"
                  placeholder="<%= _('Search for an authority') %>"
-                 class="js-authority-select"
+                 class="js-authority-select public-body-query"
                  data-search-url="/alaveteli_pro/public_bodies"
-                 style="width: 100%;"
                  <% if @info_request.public_body %>
                    value="<%= @info_request.public_body.name %>"
                    data-initial-authority="<%= {
@@ -37,7 +36,7 @@
                  <% end %>>
         </p>
 
-        <input type="submit" value="<%= _('Search') %>" class="js-authority-select-submit">
+        <input type="submit" value="<%= _('Search') %>" class="js-authority-select-submit public-body-query__submit">
 
     </div>
   </div>
