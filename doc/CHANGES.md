@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix downloading request Zips when they're unclassified (Gareth Rees)
 * Handle parsing mail server logs when using a smarthost (Gareth Rees)
 * Removed a reference to `MySociety::Config` (Caleb Tutty)
 * Hide admin navigation items in request PDF download (Gareth Rees)

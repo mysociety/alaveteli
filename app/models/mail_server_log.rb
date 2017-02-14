@@ -257,9 +257,9 @@ class MailServerLog < ActiveRecord::Base
     emails.each do |email|
       info_request = InfoRequest.find_by_incoming_email(email)
       if info_request
-        info_request.mail_server_logs.create!(:line => line, :order => order, :mail_server_log_done => done)
-      else
-        puts "Warning: Could not find request with email #{email}"
+        info_request.
+          mail_server_logs.
+          create!(:line => line, :order => order, :mail_server_log_done => done)
       end
     end
   end

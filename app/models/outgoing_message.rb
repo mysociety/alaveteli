@@ -454,17 +454,17 @@ class OutgoingMessage < ActiveRecord::Base
           where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
     end
 
-    smarthost_logs = logs.flat_map do |log|
+    smarthost_mta_ids = logs.flat_map do |log|
       line = log.line(:decorate => true)
-      if line.delivery_status.delivered?
+      if line.delivery_status.try(:delivered?)
         match = line.to_s.match(/C=".*?id=(?<message_id>\w+-\w+-\w+).*"/)
         match[:message_id] if match
       end
     end
 
-    smarthost_logs.compact!
+    smarthost_mta_ids.compact!
 
-    more_logs = smarthost_logs.flat_map do |mta_id|
+    smarthost_logs = smarthost_mta_ids.flat_map do |mta_id|
       info_request.
         mail_server_logs.
           where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
@@ -472,7 +472,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     # Need to call #uniq because the more_logs query pulls out the initial
     # delivery line
-    (logs + more_logs).uniq
+    (logs + smarthost_logs).uniq
   end
 
   def postfix_mta_ids

@@ -1428,6 +1428,32 @@ describe OutgoingMessage do
             to eq(expected_lines.scan(/[^\n]*\n/))
         end
 
+
+        it 'handles log lines where a delivery status cant be parsed' do
+          message = FactoryGirl.create(:initial_request)
+          body_email = message.info_request.public_body.request_email
+          request_email = message.info_request.incoming_email
+          request_subject = message.info_request.email_subject_request(:html => false)
+          smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+          load_mail_server_logs <<-EOF.strip_heredoc
+          2014-03-25 15:35:42 [3719] 1WSTOA-0000xz-JF <= #{ request_email } U=alaveteli P=local S=2949 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2014-03-25 15:35:50 [3723] 1WSTOA-0000xz-JF SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:35:55 [3721] 1WSTOA-0000xz-JF == #{ body_email } R=dnslookup T=remote_smtp defer (-44): SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.core.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:51:01 [7248] 1WSTOA-0000xz-JF => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=3003 H=mx.core.canterbury.ac.uk [127.0.0.1]:25 X=TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=GB,postalCode=CT1 1QU,ST=Kent,L=CANTERBURY,STREET=North Holmes Road,O=Canterbury Christ Church University,OU=Computing Services,CN=mx.core.canterbury.ac.uk" C="250 OK id=1WSTcz-0002ft-2W" QT=15m19s DT=1s
+          EOF
+
+          expected_lines = <<-EOF.strip_heredoc
+          2014-03-25 15:35:42 [3719] 1WSTOA-0000xz-JF <= #{ request_email } U=alaveteli P=local S=2949 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2014-03-25 15:35:50 [3723] 1WSTOA-0000xz-JF SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:35:55 [3721] 1WSTOA-0000xz-JF == #{ body_email } R=dnslookup T=remote_smtp defer (-44): SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.core.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:51:01 [7248] 1WSTOA-0000xz-JF => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=3003 H=mx.core.canterbury.ac.uk [127.0.0.1]:25 X=TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=GB,postalCode=CT1 1QU,ST=Kent,L=CANTERBURY,STREET=North Holmes Road,O=Canterbury Christ Church University,OU=Computing Services,CN=mx.core.canterbury.ac.uk" C="250 OK id=1WSTcz-0002ft-2W" QT=15m19s DT=1s
+          EOF
+
+          expect(message.mail_server_logs.map(&:line)).
+            to eq(expected_lines.scan(/[^\n]*\n/))
+        end
+
       end
 
       context 'when postfix is the MTA' do
