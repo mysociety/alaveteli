@@ -873,13 +873,19 @@ class RequestController < ApplicationController
     @info_request = info_request
     @info_request_events = info_request.info_request_events
     @status = info_request.calculate_status
-    @old_unclassified = info_request.is_old_unclassified? && !authenticated_user.nil?
+    @old_unclassified =
+      info_request.is_old_unclassified? && !authenticated_user.nil?
     @is_owning_user = info_request.is_owning_user?(authenticated_user)
     @last_info_request_event_id = info_request.last_event_id_needing_description
-    @new_responses_count = info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
+    @new_responses_count =
+      info_request.
+      events_needing_description.
+      select { |i| i.event_type == 'response' }.
+      size
+    @follower_count = @info_request.track_things.count + 1
+
     # For send followup link at bottom
     @last_response = info_request.get_last_public_response
-    @follower_count = @info_request.track_things.count + 1
 
     @show_profile_photo = !!(
       !@info_request.is_external? &&
