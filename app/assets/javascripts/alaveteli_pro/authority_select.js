@@ -12,7 +12,7 @@
       // Selectize looks for values from the value field (id in this case) to
       // see if it should show something selected, but the html currently has
       // the name, not the id.
-      $select.val(initialAuthority.id)
+      $select.val(initialAuthority.id);
     }
     var defaultAuthorityName = $message.data('salutation-body-name');
     var salutationTemplate = $message.data('salutation-template');
