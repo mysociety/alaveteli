@@ -880,7 +880,7 @@ class RequestController < ApplicationController
     @new_responses_count =
       info_request.
       events_needing_description.
-      select { |i| i.event_type == 'response' }.
+      select { |event| event.event_type == 'response' }.
       size
     @follower_count = @info_request.track_things.count + 1
 
