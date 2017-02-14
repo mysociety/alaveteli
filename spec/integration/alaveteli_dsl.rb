@@ -9,10 +9,10 @@ module AlaveteliDsl
     visit "/alaveteli_pro/info_requests/#{url_title}"
   end
 
-  def create_request
+  def create_request(public_body)
     visit select_authority_path
     within(:css, '#search_form') do
-      fill_in 'query', :with => 'Geraldine Quango'
+      fill_in 'query', :with => public_body.name
       find_button('Search').click
     end
     within(:css, '.body_listing') do
