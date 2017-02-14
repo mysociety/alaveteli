@@ -5,7 +5,7 @@
 
   <div class="request__special-status">
   <% if @info_request.attention_requested %>
-    <% if @info_request.prominence == 'hidden' %>
+    <% if @info_request.prominence(:decorate => true).is_hidden? %>
       <h2><%= _('Request hidden') %></h2>
       <p>
         <%= _("This request has prominence 'hidden'. You can only see it " \
