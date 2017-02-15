@@ -1,4 +1,4 @@
-<li class="<%= 'selected' if params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action]) %>">
+<li class="<%= 'selected' if (params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action])) or (params[:controller] == 'alaveteli_pro/info_requests' and ['new', 'preview'].include?(params[:action])) %>">
   <%= link_to _("Make a request"), select_authority_path, :id => 'make-request-link' %>
 </li>
 
