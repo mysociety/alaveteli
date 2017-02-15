@@ -125,6 +125,10 @@ RSpec.configure do |config|
       last_gc_run = Time.now
     end
   end
+
+  config.after(:each) do
+    AlaveteliRateLimiter::IPRateLimiter.new(:signup).backend.destroy
+  end
 end
 
 # Helper with_xxx methods for working with feature flags

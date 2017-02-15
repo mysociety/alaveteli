@@ -34,6 +34,10 @@ module AlaveteliRateLimiter
       def ==(other)
         pstore.path == other.pstore.path
       end
+
+      def destroy
+        File.delete(pstore.path) if File.exist?(pstore.path)
+      end
     end
   end
 end
