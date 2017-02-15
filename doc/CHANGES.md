@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Always send warnings of possible spam activity – configure blocking of spam
+  activity with `ENABLE_ANTI_SPAM` (Gareth Rees)
 * Fix downloading request Zips when they're unclassified (Gareth Rees)
 * Handle parsing mail server logs when using a smarthost (Gareth Rees)
 * Removed a reference to `MySociety::Config` (Caleb Tutty)

@@ -383,40 +383,50 @@ class RequestController < ApplicationController
       @info_request.user = authenticated_user
     end
 
-    if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
+    subject_is_spam =
+      !@user.confirmed_not_spam? &&
+      AlaveteliSpamTermChecker.new.spam?(@outgoing_message.subject)
 
-      if AlaveteliSpamTermChecker.new.spam?(@outgoing_message.subject)
+    if subject_is_spam
+      if send_exception_notifications?
+        e = Exception.new("Spam request from user #{@info_request.user.id}")
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      if AlaveteliConfiguration.enable_anti_spam
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
-        if send_exception_notifications?
-          e = Exception.new("Spam request from user #{@info_request.user.id}")
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
         render :action => 'new'
         return
       end
+    end
 
-      # temp blocking of request sending from other countries
-      ip_in_blocklist = AlaveteliConfiguration.restricted_countries.include?(country_from_ip) &&
-        country_from_ip != AlaveteliConfiguration.iso_country_code
+    ip_in_blocklist =
+      !@user.confirmed_not_spam? &&
+      AlaveteliConfiguration.restricted_countries.include?(country_from_ip) &&
+      country_from_ip != AlaveteliConfiguration.iso_country_code
 
-      if ip_in_blocklist
+    if ip_in_blocklist
+      if send_exception_notifications?
+        e = Exception.new("Possible spam (ip_in_blocklist) from #{@info_request.user_id}: #{@info_request.title}")
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      if AlaveteliConfiguration.enable_anti_spam
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
-        if send_exception_notifications?
-          e = Exception.new("Possible blocked non-spam (ip_in_blocklist) from #{@info_request.user_id}: #{@info_request.title}")
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
         render :action => 'new'
         return
       end
     end
 
     if AlaveteliConfiguration.new_request_recaptcha && !@user.confirmed_not_spam?
-     if @render_recaptcha && !verify_recaptcha
+      if @render_recaptcha && !verify_recaptcha
         flash.now[:error] = "There was an error with the reCAPTCHA information - please try again."
+
         if send_exception_notifications?
           e = Exception.new("Possible blocked non-spam (recaptcha) from #{@info_request.user_id}: #{@info_request.title}")
           ExceptionNotifier.notify_exception(e, :env => request.env)
         end
+
         render :action => 'new'
         return
       end

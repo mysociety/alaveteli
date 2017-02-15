@@ -163,22 +163,24 @@ class UserController < ApplicationController
       else
         # New unconfirmed user
 
-        if ip_rate_limiter
-          # Rate limit signups
-          ip_rate_limiter.record(user_ip)
+        # Rate limit signups
+        ip_rate_limiter.record(user_ip)
 
-          if ip_rate_limiter.limit?(user_ip)
+        if ip_rate_limiter.limit?(user_ip)
+          if send_exception_notifications?
+            msg = "Rate limited signup from #{ user_ip } email: " \
+                  " #{ @user_signup.email }"
+            e = Exception.new(msg)
+            ExceptionNotifier.notify_exception(e, :env => request.env)
+          end
+
+          if AlaveteliConfiguration.enable_anti_spam
             flash.now[:error] =
               _("Sorry, we're currently unable to sign up new users, " \
                 "please try again later")
-             error = true
-             if send_exception_notifications?
-               msg = "Rate limited signup from #{ user_ip } email: " \
-                     " #{ @user_signup.email }"
-               e = Exception.new(msg)
-               ExceptionNotifier.notify_exception(e, :env => request.env)
-             end
-             render :action => 'sign' and return
+            error = true
+            render :action => 'sign'
+            return
           end
         end
 
@@ -191,9 +193,7 @@ class UserController < ApplicationController
   end
 
   def ip_rate_limiter
-     if AlaveteliConfiguration.enable_anti_spam
-       @ip_rate_limiter ||= AlaveteliRateLimiter::IPRateLimiter.new(:signup)
-     end
+    @ip_rate_limiter ||= AlaveteliRateLimiter::IPRateLimiter.new(:signup)
   end
 
   def confirm

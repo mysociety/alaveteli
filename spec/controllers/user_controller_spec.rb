@@ -756,6 +756,8 @@ describe UserController, "when signing up" do
       allow(limiter).to receive(:record)
       allow(limiter).to receive(:limit?).and_return(true)
       allow(controller).to receive(:ip_rate_limiter).and_return(limiter)
+      allow(AlaveteliConfiguration).
+        to receive(:enable_anti_spam).and_return(true)
     end
 
     it 'blocks the signup' do

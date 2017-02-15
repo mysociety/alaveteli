@@ -44,17 +44,23 @@ class CommentController < ApplicationController
         :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
       )
 
-      if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
-        if AlaveteliSpamTermChecker.new.spam?(params[:comment][:body])
+      comment_is_spam =
+        !@user.confirmed_not_spam? &&
+        AlaveteliSpamTermChecker.new.spam?(params[:comment][:body])
+
+      if comment_is_spam
+        if send_exception_notifications?
+          e = Exception.new("Possible spam annotation from user #{@user.id}")
+          ExceptionNotifier.notify_exception(e, :env => request.env)
+        end
+
+        if AlaveteliConfiguration.enable_anti_spam
           flash.now[:error] = "Sorry, we're currently not able to add your annotation. Please try again later."
-          if send_exception_notifications?
-            e = Exception.new("Spam annotation from user #{@user.id}")
-            ExceptionNotifier.notify_exception(e, :env => request.env)
-          end
           render :action => 'new'
           return
         end
       end
+
       # Also subscribe to track for this request, so they get updates
       # (do this first, so definitely don't send alert)
       flash[:notice] = _("Thank you for making an annotation!")

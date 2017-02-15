@@ -24,13 +24,18 @@ class UserProfile::AboutMeController < ApplicationController
       end
     end
 
-    if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
-      if AlaveteliSpamTermChecker.new.spam?(@user.about_me)
+    spam_profile_text =
+      !@user.confirmed_not_spam? &&
+      AlaveteliSpamTermChecker.new.spam?(@user.about_me)
+
+    if spam_profile_text
+      if send_exception_notifications?
+        e = Exception.new("Spam profile text from user #{@user.id}")
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      if AlaveteliConfiguration.enable_anti_spam
         flash[:error] = "You can't update your profile text at this time."
-        if send_exception_notifications?
-          e = Exception.new("Spam profile from user #{@user.id}")
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
         redirect_to user_url(@user)
         return
       end
