@@ -47,7 +47,7 @@ class CommentController < ApplicationController
       if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
         if AlaveteliSpamTermChecker.new.spam?(params[:comment][:body])
           flash.now[:error] = "Sorry, we're currently not able to add your annotation. Please try again later."
-          if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+          if send_exception_notifications?
             e = Exception.new("Spam annotation from user #{@user.id}")
             ExceptionNotifier.notify_exception(e, :env => request.env)
           end

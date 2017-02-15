@@ -387,7 +387,7 @@ class RequestController < ApplicationController
 
       if AlaveteliSpamTermChecker.new.spam?(@outgoing_message.subject)
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
-        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+        if send_exception_notifications?
           e = Exception.new("Spam request from user #{@info_request.user.id}")
           ExceptionNotifier.notify_exception(e, :env => request.env)
         end
@@ -401,7 +401,7 @@ class RequestController < ApplicationController
 
       if ip_in_blocklist
         flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
-        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+        if send_exception_notifications?
           e = Exception.new("Possible blocked non-spam (ip_in_blocklist) from #{@info_request.user_id}: #{@info_request.title}")
           ExceptionNotifier.notify_exception(e, :env => request.env)
         end
@@ -413,7 +413,7 @@ class RequestController < ApplicationController
     if AlaveteliConfiguration.new_request_recaptcha && !@user.confirmed_not_spam?
      if @render_recaptcha && !verify_recaptcha
         flash.now[:error] = "There was an error with the reCAPTCHA information - please try again."
-        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+        if send_exception_notifications?
           e = Exception.new("Possible blocked non-spam (recaptcha) from #{@info_request.user_id}: #{@info_request.title}")
           ExceptionNotifier.notify_exception(e, :env => request.env)
         end

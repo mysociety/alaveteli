@@ -172,8 +172,7 @@ class UserController < ApplicationController
               _("Sorry, we're currently unable to sign up new users, " \
                 "please try again later")
              error = true
-             if !AlaveteliConfiguration.exception_notifications_from.blank? &&
-                  !AlaveteliConfiguration.exception_notifications_to.blank?
+             if send_exception_notifications?
                msg = "Rate limited signup from #{ user_ip } email: " \
                      " #{ @user_signup.email }"
                e = Exception.new(msg)
