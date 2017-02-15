@@ -55,7 +55,8 @@ class CommentController < ApplicationController
         end
 
         if AlaveteliConfiguration.enable_anti_spam
-          flash.now[:error] = "Sorry, we're currently not able to add your annotation. Please try again later."
+          flash.now[:error] = _("Sorry, we're currently unable to add your " \
+                                "annotation. Please try again later.")
           render :action => 'new'
           return
         end

@@ -394,7 +394,8 @@ class RequestController < ApplicationController
       end
 
       if AlaveteliConfiguration.enable_anti_spam
-        flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
+        flash.now[:error] = _("Sorry, we're currently unable to send your " \
+                              "request. Please try again later.")
         render :action => 'new'
         return
       end
@@ -412,7 +413,8 @@ class RequestController < ApplicationController
       end
 
       if AlaveteliConfiguration.enable_anti_spam
-        flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
+        flash.now[:error] = _("Sorry, we're currently unable to send your " \
+                              "request. Please try again later.")
         render :action => 'new'
         return
       end
@@ -420,7 +422,8 @@ class RequestController < ApplicationController
 
     if AlaveteliConfiguration.new_request_recaptcha && !@user.confirmed_not_spam?
       if @render_recaptcha && !verify_recaptcha
-        flash.now[:error] = "There was an error with the reCAPTCHA information - please try again."
+        flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
+                              'Please try again.')
 
         if send_exception_notifications?
           e = Exception.new("Possible blocked non-spam (recaptcha) from #{@info_request.user_id}: #{@info_request.title}")

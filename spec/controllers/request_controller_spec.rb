@@ -1395,7 +1395,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(flash[:error])
-          .to eq("Sorry, we're currently not able to send your request. Please try again later.")
+          .to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do
@@ -1435,7 +1435,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(flash[:error])
-          .to eq("Sorry, we're currently not able to send your request. Please try again later.")
+          .to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do

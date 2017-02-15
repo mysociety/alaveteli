@@ -35,7 +35,7 @@ class UserProfile::AboutMeController < ApplicationController
       end
 
       if AlaveteliConfiguration.enable_anti_spam
-        flash[:error] = "You can't update your profile text at this time."
+        flash[:error] = _("You can't update your profile text at this time.")
         redirect_to user_url(@user)
         return
       end
