@@ -14,7 +14,7 @@
 # louisecrow <louise@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
-# Mattias A, 2015-2016
+# Mattias A, 2015-2017
 # Mattias OKFSE, 2015
 # Mattias A, 2015
 msgid ""
@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2017-02-08 23:56+0000\n"
+"Last-Translator: Mattias A\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -469,7 +469,7 @@ msgid "Awaiting classification."
 msgstr "Inväntar klassificering."
 
 msgid "Awaiting internal review"
-msgstr ""
+msgstr "Inväntar intern granskning"
 
 msgid "Awaiting internal review."
 msgstr "Inväntar intern granskning."
@@ -604,7 +604,7 @@ msgid "Clarification"
 msgstr "Tydliggörande"
 
 msgid "Clarification needed"
-msgstr ""
+msgstr "Tydliggörande behövs"
 
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Tydliggörandet skickades till {{public_body_name}} av {{info_request_user}} den {{date}}."
@@ -643,7 +643,7 @@ msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
 msgid "Complete"
-msgstr ""
+msgstr "Färdiställ"
 
 msgid "Confirm password:"
 msgstr "Bekräfta lösenord:"
@@ -745,7 +745,7 @@ msgid "Dear {{name}},"
 msgstr "Hej {{name}},"
 
 msgid "Dear {{placeholder_body_name}},"
-msgstr ""
+msgstr "Till {{placeholder_body_name}},"
 
 msgid "Dear {{public_body_name}},"
 msgstr "Till {{public_body_name}},"
@@ -1203,7 +1203,7 @@ msgid "I like this request"
 msgstr "Jag tycker om den här begäran"
 
 msgid "I want to withdraw this request"
-msgstr ""
+msgstr "Jag vill dra tillbaka denna begäran"
 
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Jag skulle vilja <strong>dra tillbaka den här begäran</strong>"
@@ -1221,7 +1221,7 @@ msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Jag har blivit ombedd att <strong>förtydliga</strong> min begäran"
 
 msgid "I've received <strong>all the information</strong>"
-msgstr ""
+msgstr "Jag har fått <strong>alla delar av informationen</strong>"
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "Jag har fått <strong>en del av informationen</strong>"
@@ -1410,13 +1410,13 @@ msgid "InfoRequest|Comments allowed"
 msgstr "InfoRequest|Comments allowed"
 
 msgid "InfoRequest|Date initial request last sent at"
-msgstr ""
+msgstr "InfoRequest|Date initial request last sent at"
 
 msgid "InfoRequest|Date response required by"
-msgstr ""
+msgstr "InfoRequest|Date response required by"
 
 msgid "InfoRequest|Date very overdue after"
-msgstr ""
+msgstr "InfoRequest|Date very overdue after"
 
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
@@ -1455,7 +1455,7 @@ msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Url title"
 
 msgid "Information not held"
-msgstr ""
+msgstr "Informationen fanns inte"
 
 msgid "Information not held."
 msgstr "Informationen fanns inte."
@@ -1845,13 +1845,13 @@ msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Försenad"
 
 msgid "Partial success"
 msgstr "Delvis framgångsrik"
 
 msgid "Partially successful"
-msgstr ""
+msgstr "Lyckades delvis"
 
 msgid "Partially successful."
 msgstr "Lyckades delvis."
@@ -2009,7 +2009,7 @@ msgid "Please pass this on to the person who conducts Freedom of Information rev
 msgstr "Vänligen vidarebefordra detta till den person som bedriver granskningar kring hanteringar av allmänna handlingar."
 
 msgid "Please select an authority"
-msgstr ""
+msgstr "Vänligen välj en myndighet"
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr "Välj var och en av dessa förfrågningar i sin tur, och <strong>låt alla veta</strong> om de ännu är framgångsrika eller inte."
@@ -2315,7 +2315,7 @@ msgid "Recently described results first"
 msgstr "Nyligen beskrivna resultat först"
 
 msgid "Refused"
-msgstr ""
+msgstr "Nekad"
 
 msgid "Refused."
 msgstr "Nekad."
@@ -2330,7 +2330,7 @@ msgid "Remember me (keeps you signed in longer; do not use on a public computer)
 msgstr "Kom ihåg mig (håller dig inloggad längre; använd inte i en publik dator i offentlig miljö)"
 
 msgid "Replying by post"
-msgstr ""
+msgstr "Svarar genom post"
 
 msgid "Report abuse"
 msgstr "Rapportera missbruk"
@@ -2345,7 +2345,7 @@ msgid "Report this request"
 msgstr "Rapportera denna begäran"
 
 msgid "Reported"
-msgstr ""
+msgstr "Rapporterad"
 
 msgid "Reported for administrator attention."
 msgstr "Rapporterad för administratörers uppmärksamhet."
@@ -2414,7 +2414,7 @@ msgid "Requests will be sent to the following bodies:"
 msgstr "Förfrågningar kommer skickas till de följande myndigheterna:"
 
 msgid "Requires administrator attention"
-msgstr ""
+msgstr "Rapporterad för administratörers uppmärksamhet"
 
 msgid "Respond by email"
 msgstr "Svara via e-post"
@@ -2438,7 +2438,7 @@ msgid "Response from a public authority"
 msgstr "Svar från en offentlig myndighet"
 
 msgid "Response received"
-msgstr ""
+msgstr "Svar mottaget"
 
 msgid "Response to '{{title}}'"
 msgstr "Svar till '{{title}}'"
@@ -2641,7 +2641,7 @@ msgid "Statistics"
 msgstr "Myndighetsstatistik"
 
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 msgid "Stay up to date"
 msgstr "Håll dig uppdaterad"
@@ -2689,7 +2689,7 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Föreslå hur den frågande kan hitta <strong>resten av informationen</strong>."
 
 msgid "Summary"
-msgstr ""
+msgstr "Sammanfattning"
 
 msgid "Table of statuses"
 msgstr "Tabell över statusar"
@@ -2980,7 +2980,7 @@ msgid "There were no results matching your query."
 msgstr "Det fanns inga resultat som matchade din fråga."
 
 msgid "There's an error message"
-msgstr ""
+msgstr "Det finns ett felmeddelande"
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Dessa diagram var delvis inspirerade av <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">en del statistik som Mark Goodge producerade för WhatDoTheyKnow</a>, så tack till honom."
@@ -3479,7 +3479,7 @@ msgid "Version {{version}}"
 msgstr "Version {{version}}"
 
 msgid "Very overdue"
-msgstr ""
+msgstr "Väldigt försenad"
 
 msgid "Vexatious"
 msgstr "Förarglig"
@@ -3512,22 +3512,22 @@ msgid "View your two factor authentication one time passcode"
 msgstr "Visa dina engångslösenord för tvåfaktorsautentisering"
 
 msgid "Waiting clarification"
-msgstr ""
+msgstr "Väntande klargörande"
 
 msgid "Waiting clarification."
 msgstr "Inväntar klargörande."
 
 msgid "Waiting for a response"
-msgstr ""
+msgstr "Väntar på ett svar"
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Väntar på en <strong>intern granskning</strong> från {{public_body_link}} om deras hantering av denna begäran."
 
 msgid "Waiting for an internal review"
-msgstr ""
+msgstr "Väntar på en intern granskning"
 
 msgid "Waiting for clarification"
-msgstr ""
+msgstr "Väntar på klargörande"
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Inväntar att myndigheten skall fullborda en intern granskning om deras hantering av begäran"
@@ -3963,7 +3963,7 @@ msgid "Your photo will be shown in public <strong>on the Internet</strong>, wher
 msgstr "Ditt fotografi kommer att visas offentligt <strong>på Internet</strong>, överallt där du gör något på {{site_name}}."
 
 msgid "Your request"
-msgstr ""
+msgstr "Din begäran"
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr "Din begäran '{{request}}' vid {{url}} har blivit granskad av moderatorer."
@@ -4038,7 +4038,7 @@ msgid "[Authority URL will be inserted here]"
 msgstr "[Myndighetens URL kommer läggas in här]"
 
 msgid "[Authority name]"
-msgstr ""
+msgstr "[Authority name]"
 
 msgid "[FOI #{{request}} email]"
 msgstr "[Registrators #{{request}} e-postadress]"
@@ -4092,7 +4092,7 @@ msgid "authorities"
 msgstr "myndigheter"
 
 msgid "awaiting response"
-msgstr ""
+msgstr "inväntar svar"
 
 msgid "but followupable"
 msgstr "men möjlig att följa upp"
@@ -4104,13 +4104,13 @@ msgid "by {{user_link_absolute}}"
 msgstr "av {{user_link_absolute}}"
 
 msgid "clarification needed"
-msgstr ""
+msgstr "klargörande behövs"
 
 msgid "comments"
 msgstr "kommentarer"
 
 msgid "complete"
-msgstr ""
+msgstr "fullständig"
 
 msgid "details"
 msgstr "detaljer"
@@ -4179,10 +4179,10 @@ msgid "not requestable due to: {{reason}}"
 msgstr "inte möjlig att begära på grund av: {{reason}}"
 
 msgid "other"
-msgstr ""
+msgstr "annan"
 
 msgid "overdue"
-msgstr ""
+msgstr "försenad"
 
 msgid "request hide events"
 msgstr "begär dolda händelser"
@@ -4200,7 +4200,7 @@ msgid "requests which are successful matching text '{{query}}'"
 msgstr "förfrågningar som är framgångsrika matchandes texten '{{query}}'"
 
 msgid "response received"
-msgstr ""
+msgstr "svar mottaget"
 
 msgid "send a follow up message"
 msgstr "skicka ett uppföljningsmeddelande"
@@ -4253,7 +4253,7 @@ msgid "unknown reason "
 msgstr "okänd anledning "
 
 msgid "unknown status {{state}}"
-msgstr ""
+msgstr "okänd status {{state}}"
 
 msgid "unknown status {{status}}"
 msgstr "okänd status {{status}}"
@@ -4274,7 +4274,7 @@ msgid "users"
 msgstr "användare"
 
 msgid "very overdue"
-msgstr ""
+msgstr "väldigt försenad"
 
 msgid "what's that?"
 msgstr "vad är det?"
