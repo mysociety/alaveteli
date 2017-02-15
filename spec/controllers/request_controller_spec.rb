@@ -1375,7 +1375,7 @@ describe RequestController, "when creating a new request" do
 
   end
 
-  describe 'when anti-spam is enabled' do
+  describe 'when enable_anti_spam is true' do
 
     before do
       allow(AlaveteliConfiguration).to receive(:enable_anti_spam)

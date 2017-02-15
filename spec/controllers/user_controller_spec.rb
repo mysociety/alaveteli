@@ -749,7 +749,7 @@ describe UserController, "when signing up" do
     }.to raise_error(ActionController::UnpermittedParameters)
   end
 
-  context 'when the IP is rate limited' do
+  context 'when the IP is rate limited and enable_anti_spam is enabled' do
 
     before(:each) do
       limiter = double

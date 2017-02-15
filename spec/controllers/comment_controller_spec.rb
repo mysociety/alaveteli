@@ -145,7 +145,7 @@ describe CommentController, "when commenting on a request" do
     expect(response).to render_template('user/banned')
   end
 
-  describe 'when anti-spam is enabled' do
+  describe 'when enable_anti_spam is true' do
 
     before(:each) do
       allow(AlaveteliConfiguration).
