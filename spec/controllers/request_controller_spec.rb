@@ -1345,7 +1345,7 @@ describe RequestController, "when creating a new request" do
             :outgoing_message => { :body => "Please supply the answer from your files." },
             :submitted_new_request => 1, :preview => 0
           expect(flash[:error])
-            .to eq("There was an error with the reCAPTCHA information - please try again.")
+            .to eq('There was an error with the reCAPTCHA. Please try again.')
         end
 
         it 'renders the compose interface' do

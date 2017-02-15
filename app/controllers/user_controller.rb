@@ -143,7 +143,8 @@ class UserController < ApplicationController
     error = false
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     if @request_from_foreign_country && !verify_recaptcha
-      flash.now[:error] = _("There was an error with the words you entered, please try again.")
+      flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
+                              'Please try again.')
       error = true
     end
     @user_signup.valid?
