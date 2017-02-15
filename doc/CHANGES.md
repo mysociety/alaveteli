@@ -21,6 +21,16 @@
 
 ### Changed Templates
 
+# 0.27.0.5
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
 # 0.27.0.4
 
 ## Highlighted Features

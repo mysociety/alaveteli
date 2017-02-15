@@ -1,37 +1,55 @@
 <% @title = _("Make an {{law_used_short}} request",
             :law_used_short => h(@info_request.law_used_human(:short))) %>
 
+<form action="<%= alaveteli_pro_select_authority_path %>" method="get" class="new_info_request">
+
+  <div id="request_header" class="request_header">
+    <div id="request_header_body" class="request_header_body">
+      <h1><%= _("Make a request") %></h1>
+
+      <%= foi_error_messages_for :info_request, :outgoing_message %>
+
+      <% if !AlaveteliConfiguration::override_all_public_body_request_emails.blank? %>
+        <div class="warning">
+          <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => AlaveteliConfiguration::override_all_public_body_request_emails) %>
+        </div>
+      <% end %>
+
+        <p id="to_public_body_search" class="to_public_body">
+          <label for="public_body_query">
+            <span class="to_public_body_label"><%= _('To') %></span>
+          </label>
+          <input type="text"
+                 name="query"
+                 id="public_body_query"
+                 placeholder="<%= _('Search for an authority') %>"
+                 class="js-authority-select public-body-query"
+                 data-search-url="/alaveteli_pro/public_bodies"
+                 <% if @info_request.public_body %>
+                   value="<%= @info_request.public_body.name %>"
+                   data-initial-authority="<%= {
+                       :id => @info_request.public_body.id,
+                       :name => @info_request.public_body.name,
+                       :notes => @info_request.public_body.notes,
+                       :info_requests_visible_count => @info_request.public_body.info_requests_visible_count
+                     }.to_json %>"
+                 <% end %>>
+        </p>
+
+        <input type="submit" value="<%= _('Search') %>" class="js-authority-select-submit public-body-query__submit">
+
+    </div>
+  </div>
+</form>
+
 <%= form_tag([:alaveteli_pro, @draft_info_request],
-             method: @draft_info_request.id ? :put : :post,
-             html: { :id => 'write_form',
-                     :class => 'new_info_request'}) do %>
+     method: @draft_info_request.id ? :put : :post,
+     :id => 'write_form',
+     :class => 'new_info_request') do %>
 
   <% fields_for @info_request do |f| %>
 
-    <div id="request_header" class="request_header">
-      <div id="request_header_body" class="request_header_body">
-        <h1><%= _("Make a request") %></h1>
-
-        <%= foi_error_messages_for :info_request, :outgoing_message %>
-
-        <% if !AlaveteliConfiguration::override_all_public_body_request_emails.blank? %>
-          <div class="warning">
-            <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => AlaveteliConfiguration::override_all_public_body_request_emails) %>
-          </div>
-        <% end %>
-
-        <p id="to_public_body" class="to_public_body">
-          <label for="info_request_public_body_id">
-            <span class="to_public_body_label"><%= _('To') %></span>
-          </label>
-          <%= f.select(
-            :public_body_id,
-            public_body_options(@info_request.public_body_id),
-            { :prompt => _('Select an authority') },
-            { :class => 'js-authority-select' }) %>
-        </p>
-      </div>
-    </div>
+    <%= f.hidden_field(:public_body_id, :class => 'js-public-body-id') %>
 
     <div class="request_body">
       <div id="request_advice" class="request_advice">

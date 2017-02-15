@@ -26,6 +26,24 @@ module AlaveteliDsl
     expect(page).to have_content('To send your FOI request, create an account or sign in')
   end
 
+  # Visit and fill out the pro-specific new request form
+  # Note: you'll need to be logged in as a pro user to access this page.
+  def create_pro_request(public_body)
+    visit new_alaveteli_pro_info_request_path
+    expect(page).to have_content "Make a request"
+
+    fill_in "To", with: public_body.name
+    click_button "Search"
+
+    within ".body_listing" do
+      find_link('Make a request').click
+    end
+
+    fill_in "Summary", with: "Does the pro request form work?"
+    fill_in "Your request", with: "A very short letter."
+    select "3 Months", from: "Embargo"
+  end
+
 end
 
 def hide_incoming_message(incoming_message, prominence, reason)
