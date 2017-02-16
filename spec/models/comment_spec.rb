@@ -67,4 +67,33 @@ describe Comment do
 
   end
 
+  describe '#report!' do
+    let(:comment) { FactoryGirl.create(:comment) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'sets attention_requested to true' do
+      comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+      expect(comment.attention_requested).to eq(true)
+    end
+
+    it 'sends a message a message to admins' do
+      message = double(RequestMailer)
+      allow(RequestMailer).to receive(:requires_admin).and_return(message)
+      expect(message).to receive(:deliver)
+      comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+    end
+
+    it 'prepends the reason to the message before sending' do
+      message = double(RequestMailer)
+      allow(message).to receive(:deliver)
+
+      expected = "Reason: Vexatious comment\n\nComment is bad, please hide"
+      expect(RequestMailer).to receive(:requires_admin).
+        with(comment.info_request, user, expected).
+        and_return(message)
+
+      comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+    end
+
+  end
 end
