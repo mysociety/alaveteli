@@ -203,10 +203,10 @@ module InfoRequestHelper
   end
 
   def status_text_awaiting_description_owner_please_answer(new_responses_count)
-    n_('Please <strong>answer the question above</strong> so we know ' \
-          'whether the recent response contains useful information.',
-       'Please <strong>answer the question above</strong> so we know ' \
-          'whether the recent responses contain useful information.',
+    n_('Please read the recent response and <strong>update the status</strong> ' \
+          'so we know whether it contains useful information.',
+       'Please read the recent responses and <strong>update the status</strong> ' \
+          'so we know whether they contain useful information.',
         new_responses_count)
   end
 
