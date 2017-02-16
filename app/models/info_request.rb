@@ -1504,20 +1504,23 @@ class InfoRequest < ActiveRecord::Base
     else
       raise ArgumentError("Event type #{event_type} not handled")
     end
-    find_each(:conditions => ["awaiting_description = ?
-                               AND described_state = ?
-                               AND #{date_field} < ?
-                               AND (SELECT id
-                                    FROM info_request_events
-                                    WHERE info_request_id = info_requests.id
-                                    AND event_type = ?
-                                    AND created_at > info_requests.#{date_field})
-                                    IS NULL",
-                              false,
-                              'waiting_response',
-                              Time.zone.today,
-                              event_type],
-              :batch_size => 100) do |info_request|
+
+    query =
+      where(["awaiting_description = ?
+              AND described_state = ?
+              AND #{date_field} < ?
+              AND (SELECT id
+              FROM info_request_events
+              WHERE info_request_id = info_requests.id
+              AND event_type = ?
+              AND created_at > info_requests.#{date_field})
+              IS NULL",
+              false,
+              'waiting_response',
+              Time.zone.today,
+              event_type])
+
+    query.find_each(:batch_size => 100) do |info_request|
       # Date to DateTime representing beginning of day
       created_at = info_request.send(date_field).beginning_of_day + 1.day
       info_request.log_event(event_type, { :event_created_at => Time.zone.now },
