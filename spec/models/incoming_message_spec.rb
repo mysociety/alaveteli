@@ -1037,4 +1037,29 @@ describe IncomingMessage, 'when getting clipped attachment text' do
     allow(incoming_message).to receive(:_get_attachment_text_internal).and_return(multibyte_string)
     expect(incoming_message.get_attachment_text_clipped.length).to eq(500002)
   end
+
+end
+
+describe IncomingMessage, 'when getting the main body text' do
+
+  context 'when the main body text is more than 1MB' do
+
+    before do
+      @incoming_message = FactoryGirl.create(:incoming_message)
+      allow(@incoming_message).to receive(:get_main_body_text_internal).
+        and_return("x" * 1000010)
+    end
+
+    it 'sends an exception notification' do
+      expect(ExceptionNotifier).to receive(:notify_exception)
+      @incoming_message.get_main_body_text_unfolded
+    end
+
+    it 'returns the main body text' do
+      expect(@incoming_message.get_main_body_text_unfolded).
+        to eq ("x" * 1000010)
+    end
+
+  end
+
 end

@@ -409,7 +409,14 @@ class IncomingMessage < ActiveRecord::Base
     text = text.split(/^begin.+^`\n^end\n/m).join(" ")
 
     if text.size > 1000000 # 1 MB ish
-      raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
+      if !AlaveteliConfiguration.exception_notifications_from.blank? &&
+         !AlaveteliConfiguration.exception_notifications_to.blank?
+        e = Exception.new("Incoming Message #{id}: " \
+                          "main body text more than 1 MB, need to implement clipping " \
+                          "like for attachment text, or there is some other MIME " \
+                          "decoding problem or similar")
+        ExceptionNotifier.notify_exception(e)
+      end
     end
 
     # apply masks for this message
