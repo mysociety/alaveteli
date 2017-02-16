@@ -11,7 +11,7 @@
     <% InfoRequest::State.phases.each do |phase| %>
     <li class="dashboard-folder">
       <% if @user.info_requests.send(phase[:scope]).count != 0 %>
-        <a href="<%= alaveteli_pro_info_requests_path('request_filter[filter]' => phase[:scope]) %>" class="dashboard-folder__name">
+        <a href="<%= alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' => phase[:scope]) %>" class="dashboard-folder__name">
       <% else %>
         <span class="dashboard-folder__name dashboard-folder__name--disabled">
       <% end %>
@@ -34,7 +34,7 @@
 
   <li class="dashboard-folder dashboard-folder--top-level ">
     <% if @user.draft_info_requests.count != 0 %>
-      <a href="<%= alaveteli_pro_info_requests_path('request_filter[filter]' => 'draft') %>" class="dashboard-folder__name">
+      <a href="<%= alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' => 'draft') %>" class="dashboard-folder__name">
     <% else %>
       <span class="dashboard-folder__name">
     <% end %>

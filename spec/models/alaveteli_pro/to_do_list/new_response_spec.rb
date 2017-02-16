@@ -46,7 +46,7 @@ describe AlaveteliPro::ToDoList::NewResponse do
       it 'returns a link to the info request list with a "response_received" filter' do
         FactoryGirl.create(:old_unclassified_request, :user => info_request.user)
         expect(@new_response.url)
-          .to eq alaveteli_pro_info_requests_path('request_filter[filter]' =>
+          .to eq alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
                                                     'response_received')
       end
 
