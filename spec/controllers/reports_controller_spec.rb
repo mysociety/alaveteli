@@ -87,6 +87,61 @@ describe ReportsController do
       end
 
     end
+
+    context "when reporting a comment (logged in)" do
+      before do
+        session[:user_id] = user.id
+      end
+
+      let(:comment) do
+        FactoryGirl.create(:comment, :info_request => info_request)
+      end
+
+      it "should mark the comment as having been reported" do
+        expect(comment.attention_requested).to eq(false)
+
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason"
+        expect(response)
+          .to redirect_to show_request_path(:url_title =>
+                                              info_request.url_title)
+
+        comment.reload
+        expect(comment.attention_requested).to eq(true)
+      end
+
+      it "should not mark the parent request as having been reported" do
+        expect(info_request.attention_requested).to eq(false)
+
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason"
+        expect(response)
+          .to redirect_to show_request_path(:url_title =>
+                                              info_request.url_title)
+
+        info_request.reload
+        expect(info_request.attention_requested).to eq(false)
+        expect(info_request.described_state).to_not eq("attention_requested")
+      end
+
+      it "should send an email from the reporter to admins" do
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason",
+                      :message => "It's just not"
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+        mail = deliveries[0]
+        expect(mail.subject).to match(/requires admin/)
+        expect(mail.header['Reply-To'].to_s).to include(user.email)
+        expect(mail.body).to include(user.name)
+        expect(mail.body)
+          .to include("Reason: my reason\n\nIt's just not")
+      end
+
+    end
   end
 
   describe "GET #new" do

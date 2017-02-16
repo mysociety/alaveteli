@@ -22,7 +22,8 @@ class ReportsController < ApplicationController
     elsif @info_request.attention_requested
       flash[:notice] = _("This request has already been reported for administrator attention")
     else
-      @info_request.report!(@reason, @message, @user)
+      reportable = @comment || @info_request
+      reportable.report!(@reason, @message, @user)
       flash[:notice] = _("This request has been reported for administrator attention")
     end
     redirect_to request_url(@info_request)
