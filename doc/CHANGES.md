@@ -1,3 +1,10 @@
+# 0.27.0.6
+
+## Highlighted Features
+
+* Incoming mails with large main body texts no longer raise error in calling
+  code, just send exception notification (Louise Crow)
+
 # 0.27.0.5
 
 ## Highlighted Features
