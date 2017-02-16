@@ -15,7 +15,8 @@ module AlaveteliPro
 
       def url
         if count > 1
-          alaveteli_pro_info_requests_path('request_filter[filter]' => 'embargoes_expiring')
+          alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
+                                             'embargoes_expiring')
         else
           show_request_path(items.first.info_request.url_title)
         end
