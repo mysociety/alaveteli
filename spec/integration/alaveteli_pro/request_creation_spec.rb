@@ -156,10 +156,23 @@ describe "creating requests in alaveteli_pro" do
                                      "request"
         expect(page).to have_content "Please enter your letter requesting " \
                                      "information"
-        expect(page).to have_content 'Please sign at the bottom with ' \
-                                     'your name, or alter the "Yours ' \
-                                     'faithfully," signature'
         expect(page).to have_content "Please select an authority"
+      end
+    end
+
+    it "fills out the body with a template message" do
+      using_pro_session(pro_user_session) do
+        # New request form
+        visit new_alaveteli_pro_info_request_path
+        expect(page).to have_content <<-EOF
+Dear [Authority name],
+
+
+
+Yours faithfully,
+
+#{pro_user.name}
+        EOF
       end
     end
 

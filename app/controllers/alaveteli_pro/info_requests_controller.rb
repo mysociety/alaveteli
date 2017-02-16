@@ -101,6 +101,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     @draft_info_request = DraftInfoRequest.new(public_body: @public_body)
     @info_request = InfoRequest.new(public_body: @public_body)
     @outgoing_message = OutgoingMessage.new(info_request: @info_request)
+    @outgoing_message.set_signature_name(current_user.name)
     # TODO: set duration based on current user's account settings
     @embargo = AlaveteliPro::Embargo.new(info_request: @info_request)
   end
