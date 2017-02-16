@@ -102,6 +102,26 @@ class Comment < ActiveRecord::Base
     ]
   end
 
+  # Report this comment for administrator attention
+  def report!(reason, message, user)
+    old_attention = attention_requested
+    self.attention_requested = true
+    save!
+
+    if attention_requested? && user
+      message = "Reason: #{reason}\n\n#{message}"
+      RequestMailer.requires_admin(info_request, user, message).deliver
+
+      info_request.
+        log_event("report_comment",
+                  { :comment_id => id,
+                    :editor => user,
+                    :reason => reason,
+                    :old_attention_requested => old_attention,
+                    :attention_requested => true })
+    end
+  end
+
   private
 
   def check_body_has_content

@@ -77,4 +77,45 @@ describe Comment do
 
   end
 
+  describe '#report!' do
+
+    let(:comment) { FactoryGirl.create(:comment) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'sets attention_requested to true' do
+      comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+      expect(comment.attention_requested).to eq(true)
+    end
+
+    it 'sends a message a message to admins' do
+      expected = "FOI response requires admin (waiting_response) " \
+                 "- #{comment.info_request.title}"
+      comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+      notification = ActionMailer::Base.deliveries.last
+      expect(notification.subject).to eq(expected)
+    end
+
+    it 'prepends the reason to the message before sending' do
+      expected = "Reason: Vexatious comment\n\nComment is bad, please hide"
+      comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+      notification = ActionMailer::Base.deliveries.last
+      expect(notification.body).to match(expected)
+    end
+
+    it 'logs the report_comment event' do
+      comment.info_request_events.
+        where(:event_type => 'report_comment').destroy_all
+      comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+      comment.reload
+      most_recent_event = comment.info_request_events.last
+
+      expect(most_recent_event.event_type).to eq('report_comment')
+      expect(most_recent_event.params).
+        to include(:reason => "Vexatious comment")
+      expect(most_recent_event.params).
+        to include(:message => "Comment is bad, please hide")
+    end
+
+  end
+
 end
