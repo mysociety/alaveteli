@@ -28,7 +28,7 @@ gem 'memcache-client', '~> 1.8.5'
 gem 'newrelic_rpm'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_19]
 gem 'net-purge', '~> 0.1.0'
-gem 'nokogiri', '~> 1.6'
+gem 'nokogiri', '< 1.7'
 gem 'open4', '~> 1.3.4'
 gem 'rack', '~> 1.4.6'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
@@ -54,6 +54,7 @@ gem 'gender_detector', '~> 1.0.0'
 
 # Gems related to internationalisation
 gem 'gettext_i18n_rails', '~> 0.9.4' # Later versions cause error (see blame)
+  gem 'fast_gettext', '< 1.2.0'
 gem 'gettext', '~> 2.3.9'
 gem 'globalize3', :git => 'https://github.com/globalize/globalize.git', :ref => '5fd95f2389dff1'
 gem 'locale', '~> 2.0.8'
@@ -76,6 +77,8 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 group :test do
   gem 'fakeweb', '~> 1.3.0'
   gem 'coveralls', :require => false
+    gem 'tins', '< 1.3.1'
+    gem 'term-ansicolor', '< 1.4'
   gem 'capybara', '~> 2.7.0'
   gem 'delorean', '~> 2.1.0'
 end
@@ -87,6 +90,7 @@ group :test, :development do
   gem 'rspec-rails', '~> 3.4.0'
   gem 'test-unit', '~> 3.1.0'
   gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
+    gem 'public_suffix', '< 1.5.0'
 end
 
 group :development do
