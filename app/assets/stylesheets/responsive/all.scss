@@ -72,6 +72,9 @@
 
 @import "_time_series";
 
+@import "alaveteli_pro/_pro_layout";
+@import "alaveteli_pro/_pro_style";
+
 @import "alaveteli_pro/selectize";
 
 @import "alaveteli_pro/_dashboard_layout";
@@ -80,6 +83,7 @@
 @import "alaveteli_pro/_requests_layout";
 @import "alaveteli_pro/_requests_style";
 
-@import "alaveteli_pro/_request_form_style";
+@import "alaveteli_pro/_new_request_layout";
+@import "alaveteli_pro/_new_request_style";
 
 @import "custom";
