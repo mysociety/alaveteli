@@ -25,7 +25,9 @@
       <%= button_to "Publish request",
                     alaveteli_pro_embargo_path(@info_request.embargo),
                     method: :delete,
-                    confirm: _("Are you sure you want to publish this request?") %>
+                    data: {
+                      confirm: _("Are you sure you want to publish this request?")
+                    } %>
     </div>
   </div>
   <% end %>
