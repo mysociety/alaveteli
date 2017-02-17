@@ -79,16 +79,17 @@ class InfoRequest < ActiveRecord::Base
   validates_presence_of :public_body_id, :message => N_("Please select an authority"),
                                          :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
-  has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
-  has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
-  has_many :incoming_messages, :order => 'created_at', :dependent => :destroy
+  has_many :info_request_events, -> { order('created_at, id') }, :dependent => :destroy
+  has_many :outgoing_messages, -> { order('created_at') }, :dependent => :destroy
+  has_many :incoming_messages, -> { order('created_at') }, :dependent => :destroy
   has_many :user_info_request_sent_alerts, :dependent => :destroy
-  has_many :track_things, :order => 'created_at desc', :dependent => :destroy
+  has_many :track_things, -> { order('created_at desc') }, :dependent => :destroy
   has_many :widget_votes, :dependent => :destroy
-  has_many :comments, :order => 'created_at', :dependent => :destroy
-  has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
-  has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
+  has_many :comments, -> { order('created_at') }, :dependent => :destroy
+  has_many :censor_rules, -> { order('created_at desc') }, :dependent => :destroy
+  has_many :mail_server_logs, -> { order('mail_server_log_done_id, "order"') }, :dependent => :destroy
   has_one :embargo, :class_name => "AlaveteliPro::Embargo"
+
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
@@ -342,9 +343,11 @@ class InfoRequest < ActiveRecord::Base
     # For request with same title as others, add on arbitary numeric identifier
     unique_url_title = url_title
     suffix_num = 2 # as there's already one without numeric suffix
+    conditions = id ? ["id <> ?", id] : []
     while InfoRequest.
-            find_by_url_title(unique_url_title,
-                              :conditions => id.nil? ? nil : ["id <> ?", id])
+      where(:url_title => unique_url_title).
+        where(conditions).
+          first do
       unique_url_title = "#{url_title}_#{suffix_num}"
       suffix_num = suffix_num + 1
     end
@@ -466,12 +469,15 @@ class InfoRequest < ActiveRecord::Base
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    InfoRequest.where("title = ?
-                       AND public_body_id = ?
-                       AND outgoing_messages.body = ?",
-                       title, public_body_id, body).
+    conditions = { :title => title,
+                   :public_body_id => public_body_id,
+                   :outgoing_messages => { :body => body } }
+
+    InfoRequest.
       includes(:outgoing_messages).
-        first
+        where(conditions).
+          references(:outgoing_messages).
+            first
   end
 
   def find_existing_outgoing_message(body)
@@ -1077,7 +1083,7 @@ class InfoRequest < ActiveRecord::Base
     path = File.join("request", request_dirs)
     foi_cache_path = File.expand_path(File.join(Rails.root, 'cache', 'views'))
     directories << File.join(foi_cache_path, path)
-    I18n.available_locales.each do |locale|
+    FastGettext.default_available_locales.each do |locale|
       directories << File.join(foi_cache_path, locale.to_s, path)
     end
 
@@ -1193,7 +1199,7 @@ class InfoRequest < ActiveRecord::Base
 
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
-    applicable_rules = [censor_rules, CensorRule.global.all]
+    applicable_rules = [censor_rules, CensorRule.global]
     unless public_body.blank?
       applicable_rules << public_body.censor_rules
     end
@@ -1498,20 +1504,23 @@ class InfoRequest < ActiveRecord::Base
     else
       raise ArgumentError("Event type #{event_type} not handled")
     end
-    find_each(:conditions => ["awaiting_description = ?
-                               AND described_state = ?
-                               AND #{date_field} < ?
-                               AND (SELECT id
-                                    FROM info_request_events
-                                    WHERE info_request_id = info_requests.id
-                                    AND event_type = ?
-                                    AND created_at > info_requests.#{date_field})
-                                    IS NULL",
-                              false,
-                              'waiting_response',
-                              Time.zone.today,
-                              event_type],
-              :batch_size => 100) do |info_request|
+
+    query =
+      where(["awaiting_description = ?
+              AND described_state = ?
+              AND #{date_field} < ?
+              AND (SELECT id
+              FROM info_request_events
+              WHERE info_request_id = info_requests.id
+              AND event_type = ?
+              AND created_at > info_requests.#{date_field})
+              IS NULL",
+              false,
+              'waiting_response',
+              Time.zone.today,
+              event_type])
+
+    query.find_each(:batch_size => 100) do |info_request|
       # Date to DateTime representing beginning of day
       created_at = info_request.send(date_field).beginning_of_day + 1.day
       info_request.log_event(event_type, { :event_created_at => Time.zone.now },

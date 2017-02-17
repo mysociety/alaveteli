@@ -97,6 +97,7 @@ end
 after 'deploy:assets:symlink', 'deploy:symlink_configuration'
 
 before 'deploy:assets:precompile', 'themes:install'
+after 'deploy:assets:precompile', 'deploy:assets:link_non_digest'
 
 # Put up a maintenance notice if doing a migration which could take a while
 before 'deploy:migrate', 'deploy:web:disable'

@@ -47,12 +47,10 @@ describe ApiController, "when using the API" do
   # POST /api/v2/request.json
   describe 'creating a request' do
     it 'should create a new request from a POST' do
-      number_of_requests = InfoRequest.count(
-        :conditions => [
-          "public_body_id = ?",
-          public_bodies(:geraldine_public_body).id
-        ]
-      )
+      number_of_requests =
+        InfoRequest.
+          where(:public_body_id => public_bodies(:geraldine_public_body).id).
+            count
 
       request_data = {
         'title' => 'Tell me about your chickens',
@@ -71,10 +69,11 @@ describe ApiController, "when using the API" do
       expect(response_body['errors']).to be_nil
       expect(response_body['url']).to match(/^http/)
 
-      expect(InfoRequest.count(:conditions => [
-                          'public_body_id = ?',
-                        public_bodies(:geraldine_public_body).id]
-                        )).to eq(number_of_requests + 1)
+      updated_count =
+        InfoRequest.
+          where(:public_body_id => public_bodies(:geraldine_public_body).id).
+            count
+      expect(updated_count).to eq(number_of_requests + 1)
 
       new_request = InfoRequest.find(response_body['id'])
       expect(new_request.user_id).to be_nil
@@ -98,7 +97,9 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      expect(IncomingMessage.count(:conditions => ["info_request_id = ?", request_id])).to eq(0)
+      initial_count =
+        IncomingMessage.where(:info_request_id => request_id).count
+      expect(initial_count).to eq(0)
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
@@ -114,7 +115,8 @@ describe ApiController, "when using the API" do
 
       # And make sure it worked
       expect(response).to be_success
-      incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
+      incoming_messages =
+        IncomingMessage.where(:info_request_id => request_id)
       expect(incoming_messages.count).to eq(1)
       incoming_message = incoming_messages[0]
 
@@ -127,7 +129,9 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has one outgoing message
-      expect(OutgoingMessage.count(:conditions => ['info_request_id = ?', request_id])).to eq(1)
+      outgoing_messages =
+        OutgoingMessage.where(:info_request_id => request_id).count
+      expect(outgoing_messages).to eq(1)
 
       # Add another, as a followup
       sent_at = '2012-05-29T12:35:39+01:00'
@@ -143,10 +147,12 @@ describe ApiController, "when using the API" do
 
       # Make sure it worked
       expect(response).to be_success
-      followup_messages = OutgoingMessage.all(
-        :conditions => ["info_request_id = ? and message_type = 'followup'", request_id]
-      )
+
+      followup_messages =
+        OutgoingMessage.where(:info_request_id => request_id,
+                              :message_type => 'followup')
       expect(followup_messages.size).to eq(1)
+
       followup_message = followup_messages[0]
 
       expect(followup_message.last_sent_at).to eq(Time.iso8601(sent_at))
@@ -158,7 +164,8 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      expect(IncomingMessage.count(:conditions => ['info_request_id = ?', request_id])).to eq(0)
+      actual1 = IncomingMessage.where(:info_request_id => request_id).count
+      expect(actual1).to eq(0)
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
@@ -175,8 +182,10 @@ describe ApiController, "when using the API" do
 
       # And make sure it worked
       expect(response).to be_success
-      incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
-      expect(incoming_messages.count).to eq(1)
+
+      actual2 = IncomingMessage.where(:info_request_id => request_id).count
+      expect(actual2).to eq(1)
+
       request = InfoRequest.find_by_id(request_id)
       expect(request.described_state).to eq('successful')
     end
@@ -186,7 +195,9 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      expect(IncomingMessage.count(:conditions => ['info_request_id = ?', request_id])).to eq(0)
+      initial_count =
+        IncomingMessage.where(:info_request_id => request_id).count
+      expect(initial_count).to eq(0)
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
@@ -206,7 +217,8 @@ describe ApiController, "when using the API" do
       expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq([
       "'random_string' is not a valid request state"])
 
-      incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
+      incoming_messages =
+        IncomingMessage.where(:info_request_id => request_id)
       expect(incoming_messages.count).to eq(0)
       request = InfoRequest.find_by_id(request_id)
       expect(request.described_state).to eq('waiting_response')
@@ -313,7 +325,8 @@ describe ApiController, "when using the API" do
       request_id = info_requests(:external_request).id
 
       # Initially it has no incoming messages
-      expect(IncomingMessage.count(:conditions => ['info_request_id = ?', request_id])).to eq(0)
+      actual1 = IncomingMessage.where(:info_request_id => request_id).count
+      expect(actual1).to eq(0)
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
@@ -332,10 +345,11 @@ describe ApiController, "when using the API" do
 
       # And make sure it worked
       expect(response).to be_success
-      incoming_messages = IncomingMessage.all(:conditions => ['info_request_id = ?', request_id])
-      expect(incoming_messages.count).to eq(1)
-      incoming_message = incoming_messages[0]
 
+      incoming_messages = IncomingMessage.where(:info_request_id => request_id)
+      expect(incoming_messages.count).to eq(1)
+
+      incoming_message = incoming_messages[0]
       expect(incoming_message.sent_at).to eq(Time.iso8601(sent_at))
       expect(incoming_message.get_main_body_text_folded).to be_equal_modulo_whitespace_to(response_body)
 

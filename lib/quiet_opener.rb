@@ -60,7 +60,7 @@ def quietly_try_to_purge(host, url)
       result = response.code
       result_body = response.body
     end
-  rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ECONNRESET, Errno::ENETUNREACH
+  rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ECONNRESET, Errno::ENETUNREACH, Errno::EINVAL
     Rails.logger.warn("PURGE: Unable to reach host #{host}")
   end
   if result == "200"
