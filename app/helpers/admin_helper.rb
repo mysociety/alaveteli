@@ -35,6 +35,13 @@ module AdminHelper
       link_to(h(user.name), admin_user_path(user), :title => "view full details")
   end
 
+  def comment_both_links(comment)
+    link_to(eye, comment_path(comment),
+            :title => "view comment on public website") + " " +
+      link_to(h(truncate(comment.body)), edit_admin_comment_path(comment),
+              :title => "view full details")
+  end
+
   def comment_visibility(comment)
     comment.visible? ? 'Visible' : 'Hidden'
   end
