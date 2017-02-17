@@ -24,12 +24,21 @@ class ReportsController < ApplicationController
     else
       reportable = @comment || @info_request
       reportable.report!(@reason, @message, @user)
-      flash[:notice] = _("This request has been reported for administrator attention")
+      flash[:notice] = if @comment
+        _("This annotation has been reported for administrator attention")
+      else
+        _("This request has been reported for administrator attention")
+      end
     end
     redirect_to request_url(@info_request)
   end
 
   def new
+    @page_title = if @comment
+      "Report annotation on request: #{@info_request.title}"
+    else
+      "Report request: #{@info_request.title}"
+    end
     if authenticated?(
       :web => _("To report this request"),
       :email => _("Then you can report the request '{{title}}'", :title => @info_request.title),

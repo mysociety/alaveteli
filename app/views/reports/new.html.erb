@@ -1,7 +1,7 @@
 
 <div class="row">
   <div id="left_column" class="left_column">
-    <h1>Report request: <%= @info_request.title %></h1>
+    <h1><%= @page_title %></h1>
   <% if @info_request.attention_requested %>
     <p><%= _("This request has already been reported for administrator attention") %></p>
   <% else %>
@@ -24,7 +24,11 @@
       <%= hidden_field_tag :comment_id, params[:comment_id] %>
 
       <div class="form_button">
-        <%= submit_tag _("Report request") %>
+        <% if @comment %>
+          <%= submit_tag _("Report annotation") %>
+        <% else %>
+          <%= submit_tag _("Report request") %>
+        <% end %>
       </div>
     <% end %>
   <% end %>
