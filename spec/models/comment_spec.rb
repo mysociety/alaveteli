@@ -95,5 +95,14 @@ describe Comment do
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
     end
 
+    it 'logs the report_comment event' do
+      comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+
+      comment.reload
+      most_recent_event = comment.info_request_events.last
+      expect(most_recent_event.event_type).to eq('report_comment')
+      expect(most_recent_event.comment_id).to eq(comment.id)
+    end
+
   end
 end

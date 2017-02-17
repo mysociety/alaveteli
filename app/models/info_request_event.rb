@@ -34,6 +34,7 @@ class InfoRequestEvent < ActiveRecord::Base
     'edit', # title etc. edited (in admin interface)
     'edit_outgoing', # outgoing message edited (in admin interface)
     'edit_comment', # comment edited (in admin interface)
+    'report_comment', # comment reported as spam by user
     'destroy_incoming', # deleted an incoming message (in admin interface)
     'destroy_outgoing', # deleted an outgoing message (in admin interface)
     'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
