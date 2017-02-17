@@ -22,6 +22,12 @@
 
 ### Changed Templates
 
+# 0.27.0.7
+
+## Highlighted Features
+
+* Reverts changes in 0.27.06 (Louise Crow)
+
 # 0.27.0.6
 
 ## Highlighted Features
