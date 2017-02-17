@@ -1050,14 +1050,13 @@ describe IncomingMessage, 'when getting the main body text' do
         and_return("x" * 1000010)
     end
 
-    it 'sends an exception notification' do
-      expect(ExceptionNotifier).to receive(:notify_exception)
-      @incoming_message.get_main_body_text_unfolded
-    end
-
-    it 'returns the main body text' do
-      expect(@incoming_message.get_main_body_text_unfolded).
-        to eq ("x" * 1000010)
+    it 'raises an exception' do
+      expected_text = "main body text more than 1 MB, need " \
+                      "to implement clipping like for attachment " \
+                      "text, or there is some other MIME decoding " \
+                      "problem or similar"
+      expect{ @incoming_message.get_main_body_text_unfolded }.
+        to raise_error(RuntimeError, expected_text)
     end
 
   end
