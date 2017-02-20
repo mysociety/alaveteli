@@ -6,6 +6,17 @@
   list-style-type: none;
   margin-left: 0;
   padding-left: 0;
+  label {
+    position: relative;
+    padding: 0.25em 0.25em 0.25em 28px;
+    line-height: 1.35em;
+  }
+
+  .request-status-icon {
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+  }
 }
 
 .js-loaded {
@@ -52,7 +63,6 @@
   .status-picker__option {
     label {
       font-size: 1em;
-      padding: 0.25em;
       &:hover {
         background-color: #ddd;
       }
@@ -65,4 +75,8 @@
   .status-picker__option--selected label {
     font-weight: bold;
   }
+}
+
+.extend-embargo-sidebar {
+  border-top: 1px solid #ccc;
 }
