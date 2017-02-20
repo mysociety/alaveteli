@@ -40,6 +40,10 @@
   <% unless state_transitions_empty?(@state_transitions) %>
     <div class="sidebar__section update-status">
       <h2><%= _("Status") %></h2>
+      <p>
+        <i class="request-status-icon request-status-icon--<%= @info_request.described_state.dasherize %>"></i>
+        <%= InfoRequest::State.short_description(@info_request.described_state) %>
+      </p>
       <label class="houdini-label" for="input2"><%= _("Change status") %></label>
       <input class="houdini-input" type="checkbox" id="input2">
       <div class="status-picker houdini-target">
@@ -48,7 +52,7 @@
             <% @state_transitions.each do |group, transitions| %>
               <% transitions.each do |state, label| %>
                 <% checked = @info_request.described_state == state %>
-                <li class="status-picker__option status-picker__option--<%= state.dasherize %> <%= 'status-picker__option--selected' if checked %>">
+                <li class="status-picker__option<%= ' status-picker__option--selected' if checked %>">
                   <%= f.label :described_state, value: state do %>
                     <i class="request-status-icon request-status-icon--<%= state.dasherize %>"></i>
                     <%= f.radio_button :described_state, state, checked: checked %>
