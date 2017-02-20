@@ -14,6 +14,8 @@
   short titles like "re" from being used while still allowing acronyms like
   RNIB through - only affects new requests, pre-existing requests which don't
   meet these new requirements will still be treated as valid (Liz Conlan)
+* Make the "Show all attachments" and "Show fewer attachments" links on the
+  request page translatable (Liz Conlan)
 
 ## Upgrade Notes
 
