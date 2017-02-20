@@ -1,3 +1,13 @@
+# 0.27.0.8
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
 # 0.27.0.7
 
 ## Highlighted Features
