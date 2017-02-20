@@ -41,7 +41,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-14 18:04+0000\n"
+"PO-Revision-Date: 2017-02-20 15:21+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
@@ -2429,7 +2429,7 @@ msgid "Requests similar to '{{request_title}}'"
 msgstr "'{{request_title}}' जस्तै अनुरोधहरु"
 
 msgid "Requests similar to '{{request_title}}' (page {{page}})"
-msgstr "अनुरोधहरु  '{{request_title}}' (पृष्ठ {{पृष्ठ}}) को जस्तै छ "
+msgstr "अनुरोधहरु  '{{request_title}}' (पृष्ठ {{page}}) को जस्तै छ "
 
 msgid "Requests will be sent to the following bodies:"
 msgstr "अनुरोधहरु निम्न निकायहरुमा पठाइने छन्"
@@ -2444,7 +2444,7 @@ msgid "Respond to request"
 msgstr "अनुरोधको जवाफ लेख्नुहोस्"
 
 msgid "Respond to the FOI request '{{request}}' made by {{user}}"
-msgstr "{{प्रयोगकर्ता}}को  FOI अनुरोधको '{{अनुरोध}}'  प्रतिक्रिया दिनुहोस्"
+msgstr "{{user}}को  FOI अनुरोधको '{{request}}'  प्रतिक्रिया दिनुहोस्"
 
 msgid "Respond using the web"
 msgstr "वेब प्रयोगगरी प्रतिक्रिया दिनुहोस्"
@@ -2531,7 +2531,7 @@ msgid "Send a message to {{user_name}}"
 msgstr "{{user_name}} लाई सन्देश पठाउनुहोस्"
 
 msgid "Send a public follow up message to {{person_or_body}}"
-msgstr "{{मान्छे_वा_निकाय}} लाई एउटा सार्बजनिक ताकेता सन्देश पठाउनुहोस"
+msgstr "{{person_or_body}} लाई एउटा सार्बजनिक ताकेता सन्देश पठाउनुहोस"
 
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "{{person_or_body}} लाइ सार्बाजानिक जवाफ पठाउ "
@@ -3625,8 +3625,8 @@ msgstr[1] "हाल प्रतिक्रियाहरू पढ्न र
 
 msgid "We're waiting for {{user}} to read a recent response and update the status."
 msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
-msgstr[0] "{{प्रयोगकर्ता}}को हालको प्रतिक्रिया पढ्न र स्थिति अद्यावधिक गर्न हामी प्रतीक्षा गर्दै छौ"
-msgstr[1] "{{प्रयोगकर्ता}}को हालको प्रतिक्रियाहरू पढ्न र स्थिति अद्यावधिक गर्न हामी प्रतीक्षा गर्दै छौ"
+msgstr[0] "{{user}}को हालको प्रतिक्रिया पढ्न र स्थिति अद्यावधिक गर्न हामी प्रतीक्षा गर्दै छौ"
+msgstr[1] "{{user}}को हालको प्रतिक्रियाहरू पढ्न र स्थिति अद्यावधिक गर्न हामी प्रतीक्षा गर्दै छौ"
 
 msgid "We've received a delivery status notification from the mailserver belonging to the authority."
 msgstr "हामी मेल सर्भर आधिकारिक निकायबाट डेलिभरी स्थितिको सूचना पाएका छौ।"
@@ -4064,7 +4064,7 @@ msgid "[Authority name]"
 msgstr ""
 
 msgid "[FOI #{{request}} email]"
-msgstr "[FOI #{{अनुरोध}} इमेल]"
+msgstr "[FOI #{{request}} इमेल]"
 
 msgid "[REDACTED]"
 msgstr "[REDACTED]"

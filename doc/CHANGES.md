@@ -1,4 +1,3 @@
-
 # develop
 
 ## Highlighted Features
@@ -24,11 +23,21 @@
 
 ### Changed Templates
 
+# 0.27.0.8
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
 # 0.27.0.7
 
 ## Highlighted Features
 
-* Reverts changes in 0.27.06 (Louise Crow)
+* Reverts changes in 0.27.0.6 (Louise Crow)
 
 # 0.27.0.6
 
