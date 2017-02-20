@@ -28,7 +28,12 @@
         <li><%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %></li>
       <% end %>
       <li class="logged-in-menu__signout-link">
-        <%= link_to _("Sign out"), signout_path(:r => request.fullpath) %>
+        <% if @user.pro? && @in_pro_area %>
+          <%# Signed out users won't be able to visit the current path %>
+          <%= link_to _("Sign out"), signout_path %>
+        <% else %>
+          <%= link_to _("Sign out"), signout_path(:r => request.fullpath) %>
+        <% end %>
       </li>
     </ul>
     </div>
