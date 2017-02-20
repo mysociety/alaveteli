@@ -12,7 +12,7 @@
 
 ## Highlighted Features
 
-* Reverts changes in 0.27.06 (Louise Crow)
+* Reverts changes in 0.27.0.6 (Louise Crow)
 
 # 0.27.0.6
 
