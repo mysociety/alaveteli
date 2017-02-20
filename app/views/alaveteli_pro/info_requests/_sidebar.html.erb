@@ -50,6 +50,7 @@
                 <% checked = @info_request.described_state == state %>
                 <li class="status-picker__option status-picker__option--<%= state.dasherize %> <%= 'status-picker__option--selected' if checked %>">
                   <%= f.label :described_state, value: state do %>
+                    <i class="request-status-icon request-status-icon--<%= state.dasherize %>"></i>
                     <%= f.radio_button :described_state, state, checked: checked %>
                     <%= label %>
                   <% end %>
