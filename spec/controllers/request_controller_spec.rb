@@ -1345,7 +1345,7 @@ describe RequestController, "when creating a new request" do
             :outgoing_message => { :body => "Please supply the answer from your files." },
             :submitted_new_request => 1, :preview => 0
           expect(flash[:error])
-            .to eq("There was an error with the reCAPTCHA information - please try again.")
+            .to eq('There was an error with the reCAPTCHA. Please try again.')
         end
 
         it 'renders the compose interface' do
@@ -1375,7 +1375,7 @@ describe RequestController, "when creating a new request" do
 
   end
 
-  describe 'when anti-spam is enabled' do
+  describe 'when enable_anti_spam is true' do
 
     before do
       allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
@@ -1395,7 +1395,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(flash[:error])
-          .to eq("Sorry, we're currently not able to send your request. Please try again later.")
+          .to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do
@@ -1435,7 +1435,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(flash[:error])
-          .to eq("Sorry, we're currently not able to send your request. Please try again later.")
+          .to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do

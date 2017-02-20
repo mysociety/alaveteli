@@ -145,7 +145,7 @@ describe CommentController, "when commenting on a request" do
     expect(response).to render_template('user/banned')
   end
 
-  describe 'when anti-spam is enabled' do
+  describe 'when enable_anti_spam is true' do
 
     before(:each) do
       allow(AlaveteliConfiguration).
@@ -167,7 +167,7 @@ describe CommentController, "when commenting on a request" do
           :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
           :type => 'request', :submitted_comment => 1, :preview => 0
         expect(flash[:error])
-          .to eq("Sorry, we're currently not able to add your annotation. Please try again later.")
+          .to eq("Sorry, we're currently unable to add your annotation. Please try again later.")
       end
 
       it 'renders the compose interface' do
