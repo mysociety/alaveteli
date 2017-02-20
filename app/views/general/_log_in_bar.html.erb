@@ -25,8 +25,8 @@
       <% else %>
         <li><%= link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %></li>
         <li><%= link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %></li>
-        <li><%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
-      <% end %></li>
+        <li><%= link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %></li>
+      <% end %>
       <li class="logged-in-menu__signout-link">
         <%= link_to _("Sign out"), signout_path(:r => request.fullpath) %>
       </li>
