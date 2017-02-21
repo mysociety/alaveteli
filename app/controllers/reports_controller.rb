@@ -34,10 +34,11 @@ class ReportsController < ApplicationController
   end
 
   def new
-    @page_title = if @comment
-      "Report annotation on request: #{@info_request.title}"
+    @title = if @comment
+      _("Report annotation on request: {{title}}",
+        :title => @info_request.title)
     else
-      "Report request: #{@info_request.title}"
+      _("Report request: {{title}}", :title => @info_request.title)
     end
     if authenticated?(
       :web => _("To report this request"),

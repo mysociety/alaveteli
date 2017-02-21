@@ -79,6 +79,16 @@ describe ReportsController do
           .to include("Reason: my reason\n\nIt's just not")
       end
 
+      it "sets the flash message" do
+        expected = "This request has been reported for administrator attention"
+
+        post :create, :request_id => info_request.url_title,
+                      :reason => "my reason",
+                      :message => "It's just not"
+
+        expect(flash[:notice]).to eq(expected)
+      end
+
       it "should force the user to pick a reason" do
         post :create, :request_id => info_request.url_title,
                       :reason => ""
@@ -139,6 +149,18 @@ describe ReportsController do
         expect(mail.body).to include(user.name)
         expect(mail.body)
           .to include("Reason: my reason\n\nIt's just not")
+      end
+
+      it "sets the flash message" do
+        expected = "This annotation has been reported for " \
+                   "administrator attention"
+
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason",
+                      :message => "It's just not"
+
+        expect(flash[:notice]).to eq(expected)
       end
 
     end

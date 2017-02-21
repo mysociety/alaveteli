@@ -36,7 +36,7 @@ describe 'reports/new.html.erb' do
 
   context "reporting a comment" do
     let(:comment) do
-      FactoryGirl.create(:comment, :info_request => info_request)
+      FactoryGirl.build(:comment, :info_request => info_request)
     end
     before :each do
       assign(:comment, comment)
