@@ -39,7 +39,7 @@ module AlaveteliDsl
       find_link('Make a request').click
     end
 
-    fill_in "Summary", with: "Does the pro request form work?"
+    fill_in "Subject", with: "Does the pro request form work?"
     fill_in "Your request", with: "A very short letter."
     select "3 Months", from: "Embargo"
   end
