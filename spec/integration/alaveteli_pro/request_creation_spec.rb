@@ -27,7 +27,7 @@ describe "creating requests in alaveteli_pro" do
 
         expect(page).to have_content("Your draft has been saved!")
         expect(page).to have_content("This request will be embargoed " \
-          "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+          "until #{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
 
         # The page should pre-fill the form with data from the draft
         expect(page).to have_field("To", with: public_body.name)
@@ -58,7 +58,7 @@ describe "creating requests in alaveteli_pro" do
                                      "work?")
         expect(page).to have_content("A very short letter.")
         expect(page).to have_content("This request will be embargoed " \
-          "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+          "until #{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
       end
     end
 
@@ -140,7 +140,7 @@ describe "creating requests in alaveteli_pro" do
                                      "work?")
         expect(page).to have_content("A very short letter, edited.")
         expect(page).to have_content("This request will be embargoed " \
-          "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+          "until #{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
       end
     end
 
