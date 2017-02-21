@@ -15,6 +15,13 @@ describe "viewing requests in alaveteli_pro" do
     end
   end
 
+  it 'does not allow the user to link to individual messages' do
+    using_pro_session(pro_user_session) do
+      browse_pro_request(info_request.url_title)
+      expect(page).not_to have_content("Link to this")
+    end
+  end
+
   it "allows the user to extend an embargo" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
