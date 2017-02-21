@@ -85,6 +85,15 @@ def find_each_record(model)
   end
 end
 
+def append_csv_data(csv, data)
+  csv << data
+  # skip over data that causes "invalid byte sequence in UTF-8" exception
+rescue ArgumentError => err
+  puts "Error processing data:"
+  puts err.message
+  puts data.inspect
+end
+
 
 # Exports a model
 #
@@ -124,7 +133,7 @@ def csv_export(model, query=nil, header=nil, override={}, header_map={})
           line.append(item.send(h))
         end
       end
-      csv << line
+      append_csv_data(csv, line)
     end
   end
 end

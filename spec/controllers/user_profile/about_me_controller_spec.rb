@@ -270,7 +270,7 @@ describe UserProfile::AboutMeController do
 
     end
 
-    context 'with anti-spam enabled, spam content and a non-whitelisted user' do
+    context 'with enable_anti_spam enabled, spam content and a non-whitelisted user' do
 
       let(:user) { FactoryGirl.create(:user) }
 
@@ -298,7 +298,7 @@ describe UserProfile::AboutMeController do
 
     end
 
-    context 'with anti-spam disabled, spam content and a non-whitelisted user' do
+    context 'with enable_anti_spam disabled, spam content and a non-whitelisted user' do
 
       let(:user) { FactoryGirl.create(:user) }
 
@@ -315,7 +315,7 @@ describe UserProfile::AboutMeController do
 
     end
 
-    context 'with anti-spam enabled, spam content and a whitelisted user' do
+    context 'with enable_anti_spam enabled, spam content and a whitelisted user' do
 
       let(:user) { FactoryGirl.create(:user, :confirmed_not_spam => true) }
 

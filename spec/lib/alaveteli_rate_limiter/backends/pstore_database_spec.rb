@@ -111,4 +111,20 @@ describe AlaveteliRateLimiter::Backends::PStoreDatabase do
 
   end
 
+  describe '#destroy' do
+
+    it 'destroys the pstore' do
+      subject = described_class.new(:path => test_path)
+      subject.set('1', '2')
+      subject.destroy
+      expect(File.exist?(test_path)).to eq(false)
+    end
+
+    it 'does not attempt to destroy the pstore if it does not yet exist' do
+      subject = described_class.new(:path => test_path)
+      expect { subject.destroy }.not_to raise_error
+    end
+
+  end
+
 end

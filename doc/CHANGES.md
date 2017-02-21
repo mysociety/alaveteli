@@ -1,8 +1,9 @@
-
 # develop
 
 ## Highlighted Features
 
+* Always send warnings of possible spam activity – configure blocking of spam
+  activity with `ENABLE_ANTI_SPAM` (Gareth Rees)
 * Fix downloading request Zips when they're unclassified (Gareth Rees)
 * Handle parsing mail server logs when using a smarthost (Gareth Rees)
 * Removed a reference to `MySociety::Config` (Caleb Tutty)
@@ -14,6 +15,8 @@
   short titles like "re" from being used while still allowing acronyms like
   RNIB through - only affects new requests, pre-existing requests which don't
   meet these new requirements will still be treated as valid (Liz Conlan)
+* Make the "Show all attachments" and "Show fewer attachments" links on the
+  request page translatable (Liz Conlan)
 
 ## Upgrade Notes
 
@@ -22,11 +25,21 @@
 
 ### Changed Templates
 
+# 0.27.0.8
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
 # 0.27.0.7
 
 ## Highlighted Features
 
-* Reverts changes in 0.27.06 (Louise Crow)
+* Reverts changes in 0.27.0.6 (Louise Crow)
 
 # 0.27.0.6
 

@@ -153,6 +153,15 @@ class ApplicationController < ActionController::Base
     session[:ttl] = nil
   end
 
+  def send_exception_notifications?
+    !AlaveteliConfiguration.exception_notifications_from.blank? &&
+      !AlaveteliConfiguration.exception_notifications_to.blank?
+  end
+
+  def show_rails_exceptions?
+    false
+  end
+
   def render_exception(exception)
     # In development or the admin interface let Rails handle the exception
     # with its stack trace templates
@@ -174,7 +183,7 @@ class ApplicationController < ActionController::Base
       backtrace = Rails.backtrace_cleaner.clean(exception.backtrace, :silent)
       message << "  " << backtrace.join("\n  ")
       Rails.logger.fatal("#{message}\n\n")
-      if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+      if send_exception_notifications?
         ExceptionNotifier.notify_exception(exception, :env => request.env)
       end
       @status = 500
@@ -193,10 +202,6 @@ class ApplicationController < ActionController::Base
       format.html { render(options) }
       format.any { render :nothing => true, :status => response_code }
     end
-    false
-  end
-
-  def show_rails_exceptions?
     false
   end
 
