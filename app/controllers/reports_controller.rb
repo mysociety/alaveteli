@@ -22,8 +22,7 @@ class ReportsController < ApplicationController
     elsif @info_request.attention_requested
       flash[:notice] = _("This request has already been reported for administrator attention")
     else
-      reportable = @comment || @info_request
-      reportable.report!(@reason, @message, @user)
+      @reportable.report!(@reason, @message, @user)
       flash[:notice] = if @comment
         _("This annotation has been reported for administrator attention")
       else
@@ -55,8 +54,8 @@ class ReportsController < ApplicationController
                       not_embargoed.
                       find_by_url_title!(params[:request_id])
     @comment = @info_request.comments.where(:id => params[:comment_id]).first
-    reportable = @comment || @info_request
-    @report_reasons = reportable.report_reasons
+    @reportable = @comment || @info_request
+    @report_reasons = @reportable.report_reasons
   end
 
 end

@@ -36,6 +36,13 @@ describe ReportsController do
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
+      it "finds the expected request" do
+        post :create, :request_id => info_request.url_title,
+                      :reason => "my reason"
+
+        expect(assigns(:info_request)).to eq(info_request)
+      end
+
       it "should mark a request as having been reported" do
         expect(info_request.attention_requested).to eq(false)
 
@@ -105,6 +112,13 @@ describe ReportsController do
 
       let(:comment) do
         FactoryGirl.create(:comment, :info_request => info_request)
+      end
+
+      it "finds the expected request" do
+        post :create, :request_id => info_request.url_title,
+                      :reason => "my reason"
+
+        expect(assigns(:info_request)).to eq(info_request)
       end
 
       it "should mark the comment as having been reported" do
