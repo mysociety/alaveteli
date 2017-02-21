@@ -31,7 +31,7 @@ describe "creating requests in alaveteli_pro" do
 
         # The page should pre-fill the form with data from the draft
         expect(page).to have_field("To", with: public_body.name)
-        expect(page).to have_field("Summary",
+        expect(page).to have_field("Subject",
                                    with: "Does the pro request form work?")
         expect(page).to have_field("Your request",
                                    with: "A very short letter.")
@@ -110,7 +110,7 @@ describe "creating requests in alaveteli_pro" do
         # New request form again
         # The page should pre-fill the form with data from the draft
         expect(page).to have_field("To", with: public_body.name)
-        expect(page).to have_field("Summary",
+        expect(page).to have_field("Subject",
                                    with: "Does the pro request form work?")
         expect(page).to have_field("Your request",
                                    with: "A very short letter.")
@@ -216,7 +216,7 @@ Yours faithfully,
                                     "set that (or just send it straight away) " \
                                     "using the form below.")
         expect(page).to have_field("To", with: public_body.name)
-        expect(page).to have_field("Summary",
+        expect(page).to have_field("Subject",
                                    with: "Why is your quango called Geraldine?")
         expect(page).to have_field("Your request",
                                    with: "This is a silly letter. It is too short to be interesting.")
