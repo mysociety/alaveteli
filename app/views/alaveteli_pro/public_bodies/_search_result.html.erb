@@ -1,0 +1,12 @@
+<div class="recipient-result js-recipient-result">
+  <h4 class="name"><%= result[:name] %></h4>
+  <p class="description">
+    <%= truncate(strip_tags(result[:notes]), length: 150) %>
+  </p>
+  <p class="requests">
+    <%= n_("{{count}} request made",
+           "{{count}} requests made",
+           result[:info_requests_visible_count],
+           :count => result[:info_requests_visible_count]) %>
+  </p>
+</div>
