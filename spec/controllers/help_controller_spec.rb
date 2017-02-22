@@ -151,7 +151,24 @@ describe HelpController do
           expect(assigns[:last_request]).to be nil
         end
       end
+    end
 
+    context 'when a last_body_id cookie is set' do
+      let(:body){ FactoryGirl.create(:public_body) }
+
+      it 'assigns @last_body' do
+        request.cookies["last_body_id"] = body.id
+        get :contact
+        expect(assigns[:last_body]).to eq body
+      end
+
+      context "when the body cannot be found" do
+        it 'sets @last_body to nil' do
+          request.cookies["last_body_id"] = PublicBody.maximum(:id)+1
+          get :contact
+          expect(assigns[:last_body]).to be nil
+        end
+      end
     end
 
   end
