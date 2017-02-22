@@ -28,7 +28,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         it "sets a flash message" do
           expect(flash[:notice]).
             to eq "Your request will now be private on Alaveteli until " \
-                  "#{AlaveteliPro::Embargo.six_months_from_now.to_date}."
+                  "#{AlaveteliPro::Embargo.six_months_from_now.strftime('%d %B %Y')}."
         end
 
         it "redirects to the request show page" do
@@ -57,7 +57,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
         it "sets a flash message" do
           expect(flash[:notice]).
             to eq "Your request will now be private on Alaveteli until " \
-                  "#{AlaveteliPro::Embargo.six_months_from_now.to_date}."
+                  "#{AlaveteliPro::Embargo.six_months_from_now.strftime('%d %B %Y')}."
         end
 
         it "redirects to the request show page" do
