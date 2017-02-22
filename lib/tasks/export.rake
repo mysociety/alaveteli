@@ -85,16 +85,6 @@ def find_each_record(model)
   end
 end
 
-def append_csv_data(csv, data)
-  csv << data
-  # skip over data that causes "invalid byte sequence in UTF-8" exception
-rescue ArgumentError => err
-  puts "Error processing data:"
-  puts err.message
-  puts data.inspect
-end
-
-
 # Exports a model
 #
 # query    - a query used to limit the export to matching records
@@ -120,22 +110,46 @@ def csv_export(model, query=nil, header=nil, override={}, header_map={})
     else
       display_header.append(h)
     end
-  end  
-  
+  end
+
+  process_data(filename, display_header, header, override, query)
+end
+
+
+def process_data(filename, display_header, column_data, overrides, query)
   CSV.open(filename, "wb") do |csv|
     csv << display_header
-    find_each_record(query) do |item|
+    find_each_record(query) do |model_instance|
       line  = []
-      header.each do |h|
-        if override.key?(h) #do we have an override for this column?
-          line.append(override[h][item]) #if so send to lambda
+      # iterate over columns to create an array of data to make a line of csv
+      column_data.each do |attribute|
+        if overrides.key?(attribute) #do we have an override for this column?
+          begin
+            line << overrides[attribute][model_instance] #if so send to lambda
+          rescue Exception => err
+            handle_error(err, line)
+            next # something went wrong, stop processing this data row
+          end
         else
-          line.append(item.send(h))
+          line << model_instance.send(attribute)
         end
       end
-      append_csv_data(csv, line)
+      begin
+        csv << line
+      rescue ArgumentError => err
+        handle_error(err, line)
+      end
     end
   end
+end
+
+def handle_error(err, data)
+  p "---"
+  puts "Error processing data:"
+  puts err.message
+  puts err.backtrace
+  puts data.inspect
+  p ""
 end
 
 
