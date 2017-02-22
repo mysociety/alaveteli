@@ -25,12 +25,8 @@
     <p class="event_actions">
       <% if comment.id %>
         <% if @user && @user.admin_page_links? %>
-          <%= link_to "Admin", edit_admin_comment_path(comment) %> |
+          <%= link_to "Admin", edit_admin_comment_path(comment) %>
         <% end %>
-
-        <%= link_to _('Report abuse'),
-              new_request_report_path(:request_id => @info_request.url_title,
-                                      :comment_id => comment.id) %>
       <% end %>
     </p>
   </div>
@@ -41,6 +37,12 @@
         <div class="correspondence__footer__cplink">
           <input type="text" id="cplink__field" class="cplink__field" value="<%= comment_url(comment) %>">
           <button class="cplink__button button"><%= _('Link to this') %></button>
+          <%= link_to(
+                "Report",
+                new_request_report_path(:request_id => @info_request.url_title,
+                                        :comment_id => comment.id),
+                :class => "cplink__button")
+          %>
         </div>
       <% end %>
     </div>
