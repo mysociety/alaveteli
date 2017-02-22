@@ -11,5 +11,6 @@ module AlaveteliPro::InfoRequestsHelper
       expiry_date = embargo.publish_at + duration
       [label, value, "data-expiry-date" => expiry_date.strftime('%d %B %Y')]
     end
+    options.unshift([_("Choose a duration"), ''])
   end
 end
