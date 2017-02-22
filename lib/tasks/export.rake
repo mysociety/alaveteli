@@ -34,11 +34,11 @@ end
 def detects_gender(name)
     gender_d = GenderDetector.new # gender detector
     parts = name.split(" ")
-    first_name = parts[0] #assumption! 
-    gender_d.get_gender(first_name, :great_britain).to_s 
+    first_name = parts[0] #assumption!
+    gender_d.get_gender(first_name, :great_britain).to_s
 end
 
-gender_lambda = lambda {|x| detects_gender(x.name)} 
+gender_lambda = lambda {|x| detects_gender(x.name)}
 
 # Returns a lambda to pass to export function that censors x.property
 def name_censor_lambda(property)
