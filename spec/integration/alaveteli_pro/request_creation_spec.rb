@@ -27,11 +27,11 @@ describe "creating requests in alaveteli_pro" do
 
         expect(page).to have_content("Your draft has been saved!")
         expect(page).to have_content("This request will be embargoed " \
-          "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+          "until #{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
 
         # The page should pre-fill the form with data from the draft
         expect(page).to have_field("To", with: public_body.name)
-        expect(page).to have_field("Summary",
+        expect(page).to have_field("Subject",
                                    with: "Does the pro request form work?")
         expect(page).to have_field("Your request",
                                    with: "A very short letter.")
@@ -58,7 +58,7 @@ describe "creating requests in alaveteli_pro" do
                                      "work?")
         expect(page).to have_content("A very short letter.")
         expect(page).to have_content("This request will be embargoed " \
-          "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+          "until #{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
       end
     end
 
@@ -110,7 +110,7 @@ describe "creating requests in alaveteli_pro" do
         # New request form again
         # The page should pre-fill the form with data from the draft
         expect(page).to have_field("To", with: public_body.name)
-        expect(page).to have_field("Summary",
+        expect(page).to have_field("Subject",
                                    with: "Does the pro request form work?")
         expect(page).to have_field("Your request",
                                    with: "A very short letter.")
@@ -140,7 +140,7 @@ describe "creating requests in alaveteli_pro" do
                                      "work?")
         expect(page).to have_content("A very short letter, edited.")
         expect(page).to have_content("This request will be embargoed " \
-          "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+          "until #{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
       end
     end
 
@@ -216,7 +216,7 @@ Yours faithfully,
                                     "set that (or just send it straight away) " \
                                     "using the form below.")
         expect(page).to have_field("To", with: public_body.name)
-        expect(page).to have_field("Summary",
+        expect(page).to have_field("Subject",
                                    with: "Why is your quango called Geraldine?")
         expect(page).to have_field("Your request",
                                    with: "This is a silly letter. It is too short to be interesting.")

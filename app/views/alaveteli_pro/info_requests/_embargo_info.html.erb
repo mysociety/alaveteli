@@ -2,10 +2,10 @@
   <p>
     <% if tense == :future %>
       <%= _("This request will be embargoed until {{embargo_publish_at}}",
-            embargo_publish_at: embargo.publish_at.to_date) %>
+            embargo_publish_at: embargo.publish_at.strftime('%d %B %Y')) %>
     <% else %>
       <%= _("This request is embargoed until {{embargo_publish_at}}",
-            embargo_publish_at: embargo.publish_at.to_date) %>
+            embargo_publish_at: embargo.publish_at.strftime('%d %B %Y')) %>
     <% end %>
   </p>
 <% else %>

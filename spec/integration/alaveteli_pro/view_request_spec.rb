@@ -15,18 +15,25 @@ describe "viewing requests in alaveteli_pro" do
     end
   end
 
+  it 'does not allow the user to link to individual messages' do
+    using_pro_session(pro_user_session) do
+      browse_pro_request(info_request.url_title)
+      expect(page).not_to have_content("Link to this")
+    end
+  end
+
   it "allows the user to extend an embargo" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       old_publish_at = embargo.publish_at
       expect(page).to have_content("This request is embargoed until " \
-                                   "#{old_publish_at.to_date}")
+                                   "#{old_publish_at.strftime('%d %B %Y')}")
       select "3 Months", from: "Extend embargo:"
       click_button("Extend")
       expected_publish_at = old_publish_at + AlaveteliPro::Embargo::THREE_MONTHS
       expect(embargo.reload.publish_at).to eq(expected_publish_at)
       expect(page).to have_content("This request is embargoed until " \
-                                   "#{expected_publish_at.to_date} ")
+                                   "#{expected_publish_at.strftime('%d %B %Y')} ")
     end
   end
 
@@ -35,7 +42,7 @@ describe "viewing requests in alaveteli_pro" do
       browse_pro_request(info_request.url_title)
       old_publish_at = embargo.publish_at
       expect(page).to have_content("This request is embargoed until " \
-                                   "#{old_publish_at.to_date}")
+                                   "#{old_publish_at.strftime('%d %B %Y')}")
       click_button("Publish request")
       expect(info_request.reload.embargo).to be nil
       expect(page).to have_content("Your request is now public!")

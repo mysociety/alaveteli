@@ -124,30 +124,51 @@ describe HelpController do
 
     end
 
-    context 'when a url_title param is supplied' do
+    context 'when a last_request_id cookie is set' do
       let(:info_request){ FactoryGirl.create(:info_request) }
 
-      it 'assigns the last request' do
-        request.cookies["last_request_id"] = info_request.id
+      context "when the user can access the specified request" do
+        it 'assigns @last_request' do
+          request.cookies["last_request_id"] = info_request.id
+          get :contact
+          expect(assigns[:last_request]).to eq info_request
+        end
+      end
+
+      context "when the user can't access the specified request" do
+        it 'sets @last_request to nil' do
+          info_request = FactoryGirl.create(:embargoed_request)
+          request.cookies["last_request_id"] = info_request.id
+          get :contact
+          expect(assigns[:last_request]).to be nil
+        end
+      end
+
+      context "when the request cannot be found" do
+        it 'sets @last_request to nil' do
+          request.cookies["last_request_id"] = InfoRequest.maximum(:id)+1
+          get :contact
+          expect(assigns[:last_request]).to be nil
+        end
+      end
+    end
+
+    context 'when a last_body_id cookie is set' do
+      let(:body){ FactoryGirl.create(:public_body) }
+
+      it 'assigns @last_body' do
+        request.cookies["last_body_id"] = body.id
         get :contact
-        expect(assigns[:last_request]).to eq info_request
+        expect(assigns[:last_body]).to eq body
       end
 
-      it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
-          is not found' do
-        request.cookies["last_request_id"] = InfoRequest.maximum(:id)+1
-        expect{ get :contact }
-          .to raise_error ActiveRecord::RecordNotFound
+      context "when the body cannot be found" do
+        it 'sets @last_body to nil' do
+          request.cookies["last_body_id"] = PublicBody.maximum(:id)+1
+          get :contact
+          expect(assigns[:last_body]).to be nil
+        end
       end
-
-      it 'raises an ActiveRecord::RecordNotFound error if the InfoRequest
-          is embargoed' do
-        info_request = FactoryGirl.create(:embargoed_request)
-        request.cookies["last_request_id"] = info_request.id
-        expect{ get :contact }
-          .to raise_error ActiveRecord::RecordNotFound
-      end
-
     end
 
   end

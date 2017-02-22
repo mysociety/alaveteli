@@ -9,6 +9,13 @@ describe "When viewing requests" do
     @unregistered = without_login
   end
 
+  it 'allows the user to link to individual messages' do
+    using_pro_session(@unregistered) do
+      browse_request(@info_request.url_title)
+      expect(page).to have_content("Link to this")
+    end
+  end
+
   it "should not make endlessly recursive JSON <link>s" do
     using_session(@unregistered) do
       browse_request("#{@info_request.url_title}?unfold=1")

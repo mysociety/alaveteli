@@ -6,7 +6,7 @@ module AlaveteliPro
     # log in, so we want to send them into the pro system
     def override_post_redirect_for_pro(uri, post_redirect, user)
       # We could have a locale in the url, or we could not, e.g. /en/new or /new
-      if uri =~ /(\/[a-z]{2})?\/new/
+      if uri =~ /^(\/[a-z]{2})?\/new$/
         # Create a draft for the new request, then send the user to the new form
         # with their data prefilled and a message about creating an embargo.
         params = post_redirect.post_params
