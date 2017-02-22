@@ -24,7 +24,7 @@ class UserStats
     end
     sql = "#{sql} LIMIT #{params[:limit]}" if params[:limit]
 
-    User.connection.select_all(sql)
+    User.connection.select_all(sql).to_hash
   end
 
   # Returns the number of domant users for the given domain
