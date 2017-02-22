@@ -25,7 +25,7 @@
   background-size: 22px 500px;
   background-repeat: no-repeat;
   width: 22px;
-  height: 22px;
+  height: 23px;
   display: inline-block;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('alaveteli-pro/pro-request-status-icons@2.png');
@@ -37,7 +37,7 @@
 }
 
 .request-status-icon--waiting-clarification {
-  background-position: 0 -68px;
+  background-position: 0 -67px;
 }
 
 .request-status-icon--gone-postal {
