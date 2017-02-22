@@ -40,12 +40,12 @@ class HelpController < ApplicationController
     end
 
     # look up link to request/body
-    last_request_id = cookies["last_request_id"].to_i
-    if last_request_id > 0
-      @last_request = InfoRequest.not_embargoed.find(last_request_id)
-    else
-      @last_request = nil
-    end
+    # Rails 3
+    request = InfoRequest.find_by_id(cookies["last_request_id"].to_i)
+    # Rails 4
+    # request = InfoRequest.find_by(id: cookies["last_request_id"].to_i)
+    @last_request = request if can?(:read, request)
+
     last_body_id = cookies["last_body_id"].to_i
     if last_body_id > 0
       @last_body = PublicBody.find(last_body_id)
