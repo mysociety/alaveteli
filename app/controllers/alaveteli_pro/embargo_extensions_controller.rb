@@ -16,7 +16,7 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
       flash[:notice] = _("Your request will now be private on " \
                          "{{site_name}} until {{expiry_date}}.",
                          site_name: AlaveteliConfiguration.site_name,
-                         expiry_date: @embargo.publish_at.to_date)
+                         expiry_date: @embargo.publish_at.strftime('%d %B %Y'))
     else
       flash[:error] = _("Sorry, something went wrong updating your " \
                         "request's privacy settings, please try again.")
