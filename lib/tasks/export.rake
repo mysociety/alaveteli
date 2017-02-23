@@ -92,7 +92,8 @@ end
 # override - pass in lambdas to modify a given column based on values in the row
 #
 # Returns a String
-def csv_export(model, query=nil, header=nil, override={}, header_map={})
+def csv_export(model, to_run, query=nil, header=nil, override={}, header_map={})
+  return unless is_required?(model.name, to_run)
   # set query and header to default values unless supplied
   query  ||= model
   header ||= model.column_names
@@ -152,10 +153,15 @@ def handle_error(err, data)
   p ""
 end
 
+def is_required?(model_name, to_run)
+  return true unless to_run
+  to_run.include?(model_name)
+end
 
 desc 'exports all non-personal information to export folder'
 task :research_export => :environment do
   cut_off_date = ENV["CUTOFF_DATE"]
+  to_run = ENV["MODELS"]
 
   if cut_off_date
     cut_off_date = Date.parse(cut_off_date)
@@ -163,17 +169,20 @@ task :research_export => :environment do
     cut_off_date = Date.today
   end
 
-  csv_export(PublicBodyCategory)
-  csv_export(PublicBodyHeading)
-  csv_export(PublicBodyCategoryLink)
-  csv_export(PublicBodyCategoryTranslation)
-  csv_export(PublicBodyHeadingTranslation)
-  csv_export(InfoRequestBatch)
-  csv_export(InfoRequestBatchPublicBody)
-  csv_export(HasTagStringTag, HasTagStringTag.where(model:"PublicBody"))
+  to_run = to_run.split(",") if to_run
+
+  csv_export(PublicBodyCategory, to_run)
+  csv_export(PublicBodyHeading, to_run)
+  csv_export(PublicBodyCategoryLink, to_run)
+  csv_export(PublicBodyCategoryTranslation, to_run)
+  csv_export(PublicBodyHeadingTranslation, to_run)
+  csv_export(InfoRequestBatch, to_run)
+  csv_export(InfoRequestBatchPublicBody, to_run)
+  csv_export(HasTagStringTag, to_run, HasTagStringTag.where(model:"PublicBody"))
 
   #export public body information
   csv_export( PublicBody,
+              to_run,
               PublicBody.where("created_at < ?", cut_off_date),
               ["id",
               "short_name",
@@ -190,6 +199,7 @@ task :research_export => :environment do
 
   #export non-personal user fields
   csv_export( User,
+              to_run,
               User.where(ban_text: '').
                 where("updated_at < ?", cut_off_date),
               ["id",
@@ -210,6 +220,7 @@ task :research_export => :environment do
 
   #export InfoRequest Fields
   csv_export(InfoRequest,
+             to_run,
              InfoRequest.where(prominence: "normal").
                where("updated_at < ?", cut_off_date),
              ["id",
@@ -229,6 +240,7 @@ task :research_export => :environment do
   #export incoming messages - only where normal prominence,
   # allow name_censor to some fields
   csv_export(IncomingMessage,
+             to_run,
              IncomingMessage.includes(:info_request).
                where(prominence: "normal").
                where("info_requests.prominence = ?","normal").
@@ -252,6 +264,7 @@ task :research_export => :environment do
 
   #export incoming messages - only where normal prominence, allow name_censor to some fields
   csv_export(OutgoingMessage,
+             to_run,
              OutgoingMessage.includes(:info_request).
                where(prominence:"normal").
                where("info_requests.prominence = ?","normal").
@@ -272,6 +285,7 @@ task :research_export => :environment do
 
   #export incoming messages - only where normal prominence, allow name_censor to some fields
   csv_export(FoiAttachment,
+             to_run,
              FoiAttachment.joins(incoming_message: :info_request).
                            where("info_requests.prominence = ?","normal").
                            where("incoming_messages.updated_at < ?", cut_off_date),
