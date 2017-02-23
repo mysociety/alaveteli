@@ -3,8 +3,8 @@ module AlaveteliPro
     class VeryOverdueRequest < Item
 
       def description
-        n_("{{count}} request is very overdue.",
-           "{{count}} requests are very overdue.",
+        n_("{{count}} request is long overdue.",
+           "{{count}} requests are long overdue.",
            count,
            :count => count)
       end

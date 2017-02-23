@@ -15,7 +15,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
     it 'gives a description for one response' do
       time_travel_to(Date.parse('2016-01-01')) do
-        expect(@very_overdue_request.description).to eq "1 request is very overdue."
+        expect(@very_overdue_request.description).to eq "1 request is long overdue."
       end
     end
 
@@ -24,7 +24,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
         FactoryGirl.create(:info_request, :user => info_request.user)
       end
       time_travel_to(Date.parse('2016-01-01')) do
-        expect(@very_overdue_request.description).to eq "2 requests are very overdue."
+        expect(@very_overdue_request.description).to eq "2 requests are long overdue."
       end
     end
 

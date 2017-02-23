@@ -11,7 +11,7 @@ describe AlaveteliPro::ActivityList::VeryOverdue do
 
     it 'gives an appropriate description' do
       expect(activity.description).
-        to eq '{{public_body_name}} became very overdue in responding ' \
+        to eq '{{public_body_name}} became long overdue in responding ' \
               'to your request "{{info_request_title}}".'
     end
 
