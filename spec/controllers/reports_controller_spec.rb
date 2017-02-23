@@ -111,7 +111,8 @@ describe ReportsController do
       end
 
       let(:comment) do
-        FactoryGirl.create(:comment, :info_request => info_request)
+        FactoryGirl.create(:comment, :info_request => info_request,
+                                     :attention_requested => false)
       end
 
       it "finds the expected request" do
@@ -121,63 +122,49 @@ describe ReportsController do
         expect(assigns(:info_request)).to eq(info_request)
       end
 
-      it "should mark the comment as having been reported" do
-        expect(comment.attention_requested).to eq(false)
-
+      it "marks the comment as having been reported" do
         post :create, :request_id => info_request.url_title,
                       :comment_id => comment.id,
                       :reason => "my reason"
-        expect(response)
-          .to redirect_to show_request_path(:url_title =>
-                                              info_request.url_title)
 
         comment.reload
         expect(comment.attention_requested).to eq(true)
       end
 
-      it "should not mark the parent request as having been reported" do
-        expect(info_request.attention_requested).to eq(false)
-
+      it "does not mark the parent request as having been reported" do
         post :create, :request_id => info_request.url_title,
                       :comment_id => comment.id,
                       :reason => "my reason"
-        expect(response)
-          .to redirect_to show_request_path(:url_title =>
-                                              info_request.url_title)
 
         info_request.reload
         expect(info_request.attention_requested).to eq(false)
         expect(info_request.described_state).to_not eq("attention_requested")
       end
 
-      it "should send an email from the reporter to admins" do
+      it "sends an email alerting admins to the report" do
         post :create, :request_id => info_request.url_title,
-                      :comment_id => comment.id,
-                      :reason => "my reason",
-                      :message => "It's just not"
+                    :comment_id => comment.id,
+                    :reason => "my reason",
+                    :message => "It's just not"
         deliveries = ActionMailer::Base.deliveries
+
         expect(deliveries.size).to eq(1)
         mail = deliveries[0]
+
         expect(mail.subject).to match(/requires admin/)
         expect(mail.header['Reply-To'].to_s).to include(user.email)
         expect(mail.body).to include(user.name)
+
         expect(mail.body)
           .to include("Reason: my reason\n\nIt's just not")
-      end
 
-      it "includes a note about the comment in the admin email" do
-        post :create, :request_id => info_request.url_title,
-                      :comment_id => comment.id,
-                      :reason => "my reason",
-                      :message => "It's just not"
-        deliveries = ActionMailer::Base.deliveries
-        mail = deliveries[0]
         expect(mail.body)
           .to include("The user wishes to draw attention to the comment: " \
-                      "#{comment_url(comment)}")
+                      "#{comment_url(comment)} "\
+                      "\nadmin: #{edit_admin_comment_path(comment)}")
       end
 
-      it "sets the flash message" do
+      it "informs the user the comment has been reported" do
         expected = "This annotation has been reported for " \
                    "administrator attention"
 
@@ -187,6 +174,17 @@ describe ReportsController do
                       :message => "It's just not"
 
         expect(flash[:notice]).to eq(expected)
+      end
+
+      it "redirects to the parent info_request page" do
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason",
+                      :message => "It's just not"
+
+        expect(response)
+          .to redirect_to show_request_path(:url_title =>
+                                              info_request.url_title)
       end
 
     end

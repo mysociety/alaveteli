@@ -7,7 +7,8 @@ class ReportsController < ApplicationController
     @reason = params[:reason]
     @message = if @comment
       "#{params[:message]}\n\nThe user wishes to draw attention to the " \
-      "comment: #{comment_url(@comment)}"
+      "comment: #{comment_url(@comment)} " \
+      "\nadmin: #{edit_admin_comment_path(@comment)}"
     else
       params[:message]
     end
