@@ -155,8 +155,13 @@ end
 
 desc 'exports all non-personal information to export folder'
 task :research_export => :environment do
+  cut_off_date = ENV["CUTOFF_DATE"]
 
-  cut_off_date = Date.today
+  if cut_off_date
+    cut_off_date = Date.parse(cut_off_date)
+  else
+    cut_off_date = Date.today
+  end
 
   csv_export(PublicBodyCategory)
   csv_export(PublicBodyHeading)
