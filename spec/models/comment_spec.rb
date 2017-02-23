@@ -88,22 +88,18 @@ describe Comment do
     end
 
     it 'sends a message a message to admins' do
-      message = double(RequestMailer)
-      allow(RequestMailer).to receive(:requires_admin).and_return(message)
-      expect(message).to receive(:deliver)
+      expected = "FOI response requires admin (waiting_response) " \
+                 "- #{comment.info_request.title}"
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+      notification = ActionMailer::Base.deliveries.last
+      expect(notification.subject).to eq(expected)
     end
 
     it 'prepends the reason to the message before sending' do
-      message = double(RequestMailer)
-      allow(message).to receive(:deliver)
-
       expected = "Reason: Vexatious comment\n\nComment is bad, please hide"
-      expect(RequestMailer).to receive(:requires_admin).
-        with(comment.info_request, user, expected).
-        and_return(message)
-
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+      notification = ActionMailer::Base.deliveries.last
+      expect(notification.body).to match(expected)
     end
 
     it 'logs the report_comment event' do
