@@ -246,6 +246,14 @@ describe ReportsController do
           expect(response.body).
             to match(comment.report_reasons.first)
         end
+
+        it "copies the comment id into a hidden form field" do
+          get :new, :request_id => info_request.url_title,
+                    :comment_id => comment.id
+          expect(response.body).
+            to have_selector("input#comment_id[value=\"#{comment.id}\"]",
+                             :visible => false)
+        end
       end
 
     end
