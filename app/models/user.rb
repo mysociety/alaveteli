@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
            -> { order('created_at desc') },
            :dependent => :destroy
   has_many :info_request_events,
-           -> { order('created_at desc') },
+           -> { reorder('created_at desc') },
            :through => :info_requests
   has_many :embargoes,
            :through => :info_requests
