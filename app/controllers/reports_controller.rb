@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
                       .not_embargoed
                         .find_by_url_title!(params[:request_id])
     @reason = params[:reason]
-    @message = params[:message]
+    @message = params[:message] || ""
     if @reason.empty?
       flash[:error] = _("Please choose a reason")
       render "new"

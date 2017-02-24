@@ -21,6 +21,9 @@
 
 class Comment < ActiveRecord::Base
   include AdminColumn
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
+
   strip_attributes :allow_empty => true
 
   belongs_to :user, :counter_cache => true
@@ -39,6 +42,8 @@ class Comment < ActiveRecord::Base
   }
 
   after_save :event_xapian_update
+
+  self.default_url_options[:host] = AlaveteliConfiguration.domain
 
   # When posting a new comment, use this to check user hasn't double
   # submitted.
@@ -109,7 +114,12 @@ class Comment < ActiveRecord::Base
     save!
 
     if attention_requested? && user
-      message = "Reason: #{reason}\n\n#{message}"
+      raw_message = message.dup
+      message = "Reason: #{reason}\n\n#{message}\n\n" \
+                "The user wishes to draw attention to the " \
+                "comment: #{comment_url(self)} " \
+                "\nadmin: #{edit_admin_comment_url(self)}"
+
       RequestMailer.requires_admin(info_request, user, message).deliver
 
       info_request.
@@ -117,6 +127,7 @@ class Comment < ActiveRecord::Base
                   { :comment_id => id,
                     :editor => user,
                     :reason => reason,
+                    :message => raw_message,
                     :old_attention_requested => old_attention,
                     :attention_requested => true })
     end

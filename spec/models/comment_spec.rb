@@ -17,6 +17,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Comment do
 
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
+
   describe 'visible scope' do
     before(:each) do
       @visible_request = FactoryGirl.create(:info_request, :prominence => "normal")
@@ -97,6 +100,15 @@ describe Comment do
 
     it 'prepends the reason to the message before sending' do
       expected = "Reason: Vexatious comment\n\nComment is bad, please hide"
+      comment.report!("Vexatious comment", "Comment is bad, please hide", user)
+      notification = ActionMailer::Base.deliveries.last
+      expect(notification.body).to match(expected)
+    end
+
+    it "includes a note about the comment in the admin email" do
+      expected =
+        "The user wishes to draw attention to the comment: " \
+        "#{comment_url(comment, :host => AlaveteliConfiguration.domain)}"
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
       notification = ActionMailer::Base.deliveries.last
       expect(notification.body).to match(expected)
