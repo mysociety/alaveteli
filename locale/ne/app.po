@@ -26,6 +26,7 @@
 # Prahant Subedi <prashantsubedi92@gmail.com>, 2017
 # Rajan Maharjan <rajanmaharjan25@gmail.com>, 2017
 # Rajan Prasad <prasadrajankalwar@gmail.com>, 2017
+# Rishi raj Gautam <thunderdfrost@gmail.com>, 2017
 # Robin Ranabhat <robinnarsingha123@gmail.com>, 2017
 # Sagun Maharjan <lordw039@gmail.com>, 2017
 # sakar ghimire <sacar.ghimire@gmail.com>, 2017
@@ -41,8 +42,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-20 15:21+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2017-02-22 04:07+0000\n"
+"Last-Translator: Rishi raj Gautam <thunderdfrost@gmail.com>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -488,7 +489,7 @@ msgid "Awaiting classification."
 msgstr "वर्गिकरण कुर्दै।"
 
 msgid "Awaiting internal review"
-msgstr ""
+msgstr "आन्तरिक समीक्षाको पर्खाइमा"
 
 msgid "Awaiting internal review."
 msgstr "आन्तरिक पुनरावलोकन कुर्दै।"
@@ -623,7 +624,7 @@ msgid "Clarification"
 msgstr "स्पष्टिकरण"
 
 msgid "Clarification needed"
-msgstr ""
+msgstr "स्पष्टीकरण आवश्यक"
 
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "{{info_request_user}} द्वारा {{date}} मा {{public_body_name}}लाई स्पष्टोक्ति  पठाइयो।"
@@ -664,7 +665,7 @@ msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
 msgid "Complete"
-msgstr ""
+msgstr "पूर्ण"
 
 msgid "Confirm password:"
 msgstr "पासवर्डलाई फेरि लेख्नुहोस् :"
@@ -766,7 +767,7 @@ msgid "Dear {{name}},"
 msgstr "आदरणीय {{name}},"
 
 msgid "Dear {{placeholder_body_name}},"
-msgstr ""
+msgstr "प्रिय {{placeholder_body_name}},"
 
 msgid "Dear {{public_body_name}},"
 msgstr "श्री {{public_body_name}},"
@@ -1224,7 +1225,7 @@ msgid "I like this request"
 msgstr "यो अनुरोध मन पर्‍यो"
 
 msgid "I want to withdraw this request"
-msgstr ""
+msgstr "म यो अनुरोध फिर्ता गर्न चाहनुहुन्छ"
 
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "म <strong>यो अनुरोध फिर्ता</strong> गर्न चाहन्छु"
@@ -1242,7 +1243,7 @@ msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "मेरो अनुरोधको स्पष्टिकरण गर्न मलाइ आग्रह गरिएको छ"
 
 msgid "I've received <strong>all the information</strong>"
-msgstr ""
+msgstr "मैले <strong>सबै जानकारीहरु</strong>प्राप्त गरे"
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "मैले केही <strong>जानकारीहरु पाए"
@@ -1476,7 +1477,7 @@ msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Url title"
 
 msgid "Information not held"
-msgstr ""
+msgstr "सूचना आयोजित छैन"
 
 msgid "Information not held."
 msgstr "सूचना राखिएको छैन"
@@ -1866,13 +1867,13 @@ msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
 msgid "Overdue"
-msgstr ""
+msgstr "बाँकी"
 
 msgid "Partial success"
 msgstr "आंशिक सफल"
 
 msgid "Partially successful"
-msgstr ""
+msgstr "आंशिक रूपमा सफल"
 
 msgid "Partially successful."
 msgstr "आंशिकरूपमा सफल"
@@ -2030,7 +2031,7 @@ msgid "Please pass this on to the person who conducts Freedom of Information rev
 msgstr "कृपया यो ,सूचना समीक्षा को स्वतन्त्रता आयोजना गर्नेलाई पठाउनुहोस् |"
 
 msgid "Please select an authority"
-msgstr ""
+msgstr "कृपया निकाय चयन गर्नुहोस"
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr "कृपया यी सबै अनुरोधहरू पालैपालो छान्नुहोस् , अनि ती सूचनाहरू सफल छन् या छैनन् <strong> सबैलाई थाहा दिनुहोस </strong> | "
@@ -2336,7 +2337,7 @@ msgid "Recently described results first"
 msgstr "हालै बताइएका नतिजाहरू पहिले"
 
 msgid "Refused"
-msgstr ""
+msgstr "अस्विकार गरियो"
 
 msgid "Refused."
 msgstr "अस्विकार गरियो।"
@@ -2351,7 +2352,7 @@ msgid "Remember me (keeps you signed in longer; do not use on a public computer)
 msgstr "मलाई सम्झनुहोस् (लामो समयसम्म प्रवेश गराइराख्छ;सार्वजनिक कम्प्युटरमा प्रयोग नगर्नुहोस्)"
 
 msgid "Replying by post"
-msgstr ""
+msgstr "पोस्टद्वारा जवाफ "
 
 msgid "Report abuse"
 msgstr "दुरुपयोग उजुर गर्नुहोस्"
@@ -2366,7 +2367,7 @@ msgid "Report this request"
 msgstr "यस अनुरोध बारे उजुर गर्नुहोस्"
 
 msgid "Reported"
-msgstr ""
+msgstr "उजुर गरियो"
 
 msgid "Reported for administrator attention."
 msgstr "प्रवन्धकको ध्यान चाहिने भनेर चिनो लगाइएको।"
@@ -2435,7 +2436,7 @@ msgid "Requests will be sent to the following bodies:"
 msgstr "अनुरोधहरु निम्न निकायहरुमा पठाइने छन्"
 
 msgid "Requires administrator attention"
-msgstr ""
+msgstr "प्रवन्धकको ध्यान चाहिन्छ"
 
 msgid "Respond by email"
 msgstr "इमेलबाट जवाफ दिनुहोस्"
@@ -2459,7 +2460,7 @@ msgid "Response from a public authority"
 msgstr "सार्वजनिक निकायबाट जवाफ"
 
 msgid "Response received"
-msgstr ""
+msgstr "जवाफ प्राप्त भयो"
 
 msgid "Response to '{{title}}'"
 msgstr " प्रतिक्रिया गर्न '{{title}}'"
@@ -2662,7 +2663,7 @@ msgid "Statistics"
 msgstr "तथ्याङ्क"
 
 msgid "Status"
-msgstr ""
+msgstr "स्थिती"
 
 msgid "Stay up to date"
 msgstr "अद्यावधिक रहनुहोस्"
@@ -2710,7 +2711,7 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "अनुरोधकर्ताले कसरी <strong>बाँकी जानकारी</strong> पाउन सक्छन् बारे सुझाव दिनुहोस्।"
 
 msgid "Summary"
-msgstr ""
+msgstr "सारांश"
 
 msgid "Table of statuses"
 msgstr "स्थितीको सूची"
@@ -3001,7 +3002,7 @@ msgid "There were no results matching your query."
 msgstr "तपाइको प्रस्न संग मेल खाने कुनै पनि नतिजा थिएनन्|"
 
 msgid "There's an error message"
-msgstr ""
+msgstr " त्यहाँ एउटा त्रुटि सन्देस छ"
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "यीलाई  रेखांकन आंशिक प्रेरित <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">ले गर्यो । Mark Goodge ले  WhatDoTheyKnow को लागि बनाएका केहि तथ्याङ्कहरु ।त्यसैले धन्यवाद उहाँलाई जान्छ।"
@@ -3502,7 +3503,7 @@ msgid "Version {{version}}"
 msgstr "संस्करण {{version}}"
 
 msgid "Very overdue"
-msgstr ""
+msgstr "धेर्रै बाँकी"
 
 msgid "Vexatious"
 msgstr "पालना"
@@ -3535,22 +3536,22 @@ msgid "View your two factor authentication one time passcode"
 msgstr "तपाईँको दुई चरणीय प्रमाणीहरू एक पटककको पासकोड हेर्नुहोस्"
 
 msgid "Waiting clarification"
-msgstr ""
+msgstr "स्पष्टिकरण कुर्दै"
 
 msgid "Waiting clarification."
 msgstr "स्पष्टिकरण कुर्दै."
 
 msgid "Waiting for a response"
-msgstr ""
+msgstr "प्रतिक्रियाको प्रतीक्षा"
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "ह्यान्डलिङ अफ  रीकवेस्टको<strong>आन्तरिक समीक्षाको </strong> लागि {{public_body_link}} द्वारा  प्रतीक्षा गर्दै  |"
 
 msgid "Waiting for an internal review"
-msgstr ""
+msgstr "आन्तरिक पुनरावलोकन कुर्दै"
 
 msgid "Waiting for clarification"
-msgstr ""
+msgstr "स्पष्टिकरणलाई कुर्दै"
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "सार्वजनिक अख्तियारलाई अनुरोध ह्यान्डलिङको आन्तरिक पुनरावलोकन सकाउन  प्रतीक्षा गर्दै गर्न"
@@ -3986,7 +3987,7 @@ msgid "Your photo will be shown in public <strong>on the Internet</strong>, wher
 msgstr "तपाइको फोटो <strong>इन्टरनेटमा</strong> सार्वजनिक रुपमा देखाइनेछ,\\n जहिँकहिँ  {{site_name}}मा केहि गर्नुभएमा।"
 
 msgid "Your request"
-msgstr ""
+msgstr "तपाईँको अनुरोध"
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr "{{url}}मा तपाइको अनुरोध '{{request}}' सञ्चालकहरू द्वारा समिक्षित भएको छ।"
@@ -4061,7 +4062,7 @@ msgid "[Authority URL will be inserted here]"
 msgstr "[निकायको URL यहाँ सम्मिलित गरिनेछ]"
 
 msgid "[Authority name]"
-msgstr ""
+msgstr "[Authority name]"
 
 msgid "[FOI #{{request}} email]"
 msgstr "[FOI #{{request}} इमेल]"
@@ -4115,7 +4116,7 @@ msgid "authorities"
 msgstr "निकायहरू"
 
 msgid "awaiting response"
-msgstr ""
+msgstr "प्रतिक्रिया पर्खदै"
 
 msgid "but followupable"
 msgstr "तर पुनः ताकेता गर्न  मिल्ने"
@@ -4127,13 +4128,13 @@ msgid "by {{user_link_absolute}}"
 msgstr "{{user_link_absolute}} द्वारा"
 
 msgid "clarification needed"
-msgstr ""
+msgstr "स्पष्टिकरण आवश्यक"
 
 msgid "comments"
 msgstr "टिप्पणीहरू"
 
 msgid "complete"
-msgstr ""
+msgstr "पूर्ण"
 
 msgid "details"
 msgstr "पुरा जानकारी"
@@ -4202,10 +4203,10 @@ msgid "not requestable due to: {{reason}}"
 msgstr "अनुरोध गर्न  असमर्थताको कारण: {{reason}}"
 
 msgid "other"
-msgstr ""
+msgstr "अन्य"
 
 msgid "overdue"
-msgstr ""
+msgstr "बाँकी"
 
 msgid "request hide events"
 msgstr "यस अनुरोधलाई लुकाउने अनुरोधहरू"
@@ -4223,7 +4224,7 @@ msgid "requests which are successful matching text '{{query}}'"
 msgstr "'{{query}}' सँग मिल्दो सफल अनुरोधहरू"
 
 msgid "response received"
-msgstr ""
+msgstr "जवाफ प्राप्त भयो"
 
 msgid "send a follow up message"
 msgstr "ताकेता सन्देश पठाउनुहोस्"
@@ -4276,7 +4277,7 @@ msgid "unknown reason "
 msgstr "अज्ञात कारण "
 
 msgid "unknown status {{state}}"
-msgstr ""
+msgstr "अज्ञात स्थिती {{state}}"
 
 msgid "unknown status {{status}}"
 msgstr "अज्ञात स्थिती {{status}}"
@@ -4297,7 +4298,7 @@ msgid "users"
 msgstr "प्रयोगकर्ताहरू"
 
 msgid "very overdue"
-msgstr ""
+msgstr "धेर्रै बाँकी"
 
 msgid "what's that?"
 msgstr "त्यो के हो?"
