@@ -34,15 +34,15 @@ class AdminCommentController < AdminController
     if @comment.update_attributes(comment_params)
       @comment.
         info_request.
-        log_event("edit_comment",
-                  { :comment_id => @comment.id,
-                    :editor => admin_current_user,
-                    :old_body => old_body,
-                    :body => @comment.body,
-                    :old_visible => old_visible,
-                    :visible => @comment.visible,
-                    :old_attention_requested => old_attention,
-                    :attention_requested => @comment.attention_requested })
+          log_event("edit_comment",
+                    { :comment_id => @comment.id,
+                      :editor => admin_current_user,
+                      :old_body => old_body,
+                      :body => @comment.body,
+                      :old_visible => old_visible,
+                      :visible => @comment.visible,
+                      :old_attention_requested => old_attention,
+                      :attention_requested => @comment.attention_requested })
       flash[:notice] = 'Comment successfully updated.'
       redirect_to admin_request_url(@comment.info_request)
     else

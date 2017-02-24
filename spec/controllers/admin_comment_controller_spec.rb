@@ -87,6 +87,32 @@ describe AdminCommentController do
         expect(most_recent_event.comment_id).to eq(@comment.id)
       end
 
+      context 'the attention_requested flag is the only change' do
+        before do
+          atts = FactoryGirl.attributes_for(:comment,
+                                            :attention_requested => true)
+          put :update, :id => @comment.id, :comment => atts
+        end
+
+        it 'logs the update event' do
+          most_recent_event = Comment.find(@comment.id).info_request_events.last
+          expect(most_recent_event.event_type).to eq('edit_comment')
+        end
+
+        it 'captures the old and new attention_requested values' do
+          most_recent_event = Comment.find(@comment.id).info_request_events.last
+          expect(most_recent_event.params).
+            to include(:old_attention_requested => false)
+          expect(most_recent_event.params).
+            to include(:attention_requested => true)
+        end
+
+        it 'updates the comment' do
+          expect(Comment.find(@comment.id).attention_requested).to eq(true)
+        end
+
+      end
+
       it 'shows a success notice' do
         expect(flash[:notice]).to eq("Comment successfully updated.")
       end

@@ -126,13 +126,13 @@
       <div id="attention-comments" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
           <tbody>
-            <% for @comment in @attention_comments %>
+            <% @attention_comments.each do |comment| %>
               <tr>
                 <td class="link">
-                  <%= comment_both_links(@comment) %>
+                  <%= comment_both_links(comment) %>
                 </td>
                 <td class="span2">
-                  <%= simple_date(@comment.info_request_events.
+                  <%= simple_date(comment.info_request_events.
                                     where(:event_type => 'report_comment')
                                     .last.created_at) %>
                 </td>
