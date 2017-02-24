@@ -112,4 +112,56 @@ describe Comment do
     end
 
   end
+
+  describe 'last_report' do
+
+    let(:comment) { FactoryGirl.create(:comment) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'returns nil if there is no report' do
+      expect(comment.last_report).to be_nil
+    end
+
+    it 'returns the last report event' do
+      comment.report!("Vexatious comment", "report", user)
+      comment.info_request.log_event("edit_comment",
+                             { :comment_id => comment.id,
+                               :editor => user,
+                               :old_body => comment.body,
+                               :body => 'fake change'
+                             })
+      comment.reload
+
+      expect(comment.info_request_events.last.event_type).to eq("edit_comment")
+      expect(comment.last_report.event_type).to eq("report_comment")
+    end
+
+  end
+
+  describe 'last_report_time' do
+
+    let(:comment) { FactoryGirl.create(:comment) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'returns nil if there is no report' do
+      expect(comment.last_report).to be_nil
+    end
+
+    it 'returns a DateTime object' do
+      comment.report!("Vexatious comment", "reported", user)
+
+      comment.reload
+      expect(comment.last_report_time).to be_a(DateTime)
+    end
+
+    it 'returns the expected timestamp' do
+      expected = DateTime.now
+      comment.report!("Vexatious comment", "reported", user)
+
+      comment.reload
+      expect(comment.last_report_time).to be_within(1.second).of(expected)
+    end
+
+  end
+
 end

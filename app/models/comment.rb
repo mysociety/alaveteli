@@ -68,6 +68,15 @@ class Comment < ActiveRecord::Base
     !visible?
   end
 
+  def last_report
+    info_request_events.where(:event_type => 'report_comment').last
+  end
+
+  def last_report_time
+    return unless last_report
+    last_report.created_at.to_datetime
+  end
+
   # So when takes changes it updates, or when made invisble it vanishes
   def event_xapian_update
     info_request_events.each { |event| event.xapian_mark_needs_index }

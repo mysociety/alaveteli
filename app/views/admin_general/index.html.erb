@@ -132,9 +132,7 @@
                   <%= comment_both_links(comment) %>
                 </td>
                 <td class="span2">
-                  <%= simple_date(comment.info_request_events.
-                                    where(:event_type => 'report_comment')
-                                    .last.created_at) %>
+                  <%= simple_date(comment.last_report_time) %>
                 </td>
               </tr>
             <% end %>
