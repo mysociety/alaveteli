@@ -4,9 +4,14 @@ require 'spec_helper'
 describe "comment/new.html.erb" do
   context "when the request is embargoed" do
     let(:info_request) { FactoryGirl.create(:embargoed_request) }
+    let(:comment) { info_request.comments.new }
+    let(:track_thing) { TrackThing.create_track_for_request(info_request) }
 
     before do
       assign :info_request, info_request
+      assign :comment, comment
+      assign :track_thing, track_thing
+      assign :in_pro_area, false
       render
     end
 
@@ -25,9 +30,14 @@ describe "comment/new.html.erb" do
 
   context "when the request is not embargoed" do
     let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:comment) { info_request.comments.new }
+    let(:track_thing) { TrackThing.create_track_for_request(info_request) }
 
     before do
       assign :info_request, info_request
+      assign :comment, comment
+      assign :track_thing, track_thing
+      assign :in_pro_area, true
       render
     end
 
