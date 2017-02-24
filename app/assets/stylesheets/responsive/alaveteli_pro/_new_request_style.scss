@@ -68,3 +68,27 @@
   right: 0px;
   text-decoration: none;
 }
+
+/* Add a loading spinner to the control when it's loading
+ * Selectize already does some clever pseudo element stuff to make it look
+ * like a dropdown, so we just hijack that to display a spinner instead of
+ * a dropdown triangle
+ */
+
+// This makes sure the spinner is preloaded (but not visible)
+.selectize-control.single .selectize-input:after {
+  background: transparent image-url('loader-000-on-fff-16px.gif') -9999px -9999px no-repeat;
+}
+
+// This makes the spinner visible when the select box is loading
+.selectize-control.single.loading .selectize-input:after {
+  // Remove the dropdown triangle
+  border: none;
+
+  // Show our spinner
+  width: 16px;
+  height: 16px;
+  margin-top: -7px;
+  background-position: 0 0;
+  background-size: 16px 16px;
+}
