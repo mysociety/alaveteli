@@ -161,7 +161,7 @@ describe ReportsController do
         expect(mail.body)
           .to include("The user wishes to draw attention to the comment: " \
                       "#{comment_url(comment)} "\
-                      "\nadmin: #{edit_admin_comment_path(comment)}")
+                      "\nadmin: #{edit_admin_comment_url(comment)}")
       end
 
       it "informs the user the comment has been reported" do

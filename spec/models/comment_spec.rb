@@ -17,6 +17,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Comment do
 
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
+
   describe 'visible scope' do
     before(:each) do
       @visible_request = FactoryGirl.create(:info_request, :prominence => "normal")
