@@ -72,7 +72,6 @@ describe Comment do
     let(:comment) { FactoryGirl.build(:comment) }
 
     it 'returns an array of strings' do
-      expect(comment.report_reasons).to be_an(Array)
       expect(comment.report_reasons).to all(be_a(String))
     end
 
