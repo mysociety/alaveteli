@@ -15,6 +15,10 @@ module AlaveteliPro
           title: params["info_request"]["title"],
           body: params["outgoing_message"]["body"],
           public_body_id: params["info_request"]["public_body_id"])
+        # Clear out the post_redirect, so that we don't get a lot of other
+        # params put into our URL later on
+        post_redirect.post_params = {}
+        post_redirect.save
         flash[:notice] = _("Thanks for logging in. We've saved your " \
                            "request as a draft, in case you wanted to " \
                            "add an embargo before sending it. You can " \
