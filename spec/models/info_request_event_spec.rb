@@ -307,6 +307,16 @@ describe InfoRequestEvent do
       expected_hash = {:new => {}, :old => {}, :other => {:bar => "84"}}
       expect(ire.params_diff).to eq(expected_hash)
     end
+
+    it 'returns a url_name if passed a User' do
+      user = FactoryGirl.build(:user)
+      ire.params = {:old_foo => "", :foo => user}
+      expected_hash = {
+        :new => {:foo => user.url_name},
+        :old => {:foo => ""},
+        :other => {}}
+      expect(ire.params_diff).to eq(expected_hash)
+    end
   end
 
   describe 'after saving' do
