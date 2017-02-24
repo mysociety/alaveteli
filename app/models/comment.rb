@@ -118,6 +118,7 @@ class Comment < ActiveRecord::Base
     save!
 
     if attention_requested? && user
+      raw_message = message.dup
       message = "Reason: #{reason}\n\n#{message}"
       RequestMailer.requires_admin(info_request, user, message).deliver
 
@@ -126,6 +127,7 @@ class Comment < ActiveRecord::Base
                   { :comment_id => id,
                     :editor => user,
                     :reason => reason,
+                    :message => raw_message,
                     :old_attention_requested => old_attention,
                     :attention_requested => true })
     end

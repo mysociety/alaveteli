@@ -109,6 +109,10 @@ describe Comment do
       most_recent_event = comment.info_request_events.last
 
       expect(most_recent_event.event_type).to eq('report_comment')
+      expect(most_recent_event.params).
+        to include(:reason => "Vexatious comment")
+      expect(most_recent_event.params).
+        to include(:message => "Comment is bad, please hide")
     end
 
   end
