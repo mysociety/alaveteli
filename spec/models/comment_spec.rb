@@ -173,4 +173,27 @@ describe Comment do
 
   end
 
+  describe 'for_admin_event_column' do
+
+    let(:comment) { FactoryGirl.create(:comment) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "returns nil unless passed an event" do
+      # shouldn't happen but just in case
+      expect(comment.for_admin_event_column(nil)).to be_nil
+    end
+
+    it "returns a subset of the event's for_admin_column data" do
+      comment.report!("Vexatious comment", "reported", user)
+      columns = comment.for_admin_event_column(comment.last_report) {
+                  |name, value, type, column_name| }
+
+      expect(columns[0].name).to eq("event_type")
+      expect(columns[1].name).to eq("params_yaml")
+      expect(columns[2].name).to eq("created_at")
+    end
+
+  end
+
+
 end

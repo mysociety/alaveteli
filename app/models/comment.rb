@@ -100,6 +100,23 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def for_admin_event_column(event)
+    return unless event
+
+    columns = event.for_admin_column { |name, value, type, column_name| }
+
+    columns = columns.map do |c|
+      c if %w(event_type params_yaml created_at).include?(c.name)
+    end
+
+    columns.compact.each do |column|
+      yield(column.name.humanize,
+            event.send(column.name),
+            column.type.to_s,
+            column.name)
+    end
+  end
+
   def report_reasons
     [_("Annotation contains defamatory material"),
      _("Annotation contains personal information"),
