@@ -126,7 +126,9 @@ describe "viewing requests in alaveteli_pro" do
       browse_pro_request(info_request.url_title)
       expect(page).to have_content("Status")
       check 'Change status'
-      expect(find_field("Waiting for a response")).to be_checked
+      # The current status shouldn't be checked, so that you can set it again
+      # if you need too, e.g. to reset the awaiting response status
+      expect(find_field("Waiting for a response")).not_to be_checked
       choose("Partially successful")
       within ".update-status" do
         click_button("Update")
@@ -137,7 +139,6 @@ describe "viewing requests in alaveteli_pro" do
       # by mistake
       expect(page).to have_content("Status")
       check 'Change status'
-      expect(find_field("Partially successful")).to be_checked
     end
   end
 end

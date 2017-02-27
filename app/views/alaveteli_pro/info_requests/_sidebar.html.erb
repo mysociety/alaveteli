@@ -51,11 +51,13 @@
           <ul class="status-picker__options">
             <% @state_transitions.each do |group, transitions| %>
               <% transitions.each do |state, label| %>
-                <% checked = @info_request.described_state == state %>
-                <li class="status-picker__option<%= ' status-picker__option--selected' if checked %>">
+                <li class="status-picker__option">
                   <%= f.label :described_state, value: state do %>
                     <i class="request-status-icon request-status-icon--<%= state.dasherize %>"></i>
-                    <%= f.radio_button :described_state, state, checked: checked %>
+                    <%# Note we force this to be unchecked, you can select the
+                        same status again to reset it to "awaiting response"
+                        after receiving an auto-response for example %>
+                    <%= f.radio_button :described_state, state, checked: false %>
                     <%= label %>
                   <% end %>
                 </li>
