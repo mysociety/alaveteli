@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-08 23:56+0000\n"
+"PO-Revision-Date: 2017-02-24 17:20+0000\n"
 "Last-Translator: Mattias A\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
@@ -643,7 +643,7 @@ msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
 msgid "Complete"
-msgstr "Färdiställ"
+msgstr "Färdigställ"
 
 msgid "Confirm password:"
 msgstr "Bekräfta lösenord:"
@@ -4104,13 +4104,13 @@ msgid "by {{user_link_absolute}}"
 msgstr "av {{user_link_absolute}}"
 
 msgid "clarification needed"
-msgstr "klargörande behövs"
+msgstr "behövs klargörande"
 
 msgid "comments"
 msgstr "kommentarer"
 
 msgid "complete"
-msgstr "fullständig"
+msgstr "färdigställ"
 
 msgid "details"
 msgstr "detaljer"
