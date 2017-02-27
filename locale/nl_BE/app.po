@@ -8,16 +8,18 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
+# Gareth Rees <gareth@mysociety.org>, 2017
 # Infwolf <infwolf@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-26 13:37+0000\n"
-"Last-Translator: Christophe Van Gheluwe <info@vg-webdesign.be>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:57+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/nl_BE/)\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
@@ -1271,8 +1273,8 @@ msgstr "Als u als dienst openbaarheid van bestuur deze website nuttig vindt, kan
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Als u {{site_name}} nuttig vindt, <a href=\"{{donation_url}}\">doe een donatie</a> aan de organisatie die de website beheert."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Indien u  <strong>meer dan 6 maanden geleden</strong> een e-mail hebt ontvangen, zal de link om in te loggen niet meer werken. Gelieve dan opnieuw te beginnen."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Voor zover u het nog niet gedaan heeft, gelieve een bericht te versturen naar de overheidsinstelling waarin u meedeelt dat u uw aanvraag hebt teruggetrokken. Anders zijn zij hier niet van op de hoogte."
@@ -1838,9 +1840,6 @@ msgstr ""
 msgid "OutgoingMessage|What doing"
 msgstr ""
 
-msgid "Overdue"
-msgstr "Te laat"
-
 msgid "Partial success"
 msgstr "Gedeeltelijk succesvol"
 
@@ -1888,11 +1887,6 @@ msgstr "Heeft u een vraag? <a href=\"{{url}}\">Neem contact met ons op</a>."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "<a href=\"{{url}}\">Neem contact met ons op</a> zodat wij dit kunnen verbeteren."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "<strong>Beantwoord bovenstaande vraag</strong>, zodat wij kunnen nagaan of het recente antwoord nuttige informatie bevat."
-msgstr[1] "<strong>Beantwoord bovenstaande vraag</strong>, zodat wij kunnen nagaan of de recente antwoorden nuttige informatie bevatten."
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "<strong>Ga naar de volgende verzoeken</strong> en laat ons weten of er in de recente antwoorden nuttige informatie staat."
@@ -2001,6 +1995,11 @@ msgstr "Vraag uitsluitend om informatie die binnen deze categorieën valt. Verli
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Geef dit door aan de persoon die belast is met verzoeken in het kader van de Wet openbaarheid van bestuur."
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2550,6 +2549,12 @@ msgstr "Deel je verzoek"
 msgid "Short name is already taken"
 msgstr "Deze naam is reeds in gebruik"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Toon de meest relevante resultaten eerst"
 
@@ -2612,6 +2617,12 @@ msgstr "Sorry, er was een probleem bij de processing van deze bladzijde"
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Sorry, we konden de bladzijde niet vinden"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Sorry, we kunnen momenteel geen nieuwe bezoekers inschrijven. Probeer het later nog eens"
@@ -2684,6 +2695,9 @@ msgstr "Geef een voorstel hoe de aanvrager de <strong> rest van de informatie </
 
 msgid "Summary"
 msgstr "Korte inhoud"
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Tabel met de statussen"
@@ -2960,9 +2974,6 @@ msgstr "Er is een <strong>afleverfout</strong> of gelijkaardig opgetreden, die m
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr "Er is een fout met reCAPTCHA.  Gelieve opnieuw te proberen."
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "Er is een fout opgetreden betreffende de woorden die u heeft opgegeven, gelieve opnieuw te proberen."
 
 msgid "There was no data calculated for this graph yet."
 msgstr "Er zijn voorlopig nog geen gegevens berekend voor deze grafiek."
@@ -3471,9 +3482,6 @@ msgstr ""
 
 msgid "Version {{version}}"
 msgstr "Versie {{version}}"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr "Ongepast"

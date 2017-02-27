@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -1269,7 +1270,7 @@ msgstr ""
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr ""
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1836,9 +1837,6 @@ msgstr ""
 msgid "OutgoingMessage|What doing"
 msgstr ""
 
-msgid "Overdue"
-msgstr ""
-
 msgid "Partial success"
 msgstr ""
 
@@ -1886,10 +1884,6 @@ msgstr ""
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr ""
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr ""
@@ -1998,6 +1992,10 @@ msgstr ""
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr ""
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2546,6 +2544,12 @@ msgstr ""
 msgid "Short name is already taken"
 msgstr ""
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr ""
 
@@ -2607,6 +2611,12 @@ msgid "Sorry, there was a problem processing this page"
 msgstr ""
 
 msgid "Sorry, we couldn't find that page"
+msgstr ""
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
@@ -2679,6 +2689,9 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr ""
 
 msgid "Summary"
+msgstr ""
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
 msgid "Table of statuses"
@@ -2955,9 +2968,6 @@ msgid "There was a <strong>delivery error</strong> or similar, which needs fixin
 msgstr ""
 
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr ""
-
-msgid "There was an error with the words you entered, please try again."
 msgstr ""
 
 msgid "There was no data calculated for this graph yet."
@@ -3465,9 +3475,6 @@ msgstr ""
 
 msgid "Version {{version}}"
 msgstr "第 {{version}} 版本"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr "困擾的"

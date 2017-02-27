@@ -8,13 +8,14 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: English (http://www.transifex.com/mysociety/alaveteli/language/en/)\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -1268,8 +1269,8 @@ msgstr "If you find this service useful as an FOI officer, please ask your web m
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "If you got the email <strong>more than six months ago</strong>, then this login link won't work any\\nmore. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1835,9 +1836,6 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
-msgid "Overdue"
-msgstr "Overdue"
-
 msgid "Partial success"
 msgstr "Partial success"
 
@@ -1885,11 +1883,6 @@ msgstr "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgstr[1] "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
@@ -1998,6 +1991,11 @@ msgstr "Please only request information that comes under those categories, <stro
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Please pass this on to the person who conducts Freedom of Information reviews."
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgstr[1] "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
 
 msgid "Please select an authority"
 msgstr "Please select an authority"
@@ -2547,6 +2545,12 @@ msgstr "Share your request"
 msgid "Short name is already taken"
 msgstr "Short name is already taken"
 
+msgid "Show all attachments"
+msgstr "Show all attachments"
+
+msgid "Show fewer attachments"
+msgstr "Show fewer attachments"
+
 msgid "Show most relevant results first"
 msgstr "Show most relevant results first"
 
@@ -2609,6 +2613,12 @@ msgstr "Sorry, there was a problem processing this page"
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Sorry, we couldn't find that page"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr "Sorry, we're currently unable to add your annotation. Please try again later."
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr "Sorry, we're currently unable to send your request. Please try again later."
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Sorry, we're currently unable to sign up new users, please try again later"
@@ -2681,6 +2691,9 @@ msgstr "Suggest how the requester can find the <strong>rest of the information</
 
 msgid "Summary"
 msgstr "Summary"
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
+msgstr "Summary is too short. Please be a little more descriptive about the information you are asking for."
 
 msgid "Table of statuses"
 msgstr "Table of statuses"
@@ -2957,9 +2970,6 @@ msgstr "There was a <strong>delivery error</strong> or similar, which needs fixi
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr "There was an error with the reCAPTCHA. Please try again."
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "There was an error with the words you entered, please try again."
 
 msgid "There was no data calculated for this graph yet."
 msgstr "There was no data calculated for this graph yet."
@@ -3468,9 +3478,6 @@ msgstr "User|Url name"
 
 msgid "Version {{version}}"
 msgstr "Version {{version}}"
-
-msgid "Very overdue"
-msgstr "Very overdue"
 
 msgid "Vexatious"
 msgstr "Vexatious"
