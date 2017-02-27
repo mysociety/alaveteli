@@ -69,19 +69,23 @@ describe AdminCommentController do
 
       before do
         @comment = FactoryGirl.create(:comment)
-        atts = FactoryGirl.attributes_for(:comment, :body => 'I am new')
-        put :update, :id => @comment.id, :comment => atts
       end
 
       it 'gets the comment' do
+        atts = FactoryGirl.attributes_for(:comment, :body => 'I am new')
+        put :update, :id => @comment.id, :comment => atts
         expect(assigns[:comment]).to eq(@comment)
       end
 
       it 'updates the comment' do
+        atts = FactoryGirl.attributes_for(:comment, :body => 'I am new')
+        put :update, :id => @comment.id, :comment => atts
         expect(Comment.find(@comment.id).body).to eq('I am new')
       end
 
       it 'logs the update event' do
+        atts = FactoryGirl.attributes_for(:comment, :body => 'I am new')
+        put :update, :id => @comment.id, :comment => atts
         most_recent_event = Comment.find(@comment.id).info_request_events.last
         expect(most_recent_event.event_type).to eq('edit_comment')
         expect(most_recent_event.comment_id).to eq(@comment.id)
@@ -90,6 +94,7 @@ describe AdminCommentController do
       context 'the attention_requested flag is the only change' do
         before do
           atts = FactoryGirl.attributes_for(:comment,
+                                            :body => @comment.body,
                                             :attention_requested => true)
           put :update, :id => @comment.id, :comment => atts
         end
@@ -113,11 +118,55 @@ describe AdminCommentController do
 
       end
 
+      context 'the comment is being hidden' do
+
+        context 'without changing the text' do
+
+          it 'logs a "hide_comment" event' do
+            atts = FactoryGirl.attributes_for(:comment,
+                                              :attention_requested => true,
+                                              :visible => false)
+            put :update, :id => @comment.id, :comment => atts
+
+            last_event = Comment.find(@comment.id).info_request_events.last
+            expect(last_event.event_type).to eq('hide_comment')
+          end
+
+        end
+
+        context 'the text is changed as well' do
+
+          it 'logs an "edit_comment" event' do
+            atts = FactoryGirl.attributes_for(:comment,
+                                              :attention_requested => true,
+                                              :visible => false,
+                                              :body => 'updated text')
+            put :update, :id => @comment.id, :comment => atts
+
+            last_event = Comment.find(@comment.id).info_request_events.last
+            expect(last_event.event_type).to eq('edit_comment')
+          end
+
+        end
+
+      end
+
       it 'shows a success notice' do
+        atts = FactoryGirl.attributes_for(:comment,
+                                          :attention_requested => true,
+                                          :visible => false,
+                                          :body => 'updated text')
+        put :update, :id => @comment.id, :comment => atts
         expect(flash[:notice]).to eq("Comment successfully updated.")
       end
 
       it 'redirects to the request page' do
+        atts = FactoryGirl.attributes_for(:comment,
+                                          :attention_requested => true,
+                                          :visible => false,
+                                          :body => 'updated text')
+        put :update, :id => @comment.id, :comment => atts
+
         expect(response).to redirect_to(admin_request_path(@comment.info_request))
       end
     end
