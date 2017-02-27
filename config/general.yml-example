@@ -1012,3 +1012,17 @@ PRO_CONTACT_EMAIL: 'pro-contact@localhost'
 #
 # ---
 PRO_CONTACT_NAME: 'Alaveteli Professional'
+
+# Site name for Alaveteli Professional.
+# The name to use when referring to the Alaveteli Professional parts of an
+# Alaveteli site. For example, in the UK our Alaveteli instance is called
+# "WhatDoTheyKnow" but we refer to the pro parts of the site as
+# "WhatDoTheyKnow Pro".
+#
+# If you don't want a different name for the pro pages, make this the same as
+# SITE_NAME.
+#
+# PRO_SITE_NAME - String site name (default: Alaveteli Professional)
+#
+# ---
+PRO_SITE_NAME: 'Alaveteli Professional'
