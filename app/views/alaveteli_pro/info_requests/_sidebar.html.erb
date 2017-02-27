@@ -1,11 +1,11 @@
 <div id="right_column" class="sidebar right_column" role="complementary">
   <% if @info_request.embargo %>
-  <div class="sidebar__section">
+  <div class="sidebar__section update-embargo">
     <h2 class="embargo-sidebar-heading">
       <i class="embargo-indicator embargo-indicator--small"></i>
-      <%= _("Embargo") %>
+      <%= _("Privacy") %>
     </h2>
-    <label class="houdini-label" for="input1"><%= _("Change embargo") %></label>
+    <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
     <input class="houdini-input" type="checkbox" id="input1">
     <div class="houdini-target extend-embargo-sidebar">
       <%= form_for([AlaveteliPro::EmbargoExtension.new(embargo: @info_request.embargo)]) do |f| %>
@@ -15,11 +15,11 @@
 
         <p>
           <label class="form_label" for="alaveteli_pro_embargo_extension_extension_duration">
-            <%= _('Extend embargo:') %>
+            <%= _('Keep private for a further:') %>
           </label>
           <%= f.select :extension_duration,
                        options_for_select(embargo_extension_options) %>
-          <input type="submit" value="<%= _("Extend") %>">
+          <input type="submit" value="<%= _("Update") %>">
         </p>
       <% end %>
       <%= button_to "Publish request",
@@ -32,7 +32,7 @@
   </div>
   <% end %>
   <% unless state_transitions_empty?(@state_transitions) %>
-    <div class="sidebar__section">
+    <div class="sidebar__section update-status">
     <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
       <h2><%= _("Update status") %></h2>
       <p>

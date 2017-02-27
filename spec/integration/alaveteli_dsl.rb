@@ -41,7 +41,7 @@ module AlaveteliDsl
 
     fill_in "Subject", with: "Does the pro request form work?"
     fill_in "Your request", with: "A very short letter."
-    select "3 Months", from: "Embargo"
+    select "3 Months", from: "Privacy"
   end
 
 end

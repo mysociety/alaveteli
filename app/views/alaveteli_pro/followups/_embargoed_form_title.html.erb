@@ -12,6 +12,8 @@
 <% end %>
 <p>
   <strong>
-    <%= _("Note: This message will be made public when the embargo ends") %>
+    <%= _("Note: When this request is made public on {{site_name}}, this " \
+          "message will also be made public.",
+          :site_name => AlaveteliConfiguration.site_name) %>
   </strong>
 </p>

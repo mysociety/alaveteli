@@ -33,9 +33,10 @@ module AlaveteliPro
       @user = user
       @info_requests = info_requests
       subject = n_(
-        "{{count}} embargo is ending this week",
-        "{{count}} embargoes are ending this week",
+        "{{count}} request will be made public on {{site_name}} this week",
+        "{{count}} requests will be made public on {{site_name}} this week",
         info_requests.count,
+        :site_name => AlaveteliConfiguration.site_name,
         :count => info_requests.count)
       auto_generated_headers
       mail_user(@user, subject).deliver
