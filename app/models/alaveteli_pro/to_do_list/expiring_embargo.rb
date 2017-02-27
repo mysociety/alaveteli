@@ -3,8 +3,8 @@ module AlaveteliPro
     class ExpiringEmbargo < Item
 
       def description
-        n_("{{count}} embargo is ending this week.",
-           "{{count}} embargoes are ending this week.",
+        n_("{{count}} request will be made public this week.",
+           "{{count}} requests will be made public this week.",
            count,
            :count => count)
       end
@@ -23,8 +23,8 @@ module AlaveteliPro
       end
 
       def call_to_action
-        n_("Extend or approve this embargo.",
-           "Extend or approve these embargoes.",
+        n_("Publish this request or keep it private for longer.",
+           "Publish these requests or keep them private for longer.",
            count)
       end
     end

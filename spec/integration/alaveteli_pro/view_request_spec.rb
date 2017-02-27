@@ -26,14 +26,18 @@ describe "viewing requests in alaveteli_pro" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       old_publish_at = embargo.publish_at
-      expect(page).to have_content("This request is embargoed until " \
+      expect(page).to have_content("This request is private on " \
+                                   "Alaveteli until " \
                                    "#{old_publish_at.strftime('%d %B %Y')}")
-      select "3 Months", from: "Extend embargo:"
-      click_button("Extend")
+      select "3 Months", from: "Keep private for a further:"
+      within ".update-embargo" do
+        click_button("Update")
+      end
       expected_publish_at = old_publish_at + AlaveteliPro::Embargo::THREE_MONTHS
       expect(embargo.reload.publish_at).to eq(expected_publish_at)
-      expect(page).to have_content("This request is embargoed until " \
-                                   "#{expected_publish_at.strftime('%d %B %Y')} ")
+      expect(page).to have_content("This request is private on " \
+                                   "Alaveteli until " \
+                                   "#{expected_publish_at.strftime('%d %B %Y')}")
     end
   end
 
@@ -41,7 +45,8 @@ describe "viewing requests in alaveteli_pro" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       old_publish_at = embargo.publish_at
-      expect(page).to have_content("This request is embargoed until " \
+      expect(page).to have_content("This request is private on " \
+                                   "Alaveteli until " \
                                    "#{old_publish_at.strftime('%d %B %Y')}")
       click_button("Publish request")
       expect(info_request.reload.embargo).to be nil
@@ -122,7 +127,9 @@ describe "viewing requests in alaveteli_pro" do
       expect(page).to have_content("Update status")
       expect(find_field("Waiting for a response")).to be_checked
       choose("Partially successful")
-      click_button("Update")
+      within ".update-status" do
+        click_button("Update")
+      end
       expect(info_request.reload.described_state).to eq ("partially_successful")
       expect(page).to have_content("Your request has been updated!")
       # The form should still be there to allow us to go back if we updated

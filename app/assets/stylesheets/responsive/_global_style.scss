@@ -153,6 +153,12 @@ label.form_label {
 
 .form_item_note,.form_note {
   font-size:0.875em;
+  line-height: 1.5em;
+}
+
+.form_item_note--important {
+  font-size: 1.142857143em;
+  line-height: 1.5em;
 }
 
 p + .form_item_note {

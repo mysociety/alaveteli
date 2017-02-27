@@ -128,8 +128,8 @@ module AlaveteliPro
           :capital_label => _('Drafts') },
         { :param => 'embargoes_expiring',
           :value => :embargo_expiring,
-          :label => _('requests with expiring embargoes'),
-          :capital_label => _('Requests with expiring embargoes')
+          :label => _('requests that will be made public soon'),
+          :capital_label => _('Requests that will be made public soon')
         }
        ]
     end
