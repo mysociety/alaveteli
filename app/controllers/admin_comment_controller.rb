@@ -27,14 +27,19 @@ class AdminCommentController < AdminController
   end
 
   def update
-    old_body = @comment.body
+    old_body = @comment.body.dup
     old_visible = @comment.visible
     old_attention = @comment.attention_requested
 
     if @comment.update_attributes(comment_params)
+      update_type = if comment_hidden?(old_visible, old_body)
+        "hide_comment"
+      else
+        "edit_comment"
+      end
       @comment.
         info_request.
-          log_event("edit_comment",
+          log_event(update_type,
                     { :comment_id => @comment.id,
                       :editor => admin_current_user,
                       :old_body => old_body,
@@ -62,6 +67,10 @@ class AdminCommentController < AdminController
 
   def set_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def comment_hidden?(old_visibility, old_body)
+    !@comment.visible && old_visibility && old_body == @comment.body
   end
 
 end
