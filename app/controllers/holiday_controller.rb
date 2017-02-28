@@ -18,7 +18,7 @@ class HolidayController < ApplicationController
         Holiday.
           where(['day >= ? AND day <= ?',
                  @request_date.strftime("%F"),
-                 @due_date.strftime("%F")]).all.collect { |h| h.day }.sort
+                 @due_date.strftime("%F")]).to_a.collect { |h| h.day }.sort
     end
   end
 
