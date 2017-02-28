@@ -4,7 +4,7 @@ class CreateInfoRequestBatches < ActiveRecord::Migration
     create_table :info_request_batches do |t|
       t.column :title, :text, :null => false
       t.column :user_id, :integer, :null => false
-      t.timestamps
+      t.timestamps :null => false
     end
     add_column :info_requests, :info_request_batch_id, :integer, :null => true
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
