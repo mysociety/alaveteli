@@ -1,9 +1,17 @@
-<li class="<%= 'selected' if controller?('request') && action?('new', 'select_authority') %>">
+<li class="<%= 'selected' if controller?('alaveteli_pro/dashboard') && action?('index') %>">
+  <%= link_to _("Dashboard"), alaveteli_pro_dashboard_path %>
+</li>
+
+<li class="<%= 'selected' if controller?('alaveteli_pro/info_requests') && action?('index') %>">
+  <%= link_to _("Requests"), alaveteli_pro_info_requests_path %>
+</li>
+
+<li class="<%= 'selected' if controller?('alaveteli_pro/info_requests') && action?('new', 'preview') %>">
   <%= link_to _("Make a request"), select_authority_path, :id => 'make-request-link' %>
 </li>
 
 <li class="<%= 'selected' if controller?('request') && !action?('new', 'select_authority') %>">
-  <%= link_to _("Browse requests"), request_list_successful_path %>
+  <%= link_to _("Browse public requests"), request_list_successful_path %>
 </li>
 
 <li class="<%= 'selected' if controller?('public_body') %>">
