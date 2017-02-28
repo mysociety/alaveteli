@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/garethrees/mail
-  revision: dc8832fb7ead2651b19f4b30971ecc756b553da2
-  ref: dc8832f
-  specs:
-    mail (2.6.5.edge)
-      mime-types (>= 1.16, < 4)
-
-GIT
   remote: https://github.com/heapsource/active_model_otp.git
   revision: c342283fe564bfe03d1798cb025ab80ff4e93451
   ref: c342283fe564bf
@@ -14,6 +6,14 @@ GIT
     active_model_otp (1.2.0)
       activemodel
       rotp
+
+GIT
+  remote: https://github.com/mikel/mail
+  revision: 06d1d7bbcd96de342a4a8a91bc903c1dc86354d5
+  branch: 2-6-stable
+  specs:
+    mail (2.6.5.edge)
+      mime-types (>= 1.16, < 4)
 
 GIT
   remote: https://github.com/mysociety/ruby-msg.git
