@@ -2589,6 +2589,16 @@ describe RequestController, "#select_authorities" do
           expect(response).to be_success
         end
 
+        it 'recognizes a GET request' do
+          assert_routing({ :path => '/select_authorities' ,  :method => :get },
+                         { :controller => 'request', :action => 'select_authorities' })
+        end
+
+        it 'recognizes a POST request' do
+          assert_routing({ :path => '/select_authorities', :method => :post },
+                         { :controller => 'request', :action => 'select_authorities' })
+        end
+
         it 'should render the "select_authorities" template' do
           get :select_authorities, {}, {:user_id => @user.id}
           expect(response).to render_template('request/select_authorities')
