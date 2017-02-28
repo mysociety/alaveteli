@@ -4,7 +4,7 @@ class CreateProAccounts < ActiveRecord::Migration
       t.column :user_id, :integer, null: false
       t.column :default_embargo_duration, :string
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

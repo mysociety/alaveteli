@@ -7,7 +7,7 @@ class CreateDraftInfoRequests < ActiveRecord::Migration
       t.text :body
       t.string :embargo_duration
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

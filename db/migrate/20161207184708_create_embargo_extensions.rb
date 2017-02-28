@@ -4,7 +4,7 @@ class CreateEmbargoExtensions < ActiveRecord::Migration
       t.integer :embargo_id
       t.string :extension_duration
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
