@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Andra Ciuraru <andra.ciuraru@gmail.com>, 2016
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
@@ -36,9 +37,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -1299,8 +1300,8 @@ msgstr "Dacă găsiti acest serviciu util ca responsabil în cadrul instituției
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Dacă ți se pare util site-ul {{site_name}}, <a href=\"{{donation_url}}\">puteți face o donație</a> către ONG-ul care la construit."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Dacă au trecut <strong>mai mult de șase luni</strong> de la primirea acestui email, atunci acest link de autentificare nu va mai funcționa. Te rugăm să refaci pasii de la început."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Dacă nu aţi făcut deja asta, vă rugăm să transmiteți un mesaj, mai jos, autoritaţii comunicându-le că v-aţi retras solicitarea.  În caz contrar, ei nu vor şti că aceasta a fost retrasă."
@@ -1866,9 +1867,6 @@ msgstr "MesajTrimis|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "MesajTrimis|Ce se întamplă"
 
-msgid "Overdue"
-msgstr ""
-
 msgid "Partial success"
 msgstr "Succes parțial"
 
@@ -1916,12 +1914,6 @@ msgstr "Te rugăm <a href=\"{{url}}\">contactează-ne</a> dacă ai întrebări"
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Vă rugăm <a href=\"{{url}}\"> staţi în legătură</a>  cu noi, ca să o rezolvăm."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Vă rugăm <strong>să răspundeți la întrebarea de deasupra</strong> ca să știm dacă răspunsul recent conține infomații utile."
-msgstr[1] "Vă rugăm <strong>să răspundeți la întrebarea de deasupra</strong> ca să știm dacă răspunsul recent conține infomații utile."
-msgstr[2] "Vă rugăm <strong>să răspundeți la întrebarea de deasupra</strong> ca să știm dacă răspunsul recent conține infomații utile."
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "Te rugăm <strong>accesează aceste solicitări</strong>, și anunță-ne\\n dacă au fost transmise informații prin ultimele răspunsuri la acestea."
@@ -2030,6 +2022,12 @@ msgstr "Te rugăm să soliciți numai informațiile ce se regăsesc în una din 
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Vă rugăm trimiteți aceasta persoanei care face verificări de solicitări de informații"
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2580,6 +2578,12 @@ msgstr "Publică solicitarea"
 msgid "Short name is already taken"
 msgstr "Numele scurt este deja folosit"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Arată mesajele relevante mai întâi"
 
@@ -2642,6 +2646,12 @@ msgstr "Scuze, este o problemă cu accesarea acestei pagini."
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Scuze, nu am găsit pagina"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
@@ -2713,6 +2723,9 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Sugeraţi cum ar putea găsi solicitantul  <strong>restul informaţiilior</strong>."
 
 msgid "Summary"
+msgstr ""
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
 msgid "Table of statuses"
@@ -2990,9 +3003,6 @@ msgstr "A apărut o  <strong>eroare de transmitere</strong> sau similară ce va 
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr "S-a produs o eroare cu reCAPTCHA. Vă rugăm să încercați din nou."
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "Există o eroare printre cuvintele pe care le-aţi introdus, vă rugăm încercaţi din nou."
 
 msgid "There was no data calculated for this graph yet."
 msgstr "Încă nu s-au calculat datele pentru acest grafic."
@@ -3503,9 +3513,6 @@ msgstr "Utilizator|Nume URL"
 
 msgid "Version {{version}}"
 msgstr "Versiunea {{version}}"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr "Ofensator"

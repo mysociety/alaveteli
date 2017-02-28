@@ -46,7 +46,7 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
       it 'returns a link to the info request list with a "embargoed" filter' do
         FactoryGirl.create(:expiring_embargo, :user => embargo.user)
         expect(@expiring_embargo.url)
-          .to eq alaveteli_pro_info_requests_path('request_filter[filter]' =>
+          .to eq alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
                                                     'embargoes_expiring')
       end
 

@@ -4,19 +4,18 @@ require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
 describe "creating requests in alaveteli_pro" do
   context "when writing a new request from scratch" do
-    let!(:public_body) { FactoryGirl.create(:public_body) }
+    let!(:public_body) { FactoryGirl.create(:public_body, :name => 'example') }
     let!(:pro_user) { FactoryGirl.create(:pro_user) }
     let!(:pro_user_session) { login(pro_user) }
+
+    before do
+      update_xapian_index
+    end
 
     it "allows us to save a draft" do
       using_pro_session(pro_user_session) do
         # New request form
-        visit new_alaveteli_pro_info_request_path
-        expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
-        fill_in "Summary", with: "Does the pro request form work?"
-        fill_in "Your request", with: "A very short letter."
-        select "3 Months", from: "Embargo"
+        create_pro_request(public_body)
         click_button "Save draft"
 
         # Redirected back to new request form
@@ -28,11 +27,11 @@ describe "creating requests in alaveteli_pro" do
 
         expect(page).to have_content("Your draft has been saved!")
         expect(page).to have_content("This request will be embargoed " \
-          "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+          "until #{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
 
         # The page should pre-fill the form with data from the draft
-        expect(page).to have_select("To", selected: public_body.name)
-        expect(page).to have_field("Summary",
+        expect(page).to have_field("To", with: public_body.name)
+        expect(page).to have_field("Subject",
                                    with: "Does the pro request form work?")
         expect(page).to have_field("Your request",
                                    with: "A very short letter.")
@@ -43,12 +42,7 @@ describe "creating requests in alaveteli_pro" do
     it "allows us to preview the request" do
       using_pro_session(pro_user_session) do
         # New request form
-        visit new_alaveteli_pro_info_request_path
-        expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
-        fill_in "Summary", with: "Does the pro request form work?"
-        fill_in "Your request", with: "A very short letter."
-        select "3 Months", from: "Embargo"
+        create_pro_request(public_body)
         click_button "Preview and send"
 
         # Preview page
@@ -64,19 +58,14 @@ describe "creating requests in alaveteli_pro" do
                                      "work?")
         expect(page).to have_content("A very short letter.")
         expect(page).to have_content("This request will be embargoed " \
-          "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+          "until #{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
       end
     end
 
     it "allows us to send the request" do
       using_pro_session(pro_user_session) do
         # New request form
-        visit new_alaveteli_pro_info_request_path
-        expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
-        fill_in "Summary", with: "Does the pro request form work?"
-        fill_in "Your request", with: "A very short letter."
-        select "3 Months", from: "Embargo"
+        create_pro_request(public_body)
         click_button "Preview and send"
 
         # Preview page
@@ -112,12 +101,7 @@ describe "creating requests in alaveteli_pro" do
     it "allow us to edit a request after previewing" do
       using_pro_session(pro_user_session) do
         # New request form
-        visit new_alaveteli_pro_info_request_path
-        expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
-        fill_in "Summary", with: "Does the pro request form work?"
-        fill_in "Your request", with: "A very short letter."
-        select "3 Months", from: "Embargo"
+        create_pro_request(public_body)
         click_button "Preview and send"
 
         # Preview page
@@ -125,8 +109,8 @@ describe "creating requests in alaveteli_pro" do
 
         # New request form again
         # The page should pre-fill the form with data from the draft
-        expect(page).to have_select("To", selected: public_body.name)
-        expect(page).to have_field("Summary",
+        expect(page).to have_field("To", with: public_body.name)
+        expect(page).to have_field("Subject",
                                    with: "Does the pro request form work?")
         expect(page).to have_field("Your request",
                                    with: "A very short letter.")
@@ -156,7 +140,7 @@ describe "creating requests in alaveteli_pro" do
                                      "work?")
         expect(page).to have_content("A very short letter, edited.")
         expect(page).to have_content("This request will be embargoed " \
-          "until #{AlaveteliPro::Embargo.three_months_from_now.to_date}")
+          "until #{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
       end
     end
 
@@ -172,10 +156,23 @@ describe "creating requests in alaveteli_pro" do
                                      "request"
         expect(page).to have_content "Please enter your letter requesting " \
                                      "information"
-        expect(page).to have_content 'Please sign at the bottom with ' \
-                                     'your name, or alter the "Yours ' \
-                                     'faithfully," signature'
         expect(page).to have_content "Please select an authority"
+      end
+    end
+
+    it "fills out the body with a template message" do
+      using_pro_session(pro_user_session) do
+        # New request form
+        visit new_alaveteli_pro_info_request_path
+        expect(page).to have_content <<-EOF
+Dear [Authority name],
+
+
+
+Yours faithfully,
+
+#{pro_user.name}
+        EOF
       end
     end
 
@@ -184,12 +181,13 @@ describe "creating requests in alaveteli_pro" do
         # New request form
         visit new_alaveteli_pro_info_request_path
         expect(page).to have_content "Make a request"
-        select public_body.name, from: "To"
+        fill_in "Your request", with: "A very short letter."
         click_button "Save draft"
 
         # New request form with errors
         expect(page).not_to have_content "Please enter a summary of your " \
                                          "request"
+        expect(page).not_to have_content "Please select an authority"
         expect(page).not_to have_content 'Please sign at the bottom with ' \
                                          'your name, or alter the "Yours ' \
                                          'faithfully," signature'
@@ -199,7 +197,7 @@ describe "creating requests in alaveteli_pro" do
     it "redirects to the pro page if the user starts the normal process" do
       # Make a request in the normal way
       with_feature_enabled(:alaveteli_pro) do
-        create_request
+        create_request(public_body)
 
         # Sign in page
         within '#signin_form' do
@@ -217,8 +215,8 @@ describe "creating requests in alaveteli_pro" do
                                     "add an embargo before sending it. You can " \
                                     "set that (or just send it straight away) " \
                                     "using the form below.")
-        expect(page).to have_select("To", selected: "Geraldine Quango")
-        expect(page).to have_field("Summary",
+        expect(page).to have_field("To", with: public_body.name)
+        expect(page).to have_field("Subject",
                                    with: "Why is your quango called Geraldine?")
         expect(page).to have_field("Your request",
                                    with: "This is a silly letter. It is too short to be interesting.")

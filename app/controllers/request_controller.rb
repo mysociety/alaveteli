@@ -40,6 +40,7 @@ class RequestController < ApplicationController
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
+    @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.pro?
     if !params[:query].nil?
       query = params[:query]
       flash[:search_params] = params.slice(:query, :bodies, :page)
@@ -382,40 +383,53 @@ class RequestController < ApplicationController
       @info_request.user = authenticated_user
     end
 
-    if AlaveteliConfiguration.enable_anti_spam && !@user.confirmed_not_spam?
+    subject_is_spam =
+      !@user.confirmed_not_spam? &&
+      AlaveteliSpamTermChecker.new.spam?(@outgoing_message.subject)
 
-      if AlaveteliSpamTermChecker.new.spam?(@outgoing_message.subject)
-        flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
-        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-          e = Exception.new("Spam request from user #{@info_request.user.id}")
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
+    if subject_is_spam
+      if send_exception_notifications?
+        e = Exception.new("Spam request from user #{@info_request.user.id}")
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      if AlaveteliConfiguration.enable_anti_spam
+        flash.now[:error] = _("Sorry, we're currently unable to send your " \
+                              "request. Please try again later.")
         render :action => 'new'
         return
       end
+    end
 
-      # temp blocking of request sending from other countries
-      ip_in_blocklist = AlaveteliConfiguration.restricted_countries.include?(country_from_ip) &&
-        country_from_ip != AlaveteliConfiguration.iso_country_code
+    ip_in_blocklist =
+      !@user.confirmed_not_spam? &&
+      AlaveteliConfiguration.restricted_countries.include?(country_from_ip) &&
+      country_from_ip != AlaveteliConfiguration.iso_country_code
 
-      if ip_in_blocklist
-        flash.now[:error] = "Sorry, we're currently not able to send your request. Please try again later."
-        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-          e = Exception.new("Possible blocked non-spam (ip_in_blocklist) from #{@info_request.user_id}: #{@info_request.title}")
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
+    if ip_in_blocklist
+      if send_exception_notifications?
+        e = Exception.new("Possible spam (ip_in_blocklist) from #{@info_request.user_id}: #{@info_request.title}")
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      if AlaveteliConfiguration.enable_anti_spam
+        flash.now[:error] = _("Sorry, we're currently unable to send your " \
+                              "request. Please try again later.")
         render :action => 'new'
         return
       end
     end
 
     if AlaveteliConfiguration.new_request_recaptcha && !@user.confirmed_not_spam?
-     if @render_recaptcha && !verify_recaptcha
-        flash.now[:error] = "There was an error with the reCAPTCHA information - please try again."
-        if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+      if @render_recaptcha && !verify_recaptcha
+        flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
+                              'Please try again.')
+
+        if send_exception_notifications?
           e = Exception.new("Possible blocked non-spam (recaptcha) from #{@info_request.user_id}: #{@info_request.title}")
           ExceptionNotifier.notify_exception(e, :env => request.env)
         end
+
         render :action => 'new'
         return
       end
@@ -873,23 +887,45 @@ class RequestController < ApplicationController
     @info_request = info_request
     @info_request_events = info_request.info_request_events
     @status = info_request.calculate_status
-    @old_unclassified = info_request.is_old_unclassified? && !authenticated_user.nil?
+    @old_unclassified =
+      info_request.is_old_unclassified? && !authenticated_user.nil?
     @is_owning_user = info_request.is_owning_user?(authenticated_user)
     @last_info_request_event_id = info_request.last_event_id_needing_description
-    @new_responses_count = info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
+    @new_responses_count =
+      info_request.
+      events_needing_description.
+      select { |event| event.event_type == 'response' }.
+      size
+    @follower_count = @info_request.track_things.count + 1
+
     # For send followup link at bottom
     @last_response = info_request.get_last_public_response
-    @follower_count = @info_request.track_things.count + 1
-    @show_profile_photo = !@info_request.is_external? &&  \
-                          @info_request.user.profile_photo && \
-                          !@render_to_file
-    @show_top_describe_state_form = !@in_pro_area && \
-                                    (@update_status || \
-                                     @info_request.awaiting_description )
-    @show_bottom_describe_state_form = !@in_pro_area && \
-                                       @info_request.awaiting_description
-    @show_owner_update_status_action = !@old_unclassified
-    @show_other_user_update_status_action = @old_unclassified
+
+    @show_profile_photo = !!(
+      !@info_request.is_external? &&
+      @info_request.user.profile_photo &&
+      !@render_to_file
+    )
+
+    @show_top_describe_state_form = !!(
+      !@in_pro_area &&
+      (@update_status || @info_request.awaiting_description) &&
+      !@render_to_file
+    )
+
+    @show_bottom_describe_state_form = !!(
+      !@in_pro_area &&
+      @info_request.awaiting_description &&
+      !@render_to_file
+    )
+
+    @show_owner_update_status_action = !!(
+      !@old_unclassified && !@render_to_file
+    )
+
+    @show_other_user_update_status_action = !!(
+      @old_unclassified && !@render_to_file
+    )
   end
 
   def assign_state_transition_variables
@@ -909,6 +945,7 @@ class RequestController < ApplicationController
   end
 
   def state_transitions_empty?(transitions)
+    return true if transitions.nil?
     transitions[:pending].empty? && \
       transitions[:complete].empty? && \
       transitions[:other].empty?
@@ -936,9 +973,9 @@ class RequestController < ApplicationController
   def make_request_summary_file(info_request)
     done = false
     convert_command = AlaveteliConfiguration::html_to_pdf_command
+    @render_to_file = true
     assign_variables_for_show_template(info_request)
     if !convert_command.blank? && File.exists?(convert_command)
-      @render_to_file = true
       html_output = render_to_string(:template => 'request/show')
       tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
       tmp_input.write(html_output)
@@ -1151,7 +1188,7 @@ class RequestController < ApplicationController
 
   def redirect_new_form_to_pro_version
     # Pros should use the pro version of the form
-    if feature_enabled?(:alaveteli_pro) && current_user && current_user.pro?
+    if feature_enabled?(:alaveteli_pro) && current_user && current_user.pro? && params[:pro] != "1"
       if params[:url_name]
         redirect_to(
           new_alaveteli_pro_info_request_url(public_body: params[:url_name]))

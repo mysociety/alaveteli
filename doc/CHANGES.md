@@ -1,3 +1,42 @@
+# 0.27.1.0
+
+## Highlighted Features
+
+* Always send warnings of possible spam activity – configure blocking of spam
+  activity with `ENABLE_ANTI_SPAM` (Gareth Rees)
+* Fix downloading request Zips when they're unclassified (Gareth Rees)
+* Handle parsing mail server logs when using a smarthost (Gareth Rees)
+* Removed a reference to `MySociety::Config` (Caleb Tutty)
+* Hide admin navigation items in request PDF download (Gareth Rees)
+* Added a set of rake tasks to provide stats on user signups by email domain
+  with the option to ban by domain if required (Liz Conlan)
+* Added a data export task to help with research (Alex Parsons)
+* Add slightly stricter constraints to InfoRequest summaries to prevent really
+  short titles like "re" from being used while still allowing acronyms like
+  RNIB through - only affects new requests, pre-existing requests which don't
+  meet these new requirements will still be treated as valid (Liz Conlan)
+* Make the "Show all attachments" and "Show fewer attachments" links on the
+  request page translatable (Liz Conlan)
+
+## Upgrade Notes
+
+* The `:redact_idhash` option of `MailServerLog#line` has been replaced by the
+  `:redact` option. It will be removed in release 0.29.
+
+### Changed Templates
+
+    app/views/comment/_single_comment.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/public_body/_search_ahead.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/user/bad_token.html.erb
+
 # 0.27.0.9
 
 ## Highlighted Features

@@ -316,14 +316,14 @@ describe MailServerLog do
 
     end
 
-    context ':redact_idhash option is truthy' do
+    context ':redact option is truthy' do
 
       it 'redacts the info request id hash' do
         log = FactoryGirl.create(:mail_server_log)
         line = log.line += " #{ log.info_request.incoming_email }"
         idhash = log.info_request.idhash
         log.update_attributes!(:line => line)
-        expect(log.line(:redact_idhash => true)).to_not include(idhash)
+        expect(log.line(:redact => true)).to_not include(idhash)
       end
 
       it 'redacts the info request id when decorated' do
@@ -331,20 +331,49 @@ describe MailServerLog do
         line = log.line += " #{ log.info_request.incoming_email }"
         idhash = log.info_request.idhash
         log.update_attributes!(:line => line)
-        expect(log.line(:redact_idhash => true, :decorate => true).to_s).
+        expect(log.line(:redact => true, :decorate => true).to_s).
           to_not include(idhash)
       end
 
-
       it 'handles not having an associated info request' do
         log = MailServerLog.new(:line => 'log line')
-        expect(log.line(:redact_idhash => true)).to eq('log line')
+        expect(log.line(:redact => true)).to eq('log line')
       end
 
       it 'handles the info request not having an idhash' do
         request = FactoryGirl.build(:info_request)
         log = MailServerLog.new(:line => 'log line', :info_request => request)
-        expect(log.line(:redact_idhash => true)).to eq('log line')
+        expect(log.line(:redact => true)).to eq('log line')
+      end
+
+      it 'redacts the hostname if the router is sent_to_smarthost' do
+        log = MailServerLog.new(:line => <<-EOF.squish)
+        R=send_to_smarthost
+        H=secret.ukcod.org.uk [127.0.0.1]:25
+        EOF
+        redacted = log.line(:redact => true)
+        expect(redacted).to match(/H\=\[REDACTED\]/)
+        expect(redacted).to_not include('secret.ukcod.org.uk [127.0.0.1]:25')
+      end
+
+      it 'does not redact the hostname unless the router is sent_to_smarthost' do
+        log = MailServerLog.new(:line => <<-EOF.squish)
+        R=dnslookup_returnpath_dkim
+        H=notsecret.ukcod.org.uk [127.0.0.1]:25
+        EOF
+        redacted = log.line(:redact => true)
+        expect(redacted).to include('secret.ukcod.org.uk [127.0.0.1]:25')
+      end
+
+      it 'strips syslog prefixes' do
+        log = MailServerLog.new(:line => <<-EOF.squish)
+        Jan  1 16:26:57 secret exim[15407]: 2017-01-01 16:26:57
+        [15407] 1cNiyG-00040U-Ls => body@example.com…
+        EOF
+
+        expect(log.line(:redact => true)).to eq(<<-EOF.squish)
+        2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls => body@example.com…
+        EOF
       end
 
     end

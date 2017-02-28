@@ -913,16 +913,6 @@ describe RequestController, "when searching for an authority" do
     get_fixtures_xapian_index
   end
 
-  it "should redirect pros to the info request form for pros" do
-    with_feature_enabled(:alaveteli_pro) do
-      pro_user = FactoryGirl.create(:pro_user)
-      public_body = FactoryGirl.create(:public_body)
-      session[:user_id] = pro_user.id
-      get :select_authority
-      expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
-    end
-  end
-
   it "should return nothing for the empty query string" do
     session[:user_id] = @user.id
     get :select_authority, :query => ""
@@ -967,6 +957,64 @@ describe RequestController, "when searching for an authority" do
     expect(flash[:search_params]).to eq(search_params)
   end
 
+  describe 'when params[:pro] is true' do
+    context "and a pro user is logged in " do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+
+      before do
+        session[:user_id] = pro_user.id
+      end
+
+      it "should set @in_pro_area to true" do
+        get :select_authority, pro: "1"
+        expect(assigns[:in_pro_area]).to be true
+      end
+
+      it "should not redirect pros to the info request form for pros" do
+        with_feature_enabled(:alaveteli_pro) do
+          public_body = FactoryGirl.create(:public_body)
+          get :select_authority, pro: "1"
+          expect(response).to be_success
+        end
+      end
+    end
+
+    context "and a pro user is not logged in" do
+      before do
+        session[:user_id] = nil
+      end
+
+      it "should set @in_pro_area to false" do
+        get :select_authority, pro: "1"
+        expect(assigns[:in_pro_area]).to be false
+      end
+
+      it "should not redirect users to the info request form for pros" do
+        with_feature_enabled(:alaveteli_pro) do
+          public_body = FactoryGirl.create(:public_body)
+          get :select_authority, pro: "1"
+          expect(response).to be_success
+        end
+      end
+    end
+  end
+
+  describe 'when params[:pro] is not set' do
+    it "should set @in_pro_area to false" do
+      get :select_authority
+      expect(assigns[:in_pro_area]).to be false
+    end
+
+    it "should redirect pros to the info request form for pros" do
+      with_feature_enabled(:alaveteli_pro) do
+        pro_user = FactoryGirl.create(:pro_user)
+        public_body = FactoryGirl.create(:public_body)
+        session[:user_id] = pro_user.id
+        get :select_authority
+        expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
+      end
+    end
+  end
 end
 
 describe RequestController, "when creating a new request" do
@@ -1297,7 +1345,7 @@ describe RequestController, "when creating a new request" do
             :outgoing_message => { :body => "Please supply the answer from your files." },
             :submitted_new_request => 1, :preview => 0
           expect(flash[:error])
-            .to eq("There was an error with the reCAPTCHA information - please try again.")
+            .to eq('There was an error with the reCAPTCHA. Please try again.')
         end
 
         it 'renders the compose interface' do
@@ -1327,7 +1375,7 @@ describe RequestController, "when creating a new request" do
 
   end
 
-  describe 'when anti-spam is enabled' do
+  describe 'when enable_anti_spam is true' do
 
     before do
       allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
@@ -1347,7 +1395,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(flash[:error])
-          .to eq("Sorry, we're currently not able to send your request. Please try again later.")
+          .to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do
@@ -1387,7 +1435,7 @@ describe RequestController, "when creating a new request" do
           :outgoing_message => { :body => "Please supply the answer from your files." },
           :submitted_new_request => 1, :preview => 0
         expect(flash[:error])
-          .to eq("Sorry, we're currently not able to send your request. Please try again later.")
+          .to eq("Sorry, we're currently unable to send your request. Please try again later.")
       end
 
       it 'renders the compose interface' do
@@ -2826,6 +2874,24 @@ describe RequestController do
         end
       end
     end
+
+    context 'when the request is unclassified' do
+
+      it 'does not render the describe state form' do
+        info_request = FactoryGirl.create(:info_request)
+        info_request.update_attributes(:awaiting_description => true)
+        info_request.expire
+        session[:user_id] = info_request.user_id
+        get :download_entire_request, :url_title => info_request.url_title
+        expect(assigns[:show_top_describe_state_form]).to eq(false)
+        expect(assigns[:show_bottom_describe_state_form]).to eq(false)
+        expect(assigns[:show_owner_update_status_action]).to eq(false)
+        expect(assigns[:show_other_user_update_status_action]).to eq(false)
+        expect(assigns[:show_profile_photo]).to eq(false)
+      end
+
+    end
+
   end
 end
 

@@ -15,7 +15,7 @@ describe AlaveteliPro::ToDoList::OverdueRequest do
 
     it 'gives a description for one response' do
       time_travel_to(Date.parse('2015-12-01')) do
-        expect(@overdue_request.description).to eq "1 request is overdue."
+        expect(@overdue_request.description).to eq "1 request is delayed."
       end
     end
 
@@ -24,7 +24,7 @@ describe AlaveteliPro::ToDoList::OverdueRequest do
         FactoryGirl.create(:info_request, :user => info_request.user)
       end
       time_travel_to(Date.parse('2015-12-01')) do
-        expect(@overdue_request.description).to eq "2 requests are overdue."
+        expect(@overdue_request.description).to eq "2 requests are delayed."
       end
     end
 
@@ -60,7 +60,7 @@ describe AlaveteliPro::ToDoList::OverdueRequest do
         end
         time_travel_to(Date.parse('2015-12-01')) do
           expect(@overdue_request.url)
-            .to eq alaveteli_pro_info_requests_path('request_filter[filter]' =>
+            .to eq alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
                                                       'overdue')
         end
       end

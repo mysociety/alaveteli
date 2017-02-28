@@ -5,7 +5,10 @@ describe AlaveteliPro::InfoRequestsController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
 
   describe "GET #index" do
-    let(:info_request){ FactoryGirl.create(:info_request, :user => pro_user) }
+    let!(:info_request){ FactoryGirl.create(:info_request, :user => pro_user) }
+    let!(:foo_request){ FactoryGirl.create(:info_request,
+                                           :user => pro_user,
+                                           :title => 'Foo foo') }
 
     before do
       session[:user_id] = info_request.user.id
@@ -25,9 +28,19 @@ describe AlaveteliPro::InfoRequestsController do
 
       it "assigns the user's info requests" do
         get :index
-        expect(assigns[:info_requests].size).to eq 1
-        expect(assigns[:info_requests].first).to eq info_request
+        expect(assigns[:info_requests].size).to eq 2
+        expect(assigns[:info_requests]).
+          to match_array [info_request, foo_request]
       end
+    end
+
+    context 'when a search is passed' do
+
+      it 'applies the search' do
+        get :index, {:alaveteli_pro_request_filter => {:search => 'foo'}}
+        expect(assigns[:info_requests].size).to eq 1
+      end
+
     end
 
   end

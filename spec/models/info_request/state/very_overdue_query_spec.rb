@@ -27,5 +27,17 @@ describe InfoRequest::State::VeryOverdueQuery do
         .to be false
     end
 
+    it 'excludes those that are waiting for description' do
+      time_travel_to(Date.parse('2015-10-01')) do
+        info_request
+        info_request.awaiting_description = true
+        info_request.save!
+      end
+      time_travel_to(Date.parse('2015-11-30')) do
+        expect(described_class.new.call.include?(info_request))
+          .to be false
+      end
+    end
+
   end
 end

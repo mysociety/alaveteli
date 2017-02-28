@@ -376,8 +376,9 @@ describe InfoRequestHelper do
       context 'owning user' do
         context "when there's one new reponse" do
           it 'asks the user to answer the question' do
-            expected = 'Please <strong>answer the question above</strong> so ' \
-                       'we know whether the recent response contains useful ' \
+            expected = 'Please read the recent response and ' \
+                       '<strong>update the status</strong> ' \
+                       'so we know whether it contains useful ' \
                        'information.'
             actual = status_text(info_request,
                                  :new_responses_count => 1,
@@ -390,8 +391,9 @@ describe InfoRequestHelper do
 
         context "when there's more than one new response" do
           it 'asks the user to answer the question' do
-            expected = 'Please <strong>answer the question above</strong> so ' \
-                       'we know whether the recent responses contain useful ' \
+            expected = 'Please read the recent responses and ' \
+                       '<strong>update the status</strong> ' \
+                       'so we know whether they contain useful ' \
                        'information.'
             actual = status_text(info_request,
                                  :new_responses_count => 3,

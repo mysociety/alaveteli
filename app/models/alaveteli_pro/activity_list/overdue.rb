@@ -3,7 +3,7 @@ module AlaveteliPro
     class Overdue < Item
 
       def description
-        N_('{{public_body_name}} became overdue in responding to your request "{{info_request_title}}".')
+        N_('{{public_body_name}} are delayed in responding to your request "{{info_request_title}}".')
       end
 
       def call_to_action

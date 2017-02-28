@@ -12,7 +12,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
 
   def index
     @request_filter = AlaveteliPro::RequestFilter.new
-    if params[:request_filter]
+    if params[:alaveteli_pro_request_filter]
       @request_filter.update_attributes(request_filter_params)
     end
     info_requests = @request_filter.results(current_user)
@@ -101,6 +101,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     @draft_info_request = DraftInfoRequest.new(public_body: @public_body)
     @info_request = InfoRequest.new(public_body: @public_body)
     @outgoing_message = OutgoingMessage.new(info_request: @info_request)
+    @outgoing_message.set_signature_name(current_user.name)
     # TODO: set duration based on current user's account settings
     @embargo = AlaveteliPro::Embargo.new(info_request: @info_request)
   end
@@ -126,7 +127,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   def request_filter_params
-    params.require(:request_filter).permit(:filter, :order, :search)
+    params.require(:alaveteli_pro_request_filter).permit(:filter, :order, :search)
   end
 
   def info_request_params

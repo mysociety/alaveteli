@@ -9,10 +9,10 @@ module AlaveteliDsl
     visit "/alaveteli_pro/info_requests/#{url_title}"
   end
 
-  def create_request
+  def create_request(public_body)
     visit select_authority_path
     within(:css, '#search_form') do
-      fill_in 'query', :with => 'Geraldine Quango'
+      fill_in 'query', :with => public_body.name
       find_button('Search').click
     end
     within(:css, '.body_listing') do
@@ -24,6 +24,24 @@ module AlaveteliDsl
     find_button('Preview your public request').click
     find_button('Send request').click
     expect(page).to have_content('To send your FOI request, create an account or sign in')
+  end
+
+  # Visit and fill out the pro-specific new request form
+  # Note: you'll need to be logged in as a pro user to access this page.
+  def create_pro_request(public_body)
+    visit new_alaveteli_pro_info_request_path
+    expect(page).to have_content "Make a request"
+
+    fill_in "To", with: public_body.name
+    click_button "Search"
+
+    within ".body_listing" do
+      find_link('Make a request').click
+    end
+
+    fill_in "Subject", with: "Does the pro request form work?"
+    fill_in "Your request", with: "A very short letter."
+    select "3 Months", from: "Embargo"
   end
 
 end

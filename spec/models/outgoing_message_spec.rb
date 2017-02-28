@@ -1399,6 +1399,61 @@ describe OutgoingMessage do
             to eq(expected_lines.scan(/[^\n]*\n/))
         end
 
+        it 'finds logs passed through an indirect router' do
+          message = FactoryGirl.create(:initial_request)
+          body_email = message.info_request.public_body.request_email
+          request_email = message.info_request.incoming_email
+          request_subject = message.info_request.email_subject_request(:html => false)
+          smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+          load_mail_server_logs <<-EOF.strip_heredoc
+          2017-01-01 16:26:56 [6537] 1cNiyG-0001hR-8R <= #{ request_email } U=alaveteli P=local S=2489 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2017-01-01 16:26:56 [6540] cwd=/var/spool/exim4 3 args: /usr/sbin/exim4 -Mc 1cNiyG-0001hR-8R
+          2017-01-01 16:26:57 [6540] 1cNiyG-0001hR-8R => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=send_to_smarthost T=remote_smtp S=2555 H=mail.example.com [62.208.144.158]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="CN=mx0.mysociety.org" C="250 OK id=1cNiyG-00040U-Ls" QT=1s DT=1s
+          2017-01-01 16:26:57 [6540] 1cNiyG-0001hR-8R Completed QT=1s
+          2017-01-01 16:26:57 [15406] 1cNiyG-00040U-Ls <= #{ request_email } H=mail.example.com [127.0.0.1]:57486 I=[127.0.0.1]:25 P=esmtps X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no S=2773 id=ogm-609600+58692dd023de0-dcdd@whatdotheyknow.com T="#{ request_subject }" from <#{ request_email }> for #{ body_email }
+          2017-01-01 16:26:57 [15407] cwd=/disk1/spool/exim4 3 args: /usr/sbin/exim4 -Mc 1cNiyG-00040U-Ls
+          2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup_returnpath_dkim T=remote_smtp_dkim_returnpath S=2845 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as 8630B4C0035" QT=1s DT=0s
+          2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls Completed QT=1s
+          EOF
+
+          expected_lines = <<-EOF.strip_heredoc
+          2017-01-01 16:26:56 [6537] 1cNiyG-0001hR-8R <= #{ request_email } U=alaveteli P=local S=2489 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2017-01-01 16:26:57 [6540] 1cNiyG-0001hR-8R => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=send_to_smarthost T=remote_smtp S=2555 H=mail.example.com [62.208.144.158]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="CN=mx0.mysociety.org" C="250 OK id=1cNiyG-00040U-Ls" QT=1s DT=1s
+          2017-01-01 16:26:57 [15406] 1cNiyG-00040U-Ls <= #{ request_email } H=mail.example.com [127.0.0.1]:57486 I=[127.0.0.1]:25 P=esmtps X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no S=2773 id=ogm-609600+58692dd023de0-dcdd@whatdotheyknow.com T="#{ request_subject }" from <#{ request_email }> for #{ body_email }
+          2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup_returnpath_dkim T=remote_smtp_dkim_returnpath S=2845 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as 8630B4C0035" QT=1s DT=0s
+          EOF
+
+          expect(message.mail_server_logs.map(&:line)).
+            to eq(expected_lines.scan(/[^\n]*\n/))
+        end
+
+
+        it 'handles log lines where a delivery status cant be parsed' do
+          message = FactoryGirl.create(:initial_request)
+          body_email = message.info_request.public_body.request_email
+          request_email = message.info_request.incoming_email
+          request_subject = message.info_request.email_subject_request(:html => false)
+          smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+          load_mail_server_logs <<-EOF.strip_heredoc
+          2014-03-25 15:35:42 [3719] 1WSTOA-0000xz-JF <= #{ request_email } U=alaveteli P=local S=2949 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2014-03-25 15:35:50 [3723] 1WSTOA-0000xz-JF SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:35:55 [3721] 1WSTOA-0000xz-JF == #{ body_email } R=dnslookup T=remote_smtp defer (-44): SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.core.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:51:01 [7248] 1WSTOA-0000xz-JF => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=3003 H=mx.core.canterbury.ac.uk [127.0.0.1]:25 X=TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=GB,postalCode=CT1 1QU,ST=Kent,L=CANTERBURY,STREET=North Holmes Road,O=Canterbury Christ Church University,OU=Computing Services,CN=mx.core.canterbury.ac.uk" C="250 OK id=1WSTcz-0002ft-2W" QT=15m19s DT=1s
+          EOF
+
+          expected_lines = <<-EOF.strip_heredoc
+          2014-03-25 15:35:42 [3719] 1WSTOA-0000xz-JF <= #{ request_email } U=alaveteli P=local S=2949 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2014-03-25 15:35:50 [3723] 1WSTOA-0000xz-JF SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:35:55 [3721] 1WSTOA-0000xz-JF == #{ body_email } R=dnslookup T=remote_smtp defer (-44): SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.core.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:51:01 [7248] 1WSTOA-0000xz-JF => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=3003 H=mx.core.canterbury.ac.uk [127.0.0.1]:25 X=TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=GB,postalCode=CT1 1QU,ST=Kent,L=CANTERBURY,STREET=North Holmes Road,O=Canterbury Christ Church University,OU=Computing Services,CN=mx.core.canterbury.ac.uk" C="250 OK id=1WSTcz-0002ft-2W" QT=15m19s DT=1s
+          EOF
+
+          expect(message.mail_server_logs.map(&:line)).
+            to eq(expected_lines.scan(/[^\n]*\n/))
+        end
+
       end
 
       context 'when postfix is the MTA' do

@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Amit Shrestha <amitshrestha37@gmail.com>, 2017
 # Anjesh Ojha <anjeshojha67@gmail.com>, 2017
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
@@ -41,9 +42,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-22 04:07+0000\n"
-"Last-Translator: Rishi raj Gautam <thunderdfrost@gmail.com>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -1299,8 +1300,8 @@ msgstr "तपाईं यो सेवा एक अ्याफ ओ इ अ�
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "तपाइले  {{site_name}}लाइ उपयोगी पाउनुभएमा, यसलाइ चलाउने कोषलाइ <a href=\"{{donation_url}}\">दान गर्नुहोस्</a>।"
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "तपाईंले इमेल  <strong> ६ भन्दा अधिक महिना पहिले </strong>पाउनु भयो भने, लग इन् लिंकले काम गर्ने छैन। कृपया तपाईं सुरुदेखि जे गरिरहेका हुनुहुन्थ्यो त्यहि गर्ने र्प्रयास गर्नुहोस्।"
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "  तपाईले आफ्नो अनुरोध फिर्ता लिया छ कि छैन ,अख्तियारलाई बताउन तल एक सन्देश लेख्नुहोस्। अन्यथा उनीहरूलाई फिर्ता लिया बारे थाहा हुने छैन।"
@@ -1866,9 +1867,6 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
-msgid "Overdue"
-msgstr "बाँकी"
-
 msgid "Partial success"
 msgstr "आंशिक सफल"
 
@@ -1916,11 +1914,6 @@ msgstr "तपाईँसँग केही प्रश्नहरू भए
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "कृपया  <a href=\"{{url}}\"> हामी संग सम्पर्कमा रहनुहोस </a>ताकि हामी  यसलाई समाधान गर्न सक्छौ"
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "कृपया <strong> माथिको प्रस्नको जबाफ दिनुहोस </strong> जसकारण हामी हालको प्रतिक्रियामा काम लाग्ने सूचना छ या छैन थाहा पाउछौ | "
-msgstr[1] "कृपया <strong> माथिको प्रस्नको जबाफ दिनुहोस </strong> जसकारण हामी हालको प्रतिक्रियामा काम लाग्ने सूचना छ या छैन थाहा पाउछौ | "
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "कृपया  <strong>तलको अनुरोधमा जानुहोस  </strong>, अनि त्यहाँ हालको प्रतिक्रियामा सूचना थियो या थिएन हामीलाई थाहा दिनुहोस | "
@@ -2029,6 +2022,11 @@ msgstr "कृपया ती विभाग अन्तर्गत आउ�
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "कृपया यो ,सूचना समीक्षा को स्वतन्त्रता आयोजना गर्नेलाई पठाउनुहोस् |"
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please select an authority"
 msgstr "कृपया निकाय चयन गर्नुहोस"
@@ -2578,6 +2576,12 @@ msgstr "अाफ्नो अनुरोध बाँडनुहोस्।"
 msgid "Short name is already taken"
 msgstr "छोटो नाम अगाडि नै लिएको छ।"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "सान्दर्भिक परिणाम पहिले देखा‌‌‌‌उनुहोस्।"
 
@@ -2640,6 +2644,12 @@ msgstr "माफ गर्नुहोस्, यो पृष्ठ प्र�
 
 msgid "Sorry, we couldn't find that page"
 msgstr "माफ गर्नुहोस्, हामीले पृष्ठ फेला पार्न सकेनौ"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "माफ गर्नुहोस्, हामी अहिले नयाँ प्रयोगकर्ता साइन अप गर्न असमर्थ छौं, कृपया पछि फेरि प्रयास गर्नुहोस्"
@@ -2712,6 +2722,9 @@ msgstr "अनुरोधकर्ताले कसरी <strong>बाँ�
 
 msgid "Summary"
 msgstr "सारांश"
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "स्थितीको सूची"
@@ -2988,9 +3001,6 @@ msgstr "त्यहा एउटा <strong>वितरण त्रुटि<
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr "reCAPTCHA मा त्रुटी थियो | कृपया पुन: प्रयास गर्नुहोस् |"
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "तपाइले लेख्नु भएको सब्दहरुमा गल्ति देखिन्छ |कृपया पुन प्रयास गर्नुहोस् |"
 
 msgid "There was no data calculated for this graph yet."
 msgstr "यो ग्राफको लागि अहिलेसम्म कुनै पनि डाटा तयार गरिएको थिएन| "
@@ -3501,9 +3511,6 @@ msgstr "User|Url name"
 
 msgid "Version {{version}}"
 msgstr "संस्करण {{version}}"
-
-msgid "Very overdue"
-msgstr "धेर्रै बाँकी"
 
 msgid "Vexatious"
 msgstr "पालना"

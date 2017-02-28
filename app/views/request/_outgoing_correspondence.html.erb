@@ -44,10 +44,12 @@
       </p>
 
       <div class="correspondence__footer">
-        <div class="correspondence__footer__cplink">
-          <input type="text" id="cplink__field" class="cplink__field" value="<%= outgoing_message_url(outgoing_message) %>">
-          <button class="cplink__button button"><%= _('Link to this') %></button>
-        </div>
+        <% unless @info_request.embargo %>
+          <div class="correspondence__footer__cplink">
+            <input type="text" id="cplink__field" class="cplink__field" value="<%= outgoing_message_url(outgoing_message) %>">
+            <button class="cplink__button"><%= _('Link to this') %></button>
+          </div>
+        <% end %>
       </div>
 
   <%- end %>

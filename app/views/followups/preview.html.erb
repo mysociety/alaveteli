@@ -13,10 +13,11 @@
       <h1><%= _('Now preview your follow up') %></h1>
     <% end %>
 
-    <ul>
-      <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
-      <li><%= _('Your message will appear in <strong>search engines</strong>') %></li>
-    </ul>
+    <% if @info_request.embargo %>
+      <%= render partial: 'alaveteli_pro/followups/preview_notes' %>
+    <% else %>
+      <%= render partial: 'preview_notes' %>
+    <% end %>
 
     <%= fields_for :outgoing_message do |o| %>
       <div class="correspondence box" id="outgoing-0">
@@ -35,13 +36,13 @@
       </div>
     <% end %>
 
-    <p>
-      <%= _('<strong>Privacy warning:</strong> Your message, and any response ' \
-            'to it, will be displayed publicly on this website.') %>
-
-      <%= o.hidden_field(:what_doing) %>
-    </p>
-
+    <% unless @info_request.embargo %>
+      <p>
+        <%= _('<strong>Privacy warning:</strong> Your message, and any response ' \
+              'to it, will be displayed publicly on this website.') %>
+      </p>
+    <% end %>
+    <%= o.hidden_field(:what_doing) %>
     <p>
       <%= hidden_field_tag(:submitted_followup, 1) %>
       <% if @internal_review %>

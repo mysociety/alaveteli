@@ -24,25 +24,6 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
   }
 }
 
-.dashboard-header {
-  margin-top: 2em;
-  padding-left: 0.9375em;
-  padding-right: 0.9375em;
-  h1 {
-    @include grid-column(12);
-    font-size: 3em;
-    margin-top: 0.4em;
-    margin-bottom: 0.5em;
-    display: block;
-    width: 100%;
-    font-weight: bold;
-  }
-}
-
-.dashboard-body {
-  padding-top: 2em;
-}
-
 .dashboard-profile__image {
   float:left;
   margin-right: 1em;
@@ -114,7 +95,7 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
 .dashboard-activity__title {
   padding-bottom: 1em;
   margin-bottom: 0;
-  margin-top: 0;
+  margin-top: 0.8em;
 }
 
 .dashboard-todo__list__item,

@@ -3,8 +3,8 @@ module AlaveteliPro
     class VeryOverdueRequest < Item
 
       def description
-        n_("{{count}} request is very overdue.",
-           "{{count}} requests are very overdue.",
+        n_("{{count}} request is long overdue.",
+           "{{count}} requests are long overdue.",
            count,
            :count => count)
       end
@@ -15,7 +15,8 @@ module AlaveteliPro
 
       def url
         if count > 1
-          alaveteli_pro_info_requests_path('request_filter[filter]' => 'very_overdue')
+          alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
+                                             'very_overdue')
         else
           show_request_path(items.first.url_title)
         end
