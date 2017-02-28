@@ -11,7 +11,7 @@ class CreatePublicBodyChangeRequests < ActiveRecord::Migration
       t.column :source_url, :text
       t.column :notes, :text
       t.column :is_open, :boolean, :null => false, :default => true
-      t.timestamps
+      t.timestamps :null => false
     end
   end
 

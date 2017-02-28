@@ -5,7 +5,7 @@ class CreateWidgetVotes < ActiveRecord::Migration
       t.string :cookie
       t.belongs_to :info_request, :null => false
 
-      t.timestamps
+      t.timestamps :null => false
     end
     add_index :widget_votes, :info_request_id
   end
