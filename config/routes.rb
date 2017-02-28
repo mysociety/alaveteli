@@ -82,7 +82,7 @@ Alaveteli::Application.routes.draw do
         :via => :get
   match '/select_authorities' => 'request#select_authorities',
         :as => :select_authorities,
-        :via => :get
+        :via => [:get, :post]
 
   match '/new' => 'request#new',
         :as => :new_request,
