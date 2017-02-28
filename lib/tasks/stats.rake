@@ -151,7 +151,8 @@ namespace :stats do
                     public_body_ids]
 
       request_count =
-        InfoRequest.includes(:public_bodies).where(conditions).count
+        InfoRequest.includes(:public_body).where(conditions).
+          references(:public_bodies).count
 
       total_count =
         InfoRequest.
