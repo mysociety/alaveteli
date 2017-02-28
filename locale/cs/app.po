@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
 # Hana Hunt <hana@hana-hunt.cz>, 2016-2017
 # Hana Huntova <>, 2012-2015
@@ -26,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-16 22:24+0000\n"
-"Last-Translator: Hana Hunt <hana@hana-hunt.cz>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -1350,10 +1351,8 @@ msgstr "Pokud jste poskytovatelem informací a považujete naši službu za uži
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Pokud považujete stránky {{site_name}} užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
-"Pokud jste obdrželi e-mail <strong>před více než šesti měsíci</strong>, tak tento přihlašovací odkaz již není funkční. \n"
-"Zkuste to znovu od začátku."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Pokud jste tak ještě neučinili, prosíme napište instituci zprávu, že jste svůj dotaz stáhli. Jinak se o stažení dotazu nedozví. "
@@ -1928,9 +1927,6 @@ msgstr "Odchozí zpráva | Status"
 msgid "OutgoingMessage|What doing"
 msgstr "Odchozí zpráva | Co dělá"
 
-msgid "Overdue"
-msgstr "Velké zpoždění"
-
 msgid "Partial success"
 msgstr "Částečně úspěšné."
 
@@ -1978,12 +1974,6 @@ msgstr "Prosím <a href=\"{{url}}\">kontaktujte nás</a> pokud máte nějaké ot
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Prosíme <a href=\"{{url}}\">kontaktujte nás</a> abychom to mohli upravit."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Prosím <strong>na výše položenou otázku</strong> ať víme, zda tato korespondence obsahuje zajímavé informace. "
-msgstr[1] "Prosím <strong>na výše položené otázky</strong> ať víme, zda tato korespondence obsahuje zajímavé informace. "
-msgstr[2] "Prosím <strong>na výše položené otázky</strong> ať víme, zda tato korespondence obsahuje zajímavé informace. "
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr ""
@@ -2097,6 +2087,12 @@ msgstr "Požádejte o informace, které jsou uvedeny v těchto kategoriích, <st
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Prosím předejte to poradenskému týmu v Otevřete, posoudí postup ve Vašem případě."
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Please select an authority"
 msgstr "Vyberte instituci"
@@ -2652,6 +2648,12 @@ msgstr "Sdílet vaší žádost"
 msgid "Short name is already taken"
 msgstr "Krátké jméno je již obsazeno."
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Nejrelevantnější výsledky jako první"
 
@@ -2719,6 +2721,12 @@ msgstr "Omlouváme se, došlo k problému "
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Pardon, tuto stránku se nepodařilo najít."
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Omlouváme se, teď nemůžeme přidávat nové uživatele, prosím zkuste to později"
@@ -2791,6 +2799,9 @@ msgstr "Doporučte, jak tazatel může najít <strong>úplné informace</strong>
 
 msgid "Summary"
 msgstr "Předmět"
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
+msgstr ""
 
 msgid "Table of statuses"
 msgstr "Tabulka stavů"
@@ -3085,9 +3096,6 @@ msgid "There was a <strong>delivery error</strong> or similar, which needs fixin
 msgstr "Vyskytla se <strong>chyba při doručení</strong> nebo něco podobného, co potřebuje pozornost týmu stránek {{site_name}}."
 
 msgid "There was an error with the reCAPTCHA. Please try again."
-msgstr "Nastala chyba, prosíme zkuste to znovu."
-
-msgid "There was an error with the words you entered, please try again."
 msgstr "Nastala chyba, prosíme zkuste to znovu."
 
 msgid "There was no data calculated for this graph yet."
@@ -3613,9 +3621,6 @@ msgstr "User | Název URL"
 
 msgid "Version {{version}}"
 msgstr "Version {{version}}"
-
-msgid "Very overdue"
-msgstr "Velké zpoždění"
 
 msgid "Vexatious"
 msgstr "Nevhodný"

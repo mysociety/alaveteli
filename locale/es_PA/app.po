@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aida Martinez <amartinez@antai.gob.pa>, 2016
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # gaba <gabelula@gmail.com>, 2012,2014
@@ -25,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/language/es_PA/)\n"
 "Language: es_PA\n"
 "MIME-Version: 1.0\n"
@@ -1289,10 +1290,8 @@ msgstr "Si encuentra este servicio útil como oficial de información, solicite 
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Si {{site_name}} te ha resultado útil, <a href=\"{{donation_url}}\">puedes donar</a> a la ONG responsable."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
-"Si recibió el correo electrónico <strong>hace más de seis meses</strong>, entonces el enlace ya no funcionará.\n"
-"Por favor intente hacer lo que estaba haciendo inicialmente."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Si no lo has hecho aún, por favor escriba un mensaje a continuación informando a la institución pública de que ha retirado su solicitud. De lo contrario no sabrán que lo ha hecho."
@@ -1860,9 +1859,6 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
-msgid "Overdue"
-msgstr ""
-
 msgid "Partial success"
 msgstr "Éxito parcial"
 
@@ -1910,11 +1906,6 @@ msgstr "Por favor,  <a href=\"{{url}}\">contáctenos</a> si tiene alguna pregunt
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Por favor <a href=\"{{url}}\">contáctenos</a> para que podamos arreglarlo."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Favor <strong>responder a la pregunta anterior</strong> si sabemos que la respuesta reciente contien información útil."
-msgstr[1] "Favor <strong>responder a la pregunta anterior</strong> si sabemos que las respuestas recientes contienen información útil."
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "Por favor <strong>vaya a la siguiente solicitud</strong>, y déjenos\\n saber si había información en las últimas respuestas recibidas."
@@ -2023,6 +2014,11 @@ msgstr "Por favor, solicite información sólo de estas categorías, <strong>no 
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Por favor envíe este mensaje a la persona responsable de revisar las solicitudes de acceso a la información."
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2572,6 +2568,12 @@ msgstr "Comparte tu solicitud"
 msgid "Short name is already taken"
 msgstr "Nombre de usuario ya en uso"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Muestra resultados más relevantes primero"
 
@@ -2634,6 +2636,12 @@ msgstr "Lo sentimos, hubo un problema procesando esta página"
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Lo sentimos, no hemos podido encontrar esa página"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
@@ -2705,6 +2713,9 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Sugerir al creador de la solicitud cómo puede encontrar el <strong>resto de la información</strong>."
 
 msgid "Summary"
+msgstr ""
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
 msgid "Table of statuses"
@@ -2982,9 +2993,6 @@ msgstr "Se ha producido un <strong>error en la entrega</strong> o algo similar, 
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr "Ha ocurrido un error con las palabras introducidas. Por favor intente otra vez. "
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "Ha ocurrido un error con las palabras introducidas, por favor intente otra vez."
 
 msgid "There was no data calculated for this graph yet."
 msgstr "No existen datos calculados para este gráfico todavía."
@@ -3493,9 +3501,6 @@ msgstr "User|Url name"
 
 msgid "Version {{version}}"
 msgstr "Versión {{version}}"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr "Lenguaje inapropiado "
