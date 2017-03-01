@@ -3,7 +3,7 @@
 # the permission to disable referential integrity when loading fixtures,
 # we redefine disable_referential_integrity so that it doesn't try to
 # disable foreign key constraints, and redefine the
-# ActiveRecord::Fixtures.create_fixtures method to pay attention to the order
+# ActiveRecord::FixtureSet.create_fixtures method to pay attention to the order
 # which fixture tables are passed so that foreign key constraints won't be
 # violated. The only lines that are changed from the initial definition
 # are those between the "***" comments
