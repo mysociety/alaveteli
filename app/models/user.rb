@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20170301171406
 #
 # Table name: users
 #
@@ -32,6 +33,7 @@
 #  request_classifications_count     :integer          default(0), not null
 #  public_body_change_requests_count :integer          default(0), not null
 #  info_request_batches_count        :integer          default(0), not null
+#  draft_info_request_batches_count  :integer          default(0), not null
 #
 
 require 'digest/sha1'
@@ -76,10 +78,15 @@ class User < ActiveRecord::Base
   has_many :info_request_batches,
            -> { order('created_at desc') },
            :dependent => :destroy
+  has_many :draft_info_request_batches,
+           -> { order('created_at desc') },
+           :dependent => :destroy,
+           :class_name => AlaveteliPro::DraftInfoRequestBatch
   has_many :request_classifications,
            :dependent => :destroy
   has_one :pro_account,
           :dependent => :destroy
+
 
   scope :not_banned, -> { where(ban_text: "") }
 
