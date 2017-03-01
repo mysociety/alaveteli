@@ -131,6 +131,8 @@ external_request:
     described_state: waiting_response
     awaiting_description: false
     comments_allowed: true
+    created_at: 2001-01-02 02:23:45.6789100
+    updated_at: 2001-01-02 02:23:45.6789100
     last_public_response_at: 2001-01-03 02:23:45.6789100
     idhash: a1234567
 anonymous_external_request:
@@ -144,6 +146,8 @@ anonymous_external_request:
     awaiting_description: false
     comments_allowed: true
     idhash: 7654321a
+    created_at: 2010-01-01 01:23:45.6789100
+    updated_at: 2010-01-01 01:23:45.6789100
 other_request:
     id: 111
     title: Another request

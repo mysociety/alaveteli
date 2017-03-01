@@ -4,7 +4,7 @@ class CreateEmbargoes < ActiveRecord::Migration
     create_table :embargoes do |t|
       t.belongs_to :info_request, index: true
       t.column :publish_at, :datetime, null: false
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

@@ -4,6 +4,13 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe "When errors occur" do
 
   def set_consider_all_requests_local(value)
+    method = Rails.application.method(:env_config)
+    allow(Rails.application).to receive(:env_config).with(no_args) do
+      method.call.merge(
+        'action_dispatch.show_exceptions' => true,
+        'consider_all_requests_local' => value
+      )
+    end
     @requests_local = Rails.application.config.consider_all_requests_local
     Rails.application.config.consider_all_requests_local = value
   end
@@ -127,6 +134,11 @@ describe "When errors occur" do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise(ApplicationController::PermissionDenied)
       get("/request/example.json")
       expect(response.code).to eq('403')
+    end
+
+    it 'returns a 406 when an action does not support the format' do
+      get('/version.invalid-format')
+      expect(response.code).to eq('406')
     end
 
     context "in the admin interface" do

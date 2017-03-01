@@ -4,7 +4,7 @@ class CreateSpamAddresses < ActiveRecord::Migration
     create_table :spam_addresses do |t|
       t.string :email, :null => false
 
-      t.timestamps
+      t.timestamps :null => false
     end
   end
 end
