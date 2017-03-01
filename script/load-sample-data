@@ -20,7 +20,7 @@ end
 # https://github.com/rails/rails/blob/v3.1.11/activerecord/lib/active_record/railties/databases.rake#L311
 fixtures_dir = Rails.root.join("spec","fixtures").to_s
 Dir["#{fixtures_dir}/**/*.yml"].each do |fixture_file|
-  ActiveRecord::Fixtures.create_fixtures(fixtures_dir, fixture_file[(fixtures_dir.size + 1)..-5])
+  ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_file[(fixtures_dir.size + 1)..-5])
 end
 
 load_raw_emails_data
