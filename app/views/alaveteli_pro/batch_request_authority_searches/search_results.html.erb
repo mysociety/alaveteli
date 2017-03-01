@@ -1,0 +1,40 @@
+<% @title = _('Add authorities to your batch') %>
+
+<div class="pro-canvas">
+
+  <div class="pro-canvas-header">
+    <div class="row">
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+
+  <div class="pro-canvas-body">
+    <div class="row">
+
+      <%= form_tag alaveteli_pro_batch_request_authority_searches_path,
+                   method: :get do %>
+        <label for="query" class="visually-hidden"><%= _('Search') %></label>
+        <input type="text"
+               name="query"
+               id="query"
+               value="<%= @query %>"
+               placeholder="<%= _('Search for an authority by name') %>"
+               autofocus>
+        <input type="submit" value="<%= _('Search') %>">
+      <% end %>
+
+      <% if @search && @search.results.present? %>
+      <ul>
+        <% @search.results.each do |result| %>
+        <li><%= result[:model].name %></li>
+        <% end %>
+      </ul>
+
+      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @result_limit) %>
+
+      <% elsif @search && @search.results.blank? %>
+        <p><%= _('Sorry, no authorities matched that search') %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
