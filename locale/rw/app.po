@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-02-27 10:55+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2017-03-01 15:48+0000\n"
+"Last-Translator: Jean Pierre <afadhalipierre@gmail.com>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/language/rw/)\n"
 "Language: rw\n"
 "MIME-Version: 1.0\n"
@@ -126,10 +126,10 @@ msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask 
 msgstr "<a href=\"{{browse_url}}\">Reba byose</a> cyangwa <a href=\"{{add_url}}\">udusabe kongeraho imwe</a>."
 
 msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Ongera usabe amakuru</a> to {{public_body_name}}"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Saba andi makuru</a> to {{public_body_name}}"
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<strong>Icyitonderwa:</strong> Niba ushaka kumenya amakuru\\n    akwerekeyeho <a href=\"{{url}}\">kanda hano</a>."
@@ -185,7 +185,7 @@ msgid "<strong><code>request:</code></strong> to restrict to a specific request,
 msgstr "<strong><code>ikibazo:</code></strong> kugirango ubone ikibazo runaka, byandike nk'uko biri muri URL."
 
 msgid "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
-msgstr ""
+msgstr "<strong><code> saba ikgo cya leta </code></strong>Kubona amakuru yasabwe ku bigo bya leta bifite akamenyetso runaka."
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
 msgstr "<strong><code>requested_by:julian_todd</code></strong>gushaka ibibazo byabajijwe na Julian Todd, byandike nk'uko biri muri URL."
@@ -233,7 +233,7 @@ msgid "<strong>Note:</strong> We will send an email to your new email address. F
 msgstr "<strong>Icyitonderwa:</strong>\\n    Turohereza ubutumwa kuri imeli yawe nshyashya. Kurikiza\\n    amabwiriza arimo kugirango wemeze guhindura imeli yawe."
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
-msgstr ""
+msgstr "<strong>Note:</strong> Tuzakoherereza ubutumwa bwemeza ko ari wowe nyiri konte.Kurikiza amabwiriza uhindure ijambo ry'ibanga ryawe."
 
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
 msgstr "<strong>Icyitonderwa:</strong> Uri kwiyoherereza ubutumwa, \\n            kugirango umenye uko bikora."
@@ -254,7 +254,7 @@ msgid "<strong>Thank</strong> the public authority or {{user_name}}."
 msgstr "<strong>Shimira</strong> umuyobozi cyangwa {{user_name}}."
 
 msgid "<strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason."
-msgstr ""
+msgstr "<strong>Itonde </strong>Ubu butumwa bufite <strong>ntabwo buroherezwa</strong> ku mpamvu zitazwi"
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr "<strong>Tuzakoherereza imeli</strong> nibagusubiza, cyangwa se nyuma y'iminsi {{late_number_of_days}} y'akazi umuyobozi ni aba atarasubiza."
@@ -302,7 +302,7 @@ msgid "A {{site_name}} user"
 msgstr "Umuntu ukoresha {{site_name}}"
 
 msgid "API"
-msgstr ""
+msgstr "API"
 
 msgid "About you:"
 msgstr "Ibikwerekeyeho"
@@ -320,10 +320,10 @@ msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 
 msgid "Add a widget"
-msgstr ""
+msgstr "Ongeraho widget"
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Ongeraho ubusobanuro"
 
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "Shyiraho ubusobanuro &ldquo;{{request_title}}&rdquo;"
@@ -365,7 +365,7 @@ msgid "All the options below can use <strong>variety</strong> or <strong>latest_
 msgstr "Amahitamo yose akurikira ashobora gukoreshwaho <strong>impinduka</strong> cyangwa <strong>impinduka_iheruka</strong> mbere y'utudomo tubiri. Urugero: <strong>impinduka:yoherejwe</strong> izaba iriho ibibazo byaba <em>byarigeze</em> kwoherezwa; <strong>impinduka_iheruka:yoherejwe</strong> izajya iba iriho ibibazo <em>biriho </em>  ikimenyetso cy'uko byoherejwe ubu."
 
 msgid "All time"
-msgstr ""
+msgstr "Igihe cyose"
 
 msgid "All time best players"
 msgstr ""
@@ -389,7 +389,7 @@ msgid "An <strong>error message</strong> has been received"
 msgstr "Ubutumwa <strong>bwo kwibeshya</strong> bwakiriwe"
 
 msgid "An Environmental Information request"
-msgstr ""
+msgstr "Amakuru y'ibidukikije yasabwe"
 
 msgid "An anonymous user"
 msgstr "Umuntu ukoresha urubuga utazwi"
@@ -416,16 +416,16 @@ msgid "Are we missing a public authority?"
 msgstr "Hari umuyobozi twibagiwe?"
 
 msgid "Are you sure you want to disable two factor authentication?"
-msgstr ""
+msgstr "Urumva koko ushaka gukuraho uburyo bwo kwirinda buhanitse?"
 
 msgid "Are you sure? If you regenerate your one time passcode you will need to update your password manager or re-print it."
-msgstr ""
+msgstr "Urumva aribyo? niwongera gukora ikimenyetseo kibanga biraba ngombwa ko uhindura n'agacunga n'ijambo ryibanga  cyangwa wongere uricape."
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Waba ufite uburenganzira kuri bimwe mu bicuruzwa byamamazwa hano?"
 
 msgid "Ask EU Authorities"
-msgstr ""
+msgstr "Baza abayoboze ba EU"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Saba <strong></strong> impapuro cyangwa amakuru yihariye, uru rubuga ntabwo rukwiye kubarizwaho ibintu biri rusange."
@@ -452,7 +452,7 @@ msgid "Authority email:"
 msgstr "Imeli y'umuyobozi:"
 
 msgid "Authority name"
-msgstr ""
+msgstr "Izina ry'umuyobozi"
 
 msgid "Authority:"
 msgstr "Umuyobozi"
@@ -467,7 +467,7 @@ msgid "Awaiting classification."
 msgstr "Gitegereje gushyingurwa."
 
 msgid "Awaiting internal review"
-msgstr ""
+msgstr "Haracyategerejwe isuzuma ryo mu kigo "
 
 msgid "Awaiting internal review."
 msgstr "Gitegereje isuzuma."
@@ -479,10 +479,10 @@ msgid "Awaiting response."
 msgstr "Gitegereje igisubizo."
 
 msgid "Back to content"
-msgstr ""
+msgstr "Subira ku byandiste"
 
 msgid "Banned from this site"
-msgstr ""
+msgstr "Yaciwe gukoresha urubuga"
 
 msgid "Banned users cannot edit their profile"
 msgstr "Abantu baciwe ku rubuga ntibashobora guhindura ibibaranga"
