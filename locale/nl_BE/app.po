@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-02-28 09:28+0000\n"
+"PO-Revision-Date: 2017-03-01 07:53+0000\n"
 "Last-Translator: Christophe Van Gheluwe <info@vg-webdesign.be>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/nl_BE/)\n"
 "Language: nl_BE\n"
@@ -1998,8 +1998,8 @@ msgstr "Geef dit door aan de persoon die belast is met verzoeken in het kader va
 
 msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Lees de jongste reactie en <strong>update de status</strong> zodat we weten of ze nuttige informatie bevat."
+msgstr[1] "Lees de jongste reacties en <strong>update de status</strong> zodat we weten of ze nuttige informatie bevatten."
 
 msgid "Please select an authority"
 msgstr "Kies een overheidsinstelling"
@@ -2176,7 +2176,7 @@ msgid "Public page"
 msgstr "Publieke pagina"
 
 msgid "Public page not available"
-msgstr ""
+msgstr "Publieke pagina niet beschikbaar"
 
 msgid "PublicBodyCategoryLink|Category display order"
 msgstr ""
@@ -2550,10 +2550,10 @@ msgid "Short name is already taken"
 msgstr "Deze naam is reeds in gebruik"
 
 msgid "Show all attachments"
-msgstr ""
+msgstr "Toon alle bijlagen"
 
 msgid "Show fewer attachments"
-msgstr ""
+msgstr "Toon minder bijlagen"
 
 msgid "Show most relevant results first"
 msgstr "Toon de meest relevante resultaten eerst"
@@ -2619,10 +2619,10 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Sorry, we konden de bladzijde niet vinden"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
-msgstr ""
+msgstr "Tot onze spijt kunnen wij nu uw opmerking niet toevoegen. Probeer aub later opnieuw."
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
-msgstr ""
+msgstr "Tot onze spijt kunnen wij uw verzoek nu niet verzenden. Probeer aub later opnieuw."
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Sorry, we kunnen momenteel geen nieuwe bezoekers inschrijven. Probeer het later nog eens"
@@ -2697,7 +2697,7 @@ msgid "Summary"
 msgstr "Korte inhoud"
 
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
-msgstr ""
+msgstr "Te korte samenvatting. Wees aub een beetje meer beschrijvend over de informatie die u wil verkrijgen."
 
 msgid "Table of statuses"
 msgstr "Tabel met de statussen"
@@ -3758,7 +3758,7 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{
 msgstr "U<a href=\"{{wall_url_user}}\">volgt</a> nu de updates betreffende '{{link_to_user}}', ueen persoon."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "U volgt nu <a href=\"{{wall_url_user}}\">updates</a> van <a href=\"{{new_requests_url}}\">nieuwe verzoeken </a >."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
 msgstr "U <a href=\"{{wall_url_user}}\">volgt</a> nu de uodates betreffende <a href=\"{{search_url}}\">deze zoekopopdracht</a>."
@@ -3776,7 +3776,7 @@ msgid "You can get this page in computer-readable format as part of the main JSO
 msgstr "U kan deze pagina digitaal krijgen als deel van de  JSON pagina van de aanvraag. Zie de<a href=\"{{api_path}}\">documentatie API</a>."
 
 msgid "You can only request information about the environment from this authority."
-msgstr "U kan enkel inlichten opvragenover milieu bij deze dienst."
+msgstr "Enkel Milieuaanvragen  kunnen bij deze dienst worden verstuurd."
 
 msgid "You can regenerate your one time passcode at any time."
 msgstr "U kan uw toegangscode op elk moment vernieuwen."
@@ -4040,7 +4040,7 @@ msgid "[Authority URL will be inserted here]"
 msgstr "[de URL van de overheidsdienst zal hier ingevoegd worden]"
 
 msgid "[Authority name]"
-msgstr ""
+msgstr "[Naam van de overheidsinstelling]"
 
 msgid "[FOI #{{request}} email]"
 msgstr "[Wob #{{request}} email]"
@@ -4049,10 +4049,10 @@ msgid "[REDACTED]"
 msgstr "[BEWERKT]"
 
 msgid "[{{public_body}} request email]"
-msgstr ""
+msgstr " [{{site_name}} vraag-e-mailadres]"
 
 msgid "[{{site_name}} contact email]"
-msgstr ""
+msgstr " [{{site_name}} contact-e-mailadres]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr ""
@@ -4096,7 +4096,7 @@ msgid "authorities"
 msgstr "overheden"
 
 msgid "awaiting response"
-msgstr ""
+msgstr "in afwachting van antwoord"
 
 msgid "but followupable"
 msgstr "maar volgbaar"
@@ -4108,13 +4108,13 @@ msgid "by {{user_link_absolute}}"
 msgstr "door {{user_link_absolute}}"
 
 msgid "clarification needed"
-msgstr ""
+msgstr "verduidelijking nodig"
 
 msgid "comments"
 msgstr "opmerkingen"
 
 msgid "complete"
-msgstr ""
+msgstr "volledig"
 
 msgid "details"
 msgstr "details"
@@ -4183,10 +4183,10 @@ msgid "not requestable due to: {{reason}}"
 msgstr "niet bevraagbaar wegens: {{reason}}"
 
 msgid "other"
-msgstr ""
+msgstr "andere"
 
 msgid "overdue"
-msgstr ""
+msgstr "achterstallig"
 
 msgid "request hide events"
 msgstr "zaak verborgen vragen"
@@ -4204,7 +4204,7 @@ msgid "requests which are successful matching text '{{query}}'"
 msgstr "de afgehandelde vragen die overeenkomen met de tekst '{{query}}'"
 
 msgid "response received"
-msgstr ""
+msgstr "antwoord ontvangen"
 
 msgid "send a follow up message"
 msgstr "Een opvolgingsbericht versturen"
@@ -4263,7 +4263,7 @@ msgid "unknown status {{status}}"
 msgstr "status onbekend {{status}}"
 
 msgid "unresolved requests"
-msgstr "Niet geklasseerde vragen"
+msgstr "Nog niet beantwoord aanvragen"
 
 msgid "unsubscribe"
 msgstr "zich uitschrijven"
