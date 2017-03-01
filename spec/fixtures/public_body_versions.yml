@@ -1,6 +1,7 @@
-humpadink_public_body_old1: 
+humpadink_public_body_old1:
   name: "Department for Humpadinking"
   last_edit_comment: "Silly old abbrv"
+  created_at: 2007-10-13 12:08:23.836085
   updated_at: 2007-10-13 12:08:23.836085
   request_email: humpadink-requests@localhost
   public_body_id: "3"
