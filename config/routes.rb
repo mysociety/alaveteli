@@ -609,6 +609,11 @@ Alaveteli::Application.routes.draw do
       end
       resources :embargoes, :only => [:destroy]
       resources :embargo_extensions, :only => [:create]
+      resources :batch_request_authority_searches, :only => [:new]
+      # So that we can return searches via GET not POST
+      match '/batch_request_authority_searches' => 'batch_request_authority_searches#create',
+            :as => :batch_request_authority_searches,
+            :via => :get
       match '/public_bodies/:query' => 'public_bodies#search',
             :via => :get,
             :as => :public_bodies_search
