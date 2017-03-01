@@ -53,19 +53,21 @@ to begin <img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
 
 mySociety has very limited capacity to run a handful of Alaveteli sites for willing volunteers. Contact our <a href="mailto:international@mysociety.org">international team</a> for more information.
 
+## Slack
+
+### alaveteli.slack.com
+
+mySociety developers and re-users can be found on the Alaveteli Slack, and
+unlike on IRC there's a handy history feature built in so that conversations can
+more easily take place across time zones (hello again Australia, we missed you!)
+<a href="email clientsupport@alaveteli.org mailto:clientsupport@alaveteli.org">Contact us for an invite</a>.
+
 ## IRC
 
-### irc.mysociety.org #mschat
+### irc.freenode.net #mysociety
 
-**`#mschat`** &mdash;
-the mySociety developers can be found on IRC in `#mschat` on
-`irc.mysociety.org` (running on port `6667`, and also `9219`)
-(also available via this [web interface](http://www.irc.mysociety.org)).
-
-### irc.freenode.net #alaveteli
-
-**`#alaveteli`** &mdash;
-there's an `#alaveteli` channel on
+**`#mysociety`** &mdash;
+If you prefer not to use Slack, you can join the `#mysociety` channel on
 [Freenode](http://freenode.net) (`irc.freenode.net`) ...although that channel can be rather quiet
 <img src="http://www.alaveteli.org/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley">
 
