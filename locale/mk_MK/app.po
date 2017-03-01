@@ -8,15 +8,16 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/mysociety/alaveteli/language/mk_MK/)\n"
 "Language: mk_MK\n"
 "MIME-Version: 1.0\n"
@@ -1270,8 +1271,8 @@ msgstr "Ако овој сервис ви е корисен за добивањ�
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Ако {{site_name}} ви беше од корист, <a href=\"{{donation_url}}\">донирајте</a> на организацијата која го раководи."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Ако ја добивте оваа е-пошта <strong>пред повеќе од шест месеци</strong>, тогаш оваа врска за најавување нема да работи\\nповеќе. Обидете се да го направите повторно тоа што го направивте претходно."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Ако не го направивте тоа до сега, Ве молиме напишете порака подолу со која ќе го известите надлежниот орган дека го повлековте вашето барање. Инаку тие нема да знаат дека барањето е повлечено."
@@ -1837,9 +1838,6 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
-msgid "Overdue"
-msgstr ""
-
 msgid "Partial success"
 msgstr ""
 
@@ -1887,11 +1885,6 @@ msgstr "Ве молиме <a href=\"{{url}}\">контактирајте не</a
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Ве молиме <a href=\"{{url}}\">стапете во контакт</a> со нас за да може да го поправиме."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] ""
-msgstr[1] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "Ве молиме <strong>одете до следниве барања</strong> и известете не\\n        ако постои информација кај последните барања до нив."
@@ -2000,6 +1993,11 @@ msgstr "Ве молиме барајте само информации кои с
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Ве молиме проследете го ова до личноста која управува со барањата за слободен пристап до информации."
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2549,6 +2547,12 @@ msgstr ""
 msgid "Short name is already taken"
 msgstr "Краткото име е веќе зафатено"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Прикажи ги релевантните резултати први"
 
@@ -2611,6 +2615,12 @@ msgstr "Се извинуваме, настана проблем при проц
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Се извинуваме, не можевме да ја најдеме таа страница"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
@@ -2682,6 +2692,9 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Предложете како барателот може да го најде <strong>остатокот од информацијата</strong>."
 
 msgid "Summary"
+msgstr ""
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
 msgid "Table of statuses"
@@ -2959,9 +2972,6 @@ msgstr "Настана <strong>грешка при достава</strong> ил�
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr ""
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "Настана грешка со зборовите кои ги внесовте, ве молиме обидете се повторно."
 
 msgid "There was no data calculated for this graph yet."
 msgstr "Се уште не постои пресметан податок за овој график."
@@ -3474,9 +3484,6 @@ msgstr "User|Url име"
 
 msgid "Version {{version}}"
 msgstr "Верзија {{version}}"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr ""

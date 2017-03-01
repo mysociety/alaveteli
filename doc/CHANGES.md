@@ -1,4 +1,4 @@
-# develop
+# 0.27.1.0
 
 ## Highlighted Features
 
@@ -24,6 +24,28 @@
   `:redact` option. It will be removed in release 0.29.
 
 ### Changed Templates
+
+    app/views/comment/_single_comment.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/public_body/_search_ahead.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/user/bad_token.html.erb
+
+# 0.27.0.9
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
 
 # 0.27.0.8
 

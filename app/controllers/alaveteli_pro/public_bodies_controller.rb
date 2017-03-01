@@ -1,7 +1,4 @@
 class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
-  include ActionView::Helpers::TextHelper
-  include ActionView::Helpers::TagHelper
-
   def search
     query = params[:query] || ""
     xapian_results = perform_search_typeahead(query, PublicBody)
@@ -11,14 +8,21 @@ class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
     # with only some whitelisted attributes.
     results.map! do |result|
       body = result[:model]
-      {
+      result = {
         id: body.id,
         name: body.name,
-        notes: truncate(strip_tags(body.notes), length: 150),
+        notes: body.notes,
         info_requests_visible_count: body.info_requests_visible_count,
-        weight: result[:weight]
+        weight: result[:weight],
       }
+      # Render the result for the JS, so that we can use Rail's pluralisation,
+      # translation, etc
+      result[:html] = render_to_string(partial: 'alaveteli_pro/public_bodies/search_result',
+                                       layout: false,
+                                       locals: { result: result })
+      result
     end
+
     render json: results
   end
 end

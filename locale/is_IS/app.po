@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
 # Páll Hilmarsson <pallih@kaninka.net>, 2015-2017
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
 "MIME-Version: 1.0\n"
@@ -1271,8 +1272,8 @@ msgstr "Ef þér finnst þessi þjónusta vera til gagns í starfi þínu, vinsa
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Ef þú hafðir gagn af {{site_name}} skaltu <a href=\"{{donation_url}}\">styrkja</a> samtökin sem reka vefinn."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Ef þú fékkst tölvupóst fyrir <strong>meira en sex mánuðum </strong> mun þessi innskráningarhlekkur ekki virka.\\n Vinsamlegast reyndu aftur að gera það sem þú varst að gera frá upphafi."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Ef þú hefur ekki gert það nú þegar skaltu skrifa skilaboð hér fyrir neðan þar sem þú lætur stjórnvaldið vita að þú hafir dregið beiðnina til baka. Annars vita viðkomandi ekki að hún hafi verið afturkölluð."
@@ -1838,9 +1839,6 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
-msgid "Overdue"
-msgstr ""
-
 msgid "Partial success"
 msgstr "Tókst að hluta"
 
@@ -1888,11 +1886,6 @@ msgstr "Vinsamlegast <a href=\"{{url}}\">hafðu samband</a> ef þú hefur einhve
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "<a href=\"{{url}}\">Hafðu samband</a> svo við getum lagað þetta."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "<strong>Svaraðu spurningunni hér fyrir ofan</strong> svo við vitum hvort svarið sé með gagnlegum upplýsingum."
-msgstr[1] "<strong>Svaraðu spurningunni hér fyrir ofan</strong> svo við vitum hvort svörin séu með gagnlegum upplýsingum."
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "<strong>Skoðaðu eftirfarandi beiðnir</strong> og láttu okkur vita hvort það voru einhverjar upplýsingar í síðustu svörunum við þeim."
@@ -2001,6 +1994,11 @@ msgstr "Aðeins biðja um upplýsingar sem falla undir þessa flokka. <strong>Ek
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Vinsamlegast komið þessu áfram til þess sem fer yfir upplýsingabeiðnir."
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2550,6 +2548,12 @@ msgstr "Deila upplýsingabeiðninni þinni"
 msgid "Short name is already taken"
 msgstr "Stutt nafn er þegar í notkun"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Sýna líklegustu niðurstöður fyrst"
 
@@ -2612,6 +2616,12 @@ msgstr "Afsakið en það kom upp vandamál við að sýna þessa síðu"
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Afsakið en við gátum ekki fundið umbeðna síðu"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Því miður getum við ekki nýskráð notendur sem stendur. Reyndu aftur síðar."
@@ -2683,6 +2693,9 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Leggðu til hvernig beiðandinn geti fengið <strong>það sem upp á vantar af upplýsingunum</strong>."
 
 msgid "Summary"
+msgstr ""
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
 msgid "Table of statuses"
@@ -2960,9 +2973,6 @@ msgstr "Það var <strong>villa í sendingu</strong> eða álíka villa sem kref
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr "Það kom upp villa í reCAPTCHA-vörninni. Reyndu aftur."
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "Eitthvað fór úrskeiðis með það sem þú slóst inn. Vinsamlegast reyndu aftur."
 
 msgid "There was no data calculated for this graph yet."
 msgstr "Engin gögn hafa enn verið reiknuð út fyrir þetta graf."
@@ -3471,9 +3481,6 @@ msgstr "User|Url name"
 
 msgid "Version {{version}}"
 msgstr "Útgáfa {{version}}"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr "Tilefnislaus eða ögrandi"

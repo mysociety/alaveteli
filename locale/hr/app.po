@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Igor Dobrača <id.public@rovinj.net>, 2015
@@ -26,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -1324,8 +1325,8 @@ msgstr "Ukoliko Vam je, kao službeniku za pravo na pristup informacijama, ova u
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Ako mislite da je {{site_name}} bio koristan, <a href=\"{{donation_url}}\">donirajte</a> nevladinoj organizaciji koja ga vodi."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Ako ste dobili e-pošte <strong>prije više od šest mjeseci</strong>, onda ova poveznica za prijavu više neće\\n raditi. Molimo pokušajte ispočetka."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Ako još niste, molimo ispod napišite poruku u kojoj napominjete tijelu javne vlasti da ste povukli svoj zahtjev. U protivnom se neće znati da je zahtjev povučen."
@@ -1904,9 +1905,6 @@ msgstr "Odlazna poruka|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "Odlazna poruka|Što radi"
 
-msgid "Overdue"
-msgstr ""
-
 msgid "Partial success"
 msgstr "Djelomično uspješno"
 
@@ -1954,12 +1952,6 @@ msgstr "Molimo <a href=\"{{url}}\">kontaktirajte nas</a> ukoliko imate pitanja."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Molimo <a href=\"{{url}}\">kontaktirajte nas</a> kako bismo to mogli popraviti."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Molimo <strong>odgovorite na pitanje iznad</strong> kako bismo znali sadrži li posljednji odgovor korisne informacije."
-msgstr[1] "Molimo <strong>odgovorite na pitanje iznad</strong> kako bismo znali sadrže li posljednji odgovori korisne informacije."
-msgstr[2] "Molimo <strong>odgovorite na pitanje iznad</strong> kako bismo znali sadrže li nedavni odgovori korisne informacije."
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "Molimo <strong>idite na sljedeće zahtjeve</strong>, i obavijestite nas\\n ako je bilo informacija u skorašnjim odgovorima."
@@ -2075,6 +2067,12 @@ msgstr "Molimo da zahtijevate samo informacije unutar tih kategorija, <strong>ne
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Molim proslijedite ovo službeniku za informiranje."
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2630,6 +2628,12 @@ msgstr "Podijelite svoj zahtjev"
 msgid "Short name is already taken"
 msgstr "Nadimak se već koristi"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Prikaži najrelevantnije rezultate "
 
@@ -2694,6 +2698,12 @@ msgstr "Oprostite postoji problem u procesiranju stranice"
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Žao nam je, nismo mogli pronaći tu stranicu"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
@@ -2765,6 +2775,9 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Predložite kako podnositelj zahtjeva može pronaći <strong>ostatak informacije</strong>."
 
 msgid "Summary"
+msgstr ""
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
 msgid "Table of statuses"
@@ -3052,9 +3065,6 @@ msgstr "Došlo je do <strong>greške u isporuci</strong> ili nečega sličnog š
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr ""
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "Postoji greška u riječima koje ste upisali, molimo pokušajte ponovo."
 
 msgid "There was no data calculated for this graph yet."
 msgstr "Još ne postoje podaci izračunati za ovaj graf."
@@ -3583,9 +3593,6 @@ msgstr "Korisnik|Url ime"
 
 msgid "Version {{version}}"
 msgstr "Verzija {{version}}"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr "Uznemirujuće"

@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aled Powell <cymrodor@gmail.com>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
 # baragouiner <graham.craig@gmail.com>, 2013
@@ -27,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -1293,8 +1294,8 @@ msgstr "Os byddwch fel swyddog Rhyddid Gwybodaeth yn cael y gwasanaeth hwn yn dd
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Os cawsoch {{site_name}} yn ddefnyddiol, <a href=\"{{donation_url}}\">gwnewch gyfraniad</a> i'r elusen sy'n gyfrifol amdani."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Os cawsoch yr e-bost <strong>dros chwe mis yn ôl</strong>, yna ni fydd y ddolen  fewngofnodi hon yn gweithio bellach. Ceisiwch wneud yr hyn yr oeddech yn ei wneud o'r dechrau."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Os nad ydych wedi gwneud hynny'n barod, ysgrifennwch neges isod gan ddweud wrth yr awdurdod eich bod wedi tynnu eich cais yn ôl. Fel arall, ni fyddant yn gwybod ei fod wedi cael ei dynnu'n ôl."
@@ -1860,9 +1861,6 @@ msgstr "OutgoingMessage|Statws"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|Beth sy'n digwydd"
 
-msgid "Overdue"
-msgstr ""
-
 msgid "Partial success"
 msgstr ""
 
@@ -1910,13 +1908,6 @@ msgstr "<a href=\"{{url}}\">Cysylltwch â ni</a> os oes gennych gwestiynau."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "<a href=\"{{url}}\">Cysylltwch â ni</a> gyda ni fel y gallwn ei drwsio."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "<strong>Ewch i'r ceisiadau canlynol </strong>, a gadewch i ni wybod a oedd gwybodaeth yn yr ymatebion diweddar iddynt."
@@ -2025,6 +2016,13 @@ msgstr "Dim ond gwybodaeth sy'n dod o dan y categorïau hynny ddylech chi ofyn a
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Trosglwyddwch hwn i'r person sy'n cynnal adolygiadau Rhyddid Gwybodaeth os gwelwch yn dda."
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2576,6 +2574,12 @@ msgstr ""
 msgid "Short name is already taken"
 msgstr "Mae'r enw byr hwnnw wedi'i ddefnyddio'n barod"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Dangoswch y canlyniadau mwyaf perthnasol yn gyntaf"
 
@@ -2638,6 +2642,12 @@ msgstr "Mae'n ddrwg gennym, roedd problem wrth brosesu'r dudalen hon"
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Mae'n ddrwg gennym, ni allem ddod o hyd i'r dudalen honno"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
@@ -2709,6 +2719,9 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Awgrymwch sut y gall y ceisydd ddod o hyd i <strong>weddill y wybodaeth </strong>."
 
 msgid "Summary"
+msgstr ""
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
 msgid "Table of statuses"
@@ -2986,9 +2999,6 @@ msgstr "Roedd <strong>gwall cyflenwi</strong> neu rywbeth tebyg, sy angen ei drw
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr ""
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "Roedd gwall gyda'r geiriau a roddoch, ceisiwch eto os gwelwch yn dda."
 
 msgid "There was no data calculated for this graph yet."
 msgstr "Ni chyfrifwyd data ar gyfer y graff hwn eto."
@@ -3501,9 +3511,6 @@ msgstr "User|Enw Url"
 
 msgid "Version {{version}}"
 msgstr "Fersiwn {{version}}"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr "Blinderus"

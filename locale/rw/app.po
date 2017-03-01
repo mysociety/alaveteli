@@ -8,17 +8,20 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014-2015
 # Gareth Rees <gareth@mysociety.org>, 2015
+# Jean Pierre <afadhalipierre@gmail.com>, 2017
+# Jean Pierre <afadhalipierre@gmail.com>, 2017
 # mySociety <transifex@mysociety.org>, 2015
 # Stephen Abbott Pugh <stephendabbott@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/language/rw/)\n"
 "Language: rw\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +105,7 @@ msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', umuntu"
 
 msgid "(You will be asked to sign in as {{user_name}})"
-msgstr ""
+msgstr "(urasabwa kwinjira nka {{user_name}})"
 
 msgid "(hide)"
 msgstr "(hisha)"
@@ -170,7 +173,7 @@ msgid "<p>{{site_name}} is currently in maintenance. You can only view existing 
 msgstr "<p>{{site_name}} turi kuyikoraho imirimo. Ushobora kubona ibibazo byabajijwe cyera gusa. Ntushobora kubaza ibindi bibazo, gukurikirana ibyabajijwe cyera cyangwa kwongeraho ibisobanuro cyangwa se guhindura ikusanyirizo.</p> <p>{{read_only}}</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{{site_name}}irimo kuvugururwa.Ubu ushobora kureba amakuru yasabwe.Ntabwo ushorabora gusaba andi,ushobora kubikurikirana cyangwa uhindure ububiko bw'amakuru</p><P>{{read_only}}</p>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:tony_bowden</code></strong>Gushaka ibisobanuro byashyizweho na Tony Bowden, andika izina nk'uko bimeze muri URL."
@@ -1272,8 +1275,8 @@ msgstr "Niba wabonye iyi serivisi ari ingirakamaro nk'umukozi wa w'ubwisanzure b
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Niba wabonye {{site_name}} yagufashije, <a href=\"{{donation_url}}\">mutere inkunga</a> umuryango udahanira inyungu urukoresha."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Niba warabonye iyo imeli <strong>mu gihe kiri hejuru y'amezi atandatu ashize</strong>, iri huza ryo kwinjiriraho ntabwo riri bube rigikora\\n. Gerageza gukora ibyo wari urimo gukora uhereye aho watangiriye."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Niba utarabikora, andika ubu butumwa bukurikira ubwira umuyobozi ko wakuyeho ikibazo cyawe. Ni utabikora ntibazamenya ko wakuyeho ikibazo cyawe."
@@ -1839,9 +1842,6 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
-msgid "Overdue"
-msgstr ""
-
 msgid "Partial success"
 msgstr "Cyasubijwe igice"
 
@@ -1889,11 +1889,6 @@ msgstr "Turabasaba <a href=\"{{url}}\">kutwandikira </a> muramutse mugize ikibaz
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Turagusaba <a href=\"{{url}}\">kutuvugisha</a> kugirango tubikemure."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Turagusaba <strong>gusubiza ikibazo kiri haruguru</strong> kugirango tumenye niba igisubizo uherutse guhabwa kirimo amakuru y'ingirakamaro."
-msgstr[1] "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "Turagusaba <strong>kureba ibi bibazo bikurikira</strong>, hanyuma utumenyeshe\\n        niba hari amakuru mu bisubizo biherutse gutangwa."
@@ -2002,6 +1997,11 @@ msgstr "Saba amakuru ari muri iki cyiciro gusa, <strong>reka gutakaza\\n        
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Turagusaba kugeza ubu butumwa ku muntu ukora igenzura ry'ubwisanzure bwo kumenya amakuru."
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2551,6 +2551,12 @@ msgstr "Sangiza ikibazo cyawe"
 msgid "Short name is already taken"
 msgstr "Izina ryamaze gufatwa"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Banza werekane ibisubizo bikenewe cyane"
 
@@ -2613,6 +2619,12 @@ msgstr "Mutwihanganire, habayeho ikibazo mu gufungura iyi paji"
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Mutwihanganire, ntabwo twabonye iyi paji"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
@@ -2684,6 +2696,9 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Tanga ibitekerezo ku buryo uwabajije ashobora kubona <strong>amakuru asigaye</strong>."
 
 msgid "Summary"
+msgstr ""
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
 msgid "Table of statuses"
@@ -2961,9 +2976,6 @@ msgstr "Habaye <strong>ikibazo mu kwohereza</strong> cyangwa se ikindi kibazo nk
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr ""
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "Habayeho kwibeshya mu magambo wanditse, ongera ugerageze"
 
 msgid "There was no data calculated for this graph yet."
 msgstr "Imibare yo kuri iki gishushanyo ntirabobeka."
@@ -3472,9 +3484,6 @@ msgstr "User|Url name"
 
 msgid "Version {{version}}"
 msgstr "Inyandiko {{version}}"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr "Gikomeretsanya"

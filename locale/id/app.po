@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Agung Riyadi <ariadi01@gmail.com>, 2013
 # Agung Riyadi <ariadi01@gmail.com>, 2012-2013
 # agustriwanto <agus.triwanto@gmail.com>, 2012
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 18:53+0000\n"
-"PO-Revision-Date: 2017-02-06 18:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/language/id/)\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -1357,10 +1358,8 @@ msgstr "Jika Anda merasa layanan ini berguna sebagai seorang petugas FOI, silaka
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Jika Anda merasakan {{site_name}} berguna, <a href=\"{{donation_url}}\">berikanlah donasi</a> kepada badan amal yang mengelolanya."
 
-msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
-"Jika Anda menerima emailnya <strong>lebih dari enam bulan lalu</strong>, maka tautan masuk ini tidak berfungsi \n"
-"lagi. Silakan mencoba melakukan apa yang Anda lakukan dari awal."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Jika Anda belum melakukannya, silakan tulis pesan di bawah untuk member tahu otoritas bahwa Anda telah menarik permintaan Anda. Jika tidak, mereka tidak akan tahu bahwa permintaan tersebut telah ditarik."
@@ -1944,9 +1943,6 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
-msgid "Overdue"
-msgstr ""
-
 msgid "Partial success"
 msgstr ""
 
@@ -1994,10 +1990,6 @@ msgstr ""
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Silakan<a href=\"{{url}}\">berhubungan</a> dengan kami sehingga kami dapat memperbaikinya."
-
-msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
-msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr ""
@@ -2115,6 +2107,10 @@ msgstr ""
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr ""
+
+msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
+msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
+msgstr[0] ""
 
 msgid "Please select an authority"
 msgstr ""
@@ -2668,6 +2664,12 @@ msgstr ""
 msgid "Short name is already taken"
 msgstr "Nama pendek sudah diambil"
 
+msgid "Show all attachments"
+msgstr ""
+
+msgid "Show fewer attachments"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "Tunjukkan hasil yang paling relevan dahulu"
 
@@ -2736,6 +2738,12 @@ msgstr "Maaf, ada masalah dalam memproses halaman ini"
 
 msgid "Sorry, we couldn't find that page"
 msgstr "Maaf, kami tidak dapat menemukan halaman tersebut"
+
+msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your request. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr ""
@@ -2807,6 +2815,9 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Sarankan bagaimana pemohon dapat menemukan <strong>sisa informasi</strong>."
 
 msgid "Summary"
+msgstr ""
+
+msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr ""
 
 msgid "Table of statuses"
@@ -3106,9 +3117,6 @@ msgstr "Ada <strong>kesalahan pengiriman</strong> atau yang serupa, yang perlu d
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr ""
-
-msgid "There was an error with the words you entered, please try again."
-msgstr "Ada kesalahan pada kata-kata yang Anda masukkan, silakan coba lagi."
 
 msgid "There was no data calculated for this graph yet."
 msgstr ""
@@ -3643,9 +3651,6 @@ msgstr "User|Url name"
 
 msgid "Version {{version}}"
 msgstr "Versi {{version}}"
-
-msgid "Very overdue"
-msgstr ""
 
 msgid "Vexatious"
 msgstr ""
