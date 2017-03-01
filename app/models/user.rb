@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20170301171406
 #
 # Table name: users
 #
@@ -77,10 +78,15 @@ class User < ActiveRecord::Base
   has_many :info_request_batches,
            -> { order('created_at desc') },
            :dependent => :destroy
+  has_many :draft_info_request_batches,
+           -> { order('created_at desc') },
+           :dependent => :destroy,
+           :class_name => AlaveteliPro::DraftInfoRequestBatch
   has_many :request_classifications,
            :dependent => :destroy
   has_one :pro_account,
           :dependent => :destroy
+
 
   scope :not_banned, -> { where(ban_text: "") }
 
