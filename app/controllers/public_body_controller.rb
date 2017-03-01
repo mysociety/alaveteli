@@ -300,8 +300,6 @@ class PublicBodyController < ApplicationController
 
   # Type ahead search
   def search_typeahead
-    # Since acts_as_xapian doesn't support the Partial match flag, we work around it
-    # by making the last work a wildcard, which is quite the same
     query = params[:query]
     flash[:search_params] = params.slice(:query, :bodies, :page)
     @xapian_requests = perform_search_typeahead(query, PublicBody)

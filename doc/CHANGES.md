@@ -8,6 +8,8 @@
 * Link to the #internal_review section of the `help/unhappy` page instead of
   the UK-specific external link to FOIWiki (Liz Conlan)
 * Allow comments to be reported for admin attention (Liz Conlan, Gareth Rees)
+* Fix a bug in typeahead search where a search ending in a one or two letter
+  word would automatically return zero results (Louise Crow)
 
 ## Upgrade Notes
 
