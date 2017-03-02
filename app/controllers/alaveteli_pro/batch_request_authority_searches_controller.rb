@@ -3,10 +3,12 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
   MAX_RESULTS = 500
 
   def new
+    @draft_batch_request = find_or_initialise_draft
     render 'search_results'
   end
 
   def create
+    @draft_batch_request = find_or_initialise_draft
     @search = perform_search(params[:query])
     @result_limit = calculate_result_limit(@search)
     check_page_limit!(@page, @per_page)
@@ -31,6 +33,14 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     # Later pages are very expensive to load
     if page > MAX_RESULTS / per_page
       raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / per_page}.")
+    end
+  end
+
+  def find_or_initialise_draft
+    if params[:draft_id]
+      current_user.draft_info_request_batches.find(params[:draft_id])
+    else
+      AlaveteliPro::DraftInfoRequestBatch.new
     end
   end
 end

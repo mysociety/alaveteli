@@ -1,0 +1,11 @@
+<%= form_for(draft) do |f| %>
+  <% unless query.blank? %>
+    <%= hidden_field_tag(:query, query) %>
+  <% end %>
+  <% draft.public_body_ids.each do |id| %>
+    <% unless id == authority.id %>
+      <%= f.hidden_field(:public_body_ids, multiple: true, value: id) %>
+    <% end %>
+  <% end %>
+  <input type="submit" value="<%= _('- Remove') %>">
+<% end %>
