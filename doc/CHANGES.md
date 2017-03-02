@@ -3,8 +3,13 @@
 ## Highlighted Features
 
 * Add missing erb tags (Sam Smith)
+* Introduction of role-based permissions system (Louise Crow)
 
 ## Upgrade Notes
+
+* To migrate admin and pro statuses to the role-based system, you must run
+  `bundle exec rake db:seed` and then
+  `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
 
 ### Changed Templates
 
