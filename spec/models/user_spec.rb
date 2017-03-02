@@ -999,6 +999,50 @@ describe User do
 
   end
 
+  describe '#can_admin_roles' do
+
+    it 'returns an array including the admin role for an admin user' do
+      admin_user = FactoryGirl.create(:admin_user)
+      expect(admin_user.can_admin_roles).to eq([:admin])
+    end
+
+    it 'returns an empty array for a pro user' do
+      user = FactoryGirl.create(:user)
+      expect(user.can_admin_roles).to eq([])
+    end
+
+    it 'returns an empty array for a user with no roles' do
+      pro_user = FactoryGirl.create(:pro_user)
+      expect(pro_user.can_admin_roles).to eq([])
+    end
+
+  end
+
+  describe '#can_admin_role?' do
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_user){ FactoryGirl.create(:pro_user) }
+
+    it 'returns true for an admin user and the admin role' do
+      expect(admin_user.can_admin_role?(:admin))
+        .to be true
+    end
+
+    it 'return false for an admin user and the pro role' do
+      expect(admin_user.can_admin_role?(:pro))
+        .to be false
+    end
+
+    it 'returns false for a pro user and the admin role' do
+      expect(pro_user.can_admin_role?(:admin))
+        .to be false
+    end
+
+    it 'returns false for a pro user and the pro role' do
+      expect(pro_user.can_admin_role?(:pro))
+        .to be false
+    end
+  end
+
   describe 'pro scope' do
     it "only includes pro user" do
       pro_user = FactoryGirl.create(:pro_user)

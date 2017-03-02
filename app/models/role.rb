@@ -32,4 +32,8 @@ class Role < ActiveRecord::Base
     ALLOWED_ROLES
   end
 
+  def self.grants_and_revokes(role)
+    { :admin => [:admin] }[role]
+  end
+
 end

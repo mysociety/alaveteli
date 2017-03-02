@@ -45,6 +45,16 @@
         </td>
       </tr>
     <% end %>
+    <tr>
+      <td>
+        <b>Roles</b>
+      </td>
+      <td>
+        <% @admin_user.roles.each do |role| %>
+          <%= role.name %>
+        <% end %>
+      </td>
+    </tr>
   </tbody>
 </table>
 

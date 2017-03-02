@@ -27,4 +27,13 @@ describe Role do
     expect(role.errors[:name]).to eq(["has already been taken"])
   end
 
+  describe '.grants_and_revokes' do
+
+    it 'returns an array [:admin] when passed :admin' do
+      expect(Role.grants_and_revokes(:admin))
+        .to eq([:admin])
+    end
+
+  end
+
 end

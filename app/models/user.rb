@@ -423,6 +423,14 @@ class User < ActiveRecord::Base
     is_admin?
   end
 
+  def can_admin_roles
+    roles.flat_map{ |role| Role.grants_and_revokes(role.name.to_sym) }.compact.uniq
+  end
+
+  def can_admin_role?(role)
+    can_admin_roles.include?(role)
+  end
+
   # Does the user get "(admin)" links on each page on the main site?
   def admin_page_links?
     is_admin?

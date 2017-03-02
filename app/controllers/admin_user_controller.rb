@@ -42,6 +42,12 @@ class AdminUserController < AdminController
   end
 
   def update
+    # Clear roles if none checked
+    params[:admin_user][:role_ids] ||=[]
+    if !check_role_ids
+      flash[:error] = "Not permitted to change roles"
+      return render :action => 'edit'
+    end
     if @admin_user.update_attributes(user_params)
       flash[:notice] = 'User successfully updated.'
       redirect_to admin_user_url(@admin_user)
@@ -96,7 +102,7 @@ class AdminUserController < AdminController
     if params[:admin_user]
       params.require(:admin_user).permit(:name,
                                          :email,
-                                         :admin_level,
+                                         {:role_ids => []},
                                          :ban_text,
                                          :about_me,
                                          :no_limit,
@@ -105,6 +111,19 @@ class AdminUserController < AdminController
     else
       {}
     end
+  end
+
+  # Check all changed roles exist, and current user can grant and revoke them
+  def check_role_ids
+    changed_role_ids.all? do |role_id|
+      role = Role.where(:id => role_id).first
+      role && @user.can_admin_role?(role.name.to_sym)
+    end
+  end
+
+  def changed_role_ids
+    (params[:admin_user][:role_ids] - @admin_user.role_ids) |
+    (@admin_user.role_ids - params[:admin_user][:role_ids])
   end
 
   def set_admin_user

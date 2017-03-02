@@ -22,12 +22,24 @@
   </div>
 </div>
 
+
 <div class="control-group">
-  <label for="admin_level" class="control-label">Admin level</label>
+  <div class="control-label">Roles</div>
   <div class="controls">
-    <%= text_field 'admin_user', 'admin_level', :class => "span3" %>
+    <% Role.order(:name).each do |role| %>
+      <div>
+        <label class="checkbox-inline">
+          <%= check_box_tag "admin_user[role_ids][]",
+                            role.id,
+                            @admin_user.roles.include?(role),
+                            :disabled => !@user.can_admin_role?(role.name.to_sym) %>
+          <%= role.name %>
+        </label>
+      </div>
+    <% end %>
     <div class="help-block">
-      <strong>none</strong> or <strong>super</strong>; this is for admin features and links which are in the site proper
+     An <strong>admin</strong> has access to this interface and can see hidden requests<br/>
+     A <strong>pro</strong> can access the pro service<br/>
     </div>
   </div>
 </div>
