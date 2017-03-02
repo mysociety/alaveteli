@@ -6,9 +6,10 @@ class InfoRequest
     end
 
     def call
-      @relation.includes(:user => :pro_account)
-        .where('pro_accounts.id IS NOT NULL')
-          .references(:pro_accounts)
+      @relation
+        .includes(:user => :roles)
+          .where(:roles => {:name => 'pro'})
+            .references(:roles)
     end
   end
 end

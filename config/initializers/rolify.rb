@@ -3,5 +3,5 @@ Rolify.configure do |config|
   # config.use_mongoid
 
   # Dynamic shortcuts for User class (user.is_admin? like methods). Default is: false
-  # config.use_dynamic_shortcuts
+  config.use_dynamic_shortcuts
 end

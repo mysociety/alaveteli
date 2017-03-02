@@ -82,7 +82,7 @@ module ApplicationHelper
   # rely on a sesssion being shared between the front end and admin interface,
   # so need to check the status of the user.
   def is_admin?
-    return !session[:using_admin].nil? || (!@user.nil? && @user.super?)
+    return !session[:using_admin].nil? || (!@user.nil? && @user.is_admin?)
   end
 
   def cache_if_caching_fragments(*args, &block)

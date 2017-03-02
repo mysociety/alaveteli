@@ -320,7 +320,7 @@ class ApplicationController < ActionController::Base
   # load them in.
   def do_post_redirect(post_redirect, user=nil)
     uri = URI.parse(post_redirect.uri).path
-    if feature_enabled?(:alaveteli_pro) && user && user.pro?
+    if feature_enabled?(:alaveteli_pro) && user && user.is_pro?
       uri = override_post_redirect_for_pro(uri, post_redirect, user)
     end
     session[:post_redirect_token] = post_redirect.token

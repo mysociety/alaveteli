@@ -55,7 +55,7 @@ class AdminController < ApplicationController
               :email => _("Then you can log into the administrative interface"),
               :email_subject => _("Log into the admin interface"),
             :user_name => "a superuser")
-            if !@user.nil? && @user.admin_level == "super"
+            if !@user.nil? && @user.is_admin?
               session[:using_admin] = 1
               session[:admin_name] = @user.url_name
             else

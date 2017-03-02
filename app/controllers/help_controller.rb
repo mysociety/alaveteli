@@ -28,7 +28,7 @@ class HelpController < ApplicationController
 
   def contact
     @contact_email = AlaveteliConfiguration::contact_email
-    if feature_enabled?(:alaveteli_pro) && @user && @user.pro?
+    if feature_enabled?(:alaveteli_pro) && @user && @user.is_pro?
       @contact_email = AlaveteliConfiguration::pro_contact_email
     end
 

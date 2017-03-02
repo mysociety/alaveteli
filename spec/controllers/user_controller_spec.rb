@@ -146,7 +146,7 @@ describe UserController do
     context 'if the currently logged in user is an admin' do
 
       before :each do
-        @admin = FactoryGirl.create(:user, :admin_level => 'super')
+        @admin = FactoryGirl.create(:admin_user)
         @user = FactoryGirl.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
@@ -752,11 +752,12 @@ describe UserController, "when signing up" do
 
   it 'accepts only whitelisted parameters' do
     expect {
-      post :signup, { :user_signup => { :email => 'silly@localhost',
-                                        :name => 'New Person',
-                                        :password => 'sillypassword',
-                                        :password_confirmation => 'sillypassword',
-                                        :admin_level => 'super' } }
+      post :signup, { :user_signup =>
+                      { :email => 'silly@localhost',
+                        :name => 'New Person',
+                        :password => 'sillypassword',
+                        :password_confirmation => 'sillypassword',
+                        :role_ids => Role.where(:name => 'admin').first.id } }
     }.to raise_error(ActionController::UnpermittedParameters)
   end
 

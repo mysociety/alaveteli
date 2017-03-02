@@ -12,19 +12,19 @@ describe AdminUsersHelper do
     end
 
     it 'adds a superuser label if the user is an admin' do
-      user = User.new(:admin_level => 'super')
+      user = FactoryGirl.create(:admin_user)
       html = %q(<span class="label">superuser</span>)
       expect(user_labels(user)).to eq(html)
     end
 
     it 'adds a banned label if the user is banned' do
-      user = User.new(:ban_text => 'Banned')
+      user =  FactoryGirl.create(:user, :ban_text => 'Banned')
       html = %q(<span class="label label-warning">banned</span>)
       expect(user_labels(user)).to eq(html)
     end
 
     it 'adds labels for all noteworthy attributes' do
-      user = User.new(:admin_level => 'super', :ban_text => 'Banned')
+      user = FactoryGirl.create(:admin_user, :ban_text => 'Banned')
       html = %q(<span class="label label-warning">banned</span>)
       html += %q(<span class="label">superuser</span>)
       expect(user_labels(user)).to eq(html)

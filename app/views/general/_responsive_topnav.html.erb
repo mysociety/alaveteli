@@ -1,7 +1,7 @@
 <div id="topnav" class="topnav <%= @in_pro_area ? 'topnav--pro' : '' %>">
   <ul id="navigation" class="navigation" role="navigation">
 
-    <% if @user && @user.pro? %>
+    <% if @user && @user.is_pro? %>
       <%= render :partial => 'alaveteli_pro/general/nav_items' %>
     <% else %>
       <%= render :partial => 'general/nav_items' %>

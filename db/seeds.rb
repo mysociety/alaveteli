@@ -6,3 +6,7 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+if Role.order(:name).empty?
+  roles = Role.create([{ :name => 'pro' }, { :name => 'admin' }])
+end
