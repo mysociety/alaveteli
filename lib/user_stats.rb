@@ -11,14 +11,13 @@ class UserStats
       "SELECT substring(email, position('@' in email)+1) AS domain, " \
       "COUNT(id) AS count " \
       "FROM users " \
-      "WHERE admin_level = 'none' AND created_at >= '#{params[:start_date]}' " \
+      "WHERE created_at >= '#{params[:start_date]}' " \
       "GROUP BY domain " \
       "ORDER BY count DESC "
     else
       "SELECT substring(email, position('@' in email)+1) AS domain, " \
       "COUNT(id) AS count " \
       "FROM users " \
-      "WHERE admin_level = 'none' " \
       "GROUP BY domain " \
       "ORDER BY count DESC "
     end
@@ -56,12 +55,13 @@ class UserStats
     User.connection.select_all(sql).first["count"].to_i
   end
 
-  # Returns all the Users of a given domain who have not yet been banned and
-  # do not have admin privileges
+  # Returns all the Users of a given domain who have not yet been banned
+  # and do not have admin privileges
   def self.unbanned_by_domain(domain, start_date=nil)
-    eligible = User.where("email LIKE ?", "%@#{domain}").
-      where(:admin_level => 'none').
-      where(:ban_text => '')
+    eligible = User.
+                 where("email LIKE ?", "%@#{domain}").
+                   where(:ban_text => '').
+                     where.not(:id => User.with_role(:admin).pluck('users.id'))
 
     if start_date
       eligible.where("created_at >= ?", start_date)
