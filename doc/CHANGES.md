@@ -5,6 +5,7 @@
 
 * Add missing erb tags (Sam Smith)
 * Introduction of role-based permissions system (Louise Crow)
+* Limit `pdftk` to use a maximum of 512MB of RAM (Liz Conlan)
 
 ## Upgrade Notes
 
