@@ -16,6 +16,63 @@
   }
 }
 
-.extend-embargo-sidebar {
-  border-top: 1px solid #ccc;
+
+
+
+.request-status-icon {
+  background-image: image-url('alaveteli-pro/pro-request-status-icons.png');
+  background-position: 0 -256px;
+  background-size: 22px 500px;
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 23px;
+  display: inline-block;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/pro-request-status-icons@2.png');
+  }
+}
+
+.request-status-icon--waiting-response {
+  background-position: 0 -268px;
+}
+
+.request-status-icon--waiting-clarification {
+  background-position: 0 -67px;
+}
+
+.request-status-icon--gone-postal {
+  background-position: 0 -167px;
+}
+
+.request-status-icon--internal-review {
+  background-position: 0 -201px;
+}
+
+.request-status-icon--not-held {
+  background-position: 0 -368px;
+}
+
+.request-status-icon--partially-successful {
+  background-position: 0 -34px;
+}
+
+.request-status-icon--successful {
+  background-position: 0 0;
+}
+
+.request-status-icon--rejected {
+  background-position: 0 -435px;
+}
+
+.request-status-icon--error-message {
+  background-position: 0 -435px;
+}
+
+.request-status-icon--user-withdrawn{
+  background-position: 0 -301px;
+}
+
+.request-status-icon--requires-admin,
+.request-status-icon--error-message {
+  background-position: 0 -468px;
 }

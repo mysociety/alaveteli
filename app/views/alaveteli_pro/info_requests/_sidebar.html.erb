@@ -39,22 +39,34 @@
   <% end %>
   <% unless state_transitions_empty?(@state_transitions) %>
     <div class="sidebar__section update-status">
-    <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
-      <h2><%= _("Update status") %></h2>
-      <p>
-        <% @state_transitions.each do |group, transitions| %>
-          <% transitions.each do |state, label| %>
-            <%= f.label :described_state, value: state, class: state.dasherize do %>
-              <%= f.radio_button :described_state,
-                                 state,
-                                 checked: @info_request.described_state == state %>
-              <%= label %>
-            <% end %>
-          <% end %>
-        <% end %>
+      <h2><%= _("Status") %></h2>
+      <p class="status-picker__current-status">
+        <i class="request-status-icon request-status-icon--<%= @info_request.described_state.dasherize %>"></i>
+        <%= InfoRequest::State.short_description(@info_request.described_state) %>
       </p>
-      <input type="submit" value="<%= _("Update") %>">
-    <% end %>
+      <label class="houdini-label" for="input2"><%= _("Change status") %></label>
+      <input class="houdini-input" type="checkbox" id="input2">
+      <div class="status-picker houdini-target">
+        <%= form_for([:alaveteli_pro, @info_request], html: {class: 'js-status-picker-form'}) do |f| %>
+          <ul class="status-picker__options">
+            <% @state_transitions.each do |group, transitions| %>
+              <% transitions.each do |state, label| %>
+                <li class="status-picker__option">
+                  <%= f.label :described_state, value: state do %>
+                    <i class="request-status-icon request-status-icon--<%= state.dasherize %>"></i>
+                    <%# Note we force this to be unchecked, you can select the
+                        same status again to reset it to "awaiting response"
+                        after receiving an auto-response for example %>
+                    <%= f.radio_button :described_state, state, checked: false %>
+                    <%= label %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+          <input type="submit" value="<%= _("Update") %>" class="status-picker__submit">
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>

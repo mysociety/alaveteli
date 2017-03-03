@@ -1,5 +1,61 @@
+// Request status picker
+.status-picker__current-status {
+  // Align the icon with with current status text
+  .request-status-icon {
+    position: relative;
+    left: 0;
+    top: 0.4em;
+  }
+}
+
+// The list of options is presented as a basic form without JS, and a custom
+// dropdown kind of thing when JS is available
+.status-picker__options {
+  list-style: none;
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+  label {
+    position: relative;
+    padding: 0.25em 0.25em 0.25em 28px;
+    line-height: 2em;
+    font-size: 0.85em;
+  }
+
+  // Align the icon with with the label text
+  .request-status-icon {
+    position: absolute;
+    left: 0;
+    top: 0.4em;
+  }
+}
+
 .js-loaded {
+
   .embargo__submit {
     display: none;
   }
+
+  .status-picker__submit {
+    display: none;
+  }
+
+  .status-picker__option {
+    label {
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+    input {
+      display: none;
+    }
+  }
+
+  .status-picker__option--selected label {
+    font-weight: bold;
+  }
+}
+
+.extend-embargo-sidebar {
+  border-top: 1px solid #ccc;
 }

@@ -124,8 +124,11 @@ describe "viewing requests in alaveteli_pro" do
   it "allows the user to update the request status" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
-      expect(page).to have_content("Update status")
-      expect(find_field("Waiting for a response")).to be_checked
+      expect(page).to have_content("Status")
+      check 'Change status'
+      # The current status shouldn't be checked, so that you can set it again
+      # if you need too, e.g. to reset the awaiting response status
+      expect(find_field("Waiting for a response")).not_to be_checked
       choose("Partially successful")
       within ".update-status" do
         click_button("Update")
@@ -134,8 +137,8 @@ describe "viewing requests in alaveteli_pro" do
       expect(page).to have_content("Your request has been updated!")
       # The form should still be there to allow us to go back if we updated
       # by mistake
-      expect(page).to have_content("Update status")
-      expect(find_field("Partially successful")).to be_checked
+      expect(page).to have_content("Status")
+      check 'Change status'
     end
   end
 end
