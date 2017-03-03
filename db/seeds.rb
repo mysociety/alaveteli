@@ -8,5 +8,7 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 if Role.order(:name).empty?
-  roles = Role.create([{ :name => 'pro' }, { :name => 'admin' }])
+  roles = Role.create([ { :name => 'pro' },
+                        { :name => 'admin' },
+                        { :name => 'pro_admin'} ])
 end

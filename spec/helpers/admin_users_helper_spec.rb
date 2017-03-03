@@ -11,9 +11,9 @@ describe AdminUsersHelper do
       expect(user_labels(User.new)).to eq('')
     end
 
-    it 'adds a superuser label if the user is an admin' do
+    it 'adds an admin label if the user is an admin' do
       user = FactoryGirl.create(:admin_user)
-      html = %q(<span class="label">superuser</span>)
+      html = %q(<span class="label">admin</span>)
       expect(user_labels(user)).to eq(html)
     end
 
@@ -26,7 +26,7 @@ describe AdminUsersHelper do
     it 'adds labels for all noteworthy attributes' do
       user = FactoryGirl.create(:admin_user, :ban_text => 'Banned')
       html = %q(<span class="label label-warning">banned</span>)
-      html += %q(<span class="label">superuser</span>)
+      html += %q(<span class="label">admin</span>)
       expect(user_labels(user)).to eq(html)
     end
 

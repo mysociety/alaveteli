@@ -26,7 +26,7 @@
 <div class="control-group">
   <div class="control-label">Roles</div>
   <div class="controls">
-    <% Role.order(:name).each do |role| %>
+    <% Role.where(:name => Role.allowed_roles).order(:name).each do |role| %>
       <div>
         <label class="checkbox-inline">
           <%= check_box_tag "admin_user[role_ids][]",
@@ -44,7 +44,10 @@
     <% end %>
     <div class="help-block">
      An <strong>admin</strong> has access to this interface and can see hidden requests<br/>
-     A <strong>pro</strong> can access the pro service<br/>
+    <% if feature_enabled? :alaveteli_pro %>
+       A <strong>pro</strong> can access the pro service<br/>
+       A <strong>pro_admin</strong> can see and administer embargoed requests<br/>
+    <% end %>
     </div>
   </div>
 </div>
