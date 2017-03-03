@@ -8,7 +8,9 @@
     <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
     <input class="houdini-input" type="checkbox" id="input1">
     <div class="houdini-target extend-embargo-sidebar">
-      <%= form_for([AlaveteliPro::EmbargoExtension.new(embargo: @info_request.embargo)]) do |f| %>
+      <%= form_for(
+            [AlaveteliPro::EmbargoExtension.new(embargo: @info_request.embargo)],
+            html: {class: 'js-embargo-form'}) do |f| %>
         <%= render partial: "alaveteli_pro/info_requests/embargo_info",
                    locals: {embargo: @info_request.embargo, tense: :present} %>
         <%= f.hidden_field :embargo_id %>
@@ -18,8 +20,12 @@
             <%= _('Keep private for a further:') %>
           </label>
           <%= f.select :extension_duration,
-                       options_for_select(embargo_extension_options) %>
-          <input type="submit" value="<%= _("Update") %>">
+                       options_for_select(embargo_extension_options(@info_request.embargo)),
+                       {},
+                       { class: 'js-embargo-duration' } %>
+          <input type="submit"
+                 value="<%= _("Update") %>"
+                 class="embargo__submit">
         </p>
       <% end %>
       <%= button_to "Publish request",
