@@ -16,10 +16,9 @@ describe "comment/new.html.erb" do
     end
 
     it "says the comment will be public when the embargo expires" do
-      expected_content = "When your request's embargo expires, any " \
-                         "annotations you add will also be public. " \
-                         "However, they are not sent " \
-                         "to #{info_request.public_body.name}."
+      expected_content = "When your request is made public on Alaveteli, any " \
+                         "annotations you add will also be public. However, they are " \
+                         "not sent to #{info_request.public_body.name}."
       expect(rendered).to have_content(expected_content)
     end
 

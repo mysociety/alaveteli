@@ -13,12 +13,12 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
   describe '#description' do
 
     it 'gives a description for one expiring embargo' do
-       expect(@expiring_embargo.description).to eq "1 embargo is ending this week."
+       expect(@expiring_embargo.description).to eq "1 request will be made public this week."
     end
 
     it 'gives a description for multiple expiring embargoes' do
       FactoryGirl.create(:expiring_embargo, :user => embargo.user)
-      expect(@expiring_embargo.description).to eq "2 embargoes are ending this week."
+      expect(@expiring_embargo.description).to eq "2 requests will be made public this week."
     end
 
   end
@@ -59,7 +59,7 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
     context 'when there is one item' do
 
       it 'returns an appropriate text' do
-        expect(@expiring_embargo.call_to_action).to eq 'Extend or approve this embargo.'
+        expect(@expiring_embargo.call_to_action).to eq 'Publish this request or keep it private for longer.'
       end
 
     end
@@ -68,7 +68,7 @@ describe AlaveteliPro::ToDoList::ExpiringEmbargo do
 
       it 'returns an appropriate text' do
         FactoryGirl.create(:expiring_embargo, :user => embargo.user)
-        expect(@expiring_embargo.call_to_action).to eq 'Extend or approve these embargoes.'
+        expect(@expiring_embargo.call_to_action).to eq 'Publish these requests or keep them private for longer.'
       end
 
     end

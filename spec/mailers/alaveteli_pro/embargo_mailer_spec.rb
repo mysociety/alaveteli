@@ -91,14 +91,14 @@ describe AlaveteliPro::EmbargoMailer do
       end
 
       it 'sets the subject correctly for a single embargo' do
-        expected_subject = '1 embargo is ending this week'
+        expected_subject = '1 request will be made public on Alaveteli this week'
         expect(@mail.subject).to eq expected_subject
       end
 
       it "prints the message correctly" do
-        expected_body = "The following embargo is expiring in the next week. If you do " \
-                        "not wish this request to go public when the " \
-                        "embargo expires, please click on the link below to extend it.\n\n" \
+        expected_body = "The following request will be made public on Alaveteli in the " \
+                        "next week. If you do not wish this request to go public at that " \
+                        "time, please click on the link below to keep it private for longer.\n\n" \
                         "  #{request_url(expiring_1)}\n\n" \
                         "-- the #{AlaveteliConfiguration.site_name} team\n"
         expect(@mail.body).to eq expected_body
@@ -120,14 +120,14 @@ describe AlaveteliPro::EmbargoMailer do
       end
 
       it 'sets the subject correctly' do
-        expected_subject = '2 embargoes are ending this week'
+        expected_subject = '2 requests will be made public on Alaveteli this week'
         expect(@mail.subject).to eq expected_subject
       end
 
       it "prints the message correctly" do
-        expected_body = "The following embargoes are expiring in the next week. If you do " \
-                        "not wish for any of these requests to go public when their " \
-                        "embargoes expire, please click on the links below to extend them.\n\n" \
+        expected_body = "The following requests will be made public on Alaveteli in the " \
+                        "next week. If you do not wish for any of these requests to go " \
+                        "public, please click on the links below to extend them.\n\n" \
                         "  #{request_url(expiring_1)}\n" \
                         "  #{request_url(expiring_2)}\n\n" \
                         "-- the #{AlaveteliConfiguration.site_name} team\n"

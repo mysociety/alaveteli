@@ -67,9 +67,9 @@ describe AlaveteliPro::RequestFilter do
       expect_label('Response received', 'response_received')
     end
 
-    it 'is "Requests with expiring embargoes" when the filter is
+    it 'is "Requests that will be made public soon" when the filter is
         "embargoes_expiring"' do
-      expect_label('Requests with expiring embargoes', 'embargoes_expiring')
+      expect_label('Requests that will be made public soon', 'embargoes_expiring')
     end
   end
 
@@ -109,9 +109,9 @@ describe AlaveteliPro::RequestFilter do
       expect_label('response received', 'response_received')
     end
 
-    it 'is "requests with expiring embargoes" when the filter
+    it 'is "requests that will be made public soon" when the filter
         is "embargoes_expiring"' do
-      expect_label('requests with expiring embargoes', 'embargoes_expiring')
+      expect_label('requests that will be made public soon', 'embargoes_expiring')
     end
   end
 

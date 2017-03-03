@@ -13,12 +13,13 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
     @embargo_extension = AlaveteliPro::EmbargoExtension.new(embargo_extension_params)
     if @embargo_extension.save
       @embargo.extend(@embargo_extension)
-      flash[:notice] = _("Your embargo has been extended! It will now " \
-                         "expire on {{expiry_date}}.",
+      flash[:notice] = _("Your request will now be private on " \
+                         "{{site_name}} until {{expiry_date}}.",
+                         site_name: AlaveteliConfiguration.site_name,
                          expiry_date: @embargo.publish_at.to_date)
     else
-      flash[:error] = _("Sorry, something went wrong extending your " \
-                        "embargo, please try again.")
+      flash[:error] = _("Sorry, something went wrong updating your " \
+                        "request's privacy settings, please try again.")
     end
     redirect_to show_alaveteli_pro_request_path(
         url_title: @info_request.url_title)
