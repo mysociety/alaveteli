@@ -28,7 +28,7 @@ class CommentController < ApplicationController
 
     # See if values were valid or not
     if !params[:comment] || !@existing_comment.nil? || !@comment.valid? || params[:reedit]
-      @comment = @info_request.comments.new
+      @comment ||= @info_request.comments.new
       render :action => 'new'
       return
     end
