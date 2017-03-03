@@ -58,6 +58,14 @@ FactoryGirl.define do
         user.add_role :pro
       end
     end
+
+    factory :pro_admin_user do
+      name 'Pro Admin User'
+      after(:create) do |user, evaluator|
+        user.add_role :admin
+        user.add_role :pro_admin
+      end
+    end
   end
 
 end
