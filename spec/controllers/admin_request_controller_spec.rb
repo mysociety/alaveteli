@@ -3,10 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRequestController, "when administering requests" do
 
-  before(:each) do
-    load_raw_emails_data
-  end
-
   describe 'GET #index' do
 
     it "shows the index/list page" do
@@ -16,43 +12,48 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'GET #show' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
 
     render_views
 
     it "shows an info request" do
-      get :show, :id => info_requests(:fancy_dog_request)
+      get :show, :id => info_request
     end
 
     it 'shows an external info request with no username' do
-      get :show, :id => info_requests(:anonymous_external_request)
+      get :show, :id => FactoryGirl.create(:external_request)
       expect(response).to be_success
     end
 
     it "shows a suitable default 'your email has been hidden' message" do
-      ir = info_requests(:fancy_dog_request)
-      get :show, :id => ir.id
-      expect(assigns[:request_hidden_user_explanation]).to include(ir.user.name)
-      expect(assigns[:request_hidden_user_explanation]).to include("vexatious")
-      get :show, :id => ir.id, :reason => "not_foi"
-      expect(assigns[:request_hidden_user_explanation]).not_to include("vexatious")
-      expect(assigns[:request_hidden_user_explanation]).to include("not a valid FOI")
+      get :show, :id => info_request.id
+      expect(assigns[:request_hidden_user_explanation]).
+        to include(info_request.user.name)
+      expect(assigns[:request_hidden_user_explanation]).
+        to include("vexatious")
+      get :show, :id => info_request.id, :reason => "not_foi"
+      expect(assigns[:request_hidden_user_explanation]).
+        not_to include("vexatious")
+      expect(assigns[:request_hidden_user_explanation]).
+        to include("not a valid FOI")
     end
 
   end
 
   describe 'GET #edit' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
 
     it "edits a info request" do
-      get :edit, :id => info_requests(:fancy_dog_request)
+      get :edit, :id => info_request
     end
 
   end
 
   describe 'PUT #update' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
 
     it "saves edits to a request" do
-      expect(info_requests(:fancy_dog_request).title).to eq("Why do you have & such a fancy dog?")
-      post :update, { :id => info_requests(:fancy_dog_request),
+      post :update, { :id => info_request,
                       :info_request => { :title => "Renamed",
                                          :prominence => "normal",
                                          :described_state => "waiting_response",
@@ -60,12 +61,11 @@ describe AdminRequestController, "when administering requests" do
                                          :allow_new_responses_from => 'anybody',
                                          :handle_rejected_responses => 'bounce' } }
       expect(request.flash[:notice]).to include('successful')
-      ir = InfoRequest.find(info_requests(:fancy_dog_request).id)
-      expect(ir.title).to eq("Renamed")
+      info_request.reload
+      expect(info_request.title).to eq("Renamed")
     end
 
     it 'expires the request cache when saving edits to it' do
-      info_request = FactoryGirl.create(:info_request)
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:expire)
       post :update, { :id => info_request,
@@ -80,9 +80,9 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'DELETE #destroy' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
 
     it 'calls destroy on the info_request object' do
-      info_request = FactoryGirl.create(:info_request)
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:destroy)
       get :destroy, { :id => info_request.id }
@@ -95,7 +95,6 @@ describe AdminRequestController, "when administering requests" do
     end
 
     it 'redirects after destroying a request with incoming_messages' do
-      info_request = FactoryGirl.create(:info_request)
       incoming_message = FactoryGirl.create(:incoming_message_with_html_attachment,
                                             :info_request => info_request)
       delete :destroy, { :id => info_request.id }
@@ -106,17 +105,13 @@ describe AdminRequestController, "when administering requests" do
   end
 
   describe 'POST #hide' do
-
-    before(:each) do
-      load_raw_emails_data
-    end
+    let(:info_request){ FactoryGirl.create(:info_request) }
 
     it "hides requests and sends a notification email that it has done so" do
-      ir = info_requests(:fancy_dog_request)
-      post :hide, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
-      ir.reload
-      expect(ir.prominence).to eq("requester_only")
-      expect(ir.described_state).to eq("vexatious")
+      post :hide, :id => info_request.id, :explanation => "Foo", :reason => "vexatious"
+      info_request.reload
+      expect(info_request.prominence).to eq("requester_only")
+      expect(info_request.described_state).to eq("vexatious")
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
@@ -124,7 +119,6 @@ describe AdminRequestController, "when administering requests" do
     end
 
     it 'expires the file cache for the request' do
-      info_request = FactoryGirl.create(:info_request)
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:expire)
       post :hide, :id => info_request.id, :explanation => "Foo", :reason => "vexatious"
