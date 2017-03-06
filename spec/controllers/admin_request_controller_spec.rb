@@ -2,58 +2,84 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRequestController, "when administering requests" do
-  render_views
-  before { basic_auth_login @request }
 
   before(:each) do
     load_raw_emails_data
   end
 
-  it "shows the index/list page" do
-    get :index
+  describe 'GET #index' do
+
+    it "shows the index/list page" do
+      get :index
+    end
+
   end
 
-  it "shows an info request" do
-    get :show, :id => info_requests(:fancy_dog_request)
+  describe 'GET #show' do
+
+    render_views
+
+    it "shows an info request" do
+      get :show, :id => info_requests(:fancy_dog_request)
+    end
+
+    it 'shows an external info request with no username' do
+      get :show, :id => info_requests(:anonymous_external_request)
+      expect(response).to be_success
+    end
+
+    it "shows a suitable default 'your email has been hidden' message" do
+      ir = info_requests(:fancy_dog_request)
+      get :show, :id => ir.id
+      expect(assigns[:request_hidden_user_explanation]).to include(ir.user.name)
+      expect(assigns[:request_hidden_user_explanation]).to include("vexatious")
+      get :show, :id => ir.id, :reason => "not_foi"
+      expect(assigns[:request_hidden_user_explanation]).not_to include("vexatious")
+      expect(assigns[:request_hidden_user_explanation]).to include("not a valid FOI")
+    end
+
   end
 
-  it 'shows an external info request with no username' do
-    get :show, :id => info_requests(:anonymous_external_request)
-    expect(response).to be_success
+  describe 'GET #edit' do
+
+    it "edits a info request" do
+      get :edit, :id => info_requests(:fancy_dog_request)
+    end
+
   end
 
-  it "edits a info request" do
-    get :edit, :id => info_requests(:fancy_dog_request)
+  describe 'PUT #update' do
+
+    it "saves edits to a request" do
+      expect(info_requests(:fancy_dog_request).title).to eq("Why do you have & such a fancy dog?")
+      post :update, { :id => info_requests(:fancy_dog_request),
+                      :info_request => { :title => "Renamed",
+                                         :prominence => "normal",
+                                         :described_state => "waiting_response",
+                                         :awaiting_description => false,
+                                         :allow_new_responses_from => 'anybody',
+                                         :handle_rejected_responses => 'bounce' } }
+      expect(request.flash[:notice]).to include('successful')
+      ir = InfoRequest.find(info_requests(:fancy_dog_request).id)
+      expect(ir.title).to eq("Renamed")
+    end
+
+    it 'expires the request cache when saving edits to it' do
+      info_request = FactoryGirl.create(:info_request)
+      allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
+      expect(info_request).to receive(:expire)
+      post :update, { :id => info_request,
+                      :info_request => { :title => "Renamed",
+                                         :prominence => "normal",
+                                         :described_state => "waiting_response",
+                                         :awaiting_description => false,
+                                         :allow_new_responses_from => 'anybody',
+                                         :handle_rejected_responses => 'bounce' } }
+    end
+
   end
 
-  it "saves edits to a request" do
-    expect(info_requests(:fancy_dog_request).title).to eq("Why do you have & such a fancy dog?")
-    post :update, { :id => info_requests(:fancy_dog_request),
-                    :info_request => { :title => "Renamed",
-                                       :prominence => "normal",
-                                       :described_state => "waiting_response",
-                                       :awaiting_description => false,
-                                       :allow_new_responses_from => 'anybody',
-                                       :handle_rejected_responses => 'bounce' } }
-    expect(request.flash[:notice]).to include('successful')
-    ir = InfoRequest.find(info_requests(:fancy_dog_request).id)
-    expect(ir.title).to eq("Renamed")
-  end
-
-  it 'expires the request cache when saving edits to it' do
-    info_request = FactoryGirl.create(:info_request)
-    allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
-    expect(info_request).to receive(:expire)
-    post :update, { :id => info_request,
-                    :info_request => { :title => "Renamed",
-                                       :prominence => "normal",
-                                       :described_state => "waiting_response",
-                                       :awaiting_description => false,
-                                       :allow_new_responses_from => 'anybody',
-                                       :handle_rejected_responses => 'bounce' } }
-  end
-
-  describe 'when fully destroying a request' do
+  describe 'DELETE #destroy' do
 
     it 'calls destroy on the info_request object' do
       info_request = FactoryGirl.create(:info_request)
@@ -79,26 +105,11 @@ describe AdminRequestController, "when administering requests" do
 
   end
 
-end
+  describe 'POST #hide' do
 
-describe AdminRequestController, "when administering the holding pen" do
-  render_views
-  before(:each) do
-    basic_auth_login @request
-    load_raw_emails_data
-  end
-
-  it "shows a suitable default 'your email has been hidden' message" do
-    ir = info_requests(:fancy_dog_request)
-    get :show, :id => ir.id
-    expect(assigns[:request_hidden_user_explanation]).to include(ir.user.name)
-    expect(assigns[:request_hidden_user_explanation]).to include("vexatious")
-    get :show, :id => ir.id, :reason => "not_foi"
-    expect(assigns[:request_hidden_user_explanation]).not_to include("vexatious")
-    expect(assigns[:request_hidden_user_explanation]).to include("not a valid FOI")
-  end
-
-  describe 'when hiding requests' do
+    before(:each) do
+      load_raw_emails_data
+    end
 
     it "hides requests and sends a notification email that it has done so" do
       ir = info_requests(:fancy_dog_request)
@@ -119,7 +130,7 @@ describe AdminRequestController, "when administering the holding pen" do
       post :hide, :id => info_request.id, :explanation => "Foo", :reason => "vexatious"
     end
 
-    describe 'when hiding an external request' do
+    context 'when hiding an external request' do
 
       before do
         @info_request = mock_model(InfoRequest, :prominence= => nil,
