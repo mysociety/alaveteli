@@ -5,8 +5,9 @@ describe AdminRequestController, "when administering requests" do
 
   describe 'GET #index' do
 
-    it "shows the index/list page" do
+    it "is successful" do
       get :index
+      expect(response).to be_success
     end
 
   end
@@ -16,8 +17,9 @@ describe AdminRequestController, "when administering requests" do
 
     render_views
 
-    it "shows an info request" do
+    it "is successful" do
       get :show, :id => info_request
+      expect(response).to be_success
     end
 
     it 'shows an external info request with no username' do
@@ -43,8 +45,9 @@ describe AdminRequestController, "when administering requests" do
   describe 'GET #edit' do
     let(:info_request){ FactoryGirl.create(:info_request) }
 
-    it "edits a info request" do
+    it "is successful" do
       get :edit, :id => info_request
+      expect(response).to be_success
     end
 
   end
