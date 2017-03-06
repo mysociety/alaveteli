@@ -64,6 +64,7 @@ require 'alaveteli_pro/post_redirect_handler'
 require 'user_stats'
 require 'belongs_to_destroy_with_fk_constraint'
 require 'patch_tag_helper'
+require 'patch_counter_cache'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
