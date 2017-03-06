@@ -109,8 +109,6 @@ describe AdminUserController do
 
   describe 'GET #show' do
 
-    render_views
-
     it "shows a user" do
       get :show, :id => users(:bob_smith_user)
     end
