@@ -91,9 +91,10 @@ describe AdminUserController do
       expect(assigns[:admin_users]).to eq([u1, u2])
     end
 
-    it "searches for 'bob'" do
+    it "assigns users matching a case-insensitive query to the view" do
+      user = FactoryGirl.create(:user, :name => 'Bob Smith')
       get :index, :query => 'bob'
-      expect(assigns[:admin_users]).to eq([users(:bob_smith_user)])
+      expect(assigns[:admin_users].include?(user)).to be true
     end
 
     it 'searches and sorts the records' do
@@ -109,8 +110,9 @@ describe AdminUserController do
 
   describe 'GET #show' do
 
-    it "shows a user" do
-      get :show, :id => users(:bob_smith_user)
+    it "is successful" do
+      get :show, :id => FactoryGirl.create(:user)
+      expect(response).to be_success
     end
 
   end
@@ -224,7 +226,7 @@ describe AdminUserController do
   describe 'POST #login_as' do
 
     it "logs in as another user" do
-      post :login_as,  :id => users(:bob_smith_user).id
+      post :login_as,  :id => FactoryGirl.create(:user).id
       expect(response).to redirect_to(:controller => 'user',
                                       :action => 'confirm',
                                       :email_token => get_last_post_redirect.email_token)
