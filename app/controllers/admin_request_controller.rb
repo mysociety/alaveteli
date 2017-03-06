@@ -21,6 +21,11 @@ class AdminRequestController < AdminController
     else
       info_requests = InfoRequest
     end
+
+    if cannot? :admin, AlaveteliPro::Embargo
+      info_requests = info_requests.not_embargoed
+    end
+
     @info_requests = info_requests.order('created_at DESC').paginate(
       :page => params[:page],
       :per_page => 100)

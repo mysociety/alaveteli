@@ -59,6 +59,9 @@ class Ability
       end
 
     end
+
+    can :admin, AlaveteliPro::Embargo if user && user.is_pro_admin?
+
   end
 
   private

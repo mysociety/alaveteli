@@ -4,11 +4,91 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminRequestController, "when administering requests" do
 
   describe 'GET #index' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
 
     it "is successful" do
-      get :index
+      get :index, {}, { :user_id => admin_user.id }
       expect(response).to be_success
     end
+
+    it 'assigns all info requests to the view' do
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:info_requests]).to match_array(InfoRequest.all)
+    end
+
+    it 'does not include embargoed requests if the current user is
+        not a pro admin user' do
+      info_request.create_embargo
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:info_requests].include?(info_request)).to be false
+    end
+
+
+    context 'when pro is enabled' do
+
+      it 'does not include embargoed requests if the current user is
+          not a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :index, {}, { :user_id => admin_user.id }
+          expect(assigns[:info_requests].include?(info_request)).to be false
+        end
+      end
+
+      it 'includes embargoed requests if the current user
+          is a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :index, {}, { :user_id => pro_admin_user.id }
+          expect(assigns[:info_requests].include?(info_request)).to be true
+        end
+      end
+    end
+
+    context 'when passed a query' do
+      let!(:dog_request){ FactoryGirl.create(:info_request,
+                                             :title => 'A dog request') }
+      let!(:cat_request){ FactoryGirl.create(:info_request,
+                                             :title => 'A cat request') }
+
+      it 'assigns info requests with titles matching the query to the view
+          case insensitively' do
+        get :index, { :query => 'Cat' }, { :user_id => admin_user.id }
+        expect(assigns[:info_requests].include?(dog_request)).to be false
+        expect(assigns[:info_requests].include?(cat_request)).to be true
+      end
+
+      it 'does not include embargoed requests if the current user is an
+          admin user' do
+        cat_request.create_embargo
+        get :index, { :query => 'cat' }, { :user_id => admin_user.id }
+        expect(assigns[:info_requests].include?(cat_request)).to be false
+      end
+
+      context 'when pro is enabled' do
+        it 'does not include embargoed requests if the current user is an
+            admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            cat_request.create_embargo
+            get :index, { :query => 'cat' }, { :user_id => admin_user.id }
+            expect(assigns[:info_requests].include?(cat_request)).to be false
+          end
+        end
+
+        it 'includes embargoed requests if the current user
+            is a pro admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            cat_request.create_embargo
+            get :index, { :query => 'cat' }, { :user_id => pro_admin_user.id }
+            expect(assigns[:info_requests].include?(cat_request)).to be true
+          end
+        end
+      end
+
+    end
+
 
   end
 
