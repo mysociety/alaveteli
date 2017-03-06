@@ -13,16 +13,16 @@ describe AdminRequestController, "when administering requests" do
     get :index
   end
 
-  it "shows a public body" do
+  it "shows an info request" do
     get :show, :id => info_requests(:fancy_dog_request)
   end
 
-  it 'shows an external public body with no username' do
+  it 'shows an external info request with no username' do
     get :show, :id => info_requests(:anonymous_external_request)
     expect(response).to be_success
   end
 
-  it "edits a public body" do
+  it "edits a info request" do
     get :edit, :id => info_requests(:fancy_dog_request)
   end
 
