@@ -88,12 +88,12 @@ describe AdminRequestController, "when administering requests" do
     it 'calls destroy on the info_request object' do
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:destroy)
-      get :destroy, { :id => info_request.id }
+      delete :destroy, { :id => info_request.id }
     end
 
     it 'uses a different flash message to avoid trying to fetch a non existent user record' do
       info_request = info_requests(:external_request)
-      post :destroy, { :id => info_request.id }
+      delete :destroy, { :id => info_request.id }
       expect(request.flash[:notice]).to include('external')
     end
 
