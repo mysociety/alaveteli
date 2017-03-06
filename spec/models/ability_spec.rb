@@ -310,6 +310,7 @@ describe Ability do
   describe "Updating Embargoes" do
     let(:embargo) { FactoryGirl.create(:embargo) }
     let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
 
     it "allows the info request owner to update it" do
       with_feature_enabled(:alaveteli_pro) do
@@ -318,10 +319,17 @@ describe Ability do
       end
     end
 
-    it "allows admins to update it" do
+    it "allows pro admins to update it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(pro_admin_user)
+        expect(ability).to be_able_to(:update, embargo)
+      end
+    end
+
+    it "doesn't allow admins to update it" do
       with_feature_enabled(:alaveteli_pro) do
         ability = Ability.new(admin_user)
-        expect(ability).to be_able_to(:update, embargo)
+        expect(ability).not_to be_able_to(:update, embargo)
       end
     end
 
