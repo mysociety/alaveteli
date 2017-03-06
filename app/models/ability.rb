@@ -62,6 +62,14 @@ class Ability
 
     can :admin, AlaveteliPro::Embargo if user && user.is_pro_admin?
 
+    can :admin, InfoRequest do |info_request|
+      if info_request.embargo
+        user && user.is_pro_admin?
+      else
+        user && user.is_admin?
+      end
+    end
+
   end
 
   private

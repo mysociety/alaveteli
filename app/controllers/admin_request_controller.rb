@@ -32,6 +32,9 @@ class AdminRequestController < AdminController
   end
 
   def show
+    if cannot? :admin, @info_request
+      raise ActiveRecord::RecordNotFound
+    end
     vars_for_explanation = {:reason => params[:reason],
                             :info_request => @info_request,
                             :name_to => @info_request.user_name,

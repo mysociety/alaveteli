@@ -89,26 +89,28 @@ describe AdminRequestController, "when administering requests" do
 
     end
 
-
   end
 
   describe 'GET #show' do
     let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:external_request){ FactoryGirl.create(:external_request) }
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
 
     render_views
 
     it "is successful" do
-      get :show, :id => info_request
+      get :show, { :id => info_request }, { :user_id => admin_user.id }
       expect(response).to be_success
     end
 
     it 'shows an external info request with no username' do
-      get :show, :id => FactoryGirl.create(:external_request)
+      get :show, { :id => external_request }, { :user_id => admin_user.id }
       expect(response).to be_success
     end
 
     it "shows a suitable default 'your email has been hidden' message" do
-      get :show, :id => info_request.id
+      get :show, { :id => info_request.id }, { :user_id => admin_user.id }
       expect(assigns[:request_hidden_user_explanation]).
         to include(info_request.user.name)
       expect(assigns[:request_hidden_user_explanation]).
@@ -118,6 +120,38 @@ describe AdminRequestController, "when administering requests" do
         not_to include("vexatious")
       expect(assigns[:request_hidden_user_explanation]).
         to include("not a valid FOI")
+    end
+
+    context 'if the request is embargoed' do
+
+      before do
+        info_request.create_embargo
+      end
+
+      it 'raises ActiveRecord::RecordNotFound for an admin user' do
+        expect{ get :show, { :id => info_request.id },
+                           { :user_id => admin_user.id } }.
+          to raise_error ActiveRecord::RecordNotFound
+      end
+
+      context 'with pro enabled' do
+
+        it 'raises ActiveRecord::RecordNotFound for an admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            expect{ get :show, { :id => info_request.id },
+                               { :user_id => admin_user.id } }.
+              to raise_error ActiveRecord::RecordNotFound
+          end
+        end
+
+        it 'is successful for a pro admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            get :show, { :id => info_request.id }, { :user_id => pro_admin_user.id }
+            expect(response).to be_success
+          end
+        end
+      end
+
     end
 
   end
