@@ -40,6 +40,10 @@ class AdminUserController < AdminController
   end
 
   def show
+    @info_requests = @admin_user.info_requests
+    if cannot? :admin, AlaveteliPro::Embargo
+      @info_requests = @info_requests.not_embargoed
+    end
   end
 
   def edit

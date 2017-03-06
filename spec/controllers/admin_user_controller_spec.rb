@@ -109,11 +109,49 @@ describe AdminUserController do
   end
 
   describe 'GET #show' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
 
     it "is successful" do
-      get :show, :id => FactoryGirl.create(:user)
+      get :show, { :id => FactoryGirl.create(:user) }, { :user_id => admin_user.id }
       expect(response).to be_success
     end
+
+    it "assigns the user's info requests to the view" do
+      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      expect(assigns[:info_requests]).to eq([info_request])
+    end
+
+    it 'does not include embargoed requests if the current user is
+        not a pro admin user' do
+      info_request.create_embargo
+      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      expect(assigns[:info_requests]).to eq([])
+    end
+
+    context 'when pro is enabled' do
+
+      it 'does not include embargoed requests if the current user is
+          not a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+          expect(assigns[:info_requests]).to eq([])
+        end
+      end
+
+      it 'includes embargoed requests if the current user is a pro admin user
+          and pro is enabled' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :show, { :id => info_request.user }, { :user_id => pro_admin_user.id }
+          expect(assigns[:info_requests].include?(info_request)).to be true
+        end
+      end
+
+    end
+
 
   end
 
