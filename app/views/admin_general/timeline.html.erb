@@ -34,7 +34,12 @@
     <%= simple_time(event_at) %>
 
     <% if event.is_a? InfoRequestEvent %>
-      <%= request_both_links(event.info_request) %>
+
+      <% if event.info_request.embargo && cannot?(:admin, AlaveteliPro::Embargo) %>
+        An embargoed request
+      <% else %>
+        <%= request_both_links(event.info_request) %>
+      <% end %>
 
       <% if lookup_context.template_exists?(event.event_type, ['admin_general'], true) %>
       <%= render :partial => event.event_type, :locals => { :event => event } %>

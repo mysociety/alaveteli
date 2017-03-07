@@ -1,4 +1,8 @@
 <% incoming_message = event.incoming_message %>
 received
-<%= link_to 'a response', incoming_message_path(incoming_message) %>
+<% if event.info_request.embargo && cannot?(:admin, AlaveteliPro::Embargo) %>
+  a response
+<% else %>
+  <%= link_to 'a response', incoming_message_path(incoming_message) %>
+<% end %>
 from <%= event.info_request.public_body.name %>.
