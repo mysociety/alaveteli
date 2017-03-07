@@ -2,7 +2,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminPublicBodyController, "when showing the index of public bodies" do
-  render_views
 
   it "shows the index page" do
     get :index
@@ -21,7 +20,6 @@ describe AdminPublicBodyController, "when showing the index of public bodies" do
 end
 
 describe AdminPublicBodyController, "when showing a public body" do
-  render_views
 
   it "shows a public body" do
     get :show, :id => 2
@@ -85,7 +83,6 @@ describe AdminPublicBodyController, 'when showing the form for a new public body
 end
 
 describe AdminPublicBodyController, "when creating a public body" do
-  render_views
 
   context 'on success' do
 
@@ -245,7 +242,6 @@ describe AdminPublicBodyController, "when creating a public body" do
 end
 
 describe AdminPublicBodyController, "when editing a public body" do
-  render_views
 
   before do
     @body = FactoryGirl.create(:public_body)
@@ -286,6 +282,8 @@ describe AdminPublicBodyController, "when editing a public body" do
 
   context 'when the body has info requests' do
 
+    render_views
+
     it 'does not show the form for destroying the body' do
       info_request = FactoryGirl.create(:info_request)
       get :edit, :id => info_request.public_body.id
@@ -295,6 +293,8 @@ describe AdminPublicBodyController, "when editing a public body" do
   end
 
   context 'when the body does not have info requests' do
+
+    render_views
 
     it 'shows the form for destroying the body' do
       get :edit, :id => @body.id
@@ -326,7 +326,6 @@ describe AdminPublicBodyController, "when editing a public body" do
 end
 
 describe AdminPublicBodyController, "when updating a public body" do
-  render_views
 
   before do
     @body = FactoryGirl.create(:public_body)
@@ -557,7 +556,6 @@ describe AdminPublicBodyController, "when updating a public body" do
 end
 
 describe AdminPublicBodyController, "when destroying a public body" do
-  render_views
 
   it "does not destroy a public body that has associated requests" do
     id = public_bodies(:humpadink_public_body).id
@@ -577,7 +575,6 @@ describe AdminPublicBodyController, "when destroying a public body" do
 end
 
 describe AdminPublicBodyController, "when assigning public body tags" do
-  render_views
 
   it "mass assigns tags" do
     condition = "public_body_translations.locale = ?"
@@ -590,7 +587,6 @@ describe AdminPublicBodyController, "when assigning public body tags" do
 end
 
 describe AdminPublicBodyController, "when importing a csv" do
-  render_views
 
   describe 'when handling a GET request' do
 
@@ -670,7 +666,6 @@ end
 
 describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do
 
-  render_views
 
   before do
     config = MySociety::Config.load_default
