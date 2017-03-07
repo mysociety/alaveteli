@@ -24,14 +24,18 @@ describe AdminPublicBodyController do
 
   describe 'GET #show' do
     let(:public_body){ FactoryGirl.create(:public_body) }
+    let(:info_request){ FactoryGirl.create(:info_request,
+                                           :public_body => public_body) }
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
 
     it "returns successfully" do
-      get :show, :id => public_body.id
+      get :show, { :id => public_body.id }, { :user_id => admin_user.id }
       expect(response).to be_success
     end
 
     it "sets a using_admin flag" do
-      get :show, :id => public_body.id
+      get :show, { :id => public_body.id}, { :user_id => admin_user.id }
       expect(session[:using_admin]).to eq(1)
     end
 
@@ -40,8 +44,38 @@ describe AdminPublicBodyController do
         public_body.name = 'El Public Body'
         public_body.save
       end
-      get :show, {:id => public_body.id, :locale => "es" }
+      get :show, { :id => public_body.id, :locale => "es" },
+                 { :user_id => admin_user.id }
       expect(assigns[:public_body].name).to eq 'El Public Body'
+    end
+
+    it 'does not include embargoed requests if the current user is
+        not a pro admin user' do
+      info_request.create_embargo
+      get :show, { :id => public_body.id }, { :user_id => admin_user.id }
+      expect(assigns[:info_requests].include?(info_request)).to be false
+    end
+
+    context 'when pro is enabled' do
+
+      it 'does not include embargoed requests if the current user is
+          not a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :show, { :id => public_body.id }, { :user_id => admin_user.id }
+          expect(assigns[:info_requests].include?(info_request)).to be false
+        end
+      end
+
+
+      it 'includes embargoed requests if the current user is a pro admin
+          user' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :show, { :id => public_body.id }, { :user_id => pro_admin_user.id }
+          expect(assigns[:info_requests].include?(info_request)).to be true
+        end
+      end
     end
 
   end
