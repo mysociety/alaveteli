@@ -41,8 +41,10 @@ class AdminUserController < AdminController
 
   def show
     @info_requests = @admin_user.info_requests
+    @comments = @admin_user.comments
     if cannot? :admin, AlaveteliPro::Embargo
       @info_requests = @info_requests.not_embargoed
+      @comments = @admin_user.comments.not_embargoed
     end
   end
 

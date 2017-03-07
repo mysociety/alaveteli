@@ -4,9 +4,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminCommentController do
 
   describe 'GET index' do
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
 
     it 'sets the title' do
-      get :index
+      get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:title]).to eq('Listing comments')
     end
 
@@ -16,12 +18,12 @@ describe AdminCommentController do
       comment_1 = FactoryGirl.create(:comment)
       back_to_the_present
       comment_2 = FactoryGirl.create(:comment)
-      get :index
+      get :index, {}, { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([comment_2, comment_1])
     end
 
     it 'assigns the query' do
-      get :index, :query => 'hello'
+      get :index, { :query => 'hello' }, { :user_id => admin_user.id }
       expect(assigns[:query]).to eq('hello')
     end
 
@@ -30,18 +32,49 @@ describe AdminCommentController do
       comment_1 = FactoryGirl.create(:comment, :body => 'Hello world')
       comment_2 = FactoryGirl.create(:comment, :body => 'Hi! hello world')
       comment_3 = FactoryGirl.create(:comment, :body => 'xyz')
-      get :index, :query => 'hello'
+      get :index, { :query => 'hello' }, { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([comment_2, comment_1])
     end
 
     it 'renders the index template' do
-      get :index
+      get :index, {}, { :user_id => admin_user.id }
       expect(response).to render_template('index')
     end
 
     it 'responds successfully' do
-      get :index
+      get :index, {}, { :user_id => admin_user.id }
       expect(response).to be_success
+    end
+
+    it 'does not include comments on embargoed requests if the current user is
+        not a pro admin user' do
+      comment = FactoryGirl.create(:comment)
+      comment.info_request.create_embargo
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:comments].include?(comment)).to be false
+    end
+
+    context 'if pro is enabled' do
+
+      it 'includes does not include comments on embargoed requests if the
+          current user is a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          comment = FactoryGirl.create(:comment)
+          comment.info_request.create_embargo
+          get :index, {}, { :user_id => admin_user.id }
+          expect(assigns[:comments].include?(comment)).to be false
+        end
+      end
+
+      it 'includes comments on embargoed requests if the current user is a
+          pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          comment = FactoryGirl.create(:comment)
+          comment.info_request.create_embargo
+          get :index, {}, { :user_id => pro_admin_user.id }
+          expect(assigns[:comments].include?(comment)).to be true
+        end
+      end
     end
 
   end

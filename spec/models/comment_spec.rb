@@ -20,7 +20,7 @@ describe Comment do
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
-  describe 'visible scope' do
+  describe '.visible' do
     before(:each) do
       @visible_request = FactoryGirl.create(:info_request, :prominence => "normal")
       @hidden_request = FactoryGirl.create(:info_request, :prominence => "hidden")
@@ -40,6 +40,48 @@ describe Comment do
       comment = FactoryGirl.create(:comment, :info_request => @hidden_request)
       expect(comment.visible).to eq(true)
       expect(@hidden_request.comments.visible).to eq([])
+    end
+
+  end
+
+  describe '.embargoed' do
+
+    before(:each) do
+      @info_request = FactoryGirl.create(:info_request)
+      @request_comment = FactoryGirl.create(:comment,
+                                            :info_request => @info_request)
+      @embargoed_request = FactoryGirl.create(:embargoed_request)
+      @embargoed_comment = FactoryGirl.create(:comment,
+                                              :info_request => @embargoed_request)
+    end
+
+    it 'includes comments on embargoed requests' do
+      expect(Comment.embargoed.include?(@embargoed_comment)).to be true
+    end
+
+    it "doesn't include comments on requests without embargos" do
+      expect(Comment.embargoed.include?(@request_comment)).to be false
+    end
+
+  end
+
+  describe '.not_embargoed' do
+
+    before(:each) do
+      @info_request = FactoryGirl.create(:info_request)
+      @request_comment = FactoryGirl.create(:comment,
+                                            :info_request => @info_request)
+      @embargoed_request = FactoryGirl.create(:embargoed_request)
+      @embargoed_comment = FactoryGirl.create(:comment,
+                                              :info_request => @embargoed_request)
+    end
+
+    it 'does not include comments on embargoed requests' do
+      expect(Comment.not_embargoed.include?(@embargoed_comment)).to be false
+    end
+
+    it "includes comments on requests without embargos" do
+      expect(Comment.not_embargoed.include?(@request_comment)).to be true
     end
 
   end

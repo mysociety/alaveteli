@@ -20,6 +20,10 @@ class AdminCommentController < AdminController
       Comment.order('created_at DESC')
     end
 
+    if cannot? :admin, AlaveteliPro::Embargo
+      comments = comments.not_embargoed
+    end
+
     @comments = comments.paginate :page => params[:page], :per_page => 100
   end
 

@@ -41,6 +41,21 @@ class Comment < ActiveRecord::Base
         .where(:visible => true)
   }
 
+  scope :embargoed, -> {
+    joins(:info_request => :embargo).
+      where('embargoes.id IS NOT NULL').
+      references(:embargoes)
+  }
+
+  scope :not_embargoed, -> {
+    joins(:info_request)
+      .select("comments.*")
+            .joins('LEFT OUTER JOIN embargoes
+                    ON embargoes.info_request_id = info_requests.id')
+              .where('embargoes.id IS NULL')
+                .references(:embargoes)
+  }
+
   after_save :event_xapian_update
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain

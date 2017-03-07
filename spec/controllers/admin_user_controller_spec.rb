@@ -152,6 +152,47 @@ describe AdminUserController do
 
     end
 
+    it "assigns the user's comments to the view" do
+      comment = FactoryGirl.create(:comment, :info_request => info_request,
+                                             :user => info_request.user)
+      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      expect(assigns[:comments]).to eq([comment])
+    end
+
+    it 'does not include comments on embargoed requests if the current user is
+        not a pro admin user' do
+      comment = FactoryGirl.create(:comment, :info_request => info_request,
+                                             :user => info_request.user)
+      info_request.create_embargo
+      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      expect(assigns[:comments]).to eq([])
+    end
+
+    context 'when pro is enabled' do
+
+      it 'does not include comments on embargoed requests if the current user is
+          not a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          comment = FactoryGirl.create(:comment, :info_request => info_request,
+                                                 :user => info_request.user)
+          info_request.create_embargo
+          get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+          expect(assigns[:comments]).to eq([])
+        end
+      end
+
+      it 'includes comments on embargoed requests if the current user is a
+          pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          comment = FactoryGirl.create(:comment, :info_request => info_request,
+                                                 :user => info_request.user)
+          info_request.create_embargo
+          get :show, { :id => info_request.user }, { :user_id => pro_admin_user.id }
+          expect(assigns[:comments]).to eq([comment])
+        end
+      end
+
+    end
 
   end
 
