@@ -1,0 +1,13 @@
+<% comment = Comment.find(event.params[:comment_id].to_i) %>
+had annotation edited by administrator <strong><%=h event.params[:editor] %></strong>.
+
+<% if comment %>
+  <% for p in ['body']
+       if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+  %> Changed <%= p %> from '<%=h event.params[('old_'+p).to_sym] %>' to '<%=h event.params[p.to_sym] %>'. <%
+       end
+     end
+  %>
+<% else %>
+  Missing annotation, internal error.
+<% end %>

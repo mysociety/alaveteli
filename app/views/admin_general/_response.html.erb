@@ -1,0 +1,4 @@
+<% incoming_message = event.incoming_message %>
+received
+<%= link_to 'a response', incoming_message_path(incoming_message) %>
+from <%=h event.info_request.public_body.name %>.
