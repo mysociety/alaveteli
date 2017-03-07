@@ -1,0 +1,9 @@
+// Hide the submit form when JS is turned on
+.js-loaded {
+  .batch-authority-search__form__submit {
+    display: none;
+  }
+}
+
+// TODO - style search input, results, pagination when .loading class is
+// applied to the .batch-authority-search container
