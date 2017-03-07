@@ -5,8 +5,9 @@ describe AdminPublicBodyController do
 
   describe 'GET #index' do
 
-    it "shows the index page" do
+    it "returns successfully" do
       get :index
+      expect(response).to be_success
     end
 
     it "searches for 'humpa'" do
@@ -22,18 +23,25 @@ describe AdminPublicBodyController do
   end
 
   describe 'GET #show' do
+    let(:public_body){ FactoryGirl.create(:public_body) }
 
-    it "shows a public body" do
-      get :show, :id => 2
+    it "returns successfully" do
+      get :show, :id => public_body.id
+      expect(response).to be_success
     end
 
     it "sets a using_admin flag" do
-      get :show, :id => 2
+      get :show, :id => public_body.id
       expect(session[:using_admin]).to eq(1)
     end
 
     it "shows a public body in another locale" do
-      get :show, {:id => 2, :locale => "es" }
+      I18n.with_locale('es') do
+        public_body.name = 'El Public Body'
+        public_body.save
+      end
+      get :show, {:id => public_body.id, :locale => "es" }
+      expect(assigns[:public_body].name).to eq 'El Public Body'
     end
 
   end
