@@ -163,7 +163,7 @@ class ApplicationController < ActionController::Base
   end
 
   def show_detailed_exceptions?
-    true
+    request.local? && (env.test? || env.development?)
   end
 
   def render_exception(exception)
