@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminGeneralController do
 
-  describe "when viewing front page of admin interface" do
+  describe "GET #index" do
 
     it "should render the front page" do
       get :index
@@ -19,7 +19,7 @@ describe AdminGeneralController do
 
   end
 
-  describe 'when viewing the timeline' do
+  describe 'GET #timeline' do
 
     it 'should assign an array of events in order of descending date to the view' do
 
