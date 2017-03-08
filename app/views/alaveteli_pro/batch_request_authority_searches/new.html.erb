@@ -1,0 +1,66 @@
+<% @title = _('Add authorities to your batch') %>
+
+<div class="pro-canvas">
+
+  <div class="pro-canvas-header">
+    <div class="row">
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+
+  <div class="pro-canvas-body">
+    <div class="row batch-authority-search js-batch-authority-search">
+
+      <%= form_tag alaveteli_pro_batch_request_authority_searches_path,
+                   method: :get,
+                   class: 'batch-authority-search__form js-batch-authority-search-form' do %>
+        <% if @draft_batch_request.id %>
+          <%= hidden_field_tag :draft_id,
+                               @draft_batch_request.id,
+                               class: 'js-batch-authority-search-form-draft-id' %>
+        <% end %>
+        <label for="query" class="visually-hidden"><%= _('Search') %></label>
+        <input type="text"
+               name="query"
+               class="batch-authority-search__form__query js-batch-authority-search-form-query"
+               id="query"
+               value="<%= @query %>"
+               placeholder="<%= _('Search for an authority by name') %>"
+               autofocus>
+        <input type="submit" value="<%= _('Search') %>" class="batch-authority-search__form__submit">
+      <% end %>
+
+      <div class="batch-authority-search__results js-batch-authority-search-results"
+           data-ajax-error-message="<%= _('Sorry, something went wrong ' \
+                                          'getting your results, please ' \
+                                          'try searching again.') %>">
+        <%= render partial: 'search_results',
+                   locals: { search: @search,
+                             draft_batch_request: @draft_batch_request,
+                             body_ids_added: @body_ids_added,
+                             query: @query,
+                             page: @page,
+                             per_page: @per_page,
+                             result_limit: @result_limit } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <% if @draft_batch_request && @draft_batch_request.public_bodies.present? %>
+      <ul>
+      <% @draft_batch_request.public_bodies.each do |authority| %>
+        <li>
+          <%= authority.name %>
+          <%= render partial: 'remove_authority_from_draft_button',
+                     locals: { draft: @draft_batch_request,
+                               query: @query,
+                               authority: authority } %>
+        </li>
+      <% end %>
+      </ul>
+    <% else %>
+      <p><%= _("You haven't added any authorities to your batch yet") %></p>
+    <% end %>
+  </div>
+</div>
