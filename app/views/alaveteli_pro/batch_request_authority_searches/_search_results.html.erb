@@ -1,0 +1,16 @@
+<% if search && search.results.present? %>
+  <ul>
+    <%= render partial: 'search_result',
+               collection: search.results,
+               as: :result,
+               locals: { draft: draft_batch_request,
+                         query: query,
+                         body_ids_added: body_ids_added } %>
+  </ul>
+
+  <%= will_paginate WillPaginate::Collection.new(page, per_page, result_limit) %>
+
+<% elsif search && search.results.blank? %>
+  <p><%= _('Sorry, no authorities matched that search') %></p>
+<% end %>
+
