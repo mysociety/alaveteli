@@ -1,10 +1,14 @@
-<%= form_for(draft, method: draft.id ? :put : :post) do |f| %>
+<%= form_for(draft,
+             method: draft.id ? :put : :post,
+             class: 'add-authority-to-batch__form') do |f| %>
   <% unless query.blank? %>
     <%= hidden_field_tag(:query, query) %>
   <% end %>
-  <% draft.public_body_ids.each do |id| %>
+  <% body_ids_added.each do |id| %>
     <%= f.hidden_field(:public_body_ids, multiple: true, value: id) %>
   <% end %>
-  <%= f.hidden_field(:public_body_ids, multiple: true, value: authority.id) %>
-  <input type="submit" value="<%= _('+ Add') %>">
+  <%= f.hidden_field(:public_body_ids, multiple: true, value: authority_id) %>
+  <input type="submit"
+         value="<%= _('+ Add') %>"
+         class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
 <% end %>
