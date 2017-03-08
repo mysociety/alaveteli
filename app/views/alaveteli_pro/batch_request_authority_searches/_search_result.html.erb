@@ -1,0 +1,12 @@
+<li>
+  <%= result[:model][:name] %>
+  <% if body_ids_added.include? result[:model][:id] %>
+    [Added]
+  <% else %>
+    <%= render partial: 'add_authority_to_draft_button',
+               locals: { draft: draft,
+                         query: query,
+                         authority_id: result[:model][:id],
+                         body_ids_added: body_ids_added } %>
+  <% end %>
+</li>
