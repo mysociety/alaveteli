@@ -40,16 +40,10 @@ class HelpController < ApplicationController
     end
 
     # look up link to request/body
-    # Rails 3
-    request = InfoRequest.find_by_id(cookies["last_request_id"].to_i)
-    # Rails 4
-    # request = InfoRequest.find_by(id: cookies["last_request_id"].to_i)
+    request = InfoRequest.find_by(id: cookies["last_request_id"].to_i)
     @last_request = request if can?(:read, request)
 
-    # Rails 3
-    @last_body = PublicBody.find_by_id(cookies["last_body_id"].to_i)
-    # Rails 4
-    # @last_body = PublicBody.find_by(id: cookies["last_body_id"].to_i)
+    @last_body = PublicBody.find_by(id: cookies["last_body_id"].to_i)
 
     # submit form
     if params[:submitted_contact_form]
