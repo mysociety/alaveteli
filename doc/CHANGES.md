@@ -2,6 +2,20 @@
 
 ## Highlighted Features
 
+* The test-unit gem has been removed from the project's Gemfile.
+  Alaveteli has used RSpec to run tests for a long time, but Test::Unit was
+  also available. Due to an incompatibility between the two, and a desire to
+  support a single environment, this is no longer the case.
+
+## Upgrade Notes
+
+* You may need to migrate any tests in your theme that were using Test::Unit
+  to RSpec.
+
+# 0.28.0.0
+
+## Highlighted Features
+
 * Upgrade to Rails 4.0 (Gareth Rees, Louise Crow, Steve Day, Liz Conlan)
 
 ## Upgrade Notes
