@@ -2,7 +2,7 @@
     data-added-text="<%= _('[Added]') %>">
   <%= result[:model][:name] %>
   <% if body_ids_added.include? result[:model][:id] %>
-    [Added]
+    <%= _('[Added]') %>
   <% else %>
     <%= render partial: 'add_authority_to_draft_button',
                locals: { draft: draft,
