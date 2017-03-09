@@ -1,5 +1,5 @@
 <% if search && search.results.present? %>
-  <ul>
+  <ul class="batch-authority-search__results__list js-batch-authority-search-results-list">
     <%= render partial: 'search_result',
                collection: search.results,
                as: :result,
