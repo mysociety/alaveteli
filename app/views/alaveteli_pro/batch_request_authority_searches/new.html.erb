@@ -46,7 +46,9 @@
     </div>
   </div>
 
-  <div class="row draft-batch-request js-draft-batch-request">
+  <div class="row draft-batch-request js-draft-batch-request"
+       data-ajax-error-message="<%= _('Sorry, something went wrong updating' \
+                                      'your batch request, please try again.') %>">
     <%= render partial: 'alaveteli_pro/draft_info_request_batches/summary',
                locals: { draft: @draft_batch_request,
                          query: @query } %>

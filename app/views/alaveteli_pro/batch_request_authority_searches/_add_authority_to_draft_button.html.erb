@@ -1,6 +1,6 @@
 <%= form_for(draft,
              method: draft.id ? :put : :post,
-             class: 'add-authority-to-batch__form') do |f| %>
+             html: {class: 'add-authority-to-batch__form js-add-authority-to-batch-form'}) do |f| %>
   <% unless query.blank? %>
     <%= hidden_field_tag(:query, query) %>
   <% end %>
