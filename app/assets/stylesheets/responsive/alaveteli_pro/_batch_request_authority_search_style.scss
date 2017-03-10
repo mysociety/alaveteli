@@ -5,5 +5,34 @@
   }
 }
 
+// Toggle whether we're showing the "Add authority to batch" form or whatever
+// we use to signify that it's already added. We print both in the HTML so
+// that it's easier to toggle which is displayed later via JS.
+.batch-authority-search__results__list__item {
+  .batch-authority-search__results__list__item__action__added {
+    display: none;
+    visibility: hidden;
+  }
+
+  .batch-authority-search__results__list__item__action__add {
+    display: block;
+    visibility: visible;
+  }
+
+  &.batch-authority-search__results__list__item--added {
+    .batch-authority-search__results__list__item__action__added {
+      display: block;
+      visibility: visible;
+    }
+
+    .batch-authority-search__results__list__item__action__add {
+      display: none;
+      visibility: hidden;
+    }
+  }
+}
+
 // TODO - style search input, results, pagination when .loading class is
 // applied to the .batch-authority-search container
+
+// TODO - style pagination when .disabled class is applied to links

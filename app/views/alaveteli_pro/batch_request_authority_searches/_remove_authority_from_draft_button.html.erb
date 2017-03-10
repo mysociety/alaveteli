@@ -5,7 +5,7 @@
   <% unless query.blank? %>
     <%= hidden_field_tag(:query, query) %>
   <% end %>
-  <%= hidden_field_tag(:public_body_id, value: authority_id) %>
+  <%= hidden_field_tag(:public_body_id, authority_id) %>
   <input type="submit"
          value="<%= _('- Remove') %>"
          class="remove-authority-from-batch__form__submit js-remove_authority-from-batch-submit">
