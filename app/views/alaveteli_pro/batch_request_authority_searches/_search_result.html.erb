@@ -1,13 +1,16 @@
-<li class="batch-authority-search__results__list__item js-batch-authority-search-results-list-item"
-    data-added-text="<%= _('[Added]') %>">
+<% added = body_ids_added.include? result[:model][:id] %>
+<li class="batch-authority-search__results__list__item
+          <%= ' batch-authority-search__results__list__item--added' if added %>">
   <%= result[:model][:name] %>
-  <% if body_ids_added.include? result[:model][:id] %>
-    <%= _('[Added]') %>
-  <% else %>
-    <%= render partial: 'add_authority_to_draft_button',
-               locals: { draft: draft,
-                         query: query,
-                         authority_id: result[:model][:id],
-                         body_ids_added: body_ids_added } %>
-  <% end %>
+  <div class="batch-authority-search__results__list__item__action">
+    <span class="batch-authority-search__results__list__item__action__added">
+      <%= _('[Added]') %>
+    </span>
+    <div class="batch-authority-search__results__list__item__action__add">
+      <%= render partial: 'add_authority_to_draft_button',
+                 locals: { draft: draft,
+                           query: query,
+                           authority_id: result[:model][:id] } %>
+    </div>
+  </div>
 </li>
