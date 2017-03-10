@@ -1,14 +1,26 @@
-<%= form_for(draft,
-             method: draft.id ? :put : :post,
-             html: {class: 'add-authority-to-batch__form js-add-authority-to-batch-form'}) do |f| %>
-  <% unless query.blank? %>
-    <%= hidden_field_tag(:query, query) %>
+<% if draft.id %>
+  <%= form_tag(add_body_alaveteli_pro_draft_info_request_batch_path(draft.id),
+               :method => :put,
+               :class => 'add-authority-to-batch__form js-add-authority-to-batch-form',
+               'data-body-id' => authority_id) do %>
+    <% unless query.blank? %>
+      <%= hidden_field_tag(:query, query) %>
+    <% end %>
+    <%= hidden_field_tag(:public_body_id, authority_id) %>
+    <input type="submit"
+           value="<%= _('+ Add') %>"
+           class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
   <% end %>
-  <% body_ids_added.each do |id| %>
-    <%= f.hidden_field(:public_body_ids, multiple: true, value: id) %>
+<% else %>
+  <%= form_for(draft,
+               :html => {'class' => 'add-authority-to-batch__form js-add-authority-to-batch-form',
+                         'data-body-id' => authority_id}) do |f| %>
+    <% unless query.blank? %>
+      <%= hidden_field_tag(:query, query) %>
+    <% end %>
+    <%= f.hidden_field(:public_body_ids, value: authority_id) %>
+    <input type="submit"
+           value="<%= _('+ Add') %>"
+           class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
   <% end %>
-  <%= f.hidden_field(:public_body_ids, multiple: true, value: authority_id) %>
-  <input type="submit"
-         value="<%= _('+ Add') %>"
-         class="add-authority-to-batch__form__submit js-add-authority-to-batch-submit">
 <% end %>

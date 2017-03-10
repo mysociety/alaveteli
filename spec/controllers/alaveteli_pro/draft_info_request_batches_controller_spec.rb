@@ -7,13 +7,31 @@ shared_examples_for "creating a request" do
   end
 end
 
-shared_examples_for "updating a request" do
+shared_examples_for "adding a body to a request" do
+  it "adds the body" do
+    subject
+    draft.reload
+    expect(draft.public_bodies).to eq [authority_1]
+  end
+
+  context "if the user doesn't own the given draft" do
+    let(:other_pro_user) { FactoryGirl.create(:pro_user) }
+
+    before do
+      session[:user_id] = other_pro_user.id
+    end
+
+    it "raises an ActiveRecord::RecordNotFound error" do
+      expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+end
+
+shared_examples_for "removing a body from a request" do
   it "updates the given DraftInfoRequestBatch" do
     subject
     draft.reload
-    expect(draft.title).to eq 'Test Batch Request'
-    expect(draft.body).to eq 'This is a test batch request.'
-    expect(draft.public_bodies).to eq [authority_1, authority_2, authority_3]
+    expect(draft.public_bodies).to eq [authority_1]
   end
 
   context "if the user doesn't own the given draft" do
@@ -101,18 +119,14 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     end
   end
 
-  describe "#update" do
+  describe "#add_body" do
     let(:draft) do
       FactoryGirl.create(:draft_info_request_batch, user: pro_user)
     end
     let(:params) do
-      params = {
+      {
         id: draft.id,
-        alaveteli_pro_draft_info_request_batch: {
-          title: 'Test Batch Request',
-          body: 'This is a test batch request.',
-          public_body_ids: [authority_1.id, authority_2.id, authority_3.id]
-        }
+        public_body_id: authority_1.id
       }
     end
 
@@ -123,23 +137,15 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     describe "when responding to a normal request" do
       subject do
         with_feature_enabled(:alaveteli_pro) do
-          put :update, params
+          put :add_body, params
         end
       end
 
-      it_behaves_like "updating a request"
+      it_behaves_like "adding a body to a request"
 
       it "redirects to a new search if no query was provided" do
         with_feature_enabled(:alaveteli_pro) do
-          params = {
-            id: draft.id,
-            alaveteli_pro_draft_info_request_batch: {
-              title: 'Test Batch Request',
-              body: 'This is a test batch request.',
-              public_body_ids: [authority_1.id, authority_2.id, authority_3.id]
-            }
-          }
-          put :update, params
+          subject
           expected_path = new_alaveteli_pro_batch_request_authority_search_path(
             draft_id: draft.id)
           expect(response).to redirect_to(expected_path)
@@ -148,16 +154,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
       it "redirects to an existing search if a query is provided" do
         with_feature_enabled(:alaveteli_pro) do
-          params = {
-            id: draft.id,
-            alaveteli_pro_draft_info_request_batch: {
-              title: 'Test Batch Request',
-              body: 'This is a test batch request.',
-              public_body_ids: [authority_1.id, authority_2.id, authority_3.id]
-            },
-            query: "Department"
-          }
-          put :update, params
+          params[:query] = "Department"
+          subject
           expected_path = alaveteli_pro_batch_request_authority_searches_path(
             draft_id: draft.id,
             query: "Department")
@@ -167,16 +165,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
       it "sets a :notice flash message" do
         with_feature_enabled(:alaveteli_pro) do
-          params = {
-            id: draft.id,
-            alaveteli_pro_draft_info_request_batch: {
-              title: 'Test Batch Request',
-              body: 'This is a test batch request.',
-              public_body_ids: [authority_1.id, authority_2.id, authority_3.id]
-            },
-            query: "Department"
-          }
-          put :update, params
+          subject
           expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
         end
       end
@@ -185,11 +174,80 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     describe "responding to an AJAX request" do
       subject do
         with_feature_enabled(:alaveteli_pro) do
-          xhr :put, :update, params
+          xhr :put, :add_body, params
         end
       end
 
-      it_behaves_like "updating a request"
+      it_behaves_like "adding a body to a request"
+
+      it "renders the _summary.html.erb partial" do
+        subject
+        expect(response).to render_template("_summary")
+      end
+    end
+  end
+
+  describe "#remove_body" do
+    let(:draft) do
+      FactoryGirl.create(:draft_info_request_batch, user: pro_user)
+    end
+    let(:params) do
+      {
+        id: draft.id,
+        public_body_id: authority_2.id
+      }
+    end
+
+    before do
+      session[:user_id] = pro_user.id
+      draft.public_bodies << [authority_1, authority_2]
+    end
+
+    describe "when responding to a normal request" do
+      subject do
+        with_feature_enabled(:alaveteli_pro) do
+          put :remove_body, params
+        end
+      end
+
+      it_behaves_like "removing a body from a request"
+
+      it "redirects to a new search if no query was provided" do
+        with_feature_enabled(:alaveteli_pro) do
+          subject
+          expected_path = new_alaveteli_pro_batch_request_authority_search_path(
+            draft_id: draft.id)
+          expect(response).to redirect_to(expected_path)
+        end
+      end
+
+      it "redirects to an existing search if a query is provided" do
+        with_feature_enabled(:alaveteli_pro) do
+          params[:query] = "Department"
+          subject
+          expected_path = alaveteli_pro_batch_request_authority_searches_path(
+            draft_id: draft.id,
+            query: "Department")
+          expect(response).to redirect_to(expected_path)
+        end
+      end
+
+      it "sets a :notice flash message" do
+        with_feature_enabled(:alaveteli_pro) do
+          subject
+          expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
+        end
+      end
+    end
+
+    describe "responding to an AJAX request" do
+      subject do
+        with_feature_enabled(:alaveteli_pro) do
+          xhr :put, :remove_body, params
+        end
+      end
+
+      it_behaves_like "removing a body from a request"
 
       it "renders the _summary.html.erb partial" do
         subject
