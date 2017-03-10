@@ -614,7 +614,12 @@ Alaveteli::Application.routes.draw do
       match '/batch_request_authority_searches' => 'batch_request_authority_searches#create',
             :as => :batch_request_authority_searches,
             :via => :get
-      resources :draft_info_request_batches, :only => [:create, :update]
+      resources :draft_info_request_batches, :only => [:create] do
+        member do
+          put 'add_body'
+          put 'remove_body'
+        end
+      end
       match '/public_bodies/:query' => 'public_bodies#search',
             :via => :get,
             :as => :public_bodies_search
