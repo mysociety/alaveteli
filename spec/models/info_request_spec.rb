@@ -723,6 +723,16 @@ describe InfoRequest do
         expect(request.public_body).to eq(existing_body)
       end
 
+      it 'retains the existing body if the new body is not persisted' do
+        request = FactoryGirl.create(:info_request)
+        new_body = FactoryGirl.build(:public_body)
+        user = FactoryGirl.create(:user)
+        existing_body = request.public_body
+        request.move_to_public_body(new_body, :editor => user)
+        request.reload
+        expect(request.public_body).to eq(existing_body)
+      end
+
       it 'returns nil if the body cannot be updated' do
         request = FactoryGirl.create(:info_request)
         user = FactoryGirl.create(:user)
