@@ -1,3 +1,15 @@
+# develop
+
+## Highlighted Features
+
+* Add missing erb tags (Sam Smith
+
+## Upgrade Notes
+
+### Changed Templates
+
+    app/views/request/describe_notices/_error_message.html.erb
+
 # 0.28.0.1
 
 ## Highlighted Features
