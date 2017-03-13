@@ -1,6 +1,9 @@
-<% added = body_ids_added.include? result[:model][:id] %>
+<% authority_id = result[:model][:id] %>
+<% added = body_ids_added.include? authority_id %>
 <li class="batch-authority-search__results__list__item
-          <%= ' batch-authority-search__results__list__item--added' if added %>">
+           js-batch-authority-search-results-list-item
+          <%= ' batch-authority-search__results__list__item--added' if added %>"
+    data-body-id="<%= authority_id %>">
   <%= result[:model][:name] %>
   <div class="batch-authority-search__results__list__item__action">
     <span class="batch-authority-search__results__list__item__action__added">
@@ -10,7 +13,7 @@
       <%= render partial: 'add_authority_to_draft_button',
                  locals: { draft: draft,
                            query: query,
-                           authority_id: result[:model][:id] } %>
+                           authority_id: authority_id } %>
     </div>
   </div>
 </li>

@@ -1,3 +1,0 @@
-//...
-//= require alaveteli_pro/draft_batch_summary/initialise
-//= require alaveteli_pro/draft_batch_summary/body-list
