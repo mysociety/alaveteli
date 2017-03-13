@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-03-01 15:48+0000\n"
+"PO-Revision-Date: 2017-03-03 13:21+0000\n"
 "Last-Translator: Jean Pierre <afadhalipierre@gmail.com>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/mysociety/alaveteli/language/rw/)\n"
 "Language: rw\n"
@@ -368,7 +368,7 @@ msgid "All time"
 msgstr "Igihe cyose"
 
 msgid "All time best players"
-msgstr ""
+msgstr "Abakinyi beza b'igihe cyose"
 
 msgid "Also called {{other_name}}."
 msgstr "Uzwi no ku izina rya {{other_name}}."
@@ -494,7 +494,7 @@ msgid "Beginning with"
 msgstr "Duhereye kuri"
 
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr ""
+msgstr "Shakisha<a href=\"{{requests_url}}\">{{number_of_requests}} amakuru yasabwe</a>kuri<a href=\"{{authorities_url}}\">{{number_of_authorities}}abayobozi</a>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Shaka <a href='{{url}}'>ibindi bibazo</a> ku ngero z'amagambo wakoresha mu kibazo cyawe."
@@ -506,7 +506,7 @@ msgid "Browse all authorities..."
 msgstr "Shaka abayobozi bose..."
 
 msgid "Browse all requests &rarr;"
-msgstr ""
+msgstr "Reba amakuru yose yasabwe&rarr;"
 
 msgid "Browse and search requests"
 msgstr "Shaka ibibazo"
@@ -518,7 +518,7 @@ msgid "Browse requests"
 msgstr "Shaka ibibazo"
 
 msgid "By law, they have to respond."
-msgstr ""
+msgstr "Nkuko bisabwa n'amategeko bagomba gusubiza."
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Mu mategeko, uko byaba bimeze kose, {{public_body_link}} yagombaga kuba yaramaze gusubiza"
@@ -602,7 +602,7 @@ msgid "Clarification"
 msgstr "Ibisobanuro"
 
 msgid "Clarification needed"
-msgstr ""
+msgstr "Ubusobanuro burakenewe"
 
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Ibisobanuro byohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."
@@ -641,7 +641,7 @@ msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
 msgid "Complete"
-msgstr ""
+msgstr "Uzuza"
 
 msgid "Confirm password:"
 msgstr "Ijambo banga: (nanone)"
@@ -686,7 +686,7 @@ msgid "Considered by administrators as vexatious and hidden from site."
 msgstr "Abayobozi b'urubuga babonye gikomeretsanya kandi cyahishwe ku rubuga."
 
 msgid "Contact us"
-msgstr ""
+msgstr "Twandikire"
 
 msgid "Contact {{recipient}}"
 msgstr "Aho ubarizwa {{recipient}}"
@@ -701,13 +701,13 @@ msgid "Contains personal information"
 msgstr "Harimo amakuru bwite"
 
 msgid "Cookies not enabled"
-msgstr ""
+msgstr "Ntabwo  uru rubuga  rwohereza cookies "
 
 msgid "Could not identify the request from the email address"
 msgstr "Ntitwabashije kumenya ikibazo muri imeli"
 
 msgid "Could not update your two factor one time passcode"
-msgstr ""
+msgstr "Ntabwo byashobotse gushyira ku gihe kode yawe ry'ibanga"
 
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Ntitwabashije kumenya ubwoko bw'ifoto washyizeho. PNG, JPEG, GIF n'izindi zikoreshwa cyane nizo zishobora kujyaho."
@@ -722,7 +722,7 @@ msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Yashizweho na {{info_request_user}} kuwa {{date}}."
 
 msgid "Crickets. No one is here. It’s time to get the word out."
-msgstr ""
+msgstr "Crickets.Nta nimwe iri hano.Ighe kirageze kubmenyekanisha."
 
 msgid "Crop your profile photo"
 msgstr "Gabanya ifoto ikuranga"
@@ -743,7 +743,7 @@ msgid "Dear {{name}},"
 msgstr "Nyakubahwa {{name}},"
 
 msgid "Dear {{placeholder_body_name}},"
-msgstr ""
+msgstr "Nyakubahwa{{placeholder_body_name}},"
 
 msgid "Dear {{public_body_name}},"
 msgstr "Buyobozi bwa {{public_body_name}},"
@@ -764,7 +764,7 @@ msgid "Delayed."
 msgstr "Cyakerewe."
 
 msgid "Delivery Status for Outgoing Message #{{id}}"
-msgstr ""
+msgstr "Kumenyeshwa uko ubutumwa bwoherejwe buhagaze#{{id}}"
 
 msgid "Delivery error"
 msgstr "Ntiyoherejwe"
@@ -779,7 +779,7 @@ msgid "Did you mean: {{correction}}"
 msgstr "Washakaga kuvuga: {{correction}}"
 
 msgid "Disable two factor authentication"
-msgstr ""
+msgstr "Hagarika uburyo buhanitse bw'umutekano"
 
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr "Icyitonderwa: ubu butumwa n'ibindi byose wasubiza bizashyirwa kuri interineti. Amategeko yacu agenga ubuzima bwite n'uburenganzira bw'umwanditsi:"
@@ -794,7 +794,7 @@ msgid "Do not fill in this field"
 msgstr "Ntiwuzuze hano"
 
 msgid "Do not share this passcode."
-msgstr ""
+msgstr "Ntihagire uwo uzereka iyi kode y'ibanga"
 
 msgid "Don't have a superuser account yet?"
 msgstr "Ntabwo urafungura konti y'umukoresharubuga wihariye?"
@@ -833,7 +833,7 @@ msgid "Either the email or password was not recognised, please try again."
 msgstr "Imeli cyangwa ijambobanga ntabwo twabimenye, ongera ugerageze."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the left."
-msgstr ""
+msgstr "Ubutumwa cyangwa ijambo ry'ibanga ntabwo bizwi,urasabwa kongera.Cyangwa ufungure indi konte ukoresheje  inyandiko y'iburyo."
 
 msgid "Email doesn't look like a valid address"
 msgstr "Imeli isa nk'itabaho"
@@ -845,7 +845,7 @@ msgid "Email:"
 msgstr "Imeli:"
 
 msgid "Enable two factor authentication"
-msgstr ""
+msgstr "Koresha uburyo buhanitse bw'umutekano"
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Andika amagambo uri gushaka ushyizemo umwanya hagati, urugero: <strong>umurongo wo kuririraho</strong>"
@@ -869,7 +869,7 @@ msgid "Event {{id}}"
 msgstr "Icyabaye {{id}}"
 
 msgid "Every citizen has the right to access information held by public authorities."
-msgstr ""
+msgstr "Buri muntu wese afite uburenganzira bwo kumenya amakuru afitwe n'ibigo bya leta"
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Ibintu byose ushyira kuri uru rubuga, harimo <strong>amazina yawe</strong>,\\n                bizajya <strong>bigaragarira buri wese</strong> kuri\\n                uru rubuga iteka ryose (<a href=\"{{url}}\">why?</a>)."
@@ -995,7 +995,7 @@ msgid "Follow up message sent by requester"
 msgstr "Gukurikirana ubutumwa bwatanzwe n'uwabajije"
 
 msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
+msgstr "Ubutumwa bwo gukurikirana amakuru yasabwe bowherezwa kuri <strong>{{authority_email}}</strong>"
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Ubutumwa bwo gukurikirana bwohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."

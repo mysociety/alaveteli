@@ -15,16 +15,16 @@
 # louisecrow <louise@mysociety.org>, 2016
 # louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
-# Mattias A, 2015-2017
+# Mattias Axell <mattias@okfn.se>, 2015-2017
 # Mattias OKFSE, 2015
-# Mattias A, 2015
+# Mattias Axell <mattias@okfn.se>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-02-27 10:55+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2017-03-01 17:26+0000\n"
+"Last-Translator: Mattias Axell <mattias@okfn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -1279,7 +1279,7 @@ msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a do
 msgstr "Om du fann {{site_name}} användbar, <a href=\"{{donation_url}}\"> gör en donation </a> till den ideella förening som driver den."
 
 msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr ""
+msgstr "Om du fick e-postmeddelandet <strong>för mer än två månader sedan</strong> fungerar inte denna inloggningslänk längre. Vänligen försök att göra vad du gjorde från början."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Om du inte redan har gjort det, vänligen skriv ett meddelande nedan för tala om för myndigheten att du har dragit tillbaka din förfrågan. Annars kommer de inte att veta den har dragits tillbaka."
@@ -2003,8 +2003,8 @@ msgstr "Vänligen vidarebefordra detta till den person som bedriver granskningar
 
 msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vänligen läs det senaste svaret och <strong>uppdatera dess status</strong> så att vi vet om det innehåller användbar information."
+msgstr[1] "Vänligen läs de senaste svaren och <strong>uppdatera dess statusar</strong> så att vi vet om de innehåller användbar information."
 
 msgid "Please select an authority"
 msgstr "Vänligen välj en myndighet"
@@ -2555,10 +2555,10 @@ msgid "Short name is already taken"
 msgstr "Förkortningen är redan tagen"
 
 msgid "Show all attachments"
-msgstr ""
+msgstr "Visa alla bilagor"
 
 msgid "Show fewer attachments"
-msgstr ""
+msgstr "Visa färre bilagor"
 
 msgid "Show most relevant results first"
 msgstr "Visa de mest relevanta resultaten först"
@@ -2624,10 +2624,10 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Ledsen, men vi kunde inte hitta den där sidan"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
-msgstr ""
+msgstr "Ursäkta, vi kan för närvarande inte lägga till din anteckning. Vänligen försök igen senare."
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
-msgstr ""
+msgstr "Ursäkta, vi kan för närvarande inte skicka din begäran. Vänligen försök igen senare."
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Ursäkta, vi kan för närvarande inte registrera nya användare. Vänligen försök igen senare"
@@ -2702,7 +2702,7 @@ msgid "Summary"
 msgstr "Sammanfattning"
 
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
-msgstr ""
+msgstr "Sammanfattningen är för kort. Vänligen var lite mer beskrivande om informationen du frågar efter."
 
 msgid "Table of statuses"
 msgstr "Tabell över statusar"
