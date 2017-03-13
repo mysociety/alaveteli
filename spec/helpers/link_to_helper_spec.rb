@@ -121,7 +121,8 @@ describe LinkToHelper do
     context "for normal requests" do
 
       before do
-        @info_request = FactoryGirl.build(:info_request)
+        user = FactoryGirl.build(:user, :name => 'Example User')
+        @info_request = FactoryGirl.build(:info_request, :user => user)
       end
 
       it 'should display a relative link by default' do
