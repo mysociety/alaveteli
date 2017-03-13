@@ -1477,6 +1477,23 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  def move_to_user(destination_user, opts = {})
+    return nil unless destination_user.try(:persisted?)
+    old_user = user
+    editor = opts.fetch(:editor)
+
+    if update_attributes(:user => destination_user)
+      log_event('move_request',
+                :editor => editor,
+                :user_url_name => user.url_name,
+                :old_user_url_name => old_user.url_name)
+
+      reindex_request_events
+
+      user
+    end
+  end
+
   # The DateTime of the last InfoRequestEvent belonging to the InfoRequest
   # Only available if the last_event_time attribute has been set. This is
   # currentlt only set through .find_in_state

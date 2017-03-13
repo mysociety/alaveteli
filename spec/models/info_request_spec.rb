@@ -760,6 +760,100 @@ describe InfoRequest do
 
   end
 
+  describe '#move_to_user' do
+
+    context 'with no options' do
+
+      it 'requires an :editor option' do
+        request = FactoryGirl.create(:info_request)
+        new_user = FactoryGirl.create(:user)
+        expect {
+          request.move_to_user(new_user)
+        }.to raise_error IndexError
+      end
+
+    end
+
+    context 'with the :editor option' do
+
+      it 'moves the info request to the new user' do
+        request = FactoryGirl.create(:info_request)
+        new_user = FactoryGirl.create(:user)
+        editor = FactoryGirl.create(:user)
+        request.move_to_user(new_user, :editor => editor)
+        request.reload
+        expect(request.user).to eq(new_user)
+      end
+
+      it 'logs the move' do
+        request = FactoryGirl.create(:info_request)
+        old_user = request.user
+        new_user = FactoryGirl.create(:user)
+        editor = FactoryGirl.create(:user)
+        request.move_to_user(new_user, :editor => editor)
+        request.reload
+        event = request.info_request_events.last
+
+        expect(event.event_type).to eq('move_request')
+        expect(event.params[:editor]).to eq(editor)
+        expect(event.params[:user_url_name]).to eq(new_user.url_name)
+        expect(event.params[:old_user_url_name]).to eq(old_user.url_name)
+      end
+
+      it 'returns the new user' do
+        request = FactoryGirl.create(:info_request)
+        new_user = FactoryGirl.create(:user)
+        editor = FactoryGirl.create(:user)
+        expect(request.move_to_user(new_user, :editor => editor)).
+          to eq(new_user)
+      end
+
+      it 'retains the existing user if the new user does not exist' do
+        request = FactoryGirl.create(:info_request)
+        editor = FactoryGirl.create(:user)
+        existing_user = request.user
+        request.move_to_user(nil, :editor => editor)
+        request.reload
+        expect(request.user).to eq(existing_user)
+      end
+
+      it 'retains the existing user if the new user is not persisted' do
+        request = FactoryGirl.create(:info_request)
+        new_user = FactoryGirl.build(:user)
+        editor = FactoryGirl.create(:user)
+        existing_user = request.user
+        request.move_to_user(new_user, :editor => editor)
+        request.reload
+        expect(request.user).to eq(existing_user)
+      end
+
+      it 'returns nil if the user cannot be updated' do
+        request = FactoryGirl.create(:info_request)
+        editor = FactoryGirl.create(:user)
+        expect(request.move_to_user(nil, :editor => editor)).to eq(nil)
+      end
+
+      it 'reindexes the info request' do
+        request = FactoryGirl.create(:info_request)
+        new_user = FactoryGirl.create(:user)
+        editor = FactoryGirl.create(:user)
+        reindex_job = ActsAsXapian::ActsAsXapianJob.
+          where(:model => 'InfoRequestEvent').
+          delete_all
+
+        request.move_to_user(new_user, :editor => editor)
+        request.reload
+
+        reindex_job = ActsAsXapian::ActsAsXapianJob.
+          where(:model => 'InfoRequestEvent').
+          last
+        expect(reindex_job.model_id).to eq(request.info_request_events.last.id)
+      end
+
+    end
+
+  end
+
   describe '#destroy' do
 
     let(:info_request) { FactoryGirl.create(:info_request) }
