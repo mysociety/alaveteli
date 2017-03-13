@@ -279,6 +279,16 @@ describe Ability do
     context "when the user is an admin" do
       let(:user) { FactoryGirl.create(:admin_user) }
 
+      it "should return false" do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(ability).not_to be_able_to(:access, :alaveteli_pro)
+        end
+      end
+    end
+
+    context "when the user is a pro admin" do
+      let(:user) { FactoryGirl.create(:pro_admin_user) }
+
       it "should return true" do
         with_feature_enabled(:alaveteli_pro) do
           expect(ability).to be_able_to(:access, :alaveteli_pro)

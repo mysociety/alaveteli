@@ -49,7 +49,7 @@ class Ability
 
     if feature_enabled? :alaveteli_pro
       # Accessing alaveteli professional
-      if user && (user.is_admin? || user.is_pro?)
+      if user && (user.is_pro_admin? || user.is_pro?)
         can :access, :alaveteli_pro
       end
 
