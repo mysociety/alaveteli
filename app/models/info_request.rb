@@ -1453,6 +1453,7 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def move_to_public_body(destination_public_body, opts = {})
+    return nil unless destination_public_body.try(:persisted?)
     old_body = public_body
     editor = opts.fetch(:editor)
 
