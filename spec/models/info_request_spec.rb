@@ -756,6 +756,79 @@ describe InfoRequest do
         expect(reindex_job.model_id).to eq(request.info_request_events.last.id)
       end
 
+      context 'updating counter caches' do
+
+        let(:request) { FactoryGirl.create(:info_request) }
+        let(:old_body) { request.public_body }
+        let(:new_body) { FactoryGirl.create(:public_body) }
+        let(:editor) { FactoryGirl.create(:user) }
+
+        it "increments the new authority's info_requests_count " do
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { new_body.reload.info_requests_count }.from(0).to(1)
+        end
+
+        it "decrements the old authority's info_requests_count " do
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { old_body.reload.info_requests_count }.from(1).to(0)
+        end
+
+        it "increments the new authority's info_requests_visible_count " do
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { new_body.reload.info_requests_visible_count }.
+              from(0).to(1)
+        end
+
+        it "decrements the old authority's info_requests_visible_count " do
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { old_body.reload.info_requests_visible_count }.
+              from(1).to(0)
+        end
+
+        it "increments the new authority's info_requests_successful_count " do
+          request.update_attributes!(:described_state => 'successful')
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { new_body.reload.info_requests_successful_count }.
+              from(nil).to(1)
+        end
+
+        it "decrements the old authority's info_requests_successful_count " do
+          request.update_attributes!(:described_state => 'successful')
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { old_body.reload.info_requests_successful_count }.
+              from(1).to(0)
+        end
+
+        it "increments the new authority's info_requests_not_held_count " do
+          request.update_attributes!(:described_state => 'not_held')
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { new_body.reload.info_requests_not_held_count }.
+              from(nil).to(1)
+        end
+
+        it "decrements the old authority's info_requests_not_held_count " do
+          request.update_attributes!(:described_state => 'not_held')
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { old_body.reload.info_requests_not_held_count }.
+              from(1).to(0)
+        end
+
+        it "increments the new authority's info_requests_visible_classified_count " do
+          request.update_attributes!(:awaiting_description => false)
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { new_body.reload.info_requests_visible_classified_count }.
+              from(nil).to(1)
+        end
+
+        it "decrements the old authority's info_requests_visible_classified_count " do
+          request.update_attributes!(:awaiting_description => false)
+          expect { request.move_to_public_body(new_body, :editor => editor) }.
+            to change { old_body.reload.info_requests_visible_classified_count }.
+              from(1).to(0)
+        end
+
+      end
+
     end
 
   end
@@ -848,6 +921,29 @@ describe InfoRequest do
           where(:model => 'InfoRequestEvent').
           last
         expect(reindex_job.model_id).to eq(request.info_request_events.last.id)
+      end
+
+      context 'updating counter caches' do
+
+        it "increments the new user's info_requests_count " do
+          request = FactoryGirl.create(:info_request)
+          new_user = FactoryGirl.create(:user)
+          editor = FactoryGirl.create(:user)
+
+          expect { request.move_to_user(new_user, :editor => editor) }.
+            to change { new_user.reload.info_requests_count }.from(0).to(1)
+        end
+
+        it "decrements the old user's info_requests_count " do
+          request = FactoryGirl.create(:info_request)
+          old_user = request.user
+          new_user = FactoryGirl.create(:user)
+          editor = FactoryGirl.create(:user)
+
+          expect { request.move_to_user(new_user, :editor => editor) }.
+            to change { old_user.reload.info_requests_count }.from(1).to(0)
+        end
+
       end
 
     end

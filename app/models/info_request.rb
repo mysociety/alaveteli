@@ -1357,11 +1357,11 @@ class InfoRequest < ActiveRecord::Base
   # store the number of "not held", "to some extent successful" and
   # "both visible and classified" requests when saving or destroying
   # an InfoRequest associated with the body:
-  def update_counter_cache
+  def update_counter_cache(body = public_body)
     PublicBody.skip_callback(:save, :after, :purge_in_cache)
     success_states = ['successful', 'partially_successful']
     basic_params = {
-      :public_body_id => public_body_id,
+      :public_body_id => body.id,
     }
     [['info_requests_not_held_count', { :awaiting_description => false,
                                         :described_state => 'not_held' }],
@@ -1370,11 +1370,11 @@ class InfoRequest < ActiveRecord::Base
      ['info_requests_visible_classified_count', { :awaiting_description => false }],
      ['info_requests_visible_count', {}]].each do |column, extra_params|
        params = basic_params.clone.update extra_params
-       public_body.send "#{column}=", InfoRequest.where(params).is_searchable.count
+       body.send "#{column}=", InfoRequest.where(params).is_searchable.count
      end
-     public_body.without_revision do
-       public_body.no_xapian_reindex = true
-       public_body.save
+     body.without_revision do
+       body.no_xapian_reindex = true
+       body.save
      end
      PublicBody.set_callback(:save, :after, :purge_in_cache)
   end
@@ -1465,7 +1465,7 @@ class InfoRequest < ActiveRecord::Base
       })
     end
 
-    if update_attributes(attrs)
+    return_val = if update_attributes(attrs)
       log_event('move_request',
                 :editor => editor,
                 :public_body_url_name => public_body.url_name,
@@ -1475,6 +1475,14 @@ class InfoRequest < ActiveRecord::Base
 
       public_body
     end
+
+    # HACK: Manually reset counter caches
+    # https://github.com/rails/rails/issues/10865
+    old_body.class.reset_counters(old_body.id, :info_requests)
+    update_counter_cache(old_body)
+    public_body.class.reset_counters(public_body.id, :info_requests)
+    update_counter_cache
+    return_val
   end
 
   def move_to_user(destination_user, opts = {})
@@ -1482,7 +1490,7 @@ class InfoRequest < ActiveRecord::Base
     old_user = user
     editor = opts.fetch(:editor)
 
-    if update_attributes(:user => destination_user)
+    return_val = if update_attributes(:user => destination_user)
       log_event('move_request',
                 :editor => editor,
                 :user_url_name => user.url_name,
@@ -1492,6 +1500,12 @@ class InfoRequest < ActiveRecord::Base
 
       user
     end
+
+    # HACK: Manually reset counter caches
+    # https://github.com/rails/rails/issues/10865
+    old_user.class.reset_counters(old_user.id, :info_requests)
+    user.class.reset_counters(user.id, :info_requests)
+    return_val
   end
 
   # The DateTime of the last InfoRequestEvent belonging to the InfoRequest
