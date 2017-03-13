@@ -10,7 +10,7 @@
 # Translators:
 # Translators:
 # andreli <andre@lindhjem.net>, 2013
-# atluxity <atluxity@1kb.no>, 2014
+# Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Ben W <bwng@openmailbox.org>, 2016
 # Carl Petter F. Sky <carl.sky@gmail.com>, 2015
 # Fredrik Lindseth <beta@0v.no>, 2017

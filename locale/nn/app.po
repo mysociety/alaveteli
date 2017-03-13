@@ -10,7 +10,7 @@
 # Translators:
 # Translators:
 # andreli <andre@lindhjem.net>, 2013
-# atluxity <atluxity@1kb.no>, 2014
+# Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # Carl Petter F. Sky <carl.sky@gmail.com>, 2015
 # gorm eriksen <team@mimesbronn.no>, 2015
 # gorm <gormer@gmail.com>, 2013,2015
