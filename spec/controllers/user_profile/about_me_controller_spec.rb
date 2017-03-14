@@ -298,9 +298,11 @@ describe UserProfile::AboutMeController do
 
     end
 
-    context 'with enable_anti_spam disabled, spam content and a non-whitelisted user' do
+    context 'with enable_anti_spam disabled, spam content and a whitelisted user' do
 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) do
+        FactoryGirl.create(:user, :name => '12345', :confirmed_not_spam => true)
+      end
 
       before :each do
         session[:user_id] = user.id
