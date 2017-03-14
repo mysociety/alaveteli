@@ -757,7 +757,7 @@ describe UserController, "when signing up" do
                         :name => 'New Person',
                         :password => 'sillypassword',
                         :password_confirmation => 'sillypassword',
-                        :role_ids => Role.where(:name => 'admin').first.id } }
+                        :role_ids => Role.admin_role.id } }
     }.to raise_error(ActionController::UnpermittedParameters)
   end
 

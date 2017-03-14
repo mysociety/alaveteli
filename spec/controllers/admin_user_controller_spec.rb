@@ -61,7 +61,7 @@ describe AdminUserController, "when updating a user" do
 
   it "sets the user's roles" do
     user = FactoryGirl.create(:user)
-    admin_role = Role.where(:name => 'admin').first
+    admin_role = Role.admin_role
     expect(user.is_admin?).to be false
     post :update, { :id => user.id,
                     :admin_user => { :name => user.name,

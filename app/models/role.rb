@@ -32,6 +32,10 @@ class Role < ActiveRecord::Base
     ALLOWED_ROLES
   end
 
+  def self.admin_role
+    Role.where(:name => 'admin').first
+  end
+
   def self.grants_and_revokes(role)
     { :admin => [:admin] }[role]
   end
