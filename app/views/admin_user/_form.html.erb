@@ -33,6 +33,11 @@
                             role.id,
                             @admin_user.roles.include?(role),
                             :disabled => !@user.can_admin_role?(role.name.to_sym) %>
+          <% if !@user.can_admin_role?(role.name.to_sym) &&
+             @admin_user.roles.include?(role) %>
+            <%= hidden_field_tag "admin_user[role_ids][]",
+                                 role.id %>
+          <% end %>
           <%= role.name %>
         </label>
       </div>

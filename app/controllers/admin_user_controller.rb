@@ -122,6 +122,7 @@ class AdminUserController < AdminController
   end
 
   def changed_role_ids
+    params[:admin_user][:role_ids].map!{ |role_id| role_id.to_i }
     (params[:admin_user][:role_ids] - @admin_user.role_ids) |
     (@admin_user.role_ids - params[:admin_user][:role_ids])
   end
