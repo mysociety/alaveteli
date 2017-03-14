@@ -208,6 +208,8 @@ describe UserProfile::AboutMeController do
       end
 
       it 'sets whitelisted attributes' do
+        user = FactoryGirl.create(:user, :name => '1234567')
+        session[:user_id] = user.id
         put :update, :user => { :about_me => 'My bio', :admin_level => 'super' }
         expect(user.reload.about_me).to eq('My bio')
       end
@@ -216,7 +218,10 @@ describe UserProfile::AboutMeController do
 
     context 'with spam attributes and a non-whitelisted user' do
 
-      let(:user) { FactoryGirl.create(:user, :name => 'JWahewKjWhebCd') }
+      let(:user) do
+        FactoryGirl.create(:user, :name => 'JWahewKjWhebCd',
+                                  :confirmed_not_spam => false)
+      end
 
       before :each do
         UserSpamScorer.spam_score_threshold = 1
@@ -272,7 +277,7 @@ describe UserProfile::AboutMeController do
 
     context 'with enable_anti_spam enabled, spam content and a non-whitelisted user' do
 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user, :confirmed_not_spam => false) }
 
       before :each do
         session[:user_id] = user.id

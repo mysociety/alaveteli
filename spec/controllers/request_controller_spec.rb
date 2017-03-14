@@ -1314,7 +1314,8 @@ describe RequestController, "when creating a new request" do
 
       it 'sets render_recaptcha to true if there is a logged in user who is not
             confirmed as not spam' do
-        session[:user_id] = FactoryGirl.create(:user).id
+        session[:user_id] =
+          FactoryGirl.create(:user, :confirmed_not_spam => false).id
         post :new, :info_request => { :public_body_id => @body.id,
           :title => "What's black and white and red all over?", :tag_string => "" },
           :outgoing_message => { :body => "Please send info" },
