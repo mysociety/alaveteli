@@ -677,8 +677,8 @@ describe InfoRequest do
       it 'moves the info request to the new public body' do
         request = FactoryGirl.create(:info_request)
         new_body = FactoryGirl.create(:public_body)
-        user = FactoryGirl.create(:user)
-        request.move_to_public_body(new_body, :editor => user)
+        editor = FactoryGirl.create(:user)
+        request.move_to_public_body(new_body, :editor => editor)
         request.reload
         expect(request.public_body).to eq(new_body)
       end
@@ -687,13 +687,13 @@ describe InfoRequest do
         request = FactoryGirl.create(:info_request)
         old_body = request.public_body
         new_body = FactoryGirl.create(:public_body)
-        user = FactoryGirl.create(:user)
-        request.move_to_public_body(new_body, :editor => user)
+        editor = FactoryGirl.create(:user)
+        request.move_to_public_body(new_body, :editor => editor)
         request.reload
         event = request.info_request_events.last
 
         expect(event.event_type).to eq('move_request')
-        expect(event.params[:editor]).to eq(user)
+        expect(event.params[:editor]).to eq(editor)
         expect(event.params[:public_body_url_name]).to eq(new_body.url_name)
         expect(event.params[:old_public_body_url_name]).to eq(old_body.url_name)
       end
@@ -701,8 +701,8 @@ describe InfoRequest do
       it 'updates the law_used to the new body law' do
         request = FactoryGirl.create(:info_request)
         new_body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
-        user = FactoryGirl.create(:user)
-        request.move_to_public_body(new_body, :editor => user)
+        editor = FactoryGirl.create(:user)
+        request.move_to_public_body(new_body, :editor => editor)
         request.reload
         expect(request.law_used).to eq('eir')
       end
@@ -710,15 +710,15 @@ describe InfoRequest do
       it 'returns the new public body' do
         request = FactoryGirl.create(:info_request)
         new_body = FactoryGirl.create(:public_body)
-        user = FactoryGirl.create(:user)
-        expect(request.move_to_public_body(new_body, :editor => user)).to eq(new_body)
+        editor = FactoryGirl.create(:user)
+        expect(request.move_to_public_body(new_body, :editor => editor)).to eq(new_body)
       end
 
       it 'retains the existing body if the new body does not exist' do
         request = FactoryGirl.create(:info_request)
-        user = FactoryGirl.create(:user)
+        editor = FactoryGirl.create(:user)
         existing_body = request.public_body
-        request.move_to_public_body(nil, :editor => user)
+        request.move_to_public_body(nil, :editor => editor)
         request.reload
         expect(request.public_body).to eq(existing_body)
       end
@@ -726,28 +726,28 @@ describe InfoRequest do
       it 'retains the existing body if the new body is not persisted' do
         request = FactoryGirl.create(:info_request)
         new_body = FactoryGirl.build(:public_body)
-        user = FactoryGirl.create(:user)
+        editor = FactoryGirl.create(:user)
         existing_body = request.public_body
-        request.move_to_public_body(new_body, :editor => user)
+        request.move_to_public_body(new_body, :editor => editor)
         request.reload
         expect(request.public_body).to eq(existing_body)
       end
 
       it 'returns nil if the body cannot be updated' do
         request = FactoryGirl.create(:info_request)
-        user = FactoryGirl.create(:user)
-        expect(request.move_to_public_body(nil, :editor => user)).to eq(nil)
+        editor = FactoryGirl.create(:user)
+        expect(request.move_to_public_body(nil, :editor => editor)).to eq(nil)
       end
 
       it 'reindexes the info request' do
         request = FactoryGirl.create(:info_request)
         new_body = FactoryGirl.create(:public_body)
-        user = FactoryGirl.create(:user)
+        editor = FactoryGirl.create(:user)
         reindex_job = ActsAsXapian::ActsAsXapianJob.
           where(:model => 'InfoRequestEvent').
           delete_all
 
-        request.move_to_public_body(new_body, :editor => user)
+        request.move_to_public_body(new_body, :editor => editor)
         request.reload
 
         reindex_job = ActsAsXapian::ActsAsXapianJob.
