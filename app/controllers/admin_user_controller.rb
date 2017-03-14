@@ -49,8 +49,16 @@ class AdminUserController < AdminController
       return render :action => 'edit'
     end
     if @admin_user.update_attributes(user_params)
-      flash[:notice] = 'User successfully updated.'
-      redirect_to admin_user_url(@admin_user)
+      if @admin_user == @user && !@admin_user.is_admin?
+        flash[:notice] = 'User successfully updated - ' \
+                         'you are no longer an admin.'
+        session[:using_admin] = nil
+        session[:admin_name] = nil
+        redirect_to root_path
+      else
+        flash[:notice] = 'User successfully updated.'
+        redirect_to admin_user_url(@admin_user)
+      end
     else
       render :action => 'edit'
     end

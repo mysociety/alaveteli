@@ -105,7 +105,7 @@ describe AdminUserController, "when updating a user" do
     expect(user.is_pro?).to be false
   end
 
-    it 'does not set a role that does not exist' do
+  it 'does not set a role that does not exist' do
     user = FactoryGirl.create(:user)
     role_id = Role.maximum(:id) + 1
     expect(user.is_pro?).to be false
@@ -120,6 +120,56 @@ describe AdminUserController, "when updating a user" do
     user = User.find(user.id)
     expect(user.is_pro?).to be false
   end
+
+  it 'shows a notice' do
+    user = FactoryGirl.create(:user)
+    post :update, { :id => user.id,
+                    :admin_user => { :name => user.name,
+                                     :ban_text => user.ban_text,
+                                     :about_me => user.about_me,
+                                     :no_limit => user.no_limit,
+                                     :confirmed_not_spam => user.confirmed_not_spam } },
+                  { :user_id => admin_user.id }
+    expect(flash[:notice]).to eq "User successfully updated."
+  end
+
+  context 'when an admin user removes their admin role' do
+
+    it 'clears the admin session' do
+      post :update, { :id => admin_user.id,
+                      :admin_user => { :name => admin_user.name,
+                                       :ban_text => admin_user.ban_text,
+                                       :about_me => admin_user.about_me,
+                                       :no_limit => admin_user.no_limit,
+                                       :confirmed_not_spam => admin_user.confirmed_not_spam} },
+                    { :user_id => admin_user.id }
+      expect(session[:admin_user]).to be_nil
+    end
+
+    it 'redirects to the frontpage' do
+      post :update, { :id => admin_user.id,
+                      :admin_user => { :name => admin_user.name,
+                                       :ban_text => admin_user.ban_text,
+                                       :about_me => admin_user.about_me,
+                                       :no_limit => admin_user.no_limit,
+                                       :confirmed_not_spam => admin_user.confirmed_not_spam} },
+                    { :user_id => admin_user.id }
+      expect(response).to redirect_to root_path
+    end
+
+    it 'shows an appropriate notice' do
+      post :update, { :id => admin_user.id,
+                      :admin_user => { :name => admin_user.name,
+                                       :ban_text => admin_user.ban_text,
+                                       :about_me => admin_user.about_me,
+                                       :no_limit => admin_user.no_limit,
+                                       :confirmed_not_spam => admin_user.confirmed_not_spam} },
+                    { :user_id => admin_user.id }
+      expect(flash[:notice]).to eq "User successfully updated - " \
+                                  "you are no longer an admin."
+    end
+  end
+
 
 end
 
