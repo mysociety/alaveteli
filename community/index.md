@@ -59,8 +59,8 @@ mySociety has very limited capacity to run a handful of Alaveteli sites for will
 
 mySociety developers and re-users can be found on the Alaveteli Slack, and
 unlike on IRC there's a handy history feature built in so that conversations can
-more easily take place across time zones (hello again Australia, we missed you!)
-<a href="email clientsupport@alaveteli.org mailto:clientsupport@alaveteli.org">Contact us for an invite</a>.
+more easily take place across time zones (hello again Australia, we missed you!).
+<a href="mailto:clientsupport@alaveteli.org">Contact us for an invite</a>.
 
 ## IRC
 
