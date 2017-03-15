@@ -1,3 +1,11 @@
+# 0.27.1.2
+
+# Highlighted Features
+
+* Added `INTERNAL_REVIEW_INFO_URL` to allow the link to FOIWiki for more
+  information about the internal review process to be overridden (Liz Conlan)
+* Updated translations from Transifex (Liz Conlan)
+
 # 0.27.1.1
 
 # Highlighted Features
