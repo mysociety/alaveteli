@@ -58,6 +58,7 @@ module AlaveteliConfiguration
       :INCOMING_EMAIL_SPAM_ACTION => false,
       :INCOMING_EMAIL_SPAM_HEADER => 'X-Spam-Score',
       :INCOMING_EMAIL_SPAM_THRESHOLD => false,
+      :INTERNAL_REVIEW_INFO_URL => '',
       :ISO_COUNTRY_CODE => 'GB',
       :MINIMUM_REQUESTS_FOR_STATISTICS => 100,
       :MAX_REQUESTS_PER_USER_PER_DAY => 6,

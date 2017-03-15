@@ -104,6 +104,41 @@ describe FollowupsController do
         expect(response.body).to have_css("div#other_recipients ul li", :text => "Frob")
       end
 
+      context "requesting an internal review" do
+
+        context "INTERNAL_REVIEW_INFO_URL is not set" do
+
+          it "does not show the internal review info paragraph" do
+            unexpected = "If you are dissatisfied by the response you got from"
+            get :new, :request_id => request.id, :internal_review => 1
+            expect(response.body).not_to have_content(unexpected)
+          end
+
+        end
+
+        context "INTERNAL_REVIEW_INFO_URL is set" do
+
+          before do
+            allow(AlaveteliConfiguration).to receive(:internal_review_info_url).
+              and_return("http://example.org/internal_review")
+          end
+
+          it "shows a link if the INTERNAL_REVIEW_INFO_URL is set" do
+            get :new, :request_id => request.id, :internal_review => 1
+            expect(response.body).
+              to have_xpath("//a[@href='http://example.org/internal_review']")
+          end
+
+          it "shows the internal review paragraph" do
+            expected = "If you are dissatisfied by the response you got from"
+            get :new, :request_id => request.id, :internal_review => 1
+            expect(response.body).to have_content(expected)
+          end
+
+        end
+
+      end
+
       context "the request is hidden" do
 
         let(:hidden_request) do

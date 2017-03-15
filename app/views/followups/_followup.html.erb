@@ -58,12 +58,13 @@
             :url => help_contact_path) %>
     </p>
   <% else %>
-    <% if @internal_review %>
+    <% if @internal_review &&
+          !AlaveteliConfiguration.internal_review_info_url.blank? %>
       <p>
         <%= _('If you are dissatisfied by the response you got from the ' \
               'public authority, you have the right to complain ' \
               '(<a href="{{url}}">details</a>).',
-              :url => "http://foiwiki.com/foiwiki/index.php/Internal_reviews".html_safe) %>
+              :url => AlaveteliConfiguration.internal_review_info_url) %>
       </p>
     <% end %>
 

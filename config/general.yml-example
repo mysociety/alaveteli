@@ -1042,3 +1042,18 @@ PRO_CONTACT_NAME: 'Alaveteli Professional'
 #
 # ---
 PRO_SITE_NAME: 'Alaveteli Professional'
+
+# URL where people can find more information about the internal review process
+# in their country. The link will be displayed when starting the internal
+# review process (unless it has been set to an emtpy string then neither
+# the link nor the accompanying paragraph will be displayed).
+#
+# INTERNAL_REVIEW_INFO_URL - String (default: '')
+#
+# Examples:
+#
+#    INTERNAL_REVIEW_INFO_URL: 'http://foiwiki.com/foiwiki/index.php/Internal_reviews'
+#
+# ---
+INTERNAL_REVIEW_INFO_URL: ''
+
