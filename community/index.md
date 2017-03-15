@@ -62,6 +62,9 @@ unlike on IRC there's a handy history feature built in so that conversations can
 more easily take place across time zones (hello again Australia, we missed you!).
 <a href="mailto:clientsupport@alaveteli.org">Contact us for an invite</a>.
 
+Once you've got an account you can [still use your IRC client](https://alaveteli.slack.com/account/gateways)
+if you wish.
+
 ## IRC
 
 ### irc.freenode.net #mysociety
