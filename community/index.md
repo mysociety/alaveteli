@@ -29,8 +29,8 @@ We have two mailing lists (actually Google Groups). It's OK to sign up to both!
 * The <a href="https://groups.google.com/forum/#!forum/alaveteli-users">Alaveteli user
   group</a> is where those of us already running FoI sites ask questions, make
   announcements, encourage, sympathise, and welcome newcomers into the
-  community.
-  
+  community. It is also where you can [read the Community Update newsletter](https://groups.google.com/forum/#!searchin/alaveteli-users/News$20from$20the$20Alaveteli$20team%7Csort:date) from the mySociety team.
+
 * The <a href="https://groups.google.com/forum/#!forum/alaveteli-dev">Alaveteli
   mailing list for devs</a> where the technical things about Alaveteli, its
   codebase and related software get discussed. If you're planning on
