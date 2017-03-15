@@ -1062,4 +1062,29 @@ describe User do
     end
   end
 
+  describe '.info_request_events' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:info_request) { FactoryGirl.create(:info_request, :user => user) }
+    let!(:response_event) do
+      FactoryGirl.create(:response_event, :info_request => info_request)
+    end
+    let!(:comment_event) do
+      FactoryGirl.create(:comment_event, :info_request => info_request)
+    end
+    let!(:resent_event) do
+      FactoryGirl.create(:resent_event, :info_request => info_request)
+    end
+
+    it "returns events in descending created_at order" do
+      expect(user.info_request_events.first).to eq resent_event
+      expect(user.info_request_events.second).to eq comment_event
+      expect(user.info_request_events.third).to eq response_event
+    end
+
+    it "returns all of the user's events" do
+      # Note: there is a fourth "sent" event created automatically
+      expect(user.info_request_events.count).to eq 4
+    end
+  end
+
 end

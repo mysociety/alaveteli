@@ -15,11 +15,11 @@ describe AlaveteliPro::PostRedirectHandler, type: :controller do
       end
 
       it "creates a draft info request" do
+        params = post_redirect.post_params
         expect {
           controller.override_post_redirect_for_pro(uri, post_redirect, user)
         }.to change { DraftInfoRequest.count }.by(1)
         draft = DraftInfoRequest.last
-        params = post_redirect.post_params
         expect(draft.user).to eq(user)
         expect(draft.title).to eq(params["info_request"]["title"])
         expect(draft.body).to eq(params["outgoing_message"]["body"])

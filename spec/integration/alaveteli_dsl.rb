@@ -41,7 +41,7 @@ module AlaveteliDsl
 
     fill_in "Subject", with: "Does the pro request form work?"
     fill_in "Your request", with: "A very short letter."
-    select "3 Months", from: "Embargo"
+    select "3 Months", from: "Privacy"
   end
 
 end
@@ -119,7 +119,7 @@ end
 def cache_directories_exist?(request)
   cache_path = File.join(Rails.root, 'cache', 'views')
   paths = [File.join(cache_path, 'request', request.request_dirs)]
-  I18n.available_locales.each do |locale|
+  FastGettext.default_available_locales.each do |locale|
     paths << File.join(cache_path, locale.to_s, 'request', request.request_dirs)
   end
   paths.any?{ |path| File.exist?(path) }

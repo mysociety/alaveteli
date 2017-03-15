@@ -1,16 +1,22 @@
 <% if embargo && embargo.publish_at %>
-  <p>
+  <p class="form_item_note--important">
     <% if tense == :future %>
-      <%= _("This request will be embargoed until {{embargo_publish_at}}",
+      <%= _('This request will be private on {{site_name}} until ' \
+            '<span class="js-embargo-expiry">{{embargo_publish_at}}</span>',
+            site_name: AlaveteliConfiguration.site_name,
             embargo_publish_at: embargo.publish_at.strftime('%d %B %Y')) %>
     <% else %>
-      <%= _("This request is embargoed until {{embargo_publish_at}}",
+      <%= _('This request is private on {{site_name}} until ' \
+            '<span class="js-embargo-expiry">{{embargo_publish_at}}</span>',
+            site_name: AlaveteliConfiguration.site_name,
             embargo_publish_at: embargo.publish_at.strftime('%d %B %Y')) %>
     <% end %>
   </p>
 <% else %>
   <% if tense == :future %>
-    <p><%= _("Unless you set an embargo, your request will be published immediately.") %></p>
+    <p><%= _("Unless you choose a privacy option, your request will be " \
+             "public on {{site_name}} immediately.",
+             site_name: AlaveteliConfiguration.site_name) %></p>
   <% else %>
     <p><%= _("This request is public") %></p>
   <% end %>

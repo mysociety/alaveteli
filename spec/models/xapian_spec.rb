@@ -129,17 +129,48 @@ describe User, " when indexing requests by user they are from" do
   end
 
   it "should find requests from the user" do
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith",
-                                             :sort_by_prefix => 'created_at', :sort_by_ascending => true, :limit => 100)
-    expect(xapian_object.results.map{|x|x[:model]}).to match_array(InfoRequestEvent.all(:conditions => "info_request_id in (select id from info_requests where user_id = #{users(:bob_smith_user).id})"))
+    options = { :sort_by_prefix => 'created_at',
+                :sort_by_ascending => true,
+                :limit => 100}
+
+    xapian_object =
+      ActsAsXapian::Search.
+        new([InfoRequestEvent], "requested_by:bob_smith", options)
+
+    results = xapian_object.results.map { |x| x[:model] }
+
+    conditions = <<-EOF.strip_heredoc
+    info_request_id IN (SELECT id
+                        FROM info_requests
+                        WHERE user_id = #{ users(:bob_smith_user).id })
+    EOF
+
+    expect(results).to match_array(InfoRequestEvent.where(conditions))
   end
 
   it "should find just the sent message events from a particular user" do
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith variety:sent",
-                                             :sort_by_prefix => 'created_at', :sort_by_ascending => true, :limit => 100)
-    expect(xapian_object.results.map{|x|x[:model]}).to match_array(InfoRequestEvent.all(:conditions => "info_request_id in (select id from info_requests where user_id = #{users(:bob_smith_user).id}) and event_type = 'sent'"))
-    expect(xapian_object.results[2][:model]).to eq(info_request_events(:useless_outgoing_message_event))
-    expect(xapian_object.results[1][:model]).to eq(info_request_events(:silly_outgoing_message_event))
+    options = { :sort_by_prefix => 'created_at',
+                :sort_by_ascending => true,
+                :limit => 100 }
+
+    xapian_object =
+      ActsAsXapian::Search.
+        new([InfoRequestEvent], "requested_by:bob_smith variety:sent", options)
+
+    results = xapian_object.results.map { |x| x[:model] }
+
+    conditions = <<-EOF.strip_heredoc
+    info_request_id IN (SELECT id
+                        FROM info_requests
+                        WHERE user_id = #{ users(:bob_smith_user).id })
+                    AND event_type = 'sent'
+    EOF
+
+    expect(results).to match_array(InfoRequestEvent.where(conditions))
+    expect(results[2]).
+      to eq(info_request_events(:useless_outgoing_message_event))
+    expect(results[1]).
+      to eq(info_request_events(:silly_outgoing_message_event))
   end
 
   it "should not find it when one of the request's users is changed" do
@@ -150,10 +181,19 @@ describe User, " when indexing requests by user they are from" do
 
     update_xapian_index
 
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith",
-                                             :sort_by_prefix => 'created_at', :sort_by_ascending => true,
-                                             :collapse_by_prefix => 'request_collapse', :limit => 100)
-    expect(xapian_object.results.map{|x|x[:model].info_request}).to match_array(InfoRequest.all(:conditions => "user_id = #{users(:bob_smith_user).id}"))
+    options = { :sort_by_prefix => 'created_at',
+                :sort_by_ascending => true,
+                :collapse_by_prefix => 'request_collapse',
+                :limit => 100 }
+
+    xapian_object =
+      ActsAsXapian::Search.
+        new([InfoRequestEvent], "requested_by:bob_smith", options)
+
+    results = xapian_object.results.map { |x| x[:model].info_request }
+
+    expect(results).
+      to match_array(InfoRequest.where(:user_id => users(:bob_smith_user).id))
   end
 
   it "should not get confused searching for requests when one user has a name which has same stem as another" do
@@ -178,13 +218,26 @@ describe User, " when indexing requests by user they are from" do
     expect(xapian_object.results[0][:model]).to eq(info_request_events(:silly_outgoing_message_event))
   end
 
-
   it "should update index correctly when URL name of user changes" do
     # initial search
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith",
-                                             :sort_by_prefix => 'created_at', :sort_by_ascending => true, :limit => 100)
-    expect(xapian_object.results.map{|x|x[:model]}).to match_array(InfoRequestEvent.all(:conditions => "info_request_id in (select id from info_requests where user_id = #{users(:bob_smith_user).id})"))
-    models_found_before = xapian_object.results.map { |x| x[:model] }
+    options = { :sort_by_prefix => 'created_at',
+                :sort_by_ascending => true,
+                :limit => 100 }
+    xapian_object =
+      ActsAsXapian::Search.
+        new([InfoRequestEvent], "requested_by:bob_smith", options)
+
+    results = xapian_object.results.map { |x| x[:model] }
+
+    conditions = <<-EOF.strip_heredoc
+    info_request_id IN (SELECT id
+                        FROM info_requests
+                        WHERE user_id = #{ users(:bob_smith_user).id })
+    EOF
+
+    expect(results).to match_array(InfoRequestEvent.where(conditions))
+
+    models_found_before = results.dup
 
     # change the URL name of the body
     u= users(:bob_smith_user)

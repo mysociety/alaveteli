@@ -42,12 +42,14 @@ module AlaveteliPro
 
     def draft_info_request_results(user)
       info_requests = user.draft_info_requests
-      info_requests = info_requests
-                          .includes(:public_body)
-                            .where("title ILIKE :q
-                                   OR body ILIKE :q
-                                   OR public_bodies.name ILIKE :q",
-                                   q: "%#{ search }%")
+      info_requests =
+        info_requests
+          .includes(:public_body)
+            .where("title ILIKE :q
+                   OR body ILIKE :q
+                   OR public_bodies.name ILIKE :q",
+                   q: "%#{ search }%")
+              .references(:public_bodies)
       info_requests.reorder("draft_info_requests.#{order_value}")
     end
 
@@ -56,13 +58,15 @@ module AlaveteliPro
       if !filter_value.blank?
         info_requests = info_requests.send(filter_value)
       end
-        info_requests = info_requests
-                        .includes(:public_body)
-                          .includes(:outgoing_messages)
-                              .where("title ILIKE :q
-                                     OR outgoing_messages.body ILIKE :q
-                                     OR public_bodies.name ILIKE :q",
-                                     q: "%#{ search }%")
+        info_requests =
+          info_requests
+            .includes(:public_body)
+              .includes(:outgoing_messages)
+                  .where("title ILIKE :q
+                         OR outgoing_messages.body ILIKE :q
+                         OR public_bodies.name ILIKE :q",
+                         q: "%#{ search }%")
+                    .references(:outgoing_messages, :public_bodies)
       info_requests.reorder("info_requests.#{order_value}")
     end
 
@@ -124,8 +128,8 @@ module AlaveteliPro
           :capital_label => _('Drafts') },
         { :param => 'embargoes_expiring',
           :value => :embargo_expiring,
-          :label => _('requests with expiring embargoes'),
-          :capital_label => _('Requests with expiring embargoes')
+          :label => _('requests that will be made public soon'),
+          :capital_label => _('Requests that will be made public soon')
         }
        ]
     end

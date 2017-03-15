@@ -157,6 +157,11 @@ describe RequestController, "when showing one request" do
     expect(response).to redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
   end
 
+  it 'should return a 404 for GET requests to a malformed request URL' do
+    expect {
+      get :show, :url_title => '228%85'
+    }.to raise_error(ActiveRecord::RecordNotFound)
+  end
 
   describe "redirecting pro users to the pro context" do
     let(:pro_user) { FactoryGirl.create(:pro_user) }
@@ -415,18 +420,18 @@ describe RequestController, "when showing one request" do
   it "should set @state_transitions for the request" do
     info_request = FactoryGirl.create(:info_request)
     expected_transitions = {
-      "pending" => {
+      :pending => {
         "waiting_response"      => "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>",
         "waiting_clarification" => "<strong>Clarification</strong> has been requested",
         "gone_postal"           => "A response will be sent <strong>by post</strong>"
       },
-      "complete" => {
+      :complete => {
         "not_held"              => "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>",
         "partially_successful"  => "<strong>Some of the information</strong> has been sent ",
         "successful"            => "<strong>All the information</strong> has been sent",
         "rejected"              => "The request has been <strong>refused</strong>"
       },
-      "other" => {
+      :other => {
         "error_message"         => "An <strong>error message</strong> has been received"
       }
     }
@@ -1309,7 +1314,8 @@ describe RequestController, "when creating a new request" do
 
       it 'sets render_recaptcha to true if there is a logged in user who is not
             confirmed as not spam' do
-        session[:user_id] = FactoryGirl.create(:user).id
+        session[:user_id] =
+          FactoryGirl.create(:user, :confirmed_not_spam => false).id
         post :new, :info_request => { :public_body_id => @body.id,
           :title => "What's black and white and red all over?", :tag_string => "" },
           :outgoing_message => { :body => "Please send info" },
@@ -1510,7 +1516,7 @@ describe RequestController do
       let(:external_request){ FactoryGirl.create(:external_request) }
 
       it 'should redirect to the request page' do
-        post :describe_state, :id => external_request.id
+        patch :describe_state, :id => external_request.id
         expect(response)
           .to redirect_to(show_request_path(external_request.url_title))
       end
@@ -1522,7 +1528,7 @@ describe RequestController do
       let(:info_request){ FactoryGirl.create(:info_request) }
 
       def post_status(status, info_request)
-        post :describe_state, :incoming_message => { :described_state => status },
+        patch :describe_state, :incoming_message => { :described_state => status },
           :id => info_request.id,
           :last_info_request_event_id => info_request.last_event_id_needing_description
       end
@@ -1621,7 +1627,7 @@ describe RequestController do
           context 'when the new status is "requires_admin"' do
             it "should send a mail to admins saying that the response requires admin
                and one to the requester noting the status change" do
-              post :describe_state, :incoming_message =>
+              patch :describe_state, :incoming_message =>
                                       { :described_state => "requires_admin",
                                         :message => "a message" },
                                     :id => info_request.id,
@@ -1647,7 +1653,7 @@ describe RequestController do
             context "if the params don't include a message" do
 
               it 'redirects to the message url' do
-                post :describe_state, :incoming_message =>
+                patch :describe_state, :incoming_message =>
                                         { :described_state => "requires_admin" },
                                       :id => info_request.id,
                                       :incoming_message_id =>
@@ -1773,7 +1779,7 @@ describe RequestController do
         end
 
         it "should let you know when you forget to select a status" do
-          post :describe_state, :id => info_request.id,
+          patch :describe_state, :id => info_request.id,
                                 :last_info_request_event_id =>
                                   info_request.last_event_id_needing_description
           expect(response).to redirect_to show_request_url(:url_title => info_request.url_title)
@@ -1782,7 +1788,7 @@ describe RequestController do
         end
 
         it "should not change the status if the request has changed while viewing it" do
-          post :describe_state, :incoming_message => { :described_state => "rejected" },
+          patch :describe_state, :incoming_message => { :described_state => "rejected" },
                                 :id => info_request.id,
                                 :last_info_request_event_id => 1
           expect(response)
@@ -1819,7 +1825,7 @@ describe RequestController do
 
         it "should go to the page asking for more information when classified
             as requires_admin" do
-          post :describe_state,
+          patch :describe_state,
             :incoming_message => { :described_state => "requires_admin" },
             :id => info_request.id,
             :incoming_message_id => info_request.incoming_messages.last,
@@ -1835,7 +1841,7 @@ describe RequestController do
 
         context "message is included when classifying as requires_admin" do
           it "should send an email including the message" do
-            post :describe_state,
+            patch :describe_state,
             :incoming_message => {
               :described_state => "requires_admin",
             :message => "Something weird happened" },
@@ -2045,7 +2051,7 @@ describe RequestController do
         context 'when status is updated to "requires admin"' do
 
           it 'should redirect to the "request url"' do
-            post :describe_state, :incoming_message => {
+            patch :describe_state, :incoming_message => {
                 :described_state => 'requires_admin',
                 :message => "A message"
               },
@@ -2061,7 +2067,7 @@ describe RequestController do
         context 'when status is updated to "error message"' do
 
           it 'should redirect to the "request url"' do
-            post :describe_state, :incoming_message => {
+            patch :describe_state, :incoming_message => {
                 :described_state => 'error_message',
                 :message => "A message"
               },
@@ -2077,7 +2083,7 @@ describe RequestController do
           context "if the params don't include a message" do
 
             it 'redirects to the message url' do
-              post :describe_state, :incoming_message =>
+              patch :describe_state, :incoming_message =>
                                       { :described_state => "error_message" },
                                     :id => info_request.id,
                                     :incoming_message_id =>

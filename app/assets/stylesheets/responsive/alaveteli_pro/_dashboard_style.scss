@@ -99,49 +99,48 @@ a.dashboard-folder__name:visited {
   color: #999;
 }
 
-
-.status-icon {
-  background-image: image-url('alaveteli-pro/pro-status-icons.png');
-  background-position: 0 0;
+.phase-icon {
+  background-image: image-url('alaveteli-pro/pro-phase-icons.png');
+  background-position: 0 -256px;
   background-size: 44px 283px;
   width: 22px;
   height: 22px;
   display: inline-block;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url('alaveteli-pro/pro-status-icons@2.png');
+    background-image: image-url('alaveteli-pro/pro-phase-icons@2.png');
   }
 }
 
-.status-icon--awaiting-response {
+.phase-icon--awaiting-response {
   background-position: 0 -63px;
 }
 
-.status-icon--overdue {
+.phase-icon--overdue {
   background-position: 0 -63px;
 }
 
-.status-icon--very-overdue {
+.phase-icon--very-overdue {
   background-position: 0 -63px;
 }
 
-.status-icon--response-received {
+.phase-icon--response-received {
   background-position: 0 -127px;
 }
 
-.status-icon--clarification-needed {
+.phase-icon--clarification-needed {
   background-position: 0 -192px;
 }
 
-.status-icon--complete {
+.phase-icon--complete {
   background-position: 0 1px;
 }
 
-.status-icon--other {
+.phase-icon--other {
   background-position: 0 -256px;
 }
 
 .dashboard-folder {
-  .status-icon {
+  .phase-icon {
     position: relative;
     top: 4px;
   }
@@ -152,7 +151,7 @@ a.dashboard-folder__name:visited {
     &:hover,
     &:active,
     &:focus {
-      .status-icon {
+      .phase-icon {
         //changes to darker style for rollover
         background-position-x: -23px;
       }
@@ -161,7 +160,7 @@ a.dashboard-folder__name:visited {
 }
 
 .dashboard-folder__name--disabled {
-  .status-icon {
+  .phase-icon {
     //make it less prominent when the folder name isn't clickable
     opacity: 0.5;
   }

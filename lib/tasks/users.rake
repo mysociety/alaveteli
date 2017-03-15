@@ -54,7 +54,7 @@ namespace :users do
       (banned.to_f / total_users * 100).round
     end
 
-    dormant = UserStats.count_dormant_users(domain)
+    dormant = UserStats.count_dormant_users(domain, from)
 
     dormant_percent = if total_users == 0
       0

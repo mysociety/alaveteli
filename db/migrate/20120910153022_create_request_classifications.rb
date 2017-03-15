@@ -4,7 +4,7 @@ class CreateRequestClassifications < ActiveRecord::Migration
     create_table :request_classifications do |t|
       t.integer :user_id
       t.integer :info_request_event_id
-      t.timestamps
+      t.timestamps :null => false
     end
     add_index :request_classifications, :user_id
   end

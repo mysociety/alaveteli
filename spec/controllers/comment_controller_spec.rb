@@ -132,6 +132,15 @@ describe CommentController, "when commenting on a request" do
     expect(flash[:notice]).to eq('Comments are not allowed on this request')
   end
 
+  it "allows the comment to be re-edited" do
+    expected = "Updated text"
+    post :new, :url_title => info_requests(:naughty_chicken_request).url_title,
+      :comment => { :body => expected },
+      :type => 'request', :submitted_comment => 1, :reedit => 1
+    expect(assigns[:comment].body).to eq(expected)
+    expect(response).to render_template('new')
+  end
+
   it "should not allow comments from banned users" do
     allow_any_instance_of(User).to receive(:ban_text).and_return('Banned from commenting')
 

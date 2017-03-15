@@ -1,3 +1,35 @@
+# develop
+
+## Highlighted Features
+
+* Upgrade to Rails 4.0 (Gareth Rees, Louise Crow, Steve Day, Liz Conlan)
+
+## Upgrade Notes
+
+* This release upgrades Alaveteli to use Rails 4.0. No public-facing API has
+  been changed, but if you have custom theme code you may need to update it for
+  Rails 4 compatibility. Follow instructions in the official Rails guide (
+  http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#upgrading-from-rails-3-2-to-rails-4-0-active-record)
+  and review our commits in this release to investigate deprecation warnings.
+
+### Changed Templates
+
+    app/views/admin_general/debug.html.erb
+    app/views/admin_public_body_headings/_form.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/comment/_comment_form.html.erb
+    app/views/comment/preview.html.erb
+    app/views/request/describe_state_message.html.erb
+    app/views/request/preview.html.erb
+    app/views/user/_signup.html.erb
+
+# 0.27.1.1
+
+# Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
 # 0.27.1.0
 
 ## Highlighted Features

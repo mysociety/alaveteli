@@ -4,17 +4,21 @@ require 'spec_helper'
 describe "comment/new.html.erb" do
   context "when the request is embargoed" do
     let(:info_request) { FactoryGirl.create(:embargoed_request) }
+    let(:comment) { info_request.comments.new }
+    let(:track_thing) { TrackThing.create_track_for_request(info_request) }
 
     before do
       assign :info_request, info_request
+      assign :comment, comment
+      assign :track_thing, track_thing
+      assign :in_pro_area, false
       render
     end
 
     it "says the comment will be public when the embargo expires" do
-      expected_content = "When your request's embargo expires, any " \
-                         "annotations you add will also be public. " \
-                         "However, they are not sent " \
-                         "to #{info_request.public_body.name}."
+      expected_content = "When your request is made public on Alaveteli, any " \
+                         "annotations you add will also be public. However, they are " \
+                         "not sent to #{info_request.public_body.name}."
       expect(rendered).to have_content(expected_content)
     end
 
@@ -25,9 +29,14 @@ describe "comment/new.html.erb" do
 
   context "when the request is not embargoed" do
     let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:comment) { info_request.comments.new }
+    let(:track_thing) { TrackThing.create_track_for_request(info_request) }
 
     before do
       assign :info_request, info_request
+      assign :comment, comment
+      assign :track_thing, track_thing
+      assign :in_pro_area, true
       render
     end
 

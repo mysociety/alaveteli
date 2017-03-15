@@ -70,6 +70,7 @@ module AlaveteliConfiguration
       :PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE => false,
       :PRO_CONTACT_EMAIL => 'pro-contact@localhost',
       :PRO_CONTACT_NAME => 'Alaveteli Professional',
+      :PRO_SITE_NAME => 'Alaveteli Professional',
       :RAW_EMAILS_LOCATION => 'files/raw_emails',
       :READ_ONLY => '',
       :RECAPTCHA_PRIVATE_KEY => 'x',

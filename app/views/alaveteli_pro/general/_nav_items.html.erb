@@ -1,0 +1,58 @@
+<li class="<%= 'selected' if controller?('alaveteli_pro/dashboard') && action?('index') %>"">
+  <%= link_to _("Dashboard"),
+      alaveteli_pro_dashboard_path,
+      :onclick => track_analytics_event(
+        AnalyticsEvent::Category::PRO_NAV_CLICK,
+        AnalyticsEvent::Action::PRO_NAV_DASHBOARD) %>
+</li>
+
+<li class="<%= 'selected' if controller?('alaveteli_pro/info_requests') && action?('index') %>">
+  <%= link_to _("Requests"),
+      alaveteli_pro_info_requests_path,
+      :onclick => track_analytics_event(
+        AnalyticsEvent::Category::PRO_NAV_CLICK,
+        AnalyticsEvent::Action::PRO_NAV_REQUESTS) %>
+</li>
+
+<li class="<%= 'selected' if controller?('alaveteli_pro/info_requests') && action?('new', 'preview') %>">
+  <%= link_to _("Make a request"),
+              select_authority_path,
+              :id => 'make-request-link',
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::PRO_NAV_CLICK,
+                AnalyticsEvent::Action::PRO_NAV_MAKE_REQUEST) %>
+</li>
+
+<li class="<%= 'selected' if controller?('request') && !action?('new', 'select_authority') %>">
+  <%= link_to _("Browse public requests"),
+              request_list_successful_path,
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::PRO_NAV_CLICK,
+                AnalyticsEvent::Action::PRO_NAV_BROWSE_PUBLIC) %>
+</li>
+
+<li class="<%= 'selected' if controller?('public_body') %>">
+  <%= link_to _("View authorities"),
+      list_public_bodies_default_path,
+      :onclick => track_analytics_event(
+        AnalyticsEvent::Category::PRO_NAV_CLICK,
+        AnalyticsEvent::Action::PRO_NAV_VIEW_AUTHORITIES) %>
+</li>
+
+<% unless AlaveteliConfiguration::blog_feed.empty? %>
+  <li class="<%= 'selected' if controller?('general') && action?('blog') %>">
+    <%= link_to _("Read blog"),
+                blog_path,
+                :onclick => track_analytics_event(
+                  AnalyticsEvent::Category::PRO_NAV_CLICK,
+                  AnalyticsEvent::Action::PRO_NAV_READ_BLOG) %>
+  </li>
+<% end %>
+
+<li class="<%= 'selected' if controller?('help') %>">
+  <%= link_to _("Help"),
+              help_about_path,
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::PRO_NAV_CLICK,
+                AnalyticsEvent::Action::PRO_NAV_HELP) %>
+</li>

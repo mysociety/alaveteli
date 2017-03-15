@@ -151,4 +151,12 @@ module ApplicationHelper
   def can_ask_the_eu?(code)
     WorldFOIWebsites.can_ask_the_eu?(code)
   end
+
+  def controller?(*controllers)
+    controllers.include?(params[:controller])
+  end
+
+  def action?(*actions)
+    actions.include?(params[:action])
+  end
 end

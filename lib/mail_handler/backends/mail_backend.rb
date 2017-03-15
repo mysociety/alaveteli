@@ -203,7 +203,7 @@ module MailHandler
       # set. Tries to set a more specific content type for binary content types.
       def expand_and_normalize_parts(part, parent_mail)
         if part.multipart?
-          part.parts.each{ |sub_part| expand_and_normalize_parts(sub_part, parent_mail) }
+          Mail::PartsList.new(part.parts.each{ |sub_part| expand_and_normalize_parts(sub_part, parent_mail) })
         else
           part_filename = get_part_file_name(part)
           if part.has_charset?
