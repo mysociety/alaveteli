@@ -87,6 +87,24 @@ describe FollowupsController do
         expect(response).to render_template('new')
       end
 
+      context "requesting an internal review" do
+
+        it "shows a link to FOIWiki by default" do
+          get :new, :request_id => request.id, :internal_review => 1
+          expect(response.body).
+            to have_xpath("//a[@href='http://foiwiki.com/foiwiki/index.php/Internal_reviews']")
+        end
+
+        it "shows a link to INTERNAL_REVIEW_INFO_URL" do
+          allow(AlaveteliConfiguration).to receive(:internal_review_info_url).
+            and_return("http://example.org/internal_review")
+          get :new, :request_id => request.id, :internal_review => 1
+          expect(response.body).
+            to have_xpath("//a[@href='http://example.org/internal_review']")
+        end
+
+      end
+
       it "offers the opportunity to reply to the main address" do
         get :new, :request_id => request.id, :incoming_message_id => message_id
         expect(response.body).

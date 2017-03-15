@@ -1012,3 +1012,12 @@ PRO_CONTACT_EMAIL: 'pro-contact@localhost'
 #
 # ---
 PRO_CONTACT_NAME: 'Alaveteli Professional'
+
+# URL where people can find more information about the internal review process
+# in their country (the default FOIwiki link is quite UK specific). The link
+# will be displayed when starting the internal review process.
+#
+# INTERNAL_REVIEW_INFO_URL - String (default: http://foiwiki.com/foiwiki/index.php/Internal_reviews)
+#
+# ---
+INTERNAL_REVIEW_INFO_URL: 'http://foiwiki.com/foiwiki/index.php/Internal_reviews'
