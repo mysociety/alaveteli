@@ -305,10 +305,34 @@ describe AdminUserController do
   describe 'POST #login_as' do
 
     it "logs in as another user" do
-      post :login_as,  :id => FactoryGirl.create(:user).id
+      post :login_as, { :id => FactoryGirl.create(:user).id },
+                      { :user_id => FactoryGirl.create(:admin_user).id }
       expect(response).to redirect_to(:controller => 'user',
                                       :action => 'confirm',
                                       :email_token => get_last_post_redirect.email_token)
+    end
+
+    context 'if the user cannot log in as the user' do
+
+      it 'redirects to the admin user page for that user' do
+        with_feature_enabled(:alaveteli_pro) do
+          target_user = FactoryGirl.create(:pro_user)
+          post :login_as, { :id => target_user.id },
+                          { :user_id => FactoryGirl.create(:admin_user).id }
+          expect(response).to redirect_to(admin_user_path(target_user))
+        end
+      end
+
+      it 'shows an error message' do
+        with_feature_enabled(:alaveteli_pro) do
+          target_user = FactoryGirl.create(:pro_user)
+          post :login_as, { :id => target_user.id },
+                          { :user_id => FactoryGirl.create(:admin_user).id }
+          expect(flash[:error]).to eq "You don't have permission to log in " \
+                                      "as #{target_user.name}"
+        end
+      end
+
     end
 
   end

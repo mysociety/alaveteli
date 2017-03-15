@@ -86,10 +86,15 @@ class AdminUserController < AdminController
   end
 
   def login_as
-    post_redirect = PostRedirect.new( :uri => user_url(@admin_user), :user_id => @admin_user.id, :circumstance => "login_as" )
+    if cannot? :login_as, @admin_user
+      flash[:error] = "You don't have permission to log in as #{@admin_user.name}"
+      return redirect_to admin_user_path(@admin_user)
+    end
+    post_redirect = PostRedirect.new( :uri => user_url(@admin_user),
+                                      :user_id => @admin_user.id,
+                                      :circumstance => "login_as" )
     post_redirect.save!
     url = confirm_url(:email_token => post_redirect.email_token)
-
     redirect_to url
   end
 
