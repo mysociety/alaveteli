@@ -358,4 +358,127 @@ describe Ability do
       end
     end
   end
+
+  describe "Logging in as a user" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    context 'when the user has no roles' do
+
+      it 'allows an admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).to be_able_to(:login_as, user)
+        end
+      end
+
+      it 'does not allow a pro user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:login_as, user)
+        end
+      end
+
+      it 'does not allow user with no roles to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(FactoryGirl.create(:user))
+          expect(ability).not_to be_able_to(:login_as, user)
+        end
+      end
+
+    end
+
+    context 'when the user is an admin' do
+
+      it 'allows an admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(FactoryGirl.create(:admin_user))
+          expect(ability).to be_able_to(:login_as, admin_user)
+        end
+      end
+
+      it 'does not allow a pro user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:login_as, admin_user)
+        end
+      end
+
+      it 'does not allow user with no roles to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:login_as, admin_user)
+        end
+      end
+
+    end
+
+    context 'when the user is a pro' do
+
+     it 'does not allow an admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:login_as, pro_user)
+        end
+      end
+
+     it 'does not allow a pro user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(FactoryGirl.create(:pro_user))
+          expect(ability).not_to be_able_to(:login_as, pro_user)
+        end
+      end
+
+     it 'does not allow user with no roles to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:login_as, pro_user)
+        end
+      end
+
+     it 'allows a pro admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:login_as, pro_user)
+        end
+      end
+
+    end
+
+    context 'when the user is a pro_admin user' do
+
+      it 'does not allow an admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+
+      it 'does not allow a pro user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+
+      it 'does not allow user with no roles to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+
+      it 'allows a pro admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(FactoryGirl.create(:pro_admin_user))
+          expect(ability).to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+
+    end
+
+
+  end
 end
