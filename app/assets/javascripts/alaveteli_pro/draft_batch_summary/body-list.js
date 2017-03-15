@@ -15,7 +15,9 @@
   var showLoadingError = function showLoadingError(e, data) {
     // Don't show the error if we aborted the request
     if(data.textStatus !== 'abort') {
-      $draftSummary.html(loadingError);
+      $draftSummary.html(
+        $('<div>').addClass('ajax-error').html(loadingError)
+      );
     }
   };
 

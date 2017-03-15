@@ -9,7 +9,7 @@
   var resultSelector = '.js-batch-authority-search-results-list-item';
   var formSelector = '.js-add-authority-to-batch-form';
   var submitButtonSelector = '.js-add-authority-to-batch-submit';
-  var addedClass = 'batch-authority-search__results__list__item--added';
+  var addedClass = 'js-batch-authority-search-results-list-item--added';
 
   // Lock the search results so that people can't add them whilst a search
   // is ongoing

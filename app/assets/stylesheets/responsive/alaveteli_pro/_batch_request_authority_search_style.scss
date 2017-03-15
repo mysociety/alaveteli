@@ -1,6 +1,6 @@
 // Hide the submit form when JS is turned on
 .js-loaded {
-  .batch-authority-search__form__submit {
+  .js-batch-authority-search-form input[type="submit"] {
     display: none;
   }
 }
@@ -8,31 +8,69 @@
 // Toggle whether we're showing the "Add authority to batch" form or whatever
 // we use to signify that it's already added. We print both in the HTML so
 // that it's easier to toggle which is displayed later via JS.
-.batch-authority-search__results__list__item {
-  .batch-authority-search__results__list__item__action__added {
-    display: none;
-    visibility: hidden;
-  }
 
-  .batch-authority-search__results__list__item__action__add {
+.batch-builder__authority-list__authority__action__added {
+  display: none;
+  visibility: hidden;
+}
+
+.batch-builder__authority-list__authority__action__add {
+  display: block;
+  visibility: visible;
+}
+
+.js-batch-authority-search-results-list-item--added {
+  .batch-builder__authority-list__authority__action__added {
     display: block;
     visibility: visible;
   }
 
-  &.batch-authority-search__results__list__item--added {
-    .batch-authority-search__results__list__item__action__added {
-      display: block;
-      visibility: visible;
-    }
-
-    .batch-authority-search__results__list__item__action__add {
-      display: none;
-      visibility: hidden;
-    }
+  .batch-builder__authority-list__authority__action__add {
+    display: none;
+    visibility: hidden;
   }
 }
 
-// TODO - style search input, results, pagination when .loading class is
-// applied to the .batch-authority-search container
+.batch-builder__search-results,
+.batch-builder__chosen-authorities {
+    & > * {
+        border: 1px solid #ddd;
+        min-height: 10em;
+        @include flexbox();
+        @include flex-direction(column);
+        @include justify-content(center);
 
-// TODO - style pagination when .disabled class is applied to links
+        @media #{$large-up} {
+            min-height: 30em;
+        }
+    }
+}
+
+.batch-builder__authority-list__authority {
+    &:nth-child(odd) {
+        background-color: #eee;
+    }
+}
+
+.batch-builder__authority-list__authority__action__added {
+    color: green;
+    font-weight: 600;
+    width: 5em; // Assumes that `.add-authority-to-batch__form__submit` is roughly 5em wide
+    text-align: center;
+}
+
+.batch-builder__search-results {
+    .pagination {
+        border-top: 1px solid #ddd;
+        font-size: 0.8em;
+    }
+}
+
+.batch-builder {
+    .blank-slate,
+    .ajax-error {
+        padding: 1em;
+        text-align: center;
+        color: #999;
+    }
+}
