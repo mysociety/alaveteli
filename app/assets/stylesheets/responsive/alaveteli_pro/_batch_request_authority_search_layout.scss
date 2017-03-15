@@ -1,0 +1,51 @@
+.batch-authority-search__form__query {
+    &[type] { // need to be at least as specific as `form input[type="text"]`
+        width: 100%;
+    }
+}
+
+.batch-authority-search__results__list,
+.draft-batch-request__bodies {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    height: 30em;
+    overflow: auto;
+}
+
+.batch-authority-search__results__list__item,
+.draft-batch-request__bodies__body {
+    @include clearfix();
+    padding: 1.5em 1em;
+}
+
+.batch-authority-search__results__list__item__action {
+    display: inline-block;
+    float: right;
+
+    form {
+        margin-bottom: 0;
+    }
+}
+
+.remove-authority-from-batch__form {
+    display: inline-block;
+    float: right;
+    margin-bottom: 0;
+}
+
+.add-authority-to-batch__form__submit,
+.remove-authority-from-batch__form__submit {
+    &[type] { // need to be at least as specific as `form input[type="text"]`
+        margin: -0.5em 0;
+    }
+}
+
+.draft-batch-request {
+    & > p { // this is "you haven't added any authorities to your batch yet"
+        height: 30em;
+        text-align: center;
+        padding: 1em;
+    }
+}

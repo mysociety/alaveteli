@@ -36,3 +36,34 @@
 // applied to the .batch-authority-search container
 
 // TODO - style pagination when .disabled class is applied to links
+
+.batch-authority-search__results__list,
+.draft-batch-request__bodies {
+    border: 1px solid #ddd;
+}
+
+.batch-authority-search__results__list__item,
+.draft-batch-request__bodies__body {
+    &:nth-child(odd) {
+        background-color: #eee;
+    }
+}
+
+.batch-authority-search__results__list__item__action__added {
+    color: green;
+    font-weight: 600;
+    width: 5em; // Assumes that `.add-authority-to-batch__form__submit` is roughly 5em wide
+    text-align: center;
+}
+
+.draft-batch-request {
+    & > p { // this is "you haven't added any authorities to your batch yet"
+        border: 1px solid #ddd;
+    }
+}
+
+.batch-authority-search__results {
+    .pagination {
+        font-size: 0.8em;
+    }
+}
