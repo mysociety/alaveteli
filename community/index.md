@@ -69,7 +69,7 @@ more easily take place across time zones (hello again Australia, we missed you!)
 **`#mysociety`** &mdash;
 If you prefer not to use Slack, you can join the `#mysociety` channel on
 [Freenode](http://freenode.net) (`irc.freenode.net`) ...although that channel can be rather quiet
-<img src="http://www.alaveteli.org/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley">
+<img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":)">
 
 ## Code and issues on github
 
