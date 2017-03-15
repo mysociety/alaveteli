@@ -388,6 +388,13 @@ describe Ability do
         end
       end
 
+      it 'does not allow them to login as themselves' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:login_as, user)
+        end
+      end
+
     end
 
     context 'when the user is an admin' do
@@ -396,6 +403,13 @@ describe Ability do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(FactoryGirl.create(:admin_user))
           expect(ability).to be_able_to(:login_as, admin_user)
+        end
+      end
+
+      it 'does not allow them to login as themselves' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:login_as, admin_user)
         end
       end
 
@@ -427,6 +441,13 @@ describe Ability do
      it 'does not allow a pro user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(FactoryGirl.create(:pro_user))
+          expect(ability).not_to be_able_to(:login_as, pro_user)
+        end
+      end
+
+      it 'does not allow them to login as themselves' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
           expect(ability).not_to be_able_to(:login_as, pro_user)
         end
       end
@@ -474,6 +495,13 @@ describe Ability do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(FactoryGirl.create(:pro_admin_user))
           expect(ability).to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+
+      it 'does not allow them to login as themselves' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).not_to be_able_to(:login_as, pro_admin_user)
         end
       end
 

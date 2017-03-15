@@ -71,7 +71,9 @@ class Ability
     end
 
     can :login_as, User do |target_user|
-      if target_user.is_pro? || target_user.is_pro_admin?
+      if user == target_user
+        false
+      elsif target_user.is_pro? || target_user.is_pro_admin?
         user && user.is_pro_admin?
       else
         user && user.is_admin?
