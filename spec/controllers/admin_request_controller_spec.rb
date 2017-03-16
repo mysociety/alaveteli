@@ -53,6 +53,71 @@ describe AdminRequestController, "when administering requests" do
                                        :handle_rejected_responses => 'bounce' } }
   end
 
+  describe "when moving a request to another authority" do
+    let(:body1) { FactoryGirl.create(:public_body) }
+    let(:body2) { FactoryGirl.create(:public_body) }
+    let(:request) { FactoryGirl.create(:info_request, :public_body => body1) }
+
+    before do
+      post :move, { :id => request.id,
+                    :public_body_url_name => body2.url_name,
+                    :commit => "Move request to authority" }
+    end
+
+    it "should assign the request to the new authority" do
+      body2.reload
+      expect(body2.info_requests.first).to eq(request)
+    end
+
+    it "should unassign the request from the previous authority" do
+      body1.reload
+      expect(body1.info_requests).to eq([])
+    end
+
+    it "should increment the new authority's info_requests_count" do
+      body2.reload
+      expect(body2.info_requests_count).to eq(1)
+    end
+
+    it "should decrement the previous authority's info_requests_count" do
+      body1.reload
+      expect(body1.info_requests_count).to eq(0)
+    end
+  end
+
+  describe "when moving a request to another user" do
+    let(:user1) { FactoryGirl.create(:user) }
+    let(:user2) { FactoryGirl.create(:user) }
+    let(:request) { FactoryGirl.create(:info_request, :user => user1) }
+
+    before do
+      post :move, { :id => request.id,
+                    :user_url_name => user2.url_name,
+                    :commit => "Move request to user" }
+    end
+
+    it "should assign the request to the new user" do
+      user2.reload
+      expect(user2.info_requests.first).to eq(request)
+    end
+
+    it "should unassign the request from the previous user" do
+      user1.reload
+      expect(user1.info_requests).to eq([])
+    end
+
+    it "should increment the new user's info_requests_count" do
+      user2.reload
+      expect(user2.info_requests_count).to eq(1)
+    end
+
+    it "should decrement the previous user's info_requests_count" do
+      user1.reload
+      expect(user1.info_requests_count).to eq(0)
+    end
+  end
+
+
   describe 'when fully destroying a request' do
 
     it 'calls destroy on the info_request object' do
