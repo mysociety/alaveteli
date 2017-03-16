@@ -19,11 +19,11 @@
                                @draft_batch_request.id,
                                class: 'js-batch-authority-search-form-draft-id' %>
         <% end %>
-        <label for="query" class="visually-hidden"><%= _('Search') %></label>
+        <label for="authority_query" class="visually-hidden"><%= _('Search') %></label>
         <input type="text"
-               name="query"
+               name="authority_query"
                class="batch-authority-search__form__query js-batch-authority-search-form-query"
-               id="query"
+               id="authority_query"
                value="<%= @query %>"
                placeholder="<%= _('Search for an authority by name') %>"
                autofocus>

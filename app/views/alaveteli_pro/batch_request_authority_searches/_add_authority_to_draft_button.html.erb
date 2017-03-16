@@ -4,7 +4,7 @@
                :class => 'add-authority-to-batch__form js-add-authority-to-batch-form',
                'data-body-id' => authority_id) do %>
     <% unless query.blank? %>
-      <%= hidden_field_tag(:query, query) %>
+      <%= hidden_field_tag(:authority_query, query) %>
     <% end %>
     <%= hidden_field_tag(:add_body_id, authority_id) %>
     <input type="submit"
@@ -16,7 +16,7 @@
                :html => {'class' => 'add-authority-to-batch__form js-add-authority-to-batch-form',
                          'data-body-id' => authority_id}) do |f| %>
     <% unless query.blank? %>
-      <%= hidden_field_tag(:query, query) %>
+      <%= hidden_field_tag(:authority_query, query) %>
     <% end %>
     <%= f.hidden_field(:public_body_ids, value: authority_id) %>
     <input type="submit"

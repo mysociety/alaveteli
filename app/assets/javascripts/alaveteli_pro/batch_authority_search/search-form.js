@@ -11,7 +11,7 @@
   var submitForm = function submitForm(e) {
     e.preventDefault();
     BatchAuthoritySearch.startNewXHR();
-    var formData = { query: $query.val() };
+    var formData = { authority_query: $query.val() };
     if(draftId !== null) {
       formData.draftId = draftId;
     }

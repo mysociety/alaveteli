@@ -61,7 +61,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           body: 'This is a test batch request.',
           public_body_ids: authority_1.id
         },
-        query: "Department"
+        authority_query: "Department"
       }
     end
 
@@ -79,7 +79,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
       it_behaves_like "creating a request"
 
       it "redirects to a new search if no query was provided" do
-        params.delete(:query)
+        params.delete(:authority_query)
         subject
         new_draft = pro_user.draft_info_request_batches.first
         expected_path = new_alaveteli_pro_batch_request_authority_search_path(
@@ -93,7 +93,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         new_draft = pro_user.draft_info_request_batches.first
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
           draft_id: new_draft.id,
-          query: "Department"
+          authority_query: "Department"
         )
         expect(response).to redirect_to(expected_path)
       end
@@ -157,11 +157,11 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
         it "redirects to an existing search if a query is provided" do
           with_feature_enabled(:alaveteli_pro) do
-            params[:query] = "Department"
+            params[:authority_query] = "Department"
             subject
             expected_path = alaveteli_pro_batch_request_authority_searches_path(
               draft_id: draft.id,
-              query: "Department")
+              authority_query: "Department")
             expect(response).to redirect_to(expected_path)
           end
         end
@@ -222,11 +222,11 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
 
         it "redirects to an existing search if a query is provided" do
           with_feature_enabled(:alaveteli_pro) do
-            params[:query] = "Department"
+            params[:authority_query] = "Department"
             subject
             expected_path = alaveteli_pro_batch_request_authority_searches_path(
               draft_id: draft.id,
-              query: "Department")
+              authority_query: "Department")
             expect(response).to redirect_to(expected_path)
           end
         end

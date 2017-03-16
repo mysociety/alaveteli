@@ -1,7 +1,7 @@
 class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
   def create
     @draft = current_user.draft_info_request_batches.create(draft_params)
-    @query = params[:query]
+    @query = params[:authority_query]
     if request.xhr?
       respond_with_partial(@draft, @query)
     else
@@ -16,7 +16,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
     elsif params[:remove_body_id]
       @draft.public_bodies.delete(PublicBody.find(params[:remove_body_id]))
     end
-    @query = params[:query]
+    @query = params[:authority_query]
     if request.xhr?
       respond_with_partial(@draft, @query)
     else
@@ -30,7 +30,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
     if query
       path = alaveteli_pro_batch_request_authority_searches_path(
         draft_id: draft.id,
-        query: query
+        authority_query: query
       )
     else
       path = new_alaveteli_pro_batch_request_authority_search_path(
@@ -43,7 +43,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
   def respond_with_partial(draft, query)
     render :partial => 'summary',
            :layout => false,
-           :locals => { :draft => draft, :query => query }
+           :locals => { :draft => draft, :authority_query => query }
   end
 
   def draft_params

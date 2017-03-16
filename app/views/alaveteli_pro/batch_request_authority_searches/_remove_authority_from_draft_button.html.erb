@@ -3,7 +3,7 @@
              :class => 'remove-authority-from-batch__form js-remove-authority-from-batch-form',
              'data-body-id' => authority_id) do |f| %>
   <% unless query.blank? %>
-    <%= hidden_field_tag(:query, query) %>
+    <%= hidden_field_tag(:authority_query, query) %>
   <% end %>
   <%= hidden_field_tag(:remove_body_id, authority_id) %>
   <input type="submit"

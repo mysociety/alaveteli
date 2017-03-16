@@ -10,7 +10,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     @draft_batch_request = find_or_initialise_draft
     @body_ids_added = @draft_batch_request.public_body_ids
     # perform_seach sets @query but perform_search_typeahead doesn't
-    @query = params[:query] || ""
+    @query = params[:authority_query] || ""
     @search = perform_search_typeahead(@query, PublicBody)
     unless @search.blank?
       @result_limit = calculate_result_limit(@search)

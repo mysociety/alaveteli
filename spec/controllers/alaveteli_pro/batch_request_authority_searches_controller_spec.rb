@@ -56,7 +56,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to a normal request" do
       before do
         with_feature_enabled(:alaveteli_pro) do
-          get :create, query: 'Example Public Body'
+          get :create, authority_query: 'Example Public Body'
         end
       end
 
@@ -75,7 +75,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       end
 
       it "raises WillPaginate::InvalidPage error for pages beyond the limit" do
-        expect { get :create, query: 'Example Public Body', page: 21 }.
+        expect { get :create, authority_query: 'Example Public Body', page: 21 }.
           to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -83,7 +83,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to an ajax request" do
       before do
         with_feature_enabled :alaveteli_pro do
-          xhr :get, :create, query: 'Example Public Body'
+          xhr :get, :create, authority_query: 'Example Public Body'
         end
       end
 
@@ -91,7 +91,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
       it "handles an empty query string" do
         with_feature_enabled(:alaveteli_pro) do
-          xhr :get, :create, query: ''
+          xhr :get, :create, authority_query: ''
           # No need for _search_result because no results
           expect(response).not_to render_template partial: '_search_result'
         end
@@ -103,7 +103,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       end
 
       it "raises WillPaginate::InvalidPage error for pages beyond the limit" do
-        expect { xhr :get, :create, query: 'Example Public Body', page: 21 }.
+        expect { xhr :get, :create, authority_query: 'Example Public Body', page: 21 }.
           to raise_error(ActiveRecord::RecordNotFound)
       end
     end
