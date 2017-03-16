@@ -70,6 +70,14 @@ class Ability
       end
     end
 
+    can :admin, Comment do |comment|
+      if comment.info_request.embargo
+        user && user.is_pro_admin?
+      else
+        user && user.is_admin?
+      end
+    end
+
     can :login_as, User do |target_user|
       if user == target_user
         false

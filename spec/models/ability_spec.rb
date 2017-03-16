@@ -594,6 +594,96 @@ describe Ability do
 
   end
 
+  describe 'administering comments' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    context "when the comment's request is embargoed" do
+      let(:info_request){ FactoryGirl.create(:embargoed_request) }
+      let(:comment){ FactoryGirl.create(:comment,
+                                        :info_request => info_request) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(nil)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+    end
+
+    context 'when the request is not embargoed' do
+      let(:info_request){ FactoryGirl.create(:info_request) }
+      let(:comment){ FactoryGirl.create(:comment,
+                                        :info_request => info_request) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does allows an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(nil)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+    end
+  end
+
   describe 'administering embargoes' do
     let(:user) { FactoryGirl.create(:user) }
     let(:pro_user) { FactoryGirl.create(:pro_user) }

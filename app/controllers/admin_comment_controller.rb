@@ -28,9 +28,15 @@ class AdminCommentController < AdminController
   end
 
   def edit
+    if cannot? :admin, @comment
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def update
+    if cannot? :admin, @comment
+      raise ActiveRecord::RecordNotFound
+    end
     old_body = @comment.body.dup
     old_visible = @comment.visible
     old_attention = @comment.attention_requested

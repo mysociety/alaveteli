@@ -56,7 +56,7 @@ describe AdminCommentController do
 
     context 'if pro is enabled' do
 
-      it 'includes does not include comments on embargoed requests if the
+      it 'does not include comments on embargoed requests if the
           current user is a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           comment = FactoryGirl.create(:comment)
@@ -80,66 +80,96 @@ describe AdminCommentController do
   end
 
   describe 'GET edit' do
-
-    before do
-      @comment = FactoryGirl.create(:comment)
-      get :edit, :id => @comment.id
-    end
+    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:comment){ FactoryGirl.create(:comment) }
 
     it 'renders the edit template' do
+      get :edit, { :id => comment.id }, { :user_id => admin_user.id }
       expect(response).to render_template('edit')
     end
 
     it 'gets the comment' do
-      expect(assigns[:comment]).to eq(@comment)
+      get :edit, { :id => comment.id }, { :user_id => admin_user.id }
+      expect(assigns[:comment]).to eq(comment)
     end
 
+
+    context 'if pro is enabled' do
+
+      context 'if the current user cannot admin the comment' do
+
+        it 'raises ActiveRecord::RecordNotFound' do
+          with_feature_enabled(:alaveteli_pro) do
+            comment.info_request.create_embargo
+            expect{ get :edit, { :id => comment.id },
+                               { :user_id => admin_user.id } }.
+              to raise_error ActiveRecord::RecordNotFound
+          end
+        end
+      end
+
+      context 'if the current user can admin the comment' do
+
+        it 'renders the edit template' do
+          with_feature_enabled(:alaveteli_pro) do
+            comment.info_request.create_embargo
+            get :edit, { :id => comment.id },
+                       { :user_id => pro_admin_user.id }
+            expect(response).to render_template('edit')
+          end
+        end
+      end
+    end
   end
 
   describe 'PUT update' do
+      let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+      let(:admin_user){ FactoryGirl.create(:admin_user) }
+      let(:comment){ FactoryGirl.create(:comment) }
+      let(:atts){ FactoryGirl.attributes_for(:comment, :body => 'I am new') }
 
     context 'on valid data submission' do
 
-      before do
-        @comment = FactoryGirl.create(:comment)
-      end
-
       it 'gets the comment' do
-        atts = FactoryGirl.attributes_for(:comment, :body => 'I am new')
-        put :update, :id => @comment.id, :comment => atts
-        expect(assigns[:comment]).to eq(@comment)
+        put :update, { :id => comment.id, :comment => atts },
+                     { :user_id => admin_user.id }
+        expect(assigns[:comment]).to eq(comment)
       end
 
       it 'updates the comment' do
-        atts = FactoryGirl.attributes_for(:comment, :body => 'I am new')
-        put :update, :id => @comment.id, :comment => atts
-        expect(Comment.find(@comment.id).body).to eq('I am new')
+        put :update, { :id => comment.id, :comment => atts },
+                     { :user_id => admin_user.id }
+        expect(Comment.find(comment.id).body).to eq('I am new')
       end
 
       it 'logs the update event' do
-        atts = FactoryGirl.attributes_for(:comment, :body => 'I am new')
-        put :update, :id => @comment.id, :comment => atts
-        most_recent_event = Comment.find(@comment.id).info_request_events.last
+        put :update, { :id => comment.id, :comment => atts },
+                     { :user_id => admin_user.id }
+        most_recent_event = Comment.find(comment.id).info_request_events.last
         expect(most_recent_event.event_type).to eq('edit_comment')
-        expect(most_recent_event.comment_id).to eq(@comment.id)
+        expect(most_recent_event.comment_id).to eq(comment.id)
       end
 
       context 'the attention_requested flag is the only change' do
+        let(:atts) do
+          FactoryGirl.attributes_for(:comment,
+                                     :body => comment.body,
+                                     :attention_requested => true)
+        end
 
         before do
-          atts = FactoryGirl.attributes_for(:comment,
-                                            :body => @comment.body,
-                                            :attention_requested => true)
-          put :update, :id => @comment.id, :comment => atts
+          put :update, { :id => comment.id, :comment => atts },
+                       { :user_id => admin_user.id }
         end
 
         it 'logs the update event' do
-          most_recent_event = Comment.find(@comment.id).info_request_events.last
+          most_recent_event = Comment.find(comment.id).info_request_events.last
           expect(most_recent_event.event_type).to eq('edit_comment')
         end
 
         it 'captures the old and new attention_requested values' do
-          most_recent_event = Comment.find(@comment.id).info_request_events.last
+          most_recent_event = Comment.find(comment.id).info_request_events.last
           expect(most_recent_event.params).
             to include(:old_attention_requested => false)
           expect(most_recent_event.params).
@@ -147,7 +177,7 @@ describe AdminCommentController do
         end
 
         it 'updates the comment' do
-          expect(Comment.find(@comment.id).attention_requested).to eq(true)
+          expect(Comment.find(comment.id).attention_requested).to eq(true)
         end
 
       end
@@ -160,9 +190,10 @@ describe AdminCommentController do
             atts = FactoryGirl.attributes_for(:comment,
                                               :attention_requested => true,
                                               :visible => false)
-            put :update, :id => @comment.id, :comment => atts
+            put :update, { :id => comment.id, :comment => atts },
+                         { :user_id => admin_user.id }
 
-            last_event = Comment.find(@comment.id).info_request_events.last
+            last_event = Comment.find(comment.id).info_request_events.last
             expect(last_event.event_type).to eq('hide_comment')
           end
 
@@ -175,9 +206,10 @@ describe AdminCommentController do
                                               :attention_requested => true,
                                               :visible => false,
                                               :body => 'updated text')
-            put :update, :id => @comment.id, :comment => atts
+            put :update, { :id => comment.id, :comment => atts },
+                         { :user_id => admin_user.id }
 
-            last_event = Comment.find(@comment.id).info_request_events.last
+            last_event = Comment.find(comment.id).info_request_events.last
             expect(last_event.event_type).to eq('edit_comment')
           end
 
@@ -190,7 +222,8 @@ describe AdminCommentController do
                                           :attention_requested => true,
                                           :visible => false,
                                           :body => 'updated text')
-        put :update, :id => @comment.id, :comment => atts
+        put :update, { :id => comment.id, :comment => atts },
+                     { :user_id => admin_user.id }
         expect(flash[:notice]).to eq("Comment successfully updated.")
       end
 
@@ -199,20 +232,51 @@ describe AdminCommentController do
                                           :attention_requested => true,
                                           :visible => false,
                                           :body => 'updated text')
-        put :update, :id => @comment.id, :comment => atts
-
-        expect(response).to redirect_to(admin_request_path(@comment.info_request))
+        put :update, { :id => comment.id, :comment => atts },
+                     { :user_id => admin_user.id }
+        expect(response).to redirect_to(admin_request_path(comment.info_request))
       end
     end
 
     context 'on invalid data submission' do
 
       it 'renders the edit template' do
-        @comment = FactoryGirl.create(:comment)
-        put :update, :id => @comment.id, :comment => {:body => ''}
-        expect(response).to render_template('edit')
+        with_feature_enabled(:alaveteli_pro) do
+          put :update, { :id => comment.id,
+                         :comment => { :body => '' } },
+                       { :user_id => admin_user.id }
+          expect(response).to render_template('edit')
+        end
       end
 
+    end
+
+
+    context 'if pro is enabled' do
+
+      context 'if the current user cannot admin the comment' do
+
+        it 'raises ActiveRecord::RecordNotFound' do
+          with_feature_enabled(:alaveteli_pro) do
+            comment.info_request.create_embargo
+            expect{ put :update, { :id => comment.id },
+                                 { :user_id => admin_user.id } }.
+              to raise_error ActiveRecord::RecordNotFound
+          end
+        end
+      end
+
+      context 'if the current user can admin the comment' do
+
+        it 'updates the comment' do
+          with_feature_enabled(:alaveteli_pro) do
+            comment.info_request.create_embargo
+            put :update, { :id => comment.id, :comment => atts },
+                         { :user_id => pro_admin_user.id }
+            expect(Comment.find(comment.id).body).to eq('I am new')
+          end
+        end
+      end
     end
   end
 
