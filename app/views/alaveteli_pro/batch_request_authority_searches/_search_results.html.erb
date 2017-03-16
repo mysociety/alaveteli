@@ -1,6 +1,6 @@
-<% if search && search.results.present? %>
+<% if search.present? && search.results.present? %>
   <ul class="batch-authority-search__results__list js-batch-authority-search-results-list">
-    <%= render partial: 'search_result',
+    <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
                collection: search.results,
                as: :result,
                locals: { draft: draft_batch_request,
@@ -10,7 +10,6 @@
 
   <%= will_paginate WillPaginate::Collection.new(page, per_page, result_limit) %>
 
-<% elsif search && search.results.blank? %>
+<% elsif query && search.blank? %>
   <p><%= _('Sorry, no authorities matched that search') %></p>
 <% end %>
-

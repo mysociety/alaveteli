@@ -3,7 +3,6 @@ require 'spec_helper'
 
 shared_examples_for "creating a search" do
   it "performs a search" do
-    puts assigns[:search].results.inspect
     results = assigns[:search].results
     expect(results.count).to eq 3
     expect(results.first[:model].name).to eq authority_1.name
@@ -63,6 +62,14 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
 
       it_behaves_like "creating a search"
 
+      it "handles an empty query string" do
+        with_feature_enabled(:alaveteli_pro) do
+          get :create
+          # No need for _search_result because no results
+          expect(response).not_to render_template partial: '_search_result'
+        end
+      end
+
       it "renders new.html.erb" do
         expect(response).to render_template('new')
       end
@@ -81,6 +88,14 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       end
 
       it_behaves_like "creating a search"
+
+      it "handles an empty query string" do
+        with_feature_enabled(:alaveteli_pro) do
+          xhr :get, :create, query: ''
+          # No need for _search_result because no results
+          expect(response).not_to render_template partial: '_search_result'
+        end
+      end
 
       it "only renders _search_results.html.erb" do
         expect(response).to render_template '_search_results'

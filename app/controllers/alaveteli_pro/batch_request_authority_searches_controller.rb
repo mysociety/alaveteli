@@ -10,10 +10,12 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     @draft_batch_request = find_or_initialise_draft
     @body_ids_added = @draft_batch_request.public_body_ids
     # perform_seach sets @query but perform_search_typeahead doesn't
-    @query = params[:query]
+    @query = params[:query] || ""
     @search = perform_search_typeahead(@query, PublicBody)
-    @result_limit = calculate_result_limit(@search)
-    check_page_limit!(@page, @per_page)
+    unless @search.blank?
+      @result_limit = calculate_result_limit(@search)
+      check_page_limit!(@page, @per_page)
+    end
     if request.xhr?
       render :partial => 'search_results',
              :layout => false,
