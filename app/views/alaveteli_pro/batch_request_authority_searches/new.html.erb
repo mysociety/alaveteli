@@ -10,13 +10,12 @@
 
   <div class="pro-canvas-body">
 
-    <div class="row">
-      <div class="small-12 medium-6 columns">
+      <div class="batch-builder js-batch-authority-search">
+        <div class="batch-builder__search-form">
 
-        <div class="batch-authority-search js-batch-authority-search">
           <%= form_tag alaveteli_pro_batch_request_authority_searches_path,
                        method: :get,
-                       class: 'batch-authority-search__form js-batch-authority-search-form' do %>
+                       class: 'js-batch-authority-search-form' do %>
             <% if @draft_batch_request.id %>
               <%= hidden_field_tag :draft_id,
                                    @draft_batch_request.id,
@@ -25,22 +24,18 @@
             <label for="query"><%= _('Search for an authority by name') %></label>
             <input type="text"
                    name="query"
-                   class="batch-authority-search__form__query js-batch-authority-search-form-query"
+                   class="js-batch-authority-search-form-query"
                    id="query"
                    value="<%= @query %>"
                    placeholder="eg. Cabinet Office"
                    autofocus>
-            <input type="submit" value="<%= _('Search') %>" class="batch-authority-search__form__submit">
+            <input type="submit" value="<%= _('Search') %>">
           <% end %>
+
         </div>
+        <div class="batch-builder__search-results">
 
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-12 medium-6 columns">
-
-          <div class="batch-authority-search__results js-batch-authority-search-results"
+          <div class="js-batch-authority-search-results"
                data-ajax-error-message="<%= _('Sorry, something went wrong ' \
                                               'getting your results, please ' \
                                               'try searching again.') %>">
@@ -54,19 +49,24 @@
                                  result_limit: @result_limit } %>
           </div>
 
-      </div>
-      <div class="small-12 medium-6 columns">
-
-        <div class="draft-batch-request js-draft-batch-request"
-             data-ajax-error-message="<%= _('Sorry, something went wrong updating' \
-                                            'your batch request, please try again.') %>">
-          <%= render partial: 'alaveteli_pro/draft_info_request_batches/summary',
-                     locals: { draft: @draft_batch_request,
-                               query: @query } %>
         </div>
+        <div class="batch-builder__chosen-authorities">
 
+          <div class="js-draft-batch-request"
+               data-ajax-error-message="<%= _('Sorry, something went wrong updating' \
+                                              'your batch request, please try again.') %>">
+            <%= render partial: 'alaveteli_pro/draft_info_request_batches/summary',
+                       locals: { draft: @draft_batch_request,
+                                 query: @query } %>
+          </div>
+
+        </div>
+        <div class="batch-builder__actions">
+
+          <button class="button"><%= _('Write request') %></button>
+
+        </div>
       </div>
-    </div>
 
   </div>
 </div>

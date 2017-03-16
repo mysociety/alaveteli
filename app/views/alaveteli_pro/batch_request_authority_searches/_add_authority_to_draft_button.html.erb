@@ -1,7 +1,7 @@
 <% if draft.id %>
   <%= form_tag(add_body_alaveteli_pro_draft_info_request_batch_path(draft.id),
                :method => :put,
-               :class => 'add-authority-to-batch__form js-add-authority-to-batch-form',
+               :class => 'js-add-authority-to-batch-form',
                'data-body-id' => authority_id) do %>
     <% unless query.blank? %>
       <%= hidden_field_tag(:query, query) %>

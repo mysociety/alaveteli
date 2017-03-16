@@ -1,11 +1,59 @@
-.batch-authority-search__form__query {
-    &[type] { // need to be at least as specific as `form input[type="text"]`
-        width: 100%;
+.batch-builder {
+    @include grid-row();
+
+    @media #{$large-up} {
+        @include flexbox();
+        @include flex-wrap(wrap);
     }
 }
 
-.batch-authority-search__results__list,
-.draft-batch-request__bodies {
+.batch-builder__search-form,
+.batch-builder__search-results,
+.batch-builder__chosen-authorities,
+.batch-builder__actions {
+    padding: ($column-gutter / 2); // Same padding as grid-columns
+
+    @media #{$large-up} {
+        width: 50%;
+    }
+}
+
+@media #{$large-up} {
+    .batch-builder__search-form {
+        @include flex-order(1);
+    }
+
+    .batch-builder__actions {
+        @include flex-order(2);
+    }
+
+    .batch-builder__search-results {
+        @include flex-order(3);
+    }
+
+    .batch-builder__chosen-authorities {
+        @include flex-order(4);
+    }
+}
+
+.batch-builder__search-form {
+    form {
+        margin-bottom: 0;
+    }
+
+    input[type="text"] { // need to be at least as specific as `form input[type="text"]`
+        width: 100%;
+        margin-bottom: 0;
+    }
+}
+
+.batch-builder__actions {
+    @include flexbox();
+    @include justify-content(flex-end);
+    @include flex-align(flex-end);
+}
+
+.batch-builder__authority-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -14,30 +62,26 @@
     overflow: auto;
 }
 
-.batch-authority-search__results__list__item,
-.draft-batch-request__bodies__body {
-    @include clearfix();
+.batch-builder__authority-list__authority {
     padding: 1.5em 1em;
+    @include flexbox();
 }
 
-.batch-authority-search__results__list__item__action {
-    display: inline-block;
-    float: right;
+.batch-builder__authority-list__authority__name {
+    // TODO: flexbox vendor prefixes!
+    @include flex(1 0 auto);
+}
+
+.batch-builder__authority-list__authority__action {
+    // TODO: flexbox vendor prefixes!
+    @include flex(0 0 auto);
+    margin-bottom: 0;
 
     form {
         margin-bottom: 0;
     }
-}
 
-.remove-authority-from-batch__form {
-    display: inline-block;
-    float: right;
-    margin-bottom: 0;
-}
-
-.add-authority-to-batch__form__submit,
-.remove-authority-from-batch__form__submit {
-    &[type] { // need to be at least as specific as `form input[type="text"]`
+    input[type="submit"] { // need to be more specific than `form input[type="submit"]`
         margin: -0.5em 0;
     }
 }
