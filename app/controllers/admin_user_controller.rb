@@ -46,6 +46,8 @@ class AdminUserController < AdminController
       @info_requests = @info_requests.not_embargoed
       @comments = @admin_user.comments.not_embargoed
     end
+    @info_requests = @info_requests.paginate(:page => params[:page],
+                                             :per_page => 100)
   end
 
   def edit
