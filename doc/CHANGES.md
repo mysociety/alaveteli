@@ -32,6 +32,9 @@
   Alaveteli has used RSpec to run tests for a long time, but Test::Unit was
   also available. Due to an incompatibility between the two, and a desire to
   support a single environment, this is no longer the case.
+* Added `INTERNAL_REVIEW_INFO_URL` to allow a custom link for more
+  information about the internal review process to be set instead of using
+  a UK-specific link for everyone (Liz Conlan)
 
 ## Upgrade Notes
 
