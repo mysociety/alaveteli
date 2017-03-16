@@ -1,3 +1,9 @@
+# 0.27.1.2
+
+# Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
 # 0.27.1.1
 
 # Highlighted Features

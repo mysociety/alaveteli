@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-02-27 10:55+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2017-03-16 11:30+0000\n"
+"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
 "MIME-Version: 1.0\n"
@@ -464,7 +464,7 @@ msgid "Awaiting classification."
 msgstr "Bíður eftir flokkun."
 
 msgid "Awaiting internal review"
-msgstr ""
+msgstr "Bíður eftir innri athugun."
 
 msgid "Awaiting internal review."
 msgstr "Bíður eftir innri athugun."
@@ -599,7 +599,7 @@ msgid "Clarification"
 msgstr "Útskýring"
 
 msgid "Clarification needed"
-msgstr ""
+msgstr "Þarfnast útskýringar"
 
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Útskýring send til  {{public_body_name}} frá {{info_request_user}} þann {{date}}."
@@ -638,7 +638,7 @@ msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
 msgid "Complete"
-msgstr ""
+msgstr "Lokið"
 
 msgid "Confirm password:"
 msgstr "Lykilorð (aftur):"
@@ -740,7 +740,7 @@ msgid "Dear {{name}},"
 msgstr "Kæri/kæra {{name}},"
 
 msgid "Dear {{placeholder_body_name}},"
-msgstr ""
+msgstr "Ágæta {{placeholder_body_name}},"
 
 msgid "Dear {{public_body_name}},"
 msgstr "Ágæta {{public_body_name}},"
@@ -1198,7 +1198,7 @@ msgid "I like this request"
 msgstr "Mér líkar þetta"
 
 msgid "I want to withdraw this request"
-msgstr ""
+msgstr "Ég vil hætta við þessa beiðni"
 
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Ég vil <strong>draga þessa beiðni til baka</strong>"
@@ -1216,7 +1216,7 @@ msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Ég hef verið beðin(n) um að <strong>útskýra</strong> beiðnina"
 
 msgid "I've received <strong>all the information</strong>"
-msgstr ""
+msgstr "Ég hef fengið <strong>öll gögn</strong>"
 
 msgid "I've received <strong>some of the information</strong>"
 msgstr "Ég hef fengið <strong>hluta af gögnunum</strong>"
@@ -1273,7 +1273,7 @@ msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a do
 msgstr "Ef þú hafðir gagn af {{site_name}} skaltu <a href=\"{{donation_url}}\">styrkja</a> samtökin sem reka vefinn."
 
 msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr ""
+msgstr "Ef þú fékkst tölvupóst fyrir <strong>meira en tveimur mánuðum </strong> mun þessi innskráningarhlekkur ekki virka. Vinsamlegast reyndu aftur að gera það sem þú varst að gera frá upphafi."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Ef þú hefur ekki gert það nú þegar skaltu skrifa skilaboð hér fyrir neðan þar sem þú lætur stjórnvaldið vita að þú hafir dregið beiðnina til baka. Annars vita viðkomandi ekki að hún hafi verið afturkölluð."
@@ -1405,13 +1405,13 @@ msgid "InfoRequest|Comments allowed"
 msgstr "InfoRequest|Comments allowed"
 
 msgid "InfoRequest|Date initial request last sent at"
-msgstr ""
+msgstr "InfoRequest|Date initial request last sent at"
 
 msgid "InfoRequest|Date response required by"
-msgstr ""
+msgstr "InfoRequest|Date response required by"
 
 msgid "InfoRequest|Date very overdue after"
-msgstr ""
+msgstr "InfoRequest|Date very overdue after"
 
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
@@ -1450,7 +1450,7 @@ msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Url title"
 
 msgid "Information not held"
-msgstr ""
+msgstr "Upplýsingar ekki tiltækar"
 
 msgid "Information not held."
 msgstr "Upplýsingar ekki tiltækar."
@@ -1843,7 +1843,7 @@ msgid "Partial success"
 msgstr "Tókst að hluta"
 
 msgid "Partially successful"
-msgstr ""
+msgstr "Gögn bárust að hluta"
 
 msgid "Partially successful."
 msgstr "Gögn bárust að hluta."
@@ -1997,11 +1997,11 @@ msgstr "Vinsamlegast komið þessu áfram til þess sem fer yfir upplýsingabei�
 
 msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vinsamlegast lestu nýjasta svarið og <strong>uppfærðu stöðu beiðnarinnar</strong> svo við vitum hvort það inniheldur gagnlegar upplýsingar."
+msgstr[1] "Vinsamlegast lestu nýjustu svörin og <strong>uppfærðu stöðu beiðnarinnar</strong> svo við vitum hvort þau innihaldi gagnlegar upplýsingar."
 
 msgid "Please select an authority"
-msgstr ""
+msgstr "Veldu stjórnvald"
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr "Veldu þessar beiðnir, hverja á eftir annarri, og <strong>láttu alla vita</strong> hvort þær báru árangur eða ekki."
@@ -2307,7 +2307,7 @@ msgid "Recently described results first"
 msgstr "Nýlega lýstar niðurstöður fyrst"
 
 msgid "Refused"
-msgstr ""
+msgstr "Synjað"
 
 msgid "Refused."
 msgstr "Synjað"
@@ -2322,7 +2322,7 @@ msgid "Remember me (keeps you signed in longer; do not use on a public computer)
 msgstr "Muna mig (þú verður lengur innskráð/ur; ekki haka við þetta á tæki sem fleiri en þú nota)"
 
 msgid "Replying by post"
-msgstr ""
+msgstr "Svar berst með sniglapósti"
 
 msgid "Report abuse"
 msgstr "Tilkynna misnotkun"
@@ -2337,7 +2337,7 @@ msgid "Report this request"
 msgstr "Tilkynna þessa beiðni"
 
 msgid "Reported"
-msgstr ""
+msgstr "Tilkynnt"
 
 msgid "Reported for administrator attention."
 msgstr "Tilkynnt til stjórnenda"
@@ -2406,7 +2406,7 @@ msgid "Requests will be sent to the following bodies:"
 msgstr "Beiðnir verða sendar til eftirfarandi:"
 
 msgid "Requires administrator attention"
-msgstr ""
+msgstr "Þarfnast athygli stjórnanda"
 
 msgid "Respond by email"
 msgstr "Svara með tölvupósti"
@@ -2430,7 +2430,7 @@ msgid "Response from a public authority"
 msgstr "Svar frá stjórnvaldi"
 
 msgid "Response received"
-msgstr ""
+msgstr "Svar barst"
 
 msgid "Response to '{{title}}'"
 msgstr "Svar við '{{title}}'"
@@ -2549,10 +2549,10 @@ msgid "Short name is already taken"
 msgstr "Stutt nafn er þegar í notkun"
 
 msgid "Show all attachments"
-msgstr ""
+msgstr "Sýna öll viðhengi"
 
 msgid "Show fewer attachments"
-msgstr ""
+msgstr "Sýna færri viðhengi"
 
 msgid "Show most relevant results first"
 msgstr "Sýna líklegustu niðurstöður fyrst"
@@ -2618,10 +2618,10 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Afsakið en við gátum ekki fundið umbeðna síðu"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
-msgstr ""
+msgstr "Því miður getum við ekki bætt við athugasemd þinni núna. Reyndu aftur síðar."
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
-msgstr ""
+msgstr "Því miður getum við ekki send beiðnina þína núna. Reyndu aftur síðar."
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Því miður getum við ekki nýskráð notendur sem stendur. Reyndu aftur síðar."
@@ -2645,7 +2645,7 @@ msgid "Statistics"
 msgstr "Tölfræði"
 
 msgid "Status"
-msgstr ""
+msgstr "Staða"
 
 msgid "Stay up to date"
 msgstr "Fylgstu með"
@@ -2693,10 +2693,10 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Leggðu til hvernig beiðandinn geti fengið <strong>það sem upp á vantar af upplýsingunum</strong>."
 
 msgid "Summary"
-msgstr ""
+msgstr "Útdráttur"
 
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
-msgstr ""
+msgstr "Útdrátturinn er of stuttur. Bættu við hann svo það verði skýrara um hvaða upplýsingar þú ert að biðja."
 
 msgid "Table of statuses"
 msgstr "Tafla yfir stöður"
@@ -2984,7 +2984,7 @@ msgid "There were no results matching your query."
 msgstr "Ekkert fannst."
 
 msgid "There's an error message"
-msgstr ""
+msgstr "Það eru villuboð"
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Þessi gröf eru að hluta til að fyrirmynd <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">tölfræðigagna sem Mark Goodge útbjó fyrir WhatDoTheyKnow</a> svo hann á þakkir skildar."
@@ -3513,22 +3513,22 @@ msgid "View your two factor authentication one time passcode"
 msgstr "Skoða tvíþætta einnota aðgangskóðann"
 
 msgid "Waiting clarification"
-msgstr ""
+msgstr "Bíður útskýringar"
 
 msgid "Waiting clarification."
 msgstr "Beðið eftir útskýringu."
 
 msgid "Waiting for a response"
-msgstr ""
+msgstr "Bíður svars"
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Bíð eftir<strong>innri athugun</strong> hjá {{public_body_link}} um meðferð þessarar upplýsingabeiðni."
 
 msgid "Waiting for an internal review"
-msgstr ""
+msgstr "Bíður eftir innri athugun"
 
 msgid "Waiting for clarification"
-msgstr ""
+msgstr "Beðið eftir útskýringu"
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Bíð eftir að stjórnvaldið ljúki innri athugun á meðferð þessarar upplýsingabeiðni"
@@ -3964,7 +3964,7 @@ msgid "Your photo will be shown in public <strong>on the Internet</strong>, wher
 msgstr "<strong>Persónuvernd:</strong> Myndin þín verður opinber á internetinu,\\ hvar sem þú setur eitthvað inn á {{site_name}}."
 
 msgid "Your request"
-msgstr ""
+msgstr "Beiðnin þín"
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
 msgstr "Beiðnin '{{request}}' á {{url}} hefur verið yfirfarin af stjórnendum."
@@ -4039,7 +4039,7 @@ msgid "[Authority URL will be inserted here]"
 msgstr "[Vefslóð stjórnvalds kemur hér]"
 
 msgid "[Authority name]"
-msgstr ""
+msgstr "[Stjórnvald]"
 
 msgid "[FOI #{{request}} email]"
 msgstr "[Upplýsingabeiðni #{{request}} tölvupóstur]"
@@ -4093,7 +4093,7 @@ msgid "authorities"
 msgstr "stjórnvöld"
 
 msgid "awaiting response"
-msgstr ""
+msgstr "Bíður svars"
 
 msgid "but followupable"
 msgstr "en hægt að fylgja eftir"
@@ -4105,13 +4105,13 @@ msgid "by {{user_link_absolute}}"
 msgstr "frá {{user_link_absolute}}"
 
 msgid "clarification needed"
-msgstr ""
+msgstr "Þarfnast útskýringar"
 
 msgid "comments"
 msgstr "athugasemdir"
 
 msgid "complete"
-msgstr ""
+msgstr "Lokið"
 
 msgid "details"
 msgstr "nánar"
@@ -4180,10 +4180,10 @@ msgid "not requestable due to: {{reason}}"
 msgstr "ekki hægt að biðja um vegna: {{reason}}"
 
 msgid "other"
-msgstr ""
+msgstr "annað"
 
 msgid "overdue"
-msgstr ""
+msgstr "Tímamörk liðin"
 
 msgid "request hide events"
 msgstr "beiðnir um að fela"
@@ -4201,7 +4201,7 @@ msgid "requests which are successful matching text '{{query}}'"
 msgstr "beiðnir sem passa við textann '{{query}}'"
 
 msgid "response received"
-msgstr ""
+msgstr "Svar barst"
 
 msgid "send a follow up message"
 msgstr "senda ítrekunarskilaboð"
@@ -4254,7 +4254,7 @@ msgid "unknown reason "
 msgstr "óþekkt ástæða"
 
 msgid "unknown status {{state}}"
-msgstr ""
+msgstr "óþekkt ástæða {{status}}"
 
 msgid "unknown status {{status}}"
 msgstr "óþekkt ástæða {{status}}"
@@ -4275,7 +4275,7 @@ msgid "users"
 msgstr "notendur"
 
 msgid "very overdue"
-msgstr ""
+msgstr "Timamörk löngu liðin"
 
 msgid "what's that?"
 msgstr "hvað er það?"
