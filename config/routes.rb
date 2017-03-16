@@ -616,8 +616,7 @@ Alaveteli::Application.routes.draw do
             :via => :get
       resources :draft_info_request_batches, :only => [:create] do
         member do
-          put 'add_body'
-          put 'remove_body'
+          put 'update_bodies'
         end
       end
       match '/public_bodies/:query' => 'public_bodies#search',

@@ -59,7 +59,7 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         alaveteli_pro_draft_info_request_batch: {
           title: 'Test Batch Request',
           body: 'This is a test batch request.',
-          public_body_ids: [authority_1.id, authority_2.id, authority_3.id]
+          public_body_ids: authority_1.id
         },
         query: "Department"
       }
@@ -93,7 +93,8 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         new_draft = pro_user.draft_info_request_batches.first
         expected_path = alaveteli_pro_batch_request_authority_searches_path(
           draft_id: new_draft.id,
-          query: "Department")
+          query: "Department"
+        )
         expect(response).to redirect_to(expected_path)
       end
 
@@ -119,139 +120,138 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
     end
   end
 
-  describe "#add_body" do
+  describe "#update_bodies" do
     let(:draft) do
       FactoryGirl.create(:draft_info_request_batch, user: pro_user)
-    end
-    let(:params) do
-      {
-        id: draft.id,
-        public_body_id: authority_1.id
-      }
     end
 
     before do
       session[:user_id] = pro_user.id
     end
 
-    describe "when responding to a normal request" do
-      subject do
-        with_feature_enabled(:alaveteli_pro) do
-          put :add_body, params
+    describe "when adding a body" do
+      let(:params) do
+        {
+          id: draft.id,
+          add_body_id: authority_1.id
+        }
+      end
+
+      describe "when responding to a normal request" do
+        subject do
+          with_feature_enabled(:alaveteli_pro) do
+            put :update_bodies, params
+          end
+        end
+
+        it_behaves_like "adding a body to a request"
+
+        it "redirects to a new search if no query was provided" do
+          with_feature_enabled(:alaveteli_pro) do
+            subject
+            expected_path = new_alaveteli_pro_batch_request_authority_search_path(
+              draft_id: draft.id)
+            expect(response).to redirect_to(expected_path)
+          end
+        end
+
+        it "redirects to an existing search if a query is provided" do
+          with_feature_enabled(:alaveteli_pro) do
+            params[:query] = "Department"
+            subject
+            expected_path = alaveteli_pro_batch_request_authority_searches_path(
+              draft_id: draft.id,
+              query: "Department")
+            expect(response).to redirect_to(expected_path)
+          end
+        end
+
+        it "sets a :notice flash message" do
+          with_feature_enabled(:alaveteli_pro) do
+            subject
+            expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
+          end
         end
       end
 
-      it_behaves_like "adding a body to a request"
-
-      it "redirects to a new search if no query was provided" do
-        with_feature_enabled(:alaveteli_pro) do
-          subject
-          expected_path = new_alaveteli_pro_batch_request_authority_search_path(
-            draft_id: draft.id)
-          expect(response).to redirect_to(expected_path)
+      describe "responding to an AJAX request" do
+        subject do
+          with_feature_enabled(:alaveteli_pro) do
+            xhr :put, :update_bodies, params
+          end
         end
-      end
 
-      it "redirects to an existing search if a query is provided" do
-        with_feature_enabled(:alaveteli_pro) do
-          params[:query] = "Department"
-          subject
-          expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id,
-            query: "Department")
-          expect(response).to redirect_to(expected_path)
-        end
-      end
+        it_behaves_like "adding a body to a request"
 
-      it "sets a :notice flash message" do
-        with_feature_enabled(:alaveteli_pro) do
+        it "renders the _summary.html.erb partial" do
           subject
-          expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
+          expect(response).to render_template("_summary")
         end
       end
     end
 
-    describe "responding to an AJAX request" do
-      subject do
-        with_feature_enabled(:alaveteli_pro) do
-          xhr :put, :add_body, params
+    describe "when removing a body" do
+      let(:params) do
+        {
+          id: draft.id,
+          remove_body_id: authority_2.id
+        }
+      end
+
+      before do
+        draft.public_bodies << [authority_1, authority_2]
+      end
+
+      describe "when responding to a normal request" do
+        subject do
+          with_feature_enabled(:alaveteli_pro) do
+            put :update_bodies, params
+          end
+        end
+
+        it_behaves_like "removing a body from a request"
+
+        it "redirects to a new search if no query was provided" do
+          with_feature_enabled(:alaveteli_pro) do
+            subject
+            expected_path = new_alaveteli_pro_batch_request_authority_search_path(
+              draft_id: draft.id)
+            expect(response).to redirect_to(expected_path)
+          end
+        end
+
+        it "redirects to an existing search if a query is provided" do
+          with_feature_enabled(:alaveteli_pro) do
+            params[:query] = "Department"
+            subject
+            expected_path = alaveteli_pro_batch_request_authority_searches_path(
+              draft_id: draft.id,
+              query: "Department")
+            expect(response).to redirect_to(expected_path)
+          end
+        end
+
+        it "sets a :notice flash message" do
+          with_feature_enabled(:alaveteli_pro) do
+            subject
+            expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
+          end
         end
       end
 
-      it_behaves_like "adding a body to a request"
-
-      it "renders the _summary.html.erb partial" do
-        subject
-        expect(response).to render_template("_summary")
-      end
-    end
-  end
-
-  describe "#remove_body" do
-    let(:draft) do
-      FactoryGirl.create(:draft_info_request_batch, user: pro_user)
-    end
-    let(:params) do
-      {
-        id: draft.id,
-        public_body_id: authority_2.id
-      }
-    end
-
-    before do
-      session[:user_id] = pro_user.id
-      draft.public_bodies << [authority_1, authority_2]
-    end
-
-    describe "when responding to a normal request" do
-      subject do
-        with_feature_enabled(:alaveteli_pro) do
-          put :remove_body, params
+      describe "responding to an AJAX request" do
+        subject do
+          with_feature_enabled(:alaveteli_pro) do
+            xhr :put, :update_bodies, params
+          end
         end
-      end
 
-      it_behaves_like "removing a body from a request"
+        it_behaves_like "removing a body from a request"
 
-      it "redirects to a new search if no query was provided" do
-        with_feature_enabled(:alaveteli_pro) do
+        it "renders the _summary.html.erb partial" do
           subject
-          expected_path = new_alaveteli_pro_batch_request_authority_search_path(
-            draft_id: draft.id)
-          expect(response).to redirect_to(expected_path)
+          expect(response).to render_template("_summary")
         end
-      end
-
-      it "redirects to an existing search if a query is provided" do
-        with_feature_enabled(:alaveteli_pro) do
-          params[:query] = "Department"
-          subject
-          expected_path = alaveteli_pro_batch_request_authority_searches_path(
-            draft_id: draft.id,
-            query: "Department")
-          expect(response).to redirect_to(expected_path)
-        end
-      end
-
-      it "sets a :notice flash message" do
-        with_feature_enabled(:alaveteli_pro) do
-          subject
-          expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
-        end
-      end
-    end
-
-    describe "responding to an AJAX request" do
-      subject do
-        with_feature_enabled(:alaveteli_pro) do
-          xhr :put, :remove_body, params
-        end
-      end
-
-      it_behaves_like "removing a body from a request"
-
-      it "renders the _summary.html.erb partial" do
-        subject
-        expect(response).to render_template("_summary")
       end
     end
   end
