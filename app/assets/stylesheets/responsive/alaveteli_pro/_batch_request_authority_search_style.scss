@@ -59,8 +59,11 @@
     }
 }
 
-.draft-batch-request {
-    & > p { // this is "you haven't added any authorities to your batch yet"
+.batch-builder {
+    .blank-slate,
+    .ajax-error {
         border: 1px solid #ddd;
+        padding: 1em;
+        text-align: center;
     }
 }
