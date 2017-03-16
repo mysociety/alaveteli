@@ -2596,13 +2596,13 @@ describe RequestController, "#select_authorities" do
         end
 
         it 'recognizes a GET request' do
-          assert_routing({ :path => '/select_authorities' ,  :method => :get },
-                         { :controller => 'request', :action => 'select_authorities' })
+          expect(:get => '/select_authorities').
+            to route_to(:controller => 'request', :action => 'select_authorities')
         end
 
         it 'recognizes a POST request' do
-          assert_routing({ :path => '/select_authorities', :method => :post },
-                         { :controller => 'request', :action => 'select_authorities' })
+          expect(:post => '/select_authorities').
+            to route_to(:controller => 'request', :action => 'select_authorities')
         end
 
         it 'should render the "select_authorities" template' do
