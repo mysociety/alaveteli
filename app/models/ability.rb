@@ -88,6 +88,16 @@ class Ability
       end
     end
 
+    if feature_enabled? :alaveteli_pro
+      if user && user.is_pro_admin?
+        can :read, :api_key
+      end
+    else
+      if user && user.is_admin?
+        can :read, :api_key
+      end
+    end
+
   end
 
   private

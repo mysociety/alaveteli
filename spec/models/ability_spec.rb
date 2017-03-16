@@ -727,4 +727,74 @@ describe Ability do
 
   end
 
+  describe 'reading API keys' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    context 'if pro is not enabled' do
+
+      it 'allows an admin user to read' do
+        ability = Ability.new(admin_user)
+        expect(ability).to be_able_to(:read, :api_key)
+      end
+
+      it 'does not allow a pro user to read' do
+        ability = Ability.new(pro_user)
+        expect(ability).not_to be_able_to(:read, :api_key)
+      end
+
+      it 'does not allow a user with no roles to read' do
+        ability = Ability.new(user)
+        expect(ability).not_to be_able_to(:read, :api_key)
+      end
+
+      it 'does not allow no user to read' do
+        ability = Ability.new(nil)
+        expect(ability).not_to be_able_to(:read, :api_key)
+      end
+
+    end
+
+    context 'if pro is enabled' do
+
+      it 'allows a pro admin user to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:read, :api_key)
+        end
+      end
+
+      it 'does not allow a pro user to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:read, :api_key)
+        end
+      end
+
+      it 'does not allow an admin user to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:read, :api_key)
+        end
+      end
+
+      it 'does not allow a user with no roles to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:read, :api_key)
+        end
+      end
+
+      it 'does not allow no user to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(nil)
+          expect(ability).not_to be_able_to(:read, :api_key)
+        end
+      end
+
+    end
+
+  end
 end
