@@ -30,6 +30,12 @@
     app/views/request/preview.html.erb
     app/views/user/_signup.html.erb
 
+# 0.27.1.2
+
+# Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
 # 0.27.1.1
 
 # Highlighted Features
