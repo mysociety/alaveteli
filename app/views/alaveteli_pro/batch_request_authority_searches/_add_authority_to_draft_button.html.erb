@@ -16,7 +16,7 @@
   <% end %>
 <% else %>
   <%= form_for(draft,
-               :html => {'class' => 'add-authority-to-batch__form js-add-authority-to-batch-form',
+               :html => {:class => 'add-authority-to-batch__form js-add-authority-to-batch-form',
                          'data-body-id' => authority_id}) do |f| %>
     <% unless query.blank? %>
       <%= hidden_field_tag(:authority_query, query) %>
