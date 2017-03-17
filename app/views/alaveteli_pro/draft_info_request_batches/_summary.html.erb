@@ -1,16 +1,21 @@
-<% if draft && draft.public_bodies.present? %>
-  <ul class="draft-batch-request__bodies">
-  <% draft.public_bodies.each do |authority| %>
-    <li class="draft-batch-request__bodies__body">
-      <%= authority.name %>
-      <%= render partial: 'alaveteli_pro/batch_request_authority_searches/remove_authority_from_draft_button',
-                 locals: { draft: draft,
-                           query: query,
-                           page: page,
-                           authority_id: authority.id } %>
-    </li>
+<div class="js-draft-batch-request-summary"
+  <% if draft && draft.persisted? %>
+     data-draft-id="<%= draft.id %>"
+  <%end %>>
+  <% if draft && draft.public_bodies.present? %>
+    <ul class="draft-batch-request__bodies">
+    <% draft.public_bodies.each do |authority| %>
+      <li class="draft-batch-request__bodies__body">
+        <%= authority.name %>
+        <%= render partial: 'alaveteli_pro/batch_request_authority_searches/remove_authority_from_draft_button',
+                   locals: { draft: draft,
+                             query: query,
+                             page: page,
+                             authority_id: authority.id } %>
+      </li>
+    <% end %>
+    </ul>
+  <% else %>
+    <p><%= _("You haven't added any authorities to your batch yet") %></p>
   <% end %>
-  </ul>
-<% else %>
-  <p><%= _("You haven't added any authorities to your batch yet") %></p>
-<% end %>
+</div>

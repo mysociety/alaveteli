@@ -33,7 +33,8 @@
       <div class="batch-authority-search__results js-batch-authority-search-results"
            data-ajax-error-message="<%= _('Sorry, something went wrong ' \
                                           'getting your results, please ' \
-                                          'try searching again.') %>">
+                                          'try searching again.') %>"
+           data-new-draft="<%= @draft_batch_request.persisted? %>">
         <%= render partial: 'search_results',
                    locals: { search: @search,
                              draft_batch_request: @draft_batch_request,
