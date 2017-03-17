@@ -43,7 +43,7 @@ The archives are a good source of information too. If you've got a problem, it's
 always worth checking to see if someone has already solved it.
 
 So if you're just starting out, saying hello on the mailing list is a great way
-to begin <img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
+to begin. <img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
 
   <a href="https://groups.google.com/forum/#!forum/alaveteli-users" class="button left">Alaveteli users mailing list<a>
 
@@ -71,7 +71,7 @@ if you wish.
 
 **`#mysociety`** &mdash;
 If you prefer not to use Slack, you can join the `#mysociety` channel on
-[Freenode](http://freenode.net) (`irc.freenode.net`) ...although that channel can be rather quiet
+[Freenode](http://freenode.net) (`irc.freenode.net`) ...although that channel can be rather quiet.
 <img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":)">
 
 ## Code and issues on github
