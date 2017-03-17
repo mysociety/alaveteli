@@ -1,3 +1,9 @@
+# 0.27.1.3
+
+# Highlighted Features
+
+* Updated broken nl_BE translation (Gareth Rees)
+
 # 0.27.1.2
 
 # Highlighted Features
