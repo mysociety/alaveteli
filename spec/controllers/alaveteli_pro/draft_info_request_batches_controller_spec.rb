@@ -98,6 +98,19 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         expect(response).to redirect_to(expected_path)
       end
 
+      it "respects the selected page if one is provided" do
+        params[:authority_query] = "Department"
+        params[:page] = 2
+        subject
+        new_draft = pro_user.draft_info_request_batches.first
+        expected_path = alaveteli_pro_batch_request_authority_searches_path(
+          draft_id: new_draft.id,
+          authority_query: "Department",
+          page: 2
+        )
+        expect(response).to redirect_to(expected_path)
+      end
+
       it "sets a :notice flash message" do
         subject
         expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
@@ -147,30 +160,36 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         it_behaves_like "adding a body to a request"
 
         it "redirects to a new search if no query was provided" do
-          with_feature_enabled(:alaveteli_pro) do
-            subject
-            expected_path = new_alaveteli_pro_batch_request_authority_search_path(
-              draft_id: draft.id)
-            expect(response).to redirect_to(expected_path)
-          end
+          subject
+          expected_path = new_alaveteli_pro_batch_request_authority_search_path(
+            draft_id: draft.id)
+          expect(response).to redirect_to(expected_path)
         end
 
         it "redirects to an existing search if a query is provided" do
-          with_feature_enabled(:alaveteli_pro) do
-            params[:authority_query] = "Department"
-            subject
-            expected_path = alaveteli_pro_batch_request_authority_searches_path(
-              draft_id: draft.id,
-              authority_query: "Department")
-            expect(response).to redirect_to(expected_path)
-          end
+          params[:authority_query] = "Department"
+          subject
+          expected_path = alaveteli_pro_batch_request_authority_searches_path(
+            draft_id: draft.id,
+            authority_query: "Department")
+          expect(response).to redirect_to(expected_path)
+        end
+
+        it "respects the selected page if one is provided" do
+          params[:authority_query] = "Department"
+          params[:page] = 2
+          subject
+          expected_path = alaveteli_pro_batch_request_authority_searches_path(
+            draft_id: draft.id,
+            authority_query: "Department",
+            page: 2
+          )
+          expect(response).to redirect_to(expected_path)
         end
 
         it "sets a :notice flash message" do
-          with_feature_enabled(:alaveteli_pro) do
-            subject
-            expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
-          end
+          subject
+          expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
         end
       end
 
@@ -212,30 +231,36 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         it_behaves_like "removing a body from a request"
 
         it "redirects to a new search if no query was provided" do
-          with_feature_enabled(:alaveteli_pro) do
-            subject
-            expected_path = new_alaveteli_pro_batch_request_authority_search_path(
-              draft_id: draft.id)
-            expect(response).to redirect_to(expected_path)
-          end
+          subject
+          expected_path = new_alaveteli_pro_batch_request_authority_search_path(
+            draft_id: draft.id)
+          expect(response).to redirect_to(expected_path)
         end
 
         it "redirects to an existing search if a query is provided" do
-          with_feature_enabled(:alaveteli_pro) do
-            params[:authority_query] = "Department"
-            subject
-            expected_path = alaveteli_pro_batch_request_authority_searches_path(
-              draft_id: draft.id,
-              authority_query: "Department")
-            expect(response).to redirect_to(expected_path)
-          end
+          params[:authority_query] = "Department"
+          subject
+          expected_path = alaveteli_pro_batch_request_authority_searches_path(
+            draft_id: draft.id,
+            authority_query: "Department")
+          expect(response).to redirect_to(expected_path)
+        end
+
+        it "respects the selected page if one is provided" do
+          params[:authority_query] = "Department"
+          params[:page] = 2
+          subject
+          expected_path = alaveteli_pro_batch_request_authority_searches_path(
+            draft_id: draft.id,
+            authority_query: "Department",
+            page: 2
+          )
+          expect(response).to redirect_to(expected_path)
         end
 
         it "sets a :notice flash message" do
-          with_feature_enabled(:alaveteli_pro) do
-            subject
-            expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
-          end
+          subject
+          expect(flash[:notice]).to eq 'Your Batch Request has been saved!'
         end
       end
 

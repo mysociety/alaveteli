@@ -1,12 +1,7 @@
 class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
   def create
     @draft = current_user.draft_info_request_batches.create(draft_params)
-    @query = params[:authority_query]
-    if request.xhr?
-      respond_with_partial(@draft, @query)
-    else
-      redirect_after_create_or_update(@draft, @query)
-    end
+    respond_or_redirect(@draft)
   end
 
   def update_bodies
@@ -16,21 +11,27 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
     elsif params[:remove_body_id]
       @draft.public_bodies.delete(PublicBody.find(params[:remove_body_id]))
     end
-    @query = params[:authority_query]
-    if request.xhr?
-      respond_with_partial(@draft, @query)
-    else
-      redirect_after_create_or_update(@draft, @query)
-    end
+    respond_or_redirect(@draft)
   end
 
   private
 
-  def redirect_after_create_or_update(draft, query)
+  def respond_or_redirect(draft)
+    @query = params[:authority_query]
+    @page = params[:page]
+    if request.xhr?
+      respond_with_partial(@draft, @query, @page)
+    else
+      redirect_after_create_or_update(@draft, @query, @page)
+    end
+  end
+
+  def redirect_after_create_or_update(draft, query, page)
     if query
       path = alaveteli_pro_batch_request_authority_searches_path(
         draft_id: draft.id,
-        authority_query: query
+        authority_query: query,
+        page: page
       )
     else
       path = new_alaveteli_pro_batch_request_authority_search_path(
@@ -40,10 +41,12 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
     redirect_to path, notice: _('Your Batch Request has been saved!')
   end
 
-  def respond_with_partial(draft, query)
+  def respond_with_partial(draft, query, page)
     render :partial => 'summary',
            :layout => false,
-           :locals => { :draft => draft, :authority_query => query }
+           :locals => { :draft => draft,
+                        :query => query,
+                        :page => page }
   end
 
   def draft_params

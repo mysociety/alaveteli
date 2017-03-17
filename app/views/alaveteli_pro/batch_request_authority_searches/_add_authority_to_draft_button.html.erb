@@ -6,6 +6,9 @@
     <% unless query.blank? %>
       <%= hidden_field_tag(:authority_query, query) %>
     <% end %>
+    <% unless page.blank? %>
+      <%= hidden_field_tag(:page, page) %>
+    <% end %>
     <%= hidden_field_tag(:add_body_id, authority_id) %>
     <input type="submit"
            value="<%= _('+ Add') %>"
@@ -17,6 +20,9 @@
                          'data-body-id' => authority_id}) do |f| %>
     <% unless query.blank? %>
       <%= hidden_field_tag(:authority_query, query) %>
+    <% end %>
+    <% unless page.blank? %>
+      <%= hidden_field_tag(:page, page) %>
     <% end %>
     <%= f.hidden_field(:public_body_ids, value: authority_id) %>
     <input type="submit"
