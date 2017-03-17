@@ -36,6 +36,13 @@ describe ReportsController do
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
+      it "finds the expected request" do
+        post :create, :request_id => info_request.url_title,
+                      :reason => "my reason"
+
+        expect(assigns(:info_request)).to eq(info_request)
+      end
+
       it "should mark a request as having been reported" do
         expect(info_request.attention_requested).to eq(false)
 
@@ -79,6 +86,16 @@ describe ReportsController do
           .to include("Reason: my reason\n\nIt's just not")
       end
 
+      it "sets the flash message" do
+        expected = "This request has been reported for administrator attention"
+
+        post :create, :request_id => info_request.url_title,
+                      :reason => "my reason",
+                      :message => "It's just not"
+
+        expect(flash[:notice]).to eq(expected)
+      end
+
       it "should force the user to pick a reason" do
         post :create, :request_id => info_request.url_title,
                       :reason => ""
@@ -87,10 +104,91 @@ describe ReportsController do
       end
 
     end
-  end
-end
 
-describe ReportsController do
+    context "when reporting a comment (logged in)" do
+      before do
+        session[:user_id] = user.id
+      end
+
+      let(:comment) do
+        FactoryGirl.create(:comment, :info_request => info_request,
+                                     :attention_requested => false)
+      end
+
+      it "finds the expected request" do
+        post :create, :request_id => info_request.url_title,
+                      :reason => "my reason"
+
+        expect(assigns(:info_request)).to eq(info_request)
+      end
+
+      it "marks the comment as having been reported" do
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason"
+
+        comment.reload
+        expect(comment.attention_requested).to eq(true)
+      end
+
+      it "does not mark the parent request as having been reported" do
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason"
+
+        info_request.reload
+        expect(info_request.attention_requested).to eq(false)
+        expect(info_request.described_state).to_not eq("attention_requested")
+      end
+
+      it "sends an email alerting admins to the report" do
+        post :create, :request_id => info_request.url_title,
+                    :comment_id => comment.id,
+                    :reason => "my reason",
+                    :message => "It's just not"
+        deliveries = ActionMailer::Base.deliveries
+
+        expect(deliveries.size).to eq(1)
+        mail = deliveries[0]
+
+        expect(mail.subject).to match(/requires admin/)
+        expect(mail.header['Reply-To'].to_s).to include(user.email)
+        expect(mail.body).to include(user.name)
+
+        expect(mail.body)
+          .to include("Reason: my reason\n\nIt's just not")
+
+        expect(mail.body)
+          .to include("The user wishes to draw attention to the comment: " \
+                      "#{comment_url(comment)} "\
+                      "\nadmin: #{edit_admin_comment_url(comment)}")
+      end
+
+      it "informs the user the comment has been reported" do
+        expected = "This annotation has been reported for " \
+                   "administrator attention"
+
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason",
+                      :message => "It's just not"
+
+        expect(flash[:notice]).to eq(expected)
+      end
+
+      it "redirects to the parent info_request page" do
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason",
+                      :message => "It's just not"
+
+        expect(response)
+          .to redirect_to show_request_path(:url_title =>
+                                              info_request.url_title)
+      end
+
+    end
+  end
 
   describe "GET #new" do
     let(:info_request){ FactoryGirl.create(:info_request) }
@@ -125,6 +223,36 @@ describe ReportsController do
         expect {
           get :new, :request_id => info_request.url_title
         }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      context "when passed a comment id" do
+        render_views
+
+        let(:comment) do
+          FactoryGirl.create(:comment, :info_request => info_request)
+        end
+
+        it "ignores the comment id if it does not belong to the request" do
+          new_comment = FactoryGirl.create(:comment)
+          get :new, :request_id => info_request.url_title,
+                    :comment_id => new_comment.id
+          expect(response.body).to match(info_request.report_reasons.first)
+        end
+
+        it "alters the reasons dropdown if comment id is valid" do
+          get :new, :request_id => info_request.url_title,
+                    :comment_id => comment.id
+          expect(response.body).
+            to match(comment.report_reasons.first)
+        end
+
+        it "copies the comment id into a hidden form field" do
+          get :new, :request_id => info_request.url_title,
+                    :comment_id => comment.id
+          expect(response.body).
+            to have_selector("input#comment_id[value=\"#{comment.id}\"]",
+                             :visible => false)
+        end
       end
 
     end

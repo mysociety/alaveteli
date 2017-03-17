@@ -318,6 +318,19 @@ input.cplink__field {
   line-height: 1em;
 }
 
+a.cplink__button {
+  padding: 0.5em;
+  &:hover,
+  &:active,
+  &:focus {
+    border-left: 0;
+    color: #fff;
+  }
+  &:visited {
+    color: #000;
+  }
+}
+
 #reports_new {
     form {
       max-width: 38em;

@@ -4,6 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminHelper do
 
   include AdminHelper
+  include ERB::Util
 
   describe '#comment_visibility' do
 
@@ -31,6 +32,21 @@ describe AdminHelper do
 
     it 'accepts a Symbol argument' do
       expect(sort_order_humanized(:name_asc)).to eq('Name ▲')
+    end
+
+  end
+
+  describe '#comment_both_links' do
+
+    let(:comment) { FactoryGirl.create(:comment) }
+
+    it 'includes a link to the comment on the site' do
+      expect(comment_both_links(comment)).to include(comment_path(comment))
+    end
+
+    it 'includes a link to admin edit page for the comment' do
+      expect(comment_both_links(comment)).
+        to include(edit_admin_comment_path(comment))
     end
 
   end
