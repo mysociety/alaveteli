@@ -2,7 +2,7 @@
 
 ## Highlighted Features
 
-* Add missing erb tags (Sam Smith
+* Add missing erb tags (Sam Smith)
 
 ## Upgrade Notes
 
