@@ -443,6 +443,22 @@ RAW_EMAILS_LOCATION: 'files/raw_emails'
 # ---
 COOKIE_STORE_SESSION_SECRET: 'your secret key here, make it long and random'
 
+# Rails 4.0 introduces ActiveSupport::KeyGenerator and uses this as a base from
+# which to generate and verify signed cookies (among other things). You can
+# generate a key with `rake secret`.
+#
+# SECRET_KEY_BASE - String (default: 'this default is insecure as
+#                           code is open source, please override
+#                           for live sites in config/general; this
+#                           will do for local development')
+#
+# Examples:
+#
+#   SECRET_KEY_BASE: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'
+#
+# ---
+SECRET_KEY_BASE: 'your secret key here, make it long and random'
+
 # If present, puts the site in read only mode, and uses the text as reason
 # (whole paragraph). Please use a read-only database user as well, as it only
 # checks in a few obvious places. Typically, you do not want to run your site

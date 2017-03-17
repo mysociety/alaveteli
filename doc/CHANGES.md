@@ -1,3 +1,16 @@
+# 0.28.0.1
+
+## Highlighted Features
+
+* Add config for `SECRET_KEY_BASE` (Gareth Rees).
+
+## Upgrade Notes
+
+* Rails 4.0 introduces ActiveSupport::KeyGenerator and uses this as a base from
+  which to generate and verify signed cookies (among other things). Generate a
+  secret with `bundle exec rake secret` and use this for the value of
+  `SECRET_KEY_BASE` in `config/general.yml`.
+
 # 0.28.0.0
 
 ## Highlighted Features
