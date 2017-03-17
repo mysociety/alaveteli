@@ -31,13 +31,19 @@
   }
 }
 
-// TODO - style search input, results, pagination when .loading class is
-// applied to the .batch-authority-search container
+.batch-builder__search-results,
+.batch-builder__chosen-authorities {
+    & > * {
+        border: 1px solid #ddd;
+        min-height: 10em;
+        @include flexbox();
+        @include flex-direction(column);
+        @include justify-content(center);
 
-// TODO - style pagination when .disabled class is applied to links
-
-.batch-builder__authority-list {
-    border: 1px solid #ddd;
+        @media #{$large-up} {
+            min-height: 30em;
+        }
+    }
 }
 
 .batch-builder__authority-list__authority {
@@ -55,6 +61,7 @@
 
 .batch-builder__search-results {
     .pagination {
+        border-top: 1px solid #ddd;
         font-size: 0.8em;
     }
 }
@@ -62,8 +69,8 @@
 .batch-builder {
     .blank-slate,
     .ajax-error {
-        border: 1px solid #ddd;
         padding: 1em;
         text-align: center;
+        color: #999;
     }
 }

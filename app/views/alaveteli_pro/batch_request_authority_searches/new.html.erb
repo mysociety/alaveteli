@@ -63,7 +63,7 @@
         </div>
         <div class="batch-builder__actions">
 
-          <button class="button"><%= _('Write request') %></button>
+          <button class="button" <% if @draft_batch_request.public_bodies.empty? %>disabled<% end %>><%= _('Write request') %></button>
 
         </div>
       </div>
