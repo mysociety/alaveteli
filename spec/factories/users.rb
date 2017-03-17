@@ -37,20 +37,21 @@
 FactoryGirl.define do
 
   factory :user do
-    name 'Example User'
+    sequence(:name) { |n| "Example User #{n}" }
     sequence(:email) { |n| "person#{n}@example.com" }
     salt "-6116981980.392287733335677"
     hashed_password '6b7cd45a5f35fd83febc0452a799530398bfb6e8' # jonespassword
     email_confirmed true
     ban_text ""
+    confirmed_not_spam true
 
     factory :admin_user do
-      name 'Admin User'
+      sequence(:name) { |n| "Admin User #{n}" }
       admin_level 'super'
     end
 
     factory :pro_user do
-      name 'Pro User'
+      sequence(:name) { |n| "Pro User #{n}" }
       after(:create) do |user, evaluator|
         create(:pro_account, :user => user)
       end

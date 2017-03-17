@@ -28,11 +28,11 @@ describe PublicBodyHelper do
 
     it 'links to the request page if the body has no contact email' do
       @body.request_email = ''
-      msg = %Q(<a href="/new/#{ @body.url_name }"
-               class="link_button_green">Make
-               a request to this authority</a>).squish
-
-               expect(public_body_not_requestable_reasons(@body)).to include(msg)
+      msg = <<-EOF.strip_heredoc.squish
+      <a class="link_button_green" href="/new/#{ @body.url_name }">Make a
+      request to this authority</a>
+      EOF
+      expect(public_body_not_requestable_reasons(@body)).to include(msg)
     end
 
     it 'returns the reasons in order of importance' do
@@ -130,8 +130,9 @@ describe PublicBodyHelper do
         public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
 
         anchor = %Q(<a href="/es/body/list/spec">Spec category</a>)
-        I18n.with_locale(:es) { expect(type_of_authority(public_body)
-                                      ).to eq(anchor) }
+        I18n.with_locale(:es) do
+          expect(type_of_authority(public_body)).to eq(anchor)
+        end
       end
 
     end

@@ -26,8 +26,6 @@ end
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-# prevent Test::Unit's AutoRunner from executing during RSpec's rake task on JRuby
-Test::Unit.run = true if defined?(Test::Unit) && Test::Unit.respond_to?(:run=)
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -89,6 +87,14 @@ RSpec.configure do |config|
   # cleared out correctly in controller specs. So, do it here for everything.
   config.before(:each) do
     ActionMailer::Base.deliveries = []
+  end
+
+  # For integration tests, make sure the app renders exceptions rather
+  # than passing them to the test itself.
+  config.before(:each) do |example|
+    if [:request].include? example.metadata[:type]
+      Rails.application.config.action_dispatch.show_exceptions = true
+    end
   end
 
   # Any test that messes with the locale needs to restore the state afterwards so that it

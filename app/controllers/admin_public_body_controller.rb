@@ -19,9 +19,10 @@ class AdminPublicBodyController < AdminController
     @locale = I18n.locale.to_s
     I18n.with_locale(@locale) do
       @public_body = PublicBody.find(params[:id])
-      @info_requests = @public_body.info_requests.paginate :order => "created_at desc",
+      @info_requests =
+        @public_body.info_requests.order('created_at DESC').paginate(
         :page => params[:page],
-        :per_page => 100
+        :per_page => 100)
       render
     end
   end
@@ -147,7 +148,7 @@ class AdminPublicBodyController < AdminController
         ")
     @stats = {
       "total" => PublicBody.count,
-      "entered" => PublicBody.count(:conditions => "publication_scheme != ''")
+      "entered" => PublicBody.where("publication_scheme != ''").count
     }
   end
 
@@ -175,7 +176,7 @@ class AdminPublicBodyController < AdminController
                                               params[:tag_behaviour],
                                               true,
                                               admin_current_user,
-                                              I18n.available_locales)
+                                              FastGettext.default_available_locales)
 
         if errors.size == 0
           if dry_run_only
@@ -189,7 +190,7 @@ class AdminPublicBodyController < AdminController
                                                   params[:tag_behaviour],
                                                   false,
                                                   admin_current_user,
-                                                  I18n.available_locales)
+                                                  FastGettext.default_available_locales)
             if errors.size != 0
               raise "dry run mismatched real run"
             end
@@ -242,11 +243,33 @@ class AdminPublicBodyController < AdminController
             if @page == ""
                 @page = nil
             end
-            @public_bodies = PublicBody.joins(:translations).where(@query.nil? ? "public_body_translations.locale = '#{underscore_locale}'" :
-                                ["(lower(public_body_translations.name) like lower('%'||?||'%') or
-                                 lower(public_body_translations.short_name) like lower('%'||?||'%') or
-                                 lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{underscore_locale}')", @query, @query, @query]).paginate :order => "public_body_translations.name", :page => @page, :per_page => 100
+
+            query = if @query
+              query_str = <<-EOF.strip_heredoc
+              (lower(public_body_translations.name)
+               LIKE lower('%'||?||'%')
+               OR lower(public_body_translations.short_name)
+               LIKE lower('%'||?||'%')
+               OR lower(public_body_translations.request_email)
+               LIKE lower('%'||?||'%' ))
+               AND (public_body_translations.locale = '#{underscore_locale}')
+              EOF
+
+              [query_str, @query, @query, @query]
+            else
+              <<-EOF.strip_heredoc
+              public_body_translations.locale = '#{underscore_locale}'
+              EOF
+            end
+
+            @public_bodies =
+              PublicBody.
+                joins(:translations).
+                  where(query).
+                    order('public_body_translations.name').
+                      paginate(:page => @page, :per_page => 100)
         end
+
         @public_bodies_by_tag = PublicBody.find_by_tag(@query)
     end
 

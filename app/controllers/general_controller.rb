@@ -89,8 +89,11 @@ class GeneralController < ApplicationController
     # TODO: Why is this so complicated with arrays and stuff? Look at the route
     # in config/routes.rb for comments.
 
-    # respond with a 404 and do not execute the search if request was not for html
-    if request.format && !request.format.html?
+    # 404 if the request is a format we don't support (e.g:.json)
+    # 200 if the request is an invalid format (e.g: .invalid). This allows
+    # invalid search terms to render the search results page with a "no results
+    # found" message.
+    if !request.format.nil? && !request.format.html?
       respond_to { |format| format.any { head :not_found } }
       return
     end
