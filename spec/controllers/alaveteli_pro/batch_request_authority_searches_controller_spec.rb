@@ -48,8 +48,19 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     let!(:authority_2) { FactoryGirl.create(:public_body) }
     let!(:authority_3) { FactoryGirl.create(:public_body) }
 
+    before :all do
+      get_fixtures_xapian_index
+    end
+
     before do
+      update_xapian_index
       session[:user_id] = pro_user.id
+    end
+
+    after do
+      authority_1.destroy
+      authority_2.destroy
+      authority_3.destroy
       update_xapian_index
     end
 
