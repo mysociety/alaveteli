@@ -9,7 +9,11 @@
                          body_ids_added: body_ids_added } %>
   </ul>
 
-  <%= will_paginate WillPaginate::Collection.new(page, per_page, result_limit) %>
+  <% collection = WillPaginate::Collection.new(page, per_page, result_limit) %>
+  <%= will_paginate collection, page_links: false %>
+  <p class="batch-builder__authority-list__page-info">
+    Page <%= page %> of <%= collection.total_pages %>
+  </p>
 
 <% elsif query && search.blank? %>
   <p><%= _('Sorry, no authorities matched that search') %></p>
