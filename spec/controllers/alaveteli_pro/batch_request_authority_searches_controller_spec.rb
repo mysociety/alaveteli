@@ -11,7 +11,7 @@ shared_examples_for "creating a search" do
   end
 
   it "sets @query" do
-    expect(assigns[:query]).to eq 'Example Public Body'
+    expect(assigns[:query]).to eq 'Example'
   end
 
   it "sets @result_limit" do
@@ -67,7 +67,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to a normal request" do
       before do
         with_feature_enabled(:alaveteli_pro) do
-          get :create, authority_query: 'Example Public Body'
+          get :create, authority_query: 'Example'
         end
       end
 
@@ -94,7 +94,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to an ajax request" do
       before do
         with_feature_enabled :alaveteli_pro do
-          xhr :get, :create, authority_query: 'Example Public Body'
+          xhr :get, :create, authority_query: 'Example'
         end
       end
 
