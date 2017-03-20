@@ -88,9 +88,6 @@ describe ReportsController do
 
     end
   end
-end
-
-describe ReportsController do
 
   describe "GET #new" do
     let(:info_request){ FactoryGirl.create(:info_request) }
