@@ -137,6 +137,10 @@ class Comment < ActiveRecord::Base
     info_request_events.where(:event_type => 'report_comment').last
   end
 
+  def last_reported_at
+    last_report.try(:created_at)
+  end
+
   private
 
   def check_body_has_content

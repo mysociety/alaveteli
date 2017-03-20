@@ -155,4 +155,22 @@ describe Comment do
 
   end
 
+  describe '#last_reported_at' do
+
+    let(:comment) { FactoryGirl.create(:comment) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'returns nil if there is no report' do
+      expect(comment.last_reported_at).to be_nil
+    end
+
+    it 'returns the expected timestamp' do
+      expected = DateTime.now
+      comment.report!("Vexatious comment", "reported", user)
+      expect(comment.reload.last_reported_at).
+        to be_within(3.seconds).of(expected)
+    end
+
+  end
+
 end
