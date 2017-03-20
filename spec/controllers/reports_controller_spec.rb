@@ -57,6 +57,16 @@ describe ReportsController do
         expect(info_request.described_state).to eq("attention_requested")
       end
 
+      it "sets the flash message when the request gets successfully reported" do
+        expected = "This request has been reported for administrator attention"
+
+        post :create, :request_id => info_request.url_title,
+                      :reason => "my reason",
+                      :message => "It's just not"
+
+        expect(flash[:notice]).to eq(expected)
+      end
+
       it "should not allow a request to be reported twice" do
         post :create, :request_id => info_request.url_title,
                       :reason => "my reason"
