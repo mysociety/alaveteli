@@ -13,6 +13,38 @@ describe 'reports/new.html.erb' do
     expect(rendered).to have_css("form")
   end
 
+  context "reporting a request" do
+
+    it "has a 'Report request' button" do
+      render
+      expect(rendered).to have_button("Report request")
+    end
+
+  end
+
+  context "reporting a comment" do
+
+    let(:comment) do
+      FactoryGirl.build(:comment, :info_request => info_request)
+    end
+
+    before :each do
+      assign(:comment, comment)
+      assign(:report_reasons, comment.report_reasons)
+    end
+
+    it "includes the comment_id in a hidden field" do
+      # TODO: No easy way of asserting hidden field
+      # See https://github.com/teamcapybara/capybara/issues/1017
+    end
+
+    it "has a 'Report annotation' button" do
+      render
+      expect(rendered).to have_button("Report annotation")
+    end
+
+  end
+
   context "request has already been reported" do
     before :each do
       allow(info_request).to receive(:attention_requested).and_return(true)

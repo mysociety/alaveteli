@@ -271,6 +271,13 @@ describe ReportsController do
         expect(assigns(:report_reasons)).to eq(info_request.report_reasons)
       end
 
+      it "sets the page title" do
+        get :new, :request_id => info_request.url_title
+
+        expect(assigns(:title)).
+          to eq("Report request: #{ info_request.title }")
+      end
+
       it "should show the form" do
         get :new, :request_id => info_request.url_title
         expect(response).to render_template("new")
@@ -292,6 +299,8 @@ describe ReportsController do
     end
 
     context "when reporting a comment (logged in)" do
+      render_views
+
       before :each do
         session[:user_id] = user.id
       end
@@ -329,7 +338,15 @@ describe ReportsController do
         expect(assigns(:report_reasons)).to eq(comment.report_reasons)
       end
 
-      it "returns a 404 if the comment  does not belong to the request" do
+      it "sets the page title" do
+        get :new, :request_id => info_request.url_title,
+                  :comment_id => comment.id
+
+        expect(assigns(:title)).
+          to eq("Report annotation on request: #{ info_request.title }")
+      end
+
+      it "returns a 404 if the comment does not belong to the request" do
         new_comment = FactoryGirl.create(:comment)
         expect {
           get :new, :request_id => info_request.url_title,
@@ -341,6 +358,14 @@ describe ReportsController do
         get :new, :request_id => info_request.url_title,
                   :comment_id => comment.id
         expect(response).to render_template("new")
+      end
+
+      it "copies the comment id into a hidden form field" do
+        get :new, :request_id => info_request.url_title,
+                  :comment_id => comment.id
+        expect(response.body).
+          to have_selector("input#comment_id[value=\"#{comment.id}\"]",
+                           :visible => false)
       end
 
       it "should 404 for non-existent requests" do
