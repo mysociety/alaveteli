@@ -2,6 +2,8 @@
 class ReportsController < ApplicationController
   before_filter :set_info_request
   before_filter :set_comment
+  before_filter :set_reportable
+  before_filter :set_report_reasons
 
   def create
     @reason = params[:reason]
@@ -16,8 +18,12 @@ class ReportsController < ApplicationController
     elsif @info_request.attention_requested
       flash[:notice] = _("This request has already been reported for administrator attention")
     else
-      @info_request.report!(@reason, @message, @user)
-      flash[:notice] = _("This request has been reported for administrator attention")
+      @reportable.report!(@reason, @message, @user)
+      flash[:notice] = if @comment
+        _("This annotation has been reported for administrator attention")
+      else
+        _("This request has been reported for administrator attention")
+      end
     end
     redirect_to request_url(@info_request)
   end
@@ -42,5 +48,13 @@ class ReportsController < ApplicationController
     @comment = if params[:comment_id]
       @info_request.comments.where(:id => params[:comment_id]).first!
     end
+  end
+
+  def set_reportable
+    @reportable = @comment || @info_request
+  end
+
+  def set_report_reasons
+    @report_reasons = @reportable.report_reasons
   end
 end
