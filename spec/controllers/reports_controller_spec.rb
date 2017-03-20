@@ -23,6 +23,13 @@ describe ReportsController do
         session[:user_id] = user.id
       end
 
+      it "finds the expected request" do
+        post :create, :request_id => info_request.url_title,
+                      :reason => "my reason"
+
+        expect(assigns(:info_request)).to eq(info_request)
+      end
+
       it "should 404 for non-existent requests" do
         expect {
           post :create, :request_id => "hjksfdhjk_louytu_qqxxx"
@@ -104,6 +111,11 @@ describe ReportsController do
     context "logged in" do
       before :each do
         session[:user_id] = user.id
+      end
+
+      it "finds the expected request" do
+        get :new, :request_id => info_request.url_title
+        expect(assigns(:info_request)).to eq(info_request)
       end
 
       it "should show the form" do
