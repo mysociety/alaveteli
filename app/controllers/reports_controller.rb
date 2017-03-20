@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ReportsController < ApplicationController
   before_filter :set_info_request
+  before_filter :set_comment
 
   def create
     @reason = params[:reason]
@@ -37,4 +38,9 @@ class ReportsController < ApplicationController
                         .find_by_url_title!(params[:request_id])
   end
 
+  def set_comment
+    @comment = if params[:comment_id]
+      @info_request.comments.where(:id => params[:comment_id]).first!
+    end
+  end
 end

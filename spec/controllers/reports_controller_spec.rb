@@ -94,6 +94,44 @@ describe ReportsController do
       end
 
     end
+
+   context "when reporting a comment (logged in)" do
+      before do
+        session[:user_id] = user.id
+      end
+
+      let(:comment) do
+        FactoryGirl.create(:comment, :info_request => info_request,
+                                     :attention_requested => false)
+      end
+
+      it "finds the expected request" do
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason"
+
+        expect(assigns(:info_request)).to eq(info_request)
+      end
+
+      it "finds the expected comment" do
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => comment.id,
+                      :reason => "my reason"
+
+        expect(assigns(:comment)).to eq(comment)
+      end
+
+      it "returns a 404 if the comment does not belong to the request" do
+        new_comment = FactoryGirl.create(:comment)
+        expect {
+          post :create, :request_id => info_request.url_title,
+                        :comment_id => new_comment.id,
+                        :reason => "my reason"
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+    end
+
   end
 
   describe "GET #new" do
@@ -108,7 +146,7 @@ describe ReportsController do
       end
     end
 
-    context "logged in" do
+    context "when reporting a request (logged in)" do
       before :each do
         session[:user_id] = user.id
       end
@@ -133,6 +171,61 @@ describe ReportsController do
         info_request = FactoryGirl.create(:embargoed_request)
         expect {
           get :new, :request_id => info_request.url_title
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+    end
+
+    context "when reporting a comment (logged in)" do
+      before :each do
+        session[:user_id] = user.id
+      end
+
+      let(:comment) do
+        FactoryGirl.create(:comment, :info_request => info_request,
+                                     :attention_requested => false)
+      end
+
+      it "finds the expected request" do
+        get :new, :request_id => info_request.url_title,
+                  :comment_id => comment.id
+        expect(assigns(:info_request)).to eq(info_request)
+      end
+
+      it "finds the expected comment" do
+        get :new, :request_id => info_request.url_title,
+                  :comment_id => comment.id,
+                  :reason => "my reason"
+
+        expect(assigns(:comment)).to eq(comment)
+      end
+
+      it "returns a 404 if the comment  does not belong to the request" do
+        new_comment = FactoryGirl.create(:comment)
+        expect {
+          get :new, :request_id => info_request.url_title,
+                    :comment_id => new_comment.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it "should show the form" do
+        get :new, :request_id => info_request.url_title,
+                  :comment_id => comment.id
+        expect(response).to render_template("new")
+      end
+
+      it "should 404 for non-existent requests" do
+        expect {
+          get :new, :request_id => "hjksfdhjk_louytu_qqxxx",
+                    :comment_id => comment.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it 'should 404 for embargoed requests' do
+        info_request = FactoryGirl.create(:embargoed_request)
+        expect {
+          get :new, :request_id => info_request.url_title,
+                    :comment_id => comment.id
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
