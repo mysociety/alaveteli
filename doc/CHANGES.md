@@ -1,3 +1,4 @@
+
 # develop
 
 ## Highlighted Features
@@ -9,6 +10,12 @@
 ### Changed Templates
 
     app/views/request/describe_notices/_error_message.html.erb
+
+# 0.28.0.2
+
+## Highlighted Features
+
+* Fix indexing error when creating batch requests (Louise Crow)
 
 # 0.28.0.1
 
