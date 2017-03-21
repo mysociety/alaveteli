@@ -4,6 +4,10 @@
 
 * Fix indexing error when creating batch requests (Louise Crow)
 
+## Upgrade Notes
+
+There are some database structure updates so remember to rake db:migrate
+
 # 0.28.0.1
 
 ## Highlighted Features
