@@ -19,7 +19,7 @@ describe UserStats do
 
       it "returns the expected results" do
         expected = [
-          { "domain" => "localhost", "count"=> "5" },
+          { "domain" => "localhost", "count"=> "6" },
           { "domain" => "example.com", "count" => "1" }
         ]
         expect(user_stats).to eq(expected)
@@ -106,7 +106,7 @@ describe UserStats do
                                      :ban_text => "Banned")
       end
       @user2 = FactoryGirl.create(:user, :email => "newbie@example.com")
-      @admin = FactoryGirl.create(:admin_user, :email => "admin@example")
+      @admin = FactoryGirl.create(:admin_user, :email => "admin@example.com")
     end
 
     it "returns a list of eligible users" do
@@ -114,19 +114,19 @@ describe UserStats do
         to match_array([@user1, @user2])
     end
 
-    it "does not include admins" do
-      expect(UserStats.unbanned_by_domain("example.com")).to_not include(@admin)
-    end
-
     it "does not include banned users" do
       expect(UserStats.unbanned_by_domain("example.com")).to_not include(@banned)
+    end
+
+    it "does not include admins" do
+      expect(UserStats.unbanned_by_domain("example.com")).to_not include(@admin)
     end
 
     context "when given a start date" do
 
       it "only returns data for signups created since the start date" do
         expect(UserStats.unbanned_by_domain("example.com", 1.week.ago)).
-          to eq([@user2])
+          to match_array([@user2])
       end
 
     end

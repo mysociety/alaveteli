@@ -28,12 +28,10 @@ namespace :users do
 
     total_users = if from
       User.where("email LIKE ?", "%@#{domain}").
-        where(:admin_level => 'none').
         where("created_at >= ?", from).
         count
     else
       User.where("email LIKE ?", "%@#{domain}").
-        where(:admin_level => 'none').
         count
     end
 
@@ -78,7 +76,7 @@ namespace :users do
 
     p ""
 
-    message = "Do you want to ban all the users for #{domain}"
+    message = "Do you want to ban all the non-admin users for #{domain}"
     message += " created on or after #{from}" if from
     message += "(y/N)"
     p message

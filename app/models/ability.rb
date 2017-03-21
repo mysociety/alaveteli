@@ -6,7 +6,7 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
+    #   if user.is_admin?
     #     can :manage, :all
     #   else
     #     can :read, :all
@@ -49,13 +49,13 @@ class Ability
 
     if feature_enabled? :alaveteli_pro
       # Accessing alaveteli professional
-      if user && (user.super? || user.pro?)
+      if user && (user.is_admin? || user.is_pro?)
         can :access, :alaveteli_pro
       end
 
       # Extending embargoes
       can :update, AlaveteliPro::Embargo do |embargo|
-        user && (user == embargo.info_request.user || user.super?)
+        user && (user == embargo.info_request.user || user.is_admin?)
       end
     end
   end

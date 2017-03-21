@@ -243,7 +243,7 @@ class GeneralController < ApplicationController
   private
 
   def redirect_pros_to_dashboard
-    if feature_enabled?(:alaveteli_pro) && current_user && current_user.pro?
+    if feature_enabled?(:alaveteli_pro) && current_user && current_user.is_pro?
       redirect_to alaveteli_pro_dashboard_path
     end
   end

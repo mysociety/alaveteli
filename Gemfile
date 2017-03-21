@@ -36,6 +36,7 @@ gem 'rack-utf8_sanitizer', '~> 1.3.0'
 gem 'rails-i18n', '~> 4.0.9'
 gem 'recaptcha', '~> 0.4.0', :require => 'recaptcha/rails'
 gem 'rmagick', '~> 2.15.0'
+gem 'rolify', '~> 5.1.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
 gem 'sass', '3.4.21' # pinned because later versions cause problems (see blame)
 gem 'secure_headers', '~> 3.1.2'

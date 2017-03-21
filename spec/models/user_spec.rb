@@ -431,12 +431,12 @@ describe User do
     end
 
     it 'is true if the user is an admin' do
-      admin = double(:super? => true)
+      admin = double(:is_admin? => true)
       expect(User.stay_logged_in_on_redirect?(admin)).to eq(true)
     end
 
     it 'is false if the user is not an admin' do
-      user = double(:super? => false)
+      user = double(:is_admin? => false)
       expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
     end
 
@@ -999,15 +999,47 @@ describe User do
 
   end
 
-  describe '#pro?' do
-    it 'returns true if the user has a pro account' do
-      user = FactoryGirl.create(:pro_user)
-      expect(user.pro?).to be true
+  describe '#can_admin_roles' do
+
+    it 'returns an array including the admin role for an admin user' do
+      admin_user = FactoryGirl.create(:admin_user)
+      expect(admin_user.can_admin_roles).to eq([:admin])
     end
 
-    it 'returns false if the user doesnt have a pro account' do
+    it 'returns an empty array for a pro user' do
       user = FactoryGirl.create(:user)
-      expect(user.pro?).to be false
+      expect(user.can_admin_roles).to eq([])
+    end
+
+    it 'returns an empty array for a user with no roles' do
+      pro_user = FactoryGirl.create(:pro_user)
+      expect(pro_user.can_admin_roles).to eq([])
+    end
+
+  end
+
+  describe '#can_admin_role?' do
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_user){ FactoryGirl.create(:pro_user) }
+
+    it 'returns true for an admin user and the admin role' do
+      expect(admin_user.can_admin_role?(:admin))
+        .to be true
+    end
+
+    it 'return false for an admin user and the pro role' do
+      expect(admin_user.can_admin_role?(:pro))
+        .to be false
+    end
+
+    it 'returns false for a pro user and the admin role' do
+      expect(pro_user.can_admin_role?(:admin))
+        .to be false
+    end
+
+    it 'returns false for a pro user and the pro role' do
+      expect(pro_user.can_admin_role?(:pro))
+        .to be false
     end
   end
 
@@ -1026,11 +1058,11 @@ describe User do
     end
 
     it 'returns false if the user is not a superuser' do
-      expect(User.view_hidden?(FactoryGirl.build(:user))).to be false
+      expect(User.view_hidden?(FactoryGirl.create(:user))).to be false
     end
 
     it 'returns true if the user is an admin user' do
-      expect(User.view_hidden?(FactoryGirl.build(:admin_user))).to be true
+      expect(User.view_hidden?(FactoryGirl.create(:admin_user))).to be true
     end
   end
 
@@ -1040,11 +1072,11 @@ describe User do
     end
 
     it 'returns false if the user is not a superuser' do
-      expect(User.view_embargoed?(FactoryGirl.build(:user))).to be false
+      expect(User.view_embargoed?(FactoryGirl.create(:user))).to be false
     end
 
     it 'returns true if the user is an admin user' do
-      expect(User.view_embargoed?(FactoryGirl.build(:admin_user))).to be true
+      expect(User.view_embargoed?(FactoryGirl.create(:admin_user))).to be true
     end
   end
 
@@ -1054,11 +1086,11 @@ describe User do
     end
 
     it 'returns false if the user is not a superuser' do
-      expect(User.view_hidden_and_embargoed?(FactoryGirl.build(:user))).to be false
+      expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:user))).to be false
     end
 
     it 'returns true if the user is an admin user' do
-      expect(User.view_hidden_and_embargoed?(FactoryGirl.build(:admin_user))).to be true
+      expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:admin_user))).to be true
     end
   end
 

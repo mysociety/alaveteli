@@ -47,13 +47,15 @@ FactoryGirl.define do
 
     factory :admin_user do
       sequence(:name) { |n| "Admin User #{n}" }
-      admin_level 'super'
+      after(:create) do |user, evaluator|
+        user.add_role :admin
+      end
     end
 
     factory :pro_user do
       sequence(:name) { |n| "Pro User #{n}" }
       after(:create) do |user, evaluator|
-        create(:pro_account, :user => user)
+        user.add_role :pro
       end
     end
   end
