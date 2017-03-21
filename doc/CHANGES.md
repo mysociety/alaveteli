@@ -1,3 +1,9 @@
+# 0.28.0.2
+
+## Highlighted Features
+
+* Fix indexing error when creating batch requests (Louise Crow)
+
 # 0.28.0.1
 
 ## Highlighted Features
