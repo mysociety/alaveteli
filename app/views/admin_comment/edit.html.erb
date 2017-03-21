@@ -11,6 +11,13 @@
     <%= select('comment', "visible", [["Yes – show comment",true],["No – hide comment",false]]) %>
   </p>
 
+  <p><label for="comment_attention_requested">Admin attention requested</label>
+    <%= select('comment', "attention_requested",
+               [
+                  ["Yes – flag for further attention", true],
+                  ["No – clear flag", false]
+                ]) %>
+  </p>
 
   <p><%= submit_tag 'Save', :accesskey => 's' %></p>
 <% end %>
