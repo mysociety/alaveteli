@@ -28,8 +28,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-02-27 10:55+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2017-03-13 21:15+0000\n"
+"Last-Translator: Hana Hunt <hana@hana-hunt.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -1352,7 +1352,7 @@ msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a do
 msgstr "Pokud považujete stránky {{site_name}} užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>."
 
 msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr ""
+msgstr "Pokud jste obdrželi e-mail <strong>před více než dvěma měsíci</strong>, tak tento přihlašovací odkaz již není funkční. Zkuste to znovu od začátku."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Pokud jste tak ještě neučinili, prosíme napište instituci zprávu, že jste svůj dotaz stáhli. Jinak se o stažení dotazu nedozví. "
@@ -2090,9 +2090,9 @@ msgstr "Prosím předejte to poradenskému týmu v Otevřete, posoudí postup ve
 
 msgid "Please read the recent response and <strong>update the status</strong> so we know whether it contains useful information."
 msgid_plural "Please read the recent responses and <strong>update the status</strong> so we know whether they contain useful information."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Prosím přečtěte si <strong> výše zobrazenou odpověď</strong> ať se dozvíme, zda tato korespondence obsahuje zajímavé informace. "
+msgstr[1] "Prosím přečtěte si <strong> výše zobrazené odpovědi</strong> ať se dozvíme, zda tato korespondence obsahuje zajímavé informace. "
+msgstr[2] "Prosím přečtěte si nedávné odpovědi a <strong> aktualizujte jejich stav</strong> ať se dozvíme, zda tato korespondence obsahuje zajímavé informace. "
 
 msgid "Please select an authority"
 msgstr "Vyberte instituci"
@@ -2649,10 +2649,10 @@ msgid "Short name is already taken"
 msgstr "Krátké jméno je již obsazeno."
 
 msgid "Show all attachments"
-msgstr ""
+msgstr "Zobrazit všechny přílohy"
 
 msgid "Show fewer attachments"
-msgstr ""
+msgstr "Zobrazit méně příloh"
 
 msgid "Show most relevant results first"
 msgstr "Nejrelevantnější výsledky jako první"
@@ -2723,10 +2723,10 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Pardon, tuto stránku se nepodařilo najít."
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
-msgstr ""
+msgstr "Omlouváme se, teď nelze přídávat nové komentáře. Prosím zkuste to později. "
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
-msgstr ""
+msgstr "Omlouváme se, teď nelze poslat vaši žádost. Prosím zkuste to později. "
 
 msgid "Sorry, we're currently unable to sign up new users, please try again later"
 msgstr "Omlouváme se, teď nemůžeme přidávat nové uživatele, prosím zkuste to později"
@@ -2801,7 +2801,7 @@ msgid "Summary"
 msgstr "Předmět"
 
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
-msgstr ""
+msgstr "Shrnutí je příliš krátké. Prosím, popište trochu podrobněji jaké informace chcete získat. "
 
 msgid "Table of statuses"
 msgstr "Tabulka stavů"

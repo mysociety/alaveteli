@@ -1,8 +1,35 @@
-# develop
+# 0.28.0.2
+
+## Highlighted Features
+
+* Fix indexing error when creating batch requests (Louise Crow)
+
+## Upgrade Notes
+
+There are some database structure updates so remember to rake db:migrate
+
+# 0.28.0.1
+
+## Highlighted Features
+
+* Add config for `SECRET_KEY_BASE` (Gareth Rees).
+
+## Upgrade Notes
+
+* Rails 4.0 introduces ActiveSupport::KeyGenerator and uses this as a base from
+  which to generate and verify signed cookies (among other things). Generate a
+  secret with `bundle exec rake secret` and use this for the value of
+  `SECRET_KEY_BASE` in `config/general.yml`.
+
+# 0.28.0.0
 
 ## Highlighted Features
 
 * Upgrade to Rails 4.0 (Gareth Rees, Louise Crow, Steve Day, Liz Conlan)
+* The test-unit gem has been removed from the project's Gemfile.
+  Alaveteli has used RSpec to run tests for a long time, but Test::Unit was
+  also available. Due to an incompatibility between the two, and a desire to
+  support a single environment, this is no longer the case.
 
 ## Upgrade Notes
 
@@ -11,6 +38,8 @@
   Rails 4 compatibility. Follow instructions in the official Rails guide (
   http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#upgrading-from-rails-3-2-to-rails-4-0-active-record)
   and review our commits in this release to investigate deprecation warnings.
+* You may need to migrate any tests in your theme that were using Test::Unit
+  to RSpec.
 
 ### Changed Templates
 
@@ -23,6 +52,12 @@
     app/views/request/describe_state_message.html.erb
     app/views/request/preview.html.erb
     app/views/user/_signup.html.erb
+
+# 0.27.1.2
+
+# Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
 
 # 0.27.1.1
 
