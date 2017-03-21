@@ -63,7 +63,9 @@
         <%= _('If you are dissatisfied by the response you got from the ' \
               'public authority, you have the right to complain ' \
               '(<a href="{{url}}">details</a>).',
-              :url => "http://foiwiki.com/foiwiki/index.php/Internal_reviews".html_safe) %>
+              :url => help_unhappy_path(
+                        :anchor => "internal_review",
+                        :url_title => @info_request.url_title)) %>
       </p>
     <% end %>
 

@@ -6,6 +6,8 @@
 * Add missing erb tags (Sam Smith)
 * Introduction of role-based permissions system (Louise Crow)
 * Limit `pdftk` to use a maximum of 512MB of RAM (Liz Conlan)
+* Link to the #internal_review section of the `help/unhappy` page instead of
+  the UK-specific external link to FOIWiki (Liz Conlan)
 
 ## Upgrade Notes
 
