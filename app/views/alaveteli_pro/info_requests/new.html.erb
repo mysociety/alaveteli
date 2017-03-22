@@ -1,20 +1,24 @@
-<% @title = _("Make an {{law_used_short}} request",
-            :law_used_short => h(@info_request.law_used_human(:short))) %>
+<% batch_request = @info_request_batch.present? %>
+
+<% if batch_request %>
+  <% @title = _("Make a batch request") %>
+<% else %>
+  <% @title = _("Make an {{law_used_short}} request",
+                :law_used_short => h(@info_request.law_used_human(:short))) %>
+<% end %>
 
 <div class="pro-canvas">
 
   <div class="pro-canvas-header">
     <div class="row">
-      <h1><%= _("Make a request") %></h1>
+      <h1><%= @title %></h1>
     </div>
   </div>
 
-  <%= foi_error_messages_for :info_request, :outgoing_message %>
-
-  <% if !AlaveteliConfiguration::override_all_public_body_request_emails.blank? %>
-    <div class="warning">
-      <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => AlaveteliConfiguration::override_all_public_body_request_emails) %>
-    </div>
+  <% if batch_request %>
+    <%= foi_error_messages_for :info_request_batch %>
+  <% else %>
+    <%= foi_error_messages_for :info_request, :outgoing_message %>
   <% end %>
 
   <%= render partial: 'request/email_override_warning' %>
@@ -24,8 +28,14 @@
     <div class="row">
 
       <div class="request-to-header">
-        <%= render partial: 'alaveteli_pro/info_requests/_select_authority_form'
-                   locals: { info_request: @info_request } %>
+        <% if batch_request %>
+          <%= render partial: 'alaveteli_pro/info_request_batches/authority_list',
+                     locals: { batch: @info_request_batch,
+                               draft: @draft_info_request_batch } %>
+        <% else %>
+          <%= render partial: 'alaveteli_pro/info_requests/select_authority_form',
+                     locals: { info_request: @info_request } %>
+        <% end %>
       </div> <!-- .request-to-header -->
 
 
@@ -35,7 +45,11 @@
 
       <div id="request_form" class="request_form">
 
-        <%= render partial: 'alaveteli_pro/info_requests/_form' %>
+        <% if batch_request %>
+          <%= render partial: 'alaveteli_pro/info_request_batches/form' %>
+        <% else %>
+          <%= render partial: 'alaveteli_pro/info_requests/form' %>
+        <% end %>
 
       </div>  <!-- .request_form -->
 

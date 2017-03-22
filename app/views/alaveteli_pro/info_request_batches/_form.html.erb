@@ -1,0 +1,78 @@
+<%= form_tag(@draft_info_request_batch,
+             :method => :put,
+             :id => 'write_form',
+             :class => 'new_info_request') do %>
+
+  <%= fields_for @info_request_batch do |f| %>
+
+    <% @draft_info_request_batch.public_body_ids.each do |id| %>
+      <%= f.hidden_field(:public_body_ids, multiple: true, value: id) %>
+    <% end %>
+
+    <div id="request_subject" class="request_subject">
+      <p>
+        <label class="form_label" for="alaveteli_pro_draft_info_request_batch_title">
+          <%= _('Subject') %>
+        </label>
+        <%= f.text_field :title, :size => 50 %>
+      </p>
+      <div class="form_item_note">
+        <%= _("A one line summary of the information you are requesting, e.g.") %>
+        <%= _("'Crime statistics by ward level for Wales'") -%>
+      </div>
+    </div> <!-- .request_subject -->
+
+    <p>
+      <label class="form_label" for="alaveteli_pro_draft_info_request_batch_body">
+        <%= _('Your request') %>
+      </label>
+      <%= f.text_area :body, :rows => 20, :cols => 60 %>
+    </p>
+
+    <div class="request_embargo">
+      <p>
+        <label class="form_label" for="alaveteli_pro_draft_info_request_batch_embargo_duration">
+          <%= _('Privacy') %>
+        </label>
+        <%# fields_for :embargo do |e| %>
+          <%# e.select :embargo_duration,
+                       options_for_select(
+                         publish_at_options,
+                         :selected => @embargo ? @embargo.embargo_duration : ''
+                       ) %>
+        <%# end %>
+      </p>
+      <div class="form_item_note">
+        <%# render partial: "embargo_info",
+                 locals: { embargo: @embargo, tense: :future } %>
+        <p>
+          <%= _("When a request is private we guarantee that it will only be " \
+                "visible on {{site_name}} for the period you select. " \
+                "{{pro_site_name}} administrators will also be able " \
+                "to view your request, but will only do so in the event " \
+                "that they need to fix a problem with it (e.g. failed " \
+                "delivery to the authority). They will not reveal the " \
+                "contents of your request or any response you get to anyone else. " \
+                "The authority may still publish it in a disclosure log as usual.",
+                site_name: AlaveteliConfiguration.site_name,
+                pro_site_name: AlaveteliConfiguration.pro_site_name) %>
+        </p>
+        <p>
+          <%= _("We will remind you by email and on the site when the request " \
+                "is going be made public, and you'll have the option to keep " \
+                "it private for longer if you want to. You can extend this " \
+                "time indefinitely, or make the request public at any time.") %>
+        </p>
+      </div>
+    </div> <!-- .request_embargo -->
+
+    <div class="form_button">
+      <button name="preview" value="true" class="button">
+        <%= _("Preview and send request") %>
+      </button>
+      <button class="button-tertiary"><%= _("Save draft") %></button>
+    </div>
+
+  <% end %>
+
+<% end %>
