@@ -1,7 +1,7 @@
 
 <div class="row">
   <div id="left_column" class="left_column">
-    <h1>Report request: <%= @info_request.title %></h1>
+    <h1><%= @title %></h1>
   <% if @info_request.attention_requested %>
     <p><%= _("This request has already been reported for administrator attention") %></p>
   <% else %>
@@ -14,15 +14,21 @@
     <%= form_tag request_report_path(:request_id => @info_request.url_title) do %>
       <p>
         <label class="form_label" for="reason">Reason:</label>
-        <%= select_tag :reason, options_for_select(@info_request.report_reasons, @reason), :prompt =>  _("Choose a reason") %>
+        <%= select_tag :reason, options_for_select(@report_reasons, @reason), :prompt => _("Choose a reason") %>
       </p>
       <p>
         <label class="form_label" for="message"><%= _("Please tell us more:") %></label>
         <%= text_area_tag :message, @message, :rows => 10, :cols => 60 %>
       </p>
 
+      <%= hidden_field_tag :comment_id, params[:comment_id] %>
+
       <div class="form_button">
-        <%= submit_tag _("Report request") %>
+        <% if @comment %>
+          <%= submit_tag _("Report annotation") %>
+        <% else %>
+          <%= submit_tag _("Report request") %>
+        <% end %>
       </div>
     <% end %>
   <% end %>

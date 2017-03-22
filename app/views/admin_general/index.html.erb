@@ -110,6 +110,38 @@
     </div>
   <% end %>
 
+  <% if @attention_comments.size > 0 %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" href="#attention-comments"
+         data-toggle="collapse" data-parent="things-to-do">
+          <span class="label label-important">
+            <%= @attention_comments.size %>
+          </span>
+          <%= chevron_right %>
+          Review comments reported by users as requiring administrator
+          attention
+        </a>
+      </div>
+      <div id="attention-comments" class="accordion-body collapse">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <% @attention_comments.each do |comment| %>
+              <tr>
+                <td class="link">
+                  <%= comment_both_links(comment) %>
+                </td>
+                <td class="span2">
+                  <%= simple_date(comment.last_reported_at) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+
   <% if @requires_admin_requests.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">

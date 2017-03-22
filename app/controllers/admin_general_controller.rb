@@ -12,6 +12,7 @@ class AdminGeneralController < AdminController
     @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
     @error_message_requests = InfoRequest.find_in_state('error_message')
     @attention_requests = InfoRequest.find_in_state('attention_requested')
+    @attention_comments = Comment.where(:attention_requested => true)
     @blank_contacts = PublicBody.
       includes(:tags, :translations).
         where(:request_email => "").

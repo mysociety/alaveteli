@@ -27,17 +27,27 @@ class AdminCommentController < AdminController
   end
 
   def update
-    old_body = @comment.body
+    old_body = @comment.body.dup
     old_visible = @comment.visible
+    old_attention = @comment.attention_requested
 
     if @comment.update_attributes(comment_params)
-      @comment.info_request.log_event("edit_comment",
-                                      { :comment_id => @comment.id,
-                                        :editor => admin_current_user,
-                                        :old_body => old_body,
-                                        :body => @comment.body,
-                                        :old_visible => old_visible,
-                                        :visible => @comment.visible })
+      update_type = if comment_hidden?(old_visible, old_body)
+        "hide_comment"
+      else
+        "edit_comment"
+      end
+      @comment.
+        info_request.
+          log_event(update_type,
+                    { :comment_id => @comment.id,
+                      :editor => admin_current_user,
+                      :old_body => old_body,
+                      :body => @comment.body,
+                      :old_visible => old_visible,
+                      :visible => @comment.visible,
+                      :old_attention_requested => old_attention,
+                      :attention_requested => @comment.attention_requested })
       flash[:notice] = 'Comment successfully updated.'
       redirect_to admin_request_url(@comment.info_request)
     else
@@ -49,7 +59,7 @@ class AdminCommentController < AdminController
 
   def comment_params
     if params[:comment]
-      params.require(:comment).permit(:body, :visible)
+      params.require(:comment).permit(:body, :visible, :attention_requested)
     else
       {}
     end
@@ -57,6 +67,10 @@ class AdminCommentController < AdminController
 
   def set_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def comment_hidden?(old_visibility, old_body)
+    !@comment.visible && old_visibility && old_body == @comment.body
   end
 
 end

@@ -21,6 +21,9 @@
 
 class Comment < ActiveRecord::Base
   include AdminColumn
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
+
   strip_attributes :allow_empty => true
 
   belongs_to :user, :counter_cache => true
@@ -39,6 +42,8 @@ class Comment < ActiveRecord::Base
   }
 
   after_save :event_xapian_update
+
+  self.default_url_options[:host] = AlaveteliConfiguration.domain
 
   # When posting a new comment, use this to check user hasn't double
   # submitted.
@@ -93,6 +98,64 @@ class Comment < ActiveRecord::Base
     columns.each do |column|
       yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
     end
+  end
+
+  def for_admin_event_column(event)
+    return unless event
+
+    columns = event.for_admin_column { |name, value, type, column_name| }
+
+    columns = columns.map do |c|
+      c if %w(event_type params_yaml created_at).include?(c.name)
+    end
+
+    columns.compact.each do |column|
+      yield(column.name.humanize,
+            event.send(column.name),
+            column.type.to_s,
+            column.name)
+    end
+  end
+
+  def report_reasons
+    [_("Annotation contains defamatory material"),
+     _("Annotation contains personal information"),
+     _("Vexatious annotation")
+    ]
+  end
+
+  # Report this comment for administrator attention
+  def report!(reason, message, user)
+    old_attention = attention_requested
+    self.attention_requested = true
+    save!
+
+    if attention_requested? && user
+      raw_message = message.dup
+      message = "Reason: #{reason}\n\n#{message}\n\n" \
+                "The user wishes to draw attention to the " \
+                "comment: #{comment_url(self)} " \
+                "\nadmin: #{edit_admin_comment_url(self)}"
+
+      RequestMailer.requires_admin(info_request, user, message).deliver
+
+      info_request.
+        log_event("report_comment",
+                  { :comment_id => id,
+                    :editor => user,
+                    :reason => reason,
+                    :message => raw_message,
+                    :old_attention_requested => old_attention,
+                    :attention_requested => true })
+    end
+  end
+
+  def last_report
+    info_request_events.where(:event_type => 'report_comment').last
+  end
+
+  def last_reported_at
+    last_report.try(:created_at)
   end
 
   private

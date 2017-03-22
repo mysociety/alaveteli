@@ -8,16 +8,23 @@
 * Limit `pdftk` to use a maximum of 512MB of RAM (Liz Conlan)
 * Link to the #internal_review section of the `help/unhappy` page instead of
   the UK-specific external link to FOIWiki (Liz Conlan)
+* Allow comments to be reported for admin attention (Liz Conlan, Gareth Rees)
 
 ## Upgrade Notes
 
 * To migrate admin and pro statuses to the role-based system, you must run
   `bundle exec rake db:seed` and then
   `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
+* There are some database structure updates so remember to `rake db:migrate`
 
 ### Changed Templates
 
+    app/views/admin_comment/_params.html.erb
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/comment/_single_comment.html.erb
     app/views/followups/_followup.html.erb
+    app/views/reports/new.html.erb
     app/views/request/describe_notices/_error_message.html.erb
 
 # 0.28.0.2
