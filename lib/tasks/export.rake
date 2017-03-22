@@ -58,7 +58,11 @@ end
 # Returns a lambda to pass to export function that censors x.property
 def name_censor_lambda(property)
   lambda do |x|
-    case_insensitive_user_censor(x.send(property), x.info_request.user)
+    if x.respond_to?(:info_request)
+      case_insensitive_user_censor(x.send(property), x.info_request.user)
+    else
+      case_insensitive_user_censor(x.send(property), x.user)
+    end
   end
 end
 
