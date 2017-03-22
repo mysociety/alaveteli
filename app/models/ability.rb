@@ -49,15 +49,55 @@ class Ability
 
     if feature_enabled? :alaveteli_pro
       # Accessing alaveteli professional
-      if user && (user.is_admin? || user.is_pro?)
+      if user && (user.is_pro_admin? || user.is_pro?)
         can :access, :alaveteli_pro
       end
 
       # Extending embargoes
       can :update, AlaveteliPro::Embargo do |embargo|
-        user && (user == embargo.info_request.user || user.is_admin?)
+        user && (user == embargo.info_request.user || user.is_pro_admin?)
+      end
+
+    end
+
+    can :admin, AlaveteliPro::Embargo if user && user.is_pro_admin?
+
+    can :admin, InfoRequest do |info_request|
+      if info_request.embargo
+        user && user.is_pro_admin?
+      else
+        user && user.is_admin?
       end
     end
+
+    can :admin, Comment do |comment|
+      if comment.info_request.embargo
+        user && user.is_pro_admin?
+      else
+        user && user.is_admin?
+      end
+    end
+
+    can :login_as, User do |target_user|
+      if user == target_user
+        false
+      elsif target_user.is_pro? || target_user.is_pro_admin?
+        user && user.is_pro_admin?
+      else
+        user && user.is_admin?
+      end
+    end
+
+    if feature_enabled? :alaveteli_pro
+      if user && user.is_pro_admin?
+        can :read, :api_key
+      end
+    else
+      if user && user.is_admin?
+        can :read, :api_key
+      end
+    end
+
   end
 
   private

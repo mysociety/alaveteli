@@ -1,178 +1,6 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe AdminUserController, "when administering users" do
-  render_views
-
-  it "shows a user" do
-    get :show, :id => users(:bob_smith_user)
-  end
-
-  it "logs in as another user" do
-    get :login_as,  :id => users(:bob_smith_user).id
-    expect(response).to redirect_to(:controller => 'user',
-                                    :action => 'confirm',
-                                    :email_token => get_last_post_redirect.email_token)
-  end
-
-  # See also "allows an admin to log in as another user" in spec/integration/admin_spec.rb
-end
-
-describe AdminUserController, "when updating a user" do
-  let(:admin_user){ FactoryGirl.create(:admin_user) }
-
-  before do
-    allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
-  end
-
-  it "saves a change to 'can_make_batch_requests'" do
-    user = FactoryGirl.create(:user)
-    expect(user.can_make_batch_requests?).to be false
-    post :update, { :id => user.id,
-                    :admin_user => { :can_make_batch_requests => '1',
-                                     :name => user.name,
-                                     :email => user.email,
-                                     :ban_text => user.ban_text,
-                                     :about_me => user.about_me,
-                                     :no_limit => user.no_limit,
-                                     :confirmed_not_spam => user.confirmed_not_spam } },
-                  { :user_id => admin_user.id }
-    expect(flash[:notice]).to eq('User successfully updated.')
-    expect(response).to be_redirect
-    user = User.find(user.id)
-    expect(user.can_make_batch_requests?).to be true
-  end
-
-  it "should not allow an existing email address to be used" do
-    existing_email = 'donotreuse@localhost'
-    FactoryGirl.create(:user, :email => existing_email)
-    user = FactoryGirl.create(:user, :email => 'user1@localhost')
-    post :update, { :id => user.id,
-                    :admin_user => { :name => user.name,
-                                     :email => existing_email,
-                                     :ban_text => user.ban_text,
-                                     :about_me => user.about_me,
-                                     :no_limit => user.no_limit,
-                                     :confirmed_not_spam => user.confirmed_not_spam } },
-                  { :user_id => admin_user.id }
-    user = User.find(user.id)
-    expect(user.email).to eq('user1@localhost')
-  end
-
-  it "sets the user's roles" do
-    user = FactoryGirl.create(:user)
-    admin_role = Role.admin_role
-    expect(user.is_admin?).to be false
-    post :update, { :id => user.id,
-                    :admin_user => { :name => user.name,
-                                     :ban_text => user.ban_text,
-                                     :about_me => user.about_me,
-                                     :role_ids => [ admin_role.id ],
-                                     :no_limit => user.no_limit,
-                                     :confirmed_not_spam => user.confirmed_not_spam } },
-                  { :user_id => admin_user.id }
-    user = User.find(user.id)
-    expect(user.is_admin?).to be true
-  end
-
-  it "unsets the user's roles if no role ids are supplied" do
-    expect(admin_user.is_admin?).to be true
-    post :update, { :id => admin_user.id,
-                    :admin_user => { :name => admin_user.name,
-                                     :ban_text => admin_user.ban_text,
-                                     :about_me => admin_user.about_me,
-                                     :no_limit => admin_user.no_limit,
-                                     :confirmed_not_spam => admin_user.confirmed_not_spam} },
-                  { :user_id => admin_user.id }
-    user = User.find(admin_user.id)
-    expect(user.is_admin?).to be false
-  end
-
-  it 'does not set a role the setter cannot grant and revoke' do
-    user = FactoryGirl.create(:user)
-    pro_role = Role.where(:name => 'pro').first
-    expect(user.is_pro?).to be false
-    post :update, { :id => user.id,
-                    :admin_user => { :name => user.name,
-                                     :ban_text => user.ban_text,
-                                     :about_me => user.about_me,
-                                      :role_ids => [pro_role.id],
-                                      :no_limit => user.no_limit,
-                                      :confirmed_not_spam => user.confirmed_not_spam} },
-                  { :user_id => admin_user.id }
-    expect(flash[:error]).to eq("Not permitted to change roles")
-    user = User.find(user.id)
-    expect(user.is_pro?).to be false
-  end
-
-  it 'does not set a role that does not exist' do
-    user = FactoryGirl.create(:user)
-    role_id = Role.maximum(:id) + 1
-    expect(user.is_pro?).to be false
-    post :update, { :id => user.id,
-                    :admin_user => { :name => user.name,
-                                     :ban_text => user.ban_text,
-                                     :about_me => user.about_me,
-                                     :role_ids => [role_id],
-                                     :no_limit => user.no_limit,
-                                     :confirmed_not_spam => user.confirmed_not_spam} },
-                  { :user_id => admin_user.id }
-    user = User.find(user.id)
-    expect(user.is_pro?).to be false
-  end
-
-  it 'shows a notice' do
-    user = FactoryGirl.create(:user)
-    post :update, { :id => user.id,
-                    :admin_user => { :name => user.name,
-                                     :ban_text => user.ban_text,
-                                     :about_me => user.about_me,
-                                     :no_limit => user.no_limit,
-                                     :confirmed_not_spam => user.confirmed_not_spam } },
-                  { :user_id => admin_user.id }
-    expect(flash[:notice]).to eq "User successfully updated."
-  end
-
-  context 'when an admin user removes their admin role' do
-
-    it 'clears the admin session' do
-      post :update, { :id => admin_user.id,
-                      :admin_user => { :name => admin_user.name,
-                                       :ban_text => admin_user.ban_text,
-                                       :about_me => admin_user.about_me,
-                                       :no_limit => admin_user.no_limit,
-                                       :confirmed_not_spam => admin_user.confirmed_not_spam} },
-                    { :user_id => admin_user.id }
-      expect(session[:admin_user]).to be_nil
-    end
-
-    it 'redirects to the frontpage' do
-      post :update, { :id => admin_user.id,
-                      :admin_user => { :name => admin_user.name,
-                                       :ban_text => admin_user.ban_text,
-                                       :about_me => admin_user.about_me,
-                                       :no_limit => admin_user.no_limit,
-                                       :confirmed_not_spam => admin_user.confirmed_not_spam} },
-                    { :user_id => admin_user.id }
-      expect(response).to redirect_to root_path
-    end
-
-    it 'shows an appropriate notice' do
-      post :update, { :id => admin_user.id,
-                      :admin_user => { :name => admin_user.name,
-                                       :ban_text => admin_user.ban_text,
-                                       :about_me => admin_user.about_me,
-                                       :no_limit => admin_user.no_limit,
-                                       :confirmed_not_spam => admin_user.confirmed_not_spam} },
-                    { :user_id => admin_user.id }
-      expect(flash[:notice]).to eq "User successfully updated - " \
-                                  "you are no longer an admin."
-    end
-  end
-
-
-end
-
 describe AdminUserController do
 
   describe 'GET index' do
@@ -263,9 +91,10 @@ describe AdminUserController do
       expect(assigns[:admin_users]).to eq([u1, u2])
     end
 
-    it "searches for 'bob'" do
+    it "assigns users matching a case-insensitive query to the view" do
+      user = FactoryGirl.create(:user, :name => 'Bob Smith')
       get :index, :query => 'bob'
-      expect(assigns[:admin_users]).to eq([users(:bob_smith_user)])
+      expect(assigns[:admin_users].include?(user)).to be true
     end
 
     it 'searches and sorts the records' do
@@ -275,6 +104,235 @@ describe AdminUserController do
       u3 = FactoryGirl.create(:user, :name => 'John Doe')
       get :index, :query => 'smith', :sort_order => 'name_desc'
       expect(assigns[:admin_users]).to eq([u2, u1])
+    end
+
+  end
+
+  describe 'GET #show' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+
+    it "is successful" do
+      get :show, { :id => FactoryGirl.create(:user) }, { :user_id => admin_user.id }
+      expect(response).to be_success
+    end
+
+    it "assigns the user's info requests to the view" do
+      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      expect(assigns[:info_requests]).to eq([info_request])
+    end
+
+    it 'does not include embargoed requests if the current user is
+        not a pro admin user' do
+      info_request.create_embargo
+      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      expect(assigns[:info_requests]).to eq([])
+    end
+
+    context 'when pro is enabled' do
+
+      it 'does not include embargoed requests if the current user is
+          not a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+          expect(assigns[:info_requests]).to eq([])
+        end
+      end
+
+      it 'includes embargoed requests if the current user is a pro admin user
+          and pro is enabled' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :show, { :id => info_request.user }, { :user_id => pro_admin_user.id }
+          expect(assigns[:info_requests].include?(info_request)).to be true
+        end
+      end
+
+    end
+
+    it "assigns the user's comments to the view" do
+      comment = FactoryGirl.create(:comment, :info_request => info_request,
+                                             :user => info_request.user)
+      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      expect(assigns[:comments]).to eq([comment])
+    end
+
+    it 'does not include comments on embargoed requests if the current user is
+        not a pro admin user' do
+      comment = FactoryGirl.create(:comment, :info_request => info_request,
+                                             :user => info_request.user)
+      info_request.create_embargo
+      get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+      expect(assigns[:comments]).to eq([])
+    end
+
+    context 'when pro is enabled' do
+
+      it 'does not include comments on embargoed requests if the current user is
+          not a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          comment = FactoryGirl.create(:comment, :info_request => info_request,
+                                                 :user => info_request.user)
+          info_request.create_embargo
+          get :show, { :id => info_request.user }, { :user_id => admin_user.id }
+          expect(assigns[:comments]).to eq([])
+        end
+      end
+
+      it 'includes comments on embargoed requests if the current user is a
+          pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          comment = FactoryGirl.create(:comment, :info_request => info_request,
+                                                 :user => info_request.user)
+          info_request.create_embargo
+          get :show, { :id => info_request.user }, { :user_id => pro_admin_user.id }
+          expect(assigns[:comments]).to eq([comment])
+        end
+      end
+
+    end
+
+  end
+
+  describe "POST #update" do
+
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+
+    before do
+      allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
+    end
+
+    it "saves a change to 'can_make_batch_requests'" do
+      user = FactoryGirl.create(:user)
+      expect(user.can_make_batch_requests?).to be false
+      post :update, { :id => user.id,
+                      :admin_user => { :can_make_batch_requests => '1',
+                                       :name => user.name,
+                                       :email => user.email,
+                                       :ban_text => user.ban_text,
+                                       :about_me => user.about_me,
+                                       :no_limit => user.no_limit,
+                                       :confirmed_not_spam => user.confirmed_not_spam } },
+                    { :user_id => admin_user.id }
+      expect(flash[:notice]).to eq('User successfully updated.')
+      expect(response).to be_redirect
+      user = User.find(user.id)
+      expect(user.can_make_batch_requests?).to be true
+    end
+
+    it "should not allow an existing email address to be used" do
+      existing_email = 'donotreuse@localhost'
+      FactoryGirl.create(:user, :email => existing_email)
+      user = FactoryGirl.create(:user, :email => 'user1@localhost')
+      post :update, { :id => user.id,
+                      :admin_user => { :name => user.name,
+                                       :email => existing_email,
+                                       :ban_text => user.ban_text,
+                                       :about_me => user.about_me,
+                                       :no_limit => user.no_limit,
+                                       :confirmed_not_spam => user.confirmed_not_spam } },
+                    { :user_id => admin_user.id }
+      user = User.find(user.id)
+      expect(user.email).to eq('user1@localhost')
+    end
+
+    it "sets the user's roles" do
+      user = FactoryGirl.create(:user)
+      admin_role = Role.where(:name => 'admin').first
+      expect(user.is_admin?).to be false
+      post :update, { :id => user.id,
+                      :admin_user => { :name => user.name,
+                                       :ban_text => user.ban_text,
+                                       :about_me => user.about_me,
+                                       :role_ids => [ admin_role.id ],
+                                       :no_limit => user.no_limit,
+                                       :confirmed_not_spam => user.confirmed_not_spam } },
+                    { :user_id => admin_user.id }
+      user = User.find(user.id)
+      expect(user.is_admin?).to be true
+    end
+
+    it "unsets the user's roles if no role ids are supplied" do
+      expect(admin_user.is_admin?).to be true
+      post :update, { :id => admin_user.id,
+                      :admin_user => { :name => admin_user.name,
+                                       :ban_text => admin_user.ban_text,
+                                       :about_me => admin_user.about_me,
+                                       :no_limit => admin_user.no_limit,
+                                       :confirmed_not_spam => admin_user.confirmed_not_spam} },
+                    { :user_id => admin_user.id }
+      user = User.find(admin_user.id)
+      expect(user.is_admin?).to be false
+    end
+
+    it 'does not set a role the setter cannot grant and revoke' do
+      user = FactoryGirl.create(:user)
+      pro_role = Role.where(:name => 'pro').first
+      expect(user.is_pro?).to be false
+      post :update, { :id => user.id,
+                      :admin_user => { :name => user.name,
+                                       :ban_text => user.ban_text,
+                                       :about_me => user.about_me,
+                                        :role_ids => [pro_role.id],
+                                        :no_limit => user.no_limit,
+                                        :confirmed_not_spam => user.confirmed_not_spam} },
+                    { :user_id => admin_user.id }
+      expect(flash[:error]).to eq("Not permitted to change roles")
+      user = User.find(user.id)
+      expect(user.is_pro?).to be false
+    end
+
+      it 'does not set a role that does not exist' do
+      user = FactoryGirl.create(:user)
+      role_id = Role.maximum(:id) + 1
+      expect(user.is_pro?).to be false
+      post :update, { :id => user.id,
+                      :admin_user => { :name => user.name,
+                                       :ban_text => user.ban_text,
+                                       :about_me => user.about_me,
+                                        :role_ids => [role_id],
+                                        :no_limit => user.no_limit,
+                                        :confirmed_not_spam => user.confirmed_not_spam} },
+                    { :user_id => admin_user.id }
+      user = User.find(user.id)
+      expect(user.is_pro?).to be false
+    end
+
+  end
+
+  describe 'POST #login_as' do
+
+    it "logs in as another user" do
+      post :login_as, { :id => FactoryGirl.create(:user).id },
+                      { :user_id => FactoryGirl.create(:admin_user).id }
+      expect(response).to redirect_to(:controller => 'user',
+                                      :action => 'confirm',
+                                      :email_token => get_last_post_redirect.email_token)
+    end
+
+    context 'if the user cannot log in as the user' do
+
+      it 'redirects to the admin user page for that user' do
+        with_feature_enabled(:alaveteli_pro) do
+          target_user = FactoryGirl.create(:pro_user)
+          post :login_as, { :id => target_user.id },
+                          { :user_id => FactoryGirl.create(:admin_user).id }
+          expect(response).to redirect_to(admin_user_path(target_user))
+        end
+      end
+
+      it 'shows an error message' do
+        with_feature_enabled(:alaveteli_pro) do
+          target_user = FactoryGirl.create(:pro_user)
+          post :login_as, { :id => target_user.id },
+                          { :user_id => FactoryGirl.create(:admin_user).id }
+          expect(flash[:error]).to eq "You don't have permission to log in " \
+                                      "as #{target_user.name}"
+        end
+      end
+
     end
 
   end

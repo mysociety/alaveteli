@@ -22,9 +22,11 @@ describe Role do
   end
 
   it 'validates the role is unique within the context of a resource_type' do
-    role = Role.new(:name => 'pro')
-    role.valid?
-    expect(role.errors[:name]).to eq(["has already been taken"])
+    with_feature_enabled(:alaveteli_pro) do
+      role = Role.new(:name => 'pro')
+      role.valid?
+      expect(role.errors[:name]).to eq(["has already been taken"])
+    end
   end
 
   describe '.grants_and_revokes' do
@@ -32,6 +34,35 @@ describe Role do
     it 'returns an array [:admin] when passed :admin' do
       expect(Role.grants_and_revokes(:admin))
         .to eq([:admin])
+    end
+
+    it 'returns an array [:pro, :admin, :pro_admin] when passed :pro_admin' do
+      expect(Role.grants_and_revokes(:pro_admin))
+        .to eq([:pro, :admin, :pro_admin])
+    end
+
+    it 'returns an empty array when passed :pro' do
+      expect(Role.grants_and_revokes(:pro))
+        .to eq([])
+    end
+
+  end
+
+  describe '.requires' do
+
+    it 'returns an empty array when passed :admin' do
+      expect(Role.requires(:admin))
+        .to eq([])
+    end
+
+    it 'returns an array [:admin] when passed :pro_admin' do
+      expect(Role.requires(:pro_admin))
+        .to eq([:admin])
+    end
+
+    it 'returns an empty array when passed :pro' do
+      expect(Role.requires(:pro))
+        .to eq([])
     end
 
   end

@@ -1,0 +1,7 @@
+<% outgoing_message = OutgoingMessage.find(event.params[:outgoing_message_id].to_i) %>
+had outgoing message edited by administrator <strong><%= event.params[:editor] %></strong>.
+<% if outgoing_message %>
+  <%= event_params_description(event) %>
+<% else %>
+Missing outgoing message, internal error.
+<% end %>

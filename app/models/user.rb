@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
   end
 
   def self.view_embargoed?(user)
-    self.view_hidden?(user)
+    !user.nil? && user.is_pro_admin?
   end
 
   def self.view_hidden_and_embargoed?(user)

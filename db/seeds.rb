@@ -7,6 +7,8 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-if Role.order(:name).empty?
-  roles = Role.create([{ :name => 'pro' }, { :name => 'admin' }])
+['pro', 'admin', 'pro_admin'].each do |role_name|
+  if Role.where(:name => role_name).empty?
+    Role.create(:name => role_name)
+  end
 end

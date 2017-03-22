@@ -1071,12 +1071,28 @@ describe User do
       expect(User.view_embargoed?(nil)).to be false
     end
 
-    it 'returns false if the user is not a superuser' do
+    it 'returns false if the user has no roles' do
       expect(User.view_embargoed?(FactoryGirl.create(:user))).to be false
     end
 
-    it 'returns true if the user is an admin user' do
-      expect(User.view_embargoed?(FactoryGirl.create(:admin_user))).to be true
+    it 'returns false if the user is an admin user' do
+      expect(User.view_embargoed?(FactoryGirl.create(:admin_user))).to be false
+    end
+
+    context 'with pro enabled' do
+
+      it 'returns false if the user is an admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(User.view_embargoed?(FactoryGirl.create(:admin_user))).to be false
+        end
+      end
+
+      it 'returns true if the user is a pro_admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(User.view_embargoed?(FactoryGirl.create(:pro_admin_user))).to be true
+        end
+      end
+
     end
   end
 
@@ -1085,12 +1101,28 @@ describe User do
       expect(User.view_hidden_and_embargoed?(nil)).to be false
     end
 
-    it 'returns false if the user is not a superuser' do
+    it 'returns false if the user has no role' do
       expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:user))).to be false
     end
 
-    it 'returns true if the user is an admin user' do
-      expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:admin_user))).to be true
+    it 'returns false if the user is an admin user' do
+      expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:admin_user))).to be false
+    end
+
+    context 'with pro enabled' do
+
+      it 'returns false if the user is an admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:admin_user))).to be false
+        end
+      end
+
+      it 'returns true if pro is enabled and the user is a pro_admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:pro_admin_user)))
+            .to be true
+        end
+      end
     end
   end
 
