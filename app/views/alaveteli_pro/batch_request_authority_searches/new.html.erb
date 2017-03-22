@@ -62,9 +62,17 @@
         </div>
       </div>
       <div class="batch-builder__actions">
-
-        <button class="button" <% if @draft_batch_request.public_bodies.empty? %>disabled<% end %>><%= _('Write request') %></button>
-
+        <%= form_tag new_alaveteli_pro_info_request_batch_path, method: :get do %>
+          <%= hidden_field_tag :draft_id,
+                               @draft_batch_request.id,
+                               class: 'js-write-button-draft-id' %>
+          <input type="submit"
+                 class="js-write-request-button"
+               <% if @draft_batch_request.public_bodies.empty? %>
+                 disabled
+                <% end %>
+                 value="<%= _('Write request') %>">
+        <% end %>
       </div>
     </div>
   </div>
