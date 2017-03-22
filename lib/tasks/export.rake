@@ -185,6 +185,7 @@ task :research_export => :environment do
               to_run,
               PublicBody.where("created_at < ?", cut_off_date),
               ["id",
+              "name",
               "short_name",
               "created_at",
               "updated_at",
