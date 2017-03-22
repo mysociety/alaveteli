@@ -17,6 +17,7 @@
 
 ### Changed Templates
 
+    app/views/followups/_followup.html.erb
     app/views/request/describe_notices/_error_message.html.erb
 
 # 0.28.0.2
