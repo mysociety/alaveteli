@@ -40,13 +40,6 @@ end
 
 gender_lambda = lambda {|x| detects_gender(x.name)}
 
-# Returns a lambda to pass to export function that censors x.property
-def name_censor_lambda(property)
-  lambda do |x|
-    case_insensitive_user_censor(x.send(property), x.info_request.user)
-  end
-end
-
 # Remove all instances of user's name (if there is a user), otherwise
 #  return the original text unchanged
 #
