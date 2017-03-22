@@ -173,7 +173,6 @@ task :research_export => :environment do
   csv_export(PublicBodyCategoryLink, to_run)
   csv_export(PublicBodyCategoryTranslation, to_run)
   csv_export(PublicBodyHeadingTranslation, to_run)
-  csv_export(InfoRequestBatch, to_run)
   csv_export(InfoRequestBatchPublicBody, to_run)
   csv_export(HasTagStringTag, to_run, HasTagStringTag.where(model:"PublicBody"))
 
@@ -234,6 +233,16 @@ task :research_export => :environment do
               "last_public_response_at",
               "info_request_batch_id"
              ])
+
+    csv_export(InfoRequestBatch,
+               to_run,
+               InfoRequestBatch.where("updated_at < ?", cut_off_date),
+               ["id",
+                "title",
+                "user_id",
+                "sent_at",
+                "created_at",
+                "updated_at"])
 
   #export incoming messages - only where normal prominence,
   # allow name_censor to some fields
