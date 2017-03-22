@@ -22,34 +22,8 @@
     <div class="row">
 
       <div class="request-to-header">
-
-        <form action="<%= alaveteli_pro_select_authority_path %>"
-              method="get"
-              class="new_info_request">
-          <p id="to_public_body" class="to_public_body">
-            <label for="public_body_query">
-              <span class="to_public_body_label"><%= _('To') %></span>
-            </label>
-            <input type="text"
-                   name="query"
-                   id="public_body_query"
-                   placeholder="<%= _('Search for an authority') %>"
-                   class="js-authority-select public-body-query"
-                   data-search-url="/alaveteli_pro/public_bodies"
-                   <% if @info_request.public_body %>
-                     value="<%= @info_request.public_body.name %>"
-                     data-initial-authority="<%= {
-                         :id => @info_request.public_body.id,
-                         :name => @info_request.public_body.name,
-                         :notes => @info_request.public_body.notes,
-                         :info_requests_visible_count => @info_request.public_body.info_requests_visible_count
-                       }.to_json %>"
-                   <% end %>>
-            <input type="submit"
-                   value="<%= _('Search') %>"
-                   class="js-authority-select-submit public-body-query__submit">
-          </p>
-        </form>
+        <%= render partial: 'alaveteli_pro/info_requests/_select_authority_form'
+                   locals: { info_request: @info_request } %>
       </div> <!-- .request-to-header -->
 
 
@@ -59,87 +33,7 @@
 
       <div id="request_form" class="request_form">
 
-        <%= form_tag([:alaveteli_pro, @draft_info_request],
-         method: @draft_info_request.id ? :put : :post,
-         :id => 'write_form',
-         :class => 'new_info_request') do %>
-
-          <%= fields_for @info_request do |f| %>
-
-            <%= f.hidden_field(:public_body_id, :class => 'js-public-body-id') %>
-
-            <div id="request_subject" class="request_subject">
-              <p>
-                <label class="form_label" for="info_request_title">
-                  <%= _('Subject') %>
-                </label>
-                <%= f.text_field :title, :size => 50 %>
-              </p>
-              <div class="form_item_note">
-                <%= _("A one line summary of the information you are requesting, e.g.") %>
-                <%= render :partial => "request/summary_suggestion" %>
-              </div>
-            </div> <!-- .request_subject -->
-
-            <%= fields_for @outgoing_message do |o| %>
-              <p>
-                <label class="form_label" for="outgoing_message_body">
-                  <%= _('Your request') %></label>
-                <%= o.text_area :body, :rows => 20,
-                                       :cols => 60,
-                                       :class => 'js-outgoing-message-body',
-                                       'data-salutation-template' => OutgoingMessage::Template::InitialRequest.placeholder_salutation,
-                                       'data-salutation-body-name' => OutgoingMessage::Template::InitialRequest.placeholder_body_name %>
-              </p>
-            <% end %>
-
-            <div class="request_embargo">
-              <p>
-                <label class="form_label" for="embargo_embargo_duration">
-                  <%= _('Privacy') %>
-                </label>
-                <%= fields_for :embargo do |e| %>
-                  <%= e.select :embargo_duration,
-                               options_for_select(
-                                 publish_at_options,
-                                 :selected => @embargo ? @embargo.embargo_duration : ''
-                               ) %>
-                <% end %>
-              </p>
-              <div class="form_item_note">
-                <%= render partial: "embargo_info",
-                         locals: { embargo: @embargo, tense: :future } %>
-                <p>
-                  <%= _("When a request is private we guarantee that it will only be " \
-                        "visible on {{site_name}} for the period you select. " \
-                        "{{pro_site_name}} administrators will also be able " \
-                        "to view your request, but will only do so in the event " \
-                        "that they need to fix a problem with it (e.g. failed " \
-                        "delivery to the authority). They will not reveal the " \
-                        "contents of your request or any response you get to anyone else. " \
-                        "The authority may still publish it in a disclosure log as usual.",
-                        site_name: AlaveteliConfiguration.site_name,
-                        pro_site_name: AlaveteliConfiguration.pro_site_name) %>
-                </p>
-                <p>
-                  <%= _("We will remind you by email and on the site when the request " \
-                        "is going be made public, and you'll have the option to keep " \
-                        "it private for longer if you want to. You can extend this " \
-                        "time indefinitely, or make the request public at any time.") %>
-                </p>
-              </div>
-            </div> <!-- .request_embargo -->
-
-            <div class="form_button">
-              <button name="preview" value="true" class="button">
-                <%= _("Preview and send request") %>
-              </button>
-              <button class="button-tertiary"><%= _("Save draft") %></button>
-            </div>
-
-          <% end %>
-
-        <% end %>
+        <%= render partial: 'alaveteli_pro/info_requests/_form' %>
 
       </div>  <!-- .request_form -->
 
