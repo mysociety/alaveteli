@@ -265,8 +265,8 @@ task :research_export => :environment do
               "prominence"],
               override = {
                 "cached_attachment_text_clipped" => name_censor_lambda('cached_attachment_text_clipped'),
-                "cached_main_body_text_folded" => name_censor_lambda('cached_attachment_text_clipped'),
-                "cached_main_body_text_unfolded" => name_censor_lambda('cached_attachment_text_clipped'),
+                "cached_main_body_text_folded" => name_censor_lambda('cached_main_body_text_folded'),
+                "cached_main_body_text_unfolded" => name_censor_lambda('cached_main_body_text_unfolded'),
               })
 
   #export incoming messages - only where normal prominence, allow name_censor to some fields
