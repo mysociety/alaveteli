@@ -614,7 +614,7 @@ Alaveteli::Application.routes.draw do
       match '/batch_request_authority_searches' => 'batch_request_authority_searches#create',
             :as => :batch_request_authority_searches,
             :via => :get
-      resources :draft_info_request_batches, :only => [:create] do
+      resources :draft_info_request_batches, :only => [:create, :update] do
         member do
           put 'update_bodies'
         end
