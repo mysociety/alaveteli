@@ -55,6 +55,30 @@ describe AdminOutgoingMessageController do
 
     end
 
+    context 'unsuccessfully destroying the message' do
+      before do
+        allow_any_instance_of(OutgoingMessage).
+          to receive(:destroy).and_return(false)
+      end
+
+      it 'does not destroy the message' do
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:outgoing_message]).to be_persisted
+      end
+
+      it 'informs the user' do
+        delete :destroy, :id => outgoing.id
+        expect(flash[:error]).to eq('Could not destroy the outgoing message.')
+      end
+
+      it 'redirects to the outgoing message edit page' do
+        delete :destroy, :id => outgoing.id
+        expect(response).
+          to redirect_to(edit_admin_outgoing_message_path(outgoing))
+      end
+
+    end
+
   end
 
   describe 'PUT #update' do
