@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminOutgoingMessageController do
 
-  describe 'when editing an outgoing message' do
+  describe 'GET #edit' do
 
     before do
       @info_request = FactoryGirl.create(:info_request)
@@ -22,7 +22,7 @@ describe AdminOutgoingMessageController do
 
   end
 
-  describe 'when updating an outgoing message' do
+  describe 'PUT #update' do
 
     before do
       @info_request = FactoryGirl.create(:info_request)
@@ -109,6 +109,7 @@ describe AdminOutgoingMessageController do
       end
 
     end
+
   end
 
 end
