@@ -50,10 +50,25 @@
 </p>
 
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'delete' do %>
-  <div>
-    <%= submit_tag "Destroy outgoing message",
-          :class => "btn btn-danger",
-          :data => { :confirm => "This is permanent! Are you sure?" } %>
+  <div class="control-group">
+    <div class="controls">
+      <% if @is_initial_message %>
+        <%= submit_tag "Destroy outgoing message",
+                       :class => "btn btn-danger",
+                       :disabled => true,
+                       :data => {
+                         :confirm => "This is permanent! Are you sure?" } %>
+        <span class="help-inline">
+          The initial outgoing message cannot be destroyed. You can set the
+          prominence to <tt>hidden</tt> instead.
+        </span>
+        <% else %>
+          <%= submit_tag "Destroy outgoing message",
+                         :class => "btn btn-danger",
+                         :data => {
+                           :confirm => "This is permanent! Are you sure?" } %>
+        <% end %>
+    </div>
   </div>
 <% end %>
 

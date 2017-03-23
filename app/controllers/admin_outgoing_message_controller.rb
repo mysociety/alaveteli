@@ -2,12 +2,13 @@
 class AdminOutgoingMessageController < AdminController
 
   before_filter :set_outgoing_message, :only => [:edit, :destroy, :update, :resend]
+  before_filter :set_is_initial_message, :only => [:edit, :destroy]
 
   def edit
   end
 
   def destroy
-    if @outgoing_message.destroy
+    if !@is_initial_message && @outgoing_message.destroy
       @outgoing_message.
         info_request.
           log_event("destroy_outgoing",
@@ -88,4 +89,14 @@ class AdminOutgoingMessageController < AdminController
     @outgoing_message = OutgoingMessage.find(params[:id])
   end
 
+  def set_is_initial_message
+    @is_initial_message = @outgoing_message == last_event_message
+  end
+
+  def last_event_message
+    @outgoing_message.
+      info_request.
+        last_event_forming_initial_request.
+          try(:outgoing_message)
+  end
 end

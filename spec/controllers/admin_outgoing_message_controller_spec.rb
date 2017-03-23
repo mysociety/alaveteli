@@ -18,12 +18,35 @@ describe AdminOutgoingMessageController do
       expect(assigns[:outgoing_message]).to eq(outgoing)
     end
 
+    context 'when the message is the initial outgoing message' do
+
+      it 'sets is_initial_message to true' do
+        get :edit, :id => outgoing.id
+        expect(assigns[:is_initial_message]).to eq(true)
+      end
+
+    end
+
+    context 'when the message is not initial outgoing message' do
+
+      it 'sets is_initial_message to false' do
+        outgoing = FactoryGirl.create(:new_information_followup,
+                                      :info_request => info_request)
+        get :edit, :id => outgoing.id
+        expect(assigns[:is_initial_message]).to eq(false)
+      end
+
+    end
+
   end
 
   describe 'DELETE #destroy' do
 
     let(:info_request) { FactoryGirl.create(:info_request) }
-    let(:outgoing) { info_request.outgoing_messages.first }
+    let(:outgoing) do
+      FactoryGirl.create(:new_information_followup,
+                         :info_request => info_request)
+    end
 
     it 'finds the outgoing message' do
       delete :destroy, :id => outgoing.id
@@ -75,6 +98,36 @@ describe AdminOutgoingMessageController do
         delete :destroy, :id => outgoing.id
         expect(response).
           to redirect_to(edit_admin_outgoing_message_path(outgoing))
+      end
+
+    end
+
+    context 'when the message is the initial outgoing message' do
+
+      it 'sets is_initial_message to true' do
+        outgoing = FactoryGirl.create(:initial_request)
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:is_initial_message]).to eq(true)
+      end
+
+      it 'prevents the destruction of the message' do
+        outgoing = FactoryGirl.create(:initial_request)
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:outgoing_message]).to be_persisted
+      end
+
+    end
+
+    context 'when the message is not initial outgoing message' do
+
+      it 'sets is_initial_message to false' do
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:is_initial_message]).to eq(false)
+      end
+
+      it 'allows the destruction of the message' do
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:outgoing_message]).to_not be_persisted
       end
 
     end
