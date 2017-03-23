@@ -20,6 +20,41 @@ describe AdminOutgoingMessageController do
       expect(assigns[:outgoing_message]).to eq(@outgoing)
     end
 
+  describe 'DELETE #destroy' do
+
+    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:outgoing) { info_request.outgoing_messages.first }
+
+    it 'finds the outgoing message' do
+      delete :destroy, :id => outgoing.id
+      expect(assigns[:outgoing_message]).to eq(outgoing)
+    end
+
+    context 'successfully destroying the message' do
+
+      it 'destroys the message' do
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:outgoing_message]).to_not be_persisted
+      end
+
+      it 'logs an event on the info request' do
+        delete :destroy, :id => outgoing.id
+        expect(info_request.reload.get_last_event.event_type).
+          to eq('destroy_outgoing')
+      end
+
+      it 'informs the user' do
+        delete :destroy, :id => outgoing.id
+        expect(flash[:notice]).to eq('Outgoing message successfully destroyed.')
+      end
+
+      it 'redirects to the admin request page' do
+        delete :destroy, :id => outgoing.id
+        expect(response).to redirect_to(admin_request_url(info_request))
+      end
+
+    end
+
   end
 
   describe 'PUT #update' do
