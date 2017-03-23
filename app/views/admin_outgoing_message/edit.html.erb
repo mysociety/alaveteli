@@ -32,6 +32,14 @@
 
     <div class="form-actions" >
       <%= submit_tag 'Save', :accesskey => 's', :class => 'btn' %>
+      <%= link_to resend_admin_outgoing_message_path(@outgoing_message),
+                  :class => 'btn btn-warning',
+                  :method => :post,
+                  :data => { :confirm => "Are you sure you want to resend " \
+                                         "this message to the " \
+                                         "authority?" } do %>
+        Resend
+      <% end %>
     </div>
   </div>
 <% end %>

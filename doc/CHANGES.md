@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Make it easier to find the "Resend" message button in the admin interface
+  (Gareth Rees)
 * Install supported version of bundler through Rubygems on Debian Wheezy (Gareth
   Rees)
 * Update Czechia country name in `WorldFOIWebsites` (Gareth Rees)
