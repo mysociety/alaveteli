@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20170301171406
+# Schema version: 20170323165519
 #
-# Table name: alaveteli_pro_draft_info_request_batches
+# Table name: draft_info_request_batches
 #
-#  id         :integer          not null, primary key
-#  title      :string(255)
-#  body       :text
-#  user_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id               :integer          not null, primary key
+#  title            :string(255)
+#  body             :text
+#  user_id          :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  embargo_duration :string(255)
 #
 
 class AlaveteliPro::DraftInfoRequestBatch < ActiveRecord::Base
