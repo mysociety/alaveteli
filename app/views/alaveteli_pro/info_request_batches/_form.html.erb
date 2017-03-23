@@ -3,7 +3,7 @@
              :id => 'write_form',
              :class => 'new_info_request') do %>
 
-  <%= fields_for @info_request_batch do |f| %>
+  <%= fields_for @draft_info_request_batch do |f| %>
 
     <% @draft_info_request_batch.public_body_ids.each do |id| %>
       <%= f.hidden_field(:public_body_ids, multiple: true, value: id) %>
@@ -34,17 +34,15 @@
         <label class="form_label" for="alaveteli_pro_draft_info_request_batch_embargo_duration">
           <%= _('Privacy') %>
         </label>
-        <%# fields_for :embargo do |e| %>
-          <%# e.select :embargo_duration,
-                       options_for_select(
-                         publish_at_options,
-                         :selected => @embargo ? @embargo.embargo_duration : ''
-                       ) %>
-        <%# end %>
+        <%= f.select :embargo_duration,
+                     options_for_select(
+                       publish_at_options,
+                       :selected => @embargo.embargo_duration
+                     ) %>
       </p>
       <div class="form_item_note">
-        <%# render partial: "embargo_info",
-                 locals: { embargo: @embargo, tense: :future } %>
+        <%= render partial: "alaveteli_pro/info_requests/embargo_info",
+                   locals: { embargo: @embargo, tense: :future } %>
         <p>
           <%= _("When a request is private we guarantee that it will only be " \
                 "visible on {{site_name}} for the period you select. " \

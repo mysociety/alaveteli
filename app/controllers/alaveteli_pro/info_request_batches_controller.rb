@@ -9,6 +9,7 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
   def new
     @draft_info_request_batch = load_draft
     @info_request_batch = InfoRequestBatch.from_draft(@draft_info_request_batch)
+    @embargo = embargo_from_draft(@draft_info_request_batch)
     render :template => 'alaveteli_pro/info_requests/new'
   end
 
@@ -16,5 +17,13 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
 
   def load_draft
     current_user.draft_info_request_batches.find(params[:draft_id])
+  end
+
+  def embargo_from_draft(draft)
+    if draft.embargo_duration
+      AlaveteliPro::Embargo.new(embargo_duration: draft.embargo_duration)
+    else
+      AlaveteliPro::Embargo.new
+    end
   end
 end
