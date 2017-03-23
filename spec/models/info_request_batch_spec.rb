@@ -149,4 +149,29 @@ describe InfoRequestBatch do
 
   end
 
+  describe "#from_draft" do
+    let(:first_public_body) { FactoryGirl.create(:public_body) }
+    let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:draft) do
+      FactoryGirl.create(
+        :draft_info_request_batch,
+        :public_bodies => [first_public_body, second_public_body])
+    end
+
+    it "copies across all of the attributes from the draft" do
+      batch = InfoRequestBatch.from_draft(draft)
+      expect(batch.title).to eq draft.title
+      expect(batch.body).to eq draft.body
+      expect(batch.public_bodies).to eq draft.public_bodies
+      expect(batch.embargo_duration).to eq draft.embargo_duration
+    end
+
+    it "doesn't save the batch" do
+      batch = InfoRequestBatch.from_draft(draft)
+      expect(batch.persisted?).to be false
+    end
+  end
+
+  describe "#"
+
 end

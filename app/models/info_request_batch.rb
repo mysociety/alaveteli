@@ -35,6 +35,14 @@ class InfoRequestBatch < ActiveRecord::Base
     includes(:public_bodies).where(conditions).references(:public_bodies).first
   end
 
+  # Create a new batch from the supplied draft version
+  def self.from_draft(draft)
+    self.new(user: draft.user,
+             public_bodies: draft.public_bodies,
+             title: draft.title,
+             body: draft.body)
+  end
+
   # Create a batch of information requests, returning a list of public bodies
   # that are unrequestable from the initial list of public body ids passed.
   def create_batch!
