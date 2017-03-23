@@ -15,7 +15,7 @@ describe AdminOutgoingMessageController do
       expect(response).to be_success
     end
 
-    it 'should assign the incoming message to the view' do
+    it 'should assign the outgoing message to the view' do
       get :edit, :id => @outgoing.id
       expect(assigns[:outgoing_message]).to eq(@outgoing)
     end
