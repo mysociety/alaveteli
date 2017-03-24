@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update Czechia country name in `WorldFOIWebsites` (Gareth Rees)
 * Prevent null bytes getting saved to `IncomingMessage` cache columns (Gareth
   Rees)
 * Add missing erb tags (Sam Smith)
