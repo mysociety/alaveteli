@@ -1,4 +1,3 @@
-
 # develop
 
 ## Highlighted Features
@@ -26,6 +25,12 @@
     app/views/followups/_followup.html.erb
     app/views/reports/new.html.erb
     app/views/request/describe_notices/_error_message.html.erb
+
+# 0.28.0.3
+
+# Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
 
 # 0.28.0.2
 
