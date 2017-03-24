@@ -5,7 +5,7 @@ class UserSpamScorer
     :name_is_one_word? => 1,
     :name_includes_non_alpha_characters? => 3,
     :name_is_garbled? => 5,
-    :email_from_spam_domain? => 5,
+    :email_from_suspicious_domain? => 5,
     :email_from_spam_tld? => 3,
     :about_me_includes_currency_symbol? => 2,
     :about_me_is_link_only? => 3,
@@ -15,7 +15,7 @@ class UserSpamScorer
   }.freeze
 
   DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢).freeze
-  DEFAULT_SPAM_DOMAINS =
+  DEFAULT_SUSPICIOUS_DOMAINS =
     %w(mail.ru
        temp-mail.de
        tempmail.de
@@ -32,7 +32,7 @@ class UserSpamScorer
 
   CLASS_ATTRIBUTES = [:currency_symbols,
                       :score_mappings,
-                      :spam_domains,
+                      :suspicious_domains,
                       :spam_formats,
                       :spam_score_threshold,
                       :spam_tlds].freeze
@@ -98,8 +98,8 @@ class UserSpamScorer
     user.name.strip =~ /[^aeiou]{5,}/i ? true : false
   end
 
-  def email_from_spam_domain?(user)
-    spam_domains.include?(user.email_domain)
+  def email_from_suspicious_domain?(user)
+    suspicious_domains.include?(user.email_domain)
   end
 
   def email_from_spam_tld?(user)
