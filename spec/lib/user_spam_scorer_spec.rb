@@ -47,6 +47,20 @@ describe UserSpamScorer do
 
   end
 
+  describe '.spam_domains' do
+
+    it 'sets a default spam_domains value' do
+      expect(described_class.spam_domains).
+        to eq(described_class::DEFAULT_SPAM_DOMAINS )
+    end
+
+    it 'sets a custom spam_domains value' do
+      described_class.spam_domains = %w(example.com)
+      expect(described_class.spam_domains).to eq(%w(example.com))
+    end
+
+  end
+
   describe '.spam_formats' do
 
     it 'sets a default spam_formats value' do
@@ -340,6 +354,24 @@ describe UserSpamScorer do
       scorer = described_class.new(
                  :suspicious_domains => mock_suspicious_domains)
       expect(scorer.email_from_suspicious_domain?(user)).to eq(false)
+    end
+
+  end
+
+  describe '#email_from_spam_domain?' do
+
+    it 'is true if the email is from a spam domain' do
+      mock_spam_domains = %w(example.com example.net example.org)
+      user = mock_model(User, :email_domain => 'example.net')
+      scorer = described_class.new(:spam_domains => mock_spam_domains)
+      expect(scorer.email_from_spam_domain?(user)).to eq(true)
+    end
+
+    it 'is false if the email is not from a spam domain' do
+      mock_spam_domains = %w(example.com example.org)
+      user = mock_model(User, :email_domain => 'example.net')
+      scorer = described_class.new(:spam_domains => mock_spam_domains)
+      expect(scorer.email_from_spam_domain?(user)).to eq(false)
     end
 
   end
