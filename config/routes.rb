@@ -619,7 +619,9 @@ Alaveteli::Application.routes.draw do
           put 'update_bodies'
         end
       end
-      resources :info_request_batches, :only => [:new, :create]
+      resources :info_request_batches, :only => [:new, :create] do
+        get :preview, on: :new # /info_request_batch/new/preview
+      end
       match '/public_bodies/:query' => 'public_bodies#search',
             :via => :get,
             :as => :public_bodies_search
