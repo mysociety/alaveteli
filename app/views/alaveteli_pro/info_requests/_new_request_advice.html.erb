@@ -1,0 +1,24 @@
+<p>
+  <strong>
+    <%= _("Are you sure the information you’re after isn’t available " \
+       "elsewhere?") %>
+  </strong>
+  <%= _("Check the authority’s responses on {{site_name}} or conduct " \
+        "a quick Internet search.", site_name: site_name) %>
+</p>
+<p>
+  <%= _("Once you’re happy with your request, click preview and send.") %>
+  <strong>
+  <% if AlaveteliConfiguration::working_or_calendar_days == 'working' %>
+      <%= _("Remember, public authorities have {{late_number_of_days}} " \
+            "working days to respond to FOI requests.",
+            late_number_of_days: AlaveteliConfiguration::reply_late_after_days
+            ) %>
+  <% else %>
+      <%= _("Remember, public authorities have {{late_number_of_days}} " \
+            "calendar days to respond to FOI requests.",
+            late_number_of_days: AlaveteliConfiguration::reply_late_after_days,
+            ) %>
+  <% end %>
+  </strong>
+</p>
