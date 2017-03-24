@@ -10,7 +10,18 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
     @draft_info_request_batch = load_draft
     @info_request_batch = InfoRequestBatch.from_draft(@draft_info_request_batch)
     @embargo = embargo_from_draft(@draft_info_request_batch)
-    render :template => 'alaveteli_pro/info_requests/new'
+    render 'alaveteli_pro/info_requests/new'
+  end
+
+  def preview
+    @draft_info_request_batch = load_draft
+    @info_request_batch = InfoRequestBatch.from_draft(@draft_info_request_batch)
+    @embargo = embargo_from_draft(@draft_info_request_batch)
+    if @info_request_batch.valid?
+      render 'alaveteli_pro/info_requests/preview'
+    else
+      render 'alaveteli_pro/info_requests/new'
+    end
   end
 
   private
