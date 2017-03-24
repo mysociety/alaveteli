@@ -50,7 +50,7 @@ describe "creating requests in alaveteli_pro" do
         drafts = DraftInfoRequest.where(title: "Does the pro request form work?")
         expect(drafts).to exist
 
-        expect(page).to have_content("Preview your request")
+        expect(page).to have_content("Preview new FOI request to '#{public_body.name}'")
         # The fact there's a draft should be hidden from the user
         expect(page).not_to have_content("Your draft has been saved!")
 
@@ -133,7 +133,7 @@ describe "creating requests in alaveteli_pro" do
         click_button "Preview and send"
 
         # Preview page again
-        expect(page).to have_content("Preview your request")
+        expect(page).to have_content("Preview new FOI request to '#{public_body.name}'")
         # The fact there's a draft should be hidden from the user
         expect(page).not_to have_content("Your draft has been saved!")
 

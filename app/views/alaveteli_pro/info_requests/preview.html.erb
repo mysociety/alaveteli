@@ -1,10 +1,16 @@
-<% @title = _("Preview new {{law_used_short}} request to '{{public_body_name}}",
-            :law_used_short => h(@info_request.law_used_human(:short)),
-            :public_body_name => h(@info_request.public_body.name)) %>
+<% batch_request = @info_request_batch.present? %>
+
+<% if batch_request %>
+  <% @title = _("Preview new batch request") %>
+<% else %>
+  <% @title = _("Preview new {{law_used_short}} request to '{{public_body_name}}'",
+                :law_used_short => h(@info_request.law_used_human(:short)),
+                :public_body_name => h(@info_request.public_body.name)) %>
+<% end %>
 <div class="pro-canvas">
   <div class="pro-canvas-header">
     <div class="row">
-      <h1><%= _('Preview your request') %></h1>
+      <h1><%= @title %></h1>
     </div>
   </div>
   <div class="pro-canvas-body">
@@ -13,37 +19,26 @@
         <div class="message-preview">
           <div class="preview-advice">
             <div class="advice-panel">
-              <%= render partial: "embargo_info",
+              <%= render partial: "alaveteli_pro/info_requests/embargo_info",
                          locals: { embargo: @embargo, tense: :future }  %>
             </div>
           </div>
 
           <div class="preview-pane">
-            <div class="correspondence box" id="outgoing-0">
-              <p class="preview_to">
-                <strong><%= _('To') %></strong>
-                  <%=h(@info_request.public_body.name)%>
-
-              </p>
-              <p class="preview_subject">
-                <strong><%= _('Subject') %></strong> <%= @info_request.title %>
-              </p>
-
-              <div class="correspondence_text">
-                <p><%= simple_format(@outgoing_message.body) %></p>
-              </div>
-            </div>
-
-            <p>
-              <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
-                <%= hidden_field_tag :draft_id, @draft_info_request.id %>
-
-                <%= submit_tag _("Send request"),
-                               :data => { :disable_with => _("Sending...") },
-                               :id => 'submit_button' %>
-                <%= link_to _("Edit your request"), "#{new_alaveteli_pro_info_request_path}?draft_id=#{@draft_info_request.id}" %>
-              <% end %>
-            </p>
+            <% if batch_request %>
+              <%= render partial: 'alaveteli_pro/info_request_batches/message_preview',
+                         locals: {
+                            batch: @info_request_batch,
+                            draft: @draft_info_request_batch
+                         } %>
+            <% else %>
+              <%= render partial: 'alaveteli_pro/info_requests/message_preview',
+                         locals: {
+                            info_request: @info_request,
+                            draft_info_request: @draft_info_request,
+                            outgoing_message: @outgoing_message
+                         } %>
+            <% end %>
           </div>
         </div>
       </div>
