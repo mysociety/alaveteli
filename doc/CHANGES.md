@@ -1,3 +1,9 @@
+# 0.26.0.11
+
+## Highlighted Features
+
+* Update CS translations from 0.28.0.3 (Gareth Rees)
+
 # 0.26.0.10
 
 ## Highlighted Features
