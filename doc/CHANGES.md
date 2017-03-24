@@ -1,3 +1,9 @@
+# 0.28.0.3
+
+# Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
 # 0.28.0.2
 
 ## Highlighted Features
