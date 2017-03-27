@@ -19,10 +19,12 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class MailServerLog < ActiveRecord::Base
+  # `serialize` needs to be called before all other ActiveRecord code.
+  # See http://stackoverflow.com/a/15610692/387558
+  serialize :delivery_status, DeliveryStatusSerializer
+
   belongs_to :info_request
   belongs_to :mail_server_log_done
-
-  serialize :delivery_status, DeliveryStatusSerializer
 
   before_create :calculate_delivery_status
 
