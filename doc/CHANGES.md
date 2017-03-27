@@ -26,6 +26,13 @@
     app/views/reports/new.html.erb
     app/views/request/describe_notices/_error_message.html.erb
 
+# 0.28.0.4
+
+# Highlighted Features
+
+* Fix bug causing `MailServerLog#delivery_status` to return an ActiveRecord
+  serialized attribute (Gareth Rees)
+
 # 0.28.0.3
 
 # Highlighted Features
