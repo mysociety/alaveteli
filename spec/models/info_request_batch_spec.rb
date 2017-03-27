@@ -172,6 +172,80 @@ describe InfoRequestBatch do
     end
   end
 
-  describe "#"
+  describe "#example_request" do
+    let(:first_public_body) { FactoryGirl.create(:public_body) }
+    let(:second_public_body) { FactoryGirl.create(:public_body) }
+
+    context "when the batch has an embargo duration" do
+      let(:info_request_batch) do
+        FactoryGirl.create(
+          :info_request_batch,
+          :public_bodies => [first_public_body, second_public_body],
+          :embargo_duration => "3_months")
+      end
+      let(:example) { info_request_batch.example_request }
+
+      it "builds, but doesn't save the request" do
+        expect(example.persisted?).to be false
+      end
+
+      it "copies the title from the batch into the request" do
+        expect(example.title).to eq info_request_batch.title
+      end
+
+      it "fills out the salutation in the body with the public body name" do
+        info_request_batch.body = "Dear [Authority name],\n\nSome request"
+        info_request_batch.save
+        expected_body = info_request_batch.body.gsub(
+          "[Authority name]",
+          info_request_batch.public_bodies.first.name)
+        expect(example.outgoing_messages.first.body).to eq expected_body
+      end
+
+      it "creates an example request for the first body in the batch" do
+        expect(example.public_body).to eq info_request_batch.public_bodies.first
+      end
+
+      it "creates an example request with an embargo" do
+        expect(example.embargo.embargo_duration).to eq '3_months'
+        expect(example.embargo.persisted?).to be false
+      end
+    end
+
+    context "when the batch doesn't have an embargo duration" do
+      let(:info_request_batch) do
+        FactoryGirl.create(
+          :info_request_batch,
+          :public_bodies => [first_public_body, second_public_body])
+      end
+      let(:example) { info_request_batch.example_request }
+
+      it "builds, but doesn't save the request" do
+        expect(example.persisted?).to be false
+      end
+
+      it "copies the title from the batch into the request" do
+        expect(example.title).to eq info_request_batch.title
+      end
+
+      it "fills out the salutation in the body with the public body name" do
+        info_request_batch.body = "Dear [Authority name],\n\nSome request"
+        info_request_batch.save
+        expected_body = info_request_batch.body.gsub(
+          "[Authority name]",
+          info_request_batch.public_bodies.first.name)
+        expect(example.outgoing_messages.first.body).to eq expected_body
+      end
+
+      it "creates an example request for the first body in the batch" do
+        expect(example.public_body).to eq info_request_batch.public_bodies.first
+      end
+
+      it "doesn't create an embargo for the example request" do
+        expect(example.embargo).to be_nil
+      end
+    end
+
+  end
 
 end

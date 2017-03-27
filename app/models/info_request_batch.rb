@@ -90,4 +90,22 @@ class InfoRequestBatch < ActiveRecord::Base
                                                        info_request_batch.user).deliver
     end
   end
+
+  # Build an InfoRequest object which is an example of this batch.
+  def example_request
+    public_body = self.public_bodies.first
+    body = OutgoingMessage.fill_in_salutation(self.body, public_body)
+    info_request = InfoRequest.create_from_attributes(
+      { :title => self.title, :public_body => public_body },
+      { :body => body },
+      self.user
+    )
+    unless embargo_duration.blank?
+      info_request.embargo = AlaveteliPro::Embargo.new(
+        :info_request => info_request,
+        :embargo_duration => embargo_duration
+      )
+    end
+    info_request
+  end
 end
