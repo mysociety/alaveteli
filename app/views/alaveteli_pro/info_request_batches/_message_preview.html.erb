@@ -10,7 +10,7 @@
   </p>
 
   <div class="correspondence_text">
-    <p><%= simple_format(batch.body) %></p>
+    <p><%= simple_format(outgoing_message.body) %></p>
   </div>
 </div>
 
@@ -22,6 +22,6 @@
                    :data => { :disable_with => _("Sending...") },
                    :id => 'submit_button' %>
     <%= link_to _("Edit your request"),
-                new_alaveteli_pro_info_request_batch_path(draft_id=draft.id) %>
+                new_alaveteli_pro_info_request_batch_path(:draft_id => draft.id) %>
   <% end %>
 </p>

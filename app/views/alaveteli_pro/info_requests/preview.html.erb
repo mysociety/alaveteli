@@ -29,7 +29,8 @@
               <%= render partial: 'alaveteli_pro/info_request_batches/message_preview',
                          locals: {
                             batch: @info_request_batch,
-                            draft: @draft_info_request_batch
+                            draft: @draft_info_request_batch,
+                            outgoing_message: @outgoing_message
                          } %>
             <% else %>
               <%= render partial: 'alaveteli_pro/info_requests/message_preview',

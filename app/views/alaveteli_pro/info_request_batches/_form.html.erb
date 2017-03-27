@@ -37,7 +37,7 @@
         <%= f.select :embargo_duration,
                      options_for_select(
                        publish_at_options,
-                       :selected => @embargo.embargo_duration
+                       :selected => @embargo ? @embargo.embargo_duration : ''
                      ) %>
       </p>
       <div class="form_item_note">

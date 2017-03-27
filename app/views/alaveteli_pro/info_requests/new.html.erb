@@ -15,15 +15,18 @@
     </div>
   </div>
 
-  <% if batch_request %>
-    <%= foi_error_messages_for :info_request_batch %>
-  <% else %>
-    <%= foi_error_messages_for :info_request, :outgoing_message %>
-  <% end %>
-
-  <%= render partial: 'request/email_override_warning' %>
-
   <div class="pro-canvas-body">
+    <div class="row">
+      <% if batch_request %>
+        <%= foi_error_messages_for :info_request_batch,
+                                   :example_info_request,
+                                   :outgoing_message %>
+      <% else %>
+        <%= foi_error_messages_for :info_request, :outgoing_message %>
+      <% end %>
+    </div>
+
+    <%= render partial: 'request/email_override_warning' %>
 
     <div class="row">
 
