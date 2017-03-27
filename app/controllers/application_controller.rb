@@ -432,46 +432,11 @@ class ApplicationController < ActionController::Base
   def perform_search_typeahead(query, model, per_page=25)
     @page = get_search_page_from_params
     @per_page = per_page
-    query_words = query.split(/ +(?![-+]+)/)
-    if query_words.last.nil? || query_words.last.strip.length < 3
-      xapian_requests = nil
-    else
-      if model == PublicBody
-        collapse = nil
-      elsif model == InfoRequestEvent
-        collapse = 'request_collapse'
-      end
-      options = {
-        :offset => (@page - 1) * @per_page,
-        :limit => @per_page,
-        :sort_by_prefix => nil,
-        :sort_by_ascending => true,
-        :collapse_by_prefix => collapse,
-      }
-      ActsAsXapian.readable_init
-      old_default_op = ActsAsXapian.query_parser.default_op
-      ActsAsXapian.query_parser.default_op = Xapian::Query::OP_OR
-      begin
-        user_query =  ActsAsXapian.query_parser.parse_query(
-          query.strip + '*',
-          Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
-        Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
-        xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
-      rescue RuntimeError => e
-        if e.message =~ /^QueryParserError: Wildcard/
-          # Wildcard expands to too many terms
-          logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message.force_encoding('UTF-8')}"
-
-          user_query =  ActsAsXapian.query_parser.parse_query(
-            query,
-            Xapian::QueryParser::FLAG_LOVEHATE |
-          Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
-          xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
-        end
-      end
-      ActsAsXapian.query_parser.default_op = old_default_op
-    end
-    return xapian_requests
+    options = { :page => @page,
+                :per_page => @per_page,
+                :model => model }
+    typeahead_search = TypeaheadSearch.new(query, options)
+    typeahead_search.xapian_search
   end
 
   # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
