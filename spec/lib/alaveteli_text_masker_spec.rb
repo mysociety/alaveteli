@@ -141,24 +141,6 @@ describe AlaveteliTextMasker do
         expect(result).to match "something about xxx@xxx.xxx.xx"
       end
 
-      it 'restricts memory use to 512MB when uncompressing the PDF' do
-        expect(AlaveteliExternalCommand).
-          to receive(:run).
-            with(anything, anything, anything, anything, anything,
-                 hash_including(:memory_limit => 536870912))
-
-        class_instance.send(:uncompress_pdf, "sample text")
-      end
-
-      it 'restricts memory use to 512MB when compressing the PDF' do
-        expect(AlaveteliExternalCommand).
-          to receive(:run).
-            with(anything, anything, anything, anything, anything,
-                 hash_including(:memory_limit => 536870912))
-
-        class_instance.send(:compress_pdf, "sample text")
-      end
-
     end
 
     context 'applying masks to text' do
