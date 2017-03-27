@@ -1,3 +1,10 @@
+# 0.26.0.12
+
+## Highlighted Features
+
+* Fix bug causing `MailServerLog#delivery_status` to return an ActiveRecord
+  serialized attribute (Gareth Rees)
+
 # 0.26.0.11
 
 ## Highlighted Features
