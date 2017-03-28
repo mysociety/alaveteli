@@ -47,12 +47,14 @@ describe MailServerLog::DeliveryStatus do
 
     let(:statuses) do
       [:delivered,
+       :unknown,
        :failed,
        :sent].map { |s| described_class.new(s) }
      end
 
      let(:sorted) do
-       [:failed,
+       [:unknown,
+        :failed,
         :sent,
         :delivered]
      end
@@ -126,6 +128,20 @@ describe MailServerLog::DeliveryStatus do
 
   end
 
+  describe '#unknown?' do
+
+    it 'returns true when the status is :unknown' do
+      status = described_class.new(:unknown)
+      expect(status.unknown?).to eq(true)
+    end
+
+    it 'returns false when the status is not :unknown' do
+      status = described_class.new(:delivered)
+      expect(status.unknown?).to eq(false)
+    end
+
+  end
+
   describe '#humanize' do
 
     it 'returns a humanized string for the :delivered status' do
@@ -143,6 +159,11 @@ describe MailServerLog::DeliveryStatus do
       expect(status.humanize).to eq('This message could not be delivered.')
     end
 
+    it 'returns a humanized string for the :unknown status' do
+      status = described_class.new(:unknown)
+      expect(status.humanize).
+        to eq("We don't know the delivery status for this message.")
+    end
   end
 
 end

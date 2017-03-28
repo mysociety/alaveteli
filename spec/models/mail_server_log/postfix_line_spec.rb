@@ -108,8 +108,9 @@ describe MailServerLog::PostfixLine do
 
   describe '#delivery_status' do
 
-    it 'returns nil if a delivery status cannot be parsed from the line' do
-      expect(described_class.new('garbage').delivery_status).to eq(nil)
+    it 'returns an unknown status if a delivery status cannot be parsed from the line' do
+      expected = MailServerLog::DeliveryStatus.new(:unknown)
+      expect(described_class.new('garbage').delivery_status).to eq(expected)
     end
 
     it 'parses a :sent line' do

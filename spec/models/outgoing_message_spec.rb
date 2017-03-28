@@ -1573,6 +1573,25 @@ describe OutgoingMessage do
 
     describe '#delivery_status' do
 
+      it 'returns an unknown delivery status if there are no mail logs' do
+        message = FactoryGirl.create(:initial_request)
+        allow(message).to receive(:mail_server_logs).and_return([])
+        status = MailServerLog::DeliveryStatus.new(:unknown)
+        expect(message.delivery_status).to eq(status)
+      end
+
+      it 'returns an unknown delivery status if we cannot parse a status' do
+        log_lines = <<-EOF.strip_heredoc.split("\n")
+        junk
+        garbage
+        EOF
+        logs = log_lines.map { |line| MailServerLog.new(:line => line) }
+        message = FactoryGirl.create(:initial_request)
+        allow(message).to receive(:mail_server_logs).and_return(logs)
+        status = MailServerLog::DeliveryStatus.new(:unknown)
+        expect(message.delivery_status).to eq(status)
+      end
+
       context 'when the MTA is exim' do
 
         before do
@@ -1584,6 +1603,7 @@ describe OutgoingMessage do
           log_lines = <<-EOF.strip_heredoc.split("\n")
           2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= request-123-abc987@example.net U=alaveteli P=local S=2252 id=ogm-14+537f69734b97c-1ebd@localhost T="FOI Request about stuff" from <request-123-abc987@example.net> for authority@example.com authority@example.com
           2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => authority@example.com F=<request-123-abc987@example.net> P=<request-123-abc987@example.net> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+          2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM junk
           EOF
           logs = log_lines.map { |line| MailServerLog.new(:line => line) }
           message = FactoryGirl.create(:initial_request)

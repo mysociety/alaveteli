@@ -4,6 +4,7 @@ class MailServerLog::DeliveryStatus
 
   # The order of these is important as we use the keys for sorting in #<=>
   HUMANIZED = {
+    :unknown => _("We don't know the delivery status for this message."),
     :failed => _('This message could not be delivered.'),
     :sent => _('This message has been sent.'),
     :delivered => _('This message has been delivered.')
@@ -23,6 +24,10 @@ class MailServerLog::DeliveryStatus
 
   def failed?
     to_sym == :failed
+  end
+
+  def unknown?
+    to_sym == :unknown
   end
 
   def simple

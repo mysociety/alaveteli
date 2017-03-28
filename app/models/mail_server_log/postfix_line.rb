@@ -44,7 +44,7 @@ class MailServerLog::PostfixLine
   #
   # Returns a MailServerLog::DeliveryStatus
   def delivery_status
-    MailServerLog::DeliveryStatus.new(parse_delivery_status) if status
+    MailServerLog::DeliveryStatus.new(parse_delivery_status)
   end
 
   def <=>(other)
@@ -65,12 +65,16 @@ class MailServerLog::PostfixLine
 
   def parse_delivery_status
     case status
+    when nil?
+      :unknown
     when *DELIVERED_FLAGS
       :delivered
     when *SENT_FLAGS
       :sent
     when *FAILED_FLAGS
       :failed
+    else
+      :unknown
     end
   end
 end
