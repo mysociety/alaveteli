@@ -13,14 +13,6 @@ class MailServerLog::PostfixLine
     @line = line.to_s
   end
 
-  def <=>(other)
-    self.class <=> other.class && to_s <=> other.to_s
-  end
-
-  def to_s
-    line
-  end
-
   # Public: The Exim log flag parsed from the log line
   #
   # Returns a String
@@ -37,6 +29,14 @@ class MailServerLog::PostfixLine
 
   def delivery_status
     MailServerLog::PostfixDeliveryStatus.new(status) if status
+  end
+
+  def <=>(other)
+    self.class <=> other.class && to_s <=> other.to_s
+  end
+
+  def to_s
+    line
   end
 
   def inspect

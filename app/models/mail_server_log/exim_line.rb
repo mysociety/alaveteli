@@ -22,18 +22,6 @@ class MailServerLog::EximLine
     @line = line.to_s
   end
 
-  def <=>(other)
-    self.class <=> other.class && to_s <=> other.to_s
-  end
-
-  def to_s
-    line
-  end
-
-  def inspect
-    %Q(#<#{self.class}:#{"0x00%x" % (object_id << 1)} @line="#{ line }">)
-  end
-
   # Public: The Exim log flag parsed from the log line
   #
   # Returns a String
@@ -50,6 +38,18 @@ class MailServerLog::EximLine
 
   def delivery_status
     MailServerLog::EximDeliveryStatus.new(status) if status
+  end
+
+  def <=>(other)
+    self.class <=> other.class && to_s <=> other.to_s
+  end
+
+  def to_s
+    line
+  end
+
+  def inspect
+    %Q(#<#{self.class}:#{"0x00%x" % (object_id << 1)} @line="#{ line }">)
   end
 
   private
