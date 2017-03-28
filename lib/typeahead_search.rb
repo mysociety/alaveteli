@@ -22,7 +22,7 @@ class TypeaheadSearch
     rescue RuntimeError => e
       if e.message =~ /^QueryParserError: Wildcard/
         # Wildcard expands to too many terms
-        logger.info "Wildcard query '#{query}' caused: #{e.message.force_encoding('UTF-8')}"
+        Rails.logger.info "Wildcard query '#{query}' caused: #{e.message.force_encoding('UTF-8')}"
         @wildcard = false
         xapian_search = run_query
       end
