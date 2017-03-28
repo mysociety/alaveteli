@@ -918,14 +918,6 @@ describe RequestController, "when searching for an authority" do
     get_fixtures_xapian_index
   end
 
-  it "should return nothing for the empty query string" do
-    session[:user_id] = @user.id
-    get :select_authority, :query => ""
-
-    expect(response).to render_template('select_authority')
-    expect(assigns[:xapian_requests]).to eq(nil)
-  end
-
   it "should return matching bodies" do
     session[:user_id] = @user.id
     get :select_authority, :query => "Quango"
@@ -933,20 +925,6 @@ describe RequestController, "when searching for an authority" do
     expect(response).to render_template('select_authority')
     assigns[:xapian_requests].results.size == 1
     expect(assigns[:xapian_requests].results[0][:model].name).to eq(public_bodies(:geraldine_public_body).name)
-  end
-
-  it "should not give an error when user users unintended search operators" do
-    for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
-                   "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
-                   "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
-                   "NHS Ayrshire & Arran",
-                   " cardiff",
-                   "Foo * bax",
-                   "qux ~ quux"]
-      expect {
-        get :select_authority, :query => phrase
-      }.not_to raise_error
-    end
   end
 
   it "remembers the search params" do
@@ -2265,64 +2243,9 @@ describe RequestController, "when showing JSON version for API" do
 end
 
 describe RequestController, "when doing type ahead searches" do
-  render_views
 
   before :each do
     get_fixtures_xapian_index
-  end
-
-  it "should return nothing for the empty query string" do
-    get :search_typeahead, :q => ""
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests]).to be_nil
-  end
-
-  it "should return a request matching the given keyword, but not users with a matching description" do
-    get :search_typeahead, :q => "chicken"
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests].results.size).to eq(1)
-    expect(assigns[:xapian_requests].results[0][:model].title).to eq(info_requests(:naughty_chicken_request).title)
-  end
-
-  it "should return all requests matching any of the given keywords" do
-    get :search_typeahead, :q => "money dog"
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array([
-      info_requests(:fancy_dog_request),
-      info_requests(:naughty_chicken_request),
-      info_requests(:another_boring_request),
-    ])
-  end
-
-  it "should not return matches for short words" do
-    get :search_typeahead, :q => "a"
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests]).to be_nil
-  end
-
-  it "should do partial matches for longer words" do
-    get :search_typeahead, :q => "chick"
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests].results.size).to eq(1)
-  end
-
-  it "should not give an error when user users unintended search operators" do
-    for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
-                   "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
-                   "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
-                   "NHS Ayrshire & Arran",
-                   "uda ( units of dent",
-                   "frob * baz",
-                   "bar ~ qux"]
-      expect {
-        get :search_typeahead, :q => phrase
-      }.not_to raise_error
-    end
-  end
-
-  it "should return all requests matching any of the given keywords" do
-    get :search_typeahead, :q => "dog -chicken"
-    expect(assigns[:xapian_requests].results.size).to eq(1)
   end
 
   it 'can filter search results by public body' do
@@ -2593,6 +2516,16 @@ describe RequestController, "#select_authorities" do
         it 'should be successful' do
           get :select_authorities, {}, {:user_id => @user.id}
           expect(response).to be_success
+        end
+
+        it 'recognizes a GET request' do
+          expect(:get => '/select_authorities').
+            to route_to(:controller => 'request', :action => 'select_authorities')
+        end
+
+        it 'recognizes a POST request' do
+          expect(:post => '/select_authorities').
+            to route_to(:controller => 'request', :action => 'select_authorities')
         end
 
         it 'should render the "select_authorities" template' do

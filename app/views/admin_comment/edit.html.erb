@@ -11,6 +11,13 @@
     <%= select('comment', "visible", [["Yes – show comment",true],["No – hide comment",false]]) %>
   </p>
 
+  <p><label for="comment_attention_requested">Admin attention requested</label>
+    <%= select('comment', "attention_requested",
+               [
+                  ["Yes – flag for further attention", true],
+                  ["No – clear flag", false]
+                ]) %>
+  </p>
 
   <p><%= submit_tag 'Save', :accesskey => 's' %></p>
 <% end %>
@@ -20,3 +27,63 @@
   <%= link_to 'List all requests', admin_requests_path %>
 </p>
 
+<hr>
+<h2>Events</h2>
+<div class="accordion" id="events">
+  <% @comment.info_request_events.each do |info_request_event| %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <span class="item-title">
+          <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
+          <%= _("Event {{id}}", :id => info_request_event.id) %>:
+          <strong>
+            <%=h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
+          </strong>
+          <em>
+            <%= info_request_event.created_at%>
+          </em>
+        </span>
+      </div>
+      <div id="event_<%=info_request_event.id%>" class="accordion-body collapse">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <tr>
+              <td>
+                <% if info_request_event.described_state != 'waiting_clarification' and info_request_event.event_type == 'response' %>
+                  <%= form_tag admin_info_request_event_path(info_request_event), :method => 'put', :class => "form form-inline admin-table-form admin-inline-form" do %>
+                    <%= submit_tag "Was clarification request", :class => "btn btn-mini btn-primary" %>
+                  <% end %>
+                <% end %>
+              </td>
+              <td></td>
+            </tr>
+
+            <% @comment.for_admin_event_column(info_request_event) do
+                 |name, value, type, column_name| %>
+              <tr>
+                <td>
+                  <b><%=h name%></b>
+                </td>
+                <td>
+                  <% if column_name == 'params_yaml' %>
+                    <%= render :partial => 'params',
+                               :locals => {
+                                  :params => info_request_event.params_diff
+                               } %>
+                  <% elsif value.nil? %>
+                    nil
+                  <% elsif %w(text string).include?(type) %>
+                    <%=h value.humanize %>
+                  <% elsif type == 'datetime' %>
+                    <%= admin_date value %>
+                    <%=h value %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>

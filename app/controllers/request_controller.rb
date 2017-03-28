@@ -40,7 +40,7 @@ class RequestController < ApplicationController
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
-    @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.pro?
+    @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.is_pro?
     if !params[:query].nil?
       query = params[:query]
       flash[:search_params] = params.slice(:query, :bodies, :page)
@@ -1169,7 +1169,7 @@ class RequestController < ApplicationController
     # if other site functions send them to a request page, they end up back in
     # the pro area
     if feature_enabled?(:alaveteli_pro) && params[:pro] != "1" && \
-       current_user && current_user.pro?
+       current_user && current_user.is_pro?
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       if @info_request.is_actual_owning_user?(current_user) && @info_request.embargo
         redirect_to show_alaveteli_pro_request_url(
@@ -1191,7 +1191,7 @@ class RequestController < ApplicationController
 
   def redirect_new_form_to_pro_version
     # Pros should use the pro version of the form
-    if feature_enabled?(:alaveteli_pro) && current_user && current_user.pro? && params[:pro] != "1"
+    if feature_enabled?(:alaveteli_pro) && current_user && current_user.is_pro? && params[:pro] != "1"
       if params[:url_name]
         redirect_to(
           new_alaveteli_pro_info_request_url(public_body: params[:url_name]))

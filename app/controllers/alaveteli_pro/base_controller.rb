@@ -20,7 +20,7 @@ class AlaveteliPro::BaseController < ApplicationController
       }
     end
     if authenticated?(reason_params)
-      unless current_user.pro?
+      unless current_user.is_pro?
         redirect_to(
           frontpage_path,
           flash: {

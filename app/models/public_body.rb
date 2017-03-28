@@ -87,7 +87,8 @@ class PublicBody < ActiveRecord::Base
   :terms => [
     [:variety, 'V', "variety"],
     [:tag_array_for_search, 'U', "tag"]
-  ]
+  ],
+  :eager_load => [:translations]
   has_tag_string
   strip_attributes :allow_empty => true
   translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme

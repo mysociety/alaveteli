@@ -31,6 +31,7 @@ require 'rspec/rails'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+load "#{Rails.root}/db/seeds.rb"
 # Use test-specific translations
 AlaveteliLocalization.set_default_text_domain('app', File.join(File.dirname(__FILE__), 'fixtures', 'locale'))
 
@@ -54,6 +55,8 @@ RSpec.configure do |config|
 
   # The order (!) of this is important thanks to foreign keys
   config.global_fixtures = :users,
+                           :roles,
+                           :users_roles,
                            :public_bodies,
                            :public_body_translations,
                            :public_body_versions,

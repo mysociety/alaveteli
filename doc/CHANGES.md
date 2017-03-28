@@ -1,3 +1,45 @@
+# develop
+
+## Highlighted Features
+
+* Add missing erb tags (Sam Smith)
+* Introduction of role-based permissions system (Louise Crow)
+* Link to the #internal_review section of the `help/unhappy` page instead of
+  the UK-specific external link to FOIWiki (Liz Conlan)
+* Allow comments to be reported for admin attention (Liz Conlan, Gareth Rees)
+* Fix a bug in typeahead search where a search ending in a one or two letter
+  word would automatically return zero results (Louise Crow)
+
+## Upgrade Notes
+
+* To migrate admin and pro statuses to the role-based system, you must run
+  `bundle exec rake db:seed` and then
+  `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
+* There are some database structure updates so remember to `rake db:migrate`
+
+### Changed Templates
+
+    app/views/admin_comment/_params.html.erb
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/reports/new.html.erb
+    app/views/request/describe_notices/_error_message.html.erb
+
+# 0.28.0.4
+
+# Highlighted Features
+
+* Fix bug causing `MailServerLog#delivery_status` to return an ActiveRecord
+  serialized attribute (Gareth Rees)
+
+# 0.28.0.3
+
+# Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
 # 0.28.0.2
 
 ## Highlighted Features

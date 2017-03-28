@@ -12,6 +12,15 @@ class AdminGeneralController < AdminController
     @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
     @error_message_requests = InfoRequest.find_in_state('error_message')
     @attention_requests = InfoRequest.find_in_state('attention_requested')
+    @attention_comments = Comment.where(:attention_requested => true)
+
+    if cannot? :admin, AlaveteliPro::Embargo
+      @requires_admin_requests = @requires_admin_requests.not_embargoed
+      @error_message_requests = @error_message_requests.not_embargoed
+      @attention_requests = @attention_requests.not_embargoed
+      @attention_comments = @attention_comments.not_embargoed
+    end
+
     @blank_contacts = PublicBody.
       includes(:tags, :translations).
         where(:request_email => "").
@@ -24,6 +33,7 @@ class AdminGeneralController < AdminController
       includes(:incoming_messages => :raw_email).
         holding_pen_request.
           incoming_messages
+
     @new_body_requests = PublicBodyChangeRequest.
       includes(:public_body, :user).
         new_body_requests.

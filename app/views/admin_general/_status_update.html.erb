@@ -1,0 +1,1 @@
+had its status updated by <%= event.params[:user_id] ? User.find(event.params[:user_id]).name : event.params[:script] %> from '<%= h event.params[:old_described_state] %>' to '<%= h event.params[:described_state] %>'.

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20170301171406
 #
 # Table name: users
 #
@@ -47,13 +48,23 @@ FactoryGirl.define do
 
     factory :admin_user do
       sequence(:name) { |n| "Admin User #{n}" }
-      admin_level 'super'
+      after(:create) do |user, evaluator|
+        user.add_role :admin
+      end
     end
 
     factory :pro_user do
       sequence(:name) { |n| "Pro User #{n}" }
       after(:create) do |user, evaluator|
-        create(:pro_account, :user => user)
+        user.add_role :pro
+      end
+    end
+
+    factory :pro_admin_user do
+      name 'Pro Admin User'
+      after(:create) do |user, evaluator|
+        user.add_role :admin
+        user.add_role :pro_admin
       end
     end
   end

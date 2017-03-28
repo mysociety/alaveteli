@@ -62,6 +62,25 @@ FactoryGirl.define do
           info_request.set_described_state('successful')
         end
       end
+
+      factory :requires_admin_request do
+        after(:create) do |info_request, evaluator|
+          info_request.set_described_state('requires_admin')
+        end
+      end
+
+      factory :error_message_request do
+        after(:create) do |info_request, evaluator|
+          info_request.set_described_state('error_message')
+        end
+      end
+
+      factory :attention_requested_request do
+        after(:create) do |info_request, evaluator|
+          info_request.set_described_state('attention_requested')
+        end
+      end
+
     end
 
     factory :info_request_with_plain_incoming do

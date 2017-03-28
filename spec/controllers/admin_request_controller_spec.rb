@@ -2,74 +2,216 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRequestController, "when administering requests" do
-  render_views
-  before { basic_auth_login @request }
 
-  before(:each) do
-    load_raw_emails_data
+  describe 'GET #index' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+
+    it "is successful" do
+      get :index, {}, { :user_id => admin_user.id }
+      expect(response).to be_success
+    end
+
+    it 'assigns all info requests to the view' do
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:info_requests]).to match_array(InfoRequest.all)
+    end
+
+    it 'does not include embargoed requests if the current user is
+        not a pro admin user' do
+      info_request.create_embargo
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:info_requests].include?(info_request)).to be false
+    end
+
+
+    context 'when pro is enabled' do
+
+      it 'does not include embargoed requests if the current user is
+          not a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :index, {}, { :user_id => admin_user.id }
+          expect(assigns[:info_requests].include?(info_request)).to be false
+        end
+      end
+
+      it 'includes embargoed requests if the current user
+          is a pro admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          info_request.create_embargo
+          get :index, {}, { :user_id => pro_admin_user.id }
+          expect(assigns[:info_requests].include?(info_request)).to be true
+        end
+      end
+    end
+
+    context 'when passed a query' do
+      let!(:dog_request){ FactoryGirl.create(:info_request,
+                                             :title => 'A dog request') }
+      let!(:cat_request){ FactoryGirl.create(:info_request,
+                                             :title => 'A cat request') }
+
+      it 'assigns info requests with titles matching the query to the view
+          case insensitively' do
+        get :index, { :query => 'Cat' }, { :user_id => admin_user.id }
+        expect(assigns[:info_requests].include?(dog_request)).to be false
+        expect(assigns[:info_requests].include?(cat_request)).to be true
+      end
+
+      it 'does not include embargoed requests if the current user is an
+          admin user' do
+        cat_request.create_embargo
+        get :index, { :query => 'cat' }, { :user_id => admin_user.id }
+        expect(assigns[:info_requests].include?(cat_request)).to be false
+      end
+
+      context 'when pro is enabled' do
+        it 'does not include embargoed requests if the current user is an
+            admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            cat_request.create_embargo
+            get :index, { :query => 'cat' }, { :user_id => admin_user.id }
+            expect(assigns[:info_requests].include?(cat_request)).to be false
+          end
+        end
+
+        it 'includes embargoed requests if the current user
+            is a pro admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            cat_request.create_embargo
+            get :index, { :query => 'cat' }, { :user_id => pro_admin_user.id }
+            expect(assigns[:info_requests].include?(cat_request)).to be true
+          end
+        end
+      end
+
+    end
+
   end
 
-  it "shows the index/list page" do
-    get :index
+  describe 'GET #show' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:external_request){ FactoryGirl.create(:external_request) }
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user){ FactoryGirl.create(:pro_admin_user) }
+
+    render_views
+
+    it "is successful" do
+      get :show, { :id => info_request }, { :user_id => admin_user.id }
+      expect(response).to be_success
+    end
+
+    it 'shows an external info request with no username' do
+      get :show, { :id => external_request }, { :user_id => admin_user.id }
+      expect(response).to be_success
+    end
+
+    it "shows a suitable default 'your email has been hidden' message" do
+      get :show, { :id => info_request.id }, { :user_id => admin_user.id }
+      expect(assigns[:request_hidden_user_explanation]).
+        to include(info_request.user.name)
+      expect(assigns[:request_hidden_user_explanation]).
+        to include("vexatious")
+      get :show, :id => info_request.id, :reason => "not_foi"
+      expect(assigns[:request_hidden_user_explanation]).
+        not_to include("vexatious")
+      expect(assigns[:request_hidden_user_explanation]).
+        to include("not a valid FOI")
+    end
+
+    context 'if the request is embargoed' do
+
+      before do
+        info_request.create_embargo
+      end
+
+      it 'raises ActiveRecord::RecordNotFound for an admin user' do
+        expect{ get :show, { :id => info_request.id },
+                           { :user_id => admin_user.id } }.
+          to raise_error ActiveRecord::RecordNotFound
+      end
+
+      context 'with pro enabled' do
+
+        it 'raises ActiveRecord::RecordNotFound for an admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            expect{ get :show, { :id => info_request.id },
+                               { :user_id => admin_user.id } }.
+              to raise_error ActiveRecord::RecordNotFound
+          end
+        end
+
+        it 'is successful for a pro admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            get :show, { :id => info_request.id }, { :user_id => pro_admin_user.id }
+            expect(response).to be_success
+          end
+        end
+      end
+
+    end
+
   end
 
-  it "shows a public body" do
-    get :show, :id => info_requests(:fancy_dog_request)
+  describe 'GET #edit' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    it "is successful" do
+      get :edit, :id => info_request
+      expect(response).to be_success
+    end
+
   end
 
-  it 'shows an external public body with no username' do
-    get :show, :id => info_requests(:anonymous_external_request)
-    expect(response).to be_success
+  describe 'PUT #update' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
+
+    it "saves edits to a request" do
+      post :update, { :id => info_request,
+                      :info_request => { :title => "Renamed",
+                                         :prominence => "normal",
+                                         :described_state => "waiting_response",
+                                         :awaiting_description => false,
+                                         :allow_new_responses_from => 'anybody',
+                                         :handle_rejected_responses => 'bounce' } }
+      expect(request.flash[:notice]).to include('successful')
+      info_request.reload
+      expect(info_request.title).to eq("Renamed")
+    end
+
+    it 'expires the request cache when saving edits to it' do
+      allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
+      expect(info_request).to receive(:expire)
+      post :update, { :id => info_request,
+                      :info_request => { :title => "Renamed",
+                                         :prominence => "normal",
+                                         :described_state => "waiting_response",
+                                         :awaiting_description => false,
+                                         :allow_new_responses_from => 'anybody',
+                                         :handle_rejected_responses => 'bounce' } }
+    end
+
   end
 
-  it "edits a public body" do
-    get :edit, :id => info_requests(:fancy_dog_request)
-  end
-
-  it "saves edits to a request" do
-    expect(info_requests(:fancy_dog_request).title).to eq("Why do you have & such a fancy dog?")
-    post :update, { :id => info_requests(:fancy_dog_request),
-                    :info_request => { :title => "Renamed",
-                                       :prominence => "normal",
-                                       :described_state => "waiting_response",
-                                       :awaiting_description => false,
-                                       :allow_new_responses_from => 'anybody',
-                                       :handle_rejected_responses => 'bounce' } }
-    expect(request.flash[:notice]).to include('successful')
-    ir = InfoRequest.find(info_requests(:fancy_dog_request).id)
-    expect(ir.title).to eq("Renamed")
-  end
-
-  it 'expires the request cache when saving edits to it' do
-    info_request = FactoryGirl.create(:info_request)
-    allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
-    expect(info_request).to receive(:expire)
-    post :update, { :id => info_request,
-                    :info_request => { :title => "Renamed",
-                                       :prominence => "normal",
-                                       :described_state => "waiting_response",
-                                       :awaiting_description => false,
-                                       :allow_new_responses_from => 'anybody',
-                                       :handle_rejected_responses => 'bounce' } }
-  end
-
-  describe 'when fully destroying a request' do
+  describe 'DELETE #destroy' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
 
     it 'calls destroy on the info_request object' do
-      info_request = FactoryGirl.create(:info_request)
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:destroy)
-      get :destroy, { :id => info_request.id }
+      delete :destroy, { :id => info_request.id }
     end
 
     it 'uses a different flash message to avoid trying to fetch a non existent user record' do
       info_request = info_requests(:external_request)
-      post :destroy, { :id => info_request.id }
+      delete :destroy, { :id => info_request.id }
       expect(request.flash[:notice]).to include('external')
     end
 
     it 'redirects after destroying a request with incoming_messages' do
-      info_request = FactoryGirl.create(:info_request)
       incoming_message = FactoryGirl.create(:incoming_message_with_html_attachment,
                                             :info_request => info_request)
       delete :destroy, { :id => info_request.id }
@@ -79,33 +221,14 @@ describe AdminRequestController, "when administering requests" do
 
   end
 
-end
-
-describe AdminRequestController, "when administering the holding pen" do
-  render_views
-  before(:each) do
-    basic_auth_login @request
-    load_raw_emails_data
-  end
-
-  it "shows a suitable default 'your email has been hidden' message" do
-    ir = info_requests(:fancy_dog_request)
-    get :show, :id => ir.id
-    expect(assigns[:request_hidden_user_explanation]).to include(ir.user.name)
-    expect(assigns[:request_hidden_user_explanation]).to include("vexatious")
-    get :show, :id => ir.id, :reason => "not_foi"
-    expect(assigns[:request_hidden_user_explanation]).not_to include("vexatious")
-    expect(assigns[:request_hidden_user_explanation]).to include("not a valid FOI")
-  end
-
-  describe 'when hiding requests' do
+  describe 'POST #hide' do
+    let(:info_request){ FactoryGirl.create(:info_request) }
 
     it "hides requests and sends a notification email that it has done so" do
-      ir = info_requests(:fancy_dog_request)
-      post :hide, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
-      ir.reload
-      expect(ir.prominence).to eq("requester_only")
-      expect(ir.described_state).to eq("vexatious")
+      post :hide, :id => info_request.id, :explanation => "Foo", :reason => "vexatious"
+      info_request.reload
+      expect(info_request.prominence).to eq("requester_only")
+      expect(info_request.described_state).to eq("vexatious")
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
@@ -113,13 +236,12 @@ describe AdminRequestController, "when administering the holding pen" do
     end
 
     it 'expires the file cache for the request' do
-      info_request = FactoryGirl.create(:info_request)
       allow(InfoRequest).to receive(:find).with(info_request.id.to_s).and_return(info_request)
       expect(info_request).to receive(:expire)
       post :hide, :id => info_request.id, :explanation => "Foo", :reason => "vexatious"
     end
 
-    describe 'when hiding an external request' do
+    context 'when hiding an external request' do
 
       before do
         @info_request = mock_model(InfoRequest, :prominence= => nil,
