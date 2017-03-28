@@ -21,9 +21,21 @@ class MailServerLog::PostfixLine
     line
   end
 
+  # Public: The Exim log flag parsed from the log line
+  #
+  # Returns a String
+  def flag
+    LOG_LINE_FLAGS.keys.find { |flag| to_s.include?(flag) }
+  end
+
+  # Public: The human-readable meaning of the #flag
+  #
+  # Returns a Symbol
+  def status
+    LOG_LINE_FLAGS[flag]
+  end
+
   def delivery_status
-    flag = LOG_LINE_FLAGS.keys.find { |flag| to_s.include?(flag) }
-    status = LOG_LINE_FLAGS[flag]
     MailServerLog::PostfixDeliveryStatus.new(status) if status
   end
 
