@@ -1588,7 +1588,7 @@ describe OutgoingMessage do
           logs = log_lines.map { |line| MailServerLog.new(:line => line) }
           message = FactoryGirl.create(:initial_request)
           allow(message).to receive(:mail_server_logs).and_return(logs)
-          status = MailServerLog::EximDeliveryStatus.new(:normal_message_delivery)
+          status = MailServerLog::DeliveryStatus.new(:delivered)
           expect(message.delivery_status).to eq(status)
         end
 
@@ -1604,7 +1604,7 @@ describe OutgoingMessage do
           logs = log_lines.map { |line| MailServerLog.new(:line => line) }
           message = FactoryGirl.create(:initial_request)
           allow(message).to receive(:mail_server_logs).and_return(logs)
-          status = MailServerLog::EximDeliveryStatus.new(:normal_message_delivery)
+          status = MailServerLog::DeliveryStatus.new(:delivered)
           expect(message.delivery_status).to eq(status)
         end
 
@@ -1618,7 +1618,7 @@ describe OutgoingMessage do
           logs = log_lines.map { |line| MailServerLog.new(:line => line) }
           message = FactoryGirl.create(:initial_request)
           allow(message).to receive(:mail_server_logs).and_return(logs)
-          status = MailServerLog::EximDeliveryStatus.new(:bounce_arrival)
+          status = MailServerLog::DeliveryStatus.new(:failed)
           expect(message.delivery_status).to eq(status)
         end
 
@@ -1646,7 +1646,7 @@ describe OutgoingMessage do
         logs = log_lines.map { |line| MailServerLog.new(:line => line) }
         message = FactoryGirl.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return(logs)
-        status = MailServerLog::PostfixDeliveryStatus.new(:deferred)
+        status = MailServerLog::DeliveryStatus.new(:sent)
         expect(message.delivery_status).to eq(status)
       end
 
@@ -1662,7 +1662,7 @@ describe OutgoingMessage do
         logs = log_lines.map { |line| MailServerLog.new(:line => line) }
         message = FactoryGirl.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return(logs)
-        status = MailServerLog::PostfixDeliveryStatus.new(:bounced)
+        status = MailServerLog::DeliveryStatus.new(:failed)
         expect(message.delivery_status).to eq(status)
       end
 
@@ -1677,7 +1677,7 @@ describe OutgoingMessage do
         logs = log_lines.map { |line| MailServerLog.new(:line => line) }
         message = FactoryGirl.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return(logs)
-        status = MailServerLog::PostfixDeliveryStatus.new(:sent)
+        status = MailServerLog::DeliveryStatus.new(:delivered)
         expect(message.delivery_status).to eq(status)
       end
 
@@ -1698,7 +1698,7 @@ describe OutgoingMessage do
         logs = log_lines.map { |line| MailServerLog.new(:line => line) }
         message = FactoryGirl.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return(logs)
-        status = MailServerLog::PostfixDeliveryStatus.new(:sent)
+        status = MailServerLog::DeliveryStatus.new(:delivered)
         expect(message.delivery_status).to eq(status)
       end
     end

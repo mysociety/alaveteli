@@ -9,6 +9,19 @@ class MailServerLog::PostfixLine
     'status=expired' =>     :expired
   }.freeze
 
+  DELIVERED_FLAGS = [
+    :sent
+  ].freeze
+
+  SENT_FLAGS = [
+    :deferred
+  ].freeze
+
+  FAILED_FLAGS = [
+    :bounced,
+    :expired
+  ].freeze
+
   def initialize(line)
     @line = line.to_s
   end
@@ -27,8 +40,11 @@ class MailServerLog::PostfixLine
     LOG_LINE_FLAGS[flag]
   end
 
+  # Public: A value object encapsulating generic delivery status information
+  #
+  # Returns a MailServerLog::DeliveryStatus
   def delivery_status
-    MailServerLog::PostfixDeliveryStatus.new(status) if status
+    MailServerLog::DeliveryStatus.new(parse_delivery_status) if status
   end
 
   def <=>(other)
@@ -46,4 +62,15 @@ class MailServerLog::PostfixLine
   private
 
   attr_reader :line
+
+  def parse_delivery_status
+    case status
+    when *DELIVERED_FLAGS
+      :delivered
+    when *SENT_FLAGS
+      :sent
+    when *FAILED_FLAGS
+      :failed
+    end
+  end
 end

@@ -114,31 +114,25 @@ describe MailServerLog::PostfixLine do
 
     it 'parses a :sent line' do
       line = 'Oct  3 16:39:38 host postfix/smtp[7676]: CB55836EE58C: to=<foi@some.gov.au>, relay=aspmx.l.google.com[74.125.25.27]:25, delay=2.5, delays=0.13/0.02/1.7/0.59, dsn=2.0.0, status=sent (250 2.0.0 OK 1349246383 j9si1676296paw.328)'
-      expected = MailServerLog::PostfixDeliveryStatus.new(:sent)
+      expected = MailServerLog::DeliveryStatus.new(:delivered)
       expect(described_class.new(line).delivery_status).to eq(expected)
     end
 
     it 'parses a :deferred line' do
       line = 'Oct  3 16:39:38 host postfix/smtp[1681]: 9634B16F7F7: to=<kdent@example.com>, relay=none, delay=46, status=deferred (connect to 216.150.150.131[216.150.150.131]: No route to host)'
-      expected =
-        MailServerLog::PostfixDeliveryStatus.
-          new(:deferred)
+      expected = MailServerLog::DeliveryStatus.new(:sent)
       expect(described_class.new(line).delivery_status).to eq(expected)
     end
 
     it 'parses a :bounced line' do
       line = 'Oct 10 13:22:49 host postfix/smtp[11876]: 6FB9036F1307: to=<foo@example.com>, relay=mta7.am0.yahoodns.net[74.6.136.244]:25, delay=1.5, delays=0.03/0/0.48/1, dsn=5.0.0, status=bounced (host mta7.am0.yahoodns.net[74.6.136.244] said: 554 delivery error: dd Sorry your message to foo@example.com cannot be delivered. This account has been disabled or discontinued [#102]. - mta1272.mail.sk1.yahoo.com (in reply to end of DATA command))'
-      expected =
-        MailServerLog::PostfixDeliveryStatus.
-          new(:bounced)
+      expected = MailServerLog::DeliveryStatus.new(:failed)
       expect(described_class.new(line).delivery_status).to eq(expected)
     end
 
     it 'parses a :expired line' do
       line = 'Oct 10 13:22:49 host postfix/qmgr[1706]: A323688C523:from=<foo@example.com>, status=expired, returned to sender'
-      expected =
-        MailServerLog::PostfixDeliveryStatus.
-          new(:expired)
+      expected = MailServerLog::DeliveryStatus.new(:failed)
       expect(described_class.new(line).delivery_status).to eq(expected)
     end
 

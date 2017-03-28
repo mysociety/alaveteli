@@ -18,6 +18,23 @@ class MailServerLog::EximLine
     '==' => :delivery_deferred_temporary_problem
   }.freeze
 
+  DELIVERED_FLAGS = [
+    :normal_message_delivery,
+    :additional_address_in_same_delivery,
+    :cutthrough_message_delivery
+  ].freeze
+
+  SENT_FLAGS = [
+    :message_arrival,
+    :delivery_deferred_temporary_problem
+  ].freeze
+
+  FAILED_FLAGS = [
+    :bounce_arrival,
+    :delivery_suppressed_by_N,
+    :delivery_failed_address_bounced
+  ].freeze
+
   def initialize(line)
     @line = line.to_s
   end
@@ -36,8 +53,11 @@ class MailServerLog::EximLine
     LOG_LINE_FLAGS[flag]
   end
 
+  # Public: A value object encapsulating generic delivery status information
+  #
+  # Returns a MailServerLog::DeliveryStatus
   def delivery_status
-    MailServerLog::EximDeliveryStatus.new(status) if status
+    MailServerLog::DeliveryStatus.new(parse_delivery_status) if status
   end
 
   def <=>(other)
@@ -55,4 +75,15 @@ class MailServerLog::EximLine
   private
 
   attr_reader :line
+
+  def parse_delivery_status
+    case status
+    when *DELIVERED_FLAGS
+      :delivered
+    when *SENT_FLAGS
+      :sent
+    when *FAILED_FLAGS
+      :failed
+    end
+  end
 end

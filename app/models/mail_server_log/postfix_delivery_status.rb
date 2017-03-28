@@ -24,6 +24,8 @@ class MailServerLog::PostfixDeliveryStatus
   MTA_FLAGS = (DELIVERED_FLAGS | SENT_FLAGS | FAILED_FLAGS).freeze
 
   def initialize(status)
+    warn %q([DEPRECATION] MailServerLog::PostfixDeliveryStatus will be removed
+        in 0.30. It has been replaced by MailServerLog::DeliveryStatus).squish
     @status = assert_valid_status(status)
   end
 
