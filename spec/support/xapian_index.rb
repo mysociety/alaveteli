@@ -4,7 +4,7 @@ def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = 
   if dropfirst
     begin
       ActsAsXapian.readable_init
-      FileUtils.rm_r(ActsAsXapian.db_path)
+      FileUtils.rm_rf(ActsAsXapian.db_path)
     rescue RuntimeError
     end
     ActsAsXapian.writable_init
