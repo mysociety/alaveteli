@@ -2,6 +2,10 @@
 
 ## Highlighted Features
 
+* Add an unknown delivery status for better user experience when we haven't yet
+  parsed MTA logs for a recent message (Gareth Rees)
+* Switch MTA-specific delivery status to MTA-agnostic delivery status
+  (Gareth Rees)
 * Prevent deletion of initial outgoing messages through the admin interface
   (Gareth Rees)
 * Make it easier to find the "Resend" message button in the admin interface
@@ -27,6 +31,9 @@
 
 ## Upgrade Notes
 
+* `MailServerLog::EximDeliveryStatus` and `MailServerLog::PostfixDeliveryStatus`
+  have been deprecated in favour of an MTA-agnostic
+  `MailServerLog::DeliveryStatus`.
 * To migrate admin and pro statuses to the role-based system, you must run
   `bundle exec rake db:seed` and then
   `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
