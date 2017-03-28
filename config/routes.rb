@@ -634,6 +634,13 @@ Alaveteli::Application.routes.draw do
       :via => :get,
       :defaults => { :pro => "1" }
 
+    # So that we can show a batch request using the existing controller from
+    # the pro context
+    match '/alaveteli_pro/info_request_batches/:id' => 'info_request_batch#show',
+      :as => :show_alaveteli_pro_batch_request,
+      :via => :get,
+      :defaults => { :pro => "1" }
+
     # So that we can show the authority selection screen using the existing
     # controller but in a pro context
     match '/alaveteli_pro/select_authority' => 'request#select_authority',
