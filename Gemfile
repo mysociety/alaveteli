@@ -94,7 +94,8 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.0.1'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
-    gem 'public_suffix', '< 1.5.0'
+  gem 'public_suffix', '< 1.5.0'
+  gem 'rbtrace'
 end
 
 group :development do
