@@ -114,6 +114,20 @@ describe InfoRequestBatch do
       expect(info_request_batch.sent_at).not_to be_nil
     end
 
+    context "when embargo_duration is set" do
+      it 'should set an embargo on each request' do
+        info_request_batch.embargo_duration = '3_months'
+        info_request_batch.create_batch!
+        [first_public_body, second_public_body].each do |public_body|
+          request = info_request_batch.info_requests.detect do |info_request|
+            info_request.public_body == public_body
+          end
+          expect(request.embargo).not_to be_nil
+          expect(request.embargo.embargo_duration).to eq "3_months"
+        end
+      end
+    end
+
   end
 
   context "when sending batches" do

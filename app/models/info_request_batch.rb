@@ -39,10 +39,11 @@ class InfoRequestBatch < ActiveRecord::Base
 
   # Create a new batch from the supplied draft version
   def self.from_draft(draft)
-    self.new(user: draft.user,
-             public_bodies: draft.public_bodies,
-             title: draft.title,
-             body: draft.body)
+    self.new(:user => draft.user,
+             :public_bodies => draft.public_bodies,
+             :title => draft.title,
+             :body => draft.body,
+             :embargo_duration => draft.embargo_duration)
   end
 
   # Create a batch of information requests, returning a list of public bodies
@@ -80,6 +81,12 @@ class InfoRequestBatch < ActiveRecord::Base
                                                       self.user)
     info_request.public_body_id = public_body.id
     info_request.info_request_batch = self
+    unless self.embargo_duration.blank?
+      info_request.embargo = AlaveteliPro::Embargo.create(
+        :info_request => info_request,
+        :embargo_duration => self.embargo_duration
+      )
+    end
     info_request.save!
     info_request
   end
@@ -102,10 +109,10 @@ class InfoRequestBatch < ActiveRecord::Base
       { :body => body },
       self.user
     )
-    unless embargo_duration.blank?
+    unless self.embargo_duration.blank?
       info_request.embargo = AlaveteliPro::Embargo.new(
         :info_request => info_request,
-        :embargo_duration => embargo_duration
+        :embargo_duration => self.embargo_duration
       )
     end
     info_request
