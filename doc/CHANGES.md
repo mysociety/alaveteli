@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Prevent null bytes getting saved to `IncomingMessage` cache columns (Gareth
+  Rees)
 * Add missing erb tags (Sam Smith)
 * Introduction of role-based permissions system (Louise Crow)
 * Link to the #internal_review section of the `help/unhappy` page instead of
