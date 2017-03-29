@@ -419,8 +419,8 @@ class IncomingMessage < ActiveRecord::Base
     folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
     folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, "FOLDED_QUOTED_SECTION")
 
-    self.cached_main_body_text_unfolded = text
-    self.cached_main_body_text_folded = folded_quoted_text
+    self.cached_main_body_text_unfolded = text.delete("\0")
+    self.cached_main_body_text_folded = folded_quoted_text.delete("\0")
     self.save!
   end
   # Returns body text from main text part of email, converted to UTF-8, with uudecode removed,
