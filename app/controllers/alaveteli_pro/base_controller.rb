@@ -15,8 +15,10 @@ class AlaveteliPro::BaseController < ApplicationController
   def pro_user_authenticated?(reason_params = nil)
     if reason_params.nil?
       reason_params = {
-        web: _("To access Alaveteli Professional"),
-        email: _("Then you can access Alaveteli Professional")
+        web: _("To access {{pro_site_name}}",
+                pro_site_name: AlaveteliConfiguration.pro_site_name),
+        email: _("Then you can access {{pro_site_name}}",
+                pro_site_name: AlaveteliConfiguration.pro_site_name)
       }
     end
     if authenticated?(reason_params)
@@ -24,8 +26,9 @@ class AlaveteliPro::BaseController < ApplicationController
         redirect_to(
           frontpage_path,
           flash: {
-            notice: _("This page is only accessible to Alaveteli " \
-                      "Professional users")
+            notice: _("This page is only accessible to {{pro_site_name}}" \
+                      " users",
+                      pro_site_name: AlaveteliConfiguration.pro_site_name)
           }
         )
       end
