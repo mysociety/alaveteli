@@ -919,6 +919,19 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
       'FOI 09 02976iii.doc',
     ])
   end
+
+  it 'does not attempt to save null bytes to the database' do
+    mail = get_fixture_mail('incoming-request-tnef-only.email')
+
+    im = incoming_messages(:useless_incoming_message)
+    allow(im).to receive(:mail).and_return(mail)
+    im.extract_attachments!
+
+    expect { im.get_main_body_text_unfolded }.not_to raise_error
+    expect { im.get_main_body_text_folded }.not_to raise_error
+    expect { im.cached_attachment_text_clipped }.not_to raise_error
+  end
+
 end
 
 describe IncomingMessage, "when extracting attachments" do
