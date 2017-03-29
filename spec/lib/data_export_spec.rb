@@ -29,6 +29,13 @@ describe DataExport do
       expect(exportable).to_not include(request)
     end
 
+    it "does not include embargoed requests" do
+      embargoed = FactoryGirl.create(:embargoed_request)
+      exportable = described_class.exportable_requests(cut_off)
+
+      expect(exportable).to_not include(embargoed)
+    end
+
   end
 
   describe ".exportable_incoming_messages" do
@@ -66,6 +73,15 @@ describe DataExport do
       expect(exportable).to_not include(message)
     end
 
+    it "does not include messages belonging to embargoed requests" do
+      embargoed = FactoryGirl.create(:embargoed_request)
+      message = FactoryGirl.create(:incoming_message,
+                                   :info_request => embargoed)
+
+      exportable = described_class.exportable_incoming_messages(cut_off)
+      expect(exportable).to_not include(message)
+    end
+
   end
 
   describe ".exportable_outgoing_messages" do
@@ -98,6 +114,15 @@ describe DataExport do
                                           :prominence => 'hidden')
       message = FactoryGirl.create(:initial_request,
                                    :info_request => hidden_request)
+
+      exportable = described_class.exportable_outgoing_messages(cut_off)
+      expect(exportable).to_not include(message)
+    end
+
+    it "does not include messages belonging to embargoed requests" do
+      embargoed = FactoryGirl.create(:embargoed_request)
+      message = FactoryGirl.create(:initial_request,
+                                   :info_request => embargoed)
 
       exportable = described_class.exportable_outgoing_messages(cut_off)
       expect(exportable).to_not include(message)
@@ -141,6 +166,17 @@ describe DataExport do
                                           :prominence => 'hidden')
       incoming = FactoryGirl.create(:incoming_message,
                                    :info_request => hidden_request)
+      attachment = FactoryGirl.create(:html_attachment,
+                                      :incoming_message => incoming)
+
+      exportable = described_class.exportable_foi_attachments(cut_off)
+      expect(exportable).to_not include(attachment)
+    end
+
+    it "does not include attachments related to embargoed requests" do
+      embargoed = FactoryGirl.create(:embargoed_request)
+      incoming = FactoryGirl.create(:incoming_message,
+                                    :info_request => embargoed)
       attachment = FactoryGirl.create(:html_attachment,
                                       :incoming_message => incoming)
 
