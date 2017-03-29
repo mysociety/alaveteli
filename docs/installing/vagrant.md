@@ -36,7 +36,7 @@ create your own <a href="{{ page.baseurl }}/docs/glossary/#theme" class="glossar
     although your machine might not be running Ubuntu, the simulation — called
     a <em>virtual machine</em> (VM) — can do. When you use Vagrant to install
     Alaveteli, it creates a VM that contains all the dependencies Alaveteli
-    needs (which are defined in the <code>VagrantFile</code>). Because
+    needs (which are defined in the <code>Vagrantfile</code>). Because
     everything is in the VM, it doesn’t need to find or change anything on your
     own machine. This means you can work on any operating system that runs
     Vagrant, instead of needing to match what Alaveteli expects.
@@ -75,8 +75,8 @@ Ubuntu 12.04 LTS that contains everything you need to work on Alaveteli.
     When the VM is ready, you'll see a message like `Machine booted and ready`,
     and control will be back at your command prompt.
     
-3.  Once the machine is up, you can log in to it by doing <code>vagrant&nbsp;up</code>
-    (from the same directory that contains the `VagrantFile`, so if you've
+3.  Once the machine is up, you can log in to it by doing <code>vagrant&nbsp;ssh</code>
+    (from the same directory that contains the `Vagrantfile`, so if you've
     just run `up` you're already in the right place). This will log you into
     the VM as the `vagrant` user. Immediately change to the `alaveteli`
     directory, because you need to be there when issuing any of the admin or
