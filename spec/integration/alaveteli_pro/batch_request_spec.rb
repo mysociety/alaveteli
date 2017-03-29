@@ -8,10 +8,23 @@ def start_batch_request
   # Add some bodies to the batch
   fill_in "Search for an authority by name", with: "Example"
   click_button "Search"
-  add_body_to_pro_batch(authorities[0])
-  add_body_to_pro_batch(authorities[24])
+  # We can't rely on Xapina to give us a deterministic search result ordering
+  # so we pluck some bodies out of the results we see
+  first_page_results = search_results
+  first_search_result_body = PublicBody.find_by(name: first_page_results.first)
+  last_search_result_body = PublicBody.find_by(name: first_page_results.last)
+  add_body_to_pro_batch(first_search_result_body)
+  add_body_to_pro_batch(last_search_result_body)
   click_link "Next →"
-  add_body_to_pro_batch(authorities[25])
+  second_page_result = search_results.first
+  second_page_search_result_body = PublicBody.find_by(name: second_page_result)
+  add_body_to_pro_batch(second_page_search_result_body)
+
+  @selected_bodies = [
+    first_search_result_body,
+    last_search_result_body,
+    second_page_search_result_body
+  ]
 
   click_button "Write request"
 
@@ -23,6 +36,10 @@ def fill_in_batch_message
   fill_in "Subject", with: "Does the pro batch request form work?"
   fill_in "Your request", with: "Dear [Authority name], this is a batch request."
   select "3 Months", from: "Privacy"
+end
+
+def search_results
+  page.find_all(".batch-builder__authority-list__authority__name").map(&:text)
 end
 
 describe "creating batch requests in alaveteli_pro" do
@@ -52,46 +69,58 @@ describe "creating batch requests in alaveteli_pro" do
       # Searching
       fill_in "Search for an authority by name", with: "Example"
       click_button "Search"
-      expect(page).to have_text(authorities[0].name)
-      expect(page).to have_text(authorities[24].name)
-      expect(page).not_to have_text(authorities[25].name)
+
+      expect(page).to have_css(".batch-builder__authority-list__authority", count: 25)
+      first_page_results = search_results
 
       # Paginating
       click_link "Next →"
-      expect(page).not_to have_text(authorities[24].name)
-      expect(page).to have_text(authorities[25].name)
+
+      expect(page).to have_css(".batch-builder__authority-list__authority", count: 1)
+      second_page_result = search_results.first
+
+      # We can't rely on Xapian to give us a deterministic search result
+      # ordering so we just compare the results on each page to make sure
+      # they're different
+      expect(first_page_results.include?(second_page_result)).to be false
 
       click_link "← Previous"
-      expect(page).to have_text(authorities[0].name)
-      expect(page).to have_text(authorities[24].name)
-      expect(page).not_to have_text(authorities[25].name)
+      expect(page).to have_css(".batch-builder__authority-list__authority", count: 25)
+      first_page_results = search_results
+
+      expect(first_page_results.include?(second_page_result)).to be false
+
 
       # Adding to list
-      add_body_to_pro_batch(authorities[0])
-      add_body_to_pro_batch(authorities[24])
+      # We can't rely on Xapian to give us a deterministic search result
+      # ordering so we pluck some bodies out of the results we see
+      first_search_result_body = PublicBody.find_by(name: search_results.first)
+      last_search_result_body = PublicBody.find_by(name: search_results.last)
+      add_body_to_pro_batch(first_search_result_body)
+      add_body_to_pro_batch(last_search_result_body)
       within ".batch-builder__chosen-authorities" do
-        expect(page).to have_text(authorities[0].name)
-        expect(page).to have_text(authorities[24].name)
+        expect(page).to have_text(first_search_result_body.name)
+        expect(page).to have_text(last_search_result_body.name)
       end
 
-      within ".batch-builder__search-results li[data-body-id=\"#{authorities[0].id}\"]" do
+      within ".batch-builder__search-results li[data-body-id=\"#{first_search_result_body.id}\"]" do
         # The "Added" text is always there, so we have to test explicitly
         # that it's visible
         expect(page).to have_css("span", text: "Added", visible: true)
       end
-      within ".batch-builder__search-results li[data-body-id=\"#{authorities[24].id}\"]" do
+      within ".batch-builder__search-results li[data-body-id=\"#{last_search_result_body.id}\"]" do
         # The "Added" text is always there, so we have to test explicitly
         # that it's visible
         expect(page).to have_css("span", text: "Added", visible: true)
       end
 
       # Removing from list
-      within ".batch-builder__chosen-authorities form[data-body-id=\"#{authorities[0].id}\"]" do
+      within ".batch-builder__chosen-authorities form[data-body-id=\"#{first_search_result_body.id}\"]" do
         click_button "- Remove"
       end
 
       within ".batch-builder__chosen-authorities" do
-        expect(page).not_to have_text(authorities[0].name)
+        expect(page).not_to have_text(first_search_result_body.name)
       end
     end
   end
@@ -109,7 +138,7 @@ describe "creating batch requests in alaveteli_pro" do
       draft = drafts.first
       expect(draft.body).to eq "Dear [Authority name], this is a batch request."
       expect(draft.embargo_duration).to eq "3_months"
-      expect(draft.public_bodies).to eq [authorities[0], authorities[24], authorities[25]]
+      expect(draft.public_bodies).to eq @selected_bodies
 
       expect(page).to have_content("Your draft has been saved!")
       expect(page).to have_content("This request will be private on " \
@@ -157,9 +186,10 @@ describe "creating batch requests in alaveteli_pro" do
       fill_in "Search for an authority by name", with: "Example"
       click_button "Search"
 
-      add_body_to_pro_batch(authorities[1])
+      second_search_result_body = PublicBody.find_by(name: search_results.second)
+      add_body_to_pro_batch(second_search_result_body)
       within ".batch-builder__chosen-authorities" do
-        expect(page).to have_text(authorities[1].name)
+        expect(page).to have_text(second_search_result_body.name)
       end
       within ".batch-builder__search-results li[data-body-id=\"#{authorities[1].id}\"]" do
         # The "Added" text is always there, so we have to test explicitly
@@ -266,9 +296,11 @@ describe "creating batch requests in alaveteli_pro" do
       expect(page).to have_content("Does the pro batch request form work? " \
                                    "- a batch request")
       expect(page).to have_content("Requests will be sent to the following bodies:")
-      expect(page).to have_content(authorities[0].name)
-      expect(page).to have_content(authorities[24].name)
-      expect(page).to have_content(authorities[25].name)
+      @selected_bodies.each do |body|
+        expect(page).to have_content(body.name)
+        expect(page).to have_content(body.name)
+        expect(page).to have_content(body.name)
+      end
 
       drafts = AlaveteliPro::DraftInfoRequestBatch.where(title: "Does the pro batch request form work?")
       expect(drafts).not_to exist
@@ -279,8 +311,7 @@ describe "creating batch requests in alaveteli_pro" do
 
       expect(batch.body).to eq "Dear [Authority name], this is a batch request."
       expect(batch.embargo_duration).to eq "3_months"
-      expect(batch.public_bodies).
-        to match_array [authorities[0], authorities[24], authorities[25]]
+      expect(batch.public_bodies).to match_array @selected_bodies
     end
   end
 end
