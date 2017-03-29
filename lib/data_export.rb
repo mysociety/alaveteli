@@ -6,6 +6,37 @@ class DataExport
   require 'csv'
   require 'fileutils'
 
+  def self.exportable_requests(cut_off_date)
+    InfoRequest.
+      where(prominence: "normal").
+      where("info_requests.updated_at < ?", cut_off_date)
+  end
+
+  def self.exportable_incoming_messages(cut_off_date)
+    IncomingMessage.
+      includes(:info_request).references(:info_requests).
+      where("info_requests.prominence = ?", "normal").
+      where("incoming_messages.prominence = ?", "normal").
+      where("incoming_messages.updated_at < ?", cut_off_date)
+  end
+
+  def self.exportable_outgoing_messages(cut_off_date)
+    OutgoingMessage.
+      includes(:info_request).references(:info_requests).
+      where("outgoing_messages.prominence = ?", "normal").
+      where("info_requests.prominence = ?", "normal").
+      where("outgoing_messages.updated_at < ?", cut_off_date)
+  end
+
+  def self.exportable_foi_attachments(cut_off_date)
+    FoiAttachment.
+      joins(incoming_message: :info_request).
+      references(incoming_message: :info_requests).
+      where("info_requests.prominence = ?", "normal").
+      where("incoming_messages.prominence = ?", "normal").
+      where("incoming_messages.updated_at < ?", cut_off_date)
+  end
+
   #Tries to pick up gender from the first name
   def self.detects_gender(name)
     gender_d = GenderDetector.new # gender detector

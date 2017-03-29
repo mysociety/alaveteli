@@ -92,8 +92,7 @@ namespace :export do
     #export InfoRequest Fields
     DataExport.csv_export(InfoRequest,
                to_run,
-               InfoRequest.where(prominence: "normal").
-                 where("updated_at < ?", cut_off_date),
+               exportable_requests(cut_off_date),
                ["id",
                 "title",
                 "user_id",
@@ -122,10 +121,7 @@ namespace :export do
     # allow name_censor to some fields
     DataExport.csv_export(IncomingMessage,
                to_run,
-               IncomingMessage.includes(:info_request).
-                 where(prominence: "normal").
-                 where("info_requests.prominence = ?","normal").
-                 where("incoming_messages.updated_at < ?", cut_off_date),
+               exportable_incoming_messages(cut_off_date),
                ["id",
                 "info_request_id",
                 "created_at",
@@ -146,10 +142,7 @@ namespace :export do
     #export incoming messages - only where normal prominence, allow name_censor to some fields
     DataExport.csv_export(OutgoingMessage,
                to_run,
-               OutgoingMessage.includes(:info_request).
-                 where(prominence:"normal").
-                 where("info_requests.prominence = ?","normal").
-                 where("outgoing_messages.updated_at < ?", cut_off_date),
+               exportable_outgoing_messages(cut_off_date),
                ["id",
                 "info_request_id",
                 "created_at",
@@ -167,9 +160,7 @@ namespace :export do
     #export incoming messages - only where normal prominence, allow name_censor to some fields
     DataExport.csv_export(FoiAttachment,
                to_run,
-               FoiAttachment.joins(incoming_message: :info_request).
-                             where("info_requests.prominence = ?","normal").
-                             where("incoming_messages.updated_at < ?", cut_off_date),
+               exportable_foi_attachments(cut_off_date),
                ["id",
                 "content_type",
                 "filename",
