@@ -119,6 +119,13 @@ class DataExport
     end
   end
 
+  def self.is_required?(model_name, to_run)
+    return true unless to_run
+    to_run.include?(model_name)
+  end
+
+  private
+
   def self.handle_error(err, data)
     p "---"
     puts "Error processing data:"
@@ -126,11 +133,6 @@ class DataExport
     puts err.backtrace
     puts data.inspect
     p ""
-  end
-
-  def self.is_required?(model_name, to_run)
-    return true unless to_run
-    to_run.include?(model_name)
   end
 
 end
