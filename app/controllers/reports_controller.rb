@@ -53,7 +53,7 @@ class ReportsController < ApplicationController
   end
 
   def set_comment
-    @comment = if params[:comment_id]
+    @comment = unless params[:comment_id].blank?
       @info_request.comments.where(:id => params[:comment_id]).first!
     end
   end
