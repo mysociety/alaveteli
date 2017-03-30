@@ -68,7 +68,7 @@ class WorldFOIWebsites
         :country_iso_code => "AU",
         :url => "http://www.righttoknow.org.au" },
       { :name => "Informace pro Vsechny",
-        :country_name => "Česká republika",
+        :country_name => "České Republiky",
         :country_iso_code => "CZ",
         :url => "http://www.infoprovsechny.cz" },
       { :name => "¿Qué Sabés?",
