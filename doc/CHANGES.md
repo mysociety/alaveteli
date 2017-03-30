@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Install supported version of bundler through Rubygems on Debian Wheezy (Gareth
+  Rees)
 * Update Czechia country name in `WorldFOIWebsites` (Gareth Rees)
 * Prevent null bytes getting saved to `IncomingMessage` cache columns (Gareth
   Rees)
