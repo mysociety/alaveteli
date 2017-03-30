@@ -5,7 +5,8 @@ class UserSpamScorer
     :name_is_one_word? => 1,
     :name_includes_non_alpha_characters? => 3,
     :name_is_garbled? => 5,
-    :email_from_spam_domain? => 5,
+    :email_from_suspicious_domain? => 5,
+    :email_from_spam_domain? => 8,
     :email_from_spam_tld? => 3,
     :about_me_includes_currency_symbol? => 2,
     :about_me_is_link_only? => 3,
@@ -15,13 +16,43 @@ class UserSpamScorer
   }.freeze
 
   DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢).freeze
-  DEFAULT_SPAM_DOMAINS =
+  DEFAULT_SUSPICIOUS_DOMAINS =
     %w(mail.ru
        temp-mail.de
        tempmail.de
        shitmail.de
        yopmail.com
        yandex.com).freeze
+  DEFAULT_SPAM_DOMAINS =
+    %w(allemaling.com
+       brmailing.com
+       checknowmail.com
+       colde-mail.com
+       consimail.com
+       continumail.com
+       contumail.com
+       emailber.com
+       grow-mail.com
+       inemaling.com
+       inmailing.com
+       itemailing.com
+       itmailing.com
+       kod-emailing.com
+       kod-maling.com
+       kodemailing.com
+       kodmailing.com
+       left-mail.com
+       mabermail.com
+       mailphar.com
+       out-email.com
+       semi-mile.com
+       sin-mailing.com
+       sinemailing.com
+       sinmailing.com
+       takmailing.com
+       themailemail.com
+       visitinbox.com
+       wowmailing.com).freeze
   DEFAULT_SPAM_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,
     /\Ahttps?:\/\/[^\s]+\n{2,}.+$/,
@@ -32,6 +63,7 @@ class UserSpamScorer
 
   CLASS_ATTRIBUTES = [:currency_symbols,
                       :score_mappings,
+                      :suspicious_domains,
                       :spam_domains,
                       :spam_formats,
                       :spam_score_threshold,
@@ -96,6 +128,10 @@ class UserSpamScorer
 
   def name_is_garbled?(user)
     user.name.strip =~ /[^aeiou]{5,}/i ? true : false
+  end
+
+  def email_from_suspicious_domain?(user)
+    suspicious_domains.include?(user.email_domain)
   end
 
   def email_from_spam_domain?(user)

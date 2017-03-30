@@ -801,6 +801,46 @@ describe UserController, "when signing up" do
 
   end
 
+  context 'using a known spam domain and enable_anti_spam is enabled' do
+
+    before do
+      spam_scorer = double
+      allow(spam_scorer).
+        to receive(:email_from_spam_domain?).and_return(true)
+      allow(UserSpamScorer).to receive(:new).and_return(spam_scorer)
+      allow(AlaveteliConfiguration).
+        to receive(:enable_anti_spam).and_return(true)
+    end
+
+    it 'blocks the signup' do
+      post :signup,
+           :user_signup => { :email => 'spammer@example.com',
+                             :name => 'New Person',
+                             :password => 'sillypassword',
+                             :password_confirmation => 'sillypassword' }
+      expect(User.where(:email => 'spammer@example.com').count).to eq(0)
+    end
+
+    it 're-renders the form' do
+      post :signup,
+           :user_signup => { :email => 'spammer@example.com',
+                             :name => 'New Person',
+                             :password => 'sillypassword',
+                             :password_confirmation => 'sillypassword' }
+      expect(response).to render_template('sign')
+    end
+
+    it 'sets a flash error' do
+      post :signup,
+           :user_signup => { :email => 'spammer@example.com',
+                             :name => 'New Person',
+                             :password => 'sillypassword',
+                             :password_confirmation => 'sillypassword' }
+      expect(flash[:error]).to match(/unable to sign up new users/)
+    end
+
+  end
+
   # TODO: need to do bob@localhost signup and check that sends different email
 end
 
