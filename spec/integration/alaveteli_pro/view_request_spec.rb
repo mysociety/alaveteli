@@ -77,7 +77,7 @@ describe "viewing requests in alaveteli_pro" do
       fill_in("outgoing_message_body", with: "Testing follow ups")
       choose("Anything else, such as clarifying, prompting, thanking")
       click_button("Preview your message")
-      click_button("Send message")
+      click_button("Send and publish message")
       expect(page).to have_content("Testing follow ups")
     end
   end
@@ -93,7 +93,7 @@ describe "viewing requests in alaveteli_pro" do
       fill_in("outgoing_message_body", with: "Testing replies")
       choose("Anything else, such as clarifying, prompting, thanking")
       click_button("Preview your message")
-      click_button("Send message")
+      click_button("Send and publish message")
       expect(page).to have_content("Testing replies")
     end
   end
@@ -116,7 +116,7 @@ describe "viewing requests in alaveteli_pro" do
                                    "#{info_request.public_body.name}"
       fill_in("outgoing_message_body", with: "Testing internal reviews")
       click_button("Preview your message")
-      click_button("Send message")
+      click_button("Send and publish message")
       expect(page).to have_content("Testing internal reviews")
     end
   end
