@@ -44,6 +44,13 @@ describe ReportsController do
         expect(assigns(:report_reasons)).to eq(info_request.report_reasons)
       end
 
+      it 'ignores an empty comment_id param' do
+        post :create, :request_id => info_request.url_title,
+                      :comment_id => '',
+                      :reason => "my reason"
+        expect(assigns[:comment]).to be_nil
+      end
+
       it "should 404 for non-existent requests" do
         expect {
           post :create, :request_id => "hjksfdhjk_louytu_qqxxx"
