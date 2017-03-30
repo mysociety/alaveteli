@@ -22,6 +22,8 @@
   a higher than average chance of being spam) and spam domains (email domains
   we're fairly confident are spam), and prevent spam domains from creating new
   accounts (Liz Conlan)
+* Prevent the `/request/search_ahead` page from raising an error if there are
+  no query parameters (Liz Conlan)
 
 ## Upgrade Notes
 

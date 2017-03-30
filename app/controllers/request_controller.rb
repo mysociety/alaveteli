@@ -819,7 +819,7 @@ class RequestController < ApplicationController
 
     @per_page = (params.fetch(:per_page) { 25 }).to_i
 
-    @query << params[:q]
+    @query << params[:q].to_s
     @xapian_requests = perform_search_typeahead(@query, InfoRequestEvent, @per_page)
     render :partial => "request/search_ahead"
   end
