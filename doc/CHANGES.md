@@ -18,6 +18,10 @@
 * Allow comments to be reported for admin attention (Liz Conlan, Gareth Rees)
 * Fix a bug in typeahead search where a search ending in a one or two letter
   word would automatically return zero results (Louise Crow)
+* Update the spam scorer to hold lists of suspicious domains (email domains with
+  a higher than average chance of being spam) and spam domains (email domains
+  we're fairly confident are spam), and prevent spam domains from creating new
+  accounts (Liz Conlan)
 
 ## Upgrade Notes
 
