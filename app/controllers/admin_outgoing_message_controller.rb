@@ -2,18 +2,25 @@
 class AdminOutgoingMessageController < AdminController
 
   before_filter :set_outgoing_message, :only => [:edit, :destroy, :update, :resend]
+  before_filter :set_is_initial_message, :only => [:edit, :destroy]
 
   def edit
   end
 
   def destroy
-    @outgoing_message.destroy
-    @outgoing_message.info_request.log_event("destroy_outgoing",
-                                             { :editor => admin_current_user,
-                                               :deleted_outgoing_message_id => @outgoing_message.id })
+    if !@is_initial_message && @outgoing_message.destroy
+      @outgoing_message.
+        info_request.
+          log_event("destroy_outgoing",
+                    { :editor => admin_current_user,
+                      :deleted_outgoing_message_id => @outgoing_message.id })
 
-    flash[:notice] = 'Outgoing message successfully destroyed.'
-    redirect_to admin_request_url(@outgoing_message.info_request)
+      flash[:notice] = 'Outgoing message successfully destroyed.'
+      redirect_to admin_request_url(@outgoing_message.info_request)
+    else
+      flash[:error] = 'Could not destroy the outgoing message.'
+      redirect_to edit_admin_outgoing_message_path(@outgoing_message)
+    end
   end
 
   def update
@@ -82,4 +89,14 @@ class AdminOutgoingMessageController < AdminController
     @outgoing_message = OutgoingMessage.find(params[:id])
   end
 
+  def set_is_initial_message
+    @is_initial_message = @outgoing_message == last_event_message
+  end
+
+  def last_event_message
+    @outgoing_message.
+      info_request.
+        last_event_forming_initial_request.
+          try(:outgoing_message)
+  end
 end

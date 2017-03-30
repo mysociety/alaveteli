@@ -31,7 +31,15 @@
       only the edited version will be shown on the public page if you do that.</p>
 
     <div class="form-actions" >
-      <%= submit_tag 'Save', :accesskey => 's', :class => 'btn' %>
+      <%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-primary' %>
+      <%= link_to resend_admin_outgoing_message_path(@outgoing_message),
+                  :class => 'btn btn-warning',
+                  :method => :post,
+                  :data => { :confirm => "Are you sure you want to resend " \
+                                         "this message to the " \
+                                         "authority?" } do %>
+        Resend
+      <% end %>
     </div>
   </div>
 <% end %>
@@ -42,10 +50,25 @@
 </p>
 
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'delete' do %>
-  <div>
-    <%= submit_tag "Destroy outgoing message",
-          :class => "btn btn-danger",
-          :data => { :confirm => "This is permanent! Are you sure?" } %>
+  <div class="control-group">
+    <div class="controls">
+      <% if @is_initial_message %>
+        <%= submit_tag "Destroy outgoing message",
+                       :class => "btn btn-danger",
+                       :disabled => true,
+                       :data => {
+                         :confirm => "This is permanent! Are you sure?" } %>
+        <span class="help-inline">
+          The initial outgoing message cannot be destroyed. You can set the
+          prominence to <tt>hidden</tt> instead.
+        </span>
+        <% else %>
+          <%= submit_tag "Destroy outgoing message",
+                         :class => "btn btn-danger",
+                         :data => {
+                           :confirm => "This is permanent! Are you sure?" } %>
+        <% end %>
+    </div>
   </div>
 <% end %>
 
