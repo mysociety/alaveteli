@@ -4,7 +4,7 @@
   var SearchEvents = BatchAuthoritySearch.Events;
 
   var $search;
-  var paginationSelector = '.pagination a';
+  var paginationSelector = '.js-batch-authority-search-results .pagination a';
 
   // Load a new page of search results via AJAX
   var loadNewPage = function loadNewPage(e, path, data) {
