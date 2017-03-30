@@ -22,7 +22,7 @@ module AlaveteliDsl
     fill_in 'Your request', :with => "This is a silly letter. It is too short to be interesting."
 
     find_button('Preview your public request').click
-    find_button('Send request').click
+    find_button('Send and publish request').click
     expect(page).to have_content('To send your FOI request, create an account or sign in')
   end
 
