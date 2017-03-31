@@ -441,7 +441,7 @@ DEPENDENCIES
   ruby-msg (~> 1.5.0)!
   sass (= 3.4.21)
   sass-rails (~> 5.0.5)
-  secure_headers (~> 3.1.2)
+  secure_headers (~> 3.1.0)
   statistics2 (~> 0.54)
   strip_attributes!
   syslog_protocol (~> 0.9.2)

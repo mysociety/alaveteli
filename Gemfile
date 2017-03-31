@@ -113,7 +113,7 @@ gem 'rmagick', '~> 2.16.0'
 gem 'rolify', '~> 5.1.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
 gem 'sass', '3.4.21' # pinned because later versions cause problems (see blame)
-gem 'secure_headers', '~> 3.1.2'
+gem 'secure_headers', '~> 3.1.0'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3'
 gem 'syslog_protocol', '~> 0.9.2'
