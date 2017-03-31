@@ -403,7 +403,7 @@ DEPENDENCIES
   globalize (~> 4.0.3)
   gnuplot (~> 2.6.0)
   holidays (~> 2.2.0)
-  htmlentities (~> 4.3.4)
+  htmlentities (~> 4.3.0)
   icalendar (= 2.3.0)
   iso_country_codes (~> 0.7.3)
   jquery-rails (~> 3.1.4)
