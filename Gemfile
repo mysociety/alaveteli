@@ -83,7 +83,7 @@ gem 'pg', '~> 0.18.0', '< 0.19.0'
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
 gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => 'c342283fe564bf'
 gem 'cancancan', '~> 1.12.0', '< 1.13.0'
-gem 'charlock_holmes', '~> 0.7.3'
+gem 'charlock_holmes', '~> 0.7.0'
 gem 'dalli', '~> 2.7.6'
 gem 'dynamic_form', '~> 1.1.4'
 # 4.1.0 has a bug in it which is fixed in a later version which does not have Ruby 1.9.3 support
