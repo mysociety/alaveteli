@@ -402,7 +402,7 @@ DEPENDENCIES
   gettext_i18n_rails (~> 0.9.4)
   globalize (~> 4.0.3)
   gnuplot (~> 2.6.0)
-  holidays (~> 2.2.0)
+  holidays (~> 2.2.0, < 3.0.0)
   htmlentities (~> 4.3.0)
   icalendar (~> 2.4.0)
   iso_country_codes (~> 0.7.3)
