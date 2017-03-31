@@ -85,7 +85,7 @@ gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.
 gem 'cancancan', '~> 1.12.0', '< 1.13.0'
 gem 'charlock_holmes', '~> 0.7.0'
 gem 'dalli', '~> 2.7.0'
-gem 'dynamic_form', '~> 1.1.4'
+gem 'dynamic_form', '~> 1.1.0'
 # 4.1.0 has a bug in it which is fixed in a later version which does not have Ruby 1.9.3 support
 gem 'exception_notification', '4.0.1'
 gem 'fancybox-rails', '~> 0.3.1'
