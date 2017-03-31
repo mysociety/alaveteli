@@ -129,6 +129,8 @@ class Statistics
       earliest_week = start_date.to_date.at_beginning_of_week
       latest_week = Date.current.at_beginning_of_week
 
+      counts_by_week.map! { |date, count| [date.to_s, count] }
+
       (earliest_week..latest_week).step(7) do |date|
         counts_by_week << [date.to_s, 0] unless counts_by_week.any? { |c| c.first == date.to_s }
       end
