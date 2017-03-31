@@ -1,3 +1,78 @@
+# Versioning Policy
+# =================
+#
+# In most cases gems should be added with a pessimistic constraint to their
+# PATCH level:
+#
+#    gem 'foo', '~> 1.2.0'
+#
+# This will install the latest version of the 1.2 series. When 1.3 or 2.0 are
+# released, we can assume there may be a breaking change.
+#
+# If we need to be more specific than this, apply one of the following
+# guidelines. Use brief inline comments and commit messages to describe why the
+# extra specificity is required. Links to changelogs are very appreciated.
+#
+# If we need greater than a specific PATCH level, specify that:
+#
+#    gem 'foo', '~> 1.2.0', '>= 1.2.7'
+#
+# This will install the latest version of 1.2.x, providing it is 1.2.7 or more.
+#
+# If there's a version that breaks compatibility (e.g, doesn't support our
+# lowest Ruby version) add a compound requirement:
+#
+#    gem 'foo', '~> 1.2.0', '< 2.0.0'
+#
+# We tend to keep the rails gem pinned to a specific version for easy reference.
+#
+# Dependencies of Dependencies
+# ============================
+#
+# Sometimes a gem that we rely on might have a dependency that breaks on update.
+# Ideally the problem should be fixed, but failing that, specify a working
+# version of the dependency alongside the gem we rely on:
+#
+#    gem 'foo', '~> 1.2.0'
+#      gem 'bar', '< 3.0.0'
+#
+# Platform Constraints
+# ====================
+#
+# Only use platform constraints that are supported by the lowest version of
+# bundler in use, otherwise they won't work. We can't use conditionals like
+# `if RUBY_VERSION` because they are specific to the individual developer
+# machine.
+#
+# Gems from GitHub
+# ================
+#
+# Sometimes we need to apply fixes to gems. Generally you'll want to fork the
+# code to the mysociety organisation, fix the problem and use that git ref. This
+# is a sure-fire way to out of date dependencies, so getting back on the
+# upstream release as soon as possible is favourable.
+#
+# Upgrading Gems
+# ==============
+#
+# We use Gemnasium, which alerts us to gem updates.
+#
+# Most gems will be pessimistically locked at the PATCH level, so you can just
+# run `bundle update foo`.
+#
+#    gem 'foo', '~> 1.2.0'
+#
+# When a new MINOR or MAJOR release is available, bump the version to the new
+# PATCH level and run `bundle update foo`.
+#
+#    - gem 'foo', '~> 1.2.0'
+#    + gem 'foo', '~> 1.3.0'
+#
+# After running `bundle update foo`, run the specs and read the gem's changelog
+# to check for anything that looks like it may impact on our code. All going
+# well, the change can be committed. If you find a breakage, either fix our code
+# to be compatible with the new version or add a compound requirement less than
+# the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
 gem 'rails', '4.0.13'
