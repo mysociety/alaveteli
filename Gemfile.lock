@@ -405,7 +405,7 @@ DEPENDENCIES
   holidays (~> 2.2.0, < 3.0.0)
   htmlentities (~> 4.3.0)
   icalendar (~> 2.4.0)
-  iso_country_codes (~> 0.7.3)
+  iso_country_codes (~> 0.7.0)
   jquery-rails (~> 3.1.4)
   jquery-ui-rails (~> 5.0.0)
   json (~> 1.8.0, < 2.0.0)
