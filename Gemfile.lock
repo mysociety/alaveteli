@@ -415,7 +415,7 @@ DEPENDENCIES
   mail!
   mailcatcher (~> 0.6.4)
   mime-types (< 3.0.0)
-  net-http-local (~> 0.1.2)
+  net-http-local (~> 0.1.0)
   net-purge (~> 0.1.0)
   net-ssh (< 3.0.0)
   newrelic_rpm
