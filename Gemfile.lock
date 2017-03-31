@@ -455,5 +455,5 @@ DEPENDENCIES
   vpim (~> 13.11.11)
   will_paginate (~> 3.1.0)
   xapian-full-alaveteli (~> 1.2.21.1)
-  xml-simple (~> 1.1.2)
-  zip (~> 2.0.2)
+  xml-simple (~> 1.1.0)
+  zip (~> 2.0.0)
