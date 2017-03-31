@@ -128,7 +128,7 @@ gem 'zip', '~> 2.0.0'
 gem 'gender_detector', '~> 1.0.0'
 
 # Gems related to internationalisation
-gem 'gettext_i18n_rails', '~> 0.9.4' # Later versions cause error (see blame)
+gem 'gettext_i18n_rails', '~> 0.9.0', '< 1.0.0'
   gem 'fast_gettext', '< 1.2.0'
 gem 'gettext', '~> 2.3.9'
 gem 'globalize', '~> 4.0.3'
