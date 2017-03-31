@@ -84,7 +84,7 @@ describe MailServerLog do
           with("foi+request-1234@example.com").and_return(ir)
         MailServerLog.load_file(file_fixture_name('exim-mainlog-2016-04-28'))
         expect(ir.mail_server_logs[0].attributes['delivery_status']).
-          to eq(MailServerLog::EximDeliveryStatus.new(:message_arrival))
+          to eq(MailServerLog::DeliveryStatus.new(:sent))
       end
     end
 
@@ -384,11 +384,11 @@ describe MailServerLog do
     context 'if there is a stored value' do
       let(:log) do
         MailServerLog.new(:line => "log text",
-                          :delivery_status => 'bounce_arrival')
+                          :delivery_status => 'failed')
       end
 
       it 'returns the stored value' do
-        status = MailServerLog::EximDeliveryStatus.new(:bounce_arrival)
+        status = MailServerLog::DeliveryStatus.new(:failed)
         expect(log.delivery_status).to eq(status)
       end
 
@@ -399,12 +399,26 @@ describe MailServerLog do
 
     end
 
+    # TODO: This can be removed when there are no more cached MTA-specific
+    # statuses
+    context 'if there is a stored value from an MTA-specific status' do
+      let(:log) do
+        MailServerLog.new(:line => "log text <=",
+                          :delivery_status => 'message_arrival')
+      end
+
+      it 'recalculates the value' do
+        status = MailServerLog::DeliveryStatus.new(:sent)
+        expect(log.delivery_status).to eq(status)
+      end
+    end
+
     context 'there is not a stored value' do
 
       it 'parses the line text' do
         log = MailServerLog.new(:line => "…<=…")
         expect(log.delivery_status).
-          to eq(MailServerLog::EximDeliveryStatus.new(:message_arrival))
+          to eq(MailServerLog::DeliveryStatus.new(:sent))
       end
 
       context 'using the :exim MTA' do
@@ -420,7 +434,7 @@ describe MailServerLog do
 
         it 'returns a delivery status for the log line' do
           log = MailServerLog.new(:line => line)
-          status = MailServerLog::EximDeliveryStatus.new(:message_arrival)
+          status = MailServerLog::DeliveryStatus.new(:sent)
           expect(log.delivery_status).to eq(status)
         end
 
@@ -442,7 +456,7 @@ describe MailServerLog do
 
         it 'returns a delivery status for the log line' do
           log = MailServerLog.new(:line => line)
-          status = MailServerLog::PostfixDeliveryStatus.new(:sent)
+          status = MailServerLog::DeliveryStatus.new(:delivered)
           expect(log.delivery_status).to eq(status)
         end
 

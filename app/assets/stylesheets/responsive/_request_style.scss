@@ -3,6 +3,7 @@
 $color-delivery-sent: #2688dc !default; // blue
 $color-delivery-delivered: #69952F !default; // green
 $color-delivery-failed: #D83838 !default; // red
+$color-delivery-unknown: darken(#F3BD2A, 20%) !default; // yellow
 
 .request-header__action-bar {
   border-top: 1px solid #e9e9e9;
@@ -226,6 +227,10 @@ div.comment_in_request {
   background-color: mix(#fff, $color-delivery-failed, 85%);
 }
 
+.correspondence_delivery--unknown {
+  background-color: mix(#fff, $color-delivery-unknown, 85%);
+}
+
 .toggle-delivery-log {
   padding-left: 8px + 16px;
   background: transparent none 0 50% no-repeat;
@@ -291,6 +296,22 @@ div.comment_in_request {
 
   &:hover, &:focus {
     color: darken($color-delivery-failed, 10%);
+  }
+}
+
+.toggle-delivery-log--unknown {
+  background-image: image-url('delivery-status/unknown.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('delivery-status/unknown@2x.png');
+  }
+
+  &, &:link, &:visited {
+    color: $color-delivery-unknown;
+  }
+
+  &:hover, &:focus {
+    color: darken($color-delivery-unknown, 10%);
   }
 }
 
