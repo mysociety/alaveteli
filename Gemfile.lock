@@ -408,7 +408,7 @@ DEPENDENCIES
   iso_country_codes (~> 0.7.3)
   jquery-rails (~> 3.1.4)
   jquery-ui-rails (~> 5.0.0)
-  json (~> 1.8.1)
+  json (~> 1.8.0, < 2.0.0)
   launchy (~> 2.4.3)
   locale (~> 2.0.8)
   mahoro (~> 0.4)
