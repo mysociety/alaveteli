@@ -1,3 +1,10 @@
+# 0.28.0.5
+
+# Highlighted Features
+
+* Fix bug in `Statistics.by_week_to_today_with_noughts` causing comparisons to
+  fail (Gareth Rees)
+
 # 0.28.0.4
 
 # Highlighted Features
