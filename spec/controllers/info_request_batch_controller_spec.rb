@@ -5,14 +5,15 @@ describe InfoRequestBatchController do
   describe "#show" do
     let(:first_public_body) { FactoryGirl.create(:public_body) }
     let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:bodies) { [first_public_body, second_public_body] }
     let!(:info_request_batch) do
       FactoryGirl.create(:info_request_batch, :title => 'Matched title',
                                               :body => 'Matched body',
-                                              :public_bodies => [first_public_body,
-                                                                 second_public_body])
+                                              :public_bodies => bodies)
     end
     let(:params) { {:id => info_request_batch.id} }
     let(:action) { get :show, params }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
 
     it 'should be successful' do
       action
@@ -27,7 +28,7 @@ describe InfoRequestBatchController do
     context 'when the batch has not been sent' do
       it 'should assign public_bodies to the view' do
         action
-        expect(assigns[:public_bodies]).to eq([first_public_body, second_public_body])
+        expect(assigns[:public_bodies]).to eq(bodies)
       end
     end
 
@@ -53,8 +54,6 @@ describe InfoRequestBatchController do
     end
 
     describe 'when params[:pro] is true' do
-      let(:pro_user) { FactoryGirl.create(:pro_user) }
-
       before do
         params[:pro] = "1"
         session[:user_id] = pro_user.id
@@ -64,6 +63,54 @@ describe InfoRequestBatchController do
         with_feature_enabled(:alaveteli_pro) do
           action
           expect(assigns[:in_pro_area]).to be true
+        end
+      end
+    end
+
+    describe "redirecting embargoed requests" do
+      context "when showing pros their own requests" do
+        context "when the request is embargoed" do
+          let(:batch) do
+            FactoryGirl.create(:embargoed_batch_request, public_bodies: bodies,
+                                                         user: pro_user)
+          end
+
+          it "should redirect to the pro version of the page" do
+            with_feature_enabled(:alaveteli_pro) do
+              session[:user_id] = pro_user
+              get :show, id: batch.id
+              expected_url = show_alaveteli_pro_batch_request_path(batch)
+              expect(response).to redirect_to expected_url
+            end
+          end
+        end
+
+        context "when the request is not embargoed" do
+          let(:batch) do
+            FactoryGirl.create(:batch_request, user: pro_user,
+                                               public_bodies: bodies)
+          end
+
+          it "should not redirect to the pro version of the page" do
+            with_feature_enabled(:alaveteli_pro) do
+              session[:user_id] = pro_user
+              get :show, id: batch.id
+              expect(response).to be_success
+            end
+          end
+        end
+      end
+
+      context "when showing pros someone else's request" do
+        before do
+          session[:user_id] = pro_user
+        end
+
+        it "should not redirect to the pro version of the page" do
+          with_feature_enabled(:alaveteli_pro) do
+            get :show, id: info_request_batch.id
+            expect(response).to be_success
+          end
         end
       end
     end
