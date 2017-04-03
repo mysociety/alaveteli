@@ -13,7 +13,7 @@ describe OutgoingMessages::DeliveryStatusesController do
     @logs = lines.map do |line|
       mock_model(MailServerLog, :line => line, :is_owning_user? => true)
     end
-    @status = MailServerLog::EximDeliveryStatus.new(:normal_message_delivery)
+    @status = MailServerLog::DeliveryStatus.new(:delivered)
   end
 
   def visible_info_request

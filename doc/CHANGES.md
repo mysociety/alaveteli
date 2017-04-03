@@ -2,6 +2,16 @@
 
 ## Highlighted Features
 
+* Add an unknown delivery status for better user experience when we haven't yet
+  parsed MTA logs for a recent message (Gareth Rees)
+* Switch MTA-specific delivery status to MTA-agnostic delivery status
+  (Gareth Rees)
+* Prevent deletion of initial outgoing messages through the admin interface
+  (Gareth Rees)
+* Make it easier to find the "Resend" message button in the admin interface
+  (Gareth Rees)
+* Install supported version of bundler through Rubygems on Debian Wheezy (Gareth
+  Rees)
 * Update Czechia country name in `WorldFOIWebsites` (Gareth Rees)
 * Prevent null bytes getting saved to `IncomingMessage` cache columns (Gareth
   Rees)
@@ -12,9 +22,18 @@
 * Allow comments to be reported for admin attention (Liz Conlan, Gareth Rees)
 * Fix a bug in typeahead search where a search ending in a one or two letter
   word would automatically return zero results (Louise Crow)
+* Update the spam scorer to hold lists of suspicious domains (email domains with
+  a higher than average chance of being spam) and spam domains (email domains
+  we're fairly confident are spam), and prevent spam domains from creating new
+  accounts (Liz Conlan)
+* Prevent the `/request/search_ahead` page from raising an error if there are
+  no query parameters (Liz Conlan)
 
 ## Upgrade Notes
 
+* `MailServerLog::EximDeliveryStatus` and `MailServerLog::PostfixDeliveryStatus`
+  have been deprecated in favour of an MTA-agnostic
+  `MailServerLog::DeliveryStatus`.
 * To migrate admin and pro statuses to the role-based system, you must run
   `bundle exec rake db:seed` and then
   `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
@@ -29,6 +48,13 @@
     app/views/followups/_followup.html.erb
     app/views/reports/new.html.erb
     app/views/request/describe_notices/_error_message.html.erb
+
+# 0.28.0.5
+
+# Highlighted Features
+
+* Fix bug in `Statistics.by_week_to_today_with_noughts` causing comparisons to
+  fail (Gareth Rees)
 
 # 0.28.0.4
 

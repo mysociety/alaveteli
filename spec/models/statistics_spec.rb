@@ -123,8 +123,8 @@ describe Statistics do
   describe ".by_week_to_today_with_noughts" do
     it "adds missing weeks with noughts" do
       data = [
-        ["2016-01-04", 2],
-        ["2016-01-18", 1]
+        [Date.parse("2016-01-04"), 2],
+        [Date.parse("2016-01-18"), 1]
       ]
       date_from = Date.new(2015, 12, 28)
       fake_current_date = Date.new(2016, 1, 31)

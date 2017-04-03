@@ -185,6 +185,25 @@ class UserController < ApplicationController
           end
         end
 
+        # Prevent signups from spam domains
+        if UserSpamScorer.new.email_from_spam_domain?(@user_signup)
+          if send_exception_notifications?
+            msg = "Attempted signup from spam domain email: " \
+                  "#{ @user_signup.email }"
+            e = Exception.new(msg)
+            ExceptionNotifier.notify_exception(e, :env => request.env)
+          end
+
+          if AlaveteliConfiguration.enable_anti_spam
+            flash.now[:error] =
+              _("Sorry, we're currently unable to sign up new users, " \
+                "please try again later")
+            error = true
+            render :action => 'sign'
+            return
+          end
+        end
+
         @user_signup.email_confirmed = false
         @user_signup.save!
         send_confirmation_mail @user_signup

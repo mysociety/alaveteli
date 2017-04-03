@@ -77,6 +77,14 @@ source "$BASHRC"
 # Speed up the installation of gems:
 echo 'gem: --no-ri --no-rdoc' > "$HOME/.gemrc"
 
+# Update bundler on Debian Wheezy
+if bundle --version | grep -q 'Bundler version 1.1.4' > /dev/null
+then
+  echo "Rails 4 does not support bundler 1.1.4."
+  echo "Installing bundler through gem for $UNIX_USER"
+  gem install bundler
+fi
+
 # Write sensible values into the config file:
 
 function random_alphanumerics() {

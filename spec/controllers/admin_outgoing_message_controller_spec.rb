@@ -3,65 +3,177 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminOutgoingMessageController do
 
-  describe 'when editing an outgoing message' do
+  describe 'GET #edit' do
 
-    before do
-      @info_request = FactoryGirl.create(:info_request)
-      @outgoing = @info_request.outgoing_messages.first
-    end
+    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:outgoing) { info_request.outgoing_messages.first }
 
     it 'should be successful' do
-      get :edit, :id => @outgoing.id
+      get :edit, :id => outgoing.id
       expect(response).to be_success
     end
 
-    it 'should assign the incoming message to the view' do
-      get :edit, :id => @outgoing.id
-      expect(assigns[:outgoing_message]).to eq(@outgoing)
+    it 'should assign the outgoing message to the view' do
+      get :edit, :id => outgoing.id
+      expect(assigns[:outgoing_message]).to eq(outgoing)
+    end
+
+    context 'when the message is the initial outgoing message' do
+
+      it 'sets is_initial_message to true' do
+        get :edit, :id => outgoing.id
+        expect(assigns[:is_initial_message]).to eq(true)
+      end
+
+    end
+
+    context 'when the message is not initial outgoing message' do
+
+      it 'sets is_initial_message to false' do
+        outgoing = FactoryGirl.create(:new_information_followup,
+                                      :info_request => info_request)
+        get :edit, :id => outgoing.id
+        expect(assigns[:is_initial_message]).to eq(false)
+      end
+
     end
 
   end
 
-  describe 'when updating an outgoing message' do
+  describe 'DELETE #destroy' do
 
-    before do
-      @info_request = FactoryGirl.create(:info_request)
-      @outgoing = @info_request.outgoing_messages.first
-      @default_params = {:id => @outgoing.id,
-                         :outgoing_message => {:prominence => 'hidden',
-                                               :prominence_reason => 'dull',
-                                               :body => 'changed body'} }
+    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:outgoing) do
+      FactoryGirl.create(:new_information_followup,
+                         :info_request => info_request)
     end
 
-    def make_request(params=@default_params)
+    it 'finds the outgoing message' do
+      delete :destroy, :id => outgoing.id
+      expect(assigns[:outgoing_message]).to eq(outgoing)
+    end
+
+    context 'successfully destroying the message' do
+
+      it 'destroys the message' do
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:outgoing_message]).to_not be_persisted
+      end
+
+      it 'logs an event on the info request' do
+        delete :destroy, :id => outgoing.id
+        expect(info_request.reload.get_last_event.event_type).
+          to eq('destroy_outgoing')
+      end
+
+      it 'informs the user' do
+        delete :destroy, :id => outgoing.id
+        expect(flash[:notice]).to eq('Outgoing message successfully destroyed.')
+      end
+
+      it 'redirects to the admin request page' do
+        delete :destroy, :id => outgoing.id
+        expect(response).to redirect_to(admin_request_url(info_request))
+      end
+
+    end
+
+    context 'unsuccessfully destroying the message' do
+      before do
+        allow_any_instance_of(OutgoingMessage).
+          to receive(:destroy).and_return(false)
+      end
+
+      it 'does not destroy the message' do
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:outgoing_message]).to be_persisted
+      end
+
+      it 'informs the user' do
+        delete :destroy, :id => outgoing.id
+        expect(flash[:error]).to eq('Could not destroy the outgoing message.')
+      end
+
+      it 'redirects to the outgoing message edit page' do
+        delete :destroy, :id => outgoing.id
+        expect(response).
+          to redirect_to(edit_admin_outgoing_message_path(outgoing))
+      end
+
+    end
+
+    context 'when the message is the initial outgoing message' do
+
+      it 'sets is_initial_message to true' do
+        outgoing = FactoryGirl.create(:initial_request)
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:is_initial_message]).to eq(true)
+      end
+
+      it 'prevents the destruction of the message' do
+        outgoing = FactoryGirl.create(:initial_request)
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:outgoing_message]).to be_persisted
+      end
+
+    end
+
+    context 'when the message is not initial outgoing message' do
+
+      it 'sets is_initial_message to false' do
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:is_initial_message]).to eq(false)
+      end
+
+      it 'allows the destruction of the message' do
+        delete :destroy, :id => outgoing.id
+        expect(assigns[:outgoing_message]).to_not be_persisted
+      end
+
+    end
+
+  end
+
+  describe 'PUT #update' do
+
+    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:outgoing) { info_request.outgoing_messages.first }
+    let(:default_params) do
+      { :id => outgoing.id,
+        :outgoing_message => { :prominence => 'hidden',
+                               :prominence_reason => 'dull',
+                               :body => 'changed body' } }
+    end
+
+    def make_request(params = default_params)
       post :update, params
     end
 
     it 'should save a change to the body of the message' do
       make_request
-      @outgoing.reload
-      expect(@outgoing.body).to eq('changed body')
+      outgoing.reload
+      expect(outgoing.body).to eq('changed body')
     end
 
     it 'should save the prominence of the message' do
       make_request
-      @outgoing.reload
-      expect(@outgoing.prominence).to eq('hidden')
+      outgoing.reload
+      expect(outgoing.prominence).to eq('hidden')
     end
 
     it 'should save a prominence reason for the message' do
       make_request
-      @outgoing.reload
-      expect(@outgoing.prominence_reason).to eq('dull')
+      outgoing.reload
+      expect(outgoing.prominence_reason).to eq('dull')
     end
 
     it 'should log an "edit_outgoing" event on the info_request' do
       allow(@controller).to receive(:admin_current_user).and_return("Admin user")
       make_request
-      @info_request.reload
-      last_event = @info_request.info_request_events.last
+      info_request.reload
+      last_event = info_request.info_request_events.last
       expect(last_event.event_type).to eq('edit_outgoing')
-      expect(last_event.params).to eq({ :outgoing_message_id => @outgoing.id,
+      expect(last_event.params).to eq({ :outgoing_message_id => outgoing.id,
                                     :editor => "Admin user",
                                     :old_prominence => "normal",
                                     :prominence => "hidden",
@@ -79,7 +191,7 @@ describe AdminOutgoingMessageController do
 
       expect(info_request).to receive(:expire)
 
-      params = @default_params.dup
+      params = default_params.dup
       params[:id] = outgoing.id
       make_request(params)
     end
@@ -88,7 +200,7 @@ describe AdminOutgoingMessageController do
 
       it 'should redirect to the admin info request view' do
         make_request
-        expect(response).to redirect_to admin_request_url(@info_request)
+        expect(response).to redirect_to admin_request_url(info_request)
       end
 
       it 'should show a message that the incoming message has been updated' do
@@ -101,7 +213,7 @@ describe AdminOutgoingMessageController do
     context 'if the incoming message is not valid' do
 
       it 'should render the edit template' do
-        make_request({:id => @outgoing.id,
+        make_request({:id => outgoing.id,
                       :outgoing_message => {:prominence => 'fantastic',
                                             :prominence_reason => 'dull',
                                             :body => 'Some information please'}})
@@ -109,6 +221,7 @@ describe AdminOutgoingMessageController do
       end
 
     end
+
   end
 
 end

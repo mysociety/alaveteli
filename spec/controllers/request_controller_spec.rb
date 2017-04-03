@@ -2901,4 +2901,13 @@ describe RequestController do
       end
     end
   end
+
+  describe 'GET #search_typeahead' do
+
+    it "does not raise an error if there are no params" do
+      expect{ get :search_typeahead }.not_to raise_error
+    end
+
+  end
+
 end
