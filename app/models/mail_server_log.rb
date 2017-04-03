@@ -236,28 +236,36 @@ class MailServerLog < ActiveRecord::Base
   end
 
   def delivery_status
-    # read in the status from the database if it's available
-    if attributes['delivery_status'].present?
-      begin
+    begin
+      if attributes['delivery_status'].present?
+        # read in the status from the database if it's available
         DeliveryStatusSerializer.load(read_attribute(:delivery_status))
-      # TODO: This rescue can be removed when there are no more cached
-      # MTA-specific statuses
-      rescue ArgumentError
-        decorated = line(:decorate => true)
-        if decorated && decorated.delivery_status
-          self.delivery_status = decorated.delivery_status
-        end
+      else
+        # attempt to parse the status from the log line and store if successful
+        set_delivery_status
       end
-    else
-      # attempt to parse the status from the log line and store if successful
-      decorated = line(:decorate => true)
-      if decorated && decorated.delivery_status
-        self.delivery_status = decorated.delivery_status
-      end
+    # TODO: This rescue can be removed when there are no more cached
+    # MTA-specific statuses
+    rescue ArgumentError
+      warn %q(MailServerLog#delivery_status rescuing from invalid delivery
+              status. Run bundle exec rake temp:cache_delivery_status to update
+              cached values. This error handling will be removed soon.).
+              squish unless Rails.env.test?
+
+      set_delivery_status
+      save
     end
   end
 
   private
+
+  # attempt to parse the status from the log line and store if successful
+  def set_delivery_status
+    decorated = line(:decorate => true)
+    if decorated && decorated.delivery_status
+      self.delivery_status = decorated.delivery_status
+    end
+  end
 
   def calculate_delivery_status
     delivery_status

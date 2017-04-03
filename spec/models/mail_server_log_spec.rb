@@ -383,16 +383,17 @@ describe MailServerLog do
 
     context 'if there is a stored value' do
       let(:log) do
-        MailServerLog.new(:line => "log text",
-                          :delivery_status => 'failed')
+        FactoryGirl.create(:mail_server_log, :line => "log text **")
       end
 
       it 'returns the stored value' do
         status = MailServerLog::DeliveryStatus.new(:failed)
-        expect(log.delivery_status).to eq(status)
+        log.update_attribute(:delivery_status, 'failed')
+        expect(log.reload.delivery_status).to eq(status)
       end
 
       it 'does not look at the line text' do
+        log.update_attribute(:delivery_status, 'failed')
         expect(log).to_not receive(:line)
         log.delivery_status
       end
@@ -403,13 +404,23 @@ describe MailServerLog do
     # statuses
     context 'if there is a stored value from an MTA-specific status' do
       let(:log) do
-        MailServerLog.new(:line => "log text <=",
-                          :delivery_status => 'message_arrival')
+        FactoryGirl.create(:mail_server_log, :line => "log text <=")
       end
 
       it 'recalculates the value' do
+        log.update_attribute(:delivery_status, 'message_arrival')
         status = MailServerLog::DeliveryStatus.new(:sent)
         expect(log.delivery_status).to eq(status)
+      end
+
+      it 'caches the recalculated value' do
+        log.update_attribute(:delivery_status, 'message_arrival')
+        db_value =
+          log.
+          reload.
+          instance_variable_get('@attributes')['delivery_status'].
+          serialized_value
+        expect(db_value).to eq('sent')
       end
     end
 
