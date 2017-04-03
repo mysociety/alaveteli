@@ -33,7 +33,9 @@
 
 * `MailServerLog::EximDeliveryStatus` and `MailServerLog::PostfixDeliveryStatus`
   have been deprecated in favour of an MTA-agnostic
-  `MailServerLog::DeliveryStatus`.
+  `MailServerLog::DeliveryStatus`. You should run
+  `bundle exec rake temp:cache_delivery_status` to convert any cached delivery
+  statuses to the new format.
 * To migrate admin and pro statuses to the role-based system, you must run
   `bundle exec rake db:seed` and then
   `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
