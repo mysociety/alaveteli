@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-27 09:50+0000\n"
+"POT-Creation-Date: 2017-04-03 12:39+0100\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,12 @@ msgid " <strong>Summarising</strong> the content of any information returned. "
 msgstr ""
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
+msgstr ""
+
+msgid "+ Add"
+msgstr ""
+
+msgid "- Remove"
 msgstr ""
 
 msgid "12 Months"
@@ -51,13 +57,46 @@ msgstr ""
 msgid "Add an annotation"
 msgstr ""
 
+msgid "Add authorities to your batch"
+msgstr ""
+
+msgid "Added"
+msgstr ""
+
 msgid "All requests"
 msgstr ""
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
 
+msgid "Are you sure the information you’re after isn’t available elsewhere?"
+msgstr ""
+
+msgid "Are you sure you want to publish this request?"
+msgstr ""
+
+msgid "Browse public requests"
+msgstr ""
+
+msgid "Change privacy"
+msgstr ""
+
+msgid "Change status"
+msgstr ""
+
+msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
+msgstr ""
+
+msgid "Check you haven't included any <strong>personal information</strong>."
+msgstr ""
+
+msgid "Choose a duration"
+msgstr ""
+
 msgid "Created"
+msgstr ""
+
+msgid "Dashboard"
 msgstr ""
 
 msgid "Download a zip file of all correspondence"
@@ -72,20 +111,6 @@ msgstr ""
 msgid "Edit your request"
 msgstr ""
 
-msgid "Embargo"
-msgstr ""
-
-msgid "Extend"
-msgstr ""
-
-msgid "Extend embargo:"
-msgstr ""
-
-msgid "Extend or approve this embargo."
-msgid_plural "Extend or approve these embargoes."
-msgstr[0] ""
-msgstr[1] ""
-
 msgid "First created"
 msgstr ""
 
@@ -98,6 +123,12 @@ msgstr ""
 msgid "Get started with your first request"
 msgstr ""
 
+msgid "Help"
+msgstr ""
+
+msgid "Keep private for a further:"
+msgstr ""
+
 msgid "Last updated"
 msgstr ""
 
@@ -107,19 +138,16 @@ msgstr ""
 msgid "Make an {{law_used_short}} request"
 msgstr ""
 
-msgid "My dashboard"
-msgstr ""
-
 msgid "My profile"
-msgstr ""
-
-msgid "My requests"
 msgstr ""
 
 msgid "My wall"
 msgstr ""
 
-msgid "Note: This message will be made public when the embargo ends"
+msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
+msgstr ""
+
+msgid "Once you’re happy with your request, click preview and send."
 msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
@@ -134,10 +162,27 @@ msgstr ""
 msgid "Preview your request"
 msgstr ""
 
+msgid "Privacy"
+msgstr ""
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
 
 msgid "Publish immediately"
+msgstr ""
+
+msgid "Publish this request or keep it private for longer."
+msgid_plural "Publish these requests or keep them private for longer."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Read blog"
+msgstr ""
+
+msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
+msgstr ""
+
+msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
 msgstr ""
 
 msgid "Request an internal review"
@@ -157,7 +202,7 @@ msgstr ""
 msgid "Requests"
 msgstr ""
 
-msgid "Requests with expiring embargoes"
+msgid "Requests that will be made public soon"
 msgstr ""
 
 msgid "Save draft"
@@ -166,10 +211,13 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+msgid "Search for an authority"
 msgstr ""
 
-msgid "Select an authority"
+msgid "Search for an authority by name"
+msgstr ""
+
+msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr ""
 
 msgid "Send a follow up"
@@ -195,10 +243,19 @@ msgstr ""
 msgid "Sending..."
 msgstr ""
 
-msgid "Sorry, something went wrong extending your embargo, please try again."
+msgid "Sorry, no authorities matched that search"
+msgstr ""
+
+msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr ""
 
 msgid "Sorry, something went wrong publishing your request, please try again."
+msgstr ""
+
+msgid "Sorry, something went wrong updating your batch request, please try again."
+msgstr ""
+
+msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
 msgstr ""
 
 msgid "Sort by"
@@ -219,16 +276,15 @@ msgstr ""
 msgid "Submit Search"
 msgstr ""
 
-msgid "Summary"
-msgstr ""
-
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr ""
 
-msgid "The embargo for your request to {{public_body_name}} \"{{info_request_title}}\" has ended so the request is now public."
-msgstr ""
+msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
+msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
+msgstr[0] ""
+msgstr[1] ""
 
-msgid "Then you can access Alaveteli Professional"
+msgid "Then you can access {{pro_site_name}}"
 msgstr ""
 
 msgid "There's nothing to do right now. Great job!"
@@ -237,19 +293,16 @@ msgstr ""
 msgid "Things to do today"
 msgstr ""
 
-msgid "This page is only accessible to Alaveteli Professional users"
+msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr ""
 
-msgid "This request is embargoed until {{embargo_publish_at}}"
+msgid "This request is private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 msgstr ""
 
 msgid "This request is public"
 msgstr ""
 
-msgid "This request will be embargoed until {{embargo_publish_at}}"
-msgstr ""
-
-msgid "This request will be published immediately"
+msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 msgstr ""
 
 msgid "Title (A-Z)"
@@ -258,7 +311,10 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-msgid "To access Alaveteli Professional"
+msgid "To access {{pro_site_name}}"
+msgstr ""
+
+msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
 msgstr ""
 
 msgid "Update"
@@ -275,13 +331,28 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-msgid "When your request's embargo expires, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
+msgid "View authorities"
+msgstr ""
+
+msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
+msgstr ""
+
+msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgstr ""
+
+msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 
 msgid "Write a reply"
 msgstr ""
 
+msgid "Write request"
+msgstr ""
+
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
+msgstr ""
+
+msgid "You haven't added any authorities to your batch yet"
 msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
@@ -299,6 +370,9 @@ msgstr ""
 msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
 msgstr ""
 
+msgid "Your Batch Request has been saved!"
+msgstr ""
+
 msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
 msgstr ""
 
@@ -308,13 +382,13 @@ msgstr ""
 msgid "Your draft has been saved!"
 msgstr ""
 
-msgid "Your embargo has been extended! It will now expire on {{expiry_date}}."
-msgstr ""
-
 msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
 msgstr ""
 
 msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
+msgstr ""
+
+msgid "Your message will be displayed publicly on this website once you publish your request."
 msgstr ""
 
 msgid "Your request"
@@ -329,7 +403,13 @@ msgstr ""
 msgid "Your request is now public!"
 msgstr ""
 
+msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
+msgstr ""
+
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" received a new response."
+msgstr ""
+
+msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
@@ -341,13 +421,19 @@ msgstr ""
 msgid "drafts"
 msgstr ""
 
+msgid "eg. Cabinet Office"
+msgstr ""
+
 msgid "first created"
 msgstr ""
 
 msgid "last updated"
 msgstr ""
 
-msgid "requests with expiring embargoes"
+msgid "requests that will be made public soon"
+msgstr ""
+
+msgid "the {{site_name}} team"
 msgstr ""
 
 msgid "title (A-Z)"
@@ -356,31 +442,36 @@ msgstr ""
 msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
 
-msgid "{{count}} embargo is ending this week."
-msgid_plural "{{count}} embargoes are ending this week."
-msgstr[0] ""
-msgstr[1] ""
-
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "{{count}} request is overdue."
-msgid_plural "{{count}} requests are overdue."
+msgid "{{count}} request is delayed."
+msgid_plural "{{count}} requests are delayed."
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "{{count}} request is very overdue."
-msgid_plural "{{count}} requests are very overdue."
+msgid "{{count}} request is long overdue."
+msgid_plural "{{count}} requests are long overdue."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{count}} request made"
+msgid_plural "{{count}} requests made"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{count}} request will be made public this week."
+msgid_plural "{{count}} requests will be made public this week."
 msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{length_of_time}} ago"
 msgstr ""
 
-msgid "{{public_body_name}} became overdue in responding to your request \"{{info_request_title}}\"."
+msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
 msgstr ""
 
-msgid "{{public_body_name}} became very overdue in responding to your request \"{{info_request_title}}\"."
+msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr ""
