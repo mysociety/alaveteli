@@ -295,8 +295,11 @@ describe RequestController, "when showing one request" do
     end
   end
 
-  describe 'when params[:pro] is true' do
+  describe 'when params[:pro] is true and a pro user is logged in' do
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+
     before :each do
+      session[:user_id] = pro_user.id
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', pro: "1"
     end
 
@@ -325,14 +328,21 @@ describe RequestController, "when showing one request" do
   end
 
   describe "@show_top_describe_state_form" do
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:pro_request) { FactoryGirl.create(:embargoed_request, user: pro_user) }
+
     context "when @in_pro_area is true" do
       it "is false" do
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   :pro => "1",
-                   :update_status => "1"
-        expect(assigns[:show_top_describe_state_form]).to be false
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user.id
+          get :show, :url_title => pro_request.url_title,
+                     :pro => "1",
+                     :update_status => "1"
+          expect(assigns[:show_top_describe_state_form]).to be false
+        end
       end
     end
+
     context "when @in_pro_area is false" do
       context "and @update_status is false" do
         it "is false" do
@@ -381,11 +391,17 @@ describe RequestController, "when showing one request" do
   end
 
   describe "@show_bottom_describe_state_form" do
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:pro_request) { FactoryGirl.create(:embargoed_request, user: pro_user) }
+
     context "when @in_pro_area is true" do
       it "is false" do
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   :pro => "1"
-        expect(assigns[:show_bottom_describe_state_form]).to be false
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user.id
+          get :show, :url_title => pro_request.url_title,
+                     :pro => "1"
+          expect(assigns[:show_bottom_describe_state_form]).to be false
+        end
       end
     end
 

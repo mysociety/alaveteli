@@ -8,7 +8,7 @@
 class AlaveteliPro::BaseController < ApplicationController
 
   before_filter :pro_user_authenticated?
-  before_filter :set_pro_flag
+  before_filter :set_in_pro_area
 
   # A pro-specific version of user_authenticated? that pro controller actions
   # can use to check for (or force a login for) an authenticated pro user
@@ -37,7 +37,11 @@ class AlaveteliPro::BaseController < ApplicationController
     return false
   end
 
-  def set_pro_flag
+  # An override of set_in_pro_area from ApplicationController, because we are
+  # always in the pro area if we're using a descendant of this controller.
+  # Note that this is called as a before_filter in this class, so that
+  # every descendant sets it.
+  def set_in_pro_area
    @in_pro_area = true
   end
 

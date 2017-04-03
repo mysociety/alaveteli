@@ -133,6 +133,9 @@ class CommentController < ApplicationController
     end
   end
 
+  # An override of ApplicationController#set_in_pro_area to set the flag
+  # whenever the info_request has an embargo, because we might not have a :pro
+  # parameter to go on.
   def set_in_pro_area
     @in_pro_area = @info_request.embargo.present?
   end

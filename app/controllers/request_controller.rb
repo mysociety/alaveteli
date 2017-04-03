@@ -16,6 +16,7 @@ class RequestController < ApplicationController
   before_filter :redirect_embargoed_requests_for_pro_users, :only => [:show]
   before_filter :redirect_public_requests_from_pro_context, :only => [:show]
   before_filter :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
+  before_filter :set_in_pro_area, :only => [:select_authority, :show]
   helper_method :state_transitions_empty?
 
   MAX_RESULTS = 500
@@ -40,7 +41,6 @@ class RequestController < ApplicationController
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
-    @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.is_pro?
     if !params[:query].nil?
       query = params[:query]
       flash[:search_params] = params.slice(:query, :bodies, :page)
@@ -97,8 +97,6 @@ class RequestController < ApplicationController
 
       # assign variables from request parameters
       @collapse_quotes = !params[:unfold]
-
-      @in_pro_area = params[:pro] == "1"
 
       @update_status = can_update_status(@info_request)
 
