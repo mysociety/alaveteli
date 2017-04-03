@@ -16,10 +16,13 @@
 
 FactoryGirl.define do
 
-  factory :info_request_batch do
+  factory :info_request_batch, aliases: [:batch_request]  do
     title "Example title"
     user
     body "Some text"
-  end
 
+    factory :embargoed_batch_request do
+      embargo_duration "3_months"
+    end
+  end
 end
