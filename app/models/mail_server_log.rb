@@ -237,13 +237,12 @@ class MailServerLog < ActiveRecord::Base
 
   def delivery_status
     begin
-      if attributes['delivery_status'].present?
-        # read in the status from the database if it's available
-        DeliveryStatusSerializer.load(read_attribute(:delivery_status))
-      else
+      unless attributes['delivery_status'].present?
         # attempt to parse the status from the log line and store if successful
         set_delivery_status
       end
+
+      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
     # TODO: This rescue can be removed when there are no more cached
     # MTA-specific statuses
     rescue ArgumentError
@@ -254,6 +253,7 @@ class MailServerLog < ActiveRecord::Base
 
       set_delivery_status
       save
+      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
     end
   end
 

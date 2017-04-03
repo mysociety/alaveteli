@@ -388,14 +388,22 @@ describe MailServerLog do
 
       it 'returns the stored value' do
         status = MailServerLog::DeliveryStatus.new(:failed)
-        log.update_attribute(:delivery_status, 'failed')
+        ActiveRecord::Base.connection.execute <<-EOF
+        UPDATE "mail_server_logs"
+        SET "delivery_status" = 'failed'
+        WHERE "mail_server_logs"."id" = #{log.id}
+        EOF
         expect(log.reload.delivery_status).to eq(status)
       end
 
       it 'does not look at the line text' do
-        log.update_attribute(:delivery_status, 'failed')
+        ActiveRecord::Base.connection.execute <<-EOF
+        UPDATE "mail_server_logs"
+        SET "delivery_status" = 'failed'
+        WHERE "mail_server_logs"."id" = #{log.id}
+        EOF
         expect(log).to_not receive(:line)
-        log.delivery_status
+        log.reload.delivery_status
       end
 
     end
@@ -408,13 +416,24 @@ describe MailServerLog do
       end
 
       it 'recalculates the value' do
-        log.update_attribute(:delivery_status, 'message_arrival')
+        ActiveRecord::Base.connection.execute <<-EOF
+        UPDATE "mail_server_logs"
+        SET "delivery_status" = 'message_arrival'
+        WHERE "mail_server_logs"."id" = #{log.id}
+        EOF
         status = MailServerLog::DeliveryStatus.new(:sent)
-        expect(log.delivery_status).to eq(status)
+        expect(log.reload.delivery_status).to eq(status)
       end
 
       it 'caches the recalculated value' do
-        log.update_attribute(:delivery_status, 'message_arrival')
+        ActiveRecord::Base.connection.execute <<-EOF
+        UPDATE "mail_server_logs"
+        SET "delivery_status" = 'message_arrival'
+        WHERE "mail_server_logs"."id" = #{log.id}
+        EOF
+
+        log.reload.delivery_status
+
         db_value =
           log.
           reload.
