@@ -1,13 +1,23 @@
 # -*- encoding : utf-8 -*-
 namespace :gettext do
 
+  def clean_dir(dir)
+    Dir.glob("#{dir}/*/app.po") do |po_file|
+      GetText::msgmerge(po_file, po_file, 'alaveteli',
+                        :msgmerge => [:sort_output, :no_location, :no_wrap])
+    end
+  end
+
   desc 'Rewrite .po files into a consistent msgmerge format'
   task :clean do
     load_gettext
+    clean_dir('locale')
+  end
 
-    Dir.glob("locale/*/app.po") do |po_file|
-      GetText::msgmerge(po_file, po_file, 'alaveteli', :msgmerge => [:sort_output, :no_location, :no_wrap])
-    end
+  desc 'Rewrite Alaveteli Pro .po files into a consistent msgmerge format'
+  task :clean_alaveteli_pro do
+    load_gettext
+    clean_dir('locale_alaveteli_pro')
   end
 
   desc "Update pot/po files for a theme."
@@ -43,11 +53,7 @@ namespace :gettext do
   task :clean_theme do
     theme = find_theme(ENV['THEME'])
     load_gettext
-
-    Dir.glob("#{ theme_locale_path(theme) }/*/app.po") do |po_file|
-      GetText::msgmerge(po_file, po_file, 'alaveteli',
-                        :msgmerge => [:sort_output, :no_location, :no_wrap])
-    end
+    clean_dir(theme_locale_path(theme))
   end
 
   desc 'Remove fuzzy translations'
