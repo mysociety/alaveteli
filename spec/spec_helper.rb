@@ -33,7 +33,10 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 load "#{Rails.root}/db/seeds.rb"
 # Use test-specific translations
-AlaveteliLocalization.set_default_text_domain('app', File.join(File.dirname(__FILE__), 'fixtures', 'locale'))
+AlaveteliLocalization.set_default_text_domain('app',
+                                              File.join(File.dirname(__FILE__),
+                                                        'fixtures',
+                                                        'locale'))
 
 RSpec.configure do |config|
   # ## Mock Framework
