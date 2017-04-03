@@ -49,6 +49,13 @@
     app/views/reports/new.html.erb
     app/views/request/describe_notices/_error_message.html.erb
 
+# 0.28.0.5
+
+# Highlighted Features
+
+* Fix bug in `Statistics.by_week_to_today_with_noughts` causing comparisons to
+  fail (Gareth Rees)
+
 # 0.28.0.4
 
 # Highlighted Features
