@@ -17,7 +17,9 @@
         <% delivery_status = outgoing_message.delivery_status %>
         <% if delivery_status %>
           <div class="correspondence__header__delivery-status">
-            <%= link_to outgoing_message_delivery_status_path(outgoing_message), :class => "toggle-delivery-log toggle-delivery-log--#{delivery_status} js-toggle-delivery-log", :'data-delivery-status' => delivery_status.to_s do -%>
+            <%= link_to outgoing_message_delivery_status_path(outgoing_message),
+                        :class => "toggle-delivery-log toggle-delivery-log--#{delivery_status} js-toggle-delivery-log",
+                        :'data-delivery-status' => delivery_status.to_s do -%>
               <%= delivery_status.to_s.humanize -%>
             <% end -%>
           </div>
