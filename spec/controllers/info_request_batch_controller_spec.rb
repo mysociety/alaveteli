@@ -51,5 +51,21 @@ describe InfoRequestBatchController do
         expect(assigns[:info_requests].sort).to eq([first_request, second_request])
       end
     end
+
+    describe 'when params[:pro] is true' do
+      let(:pro_user) { FactoryGirl.create(:pro_user) }
+
+      before do
+        params[:pro] = "1"
+        session[:user_id] = pro_user.id
+      end
+
+      it "should set @in_pro_area to true" do
+        with_feature_enabled(:alaveteli_pro) do
+          action
+          expect(assigns[:in_pro_area]).to be true
+        end
+      end
+    end
   end
 end

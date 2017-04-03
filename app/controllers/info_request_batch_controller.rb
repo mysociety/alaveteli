@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class InfoRequestBatchController < ApplicationController
+  before_filter :set_in_pro_area, :only => [:show]
 
   def show
     @info_request_batch = InfoRequestBatch.find(params[:id])
