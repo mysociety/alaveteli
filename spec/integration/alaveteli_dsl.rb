@@ -23,7 +23,7 @@ module AlaveteliDsl
 
     find_button('Preview your public request').click
     find_button('Send and publish request').click
-    expect(page).to have_content('To send your FOI request, create an account or sign in')
+    expect(page).to have_content('To send and publish your FOI request, create an account or sign in')
   end
 
   # Visit and fill out the pro-specific new request form
