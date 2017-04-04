@@ -114,5 +114,64 @@ describe InfoRequestBatchController do
         end
       end
     end
+
+    describe "accessing embargoed batches" do
+      let(:batch) do
+        FactoryGirl.create(:embargoed_batch_request, public_bodies: bodies,
+                                                     user: pro_user)
+      end
+      let(:admin) { FactoryGirl.create(:admin_user) }
+      let(:pro_admin) { FactoryGirl.create(:pro_admin_user) }
+      let(:other_pro_user) { FactoryGirl.create(:pro_user) }
+      let(:other_user) { FactoryGirl.create(:user) }
+
+      it "allows the owner to access it" do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user.id
+          get :show, id: batch.id, pro: "1"
+          expect(response).to be_success
+        end
+      end
+
+      it "allows pro admins to access it" do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_admin.id
+          get :show, id: batch.id
+          expect(response).to be_success
+        end
+      end
+
+      it "raises an ActiveRecord::RecordNotFound error for admins" do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = admin.id
+          expect { get :show, id: batch.id }.
+            to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      it "raises an ActiveRecord::RecordNotFound error for other pro users" do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = other_pro_user.id
+          expect { get :show, id: batch.id }.
+            to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      it "raises an ActiveRecord::RecordNotFound error for normal users" do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = other_user.id
+          expect { get :show, id: batch.id }.
+            to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      it "raises an ActiveRecord::RecordNotFound error for anon users" do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = nil
+          expect { get :show, id: batch.id }.
+            to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
   end
 end
