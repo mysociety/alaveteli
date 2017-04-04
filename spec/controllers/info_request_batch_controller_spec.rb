@@ -32,24 +32,52 @@ describe InfoRequestBatchController do
       end
     end
 
-    context 'when the batch has been sent' do
-      let!(:first_request) do
-        FactoryGirl.create(:info_request, :info_request_batch => info_request_batch,
-                                          :public_body => first_public_body)
-      end
-      let!(:second_request) do
-        FactoryGirl.create(:info_request, :info_request_batch => info_request_batch,
-                                          :public_body => second_public_body)
-      end
+    describe 'assigning @info_requests' do
+      context 'when the batch has been sent' do
+        let!(:first_request) do
+          FactoryGirl.create(:info_request, :info_request_batch => info_request_batch,
+                                            :public_body => first_public_body)
+        end
+        let!(:second_request) do
+          FactoryGirl.create(:info_request, :info_request_batch => info_request_batch,
+                                            :public_body => second_public_body)
+        end
+        let!(:hidden_request) do
+          FactoryGirl.create(:hidden_request, :info_request_batch => info_request_batch)
+        end
+        let!(:backpage_request) do
+          FactoryGirl.create(:backpage_request, :info_request_batch => info_request_batch)
+        end
 
-      before do
-        info_request_batch.sent_at = Time.zone.now
-        info_request_batch.save!
-      end
+        before do
+          info_request_batch.sent_at = Time.zone.now
+          info_request_batch.save!
+        end
 
-      it 'should assign info_requests to the view' do
-        action
-        expect(assigns[:info_requests].sort).to eq([first_request, second_request])
+        context 'when the batch is not embargoed' do
+          it 'should assign searchable info_requests to the view' do
+            action
+            expect(assigns[:info_requests].sort).
+              to eq([first_request, second_request])
+          end
+        end
+
+        context 'when the batch is embargoed' do
+          before do
+            info_request_batch.embargo_duration = '3_months'
+            info_request_batch.user = pro_user
+            info_request_batch.save!
+            session[:user_id] = pro_user.id
+            params[:pro] = "1"
+          end
+          it 'should assign all info_requests to the view' do
+            with_feature_enabled(:alaveteli_pro) do
+              action
+              expect(assigns[:info_requests].sort).
+                to eq([first_request, second_request, hidden_request, backpage_request])
+            end
+          end
+        end
       end
     end
 

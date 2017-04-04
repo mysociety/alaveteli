@@ -155,6 +155,14 @@ FactoryGirl.define do
     factory :awaiting_description do
       awaiting_description true
     end
+
+    factory :hidden_request do
+      prominence 'hidden'
+    end
+
+    factory :backpage_request do
+      prominence 'backpage'
+    end
   end
 
 end

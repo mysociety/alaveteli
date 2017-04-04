@@ -8,20 +8,11 @@ class InfoRequestBatchController < ApplicationController
   def show
     @per_page = 25
     @page = get_search_page_from_params
-
+    offset = (@page - 1) * @per_page
     if @info_request_batch.sent_at
-      @info_requests =
-        @info_request_batch.
-          info_requests.
-            is_searchable.
-              offset((@page - 1) * @per_page).
-                limit(@per_page)
+      @info_requests = load_info_requests(offset)
     else
-      @public_bodies =
-        @info_request_batch.
-          public_bodies.
-            offset((@page - 1) * @per_page).
-              limit(@per_page)
+      @public_bodies = load_public_bodies(offset)
     end
   end
 
@@ -53,5 +44,25 @@ class InfoRequestBatchController < ApplicationController
         redirect_to info_request_batch_url(@info_request_batch)
       end
     end
+  end
+
+  def load_info_requests(offset)
+    if @info_request_batch.embargo_duration
+      load_all_info_requests(offset)
+    else
+      load_searchable_info_requests(offset)
+    end
+  end
+
+  def load_all_info_requests(offset)
+    @info_request_batch.info_requests.offset(offset).limit(@per_page)
+  end
+
+  def load_searchable_info_requests(offset)
+    @info_request_batch.info_requests.is_searchable.offset(offset).limit(@per_page)
+  end
+
+  def load_public_bodies(offset)
+    @info_request_batch.public_bodies.offset(offset).limit(@per_page)
   end
 end
