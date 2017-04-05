@@ -201,7 +201,7 @@ GEM
     json (1.8.6)
     launchy (2.4.3)
       addressable (~> 2.3)
-    libv8 (3.16.14.17)
+    libv8 (3.16.14.19)
     locale (2.0.9)
     mahoro (0.4)
     mailcatcher (0.6.4)
