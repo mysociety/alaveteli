@@ -53,6 +53,8 @@ class InfoRequest < ActiveRecord::Base
   @non_admin_columns = %w(title url_title)
 
   strip_attributes :allow_empty => true
+  strip_attributes :only => [:title],
+                   :replace_newlines => true, :collapse_spaces => true
 
   validates_presence_of :title, :message => N_("Please enter a summary of your request")
   validates_format_of :title, :with => /[[:alpha:]]/,
