@@ -447,7 +447,7 @@ DEPENDENCIES
   statistics2 (~> 0.54)
   strip_attributes!
   syslog_protocol (~> 0.9.0)
-  term-ansicolor (< 1.4)
+  term-ansicolor (~> 1.3.0, < 1.4)
   therubyracer (~> 0.12.0)
   thin (~> 1.5.0)
   tins (~> 1.3.0, < 1.3.1)
