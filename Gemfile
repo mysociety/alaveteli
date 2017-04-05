@@ -165,7 +165,7 @@ end
 group :test, :development do
   gem 'bullet', '~> 5.1.0'
   gem 'factory_girl_rails', '~> 4.7.0'
-  gem 'rspec-activemodel-mocks', '~> 1.0.1'
+  gem 'rspec-activemodel-mocks', '~> 1.0.0'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'pry', '~> 0.10.4'
   gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
