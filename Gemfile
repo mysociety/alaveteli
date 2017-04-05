@@ -167,7 +167,7 @@ group :test, :development do
   gem 'factory_girl_rails', '~> 4.7.0'
   gem 'rspec-activemodel-mocks', '~> 1.0.0'
   gem 'rspec-rails', '~> 3.4.0'
-  gem 'pry', '~> 0.10.4'
+  gem 'pry', '~> 0.10.0'
   gem 'pry-debugger', '~> 0.2.3', :platforms => :ruby_19
     gem 'public_suffix', '< 1.5.0'
 end
