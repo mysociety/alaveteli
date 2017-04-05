@@ -179,5 +179,5 @@ group :development do
   gem 'mailcatcher', '~> 0.6.0'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'rdoc', '~> 3.12.0', '< 5.0.0'
-  gem 'launchy', '~> 2.4.3'
+  gem 'launchy', '~> 2.4.0'
 end

@@ -410,7 +410,7 @@ DEPENDENCIES
   jquery-rails (~> 3.1.4)
   jquery-ui-rails (~> 5.0.0)
   json (~> 1.8.0, < 2.0.0)
-  launchy (~> 2.4.3)
+  launchy (~> 2.4.0)
   locale (~> 2.0.0)
   mahoro (~> 0.4)
   mail!
