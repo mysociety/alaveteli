@@ -148,7 +148,7 @@ gem 'sass-rails', '~> 5.0.0'
 gem 'compass-rails', '~> 3.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '~> 2.7.0'
-gem 'therubyracer', '~> 0.12.2'
+gem 'therubyracer', '~> 0.12.0'
 
 # Feature flags
 gem 'alaveteli_features', :path => 'gems/alaveteli_features'
