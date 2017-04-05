@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/heapsource/active_model_otp.git
-  revision: c342283fe564bfe03d1798cb025ab80ff4e93451
-  ref: c342283fe564bf
+  revision: 55d93a3979907d8382c83c9b0f3e94e3186167fc
+  ref: 55d93a3979
   specs:
     active_model_otp (1.2.0)
       activemodel
