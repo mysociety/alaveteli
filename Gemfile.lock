@@ -411,7 +411,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 5.0.0)
   json (~> 1.8.0, < 2.0.0)
   launchy (~> 2.4.0)
-  locale (~> 2.0.0)
+  locale (~> 2.0.0, < 2.1.0)
   mahoro (~> 0.4)
   mail!
   mailcatcher (~> 0.6.0)
