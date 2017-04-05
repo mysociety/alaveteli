@@ -145,7 +145,7 @@ gem 'mail', :git => 'https://github.com/mikel/mail', :branch => '2-6-stable'
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'sass-rails', '~> 5.0.0'
-gem 'compass-rails', '3.0.2'
+gem 'compass-rails', '~> 3.0.0'
 gem 'coffee-rails', '~> 4.0.1'
 gem 'uglifier', '~> 2.7.2'
 gem 'therubyracer', '~> 0.12.2'
