@@ -387,7 +387,7 @@ DEPENDENCIES
   capybara (~> 2.7.0)
   charlock_holmes (~> 0.7.0)
   coffee-rails (~> 4.0.1)
-  compass-rails (= 3.0.2)
+  compass-rails (~> 3.0.0)
   coveralls (< 0.8.5)
   dalli (~> 2.7.0)
   delorean (~> 2.1.0)
