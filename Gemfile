@@ -104,7 +104,7 @@ gem 'net-http-local', '~> 0.1.0', :platforms => [:ruby_19]
 gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '~> 1.6.0', '< 1.7'
 gem 'open4', '~> 1.3.0'
-gem 'rack', '~> 1.5.0'
+gem 'rack', '~> 1.5.0', '< 1.6.0'
 gem 'rack-ssl', '~> 1.3.2'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
 gem 'rails-i18n', '~> 4.0.0', '< 5.0.0'
