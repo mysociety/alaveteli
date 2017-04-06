@@ -170,6 +170,7 @@ group :test, :development do
   gem 'pry', '~> 0.10.0'
   gem 'pry-debugger', '~> 0.2.0', :platforms => :ruby_19
     gem 'public_suffix', '~> 1.4.0', '< 1.5.0'
+  gem 'pry-byebug', '~> 3.4.0', :platforms => [:ruby_20, :ruby_21]
 end
 
 group :development do
