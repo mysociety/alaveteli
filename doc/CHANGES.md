@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix the layout of the request preview page so that the request body text is
+  in line with the heading (Keerti Gautam)
 * Add an unknown delivery status for better user experience when we haven't yet
   parsed MTA logs for a recent message (Gareth Rees)
 * Switch MTA-specific delivery status to MTA-agnostic delivery status
