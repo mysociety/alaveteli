@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Tweak wording of bounce reply to make it easier for admins to locate the
+  related request (Gareth Rees)
 * Fix the layout of the request preview page so that the request body text is
   in line with the heading (Keerti Gautam)
 * Add an unknown delivery status for better user experience when we haven't yet
