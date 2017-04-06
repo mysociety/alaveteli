@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add sample public body headings and categories (Gareth Rees)
 * Tweak wording of bounce reply to make it easier for admins to locate the
   related request (Gareth Rees)
 * Fix the layout of the request preview page so that the request body text is

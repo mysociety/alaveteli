@@ -1,0 +1,17 @@
+useless_category_en_public_body_category_translation:
+  title: Useless Authorities
+  description: Useless and other variations
+  locale: en
+  public_body_category_id: 1
+
+lonely_category_en_public_body_category_translation:
+  title: Lonely Authorities
+  description: A collection of lonely authorities
+  locale: en
+  public_body_category_id: 2
+
+popular_category_en_public_body_category_translation:
+  title: Popular Authorities
+  description: The most popular authorities
+  locale: en
+  public_body_category_id: 3

@@ -68,7 +68,12 @@ RSpec.configure do |config|
                            :info_request_events,
                            :track_things,
                            :has_tag_string_tags,
-                           :holidays
+                           :holidays,
+                           :public_body_categories,
+                           :public_body_category_translations,
+                           :public_body_headings,
+                           :public_body_heading_translations,
+                           :public_body_category_links
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
