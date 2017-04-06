@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fixed bug which redirected people trying to request a change to the email of
+  a public body back to the missing body form post sign in (Liz Conlan)
 * Tweak wording of bounce reply to make it easier for admins to locate the
   related request (Gareth Rees)
 * Fix the layout of the request preview page so that the request body text is

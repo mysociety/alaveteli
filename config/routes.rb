@@ -296,7 +296,11 @@ Alaveteli::Application.routes.draw do
         :via => :get
   ####
 
+  #### PublicBodyChangeRequest controller
   resource :change_request, :only => [:new, :create], :controller => 'public_body_change_requests'
+  match 'change_request/new/:body' => 'public_body_change_requests#new',
+        :as => :new_change_request_body,
+        :via => :get
 
   #### Comment controller
   match '/annotate/request/:url_title' => 'comment#new',
