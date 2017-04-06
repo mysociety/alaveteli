@@ -47,7 +47,7 @@ describe "request_mailer/stopped_responses" do
     assign(:info_request, request)
     assign(:contact_email, "a'b@example.com")
     render
-    expect(response).to match("email a'b@example.com for help")
+    expect(response).to match("email a'b@example.com to ask us to reopen")
   end
 
   it "does not add HTMLEntities to the site name" do

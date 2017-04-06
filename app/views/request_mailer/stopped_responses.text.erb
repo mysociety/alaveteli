@@ -11,7 +11,8 @@
 
 <%= _('If this is incorrect, or you would like to send a late response to ' \
       'the request or an email on another subject to {{user}}, then please ' \
-      'email {{contact_email}} for help.',
+      'email {{contact_email}} to ask us to reopen the request. You can then ' \
+      'resend the response.',
       :user => @info_request.user.name.html_safe,
       :contact_email => @contact_email.html_safe) %>
 
