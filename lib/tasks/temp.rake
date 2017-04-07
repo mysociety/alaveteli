@@ -290,4 +290,10 @@ namespace :temp do
     end
   end
 
+  desc 'Look for a fix requests with line breaks in titles'
+  task :remove_line_breaks_from_request_titles => :environment do
+    InfoRequest.where("title LIKE ? OR title LIKE ?", "%\n%", "%\r%").
+                each { |request| request.save! }
+  end
+
 end

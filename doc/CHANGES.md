@@ -33,6 +33,7 @@
 * Change "Send message" and "Send request" buttons to read "Send and publish" to
   make it clearer that your message is going to be shared via the website (Liz
   Conlan)
+* Prevent new request titles from containing line breaks (Liz Conlan)
 
 ## Upgrade Notes
 
@@ -45,6 +46,8 @@
   `bundle exec rake db:seed` and then
   `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
 * There are some database structure updates so remember to `rake db:migrate`
+* Run `bundle exec rake temp:remove_line_breaks_from_request_titles` after
+  deployment to remove stray line breaks (could effect Atom feeds)
 
 ### Changed Templates
 
