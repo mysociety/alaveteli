@@ -30,6 +30,9 @@
   accounts (Liz Conlan)
 * Prevent the `/request/search_ahead` page from raising an error if there are
   no query parameters (Liz Conlan)
+* Change "Send message" and "Send request" buttons to read "Send and publish" to
+  make it clearer that your message is going to be shared via the website (Liz
+  Conlan)
 
 ## Upgrade Notes
 

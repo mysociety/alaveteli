@@ -33,7 +33,7 @@ class RequestController < ApplicationController
     # Check whether we force the user to sign in right at the start, or we allow her
     # to start filling the request anonymously
     if AlaveteliConfiguration::force_registration_on_new_request && !authenticated?(
-        :web => _("To send your FOI request"),
+        :web => _("To send and publish your FOI request"),
         :email => _("Then you'll be allowed to send FOI requests."),
         :email_subject => _("Confirm your email address")
       )
@@ -370,8 +370,8 @@ class RequestController < ApplicationController
     end
 
     if !authenticated?(
-        :web => _("To send your FOI request").to_str,
-        :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
+        :web => _("To send and publish your FOI request").to_str,
+        :email => _("Then your FOI request to {{public_body_name}} will be sent and published.",:public_body_name=>@info_request.public_body.name),
         :email_subject => _("Confirm your FOI request to {{public_body_name}}",:public_body_name=>@info_request.public_body.name)
       )
       # do nothing - as "authenticated?" has done the redirect to signin page for us
