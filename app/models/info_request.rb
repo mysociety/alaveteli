@@ -79,6 +79,9 @@ class InfoRequest < ActiveRecord::Base
   has_many :censor_rules, -> { order('created_at desc') }, :dependent => :destroy
   has_many :mail_server_logs, -> { order('mail_server_log_done_id, "order"') }, :dependent => :destroy
   has_one :embargo, :class_name => "AlaveteliPro::Embargo"
+  has_one :request_summary, :as => :summarisable,
+                            :class_name => "AlaveteliPro::RequestSummary",
+                            :dependent => :destroy
 
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason

@@ -18,6 +18,9 @@ class DraftInfoRequest < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :public_body
+  has_one :request_summary, :as => :summarisable,
+                            :class_name => "AlaveteliPro::RequestSummary",
+                            :dependent => :destroy
 
   strip_attributes
 end

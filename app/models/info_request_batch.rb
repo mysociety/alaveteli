@@ -18,6 +18,9 @@ class InfoRequestBatch < ActiveRecord::Base
   has_many :info_requests
   belongs_to :user, :counter_cache => true
   has_and_belongs_to_many :public_bodies
+  has_one :request_summary, :as => :summarisable,
+                            :class_name => "AlaveteliPro::RequestSummary",
+                            :dependent => :destroy
 
   validates_presence_of :user
   validates_presence_of :title
