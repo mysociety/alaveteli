@@ -1,15 +1,17 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20170328100359
 #
 # Table name: info_request_batches
 #
-#  id         :integer          not null, primary key
-#  title      :text             not null
-#  user_id    :integer          not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  body       :text
-#  sent_at    :datetime
+#  id               :integer          not null, primary key
+#  title            :text             not null
+#  user_id          :integer          not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  body             :text
+#  sent_at          :datetime
+#  embargo_duration :string(255)
 #
 
 class InfoRequestBatch < ActiveRecord::Base
@@ -33,6 +35,15 @@ class InfoRequestBatch < ActiveRecord::Base
     }
 
     includes(:public_bodies).where(conditions).references(:public_bodies).first
+  end
+
+  # Create a new batch from the supplied draft version
+  def self.from_draft(draft)
+    self.new(:user => draft.user,
+             :public_bodies => draft.public_bodies,
+             :title => draft.title,
+             :body => draft.body,
+             :embargo_duration => draft.embargo_duration)
   end
 
   # Create a batch of information requests, returning a list of public bodies
@@ -70,6 +81,12 @@ class InfoRequestBatch < ActiveRecord::Base
                                                       self.user)
     info_request.public_body_id = public_body.id
     info_request.info_request_batch = self
+    unless self.embargo_duration.blank?
+      info_request.embargo = AlaveteliPro::Embargo.create(
+        :info_request => info_request,
+        :embargo_duration => self.embargo_duration
+      )
+    end
     info_request.save!
     info_request
   end
@@ -81,5 +98,23 @@ class InfoRequestBatch < ActiveRecord::Base
                                                        unrequestable,
                                                        info_request_batch.user).deliver
     end
+  end
+
+  # Build an InfoRequest object which is an example of this batch.
+  def example_request
+    public_body = self.public_bodies.first
+    body = OutgoingMessage.fill_in_salutation(self.body, public_body)
+    info_request = InfoRequest.create_from_attributes(
+      { :title => self.title, :public_body => public_body },
+      { :body => body },
+      self.user
+    )
+    unless self.embargo_duration.blank?
+      info_request.embargo = AlaveteliPro::Embargo.new(
+        :info_request => info_request,
+        :embargo_duration => self.embargo_duration
+      )
+    end
+    info_request
   end
 end

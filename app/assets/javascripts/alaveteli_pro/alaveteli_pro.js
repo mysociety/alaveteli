@@ -12,6 +12,7 @@
 
 //= require alaveteli_pro/draft_batch_summary/body-list
 //= require alaveteli_pro/draft_batch_summary/body
+//= require alaveteli_pro/draft_batch_summary/write-button
 
 //= require alaveteli_pro/batch_authority_search/search-form
 //= require alaveteli_pro/batch_authority_search/results

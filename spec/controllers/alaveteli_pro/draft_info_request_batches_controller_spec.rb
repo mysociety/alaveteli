@@ -53,6 +53,10 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
   let(:authority_2) { FactoryGirl.create(:public_body) }
   let(:authority_3) { FactoryGirl.create(:public_body) }
 
+  before do
+    session[:user_id] = pro_user.id
+  end
+
   describe "#create" do
     let(:params) do
       {
@@ -63,10 +67,6 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
         },
         authority_query: "Department"
       }
-    end
-
-    before do
-      session[:user_id] = pro_user.id
     end
 
     describe "when responding to a normal request" do
@@ -136,10 +136,6 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
   describe "#update_bodies" do
     let(:draft) do
       FactoryGirl.create(:draft_info_request_batch, user: pro_user)
-    end
-
-    before do
-      session[:user_id] = pro_user.id
     end
 
     describe "when adding a body" do
@@ -277,6 +273,54 @@ describe AlaveteliPro::DraftInfoRequestBatchesController do
           subject
           expect(response).to render_template("_summary")
         end
+      end
+    end
+  end
+
+  describe "#update" do
+    let(:draft) do
+      FactoryGirl.create(:draft_info_request_batch, user: pro_user)
+    end
+    let(:params) do
+      {
+        alaveteli_pro_draft_info_request_batch: {
+          title: 'Test Batch Request',
+          body: 'This is a test batch request.',
+          embargo_duration: '3_months',
+          public_body_ids: [authority_1.id, authority_2.id, authority_3.id]
+        },
+        id: draft.id
+      }
+    end
+
+    it "updates the draft" do
+      put :update, params
+      draft.reload
+      expect(draft.title).to eq 'Test Batch Request'
+      expect(draft.body).to eq 'This is a test batch request.'
+      expect(draft.public_bodies).to match_array([authority_1, authority_2, authority_3])
+      expect(draft.embargo_duration).to eq '3_months'
+    end
+
+    context "when the user is previewing" do
+      before do
+        params[:preview] = '1'
+      end
+
+      it "redirects to the batch preview page" do
+        put :update, params
+        expected_path = preview_new_alaveteli_pro_info_request_batch_path(
+          draft_id: draft.id)
+        expect(response).to redirect_to(expected_path)
+      end
+    end
+
+    context "when the user is saving" do
+      it "redirects to the new batch page" do
+        put :update, params
+        expected_path = new_alaveteli_pro_info_request_batch_path(
+          draft_id: draft.id)
+        expect(response).to redirect_to(expected_path)
       end
     end
   end

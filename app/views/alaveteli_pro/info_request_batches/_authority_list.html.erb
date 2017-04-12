@@ -1,0 +1,9 @@
+<p id="to_public_body" class="to_public_body">
+  <span class="to_public_body_label"><%= _('To') %></span>
+
+  <%= n_('{{count}} recipient, <a href="{{url}}">show</a>',
+         '{{count}} recipients, <a href="{{url}}">show all</a>',
+         batch.public_bodies.length,
+         count: batch.public_bodies.length,
+         url: alaveteli_pro_batch_request_authority_searches_path(draft_id: draft.id)) %>
+</p>

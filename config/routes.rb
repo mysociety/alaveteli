@@ -614,10 +614,13 @@ Alaveteli::Application.routes.draw do
       match '/batch_request_authority_searches' => 'batch_request_authority_searches#create',
             :as => :batch_request_authority_searches,
             :via => :get
-      resources :draft_info_request_batches, :only => [:create] do
+      resources :draft_info_request_batches, :only => [:create, :update] do
         member do
           put 'update_bodies'
         end
+      end
+      resources :info_request_batches, :only => [:new, :create] do
+        get :preview, on: :new # /info_request_batch/new/preview
       end
       match '/public_bodies/:query' => 'public_bodies#search',
             :via => :get,
@@ -628,6 +631,13 @@ Alaveteli::Application.routes.draw do
     # pro context
     match '/alaveteli_pro/info_requests/:url_title' => 'request#show',
       :as => :show_alaveteli_pro_request,
+      :via => :get,
+      :defaults => { :pro => "1" }
+
+    # So that we can show a batch request using the existing controller from
+    # the pro context
+    match '/alaveteli_pro/info_request_batches/:id' => 'info_request_batch#show',
+      :as => :show_alaveteli_pro_batch_request,
       :via => :get,
       :defaults => { :pro => "1" }
 

@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix the layout of the request preview page so that the request body text is
+  in line with the heading (Keerti Gautam)
 * Add an unknown delivery status for better user experience when we haven't yet
   parsed MTA logs for a recent message (Gareth Rees)
 * Switch MTA-specific delivery status to MTA-agnostic delivery status
@@ -28,6 +30,10 @@
   accounts (Liz Conlan)
 * Prevent the `/request/search_ahead` page from raising an error if there are
   no query parameters (Liz Conlan)
+* Change "Send message" and "Send request" buttons to read "Send and publish" to
+  make it clearer that your message is going to be shared via the website (Liz
+  Conlan)
+* Prevent new request titles from containing line breaks (Liz Conlan)
 
 ## Upgrade Notes
 
@@ -40,6 +46,8 @@
   `bundle exec rake db:seed` and then
   `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
 * There are some database structure updates so remember to `rake db:migrate`
+* Run `bundle exec rake temp:remove_line_breaks_from_request_titles` after
+  deployment to remove stray line breaks (could effect Atom feeds)
 
 ### Changed Templates
 

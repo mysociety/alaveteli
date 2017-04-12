@@ -22,8 +22,8 @@ module AlaveteliDsl
     fill_in 'Your request', :with => "This is a silly letter. It is too short to be interesting."
 
     find_button('Preview your public request').click
-    find_button('Send request').click
-    expect(page).to have_content('To send your FOI request, create an account or sign in')
+    find_button('Send and publish request').click
+    expect(page).to have_content('To send and publish your FOI request, create an account or sign in')
   end
 
   # Visit and fill out the pro-specific new request form
@@ -44,6 +44,11 @@ module AlaveteliDsl
     select "3 Months", from: "Privacy"
   end
 
+  def add_body_to_pro_batch(public_body)
+    within ".batch-builder__search-results li[data-body-id=\"#{public_body.id}\"]" do
+      click_button "+ Add"
+    end
+  end
 end
 
 def hide_incoming_message(incoming_message, prominence, reason)

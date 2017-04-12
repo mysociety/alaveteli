@@ -264,6 +264,79 @@ describe Ability do
     end
   end
 
+  describe "reading InfoRequestBatches" do
+    let(:admin_ability) { Ability.new(FactoryGirl.create(:admin_user)) }
+    let(:pro_admin_ability) { Ability.new(FactoryGirl.create(:pro_admin_user)) }
+    let(:pro_user_ability) { Ability.new(FactoryGirl.create(:pro_user)) }
+    let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
+
+    context "when the batch is embargoed" do
+      let(:resource) { FactoryGirl.create(:embargoed_batch_request) }
+
+      context "when the user owns the batch" do
+        let(:ability) { Ability.new(resource.user) }
+
+        it "should return true" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(ability).to be_able_to(:read, resource)
+          end
+        end
+      end
+
+      context "when the user is a pro_admin" do
+        it "should return true" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(pro_admin_ability).to be_able_to(:read, resource)
+          end
+        end
+      end
+
+      context "when the user is an admin" do
+        it "should return false" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(admin_ability).not_to be_able_to(:read, resource)
+          end
+        end
+      end
+
+      context "when the user is a pro but doesn't own the batch" do
+        it "should return false" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(pro_user_ability).not_to be_able_to(:read, resource)
+          end
+        end
+      end
+
+      context "when the user is a normal user" do
+        it "should return false" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(other_user_ability).not_to be_able_to(:read, resource)
+          end
+        end
+      end
+    end
+
+    context "when the batch is not embargoed" do
+      let(:resource) { FactoryGirl.create(:batch_request) }
+      let(:all_the_abilities) do
+        [
+          admin_ability,
+          pro_admin_ability,
+          pro_user_ability,
+          other_user_ability,
+          Ability.new(resource.user),
+          Ability.new(nil) # Even an anon user should be able to read it
+        ]
+      end
+
+      it "should always return true" do
+        all_the_abilities.each do |ability|
+          expect(ability).to be_able_to(:read, resource)
+        end
+      end
+    end
+  end
+
   describe "accessing Alaveteli Pro" do
     subject(:ability) { Ability.new(user) }
 

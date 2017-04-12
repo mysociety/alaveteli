@@ -141,7 +141,7 @@ namespace :temp do
     mta_agnostic_statuses =
       MailServerLog::DeliveryStatus::HUMANIZED.keys.map(&:to_s)
     MailServerLog.where.not(:delivery_status => mta_agnostic_statuses).find_each do |mail_log|
-      mail_log.update_attributes(:delivery_status => mail_log.delivery_status)
+      mail_log.update_attributes!(:delivery_status => mail_log.delivery_status)
       puts "Cached MailServerLog#delivery_status of id: #{ mail_log.id }"
     end
   end
@@ -288,6 +288,12 @@ namespace :temp do
       info_request.reject_incoming_at_mta = true
       info_request.save!
     end
+  end
+
+  desc 'Look for a fix requests with line breaks in titles'
+  task :remove_line_breaks_from_request_titles => :environment do
+    InfoRequest.where("title LIKE ? OR title LIKE ?", "%\n%", "%\r%").
+                each { |request| request.save! }
   end
 
 end

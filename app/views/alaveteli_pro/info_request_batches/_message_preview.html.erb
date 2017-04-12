@@ -1,0 +1,30 @@
+<div class="correspondence box" id="outgoing-0">
+  <p class="preview_to">
+    <%= render partial: 'alaveteli_pro/info_request_batches/authority_list',
+               locals: { batch: batch, draft: draft } %>
+
+
+  </p>
+  <p class="preview_subject">
+    <strong><%= _('Subject') %></strong> <%= batch.title %>
+  </p>
+
+  <div class="correspondence_text">
+    <p><%= simple_format(outgoing_message.body) %></p>
+  </div>
+</div>
+
+<p>
+  <%= form_for([:alaveteli_pro, batch]) do |f| %>
+    <%= hidden_field_tag :draft_id, draft.id %>
+
+    <%= submit_tag n_('Send {{count}} requests',
+                      'Send {{count}} requests',
+                      batch.public_bodies.size,
+                      :count => batch.public_bodies.size),
+                   :data => { :disable_with => _("Sending...") },
+                   :id => 'submit_button' %>
+    <%= link_to _("Edit your request"),
+                new_alaveteli_pro_info_request_batch_path(:draft_id => draft.id) %>
+  <% end %>
+</p>

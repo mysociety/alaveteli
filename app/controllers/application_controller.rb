@@ -247,6 +247,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # A helper method to set @in_pro_area, for controller actions which are
+  # used in both a pro and non-pro context and depend on the :pro parameter
+  # to know which one they're displaying.
+  # Intended to be used as a before_filter, see RequestController for example
+  # usage.
+  def set_in_pro_area
+    @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.is_pro?
+  end
+
   private
 
   def user?

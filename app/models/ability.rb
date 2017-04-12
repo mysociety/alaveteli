@@ -47,6 +47,15 @@ class Ability
       self.class.can_view_with_prominence?(request.prominence, request, user)
     end
 
+    # Viewing batch requests
+    can :read, InfoRequestBatch do |batch_request|
+      if batch_request.embargo_duration
+        user && (user == batch_request.user || User.view_embargoed?(user))
+      else
+        true
+      end
+    end
+
     if feature_enabled? :alaveteli_pro
       # Accessing alaveteli professional
       if user && (user.is_pro_admin? || user.is_pro?)
