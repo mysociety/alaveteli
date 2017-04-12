@@ -289,7 +289,7 @@ msgstr[1] "Následující dotazy budou příští týden zveřejněny na stránk
 msgstr[2] "Následující dotazy budou příští týden zveřejněny na stránkách {{site_name}}. Pokud si jejich zveřejnění nepřejete, prosím prodlužte jejich skrytí pomocí níže uvedených odkazů."
 
 msgid "Then you can access {{pro_site_name}}"
-msgstr "Pak se můžete přihlásit na {{site_name}}"
+msgstr "Pak se můžete přihlásit na {{pro_site_name}}"
 
 msgid "There's nothing to do right now. Great job!"
 msgstr "Vše je hotovo. Dobrá práce!"
