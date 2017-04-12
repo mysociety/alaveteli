@@ -4462,3 +4462,12 @@ msgstr "Ο/η {{user}} έκανε αυτή την {{law_used_full}} αίτηση
 
 msgid "« Back to search results"
 msgstr "« Πίσω στα αποτελέσματα αναζήτησης"
+
+#~ msgid "Overdue"
+#~ msgstr "Overdue"
+
+#~ msgid "There was an error with the words you entered, please try again."
+#~ msgstr "There was an error with the words you entered, please try again."
+
+#~ msgid "Very overdue"
+#~ msgstr "Very overdue"
