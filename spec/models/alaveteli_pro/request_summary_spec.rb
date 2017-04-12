@@ -1,8 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::RequestSummary, type: :model do
+
   let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
   let(:public_body_names) { public_bodies.map(&:name).join(" ") }
+
+  it "requires a summarisable" do
+    summary = FactoryGirl.build(:request_summary, summarisable: nil)
+    expect(summary).not_to be_valid
+  end
 
   describe ".create_or_update_from" do
     # All these classes create and update summaries of themselves during an

@@ -15,6 +15,7 @@
 
 class AlaveteliPro::RequestSummary < ActiveRecord::Base
   belongs_to :summarisable, polymorphic: true
+  validates_presence_of :summarisable
 
   ALLOWED_REQUEST_CLASSES = ["InfoRequest",
                              "DraftInfoRequest",
