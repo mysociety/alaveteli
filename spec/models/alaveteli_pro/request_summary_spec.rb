@@ -4,35 +4,24 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
   let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
   let(:public_body_names) { public_bodies.map(&:name).join(" ") }
 
-  it "can belong to an info_request" do
-    info_request = FactoryGirl.create(:info_request)
-    summary = FactoryGirl.create(:request_summary, summarisable: info_request)
-    expect(summary.summarisable).to eq info_request
-    expect(info_request.request_summary).to eq summary
-  end
-
-  it "can belong to a draft_info_request" do
-    draft = FactoryGirl.create(:draft_info_request)
-    summary = FactoryGirl.create(:request_summary, summarisable: draft)
-    expect(summary.summarisable).to eq draft
-    expect(draft.request_summary).to eq summary
-  end
-
-  it "can belong to an info_request_batch" do
-    batch = FactoryGirl.create(:info_request_batch)
-    summary = FactoryGirl.create(:request_summary, summarisable: batch)
-    expect(summary.summarisable).to eq batch
-    expect(batch.request_summary).to eq summary
-  end
-
-  it "can belong to a draft_info_request_batch" do
-    draft = FactoryGirl.create(:draft_info_request_batch)
-    summary = FactoryGirl.create(:request_summary, summarisable: draft)
-    expect(summary.summarisable).to eq draft
-    expect(draft.request_summary).to eq summary
-  end
-
   describe ".create_or_update_from" do
+    # All these classes create and update summaries of themselves during an
+    # after_save callback. That makes testing this method explicitly hard, so
+    # we skip the callback for the duration of these tests.
+    before :all do
+      InfoRequest.skip_callback(:save, :after, :create_or_update_request_summary)
+      DraftInfoRequest.skip_callback(:save, :after, :create_or_update_request_summary)
+      InfoRequestBatch.skip_callback(:save, :after, :create_or_update_request_summary)
+      AlaveteliPro::DraftInfoRequestBatch.skip_callback(:save, :after, :create_or_update_request_summary)
+    end
+
+    after :all do
+      InfoRequest.set_callback(:save, :after, :create_or_update_request_summary)
+      DraftInfoRequest.set_callback(:save, :after, :create_or_update_request_summary)
+      InfoRequestBatch.set_callback(:save, :after, :create_or_update_request_summary)
+      AlaveteliPro::DraftInfoRequestBatch.set_callback(:save, :after, :create_or_update_request_summary)
+    end
+
     it "raises an ArgumentError if the request is of the wrong class" do
       event = FactoryGirl.create(:info_request_event)
       expect { AlaveteliPro::RequestSummary.create_or_update_from(event) }.
@@ -41,8 +30,8 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
 
     context "when the request already has a summary" do
       it "updates the existing summary from a request" do
-        request = FactoryGirl.create(:info_request)
-        summary = FactoryGirl.create(:request_summary, summarisable: request)
+        summary = FactoryGirl.create(:request_summary)
+        request = summary.summarisable
         public_body = FactoryGirl.create(:public_body)
         request.title = "Updated title"
         request.public_body = public_body

@@ -14,13 +14,12 @@
 #
 
 class DraftInfoRequest < ActiveRecord::Base
+  include AlaveteliPro::RequestSummaries
+
   validates_presence_of :user
 
   belongs_to :user
   belongs_to :public_body
-  has_one :request_summary, :as => :summarisable,
-                            :class_name => "AlaveteliPro::RequestSummary",
-                            :dependent => :destroy
 
   strip_attributes
 end

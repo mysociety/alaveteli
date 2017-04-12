@@ -13,4 +13,6 @@ describe AlaveteliPro::DraftInfoRequestBatch do
     draft = AlaveteliPro::DraftInfoRequestBatch.new(user: pro_user)
     expect(draft.body).to eq "Dear [Authority name],\n\n\n\nYours faithfully,\n\n#{pro_user.name}"
   end
+
+  it_behaves_like "RequestSummaries"
 end

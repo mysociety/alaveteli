@@ -1034,7 +1034,6 @@ describe InfoRequest do
       info_request.destroy
       expect(UserInfoRequestSentAlert.where(:info_request_id => info_request.id)).to be_empty
     end
-
   end
 
   describe '#expire' do
@@ -3186,6 +3185,8 @@ describe InfoRequest do
       expect(InfoRequest.new.state).to be_a InfoRequest::State::Calculator
     end
   end
+
+  it_behaves_like "RequestSummaries"
 
 end
 

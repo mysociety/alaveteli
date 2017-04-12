@@ -262,4 +262,6 @@ describe InfoRequestBatch do
 
   end
 
+  it_behaves_like "RequestSummaries"
+
 end
