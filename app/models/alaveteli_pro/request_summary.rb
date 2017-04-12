@@ -15,7 +15,10 @@
 
 class AlaveteliPro::RequestSummary < ActiveRecord::Base
   belongs_to :summarisable, polymorphic: true
+  belongs_to :user
+
   validates_presence_of :summarisable
+  validates_presence_of :user
 
   ALLOWED_REQUEST_CLASSES = ["InfoRequest",
                              "DraftInfoRequest",
@@ -51,7 +54,8 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
       title: request.title,
       body: extract_request_body(request),
       public_body_names: extract_request_public_body_names(request),
-      summarisable: request
+      summarisable: request,
+      user: request.user
     }
   end
 

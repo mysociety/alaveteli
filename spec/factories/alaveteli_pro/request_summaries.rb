@@ -19,6 +19,7 @@ FactoryGirl.define do
     sequence(:body) { |n| "Example request #{n}" }
     public_body_names "Example Public Body"
     association :summarisable , :factory => :info_request
+    user :factory => :pro_user
 
     factory :draft_request_summary do
       association :summarisable , :factory => :draft_info_request

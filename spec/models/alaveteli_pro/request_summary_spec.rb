@@ -10,6 +10,11 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
     expect(summary).not_to be_valid
   end
 
+  it "requires a user" do
+    summary = FactoryGirl.build(:request_summary, user: nil)
+    expect(summary).not_to be_valid
+  end
+
   describe ".create_or_update_from" do
     # All these classes create and update summaries of themselves during an
     # after_save callback. That makes testing this method explicitly hard, so
@@ -47,6 +52,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(updated_summary.title).to eq request.title
         expect(updated_summary.public_body_names).to eq public_body.name
         expect(updated_summary.summarisable).to eq request
+        expect(updated_summary.user).to eq request.user
       end
 
       it "updates the existing summary from a batch request" do
@@ -66,6 +72,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(updated_summary.body).to eq batch.body
         expect(updated_summary.public_body_names).to match /.*#{public_body.name}.*/
         expect(updated_summary.summarisable).to eq batch
+        expect(updated_summary.user).to eq batch.user
       end
     end
 
@@ -77,6 +84,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.body).to eq request.outgoing_messages.first.body
         expect(summary.public_body_names).to eq request.public_body.name
         expect(summary.summarisable).to eq request
+        expect(summary.user).to eq request.user
       end
 
       it "creates a summary from a draft_info_request" do
@@ -86,6 +94,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.body).to eq draft.body
         expect(summary.public_body_names).to eq draft.public_body.name
         expect(summary.summarisable).to eq draft
+        expect(summary.user).to eq draft.user
       end
 
       it "creates a summary from an info_request_batch" do
@@ -98,6 +107,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.body).to eq batch.body
         expect(summary.public_body_names).to eq public_body_names
         expect(summary.summarisable).to eq batch
+        expect(summary.user).to eq batch.user
       end
 
       it "creates a summary from an draft_info_request_batch" do
@@ -110,6 +120,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.body).to eq draft.body
         expect(summary.public_body_names).to eq public_body_names
         expect(summary.summarisable).to eq draft
+        expect(summary.user).to eq draft.user
       end
     end
 
