@@ -10,6 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-03 12:39+0100\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
+"Last-Translator: Christophe Van Gheluwe <info@vg-webdesign.be>, 2017\n"
 "Language-Team: French (Belgium) (https://www.transifex.com/mysociety/teams/33529/fr_BE/)\n"
 "Language: fr_BE\n"
 "MIME-Version: 1.0\n"
@@ -18,142 +19,142 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr ""
+msgstr "<strong>Résumez</strong> le contenu de toute information renvoyée."
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "Dites-nous comment vous avez <strong>utilisé l'information</strong>, avec, si possible, des liens."
 
 msgid "+ Add"
-msgstr ""
+msgstr "+ Ajouter"
 
 msgid "- Remove"
-msgstr ""
+msgstr "- Supprimer"
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 mois"
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 mois"
 
 msgid "6 Months"
-msgstr ""
+msgstr "6 mois"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-msgstr ""
+msgstr "<strong>Remarque :</strong> Du fait que nous sommes en phase de test, les demandes sont envoyées à {{email}} plutôt qu'à l'autorité publique."
 
 msgid "<strong>Thank</strong> the public authority."
-msgstr ""
+msgstr "<strong>Remercier</strong> l'autorité publique."
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr ""
+msgstr "<strong>{{filter_description}}</strong> classé par <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">réinitialiser</a>"
 
 msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr ""
+msgstr "Un <strong>résumé</strong> de la réponse si vous l'avez reçue par la poste."
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr ""
+msgstr "Une ligne de résumé de l'information que vous avez demandée, par exemple."
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Ajouter un commentaire"
 
 msgid "Add authorities to your batch"
-msgstr ""
+msgstr "Ajouter des autorités publiques à votre groupe"
 
 msgid "Added"
-msgstr ""
+msgstr "Ajouté"
 
 msgid "All requests"
-msgstr ""
+msgstr "Toutes les demandes"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
-msgstr ""
+msgstr "Les commentaires vous permettent d'ajouter des remarques complémentaires à une demande, ils pourront éventuellement être rendus publics. Par exemple :"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
-msgstr ""
+msgstr "Etes-vous certain que l'information que vous recherchez n'est pas disponible quelque part ?"
 
 msgid "Are you sure you want to publish this request?"
-msgstr ""
+msgstr "Etes-vous certain de vouloir publier cette demande ?"
 
 msgid "Browse public requests"
-msgstr ""
+msgstr "Consulter les demandes publiques"
 
 msgid "Change privacy"
-msgstr ""
+msgstr "Changer la confidentialité"
 
 msgid "Change status"
-msgstr ""
+msgstr "Changer le statut"
 
 msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
-msgstr ""
+msgstr "Vérifiez les réponses de l'autorité publique sur {{site_name}} ou effectuez une recherche rapide sur internet."
 
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr ""
+msgstr "Vérifiez que vous n'avez ajouté aucune <strong>information personnelle</strong>."
 
 msgid "Choose a duration"
-msgstr ""
+msgstr "Choisissez une durée"
 
 msgid "Created"
-msgstr ""
+msgstr "Créé"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Tableau de bord"
 
 msgid "Download a zip file of all correspondence"
-msgstr ""
+msgstr "Téléchargez un fichier zip de toute la correspondance"
 
 msgid "Draft"
-msgstr ""
+msgstr "Brouillon"
 
 msgid "Drafts"
-msgstr ""
+msgstr "Brouillons"
 
 msgid "Edit your request"
-msgstr ""
+msgstr "Modifiez votre demande"
 
 msgid "First created"
-msgstr ""
+msgstr "Créé en premier"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
-msgstr ""
+msgstr "Depuis cet écran vous pouvez voir une vue d'ensemble de vos demandes et effectuer des actions rapides pour les garder à jour. Pourquoi ne pas lancer votre première action dès maintenant ?"
 
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
-msgstr ""
+msgstr "Depuis cet écran vous pouvez voir ce dont vous avez besoin de faire pour faire avancer vos demandes. Pourquoi ne pas lancer une nouvelle demande dès maintenant ?"
 
 msgid "Get started with your first request"
-msgstr ""
+msgstr "Commencez votre première demande"
 
 msgid "Help"
-msgstr ""
+msgstr "Aide"
 
 msgid "Keep private for a further:"
-msgstr ""
+msgstr "Garder privé pour une période : "
 
 msgid "Last updated"
-msgstr ""
+msgstr "Dernière mise à jour"
 
 msgid "Make a request"
-msgstr ""
+msgstr "Faire une demande"
 
 msgid "Make an {{law_used_short}} request"
-msgstr ""
+msgstr "Faire une demande de {{law_used_short}}"
 
 msgid "My profile"
-msgstr ""
+msgstr "Mon profile"
 
 msgid "My wall"
-msgstr ""
+msgstr "Mon mur"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
-msgstr ""
+msgstr "Remarque : Lorsque cette demande est faite publiquement sur {{site_name}}, ce message sera également rendu public."
 
 msgid "Once you’re happy with your request, click preview and send."
-msgstr ""
+msgstr "Si vous êtes satisfait de cette demande, cliquez sur prévisualiser et envoyer."
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
-msgstr ""
+msgstr "Indiquez des <strong>informations connexes</strong>, campagnes ou forums qui peuvent être utiles."
 
 msgid "Preview and send request"
-msgstr ""
+msgstr "Prévisualisez et envoyez la demande"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
 msgstr ""

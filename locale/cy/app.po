@@ -9,7 +9,7 @@
 # Translators:
 # Translators:
 # Translators:
-# Aled Powell <cymrodor@gmail.com>, 2014
+# Aled Powell <aled@aledpowell.cymru>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
 # baragouiner <graham.craig@gmail.com>, 2013
 # Gareth Rees <gareth@mysociety.org>, 2015
@@ -4522,3 +4522,12 @@ msgstr "Gwnaeth {{user}} y cais {{law_used_full}} hwn"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "Overdue"
+#~ msgstr "Overdue"
+
+#~ msgid "There was an error with the words you entered, please try again."
+#~ msgstr "There was an error with the words you entered, please try again."
+
+#~ msgid "Very overdue"
+#~ msgstr "Very overdue"
