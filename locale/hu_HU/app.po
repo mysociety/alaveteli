@@ -4676,12 +4676,3 @@ msgstr "{{user}} küldte ezt a {{law_used_full}} igénylést "
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "Overdue"
-#~ msgstr "Overdue"
-
-#~ msgid "There was an error with the words you entered, please try again."
-#~ msgstr "There was an error with the words you entered, please try again."
-
-#~ msgid "Very overdue"
-#~ msgstr "Very overdue"

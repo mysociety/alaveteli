@@ -4610,12 +4610,3 @@ msgstr "{{user}} je podnio/la ovaj zahtjev za {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Povratak na rezultate pretrage"
-
-#~ msgid "Overdue"
-#~ msgstr "Overdue"
-
-#~ msgid "There was an error with the words you entered, please try again."
-#~ msgstr "There was an error with the words you entered, please try again."
-
-#~ msgid "Very overdue"
-#~ msgstr "Very overdue"

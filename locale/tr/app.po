@@ -4477,12 +4477,3 @@ msgstr "{{user}}, bu {{law_used_full}} başvurusunu gerçekleştirdi"
 
 msgid "« Back to search results"
 msgstr "« Arama sonuçlarına dön"
-
-#~ msgid "Overdue"
-#~ msgstr "Overdue"
-
-#~ msgid "There was an error with the words you entered, please try again."
-#~ msgstr "There was an error with the words you entered, please try again."
-
-#~ msgid "Very overdue"
-#~ msgstr "Very overdue"
