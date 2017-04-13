@@ -183,6 +183,13 @@ describe TrackController do
     let(:public_body) { FactoryGirl.create(:public_body) }
     let(:user) { FactoryGirl.create(:user, :locale => 'en', :name => 'bob') }
 
+    before do
+      # these tests depend on the xapian index existing, although
+      # not on its specific contents.
+      load_raw_emails_data
+      get_fixtures_xapian_index
+    end
+
     it "should save a search track and redirect to the right place" do
       session[:user_id] = user.id
       track_thing = TrackThing.new(:track_type => 'public_body_updates',
