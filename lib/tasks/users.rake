@@ -85,7 +85,7 @@ namespace :users do
     if input.downcase == "y"
       to_ban = UserStats.unbanned_by_domain(domain, from)
       count = to_ban.
-        update_all(:ban_text => "Banned for use of #{domain} email")
+        update_all(:ban_text => "Banned for spamming")
       p "#{count} accounts banned"
     else
       p "No action taken"
