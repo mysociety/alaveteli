@@ -264,4 +264,49 @@ describe InfoRequestBatch do
 
   it_behaves_like "RequestSummaries"
 
+  describe "#embargo_expiring?" do
+    let(:first_public_body) { FactoryGirl.create(:public_body) }
+    let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:info_request_batch) do
+      FactoryGirl.create(
+        :info_request_batch,
+        :public_bodies => [first_public_body, second_public_body])
+    end
+
+    before do
+      # We need the batch to have requests to test them out
+      info_request_batch.create_batch!
+    end
+
+    context "when requests have an embargoes which are expiring" do
+      before do
+        info_request_batch.info_requests.each do |request|
+          FactoryGirl.create(:expiring_embargo, info_request: request)
+        end
+      end
+
+      it "returns true" do
+        expect(info_request_batch.embargo_expiring?).to be true
+      end
+    end
+
+    context "when requests have embargoes but they're not expiring soon" do
+      before do
+        info_request_batch.info_requests.each do |request|
+          FactoryGirl.create(:embargo, info_request: request)
+        end
+      end
+
+      it "returns false" do
+        expect(info_request_batch.embargo_expiring?).to be false
+      end
+    end
+
+    context "when no requests have embargoes" do
+      it "returns false" do
+        expect(info_request_batch.embargo_expiring?).to be false
+      end
+    end
+  end
+
 end

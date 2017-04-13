@@ -119,4 +119,12 @@ class InfoRequestBatch < ActiveRecord::Base
     end
     info_request
   end
+
+  # Do any of the requests in this batch have an embargo which is expiring
+  # soon?
+  #
+  # Returns boolean
+  def embargo_expiring?
+    info_requests.embargo_expiring.any?
+  end
 end

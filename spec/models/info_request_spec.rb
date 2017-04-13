@@ -3188,6 +3188,44 @@ describe InfoRequest do
 
   it_behaves_like "RequestSummaries"
 
+  describe "#embargo_expiring?" do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    context "when the embargo is expiring" do
+      let!(:embargo) do
+        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+      end
+
+      before do
+        info_request.reload
+      end
+
+      it "returns true" do
+        expect(info_request.embargo_expiring?).to be true
+      end
+    end
+
+    context "when the embargo is not expiring soon" do
+      let!(:embargo) do
+        FactoryGirl.create(:embargo, info_request: info_request)
+      end
+
+      before do
+        info_request.reload
+      end
+
+      it "returns false" do
+        expect(info_request.embargo_expiring?).to be false
+      end
+    end
+
+    context "when there is no embargo" do
+      it "returns false" do
+        expect(info_request.embargo_expiring?).to be false
+      end
+    end
+  end
+
 end
 
 describe InfoRequest do

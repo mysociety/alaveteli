@@ -1516,6 +1516,17 @@ class InfoRequest < ActiveRecord::Base
     log_overdue_event_type('very_overdue')
   end
 
+  # Is the attached embargo expiring soon?
+  #
+  # Returns boolean
+  def embargo_expiring?
+    if self.embargo
+      self.embargo.publish_at <= AlaveteliPro::Embargo.expiring_soon_time
+    else
+      false
+    end
+  end
+
   private
 
   def self.log_overdue_event_type(event_type)
