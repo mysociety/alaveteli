@@ -20,7 +20,6 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
                           :class_name => "AlaveteliPro::RequestSummaryCategory"
 
   validates_presence_of :summarisable
-  validates_presence_of :user
 
   ALLOWED_REQUEST_CLASSES = ["InfoRequest",
                              "DraftInfoRequest",

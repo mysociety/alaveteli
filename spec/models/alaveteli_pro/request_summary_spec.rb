@@ -10,9 +10,10 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
     expect(summary).not_to be_valid
   end
 
-  it "requires a user" do
+  it "does not require a user" do
+    # InfoRequest does not require a user, so we can't require one here either
     summary = FactoryGirl.build(:request_summary, user: nil)
-    expect(summary).not_to be_valid
+    expect(summary).to be_valid
   end
 
   describe ".create_or_update_from" do
