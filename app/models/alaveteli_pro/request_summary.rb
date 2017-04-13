@@ -16,6 +16,8 @@
 class AlaveteliPro::RequestSummary < ActiveRecord::Base
   belongs_to :summarisable, polymorphic: true
   belongs_to :user
+  has_and_belongs_to_many :request_summary_categories,
+                          :class_name => "AlaveteliPro::RequestSummaryCategory"
 
   validates_presence_of :summarisable
   validates_presence_of :user

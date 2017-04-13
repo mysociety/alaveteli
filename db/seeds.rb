@@ -12,3 +12,12 @@
     Role.create(:name => role_name)
   end
 end
+
+[
+  'draft', 'complete', 'clarification_needed', 'awaiting_response',
+  'response_received', 'overdue', 'very_overdue', 'other', 'embargo_expiring'
+].each do |category_slug|
+  if AlaveteliPro::RequestSummaryCategory.where(:slug => category_slug).empty?
+    AlaveteliPro::RequestSummaryCategory.create(:slug => category_slug)
+  end
+end
