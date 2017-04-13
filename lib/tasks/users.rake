@@ -49,7 +49,7 @@ namespace :users do
     banned_percent = if total_users == 0
       0
     else
-      (banned.to_f / total_users * 100).round
+      (banned.to_f / total_users * 100).round(2)
     end
 
     dormant = UserStats.count_dormant_users(domain, from)
@@ -57,7 +57,7 @@ namespace :users do
     dormant_percent = if total_users == 0
       0
     else
-      (dormant.to_f / total_users * 100).round
+      (dormant.to_f / total_users * 100).round(2)
     end
 
     p "Since #{from}..." if from
