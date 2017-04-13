@@ -177,6 +177,42 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
             to match_array expected_categories
         end
       end
+
+      context "when the request has an expiring embargo" do
+        let(:request) { FactoryGirl.create(:embargo_expiring_request) }
+        let(:summary) do
+          summary = AlaveteliPro::RequestSummary.create_or_update_from(request)
+        end
+
+        it "adds the embargo_expiring category" do
+          expected_categories = [AlaveteliPro::RequestSummaryCategory.embargo_expiring]
+          expect(summary.request_summary_categories).
+            to match_array expected_categories
+        end
+      end
+
+      context "when the request is a batch with expiring embargoes" do
+        let(:batch) do
+          FactoryGirl.create(:info_request_batch, public_bodies: public_bodies)
+        end
+        let(:summary) do
+          AlaveteliPro::RequestSummary.create_or_update_from(batch)
+        end
+
+        before do
+          batch.create_batch!
+          batch.info_requests.each do |request|
+            FactoryGirl.create(:expiring_embargo, info_request: request)
+          end
+          batch.reload
+        end
+
+        it "adds the embargo_expiring category" do
+          expected_categories = [AlaveteliPro::RequestSummaryCategory.embargo_expiring]
+          expect(summary.request_summary_categories).
+            to match_array expected_categories
+        end
+      end
     end
   end
 end

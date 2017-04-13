@@ -82,6 +82,9 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
     if [DraftInfoRequest, AlaveteliPro::DraftInfoRequestBatch].include?(request.class)
       categories << AlaveteliPro::RequestSummaryCategory.draft
     end
+    if request.try(:embargo_expiring?)
+      categories << AlaveteliPro::RequestSummaryCategory.embargo_expiring
+    end
     categories
   end
 end
