@@ -127,4 +127,18 @@ class InfoRequestBatch < ActiveRecord::Base
   def embargo_expiring?
     info_requests.embargo_expiring.any?
   end
+
+  # What phases are the requests in this batch in
+  #
+  # Returns unique array of symbols representing phases from InfoRequest::State
+  def request_phases
+    phases = info_requests.collect do |ir|
+      if ir.last_event_forming_initial_request_id.nil?
+        :awaiting_response
+      else
+        ir.state.phase
+      end
+    end
+    phases.uniq
+  end
 end

@@ -309,4 +309,25 @@ describe InfoRequestBatch do
     end
   end
 
+  describe "#request_phases" do
+    let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
+    let(:info_request_batch) do
+      FactoryGirl.create(:info_request_batch, :public_bodies => public_bodies)
+    end
+
+    before do
+      # We need the batch to have requests to test them out
+      info_request_batch.create_batch!
+      info_request_batch.reload
+      # We also need them to be in a few different states to test the phases
+      info_request_batch.info_requests.first.set_described_state('successful')
+    end
+
+    context "when there are requests" do
+      it "returns their phases" do
+        expected = [:complete, :awaiting_response]
+        expect(info_request_batch.request_phases).to match_array(expected)
+      end
+    end
+  end
 end
