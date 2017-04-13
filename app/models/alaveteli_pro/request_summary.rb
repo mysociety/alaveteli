@@ -57,7 +57,8 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
       body: extract_request_body(request),
       public_body_names: extract_request_public_body_names(request),
       summarisable: request,
-      user: request.user
+      user: request.user,
+      request_summary_categories: self.extract_categories(request)
     }
   end
 
@@ -75,5 +76,13 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
     else
       request.public_bodies.pluck(:name).join(" ")
     end
+  end
+
+  def self.extract_categories(request)
+    categories = []
+    if [DraftInfoRequest, AlaveteliPro::DraftInfoRequestBatch].include?(request.class)
+      categories << AlaveteliPro::RequestSummaryCategory.draft
+    end
+    categories
   end
 end

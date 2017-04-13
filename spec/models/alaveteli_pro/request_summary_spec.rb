@@ -53,6 +53,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(updated_summary.public_body_names).to eq public_body.name
         expect(updated_summary.summarisable).to eq request
         expect(updated_summary.user).to eq request.user
+        expect(updated_summary.request_summary_categories).to match_array []
       end
 
       it "updates the existing summary from a batch request" do
@@ -73,6 +74,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(updated_summary.public_body_names).to match /.*#{public_body.name}.*/
         expect(updated_summary.summarisable).to eq batch
         expect(updated_summary.user).to eq batch.user
+        expect(updated_summary.request_summary_categories).to match_array []
       end
     end
 
@@ -85,6 +87,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.public_body_names).to eq request.public_body.name
         expect(summary.summarisable).to eq request
         expect(summary.user).to eq request.user
+        expect(summary.request_summary_categories).to match_array []
       end
 
       it "creates a summary from a draft_info_request" do
@@ -95,6 +98,9 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.public_body_names).to eq draft.public_body.name
         expect(summary.summarisable).to eq draft
         expect(summary.user).to eq draft.user
+        expected_categories = [AlaveteliPro::RequestSummaryCategory.draft]
+        expect(summary.request_summary_categories).
+          to match_array expected_categories
       end
 
       it "creates a summary from an info_request_batch" do
@@ -108,6 +114,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.public_body_names).to eq public_body_names
         expect(summary.summarisable).to eq batch
         expect(summary.user).to eq batch.user
+        expect(summary.request_summary_categories).to match_array []
       end
 
       it "creates a summary from an draft_info_request_batch" do
@@ -121,6 +128,9 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.public_body_names).to eq public_body_names
         expect(summary.summarisable).to eq draft
         expect(summary.user).to eq draft.user
+        expected_categories = [AlaveteliPro::RequestSummaryCategory.draft]
+        expect(summary.request_summary_categories).
+          to match_array expected_categories
       end
     end
 
@@ -135,6 +145,35 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
 
         it "sets the public body names to nil" do
           expect(summary.public_body_names).to be_nil
+        end
+      end
+    end
+
+
+    describe "setting categories" do
+      context "when the request is a draft request" do
+        let(:draft) { FactoryGirl.create(:draft_info_request) }
+        let(:summary) do
+          AlaveteliPro::RequestSummary.create_or_update_from(draft)
+        end
+
+        it "adds the draft category" do
+          expected_categories = [AlaveteliPro::RequestSummaryCategory.draft]
+          expect(summary.request_summary_categories).
+            to match_array expected_categories
+        end
+      end
+
+      context "when the request is a draft batch request" do
+        it "adds the draft category" do
+          draft = FactoryGirl.create(
+            :draft_info_request_batch,
+            public_bodies: public_bodies
+          )
+          summary = AlaveteliPro::RequestSummary.create_or_update_from(draft)
+          expected_categories = [AlaveteliPro::RequestSummaryCategory.draft]
+          expect(summary.request_summary_categories).
+            to match_array expected_categories
         end
       end
     end
