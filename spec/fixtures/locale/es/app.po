@@ -3144,7 +3144,7 @@ msgstr[1] "Tus {{count}} comentarios"
 
 #: app/views/user/show.rhtml:172
 msgid "This person's annotations"
-msgstr "Tus comentarios"
+msgstr "Comentarios de esta persona"
 
 #: app/views/request/_describe_state.rhtml:84
 msgid "This request <strong>requires administrator attention</strong>"
