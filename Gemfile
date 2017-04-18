@@ -158,13 +158,13 @@ group :test do
   gem 'coveralls', '~> 0.8.0', :require => false
     gem 'tins', '~> 1.3.0', '< 1.3.1'
     gem 'term-ansicolor', '~> 1.3.0', '< 1.4'
-  gem 'capybara', '~> 2.7.0'
+  gem 'capybara', '~> 2.13.0'
   gem 'delorean', '~> 2.1.0'
 end
 
 group :test, :development do
-  gem 'bullet', '~> 5.1.0'
-  gem 'factory_girl_rails', '~> 4.7.0'
+  gem 'bullet', '~> 5.5.0'
+  gem 'factory_girl_rails', '~> 4.8.0'
   gem 'rspec-activemodel-mocks', '~> 1.0.0'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'pry', '~> 0.10.0'
@@ -178,6 +178,5 @@ group :development do
     gem 'net-ssh', '~> 2.9.0', '< 3.0.0'
   gem 'mailcatcher', '~> 0.6.0'
   gem 'quiet_assets', '~> 1.1.0'
-  gem 'rdoc', '~> 3.12.0', '< 5.0.0'
   gem 'launchy', '~> 2.4.0'
 end
