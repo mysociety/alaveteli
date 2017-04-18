@@ -41,7 +41,7 @@
 .requests__search__button {
   position: absolute;
   right: 14px;
-  top: 50%;
+  top: 0.6em;
   background-image: image-url('/assets/alaveteli-pro/search--light.png');
   background-repeat: no-repeat;
   background-position: center;
@@ -51,7 +51,6 @@
   padding: 0;
   width: 16px;
   height: 20px;
-  margin-top: -8px; //vertically center in the search box
   border: 0;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('alaveteli-pro/search--light@2.png');
