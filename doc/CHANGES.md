@@ -34,6 +34,10 @@
   make it clearer that your message is going to be shared via the website (Liz
   Conlan)
 * Prevent new request titles from containing line breaks (Liz Conlan)
+* Make the `users:stats_by_domain` task report percentages to 2 decimal places
+  to avoid the situation where 374 out of 375 appears as 100% (Liz Conlan)
+* Make `users:ban_by_domain` send a simpler message to say they've been banned
+  rather than helping them work around our spam measures (Liz Conlan)
 
 ## Upgrade Notes
 
