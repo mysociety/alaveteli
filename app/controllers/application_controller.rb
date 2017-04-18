@@ -438,12 +438,11 @@ class ApplicationController < ActionController::Base
     return page
   end
 
-  def perform_search_typeahead(query, model, per_page=25)
+  def perform_search_typeahead(query, options)
     @page = get_search_page_from_params
-    @per_page = per_page
-    options = { :page => @page,
-                :per_page => @per_page,
-                :model => model }
+    @per_page = options[:per_page] || 25
+    options.merge!( :page => @page,
+                    :per_page => @per_page )
     typeahead_search = TypeaheadSearch.new(query, options)
     typeahead_search.xapian_search
   end

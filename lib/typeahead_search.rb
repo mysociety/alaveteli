@@ -7,6 +7,7 @@ class TypeaheadSearch
     @model = opts.fetch(:model)
     @page = opts.fetch(:page, 1)
     @per_page = opts.fetch(:per_page, 25)
+    @exclude_tags = opts.fetch(:exclude_tags, [])
     @wildcard = true
     @run_search = true
   end
@@ -83,11 +84,16 @@ class TypeaheadSearch
   def prepared_query
     # Since acts_as_xapian doesn't support the Partial match flag, we work around it
     # by making the last word a wildcard, which is quite the same
-    if @wildcard
+    query = if @wildcard
       "#{@query.strip}*"
     else
       @query
     end
+    if @exclude_tags
+      tag_string = @exclude_tags.map{|tag| "-tag:#{tag}"}.join(" ")
+      query = "#{query} #{tag_string}"
+    end
+    query
   end
 
   def collapse?
