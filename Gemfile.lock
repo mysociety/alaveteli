@@ -202,7 +202,7 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.19)
-    locale (2.0.9)
+    locale (2.1.2)
     mahoro (0.4)
     mailcatcher (0.6.5)
       eventmachine (= 1.0.9.1)
@@ -409,7 +409,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 5.0.0)
   json (~> 1.8.0, < 2.0.0)
   launchy (~> 2.4.0)
-  locale (~> 2.0.0, < 2.1.0)
+  locale (~> 2.1.0)
   mahoro (~> 0.4)
   mail!
   mailcatcher (~> 0.6.0)
