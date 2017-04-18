@@ -384,13 +384,13 @@ div.pagination {
   padding-top:0.3em;
 }
 
-div.pagination span.current {
+div.pagination .current {
   background-color:#000;
   color:#FFF;
   padding:0 0.6em 0.1em;
 }
 
-span.disabled {
+.disabled {
   color:#B2B2B2;
   padding:0 0.6em 0.1em;
 }
