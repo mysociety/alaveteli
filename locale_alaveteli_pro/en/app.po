@@ -1,0 +1,477 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-03 12:39+0100\n"
+"PO-Revision-Date: 2017-01-20 17:40+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid " <strong>Summarising</strong> the content of any information returned. "
+msgstr " <strong>Summarising</strong> the content of any information returned. "
+
+msgid " Say how you've <strong>used the information</strong>, with links if possible."
+msgstr " Say how you've <strong>used the information</strong>, with links if possible."
+
+msgid "+ Add"
+msgstr "+ Add"
+
+msgid "- Remove"
+msgstr "- Remove"
+
+msgid "12 Months"
+msgstr "12 Months"
+
+msgid "3 Months"
+msgstr "3 Months"
+
+msgid "6 Months"
+msgstr "6 Months"
+
+msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
+msgstr "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
+
+msgid "<strong>Thank</strong> the public authority."
+msgstr "<strong>Thank</strong> the public authority."
+
+msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+msgstr "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+
+msgid "A <strong>summary</strong> of the response if you have received it by post. "
+msgstr "A <strong>summary</strong> of the response if you have received it by post. "
+
+msgid "A one line summary of the information you are requesting, e.g."
+msgstr "A one line summary of the information you are requesting, e.g."
+
+msgid "Add an annotation"
+msgstr "Add an annotation"
+
+msgid "Add authorities to your batch"
+msgstr "Add authorities to your batch"
+
+msgid "Added"
+msgstr "Added"
+
+msgid "All requests"
+msgstr "All requests"
+
+msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
+msgstr "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
+
+msgid "Are you sure the information you’re after isn’t available elsewhere?"
+msgstr "Are you sure the information you’re after isn’t available elsewhere?"
+
+msgid "Are you sure you want to publish this request?"
+msgstr "Are you sure you want to publish this request?"
+
+msgid "Browse public requests"
+msgstr "Browse public requests"
+
+msgid "Change privacy"
+msgstr "Change privacy"
+
+msgid "Change status"
+msgstr "Change status"
+
+msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
+msgstr "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
+
+msgid "Check you haven't included any <strong>personal information</strong>."
+msgstr "Check you haven't included any <strong>personal information</strong>."
+
+msgid "Choose a duration"
+msgstr "Choose a duration"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Download a zip file of all correspondence"
+msgstr "Download a zip file of all correspondence"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "Drafts"
+msgstr "Drafts"
+
+msgid "Edit your request"
+msgstr "Edit your request"
+
+msgid "First created"
+msgstr "First created"
+
+msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
+msgstr "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
+
+msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
+msgstr "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
+
+msgid "Get started with your first request"
+msgstr "Get started with your first request"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Keep private for a further:"
+msgstr "Keep private for a further:"
+
+msgid "Last updated"
+msgstr "Last updated"
+
+msgid "Make a request"
+msgstr "Make a request"
+
+msgid "Make an {{law_used_short}} request"
+msgstr "Make an {{law_used_short}} request"
+
+msgid "My profile"
+msgstr "My profile"
+
+msgid "My wall"
+msgstr "My wall"
+
+msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
+msgstr "Note: When this request is made public on {{site_name}}, this message will also be made public."
+
+msgid "Once you’re happy with your request, click preview and send."
+msgstr "Once you’re happy with your request, click preview and send."
+
+msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
+msgstr "Point to <strong>related information</strong>, campaigns or forums which may be useful."
+
+msgid "Preview and send request"
+msgstr "Preview and send request"
+
+msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
+msgstr "Preview new {{law_used_short}} request to '{{public_body_name}}"
+
+msgid "Preview your request"
+msgstr "Preview your request"
+
+msgid "Privacy"
+msgstr "Privacy"
+
+msgid "Provide extra context on the request and your reasons for making it."
+msgstr "Provide extra context on the request and your reasons for making it."
+
+msgid "Publish immediately"
+msgstr "Publish immediately"
+
+msgid "Publish this request or keep it private for longer."
+msgid_plural "Publish these requests or keep them private for longer."
+msgstr[0] "Publish this request or keep it private for longer."
+msgstr[1] "Publish these requests or keep them private for longer."
+
+msgid "Read blog"
+msgstr "Read blog"
+
+msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
+msgstr "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
+
+msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
+msgstr "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
+
+msgid "Request an internal review"
+msgstr "Request an internal review"
+
+msgid "Request an internal review (or send another followup)."
+msgid_plural "Request internal reviews (or send other followups)."
+msgstr[0] "Request an internal review (or send another followup)."
+msgstr[1] "Request internal reviews (or send other followups)."
+
+msgid "Request an internal review from {{person_or_body}}"
+msgstr "Request an internal review from {{person_or_body}}"
+
+msgid "Request to"
+msgstr "Request to"
+
+msgid "Requests"
+msgstr "Requests"
+
+msgid "Requests that will be made public soon"
+msgstr "Requests that will be made public soon"
+
+msgid "Save draft"
+msgstr "Save draft"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Search for an authority"
+msgstr "Search for an authority"
+
+msgid "Search for an authority by name"
+msgstr "Search for an authority by name"
+
+msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+msgstr "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+
+msgid "Send a follow up"
+msgstr "Send a follow up"
+
+msgid "Send a follow up (or request an internal review)."
+msgid_plural "Send follow ups (or request internal reviews)."
+msgstr[0] "Send a follow up (or request an internal review)."
+msgstr[1] "Send follow ups (or request internal reviews)."
+
+msgid "Send a follow up message to {{person_or_body}}"
+msgstr "Send a follow up message to {{person_or_body}}"
+
+msgid "Send a followup"
+msgstr "Send a followup"
+
+msgid "Send a reply to {{person_or_body}}"
+msgstr "Send a reply to {{person_or_body}}"
+
+msgid "Send request"
+msgstr "Send request"
+
+msgid "Sending..."
+msgstr "Sending..."
+
+msgid "Sorry, no authorities matched that search"
+msgstr "Sorry, no authorities matched that search"
+
+msgid "Sorry, something went wrong getting your results, please try searching again."
+msgstr "Sorry, something went wrong getting your results, please try searching again."
+
+msgid "Sorry, something went wrong publishing your request, please try again."
+msgstr "Sorry, something went wrong publishing your request, please try again."
+
+msgid "Sorry, something went wrong updating your batch request, please try again."
+msgstr "Sorry, something went wrong updating your batch request, please try again."
+
+msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
+msgstr "Sorry, something went wrong updating your request's privacy settings, please try again."
+
+msgid "Sort by"
+msgstr "Sort by"
+
+msgid "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+msgstr "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+
+msgid "Start new request"
+msgstr "Start new request"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Subject"
+msgstr "Subject"
+
+msgid "Submit Search"
+msgstr "Submit Search"
+
+msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
+msgstr "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
+
+msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
+msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
+msgstr[0] "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
+msgstr[1] "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
+
+msgid "Then you can access {{pro_site_name}}"
+msgstr "Then you can access {{pro_site_name}}"
+
+msgid "There's nothing to do right now. Great job!"
+msgstr "There's nothing to do right now. Great job!"
+
+msgid "Things to do today"
+msgstr "Things to do today"
+
+msgid "This page is only accessible to {{pro_site_name}} users"
+msgstr "This page is only accessible to {{pro_site_name}} users"
+
+msgid "This request is private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr "This request is private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+
+msgid "This request is public"
+msgstr "This request is public"
+
+msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+
+msgid "Title (A-Z)"
+msgstr "Title (A-Z)"
+
+msgid "To"
+msgstr "To"
+
+msgid "To access {{pro_site_name}}"
+msgstr "To access {{pro_site_name}}"
+
+msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
+msgstr "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Update its status."
+msgid_plural "Update statuses."
+msgstr[0] "Update its status."
+msgstr[1] "Update statuses."
+
+msgid "Updated"
+msgstr "Updated"
+
+msgid "View"
+msgstr "View"
+
+msgid "View authorities"
+msgstr "View authorities"
+
+msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
+msgstr "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
+
+msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgstr "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+
+msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
+msgstr "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
+
+msgid "Write a reply"
+msgstr "Write a reply"
+
+msgid "Write request"
+msgstr "Write request"
+
+msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
+msgstr "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
+
+msgid "You haven't added any authorities to your batch yet"
+msgstr "You haven't added any authorities to your batch yet"
+
+msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
+msgstr "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
+
+msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
+msgstr "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
+
+msgid "You sent a follow up to {{public_body_name}} on \"{{info_request_title}}\"."
+msgstr "You sent a follow up to {{public_body_name}} on \"{{info_request_title}}\"."
+
+msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
+msgstr "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
+
+msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
+msgstr "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
+
+msgid "Your Batch Request has been saved!"
+msgstr "Your Batch Request has been saved!"
+
+msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
+msgstr "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
+
+msgid "Your dashboard"
+msgstr "Your dashboard"
+
+msgid "Your draft has been saved!"
+msgstr "Your draft has been saved!"
+
+msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
+msgstr "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
+
+msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
+msgstr "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
+
+msgid "Your message will be displayed publicly on this website once you publish your request."
+msgstr "Your message will be displayed publicly on this website once you publish your request."
+
+msgid "Your request"
+msgstr "Your request"
+
+msgid "Your request \"{{info_request_title}}\" to {{public_body_name}} was resent."
+msgstr "Your request \"{{info_request_title}}\" to {{public_body_name}} was resent."
+
+msgid "Your request has been updated!"
+msgstr "Your request has been updated!"
+
+msgid "Your request is now public!"
+msgstr "Your request is now public!"
+
+msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
+msgstr "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
+
+msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" received a new response."
+msgstr "Your request to {{public_body_name}} \"{{info_request_title}}\" received a new response."
+
+msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
+msgstr "Your request will now be private on {{site_name}} until {{expiry_date}}."
+
+msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
+msgstr "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
+
+msgid "all requests"
+msgstr "all requests"
+
+msgid "drafts"
+msgstr "drafts"
+
+msgid "eg. Cabinet Office"
+msgstr "eg. Cabinet Office"
+
+msgid "first created"
+msgstr "first created"
+
+msgid "last updated"
+msgstr "last updated"
+
+msgid "requests that will be made public soon"
+msgstr "requests that will be made public soon"
+
+msgid "the {{site_name}} team"
+msgstr "the {{site_name}} team"
+
+msgid "title (A-Z)"
+msgstr "title (A-Z)"
+
+msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
+msgstr "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
+
+msgid "{{count}} request has received a response."
+msgid_plural "{{count}} requests have received a response."
+msgstr[0] "{{count}} request has received a response."
+msgstr[1] "{{count}} requests have received a response."
+
+msgid "{{count}} request is delayed."
+msgid_plural "{{count}} requests are delayed."
+msgstr[0] "{{count}} request is delayed."
+msgstr[1] "{{count}} requests are delayed."
+
+msgid "{{count}} request is long overdue."
+msgid_plural "{{count}} requests are long overdue."
+msgstr[0] "{{count}} request is long overdue."
+msgstr[1] "{{count}} requests are long overdue."
+
+msgid "{{count}} request made"
+msgid_plural "{{count}} requests made"
+msgstr[0] "{{count}} request made"
+msgstr[1] "{{count}} requests made"
+
+msgid "{{count}} request will be made public this week."
+msgid_plural "{{count}} requests will be made public this week."
+msgstr[0] "{{count}} request will be made public this week."
+msgstr[1] "{{count}} requests will be made public this week."
+
+msgid "{{length_of_time}} ago"
+msgstr "{{length_of_time}} ago"
+
+msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
+msgstr "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
+
+msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
+msgstr "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."

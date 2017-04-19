@@ -4485,3 +4485,12 @@ msgstr "{{user}} sendte denne henvendelsen om {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Tilbake til søkeresultatene"
+
+#~ msgid "Overdue"
+#~ msgstr "Overdue"
+
+#~ msgid "There was an error with the words you entered, please try again."
+#~ msgstr "There was an error with the words you entered, please try again."
+
+#~ msgid "Very overdue"
+#~ msgstr "Very overdue"
