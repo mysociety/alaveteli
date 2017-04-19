@@ -6,11 +6,11 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 16:14+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: Lord Cobol <mattias@invaliddesign.com>, 2017\n"
+"Last-Translator: steve_mysociety <steve@mysociety.org>, 2017\n"
 "Language-Team: Swedish (https://www.transifex.com/mysociety/teams/33529/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -174,9 +174,8 @@ msgstr "Motivera din förfrågan med extra bakgrund och skäl varför du gör de
 msgid "Publish immediately"
 msgstr "Publicera omedelbart"
 
-#, fuzzy
 msgid "Publish request"
-msgstr "Alla förfrågningar"
+msgstr ""
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
