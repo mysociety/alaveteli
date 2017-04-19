@@ -1,7 +1,8 @@
 class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
   def search
     query = params[:query] || ""
-    xapian_results = perform_search_typeahead(query, PublicBody)
+    xapian_results = perform_search_typeahead(query, :model => PublicBody,
+                                                     :exclude_tags => [ 'defunct' ])
     results = xapian_results.present? ? xapian_results.results : []
     # Xapian's results include things we don't want to publish, like the
     # request email and api_key, so we map these results into a simpler object
