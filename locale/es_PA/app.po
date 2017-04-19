@@ -4484,3 +4484,12 @@ msgstr "{{user}} hizo esta solicitud de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "«Volver a los resultados de búsqueda"
+
+#~ msgid "Overdue"
+#~ msgstr "Overdue"
+
+#~ msgid "There was an error with the words you entered, please try again."
+#~ msgstr "There was an error with the words you entered, please try again."
+
+#~ msgid "Very overdue"
+#~ msgstr "Very overdue"
