@@ -1,6 +1,10 @@
 <div class="recipient-result js-recipient-result">
   <h4 class="name"><%= result[:name] %></h4>
   <p class="description">
+    <% if !result[:short_name].blank? %>
+    <%= _("Also called {{other_name}}.",
+          :other_name => result[:short_name]) %>
+    <% end %>
     <%= truncate(strip_tags(result[:notes]), length: 150) %>
   </p>
   <p class="requests">
