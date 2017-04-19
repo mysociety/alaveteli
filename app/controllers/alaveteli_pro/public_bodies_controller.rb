@@ -11,6 +11,7 @@ class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
       result = {
         id: body.id,
         name: body.name,
+        short_name: body.short_name,
         notes: body.notes,
         info_requests_visible_count: body.info_requests_visible_count,
         weight: result[:weight],

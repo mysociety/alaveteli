@@ -48,7 +48,7 @@
     $select.selectize({
       valueField: 'id',
       labelField: 'name',
-      searchField: ['name', 'notes'],
+      searchField: ['name', 'notes', 'short_name'],
       sortField: ['weight'],
       options: initialOptions,
       create: false,
