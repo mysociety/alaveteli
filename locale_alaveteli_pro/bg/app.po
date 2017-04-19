@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-03 12:39+0100\n"
+"POT-Creation-Date: 2017-04-19 16:14+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Language-Team: Bulgarian (https://www.transifex.com/mysociety/teams/33529/bg/)\n"
 "Language: bg\n"
@@ -51,6 +51,9 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr ""
 
 msgid "A one line summary of the information you are requesting, e.g."
+msgstr ""
+
+msgid "Activity"
 msgstr ""
 
 msgid "Add an annotation"
@@ -168,6 +171,9 @@ msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
 
 msgid "Publish immediately"
+msgstr ""
+
+msgid "Publish request"
 msgstr ""
 
 msgid "Publish this request or keep it private for longer."
