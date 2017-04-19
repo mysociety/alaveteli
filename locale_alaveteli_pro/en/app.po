@@ -55,7 +55,7 @@ msgid "A one line summary of the information you are requesting, e.g."
 msgstr "A one line summary of the information you are requesting, e.g."
 
 msgid "Activity"
-msgstr ""
+msgstr "Activity"
 
 msgid "Add an annotation"
 msgstr "Add an annotation"
@@ -174,9 +174,8 @@ msgstr "Provide extra context on the request and your reasons for making it."
 msgid "Publish immediately"
 msgstr "Publish immediately"
 
-#, fuzzy
 msgid "Publish request"
-msgstr "All requests"
+msgstr "Publish request"
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
