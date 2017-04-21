@@ -59,6 +59,8 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         ]
         expect(updated_summary.request_summary_categories).
           to match_array expected_categories
+        expect(updated_summary.request_created_at).to be_within(1.second).of(summary.summarisable.created_at)
+        expect(updated_summary.request_updated_at).to be_within(1.second).of(summary.summarisable.updated_at)
       end
 
       it "updates the existing summary from a batch request" do
@@ -82,6 +84,10 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expected_categories = []
         expect(updated_summary.request_summary_categories).
           to match_array expected_categories
+        expect(updated_summary.request_created_at).
+          to be_within(1.second).of(summary.summarisable.created_at)
+        expect(updated_summary.request_updated_at).
+          to be_within(1.second).of(summary.summarisable.updated_at)
       end
     end
 
@@ -99,6 +105,10 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         ]
         expect(summary.request_summary_categories).
           to match_array expected_categories
+        expect(summary.request_created_at).
+          to be_within(1.second).of(request.created_at)
+        expect(summary.request_updated_at).
+          to be_within(1.second).of(request.updated_at)
       end
 
       it "creates a summary from a draft_info_request" do
@@ -114,6 +124,10 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         ]
         expect(summary.request_summary_categories).
           to match_array expected_categories
+        expect(summary.request_created_at).
+          to be_within(1.second).of(draft.created_at)
+        expect(summary.request_updated_at).
+          to be_within(1.second).of(draft.updated_at)
       end
 
       it "creates a summary from an info_request_batch" do
@@ -127,7 +141,15 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.public_body_names).to eq public_body_names
         expect(summary.summarisable).to eq batch
         expect(summary.user).to eq batch.user
-        expect(summary.request_summary_categories).to match_array []
+        expected_categories = [
+          AlaveteliPro::RequestSummaryCategory.awaiting_response
+        ]
+        expect(summary.request_summary_categories).
+          to match_array expected_categories
+        expect(summary.request_created_at).
+          to be_within(1.second).of(batch.created_at)
+        expect(summary.request_updated_at).
+          to be_within(1.second).of(batch.updated_at)
       end
 
       it "creates a summary from an draft_info_request_batch" do
@@ -144,6 +166,10 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expected_categories = [AlaveteliPro::RequestSummaryCategory.draft]
         expect(summary.request_summary_categories).
           to match_array expected_categories
+        expect(summary.request_created_at).
+          to be_within(1.second).of(draft.created_at)
+        expect(summary.request_updated_at).
+          to be_within(1.second).of(draft.updated_at)
       end
     end
 

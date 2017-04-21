@@ -73,7 +73,9 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
       public_body_names: extract_request_public_body_names(request),
       summarisable: request,
       user: request.user,
-      request_summary_categories: self.extract_categories(request)
+      request_summary_categories: self.extract_categories(request),
+      request_created_at: request.created_at,
+      request_updated_at: request.updated_at,
     }
   end
 
