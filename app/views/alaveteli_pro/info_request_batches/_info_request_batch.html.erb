@@ -3,8 +3,12 @@
     <% if info_request_batch.embargo_duration %>
       <span class="embargo-indicator embargo-indicator--small">Private</span>
     <% end %>
-    <span><%= _("Batch request") %></span>
-    <%= link_to info_request_batch.title, info_request_batch_path(info_request_batch) %>
+    <%= link_to n_('{{batch_request_title}} <span class="request__batch-request-count">({{count}} request)</span>',
+                   '{{batch_request_title}} <span class="request__batch-request-count">({{count}} requests)</span>',
+                   info_request_batch.public_bodies.count,
+                   batch_request_title: info_request_batch.title,
+                   count: info_request_batch.public_bodies.count),
+                info_request_batch_path(info_request_batch) %>
   </h3>
 
   <div class="request__meta">
