@@ -297,4 +297,21 @@ namespace :temp do
                 each { |request| request.save! }
   end
 
+  desc "Generate request summaries for every user"
+  task :generate_request_summaries => :environment do
+    User.find_each do |user|
+      user.info_requests.each do |request|
+        request.create_or_update_request_summary
+      end
+      user.draft_info_requests.each do |request|
+        request.create_or_update_request_summary
+      end
+      user.info_request_batches.each do |request|
+        request.create_or_update_request_summary
+      end
+      user.draft_info_request_batches.each do |request|
+        request.create_or_update_request_summary
+      end
+    end
+  end
 end

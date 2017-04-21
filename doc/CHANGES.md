@@ -75,6 +75,9 @@
 * There are some database structure updates so remember to `rake db:migrate`
 * Run `bundle exec rake temp:remove_line_breaks_from_request_titles` after
   deployment to remove stray line breaks (could effect Atom feeds)
+* Run `bundle exec rake temp:generate_request_summaries` after deployment to
+  create the new facade models that the Alaveteli Pro dashboard uses to
+  display all forms of requests in a unified list.
 
 ### Changed Templates
 
