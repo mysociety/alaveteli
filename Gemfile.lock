@@ -26,11 +26,11 @@ GIT
 
 GIT
   remote: https://github.com/mysociety/strip_attributes.git
-  revision: ce9e1f477bc9324074f6fbf1d3c3bb33305abb0d
+  revision: c1c14da7f33eda4cf5affaba01e6994155f7b7d4
   branch: globalize3
   specs:
-    strip_attributes (1.7.0)
-      activemodel (>= 3.0, < 5.0)
+    strip_attributes (1.8.0)
+      activemodel (>= 3.0, < 6.0)
 
 GIT
   remote: https://github.com/technoweenie/acts_as_versioned.git
