@@ -1,6 +1,23 @@
 # -*- encoding : utf-8 -*-
 namespace :gettext do
 
+  tasks = Rake.application.instance_variable_get '@tasks'
+  tasks.delete 'gettext:find'
+
+  desc "Update pot/po files"
+  task :find => :environment do
+    CLEAN = FileList["locale/*/*~",
+                     "locale/*/*.bak"]
+
+    define_gettext_task(text_domain,
+                        "locale",
+                        files_to_translate)
+
+    quietly do
+      Rake::Task["gettext:po:update"].invoke
+    end
+  end
+
   desc 'Rewrite .po files into a consistent msgmerge format'
   task :clean => :environment do
     CLEAN = FileList["locale/*/*~", "locale/*/*.bak"]
