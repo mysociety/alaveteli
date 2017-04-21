@@ -26,6 +26,22 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
                              "InfoRequestBatch",
                              "AlaveteliPro::DraftInfoRequestBatch"].freeze
 
+  def self.category(category_slug)
+    includes(:request_summary_categories).
+      where("request_summary_categories.slug = ?", category_slug.to_s).
+        references(:request_summary_categories)
+  end
+
+  def self.not_category(category_slug)
+    summary_ids_to_exclude = self.category(category_slug).pluck(:id)
+    results = includes(:request_summary_categories)
+    unless summary_ids_to_exclude.blank?
+      results = results.
+        where("request_summaries.id NOT IN (?)", summary_ids_to_exclude)
+    end
+    results
+  end
+
   def self.create_or_update_from(request)
     unless ALLOWED_REQUEST_CLASSES.include?(request.class.name)
       raise ArgumentError.new("Can't create a RequestSummary from " \

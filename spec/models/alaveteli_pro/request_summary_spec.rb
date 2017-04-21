@@ -286,4 +286,55 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
       end
     end
   end
+
+  describe ".category" do
+    it "returns summaries with the appropriate category" do
+      draft = AlaveteliPro::RequestSummaryCategory.draft
+      awaiting_response = AlaveteliPro::RequestSummaryCategory.awaiting_response
+      draft_summary = FactoryGirl.create(
+        :request_summary,
+        request_summary_categories: [draft]
+      )
+      awaiting_summary = FactoryGirl.create(
+        :request_summary,
+        request_summary_categories: [awaiting_response]
+      )
+      expect(AlaveteliPro::RequestSummary.category(:draft)).
+        to match_array [draft_summary]
+      expect(AlaveteliPro::RequestSummary.category(:awaiting_response)).
+        to match_array [awaiting_summary]
+    end
+  end
+
+  describe ".not_category" do
+    it "returns summaries with the appropriate category" do
+      # Make sure there aren't any random other request summaries around from
+      # fixtures etc
+      AlaveteliPro::RequestSummary.destroy_all
+      draft = AlaveteliPro::RequestSummaryCategory.draft
+      awaiting_response = AlaveteliPro::RequestSummaryCategory.awaiting_response
+      complete = AlaveteliPro::RequestSummaryCategory.complete
+      embargo_expiring = AlaveteliPro::RequestSummaryCategory.embargo_expiring
+      draft_summary = FactoryGirl.create(
+        :request_summary,
+        request_summary_categories: [draft]
+      )
+      awaiting_summary = FactoryGirl.create(
+        :request_summary,
+        request_summary_categories: [awaiting_response]
+      )
+      complete_summary = FactoryGirl.create(
+        :request_summary,
+        request_summary_categories: [complete]
+      )
+      expiring_summary = FactoryGirl.create(
+        :request_summary,
+        request_summary_categories: [complete, embargo_expiring]
+      )
+      expect(AlaveteliPro::RequestSummary.not_category(:draft)).
+        to match_array [awaiting_summary, complete_summary, expiring_summary]
+      expect(AlaveteliPro::RequestSummary.not_category(:complete)).
+        to match_array [awaiting_summary, draft_summary]
+    end
+  end
 end

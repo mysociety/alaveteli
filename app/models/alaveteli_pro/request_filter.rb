@@ -48,9 +48,9 @@ module AlaveteliPro
 
     def filter_results(results)
       if filter_value.blank?
-        results.where("request_summary_categories.slug != 'draft'")
+        results.not_category('draft')
       else
-        results.where("request_summary_categories.slug = ?", filter_value)
+        results.category(filter_value)
       end
     end
 
