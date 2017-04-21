@@ -67,11 +67,11 @@ module AlaveteliPro
     def order_attributes
       [
        { :param => 'updated_at_desc',
-         :value => 'updated_at DESC',
+         :value => 'request_updated_at DESC',
          :label => _('last updated'),
          :capital_label => _('Last updated') },
        { :param => 'created_at_asc',
-         :value => 'created_at ASC',
+         :value => 'request_created_at ASC',
          :label => _('first created'),
          :capital_label => _('First created') },
        { :param => 'title_asc',
