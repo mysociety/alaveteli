@@ -1,9 +1,26 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::RequestSummary, type: :model do
-
   let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
   let(:public_body_names) { public_bodies.map(&:name).join(" ") }
+
+  # All these classes create and update summaries of themselves during an
+  # after_save callback. That makes testing this model explicitly hard, so
+  # we skip the callback for the duration of these tests.
+  before :all do
+    InfoRequest.skip_callback(:save, :after, :create_or_update_request_summary)
+    DraftInfoRequest.skip_callback(:save, :after, :create_or_update_request_summary)
+    InfoRequestBatch.skip_callback(:save, :after, :create_or_update_request_summary)
+    AlaveteliPro::DraftInfoRequestBatch.skip_callback(:save, :after, :create_or_update_request_summary)
+
+  end
+
+  after :all do
+    InfoRequest.set_callback(:save, :after, :create_or_update_request_summary)
+    DraftInfoRequest.set_callback(:save, :after, :create_or_update_request_summary)
+    InfoRequestBatch.set_callback(:save, :after, :create_or_update_request_summary)
+    AlaveteliPro::DraftInfoRequestBatch.set_callback(:save, :after, :create_or_update_request_summary)
+  end
 
   it "requires a summarisable" do
     summary = FactoryGirl.build(:request_summary, summarisable: nil)
@@ -17,23 +34,6 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
   end
 
   describe ".create_or_update_from" do
-    # All these classes create and update summaries of themselves during an
-    # after_save callback. That makes testing this method explicitly hard, so
-    # we skip the callback for the duration of these tests.
-    before :all do
-      InfoRequest.skip_callback(:save, :after, :create_or_update_request_summary)
-      DraftInfoRequest.skip_callback(:save, :after, :create_or_update_request_summary)
-      InfoRequestBatch.skip_callback(:save, :after, :create_or_update_request_summary)
-      AlaveteliPro::DraftInfoRequestBatch.skip_callback(:save, :after, :create_or_update_request_summary)
-    end
-
-    after :all do
-      InfoRequest.set_callback(:save, :after, :create_or_update_request_summary)
-      DraftInfoRequest.set_callback(:save, :after, :create_or_update_request_summary)
-      InfoRequestBatch.set_callback(:save, :after, :create_or_update_request_summary)
-      AlaveteliPro::DraftInfoRequestBatch.set_callback(:save, :after, :create_or_update_request_summary)
-    end
-
     it "raises an ArgumentError if the request is of the wrong class" do
       event = FactoryGirl.create(:info_request_event)
       expect { AlaveteliPro::RequestSummary.create_or_update_from(event) }.
@@ -54,7 +54,11 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(updated_summary.public_body_names).to eq public_body.name
         expect(updated_summary.summarisable).to eq request
         expect(updated_summary.user).to eq request.user
-        expect(updated_summary.request_summary_categories).to match_array []
+        expected_categories = [
+          AlaveteliPro::RequestSummaryCategory.awaiting_response
+        ]
+        expect(updated_summary.request_summary_categories).
+          to match_array expected_categories
       end
 
       it "updates the existing summary from a batch request" do
@@ -75,7 +79,9 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(updated_summary.public_body_names).to match /.*#{public_body.name}.*/
         expect(updated_summary.summarisable).to eq batch
         expect(updated_summary.user).to eq batch.user
-        expect(updated_summary.request_summary_categories).to match_array []
+        expected_categories = []
+        expect(updated_summary.request_summary_categories).
+          to match_array expected_categories
       end
     end
 
@@ -88,7 +94,11 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.public_body_names).to eq request.public_body.name
         expect(summary.summarisable).to eq request
         expect(summary.user).to eq request.user
-        expect(summary.request_summary_categories).to match_array []
+        expected_categories = [
+          AlaveteliPro::RequestSummaryCategory.awaiting_response
+        ]
+        expect(summary.request_summary_categories).
+          to match_array expected_categories
       end
 
       it "creates a summary from a draft_info_request" do
@@ -99,7 +109,9 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(summary.public_body_names).to eq draft.public_body.name
         expect(summary.summarisable).to eq draft
         expect(summary.user).to eq draft.user
-        expected_categories = [AlaveteliPro::RequestSummaryCategory.draft]
+        expected_categories = [
+          AlaveteliPro::RequestSummaryCategory.draft
+        ]
         expect(summary.request_summary_categories).
           to match_array expected_categories
       end
@@ -185,7 +197,10 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         end
 
         it "adds the embargo_expiring category" do
-          expected_categories = [AlaveteliPro::RequestSummaryCategory.embargo_expiring]
+          expected_categories = [
+            AlaveteliPro::RequestSummaryCategory.embargo_expiring,
+            AlaveteliPro::RequestSummaryCategory.awaiting_response
+          ]
           expect(summary.request_summary_categories).
             to match_array expected_categories
         end
@@ -208,7 +223,63 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         end
 
         it "adds the embargo_expiring category" do
-          expected_categories = [AlaveteliPro::RequestSummaryCategory.embargo_expiring]
+          expected_categories = [
+            AlaveteliPro::RequestSummaryCategory.embargo_expiring,
+            AlaveteliPro::RequestSummaryCategory.awaiting_response
+          ]
+          expect(summary.request_summary_categories).
+            to match_array expected_categories
+        end
+      end
+
+      context "when the request is an InfoRequest" do
+        let(:request) { FactoryGirl.create(:info_request) }
+        let(:summary) do
+          AlaveteliPro::RequestSummary.create_or_update_from(request)
+        end
+
+        it "adds the phase as a category" do
+          expected_categories = [
+            AlaveteliPro::RequestSummaryCategory.awaiting_response
+          ]
+          expect(summary.request_summary_categories).
+            to match_array expected_categories
+        end
+      end
+
+      context "when the request is an InfoRequestBatch" do
+        let(:public_bodies) { FactoryGirl.create_list(:public_body, 5) }
+        let(:batch) do
+          FactoryGirl.create(:info_request_batch, public_bodies: public_bodies)
+        end
+        let(:summary) do
+          AlaveteliPro::RequestSummary.create_or_update_from(batch)
+        end
+
+        before do
+          batch.create_batch!
+
+          first_request = batch.info_requests.first
+          incoming_message = FactoryGirl.create(:incoming_message, :info_request => first_request)
+          first_request.log_event("response", {:incoming_message_id => incoming_message.id})
+          first_request.awaiting_description = true
+          first_request.save!
+
+          second_request = batch.info_requests.second
+          incoming_message = FactoryGirl.create(:incoming_message, :info_request => second_request)
+          second_request.set_described_state('successful')
+
+          batch.reload
+        end
+
+        it "adds all the batch's requests unique phases as categories" do
+          # There are 5 requests, but three should be in "awaiting_response"
+          # and they should be de-duped
+          expected_categories = [
+            AlaveteliPro::RequestSummaryCategory.awaiting_response,
+            AlaveteliPro::RequestSummaryCategory.response_received,
+            AlaveteliPro::RequestSummaryCategory.complete
+          ]
           expect(summary.request_summary_categories).
             to match_array expected_categories
         end
