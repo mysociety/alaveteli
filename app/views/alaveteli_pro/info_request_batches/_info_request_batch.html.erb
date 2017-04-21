@@ -1,0 +1,37 @@
+<div class="request">
+  <h3 class="request__title">
+    <% if info_request_batch.embargo_duration %>
+      <span class="embargo-indicator embargo-indicator--small">Private</span>
+    <% end %>
+    <span><%= _("Batch request") %></span>
+    <%= link_to info_request_batch.title, info_request_batch_path(info_request_batch) %>
+  </h3>
+
+  <div class="request__meta">
+
+    <div class="request__recipient">
+      <span class="request__meta__label"><%= _('Request to') %></span>
+      <p>
+        TODO
+        <%# info_request_batch.public_bodies.take(3).map(&:name).join(", ") %>
+      </p>
+    </div>
+
+    <div class="request__created">
+      <span class="request__meta__label"><%= _('Created') %></span>
+      <p><%= info_request_batch.created_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__updated">
+      <span class="request__meta__label"><%= _('Updated') %></span>
+      <p><%= info_request_batch.updated_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__status">
+      <span class="request__meta__label"><%= _('Status') %></span>
+      <p>TODO</p>
+    </div>
+
+  </div> <!-- .request__meta -->
+
+</div> <!-- .request -->
