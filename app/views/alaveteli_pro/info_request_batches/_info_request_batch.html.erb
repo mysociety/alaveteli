@@ -12,8 +12,8 @@
     <div class="request__recipient">
       <span class="request__meta__label"><%= _('Request to') %></span>
       <p>
-        TODO
-        <%# info_request_batch.public_bodies.take(3).map(&:name).join(", ") %>
+        <%= render partial: 'alaveteli_pro/info_request_batches/authority_list',
+                   locals: { public_bodies: info_request_batch.public_bodies } %>
       </p>
     </div>
 
