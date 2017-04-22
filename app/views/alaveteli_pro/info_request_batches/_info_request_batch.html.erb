@@ -32,10 +32,11 @@
     </div>
 
     <div class="request__status">
-      <span class="request__meta__label"><%= _('Status') %></span>
-      <p>TODO</p>
     </div>
 
   </div> <!-- .request__meta -->
+
+  <%= render partial: 'alaveteli_pro/info_request_batches/progress_bar',
+             locals: { phases: info_request_batch.request_phases_summary } %>
 
 </div> <!-- .request -->
