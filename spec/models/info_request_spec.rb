@@ -2704,23 +2704,32 @@ describe InfoRequest do
 
   end
 
-  describe 'when saving an info_request' do
+  describe 'after_save callbacks' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
 
-    before do
-      @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
-                                      :external_user_name => 'Example User',
-                                      :title => 'Some request or other',
-                                      :public_body => public_bodies(:geraldine_public_body))
+    it "calls purge_in_cache" do
+      expect(info_request).to receive(:purge_in_cache)
+      info_request.save!
     end
 
-    it "calls purge_in_cache and update_counter_cache" do
-      # Twice - once for save, once for destroy:
-      expect(@info_request).to receive(:purge_in_cache).twice
-      expect(@info_request).to receive(:update_counter_cache).twice
-      @info_request.save!
-      @info_request.destroy
+    it "calls update_counter_cache" do
+      expect(info_request).to receive(:update_counter_cache)
+      info_request.save!
+    end
+  end
+
+  describe 'after_destroy callbacks' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    it "calls purge_in_cache" do
+      expect(info_request).to receive(:purge_in_cache)
+      info_request.destroy
     end
 
+    it "calls update_counter_cache" do
+      expect(info_request).to receive(:update_counter_cache)
+      info_request.destroy
+    end
   end
 
   describe 'when changing a described_state' do
