@@ -101,6 +101,11 @@ class InfoRequest < ActiveRecord::Base
   scope :overdue, State::OverdueQuery.new
   scope :very_overdue, State::VeryOverdueQuery.new
 
+  class << self
+    alias_method :in_progress, :awaiting_response
+  end
+  scope :action_needed, State::ActionNeededQuery.new
+
   def self.visible
     warn %q([DEPRECATION] InfoRequest#visible will be removed in
         0.28. It has been replaced by InfoRequest#is_public).squish
