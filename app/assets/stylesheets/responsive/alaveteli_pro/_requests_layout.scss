@@ -204,12 +204,17 @@
   margin: 1em 0 0;
 }
 
+.request.batch-request {
+  border-bottom: none;
+}
+
 /*
  * The progress-bar-and-labels summary of a batch of requests
  */
 .batch-summary {
   @include flexbox;
   @include justify-content(center);
+  margin-top: 1em;
 }
 
 // Each section of the progress bar represents a "phase" requests can be in
@@ -270,5 +275,53 @@
     .progress-bar {
       background-color: rgb(112, 203, 99);
     }
+  }
+}
+
+// The collapsable list of requests inside a batch request
+.batch-request__requests {
+  padding-left: 4em;
+  margin-top: 1em;
+  border-top: 1px solid #ddd;
+}
+
+.batch-request__requests__request {
+  @include flexbox;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.875em;
+}
+
+.batch-request__requests__request__recipient {
+  font-size: 1em;
+  font-weight: normal;
+  @include flex(1 0 50%);
+}
+
+.batch-request__requests__request__phase {
+  @include flex(1 0 50%);
+  // Make the margins the same as the recipient so that it's aligned
+  margin-top: 1em;
+}
+
+.request__phase-summary-icon {
+  width: 1em;
+  height: 1em;
+  margin-right: 1em;
+  display: inline-block;
+  border-radius: 0.5em;
+  background-color: #ddd;
+  margin-bottom: -2px;
+
+  // Add colours to the bar for the various different phases
+  &.request__phase-summary-icon--in-progress {
+    background-color: rgb(255, 216, 54);
+  }
+
+  &.request__phase-summary-icon--action-needed {
+    background-color: rgb(224, 75, 75);
+  }
+
+  &.request__phase-summary-icon--complete {
+    background-color: rgb(112, 203, 99);
   }
 }

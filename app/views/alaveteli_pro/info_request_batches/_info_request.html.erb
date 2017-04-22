@@ -1,0 +1,12 @@
+<div class="batch-request__requests__request">
+  <h4 class="batch-request__requests__request__recipient">
+    <%= link_to info_request.public_body.name,
+                show_request_path(info_request.url_title) %>
+  </h4>
+  <p class="batch-request__requests__request__phase">
+    <span class="request__phase-summary-icon
+                 request__phase-summary-icon--<%= info_request.state.summarised_phase.to_s.dasherize %>">
+    </span>
+    <%= InfoRequest::State.short_description(info_request.calculate_status) %>
+  </p>
+</div>
