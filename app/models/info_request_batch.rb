@@ -141,4 +141,30 @@ class InfoRequestBatch < ActiveRecord::Base
     end
     phases.uniq
   end
+
+  # Summarise the phases requests are in into three groups:
+  # in progress, action needed, complete and provide a count of the number of
+  # requests in each group.
+  #
+  # Returns hash of string group names mapped to an integer
+  def request_phases_summary
+    {
+      :in_progress => {
+        :label => _('In progress'),
+        :count => self.info_requests.in_progress.count
+      },
+      :action_needed => {
+        :label => _('Action needed'),
+        :count => self.info_requests.action_needed.count
+      },
+      :complete => {
+        :label => _('Complete'),
+        :count => self.info_requests.complete.count
+      },
+      :other => {
+        :label => _('Other'),
+        :count => self.info_requests.other.count
+      }
+    }
+  end
 end
