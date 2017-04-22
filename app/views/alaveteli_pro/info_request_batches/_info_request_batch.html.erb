@@ -32,6 +32,14 @@
     </div>
 
     <div class="request__status">
+      <span class="request__meta__label"><%= _('Sent') %></span>
+      <p>
+        <% if info_request_batch.sent_at %>
+          <%= I18n.l(info_request_batch.sent_at, format: '%d-%m-%Y - %H:%M %p') %>
+        <% else %>
+          <%= _('Pending...') %>
+        <% end %>
+      </p>
     </div>
 
   </div> <!-- .request__meta -->
