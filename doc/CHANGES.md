@@ -275,6 +275,8 @@ There are some database structure updates so remember to rake db:migrate
   and dashboard for managing to-do items and requests. This is functionality
   being piloted in the UK and is not yet recommended for use in other locales
   (Steve Day, Martin Wright, Louise Crow)
+* Fix bug that meant a Postgres collation that was not compatible with the local
+  database encoding could be chosen (Liz Conlan)
 
 ## Upgrade Notes
 * You can run this release without using the Alaveteli Pro functionality - by
