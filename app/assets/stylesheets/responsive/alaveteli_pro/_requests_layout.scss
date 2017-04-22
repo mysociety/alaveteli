@@ -204,10 +204,6 @@
   margin: 1em 0 0;
 }
 
-.request.batch-request {
-  border-bottom: none;
-}
-
 /*
  * The progress-bar-and-labels summary of a batch of requests
  */
@@ -278,8 +274,14 @@
   }
 }
 
+// The houdini label to hide/show requests
+.batch-request__show-requests {
+  margin-top: 1em
+}
+
 // The collapsable list of requests inside a batch request
-.batch-request__requests {
+// We need the houdini-target class to override houdini's margin-top
+.batch-request__requests.houdini-target {
   padding-left: 4em;
   margin-top: 1em;
   border-top: 1px solid #ddd;
@@ -289,6 +291,9 @@
   @include flexbox;
   border-bottom: 1px solid #ddd;
   font-size: 0.875em;
+  &:last-of-type {
+    border-bottom: none;
+  }
 }
 
 .batch-request__requests__request__recipient {

@@ -48,7 +48,14 @@
              locals: { phases: info_request_batch.request_phases_summary } %>
 
   <% unless info_request_batch.info_requests.empty? %>
-    <div class="batch-request__requests">
+    <label class="houdini-label batch-request__show-requests"
+           for="houdini-batch-expand-<%= info_request_batch.id %>">
+      <%= _("Show requests") %>
+    </label>
+    <input class="houdini-input"
+           type="checkbox"
+           id="houdini-batch-expand-<%= info_request_batch.id %>">
+    <div class="houdini-target batch-request__requests">
       <%= render partial: 'alaveteli_pro/info_request_batches/info_request',
                 collection: info_request_batch.info_requests %>
     </div>
