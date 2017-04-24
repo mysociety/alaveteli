@@ -15,6 +15,7 @@ module AlaveteliDsl
       fill_in 'query', :with => public_body.name
       find_button('Search').click
     end
+    puts page.body.inspect
     within(:css, '.body_listing') do
       find_link('Make a request').click
     end
