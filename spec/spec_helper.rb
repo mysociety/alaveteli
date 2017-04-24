@@ -90,6 +90,11 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  # Set up a xapian index
+  config.before(:all) do
+    rebuild_xapian_index
+  end
+
   # This is a workaround for a strange thing where ActionMailer::Base.deliveries isn't being
   # cleared out correctly in controller specs. So, do it here for everything.
   config.before(:each) do
