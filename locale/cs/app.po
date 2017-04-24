@@ -23,13 +23,14 @@
 # louisecrow <louise@mysociety.org>, 2012-2013
 # louisecrow <louise@mysociety.org>, 2013-2016
 # louisecrow <louise@mysociety.org>, 2012
+# steve_mysociety <steve@mysociety.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-04-23 15:10+0000\n"
-"Last-Translator: Hana Hunt <hana@hana-hunt.cz>\n"
+"PO-Revision-Date: 2017-04-24 09:55+0000\n"
+"Last-Translator: steve_mysociety <steve@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -315,7 +316,7 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr "Nový dotaz byl vznesen na instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr "Napište stručný obsah vašeho dotazu na jeden řádek. \\n⇥⇥⇥Například:"
+msgstr "Napište stručný obsah vašeho dotazu na jeden řádek. Například:"
 
 msgid "A public authority"
 msgstr "Instituce"
