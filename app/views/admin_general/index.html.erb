@@ -200,7 +200,7 @@
   <% if @old_unclassified.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#unclassified" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@old_unclassified.size%></span><%= chevron_right %> Classify responses that are still unclassified <%=InfoRequest::OLD_AGE_IN_DAYS.inspect %> after response</a>
+        <a class="accordion-toggle" href="#unclassified" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%= @old_unclassified.size %></span><%= chevron_right %> Classify responses that are still unclassified <%= I18n.with_locale(:en) { distance_of_time_in_words(InfoRequest::OLD_AGE_IN_DAYS) } %> after response</a>
       </div>
       <div id="unclassified" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
