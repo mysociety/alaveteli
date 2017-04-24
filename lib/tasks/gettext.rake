@@ -130,6 +130,9 @@ namespace :gettext do
                                    po_file,
                                    po_file)
     end
+
+    # invoke the remove_fuzzy task as MsgMerge doesn't seem to do this any more
+    Rake::Task["gettext:remove_fuzzy"].invoke(dir)
   end
 
   def find_theme(theme)
