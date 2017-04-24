@@ -69,11 +69,13 @@ namespace :gettext do
   end
 
   desc 'Remove fuzzy translations'
-  task :remove_fuzzy do
+  task :remove_fuzzy,[:dir] do |t, args|
     require "alaveteli_gettext/fuzzy_cleaner.rb"
     fuzzy_cleaner = AlaveteliGetText::FuzzyCleaner.new
 
-    Dir.glob("locale/**/app.po").each do |po_file|
+    dir = args[:dir] || "locale"
+
+    Dir.glob("#{dir}/*/app.po").each do |po_file|
       lines = File.read(po_file)
       output = fuzzy_cleaner.clean_po(lines)
       File.open(po_file, "w") { |f| f.puts(output) }
