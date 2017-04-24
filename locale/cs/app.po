@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-04-17 17:48+0000\n"
+"PO-Revision-Date: 2017-04-23 15:10+0000\n"
 "Last-Translator: Hana Hunt <hana@hana-hunt.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs/)\n"
 "Language: cs\n"
@@ -257,7 +257,7 @@ msgstr "<strong>Note:</strong> Protože testujeme, dotazy jsou posílány na {{e
 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr ""
-"<strong>Poznámka:</strong>\n"
+"<strong>Upozornění:</strong>\n"
 "    Pošleme vám zprávu na vaši e-mailovou adresu. Pro změnu\n"
 "    vaší e-mailové adresy postupujte podle instrukcí."
 
@@ -300,7 +300,7 @@ msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em>
 msgstr "<a href=\"{{request_url}}\">Odpověď</a> v konverzaci týkající se <em>{{request_title}}</em> byla odeslána instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
 
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
-msgstr "<a href=\"{{request_url}}\">Odpověď</a> na dotaz <em>{{request_title}}</em> byla odeslána institucí {{public_body_name}} uživateli {{info_request_user}} dne {{date}}. Dotaz je tedy ve stavu: {{request_status}}"
+msgstr "Instituce {{public_body_name}} odeslala uživateli {{info_request_user}} dne {{date}} <a href=\"{{request_url}}\">odpověď</a> na dotaz <em>{{request_title}}</em>. Stav dotazu je nyní: {{request_status}}"
 
 msgid "A <strong>summary</strong> of the response if you have received it by post. "
 msgstr "<strong>Shrnutí</strong> odpovědi, kterou jste obdrželi poštou."
@@ -315,9 +315,7 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr "Nový dotaz byl vznesen na instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr ""
-"stručný obsah vašeho dotazu na jeden řádek.\n"
-"Například:"
+msgstr "Napište stručný obsah vašeho dotazu na jeden řádek. \\n⇥⇥⇥Například:"
 
 msgid "A public authority"
 msgstr "Instituce"
@@ -411,7 +409,7 @@ msgid "Also called {{other_name}}."
 msgstr "Také se nazývá {{other_name}}."
 
 msgid "Also send me alerts by email"
-msgstr "Upozornění posílat také e-mailem."
+msgstr "Posílejte také upozornění e-mailem. "
 
 msgid "Alter your subscription"
 msgstr "Upravit sledování dotazů"
@@ -432,7 +430,7 @@ msgid "An anonymous user"
 msgstr "Nezaregistrovaný uživatel"
 
 msgid "Annotation added to request"
-msgstr "Poznámka u dotazů byla přidána"
+msgstr "Poznámka u dotazu byla přidána"
 
 msgid "Annotations"
 msgstr "Poznámky"
@@ -568,7 +566,7 @@ msgstr ""
 "{{date_response_required_by}}</strong>."
 
 msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
-msgstr "Podle zákona byste ji měli obdržet co nejdříve, nejpozději do <strong>{{date_response_required_by}}</strong>."
+msgstr "Podle zákona byste ji měli odpověď obdržet co nejdříve, nejpozději do <strong>{{date_response_required_by}}</strong>."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Podle zákona by měla instituce {{public_body_link}} odpovědět okamžitě a "
@@ -577,7 +575,7 @@ msgid "Calculated home page"
 msgstr "Domů"
 
 msgid "Can't find the one you want?"
-msgstr "Nemůžete najít, co hledáte?"
+msgstr "Nemůžete najít to, co hledáte?"
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "Zrušte tato upozornění stránek {{site_name}}"
@@ -736,7 +734,7 @@ msgid "Contact {{site_name}}"
 msgstr "Kontaktujte stránky {{site_name}}"
 
 msgid "Contains defamatory material"
-msgstr "Obsahuje (deformatory) materiál"
+msgstr "Obsah je urážlivý"
 
 msgid "Contains personal information"
 msgstr "Obsahuje osobní informace"
@@ -774,7 +772,7 @@ msgstr ""
 "            jak je vyjmenovanáno výše)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr "V současnosti <strong> se čeká na odpověď</strong> od instituce {{public_body_link}}. Musí odpovědět co nejdříve a "
+msgstr "V současnosti <strong> se čeká na odpověď</strong> od instituce {{public_body_link}}. Musí odpovědět co nejdříve,  "
 
 msgid "Date:"
 msgstr "Datum:"
@@ -931,7 +929,7 @@ msgid "FOI"
 msgstr "dotaz"
 
 msgid "FOI email address for {{public_body}}"
-msgstr "E-mailová adresa podatelny pro instituci {{public_body}}"
+msgstr "E-mailová adresa podatelny instituce {{public_body}}"
 
 msgid "FOI law does not apply to this authority."
 msgstr "Na tento úřad se FOI zákon se nevztahuje."
@@ -1560,7 +1558,7 @@ msgstr ""
 "Pak zvolte obnovit a zkuste to znovu."
 
 msgid "Items matching the following conditions are currently displayed on your wall."
-msgstr "Témata týkající se následujících kritérií jsou zobrazeny na vaší nástěnce."
+msgstr "Na nástěnce se zobrazují témata, která odpovídají vámi vybraným podmínkám. "
 
 msgid "Items sent in last month"
 msgstr "Odesláno poslední měsíc"
@@ -2047,7 +2045,7 @@ msgid "Please enter your follow up message"
 msgstr "Vložte odpověď. "
 
 msgid "Please enter your letter requesting information"
-msgstr "Vložte svůj dopis s vzneseným dotazem. "
+msgstr "Vložte svůj text dopisu s dotazem. "
 
 msgid "Please enter your name"
 msgstr "Vložte své jméno. "
@@ -2334,7 +2332,7 @@ msgid "PublicBody|Name"
 msgstr "PublicBody | Název"
 
 msgid "PublicBody|Notes"
-msgstr "PublicBody | Poznámka"
+msgstr "PublicBody | Poznámky"
 
 msgid "PublicBody|Publication scheme"
 msgstr "PublicBody | Publikační schéma ??"
@@ -2577,7 +2575,7 @@ msgid "Search results"
 msgstr "Výsledky vyhledávání"
 
 msgid "Search the site to find what you were looking for."
-msgstr "Najděte, co hledáte"
+msgstr "Zkuste prohledat stránky IPV."
 
 msgid "Search your contributions"
 msgstr "Prohledávat vlastní příspěvky"
@@ -3208,7 +3206,7 @@ msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
 msgstr[0] "Poznámka {{count}} uživatele"
 msgstr[1] "Poznámka {{count}} uživatele"
-msgstr[2] "Poznámka {{count}} uživatele"
+msgstr[2] "Počet poznámek uživatele: {{count}} "
 
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr "Tento dotaz <strong>vyžaduje pozornost administrátora</strong>"
@@ -3668,7 +3666,7 @@ msgid "Waiting for the public authority to reply"
 msgstr "Čeká se na odpověď instituce"
 
 msgid "Want to know something?"
-msgstr "Chcete něco vědět?"
+msgstr "Potřebujete něco vědět?"
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Byla odpověď na váš dotaz kompletní a v pořádku?"
@@ -3830,7 +3828,7 @@ msgid "Write a reply to {{authority_name}}"
 msgstr "Odpovězte {{authority_name}}"
 
 msgid "Write about this on Medium"
-msgstr "Napište o tom do médií"
+msgstr "Napište o tom na platformě Medium"
 
 msgid "Write your FOI follow up message to {{authority_name}}"
 msgstr "Napište svou odpověď pro {{authority_name}}"
@@ -3917,10 +3915,10 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr "Nyní <a href=\"{{wall_url_user}}\">odebíráte</a> aktuality o úspěšných žádostech <a href=\"{{successful_requests_url}}\"></a>."
 
 msgid "You can <strong>complain</strong> by"
-msgstr "Můžete si <strong>stěžovat</strong> "
+msgstr "Můžete si <strong>stěžovat</strong> a"
 
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
-msgstr "Sledované dotazy či uživatele uživatele můžete upravit <a href=\"{{profile_url}}\">ve svém profilu</a>."
+msgstr "<a href=\"{{profile_url}}\">Ve svém profilu</a> můžete upravit jaké dotazy a uživatele sledujete. "
 
 msgid "You can get this page in computer-readable format as part of the main JSON page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
@@ -3967,7 +3965,7 @@ msgid "You know what caused the error, and can <strong>suggest a solution</stron
 msgstr "Víte, co způsobilo chybu a můžete <strong>navrhnout řešení</strong>,například správnou e-mailovou adresu."
 
 msgid "You left an annotation ({{date}})"
-msgstr "Vy zanechal poznámku ({{date}})"
+msgstr "Zanechal/a jste poznámku ({{date}})"
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr "Můžete <strong>přiložit dokumenty</strong>. POkud je vaše příloha⏎ příliš velká pro poslání e-mailem, použíjte formulář níže."
@@ -4070,7 +4068,7 @@ msgstr ""
 "        <a href=\"{{help_url}}\">přečtěte si nejdříve toto</a>."
 
 msgid "Your annotations"
-msgstr "Vaše poznámky"
+msgstr "Moje poznámky"
 
 msgid "Your batch request \"{{title}}\" has been sent"
 msgstr "Váš hromadný dotaz \"{{title}}\" byl odeslán"
@@ -4473,7 +4471,7 @@ msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
 msgstr[0] "poznámka"
 msgstr[1] "poznámek"
-msgstr[2] "bylo vytvořeno {{count}} poznámek."
+msgstr[2] "Bylo vytvořeno {{count}} poznámek."
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
@@ -4623,28 +4621,28 @@ msgstr ""
 "Kliknutím na dotaz si ji přečtete."
 
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "{{user_name}} nahlásil {{law_used}} administrátorovi. Podívejte se prosím na vznesený dotaz i odpověď. Až uděláte nezbytné kroky, odpovězte na tento e-mail a stručně je popište."
+msgstr "{{user_name}} nahlásil/a {{law_used}} administrátorovi. Podívejte se prosím na vznesený dotaz i odpověď. Až uděláte nezbytné kroky, odpovězte na tento e-mail a stručně je popište."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "Uživatel/ka {{user_name}} využil/a stránek {{site_name}} pro zaslání níže uvedené zprávy."
 
 msgid "{{user_name}} left an annotation ({{date}})"
-msgstr "{{user_name}} zanechal poznámku ({{date}})"
+msgstr "{{user_name}} zanechal/a poznámku ({{date}})"
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr "Vážený uživateli {{user_name}}, pošlete odpověď instituci {{public_body}}"
 
 msgid "{{user_name}} sent a request to {{public_body}}"
-msgstr "Uživatel {{user_name}} vznesl dotaz na instituci {{public_body}}"
+msgstr "Uživatel {{user_name}} vznesl/a dotaz na instituci {{public_body}}"
 
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
 msgstr "{{user_name}} by chtěl/a přidat novou instituci na {{site_name}}"
 
 msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
-msgstr "{{user_name}} by chtěl změnit adresu {{public_body_name}} "
+msgstr "{{user_name}} by chtěl/a změnit adresu {{public_body_name}} "
 
 msgid "{{username}} left an annotation:"
-msgstr "{{username}} zanechal poznámku:"
+msgstr "{{username}} zanechal/a poznámku:"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}} ({{user_admin_link}}) vznesl tento {{law_used_full}}  (<a href=\"{{request_admin_url}}\">admin</a>) na instituci {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
