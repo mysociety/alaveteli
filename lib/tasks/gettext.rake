@@ -18,19 +18,6 @@ namespace :gettext do
     end
   end
 
-  desc 'Rewrite .po files into a consistent msgmerge format'
-  task :clean => :environment do
-    CLEAN = FileList["locale/*/*~", "locale/*/*.bak"]
-    clean_dir("locale")
-  end
-
-  desc 'Rewrite Alaveteli Pro .po files into a consistent msgmerge format'
-  task :clean_alaveteli_pro => :environment do
-    CLEAN = FileList["locale_alaveteli_pro/*/*~",
-                     "locale_alaveteli_pro/*/*.bak"]
-    clean_dir("locale_alaveteli_pro")
-  end
-
   desc "Update pot/po files for a theme."
   task :find_theme => :environment do
     theme = find_theme(ENV['THEME'])
@@ -63,12 +50,25 @@ namespace :gettext do
     end
   end
 
+  desc 'Rewrite .po files into a consistent msgmerge format'
+  task :clean => :environment do
+    CLEAN = FileList["locale/*/*~", "locale/*/*.bak"]
+    clean_dir("locale")
+  end
+
   desc 'Rewrite theme .po files into a consistent msgmerge format'
   task :clean_theme => :environment do
     theme = find_theme(ENV['THEME'])
     CLEAN = FileList["#{theme_locale_path(theme)}/*/*~",
                      "#{theme_locale_path(theme)}/*/*.bak"]
     clean_dir(theme_locale_path(theme))
+  end
+
+  desc 'Rewrite Alaveteli Pro .po files into a consistent msgmerge format'
+  task :clean_alaveteli_pro => :environment do
+    CLEAN = FileList["locale_alaveteli_pro/*/*~",
+                     "locale_alaveteli_pro/*/*.bak"]
+    clean_dir("locale_alaveteli_pro")
   end
 
   desc 'Remove fuzzy translations'
