@@ -964,6 +964,50 @@ ENABLE_ANNOTATIONS: true
 # ---
 ENABLE_ANTI_SPAM: false
 
+# Prevent user signups if several signup attempts from the same IP address are
+# made in quick succession.
+#
+# BLOCK_RATE_LIMITED_IPS - Boolean (default: false)
+#
+# ---
+BLOCK_RATE_LIMITED_IPS: false
+
+# Prevent users making requests if their IP originates in one of the
+# RESTRICTED_COUNTRIES.
+#
+# BLOCK_RESTRICTED_COUNTRY_IPS - Boolean (default: false)
+#
+# ---
+BLOCK_RESTRICTED_COUNTRY_IPS: false
+
+# Prevent users submitting spam as their "About Me" profile text.
+#
+# BLOCK_SPAM_ABOUT_ME_TEXT - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_ABOUT_ME_TEXT: false
+
+# Prevent users submitting comments that appear to be spam.
+#
+# BLOCK_SPAM_COMMENTS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_COMMENTS: false
+
+# Prevent user signups from spam email domains.
+#
+# BLOCK_SPAM_EMAIL_DOMAINS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_EMAIL_DOMAINS: false
+
+# Prevent users submitting requests that appear to be spam.
+#
+# BLOCK_SPAM_REQUESTS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_REQUESTS: false
+
 # Restrict IP addresses from some countries from performing some actions.
 # If set, requests from IP addresses in the countries specified will be
 # prevented from making new requests on the site.
