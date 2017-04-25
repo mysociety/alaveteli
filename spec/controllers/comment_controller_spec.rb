@@ -154,21 +154,29 @@ describe CommentController, "when commenting on a request" do
     expect(response).to render_template('user/banned')
   end
 
-  describe 'when enable_anti_spam is true' do
+  describe 'when handling a comment that looks like spam' do
 
-    before(:each) do
-      allow(AlaveteliConfiguration).
-        to receive(:enable_anti_spam).and_return(true)
-    end
+    let(:user) { FactoryGirl.create(:user,
+                                :locale => 'en',
+                                :name => 'bob',
+                                :confirmed_not_spam => false) }
+    let(:body) { FactoryGirl.create(:public_body) }
+    let(:request) { FactoryGirl.create(:info_request) }
 
-    describe 'when handling a comment that looks like spam' do
+    context 'when block_spam_comments? is true' do
 
-      let(:user) { FactoryGirl.create(:user,
-                                  :locale => 'en',
-                                  :name => 'bob',
-                                  :confirmed_not_spam => false) }
-      let(:body) { FactoryGirl.create(:public_body) }
-      let(:request) { FactoryGirl.create(:info_request) }
+      before(:each) do
+        allow(@controller).to receive(:block_spam_comments?).and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :url_title => request.url_title,
+          :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
+          :type => 'request', :submitted_comment => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/spam annotation from user #{ user.id }/)
+      end
 
       it 'shows an error message' do
         session[:user_id] = user.id
@@ -190,6 +198,31 @@ describe CommentController, "when commenting on a request" do
       it 'allows the comment if the user is confirmed not spam' do
         user.confirmed_not_spam = true
         user.save!
+        session[:user_id] = user.id
+        post :new, :url_title => request.url_title,
+          :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
+          :type => 'request', :submitted_comment => 1, :preview => 0
+        expect(response).to redirect_to show_request_path(request.url_title)
+      end
+
+    end
+
+    context 'when block_spam_comments? is false' do
+
+      before(:each) do
+        allow(@controller).to receive(:block_spam_comments?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :url_title => request.url_title,
+          :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
+          :type => 'request', :submitted_comment => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/spam annotation from user #{ user.id }/)
+      end
+
+      it 'allows the comment' do
         session[:user_id] = user.id
         post :new, :url_title => request.url_title,
           :comment => { :body => "[HD] Watch Jason Bourne Online free MOVIE Full-HD" },
