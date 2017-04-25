@@ -845,42 +845,89 @@ describe UserController, "when signing up" do
 
   end
 
-  context 'using a known spam domain and enable_anti_spam is enabled' do
+  context 'using a known spam domain' do
 
     before do
       spam_scorer = double
       allow(spam_scorer).
         to receive(:email_from_spam_domain?).and_return(true)
       allow(UserSpamScorer).to receive(:new).and_return(spam_scorer)
-      allow(AlaveteliConfiguration).
-        to receive(:enable_anti_spam).and_return(true)
     end
 
-    it 'blocks the signup' do
-      post :signup,
-           :user_signup => { :email => 'spammer@example.com',
-                             :name => 'New Person',
-                             :password => 'sillypassword',
-                             :password_confirmation => 'sillypassword' }
-      expect(User.where(:email => 'spammer@example.com').count).to eq(0)
+    context 'when block_spam_email_domains? is true' do
+
+      before do
+        allow(@controller).
+          to receive(:block_spam_email_domains?).and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).
+          to match(/signup from spam domain email: spammer@example\.com/)
+      end
+
+      it 'blocks the signup' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(User.where(:email => 'spammer@example.com').count).to eq(0)
+      end
+
+      it 're-renders the form' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(response).to render_template('sign')
+      end
+
+      it 'sets a flash error' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(flash[:error]).to match(/unable to sign up new users/)
+      end
+
     end
 
-    it 're-renders the form' do
-      post :signup,
-           :user_signup => { :email => 'spammer@example.com',
-                             :name => 'New Person',
-                             :password => 'sillypassword',
-                             :password_confirmation => 'sillypassword' }
-      expect(response).to render_template('sign')
-    end
+    context 'when block_spam_email_domains? is false' do
 
-    it 'sets a flash error' do
-      post :signup,
-           :user_signup => { :email => 'spammer@example.com',
-                             :name => 'New Person',
-                             :password => 'sillypassword',
-                             :password_confirmation => 'sillypassword' }
-      expect(flash[:error]).to match(/unable to sign up new users/)
+      before do
+        allow(@controller).
+          to receive(:block_spam_email_domains?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).
+          to match(/signup from spam domain email: spammer@example\.com/)
+      end
+
+      it 'allows the signup' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(User.where(:email => 'spammer@example.com').count).to eq(1)
+      end
+
     end
 
   end

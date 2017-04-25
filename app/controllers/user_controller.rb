@@ -172,22 +172,8 @@ class UserController < ApplicationController
         end
 
         # Prevent signups from spam domains
-        if UserSpamScorer.new.email_from_spam_domain?(@user_signup)
-          if send_exception_notifications?
-            msg = "Attempted signup from spam domain email: " \
-                  "#{ @user_signup.email }"
-            e = Exception.new(msg)
-            ExceptionNotifier.notify_exception(e, :env => request.env)
-          end
-
-          if AlaveteliConfiguration.enable_anti_spam
-            flash.now[:error] =
-              _("Sorry, we're currently unable to sign up new users, " \
-                "please try again later")
-            error = true
-            render :action => 'sign'
-            return
-          end
+        if spam_domain?(@user_signup)
+          handle_spam_domain_signup(@user_signup.email) && return
         end
 
         @user_signup.email_confirmed = false
@@ -648,6 +634,32 @@ class UserController < ApplicationController
     end
 
     if block_rate_limited_ips?
+      flash.now[:error] =
+        _("Sorry, we're currently unable to sign up new users, " \
+          "please try again later")
+      error = true
+      render :action => 'sign'
+      true
+    end
+  end
+
+  def spam_domain?(user_signup)
+    UserSpamScorer.new.email_from_spam_domain?(@user_signup)
+  end
+
+  def block_spam_email_domains?
+    AlaveteliConfiguration.block_spam_email_domains ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  def handle_spam_domain_signup(user_email)
+    if send_exception_notifications?
+      msg = "Attempted signup from spam domain email: #{ user_email }"
+      e = Exception.new(msg)
+      ExceptionNotifier.notify_exception(e, :env => request.env)
+    end
+
+    if block_spam_email_domains?
       flash.now[:error] =
         _("Sorry, we're currently unable to sign up new users, " \
           "please try again later")
