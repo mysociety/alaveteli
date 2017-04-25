@@ -1375,18 +1375,27 @@ describe RequestController, "when creating a new request" do
 
   end
 
-  describe 'when enable_anti_spam is true' do
-
-    before do
-      allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
-        .and_return(true)
-    end
+  context 'when the request subject line looks like spam' do
 
     let(:user) { FactoryGirl.create(:user,
                                     :confirmed_not_spam => false) }
     let(:body) { FactoryGirl.create(:public_body) }
 
-    context 'when the request subject line looks like spam' do
+    context 'when block_spam_subject? is true' do
+
+      before do
+        allow(@controller).to receive(:block_spam_subject?).and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
 
       it 'shows an error message' do
         session[:user_id] = user.id
@@ -1420,6 +1429,47 @@ describe RequestController, "when creating a new request" do
       end
 
     end
+
+    context 'when block_spam_subject? is false' do
+
+      before do
+        allow(@controller).to receive(:block_spam_subject?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
+
+      it 'allows the request' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response)
+          .to redirect_to show_request_path(:url_title => 'hd_watch_jason_bourne_online_fre')
+      end
+
+    end
+
+  end
+
+  describe 'when enable_anti_spam is true' do
+
+    before do
+      allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
+        .and_return(true)
+    end
+
+    let(:user) { FactoryGirl.create(:user,
+                                    :confirmed_not_spam => false) }
+    let(:body) { FactoryGirl.create(:public_body) }
 
     context 'when the request is from an IP address in a blocked country' do
 
