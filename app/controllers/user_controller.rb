@@ -168,21 +168,7 @@ class UserController < ApplicationController
         ip_rate_limiter.record(user_ip)
 
         if ip_rate_limiter.limit?(user_ip)
-          if send_exception_notifications?
-            msg = "Rate limited signup from #{ user_ip } email: " \
-                  " #{ @user_signup.email }"
-            e = Exception.new(msg)
-            ExceptionNotifier.notify_exception(e, :env => request.env)
-          end
-
-          if AlaveteliConfiguration.enable_anti_spam
-            flash.now[:error] =
-              _("Sorry, we're currently unable to sign up new users, " \
-                "please try again later")
-            error = true
-            render :action => 'sign'
-            return
-          end
+          handle_rate_limited_signup(user_ip, @user_signup.email) && return
         end
 
         # Prevent signups from spam domains
@@ -646,5 +632,28 @@ class UserController < ApplicationController
                        :email => _("Then you can sign in to {{site_name}}", :site_name => site_name),
                        :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
                      })
+  end
+
+  def block_rate_limited_ips?
+    AlaveteliConfiguration.block_rate_limited_ips ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  def handle_rate_limited_signup(user_ip, email_address)
+    if send_exception_notifications?
+      msg = "Rate limited signup from #{ user_ip } email: " \
+            " #{ email_address }"
+      e = Exception.new(msg)
+      ExceptionNotifier.notify_exception(e, :env => request.env)
+    end
+
+    if block_rate_limited_ips?
+      flash.now[:error] =
+        _("Sorry, we're currently unable to sign up new users, " \
+          "please try again later")
+      error = true
+      render :action => 'sign'
+      true
+    end
   end
 end

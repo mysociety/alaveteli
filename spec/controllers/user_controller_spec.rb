@@ -761,42 +761,86 @@ describe UserController, "when signing up" do
     }.to raise_error(ActionController::UnpermittedParameters)
   end
 
-  context 'when the IP is rate limited and enable_anti_spam is enabled' do
+  context 'when the IP is rate limited' do
 
     before(:each) do
       limiter = double
       allow(limiter).to receive(:record)
       allow(limiter).to receive(:limit?).and_return(true)
       allow(controller).to receive(:ip_rate_limiter).and_return(limiter)
-      allow(AlaveteliConfiguration).
-        to receive(:enable_anti_spam).and_return(true)
     end
 
-    it 'blocks the signup' do
-      post :signup,
-           :user_signup => { :email => 'rate-limited@localhost',
-                             :name => 'New Person',
-                             :password => 'sillypassword',
-                             :password_confirmation => 'sillypassword' }
-      expect(User.where(:email => 'rate-limited@localhost').count).to eq(0)
+    context 'when block_rate_limited_ips? is true' do
+
+      before(:each) do
+        allow(@controller).to receive(:block_rate_limited_ips?).and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Rate limited signup from/)
+      end
+
+      it 'blocks the signup' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(User.where(:email => 'rate-limited@localhost').count).to eq(0)
+      end
+
+      it 're-renders the form' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(response).to render_template('sign')
+      end
+
+      it 'sets a flash error' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(flash[:error]).to match(/unable to sign up new users/)
+      end
+
     end
 
-    it 're-renders the form' do
-      post :signup,
-           :user_signup => { :email => 'rate-limited@localhost',
-                             :name => 'New Person',
-                             :password => 'sillypassword',
-                             :password_confirmation => 'sillypassword' }
-      expect(response).to render_template('sign')
-    end
+    context 'when block_rate_limited_ips? is false' do
 
-    it 'sets a flash error' do
-      post :signup,
-           :user_signup => { :email => 'rate-limited@localhost',
-                             :name => 'New Person',
-                             :password => 'sillypassword',
-                             :password_confirmation => 'sillypassword' }
-      expect(flash[:error]).to match(/unable to sign up new users/)
+      before(:each) do
+        allow(@controller).
+          to receive(:block_rate_limited_ips?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Rate limited signup from/)
+      end
+
+      it 'allows the signup' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(User.where(:email => 'rate-limited@localhost').count).to eq(1)
+      end
+
     end
 
   end
