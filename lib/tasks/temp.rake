@@ -139,7 +139,8 @@ namespace :temp do
   desc 'Cache the delivery status of mail server logs'
   task :cache_delivery_status => :environment do
     mta_agnostic_statuses =
-      MailServerLog::DeliveryStatus::HUMANIZED.keys.map(&:to_s)
+      MailServerLog::DeliveryStatus::TranslatedConstants.
+        humanized.keys.map(&:to_s)
     MailServerLog.where.not(:delivery_status => mta_agnostic_statuses).find_each do |mail_log|
       mail_log.update_attributes!(:delivery_status => mail_log.delivery_status)
       puts "Cached MailServerLog#delivery_status of id: #{ mail_log.id }"
