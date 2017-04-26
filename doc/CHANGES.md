@@ -65,23 +65,37 @@
     app/views/reports/new.html.erb
     app/views/request/describe_notices/_error_message.html.erb
 
+# 0.28.0.6
+
+## Highlighted Features
+
+* Break model constants containing translated text out into new methods in
+  TranslatedConstants modules to prevent accidental caching of the default
+  locale's translations (Liz Conlan, Gareth Rees)
+
+## Upgrade Notes
+
+* If you have overridden `LAW_USED_READABLE_DATA` in your theme, you will need
+  to rewrite this code to override the `law_used_readable_data` class method of
+  `InfoRequest::TranslatedConstants` instead
+
 # 0.28.0.5
 
-# Highlighted Features
+## Highlighted Features
 
 * Fix bug in `Statistics.by_week_to_today_with_noughts` causing comparisons to
   fail (Gareth Rees)
 
 # 0.28.0.4
 
-# Highlighted Features
+## Highlighted Features
 
 * Fix bug causing `MailServerLog#delivery_status` to return an ActiveRecord
   serialized attribute (Gareth Rees)
 
 # 0.28.0.3
 
-# Highlighted Features
+## Highlighted Features
 
 * Updated translations from Transifex (Gareth Rees)
 

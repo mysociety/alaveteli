@@ -2,12 +2,6 @@
 class MailServerLog::PostfixDeliveryStatus
   include Comparable
 
-  HUMANIZED = {
-    :delivered => _('This message has been delivered.'),
-    :failed => _('This message could not be delivered.'),
-    :sent => _('This message has been sent.')
-  }.freeze
-
   DELIVERED_FLAGS = [
     :sent
   ].freeze
@@ -53,7 +47,7 @@ class MailServerLog::PostfixDeliveryStatus
   end
 
   def humanize
-    HUMANIZED[simple]
+    TranslatedConstants.humanized[simple]
   end
 
   def <=>(other)
