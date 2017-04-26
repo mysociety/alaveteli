@@ -653,19 +653,26 @@ class UserController < ApplicationController
   end
 
   def handle_spam_domain_signup(user_email)
-    if send_exception_notifications?
-      msg = "Attempted signup from spam domain email: #{ user_email }"
-      e = Exception.new(msg)
-      ExceptionNotifier.notify_exception(e, :env => request.env)
-    end
+    msg = "Attempted signup from spam domain email: #{ user_email }"
 
     if block_spam_email_domains?
+      logger.info(msg)
+
       flash.now[:error] =
         _("Sorry, we're currently unable to sign up new users, " \
           "please try again later")
+
       error = true
       render :action => 'sign'
+
       true
+    else
+      if send_exception_notifications?
+        e = Exception.new(msg)
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      false
     end
   end
 end

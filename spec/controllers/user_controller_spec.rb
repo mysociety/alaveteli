@@ -861,15 +861,15 @@ describe UserController, "when signing up" do
           to receive(:block_spam_email_domains?).and_return(true)
       end
 
-      it 'sends an exception notification' do
+      it 'logs the signup attempt' do
+        msg = "Attempted signup from spam domain email: spammer@example.com"
+        expect(Rails.logger).to receive(:info).with(msg)
+
         post :signup,
              :user_signup => { :email => 'spammer@example.com',
                                :name => 'New Person',
                                :password => 'sillypassword',
                                :password_confirmation => 'sillypassword' }
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).
-          to match(/signup from spam domain email: spammer@example\.com/)
       end
 
       it 'blocks the signup' do
