@@ -215,11 +215,12 @@ class OutgoingMessage < ActiveRecord::Base
   def smtp_message_ids
     info_request_events.
       order('created_at ASC').
-        map { |event| event.params[:smtp_message_id] }.
-          compact.
-            map do |smtp_id|
-              smtp_id.match(/<(.*)>/) { |m| m.captures.first } || smtp_id
-            end
+        to_a.
+          map { |event| event.params[:smtp_message_id] }.
+            compact.
+              map do |smtp_id|
+                smtp_id.match(/<(.*)>/) { |m| m.captures.first } || smtp_id
+              end
   end
 
   # Public: Return logged MTA IDs for this OutgoingMessage.
@@ -251,7 +252,7 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def delivery_status
-    mail_server_logs.map(&:delivery_status).compact.reject(&:unknown?).last ||
+    mail_server_logs.to_a.map(&:delivery_status).compact.reject(&:unknown?).last ||
       MailServerLog::DeliveryStatus.new(:unknown)
   end
 
