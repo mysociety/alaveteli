@@ -42,6 +42,10 @@
   to avoid the situation where 374 out of 375 appears as 100% (Liz Conlan)
 * Make `users:ban_by_domain` send a simpler message to say they've been banned
   rather than helping them work around our spam measures (Liz Conlan)
+* Break model constants containing translated text out into methods in include
+  modules to prevent accidental caching of the default locale's translation
+  (Liz Conlan, Gareth Rees)
+
 
 ## Upgrade Notes
 
@@ -56,6 +60,9 @@
 * There are some database structure updates so remember to `rake db:migrate`
 * Run `bundle exec rake temp:remove_line_breaks_from_request_titles` after
   deployment to remove stray line breaks (could effect Atom feeds)
+* If you have overridden `LAW_USED_READABLE_DATA` in your theme, you will need
+  to rewrite this code to override the `law_used_readable_data` class method of
+  `InfoRequest::TranslatedConstants` instead
 
 ### Changed Templates
 
