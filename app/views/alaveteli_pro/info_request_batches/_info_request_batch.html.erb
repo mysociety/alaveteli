@@ -45,20 +45,24 @@
   </div> <!-- .request__meta -->
 
   <%= render partial: 'alaveteli_pro/info_request_batches/progress_bar',
-             locals: { phases: info_request_batch.request_phases_summary } %>
+             locals: { phases: info_request_batch.request_phases_summary,
+                       batch: info_request_batch } %>
 
-  <% unless info_request_batch.info_requests.empty? %>
-    <label class="houdini-label batch-request__show-requests"
-           for="houdini-batch-expand-<%= info_request_batch.id %>">
-      <%= _("Show requests") %>
-    </label>
-    <input class="houdini-input"
-           type="checkbox"
-           id="houdini-batch-expand-<%= info_request_batch.id %>">
-    <div class="houdini-target batch-request__requests">
+  <label class="houdini-label batch-request__show-requests"
+         for="houdini-batch-expand-<%= info_request_batch.id %>">
+    <%= _("Show requests") %>
+  </label>
+  <input class="houdini-input"
+         type="checkbox"
+         id="houdini-batch-expand-<%= info_request_batch.id %>">
+  <div class="houdini-target batch-request__requests">
+    <% if info_request_batch.info_requests.empty? %>
+      <%= render partial: 'alaveteli_pro/info_request_batches/public_body',
+                 collection: info_request_batch.public_bodies %>
+    <% else %>
       <%= render partial: 'alaveteli_pro/info_request_batches/info_request',
                 collection: info_request_batch.info_requests %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
 </div> <!-- .request -->

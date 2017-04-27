@@ -11,4 +11,10 @@
       </div>
     <% end %>
   <% end %>
+  <% if phases.values.all? { |phase| phase[:count] == 0 } %>
+    <div class="batch-summary__phase">
+      <span class="progress-bar"></span>
+      <%= _("{{count}} Pending", count: batch.public_bodies.count) %>
+    </div>
+  <% end %>
 </div>

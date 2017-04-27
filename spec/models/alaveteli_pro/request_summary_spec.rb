@@ -81,7 +81,9 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         expect(updated_summary.public_body_names).to match /.*#{public_body.name}.*/
         expect(updated_summary.summarisable).to eq batch
         expect(updated_summary.user).to eq batch.user
-        expected_categories = []
+        expected_categories = [
+          AlaveteliPro::RequestSummaryCategory.awaiting_response
+        ]
         expect(updated_summary.request_summary_categories).
           to match_array expected_categories
         expect(updated_summary.request_created_at).
