@@ -50,7 +50,11 @@
 # Sometimes we need to apply fixes to gems. Generally you'll want to fork the
 # code to the mysociety organisation, fix the problem and use that git ref. This
 # is a sure-fire way to out of date dependencies, so getting back on the
-# upstream release as soon as possible is favourable.
+# upstream release as soon as possible is favourable. Its also better to use
+# the ref option rather than branch. For example, if you rebase your bugfix
+# branch on upstream/master and force push it, the locked SHA will no longer
+# exist on the specified branch. This makes previous versions of Alaveteli
+# uninstallable.
 #
 # Upgrading Gems
 # ==============
