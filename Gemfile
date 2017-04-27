@@ -115,7 +115,7 @@ gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git',
 gem 'sass', '3.4.21'
 gem 'secure_headers', '~> 3.1.0'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3'
+gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :ref => 'c1c14da'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'

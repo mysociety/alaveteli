@@ -27,7 +27,7 @@ GIT
 GIT
   remote: https://github.com/mysociety/strip_attributes.git
   revision: c1c14da7f33eda4cf5affaba01e6994155f7b7d4
-  branch: globalize3
+  ref: c1c14da
   specs:
     strip_attributes (1.8.0)
       activemodel (>= 3.0, < 6.0)
