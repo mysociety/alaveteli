@@ -42,7 +42,7 @@ module PublicBodyHelper
     categories = PublicBodyCategory.
       where(:category_tag => public_body.tag_string.split)
 
-    types = categories.each_with_index.map do |category, index|
+    types = categories.to_a.each_with_index.map do |category, index|
       desc = category.description
       if index.zero?
         desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
