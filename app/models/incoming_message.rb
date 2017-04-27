@@ -595,7 +595,7 @@ class IncomingMessage < ActiveRecord::Base
       end
     end
 
-    attachment_ids = attachments.map{ |attachment| attachment.id }
+    attachment_ids = attachments.to_a.map{ |attachment| attachment.id }
     # now get rid of any attachments we no longer have
     FoiAttachment.destroy_all(["id NOT IN (?) AND incoming_message_id = ?",
                                attachment_ids, self.id])

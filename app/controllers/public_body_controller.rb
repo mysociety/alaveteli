@@ -142,7 +142,7 @@ class PublicBodyController < ApplicationController
     if @tag.nil? || @tag == 'all'
       @tag = 'all'
     elsif @tag == 'other'
-      category_list = PublicBodyCategory.get.tags.map{ |c| %Q('#{ c }') }.join(",")
+      category_list = PublicBodyCategory.get.tags.to_a.map{ |c| %Q('#{ c }') }.join(",")
       where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
     elsif @tag.scan(/./mu).size == 1
       @tag = Unicode.upcase(@tag)

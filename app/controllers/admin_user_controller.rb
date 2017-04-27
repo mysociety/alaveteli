@@ -159,7 +159,7 @@ class AdminUserController < AdminController
   def check_role_requirements
     role_names = Role.
                    where(:id => params[:admin_user][:role_ids]).
-                     pluck(:name).map{ |role| role.to_sym }
+                     pluck(:name).to_a.map{ |role| role.to_sym }
     missing_required = Hash.new { |h, k| h[k] = [] }
     role_names.each do |role_name|
       Role.requires(role_name).each do |required_role_name|
