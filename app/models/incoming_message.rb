@@ -55,7 +55,8 @@ class IncomingMessage < ActiveRecord::Base
   # never really has many info_request_events, but could in theory
   has_many :info_request_events, :dependent => :destroy
 
-  belongs_to :raw_email, :dependent => :destroy
+  belongs_to :raw_email
+  after_destroy :destroy_raw_email
 
   after_destroy :update_request
   after_update :update_request
@@ -259,6 +260,10 @@ class IncomingMessage < ActiveRecord::Base
   # when updating an IncomingMessage associated with the request
   def update_request
     info_request.update_last_public_response_at
+  end
+
+  def destroy_raw_email
+    raw_email.destroy
   end
 
   # And look up by URL part number and display filename to get an attachment
