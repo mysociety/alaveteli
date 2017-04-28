@@ -43,9 +43,6 @@ namespace :gettext do
     CLEAN = FileList["#{pro_locale_path}/*/*~",
                      "#{pro_locale_path}/*/*.bak"]
 
-    # prevent app.po.edit and app.po.timestamp files being created
-    ENV["VERSION_CONTROL"] = "off"
-
     define_gettext_task(text_domain,
                         pro_locale_path,
                         pro_files_to_translate)
