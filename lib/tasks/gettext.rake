@@ -6,6 +6,8 @@ namespace :gettext do
   tasks = Rake.application.instance_variable_get '@tasks'
   tasks.delete 'gettext:find'
 
+  Rake::Task["gettext:setup"].clear
+
   desc "Update pot/po files"
   task :find => :environment do
     CLEAN = FileList["locale/*/*~",
