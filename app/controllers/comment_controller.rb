@@ -45,22 +45,8 @@ class CommentController < ApplicationController
         :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
       )
 
-      comment_is_spam =
-        !@user.confirmed_not_spam? &&
-        AlaveteliSpamTermChecker.new.spam?(params[:comment][:body])
-
-      if comment_is_spam
-        if send_exception_notifications?
-          e = Exception.new("Possible spam annotation from user #{@user.id}")
-          ExceptionNotifier.notify_exception(e, :env => request.env)
-        end
-
-        if AlaveteliConfiguration.enable_anti_spam
-          flash.now[:error] = _("Sorry, we're currently unable to add your " \
-                                "annotation. Please try again later.")
-          render :action => 'new'
-          return
-        end
+      if spam_comment?(params[:comment][:body], @user)
+        handle_spam_comment(@user) && return
       end
 
       # Also subscribe to track for this request, so they get updates
@@ -140,4 +126,28 @@ class CommentController < ApplicationController
     @in_pro_area = @info_request.embargo.present?
   end
 
+  def spam_comment?(comment_body, user)
+    !user.confirmed_not_spam? &&
+      AlaveteliSpamTermChecker.new.spam?(comment_body)
+  end
+
+  def block_spam_comments?
+    AlaveteliConfiguration.block_spam_comments ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  # Sends an exception and blocks the comment depending on configuration.
+  def handle_spam_comment(user)
+    if send_exception_notifications?
+      e = Exception.new("Possible spam annotation from user #{ user.id }")
+      ExceptionNotifier.notify_exception(e, :env => request.env)
+    end
+
+    if block_spam_comments?
+      flash.now[:error] = _("Sorry, we're currently unable to add your " \
+                            "annotation. Please try again later.")
+      render :action => 'new'
+      true
+    end
+  end
 end

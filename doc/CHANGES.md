@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Log spam domain signups instead of sending exception notifications
+  (Gareth Rees)
+* Finer control of anti-spam features (Gareth Rees)
 * Fixed bug which redirected people trying to request a change to the email of
   a public body back to the missing body form post sign in (Liz Conlan)
 * Tweak wording of bounce reply to make it easier for admins to locate the
@@ -45,6 +48,11 @@
 
 ## Upgrade Notes
 
+* Anti-spam feaures can now be enabled independently
+  (`BLOCK_RATE_LIMITED_IPS`, `BLOCK_RESTRICTED_COUNTRY_IPS`,
+  `BLOCK_SPAM_ABOUT_ME_TEXT`, `BLOCK_SPAM_COMMENTS`, `BLOCK_SPAM_EMAIL_DOMAINS`,
+  `BLOCK_SPAM_REQUESTS`) or all at once (`ENABLE_ANTI_SPAM`). Check that your
+  configuration is enabling the anti-spam measures that you're expecting.
 * `MailServerLog::EximDeliveryStatus` and `MailServerLog::PostfixDeliveryStatus`
   have been deprecated in favour of an MTA-agnostic
   `MailServerLog::DeliveryStatus`. You should run
