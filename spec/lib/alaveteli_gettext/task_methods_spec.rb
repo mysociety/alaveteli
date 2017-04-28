@@ -88,17 +88,6 @@ describe "AlaveteliGetText::TaskMethods" do
 
   end
 
-  describe '#replace_version' do
-
-    it 'should replace the Project-Id-Version with the supplied text' do
-      input = '"Project-Id-Version: 0.0.1\n"'
-      expected = "Project-Id-Version: alaveteli"
-
-      expect(dummy_class.replace_version(input, "alaveteli")).to match(expected)
-    end
-
-  end
-
   private
 
   def suppress_warnings

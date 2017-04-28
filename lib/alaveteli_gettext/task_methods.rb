@@ -34,9 +34,6 @@ module AlaveteliGetText
 
       # invoke the remove_fuzzy task as MsgMerge doesn't seem to do this any more
       Rake::Task["gettext:remove_fuzzy"].invoke(dir)
-
-      # manually replace the version string
-      replace_header_version(dir, "alaveteli")
     end
 
     def files_to_translate
@@ -87,28 +84,6 @@ module AlaveteliGetText
         task.msgcat_options = options
         task.xgettext_options = options
       end
-    end
-
-    def replace_header_version(dir, version)
-      Dir.glob("#{dir}/*/app.po") do |po_file|
-        lines = File.read(po_file)
-        output = replace_version(lines, version)
-        File.open(po_file, "w") { |f| f.puts(output) }
-      end
-    end
-
-    def replace_version(input, version)
-      lines = input.split("\n")
-
-      lines.each_with_index do |line, index|
-        match = /^"Project-Id-Version: (.*)\\n"/.match(line)
-        if $1
-          lines[index] = line.gsub($1, version)
-          break
-        end
-      end
-
-      lines.join("\n") << "\n"
     end
 
     def find_mapping_file(file)
