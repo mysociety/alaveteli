@@ -268,7 +268,7 @@ class User < ActiveRecord::Base
     commenters = Comment.visible.
                          joins(:user).
                          group("comments.user_id").
-                         order("count_comments_all DESC").
+                         order("count_all DESC").
                          limit(10).
                          count
     # TODO: Have user objects automatically instantiated like the InfoRequest queries above
@@ -283,7 +283,7 @@ class User < ActiveRecord::Base
                          where("comments.created_at >= ?", 28.days.ago).
                          joins(:user).
                          group("comments.user_id").
-                         order("count_comments_all DESC").
+                         order("count_all DESC").
                          limit(10).
                          count
     # TODO: Have user objects automatically instantiated like the InfoRequest queries above
