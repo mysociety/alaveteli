@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
+
+require "alaveteli_gettext/task_methods"
+
 namespace :gettext do
-  require "alaveteli_gettext/task_methods.rb"
   include AlaveteliGetText::TaskMethods
 
   tasks = Rake.application.instance_variable_get '@tasks'
