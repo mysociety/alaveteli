@@ -112,7 +112,8 @@ FactoryGirl.define do
 
     factory :embargoed_request do
       after(:create) do |info_request, evaluator|
-        embargo = create(:embargo, :info_request => info_request)
+        create(:embargo, :info_request => info_request)
+        info_request.reload
         incoming_message = create(:incoming_message_with_attachments, :info_request => info_request)
         info_request.log_event("response", {:incoming_message_id => incoming_message.id})
       end
@@ -120,7 +121,8 @@ FactoryGirl.define do
 
     factory :embargo_expiring_request do
       after(:create) do |info_request, evaluator|
-        embargo = create(:expiring_embargo, :info_request => info_request)
+        create(:expiring_embargo, :info_request => info_request)
+        info_request.reload
       end
     end
 
