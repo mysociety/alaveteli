@@ -20,15 +20,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-02 22:52+0000\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/"
 "tr/)\n"
-"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid ""
@@ -356,9 +356,6 @@ msgstr "Hakkınızda:"
 msgid "Act on what you've learnt"
 msgstr "Öğrendikleriniz doğrultusunda eyleme geçin"
 
-msgid "Actions"
-msgstr ""
-
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
 
@@ -445,12 +442,6 @@ msgstr "İsimsiz bir kullanıcı"
 
 msgid "Annotation added to request"
 msgstr "Açıklama başvuruya eklendi"
-
-msgid "Annotation contains defamatory material"
-msgstr ""
-
-msgid "Annotation contains personal information"
-msgstr ""
 
 msgid "Annotations"
 msgstr "Açıklamalar"
@@ -1313,8 +1304,8 @@ msgstr "Email teslim edilemediyse ve kurumun güncel bir email adresini biliyors
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
-msgstr ""
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+msgstr "Bu doğru değilse ya da başvuruya geç kalmış bir yanıt göndermek isterseniz ya da {{user}} adlı kullanıcıya başka bir konuda bir email göndermek isterseniz lütfen yardım için  {{contact_email}} adresine yazın. "
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2409,20 +2400,14 @@ msgstr "Beni hatırla (siteye giriş yaptıktan sonra, daha uzun süre kalmanız
 msgid "Replying by post"
 msgstr ""
 
+msgid "Report abuse"
+msgstr "Kötüye kullanım bildir"
+
 msgid "Report an offensive or unsuitable request"
 msgstr "Rahatsız edici olabilecek ya da uygunsuz bir başvuruyu şikayet et"
 
-msgid "Report annotation"
-msgstr ""
-
-msgid "Report annotation on request: {{title}}"
-msgstr ""
-
 msgid "Report request"
 msgstr "Başvuruyu şikayet et"
-
-msgid "Report request: {{title}}"
-msgstr ""
 
 msgid "Report this request"
 msgstr "Bu başvuruyu şikayet et"
@@ -2603,12 +2588,6 @@ msgstr " {{person_or_body}} adlı kişi veya kuruma herkesçe görülebilir bir 
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "{{person_or_body}} adlı kişi ya da kuruma herkesçe görülebilir bir cevap gönderin"
 
-msgid "Send and publish message"
-msgstr ""
-
-msgid "Send and publish request"
-msgstr ""
-
 msgid "Send follow up to '{{title}}'"
 msgstr "'{{title}}''a bir takip mesajı gönderin"
 
@@ -2623,6 +2602,9 @@ msgstr "Şu adrese mesaj gönder {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Şu adrese mesaj gönder {{user_name}} nasıl çalıştığını bir görün"
+
+msgid "Send request"
+msgstr "Başvuruyu gönder"
 
 msgid "Sending..."
 msgstr "Gönderiliyor..."
@@ -2904,8 +2886,11 @@ msgstr "Başvuruların sonuçlarına göre sınıflandırılması (Örneğin, ol
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Kuruma yapılan bilgi edinme başvuruları için iletişim emaili"
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
+" {{public_body}} adına \n"
+"{{user}} kullanıcısına gönderdiğiniz {{law_used_short}}\n"
+"başvurusu teslim edilmedi. "
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Gösterilen hata çubukları teorik alt oran (yani bu site aracılığılıyla sonsuz sayıda başvuru yaparak elde edebileceğiniz oran) için 95% güven aralığından oluşmaktır. Bir başka deyişle, kullanılan örneklem bu  kuruma şimdiye kadar her yolla yapılmış olan başvuruları değil, bu site aracılığıyla yapılmış  güncel ve gelecek başvuruları yansıtıyor. "
@@ -3059,8 +3044,8 @@ msgstr " '{{request_title}}' başvurusu her güncellendiğinde haberdar edilecek
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Bilgi Edinme Başvurusu gönderme olanağınız olacak."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr ""
+msgid "Then your FOI request to {{public_body_name}} will be sent."
+msgstr "Sonra  {{public_body_name}} adlı kuruluşa yaptığınız Bilgi Edinme Başvurusu gönderilecek"
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Sonra {{info_request_title}} başvurusuna yazdığınız not eklenecek."
@@ -3122,9 +3107,6 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Takip ettiğiniz şeyler"
-
-msgid "This annotation has been reported for administrator attention"
-msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Bu kuruluş artık mevcut değil. Bu yüzden ona bir başvuru gönderemezsiniz"
@@ -3365,8 +3347,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Kişi veya kuruma mesaj göndermek için {{user_name}}"
 
-msgid "To send and publish your FOI request"
-msgstr ""
+msgid "To send your FOI request"
+msgstr "Bilgi edinme başvurunuzu göndermek için"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Bilgi edinme başvurunuzu başka bir kuruma göndermek için, önce aşağıda başvurunuzu kopyalayın, sonra <a href=\"{{find_authority_url}}\">gönderim yapmak istediğiniz diğer kamu kuruluşunu bulun</a>."
@@ -3622,9 +3604,6 @@ msgstr "Versiyon {{version}}"
 msgid "Vexatious"
 msgstr "Taciz amaçlı yapılmış başvuru"
 
-msgid "Vexatious annotation"
-msgstr ""
-
 msgid "View FOI email address"
 msgstr "Bilgi Edinme Birimi'nin email adresine bakın"
 
@@ -3688,7 +3667,7 @@ msgstr "Biz bunun geçerli bir Bilgi Edinme Başvurusu olmadığını düşünü
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Bunun taciz amaçlı yapılmış bir başvuru olduğunu düşünüyoruz. Bu yüzden diğer kullanıcılardan gizledik. "
 
-msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
+msgid "We couldn't determine the delivery status of this message"
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3702,9 +3681,6 @@ msgstr "Bu kuruluş için çalışan bir bilgi edinme emaili elimizde yok."
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "{{public_body_name}} için çalışan bir {{public_body_name}} emaili elimizde yok."
-
-msgid "We don't know the delivery status for this message."
-msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

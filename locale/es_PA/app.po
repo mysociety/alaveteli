@@ -26,15 +26,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-02 22:52+0000\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/"
 "language/es_PA/)\n"
-"Language: es_PA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es_PA\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
@@ -370,9 +370,6 @@ msgstr "Sobre usted:"
 msgid "Act on what you've learnt"
 msgstr "Ponga en práctica lo aprendido"
 
-msgid "Actions"
-msgstr ""
-
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
 
@@ -466,12 +463,6 @@ msgstr "Un usuario anónimo"
 
 msgid "Annotation added to request"
 msgstr "Comentario añadido a la solicitud"
-
-msgid "Annotation contains defamatory material"
-msgstr ""
-
-msgid "Annotation contains personal information"
-msgstr ""
 
 msgid "Annotations"
 msgstr "Comentarios"
@@ -1344,8 +1335,10 @@ msgstr "Si el error fue un fallo técnico en la entrega y puedes encontrar una d
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Si este es un mensaje reciente, verifíquelo mañana, mientras verificamos nuevos ingresos periódicamente."
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
 msgstr ""
+"Si esto no es correcto o le gustaría enviar una respuesta a la solicitud\n"
+" o un correo sobre otro tema a {{user}}, entonces por favor escriba a {{contact_email}} solicitando ayuda."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2466,20 +2459,14 @@ msgstr "Recuérdame (mantiene la sesión abierta; no lo use en un ordenador púb
 msgid "Replying by post"
 msgstr ""
 
+msgid "Report abuse"
+msgstr "Denuncie abuso"
+
 msgid "Report an offensive or unsuitable request"
 msgstr "Informe sobre una solicitud ofensiva o inapropiada"
 
-msgid "Report annotation"
-msgstr ""
-
-msgid "Report annotation on request: {{title}}"
-msgstr ""
-
 msgid "Report request"
 msgstr "Reportar esta solicitud"
-
-msgid "Report request: {{title}}"
-msgstr ""
 
 msgid "Report this request"
 msgstr "Denunciar esta solicitud"
@@ -2658,12 +2645,6 @@ msgstr "Enviar seguimiento públicamente a {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Responder públicamente a {{person_or_body}}"
 
-msgid "Send and publish message"
-msgstr ""
-
-msgid "Send and publish request"
-msgstr ""
-
 msgid "Send follow up to '{{title}}'"
 msgstr "Enviar seguimiento a '{{title}}'"
 
@@ -2678,6 +2659,9 @@ msgstr "Enviar un mensaje a {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Enviar un mensaje a {{user_name}} sólo para ver cómo funciona"
+
+msgid "Send request"
+msgstr "Enviar solicitud"
 
 msgid "Sending..."
 msgstr "Enviando..."
@@ -2967,8 +2951,11 @@ msgstr "La clasificación de las solicitudes (por ejemplo, para decir si tuviero
 msgid "The contact email address for FOI requests to the authority."
 msgstr "La dirección de correo electrónico para solicitudes de acceso a la información presentadas a esta institución pública."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
+"El correo envíado por usted, en nombre de {{public_body}}, enviado a \n"
+"{{user}} como respuesta a la solicitud n{{law_used_short}}\n"
+" no ha sido entregado."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Las barras de error que se muestran son confiables en un 95% para la proporción subyacente (es decir,  que se obtendría al hacer una infinidad de peticiones a través de esta plataforma a la institución). En otras palabras, la  la muestra representa todas las solicitudes actuales y futuras que se presenten a la institución a través de esta plataforma, en lugar de, por ejemplo, todas las peticiones que se han hecho a la entidad pública por cualquier medio."
@@ -3124,8 +3111,8 @@ msgstr "A continuación recibirá notificaciones siempre que la solicitud '{{req
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "A continuación podrá enviar solicitudes de acceso a la información."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr ""
+msgid "Then your FOI request to {{public_body_name}} will be sent."
+msgstr "A continuación su solicitud a {{public_body_name}} será enviada."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "A continuación se enviará su comentario a {{info_request_title}}."
@@ -3185,9 +3172,6 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Solicitudes que esta siguiendo"
-
-msgid "This annotation has been reported for administrator attention"
-msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Esta institución pública ya no existe, no pueden realizarse solicitudes de información."
@@ -3424,8 +3408,8 @@ msgstr "Para enviar un mensaje de seguimiento a {{authority_name}}"
 msgid "To send a message to {{user_name}}"
 msgstr "Para enviar un mensaje a {{user_name}}"
 
-msgid "To send and publish your FOI request"
-msgstr ""
+msgid "To send your FOI request"
+msgstr "Para enviar su solicitud de acceso a la información"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Para reenviar su solicitud a otra institución, copie el texto de su solicitud a continuación, luego <a href=\"{{find_authority_url}}\">busque la otra institución</a>."
@@ -3681,9 +3665,6 @@ msgstr "Versión {{version}}"
 msgid "Vexatious"
 msgstr "Lenguaje inapropiado "
 
-msgid "Vexatious annotation"
-msgstr ""
-
 msgid "View FOI email address"
 msgstr "Ver dirección de correo electrónico"
 
@@ -3747,8 +3728,8 @@ msgstr "Consideramos que no es una solicitud de información válida, por lo que
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Consideramos que es ofensiva, por lo que la hemos ocultado para otros usuarios."
 
-msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr ""
+msgid "We couldn't determine the delivery status of this message"
+msgstr "No podemos determinar el estatus de entrega de este mensaje"
 
 msgid "We couldn’t display any logs for this message."
 msgstr "No podemos reflejar ningún registro para este mensaje."
@@ -3761,9 +3742,6 @@ msgstr "No tenemos una dirección de correo válida para esta institución."
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "No tenemos una dirección de correo electrónico de {{law_used_full}}válida para {{public_body_name}}."
-
-msgid "We don't know the delivery status for this message."
-msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

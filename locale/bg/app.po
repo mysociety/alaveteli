@@ -18,15 +18,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-02 22:52+0000\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/languag"
 "e/bg/)\n"
-"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
@@ -359,9 +359,6 @@ msgstr "За Вас:"
 msgid "Act on what you've learnt"
 msgstr "Предприемете нещо с това което научихте"
 
-msgid "Actions"
-msgstr ""
-
 msgid "Acts as xapian/acts as xapian job"
 msgstr ""
 
@@ -454,12 +451,6 @@ msgstr "Анонимен потребител"
 
 msgid "Annotation added to request"
 msgstr "Добавен е коментар към заявление"
-
-msgid "Annotation contains defamatory material"
-msgstr ""
-
-msgid "Annotation contains personal information"
-msgstr ""
 
 msgid "Annotations"
 msgstr "Коментари"
@@ -1332,8 +1323,11 @@ msgstr "Ако това е грешка при доставката и Вие м
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
 msgstr ""
+"Ако това е грешно, или бихте желали да изпратите закъснял отговор на заявлението\n"
+"или имейл по друга тема до {{user}}, то молим,\n"
+"пишете ни на {{contact_email}} за помощ."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2458,20 +2452,14 @@ msgstr ""
 msgid "Replying by post"
 msgstr ""
 
+msgid "Report abuse"
+msgstr ""
+
 msgid "Report an offensive or unsuitable request"
 msgstr "Докладване на обидно или неподходящо заявление"
 
-msgid "Report annotation"
-msgstr ""
-
-msgid "Report annotation on request: {{title}}"
-msgstr ""
-
 msgid "Report request"
 msgstr "Докладвай заявлението"
-
-msgid "Report request: {{title}}"
-msgstr ""
 
 msgid "Report this request"
 msgstr "Докладване на това заявление"
@@ -2650,12 +2638,6 @@ msgstr "Изпращане на публично пояснително съоб
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Изпращане публичен отговор до {{person_or_body}}"
 
-msgid "Send and publish message"
-msgstr ""
-
-msgid "Send and publish request"
-msgstr ""
-
 msgid "Send follow up to '{{title}}'"
 msgstr "Изпращане на пояснително съобщение към '{{title}}'"
 
@@ -2670,6 +2652,9 @@ msgstr "Изпращане на съобщение до {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Изпращане на съобщение до {{user_name}} само за да видя как работи"
+
+msgid "Send request"
+msgstr "Изпращане на заявление"
 
 msgid "Sending..."
 msgstr ""
@@ -2959,8 +2944,11 @@ msgstr "Класифицирането на заявления, (напр. да�
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Имейл адресът за контакти на органа за заявления за ДдИ."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
+"Имейлът, който Вие изпратихте от името на {{public_body}}, до\n"
+"{{user}} в отговор на заявление за {{law_used_short}}\n"
+"не беше доставено."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -3121,8 +3109,8 @@ msgstr "След това ще бъдете уведомявани при вся
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "След това Вие ще можете да изпращате заявления за ДдИ."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr ""
+msgid "Then your FOI request to {{public_body_name}} will be sent."
+msgstr "След това Вашите заявления за ДдИ до {{public_body_name}} ще бъдат изпратени."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "След това коментарът Ви към {{info_request_title}} ще бъде показан."
@@ -3184,9 +3172,6 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Нещата, които следите"
-
-msgid "This annotation has been reported for administrator attention"
-msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Този орган вече не съществува, поради което не може да отправите заявление към него."
@@ -3432,8 +3417,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "За да изпратите съобщение на {{user_name}}"
 
-msgid "To send and publish your FOI request"
-msgstr ""
+msgid "To send your FOI request"
+msgstr "За да изпратите Вашето заявление за ДдИ"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Да изпратите заявлението си до друг орган, копирайте първо текста на заявлението по-долу, след което <a href=\"{{find_authority_url}}\">намерете другия орган</a>."
@@ -3689,9 +3674,6 @@ msgstr "Версия {{version}}"
 msgid "Vexatious"
 msgstr "Неоснователно"
 
-msgid "Vexatious annotation"
-msgstr ""
-
 msgid "View FOI email address"
 msgstr "Имейл адрес за ДдИ"
 
@@ -3755,7 +3737,7 @@ msgstr "Според нас, това не е валидно Заявление 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Според нас, това е неоснователно и затова го скрихме от останалите потребители."
 
-msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
+msgid "We couldn't determine the delivery status of this message"
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3769,9 +3751,6 @@ msgstr "Ние нямаме работещ имейл адрес за заявл
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Не разполагаме с работещ адрес за Заявления за {{law_used_full}} на {{public_body_name}}."
-
-msgid "We don't know the delivery status for this message."
-msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

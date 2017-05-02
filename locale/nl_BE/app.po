@@ -18,15 +18,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-02 22:52+0000\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-03-23 09:46+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/nl_BE/)\n"
-"Language: nl_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl_BE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
@@ -352,9 +352,6 @@ msgstr "Over u:"
 msgid "Act on what you've learnt"
 msgstr "Handel naar wat u heeft geleerd"
 
-msgid "Actions"
-msgstr ""
-
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
 
@@ -441,12 +438,6 @@ msgstr "Een anonieme gebruiker"
 
 msgid "Annotation added to request"
 msgstr "Commentaar toegevoegd aan de informatieaanvraag"
-
-msgid "Annotation contains defamatory material"
-msgstr ""
-
-msgid "Annotation contains personal information"
-msgstr ""
 
 msgid "Annotations"
 msgstr "Commentaren"
@@ -1293,8 +1284,8 @@ msgstr "Indien de fout werd veroorzaakt door een 'delivery failure' en u vindt e
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Indien het gaat om een recent bericht, gelieve het morgen opnieuw na te kijken. We checken nieuwe logs regelmatig."
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
-msgstr ""
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+msgstr "Indien dit niet correct is of indien u een laattijdig antwoord op de aanvraag of een e-mail over een ander onderwerp wil sturen naar {{user}}, gelieve een e-mail te sturen naar {{contact_email}} voor ondersteuning."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Indien u niet tevreden bent met het antwoord dat u hebt ontvangen van de overheidsinstelling, hebt u het recht om een vraag om herziening te versturen (<a href=\"{{url}}\">gegevens</a>)."
@@ -2381,20 +2372,14 @@ msgstr "Herinner me (laat u toe om langer geconnecteerd te blijven; gebruik dit 
 msgid "Replying by post"
 msgstr "Antwoord per post"
 
+msgid "Report abuse"
+msgstr "Meld misbruik"
+
 msgid "Report an offensive or unsuitable request"
 msgstr "Meld een lasterlijk of ongepast verzoek"
 
-msgid "Report annotation"
-msgstr ""
-
-msgid "Report annotation on request: {{title}}"
-msgstr ""
-
 msgid "Report request"
 msgstr "Meld een aanvraag"
-
-msgid "Report request: {{title}}"
-msgstr ""
 
 msgid "Report this request"
 msgstr "Meld deze aanvraag"
@@ -2570,12 +2555,6 @@ msgstr "Stuur een publiek vervolgbericht naar {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Verzend een publiek antwoord naar {{person_or_body}}"
 
-msgid "Send and publish message"
-msgstr ""
-
-msgid "Send and publish request"
-msgstr ""
-
 msgid "Send follow up to '{{title}}'"
 msgstr "Verzend een vervolgbericht naar '{{title}}'"
 
@@ -2590,6 +2569,9 @@ msgstr "Zend een bericht naar {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Zend een bericht naar {{user_name}} om te zien hoe het werkt"
+
+msgid "Send request"
+msgstr "Verzend een verzoek"
 
 msgid "Sending..."
 msgstr "Verzenden..."
@@ -2863,8 +2845,8 @@ msgstr "De classificatie van de aanvragen (b.v. of ze succesvol of niet zijn opg
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Het contact-e-mailadres van de overheidsinstelling voor informatieaanvragen."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
-msgstr ""
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+msgstr "De e-mail die u in naam van {{public_body}} heeft verzonden naar {{user}} als antwoord op een aanvraag inzake {{law_used_short}}, is niet afgeleverd."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "De foutenbalken tonen 95% vertrouwensintervallen voor de vermoede onderliggende verhoudingen (dit is wat je zou verkrijgen door een oneindig aantal vragen via deze site aan die overheidsinstelling). Maw. de staal bestaat uit alle huidige en toekomstige vragen aan de overheid via deze site en niet aall vragen die aan die overheidsinstelling gesteld werden op eerder welke wijze."
@@ -3016,8 +2998,8 @@ msgstr "Vervolgens zult u verwittigd worden telkens de vraag '{{request_title}}'
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Vervolgens zult u in staat zijn om informatieaanvragen te verzenden."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr ""
+msgid "Then your FOI request to {{public_body_name}} will be sent."
+msgstr "Vervolgens zal uw informatieaanvraag aan {{public_body_name}} verzonden worden."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Vervolgens zal uw commentaar op {{info_request_title}} gepost worden."
@@ -3075,9 +3057,6 @@ msgstr "Ze hebben niet geantwoord op uw vraag van {{law_used_short}} {{title}} i
 
 msgid "Things you're following"
 msgstr "Wat u opvolgt"
-
-msgid "This annotation has been reported for administrator attention"
-msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Deze overheidsinstelling bestaat niet meer, u kunt haar dus geen vraag stellen."
@@ -3299,8 +3278,8 @@ msgstr "Om een opvolgingsbericht te versturen aan {{authority_name}} "
 msgid "To send a message to {{user_name}}"
 msgstr "Om een bericht te versturen aan {{user_name}}"
 
-msgid "To send and publish your FOI request"
-msgstr ""
+msgid "To send your FOI request"
+msgstr "Om uw informatieaanvraag te verzenden"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Om uw vraag naar een andere overheidsinstelling te verzenden, kopieer de tekst van uw aanvraag hieronder en zoek vervolgens <a href=\"{{find_authority_url}}\">de andere overheidsinstelling</a>."
@@ -3554,9 +3533,6 @@ msgstr "Versie {{version}}"
 msgid "Vexatious"
 msgstr "Ongepast"
 
-msgid "Vexatious annotation"
-msgstr ""
-
 msgid "View FOI email address"
 msgstr "Het e-mailadres van de informatieaanvraag bekijken"
 
@@ -3620,8 +3596,8 @@ msgstr "Wij zijn van oordeel dat het geen geldige informatieaanvraag is. Daarom 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Wij beschouwen haar als ongepast. Daarom is ze verborgen voor de andere gebruikers."
 
-msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr ""
+msgid "We couldn't determine the delivery status of this message"
+msgstr "U kunt de status van aflevering van dit beriht bepalen."
 
 msgid "We couldn’t display any logs for this message."
 msgstr "U kunt alle logs van dit bericht tonen."
@@ -3634,9 +3610,6 @@ msgstr "We beschikken niet over een e-mailadres voor de vragen aan deze overheid
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "We beschikken niet over een adres van de vraag van {{law_used_full}} voor {{public_body_name}}."
-
-msgid "We don't know the delivery status for this message."
-msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

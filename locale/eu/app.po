@@ -18,15 +18,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-02 22:52+0000\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/e"
 "u/)\n"
-"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
@@ -345,9 +345,6 @@ msgstr "Zeure buruaz:"
 msgid "Act on what you've learnt"
 msgstr "Erabil ezazu informazio hau"
 
-msgid "Actions"
-msgstr ""
-
 msgid "Acts as xapian/acts as xapian job"
 msgstr ""
 
@@ -434,12 +431,6 @@ msgstr ""
 
 msgid "Annotation added to request"
 msgstr "Eskabideari gehitutako iruzkina"
-
-msgid "Annotation contains defamatory material"
-msgstr ""
-
-msgid "Annotation contains personal information"
-msgstr ""
 
 msgid "Annotations"
 msgstr "Iruzkinak"
@@ -1298,8 +1289,10 @@ msgstr ""
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
 msgstr ""
+"Zuzena ez bada, edo  {{user}}-ri eskabideari edo beste gaiari buruzko erantzuna bidali nahi izango bazenio, orduan idatz ezazu, mesedez, \n"
+"{{contact_email}}-ra, laguntza eskatuz."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Erakunde publikotik jaso duzun erantzunarekin pozik ez bazaude, apelatzeko eskubidea daukazu (<a href=\"{{url}}\">xehetasunak</a>)."
@@ -2388,19 +2381,13 @@ msgstr ""
 msgid "Replying by post"
 msgstr ""
 
+msgid "Report abuse"
+msgstr "Salatu gehiegikeria"
+
 msgid "Report an offensive or unsuitable request"
 msgstr ""
 
-msgid "Report annotation"
-msgstr ""
-
-msgid "Report annotation on request: {{title}}"
-msgstr ""
-
 msgid "Report request"
-msgstr ""
-
-msgid "Report request: {{title}}"
 msgstr ""
 
 msgid "Report this request"
@@ -2580,12 +2567,6 @@ msgstr "Erantzun {{person_or_body}}-ri publikoki."
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "ERantzun {{person_or_body}}-ri publikoki"
 
-msgid "Send and publish message"
-msgstr ""
-
-msgid "Send and publish request"
-msgstr ""
-
 msgid "Send follow up to '{{title}}'"
 msgstr ""
 
@@ -2600,6 +2581,9 @@ msgstr "Bidali _____-ri mezua {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Bidali _____-ri mezua {{user_name}} nola funtzionatzen duen ikustearren"
+
+msgid "Send request"
+msgstr "Bidali eskabidea"
 
 msgid "Sending..."
 msgstr ""
@@ -2879,8 +2863,10 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
+"Zuk bidalitako emaila, {{public_body}}-ren izenean, enviado a\n"
+"{{user}}-ri  {{law_used_short}} eskabidearen erantzuna bezala, ez da eman."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -3036,8 +3022,8 @@ msgstr ""
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Orduan informazio eskabideak bidali ahal izango dituzu."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr ""
+msgid "Then your FOI request to {{public_body_name}} will be sent."
+msgstr "Orduan {{public_body_name}}-ri egin diozun eskabidea bidaliko da."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Orduan zure iruzkina {{info_request_title}}-ri bidaliko zaio."
@@ -3096,9 +3082,6 @@ msgstr ""
 " legeak agintzen duen bezala."
 
 msgid "Things you're following"
-msgstr ""
-
-msgid "This annotation has been reported for administrator attention"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3325,8 +3308,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "______-ri mezua bidaltzeko {{user_name}}"
 
-msgid "To send and publish your FOI request"
-msgstr ""
+msgid "To send your FOI request"
+msgstr "Zure informazio eskabidea bidaltzeko"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr ""
@@ -3580,9 +3563,6 @@ msgstr ""
 msgid "Vexatious"
 msgstr ""
 
-msgid "Vexatious annotation"
-msgstr ""
-
 msgid "View FOI email address"
 msgstr "Ikusi posta helbidea"
 
@@ -3646,7 +3626,7 @@ msgstr ""
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr ""
 
-msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
+msgid "We couldn't determine the delivery status of this message"
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3660,9 +3640,6 @@ msgstr "Ez daukagu erakunde honetako helbide baliagarririk."
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Ez daukagu {{public_body_name}} honetako {{law_used_full}} helbide baliagarririk."
-
-msgid "We don't know the delivery status for this message."
-msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

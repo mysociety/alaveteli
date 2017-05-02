@@ -30,15 +30,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-02 22:52+0000\n"
+"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/"
 "language/nb/)\n"
-"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
@@ -377,9 +377,6 @@ msgstr "Om deg:"
 msgid "Act on what you've learnt"
 msgstr "Gjør noe med det du har lært"
 
-msgid "Actions"
-msgstr ""
-
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
 
@@ -470,12 +467,6 @@ msgstr "En anonym bruker"
 
 msgid "Annotation added to request"
 msgstr "Merknad lagt til henvendelse"
-
-msgid "Annotation contains defamatory material"
-msgstr ""
-
-msgid "Annotation contains personal information"
-msgstr ""
 
 msgid "Annotations"
 msgstr "Merknader"
@@ -1343,8 +1334,11 @@ msgstr "Hvis feilen var et problem med leveringen, og du kan finne en oppdatert 
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Hvis dette er en melding som er ny, kom tilbake i morgen da vi periodisk sjekker etter nye logger."
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
 msgstr ""
+"Hvis dette ikke er korrekt, eller man ønsker å ettersende en oppfølging av henvendelsen \n"
+" eller en e-post om et annet tema til {{user}}, send gjerne e-post til \n"
+" {{contact_email}} for å få hjelp."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2460,20 +2454,14 @@ msgstr "Husk meg (lar deg være logget inn lengre, ikke bruk dette på en offent
 msgid "Replying by post"
 msgstr ""
 
+msgid "Report abuse"
+msgstr "Meld misbruk"
+
 msgid "Report an offensive or unsuitable request"
 msgstr "Meld en støtende eller upassende henvendelse"
 
-msgid "Report annotation"
-msgstr ""
-
-msgid "Report annotation on request: {{title}}"
-msgstr ""
-
 msgid "Report request"
 msgstr "Meld henvendelse"
-
-msgid "Report request: {{title}}"
-msgstr ""
 
 msgid "Report this request"
 msgstr "Rapporter henvendelsen"
@@ -2652,12 +2640,6 @@ msgstr "Send en offentlig oppfølgningsmelding til {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Send et offentlig svar til {{person_or_body}}"
 
-msgid "Send and publish message"
-msgstr ""
-
-msgid "Send and publish request"
-msgstr ""
-
 msgid "Send follow up to '{{title}}'"
 msgstr "Send oppfølgning til '{{title}}'"
 
@@ -2672,6 +2654,9 @@ msgstr "Send melding til {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Send melding til {{user_name}} bare for å se hvordan det fungerer"
+
+msgid "Send request"
+msgstr "Send henvendelse"
 
 msgid "Sending..."
 msgstr "Sender..."
@@ -2959,8 +2944,10 @@ msgstr "Klassifiseringen av henvendelser (dvs. å si om de var vellykkede eller 
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Kontakt-e-postadressen for innsynshenvendelser til denne myndigheten."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
+"E-posten som du, på vegne av {{public_body}}, har sendt til\n"
+"{{user}} for å svare på en {{law_used_short}}-henvendelse, har ikke blitt levert."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Stolpene i diagramet viser 95% konfidensintervall for den hypotetiske underliggende størrelsen (med andre ord, den du får hvis du lager et uendelig antall henvendelser via dette nettstedet til den myndigheten).  Med andre ord, populasjonen som samples er alle de nåværende og fremtidige henvendelsene til myndigheten gjennom dette nettstedet, i stedet for eksempel alle henvendelser som har blitt gjort til det offentlige myndigheten uavhengig av måte."
@@ -3121,8 +3108,8 @@ msgstr "Så vil du få en oppdatering når henvendelsen «{{request_title}}» bl
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Deretter vil du få lov til å sende innsynshenvendelser."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr ""
+msgid "Then your FOI request to {{public_body_name}} will be sent."
+msgstr "Innsynshenvendelsen din vil også bli sendt til {{public_body_name}}."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Så vil din annotering til  {{info_request_title}} bli publisert."
@@ -3182,9 +3169,6 @@ msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}», slik det 
 
 msgid "Things you're following"
 msgstr "Ting du følger"
-
-msgid "This annotation has been reported for administrator attention"
-msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Denne myndigheten er slettet, og kan ikke kontaktes."
@@ -3420,8 +3404,8 @@ msgstr "For å sende en oppfølgningsmelding til  {{authority_name}}"
 msgid "To send a message to {{user_name}}"
 msgstr "For å sende en melding til {{user_name}}"
 
-msgid "To send and publish your FOI request"
-msgstr ""
+msgid "To send your FOI request"
+msgstr "For å sende en innsynshenvendelse"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "For å sende henvendelsen til en annen myndighet, må du først kopiere teksten i din henvendelse nedenfor, deretter <a href=\"{{find_authority_url}}\">finne den andre myndigheten</a>."
@@ -3675,9 +3659,6 @@ msgstr "Versjon {{version}}"
 msgid "Vexatious"
 msgstr "Sjikane"
 
-msgid "Vexatious annotation"
-msgstr ""
-
 msgid "View FOI email address"
 msgstr "Vis e-post adresse for innsyn"
 
@@ -3741,8 +3722,8 @@ msgstr "Vi ser ikke på dette som en gyldig innsynshenvendelse, og har derfor gj
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Vi ser på den som sjikanøs, og har derfor skjult den for de andre brukerne."
 
-msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr ""
+msgid "We couldn't determine the delivery status of this message"
+msgstr "Vi kunne ikke bestemme leveringsstatus for denne meldingen"
 
 msgid "We couldn’t display any logs for this message."
 msgstr "Vi kunne ikke vise noen logger for denne meldingen."
@@ -3755,9 +3736,6 @@ msgstr "Vi har ikke en gyldig e-post adresse for henvendelser for denne myndighe
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Vi har ikke en fungerende {{law_used_full}}-adresse for {{public_body_name}}."
-
-msgid "We don't know the delivery status for this message."
-msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""
