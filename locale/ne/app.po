@@ -1070,13 +1070,13 @@ msgstr "यो मान्छेलाई पछ्याउनुहोस्�
 msgid "Follow this request"
 msgstr "यस अनुरोधलाई पछ्याउनुहोस्"
 
-#. "Follow up" in this context means a further
+#. TRANSLATORS: "Follow up" in this context means a further
 #. message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up"
 msgstr "ताकेता गर्नुहोस्"
 
-#. "Follow up message" in this context means a
+#. TRANSLATORS: "Follow up message" in this context means a
 #. further message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up message sent by requester"
@@ -1088,7 +1088,7 @@ msgstr "अवस्थित अनुरोध गर्न सन्देश
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "फल्लोअप्  {{info_request_user}} द्वारा {{public_body_name}} लाई  {{date}} मा पठाइएको छ |"
 
-#. "Follow ups" in this context means further
+#. TRANSLATORS: "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
@@ -4422,7 +4422,7 @@ msgstr "तपाईँले गर्नुभएको"
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "{{public_body}} को लागि सुचनाको हक अन्तरगतको प्रमुख सम्पर्क ठेगाना "
 
-#. This phrase completes the following sentences:
+#. TRANSLATORS: This phrase completes the following sentences:
 #. Request an internal review from...
 #. Send a public follow up message to...
 #. Send a public reply to...
@@ -4531,7 +4531,7 @@ msgstr "{{info_request_user_name}}"
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} अनुरोध - {{title}}"
 
-#. Please don't use double quotes (") in this translation
+#. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{public_body}}मा {{law_used}} अनुरोधहरू"

@@ -1032,13 +1032,13 @@ msgstr "Segui questa persona"
 msgid "Follow this request"
 msgstr "Segui questa richiesta"
 
-#. "Follow up" in this context means a further
+#. TRANSLATORS: "Follow up" in this context means a further
 #. message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up"
 msgstr "Risposta"
 
-#. "Follow up message" in this context means a
+#. TRANSLATORS: "Follow up message" in this context means a
 #. further message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up message sent by requester"
@@ -1050,7 +1050,7 @@ msgstr "I messaggi di risposta sono inviati a <strong>{{authority_email}}</stron
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Messaggi di risposta spediti a \"{{public_body_name}}\" da {{info_request_user}} il {{date}}."
 
-#. "Follow ups" in this context means further
+#. TRANSLATORS: "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
@@ -4329,7 +4329,7 @@ msgstr "che hai fatto a "
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "indirizzo del responsabile per le richieste di accesso all'interno di \"{{public_body}}\""
 
-#. This phrase completes the following sentences:
+#. TRANSLATORS: This phrase completes the following sentences:
 #. Request an internal review from...
 #. Send a public follow up message to...
 #. Send a public reply to...
@@ -4440,7 +4440,7 @@ msgstr "{{info_request_user_name}}"
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Richiesta di accesso secondo il {{law_used_full}}  - {{title}}"
 
-#. Please don't use double quotes (") in this translation
+#. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "Destinatario delle richieste di {{law_used}} o generalizzato indirizzate a '{{public_body}}'"

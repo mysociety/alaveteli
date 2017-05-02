@@ -1053,13 +1053,13 @@ msgstr "Ndiq këtë person"
 msgid "Follow this request"
 msgstr "Ndiq këtë kërkesë"
 
-#. "Follow up" in this context means a further
+#. TRANSLATORS: "Follow up" in this context means a further
 #. message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up"
 msgstr "Vijues"
 
-#. "Follow up message" in this context means a
+#. TRANSLATORS: "Follow up message" in this context means a
 #. further message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up message sent by requester"
@@ -1071,7 +1071,7 @@ msgstr "Mesazhet pasuese për kërkesat ekzistuese dërgohen tek <strong>{{autho
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Mesazhi vijues derguar {{public_body_name}} nga {{info_request_user}} me {{date}}."
 
-#. "Follow ups" in this context means further
+#. TRANSLATORS: "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
@@ -4376,7 +4376,7 @@ msgstr "që ju i bërë për"
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "adresa kryesore kontaktuese për te Drejten e Informimit tek {{public_body}}"
 
-#. This phrase completes the following sentences:
+#. TRANSLATORS: This phrase completes the following sentences:
 #. Request an internal review from...
 #. Send a public follow up message to...
 #. Send a public reply to...
@@ -4488,7 +4488,7 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Kërkesë për {{law_used_full}} - {{title}}"
 
-#. Please don't use double quotes (") in this translation
+#. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "kerkesa {{law_used}} tek {{public_body}}"
