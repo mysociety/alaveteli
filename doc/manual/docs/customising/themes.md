@@ -87,7 +87,7 @@ The easiest way to create a new theme is to
 ## What you might want to change
 
 The most common requirement is to brand the site: at a minimum,
-[inserting your own logo](#changing-the-logo) and
+[inserting your own logo](#changing-the-site-logo) and
 [colour scheme](#changing-the-colour-scheme). You should also
 [add the categories](#adding-your-own-categories-for-authorities)
 that authorities can appear in (you can see these as groupings on the left-hand
