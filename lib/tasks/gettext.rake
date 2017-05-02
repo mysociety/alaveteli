@@ -12,7 +12,8 @@ namespace :gettext do
   desc "Update pot/po files"
   task :find => :environment do
     CLEAN = FileList["locale/*/*~",
-                     "locale/*/*.bak"]
+                     "locale/*/*.bak",
+                     "locale/*/*.edit.po"]
 
     define_gettext_task(text_domain,
                         "locale",
@@ -21,6 +22,7 @@ namespace :gettext do
     quietly do
       Rake::Task["gettext:po:update"].invoke
     end
+    Rake::Task["clean"].invoke
   end
 
   desc "Update pot/po files for a theme."
@@ -43,6 +45,7 @@ namespace :gettext do
   desc "Update pot/po files for Alaveteli Pro."
   task :find_alaveteli_pro => :environment do
     CLEAN = FileList["#{pro_locale_path}/*/*~",
+                     "#{pro_locale_path}/*/*.edit.po",
                      "#{pro_locale_path}/*/*.bak"]
 
     define_gettext_task(text_domain,
@@ -52,6 +55,7 @@ namespace :gettext do
     quietly do
       Rake::Task["gettext:po:update"].invoke
     end
+    Rake::Task["clean"].invoke
   end
 
   desc 'Rewrite .po files into a consistent msgmerge format'
