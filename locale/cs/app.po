@@ -28,7 +28,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-04-24 09:55+0000\n"
 "Last-Translator: steve_mysociety <steve@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs"
@@ -361,6 +360,9 @@ msgstr "O vás:"
 msgid "Act on what you've learnt"
 msgstr "Jednejte na základě toho, co jste se dozvěděli"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
 
@@ -451,6 +453,14 @@ msgstr "Nezaregistrovaný uživatel"
 
 msgid "Annotation added to request"
 msgstr "Poznámka u dotazu byla přidána"
+
+#, fuzzy
+msgid "Annotation contains defamatory material"
+msgstr "Obsah je urážlivý"
+
+#, fuzzy
+msgid "Annotation contains personal information"
+msgstr "Obsahuje osobní informace"
 
 msgid "Annotations"
 msgstr "Poznámky"
@@ -1322,7 +1332,8 @@ msgstr "Pokud zpráva nebyla doručena a podaří se vám vyhledat správnou e-m
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Pokud se jedná o novou zprávu, zkuste to zítra, kontrolujeme nové zápisy pravidelně. "
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+#, fuzzy
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
 "Pokud se stala chyba nebo chcete poslat opožděnou odpověď \n"
 "na tento dotaz, nebo napsat uživateli {{user}} něco jiného, prosíme\n"
@@ -2430,13 +2441,22 @@ msgstr "Zapamatovat mé údaje (zašrktněte, pokud chcete být déle přihláš
 msgid "Replying by post"
 msgstr "Odpovídají poštou"
 
-msgid "Report abuse"
-msgstr "Nahlásit zneužití"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Nahlásit nevhodný obsah dotazu"
 
+#, fuzzy
+msgid "Report annotation"
+msgstr "Zveřejněte anotaci"
+
+#, fuzzy
+msgid "Report annotation on request: {{title}}"
+msgstr "na"
+
 msgid "Report request"
+msgstr "Nahlásit tento dotaz"
+
+#, fuzzy
+msgid "Report request: {{title}}"
 msgstr "Nahlásit tento dotaz"
 
 msgid "Report this request"
@@ -2616,6 +2636,14 @@ msgstr "Odpovězte veřejně {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Pošlete veřejnou odpověď {{person_or_body}}"
 
+#, fuzzy
+msgid "Send and publish message"
+msgstr "a"
+
+#, fuzzy
+msgid "Send and publish request"
+msgstr "a"
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Odpovědět na '{{title}}'"
 
@@ -2630,9 +2658,6 @@ msgstr "Vznést dotaz na {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Vznést dotaz na uživatele {{user_name}}. Tímto způsobem si můžete otestovat, že systém funguje"
-
-msgid "Send request"
-msgstr "Vznést dotaz"
 
 msgid "Sending..."
 msgstr "Odesílá se..."
@@ -2922,7 +2947,8 @@ msgstr "Zařazení žádostí (např. zda byla žádost úspěšně zodpovězena
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Kontaktní e-mailová adresa instituce pro žádosti o informace "
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+#, fuzzy
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
 "E-mail, který jste poslali v zastoupení instituce {{public_body}}, uživateli\n"
 "{{user}} jako odpověď na dotaz o poskytnutí informací podle zákona 106/1999 Sb. {{law_used_short}} nebyl doručen."
@@ -3084,7 +3110,8 @@ msgstr "Budete upozorněni na změnu stavu u dotazu '{{request_title}}'."
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Pak můžete vznést dotaz."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
+#, fuzzy
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
 msgstr "Poté bude váš dotaz instituci {{public_body_name}} zaslán."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3145,6 +3172,10 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Témata, která sledujete:"
+
+#, fuzzy
+msgid "This annotation has been reported for administrator attention"
+msgstr "Odesláno administrátorovi"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Tato instituce již neexistuje, nelze na ni proto vznést dotaz. "
@@ -3380,8 +3411,9 @@ msgstr "Abyste mohli poslat zprávu pro {{authority_name}}"
 msgid "To send a message to {{user_name}}"
 msgstr "Poslat zprávu {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "Vznést dotaz"
+#, fuzzy
+msgid "To send and publish your FOI request"
+msgstr "dotaz"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Jak vznést stejný dotaz na jinou instituci: nejdříve zkopírujte níže uvedený text dotazu a pak <a href=\"{{find_authority_url}}\">najděte požadovanou instituci</a>."
@@ -3635,6 +3667,10 @@ msgstr "Version {{version}}"
 msgid "Vexatious"
 msgstr "Nevhodný"
 
+#, fuzzy
+msgid "Vexatious annotation"
+msgstr "Nevhodný"
+
 msgid "View FOI email address"
 msgstr "Zobrazit e-mailovou adresu pro zasílání žádostí podle zákona o svobodném přístupu k informacím. "
 
@@ -3698,7 +3734,8 @@ msgstr "Považujeme tuto žádost za neplatnou a proto zůstává ostatním uži
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Považujeme tuto zprávu za nevhodnou, proto je ostatním uživatelům skryta."
 
-msgid "We couldn't determine the delivery status of this message"
+#, fuzzy
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr "Nemohli jsme zjistit, zda byla zpráva doručena"
 
 msgid "We couldn’t display any logs for this message."
@@ -3712,6 +3749,10 @@ msgstr "Nemáme funkční e-mailovou adresu pro tuto instituci."
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Ještě nemáme {{law_used_full}} adresu pro {{public_body_name}}."
+
+#, fuzzy
+msgid "We don't know the delivery status for this message."
+msgstr "Nemohli jsme zjistit, zda byla zpráva doručena"
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

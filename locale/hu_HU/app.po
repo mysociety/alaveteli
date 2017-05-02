@@ -19,7 +19,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/mysociety/alavete"
@@ -360,6 +359,9 @@ msgstr "Magamról: "
 msgid "Act on what you've learnt"
 msgstr "Tegyen lépéseket a megismert tények alapján "
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr ""
 
@@ -448,6 +450,12 @@ msgstr "Névtelen felhasználó"
 
 msgid "Annotation added to request"
 msgstr "Hozzászólás készült az igényléshez"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Hozzászólások"
@@ -1326,7 +1334,8 @@ msgstr ""
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+#, fuzzy
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
 "Ha ez hibás, vagy az igénylésre késedelmesen választ szeretne küldeni,\n"
 "vagy {{user}} részére más tárgy miatt e-mailt kíván küldeni, küldjön \n"
@@ -2454,13 +2463,20 @@ msgstr ""
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "Visszaélés jelentése"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Sértő vagy nem alkalmas igénylés jelentése"
 
+#, fuzzy
+msgid "Report annotation"
+msgstr "Hozzászólás beküldése "
+
+msgid "Report annotation on request: {{title}}"
+msgstr ""
+
 msgid "Report request"
+msgstr ""
+
+msgid "Report request: {{title}}"
 msgstr ""
 
 msgid "Report this request"
@@ -2640,6 +2656,14 @@ msgstr "Nyilvános nyomon követés küldése {{person_or_body}} részére "
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Nyilvános válasz küldése {{person_or_body}} részére "
 
+#, fuzzy
+msgid "Send and publish message"
+msgstr "és"
+
+#, fuzzy
+msgid "Send and publish request"
+msgstr "és"
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Emlékeztető üzenet küldése a(z) '{{title}}' igényléshez"
 
@@ -2654,9 +2678,6 @@ msgstr "Üzenet küldése a következőnek: {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Üzenet küldése a következőnek: {{user_name}} Csak hogy megnézzük, hogyan működik "
-
-msgid "Send request"
-msgstr "Igénylés küldése "
 
 msgid "Sending..."
 msgstr ""
@@ -2946,7 +2967,8 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+#, fuzzy
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
 "Az az e-mail, amelyet ön a(z) {{public_body}} adatgazda nevében\n"
 "{{user}} felhasználónak küldött a {{law_used_short}}\n"
@@ -3111,7 +3133,8 @@ msgstr "Ezután értesítést kap, ha a(z) '{{request_title}}' igénylést friss
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Ezután önnek lehetősége van közérdekűadat-igénylést benyújtani. "
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
+#, fuzzy
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
 msgstr "Ezután elküldjük közérdekűadat-igénylését a(z) {{public_body_name}} részére."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3174,6 +3197,10 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Követett elemek:"
+
+#, fuzzy
+msgid "This annotation has been reported for administrator attention"
+msgstr "Ezt az igénylést már jelentették az adminisztrátornak"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Ez az adatgazda már nem létezik, ezért nem tud adatigényléseket fogadni. "
@@ -3417,8 +3444,9 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Ha üzenet szeretne küldeni a következőnek: {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "Ha el szeretné küldeni közérdekűadat-igénylését "
+#, fuzzy
+msgid "To send and publish your FOI request"
+msgstr "KözAdat"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Ha igénylését egy másik adatgazdának is el szeretné küldeni, először másolja be alulra igénylésének szövegét, majd <a href=\"{{find_authority_url}}\">keresse ki a másik adatgazdát</a>."
@@ -3674,6 +3702,9 @@ msgstr ""
 msgid "Vexatious"
 msgstr ""
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
 msgstr "Az adatgazda e-mail címe (amelyre a közérdekűadat-igényléseket elküldjük)"
 
@@ -3737,7 +3768,7 @@ msgstr ""
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr ""
 
-msgid "We couldn't determine the delivery status of this message"
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3751,6 +3782,9 @@ msgstr "Nem rendelkezünk az adatgazda működő e-mail címével. "
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nem rendelkezünk a(z) {{public_body_name}} működő {{law_used_full}} e-mail címével. "
+
+msgid "We don't know the delivery status for this message."
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

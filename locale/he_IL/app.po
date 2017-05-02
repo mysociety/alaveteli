@@ -29,7 +29,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/l"
@@ -368,6 +367,9 @@ msgstr "אודותיך:"
 msgid "Act on what you've learnt"
 msgstr "שתפו את הידע שקיבלתם"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "מתנהג כמו Xapien/מתנהג כמו מטלת Xapien"
 
@@ -460,6 +462,14 @@ msgstr "משתמש אנונימי"
 
 msgid "Annotation added to request"
 msgstr "ההערה התווספה לדרישה"
+
+#, fuzzy
+msgid "Annotation contains defamatory material"
+msgstr "מכיל מידע פוגע"
+
+#, fuzzy
+msgid "Annotation contains personal information"
+msgstr "מכיל מידע אישי"
 
 msgid "Annotations"
 msgstr "הערות"
@@ -1329,7 +1339,8 @@ msgstr "אם השגיאה נגרמה כתוצאה מכתובת דוא\"ל שגו
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+#, fuzzy
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "אם המידע אינו נכון, או אם ברצונכם לשלוח תגובה מאוחרת למבקש /n או אימייל בנושא אחר אל {{user}}, אנא צרו קשר עם  {{contact_email}}  עבור עזרה."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
@@ -2439,13 +2450,22 @@ msgstr "זכור אותי (משאיר אתכם מחוברים לזמן רב יו
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "דיווח על שימוש לרעה"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "דווחו על בקשה לא מתאימה או פוגענית"
 
+#, fuzzy
+msgid "Report annotation"
+msgstr "פרסם הערה"
+
+#, fuzzy
+msgid "Report annotation on request: {{title}}"
+msgstr "ב- "
+
 msgid "Report request"
+msgstr "דווח על הבקשה"
+
+#, fuzzy
+msgid "Report request: {{title}}"
 msgstr "דווח על הבקשה"
 
 msgid "Report this request"
@@ -2624,6 +2644,14 @@ msgstr "שלחו הודעת המשך ציבורית ל{{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "שלחו תגובה ציבורית ל{{person_or_body}}"
 
+#, fuzzy
+msgid "Send and publish message"
+msgstr "וְ"
+
+#, fuzzy
+msgid "Send and publish request"
+msgstr "וְ"
+
 msgid "Send follow up to '{{title}}'"
 msgstr "שלח בקשת מעקב ל'{{title}}'"
 
@@ -2638,9 +2666,6 @@ msgstr "שלחו הודעה {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "שלחו הודעה {{user_name}} רק כדי לראות איך זה עובד"
-
-msgid "Send request"
-msgstr "שלחו בקשה"
 
 msgid "Sending..."
 msgstr ""
@@ -2928,7 +2953,8 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+#, fuzzy
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr "הדוא\"ל ששלחתם בשם {{public_body}}, ל-{{user}} כדי להגיב על בקשת {{law_used_short}} לא נשלח."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
@@ -3089,7 +3115,8 @@ msgstr "לאחר מכן תקבלו עדכון כאשר הבקשה '{{request_tit
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "אז תורשו לשלוח בקשות מידע"
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
+#, fuzzy
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
 msgstr "אז תישלח בקשת המידע שלכם ל- {{public_body_name}}."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3150,6 +3177,10 @@ msgstr "לא התקבלה תגובה לבקשת {{law_used_short}} \"{{title}}\"
 
 msgid "Things you're following"
 msgstr "דברים אחריהם אתם עוקבים"
+
+#, fuzzy
+msgid "This annotation has been reported for administrator attention"
+msgstr "בקשה זו דווחה לטיפול מנהל"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "רשות זו לא קיימת כבר, לכן לא ניתן להגיש לה בקשה."
@@ -3389,8 +3420,9 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "לשלוח הודעה אל {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "כדי לשלוח את בקשת המידע שלכם"
+#, fuzzy
+msgid "To send and publish your FOI request"
+msgstr "חוק חופש המידע"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "כדי לשלוח בקשת מידע לרשות אחרת, העתיקו את הבקשה מכאן למטה, ואז <a href=\"{{find_authority_url}}\">מצאו את הרשות</a>."
@@ -3646,6 +3678,10 @@ msgstr "גירסה {{version}}"
 msgid "Vexatious"
 msgstr ""
 
+#, fuzzy
+msgid "Vexatious annotation"
+msgstr "ב- "
+
 msgid "View FOI email address"
 msgstr "צפו בדוא\"ל של בקשות מידע"
 
@@ -3709,8 +3745,9 @@ msgstr "בקשה זו אינה עומדת בקריטריונים, ולכן מו�
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "תויג כבעייתי, ולכן מוסתר ממשתמשים אחרים."
 
-msgid "We couldn't determine the delivery status of this message"
-msgstr ""
+#, fuzzy
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
+msgstr "ב- "
 
 msgid "We couldn’t display any logs for this message."
 msgstr ""
@@ -3723,6 +3760,10 @@ msgstr "אין ברשותנו כתובת דוא\"ל פעילה להגשת בקש
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "אין ברשותנו {{law_used_full}} כתובת פעילה ל- {{public_body_name}}."
+
+#, fuzzy
+msgid "We don't know the delivery status for this message."
+msgstr "ב- "
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

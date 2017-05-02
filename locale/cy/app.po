@@ -28,7 +28,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy"
@@ -341,6 +340,9 @@ msgstr "Amdanoch chi:"
 msgid "Act on what you've learnt"
 msgstr "Gweithredu ar yr hyn rydych wedi ei ddysgu"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Yn gweithredu fel xapian / yn gweithredu fel swydd xapian"
 
@@ -427,6 +429,14 @@ msgstr "Defnyddiwr dienw"
 
 msgid "Annotation added to request"
 msgstr "Ychwanegwyd anodiad i'r cais"
+
+#, fuzzy
+msgid "Annotation contains defamatory material"
+msgstr "Yn cynnwys deunydd difenwol"
+
+#, fuzzy
+msgid "Annotation contains personal information"
+msgstr "Yn cynnwys gwybodaeth bersonol"
 
 msgid "Annotations"
 msgstr "Anodiadau"
@@ -1273,7 +1283,8 @@ msgstr "Os methiant dosbarthu oedd y gwall, ac rydych chi'n gallu dod o hyd i cy
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+#, fuzzy
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "Os yw hyn yn anghywir, neu os hoffech anfon ymateb hwyr i'r cais neu e-bost ar bwnc arall i {{user}}, yna e-bostiwch {{contact_email}} am gymorth."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
@@ -2358,13 +2369,22 @@ msgstr ""
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "Anfonwch adroddiad camddefnydd"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Rhoi gwybod am gais tramgwyddus neu anaddas"
 
+#, fuzzy
+msgid "Report annotation"
+msgstr "Anodiad i bost"
+
+#, fuzzy
+msgid "Report annotation on request: {{title}}"
+msgstr "yn"
+
 msgid "Report request"
+msgstr "Rhoi gwybod am gais"
+
+#, fuzzy
+msgid "Report request: {{title}}"
 msgstr "Rhoi gwybod am gais"
 
 msgid "Report this request"
@@ -2541,6 +2561,14 @@ msgstr "Anfonwch neges gyhoeddus ddilynol i {{person_or_body}} "
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Anfon ateb cyhoeddus i {{person_or_body}} "
 
+#, fuzzy
+msgid "Send and publish message"
+msgstr "a"
+
+#, fuzzy
+msgid "Send and publish request"
+msgstr "a"
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Anfonwch neges ddilynol i '{{title}}'"
 
@@ -2555,9 +2583,6 @@ msgstr "Anfon neges i {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Anfon neges i {{user_name}} dim ond i weld sut mae'n gweithio"
-
-msgid "Send request"
-msgstr "Anfon cais"
 
 msgid "Sending..."
 msgstr ""
@@ -2833,7 +2858,8 @@ msgstr "Mae dosbarthiad y ceisiadau (ee i ddweud a oeddent yn llwyddiannus neu b
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Cyfeiriad ebost y cyswllt ar gyfer ceisiadau Rhyddid Wybodaeth i'r awdurdod."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+#, fuzzy
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr "Nid yw'r e-bost anfonoch, ar ran {{public_body}}, at {{user}} i ymateb i gais {{law_used_short}} wedi cael ei gyflwyno."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
@@ -2986,7 +3012,8 @@ msgstr "Yna byddwch yn cael diweddariad pryd bynnag y bydd cais '{{request_title
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Yna byddwch yn cael anfon ceisiadau Rhyddid Gwybodaeth."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
+#, fuzzy
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
 msgstr "Yna bydd eich cais Rhyddid Gwybodaeth i {{public_body_name}} yn cael ei anfon."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3045,6 +3072,10 @@ msgstr "Nid ydynt wedi ateb i'ch cais {{title}} {{law_used_short}}, fel sy'n ofy
 
 msgid "Things you're following"
 msgstr "Pethau rydych yn eu dilyn"
+
+#, fuzzy
+msgid "This annotation has been reported for administrator attention"
+msgstr "Mae adroddiad am y cais hwn wedi cael ei anfon, at sylw gweinyddwr"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Nid yw'r awdurdod hwn yn bodoli bellach, felly ni allwch wneud cais iddo."
@@ -3270,8 +3301,9 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "I anfon neges i {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "I anfon eich cais Rhyddid Gwybodaeth"
+#, fuzzy
+msgid "To send and publish your FOI request"
+msgstr "Rhyddid Gwybodaeth"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "I anfon eich cais i awdurdod arall, yn gyntaf copiwch destun eich cais isod, yna <a href=\"{{find_authority_url}}\">dewch o hyd i'r awdurdod arall</a>."
@@ -3525,6 +3557,10 @@ msgstr "Fersiwn {{version}}"
 msgid "Vexatious"
 msgstr "Blinderus"
 
+#, fuzzy
+msgid "Vexatious annotation"
+msgstr "Blinderus"
+
 msgid "View FOI email address"
 msgstr "Gweld cyfeiriad e-bost i gais Rhyddid Gwybodaeth "
 
@@ -3588,8 +3624,9 @@ msgstr "Rydym yn ystyried nad yw'n gais Rhyddid Gwybodaeth dilys, ac felly wedi 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Rydym yn ystyried ei fod yn flinderus, ac felly wedi ei guddio oddi wrth ddefnyddwyr eraill."
 
-msgid "We couldn't determine the delivery status of this message"
-msgstr ""
+#, fuzzy
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
+msgstr "yn"
 
 msgid "We couldn’t display any logs for this message."
 msgstr ""
@@ -3602,6 +3639,10 @@ msgstr "Nid oes gennym gyfeiriad e-bost sy'n gweithio i wneud cais i'r awdurdod 
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nid oes gennym gyfeiriad {{law_used_full}} sy'n gweithio ar gyfer {{public_body_name}}."
+
+#, fuzzy
+msgid "We don't know the delivery status for this message."
+msgstr "yn"
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Nid ydym yn gwybod a yw'r ymateb mwyaf diweddar i'r cais hwn yn cynnwys gwybodaeth neuai peidio - os chi yw{{user_link}} <a href = \"{{url}}\">mewngofnodwch </a> a gadael i bawb wybod."

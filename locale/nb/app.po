@@ -30,7 +30,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/"
@@ -377,6 +376,9 @@ msgstr "Om deg:"
 msgid "Act on what you've learnt"
 msgstr "Gjør noe med det du har lært"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
 
@@ -467,6 +469,14 @@ msgstr "En anonym bruker"
 
 msgid "Annotation added to request"
 msgstr "Merknad lagt til henvendelse"
+
+#, fuzzy
+msgid "Annotation contains defamatory material"
+msgstr "Inneholder ærekrenkende materiale"
+
+#, fuzzy
+msgid "Annotation contains personal information"
+msgstr "Inneholder personlig informasjon"
 
 msgid "Annotations"
 msgstr "Merknader"
@@ -1334,7 +1344,8 @@ msgstr "Hvis feilen var et problem med leveringen, og du kan finne en oppdatert 
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Hvis dette er en melding som er ny, kom tilbake i morgen da vi periodisk sjekker etter nye logger."
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+#, fuzzy
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
 "Hvis dette ikke er korrekt, eller man ønsker å ettersende en oppfølging av henvendelsen \n"
 " eller en e-post om et annet tema til {{user}}, send gjerne e-post til \n"
@@ -2454,13 +2465,22 @@ msgstr "Husk meg (lar deg være logget inn lengre, ikke bruk dette på en offent
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "Meld misbruk"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Meld en støtende eller upassende henvendelse"
 
+#, fuzzy
+msgid "Report annotation"
+msgstr "Send inn merknad"
+
+#, fuzzy
+msgid "Report annotation on request: {{title}}"
+msgstr "ved"
+
 msgid "Report request"
+msgstr "Meld henvendelse"
+
+#, fuzzy
+msgid "Report request: {{title}}"
 msgstr "Meld henvendelse"
 
 msgid "Report this request"
@@ -2640,6 +2660,14 @@ msgstr "Send en offentlig oppfølgningsmelding til {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Send et offentlig svar til {{person_or_body}}"
 
+#, fuzzy
+msgid "Send and publish message"
+msgstr "og"
+
+#, fuzzy
+msgid "Send and publish request"
+msgstr "og"
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Send oppfølgning til '{{title}}'"
 
@@ -2654,9 +2682,6 @@ msgstr "Send melding til {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Send melding til {{user_name}} bare for å se hvordan det fungerer"
-
-msgid "Send request"
-msgstr "Send henvendelse"
 
 msgid "Sending..."
 msgstr "Sender..."
@@ -2944,7 +2969,8 @@ msgstr "Klassifiseringen av henvendelser (dvs. å si om de var vellykkede eller 
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Kontakt-e-postadressen for innsynshenvendelser til denne myndigheten."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+#, fuzzy
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
 "E-posten som du, på vegne av {{public_body}}, har sendt til\n"
 "{{user}} for å svare på en {{law_used_short}}-henvendelse, har ikke blitt levert."
@@ -3108,7 +3134,8 @@ msgstr "Så vil du få en oppdatering når henvendelsen «{{request_title}}» bl
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Deretter vil du få lov til å sende innsynshenvendelser."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
+#, fuzzy
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
 msgstr "Innsynshenvendelsen din vil også bli sendt til {{public_body_name}}."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3169,6 +3196,10 @@ msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}», slik det 
 
 msgid "Things you're following"
 msgstr "Ting du følger"
+
+#, fuzzy
+msgid "This annotation has been reported for administrator attention"
+msgstr "Denne henvendelsen har blitt rapportert for gjennomgang av administrator"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Denne myndigheten er slettet, og kan ikke kontaktes."
@@ -3404,8 +3435,9 @@ msgstr "For å sende en oppfølgningsmelding til  {{authority_name}}"
 msgid "To send a message to {{user_name}}"
 msgstr "For å sende en melding til {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "For å sende en innsynshenvendelse"
+#, fuzzy
+msgid "To send and publish your FOI request"
+msgstr "innsyn etter Offentleglova"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "For å sende henvendelsen til en annen myndighet, må du først kopiere teksten i din henvendelse nedenfor, deretter <a href=\"{{find_authority_url}}\">finne den andre myndigheten</a>."
@@ -3659,6 +3691,10 @@ msgstr "Versjon {{version}}"
 msgid "Vexatious"
 msgstr "Sjikane"
 
+#, fuzzy
+msgid "Vexatious annotation"
+msgstr "Sjikane"
+
 msgid "View FOI email address"
 msgstr "Vis e-post adresse for innsyn"
 
@@ -3722,7 +3758,8 @@ msgstr "Vi ser ikke på dette som en gyldig innsynshenvendelse, og har derfor gj
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Vi ser på den som sjikanøs, og har derfor skjult den for de andre brukerne."
 
-msgid "We couldn't determine the delivery status of this message"
+#, fuzzy
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr "Vi kunne ikke bestemme leveringsstatus for denne meldingen"
 
 msgid "We couldn’t display any logs for this message."
@@ -3736,6 +3773,10 @@ msgstr "Vi har ikke en gyldig e-post adresse for henvendelser for denne myndighe
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Vi har ikke en fungerende {{law_used_full}}-adresse for {{public_body_name}}."
+
+#, fuzzy
+msgid "We don't know the delivery status for this message."
+msgstr "Vi kunne ikke bestemme leveringsstatus for denne meldingen"
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

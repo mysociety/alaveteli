@@ -15,7 +15,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/mysociety/alav"
@@ -362,6 +361,9 @@ msgstr "За вас:"
 msgid "Act on what you've learnt"
 msgstr "Постапувајте по тоа што сте го научиле"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Постапува како xapian/постапува како xapian работна задача"
 
@@ -454,6 +456,14 @@ msgstr "Анонимен корисник"
 
 msgid "Annotation added to request"
 msgstr "Белешката е додадена на барањето"
+
+#, fuzzy
+msgid "Annotation contains defamatory material"
+msgstr "на"
+
+#, fuzzy
+msgid "Annotation contains personal information"
+msgstr "на"
 
 msgid "Annotations"
 msgstr "Белешки"
@@ -1340,7 +1350,8 @@ msgstr "Ако грешката е заради неуспешна достав�
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+#, fuzzy
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
 "Ако ова не е точно или сакате да испратите задоцнет одговор на барањето\n"
 "или е-пошта на друга тема на {{user}}, тогаш ве молиме\n"
@@ -2469,13 +2480,22 @@ msgstr ""
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "Пријавете злоупотреба"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Пријавете навредливо или несоодветно барање"
 
+#, fuzzy
+msgid "Report annotation"
+msgstr "Објавете белешка"
+
+#, fuzzy
+msgid "Report annotation on request: {{title}}"
+msgstr "на"
+
 msgid "Report request"
+msgstr "Пријавете барање"
+
+#, fuzzy
+msgid "Report request: {{title}}"
 msgstr "Пријавете барање"
 
 msgid "Report this request"
@@ -2655,6 +2675,14 @@ msgstr "Испратете јавна порака со реакција на {{
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Испратете јавен одговор до {{person_or_body}}"
 
+#, fuzzy
+msgid "Send and publish message"
+msgstr "и"
+
+#, fuzzy
+msgid "Send and publish request"
+msgstr "и"
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Испратете реакција до '{{title}}'"
 
@@ -2669,9 +2697,6 @@ msgstr "Испратете порака до {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Испратете порака до {{user_name}} само да видите како работи"
-
-msgid "Send request"
-msgstr "Испратете барање"
 
 msgid "Sending..."
 msgstr ""
@@ -2961,7 +2986,8 @@ msgstr "Класификацијата на барањата (на пр. да с
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+#, fuzzy
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
 "Е-поштата која вие, во име на {{public_body}}, ја испративте до\n"
 "{{user}} за да одговорите на барањето {{law_used_short}}\n"
@@ -3126,7 +3152,8 @@ msgstr "Тогаш ќе бидете известени секогаш кога 
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Тогаш ќе ви биде дозволено да праќате барања."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
+#, fuzzy
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
 msgstr "Тогаш вашето барање до {{public_body_name}} ќе биде испратено."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3189,6 +3216,10 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Работи кои ги следите"
+
+#, fuzzy
+msgid "This annotation has been reported for administrator attention"
+msgstr "Ова барање беше пријавено за проверка од администратор"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Имателот не постои повеќе, затоа не може да направите барање до него."
@@ -3434,8 +3465,9 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "За да пратите порака до {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "За да го пратите вашето барање"
+#, fuzzy
+msgid "To send and publish your FOI request"
+msgstr "Слободен пристап до информации од јавен карактер"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "За да го испратите вашето барање до друг имател, прво копирајте го текстот од вашето барање подолу, а потоа <a href=\"{{find_authority_url}}\">најдете го другиот имател</a>."
@@ -3691,6 +3723,10 @@ msgstr "Верзија {{version}}"
 msgid "Vexatious"
 msgstr ""
 
+#, fuzzy
+msgid "Vexatious annotation"
+msgstr "на"
+
 msgid "View FOI email address"
 msgstr "Видете ја адресата за е-пошта за слободен пристап до информации од јавен карактер"
 
@@ -3754,8 +3790,9 @@ msgstr "Сметаме дека ова не е важечко барање за 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Сметаме дека ова барање е вознемирувачко, па од тие причини го сокривме од останатите корисници."
 
-msgid "We couldn't determine the delivery status of this message"
-msgstr ""
+#, fuzzy
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
+msgstr "на"
 
 msgid "We couldn’t display any logs for this message."
 msgstr ""
@@ -3768,6 +3805,10 @@ msgstr "Немаме исправна адреса за е-пошта за ов�
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Немаме исправна {{public_body_name}} адреса за {{law_used_full}}."
+
+#, fuzzy
+msgid "We don't know the delivery status for this message."
+msgstr "на"
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

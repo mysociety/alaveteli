@@ -22,7 +22,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-03-01 17:26+0000\n"
 "Last-Translator: Mattias Axell <mattias@okfn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
@@ -343,6 +342,9 @@ msgstr "Om dig:"
 msgid "Act on what you've learnt"
 msgstr "Agera baserat på vad du har lärt dig"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
 
@@ -429,6 +431,14 @@ msgstr "En anonym användare"
 
 msgid "Annotation added to request"
 msgstr "Kommentar lades till för begäran"
+
+#, fuzzy
+msgid "Annotation contains defamatory material"
+msgstr "Innehåller ärekränkande material"
+
+#, fuzzy
+msgid "Annotation contains personal information"
+msgstr "Innehåller personlig information"
 
 msgid "Annotations"
 msgstr "Kommentarer"
@@ -1275,7 +1285,8 @@ msgstr "Om felmeddelandet var ett leveransfel, och du kan hitta en uppdaterad e-
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Om detta är ett nytt meddelande, kolla då tillbaka imorgon då vi periodiskt kollar efter nya loggar."
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+#, fuzzy
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "Om detta är inkorrekt och du vill skicka ett sent svar till den frågande eller ett e-postmeddelande om ett annat ämne till {{user}}, var då vänlig e-posta {{contact_email}} för hjälp."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
@@ -2362,13 +2373,22 @@ msgstr "Kom ihåg mig (håller dig inloggad längre; använd inte i en publik da
 msgid "Replying by post"
 msgstr "Svarar genom post"
 
-msgid "Report abuse"
-msgstr "Rapportera missbruk"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Rapportera en kränkande eller opassande begäran"
 
+#, fuzzy
+msgid "Report annotation"
+msgstr "Lägg till anteckning"
+
+#, fuzzy
+msgid "Report annotation on request: {{title}}"
+msgstr "vid"
+
 msgid "Report request"
+msgstr "Rapportera begäran"
+
+#, fuzzy
+msgid "Report request: {{title}}"
 msgstr "Rapportera begäran"
 
 msgid "Report this request"
@@ -2545,6 +2565,14 @@ msgstr "Skicka ett offentligt uppföljningsmeddelande till {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Skicka ett offentligt svar till {{person_or_body}}"
 
+#, fuzzy
+msgid "Send and publish message"
+msgstr "och"
+
+#, fuzzy
+msgid "Send and publish request"
+msgstr "och"
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Skicka uppföljning till '{{title}}'"
 
@@ -2559,9 +2587,6 @@ msgstr "Skicka meddelande till {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Skicka meddelande till {{user_name}} bara för att se hur det fungerar"
-
-msgid "Send request"
-msgstr "Skicka begäran"
 
 msgid "Sending..."
 msgstr "Skickar..."
@@ -2835,7 +2860,8 @@ msgstr "Klassificeringen av förfrågningar (t.ex. att säga om de var framgång
 msgid "The contact email address for FOI requests to the authority."
 msgstr "E-postadressen för begäran om allmän handling till myndigheten."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+#, fuzzy
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr "Den e-post som du, på uppdrag av {{public_body}}, skickade till {{user}} att svara för en begäran enligt {{law_used_short}} har inte levererats."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
@@ -2988,7 +3014,8 @@ msgstr "Därefter kommer du att bli uppdaterad så snart begäran '{{request_tit
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Därefter kommer du att tillåtas att skicka förfrågningar om allmänna handlingar."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
+#, fuzzy
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
 msgstr "Sedan kommer din begäran till {{public_body_name}} att bli skickad."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3047,6 +3074,10 @@ msgstr "De har inte svarat på din begäran enligt {{law_used_short}} {{titel}},
 
 msgid "Things you're following"
 msgstr "Saker som du följer"
+
+#, fuzzy
+msgid "This annotation has been reported for administrator attention"
+msgstr "Denna begäran har rapporterats för administratorns uppmärksamhet"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Denna myndighet existerar inte längre, så du kan inte göra en begäran till den."
@@ -3268,8 +3299,9 @@ msgstr "För att skicka ett uppföljningsmeddelande till {{authority_name}}"
 msgid "To send a message to {{user_name}}"
 msgstr "För att skicka ett meddelande till {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "För att skicka din begäran om allmän handling"
+#, fuzzy
+msgid "To send and publish your FOI request"
+msgstr "Offentlighetsprincipen"
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "För att skicka din skicka din begäran till en annan myndighet, kopiera först texten till din begäran nedan, sedan <a href=\"{{find_authority_url}}\"> hitta den andra myndigheten</a>."
@@ -3523,6 +3555,10 @@ msgstr "Version {{version}}"
 msgid "Vexatious"
 msgstr "Förarglig"
 
+#, fuzzy
+msgid "Vexatious annotation"
+msgstr "Förarglig"
+
 msgid "View FOI email address"
 msgstr "Visa registrators e-postadress"
 
@@ -3586,7 +3622,8 @@ msgstr "Vi anser att det inte är en giltigt begäran om allmän handling, och h
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Vi anser att den är förarglig, och har därför dolt den för andra användare."
 
-msgid "We couldn't determine the delivery status of this message"
+#, fuzzy
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr "Vi kunde inte avgöra detta meddelandets leveransstatus."
 
 msgid "We couldn’t display any logs for this message."
@@ -3600,6 +3637,10 @@ msgstr "Vi har inte en fungerande e-postadress för denna myndighet."
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Vi har inte en fungerande e-postadress kopplat till {{law_used_full}} för {{public_body_name}}."
+
+#, fuzzy
+msgid "We don't know the delivery status for this message."
+msgstr "Vi kunde inte avgöra detta meddelandets leveransstatus."
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Vi vet inte om det senaste svaret på denna begäran innehåller information eller inte &ndash; om du är {{user_link}} vänligen <a href=\"{{url}}\">logga in</a> och låt alla veta."
