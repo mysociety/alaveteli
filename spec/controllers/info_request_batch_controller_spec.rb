@@ -28,7 +28,7 @@ describe InfoRequestBatchController do
     context 'when the batch has not been sent' do
       it 'should assign public_bodies to the view' do
         action
-        expect(assigns[:public_bodies]).to eq(bodies)
+        expect(assigns[:public_bodies]).to match_array(bodies)
       end
     end
 

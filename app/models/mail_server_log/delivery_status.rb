@@ -2,14 +2,6 @@
 class MailServerLog::DeliveryStatus
   include Comparable
 
-  # The order of these is important as we use the keys for sorting in #<=>
-  HUMANIZED = {
-    :unknown => _("We don't know the delivery status for this message."),
-    :failed => _('This message could not be delivered.'),
-    :sent => _('This message has been sent.'),
-    :delivered => _('This message has been delivered.')
-  }.freeze
-
   def initialize(status)
     @status = assert_valid_status(status)
   end
@@ -35,12 +27,12 @@ class MailServerLog::DeliveryStatus
   end
 
   def humanize
-    HUMANIZED[to_sym]
+    TranslatedConstants.humanized[to_sym]
   end
 
   def <=>(other)
-    a = HUMANIZED.keys.index(to_sym)
-    b = HUMANIZED.keys.index(other.to_sym)
+    a = TranslatedConstants.humanized.keys.index(to_sym)
+    b = TranslatedConstants.humanized.keys.index(other.to_sym)
     a <=> b
   end
 
@@ -62,7 +54,7 @@ class MailServerLog::DeliveryStatus
   attr_reader :status
 
   def assert_valid_status(status)
-    if HUMANIZED.keys.include?(status)
+    if TranslatedConstants.humanized.keys.include?(status)
       status
     else
       raise ArgumentError, "Invalid delivery status: #{ status }"

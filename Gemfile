@@ -50,7 +50,11 @@
 # Sometimes we need to apply fixes to gems. Generally you'll want to fork the
 # code to the mysociety organisation, fix the problem and use that git ref. This
 # is a sure-fire way to out of date dependencies, so getting back on the
-# upstream release as soon as possible is favourable.
+# upstream release as soon as possible is favourable. Its also better to use
+# the ref option rather than branch. For example, if you rebase your bugfix
+# branch on upstream/master and force push it, the locked SHA will no longer
+# exist on the specified branch. This makes previous versions of Alaveteli
+# uninstallable.
 #
 # Upgrading Gems
 # ==============
@@ -94,7 +98,7 @@ gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
 gem 'icalendar', '~> 2.4.0'
 gem 'jquery-rails', '~> 3.1.0', '< 4.0.0'
-gem 'jquery-ui-rails', '~> 5.0.0'
+gem 'jquery-ui-rails', '~> 6.0.0'
 gem 'json', '~> 1.8.0', '< 2.0.0'
 gem 'holidays', '~> 2.2.0', '< 3.0.0'
 gem 'iso_country_codes', '~> 0.7.0'
@@ -113,9 +117,9 @@ gem 'rmagick', '~> 2.16.0'
 gem 'rolify', '~> 5.1.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
 gem 'sass', '3.4.21'
-gem 'secure_headers', '~> 3.1.0'
+gem 'secure_headers', '~> 3.6.0'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3'
+gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :ref => 'c1c14da'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.5.0', '< 1.6.0'
 gem 'vpim', '~> 13.11.11'
@@ -146,8 +150,8 @@ gem 'mail', :git => 'https://github.com/mikel/mail', :branch => '2-6-stable'
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'sass-rails', '~> 5.0.0'
 gem 'compass-rails', '~> 3.0.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'uglifier', '~> 2.7.0'
+gem 'coffee-rails', '~> 4.2.0'
+gem 'uglifier', '~> 3.2.0'
 gem 'therubyracer', '~> 0.12.0'
 
 # Feature flags
@@ -158,15 +162,15 @@ group :test do
   gem 'coveralls', '~> 0.8.0', :require => false
     gem 'tins', '~> 1.3.0', '< 1.3.1'
     gem 'term-ansicolor', '~> 1.3.0', '< 1.4'
-  gem 'capybara', '~> 2.7.0'
+  gem 'capybara', '~> 2.13.0'
   gem 'delorean', '~> 2.1.0'
 end
 
 group :test, :development do
-  gem 'bullet', '~> 5.1.0'
-  gem 'factory_girl_rails', '~> 4.7.0'
+  gem 'bullet', '~> 5.5.0'
+  gem 'factory_girl_rails', '~> 4.8.0'
   gem 'rspec-activemodel-mocks', '~> 1.0.0'
-  gem 'rspec-rails', '~> 3.4.0'
+  gem 'rspec-rails', '~> 3.5.0'
   gem 'pry', '~> 0.10.0'
   gem 'pry-debugger', '~> 0.2.0', :platforms => :ruby_19
     gem 'public_suffix', '~> 1.4.0', '< 1.5.0'
@@ -178,6 +182,5 @@ group :development do
     gem 'net-ssh', '~> 2.9.0', '< 3.0.0'
   gem 'mailcatcher', '~> 0.6.0'
   gem 'quiet_assets', '~> 1.1.0'
-  gem 'rdoc', '~> 3.12.0', '< 5.0.0'
   gem 'launchy', '~> 2.4.0'
 end

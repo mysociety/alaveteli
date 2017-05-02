@@ -49,7 +49,7 @@ namespace :users do
     banned_percent = if total_users == 0
       0
     else
-      (banned.to_f / total_users * 100).round
+      (banned.to_f / total_users * 100).round(2)
     end
 
     dormant = UserStats.count_dormant_users(domain, from)
@@ -57,7 +57,7 @@ namespace :users do
     dormant_percent = if total_users == 0
       0
     else
-      (dormant.to_f / total_users * 100).round
+      (dormant.to_f / total_users * 100).round(2)
     end
 
     p "Since #{from}..." if from
@@ -85,7 +85,7 @@ namespace :users do
     if input.downcase == "y"
       to_ban = UserStats.unbanned_by_domain(domain, from)
       count = to_ban.
-        update_all(:ban_text => "Banned for use of #{domain} email")
+        update_all(:ban_text => "Banned for spamming")
       p "#{count} accounts banned"
     else
       p "No action taken"

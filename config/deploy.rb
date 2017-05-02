@@ -84,6 +84,13 @@ namespace :deploy do
     run links.map {|a| "ln -sf #{a.last} #{a.first}"}.join(";")
   end
 
+  namespace :assets do
+    desc 'Symlink non-digest asset paths to the most recent digest versions'
+    task :link_non_digest do
+      run "cd #{latest_release} && bundle exec rake assets:link_non_digest RAILS_ENV=#{rails_env}"
+    end
+  end
+
   after 'deploy:setup' do
     run "mkdir -p #{shared_path}/files"
     run "mkdir -p #{shared_path}/cache"

@@ -1375,18 +1375,27 @@ describe RequestController, "when creating a new request" do
 
   end
 
-  describe 'when enable_anti_spam is true' do
-
-    before do
-      allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
-        .and_return(true)
-    end
+  context 'when the request subject line looks like spam' do
 
     let(:user) { FactoryGirl.create(:user,
                                     :confirmed_not_spam => false) }
     let(:body) { FactoryGirl.create(:public_body) }
 
-    context 'when the request subject line looks like spam' do
+    context 'when block_spam_subject? is true' do
+
+      before do
+        allow(@controller).to receive(:block_spam_subject?).and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
 
       it 'shows an error message' do
         session[:user_id] = user.id
@@ -1421,11 +1430,62 @@ describe RequestController, "when creating a new request" do
 
     end
 
-    context 'when the request is from an IP address in a blocked country' do
+    context 'when block_spam_subject? is false' do
 
       before do
-        allow(AlaveteliConfiguration).to receive(:restricted_countries).and_return('PH')
-        allow(controller).to receive(:country_from_ip).and_return('PH')
+        allow(@controller).to receive(:block_spam_subject?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
+
+      it 'allows the request' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response)
+          .to redirect_to show_request_path(:url_title => 'hd_watch_jason_bourne_online_fre')
+      end
+
+    end
+
+  end
+
+  describe 'when the request is from an IP address in a blocked country' do
+
+    let(:user) { FactoryGirl.create(:user,
+                                    :confirmed_not_spam => false) }
+    let(:body) { FactoryGirl.create(:public_body) }
+
+    before do
+      allow(AlaveteliConfiguration).to receive(:restricted_countries).and_return('PH')
+      allow(controller).to receive(:country_from_ip).and_return('PH')
+    end
+
+    context 'when block_restricted_country_ips? is true' do
+
+      before do
+        allow(@controller).
+          to receive(:block_restricted_country_ips?).and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request content", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
       end
 
       it 'shows an error message' do
@@ -1450,6 +1510,35 @@ describe RequestController, "when creating a new request" do
       it 'allows the request if the user is confirmed not spam' do
         user.confirmed_not_spam = true
         user.save!
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request content", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response)
+          .to redirect_to show_request_path(:url_title => 'some_request_content')
+      end
+
+    end
+
+    context 'when block_restricted_country_ips? is false' do
+
+      before do
+        allow(@controller).
+          to receive(:block_restricted_country_ips?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request content", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
+      end
+
+      it 'allows the request' do
         session[:user_id] = user.id
         post :new, :info_request => { :public_body_id => body.id,
         :title => "Some request content", :tag_string => "" },

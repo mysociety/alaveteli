@@ -212,6 +212,16 @@ describe TypeaheadSearch do
         to match_array([info_requests(:fancy_dog_request)])
     end
 
+    context 'when the exclude_tags option is used' do
+
+      it "returns a search excluding results with those tags" do
+        opts = options.merge( :model => PublicBody,
+                              :exclude_tags => [ 'lonely_agency' ])
+        search = TypeaheadSearch.new("lonely", opts).xapian_search
+        expect(search.results).to match_array([])
+      end
+
+    end
   end
 end
 

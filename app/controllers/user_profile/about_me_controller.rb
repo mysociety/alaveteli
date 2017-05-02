@@ -24,21 +24,8 @@ class UserProfile::AboutMeController < ApplicationController
       end
     end
 
-    spam_profile_text =
-      !@user.confirmed_not_spam? &&
-      AlaveteliSpamTermChecker.new.spam?(@user.about_me)
-
-    if spam_profile_text
-      if send_exception_notifications?
-        e = Exception.new("Spam profile text from user #{@user.id}")
-        ExceptionNotifier.notify_exception(e, :env => request.env)
-      end
-
-      if AlaveteliConfiguration.enable_anti_spam
-        flash[:error] = _("You can't update your profile text at this time.")
-        redirect_to user_url(@user)
-        return
-      end
+    if spam_about_me_text?(@user.about_me, @user)
+      handle_spam_about_me_text(@user) && return
     end
 
     if @user.save
@@ -69,5 +56,28 @@ class UserProfile::AboutMeController < ApplicationController
   def set_title
     @title = _('Change the text about you on your profile at {{site_name}}',
                :site_name => site_name)
+  end
+
+  def spam_about_me_text?(text, user)
+    !user.confirmed_not_spam? &&
+      AlaveteliSpamTermChecker.new.spam?(text)
+  end
+
+  def block_spam_about_me_text?
+    AlaveteliConfiguration.block_spam_about_me_text ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  def handle_spam_about_me_text(user)
+    if send_exception_notifications?
+      e = Exception.new("Spam about me text from user #{ user.id }")
+      ExceptionNotifier.notify_exception(e, :env => request.env)
+    end
+
+    if block_spam_about_me_text?
+      flash[:error] = _("You can't update your profile text at this time.")
+      redirect_to user_url(user)
+      true
+    end
   end
 end

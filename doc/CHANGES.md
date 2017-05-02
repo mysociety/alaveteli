@@ -2,6 +2,13 @@
 
 ## Highlighted Features
 
+* Log spam domain signups instead of sending exception notifications
+  (Gareth Rees)
+* Finer control of anti-spam features (Gareth Rees)
+* Fixed bug which redirected people trying to request a change to the email of
+  a public body back to the missing body form post sign in (Liz Conlan)
+* Tweak wording of bounce reply to make it easier for admins to locate the
+  related request (Gareth Rees)
 * Fix the layout of the request preview page so that the request body text is
   in line with the heading (Keerti Gautam)
 * Add an unknown delivery status for better user experience when we haven't yet
@@ -34,9 +41,18 @@
   make it clearer that your message is going to be shared via the website (Liz
   Conlan)
 * Prevent new request titles from containing line breaks (Liz Conlan)
+* Make the `users:stats_by_domain` task report percentages to 2 decimal places
+  to avoid the situation where 374 out of 375 appears as 100% (Liz Conlan)
+* Make `users:ban_by_domain` send a simpler message to say they've been banned
+  rather than helping them work around our spam measures (Liz Conlan)
 
 ## Upgrade Notes
 
+* Anti-spam feaures can now be enabled independently
+  (`BLOCK_RATE_LIMITED_IPS`, `BLOCK_RESTRICTED_COUNTRY_IPS`,
+  `BLOCK_SPAM_ABOUT_ME_TEXT`, `BLOCK_SPAM_COMMENTS`, `BLOCK_SPAM_EMAIL_DOMAINS`,
+  `BLOCK_SPAM_REQUESTS`) or all at once (`ENABLE_ANTI_SPAM`). Check that your
+  configuration is enabling the anti-spam measures that you're expecting.
 * `MailServerLog::EximDeliveryStatus` and `MailServerLog::PostfixDeliveryStatus`
   have been deprecated in favour of an MTA-agnostic
   `MailServerLog::DeliveryStatus`. You should run
@@ -59,23 +75,37 @@
     app/views/reports/new.html.erb
     app/views/request/describe_notices/_error_message.html.erb
 
+# 0.28.0.6
+
+## Highlighted Features
+
+* Break model constants containing translated text out into new methods in
+  TranslatedConstants modules to prevent accidental caching of the default
+  locale's translations (Liz Conlan, Gareth Rees)
+
+## Upgrade Notes
+
+* If you have overridden `LAW_USED_READABLE_DATA` in your theme, you will need
+  to rewrite this code to override the `law_used_readable_data` class method of
+  `InfoRequest::TranslatedConstants` instead
+
 # 0.28.0.5
 
-# Highlighted Features
+## Highlighted Features
 
 * Fix bug in `Statistics.by_week_to_today_with_noughts` causing comparisons to
   fail (Gareth Rees)
 
 # 0.28.0.4
 
-# Highlighted Features
+## Highlighted Features
 
 * Fix bug causing `MailServerLog#delivery_status` to return an ActiveRecord
   serialized attribute (Gareth Rees)
 
 # 0.28.0.3
 
-# Highlighted Features
+## Highlighted Features
 
 * Updated translations from Transifex (Gareth Rees)
 

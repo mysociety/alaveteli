@@ -278,7 +278,7 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr "A one line summary of the information you are requesting, \\n\t\t\te.g."
+msgstr "A one line summary of the information you are requesting, e.g."
 
 msgid "A public authority"
 msgstr "A public authority"

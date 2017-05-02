@@ -11,7 +11,8 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
     @body_ids_added = @draft_batch_request.public_body_ids
     # perform_seach sets @query but perform_search_typeahead doesn't
     @query = params[:authority_query] || ""
-    @search = perform_search_typeahead(@query, PublicBody)
+    @search = perform_search_typeahead(@query, { :model => PublicBody,
+                                                 :exclude_tags => [ 'defunct' ] })
     unless @search.blank?
       @result_limit = calculate_result_limit(@search)
       check_page_limit!(@page, @per_page)

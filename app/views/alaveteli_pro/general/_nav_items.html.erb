@@ -6,7 +6,7 @@
         AnalyticsEvent::Action::PRO_NAV_DASHBOARD) %>
 </li>
 
-<li class="<%= 'selected' if controller?('alaveteli_pro/info_requests') && action?('index') %>">
+<li class="<%= 'selected' if (controller?('alaveteli_pro/info_requests') && action?('index') || controller?('request') && action?('show') ) %>">
   <%= link_to _("Requests"),
       alaveteli_pro_info_requests_path,
       :onclick => track_analytics_event(
@@ -23,7 +23,7 @@
                 AnalyticsEvent::Action::PRO_NAV_MAKE_REQUEST) %>
 </li>
 
-<li class="<%= 'selected' if controller?('request') && !action?('new', 'select_authority') %>">
+<li class="<%= 'selected' if controller?('request') && !action?('new', 'select_authority', 'show') %>">
   <%= link_to _("Browse public requests"),
               request_list_successful_path,
               :onclick => track_analytics_event(

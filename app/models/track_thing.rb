@@ -26,13 +26,6 @@ require 'set'
 # TODO: TrackThing looks like a good candidate for single table inheritance
 
 class TrackThing < ActiveRecord::Base
-  # { TRACK_TYPE => DESCRIPTION }
-  TRACK_TYPES = { 'request_updates'         => _('Individual requests'),
-                  'all_new_requests'        => _('Many requests'),
-                  'all_successful_requests' => _('Many requests'),
-                  'public_body_updates'     => _('Public authorities'),
-                  'user_updates'            => _('People'),
-                  'search_query'            => _('Search queries') }
 
   TRACK_MEDIUMS = %w(email_daily feed)
 
@@ -44,7 +37,8 @@ class TrackThing < ActiveRecord::Base
 
   validates_presence_of :track_query, :message => _("Query can't be blank")
   validates_presence_of :track_type
-  validates_inclusion_of :track_type, :in => TRACK_TYPES.keys
+  validates_inclusion_of :track_type,
+                         :in => TranslatedConstants.track_types.keys
   validates_inclusion_of :track_medium, :in => TRACK_MEDIUMS
   validates_length_of :track_query, :maximum => 500, :message => _("Query is too long")
 
@@ -58,7 +52,8 @@ class TrackThing < ActiveRecord::Base
   end
 
   def self.track_type_description(track_type)
-    TRACK_TYPES.fetch(track_type) { raise "internal error #{ track_type }" }
+    TranslatedConstants.track_types.
+      fetch(track_type) { raise "internal error #{ track_type }" }
   end
 
   def self.create_track_for_request(info_request)

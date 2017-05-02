@@ -37,12 +37,6 @@ module AlaveteliPro
       "12_months" => Proc.new { TWELVE_MONTHS }
     }.freeze
 
-    DURATION_LABELS = {
-      "3_months" => _("3 Months"),
-      "6_months" => _("6 Months"),
-      "12_months" => _("12 Months")
-    }.freeze
-
     scope :expiring, -> { where("publish_at <= ?", expiring_soon_time) }
 
     def set_default_duration
@@ -59,7 +53,7 @@ module AlaveteliPro
     end
 
     def duration_label
-      DURATION_LABELS[self.embargo_duration]
+      TranslatedConstants.duration_labels[self.embargo_duration]
     end
 
     def extend(extension)

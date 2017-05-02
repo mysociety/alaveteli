@@ -22,6 +22,16 @@
 
   # https://www.nwebsec.com/HttpHeaders/SecurityHeaders/XDownloadOptions
   config.x_download_options = SecureHeaders::OPT_OUT
+
+  # https://github.com/twitter/secureheaders/blob/master/docs/cookies.md
+  # Note the secure flag is only sent where HTTPS is available
+  config.cookies = {
+    httponly: { only: ['_wdtk_cookie_session'] },
+    secure: { only: ['_wdtk_cookie_session'] },
+    samesite: {
+      strict: { only: ['_wdtk_cookie_session'] }
+    }
+  }
 end
 
  # Allow individual actions to allow frames
