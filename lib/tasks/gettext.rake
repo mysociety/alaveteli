@@ -3,14 +3,18 @@ namespace :gettext do
 
   def clean_dir(dir)
     Dir.glob("#{dir}/*/app.po") do |po_file|
-      GetText::msgmerge(po_file, po_file, 'alaveteli',
-                        :msgmerge => [:sort_output, :no_location, :no_wrap])
+      GetText::Tools::MsgMerge.run("--output", po_file,
+                                   "--sort-output",
+                                   "--no-location",
+                                   "--no-wrap",
+                                   # "--no-fuzzy-matching",
+                                   po_file,
+                                   po_file)
     end
   end
 
   desc 'Rewrite .po files into a consistent msgmerge format'
   task :clean do
-    load_gettext
     clean_dir('locale')
   end
 
