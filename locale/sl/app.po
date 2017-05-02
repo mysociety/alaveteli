@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"POT-Creation-Date: 2017-05-02 22:52+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/mysociety/alaveteli/language/sl/)\n"
@@ -310,6 +310,9 @@ msgstr "O meni:"
 msgid "Act on what you've learnt"
 msgstr "Ukrepajte na podlagi odkritega"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Deluje kot xapian/deluje kot xapian opravilo"
 
@@ -396,6 +399,12 @@ msgstr "Anonimni uporabnik"
 
 msgid "Annotation added to request"
 msgstr "K zahtevku je bil dodan zaznamek"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Zaznamki"
@@ -1250,8 +1259,8 @@ msgstr "Če ste prejeli napako o dostavi in ste uspeli najti delujoč e-poštni 
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
-msgstr "Če to ni pravilno ali pa bi želeli poslati pozen odgovor na zahtevek\\n ali e-pošto uporabniku {{user}}, ki se ne tiče te zadeve, potem prosimo\\npošljite epošto na {{contact_email}}."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Če niste zadovoljni z odgovorom, ki ste ga prejeli od organa, se imate pravico pritožiti (<a href=\"{{url}}\">podrobnosti</a>)."
@@ -2337,14 +2346,20 @@ msgstr ""
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "Prijavi zlorabo"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Prijavite žaljiv ali neprimeren zahtevek"
 
+msgid "Report annotation"
+msgstr ""
+
+msgid "Report annotation on request: {{title}}"
+msgstr ""
+
 msgid "Report request"
 msgstr "Prijavi zahtevek"
+
+msgid "Report request: {{title}}"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Prijavite ta zahtevek"
@@ -2520,6 +2535,12 @@ msgstr "Pošljite javni odziv za {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Pošljite javni odgovor za {{person_or_body}}"
 
+msgid "Send and publish message"
+msgstr ""
+
+msgid "Send and publish request"
+msgstr ""
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Pošljite odziv na '{{title}}'"
 
@@ -2534,9 +2555,6 @@ msgstr "Pošlji sporočilo {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Pošlji sporočilo {{user_name}} da vidite kako deluje"
-
-msgid "Send request"
-msgstr "Pošlji zahtevek"
 
 msgid "Sending..."
 msgstr ""
@@ -2812,8 +2830,8 @@ msgstr "Klasifikacijo zahtevkov (npr. če je zahtevek ugoden ali ne) delajo upor
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Kontaktni e-poštni naslov za IJZ zahtevke za ta organ."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
-msgstr "E-pošta, ki ste jo v imenu {{public_body}} poslali {{user}} \\nkot odgovor na zahtevek za {{law_used_short}} ni bila dostavljena."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Prikazan graf napake predstavlja 95% interval zaupanja na vzorcu, pridobljenim z zahtevki, narejenimi preko tega portala in torej ne upošteva zahtevkov, ki so bili narejeni preko drugih možnih načinov."
@@ -2965,8 +2983,8 @@ msgstr "Zatem boste obveščeni, kadar bo posodobljen zahtevek '{{request_title}
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Zatem boste smeli pošiljati zahtevke IJZ."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr "Zatem bo vaš zahtevek za informacije javnega značaja na {{public_body_name}} poslan."
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Zatem bo objavljen vaš zaznamek na {{info_request_title}}."
@@ -3024,6 +3042,9 @@ msgstr "Niso odgovorili na vaš zahtevek za {{law_used_short}} {{title}}, kot to
 
 msgid "Things you're following"
 msgstr "Stvari, ki jim sledite"
+
+msgid "This annotation has been reported for administrator attention"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Ta organ ne obstaja več, zato mu ne morete več posredovati zahtevkov"
@@ -3249,8 +3270,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Da pošljete sporočilo {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "Da pošljete zahtevek za IJZ"
+msgid "To send and publish your FOI request"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Da bi poslali zahtevek še kakemu organu, najprej kopirajte besedilo spodnjega zahtevka, zatem pa <a href=\"{{find_authority_url}}\">poiščite drug organ</a>."
@@ -3504,6 +3525,9 @@ msgstr "Različica {{version}}"
 msgid "Vexatious"
 msgstr "Nadležen"
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
 msgstr "Preglejte e-poštni naslov za zahtevke za IJZ"
 
@@ -3567,7 +3591,7 @@ msgstr "Smatramo, da to ni veljaven zahtevek za IJZ, zato je bil zahtevek skrit.
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Zahtevek je provokacija, zato je bil skrit."
 
-msgid "We couldn't determine the delivery status of this message"
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3581,6 +3605,9 @@ msgstr "Nimamo deluječga e-poštnega naslova za ta javni organ."
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nimamo delujočega e-poštnega naslova za {{law_used_full}} zahtevke za {{public_body_name}}. "
+
+msgid "We don't know the delivery status for this message."
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Ne vemo če najnovejši odgovor na ta zahtevek vsebuje zahtevane infromacije ali ne &ndash; če ste {{user_link}}, se prosimo <a href=\"{{url}}\">prijavite</a> in označite enkrat za vselej."

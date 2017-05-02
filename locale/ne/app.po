@@ -42,7 +42,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"POT-Creation-Date: 2017-05-02 22:52+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/ne/)\n"
@@ -333,6 +333,9 @@ msgstr "तपाईँको बारेमा:"
 msgid "Act on what you've learnt"
 msgstr "आफूले सिकेका कुरामा सक्रिय हुनुहोस्"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "जापीयन जस्तै /जापीयन जस्तै काम "
 
@@ -419,6 +422,12 @@ msgstr "एक अज्ञात प्रयोगकर्ता"
 
 msgid "Annotation added to request"
 msgstr "अनुरोधमा टिप्पणी थपियो"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "टिप्पणीहरू"
@@ -1267,8 +1276,8 @@ msgstr "यदी त्रुटि ढुवानी विफल्ता �
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "यदि यो हालको सन्देश हो भने, भोलि जाँच गर्नुहोस्, किन भने हामी समय समयमा नयाँ लगको लागि जाँच गर्छाै ।"
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
-msgstr "यदी यो गलत छ वा तपाईंलाई अनुरोध र ईमेलको अर्को बिषयमा ढिलो प्रतिकृया,दिन चाहनुहुन्छ  भने {{user}},कृपया  सहयोग को लागि ईमेल गर्नुहोस{{contact_email}}|"
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "यदि तपाइ आधिकारिक निकायबाट\\n पाउनु भएको प्रतिक्रिया देखि असन्तुष्ट हुनुहुन्छ भने, तपाईसंग गुनासोको (<a href=\"{{url}}\"> विवरण </a>) दिने गर्ने\\n अधिकार छ।"
@@ -2352,14 +2361,20 @@ msgstr "मलाई सम्झनुहोस् (लामो समयस�
 msgid "Replying by post"
 msgstr "पोस्टद्वारा जवाफ "
 
-msgid "Report abuse"
-msgstr "दुरुपयोग उजुर गर्नुहोस्"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "दुरुपयोग या अमिल्दो अनुरोध उजुर गर्नुहोस्"
 
+msgid "Report annotation"
+msgstr ""
+
+msgid "Report annotation on request: {{title}}"
+msgstr ""
+
 msgid "Report request"
 msgstr "अनुरोधबारे उजुर गर्नुहोस्"
+
+msgid "Report request: {{title}}"
+msgstr ""
 
 msgid "Report this request"
 msgstr "यस अनुरोध बारे उजुर गर्नुहोस्"
@@ -2535,6 +2550,12 @@ msgstr "{{person_or_body}} लाई एउटा सार्बजनिक �
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "{{person_or_body}} लाइ सार्बाजानिक जवाफ पठाउ "
 
+msgid "Send and publish message"
+msgstr ""
+
+msgid "Send and publish request"
+msgstr ""
+
 msgid "Send follow up to '{{title}}'"
 msgstr "'{{title}}' को लागि ताकेता पठाउनुहोस्"
 
@@ -2549,9 +2570,6 @@ msgstr "{{user_name}} लाई सन्देश पठाउनु होस 
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "कसरी काम गर्छ भनेर हेर्नका लागि{{user_name}} लाई सन्देश पठाउनुहोस |"
-
-msgid "Send request"
-msgstr "अनुरोध पठाउनुहोस्"
 
 msgid "Sending..."
 msgstr "पठाउँदै..."
@@ -2825,8 +2843,8 @@ msgstr "अनुरोध को वर्गीकरण ( उदाहरण.
 msgid "The contact email address for FOI requests to the authority."
 msgstr "आधिकारिक निकायलाइ FOI अनुरोधहरुको लागि सम्पर्क इमेल ठेगाना।"
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
-msgstr "{{law_used_short}} अनुरोध लाई जबाफ दिन {{public_body}} को तर्फबाट\\n{{user}} लाई पठाइएको इमेल पुगेन | "
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "देखाइएको त्रुटी सन्देश 95% कन्फिडेन्स अन्तरालमा छन् कुनै पनि भित्री भागको परिकल्पना अनुसार (जस्तै. तपाईँले कुनै पनि साइटको माध्यमबाट कयौँपटक अनुरोध गरेर पाउन सकिन्छ )। अर्को शब्दमा भन्नुपर्दा कुनै पनि अनुरोध अन्तर्गत हालका र भविष्यका कुनै पनि अनुरोधहरू र यस साइटबाट निकायहरूमा गरिएका अनुरोधहरू जुन पनि कुनै तरिकाबाट यस सर्वेक्षण अन्तर्गत रहनेछन् ।   "
@@ -2978,8 +2996,8 @@ msgstr "अनुरोध '{{request_title}}' अद्यावधिक ह�
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "तेस्पछि तपाईले FOI अनुरोध पठाउन सक्नुहुन्छ "
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr "त्यसपछि तपाइको {{public_body_name}} FOI अनुरोध पठाइने छ |"
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "त्यसपछि तपाइको {{info_request_title}} को टिप्पणी लाई पेस गरिनेछ |"
@@ -3037,6 +3055,9 @@ msgstr "तिनीहरूले तपाइको {{law_used_short}} अन
 
 msgid "Things you're following"
 msgstr "तपाइले पछ्यौनुभएको कुराहरु"
+
+msgid "This annotation has been reported for administrator attention"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "यो आधिकारिक निकाय अब रहेन ,त्यसैले तपाईं यसलाई अनुरोध गर्न सक्नुहुन्न ।"
@@ -3260,8 +3281,8 @@ msgstr "{{authority_name}} लाई ताकेता सन्देश प�
 msgid "To send a message to {{user_name}}"
 msgstr " {{user_name}} लाई सन्देश पठाउन"
 
-msgid "To send your FOI request"
-msgstr "तपाइको FOI अनुरोध पठाउन "
+msgid "To send and publish your FOI request"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "अरू अधिकारिक निकायलाई अनुरोध पठाउन,पहिला आफ्नो अनुरोध तल पेस गर्नुहोस अनि <a href=\"{{find_authority_url}}\"> अरू   निकाय खोज्नुहोस"
@@ -3515,6 +3536,9 @@ msgstr "संस्करण {{version}}"
 msgid "Vexatious"
 msgstr "पालना"
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
 msgstr "FOI इमेल ठेगाना हेर्नुहोस"
 
@@ -3578,8 +3602,8 @@ msgstr "हामीलाइ यो FOI अनुरोध मान्य छ�
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "हामीले यसलाई अफसोसनाक सम्जेकोले अन्य प्रयोगकर्ताबाट लुकाइएको छ |"
 
-msgid "We couldn't determine the delivery status of this message"
-msgstr "हामीले यो सन्देशको डेलिभरी स्थिति निर्धारण गर्न सकेनौ"
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr "हामीले यो सन्देशका लागि कुनै पनि लग प्रदर्शन गर्न सकिएन।"
@@ -3592,6 +3616,9 @@ msgstr "हामी संग यो निकायको लागि का�
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "{{public_body_name}}को लागि हामीसँग {{law_used_full}} को ठेगाना छैन"
+
+msgid "We don't know the delivery status for this message."
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "यो अनुरोधका लागि हालको प्रतिक्रियामा सूचना छ या छैन हामीलाई थाहा छैन\\n र ndash;\\n->एदी तपाई {{user_link}} हो भने कृपया <a href=\"{{url}}\">साईन इन</a> गर्नुहोस् र सबैलाई थाहा दिनुहोस् |"

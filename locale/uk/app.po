@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"POT-Creation-Date: 2017-05-02 22:52+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
@@ -345,6 +345,9 @@ msgstr "Про вас:"
 msgid "Act on what you've learnt"
 msgstr "Дійте, спираючись на отриману інформацію"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr ""
 
@@ -433,6 +436,12 @@ msgstr "Анонімний користувач"
 
 msgid "Annotation added to request"
 msgstr "До запиту додано коментар"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Коментарі"
@@ -1302,11 +1311,8 @@ msgstr "Якщо це була помилка доставки і вам від�
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Якщо це не так або якщо ви б хотіли надіслати запізнілу відповідь на запит\n"
-"або повідомлення з іншою темою користувачу {{user}}, зверніться за допомогою\n"
-"за адресою {{contact_email}}."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2414,13 +2420,19 @@ msgstr ""
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "Повідомте про зловживання"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Повідомте про образливий або недоречний запит"
 
+msgid "Report annotation"
+msgstr ""
+
+msgid "Report annotation on request: {{title}}"
+msgstr ""
+
 msgid "Report request"
+msgstr ""
+
+msgid "Report request: {{title}}"
 msgstr ""
 
 msgid "Report this request"
@@ -2597,6 +2609,12 @@ msgstr "Надішліть публічний уточнювальний зап�
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Надіслати публічну відповідь. Адресат: {{person_or_body}}"
 
+msgid "Send and publish message"
+msgstr ""
+
+msgid "Send and publish request"
+msgstr ""
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Відправити додаткове повідомлення щодо запиту '{{title}}'"
 
@@ -2611,9 +2629,6 @@ msgstr "Надіслати повідомлення до {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Надіслати повідомлення до {{user_name}} просто щоб побачити, як це працює"
-
-msgid "Send request"
-msgstr "Надіслати запит"
 
 msgid "Sending..."
 msgstr ""
@@ -2888,7 +2903,7 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
@@ -3043,8 +3058,8 @@ msgstr "Ви будете сповіщені коли запит '{{request_titl
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Після цього ви зможете відсилати запити."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr "Після цього ваш запит до розпорядника інформації '{{public_body_name}}' буде відправлено."
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Після цього ваш коментар до запиту '{{info_request_title}}' буде опубліковано."
@@ -3102,6 +3117,9 @@ msgstr "Вони не відповіли на ваш запит {{title}}, як 
 
 msgid "Things you're following"
 msgstr "Відслідковуване вами"
+
+msgid "This annotation has been reported for administrator attention"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Цього органу більше не існує, тож ви не можете зробити запит."
@@ -3331,8 +3349,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Щоб відправити повідомлення {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "Щоб відправити запит "
+msgid "To send and publish your FOI request"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr ""
@@ -3586,6 +3604,9 @@ msgstr "Версія {{version}}"
 msgid "Vexatious"
 msgstr ""
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
 msgstr ""
 
@@ -3649,7 +3670,7 @@ msgstr ""
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr ""
 
-msgid "We couldn't determine the delivery status of this message"
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3663,6 +3684,9 @@ msgstr "У нас нема електронної адреси цього орг
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "У нас нема адреси цього розпорядника інформації."
+
+msgid "We don't know the delivery status for this message."
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Нам невідомо, чи відповідь на цей запит була інформативною.\\nЯкщо ви {{user_link}}, будь ласка, <a href=\"{{url}}\">авторизуйтесь</a> і вкажіть, наскільки успішним був запит."

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"POT-Creation-Date: 2017-05-02 22:52+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: English (http://www.transifex.com/mysociety/alaveteli/language/en/)\n"
@@ -304,6 +304,9 @@ msgstr "About you:"
 msgid "Act on what you've learnt"
 msgstr "Act on what you've learnt"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
 
@@ -390,6 +393,12 @@ msgstr "An anonymous user"
 
 msgid "Annotation added to request"
 msgstr "Annotation added to request"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Annotations"
@@ -1236,8 +1245,8 @@ msgstr "If the error was a delivery failure, and you can find an up to date FOI 
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
-msgstr "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
@@ -2321,14 +2330,20 @@ msgstr "Remember me (keeps you signed in longer; do not use on a public computer
 msgid "Replying by post"
 msgstr "Replying by post"
 
-msgid "Report abuse"
-msgstr "Report abuse"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Report an offensive or unsuitable request"
 
+msgid "Report annotation"
+msgstr ""
+
+msgid "Report annotation on request: {{title}}"
+msgstr ""
+
 msgid "Report request"
 msgstr "Report request"
+
+msgid "Report request: {{title}}"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Report this request"
@@ -2504,6 +2519,12 @@ msgstr "Send a public follow up message to {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Send a public reply to {{person_or_body}}"
 
+msgid "Send and publish message"
+msgstr ""
+
+msgid "Send and publish request"
+msgstr ""
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Send follow up to '{{title}}'"
 
@@ -2518,9 +2539,6 @@ msgstr "Send message to {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Send message to {{user_name}} just to see how it works"
-
-msgid "Send request"
-msgstr "Send request"
 
 msgid "Sending..."
 msgstr "Sending..."
@@ -2794,8 +2812,8 @@ msgstr "The classification of requests (e.g. to say whether they were successful
 msgid "The contact email address for FOI requests to the authority."
 msgstr "The contact email address for FOI requests to the authority."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
-msgstr "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
@@ -2947,8 +2965,8 @@ msgstr "Then you will be updated whenever the request '{{request_title}}' is upd
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Then you'll be allowed to send FOI requests."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr "Then your FOI request to {{public_body_name}} will be sent."
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Then your annotation to {{info_request_title}} will be posted."
@@ -3006,6 +3024,9 @@ msgstr "They have not replied to your {{law_used_short}} request {{title}}, \\na
 
 msgid "Things you're following"
 msgstr "Things you're following"
+
+msgid "This annotation has been reported for administrator attention"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "This authority no longer exists, so you cannot make a request to it."
@@ -3227,8 +3248,8 @@ msgstr "To send a follow up message to {{authority_name}}"
 msgid "To send a message to {{user_name}}"
 msgstr "To send a message to {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "To send your FOI request"
+msgid "To send and publish your FOI request"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
@@ -3482,6 +3503,9 @@ msgstr "Version {{version}}"
 msgid "Vexatious"
 msgstr "Vexatious"
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
 msgstr "View FOI email address"
 
@@ -3545,8 +3569,8 @@ msgstr "We consider it is not a valid FOI request, and have therefore hidden it 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "We consider it to be vexatious, and have therefore hidden it from other users."
 
-msgid "We couldn't determine the delivery status of this message"
-msgstr "We couldn't determine the delivery status of this message"
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr "We couldn’t display any logs for this message."
@@ -3559,6 +3583,9 @@ msgstr "We do not have a working request email address for this authority."
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "We do not have a working {{law_used_full}} address for {{public_body_name}}."
+
+msgid "We don't know the delivery status for this message."
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "We don't know whether the most recent response to this request contains\\n    information or not\\n        &ndash;\\n\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."

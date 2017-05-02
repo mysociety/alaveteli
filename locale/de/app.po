@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"POT-Creation-Date: 2017-05-02 22:52+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/mysociety/alaveteli/language/de/)\n"
@@ -341,6 +341,9 @@ msgstr "Zu Ihrer Person:"
 msgid "Act on what you've learnt"
 msgstr "Handel aus Deinen Erfahrungen"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr ""
 
@@ -427,6 +430,12 @@ msgstr "Ein anonymer Benutzer"
 
 msgid "Annotation added to request"
 msgstr "Anfrage wurde kommentiert"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Kommentare"
@@ -1285,10 +1294,8 @@ msgstr ""
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Falls dies falsch ist oder Sie eine späte Antwort auf diese Anfrage oder zu einem anderen Thema an {{user}} senden möchten, dann mailen Sie bitte\n"
-" {{contact_email}} ffür weitere Hilfe."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Sollten Sie mit den erhaltenen Informationen nicht zufrieden sein, haben Sie das Recht eine Beschwerde einzureichen (<a href=\"{{url}}\">Details</a>)."
@@ -2381,14 +2388,20 @@ msgstr "Login speichern (Sie bleiben eingeloggt. Nutzen Sie diese Funktion nicht
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "Missbrauch melden"
-
 msgid "Report an offensive or unsuitable request"
+msgstr ""
+
+msgid "Report annotation"
+msgstr ""
+
+msgid "Report annotation on request: {{title}}"
 msgstr ""
 
 msgid "Report request"
 msgstr "Anfrage melden"
+
+msgid "Report request: {{title}}"
+msgstr ""
 
 msgid "Report this request"
 msgstr ""
@@ -2567,6 +2580,12 @@ msgstr "Öffentliche Nachfrage an {{person_or_body}} senden"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Öffentliche Antwort an {{person_or_body}} senden"
 
+msgid "Send and publish message"
+msgstr ""
+
+msgid "Send and publish request"
+msgstr ""
+
 msgid "Send follow up to '{{title}}'"
 msgstr ""
 
@@ -2581,9 +2600,6 @@ msgstr "Nachricht senden an {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Nachricht senden an {{user_name}} um zu sehen wie es funktioniert"
-
-msgid "Send request"
-msgstr "Anfrage senden"
 
 msgid "Sending..."
 msgstr "Senden..."
@@ -2859,11 +2875,8 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
-"Ihre im Namen von {{public_body}} an\n"
-"{{user}} gesendete Anfrage, um auf {{law_used_short}}\n"
-"zu reagieren, wurde nicht übermittelt."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -3017,8 +3030,8 @@ msgstr ""
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Dann ist es Ihnen gestattet eine IFG-Anfrage zu senden. "
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr "Dann wird Ihre OFG-Anfrage an {{public_body_name}} gesendet. "
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Dann wird Ihr Kommentar zu {{info_request_title}} gesendet."
@@ -3075,6 +3088,9 @@ msgid "They have not replied to your {{law_used_short}} request {{title}}, as re
 msgstr "Ihre {{law_used_short}} Anfrage {{title}} wurde nicht nach gesetzlicher Vorschrift beantwortet"
 
 msgid "Things you're following"
+msgstr ""
+
+msgid "This annotation has been reported for administrator attention"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3305,8 +3321,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Um eine Nachricht zu senden an {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "Um Ihre IFG-Anfrage zu senden"
+msgid "To send and publish your FOI request"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr ""
@@ -3560,6 +3576,9 @@ msgstr "Version {{version}}"
 msgid "Vexatious"
 msgstr "Missbräuchlich"
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
 msgstr "IFG-Emailadressen ansehen"
 
@@ -3623,7 +3642,7 @@ msgstr ""
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr ""
 
-msgid "We couldn't determine the delivery status of this message"
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3637,6 +3656,9 @@ msgstr "Für diese Behörde ist keine funktionierende Emailadresse zur Anfragens
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Wir haben keine funktionierende {{law_used_full}} Adresse für {{public_body_name}}."
+
+msgid "We don't know the delivery status for this message."
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

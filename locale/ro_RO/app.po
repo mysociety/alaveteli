@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
+"POT-Creation-Date: 2017-05-02 22:52+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alaveteli/language/ro_RO/)\n"
@@ -329,6 +329,9 @@ msgstr "Despre tine:"
 msgid "Act on what you've learnt"
 msgstr "Actţonează conform cu ceea ce ai învăţat."
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Funcționează pe post de xpian/funcționează ca un proces de xpian"
 
@@ -415,6 +418,12 @@ msgstr "Utilizator anonim"
 
 msgid "Annotation added to request"
 msgstr "Adnotare adaugată la cerere"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Adnotări"
@@ -1267,8 +1276,8 @@ msgstr "Dacă eroarea a fost una determinată de eșecul livrării și poți să
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Acesta e un mesaj recent. Mai verifică o dată mâine."
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
-msgstr "Dacă acesta este inexact sau dacă dorești să trimiți un răspuns cu întârziere la solicitare \\nsau un email legat de un alt subiect către {{user}}, te rugăm\\n să ne trimiți un email {{contact_email}} pentru asistență."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Dacă ești nemulțumit de răspunsul primit de la\\n instituția publică, ai dreptul de a\\n face o plângere (<a href=\"{{url}}\">detalii</a>)."
@@ -2353,14 +2362,20 @@ msgstr "Ține-mă minte (te menține autentificate o perioadă mai lungă; nu fo
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "Raportare abuz"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Raportaţi o cerere ofensatoare sau nepotrivită"
 
+msgid "Report annotation"
+msgstr ""
+
+msgid "Report annotation on request: {{title}}"
+msgstr ""
+
 msgid "Report request"
 msgstr "Raportați solicitarea"
+
+msgid "Report request: {{title}}"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Raportaţi această cerere"
@@ -2536,6 +2551,12 @@ msgstr "Trimite un mesaj de urmărire public către {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Trimite un răspuns public către {{person_or_body}}"
 
+msgid "Send and publish message"
+msgstr ""
+
+msgid "Send and publish request"
+msgstr ""
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Trimite follow up la '{{title}}'"
 
@@ -2550,9 +2571,6 @@ msgstr "Trimite un mesaj către {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Trimite un mesaj către {{user_name}} doar să vedeţi cum funcţionează"
-
-msgid "Send request"
-msgstr "Trimite cerere"
 
 msgid "Sending..."
 msgstr "Se trimite..."
@@ -2827,8 +2845,8 @@ msgstr "Clasificarea solicitării (de exemplu dacă a fost cu succes sau nu) se 
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Adresa de contact pentru solicitări de access la infromații către instituția publică."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
-msgstr "Email-ul trimis din partea {{public_body}}, către\\n{{user}} ca răspuns la {{law_used_short}}\\nsolicitare nu a fost transmis."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Barele de eroare afișate reprezintă 95% din intervalul estimat (de exemplu dacă ați face un număr de solicitări infinit acestei instituții publice). Cu alte cuvinte, reprezintă toate solicitările curente și viitoare trimise acestei instituții prin site nu toate solicitările trimise prin orice mijloace."
@@ -2980,8 +2998,8 @@ msgstr "Apoi veţi fi informfat  de câte solicitarea  '{{request_title}}'  este
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Apoi vei putea să trimiți solicitări de acces la informații."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr "Apoi solicitarea de acces la informații către {{public_body_name}} va fi trimisă."
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Apoi adnotarea ta la {{info_request_title}} va fi postată."
@@ -3039,6 +3057,9 @@ msgstr "Nu ţi-au răspuns la {{law_used_short}} solicitarea {{title}}, \\naşa 
 
 msgid "Things you're following"
 msgstr "Lucruri pe care le urmăriţi"
+
+msgid "This annotation has been reported for administrator attention"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Această autoritate nu mai există, deci nu puteţi face o cerere către aceasta."
@@ -3262,8 +3283,8 @@ msgstr "Pentru a trimite un mesaj de urmărire către {{authority_name}}."
 msgid "To send a message to {{user_name}}"
 msgstr "Pentru a trimite un mesaj la {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "Pentru a trimite solicitarea ta"
+msgid "To send and publish your FOI request"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Pentru a trimite solicitarea către o altă autoritate, copiază întâi textul solicitării tale mai jos, apoi <a href=\"{{find_authority_url}}\">găsește cealaltă autoritate</a>."
@@ -3517,6 +3538,9 @@ msgstr "Versiunea {{version}}"
 msgid "Vexatious"
 msgstr "Ofensator"
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
 msgstr "Vezi adresa de email pentru solicitări"
 
@@ -3580,7 +3604,7 @@ msgstr "Considerăm că nu este o solicitare de informații validă, așa că am
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Considerăm că este ofensator, așa că am ascuns-o celorlalți utilizatori."
 
-msgid "We couldn't determine the delivery status of this message"
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3594,6 +3618,9 @@ msgstr "Nu avem o adresă de email valabilă pentru cererile adresate acestei au
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nu avem o  adresă {{law_used_full}}  valabilă pentru {{public_body_name}}."
+
+msgid "We don't know the delivery status for this message."
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Nu ştim dacă cel mai recent răspuns la această solicitare conţine\\ninformaţie sau nu\\n &ndash;\\n»dacă ştii{{user_link}} te rugăm<a href=\"{{url}}\">autentifică-te</a>şi permite accesul tuturor."
