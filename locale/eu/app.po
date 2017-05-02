@@ -1297,11 +1297,8 @@ msgstr ""
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Zuzena ez bada, edo  {{user}}-ri eskabideari edo beste gaiari buruzko erantzuna bidali nahi izango bazenio, orduan idatz ezazu, mesedez, \n"
-"{{contact_email}}-ra, laguntza eskatuz."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Erakunde publikotik jaso duzun erantzunarekin pozik ez bazaude, apelatzeko eskubidea daukazu (<a href=\"{{url}}\">xehetasunak</a>)."
@@ -2393,9 +2390,8 @@ msgstr ""
 msgid "Report an offensive or unsuitable request"
 msgstr ""
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Bidali iruzkina"
+msgstr ""
 
 msgid "Report annotation on request: {{title}}"
 msgstr ""
@@ -2583,13 +2579,11 @@ msgstr "Erantzun {{person_or_body}}-ri publikoki."
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "ERantzun {{person_or_body}}-ri publikoki"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "eta"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "eta"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr ""
@@ -2884,11 +2878,8 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
-"Zuk bidalitako emaila, {{public_body}}-ren izenean, enviado a\n"
-"{{user}}-ri  {{law_used_short}} eskabidearen erantzuna bezala, ez da eman."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -3044,9 +3035,8 @@ msgstr ""
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Orduan informazio eskabideak bidali ahal izango dituzu."
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Orduan {{public_body_name}}-ri egin diozun eskabidea bidaliko da."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Orduan zure iruzkina {{info_request_title}}-ri bidaliko zaio."
@@ -3107,9 +3097,8 @@ msgstr ""
 msgid "Things you're following"
 msgstr ""
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "admin"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Erakunde hau jadanik ez da existitzen, ezin da informazio eskabiderik egin."
@@ -3335,9 +3324,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "______-ri mezua bidaltzeko {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "FOI"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr ""

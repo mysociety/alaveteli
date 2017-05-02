@@ -1334,12 +1334,8 @@ msgstr ""
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Ha ez hibás, vagy az igénylésre késedelmesen választ szeretne küldeni,\n"
-"vagy {{user}} részére más tárgy miatt e-mailt kíván küldeni, küldjön \n"
-"e-mail üzenetet a(z) {{contact_email}} részére, hogy segítséget kapjon. "
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2466,9 +2462,8 @@ msgstr ""
 msgid "Report an offensive or unsuitable request"
 msgstr "Sértő vagy nem alkalmas igénylés jelentése"
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Hozzászólás beküldése "
+msgstr ""
 
 msgid "Report annotation on request: {{title}}"
 msgstr ""
@@ -2656,13 +2651,11 @@ msgstr "Nyilvános nyomon követés küldése {{person_or_body}} részére "
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Nyilvános válasz küldése {{person_or_body}} részére "
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "és"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "és"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr "Emlékeztető üzenet küldése a(z) '{{title}}' igényléshez"
@@ -2967,12 +2960,8 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
-"Az az e-mail, amelyet ön a(z) {{public_body}} adatgazda nevében\n"
-"{{user}} felhasználónak küldött a {{law_used_short}}\n"
-"igénylésre vonatkozóan, nem lehetett kézbesíteni. "
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -3133,9 +3122,8 @@ msgstr "Ezután értesítést kap, ha a(z) '{{request_title}}' igénylést friss
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Ezután önnek lehetősége van közérdekűadat-igénylést benyújtani. "
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Ezután elküldjük közérdekűadat-igénylését a(z) {{public_body_name}} részére."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Ezután megjelenik a(z) {{info_request_title}} igénylésre vonatkozó hozzászolása. "
@@ -3198,9 +3186,8 @@ msgstr ""
 msgid "Things you're following"
 msgstr "Követett elemek:"
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "Ezt az igénylést már jelentették az adminisztrátornak"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Ez az adatgazda már nem létezik, ezért nem tud adatigényléseket fogadni. "
@@ -3444,9 +3431,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Ha üzenet szeretne küldeni a következőnek: {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "KözAdat"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Ha igénylését egy másik adatgazdának is el szeretné küldeni, először másolja be alulra igénylésének szövegét, majd <a href=\"{{find_authority_url}}\">keresse ki a másik adatgazdát</a>."

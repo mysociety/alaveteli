@@ -451,13 +451,11 @@ msgstr "Një përdorues anonim"
 msgid "Annotation added to request"
 msgstr "Shënimi iu shtua kërkesës"
 
-#, fuzzy
 msgid "Annotation contains defamatory material"
-msgstr "Permban material pergojues"
+msgstr ""
 
-#, fuzzy
 msgid "Annotation contains personal information"
-msgstr "Permban informacioin personal"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Shënimet"
@@ -1318,9 +1316,8 @@ msgstr "Nese gabimi ishte nje deshtim ne dergim dhe ju mund te gjeni nje adrese 
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
-msgstr "Nese kjo eshe e pasakte, apo nese deshironi te dergoni nje pergjigje te vonuar ndaj kerkeses, apo nje mesazh me subjekt tjeter tek {{user}}, atehere ju lutem na shkruani tek{contact_email}} per ndihme"
+msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2419,20 +2416,17 @@ msgstr ""
 msgid "Report an offensive or unsuitable request"
 msgstr "Raporto një kërkesë fyese ose të papërshtatshme"
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Posto shënimin"
+msgstr ""
 
-#, fuzzy
 msgid "Report annotation on request: {{title}}"
-msgstr "tek"
+msgstr ""
 
 msgid "Report request"
 msgstr "Raporto kerkesen"
 
-#, fuzzy
 msgid "Report request: {{title}}"
-msgstr "Raporto kerkesen"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Raporto këtë kërkesë"
@@ -2611,13 +2605,11 @@ msgstr "Dërgo mesazh publik vijues për {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Dërgo përgjigje publike te {{person_or_body}}"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "dhe"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "dhe"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr "Dergo mesazh vijues per '{{title}}'"
@@ -2912,9 +2904,8 @@ msgstr "Klasifikimi i kerkesave(p.sh. ku thuhet jane te suksesshme apo jo) eshte
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Adresa e kontaktit per kerkesen e te Drejtes se Informimit drejtuar institucionit"
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
-msgstr "Emaili që ju, në emër të {{public_body}}, keni dërguar tek {{user}} për t'iu përgjigjur një kërkese, nuk është dorëzuar."
+msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Linjat e gabimi jane 95% te intervaleve konfidenciale per perpjetimin e nenkuptuar, qe eshte hipotezuar (p.sh. ate qe do te marresh duke derguar nje numer infinit kerkesash nepermjet kesaj faqe tek institucioni). Me fjale te tjera, popullata qe eshte marre si kampion testimi jane te gjitha kerkesat aktuale dhe te ardheshme per insitucionin nepermjet kesaj faqeje, dhe jo kerkesat e bera nepermjet te gjitha formave drejt institucionit perkates."
@@ -3070,9 +3061,8 @@ msgstr "Me pas do njoftohesh sa herë që kërkesa '{{request_title}}' perditeso
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Me pas do të lejohet të bën kërkesa për te Drjeten e Informimit."
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Me pas kërkesa juaj për {{public_body_name}} do te dergohet."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Me pas shënimi juaj për {{info_request_title}} do të postohet."
@@ -3131,9 +3121,8 @@ msgstr "Ata nuk janë përgjigjur ndaj kërkesës tuaj {{title}}, siç kërkohet
 msgid "Things you're following"
 msgstr "Gjërat që po i ndiqni"
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "Kjo kërkesë është dërguar për vëmendje të administratorit"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Ky institucion nuk ekziston më, kështu që ju nuk mund të bëni një kërkesë për të."
@@ -3364,9 +3353,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Për të dërguar mesazh tek {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "DI"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Per te derguar kerkesen tek nje institucion tjeter, me pare kopjoj tekstin nga kerkesa juaj si me poshte, me pas<a href=\"{{find_authority_url}}\"> gjeni insitucionin</a>."
@@ -3620,9 +3608,8 @@ msgstr "Versioni {{version}}"
 msgid "Vexatious"
 msgstr "Shqetesuese"
 
-#, fuzzy
 msgid "Vexatious annotation"
-msgstr "Shqetesuese"
+msgstr ""
 
 msgid "View FOI email address"
 msgstr "Shih adresën e postes elektronike për per te Drejten per Informim"
@@ -3687,9 +3674,8 @@ msgstr "Ne nuk e konsiderojme nje kerkese per te DI te vlefshme dhe per kete ars
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Ne e konsiderojme ate shqetesuese dhe per kete arsye e kemi fshehur nga perdoruesit e tjere."
 
-#, fuzzy
 msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr "tek"
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr ""
@@ -3703,9 +3689,8 @@ msgstr "Për fat të keq, ne nuk kemi një adrese elektronike funksionale për k
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Ne nuk kemi adresë te funksionueshme për {public_body_name}}."
 
-#, fuzzy
 msgid "We don't know the delivery status for this message."
-msgstr "tek"
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

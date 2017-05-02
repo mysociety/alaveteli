@@ -1326,12 +1326,8 @@ msgstr ""
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"ان كان هذا خطأ, أو ان اردت ارسال رد متأخر على الطلب\n"
-"أو رسالة الكترونية بخصوص موضوع اخر {{user}}, الرجاء\n"
-"ارسال بريد الكتروني {{contact_email}} طلبا للمساعدة."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2448,9 +2444,8 @@ msgstr ""
 msgid "Report an offensive or unsuitable request"
 msgstr "بلغ عن طلب غير ملائم أو مخل بالاداب"
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "انشر الملاحظة"
+msgstr ""
 
 msgid "Report annotation on request: {{title}}"
 msgstr ""
@@ -2638,13 +2633,11 @@ msgstr "ابعث رسالة متابعة علنية ل {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "ارسل ردا علنيا ل {{person_or_body}}"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "و"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "و"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr "ارسل متابعة ل '{{title}}'"
@@ -2949,12 +2942,8 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
-"البريد الالكتروني الذي, ارسلته عوضا عن {{public_body}} الى\n"
-"{{user}} للرد على {{ law_used_short}}\n"
-" لم يقع ارسال الطلب."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -3106,9 +3095,8 @@ msgstr "ثم سيتم إعلامك كلما تم  '{{request_title}}' تحيين
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "ثم سيكون بامكانك ارسال طلبات حرية الولوج الى المعلومة."
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "ثم سيقع ارسال طلباتك لحرية النفاذ الى المعلومة ل{{public_body_name}} ."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "ثم سيقع نشر {{info_request_title}}ملاحظتك."
@@ -3173,9 +3161,8 @@ msgstr ""
 msgid "Things you're following"
 msgstr "الاشياء التي تتابعها"
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "تم التبليغ عن هذا الطلب لتهتم به الادارة"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "هذه السلطة لم تعد موجودة, لم يعد بامكانك تقديم طلب لها."
@@ -3414,9 +3401,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "لبعث رسالة الى {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "حرية النفاذ الى المعلومة"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "<li>لكي يتم بعث رسالتكم إلى مؤسسة أخرى،أولاً  وجب نسخ نص طلبكم أدناه، ثم <a href=\"{{find_authority_url}}\">البحث عن هذه المؤسسة</a>.</li>"

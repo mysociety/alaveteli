@@ -473,13 +473,11 @@ msgstr "Utilizator anonim"
 msgid "Annotation added to request"
 msgstr "Adnotare adaugată la cerere"
 
-#, fuzzy
 msgid "Annotation contains defamatory material"
-msgstr "Conține informație cu caracter defăimător"
+msgstr ""
 
-#, fuzzy
 msgid "Annotation contains personal information"
-msgstr "Conține informație cu caracter personal"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Adnotări"
@@ -1361,12 +1359,8 @@ msgstr "Dacă eroarea a fost una determinată de eșecul livrării și poți să
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Acesta e un mesaj recent. Mai verifică o dată mâine."
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Dacă acesta este inexact sau dacă dorești să trimiți un răspuns cu întârziere la solicitare \n"
-"sau un email legat de un alt subiect către {{user}}, te rugăm\n"
-" să ne trimiți un email {{contact_email}} pentru asistență."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2494,20 +2488,17 @@ msgstr ""
 msgid "Report an offensive or unsuitable request"
 msgstr "Raportaţi o cerere ofensatoare sau nepotrivită"
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Postaţi o adnotare"
+msgstr ""
 
-#, fuzzy
 msgid "Report annotation on request: {{title}}"
-msgstr "la"
+msgstr ""
 
 msgid "Report request"
 msgstr "Raportați solicitarea"
 
-#, fuzzy
 msgid "Report request: {{title}}"
-msgstr "Raportați solicitarea"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Raportaţi această cerere"
@@ -2686,13 +2677,11 @@ msgstr "Trimite un mesaj de urmărire public către {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Trimite un răspuns public către {{person_or_body}}"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "şi"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "şi"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr "Trimite follow up la '{{title}}'"
@@ -2991,12 +2980,8 @@ msgstr "Clasificarea solicitării (de exemplu dacă a fost cu succes sau nu) se 
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Adresa de contact pentru solicitări de access la infromații către instituția publică."
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
-"Email-ul trimis din partea {{public_body}}, către\n"
-"{{user}} ca răspuns la {{law_used_short}}\n"
-"solicitare nu a fost transmis."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Barele de eroare afișate reprezintă 95% din intervalul estimat (de exemplu dacă ați face un număr de solicitări infinit acestei instituții publice). Cu alte cuvinte, reprezintă toate solicitările curente și viitoare trimise acestei instituții prin site nu toate solicitările trimise prin orice mijloace."
@@ -3157,9 +3142,8 @@ msgstr "Apoi veţi fi informfat  de câte solicitarea  '{{request_title}}'  este
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Apoi vei putea să trimiți solicitări de acces la informații."
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Apoi solicitarea de acces la informații către {{public_body_name}} va fi trimisă."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Apoi adnotarea ta la {{info_request_title}} va fi postată."
@@ -3222,9 +3206,8 @@ msgstr ""
 msgid "Things you're following"
 msgstr "Lucruri pe care le urmăriţi"
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "Această cerere a fost raportată spre atenţia administratorului"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Această autoritate nu mai există, deci nu puteţi face o cerere către aceasta."
@@ -3470,9 +3453,8 @@ msgstr "Pentru a trimite un mesaj de urmărire către {{authority_name}}."
 msgid "To send a message to {{user_name}}"
 msgstr "Pentru a trimite un mesaj la {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "solicitare de acces la informații"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Pentru a trimite solicitarea către o altă autoritate, copiază întâi textul solicitării tale mai jos, apoi <a href=\"{{find_authority_url}}\">găsește cealaltă autoritate</a>."
@@ -3728,9 +3710,8 @@ msgstr "Versiunea {{version}}"
 msgid "Vexatious"
 msgstr "Ofensator"
 
-#, fuzzy
 msgid "Vexatious annotation"
-msgstr "Ofensator"
+msgstr ""
 
 msgid "View FOI email address"
 msgstr "Vezi adresa de email pentru solicitări"
@@ -3795,9 +3776,8 @@ msgstr "Considerăm că nu este o solicitare de informații validă, așa că am
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Considerăm că este ofensator, așa că am ascuns-o celorlalți utilizatori."
 
-#, fuzzy
 msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr "la"
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr ""
@@ -3811,9 +3791,8 @@ msgstr "Nu avem o adresă de email valabilă pentru cererile adresate acestei au
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nu avem o  adresă {{law_used_full}}  valabilă pentru {{public_body_name}}."
 
-#, fuzzy
 msgid "We don't know the delivery status for this message."
-msgstr "la"
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

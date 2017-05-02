@@ -3004,9 +3004,8 @@ msgstr ""
 msgid "Then you'll be allowed to send FOI requests."
 msgstr ""
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Wob"
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr ""
@@ -3288,9 +3287,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "Wob"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr ""

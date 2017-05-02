@@ -461,13 +461,11 @@ msgstr "Umuntu ukoresha urubuga utazwi"
 msgid "Annotation added to request"
 msgstr "Ibisobanuro byongewe ku kibazo"
 
-#, fuzzy
 msgid "Annotation contains defamatory material"
-msgstr "Harimo ibintu bisebanya"
+msgstr ""
 
-#, fuzzy
 msgid "Annotation contains personal information"
-msgstr "Harimo amakuru bwite"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Ibisobanuro"
@@ -1350,12 +1348,8 @@ msgstr "Niba ikosa ari uko ubutumwa butagiye, kandi ukaba uzi imeli y'ubwisanzur
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Niba ubu butumwa ari ubwa vuba,uzongere urebe ejo,kuko tureba bakoresheje urubuga rimwe na rimwe."
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Niba ibi ataribyo, cyangwa se ukaba wifuza kwohereza igisubizo gikerewe kuri iki kibazo\n"
-"cyangwa se imeli ijyanye n'ibindi bintu kuri {{user}}, turagusaba\n"
-"kutwandikira kuri {{contact_email}} kugirango tugufashe."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2483,20 +2477,17 @@ msgstr "Gusubiza binyuze mu iposita . "
 msgid "Report an offensive or unsuitable request"
 msgstr "Erekana ikibazo kidahwitse cyangwa gikomeretsa"
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Shyiraho insobanuro"
+msgstr ""
 
-#, fuzzy
 msgid "Report annotation on request: {{title}}"
-msgstr "kuri"
+msgstr ""
 
 msgid "Report request"
 msgstr "Erekana ikibazo"
 
-#, fuzzy
 msgid "Report request: {{title}}"
-msgstr "Erekana ikibazo"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Erekana iki kibazo"
@@ -2675,13 +2666,11 @@ msgstr "Oherereza {{person_or_body}} ubutumwa rusange bwo gukurikirana"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Oherereza {{person_or_body}} igisubizo rusange"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "na"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "na"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr "Ohereza ubutumwa bwo gukurikirana '{{title}}'"
@@ -2986,12 +2975,8 @@ msgstr "Ubushyinguro bw'ibibazo (urugero: kuvuga ko byasubijwe cyangwa bitasubij
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Imeli yo kwoherezaho ibibazo by'ubwisanzure bwo kumenya amakuru ku muyobozi."
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
-"Imeli wohereje mu mwanya wa {{public_body}}, uyoherereza\n"
-"{{user}} isubiza ikibazo cya {{law_used_short}}\n"
-"ntabwo yagiye."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Imirongo yo kwibeshya ni 95% y'intera hagati y'icyizere y'imibare mwibwira y'ibanze (ni ukuvuga iyo wabona utanze umubare w'ibibazo bitarangira kuri uwo muyobozi ukoresheje uru rubuga). Mu yandi magambo, abakoreweho ibarura ni ibibazo byabajijwe n'ibizabazwa umuyobozi hakoreshejwe uru rubuga, aho kuba, ibibazo byose byabajijwe umuyobozi binyuze mu nzira iyo ariyo yose."
@@ -3152,9 +3137,8 @@ msgstr "Ubwo uzamenyeshwa igihe cyose ikibazo '{{request_title}}' kizavugururwa.
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Ubwo uzemererwa kwohereza ibibazo by'ubwisanzure bwo kumenya amakuru."
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Ubwo ikibazo cy'ubwisanzure bwo kumenya amakuru wabajije {{public_body_name}} kizoherezwa."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Ubwo ibisobanuro watanze kuri {{info_request_title}} bizoherezwa."
@@ -3217,9 +3201,8 @@ msgstr ""
 msgid "Things you're following"
 msgstr "Ibintu ukurikira"
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "Iki kibazo cyagaragarijwe abayobozi b'urubuga ko bakwiye kukigaho."
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Uyu muyobozi ntakibaho, rero ntushobora kumubaza ikibazo."
@@ -3465,9 +3448,8 @@ msgstr "Kohereza ubutumwa bukurikirana ikibazo  kuri {{authority_name}}"
 msgid "To send a message to {{user_name}}"
 msgstr "Kwoherereza ubutumwa {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "Ubwisanzure bwo kumenya amakuru"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Kugirango woherereze ikibazo cyawe undi muyobozi, andukura ikibazo cyawe hano munsi, hanyuma <a href=\"{{find_authority_url}}\">ushake uwo muyobozi wundi</a>."
@@ -3723,9 +3705,8 @@ msgstr "Inyandiko {{version}}"
 msgid "Vexatious"
 msgstr "Gikomeretsanya"
 
-#, fuzzy
 msgid "Vexatious annotation"
-msgstr "Gikomeretsanya"
+msgstr ""
 
 msgid "View FOI email address"
 msgstr "Reba imeli y'ubwisanzure bwo kumenya amakuru"
@@ -3790,9 +3771,8 @@ msgstr "Twabonye iki kibazo kitujuje ibyangombwa byo kuba ikibazo cy'ubwisanzure
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Twabonye gikomeretsanya, niyo mpamvu cyahishwe abandi bakoresha uru rubuga."
 
-#, fuzzy
 msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr "Ntabwo dushobora kumenya uko ubu butumwa buhagaze "
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr "Ntabwo dushobora kwerekana logs z’’ubu butumwa ."
@@ -3806,9 +3786,8 @@ msgstr "Ntabwo dufite imeli ikora y'uyu muyobozi."
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Ntabwo dufite {{law_used_full}} aderesi y'ukuri ya {{public_body_name}}."
 
-#, fuzzy
 msgid "We don't know the delivery status for this message."
-msgstr "Ntabwo dushobora kumenya uko ubu butumwa buhagaze "
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

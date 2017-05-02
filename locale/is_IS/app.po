@@ -444,13 +444,11 @@ msgstr "Nafnlaus notandi"
 msgid "Annotation added to request"
 msgstr "Athugasemd við beiðnina skráð"
 
-#, fuzzy
 msgid "Annotation contains defamatory material"
-msgstr "Inniheldur ærumeiðandi efni"
+msgstr ""
 
-#, fuzzy
 msgid "Annotation contains personal information"
-msgstr "Inniheldur persónulegar upplýsingar"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Athugasemdir"
@@ -1312,9 +1310,8 @@ msgstr "Ef villan kom upp við sendingu og þú getur fundið uppfært netfang t
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Ef þetta eru nýleg skilaboð skaltu gá aftur á morgun þar sem við gáum reglulega að nýjum annálum."
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
-msgstr "Ef þetta er rangt eða ef þú vilt senda síðbúið svar við beiðninni eða tölvupóst um annað efni til {{user}} skaltu senda tölvupóst til {{contact_email}} til að fá aðstoð."
+msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2411,20 +2408,17 @@ msgstr "Svar berst með sniglapósti"
 msgid "Report an offensive or unsuitable request"
 msgstr "Tilkynna óviðurkvæmilega eða óviðeigandi beiðni"
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Birta athugasemd"
+msgstr ""
 
-#, fuzzy
 msgid "Report annotation on request: {{title}}"
-msgstr "hjá"
+msgstr ""
 
 msgid "Report request"
 msgstr "Tilkynna beiðni"
 
-#, fuzzy
 msgid "Report request: {{title}}"
-msgstr "Tilkynna beiðni"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Tilkynna þessa beiðni"
@@ -2603,13 +2597,11 @@ msgstr "Senda opinbera viðbót til {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Senda opinbert svar til {{person_or_body}}"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "og"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "og"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr "Senda svar til '{{title}}'"
@@ -2904,9 +2896,8 @@ msgstr "Notendur og stjórnendur vefsins flokka beiðnirnar handvirkt (t.d. til 
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Samskiptanetfang fyrir upplýsingabeiðnir til stjórnvaldsins."
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
-msgstr "Tölvupósturinn sem þú sendir fyrir hönd {{public_body}} til {{user}} sem svar við beiðni varðandi {{law_used_short}} hefur ekki komist til skila."
+msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Villulínurnar sýna 95% öryggisbil fyrir undirliggjandi hlutfall (þ.e. það sem fengist með takmarkalausum beiðnum í gegnum þennan vef til viðkomandi stjórnvalds). Með öðrum orðum er þýðið allar fyrirliggjandi og verðandi beiðnir til stjórnvaldsins í gegnum þennan vef, en ekki til dæmis allar beiðnir sem hafa borist stjórnvaldinu með einhverjum hætti."
@@ -3066,9 +3057,8 @@ msgstr "Þá færðu að vita þegar beiðnin '{{request_title}}' er uppfærð."
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Þá færðu að senda upplýsingabeiðnir."
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Þá verður upplýsingabeiðnin þín til {{public_body_name}} send."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Þá verður athugasemdin þín við {{info_request_title}} birt."
@@ -3127,9 +3117,8 @@ msgstr "Þau hafa ekki svarað beiðni þinni, {{title}}, varðandi {{law_used_s
 msgid "Things you're following"
 msgstr "Hlutir sem þú ert að fylgjast með"
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "Þessi beiðni hefur verið tilkynnt til stjórnenda"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Þetta stjórnvald er ekki lengur til svo þú getur ekki sent upplýsingabeiðni til þess."
@@ -3353,9 +3342,8 @@ msgstr "Til að senda ítrekunarskilaboð til {{authority_name}}"
 msgid "To send a message to {{user_name}}"
 msgstr "Til að senda skilaboð til {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "Upplýsingabeiðni"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Til að senda beiðnina á aðra stofnun afritarðu fyrst textann fyrir neðan og <a href=\"{{find_authority_url}}\">leitar svo að stofnun</a>."
@@ -3609,9 +3597,8 @@ msgstr "Útgáfa {{version}}"
 msgid "Vexatious"
 msgstr "Tilefnislaus eða ögrandi"
 
-#, fuzzy
 msgid "Vexatious annotation"
-msgstr "Tilefnislaus eða ögrandi"
+msgstr ""
 
 msgid "View FOI email address"
 msgstr "Sjá netfang"
@@ -3676,9 +3663,8 @@ msgstr "Við álítum þetta ekki vera gilda upplýsingabeiðni og höfum því 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Við teljum þetta vera ögrandi eða tilefnislaust og höfum því falið það fyrir öðrum notendum."
 
-#, fuzzy
 msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr "Við gátum ekki ákvarðað sendingarstöðu þessa skeytis"
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr "Við gátum ekki birt neina annála fyrir þetta skeyti."
@@ -3692,9 +3678,8 @@ msgstr "Við erum ekki með gilt netfang fyrir beiðnir til þessa stjórnvalds.
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Við erum ekki með virkt netfang vegna {{law_used_full}} hjá {{public_body_name}}."
 
-#, fuzzy
 msgid "We don't know the delivery status for this message."
-msgstr "Við gátum ekki ákvarðað sendingarstöðu þessa skeytis"
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

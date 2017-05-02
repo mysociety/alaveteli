@@ -448,13 +448,11 @@ msgstr "Ένας ανώνυμος χρήστης"
 msgid "Annotation added to request"
 msgstr "Σημείωση προστέθηκε στην αίτηση"
 
-#, fuzzy
 msgid "Annotation contains defamatory material"
-msgstr "στο"
+msgstr ""
 
-#, fuzzy
 msgid "Annotation contains personal information"
-msgstr "Περιέχει προσωπικές πληροφορίες"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Σημειώσεις"
@@ -1317,12 +1315,8 @@ msgstr "Εαν το σφάλμα ήταν σφάλμα παράδοσης, κα�
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Εαν αυτό είναι ένα πρόσφατο μήνυμα, επιστρέψτε αύριο, επειδή ελέγχουμε για νέες εγγραφές περιοδικά."
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Εαν αυτό είναι λανθασμένο, ή θα θέλατε να στείλετε μια καθυστερημένη απάντηση στην αίτηση\n"
-"ή ενα email για κάποιο άλλο θέμα στον {{user}}, τότε παρακαλούμε \n"
-"στείλτε email {{contact_email}} για βοήθεια."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2419,20 +2413,17 @@ msgstr "Ταχυδρομική απάντηση"
 msgid "Report an offensive or unsuitable request"
 msgstr "Αναφέρετε προσβλητικό η ακατάλληλο αίτημα"
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Προσθέστε μια σημείωση"
+msgstr ""
 
-#, fuzzy
 msgid "Report annotation on request: {{title}}"
-msgstr "στο"
+msgstr ""
 
 msgid "Report request"
 msgstr "Αναφορά αιτήματος"
 
-#, fuzzy
 msgid "Report request: {{title}}"
-msgstr "Αναφορά αιτήματος"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Αναφέρετε αυτό το αίτημα"
@@ -2608,13 +2599,11 @@ msgstr ""
 msgid "Send a public reply to {{person_or_body}}"
 msgstr ""
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "και"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "και"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr "Στείλτε follow up στο '{{title}}'"
@@ -2905,9 +2894,8 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
-msgstr "στο"
+msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -3059,9 +3047,8 @@ msgstr ""
 msgid "Then you'll be allowed to send FOI requests."
 msgstr ""
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "{{public_body_name}}"
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr ""
@@ -3120,9 +3107,8 @@ msgstr ""
 msgid "Things you're following"
 msgstr "Πράγματα που παρακολουθείτε"
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "Αυτή η αίτηση έχει αναφερθεί ότι χρειάζεται προσοχή από διαχειριστή"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr ""
@@ -3346,9 +3332,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Για να στείλετε ένα μήνυμα στον {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "ΔΓΔΕ"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr ""
@@ -3602,9 +3587,8 @@ msgstr ""
 msgid "Vexatious"
 msgstr ""
 
-#, fuzzy
 msgid "Vexatious annotation"
-msgstr "στο"
+msgstr ""
 
 msgid "View FOI email address"
 msgstr ""
@@ -3669,9 +3653,8 @@ msgstr ""
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr ""
 
-#, fuzzy
 msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr "στο"
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr ""
@@ -3685,9 +3668,8 @@ msgstr "Το e-mail αυτού του οργανισμού που υπάρχει
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Δεν διαθέτουμε έγκυρη  {{law_used_full}} διεύθυνση για το {{public_body_name}}."
 
-#, fuzzy
 msgid "We don't know the delivery status for this message."
-msgstr "στο"
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

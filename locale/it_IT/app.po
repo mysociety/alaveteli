@@ -433,13 +433,11 @@ msgstr "Un utente anonimo"
 msgid "Annotation added to request"
 msgstr "Annotazione aggiunta alla richiesta"
 
-#, fuzzy
 msgid "Annotation contains defamatory material"
-msgstr "Contiene informazioni diffamatorie"
+msgstr ""
 
-#, fuzzy
 msgid "Annotation contains personal information"
-msgstr "Contiene informazioni personali e/o sensibili"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Annotazioni"
@@ -1295,9 +1293,8 @@ msgstr "Se l'errore è dovuto a un problema di consegna del messaggio e riesci a
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Se questo è un messaggio recente, ricontrolla domani."
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
-msgstr "Se questo non è esatto o se vuoi mandare una risposta in ritardo alla richiesta o una email su un altro argomento a {{user}}, invia un'email a {{contact_email}} per avere assistenza."
+msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Se non sei soddisfatto della risposta ricevuta dall'amministrazione, hai il diritto di (<a href=\"{{url}}\">presentare ricorso</a>)."
@@ -2393,20 +2390,17 @@ msgstr ""
 msgid "Report an offensive or unsuitable request"
 msgstr "Segnala richiesta offensiva o inappropriata"
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Pubblica la tua annotazione"
+msgstr ""
 
-#, fuzzy
 msgid "Report annotation on request: {{title}}"
-msgstr "a"
+msgstr ""
 
 msgid "Report request"
 msgstr "Segnala richiesta"
 
-#, fuzzy
 msgid "Report request: {{title}}"
-msgstr "Segnala richiesta"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Segnala questa richiesta"
@@ -2585,13 +2579,11 @@ msgstr "Invia un messaggio di risposta pubblico a {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Invia una risposta pubblica a {{person_or_body}}"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "e il"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "e il"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr "Invia un messaggio di risposta a '{{title}}'"
@@ -2882,9 +2874,8 @@ msgstr "La classificazione delle richieste (ad esempio, se hanno ricevuto rispos
 msgid "The contact email address for FOI requests to the authority."
 msgstr "L'indirizzo email dell'amministrazione per le richieste di accesso."
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
-msgstr "L'email che tu,  per conto di \"{{public_body}}\", hai spedito a {{user}} in risposta alla sua richiesta di accesso NON è stata spedita."
+msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Le barre di errore mostrate rappresentano gli intervalli di confidenza al 95% relativi alla proporzione sottostante ipotizzata (p.es. il valore ottenuto effettuando un numero infinito di richieste a una certa autorità tramite questo sito). In altre parole, il campione esaminato è costituito da tutte le richieste presenti e future a un’autorità tramite questo sito, invece che, per esempio, da tutte le richieste effettuate a enti pubblici tramite qualsiasi mezzo."
@@ -3038,9 +3029,8 @@ msgstr "Riceverai informazioni ogni volta che la richiesta  '{{request_title}}' 
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Potrai spedire richieste di accesso."
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "La tua richiesta di accesso a \"{{public_body_name}}\" verrà spedita."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "La tua annotazione a {{info_request_title}} verrà pubblicata."
@@ -3101,9 +3091,8 @@ msgstr "Non hanno risposto alla tua richiesta di {{law_used_short}} {{title}} co
 msgid "Things you're following"
 msgstr "Cose che stai seguendo"
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "Questa richiesta è stata segnalata agli amministratori del sito"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Questa amministrazione non esiste più, quindi non puoi presentare la richiesta."
@@ -3327,9 +3316,8 @@ msgstr "Per inviare un messaggio di risposta a \"{{authority_name}}\""
 msgid "To send a message to {{user_name}}"
 msgstr "Per mandare un messaggio a {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "diritto di accesso"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Per inviare la stessa richiesta a un'altra amministrazione, copia il testo della tua richiesta qui sotto, poi <a href=\"{{find_authority_url}}\">trova l'altra amministrazione</a>."
@@ -3583,9 +3571,8 @@ msgstr "Versione {{version}}"
 msgid "Vexatious"
 msgstr "Vessatorio"
 
-#, fuzzy
 msgid "Vexatious annotation"
-msgstr "Vessatorio"
+msgstr ""
 
 msgid "View FOI email address"
 msgstr "Visualizza l'indirizzo per le richieste di accesso"
@@ -3650,9 +3637,8 @@ msgstr "Questa richiesta di accesso non è considerata valida e per questo è na
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Pensiamo che questa richiesta sia problematica e perciò l'abbiamo nascosta."
 
-#, fuzzy
 msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr "Non è stato possibile determinare lo stato di consegna di questo messaggio"
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr "Non è stato possibile visualizzare nessun log per questo messaggio."
@@ -3666,9 +3652,8 @@ msgstr "Non abbiamo un indirizzo di posta elettronica valido per questa amminist
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Non abbiamo un indirizzo valido per \"{{public_body_name}}\" per le richieste di accesso secondo il {{law_used_full}}."
 
-#, fuzzy
 msgid "We don't know the delivery status for this message."
-msgstr "Non è stato possibile determinare lo stato di consegna di questo messaggio"
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Non sappiamo se la risposta più recente a questa richiesta contiene le informazioni richieste o meno ⇥ se sei {{user_link}} <a href=\"{{url}}\">accedi</a> e segnalalo."

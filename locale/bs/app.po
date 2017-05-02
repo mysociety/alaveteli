@@ -1314,12 +1314,8 @@ msgstr ""
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Ako je ovo pogrešno, ili biste da pošaljete novi odgovor na zahtjev\n"
-"ili e mail o nečemu drugome {{user}}, onda molimo\n"
-"pošaljite nam e-mail {{contact_email}} za pomoć."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2443,9 +2439,8 @@ msgstr ""
 msgid "Report an offensive or unsuitable request"
 msgstr ""
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Postaj napomenu"
+msgstr ""
 
 msgid "Report annotation on request: {{title}}"
 msgstr ""
@@ -2630,13 +2625,11 @@ msgstr ""
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Poslati javni odgovor za {{person_or_body}}"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "i"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "i"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr ""
@@ -3103,9 +3096,8 @@ msgstr ""
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Tada će Vam biti dozvoljeno da šaljete Zahtjeve za slobodan pristup informacijama "
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Tada će Vaši Zahtjevi za slobodan pristup informacijama za {{public_body_name}} biti poslani."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Tada će Vaša napomena za {{info_request_title}} biti postavljena."
@@ -3166,9 +3158,8 @@ msgstr ""
 msgid "Things you're following"
 msgstr ""
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "administrator"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Ova ustanova više ne postoji, zato joj nije moguće podnijeti zahtjev. "
@@ -3404,9 +3395,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Da biste poslali poruku za {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "i"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr ""

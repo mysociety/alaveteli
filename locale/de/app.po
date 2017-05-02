@@ -447,13 +447,11 @@ msgstr "Ein anonymer Benutzer"
 msgid "Annotation added to request"
 msgstr "Anfrage wurde kommentiert"
 
-#, fuzzy
 msgid "Annotation contains defamatory material"
-msgstr "Enthält verbotenes Material"
+msgstr ""
 
-#, fuzzy
 msgid "Annotation contains personal information"
-msgstr "Enthält persönliche Informationen"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Kommentare"
@@ -1312,11 +1310,8 @@ msgstr ""
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Falls dies falsch ist oder Sie eine späte Antwort auf diese Anfrage oder zu einem anderen Thema an {{user}} senden möchten, dann mailen Sie bitte\n"
-" {{contact_email}} ffür weitere Hilfe."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Sollten Sie mit den erhaltenen Informationen nicht zufrieden sein, haben Sie das Recht eine Beschwerde einzureichen (<a href=\"{{url}}\">Details</a>)."
@@ -2412,20 +2407,17 @@ msgstr ""
 msgid "Report an offensive or unsuitable request"
 msgstr ""
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Anmerkung hinzufügen"
+msgstr ""
 
-#, fuzzy
 msgid "Report annotation on request: {{title}}"
-msgstr "bei"
+msgstr ""
 
 msgid "Report request"
 msgstr "Anfrage melden"
 
-#, fuzzy
 msgid "Report request: {{title}}"
-msgstr "Anfrage melden"
+msgstr ""
 
 msgid "Report this request"
 msgstr ""
@@ -2604,13 +2596,11 @@ msgstr "Öffentliche Nachfrage an {{person_or_body}} senden"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Öffentliche Antwort an {{person_or_body}} senden"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "und"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "und"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr ""
@@ -2901,12 +2891,8 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-#, fuzzy
 msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
-"Ihre im Namen von {{public_body}} an\n"
-"{{user}} gesendete Anfrage, um auf {{law_used_short}}\n"
-"zu reagieren, wurde nicht übermittelt."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -3060,9 +3046,8 @@ msgstr ""
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Dann ist es Ihnen gestattet eine IFG-Anfrage zu senden. "
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Dann wird Ihre OFG-Anfrage an {{public_body_name}} gesendet. "
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Dann wird Ihr Kommentar zu {{info_request_title}} gesendet."
@@ -3121,9 +3106,8 @@ msgstr "Ihre {{law_used_short}} Anfrage {{title}} wurde nicht nach gesetzlicher 
 msgid "Things you're following"
 msgstr ""
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "Administration"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Diese Behörde existiert nichtmehr. Es ist folglich nicht möglich eine Anfrage zu stellen. "
@@ -3353,9 +3337,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Um eine Nachricht zu senden an {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "IFG"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr ""
@@ -3609,9 +3592,8 @@ msgstr "Version {{version}}"
 msgid "Vexatious"
 msgstr "Missbräuchlich"
 
-#, fuzzy
 msgid "Vexatious annotation"
-msgstr "Missbräuchlich"
+msgstr ""
 
 msgid "View FOI email address"
 msgstr "IFG-Emailadressen ansehen"
@@ -3676,9 +3658,8 @@ msgstr ""
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr ""
 
-#, fuzzy
 msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
-msgstr "bei"
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr ""
@@ -3692,9 +3673,8 @@ msgstr "Für diese Behörde ist keine funktionierende Emailadresse zur Anfragens
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Wir haben keine funktionierende {{law_used_full}} Adresse für {{public_body_name}}."
 
-#, fuzzy
 msgid "We don't know the delivery status for this message."
-msgstr "bei"
+msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""

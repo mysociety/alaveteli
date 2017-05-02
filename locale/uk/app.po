@@ -453,13 +453,11 @@ msgstr "Анонімний користувач"
 msgid "Annotation added to request"
 msgstr "До запиту додано коментар"
 
-#, fuzzy
 msgid "Annotation contains defamatory material"
-msgstr "Містить наклеп"
+msgstr ""
 
-#, fuzzy
 msgid "Annotation contains personal information"
-msgstr "Містить особисту інформацію"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Коментарі"
@@ -1327,12 +1325,8 @@ msgstr "Якщо це була помилка доставки і вам від�
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-#, fuzzy
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
-"Якщо це не так або якщо ви б хотіли надіслати запізнілу відповідь на запит\n"
-"або повідомлення з іншою темою користувачу {{user}}, зверніться за допомогою\n"
-"за адресою {{contact_email}}."
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
@@ -2446,9 +2440,8 @@ msgstr ""
 msgid "Report an offensive or unsuitable request"
 msgstr "Повідомте про образливий або недоречний запит"
 
-#, fuzzy
 msgid "Report annotation"
-msgstr "Опублікувати коментар"
+msgstr ""
 
 msgid "Report annotation on request: {{title}}"
 msgstr ""
@@ -2456,9 +2449,8 @@ msgstr ""
 msgid "Report request"
 msgstr ""
 
-#, fuzzy
 msgid "Report request: {{title}}"
-msgstr "Інформаційний запит - {{title}}"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Повідомити"
@@ -2636,13 +2628,11 @@ msgstr "Надішліть публічний уточнювальний зап�
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Надіслати публічну відповідь. Адресат: {{person_or_body}}"
 
-#, fuzzy
 msgid "Send and publish message"
-msgstr "і"
+msgstr ""
 
-#, fuzzy
 msgid "Send and publish request"
-msgstr "і"
+msgstr ""
 
 msgid "Send follow up to '{{title}}'"
 msgstr "Відправити додаткове повідомлення щодо запиту '{{title}}'"
@@ -3086,9 +3076,8 @@ msgstr "Ви будете сповіщені коли запит '{{request_titl
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Після цього ви зможете відсилати запити."
 
-#, fuzzy
 msgid "Then your FOI request to {{public_body_name}} will be sent and published."
-msgstr "Після цього ваш запит до розпорядника інформації '{{public_body_name}}' буде відправлено."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Після цього ваш коментар до запиту '{{info_request_title}}' буде опубліковано."
@@ -3147,9 +3136,8 @@ msgstr "Вони не відповіли на ваш запит {{title}}, як 
 msgid "Things you're following"
 msgstr "Відслідковуване вами"
 
-#, fuzzy
 msgid "This annotation has been reported for administrator attention"
-msgstr "Про цей запит повідомлено адміністратора"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Цього органу більше не існує, тож ви не можете зробити запит."
@@ -3381,9 +3369,8 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Щоб відправити повідомлення {{user_name}}"
 
-#, fuzzy
 msgid "To send and publish your FOI request"
-msgstr "і"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr ""
