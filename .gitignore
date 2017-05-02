@@ -34,3 +34,5 @@ webrat.log
 /db/structure.sql
 /public/assets
 .vagrant
+/locale/*/*.edit.po
+/locale/*/*.po.time_stamp
