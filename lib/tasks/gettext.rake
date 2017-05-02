@@ -27,7 +27,8 @@ namespace :gettext do
   task :find_theme => :environment do
     theme = find_theme(ENV['THEME'])
     CLEAN = FileList["#{theme_locale_path(theme)}/*/*~",
-                     "#{theme_locale_path(theme)}/*/*.bak"]
+                     "#{theme_locale_path(theme)}/*/*.bak",
+                     "#{theme_locale_path(theme)}/*/*.edit.po"]
 
     define_gettext_task(text_domain,
                         theme_locale_path(theme),
@@ -36,6 +37,7 @@ namespace :gettext do
     quietly do
       Rake::Task["gettext:po:update"].invoke
     end
+    Rake::Task["clean"].invoke
   end
 
   desc "Update pot/po files for Alaveteli Pro."
