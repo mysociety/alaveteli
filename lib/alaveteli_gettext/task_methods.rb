@@ -17,11 +17,6 @@ module AlaveteliGetText
     end
 
     def clean_dir(dir)
-      define_gettext_task("alaveteli",
-                          dir,
-                          Dir.glob("#{dir}/*/app.po"),
-                          "alaveteli")
-
       Dir.glob("#{dir}/*/app.po") do |po_file|
         GetText::Tools::MsgMerge.run("--output", po_file,
                                      "--sort-output",
