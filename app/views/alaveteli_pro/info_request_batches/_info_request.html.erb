@@ -1,4 +1,5 @@
-<div class="batch-request__requests__request">
+<div id="info-request-<%= info_request.id %>"
+     class="batch-request__requests__request">
   <h4 class="batch-request__requests__request__recipient">
     <%= link_to info_request.public_body.name,
                 show_request_path(info_request.url_title) %>
