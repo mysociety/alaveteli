@@ -12,10 +12,10 @@
 # if you're sharing your code publicly.
 
 # Example Rails 4 secret_key_base option
-Alaveteli::Application.config.secret_key_base =
+Rails.application.config.secret_key_base =
   AlaveteliConfiguration.secret_key_base
 
 # Just plopping an extra character on the secret_token so that any sessions on upgrading from
 # Rails 2 to Rails 3 version of Alaveteli are invalidated.
 # See http://blog.carbonfive.com/2011/03/19/rails-3-upgrade-tip-invalidate-session-cookies/
-Alaveteli::Application.config.secret_token = "3" + AlaveteliConfiguration::cookie_store_session_secret
+Rails.application.config.secret_token = "3" + AlaveteliConfiguration::cookie_store_session_secret
