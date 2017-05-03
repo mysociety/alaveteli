@@ -3690,4 +3690,20 @@ describe InfoRequest do
 
   end
 
+  describe '#should_summarise?' do
+    it "returns true if the request is not in a batch" do
+      request = FactoryGirl.create(:info_request)
+      expect(request.should_summarise?).to be true
+    end
+
+    it "returns false if the request is in a batch" do
+      batch_request = FactoryGirl.create(
+        :info_request_batch,
+        public_bodies: FactoryGirl.create_list(:public_body, 5))
+      batch_request.create_batch!
+      request_in_batch = batch_request.info_requests.first
+      expect(request_in_batch.should_summarise?).to be false
+    end
+  end
+
 end

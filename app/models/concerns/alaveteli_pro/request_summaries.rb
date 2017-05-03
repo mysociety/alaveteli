@@ -14,7 +14,16 @@ module AlaveteliPro
     # Creates a RequestSummary item for this model on first save, or updates
     # the existing one otherwise.
     def create_or_update_request_summary
-      self.request_summary = AlaveteliPro::RequestSummary.create_or_update_from(self)
+      if self.should_summarise?
+        self.request_summary = AlaveteliPro::RequestSummary.create_or_update_from(self)
+      end
+    end
+
+    # Should a particular instance of a model have a request summary made of
+    # it? Override this if you want to have more fine-grained control over
+    # which records get RequestSummaries made for them
+    def should_summarise?
+      true
     end
   end
 end

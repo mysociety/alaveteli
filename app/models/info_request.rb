@@ -1527,6 +1527,10 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  def should_summarise?
+    self.info_request_batch_id.blank?
+  end
+
   private
 
   def self.log_overdue_event_type(event_type)
