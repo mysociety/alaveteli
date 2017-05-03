@@ -50,7 +50,7 @@ class AdminPublicBodyHeadingsController < AdminController
     if transaction[:success]
       render :nothing => true, :status => :ok
     else
-      render :text => transaction[:error], :status => :unprocessable_entity
+      render :plain => transaction[:error], :status => :unprocessable_entity
     end
   end
 
@@ -59,7 +59,7 @@ class AdminPublicBodyHeadingsController < AdminController
     if transaction[:success]
       render :nothing => true, :status => :ok and return
     else
-      render :text => transaction[:error], :status => :unprocessable_entity
+      render :plain => transaction[:error], :status => :unprocessable_entity
     end
   end
 
