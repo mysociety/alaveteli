@@ -66,7 +66,7 @@ describe GeneralController do
                    :request_classification_count => 1,
                    :visible_followup_message_count => 1 }
 
-      get :version, :format => :json
+      xhr :get, :version, :format => :json
 
       parsed_body = JSON.parse(response.body).symbolize_keys
       expect(parsed_body).to eq(expected)
@@ -409,7 +409,7 @@ describe GeneralController, 'when using xapian search' do
   context "when passed a non-HTML request" do
 
     it "responds with a 404" do
-      get :search, :combined => '"fancy dog"', :format => :json
+      xhr :get, :search, :combined => '"fancy dog"', :format => :json
       expect(response.status).to eq(404)
     end
 
@@ -420,7 +420,7 @@ describe GeneralController, 'when using xapian search' do
 
     it "does not call the search" do
       expect(controller).not_to receive(:perform_search)
-      get :search, :combined => '"fancy dog"', :format => :json
+      xhr :get, :search, :combined => '"fancy dog"', :format => :json
     end
 
   end

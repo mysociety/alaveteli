@@ -13,14 +13,14 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "returns json" do
       with_feature_enabled :alaveteli_pro do
-        get :search, query: body.name
+        xhr :get, :search, query: body.name
         expect(response.content_type).to eq("application/json")
       end
     end
 
     it "returns bodies which match the search query" do
       with_feature_enabled :alaveteli_pro do
-        get :search, query: body.name
+        xhr :get, :search, query: body.name
         results = JSON.parse(response.body)
         expect(results[0]['name']).to eq(body.name)
       end
@@ -28,7 +28,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "returns a whitelisted set of properties for each body" do
       with_feature_enabled :alaveteli_pro do
-        get :search, query: body.name
+        xhr :get, :search, query: body.name
         results = JSON.parse(response.body)
         expected_keys = %w{id name notes info_requests_visible_count short_name weight html}
         expect(results[0].keys).to match_array(expected_keys)

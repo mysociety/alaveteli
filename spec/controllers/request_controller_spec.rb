@@ -27,7 +27,7 @@ describe RequestController, "when listing recent requests" do
   end
 
   it "returns 404 for non html requests" do
-    get :list, :view => "all", :format => :json
+    xhr :get, :list, :view => "all", :format => :json
     expect(response.status).to eq(404)
   end
 
@@ -719,7 +719,7 @@ describe RequestController, "when handling prominence" do
 
     it 'should not show request if requested using json' do
       session[:user_id] = @info_request.user.id
-      get :show, :url_title => @info_request.url_title, :format => 'json'
+      xhr :get, :show, :url_title => @info_request.url_title, :format => 'json'
       expect(response.code).to eq('403')
     end
 
@@ -2335,7 +2335,7 @@ describe RequestController, "when showing JSON version for API" do
   end
 
   it "should return data in JSON form" do
-    get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json'
+    xhr :get, :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json'
 
     ir = JSON.parse(response.body)
     expect(ir.class.to_s).to eq('Hash')
@@ -2666,12 +2666,12 @@ describe RequestController, "#select_authorities" do
       context 'when asked for JSON' do
 
         it 'should be successful' do
-          get :select_authorities, {:public_body_query => "Quan", :format => 'json'}, {:user_id => @user.id}
+          xhr :get, :select_authorities, {:public_body_query => "Quan", :format => 'json'}, {:user_id => @user.id}
           expect(response).to be_success
         end
 
         it 'should return a list of public body names and ids' do
-          get :select_authorities, {:public_body_query => "Quan", :format => 'json'},
+          xhr :get, :select_authorities, {:public_body_query => "Quan", :format => 'json'},
             {:user_id => @user.id}
 
           expect(JSON(response.body)).to eq([{ 'id' => public_bodies(:geraldine_public_body).id,
@@ -2679,12 +2679,12 @@ describe RequestController, "#select_authorities" do
         end
 
         it 'should return an empty list if no search is passed' do
-          get :select_authorities, {:format => 'json' },{:user_id => @user.id}
+          xhr :get, :select_authorities, {:format => 'json' },{:user_id => @user.id}
           expect(JSON(response.body)).to eq([])
         end
 
         it 'should return an empty list if there are no bodies' do
-          get :select_authorities, {:public_body_query => 'fknkskalnr', :format => 'json' },
+          xhr :get, :select_authorities, {:public_body_query => 'fknkskalnr', :format => 'json' },
             {:user_id => @user.id}
           expect(JSON(response.body)).to eq([])
         end
