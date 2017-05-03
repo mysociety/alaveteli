@@ -443,8 +443,8 @@ class UserController < ApplicationController
   # before they've cropped it
   def get_draft_profile_photo
     profile_photo = ProfilePhoto.find(params[:id])
-    response.content_type = "image/png"
-    render :text => profile_photo.data
+    render :body => profile_photo.data,
+           :content_type => 'image/png'
   end
 
   # actual profile photo of a user
@@ -455,8 +455,8 @@ class UserController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("user has no profile photo, url_name=" + params[:url_name])
     end
 
-    response.content_type = "image/png"
-    render :text => @display_user.profile_photo.data
+    render :body => @display_user.profile_photo.data,
+           :content_type => 'image/png'
   end
 
   # Change about me text on your profile page
