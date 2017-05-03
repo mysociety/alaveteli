@@ -24,7 +24,7 @@ class PublicBodyCategory < ActiveRecord::Base
     locale = I18n.locale.to_s || default_locale.to_s || ""
     categories = CategoryCollection.new
     I18n.with_locale(locale) do
-      headings = PublicBodyHeading.all
+      headings = PublicBodyHeading.by_display_order
       headings.each do |heading|
         categories << heading.name
         heading.public_body_categories.each do |category|

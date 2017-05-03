@@ -7,7 +7,7 @@ class AdminPublicBodyCategoriesController < AdminController
 
   def index
     @locale = I18n.locale.to_s
-    @category_headings = PublicBodyHeading.all
+    @category_headings = PublicBodyHeading.by_display_order
     @without_heading = PublicBodyCategory.without_headings
   end
 
