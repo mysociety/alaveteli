@@ -602,7 +602,7 @@ class RequestController < ApplicationController
         logger.info("Reading cache for #{key_path}")
 
         if File.directory?(key_path)
-          render :text => "Directory listing not allowed", :status => 403
+          render :plain => "Directory listing not allowed", :status => 403
         else
           render :text => foi_fragment_cache_read(key_path),
             :content_type => (AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream')
