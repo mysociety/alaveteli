@@ -74,6 +74,9 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
+
   config.action_mailer.delivery_method = AlaveteliConfiguration.production_mailer_delivery_method.to_sym
 
   if AlaveteliConfiguration.production_mailer_delivery_method.to_sym == :smtp
