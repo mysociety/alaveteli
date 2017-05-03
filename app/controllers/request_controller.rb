@@ -669,11 +669,9 @@ class RequestController < ApplicationController
                                       :body_prefix => render_to_string(:partial => "request/view_html_prefix")
                                     })
 
-    response.content_type = 'text/html'
-
     html = @incoming_message.apply_masks(html, response.content_type)
 
-    render :text => html
+    render :html => html
   end
 
   # Internal function
