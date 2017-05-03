@@ -99,7 +99,7 @@ performance, how often it is upgraded, and so on. We recommend this as the best
 approach. However, you will need some resources to do this.
 
 Alternatively, we have an open call for applications to run Alaveteli sites.
-There is [more information on this process here](https://www.mysociety.org/international/apply-for-help/). However, you will have no service level agreement, no warranties,
+There is [more information on this process here](https://www.mysociety.org/advice-and-support/). However, you will have no service level agreement, no warranties,
 and no guarantee on our time: if the website goes down when we're on holiday,
 you'll have to wait until we're back!
 
