@@ -4191,6 +4191,9 @@ msgstr "外部"
 msgid "have delayed."
 msgstr "已經出現延誤。"
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "隱藏已引用的部份"
 

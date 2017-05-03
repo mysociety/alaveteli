@@ -4407,6 +4407,9 @@ msgstr "byo hanze"
 msgid "have delayed."
 msgstr "byatinze."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "hisha ibice byavuzweho"
 

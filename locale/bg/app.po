@@ -4389,6 +4389,9 @@ msgstr "външен"
 msgid "have delayed."
 msgstr "се забавиха."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "скрий секциите в кавички"
 

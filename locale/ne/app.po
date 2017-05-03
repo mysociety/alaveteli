@@ -4332,6 +4332,9 @@ msgstr "वाह्य"
 msgid "have delayed."
 msgstr "ढिलाइ भएको।"
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "उद्वरित खण्डहरू लुकाउने"
 

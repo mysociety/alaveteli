@@ -4416,6 +4416,9 @@ msgstr "extern"
 msgid "have delayed."
 msgstr "a fost amânata"
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "ascunde secţiunile citate"
 

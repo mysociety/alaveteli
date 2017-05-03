@@ -4405,6 +4405,9 @@ msgstr "vanjski"
 msgid "have delayed."
 msgstr "kasni s odgovorom."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "sakrij citirane dijelove"
 

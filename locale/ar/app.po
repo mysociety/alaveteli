@@ -4353,6 +4353,9 @@ msgstr "خارجي"
 msgid "have delayed."
 msgstr "قمت بتأجيل"
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "اخف الاجزاء المقتبسة"
 

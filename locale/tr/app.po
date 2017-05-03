@@ -4301,6 +4301,9 @@ msgstr "dış"
 msgid "have delayed."
 msgstr "erteledi"
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "alıntı yapılmış bölümleri gizle"
 

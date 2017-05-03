@@ -4211,6 +4211,9 @@ msgstr "externe"
 msgid "have delayed."
 msgstr "is latttijdig."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "De aangehaalde delen verbergen"
 

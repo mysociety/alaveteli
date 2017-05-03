@@ -4273,6 +4273,9 @@ msgstr "eksterni"
 msgid "have delayed."
 msgstr "so zakasnjene."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "skrij citirane odseke"
 

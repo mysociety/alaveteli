@@ -4368,6 +4368,9 @@ msgstr "ekstern"
 msgid "have delayed."
 msgstr "er vorte forseinka."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "fjern sitert seksjon"
 

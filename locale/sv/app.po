@@ -4198,6 +4198,9 @@ msgstr "extern"
 msgid "have delayed."
 msgstr "har försenats."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "dölj citerade sektioner"
 

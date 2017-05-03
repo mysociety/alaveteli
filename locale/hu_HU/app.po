@@ -4383,6 +4383,9 @@ msgstr "külső"
 msgid "have delayed."
 msgstr "késedelmes. "
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "idézett részek elrejtése"
 

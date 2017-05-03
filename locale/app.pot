@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-02 23:41+0000\n"
-"PO-Revision-Date: 2017-05-02 23:41+0000\n"
+"POT-Creation-Date: 2017-05-03 07:57+0000\n"
+"PO-Revision-Date: 2017-05-03 07:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -2136,29 +2136,33 @@ msgstr ""
 msgid "Please keep it shorter than 500 characters"
 msgstr ""
 
-#: ../app/models/user.rb:139
+#: ../app/models/user.rb:128
+msgid "hi 1"
+msgstr ""
+
+#: ../app/models/user.rb:140
 msgid "Either the email or password was not recognised, please try again."
 msgstr ""
 
-#: ../app/models/user.rb:141
+#: ../app/models/user.rb:142
 msgid ""
 "Either the email or password was not recognised, please try again. Or create a"
 " new account using the form on the left."
 msgstr ""
 
-#: ../app/models/user.rb:336
+#: ../app/models/user.rb:337
 msgid "{{user_name}} (Account suspended)"
 msgstr ""
 
-#: ../app/models/user.rb:612
+#: ../app/models/user.rb:613
 msgid "Please enter a valid email address"
 msgstr ""
 
-#: ../app/models/user.rb:615
+#: ../app/models/user.rb:616
 msgid "Please enter your name, not your email address, in the name field."
 msgstr ""
 
-#: ../app/models/user.rb:622
+#: ../app/models/user.rb:623
 msgid "Invalid one time password"
 msgstr ""
 

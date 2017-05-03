@@ -4246,6 +4246,9 @@ msgstr "εξωτερικό"
 msgid "have delayed."
 msgstr "έχουν καθυστερήσει."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "απόκρυψη κειμένου σε εισαγωγικά"
 

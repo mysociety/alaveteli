@@ -4263,6 +4263,9 @@ msgstr "ytri"
 msgid "have delayed."
 msgstr "hafa tafist."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "fela ívitnaða hluta"
 

@@ -4406,6 +4406,9 @@ msgstr "надворешен"
 msgid "have delayed."
 msgstr "е одложен."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "сокриј ги наведените секции"
 

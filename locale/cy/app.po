@@ -4206,6 +4206,9 @@ msgstr "allanol"
 msgid "have delayed."
 msgstr "wedi gohirio."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "cuddio adrannau a ddyfynnwyd"
 

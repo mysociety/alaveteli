@@ -4286,6 +4286,9 @@ msgstr "i jashtëm"
 msgid "have delayed."
 msgstr "kanë vonuar."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "fsheh pjesën e cituara"
 

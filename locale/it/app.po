@@ -4239,6 +4239,9 @@ msgstr "esterno"
 msgid "have delayed."
 msgstr "sono in ritardo."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "nascondi le sezioni citate"
 

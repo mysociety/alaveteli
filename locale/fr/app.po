@@ -4378,6 +4378,9 @@ msgstr "Externe"
 msgid "have delayed."
 msgstr "est en retard."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "cacher les sections citées"
 

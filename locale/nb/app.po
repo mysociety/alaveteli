@@ -4369,6 +4369,9 @@ msgstr "ekstern"
 msgid "have delayed."
 msgstr "er blitt forsinket."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "fjern sitert seksjon"
 

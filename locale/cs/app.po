@@ -4349,6 +4349,9 @@ msgstr "externí"
 msgid "have delayed."
 msgstr "má zpoždění."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "skrýt citované pasáže"
 

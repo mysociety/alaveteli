@@ -4398,6 +4398,9 @@ msgstr "luar"
 msgid "have delayed."
 msgstr "mengalami penundaan"
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "Sembunyikan bagian yang dikutip"
 

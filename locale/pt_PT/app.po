@@ -4277,6 +4277,9 @@ msgstr "externo"
 msgid "have delayed."
 msgstr "atrasou."
 
+msgid "hi 1"
+msgstr ""
+
 msgid "hide quoted sections"
 msgstr "esconder citações"
 

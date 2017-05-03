@@ -125,6 +125,7 @@ class User < ActiveRecord::Base
   has_one_time_password :counter_based => true
 
   def self.pro
+    _('hi 1')
     with_role :pro
   end
 
