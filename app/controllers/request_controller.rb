@@ -604,8 +604,12 @@ class RequestController < ApplicationController
         if File.directory?(key_path)
           render :plain => "Directory listing not allowed", :status => 403
         else
-          render :text => foi_fragment_cache_read(key_path),
-            :content_type => (AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream')
+          content_type =
+            AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
+              'application/octet-stream'
+
+          render :body => foi_fragment_cache_read(key_path),
+                 :content_type => content_type
         end
         return
       end
@@ -631,18 +635,20 @@ class RequestController < ApplicationController
 
 
     # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
-    response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream'
+    content_type =
+      AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
+        'application/octet-stream'
 
     # Prevent spam to magic request address. Note that the binary
     # subsitution method used depends on the content type
     body = @incoming_message.
             apply_masks(@attachment.default_body, @attachment.content_type)
 
-    if response.content_type == 'text/html'
+    if content_type == 'text/html'
       body = ActionController::Base.helpers.sanitize(body)
     end
 
-    render :text => body
+    render :body => body, :content_type => content_type
   end
 
   def get_attachment_as_html

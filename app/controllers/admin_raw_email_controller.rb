@@ -38,8 +38,7 @@ class AdminRawEmailController < AdminController
         end
       end
       format.text do
-        response.content_type = 'message/rfc822'
-        render :text => @raw_email.data
+        render :body => @raw_email.data, :content_type => 'message/rfc822'
       end
     end
   end
