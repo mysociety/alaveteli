@@ -78,46 +78,5 @@ module Alaveteli
       config.action_mailer.default_url_options[:protocol] = "https"
     end
 
-    # Enable the asset pipeline
-    config.assets.enabled = true
-
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
-
-    # Change the path that assets are served from
-    # config.assets.prefix = "/assets"
-
-    # These additional precompiled asset files are actually
-    # manifests that require the real asset files:
-    config.assets.precompile += ['admin.js',
-                                 'profile-photos.js',
-                                 'stats.js',
-                                 'fancybox.css',
-                                 'fancybox.js']
-    # ... while these are individual files that can't easily be
-    # grouped:
-    config.assets.precompile += ['jquery.Jcrop.min.css',
-                                 'excanvas.min.js',
-                                 'select-authorities.js',
-                                 'new-request.js',
-                                 'time_series.js',
-                                 'fonts.css',
-                                 'print.css',
-                                 'admin.css',
-                                 'ie6.css',
-                                 'ie7.css',
-                                 'bootstrap-dropdown.js',
-                                 'widget.css',
-                                 'request-attachments.js',
-                                 'alaveteli_pro/request-index.js',
-                                 'responsive/print.css',
-                                 'responsive/application-lte-ie7.css',
-                                 'responsive/application-ie8.css']
-
-    config.sass.load_paths += [
-      "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
-      "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
-    ]
-
   end
 end
