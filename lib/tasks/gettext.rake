@@ -1,6 +1,18 @@
 # -*- encoding : utf-8 -*-
 namespace :gettext do
 
+  # TODO: Move to config/initializers/gettext_i18n_rails.rb.
+  # Might have to name the file 1_gettext_i18n_rails.rb so that its loaded
+  # first.
+  # Keep TRANSLATORS comments
+  Rails.application.config.gettext_i18n_rails.xgettext = %w[--add-comments=TRANSLATORS:]
+  # Disable fuzzy .po merging
+  Rails.application.config.gettext_i18n_rails.msgmerge = %w[--no-fuzzy-matching]
+
+  tasks = Rake.application.instance_variable_get '@tasks'
+  tasks.delete 'gettext:find'
+  tasks.delete 'gettext:setup'
+
   def clean_dir(dir)
     Dir.glob("#{dir}/*/app.po") do |po_file|
       GetText::Tools::MsgMerge.run("--output", po_file,
@@ -15,8 +27,53 @@ namespace :gettext do
 
   desc 'Rewrite .po files into a consistent msgmerge format'
   task :clean do
+    # find locale/* -name *.po | xargs -I % msgattrib --no-obsolete -o % %
+    # Rake::Task["gettext:remove_fuzzy"].invoke
     clean_dir('locale')
   end
+
+  desc "Update pot/po files"
+  task :find => :environment do
+    def locale_path
+      path = FastGettext.translation_repositories[text_domain].instance_variable_get(:@options)[:path] rescue nil
+      path || File.join(Rails.root, "locale")
+    end
+
+    def files_to_translate
+      files = ::Rake::FileList.new("{app,lib,config,#{locale_path}}/**/*.{rb,erb}") do |fl|
+        fl.exclude(/\balaveteli_pro\b/)
+      end
+      files
+    end
+
+    # HACK: Update modified time to force gettext to find changes every time
+    # https://github.com/grosser/gettext_i18n_rails/issues/120
+    files_to_translate.each { |f| FileUtils.touch(f) }
+
+    CLEAN = FileList["locale/*/*~",
+                     "locale/*/*.bak",
+                     "locale/*/*.time_stamp",
+                     "locale/*/*.edit.po"]
+
+    GetText::Tools::Task.define do |task|
+      task.package_name = text_domain
+      task.package_version = "1.0.0"
+      task.domain = text_domain
+      task.po_base_directory = locale_path
+      task.mo_base_directory = locale_path
+      task.files = files_to_translate
+      task.enable_description = false
+      task.msgmerge_options = gettext_msgmerge_options
+      task.msgcat_options = gettext_msgcat_options
+      task.xgettext_options = gettext_xgettext_options
+    end
+
+    Rake::Task["gettext:po:update"].invoke
+    # Remove obsolete
+    # Remove fuzzy
+    Rake::Task["gettext:clean"].invoke
+  end
+
 
   desc 'Rewrite Alaveteli Pro .po files into a consistent msgmerge format'
   task :clean_alaveteli_pro do
