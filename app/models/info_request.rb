@@ -1324,7 +1324,7 @@ class InfoRequest < ActiveRecord::Base
         ret[:user_name] = user_name
       end
       ret[:public_body] = public_body.json_for_api
-      ret[:info_request_events] = info_request_events.to_a.map { |e| e.json_for_api(false) }
+      ret[:info_request_events] = info_request_events.map { |e| e.json_for_api(false) }
     end
     ret
   end

@@ -11,7 +11,7 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
     @show_mail_server_logs = @outgoing_message.is_owning_user?(@user)
 
     if @show_mail_server_logs
-      @mail_server_logs = @outgoing_message.mail_server_logs.to_a.map do |log|
+      @mail_server_logs = @outgoing_message.mail_server_logs.map do |log|
         log.line(:redact => !@user.is_admin?)
       end
     end

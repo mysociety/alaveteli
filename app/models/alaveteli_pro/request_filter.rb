@@ -135,11 +135,10 @@ module AlaveteliPro
     end
 
     def phase_filters
-      InfoRequest::State.phases.
-        to_a.map{ |phase| { :param => phase[:scope].to_s,
-                                            :value => phase[:scope],
-                                            :label => phase[:label],
-                                            :capital_label => phase[:capital_label] }  }
+      InfoRequest::State.phases.map{ |phase| { :param => phase[:scope].to_s,
+                                               :value => phase[:scope],
+                                               :label => phase[:label],
+                                               :capital_label => phase[:capital_label] }  }
     end
 
     def filter_attributes
