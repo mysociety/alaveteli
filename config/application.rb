@@ -69,6 +69,10 @@ module Alaveteli
     require "#{Rails.root}/lib/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
 
+    # Set the cookie serializer to :hybrid to migrate the old format Marshalled
+    # cookies to the new, more secure, JSON format
+    config.action_dispatch.cookies_serializer = :hybrid
+
     # Strip non-UTF-8 request parameters
     config.middleware.insert 0, Rack::UTF8Sanitizer
 
