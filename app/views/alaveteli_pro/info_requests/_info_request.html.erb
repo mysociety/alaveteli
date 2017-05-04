@@ -11,6 +11,11 @@
 
   <div class="request__meta">
 
+    <div class="request__status">
+      <span class="request__meta__label"><%= _('Status') %></span>
+      <p><span class="phase-icon phase-icon--<%= InfoRequest::State.phase_params[info_request.state.phase] %>"></span><%= InfoRequest::State.short_description(info_request.calculate_status) %></p>
+    </div>
+
     <div class="request__recipient">
       <span class="request__meta__label"><%= _('Request to') %></span>
       <p><%= info_request.public_body.name %></p>
@@ -24,11 +29,6 @@
     <div class="request__updated">
       <span class="request__meta__label"><%= _('Updated') %></span>
       <p><%= info_request.updated_at.strftime('%d-%m-%Y') %></p>
-    </div>
-
-    <div class="request__status">
-      <span class="request__meta__label"><%= _('Status') %></span>
-      <p><span class="phase-icon phase-icon--<%= InfoRequest::State.phase_params[info_request.state.phase] %>"></span><%= InfoRequest::State.short_description(info_request.calculate_status) %></p>
     </div>
 
   </div> <!-- .request__meta -->
