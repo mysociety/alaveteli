@@ -167,6 +167,24 @@ FactoryGirl.define do
     factory :backpage_request do
       prominence 'backpage'
     end
+
+    factory :overdue_request do
+      date_response_required_by Time.zone.now - 1.day
+      after(:create) do |info_request, evaluator|
+        info_request.date_response_required_by = Time.zone.now - 1.day
+        info_request.save!
+      end
+    end
+
+    factory :very_overdue_request do
+      date_response_required_by Time.zone.now - 21.days
+      date_very_overdue_after Time.zone.now - 1.days
+      after(:create) do |info_request, evaluator|
+        info_request.date_response_required_by = Time.zone.now - 21.days
+        info_request.date_very_overdue_after = Time.zone.now - 1.day
+        info_request.save!
+      end
+    end
   end
 
 end
