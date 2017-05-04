@@ -376,6 +376,19 @@ describe MailServerLog do
         EOF
       end
 
+      it 'strips syslog prefixes when the line ends in a newline' do
+        log = MailServerLog.new(:line => <<-EOF.squish)
+        Jan  1 16:26:57 secret exim[15407]: 2017-01-01 16:26:57
+        [15407] 1cNiyG-00040U-Ls => body@example.com…
+        EOF
+
+        log.line += "\n"
+
+        expected =
+          "2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls => body@example.com…\n"
+
+        expect(log.line(:redact => true)).to eq(expected)
+      end
     end
   end
 

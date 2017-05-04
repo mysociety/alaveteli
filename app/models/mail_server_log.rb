@@ -296,7 +296,7 @@ class MailServerLog < ActiveRecord::Base
   end
 
   def strip_syslog_prefix(line)
-    prefix_regexp = /\A(.*?\s)\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}.*\z/
+    prefix_regexp = /\A(.*?\s)\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}.*/
     match = line.match(prefix_regexp).try(:[], 1)
     if match
       line.gsub(match, '')
