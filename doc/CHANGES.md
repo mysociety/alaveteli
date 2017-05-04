@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix stripping Syslog prefix from mail logs (Gareth Rees)
 * Fix parsing of Syslog-format mail logs (Gareth Rees)
 * Log spam domain signups instead of sending exception notifications
   (Gareth Rees)
