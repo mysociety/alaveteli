@@ -101,9 +101,10 @@ describe TrackController do
           it "should get JSON version of the feed" do
         track_thing = track_things(:track_fancy_dog_request)
 
-        get :track_request, :feed => 'feed',
-                            :url_title => track_thing.info_request.url_title,
-                            :format => "json"
+        xhr :get, :track_request,
+                  :feed => 'feed',
+                  :url_title => track_thing.info_request.url_title,
+                  :format => "json"
 
         a = JSON.parse(response.body)
         expect(a.class.to_s).to eq('Array')

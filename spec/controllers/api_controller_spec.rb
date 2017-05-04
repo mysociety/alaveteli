@@ -443,7 +443,7 @@ describe ApiController, "when using the API" do
     it 'should show information about a request' do
       info_request = info_requests(:naughty_chicken_request)
 
-      get :show_request,
+      xhr :get, :show_request,
         :k => public_bodies(:geraldine_public_body).api_key,
         :id => info_request.id
 
@@ -460,7 +460,7 @@ describe ApiController, "when using the API" do
 
     it 'should show information about an external request' do
       info_request = info_requests(:external_request)
-      get :show_request,
+      xhr :get, :show_request,
         :k => public_bodies(:geraldine_public_body).api_key,
         :id => info_request.id
 
@@ -474,7 +474,7 @@ describe ApiController, "when using the API" do
   # GET /api/v2/body/:id/request_events.:feed_type
   describe 'showing public body info' do
     it 'should show an Atom feed of new request events' do
-      get :body_request_events,
+      xhr :get, :body_request_events,
         :id => public_bodies(:geraldine_public_body).id,
         :k => public_bodies(:geraldine_public_body).api_key,
         :feed_type => 'atom'
@@ -490,7 +490,7 @@ describe ApiController, "when using the API" do
     end
 
     it 'should show a JSON feed of new request events' do
-      get :body_request_events,
+      xhr :get, :body_request_events,
         :id => public_bodies(:geraldine_public_body).id,
         :k => public_bodies(:geraldine_public_body).api_key,
         :feed_type => 'json'
@@ -510,7 +510,7 @@ describe ApiController, "when using the API" do
     end
 
     it 'should honour the since_event_id parameter' do
-      get :body_request_events,
+      xhr :get, :body_request_events,
         :id => public_bodies(:geraldine_public_body).id,
         :k => public_bodies(:geraldine_public_body).api_key,
         :feed_type => 'json'
@@ -519,7 +519,7 @@ describe ApiController, "when using the API" do
       first_event = assigns[:event_data][0]
       second_event_id = assigns[:event_data][1][:event_id]
 
-      get :body_request_events,
+      xhr :get, :body_request_events,
         :id => public_bodies(:geraldine_public_body).id,
         :k => public_bodies(:geraldine_public_body).api_key,
         :feed_type => 'json',
@@ -529,7 +529,7 @@ describe ApiController, "when using the API" do
     end
 
     it 'should honour the since_date parameter' do
-      get :body_request_events,
+      xhr :get, :body_request_events,
         :id => public_bodies(:humpadink_public_body).id,
         :k => public_bodies(:humpadink_public_body).api_key,
         :since_date => '2010-01-01',
@@ -542,7 +542,7 @@ describe ApiController, "when using the API" do
         expect(event.created_at).to be >= Date.new(2010, 1, 1)
       end
 
-      get :body_request_events,
+      xhr :get, :body_request_events,
         :id => public_bodies(:humpadink_public_body).id,
         :k => public_bodies(:humpadink_public_body).api_key,
         :since_date => '2010-01-01',

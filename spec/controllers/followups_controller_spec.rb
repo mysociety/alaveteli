@@ -118,7 +118,7 @@ describe FollowupsController do
 
         it 'responds to a json request with a 403' do
           incoming_message_id = hidden_request.incoming_messages[0].id
-          get :new, :request_id => hidden_request.id,
+          xhr :get, :new, :request_id => hidden_request.id,
                     :incoming_message_id => incoming_message_id,
                     :format => 'json'
           expect(response.code).to eq('403')

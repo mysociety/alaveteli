@@ -1200,7 +1200,7 @@ end
 describe UserController, "when showing JSON version for API" do
 
   it "should be successful" do
-    get :show, :url_name => "bob_smith", :format => "json"
+    xhr :get, :show, :url_name => "bob_smith", :format => "json"
 
     u = JSON.parse(response.body)
     expect(u.class.to_s).to eq('Hash')

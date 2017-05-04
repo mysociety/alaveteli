@@ -355,7 +355,7 @@ describe PublicBodyController, "when listing bodies" do
   end
 
   it 'raises an UnknownFormat error if asked for a json version of a list' do
-    expect { get :list, :format => 'json' }.
+    expect { xhr :get, :list, :format => 'json' }.
       to raise_error(ActionController::UnknownFormat)
   end
 
@@ -372,7 +372,7 @@ end
 describe PublicBodyController, "when showing JSON version for API" do
 
   it "should be successful" do
-    get :show, :url_name => "dfh", :format => "json", :view => 'all'
+    xhr :get, :show, :url_name => "dfh", :format => "json", :view => 'all'
 
     pb = JSON.parse(response.body)
     expect(pb.class.to_s).to eq('Hash')
