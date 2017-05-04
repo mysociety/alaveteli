@@ -154,6 +154,10 @@ FactoryGirl.define do
 
     factory :awaiting_description do
       awaiting_description true
+      after(:create) do |info_request, evaluator|
+        info_request.awaiting_description = true
+        info_request.save!
+      end
     end
 
     factory :hidden_request do
