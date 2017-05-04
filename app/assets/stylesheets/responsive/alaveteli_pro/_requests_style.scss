@@ -1,5 +1,9 @@
 /* Style for the requests page */
 
+$in-progress: rgb(255, 216, 54);
+$action-needed: rgb(224, 75, 75);
+$complete: rgb(112, 203, 99);
+
 .requests__header {
   background-color: #f3f1eb;
   border-bottom: 1px solid #ddd;
@@ -155,5 +159,22 @@
   &:active,
   &:focus {
     opacity: 1;
+  }
+}
+
+.request__phase-summary-icon {
+  background-color: #ddd;
+
+  // Add colours to the bar for the various different phases
+  &.request__phase-summary-icon--in-progress {
+    background-color: $in-progress;
+  }
+
+  &.request__phase-summary-icon--action-needed {
+    background-color: $action-needed;
+  }
+
+  &.request__phase-summary-icon--complete {
+    background-color: $complete;
   }
 }
