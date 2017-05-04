@@ -1,0 +1,11 @@
+useless_category:
+  id: 1
+  category_tag: useless_agency useless
+
+lonely_category:
+  id: 2
+  category_tag: lonely_agency
+
+popular_category:
+  id: 3
+  category_tag: popular_agency

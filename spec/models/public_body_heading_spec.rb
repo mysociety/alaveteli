@@ -43,10 +43,12 @@ describe PublicBodyHeading do
   context 'when setting a display order' do
 
     it 'should return 0 if there are no public body headings' do
+      PublicBodyHeading.destroy_all
       expect(PublicBodyHeading.next_display_order).to eq(0)
     end
 
     it 'should return one more than the highest display order if there are public body headings' do
+      PublicBodyHeading.destroy_all
       heading = FactoryGirl.create(:public_body_heading)
       expect(PublicBodyHeading.next_display_order).to eq(1)
     end

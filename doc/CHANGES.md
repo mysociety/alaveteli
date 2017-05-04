@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add sample public body headings and categories (Gareth Rees)
 * Allow translation of delivery statuses (Gareth Rees)
 * Fix stripping Syslog prefix from mail logs (Gareth Rees)
 * Fix parsing of Syslog-format mail logs (Gareth Rees)
