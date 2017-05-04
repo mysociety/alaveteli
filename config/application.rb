@@ -22,7 +22,7 @@ module Alaveteli
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    I18n.config.enforce_available_locales = false
+    I18n.config.enforce_available_locales = true
 
     # Allow some extra tags to be whitelisted in the 'sanitize' helper method
     config.action_view.sanitized_allowed_tags = 'html', 'head', 'body', 'table', 'tr', 'td', 'style'
