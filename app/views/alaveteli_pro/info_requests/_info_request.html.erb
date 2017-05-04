@@ -1,5 +1,5 @@
 <div id="info-request-<%= info_request.id %>"
-     class="request">
+     class="request request--<%= info_request.state.summarised_phase %>">
   <h3 class="request__title">
     <% if info_request.embargo %>
       <span class="embargo-indicator embargo-indicator--small">

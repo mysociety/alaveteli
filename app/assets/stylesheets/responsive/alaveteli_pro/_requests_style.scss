@@ -27,6 +27,24 @@ $complete: rgb(112, 203, 99);
   }
 }
 
+.request--action_needed {
+  .request__title a {
+    color: $action-needed;
+  }
+}
+
+.request--in-progress {
+  .request__title a {
+    color: $in-progress;
+  }
+}
+
+.request--complete {
+  .request__title a {
+    color: $complete;
+  }
+}
+
 .request__batch-request-count {
   color: #999;
 }
