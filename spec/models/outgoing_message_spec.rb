@@ -980,6 +980,22 @@ describe OutgoingMessage do
           expect(message.mta_ids).to eq(['1ZsFHb-0004dK-SM'])
         end
 
+        it 'returns one mta_id when a message has syslog format logs' do
+          message = FactoryGirl.create(:initial_request)
+          body_email = message.info_request.public_body.request_email
+          request_email = message.info_request.incoming_email
+          request_subject = message.info_request.email_subject_request(:html => false)
+          smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+          load_mail_server_logs <<-EOF.strip_heredoc
+          Oct  30 19:24:16 host exim[7706]: 2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+          Oct  30 19:24:16 host exim[7706]: 2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          Oct  30 19:24:15 host exim[7706]: 2015-10-30 19:24:15 [17814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+          EOF
+
+          expect(message.mta_ids).to eq(['1ZsFHb-0004dK-SM'])
+        end
+
         it 'returns an empty array if the mta_id could not be found' do
           message = FactoryGirl.create(:initial_request)
           body_email = message.info_request.public_body.request_email

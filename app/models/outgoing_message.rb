@@ -445,7 +445,7 @@ class OutgoingMessage < ActiveRecord::Base
                 try(:line)
     end
 
-    lines.compact.map { |line| line.split(' ').fourth.strip }
+    lines.compact.map { |line| line[/\w{6}-\w{6}-\w{2}/].strip }.compact
   end
 
   def exim_mail_server_logs
