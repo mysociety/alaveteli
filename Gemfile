@@ -143,8 +143,6 @@ gem 'unidecoder', '~> 1.1.0'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0'
-# Bugfix https://github.com/mikel/mail/pull/1023
-gem 'mail', :git => 'https://github.com/mikel/mail', :branch => '2-6-stable'
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
