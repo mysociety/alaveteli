@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow translation of delivery statuses (Gareth Rees)
 * Fix stripping Syslog prefix from mail logs (Gareth Rees)
 * Fix parsing of Syslog-format mail logs (Gareth Rees)
 * Log spam domain signups instead of sending exception notifications
