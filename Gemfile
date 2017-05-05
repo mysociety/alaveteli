@@ -184,4 +184,5 @@ group :development do
   gem 'quiet_assets', '~> 1.1.0'
   gem 'launchy', '~> 2.4.0'
   gem 'spring', '~> 1.7.0', '< 2.0.0'
+  gem 'spring-commands-rspec', '~> 1.0.0'
 end
