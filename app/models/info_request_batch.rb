@@ -167,4 +167,33 @@ class InfoRequestBatch < ActiveRecord::Base
       }
     }
   end
+
+  # @see RequestSummaries#request_summary_body
+  def request_summary_body
+    self.body
+  end
+
+  # @see RequestSummaries#request_summary_public_body_names
+  def request_summary_public_body_names
+    self.public_bodies.pluck(:name).join(" ")
+  end
+
+  # @see RequestSummaries#request_summary_categories
+  def request_summary_categories
+    categories = []
+    if self.embargo_expiring?
+      categories << AlaveteliPro::RequestSummaryCategory.embargo_expiring
+    end
+    if self.sent_at
+      phase_slugs = self.request_phases.map(&:to_s).uniq
+      phases = AlaveteliPro::RequestSummaryCategory.where(slug: phase_slugs)
+      categories.concat phases
+    else
+      # A batch info request which hasn't been sent yet won't show up in the
+      # list unless we give it some kind of category, so we fake an awaiting
+      # response one
+      categories << AlaveteliPro::RequestSummaryCategory.awaiting_response
+    end
+    categories
+  end
 end

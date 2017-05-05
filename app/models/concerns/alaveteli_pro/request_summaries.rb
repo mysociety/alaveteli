@@ -45,5 +45,20 @@ module AlaveteliPro
     def request_summary_parent
       nil
     end
+
+    def request_summary_body
+      raise NotImplementedError("You must implement this method in the " \
+                                "class that includes this concern")
+    end
+
+    def request_summary_public_body_names
+      raise NotImplementedError("You must implement this method in the " \
+                                "class that includes this concern")
+    end
+
+    def request_summary_categories
+      raise NotImplementedError("You must implement this method in the " \
+                                "class that includes this concern")
+    end
   end
 end

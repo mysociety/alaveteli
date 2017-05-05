@@ -1545,13 +1545,41 @@ class InfoRequest < ActiveRecord::Base
     self.info_request_batch_id.present?
   end
 
-  # @see RequestSummaries#requesy_summary_parent?
+  # @see RequestSummaries#request_summary_parent
   def request_summary_parent
     if self.info_request_batch_id.blank?
       nil
     else
       self.info_request_batch
     end
+  end
+
+  # @see RequestSummaries#request_summary_body
+  def request_summary_body
+    self.outgoing_messages.any? ? self.outgoing_messages.first.body : ""
+  end
+
+  # @see RequestSummaries#request_summary_public_body_names
+  def request_summary_public_body_names
+    self.public_body.name unless self.public_body.blank?
+  end
+
+  # @see RequestSummaries#request_summary_categories
+  def request_summary_categories
+    categories = []
+    if self.embargo_expiring?
+      categories << AlaveteliPro::RequestSummaryCategory.embargo_expiring
+    end
+    # A request with no events is in the process of being sent (probably
+    # having been created within our tests rather than in real code) and will
+    # error if we try to get the phase, skip it for now because it'll be saved
+    # when it's sent and trigger this code again anyway.
+    if self.last_event_forming_initial_request_id.present?
+      phase_slug = self.state.phase.to_s
+      phase = AlaveteliPro::RequestSummaryCategory.find_by(slug: phase_slug)
+      categories << phase unless phase.blank?
+    end
+    categories
   end
 
   private
