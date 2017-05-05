@@ -438,7 +438,16 @@ class ApplicationController < ActionController::Base
     return page
   end
 
-  def perform_search_typeahead(query, options)
+  def perform_search_typeahead(query, model, per_page=25)
+    warn %q([DEPRECATION] ApplicationController#perform_search_typeahead
+            will be removed in 0.30. It has been replaced by
+            ApplicationController#typeahead_search).squish
+    options = { :per_page => per_page,
+                :model => model }
+    typeahead_search(query, options)
+  end
+
+  def typeahead_search(query, options)
     @page = get_search_page_from_params
     @per_page = options[:per_page] || 25
     options.merge!( :page => @page,

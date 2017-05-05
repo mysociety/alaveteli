@@ -302,7 +302,7 @@ class PublicBodyController < ApplicationController
   def search_typeahead
     query = params[:query]
     flash[:search_params] = params.slice(:query, :bodies, :page)
-    @xapian_requests = perform_search_typeahead(query, :model => PublicBody)
+    @xapian_requests = typeahead_search(query, :model => PublicBody)
     render :partial => "public_body/search_ahead"
   end
 
