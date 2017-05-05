@@ -2,7 +2,9 @@
      class="request">
   <h3 class="request__title">
     <% if draft_info_request_batch.embargo_duration %>
-      <span class="embargo-indicator embargo-indicator--small">Private</span>
+      <span class="embargo-indicator embargo-indicator--small">
+        <%= _("Private") %>
+      </span>
     <% end %>
     <span><%= _("Batch request") %></span>
     <%= link_to draft_info_request_batch.title,

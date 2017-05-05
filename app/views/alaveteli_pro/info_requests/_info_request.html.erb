@@ -2,7 +2,9 @@
      class="request">
   <h3 class="request__title">
     <% if info_request.embargo %>
-      <span class="embargo-indicator embargo-indicator--small">Private</span>
+      <span class="embargo-indicator embargo-indicator--small">
+        <%= _("Private") %>
+      </span>
     <% end %>
     <%= link_to info_request.title, show_request_path(info_request.url_title) %>
   </h3>

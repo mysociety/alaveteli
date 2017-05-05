@@ -2,7 +2,9 @@
      class="request batch-request">
   <h3 class="request__title">
     <% if info_request_batch.embargo_duration %>
-      <span class="embargo-indicator embargo-indicator--small">Private</span>
+      <span class="embargo-indicator embargo-indicator--small">
+        <%= _("Private") %>
+      </span>
     <% end %>
     <%= link_to n_('{{batch_request_title}} <span class="request__batch-request-count">({{count}} request)</span>',
                    '{{batch_request_title}} <span class="request__batch-request-count">({{count}} requests)</span>',
