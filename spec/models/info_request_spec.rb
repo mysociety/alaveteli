@@ -3188,6 +3188,25 @@ describe InfoRequest do
 
   it_behaves_like "RequestSummaries"
 
+  describe "Updating request summaries when in a batch request" do
+    let(:batch) do
+      FactoryGirl.create(
+        :info_request_batch,
+        public_bodies: FactoryGirl.create_list(:public_body, 3)
+      )
+    end
+
+    before do
+      batch.create_batch!
+    end
+
+    it "calls the batch request's create_or_update_request_summary on update" do
+      info_request = batch.info_requests.first
+      expect(info_request.info_request_batch).to receive(:create_or_update_request_summary)
+      info_request.save!
+    end
+  end
+
   describe "#embargo_expiring?" do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
@@ -3703,6 +3722,60 @@ describe InfoRequest do
       batch_request.create_batch!
       request_in_batch = batch_request.info_requests.first
       expect(request_in_batch.should_summarise?).to be false
+    end
+  end
+
+  describe '#should_update_parent_summary?' do
+    context "when the request is in a batch" do
+      let(:batch) do
+        FactoryGirl.create(
+          :info_request_batch,
+          public_bodies: FactoryGirl.create_list(:public_body, 3)
+        )
+      end
+
+      before do
+        batch.create_batch!
+      end
+
+      it "returns true" do
+        expect(batch.info_requests.first.should_update_parent_summary?).to be true
+      end
+    end
+
+    context "when the request is not in a batch" do
+      let(:info_request) { FactoryGirl.create(:info_request) }
+
+      it "returns false" do
+        expect(info_request.should_update_parent_summary?).to be false
+      end
+    end
+  end
+
+  describe '#request_summary_parent' do
+    context "when the request is in a batch" do
+      let(:batch) do
+        FactoryGirl.create(
+          :info_request_batch,
+          public_bodies: FactoryGirl.create_list(:public_body, 3)
+        )
+      end
+
+      before do
+        batch.create_batch!
+      end
+
+      it "returns the batch" do
+        expect(batch.info_requests.first.request_summary_parent).to eq batch
+      end
+    end
+
+    context "when the request is not in a batch" do
+      let(:info_request) { FactoryGirl.create(:info_request) }
+
+      it "returns nil" do
+        expect(info_request.request_summary_parent).to be_nil
+      end
     end
   end
 

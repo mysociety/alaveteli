@@ -1532,8 +1532,26 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  # @see RequestSummaries#should_summarise?
   def should_summarise?
     self.info_request_batch_id.blank?
+  end
+
+  # Requests in a batch should update their parent batch request when they
+  # are updated.
+  #
+  # @see RequestSummaries#should_update_parent_summary?
+  def should_update_parent_summary?
+    self.info_request_batch_id.present?
+  end
+
+  # @see RequestSummaries#requesy_summary_parent?
+  def request_summary_parent
+    if self.info_request_batch_id.blank?
+      nil
+    else
+      self.info_request_batch
+    end
   end
 
   private
