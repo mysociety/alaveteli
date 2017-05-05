@@ -46,6 +46,13 @@ Rails.application.routes.draw do
   match '/version.:format' => 'general#version',
         :as => :version,
         :via => :get
+
+  constraints FeatureConstraint.new(:alaveteli_pro) do
+
+    match '/pro' => 'general#pro',
+          :as => :pro,
+          :via => :get
+  end
   #####
 
   ##### Statistics controller
