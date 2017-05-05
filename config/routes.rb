@@ -52,6 +52,11 @@ Rails.application.routes.draw do
     match '/pro' => 'general#pro',
           :as => :pro,
           :via => :get
+
+    match '/pro_invite' => 'general#pro_invite',
+      :as => :pro_invite,
+      :via => :get
+
   end
   #####
 
