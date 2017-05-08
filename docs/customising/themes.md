@@ -123,7 +123,7 @@ places:
   for example, the public authorities to whom requests should be addressed,
   and the tags and categories for grouping them. You control all this
   through the
-  <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin
+  <a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">admin
   interface</a>: see the [admin manual]({{ page.baseurl }}/docs/running/admin_manual).
 * **a theme**<br>
   installed in `lib/themes`.
@@ -273,7 +273,7 @@ because they are also used by the site's search facility. Together, categories
 and tags help your users find the right authority for their request.
 
 You can set all this up using the
-<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">admin interface</a>.
 See [more about categories and tags]({{ page.baseurl }}/docs/running/categories_and_tags/)
 for details.
 

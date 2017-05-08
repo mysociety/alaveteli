@@ -317,18 +317,18 @@ line, and piping the contents of that file into the mail handling script. e.g.
 
 ### Administrator privileges and accessing the admin interface
 
-The <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">administrative interface</a>
+The <a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">administrative interface</a>
 is at the URL `/admin`. Only users who are
 <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">administrators</a>
 can access the admin interface.
 
 To make a user an administrator on a brand new site,
-[follow these steps]({{ page.baseurl }}/docs/installing/next_steps/#create-a-superuser-admin-account).
+[follow these steps]({{ page.baseurl }}/docs/installing/next_steps/#create-an-admin-account).
 
 If you're already an administrator, you can grant other users administrator
 privilege too. Go to `/admin/users` or click on **Users** at the top of
 the admin. Find the user in the list, and click on the name to see the user
-details. On that page, click **Edit**. Change the *Admin level* to “super” and
+details. On that page, click **Edit**. In the *Roles* section, check the “admin” checkbox and
 click **Save**.
 
 As well having access to the admin interface, users who are administrators also
@@ -366,7 +366,7 @@ When this happens, the messages wait in the holding pen until an administrator
 redelivers them to the correct request, or else deletes them.
 
 To do this, log into the
-The <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>
+The <a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">admin interface</a>
 at `/admin`. If there are any messages in the holding pen, you'll see this
 message under the title *Things to do*:
 
@@ -634,7 +634,7 @@ data (one line for each authority):
 Note that, if Ejemplo Town Council already exists on the site, the blank entry
 for `short_name` will leave the existing value for that column unchanged.
 
-To upload a CSV file, log into the admin and click on **Authorities**. Click on
+To upload a CSV file, log into the admin interface and click on **Authorities**. Click on
 **Import from CSV file**, and choose the file you've prepared.
 
 Specify **What to do with existing tags?** with one of these options:
@@ -711,7 +711,7 @@ Enter some text in the in the ‘Ban text’ box to explain why they have been b
 There's no way to remove a user entirely from your Alaveteli site, but if you
 really need to render a user account redundant, you can do this:
 
-* In the admin, find the user, and click **Edit**
+* In the admin interface, find the user, and click **Edit**
 * Set the account's name to `[redundant account]` and remove any description
 * If there's a profile photo, click on **Clear photo** to remove it
 * Find the account's *Url name* and set its email address to match it, with the
@@ -753,7 +753,7 @@ within a 24 hour period, they will see a message telling them that they
 have hit the limit, and encouraging them to use the contact form if they
 feel they have a good reason to ask for the request limit to be lifted.
 
-To lift the request limit for a particular user, go to the <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin
+To lift the request limit for a particular user, go to the <a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">admin
 interface</a>, click on **Users**, then click on the name of the user
 you want to lift the request limit for. Click the **Edit** button. Tick
 the checkbox **No rate limit**, and click the **Save** button.
@@ -778,7 +778,7 @@ to <code>true</code> in <code>general.yml</code>.
 
 This does not allow anyone to make batch requests yet. You must still
 enable this for each user on an individual basis. To do this, go to the
-<a href="{{ page.baseurl }}/docs/glossary/#admin"
+<a href="{{ page.baseurl }}/docs/glossary/#admin_interface"
 class="glossary__link">admin interface</a>, click on **Users**, then
 click on the name of the user who wants to make batch requests. Click
 the **Edit** button. Tick the checkbox **Can make batch requests**, and

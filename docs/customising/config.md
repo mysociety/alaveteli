@@ -549,8 +549,8 @@ THEME_URLS:
       </p>
       <p>
         For details of this process, see
-        <a href="{{ page.baseurl }}/docs/installing/next_steps/#create-a-superuser-admin-account">creating
-          a superuser account</a>.
+        <a href="{{ page.baseurl }}/docs/installing/next_steps/#create-an-admin-account">creating
+          a admin account</a>.
       </p>
     <div class="more-info">
       <p>Examples:</p>

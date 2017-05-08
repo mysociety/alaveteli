@@ -8,7 +8,7 @@ title: Next Steps
     OK, you've installed a copy of Alaveteli, and can see the site in a browser. What next?
 </p>
 
-   * [Create a superuser admin account](#create-a-superuser-admin-account)
+   * [Create an admin account](#create-an-admin-account)
    * [Load sample data](#load-sample-data)
    * [Test out the request process](#test-out-the-request-process)
    * [Import Public Authorities](#import-public-authorities)
@@ -17,15 +17,15 @@ title: Next Steps
    * [Start thinking about customising Alaveteli](#start-thinking-about-customising-alaveteli)
 
 
-## Create a superuser admin account
+## Create an admin account
 
 Alaveteli ships with an
 <a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">emergency user</a>
 that has access to the admin. So when you've just created a new site, you
-should sign up to create your own account, then log into admin as the emergency
-user to promote your new account to be an administrator with
-<a href="{{ page.baseurl }}/docs/glossary/#super" class="glossary__link">super</a>
-privilege.
+should sign up to create your own account, then log into the admin interface as the emergency
+user to promote your new account to be an administrator with the
+<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin</a>
+role.
 
 As soon as that's done, disable the emergency user, because you don't need to
 use it any more: you've superseded it with your new admin account.
@@ -48,7 +48,7 @@ First, in the browser:
 * You're now on the Alaveteli admin page.
 * Click on **Users**  (in the navigation menu across the top of the page), and
   click on your name in the list of users. On *that* page,  click **Edit**.
-* Change your *Admin level* to "super" and click **Save**.
+* In the "Roles" section, check the "admin" checkbox and click **Save**.
 * From now on, when you are logged into your Alavateli site, you'll have access
   to the admin (at `/admin`). Furthermore, you'll see links to admin pages off
   the main site (which don't appear for regular users).
@@ -63,10 +63,10 @@ else, later, logged in as yourself:
   admin page.
 * Find "Joe Admin" in the list of users, and click on the name to see the
   user details. On *that* page, click **Edit**.
-* Change the *Admin level* from "super" to "none" and click **Save**.
+* In the "Roles" section, uncheck the "admin" checkbox and click **Save**.
 * Joe Admin no longer has admin status.
 
-Now that your account is a superuser admin, you don't need to allow the
+Now that your account is an admin, you don't need to allow the
 emergency user access to the admin. On the command line shell, edit
 `/var/www/alaveteli/alaveteli/config/general.yml`:
 
@@ -85,8 +85,8 @@ emergency user access to the admin. On the command line shell, edit
   `sudo service alaveteli restart`
 
 You can use the same process (logged in as your admin account) to add or remove
-superuser admin status to any users that are subsequently added to your site.
-If you accidentally remove admin privilege from all accounts (try not to do
+the admin role from any users that are subsequently added to your site.
+If you accidentally remove the admin role from all accounts (try not to do
 this, though!), you can enable the emergency user by editing the `general.yml`
 file and restarting Alaveteli.
 
@@ -167,7 +167,7 @@ due date falls on a public holiday or weekend day, then the due date is
 considered to be the next week day that isn't a holiday.
 
 To add public holidays, go to the
-<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>
+<a href="{{ site.baseurl }}docs/glossary/#admin_interface" class="glossary__link">admin interface</a>
 and click on **Holidays**. From here you can either add each day of holiday by
 hand, using the **New Holiday** button, or you can create multiple holidays at
 once using the **Create holidays from suggestions or iCalendar feed** button.

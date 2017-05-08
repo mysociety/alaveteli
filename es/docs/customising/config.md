@@ -507,8 +507,8 @@ THEME_URLS:
       </p>
       <p>
         Para obtener detalles sobre este proceso, consulte la
-        <a href="{{ page.baseurl }}/docs/installing/next_steps/#cree-una-cuenta-de-administrador-superusuario">creación
-          de cuentas de superusuario</a>.
+        <a href="{{ page.baseurl }}/docs/installing/next_steps/#cree-una-cuenta-de-administrador">creación
+          de cuentas de administrador</a>.
       </p>
     <div class="more-info">
       <p>Ejemplos:</p>

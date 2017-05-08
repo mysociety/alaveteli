@@ -311,18 +311,16 @@ el script de gestión de correo, por ejemplo:
 
 La interfaz administrativa se halla en la URL `/admin`.
 
-Solo los usuarios con nivel de administración `super` pueden acceder a la interfaz de administración.
-Los usuarios crean sus propias cuentas de la forma habitual y los administradores pueden proporcionarles
-permisos `super` de superusuario.
+Solo los usuarios con la función `admin` pueden acceder a la interfaz de administración.
+Los usuarios crean sus propias cuentas de la forma habitual y los administradores pueden proporcionarlas con el papel de 'admin'.
 
 Exite una cuenta de usuario de emergencia, accesible mediante
 `/admin?emergency=1`, utilizando las credenciales `ADMIN_USERNAME` y
-`ADMIN_PASSWORD` definidas en `general.yml`. Para crear las primeras cuentas
-de nivel `super` necesitará iniciar sesión como el usuario de emergencia.
+`ADMIN_PASSWORD` definidas en `general.yml`. Para crear la cuenta de administrador, necesitará iniciar sesión como el usuario de emergencia.
 Puede desactivar la cuenta del usuario de emergencia asignando a `DISABLE_EMERGENCY_USER`
 el valor `true` en `general.yml`.
 
-Los usuarios con permisos de superusuario también disponen de permisos adicionales
+Los usuarios con permisos de administrador también disponen de permisos adicionales
 en la interfaz del sitio web para, por ejemplo, clasificar cualquier solicitud, visualizar
 elementos que se han ocultado en las búsquedas y acceder a enlaces de administración
 junto a los comentarios y solicitudes individuales en la interfaz de usuario.
