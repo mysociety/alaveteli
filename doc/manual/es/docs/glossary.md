@@ -238,7 +238,7 @@ Definiciones
     si el usuario no aparece en la base de datos.
     <p>
       Cuando el sistema ha sido arrancado (es decir, cuando se ha utilizado el usuario de emergencia para
-      proporcionar a una cuenta de usuario permisos totales de <em>superusuario</em>), el usuario de emergencia
+      proporcionar a una cuenta de usuario permisos totales de <em>administrador</em>), el usuario de emergencia
       debe deshabilitarse.
     </p>
     <div class="more-info">
@@ -247,13 +247,13 @@ Definiciones
         <li>
           El código de usuario y la contraseña están definidos en los ajustes de configuración
           <code><a href="{{ page.baseurl }}/docs/customising/config/#admin_username">ADMIN_USERNAME</a></code>
-          y 
+          y
           <code><a href="{{ page.baseurl }}/docs/customising/config/#admin_password">ADMIN_PASSWORD</a></code>.
         </li>
         <li>
           Si desea consultar un ejemplo de usuario de emergencia, acceda a la
-          <a href="{{ page.baseurl }}/docs/installing/next_steps/#cree-una-cuenta-de-administrador-superusuario">creación
-            de una cuenta de superusuario</a>.
+          <a href="{{ page.baseurl }}/docs/installing/next_steps/#cree-una-cuenta-de-administrador">creación
+            de una cuenta de administrador</a>.
         </li>
         <li>
           Para desactivar el usuario de emergencia, configure la opción

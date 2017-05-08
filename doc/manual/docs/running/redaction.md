@@ -50,7 +50,7 @@ these form a censor rule:
 * *the specific pattern of text that you want to redact*
   <br>
   This might be a particular word, email address or number; or
-  a particular pattern (described using a 
+  a particular pattern (described using a
   <a href="{{ page.baseurl }}/docs/glossary/#regexp" class="glossary__link">regular expression</a>).
 * *the replacement text*
   <br>
@@ -140,13 +140,13 @@ something like them.
 Provide a _comment_ explaining why this rule is needed. This will be seen only
 by other administrators on the site.
 
-Click the **create** button when you are ready to add the censor rule. 
+Click the **create** button when you are ready to add the censor rule.
 
 ## Seeing unredacted text
 
 Censor rules are applied when the site pages (which includes the admin) are
 displayed. If you want to see unredacted text, Alaveteli shows the original
-text when you 
+text when you
 [edit the text of a message]({{ page.baseurl }}/docs/running/admin_manual/#editing-an-outgoing-message).
 
 ## Redaction scope: requests, users, or more
@@ -157,7 +157,7 @@ all requests made by a particular user.
 But it's also technically possible to add censor rules with a different
 scope by working directly within the source code. If you need to apply a
 censor rule across a broader scope, for example, for _all_ requests on your
-site, ask us for help. 
+site, ask us for help.
 
 By way of an example, in the detailed example below, we add some code to apply
 a unique redaction rule to every user (for hiding their own citizen ID number).
@@ -174,7 +174,7 @@ will have the rules applied.
 This example removes the name "Alice Alaveteli" from messages relating to a
 specific request.
 
-* click on **Requests** in the admin and search or find the one you want 
+* click on **Requests** in the admin interface and search or find the one you want
 * click on the request's title to go to its page in the admin
 * scroll to the bottom: *Censor rules*
 * click **New censor rule** and fill in the form:
@@ -183,7 +183,7 @@ specific request.
    * enter `[name removed]` as the "replacement"
    * add a comment which explains the reason for the redaction (this can be read by other admins, but isn't shown publicly)
    * click on **Create**
-   
+
 The censor rule is created, and will be applied to any messages that are displayed in this request. If you look at the request's page in the admin,
 you can see this rule (and any other censor rules associated with it)
 along with the button for creating more.
@@ -216,8 +216,8 @@ spelling.
    requests on your site.
 </div>
 
-* click on **Requests** in the admin and search or find the one you want
-* click on the request's title to go to its page in the admin
+* click on **Requests** in the admin interface and search or find the one you want
+* click on the request's title to go to its page in the admin interface
 * scroll to the bottom: *Censor rules*
 * find the censor rule that finds `Alice` (from the previous example), click
   **Edit** and fill in the form:
@@ -238,15 +238,15 @@ This censor rule will match and replace the following examples:
 
     Alice Alaveteli
 
-and 
+and
 
     Allice
     Alaveteli
 
-(because the line break is considered as whitespace) and also 
+(because the line break is considered as whitespace) and also
 
     alice_alaveteli
-    
+
 Note that if you can predict the specific text instead of using a regular
 expression, then you probably should. For example, if you expect the email to
 always be lower case, you could create a censor rule specifically to redact
@@ -283,11 +283,11 @@ rules</a>.
 
 ### Nicaragua's "General Law" (providing personal details)
 
-This example is based on the specific requirements of 
-[Derecho a Preguntar](https://derechoapreguntar.org), the 
+This example is based on the specific requirements of
+[Derecho a Preguntar](https://derechoapreguntar.org), the
 Alaveteli site running in Nicaragua. As usual, this site is running its own
 <a href="{{ page.baseurl }}/docs/glossary/#them" class="glossary__link">theme</a>.
-The 
+The
 [theme is available on github](https://github.com/mysociety/derechoapreguntar-theme)
 and is called `derechoapreguntar-theme`.
 
@@ -355,7 +355,7 @@ messages) are published.
 
 <a name="redaction-example-1"> </a>
 
-One way to do this is to use the admin interface to 
+One way to do this is to use the admin interface to
 [add a censor rule](#how-to-add-a-censor-rule)
 to the individual request, like this:
 
@@ -496,7 +496,7 @@ The code, in the theme's `lib/censor_rules.rb`, looks like this:
 
 ![Redacted address in fence]({{ site.baseurl }}assets/img/redaction-address-quoted-redacted.png)
 
-<div class="attention-box warning"> 
+<div class="attention-box warning">
   Redacting unstructured information is a very fragile approach, as it relies
   on authorities always quoting the entire formatted block.
 </div>

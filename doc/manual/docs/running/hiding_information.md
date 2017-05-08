@@ -94,7 +94,7 @@ the server.
 Alaveteli displays things depending on their _prominence_. When you hide
 requests or responses, you do so by changing their prominence, which you can do
 in the
-<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">admin interface</a>.
 
 You can set the prominence for a whole page (that is, a request and any
 messages, including responses associated with it), or any individual message.
@@ -151,7 +151,7 @@ messages, including responses associated with it), or any individual message.
     <td>
       <em>
         If the viewing user is logged in as the requester themselves (or an
-        <a href="{{page.baseurl}}/docs/glossary/#super" class="glossary__link">administrator</a>):
+        <a href="{{page.baseurl}}/docs/glossary/#admin" class="glossary__link">administrator</a>):
       </em>
       <br>
       the item is displayed, together with a notice indicating that it is

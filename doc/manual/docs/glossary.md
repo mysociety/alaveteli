@@ -15,7 +15,8 @@ Definitions
 -----------
 
 <ul class="definitions">
-  <li><a href="#admin">admin interface</a></li>
+  <li><a href="#admin">admin</a></li>
+  <li><a href="#admin_interface">admin interface</a></li>
   <li><a href="#advanced-search">advanced search</a></li>
   <li><a href="#alaveteli">Alaveteli</a></li>
   <li><a href="#agnostic">asker agnostic</a></li>
@@ -54,7 +55,6 @@ Definitions
   <li><a href="#spam-address-list">spam address list</a></li>
   <li><a href="#staging">staging site</a></li>
   <li><a href="#state">state</a></li>
-  <li><a href="#super">superuser</a></li>
   <li><a href="#tag">tag</a></li>
   <li><a href="#takedown">takedown request</a></li>
   <li><a href="#theme">theme</a></li>
@@ -64,29 +64,60 @@ Definitions
 
 
 <dl class="glossary">
-
   <dt>
-    <a name="admin">admin interface</a> (also: admin)
+    <a name="admin">admin</a> (also: administrator)
   </dt>
   <dd>
-    The <strong>admin interface</strong> allows users who have
-    <a href="{{ page.baseurl }}/docs/glossary/#super" class="glossary__link">super</a>
-    administrator privilege to manage some aspects of how your
+    An <strong>admin</strong>, or <strong>administrator</strong>, is an
+    Alaveteli user who has been granted the role to use all features of the
+    <a href="{{ page.baseurl }}/docs/glossary/#admin_interface"
+    class="glossary__link">admin interface</a>.
+    <p>
+      The only way to access the admin interface without being an Alaveteli admin
+      is as the <a href="{{ page.baseurl }}/docs/glossary/#emergency"
+      class="glossary__link">emergency user</a>, which should be disabled in
+      normal operation.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          To grant a user admin privilege, log into the admin and check
+          "admin" in the <em>Roles</em> section of their user page (or revoke the privilege
+          by unchecking it).
+        </li>
+        <li>
+          On a newly-installed Alaveteli system, you can grant yourself
+          the admin role by using the
+          <a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">emergency
+          user</a>.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="admin_interface">admin interface</a>
+  </dt>
+  <dd>
+    The <strong>admin interface</strong> allows users who have the
+    <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin</a>
+    role to manage some aspects of how your
     Alaveteli site runs.
     <div class="more-info">
       <p>More information:</p>
       <ul>
         <li>
-          You can access your installation's <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>
+          You can access your installation's <a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">admin interface</a>
           at <code>/admin</code>.
         </li>
         <li>
-          To grant a user admin privilege, log into the admin and change
-          their <em>Admin level</em> to "super" (or revoke the privilege
-          by changing it to "none").
+          To grant a user admin privilege, log into the admin and check
+          "admin" in the <em>Roles</em> section of their user page (or revoke the privilege
+          by unchecking it).
         </li>
         <li>
-          On a newly-installed Alaveteli system, you can grant yourself
+          On a newly-installed Alaveteli system, you can grant yourself the admin role using the
           <a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">emergency
           user</a>.
         </li>
@@ -183,7 +214,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          An <a href="#super" class="glossary__link">administrator</a>
+          An <a href="#admin" class="glossary__link">administrator</a>
           can add, edit, or remove authorities in the admin.
         </li>
         <li>
@@ -405,7 +436,7 @@ Definitions
     the user doesn't appear in the database.
     <p>
       When the system has been bootstrapped (that is, you've used the emergency user to
-      grant a user account full <em>super</em> privileges), you must disable the emergency
+      grant a user account full <em>admin</em> privileges), you must disable the emergency
       user.
     </p>
     <div class="more-info">
@@ -419,8 +450,8 @@ Definitions
         </li>
         <li>
           For an example of using the emergency user, see
-          <a href="{{ page.baseurl }}/docs/installing/next_steps/#create-a-superuser-account-for-yourself">creating
-            a superuser account</a>.
+          <a href="{{ page.baseurl }}/docs/installing/next_steps/#create-an-admin-account">creating
+            an admin account</a>.
         </li>
         <li>
           Disable the emergency user by setting
@@ -542,7 +573,7 @@ Definitions
   <dd>
     The <strong>holding pen</strong> is the conceptual place where responses
     that could not be delivered are held. They need attention from an
-    <a href="#super" class="glossary__link">administrator</a>.
+    <a href="#admin" class="glossary__link">administrator</a>.
     <p>
       In fact, the holding pen is really a special "sticky" <a href="#request"
       class="glossary__link">request</a> that only exists to accept unmatched
@@ -576,7 +607,7 @@ Definitions
     <a href="#response" class="glossary__link">response</a> is overdue.
     Public holidays are different all around the world, so Alaveteli lets
     you specify the dates for the jurisdiction relevant to your
-    site in the <a href="#admin" class="glossary__link">admin interface.</a> 
+    site in the <a href="#admin" class="glossary__link">admin interface.</a>
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -988,7 +1019,7 @@ Definitions
   </dt>
   <dd>
     Alaveteli maintains a <strong>spam address list</strong>. Any incoming message to an email
-    address on that list will be rejected and won't appear in the admin.
+    address on that list will be rejected and won't appear in the admin interface.
     <p>
       This is mainly for email addresses whose messages are ending up
       in the <a href="#holding_pen" class="glossary__link">holding pen</a>, because
@@ -1068,37 +1099,6 @@ Definitions
     </div>
   </dd>
 
-  <dt>
-    <a name="super">superuser</a> (also: super privilege, administrator)
-  </dt>
-  <dd>
-    A <strong>superuser</strong>, or <strong>administrator</strong>, is an
-    Alaveteli user who has been granted the privilege to use all features of the
-    <a href="{{ page.baseurl }}/docs/glossary/#admin"
-    class="glossary__link">admin interface</a>.
-    <p>
-      The only way to access the admin without being an Alaveteli superuser
-      is as the <a href="{{ page.baseurl }}/docs/glossary/#emergency"
-      class="glossary__link">emergency user</a>, which should be disabled in
-      normal operation.
-    </p>
-    <div class="more-info">
-      <p>More information:</p>
-      <ul>
-        <li>
-          To grant a user admin privilege, log into the admin and change
-          their <em>Admin level</em> to "super" (or revoke the privilege
-          by changing it to "none").
-        </li>
-        <li>
-          On a newly-installed Alaveteli system, you can grant yourself
-          admin privilege by using the
-          <a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">emergency
-          user</a>.
-        </li>
-      </ul>
-    </div>
-  </dd>
 
   <dt>
     <a name="tag">tag</a>

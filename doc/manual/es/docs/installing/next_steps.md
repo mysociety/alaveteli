@@ -8,13 +8,13 @@ title: Siguientes pasos
     Bien, ha instalado una copia de Alaveteli y puede visualizar el sitio en un navegador. ¿Qué debe hacer ahora?
 </p>
 
-## Cree una cuenta de administrador superusuario
+## Cree una cuenta de administrador
 
 Alaveteli incluye un
 <a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">usuario de emergencia</a>
 que tiene acceso a la interfaz de administración. Así, cuando acabe de crear un sitio, deberá
 registrarse para crear su propia cuenta y después iniciar sesión en la interfaz de administración
-con el usuario de emergencia para ascender su nueva cuenta a administrador con permisos de *superusuario*.
+con el usuario de emergencia para ascender su nueva cuenta a administrador.
 
 Una vez hecho esto, desactive el usuario de emergencia, pues no necesitará utilizarlo más: lo habrá
 reemplazado con su nueva cuenta de administrador.
@@ -37,7 +37,7 @@ En primer lugar, en el navegador:
 * Ahora se encontrará en la página de adminsitración de Alaveteli.
 * Haga clic en **Users**  (en el menú de navegación superior de la página) y eliga
   su nombre en el listado de usuarios. En *esa* página,  haga clic en **Edit**.
-* Modifique su *Admin level* a «super» y haga clic en **Save**.
+* En la sección "Roles", marque la casilla "admin" y haga clic en **Save**.
 * A partir de ahora, al iniciar sesión en su sitio basado en Alavateli, tendrá acceso
   a la interfaz de administración (en `/admin`). Es más, verá enlaces a páginas administrativas
   externas al sitio principal (que no son visibles para usuarios comunes).
@@ -48,14 +48,14 @@ permisos para que no exista riesgo de que se utilice para acceder a la administr
 sitio. Puede hacer esto mientras tiene la sesión iniciada como usuario de emergencia o más tarde,
 iniciando su propia sesión:
 
-* Acceda a `/admin/users` o haga clic en **Users** en el menú de navegación de la 
+* Acceda a `/admin/users` o haga clic en **Users** en el menú de navegación de la
   página de administración.
-* Busque «Joe Admin» en el listado de usuarios y haga clic en el nombre para ver los 
+* Busque «Joe Admin» en el listado de usuarios y haga clic en el nombre para ver los
   detalles del usuario. En *esa* página,  haga clic en **Edit**.
-* Modifique su *Admin level* de «super» a «none» y haga clic en **Save**.
+* En la sección "Roles", desmarque la casilla "admin" y haga clic en **Save**.
 * Joe Admin ya no tendrá permisos de administrador.
 
-Ahora que su cuenta corresponde a un superusuario administrador, no necesita permitir el
+Ahora que su cuenta corresponde a un administrador, no necesita permitir el
 acceso del usuario de emergencia a la interfaz de administración. En la línea de comando, edite
 `/var/www/alaveteli/alaveteli/config/general.yml`:
 
@@ -74,7 +74,7 @@ acceso del usuario de emergencia a la interfaz de administración. En la línea 
   `sudo service alaveteli restart`
 
 Puede utilizar el mismo proceso (con su sesión de administrador iniciada) para añadir o eliminar
-permisos de superusuario administrador de cualquier usuario que añada en su sitio.
+permisos de administrador de cualquier usuario que añada en su sitio.
 Si elimina accidentalmente los permisos de administrador de todas las cuentas (¡pero intente que
 esto no ocurrra!), puede activar el usuario de emergencia editando el archivo `general.yml`
 y reiniciando Alaveteli.

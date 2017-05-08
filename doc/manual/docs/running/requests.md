@@ -9,8 +9,8 @@ title: Managing requests
 <p class="lead">
   Alaveteli makes it easy for a user to make a
   <a href="{{ page.baseurl }}/docs/glossary/#request" class="glossary__link">request</a>.
-  As an 
-  <a href="{{ page.baseurl }}/docs/glossary/#super" class="glossary__link">administrator</a>,
+  As an
+  <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">administrator</a>,
   there are some things about that request you can change once it&rsquo;s been created.
 </p>
 
@@ -92,7 +92,7 @@ RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS</a></code> setting in the co
 ## Changing things about a request
 
 To change any of these settings, go to the
-<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>,
+<a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">admin interface</a>,
 click on **Requests**, then click on the title of the request you want to affect.
 Click the **Edit metadata** button.
 
@@ -263,12 +263,12 @@ a user may send a request to the wrong authority. In that situation, you can
 change the authority on the request and then resend it to the correct authority.
 
 To resend a request, go to
-the <a href="{{ page.baseurl }}/docs/glossary/#admin"
+the <a href="{{ page.baseurl }}/docs/glossary/#admin_interface"
 class="glossary__link">admin interface</a>, click on **Requests**, then
 click on the name of the request you want to change. Go to the **Outgoing messages** heading. Click the chevron next to the first outgoing message, which is the initial request. A panel of information about that message will appear. Click on the **Resend** button.
 
 To send a request to a different authority, go to
-the <a href="{{ page.baseurl }}/docs/glossary/#admin"
+the <a href="{{ page.baseurl }}/docs/glossary/#admin_interface"
 class="glossary__link">admin interface</a>, click on **Requests**, then
 click on the name of the request you want to change. In the **Request
 metadata** section, there is a line which shows the authority. Click the
@@ -290,7 +290,7 @@ You can hide an entire request. Typically you do this if it's not a valid
 Freedom of Information request (for example, a request for personal
 information), or if it is vexatious.
 
-Go to the <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>,
+Go to the <a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">admin interface</a>,
 click on **Requests**, then click on the title of the request you want. You can
 hide it in one of two ways:
 
@@ -349,8 +349,8 @@ destroyed as well.
   <a href="#hiding-a-request">hide the request</a> instead.
 </div>
 
-Go to the <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>,
-click on **Requests**, then click on the title of the request you want to delete. 
+Go to the <a href="{{ page.baseurl }}/docs/glossary/#admin_interface" class="glossary__link">admin interface</a>,
+click on **Requests**, then click on the title of the request you want to delete.
 Click the **Edit metadata** button. Click on the red **Destroy request entirely**
 button at the bottom of the page.
 

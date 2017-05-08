@@ -37,8 +37,8 @@ message in the
 <a href="{{ page.baseurl }}/docs/glossary/#holding_pen" class="glossary__link">holding
 pen </a>.
 
-Messages wait in the holding pen until an 
-<a href="{{ page.baseurl }}/docs/glossary/#super" class="glossary__link">administrator</a>
+Messages wait in the holding pen until an
+<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">administrator</a>
 redelivers them to the correct request, or else deletes them.
 
 ## Why messages end up in the holding pen
@@ -77,7 +77,7 @@ There are several reasons why a message might end up in the holding pen:
 ## What to do: redeliver or delete
 
 You need to be an
-<a href="{{ page.baseurl }}/docs/glossary/#super" class="glossary__link">administrator</a>
+<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">administrator</a>
 to modify the holding pen.
 
 There are two things you can do to a message in the holding pen:
