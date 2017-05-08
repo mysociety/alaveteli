@@ -7,8 +7,15 @@
       </span>
     <% end %>
     <span><%= _("Batch request") %></span>
-    <%= link_to draft_info_request_batch.title,
-                new_alaveteli_pro_info_request_batch_path(:draft_id => draft_info_request_batch.id) %>
+    <% if draft_info_request_batch.title.blank? %>
+      <%= link_to _("(no title)"),
+                  new_alaveteli_pro_info_request_batch_path(
+                    :draft_id => draft_info_request_batch.id) %>
+    <% else %>
+      <%= link_to draft_info_request_batch.title,
+                  new_alaveteli_pro_info_request_batch_path(
+                    :draft_id => draft_info_request_batch.id) %>
+    <% end %>
   </h3>
 
   <div class="request__meta">
