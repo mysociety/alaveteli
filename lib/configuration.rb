@@ -34,7 +34,6 @@ module AlaveteliConfiguration
       :CACHE_FRAGMENTS => true,
       :CONTACT_EMAIL => 'contact@localhost',
       :CONTACT_NAME => 'Alaveteli',
-      :COOKIE_STORE_SESSION_SECRET => 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development',
       :SECRET_KEY_BASE => 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development',
       :DEBUG_RECORD_MEMORY => false,
       :DEFAULT_LOCALE => '',
