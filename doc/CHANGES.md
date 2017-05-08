@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Upgrade to Rails 4.1 (Liz Conlan, Gareth Rees)
 * Add sample public body headings and categories (Gareth Rees)
 * Allow translation of delivery statuses (Gareth Rees)
 * Fix stripping Syslog prefix from mail logs (Gareth Rees)
@@ -52,6 +53,12 @@
 
 ## Upgrade Notes
 
+* Spring is now used as the application preloader in development mode. No action
+  required, but worth being familiar with if you're running Alaveteli in
+  development: http://guides.rubyonrails.org/v4.1.16/upgrading_ruby_on_rails.html#spring
+* The `COOKIE_STORE_SESSION_SECRET` config item has been removed and replaced
+  with `SECRET_KEY_BASE`. You should migrate the original value to the new
+  config key.
 * Anti-spam feaures can now be enabled independently
   (`BLOCK_RATE_LIMITED_IPS`, `BLOCK_RESTRICTED_COUNTRY_IPS`,
   `BLOCK_SPAM_ABOUT_ME_TEXT`, `BLOCK_SPAM_COMMENTS`, `BLOCK_SPAM_EMAIL_DOMAINS`,
