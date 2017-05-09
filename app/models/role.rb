@@ -25,7 +25,7 @@ class Role < ActiveRecord::Base
   scopify
 
 
-  ROLES = ['admin'].freeze
+  ROLES = ['admin', 'notifications_tester'].freeze
   PRO_ROLES = ['pro', 'pro_admin'].freeze
 
   def self.allowed_roles
@@ -51,8 +51,11 @@ class Role < ActiveRecord::Base
   #
   # Returns an Array
   def self.grants_and_revokes(role)
-    { :admin => [:admin],
-      :pro_admin => [:pro, :admin, :pro_admin] }[role] || []
+    grants_and_revokes = {
+      :admin => [:admin, :notifications_tester],
+      :pro_admin => [:pro, :admin, :pro_admin, :notifications_tester]
+    }
+    grants_and_revokes[role] || []
   end
 
   # Public: Returns an array of symbols of the names of the roles

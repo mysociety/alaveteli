@@ -50,6 +50,10 @@
   to avoid the situation where 374 out of 375 appears as 100% (Liz Conlan)
 * Make `users:ban_by_domain` send a simpler message to say they've been banned
   rather than helping them work around our spam measures (Liz Conlan)
+* A new role `notifications_testers` has been added, this is a temporary role
+  to help us test new email configuration options for Alaveteli Professional,
+  please don't give this role to any of your users - it may change and/or
+  disappear without warning!
 
 ## Upgrade Notes
 

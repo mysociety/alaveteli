@@ -8,8 +8,10 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 include AlaveteliFeatures::Helpers
 
-if Role.where(:name => 'admin').empty?
-  Role.create(:name => 'admin')
+['admin', 'notifications_tester'].each do |role_name|
+  if Role.where(:name => role_name).empty?
+    Role.create(:name => role_name)
+  end
 end
 
 if feature_enabled?(:alaveteli_pro)
