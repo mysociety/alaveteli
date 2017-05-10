@@ -241,7 +241,7 @@ class GeneralController < ApplicationController
   end
 
   def pro
-    render 'alaveteli_pro/general/pro', :layout => false
+    render 'alaveteli_pro/general/pro'
   end
 
   def pro_invite
