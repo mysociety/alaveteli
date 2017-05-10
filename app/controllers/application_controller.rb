@@ -132,7 +132,12 @@ class ApplicationController < ActionController::Base
   # is not replayable forever
   SESSION_TTL = 3.hours
   def validate_session_timestamp
-    if session[:user_id] && session[:ttl] && session[:ttl] < SESSION_TTL.ago
+    session_ttl = if session[:ttl].is_a?(String)
+      Time.zone.parse(session[:ttl]) # for Ruby 1.9
+    else
+      session[:ttl]
+    end
+    if session[:user_id] && session[:ttl] && session_ttl < SESSION_TTL.ago
       clear_session_credentials
     end
   end

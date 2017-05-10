@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+# This file loads spring without using Bundler, in order to be fast.
+# It gets overwritten when you run the `spring binstub` command.
+
+unless defined?(Spring)
+  require 'rubygems'
+  require 'bundler'
+
+  if (match = Bundler.default_lockfile.read.match(/^GEM$.*?^    (?:  )*spring \((.*?)\)$.*?^$/m))
+    # the path_separator method was introduced in rubygems 2.0.0
+    # use its default value of File::PATH_SEPARATOR for older versions
+    # https://github.com/rubygems/rubygems/blob/2.0/lib/rubygems/defaults.rb#L65-L67
+    path_separator = if Gem.respond_to?(:path_separator)
+      Gem.path_separator
+    else
+      File::PATH_SEPARATOR
+    end
+    Gem.paths = { 'GEM_PATH' => [Bundler.bundle_path.to_s, *Gem.path].uniq.join(path_separator) }
+    gem 'spring', match[1]
+    require 'spring/binstub'
+  end
+end
