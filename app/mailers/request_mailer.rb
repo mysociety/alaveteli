@@ -281,6 +281,7 @@ class RequestMailer < ApplicationMailer
     info_requests = InfoRequest.where("described_state = 'waiting_response'
                 AND awaiting_description = ?
                 AND user_id is not null
+                AND use_notifications = ?
                 AND (SELECT id
                   FROM user_info_request_sent_alerts
                   WHERE alert_type = 'very_overdue_1'
@@ -293,7 +294,7 @@ class RequestMailer < ApplicationMailer
                                                                     'resent',
                                                                     'followup_resent')
                   AND info_request_id = info_requests.id)
-                ) IS NULL", false).includes(:user)
+                ) IS NULL", false, false).includes(:user)
 
     for info_request in info_requests
       alert_event_id = info_request.last_event_forming_initial_request.id

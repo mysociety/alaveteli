@@ -626,6 +626,19 @@ describe RequestMailer do
       end
     end
 
+    it "does not send alerts for requests with use_notifications set to true" do
+      info_request = FactoryGirl.create(:use_notifications_request)
+
+      time_travel_to(31.days.from_now) do
+        RequestMailer.alert_overdue_requests
+
+        mails = ActionMailer::Base.deliveries.select do |mail|
+          mail.body =~ /#{info_request.title}/
+        end
+        expect(mails).to be_empty
+      end
+    end
+
     context "very overdue alerts" do
 
       it 'should not create HTML entities in the subject line' do
@@ -668,6 +681,19 @@ describe RequestMailer do
           # Check that this is a very overdue email, not just an overdue one
           expect(mail.body).not_to match(/promptly/)
           expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+        end
+      end
+
+      it "does not send alerts for requests with use_notifications set to true" do
+        info_request = FactoryGirl.create(:use_notifications_request)
+
+        time_travel_to(61.days.from_now) do
+          RequestMailer.alert_overdue_requests
+
+          mails = ActionMailer::Base.deliveries.select do |mail|
+            mail.body =~ /#{info_request.title}/
+          end
+          expect(mails).to be_empty
         end
       end
 
