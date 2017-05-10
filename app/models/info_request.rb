@@ -523,7 +523,7 @@ class InfoRequest < ActiveRecord::Base
 
       # Notify the user that a new response has been received, unless the
       # request is external
-      unless is_external?
+      unless is_external? or use_notifications?
         RequestMailer.new_response(self, incoming_message).deliver
       end
     end

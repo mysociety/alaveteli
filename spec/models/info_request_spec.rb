@@ -296,9 +296,9 @@ describe InfoRequest do
         to eq('rejected for testing')
     end
 
-    context 'notifying the request owner' do
+    context 'emailing the request owner' do
 
-      it 'notifies the user that a response has been received' do
+      it 'emails the user that a response has been received' do
         info_request = FactoryGirl.create(:info_request)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
@@ -308,8 +308,16 @@ describe InfoRequest do
         ActionMailer::Base.deliveries.clear
       end
 
-      it 'does not notify when the request is external' do
+      it 'does not email when the request is external' do
         info_request = FactoryGirl.create(:external_request)
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        expect(ActionMailer::Base.deliveries).to be_empty
+        ActionMailer::Base.deliveries.clear
+      end
+
+      it 'does not email when the request has use_notifications turned on' do
+        info_request = FactoryGirl.create(:use_notifications_request)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         expect(ActionMailer::Base.deliveries).to be_empty
