@@ -21,9 +21,7 @@ end
 
 module ERB::Util
 
-  # Copied in from Rails 4.2 as it doesn't yet exist in 4.0
-
-  HTML_ESCAPE_REGEXP = /[&"'><]/
+  # Copied in from Rails 4.2 as it doesn't yet exist in 4.1
 
   # HTML escapes strings but doesn't wrap them with an ActiveSupport::SafeBuffer.
   # This method is not for public consumption! Seriously!

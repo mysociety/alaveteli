@@ -4519,3 +4519,6 @@ msgstr "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) hizo esta solicitud 
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} hizo esta solicitud de {{law_used_full}}"
+
+msgid "sent"
+msgstr "expedido"

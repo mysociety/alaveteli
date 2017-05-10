@@ -12,5 +12,12 @@ class MailServerLog::DeliveryStatus
       }.freeze
     end
 
+    def self.to_s!
+      { :unknown => _('unknown'),
+        :failed => _('failed'),
+        :sent => _('sent'),
+        :delivered => _('delivered') }.freeze
+    end
+
   end
 end

@@ -12,7 +12,7 @@ $alaveteli_route_extensions.each do |f|
   load File.join('config', f)
 end
 
-Alaveteli::Application.routes.draw do
+Rails.application.routes.draw do
   root to: 'general#frontpage'
 
   #### General contoller

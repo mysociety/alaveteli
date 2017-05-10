@@ -1,0 +1,11 @@
+useless_public_body_category_link:
+  id: 1
+  public_body_category_id: 1
+  public_body_heading_id: 1
+  category_display_order: 0
+
+lonely_public_body_category_link:
+  id: 2
+  public_body_category_id: 2
+  public_body_heading_id: 1
+  category_display_order: 0

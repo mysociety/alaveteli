@@ -111,7 +111,7 @@ then
         -e "s,^( *ADMIN_PASSWORD:).*,\\1 '$RANDOM_EMERGENCY_PASSWORD'," \
         -e "s,^( *CONTACT_EMAIL:).*,\\1 'postmaster@$HOST'," \
         -e "s,^( *TRACK_SENDER_EMAIL:).*,\\1 'postmaster@$HOST'," \
-        -e "s,^( *COOKIE_STORE_SESSION_SECRET:).*,\\1 '$RANDOM_COOKIE_SECRET'," \
+        -e "s,^( *SECRET_KEY_BASE:).*,\\1 '$RANDOM_COOKIE_SECRET'," \
         -e "s,^( *FORWARD_NONBOUNCE_RESPONSES_TO:).*,\\1 'user-support@$HOST'," \
         -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/bin/wkhtmltopdf-static'," \
         -e "s,^( *EXCEPTION_NOTIFICATIONS_FROM:).*,\\1 'do-not-reply-to-this-address@$HOST'," \

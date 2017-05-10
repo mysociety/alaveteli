@@ -3,7 +3,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
-Alaveteli::Application.load_tasks
+Rails.application.load_tasks
 if Rails.env == 'test'
   Dir[Rails.root.join('commonlib','rblib','tests','*.rake')].each { |file| load(file) }
 end

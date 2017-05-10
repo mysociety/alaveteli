@@ -79,7 +79,7 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.13'
+gem 'rails', '4.1.16'
 
 gem 'pg', '~> 0.18.0', '< 0.19.0'
 
@@ -143,8 +143,6 @@ gem 'unidecoder', '~> 1.1.0'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 3.0.0'
-# Bugfix https://github.com/mikel/mail/pull/1023
-gem 'mail', :git => 'https://github.com/mikel/mail', :branch => '2-6-stable'
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
@@ -183,4 +181,6 @@ group :development do
   gem 'mailcatcher', '~> 0.6.0'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'launchy', '~> 2.4.0'
+  gem 'spring', '~> 1.7.0', '< 2.0.0'
+  gem 'spring-commands-rspec', '~> 1.0.0'
 end

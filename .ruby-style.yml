@@ -100,7 +100,7 @@ Style/BlockComments:
 
 Style/BlockEndNewline:
   Description: 'Put end statement of multiline block on its own line.'
-  Enabled: false
+  Enabled: true
 
 Style/BlockDelimiters:
   Description: >-
@@ -119,12 +119,12 @@ Style/BracesAroundHashParameters:
 Style/CaseEquality:
   Description: 'Avoid explicit use of the case equality operator(===).'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-case-equality'
-  Enabled: false
+  Enabled: true
 
 Style/CaseIndentation:
   Description: 'Indentation of when in a case/when/[else/]end.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#indent-when-to-case'
-  Enabled: false
+  Enabled: true
 
 Style/CharacterLiteral:
   Description: 'Checks for uses of character literals.'
@@ -166,7 +166,7 @@ Style/ColonMethodCall:
 Style/CommandLiteral:
   Description: 'Use `` or %x around command literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-x'
-  Enabled: false
+  Enabled: true
 
 Style/CommentAnnotation:
   Description: >-
@@ -247,7 +247,7 @@ Style/EmptyLineBetweenDefs:
 
 Style/EmptyLines:
   Description: "Don't use several empty lines in a row."
-  Enabled: false
+  Enabled: true
 
 Style/EmptyLinesAroundAccessModifier:
   Description: "Keep blank lines around access modifiers."

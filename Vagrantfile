@@ -61,6 +61,7 @@ ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
 ALAVETELI_MEMORY = ENV['ALAVETELI_VAGRANT_MEMORY'] || 1536
 ALAVETELI_THEMES_DIR = ENV['ALAVETELI_THEMES_DIR'] || '../alaveteli-themes'
 ALAVETELI_OS = ENV['ALAVETELI_VAGRANT_OS'] || 'precise64'
+ALAVETELI_USE_NFS = ENV['ALAVETELI_VAGRANT_USE_NFS'] || false
 
 SUPPORTED_OPERATING_SYSTEMS = {
   'precise64' => 'https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box',
@@ -88,13 +89,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = box_url
   config.vm.network :private_network, :ip => "10.10.10.30"
 
-  config.vm.synced_folder ".", "/home/vagrant/alaveteli", :owner => "vagrant", :group => "vagrant"
+  if ALAVETELI_USE_NFS
+    config.vm.synced_folder ".", "/home/vagrant/alaveteli", :nfs => true
+  else
+    config.vm.synced_folder ".", "/home/vagrant/alaveteli", :owner => "vagrant", :group => "vagrant"
+  end
 
   if File.directory?(ALAVETELI_THEMES_DIR)
-    config.vm.synced_folder ALAVETELI_THEMES_DIR,
-                            "/home/vagrant/alaveteli-themes",
-                            :owner => "vagrant",
-                            :group => "vagrant"
+    if ALAVETELI_USE_NFS
+      config.vm.synced_folder ALAVETELI_THEMES_DIR,
+                              "/home/vagrant/alaveteli-themes",
+                              :nfs => true
+    else
+      config.vm.synced_folder ALAVETELI_THEMES_DIR,
+                              "/home/vagrant/alaveteli-themes",
+                              :owner => "vagrant",
+                              :group => "vagrant"
+    end
   end
 
   config.ssh.forward_agent = true

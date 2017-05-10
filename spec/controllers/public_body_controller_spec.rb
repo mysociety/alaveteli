@@ -283,6 +283,10 @@ describe PublicBodyController, "when listing bodies" do
 
   it "should list a tagged thing on the appropriate list page, and others on the other page,
         and all still on the all page" do
+    PublicBodyCategory.destroy_all
+    PublicBodyHeading.destroy_all
+    PublicBodyCategoryLink.destroy_all
+
     category = FactoryGirl.create(:public_body_category)
     heading = FactoryGirl.create(:public_body_heading)
     PublicBodyCategoryLink.create(:public_body_heading_id => heading.id,

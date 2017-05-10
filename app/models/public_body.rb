@@ -600,7 +600,10 @@ class PublicBody < ActiveRecord::Base
       ordering = "info_requests_visible_count"
       ordering += " DESC" if highest
       where_clause = where_clause_for_stats minimum_requests, 'info_requests_visible_count'
-      public_bodies = PublicBody.order(ordering).where(where_clause).limit(n)
+      public_bodies = PublicBody.order(ordering).
+                        where(where_clause).
+                          limit(n).
+                            to_a
       public_bodies.reverse! if highest
       y_values = public_bodies.map { |pb| pb.info_requests_visible_count }
       return {
@@ -625,7 +628,8 @@ class PublicBody < ActiveRecord::Base
       public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").
                                   order(ordering).
                                     where(where_clause).
-                                      limit(n)
+                                      limit(n).
+                                        to_a
       public_bodies.reverse! if highest
       y_values = public_bodies.map { |pb| pb.y_value.to_f }
 

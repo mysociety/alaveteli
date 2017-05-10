@@ -40,8 +40,25 @@ class MailServerLog::DeliveryStatus
     status
   end
 
+  # Untranslated version of the delivery status.
+  #
+  # Returns a String
   def to_s
     status.to_s
+  end
+
+  # Translated version of the delivery status.
+  #
+  # Returns a String
+  def to_s!
+    TranslatedConstants.to_s![status]
+  end
+
+  # Capitalized version of the translated delivery status.
+  #
+  # Returns a String
+  def capitalize
+    to_s!.mb_chars.capitalize.to_s
   end
 
   def inspect

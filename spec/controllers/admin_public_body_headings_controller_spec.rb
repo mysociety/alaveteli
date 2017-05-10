@@ -490,7 +490,7 @@ describe AdminPublicBodyHeadingsController do
       it 'should return an "unprocessable entity" status and an error message' do
         make_request(@params)
         assert_response :unprocessable_entity
-        expect(response.body).to match("Couldn't find PublicBodyHeading with id")
+        expect(response.body).to match("Couldn't find PublicBodyHeading with 'id'")
       end
 
       it 'should not reorder headings' do

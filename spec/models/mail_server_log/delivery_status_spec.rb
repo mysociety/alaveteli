@@ -25,8 +25,30 @@ describe MailServerLog::DeliveryStatus do
 
   describe '#to_s' do
 
-    it 'returns the status as a String' do
-      expect(described_class.new(:sent).to_s).to eq('sent')
+    it 'returns the status as an untranslated String' do
+      I18n.with_locale(:es) do
+        expect(described_class.new(:sent).to_s).to eq('sent')
+      end
+    end
+
+  end
+
+  describe '#to_s!' do
+
+    it 'returns the status as a translated String' do
+      I18n.with_locale(:es) do
+        expect(described_class.new(:sent).to_s!).to eq('expedido')
+      end
+    end
+
+  end
+
+  describe '#capitalize' do
+
+    it 'returns the status as a capitalized translated String' do
+      I18n.with_locale(:es) do
+        expect(described_class.new(:sent).capitalize).to eq('Expedido')
+      end
     end
 
   end
