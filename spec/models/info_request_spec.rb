@@ -3779,4 +3779,49 @@ describe InfoRequest do
     end
   end
 
+  describe "setting use_notifications" do
+    context "when user is a notifications tester and it's in a batch" do
+      it "sets use_notifications to true" do
+        user = FactoryGirl.create(:notifications_tester_user)
+        public_bodies = FactoryGirl.create_list(:public_body, 3)
+        batch = FactoryGirl.create(:info_request_batch, user: user, public_bodies: public_bodies)
+        batch.create_batch!
+        info_request = batch.info_requests.first
+        expect(info_request.use_notifications).to be true
+      end
+    end
+
+    context "when user is a notifications tester and it's not in a batch" do
+      it "sets use_notifications to false" do
+        user = FactoryGirl.create(:notifications_tester_user)
+        info_request = FactoryGirl.create(:info_request, user: user)
+        expect(info_request.use_notifications).to be false
+      end
+    end
+
+    context "when user is not a notification tester and it's in a batch" do
+      it "sets use_notifications to false" do
+        public_bodies = FactoryGirl.create_list(:public_body, 3)
+        batch = FactoryGirl.create(:info_request_batch, public_bodies: public_bodies)
+        batch.create_batch!
+        info_request = batch.info_requests.first
+        expect(info_request.use_notifications).to be false
+      end
+    end
+
+    context "when user is not a notification tester and it's not in a batch" do
+      it "sets use_notifications to false" do
+        info_request = FactoryGirl.create(:info_request)
+        expect(info_request.use_notifications).to be false
+      end
+    end
+
+    context "when the request has a value set manually" do
+      it "doesn't override it" do
+        info_request = FactoryGirl.create(:use_notifications_request)
+        expect(info_request.use_notifications).to be true
+      end
+    end
+  end
+
 end

@@ -148,6 +148,7 @@ class InfoRequest < ActiveRecord::Base
   before_save :update_url_title,
     :if => Proc.new { |request| request.title_changed? }
   before_validation :compute_idhash
+  before_create :set_use_notifications
 
   def self.enumerate_states
     warn %q([DEPRECATION] InfoRequest.enumerate_states will be removed in
@@ -1697,6 +1698,14 @@ class InfoRequest < ActiveRecord::Base
     if new_record? && public_body && public_body.eir_only?
       self.law_used = 'eir'
     end
+  end
+
+  def set_use_notifications
+    if use_notifications.nil?
+      self.use_notifications = !!user.try(:is_notifications_tester?) && \
+                               info_request_batch_id.present?
+    end
+    return true
   end
 
   def applicable_law
