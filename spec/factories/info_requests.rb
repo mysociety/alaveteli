@@ -187,6 +187,10 @@ FactoryGirl.define do
         info_request.save!
       end
     end
+
+    factory :use_notifications_request do
+      use_notifications true
+    end
   end
 
 end
