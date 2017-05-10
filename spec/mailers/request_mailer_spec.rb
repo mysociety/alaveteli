@@ -329,6 +329,15 @@ describe RequestMailer do
 
     end
 
+    context "if the request has use_notifications set to true" do
+      it "doesn't send the reminder" do
+        old_request.use_notifications = true
+        old_request.save!
+        expect(RequestMailer).not_to receive(:new_response_reminder_alert)
+        send_alerts
+      end
+    end
+
   end
 
   describe "when sending mail when someone has updated an old unclassified request" do
