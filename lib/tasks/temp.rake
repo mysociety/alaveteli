@@ -314,4 +314,9 @@ namespace :temp do
       end
     end
   end
+
+  desc 'Set use_notifications to false on all existing requests'
+  task :set_use_notifications => :environment do
+    InfoRequest.update_all use_notifications: false
+  end
 end

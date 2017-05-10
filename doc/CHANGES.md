@@ -82,6 +82,10 @@
 * Run `bundle exec rake temp:generate_request_summaries` after deployment to
   create the new facade models that the Alaveteli Pro dashboard uses to
   display all forms of requests in a unified list.
+* Run `bundle exec rake temp:set_use_notifications` after deployment to
+  opt all existing requests out of the new notifications feature. This is VERY
+  IMPORTANT to run, as without it, existing requests won't trigger any alert
+  emails at all.
 
 ### Changed Templates
 
