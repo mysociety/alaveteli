@@ -396,9 +396,11 @@ class RequestMailer < ApplicationMailer
     info_requests = InfoRequest.
                       where("awaiting_description = ?
                              AND described_state = 'waiting_clarification'
-                             AND info_requests.updated_at < ?",
+                             AND info_requests.updated_at < ?
+                             AND use_notifications = ?",
                              false,
-                             Time.zone.now - 3.days
+                             Time.zone.now - 3.days,
+                             false
                             ).
                       includes(:user).order("info_requests.id")
     for info_request in info_requests

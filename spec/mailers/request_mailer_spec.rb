@@ -798,6 +798,18 @@ describe RequestMailer do
       expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
     end
 
+    it "should not send an alert for requests where use_notifications is true" do
+      info_request = FactoryGirl.create(:use_notifications_request)
+      info_request.set_described_state('waiting_clarification')
+
+      force_updated_at_to_past(info_request)
+
+      RequestMailer.alert_not_clarified_request
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(0)
+    end
+
   end
 
   describe "comment alerts" do
