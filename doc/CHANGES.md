@@ -54,6 +54,8 @@
   to help us test new email configuration options for Alaveteli Professional,
   please don't give this role to any of your users - it may change and/or
   disappear without warning!
+* Prevent Vagrant assigning more CPU cores than VirtualBox recognises (Liz
+  Conlan)
 
 ## Upgrade Notes
 
