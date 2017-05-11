@@ -7,7 +7,13 @@
 module AlaveteliPro
   class EmbargoMailer < ApplicationMailer
     def self.alert_expiring
-      InfoRequest.embargo_expiring.group_by(&:user).each do |user, info_requests|
+      expiring_info_requests =
+        InfoRequest.
+          embargo_expiring.
+            where(use_notifications: false).
+              group_by(&:user)
+
+      expiring_info_requests.each do |user, info_requests|
         info_requests.reject! do |info_request|
           alert_event_id = info_request.last_embargo_set_event.id
           UserInfoRequestSentAlert.where(
