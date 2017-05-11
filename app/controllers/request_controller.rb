@@ -677,7 +677,7 @@ class RequestController < ApplicationController
 
     html = @incoming_message.apply_masks(html, response.content_type)
 
-    render :html => html
+    render :html => html.html_safe
   end
 
   # Internal function
