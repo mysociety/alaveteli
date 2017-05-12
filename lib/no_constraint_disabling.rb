@@ -12,10 +12,12 @@ require 'active_record/connection_adapters/postgresql_adapter'
 module ActiveRecord
   module ConnectionAdapters
     class PostgreSQLAdapter < AbstractAdapter
-      def disable_referential_integrity(&block)
-        transaction {
-          yield
-        }
+      module ReferentialIntegrity
+        def disable_referential_integrity
+          transaction {
+            yield
+          }
+        end
       end
     end
   end
