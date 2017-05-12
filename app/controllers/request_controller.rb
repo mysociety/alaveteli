@@ -44,16 +44,16 @@ class RequestController < ApplicationController
     if !params[:query].nil?
       query = params[:query]
       flash[:search_params] = params.slice(:query, :bodies, :page)
-      @xapian_requests = perform_search_typeahead(query, :model => PublicBody)
+      @xapian_requests = typeahead_search(query, :model => PublicBody)
     end
     medium_cache
   end
 
   def select_authorities
     if !params[:public_body_query].nil?
-      @search_bodies = perform_search_typeahead(params[:public_body_query],
-                                                :model => PublicBody,
-                                                :per_page => 1000 )
+      @search_bodies = typeahead_search(params[:public_body_query],
+                                        :model => PublicBody,
+                                        :per_page => 1000 )
     end
     respond_to do |format|
       format.html do
@@ -795,9 +795,9 @@ class RequestController < ApplicationController
     @per_page = (params.fetch(:per_page) { 25 }).to_i
 
     @query << params[:q].to_s
-    @xapian_requests = perform_search_typeahead(@query,
-                                                { :model => InfoRequestEvent,
-                                                  :per_page => @per_page })
+    @xapian_requests = typeahead_search(@query,
+                                        { :model => InfoRequestEvent,
+                                          :per_page => @per_page })
     render :partial => "request/search_ahead"
   end
 
