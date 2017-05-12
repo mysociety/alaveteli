@@ -38,10 +38,10 @@
   <div class="wrapper">
     <div class="homepage-flash">
       <% if flash[:notice] %>
-        <div id="notice"><%= flash[:notice] %></div>
+        <div id="notice"><%= raw flash[:notice] %></div>
       <% end %>
       <% if flash[:error] %>
-        <div id="error"><%= flash[:error] %></div>
+        <div id="error"><%= raw flash[:error] %></div>
       <% end %>
     </div>
   </div>
