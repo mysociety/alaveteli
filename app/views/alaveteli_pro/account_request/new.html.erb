@@ -76,34 +76,41 @@
       </div>
 
       <label class="houdini-label input-beta-button button" for="input-beta">Get access to the beta</label>
-      <input class="houdini-input" type="checkbox" id="input-beta">
-      <form class="houdini-target form beta-signup-form">
+      <input class="houdini-input" type="checkbox" id="input-beta" <% if params[:account_request].present? %>checked="true"<% end %>>
+      <%= form_for :account_request,
+             :url => "#{create_pro_account_request_path}#input-beta",
+             :html => {:class => 'houdini-target form beta-signup-form'} do |f| %>
       <h3>Request access to WhatDoTheyKnow<sup>Pro</sup> beta</h3>
       Successful applicants will receive free early access to WhatDoTheyKnow<sup>Pro</sup> for a year.
+        <%= foi_error_messages_for :account_request %>
         <div>
-          <label for="email">Email address</label>
-          <input name="email" id="email" type="email"></input>
+          <label for="account_request_email">Email address</label>
+          <%= f.email_field :email, :size => 20, :required => true %>
         </div>
         <div>
-          <label for="why">Why do you want access?</label>
-          <textarea name="why" id="why" rows="10" cols="50"></textarea>
+          <label for="account_request_reason">Why do you want access?</label>
+          <%= f.text_area :reason, :rows => 10, :cols => 50, :required => true %>
         </div>
         <div>
-          <label for="why">Are you interested free training, seminars and workshops about WhatDoTheyKnow<sup>Pro</sup>?</label>
+          <label for="account_request_training_emails">Are you interested free training, seminars and workshops about WhatDoTheyKnow<sup>Pro</sup>?</label>
           <div class="inline-elements">
-            <label for="training-emails-yes" class="inline-element"><input type="radio" name="training-emails" id="training-emails-yes" />Yes</label>
-            <label for="training-emails-no" class="inline-element"><input type="radio" name="training-emails" id="training-emails-no" />No</label>
+            <label for="account_request_training_emails_yes" class="inline-element">
+            <%= f.radio_button 'training_emails', 'yes', :required => true %>Yes</label>
+            <label for="account_request_training_emails_no" class="inline-element">
+            <%= f.radio_button 'training_emails', 'no', :required => true %>No</label>
           </div>
         </div>
         <div>
-          <label for="why">Get email updates about WhatDoTheyKnow<sup>Pro</sup>?</label>
+          <label for="account_request_marketing_emails">Get email updates about WhatDoTheyKnow<sup>Pro</sup>?</label>
           <div class="inline-elements">
-            <label for="marketing-emails-yes" class="inline-element"><input type="radio" name="marketing-emails" id="marketing-emails-yes" />Yes</label>
-            <label for="marketing-emails-no" class="inline-element"><input type="radio" name="marketing-emails" id="marketing-emails-no" />No</label>
+            <label for="account_request_marketing_emails_yes" class="inline-element">
+            <%= f.radio_button 'marketing_emails', 'yes', :required => true %>Yes</label>
+            <label for="account_request_marketing_emails_no" class="inline-element">
+            <%= f.radio_button 'marketing_emails', 'no', :required => true %>No</label>
           </div>
         </div>
         <input type="submit" value="Send your request" />
-      </form>
+      <% end %>
     </div>
   </div>
 </div>
@@ -122,4 +129,3 @@
     </div>
   </div>
 </div>
-

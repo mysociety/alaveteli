@@ -150,6 +150,9 @@ label.input-beta-button {
   input[type="radio"] {
     margin-right: 0.35em;
   }
+  .fieldWithErrors{
+    display: inline;
+  }
 }
 
 .inline-elements {
