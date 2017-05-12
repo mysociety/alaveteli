@@ -5,7 +5,8 @@
 # have a filesystem representation of their contents
 
 export LOC=`dirname "$0"`
-bundle exec rails runner /dev/stdin <<END
+
+cat > "tmp/data-loader.rb" <<EOF
 require 'no_constraint_disabling'
 require 'rspec/rails'
 require Rails.root.join("spec", "support", "load_file_fixtures")
@@ -48,6 +49,8 @@ end
 ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
 
 load_raw_emails_data
-END
+EOF
+
+bundle exec rails runner tmp/data-loader.rb
 
 echo "Loaded fixtures. You may now wish to run $LOC/update-xapian-index"
