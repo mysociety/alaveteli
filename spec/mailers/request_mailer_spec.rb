@@ -430,6 +430,28 @@ describe RequestMailer do
       expect(mail.subject).to eq "New response to your FOI request - Here's a request"
     end
 
+    it 'should send pro users a signin link' do
+      pro_user = FactoryGirl.create(:pro_user)
+      info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
+      incoming_message = FactoryGirl.create(:incoming_message,
+                                            info_request: info_request)
+      mail = RequestMailer.new_response(info_request, incoming_message)
+      mail.body.to_s =~ /(http:\/\/.*)/
+      mail_url = $1
+
+      message_url = incoming_message_url(incoming_message, :cachebust => true)
+      expected_url = signin_url(r: message_url)
+      expect(mail_url).to eq expected_url
+    end
+
+    it 'should send normal users a direct link' do
+      mail = RequestMailer.new_response(info_request, incoming_message)
+      mail.body.to_s =~ /(http:\/\/.*)/
+      mail_url = $1
+      expected_url = incoming_message_url(incoming_message, :cachebust => true)
+      expect(mail_url).to eq expected_url
+    end
+
   end
 
   describe "sending unclassified new response reminder alerts" do
