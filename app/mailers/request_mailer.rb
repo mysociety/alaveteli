@@ -104,7 +104,6 @@ class RequestMailer < ApplicationMailer
       :uri => respond_to_last_url(info_request, :anchor => "followup"),
       :user_id => user.id)
     post_redirect.save!
-    url = confirm_url(:email_token => post_redirect.email_token)
 
     @url = confirm_url(:email_token => post_redirect.email_token)
     @info_request = info_request
