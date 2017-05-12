@@ -138,7 +138,7 @@ describe "creating batch requests in alaveteli_pro" do
       draft = drafts.first
       expect(draft.body).to eq "Dear [Authority name], this is a batch request."
       expect(draft.embargo_duration).to eq "3_months"
-      expect(draft.public_bodies).to eq @selected_bodies
+      expect(draft.public_bodies).to match_array(@selected_bodies)
 
       expect(page).to have_content("Your draft has been saved!")
       expect(page).to have_content("This request will be private on " \

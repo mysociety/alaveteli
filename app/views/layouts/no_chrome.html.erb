@@ -29,10 +29,10 @@
     <div class="entirebody">
       <div id="content">
         <% if flash[:notice] %>
-          <div id="notice"><%= flash[:notice] %></div>
+          <div id="notice"><%= raw flash[:notice] %></div>
         <% end %>
         <% if flash[:error] %>
-          <div id="error"><%= flash[:error] %></div>
+          <div id="error"><%= raw flash[:error] %></div>
         <% end %>
 
         <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
