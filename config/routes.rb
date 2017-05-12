@@ -47,17 +47,6 @@ Rails.application.routes.draw do
         :as => :version,
         :via => :get
 
-  constraints FeatureConstraint.new(:alaveteli_pro) do
-
-    match '/pro' => 'general#pro',
-          :as => :pro,
-          :via => :get
-
-    match '/pro_invite' => 'general#pro_invite',
-      :as => :pro_invite,
-      :via => :get
-
-  end
   #####
 
   ##### Statistics controller
@@ -617,6 +606,15 @@ Rails.application.routes.draw do
 
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
+
+    match '/pro' => 'alaveteli_pro/account_request#new',
+          :as => :new_pro_account_request,
+          :via => :get
+
+    match '/pro' => 'alaveteli_pro/account_request#create',
+      :as => :create_pro_account_request,
+      :via => :post
+
     namespace :alaveteli_pro do
       match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
       resources :draft_info_requests, :only => [:create, :update]

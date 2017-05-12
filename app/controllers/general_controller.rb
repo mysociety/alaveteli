@@ -240,14 +240,6 @@ class GeneralController < ApplicationController
     end
   end
 
-  def pro
-    render 'alaveteli_pro/general/pro'
-  end
-
-  def pro_invite
-    render 'alaveteli_pro/general/pro_invite', :layout => false
-  end
-
   private
 
   def redirect_pros_to_dashboard
