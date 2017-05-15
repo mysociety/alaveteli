@@ -1,4 +1,6 @@
 group: deprecated
+dist: trusty
+sudo: required
 language: ruby
 branches:
   only:
