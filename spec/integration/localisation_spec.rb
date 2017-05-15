@@ -8,8 +8,17 @@ describe "when generating urls" do
   end
 
   it "should generate URLs that include the locale when using one that includes an underscore" do
+    AlaveteliLocalization.set_locales(available_locales='es en_GB',
+                                      default_locale='es')
     get('/en_GB')
     expect(response.body).to match /href="\/en_GB\//
+  end
+
+  it "returns a 404 error if passed the locale with a hyphen instead of an underscore" do
+    allow(Rails.application.config).to receive(:consider_all_requests_local).
+      and_return(false)
+    get('/en-GB')
+    expect(response.status).to eq(404)
   end
 
   it "should fall back to the language if the territory is unknown" do

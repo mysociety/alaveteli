@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 module RoutingFilter
   class Conditionallyprependlocale < RoutingFilter::Locale
+    cattr_accessor :locales
+
     # Override core Locale filter not to prepend locale path segment
     # when there's only one locale
     def prepend_locale?(locale)
@@ -15,7 +17,7 @@ module RoutingFilter
       params = args.extract_options!                              # this is because we might get a call like forum_topics_path(forum, topic, :locale => :en)
 
       locale = params.delete(:locale)                             # extract the passed :locale option
-      locale = FastGettext.locale if locale.nil?                         # default to I18n.locale when locale is nil (could also be false)
+      locale = FastGettext.locale if locale.nil?                  # default to I18n.locale when locale is nil (could also be false)
       locale = nil unless valid_locale?(locale)                   # reset to no locale when locale is not valid
       args << params
 
@@ -26,6 +28,10 @@ module RoutingFilter
 
     # Reset the locale pattern when the locales are set.
     class << self
+      def locales_pattern
+        super
+      end
+
       def locales=(locales)
         @@locales_pattern = nil
         @@locales = locales.map(&:to_sym)
