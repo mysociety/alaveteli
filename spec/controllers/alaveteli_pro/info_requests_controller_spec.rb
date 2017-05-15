@@ -72,6 +72,22 @@ describe AlaveteliPro::InfoRequestsController do
         end
       end
     end
+
+    context "when the public body is not requestable" do
+      let(:public_body) { FactoryGirl.create(:defunct_public_body) }
+      let(:draft) do
+        FactoryGirl.create(:draft_info_request, public_body: public_body,
+                                                user: pro_user)
+      end
+
+      it "renders a message to tell the user" do
+        session[:user_id] = pro_user.id
+        with_feature_enabled(:alaveteli_pro) do
+          post :preview, draft_id: draft
+          expect(response).to render_template('request/new_defunct.html.erb')
+        end
+      end
+    end
   end
 
   describe "#create" do

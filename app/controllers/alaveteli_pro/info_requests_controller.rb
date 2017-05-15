@@ -9,6 +9,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   before_filter :set_draft
   before_filter :set_public_body, only: [:new]
   before_filter :load_data_from_draft, only: [:preview, :create]
+  before_filter :check_public_body_is_requestable, only: [:preview, :create]
 
   def index
     @request_filter = AlaveteliPro::RequestFilter.new
@@ -29,6 +30,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     else
       create_initial_objects
     end
+    check_public_body_is_requestable; return if performed?
   end
 
   def preview
@@ -132,5 +134,14 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
 
   def info_request_params
     params.require(:info_request).permit(:described_state)
+  end
+
+  def check_public_body_is_requestable
+    if @info_request.public_body
+      unless @info_request.public_body.is_requestable?
+        view = "request/new_#{ @info_request.public_body.not_requestable_reason }.html.erb"
+        render view
+      end
+    end
   end
 end
