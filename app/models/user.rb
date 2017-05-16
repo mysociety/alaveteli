@@ -89,6 +89,8 @@ class User < ActiveRecord::Base
   has_many :request_summaries,
            :dependent => :destroy,
            :class_name => AlaveteliPro::RequestSummary
+  has_many :notifications,
+           :dependent => :destroy
 
 
   scope :not_banned, -> { where(ban_text: "") }

@@ -1178,4 +1178,14 @@ describe User do
     end
   end
 
+  describe 'notifications' do
+    it 'deletes associated notifications when destroyed' do
+      notification = FactoryGirl.create(:notification)
+      user = notification.user.reload
+      expect(Notification.where(id: notification.id)).to exist
+      user.destroy
+      expect(Notification.where(id: notification.id)).not_to exist
+    end
+  end
+
 end
