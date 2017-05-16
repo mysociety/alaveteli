@@ -597,6 +597,22 @@ describe User do
 
   end
 
+  describe '#expire_requests' do
+
+    it 'calls expire on all associated requests' do
+      user = FactoryGirl.build(:user)
+      requests = [double, double]
+      expect(user).to receive(:info_requests).and_return(requests)
+
+      requests.each do |request|
+        expect(request).to receive(:expire)
+      end
+
+      user.expire_requests
+    end
+
+  end
+
   describe '#valid?' do
 
     context 'with require_otp' do
