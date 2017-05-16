@@ -595,6 +595,20 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Return a timestamp for the next time a user should be sent a daily summary
+  def next_daily_summary_time
+    summary_time = Time.zone.now.change(self.daily_summary_time)
+    summary_time += 1.day if summary_time < Time.zone.now
+    summary_time
+  end
+
+  def daily_summary_time
+    {
+      hour: self.daily_summary_hour,
+      min: self.daily_summary_minute
+    }
+  end
+
   private
 
   def create_new_salt
@@ -609,6 +623,13 @@ class User < ActiveRecord::Base
       # make alert emails go out at a random time for each new user, so
       # overall they are spread out throughout the day.
       self.last_daily_track_email = User.random_time_in_last_day
+      # Make daily summary emails go out at a random time for each new user
+      # too, if it's not already set
+      if self.daily_summary_hour.nil? && self.daily_summary_minute.nil?
+        random_time = User.random_time_in_last_day
+        self.daily_summary_hour = random_time.hour
+        self.daily_summary_minute = random_time.min
+      end
     end
   end
 
