@@ -512,8 +512,12 @@ class InfoRequest < ActiveRecord::Base
 
       # Notify the user that a new response has been received, unless the
       # request is external
-      unless is_external? or use_notifications?
-        RequestMailer.new_response(self, incoming_message).deliver
+      unless is_external?
+        info_request_event = info_request_events.find_by(
+          event_type: 'response',
+          incoming_message_id: incoming_message.id
+        )
+        self.user.notify(info_request_event)
       end
     end
   end

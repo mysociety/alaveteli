@@ -308,32 +308,29 @@ describe InfoRequest do
         to eq('rejected for testing')
     end
 
-    context 'emailing the request owner' do
+    describe 'notifying the request owner' do
 
-      it 'emails the user that a response has been received' do
+      it 'notifies the user that a response has been received' do
         info_request = FactoryGirl.create(:info_request)
         email, raw_email = email_and_raw_email
+
+        # Without this, the user retrieved in the model is not the same one
+        # in memory as this one, so we can't put expectations on it
+        allow(info_request).to receive(:user).and_return(info_request.user)
+        expect(info_request.user).
+          to receive(:notify).with(a_new_response_event_for(info_request))
+
         info_request.receive(email, raw_email)
-        notification = ActionMailer::Base.deliveries.last
-        expect(notification.to).to include(info_request.user.email)
-        expect(ActionMailer::Base.deliveries.size).to eq(1)
-        ActionMailer::Base.deliveries.clear
       end
 
-      it 'does not email when the request is external' do
+      it 'does not notify when the request is external' do
         info_request = FactoryGirl.create(:external_request)
         email, raw_email = email_and_raw_email
-        info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
-        ActionMailer::Base.deliveries.clear
-      end
 
-      it 'does not email when the request has use_notifications turned on' do
-        info_request = FactoryGirl.create(:use_notifications_request)
-        email, raw_email = email_and_raw_email
-        info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
-        ActionMailer::Base.deliveries.clear
+        # There's no user on an external request, so just check it doesn't
+        # make any new notifications
+        expect { info_request.receive(email, raw_email) }.
+          not_to change { Notification.count }
       end
 
     end
