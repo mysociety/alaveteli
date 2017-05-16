@@ -63,6 +63,7 @@ class InfoRequestEvent < ActiveRecord::Base
 
   has_many :user_info_request_sent_alerts, :dependent => :destroy
   has_many :track_things_sent_emails, :dependent => :destroy
+  has_many :notifications, :dependent => :destroy
 
   validates_presence_of :event_type
 

@@ -754,4 +754,14 @@ describe InfoRequestEvent do
     end
   end
 
+  describe 'notifications' do
+    it 'deletes associated notifications when destroyed' do
+      notification = FactoryGirl.create(:notification)
+      info_request_event = notification.info_request_event
+      expect(Notification.where(id: notification.id)).to exist
+      info_request_event.destroy
+      expect(Notification.where(id: notification.id)).not_to exist
+    end
+  end
+
 end
