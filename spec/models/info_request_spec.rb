@@ -1069,6 +1069,32 @@ describe InfoRequest do
       info_request.expire(:preserve_database_cache => true)
     end
 
+    it 'updates the search index' do
+      expect(info_request).to receive(:reindex_request_events)
+      info_request.expire
+    end
+
+    it 'removes itself from the varnish cache' do
+      expect(info_request).to receive(:purge_in_cache)
+      info_request.expire
+    end
+
+    it 'removes any zip files' do
+      # expire deletes foi_fragment_cache_directories as well as the zip files
+      # so stubbing out the call lets us just see the effect we care about here
+      allow(info_request).to receive(:foi_fragment_cache_directories) {[]}
+      expect(FileUtils).to receive(:rm_rf).with(info_request.download_zip_dir)
+      info_request.expire
+    end
+
+    it 'removes any file caches' do
+      expect(info_request.foi_fragment_cache_directories.count).to be > 0
+      # called for each cache directory + the zip file directory
+      expected_calls = info_request.foi_fragment_cache_directories.count + 1
+      expect(FileUtils).to receive(:rm_rf).exactly(expected_calls).times
+      info_request.expire
+    end
+
   end
 
   describe '#initial_request_text' do

@@ -268,24 +268,27 @@ describe AdminCensorRuleController do
 
       let(:info_request) { FactoryGirl.create(:info_request) }
 
-      before(:each) do
+      it 'sets the last_edit_editor to the current admin' do
         post :create, :request_id => info_request.id,
                       :censor_rule => censor_rule_params
-      end
-
-      it 'sets the last_edit_editor to the current admin' do
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
       end
 
       it 'finds an info request if the request_id param is supplied' do
+        post :create, :request_id => info_request.id,
+                      :censor_rule => censor_rule_params
         expect(assigns[:info_request]).to eq(info_request)
       end
 
       it 'associates the info request with the new censor rule' do
+        post :create, :request_id => info_request.id,
+                      :censor_rule => censor_rule_params
         expect(assigns[:censor_rule].info_request).to eq(info_request)
       end
 
       it 'sets the URL for the form to POST to' do
+        post :create, :request_id => info_request.id,
+                      :censor_rule => censor_rule_params
         expect(assigns[:form_url]).
           to eq(admin_request_censor_rules_path(info_request))
       end
@@ -306,16 +309,18 @@ describe AdminCensorRuleController do
         end
 
         it 'calls expire_requests on the new censor_rule' do
-          allow(InfoRequest).to receive(:find) { info_request }
-          censor_rule = FactoryGirl.build(:info_request_censor_rule,
-                                          :info_request => info_request)
-          allow(info_request.censor_rules).to receive(:build) { censor_rule }
-          allow(censor_rule).to receive(:expire_requests)
+          allow(InfoRequest).to receive(:find).and_return(info_request)
+          censor_rule_spy = FactoryGirl.build(:info_request_censor_rule,
+                                              :info_request => info_request)
+          allow(info_request.censor_rules).to receive(:build).
+            and_return(censor_rule_spy)
+
+          allow(censor_rule_spy).to receive(:expire_requests)
 
           post :create, :censor_rule => censor_rule_params,
                         :request_id => info_request.id
 
-          expect(censor_rule).to have_received(:expire_requests)
+          expect(censor_rule_spy).to have_received(:expire_requests)
         end
 
         it 'redirects to the associated info request' do
