@@ -56,6 +56,20 @@ class CensorRule < ActiveRecord::Base
     info_request_id.nil? && user_id.nil? && public_body_id.nil?
   end
 
+  def expire_requests
+    if info_request
+      info_request.expire
+    elsif user
+      user.expire_requests
+    elsif public_body
+      public_body.expire_requests
+    else # global rule
+      InfoRequest.find_in_batches do |group|
+        group.each { |request| request.expire }
+      end
+    end
+  end
+
   private
 
   def single_char_regexp
