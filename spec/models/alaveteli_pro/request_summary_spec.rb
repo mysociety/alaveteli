@@ -162,7 +162,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         summary = AlaveteliPro::RequestSummary.create_or_update_from(draft)
         expect(summary.title).to eq draft.title
         expect(summary.body).to eq draft.body
-        expect(summary.public_body_names).to eq public_body_names
+        expect(summary.public_body_names).to match_array(public_body_names)
         expect(summary.summarisable).to eq draft
         expect(summary.user).to eq draft.user
         expected_categories = [AlaveteliPro::RequestSummaryCategory.draft]
