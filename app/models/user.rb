@@ -595,6 +595,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Notify a user about an info_request_event, allowing the user's preferences
+  # to determine how that notification is delivered.
+  def notify(info_request_event)
+    Notification.create(
+      info_request_event: info_request_event,
+      frequency: self.notification_frequency,
+      user: self
+    )
+  end
+
   # Return a timestamp for the next time a user should be sent a daily summary
   def next_daily_summary_time
     summary_time = Time.zone.now.change(self.daily_summary_time)
@@ -607,6 +617,15 @@ class User < ActiveRecord::Base
       hour: self.daily_summary_hour,
       min: self.daily_summary_minute
     }
+  end
+
+  # With what frequency does the user want to be notified?
+  def notification_frequency
+    if self.is_notifications_tester?
+      Notification::DAILY
+    else
+      Notification::INSTANTLY
+    end
   end
 
   private
