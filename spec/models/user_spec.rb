@@ -1257,4 +1257,37 @@ describe User do
     end
   end
 
+  describe '#notification_frequency' do
+    context 'when the user is a notifications_tester' do
+      let(:user) { FactoryGirl.create(:notifications_tester_user) }
+
+      it 'returns Notification::DAILY' do
+        expect(user.notification_frequency).to eq (Notification::DAILY)
+      end
+    end
+
+    context 'when the user is not a notifications_tester' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      it 'returns Notification::INSTANTLY' do
+        expect(user.notification_frequency).to eq (Notification::INSTANTLY)
+      end
+    end
+  end
+
+  describe "#notify" do
+    let(:info_request_event) { FactoryGirl.create(:response_event) }
+    let(:user) { info_request_event.info_request.user }
+
+    it "creates a notification" do
+      expect { user.notify(info_request_event) }.
+        to change { Notification.count }.by 1
+    end
+
+    it "calls notification_frequency" do
+      expect(user).to receive(:notification_frequency)
+      user.notify(info_request_event)
+    end
+  end
+
 end
