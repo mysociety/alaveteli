@@ -1184,7 +1184,7 @@ class RequestController < ApplicationController
   end
 
   def block_spam_subject?
-    AlaveteliConfiguration.block_spam_request ||
+    AlaveteliConfiguration.block_spam_requests ||
       AlaveteliConfiguration.enable_anti_spam
   end
 
