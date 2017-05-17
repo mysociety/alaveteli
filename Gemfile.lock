@@ -41,6 +41,8 @@ PATH
       mime-types (< 3.0.0)
       rails (>= 4.0.13, < 4.2)
 
+# comment added to force Travis to rebuild gems
+
 GEM
   remote: https://rubygems.org/
   specs:
