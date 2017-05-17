@@ -59,6 +59,8 @@
 * Improvements to the `load-sample-data` script to make it possible to run
   without the superuser db permissions and for Rails 4.1 compatibility
   (Liz Conlan)
+* Prevent autoresponder emails from authorities resetting the withdrawn status
+  on requests (Liz Conlan)
 
 ## Upgrade Notes
 

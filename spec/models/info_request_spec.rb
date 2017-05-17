@@ -279,6 +279,17 @@ describe InfoRequest do
       expect(info_request.awaiting_description).to be true
     end
 
+    it 'does not mark requests marked as withdrawn as awaiting description' do
+      info_request = FactoryGirl.create(:info_request,
+                                        :awaiting_description => false)
+      info_request.described_state = "user_withdrawn"
+      info_request.save
+      email, raw_email = email_and_raw_email
+      info_request.receive(email, raw_email)
+      expect(info_request.awaiting_description).to be false
+      expect(info_request.described_state).to eq("user_withdrawn")
+    end
+
     it 'logs an event' do
       info_request = FactoryGirl.create(:info_request)
       email, raw_email = email_and_raw_email

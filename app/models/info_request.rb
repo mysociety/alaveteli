@@ -1669,7 +1669,9 @@ class InfoRequest < ActiveRecord::Base
       raw_email.data = raw_email_data
       raw_email.save!
 
-      self.awaiting_description = true
+      unless described_state == 'user_withdrawn'
+        self.awaiting_description = true
+      end
 
       params = { :incoming_message_id => incoming_message.id }
       params[:rejected_reason] = rejected_reason.to_s if rejected_reason
