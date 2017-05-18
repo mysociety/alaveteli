@@ -1,10 +1,20 @@
-<div class="request">
+<div id="draft-info-request-<%= draft_info_request.id %>"
+     class="request" >
   <h3 class="request__title">
     <% if draft_info_request.embargo_duration %>
-      <span class="embargo-indicator embargo-indicator--small">Private</span>
+      <span class="embargo-indicator embargo-indicator--small">
+        <%= _("Private") %>
+      </span>
     <% end %>
-    <%= link_to draft_info_request.title,
-                new_alaveteli_pro_info_request_path(:draft_id => draft_info_request.id) %>
+    <% if draft_info_request.title.blank? %>
+      <%= link_to _("No title"),
+                  new_alaveteli_pro_info_request_path(
+                    :draft_id => draft_info_request.id) %>
+    <% else %>
+      <%= link_to draft_info_request.title,
+                  new_alaveteli_pro_info_request_path(
+                    :draft_id => draft_info_request.id) %>
+    <% end %>
   </h3>
 
   <div class="request__meta">

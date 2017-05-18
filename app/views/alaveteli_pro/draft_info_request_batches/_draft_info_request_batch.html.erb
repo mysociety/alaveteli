@@ -1,0 +1,48 @@
+<div id="draft-info-request-batch-<%= draft_info_request_batch.id %>"
+     class="request">
+  <h3 class="request__title">
+    <% if draft_info_request_batch.embargo_duration %>
+      <span class="embargo-indicator embargo-indicator--small">
+        <%= _("Private") %>
+      </span>
+    <% end %>
+    <span><%= _("Batch request") %></span>
+    <% if draft_info_request_batch.title.blank? %>
+      <%= link_to _("(no title)"),
+                  new_alaveteli_pro_info_request_batch_path(
+                    :draft_id => draft_info_request_batch.id) %>
+    <% else %>
+      <%= link_to draft_info_request_batch.title,
+                  new_alaveteli_pro_info_request_batch_path(
+                    :draft_id => draft_info_request_batch.id) %>
+    <% end %>
+  </h3>
+
+  <div class="request__meta">
+
+    <div class="request__recipient">
+      <span class="request__meta__label"><%= _('Request to') %></span>
+      <p>
+        <%= render partial: 'alaveteli_pro/info_request_batches/authority_list',
+                   locals: { public_bodies: draft_info_request_batch.public_bodies } %>
+      </p>
+    </div>
+
+    <div class="request__created">
+      <span class="request__meta__label"><%= _('Created') %></span>
+      <p><%= draft_info_request_batch.created_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__updated">
+      <span class="request__meta__label"><%= _('Updated') %></span>
+      <p><%= draft_info_request_batch.updated_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__status">
+      <span class="request__meta__label"><%= _('Status') %></span>
+      <p><%= _('Draft') %></p>
+    </div>
+
+  </div> <!-- .request__meta -->
+
+</div> <!-- .request -->

@@ -32,9 +32,12 @@
 
       <div class="request-to-header">
         <% if batch_request %>
-          <%= render partial: 'alaveteli_pro/info_request_batches/authority_list',
+        <p id="to_public_body" class="to_public_body">
+          <span class="to_public_body_label"><%= _('To') %></span>
+          <%= render partial: 'alaveteli_pro/info_request_batches/authority_list_with_link',
                      locals: { batch: @info_request_batch,
                                draft: @draft_info_request_batch } %>
+        </p>
         <% else %>
           <%= render partial: 'alaveteli_pro/info_requests/select_authority_form',
                      locals: { info_request: @info_request } %>

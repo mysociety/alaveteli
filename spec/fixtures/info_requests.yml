@@ -43,6 +43,7 @@ fancy_dog_request:
     comments_allowed: true
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 50929748
+    use_notifications: false
 naughty_chicken_request:
     id: 103
     title: How much public money is wasted on breeding naughty chickens?
@@ -55,6 +56,7 @@ naughty_chicken_request:
     awaiting_description: false
     comments_allowed: true
     idhash: e8d18c84
+    use_notifications: false
 badger_request:
     id: 104
     title: Are you really a badger?
@@ -67,6 +69,7 @@ badger_request:
     awaiting_description: false
     comments_allowed: true
     idhash: e8d18c84
+    use_notifications: false
 boring_request:
     id: 105
     title: The cost of boring
@@ -80,6 +83,7 @@ boring_request:
     comments_allowed: true
     last_public_response_at: 2007-11-13 18:00:20
     idhash: 173fd003
+    use_notifications: false
 another_boring_request:
     id: 106
     title: The cost of boring
@@ -93,6 +97,7 @@ another_boring_request:
     comments_allowed: true
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 173fd004
+    use_notifications: false
 
 # A pair of identical requests (with url_title differing only in the numeric suffix)
 # used to test the request de-duplication features.
@@ -109,6 +114,7 @@ spam_1_request:
     comments_allowed: false
     last_public_response_at: 2001-01-03 01:23:45.6789100
     idhash: 173fd005
+    use_notifications: false
 spam_2_request:
     id: 108
     title: Cheap v1agra
@@ -121,6 +127,7 @@ spam_2_request:
     awaiting_description: false
     comments_allowed: true
     idhash: 173fd005
+    use_notifications: false
 external_request:
     id: 109
     title: Balalas
@@ -135,6 +142,7 @@ external_request:
     updated_at: 2001-01-02 02:23:45.6789100
     last_public_response_at: 2001-01-03 02:23:45.6789100
     idhash: a1234567
+    use_notifications: false
 anonymous_external_request:
     id: 110
     title: Anonymous request
@@ -148,6 +156,7 @@ anonymous_external_request:
     idhash: 7654321a
     created_at: 2010-01-01 01:23:45.6789100
     updated_at: 2010-01-01 01:23:45.6789100
+    use_notifications: false
 other_request:
     id: 111
     title: Another request
@@ -160,3 +169,4 @@ other_request:
     awaiting_description: false
     comments_allowed: true
     idhash: b234567
+    use_notifications: false

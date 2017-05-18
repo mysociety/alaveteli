@@ -262,4 +262,117 @@ describe InfoRequestBatch do
 
   end
 
+  it_behaves_like "RequestSummaries"
+
+  describe "#embargo_expiring?" do
+    let(:first_public_body) { FactoryGirl.create(:public_body) }
+    let(:second_public_body) { FactoryGirl.create(:public_body) }
+    let(:info_request_batch) do
+      FactoryGirl.create(
+        :info_request_batch,
+        :public_bodies => [first_public_body, second_public_body])
+    end
+
+    before do
+      # We need the batch to have requests to test them out
+      info_request_batch.create_batch!
+    end
+
+    context "when requests have an embargoes which are expiring" do
+      before do
+        info_request_batch.info_requests.each do |request|
+          FactoryGirl.create(:expiring_embargo, info_request: request)
+        end
+      end
+
+      it "returns true" do
+        expect(info_request_batch.embargo_expiring?).to be true
+      end
+    end
+
+    context "when requests have embargoes but they're not expiring soon" do
+      before do
+        info_request_batch.info_requests.each do |request|
+          FactoryGirl.create(:embargo, info_request: request)
+        end
+      end
+
+      it "returns false" do
+        expect(info_request_batch.embargo_expiring?).to be false
+      end
+    end
+
+    context "when no requests have embargoes" do
+      it "returns false" do
+        expect(info_request_batch.embargo_expiring?).to be false
+      end
+    end
+  end
+
+  describe "#request_phases" do
+    let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
+    let(:info_request_batch) do
+      FactoryGirl.create(:info_request_batch, :public_bodies => public_bodies)
+    end
+
+    before do
+      # We need the batch to have requests to test them out
+      info_request_batch.create_batch!
+      info_request_batch.reload
+      # We also need them to be in a few different states to test the phases
+      info_request_batch.info_requests.first.set_described_state('successful')
+    end
+
+    context "when there are requests" do
+      it "returns their phases" do
+        expected = [:complete, :awaiting_response]
+        expect(info_request_batch.request_phases).to match_array(expected)
+      end
+    end
+  end
+
+  describe "#request_phases_summary" do
+    let(:public_bodies) { FactoryGirl.create_list(:public_body, 10) }
+    let(:info_request_batch) do
+      FactoryGirl.create(:info_request_batch, :public_bodies => public_bodies)
+    end
+
+    before do
+      # We need the batch to have requests to test them out
+      info_request_batch.create_batch!
+      info_request_batch.reload
+      # We also need them to be in a few different states to test the phases
+      requests = info_request_batch.info_requests.to_a
+      requests.first.set_described_state('successful')
+      requests.second.set_described_state('successful')
+
+      requests.third.set_described_state('waiting_clarification')
+      requests.fourth.set_described_state('waiting_clarification')
+      requests.fifth.set_described_state('waiting_clarification')
+
+      requests.last.set_described_state('gone_postal')
+    end
+
+    it "returns summarised counts of each request phase grouping" do
+      expected = {
+        :in_progress => {
+          :label => _('In progress'),
+          :count => 4
+        },
+        :action_needed => {
+          :label => _('Action needed'),
+          :count => 3
+        },
+        :complete => {
+          :label => _('Complete'),
+          :count => 2
+        },
+        :other => {
+          :label => _('Other'),
+          :count => 1
+        }
+      }
+      expect(info_request_batch.request_phases_summary).to eq expected
+    end
+  end
 end

@@ -33,41 +33,25 @@ module AlaveteliPro
     end
 
     def results(user)
-      if filter == 'draft'
-        draft_info_request_results(user)
-      else
-        info_request_results(user)
-      end
-    end
-
-    def draft_info_request_results(user)
-      info_requests = user.draft_info_requests
-      info_requests =
-        info_requests
-          .includes(:public_body)
+      request_summaries = user.request_summaries
+      request_summaries =
+        request_summaries
+          .includes(:request_summary_categories)
             .where("title ILIKE :q
                    OR body ILIKE :q
-                   OR public_bodies.name ILIKE :q",
+                   OR public_body_names ILIKE :q",
                    q: "%#{ search }%")
-              .references(:public_bodies)
-      info_requests.reorder("draft_info_requests.#{order_value}")
+              .references(:request_summary_categories)
+      request_summaries = filter_results(request_summaries)
+      request_summaries.reorder("request_summaries.#{order_value}")
     end
 
-    def info_request_results(user)
-      info_requests = user.info_requests
-      if !filter_value.blank?
-        info_requests = info_requests.send(filter_value)
+    def filter_results(results)
+      if filter_value.blank?
+        results.not_category('draft')
+      else
+        results.category(filter_value)
       end
-        info_requests =
-          info_requests
-            .includes(:public_body)
-              .includes(:outgoing_messages)
-                  .where("title ILIKE :q
-                         OR outgoing_messages.body ILIKE :q
-                         OR public_bodies.name ILIKE :q",
-                         q: "%#{ search }%")
-                    .references(:outgoing_messages, :public_bodies)
-      info_requests.reorder("info_requests.#{order_value}")
     end
 
     def persisted?
@@ -83,11 +67,11 @@ module AlaveteliPro
     def order_attributes
       [
        { :param => 'updated_at_desc',
-         :value => 'updated_at DESC',
+         :value => 'request_updated_at DESC',
          :label => _('last updated'),
          :capital_label => _('Last updated') },
        { :param => 'created_at_asc',
-         :value => 'created_at ASC',
+         :value => 'request_created_at ASC',
          :label => _('first created'),
          :capital_label => _('First created') },
        { :param => 'title_asc',
@@ -123,7 +107,7 @@ module AlaveteliPro
           :label => _('all requests'),
           :capital_label => _('All requests') },
         { :param => 'draft',
-          :value => nil,
+          :value => :draft,
           :label => _('drafts'),
           :capital_label => _('Drafts') },
         { :param => 'embargoes_expiring',

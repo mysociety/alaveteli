@@ -4,6 +4,8 @@
 //= require alaveteli_pro/authority_select
 //= require alaveteli_pro/embargo_dropdown
 //= require alaveteli_pro/status_dropdown
+//= require alaveteli_pro/batch_request_dropdown
+//= require alaveteli_pro/marketing
 
 // These modules must be initialised first, because later sub components may
 // need access to things defined in either one of them.

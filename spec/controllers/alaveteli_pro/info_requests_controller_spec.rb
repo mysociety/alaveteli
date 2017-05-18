@@ -26,11 +26,11 @@ describe AlaveteliPro::InfoRequestsController do
 
     context 'when no filters, searches or sort params are passed' do
 
-      it "assigns the user's info requests" do
+      it "assigns the user's request summaries" do
         get :index
-        expect(assigns[:info_requests].size).to eq 2
-        expect(assigns[:info_requests]).
-          to match_array [info_request, foo_request]
+        expect(assigns[:request_summaries].size).to eq 2
+        expect(assigns[:request_summaries]).
+          to match_array [info_request.request_summary, foo_request.request_summary]
       end
     end
 
@@ -38,7 +38,7 @@ describe AlaveteliPro::InfoRequestsController do
 
       it 'applies the search' do
         get :index, {:alaveteli_pro_request_filter => {:search => 'foo'}}
-        expect(assigns[:info_requests].size).to eq 1
+        expect(assigns[:request_summaries].size).to eq 1
       end
 
     end

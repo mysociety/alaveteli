@@ -81,6 +81,21 @@ describe AlaveteliPro::EmbargoMailer do
         user_id: pro_user_2.id)
       ).to exist
     end
+
+    it "doesn't include requests with use_notifications: true" do
+      pro_user_3 = FactoryGirl.create(:pro_user)
+      info_request = FactoryGirl.create(
+        :embargo_expiring_request,
+        use_notifications: true,
+        user: pro_user_3
+      )
+
+      AlaveteliPro::EmbargoMailer.alert_expiring
+
+      mails = ActionMailer::Base.deliveries
+      mail = mails.detect{ |mail| mail.to == [pro_user_3.email] }
+      expect(mail).to be nil
+    end
   end
 
   describe '#expiring_alert' do

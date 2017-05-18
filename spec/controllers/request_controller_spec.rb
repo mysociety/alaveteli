@@ -1381,6 +1381,28 @@ describe RequestController, "when creating a new request" do
                                     :confirmed_not_spam => false) }
     let(:body) { FactoryGirl.create(:public_body) }
 
+
+    context 'when enable_anti_spam is false and block_spam_requests is true' do
+      # double check that block_spam_subject? is behaving as expected
+      before do
+        allow(AlaveteliConfiguration).to receive(:enable_anti_spam).
+          and_return(false)
+        allow(AlaveteliConfiguration).to receive(:block_spam_requests).
+          and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
+          :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
+    end
+
     context 'when block_spam_subject? is true' do
 
       before do

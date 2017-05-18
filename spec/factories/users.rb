@@ -67,6 +67,13 @@ FactoryGirl.define do
         user.add_role :pro_admin
       end
     end
+
+    factory :notifications_tester_user do
+      name 'Notification Tester User'
+      after(:create) do |user, evaluator|
+        user.add_role :notifications_tester
+      end
+    end
   end
 
 end

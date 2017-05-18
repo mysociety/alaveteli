@@ -50,6 +50,10 @@
   to avoid the situation where 374 out of 375 appears as 100% (Liz Conlan)
 * Make `users:ban_by_domain` send a simpler message to say they've been banned
   rather than helping them work around our spam measures (Liz Conlan)
+* A new role `notifications_testers` has been added, this is a temporary role
+  to help us test new email configuration options for Alaveteli Professional,
+  please don't give this role to any of your users - it may change and/or
+  disappear without warning!
 
 ## Upgrade Notes
 
@@ -75,6 +79,13 @@
 * There are some database structure updates so remember to `rake db:migrate`
 * Run `bundle exec rake temp:remove_line_breaks_from_request_titles` after
   deployment to remove stray line breaks (could effect Atom feeds)
+* Run `bundle exec rake temp:generate_request_summaries` after deployment to
+  create the new facade models that the Alaveteli Pro dashboard uses to
+  display all forms of requests in a unified list.
+* Run `bundle exec rake temp:set_use_notifications` after deployment to
+  opt all existing requests out of the new notifications feature. This is VERY
+  IMPORTANT to run, as without it, existing requests won't trigger any alert
+  emails at all.
 
 ### Changed Templates
 

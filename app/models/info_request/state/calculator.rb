@@ -98,6 +98,24 @@ class InfoRequest
         build_transitions_hash(opts)
       end
 
+      # A summarised version of #phase, grouping the phases down into 3 groups
+      def summarised_phase(cached_value_ok=false)
+        phase = phase(cached_value_ok)
+        case phase
+          when :awaiting_response
+            :in_progress
+          when :complete
+            :complete
+          when :other
+            :other
+          when :response_received,
+               :clarification_needed,
+               :overdue,
+               :very_overdue
+            :action_needed
+        end
+      end
+
       private
 
       def build_transitions_hash(opts)

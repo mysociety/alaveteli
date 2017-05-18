@@ -1,0 +1,20 @@
+<div class="batch-summary">
+  <% phases.each do |phase_key, phase| %>
+    <% if phase[:count] > 0 %>
+      <div class="batch-summary__phase
+                  batch-summary__phase--<%= phase_key %>"
+           style="-webkit-flex-grow: <%= phase[:count] %>;
+                  -ms-flex-positive: : <%= phase[:count] %>;
+                  flex-grow: <%= phase[:count] %>">
+        <span class="progress-bar"></span>
+        <%= _("{{count}} {{phase}}", count: phase[:count], phase: phase[:label]) %>
+      </div>
+    <% end %>
+  <% end %>
+  <% if phases.values.all? { |phase| phase[:count] == 0 } %>
+    <div class="batch-summary__phase">
+      <span class="progress-bar"></span>
+      <%= _("{{count}} Pending", count: batch.public_bodies.count) %>
+    </div>
+  <% end %>
+</div>

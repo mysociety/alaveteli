@@ -296,9 +296,9 @@ describe InfoRequest do
         to eq('rejected for testing')
     end
 
-    context 'notifying the request owner' do
+    context 'emailing the request owner' do
 
-      it 'notifies the user that a response has been received' do
+      it 'emails the user that a response has been received' do
         info_request = FactoryGirl.create(:info_request)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
@@ -308,8 +308,16 @@ describe InfoRequest do
         ActionMailer::Base.deliveries.clear
       end
 
-      it 'does not notify when the request is external' do
+      it 'does not email when the request is external' do
         info_request = FactoryGirl.create(:external_request)
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        expect(ActionMailer::Base.deliveries).to be_empty
+        ActionMailer::Base.deliveries.clear
+      end
+
+      it 'does not email when the request has use_notifications turned on' do
+        info_request = FactoryGirl.create(:use_notifications_request)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
         expect(ActionMailer::Base.deliveries).to be_empty
@@ -1034,7 +1042,6 @@ describe InfoRequest do
       info_request.destroy
       expect(UserInfoRequestSentAlert.where(:info_request_id => info_request.id)).to be_empty
     end
-
   end
 
   describe '#expire' do
@@ -2704,23 +2711,32 @@ describe InfoRequest do
 
   end
 
-  describe 'when saving an info_request' do
+  describe 'after_save callbacks' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
 
-    before do
-      @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
-                                      :external_user_name => 'Example User',
-                                      :title => 'Some request or other',
-                                      :public_body => public_bodies(:geraldine_public_body))
+    it "calls purge_in_cache" do
+      expect(info_request).to receive(:purge_in_cache)
+      info_request.save!
     end
 
-    it "calls purge_in_cache and update_counter_cache" do
-      # Twice - once for save, once for destroy:
-      expect(@info_request).to receive(:purge_in_cache).twice
-      expect(@info_request).to receive(:update_counter_cache).twice
-      @info_request.save!
-      @info_request.destroy
+    it "calls update_counter_cache" do
+      expect(info_request).to receive(:update_counter_cache)
+      info_request.save!
+    end
+  end
+
+  describe 'after_destroy callbacks' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    it "calls purge_in_cache" do
+      expect(info_request).to receive(:purge_in_cache)
+      info_request.destroy
     end
 
+    it "calls update_counter_cache" do
+      expect(info_request).to receive(:update_counter_cache)
+      info_request.destroy
+    end
   end
 
   describe 'when changing a described_state' do
@@ -3175,6 +3191,65 @@ describe InfoRequest do
 
     it 'returns a State::Calculator' do
       expect(InfoRequest.new.state).to be_a InfoRequest::State::Calculator
+    end
+  end
+
+  it_behaves_like "RequestSummaries"
+
+  describe "Updating request summaries when in a batch request" do
+    let(:batch) do
+      FactoryGirl.create(
+        :info_request_batch,
+        public_bodies: FactoryGirl.create_list(:public_body, 3)
+      )
+    end
+
+    before do
+      batch.create_batch!
+    end
+
+    it "calls the batch request's create_or_update_request_summary on update" do
+      info_request = batch.info_requests.first
+      expect(info_request.info_request_batch).to receive(:create_or_update_request_summary)
+      info_request.save!
+    end
+  end
+
+  describe "#embargo_expiring?" do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    context "when the embargo is expiring" do
+      let!(:embargo) do
+        FactoryGirl.create(:expiring_embargo, info_request: info_request)
+      end
+
+      before do
+        info_request.reload
+      end
+
+      it "returns true" do
+        expect(info_request.embargo_expiring?).to be true
+      end
+    end
+
+    context "when the embargo is not expiring soon" do
+      let!(:embargo) do
+        FactoryGirl.create(:embargo, info_request: info_request)
+      end
+
+      before do
+        info_request.reload
+      end
+
+      it "returns false" do
+        expect(info_request.embargo_expiring?).to be false
+      end
+    end
+
+    context "when there is no embargo" do
+      it "returns false" do
+        expect(info_request.embargo_expiring?).to be false
+      end
     end
   end
 
@@ -3640,6 +3715,121 @@ describe InfoRequest do
 
     end
 
+  end
+
+  describe '#should_summarise?' do
+    it "returns true if the request is not in a batch" do
+      request = FactoryGirl.create(:info_request)
+      expect(request.should_summarise?).to be true
+    end
+
+    it "returns false if the request is in a batch" do
+      batch_request = FactoryGirl.create(
+        :info_request_batch,
+        public_bodies: FactoryGirl.create_list(:public_body, 5))
+      batch_request.create_batch!
+      request_in_batch = batch_request.info_requests.first
+      expect(request_in_batch.should_summarise?).to be false
+    end
+  end
+
+  describe '#should_update_parent_summary?' do
+    context "when the request is in a batch" do
+      let(:batch) do
+        FactoryGirl.create(
+          :info_request_batch,
+          public_bodies: FactoryGirl.create_list(:public_body, 3)
+        )
+      end
+
+      before do
+        batch.create_batch!
+      end
+
+      it "returns true" do
+        expect(batch.info_requests.first.should_update_parent_summary?).to be true
+      end
+    end
+
+    context "when the request is not in a batch" do
+      let(:info_request) { FactoryGirl.create(:info_request) }
+
+      it "returns false" do
+        expect(info_request.should_update_parent_summary?).to be false
+      end
+    end
+  end
+
+  describe '#request_summary_parent' do
+    context "when the request is in a batch" do
+      let(:batch) do
+        FactoryGirl.create(
+          :info_request_batch,
+          public_bodies: FactoryGirl.create_list(:public_body, 3)
+        )
+      end
+
+      before do
+        batch.create_batch!
+      end
+
+      it "returns the batch" do
+        expect(batch.info_requests.first.request_summary_parent).to eq batch
+      end
+    end
+
+    context "when the request is not in a batch" do
+      let(:info_request) { FactoryGirl.create(:info_request) }
+
+      it "returns nil" do
+        expect(info_request.request_summary_parent).to be_nil
+      end
+    end
+  end
+
+  describe "setting use_notifications" do
+    context "when user is a notifications tester and it's in a batch" do
+      it "sets use_notifications to true" do
+        user = FactoryGirl.create(:notifications_tester_user)
+        public_bodies = FactoryGirl.create_list(:public_body, 3)
+        batch = FactoryGirl.create(:info_request_batch, user: user, public_bodies: public_bodies)
+        batch.create_batch!
+        info_request = batch.info_requests.first
+        expect(info_request.use_notifications).to be true
+      end
+    end
+
+    context "when user is a notifications tester and it's not in a batch" do
+      it "sets use_notifications to false" do
+        user = FactoryGirl.create(:notifications_tester_user)
+        info_request = FactoryGirl.create(:info_request, user: user)
+        expect(info_request.use_notifications).to be false
+      end
+    end
+
+    context "when user is not a notification tester and it's in a batch" do
+      it "sets use_notifications to false" do
+        public_bodies = FactoryGirl.create_list(:public_body, 3)
+        batch = FactoryGirl.create(:info_request_batch, public_bodies: public_bodies)
+        batch.create_batch!
+        info_request = batch.info_requests.first
+        expect(info_request.use_notifications).to be false
+      end
+    end
+
+    context "when user is not a notification tester and it's not in a batch" do
+      it "sets use_notifications to false" do
+        info_request = FactoryGirl.create(:info_request)
+        expect(info_request.use_notifications).to be false
+      end
+    end
+
+    context "when the request has a value set manually" do
+      it "doesn't override it" do
+        info_request = FactoryGirl.create(:use_notifications_request)
+        expect(info_request.use_notifications).to be true
+      end
+    end
   end
 
 end

@@ -6,9 +6,27 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+include AlaveteliFeatures::Helpers
 
-['pro', 'admin', 'pro_admin'].each do |role_name|
+['admin', 'notifications_tester'].each do |role_name|
   if Role.where(:name => role_name).empty?
     Role.create(:name => role_name)
+  end
+end
+
+if feature_enabled?(:alaveteli_pro)
+  ['pro', 'pro_admin'].each do |role_name|
+    if Role.where(:name => role_name).empty?
+      Role.create(:name => role_name)
+    end
+  end
+end
+
+[
+  'draft', 'complete', 'clarification_needed', 'awaiting_response',
+  'response_received', 'overdue', 'very_overdue', 'other', 'embargo_expiring'
+].each do |category_slug|
+  if AlaveteliPro::RequestSummaryCategory.where(:slug => category_slug).empty?
+    AlaveteliPro::RequestSummaryCategory.create(:slug => category_slug)
   end
 end

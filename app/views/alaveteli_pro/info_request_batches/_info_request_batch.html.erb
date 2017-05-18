@@ -1,0 +1,73 @@
+<div id="info-request-batch-<%= info_request_batch.id %>"
+     class="request batch-request">
+  <h3 class="request__title">
+    <% if info_request_batch.embargo_duration %>
+      <span class="embargo-indicator embargo-indicator--small">
+        <%= _("Private") %>
+      </span>
+    <% end %>
+    <%= link_to n_('{{batch_request_title}} <span class="request__batch-request-count">({{count}} request)</span>',
+                   '{{batch_request_title}} <span class="request__batch-request-count">({{count}} requests)</span>',
+                   info_request_batch.public_bodies.count,
+                   batch_request_title: info_request_batch.title,
+                   count: info_request_batch.public_bodies.count),
+                info_request_batch_path(info_request_batch) %>
+  </h3>
+
+  <div class="request__meta">
+
+    <div class="request__recipient">
+      <span class="request__meta__label"><%= _('Request to') %></span>
+      <p>
+        <%= render partial: 'alaveteli_pro/info_request_batches/authority_list',
+                   locals: { public_bodies: info_request_batch.public_bodies } %>
+      </p>
+    </div>
+
+    <div class="request__created">
+      <span class="request__meta__label"><%= _('Created') %></span>
+      <p><%= info_request_batch.created_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__updated">
+      <span class="request__meta__label"><%= _('Updated') %></span>
+      <p><%= info_request_batch.updated_at.strftime('%d-%m-%Y') %></p>
+    </div>
+
+    <div class="request__status">
+      <span class="request__meta__label"><%= _('Sent') %></span>
+      <p>
+        <% if info_request_batch.sent_at %>
+          <%= I18n.l(info_request_batch.sent_at, format: '%d-%m-%Y - %H:%M %p') %>
+        <% else %>
+          <%= _('Pending...') %>
+        <% end %>
+      </p>
+    </div>
+
+  </div> <!-- .request__meta -->
+
+  <%= render partial: 'alaveteli_pro/info_request_batches/progress_bar',
+             locals: { phases: info_request_batch.request_phases_summary,
+                       batch: info_request_batch } %>
+
+  <label class="houdini-label batch-request__show-requests"
+         for="houdini-batch-expand-<%= info_request_batch.id %>">
+    <%= _("Show requests") %>
+  </label>
+  <input class="houdini-input js-show-batch-requests"
+         type="checkbox"
+         id="houdini-batch-expand-<%= info_request_batch.id %>"
+         data-show-label="<%= _("Show requests") %>"
+         data-hide-label="<%= _('Hide requests') %>">
+  <div class="houdini-target batch-request__requests">
+    <% if info_request_batch.info_requests.empty? %>
+      <%= render partial: 'alaveteli_pro/info_request_batches/public_body',
+                 collection: info_request_batch.public_bodies %>
+    <% else %>
+      <%= render partial: 'alaveteli_pro/info_request_batches/info_request',
+                collection: info_request_batch.info_requests %>
+    <% end %>
+  </div>
+
+</div> <!-- .request -->

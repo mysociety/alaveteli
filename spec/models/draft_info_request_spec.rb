@@ -39,4 +39,6 @@ describe DraftInfoRequest do
     draft_request.user = FactoryGirl.create(:user)
     expect(draft_request.valid?).to be true
   end
+
+  it_behaves_like "RequestSummaries"
 end

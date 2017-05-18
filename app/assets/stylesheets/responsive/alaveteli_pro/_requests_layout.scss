@@ -203,3 +203,130 @@
 .search-and-filter-overview {
   margin: 1em 0 0;
 }
+
+/*
+ * The progress-bar-and-labels summary of a batch of requests
+ */
+.batch-summary {
+  @include flexbox;
+  @include justify-content(center);
+  margin-top: 1em;
+}
+
+// Each section of the progress bar represents a "phase" requests can be in
+.batch-summary__phase {
+  // Each section is initially set to take up an equal amount of space in the
+  // bar. We then make them proportional to the number of requests in the
+  // phase by setting a flex-grow style on the element directly in the html.
+  @include flex(1 0 auto);
+  font-size: 0.875em;
+
+  // Basic bar styling
+  .progress-bar {
+    height: 1em;
+    width: 100%;
+    background-color: #ccc;
+    display: block;
+  }
+
+  // Round the start of the first phase's bar, so that it looks like a pill
+  &.batch-summary__phase:first-of-type {
+    .progress-bar {
+      border-top-left-radius: 0.5em;
+      border-bottom-left-radius: 0.5em;
+    }
+  }
+
+  // Round the end of the last phase's bar, so that it looks like a pill
+  &.batch-summary__phase:last-of-type {
+    text-align: right;
+
+    .progress-bar {
+      border-top-right-radius: 0.5em;
+      border-bottom-right-radius: 0.5em;
+    }
+  }
+
+  // Make sure when there's only one, the text is on the left (the bar will
+  // inherit both first-of and last-of's rounded ends but last-of wins with
+  // it seems).
+  &.batch-summary__phase:only-of-type {
+    text-align: left;
+  }
+
+  // Add colours to the bar for the various different phases
+  &.batch-summary__phase--in_progress {
+    .progress-bar {
+      background-color: rgb(255, 216, 54);
+    }
+  }
+
+  &.batch-summary__phase--action_needed {
+    .progress-bar {
+      background-color: rgb(224, 75, 75);
+    }
+  }
+
+  &.batch-summary__phase--complete {
+    .progress-bar {
+      background-color: rgb(112, 203, 99);
+    }
+  }
+}
+
+// The houdini label to hide/show requests
+.batch-request__show-requests {
+  margin-top: 1em
+}
+
+// The collapsable list of requests inside a batch request
+// We need the houdini-target class to override houdini's margin-top
+.batch-request__requests.houdini-target {
+  padding-left: 4em;
+  margin-top: 1em;
+  border-top: 1px solid #ddd;
+}
+
+.batch-request__requests__request {
+  @include flexbox;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.875em;
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.batch-request__requests__request__recipient {
+  font-size: 1em;
+  font-weight: normal;
+  @include flex(1 0 50%);
+}
+
+.batch-request__requests__request__phase {
+  @include flex(1 0 50%);
+  // Make the margins the same as the recipient so that it's aligned
+  margin-top: 1em;
+}
+
+.request__phase-summary-icon {
+  width: 1em;
+  height: 1em;
+  margin-right: 1em;
+  display: inline-block;
+  border-radius: 0.5em;
+  background-color: #ddd;
+  margin-bottom: -2px;
+
+  // Add colours to the bar for the various different phases
+  &.request__phase-summary-icon--in-progress {
+    background-color: rgb(255, 216, 54);
+  }
+
+  &.request__phase-summary-icon--action-needed {
+    background-color: rgb(224, 75, 75);
+  }
+
+  &.request__phase-summary-icon--complete {
+    background-color: rgb(112, 203, 99);
+  }
+}
