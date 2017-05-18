@@ -6,7 +6,11 @@ namespace :temp do
     User.where(:admin_level => 'super').each do |admin|
       admin.add_role :admin
     end
-    User.includes(:pro_account).where("pro_accounts.id IS NOT NULL").each do |pro_user|
+    pro_users = User.
+      includes(:pro_account).
+        where("pro_accounts.id IS NOT NULL").
+          references(:pro_accounts)
+    pro_users.each do |pro_user|
       pro_user.add_role :pro
     end
   end
