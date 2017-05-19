@@ -10,15 +10,15 @@
 # Annotations
 # We enable annotations globally based on the ENABLE_ANNOTATIONS config
 if AlaveteliConfiguration.enable_annotations
-  AlaveteliFeatures.backend.enable(:annotations)
+  AlaveteliFeatures.backend.enable(:annotations) unless AlaveteliFeatures.backend.enabled?(:annotations)
 else
-  AlaveteliFeatures.backend.disable(:annotations)
+  AlaveteliFeatures.backend.disable(:annotations) unless !AlaveteliFeatures.backend.enabled?(:annotations)
 end
 
 # AlaveteliPro
 # We enable alaveteli_pro globally based on the ENABLE_ALAVETELI_PRO config
 if AlaveteliConfiguration.enable_alaveteli_pro
-  AlaveteliFeatures.backend.enable(:alaveteli_pro)
+  AlaveteliFeatures.backend.enable(:alaveteli_pro) unless AlaveteliFeatures.backend.enabled?(:alaveteli_pro)
 else
-  AlaveteliFeatures.backend.disable(:alaveteli_pro)
+  AlaveteliFeatures.backend.disable(:alaveteli_pro) unless !AlaveteliFeatures.backend.enabled?(:alaveteli_pro)
 end
