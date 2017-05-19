@@ -40,6 +40,14 @@ describe AdminGeneralController do
       expect(assigns[:attention_requests]).to eq([attention_requested_request])
     end
 
+    it 'assigns messages sent to the holding pen to the view' do
+      undeliverable = FactoryGirl.
+                        create(:incoming_message,
+                               :info_request => InfoRequest.holding_pen_request)
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:holding_pen_messages]).to eq([undeliverable])
+    end
+
     context 'when the user is not a pro admin' do
 
       context 'when pro is enabled' do

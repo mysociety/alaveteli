@@ -65,6 +65,9 @@
   are no requests (Liz Conlan)
 * Switch to Trusty as the preferred OS for Travis CI and use Debian Wheezy as
   the new Vagrant default (Liz Conlan)
+* Fix a bug that could cause misdelivered message links in the admin interface
+  to appear without any text in the link if the message body contained unicode
+  spaces (Liz Conlan)
 
 ## Upgrade Notes
 
