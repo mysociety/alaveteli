@@ -57,6 +57,34 @@ describe LinkToHelper do
     end
   end
 
+  describe 'when linking to new responses' do
+    context 'when the user is a pro' do
+      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+      let(:incoming_message) do
+        FactoryGirl.create(:incoming_message, info_request: info_request)
+      end
+
+      it 'creates a sign in url to the cachebusted incoming message url' do
+        msg_url = incoming_message_url(incoming_message, :cachebust => true)
+        expected = signin_url(:r => msg_url)
+        actual = new_response_url(info_request, incoming_message)
+        expect(actual).to eq(expected)
+      end
+    end
+
+    context 'when the user is a normal user' do
+      let(:incoming_message) { FactoryGirl.create(:incoming_message) }
+      let(:info_request) { incoming_message.info_request }
+
+      it 'creates a cachbusted incoming message url' do
+        expected = incoming_message_url(incoming_message, :cachebust => true)
+        actual = new_response_url(info_request, incoming_message)
+        expect(actual).to eq(expected)
+      end
+    end
+  end
+
   describe 'when linking to new outgoing messages' do
     let(:outgoing_message) { FactoryGirl.create(:new_information_followup) }
     let(:info_request) { outgoing_message.info_request }
