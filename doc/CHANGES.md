@@ -63,6 +63,8 @@
   on requests (Liz Conlan)
 * Fix bug that prevented the categorisation game page from displaying when there
   are no requests (Liz Conlan)
+* Switch to Trusty as the preferred OS for Travis CI and use Debian Wheezy as
+  the new Vagrant default (Liz Conlan)
 
 ## Upgrade Notes
 
