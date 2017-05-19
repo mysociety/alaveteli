@@ -5,7 +5,7 @@
 
 <%= _('To view the response, click on the link below.') %>
 
-<%=@url%>
+<%= new_response_url(@info_request, @incoming_message) %>
 
 <%= _('When you get there, please update the status to say if the response ' \
       'contains any useful information.' ) %>
