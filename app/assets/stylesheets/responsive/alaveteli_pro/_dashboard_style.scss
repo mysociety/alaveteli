@@ -3,11 +3,11 @@
 .dashboard-nav {
   list-style-type: none;
   list-style: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
 .dashboard-nav__item {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
   // To overlap the bottom border with that of the containing list, making it
   // appear continuous
   margin-bottom: -2px;
@@ -39,8 +39,8 @@
   text-decoration: none;
 }
 
-a.dashboard-folder__name,
-a.dashboard-folder__name:visited {
+.alaveteli-pro a.dashboard-folder__name:link,
+.alaveteli-pro a.dashboard-folder__name:visited {
   color: #333;
   &:hover,
   &:active,
@@ -84,7 +84,7 @@ a.dashboard-folder__name:visited {
 
 .dashboard-activity__title,
 .dashboard-todo__title {
-  font-size: 1em;
+  font-size: 1.125em;
   font-weight: bold;
 }
 
@@ -92,7 +92,7 @@ a.dashboard-folder__name:visited {
 .dashboard-todo__list__item,
 .dashboard-activity__title,
 .dashboard-activity__item {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
 .dashboard-activity__item__time {
@@ -102,10 +102,13 @@ a.dashboard-folder__name:visited {
 .phase-icon {
   background-image: image-url('alaveteli-pro/pro-phase-icons.png');
   background-position: 0 -256px;
-  background-size: 44px 283px;
+  background-size: 44px 486.5px;
   width: 22px;
   height: 22px;
   display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 4px;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('alaveteli-pro/pro-phase-icons@2.png');
   }

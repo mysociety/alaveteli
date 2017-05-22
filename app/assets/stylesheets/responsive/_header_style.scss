@@ -25,13 +25,14 @@
   color: white;
   background-color: purple;
   border-radius: 2px;
-  padding: 4px 5px 3px 3px;
+  padding: 3px 4px;
   text-align: center;
   display: inline-block;
   // vertically center it with normal text
   position: relative;
   top: -0.15em;
   line-height: 1em;
+  right: -4px;
 }
 
 .dashboard-profile__image {
