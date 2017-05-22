@@ -112,6 +112,27 @@
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     background-image: image-url('alaveteli-pro/pro-phase-icons@2.png');
   }
+
+  .request--complete & {
+    background-image: image-url('alaveteli-pro/pro-phase-icons--complete.png');
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url('alaveteli-pro/pro-phase-icons--complete@2.png');
+    }
+  }
+
+  .request--in_progress & {
+    background-image: image-url('alaveteli-pro/pro-phase-icons--in-progres.png');
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url('alaveteli-pro/pro-phase-icons--in-progres@2.png');
+    }
+  }
+
+  .request--action_needed & {
+    background-image: image-url('alaveteli-pro/pro-phase-icons--action-needed.png');
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url('alaveteli-pro/pro-phase-icons--action-needed@2.png');
+    }
+  }
 }
 
 .phase-icon--awaiting-response {
