@@ -224,10 +224,11 @@
 
   // Basic bar styling
   .progress-bar {
-    height: 1em;
+    height: 0.25em  ;
     width: 100%;
-    background-color: #ccc;
+    background-color: #f3f1eb;
     display: block;
+    margin-bottom: 1em;
   }
 
   // Round the start of the first phase's bar, so that it looks like a pill
@@ -277,21 +278,23 @@
 
 // The houdini label to hide/show requests
 .batch-request__show-requests {
-  margin-top: 1em
-}
+  margin-top: 1em;
+ }
 
 // The collapsable list of requests inside a batch request
 // We need the houdini-target class to override houdini's margin-top
 .batch-request__requests.houdini-target {
-  padding-left: 4em;
+  padding-left: 2em;
   margin-top: 1em;
   border-top: 1px solid #ddd;
 }
 
 .batch-request__requests__request {
   @include flexbox;
+  align-items: center;
   border-bottom: 1px solid #ddd;
   font-size: 0.875em;
+  padding: 0.5em 0;
   &:last-of-type {
     border-bottom: none;
   }
@@ -301,22 +304,22 @@
   font-size: 1em;
   font-weight: normal;
   @include flex(1 0 50%);
+  margin: 0;
 }
 
 .batch-request__requests__request__phase {
   @include flex(1 0 50%);
-  // Make the margins the same as the recipient so that it's aligned
-  margin-top: 1em;
+  margin: 0;
 }
 
 .request__phase-summary-icon {
-  width: 1em;
-  height: 1em;
-  margin-right: 1em;
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.5em;
   display: inline-block;
   border-radius: 0.5em;
   background-color: #ddd;
-  margin-bottom: -2px;
+  margin-bottom: 1px;
 
   // Add colours to the bar for the various different phases
   &.request__phase-summary-icon--in-progress {
@@ -329,5 +332,14 @@
 
   &.request__phase-summary-icon--complete {
     background-color: rgb(112, 203, 99);
+  }
+}
+
+
+.show-all-batch-link {
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+  a {
+    font-size: 0.875em;
   }
 }

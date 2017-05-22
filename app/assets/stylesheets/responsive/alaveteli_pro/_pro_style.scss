@@ -76,3 +76,13 @@
 .request-status-icon--error-message {
   background-position: 0 -468px;
 }
+
+.icon--downarrow {
+  display: inline-block;
+    width: 10px;
+    height: 7px;
+    background-position: center;
+    background-image: image-url('alaveteli-pro/arrow-pointing-down.png');
+    background-repeat: no-repeat;
+    padding-left: 0.5em;
+}
