@@ -27,6 +27,19 @@ describe RequestGameController do
       expect(assigns[:missing]).to eq(1)
     end
 
+    context 'there are no requests' do
+
+      before do
+        InfoRequest.destroy_all
+      end
+
+      it 'shows the game homepage' do
+        get :play
+        expect(response).to render_template('play')
+      end
+
+    end
+
   end
 end
 

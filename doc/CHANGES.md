@@ -61,6 +61,8 @@
   (Liz Conlan)
 * Prevent autoresponder emails from authorities resetting the withdrawn status
   on requests (Liz Conlan)
+* Fix bug that prevented the categorisation game page from displaying when there
+  are no requests (Liz Conlan)
 
 ## Upgrade Notes
 

@@ -16,7 +16,11 @@ class RequestGameController < ApplicationController
           count
     @total = InfoRequest.count
     @done = @total - @missing
-    @percentage = (@done.to_f / @total.to_f * 10000).round / 100.0
+    @percentage = if @total > 0
+      (@done.to_f / @total.to_f * 10000).round / 100.0
+    else
+      100.0
+    end
     @requests = InfoRequest.
       includes(:public_body, :user).
         where_old_unclassified.
