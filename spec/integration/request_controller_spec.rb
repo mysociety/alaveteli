@@ -37,4 +37,50 @@ describe RequestController, "when classifying an information request" do
       end
     end
   end
+
+  describe 'when the site is in read only mode' do
+
+    before do
+      allow(AlaveteliConfiguration).to receive(:read_only).
+        and_return("Down for maintenance")
+    end
+
+    it 'shows a flash alert to users' do
+      expected_message = 'Alaveteli is currently in maintenance. You ' \
+                         'can only view existing requests. You cannot make ' \
+                         'new ones, add followups or annotations, or ' \
+                         'otherwise change the database. '\
+                         'Down for maintenance'
+
+      visit new_request_path
+      expect(page).to have_content(expected_message)
+    end
+
+    context 'when annotations are disabled' do
+
+      before do
+        allow_any_instance_of(ApplicationController).
+          to receive(:feature_enabled?).
+            and_call_original
+
+        allow_any_instance_of(ApplicationController).
+          to receive(:feature_enabled?).
+            with(:annotations).
+              and_return(false)
+      end
+
+      it 'shows a flash alert to users' do
+        expected_message = 'Alaveteli is currently in maintenance. You ' \
+                           'can only view existing requests. You cannot make ' \
+                           'new ones, add followups or otherwise change the ' \
+                           'database. Down for maintenance'
+
+        visit new_request_path
+        expect(page).to have_content(expected_message)
+      end
+
+    end
+
+  end
+
 end

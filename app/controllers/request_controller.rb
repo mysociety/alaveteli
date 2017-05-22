@@ -499,7 +499,12 @@ class RequestController < ApplicationController
 
       # Don't give advice on what to do next, as it isn't their request
       if session[:request_game]
-        flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(info_request.title), :url=>CGI.escapeHTML(request_path(info_request)))
+        flash[:notice] = { :partial => "request_game/thank_you.html.erb",
+                           :locals => {
+                             :info_request_title => info_request.title,
+                             :url => request_path(info_request)
+                           }
+                         }
         redirect_to categorise_play_url
       else
         flash[:notice] = _('Thank you for updating this request!')
@@ -1092,33 +1097,16 @@ class RequestController < ApplicationController
   end
 
   def render_new_preview
-    message = ""
-    if @outgoing_message.contains_email?
-      if @user.nil?
-        message += _("<p>You do not need to include your email in the " \
-                     "request in order to get a reply, as we will ask " \
-                     "for it on the next screen (<a href=\"{{url}}\">" \
-                     "details</a>).</p>",
-                     :url => (help_privacy_path(:anchor => "email_address")).html_safe)
-      else
-        message += _("<p>You do not need to include your email in the " \
-                     "request in order to get a reply (<a href=\"{{url}}\">" \
-                     "details</a>).</p>",
-                     :url => (help_privacy_path(:anchor => "email_address")).html_safe)
-      end
-      message += _("<p>We recommend that you edit your request and remove " \
-                   "the email address. If you leave it, the email address " \
-                   "will be sent to the authority, but will not be " \
-                   "displayed on the site.</p>")
-    end
-    if @outgoing_message.contains_postcode?
-      message += _("<p>Your request contains a <strong>postcode</strong>. " \
-                   "Unless it directly relates to the subject of your " \
-                   "request, please remove any address as it will <strong>" \
-                   "appear publicly on the Internet</strong>.</p>")
-    end
-    if not message.empty?
-      flash.now[:error] = message.html_safe
+    if @outgoing_message.contains_email? || @outgoing_message.contains_postcode?
+      flash.now[:error] = {
+        :partial => "preview_errors.html.erb",
+        :locals => {
+          :contains_email => @outgoing_message.contains_email?,
+          :contains_postcode => @outgoing_message.contains_postcode?,
+          :help_link => help_privacy_path(:anchor => "email_address"),
+          :user => @user
+        }
+      }
     end
     render :action => 'preview'
   end

@@ -127,10 +127,7 @@ describe UserProfile::AboutMeController do
 
         it 'sets a message suggesting they add one' do
           put :update, :user => { :about_me => 'My bio' }
-          msg = "<p>Thanks for changing the text about you on your " \
-                "profile.</p><p><strong>Next...</strong> You can " \
-                "upload a profile photograph too.</p>"
-          expect(flash[:notice]).to eq(msg)
+          expect(flash[:notice][:partial]).to eq("update_profile_text.html.erb")
         end
 
         it 'redirects to the set profile photo page' do

@@ -410,9 +410,7 @@ class UserController < ApplicationController
 
 
       if @user.get_about_me_for_html_display.empty?
-        flash[:notice] = _("<p>Thanks for updating your profile photo.</p>" \
-                "<p><strong>Next...</strong> You can put some text about " \
-                "you and your research on your profile.</p>")
+        flash[:notice] = { :partial => "user/update_profile_photo.html.erb" }
         redirect_to edit_profile_about_me_url
       else
         flash[:notice] = _("Thank you for updating your profile photo")

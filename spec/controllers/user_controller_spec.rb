@@ -1178,6 +1178,27 @@ describe UserController, "when using profile photos" do
     expect(@user.profile_photo).not_to be_nil
   end
 
+  context 'there is no profile text' do
+    let(:user) { FactoryGirl.create(:user, :about_me => '') }
+
+    it 'prompts you to add profile text when adding a photo' do
+      session[:user_id] = user.id
+
+      profile_photo = ProfilePhoto.
+                        create(:data => load_file_fixture("parrot.png"),
+                               :user => user)
+
+      post :set_profile_photo, { :id => user.id,
+                                 :file => @uploadedfile,
+                                 :submitted_crop_profile_photo => 1,
+                                 :draft_profile_photo_id => profile_photo.id }
+
+      expect(flash[:notice][:partial]).
+        to eq("user/update_profile_photo.html.erb")
+    end
+
+  end
+
   it "should let you change profile photo twice" do
     expect(@user.profile_photo).to be_nil
     session[:user_id] = @user.id

@@ -400,8 +400,12 @@ describe FollowupsController do
       expect(deliveries.size).to eq(0)
 
       expect(response).to render_template('new')
+
+      expect(flash.now[:error][:partial]).to eq("followup_not_sent.html.erb")
+
       expect(response.body).
-        to include('Your follow up has not been sent because this request has been stopped to prevent spam.')
+        to include('Your follow up has not been sent because this ' \
+                   'request has been stopped to prevent spam.')
     end
 
     context "the same followup is submitted twice" do

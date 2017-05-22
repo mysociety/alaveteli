@@ -1042,6 +1042,62 @@ describe RequestController, "when creating a new request" do
     expect(response).to render_template('new_bad_contact')
   end
 
+  context "the outgoing message includes an email address" do
+
+    context "there is no logged in user" do
+
+      it "displays a flash error message without escaping the HTML" do
+        post :new, :info_request => {
+                     :public_body_id => @body.id,
+                     :title => "Test Request" },
+                   :outgoing_message => { :body => "me@here.com" },
+                   :submitted_new_request => 1,
+                   :preview => 1
+
+        expect(response.body).to have_css('div#error p')
+        expect(response.body).to_not have_content('<p>')
+        expect(response.body).
+          to have_content('You do not need to include your email')
+      end
+
+    end
+
+    context "the user is logged in" do
+
+      it "displays a flash error message without escaping the HTML" do
+        session[:user_id] = @user.id
+        post :new, :info_request => {
+                     :public_body_id => @body.id,
+                     :title => "Test Request" },
+                   :outgoing_message => { :body => "me@here.com" },
+                   :submitted_new_request => 1,
+                   :preview => 1
+
+        expect(response.body).to have_css('div#error p')
+        expect(response.body).to_not have_content('<p>')
+        expect(response.body).
+          to have_content('You do not need to include your email')
+      end
+
+    end
+
+  end
+
+  context "the outgoing message includes a postcode" do
+
+    it 'displays an error message warning about the postcode' do
+      post :new, :info_request => {
+                   :public_body_id => @body.id,
+                   :title => "Test Request" },
+                 :outgoing_message => { :body => "SW1A 1AA" },
+                 :submitted_new_request => 1,
+                 :preview => 1
+
+      expect(response.body).to have_content('Your request contains a postcode')
+    end
+
+  end
+
   it "should redirect pros to the pro version" do
     with_feature_enabled(:alaveteli_pro) do
       pro_user = FactoryGirl.create(:pro_user)
@@ -1724,8 +1780,15 @@ describe RequestController do
 
             it "should continue the game after classifying a request" do
               post_status("rejected", info_request)
-              expect(flash[:notice]).to match(/There are some more requests below for you to classify/)
               expect(response).to redirect_to categorise_play_url
+            end
+
+            it 'shows a message thanking the user for a good deed' do
+              post_status('rejected', info_request)
+              expect(flash[:notice][:partial]).
+                to eq("request_game/thank_you.html.erb")
+              expect(flash[:notice][:locals]).
+                to include(:info_request_title => info_request.title)
             end
           end
 
@@ -2768,12 +2831,8 @@ describe RequestController, "when the site is in read_only mode" do
 
   it "shows a flash message to alert the user" do
     get :new
-    expected_message = '<p>Alaveteli is currently in maintenance. You ' \
-                       'can only view existing requests. You cannot make ' \
-                       'new ones, add followups or annotations, or ' \
-                       'otherwise change the database.</p> '\
-                       '<p>Down for maintenance</p>'
-    expect(flash[:notice]).to eq expected_message
+    expect(flash[:notice][:partial]).
+      to eq "general/read_only_annotations.html.erb"
   end
 
   context "when annotations are disabled" do
@@ -2783,11 +2842,7 @@ describe RequestController, "when the site is in read_only mode" do
 
     it "doesn't mention annotations in the flash message" do
       get :new
-      expected_message = '<p>Alaveteli is currently in maintenance. You ' \
-                         'can only view existing requests. You cannot make ' \
-                         'new ones, add followups or otherwise change the ' \
-                         'database.</p> <p>Down for maintenance</p>'
-      expect(flash[:notice]).to eq expected_message
+      expect(flash[:notice][:partial]).to eq "general/read_only.html.erb"
     end
   end
 end
