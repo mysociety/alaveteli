@@ -1,0 +1,12 @@
+<%= info_request.title.html_safe %>
+<%= "-" * info_request.title.html_safe.length %>
+
+<%= _("What's happened:") %>
+<% notifications.each do |notification| %>
+<% event_type = notification.info_request_event.event_type %>
+<% partial = "notification_mailer/info_requests/messages/#{event_type}" %>
+<%= render partial: partial,
+           locals: { info_request: info_request,
+                     notification: notification,
+                     info_request_event: notification.info_request_event } %>
+<% end %>
