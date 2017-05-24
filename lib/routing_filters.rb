@@ -1,7 +1,11 @@
 # -*- encoding : utf-8 -*-
 module RoutingFilter
   class Conditionallyprependlocale < RoutingFilter::Locale
-    cattr_accessor :locales
+    # We need to be able to override this class attribute so from Rails 4.0
+    # onwards we're going to need write access. It looks as though we don't
+    # use the equivalent instance variables so we can opt out of creating
+    # accessors for them
+    cattr_accessor :locales, instance_accessor: false
 
     # Override core Locale filter not to prepend locale path segment
     # when there's only one locale
