@@ -338,7 +338,10 @@ class UserController < ApplicationController
           params[:contact][:subject],
           params[:contact][:message]
         ).deliver
-        flash[:notice] = _("Your message to {{recipient_user_name}} has been sent!",:recipient_user_name=>CGI.escapeHTML(@recipient_user.name))
+        flash[:notice] = _("Your message to {{recipient_user_name}} has " \
+                           "been sent!",
+                           :recipient_user_name => @recipient_user.
+                                                     name.html_safe)
         redirect_to user_url(@recipient_user)
         return
       end

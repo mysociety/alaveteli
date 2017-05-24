@@ -781,7 +781,7 @@ class RequestController < ApplicationController
       flash[:notice] = _("Thank you for responding to this FOI request! " \
                            "Your response has been published below, and a " \
                            "link to your response has been emailed to {{user_name}}.",
-                         :user_name => CGI.escapeHTML(@info_request.user.name))
+                         :user_name => @info_request.user.name.html_safe)
       redirect_to request_url(@info_request)
       return
     end

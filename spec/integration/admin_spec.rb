@@ -175,4 +175,32 @@ describe "When administering the site" do
 
   end
 
+  describe 'hide and notify' do
+
+    let(:user) { FactoryGirl.create(:user, :name => "Awkward > Name") }
+    let(:request) { FactoryGirl.create(:info_request, :user => user) }
+
+    it 'sets the prominence of the request to requester_only' do
+      using_session(@admin) do
+        visit admin_request_path :id => request.id
+        choose('reason_not_foi')
+        find_button('Hide request').click
+      end
+
+      request.reload
+      expect(request.prominence).to eq('requester_only')
+    end
+
+    it 'renders a message to confirm the requester has been notified' do
+      using_session(@admin) do
+        visit admin_request_path :id => request.id
+        choose('reason_not_foi')
+        find_button('Hide request').click
+        expect(page).
+          to have_content('Your message to Awkward > Name has been sent')
+      end
+    end
+
+  end
+
 end
