@@ -1,0 +1,8 @@
+<% phases.each do |phase_key, phase| %>
+<% if phase[:count] > 0 %>
+<%= _("{{count}} {{phase}}", count: phase[:count], phase: phase[:label]) %>
+<% end %>
+<% end %>
+<% if phases.values.all? { |phase| phase[:count] == 0 } %>
+<%= _("{{count}} Pending", count: batch.public_bodies.count) %>
+<% end %>
