@@ -1,0 +1,16 @@
+<%= n_('{{count}} request had a new response:',
+       '{{count}} requests had new responses:',
+       notifications.size,
+       count: notifications.size) %>
+<%= n_('You can see the response with the following link:',
+       'You can see the responses with the following links:',
+       notifications.size,
+       count: notifications.size) %>
+<% notifications.each do |notification| %>
+  <% info_request = notification.info_request_event.info_request %>
+  <% incoming_message = notification.info_request_event.incoming_message %>
+  <% response_url = new_response_url(info_request, incoming_message) %>
+  <%= _('{{public_body_name}}: {{response_url}}',
+        public_body_name: info_request.public_body.name.html_safe,
+        response_url: response_url) %>
+<% end %>
