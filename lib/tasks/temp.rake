@@ -348,4 +348,12 @@ namespace :temp do
   task :set_use_notifications => :environment do
     InfoRequest.update_all use_notifications: false
   end
+
+  desc 'Set a default time for users daily summary notifications'
+  task :set_daily_summary_times => :environment do
+    query = "UPDATE users " \
+            "SET daily_summary_hour = floor(random() * 24), " \
+            "daily_summary_minute = floor(random() * 60)"
+    ActiveRecord::Base.connection.execute(query)
+  end
 end
