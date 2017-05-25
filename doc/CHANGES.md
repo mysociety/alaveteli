@@ -1,3 +1,10 @@
+# 0.28.0.7
+
+## Highlighted Features
+
+* Fix locale handling bug which prevented locales containing underscores from
+  being used as an additional site language (Liz Conlan)
+
 # 0.28.0.6
 
 ## Highlighted Features
