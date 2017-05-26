@@ -29,11 +29,13 @@ class RequestGameController < ApplicationController
               order('random()')
 
     if @missing == 0
-      flash[:notice] = {:partial => "game_over.html.erb",
-                        :locals => {
-                          :helpus_url => help_credits_path(:anchor => "helpus"),
-                          :site_name => site_name }
-                        }
+      flash.now[:notice] = {
+        :partial => "request_game/game_over.html.erb",
+        :locals => {
+          :helpus_url => help_credits_path(:anchor => "helpus"),
+          :site_name => site_name
+        }
+      }
     end
 
     @league_table_28_days = RequestClassification.league_table(10,
