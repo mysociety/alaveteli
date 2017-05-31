@@ -18,7 +18,8 @@ AllCops:
   Exclude:
   - "vendor/**/*"
   - "db/schema.rb"
-  RunRailsCops: false
+  Rails:
+    Enabled: false
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true
