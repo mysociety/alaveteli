@@ -11,9 +11,7 @@ class Notification < ActiveRecord::Base
 
   before_validation :calculate_send_after
 
-  INSTANTLY = 'instantly' # Notify me about this as soon as possible
-  DAILY = 'daily' # Notify me about this at most once a day
-  FREQUENCIES = [INSTANTLY, DAILY].freeze
+  scope :unseen, -> { where(seen_at: nil) }
 
   # Set the send_at timestamp based on the chosen frequency
   def calculate_send_after

@@ -66,4 +66,17 @@ RSpec.describe Notification do
       end
     end
   end
+
+  describe ".unseen" do
+    let(:unseen_notification) do
+      FactoryGirl.create(:notification, seen_at: nil)
+    end
+    let(:seen_notification) do
+      FactoryGirl.create(:notification, seen_at: Time.zone.now)
+    end
+
+    it "only returns unseen notifications" do
+      expect(Notification.unseen).to match_array([unseen_notification])
+    end
+  end
 end
