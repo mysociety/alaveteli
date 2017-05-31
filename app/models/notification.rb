@@ -11,6 +11,8 @@ class Notification < ActiveRecord::Base
 
   before_validation :calculate_send_after
 
+  scope :unseen, -> { where(seen_at: nil) }
+
   # Set the send_at timestamp based on the chosen frequency
   def calculate_send_after
     unless self.persisted? || self.send_after.present?
