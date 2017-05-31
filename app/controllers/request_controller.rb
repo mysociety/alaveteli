@@ -517,10 +517,14 @@ class RequestController < ApplicationController
     calculated_status = info_request.calculate_status
     partial_path = 'request/describe_notices'
     if template_exists?(calculated_status, [partial_path], true)
-      flash[:notice] = render_to_string(
+      flash[:notice] =
+        {
           :partial => "#{partial_path}/#{calculated_status}",
-          :locals => {:info_request => info_request}
-      ).html_safe
+          :locals => {
+            :info_request_id => info_request.id,
+            :annotations_enabled => feature_enabled?(:annotations),
+          }
+        }
     end
 
     case calculated_status

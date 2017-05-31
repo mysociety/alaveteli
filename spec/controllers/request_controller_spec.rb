@@ -1920,12 +1920,9 @@ describe RequestController do
         end
 
         it 'should show advice for the new state' do
-          expect(controller)
-            .to receive(:render_to_string)
-              .with(:partial => 'request/describe_notices/rejected',
-                    :locals => {:info_request => info_request})
-                .and_return('')
           post_status('rejected', info_request)
+          expect(flash[:notice][:partial]).
+            to eq('request/describe_notices/rejected')
         end
 
         it 'should redirect to the unhappy page' do
@@ -2025,12 +2022,9 @@ describe RequestController do
         end
 
         it 'should show advice for the new state' do
-          expect(controller)
-            .to receive(:render_to_string)
-              .with(:partial => 'request/describe_notices/rejected',
-                    :locals => {:info_request => info_request})
-                .and_return('')
           post_status('rejected', info_request)
+          expect(flash[:notice][:partial]).
+            to eq('request/describe_notices/rejected')
         end
 
         it 'should redirect to the unhappy page' do
@@ -2073,7 +2067,8 @@ describe RequestController do
               the response is not overdue' do
             expect_redirect("waiting_response",
                             show_request_path(info_request.url_title))
-            expect(flash[:notice]).to match(/should get a response/)
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/waiting_response')
           end
 
           it 'should redirect to the "request url" with a message in the right tense when
@@ -2083,7 +2078,8 @@ describe RequestController do
             time_travel_to(info_request.date_response_required_by + 2.days) do
               expect_redirect('waiting_response',
                               show_request_path(info_request.url_title))
-              expect(flash[:notice]).to match(/should have got a response/)
+              expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/waiting_response_overdue')
             end
           end
 
@@ -2094,9 +2090,8 @@ describe RequestController do
             time_travel_to(info_request.date_very_overdue_after + 2.days) do
               expect_redirect('waiting_response',
                               help_unhappy_path(info_request.url_title))
-              expect(flash[:notice]).to match(/is long overdue/)
-              expect(flash[:notice]).to match(/by more than 40 working days/)
-              expect(flash[:notice]).to match(/within 20 working days/)
+              expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/waiting_response_very_overdue')
             end
           end
         end
@@ -2106,6 +2101,8 @@ describe RequestController do
           it 'should redirect to the "request url"' do
             expect_redirect('not_held',
                             show_request_path(info_request.url_title))
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/not_held')
           end
 
         end
@@ -2117,18 +2114,10 @@ describe RequestController do
                             show_request_path(info_request.url_title))
           end
 
-          it 'should show a message including the donation url if there is one' do
-            allow(AlaveteliConfiguration).to receive(:donation_url).and_return('http://donations.example.com')
+          it 'should show a message' do
             post_status('successful', info_request)
-            expect(flash[:notice]).to match('make a donation')
-            expect(flash[:notice]).to match('http://donations.example.com')
-          end
-
-          it 'should show a message without reference to donations if there is no
-                      donation url' do
-            allow(AlaveteliConfiguration).to receive(:donation_url).and_return('')
-            post_status('successful', info_request)
-            expect(flash[:notice]).not_to match('make a donation')
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/successful')
           end
 
         end
@@ -2146,7 +2135,10 @@ describe RequestController do
                               :incoming_message_id =>
                                 info_request.get_last_public_response.id)
               expect_redirect('waiting_clarification', expected_url)
+              expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/waiting_clarification')
             end
+
           end
 
           context 'when there are no events needing description' do
@@ -2163,7 +2155,10 @@ describe RequestController do
         context 'when status is updated to "rejected"' do
 
           it 'should redirect to the "unhappy url"' do
-            expect_redirect('rejected', help_unhappy_path(info_request.url_title))
+            expect_redirect('rejected',
+              help_unhappy_path(info_request.url_title))
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/rejected')
           end
 
         end
@@ -2173,20 +2168,8 @@ describe RequestController do
           it 'should redirect to the "unhappy url"' do
             expect_redirect('partially_successful',
                             help_unhappy_path(info_request.url_title))
-          end
-
-          it 'should show a message including the donation url if there is one' do
-            allow(AlaveteliConfiguration).to receive(:donation_url).and_return('http://donations.example.com')
-            post_status('successful', info_request)
-            expect(flash[:notice]).to match('make a donation')
-            expect(flash[:notice]).to match('http://donations.example.com')
-          end
-
-          it 'should show a message without reference to donations if there is no
-                      donation url' do
-            allow(AlaveteliConfiguration).to receive(:donation_url).and_return('')
-            post_status('successful', info_request)
-            expect(flash[:notice]).not_to match('make a donation')
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/partially_successful')
           end
 
         end
@@ -2212,6 +2195,8 @@ describe RequestController do
           it 'should redirect to the "request url"' do
             expect_redirect('internal_review',
                             show_request_path(info_request.url_title))
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/internal_review')
           end
 
         end
@@ -2228,6 +2213,8 @@ describe RequestController do
                 info_request.last_event_id_needing_description
             expect(response)
               .to redirect_to show_request_url(:url_title => info_request.url_title)
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/requires_admin')
           end
 
         end
@@ -2246,6 +2233,8 @@ describe RequestController do
               .to redirect_to(
                     show_request_url(:url_title => info_request.url_title)
                   )
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/error_message')
           end
 
           context "if the params don't include a message" do
@@ -2279,6 +2268,8 @@ describe RequestController do
                             :incoming_message_id =>
                               info_request.get_last_public_response.id)
             expect_redirect('user_withdrawn', expected_url)
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/user_withdrawn')
           end
 
         end
