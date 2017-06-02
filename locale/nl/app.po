@@ -16,15 +16,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl/)\n"
-"Language: nl\n"
+"Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl"
+"/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"\n"
+"\n"
+"[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
+msgstr ""
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr " (<strong>geen bulderende</strong> politiek, lees ons <a href=\"{{url}}\">moderatiebeleid</a>)"
@@ -116,8 +122,22 @@ msgstr "(toon)"
 msgid "*unknown*"
 msgstr "*onbekend*"
 
-msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
-msgstr ",\\n\\n\\n\\nHoogachtend,\\n\\n{{user_name}}"
+msgid ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Yours,\n"
+"\n"
+"{{user_name}}"
+msgstr ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Hoogachtend,\n"
+"\n"
+"{{user_name}}"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Bekijk alles</a> of <a href=\"{{add_url}}\">vraag ons er één toe te voegen</a>."
@@ -149,13 +169,19 @@ msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\
 msgstr "<p>Helemaal klaar! Ontzettend bedankt voor uw hulp.</p><p>Er zijn <a href=\"{{helpus_url}}\">meer dingen die u kunt doen</a> om {{site_name}} te helpen.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr "<p>Bedankt voor het wijzigen van de tekst in uw profiel</p>\\n            <p><strong>Volgende stap...</strong> U kunt ook een profielfoto uploaden.</p>"
+msgstr ""
+"<p>Bedankt voor het wijzigen van de tekst in uw profiel</p>\n"
+"            <p><strong>Volgende stap...</strong> U kunt ook een profielfoto uploaden.</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr "<p>Bedankt voor het uploaden van uw profielfoto.</p>\\n                <p><strong>Volgende stap...</strong> U kunt de tekst over uzelf en uw onderzoek op uw profiel wijzigen.</p>"
+msgstr ""
+"<p>Bedankt voor het uploaden van uw profielfoto.</p>\n"
+"                <p><strong>Volgende stap...</strong> U kunt de tekst over uzelf en uw onderzoek op uw profiel wijzigen.</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr "<p>Wij raden u aan om uw verzoek te wijzigen en uw e-mailadres te verwijderen.\\n                Als u deze laat staan zal deze mee worden gestuurd naar de instantie, maar wordt deze niet op de site getoond.</p>"
+msgstr ""
+"<p>Wij raden u aan om uw verzoek te wijzigen en uw e-mailadres te verwijderen.\n"
+"                Als u deze laat staan zal deze mee worden gestuurd naar de instantie, maar wordt deze niet op de site getoond.</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>U hoeft geen e-mailadres in uw verzoek mee te geven om een reactie te krijgen (<a href=\"{{url}}\">details</a>).</p>"
@@ -194,7 +220,10 @@ msgid "<strong><code>status:</code></strong> to select based on the status or hi
 msgstr "<strong><code>status:</code></strong> om te zoeken op basis van de status, of de historische status van het verzoek, zie de <a href=\"{{statuses_url}}\">tabel met statussen</a> verderop."
 
 msgid "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
-msgstr "<strong><code>tag:charity</code></strong> om alle instanties of verzoeken met een bepaalde tag te tonen. Je kunt meerdere tags, \\n en tag waardes meegeven, bijvoorbeeld <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Let op dat standaard elke tag\\n    aanwezig kan zijn. Je moet expliciet <code>AND</code> toevoegen als je alleen resultaten waar alles aanwezig is wil zien."
+msgstr ""
+"<strong><code>tag:charity</code></strong> om alle instanties of verzoeken met een bepaalde tag te tonen. Je kunt meerdere tags, \n"
+" en tag waardes meegeven, bijvoorbeeld <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Let op dat standaard elke tag\n"
+"    aanwezig kan zijn. Je moet expliciet <code>AND</code> toevoegen als je alleen resultaten waar alles aanwezig is wil zien."
 
 msgid "<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
 msgstr "<strong><code>variety:</code></strong> om alleen een bepaalde type ding te zoeken, zie de <a href=\"{{varieties_url}}\">tabel met variaties</a> verderop."
@@ -212,7 +241,9 @@ msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</
 msgstr "<strong>Bij wet moeten ze antwoorden</strong> (<a href=\"{{url}}\">waarom?</a>)."
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr "<strong> Kan ik informatie over mezelf opvragen?</strong>\\n\t\t\t<a href=\"{{url}}\">Nee!</a>"
+msgstr ""
+"<strong> Kan ik informatie over mezelf opvragen?</strong>\n"
+"\t\t\t<a href=\"{{url}}\">Nee!</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Caveat emptor!</strong> Om deze data op een eervolle manier te gebruiken moet u goede interne kennis van het gebruikersgedrag op {{site_name}} hebben. Hoe, waarom en door wie verzoeken zijn gecategoriseerd is niet eenvoudig. Er kan sprake zijn van gebruiksfouten en dubbelzinnigheid. U moet ook verstand hebben van Wob-recht en de manier waarop instanties deze gebruiken. Tevens moet u goed bekend zijn met statistiek. Neemt u alstublieft <a href=\"{{contact_path}}\">contact met ons op</a> als je vragen hebt."
@@ -221,13 +252,18 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong> Toelichting </ strong> is aangevraagd"
 
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
-msgstr "<strong>Geen antwoord</strong> ontvangen\\n                <small>(misschien is er alleen een bevestiging)</small>"
+msgstr ""
+"<strong>Geen antwoord</strong> ontvangen\n"
+"                <small>(misschien is er alleen een bevestiging)</small>"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Let op:</strong> Omdat we aan het testen zijn worden verzoeken verstuur naar {{email}} en niet naar de daadwerkelijke instantie."
 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr "<strong>Let op:</strong>\\n    We zullen een email sturen naar uw nieuwe emailadres. Volg de\\n    instructies in de mail om uw wijzigingen door te voeren."
+msgstr ""
+"<strong>Let op:</strong>\n"
+"    We zullen een email sturen naar uw nieuwe emailadres. Volg de\n"
+"    instructies in de mail om uw wijzigingen door te voeren."
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr "<strong>Let op:</strong> We zullen u een mail sturen om te bevestigen dat u de eigenaar van dit account bent. Volg de instructies in de mail om uw wachtwoord te wijzigen."
@@ -306,6 +342,9 @@ msgstr "Over u:"
 
 msgid "Act on what you've learnt"
 msgstr "Handel naar wat u heeft geleerd"
+
+msgid "Actions"
+msgstr ""
 
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
@@ -393,6 +432,12 @@ msgstr ""
 
 msgid "Annotation added to request"
 msgstr "Aantekening toegevoegd aan verzoek"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Aantekeningen"
@@ -979,13 +1024,13 @@ msgstr ""
 msgid "Follow this request"
 msgstr ""
 
-#. "Follow up" in this context means a further
+#. TRANSLATORS: "Follow up" in this context means a further
 #. message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up"
 msgstr ""
 
-#. "Follow up message" in this context means a
+#. TRANSLATORS: "Follow up message" in this context means a
 #. further message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up message sent by requester"
@@ -997,7 +1042,7 @@ msgstr ""
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#. "Follow ups" in this context means further
+#. TRANSLATORS: "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
@@ -1239,7 +1284,7 @@ msgstr ""
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr ""
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
@@ -2324,13 +2369,19 @@ msgstr ""
 msgid "Replying by post"
 msgstr ""
 
-msgid "Report abuse"
-msgstr "Rapporteer misbruik"
-
 msgid "Report an offensive or unsuitable request"
 msgstr ""
 
+msgid "Report annotation"
+msgstr ""
+
+msgid "Report annotation on request: {{title}}"
+msgstr ""
+
 msgid "Report request"
+msgstr ""
+
+msgid "Report request: {{title}}"
 msgstr ""
 
 msgid "Report this request"
@@ -2507,6 +2558,12 @@ msgstr ""
 msgid "Send a public reply to {{person_or_body}}"
 msgstr ""
 
+msgid "Send and publish message"
+msgstr ""
+
+msgid "Send and publish request"
+msgstr ""
+
 msgid "Send follow up to '{{title}}'"
 msgstr ""
 
@@ -2520,9 +2577,6 @@ msgid "Send message to {{user_name}}"
 msgstr ""
 
 msgid "Send message to {{user_name}} just to see how it works"
-msgstr ""
-
-msgid "Send request"
 msgstr ""
 
 msgid "Sending..."
@@ -2797,7 +2851,7 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
@@ -2950,7 +3004,7 @@ msgstr ""
 msgid "Then you'll be allowed to send FOI requests."
 msgstr ""
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
 msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3008,6 +3062,9 @@ msgid "They have not replied to your {{law_used_short}} request {{title}}, as re
 msgstr ""
 
 msgid "Things you're following"
+msgstr ""
+
+msgid "This annotation has been reported for administrator attention"
 msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3230,7 +3287,7 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr ""
 
-msgid "To send your FOI request"
+msgid "To send and publish your FOI request"
 msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
@@ -3485,6 +3542,9 @@ msgstr ""
 msgid "Vexatious"
 msgstr ""
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
 msgstr ""
 
@@ -3548,7 +3608,7 @@ msgstr ""
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr ""
 
-msgid "We couldn't determine the delivery status of this message"
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3561,6 +3621,9 @@ msgid "We do not have a working request email address for this authority."
 msgstr ""
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
+msgstr ""
+
+msgid "We don't know the delivery status for this message."
 msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
@@ -4053,9 +4116,6 @@ msgstr ""
 msgid "[{{site_name}} contact email]"
 msgstr ""
 
-msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-
 msgid "admin"
 msgstr ""
 
@@ -4135,6 +4195,9 @@ msgid "external"
 msgstr ""
 
 msgid "have delayed."
+msgstr ""
+
+msgid "hi 1"
 msgstr ""
 
 msgid "hide quoted sections"
@@ -4227,7 +4290,7 @@ msgstr ""
 msgid "the main FOI contact address for {{public_body}}"
 msgstr ""
 
-#. This phrase completes the following sentences:
+#. TRANSLATORS: This phrase completes the following sentences:
 #. Request an internal review from...
 #. Send a public follow up message to...
 #. Send a public reply to...
@@ -4336,7 +4399,7 @@ msgstr ""
 msgid "{{law_used_full}} request - {{title}}"
 msgstr ""
 
-#. Please don't use double quotes (") in this translation
+#. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr ""

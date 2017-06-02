@@ -14,15 +14,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
 "PO-Revision-Date: 2017-02-27 10:55+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el/)\n"
-"Language: el\n"
+"Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
+"/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"\n"
+"\n"
+"[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
+msgstr ""
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr "(<strong>χωρίς φλύαρη πολιτικολογία</strong>, διαβάστε την <a href=\"{{url}}\">moderation policy</a> μας)"
@@ -114,8 +120,22 @@ msgstr "(εμφάνιση)"
 msgid "*unknown*"
 msgstr "*άγνωστο*"
 
-msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
-msgstr ",\\n\\n\\n\\nΜε εκτίμηση,\\n\\n{{user_name}}"
+msgid ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Yours,\n"
+"\n"
+"{{user_name}}"
+msgstr ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Με εκτίμηση,\n"
+"\n"
+"{{user_name}}"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Δείτε τα όλα</a> ή <a href=\"{{add_url}}\">ζητήστε μας να προσθέσουμε ένα</a>."
@@ -147,13 +167,19 @@ msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\
 msgstr "<p>Έγινε! Ευχαριστούμε πάρα πολύ για την βοήθειά σας.</p><p>Υπάρχουν <a href=\"{{helpus_url}}\">και άλλα πράγματα που μπορείτε να κάνετε</a>για να βοηθήσετε το {{site_name}}.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr "<p>Ευχαριστούμε που αλλάξατε το κείμενο για εσάς στο προφίλ σας.</p>\\n <p><strong>Στη συνέχεια...</strong> Μπορείτε να ανεβάσετε μια φωτογραφία προφίλ.</p>"
+msgstr ""
+"<p>Ευχαριστούμε που αλλάξατε το κείμενο για εσάς στο προφίλ σας.</p>\n"
+" <p><strong>Στη συνέχεια...</strong> Μπορείτε να ανεβάσετε μια φωτογραφία προφίλ.</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr "<p>Ευχαριστούμε που ενημερώσατε την φωτογραφία στο προφίλ σας.</p>\\n <p><strong>Στη συνέχεια...</strong> Μπορείτε να εισάγετε μερικά λόγια για εσάς και την έρευνά σας στο προφίλ.</p>"
+msgstr ""
+"<p>Ευχαριστούμε που ενημερώσατε την φωτογραφία στο προφίλ σας.</p>\n"
+" <p><strong>Στη συνέχεια...</strong> Μπορείτε να εισάγετε μερικά λόγια για εσάς και την έρευνά σας στο προφίλ.</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr "<p>Προτείνουμε να επεγεργαστείτε την αίτηση και να αφαιρέσετε την διεύθυνση email.\\n Εαν την αφήσετε, η διεύθυνση email  θα σταλεί στον οργανισμό αλλά δεν θα δημοσιευτεί στο site.</p>"
+msgstr ""
+"<p>Προτείνουμε να επεγεργαστείτε την αίτηση και να αφαιρέσετε την διεύθυνση email.\n"
+" Εαν την αφήσετε, η διεύθυνση email  θα σταλεί στον οργανισμό αλλά δεν θα δημοσιευτεί στο site.</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>Δεν χρειάζεται να συμπεριλάβετε το email σας στην αίτηση για να λάβετε απάντηση (<a href=\"{{url}}\">λεπτομέρειες</a>).</p>"
@@ -210,34 +236,55 @@ msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</
 msgstr "<strong>Σύμφωνα με τον νόμο, θα πρέπει να απαντήσουν</strong> (<a href=\"{{url}}\">γιατί;</a>)."
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr "<strong> Μπορώ να ζητήσω πληροφορίες για τον εαυτό μου;</strong>\\n⇥⇥⇥<a href=\"{{url}}\">Όχι!</a>"
+msgstr ""
+"<strong> Μπορώ να ζητήσω πληροφορίες για τον εαυτό μου;</strong>\n"
+"⇥⇥⇥<a href=\"{{url}}\">Όχι!</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr "<strong>Προειδοποίηση!</strong> Για να χρησιμοποιηθούν αυτά τα δεδομένα έντιμα, θα πρέπει να έχετε \\na καλή γνώση της συμπεριφοράς χρηστών στο {{site_name}}. Πως, \\nγιατί και από ποιόν ταξινομούνται οι αιτήσεις δεν είναι ξεκάθαρο εκ πρώτης όψης \\nκαι θα υπάρξουν λάθη χρηστών και ασάφεια. Θα πρέπει επίσης να κατανοήσετε τον νόμο περί Δικαιώματος Γνώσης Διοικητικών Εγγράφων, \\nκαι τον τρόπο που τον χρησιμοποιούν οι αρχές. Επιπλέον θα πρέπει να είστε ένας ικανότατος στατιστικολόγος. Παρακαλούμε \\n<a href=\"{{contact_path}}\">επικοινωνήστε μαζί μας</a> για τυχόν απορίες."
+msgstr ""
+"<strong>Προειδοποίηση!</strong> Για να χρησιμοποιηθούν αυτά τα δεδομένα έντιμα, θα πρέπει να έχετε \n"
+"a καλή γνώση της συμπεριφοράς χρηστών στο {{site_name}}. Πως, \n"
+"γιατί και από ποιόν ταξινομούνται οι αιτήσεις δεν είναι ξεκάθαρο εκ πρώτης όψης \n"
+"και θα υπάρξουν λάθη χρηστών και ασάφεια. Θα πρέπει επίσης να κατανοήσετε τον νόμο περί Δικαιώματος Γνώσης Διοικητικών Εγγράφων, \n"
+"και τον τρόπο που τον χρησιμοποιούν οι αρχές. Επιπλέον θα πρέπει να είστε ένας ικανότατος στατιστικολόγος. Παρακαλούμε \n"
+"<a href=\"{{contact_path}}\">επικοινωνήστε μαζί μας</a> για τυχόν απορίες."
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "Έχει ζητηθεί <strong>διευκρίνηση</strong>"
 
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
-msgstr "<strong>Καμία απάντηση</strong> δεν έχει ληφθεί\\n <small>(ίσως να είναι απλά μια γνωστοποίηση)</small>"
+msgstr ""
+"<strong>Καμία απάντηση</strong> δεν έχει ληφθεί\n"
+" <small>(ίσως να είναι απλά μια γνωστοποίηση)</small>"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Σημείωση:</strong> Επειδή κάνουμε ελέγχους, οι αιτήσεις στέλνονται στο {{email}} και όχι στην δημόσια αρχή."
 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr "<strong>Σημείωση:</strong>\\n Θα στείλουμε ένα email στην νέα διεύθυνση email σας. Ακολουθήστε τις\\n τις οδηγίες μέσα για να επιβεβαιώσετε την αλλαγή email."
+msgstr ""
+"<strong>Σημείωση:</strong>\n"
+" Θα στείλουμε ένα email στην νέα διεύθυνση email σας. Ακολουθήστε τις\n"
+" τις οδηγίες μέσα για να επιβεβαιώσετε την αλλαγή email."
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
-msgstr "<strong>Σημείωση:</strong> Θα σας στείλουμε ένα email για να επιβεβαιώσουμε ότι είστε ο ιδιοκτήτης αυτού του λογαριασμού. Ακολουθήστε τις\\n τις οδηγίες μέσα για να αλλάξετε το password."
+msgstr ""
+"<strong>Σημείωση:</strong> Θα σας στείλουμε ένα email για να επιβεβαιώσουμε ότι είστε ο ιδιοκτήτης αυτού του λογαριασμού. Ακολουθήστε τις\n"
+" τις οδηγίες μέσα για να αλλάξετε το password."
 
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
-msgstr "<strong>Σημείωση:</strong> Στέλνετε ένα μήνυμα στον εαυτό σας, \\nμάλλον για να δείτε πως δουλεύει."
+msgstr ""
+"<strong>Σημείωση:</strong> Στέλνετε ένα μήνυμα στον εαυτό σας, \n"
+"μάλλον για να δείτε πως δουλεύει."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
-msgstr "<strong>Ειδοποίηση:</strong> Η φωτογραφία σας θα εμγανιστεί δημόσια στο Intertet,\\n όποτε κάνετε κάτι στο {{site_name}}."
+msgstr ""
+"<strong>Ειδοποίηση:</strong> Η φωτογραφία σας θα εμγανιστεί δημόσια στο Intertet,\n"
+" όποτε κάνετε κάτι στο {{site_name}}."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr "<strong>Ειδοποίηση:</strong> Το μήνυμά σας, και οποιαδήποτε\\n απάντηση σε αυτό, θα εμφανιστεί δημόσια σε αυτήν την ιστοσελίδα. "
+msgstr ""
+"<strong>Ειδοποίηση:</strong> Το μήνυμά σας, και οποιαδήποτε\n"
+" απάντηση σε αυτό, θα εμφανιστεί δημόσια σε αυτήν την ιστοσελίδα. "
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>Κάποιες πληροφορίες</strong> έχουν σταλεί"
@@ -279,7 +326,9 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr "Μια νέα αίτηση, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, έχει σταλεί στο {{public_body_name}} από τον/την {{info_request_user}} στις {{date}}."
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr "Μια περίληψη μιας γραμμής των πληροφοριών που ζητάτε, \\n⇥⇥⇥π.χ."
+msgstr ""
+"Μια περίληψη μιας γραμμής των πληροφοριών που ζητάτε, \n"
+"⇥⇥⇥π.χ."
 
 msgid "A public authority"
 msgstr "Ένας δημόσιος οργανισμός."
@@ -305,6 +354,9 @@ msgstr "Πληροφορίες για εσάς:"
 msgid "Act on what you've learnt"
 msgstr "Ενεργήστε πάνω σε αυτά που μάθατε"
 
+msgid "Actions"
+msgstr ""
+
 msgid "Acts as xapian/acts as xapian job"
 msgstr ""
 
@@ -324,7 +376,9 @@ msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "Προσθέστε μια σημείωση στο &ldquo;{{request_title}}&rdquo;"
 
 msgid "Add an annotation to your request with choice quotes, or a <strong>summary of the response</strong>."
-msgstr "Προσθέστε μια σημείωση στην αίτησή σας επιλέγοντας εισαγωγικά, ή\\n μια <strong>περίληψη της απάντησης</strong>."
+msgstr ""
+"Προσθέστε μια σημείωση στην αίτησή σας επιλέγοντας εισαγωγικά, ή\n"
+" μια <strong>περίληψη της απάντησης</strong>."
 
 msgid "Add authority - {{public_body_name}}"
 msgstr "Προσθέστε μια αρχή - {{public_body_name}}"
@@ -348,7 +402,9 @@ msgid "Advise on whether the <strong>refusal is legal</strong>, and how to compl
 msgstr "Συμβουλέψτε εάν <strong>η άρνηση είναι νόμιμη</strong>, και πως να παραπονεθείτε εαν δεν είναι."
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
-msgstr "Αέρας, νερό, έδαφος, χλωρίδα και πανίδα (συμεριλαμβανομένου του πως αυτά\\n επηρρεαζουν τους ανθρώπους)"
+msgstr ""
+"Αέρας, νερό, έδαφος, χλωρίδα και πανίδα (συμεριλαμβανομένου του πως αυτά\n"
+" επηρρεαζουν τους ανθρώπους)"
 
 msgid "All of the information requested has been received"
 msgstr "Όλες οι πληροφορίες που ζητήθηκαν έχουν ληφθεί"
@@ -391,6 +447,12 @@ msgstr "Ένας ανώνυμος χρήστης"
 
 msgid "Annotation added to request"
 msgstr "Σημείωση προστέθηκε στην αίτηση"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Σημειώσεις"
@@ -612,7 +674,9 @@ msgid "Clear photo"
 msgstr "Αφαίρεση φωτό"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why response to the request has been so slow."
-msgstr "Κάντε κλικ στο λινκ παρακάτς για να στείλετε ένα μήνυμα στο {{public_body_name}} λέγοντάς τους να απαντήσουν στην αίτησή σας. Μπορεί να θέλετε να ζητήσετε μια εσωτερική\\n διερεύνηση, ζητώντας τους να μάθουν γιατί έχει αργήσει η απάντηση."
+msgstr ""
+"Κάντε κλικ στο λινκ παρακάτς για να στείλετε ένα μήνυμα στο {{public_body_name}} λέγοντάς τους να απαντήσουν στην αίτησή σας. Μπορεί να θέλετε να ζητήσετε μια εσωτερική\n"
+" διερεύνηση, ζητώντας τους να μάθουν γιατί έχει αργήσει η απάντηση."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
 msgstr "Κάντε κλικ στο λινκ παρακάτς για να στείλετε ένα μήνυμα στο {{public_body_name}} υπενθυμίζοντάς τους να απαντήσουν στην αίτησή σας. "
@@ -816,7 +880,9 @@ msgid "Edit"
 msgstr "Επεξεργασία"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
-msgstr "Επεξεργασία και προσθήκη <strong>επιπλέον λεπτομερειών</strong> στο παραπάνω μήνυμα,\\n εξηγώντας γιατί είστε δυσαρεστημένος με την απάντηση."
+msgstr ""
+"Επεξεργασία και προσθήκη <strong>επιπλέον λεπτομερειών</strong> στο παραπάνω μήνυμα,\n"
+" εξηγώντας γιατί είστε δυσαρεστημένος με την απάντηση."
 
 msgid "Edit text about you"
 msgstr "Επεξεργαστείτε το κείμενο για εσας"
@@ -867,7 +933,10 @@ msgid "Every citizen has the right to access information held by public authorit
 msgstr "Κάθε πολίτης έχει δικαίωμα να αποκτήσει πληροφορίες από δημόσιους οργανισμούς."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
-msgstr "Οτιδήποτε εισάγετε σε αυτή την σελίδα, συμπεριλαμβανομένου του <strong>ονόματός σας</strong>,\\n θα <strong>εμφανιστεί δημόσια</strong> σε\\n αυτή την ιστοσελίδα <a href=\"{{url}}\">για πάντα</a>"
+msgstr ""
+"Οτιδήποτε εισάγετε σε αυτή την σελίδα, συμπεριλαμβανομένου του <strong>ονόματός σας</strong>,\n"
+" θα <strong>εμφανιστεί δημόσια</strong> σε\n"
+" αυτή την ιστοσελίδα <a href=\"{{url}}\">για πάντα</a>"
 
 msgid "FOI"
 msgstr "ΔΓΔΕ"
@@ -921,7 +990,9 @@ msgid "First, did your other requests succeed?"
 msgstr "Αρχικά, πέτυχαν οι υπόλοιπες αιτήσεις σας;"
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
-msgstr "Αρχικά, πληκτρολογείστε το <strong>όνομα του δημόσιου οργανισμού</strong> από τον οποίο\\n ζητάτε πληροφορίες."
+msgstr ""
+"Αρχικά, πληκτρολογείστε το <strong>όνομα του δημόσιου οργανισμού</strong> από τον οποίο\n"
+" ζητάτε πληροφορίες."
 
 msgid "Foi attachment"
 msgstr "Επισύναψη ΔΓΔΕ"
@@ -977,13 +1048,13 @@ msgstr "Ακολουθήστε αυτό το άτομο"
 msgid "Follow this request"
 msgstr "Παρακολουθήστε αυτή την αίτηση"
 
-#. "Follow up" in this context means a further
+#. TRANSLATORS: "Follow up" in this context means a further
 #. message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up"
 msgstr "Follow up"
 
-#. "Follow up message" in this context means a
+#. TRANSLATORS: "Follow up message" in this context means a
 #. further message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up message sent by requester"
@@ -995,7 +1066,7 @@ msgstr "Follow up μηνύματα σε υπάρχουσες αιτήσεις έ
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Follow up έχει σταλεί στο {{public_body_name}} από τον/την {{info_request_user}} στις {{date}}."
 
-#. "Follow ups" in this context means further
+#. TRANSLATORS: "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
@@ -1136,7 +1207,10 @@ msgid "Here you can see how often {{site_name}} administrators have hidden reque
 msgstr "Εδώ μπορείτε να δείτε πόσο συχνά οι διαχειριστές του {{site_name}} λαμβάνου αιτήσεις."
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
-msgstr "Καλησπέρα! Χρειαζόμαστε την βοήθειά σας. Το άτομο που έκανε την παρακάτω αίτηση δεν μας είπε εαν ήταν επιτυχημένυ. Μήπως θα\\nμπορούσατε να την διαβάσετε ένα λεπτό και να μας βοηθήσετε κρατήσουμε το μέρος καθαρό για όλους; \\n Ευχαριστούμε."
+msgstr ""
+"Καλησπέρα! Χρειαζόμαστε την βοήθειά σας. Το άτομο που έκανε την παρακάτω αίτηση δεν μας είπε εαν ήταν επιτυχημένυ. Μήπως θα\n"
+"μπορούσατε να την διαβάσετε ένα λεπτό και να μας βοηθήσετε κρατήσουμε το μέρος καθαρό για όλους; \n"
+" Ευχαριστούμε."
 
 msgid "Hidden"
 msgstr "Κρυφό"
@@ -1169,7 +1243,9 @@ msgid "How it works"
 msgstr "Πως λειτουργεί"
 
 msgid "However, you have the right to request environmental information under a different law"
-msgstr "Παρόλα αυτά, έχετε δικαίωμα να ζητήσετε πληροφορίες\\n για το περιβάλλον σύμφωνα με ένα διαφορετικό νόμο"
+msgstr ""
+"Παρόλα αυτά, έχετε δικαίωμα να ζητήσετε πληροφορίες\n"
+" για το περιβάλλον σύμφωνα με ένα διαφορετικό νόμο"
 
 msgid "Human health and safety"
 msgstr "Δημόσια υγεία και ασφάλεια"
@@ -1202,7 +1278,9 @@ msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Θα ήθελα να <strong>αποσύρω αυτή την αίτηση</strong>"
 
 msgid "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>"
-msgstr "Ακόμη <strong>περιμένω</strong> πληροφορίες\\n <small>(ίσως να λάβατε γνώση)</small>"
+msgstr ""
+"Ακόμη <strong>περιμένω</strong> πληροφορίες\n"
+" <small>(ίσως να λάβατε γνώση)</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
 msgstr "Ακόμη <strong>περιμένω</strong> για την εσωτερική διερεύνηση"
@@ -1237,11 +1315,14 @@ msgstr "Εαν το σφάλμα ήταν σφάλμα παράδοσης, κα�
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Εαν αυτό είναι ένα πρόσφατο μήνυμα, επιστρέψτε αύριο, επειδή ελέγχουμε για νέες εγγραφές περιοδικά."
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
-msgstr "Εαν αυτό είναι λανθασμένο, ή θα θέλατε να στείλετε μια καθυστερημένη απάντηση στην αίτηση\\nή ενα email για κάποιο άλλο θέμα στον {{user}}, τότε παρακαλούμε \\nστείλτε email {{contact_email}} για βοήθεια."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
-msgstr "Εαν είστε δυσαρεστημένος από την απάντηση που πήρατε από\\n τον δημόσιο οργανισμό, έχετε το δικαίωμα\\n να παραπονεθείτε (<a href=\"{{url}}\">λεπτομέρειες</a>)."
+msgstr ""
+"Εαν είστε δυσαρεστημένος από την απάντηση που πήρατε από\n"
+" τον δημόσιο οργανισμό, έχετε το δικαίωμα\n"
+" να παραπονεθείτε (<a href=\"{{url}}\">λεπτομέρειες</a>)."
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Εαν αντιμετωπίζετε ακόμα πρόβλημα, παρακαλούμε <a href=\"{{url}}\">επικοινωνήστε μαζί μας</a>."
@@ -1310,7 +1391,10 @@ msgid "Improve your account security"
 msgstr "Βελτιώστε την ασφάλεια του λογαριασμού σας"
 
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
-msgstr "Συμπεριλάβετε σχετικά λινκ, όπως σελίδα καμπάνιας, το blog σας ή ένα \\n λογαριασμό twitter. Θα μετατραπούν σε κουμπιά  \\n π.χ."
+msgstr ""
+"Συμπεριλάβετε σχετικά λινκ, όπως σελίδα καμπάνιας, το blog σας ή ένα \n"
+" λογαριασμό twitter. Θα μετατραπούν σε κουμπιά  \n"
+" π.χ."
 
 msgid "Incoming email address"
 msgstr "Εισερχόμενη διεύθυνση email"
@@ -1454,7 +1538,9 @@ msgid "Information not held."
 msgstr "Πληροφορίες μη διαθέσιμες."
 
 msgid "Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)"
-msgstr "Πληροφορίες για καυσαέρια και ρύπανση (π.χ. θόρυβος, ενέργεια, \\nακτινοβολία, απολύμματα)"
+msgstr ""
+"Πληροφορίες για καυσαέρια και ρύπανση (π.χ. θόρυβος, ενέργεια, \n"
+"ακτινοβολία, απολύμματα)"
 
 msgid "Internal review"
 msgstr "Εσωτερική διερεύνηση"
@@ -1895,7 +1981,9 @@ msgid "Please ask for environmental information only"
 msgstr "Παρακαλούμε ζητήστε μόνο για περιβαλλοντικές πληροφορίες"
 
 msgid "Please check the URL (i.e. the long code of letters and numbers) is copied correctly from your email."
-msgstr "Παρακαλούμε ελέγξτε ότι το URL (ο μακρύς κωδικός με νούμερα και γράμματα) έχει αντιγραφεί\\nσωστά απο το email σας."
+msgstr ""
+"Παρακαλούμε ελέγξτε ότι το URL (ο μακρύς κωδικός με νούμερα και γράμματα) έχει αντιγραφεί\n"
+"σωστά απο το email σας."
 
 msgid "Please choose a file containing your photo."
 msgstr "Παρακαλούμε επιλέξτε ένα αρχείο με την φωτογραφία σας."
@@ -2322,14 +2410,20 @@ msgstr ""
 msgid "Replying by post"
 msgstr "Ταχυδρομική απάντηση"
 
-msgid "Report abuse"
-msgstr "Αναφορά κατάχρησης"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Αναφέρετε προσβλητικό η ακατάλληλο αίτημα"
 
+msgid "Report annotation"
+msgstr ""
+
+msgid "Report annotation on request: {{title}}"
+msgstr ""
+
 msgid "Report request"
 msgstr "Αναφορά αιτήματος"
+
+msgid "Report request: {{title}}"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Αναφέρετε αυτό το αίτημα"
@@ -2505,6 +2599,12 @@ msgstr ""
 msgid "Send a public reply to {{person_or_body}}"
 msgstr ""
 
+msgid "Send and publish message"
+msgstr ""
+
+msgid "Send and publish request"
+msgstr ""
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Στείλτε follow up στο '{{title}}'"
 
@@ -2519,9 +2619,6 @@ msgstr "Αποστολή μηνύματος στον {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Αποστολή μηνύματος στον {{user_name}} για να δείτε πως δουλεύει"
-
-msgid "Send request"
-msgstr "Αποστολή αίτησης"
 
 msgid "Sending..."
 msgstr "Αποστολή..."
@@ -2757,7 +2854,9 @@ msgid "Thanks very much - this will help others find useful stuff. We'll also, i
 msgstr "Ευχαριστούμε πολύ - αυτό θα βοηθήσει άλλους να βρουν χρήσιμα πράγματα. Επίσης μπορούμε να σας συμβουλέψουμε για το τι να κάνετε στη συνέχεια όσον αφορά τα αίτηματά σας"
 
 msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>. We'll also, if you need it, give you advice on what to do next about each of your requests."
-msgstr "Ευχαριστούμε πάρα πολύ που κρατάτε τα πάντα <strong>καθαρά και περιποιημένα</strong>.\\n Επίσης μπορούμε να σας συμβουλέψουμε για το τι να κάνετε στη συνέχεια όσον αφορά τα αίτηματά σας"
+msgstr ""
+"Ευχαριστούμε πάρα πολύ που κρατάτε τα πάντα <strong>καθαρά και περιποιημένα</strong>.\n"
+" Επίσης μπορούμε να σας συμβουλέψουμε για το τι να κάνετε στη συνέχεια όσον αφορά τα αίτηματά σας"
 
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
 msgstr "Αυτή δεν φαίνεται να είναι μια έγκυρη διεύθυνση email. Παρακαλούμε ελέγξτε ότι πληκτρολογήσατε σωστά."
@@ -2795,7 +2894,7 @@ msgstr ""
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
 msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
@@ -2948,7 +3047,7 @@ msgstr ""
 msgid "Then you'll be allowed to send FOI requests."
 msgstr ""
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
 msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3007,6 +3106,9 @@ msgstr ""
 
 msgid "Things you're following"
 msgstr "Πράγματα που παρακολουθείτε"
+
+msgid "This annotation has been reported for administrator attention"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr ""
@@ -3163,7 +3265,9 @@ msgid "To cancel this alert"
 msgstr "Για να ακυρωθεί αυτή η ειδοποίηση"
 
 msgid "To carry on, you need to sign in or make an account. Unfortunately, there was a technical problem trying to do this."
-msgstr "Για να συνεχίσετε θα πρέπει να να συνδεθείτε ή να δημιουργήσετε ένα νέο λογαριασμό. Δυστυχώς, υπήρξε\\n πρόβλημα να γίνει αυτό"
+msgstr ""
+"Για να συνεχίσετε θα πρέπει να να συνδεθείτε ή να δημιουργήσετε ένα νέο λογαριασμό. Δυστυχώς, υπήρξε\n"
+" πρόβλημα να γίνει αυτό"
 
 msgid "To change your email address used on {{site_name}}"
 msgstr ""
@@ -3228,7 +3332,7 @@ msgstr ""
 msgid "To send a message to {{user_name}}"
 msgstr "Για να στείλετε ένα μήνυμα στον {{user_name}}"
 
-msgid "To send your FOI request"
+msgid "To send and publish your FOI request"
 msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
@@ -3483,6 +3587,9 @@ msgstr ""
 msgid "Vexatious"
 msgstr ""
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
 msgstr ""
 
@@ -3546,7 +3653,7 @@ msgstr ""
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr ""
 
-msgid "We couldn't determine the delivery status of this message"
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
 msgstr ""
 
 msgid "We couldn’t display any logs for this message."
@@ -3561,8 +3668,15 @@ msgstr "Το e-mail αυτού του οργανισμού που υπάρχει
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Δεν διαθέτουμε έγκυρη  {{law_used_full}} διεύθυνση για το {{public_body_name}}."
 
+msgid "We don't know the delivery status for this message."
+msgstr ""
+
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
-msgstr "Δεν γνωρίζουμε εαν η πρόσφατε απάντηση σε αυτήν την αίτηση περιέχει \\n πληροφορία ή όχι \\n &ndash;\\n⇥Εαν είστε ο/η {{user_link}} παρακαλούμε <a href=\"{{url}}\">συνδεθείτε</a> και ενημερώστε."
+msgstr ""
+"Δεν γνωρίζουμε εαν η πρόσφατε απάντηση σε αυτήν την αίτηση περιέχει \n"
+" πληροφορία ή όχι \n"
+" &ndash;\n"
+"⇥Εαν είστε ο/η {{user_link}} παρακαλούμε <a href=\"{{url}}\">συνδεθείτε</a> και ενημερώστε."
 
 msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to answer your question."
 msgstr ""
@@ -4051,9 +4165,6 @@ msgstr ""
 msgid "[{{site_name}} contact email]"
 msgstr ""
 
-msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-
 msgid "admin"
 msgstr "Διαχειριστής"
 
@@ -4134,6 +4245,9 @@ msgstr "εξωτερικό"
 
 msgid "have delayed."
 msgstr "έχουν καθυστερήσει."
+
+msgid "hi 1"
+msgstr ""
 
 msgid "hide quoted sections"
 msgstr "απόκρυψη κειμένου σε εισαγωγικά"
@@ -4225,7 +4339,7 @@ msgstr "που κάνατε στο"
 msgid "the main FOI contact address for {{public_body}}"
 msgstr ""
 
-#. This phrase completes the following sentences:
+#. TRANSLATORS: This phrase completes the following sentences:
 #. Request an internal review from...
 #. Send a public follow up message to...
 #. Send a public reply to...
@@ -4334,7 +4448,7 @@ msgstr "{{info_request_user_name}}"
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} αίτηση - {{title}}"
 
-#. Please don't use double quotes (") in this translation
+#. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} αιτήσεις στο {{public_body}}"
@@ -4428,10 +4542,14 @@ msgid "{{user_name}} added an annotation"
 msgstr "ο {{user_name}} πρόσθεσε μια σημείωση"
 
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
-msgstr "Ο/η {{user_name}} έχει αφήσει μια σημείωση για την {{law_used_short}} \\nαίτηση. Ακολούθησε το λινκ για να δεις τι έγραψε."
+msgstr ""
+"Ο/η {{user_name}} έχει αφήσει μια σημείωση για την {{law_used_short}} \n"
+"αίτηση. Ακολούθησε το λινκ για να δεις τι έγραψε."
 
 msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
-msgstr "Ο/η {{user_name}} αναφέρει ότι η {{law_used}} απάντηση χρειάζεται την προσοχή σου. Ρίξε μια ματιά και απάντησε στο \\n email του να ενημερώσεις τι πρόκειται να κάνεις."
+msgstr ""
+"Ο/η {{user_name}} αναφέρει ότι η {{law_used}} απάντηση χρειάζεται την προσοχή σου. Ρίξε μια ματιά και απάντησε στο \n"
+" email του να ενημερώσεις τι πρόκειται να κάνεις."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
 msgstr "Ο/η {{user_name}} χρησιμοποίησε το {{site_name}} για να σας στείλει το παρακάτω μήνυμα."
