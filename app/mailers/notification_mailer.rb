@@ -6,6 +6,14 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class NotificationMailer < ApplicationMailer
+  def self.send_instant_notifications
+    Notification.instantly.unseen.order(:created_at).find_each do |notification|
+      NotificationMailer.instant_notification(notification).deliver
+      notification.seen_at = Time.zone.now
+      notification.save!
+    end
+  end
+
   def instant_notification(notification)
     event_type = notification.info_request_event.event_type
     method = "#{event_type}_notification".to_sym

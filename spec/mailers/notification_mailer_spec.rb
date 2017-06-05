@@ -240,4 +240,50 @@ describe NotificationMailer do
       expect(mail.header["X-Auto-Response-Suppress"].value).to eq "OOF"
     end
   end
+
+  describe '.send_instant_notifications' do
+    let!(:notification_1) { FactoryGirl.create(:instant_notification) }
+    let!(:notification_2) { FactoryGirl.create(:instant_notification) }
+
+    let!(:seen_notification) do
+      FactoryGirl.create(:instant_notification, seen_at: Time.zone.now)
+    end
+
+    let!(:daily_notification) do
+      FactoryGirl.create(:daily_notification)
+    end
+
+    it "calls .instant_notification for each notification" do
+      expect(NotificationMailer).
+        to receive(:instant_notification).twice.and_call_original
+      NotificationMailer.send_instant_notifications
+    end
+
+    it "sends a mail for each unseen instant notification" do
+      ActionMailer::Base.deliveries.clear
+
+      NotificationMailer.send_instant_notifications
+
+      expect(ActionMailer::Base.deliveries.size).to eq 2
+
+      first_mail = ActionMailer::Base.deliveries.first
+      expect(first_mail.to).to eq([notification_1.user.email])
+
+      second_mail = ActionMailer::Base.deliveries.second
+      expect(second_mail.to).to eq([notification_2.user.email])
+    end
+
+    it 'sets seen_at on the notifications' do
+      expect(notification_1.seen_at).to be nil
+      expect(notification_2.seen_at).to be nil
+
+      NotificationMailer.send_instant_notifications
+
+      notification_1.reload
+      notification_2.reload
+
+      expect(notification_1.seen_at).to be_within(1.second).of(Time.zone.now)
+      expect(notification_2.seen_at).to be_within(1.second).of(Time.zone.now)
+    end
+  end
 end
