@@ -13,3 +13,16 @@ rails_env_file = File.expand_path(File.join(File.dirname(__FILE__), 'rails_env.r
 if File.exists?(rails_env_file)
   require rails_env_file
 end
+
+if %w{development test}.include? ENV['RAILS_ENV']
+  require 'bootsnap'
+  Bootsnap.setup(
+    cache_dir:            'tmp/cache', # Path to your cache
+    development_mode:     ENV['RAILS_ENV'] == 'development',
+    load_path_cache:      true,        # Should we optimize the LOAD_PATH with a cache?
+    autoload_paths_cache: true,        # Should we optimize ActiveSupport autoloads with cache?
+    disable_trace:        true,        # Sets `RubyVM::InstructionSequence.compile_option = { trace_instruction: false }`
+    compile_cache_iseq:   true,        # Should compile Ruby code into ISeq cache?
+    compile_cache_yaml:   true         # Should compile YAML into a cache?
+  )
+end

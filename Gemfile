@@ -171,7 +171,8 @@ group :test, :development do
   gem 'rspec-rails', '~> 3.5.0'
   gem 'pry', '~> 0.10.0'
   gem 'pry-debugger', '~> 0.2.0', :platforms => :ruby_19
-    gem 'public_suffix', '~> 1.4.0', '< 1.5.0'
+  gem 'public_suffix', '~> 1.4.0', '< 1.5.0'
+  gem 'bootsnap', '0.3.0.pre'
 end
 
 group :development do
