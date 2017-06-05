@@ -145,12 +145,6 @@ class InfoRequest < ActiveRecord::Base
   before_validation :compute_idhash
   before_create :set_use_notifications
 
-  def self.enumerate_states
-    warn %q([DEPRECATION] InfoRequest.enumerate_states will be removed in
-    0.28. It has been replaced by InfoRequest::State#all).squish
-    State.all
-  end
-
   # Subset of states accepted via the API
   def self.allowed_incoming_states
     [
@@ -1239,18 +1233,6 @@ class InfoRequest < ActiveRecord::Base
   def is_actual_owning_user?(user)
     return false unless user
     user.id == user_id
-  end
-
-  def all_can_view?
-    warn %q([DEPRECATION] InfoRequest#all_can_view? will be removed in
-    0.28. It has been replaced by InfoRequest.prominence#is_public?).squish
-    prominence(:decorate => true).is_public?
-  end
-
-  def all_can_view_all_correspondence?
-    warn %q([DEPRECATION] InfoRequest#all_can_view_all_correspondence? will be removed in
-    0.28. It has been replaced by InfoRequest#all_correspondence_is_public?).squish
-    all_correspondence_is_public?
   end
 
   def all_correspondence_is_public?
