@@ -135,8 +135,8 @@ class AdminGeneralController < AdminController
     @track_thing_count = TrackThing.count
 
     @comment_count = Comment.count
-    @request_by_state = InfoRequest.count(:group => 'described_state')
-    @tracks_by_type = TrackThing.count(:group => 'track_type')
+    @request_by_state = InfoRequest.group('described_state').count
+    @tracks_by_type = TrackThing.group('track_type').count
   end
 
   def debug
