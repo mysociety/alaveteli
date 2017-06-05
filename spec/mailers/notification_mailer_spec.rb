@@ -286,4 +286,131 @@ describe NotificationMailer do
       expect(notification_2.seen_at).to be_within(1.second).of(Time.zone.now)
     end
   end
+
+  describe ".send_daily_notifications" do
+    let(:now) { Time.zone.now }
+    let!(:notification_1) do
+      FactoryGirl.create(:daily_notification, send_after: now)
+    end
+    let!(:notification_2) do
+      FactoryGirl.create(:daily_notification, send_after: now)
+    end
+
+    # These next three notifications test that we don't pull out users we
+    # shouldn't
+    let!(:future_notification) do
+      FactoryGirl.create(
+        :daily_notification,
+        send_after: Time.zone.now + 1.hour
+      )
+    end
+    let!(:seen_notification) do
+      FactoryGirl.create(:daily_notification, seen_at: Time.zone.now)
+    end
+    let!(:instant_notification) { FactoryGirl.create(:instant_notification) }
+
+    let(:expected_notifications) { [notification_1, notification_2] }
+
+    it "calls #daily_summary for each appropriate user" do
+      expect(NotificationMailer).
+        to receive(:daily_summary).
+          with(notification_1.user, [notification_1]).
+            and_call_original
+      expect(NotificationMailer).
+        to receive(:daily_summary).
+          with(notification_2.user, [notification_2]).
+            and_call_original
+      NotificationMailer.send_daily_notifications
+    end
+
+    it "sends a mail for each expected user" do
+      ActionMailer::Base.deliveries.clear
+
+      NotificationMailer.send_daily_notifications
+
+      expect(ActionMailer::Base.deliveries.size).to eq 2
+
+      first_mail = ActionMailer::Base.deliveries.first
+      expect(first_mail.to).to eq([notification_1.user.email])
+
+      second_mail = ActionMailer::Base.deliveries.second
+      expect(second_mail.to).to eq([notification_2.user.email])
+    end
+
+    context "when a user has instant notifications as well as daily ones" do
+      let(:info_request) do
+        FactoryGirl.create(:info_request, user: notification_1.user)
+      end
+      let(:incoming_message) do
+        FactoryGirl.create(:incoming_message, info_request: info_request)
+      end
+      let(:info_request_event) do
+        FactoryGirl.create(:response_event,
+                           incoming_message: incoming_message,
+                           info_request: info_request
+        )
+      end
+      let(:instant_notification) do
+        FactoryGirl.create(:instant_notification,
+                           info_request_event: info_request_event)
+      end
+
+      it "doesn't include the instant notifications in their daily email" do
+        expect(NotificationMailer).
+          to receive(:daily_summary).
+            with(notification_1.user, [notification_1]).
+              and_call_original
+        expect(NotificationMailer).
+          to receive(:daily_summary).
+            with(notification_2.user, [notification_2]).
+              and_call_original
+
+        NotificationMailer.send_daily_notifications
+      end
+    end
+
+    context "when a user has seen notifications as well as unseen ones" do
+      let(:info_request) do
+        FactoryGirl.create(:info_request, user: notification_1.user)
+      end
+      let(:incoming_message) do
+        FactoryGirl.create(:incoming_message, info_request: info_request)
+      end
+      let(:info_request_event) do
+        FactoryGirl.create(:response_event,
+                           incoming_message: incoming_message,
+                           info_request: info_request
+        )
+      end
+      let(:seen_notification) do
+        FactoryGirl.create(:daily_notification,
+                           info_request_event: info_request_event,
+                           seen_at: Time.zone.now)
+      end
+
+      it "doesn't include the seen notifications" do
+        expect(NotificationMailer).
+          to receive(:daily_summary).
+            with(notification_1.user, [notification_1]).
+              and_call_original
+        expect(NotificationMailer).
+          to receive(:daily_summary).
+            with(notification_2.user, [notification_2]).
+              and_call_original
+
+        NotificationMailer.send_daily_notifications
+      end
+    end
+
+    it "updates all of the notifications' seen_at timestamps" do
+      expected_notifications.each { |n| expect(n.seen_at).to be_nil }
+
+      NotificationMailer.send_daily_notifications
+
+      expected_notifications.each do |n|
+        n.reload
+        expect(n.seen_at).to be_within(1.second).of(Time.zone.now)
+      end
+    end
+  end
 end
