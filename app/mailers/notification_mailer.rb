@@ -17,7 +17,6 @@ class NotificationMailer < ApplicationMailer
           where(query,
                 Notification.frequencies[Notification::DAILY],
                 Time.zone.now)
-
     users.find_each do |user|
       notifications = user.notifications.daily.unseen.order(created_at: :desc)
       NotificationMailer.daily_summary(user, notifications).deliver
@@ -25,6 +24,28 @@ class NotificationMailer < ApplicationMailer
       done_something = true
     end
     done_something
+  end
+
+  def self.send_instant_notifications
+    done_something = false
+    Notification.instantly.unseen.order(:created_at).find_each do |notification|
+      NotificationMailer.instant_notification(notification).deliver
+      notification.seen_at = Time.zone.now
+      notification.save!
+      done_something = true
+    end
+    done_something
+  end
+
+  def instant_notification(notification)
+    event_type = notification.info_request_event.event_type
+    method = "#{event_type}_notification".to_sym
+    self.send(method, notification)
+  end
+
+  def response_notification(notification)
+    @info_request = notification.info_request_event.info_request
+    @incoming_message = notification.info_request_event.incoming_message
   end
 
   def self.send_daily_notifications_loop
