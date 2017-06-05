@@ -6,6 +6,24 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class NotificationMailer < ApplicationMailer
+  def self.send_daily_notifications
+    query = "notifications.frequency = ? AND " \
+            "notifications.send_after <= ? AND " \
+            "notifications.seen_at IS NULL"
+    users = User.
+      includes(:notifications).
+        references(:notifications).
+          where(query,
+                Notification.frequencies[Notification::DAILY],
+                Time.zone.now)
+
+    users.find_each do |user|
+      notifications = user.notifications.daily.unseen.order(created_at: :desc)
+      NotificationMailer.daily_summary(user, notifications).deliver
+      notifications.update_all(seen_at: Time.zone.now)
+    end
+  end
+
   def daily_summary(user, notifications)
     @user = user
     @grouped_notifications = notifications.group_by do |n|
