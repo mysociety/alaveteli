@@ -210,19 +210,12 @@ class MailServerLog < ActiveRecord::Base
   # Public: Overrides the ActiveRecord attribute accessor
   #
   # opts = Hash of options (default: {})
-  #        :redact_idhash – DEPRECATED
   #        :redact - Redacts potentially sensitive information from the line
   #        :decorate - Wrap the line in a decorator appropriate to the MTA
   #
   # Returns a String, EximLine or PostfixLine
   def line(opts = {})
     line = read_attribute(:line).dup
-
-    opts[:redact] ||= if opts[:redact_idhash]
-      warn %q([DEPRECATION] The :redact_idhash option of MailServerLog#line has
-      been replaced with :redact. :redact_idhash will be removed in 0.29).squish
-      opts[:redact_idhash]
-    end
 
     if opts[:redact]
       line = strip_syslog_prefix(line)
