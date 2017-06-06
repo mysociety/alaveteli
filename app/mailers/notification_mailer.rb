@@ -61,6 +61,12 @@ class NotificationMailer < ApplicationMailer
     )
   end
 
+  def instant_notification(notification)
+    event_type = notification.info_request_event.event_type
+    method = "#{event_type}_notification".to_sym
+    self.send(method, notification)
+  end
+
   def response_notification(notification)
     @info_request = notification.info_request_event.info_request
     @incoming_message = notification.info_request_event.incoming_message

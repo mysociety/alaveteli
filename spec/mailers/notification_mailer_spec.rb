@@ -135,6 +135,15 @@ describe NotificationMailer do
     end
   end
 
+  describe '#instant_notification' do
+    let(:notification) { FactoryGirl.create(:instant_notification) }
+
+    it 'returns a mail message to the user' do
+      message = NotificationMailer.instant_notification(notification)
+      expect(message.to).to eq([notification.user.email])
+    end
+  end
+
   describe '#response_notification' do
     let(:public_body) do
       FactoryGirl.create(:public_body, name: 'Test public body')
