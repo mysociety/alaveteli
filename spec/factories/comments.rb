@@ -28,6 +28,10 @@ FactoryGirl.define do
     factory :hidden_comment do
       visible false
     end
+
+    factory :attention_requested do
+      attention_requested true
+    end
   end
 
 end

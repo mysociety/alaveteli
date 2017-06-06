@@ -48,6 +48,108 @@ describe AdminGeneralController do
       expect(assigns[:holding_pen_messages]).to eq([undeliverable])
     end
 
+    context 'when there are request tasks' do
+
+      it 'assigns public_request_tasks to true' do
+        undeliverable = FactoryGirl.
+                          create(:incoming_message,
+                                 :info_request =>
+                                   InfoRequest.holding_pen_request)
+        get :index, {}, { :user_id => admin_user.id }
+        expect(assigns[:public_request_tasks]).to be true
+      end
+
+    end
+
+    context 'when there are no request tasks' do
+
+      it 'assigns public_request_tasks to false' do
+        get :index, {}, { :user_id => admin_user.id }
+        expect(assigns[:public_request_tasks]).to be false
+      end
+    end
+
+    it 'assigns blank contacts to the view' do
+      blank_contact = FactoryGirl.create(:public_body, :request_email => '')
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:blank_contacts]).to eq([blank_contact])
+    end
+
+    it 'assigns new body request to the view' do
+      add_body_request = FactoryGirl.create(:add_body_request)
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:new_body_requests]).to eq([add_body_request])
+    end
+
+    it 'assigns body update requests to the view' do
+      update_body_request = FactoryGirl.create(:update_body_request)
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:body_update_requests]).to eq([update_body_request])
+    end
+
+    context 'when there are authority tasks' do
+
+      it 'assigns authority tasks to true' do
+        update_body_request = FactoryGirl.create(:update_body_request)
+        get :index, {}, { :user_id => admin_user.id }
+        expect(assigns[:authority_tasks]).to be true
+      end
+
+    end
+
+    context 'when there are no authority tasks' do
+
+      it 'assigns authority tasks to false' do
+        get :index, {}, { :user_id => admin_user.id }
+        expect(assigns[:authority_tasks]).to be false
+      end
+
+    end
+
+    it 'assigns comments requiring attention to the view' do
+      comment = FactoryGirl.create(:attention_requested)
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:attention_comments]).to eq([comment])
+    end
+
+    context 'when there are comment tasks' do
+
+      it 'assigns comment tasks to true' do
+        comment = FactoryGirl.create(:attention_requested)
+        get :index, {}, { :user_id => admin_user.id }
+        expect(assigns[:comment_tasks]).to be true
+      end
+
+    end
+
+    context 'when there are no authority tasks' do
+
+      it 'assigns authority tasks to false' do
+        get :index, {}, { :user_id => admin_user.id }
+        expect(assigns[:comment_tasks]).to be false
+      end
+
+    end
+
+    context 'when there is nothing to do' do
+
+      it 'assigns nothing to do to true' do
+        get :index, {}, { :user_id => admin_user.id }
+        expect(assigns[:nothing_to_do]).to be true
+      end
+
+    end
+
+    context 'when there is something to do' do
+
+      it 'assigns nothing to do to false' do
+        comment = FactoryGirl.create(:attention_requested)
+        get :index, {}, { :user_id => admin_user.id }
+        expect(assigns[:nothing_to_do]).to be false
+      end
+
+    end
+
     context 'when the user is not a pro admin' do
 
       context 'when pro is enabled' do
@@ -58,6 +160,7 @@ describe AdminGeneralController do
             requires_admin_request.create_embargo
             get :index, {}, { :user_id => admin_user.id }
             expect(assigns[:requires_admin_requests]).to eq([])
+            expect(assigns[:embargoed_requires_admin_requests]).to be nil
           end
         end
 
@@ -67,6 +170,7 @@ describe AdminGeneralController do
             error_message_request.create_embargo
             get :index, {}, { :user_id => admin_user.id }
             expect(assigns[:error_message_requests]).to eq([])
+            expect(assigns[:embargoed_error_message_requests]).to be nil
           end
         end
 
@@ -76,6 +180,7 @@ describe AdminGeneralController do
             attention_requested_request.create_embargo
             get :index, {}, { :user_id => admin_user.id }
             expect(assigns[:attention_requests]).to eq([])
+            expect(assigns[:embargoed_attention_requests]).to be nil
           end
         end
 
@@ -86,6 +191,7 @@ describe AdminGeneralController do
         requires_admin_request.create_embargo
         get :index, {}, { :user_id => admin_user.id }
         expect(assigns[:requires_admin_requests]).to eq([])
+        expect(assigns[:embargoed_requires_admin_requests]).to be nil
       end
 
       it 'does not assign embargoed requests that have error messages to the view' do
@@ -93,13 +199,17 @@ describe AdminGeneralController do
         error_message_request.create_embargo
         get :index, {}, { :user_id => admin_user.id }
         expect(assigns[:error_message_requests]).to eq([])
+        expect(assigns[:embargoed_error_message_requests]).to be nil
       end
 
-      it 'does not assign embargoed requests flagged for admin attention to the view' do
-        attention_requested_request = FactoryGirl.create(:attention_requested_request)
+      it 'does not assign embargoed requests flagged for admin attention to
+          the view' do
+        attention_requested_request =
+          FactoryGirl.create(:attention_requested_request)
         attention_requested_request.create_embargo
         get :index, {}, { :user_id => admin_user.id }
         expect(assigns[:attention_requests]).to eq([])
+        expect(assigns[:embargoed_attention_requests]).to be nil
       end
 
     end
@@ -111,7 +221,8 @@ describe AdminGeneralController do
           requires_admin_request = FactoryGirl.create(:requires_admin_request)
           requires_admin_request.create_embargo
           get :index, {}, { :user_id => pro_admin_user.id }
-          expect(assigns[:requires_admin_requests]).to eq([requires_admin_request])
+          expect(assigns[:embargoed_requires_admin_requests]).
+            to eq([requires_admin_request])
         end
       end
 
@@ -120,17 +231,43 @@ describe AdminGeneralController do
           error_message_request = FactoryGirl.create(:error_message_request)
           error_message_request.create_embargo
           get :index, {}, { :user_id => pro_admin_user.id }
-          expect(assigns[:error_message_requests]).to eq([error_message_request])
+          expect(assigns[:embargoed_error_message_requests]).
+            to eq([error_message_request])
         end
       end
 
       it 'assigns embargoed requests flagged for admin attention to the view' do
         with_feature_enabled(:alaveteli_pro) do
-          attention_requested_request = FactoryGirl.create(:attention_requested_request)
+          attention_requested_request =
+            FactoryGirl.create(:attention_requested_request)
           attention_requested_request.create_embargo
           get :index, {}, { :user_id => pro_admin_user.id }
-          expect(assigns[:attention_requests]).to eq([attention_requested_request])
+          expect(assigns[:embargoed_attention_requests]).
+            to eq([attention_requested_request])
         end
+      end
+
+      context 'when there is nothing to do' do
+
+        it 'assigns nothing to do to true' do
+          get :index, {}, { :user_id => pro_admin_user.id }
+          expect(assigns[:nothing_to_do]).to be true
+        end
+
+      end
+
+      context 'when there is something to do' do
+
+        it 'assigns nothing to do to false' do
+          with_feature_enabled(:alaveteli_pro) do
+            attention_requested_request =
+              FactoryGirl.create(:attention_requested_request)
+            attention_requested_request.create_embargo
+            get :index, {}, { :user_id => pro_admin_user.id }
+            expect(assigns[:nothing_to_do]).to be false
+          end
+        end
+
       end
     end
 

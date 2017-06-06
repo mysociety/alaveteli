@@ -9,18 +9,15 @@ class AdminGeneralController < AdminController
 
   def index
     # Tasks to do
-    @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
-    @error_message_requests = InfoRequest.find_in_state('error_message')
-    @attention_requests = InfoRequest.find_in_state('attention_requested')
-    @attention_comments = Comment.where(:attention_requested => true)
-
-    if cannot? :admin, AlaveteliPro::Embargo
-      @requires_admin_requests = @requires_admin_requests.not_embargoed
-      @error_message_requests = @error_message_requests.not_embargoed
-      @attention_requests = @attention_requests.not_embargoed
-      @attention_comments = @attention_comments.not_embargoed
-    end
-
+    @requires_admin_requests = InfoRequest.
+      find_in_state('requires_admin').
+        not_embargoed
+    @error_message_requests = InfoRequest.
+      find_in_state('error_message').
+        not_embargoed
+    @attention_requests = InfoRequest.
+      find_in_state('attention_requested').
+        not_embargoed
     @old_unclassified = InfoRequest.where_old_unclassified.
                                       limit(20).
                                         is_searchable
@@ -66,7 +63,33 @@ class AdminGeneralController < AdminController
                      !@authority_tasks &&
                      !@comment_tasks
 
+    if can? :admin, AlaveteliPro::Embargo
+      @embargoed_requires_admin_requests = InfoRequest.
+                                             find_in_state('requires_admin').
+                                               embargoed
+      @embargoed_error_message_requests = InfoRequest.
+                                            find_in_state('error_message').
+                                              embargoed
+      @embargoed_attention_requests = InfoRequest.
+                                        find_in_state('attention_requested').
+                                          embargoed
 
+      @embargoed_request_tasks = [ @embargoed_requires_admin_requests,
+                                   @embargoed_error_message_requests,
+                                   @embargoed_attention_requests,
+                                 ].any?{ |to_do_list| ! to_do_list.empty? }
+
+      @embargoed_attention_comments = Comment.
+                                        where(:attention_requested => true).
+                                          embargoed
+
+      @embargoed_comment_tasks = [
+                                   @embargoed_attention_comments
+                                 ].any?{ |to_do_list| ! to_do_list.empty? }
+      @nothing_to_do = @nothing_to_do &&
+                      !@embargoed_request_tasks &&
+                      !@embargoed_comment_tasks
+    end
   end
 
   def timeline

@@ -165,6 +165,55 @@
   </div>
 <% end %>
 
+<% if can?(:admin, AlaveteliPro::Embargo) && @embargoed_request_tasks %>
+  <div class="row">
+    <div class="span12">
+      <h2>Embargoed requests</h2>
+    </div>
+  </div>
+  <div class="accordion" id="embargoed-request-things-to-do">
+
+    <%= render partial: 'to_do_list',
+               locals: { id: 'embargoed-error-messages',
+                         parent: 'embargoed-request-things-to-do',
+                         items: @embargoed_error_message_requests,
+                         label: 'Fix these delivery and other errors' } %>
+
+    <%= render partial: 'to_do_list',
+               locals: { id: 'embargoed-attention-messages',
+                         parent: 'embargoed-request-things-to-do',
+                         items: @embargoed_attention_requests,
+                         label: 'Review requests reported by users as
+                                 requiring administrator attention' } %>
+
+
+    <%= render partial: 'to_do_list',
+               locals: { id: 'embargoed-requires-admin',
+                         parent: 'embargoed-request-things-to-do',
+                         items: @embargoed_requires_admin_requests,
+                         label: 'Review requests marked by the requester
+                                 as requiring administrator attention' } %>
+
+  </div>
+<% end %>
+
+<% if can?(:admin, AlaveteliPro::Embargo) && @embargoed_comment_tasks %>
+  <div class="row">
+    <div class="span12">
+      <h2>Embargoed comments</h2>
+    </div>
+  </div>
+  <div class="accordion" id="embargoed-comment-things-to-do">
+    <%= render partial: 'to_do_list',
+               locals: { id: 'embargoed-attention-comments',
+                         parent: 'embargoed-comment-things-to-do',
+                         items: @embargoed_attention_comments,
+                         label: 'Review comments reported by users
+                                 as requiring administrator attention' } %>
+
+  </div>
+<% end %>
+
 <% if @nothing_to_do %>
   <div class="row">
     <div class="span12 alert alert-success">
