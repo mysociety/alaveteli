@@ -39,7 +39,7 @@ PATH
       flipper
       flipper-active_record
       mime-types (< 3.0.0)
-      rails (>= 4.0.13, < 4.2)
+      rails (>= 4.0.13, < 5.0)
 
 GEM
   remote: https://rubygems.org/
