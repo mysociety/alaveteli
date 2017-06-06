@@ -45,7 +45,7 @@ module AlaveteliPro
         :site_name => AlaveteliConfiguration.site_name,
         :count => info_requests.count)
       auto_generated_headers
-      mail_user(@user, subject).deliver
+      mail_user(@user, subject).deliver_now
     end
 
     private

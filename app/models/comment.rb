@@ -152,7 +152,7 @@ class Comment < ActiveRecord::Base
                 "comment: #{comment_url(self)} " \
                 "\nadmin: #{edit_admin_comment_url(self)}"
 
-      RequestMailer.requires_admin(info_request, user, message).deliver
+      RequestMailer.requires_admin(info_request, user, message).deliver_now
 
       info_request.
         log_event("report_comment",

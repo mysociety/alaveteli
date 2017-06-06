@@ -524,7 +524,7 @@ class InfoRequest < ActiveRecord::Base
       # Notify the user that a new response has been received, unless the
       # request is external
       unless is_external? or use_notifications?
-        RequestMailer.new_response(self, incoming_message).deliver
+        RequestMailer.new_response(self, incoming_message).deliver_now
       end
     end
   end
@@ -612,12 +612,13 @@ class InfoRequest < ActiveRecord::Base
     if requires_admin?
       # Check there is someone to send the message "from"
       if set_by && user
-        RequestMailer.requires_admin(self, set_by, message).deliver
+        RequestMailer.requires_admin(self, set_by, message).deliver_now
       end
     end
 
     unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
-      RequestMailer.old_unclassified_updated(self).deliver unless is_external?
+      RequestMailer.
+        old_unclassified_updated(self).deliver_now unless is_external?
     end
   end
 

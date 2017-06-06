@@ -14,7 +14,8 @@ module AlaveteliPro
       mail(:from => blackhole_email,
            :to => pro_contact_from_name_and_email,
            :subject => _("{{pro_site_name}} account request",
-                         pro_site_name: AlaveteliConfiguration.pro_site_name)).deliver
+                         pro_site_name: AlaveteliConfiguration.pro_site_name)
+          ).deliver_now
     end
   end
 end

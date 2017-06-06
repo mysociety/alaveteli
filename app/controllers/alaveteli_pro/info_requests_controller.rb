@@ -117,7 +117,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
       mail_message = OutgoingMailer.initial_request(
         outgoing_message.info_request,
         outgoing_message
-      ).deliver
+      ).deliver_now
 
       outgoing_message.record_email_delivery(
         mail_message.to_addrs.join(', '),

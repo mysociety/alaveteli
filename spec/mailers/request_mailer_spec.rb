@@ -503,12 +503,14 @@ describe RequestMailer do
     end
 
     it 'body should contain the full admin URL' do
-      mail = RequestMailer.requires_admin(info_request).deliver
+      mail = RequestMailer.requires_admin(info_request).deliver_now
       expect(mail.body).to include('http://test.host/en/admin/requests/123')
     end
 
     it "body should contain the message from the user" do
-      mail = RequestMailer.requires_admin(info_request, nil, "Something has gone wrong").deliver
+      mail = RequestMailer.
+        requires_admin(info_request, nil, "Something has gone wrong").
+          deliver_now
       expect(mail.body).to include 'Something has gone wrong'
     end
 
@@ -627,7 +629,7 @@ describe RequestMailer do
         outgoing_message.info_request,
         outgoing_message,
         outgoing_message.incoming_message_followup
-      ).deliver
+      ).deliver_now
       outgoing_message.record_email_delivery(mail_message.to_addrs.join(', '), mail_message.message_id)
 
       outgoing_message.save!
