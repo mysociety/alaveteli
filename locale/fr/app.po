@@ -18,7 +18,7 @@
 # Benoît Simard <contact@bsimard.com>, 2013
 # Bbear <borisjf@post.harvard.edu>, 2011
 # cegall, 2013
-# Christophe Van Gheluwe <info@vg-webdesign.be>, 2016
+# Christophe Van Gheluwe <info@vg-webdesign.be>, 2016-2017
 # Claire, 2013
 # Claire, 2013
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2016
@@ -49,8 +49,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-02-27 10:55+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2017-04-24 16:24+0000\n"
+"Last-Translator: Christophe Van Gheluwe <info@vg-webdesign.be>\n"
 "Language-Team: French (http://www.transifex.com/mysociety/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -4169,7 +4169,7 @@ msgid "external"
 msgstr "Externe"
 
 msgid "have delayed."
-msgstr "ont retardé"
+msgstr "est en retard."
 
 msgid "hide quoted sections"
 msgstr "cacher les sections citées"

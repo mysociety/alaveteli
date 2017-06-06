@@ -1,3 +1,9 @@
+# 0.28.0.8
+
+# Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
 # 0.28.0.7
 
 ## Highlighted Features
