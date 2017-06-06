@@ -184,4 +184,5 @@ group :development do
   gem 'launchy', '~> 2.4.0'
   gem 'spring', '~> 1.7.0', '< 2.0.0'
   gem 'spring-commands-rspec', '~> 1.0.0'
+  gem 'web-console', '~> 2.3.0', '< 3.0.0'
 end
