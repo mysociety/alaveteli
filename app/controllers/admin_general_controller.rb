@@ -21,11 +21,6 @@ class AdminGeneralController < AdminController
       @attention_comments = @attention_comments.not_embargoed
     end
 
-    @blank_contacts = PublicBody.
-      includes(:tags, :translations).
-        where(:request_email => "").
-          order(:updated_at).
-            select { |pb| !pb.defunct? }
     @old_unclassified = InfoRequest.where_old_unclassified.
                                       limit(20).
                                         is_searchable
@@ -33,6 +28,18 @@ class AdminGeneralController < AdminController
       includes(:incoming_messages => :raw_email).
         holding_pen_request.
           incoming_messages
+    @public_request_tasks = [ @holding_pen_messages,
+                              @error_message_requests,
+                              @attention_requests,
+                              @requires_admin_requests,
+                              @old_unclassified ].
+      any?{ |to_do_list| ! to_do_list.empty? }
+
+    @blank_contacts = PublicBody.
+      includes(:tags, :translations).
+        where(:request_email => "").
+          order(:updated_at).
+            select { |pb| !pb.defunct? }
 
     @new_body_requests = PublicBodyChangeRequest.
       includes(:public_body, :user).
@@ -42,6 +49,24 @@ class AdminGeneralController < AdminController
       includes(:public_body, :user).
         body_update_requests.
           open
+
+    @authority_tasks = [ @blank_contacts,
+                         @new_body_requests,
+                         @body_update_requests ].
+      any?{ |to_do_list| ! to_do_list.empty? }
+
+    @attention_comments = Comment.
+      where(:attention_requested => true).
+        not_embargoed
+
+    @comment_tasks = [ @attention_comments ].
+      any?{ |to_do_list| ! to_do_list.empty? }
+
+    @nothing_to_do = !@public_request_tasks &&
+                     !@authority_tasks &&
+                     !@comment_tasks
+
+
   end
 
   def timeline
