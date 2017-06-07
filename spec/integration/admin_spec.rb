@@ -147,4 +147,60 @@ describe "When administering the site" do
       end
     end
   end
+
+  describe 'generating an upload url' do
+
+    it 'shows a flash message with instructions on forwarding the url' do
+      request = FactoryGirl.create(:info_request)
+      authority_name = request.public_body.name
+      authority_email = request.public_body.request_email
+
+      using_session(@admin) do
+        visit admin_request_path :id => request.id
+        find_button('Generate URL').click
+
+        url = confirm_url(PostRedirect.last.email_token)
+
+        message = "Send \"#{authority_name}\" <#{authority_email}> "
+                  "this URL: #{url} - it will log them in and let " \
+                  "them upload a response to this request."
+
+        expect(page).to have_link(authority_email,
+                                  :href => "mailto:#{authority_email}")
+        expect(page).to have_link(url, :href => url)
+        expect(page).to have_content(message)
+      end
+
+    end
+
+  end
+
+  describe 'hide and notify' do
+
+    let(:user) { FactoryGirl.create(:user, :name => "Awkward > Name") }
+    let(:request) { FactoryGirl.create(:info_request, :user => user) }
+
+    it 'sets the prominence of the request to requester_only' do
+      using_session(@admin) do
+        visit admin_request_path :id => request.id
+        choose('reason_not_foi')
+        find_button('Hide request').click
+      end
+
+      request.reload
+      expect(request.prominence).to eq('requester_only')
+    end
+
+    it 'renders a message to confirm the requester has been notified' do
+      using_session(@admin) do
+        visit admin_request_path :id => request.id
+        choose('reason_not_foi')
+        find_button('Hide request').click
+        expect(page).
+          to have_content('Your message to Awkward > Name has been sent')
+      end
+    end
+
+  end
+
 end

@@ -33,9 +33,7 @@ class UserProfile::AboutMeController < ApplicationController
         flash[:notice] = _("You have now changed the text about you on your profile.")
         redirect_to user_url(@user)
       else
-        flash[:notice] = _("<p>Thanks for changing the text about you on your " \
-                           "profile.</p><p><strong>Next...</strong> You can " \
-                           "upload a profile photograph too.</p>")
+        flash[:notice] = { :partial => "update_profile_text.html.erb" }
         redirect_to set_profile_photo_url
       end
     else

@@ -68,6 +68,8 @@
 * Fix a bug that could cause misdelivered message links in the admin interface
   to appear without any text in the link if the message body contained unicode
   spaces (Liz Conlan)
+* Use partial templates to render flash messages containing HTML rather than
+  assigning the content directly to flash (Liz Conlan, Steven Day)
 
 ## Upgrade Notes
 
@@ -100,6 +102,9 @@
   opt all existing requests out of the new notifications feature. This is VERY
   IMPORTANT to run, as without it, existing requests won't trigger any alert
   emails at all.
+* The way that flash messages are rendered has changed so if you have overridden
+  a template which renders flash (e.g. `<%= flash[:notice] %>`), you will need
+  to use the new `<%= render_flash(flash[:notice]) %>` style instead.
 
 ### Changed Templates
 
@@ -108,8 +113,17 @@
     app/views/admin_general/index.html.erb
     app/views/comment/_single_comment.html.erb
     app/views/followups/_followup.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/layouts/no_chrome.html.erb
     app/views/reports/new.html.erb
     app/views/request/describe_notices/_error_message.html.erb
+    app/views/request/describe_notices/_internal_review.html.erb
+    app/views/request/describe_notices/_not_held.html.erb
+    app/views/request/describe_notices/_successful.html.erb
+    app/views/request/describe_notices/_waiting_response.html.erb
+    app/views/request/describe_notices/_waiting_response_overdue.html.erb
 
 # 0.28.0.9
 

@@ -78,10 +78,10 @@
         <div id="content" role="main">
           <% unless params[:action] == 'frontpage' %>
             <% if flash[:notice] %>
-              <div id="notice"><%= raw flash[:notice] %></div>
+              <div id="notice"><%= render_flash(flash[:notice]) %></div>
             <% end %>
             <% if flash[:error] %>
-              <div id="error"><%= raw flash[:error] %></div>
+              <div id="error"><%= render_flash(flash[:error]) %></div>
             <% end %>
           <% end %>
 

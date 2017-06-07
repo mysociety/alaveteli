@@ -18,7 +18,7 @@
         <div class="row">
           <div class="span12">
             <div class="alert alert-error">
-              <%= raw flash[:error] %>
+              <%= render_flash(flash[:error]) %>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="row">
           <div class="span12">
             <div class="alert alert-info">
-              <%= raw flash[:notice] %>
+              <%= render_flash(flash[:notice]) %>
             </div>
           </div>
         </div>
