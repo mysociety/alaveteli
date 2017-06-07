@@ -105,7 +105,7 @@ describe InfoRequestBatchController do
 
           it "should redirect to the pro version of the page" do
             with_feature_enabled(:alaveteli_pro) do
-              session[:user_id] = pro_user
+              session[:user_id] = pro_user.id
               get :show, id: batch.id
               expected_url = show_alaveteli_pro_batch_request_path(batch)
               expect(response).to redirect_to expected_url
@@ -121,7 +121,7 @@ describe InfoRequestBatchController do
 
           it "should not redirect to the pro version of the page" do
             with_feature_enabled(:alaveteli_pro) do
-              session[:user_id] = pro_user
+              session[:user_id] = pro_user.id
               get :show, id: batch.id
               expect(response).to be_success
             end
@@ -131,7 +131,7 @@ describe InfoRequestBatchController do
 
       context "when showing pros someone else's request" do
         before do
-          session[:user_id] = pro_user
+          session[:user_id] = pro_user.id
         end
 
         it "should not redirect to the pro version of the page" do

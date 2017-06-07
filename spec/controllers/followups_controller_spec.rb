@@ -39,7 +39,7 @@ describe FollowupsController do
     end
 
     it "displays 'wrong user' message when not logged in as the request owner" do
-      session[:user_id] = FactoryGirl.create(:user)
+      session[:user_id] = FactoryGirl.create(:user).id
       get :new, :request_id => request.id,
                          :incoming_message_id => message_id
       expect(response).to render_template('user/wrong_user')
@@ -131,7 +131,7 @@ describe FollowupsController do
     context 'when viewing a response for an external request' do
 
       it "does not allow follow ups to external requests" do
-        session[:user_id] = FactoryGirl.create(:user)
+        session[:user_id] = FactoryGirl.create(:user).id
         external_request = FactoryGirl.create(:external_request)
         get :new, :request_id => external_request.id
         expect(response).to render_template('followup_bad')
@@ -139,7 +139,7 @@ describe FollowupsController do
       end
 
       it 'the response code should be successful' do
-        session[:user_id] = FactoryGirl.create(:user)
+        session[:user_id] = FactoryGirl.create(:user).id
         get :new, :request_id => FactoryGirl.create(:external_request).id
         expect(response).to be_success
       end
@@ -209,7 +209,7 @@ describe FollowupsController do
     end
 
     it "displays a wrong user message when not logged in as the request owner" do
-      session[:user_id] = FactoryGirl.create(:user)
+      session[:user_id] = FactoryGirl.create(:user).id
       post :preview, :outgoing_message => dummy_message,
                      :request_id => request.id,
                      :incoming_message_id => message_id

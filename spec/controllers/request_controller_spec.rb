@@ -174,7 +174,7 @@ describe RequestController, "when showing one request" do
 
         it "should always redirect to the pro version of the page" do
           with_feature_enabled(:alaveteli_pro) do
-            session[:user_id] = pro_user
+            session[:user_id] = pro_user.id
             get :show, url_title: info_request.url_title
             expect(response).to redirect_to show_alaveteli_pro_request_path(
               url_title: info_request.url_title)
@@ -189,7 +189,7 @@ describe RequestController, "when showing one request" do
 
         it "should not redirect to the pro version of the page" do
           with_feature_enabled(:alaveteli_pro) do
-            session[:user_id] = pro_user
+            session[:user_id] = pro_user.id
             get :show, url_title: info_request.url_title
             expect(response).to be_success
           end
@@ -200,7 +200,7 @@ describe RequestController, "when showing one request" do
     context "when showing pros a someone else's request" do
       it "should not redirect to the pro version of the page" do
         with_feature_enabled(:alaveteli_pro) do
-          session[:user_id] = pro_user
+          session[:user_id] = pro_user.id
           get :show, url_title: 'why_do_you_have_such_a_fancy_dog'
           expect(response).to be_success
         end
@@ -724,7 +724,7 @@ describe RequestController, "when handling prominence" do
     end
 
     it "should show request if logged in as super user" do
-      session[:user_id] = FactoryGirl.create(:admin_user)
+      session[:user_id] = FactoryGirl.create(:admin_user).id
       get :show, :url_title => @info_request.url_title
       expect(response).to render_template('show')
     end
@@ -741,7 +741,7 @@ describe RequestController, "when handling prominence" do
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
             is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryGirl.create(:admin_user)
+      session[:user_id] = FactoryGirl.create(:admin_user).id
       incoming_message = @info_request.incoming_messages.first
       expect do
         get :get_attachment_as_html, :incoming_message_id => incoming_message.id,
@@ -906,7 +906,7 @@ describe RequestController, "when handling prominence" do
 
     it 'should not generate an HTML version of an attachment for a request whose prominence
             is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryGirl.create(:admin_user)
+      session[:user_id] = FactoryGirl.create(:admin_user).id
       expect do
         get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
           :id => @info_request.id,
@@ -1280,7 +1280,7 @@ describe RequestController, "when creating a new request" do
   it 'should respect the rate limit' do
     # Try to create three requests in succession.
     # (The limit set in config/test.yml is two.)
-    session[:user_id] = users(:robin_user)
+    session[:user_id] = users(:robin_user).id
 
     post :new, :info_request => { :public_body_id => @body.id,
     :title => "What is the answer to the ultimate question?", :tag_string => "" },
@@ -1305,7 +1305,7 @@ describe RequestController, "when creating a new request" do
   it 'should ignore the rate limit for specified users' do
     # Try to create three requests in succession.
     # (The limit set in config/test.yml is two.)
-    session[:user_id] = users(:robin_user)
+    session[:user_id] = users(:robin_user).id
     users(:robin_user).no_limit = true
     users(:robin_user).save!
 
@@ -1737,7 +1737,7 @@ describe RequestController do
           let(:other_user){ FactoryGirl.create(:user) }
 
           before do
-            session[:user_id] = other_user
+            session[:user_id] = other_user.id
           end
 
           it 'should classify the request' do
