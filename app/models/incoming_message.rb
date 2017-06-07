@@ -55,11 +55,7 @@ class IncomingMessage < ActiveRecord::Base
   # never really has many info_request_events, but could in theory
   has_many :info_request_events, :dependent => :destroy
 
-  belongs_to :raw_email
-  # HACK: Work around bug in belongs_to :dependent => :destroy
-  # https://github.com/rails/rails/issues/12380
-  # TODO: Remove when we're using Rails 4.2.x
-  after_destroy :destroy_raw_email
+  belongs_to :raw_email, :dependent => :destroy
 
   after_destroy :update_request
   after_update :update_request
