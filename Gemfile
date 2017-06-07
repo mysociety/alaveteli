@@ -79,7 +79,7 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.16'
+gem 'rails', '4.2.9'
 
 gem 'pg', '~> 0.18.0', '< 0.19.0'
 
@@ -108,7 +108,7 @@ gem 'net-http-local', '~> 0.1.0', :platforms => [:ruby_19]
 gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '~> 1.6.0', '< 1.7'
 gem 'open4', '~> 1.3.0'
-gem 'rack', '~> 1.5.0', '< 1.6.0'
+gem 'rack', '~> 1.6.0'
 gem 'rack-ssl', '~> 1.4.0'
 gem 'rack-utf8_sanitizer', '~> 1.3.0'
 gem 'rails-i18n', '~> 4.0.0', '< 5.0.0'
@@ -137,7 +137,7 @@ gem 'gettext_i18n_rails', '~> 0.9.0', '< 1.0.0'
 gem 'gettext', '~> 2.3.0'
 gem 'globalize', '~> 4.0.0', '< 5.0.0'
 gem 'locale', '~> 2.0.0', '< 2.1.0'
-gem 'routing-filter', '~> 0.4.0', '< 0.5.0'
+gem 'routing-filter', '~> 0.5.0', '< 0.6.0'
 gem 'unicode', '~> 0.4.0'
 gem 'unidecoder', '~> 1.1.0'
 
