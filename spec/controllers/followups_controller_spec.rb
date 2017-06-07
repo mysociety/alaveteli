@@ -46,7 +46,7 @@ describe FollowupsController do
     end
 
     it "does not allow follow ups to external requests" do
-      session[:user_id] = FactoryGirl.create(:user)
+      session[:user_id] = FactoryGirl.create(:user).id
       external_request = FactoryGirl.create(:external_request)
       get :new, :request_id => external_request.id
       expect(response).to render_template('followup_bad')
