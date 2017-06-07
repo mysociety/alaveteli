@@ -384,8 +384,8 @@ describe AdminUserController do
                                          :comment_ids => affected_comment.id,
                                          :unhide_selected => 'visible' }
 
-      expect(Comment.find(unaffected_comment)).not_to be_visible
-      expect(Comment.find(affected_comment)).to be_visible
+      expect(Comment.find(unaffected_comment.id)).not_to be_visible
+      expect(Comment.find(affected_comment.id)).to be_visible
     end
 
     it 'preserves the visibility if a comment is already of the requested visibility' do

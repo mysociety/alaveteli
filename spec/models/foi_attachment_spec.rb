@@ -62,7 +62,7 @@ describe FoiAttachment do
 
     it 'returns a binary encoded string when saved' do
       foi_attachment = FactoryGirl.create(:body_text)
-      foi_attachment = FoiAttachment.find(foi_attachment)
+      foi_attachment = FoiAttachment.find(foi_attachment.id)
       if String.method_defined?(:encode)
         expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
       end
@@ -82,7 +82,7 @@ describe FoiAttachment do
 
     it 'has a valid UTF-8 string when saved' do
       foi_attachment = FactoryGirl.create(:body_text)
-      foi_attachment = FoiAttachment.find(foi_attachment)
+      foi_attachment = FoiAttachment.find(foi_attachment.id)
       if String.method_defined?(:encode)
         expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
         expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
