@@ -29,6 +29,7 @@
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
+#  use_notifications                     :boolean
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

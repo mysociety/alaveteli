@@ -1,16 +1,18 @@
 # == Schema Information
-# Schema version: 20170411113908
 #
 # Table name: request_summaries
 #
-#  id                :integer          not null, primary key
-#  title             :text
-#  body              :text
-#  public_body_names :text
-#  summarisable_id   :integer
-#  summarisable_type :string(255)
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                 :integer          not null, primary key
+#  title              :text
+#  body               :text
+#  public_body_names  :text
+#  summarisable_id    :integer          not null
+#  summarisable_type  :string(255)      not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  user_id            :integer
+#  request_created_at :datetime         default(2017-06-05 09:19:11 UTC), not null
+#  request_updated_at :datetime         default(2017-06-05 09:19:11 UTC), not null
 #
 
 class AlaveteliPro::RequestSummary < ActiveRecord::Base

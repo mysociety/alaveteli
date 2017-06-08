@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: request_summary_categories
+#
+#  id         :integer          not null, primary key
+#  slug       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class AlaveteliPro::RequestSummaryCategory < ActiveRecord::Base
   has_and_belongs_to_many :request_summaries,
                           :class_name => "AlaveteliPro::RequestSummary"
