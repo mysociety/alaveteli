@@ -143,6 +143,44 @@ describe CensorRule do
 
   end
 
+  describe '#expire_requests' do
+
+    it 'calls expire on the request if it is a request rule' do
+      request = FactoryGirl.create(:info_request)
+      rule = FactoryGirl.create(:info_request_censor_rule,
+                                :info_request => request)
+      expect(request).to receive(:expire)
+      rule.expire_requests
+    end
+
+    it 'calls expire_requests on the user if it is a user rule' do
+      user = FactoryGirl.create(:user)
+      rule = FactoryGirl.create(:user_censor_rule, :user => user)
+      expect(user).to receive(:expire_requests)
+      rule.expire_requests
+    end
+
+    it 'calls expire_requests on the public body if it is a public body rule' do
+      body = FactoryGirl.create(:public_body)
+      rule = FactoryGirl.create(:public_body_censor_rule, :public_body => body)
+      expect(body).to receive(:expire_requests)
+      rule.expire_requests
+    end
+
+    it 'calls expire on all public requests if it is a global rule' do
+      rule = FactoryGirl.build(:global_censor_rule)
+      requests = [double, double]
+      expect(InfoRequest).to receive(:find_in_batches).and_yield(requests)
+
+      requests.each do |request|
+        expect(request).to receive(:expire)
+      end
+
+      rule.expire_requests
+    end
+
+  end
+
 end
 
 describe 'when validating rules' do

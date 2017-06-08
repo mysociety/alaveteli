@@ -587,6 +587,10 @@ class PublicBody < ActiveRecord::Base
     info_requests.each { |x| x.purge_in_cache }
   end
 
+  def expire_requests
+    info_requests.each { |request| request.expire }
+  end
+
   def self.where_clause_for_stats(minimum_requests, total_column)
     # When producing statistics for public bodies, we want to
     # exclude any that are tagged with 'test' - we use a

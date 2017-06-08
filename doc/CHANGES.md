@@ -70,6 +70,8 @@
   spaces (Liz Conlan)
 * Use partial templates to render flash messages containing HTML rather than
   assigning the content directly to flash (Liz Conlan, Steven Day)
+* Ensure info_requests are expired when censor rules are added, changed or
+  removed (Liz Conlan)
 
 ## Upgrade Notes
 

@@ -96,11 +96,11 @@ class AdminCensorRuleController < AdminController
   end
 
   def expire_requests_and_redirect
+    @censor_rule.expire_requests
+
     if @censor_rule.info_request
-      @censor_rule.info_request.expire
       redirect_to admin_request_url(@censor_rule.info_request)
     elsif @censor_rule.user
-      @censor_rule.user.expire_requests
       redirect_to admin_user_url(@censor_rule.user)
     elsif @censor_rule.public_body
       redirect_to admin_body_url(@censor_rule.public_body)

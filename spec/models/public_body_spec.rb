@@ -140,6 +140,22 @@ describe PublicBody do
 
   end
 
+  describe '#expire_requests' do
+
+    it 'calls expire on all associated requests' do
+      public_body = FactoryGirl.build(:public_body)
+      requests = [double, double]
+      expect(public_body).to receive(:info_requests).and_return(requests)
+
+      requests.each do |request|
+        expect(request).to receive(:expire)
+      end
+
+      public_body.expire_requests
+    end
+
+  end
+
   describe  'when generating json for the api' do
     before do
       @public_body = PublicBody.new(:name => 'Marmot Appreciation Society',
