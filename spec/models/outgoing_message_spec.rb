@@ -883,7 +883,7 @@ describe OutgoingMessage do
         mail_message = OutgoingMailer.initial_request(
           message.info_request,
           message
-        ).deliver
+        ).deliver_now
 
         message.record_email_delivery(
           mail_message.to_addrs.join(', '),
@@ -898,7 +898,7 @@ describe OutgoingMessage do
         mail_message = OutgoingMailer.initial_request(
           message.info_request,
           message
-        ).deliver
+        ).deliver_now
 
         message.record_email_delivery(
           mail_message.to_addrs.join(', '),
@@ -921,7 +921,7 @@ describe OutgoingMessage do
         mail_message = OutgoingMailer.initial_request(
           message.info_request,
           message
-        ).deliver
+        ).deliver_now
 
         message.record_email_delivery(
           mail_message.to_addrs.join(', '),
@@ -936,7 +936,7 @@ describe OutgoingMessage do
         mail_message = OutgoingMailer.initial_request(
           message.info_request,
           message
-        ).deliver
+        ).deliver_now
 
         message.record_email_delivery(
           mail_message.to_addrs.join(', '),
@@ -1034,7 +1034,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1055,7 +1055,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1098,7 +1098,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1111,7 +1111,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1200,7 +1200,7 @@ describe OutgoingMessage do
             mail_message = OutgoingMailer.initial_request(
               message.info_request,
               message
-            ).deliver
+            ).deliver_now
 
             message.record_email_delivery(
               mail_message.to_addrs.join(', '),
@@ -1223,7 +1223,7 @@ describe OutgoingMessage do
             mail_message = OutgoingMailer.initial_request(
               message.info_request,
               message
-            ).deliver
+            ).deliver_now
 
             message.record_email_delivery(
               mail_message.to_addrs.join(', '),
@@ -1270,7 +1270,7 @@ describe OutgoingMessage do
             mail_message = OutgoingMailer.initial_request(
               message.info_request,
               message
-            ).deliver
+            ).deliver_now
 
             message.record_email_delivery(
               mail_message.to_addrs.join(', '),
@@ -1283,7 +1283,7 @@ describe OutgoingMessage do
             mail_message = OutgoingMailer.initial_request(
               message.info_request,
               message
-            ).deliver
+            ).deliver_now
 
             message.record_email_delivery(
               mail_message.to_addrs.join(', '),
@@ -1370,7 +1370,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1533,7 +1533,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),

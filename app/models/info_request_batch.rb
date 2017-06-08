@@ -113,7 +113,7 @@ class InfoRequestBatch < ActiveRecord::Base
     mail_message = OutgoingMailer.initial_request(
       outgoing_message.info_request,
       outgoing_message
-    ).deliver
+    ).deliver_now
     outgoing_message.record_email_delivery(
       mail_message.to_addrs.join(', '),
       mail_message.message_id)
@@ -122,9 +122,12 @@ class InfoRequestBatch < ActiveRecord::Base
   def self.send_batches
     where(:sent_at => nil).find_each do |info_request_batch|
       unrequestable = info_request_batch.create_batch!
-      mail_message = InfoRequestBatchMailer.batch_sent(info_request_batch,
-                                                       unrequestable,
-                                                       info_request_batch.user).deliver
+      mail_message = InfoRequestBatchMailer.
+                       batch_sent(
+                         info_request_batch,
+                         unrequestable,
+                         info_request_batch.user
+                       ).deliver_now
     end
   end
 
