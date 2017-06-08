@@ -18,8 +18,6 @@ AllCops:
   Exclude:
   - "vendor/**/*"
   - "db/schema.rb"
-  Rails:
-    Enabled: false
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true
@@ -1238,7 +1236,7 @@ Lint/UselessAccessModifier:
   Description: 'Checks for useless access modifiers.'
   Enabled: false
 
-Lint/UselessArraySplat:
+Lint/UnneededSplatExpansion:
   Description: 'Checks for useless array splats.'
   Enabled: false
 
@@ -1339,10 +1337,6 @@ Performance/HashEachMethods:
 
 Performance/LstripRstrip:
   Description: 'Use `strip` instead of `lstrip.rstrip`.'
-  Enabled: false
-
-Performance/PushSplat:
-  Description: 'Use `concat` instead of `push(*)`.'
   Enabled: false
 
 Performance/RangeInclude:
