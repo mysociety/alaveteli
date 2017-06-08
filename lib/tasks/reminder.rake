@@ -5,9 +5,11 @@ namespace :reminder do
   task :public_holidays => :environment do
     config = MySociety::Config.load_default
 
-    ReminderMailer.public_holidays(config['CONTACT_NAME'],
-                                   config['CONTACT_EMAIL'],
-                                   "Reminder - update public holidays").deliver
+    ReminderMailer.public_holidays(
+                     config['CONTACT_NAME'],
+                     config['CONTACT_EMAIL'],
+                     "Reminder - update public holidays"
+                   ).deliver_now
   end
 end
 

@@ -1894,7 +1894,7 @@ describe RequestController do
         it 'should send an email to the requester letting them know someone has
             updated the status of their request' do
           mail_mock = double("mail")
-          allow(mail_mock).to receive :deliver
+          allow(mail_mock).to receive :deliver_now
           expect(RequestMailer).to receive(:old_unclassified_updated).and_return(mail_mock)
           post_status('rejected', info_request)
         end

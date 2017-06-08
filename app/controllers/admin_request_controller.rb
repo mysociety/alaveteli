@@ -187,7 +187,7 @@ class AdminRequestController < AdminController
           @info_request.user.email,
           subject,
           params[:explanation].strip.html_safe
-        ).deliver
+        ).deliver_now
         flash[:notice] = _("Your message to {{recipient_user_name}} has " \
                            "been sent",
                            :recipient_user_name => @info_request.user.
