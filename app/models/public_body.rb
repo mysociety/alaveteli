@@ -530,15 +530,6 @@ class PublicBody < ActiveRecord::Base
     $1.nil? ? nil : $1.downcase
   end
 
-  # TODO: Could this be defined as `sorted_versions.reverse`?
-  def reverse_sorted_versions
-    versions.sort { |a,b| b.version <=> a.version }
-  end
-
-  def sorted_versions
-    versions.sort { |a,b| a.version <=> b.version }
-  end
-
   def has_notes?
     !notes.nil? && notes != ""
   end

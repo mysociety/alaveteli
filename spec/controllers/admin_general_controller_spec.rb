@@ -146,7 +146,7 @@ describe AdminGeneralController do
       first_event = info_request.log_event('edit', {})
       public_body.name = 'Changed name'
       public_body.save!
-      public_body_version = public_body.reverse_sorted_versions.first
+      public_body_version = public_body.versions.latest
       second_event = info_request.log_event('edit', {})
 
       get :timeline, :all => 1

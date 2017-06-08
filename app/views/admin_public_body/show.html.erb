@@ -55,31 +55,35 @@
 <% end %>
 <hr>
 <h2>History</h2>
-<%# There may be an option to versions() to specify order, but I can't find it. TB 2009-03-09 %>
-<% versions = @public_body.reverse_sorted_versions; versions.each_with_index do |historic_public_body, i| %>
+  <% @versions.each_with_index do |version, i| %>
   <div class="row">
     <div class="span2">
       <b>
-        <%= _("Version {{version}}", :version => historic_public_body.version)%>
+        <%= _("Version {{version}}", :version => version.version)%>
       </b>
     </div>
     <div class="span4">
-      <%= I18n.l(historic_public_body.updated_at, :format => "%e %B %Y %H:%M:%S") %>
-      (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(historic_public_body.updated_at)) %>)
+      <%= I18n.l(version.updated_at, :format => "%e %B %Y %H:%M:%S") %>
+      (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(version.updated_at)) %>)
     </div>
-    <% if i == versions.length - 1 %>
+    <% if i == @versions.length - 1 %>
       <div class="span6">
-        <p>“<%= h(historic_public_body.last_edit_comment) %>”</p>
+        <p>“<%= h(version.last_edit_comment) %>”</p>
         <ul>
           <li><%=_("This is the first version.")%></li>
         </ul>
       </div>
     <% else %>
       <div class="span6">
-        <p>“<%= h(historic_public_body.last_edit_comment) %>”</p>
+        <p>“<%= h(version.last_edit_comment) %>”</p>
         <ul>
-          <% historic_public_body.compare(versions[i+1]) do |change| %>
-            <li><%= _("{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>", :thing_changed => change[:name], :from_value => (change[:from] or "-"), :to_value => (change[:to] or "-")) %></li>
+          <% version.compare(@versions[i+1]) do |change| %>
+            <li>
+              <%= _("{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>",
+                :thing_changed => change[:name],
+                :from_value => (change[:from] or "-"),
+                :to_value => (change[:to] or "-")) %>
+            </li>
           <% end %>
         </ul>
       </div>
