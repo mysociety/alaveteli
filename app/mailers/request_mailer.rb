@@ -333,9 +333,17 @@ class RequestMailer < ApplicationMailer
           # (otherwise they are banned, and there is no point sending it)
           if info_request.user.can_make_followup?
             if calculated_status == 'waiting_response_overdue'
-              RequestMailer.overdue_alert(info_request, info_request.user).deliver
+              RequestMailer.
+                overdue_alert(
+                  info_request,
+                  info_request.user
+                ).deliver_now
             elsif calculated_status == 'waiting_response_very_overdue'
-              RequestMailer.very_overdue_alert(info_request, info_request.user).deliver
+              RequestMailer.
+                very_overdue_alert(
+                  info_request,
+                  info_request.user
+                ).deliver_now
             else
               raise "unknown request status"
             end
@@ -386,7 +394,11 @@ class RequestMailer < ApplicationMailer
         store_sent.alert_type = type_code
         store_sent.info_request_event_id = alert_event_id
         # TODO: uses same template for reminder 1 and reminder 2 right now.
-        RequestMailer.new_response_reminder_alert(info_request, last_response_message).deliver
+        RequestMailer.
+          new_response_reminder_alert(
+            info_request,
+            last_response_message
+          ).deliver_now
         store_sent.save!
       end
     end
@@ -435,7 +447,7 @@ class RequestMailer < ApplicationMailer
           RequestMailer.not_clarified_alert(
             info_request,
             last_response_message
-          ).deliver
+          ).deliver_now
         end
         store_sent.save!
       end
@@ -510,12 +522,12 @@ class RequestMailer < ApplicationMailer
             info_request,
             count,
             earliest_unalerted_comment_event.comment
-          ).deliver
+          ).deliver_now
         elsif count == 1
           RequestMailer.comment_on_alert(
             info_request,
             last_comment_event.comment
-          ).deliver
+          ).deliver_now
         else
           raise "internal error"
         end

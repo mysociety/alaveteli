@@ -55,7 +55,7 @@ class PasswordChangesController < ApplicationController
       url = confirm_url(:email_token => post_redirect.email_token)
       UserMailer.
         confirm_login(@password_change_user, post_redirect.reason_params, url).
-          deliver
+          deliver_now
     end
 
     render :check_email
