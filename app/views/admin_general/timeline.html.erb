@@ -8,6 +8,17 @@
     <%= link_to "Month", admin_timeline_path(:month => 1), :class => "btn" %>
     <%= link_to "All time", admin_timeline_path(:all => 1), :class => "btn" %>
   </div>
+  <div class="btn-group">
+    <%= link_to "Authority changes",
+                params.merge(:event_type => 'authority_change'),
+                :class => "btn" %>
+    <%= link_to "Request events",
+            params.merge(:event_type => 'info_request_event'),
+            :class => "btn" %>
+    <%= link_to "All",
+        params.merge(:event_type => nil),
+        :class => "btn" %>
+  </div>
 </div>
 <div class="row">
   <div class="span12">
