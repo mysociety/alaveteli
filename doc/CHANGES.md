@@ -72,6 +72,7 @@
   assigning the content directly to flash (Liz Conlan, Steven Day)
 * Ensure info_requests are expired when censor rules are added, changed or
   removed (Liz Conlan)
+* Fix the select authorities form when Javascript is disabled (Louise Crow)
 
 ## Upgrade Notes
 
