@@ -16,6 +16,10 @@
 TAGS
 /lib/themes
 /locale/model_attributes.rb
+/locale/*/*.edit.po
+/locale/*/*.po.time_stamp
+/locale_alaveteli_pro/*/*.edit.po
+/locale_alaveteli_pro/*/*.po.time_stamp
 /files/
 /public/download
 /public/*theme
