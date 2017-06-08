@@ -512,13 +512,10 @@ describe InfoRequest do
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
+        holding_pen_request = InfoRequest.holding_pen_request
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
-        expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
-        # Check that the notification that there's something new in the holding
-        # has been sent
-        expect(ActionMailer::Base.deliveries.size).to eq(1)
-        ActionMailer::Base.deliveries.clear
+        expect(holding_pen_request.incoming_messages.size).to eq(1)
       end
 
       it 'discards rejected responses' do
@@ -622,8 +619,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
-      expect(ActionMailer::Base.deliveries).to be_empty
-      ActionMailer::Base.deliveries.clear
+      expect(info_request.incoming_messages.size).to eq(0)
     end
 
     it "delivers mail under the configured spam threshold" do
@@ -646,8 +642,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
-      expect(ActionMailer::Base.deliveries.size).to eq(1)
-      ActionMailer::Base.deliveries.clear
+      expect(info_request.incoming_messages.size).to eq(1)
     end
 
     it "delivers mail without a spam header" do
@@ -670,7 +665,6 @@ describe InfoRequest do
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
       expect(info_request.incoming_messages.size).to eq(1)
-      ActionMailer::Base.deliveries.clear
     end
 
   end

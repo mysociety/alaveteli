@@ -584,11 +584,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
     receive_incoming_mail("humberside-police-odd-mime-type.email", 'dummy')
     expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
 
-    # clear the notification of new message in holding pen
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(1)
-    deliveries.clear
-
     incoming_message = InfoRequest.holding_pen_request.incoming_messages[0]
 
     # This will raise an error if the bug in TMail hasn't been fixed
