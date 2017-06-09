@@ -5,21 +5,24 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
 
   before do
-    FactoryGirl.create(:info_request, user: pro_user)
-    FactoryGirl.create(:waiting_clarification_info_request, user: pro_user)
-    FactoryGirl.create(:successful_request, user: pro_user)
-    FactoryGirl.create(:error_message_request, user: pro_user)
-    FactoryGirl.create(:awaiting_description, user: pro_user)
-    FactoryGirl.create(:overdue_request, user: pro_user)
-    FactoryGirl.create(:very_overdue_request, user: pro_user)
+    TestAfterCommit.with_commits(true) do
+      FactoryGirl.create(:info_request, user: pro_user)
+      FactoryGirl.create(:waiting_clarification_info_request, user: pro_user)
+      FactoryGirl.create(:successful_request, user: pro_user)
+      FactoryGirl.create(:error_message_request, user: pro_user)
+      FactoryGirl.create(:awaiting_description, user: pro_user)
+      FactoryGirl.create(:overdue_request, user: pro_user)
+      FactoryGirl.create(:very_overdue_request, user: pro_user)
 
-    FactoryGirl.create(:draft_info_request, user: pro_user)
+      FactoryGirl.create(:draft_info_request, user: pro_user)
 
-    public_bodies = FactoryGirl.create_list(:public_body, 10)
-    FactoryGirl.create(:info_request_batch, user: pro_user,
-                                            public_bodies: public_bodies)
-    FactoryGirl.create(:draft_info_request_batch, user: pro_user,
-                                                  public_bodies: public_bodies)
+      public_bodies = FactoryGirl.create_list(:public_body, 10)
+      FactoryGirl.create(:info_request_batch, user: pro_user,
+                                              public_bodies: public_bodies)
+      FactoryGirl.create(:draft_info_request_batch,
+                         user: pro_user,
+                         public_bodies: public_bodies)
+    end
   end
 
   def render_view

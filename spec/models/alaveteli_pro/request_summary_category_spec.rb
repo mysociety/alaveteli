@@ -12,24 +12,16 @@
 require "spec_helper"
 
 describe AlaveteliPro::RequestSummaryCategory do
-  # The callbacks which create and update summaries interfere with our testing
-  # so we skip them just for these tests
-  before :all do
-    InfoRequest.skip_callback(:save, :after, :create_or_update_request_summary)
-  end
-
-  after :all do
-    InfoRequest.set_callback(:save, :after, :create_or_update_request_summary)
-  end
-
   it "can belong to multiple request_summaries" do
-    category = FactoryGirl.create(:request_summary_category)
-    summary_1 = FactoryGirl.create(:request_summary,
-                                   request_summary_categories: [category])
-    summary_2 = FactoryGirl.create(:request_summary,
-                                   request_summary_categories: [category])
-    expect(category.request_summaries).
-      to match_array([summary_1, summary_2])
+    TestAfterCommit.with_commits do
+      category = FactoryGirl.create(:request_summary_category)
+      summary_1 = FactoryGirl.create(:request_summary,
+                                     request_summary_categories: [category])
+      summary_2 = FactoryGirl.create(:request_summary,
+                                     request_summary_categories: [category])
+      expect(category.request_summaries).
+        to match_array([summary_1, summary_2])
+    end
   end
 
   describe "#draft" do

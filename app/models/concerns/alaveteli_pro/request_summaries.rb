@@ -8,8 +8,7 @@ module AlaveteliPro
       has_one :request_summary, :as => :summarisable,
                                 :class_name => "AlaveteliPro::RequestSummary",
                                 :dependent => :destroy
-      after_save :create_or_update_request_summary
-      after_update :create_or_update_parent_request_summary
+      after_commit :create_or_update_request_summary
     end
 
     # Creates a RequestSummary item for this model on first save, or updates
@@ -17,11 +16,7 @@ module AlaveteliPro
     def create_or_update_request_summary
       if self.should_summarise?
         self.request_summary = AlaveteliPro::RequestSummary.create_or_update_from(self)
-      end
-    end
-
-    def create_or_update_parent_request_summary
-      if self.should_update_parent_summary?
+      elsif self.should_update_parent_summary?
         parent = self.request_summary_parent
         parent.create_or_update_request_summary unless parent.blank?
       end

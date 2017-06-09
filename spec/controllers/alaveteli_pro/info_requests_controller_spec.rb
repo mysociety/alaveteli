@@ -5,10 +5,22 @@ describe AlaveteliPro::InfoRequestsController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
 
   describe "GET #index" do
-    let!(:info_request){ FactoryGirl.create(:info_request, :user => pro_user) }
-    let!(:foo_request){ FactoryGirl.create(:info_request,
-                                           :user => pro_user,
-                                           :title => 'Foo foo') }
+    let!(:info_request) do
+      request = nil
+      TestAfterCommit.with_commits(true) do
+        request = FactoryGirl.create(:info_request, :user => pro_user)
+      end
+      request
+    end
+
+    let!(:foo_request) do
+      request = nil
+      TestAfterCommit.with_commits(true) do
+        request = FactoryGirl.create(:info_request, :user => pro_user,
+                                                    :title => 'Foo foo')
+      end
+      request
+    end
 
     before do
       session[:user_id] = info_request.user.id

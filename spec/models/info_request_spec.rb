@@ -3236,10 +3236,14 @@ describe InfoRequest do
 
   describe "Updating request summaries when in a batch request" do
     let(:batch) do
-      FactoryGirl.create(
-        :info_request_batch,
-        public_bodies: FactoryGirl.create_list(:public_body, 3)
-      )
+      batch = nil
+      TestAfterCommit.with_commits(true) do
+        batch = FactoryGirl.create(
+          :info_request_batch,
+          public_bodies: FactoryGirl.create_list(:public_body, 3)
+        )
+      end
+      batch
     end
 
     before do
@@ -3247,9 +3251,12 @@ describe InfoRequest do
     end
 
     it "calls the batch request's create_or_update_request_summary on update" do
-      info_request = batch.info_requests.first
-      expect(info_request.info_request_batch).to receive(:create_or_update_request_summary)
-      info_request.save!
+      TestAfterCommit.with_commits(true) do
+        info_request = batch.info_requests.first
+        expect(info_request.info_request_batch).
+          to receive(:create_or_update_request_summary)
+        info_request.save!
+      end
     end
   end
 
