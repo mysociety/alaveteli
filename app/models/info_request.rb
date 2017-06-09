@@ -107,12 +107,6 @@ class InfoRequest < ActiveRecord::Base
   end
   scope :action_needed, State::ActionNeededQuery.new
 
-  def self.visible
-    warn %q([DEPRECATION] InfoRequest#visible will be removed in
-        0.28. It has been replaced by InfoRequest#is_public).squish
-    self.is_public
-  end
-
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
   validates_inclusion_of :prominence, :in => Prominence::VALUES
