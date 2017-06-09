@@ -24,6 +24,6 @@ class CreateTranslationTables < ActiveRecord::Migration
 
 
   def self.down
-    PublicBody.drop_translation_table!
+    PublicBody.drop_translation_table! :migrate_data => true
   end
 end
