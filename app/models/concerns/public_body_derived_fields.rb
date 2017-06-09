@@ -8,12 +8,12 @@ module PublicBodyDerivedFields
 
     # When name or short name is changed, also change the url name
     def short_name=(short_name)
-      super
+      write_attribute("short_name", short_name)
       update_url_name
     end
 
     def name=(name)
-      super
+      write_attribute("name", name)
       update_url_name
     end
 
