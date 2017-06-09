@@ -443,16 +443,26 @@ describe User do
   end
 
   describe '.all_time_requesters' do
+
     it 'gets most frequent requesters' do
-      # FIXME: This uses fixtures. Change it to use factories when we can.
-      expect(User.all_time_requesters).to eql(
-        {
-          users(:bob_smith_user) => 5,
-          users(:robin_user) => 2,
-          users(:another_user) => 1
-        }
-      )
+      User.destroy_all
+
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      user3 = FactoryGirl.create(:user)
+
+      time_travel_to(6.months.ago) do
+        5.times { FactoryGirl.create(:info_request, user: user1) }
+        2.times { FactoryGirl.create(:info_request, user: user2) }
+        FactoryGirl.create(:info_request, user: user3)
+      end
+
+      expect(User.all_time_requesters).
+        to eq({ user1 => 5,
+                user2 => 2,
+                user3 => 1 })
     end
+
   end
 
   describe '.last_28_day_requesters' do
