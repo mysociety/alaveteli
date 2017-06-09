@@ -75,6 +75,9 @@ class PublicBody < ActiveRecord::Base
   after_update :reindex_requested_from
 
 
+  # Force eager loading of translations everywhere
+  default_scope { includes(:translations) }
+
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
