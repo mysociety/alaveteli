@@ -164,6 +164,10 @@ FactoryGirl.define do
 
     factory :hidden_request do
       prominence 'hidden'
+
+      after(:create) do |info_request, evaluator|
+        FactoryGirl.create(:hide_event, :info_request => info_request)
+      end
     end
 
     factory :backpage_request do
