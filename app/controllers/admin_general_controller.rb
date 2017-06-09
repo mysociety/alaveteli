@@ -114,8 +114,7 @@ class AdminGeneralController < AdminController
       end
       # get all the models in the slice, eagerly loading the associations we use in the view
       public_body_versions = PublicBody.versioned_class.
-        includes(:public_body => :translations).
-          find(public_body_version_ids.keys)
+        find(public_body_version_ids.keys)
       info_request_events = InfoRequestEvent.
         includes(:info_request).
           find(info_request_event_ids.keys)

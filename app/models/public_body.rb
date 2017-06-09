@@ -203,25 +203,30 @@ class PublicBody < ActiveRecord::Base
   end
 
   def self.find_by_name(name)
-    PublicBody.joins(:translations).
-      where("public_body_translations.name = ?", name).
-       first
+    PublicBody.
+      unscoped.
+        where(:name => name).
+          with_translations.
+            first
   end
 
   def self.find_by_url_name(url_name)
-    PublicBody.joins(:translations).
-      where("public_body_translations.url_name = ?", url_name).
-       first
+    PublicBody.
+      unscoped.
+        where(:url_name => url_name).
+          with_translations.
+            first
   end
 
   # like find_by_url_name but also search historic url_name if none found
   def self.find_by_url_name_with_historic(name)
     # If many bodies are found (usually because the url_name is the same
     # across locales) return any of them.
-    found = joins(:translations).
-      where("public_body_translations.url_name = ?", name).
-      readonly(false).
-      first
+    found = PublicBody.
+              unscoped.
+                where(:url_name => name).
+                  with_translations.
+                    first
 
     return found if found
 
@@ -318,10 +323,12 @@ class PublicBody < ActiveRecord::Base
 
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
-    # Use find_by_sql to avoid the search being specific to a
-    # locale, since url_name is a translated field:
-    sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
-    matching_pbs = PublicBody.find_by_sql sql
+    matching_pbs = PublicBody.
+                     joins(:translations).
+                       where('public_body_translations.locale = ?',
+                             I18n.default_locale).
+                         where(:url_name => 'internal_admin_authority')
+
     case
     when matching_pbs.empty? then
       I18n.with_locale(I18n.default_locale) do
@@ -702,9 +709,9 @@ class PublicBody < ActiveRecord::Base
                         joins(:translations)
       else
         bodies = where("public_body_translations.locale = ?
-                        AND public_bodies.url_name in (?)",
-                        underscore_locale, body_short_names).
-                  joins(:translations)
+                        AND public_body_translations.url_name in (?)",
+                        underscore_locale, body_short_names
+                      ).joins(:translations)
       end
     end
     return bodies

@@ -532,8 +532,11 @@ describe PublicBody, "when asked for the internal_admin_body" do
   before(:each) do
     # Make sure that there's no internal_admin_body before each of
     # these tests:
-    PublicBody.connection.delete("DELETE FROM public_bodies WHERE url_name = 'internal_admin_body'")
-    PublicBody.connection.delete("DELETE FROM public_body_translations WHERE url_name = 'internal_admin_body'")
+    if internal_admin_body = PublicBody::Translation.
+                               find_by_url_name('internal_admin_body')
+      internal_admin_body.public_body.destroy
+      internal_admin_body.destroy
+    end
   end
 
   it "should create the internal_admin_body if it didn't exist" do
