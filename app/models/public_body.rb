@@ -586,8 +586,8 @@ class PublicBody < ActiveRecord::Base
       # information
       # :version, :last_edit_editor, :last_edit_comment
       :home_page => calculated_home_page,
-      :notes => notes,
-      :publication_scheme => publication_scheme,
+      :notes => notes.to_s,
+      :publication_scheme => publication_scheme.to_s,
       :tags => tag_array,
       :info => {
         :requests_count => info_requests_count,
