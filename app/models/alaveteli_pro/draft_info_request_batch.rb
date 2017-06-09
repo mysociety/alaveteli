@@ -41,7 +41,9 @@ class AlaveteliPro::DraftInfoRequestBatch < ActiveRecord::Base
 
   # @see RequestSummaries#request_summary_public_body_names
   def request_summary_public_body_names
-    self.public_bodies.pluck(:name).join(" ")
+    self.public_bodies.
+      joins(:translations).
+        pluck(:name).join(" ")
   end
 
   # @see RequestSummaries#request_summary_categories

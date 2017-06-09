@@ -309,10 +309,12 @@ class PublicBody < ActiveRecord::Base
 
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
-    # Use find_by_sql to avoid the search being specific to a
-    # locale, since url_name is a translated field:
-    sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
-    matching_pbs = PublicBody.find_by_sql sql
+    matching_pbs = PublicBody.
+                     joins(:translations).
+                       where('public_body_translations.locale = ?',
+                             I18n.default_locale).
+                         where(:url_name => 'internal_admin_authority')
+
     case
     when matching_pbs.empty? then
       I18n.with_locale(I18n.default_locale) do
@@ -702,9 +704,9 @@ class PublicBody < ActiveRecord::Base
                         joins(:translations)
       else
         bodies = where("public_body_translations.locale = ?
-                        AND public_bodies.url_name in (?)",
-                        underscore_locale, body_short_names).
-                  joins(:translations)
+                        AND public_body_translations.url_name in (?)",
+                        underscore_locale, body_short_names
+                      ).joins(:translations)
       end
     end
     return bodies

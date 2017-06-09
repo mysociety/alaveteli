@@ -532,7 +532,6 @@ describe PublicBody, "when asked for the internal_admin_body" do
   before(:each) do
     # Make sure that there's no internal_admin_body before each of
     # these tests:
-    PublicBody.connection.delete("DELETE FROM public_bodies WHERE url_name = 'internal_admin_body'")
     PublicBody.connection.delete("DELETE FROM public_body_translations WHERE url_name = 'internal_admin_body'")
   end
 
