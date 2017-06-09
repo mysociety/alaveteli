@@ -22,6 +22,13 @@ FactoryGirl.define do
     association :summarisable , :factory => :info_request
     user :factory => :pro_user
 
+    before(:create) do |summary, evaluator|
+      # Creating the info_request has the side effect of creating a request
+      # summary automatically, but we want to return the one we've just made
+      summary.summarisable.request_summary.destroy
+      summary.summarisable.request_summary = summary
+    end
+
     factory :draft_request_summary do
       association :summarisable , :factory => :draft_info_request
     end
