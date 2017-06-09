@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateDraftInfoRequestBatchesPublicBodiesTable < ActiveRecord::Migration
   def change
     create_table :draft_info_request_batches_public_bodies,

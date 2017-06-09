@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
   def create
     @draft = current_user.draft_info_request_batches.create(draft_params)

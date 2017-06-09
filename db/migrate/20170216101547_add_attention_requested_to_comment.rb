@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddAttentionRequestedToComment < ActiveRecord::Migration
   def change
     add_column :comments, :attention_requested, :boolean,
