@@ -7,13 +7,13 @@ module PublicBodyDerivedFields
     before_save :set_first_letter
 
     # When name or short name is changed, also change the url name
-    def short_name=(short_name)
-      super
+    def short_name=(value)
+      write_attribute("short_name", value)
       update_url_name
     end
 
-    def name=(name)
-      super
+    def name=(value)
+      write_attribute("name", value)
       update_url_name
     end
 
@@ -41,7 +41,9 @@ module PublicBodyDerivedFields
 
   def update_url_name
     if changed.include?('name') || changed.include?('short_name')
-      self.url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
+      write_attribute("url_name",
+                      MySociety::Format.
+                        simplify_url_part(self.short_or_long_name, 'body'))
     end
   end
 
