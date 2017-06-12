@@ -108,6 +108,12 @@
 * The way that flash messages are rendered has changed so if you have overridden
   a template which renders flash (e.g. `<%= flash[:notice] %>`), you will need
   to use the new `<%= render_flash(flash[:notice]) %>` style instead.
+* This release deprecates non-responsive stylesheets. Please make sure your site
+  works with `RESPONSIVE_STYLING` set to `true`.
+* This is likely to be the last release that supports Ruby 1.9.x. We have some
+  [notes](https://git.io/vLNg0) on migrating away from 1.8.7; migrating to
+  Ruby 2+ should be a similar process. Debian Jessie and Ubuntu 14.04+ include
+  packaged versions of Ruby 2+.
 
 ### Changed Templates
 
