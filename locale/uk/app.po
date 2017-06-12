@@ -11,19 +11,20 @@
 # Translators:
 # Ferents <ferencbaki89@gmail.com>, 2013
 # Ferents <ferencbaki89@gmail.com>, 2013
+# Gareth Rees <gareth@mysociety.org>, 2017
 # Natalie Hiirulainen <murahoid@gmail.com>, 2012,2014
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013-2014
 # Natalie Hiirulainen <murahoid@gmail.com>, 2014,2016
 # Natalie Hiirulainen <murahoid@gmail.com>, 2012
-# Natalie Hiirulainen <murahoid@gmail.com>, 2012,2014,2016
+# Natalie Hiirulainen <murahoid@gmail.com>, 2012,2014,2016-2017
 # Natalie Hiirulainen <murahoid@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-02-27 10:55+0000\n"
+"PO-Revision-Date: 2017-06-12 11:23+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
 "Language: uk\n"
@@ -2175,10 +2176,10 @@ msgid "Preview new annotation on '{{info_request_title}}'"
 msgstr "Попередній перегляд коментаря на запит '{{info_request_title}}'"
 
 msgid "Preview new {{law_used_short}} request"
-msgstr ""
+msgstr "Попередній перегляд запиту {{law_used_short}}"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr ""
+msgstr "Попередній перегляд запиту {{law_used_short}} до розпорядника {{public_body_name}}"
 
 msgid "Preview your annotation"
 msgstr "Попередній перегляд коментаря"
@@ -2823,7 +2824,7 @@ msgid "Thank you for updating your profile photo"
 msgstr "Дякуємо, що оновили фотографію в профілі"
 
 msgid "Thank you! Here are some ideas on what to do next:"
-msgstr ""
+msgstr "Дякуємо! Ось що ви можете зробити:"
 
 msgid "Thank you! Hope you don't have to wait much longer."
 msgstr "Дякуємо! Сподіваємось, вам не доведеться чекати довше."
@@ -3389,7 +3390,7 @@ msgid "Try opening the logs in a new window."
 msgstr ""
 
 msgid "Turn off email alerts"
-msgstr "Відключити сповіщення на електронну пошту"
+msgstr "Відключити сповіщення"
 
 msgid "Tweet it"
 msgstr ""
