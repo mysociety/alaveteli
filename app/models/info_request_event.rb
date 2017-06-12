@@ -378,6 +378,16 @@ class InfoRequestEvent < ActiveRecord::Base
     waiting_clarification && event_type == 'followup_sent'
   end
 
+  # Public: Checks to see if any subsequent event now resets due dates
+  # on the request and resets them if so
+  def recheck_due_dates
+    subsequent_events.each do |event|
+      if event.resets_due_dates?
+        info_request.set_due_dates(event)
+      end
+    end
+  end
+
   # Display version of status
   def display_status
     if is_incoming_message?
@@ -500,6 +510,15 @@ class InfoRequestEvent < ActiveRecord::Base
                    where('created_at < ?', self.created_at).
                      order(order)
 
+  end
+
+  def subsequent_events(opts = {})
+    order = opts[:reverse] ? 'created_at DESC' : 'created_at'
+    events = self.
+               class.
+                 where(:info_request_id => info_request_id).
+                   where('created_at > ?', self.created_at).
+                     order(order)
   end
 
   def sibling_events(opts = {})
