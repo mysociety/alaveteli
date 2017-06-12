@@ -494,11 +494,11 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def previous_events(opts = {})
     order = opts[:reverse] ? 'created_at DESC' : 'created_at'
-    events = self
-              .class
-                .where(:info_request_id => info_request_id)
-                  .where('created_at < ?', self.created_at)
-                    .order(order)
+    events = self.
+               class.
+                 where(:info_request_id => info_request_id).
+                   where('created_at < ?', self.created_at).
+                     order(order)
 
   end
 
