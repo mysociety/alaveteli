@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddUniqueIndexToSummarisable < ActiveRecord::Migration
   def change
     add_index :request_summaries,

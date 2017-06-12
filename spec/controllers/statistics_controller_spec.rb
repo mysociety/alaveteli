@@ -2,10 +2,32 @@ require "spec_helper"
 
 describe StatisticsController do
   describe "#index" do
+
+    before do
+      allow(AlaveteliConfiguration).
+        to receive(:minimum_requests_for_statistics).and_return 1
+      allow(AlaveteliConfiguration).
+        to receive(:public_body_statistics_page).and_return true
+    end
+
+    it "uses the date of the first public request as the start_date" do
+      InfoRequest.destroy_all
+
+      time_travel_to(1.week.ago) do
+        FactoryGirl.create(:embargoed_request)
+        FactoryGirl.create(:hidden_request)
+      end
+      expected_request = FactoryGirl.create(:info_request)
+      expected_request.reload
+
+      expect(Statistics).
+        to receive(:by_week_to_today_with_noughts).
+          with(anything, expected_request.created_at)
+
+      get :index
+    end
+
     it "should render the right template with the right data" do
-      config = MySociety::Config.load_default
-      config['MINIMUM_REQUESTS_FOR_STATISTICS'] = 1
-      config['PUBLIC_BODY_STATISTICS_PAGE'] = true
       get :index
       expect(response).to render_template('statistics/index')
       # There are 5 different graphs we're creating at the moment.

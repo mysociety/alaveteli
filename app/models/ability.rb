@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Ability
   include CanCan::Ability
   include AlaveteliFeatures::Helpers

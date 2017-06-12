@@ -1,3 +1,14 @@
+# -*- encoding : utf-8 -*-
+# == Schema Information
+#
+# Table name: request_summary_categories
+#
+#  id         :integer          not null, primary key
+#  slug       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require "spec_helper"
 
 describe AlaveteliPro::RequestSummaryCategory do

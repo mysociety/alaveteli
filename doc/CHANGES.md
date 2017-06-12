@@ -72,6 +72,7 @@
   assigning the content directly to flash (Liz Conlan, Steven Day)
 * Ensure info_requests are expired when censor rules are added, changed or
   removed (Liz Conlan)
+* Fix the select authorities form when Javascript is disabled (Louise Crow)
 
 ## Upgrade Notes
 
@@ -110,22 +111,60 @@
 
 ### Changed Templates
 
-    app/views/admin_comment/_params.html.erb
     app/views/admin_comment/edit.html.erb
     app/views/admin_general/index.html.erb
+    app/views/admin_general/timeline.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/index.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/comment/_suggestions.html.erb
+    app/views/alaveteli_pro/dashboard/_activity_list_item.html.erb
+    app/views/alaveteli_pro/dashboard/_projects.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/draft_info_requests/_draft_info_request.html.erb
+    app/views/alaveteli_pro/embargo_mailer/expiring_alert.text.erb
+    app/views/alaveteli_pro/followups/_embargoed_form_title.html.erb
+    app/views/alaveteli_pro/general/_log_in_bar_links.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_request_list.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/new.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/alaveteli_pro/public_bodies/_search_result.html.erb
     app/views/comment/_single_comment.html.erb
     app/views/followups/_followup.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_nav_items.html.erb
     app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/_topnav.html.erb
     app/views/layouts/admin.html.erb
     app/views/layouts/default.html.erb
     app/views/layouts/no_chrome.html.erb
+    app/views/outgoing_messages/delivery_statuses/show.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/_more_info.html.erb
     app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_filter_form.html.erb
     app/views/request/describe_notices/_error_message.html.erb
     app/views/request/describe_notices/_internal_review.html.erb
     app/views/request/describe_notices/_not_held.html.erb
     app/views/request/describe_notices/_successful.html.erb
     app/views/request/describe_notices/_waiting_response.html.erb
     app/views/request/describe_notices/_waiting_response_overdue.html.erb
+    app/views/request/details.html.erb
+    app/views/request/new.html.erb
+    app/views/request/preview.html.erb
+    app/views/request_mailer/stopped_responses.text.erb
 
 # 0.28.0.9
 
