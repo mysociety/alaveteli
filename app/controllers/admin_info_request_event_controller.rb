@@ -18,6 +18,8 @@ class AdminInfoRequestEventController < AdminController
     @info_request_event.calculated_state = 'waiting_clarification'
     # TODO: deliberately don't update described_at so doesn't reenter search?
     @info_request_event.save!
+    # Reset the due dates for the request if necessary
+    @info_request_event.recheck_due_dates
 
     flash[:notice] = "Old response marked as having been a clarification"
     redirect_to admin_request_url(@info_request_event.info_request)
