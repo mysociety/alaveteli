@@ -38,6 +38,12 @@ class NotificationMailer < ApplicationMailer
     done_something
   end
 
+  def self.send_notifications
+    sent_instant_notifications = self.send_instant_notifications
+    sent_daily_notifications = self.send_daily_notifications
+    sent_instant_notifications || sent_daily_notifications
+  end
+
   def instant_notification(notification)
     event_type = notification.info_request_event.event_type
     method = "#{event_type}_notification".to_sym

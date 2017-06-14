@@ -431,4 +431,40 @@ describe NotificationMailer do
       expect(NotificationMailer.send_daily_notifications).to be false
     end
   end
+
+  describe ".send_notifications" do
+    it "calls send_daily_notifications and send_instant_notifications" do
+      expect(NotificationMailer).to receive(:send_daily_notifications)
+      expect(NotificationMailer).to receive(:send_instant_notifications)
+      NotificationMailer.send_notifications
+    end
+
+    it "returns true if either send_xxx method returns true" do
+      allow(NotificationMailer).
+        to receive(:send_daily_notifications).and_return(true)
+      allow(NotificationMailer).
+        to receive(:send_instant_notifications).and_return(true)
+      expect(NotificationMailer.send_notifications).to eq true
+
+      allow(NotificationMailer).
+        to receive(:send_daily_notifications).and_return(true)
+      allow(NotificationMailer).
+        to receive(:send_instant_notifications).and_return(false)
+      expect(NotificationMailer.send_notifications).to eq true
+
+      allow(NotificationMailer).
+        to receive(:send_daily_notifications).and_return(false)
+      allow(NotificationMailer).
+        to receive(:send_instant_notifications).and_return(true)
+      expect(NotificationMailer.send_notifications).to eq true
+    end
+
+    it "returns false if both send_xxx method return false" do
+      allow(NotificationMailer).
+        to receive(:send_daily_notifications).and_return(false)
+      allow(NotificationMailer).
+        to receive(:send_instant_notifications).and_return(false)
+      expect(NotificationMailer.send_notifications).to eq false
+    end
+  end
 end
