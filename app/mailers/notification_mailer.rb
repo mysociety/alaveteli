@@ -44,6 +44,19 @@ class NotificationMailer < ApplicationMailer
     sent_instant_notifications || sent_daily_notifications
   end
 
+  def self.send_notifications_loop
+    # Run send_notifications in an endless loop, sleeping when there is
+    # nothing to do
+    while true
+      sleep_seconds = 1
+      while !send_notifications
+        sleep sleep_seconds
+        sleep_seconds *= 2
+        sleep_seconds = 300 if sleep_seconds > 300
+      end
+    end
+  end
+
   def instant_notification(notification)
     event_type = notification.info_request_event.event_type
     method = "#{event_type}_notification".to_sym
