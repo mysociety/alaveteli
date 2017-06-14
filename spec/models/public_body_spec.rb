@@ -131,6 +131,16 @@ describe PublicBody do
 
   end
 
+  describe '#version' do
+
+    it 'ignores manually set attributes' do
+      subject = FactoryGirl.build(:public_body, :version => 21)
+      subject.save
+      expect(subject.version).to eq(1)
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
