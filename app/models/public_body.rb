@@ -63,6 +63,9 @@ class PublicBody < ActiveRecord::Base
   validates_presence_of :name, :message => N_("Name can't be blank")
   validates_presence_of :url_name, :message => N_("URL name can't be blank")
 
+  validates :request_email,
+            not_nil: { message: N_("Request email can't be nil") }
+
   validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
   validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
   validates_uniqueness_of :name, :message => N_("Name is already taken")

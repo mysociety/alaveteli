@@ -77,6 +77,13 @@ describe PublicBody do
 
   describe '#request_email' do
 
+    it 'is invalid when nil' do
+      subject = described_class.new(:request_email => nil)
+      subject.valid?
+      expect(subject.errors[:request_email]).
+        to eq(["Request email can't be nil"])
+    end
+
     context "when the email is set" do
 
       subject(:public_body) do
