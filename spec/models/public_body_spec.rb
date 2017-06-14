@@ -54,6 +54,27 @@ describe PublicBody do
 
   end
 
+  describe '#short_name' do
+
+    it 'sets a default empty string' do
+      expect(described_class.new(:short_name => nil).short_name).to eq('')
+    end
+
+    it 'is invalid when not unique' do
+      existing = FactoryGirl.create(:public_body, :short_name => 'xyz')
+      subject = described_class.new(:short_name => existing.short_name)
+      subject.valid?
+      expect(subject.errors[:short_name]).to eq(["Short name is already taken"])
+    end
+
+    it 'is valid when blank' do
+      subject = described_class.new(:short_name => '')
+      subject.valid?
+      expect(subject.errors[:short_name]).to be_empty
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
