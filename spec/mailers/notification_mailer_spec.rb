@@ -285,6 +285,15 @@ describe NotificationMailer do
       expect(notification_1.seen_at).to be_within(1.second).of(Time.zone.now)
       expect(notification_2.seen_at).to be_within(1.second).of(Time.zone.now)
     end
+
+    it "returns true when it has done something" do
+      expect(NotificationMailer.send_instant_notifications).to be true
+    end
+
+    it "returns false when it hasn't done anything" do
+      NotificationMailer.send_instant_notifications
+      expect(NotificationMailer.send_instant_notifications).to be false
+    end
   end
 
   describe ".send_daily_notifications" do
@@ -411,6 +420,15 @@ describe NotificationMailer do
         n.reload
         expect(n.seen_at).to be_within(1.second).of(Time.zone.now)
       end
+    end
+
+    it "returns true when it has done something" do
+      expect(NotificationMailer.send_daily_notifications).to be true
+    end
+
+    it "returns false when it hasn't done anything" do
+      NotificationMailer.send_daily_notifications
+      expect(NotificationMailer.send_daily_notifications).to be false
     end
   end
 end

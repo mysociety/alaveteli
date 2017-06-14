@@ -7,14 +7,18 @@
 
 class NotificationMailer < ApplicationMailer
   def self.send_instant_notifications
+    done_something = false
     Notification.instantly.unseen.order(:created_at).find_each do |notification|
       NotificationMailer.instant_notification(notification).deliver
       notification.seen_at = Time.zone.now
       notification.save!
+      done_something = true
     end
+    done_something
   end
 
   def self.send_daily_notifications
+    done_something = false
     query = "notifications.frequency = ? AND " \
             "notifications.send_after <= ? AND " \
             "notifications.seen_at IS NULL"
@@ -29,7 +33,9 @@ class NotificationMailer < ApplicationMailer
       notifications = user.notifications.daily.unseen.order(created_at: :desc)
       NotificationMailer.daily_summary(user, notifications).deliver
       notifications.update_all(seen_at: Time.zone.now)
+      done_something = true
     end
+    done_something
   end
 
   def instant_notification(notification)
