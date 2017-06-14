@@ -251,6 +251,37 @@ describe PublicBody do
 
   end
 
+  describe '#last_edit_editor' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:last_edit_editor => nil)
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).
+        to eq(["Last edit editor can't be blank"])
+    end
+
+    it 'is invalid when blank' do
+      subject = PublicBody.new(:last_edit_editor => '')
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).
+        to eq(["Last edit editor can't be blank"])
+    end
+
+    it 'is invalid when over 255 characters' do
+      subject = PublicBody.new(:last_edit_editor => 'x' * 256)
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).
+        to eq(["Last edit editor can't be longer than 255 characters"])
+    end
+
+    it 'is valid up to 255 characters' do
+      subject = PublicBody.new(:last_edit_editor => 'x' * 255)
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).to be_empty
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do

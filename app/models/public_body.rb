@@ -62,6 +62,8 @@ class PublicBody < ActiveRecord::Base
 
   validates_presence_of :name, :message => N_("Name can't be blank")
   validates_presence_of :url_name, :message => N_("URL name can't be blank")
+  validates_presence_of :last_edit_editor,
+                        :message => N_("Last edit editor can't be blank")
 
   validates :request_email,
             not_nil: { message: N_("Request email can't be nil") }
@@ -69,6 +71,11 @@ class PublicBody < ActiveRecord::Base
   validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
   validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
   validates_uniqueness_of :name, :message => N_("Name is already taken")
+
+  validates :last_edit_editor,
+            length: { maximum: 255,
+                      too_long: N_("Last edit editor can't be longer than " \
+                                   "255 characters") }
 
   validate :request_email_if_requestable
 
