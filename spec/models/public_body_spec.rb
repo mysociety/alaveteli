@@ -31,6 +31,29 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBody do
 
+  describe '#name' do
+
+    it 'is invalid when nil' do
+      subject = described_class.new(:name => nil)
+      subject.valid?
+      expect(subject.errors[:name]).to eq(["Name can't be blank"])
+    end
+
+    it 'is invalid when blank' do
+      subject = described_class.new(:name => '')
+      subject.valid?
+      expect(subject.errors[:name]).to eq(["Name can't be blank"])
+    end
+
+    it 'is invalid when not unique' do
+      existing = FactoryGirl.create(:public_body)
+      subject = described_class.new(:name => existing.name)
+      subject.valid?
+      expect(subject.errors[:name]).to eq(["Name is already taken"])
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
