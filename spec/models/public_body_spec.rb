@@ -141,6 +141,39 @@ describe PublicBody do
 
   end
 
+  describe '#url_name' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:url_name => nil)
+      subject.valid?
+      expect(subject.errors[:url_name]).to eq(["URL name can't be blank"])
+    end
+
+    it 'is invalid when blank' do
+      subject = PublicBody.new(:url_name => '')
+      subject.valid?
+      expect(subject.errors[:url_name]).to eq(["URL name can't be blank"])
+    end
+
+    it 'is invalid when not unique' do
+      existing = FactoryGirl.create(:public_body, :url_name => 'xyz')
+      subject = described_class.new(:url_name => existing.url_name)
+      subject.valid?
+      expect(subject.errors[:url_name]).to eq(["URL name is already taken"])
+    end
+
+    it 'replaces spaces and makes lower case' do
+      subject = PublicBody.new(:name => 'Some Authority')
+      expect(subject.url_name).to eq('some_authority')
+    end
+
+    it 'does not allow a numeric name' do
+      subject = PublicBody.new(:name => '1234')
+      expect(subject.url_name).to eq('body')
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
@@ -466,22 +499,6 @@ describe PublicBody, "when finding_by_tags" do
   end
 end
 
-describe PublicBody, " when making up the URL name" do
-  before do
-    @public_body = PublicBody.new
-  end
-
-  it 'should remove spaces, and make lower case' do
-    @public_body.name = 'Some Authority'
-    expect(@public_body.url_name).to eq('some_authority')
-  end
-
-  it 'should not allow a numeric name' do
-    @public_body.name = '1234'
-    expect(@public_body.url_name).to eq('body')
-  end
-end
-
 describe PublicBody, " when saving" do
   before do
     @public_body = PublicBody.new
@@ -552,13 +569,6 @@ describe PublicBody, " when saving" do
       existing.update_attributes :short_name => 'Prueba', :name => 'Prueba body'
       expect(existing.url_name).to eq('prueba')
     end
-  end
-
-  it "should not save if the url_name is already taken" do
-    existing = FactoryGirl.create(:public_body)
-    pb = PublicBody.new(existing.attributes)
-    pb.valid?
-    expect(pb.errors[:url_name].size).to eq(1)
   end
 
   it "should save the name when renaming an existing public body" do
