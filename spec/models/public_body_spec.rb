@@ -299,6 +299,22 @@ describe PublicBody do
 
   end
 
+  describe '#home_page' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:home_page => nil)
+      subject.valid?
+      expect(subject.errors[:home_page]).to eq(["Home page can't be nil"])
+    end
+
+    it 'is valid when blank' do
+      subject = PublicBody.new(:home_page => '')
+      subject.valid?
+      expect(subject.errors[:home_page]).to be_empty
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
