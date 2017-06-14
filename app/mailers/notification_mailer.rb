@@ -7,6 +7,7 @@
 
 class NotificationMailer < ApplicationMailer
   def self.send_daily_notifications
+    done_something = false
     query = "notifications.frequency = ? AND " \
             "notifications.send_after <= ? AND " \
             "notifications.seen_at IS NULL"
@@ -21,7 +22,9 @@ class NotificationMailer < ApplicationMailer
       notifications = user.notifications.daily.unseen.order(created_at: :desc)
       NotificationMailer.daily_summary(user, notifications).deliver
       notifications.update_all(seen_at: Time.zone.now)
+      done_something = true
     end
+    done_something
   end
 
   def daily_summary(user, notifications)
