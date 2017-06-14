@@ -80,7 +80,7 @@ describe PublicBody do
     context "when the email is set" do
 
       subject(:public_body) do
-        FactoryGirl.create(:public_body,
+        FactoryGirl.build(:public_body,
                            :request_email => "request@example.com")
       end
 
@@ -100,7 +100,7 @@ describe PublicBody do
     context "when no email is set" do
 
       subject(:public_body) do
-        FactoryGirl.create(:public_body, :request_email => "")
+        FactoryGirl.build(:public_body, :request_email => "")
       end
 
       it "should return a blank email address" do
@@ -114,6 +114,19 @@ describe PublicBody do
         expect(public_body.request_email).to be_blank
       end
 
+    end
+
+    it 'is invalid with an unrequestable email' do
+      subject = PublicBody.new(:request_email => 'invalid@')
+      subject.valid?
+      expect(subject.errors[:request_email]).
+        to eq(["Request email doesn't look like a valid email address"])
+    end
+
+    it 'is valid with a requestable email' do
+      subject = PublicBody.new(:request_email => 'valid@example.com')
+      subject.valid?
+      expect(subject.errors[:request_email]).to be_empty
     end
 
   end
