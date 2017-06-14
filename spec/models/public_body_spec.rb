@@ -315,6 +315,27 @@ describe PublicBody do
 
   end
 
+  describe '#notes' do
+
+    it 'is invalid when nil' do
+      skip <<-EOF.strip_heredoc.squish
+      This spec should pass but the behaviour between translated attributes
+      differs. Translated attributes get the default value from the database,
+      but untranslated attributes do not.
+      EOF
+      subject = PublicBody.new(:notes => nil)
+      subject.valid?
+      expect(subject.errors[:notes]).to eq(["Notes can't be nil"])
+    end
+
+    it 'is valid when blank' do
+      subject = PublicBody.new(:notes => '')
+      subject.valid?
+      expect(subject.errors[:notes]).to be_empty
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
