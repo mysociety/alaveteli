@@ -67,6 +67,8 @@ class PublicBody < ActiveRecord::Base
 
   validates :request_email,
             not_nil: { message: N_("Request email can't be nil") }
+  validates :last_edit_comment,
+            not_nil: { message: N_("Last edit comment can't be nil") }
 
   validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
   validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
