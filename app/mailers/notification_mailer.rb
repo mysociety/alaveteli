@@ -27,6 +27,19 @@ class NotificationMailer < ApplicationMailer
     done_something
   end
 
+  def self.send_daily_notifications_loop
+    # Run send_daily_notifications in an endless loop, sleeping when there is
+    # nothing to do
+    while true
+      sleep_seconds = 1
+      while !send_daily_notifications
+        sleep sleep_seconds
+        sleep_seconds *= 2
+        sleep_seconds = 300 if sleep_seconds > 300
+      end
+    end
+  end
+
   def daily_summary(user, notifications)
     @user = user
     @grouped_notifications = notifications.group_by do |n|
