@@ -1,0 +1,94 @@
+#!/bin/bash
+#
+### BEGIN INIT INFO
+# Provides: !!(*= $daemon_name *)!!
+# Required-Start: $local_fs $syslog
+# Required-Stop: $local_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: !!(*= $daemon_name *)!! is a daemon running the daily Alaveteli notifications
+# Description: !!(*= $daemon_name *)!! sends daily Alaveteli notifications as required
+### END INIT INFO
+#
+# !!(*= $daemon_name *)!! Start the daily Alaveteli notification daemon
+
+NAME=!!(*= $daemon_name *)!!
+DAEMON=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/runner
+DAEMON_ARGS="--daemon NotificationMailer.send_daily_notifications_loop"
+PIDDIR=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/tmp/pids
+PIDFILE=$PIDDIR/!!(*= $daemon_name *)!!.pid
+LOGDIR=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log
+LOGFILE=$LOGDIR/!!(*= $daemon_name *)!!.log
+DUSER=!!(*= $user *)!!
+SITE_HOME=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!
+# Set RAILS_ENV - not needed if using config/rails_env.rb
+# RAILS_ENV=your_rails_env
+# export RAILS_ENV
+
+# Uncomment the following line if running under rbenv - we want this daemon to run
+# in the context of the ruby version defined for the site
+# PATH=/home/!!(*= $user *)!!/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
+
+trap "" 1
+
+export PIDFILE LOGFILE
+
+quietly_start_daemon() {
+    mkdir -p {$LOGDIR,$PIDDIR}
+    chown $DUSER:$DUSER {$LOGDIR,$PIDDIR}
+    /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --chdir "$SITE_HOME" --startas "$DAEMON" -- $DAEMON_ARGS
+}
+
+start_daemon() {
+    mkdir -p {$LOGDIR,$PIDDIR}
+    chown $DUSER:$DUSER {$LOGDIR,$PIDDIR}
+    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --chdir "$SITE_HOME" --startas "$DAEMON" -- $DAEMON_ARGS
+}
+
+stop_daemon() {
+    /sbin/start-stop-daemon --stop --oknodo --retry 5 --pidfile "$PIDFILE"
+}
+
+restart() { stop; start; }
+
+case "$1" in
+  check)
+      quietly_start_daemon
+      if [ $? -ne 1 ]
+      then
+          echo "Alaveteli daily notification daemon was not running; now restarted"
+          exit 1
+      else
+          exit 0
+      fi
+      ;;
+
+  start)
+      echo -n "Starting Alaveteli daily notification daemon: $NAME"
+      start_daemon
+      ;;
+
+  stop)
+        echo -n "Stopping Alaveteli daily notification daemon: $NAME"
+        stop_daemon
+        ;;
+
+  restart)
+      echo -n "Restarting Alaveteli daily notification daemon: $NAME"
+      stop_daemon
+      start_daemon
+      ;;
+
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop|restart|check}"
+    exit 1
+    ;;
+esac
+
+if [ $? -eq 0 ]; then
+    echo .
+    exit 0
+else
+    echo " failed"
+    exit 1
+fi
