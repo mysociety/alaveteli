@@ -358,6 +358,23 @@ describe PublicBody do
 
   end
 
+  describe '#disclosure_log' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:disclosure_log => nil)
+      subject.valid?
+      expect(subject.errors[:disclosure_log]).
+        to eq(["Disclosure log can't be nil"])
+    end
+
+    it 'is valid when blank' do
+      subject = PublicBody.new(:disclosure_log => '')
+      subject.valid?
+      expect(subject.errors[:disclosure_log]).to be_empty
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
