@@ -174,6 +174,54 @@ describe PublicBody do
 
   end
 
+  describe '#first_letter' do
+
+    it 'is empty on initialization' do
+      subject = FactoryGirl.build(:public_body)
+      expect(subject.first_letter).to be_nil
+    end
+
+    it 'gets set on save' do
+      subject = FactoryGirl.build(:public_body, :name => 'Body')
+      subject.save!
+      expect(subject.first_letter).to eq('B')
+    end
+
+    it 'gets updated on save' do
+      subject = FactoryGirl.create(:public_body, :name => 'Body')
+      subject.name = 'Authority'
+      expect(subject.first_letter).to eq('B')
+      subject.save!
+      expect(subject.first_letter).to eq('A')
+    end
+
+    it 'sets the first letter to a multibyte character' do
+      subject = FactoryGirl.build(:public_body, :name => 'åccents')
+      subject.save!
+      expect(subject.first_letter).to eq('Å')
+    end
+
+    it 'should save the first letter of a translation' do
+      subject = FactoryGirl.build(:public_body, :name => 'Body')
+      I18n.with_locale(:es) do
+        subject.name = 'Prueba body'
+        subject.save!
+        expect(subject.first_letter).to eq('P')
+      end
+    end
+
+    it 'saves the first letter of a translation, even when it is the same as the
+          first letter in the default locale' do
+      subject = FactoryGirl.build(:public_body, :name => 'Body')
+      I18n.with_locale(:es) do
+        subject.name = 'Body ES'
+        subject.save!
+        expect(subject.first_letter).to eq('B')
+      end
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
@@ -526,41 +574,6 @@ describe PublicBody, " when saving" do
   it "should save" do
     set_default_attributes(@public_body)
     @public_body.save!
-  end
-
-  it "should update first_letter" do
-    set_default_attributes(@public_body)
-    expect(@public_body.first_letter).to be_nil
-    @public_body.save!
-    expect(@public_body.first_letter).to eq('T')
-  end
-
-  it "should update first letter, even if it's a multibyte character" do
-    pb = PublicBody.new(:name => 'åccents, lower-case',
-                        :short_name => 'ALC',
-                        :request_email => 'foo@localhost',
-                        :last_edit_editor => 'test',
-                        :last_edit_comment => '')
-    expect(pb.first_letter).to be_nil
-    pb.save!
-    expect(pb.first_letter).to eq('Å')
-  end
-
-  it 'should save the first letter of a translation' do
-    existing = FactoryGirl.create(:public_body, :first_letter => 'T', :name => 'Test body')
-    I18n.with_locale(:es) { existing.update_attributes :name => 'Prueba body' }
-    expect(PublicBody::Translation.
-      where(:public_body_id => existing.id, :locale => :es).
-      pluck('first_letter').first).to eq('P')
-  end
-
-  it 'should save the first letter of a translation, even when it is the same as the
-        first letter in the default locale' do
-    existing = FactoryGirl.create(:public_body, :first_letter => 'T', :name => 'Test body')
-    I18n.with_locale(:es) { existing.update_attributes :name => existing.name }
-    expect(PublicBody::Translation.
-      where(:public_body_id => existing.id, :locale => :es).
-      pluck('first_letter').first).to eq('T')
   end
 
   it 'should create a url_name for a translation' do
