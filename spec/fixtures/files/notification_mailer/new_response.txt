@@ -1,0 +1,15 @@
+You have a new response to the Freedom of Information request
+'Here is a character that needs quoting …' that you made to
+Test public body.
+
+To view the response, click on the link below.
+
+http://test.host/en/request/here_is_a_character_that_needs_q?nocache=incoming-999#incoming-999
+
+When you get there, please update the status to say if the response contains any useful information.
+
+Although all responses are automatically published, we depend on you, the original requester, to evaluate them.
+
+-- the Alaveteli team
+
+

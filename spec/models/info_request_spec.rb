@@ -308,32 +308,29 @@ describe InfoRequest do
         to eq('rejected for testing')
     end
 
-    context 'emailing the request owner' do
+    describe 'notifying the request owner' do
 
-      it 'emails the user that a response has been received' do
+      it 'notifies the user that a response has been received' do
         info_request = FactoryGirl.create(:info_request)
         email, raw_email = email_and_raw_email
+
+        # Without this, the user retrieved in the model is not the same one
+        # in memory as this one, so we can't put expectations on it
+        allow(info_request).to receive(:user).and_return(info_request.user)
+        expect(info_request.user).
+          to receive(:notify).with(a_new_response_event_for(info_request))
+
         info_request.receive(email, raw_email)
-        notification = ActionMailer::Base.deliveries.last
-        expect(notification.to).to include(info_request.user.email)
-        expect(ActionMailer::Base.deliveries.size).to eq(1)
-        ActionMailer::Base.deliveries.clear
       end
 
-      it 'does not email when the request is external' do
+      it 'does not notify when the request is external' do
         info_request = FactoryGirl.create(:external_request)
         email, raw_email = email_and_raw_email
-        info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
-        ActionMailer::Base.deliveries.clear
-      end
 
-      it 'does not email when the request has use_notifications turned on' do
-        info_request = FactoryGirl.create(:use_notifications_request)
-        email, raw_email = email_and_raw_email
-        info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
-        ActionMailer::Base.deliveries.clear
+        # There's no user on an external request, so just check it doesn't
+        # make any new notifications
+        expect { info_request.receive(email, raw_email) }.
+          not_to change { Notification.count }
       end
 
     end
@@ -515,13 +512,10 @@ describe InfoRequest do
         attrs = { :allow_new_responses_from => 'nobody',
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
+        holding_pen_request = InfoRequest.holding_pen_request
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
-        expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
-        # Check that the notification that there's something new in the holding
-        # has been sent
-        expect(ActionMailer::Base.deliveries.size).to eq(1)
-        ActionMailer::Base.deliveries.clear
+        expect(holding_pen_request.incoming_messages.size).to eq(1)
       end
 
       it 'discards rejected responses' do
@@ -625,8 +619,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
-      expect(ActionMailer::Base.deliveries).to be_empty
-      ActionMailer::Base.deliveries.clear
+      expect(info_request.incoming_messages.size).to eq(0)
     end
 
     it "delivers mail under the configured spam threshold" do
@@ -649,8 +642,7 @@ describe InfoRequest do
 
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
-      expect(ActionMailer::Base.deliveries.size).to eq(1)
-      ActionMailer::Base.deliveries.clear
+      expect(info_request.incoming_messages.size).to eq(1)
     end
 
     it "delivers mail without a spam header" do
@@ -673,7 +665,6 @@ describe InfoRequest do
       receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
       expect(info_request.incoming_messages.size).to eq(1)
-      ActionMailer::Base.deliveries.clear
     end
 
   end

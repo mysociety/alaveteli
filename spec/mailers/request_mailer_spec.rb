@@ -16,15 +16,10 @@ describe RequestMailer do
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
       expect(ir.incoming_messages.size).to eq(2) # one more arrives
       expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
-
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.to).to eq([ 'bob@localhost' ]) # to the user who sent fancy_dog_request
-      deliveries.clear
     end
 
-    it "should store mail in holding pen and send to admin when the email is not to any information request" do
+    it "should store mail in holding pen when the email is not to any
+        information request" do
       ir = info_requests(:fancy_dog_request)
       expect(ir.incoming_messages.size).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
@@ -33,12 +28,6 @@ describe RequestMailer do
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to eq("Could not identify the request from the email address")
-
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
-      deliveries.clear
     end
 
     it "puts messages with a malformed To: in the holding pen" do
@@ -67,16 +56,10 @@ describe RequestMailer do
       # are being treated like attachments
       im.extract_attachments!
       expect(im.foi_attachments.size).to eq(6)
-
-      # Clean up
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
-      deliveries.clear
     end
 
-    it "should store mail in holding pen and send to admin when the from email is empty and only authorites can reply" do
+    it "should store mail in holding pen when the from email is empty and only
+        authorites can reply" do
       ir = info_requests(:fancy_dog_request)
       ir.allow_new_responses_from = 'authority_only'
       ir.handle_rejected_responses = 'holding_pen'
@@ -88,15 +71,10 @@ describe RequestMailer do
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to match(/there is no "From" address/)
-
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
-      deliveries.clear
     end
 
-    it "should store mail in holding pen and send to admin when the from email is unknown and only authorites can reply" do
+    it "should store mail in holding pen when the from email is unknown and
+        only authorites can reply" do
       ir = info_requests(:fancy_dog_request)
       ir.allow_new_responses_from = 'authority_only'
       ir.handle_rejected_responses = 'holding_pen'
@@ -108,12 +86,6 @@ describe RequestMailer do
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to match(/Only the authority can reply/)
-
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
-      deliveries.clear
     end
 
     it "should ignore mail sent to known spam addresses" do
@@ -161,13 +133,6 @@ describe RequestMailer do
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "Geraldine <geraldinequango@localhost>")
       expect(ir.incoming_messages.size).to eq(2) # one more arrives
 
-      # ... should get "responses arrived" message for original requester
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.to).to eq([ 'bob@localhost' ]) # to the user who sent fancy_dog_request
-      deliveries.clear
-
       # Test what happens if something arrives from another domain
       expect(ir.incoming_messages.size).to eq(2) # in fixture and above
       receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "dummy-address@dummy.localhost")
@@ -212,13 +177,6 @@ describe RequestMailer do
       expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1) # arrives in holding pen
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to match(/allow new responses from nobody/)
-
-      # should be a message to admin regarding holding pen
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
-      deliveries.clear
     end
 
     it "should destroy the messages sent to a request if marked to do so" do
@@ -393,63 +351,6 @@ describe RequestMailer do
                                                "blah.txt",
                                                "The content of blah.txt")
       expect(fake_email.subject).to eq("Re: Freedom of Information - Test request")
-    end
-
-  end
-
-  describe "when sending a new response email" do
-
-    let(:user) do
-      FactoryGirl.create(:user, :name => "test name",
-                                :email => "email@localhost")
-    end
-
-    let(:public_body) do
-      FactoryGirl.create(:public_body, :name => "Test public body")
-    end
-
-    let(:info_request) do
-      FactoryGirl.create(:info_request,
-                         :user => user,
-                         :title => "Here is a character that needs quoting …",
-                         :public_body => public_body,
-                         :described_state => 'rejected',
-                         :url_title => "test_request")
-    end
-
-    let(:incoming_message) do
-      FactoryGirl.create(:incoming_message, :info_request => info_request)
-    end
-
-    it 'should not error when sending mails requests with characters requiring quoting in the subject' do
-      mail = RequestMailer.new_response(info_request, incoming_message)
-    end
-
-    it 'should not create HTML entities in the subject line' do
-      mail = RequestMailer.new_response(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:incoming_message))
-      expect(mail.subject).to eq "New response to your FOI request - Here's a request"
-    end
-
-    it 'should send pro users a signin link' do
-      pro_user = FactoryGirl.create(:pro_user)
-      info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
-      incoming_message = FactoryGirl.create(:incoming_message,
-                                            info_request: info_request)
-      mail = RequestMailer.new_response(info_request, incoming_message)
-      mail.body.to_s =~ /(http:\/\/.*)/
-      mail_url = $1
-
-      message_url = incoming_message_url(incoming_message, :cachebust => true)
-      expected_url = signin_url(r: message_url)
-      expect(mail_url).to eq expected_url
-    end
-
-    it 'should send normal users a direct link' do
-      mail = RequestMailer.new_response(info_request, incoming_message)
-      mail.body.to_s =~ /(http:\/\/.*)/
-      mail_url = $1
-      expected_url = incoming_message_url(incoming_message, :cachebust => true)
-      expect(mail_url).to eq expected_url
     end
 
   end

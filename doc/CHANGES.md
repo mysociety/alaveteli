@@ -114,6 +114,11 @@
   [notes](https://git.io/vLNg0) on migrating away from 1.8.7; migrating to
   Ruby 2+ should be a similar process. Debian Jessie and Ubuntu 14.04+ include
   packaged versions of Ruby 2+.
+* Run `bundle exec rake temp:set_daily_summary_times` to set some default
+  times for users to receive daily summaries of notifications. This won't have
+  any effect on emails for most users until the new notifications system is
+  rolled out.
+>>>>>>> Add a rake task to set default daily summary times for each user
 
 ### Changed Templates
 

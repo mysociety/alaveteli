@@ -5,14 +5,15 @@ require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 describe 'when handling incoming mail' do
   let(:info_request){ FactoryGirl.create(:info_request) }
 
-  it "receives incoming messages, sends email to requester, and shows them" do
+  it "receives incoming messages, notifies requester, and shows them" do
     receive_incoming_mail('incoming-request-plain.email',
                           info_request.incoming_email)
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(1)
-    mail = deliveries[0]
-    expect(mail.to).to eq([info_request.user.email])
-    expect(mail.body).to match(/You have a new response to the Freedom of Information request/)
+    query = "user_id = ? AND info_request_events.event_type = 'response'"
+    notifications = Notification.
+      includes(:info_request_event).
+        references(:info_request_events).
+          where(query, info_request.user.id)
+    expect(notifications.count).to be 1
     visit show_request_path :url_title => info_request.url_title
     expect(page).to have_content("No way!")
   end

@@ -1,0 +1,15 @@
+<%= info_request_batch.title.html_safe %>
+<%= "-" * info_request_batch.title.html_safe.length %>
+
+<%= render partial: 'alaveteli_pro/info_request_batches/authority_list',
+           locals: { public_bodies: info_request_batch.public_bodies } %>
+<%= render partial: 'alaveteli_pro/info_request_batches/progress_bar',
+          locals: { phases: info_request_batch.request_phases_summary,
+                    batch: info_request_batch } %>
+<%= _("What's happened:") %>
+<% notifications_by_event_type(notifications).each do |event_type, event_type_notifications| %>
+<% partial = "notification_mailer/info_request_batches/messages/#{event_type}" %>
+<%= render partial: partial,
+           locals: { info_request_batch: info_request_batch,
+                     notifications: event_type_notifications } %>
+<% end %>
