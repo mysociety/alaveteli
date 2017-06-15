@@ -93,6 +93,11 @@ module ApplicationHelper
     end
   end
 
+  def render_flash(flash)
+    flash = { :plain => flash } if flash.is_a?(String)
+    render flash.with_indifferent_access
+  end
+
   # We only want to cache request lists that have a reasonable chance of not expiring
   # before they're requested again. Don't cache lists returned from specific searches
   # or anything except the first page of results, just the first page of the default

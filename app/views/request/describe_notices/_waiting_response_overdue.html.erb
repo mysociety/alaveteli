@@ -3,6 +3,8 @@
 </p>
 <p>
   <%= _("By law, you should have got a response promptly, and normally " \
-      "before the end of <strong>{{date_response_required_by}}</strong>.",
-      :date_response_required_by => simple_date(info_request.date_response_required_by)) %>
+        "before the end of <strong>{{date_response_required_by}}</strong>.",
+        :date_response_required_by => simple_date(
+          InfoRequest.find(info_request_id).date_response_required_by
+        )) %>
 </p>

@@ -15,6 +15,19 @@ describe ApplicationHelper do
 
   end
 
+  describe '#render_flash' do
+
+    it 'returns a string when given a string' do
+      expect(render_flash('some text')).to eq('some text')
+    end
+
+    it 'correctly resymbolizes the hash keys and calls render' do
+      flash = { 'inline' => 'some text' }
+      expect(render_flash(flash)).to eq('some text')
+    end
+
+  end
+
   describe 'when creating an event description' do
 
     it 'should generate a description for a request' do

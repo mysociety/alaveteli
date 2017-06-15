@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :draft_info_request_batch, :class => AlaveteliPro::DraftInfoRequestBatch do
     user

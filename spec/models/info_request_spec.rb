@@ -29,6 +29,7 @@
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
+#  use_notifications                     :boolean
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -277,6 +278,17 @@ describe InfoRequest do
       email, raw_email = email_and_raw_email
       info_request.receive(email, raw_email)
       expect(info_request.awaiting_description).to be true
+    end
+
+    it 'does not mark requests marked as withdrawn as awaiting description' do
+      info_request = FactoryGirl.create(:info_request,
+                                        :awaiting_description => false)
+      info_request.described_state = "user_withdrawn"
+      info_request.save
+      email, raw_email = email_and_raw_email
+      info_request.receive(email, raw_email)
+      expect(info_request.awaiting_description).to be false
+      expect(info_request.described_state).to eq("user_withdrawn")
     end
 
     it 'logs an event' do
@@ -1056,6 +1068,32 @@ describe InfoRequest do
     it "does not clear the database caches if passed the preserve_database_cache option" do
       expect(info_request).not_to receive(:clear_in_database_caches!)
       info_request.expire(:preserve_database_cache => true)
+    end
+
+    it 'updates the search index' do
+      expect(info_request).to receive(:reindex_request_events)
+      info_request.expire
+    end
+
+    it 'removes itself from the varnish cache' do
+      expect(info_request).to receive(:purge_in_cache)
+      info_request.expire
+    end
+
+    it 'removes any zip files' do
+      # expire deletes foi_fragment_cache_directories as well as the zip files
+      # so stubbing out the call lets us just see the effect we care about here
+      allow(info_request).to receive(:foi_fragment_cache_directories) {[]}
+      expect(FileUtils).to receive(:rm_rf).with(info_request.download_zip_dir)
+      info_request.expire
+    end
+
+    it 'removes any file caches' do
+      expect(info_request.foi_fragment_cache_directories.count).to be > 0
+      # called for each cache directory + the zip file directory
+      expected_calls = info_request.foi_fragment_cache_directories.count + 1
+      expect(FileUtils).to receive(:rm_rf).exactly(expected_calls).times
+      info_request.expire
     end
 
   end

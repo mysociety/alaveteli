@@ -1,3 +1,17 @@
+# -*- encoding : utf-8 -*-
+# == Schema Information
+#
+# Table name: draft_info_request_batches
+#
+#  id               :integer          not null, primary key
+#  title            :string(255)
+#  body             :text
+#  user_id          :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  embargo_duration :string(255)
+#
+
 require 'spec_helper'
 
 describe AlaveteliPro::DraftInfoRequestBatch do

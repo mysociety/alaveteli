@@ -54,6 +54,25 @@
   to help us test new email configuration options for Alaveteli Professional,
   please don't give this role to any of your users - it may change and/or
   disappear without warning!
+* Prevent Vagrant assigning more CPU cores than VirtualBox recognises (Liz
+  Conlan)
+* Improvements to the `load-sample-data` script to make it possible to run
+  without the superuser db permissions and for Rails 4.1 compatibility
+  (Liz Conlan)
+* Prevent autoresponder emails from authorities resetting the withdrawn status
+  on requests (Liz Conlan)
+* Fix bug that prevented the categorisation game page from displaying when there
+  are no requests (Liz Conlan)
+* Switch to Trusty as the preferred OS for Travis CI and use Debian Wheezy as
+  the new Vagrant default (Liz Conlan)
+* Fix a bug that could cause misdelivered message links in the admin interface
+  to appear without any text in the link if the message body contained unicode
+  spaces (Liz Conlan)
+* Use partial templates to render flash messages containing HTML rather than
+  assigning the content directly to flash (Liz Conlan, Steven Day)
+* Ensure info_requests are expired when censor rules are added, changed or
+  removed (Liz Conlan)
+* Fix the select authorities form when Javascript is disabled (Louise Crow)
 
 ## Upgrade Notes
 
@@ -86,16 +105,97 @@
   opt all existing requests out of the new notifications feature. This is VERY
   IMPORTANT to run, as without it, existing requests won't trigger any alert
   emails at all.
+* The way that flash messages are rendered has changed so if you have overridden
+  a template which renders flash (e.g. `<%= flash[:notice] %>`), you will need
+  to use the new `<%= render_flash(flash[:notice]) %>` style instead.
+* This release deprecates non-responsive stylesheets. Please make sure your site
+  works with `RESPONSIVE_STYLING` set to `true`.
+* This is likely to be the last release that supports Ruby 1.9.x. We have some
+  [notes](https://git.io/vLNg0) on migrating away from 1.8.7; migrating to
+  Ruby 2+ should be a similar process. Debian Jessie and Ubuntu 14.04+ include
+  packaged versions of Ruby 2+.
 
 ### Changed Templates
 
-    app/views/admin_comment/_params.html.erb
     app/views/admin_comment/edit.html.erb
     app/views/admin_general/index.html.erb
+    app/views/admin_general/timeline.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/index.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/comment/_suggestions.html.erb
+    app/views/alaveteli_pro/dashboard/_activity_list_item.html.erb
+    app/views/alaveteli_pro/dashboard/_projects.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/draft_info_requests/_draft_info_request.html.erb
+    app/views/alaveteli_pro/embargo_mailer/expiring_alert.text.erb
+    app/views/alaveteli_pro/followups/_embargoed_form_title.html.erb
+    app/views/alaveteli_pro/general/_log_in_bar_links.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_request_list.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/new.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/alaveteli_pro/public_bodies/_search_result.html.erb
     app/views/comment/_single_comment.html.erb
     app/views/followups/_followup.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/_topnav.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/layouts/no_chrome.html.erb
+    app/views/outgoing_messages/delivery_statuses/show.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/_more_info.html.erb
     app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_filter_form.html.erb
     app/views/request/describe_notices/_error_message.html.erb
+    app/views/request/describe_notices/_internal_review.html.erb
+    app/views/request/describe_notices/_not_held.html.erb
+    app/views/request/describe_notices/_successful.html.erb
+    app/views/request/describe_notices/_waiting_response.html.erb
+    app/views/request/describe_notices/_waiting_response_overdue.html.erb
+    app/views/request/details.html.erb
+    app/views/request/new.html.erb
+    app/views/request/preview.html.erb
+    app/views/request_mailer/stopped_responses.text.erb
+
+# 0.28.0.10
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+# 0.28.0.9
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
+# 0.28.0.8
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
+# 0.28.0.7
+
+## Highlighted Features
+
+* Fix locale handling bug which prevented locales containing underscores from
+  being used as an additional site language (Liz Conlan)
 
 # 0.28.0.6
 

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddUserToRequestSummary < ActiveRecord::Migration
   def change
     add_reference :request_summaries, :user, index: true, null: false

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateAlaveteliProRequestSummaryCategories < ActiveRecord::Migration
   def change
     create_table :request_summary_categories do |t|

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateDraftInfoRequests < ActiveRecord::Migration
   def change
     create_table :draft_info_requests do |t|

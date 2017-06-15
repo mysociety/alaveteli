@@ -126,7 +126,6 @@ class AdminRequestController < AdminController
   end
 
   def generate_upload_url
-
     if params[:incoming_message_id]
       incoming_message = IncomingMessage.find(params[:incoming_message_id])
       email = incoming_message.from_email
@@ -154,9 +153,15 @@ class AdminRequestController < AdminController
       :uri => upload_response_url(:url_title => @info_request.url_title),
     :user_id => user.id)
     post_redirect.save!
-    url = confirm_url(:email_token => post_redirect.email_token)
 
-    flash[:notice] = ("Send \"#{CGI.escapeHTML(name)}\" &lt;<a href=\"mailto:#{email}\">#{email}</a>&gt; this URL: <a href=\"#{url}\">#{url}</a> - it will log them in and let them upload a response to this request.").html_safe
+    flash[:notice] = {
+      :partial => "upload_email_message.html.erb",
+      :locals => {
+        :name => name,
+        :email => email,
+        :url => confirm_url(:email_token => post_redirect.email_token)
+      }
+    }
     redirect_to admin_request_url(@info_request)
   end
 
@@ -183,7 +188,10 @@ class AdminRequestController < AdminController
           subject,
           params[:explanation].strip.html_safe
         ).deliver
-        flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(@info_request.user.name))
+        flash[:notice] = _("Your message to {{recipient_user_name}} has " \
+                           "been sent",
+                           :recipient_user_name => @info_request.user.
+                                                     name.html_safe)
       else
         flash[:notice] = _("This external request has been hidden")
       end

@@ -18,7 +18,11 @@
         <p>
           <em>
             <% if item['comments'] %>
-              <a href="<%=item['comments'][0]%>"><%= _("{{number_of_comments}} comments", :number_of_comments=>item['comments'][1]) %></a>
+              <a href="<%=item['comments'][0]%>"><%= n_(
+                "{{number_of_comments}} comment",
+                "{{number_of_comments}} comments",
+                item['comments'][1],
+                :number_of_comments=>item['comments'][1]) %></a>
             <% end %>
           </em>
         </p>

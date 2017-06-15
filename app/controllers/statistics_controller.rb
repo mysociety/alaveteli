@@ -8,7 +8,7 @@ class StatisticsController < ApplicationController
     @users = Statistics.users
     @request_hides_by_week = Statistics.by_week_to_today_with_noughts(
       InfoRequestEvent.count_of_hides_by_week,
-      InfoRequest.visible.order(:created_at).first.created_at
+      InfoRequest.is_public.order(:created_at).first.created_at
     )
 
     respond_to do |format|

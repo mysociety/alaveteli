@@ -53,9 +53,7 @@ describe "pro request list" do
       expect(page).to have_css("#info-request-batch-#{batch.id}")
 
       within("#info-request-batch-#{batch.id}") do
-        batch_path = info_request_batch_path(batch)
-        expected_title = "#{batch.title} (10 requests)"
-        expect(page).to have_link(expected_title, href: batch_path)
+        expect(page).to have_field(batch.title)
 
         expected_public_bodies = "#{batch.public_bodies.first.name} " \
                                  "and #{batch.public_bodies.second.name}"
@@ -76,7 +74,9 @@ describe "pro request list" do
           expect(page).not_to have_css("info-request-#{request.id}")
         end
 
-        check "Show requests"
+        # The batch title is the label for the houdini checkbox that shows the
+        # bodies
+        check batch.title
 
         batch.info_requests.each do |request|
           expect(page).to have_css("#info-request-#{request.id}")
@@ -97,9 +97,7 @@ describe "pro request list" do
       expect(page).to have_css("#info-request-batch-#{batch.id}")
 
       within("#info-request-batch-#{batch.id}") do
-        batch_path = info_request_batch_path(batch)
-        expected_title = "#{batch.title} (10 requests)"
-        expect(page).to have_link(expected_title, href: batch_path)
+        expect(page).to have_field(batch.title)
 
         expected_public_bodies = "#{batch.public_bodies.first.name} " \
                                  "and #{batch.public_bodies.second.name}"
@@ -108,7 +106,7 @@ describe "pro request list" do
 
         expect(page).to have_content(batch.created_at.strftime('%d-%m-%Y'))
         expect(page).to have_content(batch.updated_at.strftime('%d-%m-%Y'))
-        expect(page).to have_content("Pending...")
+        expect(page).to have_content("Pending")
         expect(page).to have_content("10 Pending")
 
         # Should not show bodies until we click the link
@@ -116,7 +114,9 @@ describe "pro request list" do
           expect(page).not_to have_css("info-request-#{request.id}")
         end
 
-        check "Show requests"
+        # The batch title is the label for the houdini checkbox that shows the
+        # bodies
+        check batch.title
 
         batch.info_requests.each do |request|
           expect(page).to have_css("info-request-#{request.id}")

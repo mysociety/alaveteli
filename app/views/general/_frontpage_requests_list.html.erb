@@ -8,7 +8,9 @@
   </h3>
 
   <h4>
-    <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
+    <%= n_("{{site_name}} users have made {{number_of_requests}} request, including:",
+        "{{site_name}} users have made {{number_of_requests}} requests, including:",
+        @number_of_requests,
         :site_name => site_name,
         :number_of_requests => number_with_delimiter(@number_of_requests)) %>
   </h4>

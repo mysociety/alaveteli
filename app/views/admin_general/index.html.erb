@@ -35,7 +35,7 @@
             <% for message in @holding_pen_messages %>
               <tr>
                 <td>
-                  <% if message.get_body_for_quoting.strip.size == 0 %>
+                  <% if message.get_body_for_quoting.gsub(/[[:space:]]/, "").size == 0 %>
                     <%= link_to "(no body)", admin_raw_email_path(message.raw_email_id) %>
                   <% else %>
                     <%= link_to admin_raw_email_path(message.raw_email_id) do %>

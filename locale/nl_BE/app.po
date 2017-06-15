@@ -9,7 +9,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
+# claude transparencia <audit.citoyen.quartier@gmail.com>, 2017
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
 # Gareth Rees <gareth@mysociety.org>, 2017
 # Infwolf <infwolf@gmail.com>, 2014
@@ -18,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 10:53+0000\n"
-"PO-Revision-Date: 2017-03-23 09:46+0000\n"
+"POT-Creation-Date: 2017-06-12 04:52-0700\n"
+"PO-Revision-Date: 2017-06-12 11:54+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/mysociety/alaveteli/language/nl_BE/)\n"
 "Language: nl_BE\n"
@@ -229,7 +231,7 @@ msgid "<strong>Note:</strong> Because we're testing, requests are being sent to 
 msgstr "<strong>Let op:</strong> Omdat we aan het testen zijn, worden verzoeken verstuurd naar {{email}} en niet naar de daadwerkelijke overheidsinstelling."
 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr "<strong>Let op:</strong>\\n We zullen een mail sturen naar uw nieuwe e-mailadres. Volg de\\n instructies in de mail om uw wijzigingen door te voeren."
+msgstr "<strong>Let op:</strong>\\n We sturen een e-mail naar uw nieuwe e-mailadres. Volg de\\n instructies in de mail om uw wijzigingen door te voeren."
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr "<strong>Let op:</strong> We zullen u een mail sturen om te bevestigen dat u de eigenaar van dit account bent. Volg de instructies in de mail om uw wachtwoord te wijzigen."
@@ -283,7 +285,7 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr "Een nieuwe informatieaanvraag, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, is verstuurd naar {{public_body_name}} door {{info_request_user}} op {{date}}."
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr "Een samenvatting in één zin van de informatie die u vraagt,\\n⇥⇥⇥bijvoorbeeld"
+msgstr ""
 
 msgid "A public authority"
 msgstr "Een overheidsinstelling"
@@ -307,7 +309,13 @@ msgid "About you:"
 msgstr "Over u:"
 
 msgid "Act on what you've learnt"
-msgstr "Handel naar wat u heeft geleerd"
+msgstr "Delen"
+
+msgid "Action needed"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
 
 msgid "Acts as xapian/acts as xapian job"
 msgstr "Acts as xapian/acts as xapian job"
@@ -354,6 +362,60 @@ msgstr "Tips als de <strong>weigering legaal is</strong> en over het indienen va
 msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
 msgstr "Lucht, water, bodem, flora en fauna (inbegrepen de manier waarop ze de mens beïnvloeden)"
 
+msgid "Alaveteli pro/draft info request batch"
+msgstr ""
+
+msgid "Alaveteli pro/embargo"
+msgstr ""
+
+msgid "Alaveteli pro/embargo extension"
+msgstr ""
+
+msgid "Alaveteli pro/request summary"
+msgstr ""
+
+msgid "Alaveteli pro/request summary category"
+msgstr ""
+
+msgid "AlaveteliPro::DraftInfoRequestBatch|Body"
+msgstr ""
+
+msgid "AlaveteliPro::DraftInfoRequestBatch|Embargo duration"
+msgstr ""
+
+msgid "AlaveteliPro::DraftInfoRequestBatch|Title"
+msgstr ""
+
+msgid "AlaveteliPro::EmbargoExtension|Extension duration"
+msgstr ""
+
+msgid "AlaveteliPro::Embargo|Embargo duration"
+msgstr ""
+
+msgid "AlaveteliPro::Embargo|Publish at"
+msgstr ""
+
+msgid "AlaveteliPro::RequestSummaryCategory|Slug"
+msgstr ""
+
+msgid "AlaveteliPro::RequestSummary|Body"
+msgstr ""
+
+msgid "AlaveteliPro::RequestSummary|Public body names"
+msgstr ""
+
+msgid "AlaveteliPro::RequestSummary|Request created at"
+msgstr ""
+
+msgid "AlaveteliPro::RequestSummary|Request updated at"
+msgstr ""
+
+msgid "AlaveteliPro::RequestSummary|Summarisable type"
+msgstr ""
+
+msgid "AlaveteliPro::RequestSummary|Title"
+msgstr ""
+
 msgid "All of the information requested has been received"
 msgstr "Alle vereiste informatie is ontvangen"
 
@@ -395,6 +457,12 @@ msgstr "Een anonieme gebruiker"
 
 msgid "Annotation added to request"
 msgstr "Commentaar toegevoegd aan de informatieaanvraag"
+
+msgid "Annotation contains defamatory material"
+msgstr ""
+
+msgid "Annotation contains personal information"
+msgstr ""
 
 msgid "Annotations"
 msgstr "Commentaren"
@@ -517,13 +585,13 @@ msgid "Browse requests"
 msgstr "Bekijk de informatieaanvragen"
 
 msgid "By law, they have to respond."
-msgstr "De overheidsinstellingen moeten, wettelijk, antwoorden"
+msgstr "De overheidsinstellingen zijn wettelijk verplicht te antwoorden"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Volgens de wet had {{public_body_link}}, onder alle omstandigheden, al moeten reageren"
 
-msgid "By law, you should get a response promptly, and normally before the end of <strong{{date_response_required_by}}</strong>."
-msgstr "Volgens de wet moet u een antwoord krijgen voor <strong>{{date_response_required_by}}</strong>."
+msgid "By law, you should get a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
 
 msgid "By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>."
 msgstr "Volgens de wet moet u een antwoord krijgen voor <strong>{{date_response_required_by}}</strong>."
@@ -535,7 +603,7 @@ msgid "Calculated home page"
 msgstr "Berekende homepagina"
 
 msgid "Can't find the one you want?"
-msgstr "Vindt u niet de overheidsinstelling die u zoekt?"
+msgstr "Is er een overheidsinstelling die u niet vindt ?"
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "Annuleer de waarschuwing van {{site_name}}"
@@ -629,6 +697,9 @@ msgstr "Sluit de aanvraag en reageer:"
 
 msgid "Comment"
 msgstr "Commentaar"
+
+msgid "Comment|Attention requested"
+msgstr ""
 
 msgid "Comment|Body"
 msgstr ""
@@ -808,10 +879,22 @@ msgid "Done &gt;&gt;"
 msgstr "Gereed &gt;&gt;"
 
 msgid "Download a zip file of all correspondence"
-msgstr "Download aan zip-bestand van alle correspondentie"
+msgstr "Download zip-bestand van alle correspondentie"
 
 msgid "Download original attachment"
 msgstr "Download originele bijlage"
+
+msgid "Draft info request"
+msgstr ""
+
+msgid "DraftInfoRequest|Body"
+msgstr ""
+
+msgid "DraftInfoRequest|Embargo duration"
+msgstr ""
+
+msgid "DraftInfoRequest|Title"
+msgstr ""
 
 msgid "EIR"
 msgstr "Informatieaanvraag over milieukwesties"
@@ -925,7 +1008,25 @@ msgid "First, did your other requests succeed?"
 msgstr "Ten eerste, zijn uw andere informatieaanvragen geslaagd?"
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
-msgstr "Ten eerste, typ de <strong>naam van de overheidsinstelling</strong> waarvan u informatie wil krijgen."
+msgstr "Zoek hier de <strong> overheidsinstelling</strong> waarvan u informatie wil krijgen."
+
+msgid "Flipper/adapters/active record/feature"
+msgstr ""
+
+msgid "Flipper/adapters/active record/gate"
+msgstr ""
+
+msgid "Flipper::Adapters::ActiveRecord::Feature|Key"
+msgstr ""
+
+msgid "Flipper::Adapters::ActiveRecord::Gate|Feature key"
+msgstr ""
+
+msgid "Flipper::Adapters::ActiveRecord::Gate|Key"
+msgstr ""
+
+msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Wob-bijlage"
@@ -1080,13 +1181,16 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "GEEF HIER VERDERE INFORMATIE OVER UW KLACHT"
 
 msgid "Got an account?"
-msgstr "Beschikt u over een rekening?"
+msgstr "Beschikt u over een account ?"
 
 msgid "Handled by post"
 msgstr "Verstuurd per post."
 
 msgid "Handled by post."
 msgstr "Verstuurd per post."
+
+msgid "Has tag string tag"
+msgstr ""
 
 msgid "Has tag string/has tag string tag"
 msgstr "Has tag string/has tag string tag"
@@ -1098,6 +1202,15 @@ msgid "HasTagString::HasTagStringTag|Name"
 msgstr ""
 
 msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
+
+msgid "HasTagStringTag|Model"
+msgstr ""
+
+msgid "HasTagStringTag|Name"
+msgstr ""
+
+msgid "HasTagStringTag|Value"
 msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
@@ -1241,8 +1354,8 @@ msgstr "Indien de fout werd veroorzaakt door een 'delivery failure' en u vindt e
 msgid "If this is a recent message, check back tomorrow, as we check for new logs periodically."
 msgstr "Indien het gaat om een recent bericht, gelieve het morgen opnieuw na te kijken. We checken nieuwe logs regelmatig."
 
-msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} for help."
-msgstr "Indien dit niet correct is of indien u een laattijdig antwoord op de aanvraag of een e-mail over een ander onderwerp wil sturen naar {{user}}, gelieve een e-mail te sturen naar {{contact_email}} voor ondersteuning."
+msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
+msgstr ""
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Indien u niet tevreden bent met het antwoord dat u hebt ontvangen van de overheidsinstelling, hebt u het recht om een vraag om herziening te versturen (<a href=\"{{url}}\">gegevens</a>)."
@@ -1313,6 +1426,9 @@ msgstr "Als uw browser cookies accepteert en u dit bericht ziet, is de foutmeldi
 msgid "Improve your account security"
 msgstr "Verbeter de veiligheid van uw account"
 
+msgid "In progress"
+msgstr ""
+
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "Voeg nuttige links toe: naar uw blog, een Twitter-account, etc. Deze links zullen aanklikbaar zijn. \\n e.g"
 
@@ -1371,6 +1487,9 @@ msgid "Info request event"
 msgstr "Gebeurtenis van informatieaanvraag"
 
 msgid "InfoRequestBatch|Body"
+msgstr ""
+
+msgid "InfoRequestBatch|Embargo duration"
 msgstr ""
 
 msgid "InfoRequestBatch|Sent at"
@@ -1449,6 +1568,9 @@ msgid "InfoRequest|Title"
 msgstr ""
 
 msgid "InfoRequest|Url title"
+msgstr ""
+
+msgid "InfoRequest|Use notifications"
 msgstr ""
 
 msgid "Information not held"
@@ -1629,7 +1751,7 @@ msgid "Missing contact details for '{{authority_name}}'"
 msgstr "De contactgegevens voor '{{authority_name}}' ontbreken"
 
 msgid "More about this authority"
-msgstr "Geen verder informatie over deze overheidsinstelling"
+msgstr "Geen verdere informatie over deze overheidsinstelling"
 
 msgid "More similar requests"
 msgstr "Geen gelijkaardige aanvragen"
@@ -2110,6 +2232,12 @@ msgstr "Print uw eenmalige toegangscode"
 msgid "Privacy and cookies"
 msgstr "Privacy en cookies"
 
+msgid "Pro account"
+msgstr ""
+
+msgid "ProAccount|Default embargo duration"
+msgstr ""
+
 msgid "Profile image for {{user_name}}"
 msgstr "Profielafbeelding van {{user_name}}"
 
@@ -2167,11 +2295,17 @@ msgstr "Categorie overheidsinstelling"
 msgid "Public body category link"
 msgstr "Link naar categorie overheidsinstelling"
 
+msgid "Public body category translation"
+msgstr ""
+
 msgid "Public body change request"
 msgstr "Vraag om gegevens van overheidsinstelling te veranderen"
 
 msgid "Public body heading"
 msgstr "Rubriek van de overheidsinstelling"
+
+msgid "Public body heading translation"
+msgstr ""
 
 msgid "Public page"
 msgstr "Publieke pagina"
@@ -2180,6 +2314,15 @@ msgid "Public page not available"
 msgstr "Publieke pagina niet beschikbaar"
 
 msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategoryTranslation|Description"
+msgstr ""
+
+msgid "PublicBodyCategoryTranslation|Locale"
+msgstr ""
+
+msgid "PublicBodyCategoryTranslation|Title"
 msgstr ""
 
 msgid "PublicBodyCategory|Category tag"
@@ -2204,6 +2347,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeadingTranslation|Locale"
+msgstr ""
+
+msgid "PublicBodyHeadingTranslation|Name"
 msgstr ""
 
 msgid "PublicBodyHeading|Display order"
@@ -2321,19 +2470,25 @@ msgid "Rejected"
 msgstr "Geweigerd"
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
-msgstr "Herinner me (laat u toe om langer geconnecteerd te blijven; gebruik dit niet op een openbare computer)"
+msgstr "Aangemeld blijven (gebruik dit niet op een openbare computer)"
 
 msgid "Replying by post"
 msgstr "Antwoord per post"
 
-msgid "Report abuse"
-msgstr "Meld misbruik"
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Meld een lasterlijk of ongepast verzoek"
 
+msgid "Report annotation"
+msgstr ""
+
+msgid "Report annotation on request: {{title}}"
+msgstr ""
+
 msgid "Report request"
 msgstr "Meld een aanvraag"
+
+msgid "Report request: {{title}}"
+msgstr ""
 
 msgid "Report this request"
 msgstr "Meld deze aanvraag"
@@ -2372,7 +2527,7 @@ msgid "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}
 msgstr "Verzoek verzonden naar {{public_body_name}} door {{info_request_user}} op{{date}}."
 
 msgid "Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}."
-msgstr "Verzoek aan {{public_body_name}} vanwege {{info_request_user}}.becommentariëerd door{{event_comment_user}} op {{date}}."
+msgstr "Verzoek aan {{public_body_name}} vanwege {{info_request_user}}.becommentariëerd door {{event_comment_user}} op {{date}}."
 
 msgid "Requested from {{public_body_name}} by {{info_request_user}} on {{date}}"
 msgstr "Verzoek van {{public_body_name}} door {{info_request_user}} op {{date}}"
@@ -2458,6 +2613,15 @@ msgstr "Beperkt tot"
 msgid "Results page {{page_number}}"
 msgstr "Bladzijde van de resultaten {{page_number}}"
 
+msgid "Role"
+msgstr ""
+
+msgid "Role|Name"
+msgstr ""
+
+msgid "Role|Resource type"
+msgstr ""
+
 msgid "Save"
 msgstr "Bewaar"
 
@@ -2509,6 +2673,12 @@ msgstr "Stuur een publiek vervolgbericht naar {{person_or_body}}"
 msgid "Send a public reply to {{person_or_body}}"
 msgstr "Verzend een publiek antwoord naar {{person_or_body}}"
 
+msgid "Send and publish message"
+msgstr ""
+
+msgid "Send and publish request"
+msgstr ""
+
 msgid "Send follow up to '{{title}}'"
 msgstr "Verzend een vervolgbericht naar '{{title}}'"
 
@@ -2523,9 +2693,6 @@ msgstr "Zend een bericht naar {{user_name}}"
 
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Zend een bericht naar {{user_name}} om te zien hoe het werkt"
-
-msgid "Send request"
-msgstr "Verzend een verzoek"
 
 msgid "Sending..."
 msgstr "Verzenden..."
@@ -2566,16 +2733,16 @@ msgid "Showing"
 msgstr "Kijken"
 
 msgid "Sign in"
-msgstr "Connectie"
+msgstr "Aanmelden"
 
 msgid "Sign in as the emergency user"
 msgstr "Connecteer als spoedgebruiker"
 
 msgid "Sign in or make a new account"
-msgstr "Connecteer of maak een nieuwe account aan"
+msgstr "Aanmelden of  nieuwe account maken "
 
 msgid "Sign in or sign up"
-msgstr "Connecteer of schrijf u in"
+msgstr "Account aanmaken /Aanmelden"
 
 msgid "Sign in to track this request"
 msgstr "Schrijf u in om dit verzoek op te volgen"
@@ -2799,8 +2966,8 @@ msgstr "De classificatie van de aanvragen (b.v. of ze succesvol of niet zijn opg
 msgid "The contact email address for FOI requests to the authority."
 msgstr "Het contact-e-mailadres van de overheidsinstelling voor informatieaanvragen."
 
-msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} to reply to an {{law_used_short}} request has not been delivered."
-msgstr "De e-mail die u in naam van {{public_body}} heeft verzonden naar {{user}} als antwoord op een aanvraag inzake {{law_used_short}}, is niet afgeleverd."
+msgid "The email that you, on behalf of {{public_body}}, sent to {{user}} <{{incoming_email}}> to reply to an {{law_used_short}} request has not been delivered."
+msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "De foutenbalken tonen 95% vertrouwensintervallen voor de vermoede onderliggende verhoudingen (dit is wat je zou verkrijgen door een oneindig aantal vragen via deze site aan die overheidsinstelling). Maw. de staal bestaat uit alle huidige en toekomstige vragen aan de overheid via deze site en niet aall vragen die aan die overheidsinstelling gesteld werden op eerder welke wijze."
@@ -2952,8 +3119,8 @@ msgstr "Vervolgens zult u verwittigd worden telkens de vraag '{{request_title}}'
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Vervolgens zult u in staat zijn om informatieaanvragen te verzenden."
 
-msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr "Vervolgens zal uw informatieaanvraag aan {{public_body_name}} verzonden worden."
+msgid "Then your FOI request to {{public_body_name}} will be sent and published."
+msgstr ""
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr "Vervolgens zal uw commentaar op {{info_request_title}} gepost worden."
@@ -3011,6 +3178,9 @@ msgstr "Ze hebben niet geantwoord op uw vraag van {{law_used_short}} {{title}} i
 
 msgid "Things you're following"
 msgstr "Wat u opvolgt"
+
+msgid "This annotation has been reported for administrator attention"
+msgstr ""
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Deze overheidsinstelling bestaat niet meer, u kunt haar dus geen vraag stellen."
@@ -3232,8 +3402,8 @@ msgstr "Om een opvolgingsbericht te versturen aan {{authority_name}} "
 msgid "To send a message to {{user_name}}"
 msgstr "Om een bericht te versturen aan {{user_name}}"
 
-msgid "To send your FOI request"
-msgstr "Om uw informatieaanvraag te verzenden"
+msgid "To send and publish your FOI request"
+msgstr ""
 
 msgid "To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>."
 msgstr "Om uw vraag naar een andere overheidsinstelling te verzenden, kopieer de tekst van uw aanvraag hieronder en zoek vervolgens <a href=\"{{find_authority_url}}\">de andere overheidsinstelling</a>."
@@ -3290,7 +3460,7 @@ msgid "Try opening the logs in a new window."
 msgstr "De logs in een nieuw venster proberen te openen."
 
 msgid "Turn off email alerts"
-msgstr "De meldingen per e-mail afzetten"
+msgstr "De meldingen per e-mail uitschakelen"
 
 msgid "Tweet it"
 msgstr "Delen op Twitter"
@@ -3344,7 +3514,7 @@ msgid "Unexpected search result type {{result_type}}"
 msgstr "Onverwacht type zoekresultaat {{result_type}}"
 
 msgid "Unfollow"
-msgstr "Ophouden met volgen"
+msgstr "Stoppen met volgen"
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Jammergenoeg hebben wij geen adres voor {{public_body_names}}."
@@ -3487,8 +3657,11 @@ msgstr "Versie {{version}}"
 msgid "Vexatious"
 msgstr "Ongepast"
 
+msgid "Vexatious annotation"
+msgstr ""
+
 msgid "View FOI email address"
-msgstr "Het e-mailadres van de informatieaanvraag bekijken"
+msgstr "Het e-mailadres voor informatieaanvragen bekijken"
 
 msgid "View FOI email address for '{{public_body_name}}'"
 msgstr "Het e-mailadres van de informatieaanvraag voor '{{public_body_name}}' bekijken"
@@ -3500,7 +3673,7 @@ msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "De informatieaanvragen gemaakt door {{user_name}} bekijken:"
 
 msgid "View authorities"
-msgstr "De overheidsinstellingen bekijken"
+msgstr "Bekijk overheidsinstellingen"
 
 msgid "View email"
 msgstr "De e-mail bekijken"
@@ -3550,8 +3723,8 @@ msgstr "Wij zijn van oordeel dat het geen geldige informatieaanvraag is. Daarom 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
 msgstr "Wij beschouwen haar als ongepast. Daarom is ze verborgen voor de andere gebruikers."
 
-msgid "We couldn't determine the delivery status of this message"
-msgstr "U kunt de status van aflevering van dit beriht bepalen."
+msgid "We couldn't determine the delivery status of this message. It can take up to 24 hours after the message has been sent to determine delivery status information."
+msgstr ""
 
 msgid "We couldn’t display any logs for this message."
 msgstr "U kunt alle logs van dit bericht tonen."
@@ -3565,6 +3738,9 @@ msgstr "We beschikken niet over een e-mailadres voor de vragen aan deze overheid
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "We beschikken niet over een adres van de vraag van {{law_used_full}} voor {{public_body_name}}."
 
+msgid "We don't know the delivery status for this message."
+msgstr ""
+
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "We weten niet of het meest recente antwoord op deze vraag al dan niet de gevraagde informatie bevat\\n &ndash;\\n als u {{user_link}} bent, gelieve <a href=\"{{url}}\">ons te contacteren</a> en het ons door te geven."
 
@@ -3572,7 +3748,7 @@ msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to
 msgstr "We hebben <a href=\"{{other_means_url}}\">suggesties </a> over andere manieren om op uw vraag te antwoorden."
 
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
-msgstr "U publiceren alle antwoorden online. Op die manier heeft u uw antwoord en heeft iedereen er toegang toe."
+msgstr "Wij publiceren alle antwoorden online. Op die manier heeft u uw antwoord en heeft iedereen er toegang toe."
 
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr "Wij zullen uw e-mailadres niet aan derden doorgeven tenzij <a href=\"{{url}}\">u ons daarvoor de toestemming geeft of als de wet ons daartoe verplicht</a>."
@@ -3584,7 +3760,7 @@ msgid "We will not reveal your email addresses to anybody unless you or the law 
 msgstr "Wij zullen uw e-mailadres niet aan derden doorgeven tenzij u ons daarvoor de toestemming geeft of als de wet ons daartoe verplicht."
 
 msgid "We'll drop you an email as soon as your request gets a response."
-msgstr "Wij zullen u een e-mail sturen van zodra uw vraag een antwoord ontvangt."
+msgstr "Wij sturen u een e-mail van zodra uw vraag een antwoord ontvangt."
 
 msgid "We're glad you got all the information that you wanted."
 msgstr "Wij zijn bijzonder verheugd dat u de informatie ontvangen heeft die u wenste."
@@ -3726,7 +3902,7 @@ msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\"
 msgstr "U bent reeds ingeschreven voor alle <a href=\"{{new_requests_url}}\">afgehandelde aanvragen</a>."
 
 msgid "You are currently receiving notification of new activity on your wall by email."
-msgstr "U ontvangt nu per mail de meldingen voor nieuwe activititen op uw muur."
+msgstr "U ontvangt nu per mail de meldingen van nieuwe activititen op uw muur."
 
 msgid "You are following all new successful responses"
 msgstr "U volgt alle nieuwe afgehandelde vragen"
@@ -3804,7 +3980,7 @@ msgid "You have now changed your email address used on {{site_name}}"
 msgstr "U veranderde uw mailades dat u gebruikt in {{site_name}}"
 
 msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
-msgstr "U heeft het <strong>recht</strong> inlichtingen te vragen aan alle publieke overhedend en antwoorden te ontvangen. {{site_name}} helpt u informatieaanvraag in te dienen. Wij publiceren ook alle informatieaanvragen on line."
+msgstr "U heeft het <strong>recht</strong> inlichtingen te vragen aan alle publieke overheden en antwoorden te ontvangen. {{site_name}} helpt u uw informatieaanvraag in te dienen. Wij publiceren ook alle informatieaanvragen on-line."
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr "U trachtte zich in te schrijven op {{site_name}}, maar u heeft reeds een account. Uw username en paswoord zijn ongewijzigd.  Klik op de link hieronder."
@@ -3843,7 +4019,7 @@ msgid "You previously submitted that exact follow up message for this request."
 msgstr "U heeft reeds hetzelde opvolgingsbericht ingediend voor deze vraag."
 
 msgid "You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>)."
-msgstr "U zou een antwoord dienen te ontvangen binnen {{late_number_of_days}} dagen, of ten minste verwittigd worden dat het langer zal duren  (<a href=\"{{review_url}}\">détails</a>)."
+msgstr "U zou een antwoord dienen te ontvangen binnen {{late_number_of_days}} dagen, of ten minste verwittigd worden dat het langer zal duren  (<a href=\"{{review_url}}\">details</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr "U zou per mail een copie van de vraag moeten ontvangen hebben en u kan antwoorden door <strong>simpelweg op deze mail</ strong> te antwoorden. Voor uw gemak, hier het adres:"
@@ -3945,10 +4121,10 @@ msgid "Your message will appear in <strong>search engines</strong>"
 msgstr "Uw bericht verschijnt in de <strong>zoekmachines<strong>"
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
-msgstr "Uw naam en uw commentaar verschijnen in de <strong>zoekmachines</strong>."
+msgstr "Uw naam en uw commentaar verschijnen in de <strong> zoekmachines</strong>."
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
-msgstr "Uw naam, uw vraag en alle antwoorden verschijnen in de<strong>zoekmachines</strong> (<a href=\"{{url}}\">détails</a>)."
+msgstr "Uw naam, uw vraag en alle antwoorden verschijnen in de<strong>zoekmachines</strong> (<a href=\"{{url}}\">details</a>)."
 
 msgid "Your name:"
 msgstr "Uw naam:"
@@ -4117,6 +4293,9 @@ msgstr "opmerkingen"
 msgid "complete"
 msgstr "volledig"
 
+msgid "delivered"
+msgstr ""
+
 msgid "details"
 msgstr "details"
 
@@ -4127,7 +4306,7 @@ msgid "e.g. Ministry of Defence"
 msgstr "bv. Ministerie van Landsverdediging"
 
 msgid "edit text about you"
-msgstr "Wijzig uw persoons beschrijving"
+msgstr "Wijzig uw persoonsbeschrijving"
 
 msgid "email address"
 msgstr "mailadres"
@@ -4137,6 +4316,9 @@ msgstr "alle"
 
 msgid "external"
 msgstr "externe"
+
+msgid "failed"
+msgstr ""
 
 msgid "have delayed."
 msgstr "is latttijdig."
@@ -4210,6 +4392,9 @@ msgstr "antwoord ontvangen"
 msgid "send a follow up message"
 msgstr "Een opvolgingsbericht versturen"
 
+msgid "sent"
+msgstr ""
+
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr "Laat <strong>leeg</strong> (lege string) als u geen adres vindt. Deze mails zijn openbaar, iedereen kan ze zien midels een CAPTCHA."
 
@@ -4251,6 +4436,9 @@ msgstr "aan {{public_body}}"
 msgid "type your search term here"
 msgstr "enter hier uw zoekterm"
 
+msgid "unknown"
+msgstr ""
+
 msgid "unknown reason"
 msgstr "reden onbekend"
 
@@ -4264,7 +4452,7 @@ msgid "unknown status {{status}}"
 msgstr "status onbekend {{status}}"
 
 msgid "unresolved requests"
-msgstr "Nog niet beantwoord aanvragen"
+msgstr "Vragen in behandeling"
 
 msgid "unsubscribe"
 msgstr "zich uitschrijven"
@@ -4273,7 +4461,7 @@ msgid "unsubscribe all"
 msgstr "alles uitschrijven"
 
 msgid "unsuccessful requests"
-msgstr "Vragen die geen resultaat kenden"
+msgstr "Vragen zonder resultaat "
 
 msgid "users"
 msgstr "gebruikers"
@@ -4348,8 +4536,10 @@ msgstr "{{law_used}} vragen aan {{public_body}}"
 msgid "{{length_of_time}} ago"
 msgstr "sinds {{length_of_time}}"
 
-msgid "{{number_of_comments}} comments"
-msgstr "{{number_of_comments}} opmerkingen"
+msgid "{{number_of_comments}} comment"
+msgid_plural "{{number_of_comments}} comments"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"
@@ -4365,7 +4555,7 @@ msgid "{{public_body_link_absolute}}"
 msgstr ""
 
 msgid "{{public_body_link}} answered a request about"
-msgstr "{{public_body_link}} heeft geantwword op een vraag betreffende"
+msgstr "{{public_body_link}} heeft geantwoord op een vraag betreffende"
 
 msgid "{{public_body_link}} was sent a request about"
 msgstr "{{public_body_link}} heeft een vraag ontvangen over"
@@ -4397,14 +4587,18 @@ msgstr "{{search_results}} overeenkomend met '{{query}}'"
 msgid "{{site_name}} blog and tweets"
 msgstr "{{site_name}} blog en tweets"
 
-msgid "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
-msgstr "{{site_name}} beheert de vragen gericht tot {{number_of_authorities}} overheidsinstellingen, waaronder:"
+msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
+msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} stuurt de nieuwe aanvragen aan <strong>{{request_email}}</strong> voor deze overheidsinstelling."
 
-msgid "{{site_name}} users have made {{number_of_requests}} requests, including:"
-msgstr "De gebruikers van {{site_name}} hebben {{number_of_requests}} vragen verstuurd, waaronder:"
+msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
+msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
 msgstr "{{thing_changed}} is veranderd van <code>{{from_value}}</code> naar <code>{{to_value}}</code>"
@@ -4464,7 +4658,7 @@ msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a hr
 msgstr "{{user}} ({{user_admin_link}}) heeft deze vraag om {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) aan {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}} heeft deze vraag van {{law_used_full}}"
+msgstr "{{user}} heeft deze vraag van {{law_used_full}} gesteld"
 
 msgid "« Back to search results"
 msgstr "« Terug naar zoekresultaten"

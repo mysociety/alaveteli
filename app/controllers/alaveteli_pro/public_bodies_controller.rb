@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
   def search
     query = params[:query] || ""

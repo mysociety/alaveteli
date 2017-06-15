@@ -40,6 +40,14 @@ describe AdminGeneralController do
       expect(assigns[:attention_requests]).to eq([attention_requested_request])
     end
 
+    it 'assigns messages sent to the holding pen to the view' do
+      undeliverable = FactoryGirl.
+                        create(:incoming_message,
+                               :info_request => InfoRequest.holding_pen_request)
+      get :index, {}, { :user_id => admin_user.id }
+      expect(assigns[:holding_pen_messages]).to eq([undeliverable])
+    end
+
     context 'when the user is not a pro admin' do
 
       context 'when pro is enabled' do
@@ -147,6 +155,68 @@ describe AdminGeneralController do
       expect(assigns[:events].second.first).to eq(public_body_version)
       expect(assigns[:events].third.first).to eq(first_event)
 
+    end
+
+  end
+
+  describe 'GET #stats' do
+
+    it 'assigns the number of public bodies to the view' do
+      get :stats
+      expect(assigns[:public_body_count]).to eq PublicBody.count
+    end
+
+    it 'assigns the number of requests to the view' do
+      get :stats
+      expect(assigns[:info_request_count]).to eq InfoRequest.count
+    end
+
+    it 'assigns the number of users to the view' do
+      get :stats
+      expect(assigns[:user_count]).to eq User.count
+    end
+
+    it 'assigns the number of tracks to the view' do
+      get :stats
+      expect(assigns[:track_thing_count]).to eq TrackThing.count
+    end
+
+    it 'assigns the number of comments to the view' do
+      get :stats
+      expect(assigns[:comment_count]).to eq Comment.count
+    end
+
+    it 'assigns a Hash with grouped counts of requests by state to the view' do
+      InfoRequest.destroy_all
+
+      8.times { FactoryGirl.create(:successful_request) }
+      2.times { FactoryGirl.create(:info_request) }
+      FactoryGirl.create(:attention_requested_request)
+
+      get :stats
+      expect(assigns[:request_by_state]).
+        to eq({ 'successful' => 8,
+                'waiting_response' => 2,
+                'attention_requested' => 1 })
+    end
+
+    it 'assigns a Hash with grouped counts of tracks by type to the view' do
+      TrackThing.destroy_all
+
+      FactoryGirl.create(:search_track)
+      2.times { FactoryGirl.create(:public_body_track) }
+      4.times { FactoryGirl.create(:request_update_track) }
+      6.times { FactoryGirl.create(:successful_request_track) }
+      7.times { FactoryGirl.create(:new_request_track) }
+
+      get :stats
+      expect(assigns[:tracks_by_type]).
+        to eq({
+          "search_query" => 1,
+          "public_body_updates" => 2,
+          "request_updates" => 4,
+          "all_successful_requests" => 6,
+          "all_new_requests" => 7 })
     end
 
   end

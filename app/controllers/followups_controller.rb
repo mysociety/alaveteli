@@ -76,7 +76,9 @@ class FollowupsController < ApplicationController
 
   def check_responses_allowed
     if @info_request.allow_new_responses_from == "nobody"
-      flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you really want to send a follow up message.', :url => help_contact_path.html_safe)
+      flash.now[:error] = { :partial => "followup_not_sent.html.erb",
+                            :locals => {
+                            :help_contact_path => help_contact_path } }
       render :action => 'new'
       return
     end
