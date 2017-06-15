@@ -336,6 +336,28 @@ describe PublicBody do
 
   end
 
+  describe '#publication_scheme' do
+
+    it 'is invalid when nil' do
+      skip <<-EOF.strip_heredoc.squish
+      This spec should pass but the behaviour between translated attributes
+      differs. Translated attributes get the default value from the database,
+      but untranslated attributes do not.
+      EOF
+      subject = PublicBody.new(:publication_scheme => nil)
+      subject.valid?
+      expect(subject.errors[:publication_scheme]).
+        to eq(["Publication scheme can't be nil"])
+    end
+
+    it 'is valid when blank' do
+      subject = PublicBody.new(:publication_scheme => '')
+      subject.valid?
+      expect(subject.errors[:publication_scheme]).to be_empty
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
