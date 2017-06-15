@@ -1432,3 +1432,93 @@ describe PublicBody::Translation do
   end
 
 end
+
+describe PublicBody::Version do
+  let(:public_body){ FactoryGirl.create(:public_body) }
+
+  describe '#compare' do
+
+    describe 'when no block is given' do
+
+      describe 'when there is no other version' do
+
+        it 'returns an empty list' do
+          current = public_body.versions.latest
+          expect(current.compare(current.previous)).to eq([])
+        end
+
+      end
+
+      describe 'when there are no significant changes' do
+
+        it 'returns an empty list' do
+          public_body.last_edit_comment = 'Just tinkering'
+          public_body.save
+          current = public_body.versions.latest
+          expect(current.compare(current.previous)).to eq([])
+        end
+
+      end
+
+      describe 'when there are significant changes' do
+
+        it 'returns a list of changes as hashes with keys :name, :from and
+           :to' do
+          public_body.request_email = 'new@example.com'
+          public_body.save
+          current = public_body.versions.latest
+          expected = { :name => "Request email",
+                       :from => "request@example.com",
+                       :to => "new@example.com" }
+          expect(current.compare(current.previous)).to eq([ expected ])
+        end
+
+      end
+
+    end
+
+    describe 'when no block is given' do
+
+      describe 'when there is no other version' do
+
+        it 'does not yield' do
+          current = public_body.versions.latest
+          expect { |b| current.compare(current.previous, &b) }.
+            not_to yield_control
+        end
+
+      end
+
+      describe 'when there are no significant changes' do
+
+        it 'returns an empty list' do
+          public_body.last_edit_comment = 'Just tinkering'
+          public_body.save
+          current = public_body.versions.latest
+          expect { |b| current.compare(current.previous, &b) }.
+            not_to yield_control
+        end
+
+      end
+
+      describe 'when there are significant changes' do
+
+        it 'returns a list of changes as hashes with keys :name, :from and
+           :to' do
+          public_body.request_email = 'new@example.com'
+          public_body.save
+          current = public_body.versions.latest
+          expected = { :name => "Request email",
+                       :from => "request@example.com",
+                       :to => "new@example.com" }
+          expect { |b| current.compare(current.previous, &b) }.
+            to yield_with_args(expected)
+        end
+
+      end
+
+    end
+
+  end
+
+end

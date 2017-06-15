@@ -138,22 +138,64 @@ describe AdminGeneralController do
 
   describe 'GET #timeline' do
 
-    it 'should assign an array of events in order of descending date to the view' do
-
+    before do
       info_request = FactoryGirl.create(:info_request)
       public_body = FactoryGirl.create(:public_body)
-
-      first_event = info_request.log_event('edit', {})
+      @first_request_event = info_request.log_event('edit', {})
       public_body.name = 'Changed name'
       public_body.save!
-      public_body_version = public_body.reverse_sorted_versions.first
-      second_event = info_request.log_event('edit', {})
-
+      @first_public_body_version = public_body.versions.latest
+      @second_request_event = info_request.log_event('edit', {})
+      public_body.name = 'Changed name again'
+      public_body.save!
+      public_body.reload
+      @second_public_body_version = public_body.versions.latest
       get :timeline, :all => 1
+    end
 
-      expect(assigns[:events].first.first).to  eq(second_event)
-      expect(assigns[:events].second.first).to eq(public_body_version)
-      expect(assigns[:events].third.first).to eq(first_event)
+    it 'assigns an array of events in order of descending date to the view' do
+      expect(assigns[:events].first.first).to eq(@second_public_body_version)
+      expect(assigns[:events].second.first).to eq(@second_request_event)
+      expect(assigns[:events].third.first).to eq(@first_public_body_version)
+      expect(assigns[:events].fourth.first).to eq(@first_request_event)
+    end
+
+    it 'sets the title appropriately' do
+      expect(assigns[:events_title]).to eq("Events, all time")
+    end
+
+    context 'when event_type is info_request_event' do
+
+      before do
+        get :timeline, :all => 1, :event_type => 'info_request_event'
+      end
+
+      it 'assigns an array of info request events in order of descending
+          date to the view' do
+        expect(assigns[:events].first.first).to eq(@second_request_event)
+        expect(assigns[:events].second.first).to eq(@first_request_event)
+      end
+
+      it 'sets the title appropriately' do
+        expect(assigns[:events_title]).to eq("Request events, all time")
+      end
+    end
+
+    context 'when event_type is authority_change' do
+
+      before do
+        get :timeline, :all => 1, :event_type => 'authority_change'
+      end
+
+      it 'assigns an array of public body versions in order of descending
+          date to the view' do
+        expect(assigns[:events].first.first).to eq(@second_public_body_version)
+        expect(assigns[:events].second.first).to eq(@first_public_body_version)
+      end
+
+      it 'sets the title appropriately' do
+        expect(assigns[:events_title]).to eq("Authority changes, all time")
+      end
 
     end
 

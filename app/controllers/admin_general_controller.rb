@@ -46,49 +46,15 @@ class AdminGeneralController < AdminController
 
   def timeline
     # Recent events
-    @events_title = "Events in last two days"
-    date_back_to = Time.zone.now - 2.days
-    if params[:hour]
-      @events_title = "Events in last hour"
-      date_back_to = Time.zone.now - 1.hour
-    end
-    if params[:day]
-      @events_title = "Events in last day"
-      date_back_to = Time.zone.now - 1.day
-    end
-    if params[:week]
-      @events_title = "Events in last week"
-      date_back_to = Time.zone.now - 1.week
-    end
-    if params[:month]
-      @events_title = "Events in last month"
-      date_back_to = Time.zone.now - 1.month
-    end
-    if params[:all]
-      @events_title = "Events, all time"
-      date_back_to = Time.zone.now - 1000.years
-    end
+    @events_title = get_events_title
 
-    # Get an array of event attributes within the timespan in the format
-    # [id, type_of_model, event_timestamp]
-    # Note that the relevent date for InfoRequestEvents is creation, but
-    # for PublicBodyVersions is update thoughout
-    connection = InfoRequestEvent.connection
-    timestamps = connection.select_rows("SELECT id,'InfoRequestEvent',
-                                                    created_at AS timestamp
-                                             FROM info_request_events
-                                             WHERE created_at > '#{date_back_to.getutc}'
-                                             UNION
-                                             SELECT id, 'PublicBodyVersion',
-                                                  updated_at AS timestamp
-                                             FROM #{PublicBody.versioned_class.table_name}
-                                             WHERE updated_at > '#{date_back_to.getutc}'
-                                             ORDER by timestamp desc")
+
     @events = WillPaginate::Collection.create((params[:page] or 1), 100) do |pager|
       # create a hash for each model type being returned
       info_request_event_ids = {}
       public_body_version_ids = {}
       # get the relevant slice from the paginator
+      timestamps = get_timestamps
       timestamps.slice(pager.offset, pager.per_page).each_with_index do |event, index|
         # for each event in the slice, add an item to the hash for the model type
         # whose key is the model id, and value is the position in the slice
@@ -149,4 +115,78 @@ class AdminGeneralController < AdminController
     @request_env = request.env
   end
 
+  private
+
+  def get_date_back_to_utc
+    date_back_to = if params[:hour]
+      Time.zone.now - 1.hour
+    elsif params[:day]
+      Time.zone.now - 1.day
+    elsif params[:week]
+      Time.zone.now - 1.week
+    elsif params[:month]
+      Time.zone.now - 1.month
+    elsif params[:all]
+      Time.zone.now - 1000.years
+    else
+      Time.zone.now - 2.days
+    end
+    date_back_to.getutc
+  end
+
+  def get_event_type
+    if params[:event_type] == 'authority_change'
+      'Authority changes'
+    elsif params[:event_type] == 'info_request_event'
+      'Request events'
+    else
+      "Events"
+    end
+  end
+
+  def get_events_title
+    title = if params[:hour]
+      "#{get_event_type} in last hour"
+    elsif params[:day]
+      "#{get_event_type} in last day"
+    elsif params[:week]
+      "#{get_event_type} in last week"
+    elsif params[:month]
+      "#{get_event_type} in last month"
+    elsif params[:all]
+      "#{get_event_type}, all time"
+    else
+      "#{get_event_type} in last two days"
+    end
+  end
+
+  def get_timestamps
+    # Get an array of event attributes within the timespan in the format
+    # [id, type_of_model, event_timestamp]
+    # Note that the relevent date for InfoRequestEvents is creation, but
+    # for PublicBodyVersions is update thoughout
+    connection = InfoRequestEvent.connection
+    authority_change_clause = "SELECT id, 'PublicBodyVersion',
+                                      updated_at AS timestamp
+                               FROM #{PublicBody.versioned_class.table_name}
+                               WHERE updated_at > '#{get_date_back_to_utc}'"
+
+    info_request_event_clause = "SELECT id, 'InfoRequestEvent',
+                                        created_at AS timestamp
+                                 FROM info_request_events
+                                 WHERE created_at > '#{get_date_back_to_utc}'"
+
+    timestamps = if params[:event_type] == 'authority_change'
+      connection.select_rows("#{authority_change_clause}
+                              ORDER by timestamp desc")
+    elsif params[:event_type] == 'info_request_event'
+      connection.select_rows("#{info_request_event_clause}
+                              ORDER by timestamp desc")
+    else
+      connection.select_rows("#{info_request_event_clause}
+                              UNION
+                              #{authority_change_clause}
+                              ORDER by timestamp desc")
+    end
+  end
 end
