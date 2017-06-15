@@ -25,7 +25,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-12 04:52-0700\n"
-"PO-Revision-Date: 2017-06-12 11:57+0000\n"
+"PO-Revision-Date: 2017-06-15 13:35+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/mysociety/alaveteli/language/uk/)\n"
 "Language: uk\n"
@@ -366,7 +366,7 @@ msgid "Add a widget"
 msgstr ""
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Додати коментар"
 
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "Додати коментар до запиту &ldquo;{{request_title}}&rdquo;"
@@ -1895,7 +1895,7 @@ msgid "New response to {{law_used_short}} request"
 msgstr "Нова відповідь на запит"
 
 msgid "New updates for the request '{{request_title}}'"
-msgstr "Нові оновленн для запиту '{{request_title}}'"
+msgstr "Нові оновлення для запиту '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Спочатку найновіші"
@@ -1931,7 +1931,7 @@ msgid "Not a valid FOI request"
 msgstr ""
 
 msgid "Not a valid request"
-msgstr ""
+msgstr "Цей запит безпідставний"
 
 msgid "Not an FOI request"
 msgstr ""
@@ -2015,7 +2015,7 @@ msgid "Original request sent"
 msgstr "Запит надіслано"
 
 msgid "Other"
-msgstr ""
+msgstr "Інше"
 
 msgid "Other:"
 msgstr "Інше:"
@@ -2570,13 +2570,13 @@ msgid "Report annotation on request: {{title}}"
 msgstr ""
 
 msgid "Report request"
-msgstr ""
+msgstr "Повідомити адміністрацію про запит"
 
 msgid "Report request: {{title}}"
-msgstr ""
+msgstr "Повідомити адміністрацію про запит, що порушує правила: {{title}}"
 
 msgid "Report this request"
-msgstr "Повідомити"
+msgstr "Запит образливий, недоречний, порушує правила сайту?"
 
 msgid "Reported"
 msgstr ""
@@ -2597,7 +2597,7 @@ msgid "Request an internal review from {{person_or_body}}"
 msgstr "Зробити запит на внутрішню перевірку від {{person_or_body}}"
 
 msgid "Request for personal information"
-msgstr ""
+msgstr "Запит про особисту інформацію"
 
 msgid "Request has been removed"
 msgstr "Запит було видалено"
@@ -2873,7 +2873,7 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Ми не можемо знайти цю сторінку"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
-msgstr ""
+msgstr "Вибачте, зараз ми не можемо додати ваш коментар. Спробуйте ще раз пізніше."
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr ""
@@ -3751,7 +3751,7 @@ msgid "Version {{version}}"
 msgstr "Версія {{version}}"
 
 msgid "Vexatious"
-msgstr ""
+msgstr "Сутяжницький"
 
 msgid "Vexatious annotation"
 msgstr ""
@@ -3775,7 +3775,7 @@ msgid "View email"
 msgstr "Показати емейли"
 
 msgid "View event history details"
-msgstr ""
+msgstr "Переглянути історію та технічні деталі запиту"
 
 msgid "View other requests to {{public_body}}"
 msgstr ""
@@ -3942,7 +3942,7 @@ msgid "Who can I request information from?"
 msgstr "Кому я можу надіслати інформаційний запит?"
 
 msgid "Why specifically do you consider this request unsuitable?"
-msgstr ""
+msgstr "Що саме здається вам неправильним чи недоречним у цьому запиті?"
 
 msgid "Widget vote"
 msgstr ""
