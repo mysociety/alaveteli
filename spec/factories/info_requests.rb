@@ -29,6 +29,7 @@
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
+#  use_notifications                     :boolean
 #
 
 FactoryGirl.define do
@@ -62,6 +63,25 @@ FactoryGirl.define do
           info_request.set_described_state('successful')
         end
       end
+
+      factory :requires_admin_request do
+        after(:create) do |info_request, evaluator|
+          info_request.set_described_state('requires_admin')
+        end
+      end
+
+      factory :error_message_request do
+        after(:create) do |info_request, evaluator|
+          info_request.set_described_state('error_message')
+        end
+      end
+
+      factory :attention_requested_request do
+        after(:create) do |info_request, evaluator|
+          info_request.set_described_state('attention_requested')
+        end
+      end
+
     end
 
     factory :info_request_with_plain_incoming do
@@ -93,7 +113,8 @@ FactoryGirl.define do
 
     factory :embargoed_request do
       after(:create) do |info_request, evaluator|
-        embargo = create(:embargo, :info_request => info_request)
+        create(:embargo, :info_request => info_request)
+        info_request.reload
         incoming_message = create(:incoming_message_with_attachments, :info_request => info_request)
         info_request.log_event("response", {:incoming_message_id => incoming_message.id})
       end
@@ -101,7 +122,8 @@ FactoryGirl.define do
 
     factory :embargo_expiring_request do
       after(:create) do |info_request, evaluator|
-        embargo = create(:expiring_embargo, :info_request => info_request)
+        create(:expiring_embargo, :info_request => info_request)
+        info_request.reload
       end
     end
 
@@ -135,6 +157,40 @@ FactoryGirl.define do
 
     factory :awaiting_description do
       awaiting_description true
+      after(:create) do |info_request, evaluator|
+        info_request.awaiting_description = true
+        info_request.save!
+      end
+    end
+
+    factory :hidden_request do
+      prominence 'hidden'
+    end
+
+    factory :backpage_request do
+      prominence 'backpage'
+    end
+
+    factory :overdue_request do
+      date_response_required_by Time.zone.now - 1.day
+      after(:create) do |info_request, evaluator|
+        info_request.date_response_required_by = Time.zone.now - 1.day
+        info_request.save!
+      end
+    end
+
+    factory :very_overdue_request do
+      date_response_required_by Time.zone.now - 21.days
+      date_very_overdue_after Time.zone.now - 1.days
+      after(:create) do |info_request, evaluator|
+        info_request.date_response_required_by = Time.zone.now - 21.days
+        info_request.date_very_overdue_after = Time.zone.now - 1.day
+        info_request.save!
+      end
+    end
+
+    factory :use_notifications_request do
+      use_notifications true
     end
   end
 

@@ -1,0 +1,11 @@
+<% if public_bodies.size %>
+  <% example_body_names = public_bodies.take(2).map(&:name) %>
+  <%= n_('{{count}} recipient, {{first_public_body}}',
+         '{{count}} recipients, including {{first_public_body}} and {{second_public_body}}',
+         public_bodies.size,
+         count: public_bodies.size,
+         first_public_body: example_body_names.first,
+         second_public_body: example_body_names.second) %>
+<% else %>
+  <%= _("No bodies selected") %>
+<% end %>

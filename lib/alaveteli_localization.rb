@@ -12,8 +12,8 @@ class AlaveteliLocalization
       RoutingFilter::Conditionallyprependlocale.locales = available_locales
     end
 
-    def set_default_text_domain(name, path)
-      FastGettext.add_text_domain name, :path => path, :type => :po
+    def set_default_text_domain(name, repos)
+      FastGettext.add_text_domain name, :type => :chain, :chain => repos
       FastGettext.default_text_domain = name
     end
 

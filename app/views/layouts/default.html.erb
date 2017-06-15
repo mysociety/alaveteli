@@ -78,10 +78,10 @@
         <div id="content" role="main">
           <% unless params[:action] == 'frontpage' %>
             <% if flash[:notice] %>
-              <div id="notice"><%= flash[:notice] %></div>
+              <div id="notice"><%= render_flash(flash[:notice]) %></div>
             <% end %>
             <% if flash[:error] %>
-              <div id="error"><%= flash[:error] %></div>
+              <div id="error"><%= render_flash(flash[:error]) %></div>
             <% end %>
           <% end %>
 
@@ -99,7 +99,7 @@
 
     </div>
     <%
-        unless AlaveteliConfiguration::ga_code.empty? || (@user && @user.super?) %>
+        unless AlaveteliConfiguration::ga_code.empty? || (@user && @user.is_admin?) %>
       <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

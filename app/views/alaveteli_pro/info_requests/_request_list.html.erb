@@ -50,13 +50,8 @@
       </p>
     </div>
     <div class="requests__list">
-
-      <% if @request_filter.filter == 'draft' %>
-        <%= render partial: 'draft_info_request', :collection => @info_requests %>
-      <% else %>
-        <%= render partial: 'info_request', :collection => @info_requests %>
-      <% end %>
-      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @info_requests.count) %>
+      <%= render @request_summaries.map(&:summarisable) %>
+      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @request_summaries.count) %>
     </div> <!-- .requests__list -->
 
   </div> <!-- .requests -->

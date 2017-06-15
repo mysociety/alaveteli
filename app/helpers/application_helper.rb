@@ -82,7 +82,7 @@ module ApplicationHelper
   # rely on a sesssion being shared between the front end and admin interface,
   # so need to check the status of the user.
   def is_admin?
-    return !session[:using_admin].nil? || (!@user.nil? && @user.super?)
+    return !session[:using_admin].nil? || (!@user.nil? && @user.is_admin?)
   end
 
   def cache_if_caching_fragments(*args, &block)
@@ -91,6 +91,11 @@ module ApplicationHelper
     else
       yield
     end
+  end
+
+  def render_flash(flash)
+    flash = { :plain => flash } if flash.is_a?(String)
+    render flash.with_indifferent_access
   end
 
   # We only want to cache request lists that have a reasonable chance of not expiring
@@ -150,5 +155,13 @@ module ApplicationHelper
 
   def can_ask_the_eu?(code)
     WorldFOIWebsites.can_ask_the_eu?(code)
+  end
+
+  def controller?(*controllers)
+    controllers.include?(params[:controller])
+  end
+
+  def action?(*actions)
+    actions.include?(params[:action])
   end
 end

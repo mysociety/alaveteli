@@ -13,8 +13,8 @@ describe AlaveteliPro::ActivityList::EmbargoExpiry do
 
     it 'gives an appropriate description' do
       expect(activity.description).
-        to eq 'The embargo for your request to {{public_body_name}} ' \
-              '"{{info_request_title}}" has ended so the request is now public.'
+        to eq 'Your request to {{public_body_name}} "{{info_request_title}}" ' \
+              'is now public.'
     end
 
   end

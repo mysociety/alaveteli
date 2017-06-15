@@ -16,6 +16,7 @@ class RequestController < ApplicationController
   before_filter :redirect_embargoed_requests_for_pro_users, :only => [:show]
   before_filter :redirect_public_requests_from_pro_context, :only => [:show]
   before_filter :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
+  before_filter :set_in_pro_area, :only => [:select_authority, :show]
   helper_method :state_transitions_empty?
 
   MAX_RESULTS = 500
@@ -33,25 +34,26 @@ class RequestController < ApplicationController
     # Check whether we force the user to sign in right at the start, or we allow her
     # to start filling the request anonymously
     if AlaveteliConfiguration::force_registration_on_new_request && !authenticated?(
-        :web => _("To send your FOI request"),
+        :web => _("To send and publish your FOI request"),
         :email => _("Then you'll be allowed to send FOI requests."),
         :email_subject => _("Confirm your email address")
       )
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
-    @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.pro?
     if !params[:query].nil?
       query = params[:query]
       flash[:search_params] = params.slice(:query, :bodies, :page)
-      @xapian_requests = perform_search_typeahead(query, PublicBody)
+      @xapian_requests = typeahead_search(query, :model => PublicBody)
     end
     medium_cache
   end
 
   def select_authorities
     if !params[:public_body_query].nil?
-      @search_bodies = perform_search_typeahead(params[:public_body_query], PublicBody, 1000)
+      @search_bodies = typeahead_search(params[:public_body_query],
+                                        :model => PublicBody,
+                                        :per_page => 1000 )
     end
     respond_to do |format|
       format.html do
@@ -97,8 +99,6 @@ class RequestController < ApplicationController
 
       # assign variables from request parameters
       @collapse_quotes = !params[:unfold]
-
-      @in_pro_area = params[:pro] == "1"
 
       @update_status = can_update_status(@info_request)
 
@@ -370,8 +370,8 @@ class RequestController < ApplicationController
     end
 
     if !authenticated?(
-        :web => _("To send your FOI request").to_str,
-        :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
+        :web => _("To send and publish your FOI request").to_str,
+        :email => _("Then your FOI request to {{public_body_name}} will be sent and published.",:public_body_name=>@info_request.public_body.name),
         :email_subject => _("Confirm your FOI request to {{public_body_name}}",:public_body_name=>@info_request.public_body.name)
       )
       # do nothing - as "authenticated?" has done the redirect to signin page for us
@@ -386,41 +386,12 @@ class RequestController < ApplicationController
       @info_request.user = authenticated_user
     end
 
-    subject_is_spam =
-      !@user.confirmed_not_spam? &&
-      AlaveteliSpamTermChecker.new.spam?(@outgoing_message.subject)
-
-    if subject_is_spam
-      if send_exception_notifications?
-        e = Exception.new("Spam request from user #{@info_request.user.id}")
-        ExceptionNotifier.notify_exception(e, :env => request.env)
-      end
-
-      if AlaveteliConfiguration.enable_anti_spam
-        flash.now[:error] = _("Sorry, we're currently unable to send your " \
-                              "request. Please try again later.")
-        render :action => 'new'
-        return
-      end
+    if spam_subject?(@outgoing_message.subject, @user)
+      handle_spam_subject(@info_request.user) && return
     end
 
-    ip_in_blocklist =
-      !@user.confirmed_not_spam? &&
-      AlaveteliConfiguration.restricted_countries.include?(country_from_ip) &&
-      country_from_ip != AlaveteliConfiguration.iso_country_code
-
-    if ip_in_blocklist
-      if send_exception_notifications?
-        e = Exception.new("Possible spam (ip_in_blocklist) from #{@info_request.user_id}: #{@info_request.title}")
-        ExceptionNotifier.notify_exception(e, :env => request.env)
-      end
-
-      if AlaveteliConfiguration.enable_anti_spam
-        flash.now[:error] = _("Sorry, we're currently unable to send your " \
-                              "request. Please try again later.")
-        render :action => 'new'
-        return
-      end
+    if blocked_ip?(country_from_ip, @user)
+      handle_blocked_ip(@info_request) && return
     end
 
     if AlaveteliConfiguration.new_request_recaptcha && !@user.confirmed_not_spam?
@@ -528,7 +499,12 @@ class RequestController < ApplicationController
 
       # Don't give advice on what to do next, as it isn't their request
       if session[:request_game]
-        flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(info_request.title), :url=>CGI.escapeHTML(request_path(info_request)))
+        flash[:notice] = { :partial => "request_game/thank_you.html.erb",
+                           :locals => {
+                             :info_request_title => info_request.title,
+                             :url => request_path(info_request)
+                           }
+                         }
         redirect_to categorise_play_url
       else
         flash[:notice] = _('Thank you for updating this request!')
@@ -541,10 +517,14 @@ class RequestController < ApplicationController
     calculated_status = info_request.calculate_status
     partial_path = 'request/describe_notices'
     if template_exists?(calculated_status, [partial_path], true)
-      flash[:notice] = render_to_string(
+      flash[:notice] =
+        {
           :partial => "#{partial_path}/#{calculated_status}",
-          :locals => {:info_request => info_request}
-      ).html_safe
+          :locals => {
+            :info_request_id => info_request.id,
+            :annotations_enabled => feature_enabled?(:annotations),
+          }
+        }
     end
 
     case calculated_status
@@ -631,10 +611,14 @@ class RequestController < ApplicationController
         logger.info("Reading cache for #{key_path}")
 
         if File.directory?(key_path)
-          render :text => "Directory listing not allowed", :status => 403
+          render :plain => "Directory listing not allowed", :status => 403
         else
-          render :text => foi_fragment_cache_read(key_path),
-            :content_type => (AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream')
+          content_type =
+            AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
+              'application/octet-stream'
+
+          render :body => foi_fragment_cache_read(key_path),
+                 :content_type => content_type
         end
         return
       end
@@ -660,18 +644,20 @@ class RequestController < ApplicationController
 
 
     # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
-    response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream'
+    content_type =
+      AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
+        'application/octet-stream'
 
     # Prevent spam to magic request address. Note that the binary
     # subsitution method used depends on the content type
     body = @incoming_message.
             apply_masks(@attachment.default_body, @attachment.content_type)
 
-    if response.content_type == 'text/html'
+    if content_type == 'text/html'
       body = ActionController::Base.helpers.sanitize(body)
     end
 
-    render :text => body
+    render :body => body, :content_type => content_type
   end
 
   def get_attachment_as_html
@@ -698,11 +684,9 @@ class RequestController < ApplicationController
                                       :body_prefix => render_to_string(:partial => "request/view_html_prefix")
                                     })
 
-    response.content_type = 'text/html'
-
     html = @incoming_message.apply_masks(html, response.content_type)
 
-    render :text => html
+    render :html => html.html_safe
   end
 
   # Internal function
@@ -801,7 +785,7 @@ class RequestController < ApplicationController
       flash[:notice] = _("Thank you for responding to this FOI request! " \
                            "Your response has been published below, and a " \
                            "link to your response has been emailed to {{user_name}}.",
-                         :user_name => CGI.escapeHTML(@info_request.user.name))
+                         :user_name => @info_request.user.name.html_safe)
       redirect_to request_url(@info_request)
       return
     end
@@ -819,8 +803,10 @@ class RequestController < ApplicationController
 
     @per_page = (params.fetch(:per_page) { 25 }).to_i
 
-    @query << params[:q]
-    @xapian_requests = perform_search_typeahead(@query, InfoRequestEvent, @per_page)
+    @query << params[:q].to_s
+    @xapian_requests = typeahead_search(@query,
+                                        { :model => InfoRequestEvent,
+                                          :per_page => @per_page })
     render :partial => "request/search_ahead"
   end
 
@@ -1115,33 +1101,16 @@ class RequestController < ApplicationController
   end
 
   def render_new_preview
-    message = ""
-    if @outgoing_message.contains_email?
-      if @user.nil?
-        message += _("<p>You do not need to include your email in the " \
-                     "request in order to get a reply, as we will ask " \
-                     "for it on the next screen (<a href=\"{{url}}\">" \
-                     "details</a>).</p>",
-                     :url => (help_privacy_path(:anchor => "email_address")).html_safe)
-      else
-        message += _("<p>You do not need to include your email in the " \
-                     "request in order to get a reply (<a href=\"{{url}}\">" \
-                     "details</a>).</p>",
-                     :url => (help_privacy_path(:anchor => "email_address")).html_safe)
-      end
-      message += _("<p>We recommend that you edit your request and remove " \
-                   "the email address. If you leave it, the email address " \
-                   "will be sent to the authority, but will not be " \
-                   "displayed on the site.</p>")
-    end
-    if @outgoing_message.contains_postcode?
-      message += _("<p>Your request contains a <strong>postcode</strong>. " \
-                   "Unless it directly relates to the subject of your " \
-                   "request, please remove any address as it will <strong>" \
-                   "appear publicly on the Internet</strong>.</p>")
-    end
-    if not message.empty?
-      flash.now[:error] = message.html_safe
+    if @outgoing_message.contains_email? || @outgoing_message.contains_postcode?
+      flash.now[:error] = {
+        :partial => "preview_errors.html.erb",
+        :locals => {
+          :contains_email => @outgoing_message.contains_email?,
+          :contains_postcode => @outgoing_message.contains_postcode?,
+          :help_link => help_privacy_path(:anchor => "email_address"),
+          :user => @user
+        }
+      }
     end
     render :action => 'preview'
   end
@@ -1169,7 +1138,7 @@ class RequestController < ApplicationController
     # if other site functions send them to a request page, they end up back in
     # the pro area
     if feature_enabled?(:alaveteli_pro) && params[:pro] != "1" && \
-       current_user && current_user.pro?
+       current_user && current_user.is_pro?
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       if @info_request.is_actual_owning_user?(current_user) && @info_request.embargo
         redirect_to show_alaveteli_pro_request_url(
@@ -1191,7 +1160,7 @@ class RequestController < ApplicationController
 
   def redirect_new_form_to_pro_version
     # Pros should use the pro version of the form
-    if feature_enabled?(:alaveteli_pro) && current_user && current_user.pro? && params[:pro] != "1"
+    if feature_enabled?(:alaveteli_pro) && current_user && current_user.is_pro? && params[:pro] != "1"
       if params[:url_name]
         redirect_to(
           new_alaveteli_pro_info_request_url(public_body: params[:url_name]))
@@ -1200,4 +1169,55 @@ class RequestController < ApplicationController
       end
     end
   end
+
+  def spam_subject?(message_subject, user)
+    !user.confirmed_not_spam? &&
+      AlaveteliSpamTermChecker.new.spam?(message_subject)
+  end
+
+  def block_spam_subject?
+    AlaveteliConfiguration.block_spam_requests ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  # Sends an exception and blocks the comment depending on configuration.
+  def handle_spam_subject(user)
+    if send_exception_notifications?
+      e = Exception.new("Spam request from user #{ user.id }")
+      ExceptionNotifier.notify_exception(e, :env => request.env)
+    end
+
+    if block_spam_subject?
+      flash.now[:error] = _("Sorry, we're currently unable to send your " \
+                            "request. Please try again later.")
+      render :action => 'new'
+      true
+    end
+  end
+
+  def blocked_ip?(ip, user)
+    !user.confirmed_not_spam? &&
+      AlaveteliConfiguration.restricted_countries.include?(ip) &&
+        country_from_ip != AlaveteliConfiguration.iso_country_code
+  end
+
+  def block_restricted_country_ips?
+    AlaveteliConfiguration.block_restricted_country_ips ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  def handle_blocked_ip(info_request)
+    if send_exception_notifications?
+      e = Exception.new("Possible spam (ip_in_blocklist) from #{ info_request.user_id }: #{ info_request.title }")
+      ExceptionNotifier.notify_exception(e, :env => request.env)
+    end
+
+    if block_restricted_country_ips?
+      flash.now[:error] = _("Sorry, we're currently unable to send your " \
+                            "request. Please try again later.")
+      render :action => 'new'
+      true
+    end
+  end
+
 end

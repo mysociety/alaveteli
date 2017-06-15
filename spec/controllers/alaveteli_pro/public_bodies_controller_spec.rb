@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::PublicBodiesController do
@@ -30,7 +31,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
       with_feature_enabled :alaveteli_pro do
         get :search, query: body.name
         results = JSON.parse(response.body)
-        expected_keys = %w{id name notes info_requests_visible_count weight html}
+        expected_keys = %w{id name notes info_requests_visible_count short_name weight html}
         expect(results[0].keys).to match_array(expected_keys)
       end
     end

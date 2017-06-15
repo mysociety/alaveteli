@@ -27,9 +27,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
         it "sets a flash message" do
           expect(flash[:notice]).
-            to eq "Your embargo has been extended! It "\
-              "will now expire on " \
-              "#{AlaveteliPro::Embargo.six_months_from_now.to_date}."
+            to eq "Your request will now be private on Alaveteli until " \
+                  "#{AlaveteliPro::Embargo.six_months_from_now.strftime('%d %B %Y')}."
         end
 
         it "redirects to the request show page" do
@@ -57,9 +56,8 @@ describe AlaveteliPro::EmbargoExtensionsController do
 
         it "sets a flash message" do
           expect(flash[:notice]).
-            to eq "Your embargo has been extended! It "\
-              "will now expire on " \
-              "#{AlaveteliPro::Embargo.six_months_from_now.to_date}."
+            to eq "Your request will now be private on Alaveteli until " \
+                  "#{AlaveteliPro::Embargo.six_months_from_now.strftime('%d %B %Y')}."
         end
 
         it "redirects to the request show page" do
@@ -98,8 +96,9 @@ describe AlaveteliPro::EmbargoExtensionsController do
       end
 
       it "sets a flash error message" do
-        expect(flash[:error]).to eq "Sorry, something went wrong extending " \
-                                    "your embargo, please try again."
+        expect(flash[:error]).to eq "Sorry, something went wrong updating " \
+                                    "your request's privacy settings, " \
+                                    "please try again."
       end
     end
   end

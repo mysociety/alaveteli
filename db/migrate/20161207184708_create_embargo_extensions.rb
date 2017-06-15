@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateEmbargoExtensions < ActiveRecord::Migration
   def change
     create_table :embargo_extensions do |t|

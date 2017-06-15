@@ -12,7 +12,7 @@ $alaveteli_route_extensions.each do |f|
   load File.join('config', f)
 end
 
-Alaveteli::Application.routes.draw do
+Rails.application.routes.draw do
   root to: 'general#frontpage'
 
   #### General contoller
@@ -46,6 +46,7 @@ Alaveteli::Application.routes.draw do
   match '/version.:format' => 'general#version',
         :as => :version,
         :via => :get
+
   #####
 
   ##### Statistics controller
@@ -82,7 +83,7 @@ Alaveteli::Application.routes.draw do
         :via => :get
   match '/select_authorities' => 'request#select_authorities',
         :as => :select_authorities,
-        :via => :get
+        :via => [:get, :post]
 
   match '/new' => 'request#new',
         :as => :new_request,
@@ -296,7 +297,11 @@ Alaveteli::Application.routes.draw do
         :via => :get
   ####
 
+  #### PublicBodyChangeRequest controller
   resource :change_request, :only => [:new, :create], :controller => 'public_body_change_requests'
+  match 'change_request/new/:body' => 'public_body_change_requests#new',
+        :as => :new_change_request_body,
+        :via => :get
 
   #### Comment controller
   match '/annotate/request/:url_title' => 'comment#new',
@@ -601,6 +606,15 @@ Alaveteli::Application.routes.draw do
 
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
+
+    match '/pro' => 'alaveteli_pro/account_request#new',
+          :as => :new_pro_account_request,
+          :via => :get
+
+    match '/pro' => 'alaveteli_pro/account_request#create',
+      :as => :create_pro_account_request,
+      :via => :post
+
     namespace :alaveteli_pro do
       match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
       resources :draft_info_requests, :only => [:create, :update]
@@ -609,6 +623,19 @@ Alaveteli::Application.routes.draw do
       end
       resources :embargoes, :only => [:destroy]
       resources :embargo_extensions, :only => [:create]
+      resources :batch_request_authority_searches, :only => [:new]
+      # So that we can return searches via GET not POST
+      match '/batch_request_authority_searches' => 'batch_request_authority_searches#create',
+            :as => :batch_request_authority_searches,
+            :via => :get
+      resources :draft_info_request_batches, :only => [:create, :update] do
+        member do
+          put 'update_bodies'
+        end
+      end
+      resources :info_request_batches, :only => [:new, :create] do
+        get :preview, on: :new # /info_request_batch/new/preview
+      end
       match '/public_bodies/:query' => 'public_bodies#search',
             :via => :get,
             :as => :public_bodies_search
@@ -618,6 +645,13 @@ Alaveteli::Application.routes.draw do
     # pro context
     match '/alaveteli_pro/info_requests/:url_title' => 'request#show',
       :as => :show_alaveteli_pro_request,
+      :via => :get,
+      :defaults => { :pro => "1" }
+
+    # So that we can show a batch request using the existing controller from
+    # the pro context
+    match '/alaveteli_pro/info_request_batches/:id' => 'info_request_batch#show',
+      :as => :show_alaveteli_pro_batch_request,
       :via => :get,
       :defaults => { :pro => "1" }
 

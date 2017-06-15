@@ -27,9 +27,24 @@
           </thead>
           <tbody>
             <tr>
-              <th>Public page:</th>
-              <td><%= link_to request_url(@info_request), request_path(@info_request) %></td>
+              <% if @info_request.embargo %>
+                <th>Request page:</th>
+                <td><%= link_to show_alaveteli_pro_request_url(@info_request.url_title), show_alaveteli_pro_request_path(@info_request.url_title) %></td>
+              <% else %>
+                <th>Public page:</th>
+                <td><%= link_to request_url(@info_request), request_path(@info_request) %></td>
+              <% end %>
             </tr>
+            <% if @info_request.embargo %>
+              <tr>
+                <th>Private until:</th>
+                <td>
+                  <strong>
+                    <%= @info_request.embargo.publish_at.strftime('%d %B %Y') %>
+                  </strong>
+                </td>
+              </tr>
+            <% end %>
             <% @info_request.for_admin_column do |name, value, type, column_name|%>
               <tr>
                 <td>
@@ -252,7 +267,10 @@
             <tr>
               <td colspan="2">
                 <%= form_tag resend_admin_outgoing_message_path(outgoing_message), :class => "admin-table-form" do %>
-                  <%= submit_tag "Resend", :class => "btn" %>
+                  <% msg = "Are you sure you want to resend this message " \
+                           "to the authority?" %>
+                  <%= submit_tag "Resend", :class => "btn btn-warning",
+                                           :data => { :confirm => msg } %>
                 <% end %>
               </td>
             </tr>

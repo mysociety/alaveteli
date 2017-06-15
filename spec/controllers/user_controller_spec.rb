@@ -146,7 +146,7 @@ describe UserController do
     context 'if the currently logged in user is an admin' do
 
       before :each do
-        @admin = FactoryGirl.create(:user, :admin_level => 'super')
+        @admin = FactoryGirl.create(:admin_user)
         @user = FactoryGirl.create(:user, :email_confirmed => false)
         @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
 
@@ -752,50 +752,182 @@ describe UserController, "when signing up" do
 
   it 'accepts only whitelisted parameters' do
     expect {
-      post :signup, { :user_signup => { :email => 'silly@localhost',
-                                        :name => 'New Person',
-                                        :password => 'sillypassword',
-                                        :password_confirmation => 'sillypassword',
-                                        :admin_level => 'super' } }
+      post :signup, { :user_signup =>
+                      { :email => 'silly@localhost',
+                        :name => 'New Person',
+                        :password => 'sillypassword',
+                        :password_confirmation => 'sillypassword',
+                        :role_ids => Role.admin_role.id } }
     }.to raise_error(ActionController::UnpermittedParameters)
   end
 
-  context 'when the IP is rate limited and enable_anti_spam is enabled' do
+  context 'when the IP is rate limited' do
 
     before(:each) do
       limiter = double
       allow(limiter).to receive(:record)
       allow(limiter).to receive(:limit?).and_return(true)
       allow(controller).to receive(:ip_rate_limiter).and_return(limiter)
-      allow(AlaveteliConfiguration).
-        to receive(:enable_anti_spam).and_return(true)
     end
 
-    it 'blocks the signup' do
-      post :signup,
-           :user_signup => { :email => 'rate-limited@localhost',
-                             :name => 'New Person',
-                             :password => 'sillypassword',
-                             :password_confirmation => 'sillypassword' }
-      expect(User.where(:email => 'rate-limited@localhost').count).to eq(0)
+    context 'when block_rate_limited_ips? is true' do
+
+      before(:each) do
+        allow(@controller).to receive(:block_rate_limited_ips?).and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Rate limited signup from/)
+      end
+
+      it 'blocks the signup' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(User.where(:email => 'rate-limited@localhost').count).to eq(0)
+      end
+
+      it 're-renders the form' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(response).to render_template('sign')
+      end
+
+      it 'sets a flash error' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(flash[:error]).to match(/unable to sign up new users/)
+      end
+
     end
 
-    it 're-renders the form' do
-      post :signup,
-           :user_signup => { :email => 'rate-limited@localhost',
-                             :name => 'New Person',
-                             :password => 'sillypassword',
-                             :password_confirmation => 'sillypassword' }
-      expect(response).to render_template('sign')
+    context 'when block_rate_limited_ips? is false' do
+
+      before(:each) do
+        allow(@controller).
+          to receive(:block_rate_limited_ips?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Rate limited signup from/)
+      end
+
+      it 'allows the signup' do
+        post :signup,
+             :user_signup => { :email => 'rate-limited@localhost',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(User.where(:email => 'rate-limited@localhost').count).to eq(1)
+      end
+
     end
 
-    it 'sets a flash error' do
-      post :signup,
-           :user_signup => { :email => 'rate-limited@localhost',
-                             :name => 'New Person',
-                             :password => 'sillypassword',
-                             :password_confirmation => 'sillypassword' }
-      expect(flash[:error]).to match(/unable to sign up new users/)
+  end
+
+  context 'using a known spam domain' do
+
+    before do
+      spam_scorer = double
+      allow(spam_scorer).
+        to receive(:email_from_spam_domain?).and_return(true)
+      allow(UserSpamScorer).to receive(:new).and_return(spam_scorer)
+    end
+
+    context 'when block_spam_email_domains? is true' do
+
+      before do
+        allow(@controller).
+          to receive(:block_spam_email_domains?).and_return(true)
+      end
+
+      it 'logs the signup attempt' do
+        msg = "Attempted signup from spam domain email: spammer@example.com"
+        expect(Rails.logger).to receive(:info).with(msg)
+
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+      end
+
+      it 'blocks the signup' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(User.where(:email => 'spammer@example.com').count).to eq(0)
+      end
+
+      it 're-renders the form' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(response).to render_template('sign')
+      end
+
+      it 'sets a flash error' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(flash[:error]).to match(/unable to sign up new users/)
+      end
+
+    end
+
+    context 'when block_spam_email_domains? is false' do
+
+      before do
+        allow(@controller).
+          to receive(:block_spam_email_domains?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).
+          to match(/signup from spam domain email: spammer@example\.com/)
+      end
+
+      it 'allows the signup' do
+        post :signup,
+             :user_signup => { :email => 'spammer@example.com',
+                               :name => 'New Person',
+                               :password => 'sillypassword',
+                               :password_confirmation => 'sillypassword' }
+        expect(User.where(:email => 'spammer@example.com').count).to eq(1)
+      end
+
     end
 
   end
@@ -1044,6 +1176,27 @@ describe UserController, "when using profile photos" do
 
     @user.reload
     expect(@user.profile_photo).not_to be_nil
+  end
+
+  context 'there is no profile text' do
+    let(:user) { FactoryGirl.create(:user, :about_me => '') }
+
+    it 'prompts you to add profile text when adding a photo' do
+      session[:user_id] = user.id
+
+      profile_photo = ProfilePhoto.
+                        create(:data => load_file_fixture("parrot.png"),
+                               :user => user)
+
+      post :set_profile_photo, { :id => user.id,
+                                 :file => @uploadedfile,
+                                 :submitted_crop_profile_photo => 1,
+                                 :draft_profile_photo_id => profile_photo.id }
+
+      expect(flash[:notice][:partial]).
+        to eq("user/update_profile_photo.html.erb")
+    end
+
   end
 
   it "should let you change profile photo twice" do

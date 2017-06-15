@@ -31,8 +31,13 @@ require 'rspec/rails'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+load "#{Rails.root}/db/seeds.rb"
 # Use test-specific translations
-AlaveteliLocalization.set_default_text_domain('app', File.join(File.dirname(__FILE__), 'fixtures', 'locale'))
+locale_path = File.join(File.dirname(__FILE__), 'fixtures', 'locale')
+repos = [ FastGettext::TranslationRepository.build('app',
+                                                   :path => locale_path,
+                                                   :type => :po) ]
+AlaveteliLocalization.set_default_text_domain('app', repos)
 
 RSpec.configure do |config|
   # ## Mock Framework
@@ -54,6 +59,8 @@ RSpec.configure do |config|
 
   # The order (!) of this is important thanks to foreign keys
   config.global_fixtures = :users,
+                           :roles,
+                           :users_roles,
                            :public_bodies,
                            :public_body_translations,
                            :public_body_versions,
@@ -65,7 +72,12 @@ RSpec.configure do |config|
                            :info_request_events,
                            :track_things,
                            :has_tag_string_tags,
-                           :holidays
+                           :holidays,
+                           :public_body_categories,
+                           :public_body_category_translations,
+                           :public_body_headings,
+                           :public_body_heading_translations,
+                           :public_body_category_links
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

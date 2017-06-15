@@ -5,6 +5,9 @@
       <span class="item-title span6">
         <a href="#request_<%=info_request.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
         <%= link_to(info_request.title, admin_request_path(info_request), :title => "view full details") %>
+        <% if info_request.embargo %>
+          <%= content_tag(:span, 'embargoed', :class => 'label') %>
+        <% end %>
       </span>
       <span class="item-metadata span6">
         <%= user_admin_link_for_request(info_request) %> <%= arrow_right %> <%= link_to("#{info_request.public_body.name}", admin_body_path(info_request.public_body)) %>, <%= time_ago_in_words(info_request.updated_at) %> ago
@@ -30,3 +33,4 @@
   </div>
 <% end %>
 </div>
+<%= will_paginate(info_requests, :class => "paginator") %>

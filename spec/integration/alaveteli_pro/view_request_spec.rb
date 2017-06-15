@@ -26,14 +26,18 @@ describe "viewing requests in alaveteli_pro" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       old_publish_at = embargo.publish_at
-      expect(page).to have_content("This request is embargoed until " \
+      expect(page).to have_content("This request is private on " \
+                                   "Alaveteli until " \
                                    "#{old_publish_at.strftime('%d %B %Y')}")
-      select "3 Months", from: "Extend embargo:"
-      click_button("Extend")
+      select "3 Months", from: "Keep private for a further:"
+      within ".update-embargo" do
+        click_button("Update")
+      end
       expected_publish_at = old_publish_at + AlaveteliPro::Embargo::THREE_MONTHS
       expect(embargo.reload.publish_at).to eq(expected_publish_at)
-      expect(page).to have_content("This request is embargoed until " \
-                                   "#{expected_publish_at.strftime('%d %B %Y')} ")
+      expect(page).to have_content("This request is private on " \
+                                   "Alaveteli until " \
+                                   "#{expected_publish_at.strftime('%d %B %Y')}")
     end
   end
 
@@ -41,7 +45,8 @@ describe "viewing requests in alaveteli_pro" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       old_publish_at = embargo.publish_at
-      expect(page).to have_content("This request is embargoed until " \
+      expect(page).to have_content("This request is private on " \
+                                   "Alaveteli until " \
                                    "#{old_publish_at.strftime('%d %B %Y')}")
       click_button("Publish request")
       expect(info_request.reload.embargo).to be nil
@@ -72,7 +77,7 @@ describe "viewing requests in alaveteli_pro" do
       fill_in("outgoing_message_body", with: "Testing follow ups")
       choose("Anything else, such as clarifying, prompting, thanking")
       click_button("Preview your message")
-      click_button("Send message")
+      click_button("Send and publish message")
       expect(page).to have_content("Testing follow ups")
     end
   end
@@ -88,7 +93,7 @@ describe "viewing requests in alaveteli_pro" do
       fill_in("outgoing_message_body", with: "Testing replies")
       choose("Anything else, such as clarifying, prompting, thanking")
       click_button("Preview your message")
-      click_button("Send message")
+      click_button("Send and publish message")
       expect(page).to have_content("Testing replies")
     end
   end
@@ -111,7 +116,7 @@ describe "viewing requests in alaveteli_pro" do
                                    "#{info_request.public_body.name}"
       fill_in("outgoing_message_body", with: "Testing internal reviews")
       click_button("Preview your message")
-      click_button("Send message")
+      click_button("Send and publish message")
       expect(page).to have_content("Testing internal reviews")
     end
   end
@@ -119,16 +124,21 @@ describe "viewing requests in alaveteli_pro" do
   it "allows the user to update the request status" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
-      expect(page).to have_content("Update status")
-      expect(find_field("Waiting for a response")).to be_checked
+      expect(page).to have_content("Status")
+      check 'Change status'
+      # The current status shouldn't be checked, so that you can set it again
+      # if you need too, e.g. to reset the awaiting response status
+      expect(find_field("Waiting for a response")).not_to be_checked
       choose("Partially successful")
-      click_button("Update")
+      within ".update-status" do
+        click_button("Update")
+      end
       expect(info_request.reload.described_state).to eq ("partially_successful")
       expect(page).to have_content("Your request has been updated!")
       # The form should still be there to allow us to go back if we updated
       # by mistake
-      expect(page).to have_content("Update status")
-      expect(find_field("Partially successful")).to be_checked
+      expect(page).to have_content("Status")
+      check 'Change status'
     end
   end
 end

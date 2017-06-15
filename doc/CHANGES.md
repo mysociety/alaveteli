@@ -1,3 +1,177 @@
+# 0.29.0.0
+
+## Highlighted Features
+
+* Upgrade to Rails 4.1 (Liz Conlan, Gareth Rees)
+* Add sample public body headings and categories (Gareth Rees)
+* Allow translation of delivery statuses (Gareth Rees)
+* Fix stripping Syslog prefix from mail logs (Gareth Rees)
+* Fix parsing of Syslog-format mail logs (Gareth Rees)
+* Log spam domain signups instead of sending exception notifications
+  (Gareth Rees)
+* Finer control of anti-spam features (Gareth Rees)
+* Fixed bug which redirected people trying to request a change to the email of
+  a public body back to the missing body form post sign in (Liz Conlan)
+* Tweak wording of bounce reply to make it easier for admins to locate the
+  related request (Gareth Rees)
+* Fix the layout of the request preview page so that the request body text is
+  in line with the heading (Keerti Gautam)
+* Add an unknown delivery status for better user experience when we haven't yet
+  parsed MTA logs for a recent message (Gareth Rees)
+* Switch MTA-specific delivery status to MTA-agnostic delivery status
+  (Gareth Rees)
+* Prevent deletion of initial outgoing messages through the admin interface
+  (Gareth Rees)
+* Make it easier to find the "Resend" message button in the admin interface
+  (Gareth Rees)
+* Install supported version of bundler through Rubygems on Debian Wheezy (Gareth
+  Rees)
+* Update Czechia country name in `WorldFOIWebsites` (Gareth Rees)
+* Prevent null bytes getting saved to `IncomingMessage` cache columns (Gareth
+  Rees)
+* Add missing erb tags (Sam Smith)
+* Introduction of role-based permissions system (Louise Crow)
+* Link to the #internal_review section of the `help/unhappy` page instead of
+  the UK-specific external link to FOIWiki (Liz Conlan)
+* Allow comments to be reported for admin attention (Liz Conlan, Gareth Rees)
+* Fix a bug in typeahead search where a search ending in a one or two letter
+  word would automatically return zero results (Louise Crow)
+* Update the spam scorer to hold lists of suspicious domains (email domains with
+  a higher than average chance of being spam) and spam domains (email domains
+  we're fairly confident are spam), and prevent spam domains from creating new
+  accounts (Liz Conlan)
+* Prevent the `/request/search_ahead` page from raising an error if there are
+  no query parameters (Liz Conlan)
+* Change "Send message" and "Send request" buttons to read "Send and publish" to
+  make it clearer that your message is going to be shared via the website (Liz
+  Conlan)
+* Prevent new request titles from containing line breaks (Liz Conlan)
+* Make the `users:stats_by_domain` task report percentages to 2 decimal places
+  to avoid the situation where 374 out of 375 appears as 100% (Liz Conlan)
+* Make `users:ban_by_domain` send a simpler message to say they've been banned
+  rather than helping them work around our spam measures (Liz Conlan)
+* A new role `notifications_testers` has been added, this is a temporary role
+  to help us test new email configuration options for Alaveteli Professional,
+  please don't give this role to any of your users - it may change and/or
+  disappear without warning!
+* Prevent Vagrant assigning more CPU cores than VirtualBox recognises (Liz
+  Conlan)
+* Improvements to the `load-sample-data` script to make it possible to run
+  without the superuser db permissions and for Rails 4.1 compatibility
+  (Liz Conlan)
+* Prevent autoresponder emails from authorities resetting the withdrawn status
+  on requests (Liz Conlan)
+* Fix bug that prevented the categorisation game page from displaying when there
+  are no requests (Liz Conlan)
+* Switch to Trusty as the preferred OS for Travis CI and use Debian Wheezy as
+  the new Vagrant default (Liz Conlan)
+* Fix a bug that could cause misdelivered message links in the admin interface
+  to appear without any text in the link if the message body contained unicode
+  spaces (Liz Conlan)
+* Use partial templates to render flash messages containing HTML rather than
+  assigning the content directly to flash (Liz Conlan, Steven Day)
+* Ensure info_requests are expired when censor rules are added, changed or
+  removed (Liz Conlan)
+* Fix the select authorities form when Javascript is disabled (Louise Crow)
+
+## Upgrade Notes
+
+* Spring is now used as the application preloader in development mode. No action
+  required, but worth being familiar with if you're running Alaveteli in
+  development: http://guides.rubyonrails.org/v4.1.16/upgrading_ruby_on_rails.html#spring
+* The `COOKIE_STORE_SESSION_SECRET` config item has been removed and replaced
+  with `SECRET_KEY_BASE`. You should migrate the original value to the new
+  config key.
+* Anti-spam feaures can now be enabled independently
+  (`BLOCK_RATE_LIMITED_IPS`, `BLOCK_RESTRICTED_COUNTRY_IPS`,
+  `BLOCK_SPAM_ABOUT_ME_TEXT`, `BLOCK_SPAM_COMMENTS`, `BLOCK_SPAM_EMAIL_DOMAINS`,
+  `BLOCK_SPAM_REQUESTS`) or all at once (`ENABLE_ANTI_SPAM`). Check that your
+  configuration is enabling the anti-spam measures that you're expecting.
+* `MailServerLog::EximDeliveryStatus` and `MailServerLog::PostfixDeliveryStatus`
+  have been deprecated in favour of an MTA-agnostic
+  `MailServerLog::DeliveryStatus`. You should run
+  `bundle exec rake temp:cache_delivery_status` to convert any cached delivery
+  statuses to the new format.
+* To migrate admin and pro statuses to the role-based system, you must run
+  `bundle exec rake db:seed` and then
+  `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
+* There are some database structure updates so remember to `rake db:migrate`
+* Run `bundle exec rake temp:remove_line_breaks_from_request_titles` after
+  deployment to remove stray line breaks (could effect Atom feeds)
+* Run `bundle exec rake temp:generate_request_summaries` after deployment to
+  create the new facade models that the Alaveteli Pro dashboard uses to
+  display all forms of requests in a unified list.
+* Run `bundle exec rake temp:set_use_notifications` after deployment to
+  opt all existing requests out of the new notifications feature. This is VERY
+  IMPORTANT to run, as without it, existing requests won't trigger any alert
+  emails at all.
+* The way that flash messages are rendered has changed so if you have overridden
+  a template which renders flash (e.g. `<%= flash[:notice] %>`), you will need
+  to use the new `<%= render_flash(flash[:notice]) %>` style instead.
+* This release deprecates non-responsive stylesheets. Please make sure your site
+  works with `RESPONSIVE_STYLING` set to `true`.
+* This is likely to be the last release that supports Ruby 1.9.x. We have some
+  [notes](https://git.io/vLNg0) on migrating away from 1.8.7; migrating to
+  Ruby 2+ should be a similar process. Debian Jessie and Ubuntu 14.04+ include
+  packaged versions of Ruby 2+.
+
+### Changed Templates
+
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_general/timeline.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/index.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/comment/_suggestions.html.erb
+    app/views/alaveteli_pro/dashboard/_activity_list_item.html.erb
+    app/views/alaveteli_pro/dashboard/_projects.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/draft_info_requests/_draft_info_request.html.erb
+    app/views/alaveteli_pro/embargo_mailer/expiring_alert.text.erb
+    app/views/alaveteli_pro/followups/_embargoed_form_title.html.erb
+    app/views/alaveteli_pro/general/_log_in_bar_links.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_request_list.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/new.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/alaveteli_pro/public_bodies/_search_result.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/_topnav.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/layouts/no_chrome.html.erb
+    app/views/outgoing_messages/delivery_statuses/show.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/_more_info.html.erb
+    app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_filter_form.html.erb
+    app/views/request/describe_notices/_error_message.html.erb
+    app/views/request/describe_notices/_internal_review.html.erb
+    app/views/request/describe_notices/_not_held.html.erb
+    app/views/request/describe_notices/_successful.html.erb
+    app/views/request/describe_notices/_waiting_response.html.erb
+    app/views/request/describe_notices/_waiting_response_overdue.html.erb
+    app/views/request/details.html.erb
+    app/views/request/new.html.erb
+    app/views/request/preview.html.erb
+    app/views/request_mailer/stopped_responses.text.erb
+
 # 0.28.0.10
 
 ## Highlighted Features

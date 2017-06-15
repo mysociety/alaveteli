@@ -29,6 +29,7 @@
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
+#  use_notifications                     :boolean
 #
 
 require 'digest/sha1'
@@ -37,10 +38,13 @@ require 'fileutils'
 class InfoRequest < ActiveRecord::Base
   include AdminColumn
   include Rails.application.routes.url_helpers
+  include AlaveteliPro::RequestSummaries
 
   @non_admin_columns = %w(title url_title)
 
   strip_attributes :allow_empty => true
+  strip_attributes :only => [:title],
+                   :replace_newlines => true, :collapse_spaces => true
 
   validates_presence_of :title, :message => N_("Please enter a summary of your request")
   validates_format_of :title, :with => /[[:alpha:]]/,
@@ -98,11 +102,10 @@ class InfoRequest < ActiveRecord::Base
   scope :overdue, State::OverdueQuery.new
   scope :very_overdue, State::VeryOverdueQuery.new
 
-  def self.visible
-    warn %q([DEPRECATION] InfoRequest#visible will be removed in
-        0.28. It has been replaced by InfoRequest#is_public).squish
-    self.is_public
+  class << self
+    alias_method :in_progress, :awaiting_response
   end
+  scope :action_needed, State::ActionNeededQuery.new
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
@@ -140,12 +143,7 @@ class InfoRequest < ActiveRecord::Base
   before_save :update_url_title,
     :if => Proc.new { |request| request.title_changed? }
   before_validation :compute_idhash
-
-  def self.enumerate_states
-    warn %q([DEPRECATION] InfoRequest.enumerate_states will be removed in
-    0.28. It has been replaced by InfoRequest::State#all).squish
-    State.all
-  end
+  before_create :set_use_notifications
 
   # Subset of states accepted via the API
   def self.allowed_incoming_states
@@ -514,7 +512,7 @@ class InfoRequest < ActiveRecord::Base
 
       # Notify the user that a new response has been received, unless the
       # request is external
-      unless is_external?
+      unless is_external? or use_notifications?
         RequestMailer.new_response(self, incoming_message).deliver
       end
     end
@@ -1237,18 +1235,6 @@ class InfoRequest < ActiveRecord::Base
     user.id == user_id
   end
 
-  def all_can_view?
-    warn %q([DEPRECATION] InfoRequest#all_can_view? will be removed in
-    0.28. It has been replaced by InfoRequest.prominence#is_public?).squish
-    prominence(:decorate => true).is_public?
-  end
-
-  def all_can_view_all_correspondence?
-    warn %q([DEPRECATION] InfoRequest#all_can_view_all_correspondence? will be removed in
-    0.28. It has been replaced by InfoRequest#all_correspondence_is_public?).squish
-    all_correspondence_is_public?
-  end
-
   def all_correspondence_is_public?
     prominence(:decorate => true).is_public? &&
       incoming_messages.all?{ |message| message.is_public? } &&
@@ -1513,6 +1499,67 @@ class InfoRequest < ActiveRecord::Base
     log_overdue_event_type('very_overdue')
   end
 
+  # Is the attached embargo expiring soon?
+  #
+  # Returns boolean
+  def embargo_expiring?
+    if self.embargo
+      self.embargo.publish_at <= AlaveteliPro::Embargo.expiring_soon_time
+    else
+      false
+    end
+  end
+
+  # @see RequestSummaries#should_summarise?
+  def should_summarise?
+    self.info_request_batch_id.blank?
+  end
+
+  # Requests in a batch should update their parent batch request when they
+  # are updated.
+  #
+  # @see RequestSummaries#should_update_parent_summary?
+  def should_update_parent_summary?
+    self.info_request_batch_id.present?
+  end
+
+  # @see RequestSummaries#request_summary_parent
+  def request_summary_parent
+    if self.info_request_batch_id.blank?
+      nil
+    else
+      self.info_request_batch
+    end
+  end
+
+  # @see RequestSummaries#request_summary_body
+  def request_summary_body
+    self.outgoing_messages.any? ? self.outgoing_messages.first.body : ""
+  end
+
+  # @see RequestSummaries#request_summary_public_body_names
+  def request_summary_public_body_names
+    self.public_body.name unless self.public_body.blank?
+  end
+
+  # @see RequestSummaries#request_summary_categories
+  def request_summary_categories
+    categories = []
+    if self.embargo_expiring?
+      categories << AlaveteliPro::RequestSummaryCategory.embargo_expiring
+    end
+    # A request with no events is in the process of being sent (probably
+    # having been created within our tests rather than in real code) and will
+    # error if we try to get the phase, skip it for now because it'll be saved
+    # when it's sent and trigger this code again anyway.
+    if self.last_event_forming_initial_request_id.present?
+      phase_slug = self.state.phase.to_s
+      phase = AlaveteliPro::RequestSummaryCategory.find_by(slug: phase_slug)
+      categories << phase unless phase.blank?
+    end
+    categories
+  end
+
   private
 
   def self.log_overdue_event_type(event_type)
@@ -1599,7 +1646,9 @@ class InfoRequest < ActiveRecord::Base
       raw_email.data = raw_email_data
       raw_email.save!
 
-      self.awaiting_description = true
+      unless described_state == 'user_withdrawn'
+        self.awaiting_description = true
+      end
 
       params = { :incoming_message_id => incoming_message.id }
       params[:rejected_reason] = rejected_reason.to_s if rejected_reason
@@ -1628,6 +1677,14 @@ class InfoRequest < ActiveRecord::Base
     if new_record? && public_body && public_body.eir_only?
       self.law_used = 'eir'
     end
+  end
+
+  def set_use_notifications
+    if use_notifications.nil?
+      self.use_notifications = !!user.try(:is_notifications_tester?) && \
+                               info_request_batch_id.present?
+    end
+    return true
   end
 
   def applicable_law

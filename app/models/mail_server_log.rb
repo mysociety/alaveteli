@@ -210,19 +210,12 @@ class MailServerLog < ActiveRecord::Base
   # Public: Overrides the ActiveRecord attribute accessor
   #
   # opts = Hash of options (default: {})
-  #        :redact_idhash – DEPRECATED
   #        :redact - Redacts potentially sensitive information from the line
   #        :decorate - Wrap the line in a decorator appropriate to the MTA
   #
   # Returns a String, EximLine or PostfixLine
   def line(opts = {})
     line = read_attribute(:line).dup
-
-    opts[:redact] ||= if opts[:redact_idhash]
-      warn %q([DEPRECATION] The :redact_idhash option of MailServerLog#line has
-      been replaced with :redact. :redact_idhash will be removed in 0.29).squish
-      opts[:redact_idhash]
-    end
 
     if opts[:redact]
       line = strip_syslog_prefix(line)
@@ -236,19 +229,36 @@ class MailServerLog < ActiveRecord::Base
   end
 
   def delivery_status
-    # read in the status from the database if it's available
-    if attributes['delivery_status'].present?
-      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
-    else
-      # attempt to parse the status from the log line and store if successful
-      decorated = line(:decorate => true)
-      if decorated && decorated.delivery_status
-        self.delivery_status = decorated.delivery_status
+    begin
+      unless attributes['delivery_status'].present?
+        # attempt to parse the status from the log line and store if successful
+        set_delivery_status
       end
+
+      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
+    # TODO: This rescue can be removed when there are no more cached
+    # MTA-specific statuses
+    rescue ArgumentError
+      warn %q(MailServerLog#delivery_status rescuing from invalid delivery
+              status. Run bundle exec rake temp:cache_delivery_status to update
+              cached values. This error handling will be removed soon.).
+              squish unless Rails.env.test?
+
+      set_delivery_status
+      save
+      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
     end
   end
 
   private
+
+  # attempt to parse the status from the log line and store if successful
+  def set_delivery_status
+    decorated = line(:decorate => true)
+    if decorated && decorated.delivery_status
+      self.delivery_status = decorated.delivery_status
+    end
+  end
 
   def calculate_delivery_status
     delivery_status
@@ -279,7 +289,7 @@ class MailServerLog < ActiveRecord::Base
   end
 
   def strip_syslog_prefix(line)
-    prefix_regexp = /\A(.*?\s)\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}.*\z/
+    prefix_regexp = /\A(.*?\s)\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}.*/
     match = line.match(prefix_regexp).try(:[], 1)
     if match
       line.gsub(match, '')

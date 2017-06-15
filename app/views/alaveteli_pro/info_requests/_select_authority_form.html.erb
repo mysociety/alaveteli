@@ -1,0 +1,27 @@
+<form action="<%= alaveteli_pro_select_authority_path %>"
+      method="get"
+      class="new_info_request">
+  <p id="to_public_body" class="to_public_body">
+    <label for="public_body_query">
+      <span class="to_public_body_label"><%= _('To') %></span>
+    </label>
+    <input type="text"
+           name="query"
+           id="public_body_query"
+           placeholder="<%= _('Search for an authority') %>"
+           class="js-authority-select public-body-query"
+           data-search-url="/alaveteli_pro/public_bodies"
+           <% if info_request.public_body %>
+             value="<%= @info_request.public_body.name %>"
+             data-initial-authority="<%= {
+                 :id => info_request.public_body.id,
+                 :name => info_request.public_body.name,
+                 :notes => info_request.public_body.notes,
+                 :info_requests_visible_count => info_request.public_body.info_requests_visible_count
+               }.to_json %>"
+           <% end %>>
+    <input type="submit"
+           value="<%= _('Search') %>"
+           class="js-authority-select-submit public-body-query__submit">
+  </p>
+</form>

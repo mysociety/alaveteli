@@ -1,0 +1,483 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-19 16:14+0000\n"
+"PO-Revision-Date: 2017-01-20 17:40+0000\n"
+"Last-Translator: steve_mysociety <steve@mysociety.org>, 2017\n"
+"Language-Team: Swedish (https://www.transifex.com/mysociety/teams/33529/sv/)\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid " <strong>Summarising</strong> the content of any information returned. "
+msgstr " <strong>Sammanfattar</strong> innehållet av någon återsänd information."
+
+msgid " Say how you've <strong>used the information</strong>, with links if possible."
+msgstr "Berätta hur du har <strong>använt informationen</strong>, om möjligt med länkar."
+
+msgid "+ Add"
+msgstr "+ Lägg till"
+
+msgid "- Remove"
+msgstr "- Ta bort"
+
+msgid "12 Months"
+msgstr "12 månader"
+
+msgid "3 Months"
+msgstr "3 månader"
+
+msgid "6 Months"
+msgstr "6 månader"
+
+msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
+msgstr "<strong>Notera:</strong> Eftersom att vi testar blir förfrågningar skickade till {{email}} snarare än till den riktiga myndigheten."
+
+msgid "<strong>Thank</strong> the public authority."
+msgstr "<strong>Tacka</strong> den offentliga myndigheten."
+
+msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+msgstr "<strong>{{filter_description}}</strong> sorterat efter <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">rensa</a>"
+
+msgid "A <strong>summary</strong> of the response if you have received it by post. "
+msgstr "En <strong>summering</strong> av svaret om du fått det med post."
+
+msgid "A one line summary of the information you are requesting, e.g."
+msgstr "Summering på en rad av den information du frågat efter, t ex."
+
+msgid "Activity"
+msgstr ""
+
+msgid "Add an annotation"
+msgstr "Lägg till en anteckning"
+
+msgid "Add authorities to your batch"
+msgstr "Lägg till myndigheter till din massbegäran"
+
+msgid "Added"
+msgstr "Tillagd"
+
+msgid "All requests"
+msgstr "Alla förfrågningar"
+
+msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
+msgstr "Anteckningar tillåter dig att lägga till extra anteckningar på en begäran, vilka eventuellt kommer offentliggöras. Till exempel:"
+
+msgid "Are you sure the information you’re after isn’t available elsewhere?"
+msgstr "Är du säker på att informationen du söker efter inte är tillgänglig någon annanstans?"
+
+msgid "Are you sure you want to publish this request?"
+msgstr "Är du säker på att du vill publicera denna begäran?"
+
+msgid "Browse public requests"
+msgstr "Bläddra bland offentliga förfrågningar"
+
+msgid "Change privacy"
+msgstr "Ändra sekretessinställningar"
+
+msgid "Change status"
+msgstr "Ändra status"
+
+msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
+msgstr "Kontrollera myndighetens svar på {{site_name}} eller genomför en kvick Internetsökning."
+
+msgid "Check you haven't included any <strong>personal information</strong>."
+msgstr "Kontrollera att du inte har inkluderat någon <strong>personlig information</strong>."
+
+msgid "Choose a duration"
+msgstr "Välj en varaktighet"
+
+msgid "Created"
+msgstr "Skapad"
+
+msgid "Dashboard"
+msgstr "Panel"
+
+msgid "Download a zip file of all correspondence"
+msgstr "Ladda ned en zip-fil av all korrespondens"
+
+msgid "Draft"
+msgstr "Utkast"
+
+msgid "Drafts"
+msgstr "Utkast"
+
+msgid "Edit your request"
+msgstr "Redigera din begäran"
+
+msgid "First created"
+msgstr "Först skapad"
+
+msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
+msgstr "Från den här skärmbilden får du en bra översikt av dina förfrågningar och agera snabbt så att de är aktuella. Varför inte ta itu med en första redan nu?"
+
+msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
+msgstr "Av den skärmbilden ser du vad du behöver göra härnäst för att dina förfrågningar skall bearbetas vidare. Varför inte starta en ny förfrågan redan nu?"
+
+msgid "Get started with your first request"
+msgstr "Kom igång med din första begäran"
+
+msgid "Help"
+msgstr "Hjälp"
+
+msgid "Keep private for a further:"
+msgstr "Håll den privat för en vidare:"
+
+msgid "Last updated"
+msgstr "Senast uppdaterad"
+
+msgid "Make a request"
+msgstr "Gör en begäran"
+
+msgid "Make an {{law_used_short}} request"
+msgstr "Gör en begäran enligt {{law_used_short}}"
+
+msgid "My profile"
+msgstr "Min profil"
+
+msgid "My wall"
+msgstr "Mitt flöde"
+
+msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
+msgstr "Obs! När den här förfrågan publiceras på {{site_name}}, kommer även detta meddelande att publiceras."
+
+msgid "Once you’re happy with your request, click preview and send."
+msgstr "När du är nöjd med din förfrågan, klicka på förhandsgranska och sänd."
+
+msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
+msgstr "Referera till <strong>sammanhörande information</strong>, kampanjer eller forum kan vara lämpligt."
+
+msgid "Preview and send request"
+msgstr "Förhandsgranska och skicka förfrågan"
+
+msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
+msgstr "Förhandsgranska nya {{law_used_short}} förfrågningar till'{{public_body_name}}"
+
+msgid "Preview your request"
+msgstr "Förhandsgranska din förfrågan"
+
+msgid "Privacy"
+msgstr "Privatliv och integritet"
+
+msgid "Provide extra context on the request and your reasons for making it."
+msgstr "Motivera din förfrågan med extra bakgrund och skäl varför du gör den."
+
+msgid "Publish immediately"
+msgstr "Publicera omedelbart"
+
+msgid "Publish request"
+msgstr ""
+
+msgid "Publish this request or keep it private for longer."
+msgid_plural "Publish these requests or keep them private for longer."
+msgstr[0] "Publicera denna begäran eller håll den privat för en längre period."
+msgstr[1] "Publicera dessa förfrågningar eller håll dem privata för en längre period."
+
+msgid "Read blog"
+msgstr "Läs blogg"
+
+msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
+msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} kalenderdagar på sig att besvara FOI förfrågningar."
+
+msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
+msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} arbetsdagar på sig att besvara en FOI förfrågan."
+
+msgid "Request an internal review"
+msgstr "Fråga efter en intern granskning"
+
+msgid "Request an internal review (or send another followup)."
+msgid_plural "Request internal reviews (or send other followups)."
+msgstr[0] "Begär intern granskning (eller skicka annan uppföljning)."
+msgstr[1] "Begär interna granskningar (eller skicka andra uppföljningar)."
+
+msgid "Request an internal review from {{person_or_body}}"
+msgstr "Fråga efter en intern granskning av {{person_or_body}}"
+
+msgid "Request to"
+msgstr "Begäran till"
+
+msgid "Requests"
+msgstr "Förfrågningar"
+
+msgid "Requests that will be made public soon"
+msgstr "Förfrågningar som kommer offentliggöras snart"
+
+msgid "Save draft"
+msgstr "Spara utkast"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Search for an authority"
+msgstr "Sök efter en myndighet"
+
+msgid "Search for an authority by name"
+msgstr "Sök efter en myndighet efter namn"
+
+msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+msgstr "Sökandes efter <strong>{{search_term}}</strong> i <strong>{{filter_description}}</strong> sorterad efter <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">rensa</a>"
+
+msgid "Send a follow up"
+msgstr "Skicka en uppföljning"
+
+msgid "Send a follow up (or request an internal review)."
+msgid_plural "Send follow ups (or request internal reviews)."
+msgstr[0] "Skicka uppföljning (eller begär en intern granskning)."
+msgstr[1] "Skicka uppföljningar (eller begär interna granskningar)."
+
+msgid "Send a follow up message to {{person_or_body}}"
+msgstr "Skicka ett uppföljningsmeddelande till {{person_or_body}}"
+
+msgid "Send a followup"
+msgstr "Skicka en uppföljning"
+
+msgid "Send a reply to {{person_or_body}}"
+msgstr "Skicka ett svar till {{person_or_body}}"
+
+msgid "Send request"
+msgstr "Skicka begäran"
+
+msgid "Sending..."
+msgstr "Skickar..."
+
+msgid "Sorry, no authorities matched that search"
+msgstr "Tyvärr, ingen myndighet matchade den sökningen"
+
+msgid "Sorry, something went wrong getting your results, please try searching again."
+msgstr "Tyvärr, något gick snett vid din sökning, var vänlig gör ett nytt försök."
+
+msgid "Sorry, something went wrong publishing your request, please try again."
+msgstr "Tyvärr, något gick snett när ditt resultat skulle visas, var vänlig gör ett nytt försök."
+
+msgid "Sorry, something went wrong updating your batch request, please try again."
+msgstr "Tyvärr, något gick snett vid uppdateringen av ditt svar, var vänlig gör ett nytt försök."
+
+msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
+msgstr "Tyvärr, något gick snett vid uppdatering av din förfrågans parametrar, var vänlig gör ett nytt försök."
+
+msgid "Sort by"
+msgstr "Sortera efter"
+
+msgid "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+msgstr "Sorterat på <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
+
+msgid "Start new request"
+msgstr "Starta ny begäran"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Subject"
+msgstr "Ämne"
+
+msgid "Submit Search"
+msgstr "Gör sökning"
+
+msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
+msgstr "Tack för att du loggar in. Vi har sparat din begäran som ett utkast ifall du skulle vilja lägga till ett embargo innan du skickar den. Du kan sätta det (eller bara skicka iväg det direkt) genom att använda formuläret nedanför."
+
+msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
+msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
+msgstr[0] "Den följande begäran kommer offentliggöras på {{site_name}} i nästa vecka. Om du inte önskar att denna begäran offentliggörs, vänligen klicka på länken nedan för att hålla den privat en längre tid."
+msgstr[1] "De följande förfrågningarna kommer offentliggöras på {{site_name}} i nästa vecka. Om du inte önskar att någon av dessa förfrågningar offentliggörs, vänligen klicka på länkarna nedan för att förlänga dem."
+
+msgid "Then you can access {{pro_site_name}}"
+msgstr "Sen kan du tillgå {{pro_site_name}}"
+
+msgid "There's nothing to do right now. Great job!"
+msgstr "Det finns ingenting att göra just nu. Bra jobbat!"
+
+msgid "Things to do today"
+msgstr "Saker att göra idag"
+
+msgid "This page is only accessible to {{pro_site_name}} users"
+msgstr "Denna sida är endast tillgänglig för användare vid {{pro_site_name}}"
+
+msgid "This request is private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr "Denna begäran är hemlig på {{site_name}} fram tills <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+
+msgid "This request is public"
+msgstr "Denna begäran är offentlig"
+
+msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
+msgstr "Denna förfrågan kommer att vara privat på {{site_name}} tills  <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span> "
+
+msgid "Title (A-Z)"
+msgstr "Titel (A-Ö)"
+
+msgid "To"
+msgstr "Till"
+
+msgid "To access {{pro_site_name}}"
+msgstr "För att få tillgång till {{pro_site_name}}"
+
+msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
+msgstr "Såvida du inte väljer ett eget alternativ, kommer din förfrågan att bli tillgänglig på {{site_name}} omgående."
+
+msgid "Update"
+msgstr "Uppdatera"
+
+msgid "Update its status."
+msgid_plural "Update statuses."
+msgstr[0] "Uppdatera dess status."
+msgstr[1] "Uppdatera statusar."
+
+msgid "Updated"
+msgstr "Uppdaterad"
+
+msgid "View"
+msgstr "Se"
+
+msgid "View authorities"
+msgstr "Se myndigheter"
+
+msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
+msgstr "Vi kommer att påminna dig när förfrågan kommer att publiceras och du kommer att ha möjligheten att behålla den privat. Du utöka  detta på obestämd tid eller publicera den när som helst."
+
+msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgstr "När en förfrågan är privat garanterar vi att den kan enbart ses på {{site_name}} under den tid du valt. {{pro_site_name}} administratörer kommer att kunna se din förfrågan men bara vid de tillfällen när de tillfällen behöver åtgärda något problem med t ex (e.g. failed delivery to the authority). De kommer ej att avslöja innehållet i din förfrågan eller något svar som du fått till någon annan. Myndigheten kommer dock att publicera den i förteckning som vanligt."
+
+msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
+msgstr "När din begäran offentliggörs på {{site_name}}, kommer alla anteckningar du lägger till också att offentliggöras. Däremot är dem <strong>inte</strong> skickade till {{public_body_name}}."
+
+msgid "Write a reply"
+msgstr "Skriv ett svar"
+
+msgid "Write request"
+msgstr "Skriv begäran"
+
+msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
+msgstr "Du lade till en ny kommentar på din förfrågan till {{public_body_name}} \"{{info_request_title}}.\""
+
+msgid "You haven't added any authorities to your batch yet"
+msgstr "Du har inte uppgivit några myndigheter till dina förfrågningar"
+
+msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
+msgstr "Du vet vad som orsakade felet och kan <strong> föreslå en lösning</strong>, såsom en giltig e-postadress."
+
+msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
+msgstr "Du sände en förklaring till {{public_body_name}} för \"{{info_request_title}}\"."
+
+msgid "You sent a follow up to {{public_body_name}} on \"{{info_request_title}}\"."
+msgstr "Du sände en uppföljningsfråga till {{public_body_name}} angående \"{{info_request_title}}\"."
+
+msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
+msgstr "Du sände en förfrågan \"{{info_request_title}}\" till {{public_body_name}}."
+
+msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
+msgstr "Du sände en intern revisionsförfrågan till {{public_body_name}} för \"{{info_request_title}}\"."
+
+msgid "Your Batch Request has been saved!"
+msgstr "Din massbegäran har sparats!"
+
+msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
+msgstr "Ditt förtydligande till {{public_body_name}} för \"{{info_request_title}}\" skickades om."
+
+msgid "Your dashboard"
+msgstr "Din panel"
+
+msgid "Your draft has been saved!"
+msgstr "Ditt utkast har sparats!"
+
+msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
+msgstr "Din uppföljning till {{public_body_name}} på \"{{info_request_title}}\" skickades om."
+
+msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
+msgstr "Din begäran om intern granskning till {{public_body_name}} för \"{{info_request_title}}\" skickades om."
+
+msgid "Your message will be displayed publicly on this website once you publish your request."
+msgstr "Ditt meddelande kommer att visas offentligt på denna hemsida när du publicerar din begäran."
+
+msgid "Your request"
+msgstr "Din begäran"
+
+msgid "Your request \"{{info_request_title}}\" to {{public_body_name}} was resent."
+msgstr "Din begäran \"{{info_request_title}}\" till {{public_body_name}} skickades om."
+
+msgid "Your request has been updated!"
+msgstr "Din begäran har blivit uppdaterad!"
+
+msgid "Your request is now public!"
+msgstr "Dina förfrågningar är nu offentliga!"
+
+msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
+msgstr "Din förfrågan till {{public_body_name}} \"{{info_request_title}}\" är nu offentlig."
+
+msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" received a new response."
+msgstr "Din förfrågan till {{public_body_name}} \"{{info_request_title}}\" erhöll ett nytt svar."
+
+msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
+msgstr "Din förfrågan kommer nu att var privat på {{site_name}} fram till {{expiry_date}}."
+
+msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
+msgstr "Dina synpunkter vad {{site_name}} <strong>administratörerna</strong>  skall göra med förfrågan."
+
+msgid "all requests"
+msgstr "alla förfrågningar"
+
+msgid "drafts"
+msgstr "utkast"
+
+msgid "eg. Cabinet Office"
+msgstr "t.ex. Regeringskansliet"
+
+msgid "first created"
+msgstr "först skapad"
+
+msgid "last updated"
+msgstr "sist uppdaterad"
+
+msgid "requests that will be made public soon"
+msgstr "förfrågningar som snart kommer att bli offentliga"
+
+msgid "the {{site_name}} team"
+msgstr "{{site_name}} gruppen"
+
+msgid "title (A-Z)"
+msgstr "titel (A-Z)"
+
+msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
+msgstr "{{commenter_name}} lade till en ny kommentar till {{public_body_name}} \"{{info_request_title}}.\""
+
+msgid "{{count}} request has received a response."
+msgid_plural "{{count}} requests have received a response."
+msgstr[0] "{{count}} begäran har tagit emot ett svar."
+msgstr[1] "{{count}} förfrågningar har tagit emot ett svar."
+
+msgid "{{count}} request is delayed."
+msgid_plural "{{count}} requests are delayed."
+msgstr[0] "{{count}} begäran är försenad."
+msgstr[1] "{{count}} förfrågningar är försenade."
+
+msgid "{{count}} request is long overdue."
+msgid_plural "{{count}} requests are long overdue."
+msgstr[0] "{{count}} begäran är mycket försenad."
+msgstr[1] "{{count}} förfrågningar är mycket försenade."
+
+msgid "{{count}} request made"
+msgid_plural "{{count}} requests made"
+msgstr[0] "{{count}} gjord begäran"
+msgstr[1] "{{count}} gjorda förfrågningar"
+
+msgid "{{count}} request will be made public this week."
+msgid_plural "{{count}} requests will be made public this week."
+msgstr[0] "{{count}} begäran kommer att offentliggöras denna vecka."
+msgstr[1] "{{count}} förfrågningar kommer att offentliggöras denna vecka."
+
+msgid "{{length_of_time}} ago"
+msgstr "{{length_of_time}} sen"
+
+msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
+msgstr "{{public_body_name}} är försenad med att svara till din begäran \"{{info_request_title}}\"."
+
+msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
+msgstr "{{public_body_name}} blev mycket försenad med att svara till din begäran \"{{info_request_title}}\"."

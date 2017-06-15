@@ -1,5 +1,9 @@
 /* Style for the requests page */
 
+$in-progress: rgb(255, 216, 54);
+$action-needed: rgb(224, 75, 75);
+$complete: rgb(112, 203, 99);
+
 .requests__header {
   background-color: #f3f1eb;
   border-bottom: 1px solid #ddd;
@@ -11,6 +15,8 @@
 
 .request__title {
   font-size: 1.1875em; // 19px
+  font-weight: 600;
+  text-decoration: none !important; //houdini sets this so we'll aggressively unset it
   a {
     text-decoration: none;
     &:hover,
@@ -21,12 +27,35 @@
   }
 }
 
+.request--action_needed {
+  .request__title a {
+    color: $action-needed;
+  }
+}
+
+.request--in-progress {
+  .request__title a {
+    color: $in-progress;
+  }
+}
+
+.request--complete {
+  .request__title a {
+    color: $complete;
+  }
+}
+
+.request__batch-request-count {
+  color: #999;
+}
+
 .request__recipient,
 .request__created,
 .request__updated,
 .request__status,
 .request__actions {
   font-size: 0.875em; // 14px
+  line-height: 1.5em;
 }
 
 .request__meta__label {
@@ -148,5 +177,22 @@
   &:active,
   &:focus {
     opacity: 1;
+  }
+}
+
+.request__phase-summary-icon {
+  background-color: #ddd;
+
+  // Add colours to the bar for the various different phases
+  &.request__phase-summary-icon--in-progress {
+    background-color: $in-progress;
+  }
+
+  &.request__phase-summary-icon--action-needed {
+    background-color: $action-needed;
+  }
+
+  &.request__phase-summary-icon--complete {
+    background-color: $complete;
   }
 }

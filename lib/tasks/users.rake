@@ -28,12 +28,10 @@ namespace :users do
 
     total_users = if from
       User.where("email LIKE ?", "%@#{domain}").
-        where(:admin_level => 'none').
         where("created_at >= ?", from).
         count
     else
       User.where("email LIKE ?", "%@#{domain}").
-        where(:admin_level => 'none').
         count
     end
 
@@ -51,15 +49,15 @@ namespace :users do
     banned_percent = if total_users == 0
       0
     else
-      (banned.to_f / total_users * 100).round
+      (banned.to_f / total_users * 100).round(2)
     end
 
-    dormant = UserStats.count_dormant_users(domain)
+    dormant = UserStats.count_dormant_users(domain, from)
 
     dormant_percent = if total_users == 0
       0
     else
-      (dormant.to_f / total_users * 100).round
+      (dormant.to_f / total_users * 100).round(2)
     end
 
     p "Since #{from}..." if from
@@ -78,7 +76,7 @@ namespace :users do
 
     p ""
 
-    message = "Do you want to ban all the users for #{domain}"
+    message = "Do you want to ban all the non-admin users for #{domain}"
     message += " created on or after #{from}" if from
     message += "(y/N)"
     p message
@@ -87,7 +85,7 @@ namespace :users do
     if input.downcase == "y"
       to_ban = UserStats.unbanned_by_domain(domain, from)
       count = to_ban.
-        update_all(:ban_text => "Banned for use of #{domain} email")
+        update_all(:ban_text => "Banned for spamming")
       p "#{count} accounts banned"
     else
       p "No action taken"

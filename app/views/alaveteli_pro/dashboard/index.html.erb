@@ -26,7 +26,7 @@
 
 
         <div class="dashboard-activity">
-          <h2 class="dashboard-activity__title">Activity</h2>
+          <h2 class="dashboard-activity__title"><%= _("Activity") %></h2>
           <%= render partial: 'activity_list_item', :collection => @activity_list.current_items %>
           <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @activity_list.events.count) %>
 

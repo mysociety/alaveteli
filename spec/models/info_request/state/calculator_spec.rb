@@ -253,4 +253,41 @@ describe InfoRequest::State::Calculator do
     end
   end
 
+  describe '#summarised_phase' do
+    context "when the phase is :awaiting_response" do
+      it "returns :in_progress" do
+        allow(calculator).to receive(:phase).and_return(:awaiting_response)
+        expect(calculator.summarised_phase).to eq :in_progress
+      end
+    end
+
+    context "when the phase is :complete" do
+      it "returns :complete" do
+        allow(calculator).to receive(:phase).and_return(:complete)
+        expect(calculator.summarised_phase).to eq :complete
+      end
+    end
+
+    context "when the phase is :other" do
+      it "returns :other" do
+        allow(calculator).to receive(:phase).and_return(:other)
+        expect(calculator.summarised_phase).to eq :other
+      end
+    end
+
+    context "when the phase is :response_received, :clarification_needed,
+             :overdue or :very_overdue" do
+      it "returns :action_needed" do
+        [
+          :response_received,
+          :clarification_needed,
+          :overdue,
+          :very_overdue
+        ].each do |phase|
+          allow(calculator).to receive(:phase).and_return(phase)
+          expect(calculator.summarised_phase).to eq :action_needed
+        end
+      end
+    end
+  end
 end

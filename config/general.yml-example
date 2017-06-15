@@ -429,20 +429,6 @@ TRACK_SENDER_NAME: 'Alaveteli'
 # ---
 RAW_EMAILS_LOCATION: 'files/raw_emails'
 
-# Secret key for signing cookie_store sessions. Make it long and random.
-#
-# COOKIE_STORE_SESSION_SECRET - String (default: 'this default is insecure as
-#                                       code is open source, please override
-#                                       for live sites in config/general; this
-#                                       will do for local development')
-#
-# Examples:
-#
-#   COOKIE_STORE_SESSION_SECRET: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'
-#
-# ---
-COOKIE_STORE_SESSION_SECRET: 'your secret key here, make it long and random'
-
 # Rails 4.0 introduces ActiveSupport::KeyGenerator and uses this as a base from
 # which to generate and verify signed cookies (among other things). You can
 # generate a key with `rake secret`.
@@ -964,6 +950,50 @@ ENABLE_ANNOTATIONS: true
 # ---
 ENABLE_ANTI_SPAM: false
 
+# Prevent user signups if several signup attempts from the same IP address are
+# made in quick succession.
+#
+# BLOCK_RATE_LIMITED_IPS - Boolean (default: false)
+#
+# ---
+BLOCK_RATE_LIMITED_IPS: false
+
+# Prevent users making requests if their IP originates in one of the
+# RESTRICTED_COUNTRIES.
+#
+# BLOCK_RESTRICTED_COUNTRY_IPS - Boolean (default: false)
+#
+# ---
+BLOCK_RESTRICTED_COUNTRY_IPS: false
+
+# Prevent users submitting spam as their "About Me" profile text.
+#
+# BLOCK_SPAM_ABOUT_ME_TEXT - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_ABOUT_ME_TEXT: false
+
+# Prevent users submitting comments that appear to be spam.
+#
+# BLOCK_SPAM_COMMENTS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_COMMENTS: false
+
+# Prevent user signups from spam email domains.
+#
+# BLOCK_SPAM_EMAIL_DOMAINS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_EMAIL_DOMAINS: false
+
+# Prevent users submitting requests that appear to be spam.
+#
+# BLOCK_SPAM_REQUESTS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_REQUESTS: false
+
 # Restrict IP addresses from some countries from performing some actions.
 # If set, requests from IP addresses in the countries specified will be
 # prevented from making new requests on the site.
@@ -1028,3 +1058,17 @@ PRO_CONTACT_EMAIL: 'pro-contact@localhost'
 #
 # ---
 PRO_CONTACT_NAME: 'Alaveteli Professional'
+
+# Site name for Alaveteli Professional.
+# The name to use when referring to the Alaveteli Professional parts of an
+# Alaveteli site. For example, in the UK our Alaveteli instance is called
+# "WhatDoTheyKnow" but we refer to the pro parts of the site as
+# "WhatDoTheyKnow Pro".
+#
+# If you don't want a different name for the pro pages, make this the same as
+# SITE_NAME.
+#
+# PRO_SITE_NAME - String site name (default: Alaveteli Professional)
+#
+# ---
+PRO_SITE_NAME: 'Alaveteli Professional'

@@ -55,7 +55,11 @@ class IncomingMessage < ActiveRecord::Base
   # never really has many info_request_events, but could in theory
   has_many :info_request_events, :dependent => :destroy
 
-  belongs_to :raw_email, :dependent => :destroy
+  belongs_to :raw_email
+  # HACK: Work around bug in belongs_to :dependent => :destroy
+  # https://github.com/rails/rails/issues/12380
+  # TODO: Remove when we're using Rails 4.2.x
+  after_destroy :destroy_raw_email
 
   after_destroy :update_request
   after_update :update_request
@@ -261,6 +265,10 @@ class IncomingMessage < ActiveRecord::Base
     info_request.update_last_public_response_at
   end
 
+  def destroy_raw_email
+    raw_email.destroy
+  end
+
   # And look up by URL part number and display filename to get an attachment
   # TODO: relies on extract_attachments calling MailHandler.ensure_parts_counted
   # The filename here is passed from the URL parameter, so it's the
@@ -419,8 +427,8 @@ class IncomingMessage < ActiveRecord::Base
     folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
     folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, "FOLDED_QUOTED_SECTION")
 
-    self.cached_main_body_text_unfolded = text
-    self.cached_main_body_text_folded = folded_quoted_text
+    self.cached_main_body_text_unfolded = text.delete("\0")
+    self.cached_main_body_text_folded = folded_quoted_text.delete("\0")
     self.save!
   end
   # Returns body text from main text part of email, converted to UTF-8, with uudecode removed,

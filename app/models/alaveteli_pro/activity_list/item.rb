@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AlaveteliPro
   module ActivityList
     class Item
@@ -38,11 +39,7 @@ module AlaveteliPro
       end
 
       def event_time
-        if event.created_at >= Time.zone.now - 1.day
-          _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.created_at))
-        else
-          event.created_at.strftime('%d %B %Y')
-        end
+        event.created_at
       end
 
     end

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Ability
   include CanCan::Ability
   include AlaveteliFeatures::Helpers
@@ -6,7 +7,7 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
+    #   if user.is_admin?
     #     can :manage, :all
     #   else
     #     can :read, :all
@@ -47,17 +48,66 @@ class Ability
       self.class.can_view_with_prominence?(request.prominence, request, user)
     end
 
+    # Viewing batch requests
+    can :read, InfoRequestBatch do |batch_request|
+      if batch_request.embargo_duration
+        user && (user == batch_request.user || User.view_embargoed?(user))
+      else
+        true
+      end
+    end
+
     if feature_enabled? :alaveteli_pro
       # Accessing alaveteli professional
-      if user && (user.super? || user.pro?)
+      if user && (user.is_pro_admin? || user.is_pro?)
         can :access, :alaveteli_pro
       end
 
       # Extending embargoes
       can :update, AlaveteliPro::Embargo do |embargo|
-        user && (user == embargo.info_request.user || user.super?)
+        user && (user == embargo.info_request.user || user.is_pro_admin?)
+      end
+
+    end
+
+    can :admin, AlaveteliPro::Embargo if user && user.is_pro_admin?
+
+    can :admin, InfoRequest do |info_request|
+      if info_request.embargo
+        user && user.is_pro_admin?
+      else
+        user && user.is_admin?
       end
     end
+
+    can :admin, Comment do |comment|
+      if comment.info_request.embargo
+        user && user.is_pro_admin?
+      else
+        user && user.is_admin?
+      end
+    end
+
+    can :login_as, User do |target_user|
+      if user == target_user
+        false
+      elsif target_user.is_pro? || target_user.is_pro_admin?
+        user && user.is_pro_admin?
+      else
+        user && user.is_admin?
+      end
+    end
+
+    if feature_enabled? :alaveteli_pro
+      if user && user.is_pro_admin?
+        can :read, :api_key
+      end
+    else
+      if user && user.is_admin?
+        can :read, :api_key
+      end
+    end
+
   end
 
   private

@@ -431,28 +431,38 @@ describe User do
     end
 
     it 'is true if the user is an admin' do
-      admin = double(:super? => true)
+      admin = double(:is_admin? => true)
       expect(User.stay_logged_in_on_redirect?(admin)).to eq(true)
     end
 
     it 'is false if the user is not an admin' do
-      user = double(:super? => false)
+      user = double(:is_admin? => false)
       expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
     end
 
   end
 
   describe '.all_time_requesters' do
+
     it 'gets most frequent requesters' do
-      # FIXME: This uses fixtures. Change it to use factories when we can.
-      expect(User.all_time_requesters).to eql(
-        {
-          users(:bob_smith_user) => 5,
-          users(:robin_user) => 2,
-          users(:another_user) => 1
-        }
-      )
+      User.destroy_all
+
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      user3 = FactoryGirl.create(:user)
+
+      time_travel_to(6.months.ago) do
+        5.times { FactoryGirl.create(:info_request, user: user1) }
+        2.times { FactoryGirl.create(:info_request, user: user2) }
+        FactoryGirl.create(:info_request, user: user3)
+      end
+
+      expect(User.all_time_requesters).
+        to eq({ user1 => 5,
+                user2 => 2,
+                user3 => 1 })
     end
+
   end
 
   describe '.last_28_day_requesters' do
@@ -593,6 +603,22 @@ describe User do
       request_classification.user.destroy
       expect(RequestClassification.where(:id => request_classification.id))
         .to be_empty
+    end
+
+  end
+
+  describe '#expire_requests' do
+
+    it 'calls expire on all associated requests' do
+      user = FactoryGirl.build(:user)
+      requests = [double, double]
+      expect(user).to receive(:info_requests).and_return(requests)
+
+      requests.each do |request|
+        expect(request).to receive(:expire)
+      end
+
+      user.expire_requests
     end
 
   end
@@ -999,15 +1025,48 @@ describe User do
 
   end
 
-  describe '#pro?' do
-    it 'returns true if the user has a pro account' do
-      user = FactoryGirl.create(:pro_user)
-      expect(user.pro?).to be true
+  describe '#can_admin_roles' do
+
+    it 'returns an array including the admin and notifications tester roles
+        for an admin user' do
+      admin_user = FactoryGirl.create(:admin_user)
+      expect(admin_user.can_admin_roles).to eq([:admin, :notifications_tester])
     end
 
-    it 'returns false if the user doesnt have a pro account' do
+    it 'returns an empty array for a pro user' do
       user = FactoryGirl.create(:user)
-      expect(user.pro?).to be false
+      expect(user.can_admin_roles).to eq([])
+    end
+
+    it 'returns an empty array for a user with no roles' do
+      pro_user = FactoryGirl.create(:pro_user)
+      expect(pro_user.can_admin_roles).to eq([])
+    end
+
+  end
+
+  describe '#can_admin_role?' do
+    let(:admin_user){ FactoryGirl.create(:admin_user) }
+    let(:pro_user){ FactoryGirl.create(:pro_user) }
+
+    it 'returns true for an admin user and the admin role' do
+      expect(admin_user.can_admin_role?(:admin))
+        .to be true
+    end
+
+    it 'return false for an admin user and the pro role' do
+      expect(admin_user.can_admin_role?(:pro))
+        .to be false
+    end
+
+    it 'returns false for a pro user and the admin role' do
+      expect(pro_user.can_admin_role?(:admin))
+        .to be false
+    end
+
+    it 'returns false for a pro user and the pro role' do
+      expect(pro_user.can_admin_role?(:pro))
+        .to be false
     end
   end
 
@@ -1026,11 +1085,11 @@ describe User do
     end
 
     it 'returns false if the user is not a superuser' do
-      expect(User.view_hidden?(FactoryGirl.build(:user))).to be false
+      expect(User.view_hidden?(FactoryGirl.create(:user))).to be false
     end
 
     it 'returns true if the user is an admin user' do
-      expect(User.view_hidden?(FactoryGirl.build(:admin_user))).to be true
+      expect(User.view_hidden?(FactoryGirl.create(:admin_user))).to be true
     end
   end
 
@@ -1039,12 +1098,28 @@ describe User do
       expect(User.view_embargoed?(nil)).to be false
     end
 
-    it 'returns false if the user is not a superuser' do
-      expect(User.view_embargoed?(FactoryGirl.build(:user))).to be false
+    it 'returns false if the user has no roles' do
+      expect(User.view_embargoed?(FactoryGirl.create(:user))).to be false
     end
 
-    it 'returns true if the user is an admin user' do
-      expect(User.view_embargoed?(FactoryGirl.build(:admin_user))).to be true
+    it 'returns false if the user is an admin user' do
+      expect(User.view_embargoed?(FactoryGirl.create(:admin_user))).to be false
+    end
+
+    context 'with pro enabled' do
+
+      it 'returns false if the user is an admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(User.view_embargoed?(FactoryGirl.create(:admin_user))).to be false
+        end
+      end
+
+      it 'returns true if the user is a pro_admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(User.view_embargoed?(FactoryGirl.create(:pro_admin_user))).to be true
+        end
+      end
+
     end
   end
 
@@ -1053,12 +1128,28 @@ describe User do
       expect(User.view_hidden_and_embargoed?(nil)).to be false
     end
 
-    it 'returns false if the user is not a superuser' do
-      expect(User.view_hidden_and_embargoed?(FactoryGirl.build(:user))).to be false
+    it 'returns false if the user has no role' do
+      expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:user))).to be false
     end
 
-    it 'returns true if the user is an admin user' do
-      expect(User.view_hidden_and_embargoed?(FactoryGirl.build(:admin_user))).to be true
+    it 'returns false if the user is an admin user' do
+      expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:admin_user))).to be false
+    end
+
+    context 'with pro enabled' do
+
+      it 'returns false if the user is an admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:admin_user))).to be false
+        end
+      end
+
+      it 'returns true if pro is enabled and the user is a pro_admin user' do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(User.view_hidden_and_embargoed?(FactoryGirl.create(:pro_admin_user)))
+            .to be true
+        end
+      end
     end
   end
 

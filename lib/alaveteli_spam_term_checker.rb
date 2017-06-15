@@ -42,7 +42,12 @@ class AlaveteliSpamTermChecker
     /\[Album\]/i,
     /watch.*?online free/i,
     /bangalore.*?escort/i,
-    /escort.*?bangalore/i
+    /escort.*?bangalore/i,
+    /depfile/i,
+    /brazzers/i,
+    /brazzer/i,
+    /gardenscapes\snew\sacres/i,
+    /les\ssimpson\sspringfield\shack/i
   ].freeze
 
   def self.default_spam_terms

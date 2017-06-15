@@ -67,9 +67,9 @@ describe AlaveteliPro::RequestFilter do
       expect_label('Response received', 'response_received')
     end
 
-    it 'is "Requests with expiring embargoes" when the filter is
+    it 'is "Requests that will be made public soon" when the filter is
         "embargoes_expiring"' do
-      expect_label('Requests with expiring embargoes', 'embargoes_expiring')
+      expect_label('Requests that will be made public soon', 'embargoes_expiring')
     end
   end
 
@@ -109,9 +109,9 @@ describe AlaveteliPro::RequestFilter do
       expect_label('response received', 'response_received')
     end
 
-    it 'is "requests with expiring embargoes" when the filter
+    it 'is "requests that will be made public soon" when the filter
         is "embargoes_expiring"' do
-      expect_label('requests with expiring embargoes', 'embargoes_expiring')
+      expect_label('requests that will be made public soon', 'embargoes_expiring')
     end
   end
 
@@ -144,7 +144,7 @@ describe AlaveteliPro::RequestFilter do
 
         request_filter = described_class.new
         expect(request_filter.results(user))
-          .to eq([second_request, first_request])
+          .to eq([second_request.request_summary, first_request.request_summary])
       end
     end
 
@@ -155,7 +155,7 @@ describe AlaveteliPro::RequestFilter do
       request_filter = described_class.new
       request_filter.update_attributes(:order => 'created_at_asc')
       expect(request_filter.results(user))
-        .to eq([first_request, second_request])
+        .to eq([first_request.request_summary, second_request.request_summary])
     end
 
     it 'applies a filter' do
@@ -166,7 +166,7 @@ describe AlaveteliPro::RequestFilter do
       request_filter = described_class.new
       request_filter.update_attributes(:filter => 'complete')
       expect(request_filter.results(user))
-        .to eq([complete_request])
+        .to eq([complete_request.request_summary])
     end
 
     it 'applies a search to the request titles' do
@@ -179,7 +179,7 @@ describe AlaveteliPro::RequestFilter do
       request_filter = described_class.new
       request_filter.update_attributes(:search => 'CAT')
       expect(request_filter.results(user))
-        .to eq([cat_request])
+        .to eq([cat_request.request_summary])
     end
 
     context 'when the filter is "draft"' do
@@ -190,7 +190,7 @@ describe AlaveteliPro::RequestFilter do
         request_filter = described_class.new
         request_filter.update_attributes(:filter => 'draft')
         expect(request_filter.results(user))
-          .to eq([draft_request])
+          .to eq([draft_request.request_summary])
       end
 
       it 'applies a search to the request titles' do
@@ -204,7 +204,7 @@ describe AlaveteliPro::RequestFilter do
         request_filter.update_attributes(:search => 'CAT',
                                          :filter => 'draft')
         expect(request_filter.results(user))
-          .to eq([cat_request])
+          .to eq([cat_request.request_summary])
       end
 
       it 'applies a sort order' do
@@ -215,7 +215,7 @@ describe AlaveteliPro::RequestFilter do
         request_filter.update_attributes(:order => 'created_at_asc',
                                          :filter => 'draft')
         expect(request_filter.results(user))
-          .to eq([first_request, second_request])
+          .to eq([first_request.request_summary, second_request.request_summary])
       end
     end
   end

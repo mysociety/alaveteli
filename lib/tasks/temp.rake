@@ -1,6 +1,20 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Migrate admins and pro users to role-based backend'
+  task :migrate_admins_and_pros_to_roles => :environment do
+    User.where(:admin_level => 'super').each do |admin|
+      admin.add_role :admin
+    end
+    pro_users = User.
+      includes(:pro_account).
+        where("pro_accounts.id IS NOT NULL").
+          references(:pro_accounts)
+    pro_users.each do |pro_user|
+      pro_user.add_role :pro
+    end
+  end
+
   desc 'Remove cached zip download files'
   task :remove_cached_zip_downloads => :environment do
     FileUtils.rm_rf(InfoRequest.download_zip_dir)
@@ -128,8 +142,11 @@ namespace :temp do
 
   desc 'Cache the delivery status of mail server logs'
   task :cache_delivery_status => :environment do
-    MailServerLog.where(:delivery_status => nil).find_each do |mail_log|
-      mail_log.update_attributes(:delivery_status => mail_log.delivery_status)
+    mta_agnostic_statuses =
+      MailServerLog::DeliveryStatus::TranslatedConstants.
+        humanized.keys.map(&:to_s)
+    MailServerLog.where.not(:delivery_status => mta_agnostic_statuses).find_each do |mail_log|
+      mail_log.update_attributes!(:delivery_status => mail_log.delivery_status)
       puts "Cached MailServerLog#delivery_status of id: #{ mail_log.id }"
     end
   end
@@ -278,4 +295,32 @@ namespace :temp do
     end
   end
 
+  desc 'Look for a fix requests with line breaks in titles'
+  task :remove_line_breaks_from_request_titles => :environment do
+    InfoRequest.where("title LIKE ? OR title LIKE ?", "%\n%", "%\r%").
+                each { |request| request.save! }
+  end
+
+  desc "Generate request summaries for every user"
+  task :generate_request_summaries => :environment do
+    User.find_each do |user|
+      user.info_requests.each do |request|
+        request.create_or_update_request_summary
+      end
+      user.draft_info_requests.each do |request|
+        request.create_or_update_request_summary
+      end
+      user.info_request_batches.each do |request|
+        request.create_or_update_request_summary
+      end
+      user.draft_info_request_batches.each do |request|
+        request.create_or_update_request_summary
+      end
+    end
+  end
+
+  desc 'Set use_notifications to false on all existing requests'
+  task :set_use_notifications => :environment do
+    InfoRequest.update_all use_notifications: false
+  end
 end

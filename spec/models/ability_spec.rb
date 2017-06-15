@@ -86,6 +86,7 @@ describe Ability do
     context 'when the request is embargoed' do
       let!(:resource) { FactoryGirl.create(:embargoed_request) }
       let(:admin_ability) { Ability.new(FactoryGirl.create(:admin_user)) }
+      let(:pro_admin_ability) { Ability.new(FactoryGirl.create(:pro_admin_user)) }
       let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
 
       context 'if the prominence is hidden' do
@@ -93,8 +94,23 @@ describe Ability do
           resource.prominence = 'hidden'
         end
 
-        it 'should return true for an admin user' do
-          expect(admin_ability).to be_able_to(:read, resource)
+        it 'should return false for an admin user' do
+          expect(admin_ability).not_to be_able_to(:read, resource)
+        end
+
+        context 'with pro enabled' do
+
+          it 'should return false for an admin user' do
+            with_feature_enabled(:alaveteli_pro) do
+              expect(admin_ability).not_to be_able_to(:read, resource)
+            end
+          end
+
+          it 'should return true for a pro admin user' do
+            with_feature_enabled(:alaveteli_pro) do
+              expect(pro_admin_ability).to be_able_to(:read, resource)
+            end
+          end
         end
 
         it 'should return false for a non-admin user' do
@@ -115,8 +131,24 @@ describe Ability do
           expect(owner_ability).to be_able_to(:read, resource)
         end
 
-        it 'should return true for an admin user' do
-          expect(admin_ability).to be_able_to(:read, resource)
+        it 'should return false for an admin user' do
+          expect(admin_ability).not_to be_able_to(:read, resource)
+        end
+
+        context 'with pro enabled' do
+
+          it 'should return false for an admin user' do
+            with_feature_enabled(:alaveteli_pro) do
+              expect(admin_ability).not_to be_able_to(:read, resource)
+            end
+          end
+
+          it 'should return true for a pro admin user' do
+            with_feature_enabled(:alaveteli_pro) do
+              expect(pro_admin_ability).to be_able_to(:read, resource)
+            end
+          end
+
         end
 
         it 'should return false if the user does not own the right resource' do
@@ -133,8 +165,24 @@ describe Ability do
           expect(other_user_ability).not_to be_able_to(:read, resource)
         end
 
-        it 'should return true for an admin user' do
-          expect(admin_ability).to be_able_to(:read, resource)
+        it 'should return false for an admin user' do
+          expect(admin_ability).not_to be_able_to(:read, resource)
+        end
+
+        context 'with pro enabled' do
+
+          it 'should return false for an admin user' do
+            with_feature_enabled(:alaveteli_pro) do
+              expect(admin_ability).not_to be_able_to(:read, resource)
+            end
+          end
+
+          it 'should return true for a pro admin user' do
+            with_feature_enabled(:alaveteli_pro) do
+              expect(pro_admin_ability).to be_able_to(:read, resource)
+            end
+          end
+
         end
 
         it 'should return true if the user owns the right resource' do
@@ -216,6 +264,79 @@ describe Ability do
     end
   end
 
+  describe "reading InfoRequestBatches" do
+    let(:admin_ability) { Ability.new(FactoryGirl.create(:admin_user)) }
+    let(:pro_admin_ability) { Ability.new(FactoryGirl.create(:pro_admin_user)) }
+    let(:pro_user_ability) { Ability.new(FactoryGirl.create(:pro_user)) }
+    let(:other_user_ability) { Ability.new(FactoryGirl.create(:user)) }
+
+    context "when the batch is embargoed" do
+      let(:resource) { FactoryGirl.create(:embargoed_batch_request) }
+
+      context "when the user owns the batch" do
+        let(:ability) { Ability.new(resource.user) }
+
+        it "should return true" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(ability).to be_able_to(:read, resource)
+          end
+        end
+      end
+
+      context "when the user is a pro_admin" do
+        it "should return true" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(pro_admin_ability).to be_able_to(:read, resource)
+          end
+        end
+      end
+
+      context "when the user is an admin" do
+        it "should return false" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(admin_ability).not_to be_able_to(:read, resource)
+          end
+        end
+      end
+
+      context "when the user is a pro but doesn't own the batch" do
+        it "should return false" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(pro_user_ability).not_to be_able_to(:read, resource)
+          end
+        end
+      end
+
+      context "when the user is a normal user" do
+        it "should return false" do
+          with_feature_enabled(:alaveteli_pro) do
+            expect(other_user_ability).not_to be_able_to(:read, resource)
+          end
+        end
+      end
+    end
+
+    context "when the batch is not embargoed" do
+      let(:resource) { FactoryGirl.create(:batch_request) }
+      let(:all_the_abilities) do
+        [
+          admin_ability,
+          pro_admin_ability,
+          pro_user_ability,
+          other_user_ability,
+          Ability.new(resource.user),
+          Ability.new(nil) # Even an anon user should be able to read it
+        ]
+      end
+
+      it "should always return true" do
+        all_the_abilities.each do |ability|
+          expect(ability).to be_able_to(:read, resource)
+        end
+      end
+    end
+  end
+
   describe "accessing Alaveteli Pro" do
     subject(:ability) { Ability.new(user) }
 
@@ -230,6 +351,16 @@ describe Ability do
 
     context "when the user is an admin" do
       let(:user) { FactoryGirl.create(:admin_user) }
+
+      it "should return false" do
+        with_feature_enabled(:alaveteli_pro) do
+          expect(ability).not_to be_able_to(:access, :alaveteli_pro)
+        end
+      end
+    end
+
+    context "when the user is a pro admin" do
+      let(:user) { FactoryGirl.create(:pro_admin_user) }
 
       it "should return true" do
         with_feature_enabled(:alaveteli_pro) do
@@ -262,6 +393,7 @@ describe Ability do
   describe "Updating Embargoes" do
     let(:embargo) { FactoryGirl.create(:embargo) }
     let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
 
     it "allows the info request owner to update it" do
       with_feature_enabled(:alaveteli_pro) do
@@ -270,10 +402,17 @@ describe Ability do
       end
     end
 
-    it "allows admins to update it" do
+    it "allows pro admins to update it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(pro_admin_user)
+        expect(ability).to be_able_to(:update, embargo)
+      end
+    end
+
+    it "doesn't allow admins to update it" do
       with_feature_enabled(:alaveteli_pro) do
         ability = Ability.new(admin_user)
-        expect(ability).to be_able_to(:update, embargo)
+        expect(ability).not_to be_able_to(:update, embargo)
       end
     end
 
@@ -291,5 +430,444 @@ describe Ability do
         expect(ability).not_to be_able_to(:update, embargo)
       end
     end
+  end
+
+  describe "Logging in as a user" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    context 'when the user has no roles' do
+
+      it 'allows an admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).to be_able_to(:login_as, user)
+        end
+      end
+
+      it 'does not allow a pro user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:login_as, user)
+        end
+      end
+
+      it 'does not allow user with no roles to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(FactoryGirl.create(:user))
+          expect(ability).not_to be_able_to(:login_as, user)
+        end
+      end
+
+      it 'does not allow them to login as themselves' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:login_as, user)
+        end
+      end
+
+    end
+
+    context 'when the user is an admin' do
+
+      it 'allows an admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(FactoryGirl.create(:admin_user))
+          expect(ability).to be_able_to(:login_as, admin_user)
+        end
+      end
+
+      it 'does not allow them to login as themselves' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:login_as, admin_user)
+        end
+      end
+
+      it 'does not allow a pro user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:login_as, admin_user)
+        end
+      end
+
+      it 'does not allow user with no roles to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:login_as, admin_user)
+        end
+      end
+
+    end
+
+    context 'when the user is a pro' do
+
+     it 'does not allow an admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:login_as, pro_user)
+        end
+      end
+
+     it 'does not allow a pro user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(FactoryGirl.create(:pro_user))
+          expect(ability).not_to be_able_to(:login_as, pro_user)
+        end
+      end
+
+      it 'does not allow them to login as themselves' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:login_as, pro_user)
+        end
+      end
+
+     it 'does not allow user with no roles to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:login_as, pro_user)
+        end
+      end
+
+     it 'allows a pro admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:login_as, pro_user)
+        end
+      end
+
+    end
+
+    context 'when the user is a pro_admin user' do
+
+      it 'does not allow an admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+
+      it 'does not allow a pro user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+
+      it 'does not allow user with no roles to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+
+      it 'allows a pro admin user to login as them' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(FactoryGirl.create(:pro_admin_user))
+          expect(ability).to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+
+      it 'does not allow them to login as themselves' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).not_to be_able_to(:login_as, pro_admin_user)
+        end
+      end
+    end
+  end
+
+  describe 'administering requests' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    context 'when the request is embargoed' do
+      let(:info_request){ FactoryGirl.create(:embargoed_request) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, info_request)
+        end
+      end
+
+      it 'does not allow an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:admin, info_request)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, info_request)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, info_request)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(nil)
+          expect(ability).not_to be_able_to(:admin, info_request)
+        end
+      end
+
+    end
+
+    context 'when the request is not embargoed' do
+      let(:info_request){ FactoryGirl.create(:info_request) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, info_request)
+        end
+      end
+
+      it 'does allow an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).to be_able_to(:admin, info_request)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, info_request)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, info_request)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(nil)
+          expect(ability).not_to be_able_to(:admin, info_request)
+        end
+      end
+    end
+
+  end
+
+  describe 'administering comments' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    context "when the comment's request is embargoed" do
+      let(:info_request){ FactoryGirl.create(:embargoed_request) }
+      let(:comment){ FactoryGirl.create(:comment,
+                                        :info_request => info_request) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(nil)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+    end
+
+    context 'when the request is not embargoed' do
+      let(:info_request){ FactoryGirl.create(:info_request) }
+      let(:comment){ FactoryGirl.create(:comment,
+                                        :info_request => info_request) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does allows an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(nil)
+          expect(ability).not_to be_able_to(:admin, comment)
+        end
+      end
+    end
+  end
+
+  describe 'administering embargoes' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    it 'allows a pro admin user to administer' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(pro_admin_user)
+        expect(ability).to be_able_to(:admin, AlaveteliPro::Embargo)
+      end
+    end
+
+    it 'does not allow an admin to administer' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(admin_user)
+        expect(ability).not_to be_able_to(:admin, AlaveteliPro::Embargo)
+      end
+    end
+
+    it 'does not allow a pro user to administer' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(pro_user)
+        expect(ability).not_to be_able_to(:admin, AlaveteliPro::Embargo)
+      end
+    end
+
+    it 'does not allow a user with no roles to administer' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(user)
+        expect(ability).not_to be_able_to(:admin, AlaveteliPro::Embargo)
+      end
+    end
+
+    it 'does not allow no user to administer' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(nil)
+        expect(ability).not_to be_able_to(:admin, AlaveteliPro::Embargo)
+      end
+    end
+
+  end
+
+  describe 'reading API keys' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    context 'if pro is not enabled' do
+
+      it 'allows an admin user to read' do
+        ability = Ability.new(admin_user)
+        expect(ability).to be_able_to(:read, :api_key)
+      end
+
+      it 'does not allow a pro user to read' do
+        ability = Ability.new(pro_user)
+        expect(ability).not_to be_able_to(:read, :api_key)
+      end
+
+      it 'does not allow a user with no roles to read' do
+        ability = Ability.new(user)
+        expect(ability).not_to be_able_to(:read, :api_key)
+      end
+
+      it 'does not allow no user to read' do
+        ability = Ability.new(nil)
+        expect(ability).not_to be_able_to(:read, :api_key)
+      end
+
+    end
+
+    context 'if pro is enabled' do
+
+      it 'allows a pro admin user to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:read, :api_key)
+        end
+      end
+
+      it 'does not allow a pro user to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:read, :api_key)
+        end
+      end
+
+      it 'does not allow an admin user to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:read, :api_key)
+        end
+      end
+
+      it 'does not allow a user with no roles to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:read, :api_key)
+        end
+      end
+
+      it 'does not allow no user to read' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(nil)
+          expect(ability).not_to be_able_to(:read, :api_key)
+        end
+      end
+
+    end
+
   end
 end

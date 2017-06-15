@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20170301171406
 #
 # Table name: users
 #
@@ -37,6 +38,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  rolify
   strip_attributes :allow_empty => true
 
   attr_accessor :password_confirmation, :no_xapian_reindex
@@ -76,10 +78,18 @@ class User < ActiveRecord::Base
   has_many :info_request_batches,
            -> { order('created_at desc') },
            :dependent => :destroy
+  has_many :draft_info_request_batches,
+           -> { order('created_at desc') },
+           :dependent => :destroy,
+           :class_name => AlaveteliPro::DraftInfoRequestBatch
   has_many :request_classifications,
            :dependent => :destroy
   has_one :pro_account,
           :dependent => :destroy
+  has_many :request_summaries,
+           :dependent => :destroy,
+           :class_name => AlaveteliPro::RequestSummary
+
 
   scope :not_banned, -> { where(ban_text: "") }
 
@@ -118,9 +128,7 @@ class User < ActiveRecord::Base
   has_one_time_password :counter_based => true
 
   def self.pro
-    includes(:pro_account).
-      where("pro_accounts.id IS NOT NULL").
-        references(:pro_accounts)
+    with_role :pro
   end
 
   # Return user given login email, password and other form parameters (e.g. name)
@@ -181,11 +189,11 @@ class User < ActiveRecord::Base
 
   # Can the user see every request, response, and outgoing message, even hidden ones?
   def self.view_hidden?(user)
-    !user.nil? && user.super?
+    !user.nil? && user.is_admin?
   end
 
   def self.view_embargoed?(user)
-    self.view_hidden?(user)
+    !user.nil? && user.is_pro_admin?
   end
 
   def self.view_hidden_and_embargoed?(user)
@@ -195,7 +203,7 @@ class User < ActiveRecord::Base
   # Should the user be kept logged into their own account
   # if they follow a /c/ redirect link belonging to another user?
   def self.stay_logged_in_on_redirect?(user)
-    !user.nil? && user.super?
+    !user.nil? && user.is_admin?
   end
 
   # Used for default values of last_daily_track_email
@@ -240,21 +248,21 @@ class User < ActiveRecord::Base
   end
 
   def self.all_time_requesters
-    InfoRequest.visible.
+    InfoRequest.is_public.
                 joins(:user).
                 group(:user).
-                order("count_all DESC").
+                order("count_info_requests_all DESC").
                 limit(10).
                 count
   end
 
   def self.last_28_day_requesters
     # TODO: Refactor as it's basically the same as all_time_requesters
-    InfoRequest.visible.
+    InfoRequest.is_public.
                 where("info_requests.created_at >= ?", 28.days.ago).
                 joins(:user).
                 group(:user).
-                order("count_all DESC").
+                order("count_info_requests_all DESC").
                 limit(10).
                 count
   end
@@ -414,17 +422,27 @@ class User < ActiveRecord::Base
   # Does the user magically gain powers as if they owned every request?
   # e.g. Can classify it
   def owns_every_request?
-    super?
+    is_admin?
   end
 
   # Does this user have extraordinary powers?
   def super?
-    admin_level == 'super'
+    warn %q([DEPRECATION] User#super? will be removed in 0.30.
+          It has been replaced by User#is_admin?).squish
+    is_admin?
+  end
+
+  def can_admin_roles
+    roles.flat_map{ |role| Role.grants_and_revokes(role.name.to_sym) }.compact.uniq
+  end
+
+  def can_admin_role?(role)
+    can_admin_roles.include?(role)
   end
 
   # Does the user get "(admin)" links on each page on the main site?
   def admin_page_links?
-    super?
+    is_admin?
   end
 
   # Is it public that they are banned?
@@ -567,16 +585,12 @@ class User < ActiveRecord::Base
       columns = self.class.content_columns
     else
       columns = self.class.content_columns.map do |c|
-        c if %w(created_at updated_at admin_level email_confirmed).include?(c.name)
+        c if %w(created_at updated_at email_confirmed).include?(c.name)
       end.compact
     end
     columns.each do |column|
       yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
     end
-  end
-
-  def pro?
-    pro_account.present?
   end
 
   private

@@ -33,5 +33,4 @@ describe 'request_game/play' do
         expect(response).to include("/categorise/request/a_test_request")
     end
 
-
 end

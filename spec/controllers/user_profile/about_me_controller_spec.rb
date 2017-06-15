@@ -127,10 +127,7 @@ describe UserProfile::AboutMeController do
 
         it 'sets a message suggesting they add one' do
           put :update, :user => { :about_me => 'My bio' }
-          msg = "<p>Thanks for changing the text about you on your " \
-                "profile.</p><p><strong>Next...</strong> You can " \
-                "upload a profile photograph too.</p>"
-          expect(flash[:notice]).to eq(msg)
+          expect(flash[:notice][:partial]).to eq("update_profile_text.html.erb")
         end
 
         it 'redirects to the set profile photo page' do
@@ -203,14 +200,16 @@ describe UserProfile::AboutMeController do
       end
 
       it 'ignores non-whitelisted attributes' do
-        put :update, :user => { :about_me => 'My bio', :admin_level => 'super' }
-        expect(user.reload.admin_level).to eq('none')
+        put :update, :user => { :about_me => 'My bio',
+                                :role_ids => [ Role.admin_role.id ] }
+        expect(user.reload.roles).to eq([])
       end
 
       it 'sets whitelisted attributes' do
         user = FactoryGirl.create(:user, :name => '1234567')
         session[:user_id] = user.id
-        put :update, :user => { :about_me => 'My bio', :admin_level => 'super' }
+        put :update, :user => { :about_me => 'My bio',
+                                :role_ids => [ Role.admin_role.id ] }
         expect(user.reload.about_me).to eq('My bio')
       end
 
@@ -275,13 +274,22 @@ describe UserProfile::AboutMeController do
 
     end
 
-    context 'with enable_anti_spam enabled, spam content and a non-whitelisted user' do
+    context 'with block_spam_about_me_text? returning true, spam content and a non-whitelisted user' do
 
       let(:user) { FactoryGirl.create(:user, :confirmed_not_spam => false) }
 
       before :each do
+        UserSpamScorer.score_mappings = {}
         session[:user_id] = user.id
-        allow(AlaveteliConfiguration).to receive(:enable_anti_spam).and_return(true)
+        allow(@controller).to receive(:block_spam_about_me_text?).and_return(true)
+      end
+
+      after(:each) { UserSpamScorer.reset }
+
+      it 'sends an exception notification' do
+        put :update, :user => { :about_me => '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam about me text from user #{ user.id }/)
       end
 
       it 'sets an error message' do
@@ -303,7 +311,7 @@ describe UserProfile::AboutMeController do
 
     end
 
-    context 'with enable_anti_spam disabled, spam content and a whitelisted user' do
+    context 'with block_spam_about_me_text? returning false, spam content and a whitelisted user' do
 
       let(:user) do
         FactoryGirl.create(:user, :name => '12345', :confirmed_not_spam => true)
@@ -311,7 +319,7 @@ describe UserProfile::AboutMeController do
 
       before :each do
         session[:user_id] = user.id
-        allow(AlaveteliConfiguration).to receive(:anti_spam_enabled).and_return(false)
+        allow(@controller).to receive(:block_spam_about_me_text?).and_return(false)
       end
 
       it 'updates the user about_me' do
@@ -322,13 +330,13 @@ describe UserProfile::AboutMeController do
 
     end
 
-    context 'with enable_anti_spam enabled, spam content and a whitelisted user' do
+    context 'with block_spam_about_me_text? returning true, spam content and a whitelisted user' do
 
       let(:user) { FactoryGirl.create(:user, :confirmed_not_spam => true) }
 
       before :each do
         session[:user_id] = user.id
-        allow(AlaveteliConfiguration).to receive(:anti_spam_enabled).and_return(true)
+        allow(@controller).to receive(:block_spam_about_me_text?).and_return(true)
       end
 
       it 'updates the user about_me' do

@@ -168,21 +168,12 @@ class UserController < ApplicationController
         ip_rate_limiter.record(user_ip)
 
         if ip_rate_limiter.limit?(user_ip)
-          if send_exception_notifications?
-            msg = "Rate limited signup from #{ user_ip } email: " \
-                  " #{ @user_signup.email }"
-            e = Exception.new(msg)
-            ExceptionNotifier.notify_exception(e, :env => request.env)
-          end
+          handle_rate_limited_signup(user_ip, @user_signup.email) && return
+        end
 
-          if AlaveteliConfiguration.enable_anti_spam
-            flash.now[:error] =
-              _("Sorry, we're currently unable to sign up new users, " \
-                "please try again later")
-            error = true
-            render :action => 'sign'
-            return
-          end
+        # Prevent signups from spam domains
+        if spam_domain?(@user_signup)
+          handle_spam_domain_signup(@user_signup.email) && return
         end
 
         @user_signup.email_confirmed = false
@@ -347,7 +338,10 @@ class UserController < ApplicationController
           params[:contact][:subject],
           params[:contact][:message]
         ).deliver
-        flash[:notice] = _("Your message to {{recipient_user_name}} has been sent!",:recipient_user_name=>CGI.escapeHTML(@recipient_user.name))
+        flash[:notice] = _("Your message to {{recipient_user_name}} has " \
+                           "been sent!",
+                           :recipient_user_name => @recipient_user.
+                                                     name.html_safe)
         redirect_to user_url(@recipient_user)
         return
       end
@@ -419,9 +413,7 @@ class UserController < ApplicationController
 
 
       if @user.get_about_me_for_html_display.empty?
-        flash[:notice] = _("<p>Thanks for updating your profile photo.</p>" \
-                "<p><strong>Next...</strong> You can put some text about " \
-                "you and your research on your profile.</p>")
+        flash[:notice] = { :partial => "user/update_profile_photo.html.erb" }
         redirect_to edit_profile_about_me_url
       else
         flash[:notice] = _("Thank you for updating your profile photo")
@@ -452,8 +444,8 @@ class UserController < ApplicationController
   # before they've cropped it
   def get_draft_profile_photo
     profile_photo = ProfilePhoto.find(params[:id])
-    response.content_type = "image/png"
-    render :text => profile_photo.data
+    render :body => profile_photo.data,
+           :content_type => 'image/png'
   end
 
   # actual profile photo of a user
@@ -464,8 +456,8 @@ class UserController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("user has no profile photo, url_name=" + params[:url_name])
     end
 
-    response.content_type = "image/png"
-    render :text => @display_user.profile_photo.data
+    render :body => @display_user.profile_photo.data,
+           :content_type => 'image/png'
   end
 
   # Change about me text on your profile page
@@ -627,5 +619,61 @@ class UserController < ApplicationController
                        :email => _("Then you can sign in to {{site_name}}", :site_name => site_name),
                        :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
                      })
+  end
+
+  def block_rate_limited_ips?
+    AlaveteliConfiguration.block_rate_limited_ips ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  def handle_rate_limited_signup(user_ip, email_address)
+    if send_exception_notifications?
+      msg = "Rate limited signup from #{ user_ip } email: " \
+            " #{ email_address }"
+      e = Exception.new(msg)
+      ExceptionNotifier.notify_exception(e, :env => request.env)
+    end
+
+    if block_rate_limited_ips?
+      flash.now[:error] =
+        _("Sorry, we're currently unable to sign up new users, " \
+          "please try again later")
+      error = true
+      render :action => 'sign'
+      true
+    end
+  end
+
+  def spam_domain?(user_signup)
+    UserSpamScorer.new.email_from_spam_domain?(@user_signup)
+  end
+
+  def block_spam_email_domains?
+    AlaveteliConfiguration.block_spam_email_domains ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  def handle_spam_domain_signup(user_email)
+    msg = "Attempted signup from spam domain email: #{ user_email }"
+
+    if block_spam_email_domains?
+      logger.info(msg)
+
+      flash.now[:error] =
+        _("Sorry, we're currently unable to sign up new users, " \
+          "please try again later")
+
+      error = true
+      render :action => 'sign'
+
+      true
+    else
+      if send_exception_notifications?
+        e = Exception.new(msg)
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      false
+    end
   end
 end

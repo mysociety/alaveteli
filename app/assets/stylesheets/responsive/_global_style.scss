@@ -153,6 +153,12 @@ label.form_label {
 
 .form_item_note,.form_note {
   font-size:0.875em;
+  line-height: 1.5em;
+}
+
+.form_item_note--important {
+  font-size: 1.142857143em;
+  line-height: 1.5em;
 }
 
 p + .form_item_note {
@@ -219,11 +225,11 @@ div.pagination {
   text-align:center;
   padding-top:0.3em;
 
-  span.current {
+  .current {
     padding:0 0.6em 0.1em;
   }
 
-  span.disabled {
+  .disabled {
     padding:0 0.6em 0.1em;
   }
 

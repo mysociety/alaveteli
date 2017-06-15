@@ -295,8 +295,11 @@ describe RequestController, "when showing one request" do
     end
   end
 
-  describe 'when params[:pro] is true' do
+  describe 'when params[:pro] is true and a pro user is logged in' do
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+
     before :each do
+      session[:user_id] = pro_user.id
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', pro: "1"
     end
 
@@ -325,14 +328,21 @@ describe RequestController, "when showing one request" do
   end
 
   describe "@show_top_describe_state_form" do
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:pro_request) { FactoryGirl.create(:embargoed_request, user: pro_user) }
+
     context "when @in_pro_area is true" do
       it "is false" do
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   :pro => "1",
-                   :update_status => "1"
-        expect(assigns[:show_top_describe_state_form]).to be false
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user.id
+          get :show, :url_title => pro_request.url_title,
+                     :pro => "1",
+                     :update_status => "1"
+          expect(assigns[:show_top_describe_state_form]).to be false
+        end
       end
     end
+
     context "when @in_pro_area is false" do
       context "and @update_status is false" do
         it "is false" do
@@ -381,11 +391,17 @@ describe RequestController, "when showing one request" do
   end
 
   describe "@show_bottom_describe_state_form" do
+    let(:pro_user) { FactoryGirl.create(:pro_user) }
+    let(:pro_request) { FactoryGirl.create(:embargoed_request, user: pro_user) }
+
     context "when @in_pro_area is true" do
       it "is false" do
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog',
-                   :pro => "1"
-        expect(assigns[:show_bottom_describe_state_form]).to be false
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user.id
+          get :show, :url_title => pro_request.url_title,
+                     :pro => "1"
+          expect(assigns[:show_bottom_describe_state_form]).to be false
+        end
       end
     end
 
@@ -918,14 +934,6 @@ describe RequestController, "when searching for an authority" do
     get_fixtures_xapian_index
   end
 
-  it "should return nothing for the empty query string" do
-    session[:user_id] = @user.id
-    get :select_authority, :query => ""
-
-    expect(response).to render_template('select_authority')
-    expect(assigns[:xapian_requests]).to eq(nil)
-  end
-
   it "should return matching bodies" do
     session[:user_id] = @user.id
     get :select_authority, :query => "Quango"
@@ -933,20 +941,6 @@ describe RequestController, "when searching for an authority" do
     expect(response).to render_template('select_authority')
     assigns[:xapian_requests].results.size == 1
     expect(assigns[:xapian_requests].results[0][:model].name).to eq(public_bodies(:geraldine_public_body).name)
-  end
-
-  it "should not give an error when user users unintended search operators" do
-    for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
-                   "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
-                   "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
-                   "NHS Ayrshire & Arran",
-                   " cardiff",
-                   "Foo * bax",
-                   "qux ~ quux"]
-      expect {
-        get :select_authority, :query => phrase
-      }.not_to raise_error
-    end
   end
 
   it "remembers the search params" do
@@ -1046,6 +1040,62 @@ describe RequestController, "when creating a new request" do
     @body.save!
     get :new, :public_body_id => @body.id
     expect(response).to render_template('new_bad_contact')
+  end
+
+  context "the outgoing message includes an email address" do
+
+    context "there is no logged in user" do
+
+      it "displays a flash error message without escaping the HTML" do
+        post :new, :info_request => {
+                     :public_body_id => @body.id,
+                     :title => "Test Request" },
+                   :outgoing_message => { :body => "me@here.com" },
+                   :submitted_new_request => 1,
+                   :preview => 1
+
+        expect(response.body).to have_css('div#error p')
+        expect(response.body).to_not have_content('<p>')
+        expect(response.body).
+          to have_content('You do not need to include your email')
+      end
+
+    end
+
+    context "the user is logged in" do
+
+      it "displays a flash error message without escaping the HTML" do
+        session[:user_id] = @user.id
+        post :new, :info_request => {
+                     :public_body_id => @body.id,
+                     :title => "Test Request" },
+                   :outgoing_message => { :body => "me@here.com" },
+                   :submitted_new_request => 1,
+                   :preview => 1
+
+        expect(response.body).to have_css('div#error p')
+        expect(response.body).to_not have_content('<p>')
+        expect(response.body).
+          to have_content('You do not need to include your email')
+      end
+
+    end
+
+  end
+
+  context "the outgoing message includes a postcode" do
+
+    it 'displays an error message warning about the postcode' do
+      post :new, :info_request => {
+                   :public_body_id => @body.id,
+                   :title => "Test Request" },
+                 :outgoing_message => { :body => "SW1A 1AA" },
+                 :submitted_new_request => 1,
+                 :preview => 1
+
+      expect(response.body).to have_content('Your request contains a postcode')
+    end
+
   end
 
   it "should redirect pros to the pro version" do
@@ -1381,18 +1431,49 @@ describe RequestController, "when creating a new request" do
 
   end
 
-  describe 'when enable_anti_spam is true' do
-
-    before do
-      allow(AlaveteliConfiguration).to receive(:enable_anti_spam)
-        .and_return(true)
-    end
+  context 'when the request subject line looks like spam' do
 
     let(:user) { FactoryGirl.create(:user,
                                     :confirmed_not_spam => false) }
     let(:body) { FactoryGirl.create(:public_body) }
 
-    context 'when the request subject line looks like spam' do
+
+    context 'when enable_anti_spam is false and block_spam_requests is true' do
+      # double check that block_spam_subject? is behaving as expected
+      before do
+        allow(AlaveteliConfiguration).to receive(:enable_anti_spam).
+          and_return(false)
+        allow(AlaveteliConfiguration).to receive(:block_spam_requests).
+          and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD",
+          :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
+    end
+
+    context 'when block_spam_subject? is true' do
+
+      before do
+        allow(@controller).to receive(:block_spam_subject?).and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
 
       it 'shows an error message' do
         session[:user_id] = user.id
@@ -1427,11 +1508,62 @@ describe RequestController, "when creating a new request" do
 
     end
 
-    context 'when the request is from an IP address in a blocked country' do
+    context 'when block_spam_subject? is false' do
 
       before do
-        allow(AlaveteliConfiguration).to receive(:restricted_countries).and_return('PH')
-        allow(controller).to receive(:country_from_ip).and_return('PH')
+        allow(@controller).to receive(:block_spam_subject?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
+
+      it 'allows the request' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "[HD] Watch Jason Bourne Online free MOVIE Full-HD", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response)
+          .to redirect_to show_request_path(:url_title => 'hd_watch_jason_bourne_online_fre')
+      end
+
+    end
+
+  end
+
+  describe 'when the request is from an IP address in a blocked country' do
+
+    let(:user) { FactoryGirl.create(:user,
+                                    :confirmed_not_spam => false) }
+    let(:body) { FactoryGirl.create(:public_body) }
+
+    before do
+      allow(AlaveteliConfiguration).to receive(:restricted_countries).and_return('PH')
+      allow(controller).to receive(:country_from_ip).and_return('PH')
+    end
+
+    context 'when block_restricted_country_ips? is true' do
+
+      before do
+        allow(@controller).
+          to receive(:block_restricted_country_ips?).and_return(true)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request content", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
       end
 
       it 'shows an error message' do
@@ -1456,6 +1588,35 @@ describe RequestController, "when creating a new request" do
       it 'allows the request if the user is confirmed not spam' do
         user.confirmed_not_spam = true
         user.save!
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request content", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        expect(response)
+          .to redirect_to show_request_path(:url_title => 'some_request_content')
+      end
+
+    end
+
+    context 'when block_restricted_country_ips? is false' do
+
+      before do
+        allow(@controller).
+          to receive(:block_restricted_country_ips?).and_return(false)
+      end
+
+      it 'sends an exception notification' do
+        session[:user_id] = user.id
+        post :new, :info_request => { :public_body_id => body.id,
+        :title => "Some request content", :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer from your files." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
+      end
+
+      it 'allows the request' do
         session[:user_id] = user.id
         post :new, :info_request => { :public_body_id => body.id,
         :title => "Some request content", :tag_string => "" },
@@ -1619,8 +1780,15 @@ describe RequestController do
 
             it "should continue the game after classifying a request" do
               post_status("rejected", info_request)
-              expect(flash[:notice]).to match(/There are some more requests below for you to classify/)
               expect(response).to redirect_to categorise_play_url
+            end
+
+            it 'shows a message thanking the user for a good deed' do
+              post_status('rejected', info_request)
+              expect(flash[:notice][:partial]).
+                to eq("request_game/thank_you.html.erb")
+              expect(flash[:notice][:locals]).
+                to include(:info_request_title => info_request.title)
             end
           end
 
@@ -1752,12 +1920,9 @@ describe RequestController do
         end
 
         it 'should show advice for the new state' do
-          expect(controller)
-            .to receive(:render_to_string)
-              .with(:partial => 'request/describe_notices/rejected',
-                    :locals => {:info_request => info_request})
-                .and_return('')
           post_status('rejected', info_request)
+          expect(flash[:notice][:partial]).
+            to eq('request/describe_notices/rejected')
         end
 
         it 'should redirect to the unhappy page' do
@@ -1857,12 +2022,9 @@ describe RequestController do
         end
 
         it 'should show advice for the new state' do
-          expect(controller)
-            .to receive(:render_to_string)
-              .with(:partial => 'request/describe_notices/rejected',
-                    :locals => {:info_request => info_request})
-                .and_return('')
           post_status('rejected', info_request)
+          expect(flash[:notice][:partial]).
+            to eq('request/describe_notices/rejected')
         end
 
         it 'should redirect to the unhappy page' do
@@ -1905,7 +2067,8 @@ describe RequestController do
               the response is not overdue' do
             expect_redirect("waiting_response",
                             show_request_path(info_request.url_title))
-            expect(flash[:notice]).to match(/should get a response/)
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/waiting_response')
           end
 
           it 'should redirect to the "request url" with a message in the right tense when
@@ -1915,7 +2078,8 @@ describe RequestController do
             time_travel_to(info_request.date_response_required_by + 2.days) do
               expect_redirect('waiting_response',
                               show_request_path(info_request.url_title))
-              expect(flash[:notice]).to match(/should have got a response/)
+              expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/waiting_response_overdue')
             end
           end
 
@@ -1926,9 +2090,8 @@ describe RequestController do
             time_travel_to(info_request.date_very_overdue_after + 2.days) do
               expect_redirect('waiting_response',
                               help_unhappy_path(info_request.url_title))
-              expect(flash[:notice]).to match(/is long overdue/)
-              expect(flash[:notice]).to match(/by more than 40 working days/)
-              expect(flash[:notice]).to match(/within 20 working days/)
+              expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/waiting_response_very_overdue')
             end
           end
         end
@@ -1938,6 +2101,8 @@ describe RequestController do
           it 'should redirect to the "request url"' do
             expect_redirect('not_held',
                             show_request_path(info_request.url_title))
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/not_held')
           end
 
         end
@@ -1949,18 +2114,10 @@ describe RequestController do
                             show_request_path(info_request.url_title))
           end
 
-          it 'should show a message including the donation url if there is one' do
-            allow(AlaveteliConfiguration).to receive(:donation_url).and_return('http://donations.example.com')
+          it 'should show a message' do
             post_status('successful', info_request)
-            expect(flash[:notice]).to match('make a donation')
-            expect(flash[:notice]).to match('http://donations.example.com')
-          end
-
-          it 'should show a message without reference to donations if there is no
-                      donation url' do
-            allow(AlaveteliConfiguration).to receive(:donation_url).and_return('')
-            post_status('successful', info_request)
-            expect(flash[:notice]).not_to match('make a donation')
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/successful')
           end
 
         end
@@ -1978,7 +2135,10 @@ describe RequestController do
                               :incoming_message_id =>
                                 info_request.get_last_public_response.id)
               expect_redirect('waiting_clarification', expected_url)
+              expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/waiting_clarification')
             end
+
           end
 
           context 'when there are no events needing description' do
@@ -1995,7 +2155,10 @@ describe RequestController do
         context 'when status is updated to "rejected"' do
 
           it 'should redirect to the "unhappy url"' do
-            expect_redirect('rejected', help_unhappy_path(info_request.url_title))
+            expect_redirect('rejected',
+              help_unhappy_path(info_request.url_title))
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/rejected')
           end
 
         end
@@ -2005,20 +2168,8 @@ describe RequestController do
           it 'should redirect to the "unhappy url"' do
             expect_redirect('partially_successful',
                             help_unhappy_path(info_request.url_title))
-          end
-
-          it 'should show a message including the donation url if there is one' do
-            allow(AlaveteliConfiguration).to receive(:donation_url).and_return('http://donations.example.com')
-            post_status('successful', info_request)
-            expect(flash[:notice]).to match('make a donation')
-            expect(flash[:notice]).to match('http://donations.example.com')
-          end
-
-          it 'should show a message without reference to donations if there is no
-                      donation url' do
-            allow(AlaveteliConfiguration).to receive(:donation_url).and_return('')
-            post_status('successful', info_request)
-            expect(flash[:notice]).not_to match('make a donation')
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/partially_successful')
           end
 
         end
@@ -2044,6 +2195,8 @@ describe RequestController do
           it 'should redirect to the "request url"' do
             expect_redirect('internal_review',
                             show_request_path(info_request.url_title))
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/internal_review')
           end
 
         end
@@ -2060,6 +2213,8 @@ describe RequestController do
                 info_request.last_event_id_needing_description
             expect(response)
               .to redirect_to show_request_url(:url_title => info_request.url_title)
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/requires_admin')
           end
 
         end
@@ -2078,6 +2233,8 @@ describe RequestController do
               .to redirect_to(
                     show_request_url(:url_title => info_request.url_title)
                   )
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/error_message')
           end
 
           context "if the params don't include a message" do
@@ -2111,6 +2268,8 @@ describe RequestController do
                             :incoming_message_id =>
                               info_request.get_last_public_response.id)
             expect_redirect('user_withdrawn', expected_url)
+            expect(flash[:notice][:partial]).
+                to eq('request/describe_notices/user_withdrawn')
           end
 
         end
@@ -2265,64 +2424,9 @@ describe RequestController, "when showing JSON version for API" do
 end
 
 describe RequestController, "when doing type ahead searches" do
-  render_views
 
   before :each do
     get_fixtures_xapian_index
-  end
-
-  it "should return nothing for the empty query string" do
-    get :search_typeahead, :q => ""
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests]).to be_nil
-  end
-
-  it "should return a request matching the given keyword, but not users with a matching description" do
-    get :search_typeahead, :q => "chicken"
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests].results.size).to eq(1)
-    expect(assigns[:xapian_requests].results[0][:model].title).to eq(info_requests(:naughty_chicken_request).title)
-  end
-
-  it "should return all requests matching any of the given keywords" do
-    get :search_typeahead, :q => "money dog"
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests].results.map{|x|x[:model].info_request}).to match_array([
-      info_requests(:fancy_dog_request),
-      info_requests(:naughty_chicken_request),
-      info_requests(:another_boring_request),
-    ])
-  end
-
-  it "should not return matches for short words" do
-    get :search_typeahead, :q => "a"
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests]).to be_nil
-  end
-
-  it "should do partial matches for longer words" do
-    get :search_typeahead, :q => "chick"
-    expect(response).to render_template('request/_search_ahead')
-    expect(assigns[:xapian_requests].results.size).to eq(1)
-  end
-
-  it "should not give an error when user users unintended search operators" do
-    for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
-                   "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
-                   "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
-                   "NHS Ayrshire & Arran",
-                   "uda ( units of dent",
-                   "frob * baz",
-                   "bar ~ qux"]
-      expect {
-        get :search_typeahead, :q => phrase
-      }.not_to raise_error
-    end
-  end
-
-  it "should return all requests matching any of the given keywords" do
-    get :search_typeahead, :q => "dog -chicken"
-    expect(assigns[:xapian_requests].results.size).to eq(1)
   end
 
   it 'can filter search results by public body' do
@@ -2595,6 +2699,16 @@ describe RequestController, "#select_authorities" do
           expect(response).to be_success
         end
 
+        it 'recognizes a GET request' do
+          expect(:get => '/select_authorities').
+            to route_to(:controller => 'request', :action => 'select_authorities')
+        end
+
+        it 'recognizes a POST request' do
+          expect(:post => '/select_authorities').
+            to route_to(:controller => 'request', :action => 'select_authorities')
+        end
+
         it 'should render the "select_authorities" template' do
           get :select_authorities, {}, {:user_id => @user.id}
           expect(response).to render_template('request/select_authorities')
@@ -2708,12 +2822,8 @@ describe RequestController, "when the site is in read_only mode" do
 
   it "shows a flash message to alert the user" do
     get :new
-    expected_message = '<p>Alaveteli is currently in maintenance. You ' \
-                       'can only view existing requests. You cannot make ' \
-                       'new ones, add followups or annotations, or ' \
-                       'otherwise change the database.</p> '\
-                       '<p>Down for maintenance</p>'
-    expect(flash[:notice]).to eq expected_message
+    expect(flash[:notice][:partial]).
+      to eq "general/read_only_annotations.html.erb"
   end
 
   context "when annotations are disabled" do
@@ -2723,11 +2833,7 @@ describe RequestController, "when the site is in read_only mode" do
 
     it "doesn't mention annotations in the flash message" do
       get :new
-      expected_message = '<p>Alaveteli is currently in maintenance. You ' \
-                         'can only view existing requests. You cannot make ' \
-                         'new ones, add followups or otherwise change the ' \
-                         'database.</p> <p>Down for maintenance</p>'
-      expect(flash[:notice]).to eq expected_message
+      expect(flash[:notice][:partial]).to eq "general/read_only.html.erb"
     end
   end
 end
@@ -2968,4 +3074,13 @@ describe RequestController do
       end
     end
   end
+
+  describe 'GET #search_typeahead' do
+
+    it "does not raise an error if there are no params" do
+      expect{ get :search_typeahead }.not_to raise_error
+    end
+
+  end
+
 end

@@ -283,6 +283,10 @@ describe PublicBodyController, "when listing bodies" do
 
   it "should list a tagged thing on the appropriate list page, and others on the other page,
         and all still on the all page" do
+    PublicBodyCategory.destroy_all
+    PublicBodyHeading.destroy_all
+    PublicBodyCategoryLink.destroy_all
+
     category = FactoryGirl.create(:public_body_category)
     heading = FactoryGirl.create(:public_body_heading)
     PublicBodyCategoryLink.create(:public_body_heading_id => heading.id,
@@ -415,7 +419,6 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
 end
 
 describe PublicBodyController, "when doing type ahead searches" do
-
   render_views
 
   before(:each) do
@@ -423,44 +426,19 @@ describe PublicBodyController, "when doing type ahead searches" do
     get_fixtures_xapian_index
   end
 
-  it "should return nothing for the empty query string" do
+  it 'renders the search_ahead template' do
     get :search_typeahead, :query => ""
     expect(response).to render_template('public_body/_search_ahead')
-    expect(assigns[:xapian_requests]).to be_nil
   end
 
-  it "should return a body matching the given keyword, but not users with a matching description" do
-    get :search_typeahead, :query => "Geraldine"
-    expect(response).to render_template('public_body/_search_ahead')
-    expect(response.body).to include('search_ahead')
-    expect(assigns[:xapian_requests].results.size).to eq(1)
-    expect(assigns[:xapian_requests].results[0][:model].name).to eq(public_bodies(:geraldine_public_body).name)
-  end
-
-  it "should return all requests matching any of the given keywords" do
+  it 'assigns the xapian search to the view as xapian_requests' do
     get :search_typeahead, :query => "Geraldine Humpadinking"
-    expect(response).to render_template('public_body/_search_ahead')
-    expect(assigns[:xapian_requests].results.map{|x|x[:model]}).to match_array([
-      public_bodies(:humpadink_public_body),
-      public_bodies(:geraldine_public_body),
-    ])
+    expect(assigns[:xapian_requests]).to be_an_instance_of ActsAsXapian::Search
   end
 
   it "shows the number of bodies matching the keywords" do
     get :search_typeahead, :query => "Geraldine Humpadinking"
     expect(response.body).to match("2 matching authorities")
-  end
-
-  it "should return requests matching the given keywords in any of their locales" do
-    get :search_typeahead, :query => "baguette" # part of the spanish notes
-    expect(response).to render_template('public_body/_search_ahead')
-    expect(assigns[:xapian_requests].results.map{|x|x[:model]}).to match_array([public_bodies(:humpadink_public_body)])
-  end
-
-  it "should not return  matches for short words" do
-    get :search_typeahead, :query => "b"
-    expect(response).to render_template('public_body/_search_ahead')
-    expect(assigns[:xapian_requests]).to be_nil
   end
 
   it 'remembers the search params' do

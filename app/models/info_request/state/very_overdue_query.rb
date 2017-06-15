@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class InfoRequest
   module State
     class VeryOverdueQuery

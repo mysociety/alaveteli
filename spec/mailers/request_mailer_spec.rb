@@ -329,6 +329,15 @@ describe RequestMailer do
 
     end
 
+    context "if the request has use_notifications set to true" do
+      it "doesn't send the reminder" do
+        old_request.use_notifications = true
+        old_request.save!
+        expect(RequestMailer).not_to receive(:new_response_reminder_alert)
+        send_alerts
+      end
+    end
+
   end
 
   describe "when sending mail when someone has updated an old unclassified request" do
@@ -419,6 +428,28 @@ describe RequestMailer do
     it 'should not create HTML entities in the subject line' do
       mail = RequestMailer.new_response(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:incoming_message))
       expect(mail.subject).to eq "New response to your FOI request - Here's a request"
+    end
+
+    it 'should send pro users a signin link' do
+      pro_user = FactoryGirl.create(:pro_user)
+      info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
+      incoming_message = FactoryGirl.create(:incoming_message,
+                                            info_request: info_request)
+      mail = RequestMailer.new_response(info_request, incoming_message)
+      mail.body.to_s =~ /(http:\/\/.*)/
+      mail_url = $1
+
+      message_url = incoming_message_url(incoming_message, :cachebust => true)
+      expected_url = signin_url(r: message_url)
+      expect(mail_url).to eq expected_url
+    end
+
+    it 'should send normal users a direct link' do
+      mail = RequestMailer.new_response(info_request, incoming_message)
+      mail.body.to_s =~ /(http:\/\/.*)/
+      mail_url = $1
+      expected_url = incoming_message_url(incoming_message, :cachebust => true)
+      expect(mail_url).to eq expected_url
     end
 
   end
@@ -626,6 +657,19 @@ describe RequestMailer do
       end
     end
 
+    it "does not send alerts for requests with use_notifications set to true" do
+      info_request = FactoryGirl.create(:use_notifications_request)
+
+      time_travel_to(31.days.from_now) do
+        RequestMailer.alert_overdue_requests
+
+        mails = ActionMailer::Base.deliveries.select do |mail|
+          mail.body =~ /#{info_request.title}/
+        end
+        expect(mails).to be_empty
+      end
+    end
+
     context "very overdue alerts" do
 
       it 'should not create HTML entities in the subject line' do
@@ -668,6 +712,19 @@ describe RequestMailer do
           # Check that this is a very overdue email, not just an overdue one
           expect(mail.body).not_to match(/promptly/)
           expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+        end
+      end
+
+      it "does not send alerts for requests with use_notifications set to true" do
+        info_request = FactoryGirl.create(:use_notifications_request)
+
+        time_travel_to(61.days.from_now) do
+          RequestMailer.alert_overdue_requests
+
+          mails = ActionMailer::Base.deliveries.select do |mail|
+            mail.body =~ /#{info_request.title}/
+          end
+          expect(mails).to be_empty
         end
       end
 
@@ -761,6 +818,18 @@ describe RequestMailer do
       mail = deliveries[0]
       expect(mail.body).to match(/asked you to explain/)
       expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+    end
+
+    it "should not send an alert for requests where use_notifications is true" do
+      info_request = FactoryGirl.create(:use_notifications_request)
+      info_request.set_described_state('waiting_clarification')
+
+      force_updated_at_to_past(info_request)
+
+      RequestMailer.alert_not_clarified_request
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(0)
     end
 
   end

@@ -1,4 +1,5 @@
-group: deprecated
+dist: trusty
+sudo: required
 language: ruby
 branches:
   only:
@@ -46,7 +47,6 @@ before_install:
   - RAILS_ENV=test ./script/update-xapian-index
 install: echo 'Bundle installed through script/rails-post-deploy'
 notifications:
-  irc: "irc.freenode.org#alaveteli"
   email:
     recipients:
       - cron-whatdotheyknow@mysociety.org

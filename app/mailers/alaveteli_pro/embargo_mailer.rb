@@ -7,7 +7,13 @@
 module AlaveteliPro
   class EmbargoMailer < ApplicationMailer
     def self.alert_expiring
-      InfoRequest.embargo_expiring.group_by(&:user).each do |user, info_requests|
+      expiring_info_requests =
+        InfoRequest.
+          embargo_expiring.
+            where(use_notifications: false).
+              group_by(&:user)
+
+      expiring_info_requests.each do |user, info_requests|
         info_requests.reject! do |info_request|
           alert_event_id = info_request.last_embargo_set_event.id
           UserInfoRequestSentAlert.where(
@@ -33,9 +39,10 @@ module AlaveteliPro
       @user = user
       @info_requests = info_requests
       subject = n_(
-        "{{count}} embargo is ending this week",
-        "{{count}} embargoes are ending this week",
+        "{{count}} request will be made public on {{site_name}} this week",
+        "{{count}} requests will be made public on {{site_name}} this week",
         info_requests.count,
+        :site_name => AlaveteliConfiguration.site_name,
         :count => info_requests.count)
       auto_generated_headers
       mail_user(@user, subject).deliver

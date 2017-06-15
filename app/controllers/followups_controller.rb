@@ -76,7 +76,9 @@ class FollowupsController < ApplicationController
 
   def check_responses_allowed
     if @info_request.allow_new_responses_from == "nobody"
-      flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you really want to send a follow up message.', :url => help_contact_path.html_safe)
+      flash.now[:error] = { :partial => "followup_not_sent.html.erb",
+                            :locals => {
+                            :help_contact_path => help_contact_path } }
       render :action => 'new'
       return
     end
@@ -166,7 +168,7 @@ class FollowupsController < ApplicationController
   end
 
   def set_info_request
-    if current_user && current_user.pro?
+    if current_user && current_user.is_pro?
       @info_request = current_user.info_requests.find(params[:request_id].to_i)
     else
       @info_request = InfoRequest.not_embargoed.find(params[:request_id].to_i)
@@ -195,6 +197,9 @@ class FollowupsController < ApplicationController
     @postal_email_name = @info_request.postal_email_name
   end
 
+  # An override of ApplicationController#set_in_pro_area to set the flag
+  # whenever the info_request has an embargo, because we might not have a :pro
+  # parameter to go on.
   def set_in_pro_area
     @in_pro_area = @info_request.embargo.present?
   end

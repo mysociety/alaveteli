@@ -28,7 +28,7 @@ describe TrackMailer do
                            :url_name => 'test-name',
                            :get_locale => 'en',
                            :should_be_emailed? => true)
-        klass = ActiveRecord::Relation::ActiveRecord_Relation_User
+        klass = User::ActiveRecord_Relation
         allow_any_instance_of(klass).to receive(:find_each).and_yield(@user)
         allow(@user).to receive(:receive_email_alerts).and_return(true)
         allow(@user).to receive(:no_xapian_reindex=)
@@ -136,7 +136,7 @@ describe TrackMailer do
                            :save! => true,
                            :url_name => 'test-name',
                            :should_be_emailed? => false)
-        klass = ActiveRecord::Relation::ActiveRecord_Relation_User
+        klass = User::ActiveRecord_Relation
         allow_any_instance_of(klass).to receive(:find_each).and_yield(@user)
         allow(@user).to receive(:receive_email_alerts).and_return(true)
         allow(@user).to receive(:no_xapian_reindex=)

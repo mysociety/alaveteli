@@ -1,0 +1,26 @@
+<div class="correspondence box" id="outgoing-0">
+  <p class="preview_to">
+    <strong><%= _('To') %></strong>
+      <%= @info_request.public_body.name %>
+
+  </p>
+  <p class="preview_subject">
+    <strong><%= _('Subject') %></strong> <%= @info_request.title %>
+  </p>
+
+  <div class="correspondence_text">
+    <p><%= simple_format(@outgoing_message.body) %></p>
+  </div>
+</div>
+
+<p>
+  <%= form_for([:alaveteli_pro, @info_request]) do |f| %>
+    <%= hidden_field_tag :draft_id, @draft_info_request.id %>
+
+    <%= submit_tag _("Send request"),
+                   :data => { :disable_with => _("Sending...") },
+                   :id => 'submit_button' %>
+    <%= link_to _("Edit your request"),
+                new_alaveteli_pro_info_request_path(draft_id: @draft_info_request.id) %>
+  <% end %>
+</p>

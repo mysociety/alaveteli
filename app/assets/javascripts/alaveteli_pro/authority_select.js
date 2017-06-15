@@ -31,7 +31,7 @@
       // button (which is a link), so this gets only the text node from the
       // DOM, ignoring the remove button. A naive .text() would return the
       // multiplication symbol in that button too.
-      var newAuthorityName = $item.contents().filter(function(){
+      var newAuthorityName = $item.find('.item').contents().filter(function(){
         return this.nodeType === Node.TEXT_NODE;
       })[0].nodeValue;
       var newSalutation = salutationTemplate.replace(defaultAuthorityName, newAuthorityName);
@@ -48,7 +48,7 @@
     $select.selectize({
       valueField: 'id',
       labelField: 'name',
-      searchField: ['name', 'notes'],
+      searchField: ['name', 'notes', 'short_name'],
       sortField: ['weight'],
       options: initialOptions,
       create: false,

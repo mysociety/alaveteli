@@ -35,6 +35,13 @@ module AdminHelper
       link_to(h(user.name), admin_user_path(user), :title => "view full details")
   end
 
+  def comment_both_links(comment)
+    link_to(eye, comment_path(comment),
+            :title => "view comment on public website") + " " +
+      link_to(h(truncate(comment.body)), edit_admin_comment_path(comment),
+              :title => "view full details")
+  end
+
   def comment_visibility(comment)
     comment.visible? ? 'Visible' : 'Hidden'
   end
@@ -47,5 +54,25 @@ module AdminHelper
       'updated_at_asc' => 'Least Recently Updated',
       'updated_at_desc' => 'Recently Updated' }.
     fetch(sort_order.to_s) { sort_order.to_s.titleize }
+  end
+
+  def significant_event_params(event)
+    params = { 'edit' => [:title, :described_state, :awaiting_description],
+               'edit_comment' => [:body],
+               'edit_outgoing' => [:body] }
+    params.fetch(event.event_type, [])
+  end
+
+  def event_params_description(event)
+    text = ''
+    if can?(:admin, AlaveteliPro::Embargo) || !event.info_request.embargo
+      diff = event.params_diff
+      significant_event_params(event).each do |key|
+        if diff[:new].has_key? key
+          text += "Changed #{key} from '#{diff[:old][key]}' to '#{diff[:new][key]}'. "
+         end
+      end
+    end
+    text
   end
 end

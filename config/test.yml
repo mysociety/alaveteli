@@ -75,7 +75,7 @@ CONTACT_NAME: 'Alaveteli Webmaster'
 RAW_EMAILS_LOCATION: 'files/raw_emails'
 
 # Secret key for signing cookie_store sessions
-COOKIE_STORE_SESSION_SECRET: 'your secret key here, make it long and random'
+SECRET_KEY_BASE: 'your secret key here, make it long and random'
 
 # If present, puts the site in read only mode, and uses the text as reason
 # (whole paragraph). Please use a read-only database user as well, as it only

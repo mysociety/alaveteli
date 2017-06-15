@@ -1,12 +1,20 @@
-<div class="request">
+<div id="info-request-<%= info_request.id %>"
+     class="request request--<%= info_request.state.summarised_phase %>">
   <h3 class="request__title">
     <% if info_request.embargo %>
-      <span class="embargo-indicator embargo-indicator--small">Embargoed</span>
+      <span class="embargo-indicator embargo-indicator--small">
+        <%= _("Private") %>
+      </span>
     <% end %>
     <%= link_to info_request.title, show_request_path(info_request.url_title) %>
   </h3>
 
   <div class="request__meta">
+
+    <div class="request__status">
+      <span class="request__meta__label"><%= _('Status') %></span>
+      <p><span class="phase-icon phase-icon--<%= InfoRequest::State.phase_params[info_request.state.phase] %>"></span><%= InfoRequest::State.short_description(info_request.calculate_status) %></p>
+    </div>
 
     <div class="request__recipient">
       <span class="request__meta__label"><%= _('Request to') %></span>
@@ -21,11 +29,6 @@
     <div class="request__updated">
       <span class="request__meta__label"><%= _('Updated') %></span>
       <p><%= info_request.updated_at.strftime('%d-%m-%Y') %></p>
-    </div>
-
-    <div class="request__status">
-      <span class="request__meta__label"><%= _('Status') %></span>
-      <p><span class="status-icon status-icon--<%= InfoRequest::State.phase_params[info_request.state.phase] %>"></span><%= InfoRequest::State.short_description(info_request.calculate_status) %></p>
     </div>
 
   </div> <!-- .request__meta -->

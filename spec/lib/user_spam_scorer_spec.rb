@@ -33,11 +33,25 @@ describe UserSpamScorer do
 
   end
 
+  describe '.suspicious_domains' do
+
+    it 'sets a default suspicious_domains value' do
+      expect(described_class.suspicious_domains).
+        to eq(described_class::DEFAULT_SUSPICIOUS_DOMAINS)
+    end
+
+    it 'sets a custom suspicious_domains value' do
+      described_class.suspicious_domains = %w(example.com)
+      expect(described_class.suspicious_domains).to eq(%w(example.com))
+    end
+
+  end
+
   describe '.spam_domains' do
 
     it 'sets a default spam_domains value' do
       expect(described_class.spam_domains).
-        to eq(described_class::DEFAULT_SPAM_DOMAINS)
+        to eq(described_class::DEFAULT_SPAM_DOMAINS )
     end
 
     it 'sets a custom spam_domains value' do
@@ -99,7 +113,7 @@ describe UserSpamScorer do
         memo
       end
 
-      described_class.spam_domains = %w(example.net)
+      described_class.suspicious_domains = %w(example.net)
       described_class.reset
 
       current = attrs.reduce({}) do |memo, key|
@@ -136,13 +150,14 @@ describe UserSpamScorer do
       expect(scorer.score_mappings).to eq({ :check => 1 })
     end
 
-    it 'sets a default spam_domains value' do
-      expect(subject.spam_domains).to eq(described_class.spam_domains)
+    it 'sets a default suspicious_domains value' do
+      expect(subject.suspicious_domains).
+        to eq(described_class.suspicious_domains)
     end
 
-    it 'sets a custom spam_domains value' do
-      scorer = described_class.new(:spam_domains => %w(example.com))
-      expect(scorer.spam_domains).to eq(%w(example.com))
+    it 'sets a custom suspicious_domains value' do
+      scorer = described_class.new(:suspicious_domains => %w(example.com))
+      expect(scorer.suspicious_domains).to eq(%w(example.com))
     end
 
     it 'sets a default spam_formats value' do
@@ -241,7 +256,7 @@ describe UserSpamScorer do
       user = mock_model(User, user_attrs)
       opts = { :score_mappings => { :name_is_all_lowercase? => 1,
                                     :name_is_one_word? => 2,
-                                    :email_from_spam_domain? => 3 } }
+                                    :email_from_suspicious_domain? => 3 } }
       scorer = described_class.new(opts)
       expect(scorer.score(user)).to eq(5)
     end
@@ -319,6 +334,26 @@ describe UserSpamScorer do
     it 'is false if the name is English alpha characters and whitespace' do
       user = mock_model(User, :name => 'Bob smith')
       expect(subject.name_includes_non_alpha_characters?(user)).to eq(false)
+    end
+
+  end
+
+  describe '#email_from_suspicious_domain?' do
+
+    it 'is true if the email is from a suspicious domain' do
+      mock_suspicious_domains = %w(example.com example.net example.org)
+      user = mock_model(User, :email_domain => 'example.net')
+      scorer = described_class.new(
+                 :suspicious_domains => mock_suspicious_domains)
+      expect(scorer.email_from_suspicious_domain?(user)).to eq(true)
+    end
+
+    it 'is false if the email is not from a suspicious domain' do
+      mock_suspicious_domains = %w(example.com example.org)
+      user = mock_model(User, :email_domain => 'example.net')
+      scorer = described_class.new(
+                 :suspicious_domains => mock_suspicious_domains)
+      expect(scorer.email_from_suspicious_domain?(user)).to eq(false)
     end
 
   end

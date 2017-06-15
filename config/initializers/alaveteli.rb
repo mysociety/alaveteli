@@ -11,7 +11,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.28.0.10'
+ALAVETELI_VERSION = '0.29.0.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -64,6 +64,7 @@ require 'alaveteli_pro/post_redirect_handler'
 require 'user_stats'
 require 'belongs_to_destroy_with_fk_constraint'
 require 'patch_tag_helper'
+require 'typeahead_search'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

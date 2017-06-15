@@ -251,7 +251,8 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def delivery_status
-    mail_server_logs.map(&:delivery_status).compact.last
+    mail_server_logs.map(&:delivery_status).compact.reject(&:unknown?).last ||
+      MailServerLog::DeliveryStatus.new(:unknown)
   end
 
   # An admin function
@@ -444,7 +445,7 @@ class OutgoingMessage < ActiveRecord::Base
                 try(:line)
     end
 
-    lines.compact.map { |line| line.split(' ').fourth.strip }
+    lines.compact.map { |line| line[/\w{6}-\w{6}-\w{2}/].strip }.compact
   end
 
   def exim_mail_server_logs
