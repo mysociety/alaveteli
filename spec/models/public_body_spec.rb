@@ -222,6 +222,28 @@ describe PublicBody do
 
   end
 
+  describe '#api_key' do
+
+    it 'is empty on initialization' do
+      subject = FactoryGirl.build(:public_body)
+      expect(subject.api_key).to be_nil
+    end
+
+    it 'gets set on save' do
+      subject = FactoryGirl.build(:public_body)
+      subject.save
+      expect(subject.api_key).not_to be_blank
+    end
+
+    it 'does not get changed on update' do
+      subject = FactoryGirl.create(:public_body)
+      existing = subject.api_key
+      subject.save!
+      expect(subject.api_key).to eq(existing)
+    end
+
+  end
+
   describe '#translations_attributes=' do
 
     context 'translation_attrs is a Hash' do
