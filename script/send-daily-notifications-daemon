@@ -1,4 +1,0 @@
-#!/bin/sh
-cd "`dirname "$0"`"
-
-bundle exec ./runner --daemon 'NotificationMailer.send_daily_notifications_loop'

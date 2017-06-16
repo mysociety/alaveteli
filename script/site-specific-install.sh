@@ -225,10 +225,10 @@ chgrp "$UNIX_USER" /etc/init.d/"$SITE-alert-tracks"
 chmod 754 /etc/init.d/"$SITE-alert-tracks"
 echo $DONE_MSG
 
-echo -n "Creating /etc/init.d/$SITE-send-daily-notifications... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/send-daily-notifications-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-send-daily-notifications"
-chgrp "$UNIX_USER" /etc/init.d/"$SITE-send-daily-notifications"
-chmod 754 /etc/init.d/"$SITE-send-daily-notifications"
+echo -n "Creating /etc/init.d/$SITE-send-notifications... "
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/send-notifications-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-send-notifications"
+chgrp "$UNIX_USER" /etc/init.d/"$SITE-send-notifications"
+chmod 754 /etc/init.d/"$SITE-send-notifications"
 echo $DONE_MSG
 
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]
