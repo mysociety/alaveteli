@@ -1290,4 +1290,12 @@ describe User do
     end
   end
 
+  describe "#flipper_id" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "returns the user's id, prefixed with the class name" do
+      expect(user.flipper_id).to eq("User;#{user.id}")
+    end
+  end
+
 end

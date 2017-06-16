@@ -628,6 +628,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Define an id number for use with the Flipper gem's user-by-user feature
+  # flagging. We prefix with the class because features can be enabled for
+  # other types of objects (e.g Roles) in the same way and will be stored in
+  # the same table. See:
+  # https://github.com/jnunemaker/flipper/blob/master/docs/Gates.md
+  def flipper_id
+    return "User;#{id}"
+  end
+
   private
 
   def create_new_salt
