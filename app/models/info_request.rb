@@ -39,6 +39,7 @@ class InfoRequest < ActiveRecord::Base
   include AdminColumn
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
+  include AlaveteliFeatures::Helpers
 
   @non_admin_columns = %w(title url_title)
 
@@ -1684,7 +1685,7 @@ class InfoRequest < ActiveRecord::Base
 
   def set_use_notifications
     if use_notifications.nil?
-      self.use_notifications = !!user.try(:is_notifications_tester?) && \
+      self.use_notifications = feature_enabled?(:notifications, user) && \
                                info_request_batch_id.present?
     end
     return true
