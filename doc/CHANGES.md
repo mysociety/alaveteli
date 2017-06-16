@@ -1,3 +1,14 @@
+# develop
+
+## Highlighted Features
+
+* Increase truncation length of comments on admin page so that its easier to
+  spot spam without expanding each comment (Gareth Rees)
+
+## Upgrade Notes
+
+### Changed Templates
+
 # 0.29.0.0
 
 ## Highlighted Features
