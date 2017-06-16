@@ -60,4 +60,21 @@ class NotificationMailer < ApplicationMailer
         pro_site_name: AlaveteliConfiguration.pro_site_name)
     )
   end
+
+  def response_notification(notification)
+    @info_request = notification.info_request_event.info_request
+    @incoming_message = notification.info_request_event.incoming_message
+
+    set_reply_to_headers(@info_request.user)
+    set_auto_generated_headers
+
+    mail(
+      :from => contact_for_user(@info_request.user),
+      :to => @info_request.user.name_and_email,
+      :subject => _("New response to your FOI request - {{request_title}}",
+                    :request_title => @info_request.title.html_safe),
+      :charset => "UTF-8",
+      :template_name => 'new_response'
+    )
+  end
 end
