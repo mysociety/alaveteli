@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve public body data validation test coverage (Gareth Rees)
 * Move some more flash messages to be rendered from partials (Gareth Rees)
 * Admin timeline can now show events filtered by type (Louise Crow)
 
