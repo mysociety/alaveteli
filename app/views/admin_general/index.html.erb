@@ -17,282 +17,204 @@
   </div>
 </div>
 
-<div class="accordion" id="things-to-do">
-  <% if @holding_pen_messages.size > 0 %>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" href="#holding-pen" data-toggle="collapse" data-parent="things-to-do">
-          <span class="label label-important">
-            <%= @holding_pen_messages.size %>
-          </span>
-          <%= chevron_right %> Put misdelivered responses with the right request
-        </a>
-      </div>
 
-      <div id="holding-pen" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <tbody>
-            <% for message in @holding_pen_messages %>
-              <tr>
-                <td>
-                  <% if message.get_body_for_quoting.gsub(/[[:space:]]/, "").size == 0 %>
-                    <%= link_to "(no body)", admin_raw_email_path(message.raw_email_id) %>
-                  <% else %>
-                    <%= link_to admin_raw_email_path(message.raw_email_id) do %>
-                      <%= excerpt(message.get_body_for_quoting, "", :radius => 60) %>
-                    <% end %>
-                  <% end %>
-                </td>
-                <td class="span2">
-                  <%= simple_date(message.sent_at) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+<% if @public_request_tasks %>
+  <div class="row">
+    <div class="span12">
+      <h2>Public requests</h2>
     </div>
-  <% end %>
+  </div>
 
-  <% if @error_message_requests.size > 0 %>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" href="#error-messages" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@error_message_requests.size%></span> <%= chevron_right %>Fix these delivery and other errors</a>
-      </div>
-      <div id="error-messages" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <tbody>
-            <% for @request in @error_message_requests %>
-              <tr>
-                <td class="link">
-                  <%= request_both_links(@request) %>
-                </td>
-                <td class="span2">
-                  <%= simple_date(@request.last_event_time) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+  <div class="accordion" id="public-request-things-to-do">
+    <%= render partial: 'to_do_list',
+               locals: { id: 'holding-pen',
+                         parent: 'public-request-things-to-do',
+                         items: @holding_pen_messages,
+                         label: 'Put misdelivered responses with the right
+                                 request' } %>
+
+    <%= render partial: 'to_do_list',
+               locals: { id: 'error-messages',
+                         parent: 'public-request-things-to-do',
+                         items: @error_message_requests,
+                         label: 'Fix these delivery and other errors' } %>
+
+    <%= render partial: 'to_do_list',
+               locals: { id: 'attention-messages',
+                         parent: 'public-request-things-to-do',
+                         items: @attention_requests,
+                         label: 'Review requests reported by users as
+                                 requiring administrator attention' } %>
+
+    <%= render partial: 'to_do_list',
+               locals: { id: 'requires-admin',
+                         parent: 'public-request-things-to-do',
+                         items: @requires_admin_requests,
+                         label: 'Review requests marked by the requester
+                                 as requiring administrator attention' } %>
+
+    <%= render partial: 'to_do_list',
+               locals: { id: 'unclassified',
+                         parent: 'public-request-things-to-do',
+                         items: @old_unclassified,
+                         label:  "Classify responses that are still unclassified
+ #{I18n.with_locale(:en) { distance_of_time_in_words(InfoRequest::OLD_AGE_IN_DAYS)
+    }} after response" } %>
+  </div>
+<% end %>
+
+<% if @authority_tasks %>
+  <div class="row">
+    <div class="span12">
+      <h2>Authorities</h2>
     </div>
-  <% end %>
+  </div>
 
-  <% if @attention_requests.size > 0 %>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" href="#attention-messages"
-         data-toggle="collapse" data-parent="things-to-do">
-          <span class="label label-important">
-            <%= @attention_requests.size %>
-          </span>
-          <%= chevron_right %>
-          Review requests reported by users as requiring administrator
-          attention
-        </a>
-      </div>
-      <div id="attention-messages" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <tbody>
-            <% for @request in @attention_requests %>
-              <tr>
-                <td class="link">
-                  <%= request_both_links(@request) %>
-                </td>
-                <td class="span2">
-                  <%= simple_date(@request.last_event_time) %>
-                </td>
-              </tr>
+  <div class="accordion" id="authority-things-to-do">
+    <%= render partial: 'to_do_list',
+               locals: { id: 'blank-contacts',
+                         parent: 'authority-things-to-do',
+                         items: @blank_contacts,
+                         label: 'Find missing FOI email for these
+                                 public authorities (try phoning!)' } %>
+
+    <% if @new_body_requests.size > 0 %>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" href="#new-authorities" data-toggle="collapse" data-parent="authority-things-to-do">
+            <span class="label label-important">
+              <%= @new_body_requests.size %>
+            </span>
+            <%= chevron_right %> Add new authorities
+          </a>
+        </div>
+
+        <div id="new-authorities" class="accordion-body collapse">
+          <% for @change_request in @new_body_requests %>
+            <%= render :partial => 'change_request_summary'%>
+
+            <%= form_tag admin_change_request_path(@change_request),
+              :method => 'put',
+              :class => "form form-horizontal" do %>
+
+              <%= submit_tag 'Close', :class => "btn btn-danger" %>
+
+              <%= link_to "Close and respond",
+                edit_admin_change_request_path(@change_request),
+                :class => 'btn' %>
+
+              <%= link_to "Add authority",
+                new_admin_body_path(:change_request_id => @change_request.id),
+                :class => 'btn btn-primary' %>
             <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  <% end %>
-
-  <% if @attention_comments.size > 0 %>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" href="#attention-comments"
-         data-toggle="collapse" data-parent="things-to-do">
-          <span class="label label-important">
-            <%= @attention_comments.size %>
-          </span>
-          <%= chevron_right %>
-          Review comments reported by users as requiring administrator
-          attention
-        </a>
-      </div>
-      <div id="attention-comments" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <tbody>
-            <% @attention_comments.each do |comment| %>
-              <tr>
-                <td class="link">
-                  <%= comment_both_links(comment) %>
-                </td>
-                <td class="span2">
-                  <%= simple_date(comment.last_reported_at) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  <% end %>
-
-  <% if @requires_admin_requests.size > 0 %>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" href="#requires-admin"
-         data-toggle="collapse" data-parent="things-to-do">
-          <span class="label label-important">
-            <%=@requires_admin_requests.size%>
-          </span>
-          <%= chevron_right %>
-          Review requests marked by the requester as requiring
-          administrator attention</a>
-      </div>
-      <div id="requires-admin" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <tbody>
-            <% for @request in @requires_admin_requests %>
-              <tr>
-                <td class="link">
-                  <%= request_both_links(@request) %>
-                </td>
-                <td class="span2">
-                  <%= simple_date(@request.last_event_time) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  <% end %>
-
-  <% if @blank_contacts.size > 0 %>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" href="#blank-contacts" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@blank_contacts.size%></span><%= chevron_right %> Find missing FOI email for these public authorities (try phoning!)</a>
-      </div>
-      <div id="blank-contacts" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <tbody>
-            <% for @blank_contact in @blank_contacts %>
-              <tr>
-                <td class="link">
-                  <%= public_body_both_links(@blank_contact) %>
-                </td>
-                <td class="span2">
-                  <%= simple_date(@blank_contact.updated_at) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  <% end %>
-
-  <% if @old_unclassified.size > 0 %>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" href="#unclassified" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%= @old_unclassified.size %></span><%= chevron_right %> Classify responses that are still unclassified <%= I18n.with_locale(:en) { distance_of_time_in_words(InfoRequest::OLD_AGE_IN_DAYS) } %> after response</a>
-      </div>
-      <div id="unclassified" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <tbody>
-            <% for @request in @old_unclassified %>
-              <tr>
-                <td class="link">
-                  <%= request_both_links(@request) %>
-                </td>
-                <td class="span2">
-                  <%= simple_date(@request.get_last_public_response_event.created_at) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-
-        </table>
-      </div>
-    </div>
-  <% end %>
-
-  <% if @new_body_requests.size > 0 %>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" href="#new-authorities" data-toggle="collapse" data-parent="things-to-do">
-          <span class="label label-important">
-            <%= @new_body_requests.size %>
-          </span>
-          <%= chevron_right %> Add new authorities
-        </a>
-      </div>
-
-      <div id="new-authorities" class="accordion-body collapse">
-        <% for @change_request in @new_body_requests %>
-          <%= render :partial => 'change_request_summary'%>
-
-          <%= form_tag admin_change_request_path(@change_request),
-            :method => 'put',
-            :class => "form form-horizontal" do %>
-
-            <%= submit_tag 'Close', :class => "btn btn-danger" %>
-
-            <%= link_to "Close and respond",
-              edit_admin_change_request_path(@change_request),
-              :class => 'btn' %>
-
-            <%= link_to "Add authority",
-              new_admin_body_path(:change_request_id => @change_request.id),
-              :class => 'btn btn-primary' %>
           <% end %>
-        <% end %>
+        </div>
       </div>
+    <% end %>
+
+    <% if @body_update_requests.size > 0 %>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" href="#update-authorities" data-toggle="collapse" data-parent="authority-things-to-do">
+            <span class="label label-important">
+              <%= @body_update_requests.size %>
+            </span>
+            <%= chevron_right %> Update authorities
+          </a>
+        </div>
+
+        <div id="update-authorities" class="accordion-body collapse">
+          <% for @change_request in @body_update_requests %>
+            <%= render :partial => 'change_request_summary' %>
+
+            <%= form_tag admin_change_request_path(@change_request),
+              :class => "form form-horizontal",
+              :method => 'put' do %>
+
+              <%= submit_tag 'Close', :class => "btn btn-danger" %>
+
+              <%= link_to "Close and respond",
+                edit_admin_change_request_path(@change_request),
+                :class => 'btn' %>
+
+              <%= link_to "Make update",
+                edit_admin_body_path(@change_request.public_body,
+                                     :change_request_id => @change_request.id),
+                                     :class => 'btn btn-primary' %>
+             <% end %>
+           <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @comment_tasks %>
+  <div class="row">
+    <div class="span12">
+      <h2>Comments</h2>
     </div>
-  <% end %>
+  </div>
+  <div class="accordion" id="comments-things-to-do">
+    <%= render partial: 'to_do_list',
+               locals: { id: 'attention-comments',
+                         parent: 'comments-things-to-do',
+                         items: @attention_comments,
+                         label: 'Review comments reported by users
+                                 as requiring administrator attention' } %>
+  </div>
+<% end %>
 
-  <% if @body_update_requests.size > 0 %>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" href="#update-authorities" data-toggle="collapse" data-parent="things-to-do">
-          <span class="label label-important">
-            <%= @body_update_requests.size %>
-          </span>
-          <%= chevron_right %> Update authorities
-        </a>
-      </div>
-
-      <div id="update-authorities" class="accordion-body collapse">
-        <% for @change_request in @body_update_requests %>
-          <%= render :partial => 'change_request_summary' %>
-
-          <%= form_tag admin_change_request_path(@change_request),
-            :class => "form form-horizontal",
-            :method => 'put' do %>
-
-            <%= submit_tag 'Close', :class => "btn btn-danger" %>
-
-            <%= link_to "Close and respond",
-              edit_admin_change_request_path(@change_request),
-              :class => 'btn' %>
-
-            <%= link_to "Make update",
-              edit_admin_body_path(@change_request.public_body,
-                                   :change_request_id => @change_request.id),
-                                   :class => 'btn btn-primary' %>
-                               <% end %>
-                             <% end %>
-      </div>
+<% if can?(:admin, AlaveteliPro::Embargo) && @embargoed_request_tasks %>
+  <div class="row">
+    <div class="span12">
+      <h2>Embargoed requests</h2>
     </div>
-  <% end %>
-</div>
+  </div>
+  <div class="accordion" id="embargoed-request-things-to-do">
 
-<% if @holding_pen_messages.size == 0 && @old_unclassified.size == 0 && @requires_admin_requests.size == 0 && @blank_contacts.size == 0 && @attention_requests.size == 0 && @new_body_requests.size == 0 && @body_update_requests.size == 0 %>
+    <%= render partial: 'to_do_list',
+               locals: { id: 'embargoed-error-messages',
+                         parent: 'embargoed-request-things-to-do',
+                         items: @embargoed_error_message_requests,
+                         label: 'Fix these delivery and other errors' } %>
+
+    <%= render partial: 'to_do_list',
+               locals: { id: 'embargoed-attention-messages',
+                         parent: 'embargoed-request-things-to-do',
+                         items: @embargoed_attention_requests,
+                         label: 'Review requests reported by users as
+                                 requiring administrator attention' } %>
+
+
+    <%= render partial: 'to_do_list',
+               locals: { id: 'embargoed-requires-admin',
+                         parent: 'embargoed-request-things-to-do',
+                         items: @embargoed_requires_admin_requests,
+                         label: 'Review requests marked by the requester
+                                 as requiring administrator attention' } %>
+
+  </div>
+<% end %>
+
+<% if can?(:admin, AlaveteliPro::Embargo) && @embargoed_comment_tasks %>
+  <div class="row">
+    <div class="span12">
+      <h2>Embargoed comments</h2>
+    </div>
+  </div>
+  <div class="accordion" id="embargoed-comment-things-to-do">
+    <%= render partial: 'to_do_list',
+               locals: { id: 'embargoed-attention-comments',
+                         parent: 'embargoed-comment-things-to-do',
+                         items: @embargoed_attention_comments,
+                         label: 'Review comments reported by users
+                                 as requiring administrator attention' } %>
+
+  </div>
+<% end %>
+
+<% if @nothing_to_do %>
   <div class="row">
     <div class="span12 alert alert-success">
       No pending administration required.

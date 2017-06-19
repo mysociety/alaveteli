@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Populate last_event_time column of InfoRequest'
+  task :populate_last_event_time => :environment do
+    InfoRequest.
+      where('last_event_time IS NULL').
+          includes(:info_request_events).
+            find_each do |info_request|
+      info_request.update_column(:last_event_time,
+        info_request.info_request_events.last.created_at)
+    end
+  end
+
   desc 'Migrate admins and pro users to role-based backend'
   task :migrate_admins_and_pros_to_roles => :environment do
     User.where(:admin_level => 'super').each do |admin|

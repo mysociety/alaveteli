@@ -9,23 +9,15 @@ class AdminGeneralController < AdminController
 
   def index
     # Tasks to do
-    @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
-    @error_message_requests = InfoRequest.find_in_state('error_message')
-    @attention_requests = InfoRequest.find_in_state('attention_requested')
-    @attention_comments = Comment.where(:attention_requested => true)
-
-    if cannot? :admin, AlaveteliPro::Embargo
-      @requires_admin_requests = @requires_admin_requests.not_embargoed
-      @error_message_requests = @error_message_requests.not_embargoed
-      @attention_requests = @attention_requests.not_embargoed
-      @attention_comments = @attention_comments.not_embargoed
-    end
-
-    @blank_contacts = PublicBody.
-      includes(:tags, :translations).
-        where(:request_email => "").
-          order(:updated_at).
-            select { |pb| !pb.defunct? }
+    @requires_admin_requests = InfoRequest.
+      find_in_state('requires_admin').
+        not_embargoed
+    @error_message_requests = InfoRequest.
+      find_in_state('error_message').
+        not_embargoed
+    @attention_requests = InfoRequest.
+      find_in_state('attention_requested').
+        not_embargoed
     @old_unclassified = InfoRequest.where_old_unclassified.
                                       limit(20).
                                         is_searchable
@@ -33,6 +25,18 @@ class AdminGeneralController < AdminController
       includes(:incoming_messages => :raw_email).
         holding_pen_request.
           incoming_messages
+    @public_request_tasks = [ @holding_pen_messages,
+                              @error_message_requests,
+                              @attention_requests,
+                              @requires_admin_requests,
+                              @old_unclassified ].
+      any?{ |to_do_list| ! to_do_list.empty? }
+
+    @blank_contacts = PublicBody.
+      includes(:tags, :translations).
+        where(:request_email => "").
+          order(:updated_at).
+            select { |pb| !pb.defunct? }
 
     @new_body_requests = PublicBodyChangeRequest.
       includes(:public_body, :user).
@@ -42,6 +46,50 @@ class AdminGeneralController < AdminController
       includes(:public_body, :user).
         body_update_requests.
           open
+
+    @authority_tasks = [ @blank_contacts,
+                         @new_body_requests,
+                         @body_update_requests ].
+      any?{ |to_do_list| ! to_do_list.empty? }
+
+    @attention_comments = Comment.
+      where(:attention_requested => true).
+        not_embargoed
+
+    @comment_tasks = [ @attention_comments ].
+      any?{ |to_do_list| ! to_do_list.empty? }
+
+    @nothing_to_do = !@public_request_tasks &&
+                     !@authority_tasks &&
+                     !@comment_tasks
+
+    if can? :admin, AlaveteliPro::Embargo
+      @embargoed_requires_admin_requests = InfoRequest.
+                                             find_in_state('requires_admin').
+                                               embargoed
+      @embargoed_error_message_requests = InfoRequest.
+                                            find_in_state('error_message').
+                                              embargoed
+      @embargoed_attention_requests = InfoRequest.
+                                        find_in_state('attention_requested').
+                                          embargoed
+
+      @embargoed_request_tasks = [ @embargoed_requires_admin_requests,
+                                   @embargoed_error_message_requests,
+                                   @embargoed_attention_requests,
+                                 ].any?{ |to_do_list| ! to_do_list.empty? }
+
+      @embargoed_attention_comments = Comment.
+                                        where(:attention_requested => true).
+                                          embargoed
+
+      @embargoed_comment_tasks = [
+                                   @embargoed_attention_comments
+                                 ].any?{ |to_do_list| ! to_do_list.empty? }
+      @nothing_to_do = @nothing_to_do &&
+                      !@embargoed_request_tasks &&
+                      !@embargoed_comment_tasks
+    end
   end
 
   def timeline

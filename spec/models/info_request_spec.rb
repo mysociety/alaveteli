@@ -3536,7 +3536,38 @@ describe InfoRequest do
             .to eq Date.parse('2015-02-26')
         end
       end
+    end
 
+    context 'if the event was created after the last_event_time on the
+            info request' do
+      it 'sets the last_event_time on the info request to the event
+          creation time' do
+        event = info_request.log_event("resent", :param => 'value')
+        expect(info_request.last_event_time).to eq(event.created_at)
+      end
+    end
+
+    context 'if there is no last_event_time on the info request' do
+
+      it 'sets the last_event_time on the info request to the event
+          creation time' do
+        info_request.last_event_time = nil
+        info_request.save!
+        event = info_request.log_event("resent", :param => 'value')
+        expect(info_request.last_event_time).to eq(event.created_at)
+      end
+    end
+
+    context 'if the event was created before the last_event_time on
+             the info request' do
+      it 'does not set the last event time to the event creation
+          time' do
+        event = info_request.log_event("resent",
+                                       { :param => 'value' },
+                                       { :created_at => Time.now - 1.day })
+        expect(info_request.last_event_time).
+          not_to eq(event.reload.created_at)
+      end
     end
   end
 
