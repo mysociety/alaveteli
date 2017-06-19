@@ -41,6 +41,12 @@ FactoryGirl.define do
         public_body.tag_string = "defunct"
       end
     end
+
+    factory :not_apply_public_body do
+      after(:create) do |public_body, evaluator|
+        public_body.tag_string = "not_apply"
+      end
+    end
   end
 
 
