@@ -129,7 +129,9 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   def request_filter_params
-    params.require(:alaveteli_pro_request_filter).permit(:filter, :order, :search)
+    params.
+      require(:alaveteli_pro_request_filter).
+        permit(:filter, :order, :search)
   end
 
   def info_request_params
@@ -139,7 +141,8 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   def check_public_body_is_requestable
     if @info_request.public_body
       unless @info_request.public_body.is_requestable?
-        view = "request/new_#{ @info_request.public_body.not_requestable_reason }.html.erb"
+        reason = @info_request.public_body.not_requestable_reason
+        view = "request/new_#{reason}.html.erb"
         render view
       end
     end
