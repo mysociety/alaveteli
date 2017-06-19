@@ -34,3 +34,4 @@ webrat.log
 /db/structure.sql
 /public/assets
 .vagrant
+.overcommit.yml
