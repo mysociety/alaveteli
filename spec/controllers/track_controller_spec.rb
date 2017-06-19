@@ -167,6 +167,23 @@ describe TrackController do
                                       :combined => ["bob", "requests"])
     end
 
+    it 'sets the flash message partial for a successful track' do
+      session[:user_id] = user.id
+
+      get :track_search_query,
+          :query_array => 'bob variety:sent',
+          :feed => 'track'
+
+      expected = {
+        :partial => 'track/track_set',
+        :locals => {
+            :user_receive_email_alerts => true,
+            :user_url_name => user.url_name,
+            :track_thing_id => TrackThing.last.id } }
+
+      expect(flash[:notice]).to eq(expected)
+    end
+
     it "should redirect with an error message if the query is too long" do
       long_track = TrackThing.new(:track_type => 'search_query',
                                   :track_query => "lorem ipsum " * 42)
