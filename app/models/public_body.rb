@@ -75,6 +75,9 @@ class PublicBody < ActiveRecord::Base
   after_update :reindex_requested_from
 
 
+  # Force eager loading of translations everywhere
+  default_scope { includes(:translations) }
+
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
@@ -129,6 +132,17 @@ class PublicBody < ActiveRecord::Base
   #
   # [1] http://git.io/vIetK
   class Version
+    before_save :copy_translated_attributes
+
+    def copy_translated_attributes
+      public_body.attributes.each do |name, value|
+        if self.public_body.translated?(name) &&
+            !public_body.non_versioned_columns.include?(name)
+          self.send("#{name}=", value)
+        end
+      end
+    end
+
     def last_edit_comment_for_html_display
       text = self.last_edit_comment.strip
       text = CGI.escapeHTML(text)
@@ -191,6 +205,18 @@ class PublicBody < ActiveRecord::Base
 
   def set_api_key!
     self.api_key = SecureRandom.base64(33)
+  end
+
+  def self.find_by_name(name)
+    PublicBody.joins(:translations).
+      where("public_body_translations.name = ?", name).
+       first
+  end
+
+  def self.find_by_url_name(url_name)
+    PublicBody.joins(:translations).
+      where("public_body_translations.url_name = ?", url_name).
+       first
   end
 
   # like find_by_url_name but also search historic url_name if none found
@@ -297,10 +323,12 @@ class PublicBody < ActiveRecord::Base
 
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
-    # Use find_by_sql to avoid the search being specific to a
-    # locale, since url_name is a translated field:
-    sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
-    matching_pbs = PublicBody.find_by_sql sql
+    matching_pbs = PublicBody.
+                     joins(:translations).
+                       where('public_body_translations.locale = ?',
+                             I18n.default_locale).
+                         where(:url_name => 'internal_admin_authority')
+
     case
     when matching_pbs.empty? then
       I18n.with_locale(I18n.default_locale) do
@@ -410,7 +438,10 @@ class PublicBody < ActiveRecord::Base
         # Give an error listing ones that are to be deleted
         deleted_ones = set_of_existing - set_of_importing
         if deleted_ones.size > 0
-          notes.push "Notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).sort.join("\n    ") + "\nYou may want to delete them manually.\n"
+          notes.push "Notes: Some #{tag} bodies are in database, but " \
+                     "not in CSV file:\n    " +
+                     Array(deleted_ones).reject(&:nil?).sort.join("\n    ") +
+                     "\nYou may want to delete them manually.\n"
         end
 
         # Rollback if a dry run, or we had errors
@@ -569,8 +600,8 @@ class PublicBody < ActiveRecord::Base
       # information
       # :version, :last_edit_editor, :last_edit_comment
       :home_page => calculated_home_page,
-      :notes => notes,
-      :publication_scheme => publication_scheme,
+      :notes => notes.to_s,
+      :publication_scheme => publication_scheme.to_s,
       :tags => tag_array,
       :info => {
         :requests_count => info_requests_count,
@@ -690,9 +721,9 @@ class PublicBody < ActiveRecord::Base
                         joins(:translations)
       else
         bodies = where("public_body_translations.locale = ?
-                        AND public_bodies.url_name in (?)",
-                        underscore_locale, body_short_names).
-                  joins(:translations)
+                        AND public_body_translations.url_name in (?)",
+                        underscore_locale, body_short_names
+                      ).joins(:translations)
       end
     end
     return bodies

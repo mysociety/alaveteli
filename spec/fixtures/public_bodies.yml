@@ -27,16 +27,11 @@
 #
 
 geraldine_public_body:
-  name: The Geraldine Quango
-  first_letter: T
   updated_at: 2007-10-24 10:51:01.161639
   last_edit_comment: Mark named this stupid quango.
-  request_email: geraldine-requests@localhost
   id: "2"
   version: "1"
   last_edit_editor: "mark"
-  short_name: TGQ
-  url_name: tgq
   created_at: 2007-10-24 10:51:01.161639
   api_key: 1
   info_requests_count: 4
@@ -46,18 +41,12 @@ geraldine_public_body:
   info_requests_overdue_count: 3
   info_requests_visible_count: 4
 humpadink_public_body:
-  name: "Department for Humpadinking"
-  first_letter: D
   updated_at: 2007-10-25 10:51:01.161639
   last_edit_comment: Not sure what this new department does.
-  request_email: humpadink-requests@localhost
   id: 3
   version: "2"
   last_edit_editor: "francis"
-  short_name: DfH
-  url_name: dfh
   created_at: 2007-10-25 10:51:01.161639
-  notes: An albatross told me!!!
   api_key: 2
   info_requests_count: 2
   info_requests_visible_classified_count: 2
@@ -66,18 +55,12 @@ humpadink_public_body:
   info_requests_overdue_count: 1
   info_requests_visible_count: 2
 forlorn_public_body:
-  name: "Department of Loneliness"
-  first_letter: D
   updated_at: 2011-01-26 14:11:02.12345
   last_edit_comment: 'Aw, bless.'
-  request_email: forlorn-requests@localhost
   id: 4
   version: 1
   last_edit_editor: "robin"
-  short_name: DoL
-  url_name: lonely
   created_at: 2011-01-26 14:11:02.12345
-  notes: A very lonely public body that no one has corresponded with
   api_key: 3
   info_requests_count: 0
   info_requests_visible_classified_count: 0
@@ -88,16 +71,10 @@ forlorn_public_body:
 silly_walks_public_body:
   id: 5
   version: 1
-  name: "Ministry of Silly Walks"
-  first_letter: M
   updated_at: 2007-10-25 10:51:01.161639
   last_edit_comment: Is a comment really required?
-  request_email: silly-walks-requests@localhost
   last_edit_editor: robin
-  short_name: MSW
-  url_name: msw
   created_at: 2007-10-25 10:51:01.161639
-  notes: You know the one.
   api_key: 4
   info_requests_count: 2
   info_requests_visible_classified_count: 2
@@ -108,12 +85,6 @@ silly_walks_public_body:
 sensible_walks_public_body:
   id: 6
   version: 1
-  name: "Ministry of Sensible Walks"
-  first_letter: M
-  request_email: sensible-walks-requests@localhost
-  short_name: SenseWalk
-  url_name: sensible_walks
-  notes: I bet you’ve never heard of it.
   updated_at: 2008-10-25 10:51:01.161639
   last_edit_comment: Another stunning innovation from your friendly national government
   last_edit_editor: robin
@@ -128,12 +99,6 @@ sensible_walks_public_body:
 other_public_body:
   id: 7
   version: 1
-  name: 'Another Public Body'
-  first_letter: A
-  request_email: other@localhost
-  short_name: Another Public Body
-  url_name: another_public_body
-  notes: More notes
   updated_at: 2008-10-25 10:51:01.161639
   last_edit_comment: Another edit
   last_edit_editor: louise
@@ -148,12 +113,6 @@ other_public_body:
 accented_public_body:
   id: 8
   version: 1
-  name: 'Åčçèñtéd Authority'
-  first_letter: Å
-  request_email: accented@localhost
-  short_name: 'Åčçèñtéd Authority'
-  url_name: accented_authority
-  notes: This is to test unicode handling in body names
   updated_at: 2008-10-25 10:51:01.161639
   last_edit_comment: Another edit
   last_edit_editor: louise
