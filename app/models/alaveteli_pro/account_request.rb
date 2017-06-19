@@ -7,7 +7,12 @@
 class AlaveteliPro::AccountRequest
   include ActiveModel::Validations
 
-  attr_accessor :email, :subject, :reason, :marketing_emails, :training_emails
+  attr_accessor :email,
+                :subject,
+                :reason,
+                :marketing_emails,
+                :training_emails,
+                :offer_code
 
   validates_presence_of :email, :message => N_("Please enter your email address")
   validates_presence_of :reason, :message => N_("Please enter the reason why you want access")
