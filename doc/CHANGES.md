@@ -1,3 +1,13 @@
+# develop
+
+## Highlighted Features
+
+* Handle unicode in spam request subject lines (Gareth Rees)
+
+## Upgrade Notes
+
+### Changed Templates
+
 # 0.29.0.0
 
 ## Highlighted Features

@@ -1438,6 +1438,24 @@ describe RequestController, "when creating a new request" do
     let(:body) { FactoryGirl.create(:public_body) }
 
 
+    context 'when given a string containing unicode characters' do
+
+      it 'converts the string to ASCII' do
+        allow(AlaveteliConfiguration).to receive(:block_spam_requests).
+          and_return(true)
+        session[:user_id] = user.id
+        title = "▩█ -Free Ɓrazzers Password Hăck Premium Account List 2017 ᒬᒬ"
+        post :new, :info_request => { :public_body_id => body.id,
+          :title => title,
+          :tag_string => "" },
+          :outgoing_message => { :body => "Please supply the answer." },
+          :submitted_new_request => 1, :preview => 0
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject).to match(/Spam request from user #{ user.id }/)
+      end
+
+    end
+
     context 'when enable_anti_spam is false and block_spam_requests is true' do
       # double check that block_spam_subject? is behaving as expected
       before do
@@ -1457,6 +1475,7 @@ describe RequestController, "when creating a new request" do
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
+
     end
 
     context 'when block_spam_subject? is true' do
