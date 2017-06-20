@@ -84,12 +84,17 @@
       Successful applicants will receive free early access to WhatDoTheyKnow<sup>Pro</sup> for a year.
         <%= foi_error_messages_for :account_request %>
         <div>
-          <label for="account_request_email">Email address</label>
+          <label for="account_request_email"><strong>Email address</strong></label>
           <%= f.email_field :email, :size => 20, :required => true %>
         </div>
         <div>
-          <label for="account_request_reason">Why do you want access?</label>
+          <label for="account_request_reason"><strong>Why do you want access?</strong> Please include links to some
+          examples of your journalism or blogging if you can.</label>
           <%= f.text_area :reason, :rows => 10, :cols => 50, :required => true %>
+        </div>
+        <div>
+          <label for="account_request_offer_code">If you have an <strong>offer code</strong>, please enter it here:</label>
+          <%= f.text_field :offer_code, :size => 20, :required => false %>
         </div>
         <div>
           <label for="account_request_training_emails">Are you interested in free training, seminars and workshops about WhatDoTheyKnow<sup>Pro</sup>?</label>
