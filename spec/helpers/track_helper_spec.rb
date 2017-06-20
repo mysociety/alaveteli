@@ -11,7 +11,7 @@ describe TrackHelper do
     context 'with a search track' do
       let(:track_thing) { FactoryGirl.build(:search_track) }
 
-      it 'should create an unsubscribe notice' do
+      it 'creates an unsubscribe notice' do
         expected = %Q(You are no longer following <a href="/search/Example%20Query/newest/advanced">this search</a>.)
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
@@ -21,7 +21,7 @@ describe TrackHelper do
     context 'with a user track' do
       let(:track_thing) { FactoryGirl.build(:user_track) }
 
-      it 'should create an unsubscribe notice' do
+      it 'creates an unsubscribe notice' do
         expected = %Q(You are no longer following '#{user_link(track_thing.tracked_user)}', a person.)
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
@@ -31,7 +31,7 @@ describe TrackHelper do
     context 'with a public body track' do
       let(:track_thing) { FactoryGirl.build(:public_body_track) }
 
-      it 'should create an unsubscribe notice' do
+      it 'creates an unsubscribe notice' do
         expected = %Q(You are no longer following '#{public_body_link(track_thing.public_body)}', a public authority.)
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
@@ -41,7 +41,7 @@ describe TrackHelper do
     context 'with a successful request track' do
       let(:track_thing) { FactoryGirl.build(:successful_request_track) }
 
-      it 'should create an unsubscribe notice' do
+      it 'creates an unsubscribe notice' do
         expected = %Q(You are no longer following <a href="/list/successful">successful requests</a>.)
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
@@ -51,7 +51,7 @@ describe TrackHelper do
     context 'with a new request track' do
       let(:track_thing) { FactoryGirl.build(:new_request_track) }
 
-      it 'should create an unsubscribe notice' do
+      it 'creates an unsubscribe notice' do
         expected = %Q(You are no longer following <a href="/list">new requests</a>.)
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
@@ -61,7 +61,7 @@ describe TrackHelper do
     context 'with a request update track' do
       let(:track_thing) { FactoryGirl.build(:request_update_track) }
 
-      it 'should create an unsubscribe notice' do
+      it 'creates an unsubscribe notice' do
         expected = %Q(You are no longer following '#{request_link(track_thing.info_request)}', a request.)
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
