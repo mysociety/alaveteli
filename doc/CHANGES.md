@@ -18,6 +18,8 @@
 * Admin timeline can now show events filtered by type (Louise Crow)
 * As promised the `notifications_testers` role as been removed. Access to
 * the experimental notification features is now controlled by a feature flag.
+* Request numbers in search and list views are now more clearly displayed as
+  estimates (Liz Conlan)
 
 ## Upgrade Notes
 
@@ -34,6 +36,8 @@
 ### Changed Templates
 
     app/views/request/_outgoing_correspondence.html.erb
+    app/views/general/search.html.erb
+    app/views/request/_list_results.html.erb
 
 # 0.29.0.0
 
