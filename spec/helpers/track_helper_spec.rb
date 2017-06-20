@@ -11,7 +11,8 @@ RSpec.describe TrackHelper do
       let(:track_thing) { FactoryBot.build(:search_track) }
 
       it 'creates an unsubscribe notice' do
-        expected = %Q(You are no longer following <a href="/search/Example%20Query/newest/advanced">this search</a>.)
+        expected = 'You are no longer following <a href="/search/' \
+                   'Example%20Query/newest/advanced">this search</a>.'
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
 
@@ -21,7 +22,8 @@ RSpec.describe TrackHelper do
       let(:track_thing) { FactoryBot.build(:user_track) }
 
       it 'creates an unsubscribe notice' do
-        expected = %Q(You are no longer following '#{user_link(track_thing.tracked_user)}', a person.)
+        expected = "You are no longer following " \
+                   "'#{ user_link(track_thing.tracked_user) }', a person."
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
 
@@ -31,7 +33,9 @@ RSpec.describe TrackHelper do
       let(:track_thing) { FactoryBot.build(:public_body_track) }
 
       it 'creates an unsubscribe notice' do
-        expected = %Q(You are no longer following '#{public_body_link(track_thing.public_body)}', a public authority.)
+        expected = "You are no longer following " \
+                   "'#{ public_body_link(track_thing.public_body) }', a " \
+                   "public authority."
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
 
@@ -41,7 +45,8 @@ RSpec.describe TrackHelper do
       let(:track_thing) { FactoryBot.build(:successful_request_track) }
 
       it 'creates an unsubscribe notice' do
-        expected = %Q(You are no longer following <a href="/list/successful">successful requests</a>.)
+        expected = 'You are no longer following <a href="/list/successful">' \
+                   'successful requests</a>.'
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
 
@@ -51,7 +56,8 @@ RSpec.describe TrackHelper do
       let(:track_thing) { FactoryBot.build(:new_request_track) }
 
       it 'creates an unsubscribe notice' do
-        expected = %Q(You are no longer following <a href="/list">new requests</a>.)
+        expected = 'You are no longer following ' \
+                   '<a href="/list">new requests</a>.'
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
 
@@ -61,7 +67,8 @@ RSpec.describe TrackHelper do
       let(:track_thing) { FactoryBot.build(:request_update_track) }
 
       it 'creates an unsubscribe notice' do
-        expected = %Q(You are no longer following '#{request_link(track_thing.info_request)}', a request.)
+        expected = "You are no longer following " \
+                   "'#{ request_link(track_thing.info_request) }', a request."
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
 
