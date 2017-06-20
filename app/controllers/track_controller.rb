@@ -125,7 +125,9 @@ class TrackController < ApplicationController
     if @user
       @existing_track = TrackThing.find_existing(@user, @track_thing)
       if @existing_track
-        flash[:notice] = view_context.already_subscribed_notice(@track_thing)
+        flash[:notice] =
+          { :partial => 'track/already_tracking',
+            :locals => { :track_thing_id => @existing_track.id } }
         return true
       end
     end
