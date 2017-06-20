@@ -1,0 +1,4 @@
+<% track_type = flash[:notice]['data']['track_type'] %>
+<% url_replacement = flash[:notice]['data']['url_replacement'].html_safe %>
+
+<%= unsubscribe_notice(track_type, url_replacement) %>

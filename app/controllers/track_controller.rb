@@ -206,12 +206,39 @@ class TrackController < ApplicationController
     new_medium = params[:track_medium]
     if new_medium == 'delete'
       track_thing.destroy
-      flash[:notice] = view_context.unsubscribe_notice(track_thing)
+      # flash[:notice] = view_context.unsubscribe_notice(track_thing)
+      flash[:notice] =
+        { :partial => 'track/unsubscribed',
+          :data => unsubscribe_flash_data(track_thing) }
       redirect_to URI.parse(params[:r]).path
     else
       raise "new medium not handled " + new_medium
     end
   end
+
+  def unsubscribe_flash_data(track_thing)
+    { :track_type => track_thing.track_type,
+      :url_replacement => unsubscribe_url_replacement(track_thing)}
+  end
+
+  def unsubscribe_url_replacement(track_thing)
+    case track_thing.track_type
+    when 'request_updates'
+      view_context.request_link(track_thing.info_request)
+    when 'all_new_requests'
+      request_list_path
+    when 'all_successful_requests'
+      request_list_successful_path
+    when 'public_body_updates'
+      public_body_link(track_thing.public_body)
+    when 'user_updates'
+      # view_context.user_link(track_thing.tracked_user)
+      %Q(<a href="/user/robin_bhoustonb">#{track_thing.tracked_user.name}</a>)
+    when 'search_query'
+      search_path([track_thing.track_query, 'newest', 'advanced'])
+    end
+  end
+
 
   # Remove all tracks of a certain type (e.g. requests / users / bodies)
   def delete_all_type

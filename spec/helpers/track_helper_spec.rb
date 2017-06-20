@@ -8,13 +8,32 @@ describe TrackHelper do
 
   describe '#unsubscribe_notice' do
 
+    it 'requires a track_type' do
+      expect { unsubscribe_notice }.to raise_error(ArgumentError)
+    end
+
     context 'with a search track' do
       let(:track_thing) { FactoryGirl.build(:search_track) }
 
       it 'creates an unsubscribe notice' do
+        search_url =
+          search_path([track_thing.track_query, 'newest', 'advanced'])
+        data = { :track_type => track_thing.track_type,
+                 :search_url => search_url }
+
         expected = 'You are no longer following <a href="/search/' \
                    'Example%20Query/newest/advanced">this search</a>.'
-        expect(unsubscribe_notice(track_thing)).to eq(expected)
+
+        expect(unsubscribe_notice(data)).to eq(expected)
+      end
+
+      it 'requires a :track_type key' do
+        expect { unsubscribe_notice({}) }.to raise_error(KeyError)
+      end
+
+      it 'requires a :search_url key' do
+        expect { unsubscribe_notice(:track_type => 'search_query') }.
+          to raise_error(KeyError)
       end
 
     end
@@ -23,9 +42,22 @@ describe TrackHelper do
       let(:track_thing) { FactoryGirl.build(:user_track) }
 
       it 'creates an unsubscribe notice' do
-        expected = "You are no longer following " \
-                   "'#{ user_link(track_thing.tracked_user) }', a person."
-        expect(unsubscribe_notice(track_thing)).to eq(expected)
+        link_to_user = user_link(track_thing.tracked_user)
+        data = { :track_type => track_thing.track_type,
+                 :link_to_user => link_to_user }
+
+        expected = "You are no longer following '#{ link_to_user }', a person."
+
+        expect(unsubscribe_notice(data)).to eq(expected)
+      end
+
+      it 'requires a :track_type key' do
+        expect { unsubscribe_notice({}) }.to raise_error(KeyError)
+      end
+
+      it 'requires a :link_to_user key' do
+        expect { unsubscribe_notice(:track_type => 'user_updates') }.
+          to raise_error(KeyError)
       end
 
     end
@@ -34,10 +66,23 @@ describe TrackHelper do
       let(:track_thing) { FactoryGirl.build(:public_body_track) }
 
       it 'creates an unsubscribe notice' do
-        expected = "You are no longer following " \
-                   "'#{ public_body_link(track_thing.public_body) }', a " \
+        link_to_authority = public_body_link(track_thing.public_body)
+        data = { :track_type => track_thing.track_type,
+                 :link_to_authority => link_to_authority }
+
+        expected = "You are no longer following '#{ link_to_authority }', a " \
                    "public authority."
-        expect(unsubscribe_notice(track_thing)).to eq(expected)
+
+        expect(unsubscribe_notice(data)).to eq(expected)
+      end
+
+      it 'requires a :track_type key' do
+        expect { unsubscribe_notice({}) }.to raise_error(KeyError)
+      end
+
+      it 'requires a :link_to_authority key' do
+        expect { unsubscribe_notice(:track_type => 'public_body_updates') }.
+          to raise_error(KeyError)
       end
 
     end
@@ -51,6 +96,14 @@ describe TrackHelper do
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
 
+      it 'creates an unsubscribe notice' do
+        data = { :track_type => track_thing.track_type }
+
+        expected = "You are no longer following '#{ link_to_authority }', a " \
+                   "public authority."
+
+        expect(unsubscribe_notice(data)).to eq(expected)
+      end
     end
 
     context 'with a new request track' do
