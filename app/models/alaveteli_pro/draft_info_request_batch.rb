@@ -17,7 +17,8 @@ class AlaveteliPro::DraftInfoRequestBatch < ActiveRecord::Base
   include AlaveteliPro::RequestSummaries
 
   belongs_to :user
-  has_and_belongs_to_many :public_bodies
+  has_and_belongs_to_many :public_bodies,
+     -> { reorder('public_bodies.name asc') }
 
   validates_presence_of :user
 
