@@ -22,7 +22,9 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
   has_and_belongs_to_many :request_summary_categories,
                           :class_name => "AlaveteliPro::RequestSummaryCategory"
 
-  validates_presence_of :summarisable
+  validates_presence_of :summarisable,
+                        :request_created_at,
+                        :request_updated_at
 
   ALLOWED_REQUEST_CLASSES = ["InfoRequest",
                              "DraftInfoRequest",
