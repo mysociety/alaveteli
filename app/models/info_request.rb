@@ -750,6 +750,11 @@ class InfoRequest < ActiveRecord::Base
     if options[:created_at]
       event.update_column(:created_at, options[:created_at])
     end
+    if !self.last_event_time || (event.created_at > self.last_event_time)
+      self.update_column(:last_event_time, event.created_at)
+    end
+    # Not every event will change the request summary, but just in case
+    create_or_update_request_summary
     event
   end
 
@@ -1421,7 +1426,6 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def self.find_in_state(state)
-    select("*, #{ last_event_time_clause } as last_event_time").
     where(:described_state => state).
       order('last_event_time')
   end
@@ -1480,15 +1484,6 @@ class InfoRequest < ActiveRecord::Base
     old_user.class.reset_counters(old_user.id, :info_requests)
     user.class.reset_counters(user.id, :info_requests)
     return_val
-  end
-
-  # The DateTime of the last InfoRequestEvent belonging to the InfoRequest
-  # Only available if the last_event_time attribute has been set. This is
-  # currentlt only set through .find_in_state
-  #
-  # Returns a DateTime
-  def last_event_time
-    attributes['last_event_time'].try(:to_datetime)
   end
 
   def self.log_overdue_events

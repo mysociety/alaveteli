@@ -2749,6 +2749,15 @@ describe InfoRequest do
 
   end
 
+  describe "#log_event" do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    it "calls create_or_update_request_summary" do
+      expect(info_request).to receive(:create_or_update_request_summary)
+      info_request.log_event("response", {})
+    end
+  end
+
   describe 'after_save callbacks' do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
@@ -3236,10 +3245,14 @@ describe InfoRequest do
 
   describe "Updating request summaries when in a batch request" do
     let(:batch) do
-      FactoryGirl.create(
-        :info_request_batch,
-        public_bodies: FactoryGirl.create_list(:public_body, 3)
-      )
+      batch = nil
+      TestAfterCommit.with_commits(true) do
+        batch = FactoryGirl.create(
+          :info_request_batch,
+          public_bodies: FactoryGirl.create_list(:public_body, 3)
+        )
+      end
+      batch
     end
 
     before do
@@ -3247,9 +3260,69 @@ describe InfoRequest do
     end
 
     it "calls the batch request's create_or_update_request_summary on update" do
-      info_request = batch.info_requests.first
-      expect(info_request.info_request_batch).to receive(:create_or_update_request_summary)
-      info_request.save!
+      TestAfterCommit.with_commits(true) do
+        info_request = batch.info_requests.first
+        expect(info_request.info_request_batch).
+          to receive(:create_or_update_request_summary)
+        info_request.save!
+      end
+    end
+  end
+
+  describe "updating request summaries when logging events" do
+    let(:awaiting) { AlaveteliPro::RequestSummaryCategory.awaiting_response }
+    let(:overdue) { AlaveteliPro::RequestSummaryCategory.overdue }
+    let(:very_overdue) { AlaveteliPro::RequestSummaryCategory.very_overdue }
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    context "when logging overdue events" do
+      it "updates the request summary's status" do
+        TestAfterCommit.with_commits(true) do
+          # We want to make the info_request in the past, then effectively
+          # jump forward to a point where it's delayed and we would be calling
+          # log_overdue_events to mark it as overdue
+          time_travel_to(Date.parse('2014-12-31')){ info_request }
+          time_travel_to(Date.parse('2015-01-30')) do
+            request_summary = info_request.request_summary
+            expect(request_summary.request_summary_categories).
+              to match_array([awaiting])
+
+            info_request.log_event(
+              'overdue',
+              { :event_created_at => Time.zone.now },
+              { :created_at => Time.zone.now - 1.day }
+            )
+
+            expect(request_summary.reload.request_summary_categories).
+              to match_array([overdue])
+          end
+        end
+      end
+    end
+
+    context "when logging very overdue events" do
+      it "updates the request summary's status" do
+        TestAfterCommit.with_commits(true) do
+          # We want to make the info_request in the past, then effectively
+          # jump forward to a point where it's delayed and we would be calling
+          # log_overdue_events to mark it as overdue
+          time_travel_to(Date.parse('2014-12-31')){ info_request }
+          time_travel_to(Date.parse('2015-02-28')) do
+            request_summary = info_request.request_summary
+            expect(request_summary.request_summary_categories).
+              to match_array([awaiting])
+
+            info_request.log_event(
+              'overdue',
+              { :event_created_at => Time.zone.now },
+              { :created_at => Time.zone.now - 1.day }
+            )
+
+            expect(request_summary.reload.request_summary_categories).
+              to match_array([very_overdue])
+          end
+        end
+      end
     end
   end
 
@@ -3536,7 +3609,38 @@ describe InfoRequest do
             .to eq Date.parse('2015-02-26')
         end
       end
+    end
 
+    context 'if the event was created after the last_event_time on the
+            info request' do
+      it 'sets the last_event_time on the info request to the event
+          creation time' do
+        event = info_request.log_event("resent", :param => 'value')
+        expect(info_request.last_event_time).to eq(event.created_at)
+      end
+    end
+
+    context 'if there is no last_event_time on the info request' do
+
+      it 'sets the last_event_time on the info request to the event
+          creation time' do
+        info_request.last_event_time = nil
+        info_request.save!
+        event = info_request.log_event("resent", :param => 'value')
+        expect(info_request.last_event_time).to eq(event.created_at)
+      end
+    end
+
+    context 'if the event was created before the last_event_time on
+             the info request' do
+      it 'does not set the last event time to the event creation
+          time' do
+        event = info_request.log_event("resent",
+                                       { :param => 'value' },
+                                       { :created_at => Time.now - 1.day })
+        expect(info_request.last_event_time).
+          not_to eq(event.reload.created_at)
+      end
     end
   end
 

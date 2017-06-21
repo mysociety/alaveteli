@@ -4,10 +4,13 @@ require 'spec_helper'
 describe AlaveteliPro::AccountMailer do
 
   describe '#account_request' do
-    let(:account_request){ AlaveteliPro::AccountRequest.new(email: 'test@localhost',
-                                                           reason: 'Have a look around',
-                                                           marketing_emails: 'no',
-                                                           training_emails: 'yes')}
+    let(:account_request) do
+      AlaveteliPro::AccountRequest.new(email: 'test@localhost',
+                                       reason: 'Have a look around',
+                                       marketing_emails: 'no',
+                                       training_emails: 'yes',
+                                       offer_code: 'SPECIAL')
+    end
 
       before do
         AlaveteliPro::AccountMailer.account_request(account_request)
@@ -32,6 +35,10 @@ describe AlaveteliPro::AccountMailer do
 
     it 'includes the reason' do
       expect(@mail.body).to match(account_request.reason)
+    end
+
+    it 'includes the offer code' do
+      expect(@mail.body).to match(account_request.offer_code)
     end
 
     it 'includes the marketing emails opt-in' do

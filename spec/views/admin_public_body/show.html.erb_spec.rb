@@ -10,6 +10,7 @@ describe "admin_public_body/show.html.erb" do
     allow(info_requests).to receive(:total_pages).and_return(0)
     assign :public_body, public_body
     assign :info_requests, info_requests
+    assign :versions, []
   end
 
   context 'when the user cannot view API keys ' do

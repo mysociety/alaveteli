@@ -137,23 +137,32 @@ class PublicBody < ActiveRecord::Base
       return text
     end
 
-    def compare(previous = nil)
+    def compare(previous = nil, &block)
       if previous.nil?
-        yield([])
+        changes = []
       else
         v = self
         changes = self.class.content_columns.inject([]) {|memo, c|
-          unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
+          unless %w(version
+                    last_edit_editor
+                    last_edit_comment
+                    created_at
+                    updated_at).include?(c.name)
             from = previous.send(c.name)
             to = self.send(c.name)
-            memo << { :name => c.name.humanize, :from => from, :to => to } if from != to
+            memo << { :name => c.name.humanize,
+                      :from => from,
+                      :to => to } if from != to
           end
           memo
         }
+      end
+      if block_given?
         changes.each do |change|
           yield(change)
         end
       end
+      changes
     end
   end
 
@@ -528,15 +537,6 @@ class PublicBody < ActiveRecord::Base
   def self.extract_domain_from_email(email)
     email =~ /@(.*)/
     $1.nil? ? nil : $1.downcase
-  end
-
-  # TODO: Could this be defined as `sorted_versions.reverse`?
-  def reverse_sorted_versions
-    versions.sort { |a,b| b.version <=> a.version }
-  end
-
-  def sorted_versions
-    versions.sort { |a,b| a.version <=> b.version }
   end
 
   def has_notes?

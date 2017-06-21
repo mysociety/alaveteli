@@ -6,24 +6,33 @@ describe "pro request list" do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:info_requests) do
-    FactoryGirl.create_list(:info_request, 25, user: pro_user)
+    requests = []
+    TestAfterCommit.with_commits(true) do
+      requests = FactoryGirl.create_list(:info_request, 25, user: pro_user)
+    end
+    requests
   end
   let(:public_bodies) do
     FactoryGirl.create_list(:public_body, 10)
   end
   let!(:batch_requests) do
-    FactoryGirl.create_list(
-      :info_request_batch,
-      5,
-      user: pro_user,
-      public_bodies: public_bodies)
+    requests = []
+    TestAfterCommit.with_commits(true) do
+      requests = FactoryGirl.create_list(
+        :info_request_batch,
+        5,
+        user: pro_user,
+        public_bodies: public_bodies)
+    end
   end
 
   before do
     # Send 4 out of 5 of the batch requests
-    batch_requests[0..3].each do |batch|
-      batch.create_batch!
-      batch.reload
+    TestAfterCommit.with_commits(true) do
+      batch_requests[0..3].each do |batch|
+        batch.create_batch!
+        batch.reload
+      end
     end
   end
 
@@ -132,14 +141,22 @@ describe "pro request list" do
 
   describe "showing draft requests" do
     let!(:draft_request) do
-      FactoryGirl.create(:draft_info_request, user: pro_user)
+      draft = nil
+      TestAfterCommit.with_commits(true) do
+        draft = FactoryGirl.create(:draft_info_request, user: pro_user)
+      end
+      draft
     end
     let!(:draft_batch_request) do
-      FactoryGirl.create(
-        :draft_info_request_batch,
-        user: pro_user,
-        public_bodies: public_bodies
-      )
+      draft = nil
+      TestAfterCommit.with_commits(true) do
+        draft = FactoryGirl.create(
+          :draft_info_request_batch,
+          user: pro_user,
+          public_bodies: public_bodies
+        )
+      end
+      draft
     end
 
     it "shows draft requests" do

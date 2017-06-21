@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Populate last_event_time column of InfoRequest'
+  task :populate_last_event_time => :environment do
+    InfoRequest.
+      where('last_event_time IS NULL').
+          includes(:info_request_events).
+            find_each do |info_request|
+      info_request.update_column(:last_event_time,
+        info_request.info_request_events.last.created_at)
+    end
+  end
+
   desc 'Migrate admins and pro users to role-based backend'
   task :migrate_admins_and_pros_to_roles => :environment do
     User.where(:admin_level => 'super').each do |admin|
@@ -112,9 +123,21 @@ namespace :temp do
                                        days_to_count,
                                        AlaveteliConfiguration.working_or_calendar_days)
       created_at = due_date.beginning_of_day + 1.day
-      overdue_alert.info_request.log_event(event_type, {}, { :created_at => created_at })
-      if verbose
-        puts "Logging #{event_type} for #{overdue_alert.info_request.id}"
+
+      existing_event = InfoRequestEvent.where("info_request_id = ?
+                                              AND event_type = ?
+                                              AND created_at > ?",
+                                              overdue_alert.info_request,
+                                              event_type,
+                                              event_forming_request.created_at)
+      if existing_event.empty?
+        overdue_alert.info_request.log_event(event_type,
+          { :event_created_at => Time.zone.now },
+          { :created_at => created_at })
+
+        if verbose
+          puts "Logging #{event_type} for #{overdue_alert.info_request.id}"
+        end
       end
     end
   end
