@@ -123,9 +123,21 @@ namespace :temp do
                                        days_to_count,
                                        AlaveteliConfiguration.working_or_calendar_days)
       created_at = due_date.beginning_of_day + 1.day
-      overdue_alert.info_request.log_event(event_type, {}, { :created_at => created_at })
-      if verbose
-        puts "Logging #{event_type} for #{overdue_alert.info_request.id}"
+
+      existing_event = InfoRequestEvent.where("info_request_id = ?
+                                              AND event_type = ?
+                                              AND created_at > ?",
+                                              overdue_alert.info_request,
+                                              event_type,
+                                              event_forming_request.created_at)
+      if existing_event.empty?
+        overdue_alert.info_request.log_event(event_type,
+          { :event_created_at => Time.zone.now },
+          { :created_at => created_at })
+
+        if verbose
+          puts "Logging #{event_type} for #{overdue_alert.info_request.id}"
+        end
       end
     end
   end
