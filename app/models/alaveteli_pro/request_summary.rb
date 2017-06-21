@@ -25,6 +25,7 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
   validates_presence_of :summarisable,
                         :request_created_at,
                         :request_updated_at
+  validates_uniqueness_of :summarisable_id, scope: :summarisable_type
 
   ALLOWED_REQUEST_CLASSES = ["InfoRequest",
                              "DraftInfoRequest",
