@@ -1,4 +1,4 @@
-#develop
+# develop
 
 ## Highlighted Features
 
@@ -8,6 +8,8 @@
 
 * Run `bundle exec rake temp:populate_last_event_time` after deployment to populate
   the cached `last_event_time` attribute on info_requests, used in the admin interface.
+
+### Changed Templates
 
 # 0.29.0.0
 
