@@ -227,4 +227,94 @@ describe AlaveteliPro::Embargo, :type => :model do
       expect(embargo.calculate_expiring_notification_at).to eq expected
     end
   end
+
+  describe '.log_expiring_events' do
+    let!(:expiring_soon_embargo) { FactoryGirl.create(:expiring_embargo) }
+    let!(:expiring_soon_embargo_2) { FactoryGirl.create(:expiring_embargo) }
+    let!(:expiring_later_embargo) do
+      FactoryGirl.create(:embargo, publish_at: Time.zone.now + 10.days)
+    end
+
+    def log_expiring_events
+      AlaveteliPro::Embargo.log_expiring_events
+    end
+
+    def event_count
+      InfoRequestEvent.where(event_type: 'embargo_expiring').count
+    end
+
+    it 'logs events for every embargo that is or was expiring soon' do
+      expect { log_expiring_events }.to change { event_count }.by(2)
+    end
+
+    it 'sets the event created_at time to expiring_notification_at time' do
+      log_expiring_events
+      events = InfoRequestEvent.where(event_type: 'embargo_expiring')
+      events.each do |e|
+        embargo_expiring_at = e.info_request.embargo.expiring_notification_at
+        expect(e.created_at).to eq embargo_expiring_at
+      end
+    end
+
+    it "doesn't log events for the same expiry twice" do
+      log_expiring_events
+      expect { log_expiring_events }.not_to change { event_count }
+    end
+
+    it "doesn't log events for emabrgoes expiring further in the future" do
+      log_expiring_events
+      events = InfoRequestEvent.where(
+        event_type: 'embargo_expiring',
+        info_request_id: expiring_later_embargo.info_request_id)
+      expect(events).to be_empty
+    end
+
+    context 'if embargoes have expired before events were logged' do
+      let!(:expired_embargo) do
+        FactoryGirl.create(:embargo, publish_at: Time.zone.now - 1.day)
+      end
+
+      it 'still logs events for when they would have been expiring' do
+        log_expiring_events
+        events = InfoRequestEvent.where(
+          event_type: 'embargo_expiring',
+          info_request_id: expired_embargo.info_request_id)
+        expect(events).to exist
+        expect(events.count).to eq 1
+        expected_created_at = expired_embargo.expiring_notification_at
+        expect(events.first.created_at).to eq expected_created_at
+      end
+    end
+
+    context 'when an embargo is extended' do
+      let(:embargo_extension) do
+        FactoryGirl.create(:embargo_extension, embargo: expiring_soon_embargo)
+      end
+      let(:info_request_id) { expiring_soon_embargo.info_request_id }
+
+      def event_count
+        InfoRequestEvent.where(event_type: 'embargo_expiring',
+                               info_request_id: info_request_id).count
+      end
+
+      context "if it's run before and after the extension" do
+        it 'logs events for both expiries' do
+          expect { log_expiring_events }.to change { event_count }.by(1)
+          expiring_soon_embargo.extend(embargo_extension)
+          time_travel_to(expiring_soon_embargo.publish_at - 6.days) do
+            expect { log_expiring_events }.to change { event_count }.by(1)
+          end
+        end
+      end
+
+      context "if it's run just once after the extension" do
+        it "only logs an event for the later expiry" do
+          expiring_soon_embargo.extend(embargo_extension)
+          time_travel_to(expiring_soon_embargo.publish_at - 6.days) do
+            expect { log_expiring_events }.to change { event_count }.by(1)
+          end
+        end
+      end
+    end
+  end
 end
