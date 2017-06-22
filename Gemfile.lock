@@ -309,7 +309,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    secure_headers (3.6.2)
+    secure_headers (3.6.5)
       useragent
     simplecov (0.10.0)
       docile (~> 1.1.0)
