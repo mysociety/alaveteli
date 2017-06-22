@@ -73,6 +73,27 @@ describe AlaveteliPro::Embargo, :type => :model do
     end
   end
 
+  describe 'setting expiring_notification_at' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    it 'sets expiring_notification_at from publish_at during creation' do
+      embargo = AlaveteliPro::Embargo.create(info_request: info_request,
+                                             embargo_duration: "3_months")
+      expect(embargo).to be_valid
+      expect(embargo.persisted?).to be true
+      expected = AlaveteliPro::Embargo.three_months_from_now - 1.week
+      expect(embargo.expiring_notification_at).to eq expected
+    end
+
+    it "doesn't set expiring_notification_at if it's already set" do
+      embargo = AlaveteliPro::Embargo.create(
+        info_request: info_request,
+        embargo_duration: "3_months",
+        expiring_notification_at: Time.zone.now.beginning_of_day)
+      expect(embargo.expiring_notification_at).to eq Time.zone.today
+    end
+  end
+
   describe 'saving' do
     let(:embargo_extension) { FactoryGirl.create(:embargo_extension) }
     let(:embargo) { embargo_extension.embargo }
@@ -105,6 +126,14 @@ describe AlaveteliPro::Embargo, :type => :model do
       expect(latest_event.event_type).to eq 'set_embargo'
       expect(latest_event.params[:embargo_extension_id]).
         to eq embargo_extension.id
+    end
+
+    it 'updates the expiring_notification_at date' do
+      expected = AlaveteliPro::Embargo.three_months_from_now - 1.week
+      expect(embargo.expiring_notification_at).to eq expected
+      embargo.extend(embargo_extension)
+      expected = AlaveteliPro::Embargo.six_months_from_now - 1.week
+      expect(embargo.expiring_notification_at).to eq expected
     end
   end
 
@@ -188,5 +217,14 @@ describe AlaveteliPro::Embargo, :type => :model do
         to eq(Time.zone.now.beginning_of_day + 364.days)
     end
 
+  end
+
+  describe '#calculate_expiring_notification_at' do
+    let(:embargo) { FactoryGirl.create(:embargo) }
+
+    it "returns a date 1 week less than the publish_at" do
+      expected = embargo.publish_at - 1.week
+      expect(embargo.calculate_expiring_notification_at).to eq expected
+    end
   end
 end

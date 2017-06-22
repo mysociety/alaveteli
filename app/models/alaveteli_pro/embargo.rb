@@ -21,7 +21,9 @@ module AlaveteliPro
     validates_inclusion_of :embargo_duration,
                            in: lambda { |e| e.allowed_durations },
                            allow_nil: true
-    after_initialize :set_default_duration, :set_publish_at_from_duration
+    after_initialize :set_default_duration,
+                     :set_publish_at_from_duration,
+                     :set_expiring_notification_at
     around_save :add_set_embargo_event
     attr_accessor :extension
 
@@ -59,7 +61,12 @@ module AlaveteliPro
     def extend(extension)
       self.extension = extension
       self.publish_at += duration_as_duration(extension.extension_duration)
+      self.expiring_notification_at = calculate_expiring_notification_at
       save
+    end
+
+    def calculate_expiring_notification_at
+      self.publish_at - 1.week
     end
 
     def self.expiring_soon_time
@@ -103,6 +110,12 @@ module AlaveteliPro
     def set_publish_at_from_duration
       unless self.publish_at.present? || self.embargo_duration.blank?
         self.publish_at = Time.zone.now.beginning_of_day + duration_as_duration
+      end
+    end
+
+    def set_expiring_notification_at
+      unless self.expiring_notification_at.present?
+        self.expiring_notification_at = calculate_expiring_notification_at
       end
     end
   end
