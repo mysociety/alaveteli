@@ -20,7 +20,9 @@ require 'spec_helper'
 
 RSpec.describe AlaveteliPro::RequestSummary, type: :model do
   let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
-  let(:public_body_names) { public_bodies.map(&:name).join(" ") }
+  let(:public_body_names) do
+    public_bodies.sort { |x,y| x.name <=> y.name }.map(&:name).join(" ")
+  end
 
   it "requires a summarisable" do
     summary = FactoryGirl.build(:request_summary, summarisable: nil)
