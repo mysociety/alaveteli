@@ -110,17 +110,3 @@ other_public_body:
   info_requests_not_held_count: 0
   info_requests_overdue_count: 0
   info_requests_visible_count: 0
-accented_public_body:
-  id: 8
-  version: 1
-  updated_at: 2008-10-25 10:51:01.161639
-  last_edit_comment: Another edit
-  last_edit_editor: louise
-  created_at: 2008-10-25 10:51:01.161639
-  api_key: 7
-  info_requests_count: 0
-  info_requests_visible_classified_count: 0
-  info_requests_successful_count: 0
-  info_requests_not_held_count: 0
-  info_requests_overdue_count: 0
-  info_requests_visible_count: 0
