@@ -19,7 +19,12 @@ class InfoRequestBatch < ActiveRecord::Base
 
   has_many :info_requests
   belongs_to :user, :counter_cache => true
-  has_and_belongs_to_many :public_bodies, -> { reorder('public_bodies.name asc') }
+  has_and_belongs_to_many :public_bodies, -> {
+    I18n.with_locale(I18n.locale) do
+      includes(:translations).
+        reorder('public_body_translations.name asc')
+    end
+  }
 
   validates_presence_of :user
   validates_presence_of :title
@@ -175,7 +180,9 @@ class InfoRequestBatch < ActiveRecord::Base
 
   # @see RequestSummaries#request_summary_public_body_names
   def request_summary_public_body_names
-    self.public_bodies.pluck(:name).join(" ")
+    self.public_bodies.
+      joins(:translations).
+        pluck(:name).join(" ")
   end
 
   # @see RequestSummaries#request_summary_categories
