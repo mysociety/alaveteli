@@ -365,9 +365,14 @@ describe PublicBodyController, "when listing bodies" do
 
   it "should list authorities starting with a multibyte first letter" do
     AlaveteliLocalization.set_locales('cs', 'cs')
+
+    authority = I18n.with_locale(:cs) do
+      FactoryGirl.create(:public_body, name: "Åčçèñtéd Authority")
+    end
+
     get :list, {:tag => "å", :locale => 'cs'}
     expect(response).to render_template('list')
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:accented_public_body) ])
+    expect(assigns[:public_bodies]).to eq([ authority ])
     expect(assigns[:tag]).to eq("Å")
   end
 
@@ -392,7 +397,7 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
   it "should return a valid CSV file with the right number of rows" do
     get :list_all_csv
     all_data = CSV.parse response.body
-    expect(all_data.length).to eq(8)
+    expect(all_data.length).to eq(7)
     # Check that the header has the right number of columns:
     expect(all_data[0].length).to eq(11)
     # And an actual line of data:
