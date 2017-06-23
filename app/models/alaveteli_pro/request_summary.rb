@@ -52,15 +52,15 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
                               "#{ALLOWED_REQUEST_CLASSES} are allowed.")
     end
     if request.request_summary
-      request.request_summary.update_from_request
+      request.request_summary.update_from(request)
       request.request_summary
     else
       self.create_from(request)
     end
   end
 
-  def update_from_request
-    update_attributes(self.class.attributes_from_request(self.summarisable))
+  def update_from(request)
+    update_attributes(self.class.attributes_from_request(request))
   end
 
   private
