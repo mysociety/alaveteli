@@ -8,6 +8,8 @@
 * Improve public body data validation test coverage (Gareth Rees)
 * Move some more flash messages to be rendered from partials (Gareth Rees)
 * Admin timeline can now show events filtered by type (Louise Crow)
+* As promised the `notifications_testers` role as been removed. Access to
+* the experimental notification features is now controlled by a feature flag.
 
 ## Upgrade Notes
 
@@ -16,6 +18,8 @@
   to update the override.
 * Run `bundle exec rake temp:populate_last_event_time` after deployment to populate
   the cached `last_event_time` attribute on info_requests, used in the admin interface.
+* Run `bundle exec rake temp:remove_notifications_tester_role` to remove the
+  notification tester role from the database.
 
 ### Changed Templates
 

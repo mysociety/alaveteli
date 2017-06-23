@@ -31,23 +31,19 @@ describe Role do
 
   describe '.grants_and_revokes' do
 
-    it 'returns an array [:admin, :notifications_tester] when passed :admin' do
+    it 'returns an array [:admin] when passed :admin' do
       expect(Role.grants_and_revokes(:admin))
-        .to eq([:admin, :notifications_tester])
+        .to eq([:admin])
     end
 
-    it 'returns an array [:pro, :admin, :pro_admin, :notifications_tester]
+    it 'returns an array [:pro, :admin, :pro_admin]
         when passed :pro_admin' do
       expect(Role.grants_and_revokes(:pro_admin))
-        .to eq([:pro, :admin, :pro_admin, :notifications_tester])
+        .to eq([:pro, :admin, :pro_admin])
     end
 
     it 'returns an empty array when passed :pro' do
       expect(Role.grants_and_revokes(:pro)).to eq([])
-    end
-
-    it 'returns an empty array when passed :notifications_tester' do
-      expect(Role.grants_and_revokes(:notifications_tester)).to eq([])
     end
 
   end
@@ -64,10 +60,6 @@ describe Role do
 
     it 'returns an empty array when passed :pro' do
       expect(Role.requires(:pro)).to eq([])
-    end
-
-    it 'returns an empty array when passed :notifications_tester' do
-      expect(Role.requires(:notifications_tester)).to eq([])
     end
 
   end

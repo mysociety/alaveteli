@@ -1027,10 +1027,9 @@ describe User do
 
   describe '#can_admin_roles' do
 
-    it 'returns an array including the admin and notifications tester roles
-        for an admin user' do
+    it 'returns an array including the admin and roles for an admin user' do
       admin_user = FactoryGirl.create(:admin_user)
-      expect(admin_user.can_admin_roles).to eq([:admin, :notifications_tester])
+      expect(admin_user.can_admin_roles).to eq([:admin])
     end
 
     it 'returns an empty array for a pro user' do

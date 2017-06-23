@@ -356,4 +356,11 @@ namespace :temp do
             "daily_summary_minute = floor(random() * 60)"
     ActiveRecord::Base.connection.execute(query)
   end
+
+  desc 'Remove notifications_tester role'
+  task :remove_notifications_tester_role => :environment do
+    if Role.where(name: 'notifications_tester').exists?
+      Role.where(name: 'notifications_tester').destroy_all
+    end
+  end
 end
