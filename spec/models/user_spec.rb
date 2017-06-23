@@ -1258,15 +1258,19 @@ describe User do
   end
 
   describe '#notification_frequency' do
-    context 'when the user is a notifications_tester' do
-      let(:user) { FactoryGirl.create(:notifications_tester_user) }
+    context 'when the user has :notifications' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        AlaveteliFeatures.backend[:notifications].enable_actor user
+      end
 
       it 'returns Notification::DAILY' do
         expect(user.notification_frequency).to eq (Notification::DAILY)
       end
     end
 
-    context 'when the user is not a notifications_tester' do
+    context 'when the user doesnt have :notifications' do
       let(:user) { FactoryGirl.create(:user) }
 
       it 'returns Notification::INSTANTLY' do

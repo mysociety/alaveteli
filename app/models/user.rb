@@ -38,6 +38,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  include AlaveteliFeatures::Helpers
   rolify
   strip_attributes :allow_empty => true
 
@@ -621,7 +622,7 @@ class User < ActiveRecord::Base
 
   # With what frequency does the user want to be notified?
   def notification_frequency
-    if self.is_notifications_tester?
+    if feature_enabled? :notifications, self
       Notification::DAILY
     else
       Notification::INSTANTLY
