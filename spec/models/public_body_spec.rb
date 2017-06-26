@@ -170,6 +170,34 @@ describe PublicBody do
 
   end
 
+  describe '#set_first_letter' do
+
+    it 'sets first_letter to the first letter of the name if the name is set' do
+      public_body = PublicBody.new(:name => 'Test Name')
+      public_body.set_first_letter
+      expect(public_body.first_letter).to eq('T')
+    end
+
+    it 'does not set first_letter if the name has not been set' do
+      public_body = PublicBody.new
+      public_body.set_first_letter
+      expect(public_body.first_letter).to be_nil
+    end
+
+    it 'handles mutlibyte characters correctly' do
+      public_body = PublicBody.new(:name => 'Åccented')
+      public_body.set_first_letter
+      expect(public_body.first_letter).to eq('Å')
+    end
+
+    it 'upcases the first character' do
+      public_body = PublicBody.new(:name => 'åccented')
+      public_body.set_first_letter
+      expect(public_body.first_letter).to eq('Å')
+    end
+
+  end
+
   describe  'when generating json for the api' do
     before do
       @public_body = PublicBody.new(:name => 'Marmot Appreciation Society',

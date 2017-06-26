@@ -32,9 +32,9 @@ module PublicBodyDerivedFields
   def set_first_letter
     unless name.blank?
       # we use a regex to ensure it works with utf-8/multi-byte
-      first_letter = Unicode.upcase name.scan(/^./mu)[0]
-      if first_letter != self.first_letter
-        self.first_letter = first_letter
+      new_first_letter = Unicode.upcase name.scan(/^./mu)[0]
+      if new_first_letter != first_letter
+        self.first_letter = new_first_letter
       end
     end
   end
