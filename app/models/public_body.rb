@@ -328,21 +328,32 @@ class PublicBody < ActiveRecord::Base
 
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
-    # Use find_by_sql to avoid the search being specific to a
-    # locale, since url_name is a translated field:
-    sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
-    matching_pbs = PublicBody.find_by_sql sql
+    matching_pbs = PublicBody.where(:url_name => 'internal_admin_authority')
     case
     when matching_pbs.empty? then
-      I18n.with_locale(I18n.default_locale) do
-        PublicBody.create!(:name => 'Internal admin authority',
-                           :short_name => "",
-                           :request_email => AlaveteliConfiguration::contact_email,
-                           :home_page => "",
-                           :notes => "",
-                           :publication_scheme => "",
-                           :last_edit_editor => "internal_admin",
-                           :last_edit_comment => "Made by PublicBody.internal_admin_body")
+      # "internal admin" exists but has the wrong default locale - fix & return
+      if invalid_locale = PublicBody::Translation.
+                            find_by_url_name('internal_admin_authority')
+        found_pb = PublicBody.find(invalid_locale.public_body_id)
+        I18n.with_locale(I18n.default_locale) do
+          found_pb.name = "Internal admin authority"
+          found_pb.request_email = AlaveteliConfiguration.contact_email
+          found_pb.save!
+        end
+        found_pb
+      else
+        I18n.with_locale(I18n.default_locale) do
+          PublicBody.
+            create!(:name => 'Internal admin authority',
+                    :short_name => "",
+                    :request_email => AlaveteliConfiguration.contact_email,
+                    :home_page => nil,
+                    :notes => nil,
+                    :publication_scheme => nil,
+                    :last_edit_editor => "internal_admin",
+                    :last_edit_comment =>
+                      "Made by PublicBody.internal_admin_body")
+        end
       end
     when matching_pbs.length == 1 then
       matching_pbs[0]
