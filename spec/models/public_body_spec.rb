@@ -485,6 +485,7 @@ describe PublicBody, " when saving" do
     @public_body.name = 'Test'
     @public_body.save!
     expect(@public_body.versions.size).to eq(2)
+    expect(@public_body.versions.last.name).to eq('Test')
   end
 
 end
