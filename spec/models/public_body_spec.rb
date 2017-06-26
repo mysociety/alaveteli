@@ -156,6 +156,20 @@ describe PublicBody do
 
   end
 
+  describe '#short_or_long_name' do
+
+    it 'returns the short_name if it has been set' do
+      public_body = PublicBody.new(:name => 'Test Name', :short_name => "Test")
+      expect(public_body.short_or_long_name).to eq('Test')
+    end
+
+    it 'returns the name if short_name has not been set' do
+      public_body = PublicBody.new(:name => 'Test Name')
+      expect(public_body.short_or_long_name).to eq('Test Name')
+    end
+
+  end
+
   describe  'when generating json for the api' do
     before do
       @public_body = PublicBody.new(:name => 'Marmot Appreciation Society',

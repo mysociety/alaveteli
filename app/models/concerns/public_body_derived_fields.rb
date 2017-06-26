@@ -21,10 +21,10 @@ module PublicBodyDerivedFields
 
   # Return the short name if present, or else long name
   def short_or_long_name
-    if self.short_name.nil? || self.short_name.empty?
-      self.name.nil? ? "" : self.name
+    if short_name.nil? || short_name.empty?
+      name.nil? ? "" : name
     else
-      self.short_name
+      short_name
     end
   end
 
