@@ -202,6 +202,14 @@ class PublicBody < ActiveRecord::Base
     self.api_key = SecureRandom.base64(33)
   end
 
+  def self.find_by_name(name)
+    find_by(name: name)
+  end
+
+  def self.find_by_url_name(url_name)
+    find_by(url_name: url_name)
+  end
+
   # like find_by_url_name but also search historic url_name if none found
   def self.find_by_url_name_with_historic(name)
     # If many bodies are found (usually because the url_name is the same
