@@ -172,6 +172,38 @@ describe PublicBody do
       expect(subject.url_name).to eq('body')
     end
 
+    context 'short_name has not been set' do
+
+      it 'updates the url_name when name is changed' do
+        subject = PublicBody.new
+        subject.name = 'Some Authority'
+        expect(subject.url_name).to eq('some_authority')
+      end
+
+      it 'does not update the url_name if the new body name is invalid' do
+        subject = PublicBody.new
+        subject.name = '1234'
+        expect(subject.url_name).to eq('body')
+      end
+
+    end
+
+    context 'short_name has been set' do
+
+      it 'does not update the url_name when name is changed' do
+        subject = PublicBody.new(:short_name => 'Test Name')
+        subject.name = 'Some Authority'
+        expect(subject.url_name).to eq('test_name')
+      end
+
+      it 'updates the url_name when short_name is changed' do
+        subject = PublicBody.new(:short_name => 'Test Name')
+        subject.short_name = 'Short Name'
+        expect(subject.url_name).to eq('short_name')
+      end
+
+    end
+
   end
 
   describe '#first_letter' do
