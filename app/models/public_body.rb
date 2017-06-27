@@ -129,6 +129,17 @@ class PublicBody < ActiveRecord::Base
   #
   # [1] http://git.io/vIetK
   class Version
+    before_save :copy_translated_attributes
+
+    def copy_translated_attributes
+      public_body.attributes.each do |name, value|
+        if public_body.translated?(name) &&
+            !public_body.non_versioned_columns.include?(name)
+          send("#{name}=", value)
+        end
+      end
+    end
+
     def last_edit_comment_for_html_display
       text = self.last_edit_comment.strip
       text = CGI.escapeHTML(text)
