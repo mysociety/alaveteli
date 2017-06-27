@@ -708,7 +708,7 @@ class PublicBody < ActiveRecord::Base
                         joins(:translations)
       else
         bodies = where("public_body_translations.locale = ?
-                        AND public_bodies.url_name in (?)",
+                        AND public_body_translations.url_name in (?)",
                         underscore_locale, body_short_names).
                   joins(:translations)
       end
