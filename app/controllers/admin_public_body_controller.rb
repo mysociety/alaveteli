@@ -142,10 +142,12 @@ class AdminPublicBodyController < AdminController
   def missing_scheme
     # There might be a way to do this in ActiveRecord, but I can't find it
     @public_bodies = PublicBody.find_by_sql("
-            SELECT a.id, a.name, a.url_name, COUNT(*) AS howmany
-              FROM public_bodies a JOIN info_requests r ON a.id = r.public_body_id
-             WHERE a.publication_scheme = ''
-             GROUP BY a.id, a.name, a.url_name
+            SELECT a.id, t.name, t.url_name, COUNT(*) AS howmany
+              FROM public_bodies a
+                JOIN public_body_translations t on a.id = t.public_body_id
+                JOIN info_requests r ON a.id = r.public_body_id
+             WHERE t.publication_scheme = '' AND t.locale = '#{I18n.locale}'
+             GROUP BY a.id, t.name, t.url_name
              ORDER BY howmany DESC
              LIMIT 20
         ")
