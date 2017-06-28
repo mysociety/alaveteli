@@ -94,6 +94,16 @@ describe "when generating urls" do
           expect(response.body).not_to match /#{@default_lang_home_link}/
         end
 
+        describe "when the default url contains an underscore" do
+
+          it "generates URLs without a locale prepended" do
+            AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
+            get('/')
+            expect(response.body).not_to match /href="\/en_GB\//
+          end
+
+        end
+
         it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
           get('/', {}, {:locale => 'es'})
