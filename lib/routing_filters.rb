@@ -30,6 +30,10 @@ module RoutingFilter
       end
     end
 
+    def default_locale?(locale)
+      locale && locale.to_sym == FastGettext.default_locale.to_sym
+    end
+
     # Reset the locale pattern when the locales are set.
     class << self
       def locales_pattern
