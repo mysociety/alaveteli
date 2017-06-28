@@ -234,5 +234,63 @@ Yours faithfully,
         expect(page).to have_selector("h1", text: "Why is your quango called Geraldine?")
       end
     end
+
+    context "when the user has signed up but not confirmed" do
+      let(:unconfirmed_pro) do
+        FactoryGirl.create(:pro_user, email_confirmed: false)
+      end
+
+      it "redirects to the pro page if the user starts the normal process" do
+        # Make a request in the normal way
+        with_feature_enabled(:alaveteli_pro) do
+          create_request(public_body)
+
+          # Sign in page
+          within '#signin_form' do
+            fill_in "Your e-mail:", with: unconfirmed_pro.email
+            fill_in "Password:", with: "jonespassword"
+            click_button "Sign in"
+          end
+
+          # We should be asked to confirm our account first
+          expect(page).to have_content("Now check your email!")
+          confirmation_mail = ActionMailer::Base.deliveries.first
+          expect(confirmation_mail.subject).
+            to eq "Confirm your FOI request to example"
+
+          confirmation_mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
+          mail_url = $1
+          visit(mail_url)
+
+          # The post redirect process should save a Draft
+          expect(DraftInfoRequest.count).to eq 1
+
+          # Pro request form
+          expect(page).to have_content(
+            "Thanks for logging in. We've saved your request as a draft, " \
+            "in case you wanted to add an embargo before sending it. You " \
+            "can set that (or just send it straight away) using the form " \
+            "below.")
+          expect(page).to have_field("To", with: public_body.name)
+          expect(page).to have_field("Subject",
+                                     with: "Why is your quango called " \
+                                           "Geraldine?")
+          expect(page).to have_field("Your request",
+                                     with: "This is a silly letter. It is " \
+                                           "too short to be interesting.")
+
+          select "3 Months", from: "Privacy"
+          click_button "Preview and send"
+
+          # Preview page
+          click_button "Send request"
+
+          # Request page
+          expect(page).to have_selector("h1",
+                                        text: "Why is your quango called " \
+                                              "Geraldine?")
+        end
+      end
+    end
   end
 end
