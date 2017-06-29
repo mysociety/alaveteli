@@ -271,7 +271,6 @@ Definitions
     A <strong>black hole</strong> is an email address that accepts and destroys
     any email messages that are sent to it. Alaveteli uses this for "do not
     reply" emails, which are usually automatically generated system emails.
-    </p>
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -295,7 +294,6 @@ Definitions
   </dt>
   <dd>
     A <strong>bounce message</strong> is an automated electronic mail message from a mail system informing the sender of another message about a delivery problem.
-    </p>
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -371,7 +369,6 @@ Definitions
     Alaveteli administrators can define <strong>censor rules</strong> to define
     which parts of replies or responses should be
     <a href="#redact" class="glossary__link">redacted</a>.
-    </p>
     <div class="more-info">
       <p>More information:</p>
       <ul>
