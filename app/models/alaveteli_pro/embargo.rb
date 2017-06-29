@@ -106,10 +106,11 @@ module AlaveteliPro
       embargoes = expiring.joins(query).where("ire.info_request_id IS NULL")
       embargoes.find_each do |embargo|
         info_request = embargo.info_request
-        info_request.log_event(
+        event = info_request.log_event(
           'embargo_expiring',
           { :event_created_at => Time.zone.now },
           { :created_at => embargo.expiring_notification_at })
+        info_request.user.notify(event)
       end
     end
 
