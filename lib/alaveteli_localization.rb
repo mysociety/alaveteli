@@ -20,5 +20,17 @@ class AlaveteliLocalization
     def set_default_locale_urls(include_default_locale_in_urls)
       RoutingFilter::Locale.include_default_locale = include_default_locale_in_urls
     end
+
+    def locale
+      FastGettext.locale.to_sym
+    end
+
+    def default_locale
+      FastGettext.default_locale.to_sym
+    end
+
+    def available_locales
+      FastGettext.default_available_locales
+    end
   end
 end
