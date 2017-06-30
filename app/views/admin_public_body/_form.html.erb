@@ -34,7 +34,7 @@
 
   <div class="tab-content">
     <% @public_body.ordered_translations.each do |translation| %>
-      <% if translation.locale.to_s == I18n.default_locale.to_s %>
+      <% if translation.locale.to_sym == AlaveteliLocalization.default_locale %>
         <%= fields_for('public_body', @public_body) do |t| %>
           <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
         <% end %>

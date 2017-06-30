@@ -56,7 +56,8 @@ PublicBodyCategory::Translation.class_eval do
   end
 
   def default_locale?
-    locale == I18n.default_locale
+    return false if locale.nil?
+    locale.to_sym == AlaveteliLocalization.default_locale
   end
 
   def required_attribute_submitted?
