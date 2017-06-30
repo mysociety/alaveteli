@@ -176,4 +176,29 @@ describe PublicBodyCategory::Translation do
     expect(translation.errors[:description]).to eq(["Description can't be blank"])
   end
 
+  describe '#default_locale?' do
+
+    it 'returns true if the locale is the default locale' do
+      translation = PublicBodyCategory::Translation.new(:locale => "en")
+      expect(translation.default_locale?).to be true
+    end
+
+    context 'when the default locale contains an underscore' do
+
+      it 'returns true if the locale is the default locale' do
+        AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
+        translation = PublicBodyCategory::Translation.new(:locale => "en_GB")
+
+        expect(translation.default_locale?).to be true
+      end
+
+    end
+
+    it 'returns false if the locale is not the default locale' do
+      translation = PublicBodyCategory::Translation.new(:locale => "es")
+      expect(translation.default_locale?).to be false
+    end
+
+  end
+
 end

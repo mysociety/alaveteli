@@ -497,7 +497,8 @@ class PublicBody < ActiveRecord::Base
   end
 
   def self.localized_csv_field_name(locale, field_name)
-    (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
+    (locale.to_sym == AlaveteliLocalization.default_locale) ?
+                        field_name : "#{field_name}.#{locale}"
   end
 
 

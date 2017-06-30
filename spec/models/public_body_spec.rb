@@ -646,6 +646,30 @@ describe PublicBody do
 
   end
 
+  describe '.localized_csv_field_name' do
+
+    it 'returns the field name if passed the default_locale' do
+      expect(PublicBody.localized_csv_field_name(:en, "first_letter")).
+        to eq("first_letter")
+    end
+
+    context 'the default_locale contains an underscore' do
+
+      it 'returns the field name if passed the default_locale' do
+        AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
+        expect(PublicBody.localized_csv_field_name(:"en_GB", "first_letter")).
+          to eq("first_letter")
+      end
+
+    end
+
+    it 'returns appends the locale name if passed a non default locale' do
+      expect(PublicBody.localized_csv_field_name(:es, "first_letter")).
+        to eq("first_letter.es")
+    end
+
+  end
+
   describe  'when generating json for the api' do
 
     let(:public_body) do

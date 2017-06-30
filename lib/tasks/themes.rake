@@ -138,12 +138,13 @@ namespace :themes do
 
 
   def locale_extensions(locale)
-    locale_extensions = if locale == I18n.default_locale
+    locale_extensions = if locale.to_sym == AlaveteliLocalization.default_locale
       ['']
     else
       [".#{locale}"]
     end
-    if locale != I18n.default_locale && locale.to_s.include?('_')
+    if locale.to_sym != AlaveteliLocalization.default_locale &&
+                   locale.to_s.include?('_')
       locale_extensions << ".#{locale.to_s.split('_').first}"
     end
     locale_extensions
