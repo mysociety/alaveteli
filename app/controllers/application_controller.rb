@@ -68,17 +68,26 @@ class ApplicationController < ActionController::Base
   # lookup_context and expire the template cache
   def set_gettext_locale
     if AlaveteliConfiguration::include_default_locale_in_urls == false
-      params_locale = params[:locale] ? params[:locale] : I18n.default_locale
+      params_locale = params.fetch(:locale) do
+        AlaveteliLocalization.default_locale.to_s
+      end
     else
       params_locale = params[:locale]
     end
     if AlaveteliConfiguration::use_default_browser_language
-      requested_locale = params_locale || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+      requested_locale = params_locale || session[:locale] ||
+                           cookies[:locale] ||
+                           request.env['HTTP_ACCEPT_LANGUAGE'] ||
+                           AlaveteliLocalization.default_locale.to_s
     else
-      requested_locale = params_locale || session[:locale] || cookies[:locale] || I18n.default_locale
+      requested_locale = params_locale || session[:locale] ||
+                           cookies[:locale] ||
+                           AlaveteliLocalization.default_locale.to_s
     end
     requested_locale = FastGettext.best_locale_in(requested_locale)
-    session[:locale] = I18n.locale = FastGettext.set_locale(requested_locale)
+    # set the currrent locale to the requested_locale
+    session[:locale] = FastGettext.set_locale(requested_locale)
+    I18n.locale = FastGettext.locale.to_s.gsub("_", "-")
     if !@user.nil?
       if @user.locale != requested_locale
         @user.locale = session[:locale]

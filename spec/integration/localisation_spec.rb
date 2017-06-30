@@ -27,6 +27,12 @@ describe "when generating urls" do
     expect(response.body).not_to match /href="\/en_US\//
   end
 
+  it 'falls back to the default if the requested locale is unavailable' do
+    get('/', { :locale => "unknown" })
+    expect(response.body).to match /href="\/en\//
+    expect(response.body).not_to match /href="\/unknown\//
+  end
+
   it "should generate URLs without a locale prepended when there's only one locale set" do
     AlaveteliLocalization.set_locales('en', 'en')
     get('/')
