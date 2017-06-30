@@ -8,8 +8,7 @@ describe "when generating urls" do
   end
 
   it "should generate URLs that include the locale when using one that includes an underscore" do
-    AlaveteliLocalization.set_locales(available_locales='es en_GB',
-                                      default_locale='es')
+    AlaveteliLocalization.set_locales('es en_GB', 'es')
     get('/en_GB')
     expect(response.body).to match /href="\/en_GB\//
   end
@@ -22,14 +21,14 @@ describe "when generating urls" do
   end
 
   it "should fall back to the language if the territory is unknown" do
-    AlaveteliLocalization.set_locales(available_locales='es en', default_locale='en')
+    AlaveteliLocalization.set_locales('es en', 'en')
     get('/', {}, {'HTTP_ACCEPT_LANGUAGE' => 'en_US'})
     expect(response.body).to match /href="\/en\//
     expect(response.body).not_to match /href="\/en_US\//
   end
 
   it "should generate URLs without a locale prepended when there's only one locale set" do
-    AlaveteliLocalization.set_locales(available_locales='en', default_locale='en')
+    AlaveteliLocalization.set_locales('en', 'en')
     get('/')
     expect(response).not_to match /#{@home_link_regex}/
   end
@@ -37,7 +36,7 @@ describe "when generating urls" do
   context 'when handling public body requests' do
 
     before do
-      AlaveteliLocalization.set_locales(available_locales='es en', default_locale='en')
+      AlaveteliLocalization.set_locales('es en', 'en')
       body = FactoryGirl.create(:public_body, :short_name => 'english_short')
       I18n.with_locale(:es) do
         body.short_name = 'spanish_short'
@@ -53,7 +52,7 @@ describe "when generating urls" do
 
     it 'should remember a filter view when redirecting a public body
             request to the canonical name' do
-      AlaveteliLocalization.set_locales(available_locales='es en', default_locale='en')
+      AlaveteliLocalization.set_locales('es en', 'en')
       get('/es/body/english_short/successful')
       expect(response).to redirect_to "/es/body/spanish_short/successful"
     end
@@ -62,7 +61,7 @@ describe "when generating urls" do
   describe 'when there is more than one locale' do
 
     before do
-      AlaveteliLocalization.set_locales(available_locales='es en', default_locale='en')
+      AlaveteliLocalization.set_locales('es en', 'en')
     end
 
     it "should generate URLs with a locale prepended when there's more than one locale set" do

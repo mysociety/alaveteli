@@ -49,6 +49,19 @@ describe AdminPublicBodyHeadingsController do
         }.to change{ PublicBodyHeading.count }.from(0).to(1)
       end
 
+      it 'can create a heading when the default locale is an underscore locale' do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+        post :create, :public_body_heading => { :name => 'New Heading en_GB' }
+
+        expect(
+          PublicBodyHeading.
+            find_by(:name => 'New Heading en_GB').
+              translations.
+                first.
+                  locale
+        ).to eq(:en_GB)
+      end
+
       it 'notifies the admin that the heading was created' do
         post :create, :public_body_heading => @params
         expect(flash[:notice]).to eq('Heading was successfully created.')
@@ -221,6 +234,17 @@ describe AdminPublicBodyHeadingsController do
       it 'notifies the admin that the heading was updated' do
         post :update, @params
         expect(flash[:notice]).to eq('Heading was successfully updated.')
+      end
+
+      it "creates a new translation if there isn't one for the default_locale" do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+
+        post :update, { :id => @heading.id,
+                        :public_body_heading => { :name => 'Heading en_GB' }
+                      }
+
+        expect(PublicBodyHeading.find(@heading.id).translations.map(&:locale)).
+          to include(:en_GB)
       end
 
       it 'redirects to the heading edit page' do

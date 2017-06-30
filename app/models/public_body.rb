@@ -303,15 +303,17 @@ class PublicBody < ActiveRecord::Base
     matching_pbs = PublicBody.find_by_sql sql
     case
     when matching_pbs.empty? then
-      I18n.with_locale(I18n.default_locale) do
-        PublicBody.create!(:name => 'Internal admin authority',
-                           :short_name => "",
-                           :request_email => AlaveteliConfiguration::contact_email,
-                           :home_page => "",
-                           :notes => "",
-                           :publication_scheme => "",
-                           :last_edit_editor => "internal_admin",
-                           :last_edit_comment => "Made by PublicBody.internal_admin_body")
+      I18n.with_locale(AlaveteliLocalization.default_locale) do
+        PublicBody.
+          create!(:name => 'Internal admin authority',
+                  :short_name => "",
+                  :request_email => AlaveteliConfiguration::contact_email,
+                  :home_page => "",
+                  :notes => "",
+                  :publication_scheme => "",
+                  :last_edit_editor => "internal_admin",
+                  :last_edit_comment =>
+                    "Made by PublicBody.internal_admin_body")
       end
     when matching_pbs.length == 1 then
       matching_pbs[0]
@@ -348,7 +350,7 @@ class PublicBody < ActiveRecord::Base
         bodies_by_name = {}
         set_of_existing = Set.new
         internal_admin_body_id = PublicBody.internal_admin_body.id
-        I18n.with_locale(I18n.default_locale) do
+        I18n.with_locale(AlaveteliLocalization.default_locale) do
           bodies = (tag.nil? || tag.empty?) ? PublicBody.includes(:translations) : PublicBody.find_by_tag(tag)
           for existing_body in bodies
             # Hide InternalAdminBody from import notes
@@ -442,7 +444,7 @@ class PublicBody < ActiveRecord::Base
         :comment => 'Updated from spreadsheet' }
     end
     locales = options[:available_locales]
-    locales = [I18n.default_locale] if locales.empty?
+    locales = [AlaveteliLocalization.default_locale] if locales.empty?
     locales.each do |locale|
       I18n.with_locale(locale) do
         changed = set_locale_fields_from_csv_row(is_new, locale, row, options)

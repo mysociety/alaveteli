@@ -99,6 +99,25 @@ describe AdminPublicBodyCategoriesController do
         }.to change{ PublicBodyCategory.count }.from(0).to(1)
       end
 
+      it 'can create a category when the default locale is an underscore locale' do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+        post :create, {
+                        :public_body_category => {
+                          :title => 'New Category en_GB',
+                          :description => 'test',
+                          :category_tag => 'new_test_category'
+                        }
+                      }
+
+        expect(
+          PublicBodyCategory.
+            find_by(:title => 'New Category en_GB').
+              translations.
+                first.
+                  locale
+        ).to eq(:en_GB)
+      end
+
       it "saves the public body category's heading associations" do
         heading = FactoryGirl.create(:public_body_heading)
         params = FactoryGirl.attributes_for(:public_body_category)
@@ -399,6 +418,18 @@ describe AdminPublicBodyCategoriesController do
 
         category = PublicBodyCategory.find(category.id)
         expect(category.category_tag).to eq('Renamed')
+      end
+
+      it "creates a new translation if there isn't one for the default_locale" do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+
+        post :update, { :id => @category.id,
+                        :public_body_category => { :name => 'Category en_GB' }
+                      }
+
+        expect(
+          PublicBodyCategory.find(@category.id).translations.map(&:locale)
+        ).to include(:en_GB)
       end
 
     end
