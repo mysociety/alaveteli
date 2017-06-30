@@ -7,7 +7,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
     translates :name
   end
   def up
-    default_locale = I18n.locale.to_s
+    default_locale = AlaveteliLocalization.default_locale.to_s
 
     fields = {:title => :text,
               :description => :text}
