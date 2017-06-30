@@ -26,7 +26,7 @@ class PublicBodyController < ApplicationController
       return
     end
 
-    @locale = I18n.locale.to_s
+    @locale = AlaveteliLocalization.locale.to_s
 
     I18n.with_locale(@locale) do
       @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
@@ -124,9 +124,9 @@ class PublicBodyController < ApplicationController
     @tag = params[:tag]
 
     @country_code = AlaveteliConfiguration.iso_country_code
-    @locale = I18n.locale.to_s
-    underscore_locale = @locale.gsub '-', '_'
-    underscore_default_locale = I18n.default_locale.to_s.gsub '-', '_'
+    @locale = AlaveteliLocalization.locale.to_s
+    underscore_locale = AlaveteliLocalization.locale.to_s
+    underscore_default_locale = AlaveteliLocalization.default_locale.to_s
 
     where_condition = "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
     where_parameters = []
