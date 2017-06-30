@@ -156,40 +156,88 @@ describe PublicBody do
 
   end
 
+  describe '#short_or_long_name' do
+
+    it 'returns the short_name if it has been set' do
+      public_body = PublicBody.new(:name => 'Test Name', :short_name => "Test")
+      expect(public_body.short_or_long_name).to eq('Test')
+    end
+
+    it 'returns the name if short_name has not been set' do
+      public_body = PublicBody.new(:name => 'Test Name')
+      expect(public_body.short_or_long_name).to eq('Test Name')
+    end
+
+  end
+
+  describe '#set_first_letter' do
+
+    it 'sets first_letter to the first letter of the name if the name is set' do
+      public_body = PublicBody.new(:name => 'Test Name')
+      public_body.set_first_letter
+      expect(public_body.first_letter).to eq('T')
+    end
+
+    it 'does not set first_letter if the name has not been set' do
+      public_body = PublicBody.new
+      public_body.set_first_letter
+      expect(public_body.first_letter).to be_nil
+    end
+
+    it 'handles mutlibyte characters correctly' do
+      public_body = PublicBody.new(:name => 'Åccented')
+      public_body.set_first_letter
+      expect(public_body.first_letter).to eq('Å')
+    end
+
+    it 'upcases the first character' do
+      public_body = PublicBody.new(:name => 'åccented')
+      public_body.set_first_letter
+      expect(public_body.first_letter).to eq('Å')
+    end
+
+  end
+
   describe  'when generating json for the api' do
-    before do
-      @public_body = PublicBody.new(:name => 'Marmot Appreciation Society',
-                                    :short_name => 'MAS',
-                                    :request_email => 'marmots@flourish.org',
-                                    :last_edit_editor => 'test',
-                                    :last_edit_comment => '',
-                                    :info_requests_count => 10,
-                                    :info_requests_successful_count => 2,
-                                    :info_requests_not_held_count   => 2,
-                                    :info_requests_overdue_count    => 3,
-                                    :info_requests_visible_classified_count => 3)
+
+    let(:public_body) do
+      FactoryGirl.create(:public_body,
+                         :name => 'Marmot Appreciation Society',
+                         :short_name => 'MAS',
+                         :request_email => 'marmots@flourish.org',
+                         :last_edit_editor => 'test',
+                         :last_edit_comment => '',
+                         :info_requests_count => 10,
+                         :info_requests_successful_count => 2,
+                         :info_requests_not_held_count   => 2,
+                         :info_requests_overdue_count    => 3,
+                         :info_requests_visible_classified_count => 3)
     end
 
     it 'should return info about request counts' do
-      expect(@public_body.json_for_api).to eq({ :name => 'Marmot Appreciation Society',
-                                            :notes => "",
-                                            :publication_scheme => "",
-                                            :short_name => "MAS",
-                                            :tags => [],
-                                            :updated_at => nil,
-                                            :url_name => "mas",
-                                            :created_at => nil,
-                                            :home_page => "http://www.flourish.org",
-                                            :id => nil,
-                                            :info => {
-                                              :requests_count => 10,
-                                              :requests_successful_count => 2,
-                                              :requests_not_held_count   => 2,
-                                              :requests_overdue_count    => 3,
-                                              :requests_visible_classified_count => 3,
-                                            }
-                                            })
+      expect(public_body.json_for_api).
+        to eq(
+            {
+              :name => 'Marmot Appreciation Society',
+              :notes => "",
+              :publication_scheme => "",
+              :short_name => "MAS",
+              :tags => [],
+              :updated_at => public_body.updated_at,
+              :url_name => "mas",
+              :created_at => public_body.created_at,
+              :home_page => "http://www.flourish.org",
+              :id => public_body.id,
+              :info => {
+                :requests_count => 10,
+                :requests_successful_count => 2,
+                :requests_not_held_count   => 2,
+                :requests_overdue_count    => 3,
+                :requests_visible_classified_count => 3,
+              }
+            })
     end
+
   end
 
 end
@@ -437,6 +485,7 @@ describe PublicBody, " when saving" do
     @public_body.name = 'Test'
     @public_body.save!
     expect(@public_body.versions.size).to eq(2)
+    expect(@public_body.versions.last.name).to eq('Test')
   end
 
 end
