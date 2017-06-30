@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Increase truncation length of comments on admin page so that its easier to
+  spot spam without expanding each comment (Gareth Rees)
 * Handle unicode in spam request subject lines (Gareth Rees)
 * Improve public body data validation test coverage (Gareth Rees)
 * Move some more flash messages to be rendered from partials (Gareth Rees)
