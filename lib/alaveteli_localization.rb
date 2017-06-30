@@ -12,6 +12,11 @@ class AlaveteliLocalization
       RoutingFilter::Conditionallyprependlocale.locales = available_locales
     end
 
+    def set_default_locale(locale)
+      I18n.default_locale = locale.to_s.gsub("_", '-').to_sym
+      FastGettext.default_locale = locale.to_s.gsub("-", '_')
+    end
+
     def set_default_text_domain(name, repos)
       FastGettext.add_text_domain name, :type => :chain, :chain => repos
       FastGettext.default_text_domain = name
