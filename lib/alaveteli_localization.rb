@@ -4,10 +4,12 @@ class AlaveteliLocalization
     def set_locales(available_locales, default_locale)
       # fallback locale and available locales
       available_locales = available_locales.split(/ /)
-      FastGettext.default_available_locales = available_locales.map{ |x| x.to_sym}
-      I18n.locale = default_locale.gsub("_", '-').to_sym
-      I18n.available_locales = available_locales.map { |locale_name| locale_name.gsub("_", '-').to_sym }
-      I18n.default_locale = default_locale.gsub("_", '-').to_sym
+      FastGettext.default_available_locales = available_locales.
+                                                map { |x| x.to_sym }
+      I18n.available_locales = available_locales.map do |locale_name|
+        locale_name.gsub("_", '-').to_sym
+      end
+      I18n.locale = I18n.default_locale = default_locale.to_s.gsub("_", '-')
       FastGettext.default_locale = default_locale
       RoutingFilter::Conditionallyprependlocale.locales = available_locales
     end

@@ -21,6 +21,19 @@ describe AlaveteliLocalization do
       expect(FastGettext.default_available_locales).to eq([:en_GB, :es])
     end
 
+    context 'when enforce_available_locales is true' do
+
+      before do
+        I18n.config.enforce_available_locales = true
+      end
+
+      it 'allows a new locale to be set as the default' do
+        AlaveteliLocalization.set_locales('nl en', 'nl')
+        expect(I18n.default_locale).to eq(:nl)
+      end
+
+    end
+
     it 'sets I18n.locale' do
       expect(I18n.locale).to eq(:"en-GB")
     end
