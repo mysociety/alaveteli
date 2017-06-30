@@ -3,8 +3,11 @@ class DropPublicBodyTranslatedColumns < ActiveRecord::Migration
   def up
     PublicBody.transaction do
       PublicBody.find_each do |record|
-        translation = record.translation_for(I18n.default_locale) ||
-          record.translations.build(:locale => I18n.default_locale)
+        translation =
+          record.translation_for(AlaveteliLocalization.default_locale) ||
+          record.translations.build(
+            :locale => AlaveteliLocalization.default_locale
+          )
 
         if translation.new_record?
           fields = record.translated_attribute_names
@@ -46,7 +49,8 @@ class DropPublicBodyTranslatedColumns < ActiveRecord::Migration
     # be updated before the constraints are reapplied
     PublicBody.transaction do
       PublicBody.find_each do |record|
-        translated = record.translation_for(I18n.default_locale)
+        translated =
+          record.translation_for(AlaveteliLocalization.default_locale)
         translated = record.translations.first unless translated.persisted?
 
         if translated.new_record? || translated.nil?

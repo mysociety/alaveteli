@@ -160,7 +160,8 @@ describe PublicBodyCategory::Translation do
   end
 
   it 'is valid if no required attributes are assigned' do
-    translation = PublicBodyCategory::Translation.new(:locale => I18n.default_locale)
+    translation = PublicBodyCategory::Translation.
+                    new(:locale => AlaveteliLocalization.default_locale)
     expect(translation).to be_valid
   end
 

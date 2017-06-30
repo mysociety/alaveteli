@@ -623,6 +623,17 @@ describe PublicBody do
       expect(iab).to be_persisted
     end
 
+    it 'creates the internal_admin_body with the default_locale' do
+      iab = PublicBody.internal_admin_body
+      expect(iab.translations.first.locale).to eq(:en)
+    end
+
+    it 'handles underscore locales correctly' do
+      AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+      iab = PublicBody.internal_admin_body
+      expect(iab.translations.first.locale).to eq(:en_GB)
+    end
+
     it "repairs the internal_admin_body if the default locale has changed" do
       iab = PublicBody.internal_admin_body
 
@@ -1444,17 +1455,47 @@ describe PublicBody, " when loading CSV files" do
     expect(PublicBody.count).to eq(original_count)
   end
 
-  it "should be able to load CSV from a file as well as a string" do
-    # Essentially the same code is used for import_csv_from_file
-    # as import_csv, so this is just a basic check that
-    # import_csv_from_file can load from a file at all. (It would
-    # be easy to introduce a regression that broke this, because
-    # of the confusing change in behaviour of CSV.parse between
-    # Ruby 1.8 and 1.9.)
-    original_count = PublicBody.count
-    filename = file_fixture_name('fake-authority-type-with-field-names.csv')
-    PublicBody.import_csv_from_file(filename, '', 'replace', false, 'someadmin')
-    expect(PublicBody.count).to eq(original_count + 3)
+  context 'when importing data from a CSV' do
+
+    before do
+      InfoRequest.destroy_all
+      PublicBody.destroy_all
+      PublicBody.internal_admin_body
+    end
+
+    let(:filename) do
+      file_fixture_name('fake-authority-type-with-field-names.csv')
+    end
+
+    it "is able to load CSV from a file as well as a string" do
+      # Essentially the same code is used for import_csv_from_file
+      # as import_csv, so this is just a basic check that
+      # import_csv_from_file can load from a file at all. (It would
+      # be easy to introduce a regression that broke this, because
+      # of the confusing change in behaviour of CSV.parse between
+      # Ruby 1.8 and 1.9.)
+      original_count = PublicBody.count
+      filename = file_fixture_name('fake-authority-type-with-field-names.csv')
+      PublicBody.
+        import_csv_from_file(filename, '', 'replace', false, 'someadmin')
+      expect(PublicBody.count).to eq(original_count + 3)
+    end
+
+    it 'recognises an underscore locale as the default' do
+      AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+      PublicBody.
+        import_csv_from_file(filename, '', 'replace', false, 'someadmin')
+
+      expect(
+        PublicBody.joins(:translations).
+          where("public_body_translations.name != 'Internal admin authority'").
+            first.
+              translations.
+                first.
+                  locale
+      ).to eq(:en_GB)
+    end
+
   end
 
   it "should handle active record validation errors" do
@@ -1833,7 +1874,9 @@ describe PublicBody::Translation do
   end
 
   it 'is valid if all required attributes are assigned' do
-    translation = PublicBody::Translation.new(:locale => I18n.default_locale)
+    translation = PublicBody::Translation.new(
+      :locale => AlaveteliLocalization.default_locale
+    )
     expect(translation).to be_valid
   end
 

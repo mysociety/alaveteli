@@ -11,7 +11,7 @@ class AdminPublicBodyHeadingsController < AdminController
   end
 
   def create
-    I18n.with_locale(I18n.default_locale) do
+    I18n.with_locale(AlaveteliLocalization.default_locale) do
       @public_body_heading = PublicBodyHeading.new(public_body_heading_params)
       if @public_body_heading.save
         flash[:notice] = 'Heading was successfully created.'
@@ -28,7 +28,7 @@ class AdminPublicBodyHeadingsController < AdminController
   end
 
   def update
-    I18n.with_locale(I18n.default_locale) do
+    I18n.with_locale(AlaveteliLocalization.default_locale) do
       if @public_body_heading.update_attributes(public_body_heading_params)
         flash[:notice] = 'Heading was successfully updated.'
         redirect_to edit_admin_heading_path(@public_body_heading)

@@ -149,6 +149,14 @@ describe AdminPublicBodyController do
         }.to change{ PublicBody.count }.from(existing).to(expected)
       end
 
+      it 'can create a public body when the default locale is an underscore locale' do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+        post :create, @params
+        expect(
+          PublicBody.find_by_name('New Quango').translations.first.locale
+        ).to eq(:en_GB)
+      end
+
       it 'notifies the admin that the body was created' do
         post :create, @params
         expect(flash[:notice]).to eq('PublicBody was successfully created.')
@@ -458,6 +466,19 @@ describe AdminPublicBodyController do
         I18n.with_locale(:es) do
           expect(body.name).to eq('Example Public Body ES')
         end
+      end
+
+      it 'creates a new translation for the default locale' do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+        put :update, {
+          :id => @body.id,
+          :public_body => {
+            :name => "Example Public Body en_GB",
+          }
+        }
+
+        body = PublicBody.find(@body.id)
+        expect(body.translations.map(&:locale)).to include(:en_GB)
       end
 
       it 'adds new translations' do
