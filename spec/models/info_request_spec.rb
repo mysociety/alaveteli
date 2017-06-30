@@ -3326,6 +3326,27 @@ describe InfoRequest do
     end
   end
 
+  describe "updating request summaries when changing status" do
+    let(:info_request) { FactoryGirl.create(:awaiting_description) }
+    let(:received) { AlaveteliPro::RequestSummaryCategory.response_received }
+    let(:complete) { AlaveteliPro::RequestSummaryCategory.complete }
+    let(:summary) { info_request.request_summary.reload }
+
+    it "updates the request summary when the status is updated" do
+      TestAfterCommit.with_commits(true) do
+        expect(summary.request_summary_categories).to match_array([received])
+        info_request.log_event(
+          "status_update",
+          { :user_id => info_request.user.id,
+            :old_described_state => info_request.described_state,
+            :described_state => 'successful' })
+        info_request.set_described_state('successful')
+        expect(summary.reload.request_summary_categories).
+          to match_array([complete])
+      end
+    end
+  end
+
   describe "#embargo_expiring?" do
     let(:info_request) { FactoryGirl.create(:info_request) }
 

@@ -35,6 +35,18 @@ FactoryGirl.define do
     request_email 'request@example.com'
     last_edit_editor "admin user"
     last_edit_comment "Making an edit"
+
+    factory :defunct_public_body do
+      after(:create) do |public_body, evaluator|
+        public_body.tag_string = "defunct"
+      end
+    end
+
+    factory :not_apply_public_body do
+      after(:create) do |public_body, evaluator|
+        public_body.tag_string = "not_apply"
+      end
+    end
   end
 
 
