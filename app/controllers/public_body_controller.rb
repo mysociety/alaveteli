@@ -99,7 +99,7 @@ class PublicBodyController < ApplicationController
     @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
     raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
 
-    I18n.with_locale(I18n.locale.to_s) do
+    I18n.with_locale(AlaveteliLocalization.locale.to_s) do
       if params[:submitted_view_email]
         if verify_recaptcha
           flash.discard(:error)

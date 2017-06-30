@@ -24,7 +24,7 @@ class PublicBodyCategory < ActiveRecord::Base
   include Translatable
 
   def self.get
-    locale = I18n.locale.to_s || default_locale.to_s || ""
+    locale = AlaveteliLocalization.locale.to_s || default_locale.to_s || ""
     categories = CategoryCollection.new
     I18n.with_locale(locale) do
       headings = PublicBodyHeading.by_display_order

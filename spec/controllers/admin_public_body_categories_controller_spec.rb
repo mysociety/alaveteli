@@ -12,7 +12,7 @@ describe AdminPublicBodyCategoriesController do
 
     it 'uses the current locale by default' do
       get :index
-      expect(assigns(:locale)).to eq(I18n.locale.to_s)
+      expect(assigns(:locale)).to eq(AlaveteliLocalization.locale.to_s)
     end
 
     it 'finds all category headings' do

@@ -16,7 +16,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def show
-    @locale = I18n.locale.to_s
+    @locale = AlaveteliLocalization.locale.to_s
     I18n.with_locale(@locale) do
       @public_body = PublicBody.find(params[:id])
       info_requests = @public_body.info_requests.order('created_at DESC')
@@ -235,8 +235,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def lookup_query
-    @locale = I18n.locale.to_s
-    underscore_locale = @locale.gsub '-', '_'
+    @locale = AlaveteliLocalization.locale.to_s
     I18n.with_locale(@locale) do
       @query = params[:query]
       if @query == ""
@@ -255,13 +254,13 @@ class AdminPublicBodyController < AdminController
          LIKE lower('%'||?||'%')
          OR lower(public_body_translations.request_email)
          LIKE lower('%'||?||'%' ))
-         AND (public_body_translations.locale = '#{underscore_locale}')
+         AND (public_body_translations.locale = '#{@locale}')
         EOF
 
         [query_str, @query, @query, @query]
       else
         <<-EOF.strip_heredoc
-        public_body_translations.locale = '#{underscore_locale}'
+        public_body_translations.locale = '#{@locale}'
         EOF
       end
 

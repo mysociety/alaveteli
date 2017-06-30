@@ -214,12 +214,10 @@ class PublicBody < ActiveRecord::Base
   #
   # query  - String to query the searchable fields
   # locale - String to specify the language of the seach query
-  #          (default: I18n.locale)
+  #          (default: AlaveteliLocalization.locale)
   #
   # Returns an ActiveRecord::Relation
-  def self.search(query, locale = I18n.locale)
-    locale = locale.to_s.gsub('-', '_') # Clean the locale string
-
+  def self.search(query, locale = AlaveteliLocalization.locale.to_s)
     sql = <<-SQL
     (
       lower(public_body_translations.name) like lower('%'||?||'%')
