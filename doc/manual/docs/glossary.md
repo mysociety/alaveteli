@@ -328,6 +328,22 @@ Definitions
   </dd>
 
   <dt>
+    <a name="categorisation-game">categorisation game</a>
+  </dt>
+  <dd>
+   The categorisation game is a way that users of an Alaveteli site  can help the site stay current and accurate by updating the status of old requests where the original requester has never said whether the authority responded with the information or not.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          the categorisation game on the <a href="http://demo.alaveteli.org/categorise/play">demo Alaveteli site</a>.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+
+  <dt>
     <a name="category">category</a>
   </dt>
   <dd>
@@ -347,20 +363,6 @@ Definitions
         More about
     <a href="{{ page.baseurl }}/docs/running/categories_and_tags/">categories and tags</a>
 </dd>
-  <dt>
-    <a name="categorisation-game">categorisation game</a>
-  </dt>
-  <dd>
-   The categorisation game is a way that users of an Alaveteli site  can help the site stay current and accurate by updating the status of old requests where the original requester has never said whether the authority responded with the information or not.
-    <div class="more-info">
-      <p>More information:</p>
-      <ul>
-        <li>
-          the categorisation game on the <a href="http://demo.alaveteli.org/categorise/play">demo Alaveteli site</a>.
-        </li>
-      </ul>
-    </div>
-  </dd>
 
   <dt>
     <a name="censor-rule">censor rule</a>
