@@ -1172,7 +1172,7 @@ class RequestController < ApplicationController
 
   def spam_subject?(message_subject, user)
     !user.confirmed_not_spam? &&
-      AlaveteliSpamTermChecker.new.spam?(message_subject)
+      AlaveteliSpamTermChecker.new.spam?(message_subject.to_ascii)
   end
 
   def block_spam_subject?
