@@ -20,15 +20,29 @@ require 'spec_helper'
 
 RSpec.describe AlaveteliPro::RequestSummary, type: :model do
   let(:public_bodies) { FactoryGirl.create_list(:public_body, 3) }
-  let(:public_body_names) { public_bodies.map(&:name).join(" ") }
+  let(:public_body_names) do
+    public_bodies.sort { |x,y| x.name <=> y.name }.map(&:name).join(" ")
+  end
 
   it "requires a summarisable" do
     summary = FactoryGirl.build(:request_summary, summarisable: nil)
     expect(summary).not_to be_valid
   end
 
+  it "validates that the summarisable is unique" do
+    TestAfterCommit.with_commits(true) do
+      summary = FactoryGirl.create(:request_summary)
+      # We specify fix_summarisable to be false so that the factory doesn't
+      # try to sort out any duplication for us, as we explicitly want to test
+      # this.
+      summary_2 = FactoryGirl.build(:request_summary,
+                                    summarisable: summary.summarisable,
+                                    fix_summarisable: false)
+      expect(summary_2).not_to be_valid
+    end
+  end
+
   it "does not require a user" do
-    # InfoRequest does not require a user, so we can't require one here either
     summary = FactoryGirl.build(:request_summary, user: nil)
     expect(summary).to be_valid
   end
