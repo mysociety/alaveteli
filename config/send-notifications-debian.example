@@ -6,15 +6,15 @@
 # Required-Stop: $local_fs $syslog
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
-# Short-Description: !!(*= $daemon_name *)!! is a daemon running the daily Alaveteli notifications
-# Description: !!(*= $daemon_name *)!! sends daily Alaveteli notifications as required
+# Short-Description: !!(*= $daemon_name *)!! is a daemon running the Alaveteli notifications
+# Description: !!(*= $daemon_name *)!! sends Alaveteli notifications as required
 ### END INIT INFO
 #
-# !!(*= $daemon_name *)!! Start the daily Alaveteli notification daemon
+# !!(*= $daemon_name *)!! Start the Alaveteli notification daemon
 
 NAME=!!(*= $daemon_name *)!!
 DAEMON=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/runner
-DAEMON_ARGS="--daemon NotificationMailer.send_daily_notifications_loop"
+DAEMON_ARGS="--daemon NotificationMailer.send_notifications_loop"
 PIDDIR=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/tmp/pids
 PIDFILE=$PIDDIR/!!(*= $daemon_name *)!!.pid
 LOGDIR=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log
@@ -56,7 +56,7 @@ case "$1" in
       quietly_start_daemon
       if [ $? -ne 1 ]
       then
-          echo "Alaveteli daily notification daemon was not running; now restarted"
+          echo "Alaveteli notification daemon was not running; now restarted"
           exit 1
       else
           exit 0
@@ -64,17 +64,17 @@ case "$1" in
       ;;
 
   start)
-      echo -n "Starting Alaveteli daily notification daemon: $NAME"
+      echo -n "Starting Alaveteli notification daemon: $NAME"
       start_daemon
       ;;
 
   stop)
-        echo -n "Stopping Alaveteli daily notification daemon: $NAME"
+        echo -n "Stopping Alaveteli notification daemon: $NAME"
         stop_daemon
         ;;
 
   restart)
-      echo -n "Restarting Alaveteli daily notification daemon: $NAME"
+      echo -n "Restarting Alaveteli notification daemon: $NAME"
       stop_daemon
       start_daemon
       ;;
