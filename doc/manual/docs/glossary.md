@@ -482,25 +482,6 @@ Definitions
   </dd>
 
   <dt>
-    <a name="geoip-database">GeoIP database</a>
-  </dt>
-  <dd>
-    <p>
-      A GeoIP database is a local store of geographical information about IP addresses.
-      By default, Alaveteli uses a GeoIP database to determine each user's country from
-      their incoming IP address. This lets the site suggest an Alaveteli site in their
-      country, if one exists.
-    </p>
-    <div class="more-info">
-      <p>More information:</p>
-      <ul>
-        <li>More about the free <a href="http://dev.maxmind.com/geoip/legacy/geolite/">GeoLite databases</a> from MaxMind.
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
     <a name="gaze">gaze</a>
   </dt>
   <dd>
@@ -523,6 +504,25 @@ Definitions
         <li>
           See <a href="https://github.com/mysociety/gaze">Gaze source on
           github</a>.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="geoip-database">GeoIP database</a>
+  </dt>
+  <dd>
+    <p>
+      A GeoIP database is a local store of geographical information about IP addresses.
+      By default, Alaveteli uses a GeoIP database to determine each user's country from
+      their incoming IP address. This lets the site suggest an Alaveteli site in their
+      country, if one exists.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>More about the free <a href="http://dev.maxmind.com/geoip/legacy/geolite/">GeoLite databases</a> from MaxMind.
         </li>
       </ul>
     </div>
