@@ -777,20 +777,6 @@ Definitions
   </dd>
 
   <dt>
-    <a name="publish">publish</a>
-  </dt>
-  <dd>
-    Alaveteli works by <strong>publishing</strong> the
-    <a href="#response" class="glossary__link">responses</a> it receives to the
-    <a href="#foi" class="glossary__link">Freedom of Information</a>
-    <a href="#request" class="glossary__link">requests</a> that its users send.
-    It does this by processing the emails it receives and presenting them
-    as pages &mdash; one per request &mdash; on the website. This makes it
-    easy for people to find, read, link to, and share the request and the
-    information provided in response.
-  </dd>
-
-  <dt>
     <a name="publication-scheme">publication scheme</a>
   </dt>
   <dd>
@@ -812,6 +798,19 @@ Definitions
     </div>
   </dd>
 
+  <dt>
+    <a name="publish">publish</a>
+  </dt>
+  <dd>
+    Alaveteli works by <strong>publishing</strong> the
+    <a href="#response" class="glossary__link">responses</a> it receives to the
+    <a href="#foi" class="glossary__link">Freedom of Information</a>
+    <a href="#request" class="glossary__link">requests</a> that its users send.
+    It does this by processing the emails it receives and presenting them
+    as pages &mdash; one per request &mdash; on the website. This makes it
+    easy for people to find, read, link to, and share the request and the
+    information provided in response.
+  </dd>
 
   <dt>
     <a name="recaptcha">recaptcha</a>
