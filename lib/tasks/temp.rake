@@ -90,7 +90,9 @@ namespace :temp do
   task :populate_request_due_dates => :environment do
     ActiveRecord::Base.record_timestamps = false
     begin
-      InfoRequest.find_each(:conditions => 'last_event_forming_initial_request_id is NULL') do |info_request|
+      InfoRequest.
+        where('last_event_forming_initial_request_id is NULL').
+          find_each do |info_request|
         sent_event = info_request.last_event_forming_initial_request
         info_request.last_event_forming_initial_request_id = sent_event.id
         info_request.date_initial_request_last_sent_at = sent_event.created_at.to_date
