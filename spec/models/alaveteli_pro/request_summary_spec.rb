@@ -338,6 +338,9 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         before do
           TestAfterCommit.with_commits(true) do
             batch.create_batch!
+            # Because the batch request creates each request in a transaction,
+            # we need to reload it to make sure we have all the requests
+            batch.reload
 
             first_request = batch.info_requests.first
             incoming_message = FactoryGirl.create(
