@@ -60,7 +60,7 @@ class HelpController < ApplicationController
           params[:contact][:message],
           @user,
           @last_request, @last_body
-        ).deliver
+        ).deliver_now
         flash[:notice] = _("Your message has been sent. Thank you for getting in touch! We'll get back to you soon.")
         redirect_to frontpage_url
         return

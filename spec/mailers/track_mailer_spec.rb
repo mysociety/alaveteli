@@ -7,7 +7,7 @@ describe TrackMailer do
 
     before do
       mail_mock = double("mail")
-      allow(mail_mock).to receive(:deliver)
+      allow(mail_mock).to receive(:deliver_now)
       allow(TrackMailer).to receive(:event_digest).and_return(mail_mock)
       allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
     end
@@ -186,7 +186,7 @@ describe TrackMailer do
                          :name_and_email => MailHandler.address_from_name_and_email('Tippy Test', 'tippy@localhost'),
                          :url_name => 'tippy_test'
                          )
-      TrackMailer.event_digest(@user, []).deliver # no items in it email for minimal test
+      TrackMailer.event_digest(@user, []).deliver_now # no items in it email for minimal test
     end
 
     it 'should deliver one email, with right headers' do
