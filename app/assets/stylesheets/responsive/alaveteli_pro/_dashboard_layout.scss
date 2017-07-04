@@ -126,3 +126,36 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
   flex: 0 0 80%;
   padding-left: 2em;
 }
+
+.dashboard__announcements {
+  margin-bottom: 2em;
+}
+
+.dashboard__announcement {
+  position: relative;
+}
+
+.dashboard__announcements__list {
+  list-style: none outside none;
+  padding-left: 0;
+}
+
+.dashboard__announcements__list-item {
+  &[aria-hidden="false"] {
+    display: block;
+  }
+  &[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+.dashboard__announcement_dismiss {
+  position: absolute;
+  right: 0;
+  bottom: -40px;
+}
+
+.dashboard__announcements__controls__status {
+  display: inline-block;
+  padding: 0 0.5em;
+}
