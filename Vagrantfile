@@ -1,3 +1,5 @@
+require 'pp'
+require 'yaml'
 # Welcome! Thanks for taking an interest in contributing to Alaveteli.
 # This Vagrantfile should get you started with the minimum of fuss.
 #
@@ -33,18 +35,23 @@
 # This Vagrantfile allows customisation of some aspects of the virtaual machine
 # See the customization options below for details.
 #
-# The options can be set either by prefixing the vagrant command, or by
-# exporting to the environment.
+# The options can be set either by prefixing the vagrant command, using
+# `.vagrant.yml`, or by exporting to the environment.
 #
 #   # Prefixing the command
 #   $ ALAVETELI_VAGRANT_MEMORY=2048 vagrant up
+#
+#   # .vagrant.yml
+#   $ echo "memory: 2048" >> .vagrant.yml
+#   $ vagrant up
 #
 #   # Exporting to the environment
 #   $ export ALAVETELI_VAGRANT_MEMORY=2048
 #   $ vagrant up
 #
-# Both have the same effect, but exporting will retain the variable for the
-# duration of your shell session.
+# All have the same effect, but exporting will retain the variable for the
+# duration of your shell session, whereas `.vagrant.yml` will be persistent.
+# The environment takes precedence over `.vagrant.yml`.
 #
 # Using Themes
 # ------------
@@ -57,11 +64,42 @@
 #
 # Customization Options
 # =====================
-ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
-ALAVETELI_MEMORY = ENV['ALAVETELI_VAGRANT_MEMORY'] || 1536
-ALAVETELI_THEMES_DIR = ENV['ALAVETELI_THEMES_DIR'] || '../alaveteli-themes'
-ALAVETELI_OS = ENV['ALAVETELI_VAGRANT_OS'] || 'wheezy64'
-ALAVETELI_USE_NFS = ENV['ALAVETELI_VAGRANT_USE_NFS'] || false
+#
+# Defaults can be overridden either in `.vagrant.yml` with the same key name, or
+# via the environment by prefixing the key with `ALAVETELI_VAGRANT_` and
+# upcasing. Boolean values can be set to `false` in the environment with "0",
+# "false" or "no".
+DEFAULTS = {
+  'fqdn' => 'alaveteli.10.10.10.30.xip.io',
+  'memory' => 1536,
+  'themes_dir' => '../alaveteli-themes',
+  'os' => 'wheezy64',
+  'use_nfs' => false,
+  'show_settings' => false
+}.freeze
+
+env = DEFAULTS.keys.reduce({}) do |memo, key|
+  value = ENV["ALAVETELI_VAGRANT_#{ key.upcase }"]
+  value = false if %w(0 false no).include?(value)
+  memo[key] = value unless value.nil?
+  memo
+end
+
+settings_file_path = File.dirname(__FILE__) + '/.vagrant.yml'
+settings_file = if File.exist?(settings_file_path)
+  YAML.load(File.read(settings_file_path))
+else
+  {}
+end
+
+SETTINGS = DEFAULTS.merge(settings_file).merge(env).freeze
+
+if SETTINGS['show_settings']
+  puts 'Current machine settings:'
+  puts "\n"
+  pp SETTINGS
+  puts "\n"
+end
 
 SUPPORTED_OPERATING_SYSTEMS = {
   'precise64' => 'https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box',
@@ -71,11 +109,11 @@ SUPPORTED_OPERATING_SYSTEMS = {
 }
 
 def box
-  ALAVETELI_OS
+  SETTINGS['os']
 end
 
 def box_url
-  SUPPORTED_OPERATING_SYSTEMS[ALAVETELI_OS]
+  SUPPORTED_OPERATING_SYSTEMS[box]
 end
 
 VAGRANTFILE_API_VERSION = "2"
@@ -89,19 +127,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = box_url
   config.vm.network :private_network, :ip => "10.10.10.30"
 
-  if ALAVETELI_USE_NFS
+  if SETTINGS['use_nfs']
     config.vm.synced_folder ".", "/home/vagrant/alaveteli", :nfs => true
   else
     config.vm.synced_folder ".", "/home/vagrant/alaveteli", :owner => "vagrant", :group => "vagrant"
   end
 
-  if File.directory?(ALAVETELI_THEMES_DIR)
-    if ALAVETELI_USE_NFS
-      config.vm.synced_folder ALAVETELI_THEMES_DIR,
+  if File.directory?(SETTINGS['themes_dir'])
+    if SETTINGS['use_nfs']
+      config.vm.synced_folder SETTINGS['themes_dir'],
                               "/home/vagrant/alaveteli-themes",
                               :nfs => true
     else
-      config.vm.synced_folder ALAVETELI_THEMES_DIR,
+      config.vm.synced_folder SETTINGS['themes_dir'],
                               "/home/vagrant/alaveteli-themes",
                               :owner => "vagrant",
                               :group => "vagrant"
@@ -123,7 +161,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       cpus = 1
     end
 
-    vb.customize ["modifyvm", :id, "--memory", ALAVETELI_MEMORY]
+    vb.customize ["modifyvm", :id, "--memory", SETTINGS['memory']]
     vb.customize ["modifyvm", :id, "--cpus", cpus]
   end
 
@@ -135,7 +173,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                                              "--dev " \
                                              "alaveteli " \
                                              "vagrant " \
-                                             "#{ ALAVETELI_FQDN }"
+                                             "#{ SETTINGS['fqdn'] }"
 
   # Append basic usage instructions to the MOTD
   motd = <<-EOF
@@ -144,7 +182,7 @@ To start your alaveteli instance:
 * bundle exec rails server
 EOF
 
-  if ALAVETELI_OS == 'jessie64'
+  if SETTINGS['os'] == 'jessie64'
     # workaround for dynamic MOTD support on jessie
     # adapted from: https://oitibs.com/debian-jessie-dynamic-motd/
     config.vm.provision :shell, :inline => "mkdir /etc/update-motd.d/"
@@ -155,7 +193,7 @@ EOF
     config.vm.provision :shell, :inline => "chmod +x /etc/update-motd.d/*"
     config.vm.provision :shell, :inline => "rm /etc/motd"
     config.vm.provision :shell, :inline => "ln -s /var/run/motd /etc/motd"
-  elsif ALAVETELI_OS == 'trusty64'
+  elsif SETTINGS['os'] == 'trusty64'
     config.vm.provision :shell, :inline => "echo '#{ motd }' >> /etc/motd"
   end
   config.vm.provision :shell, :inline => "echo '#{ motd }' >> /etc/motd.tail"
