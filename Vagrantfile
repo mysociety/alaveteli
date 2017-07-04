@@ -71,6 +71,7 @@ require 'yaml'
 # "false" or "no".
 DEFAULTS = {
   'fqdn' => 'alaveteli.10.10.10.30.xip.io',
+  'ip' => '10.10.10.30',
   'memory' => 1536,
   'themes_dir' => '../alaveteli-themes',
   'os' => 'wheezy64',
@@ -125,7 +126,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     box
   end
   config.vm.box_url = box_url
-  config.vm.network :private_network, :ip => "10.10.10.30"
+  config.vm.network :private_network, ip: SETTINGS['ip']
 
   if SETTINGS['use_nfs']
     config.vm.synced_folder ".", "/home/vagrant/alaveteli", :nfs => true
