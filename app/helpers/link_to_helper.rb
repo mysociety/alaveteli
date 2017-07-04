@@ -52,6 +52,21 @@ module LinkToHelper
     comment_url(comment, options.merge(:only_path => true))
   end
 
+  # Used in mailers where we want to give a link to a new response
+  def new_response_url(info_request, incoming_message)
+    if info_request.user.is_pro?
+      # Pro users will always need to log in, so we have to give them a link
+      # which forces that
+      message_url = incoming_message_url(incoming_message, :cachebust => true)
+      signin_url(:r => message_url)
+    else
+      # For normal users, we try not to use a login link here, just the
+      # actual URL. This is because people tend to forward these emails
+      # amongst themselves.
+      incoming_message_url(incoming_message, :cachebust => true)
+    end
+  end
+
   # Respond to request
   def respond_to_last_url(info_request, options = {})
     last_response = info_request.get_last_public_response

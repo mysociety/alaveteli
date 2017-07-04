@@ -38,6 +38,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  include AlaveteliFeatures::Helpers
   rolify
   strip_attributes :allow_empty => true
 
@@ -89,6 +90,8 @@ class User < ActiveRecord::Base
   has_many :request_summaries,
            :dependent => :destroy,
            :class_name => AlaveteliPro::RequestSummary
+  has_many :notifications,
+           :dependent => :destroy
 
 
   scope :not_banned, -> { where(ban_text: "") }
@@ -593,6 +596,48 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Notify a user about an info_request_event, allowing the user's preferences
+  # to determine how that notification is delivered.
+  def notify(info_request_event)
+    Notification.create(
+      info_request_event: info_request_event,
+      frequency: Notification.frequencies[self.notification_frequency],
+      user: self
+    )
+  end
+
+  # Return a timestamp for the next time a user should be sent a daily summary
+  def next_daily_summary_time
+    summary_time = Time.zone.now.change(self.daily_summary_time)
+    summary_time += 1.day if summary_time < Time.zone.now
+    summary_time
+  end
+
+  def daily_summary_time
+    {
+      hour: self.daily_summary_hour,
+      min: self.daily_summary_minute
+    }
+  end
+
+  # With what frequency does the user want to be notified?
+  def notification_frequency
+    if feature_enabled? :notifications, self
+      Notification::DAILY
+    else
+      Notification::INSTANTLY
+    end
+  end
+
+  # Define an id number for use with the Flipper gem's user-by-user feature
+  # flagging. We prefix with the class because features can be enabled for
+  # other types of objects (e.g Roles) in the same way and will be stored in
+  # the same table. See:
+  # https://github.com/jnunemaker/flipper/blob/master/docs/Gates.md
+  def flipper_id
+    return "User;#{id}"
+  end
+
   private
 
   def create_new_salt
@@ -607,6 +652,13 @@ class User < ActiveRecord::Base
       # make alert emails go out at a random time for each new user, so
       # overall they are spread out throughout the day.
       self.last_daily_track_email = User.random_time_in_last_day
+      # Make daily summary emails go out at a random time for each new user
+      # too, if it's not already set
+      if self.daily_summary_hour.nil? && self.daily_summary_minute.nil?
+        random_time = User.random_time_in_last_day
+        self.daily_summary_hour = random_time.hour
+        self.daily_summary_minute = random_time.min
+      end
     end
   end
 

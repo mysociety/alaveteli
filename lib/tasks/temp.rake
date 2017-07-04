@@ -90,7 +90,9 @@ namespace :temp do
   task :populate_request_due_dates => :environment do
     ActiveRecord::Base.record_timestamps = false
     begin
-      InfoRequest.find_each(:conditions => 'last_event_forming_initial_request_id is NULL') do |info_request|
+      InfoRequest.
+        where('last_event_forming_initial_request_id is NULL').
+          find_each do |info_request|
         sent_event = info_request.last_event_forming_initial_request
         info_request.last_event_forming_initial_request_id = sent_event.id
         info_request.date_initial_request_last_sent_at = sent_event.created_at.to_date
@@ -345,5 +347,20 @@ namespace :temp do
   desc 'Set use_notifications to false on all existing requests'
   task :set_use_notifications => :environment do
     InfoRequest.update_all use_notifications: false
+  end
+
+  desc 'Set a default time for users daily summary notifications'
+  task :set_daily_summary_times => :environment do
+    query = "UPDATE users " \
+            "SET daily_summary_hour = floor(random() * 24), " \
+            "daily_summary_minute = floor(random() * 60)"
+    ActiveRecord::Base.connection.execute(query)
+  end
+
+  desc 'Remove notifications_tester role'
+  task :remove_notifications_tester_role => :environment do
+    if Role.where(name: 'notifications_tester').exists?
+      Role.where(name: 'notifications_tester').destroy_all
+    end
   end
 end

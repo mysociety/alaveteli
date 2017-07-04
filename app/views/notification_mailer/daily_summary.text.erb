@@ -1,0 +1,10 @@
+<%= _("Here's your daily request summary from {{site_name}}",
+      site_name: AlaveteliConfiguration.site_name.html_safe) %>
+
+<% @grouped_notifications.each do |request, notifications| %>
+<%= render :partial => "notification_mailer/#{request.to_partial_path}",
+           :locals => { request.class.model_name.param_key.to_sym => request,
+                        :notifications => notifications } %>
+<% end %>
+
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>

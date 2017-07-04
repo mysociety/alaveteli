@@ -79,18 +79,6 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that a new response has arrived
   def new_response(info_request, incoming_message)
-    if info_request.user.is_pro?
-      # Pro users will always need to log in, so we have to give them a link
-      # which forces that
-      message_url = incoming_message_url(incoming_message, :cachebust => true)
-      @url = signin_url(:r => message_url)
-    else
-      # For normal users, we try not to use a login link here, just the
-      # actual URL. This is because people tend to forward these emails
-      # amongst themselves.
-      @url = incoming_message_url(incoming_message, :cachebust => true)
-    end
-
     @incoming_message, @info_request = incoming_message, info_request
 
     set_reply_to_headers(info_request.user)

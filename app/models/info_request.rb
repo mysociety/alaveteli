@@ -39,6 +39,7 @@ class InfoRequest < ActiveRecord::Base
   include AdminColumn
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
+  include AlaveteliFeatures::Helpers
 
   @non_admin_columns = %w(title url_title)
 
@@ -512,8 +513,16 @@ class InfoRequest < ActiveRecord::Base
 
       # Notify the user that a new response has been received, unless the
       # request is external
-      unless is_external? or use_notifications?
-        RequestMailer.new_response(self, incoming_message).deliver
+      unless is_external?
+        if use_notifications?
+          info_request_event = info_request_events.find_by(
+            event_type: 'response',
+            incoming_message_id: incoming_message.id
+          )
+          self.user.notify(info_request_event)
+        else
+          RequestMailer.new_response(self, incoming_message).deliver
+        end
       end
     end
   end
@@ -1676,7 +1685,7 @@ class InfoRequest < ActiveRecord::Base
 
   def set_use_notifications
     if use_notifications.nil?
-      self.use_notifications = !!user.try(:is_notifications_tester?) && \
+      self.use_notifications = feature_enabled?(:notifications, user) && \
                                info_request_batch_id.present?
     end
     return true
