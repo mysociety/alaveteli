@@ -154,7 +154,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     host = RbConfig::CONFIG['host_os']
     # Give VM access to all cpu cores on the host
     if host =~ /darwin/
-      cpus = `sysctl -n hw.physicalcpu`.to_i
+      cpus = `sysctl -n hw.ncpu`.to_i
     elsif host =~ /linux/
       cpus = `nproc`.to_i
     else # sorry Windows folks, I can't help you
