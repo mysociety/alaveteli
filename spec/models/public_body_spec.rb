@@ -77,6 +77,13 @@ describe PublicBody do
 
   describe '#request_email' do
 
+    it 'is invalid when nil' do
+      subject = described_class.new(:request_email => nil)
+      subject.valid?
+      expect(subject.errors[:request_email]).
+        to eq(["Request email can't be nil"])
+    end
+
     context "when the email is set" do
 
       subject(:public_body) do
@@ -240,6 +247,130 @@ describe PublicBody do
       existing = subject.api_key
       subject.save!
       expect(subject.api_key).to eq(existing)
+    end
+
+  end
+
+  describe '#last_edit_editor' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:last_edit_editor => nil)
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).
+        to eq(["Last edit editor can't be blank"])
+    end
+
+    it 'is invalid when blank' do
+      subject = PublicBody.new(:last_edit_editor => '')
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).
+        to eq(["Last edit editor can't be blank"])
+    end
+
+    it 'is invalid when over 255 characters' do
+      subject = PublicBody.new(:last_edit_editor => 'x' * 256)
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).
+        to eq(["Last edit editor can't be longer than 255 characters"])
+    end
+
+    it 'is valid up to 255 characters' do
+      subject = PublicBody.new(:last_edit_editor => 'x' * 255)
+      subject.valid?
+      expect(subject.errors[:last_edit_editor]).to be_empty
+    end
+
+  end
+
+  describe '#last_edit_comment' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:last_edit_comment => nil)
+      subject.valid?
+      expect(subject.errors[:last_edit_comment]).
+        to eq(["Last edit comment can't be nil"])
+    end
+
+    it 'is valid when blank' do
+      subject = PublicBody.new(:last_edit_comment => '')
+      subject.valid?
+      expect(subject.errors[:last_edit_comment]).to be_empty
+    end
+
+  end
+
+  describe '#home_page' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:home_page => nil)
+      subject.valid?
+      expect(subject.errors[:home_page]).to eq(["Home page can't be nil"])
+    end
+
+    it 'is valid when blank' do
+      subject = PublicBody.new(:home_page => '')
+      subject.valid?
+      expect(subject.errors[:home_page]).to be_empty
+    end
+
+  end
+
+  describe '#notes' do
+
+    it 'is invalid when nil' do
+      skip <<-EOF.strip_heredoc.squish
+      This spec should pass but the behaviour between translated attributes
+      differs. Translated attributes get the default value from the database,
+      but untranslated attributes do not.
+      EOF
+      subject = PublicBody.new(:notes => nil)
+      subject.valid?
+      expect(subject.errors[:notes]).to eq(["Notes can't be nil"])
+    end
+
+    it 'is valid when blank' do
+      subject = PublicBody.new(:notes => '')
+      subject.valid?
+      expect(subject.errors[:notes]).to be_empty
+    end
+
+  end
+
+  describe '#publication_scheme' do
+
+    it 'is invalid when nil' do
+      skip <<-EOF.strip_heredoc.squish
+      This spec should pass but the behaviour between translated attributes
+      differs. Translated attributes get the default value from the database,
+      but untranslated attributes do not.
+      EOF
+      subject = PublicBody.new(:publication_scheme => nil)
+      subject.valid?
+      expect(subject.errors[:publication_scheme]).
+        to eq(["Publication scheme can't be nil"])
+    end
+
+    it 'is valid when blank' do
+      subject = PublicBody.new(:publication_scheme => '')
+      subject.valid?
+      expect(subject.errors[:publication_scheme]).to be_empty
+    end
+
+  end
+
+  describe '#disclosure_log' do
+
+    it 'is invalid when nil' do
+      subject = PublicBody.new(:disclosure_log => nil)
+      subject.valid?
+      expect(subject.errors[:disclosure_log]).
+        to eq(["Disclosure log can't be nil"])
+    end
+
+    it 'is valid when blank' do
+      subject = PublicBody.new(:disclosure_log => '')
+      subject.valid?
+      expect(subject.errors[:disclosure_log]).to be_empty
     end
 
   end
