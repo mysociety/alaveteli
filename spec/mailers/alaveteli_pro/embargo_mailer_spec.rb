@@ -110,15 +110,6 @@ describe AlaveteliPro::EmbargoMailer do
         expect(@message.subject).to eq expected_subject
       end
 
-      it "prints the message correctly" do
-        expected_body = "The following request will be made public on Alaveteli in the " \
-                        "next week. If you do not wish this request to go public at that " \
-                        "time, please click on the link below to keep it private for longer.\n\n" \
-                        "  #{request_url(expiring_1)}\n\n" \
-                        "-- the #{AlaveteliConfiguration.site_name} team\n"
-        expect(@message.body).to eq expected_body
-      end
-
       it "sends the email to the user" do
         expect(@message.to).to eq [pro_user.email]
       end
@@ -137,16 +128,6 @@ describe AlaveteliPro::EmbargoMailer do
       it 'sets the subject correctly' do
         expected_subject = '2 requests will be made public on Alaveteli this week'
         expect(@message.subject).to eq expected_subject
-      end
-
-      it "prints the message correctly" do
-        expected_body = "The following requests will be made public on Alaveteli in the " \
-                        "next week. If you do not wish for any of these requests to go " \
-                        "public, please click on the links below to extend them.\n\n" \
-                        "  #{request_url(expiring_1)}\n" \
-                        "  #{request_url(expiring_2)}\n\n" \
-                        "-- the #{AlaveteliConfiguration.site_name} team\n"
-        expect(@message.body).to eq expected_body
       end
 
       it "sends the email to the user" do

@@ -25,6 +25,17 @@ describe "alaveteli_pro/embargo_mailer/expiring_alert.text.erb" do
       expect(response).to match("Something & something")
       expect(response).not_to match("Something &amp; something")
     end
+
+    it "prints the message correctly" do
+      expected_body = "The following request will be made public on " \
+                      "Something & something in the next week. If you do " \
+                      "not wish this request to go public at that time, " \
+                      "please click on the link below to keep it private " \
+                      "for longer.\n\n" \
+                      "  #{request_url(expiring_1)}\n\n" \
+                      "-- the Something & something team\n"
+      expect(response).to eq expected_body
+    end
   end
 
   context "when there are multiple requests" do
@@ -36,6 +47,17 @@ describe "alaveteli_pro/embargo_mailer/expiring_alert.text.erb" do
     it "does not HTML escape the site name" do
       expect(response).to match("Something & something")
       expect(response).not_to match("Something &amp; something")
+    end
+
+    it "prints the message correctly" do
+      expected_body = "The following requests will be made public on " \
+                      "Something & something in the next week. If you do " \
+                      "not wish for any of these requests to go public, " \
+                      "please click on the links below to extend them.\n\n" \
+                      "  #{request_url(expiring_1)}\n" \
+                      "  #{request_url(expiring_2)}\n\n" \
+                      "-- the Something & something team\n"
+      expect(response).to eq expected_body
     end
   end
 end
