@@ -42,7 +42,7 @@ module AlaveteliPro
         "{{count}} request will be made public on {{site_name}} this week",
         "{{count}} requests will be made public on {{site_name}} this week",
         info_requests.count,
-        :site_name => AlaveteliConfiguration.site_name,
+        :site_name => AlaveteliConfiguration.site_name.html_safe,
         :count => info_requests.count)
       auto_generated_headers
       mail_user(@user, subject)

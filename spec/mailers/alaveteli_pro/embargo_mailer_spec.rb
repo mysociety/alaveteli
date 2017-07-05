@@ -157,5 +157,15 @@ describe AlaveteliPro::EmbargoMailer do
         expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
       end
     end
+
+    it "Doesn't escape characters in the site name in the subject line" do
+      allow(AlaveteliConfiguration).
+        to receive(:site_name).and_return("Something & something")
+      @message = AlaveteliPro::EmbargoMailer.
+        expiring_alert(pro_user, [expiring_1])
+      escaped_subject = "1 request will be made public on Something &amp; " \
+                        "something this week"
+      expect(@message.subject).not_to eq escaped_subject
+    end
   end
 end
