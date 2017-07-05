@@ -90,13 +90,10 @@ class NotificationMailer < ApplicationMailer
     set_reply_to_headers(@info_request.user)
     set_auto_generated_headers
 
-    mail(
-      :from => contact_for_user(@info_request.user),
-      :to => @info_request.user.name_and_email,
-      :subject => _("New response to your FOI request - {{request_title}}",
-                    :request_title => @info_request.title.html_safe),
-      :charset => "UTF-8",
-      :template_name => 'new_response'
-    )
+    subject = _("New response to your FOI request - {{request_title}}",
+                :request_title => @info_request.title.html_safe)
+    mail_user(@info_request.user,
+              subject,
+              template_name: 'response_notification')
   end
 end

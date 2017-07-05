@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "notification_mailer/new_response" do
+describe "notification_mailer/response_notification.text.erb" do
   let(:notification) { FactoryGirl.create(:notification) }
   let(:info_request_event) { notification.info_request_event }
   let(:incoming_message) { info_request_event.incoming_message }
