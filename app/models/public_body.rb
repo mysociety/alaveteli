@@ -67,16 +67,10 @@ class PublicBody < ActiveRecord::Base
 
   validates :request_email,
             not_nil: { message: N_("Request email can't be nil") }
-  validates :last_edit_comment,
-            not_nil: { message: N_("Last edit comment can't be nil") }
-  validates :home_page, not_nil: { message: N_("Home page can't be nil") }
-  validates :notes, not_nil: { message: N_("Notes can't be nil") }
-  validates :publication_scheme,
-            not_nil: { message: N_("Publication scheme can't be nil") }
-  validates :disclosure_log,
-            not_nil: { message: N_("Disclosure log can't be nil") }
 
-  validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
+  validates_uniqueness_of :short_name,
+                          :message => N_("Short name is already taken"),
+                          :allow_blank => true
   validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
   validates_uniqueness_of :name, :message => N_("Name is already taken")
 
@@ -88,7 +82,6 @@ class PublicBody < ActiveRecord::Base
   validate :request_email_if_requestable
 
   before_save :set_api_key!, :unless => :api_key
-  before_save :set_default_publication_scheme
   after_save :purge_in_cache
   after_update :reindex_requested_from
 
@@ -108,7 +101,10 @@ class PublicBody < ActiveRecord::Base
   ],
   :eager_load => [:translations]
   has_tag_string
-  strip_attributes :allow_empty => true
+
+  strip_attributes :allow_empty => false, :except => [:request_email]
+  strip_attributes :allow_empty => true, :only => [:request_email]
+
   translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
   # Cannot be grouped at top as it depends on the `translates` macro
@@ -587,8 +583,8 @@ class PublicBody < ActiveRecord::Base
       # information
       # :version, :last_edit_editor, :last_edit_comment
       :home_page => calculated_home_page,
-      :notes => notes,
-      :publication_scheme => publication_scheme,
+      :notes => notes.to_s,
+      :publication_scheme => publication_scheme.to_s,
       :tags => tag_array,
       :info => {
         :requests_count => info_requests_count,
@@ -717,15 +713,6 @@ class PublicBody < ActiveRecord::Base
   end
 
   private
-
-  # TODO: This could be removed by updating the default value (to '') of the
-  # `publication_scheme` column in the `public_body_translations` table.
-  def set_default_publication_scheme
-    # Make sure publication_scheme gets the correct default value.
-    # (This would work automatically, were publication_scheme not a
-    # translated attribute)
-    self.publication_scheme = "" if publication_scheme.nil?
-  end
 
   # if the URL name has changed, then all requested_from: queries
   # will break unless we update index for every event for every
