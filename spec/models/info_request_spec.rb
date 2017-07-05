@@ -303,7 +303,10 @@ describe InfoRequest do
     it 'logs a rejected reason' do
       info_request = FactoryGirl.create(:info_request)
       email, raw_email = email_and_raw_email
-      info_request.receive(email, raw_email, false, 'rejected for testing')
+      info_request.
+        receive(email,
+                raw_email,
+                :rejected_reason => 'rejected for testing')
       expect(info_request.info_request_events.last.params[:rejected_reason]).
         to eq('rejected for testing')
     end
@@ -465,7 +468,9 @@ describe InfoRequest do
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
-        info_request.receive(email, raw_email, true)
+        info_request.receive(email,
+                             raw_email,
+                             :override_stop_new_responses => true)
         expect(info_request.incoming_messages.size).to eq(1)
       end
 
@@ -494,7 +499,9 @@ describe InfoRequest do
                   :handle_rejected_responses => 'holding_pen' }
         info_request = FactoryGirl.create(:info_request, attrs)
         email, raw_email = email_and_raw_email(:raw_email => spam_email)
-        info_request.receive(email, raw_email, true)
+        info_request.receive(email,
+                             raw_email,
+                             :override_stop_new_responses => true)
         expect(info_request.incoming_messages.size).to eq(1)
       end
 
@@ -561,7 +568,8 @@ describe InfoRequest do
         info_request.update_attribute(:handle_rejected_responses, 'unknown_value')
         email, raw_email = email_and_raw_email
         err = InfoRequest::ResponseRejection::UnknownResponseRejectionError
-        expect { info_request.receive(email, raw_email) }.to raise_error(err)
+        expect { info_request.receive(email, raw_email) }.
+          to raise_error(err)
       end
 
     end

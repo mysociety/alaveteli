@@ -781,7 +781,10 @@ class RequestController < ApplicationController
 
       mail = RequestMailer.fake_response(@info_request, @user, body, file_name, file_content)
 
-      @info_request.receive(mail, mail.encoded, true)
+      @info_request.
+        receive(mail,
+                mail.encoded,
+                :override_stop_new_responses => true)
       flash[:notice] = _("Thank you for responding to this FOI request! " \
                            "Your response has been published below, and a " \
                            "link to your response has been emailed to {{user_name}}.",

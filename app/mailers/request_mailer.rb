@@ -250,13 +250,17 @@ class RequestMailer < ApplicationMailer
 
   # Member function, called on the new class made in self.receive above
   def receive(email, raw_email)
+    opts = {}
     # Find which info requests the email is for
     reply_info_requests = self.requests_matching_email(email)
     # Nothing found, so save in holding pen
     if reply_info_requests.size == 0
-      reason = _("Could not identify the request from the email address")
+      opts[:rejected_reason] =
+        _("Could not identify the request from the email address")
       request = InfoRequest.holding_pen_request
-      request.receive(email, raw_email, false, reason) unless SpamAddress.spam?(email.to)
+      unless SpamAddress.spam?(email.to)
+        request.receive(email, raw_email, opts)
+      end
       return
     end
 
@@ -268,7 +272,7 @@ class RequestMailer < ApplicationMailer
           raise "message " + email.message_id + " already received by request"
         end
       end
-      reply_info_request.receive(email, raw_email)
+      reply_info_request.receive(email, raw_email, opts)
     end
   end
 

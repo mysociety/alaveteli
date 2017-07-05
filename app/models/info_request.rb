@@ -499,11 +499,30 @@ class InfoRequest < ActiveRecord::Base
     false
   end
 
-  # A new incoming email to this request
-  def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
+  def receive(email, raw_email_data, *args)
+    defaults = { :override_stop_new_responses => false,
+                 :rejected_reason => nil,
+                 :source => :internal }
+
+    opts = if args.first.is_a?(Hash)
+      defaults.merge(args.shift)
+    elsif args.empty?
+      defaults
+    else
+      warn %q([DEPRECATION] InfoRequest#receive with these params will be
+          removed in 0.31. It has been replaced a method which accepts
+          an options hash as its third argument. :override_stop_new_responses
+          and :rejected_reason are valid keys to that hash).squish
+      arg_opts = {}
+      arg_opts[:override_stop_new_responses] = args[0] unless args[0].nil?
+      arg_opts[:rejected_reason] = args[1] unless args[1].nil?
+
+      defaults.merge(arg_opts)
+    end
+
     # Is this request allowing responses?
     accepted =
-      if override_stop_new_responses
+      if opts[:override_stop_new_responses]
         true
       else
         accept_incoming?(email, raw_email_data)
@@ -511,7 +530,7 @@ class InfoRequest < ActiveRecord::Base
 
     if accepted
       incoming_message =
-        create_response!(email, raw_email_data, rejected_reason)
+        create_response!(email, raw_email_data, opts[:rejected_reason])
 
       # Notify the user that a new response has been received, unless the
       # request is external
@@ -521,7 +540,7 @@ class InfoRequest < ActiveRecord::Base
             event_type: 'response',
             incoming_message_id: incoming_message.id
           )
-          self.user.notify(info_request_event)
+          user.notify(info_request_event)
         else
           RequestMailer.new_response(self, incoming_message).deliver
         end
