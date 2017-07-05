@@ -96,4 +96,21 @@ class NotificationMailer < ApplicationMailer
               subject,
               template_name: 'response_notification')
   end
+
+  def embargo_expiring_notification(notification)
+    @info_request = notification.info_request_event.info_request
+
+    set_reply_to_headers(@info_request.user)
+    set_auto_generated_headers
+
+    subject = _(
+      "Your FOI request - {{request_title}} will be made public on " \
+      "{{site_name}} this week",
+      :request_title => @info_request.title.html_safe,
+      :site_name => AlaveteliConfiguration.site_name.html_safe)
+
+    mail_user(@info_request.user,
+              subject,
+              template_name: 'embargo_expiring_notification')
+  end
 end
