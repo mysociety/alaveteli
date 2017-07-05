@@ -55,7 +55,7 @@ describe AlaveteliMailPoller do
 
       it 'sends the mail to RequestMailer.receive' do
         expect(RequestMailer).to receive(:receive).
-          with(mockpop3.mails.first.pop)
+          with(mockpop3.mails.first.pop, :poller)
         poller.poll_for_incoming
       end
 
@@ -139,7 +139,7 @@ describe AlaveteliMailPoller do
 
         before do
           allow(RequestMailer).to receive(:receive).
-            with(mockpop3.mails.first.pop).
+            with(mockpop3.mails.first.pop, :poller).
               and_raise(ActiveRecord::StatementInvalid.new("Deadlock"))
         end
 
@@ -184,12 +184,15 @@ describe AlaveteliMailPoller do
             to be nil
         end
 
-        it 'sends the response notification and an exception notification' do
+        it 'passes the mail to the RequestMailer' do
+          expect(RequestMailer).to receive(:receive).
+            with(mockpop3.mails.first.pop, :poller)
           poller.poll_for_incoming
-          response_notification =  ActionMailer::Base.deliveries.first
-          expect(response_notification.subject).
-            to eq('New response to your FOI request - Holding pen')
-          exception_notification = ActionMailer::Base.deliveries.second
+        end
+
+        it 'sends an exception notification' do
+          poller.poll_for_incoming
+          exception_notification = ActionMailer::Base.deliveries.first
           expect(exception_notification.subject).
             to eq('[ERROR] (Net::POPError) "Error code"')
         end
@@ -252,7 +255,7 @@ describe AlaveteliMailPoller do
 
           it 'sends it to RequestMailer.receive' do
             expect(RequestMailer).to receive(:receive).
-              with mockpop3.mails.first.pop
+              with mockpop3.mails.first.pop, :poller
             poller.poll_for_incoming
           end
 

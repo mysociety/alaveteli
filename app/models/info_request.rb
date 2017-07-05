@@ -520,29 +520,31 @@ class InfoRequest < ActiveRecord::Base
       defaults.merge(arg_opts)
     end
 
-    # Is this request allowing responses?
-    accepted =
-      if opts[:override_stop_new_responses]
-        true
-      else
-        accept_incoming?(email, raw_email_data)
-      end
-
-    if accepted
-      incoming_message =
-        create_response!(email, raw_email_data, opts[:rejected_reason])
-
-      # Notify the user that a new response has been received, unless the
-      # request is external
-      unless is_external?
-        if use_notifications?
-          info_request_event = info_request_events.find_by(
-            event_type: 'response',
-            incoming_message_id: incoming_message.id
-          )
-          user.notify(info_request_event)
+    if receive_mail_from_source? opts[:source]
+      # Is this request allowing responses?
+      accepted =
+        if opts[:override_stop_new_responses]
+          true
         else
-          RequestMailer.new_response(self, incoming_message).deliver
+          accept_incoming?(email, raw_email_data)
+        end
+
+      if accepted
+        incoming_message =
+          create_response!(email, raw_email_data, opts[:rejected_reason])
+
+        # Notify the user that a new response has been received, unless the
+        # request is external
+        unless is_external?
+          if use_notifications?
+            info_request_event = info_request_events.find_by(
+              event_type: 'response',
+              incoming_message_id: incoming_message.id
+            )
+            user.notify(info_request_event)
+          else
+            RequestMailer.new_response(self, incoming_message).deliver
+          end
         end
       end
     end
@@ -1584,6 +1586,20 @@ class InfoRequest < ActiveRecord::Base
   end
 
   private
+
+  def receive_mail_from_source?(source)
+    if source == :internal
+      true
+    elsif feature_enabled?(:accept_mail_from_anywhere)
+      true
+    else
+      if feature_enabled?(:accept_mail_from_poller, user)
+        source == :poller
+      else
+        source == :mailin
+      end
+    end
+  end
 
   def self.log_overdue_event_type(event_type)
     date_field = case event_type

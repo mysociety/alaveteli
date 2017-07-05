@@ -229,10 +229,12 @@ class RequestMailer < ApplicationMailer
   # actual original mail sent by the authority in the admin interface (so
   # can check that attachment decoding failures are problems in the message,
   # not in our code). ]
-  def self.receive(raw_email)
-    logger.info "Received mail:\n #{raw_email}" unless logger.nil?
+  def self.receive(raw_email, source = :mailin)
+    unless logger.nil?
+      logger.info "Received mail from #{source}:\n #{raw_email}"
+    end
     mail = MailHandler.mail_from_raw_email(raw_email)
-    new.receive(mail, raw_email)
+    new.receive(mail, raw_email, source)
   end
 
   # Find which info requests the email is for
@@ -249,8 +251,8 @@ class RequestMailer < ApplicationMailer
   end
 
   # Member function, called on the new class made in self.receive above
-  def receive(email, raw_email)
-    opts = {}
+  def receive(email, raw_email, source = :mailin)
+    opts = { :source => source }
     # Find which info requests the email is for
     reply_info_requests = self.requests_matching_email(email)
     # Nothing found, so save in holding pen

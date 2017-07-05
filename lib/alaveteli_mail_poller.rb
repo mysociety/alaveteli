@@ -52,7 +52,7 @@ class AlaveteliMailPoller
       unique_id = popmail.unique_id
       if retrieve?(unique_id)
         raw_email = popmail.pop
-        RequestMailer.receive(raw_email)
+        RequestMailer.receive(raw_email, :poller)
         received = true
         popmail.delete
       end

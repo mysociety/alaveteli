@@ -361,6 +361,93 @@ describe InfoRequest do
 
     end
 
+    describe 'receiving mail from different sources' do
+      let(:info_request){ FactoryGirl.create(:info_request) }
+
+      it 'processes mail where no source is specified' do
+        email, raw_email = email_and_raw_email
+        info_request.receive(email, raw_email)
+        expect(info_request.incoming_messages.size).to eq(1)
+        expect(info_request.incoming_messages.last).to be_persisted
+      end
+
+      context 'when accepting mail from any source is enabled' do
+
+        it 'processes mail where no source is specified' do
+          with_feature_enabled(:accept_mail_from_anywhere) do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+        end
+
+        it 'processes mail from the poller' do
+          with_feature_enabled(:accept_mail_from_anywhere) do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :poller)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+        end
+
+        it 'processes mail from mailin' do
+          with_feature_enabled(:accept_mail_from_anywhere) do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :poller)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+        end
+
+      end
+
+      context 'when accepting mail from any source is not enabled' do
+
+        context 'when accepting mail from the poller is enabled for the
+                 request user' do
+
+          before do
+            AlaveteliFeatures.
+              backend[:accept_mail_from_poller].
+                enable_actor info_request.user
+          end
+
+          it 'processes mail from the poller' do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :poller)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+
+          it 'ignores mail from mailin' do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :mailin)
+            expect(info_request.incoming_messages.size).to eq(0)
+          end
+
+        end
+
+        context 'when accepting mail from the poller is not enabled
+                 for the request user' do
+
+          it 'ignores mail from the poller' do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :poller)
+            expect(info_request.incoming_messages.size).to eq(0)
+          end
+
+          it 'processes mail from mailin' do
+            email, raw_email = email_and_raw_email
+            info_request.receive(email, raw_email, :source => :mailin)
+            expect(info_request.incoming_messages.size).to eq(1)
+            expect(info_request.incoming_messages.last).to be_persisted
+          end
+
+        end
+      end
+    end
+
     context 'allowing new responses' do
 
       it 'from nobody' do
