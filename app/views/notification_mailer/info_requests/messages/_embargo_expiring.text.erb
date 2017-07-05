@@ -1,0 +1,6 @@
+<%= _('This request will be made public on {{site_name}} in the next week. ' \
+      'If you do not wish this request to go public at that time, please ' \
+      'click on the link below to keep it private for longer.',
+      site_name: AlaveteliConfiguration.site_name.html_safe) %>
+
+<%= request_url(info_request) %>
