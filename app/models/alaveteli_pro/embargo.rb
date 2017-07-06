@@ -110,7 +110,9 @@ module AlaveteliPro
           'embargo_expiring',
           { :event_created_at => Time.zone.now },
           { :created_at => embargo.expiring_notification_at })
-        info_request.user.notify(event)
+        if info_request.use_notifications?
+          info_request.user.notify(event)
+        end
       end
     end
 

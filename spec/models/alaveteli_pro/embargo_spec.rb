@@ -229,11 +229,26 @@ describe AlaveteliPro::Embargo, :type => :model do
   end
 
   describe '.log_expiring_events' do
-    let!(:expiring_soon_embargo) { FactoryGirl.create(:expiring_embargo) }
-    let!(:expiring_soon_embargo_2) { FactoryGirl.create(:expiring_embargo) }
-    let!(:expiring_later_embargo) do
-      FactoryGirl.create(:embargo, publish_at: Time.zone.now + 10.days)
+    let!(:expiring_soon_embargo) do
+      FactoryGirl.create(
+        :expiring_embargo,
+        info_request: FactoryGirl.create(:use_notifications_request)
+      )
     end
+    let!(:expiring_soon_embargo_2) do
+      FactoryGirl.create(
+        :expiring_embargo,
+        info_request: FactoryGirl.create(:use_notifications_request)
+      )
+    end
+    let!(:expiring_later_embargo) do
+      FactoryGirl.create(
+        :expiring_embargo,
+        info_request: FactoryGirl.create(:use_notifications_request),
+        publish_at: Time.zone.now + 10.days
+      )
+    end
+    let!(:non_notifications_embargo) { FactoryGirl.create(:expiring_embargo) }
 
     def log_expiring_events
       AlaveteliPro::Embargo.log_expiring_events
@@ -244,7 +259,7 @@ describe AlaveteliPro::Embargo, :type => :model do
     end
 
     it 'logs events for every embargo that is or was expiring soon' do
-      expect { log_expiring_events }.to change { event_count }.by(2)
+      expect { log_expiring_events }.to change { event_count }.by(3)
     end
 
     it 'sets the event created_at time to expiring_notification_at time' do
@@ -261,7 +276,7 @@ describe AlaveteliPro::Embargo, :type => :model do
       expect { log_expiring_events }.not_to change { event_count }
     end
 
-    it "doesn't log events for emabrgoes expiring further in the future" do
+    it "doesn't log events for embargoes expiring further in the future" do
       log_expiring_events
       events = InfoRequestEvent.where(
         event_type: 'embargo_expiring',
@@ -314,6 +329,27 @@ describe AlaveteliPro::Embargo, :type => :model do
             expect { log_expiring_events }.to change { event_count }.by(1)
           end
         end
+      end
+    end
+
+    context "when the request has use_notifications: true" do
+      it "notifies the user of the event" do
+        expect { log_expiring_events }.
+          to change { Notification.count }.by(2)
+      end
+    end
+
+    context "when the request has use_notifications: false" do
+      it "does not notify the user of the event" do
+        log_expiring_events
+        non_notifications_event = InfoRequestEvent.where(
+          event_type: 'embargo_expiring',
+          info_request_id: non_notifications_embargo.info_request_id
+        )
+        notifications = Notification.where(
+          info_request_event_id: non_notifications_event
+        )
+        expect(notifications).not_to exist
       end
     end
   end
