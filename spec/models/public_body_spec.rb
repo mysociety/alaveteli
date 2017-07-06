@@ -31,6 +31,72 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBody do
 
+  describe <<-EOF.squish do
+    temporary tests for Globalize::ActiveRecord::InstanceMethods#read_attribute
+    override
+  EOF
+
+    it 'create without translated name' do
+      body = FactoryGirl.build(:public_body)
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'create with translated name' do
+      body = FactoryGirl.build(:public_body)
+      I18n.with_locale(:es) { body.name = 'hola' }
+
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+    it 'update without translated name' do
+      body = FactoryGirl.create(:public_body)
+      body.reload
+
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'update with translated name' do
+      body = FactoryGirl.create(:public_body)
+      I18n.with_locale(:es) { body.name = 'hola' ; body.save }
+      body.reload
+
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'blank string create without translated name' do
+      body = FactoryGirl.build(:public_body)
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'blank string create with translated name' do
+      body = FactoryGirl.build(:public_body)
+      I18n.with_locale(:es) { body.name = 'hola' }
+
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+    it 'blank string update without translated name' do
+      body = FactoryGirl.create(:public_body)
+      body.reload
+
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'blank string update with translated name' do
+      body = FactoryGirl.create(:public_body)
+      I18n.with_locale(:es) { body.name = 'hola' ; body.save }
+      body.reload
+
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+  end
+
   describe '#name' do
 
     it 'is invalid when nil' do
