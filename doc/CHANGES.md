@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Remove front-end caching from delivery status calculation (Gareth Rees)
 * Improve public body data validations (Gareth Rees)
 * Increase truncation length of comments on admin page so that its easier to
   spot spam without expanding each comment (Gareth Rees)
@@ -23,6 +24,8 @@
   notification tester role from the database.
 
 ### Changed Templates
+
+    app/views/request/_outgoing_correspondence.html.erb
 
 # 0.29.0.0
 
