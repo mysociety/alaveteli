@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Make sure geoip-database-contrib is installed when installing Alaveteli
+  (Gareth Rees)
 * Make sure memcached is installed when installing Alaveteli (Gareth Rees)
 * Improve public body data validations (Gareth Rees)
 * Increase truncation length of comments on admin page so that its easier to
