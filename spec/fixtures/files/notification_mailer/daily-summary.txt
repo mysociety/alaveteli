@@ -21,6 +21,19 @@ To view the response, click on the link below.
 
 http://test.host/en/request/thefts_of_stationary?nocache=incoming-996#incoming-996
 
+This request will be made public on Alaveteli in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer.
+
+http://test.host/en/request/thefts_of_stationary
+
+
+Missing staplers
+----------------
+
+What's happened:
+This request will be made public on Alaveteli in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer.
+
+http://test.host/en/request/missing_staplers
+
 
 Zero hours employees
 --------------------
@@ -34,6 +47,19 @@ What's happened:
 You can see the responses with the following links:
   Ministry of fact keeping: http://test.host/en/request/zero_hours_employees?nocache=incoming-997#incoming-997
   Minor infractions quango: http://test.host/en/request/zero_hours_employees_2?nocache=incoming-998#incoming-998
+
+
+Employees caught stealing stationary
+------------------------------------
+
+2 recipients, including Ministry of fact keeping and Minor infractions quango
+
+2 In progress
+
+What's happened:
+2 requests will be made public on Alaveteli in the next week. If you do not wish these requests to go public at that time, please click on the links below to keep them private for longer.
+  Ministry of fact keeping: http://test.host/en/request/employees_caught_stealing_statio
+  Minor infractions quango: http://test.host/en/request/employees_caught_stealing_statio_2
 
 
 
