@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Make sure memcached is installed when installing Alaveteli (Gareth Rees)
 * Improve public body data validations (Gareth Rees)
 * Increase truncation length of comments on admin page so that its easier to
   spot spam without expanding each comment (Gareth Rees)
@@ -14,6 +15,8 @@
 
 ## Upgrade Notes
 
+* Ensure memcached is installed (`sudo apt-get install memcached`) and running
+  (`sudo service memcached start`).
 * `app/views/track/_track_set.erb` has been renamed to
   `app/views/track/_track_set.html.erb`, so if you've overriden it you will need
   to update the override.

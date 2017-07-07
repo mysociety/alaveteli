@@ -15,6 +15,7 @@ libxml2-dev
 libxslt-dev
 links
 lockfile-progs
+memcached
 mutt
 pdftk
 php5-cli
