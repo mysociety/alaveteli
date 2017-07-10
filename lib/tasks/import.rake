@@ -54,17 +54,19 @@ namespace :import do
     STDERR.puts 'Now importing the public bodies...'
 
     # Now it's (probably) safe to try to import:
-    errors, notes = PublicBody.import_csv_from_file(tmp_csv.path,
-                                                    tag='',
-                                                    tag_behaviour='replace',
-                                                    dryrun,
-                                                    editor="#{ENV['USER']} (Unix user)",
+    tag = ''
+    tag_behaviour = 'replace'
+    editor = "#{ ENV['USER'] } (Unix user)"
+    locales = FastGettext.default_available_locales
 
-    FastGettext.default_available_locales) do |row_number, fields|
-      percent_complete = (100 * row_number.to_f / number_of_rows).to_i
-      STDERR.print "#{row_number} out of #{number_of_rows} "
-      STDERR.puts "(#{percent_complete}% complete)"
-    end
+    import_args = [tmp_csv.path, tag, tag_behaviour, dryrun, editor, locales]
+
+    errors, notes =
+      PublicBody.import_csv_from_file(*import_args) do |row_number, fields|
+        percent_complete = (100 * row_number.to_f / number_of_rows).to_i
+        STDERR.print "#{row_number} out of #{number_of_rows} "
+        STDERR.puts "(#{percent_complete}% complete)"
+      end
 
     if errors.length > 0
       STDERR.puts 'Import failed, with the following errors:'
