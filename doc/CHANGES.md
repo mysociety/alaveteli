@@ -17,6 +17,9 @@
 * `app/views/track/_track_set.erb` has been renamed to
   `app/views/track/_track_set.html.erb`, so if you've overriden it you will need
   to update the override.
+* `app/views/general/_opengraph_tags.erb` has been renamed to
+  `app/views/general/_opengraph_tags.html.erb`, so if you've overriden it you
+  will need to update the override.
 * Run `bundle exec rake temp:populate_last_event_time` after deployment to populate
   the cached `last_event_time` attribute on info_requests, used in the admin interface.
 * Run `bundle exec rake temp:remove_notifications_tester_role` to remove the
