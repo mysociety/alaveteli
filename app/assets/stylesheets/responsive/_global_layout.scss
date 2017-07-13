@@ -207,10 +207,12 @@ textarea{
  *  Drop-down style action button
  */
 
-.action-menu__menu--right {
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    left: auto; /* dropdown left or right */
-    right: 0;
+.request-header__action-bar__actions {
+  .action-menu__menu {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      left: auto; /* dropdown left or right */
+      right: 0;
+    }
   }
 }
 
