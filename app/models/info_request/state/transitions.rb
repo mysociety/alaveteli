@@ -156,47 +156,47 @@ class InfoRequest
       end
 
       def self.pro_waiting_response_transition_label(opts = {})
-        _("Waiting for a response")
+        State.short_description('waiting_response')
       end
 
       def self.pro_not_held_transition_label(opts = {})
-        _("Information not held")
+        State.short_description('not_held')
       end
 
       def self.pro_rejected_transition_label(opts = {})
-        _("Refused")
+        State.short_description('rejected')
       end
 
       def self.pro_partially_successful_transition_label(opts = {})
-        _("Partially successful")
+        State.short_description('partially_successful')
       end
 
       def self.pro_successful_transition_label(opts = {})
-        _("Successful")
+        State.short_description('successful')
       end
 
       def self.pro_waiting_clarification_transition_label(opts = {})
-        _("Waiting for clarification")
+        State.short_description('waiting_clarification')
       end
 
       def self.pro_gone_postal_transition_label(opts = {})
-        _("Replying by post")
+        State.short_description('gone_postal')
       end
 
       def self.pro_internal_review_transition_label(opts = {})
-        _("Waiting for an internal review")
+        State.short_description('internal_review')
       end
 
       def self.pro_error_message_transition_label(opts = {})
-        _("There's an error message")
+        State.short_description('error_message')
       end
 
       def self.pro_requires_admin_transition_label(opts = {})
-        _("Requires administrator attention")
+        State.short_description('requires_admin')
       end
 
       def self.pro_user_withdrawn_transition_label(opts = {})
-        _("I want to withdraw this request")
+        State.short_description('user_withdrawn')
       end
     end
   end

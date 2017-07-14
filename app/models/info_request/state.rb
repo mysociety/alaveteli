@@ -27,7 +27,7 @@ class InfoRequest
 
     def self.short_description(state)
       descriptions = {
-            'waiting_classification'        => _("Awaiting classification"),
+            'waiting_classification'        => _("Needs status update"),
             'waiting_response'              => _("Awaiting response"),
             'waiting_response_overdue'      => _("Delayed"),
             'waiting_response_very_overdue' => _("Long overdue"),
@@ -35,11 +35,11 @@ class InfoRequest
             'rejected'                      => _("Refused"),
             'partially_successful'          => _("Partially successful"),
             'successful'                    => _("Successful"),
-            'waiting_clarification'         => _("Waiting clarification"),
+            'waiting_clarification'         => _("Awaiting clarification"),
             'gone_postal'                   => _("Handled by post"),
             'internal_review'               => _("Awaiting internal review"),
             'error_message'                 => _("Delivery error"),
-            'requires_admin'                => _("Unusual response"),
+            'requires_admin'                => _("Requires admin attention"),
             'attention_requested'           => _("Reported"),
             'user_withdrawn'                => _("Withdrawn"),
             'vexatious'                     => _("Vexatious"),
