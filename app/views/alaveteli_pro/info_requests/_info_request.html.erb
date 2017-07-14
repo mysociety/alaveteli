@@ -13,7 +13,10 @@
 
     <div class="request__status">
       <span class="request__meta__label"><%= _('Status') %></span>
-      <p><span class="phase-icon phase-icon--<%= InfoRequest::State.phase_params[info_request.state.phase] %>"></span><%= InfoRequest::State.short_description(info_request.calculate_status) %></p>
+      <p>
+        <span class="phase-icon phase-icon--<%= InfoRequest::State.phase_params[info_request.state.phase] %>"></span>
+        <%= phase_and_state(info_request) %>
+      </p>
     </div>
 
     <div class="request__recipient">

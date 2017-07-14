@@ -15,4 +15,17 @@ module AlaveteliPro::InfoRequestsHelper
     end
     options.unshift([_("Choose a duration"), ''])
   end
+
+  def phase_and_state(info_request)
+    phase_label = InfoRequest::State.
+                    phase_hash[info_request.state.phase][:capital_label]
+    state_label = InfoRequest::State.
+                    short_description(info_request.calculate_status)
+    if phase_label.downcase == state_label
+      phase_label
+    else
+      "#{phase_label} - #{state_label}"
+    end
+  end
+
 end

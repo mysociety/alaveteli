@@ -54,4 +54,11 @@ describe ApplicationHelper do
 
   end
 
+  describe '#capitalize' do
+
+    it 'capitalizes the first letter of a string' do
+      expect(capitalize('i came from New York')).to eq('I came from New York')
+    end
+  end
+
 end

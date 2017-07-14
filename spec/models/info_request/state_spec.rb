@@ -29,7 +29,7 @@ describe InfoRequest::State do
 
     it 'returns a short description for a valid state' do
       expect(InfoRequest::State.short_description('attention_requested'))
-        .to eq 'Reported'
+        .to eq 'reported'
     end
 
     it 'raises an error for an unknown state' do

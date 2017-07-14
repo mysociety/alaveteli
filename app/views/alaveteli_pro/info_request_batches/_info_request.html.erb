@@ -8,6 +8,6 @@
     <span class="request__phase-summary-icon
                  request__phase-summary-icon--<%= info_request.state.summarised_phase.to_s.dasherize %>">
     </span>
-    <%= InfoRequest::State.short_description(info_request.calculate_status) %>
+    <%= phase_and_state(info_request) %>
   </p>
 </div>

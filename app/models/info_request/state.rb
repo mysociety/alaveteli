@@ -27,23 +27,23 @@ class InfoRequest
 
     def self.short_description(state)
       descriptions = {
-            'waiting_classification'        => _("Awaiting classification"),
-            'waiting_response'              => _("Awaiting response"),
-            'waiting_response_overdue'      => _("Delayed"),
-            'waiting_response_very_overdue' => _("Long overdue"),
-            'not_held'                      => _("Information not held"),
-            'rejected'                      => _("Refused"),
-            'partially_successful'          => _("Partially successful"),
-            'successful'                    => _("Successful"),
-            'waiting_clarification'         => _("Waiting clarification"),
-            'gone_postal'                   => _("Handled by post"),
-            'internal_review'               => _("Awaiting internal review"),
-            'error_message'                 => _("Delivery error"),
-            'requires_admin'                => _("Unusual response"),
-            'attention_requested'           => _("Reported"),
-            'user_withdrawn'                => _("Withdrawn"),
-            'vexatious'                     => _("Vexatious"),
-            'not_foi'                       => _("Not an FOI request"),
+            'waiting_classification'        => _("awaiting classification"),
+            'waiting_response'              => _("awaiting response"),
+            'waiting_response_overdue'      => _("delayed"),
+            'waiting_response_very_overdue' => _("long overdue"),
+            'not_held'                      => _("information not held"),
+            'rejected'                      => _("refused"),
+            'partially_successful'          => _("partially successful"),
+            'successful'                    => _("successful"),
+            'waiting_clarification'         => _("waiting clarification"),
+            'gone_postal'                   => _("handled by post"),
+            'internal_review'               => _("awaiting internal review"),
+            'error_message'                 => _("delivery error"),
+            'requires_admin'                => _("unusual response"),
+            'attention_requested'           => _("reported"),
+            'user_withdrawn'                => _("withdrawn"),
+            'vexatious'                     => _("vexatious"),
+            'not_foi'                       => _("not an FOI request"),
           }
       if descriptions[state]
         descriptions[state]
@@ -89,5 +89,10 @@ class InfoRequest
     def self.phase_params
       Hash[phases.map{ |atts| [ atts[:scope], atts[:param] ]}]
     end
+
+    def self.phase_hash
+      @phase_hash ||= Hash[phases.map{ |atts| [ atts[:scope], atts] }]
+    end
+
   end
 end
