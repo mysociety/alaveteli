@@ -31,6 +31,72 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBody do
 
+  describe <<-EOF.squish do
+    temporary tests for Globalize::ActiveRecord::InstanceMethods#read_attribute
+    override
+  EOF
+
+    it 'create without translated name' do
+      body = FactoryGirl.build(:public_body)
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'create with translated name' do
+      body = FactoryGirl.build(:public_body)
+      I18n.with_locale(:es) { body.name = 'hola' }
+
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+    it 'update without translated name' do
+      body = FactoryGirl.create(:public_body)
+      body.reload
+
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'update with translated name' do
+      body = FactoryGirl.create(:public_body)
+      I18n.with_locale(:es) { body.name = 'hola' ; body.save }
+      body.reload
+
+      expect(body.update_attributes('name' => nil)).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'blank string create without translated name' do
+      body = FactoryGirl.build(:public_body)
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'blank string create with translated name' do
+      body = FactoryGirl.build(:public_body)
+      I18n.with_locale(:es) { body.name = 'hola' }
+
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+    it 'blank string update without translated name' do
+      body = FactoryGirl.create(:public_body)
+      body.reload
+
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+
+    it 'blank string update with translated name' do
+      body = FactoryGirl.create(:public_body)
+      I18n.with_locale(:es) { body.name = 'hola' ; body.save }
+      body.reload
+
+      expect(body.update_attributes('name' => '')).to eq(false)
+      expect(body).not_to be_valid
+    end
+  end
+
   describe '#name' do
 
     it 'is invalid when nil' do
@@ -55,10 +121,6 @@ describe PublicBody do
   end
 
   describe '#short_name' do
-
-    it 'sets a default empty string' do
-      expect(described_class.new(:short_name => nil).short_name).to eq('')
-    end
 
     it 'is invalid when not unique' do
       existing = FactoryGirl.create(:public_body, :short_name => 'xyz')
@@ -284,93 +346,75 @@ describe PublicBody do
 
   describe '#last_edit_comment' do
 
-    it 'is invalid when nil' do
+    it 'is valid when nil' do
       subject = PublicBody.new(:last_edit_comment => nil)
       subject.valid?
-      expect(subject.errors[:last_edit_comment]).
-        to eq(["Last edit comment can't be nil"])
+      expect(subject.errors[:last_edit_comment]).to be_empty
     end
 
-    it 'is valid when blank' do
-      subject = PublicBody.new(:last_edit_comment => '')
-      subject.valid?
-      expect(subject.errors[:last_edit_comment]).to be_empty
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :last_edit_comment => '')
+      expect(subject.last_edit_comment).to be_nil
     end
 
   end
 
   describe '#home_page' do
 
-    it 'is invalid when nil' do
+    it 'is valid when nil' do
       subject = PublicBody.new(:home_page => nil)
       subject.valid?
-      expect(subject.errors[:home_page]).to eq(["Home page can't be nil"])
+      expect(subject.errors[:home_page]).to be_empty
     end
 
-    it 'is valid when blank' do
-      subject = PublicBody.new(:home_page => '')
-      subject.valid?
-      expect(subject.errors[:home_page]).to be_empty
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :home_page => '')
+      expect(subject.home_page).to be_nil
     end
 
   end
 
   describe '#notes' do
 
-    it 'is invalid when nil' do
-      skip <<-EOF.strip_heredoc.squish
-      This spec should pass but the behaviour between translated attributes
-      differs. Translated attributes get the default value from the database,
-      but untranslated attributes do not.
-      EOF
+    it 'is valid when nil' do
       subject = PublicBody.new(:notes => nil)
       subject.valid?
-      expect(subject.errors[:notes]).to eq(["Notes can't be nil"])
+      expect(subject.errors[:notes]).to be_empty
     end
 
-    it 'is valid when blank' do
-      subject = PublicBody.new(:notes => '')
-      subject.valid?
-      expect(subject.errors[:notes]).to be_empty
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :notes => '')
+      expect(subject.notes).to be_nil
     end
 
   end
 
   describe '#publication_scheme' do
 
-    it 'is invalid when nil' do
-      skip <<-EOF.strip_heredoc.squish
-      This spec should pass but the behaviour between translated attributes
-      differs. Translated attributes get the default value from the database,
-      but untranslated attributes do not.
-      EOF
+    it 'is valid when nil' do
       subject = PublicBody.new(:publication_scheme => nil)
       subject.valid?
-      expect(subject.errors[:publication_scheme]).
-        to eq(["Publication scheme can't be nil"])
+      expect(subject.errors[:publication_scheme]).to be_empty
     end
 
-    it 'is valid when blank' do
-      subject = PublicBody.new(:publication_scheme => '')
-      subject.valid?
-      expect(subject.errors[:publication_scheme]).to be_empty
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :publication_scheme => '')
+      expect(subject.publication_scheme).to be_nil
     end
 
   end
 
   describe '#disclosure_log' do
 
-    it 'is invalid when nil' do
+    it 'is valid when nil' do
       subject = PublicBody.new(:disclosure_log => nil)
       subject.valid?
-      expect(subject.errors[:disclosure_log]).
-        to eq(["Disclosure log can't be nil"])
+      expect(subject.errors[:disclosure_log]).to be_empty
     end
 
-    it 'is valid when blank' do
-      subject = PublicBody.new(:disclosure_log => '')
-      subject.valid?
-      expect(subject.errors[:disclosure_log]).to be_empty
+    it 'strips blank attributes' do
+      subject = FactoryGirl.create(:public_body, :disclosure_log => '')
+      expect(subject.disclosure_log).to be_nil
     end
 
   end
