@@ -9,7 +9,7 @@ module AlaveteliPro
                                 :class_name => "AlaveteliPro::RequestSummary",
                                 :dependent => :destroy
       after_commit :create_or_update_request_summary,
-                   :only => [:create, :update]
+                   :on => [:create, :update]
     end
 
     # Creates a RequestSummary item for this model on first save, or updates
