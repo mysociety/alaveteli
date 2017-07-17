@@ -67,3 +67,28 @@ module Globalize
     end
   end
 end
+
+module Globalize
+  module ActiveRecord
+    module InstanceMethods
+      def read_attribute(name, options = {})
+        options = {:translated => true, :locale => nil}.merge(options)
+        return super(name) unless options[:translated]
+
+        if name == :locale
+          self.try(:locale).presence || self.translation.locale
+        elsif self.class.translated?(name)
+          if (value = globalize.fetch(options[:locale] || Globalize.locale, name))
+            value
+          else
+            @attributes_cache[name] = nil
+            super(name)
+          end
+        else
+          super(name)
+        end
+      end
+
+    end
+  end
+end

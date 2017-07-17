@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Remove unconventional PublicBody database constraints (Gareth Rees,
+  Liz Conlan)
 * Improve public body data validations (Gareth Rees)
 * Increase truncation length of comments on admin page so that its easier to
   spot spam without expanding each comment (Gareth Rees)

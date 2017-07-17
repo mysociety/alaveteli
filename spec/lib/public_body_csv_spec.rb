@@ -88,9 +88,19 @@ describe PublicBodyCSV do
   describe '#<<' do
 
     it 'adds an elements attributes to the rows collection' do
+      attrs = { :name => 'Exported to CSV',
+                :short_name => 'CSV',
+                :request_email => 'csv@localhost',
+                :tag_string => 'exported',
+                :notes => 'An exported authority',
+                :created_at => '2007-10-25 10:51:01 UTC',
+                :updated_at => '2007-10-25 10:51:01 UTC' }
+      body = FactoryGirl.create(:public_body, attrs)
+
       csv = PublicBodyCSV.new
-      expected = ["Ministry of Silly Walks,MSW,msw,useless_agency,http://www.localhost,\"\",\"\",You know the one.,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
-      csv << PublicBody.find(5)
+      csv << body
+
+      expected = ["Exported to CSV,CSV,csv,exported,http://www.localhost,\"\",\"\",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
       expect(csv.rows).to eq(expected)
     end
 
@@ -99,10 +109,28 @@ describe PublicBodyCSV do
   describe '#generate' do
 
     it 'generates the csv' do
+      attrs1 = { :name => 'Exported to CSV 1',
+                 :short_name => 'CSV1',
+                 :request_email => 'csv1@localhost',
+                 :tag_string => 'exported',
+                 :notes => 'An exported authority',
+                 :created_at => '2007-10-25 10:51:01 UTC',
+                 :updated_at => '2007-10-25 10:51:01 UTC' }
+      body1 = FactoryGirl.create(:public_body, attrs1)
+
+      attrs2 = { :name => 'Exported to CSV 2',
+                 :short_name => 'CSV2',
+                 :request_email => 'csv2@localhost',
+                 :tag_string => 'exported',
+                 :notes => 'Exported authority',
+                 :created_at => '2011-01-26 14:11:02 UTC',
+                 :updated_at => '2011-01-26 14:11:02 UTC' }
+      body2 = FactoryGirl.create(:public_body, attrs2)
+
       expected = <<-CSV.strip_heredoc
       Name,Short name,URL name,Home page,Publication scheme,Disclosure log,Notes,Created at,Updated at,Version
-      Department for Humpadinking,DfH,dfh,http://www.localhost,"","",An albatross told me!!!,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,2
-      Department of Loneliness,DoL,lonely,http://www.localhost,"","",A very lonely public body that no one has corresponded with,2011-01-26 14:11:02 UTC,2011-01-26 14:11:02 UTC,1
+      Exported to CSV 1,CSV1,csv1,http://www.localhost,"","",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1
+      Exported to CSV 2,CSV2,csv2,http://www.localhost,"","",Exported authority,2011-01-26 14:11:02 UTC,2011-01-26 14:11:02 UTC,1
       CSV
 
       # Miss out the tags field because the specs keep changing the order
@@ -111,8 +139,8 @@ describe PublicBodyCSV do
       headers = ['Name', 'Short name', 'URL name', 'Home page', 'Publication scheme', 'Disclosure log', 'Notes', 'Created at', 'Updated at', 'Version']
 
       csv = PublicBodyCSV.new(:fields => fields, :headers => headers)
-      csv << PublicBody.where(:name => 'Department for Humpadinking').first
-      csv << PublicBody.where(:name => 'Department of Loneliness').first
+      csv << body1
+      csv << body2
       expect(csv.generate).to eq(expected)
     end
 

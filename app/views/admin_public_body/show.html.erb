@@ -12,7 +12,9 @@
           </td>
           <td>
             <% if ['home_page', 'publication_scheme', 'disclosure_log'].include? column_name %>
-              <%= link_to(h(value), value)  %>
+              <% if value %>
+                <%= link_to h(value), value  %>
+              <% end %>
             <% elsif column_name == 'request_email' %>
               <%= link_to(h(value), "mailto:#{value}")  %>
               <% unless @public_body.is_requestable? %>

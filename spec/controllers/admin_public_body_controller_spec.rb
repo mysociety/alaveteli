@@ -557,7 +557,7 @@ describe AdminPublicBodyController do
 
       it 'is rebuilt with the default locale translation' do
         post :update, @params
-        expect(assigns(:public_body).name(:en)).to eq('')
+        expect(assigns(:public_body).name(:en)).to be_nil
       end
 
       it 'is rebuilt with the alternative locale translation' do
