@@ -16,7 +16,8 @@ module AlaveteliPro
     # the existing one otherwise.
     def create_or_update_request_summary
       if self.should_summarise?
-        self.request_summary = AlaveteliPro::RequestSummary.create_or_update_from(self)
+        self.request_summary =
+          AlaveteliPro::RequestSummary.create_or_update_from(self)
       elsif self.should_update_parent_summary?
         parent = self.request_summary_parent
         parent.create_or_update_request_summary unless parent.blank?

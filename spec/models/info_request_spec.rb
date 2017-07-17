@@ -2771,11 +2771,6 @@ describe InfoRequest do
 
   describe "#log_event" do
     let(:info_request) { FactoryGirl.create(:info_request) }
-
-    it "calls create_or_update_request_summary" do
-      expect(info_request).to receive(:create_or_update_request_summary)
-      info_request.log_event("response", {})
-    end
   end
 
   describe 'after_save callbacks' do
