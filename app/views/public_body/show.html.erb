@@ -14,7 +14,7 @@
   <h1><%= h(@public_body.name) %></h1>
 
   <p class="authority__header__subtitle">
-    <%= type_of_authority(@public_body) %><% unless @public_body.short_name.empty? %>,
+    <%= type_of_authority(@public_body) %><% unless @public_body.short_name.blank? %>,
       <%= _('also called {{public_body_short_name}}', :public_body_short_name => h(@public_body.short_name)) %>
     <% end %>
 
