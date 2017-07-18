@@ -1,7 +1,7 @@
 build-essential
 catdoc
 elinks
-geoip-database
+geoip-database-contrib
 gettext
 ghostscript
 gnuplot-nox
@@ -14,6 +14,7 @@ libxml2-dev
 libxslt-dev
 links
 lockfile-progs
+memcached
 mutt
 pdftk
 php5-cli
