@@ -63,7 +63,6 @@ require 'alaveteli_spam_term_checker'
 require 'alaveteli_pro/post_redirect_handler'
 require 'user_stats'
 require 'belongs_to_destroy_with_fk_constraint'
-require 'patch_tag_helper'
 require 'typeahead_search'
 require 'alaveteli_mail_poller'
 
