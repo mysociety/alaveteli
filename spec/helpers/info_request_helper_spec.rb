@@ -544,13 +544,14 @@ describe InfoRequestHelper do
 
     context 'when given no format options' do
 
-      it 'returns the path to the attachment' do
+      it 'returns the path to the attachment with a cookie cookie_passthrough
+          param' do
 
         expect(attachment_path(incoming_message, jpeg_attachment)).
           to eq("/request/#{incoming_message.info_request_id}" \
                 "/response/#{incoming_message.id}/" \
                 "attach/#{jpeg_attachment.url_part_number}" \
-                "/interesting.jpg")
+                "/interesting.jpg?cookie_passthrough=1")
       end
 
     end

@@ -72,7 +72,8 @@ sub vcl_recv {
     }
 
     # Ignore Cookies on images...
-    if (req.url ~ "\.(png|gif|jpg|jpeg|swf|css|js|rdf|ico)(\?.*|)$") {
+    if (req.url ~ "\.(png|gif|jpg|jpeg|swf|css|js|rdf|ico)(\?.*|)$" &&
+        req.url !~ "(\?|\&)cookie_passthrough=1") {
         remove req.http.Cookie;
         return (lookup);
     }
@@ -102,7 +103,8 @@ sub vcl_recv {
 
 sub vcl_fetch {
     set beresp.http.x-url = req.url;
-    if (req.url ~ "\.(png|gif|jpg|jpeg|swf|css|js|rdf|ico|txt)(\?.*|)$") {
+    if (req.url ~ "\.(png|gif|jpg|jpeg|swf|css|js|rdf|ico|txt)(\?.*|)$" &&
+        req.url !~ "(\?|\&)cookie_passthrough=1")) {
     # Ignore backend headers..
         remove beresp.http.set-Cookie;
         set beresp.ttl = 3600s;
