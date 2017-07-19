@@ -32,20 +32,20 @@ Layout/AlignArray:
                  Align the elements of an array literal if they span more than
                  one line.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#align-multiline-arrays'
-  Enabled: false
+  Enabled: true
 
 Layout/AlignHash:
   Description: >-
                  Align the elements of a hash literal if they span more than
                  one line.
-  Enabled: false
+  Enabled: true
 
 Layout/AlignParameters:
   Description: >-
                  Align the parameters of a method call if they span more
                  than one line.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-double-indent'
-  Enabled: false
+  Enabled: true
 
 Layout/BlockEndNewline:
   Description: 'Put end statement of multiline block on its own line.'
@@ -58,11 +58,11 @@ Layout/CaseIndentation:
 
 Layout/ClosingParenthesisIndentation:
   Description: 'Checks the indentation of hanging closing parentheses.'
-  Enabled: false
+  Enabled: true
 
 Layout/CommentIndentation:
   Description: 'Indentation of comments.'
-  Enabled: false
+  Enabled: true
 
 Layout/DotPosition:
   Description: 'Checks the position of the dot in multi-line method calls.'
@@ -71,7 +71,7 @@ Layout/DotPosition:
 
 Layout/ElseAlignment:
   Description: 'Align elses and elsifs correctly.'
-  Enabled: false
+  Enabled: true
 
 Layout/EmptyLineBetweenDefs:
   Description: 'Use empty lines between defs.'
@@ -84,7 +84,7 @@ Layout/EmptyLines:
 
 Layout/EmptyLinesAroundAccessModifier:
   Description: "Keep blank lines around access modifiers."
-  Enabled: false
+  Enabled: true
 
 Layout/EmptyLinesAroundBlockBody:
   Description: "Keeps track of empty lines around block bodies."
@@ -148,7 +148,7 @@ Layout/IndentHash:
 Layout/LeadingCommentSpace:
   Description: 'Comments should start with a space.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#hash-space'
-  Enabled: false
+  Enabled: true
 
 Layout/MultilineArrayBraceLayout:
   Description: >-
@@ -159,7 +159,7 @@ Layout/MultilineArrayBraceLayout:
 
 Layout/MultilineBlockLayout:
   Description: 'Ensures newlines after multiline block do statements.'
-  Enabled: false
+  Enabled: true
 
 Layout/MultilineHashBraceLayout:
   Description: >-
@@ -196,7 +196,7 @@ Layout/MultilineOperationIndentation:
 
 Layout/RescueEnsureAlignment:
   Description: 'Align rescues and ensures correctly.'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceBeforeFirstArg:
   Description: >-
@@ -207,29 +207,29 @@ Layout/SpaceBeforeFirstArg:
 Layout/SpaceAfterColon:
   Description: 'Use spaces after colons.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-operators'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceAfterComma:
   Description: 'Use spaces after commas.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-operators'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceAfterMethodName:
   Description: >-
                  Do not put a space between a method name and the opening
                  parenthesis in a method definition.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#parens-no-spaces'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceAfterNot:
   Description: Tracks redundant space after the ! operator.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-space-bang'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceAfterSemicolon:
   Description: 'Use spaces after semicolons.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-operators'
-  Enabled: false
+  Enabled: true
 
 Layout/SpaceBeforeBlockBraces:
   Description: >-
