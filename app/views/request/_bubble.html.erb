@@ -13,30 +13,17 @@
       <ul class="list-of-attachments">
         <% attachments.each do |a| %>
           <li class="attachment">
-            <%
-                attachment_path = get_attachment_path(:id => incoming_message.info_request_id,
-                        :incoming_message_id => incoming_message.id, :part => a.url_part_number,
-                        :file_name => a.display_filename)
-                attachment_as_html_path = get_attachment_as_html_path(:id => incoming_message.info_request_id,
-                        :incoming_message_id => incoming_message.id, :part => a.url_part_number,
-                        :file_name => a.display_filename + '.html')
-            %>
+            <%= attachment_link(incoming_message, a) %>
 
-            <% img_filename = "icon_" + a.content_type.sub('/', '_') + "_large.png" %>
-            <% full_filename = File.expand_path(Rails.root.join('app', 'assets', 'images', img_filename)) %>
-            <% if File.exist?(full_filename) %>
-              <%= link_to image_tag(img_filename, :class => "attachment__image", :alt => "Attachment"), attachment_path %>
-            <% else %>
-              <%= link_to image_tag("icon_unknown.png", :class => "attachment__image", :alt => "Attachment"), attachment_path %>
-            <% end %>
-
-            <p class="attachment__name"><%= h a.display_filename %></p>
+            <p class="attachment__name">
+              <%= h a.display_filename %>
+            </p>
 
             <p class="attachment__meta">
               <%= a.display_size %>
-              <%= link_to "Download", attachment_path %>
+              <%= link_to "Download", attachment_path(incoming_message, a) %>
               <% if a.has_body_as_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
-                <%= link_to "View as HTML", attachment_as_html_path %>
+                <%= link_to "View as HTML", attachment_path(incoming_message, a, :html => true) %>
               <% end %>
               <!-- (<%= a.content_type %>) -->
               <%= a.extra_note %>

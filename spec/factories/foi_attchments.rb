@@ -22,6 +22,16 @@ FactoryGirl.define do
       filename 'interesting.html'
       body { load_file_fixture('interesting.html') }
     end
+    factory :jpeg_attachment do
+      content_type 'image/jpeg'
+      filename 'interesting.jpg'
+      body { 'someimage' }
+    end
+    factory :unknown_attachment do
+      content_type 'application/unknown'
+      filename 'interesting.spc'
+      body { 'something' }
+    end
   end
 
 end

@@ -503,4 +503,72 @@ describe InfoRequestHelper do
 
   end
 
+  describe '#attachment_link' do
+    let(:incoming_message){ FactoryGirl.create(:incoming_message) }
+
+    context 'if an icon exists for the filetype' do
+      let(:jpeg_attachment){ FactoryGirl.create(:jpeg_attachment,
+                              :incoming_message => incoming_message,
+                              :url_part_number => 1)
+                           }
+
+      it 'returns a link with a specific icon' do
+        expect(attachment_link(jpeg_attachment.incoming_message,
+                               jpeg_attachment)).
+          to match('images/icon_image_jpeg_large.png')
+      end
+
+    end
+
+    context 'if no icon exists for the filetype' do
+      let(:unknown_attachment){ FactoryGirl.create(:unknown_attachment,
+                                  :incoming_message => incoming_message,
+                                  :url_part_number => 1)
+                              }
+
+      it 'returns a link with the "unknown" icon' do
+        expect(attachment_link(unknown_attachment.incoming_message,
+                               unknown_attachment)).
+          to match('images/icon_unknown.png')
+      end
+    end
+
+  end
+
+  describe '#attachment_path' do
+    let(:incoming_message){ FactoryGirl.create(:incoming_message) }
+    let(:jpeg_attachment){ FactoryGirl.create(:jpeg_attachment,
+                             :incoming_message => incoming_message,
+                             :url_part_number => 1)
+                         }
+
+    context 'when given no format options' do
+
+      it 'returns the path to the attachment' do
+
+        expect(attachment_path(incoming_message, jpeg_attachment)).
+          to eq("/request/#{incoming_message.info_request_id}" \
+                "/response/#{incoming_message.id}/" \
+                "attach/#{jpeg_attachment.url_part_number}" \
+                "/interesting.jpg")
+      end
+
+    end
+
+    context 'when given an html format option' do
+
+      it 'returns the path to the HTML version of the attachment' do
+        expect(attachment_path(incoming_message,
+                               jpeg_attachment,
+                               :html => true)).
+          to eq("/request/#{incoming_message.info_request_id}" \
+                "/response/#{incoming_message.id}" \
+                "/attach/html/#{jpeg_attachment.url_part_number}" \
+                "/interesting.jpg.html")
+      end
+
+    end
+
+  end
+
 end
