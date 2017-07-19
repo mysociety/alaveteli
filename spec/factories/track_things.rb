@@ -29,7 +29,7 @@ FactoryBot.define do
       after(:create) do |track_thing, evaluator|
         track_thing.track_query = "requested_by:#{ user.url_name }" \
                                   " OR commented_by: #{ user.url_name }"
-        track_thing.save
+        track_thing.save!
       end
     end
     factory :public_body_track do
@@ -38,7 +38,7 @@ FactoryBot.define do
       after(:create) do |track_thing, evaluator|
         track_thing.track_query = "requested_from:" \
                                   "#{ track_thing.public_body.url_name }"
-        track_thing.save
+        track_thing.save!
       end
     end
     factory :request_update_track do
@@ -47,7 +47,7 @@ FactoryBot.define do
       after(:create) do |track_thing, evaluator|
         track_thing.track_query = "request:" \
                                   "#{ track_thing.info_request.url_title }"
-        track_thing.save
+        track_thing.save!
       end
     end
     factory :successful_request_track do

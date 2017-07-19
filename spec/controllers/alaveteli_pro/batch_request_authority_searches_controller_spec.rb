@@ -35,9 +35,9 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     let(:authority_3) { FactoryBot.build(:public_body) }
 
     before do
-      authority_1.save
-      authority_2.save
-      authority_3.save
+      authority_1.save!
+      authority_2.save!
+      authority_3.save!
       update_xapian_index
       sign_in pro_user
     end

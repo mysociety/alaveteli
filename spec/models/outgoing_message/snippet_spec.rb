@@ -31,7 +31,7 @@ RSpec.describe OutgoingMessage::Snippet, type: :model do
   end
 
   describe 'translations' do
-    before { snippet.save }
+    before { snippet.save! }
 
     it 'adds translated name' do
       expect(snippet.name_translations).to_not include(es: 'name')

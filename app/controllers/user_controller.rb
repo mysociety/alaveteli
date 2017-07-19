@@ -294,7 +294,7 @@ class UserController < ApplicationController
         render :template => 'user/set_draft_profile_photo'
         return
       end
-      @draft_profile_photo.save
+      @draft_profile_photo.save!
 
       if params[:automatically_crop]
         # no javascript, crop automatically

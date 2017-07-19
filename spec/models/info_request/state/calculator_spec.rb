@@ -40,7 +40,7 @@ RSpec.describe InfoRequest::State::Calculator do
 
     it 'returns :response_received when the request is awaiting description' do
       info_request.awaiting_description = true
-      info_request.save
+      info_request.save!
       expect(calculator.phase).to eq(:response_received)
     end
 

@@ -43,7 +43,7 @@ RSpec.describe AdminPublicBodyController do
     it "shows a public body in another locale" do
       AlaveteliLocalization.with_locale('es') do
         public_body.name = 'El Public Body'
-        public_body.save
+        public_body.save!
       end
       sign_in admin_user
       get :show, params: { :id => public_body.id, :locale => "es" }

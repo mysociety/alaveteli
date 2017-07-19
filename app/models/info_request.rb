@@ -817,7 +817,7 @@ class InfoRequest < ApplicationRecord
     else
       self.last_public_response_at = nil
     end
-    save
+    save!
   end
 
   # Remove spaces from ends (for when used in emails etc.)

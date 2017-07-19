@@ -29,7 +29,7 @@ RSpec.describe User do
     end
 
     context 'user was never sent the survey' do
-      before { user.save }
+      before { user.save! }
       it { is_expected.to eq false }
     end
   end

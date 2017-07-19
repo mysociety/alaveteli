@@ -281,7 +281,7 @@ RSpec.describe User, 'when saving' do
     @user.password = 'insecurepassword'
     @user.password_confirmation = 'insecurepassword'
     @user.email = 'reasonable@localhost'
-    @user.save
+    @user.save!
     expect(@user).to be_valid
   end
 
@@ -289,14 +289,14 @@ RSpec.describe User, 'when saving' do
     @user.name = 'Mr. Flobble'
     @user.password = 'insecurepassword'
     @user.email = 'flobble@localhost'
-    @user.save
+    @user.save!
     expect(@user).to be_valid
 
     @user2 = User.new
     @user2.name = 'Mr. Flobble'
     @user2.password = 'insecurepassword'
     @user2.email = 'flobble2@localhost'
-    @user2.save
+    @user2.save!
     expect(@user2).to be_valid
   end
 
@@ -304,7 +304,7 @@ RSpec.describe User, 'when saving' do
     @user.name = 'Mr. Flobble'
     @user.password = 'insecurepassword'
     @user.email = 'flobble@localhost'
-    @user.save
+    @user.save!
     expect(@user).to be_valid
 
     @user2 = User.new
@@ -331,7 +331,7 @@ RSpec.describe User, 'when saving' do
     @user = User.find_by(email: 'elderly@localhost')
     @user.name = 'Mr. Young'
     @user.email = 'young@localhost'
-    @user.save
+    @user.save!
     expect(@user).to be_valid
   end
 
@@ -374,7 +374,7 @@ RSpec.describe User, "when reindexing referencing models" do
 
   it "should reindex events associated with that user's comments when URL changes" do
     user.url_name = 'updated_url_name'
-    user.save
+    user.save!
 
     query = { model: 'InfoRequestEvent',
               model_id: comment_event.id,
@@ -385,7 +385,7 @@ RSpec.describe User, "when reindexing referencing models" do
 
   it "should reindex events associated with that user's requests when URL changes" do
     user.url_name = 'updated_url_name'
-    user.save
+    user.save!
 
     query = { model: 'InfoRequestEvent',
               model_id: request_event.id,
@@ -402,13 +402,13 @@ RSpec.describe User, "when reindexing referencing models" do
     it 'should not reindex events associated with that user\'s comments when URL changes' do
       expect(comment_event).to_not receive(:xapian_mark_needs_index)
       user.url_name = 'updated_url_name'
-      user.save
+      user.save!
     end
 
     it 'should not reindex events associated with that user\'s requests when URL changes' do
       expect(request_event).to_not receive(:xapian_mark_needs_index)
       user.url_name = 'updated_url_name'
-      user.save
+      user.save!
     end
   end
 end

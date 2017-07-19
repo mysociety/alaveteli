@@ -38,7 +38,7 @@ RSpec.describe AdminRawEmailController do
             :info_request => InfoRequest.holding_pen_request,
           )
           incoming_message.raw_email.data = raw_email_data
-          incoming_message.raw_email.save
+          incoming_message.raw_email.save!
           incoming_message
         end
 

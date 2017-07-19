@@ -82,6 +82,6 @@ module User::Authentication
     self.password = password
     self.salt = nil
 
-    save(validate: false)
+    save!(validate: false)
   end
 end
