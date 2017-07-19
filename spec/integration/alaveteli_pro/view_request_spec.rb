@@ -61,7 +61,7 @@ describe "viewing requests in alaveteli_pro" do
       expect(page).to have_content "Add an annotation to “#{info_request.title}”"
       fill_in("comment_body", with: "Testing annotations")
       click_button("Preview your annotation")
-      click_button("Post annotation")
+      click_button("Add annotation")
       expect(page).to have_content("#{pro_user.name} left an annotation")
       expect(page).to have_content("Testing annotations")
     end
