@@ -143,6 +143,17 @@ class PublicBody < ActiveRecord::Base
   #
   # [1] http://git.io/vIetK
   class Version
+    before_save :copy_translated_attributes
+
+    def copy_translated_attributes
+      public_body.attributes.each do |name, value|
+        if public_body.translated?(name) &&
+            !public_body.non_versioned_columns.include?(name)
+          send("#{name}=", value)
+        end
+      end
+    end
+
     def last_edit_comment_for_html_display
       text = self.last_edit_comment.strip
       text = CGI.escapeHTML(text)
@@ -214,6 +225,14 @@ class PublicBody < ActiveRecord::Base
 
   def set_api_key!
     self.api_key = SecureRandom.base64(33)
+  end
+
+  def self.find_by_name(name)
+    find_by(name: name)
+  end
+
+  def self.find_by_url_name(url_name)
+    find_by(url_name: url_name)
   end
 
   # like find_by_url_name but also search historic url_name if none found
@@ -320,21 +339,32 @@ class PublicBody < ActiveRecord::Base
 
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
-    # Use find_by_sql to avoid the search being specific to a
-    # locale, since url_name is a translated field:
-    sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
-    matching_pbs = PublicBody.find_by_sql sql
+    matching_pbs = PublicBody.where(:url_name => 'internal_admin_authority')
     case
     when matching_pbs.empty? then
-      I18n.with_locale(I18n.default_locale) do
-        PublicBody.create!(:name => 'Internal admin authority',
-                           :short_name => "",
-                           :request_email => AlaveteliConfiguration::contact_email,
-                           :home_page => "",
-                           :notes => "",
-                           :publication_scheme => "",
-                           :last_edit_editor => "internal_admin",
-                           :last_edit_comment => "Made by PublicBody.internal_admin_body")
+      # "internal admin" exists but has the wrong default locale - fix & return
+      if invalid_locale = PublicBody::Translation.
+                            find_by_url_name('internal_admin_authority')
+        found_pb = PublicBody.find(invalid_locale.public_body_id)
+        I18n.with_locale(I18n.default_locale) do
+          found_pb.name = "Internal admin authority"
+          found_pb.request_email = AlaveteliConfiguration.contact_email
+          found_pb.save!
+        end
+        found_pb
+      else
+        I18n.with_locale(I18n.default_locale) do
+          PublicBody.
+            create!(:name => 'Internal admin authority',
+                    :short_name => "",
+                    :request_email => AlaveteliConfiguration.contact_email,
+                    :home_page => nil,
+                    :notes => nil,
+                    :publication_scheme => nil,
+                    :last_edit_editor => "internal_admin",
+                    :last_edit_comment =>
+                      "Made by PublicBody.internal_admin_body")
+        end
       end
     when matching_pbs.length == 1 then
       matching_pbs[0]
@@ -704,7 +734,7 @@ class PublicBody < ActiveRecord::Base
                         joins(:translations)
       else
         bodies = where("public_body_translations.locale = ?
-                        AND public_bodies.url_name in (?)",
+                        AND public_body_translations.url_name in (?)",
                         underscore_locale, body_short_names).
                   joins(:translations)
       end

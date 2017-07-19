@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Make sure geoip-database-contrib is installed when installing Alaveteli
+  (Gareth Rees)
+* Make sure memcached is installed when installing Alaveteli (Gareth Rees)
 * Remove front-end caching from delivery status calculation (Gareth Rees)
 * Remove unconventional PublicBody database constraints (Gareth Rees,
   Liz Conlan)
@@ -17,6 +20,8 @@
 
 ## Upgrade Notes
 
+* Ensure memcached is installed (`sudo apt-get install memcached`) and running
+  (`sudo service memcached start`).
 * `app/views/track/_track_set.erb` has been renamed to
   `app/views/track/_track_set.html.erb`, so if you've overriden it you will need
   to update the override.

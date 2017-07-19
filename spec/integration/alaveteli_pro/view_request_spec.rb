@@ -61,7 +61,7 @@ describe "viewing requests in alaveteli_pro" do
       expect(page).to have_content "Add an annotation to “#{info_request.title}”"
       fill_in("comment_body", with: "Testing annotations")
       click_button("Preview your annotation")
-      click_button("Post annotation")
+      click_button("Add annotation")
       expect(page).to have_content("#{pro_user.name} left an annotation")
       expect(page).to have_content("Testing annotations")
     end
@@ -128,7 +128,7 @@ describe "viewing requests in alaveteli_pro" do
       check 'Change status'
       # The current status shouldn't be checked, so that you can set it again
       # if you need too, e.g. to reset the awaiting response status
-      expect(find_field("Waiting for a response")).not_to be_checked
+      expect(find_field("Awaiting response")).not_to be_checked
       choose("Partially successful")
       within ".update-status" do
         click_button("Update")
