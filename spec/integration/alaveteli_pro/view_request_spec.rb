@@ -128,7 +128,7 @@ describe "viewing requests in alaveteli_pro" do
       check 'Change status'
       # The current status shouldn't be checked, so that you can set it again
       # if you need too, e.g. to reset the awaiting response status
-      expect(find_field("Waiting for a response")).not_to be_checked
+      expect(find_field("Awaiting response")).not_to be_checked
       choose("Partially successful")
       within ".update-status" do
         click_button("Update")

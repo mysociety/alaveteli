@@ -41,8 +41,8 @@
     <div class="sidebar__section update-status">
       <h2><%= _("Status") %></h2>
       <p class="status-picker__current-status">
-        <i class="request-status-icon request-status-icon--<%= @info_request.described_state.dasherize %>"></i>
-        <%= InfoRequest::State.short_description(@info_request.described_state) %>
+        <i class="request-status-icon request-status-icon--<%= @info_request.calculate_status(true).dasherize %>"></i>
+        <%= InfoRequest::State.short_description(@info_request.calculate_status(true)) %>
       </p>
       <label class="houdini-label" for="input2"><%= _("Change status") %></label>
       <input class="houdini-input" type="checkbox" id="input2">
