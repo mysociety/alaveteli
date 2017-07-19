@@ -115,6 +115,18 @@ describe InfoRequestBatch do
       expect(info_request_batch.sent_at).not_to be_nil
     end
 
+    it "it imposes an alphabetical sort order on associated public bodies" do
+      third_public_body = FactoryGirl.create(:public_body,
+                                             :name => "Another Body")
+      batch = FactoryGirl.create(
+        :info_request_batch,
+        :public_bodies => [first_public_body,
+                           third_public_body])
+      batch.reload
+      expect(batch.public_bodies).to eq ([third_public_body,
+                                          first_public_body])
+    end
+
     context "when embargo_duration is set" do
       it 'should set an embargo on each request' do
         info_request_batch.embargo_duration = '3_months'
