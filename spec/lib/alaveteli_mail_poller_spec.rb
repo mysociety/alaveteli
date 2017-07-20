@@ -25,11 +25,11 @@ describe AlaveteliMailPoller do
   describe '#poll_for_incoming' do
 
     it 'starts and ends a session with the POP server' do
-      expect(MockPOP3).not_to be_started
-      expect(MockPOP3).to receive(:start).and_call_original
-      expect(MockPOP3).to receive(:finish).and_call_original
+      expect(mockpop3).not_to be_started
+      expect(mockpop3).to receive(:start).and_call_original
+      expect(mockpop3).to receive(:finish).and_call_original
       poller.poll_for_incoming
-      expect(MockPOP3).not_to be_started
+      expect(mockpop3).not_to be_started
     end
 
     context 'if there is no mail on the POP server' do
