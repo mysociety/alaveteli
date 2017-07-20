@@ -1,14 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'net/pop'
 
 describe AlaveteliMailPoller do
   let(:mockpop3) { MockPOP3.new }
-  let(:poller) { AlaveteliMailPoller.new }
-
-  before do
-    allow(Net::POP3).to receive(:new).and_return(mockpop3)
-  end
+  let(:poller) { AlaveteliMailPoller.new(pop3: mockpop3) }
 
   describe '.poll_for_incoming_loop' do
 

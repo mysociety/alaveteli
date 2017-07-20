@@ -7,12 +7,16 @@ class AlaveteliMailPoller
   attr_accessor :settings, :pop3
 
   def initialize(values = {})
+    _pop3 = values.delete(:pop3)
+
     defaults = { address:      AlaveteliConfiguration.pop_mailer_address,
                  port:         AlaveteliConfiguration.pop_mailer_port,
                  user_name:    AlaveteliConfiguration.pop_mailer_user_name,
                  password:     AlaveteliConfiguration.pop_mailer_password,
                  enable_ssl:   AlaveteliConfiguration.pop_mailer_enable_ssl }
+
     self.settings = defaults.merge(values)
+    self.pop3 = _pop3 || default_pop3
   end
 
   def poll_for_incoming
@@ -101,7 +105,6 @@ class AlaveteliMailPoller
       raise ArgumentError.new("AlaveteliMailPoller#start takes a block")
     end
 
-    pop3 = Net::POP3.new(settings[:address], settings[:port], false)
     pop3.enable_ssl(OpenSSL::SSL::VERIFY_NONE) if settings[:enable_ssl]
     pop3.start(settings[:user_name], settings[:password])
 
@@ -110,6 +113,10 @@ class AlaveteliMailPoller
     if defined?(pop3) && pop3 && pop3.started?
       pop3.finish
     end
+  end
+
+  def default_pop3
+    Net::POP3.new(settings[:address], settings[:port], false)
   end
 
 end
