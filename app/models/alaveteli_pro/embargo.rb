@@ -1,16 +1,17 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20161128095350
 #
 # Table name: embargoes
 #
-#  id               :integer          not null, primary key
-#  info_request_id  :integer
-#  publish_at       :datetime         not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  embargo_duration :string(255)
+#  id                       :integer          not null, primary key
+#  info_request_id          :integer
+#  publish_at               :datetime         not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  embargo_duration         :string(255)
+#  expiring_notification_at :datetime
 #
+
 module AlaveteliPro
   class Embargo < ActiveRecord::Base
     belongs_to :info_request
