@@ -91,7 +91,7 @@ class InfoRequestBatch < ActiveRecord::Base
     info_request = InfoRequest.create_from_attributes({:title => self.title},
                                                       {:body => body},
                                                       self.user)
-    info_request.public_body_id = public_body.id
+    info_request.public_body = public_body
     info_request.info_request_batch = self
     unless self.embargo_duration.blank?
       info_request.embargo = AlaveteliPro::Embargo.create(
