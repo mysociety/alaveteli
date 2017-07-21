@@ -42,8 +42,7 @@ class PurgeRequest < ActiveRecord::Base
   end
 
   def purge
-    config = MySociety::Config.load_default
-    result = quietly_try_to_purge(config['VARNISH_HOST'], url)
+    result = quietly_try_to_purge(AlaveteliConfiguration.varnish_host, url)
     delete
   end
 end
