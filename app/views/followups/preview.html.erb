@@ -49,7 +49,11 @@
         <%= hidden_field_tag(:internal_review, 1 ) %>
       <% end %>
       <%= submit_tag _("Re-edit this message"), :name => 'reedit' %>
-      <%= submit_tag _("Send and publish message"), :name => 'submit' %>
+      <% if @info_request.embargo %>
+        <%= render partial: 'alaveteli_pro/followups/submit' %>
+      <% else %>
+        <%= render partial: 'submit' %>
+      <% end %>
     </p>
   <% end %>
 </div>
