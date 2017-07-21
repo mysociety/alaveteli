@@ -331,13 +331,15 @@ class InfoRequest < ActiveRecord::Base
     unique_url_title = url_title
     suffix_num = 2 # as there's already one without numeric suffix
     conditions = id ? ["id <> ?", id] : []
+
     while InfoRequest.
       where(:url_title => unique_url_title).
         where(conditions).
-          first do
+          any? do
       unique_url_title = "#{url_title}_#{suffix_num}"
       suffix_num = suffix_num + 1
     end
+
     write_attribute(:url_title, unique_url_title)
   end
 
