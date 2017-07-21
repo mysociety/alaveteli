@@ -368,7 +368,7 @@ class User < ActiveRecord::Base
   # When name is changed, also change the url name
   def name=(name)
     write_attribute(:name, name.try(:strip))
-    update_url_name
+    update_url_name unless banned?
   end
 
   def update_url_name
