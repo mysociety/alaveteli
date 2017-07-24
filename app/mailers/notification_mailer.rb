@@ -130,4 +130,45 @@ class NotificationMailer < ApplicationMailer
               subject,
               template_name: 'embargo_expiring_notification')
   end
+
+  def overdue_notification(notification)
+    @info_request = notification.info_request_event.info_request
+
+    post_redirect = PostRedirect.new(
+      :uri => respond_to_last_url(@info_request, :anchor => "followup"),
+      :user_id => @info_request.user.id)
+    post_redirect.save!
+    @url = confirm_url(:email_token => post_redirect.email_token)
+
+    set_reply_to_headers(@info_request.user)
+    set_auto_generated_headers
+
+    subject = _("Delayed response to your FOI request - {{request_title}}",
+                :request_title => @info_request.title.html_safe)
+
+    mail_user(@info_request.user,
+              subject,
+              template_name: 'overdue_notification')
+  end
+
+  def very_overdue_notification(notification)
+    @info_request = notification.info_request_event.info_request
+
+    post_redirect = PostRedirect.new(
+      :uri => respond_to_last_url(@info_request, :anchor => "followup"),
+      :user_id => @info_request.user.id)
+    post_redirect.save!
+    @url = confirm_url(:email_token => post_redirect.email_token)
+
+    set_reply_to_headers(@info_request.user)
+    set_auto_generated_headers
+
+    subject = _("You're long overdue a response to your FOI request " \
+                "- {{request_title}}",
+                :request_title => @info_request.title.html_safe)
+
+    mail_user(@info_request.user,
+              subject,
+              template_name: 'very_overdue_notification')
+  end
 end
