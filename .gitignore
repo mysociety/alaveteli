@@ -12,6 +12,7 @@
 .ruby-version
 .rbenv-version
 .rvmrc
+.vagrant.yml
 *#*#
 TAGS
 /lib/themes

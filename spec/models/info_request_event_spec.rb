@@ -368,6 +368,14 @@ describe InfoRequestEvent do
 
     end
 
+    it "calls the request's create_or_update_request_summary on create" do
+      TestAfterCommit.with_commits(true) do
+        event = FactoryGirl.build(:info_request_event)
+        expect(event.info_request).to receive(:create_or_update_request_summary)
+        event.save
+      end
+    end
+
   end
 
   describe "should know" do
@@ -762,6 +770,55 @@ describe InfoRequestEvent do
       info_request_event.destroy
       expect(Notification.where(id: notification.id)).not_to exist
     end
+  end
+
+  describe '#recheck_due_dates' do
+
+    context 'if the event is a response that is then labelled as
+             a clarification request' do
+      let(:response_event) do
+        response = nil
+        time_travel_to(1.month.ago) do
+          response = FactoryGirl.create(:response_event)
+        end
+        response.described_state = 'waiting_clarification'
+        response.calculated_state = 'waiting_clarification'
+        response.save!
+        response
+      end
+
+      context 'if there is a subsequent followup' do
+        let!(:followup) do
+          FactoryGirl.create(:followup_sent_event,
+                             :info_request => response_event.info_request)
+        end
+
+        it 'resets the due dates on the request' do
+          info_request = response_event.info_request
+          expect(info_request.reload.date_initial_request_last_sent_at).
+            to eq(1.month.ago.to_date)
+          response_event.recheck_due_dates
+          expect(info_request.reload.date_initial_request_last_sent_at).
+            to eq(Time.zone.now.to_date)
+        end
+
+      end
+
+      context 'if there is no subsequent followup' do
+
+        it 'does not reset the due dates on the request' do
+          info_request = response_event.info_request
+          expect(info_request.reload.date_initial_request_last_sent_at).
+            to eq(1.month.ago.to_date)
+          response_event.recheck_due_dates
+          expect(info_request.reload.date_initial_request_last_sent_at).
+            to eq(1.month.ago.to_date)
+        end
+
+      end
+
+    end
+
   end
 
 end

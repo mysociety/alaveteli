@@ -10,6 +10,7 @@ describe TrackMailer do
       allow(mail_mock).to receive(:deliver)
       allow(TrackMailer).to receive(:event_digest).and_return(mail_mock)
       allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
+      get_fixtures_xapian_index
     end
 
     it 'should ask for all the users whose last daily track email was sent more than a day ago' do

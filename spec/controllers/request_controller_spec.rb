@@ -43,6 +43,8 @@ describe RequestController, "when changing things that appear on the request pag
 
   before do
     PurgeRequest.destroy_all
+    allow(AlaveteliConfiguration).to receive(:varnish_host).
+      and_return('varnish.localdomain')
   end
 
   it "should purge the downstream cache when mail is received" do

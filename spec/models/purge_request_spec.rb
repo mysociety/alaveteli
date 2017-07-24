@@ -17,6 +17,8 @@ describe PurgeRequest, "purging things" do
   before do
     PurgeRequest.destroy_all
     FakeWeb.last_request = nil
+    allow(AlaveteliConfiguration).to receive(:varnish_host).
+      and_return('varnish.localdomain')
   end
 
   it 'should issue purge requests to the server' do

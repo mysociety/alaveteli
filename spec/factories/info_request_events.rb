@@ -79,6 +79,10 @@ FactoryGirl.define do
       event_type 'expire_embargo'
     end
 
+    factory :embargo_expiring_event do
+      event_type 'embargo_expiring'
+    end
+
   end
 
 end

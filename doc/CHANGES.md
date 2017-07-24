@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Make Vagrant settings configurable through `.vagrant.yml` (Gareth Rees)
 * Make sure geoip-database-contrib is installed when installing Alaveteli
   (Gareth Rees)
 * Make sure memcached is installed when installing Alaveteli (Gareth Rees)
@@ -17,6 +18,9 @@
 * Admin timeline can now show events filtered by type (Louise Crow)
 * As promised the `notifications_testers` role as been removed. Access to
 * the experimental notification features is now controlled by a feature flag.
+* Request numbers in search and list views are now more clearly displayed as
+  estimates (Liz Conlan)
+* Functionality of 'was clarification' admin button restored (Louise Crow)
 
 ## Upgrade Notes
 
@@ -32,7 +36,16 @@
 
 ### Changed Templates
 
+    app/views/alaveteli_pro/followups/_submit.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/followups/_submit.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/search.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_bubble.html.erb
     app/views/request/_outgoing_correspondence.html.erb
+    app/views/general/search.html.erb
+    app/views/request/_list_results.html.erb
 
 # 0.29.0.0
 
