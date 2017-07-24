@@ -331,13 +331,15 @@ class InfoRequest < ActiveRecord::Base
     unique_url_title = url_title
     suffix_num = 2 # as there's already one without numeric suffix
     conditions = id ? ["id <> ?", id] : []
+
     while InfoRequest.
       where(:url_title => unique_url_title).
         where(conditions).
-          first do
+          any? do
       unique_url_title = "#{url_title}_#{suffix_num}"
       suffix_num = suffix_num + 1
     end
+
     write_attribute(:url_title, unique_url_title)
   end
 
@@ -1360,7 +1362,7 @@ class InfoRequest < ActiveRecord::Base
      end
      body.without_revision do
        body.no_xapian_reindex = true
-       body.save
+       body.save(validate: false)
      end
      PublicBody.set_callback(:save, :after, :purge_in_cache)
   end

@@ -393,7 +393,8 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def template_changed
-    if body.empty? || HTMLEntities.new.decode(raw_body) =~ /\A#{template_regex(letter_template.body(default_message_replacements))}/
+    if raw_body.empty? || HTMLEntities.new.decode(raw_body) =~
+     /\A#{template_regex(letter_template.body(default_message_replacements))}/
       if message_type == 'followup'
         if what_doing == 'internal_review'
           errors.add(:body, _("Please give details explaining why you want a review"))

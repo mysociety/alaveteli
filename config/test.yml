@@ -118,5 +118,5 @@ EXCEPTION_NOTIFICATIONS_TO: exception-recipient@example.com
 
 MAX_REQUESTS_PER_USER_PER_DAY: 2
 
-VARNISH_HOST: varnish.localdomain
+
 SKIP_ADMIN_AUTH: true
