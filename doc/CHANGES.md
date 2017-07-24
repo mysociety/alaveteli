@@ -72,6 +72,8 @@
   assigning the content directly to flash (Liz Conlan, Steven Day)
 * Ensure info_requests are expired when censor rules are added, changed or
   removed (Liz Conlan)
+* Functionality of 'was clarification' admin button restored (Louise Crow)
+
 
 ## Upgrade Notes
 
