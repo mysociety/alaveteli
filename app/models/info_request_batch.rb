@@ -154,7 +154,7 @@ class InfoRequestBatch < ActiveRecord::Base
   #
   # Returns unique array of symbols representing phases from InfoRequest::State
   def request_phases
-    phases = info_requests.collect do |ir|
+    phases = info_requests(true).collect do |ir|
       if ir.last_event_forming_initial_request_id.nil?
         :awaiting_response
       else

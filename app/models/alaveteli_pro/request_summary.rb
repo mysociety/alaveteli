@@ -54,6 +54,7 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
                               "#{request.class.name} instances. Only " \
                               "#{ALLOWED_REQUEST_CLASSES} are allowed.")
     end
+    request.reload
     if request.request_summary
       request.request_summary.update_from(request)
       request.request_summary

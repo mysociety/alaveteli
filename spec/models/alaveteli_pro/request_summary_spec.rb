@@ -25,8 +25,10 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
   end
 
   it "requires a summarisable" do
-    summary = FactoryGirl.build(:request_summary, summarisable: nil)
-    expect(summary).not_to be_valid
+    TestAfterCommit.with_commits(true) do
+      summary = FactoryGirl.build(:request_summary, summarisable: nil)
+      expect(summary).not_to be_valid
+    end
   end
 
   it "validates that the summarisable is unique" do
@@ -43,8 +45,10 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
   end
 
   it "does not require a user" do
-    summary = FactoryGirl.build(:request_summary, user: nil)
-    expect(summary).to be_valid
+    TestAfterCommit.with_commits(true) do
+      summary = FactoryGirl.build(:request_summary, user: nil)
+      expect(summary).to be_valid
+    end
   end
 
   describe ".create_or_update_from" do

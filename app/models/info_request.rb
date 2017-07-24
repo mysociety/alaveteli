@@ -762,8 +762,6 @@ class InfoRequest < ActiveRecord::Base
     if !self.last_event_time || (event.created_at > self.last_event_time)
       self.update_column(:last_event_time, event.created_at)
     end
-    # Not every event will change the request summary, but just in case
-    create_or_update_request_summary
     event
   end
 

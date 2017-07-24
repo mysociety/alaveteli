@@ -73,6 +73,9 @@ class InfoRequestEvent < ActiveRecord::Base
   end
   after_create :update_request, :if => :response?
 
+  after_commit -> { self.info_request.create_or_update_request_summary },
+                  :on => [:create]
+
   validates_inclusion_of :event_type, :in => EVENT_TYPES
 
   # user described state (also update in info_request)

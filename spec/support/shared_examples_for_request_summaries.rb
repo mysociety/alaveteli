@@ -22,6 +22,14 @@ shared_examples_for "RequestSummaries" do
     end
   end
 
+  it "does not call create_or_update_request_summary on destroy" do
+    TestAfterCommit.with_commits(true) do
+      resource = FactoryGirl.create(factory)
+      expect(resource).not_to receive(:create_or_update_request_summary)
+      resource.destroy
+    end
+  end
+
   it "deletes associated request_summaries on destroy" do
     TestAfterCommit.with_commits(true) do
       resource = FactoryGirl.create(factory)
