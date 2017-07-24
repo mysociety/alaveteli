@@ -1628,8 +1628,12 @@ class InfoRequest < ActiveRecord::Base
     query.find_each(:batch_size => 100) do |info_request|
       # Date to DateTime representing beginning of day
       created_at = info_request.send(date_field).beginning_of_day + 1.day
-      info_request.log_event(event_type, { :event_created_at => Time.zone.now },
-                                         { :created_at => created_at })
+      event = info_request.log_event(event_type,
+                                     { :event_created_at => Time.zone.now },
+                                     { :created_at => created_at })
+      if info_request.use_notifications?
+        info_request.user.notify(event)
+      end
     end
 
   end

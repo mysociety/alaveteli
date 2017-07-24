@@ -3717,7 +3717,10 @@ describe InfoRequest do
 
   describe '.log_overdue_events' do
 
-    let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:info_request) { FactoryGirl.create(:info_request) }
+    let(:use_notifications_request) do
+      FactoryGirl.create(:use_notifications_request)
+    end
 
     context 'when an InfoRequest is not overdue' do
 
@@ -3748,6 +3751,30 @@ describe InfoRequest do
           expect(overdue_events.size).to eq 1
           overdue_event = overdue_events.first
           expect(overdue_event.created_at).to eq Time.zone.parse('2015-01-29').beginning_of_day
+        end
+      end
+
+      context "when the request has use_notifications: false" do
+        it "does not notify the user of the event" do
+          time_travel_to(Date.parse('2014-12-31')) { info_request }
+
+          time_travel_to(Date.parse('2015-01-30')) do
+            expect { InfoRequest.log_overdue_events }.
+              not_to change { Notification.count }
+          end
+        end
+      end
+
+      context "when the request has use_notifications: true" do
+        it "notifies the user of the event" do
+          time_travel_to(Date.parse('2014-12-31')) do
+            use_notifications_request
+          end
+
+          time_travel_to(Date.parse('2015-01-30')) do
+            expect { InfoRequest.log_overdue_events }.
+              to change { Notification.count }.by(1)
+          end
         end
       end
     end
@@ -3781,7 +3808,6 @@ describe InfoRequest do
             .to eq Time.zone.parse('2015-02-28').beginning_of_day
         end
 
-
       end
 
     end
@@ -3791,6 +3817,9 @@ describe InfoRequest do
   describe '.log_very_overdue_events' do
 
     let(:info_request){ FactoryGirl.create(:info_request) }
+    let(:use_notifications_request) do
+      FactoryGirl.create(:use_notifications_request)
+    end
 
     context 'when a request is not very overdue' do
 
@@ -3823,6 +3852,30 @@ describe InfoRequest do
           very_overdue_event = very_overdue_events.first
           expect(very_overdue_event.created_at).
             to eq Time.zone.parse('2015-02-26').beginning_of_day
+        end
+      end
+
+      context "when the request has use_notifications: false" do
+        it "does not notify the user of the event" do
+          time_travel_to(Date.parse('2014-12-31')) { info_request }
+
+          time_travel_to(Date.parse('2015-02-28')) do
+            expect { InfoRequest.log_overdue_events }.
+              not_to change { Notification.count }
+          end
+        end
+      end
+
+      context "when the request has use_notifications: true" do
+        it "notifies the user of the event" do
+          time_travel_to(Date.parse('2014-12-31')) do
+            use_notifications_request
+          end
+
+          time_travel_to(Date.parse('2015-02-28')) do
+            expect { InfoRequest.log_overdue_events }.
+              to change { Notification.count }.by(1)
+          end
         end
       end
     end
