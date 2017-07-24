@@ -110,6 +110,7 @@
 * Ensure info_requests are expired when censor rules are added, changed or
   removed (Liz Conlan)
 * Fix the select authorities form when Javascript is disabled (Louise Crow)
+* Functionality of 'was clarification' admin button restored (Louise Crow)
 
 ## Upgrade Notes
 

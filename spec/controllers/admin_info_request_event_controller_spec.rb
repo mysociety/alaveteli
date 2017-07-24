@@ -4,37 +4,65 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminInfoRequestEventController do
 
   describe 'PUT update' do
+    let(:info_request_event) do
+      info_request_event = FactoryGirl.create(:response_event)
+    end
 
     describe 'when handling valid data' do
 
-      before do
-        @info_request_event = FactoryGirl.create(:response_event)
-        put :update, :id => @info_request_event
-      end
-
       it 'gets the info request event' do
-        expect(assigns[:info_request_event]).to eq(@info_request_event)
+        put :update, :id => info_request_event
+        expect(assigns[:info_request_event]).to eq(info_request_event)
       end
 
       it 'sets the described and calculated states on the event' do
-        event = InfoRequestEvent.find(@info_request_event.id)
+        put :update, :id => info_request_event
+        event = InfoRequestEvent.find(info_request_event.id)
         expect(event.described_state).to eq('waiting_clarification')
         expect(event.calculated_state).to eq('waiting_clarification')
       end
 
+      it 'resets the last_sent_event on the info request if there is a
+          subsequent follow up' do
+        # create a follow up
+        info_request = info_request_event.info_request
+        time_travel_to(info_request.date_response_required_by) do
+          outgoing_message =
+            OutgoingMessage.new(:status => 'ready',
+                                :message_type => 'followup',
+                                :what_doing => 'normal_sort',
+                                :info_request_id => info_request.id,
+                                :body => "Here's the clarification.")
+          outgoing_message.record_email_delivery(
+            'foi@example.com',
+            'example.id'
+          )
+          outgoing_message.save!
+          put :update, :id => info_request_event
+          expect(info_request.reload.date_initial_request_last_sent_at).
+            to eq(Time.zone.now.to_date)
+        end
+      end
+
       it 'shows a success notice' do
-        expect(flash[:notice]).to eq('Old response marked as having been a clarification')
+        put :update, :id => info_request_event
+        expect(flash[:notice]).
+          to eq('Old response marked as having been a clarification')
       end
 
       it 'redirects to the request admin page' do
-        expect(response).to redirect_to(admin_request_url(@info_request_event.info_request))
+        put :update, :id => info_request_event
+        expect(response).
+          to redirect_to(admin_request_url(info_request_event.info_request))
       end
     end
 
     it 'raises an exception if the event is not a response' do
-      @info_request_event = FactoryGirl.create(:sent_event)
-      expect{ put :update, :id => @info_request_event }.
-        to raise_error(RuntimeError, "can only mark responses as requires clarification")
+      put :update, :id => info_request_event
+      info_request_event = FactoryGirl.create(:sent_event)
+      expect{ put :update, :id => info_request_event }.
+        to raise_error(RuntimeError,
+                       "can only mark responses as requires clarification")
     end
 
   end
