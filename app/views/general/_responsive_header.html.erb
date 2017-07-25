@@ -1,5 +1,5 @@
 <div class="only-show-for-print">
-  <p class="print-information">Printed from <%= request.original_url %> on <%= Time.zone.now.to_formatted_s(:long)  %></p>
+  <p class="print-information">Printed from <%= request.original_url.force_encoding('utf-8') %> on <%= Time.zone.now.to_formatted_s(:long)  %></p>
 </div>
 <div id="banner" class="banner <%= @in_pro_area ? 'banner--pro' : '' %>" role="banner">
   <div id="banner_inner" class="banner_inner">
