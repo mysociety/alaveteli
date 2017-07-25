@@ -51,7 +51,7 @@ module ActiveRecord
               ::File.join(fixtures_directory, fs_name))
           end
 
-          all_loaded_fixtures.update(fixtures_map)
+          update_all_loaded_fixtures fixtures_map
 
           connection.transaction(:requires_new => true) do
             # Patch - replace this...
