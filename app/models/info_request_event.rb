@@ -53,18 +53,30 @@ class InfoRequestEvent < ActiveRecord::Base
     'set_embargo' # an embargo is added or extended
   ].freeze
 
-  belongs_to :info_request
+  belongs_to :info_request,
+             :inverse_of => :info_request_events
+
   validates_presence_of :info_request
 
-  belongs_to :outgoing_message
-  belongs_to :incoming_message
-  belongs_to :comment
+  belongs_to :outgoing_message,
+             :inverse_of => :info_request_events
+  belongs_to :incoming_message,
+             :inverse_of => :info_request_events
+  belongs_to :comment,
+             :inverse_of => :info_request_events
 
-  has_one :request_classification
+  has_one :request_classification,
+          :inverse_of => :info_request_event
 
-  has_many :user_info_request_sent_alerts, :dependent => :destroy
-  has_many :track_things_sent_emails, :dependent => :destroy
-  has_many :notifications, :dependent => :destroy
+  has_many :user_info_request_sent_alerts,
+           :inverse_of => :info_request_event,
+           :dependent => :destroy
+  has_many :track_things_sent_emails,
+           :inverse_of => :info_request_event,
+           :dependent => :destroy
+  has_many :notifications,
+           :inverse_of => :info_request_event,
+           :dependent => :destroy
 
   validates_presence_of :event_type
 

@@ -33,9 +33,12 @@ class UserInfoRequestSentAlert < ActiveRecord::Base
     'embargo_expiring_1' # tell user that their embargo is expiring
   ]
 
-  belongs_to :user
-  belongs_to :info_request
-  belongs_to :info_request_event
+  belongs_to :user,
+             :inverse_of => :user_info_request_sent_alerts
+  belongs_to :info_request,
+             :inverse_of => :user_info_request_sent_alerts
+  belongs_to :info_request_event,
+             :inverse_of => :user_info_request_sent_alerts
 
   validates_inclusion_of :alert_type, :in => ALERT_TYPES
 end

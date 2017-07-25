@@ -11,7 +11,8 @@
 
 class AlaveteliPro::RequestSummaryCategory < ActiveRecord::Base
   has_and_belongs_to_many :request_summaries,
-                          :class_name => "AlaveteliPro::RequestSummary"
+                          :class_name => "AlaveteliPro::RequestSummary",
+                          :inverse_of => :request_summary_categories
 
   def self.draft
     return find_by(slug: "draft")

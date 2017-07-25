@@ -10,8 +10,11 @@
 #
 
 class PublicBodyCategoryLink < ActiveRecord::Base
-  belongs_to :public_body_category
-  belongs_to :public_body_heading
+  belongs_to :public_body_category,
+             :inverse_of => :public_body_category_links
+  belongs_to :public_body_heading,
+             :inverse_of => :public_body_category_links
+
   validates_presence_of :public_body_category
   validates_presence_of :public_body_heading
   validates :category_display_order, :numericality => { :only_integer => true,

@@ -16,13 +16,14 @@
 class AlaveteliPro::DraftInfoRequestBatch < ActiveRecord::Base
   include AlaveteliPro::RequestSummaries
 
-  belongs_to :user
+  belongs_to :user,
+             :inverse_of => :draft_info_request_batches
   has_and_belongs_to_many :public_bodies, -> {
     I18n.with_locale(I18n.locale) do
       includes(:translations).
         reorder('public_body_translations.name asc')
     end
-  }
+  }, :inverse_of => :draft_info_request_batches
 
   validates_presence_of :user
 

@@ -18,8 +18,12 @@
 #
 
 class PublicBodyChangeRequest < ActiveRecord::Base
-  belongs_to :user, :counter_cache => true
-  belongs_to :public_body
+  belongs_to :user,
+             :inverse_of => :public_body_change_requests,
+             :counter_cache => true
+  belongs_to :public_body,
+             :inverse_of => :public_body_change_requests
+
   validates_presence_of :public_body_name,
                         :message => N_("Please enter the name of the authority"),
                         :unless => proc{ |change_request| change_request.public_body }

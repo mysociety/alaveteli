@@ -47,50 +47,69 @@ class User < ActiveRecord::Base
 
   has_many :info_requests,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :info_request_events,
            -> { reorder('created_at desc') },
            :through => :info_requests
   has_many :embargoes,
+           :inverse_of => :user,
            :through => :info_requests
   has_many :draft_info_requests,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :user_info_request_sent_alerts,
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :post_redirects,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :track_things,
            -> { order('created_at desc') },
+           :inverse_of => :tracking_user,
            :foreign_key => 'tracking_user_id',
            :dependent => :destroy
   has_many :comments,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :public_body_change_requests,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_one :profile_photo,
+          :inverse_of => :user,
           :dependent => :destroy
   has_many :censor_rules,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :info_request_batches,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :draft_info_request_batches,
            -> { order('created_at desc') },
+           :inverse_of => :user,
            :dependent => :destroy,
            :class_name => AlaveteliPro::DraftInfoRequestBatch
   has_many :request_classifications,
+           :inverse_of => :user,
            :dependent => :destroy
   has_one :pro_account,
+          :inverse_of => :user,
           :dependent => :destroy
   has_many :request_summaries,
+           :inverse_of => :user,
            :dependent => :destroy,
            :class_name => AlaveteliPro::RequestSummary
   has_many :notifications,
+           :inverse_of => :user,
+           :dependent => :destroy
+  has_many :track_things_sent_emails,
+           :inverse_of => :user,
            :dependent => :destroy
   has_many :track_things_sent_emails,
            :dependent => :destroy

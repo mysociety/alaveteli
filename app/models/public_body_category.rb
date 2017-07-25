@@ -8,8 +8,11 @@
 #
 
 class PublicBodyCategory < ActiveRecord::Base
-  has_many :public_body_category_links, :dependent => :destroy
-  has_many :public_body_headings, :through => :public_body_category_links
+  has_many :public_body_category_links,
+           :inverse_of => :public_body_category,
+           :dependent => :destroy
+  has_many :public_body_headings,
+           :through => :public_body_category_links
 
   translates :title, :description
 

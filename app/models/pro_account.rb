@@ -11,5 +11,6 @@
 #
 
 class ProAccount < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user,
+             :inverse_of => :pro_account
 end

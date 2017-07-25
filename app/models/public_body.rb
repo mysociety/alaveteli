@@ -57,25 +57,33 @@ class PublicBody < ActiveRecord::Base
   end
 
   has_many :info_requests,
-           -> { order('created_at desc') }
+           -> { order('created_at desc') },
+           :inverse_of => :public_body
   has_many :track_things,
            -> { order('created_at desc') },
+           :inverse_of => :public_body,
            :dependent => :destroy
   has_many :censor_rules,
            -> { order('created_at desc') },
+           :inverse_of => :public_body,
            :dependent => :destroy
   has_many :track_things_sent_emails,
            -> { order('created_at DESC') },
+           :inverse_of => :public_body,
            :dependent => :destroy
   has_many :public_body_change_requests,
            -> { order('created_at DESC') },
+           :inverse_of => :public_body,
            :dependent => :destroy
   has_many :draft_info_requests,
-           -> { order('created_at DESC') }
+           -> { order('created_at DESC') },
+           :inverse_of => :public_body
 
-  has_and_belongs_to_many :info_request_batches
+  has_and_belongs_to_many :info_request_batches,
+                          :inverse_of => :public_bodies
   has_and_belongs_to_many :draft_info_request_batches,
-                          :class_name => 'AlaveteliPro::DraftInfoRequestBatch'
+                          :class_name => 'AlaveteliPro::DraftInfoRequestBatch',
+                          :inverse_of => :public_bodies
 
   validates_presence_of :name, :message => N_("Name can't be blank")
   validates_presence_of :url_name, :message => N_("URL name can't be blank")
