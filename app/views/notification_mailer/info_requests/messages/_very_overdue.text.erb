@@ -1,0 +1,13 @@
+<%= _('{{public_body_name}} have still not replied to your ' \
+      '{{law_used_short}} request {{title}}, as required by law. ' \
+      'Click on the link below to tell them to reply. ' \
+      'You might like to ask for an internal review, asking them to find ' \
+      'out why their response to the request has been so slow.',
+      :public_body_name => info_request.public_body.name.html_safe,
+      :law_used_short => info_request.law_used_human(:short).html_safe,
+      :title => info_request.title.html_safe) %>.
+
+<% post_redirect = PostRedirect.create!(
+       :uri => respond_to_last_url(info_request, :anchor => "followup"),
+       :user_id => info_request.user.id) %>
+<%= confirm_url(:email_token => post_redirect.email_token) %>

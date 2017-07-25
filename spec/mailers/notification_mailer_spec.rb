@@ -28,7 +28,21 @@ describe NotificationMailer do
         public_body: public_body_1
       )
     end
-    let!(:all_events_request) do
+    let(:overdue_request_1) do
+      FactoryGirl.create(
+        :overdue_request,
+        title: "Late expenses claims",
+        public_body: public_body_1
+      )
+    end
+    let(:very_overdue_request_1) do
+      FactoryGirl.create(
+        :very_overdue_request,
+        title: "Extremely late expenses claims",
+        public_body: public_body_1
+      )
+    end
+    let!(:new_response_and_embargo_expiring_request) do
       FactoryGirl.create(
         :info_request,
         title: "Thefts of stationary",
@@ -63,6 +77,32 @@ describe NotificationMailer do
     let!(:embargo_expiring_batch_requests) do
       embargo_expiring_batch_request.info_requests.order(:created_at)
     end
+    let!(:overdue_batch_request) do
+      batch = FactoryGirl.create(
+        :info_request_batch,
+        title: "Late FOI requests",
+        user: user,
+        public_bodies: [public_body_1, public_body_2]
+      )
+      batch.create_batch!
+      batch
+    end
+    let!(:overdue_batch_requests) do
+      overdue_batch_request.info_requests.order(:created_at)
+    end
+    let!(:very_overdue_batch_request) do
+      batch = FactoryGirl.create(
+        :info_request_batch,
+        title: "Ignored FOI requests",
+        user: user,
+        public_bodies: [public_body_1, public_body_2]
+      )
+      batch.create_batch!
+      batch
+    end
+    let!(:very_overdue_batch_requests) do
+      overdue_batch_request.info_requests.order(:created_at)
+    end
 
     # Incoming messages for new_response events
     # We need to force the ID numbers of these messages to be something known
@@ -73,9 +113,10 @@ describe NotificationMailer do
                          id: 995)
     end
     let!(:incoming_2) do
-      FactoryGirl.create(:incoming_message,
-                         info_request: all_events_request,
-                         id: 996)
+      FactoryGirl.create(
+        :incoming_message,
+        info_request: new_response_and_embargo_expiring_request,
+        id: 996)
     end
     let!(:incoming_3) do
       FactoryGirl.create(:incoming_message,
@@ -108,8 +149,21 @@ describe NotificationMailer do
                                               user: user)
     end
     let!(:notification_4) do
-      event = FactoryGirl.create(:embargo_expiring_event,
-                                 info_request: all_events_request)
+      event = FactoryGirl.create(
+        :embargo_expiring_event,
+        info_request: new_response_and_embargo_expiring_request)
+      FactoryGirl.create(:daily_notification, info_request_event: event,
+                                              user: user)
+    end
+    let!(:notification_5) do
+      event = FactoryGirl.create(:overdue_event,
+                                 info_request: overdue_request_1)
+      FactoryGirl.create(:daily_notification, info_request_event: event,
+                                              user: user)
+    end
+    let!(:notification_6) do
+      event = FactoryGirl.create(:very_overdue_event,
+                                 info_request: very_overdue_request_1)
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
@@ -159,18 +213,71 @@ describe NotificationMailer do
       notifications
     end
 
+    let!(:overdue_batch_notifications) do
+      notifications = []
+
+      event_1 = FactoryGirl.create(
+        :overdue_event,
+        info_request: overdue_batch_requests.first
+      )
+      notifications << FactoryGirl.create(:daily_notification,
+                                          info_request_event: event_1,
+                                          user: user)
+
+      event_2 = FactoryGirl.create(
+        :overdue_event,
+        info_request: overdue_batch_requests.second
+      )
+      notifications << FactoryGirl.create(:daily_notification,
+                                          info_request_event: event_2,
+                                          user: user)
+
+      notifications
+    end
+
+    let!(:very_overdue_batch_notifications) do
+      notifications = []
+
+      event_1 = FactoryGirl.create(
+        :very_overdue_event,
+        info_request: very_overdue_batch_requests.first
+      )
+      notifications << FactoryGirl.create(:daily_notification,
+                                          info_request_event: event_1,
+                                          user: user)
+
+      event_2 = FactoryGirl.create(
+        :very_overdue_event,
+        info_request: very_overdue_batch_requests.second
+      )
+      notifications << FactoryGirl.create(:daily_notification,
+                                          info_request_event: event_2,
+                                          user: user)
+
+      notifications
+    end
+
     let(:batch_notifications) do
       notifications = []
       notifications += new_response_batch_notifications
       notifications += embargo_expiring_batch_notifications
+      notifications += overdue_batch_notifications
+      notifications += very_overdue_batch_notifications
     end
 
     let(:all_notifications) do
       notifications = [notification_1,
                        notification_2,
                        notification_3,
-                       notification_4]
+                       notification_4,
+                       notification_5,
+                       notification_6]
       notifications + batch_notifications
+    end
+
+    before do
+      allow(PostRedirect).
+        to receive(:generate_random_token).and_return('TOKEN')
     end
 
     it "send the message to the right user" do
@@ -194,11 +301,15 @@ describe NotificationMailer do
       file_name = file_fixture_name("notification_mailer/daily-summary.txt")
       expected_message = File.open(file_name, 'r:utf-8') { |f| f.read }
       expect(mail.body.encoded).to eq(expected_message)
-      expect(mail.body.encoded).to eq(expected_message)
     end
 
     it "sets reply_to headers" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
+      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
+                          "<#{AlaveteliConfiguration.contact_email}>"
+      expect(mail.header["Reply-To"].value).to eq expected_reply_to
+      expect(mail.header["Return-Path"].value).
+        to eq 'do-not-reply-to-this-address@localhost'
     end
 
     it "sets auto-generated headers" do
