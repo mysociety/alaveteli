@@ -495,10 +495,12 @@ class PublicBody < ActiveRecord::Base
   end
 
   def self.localized_csv_field_name(locale, field_name)
-    (locale.to_sym == AlaveteliLocalization.default_locale) ?
-                        field_name : "#{field_name}.#{locale}"
+    if AlaveteliLocalization.default_locale?(locale)
+      field_name
+    else
+      "#{field_name}.#{locale}"
+    end
   end
-
 
   # import values from a csv row (that may include localized columns)
   def import_values_from_csv_row(row, line, name, options)
