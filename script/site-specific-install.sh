@@ -14,6 +14,21 @@ misuse() {
   exit 1
 }
 
+clear_daemon() {
+  echo -n "Removing /etc/init.d/$SITE-$1... "
+  rm -f "/etc/init.d/$SITE-$1"
+  echo $DONE_MSG
+}
+
+install_daemon() {
+  echo -n "Creating /etc/init.d/$SITE-$1... "
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' RUBY_VERSION='$RUBY_VERSION' SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
+  chgrp "$UNIX_USER" /etc/init.d/"$SITE-$1"
+  chmod 754 /etc/init.d/"$SITE-$1"
+  echo $DONE_MSG
+}
+
+
 # Strictly speaking we don't need to check all of these, but it might
 # catch some errors made when changing install-site.sh
 
@@ -209,7 +224,6 @@ echo -n "Creating /etc/cron.d/alaveteli... "
 (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
 # There are some other parts to rewrite, so just do them with sed:
 sed -r \
-    -e "/$SITE-purge-varnish/d" \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
@@ -222,23 +236,22 @@ if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
   echo $DONE_MSG
 fi
 
-echo -n "Creating /etc/init.d/$SITE-alert-tracks... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-alert-tracks"
-chgrp "$UNIX_USER" /etc/init.d/"$SITE-alert-tracks"
-chmod 754 /etc/init.d/"$SITE-alert-tracks"
-echo $DONE_MSG
+# Clear existing daemons
+all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons" "$UNIX_USER")
+echo "Clearing any existing daemons"
+for daemon in $all_daemons
+do
+  clear_daemon $daemon
+done
 
-echo -n "Creating /etc/init.d/$SITE-send-notifications... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/send-notifications-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-send-notifications"
-chgrp "$UNIX_USER" /etc/init.d/"$SITE-send-notifications"
-chmod 754 /etc/init.d/"$SITE-send-notifications"
-echo $DONE_MSG
+# Install required daemons
+active_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:active_daemons" "$UNIX_USER")
+echo "Creating daemons for active daemons"
+for daemon in $active_daemons
+do
+  install_daemon $daemon
+done
 
-echo -n "Creating /etc/init.d/$SITE-poll-for-incoming... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/poll-for-incoming-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-poll-for-incoming"
-chgrp "$UNIX_USER" /etc/init.d/"$SITE-poll-for-incoming"
-chmod 754 /etc/init.d/"$SITE-poll-for-incoming"
-echo $DONE_MSG
 
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]
 then

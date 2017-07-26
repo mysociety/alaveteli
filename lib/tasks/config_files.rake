@@ -22,6 +22,30 @@ namespace :config_files do
     converted_lines
   end
 
+  def daemons(only_active = false)
+    daemons = [ 'alert-tracks', 'send-notifications' ]
+    if AlaveteliConfiguration.production_mailer_retriever_method == 'pop' ||
+      !only_active
+      daemons << 'poll-for-incoming'
+    end
+    if AlaveteliConfiguration.varnish_host.present? ||
+      !only_active
+      daemons << 'purge-varnish'
+    end
+    daemons
+  end
+
+  desc 'Return list of daemons to install based on the settings defined
+        in general.yml'
+  task :active_daemons => :environment do
+    puts daemons(true)
+  end
+
+  desc 'Return list of all daemons the application defines'
+  task :all_daemons => :environment do
+    puts daemons
+  end
+
   desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
   task :convert_wrapper => :environment do
     example = 'rake config_files:convert_wrapper DEPLOY_USER=deploy SCRIPT_FILE=config/run-with-rbenv-path.example'
@@ -103,7 +127,19 @@ namespace :config_files do
       :mailto => ENV.fetch('MAILTO') { "cron-#{ ENV['SITE'] }@mysociety.org" },
       :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
     }
+
+    lines = []
     convert_ugly(ENV['CRONTAB'], replacements).each do |line|
+      lines << line
+    end
+
+    # Add daemon check lines
+    lines << "# Every 10 minutes, check on daemons"
+    daemons(true).each do |daemon|
+      lines << "5,15,25,35,45,55 * * * * #{ENV['DEPLOY_USER']} " \
+               "/etc/init.d/#{ENV['SITE']}-#{daemon} check"
+    end
+    lines.each do |line|
       puts line
     end
   end

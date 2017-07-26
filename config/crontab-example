@@ -14,9 +14,6 @@ MAILTO=!!(*= $mailto *)!!
 # Every 5 minutes
 */5 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-xapian-index verbose=true" >> !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log/update-xapian-index.log || echo "stalled?"
 # Every 10 minutes
-5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/!!(*= $site *)!!-alert-tracks check
-5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/!!(*= $site *)!!-purge-varnish check
-5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/!!(*= $site *)!!-poll-for-incoming check
 0,10,20,30,40,50 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/send-batch-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-batch-requests || echo "stalled?"
 
 # Once an hour
