@@ -35,6 +35,7 @@ class UserInfoRequestSentAlert < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :info_request
+  belongs_to :info_request_event
 
   validates_inclusion_of :alert_type, :in => ALERT_TYPES
 end

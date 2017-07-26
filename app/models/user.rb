@@ -92,7 +92,8 @@ class User < ActiveRecord::Base
            :class_name => AlaveteliPro::RequestSummary
   has_many :notifications,
            :dependent => :destroy
-
+  has_many :track_things_sent_emails,
+           :dependent => :destroy
 
   scope :not_banned, -> { where(ban_text: "") }
 

@@ -64,6 +64,18 @@ class PublicBody < ActiveRecord::Base
   has_many :censor_rules,
            -> { order('created_at desc') },
            :dependent => :destroy
+  has_many :track_things_sent_emails,
+           -> { order('created_at DESC') },
+           :dependent => :destroy
+  has_many :public_body_change_requests,
+           -> { order('created_at DESC') },
+           :dependent => :destroy
+  has_many :draft_info_requests,
+           -> { order('created_at DESC') }
+
+  has_and_belongs_to_many :info_request_batches
+  has_and_belongs_to_many :draft_info_request_batches,
+                          :class_name => 'AlaveteliPro::DraftInfoRequestBatch'
 
   validates_presence_of :name, :message => N_("Name can't be blank")
   validates_presence_of :url_name, :message => N_("URL name can't be blank")
