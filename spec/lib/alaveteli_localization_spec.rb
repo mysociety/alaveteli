@@ -79,6 +79,26 @@ describe AlaveteliLocalization do
 
   end
 
+  describe '.default_locale?' do
+
+    it 'returns true if the supplied locale is the default' do
+      expect(AlaveteliLocalization.default_locale?(:en)).to eq(true)
+    end
+
+    it 'returns false if the supplied locale is not the default' do
+      expect(AlaveteliLocalization.default_locale?(:es)).to eq(false)
+    end
+
+    it 'accepts string formatted locales' do
+      expect(AlaveteliLocalization.default_locale?("en")).to eq(true)
+    end
+
+    it 'returns false if the supplied locale is nil' do
+      expect(AlaveteliLocalization.default_locale?(nil)).to eq(false)
+    end
+
+  end
+
   describe '.available_locales' do
 
     it 'returns an array of available locales' do

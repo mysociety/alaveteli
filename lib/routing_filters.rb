@@ -31,7 +31,7 @@ module RoutingFilter
     end
 
     def default_locale?(locale)
-      locale && locale.to_sym == FastGettext.default_locale.to_sym
+      AlaveteliLocalization.default_locale?(locale)
     end
 
     # Reset the locale pattern when the locales are set.

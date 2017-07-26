@@ -36,6 +36,11 @@ class AlaveteliLocalization
       FastGettext.default_locale.to_sym
     end
 
+    def default_locale?(other)
+      return false if other.nil?
+      default_locale == other.to_sym
+    end
+
     def available_locales
       FastGettext.default_available_locales
     end

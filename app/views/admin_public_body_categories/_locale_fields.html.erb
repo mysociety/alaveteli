@@ -3,13 +3,13 @@
   <%= t.hidden_field :locale, :value => locale.to_s %>
   <%= t.label :title, :class => 'control-label' %>
   <div class="controls">
-    <% if locale == AlaveteliLocalization.default_locale &&
+    <% if AlaveteliLocalization.default_locale?(locale) &&
                       t.object.errors[:title].any? %>
       <span class="fieldWithErrors">
       <% end %>
       <%= t.text_field :title, :class => "span4" %>
-      <% if locale == AlaveteliLocalization.default_locale &&
-                        t.object.errors[:title].any? %>
+      <% if AlaveteliLocalization.default_locale?(locale) &&
+            t.object.errors[:title].any? %>
         </span>
       <%end %>
   </div>
@@ -17,15 +17,15 @@
 <div class="control-group">
   <%= t.label :description, :class => 'control-label' %>
   <div class="controls">
-    <% if locale == AlaveteliLocalization.default_locale &&
-                      t.object.errors[:description].any? %>
+    <% if AlaveteliLocalization.default_locale?(locale) &&
+          t.object.errors[:description].any? %>
       <span class="fieldWithErrors">
-      <% end %>
-      <%= t.text_field :description, :class => "span4" %>
-      <% if locale == AlaveteliLocalization.default_locale &&
-                        t.object.errors[:description].any? %>
-        </span>
-      <%end %>
+    <% end %>
+    <%= t.text_field :description, :class => "span4" %>
+    <% if AlaveteliLocalization.default_locale?(locale) &&
+          t.object.errors[:description].any? %>
+      </span>
+    <%end %>
   </div>
 </div>
 </div>
