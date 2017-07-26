@@ -33,7 +33,7 @@ RSpec.describe Notification do
       let(:notification) do
         FactoryGirl.create(:daily_notification, user: user)
       end
-      let(:user_time) { expected_time = Time.zone.now + 3.hours }
+      let(:user_time) { Time.zone.now + 3.hours }
 
       before do
         allow(user).to receive(:next_daily_summary_time).and_return(user_time)
@@ -77,6 +77,97 @@ RSpec.describe Notification do
 
     it "only returns unseen notifications" do
       expect(Notification.unseen).to match_array([unseen_notification])
+    end
+  end
+
+  describe ".reject_and_mark_expired" do
+    let(:notification) { FactoryGirl.create(:notification) }
+    let(:embargo_expiring_request) do
+      FactoryGirl.create(:embargo_expiring_request)
+    end
+    let(:embargo_expiring_event) do
+      FactoryGirl.create(:embargo_expiring_event,
+                         info_request: embargo_expiring_request)
+    end
+    let(:expired_notification) do
+      FactoryGirl.create(:notification,
+                         info_request_event: embargo_expiring_event)
+    end
+    let(:notifications) { [notification, expired_notification]}
+
+    context "when no notifications are expired" do
+      it "returns the original list" do
+        expect(Notification.reject_and_mark_expired(notifications)).
+          to match_array(notifications)
+      end
+    end
+
+    context "when notifications are expired" do
+      before do
+        embargo_expiring_request.embargo.destroy!
+        expired_notification.reload
+      end
+
+      it "returns a list of only valid notifications" do
+        expect(Notification.reject_and_mark_expired(notifications)).
+          to match_array([notification])
+      end
+
+      it "updates the expired notifications in the database" do
+        expect(expired_notification.read_attribute(:expired)).to be false
+        Notification.reject_and_mark_expired(notifications)
+        expect(expired_notification.reload.read_attribute(:expired)).to be true
+      end
+    end
+  end
+
+  describe "#expired" do
+    context "when the notification is for a new response" do
+      let(:notification) { FactoryGirl.create(:notification) }
+
+      it "returns false" do
+        expect(notification.expired).to be false
+      end
+    end
+
+    context "when the notification is for an expiring embargo" do
+      let(:embargo_expiring_request) do
+        FactoryGirl.create(:embargo_expiring_request)
+      end
+      let(:embargo_expiring_event) do
+        FactoryGirl.create(:embargo_expiring_event,
+                           info_request: embargo_expiring_request)
+      end
+      let(:notification) do
+        FactoryGirl.create(:notification,
+                           info_request_event: embargo_expiring_event)
+      end
+
+      context "and the embargo is still expiring" do
+        it "returns false" do
+          expect(notification.expired).to be false
+        end
+      end
+
+      context "and the embargo is no longer expiring" do
+        before do
+          embargo_expiring_request.embargo.destroy!
+          notification.reload
+        end
+
+        it "returns true" do
+          expect(notification.expired).to be true
+        end
+      end
+    end
+  end
+
+  describe "#expired?" do
+    let(:notification) { FactoryGirl.create(:notification) }
+
+    it "calls #expired" do
+      expect(notification).to receive(:expired)
+      notification.expired?
     end
   end
 end
