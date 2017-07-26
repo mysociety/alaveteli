@@ -4,7 +4,7 @@
 # Copyright (c) 2013 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org. WWW: http://www.mysociety.org/
 
-PATH=/usr/local/bin:/usr/bin:/bin
+PATH=/home/!!(*= $user *)!!/.gem/ruby/!!(*= $ruby_version *)!!/bin:/usr/local/bin:/usr/bin:/bin
 # Uncomment the following line if running under rbenv - we want this cron to run
 # in the context of the ruby version defined for the site
 # PATH=/home/!!(*= $user *)!!/.rbenv/shims:/usr/local/bin:/usr/bin:/bin

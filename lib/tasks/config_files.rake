@@ -40,7 +40,13 @@ namespace :config_files do
 
   desc 'Convert Debian example init script in config to a form suitable for installing in /etc/init.d'
   task :convert_init_script => :environment do
-    example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli SCRIPT_FILE=config/alert-tracks-debian.example'
+    example = 'rake config_files:convert_init_script ' \
+              'DEPLOY_USER=deploy ' \
+              'VHOST_DIR=/dir/above/alaveteli ' \
+              'VCSPATH=alaveteli ' \
+              'SITE=alaveteli ' \
+              'SCRIPT_FILE=config/alert-tracks-debian.example ' \
+              'RUBY_VERSION=1.9.1 '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'SCRIPT_FILE'], example)
@@ -51,7 +57,8 @@ namespace :config_files do
       :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
       :site => ENV.fetch('SITE') { 'foi' },
       :cpus => ENV.fetch('CPUS') { '1' },
-      :rails_env => ENV.fetch('RAILS_ENV') { 'development' }
+      :rails_env => ENV.fetch('RAILS_ENV') { 'development' },
+      :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
     }
 
     # Use the filename for the $daemon_name ugly variable
@@ -77,7 +84,12 @@ namespace :config_files do
 
   desc 'Convert Debian example crontab file in config to a form suitable for installing in /etc/cron.d'
   task :convert_crontab => :environment do
-    example = 'rake config_files:convert_crontab DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli CRONTAB=config/crontab-example MAILTO=cron-alaveteli@example.org'
+    example = 'rake config_files:convert_crontab ' \
+              'DEPLOY_USER=deploy ' \
+              'VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli ' \
+              'SITE=alaveteli CRONTAB=config/crontab-example ' \
+              'MAILTO=cron-alaveteli@example.org ' \
+              'RUBY_VERSION=1.9.1 '
     check_for_env_vars(['DEPLOY_USER',
                         'VHOST_DIR',
                         'VCSPATH',
@@ -88,7 +100,8 @@ namespace :config_files do
       :vhost_dir => ENV['VHOST_DIR'],
       :vcspath => ENV['VCSPATH'],
       :site => ENV['SITE'],
-      :mailto => ENV.fetch('MAILTO') { "cron-#{ ENV['SITE'] }@mysociety.org" }
+      :mailto => ENV.fetch('MAILTO') { "cron-#{ ENV['SITE'] }@mysociety.org" },
+      :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
     }
     convert_ugly(ENV['CRONTAB'], replacements).each do |line|
       puts line

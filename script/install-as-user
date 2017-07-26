@@ -3,10 +3,10 @@
 set -e
 set -x
 
-if [ $# -ne 3 ]
+if [ $# -ne 4 ]
 then
     cat >&2 <<EOUSAGE
-Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY>
+Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY> <RUBY-VERSION>
 EOUSAGE
     exit 1
 fi
@@ -14,6 +14,7 @@ fi
 UNIX_USER="$1"
 HOST="$2"
 DIRECTORY="$3"
+RUBY_VERSION="$4"
 DB_NAME="alaveteli"
 
 # Check that the arguments we've been passed are sensible:
@@ -62,10 +63,7 @@ TMP_BASHRC="$(mktemp "$BASHRC.XXXXXXX")"
 
 cat >>$TMP_BASHRC <<EOBRC
 $BASHRC_START
-export GEM_HOME="$HOME/gems"
-mkdir -p "\$GEM_HOME"
-export GEM_PATH=
-export PATH="\$GEM_HOME/bin:\$PATH"
+export PATH="\$HOME/.gem/ruby/$RUBY_VERSION/bin:\$PATH"
 $BASHRC_END
 EOBRC
 
@@ -82,7 +80,7 @@ if bundle --version | grep -q 'Bundler version 1.1.4' > /dev/null
 then
   echo "Rails 4 does not support bundler 1.1.4."
   echo "Installing bundler through gem for $UNIX_USER"
-  gem install bundler
+  gem install --user-install bundler
 fi
 
 # Write sensible values into the config file:
