@@ -46,6 +46,18 @@ namespace :config_files do
     puts daemons
   end
 
+  desc 'Return the value of a config param'
+  task :get_config_value => :environment do
+    example = 'rake config_files:get_config_value ' \
+              'KEY=PRODUCTION_MAILER_RETRIEVER_METHOD'
+    check_for_env_vars(['KEY'], example)
+    key = ENV['KEY']
+    if AlaveteliConfiguration::DEFAULTS.key?(key.to_sym)
+      puts MySociety::Config.
+        get(key, AlaveteliConfiguration::DEFAULTS[key.to_sym])
+    end
+  end
+
   desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
   task :convert_wrapper => :environment do
     example = 'rake config_files:convert_wrapper DEPLOY_USER=deploy SCRIPT_FILE=config/run-with-rbenv-path.example'
