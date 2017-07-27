@@ -16,7 +16,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def show
-    @locale = AlaveteliLocalization.locale.to_s
+    @locale = AlaveteliLocalization.locale
     I18n.with_locale(@locale) do
       @public_body = PublicBody.find(params[:id])
       info_requests = @public_body.info_requests.order('created_at DESC')
@@ -238,7 +238,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def lookup_query
-    @locale = AlaveteliLocalization.locale.to_s
+    @locale = AlaveteliLocalization.locale
     I18n.with_locale(@locale) do
       @query = params[:query]
       if @query == ""

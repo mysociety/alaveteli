@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
   def set_gettext_locale
     if AlaveteliConfiguration::include_default_locale_in_urls == false
       params_locale = params.fetch(:locale) do
-        AlaveteliLocalization.default_locale.to_s
+        AlaveteliLocalization.default_locale
       end
     else
       params_locale = params[:locale]
@@ -78,11 +78,11 @@ class ApplicationController < ActionController::Base
       requested_locale = params_locale || session[:locale] ||
                            cookies[:locale] ||
                            request.env['HTTP_ACCEPT_LANGUAGE'] ||
-                           AlaveteliLocalization.default_locale.to_s
+                           AlaveteliLocalization.default_locale
     else
       requested_locale = params_locale || session[:locale] ||
                            cookies[:locale] ||
-                           AlaveteliLocalization.default_locale.to_s
+                           AlaveteliLocalization.default_locale
     end
     requested_locale = FastGettext.best_locale_in(requested_locale)
     # set the currrent locale to the requested_locale
