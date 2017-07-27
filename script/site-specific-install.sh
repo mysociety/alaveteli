@@ -231,6 +231,12 @@ chgrp "$UNIX_USER" /etc/init.d/"$SITE-send-notifications"
 chmod 754 /etc/init.d/"$SITE-send-notifications"
 echo $DONE_MSG
 
+echo -n "Creating /etc/init.d/$SITE-poll-for-incoming... "
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/poll-for-incoming-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-poll-for-incoming"
+chgrp "$UNIX_USER" /etc/init.d/"$SITE-poll-for-incoming"
+chmod 754 /etc/init.d/"$SITE-poll-for-incoming"
+echo $DONE_MSG
+
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]
 then
     # If we're setting up as the default on an EC2 instance, make sure

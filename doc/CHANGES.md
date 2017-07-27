@@ -17,10 +17,15 @@
 * Move some more flash messages to be rendered from partials (Gareth Rees)
 * Admin timeline can now show events filtered by type (Louise Crow)
 * As promised the `notifications_testers` role as been removed. Access to
-* the experimental notification features is now controlled by a feature flag.
+  the experimental notification features is now controlled by a feature flag.
 * Request numbers in search and list views are now more clearly displayed as
   estimates (Liz Conlan)
 * Functionality of 'was clarification' admin button restored (Louise Crow)
+* A new method for receiving incoming mail has been introduced. Setting the experimental
+  config variable `PRODUCTION_MAILER_RETRIEVER_METHOD` to `pop` and generating
+  a daemon from the `poll-for-incoming-debian.example` template will
+  cause Alaveteli to poll a mailbox for incoming mail via POP, in addition to
+  passively accepting mail piped into the application via `script/mailin` (Louise Crow)
 
 ## Upgrade Notes
 
@@ -36,6 +41,8 @@
   the cached `last_event_time` attribute on info_requests, used in the admin interface.
 * Run `bundle exec rake temp:remove_notifications_tester_role` to remove the
   notification tester role from the database.
+* Use of the `PRODUCTION_MAILER_RETRIEVER_METHOD` config setting is currently
+  not recommended.
 
 ### Changed Templates
 
