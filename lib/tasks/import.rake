@@ -60,7 +60,7 @@ namespace :import do
                                                       tag_behaviour='replace',
                                                       dryrun,
                                                       editor="#{ENV['USER']} (Unix user)",
-        FastGettext.default_available_locales) do |row_number, fields|
+        AlaveteliLocalization.available_locales) do |row_number, fields|
         percent_complete = (100 * row_number.to_f / number_of_rows).to_i
         STDERR.print "#{row_number} out of #{number_of_rows} "
         STDERR.puts "(#{percent_complete}% complete)"

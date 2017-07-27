@@ -42,7 +42,7 @@ class AlaveteliLocalization
     end
 
     def available_locales
-      FastGettext.default_available_locales
+      FastGettext.available_locales
     end
   end
 end
