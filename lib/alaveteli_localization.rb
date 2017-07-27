@@ -44,5 +44,15 @@ class AlaveteliLocalization
     def available_locales
       FastGettext.available_locales
     end
+
+    private
+
+    def canonicalize(locale)
+      locale.to_s.gsub('-', '_')
+    end
+
+    def to_hyphen(locale)
+      locale.to_s.gsub('_', '-')
+    end
   end
 end
