@@ -10,17 +10,28 @@ class NotificationMailer < ApplicationMailer
     done_something = false
     query = "notifications.frequency = ? AND " \
             "notifications.send_after <= ? AND " \
-            "notifications.seen_at IS NULL"
+            "notifications.seen_at IS NULL AND " \
+            "notifications.expired = ?"
+            ""
     users = User.
       includes(:notifications).
         references(:notifications).
           where(query,
                 Notification.frequencies[Notification::DAILY],
-                Time.zone.now)
+                Time.zone.now,
+                false)
     users.find_each do |user|
-      notifications = user.notifications.daily.unseen.order(created_at: :desc)
+      notifications = user.
+        notifications.
+          daily.
+            unseen.
+              where(expired: false).
+                order(created_at: :desc)
+      notifications = Notification.reject_and_mark_expired(notifications)
       NotificationMailer.daily_summary(user, notifications).deliver
-      notifications.update_all(seen_at: Time.zone.now)
+      Notification.
+        where(id: notifications.map(&:id)).
+        update_all(seen_at: Time.zone.now)
       done_something = true
     end
     done_something
@@ -28,7 +39,13 @@ class NotificationMailer < ApplicationMailer
 
   def self.send_instant_notifications
     done_something = false
-    Notification.instantly.unseen.order(:created_at).find_each do |notification|
+    notifications = Notification.
+      instantly.
+        unseen.
+          where(expired: false).
+            order(:created_at)
+    notifications = Notification.reject_and_mark_expired(notifications)
+    notifications.each do |notification|
       NotificationMailer.instant_notification(notification).deliver
       notification.seen_at = Time.zone.now
       notification.save!

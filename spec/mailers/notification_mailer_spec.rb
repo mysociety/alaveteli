@@ -516,6 +516,37 @@ describe NotificationMailer do
       NotificationMailer.send_daily_notifications
       expect(NotificationMailer.send_daily_notifications).to be false
     end
+
+    context "when some notifications have expired before being sent" do
+      let(:embargo_expiring_request) do
+        FactoryGirl.create(:embargo_expiring_request,
+                           user: notification_1.user)
+      end
+      let(:embargo_expiring_event) do
+        FactoryGirl.create(:embargo_expiring_event,
+                           info_request: embargo_expiring_request)
+      end
+      let(:expired_notification) do
+        FactoryGirl.create(:notification,
+                           info_request_event: embargo_expiring_event)
+      end
+
+      it "doesn't send the expired notifications" do
+        NotificationMailer.send_daily_notifications
+        expect(expired_notification.reload.seen_at).to be nil
+      end
+
+      it "still marks the other notifications as having been seen" do
+        expected_notifications.each { |n| expect(n.seen_at).to be_nil }
+
+        NotificationMailer.send_daily_notifications
+
+        expected_notifications.each do |n|
+          n.reload
+          expect(n.seen_at).to be_within(1.second).of(Time.zone.now)
+        end
+      end
+    end
   end
 
   describe '.send_instant_notifications' do
@@ -570,6 +601,26 @@ describe NotificationMailer do
     it "returns false when it hasn't done anything" do
       NotificationMailer.send_instant_notifications
       expect(NotificationMailer.send_instant_notifications).to be false
+    end
+
+    context "when some notifications have expired before being sent" do
+      let(:embargo_expiring_request) do
+        FactoryGirl.create(:embargo_expiring_request,
+                           user: notification_1.user)
+      end
+      let(:embargo_expiring_event) do
+        FactoryGirl.create(:embargo_expiring_event,
+                           info_request: embargo_expiring_request)
+      end
+      let(:expired_notification) do
+        FactoryGirl.create(:instant_notification,
+                           info_request_event: embargo_expiring_event)
+      end
+
+      it "doesn't send the expired notifications" do
+        NotificationMailer.send_daily_notifications
+        expect(expired_notification.reload.seen_at).to be nil
+      end
     end
   end
 
