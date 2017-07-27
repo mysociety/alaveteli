@@ -782,14 +782,34 @@ describe NotificationMailer do
         FactoryGirl.create(:embargo_expiring_event,
                            info_request: embargo_expiring_request)
       end
-      let(:expired_notification) do
+      let(:expired_notification_1) do
         FactoryGirl.create(:notification,
                            info_request_event: embargo_expiring_event)
       end
 
+      let(:overdue_request) { FactoryGirl.create(:overdue_request) }
+      let(:overdue_event) do
+        FactoryGirl.create(:overdue_event, info_request: overdue_request)
+      end
+      let(:expired_notification_2) do
+        FactoryGirl.create(:notification, info_request_event: overdue_event)
+      end
+
+      let(:very_overdue_request) { FactoryGirl.create(:very_overdue_request) }
+      let(:very_overdue_event) do
+        FactoryGirl.create(:very_overdue_event,
+                           info_request: very_overdue_request)
+      end
+      let(:expired_notification_3) do
+        FactoryGirl.create(:notification,
+                           info_request_event: very_overdue_event)
+      end
+
       it "doesn't send the expired notifications" do
         NotificationMailer.send_daily_notifications
-        expect(expired_notification.reload.seen_at).to be nil
+        expect(expired_notification_1.reload.seen_at).to be nil
+        expect(expired_notification_2.reload.seen_at).to be nil
+        expect(expired_notification_3.reload.seen_at).to be nil
       end
 
       it "still marks the other notifications as having been seen" do
