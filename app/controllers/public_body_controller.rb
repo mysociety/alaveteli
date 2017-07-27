@@ -26,7 +26,7 @@ class PublicBodyController < ApplicationController
       return
     end
 
-    @locale = AlaveteliLocalization.locale.to_s
+    @locale = AlaveteliLocalization.locale
 
     I18n.with_locale(@locale) do
       @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
@@ -99,7 +99,7 @@ class PublicBodyController < ApplicationController
     @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
     raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
 
-    I18n.with_locale(AlaveteliLocalization.locale.to_s) do
+    I18n.with_locale(AlaveteliLocalization.locale) do
       if params[:submitted_view_email]
         if verify_recaptcha
           flash.discard(:error)
@@ -124,9 +124,9 @@ class PublicBodyController < ApplicationController
     @tag = params[:tag]
 
     @country_code = AlaveteliConfiguration.iso_country_code
-    @locale = AlaveteliLocalization.locale.to_s
-    underscore_locale = AlaveteliLocalization.locale.to_s
-    underscore_default_locale = AlaveteliLocalization.default_locale.to_s
+    @locale = AlaveteliLocalization.locale
+    underscore_locale = AlaveteliLocalization.locale
+    underscore_default_locale = AlaveteliLocalization.default_locale
 
     where_condition = "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
     where_parameters = []

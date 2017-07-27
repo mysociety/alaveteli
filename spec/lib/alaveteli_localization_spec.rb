@@ -66,13 +66,13 @@ describe AlaveteliLocalization do
 
     it 'handles being passed a symbol as available_locales' do
       AlaveteliLocalization.set_locales(:es, :es)
-      expect(AlaveteliLocalization.available_locales).to eq([:es])
+      expect(AlaveteliLocalization.available_locales).to eq(['es'])
     end
 
     it 'handles being passed hyphenated strings as available_locales' do
       AlaveteliLocalization.set_locales('en-GB nl-BE es', :es)
       expect(AlaveteliLocalization.available_locales).
-        to eq([:"en_GB", :"nl_BE", :es])
+        to eq(['en_GB', 'nl_BE', 'es'])
     end
 
   end
@@ -80,12 +80,12 @@ describe AlaveteliLocalization do
   describe '.locale' do
 
     it 'returns the current locale' do
-      expect(AlaveteliLocalization.locale).to eq(:en)
+      expect(AlaveteliLocalization.locale).to eq('en')
     end
 
     it 'returns the locale in the underscore format' do
       AlaveteliLocalization.set_locales('en_GB', 'en_GB')
-      expect(AlaveteliLocalization.locale).to eq(:en_GB)
+      expect(AlaveteliLocalization.locale).to eq('en_GB')
     end
 
   end
@@ -93,12 +93,12 @@ describe AlaveteliLocalization do
   describe '.default_locale' do
 
     it 'returns the current locale' do
-      expect(AlaveteliLocalization.default_locale).to eq(:en)
+      expect(AlaveteliLocalization.default_locale).to eq('en')
     end
 
     it 'returns the locale in the underscore format' do
       AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
-      expect(AlaveteliLocalization.default_locale).to eq(:en_GB)
+      expect(AlaveteliLocalization.default_locale).to eq('en_GB')
     end
 
   end
@@ -106,15 +106,15 @@ describe AlaveteliLocalization do
   describe '.default_locale?' do
 
     it 'returns true if the supplied locale is the default' do
-      expect(AlaveteliLocalization.default_locale?(:en)).to eq(true)
+      expect(AlaveteliLocalization.default_locale?('en')).to eq(true)
     end
 
     it 'returns false if the supplied locale is not the default' do
-      expect(AlaveteliLocalization.default_locale?(:es)).to eq(false)
+      expect(AlaveteliLocalization.default_locale?('es')).to eq(false)
     end
 
-    it 'accepts string formatted locales' do
-      expect(AlaveteliLocalization.default_locale?("en")).to eq(true)
+    it 'accepts symbol formatted locales' do
+      expect(AlaveteliLocalization.default_locale?(:en)).to eq(true)
     end
 
     it 'returns false if the supplied locale is nil' do
@@ -126,8 +126,8 @@ describe AlaveteliLocalization do
   describe '.available_locales' do
 
     it 'returns an array of available locales' do
-      described_class.set_locales('en_GB es', 'en_GB')
-      expect(AlaveteliLocalization.available_locales).to eq([:en_GB, :es])
+      AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
+      expect(AlaveteliLocalization.available_locales).to eq(['en_GB', 'es'])
     end
 
   end

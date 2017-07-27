@@ -17,7 +17,7 @@ class GeneralController < ApplicationController
   # New, improved front page!
   def frontpage
     medium_cache
-    @locale = AlaveteliLocalization.locale.to_s
+    @locale = AlaveteliLocalization.locale
     successful_query = InfoRequestEvent.make_query_from_params( :latest_status => ['successful'] )
     @request_events, @request_events_all_successful = InfoRequest.recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)

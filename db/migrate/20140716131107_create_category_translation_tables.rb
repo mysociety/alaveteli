@@ -7,7 +7,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
     translates :name
   end
   def up
-    default_locale = AlaveteliLocalization.default_locale.to_s
+    default_locale = AlaveteliLocalization.default_locale
 
     fields = {:title => :text,
               :description => :text}
@@ -112,8 +112,8 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
     new_categories = []
     PublicBodyCategory.all.each do |category|
       category.locale = category.translation.locale.to_s
-      AlaveteliLocalization.default_available_locales.each do |locale|
-        if locale.to_s != category.locale
+      AlaveteliLocalization.available_locales.each do |locale|
+        if locale != category.locale
           translation = category.translations.find_by_locale(locale)
           if translation
             new_cat = category.dup
@@ -121,7 +121,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
               value = translation.read_attribute(a)
               new_cat.send(:"#{a}=", value)
             end
-            new_cat.locale = locale.to_s
+            new_cat.locale = locale
             new_categories << new_cat
           end
         else
@@ -136,8 +136,8 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
     new_headings = []
     PublicBodyHeading.all.each do |heading|
       heading.locale = heading.translation.locale.to_s
-      AlaveteliLocalization.default_available_locales.each do |locale|
-        if locale.to_s != heading.locale
+      AlaveteliLocalization.available_locales.each do |locale|
+        if locale != heading.locale
           new_heading = heading.dup
           translation = heading.translations.find_by_locale(locale)
           if translation
@@ -145,7 +145,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
               value = translation.read_attribute(a)
               new_heading.send(:"#{a}=", value)
             end
-            new_heading.locale = locale.to_s
+            new_heading.locale = locale
             new_headings << new_heading
           end
         else

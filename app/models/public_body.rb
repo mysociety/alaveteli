@@ -165,7 +165,7 @@ class PublicBody < ActiveRecord::Base
   #          (default: AlaveteliLocalization.locale)
   #
   # Returns an ActiveRecord::Relation
-  def self.search(query, locale = AlaveteliLocalization.locale.to_s)
+  def self.search(query, locale = AlaveteliLocalization.locale)
     sql = <<-SQL
     (
       lower(public_body_translations.name) like lower('%'||?||'%')

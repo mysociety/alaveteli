@@ -26,20 +26,21 @@ class AlaveteliLocalization
     end
 
     def set_default_locale_urls(include_default_locale_in_urls)
-      RoutingFilter::Locale.include_default_locale = include_default_locale_in_urls
+      RoutingFilter::Locale.
+        include_default_locale = include_default_locale_in_urls
     end
 
     def locale
-      FastGettext.locale.to_sym
+      FastGettext.locale
     end
 
     def default_locale
-      FastGettext.default_locale.to_sym
+      FastGettext.default_locale
     end
 
     def default_locale?(other)
       return false if other.nil?
-      default_locale == other.to_sym
+      default_locale == other.to_s
     end
 
     def available_locales
