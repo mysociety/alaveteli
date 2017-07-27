@@ -3,20 +3,21 @@ class AlaveteliLocalization
   class << self
     def set_locales(available_locales, default_locale)
       # fallback locale and available locales
-      available_locales = available_locales.split(/ /)
-      FastGettext.default_available_locales = available_locales.
-                                                map { |x| x.to_sym }
+      available_locales = available_locales.to_s.
+                            split(/ /).map { |locale| canonicalize(locale) }
+      FastGettext.
+        default_available_locales = available_locales.map { |x| x.to_sym }
       I18n.available_locales = available_locales.map do |locale_name|
-        locale_name.gsub("_", '-').to_sym
+        to_hyphen(locale_name)
       end
-      I18n.locale = I18n.default_locale = default_locale.to_s.gsub("_", '-')
-      FastGettext.default_locale = default_locale
+      I18n.locale = I18n.default_locale = to_hyphen(default_locale)
+      FastGettext.default_locale = canonicalize(default_locale)
       RoutingFilter::Conditionallyprependlocale.locales = available_locales
     end
 
     def set_default_locale(locale)
-      I18n.default_locale = locale.to_s.gsub("_", '-').to_sym
-      FastGettext.default_locale = locale.to_s.gsub("-", '_')
+      I18n.default_locale = to_hyphen(locale)
+      FastGettext.default_locale = canonicalize(locale)
     end
 
     def set_default_text_domain(name, repos)
