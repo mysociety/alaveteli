@@ -16,14 +16,16 @@ module Translatable
 
   def ordered_translations
     translations.select do |translation|
-      FastGettext.default_available_locales.include?(translation.locale)
+      AlaveteliLocalization.
+        default_available_locales.
+          include?(translation.locale)
     end.sort_by do |translation|
-      FastGettext.default_available_locales.index(translation.locale)
+      AlaveteliLocalization.default_available_locales.index(translation.locale)
     end
   end
 
   def build_all_translations
-    FastGettext.default_available_locales.each do |locale|
+    AlaveteliLocalization.default_available_locales.each do |locale|
       if translations.none? { |translation| translation.locale == locale }
         translations.build(:locale => locale)
       end

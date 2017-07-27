@@ -64,8 +64,14 @@ describe AdminPublicBodyCategoriesController do
     it 'builds new translations for all locales' do
       get :new
 
-      translations = assigns(:public_body_category).translations.map{ |t| t.locale.to_s }.sort
-      available = FastGettext.default_available_locales.map{ |l| l.to_s }.sort
+      translations = assigns(:public_body_category).
+                       translations.
+                         map { |t| t.locale.to_s }.
+                           sort
+
+      available = AlaveteliLocalization.
+                    available_locales.
+                      sort
 
       expect(translations).to eq(available)
     end

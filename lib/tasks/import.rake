@@ -57,7 +57,7 @@ namespace :import do
     tag = ''
     tag_behaviour = 'replace'
     editor = "#{ ENV['USER'] } (Unix user)"
-    locales = FastGettext.default_available_locales
+    locales = AlaveteliLocalization.available_locales
 
     import_args = [tmp_csv.path, tag, tag_behaviour, dryrun, editor, locales]
 

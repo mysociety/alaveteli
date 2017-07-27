@@ -174,12 +174,13 @@ class AdminPublicBodyController < AdminController
       end
       if !csv_contents.nil?
         # Try with dry run first
-        errors, notes = PublicBody.import_csv(csv_contents,
-                                              params[:tag],
-                                              params[:tag_behaviour],
-                                              true,
-                                              admin_current_user,
-                                              FastGettext.default_available_locales)
+        errors, notes = PublicBody.
+                          import_csv(csv_contents,
+                                     params[:tag],
+                                     params[:tag_behaviour],
+                                     true,
+                                     admin_current_user,
+                                     AlaveteliLocalization.available_locales)
 
         if errors.size == 0
           if dry_run_only
@@ -188,12 +189,14 @@ class AdminPublicBodyController < AdminController
             @temporary_csv_file = store_csv_data(csv_contents)
           else
             # And if OK, with real run
-            errors, notes = PublicBody.import_csv(csv_contents,
-                                                  params[:tag],
-                                                  params[:tag_behaviour],
-                                                  false,
-                                                  admin_current_user,
-                                                  FastGettext.default_available_locales)
+            errors, notes = PublicBody.
+                              import_csv(csv_contents,
+                                         params[:tag],
+                                         params[:tag_behaviour],
+                                         false,
+                                         admin_current_user,
+                                         AlaveteliLocalization.
+                                           available_locales)
             if errors.size != 0
               raise "dry run mismatched real run"
             end

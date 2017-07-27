@@ -239,8 +239,9 @@ EOF
                                           ]},
                            {:name => '_why_they_should_reply_by_email',
                             :sections => []}]
+
     theme_names.each do |theme_name|
-      FastGettext.default_available_locales.each do |locale|
+      AlaveteliLocalization.available_locales.each do |locale|
         puts ""
         puts "theme: #{theme_name} locale: #{locale}"
         puts ""

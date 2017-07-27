@@ -112,7 +112,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
     new_categories = []
     PublicBodyCategory.all.each do |category|
       category.locale = category.translation.locale.to_s
-      FastGettext.default_available_locales.each do |locale|
+      AlaveteliLocalization.default_available_locales.each do |locale|
         if locale.to_s != category.locale
           translation = category.translations.find_by_locale(locale)
           if translation
@@ -136,7 +136,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
     new_headings = []
     PublicBodyHeading.all.each do |heading|
       heading.locale = heading.translation.locale.to_s
-      FastGettext.default_available_locales.each do |locale|
+      AlaveteliLocalization.default_available_locales.each do |locale|
         if locale.to_s != heading.locale
           new_heading = heading.dup
           translation = heading.translations.find_by_locale(locale)
