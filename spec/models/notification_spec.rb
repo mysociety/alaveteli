@@ -160,6 +160,106 @@ RSpec.describe Notification do
         end
       end
     end
+
+    context "when the notification is for an overdue request" do
+      let(:info_request) { FactoryGirl.create(:overdue_request) }
+      let(:event) do
+        FactoryGirl.create(:overdue_event, info_request: info_request)
+      end
+      let(:notification) do
+        FactoryGirl.create(:notification, info_request_event: event)
+      end
+
+      context "and the request is still overdue" do
+        context "and the user can make followups" do
+          it "returns false" do
+            expect(notification.expired).to be false
+          end
+        end
+
+        context "and the user can't make followups" do
+          before do
+            info_request.user.update(ban_text: 'banned')
+          end
+
+          it "returns true" do
+            expect(notification.expired).to be true
+          end
+        end
+      end
+
+      context "and the request is no longer overdue" do
+        before do
+          info_request.set_described_state('successful')
+        end
+
+        context "and the user can make followups" do
+          it "returns true" do
+            expect(notification.expired).to be true
+          end
+        end
+
+        context "and the user can't make followups" do
+          before do
+            info_request.user.update(ban_text: 'banned')
+          end
+
+          it "returns true" do
+            expect(notification.expired).to be true
+          end
+        end
+      end
+    end
+
+    context "when the notification is for a very overdue request" do
+      let(:info_request) { FactoryGirl.create(:very_overdue_request) }
+      let(:event) do
+        FactoryGirl.create(:very_overdue_event, info_request: info_request)
+      end
+      let(:notification) do
+        FactoryGirl.create(:notification, info_request_event: event)
+      end
+
+      context "and the request is still very_overdue" do
+        context "and the user can make followups" do
+          it "returns false" do
+            expect(notification.expired).to be false
+          end
+        end
+
+        context "and the user can't make followups" do
+          before do
+            info_request.user.update(ban_text: 'banned')
+          end
+
+          it "returns true" do
+            expect(notification.expired).to be true
+          end
+        end
+      end
+
+      context "and the request is no longer very overdue" do
+        before do
+          info_request.set_described_state('successful')
+        end
+
+        context "and the user can make followups" do
+          it "returns true" do
+            expect(notification.expired).to be true
+          end
+        end
+
+        context "and the user can't make followups" do
+          before do
+            info_request.user.update(ban_text: 'banned')
+          end
+
+          it "returns true" do
+            expect(notification.expired).to be true
+          end
+        end
+      end
+    end
   end
 
   describe "#expired?" do

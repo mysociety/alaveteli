@@ -60,4 +60,18 @@ class Notification < ActiveRecord::Base
     # they might not need this notification any more.
     !self.info_request_event.info_request.embargo_expiring?
   end
+
+  def overdue_expired
+    info_request = self.info_request_event.info_request
+    user = info_request.user
+    status = info_request.calculate_status
+    !(user.can_make_followup? && status == 'waiting_response_overdue')
+  end
+
+  def very_overdue_expired
+    info_request = self.info_request_event.info_request
+    user = info_request.user
+    status = info_request.calculate_status
+    !(user.can_make_followup? && status == 'waiting_response_very_overdue')
+  end
 end
