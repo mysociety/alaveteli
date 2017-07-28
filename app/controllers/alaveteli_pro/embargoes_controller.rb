@@ -8,8 +8,12 @@
 class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
   def destroy
     @embargo = AlaveteliPro::Embargo.find(params[:id])
-    @info_request = @embargo.info_request
     authorize! :update, @embargo
+    @info_request = @embargo.info_request
+    # Embargoes cannot be updated individually on batch requests
+    if @info_request.info_request_batch_id
+      raise PermissionDenied
+    end
     if @embargo.destroy
       flash[:notice] = _("Your request is now public!")
     else

@@ -73,20 +73,39 @@ describe AlaveteliPro::EmbargoExtensionsController do
     end
 
     context "when the user is not allowed to update the embargo" do
-      before do
-        other_user = FactoryGirl.create(:pro_user)
-        with_feature_enabled(:alaveteli_pro) do
-          session[:user_id] = other_user.id
-        end
-      end
+      let(:other_user) {  FactoryGirl.create(:pro_user) }
 
       it "raises a CanCan::AccessDenied error" do
         expect do
-          post :create,
-               alaveteli_pro_embargo_extension:
-                 { embargo_id: embargo.id,
-                   extension_duration: "3_months" }
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = other_user.id
+            post :create,
+                 alaveteli_pro_embargo_extension:
+                   { embargo_id: embargo.id,
+                     extension_duration: "3_months" }
+          end
         end.to raise_error(CanCan::AccessDenied)
+      end
+    end
+
+    context "when the info_request is part of a batch request" do
+      let(:info_request_batch) { FactoryGirl.create(:info_request_batch) }
+
+      before do
+        info_request.info_request_batch = info_request_batch
+        info_request.save!
+      end
+
+      it "raises a PermissionDenied error" do
+        expect do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user.id
+            post :create,
+                 alaveteli_pro_embargo_extension:
+                   { embargo_id: embargo.id,
+                     extension_duration: "3_months" }
+          end
+        end.to raise_error(ApplicationController::PermissionDenied)
       end
     end
 

@@ -10,6 +10,10 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
     @embargo = AlaveteliPro::Embargo.find(embargo_extension_params[:embargo_id])
     authorize! :update, @embargo
     @info_request = @embargo.info_request
+    # Embargoes cannot be updated individually on batch requests
+    if @info_request.info_request_batch_id
+      raise PermissionDenied
+    end
     @embargo_extension = AlaveteliPro::EmbargoExtension.new(embargo_extension_params)
     if @embargo_extension.save
       @embargo.extend(@embargo_extension)

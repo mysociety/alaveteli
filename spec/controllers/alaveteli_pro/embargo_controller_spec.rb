@@ -55,5 +55,23 @@ describe AlaveteliPro::EmbargoesController do
         end.to raise_error(CanCan::AccessDenied)
       end
     end
+
+    context "when the info_request is part of a batch request" do
+      let(:info_request_batch) { FactoryGirl.create(:info_request_batch) }
+
+      before do
+        info_request.info_request_batch = info_request_batch
+        info_request.save!
+      end
+
+      it "raises a PermissionDenied error" do
+        expect do
+          with_feature_enabled(:alaveteli_pro) do
+            session[:user_id] = pro_user.id
+            delete :destroy, id: embargo.id
+          end
+        end.to raise_error(ApplicationController::PermissionDenied)
+      end
+    end
   end
 end
