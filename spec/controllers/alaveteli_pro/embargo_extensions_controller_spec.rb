@@ -3,7 +3,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe AlaveteliPro::EmbargoExtensionsController do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
-  let(:admin) { FactoryGirl.create(:admin_user) }
+  let(:admin) do
+    user = FactoryGirl.create(:pro_admin_user)
+    user.roles << Role.find_by(name: 'pro')
+    user
+  end
   let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
   let(:embargo) { FactoryGirl.create(:embargo, info_request: info_request) }
 
@@ -41,7 +45,7 @@ describe AlaveteliPro::EmbargoExtensionsController do
       context "because they are an admin" do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            session[:user_id] = pro_user.id
+            session[:user_id] = admin.id
             post :create,
                  alaveteli_pro_embargo_extension:
                    { embargo_id: embargo.id,
