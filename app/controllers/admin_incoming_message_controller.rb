@@ -41,7 +41,8 @@ class AdminIncomingMessageController < AdminController
       redirect_to(admin_request_url(params[:request_id]))
     end
 
-    @incoming_messages = IncomingMessage.where(:id => params[:ids].split(","))
+    @incoming_messages = IncomingMessage.
+                           where(:id => params[:ids].split(",").flatten)
     if params[:commit] == "Yes"
       errors = []
       info_request = InfoRequest.find(params[:request_id])

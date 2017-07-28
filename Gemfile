@@ -90,7 +90,7 @@ gem 'cancancan', '~> 1.12.0', '< 1.13.0'
 gem 'charlock_holmes', '~> 0.7.0'
 gem 'dalli', '~> 2.7.0'
 gem 'dynamic_form', '~> 1.1.0'
-gem 'exception_notification', '~> 4.0.0', '< 4.1.0'
+gem 'exception_notification', '~> 4.1.0', '< 4.1.2'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'foundation-rails', '~> 5.5.3.2'
 gem 'geoip', '~> 1.6.0'
@@ -142,7 +142,7 @@ gem 'unicode', '~> 0.4.0'
 gem 'unidecoder', '~> 1.1.0'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
-gem 'mime-types', '< 3.0.0'
+gem 'mime-types', '< 3.0.0', require: false
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
@@ -184,4 +184,5 @@ group :development do
   gem 'launchy', '~> 2.4.0'
   gem 'spring', '~> 1.7.0', '< 2.0.0'
   gem 'spring-commands-rspec', '~> 1.0.0'
+  gem 'web-console', '~> 2.3.0', '< 3.0.0'
 end
