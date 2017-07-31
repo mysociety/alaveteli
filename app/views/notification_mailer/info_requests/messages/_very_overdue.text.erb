@@ -5,7 +5,7 @@
       'out why their response to the request has been so slow.',
       :public_body_name => info_request.public_body.name.html_safe,
       :law_used_short => info_request.law_used_human(:short).html_safe,
-      :title => info_request.title.html_safe) %>.
+      :title => info_request.title.html_safe) %>
 
 <% post_redirect = PostRedirect.create!(
        :uri => respond_to_last_url(info_request, :anchor => "followup"),

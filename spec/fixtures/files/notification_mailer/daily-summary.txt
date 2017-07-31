@@ -39,7 +39,7 @@ Late expenses claims
 --------------------
 
 What's happened:
-Ministry of fact keeping have not replied to your FOI request Late expenses claims promptly, as normally required by law. Click on the link below to remind them to reply..
+Ministry of fact keeping have not replied to your FOI request Late expenses claims promptly, as normally required by law. Click on the link below to remind them to reply.
 
 http://test.host/en/c/TOKEN
 
@@ -48,7 +48,7 @@ Extremely late expenses claims
 ------------------------------
 
 What's happened:
-Ministry of fact keeping have not replied to your FOI request Extremely late expenses claims, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why response to the request has been so slow..
+Ministry of fact keeping have still not replied to your FOI request Extremely late expenses claims, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow.
 
 http://test.host/en/c/TOKEN
 
