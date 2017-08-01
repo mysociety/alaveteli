@@ -30,6 +30,14 @@ class AlaveteliLocalization
         include_default_locale = include_default_locale_in_urls
     end
 
+    def set_session_locale(*args)
+      requested = args.compact.delete_if { |x| x.empty? }.first
+
+      new_locale = FastGettext.best_locale_in(requested) || default_locale
+      I18n.locale = to_hyphen(new_locale)
+      FastGettext.locale = canonicalize(new_locale)
+    end
+
     def locale
       FastGettext.locale
     end

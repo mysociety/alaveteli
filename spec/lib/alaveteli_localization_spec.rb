@@ -77,6 +77,40 @@ describe AlaveteliLocalization do
 
   end
 
+  describe '.set_session_locale' do
+
+    it 'sets the current locale' do
+      AlaveteliLocalization.set_session_locale('es')
+      expect(AlaveteliLocalization.locale).to eq('es')
+    end
+
+    it 'does not affect the default locale' do
+      AlaveteliLocalization.set_session_locale('es')
+      expect(AlaveteliLocalization.default_locale).to eq('en')
+    end
+
+    it 'uses the first non blank argument' do
+      expect(AlaveteliLocalization.set_session_locale(nil, 'es', 'en')).
+        to eq('es')
+
+      expect(AlaveteliLocalization.set_session_locale('', 'es', 'en')).
+        to eq('es')
+    end
+
+    it 'uses the current default if the supplied value is not in available_locales' do
+      expect(AlaveteliLocalization.set_session_locale('pt')).to eq('en')
+    end
+
+    it 'uses the current default if only blank arguments are supplied' do
+      expect(AlaveteliLocalization.set_session_locale('', nil)).to eq('en')
+    end
+
+    it 'accepts a symbol or a string' do
+      expect(AlaveteliLocalization.set_session_locale(:es)).to eq('es')
+    end
+
+  end
+
   describe '.locale' do
 
     it 'returns the current locale' do
