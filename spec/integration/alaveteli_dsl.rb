@@ -26,6 +26,27 @@ module AlaveteliDsl
     expect(page).to have_content('To send and publish your FOI request, create an account or sign in')
   end
 
+  def create_request_and_user(public_body)
+    user = FactoryGirl.build(:user)
+    # Make a request in the normal way
+    using_session(without_login) do
+      create_request(public_body)
+      # Now log in as an unconfirmed user.
+      visit signin_path :token => get_last_post_redirect.token
+      within '#signup_form' do
+        fill_in "Your name:", :with => user.name
+        fill_in "Your e-mail:", :with => user.email
+        fill_in "Password:", :with => 'jonespassword'
+        fill_in "Confirm password:", :with => 'jonespassword'
+        click_button "Sign up"
+      end
+      expect(page).to have_content('Now check your email!')
+    end
+
+    # This will trigger a confirmation mail. Return the PostRedirect
+    get_last_post_redirect
+  end
+
   # Visit and fill out the pro-specific new request form
   # Note: you'll need to be logged in as a pro user to access this page.
   def create_pro_request(public_body)
