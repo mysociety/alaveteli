@@ -378,13 +378,7 @@ class RequestController < ApplicationController
       return
     end
 
-    if params[:post_redirect_user]
-      # If an admin has clicked the confirmation link on a users behalf,
-      # we don’t want to reassign the request to the administrator.
-      @info_request.user = params[:post_redirect_user]
-    else
-      @info_request.user = authenticated_user
-    end
+    @info_request.user = request_user
 
     if spam_subject?(@outgoing_message.subject, @user)
       handle_spam_subject(@info_request.user) && return
@@ -1160,13 +1154,26 @@ class RequestController < ApplicationController
 
   def redirect_new_form_to_pro_version
     # Pros should use the pro version of the form
-    if feature_enabled?(:alaveteli_pro) && current_user && current_user.is_pro? && params[:pro] != "1"
+    if feature_enabled?(:alaveteli_pro) &&
+      request_user &&
+      request_user.is_pro? &&
+      params[:pro] != "1"
       if params[:url_name]
         redirect_to(
           new_alaveteli_pro_info_request_url(public_body: params[:url_name]))
       else
         redirect_to new_alaveteli_pro_info_request_url
       end
+    end
+  end
+
+  # If an admin has clicked the confirmation link on a users behalf,
+  # we don’t want to reassign the request to the administrator.
+  def request_user
+    if params[:post_redirect_user]
+      params[:post_redirect_user]
+    else
+      current_user
     end
   end
 

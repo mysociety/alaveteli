@@ -213,7 +213,9 @@ class UserController < ApplicationController
       # # => true
       # !User.stay_logged_in_on_redirect?(admin)
       # # => false
-      unless User.stay_logged_in_on_redirect?(@user)
+      if User.stay_logged_in_on_redirect?(@user)
+        session[:admin_confirmation] = 1
+      else
         @user = confirm_user!(post_redirect.user)
       end
 
