@@ -49,12 +49,18 @@ class OutgoingMessage < ActiveRecord::Base
   validate :body_has_signature
   validate :what_doing_value
 
-  belongs_to :info_request
-  belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
+  belongs_to :info_request,
+             :inverse_of => :outgoing_messages
+  belongs_to :incoming_message_followup,
+             :inverse_of => :outgoing_message_followups,
+             :foreign_key => 'incoming_message_followup_id',
+             :class_name => 'IncomingMessage'
 
   # can have many events, for items which were resent by site admin e.g. if
   # contact address changed
-  has_many :info_request_events, :dependent => :destroy
+  has_many :info_request_events,
+           :inverse_of => :outgoing_message,
+           :dependent => :destroy
 
   after_initialize :set_default_letter
   after_save :purge_in_cache

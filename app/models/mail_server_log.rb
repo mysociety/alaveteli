@@ -24,8 +24,10 @@ class MailServerLog < ActiveRecord::Base
   # See http://stackoverflow.com/a/15610692/387558
   serialize :delivery_status, DeliveryStatusSerializer
 
-  belongs_to :info_request
-  belongs_to :mail_server_log_done
+  belongs_to :info_request,
+             :inverse_of => :mail_server_logs
+  belongs_to :mail_server_log_done,
+             :inverse_of => :mail_server_logs
 
   before_create :calculate_delivery_status
 

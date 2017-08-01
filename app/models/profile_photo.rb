@@ -22,7 +22,8 @@ class ProfilePhoto < ActiveRecord::Base
   HEIGHT = 96
   MAX_DRAFT = 500 # keep even pre-cropped images reasonably small
 
-  belongs_to :user
+  belongs_to :user,
+             :inverse_of => :profile_photo
 
   validate :data_and_draft_checks
 

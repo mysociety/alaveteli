@@ -1,7 +1,9 @@
 # -*- encoding : utf-8 -*-
 class Notification < ActiveRecord::Base
-  belongs_to :info_request_event
-  belongs_to :user
+  belongs_to :info_request_event,
+             :inverse_of => :notifications
+  belongs_to :user,
+             :inverse_of => :notifications
 
   INSTANTLY = :instantly
   DAILY = :daily

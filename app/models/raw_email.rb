@@ -15,7 +15,8 @@
 class RawEmail < ActiveRecord::Base
   # deliberately don't strip_attributes, so keeps raw email properly
 
-  has_one :incoming_message
+  has_one :incoming_message,
+          :inverse_of => :raw_email
 
   def directory
     if request_id.empty?

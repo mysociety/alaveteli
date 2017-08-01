@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add `:inverse_of` option to ActiveRecord associations to improve performance
+  (Gareth Rees)
 * Make Vagrant settings configurable through `.vagrant.yml` (Gareth Rees)
 * Make sure geoip-database-contrib is installed when installing Alaveteli
   (Gareth Rees)

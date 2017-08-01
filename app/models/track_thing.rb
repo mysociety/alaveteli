@@ -29,11 +29,20 @@ class TrackThing < ActiveRecord::Base
 
   TRACK_MEDIUMS = %w(email_daily feed)
 
-  belongs_to :info_request
-  belongs_to :public_body
-  belongs_to :tracking_user, :class_name => 'User', :counter_cache => true
-  belongs_to :tracked_user, :class_name => 'User'
-  has_many :track_things_sent_emails, :dependent => :destroy
+  belongs_to :info_request,
+             :inverse_of => :track_things
+  belongs_to :public_body,
+             :inverse_of => :track_things
+  belongs_to :tracking_user,
+             :class_name => 'User',
+             :inverse_of => :track_things,
+             :counter_cache => true
+  belongs_to :tracked_user,
+             :class_name => 'User',
+             :inverse_of => :track_things
+  has_many :track_things_sent_emails,
+           :inverse_of => :track_thing,
+           :dependent => :destroy
 
   validates_presence_of :track_query, :message => _("Query can't be blank")
   validates_presence_of :track_type

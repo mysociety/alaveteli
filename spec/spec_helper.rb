@@ -121,6 +121,22 @@ RSpec.configure do |config|
     end
   end
 
+  config.before(:suite) do
+    if ENV['ALAVETELI_USE_OINK']
+      oink_log = Rails.root + 'log/oink.log'
+      if File.exist?(oink_log)
+        File.write(oink_log, '')
+      end
+    end
+  end
+
+  config.after(:suite) do
+    if ENV['ALAVETELI_USE_OINK']
+      puts ""
+      puts `oink --threshold=0 --format verbose log/oink.log`
+    end
+  end
+
   # Any test that messes with the locale needs to restore the state afterwards so that it
   # doesn't interfere with any subsequent tests. This is made more complicated by the
   # ApplicationController#set_gettext_locale which sets the locale and so you may be setting
