@@ -23,7 +23,7 @@ class PublicBodyCategory < ActiveRecord::Base
   def self.get
     locale = AlaveteliLocalization.locale || default_locale || ""
     categories = CategoryCollection.new
-    I18n.with_locale(locale) do
+    AlaveteliLocalization.with_locale(locale) do
       headings = PublicBodyHeading.by_display_order
       headings.each do |heading|
         categories << heading.name

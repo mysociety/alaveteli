@@ -14,7 +14,7 @@ class ServicesController < ApplicationController
 
     if user_country_code != site_country_code
       user_site = WorldFOIWebsites.by_code(user_country_code)
-      old_fgt_locale = AlavateliLocalization.locale
+      old_fgt_locale = AlaveteliLocalization.locale
 
       begin
         AlaveteliLocalization.

@@ -109,7 +109,7 @@ describe PublicBodyController, "when listing bodies" do
   def make_single_language_example(locale)
     result = nil
     with_default_locale(locale) do
-      I18n.with_locale(locale) do
+      AlaveteliLocalization.with_locale(locale) do
         case locale
         when :en
           result = PublicBody.new(:name => 'English only',

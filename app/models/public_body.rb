@@ -301,7 +301,7 @@ class PublicBody < ActiveRecord::Base
     matching_pbs = PublicBody.find_by_sql sql
     case
     when matching_pbs.empty? then
-      I18n.with_locale(AlaveteliLocalization.default_locale) do
+      AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
         PublicBody.
           create!(:name => 'Internal admin authority',
                   :short_name => "",
@@ -348,7 +348,8 @@ class PublicBody < ActiveRecord::Base
         bodies_by_name = {}
         set_of_existing = Set.new
         internal_admin_body_id = PublicBody.internal_admin_body.id
-        I18n.with_locale(AlaveteliLocalization.default_locale) do
+        AlaveteliLocalization.
+          with_locale(AlaveteliLocalization.default_locale) do
           bodies = (tag.nil? || tag.empty?) ? PublicBody.includes(:translations) : PublicBody.find_by_tag(tag)
           for existing_body in bodies
             # Hide InternalAdminBody from import notes
@@ -446,7 +447,7 @@ class PublicBody < ActiveRecord::Base
     locales = options[:available_locales]
     locales = [AlaveteliLocalization.default_locale] if locales.empty?
     locales.each do |locale|
-      I18n.with_locale(locale) do
+      AlaveteliLocalization.with_locale(locale) do
         changed = set_locale_fields_from_csv_row(is_new, locale, row, options)
         unless changed.empty?
           options[:notes].push "line #{ line }: #{ edit_info[:action] } '#{ name }' (locale: #{ locale }):\n\t#{ changed.to_json }"
@@ -682,7 +683,7 @@ class PublicBody < ActiveRecord::Base
                            split(/\s*;\s*/)
     underscore_locale = locale.gsub '-', '_'
     bodies = []
-    I18n.with_locale(locale) do
+    AlaveteliLocalization.with_locale(locale) do
       if body_short_names.empty?
         # This is too slow
         bodies = visible.

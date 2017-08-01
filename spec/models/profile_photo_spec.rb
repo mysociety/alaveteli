@@ -28,7 +28,7 @@ describe ProfilePhoto, "when constructing a new photo" do
   end
 
   it 'should translate a no image error message' do
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       profile_photo = ProfilePhoto.new(:data => nil, :user => @mock_user)
       expect(profile_photo.valid?).to eq(false)
       expect(profile_photo.errors[:data]).to eq(['Por favor elige el fichero que contiene tu foto'])

@@ -28,7 +28,7 @@ class PublicBodyController < ApplicationController
 
     @locale = AlaveteliLocalization.locale
 
-    I18n.with_locale(@locale) do
+    AlaveteliLocalization.with_locale(@locale) do
       @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
       raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
 
@@ -99,7 +99,7 @@ class PublicBodyController < ApplicationController
     @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
     raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
 
-    I18n.with_locale(AlaveteliLocalization.locale) do
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
       if params[:submitted_view_email]
         if verify_recaptcha
           flash.discard(:error)
@@ -158,7 +158,7 @@ class PublicBodyController < ApplicationController
       where_parameters.concat [@tag]
     end
 
-    I18n.with_locale(@locale) do
+    AlaveteliLocalization.with_locale(@locale) do
 
       if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
         # Unfortunately, when we might fall back to the

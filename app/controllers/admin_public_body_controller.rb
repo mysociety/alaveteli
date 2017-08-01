@@ -17,7 +17,7 @@ class AdminPublicBodyController < AdminController
 
   def show
     @locale = AlaveteliLocalization.locale
-    I18n.with_locale(@locale) do
+    AlaveteliLocalization.with_locale(@locale) do
       @public_body = PublicBody.find(params[:id])
       info_requests = @public_body.info_requests.order('created_at DESC')
       if cannot? :admin, AlaveteliPro::Embargo
@@ -47,7 +47,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def create
-    I18n.with_locale(AlaveteliLocalization.default_locale) do
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
       if params[:change_request_id]
         @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
       end
@@ -89,7 +89,7 @@ class AdminPublicBodyController < AdminController
     if params[:change_request_id]
       @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
     end
-    I18n.with_locale(AlaveteliLocalization.default_locale) do
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
       params[:public_body][:last_edit_editor] = admin_current_user
       if @public_body.update_attributes(public_body_params)
         if @change_request
@@ -238,7 +238,7 @@ class AdminPublicBodyController < AdminController
 
   def lookup_query
     @locale = AlaveteliLocalization.locale
-    I18n.with_locale(@locale) do
+    AlaveteliLocalization.with_locale(@locale) do
       @query = params[:query]
       if @query == ""
         @query = nil

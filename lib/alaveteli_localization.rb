@@ -38,6 +38,11 @@ class AlaveteliLocalization
       FastGettext.locale = canonicalize(new_locale)
     end
 
+    def with_locale(tmp_locale = nil, &block)
+      tmp_locale = to_hyphen(tmp_locale) if tmp_locale
+      I18n.with_locale(tmp_locale, &block)
+    end
+
     def locale
       FastGettext.locale
     end

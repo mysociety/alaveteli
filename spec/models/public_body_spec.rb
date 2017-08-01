@@ -81,8 +81,12 @@ describe PublicBody do
         }
 
         expect(body.translations.size).to eq(3)
-        I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
-        I18n.with_locale(:fr) { expect(body.name).to eq('Le Body') }
+        AlaveteliLocalization.with_locale(:es) do
+          expect(body.name).to eq('Renamed')
+        end
+        AlaveteliLocalization.with_locale(:fr) do
+          expect(body.name).to eq('Le Body')
+        end
       end
 
       it 'skips empty translations' do
@@ -414,7 +418,7 @@ describe PublicBody, " when saving" do
 
   it 'should create a url_name for a translation' do
     existing = FactoryGirl.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       existing.update_attributes :short_name => 'Prueba', :name => 'Prueba body'
       expect(existing.url_name).to eq('prueba')
     end
@@ -504,7 +508,7 @@ describe PublicBody, "when searching" do
   end
 
   it "should cope with same url_name across multiple locales" do
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       # use the unique spanish name to retrieve and edit
       body = PublicBody.find_by_url_name_with_historic('etgq')
       body.short_name = 'tgq' # Same as english version

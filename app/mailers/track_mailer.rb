@@ -98,7 +98,7 @@ class TrackMailer < ApplicationMailer
       if email_about_things.size > 0
         # Send the email
 
-        I18n.with_locale(user.get_locale) do
+        AlaveteliLocalization.with_locale(user.get_locale) do
           TrackMailer.event_digest(user, email_about_things).deliver
         end
       end

@@ -124,8 +124,12 @@ describe PublicBodyCategory do
         }
 
         expect(category.translations.size).to eq(3)
-        I18n.with_locale(:es) { expect(category.title).to eq('Renamed') }
-        I18n.with_locale(:fr) { expect(category.title).to eq('Le Category') }
+        AlaveteliLocalization.with_locale(:es) do
+          expect(category.title).to eq('Renamed')
+        end
+        AlaveteliLocalization.with_locale(:fr) do
+          expect(category.title).to eq('Le Category')
+        end
       end
 
       it 'skips empty translations' do

@@ -111,6 +111,22 @@ describe AlaveteliLocalization do
 
   end
 
+  describe '.with_locale' do
+
+    it 'yields control to i18n' do
+      expect { |b| AlaveteliLocalization.with_locale(:es, &b) }.
+        to yield_control
+    end
+
+    it 'returns the same result as if we had called I18n.with_locale directly' do
+      result = AlaveteliLocalization.with_locale(:es) do
+        AlaveteliLocalization.locale
+      end
+      expect(result).to eq("es")
+    end
+
+  end
+
   describe '.locale' do
 
     it 'returns the current locale' do
