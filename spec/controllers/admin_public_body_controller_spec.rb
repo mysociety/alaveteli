@@ -40,7 +40,7 @@ describe AdminPublicBodyController do
     end
 
     it "shows a public body in another locale" do
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         public_body.name = 'El Public Body'
         public_body.save
       end
@@ -200,7 +200,7 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find_by_name('New Quango')
 
-        I18n.with_locale(:en) do
+        AlaveteliLocalization.with_locale(:en) do
           expect(body.name).to eq('New Quango')
         end
       end
@@ -210,7 +210,7 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find_by_name('New Quango')
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(body.name).to eq('Los Quango')
           expect(body.url_name).to eq('lq')
           expect(body.first_letter).to eq('L')
@@ -257,7 +257,7 @@ describe AdminPublicBodyController do
         post :create, @params
 
         expect(assigns(:public_body)).to_not be_persisted
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body).name).to eq('Los Quango')
         end
       end
@@ -299,7 +299,7 @@ describe AdminPublicBodyController do
 
     before do
       @body = FactoryGirl.create(:public_body)
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @body.name = 'Los Body'
         @body.save!
       end
@@ -383,7 +383,7 @@ describe AdminPublicBodyController do
 
     before do
       @body = FactoryGirl.create(:public_body)
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @body.name = 'Los Quango'
         @body.save!
       end
@@ -464,7 +464,7 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find(@body.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(body.name).to eq('Example Public Body ES')
         end
       end
@@ -503,10 +503,10 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find(@body.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(body.name).to eq('Example Public Body ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(body.name).to eq('Example Public Body FR')
         end
       end
@@ -532,10 +532,10 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find(@body.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(body.name).to eq('Renamed Example Public Body ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(body.name).to eq('Example Public Body FR')
         end
       end
@@ -585,7 +585,7 @@ describe AdminPublicBodyController do
       it 'is rebuilt with the alternative locale translation' do
         post :update, @params
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body).name).to eq('Mi Nuevo Body')
         end
       end

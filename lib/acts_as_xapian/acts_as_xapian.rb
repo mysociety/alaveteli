@@ -819,7 +819,7 @@ module ActsAsXapian
         else
           values = []
           for locale in self.translations.map{|x| x.locale}
-            I18n.with_locale(locale) do
+            AlaveteliLocalization.with_locale(locale) do
               values << single_xapian_value(field, type=type)
             end
           end

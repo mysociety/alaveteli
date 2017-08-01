@@ -53,13 +53,23 @@
                          label: 'Review requests marked by the requester
                                  as requiring administrator attention' } %>
 
+    <%
+      to_do_list_time =
+        AlaveteliLocalization.with_locale(:en) do
+          distance_of_time_in_words(InfoRequest.OLD_AGE_IN_DAYS))
+        end
+
+      to_do_list_label = "Classify responses that are still unclassified " \
+                         "#{ to_do_list_time } after response"
+    %>
+
     <%= render partial: 'to_do_list',
-               locals: { id: 'unclassified',
-                         parent: 'public-request-things-to-do',
-                         items: @old_unclassified,
-                         label:  "Classify responses that are still unclassified
- #{I18n.with_locale(:en) { distance_of_time_in_words(InfoRequest::OLD_AGE_IN_DAYS)
-    }} after response" } %>
+               locals: {
+                 id: 'unclassified',
+                 parent: 'public-request-things-to-do',
+                 items: @old_unclassified,
+                 label: to_do_list_label
+               } %>
   </div>
 <% end %>
 

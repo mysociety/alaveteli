@@ -33,7 +33,7 @@ describe 'Editing a Public Body Category' do
     end
 
     @category.reload
-    I18n.with_locale(:fr) do
+    AlaveteliLocalization.with_locale(:fr) do
       expect(@category.title).to eq('New Category FR')
     end
   end
@@ -54,11 +54,11 @@ describe 'Editing a Public Body Category' do
 
     end
     @category.reload
-    I18n.with_locale(:fr) do
+    AlaveteliLocalization.with_locale(:fr) do
       expect(@category.title).to eq('New Category FR')
     end
 
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       expect(@category.title).to eq('New Category ES')
     end
   end

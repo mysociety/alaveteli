@@ -173,7 +173,7 @@ describe AdminPublicBodyCategoriesController do
 
         category = PublicBodyCategory.where(:title => 'New Category').first
 
-        I18n.with_locale(:en) do
+        AlaveteliLocalization.with_locale(:en) do
           expect(category.title).to eq('New Category')
         end
       end
@@ -183,7 +183,7 @@ describe AdminPublicBodyCategoriesController do
 
         category = PublicBodyCategory.where(:title => 'New Category').first
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(category.title).to eq('Mi Nuevo Category')
         end
       end
@@ -226,7 +226,7 @@ describe AdminPublicBodyCategoriesController do
       it 'is rebuilt with the alternative locale translation' do
         post :create, :public_body_category => @params
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
         end
       end
@@ -239,7 +239,7 @@ describe AdminPublicBodyCategoriesController do
 
     before do
       @category = FactoryGirl.create(:public_body_category)
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @category.title = 'Los category'
         @category.description = 'ES Description'
         @category.save!
@@ -293,7 +293,7 @@ describe AdminPublicBodyCategoriesController do
                                 :public_body_heading => @heading,
                                 :category_display_order => 0)
       @tag = @category.category_tag
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @category.title = 'Los category'
         @category.description = 'ES Description'
         @category.save!
@@ -486,7 +486,7 @@ describe AdminPublicBodyCategoriesController do
 
         pbc = PublicBodyCategory.find(@category.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(pbc.title).to eq('Example Public Body Category ES')
         end
       end
@@ -517,10 +517,10 @@ describe AdminPublicBodyCategoriesController do
 
         pbc = PublicBodyCategory.find(@category.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(pbc.title).to eq('Example Public Body Category ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(pbc.title).to eq('Example Public Body Category FR')
         end
       end
@@ -551,10 +551,10 @@ describe AdminPublicBodyCategoriesController do
 
         pbc = PublicBodyCategory.find(@category.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(pbc.title).to eq('Renamed Example Public Body Category ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(pbc.title).to eq('Example Public Body Category FR')
         end
       end
@@ -628,7 +628,7 @@ describe AdminPublicBodyCategoriesController do
         post :update, :id => @category.id,
           :public_body_category => @params
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
         end
       end

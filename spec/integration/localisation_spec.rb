@@ -44,7 +44,7 @@ describe "when generating urls" do
     before do
       AlaveteliLocalization.set_locales('es en', 'en')
       body = FactoryGirl.create(:public_body, :short_name => 'english_short')
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         body.short_name = 'spanish_short'
         body.save!
       end

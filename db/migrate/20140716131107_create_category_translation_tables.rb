@@ -27,7 +27,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
     # copy current values across to the non-default locale(s)
     PublicBodyCategory.where('locale != ?', default_locale).each do |category|
       default_category = PublicBodyCategory.find_by_category_tag_and_locale(category.category_tag, default_locale)
-      I18n.with_locale(category.locale) do
+      AlaveteliLocalization.with_locale(category.locale) do
         category.translated_attributes.each do |a, default|
           value = category.read_attribute(a)
           unless value.nil?
@@ -65,7 +65,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
     # copy current values across to the non-default locale(s)
     PublicBodyHeading.where('locale != ?', default_locale).each do |heading|
       default_heading = PublicBodyHeading.find_by_name_and_locale(heading.name, default_locale)
-      I18n.with_locale(heading.locale) do
+      AlaveteliLocalization.with_locale(heading.locale) do
         heading.translated_attributes.each do |a, default|
           value = heading.read_attribute(a)
           unless value.nil?
