@@ -35,9 +35,11 @@ class AlaveteliMailPoller
   def self.poll_for_incoming_loop
     if AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
       poller = new
+      Rails.logger.info "Starting #{ poller } polling loop"
       while true
         sleep_seconds = 1
         while !poller.poll_for_incoming
+          Rails.logger.debug "#{ poller } sleeping for #{ sleep_seconds }"
           sleep sleep_seconds
           sleep_seconds *= 2
           sleep_seconds = 300 if sleep_seconds > 300
@@ -56,11 +58,13 @@ class AlaveteliMailPoller
       unique_id = popmail.unique_id
       if retrieve?(unique_id)
         raw_email = popmail.pop
+        Rails.logger.info "#{ self } retrieving #{ unique_id }"
         RequestMailer.receive(raw_email, :poller)
         received = true
         popmail.delete
       end
     rescue Net::POPError, StandardError => error
+      Rails.logger.warn "#{ self } error for #{ unique_id }"
       if send_exception_notifications?
         ExceptionNotifier.notify_exception(
           error,
