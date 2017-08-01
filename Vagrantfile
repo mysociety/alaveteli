@@ -70,7 +70,7 @@ require 'yaml'
 # upcasing. Boolean values can be set to `false` in the environment with "0",
 # "false" or "no".
 DEFAULTS = {
-  'fqdn' => 'alaveteli.10.10.10.30.xip.io',
+  'fqdn' => 'alaveteli.10.10.10.30.nip.io',
   'ip' => '10.10.10.30',
   'memory' => 1536,
   'themes_dir' => '../alaveteli-themes',

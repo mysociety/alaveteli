@@ -17,14 +17,18 @@
 class InfoRequestBatch < ActiveRecord::Base
   include AlaveteliPro::RequestSummaries
 
-  has_many :info_requests
-  belongs_to :user, :counter_cache => true
+  has_many :info_requests,
+           :inverse_of => :info_request_batch
+  belongs_to :user,
+             :inverse_of => :info_request_batches,
+             :counter_cache => true
+
   has_and_belongs_to_many :public_bodies, -> {
     I18n.with_locale(I18n.locale) do
       includes(:translations).
         reorder('public_body_translations.name asc')
     end
-  }
+  }, :inverse_of => :info_request_batches
 
   validates_presence_of :user
   validates_presence_of :title

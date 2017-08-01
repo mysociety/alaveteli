@@ -24,7 +24,9 @@
 require 'digest'
 
 class FoiAttachment < ActiveRecord::Base
-  belongs_to :incoming_message
+  belongs_to :incoming_message,
+             :inverse_of => :foi_attachments
+
   validates_presence_of :content_type
   validates_presence_of :filename
   validates_presence_of :display_size

@@ -27,9 +27,13 @@ class Comment < ActiveRecord::Base
 
   strip_attributes :allow_empty => true
 
-  belongs_to :user, :counter_cache => true
-  belongs_to :info_request
+  belongs_to :user,
+             :inverse_of => :comments,
+             :counter_cache => true
+  belongs_to :info_request,
+             :inverse_of => :comments
   has_many :info_request_events, # in practice only ever has one
+           :inverse_of => :comment,
            :dependent => :destroy
 
   #validates_presence_of :user # breaks during construction of new ones :(

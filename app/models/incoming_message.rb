@@ -42,20 +42,30 @@ class IncomingMessage < ActiveRecord::Base
 
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
-  belongs_to :info_request
+  belongs_to :info_request,
+             :inverse_of => :incoming_messages
+
   validates_presence_of :info_request
 
   validates_presence_of :raw_email
 
   has_many :outgoing_message_followups,
+           :inverse_of => :incoming_message_followup,
            :foreign_key => 'incoming_message_followup_id',
            :class_name => 'OutgoingMessage',
            :dependent => :nullify
-  has_many :foi_attachments, -> { order('id') }, :dependent => :destroy
+  has_many :foi_attachments,
+           -> { order('id') },
+           :inverse_of => :incoming_message,
+           :dependent => :destroy
   # never really has many info_request_events, but could in theory
-  has_many :info_request_events, :dependent => :destroy
+  has_many :info_request_events,
+           :dependent => :destroy,
+           :inverse_of => :incoming_message
 
-  belongs_to :raw_email
+  belongs_to :raw_email,
+             :inverse_of => :incoming_message
+
   # HACK: Work around bug in belongs_to :dependent => :destroy
   # https://github.com/rails/rails/issues/12380
   # TODO: Remove when we're using Rails 4.2.x
