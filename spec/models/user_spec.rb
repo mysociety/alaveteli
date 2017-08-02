@@ -32,6 +32,8 @@
 #  request_classifications_count     :integer          default(0), not null
 #  public_body_change_requests_count :integer          default(0), not null
 #  info_request_batches_count        :integer          default(0), not null
+#  daily_summary_hour                :integer
+#  daily_summary_minute              :integer
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

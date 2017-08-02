@@ -229,10 +229,12 @@ class RequestMailer < ApplicationMailer
   # actual original mail sent by the authority in the admin interface (so
   # can check that attachment decoding failures are problems in the message,
   # not in our code). ]
-  def self.receive(raw_email)
-    logger.info "Received mail:\n #{raw_email}" unless logger.nil?
+  def self.receive(raw_email, source = :mailin)
+    unless logger.nil?
+      logger.info "Received mail from #{source}:\n #{raw_email}"
+    end
     mail = MailHandler.mail_from_raw_email(raw_email)
-    new.receive(mail, raw_email)
+    new.receive(mail, raw_email, source)
   end
 
   # Find which info requests the email is for
@@ -249,14 +251,18 @@ class RequestMailer < ApplicationMailer
   end
 
   # Member function, called on the new class made in self.receive above
-  def receive(email, raw_email)
+  def receive(email, raw_email, source = :mailin)
+    opts = { :source => source }
     # Find which info requests the email is for
     reply_info_requests = self.requests_matching_email(email)
     # Nothing found, so save in holding pen
     if reply_info_requests.size == 0
-      reason = _("Could not identify the request from the email address")
+      opts[:rejected_reason] =
+        _("Could not identify the request from the email address")
       request = InfoRequest.holding_pen_request
-      request.receive(email, raw_email, false, reason) unless SpamAddress.spam?(email.to)
+      unless SpamAddress.spam?(email.to)
+        request.receive(email, raw_email, opts)
+      end
       return
     end
 
@@ -268,7 +274,7 @@ class RequestMailer < ApplicationMailer
           raise "message " + email.message_id + " already received by request"
         end
       end
-      reply_info_request.receive(email, raw_email)
+      reply_info_request.receive(email, raw_email, opts)
     end
   end
 

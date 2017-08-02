@@ -65,6 +65,7 @@ require 'user_stats'
 require 'belongs_to_destroy_with_fk_constraint'
 require 'patch_tag_helper'
 require 'typeahead_search'
+require 'alaveteli_mail_poller'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

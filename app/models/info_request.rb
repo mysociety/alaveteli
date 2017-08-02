@@ -30,6 +30,7 @@
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
+#  last_event_time                       :datetime
 #
 
 require 'digest/sha1'
@@ -533,31 +534,52 @@ class InfoRequest < ActiveRecord::Base
     false
   end
 
-  # A new incoming email to this request
-  def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
-    # Is this request allowing responses?
-    accepted =
-      if override_stop_new_responses
-        true
-      else
-        accept_incoming?(email, raw_email_data)
-      end
+  def receive(email, raw_email_data, *args)
+    defaults = { :override_stop_new_responses => false,
+                 :rejected_reason => nil,
+                 :source => :internal }
 
-    if accepted
-      incoming_message =
-        create_response!(email, raw_email_data, rejected_reason)
+    opts = if args.first.is_a?(Hash)
+      defaults.merge(args.shift)
+    elsif args.empty?
+      defaults
+    else
+      warn %q([DEPRECATION] InfoRequest#receive with these params will be
+          removed in 0.31. It has been replaced a method which accepts
+          an options hash as its third argument. :override_stop_new_responses
+          and :rejected_reason are valid keys to that hash).squish
+      arg_opts = {}
+      arg_opts[:override_stop_new_responses] = args[0] unless args[0].nil?
+      arg_opts[:rejected_reason] = args[1] unless args[1].nil?
 
-      # Notify the user that a new response has been received, unless the
-      # request is external
-      unless is_external?
-        if use_notifications?
-          info_request_event = info_request_events.find_by(
-            event_type: 'response',
-            incoming_message_id: incoming_message.id
-          )
-          self.user.notify(info_request_event)
+      defaults.merge(arg_opts)
+    end
+
+    if receive_mail_from_source? opts[:source]
+      # Is this request allowing responses?
+      accepted =
+        if opts[:override_stop_new_responses]
+          true
         else
-          RequestMailer.new_response(self, incoming_message).deliver
+          accept_incoming?(email, raw_email_data)
+        end
+
+      if accepted
+        incoming_message =
+          create_response!(email, raw_email_data, opts[:rejected_reason])
+
+        # Notify the user that a new response has been received, unless the
+        # request is external
+        unless is_external?
+          if use_notifications?
+            info_request_event = info_request_events.find_by(
+              event_type: 'response',
+              incoming_message_id: incoming_message.id
+            )
+            user.notify(info_request_event)
+          else
+            RequestMailer.new_response(self, incoming_message).deliver
+          end
         end
       end
     end
@@ -1599,6 +1621,20 @@ class InfoRequest < ActiveRecord::Base
   end
 
   private
+
+  def receive_mail_from_source?(source)
+    if source == :internal
+      true
+    elsif feature_enabled?(:accept_mail_from_anywhere)
+      true
+    else
+      if feature_enabled?(:accept_mail_from_poller, user)
+        source == :poller
+      else
+        source == :mailin
+      end
+    end
+  end
 
   def self.log_overdue_event_type(event_type)
     date_field = case event_type

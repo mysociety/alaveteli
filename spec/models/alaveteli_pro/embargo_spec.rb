@@ -3,12 +3,13 @@
 #
 # Table name: embargoes
 #
-#  id               :integer          not null, primary key
-#  info_request_id  :integer
-#  publish_at       :datetime         not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  embargo_duration :string(255)
+#  id                       :integer          not null, primary key
+#  info_request_id          :integer
+#  publish_at               :datetime         not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  embargo_duration         :string(255)
+#  expiring_notification_at :datetime
 #
 
 require 'spec_helper'
