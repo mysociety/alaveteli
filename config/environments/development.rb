@@ -48,6 +48,9 @@ Rails.application.configure do
     config.action_mailer.delivery_method = :sendmail
   end
 
+  # Allow any IP address in the range 10.10.10.x to access the web console
+  config.web_console.whitelisted_ips = '10.10.10.0/16'
+
   # Writes useful log files to debug memory leaks, of the sort where have
   # unintentionally kept references to objects, especially strings.
   # require 'memory_profiler'
