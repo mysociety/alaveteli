@@ -182,4 +182,17 @@ describe AlaveteliLocalization do
 
   end
 
+  describe '.html_lang' do
+
+    it 'returns the current locale' do
+      expect(AlaveteliLocalization.html_lang).to eq('en')
+    end
+
+    it 'returns the hyphenated format' do
+      AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
+      expect(AlaveteliLocalization.html_lang).to eq('en-GB')
+    end
+
+  end
+
 end
