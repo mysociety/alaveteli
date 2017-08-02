@@ -621,7 +621,11 @@ Rails.application.routes.draw do
       resources :info_requests, :only => [:new, :create, :update, :index] do
         get :preview, on: :new # /info_request/new/preview
       end
-      resources :embargoes, :only => [:destroy]
+      resources :embargoes, :only => [:destroy] do
+        collection do
+          post :destroy_batch
+        end
+      end
       resources :embargo_extensions, :only => [:create] do
         collection do
           post :create_batch

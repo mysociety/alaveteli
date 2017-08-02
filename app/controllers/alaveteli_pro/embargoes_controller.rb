@@ -22,4 +22,21 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
     end
     return redirect_to request_url(@info_request)
   end
+
+  def destroy_batch
+    @info_request_batch = InfoRequestBatch.find(
+      params[:info_request_batch_id])
+    authorize! :update, @info_request_batch
+    info_request_ids = @info_request_batch.info_requests.pluck(:id)
+    embargoes = AlaveteliPro::Embargo.where(info_request_id: info_request_ids)
+    if embargoes.destroy_all
+      @info_request_batch.embargo_duration = nil
+      @info_request_batch.save!
+      flash[:notice] = _("Your requests are now public!")
+    else
+      flash[:error] = _("Sorry, something went wrong publishing your " \
+                        "requests, please try again.")
+    end
+    redirect_to show_alaveteli_pro_batch_request_path(@info_request_batch)
+  end
 end
