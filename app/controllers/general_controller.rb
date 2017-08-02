@@ -47,7 +47,8 @@ class GeneralController < ApplicationController
     @feed_autodetect = []
     @feed_url = AlaveteliConfiguration::blog_feed
     separator = @feed_url.include?('?') ? '&' : '?'
-    @feed_url = "#{@feed_url}#{separator}lang=#{I18n.locale}"
+    @feed_url = "#{ @feed_url }#{ separator }lang=" \
+                "#{ AlaveteliLocalization.html_lang }"
     @blog_items = []
     if not @feed_url.empty?
       timeout = if AlaveteliConfiguration.blog_timeout.blank?

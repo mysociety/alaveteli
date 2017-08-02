@@ -60,6 +60,10 @@ class AlaveteliLocalization
       FastGettext.available_locales
     end
 
+    def html_lang
+      to_hyphen(locale)
+    end
+
     private
 
     def canonicalize(locale)
