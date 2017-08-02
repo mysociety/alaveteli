@@ -604,9 +604,9 @@ describe RequestController do
                            :part => 2,
                            :file_name => 'interesting.html',
                            :skip_cache => 1
-      expect(response.body).not_to match("script")
-      expect(response.body).not_to match("interesting")
-      expect(response.body).to match('dull')
+      expected =
+        "<html>\n  <head>\n  </head>\n  <body>dull\n    \n  </body>\n</html>\n"
+      expect(response.body).to eq(expected)
     end
 
     it "censors attachments downloaded directly" do
