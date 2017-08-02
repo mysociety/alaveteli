@@ -604,9 +604,21 @@ describe RequestController do
                            :part => 2,
                            :file_name => 'interesting.html',
                            :skip_cache => 1
-      expected =
-        "<html>\n  <head>\n  </head>\n  <body>dull\n    \n  </body>\n</html>\n"
-      expect(response.body).to eq(expected)
+
+      # Nokogiri adds the meta tag; see
+      # https://github.com/sparklemotion/nokogiri/issues/1008
+      expected = <<-EOF.squish
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        </head>
+        <body>dull
+        </body>
+      </html>
+      EOF
+
+      expect(response.body.squish).to eq(expected)
     end
 
     it "censors attachments downloaded directly" do
