@@ -90,20 +90,6 @@ class UserController < ApplicationController
   def signin
     work_out_post_redirect
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
-    # make sure we have cookies
-    if session.instance_variable_get(:@dbman)
-      unless session.instance_variable_get(:@dbman).instance_variable_get(:@original)
-        # try and set them if we don't
-        unless params[:again]
-          return redirect_to signin_url(:r => params[:r], :again => 1)
-        end
-        return render :action => 'no_cookies'
-      end
-    end
-    # remove "cookie setting attempt has happened" parameter if there is one and cookies worked
-    if params[:again]
-      return redirect_to signin_url(:r => params[:r], :again => nil)
-    end
     # First time page is shown
     return render :action => 'sign' unless params[:user_signin]
 
