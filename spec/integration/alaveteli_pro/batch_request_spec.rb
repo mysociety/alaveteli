@@ -141,9 +141,9 @@ describe "creating batch requests in alaveteli_pro" do
       expect(draft.public_bodies).to match_array(@selected_bodies)
 
       expect(page).to have_content("Your draft has been saved!")
-      expect(page).to have_content("This request will be private on " \
-                                   "Alaveteli until " \
-                                   "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
+      expect(page).to have_content(
+        "Requests in this batch will be private on Alaveteli until " \
+        "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
 
       # The page should pre-fill the form with data from the draft
       expect(page).to have_field("Subject",
@@ -170,9 +170,9 @@ describe "creating batch requests in alaveteli_pro" do
 
       expect(page).to have_select("Privacy", selected: "Publish immediately")
 
-      expect(page).to have_content("Unless you choose a privacy option, your " \
-                                   "request will be public on Alaveteli " \
-                                   "immediately.")
+      expect(page).to have_content("Unless you choose a privacy option, " \
+                                   "requests in this batch will be public " \
+                                   "on Alaveteli immediately.")
     end
   end
 
@@ -225,9 +225,9 @@ describe "creating batch requests in alaveteli_pro" do
       # It should substitue an authority name in when previewing
       first_authority = draft.public_bodies.first
       expect(page).to have_content("Dear #{first_authority.name}, this is a batch request.")
-      expect(page).to have_content("This request will be private on " \
-                                   "Alaveteli until " \
-                                   "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
+      expect(page).to have_content(
+        "Requests in this batch will be private on Alaveteli until " \
+        "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%d %B %Y')}")
 
     end
   end
@@ -264,9 +264,9 @@ describe "creating batch requests in alaveteli_pro" do
       click_button "Save draft"
 
       expect(page).to have_content("Your draft has been saved!")
-      expect(page).to have_content("Unless you choose a privacy option, your " \
-                                   "request will be public on Alaveteli " \
-                                   "immediately.")
+      expect(page).to have_content("Unless you choose a privacy option, " \
+                                   "requests in this batch will be public " \
+                                   "on Alaveteli immediately.")
 
       # The page should pre-fill the form with data from the draft
       expect(page).to have_field("Subject",
