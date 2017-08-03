@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20170301171406
 #
 # Table name: users
 #
@@ -33,6 +32,8 @@
 #  request_classifications_count     :integer          default(0), not null
 #  public_body_change_requests_count :integer          default(0), not null
 #  info_request_batches_count        :integer          default(0), not null
+#  daily_summary_hour                :integer
+#  daily_summary_minute              :integer
 #
 
 FactoryGirl.define do

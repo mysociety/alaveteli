@@ -1081,3 +1081,77 @@ PRO_CONTACT_NAME: 'Alaveteli Professional'
 #
 # ---
 PRO_SITE_NAME: 'Alaveteli Professional'
+
+# Define the mailer retriever method to be used only in the production environment.
+# By default, mail is accepted passively via script/mailin. You can set this param
+# to 'pop' to poll for mail via pop.
+#
+# If you choose to do this then you will need to also include the POP_
+# configuration settings.
+#
+# As a string this is coerced into a symbol in config/environments/production.rb
+#
+# PRODUCTION_MAILER_RETRIEVER_METHOD - String (default: passive)
+#
+# Examples:
+#
+# PRODUCTION_MAILER_RETRIEVER_METHOD: pop
+#
+# ---
+PRODUCTION_MAILER_RETRIEVER_METHOD: passive
+
+# Set the address of the POP server used if the PRODUCTION_MAILER_RETRIEVER_METHOD
+# is set to 'pop'.
+#
+# POP_MAILER_ADDRESS - String (default: localhost)
+#
+# Examples:
+#
+# POP_MAILER_ADDRESS: pop.gmail.com
+#
+# ---
+POP_MAILER_ADDRESS: localhost
+
+# Set the port of the POP server used if the PRODUCTION_MAILER_RETRIEVER_METHOD
+# is set to 'pop'.
+#
+# POP_MAILER_PORT - Integer (default: 995)
+#
+# ---
+POP_MAILER_PORT: 995
+
+# Set the username of the account user to connect to the POP server used if the
+# PRODUCTION_MAILER_RETRIEVER_METHOD is set to 'pop'.
+#
+# POP_MAILER_USER_NAME - String (default: '')
+#
+# Examples:
+#
+# POP_MAILER_USER_NAME: jane322
+#
+# ---
+POP_MAILER_USER_NAME: ''
+
+# Set the password of the account user to connect to the POP server used if the
+# PRODUCTION_MAILER_RETRIEVER_METHOD is set to 'pop'.
+#
+# POP_MAILER_PASSWORD - String (default: '')
+#
+# Examples:
+#
+# POP_MAILER_PASSWORD: supersecretpassword
+#
+# ---
+POP_MAILER_PASSWORD: ''
+
+# Should Alaveteli use SSL when connecting to the POP server used if the
+# PRODUCTION_MAILER_RETRIEVER_METHOD is set to 'pop'?
+#
+# POP_MAILER_ENABLE_SSL - Boolean (default: true)
+#
+# Examples:
+#
+# POP_MAILER_ENABLE_SSL: true
+#
+# ---
+POP_MAILER_ENABLE_SSL: true

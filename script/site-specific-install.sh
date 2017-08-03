@@ -14,6 +14,33 @@ misuse() {
   exit 1
 }
 
+install_dovecot() {
+  echo -n "Installing dovecot... "
+  apt-get install -qq -y dovecot-pop3d >/dev/null
+  echo $DONE_MSG
+}
+
+install_mailutils() {
+  echo -n "Installing mailutils... "
+  apt-get install -qq -y mailutils >/dev/null
+  echo $DONE_MSG
+}
+
+clear_daemon() {
+  echo -n "Removing /etc/init.d/$SITE-$1... "
+  rm -f "/etc/init.d/$SITE-$1"
+  echo $DONE_MSG
+}
+
+install_daemon() {
+  echo -n "Creating /etc/init.d/$SITE-$1... "
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' RUBY_VERSION='$RUBY_VERSION' SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
+  chgrp "$UNIX_USER" /etc/init.d/"$SITE-$1"
+  chmod 754 /etc/init.d/"$SITE-$1"
+  echo $DONE_MSG
+}
+
+
 # Strictly speaking we don't need to check all of these, but it might
 # catch some errors made when changing install-site.sh
 
@@ -160,13 +187,16 @@ install_website_packages
 if ruby --version | grep -q 'ruby 2.1.5' > /dev/null
 then
   echo 'using ruby 2.1.5'
+  RUBY_VERSION='2.1.5'
 elif ruby --version | grep -q 'ruby 1.9.3' > /dev/null
 then
   echo 'using ruby 1.9.3'
+  RUBY_VERSION='1.9.1'
 else
   # Set ruby version to 1.9.1
   update-alternatives --set ruby /usr/bin/ruby1.9.1
   update-alternatives --set gem /usr/bin/gem1.9.1
+  RUBY_VERSION='1.9.1'
 fi
 
 # Give the unix user membership of the adm group so that they can read the mail log files
@@ -192,21 +222,56 @@ EOF
 echo $DONE_MSG
 
 export DEVELOPMENT_INSTALL
-su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY'" "$UNIX_USER"
+su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUBY_VERSION'" "$UNIX_USER"
 
 # Now that the install-as-user script has loaded the sample data, we
 # no longer need the PostgreSQL user to be a superuser:
 echo "ALTER USER \"$UNIX_USER\" WITH NOSUPERUSER;" | su -l -c 'psql' postgres
+
+
+RETRIEVER_METHOD=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:get_config_value KEY=PRODUCTION_MAILER_RETRIEVER_METHOD" "$UNIX_USER")
+if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
+
+  # Install dovecot
+  install_dovecot
+
+  # Install mailutils
+  install_mailutils
+
+  ensure_line_present \
+      "^\#* *listen" \
+      "listen = *, ::" \
+      /etc/dovecot/dovecot.conf 644
+
+
+  ensure_line_present \
+      "^\#* *log_path" \
+      "log_path = /var/log/dovecot.log" \
+      /etc/dovecot/dovecot.conf 644
+
+  # Add a user to handle incoming mail
+  if id "alaveteli-incoming" 2> /dev/null > /dev/null
+    then
+        echo "Incoming mail user already exists"
+    else
+        adduser --quiet --disabled-password --gecos "An incoming mail user for the site $SITE" "alaveteli-incoming"
+        usermod --groups mail --password `openssl passwd -1 alaveteli-incoming` alaveteli-incoming
+  fi
+ elif [ x"$RETRIEVER_METHOD" = x"pop" ]; then
+
+  echo "Warning: No POP server has been setup, please install your own securely"
+  echo "or use a remote one."
+
+fi
 
 # Set up root's crontab:
 
 cd "$REPOSITORY"
 
 echo -n "Creating /etc/cron.d/alaveteli... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
 # There are some other parts to rewrite, so just do them with sed:
 sed -r \
-    -e "/$SITE-purge-varnish/d" \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
@@ -219,17 +284,22 @@ if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
   echo $DONE_MSG
 fi
 
-echo -n "Creating /etc/init.d/$SITE-alert-tracks... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-alert-tracks"
-chgrp "$UNIX_USER" /etc/init.d/"$SITE-alert-tracks"
-chmod 754 /etc/init.d/"$SITE-alert-tracks"
-echo $DONE_MSG
+# Clear existing daemons
+all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons" "$UNIX_USER")
+echo "Clearing any existing daemons"
+for daemon in $all_daemons
+do
+  clear_daemon $daemon
+done
 
-echo -n "Creating /etc/init.d/$SITE-send-notifications... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/send-notifications-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-send-notifications"
-chgrp "$UNIX_USER" /etc/init.d/"$SITE-send-notifications"
-chmod 754 /etc/init.d/"$SITE-send-notifications"
-echo $DONE_MSG
+# Install required daemons
+active_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:active_daemons" "$UNIX_USER")
+echo "Creating daemons for active daemons"
+for daemon in $active_daemons
+do
+  install_daemon $daemon
+done
+
 
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]
 then

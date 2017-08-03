@@ -10,17 +10,27 @@ class NotificationMailer < ApplicationMailer
     done_something = false
     query = "notifications.frequency = ? AND " \
             "notifications.send_after <= ? AND " \
-            "notifications.seen_at IS NULL"
+            "notifications.seen_at IS NULL AND " \
+            "notifications.expired = ?"
     users = User.
       includes(:notifications).
         references(:notifications).
           where(query,
                 Notification.frequencies[Notification::DAILY],
-                Time.zone.now)
+                Time.zone.now,
+                false)
     users.find_each do |user|
-      notifications = user.notifications.daily.unseen.order(created_at: :desc)
+      notifications = user.
+        notifications.
+          daily.
+            unseen.
+              where(expired: false).
+                order(created_at: :desc)
+      notifications = Notification.reject_and_mark_expired(notifications)
       NotificationMailer.daily_summary(user, notifications).deliver
-      notifications.update_all(seen_at: Time.zone.now)
+      Notification.
+        where(id: notifications.map(&:id)).
+        update_all(seen_at: Time.zone.now)
       done_something = true
     end
     done_something
@@ -28,7 +38,13 @@ class NotificationMailer < ApplicationMailer
 
   def self.send_instant_notifications
     done_something = false
-    Notification.instantly.unseen.order(:created_at).find_each do |notification|
+    notifications = Notification.
+      instantly.
+        unseen.
+          where(expired: false).
+            order(:created_at)
+    notifications = Notification.reject_and_mark_expired(notifications)
+    notifications.each do |notification|
       NotificationMailer.instant_notification(notification).deliver
       notification.seen_at = Time.zone.now
       notification.save!
@@ -54,17 +70,6 @@ class NotificationMailer < ApplicationMailer
         sleep_seconds = 300 if sleep_seconds > 300
       end
     end
-  end
-
-  def instant_notification(notification)
-    event_type = notification.info_request_event.event_type
-    method = "#{event_type}_notification".to_sym
-    self.send(method, notification)
-  end
-
-  def response_notification(notification)
-    @info_request = notification.info_request_event.info_request
-    @incoming_message = notification.info_request_event.incoming_message
   end
 
   def daily_summary(user, notifications)
@@ -101,13 +106,68 @@ class NotificationMailer < ApplicationMailer
     set_reply_to_headers(@info_request.user)
     set_auto_generated_headers
 
-    mail(
-      :from => contact_for_user(@info_request.user),
-      :to => @info_request.user.name_and_email,
-      :subject => _("New response to your FOI request - {{request_title}}",
-                    :request_title => @info_request.title.html_safe),
-      :charset => "UTF-8",
-      :template_name => 'new_response'
-    )
+    subject = _("New response to your FOI request - {{request_title}}",
+                :request_title => @info_request.title.html_safe)
+    mail_user(@info_request.user,
+              subject,
+              template_name: 'response_notification')
+  end
+
+  def embargo_expiring_notification(notification)
+    @info_request = notification.info_request_event.info_request
+
+    set_reply_to_headers(@info_request.user)
+    set_auto_generated_headers
+
+    subject = _(
+      "Your FOI request - {{request_title}} will be made public on " \
+      "{{site_name}} this week",
+      :request_title => @info_request.title.html_safe,
+      :site_name => AlaveteliConfiguration.site_name.html_safe)
+
+    mail_user(@info_request.user,
+              subject,
+              template_name: 'embargo_expiring_notification')
+  end
+
+  def overdue_notification(notification)
+    @info_request = notification.info_request_event.info_request
+
+    post_redirect = PostRedirect.new(
+      :uri => respond_to_last_url(@info_request, :anchor => "followup"),
+      :user_id => @info_request.user.id)
+    post_redirect.save!
+    @url = confirm_url(:email_token => post_redirect.email_token)
+
+    set_reply_to_headers(@info_request.user)
+    set_auto_generated_headers
+
+    subject = _("Delayed response to your FOI request - {{request_title}}",
+                :request_title => @info_request.title.html_safe)
+
+    mail_user(@info_request.user,
+              subject,
+              template_name: 'overdue_notification')
+  end
+
+  def very_overdue_notification(notification)
+    @info_request = notification.info_request_event.info_request
+
+    post_redirect = PostRedirect.new(
+      :uri => respond_to_last_url(@info_request, :anchor => "followup"),
+      :user_id => @info_request.user.id)
+    post_redirect.save!
+    @url = confirm_url(:email_token => post_redirect.email_token)
+
+    set_reply_to_headers(@info_request.user)
+    set_auto_generated_headers
+
+    subject = _("You're long overdue a response to your FOI request " \
+                "- {{request_title}}",
+                :request_title => @info_request.title.html_safe)
+
+    mail_user(@info_request.user,
+              subject,
+              template_name: 'very_overdue_notification')
   end
 end

@@ -1,16 +1,17 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20161128095350
 #
 # Table name: embargoes
 #
-#  id               :integer          not null, primary key
-#  info_request_id  :integer
-#  publish_at       :datetime         not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  embargo_duration :string(255)
+#  id                       :integer          not null, primary key
+#  info_request_id          :integer
+#  publish_at               :datetime         not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  embargo_duration         :string(255)
+#  expiring_notification_at :datetime
 #
+
 module AlaveteliPro
   class Embargo < ActiveRecord::Base
     belongs_to :info_request,
@@ -106,10 +107,13 @@ module AlaveteliPro
       embargoes = expiring.joins(query).where("ire.info_request_id IS NULL")
       embargoes.find_each do |embargo|
         info_request = embargo.info_request
-        info_request.log_event(
+        event = info_request.log_event(
           'embargo_expiring',
           { :event_created_at => Time.zone.now },
           { :created_at => embargo.expiring_notification_at })
+        if info_request.use_notifications?
+          info_request.user.notify(event)
+        end
       end
     end
 

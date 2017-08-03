@@ -1,0 +1,25 @@
+<%= n_('{{count}} request has still not had a response:',
+       '{{count}} requests have still not had responses:',
+       notifications.size,
+       count: notifications.size) %>
+
+<%= n_('You can see the request and tell the body to respond with the ' \
+       'following link. You might like to ask for an internal review, ' \
+       'asking them to find out why their response to the request has been ' \
+       'so slow.',
+       'You can see the requests and tell the bodies to respond with the ' \
+       'following links. You might like to ask for internal reviews, ' \
+       'asking the bodies to find out why responses to the requests have ' \
+       'been so slow.',
+       notifications.size) %>
+
+<% notifications.each do |notification| %>
+  <% info_request = notification.info_request_event.info_request %>
+  <% post_redirect = PostRedirect.create!(
+       :uri => respond_to_last_url(info_request, :anchor => "followup"),
+       :user_id => info_request.user.id) %>
+  <% confirm_url = confirm_url(:email_token => post_redirect.email_token) %>
+  <%= _('{{public_body_name}}: {{confirm_url}}',
+        public_body_name: info_request.public_body.name.html_safe,
+        confirm_url: confirm_url) %>
+<% end %>

@@ -12,8 +12,8 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer
-#  request_created_at :datetime         default(2017-06-05 09:19:11 UTC), not null
-#  request_updated_at :datetime         default(2017-06-05 09:19:11 UTC), not null
+#  request_created_at :datetime         not null
+#  request_updated_at :datetime         not null
 #
 
 require 'spec_helper'

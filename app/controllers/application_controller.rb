@@ -158,11 +158,6 @@ class ApplicationController < ActionController::Base
     session[:ttl] = nil
   end
 
-  def send_exception_notifications?
-    !AlaveteliConfiguration.exception_notifications_from.blank? &&
-      !AlaveteliConfiguration.exception_notifications_to.blank?
-  end
-
   def show_rails_exceptions?
     false
   end
