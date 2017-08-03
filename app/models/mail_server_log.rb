@@ -29,6 +29,7 @@ class MailServerLog < ActiveRecord::Base
   belongs_to :mail_server_log_done,
              :inverse_of => :mail_server_logs
 
+  after_initialize :calculate_delivery_status
   before_create :calculate_delivery_status
 
   # Load in exim or postfix log file from disk, or update if we already have it
@@ -217,6 +218,7 @@ class MailServerLog < ActiveRecord::Base
   #
   # Returns a String, EximLine or PostfixLine
   def line(opts = {})
+    return unless read_attribute(:line)
     line = read_attribute(:line).dup
 
     if opts[:redact]
