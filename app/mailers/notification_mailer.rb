@@ -12,7 +12,6 @@ class NotificationMailer < ApplicationMailer
             "notifications.send_after <= ? AND " \
             "notifications.seen_at IS NULL AND " \
             "notifications.expired = ?"
-            ""
     users = User.
       includes(:notifications).
         references(:notifications).
