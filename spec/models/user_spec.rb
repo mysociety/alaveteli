@@ -62,6 +62,12 @@ describe User, "banning the user" do
     expect(user.url_name).to eq('nasty_user_123')
   end
 
+  it 'does not change the stored name' do
+    user = FactoryGirl.create(:user, :name => 'nasty user 123')
+    user.update_attributes(:ban_text => 'You are banned')
+    expect(user.read_attribute(:name)).to eq('nasty user 123')
+  end
+
   it 'appends a message to the name' do
     user = FactoryGirl.build(:user, :name => 'nasty user', :ban_text => 'banned')
     expect(user.name).to eq('nasty user (Account suspended)')

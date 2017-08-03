@@ -391,11 +391,11 @@ class InfoRequest < ActiveRecord::Base
   # Remove spaces from ends (for when used in emails etc.)
   # Needed for legacy reasons, even though we call strip_attributes now
   def title
-    title = read_attribute(:title)
-    if title
-      title.strip!
+    _title = read_attribute(:title)
+    if _title
+      _title.strip!
     end
-    title
+    _title
   end
 
   # Email which public body should use to respond to request. This is in

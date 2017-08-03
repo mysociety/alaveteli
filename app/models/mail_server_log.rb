@@ -217,17 +217,17 @@ class MailServerLog < ActiveRecord::Base
   #
   # Returns a String, EximLine or PostfixLine
   def line(opts = {})
-    line = read_attribute(:line).dup
+    _line = read_attribute(:line)
 
     if opts[:redact]
-      line = strip_syslog_prefix(line)
-      line = redact_hostname(line) if sent_to_smarthost?(line)
-      line =
-        redact_idhash(line, info_request.idhash) if info_request.try(:idhash)
+      _line = strip_syslog_prefix(_line)
+      _line = redact_hostname(_line) if sent_to_smarthost?(_line)
+      _line =
+        redact_idhash(_line, info_request.idhash) if info_request.try(:idhash)
     end
 
-    line = line_decorator.new(line) if opts[:decorate]
-    line
+    _line = line_decorator.new(_line) if opts[:decorate]
+    _line
   end
 
   def delivery_status

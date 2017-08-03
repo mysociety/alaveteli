@@ -358,17 +358,17 @@ class User < ActiveRecord::Base
   end
 
   def name
-    name = read_attribute(:name)
+    _name = read_attribute(:name)
     if banned?
-      name = _("{{user_name}} (Account suspended)", :user_name => name)
+      _name = _("{{user_name}} (Account suspended)", :user_name => _name)
     end
-    name
+    _name
   end
 
   # When name is changed, also change the url name
   def name=(name)
     write_attribute(:name, name.try(:strip))
-    update_url_name unless banned?
+    update_url_name
   end
 
   def update_url_name
