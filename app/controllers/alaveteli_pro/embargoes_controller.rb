@@ -37,6 +37,12 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
       flash[:error] = _("Sorry, something went wrong publishing your " \
                         "requests, please try again.")
     end
-    redirect_to show_alaveteli_pro_batch_request_path(@info_request_batch)
+    if params[:info_request_id]
+      @info_request = InfoRequest.find(params[:info_request_id])
+      redirect_to show_alaveteli_pro_request_path(
+        url_title: @info_request.url_title)
+    else
+      redirect_to show_alaveteli_pro_batch_request_path(@info_request_batch)
+    end
   end
 end

@@ -160,5 +160,22 @@ describe AlaveteliPro::EmbargoesController do
         end.to raise_error(CanCan::AccessDenied)
       end
     end
+
+    context "when an info_request_id is supplied" do
+      before do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = admin.id
+          post :destroy_batch,
+               info_request_batch_id: info_request_batch.id,
+               info_request_id: info_request_batch.info_requests.first.id
+        end
+      end
+
+      it "redirects to that request, not the batch" do
+        expected_path = show_alaveteli_pro_request_path(
+            url_title: info_request_batch.info_requests.first.url_title)
+          expect(response).to redirect_to(expected_path)
+      end
+    end
   end
 end
