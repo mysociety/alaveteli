@@ -51,7 +51,7 @@
       <%= form_tag(
             create_batch_alaveteli_pro_embargo_extensions_path,
             class: 'js-embargo-form' ) do |f| %>
-        <%= render partial: "alaveteli_pro/info_requests/embargo_info",
+        <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
                    locals: { embargo: example_embargo, tense: :present } %>
         <%= hidden_field_tag :info_request_batch_id, @info_request_batch.id %>
 
