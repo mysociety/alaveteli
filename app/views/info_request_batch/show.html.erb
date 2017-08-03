@@ -38,44 +38,8 @@
 </div>
 
 <div id="right_column" class="sidebar right_column" role="complementary">
-  <% if @info_request_batch.embargo_duration %>
-  <div class="sidebar__section update-embargo">
-    <h2 class="embargo-sidebar-heading">
-      <i class="embargo-indicator embargo-indicator--small"></i>
-      <%= _("Privacy") %>
-    </h2>
-    <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
-    <input class="houdini-input" type="checkbox" id="input1">
-    <div class="houdini-target extend-embargo-sidebar">
-      <% example_embargo = @info_request_batch.info_requests.first.embargo %>
-      <%= form_tag(
-            create_batch_alaveteli_pro_embargo_extensions_path,
-            class: 'js-embargo-form' ) do |f| %>
-        <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
-                   locals: { embargo: example_embargo, tense: :present } %>
-        <%= hidden_field_tag :info_request_batch_id, @info_request_batch.id %>
-
-        <p>
-          <label class="form_label" for="extension_duration">
-            <%= _('Keep private for a further:') %>
-          </label>
-          <%= select_tag :extension_duration,
-                         options_for_select(
-                           embargo_extension_options(example_embargo)),
-                         class: 'js-embargo-duration' %>
-          <input type="submit"
-                 value="<%= _("Update") %>"
-                 class="embargo__submit">
-        </p>
-      <% end %>
-      <%= button_to _("Publish requests"),
-                    destroy_batch_alaveteli_pro_embargoes_path(
-                      info_request_batch_id: @info_request_batch.id),
-                    method: :post,
-                    data: {
-                      confirm: _("Are you sure you want to publish these requests?")
-                    } %>
-    </div>
-  </div>
+  <% if @info_request_batch.sent_at %>
+    <%= render partial: "alaveteli_pro/info_request_batches/embargo_form",
+               locals: { info_request_batch: @info_request_batch } %>
   <% end %>
 </div>
