@@ -127,6 +127,8 @@ class AdminUserController < AdminController
                                          :no_limit,
                                          :can_make_batch_requests,
                                          :confirmed_not_spam)
+     # override the name param to get the database value
+     params[:admin_user][:name] = @admin_user.read_attribute(:name)
     else
       {}
     end
