@@ -14,7 +14,8 @@ describe AlaveteliPro::AccountMailer do
 
       before do
         @message = AlaveteliPro::AccountMailer.
-                     account_request(account_request)
+                     account_request(account_request).
+                       message
       end
 
     it "sends the email to the pro contact address" do

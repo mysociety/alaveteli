@@ -31,6 +31,7 @@ class MailServerLog::DeliveryStatus
   end
 
   def <=>(other)
+    return nil unless other
     a = TranslatedConstants.humanized.keys.index(to_sym)
     b = TranslatedConstants.humanized.keys.index(other.to_sym)
     a <=> b

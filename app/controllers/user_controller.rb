@@ -262,7 +262,11 @@ class UserController < ApplicationController
     # if new email already in use, send email there saying what happened
     user_alreadyexists = User.find_user_by_email(@signchangeemail.new_email)
     if user_alreadyexists
-      UserMailer.changeemail_already_used(@user.email, @signchangeemail.new_email).deliver
+      UserMailer.
+        changeemail_already_used(
+          @user.email,
+          @signchangeemail.new_email
+        ).deliver_now
       # it is important this screen looks the same as the one below, so
       # you can't change to someone's email in order to tell if they are
       # registered with that email on the site
@@ -283,7 +287,11 @@ class UserController < ApplicationController
       post_redirect.save!
 
       url = confirm_url(:email_token => post_redirect.email_token)
-      UserMailer.changeemail_confirm(@user, @signchangeemail.new_email, url).deliver
+      UserMailer.
+        changeemail_confirm(
+          @user,
+          @signchangeemail.new_email, url
+        ).deliver_now
       # it is important this screen looks the same as the one above, so
       # you can't change to someone's email in order to tell if they are
       # registered with that email on the site
@@ -337,7 +345,7 @@ class UserController < ApplicationController
           user_url(@user),
           params[:contact][:subject],
           params[:contact][:message]
-        ).deliver
+        ).deliver_now
         flash[:notice] = _("Your message to {{recipient_user_name}} has " \
                            "been sent!",
                            :recipient_user_name => @recipient_user.
@@ -536,7 +544,12 @@ class UserController < ApplicationController
     post_redirect.save!
 
     url = confirm_url(:email_token => post_redirect.email_token)
-    UserMailer.confirm_login(user, post_redirect.reason_params, url).deliver
+    UserMailer.
+      confirm_login(
+        user,
+        post_redirect.reason_params,
+        url
+      ).deliver_now
     render :action => 'confirm'
   end
 
@@ -548,7 +561,12 @@ class UserController < ApplicationController
     post_redirect.save!
 
     url = confirm_url(:email_token => post_redirect.email_token)
-    UserMailer.already_registered(user, post_redirect.reason_params, url).deliver
+    UserMailer.
+      already_registered(
+        user,
+        post_redirect.reason_params,
+        url
+      ).deliver_now
     render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
   end
 

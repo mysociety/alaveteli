@@ -451,7 +451,7 @@ describe MailServerLog do
           log.
           reload.
           instance_variable_get('@attributes')['delivery_status'].
-          serialized_value
+          value.to_s
         expect(db_value).to eq('sent')
       end
     end

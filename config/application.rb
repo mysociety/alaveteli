@@ -24,9 +24,6 @@ module Alaveteli
     # config.i18n.default_locale = :de
     I18n.config.enforce_available_locales = true
 
-    # Allow some extra tags to be whitelisted in the 'sanitize' helper method
-    config.action_view.sanitized_allowed_tags = 'html', 'head', 'body', 'table', 'tr', 'td', 'style'
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -54,6 +51,9 @@ module Alaveteli
       # rather than by middleware.
       app.routes.append { match '*path', :to => 'general#not_found', :via => [:get, :post] }
     end
+
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
