@@ -100,6 +100,12 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#smtp_mailer_password">SMTP_MAILER_PASSWORD</a></code>
 <br> <code><a href="#smtp_mailer_authentication">SMTP_MAILER_AUTHENTICATION</a></code>
 <br> <code><a href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a></code>
+<br> <code><a href="#production_mailer_retriever_method">PRODUCTION_MAILER_RETRIEVER_METHOD</a></code>
+<br> <code><a href="#pop_mailer_address">POP_MAILER_ADDRESS</a></code>
+<br> <code><a href="#pop_mailer_port">POP_MAILER_PORT</a></code>
+<br> <code><a href="#pop_mailer_user_name">POP_MAILER_USER_NAME</a></code>
+<br> <code><a href="#pop_mailer_password">POP_MAILER_PASSWORD</a></code>
+<br> <code><a href="#pop_mailer_enable_ssl">POP_MAILER_ENABLE_SSL</a></code>
 <br> <code><a href="#restrict_new_responses_on_old_requests_after_months">RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS</a></code>
 
 ### General admin (keys, paths, back-end services):
@@ -975,6 +981,149 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   </dd>
 
 
+  <dt>
+    <a name="production_mailer_retriever_method"><code>PRODUCTION_MAILER_RETRIEVER_METHOD</code></a>
+  </dt>
+  <dd>
+      <div class="attention-box">
+        <p>
+          Introduced in Alaveteli 0.30.0.0
+        </p>
+      </div>
+      What retrieval method is being
+      used for incoming emails in production? The default value is
+      <code>passive</code> - incoming emails must be piped into the
+      application via the <code>mailin</code> script. There is
+      experimental support for polling a <code>POP3</code> server for messages,
+      if <code>PRODUCTION_MAILER_RETRIEVER_METHOD</code> is set to <code>pop</code>.
+      If you want to use an external POP3 server to receive email, then you will
+      also need to include POP configuration settings:
+
+      <a href="#pop_mailer_address">POP_MAILER_ADDRESS</a>,
+      <a href="#pop_mailer_port">POP_MAILER_PORT</a>,
+      <a href="#pop_mailer_user_name">POP_MAILER_USER_NAME</a>,
+      <a href="#pop_mailer_password">POP_MAILER_PASSWORD</a> and
+      <a href="#pop_mailer_enable_ssl">POP_MAILER_ENABLE_SSL</a>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>PRODUCTION_MAILER_RETRIEVER_METHOD: "passive"</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="pop_mailer_address">POP_MAILER_ADDRESS</a></code>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.30.0.0
+      </p>
+    </div>
+   Set this to the address of the <code>POP3</code> server you want to poll for incoming
+   messages. Only required if <a href="#production_mailer_retriever_method"><code>PRODUCTION_MAILER_RETRIEVER_METHOD</code></a> is set to <code>pop</code>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>POP_MAILER_ADDRESS: 'localhost'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="pop_mailer_port">POP_MAILER_PORT</a></code>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.30.0.0
+      </p>
+    </div>
+    The port that your <code>POP3</code> server accepts connections on.
+    Only required if <a href="#production_mailer_retriever_method"><code>PRODUCTION_MAILER_RETRIEVER_METHOD</code></a> is set to <code>pop</code>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>POP_MAILER_PORT: 995</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="pop_mailer_user_name">POP_MAILER_USER_NAME</a></code>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.30.0.0
+      </p>
+    </div>
+    Set the username of the account user to connect to the POP server.
+    Only required if <a href="#production_mailer_retriever_method"><code>PRODUCTION_MAILER_RETRIEVER_METHOD</code></a> is set to <code>pop</code>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>POP_MAILER_USER_NAME: 'jane322'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="pop_mailer_password">POP_MAILER_PASSWORD</a></code>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.30.0.0
+      </p>
+    </div>
+    Set the password of the account user to connect to the POP server.
+    Only required if <a href="#production_mailer_retriever_method"><code>PRODUCTION_MAILER_RETRIEVER_METHOD</code></a> is set to <code>pop</code>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>POP_MAILER_PASSWORD: 'supersecretpassword'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="pop_mailer_enable_ssl">POP_MAILER_ENABLE_SSL</a></code>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.30.0.0
+      </p>
+    </div>
+   Should Alaveteli use SSL when connecting to the <code>POP3</code> server used?
+   Only required if <a href="#production_mailer_retriever_method"><code>PRODUCTION_MAILER_RETRIEVER_METHOD</code></a> is set to <code>pop</code>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>POP_MAILER_ENABLE_SSL: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
 
   <dt>
     <a name="restrict_new_responses_on_old_requests_after_months"><code>RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS</code></a><br>
