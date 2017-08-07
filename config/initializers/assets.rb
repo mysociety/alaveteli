@@ -24,7 +24,8 @@ Rails.application.configure do
                                'profile-photos.js',
                                'stats.js',
                                'fancybox.css',
-                               'fancybox.js']
+                               'fancybox.js',
+                               'manifest.json']
   # ... while these are individual files that can't easily be
   # grouped:
   config.assets.precompile += ['jquery.Jcrop.min.css',
@@ -43,7 +44,10 @@ Rails.application.configure do
                                'alaveteli_pro/request-index.js',
                                'responsive/print.css',
                                'responsive/application-lte-ie7.css',
-                               'responsive/application-ie8.css']
+                               'responsive/application-ie8.css',
+                               'favicon.ico',
+                               'browserconfig.xml',
+                               '*.png']
 
   config.sass.load_paths += [
     "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
