@@ -1,3 +1,9 @@
+# 0.28.0.11
+
+## Highlighted Features
+
+* Backport fix for loading sample data in Rails 4 (Gareth Rees)
+
 # 0.28.0.10
 
 ## Highlighted Features
