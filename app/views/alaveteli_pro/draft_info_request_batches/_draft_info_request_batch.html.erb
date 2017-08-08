@@ -1,7 +1,7 @@
 <div id="draft-info-request-batch-<%= draft_info_request_batch.id %>"
      class="request">
   <h3 class="request__title">
-    <% if draft_info_request_batch.embargo_duration %>
+    <% if draft_info_request_batch.embargo_duration.present? %>
       <span class="embargo-indicator embargo-indicator--small">
         <%= _("Private") %>
       </span>
