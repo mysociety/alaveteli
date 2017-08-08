@@ -217,17 +217,17 @@ class MailServerLog < ActiveRecord::Base
   #
   # Returns a String, EximLine or PostfixLine
   def line(opts = {})
-    line = read_attribute(:line).dup
+    _line = read_attribute(:line)
 
     if opts[:redact]
-      line = strip_syslog_prefix(line)
-      line = redact_hostname(line) if sent_to_smarthost?(line)
-      line =
-        redact_idhash(line, info_request.idhash) if info_request.try(:idhash)
+      _line = strip_syslog_prefix(_line)
+      _line = redact_hostname(_line) if sent_to_smarthost?(_line)
+      _line =
+        redact_idhash(_line, info_request.idhash) if info_request.try(:idhash)
     end
 
-    line = line_decorator.new(line) if opts[:decorate]
-    line
+    _line = line_decorator.new(_line) if opts[:decorate]
+    _line
   end
 
   def delivery_status
@@ -246,7 +246,12 @@ class MailServerLog < ActiveRecord::Base
               cached values. This error handling will be removed soon.).
               squish unless Rails.env.test?
 
-      set_delivery_status
+      # re-try setting the delivery status, forcing the write by avoiding the
+      # Rails 4.2 call to old_attribute_value hidden inside write_attribute as
+      # that will re-raise the 'Invalid delivery status' ArgumentError we're
+      # attempting to rescue
+      # https://apidock.com/rails/v4.2.7/ActiveRecord/AttributeMethods/Dirty/write_attribute
+      set_delivery_status(true)
       save
       DeliveryStatusSerializer.load(read_attribute(:delivery_status))
     end
@@ -255,10 +260,19 @@ class MailServerLog < ActiveRecord::Base
   private
 
   # attempt to parse the status from the log line and store if successful
-  def set_delivery_status
+  def set_delivery_status(force = false)
     decorated = line(:decorate => true)
     if decorated && decorated.delivery_status
-      self.delivery_status = decorated.delivery_status
+      if force
+        # write the value without checking the old (invalid) value, avoiding
+        # the unintended ArgumentError caused by reading the old value
+        raw_write_attribute(:delivery_status, decorated.delivery_status)
+        # record the new value in `changes` so that save will have something
+        # to do as raw_write_attribute just updates the value
+        save_changed_attribute(:delivery_status, decorated.delivery_status)
+      else
+        write_attribute(:delivery_status, decorated.delivery_status)
+      end
     end
   end
 

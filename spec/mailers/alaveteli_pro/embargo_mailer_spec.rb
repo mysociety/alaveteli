@@ -102,7 +102,8 @@ describe AlaveteliPro::EmbargoMailer do
     context "when there's just one embargo" do
       before do
         @message = AlaveteliPro::EmbargoMailer.
-                    expiring_alert(pro_user, [expiring_1])
+                    expiring_alert(pro_user, [expiring_1]).
+                      message
       end
 
       it 'sets the subject correctly for a single embargo' do
@@ -122,7 +123,8 @@ describe AlaveteliPro::EmbargoMailer do
     context "when there are multiple embargoes" do
       before do
         @message = AlaveteliPro::EmbargoMailer.
-                     expiring_alert(pro_user, [expiring_1, expiring_2])
+                     expiring_alert(pro_user, [expiring_1, expiring_2]).
+                       message
       end
 
       it 'sets the subject correctly' do

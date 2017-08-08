@@ -64,12 +64,8 @@ class IncomingMessage < ActiveRecord::Base
            :inverse_of => :incoming_message
 
   belongs_to :raw_email,
-             :inverse_of => :incoming_message
-
-  # HACK: Work around bug in belongs_to :dependent => :destroy
-  # https://github.com/rails/rails/issues/12380
-  # TODO: Remove when we're using Rails 4.2.x
-  after_destroy :destroy_raw_email
+             :inverse_of => :incoming_message,
+             :dependent => :destroy
 
   after_destroy :update_request
   after_update :update_request

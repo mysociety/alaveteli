@@ -51,6 +51,11 @@ class AdminUserController < AdminController
   end
 
   def edit
+    # HACK: Override the name param to get the database value.
+    # Rails 4.2 calls User#name instead of the `#name_before_type_cast`, so
+    # results in the banned user suffix being rendered in to the form field.
+    # This value with the suffix then gets persisted on save, breaking URLs.
+    @admin_user.name = @admin_user.read_attribute(:name)
   end
 
   def update

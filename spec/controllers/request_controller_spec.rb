@@ -604,9 +604,21 @@ describe RequestController do
                            :part => 2,
                            :file_name => 'interesting.html',
                            :skip_cache => 1
-      expect(response.body).not_to match("script")
-      expect(response.body).not_to match("interesting")
-      expect(response.body).to match('dull')
+
+      # Nokogiri adds the meta tag; see
+      # https://github.com/sparklemotion/nokogiri/issues/1008
+      expected = <<-EOF.squish
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        </head>
+        <body>dull
+        </body>
+      </html>
+      EOF
+
+      expect(response.body.squish).to eq(expected)
     end
 
     it "censors attachments downloaded directly" do
@@ -1894,7 +1906,7 @@ describe RequestController do
         it 'should send an email to the requester letting them know someone has
             updated the status of their request' do
           mail_mock = double("mail")
-          allow(mail_mock).to receive :deliver
+          allow(mail_mock).to receive :deliver_now
           expect(RequestMailer).to receive(:old_unclassified_updated).and_return(mail_mock)
           post_status('rejected', info_request)
         end

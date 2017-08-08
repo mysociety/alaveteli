@@ -23,7 +23,7 @@ module AlaveteliPro
             info_request_event_id: alert_event_id).exists?
         end
         next if info_requests.empty?
-        expiring_alert(user, info_requests).deliver
+        expiring_alert(user, info_requests).deliver_now
         info_requests.each do |info_request|
           alert_event_id = info_request.last_embargo_set_event.id
           UserInfoRequestSentAlert.create(

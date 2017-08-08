@@ -418,7 +418,7 @@ class RequestController < ApplicationController
       mail_message = OutgoingMailer.initial_request(
         @outgoing_message.info_request,
         @outgoing_message
-      ).deliver
+      ).deliver_now
 
       @outgoing_message.record_email_delivery(
         mail_message.to_addrs.join(', '),
@@ -654,7 +654,10 @@ class RequestController < ApplicationController
             apply_masks(@attachment.default_body, @attachment.content_type)
 
     if content_type == 'text/html'
-      body = ActionController::Base.helpers.sanitize(body)
+      body =
+        Loofah.scrub_document(body, :prune).
+        to_html(encoding: 'UTF-8').
+        try(:html_safe)
     end
 
     render :body => body, :content_type => content_type
