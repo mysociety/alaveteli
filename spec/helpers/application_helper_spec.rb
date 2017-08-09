@@ -28,6 +28,25 @@ describe ApplicationHelper do
 
   end
 
+  describe '#read_asset_file' do
+
+    it "raises an Exception if it can't find the file" do
+      expect{ read_asset_file('nosuchfile.css') }.
+        to raise_error(Sprockets::FileNotFound,
+                       "Asset file 'nosuchfile.css' was not found in the " \
+                       "assets directory")
+    end
+
+    it 'returns the contents of the file if it finds the asset' do
+      expect(read_asset_file('main.css')).to match(/font-size/)
+    end
+
+    it 'returns the file content as UTF-8' do
+      expect(read_asset_file('main.css').encoding.to_s).to eq('UTF-8')
+    end
+
+  end
+
   describe 'when creating an event description' do
 
     it 'should generate a description for a request' do

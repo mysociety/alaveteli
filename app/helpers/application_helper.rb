@@ -78,6 +78,16 @@ module ApplicationHelper
     return "#{exact_date} (#{ago_text})"
   end
 
+  def read_asset_file(asset_name)
+    assets = Rails.application.assets_manifest.find_sources(asset_name)
+    if assets.first
+      assets.first.force_encoding('utf-8')
+    else
+      raise Sprockets::FileNotFound,
+            "Asset file '#{asset_name}' was not found in the assets directory"
+    end
+  end
+
   # Note that if the admin interface is proxied via another server, we can't
   # rely on a sesssion being shared between the front end and admin interface,
   # so need to check the status of the user.
