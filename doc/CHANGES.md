@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Prevent null bytes getting saved to `IncomingMessage` attachment cache
+  columns (Gareth Rees)
 * Add `:inverse_of` option to ActiveRecord associations to improve performance
   (Gareth Rees)
 * Make Vagrant settings configurable through `.vagrant.yml` (Gareth Rees)

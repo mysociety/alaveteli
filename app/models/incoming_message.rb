@@ -676,8 +676,9 @@ class IncomingMessage < ActiveRecord::Base
 
     # Save clipped version for snippets
     if self.cached_attachment_text_clipped.nil?
-      self.cached_attachment_text_clipped = text.mb_chars[0..MAX_ATTACHMENT_TEXT_CLIPPED]
-      self.save!
+      clipped = text.mb_chars[0..MAX_ATTACHMENT_TEXT_CLIPPED].delete("\0")
+      self.cached_attachment_text_clipped = clipped
+      save!
     end
 
     return text
