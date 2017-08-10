@@ -568,7 +568,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
     end
   end
 
-  it 'should insert some text for messages without a body', :focus => true do
+  it 'should insert some text for messages without a body' do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('no-body.email', ir.incoming_email)
     message = ir.incoming_messages[1]
