@@ -1102,32 +1102,6 @@ describe UserController, "when signing up" do
   # TODO: need to do bob@localhost signup and check that sends different email
 end
 
-describe UserController, "when signing out" do
-  render_views
-
-  it "should log you out and redirect to the home page" do
-    session[:user_id] = users(:bob_smith_user).id
-    get :signout
-    expect(session[:user_id]).to be_nil
-    expect(response).to redirect_to(:controller => 'general', :action => 'frontpage')
-  end
-
-  it "should log you out and redirect you to where you were" do
-    session[:user_id] = users(:bob_smith_user).id
-    get :signout, :r => '/list'
-    expect(session[:user_id]).to be_nil
-    expect(response).to redirect_to(:controller => 'request', :action => 'list')
-  end
-
-  it "clears the session ttl" do
-    session[:user_id] = users(:bob_smith_user).id
-    session[:ttl] = Time.zone.now
-    get :signout
-    expect(session[:ttl]).to be_nil
-  end
-
-end
-
 describe UserController, "when sending another user a message" do
   render_views
 

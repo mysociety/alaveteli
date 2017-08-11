@@ -189,15 +189,11 @@ Rails.application.routes.draw do
   match '/profile/sign_in' => 'users/sessions#create',
         :as => :create_session,
         :via => :post
-
-  match '/profile/sign_up' => 'user#signup',
-        :as => :signup, :via => :post
-  match '/profile/sign_up' => 'user#signin',
-        :via => :get
-  match '/profile/sign_out' => 'user#signout',
+  match '/profile/sign_out' => 'users/sessions#destroy',
         :as => :signout,
         :via => :get
-
+  match '/profile/sign_up' => 'user#signup',
+        :as => :signup, :via => :post
   match '/c/:email_token' => 'user#confirm',
         :as => :confirm,
         :via => :get

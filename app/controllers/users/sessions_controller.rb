@@ -46,6 +46,15 @@ class Users::SessionsController < UserController
     end
   end
 
+  def destroy
+    clear_session_credentials
+    if params[:r]
+      redirect_to URI.parse(params[:r]).path
+    else
+      redirect_to frontpage_path
+    end
+  end
+
   private
 
   def user_signin_params
