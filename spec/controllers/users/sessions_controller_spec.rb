@@ -89,4 +89,27 @@ describe Users::SessionsController do
       end
     end
   end
+
+  describe 'GET destroy' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "logs you out and redirect to the home page" do
+      get :destroy, {}, { :user_id => user.id }
+      expect(session[:user_id]).to be_nil
+      expect(response).to redirect_to(frontpage_path)
+    end
+
+    it "logs you out and redirect you to where you were" do
+      get :destroy, { :r => '/list' }, { :user_id => user.id }
+      expect(session[:user_id]).to be_nil
+      expect(response).
+        to redirect_to(request_list_path)
+    end
+
+    it "clears the session ttl" do
+      get :destroy, {}, { :user_id => user.id, :ttl => Time.zone.now }
+      expect(session[:ttl]).to be_nil
+    end
+
+  end
 end

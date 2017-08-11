@@ -178,15 +178,6 @@ class UserController < ApplicationController
     do_post_redirect post_redirect, @user
   end
 
-  def signout
-    clear_session_credentials
-    if params[:r]
-      redirect_to URI.parse(params[:r]).path
-    else
-      redirect_to :controller => "general", :action => "frontpage"
-    end
-  end
-
   # Change your email
   def signchangeemail
     # "authenticated?" has done the redirect to signin page for us
