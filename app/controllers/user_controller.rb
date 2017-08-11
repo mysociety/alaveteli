@@ -11,6 +11,7 @@ class UserController < ApplicationController
   layout :select_layout
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
+  before_filter :work_out_post_redirect, :only => [ :signin, :signup ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -123,7 +124,6 @@ class UserController < ApplicationController
       return
     end
 
-    work_out_post_redirect
     @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     # First time page is shown
@@ -160,7 +160,6 @@ class UserController < ApplicationController
 
   # Create new account form
   def signup
-    work_out_post_redirect
     @in_pro_area = true if @post_redirect.reason_params[:pro]
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
