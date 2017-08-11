@@ -120,15 +120,6 @@ class UserController < ApplicationController
 
   # Login form
   def signin
-    if @user && !params[:user_signin]
-      redirect_path = params.fetch(:r) { frontpage_path }
-      redirect_to URI.parse(redirect_path).path
-      return
-    end
-
-    # First time page is shown
-    return render :action => 'sign' unless params[:user_signin]
-
     if @post_redirect.present?
       @user_signin =
         User.authenticate_from_form(user_signin_params,
@@ -553,7 +544,8 @@ class UserController < ApplicationController
     is_modal_dialog ? 'no_chrome' : 'default'
   end
 
-  # Decide where we are going to redirect back to after signin/signup, and record that
+  # Decide where we are going to redirect back to after signin/signup,
+  # and record that
   def work_out_post_redirect
     # Redirect to front page later if nothing else specified
     params[:r] = "/" if params[:r].nil? && params[:token].nil?

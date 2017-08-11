@@ -806,33 +806,8 @@ describe UserController, "when signing in" do
     allow(controller).to receive(:country_from_ip).and_return('gb')
   end
 
-  def get_last_postredirect
-    post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
-    expect(post_redirects.size).to eq(1)
-    post_redirects[0]
-  end
-
-  it "should show sign in / sign up page" do
-    get :signin
-    expect(response.body).to have_css("input#signin_token", :visible => :hidden)
-  end
-
-  it "should create post redirect to / when you just go to /signin" do
-    get :signin
-    post_redirect = get_last_postredirect
-    expect(post_redirect.uri).to eq("/")
-  end
-
-  it "should create post redirect to /list when you click signin on /list" do
-    get :signin, :r => "/list"
-    post_redirect = get_last_postredirect
-    expect(post_redirect.uri).to eq("/list")
-  end
-
   it "should show you the sign in page again if you get the password wrong" do
-    get :signin, :r => "/list"
-    expect(response).to render_template('sign')
-    post_redirect = get_last_postredirect
+    post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
     post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'NOTRIGHTPASSWORD' },
                     :token => post_redirect.token
                     }
@@ -840,9 +815,7 @@ describe UserController, "when signing in" do
   end
 
   it "should show you the sign in page again if you get the email wrong" do
-    get :signin, :r => "/list"
-    expect(response).to render_template('sign')
-    post_redirect = get_last_postredirect
+    post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
     post :signin, :user_signin => { :email => 'unknown@localhost',
                                     :password => 'NOTRIGHTPASSWORD' },
                   :token => post_redirect.token
@@ -850,9 +823,8 @@ describe UserController, "when signing in" do
   end
 
   it "should log in when you give right email/password, and redirect to where you were" do
-    get :signin, :r => "/list"
-    expect(response).to render_template('sign')
-    post_redirect = get_last_postredirect
+    post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
+
     post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
                     :token => post_redirect.token
                     }
@@ -860,6 +832,15 @@ describe UserController, "when signing in" do
     # response doesn't contain /en/ but redirect_to does...
     expect(response).to redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
     expect(ActionMailer::Base.deliveries).to be_empty
+  end
+
+  it "sets a the cookie expiry to nil on next page load" do
+    load_raw_emails_data
+    get_fixtures_xapian_index
+    post :signin, { :user_signin => { :email => 'bob@localhost',
+                                      :password => 'jonespassword' } }
+    get :show, :url_name => users(:bob_smith_user).url_name
+    expect(request.env['rack.session.options'][:expire_after]).to be_nil
   end
 
   it "should not log you in if you use an invalid PostRedirect token, and shouldn't give 500 error either" do
@@ -873,15 +854,6 @@ describe UserController, "when signing in" do
                     :token => post_redirect }
     expect(response).to render_template('sign')
     expect(assigns[:post_redirect]).to eq(nil)
-  end
-
-  it "sets a the cookie expiry to nil on next page load" do
-    load_raw_emails_data
-    get_fixtures_xapian_index
-    post :signin, { :user_signin => { :email => 'bob@localhost',
-                                      :password => 'jonespassword' } }
-    get :show, :url_name => users(:bob_smith_user).url_name
-    expect(request.env['rack.session.options'][:expire_after]).to be_nil
   end
 
   context "checking 'remember_me'" do
@@ -937,18 +909,6 @@ describe UserController, "when signing in" do
       ActionController::Base.allow_forgery_protection = false
     end
 
-    it 'redirects to the homepage' do
-      session[:user_id] = user.id
-      get :signin
-      expect(response).to redirect_to(frontpage_path)
-    end
-
-    it 'redirects to the redirect parameter' do
-      session[:user_id] = user.id
-      get :signin, r: '/select_authority'
-      expect(response).to redirect_to(select_authority_path)
-    end
-
     it "signs them in if the credentials are valid" do
       post :signin,
            { :user_signin => { :email => user.email,
@@ -968,9 +928,8 @@ describe UserController, "when signing in" do
   end
 
   it "should ask you to confirm your email if it isn't confirmed, after log in" do
-    get :signin, :r => "/list"
-    expect(response).to render_template('sign')
-    post_redirect = get_last_postredirect
+    post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
+
     post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
                     :token => post_redirect.token
                     }
@@ -979,8 +938,9 @@ describe UserController, "when signing in" do
   end
 
   it 'does not redirect you to another domain' do
-    get :signin, :r => "http://bad.place.com/list"
-    post_redirect = get_last_postredirect
+    post_redirect =
+      FactoryGirl.create(:post_redirect, uri: 'http://bad.place.com/list')
+
     post :signin, { :user_signin => { :email => 'unconfirmed@localhost',
                                       :password => 'jonespassword' },
                     :token => post_redirect.token
@@ -990,8 +950,7 @@ describe UserController, "when signing in" do
   end
 
   it "should confirm your email, log you in and redirect you to where you were after you click an email link" do
-    get :signin, :r => "/list"
-    post_redirect = get_last_postredirect
+    post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
 
     post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
                     :token => post_redirect.token
@@ -1018,8 +977,7 @@ describe UserController, "when signing in" do
   end
 
   it "should keep you logged in if you click a confirmation link and are already logged in as an admin" do
-    get :signin, :r => "/list"
-    post_redirect = get_last_postredirect
+    post_redirect = FactoryGirl.create(:post_redirect, uri: '/list')
 
     post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
                     :token => post_redirect.token
@@ -1178,6 +1136,48 @@ describe UserController, "when signing up" do
            },
            { :user_id => user.id }
       expect(response).to render_template('confirm')
+    end
+
+  end
+
+  context "checking 'remember_me'" do
+    let(:user) do
+      FactoryGirl.create(:user,
+                         :password => 'password',
+                         :email_confirmed => true)
+    end
+
+    def do_signin(email, password)
+      post :signin, { :user_signin => { :email => email,
+                                        :password => password },
+                      :remember_me => "1" }
+    end
+
+    before do
+      # fake an expired previous session which has not been reset
+      # (i.e. it timed out rather than the user signing out manually)
+      session[:ttl] = Time.zone.now - 2.months
+    end
+
+    it "logs the user in" do
+      do_signin(user.email, 'password')
+      expect(session[:user_id]).to eq(user.id)
+    end
+
+    it "sets session[:remember_me] to true" do
+      do_signin(user.email, 'password')
+      expect(session[:remember_me]).to eq(true)
+    end
+
+    it "clears the session[:ttl] value" do
+      do_signin(user.email, 'password')
+      expect(session[:ttl]).to be_nil
+    end
+
+    it "sets a long lived cookie on next page load" do
+      do_signin(user.email, 'password')
+      get :show, :url_name => user.url_name
+      expect(request.env['rack.session.options'][:expire_after]).to eq(1.month)
     end
 
   end
