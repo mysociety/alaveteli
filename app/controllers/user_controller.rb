@@ -11,6 +11,7 @@ class UserController < ApplicationController
   layout :select_layout
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
+  before_filter :work_out_post_redirect, :only => [ :signin, :signup ]
 
   # Show page about a user
   def show
@@ -88,7 +89,6 @@ class UserController < ApplicationController
 
   # Login form
   def signin
-    work_out_post_redirect
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     # First time page is shown
     return render :action => 'sign' unless params[:user_signin]
@@ -123,7 +123,6 @@ class UserController < ApplicationController
 
   # Create new account form
   def signup
-    work_out_post_redirect
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false
