@@ -2,6 +2,10 @@
 
 ## Highlighted Features
 
+* Upgrade to Rails 4.2 - requires update to themes (see Upgrade Notes, below).
+  Consists of [prerequisite changes](https://github.com/mysociety/alaveteli/pull/4124/commits)
+  and [the upgrade itself](https://github.com/mysociety/alaveteli/pull/4114/commits)
+  (Liz Conlan, Gareth Rees)
 * Prevent null bytes getting saved to `IncomingMessage` attachment cache
   columns (Gareth Rees)
 * Add `:inverse_of` option to ActiveRecord associations to improve performance
@@ -47,6 +51,9 @@
   notification tester role from the database.
 * Use of the `PRODUCTION_MAILER_RETRIEVER_METHOD` config setting is currently
   not recommended.
+* Upgrading to Rails 4.2 requires that themes have a new section in their
+  `alavetelitheme.rb` file as in:
+  https://github.com/mysociety/whatdotheyknow-theme/commit/f99f7fd4538e57c2429ee2301317785c76eb08b0
 
 ### Changed Templates
 
