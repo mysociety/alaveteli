@@ -183,9 +183,11 @@ Rails.application.routes.draw do
            :only => [:show, :create, :update, :destroy],
            :path => '/profile/two_factor'
 
-  match '/profile/sign_in' => 'user#signin',
+  match '/profile/sign_in' => 'users/sessions#new',
         :as => :signin,
-        :via => [:get, :post]
+        :via => :get
+  match '/profile/sign_in' => 'user#signin',
+        :via => :post
   match '/profile/sign_up' => 'user#signup',
         :as => :signup, :via => :post
   match '/profile/sign_up' => 'user#signin',
