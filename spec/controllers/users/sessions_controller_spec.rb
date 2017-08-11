@@ -266,4 +266,5 @@ describe Users::SessionsController do
     end
 
   end
+
 end
