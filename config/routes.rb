@@ -186,8 +186,10 @@ Rails.application.routes.draw do
   match '/profile/sign_in' => 'users/sessions#new',
         :as => :signin,
         :via => :get
-  match '/profile/sign_in' => 'user#signin',
+  match '/profile/sign_in' => 'users/sessions#create',
+        :as => :create_session,
         :via => :post
+
   match '/profile/sign_up' => 'user#signup',
         :as => :signup, :via => :post
   match '/profile/sign_up' => 'user#signin',

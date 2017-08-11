@@ -208,9 +208,8 @@ describe RequestController, "when showing one request" do
     it 'should require login' do
       session[:user_id] = nil
       get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
-      expect(response).to redirect_to(:controller => 'user',
-                                      :action => 'signin',
-                                      :token => get_last_post_redirect.token)
+      expect(response).
+        to redirect_to(signin_path(:token => get_last_post_redirect.token))
     end
 
     it 'should work if logged in as the requester' do
@@ -1112,9 +1111,8 @@ describe RequestController, "when creating a new request" do
                :submitted_new_request => 1, :preview => 0
                }
     post :new, params
-    expect(response).to redirect_to(:controller => 'user',
-                                    :action => 'signin',
-                                    :token => get_last_post_redirect.token)
+    expect(response).
+      to redirect_to(signin_path(:token => get_last_post_redirect.token))
     # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
   end
 
@@ -1674,9 +1672,8 @@ describe RequestController do
 
       it "should require login" do
         post_status('rejected', info_request)
-        expect(response).to redirect_to(:controller => 'user',
-                                        :action => 'signin',
-                                        :token => get_last_post_redirect.token)
+        expect(response).
+          to redirect_to(signin_path(:token => get_last_post_redirect.token))
       end
 
       it "should not classify the request if logged in as the wrong user" do
@@ -2623,9 +2620,8 @@ describe RequestController, "#new_batch" do
 
       it 'should return a redirect to the login page' do
         get :new_batch
-        expect(response).to redirect_to(:controller => 'user',
-                                        :action => 'signin',
-                                        :token => get_last_post_redirect.token)
+        expect(response).
+          to redirect_to(signin_path(:token => get_last_post_redirect.token))
       end
     end
 
@@ -2757,9 +2753,8 @@ describe RequestController, "#select_authorities" do
 
       it 'should return a redirect to the login page' do
         get :select_authorities
-        expect(response).to redirect_to(:controller => 'user',
-                                        :action => 'signin',
-                                        :token => get_last_post_redirect.token)
+        expect(response).
+          to redirect_to(signin_path(:token => get_last_post_redirect.token))
       end
     end
 
