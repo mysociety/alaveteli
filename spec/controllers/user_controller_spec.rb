@@ -443,34 +443,12 @@ describe UserController, "when showing a user" do
 
 end
 
-describe UserController, "when signing in" do
+describe UserController, "when signing up" do
   render_views
 
   before do
     # Don't call out to external url during tests
     allow(controller).to receive(:country_from_ip).and_return('gb')
-  end
-
-  it "sets a the cookie expiry to nil on next page load" do
-    load_raw_emails_data
-    get_fixtures_xapian_index
-    post :signin, { :user_signin => { :email => 'bob@localhost',
-                                      :password => 'jonespassword' } }
-    get :show, :url_name => users(:bob_smith_user).url_name
-    expect(request.env['rack.session.options'][:expire_after]).to be_nil
-  end
-
-  it "should not log you in if you use an invalid PostRedirect token, and shouldn't give 500 error either" do
-    post_redirect = "something invalid"
-    expect {
-      post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
-                      :token => post_redirect
-                      }
-    }.not_to raise_error
-    post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
-                    :token => post_redirect }
-    expect(response).to render_template('sign')
-    expect(assigns[:post_redirect]).to eq(nil)
   end
 
   it "should be an error if you type the password differently each time" do
@@ -568,48 +546,6 @@ describe UserController, "when signing in" do
                         :password_confirmation => 'sillypassword',
                         :role_ids => Role.admin_role.id } }
     }.to raise_error(ActionController::UnpermittedParameters)
-  end
-
-  context "checking 'remember_me'" do
-    let(:user) do
-      FactoryGirl.create(:user,
-                         :password => 'password',
-                         :email_confirmed => true)
-    end
-
-    def do_signin(email, password)
-      post :signin, { :user_signin => { :email => email,
-                                        :password => password },
-                      :remember_me => "1" }
-    end
-
-    before do
-      # fake an expired previous session which has not been reset
-      # (i.e. it timed out rather than the user signing out manually)
-      session[:ttl] = Time.zone.now - 2.months
-    end
-
-    it "logs the user in" do
-      do_signin(user.email, 'password')
-      expect(session[:user_id]).to eq(user.id)
-    end
-
-    it "sets session[:remember_me] to true" do
-      do_signin(user.email, 'password')
-      expect(session[:remember_me]).to eq(true)
-    end
-
-    it "clears the session[:ttl] value" do
-      do_signin(user.email, 'password')
-      expect(session[:ttl]).to be_nil
-    end
-
-    it "sets a long lived cookie on next page load" do
-      do_signin(user.email, 'password')
-      get :show, :url_name => user.url_name
-      expect(request.env['rack.session.options'][:expire_after]).to eq(1.month)
-    end
-
   end
 
   context 'when the IP is rate limited' do
@@ -817,9 +753,8 @@ describe UserController, "when sending another user a message" do
 
   it "should redirect to signin page if you go to the contact form and aren't signed in" do
     get :contact, :id => users(:silly_name_user)
-    expect(response).to redirect_to(:controller => 'user',
-                                    :action => 'signin',
-                                    :token => get_last_post_redirect.token)
+    expect(response).
+      to redirect_to(signin_path(:token => get_last_post_redirect.token))
   end
 
   it "should show contact form if you are signed in" do
@@ -855,9 +790,8 @@ describe UserController, "when changing email address" do
 
   it "should require login" do
     get :signchangeemail
-    expect(response).to redirect_to(:controller => 'user',
-                                    :action => 'signin',
-                                    :token => get_last_post_redirect.token)
+    expect(response).
+      to redirect_to(signin_path(:token => get_last_post_redirect.token))
   end
 
   it "should show form for changing email if logged in" do
