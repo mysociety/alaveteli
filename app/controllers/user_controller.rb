@@ -11,9 +11,9 @@ class UserController < ApplicationController
   layout :select_layout
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
-  before_filter :work_out_post_redirect, :only => [ :signin, :signup ]
-  before_filter :set_in_pro_area, :only => [ :signin, :signup ]
-  before_filter :set_request_from_foreign_country, :only => [ :signin, :signup ]
+  before_filter :work_out_post_redirect, :only => [ :signup ]
+  before_filter :set_request_from_foreign_country, :only => [ :signup ]
+  before_filter :set_in_pro_area, :only => [ :signup ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -116,37 +116,6 @@ class UserController < ApplicationController
       format.json { render :json => @display_user.json_for_api }
     end
 
-  end
-
-  # Login form
-  def signin
-    if @post_redirect.present?
-      @user_signin =
-        User.authenticate_from_form(user_signin_params,
-                                    @post_redirect.reason_params[:user_name])
-    end
-
-    if @post_redirect.nil? || @user_signin.errors.size > 0
-      # Failed to authenticate
-      clear_session_credentials
-      render :action => 'sign'
-    else
-      # Successful login
-      if @user_signin.email_confirmed
-        session[:user_id] = @user_signin.id
-        session[:ttl] = nil
-        session[:user_circumstance] = nil
-        session[:remember_me] = params[:remember_me] ? true : false
-
-        if is_modal_dialog
-          render :action => 'signin_successful'
-        else
-          do_post_redirect @post_redirect, @user_signin
-        end
-      else
-        send_confirmation_mail @user_signin
-      end
-    end
   end
 
   # Create new account form
@@ -529,10 +498,6 @@ class UserController < ApplicationController
 
   def user_params(key = :user)
     params.require(key).permit(:name, :email, :password, :password_confirmation)
-  end
-
-  def user_signin_params
-    params.require(:user_signin).permit(:email, :password)
   end
 
   def is_modal_dialog
