@@ -19,14 +19,6 @@ describe "Signing in" do
     end
   end
 
-  def confirmation_url_from_email
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(1)
-    mail = deliveries.first
-    mail.body.to_s =~ /(http:\/\/.*\/c\/.*)/
-    $1
-  end
-
   it "shows you an error if you get the password wrong" do
     try_login(user, { :password => 'badpassword' })
     expect(page).
