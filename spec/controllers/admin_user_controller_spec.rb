@@ -324,9 +324,9 @@ describe AdminUserController do
     it "logs in as another user" do
       post :login_as, { :id => FactoryGirl.create(:user).id },
                       { :user_id => FactoryGirl.create(:admin_user).id }
-      expect(response).to redirect_to(:controller => 'user',
-                                      :action => 'confirm',
-                                      :email_token => get_last_post_redirect.email_token)
+      expect(response).
+        to redirect_to(confirm_path(:email_token =>
+                                      get_last_post_redirect.email_token))
     end
 
     context 'if the user cannot log in as the user' do
