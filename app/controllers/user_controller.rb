@@ -12,6 +12,7 @@ class UserController < ApplicationController
   # NOTE: Rails 4 syntax: change before_filter to before_action
   before_filter :normalize_url_name, :only => :show
   before_filter :work_out_post_redirect, :only => [ :signin, :signup ]
+  before_filter :set_request_from_foreign_country, :only => [ :signin, :signup ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -119,7 +120,6 @@ class UserController < ApplicationController
   # Login form
   def signin
     @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     # First time page is shown
     return render :action => 'sign' unless params[:user_signin]
 
@@ -158,7 +158,6 @@ class UserController < ApplicationController
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
                               'Please try again.')
@@ -500,6 +499,11 @@ class UserController < ApplicationController
   end
 
   private
+
+  def set_request_from_foreign_country
+    @request_from_foreign_country =
+      country_from_ip != AlaveteliConfiguration.iso_country_code
+  end
 
   def normalize_url_name
     unless MySociety::Format.simplify_url_part(params[:url_name], 'user') == params[:url_name]
