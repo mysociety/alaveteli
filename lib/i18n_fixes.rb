@@ -67,3 +67,19 @@ module Globalize
     end
   end
 end
+
+# Backported fix from Rails 4.1 to fix an error when 'en' is not in available
+# locales and an ActiveSupport::Duration method is called (e.g. `21.days`)
+# otherwise 4.0 attempts to call `to_sentence` with (`:locale => :en`) which
+# raises `I18n::InvalidLocale: :en is not a valid locale`
+module ActiveSupport
+  class Duration
+    def inspect #:nodoc:
+      parts.
+        reduce(::Hash.new(0)) { |h,(l,r)| h[l] += r; h }.
+        sort_by {|unit,  _ | [:years, :months, :days, :minutes, :seconds].index(unit)}.
+        map     {|unit, val| "#{val} #{val == 1 ? unit.to_s.chop : unit.to_s}"}.
+        to_sentence(locale: ::I18n.default_locale)
+    end
+  end
+end
