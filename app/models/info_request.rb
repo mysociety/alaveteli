@@ -493,6 +493,9 @@ class InfoRequest < ActiveRecord::Base
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
+    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+      body = body.gsub(/\r/, '\\r').gsub(/\n/, '\\n').gsub(/\t/, '\\t')
+    end
     conditions = { :title => title,
                    :public_body_id => public_body_id,
                    :outgoing_messages => { :body => body } }

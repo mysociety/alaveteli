@@ -1241,6 +1241,25 @@ describe InfoRequest do
         to eq(info_request)
     end
 
+    it 'returns nil if there is no matching request' do
+      info_request = FactoryGirl.create(:info_request)
+      expect(InfoRequest.find_existing(info_request.title,
+                                       info_request.public_body_id,
+                                       'No-one has requested this')).
+        to eq(nil)
+    end
+
+    it 'returns a request when the body contains newlines and tabs' do
+      info_request = FactoryGirl.create(:info_request)
+      outgoing_message = info_request.outgoing_messages.first
+      outgoing_message.body = 'Hi, \r\nThis is a \tTest'
+      outgoing_message.save
+      expect(InfoRequest.find_existing(info_request.title,
+                                       info_request.public_body_id,
+                                       "Hi, \r\nThis is a \tTest")).
+        to eq(info_request)
+    end
+
   end
 
   describe '#find_existing_outgoing_message' do
