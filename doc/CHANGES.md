@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Removed non-responsive assets (Gareth Rees)
 * Upgrade to Rails 4.2 (Liz Conlan, Gareth Rees)
 * Fixed problem where the routing filter doesn't recognise default locales with
   underscores properly (Liz Conlan)
