@@ -421,7 +421,7 @@ DEPENDENCIES
   cancancan (~> 1.12.0, < 1.13.0)
   capistrano (~> 2.15.0, < 3.0.0)
   capybara (~> 2.15.0)
-  charlock_holmes (~> 0.7.0)
+  charlock_holmes (~> 0.7.0, < 0.7.4)
   coffee-rails (~> 4.2.0)
   compass-rails (~> 3.0.0)
   coveralls (~> 0.8.0)
