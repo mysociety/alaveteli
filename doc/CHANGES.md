@@ -1,3 +1,11 @@
+# 0.28.0.12
+
+## Highlighted Featuers
+
+* Backported fix from Rails 4.1 for calls to `.days` raising an error in
+  Rails 4.0 sites where 'en' is not included in available locales
+  (Liz Conlan)
+
 # 0.28.0.11
 
 ## Highlighted Features
