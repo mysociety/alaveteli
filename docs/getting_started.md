@@ -29,7 +29,7 @@ available time.
 
 <div class="attention-box">
   <h3>How does Alaveteli work?</h3>
-  <img src="{{ site.baseurl }}assets/img/alaveteli-overview.png" />
+  <img src="/assets/img/alaveteli-overview.png" />
 </div>
 
 You can get a feeling for how things might turn out by reading [how an

@@ -12,7 +12,7 @@ title: Información
        <p> Se trata de un concepto sencillo: los ciudadanos utilizan Alaveteli para solicitar información y las respuestas se guardan para que todo el mundo pueda verlas en el sitio web. El historial de solicitudes se archiva en línea de forma pública junto con los resultados correspondientes, aumentando la disponibilidad de la información solicitada y fomentando la transparencia. Por tanto, Alaveteli funciona como una práctica herramienta para los ciudadanos y como un apoyo para los defensores del derecho a saber.</p>
 
         <p>Este proyecto, fundado por el instituto <a href="http://soros.org/">Open Society</a> y la fundación <a href="http://www.hivos.nl/">Hivos</a>, soporta sitios web de información pública alrededor de todo el mundo.</p>
-        <img src="{{ site.baseurl }}assets/img/stamp.svg" class="stamp-graphic" />
+        <img src="/assets/img/stamp.svg" class="stamp-graphic" />
     </div>
 </div>
 <div class="container clearfix">

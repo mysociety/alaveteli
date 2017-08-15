@@ -43,7 +43,7 @@ ensure they have an envelope-from header set (to combat spam).
 
 ## Schema diagram
 
-<a href="{{ site.baseurl }}assets/img/railsmodels.png"><img src="{{ site.baseurl }}assets/img/railsmodels.png"></a>
+<a href="/assets/img/railsmodels.png"><img src="/assets/img/railsmodels.png"></a>
 
 This schema for the Rails models was generated from the code on 19 Dec 2012 using
 [Railroad](http://railroad.rubyforge.org/).

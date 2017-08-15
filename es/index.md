@@ -51,7 +51,7 @@ title: Bienvenido
             <div class="how-does-it-work__content">
                 <h2>Cómo funciona Alaveteli</h2>
                 <p>Busque la autoridad correspondiente y realice una solicitud de información pública</p>
-                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-find.svg" class="alaveteli-demo-screenshot"/>
+                <img src="/assets/img/alaveteli-demo-screen-find.svg" class="alaveteli-demo-screenshot"/>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@ title: Bienvenido
             <div class="how-does-it-work__content">
                 <h2>Cómo funciona Alaveteli</h2>
                 <p>Redacte su solicitud de información para dicha autoridad</p>
-                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-ask.svg" class="alaveteli-demo-screenshot"/>
+                <img src="/assets/img/alaveteli-demo-screen-ask.svg" class="alaveteli-demo-screenshot"/>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@ title: Bienvenido
             <div class="how-does-it-work__content">
                 <h2>Cómo funciona Alaveteli</h2>
                 <p>La solicitud y todas sus respuestas se publicarán en línea para que todo el mundo pueda verlas</p>
-                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-view.svg" class="alaveteli-demo-screenshot"/>
+                <img src="/assets/img/alaveteli-demo-screen-view.svg" class="alaveteli-demo-screenshot"/>
             </div>
         </div>
     </div>

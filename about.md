@@ -11,7 +11,7 @@ title: About
        <p> It’s a simple concept: citizens use Alaveteli to request information, and the replies are recorded for all to see on the website. Historic requests, along with any resulting correspondence, are archived publicly online. This increases the availability of the requested information, and encourages transparency. Therefore, Alaveteli acts both as a useful tool for citizens, and as an advocacy tool for right-to-know campaigners.</p>
 
         <p>Funded by the <a href="http://soros.org/">Open Society Institute</a> and the <a href="http://www.hivos.nl/">Hivos Foundation</a>, the project supports FOI websites around the world.</p>
-        <img src="{{ site.baseurl }}assets/img/stamp.svg" class="stamp-graphic" />
+        <img src="/assets/img/stamp.svg" class="stamp-graphic" />
     </div>
 </div>
 <div class="container clearfix">
