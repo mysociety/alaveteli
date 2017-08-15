@@ -30,7 +30,7 @@ Los archivos también constituyen una buena fuente de información. Si tiene alg
 siempre vale la pena consultarlos para ver si ya lo ha solucionado alguien anteriormente.
 
 Si acaba de empezar, saludar en la lista de correo es una buena forma de dar el primer paso
-<img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
+<img src="/assets/img/icon_smile.gif" alt=":-)">
 
 ## Equipo internacional de mySociety
 

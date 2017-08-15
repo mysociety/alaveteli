@@ -11,7 +11,7 @@ Alaveteli tiene cierta habilidad para gestionar estos datos mediante el uso de <
 
 El [tema](https://github.com/mysociety/derechoapreguntar-theme) que utilizaremos como ejemplo requiere el número del documento nacional de identidad y lo que se conoce como ley general en Nicaragua (fecha de nacimiento, domicilio, profesión y estado civil).
 
-![Formulario de registro con detalles adicionales]({{ site.baseurl }}assets/img/redaction-sign-up-form.png)
+![Formulario de registro con detalles adicionales](/assets/img/redaction-sign-up-form.png)
 
 ## Número del documento de identidad
 
@@ -28,11 +28,11 @@ Para enviar el número del documento de identidad a la autoridad, sobrescribirem
 
 Ahora, al efectuar una solicitud, se añade el número del documento de identidad del usuario al pie del correo saliente.
 
-![Mensaje saliente con el número del documento de identidad]({{ site.baseurl }}assets/img/redaction-outgoing-message-with-id-number.png)
+![Mensaje saliente con el número del documento de identidad](/assets/img/redaction-outgoing-message-with-id-number.png)
 
 En este punto no hemos añadido ninguna <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">norma de censura</a>. Cuando la autoridad responde es poco probable que elimine el texto citado del correo electrónico:
 
-![Número del documento de identidad en el texto citado]({{ site.baseurl }}assets/img/redaction-id-number-in-quoted-section.png)
+![Número del documento de identidad en el texto citado](/assets/img/redaction-id-number-in-quoted-section.png)
 
 Podríamos añadir una <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">norma de censura</a> para la solicitud individual pero, ya que cada solicitud incluirá un número de documento de identidad, es mejor añadir algo de código para que se edite automáticamente.
 
@@ -56,31 +56,31 @@ Para ilustrar este ejemplo, aplicaremos un parche al modelo `User` con una retro
 
 Puede ver la nueva <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">norma de censura</a> en la interfaz de administración:
 
-![Norma de censura añadida automáticamente]({{ site.baseurl }}assets/img/redaction-automatically-added-id-number-censor-rule.png)
+![Norma de censura añadida automáticamente](/assets/img/redaction-automatically-added-id-number-censor-rule.png)
 
 Ahora el número del documento de identidad se edita:
 
-![Número del documento de identidad editado automáticamente]({{ site.baseurl }}assets/img/redaction-id-number-redacted.png)
+![Número del documento de identidad editado automáticamente](/assets/img/redaction-id-number-redacted.png)
 
 También se edita si el organismo público utiliza el número del documento de identidad en el cuerpo del correo:
 
-![Número del documento de identidad editado en el cuerpo principal]({{ site.baseurl }}assets/img/redaction-id-number-in-main-body-redacted.png)
+![Número del documento de identidad editado en el cuerpo principal](/assets/img/redaction-id-number-in-main-body-redacted.png)
 
 Una <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">norma de censura</a> añadida a un usuario solo se aplica en la correspondencia de solicitudes creadas por dicho usuario. No se aplica a anotaciones realizadas por el usuario.
 
 **Advertencia:** La edición de este tipo requiere que el texto delicado se encuentre exactamente en el mismo formato que la <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">norma de censura</a>. Si es mínimamente diferente, es posible que la edición falle. Si el organismo público eliminase los guiones del número, este no se editaría:
 
-![Número del documento de identidad no editado en el cuerpo principal]({{ site.baseurl }}assets/img/redaction-id-number-in-main-body-not-redacted.png)
+![Número del documento de identidad no editado en el cuerpo principal](/assets/img/redaction-id-number-in-main-body-not-redacted.png)
 
 **Advertencia:** Alaveteli también intenta editar el texto de todos los adjuntos. Solo puede hacerlo si detecta la cadena de texto exacta, que no suele ser posible con formatos binarios como PDF o Word.
 
 Alaveteli puede normalmente editar la información delicada al convertir un documento de texto o en formato PDF a HTML:
 
-![Edición de PDF a HTML]({{ site.baseurl }}assets/img/redaction-pdf-redaction-as-html.png)
+![Edición de PDF a HTML](/assets/img/redaction-pdf-redaction-as-html.png)
 
 Este PDF no contiene la cadena de texto en el formato binario, así que la edición _no_ se aplica al descargar el documento PDF original:
 
-![Descarga del PDF original]({{ site.baseurl }}assets/img/redaction-pdf-redaction-download.png)
+![Descarga del PDF original](/assets/img/redaction-pdf-redaction-download.png)
 
 ## Ley general
 
@@ -100,7 +100,7 @@ Añadiremos la información de la ley general a la [plantilla inicial de solicit
 
 Ahora la información está contenida en un bloque de texto con un formato especial.
 
-![Mensaje saliente con la ley general]({{ site.baseurl }}assets/img/redaction-outgoing-message-with-general-law.png)
+![Mensaje saliente con la ley general](/assets/img/redaction-outgoing-message-with-general-law.png)
 
 Así se permite que una <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">norma de censura</a> concuerde con el formato especial y elimine todo lo que se halle en su interior. Esta <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">norma de censura</a> es general, así que actuará en las coincidencias de todas las solicitudes.
 
@@ -118,18 +118,18 @@ Así se permite que una <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" 
                          :last_edit_comment => 'Added automatically')
     end
 
-![Dirección editada encuadrada]({{ site.baseurl }}assets/img/redaction-address-quoted-redacted.png)
+![Dirección editada encuadrada](/assets/img/redaction-address-quoted-redacted.png)
 
 **Advertencia:** La edición de información desestructurada es una aproximación muy delicada, pues se apoya en que las autoridades siempre citen el texto completo.
 
 En tal caso la autoridad ha revelado la fecha de nacimiento y el domicilio del usuario:
 
-![Dirección fuera del bloque con formato]({{ site.baseurl }}assets/img/redaction-address-outside-fence.png)
+![Dirección fuera del bloque con formato](/assets/img/redaction-address-outside-fence.png)
 
 Es realmente difícil añadir una <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">norma de censura</a> para eliminar este tipo de información. Una sugerencia puede ser eliminar todas las menciones de la fecha de nacimiento del usuario, pero debería tener en cuenta [todos los tipos de formato de fecha](http://en.wikipedia.org/wiki/Calendar_date#Date_format). Probablemente podría editar todas las apariciones del domicilio del usuario, pero si se trata de una solicitud relacionada con su región, es muy probable que esta se volviera incomprensible.
 
-![Norma de censura para editar el domicilio del usuario]({{ site.baseurl }}assets/img/redaction-domicile-censor-rule.png)
+![Norma de censura para editar el domicilio del usuario](/assets/img/redaction-domicile-censor-rule.png)
 
 La edición se ha aplicado, pero no hay forma de conocer el contexto en que se utiliza una palabra delicada.
 
-![Norma de censura para editar el domicilio del usuario]({{ site.baseurl }}assets/img/redaction-domicile-censor-rule-applied.png)
+![Norma de censura para editar el domicilio del usuario](/assets/img/redaction-domicile-censor-rule-applied.png)

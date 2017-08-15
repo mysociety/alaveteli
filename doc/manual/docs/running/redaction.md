@@ -319,7 +319,7 @@ The `derechoapreguntar-theme` overrides the default sign-up form by collecting
 this information (because a user must sign up before their request will be
 sent):
 
-![Sign up form with additional details]({{ site.baseurl }}assets/img/redaction-sign-up-form.png)
+![Sign up form with additional details](/assets/img/redaction-sign-up-form.png)
 
 ### Identity card number
 
@@ -343,7 +343,7 @@ To send the ID number to the authority we override the
 When a request is made the user's ID number is automatically included in the
 footer of the outgoing email:
 
-![Outgoing Message with ID Number]({{ site.baseurl }}assets/img/redaction-outgoing-message-with-id-number.png)
+![Outgoing Message with ID Number](/assets/img/redaction-outgoing-message-with-id-number.png)
 
 When the authority replies (by email), it's unlikely that they will remove the
 quoted section of the email, which contains the requester's ID number. This is
@@ -351,7 +351,7 @@ a typical circumstance for redaction &mdash; we want to prevent Alaveteli
 displaying this information on the request page where the response (and other
 messages) are published.
 
-![ID Number in Quoted Section]({{ site.baseurl }}assets/img/redaction-id-number-in-quoted-section.png)
+![ID Number in Quoted Section](/assets/img/redaction-id-number-in-quoted-section.png)
 
 <a name="redaction-example-1"> </a>
 
@@ -390,16 +390,16 @@ rule as soon as the user is created (or updated):
 
 Administrators can see the new censor rule in the admin interface:
 
-![Automatically added Censor Rule]({{ site.baseurl }}assets/img/redaction-automatically-added-id-number-censor-rule.png)
+![Automatically added Censor Rule](/assets/img/redaction-automatically-added-id-number-censor-rule.png)
 
 So now the ID number gets redacted:
 
-![Automatically Redacted ID Number]({{ site.baseurl }}assets/img/redaction-id-number-redacted.png)
+![Automatically Redacted ID Number](/assets/img/redaction-id-number-redacted.png)
 
 Because censor rules apply to the whole of every message, the ID number also
 gets redacted if the public body quote it anywhere in the main email body:
 
-![ID Number redacted in main body]({{ site.baseurl }}assets/img/redaction-id-number-in-main-body-redacted.png)
+![ID Number redacted in main body](/assets/img/redaction-id-number-in-main-body-redacted.png)
 
 A censor rule added to a user gets applied to all correspondence on requests
 created by that user (that is, messages that are sent or received). But it does
@@ -414,7 +414,7 @@ created by that user (that is, messages that are sent or received). But it does
 For example, if the public body was to remove the hyphens from the ID number it
 would not be redacted (because the censor rule _does_ include them):
 
-![ID Number not redacted in main body]({{ site.baseurl }}assets/img/redaction-id-number-in-main-body-not-redacted.png)
+![ID Number not redacted in main body](/assets/img/redaction-id-number-in-main-body-not-redacted.png)
 
 Alaveteli also attempts to redact the text from any attachments. It can only do
 this if it can find the exact string, which is not always possible in binary
@@ -428,12 +428,12 @@ formats such as PDF or Word.
 Alaveteli can usually redact the sensitive information when converting a PDF or
 text based attachment to HTML:
 
-![PDF to HTML Redaction]({{ site.baseurl }}assets/img/redaction-pdf-redaction-as-html.png)
+![PDF to HTML Redaction](/assets/img/redaction-pdf-redaction-as-html.png)
 
 In contrast, this PDF does not contain the string in the raw binary so the
 redaction is _not_ applied when downloading the original PDF document:
 
-![Download original PDF]({{ site.baseurl }}assets/img/redaction-pdf-redaction-download.png)
+![Download original PDF](/assets/img/redaction-pdf-redaction-download.png)
 
 ### Redacting the "General Law" (personal details)
 
@@ -457,7 +457,7 @@ in the same way as we did for the ID number:
 
 Note that the information is now contained in a specially formatted block of text.
 
-![Outgoing message with general law]({{ site.baseurl }}assets/img/redaction-outgoing-message-with-general-law.png)
+![Outgoing message with general law](/assets/img/redaction-outgoing-message-with-general-law.png)
 
 <a name="redaction-example-2"> </a>
 
@@ -494,7 +494,7 @@ The code, in the theme's `lib/censor_rules.rb`, looks like this:
                          :last_edit_comment => 'Added automatically')
     end
 
-![Redacted address in fence]({{ site.baseurl }}assets/img/redaction-address-quoted-redacted.png)
+![Redacted address in fence](/assets/img/redaction-address-quoted-redacted.png)
 
 <div class="attention-box warning">
   Redacting unstructured information is a very fragile approach, as it relies
@@ -503,7 +503,7 @@ The code, in the theme's `lib/censor_rules.rb`, looks like this:
 
 For example, here the authority has revealed the user's date of birth and domicile:
 
-![Address outside formatted block]({{ site.baseurl }}assets/img/redaction-address-outside-fence.png)
+![Address outside formatted block](/assets/img/redaction-address-outside-fence.png)
 
 Its really difficult to add a censor rule to remove this type of information,
 because it's so general. One approach might be to remove all mentions of the
@@ -513,9 +513,9 @@ Likewise, you could redact all occurrences of the user's domicile, but if they
 ask a question about their local area (which is very likely) the request would
 become unintelligible.
 
-![Censor Rule to redact a user's Domicile]({{ site.baseurl }}assets/img/redaction-domicile-censor-rule.png)
+![Censor Rule to redact a user's Domicile](/assets/img/redaction-domicile-censor-rule.png)
 
 Here the redaction has been applied but there is no way of knowing the context
 that the use of the sensitive word is used.
 
-![Censor Rule to redact a user's Domicile]({{ site.baseurl }}assets/img/redaction-domicile-censor-rule-applied.png)
+![Censor Rule to redact a user's Domicile](/assets/img/redaction-domicile-censor-rule-applied.png)

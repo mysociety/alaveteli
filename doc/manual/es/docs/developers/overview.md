@@ -41,7 +41,7 @@ cuentan con información de remitente (envelope-from) en el encabezado (con el o
 
 ## Esquema
 
-<a href="{{ site.baseurl }}assets/img/railsmodels.png"><img src="{{ site.baseurl }}assets/img/railsmodels.png"></a>
+<a href="/assets/img/railsmodels.png"><img src="/assets/img/railsmodels.png"></a>
 
 Este esquema de los modelos de Rails fue generado a partir del código el 19 de diciembre de 2012 utilizando
 [Railroad](http://railroad.rubyforge.org/).

@@ -66,9 +66,9 @@ in the UK, [WhatDoTheyKnow.com](http://whatdotheyknow.com).
 If you use Google, you’ll already be very familiar with Google Ads, the small
 text advertisements at the top or to the side of your results:
 
-![Google search bar]({{ site.baseurl }}assets/img/adwords-image06.jpg)
+![Google search bar](/assets/img/adwords-image06.jpg)
 
-![position of ads on search results]({{ site.baseurl }}assets/img/adwords-image05.jpg)
+![position of ads on search results](/assets/img/adwords-image05.jpg)
 
 
 A typical Google page contains a few different types of search result:
@@ -227,7 +227,7 @@ would I type into Google to answer my need?’.
   </p>
 </div>
 
-<img src="{{ site.baseurl }}assets/img/adwords-image30.jpg" alt="spreadsheet layout" class="with-border" />
+<img src="/assets/img/adwords-image30.jpg" alt="spreadsheet layout" class="with-border" />
 
 Now we’re going to fill it with keywords.
 
@@ -251,7 +251,7 @@ example, are likely to use keywords such as:
 * *Make a Freedom of Information request*
 * *Make FOI request UK*
 
-<img src="{{ site.baseurl }}assets/img/adwords-image27.jpg" alt="spreadsheet example" class="with-border"/>
+<img src="/assets/img/adwords-image27.jpg" alt="spreadsheet example" class="with-border"/>
  
 ‘People who don’t know what FOI is’ might search for:
 
@@ -329,7 +329,7 @@ request’ the homepage probably is the best destination.
   </p>
 </div>
 
-<img src="{{ site.baseurl }}assets/img/adwords-image39.jpg" class="with-border" alt="landing page spreadsheet" />
+<img src="/assets/img/adwords-image39.jpg" class="with-border" alt="landing page spreadsheet" />
 
 ### Plan your Ad Groups
 
@@ -339,7 +339,7 @@ which:
 * Groups keywords by the user need that they represent
 * Indicates which URL each keyword’s ad should link to
 
-<img src="{{ site.baseurl }}assets/img/adwords-image37.jpg" class="with-border" alt="keyword to URL spreadsheet" />
+<img src="/assets/img/adwords-image37.jpg" class="with-border" alt="keyword to URL spreadsheet" />
 
 In a moment, you are going to go into your Adwords account and create an Ad
 Group for each specific user need.
@@ -395,7 +395,7 @@ put them all into one Ad Group and name it “Making a request”.
 When you write your ads, the more you can use the same language as your user,
 the more successful they will be.
 
-![example ad]({{ site.baseurl }}assets/img/adwords-image14.jpg)
+![example ad](/assets/img/adwords-image14.jpg)
 
 <div class="attention-box info">
   <h4>Action</h4>
@@ -412,7 +412,7 @@ see above, there is potential for further refinement.
 So for example, our ‘make an FOI request’ tab can now be divided into several
 concept groups, like this:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image38.jpg" class="with-border" alt="concept groups in spreadsheet" />
+<img src="/assets/img/adwords-image38.jpg" class="with-border" alt="concept groups in spreadsheet" />
 
 Each concept will form one Ad Group.
 
@@ -430,27 +430,27 @@ Each concept will form one Ad Group.
 Google Ads are effectively organised in a nested folder structure. The top
 level is your **account**. That contains everything you set up within Adwords.
 
-<img src="{{ site.baseurl }}assets/img/adwords-image02.jpg" class="with-border" alt="Accounts screenshot" />
+<img src="/assets/img/adwords-image02.jpg" class="with-border" alt="Accounts screenshot" />
 
 Within the account, you have one or more **campaigns** (mySociety, which runs
 several websites, has one campaign per website, but if you are only setting up
 Adwords for one site, you will only have one campaign). This is what our
 campaigns list looks like:
 
-![All campaigns]({{ site.baseurl }}assets/img/adwords-image11.jpg)
+![All campaigns](/assets/img/adwords-image11.jpg)
 
 Within your campaign are your **Ad Groups**: each one representing a single
 topic or theme, just as we prepared them in the previous step. This is some of
 WhatDoTheyKnow’s list of Ad Groups:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image04.jpg" class="with-border" alt="example Ad groups" />
+<img src="/assets/img/adwords-image04.jpg" class="with-border" alt="example Ad groups" />
 
 And within each Adgroup there are **keywords** and **ads**, which are
 co-dependent (the ads are triggered by the keywords, and the wording of the ads
 should reflect the keywords as closely as possible).
 
-<img src="{{ site.baseurl }}assets/img/adwords-image08.jpg" class="with-border" alt="keywords screenshot" style="margin-right:1em"/>
-<img src="{{ site.baseurl }}assets/img/adwords-image10.jpg" class="with-border" alt="ads screenshot" />
+<img src="/assets/img/adwords-image08.jpg" class="with-border" alt="keywords screenshot" style="margin-right:1em"/>
+<img src="/assets/img/adwords-image10.jpg" class="with-border" alt="ads screenshot" />
 
 Thanks to all the action points we went through above, you have all the
 information you need to start setting up your Adwords account.
@@ -542,13 +542,13 @@ Let's build your first Ad Group.
   </p>  
 </div>
 
-<img src="{{ site.baseurl }}assets/img/adwords-image29.jpg" class="with-border" alt="WDTK screenshot" />
+<img src="/assets/img/adwords-image29.jpg" class="with-border" alt="WDTK screenshot" />
 
-<img src="{{ site.baseurl }}assets/img/adwords-image12.jpg" class="with-border" alt="ad groups screenshot" />
+<img src="/assets/img/adwords-image12.jpg" class="with-border" alt="ad groups screenshot" />
 
 Choose a name for your Ad Group that reflects its topic or concept.
 
-<img src="{{ site.baseurl }}assets/img/adwords-image25.jpg" class="with-border" alt="Name this ad group screenshot" />
+<img src="/assets/img/adwords-image25.jpg" class="with-border" alt="Name this ad group screenshot" />
 
 Now you are going to write your Ad. This is quite an art, because you can only
 use a limited number of characters per line. You are trying to be eye-catching,
@@ -557,7 +557,7 @@ inviting and comprehensible, and all within just a few lines.
 You also want to reflect your keywords — the user’s vocabulary — as much as
 possible. Ideally, you’ll also include a call to action.
 
-<img src="{{ site.baseurl }}assets/img/adwords-image03.jpg" class="with-border" alt="Create an ad screenshot" />
+<img src="/assets/img/adwords-image03.jpg" class="with-border" alt="Create an ad screenshot" />
 
 However, in practice, it’s often hard to meet all of these criteria within such
 a limited character count, so just keep trying until your ad is the best you
@@ -591,7 +591,7 @@ In the right-hand box, you’ll see that Google has already generated some
 suggested keywords, from the text of your ad and from the page that it is
 pointing towards:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image31.jpg" class="with-border" alt="suggested keywords screenshot" />
+<img src="/assets/img/adwords-image31.jpg" class="with-border" alt="suggested keywords screenshot" />
 
 <div class="attention-box info">
   <h4>Action</h4>
@@ -606,7 +606,7 @@ pointing towards:
   </p>
 </div>
 
-<img src="{{ site.baseurl }}assets/img/adwords-image20.jpg" class="with-border" alt="adding keywords screenshot" />
+<img src="/assets/img/adwords-image20.jpg" class="with-border" alt="adding keywords screenshot" />
 
 And then choose how much you are going to bid.
 
@@ -676,7 +676,7 @@ You’ll be taken to a table showing your keywords. This is where, in future
 weeks, you will be able to return and see how your ads and keywords are
 performing.
 
-<img src="{{ site.baseurl }}assets/img/adwords-image13.png" class="with-border" alt="table of keywords screenshot" />
+<img src="/assets/img/adwords-image13.png" class="with-border" alt="table of keywords screenshot" />
 
 Let’s take a quick look at this table. 
 
@@ -689,7 +689,7 @@ The message tells me that for a first-page position I need to bid $1.91. Just
 click on the figure in the ‘Max CPC’ (Cost Per Click) column and you’ll be able
 to edit it.
 
-<img src="{{ site.baseurl }}assets/img/adwords-image18.png" class="with-border" alt="edit cost per click screenshot" />
+<img src="/assets/img/adwords-image18.png" class="with-border" alt="edit cost per click screenshot" />
  
 Other keywords are displaying the message **Low search volume**. That’s fine —
 it just means that not many people search for that term. Those keywords aren’t
@@ -705,7 +705,7 @@ information about their status. Right now, all our keywords are ‘pending’: a
 won’t display until they have been approved by Google, which may take a couple
 of days.
 
-<img src="{{ site.baseurl }}assets/img/adwords-image33.png" class="with-border" alt="pending review screenshot" />
+<img src="/assets/img/adwords-image33.png" class="with-border" alt="pending review screenshot" />
 
 <div class="attention-box info">
   <p>
@@ -721,7 +721,7 @@ of days.
   </p>
 </div>
 
-<img src="{{ site.baseurl }}assets/img/adwords-image36.jpg" class="with-border" alt="ad table screenshot" />
+<img src="/assets/img/adwords-image36.jpg" class="with-border" alt="ad table screenshot" />
 
 As you can see in the image above, Google has displayed the middle ad many more
 times than the other two - you can see this both from the ‘% served’ column and
@@ -739,7 +739,7 @@ concept of a ‘sample request’ or a ‘request form’.
   </p>
 </div>
 
-<img src="{{ site.baseurl }}assets/img/adwords-image42.png" class="with-border" alt="ad group form letter screenshot" />
+<img src="/assets/img/adwords-image42.png" class="with-border" alt="ad group form letter screenshot" />
 
 <div class="attention-box info">
   <h4>Action</h4>
@@ -810,7 +810,7 @@ things you can do in a regular half-hour visit:
 * Click ‘Details’ and ‘All’ above your keywords table to show the actual search
   terms people have typed in before clicking on your ads:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image21.png" class="with-border" alt="auction insights screenshot" />
+<img src="/assets/img/adwords-image21.png" class="with-border" alt="auction insights screenshot" />
 
 You’ll then be given the option of adding these keywords to your list — or
 marking them as ‘negative keywords’ if they’re not a good fit for your site
@@ -821,10 +821,10 @@ marking them as ‘negative keywords’ if they’re not a good fit for your sit
 There are several tabs, buttons and options in the Adwords interface, but you
 are likely to use some of them more often than the others.
 
-<img src="{{ site.baseurl }}assets/img/adwords-image43.jpg" class="with-border" alt="adtabs buttons and options screenshot" />
+<img src="/assets/img/adwords-image43.jpg" class="with-border" alt="adtabs buttons and options screenshot" />
 
 **From any tab**: Click the
-<img src="{{ site.baseurl }}assets/img/adwords-image34.jpg" style="vertical-align: middle" alt="graph button"/>
+<img src="/assets/img/adwords-image34.jpg" style="vertical-align: middle" alt="graph button"/>
 button to see your data displayed as a graph. The graph is useful because it
 gives you an immediate view of how your Adwords are performing — are there any
 big dips? Peaks? These may be indications that you need to dig deeper to find
@@ -833,7 +833,7 @@ out why.
 Once it displays, you can change the metric the graph shows, via the drop down
 top left:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image19.png" class="with-border" alt="graph options screenshot" />
+<img src="/assets/img/adwords-image19.png" class="with-border" alt="graph options screenshot" />
 
 Let’s take a look at some of those options, because they also head up the
 columns in your table.
@@ -859,7 +859,7 @@ spent each day.
 
 **Ad Groups, Ads and Keywords tabs**
 
-<img src="{{ site.baseurl }}assets/img/adwords-image41.jpg" class="with-border" alt="ad groups screenshot" />
+<img src="/assets/img/adwords-image41.jpg" class="with-border" alt="ad groups screenshot" />
 
 Use the Ad Groups, Ads and Keywords tabs to see which of your Ad Groups, ads or
 keywords are performing best.
@@ -954,7 +954,7 @@ salaries*, etc.
   </p>
 </div>
 
-<img src="{{ site.baseurl }}assets/img/adwords-image40.jpg" class="with-border" alt="spreadhseet screenshot" />
+<img src="/assets/img/adwords-image40.jpg" class="with-border" alt="spreadhseet screenshot" />
 
 #### Your most popular requests
 
@@ -968,15 +968,15 @@ Content>All Pages in the left-hand column.
 Use the search box above the table (on the right) to filter the results so that
 you only see those containing /request/:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image35.jpg" class="with-border" alt="search /request/ screenshot" />
+<img src="/assets/img/adwords-image35.jpg" class="with-border" alt="search /request/ screenshot" />
 
 This will show you which requests are the most-viewed on your site, for
 whatever timeframe you are assessing:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image28.jpg" class="with-border" alt="most-viewed screenshot" />
+<img src="/assets/img/adwords-image28.jpg" class="with-border" alt="most-viewed screenshot" />
 
 If you’re not sure which requests these are, click on the little
-<img src="{{ site.baseurl }}assets/img/adwords-image01.jpg" style="vertical-align: middle" alt="external link button"/>
+<img src="/assets/img/adwords-image01.jpg" style="vertical-align: middle" alt="external link button"/>
  sign and the relevant page of your site will open up in a new window.
 
 These requests are likely to be the ones which are providing information that
@@ -1007,7 +1007,7 @@ etc, etc
   </p>
 </div>
 
-<img src="{{ site.baseurl }}assets/img/adwords-image09.jpg" class="with-border" alt="spredsheet screenshot" />
+<img src="/assets/img/adwords-image09.jpg" class="with-border" alt="spredsheet screenshot" />
 
 #### Organic search terms
 
@@ -1028,7 +1028,7 @@ to find your site.
   below. ‘Not set’ are the search terms which have not been recorded, in this
   case, over 75% of them).
 
-<img src="{{ site.baseurl }}assets/img/adwords-image00.jpg" class="with-border" alt="organic search screenshot" />
+<img src="/assets/img/adwords-image00.jpg" class="with-border" alt="organic search screenshot" />
 
 Of course, there is an inherent issue here: these keywords are already bringing
 people to your site through organic search, so why show adverts to people
@@ -1049,7 +1049,7 @@ as you discover new user needs. Let’s go through some of the keywords above:
 * *what do they know* (and variants): people who know about the site and want
   to visit it
 
-<img src="{{ site.baseurl }}assets/img/adwords-image23.jpg" class="with-border" alt="site name spredsheet screenshot" />
+<img src="/assets/img/adwords-image23.jpg" class="with-border" alt="site name spredsheet screenshot" />
 
 * *p45* (in the UK this is a document you are given when you leave a job): It’s
   probable that there is a useful response on the site which is helping people
@@ -1079,12 +1079,12 @@ But you can also access this function without actually building new ads, via
 [adwords.google.com/KeywordPlanner](https://adwords.google.com/KeywordPlanner) 
 or through the ‘tools’ menu at the top of your Adwords page.
 
-<img src="{{ site.baseurl }}assets/img/adwords-image24.jpg" class="with-border" alt="keyword planner screenshot" />
+<img src="/assets/img/adwords-image24.jpg" class="with-border" alt="keyword planner screenshot" />
 
 Typing in the phrase ‘freedom of information’ and WhatDoTheyKnow’s homepage
 gives these suggestions:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image07.jpg" class="with-border" alt="keyword (by relevance) screenshot" />
+<img src="/assets/img/adwords-image07.jpg" class="with-border" alt="keyword (by relevance) screenshot" />
 
 Use your common sense when deciding which of Google’s keyword suggestions to
 use. For example, in the list above, ‘work and pensions’ is appearing because
@@ -1108,7 +1108,7 @@ target area.
 When you click on a keyword, you’ll be given the option to designate it as a
 **Broad Match**, **Exact Match** or **Phrase Match**.
 
-<img src="{{ site.baseurl }}assets/img/adwords-image26.png" class="with-border" alt="screenshot" />
+<img src="/assets/img/adwords-image26.png" class="with-border" alt="screenshot" />
 
 You can
 [read more about match types here](https://support.google.com/adwords/answer/2497836).
@@ -1172,7 +1172,7 @@ Either way, the ad makes sense. You can read
 
 ### Negative keywords
 
-<img src="{{ site.baseurl }}assets/img/adwords-image21.png" class="with-border" alt="keyword details screenshot" />
+<img src="/assets/img/adwords-image21.png" class="with-border" alt="keyword details screenshot" />
 
 When you check which keywords have brought users to your site (by clicking
 **Details** and **All** above the keywords table), you may find that there are
@@ -1186,7 +1186,7 @@ You can add negative keywords to your keyword list — and apply them to just on
 Ad Group or across all Ad groups. This tells Google not to deliver your ads for
 those terms. Just click on ‘negative keywords’ above the keywords table.
 
-![negative keywords screenshot]({{ site.baseurl }}assets/img/adwords-image22.png)
+![negative keywords screenshot](/assets/img/adwords-image22.png)
 
 And then click the red **+&nbsp;Keywords** button to list your undesirables.
 
@@ -1200,7 +1200,7 @@ to the Scottish Police Authority, you’d probably choose to have
 [www.whatdotheyknow.com/body/scottish_police_authority](https://www.whatdotheyknow.com/body/scottish_police_authority)
 as your landing page:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image32.jpg" class="with-border" alt="SPA landing page" />
+<img src="/assets/img/adwords-image32.jpg" class="with-border" alt="SPA landing page" />
 
 But for a user who isn’t familiar with WhatDoTheyKnow.com, there isn’t very
 much context to explain what the site is or how it can be used.
@@ -1215,7 +1215,7 @@ Alaveteli site with custom routes, actions and templates.
 Here’s a landing page that we set up for one of mySociety’s other sites,
 TheyWorkForYou.com, which monitors the UK parliament:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image16.jpg" class="with-border" alt="Parliament landing page" />
+<img src="/assets/img/adwords-image16.jpg" class="with-border" alt="Parliament landing page" />
 
 Although they take extra effort, landing pages like these have a few benefits:
 
@@ -1268,7 +1268,7 @@ keywords and landing pages all have the same theme.
 You can check the quality score for any ad or keyword by clicking on the speech
 bubble beside them:
 
-<img src="{{ site.baseurl }}assets/img/adwords-image17.png" class="with-border" alt="quality score screenshot" />
+<img src="/assets/img/adwords-image17.png" class="with-border" alt="quality score screenshot" />
 
 ### Your upper budget
 
