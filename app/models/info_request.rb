@@ -493,18 +493,26 @@ class InfoRequest < ActiveRecord::Base
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-      body = body.gsub(/\r/, '\\r').gsub(/\n/, '\\n').gsub(/\t/, '\\t')
-    end
     conditions = { :title => title,
                    :public_body_id => public_body_id,
                    :outgoing_messages => { :body => body } }
 
-    InfoRequest.
+    if result = InfoRequest.
       includes(:outgoing_messages).
         where(conditions).
           references(:outgoing_messages).
             first
+      return result
+    else
+      # replace unescaped newline and tabbed chars with escaped ones
+      body = body.gsub(/\r/, '\\r').gsub(/\n/, '\\n').gsub(/\t/, '\\t')
+      conditions[:outgoing_messages][:body] = body
+      InfoRequest.
+        includes(:outgoing_messages).
+          where(conditions).
+            references(:outgoing_messages).
+              first
+    end
   end
 
   def find_existing_outgoing_message(body)

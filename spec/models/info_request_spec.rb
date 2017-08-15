@@ -1249,7 +1249,7 @@ describe InfoRequest do
         to eq(nil)
     end
 
-    it 'returns a request when the body contains newlines and tabs' do
+    it 'returns a request when body contains string literal newlines & tabs' do
       info_request = FactoryGirl.create(:info_request)
       outgoing_message = info_request.outgoing_messages.first
       outgoing_message.body = 'Hi, \r\nThis is a \tTest'
