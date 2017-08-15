@@ -1,15 +1,10 @@
 safe: true
 highlighter: rouge
-baseurl: /
+baseurl: ""
 permalink: pretty
 markdown: kramdown
 url: http://code.alaveteli.org
 defaults:
-  -
-    scope:
-      path: .
-    values:
-      baseurl: /
   -
     scope:
       path: es
