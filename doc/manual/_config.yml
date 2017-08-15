@@ -18,7 +18,19 @@ exclude:
   - alaveteli-doc-master.txt
   - node_modules
   - package.json
+  - bin
+  - cache
+  - commonlib
+  - config
+  - coverage
+  - db
+  - files
+  - jekyll
+  - lib
+  - log
+  - public
   - script
+  - tmp
   - vendor
 gems:
   - jekyll-redirect-from
