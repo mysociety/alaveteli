@@ -32,7 +32,7 @@ exclude:
   - script
   - tmp
   - vendor
-gems:
+plugins:
   - jekyll-redirect-from
 jurisdictions: "25"
 requests: "315,000"
