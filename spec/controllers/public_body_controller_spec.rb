@@ -109,7 +109,7 @@ describe PublicBodyController, "when listing bodies" do
   def make_single_language_example(locale)
     result = nil
     with_default_locale(locale) do
-      I18n.with_locale(locale) do
+      AlaveteliLocalization.with_locale(locale) do
         case locale
         when :en
           result = PublicBody.new(:name => 'English only',
@@ -117,6 +117,9 @@ describe PublicBodyController, "when listing bodies" do
         when :es
           result = PublicBody.new(:name => 'Español Solamente',
                                   :short_name => 'ES')
+        when :en_GB
+          result = PublicBody.new(:name => 'GB English',
+                                  :short_name => 'GB')
         else
           raise StandardError.new "Unknown locale #{locale}"
         end
@@ -162,6 +165,14 @@ describe PublicBodyController, "when listing bodies" do
   it 'should show public body names in the selected locale language if present' do
     get :list, {:locale => 'es'}
     expect(response.body).to have_content('El Department for Humpadinking')
+  end
+
+  it 'show public body names of the selected underscore locale language' do
+    AlaveteliLocalization.set_locales(available_locales='en en_GB',
+                                      default_locale='en')
+    @gb_only = make_single_language_example :en_GB
+    get :list, {:locale => 'en_GB'}
+    expect(response.body).to have_content(@gb_only.name)
   end
 
   it 'should not show the internal admin authority' do
@@ -366,7 +377,7 @@ describe PublicBodyController, "when listing bodies" do
   it "should list authorities starting with a multibyte first letter" do
     AlaveteliLocalization.set_locales('cs', 'cs')
 
-    authority = I18n.with_locale(:cs) do
+    authority = AlaveteliLocalization.with_locale(:cs) do
       FactoryGirl.create(:public_body, name: "Åčçèñtéd Authority")
     end
 

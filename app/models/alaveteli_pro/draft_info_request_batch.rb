@@ -19,7 +19,7 @@ class AlaveteliPro::DraftInfoRequestBatch < ActiveRecord::Base
   belongs_to :user,
              :inverse_of => :draft_info_request_batches
   has_and_belongs_to_many :public_bodies, -> {
-    I18n.with_locale(I18n.locale) do
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
       includes(:translations).
         reorder('public_body_translations.name asc')
     end

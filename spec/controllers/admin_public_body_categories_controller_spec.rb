@@ -12,7 +12,7 @@ describe AdminPublicBodyCategoriesController do
 
     it 'uses the current locale by default' do
       get :index
-      expect(assigns(:locale)).to eq(I18n.locale.to_s)
+      expect(assigns(:locale)).to eq(AlaveteliLocalization.locale)
     end
 
     it 'finds all category headings' do
@@ -64,8 +64,14 @@ describe AdminPublicBodyCategoriesController do
     it 'builds new translations for all locales' do
       get :new
 
-      translations = assigns(:public_body_category).translations.map{ |t| t.locale.to_s }.sort
-      available = FastGettext.default_available_locales.map{ |l| l.to_s }.sort
+      translations = assigns(:public_body_category).
+                       translations.
+                         map { |t| t.locale.to_s }.
+                           sort
+
+      available = AlaveteliLocalization.
+                    available_locales.
+                      sort
 
       expect(translations).to eq(available)
     end
@@ -97,6 +103,25 @@ describe AdminPublicBodyCategoriesController do
         expect {
           post :create, :public_body_category => @params
         }.to change{ PublicBodyCategory.count }.from(0).to(1)
+      end
+
+      it 'can create a category when the default locale is an underscore locale' do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+        post :create, {
+                        :public_body_category => {
+                          :title => 'New Category en_GB',
+                          :description => 'test',
+                          :category_tag => 'new_test_category'
+                        }
+                      }
+
+        expect(
+          PublicBodyCategory.
+            find_by(:title => 'New Category en_GB').
+              translations.
+                first.
+                  locale
+        ).to eq(:en_GB)
       end
 
       it "saves the public body category's heading associations" do
@@ -148,7 +173,7 @@ describe AdminPublicBodyCategoriesController do
 
         category = PublicBodyCategory.where(:title => 'New Category').first
 
-        I18n.with_locale(:en) do
+        AlaveteliLocalization.with_locale(:en) do
           expect(category.title).to eq('New Category')
         end
       end
@@ -158,7 +183,7 @@ describe AdminPublicBodyCategoriesController do
 
         category = PublicBodyCategory.where(:title => 'New Category').first
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(category.title).to eq('Mi Nuevo Category')
         end
       end
@@ -201,7 +226,7 @@ describe AdminPublicBodyCategoriesController do
       it 'is rebuilt with the alternative locale translation' do
         post :create, :public_body_category => @params
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
         end
       end
@@ -214,7 +239,7 @@ describe AdminPublicBodyCategoriesController do
 
     before do
       @category = FactoryGirl.create(:public_body_category)
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @category.title = 'Los category'
         @category.description = 'ES Description'
         @category.save!
@@ -268,7 +293,7 @@ describe AdminPublicBodyCategoriesController do
                                 :public_body_heading => @heading,
                                 :category_display_order => 0)
       @tag = @category.category_tag
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @category.title = 'Los category'
         @category.description = 'ES Description'
         @category.save!
@@ -401,6 +426,18 @@ describe AdminPublicBodyCategoriesController do
         expect(category.category_tag).to eq('Renamed')
       end
 
+      it "creates a new translation if there isn't one for the default_locale" do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+
+        post :update, { :id => @category.id,
+                        :public_body_category => { :name => 'Category en_GB' }
+                      }
+
+        expect(
+          PublicBodyCategory.find(@category.id).translations.map(&:locale)
+        ).to include(:en_GB)
+      end
+
     end
 
     context 'on success for multiple locales' do
@@ -449,7 +486,7 @@ describe AdminPublicBodyCategoriesController do
 
         pbc = PublicBodyCategory.find(@category.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(pbc.title).to eq('Example Public Body Category ES')
         end
       end
@@ -480,10 +517,10 @@ describe AdminPublicBodyCategoriesController do
 
         pbc = PublicBodyCategory.find(@category.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(pbc.title).to eq('Example Public Body Category ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(pbc.title).to eq('Example Public Body Category FR')
         end
       end
@@ -514,10 +551,10 @@ describe AdminPublicBodyCategoriesController do
 
         pbc = PublicBodyCategory.find(@category.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(pbc.title).to eq('Renamed Example Public Body Category ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(pbc.title).to eq('Example Public Body Category FR')
         end
       end
@@ -591,7 +628,7 @@ describe AdminPublicBodyCategoriesController do
         post :update, :id => @category.id,
           :public_body_category => @params
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
         end
       end

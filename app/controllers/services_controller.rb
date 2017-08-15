@@ -14,10 +14,11 @@ class ServicesController < ApplicationController
 
     if user_country_code != site_country_code
       user_site = WorldFOIWebsites.by_code(user_country_code)
-      old_fgt_locale = FastGettext.locale
+      old_fgt_locale = AlaveteliLocalization.locale
 
       begin
-        FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
+        AlaveteliLocalization.
+          set_session_locale(request.env['HTTP_ACCEPT_LANGUAGE'])
 
         if user_site
           country_link = %Q(<a href="#{ user_site[:url] }">#{ user_site[:name] }</a>)
@@ -44,7 +45,7 @@ class ServicesController < ApplicationController
           end
         end
       ensure
-        FastGettext.locale = old_fgt_locale
+        AlaveteliLocalization.set_session_locale(old_fgt_locale)
       end
     end
 

@@ -25,7 +25,7 @@ class AdminRawEmailController < AdminController
             []
           else
             PublicBody.
-              with_translations(I18n.locale).
+              with_translations(AlaveteliLocalization.locale).
                 where("lower(public_body_translations.request_email) " \
                       "like lower('%'||?||'%')", domain).
                   order('public_body_translations.name')

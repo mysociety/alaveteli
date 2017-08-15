@@ -63,7 +63,7 @@ end
 module Globalize
   class << self
     def locale
-      read_locale || I18n.locale.to_s.gsub('-', '_').to_sym
+      read_locale || AlaveteliLocalization.locale
     end
   end
 end

@@ -37,7 +37,7 @@ describe PublicBody do
 
     it 'create with translated name' do
       body = FactoryGirl.build(:public_body)
-      I18n.with_locale(:es) { body.name = 'hola' }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' }
 
       expect(body.update_attributes('name' => nil)).to eq(false)
       expect(body).not_to be_valid
@@ -52,7 +52,7 @@ describe PublicBody do
 
     it 'update with translated name' do
       body = FactoryGirl.create(:public_body)
-      I18n.with_locale(:es) { body.name = 'hola' ; body.save }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
       body.reload
 
       expect(body.update_attributes('name' => nil)).to eq(false)
@@ -67,7 +67,7 @@ describe PublicBody do
 
     it 'blank string create with translated name' do
       body = FactoryGirl.build(:public_body)
-      I18n.with_locale(:es) { body.name = 'hola' }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' }
 
       expect(body.update_attributes('name' => '')).to eq(false)
       expect(body).not_to be_valid
@@ -82,7 +82,7 @@ describe PublicBody do
 
     it 'blank string update with translated name' do
       body = FactoryGirl.create(:public_body)
-      I18n.with_locale(:es) { body.name = 'hola' ; body.save }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola' ; body.save }
       body.reload
 
       expect(body.update_attributes('name' => '')).to eq(false)
@@ -297,7 +297,7 @@ describe PublicBody do
 
     it 'should save the first letter of a translation' do
       subject = FactoryGirl.build(:public_body, :name => 'Body')
-      I18n.with_locale(:es) do
+      AlaveteliLocalization.with_locale(:es) do
         subject.name = 'Prueba body'
         subject.save!
         expect(subject.first_letter).to eq('P')
@@ -307,7 +307,7 @@ describe PublicBody do
     it 'saves the first letter of a translation, even when it is the same as the
           first letter in the default locale' do
       subject = FactoryGirl.build(:public_body, :name => 'Body')
-      I18n.with_locale(:es) do
+      AlaveteliLocalization.with_locale(:es) do
         subject.name = 'Body ES'
         subject.save!
         expect(subject.first_letter).to eq('B')
@@ -494,8 +494,12 @@ describe PublicBody do
         }
 
         expect(body.translations.size).to eq(3)
-        I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
-        I18n.with_locale(:fr) { expect(body.name).to eq('Le Body') }
+        AlaveteliLocalization.with_locale(:es) do
+          expect(body.name).to eq('Renamed')
+        end
+        AlaveteliLocalization.with_locale(:fr) do
+          expect(body.name).to eq('Le Body')
+        end
       end
 
       it 'skips empty translations' do
@@ -623,11 +627,22 @@ describe PublicBody do
       expect(iab).to be_persisted
     end
 
+    it 'creates the internal_admin_body with the default_locale' do
+      iab = PublicBody.internal_admin_body
+      expect(iab.translations.first.locale).to eq(:en)
+    end
+
+    it 'handles underscore locales correctly' do
+      AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+      iab = PublicBody.internal_admin_body
+      expect(iab.translations.first.locale).to eq(:en_GB)
+    end
+
     it "repairs the internal_admin_body if the default locale has changed" do
       iab = PublicBody.internal_admin_body
 
       with_default_locale(:es) do
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           found_iab = PublicBody.internal_admin_body
           expect(found_iab).to eq(iab)
           expect(found_iab.translations.pluck(:locale)).to include('es')
@@ -638,10 +653,34 @@ describe PublicBody do
     it "finds the internal_admin_body if current locale is not the default" do
       iab = PublicBody.internal_admin_body
 
-      I18n.with_locale(:es) do
+      AlaveteliLocalization.with_locale(:es) do
         found_iab = PublicBody.internal_admin_body
         expect(found_iab).to eq(iab)
       end
+    end
+
+  end
+
+  describe '.localized_csv_field_name' do
+
+    it 'returns the field name if passed the default_locale' do
+      expect(PublicBody.localized_csv_field_name(:en, "first_letter")).
+        to eq("first_letter")
+    end
+
+    context 'the default_locale contains an underscore' do
+
+      it 'returns the field name if passed the default_locale' do
+        AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
+        expect(PublicBody.localized_csv_field_name(:"en_GB", "first_letter")).
+          to eq("first_letter")
+      end
+
+    end
+
+    it 'returns appends the locale name if passed a non default locale' do
+      expect(PublicBody.localized_csv_field_name(:es, "first_letter")).
+        to eq("first_letter.es")
     end
 
   end
@@ -835,7 +874,7 @@ describe PublicBody, " when saving" do
 
   it 'should create a url_name for a translation' do
     existing = FactoryGirl.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       existing.update_attributes :short_name => 'Prueba', :name => 'Prueba body'
       expect(existing.url_name).to eq('prueba')
     end
@@ -919,7 +958,7 @@ describe PublicBody, "when searching" do
   end
 
   it "should cope with same url_name across multiple locales" do
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       # use the unique spanish name to retrieve and edit
       body = PublicBody.find_by_url_name_with_historic('etgq')
       body.short_name = 'tgq' # Same as english version
@@ -961,7 +1000,7 @@ describe PublicBody, "when destroying" do
   end
 
   it 'destroys associated translations' do
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       public_body.name = 'El Translation'
       public_body.save
     end
@@ -1420,17 +1459,47 @@ describe PublicBody, " when loading CSV files" do
     expect(PublicBody.count).to eq(original_count)
   end
 
-  it "should be able to load CSV from a file as well as a string" do
-    # Essentially the same code is used for import_csv_from_file
-    # as import_csv, so this is just a basic check that
-    # import_csv_from_file can load from a file at all. (It would
-    # be easy to introduce a regression that broke this, because
-    # of the confusing change in behaviour of CSV.parse between
-    # Ruby 1.8 and 1.9.)
-    original_count = PublicBody.count
-    filename = file_fixture_name('fake-authority-type-with-field-names.csv')
-    PublicBody.import_csv_from_file(filename, '', 'replace', false, 'someadmin')
-    expect(PublicBody.count).to eq(original_count + 3)
+  context 'when importing data from a CSV' do
+
+    before do
+      InfoRequest.destroy_all
+      PublicBody.destroy_all
+      PublicBody.internal_admin_body
+    end
+
+    let(:filename) do
+      file_fixture_name('fake-authority-type-with-field-names.csv')
+    end
+
+    it "is able to load CSV from a file as well as a string" do
+      # Essentially the same code is used for import_csv_from_file
+      # as import_csv, so this is just a basic check that
+      # import_csv_from_file can load from a file at all. (It would
+      # be easy to introduce a regression that broke this, because
+      # of the confusing change in behaviour of CSV.parse between
+      # Ruby 1.8 and 1.9.)
+      original_count = PublicBody.count
+      filename = file_fixture_name('fake-authority-type-with-field-names.csv')
+      PublicBody.
+        import_csv_from_file(filename, '', 'replace', false, 'someadmin')
+      expect(PublicBody.count).to eq(original_count + 3)
+    end
+
+    it 'recognises an underscore locale as the default' do
+      AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+      PublicBody.
+        import_csv_from_file(filename, '', 'replace', false, 'someadmin')
+
+      expect(
+        PublicBody.joins(:translations).
+          where("public_body_translations.name != 'Internal admin authority'").
+            first.
+              translations.
+                first.
+                  locale
+      ).to eq(:en_GB)
+    end
+
   end
 
   it "should handle active record validation errors" do
@@ -1809,7 +1878,9 @@ describe PublicBody::Translation do
   end
 
   it 'is valid if all required attributes are assigned' do
-    translation = PublicBody::Translation.new(:locale => I18n.default_locale)
+    translation = PublicBody::Translation.new(
+      :locale => AlaveteliLocalization.default_locale
+    )
     expect(translation).to be_valid
   end
 

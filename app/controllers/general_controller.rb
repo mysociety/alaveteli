@@ -17,7 +17,7 @@ class GeneralController < ApplicationController
   # New, improved front page!
   def frontpage
     medium_cache
-    @locale = I18n.locale.to_s
+    @locale = AlaveteliLocalization.locale
     successful_query = InfoRequestEvent.make_query_from_params( :latest_status => ['successful'] )
     @request_events, @request_events_all_successful = InfoRequest.recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
@@ -47,7 +47,8 @@ class GeneralController < ApplicationController
     @feed_autodetect = []
     @feed_url = AlaveteliConfiguration::blog_feed
     separator = @feed_url.include?('?') ? '&' : '?'
-    @feed_url = "#{@feed_url}#{separator}lang=#{I18n.locale}"
+    @feed_url = "#{ @feed_url }#{ separator }lang=" \
+                "#{ AlaveteliLocalization.html_lang }"
     @blog_items = []
     if not @feed_url.empty?
       timeout = if AlaveteliConfiguration.blog_timeout.blank?

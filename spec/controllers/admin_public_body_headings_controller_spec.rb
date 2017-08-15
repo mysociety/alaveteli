@@ -18,10 +18,11 @@ describe AdminPublicBodyHeadingsController do
     it 'builds new translations for all locales' do
       get :new
 
-      translations = assigns(:public_body_heading).translations.map{ |t| t.locale.to_s }.sort
-      available = FastGettext.default_available_locales.map{ |l| l.to_s }.sort
+      translations = assigns(:public_body_heading).
+                       translations.map { |t| t.locale.to_s }.sort
 
-      expect(translations).to eq(available)
+      expect(translations).
+        to match_array(AlaveteliLocalization.available_locales)
     end
 
     it 'renders the new template' do
@@ -47,6 +48,19 @@ describe AdminPublicBodyHeadingsController do
         expect {
           post :create, :public_body_heading => @params
         }.to change{ PublicBodyHeading.count }.from(0).to(1)
+      end
+
+      it 'can create a heading when the default locale is an underscore locale' do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+        post :create, :public_body_heading => { :name => 'New Heading en_GB' }
+
+        expect(
+          PublicBodyHeading.
+            find_by(:name => 'New Heading en_GB').
+              translations.
+                first.
+                  locale
+        ).to eq(:en_GB)
       end
 
       it 'notifies the admin that the heading was created' do
@@ -84,7 +98,7 @@ describe AdminPublicBodyHeadingsController do
 
         heading = PublicBodyHeading.where(:name => 'New Heading').first
 
-        I18n.with_locale(:en) do
+        AlaveteliLocalization.with_locale(:en) do
           expect(heading.name).to eq('New Heading')
         end
       end
@@ -94,7 +108,7 @@ describe AdminPublicBodyHeadingsController do
 
         heading = PublicBodyHeading.where(:name => 'New Heading').first
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(heading.name).to eq('Mi Nuevo Heading')
         end
       end
@@ -134,7 +148,7 @@ describe AdminPublicBodyHeadingsController do
       it 'is rebuilt with the alternative locale translation' do
         post :create, :public_body_heading => @params
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
         end
       end
@@ -147,7 +161,7 @@ describe AdminPublicBodyHeadingsController do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @heading.name = 'Los heading'
         @heading.save!
       end
@@ -179,7 +193,7 @@ describe AdminPublicBodyHeadingsController do
 
     before do
       @heading = FactoryGirl.create(:public_body_heading)
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @heading.name = 'Los heading'
         @heading.save!
       end
@@ -221,6 +235,17 @@ describe AdminPublicBodyHeadingsController do
       it 'notifies the admin that the heading was updated' do
         post :update, @params
         expect(flash[:notice]).to eq('Heading was successfully updated.')
+      end
+
+      it "creates a new translation if there isn't one for the default_locale" do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+
+        post :update, { :id => @heading.id,
+                        :public_body_heading => { :name => 'Heading en_GB' }
+                      }
+
+        expect(PublicBodyHeading.find(@heading.id).translations.map(&:locale)).
+          to include(:en_GB)
       end
 
       it 'redirects to the heading edit page' do
@@ -272,7 +297,7 @@ describe AdminPublicBodyHeadingsController do
 
         heading = PublicBodyHeading.find(@heading.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(heading.name).to eq('Example Public Body Heading ES')
         end
       end
@@ -300,10 +325,10 @@ describe AdminPublicBodyHeadingsController do
 
         heading = PublicBodyHeading.find(@heading.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(heading.name).to eq('Example Public Body Heading ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(heading.name).to eq('Example Public Body Heading FR')
         end
       end
@@ -331,10 +356,10 @@ describe AdminPublicBodyHeadingsController do
 
         heading = PublicBodyHeading.find(@heading.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(heading.name).to eq('Renamed Example Public Body Heading ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(heading.name).to eq('Example Public Body Heading FR')
         end
       end
@@ -402,7 +427,7 @@ describe AdminPublicBodyHeadingsController do
         post :update, :id => @heading.id,
           :public_body_heading => @params
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
         end
       end

@@ -2,6 +2,12 @@
 
 ## Highlighted Features
 
+* Fixed problem where the routing filter doesn't recognise default locales with
+  underscores properly (Liz Conlan)
+* Added wrapper methods to `AlaveteliLocalization` to be used in preference to
+  the underlying `I18n` and `FastGettext` methods, avoiding confusion about
+  which should be used and reducing the likelihood of getting hyphenated and
+  underscore locale formats mixed up (Liz Conlan)
 * Prevent null bytes getting saved to `IncomingMessage` attachment cache
   columns (Gareth Rees)
 * Add `:inverse_of` option to ActiveRecord associations to improve performance

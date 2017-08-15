@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>" class="no-js">
+<html lang="<%= AlaveteliLocalization.html_lang %>" class="no-js">
   <head>
     <meta charset="utf-8">
     <%= csrf_meta_tags %>
@@ -129,7 +129,7 @@
             'width': 950,
             'height': 400,
             'type': 'iframe',
-            'href': '/<%= FastGettext.locale %>/profile/sign_in?modal=1',
+            'href': '/<%= AlaveteliLocalization.locale %>/profile/sign_in?modal=1',
             'onClosed': function() {
               // modal_signin_successful variable set by modal dialog box
               if (typeof modal_signin_successful != 'undefined' ) {

@@ -1140,8 +1140,8 @@ class InfoRequest < ActiveRecord::Base
     path = File.join("request", request_dirs)
     foi_cache_path = File.expand_path(File.join(Rails.root, 'cache', 'views'))
     directories << File.join(foi_cache_path, path)
-    FastGettext.default_available_locales.each do |locale|
-      directories << File.join(foi_cache_path, locale.to_s, path)
+    AlaveteliLocalization.available_locales.each do |locale|
+      directories << File.join(foi_cache_path, locale, path)
     end
 
     directories

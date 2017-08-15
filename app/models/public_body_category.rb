@@ -24,9 +24,9 @@ class PublicBodyCategory < ActiveRecord::Base
   include Translatable
 
   def self.get
-    locale = I18n.locale.to_s || default_locale.to_s || ""
+    locale = AlaveteliLocalization.locale || default_locale || ""
     categories = CategoryCollection.new
-    I18n.with_locale(locale) do
+    AlaveteliLocalization.with_locale(locale) do
       headings = PublicBodyHeading.by_display_order
       headings.each do |heading|
         categories << heading.name
@@ -59,7 +59,7 @@ PublicBodyCategory::Translation.class_eval do
   end
 
   def default_locale?
-    locale == I18n.default_locale
+    AlaveteliLocalization.default_locale?(locale)
   end
 
   def required_attribute_submitted?

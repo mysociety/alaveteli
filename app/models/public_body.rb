@@ -214,12 +214,10 @@ class PublicBody < ActiveRecord::Base
   #
   # query  - String to query the searchable fields
   # locale - String to specify the language of the seach query
-  #          (default: I18n.locale)
+  #          (default: AlaveteliLocalization.locale)
   #
   # Returns an ActiveRecord::Relation
-  def self.search(query, locale = I18n.locale)
-    locale = locale.to_s.gsub('-', '_') # Clean the locale string
-
+  def self.search(query, locale = AlaveteliLocalization.locale)
     sql = <<-SQL
     (
       lower(public_body_translations.name) like lower('%'||?||'%')
@@ -364,14 +362,16 @@ class PublicBody < ActiveRecord::Base
       if invalid_locale = PublicBody::Translation.
                             find_by_url_name('internal_admin_authority')
         found_pb = PublicBody.find(invalid_locale.public_body_id)
-        I18n.with_locale(I18n.default_locale) do
+        AlaveteliLocalization.
+          with_locale(AlaveteliLocalization.default_locale) do
           found_pb.name = "Internal admin authority"
           found_pb.request_email = AlaveteliConfiguration.contact_email
           found_pb.save!
         end
         found_pb
       else
-        I18n.with_locale(I18n.default_locale) do
+        AlaveteliLocalization.
+          with_locale(AlaveteliLocalization.default_locale) do
           PublicBody.
             create!(:name => 'Internal admin authority',
                     :short_name => "",
@@ -419,7 +419,8 @@ class PublicBody < ActiveRecord::Base
         bodies_by_name = {}
         set_of_existing = Set.new
         internal_admin_body_id = PublicBody.internal_admin_body.id
-        I18n.with_locale(I18n.default_locale) do
+        AlaveteliLocalization.
+          with_locale(AlaveteliLocalization.default_locale) do
           bodies = (tag.nil? || tag.empty?) ? PublicBody.includes(:translations) : PublicBody.find_by_tag(tag)
           for existing_body in bodies
             # Hide InternalAdminBody from import notes
@@ -497,9 +498,12 @@ class PublicBody < ActiveRecord::Base
   end
 
   def self.localized_csv_field_name(locale, field_name)
-    (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
+    if AlaveteliLocalization.default_locale?(locale)
+      field_name
+    else
+      "#{field_name}.#{locale}"
+    end
   end
-
 
   # import values from a csv row (that may include localized columns)
   def import_values_from_csv_row(row, line, name, options)
@@ -512,9 +516,9 @@ class PublicBody < ActiveRecord::Base
         :comment => 'Updated from spreadsheet' }
     end
     locales = options[:available_locales]
-    locales = [I18n.default_locale] if locales.empty?
+    locales = [AlaveteliLocalization.default_locale] if locales.empty?
     locales.each do |locale|
-      I18n.with_locale(locale) do
+      AlaveteliLocalization.with_locale(locale) do
         changed = set_locale_fields_from_csv_row(is_new, locale, row, options)
         unless changed.empty?
           options[:notes].push "line #{ line }: #{ edit_info[:action] } '#{ name }' (locale: #{ locale }):\n\t#{ changed.to_json }"
@@ -741,7 +745,7 @@ class PublicBody < ActiveRecord::Base
                            split(/\s*;\s*/)
     underscore_locale = locale.gsub '-', '_'
     bodies = []
-    I18n.with_locale(locale) do
+    AlaveteliLocalization.with_locale(locale) do
       if body_short_names.empty?
         # This is too slow
         bodies = visible.

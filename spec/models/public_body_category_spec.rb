@@ -124,8 +124,12 @@ describe PublicBodyCategory do
         }
 
         expect(category.translations.size).to eq(3)
-        I18n.with_locale(:es) { expect(category.title).to eq('Renamed') }
-        I18n.with_locale(:fr) { expect(category.title).to eq('Le Category') }
+        AlaveteliLocalization.with_locale(:es) do
+          expect(category.title).to eq('Renamed')
+        end
+        AlaveteliLocalization.with_locale(:fr) do
+          expect(category.title).to eq('Le Category')
+        end
       end
 
       it 'skips empty translations' do
@@ -160,7 +164,8 @@ describe PublicBodyCategory::Translation do
   end
 
   it 'is valid if no required attributes are assigned' do
-    translation = PublicBodyCategory::Translation.new(:locale => I18n.default_locale)
+    translation = PublicBodyCategory::Translation.
+                    new(:locale => AlaveteliLocalization.default_locale)
     expect(translation).to be_valid
   end
 
@@ -174,6 +179,31 @@ describe PublicBodyCategory::Translation do
     translation = PublicBodyCategory::Translation.new(:title => 'spec')
     translation.valid?
     expect(translation.errors[:description]).to eq(["Description can't be blank"])
+  end
+
+  describe '#default_locale?' do
+
+    it 'returns true if the locale is the default locale' do
+      translation = PublicBodyCategory::Translation.new(:locale => "en")
+      expect(translation.default_locale?).to be true
+    end
+
+    context 'when the default locale contains an underscore' do
+
+      it 'returns true if the locale is the default locale' do
+        AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
+        translation = PublicBodyCategory::Translation.new(:locale => "en_GB")
+
+        expect(translation.default_locale?).to be true
+      end
+
+    end
+
+    it 'returns false if the locale is not the default locale' do
+      translation = PublicBodyCategory::Translation.new(:locale => "es")
+      expect(translation.default_locale?).to be false
+    end
+
   end
 
 end
