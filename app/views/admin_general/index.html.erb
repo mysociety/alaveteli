@@ -56,7 +56,7 @@
     <%
       to_do_list_time =
         AlaveteliLocalization.with_locale(:en) do
-          distance_of_time_in_words(InfoRequest.OLD_AGE_IN_DAYS))
+          distance_of_time_in_words(InfoRequest::OLD_AGE_IN_DAYS)
         end
 
       to_do_list_label = "Classify responses that are still unclassified " \

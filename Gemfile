@@ -87,7 +87,7 @@ gem 'pg', '~> 0.18.0', '< 0.19.0'
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
 gem 'active_model_otp', :git => 'https://github.com/heapsource/active_model_otp.git', :ref => '55d93a3979'
 gem 'cancancan', '~> 1.12.0', '< 1.13.0'
-gem 'charlock_holmes', '~> 0.7.0'
+gem 'charlock_holmes', '~> 0.7.0', '< 0.7.4'
 gem 'dalli', '~> 2.7.0'
 gem 'dynamic_form', '~> 1.1.0'
 gem 'exception_notification', '~> 4.1.0', '< 4.1.2'
@@ -160,7 +160,7 @@ group :test do
   gem 'coveralls', '~> 0.8.0', :require => false
     gem 'tins', '~> 1.3.0', '< 1.3.1'
     gem 'term-ansicolor', '~> 1.3.0', '< 1.4'
-  gem 'capybara', '~> 2.13.0'
+  gem 'capybara', '~> 2.15.0'
   gem 'delorean', '~> 2.1.0'
   gem 'test_after_commit', '~> 0.4.2'
 end
