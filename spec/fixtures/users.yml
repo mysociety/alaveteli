@@ -116,3 +116,45 @@ another_user:
   ban_text: ''
   about_me: 'Just another user'
   receive_email_alerts: true
+paul_pro_user:
+  id: 7
+  name: Paul Pro
+  url_name: paul_pro
+  email: paul@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: 'Totes profesh'
+  receive_email_alerts: true
+annie_all_roles_user:
+  id: 8
+  name: Annie All Roles
+  url_name: annie_admin
+  email: annie@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: 'All the roles'
+  receive_email_alerts: true
+peter_pro_admin_user:
+  id: 9
+  name: Peter Pro Admin
+  url_name: peter_pro_admin
+  email: peter@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: ''
+  receive_email_alerts: true
