@@ -336,11 +336,17 @@ class ApplicationController < ActionController::Base
   # load them in.
   def do_post_redirect(post_redirect, user=nil)
     uri = URI.parse(post_redirect.uri).path
-    if feature_enabled?(:alaveteli_pro) && user && user.is_pro?
-      uri = override_post_redirect_for_pro(uri, post_redirect, user)
+    if feature_enabled?(:alaveteli_pro) &&
+      user &&
+      user.is_pro? &&
+      session[:admin_confirmation] != 1
+      uri = override_post_redirect_for_pro(uri,
+                                           post_redirect,
+                                           user)
     end
     session[:post_redirect_token] = post_redirect.token
     uri = add_post_redirect_param_to_uri(uri)
+    session.delete(:admin_confirmation)
     redirect_to uri
   end
 
