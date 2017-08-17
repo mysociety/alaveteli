@@ -123,7 +123,6 @@ class RequestController < ApplicationController
 
       # Sidebar stuff
       @sidebar = true
-      @similar_cache_key = cache_key_for_similar_requests(@info_request, @locale)
       @sidebar_template = @in_pro_area ? "alaveteli_pro/info_requests/sidebar" : "sidebar"
 
       # Track corresponding to this page
@@ -994,6 +993,10 @@ class RequestController < ApplicationController
   end
 
   def cache_key_for_similar_requests(info_request, locale)
+    warn %q([DEPRECATION] RequestController#cache_key_for_similar_requests
+        will be removed in 0.31. It has been replaced by
+        InfoRequest.similar_cache_key, which will not take a locale
+        param).squish
     "request/similar/#{info_request.id}/#{locale}"
   end
 

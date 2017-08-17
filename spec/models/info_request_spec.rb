@@ -2980,7 +2980,7 @@ describe InfoRequest do
 
     it 'returns similar requests' do
       similar, more = info_requests(:spam_1_request).similar_requests(1)
-      expect(similar.results.first[:model].info_request).to eq(info_requests(:spam_2_request))
+      expect(similar.first).to eq(info_requests(:spam_2_request))
     end
 
     it 'returns a flag set to true' do
