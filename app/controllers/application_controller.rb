@@ -373,11 +373,19 @@ class ApplicationController < ActionController::Base
 
   # If we are in a faked redirect to POST request, then set post params.
   def check_in_post_redirect
-    if params[:post_redirect] and session[:post_redirect_token]
-      post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
-      if post_redirect
-        params.update(post_redirect.post_params)
-        params[:post_redirect_user] = post_redirect.user
+    if params[:post_redirect]
+      if session[:post_redirect_token]
+        post_redirect =
+          PostRedirect.find_by_token(session[:post_redirect_token])
+        if post_redirect
+          params.update(post_redirect.post_params)
+          params[:post_redirect_user] = post_redirect.user
+        end
+      else
+        logger.warn "Missing post redirect token. " \
+                    "Session: #{session.to_hash} " \
+                    "IP: #{user_ip} " \
+                    "Params: #{params}"
       end
     end
   end
