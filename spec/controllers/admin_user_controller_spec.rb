@@ -106,6 +106,23 @@ describe AdminUserController do
       expect(assigns[:admin_users]).to eq([u2, u1])
     end
 
+    it 'filters the records by role' do
+      User.destroy_all
+      admin_user = FactoryGirl.create(:admin_user)
+      user = FactoryGirl.create(:user)
+      get :index, :roles => [ 'admin' ]
+      expect(assigns[:admin_users]).to eq([admin_user])
+    end
+
+    it 'filters the records by multiple roles' do
+      User.destroy_all
+      admin_user = FactoryGirl.create(:admin_user)
+      pro_user = FactoryGirl.create(:pro_user)
+      user = FactoryGirl.create(:user)
+      get :index, :roles => [ 'admin', 'pro' ]
+      expect(assigns[:admin_users]).to eq([admin_user, pro_user])
+    end
+
   end
 
   describe 'GET #show' do

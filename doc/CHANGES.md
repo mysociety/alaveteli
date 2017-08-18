@@ -48,6 +48,7 @@
   result (Louise Crow)
 * Similar request IDs are now cached, rather than template partials displaying
   similar requests, in order to make better usage of the cache space (Louise Crow)
+* You can now filter users by their role on the admin user list page (Louise Crow)
 
 ## Upgrade Notes
 
