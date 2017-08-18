@@ -651,6 +651,8 @@ Rails.application.routes.draw do
       match '/public_bodies/:query' => 'public_bodies#search',
             :via => :get,
             :as => :public_bodies_search
+
+      resources :users, only: [:create]
     end
 
     # So that we can show a request using the existing controller from the
