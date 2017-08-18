@@ -234,6 +234,10 @@ Rails.application.routes.draw do
     resource :about_me, :only => [:edit, :update], :controller => 'about_me'
   end
 
+  namespace :users, path: 'profile' do
+    resource :account, only: [:show, :edit, :update]
+  end
+
   # Legacy route for setting about_me
   match '/profile/set_about_me' => redirect('/profile/about_me/edit'),
         :as => :set_profile_about_me,
