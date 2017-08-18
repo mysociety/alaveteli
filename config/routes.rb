@@ -615,6 +615,10 @@ Rails.application.routes.draw do
       :as => :create_pro_account_request,
       :via => :post
 
+    namespace :alaveteli_pro, path: 'pro', as: 'pro' do
+      resources :pricing, only: [:index]
+    end
+
     namespace :alaveteli_pro do
       match '/' => 'dashboard#index', :as => 'dashboard', :via => :get
       resources :draft_info_requests, :only => [:create, :update]
