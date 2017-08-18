@@ -238,15 +238,22 @@ that you have appropriate versions installed. Some also list "`|`" and offer a
 choice of packages.
 
 <div class="attention-box">
-
 <strong>Note:</strong> To install Alaveteli's Ruby dependencies, you need to install bundler. In
 Debian and Ubuntu, this is provided as a package (installed as part of the
 package install process above). For other OSes, you could also install it as a gem:
 
-   <pre><code> gem install bundler --no-rdoc --no-ri</code></pre>
+   <pre><code>sudo -u alaveteli gem install --user-install bundler --no-rdoc --no-ri</code></pre>
+
+You should see a warning telling you that gem executables will not run as the application
+user doesn't have their local gem bin path in their path. Add it, making sure you use the ruby version
+directory you see in the warning message:
+
+<pre><code>cat >> /home/alaveteli/.bashrc <<EOF
+export PATH="\$HOME/.gem/ruby/1.9.1/bin:\$PATH"
+EOF
+exec $SHELL</code></pre>
 
 </div>
-
 
 ## Configure Database
 
@@ -443,6 +450,9 @@ and then drop it in `/etc/cron.d/` on the server.
 * `user`: the user that the software runs as
 * `site`: a string to identify your alaveteli instance
 * `mailto`: The email address or local account that cron output will be sent to - setting an email address depends on your MTA having been configured for remote delivery.
+* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
+  if that was neccessary. This will be used to add the deployment user's local
+  gem directory to the `PATH` used in the cron file
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. This example sends cron output to the local `alaveteli` user. Change the variables to suit your installation.
@@ -543,6 +553,9 @@ is an init script, which can be generated from the
   e.g. `alaveteli`
 * `site`: a string to identify your alaveteli instance
 * `user`: the user that the software runs as
+* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
+  if that was neccessary. This will be used to add the user's local
+  gem directory to the `PATH` used in the daemon file
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
@@ -577,6 +590,9 @@ and not required if you choose not to run your site behind Varnish (see below). 
   e.g. `alaveteli`
 * `site`: a string to identify your alaveteli instance
 * `user`: the user that the software runs as
+* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
+  if that was neccessary. This will be used to add the user's local
+  gem directory to the `PATH` used in the daemon file
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
