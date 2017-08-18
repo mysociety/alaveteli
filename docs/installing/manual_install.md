@@ -576,7 +576,7 @@ Start the alert tracks daemon:
 
     service alaveteli-alert-tracks start
 
-### Generate varnish purge daemon
+### Generate varnish purge daemon (optional)
 
 `config/purge-varnish-debian.example` is a similar init script, which is optional
 and not required if you choose not to run your site behind Varnish (see below). It notifies Varnish of cached pages that need to be purged from Varnish's cache. It will not run if Varnish is not installed.
