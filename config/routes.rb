@@ -617,6 +617,12 @@ Rails.application.routes.draw do
 
     namespace :alaveteli_pro, path: 'pro', as: 'pro' do
       resources :pricing, only: [:index]
+
+      namespace :users, path: '' do
+        resources :sessions, only: [:new],
+                             path: '',
+                             path_names: { new: 'sign_in' }
+      end
     end
 
     namespace :alaveteli_pro do
