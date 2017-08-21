@@ -53,6 +53,7 @@
 
     <a href="#content" class="show-with-keyboard-focus-only skip-to-link" tabindex="0">Skip to content</a>
       <!-- begin popups -->
+        <% unless cookies['seen_foi2'].to_s == '1' %>
           <% popup_banner = render(:partial => "general/popup_banner").strip %>
           <% if popup_banner.present? and  ! @render_to_file %>
             <div class="popup popup--popup popup--standard" role="alert" id="standard-popup">
@@ -66,8 +67,9 @@
               </div>
             </div>
           <% end %>
-          <div id="country-message">
-          </div>
+        <% end %>
+        <div id="country-message">
+        </div>
       <!-- end popups -->
       <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
         <%= render :partial => 'general/responsive_header' %>

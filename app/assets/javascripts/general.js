@@ -141,8 +141,4 @@ $(document).ready(function() {
   $('.after-actions__action-menu').dropit({
     submenuEl: '.action-menu__menu'
   });
-
-  if ($.cookie('seen_foi2') != 1) {
-    $('#standard-popup').show();
-  }
 });
