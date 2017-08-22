@@ -604,6 +604,13 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
+  #### Pro Pricing
+  constraints FeatureConstraint.new(:pro_pricing) do
+    scope module: 'alaveteli_pro' do
+      resources :plans, only: [:show]
+    end
+  end
+
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
 
