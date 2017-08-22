@@ -1136,3 +1136,25 @@ POP_MAILER_PASSWORD: ''
 #
 # ---
 POP_MAILER_ENABLE_SSL: true
+
+# Stripe.com publishable key. Only required for Alaveteli Pro.
+#
+# STRIPE_PUBLISHABLE_KEY - String (default: '')
+#
+# Examples:
+#
+# STRIPE_PUBLISHABLE_KEY: sk_test_UD6BDsARFZIYb8273dbdl
+#
+# ---
+STRIPE_PUBLISHABLE_KEY: ''
+
+# Stripe.com secret key. Only required for Alaveteli Pro.
+#
+# STRIPE_SECRET_KEY - String (default: '')
+#
+# Examples:
+#
+# STRIPE_SECRET_KEY: sk_test_UD6BDsARFZIYb8273dbdl
+#
+# ---
+STRIPE_SECRET_KEY: ''
