@@ -50,17 +50,18 @@
   <div class="span8">
     <div class="alert alert-info">
       <p><strong>CSV file format:</strong> The first row should be a list
-        of fields, starting with <code>#</code>. The fields <code>name</code> and
-        <code>request_email</code> are required; additionally, translated values are
-        supported by adding the locale name to the field name,
-        e.g. <code>name.es</code>, <code>name.de</code>&hellip;<br />
+        of fields, starting with <code>#</code>. The fields <code>id</code>,
+        <code>name</code> and <code>request_email</code> are required;
+        additionally, translated values are supported by adding the locale name
+        to the field name, e.g. <code>name.es</code>, <code>name.de</code>
+        &hellip;<br />
         <strong>Example:</strong>
       </p>
 
-      <pre>&#35;name,request_email,name.es,tag_string
-An Authority,a@example.com,Un organismo,a_tag another_tag
-Another One,another@example.com,Otro organismo,a_tag
-"Authority, Test",test@example.com,"Organismo de prueba","test_tag_1 test_tag_2"</pre>
+      <pre>&#35;id,name,request_email,name.es,tag_string
+"",An Authority,a@example.com,Un organismo,a_tag another_tag
+"",Another One,another@example.com,Otro organismo,a_tag
+"",Authority, Test",test@example.com,"Organismo de prueba","test_tag_1 test_tag_2"</pre>
 
       <p><strong>Supported fields:</strong>
         <ul>
