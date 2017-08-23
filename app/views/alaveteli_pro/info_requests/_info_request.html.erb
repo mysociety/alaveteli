@@ -2,7 +2,11 @@
      class="request request--<%= info_request.state.summarised_phase %>">
   <h3 class="request__title">
     <% if info_request.embargo %>
-      <span class="embargo-indicator embargo-indicator--small">
+      <span class="embargo-indicator embargo-indicator--small"
+            title="<%= _('Private until {{date}}',
+                         :date => simple_date(info_request.embargo.publish_at,
+                                              :format => :text)
+                        ) %>">
         <%= _("Private") %>
       </span>
     <% end %>
