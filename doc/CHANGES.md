@@ -2,6 +2,10 @@
 
 ## Highlighted Features
 
+* Added some extra margin space to the `#logged_in_bar` when javascript is
+  disabled to avoid the user's name from overlapping the 'Sign out' link -
+  otherwise if there is enough space to do so, the secondary menu will try to
+  float alongside the nav bar content (Liz Conlan)
 * Make it clearer to users that they must complete an action when receiving the
   email to remind them to update the status of a request (Gareth Rees)
 * Removed non-responsive assets (Gareth Rees)
