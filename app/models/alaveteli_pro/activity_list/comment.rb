@@ -4,7 +4,7 @@ module AlaveteliPro
     class Comment < Item
 
       def description
-        if event.comment.user == event.info_request.user
+        if event.comment.user == info_request.user
           N_('You added a new annotation on your request to ' \
              '{{public_body_name}} "{{info_request_title}}."')
         else

@@ -7,26 +7,28 @@ module AlaveteliPro
       include LinkToHelper
       include ActionView::Helpers::DateHelper
 
-      attr_accessor :event
+      attr_accessor :event, :info_request, :public_body
 
       def initialize(event)
         @event = event
+        @info_request = @event.info_request
+        @public_body = @info_request.public_body
       end
 
       def info_request_path
-        request_path(event.info_request)
+        request_path(info_request)
       end
 
       def info_request_title
-        event.info_request.title
+        info_request.title
       end
 
       def body_name
-        event.info_request.public_body.name
+        public_body.name
       end
 
       def body_path
-        public_body_path(event.info_request.public_body)
+        public_body_path(public_body)
       end
 
       def call_to_action

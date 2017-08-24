@@ -12,7 +12,7 @@ module AlaveteliPro
       end
 
       def call_to_action_url
-        new_request_followup_path(:request_id => event.info_request.id, :anchor => 'followup')
+        new_request_followup_path(:request_id => info_request.id, :anchor => 'followup')
       end
 
     end
