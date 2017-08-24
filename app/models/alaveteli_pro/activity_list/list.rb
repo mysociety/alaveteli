@@ -17,8 +17,7 @@ module AlaveteliPro
 
       def events
         user.info_request_events.
-          includes(:info_request).
-          includes(:incoming_message).
+          includes(:incoming_message, info_request: [:public_body]).
           where(:event_type => event_types)
       end
 
