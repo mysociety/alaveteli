@@ -16,7 +16,10 @@ module AlaveteliPro
       end
 
       def events
-        user.info_request_events.where(:event_type => event_types)
+        user.info_request_events.
+          includes(:info_request).
+          includes(:incoming_message).
+          where(:event_type => event_types)
       end
 
       def current_items
