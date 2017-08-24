@@ -42,12 +42,12 @@ class AlaveteliPro::RequestSummary < ActiveRecord::Base
 
   def self.not_category(category_slug)
     summary_ids_to_exclude = self.category(category_slug).pluck(:id)
-    results = includes(:request_summary_categories)
-    unless summary_ids_to_exclude.blank?
-      results = results.
+    if summary_ids_to_exclude.blank?
+      includes(:request_summary_categories)
+    else
+      includes(:request_summary_categories).
         where("request_summaries.id NOT IN (?)", summary_ids_to_exclude)
     end
-    results
   end
 
   def self.create_or_update_from(request)
