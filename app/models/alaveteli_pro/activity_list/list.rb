@@ -3,19 +3,20 @@ module AlaveteliPro
   module ActivityList
 
     class List
-      attr_accessor :user, :page, :per_page
+      attr_accessor :user, :page, :per_page, :events
 
       def initialize(user, page, per_page)
         @user = user
         @page = page
         @per_page = per_page
+        @events = fetch_events
       end
 
       def event_types
         activity_types.keys
       end
 
-      def events
+      def fetch_events
         user.info_request_events.
           includes(:incoming_message, info_request: [:public_body]).
           where(:event_type => event_types)
