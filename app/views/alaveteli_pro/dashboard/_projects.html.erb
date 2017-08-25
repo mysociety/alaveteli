@@ -2,15 +2,14 @@
   <li class="dashboard-folder dashboard-folder--top-level dashboard-folder--selected">
     <a href="<%= alaveteli_pro_info_requests_path %>" class="dashboard-folder__name">
       <%= _('All requests') %>
-      <span class="dashboard-folder__count"><%= @user.request_summaries.not_category(:draft).count %></span>
+      <span class="dashboard-folder__count"><%= @phase_counts['not_drafts'] %></span>
     </a>
   </li>
   <ul class="dashboard-sub-folders">
 
-
     <% InfoRequest::State.phases.each do |phase| %>
     <li class="dashboard-folder">
-      <% if @user.request_summaries.category(phase[:scope]).count != 0 %>
+      <% if @phase_counts[phase[:scope_str]].to_i != 0 %>
         <a href="<%= alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' => phase[:scope]) %>" class="dashboard-folder__name">
       <% else %>
         <span class="dashboard-folder__name dashboard-folder__name--disabled">
@@ -18,9 +17,9 @@
         <span class="phase-icon phase-icon--<%= phase[:param] %>"></span>
         <%= phase[:capital_label] %>
         <span class="dashboard-folder__count">
-          <%= @user.request_summaries.category(phase[:scope]).count %>
+          <%= @phase_counts[phase[:scope_str]].to_i %>
         </span>
-      <% if @user.request_summaries.category(phase[:scope]).count != 0 %>
+      <% if @phase_counts[phase[:scope_str]].to_i != 0 %>
         </a>
       <% else %>
         </span>
@@ -33,16 +32,16 @@
 <ul class="dashboard-folders">
 
   <li class="dashboard-folder dashboard-folder--top-level ">
-    <% if @user.request_summaries.category(:draft).count != 0 %>
+    <% if @phase_counts['draft'].to_i != 0 %>
       <a href="<%= alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' => 'draft') %>" class="dashboard-folder__name">
     <% else %>
       <span class="dashboard-folder__name">
     <% end %>
     <%= _('Drafts') %>
     <span class="dashboard-folder__count">
-      <%= @user.request_summaries.category(:draft).count %>
+      <%= @phase_counts['draft'].to_i %>
     </span>
-    <% if @user.request_summaries.category(:draft).count != 0 %>
+    <% if @phase_counts['draft'].to_i != 0 %>
       </a>
     <% else %>
       </span>
