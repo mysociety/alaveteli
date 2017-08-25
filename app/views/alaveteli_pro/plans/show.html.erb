@@ -1,2 +1,20 @@
 <h1>AlaveteliPro::Plans#show</h1>
 <p>Find me in app/views/alaveteli_pro/plans/show.html.erb</p>
+
+<%= form_tag(subscriptions_path) do %>
+  <label class="amount">
+    <span>Amount: £<%= @plan.amount.to_f / 100 %></span>
+  </label>
+
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= AlaveteliConfiguration.stripe_publishable_key %>"
+          data-name="<%= AlaveteliConfiguration.pro_site_name %>"
+          data-description="A monthly subscription"
+          data-amount="<%= @plan.amount %>"
+          data-email="<%= current_user.email %>"
+          data-locale="auto"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-zip-code="true"
+          data-currency="gbp">
+  </script>
+<% end %>
