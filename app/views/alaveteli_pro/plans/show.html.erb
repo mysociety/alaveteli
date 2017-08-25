@@ -6,6 +6,8 @@
     <span>Amount: £<%= @plan.amount.to_f / 100 %></span>
   </label>
 
+  <%= hidden_field_tag 'plan_id', @plan.id %>
+
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= AlaveteliConfiguration.stripe_publishable_key %>"
           data-name="<%= AlaveteliConfiguration.pro_site_name %>"
