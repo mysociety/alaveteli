@@ -608,6 +608,7 @@ Rails.application.routes.draw do
   constraints FeatureConstraint.new(:pro_pricing) do
     scope module: 'alaveteli_pro' do
       resources :plans, only: [:show]
+      resources :subscriptions, only: [:create]
     end
   end
 
