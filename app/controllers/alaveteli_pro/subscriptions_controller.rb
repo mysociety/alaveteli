@@ -3,7 +3,29 @@
 class AlaveteliPro::SubscriptionsController < ApplicationController
   before_filter :authenticate
 
+  # TODO: remove reminder of Stripe params once shipped
+  #
+  # params =>
+  # {"utf8"=>"✓",
+  #  "authenticity_token"=>"Ono2YgLcl1eC1gGzyd7Vf5HJJhOek31yFpT+8z+tKoo=",
+  #  "stripeToken"=>"tok_s3kr3t…",
+  #  "stripeTokenType"=>"card",
+  #  "stripeEmail"=>"bob@example.com",
+  #  "controller"=>"alaveteli_pro/subscriptions",
+  #  "action"=>"create"}
   def create
+    @token = Stripe::Token.retrieve(params[:stripeToken])
+
+    @customer = Stripe::Customer.create(email: params[:stripeEmail],
+                                        source: @token)
+
+    @subscription =
+      Stripe::Subscription.create(customer: @customer,
+                                  plan: params[:plan_id])
+
+    current_user.create_pro_account(stripe_customer_id: @customer.id)
+    current_user.add_role(:pro)
+
     redirect_to alaveteli_pro_dashboard_path
   end
 
