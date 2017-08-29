@@ -3,7 +3,9 @@
 
 <%= form_tag(subscriptions_path) do %>
   <label class="amount">
-    <span>Amount: £<%= @plan.amount.to_f / 100 %></span>
+    <span>
+      Amount: <%= number_to_currency(@plan.amount_with_tax / 100, unit: '£') %>
+    </span>
   </label>
 
   <%= hidden_field_tag 'plan_id', @plan.id %>
@@ -12,7 +14,7 @@
           data-key="<%= AlaveteliConfiguration.stripe_publishable_key %>"
           data-name="<%= AlaveteliConfiguration.pro_site_name %>"
           data-description="A monthly subscription"
-          data-amount="<%= @plan.amount %>"
+          data-amount="<%= @plan.amount_with_tax %>"
           data-email="<%= current_user.email %>"
           data-locale="auto"
           data-allow-remember-me="false"
