@@ -21,7 +21,8 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
 
     @subscription =
       Stripe::Subscription.create(customer: @customer,
-                                  plan: params[:plan_id])
+                                  plan: params[:plan_id],
+                                  tax_percent: 20.0)
 
     current_user.create_pro_account(stripe_customer_id: @customer.id)
     current_user.add_role(:pro)
