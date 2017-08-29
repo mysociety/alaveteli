@@ -4,7 +4,8 @@ class AlaveteliPro::PlansController < ApplicationController
   before_filter :authenticate
 
   def show
-    @plan = Stripe::Plan.retrieve(params[:id])
+    stripe_plan = Stripe::Plan.retrieve(params[:id])
+    @plan = AlaveteliPro::PlanWithTax.new(stripe_plan)
   end
 
   private
