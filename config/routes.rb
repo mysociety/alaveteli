@@ -621,8 +621,16 @@ Rails.application.routes.draw do
       resources :info_requests, :only => [:new, :create, :update, :index] do
         get :preview, on: :new # /info_request/new/preview
       end
-      resources :embargoes, :only => [:destroy]
-      resources :embargo_extensions, :only => [:create]
+      resources :embargoes, :only => [:destroy] do
+        collection do
+          post :destroy_batch
+        end
+      end
+      resources :embargo_extensions, :only => [:create] do
+        collection do
+          post :create_batch
+        end
+      end
       resources :batch_request_authority_searches, :only => [:new]
       # So that we can return searches via GET not POST
       match '/batch_request_authority_searches' => 'batch_request_authority_searches#create',

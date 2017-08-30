@@ -19,8 +19,15 @@
         <div class="message-preview">
           <div class="preview-advice">
             <div class="advice-panel">
-              <%= render partial: "alaveteli_pro/info_requests/embargo_info",
-                         locals: { embargo: @embargo, tense: :future }  %>
+              <% if batch_request %>
+                <%= render(
+                      partial: "alaveteli_pro/info_request_batches/embargo_info",
+                      locals: { embargo: @embargo, tense: :future })  %>
+              <% else %>
+                <%= render(
+                      partial: "alaveteli_pro/info_requests/embargo_info",
+                      locals: { embargo: @embargo, tense: :future })  %>
+              <% end %>
             </div>
           </div>
 

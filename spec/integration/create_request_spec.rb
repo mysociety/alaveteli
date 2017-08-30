@@ -1,33 +1,32 @@
 # -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
+require 'spec_helper'
+require 'integration/alaveteli_dsl'
 
 describe "When creating requests" do
 
-  before do
+  before :all do
     get_fixtures_xapian_index
   end
 
-  it "should associate the request with the requestor, even if it is approved by an admin" do
-    using_session(without_login) do
-      # This is a test for https://github.com/mysociety/alaveteli/issues/446
-      create_request(public_bodies(:geraldine_public_body))
-      # Now log in as an unconfirmed user.
-      visit signin_path :token => get_last_post_redirect.token
-      within '#signin_form' do
-        fill_in "Your e-mail:", :with => users(:unconfirmed_user).email
-        fill_in "Password:", :with => "jonespassword"
-        click_button "Sign in"
-      end
-      expect(page).to have_content('Now check your email!')
-    end
+  let!(:admin_user) { FactoryGirl.create(:admin_user) }
+  let!(:public_body) do
+    FactoryGirl.create(:public_body,
+                       :name => 'example')
+  end
+  let!(:admin_user_session) { login(admin_user) }
 
-    # This will trigger a confirmation mail. Get the PostRedirect for later.
-    post_redirect = get_last_post_redirect
-    # Now log in as an admin user, then follow the confirmation link in the email that was sent to the unconfirmed user
-    confirm(:admin_user)
-    admin = login(:admin_user)
-    using_session(admin) do
+  before do
+    update_xapian_index
+  end
+
+  it <<-EOF do
+      should associate the request with the requestor, even if it is approved
+      by an admin
+    EOF
+    post_redirect = create_request_and_user(public_body)
+    # Now log in as an admin user, then follow the confirmation link in the
+    # email that was sent to the unconfirmed user
+    using_session(admin_user_session) do
       visit confirm_path(:email_token => post_redirect.email_token)
 
       expect(current_url).to match(%r(/request/(.+)))
@@ -36,8 +35,9 @@ describe "When creating requests" do
       info_request = InfoRequest.find_by_url_title(url_title)
       expect(info_request).not_to be_nil
 
-      # Make sure the request is still owned by the user who made it, not the admin who confirmed it
-      expect(info_request.user_id).to eq(users(:unconfirmed_user).id)
+      # Make sure the request is still owned by the user who made it,
+      # not the admin who confirmed it
+      expect(info_request.user_id).to eq(post_redirect.user_id)
     end
 
   end

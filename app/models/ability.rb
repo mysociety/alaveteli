@@ -57,6 +57,15 @@ class Ability
       end
     end
 
+    # Updating batch requests
+    can :update, InfoRequestBatch do |batch_request|
+      if batch_request.embargo_duration
+        user && (user == batch_request.user || user.is_pro_admin?)
+      else
+        user && (user == batch_request.user || user.is_admin?)
+      end
+    end
+
     if feature_enabled? :alaveteli_pro
       # Accessing alaveteli professional
       if user && (user.is_pro_admin? || user.is_pro?)

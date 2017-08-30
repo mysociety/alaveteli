@@ -30,7 +30,7 @@ class InfoRequestBatchController < ApplicationController
     if feature_enabled?(:alaveteli_pro) && \
        params[:pro] != "1" && current_user && current_user.is_pro?
       if @info_request_batch.user == current_user && \
-         @info_request_batch.embargo_duration
+         @info_request_batch.embargo_duration.present?
         redirect_to show_alaveteli_pro_batch_request_url(@info_request_batch)
       end
     end
@@ -40,14 +40,14 @@ class InfoRequestBatchController < ApplicationController
     # Requests which aren't embargoed should always go to the normal request
     # page, so that pros see them in that context after they publish them
     if feature_enabled?(:alaveteli_pro) && params[:pro] == "1"
-      unless @info_request_batch.embargo_duration
+      unless @info_request_batch.embargo_duration.present?
         redirect_to info_request_batch_url(@info_request_batch)
       end
     end
   end
 
   def load_info_requests(offset)
-    if @info_request_batch.embargo_duration
+    if @info_request_batch.embargo_duration.present?
       load_all_info_requests(offset)
     else
       load_searchable_info_requests(offset)

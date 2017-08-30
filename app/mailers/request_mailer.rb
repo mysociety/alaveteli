@@ -231,7 +231,7 @@ class RequestMailer < ApplicationMailer
   # not in our code). ]
   def self.receive(raw_email, source = :mailin)
     unless logger.nil?
-      logger.info "Received mail from #{source}:\n #{raw_email}"
+      logger.debug "Received mail from #{source}:\n #{raw_email}"
     end
     mail = MailHandler.mail_from_raw_email(raw_email)
     new.receive(mail, raw_email, source)
