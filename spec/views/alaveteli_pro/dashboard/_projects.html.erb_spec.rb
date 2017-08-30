@@ -3,6 +3,19 @@ require 'spec_helper'
 
 describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
   let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:phase_counts) do
+    {
+      "overdue" => 1,
+      "draft" => 2,
+      "not_drafts" => 8,
+      "awaiting_response" => 2,
+      "very_overdue" => 1,
+      "response_received" => 1,
+      "clarification_needed" => 1,
+      "complete" => 1,
+      "other" => 1
+    }.with_indifferent_access
+  end
 
   before do
     TestAfterCommit.with_commits(true) do
@@ -27,12 +40,14 @@ describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
 
   def render_view
     assign :user, pro_user
+    assign :phase_counts, phase_counts
     render partial: 'alaveteli_pro/dashboard/projects'
   end
 
   def render_empty_view
     # Create a different user so that they have no requests
     assign :user, FactoryGirl.create(:pro_user)
+    assign :phase_counts, { "not_drafts" => 0 }.with_indifferent_access
     render partial: 'alaveteli_pro/dashboard/projects'
   end
 
