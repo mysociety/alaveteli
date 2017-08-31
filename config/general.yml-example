@@ -864,16 +864,6 @@ SHARED_DIRECTORIES:
 # ---
 ALLOW_BATCH_REQUESTS: false
 
-# Use the responsive base stylesheets and templates, rather than those that
-# only render the site at a fixed width. They allow the site to render nicely
-# on mobile devices as well as larger screens. Set this to false if you want to
-# continue using fixed width stylesheets.
-#
-# RESPONSIVE_STYLING - Boolean (default: true)
-#
-# ---
-RESPONSIVE_STYLING: true
-
 # Define the mailer delivery method to be used only in the production environment.
 # By default, use sendmail.
 #

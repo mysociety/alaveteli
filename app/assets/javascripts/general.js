@@ -60,10 +60,6 @@ $('#standard-popup .js-popup__close').click(function() {
      })
    })
 
-   if($.cookie('seen_foi2') == 1) {
-     //$('#standard-popup').hide();
-   }
-
   // "Create widget" page
   $("#widgetbox").select()
   // Chrome workaround

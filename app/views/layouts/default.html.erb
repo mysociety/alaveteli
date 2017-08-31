@@ -33,9 +33,8 @@
     <% if @no_crawl %>
       <meta name="robots" content="noindex, nofollow">
     <% end %>
-    <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <% end %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= render :partial => 'general/opengraph_tags' %>
     <%= render :partial => 'general/before_head_end' %>
     <!-- Replace the html tag's no-js class with js -->
@@ -53,6 +52,7 @@
 
     <a href="#content" class="show-with-keyboard-focus-only skip-to-link" tabindex="0">Skip to content</a>
       <!-- begin popups -->
+        <% unless cookies['seen_foi2'].to_s == '1' %>
           <% popup_banner = render(:partial => "general/popup_banner").strip %>
           <% if popup_banner.present? and  ! @render_to_file %>
             <div class="popup popup--popup popup--standard" role="alert" id="standard-popup">
@@ -66,14 +66,13 @@
               </div>
             </div>
           <% end %>
-          <div id="country-message">
-          </div>
+        <% end %>
+        <div id="country-message">
+        </div>
       <!-- end popups -->
-      <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-        <%= render :partial => 'general/responsive_header' %>
-      <% else %>
-        <%= render :partial => 'general/header' %>
-      <% end %>
+
+      <%= render :partial => 'general/responsive_header' %>
+
       <div id="wrapper">
         <div id="content" role="main">
           <% unless params[:action] == 'frontpage' %>
@@ -91,12 +90,8 @@
           <div style="clear:both"></div>
         </div>
       </div>
-      <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-        <%= render :partial => 'general/responsive_footer' %>
-      <% else %>
-        <%= render :partial => 'general/footer' %>
-      <% end %>
 
+      <%= render :partial => 'general/responsive_footer' %>
     </div>
     <%
         unless AlaveteliConfiguration::ga_code.empty? || (@user && @user.is_admin?) %>
