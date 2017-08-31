@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Removed non-responsive assets (Gareth Rees)
 * Upgrade to Rails 4.2 (Liz Conlan, Gareth Rees)
 * Fixed problem where the routing filter doesn't recognise default locales with
   underscores properly (Liz Conlan)
@@ -63,6 +64,8 @@
   what address to bind to as it now defaults to localhost.
   e.g. `bundle exec rails s -b 0.0.0.0` to bind to all addresses (as before)
   or `bundle exec rails s -b 10.10.10.30` to just use the Vagrantfile address.
+* File-type icons have been moved from `images` to `images/content_type`. Please
+  ensure any direct use of these uses the new path.
 
 ### Changed Templates
 

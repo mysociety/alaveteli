@@ -241,11 +241,12 @@ module InfoRequestHelper
     full_filename = File.expand_path(Rails.root.join('app',
                                                      'assets',
                                                      'images',
+                                                     'content_type',
                                                      img_filename))
     image = if File.exist?(full_filename)
-      img_filename
+      "content_type/#{ img_filename }"
     else
-      "icon_unknown.png"
+      "content_type/icon_unknown.png"
     end
 
     link_to image_tag(image, :class => "attachment__image",

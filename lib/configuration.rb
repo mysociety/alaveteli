@@ -89,7 +89,6 @@ module AlaveteliConfiguration
       :RECAPTCHA_PUBLIC_KEY => 'x',
       :REPLY_LATE_AFTER_DAYS => 20,
       :REPLY_VERY_LATE_AFTER_DAYS => 40,
-      :RESPONSIVE_STYLING => true,
       :RESTRICTED_COUNTRIES => '',
       :SITE_NAME => 'Alaveteli',
       :SKIP_ADMIN_AUTH => false,

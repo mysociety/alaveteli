@@ -515,7 +515,7 @@ describe InfoRequestHelper do
       it 'returns a link with a specific icon' do
         expect(attachment_link(jpeg_attachment.incoming_message,
                                jpeg_attachment)).
-          to match('images/icon_image_jpeg_large.png')
+          to match('images/content_type/icon_image_jpeg_large.png')
       end
 
     end
@@ -529,7 +529,7 @@ describe InfoRequestHelper do
       it 'returns a link with the "unknown" icon' do
         expect(attachment_link(unknown_attachment.incoming_message,
                                unknown_attachment)).
-          to match('images/icon_unknown.png')
+          to match('images/content_type/icon_unknown.png')
       end
     end
 
