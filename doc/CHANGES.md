@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Make it clearer to users that they must complete an action when receiving the
+  email to remind them to update the status of a request (Gareth Rees)
 * Removed non-responsive assets (Gareth Rees)
 * Upgrade to Rails 4.2 (Liz Conlan, Gareth Rees)
 * Fixed problem where the routing filter doesn't recognise default locales with
