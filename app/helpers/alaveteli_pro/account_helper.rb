@@ -14,4 +14,10 @@ module AlaveteliPro::AccountHelper
     end
   end
 
+  def card_expiry_message(month, year)
+    if month == Date.today.month && year == Date.today.year
+      _('Expires soon')
+    end
+  end
+
 end
