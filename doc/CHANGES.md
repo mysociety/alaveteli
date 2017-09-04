@@ -1,3 +1,9 @@
+# 0.27.0.10
+
+## Highlighted Features
+
+* Update translations for Nepal (Liz Conlan)
+
 # 0.27.0.9
 
 ## Highlighted Features
