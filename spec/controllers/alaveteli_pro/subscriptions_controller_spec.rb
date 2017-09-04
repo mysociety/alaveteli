@@ -281,4 +281,38 @@ describe AlaveteliPro::SubscriptionsController do
 
   end
 
+  describe 'GET #show' do
+
+    context 'without a signed-in user' do
+
+      before do
+        get :show
+      end
+
+      it 'redirects to the login form' do
+        expect(response).
+          to redirect_to(signin_path(:token => PostRedirect.last.token))
+      end
+
+    end
+
+    context 'with a signed-in user' do
+
+      let(:user) { FactoryGirl.create(:pro_user) }
+
+      before do
+        with_feature_enabled(:pro_pricing) do
+          session[:user_id] = user.id
+        end
+      end
+
+      it 'successfully loads the page' do
+        get :show
+        expect(response).to be_success
+      end
+
+    end
+
+  end
+
 end
