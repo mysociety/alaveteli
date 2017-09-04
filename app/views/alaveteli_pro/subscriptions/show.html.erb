@@ -10,3 +10,9 @@
   <%= render partial: 'subscription',
              collection: @customer.subscriptions.to_a %>
 </ul>
+
+<h2><%= _('Your payment details') %></h2>
+
+<ul class='payment-options__list'>
+  <%= render partial: 'card', collection: @customer.sources.to_a %>
+</ul>
