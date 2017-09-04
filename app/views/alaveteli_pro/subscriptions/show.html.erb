@@ -5,3 +5,7 @@
 
 <%= render partial: 'subscription',
            locals: { subscription: @customer.subscriptions.first } %>
+
+<h2><%= _('Your payment details') %></h2>
+
+<%= render partial: 'card', locals: { card: @customer.sources.first } %>
