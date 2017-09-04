@@ -296,9 +296,32 @@ describe AlaveteliPro::SubscriptionsController do
 
     end
 
+    context 'user has no Stripe id' do
+
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it 'raise an error' do
+        expect { get :show }.to raise_error ActiveRecord::RecordNotFound
+      end
+
+    end
+
     context 'with a signed-in user' do
 
       let(:user) { FactoryGirl.create(:pro_user) }
+
+      let!(:customer) do
+        customer = Stripe::Customer.create({
+          email: user.email,
+          source: stripe_helper.generate_card_token
+        })
+        user.pro_account.update!(stripe_customer_id: customer.id)
+        customer
+      end
 
       before do
         session[:user_id] = user.id
@@ -308,6 +331,11 @@ describe AlaveteliPro::SubscriptionsController do
       it 'successfully loads the page' do
         get :show
         expect(response).to be_success
+      end
+
+      it 'finds the Stripe subscription for the user' do
+        expect(assigns[:customer].id).
+          to eq(user.pro_account.stripe_customer_id)
       end
 
     end
