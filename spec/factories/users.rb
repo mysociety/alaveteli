@@ -57,6 +57,7 @@ FactoryGirl.define do
     factory :pro_user do
       sequence(:name) { |n| "Pro User #{n}" }
       after(:create) do |user, evaluator|
+        user.create_pro_account
         user.add_role :pro
       end
     end

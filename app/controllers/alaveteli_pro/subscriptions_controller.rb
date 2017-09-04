@@ -67,16 +67,24 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
   end
 
   def show
+    @customer = Stripe::Customer.
+                  retrieve(current_user.pro_account.stripe_customer_id)
   end
 
   private
 
   def authenticate
-    post_redirect_params = {
-      :web => _('To upgrade your account'),
-      :email => _('To upgrade your account'),
-      :email_subject => _('To upgrade your account') }
-
+    if action_name == "index"
+      post_redirect_params = {
+        :web => _('To upgrade your account'),
+        :email => _('To upgrade your account'),
+        :email_subject => _('To upgrade your account') }
+    else
+      post_redirect_params = {
+        :web => _('To access your account'),
+        :email => _('To access your account'),
+        :email_subject => _('To access your account') }
+    end
     authenticated?(post_redirect_params)
   end
 end

@@ -1,2 +1,12 @@
 <h1>AlaveteliPro::Subscriptions#show</h1>
 <p>Find me in app/views/alaveteli_pro/subscriptions/show.html.erb</p>
+
+<h2><%= n_('Your current subscription',
+           'You currently have {{count}} active subscriptions:',
+       @customer.subscriptions.count,
+       count: @customer.subscriptions.count) %></h2>
+
+<ul class='subscriptions__list'>
+  <%= render partial: 'subscription',
+             collection: @customer.subscriptions.to_a %>
+</ul>

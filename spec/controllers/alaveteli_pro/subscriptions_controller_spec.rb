@@ -300,15 +300,26 @@ describe AlaveteliPro::SubscriptionsController do
 
       let(:user) { FactoryGirl.create(:pro_user) }
 
+      let!(:customer) do
+        customer = Stripe::Customer.create({
+          email: user.email,
+          card: stripe_helper.generate_card_token
+        })
+        user.pro_account.stripe_customer_id = customer.id
+        user.pro_account.save
+        customer
+      end
+
       before do
         with_feature_enabled(:pro_pricing) do
           session[:user_id] = user.id
+          get :show
         end
       end
 
-      it 'successfully loads the page' do
-        get :show
-        expect(response).to be_success
+      it 'finds the Stripe subscription for the user' do
+        expect(assigns[:customer].id).
+          to eq(user.pro_account.stripe_customer_id)
       end
 
     end
