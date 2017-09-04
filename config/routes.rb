@@ -609,6 +609,10 @@ Rails.application.routes.draw do
     scope module: 'alaveteli_pro' do
       resources :plans, only: [:show]
       resources :subscriptions, only: [:create]
+
+      match '/profile/subscriptions' => 'subscriptions#show',
+            :as => :subscription,
+            :via => :get
     end
   end
 
