@@ -1,0 +1,10 @@
+<%= subscription.plan.name %><br>
+<%= _('Amount: {{plan_price}}',
+      plan_price: number_to_currency(subscription.plan.amount * 1.2 / 100.0)) %>
+<br>
+<%= billing_frequency(subscription.plan.interval) %><br>
+<% if subscription.cancel_at_period_end %>
+  <%= _('Your subscription will end on {{date}}',
+        date: simple_date(Time.zone.at(subscription.current_period_end),
+                          :format => :text)) %>
+<% end %>

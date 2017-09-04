@@ -1,2 +1,7 @@
 <h1>AlaveteliPro::Subscriptions#show</h1>
 <p>Find me in app/views/alaveteli_pro/subscriptions/show.html.erb</p>
+
+<h2><%= _('Your current subscription') %></h2>
+
+<%= render partial: 'subscription',
+           locals: { subscription: @customer.subscriptions.first } %>
