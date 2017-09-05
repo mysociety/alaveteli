@@ -604,6 +604,13 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
+  #### Pro Pricing
+  constraints FeatureConstraint.new(:pro_pricing) do
+    namespace :alaveteli_pro, path: 'pro', as: 'pro' do
+      resources :plans, only: [:index], path: 'pricing'
+    end
+  end
+
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
 
