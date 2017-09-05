@@ -22,9 +22,19 @@ class AlaveteliPro::PlansController < ApplicationController
   end
 
   def check_existing_subscription
-    if @user.pro_account
-      flash[:error] = _('You are already subscribed to this plan')
-      redirect_to alaveteli_pro_dashboard_path
+    customer_id = @user.pro_account.try(:stripe_customer_id)
+
+    if customer_id
+      customer = Stripe::Customer.retrieve(customer_id)
+      # TODO: This doesn't take the plan in to account
+      active_subscriptions =
+        customer.subscriptions.map(&:status).
+          any? { |status| status != 'canceled' }
+
+      if active_subscriptions
+        flash[:error] = _('You are already subscribed to this plan')
+        redirect_to alaveteli_pro_dashboard_path
+      end
     end
   end
 end
