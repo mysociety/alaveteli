@@ -28,19 +28,35 @@ describe AlaveteliPro::PlansController do
 
       before do
         session[:user_id] = user.id
-        get :show, id: 'pro'
       end
 
-      it 'finds the specified plan' do
-        expect(assigns(:plan)).to eq(pro_plan)
+      context 'with a valid plan' do
+
+        before do
+          get :show, id: 'pro'
+        end
+
+        it 'finds the specified plan' do
+          expect(assigns(:plan)).to eq(pro_plan)
+        end
+
+        it 'renders the plan page' do
+          expect(response).to render_template(:show)
+        end
+
+        it 'returns http success' do
+          expect(response).to have_http_status(:success)
+        end
+
       end
 
-      it 'renders the plan page' do
-        expect(response).to render_template(:show)
-      end
+      context 'with an invalid plan' do
 
-      it 'returns http success' do
-        expect(response).to have_http_status(:success)
+        it 'returns ActiveRecord::RecordNotFound' do
+          expect { get :show, id: 'invalid-123' }.
+            to raise_error(ActiveRecord::RecordNotFound)
+        end
+
       end
 
     end
