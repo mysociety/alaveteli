@@ -2,6 +2,10 @@
   <%= subscription.plan.name %><br>
   Amount: <%= number_to_currency(subscription.plan.amount * 1.2 / 100.0) %><br>
   Billed: <%= billing_frequency(subscription.plan.interval) %><br>
+  Subscription created on
+  <%= simple_date(
+        Time.at(subscription.created),
+        :format => :text) %><br>
   <% if subscription.cancel_at_period_end %>
     Your subscription will end on
     <%= simple_date(
