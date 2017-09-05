@@ -16,15 +16,34 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
   def create
     @token = Stripe::Token.retrieve(params[:stripeToken])
 
-    @customer = Stripe::Customer.create(email: params[:stripeEmail],
-                                        source: @token)
+    existing_customer_id = current_user.pro_account.try(:stripe_customer_id)
 
-    @subscription =
-      Stripe::Subscription.create(customer: @customer,
-                                  plan: params[:plan_id],
-                                  tax_percent: 20.0)
+    @customer =
+      if existing_customer_id
+        customer = Stripe::Customer.retrieve(existing_customer_id)
+        customer.source = @token.id
+        customer.save
+        customer
+      else
+        customer =
+          Stripe::Customer.create(email: params[:stripeEmail],
+                                  source: @token)
 
-    current_user.create_pro_account(stripe_customer_id: @customer.id)
+        current_user.create_pro_account(stripe_customer_id: customer.id)
+        customer
+      end
+
+    begin
+      @subscription =
+        Stripe::Subscription.create(customer: @customer,
+                                    plan: params[:plan_id],
+                                    tax_percent: 20.0)
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      redirect_to plan_path(params[:plan_id])
+      return
+    end
+
     current_user.add_role(:pro)
 
     redirect_to alaveteli_pro_dashboard_path
