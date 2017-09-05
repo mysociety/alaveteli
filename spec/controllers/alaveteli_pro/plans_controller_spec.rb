@@ -50,6 +50,28 @@ describe AlaveteliPro::PlansController do
 
       end
 
+      context 'with an existing pro account' do
+
+        before do
+          session[:user_id] = user.id
+          user.create_pro_account(:stripe_customer_id => '123')
+          user.add_role(:pro)
+          get :show, id: 'pro'
+        end
+
+        it 'tells the user they already have a plan' do
+          expect(flash[:error]).to eq('You are already subscribed to this plan')
+        end
+
+        it 'redirects to the pro dashboard' do
+          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
+        end
+
+        pending 'redirects to the account page' do
+          expect(response).to redirect_to(users_subscriptions_path)
+        end
+      end
+
       context 'with an invalid plan' do
 
         it 'returns ActiveRecord::RecordNotFound' do
