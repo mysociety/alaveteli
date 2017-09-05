@@ -7,5 +7,10 @@
     <%= simple_date(
           Time.at(subscription.current_period_end),
           :format => :text) %>
+  <% else %>
+     Your next payment will be taken on
+     <%= simple_date(
+           Time.at(subscription.current_period_end),
+           :format => :text) %>
   <% end %>
 </li>
