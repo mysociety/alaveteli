@@ -71,6 +71,10 @@ describe AlaveteliPro::SubscriptionsController do
             to eq(assigns(:customer).id)
         end
 
+        it 'welcomes the new user' do
+          expect(flash[:notice]).to eq('Welcome to Alaveteli Professional!')
+        end
+
         it 'redirects to the pro dashboard' do
           expect(response).to redirect_to(alaveteli_pro_dashboard_path)
         end
