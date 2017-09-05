@@ -1,7 +1,10 @@
 # -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController as is pre-login
 class AlaveteliPro::PlansController < ApplicationController
-  before_filter :authenticate, :check_existing_subscription
+  before_filter :authenticate, :check_existing_subscription, only: [:show]
+
+  def index
+  end
 
   def show
     stripe_plan = Stripe::Plan.retrieve(params[:id])
