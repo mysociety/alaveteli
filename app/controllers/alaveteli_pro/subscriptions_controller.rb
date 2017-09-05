@@ -46,6 +46,8 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
 
     current_user.add_role(:pro)
 
+    flash[:notice] = _('Welcome to {{pro_site_name}}!',
+                       pro_site_name: AlaveteliConfiguration.pro_site_name)
     redirect_to alaveteli_pro_dashboard_path
   end
 
