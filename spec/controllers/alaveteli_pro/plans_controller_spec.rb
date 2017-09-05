@@ -8,6 +8,22 @@ describe AlaveteliPro::PlansController do
   let(:stripe_helper) { StripeMock.create_test_helper }
   let!(:pro_plan) { stripe_helper.create_plan(id: 'pro', amount: 1000) }
 
+  describe 'GET #index' do
+
+    before do
+      get :index
+    end
+
+    it 'renders the plans page' do
+      expect(response).to render_template(:index)
+    end
+
+    it 'returns http success' do
+      expect(response).to have_http_status(:success)
+    end
+
+  end
+
   describe 'GET #show' do
 
     context 'without a signed-in user' do
