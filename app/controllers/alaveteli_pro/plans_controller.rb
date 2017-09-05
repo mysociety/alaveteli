@@ -6,6 +6,8 @@ class AlaveteliPro::PlansController < ApplicationController
   def show
     stripe_plan = Stripe::Plan.retrieve(params[:id])
     @plan = AlaveteliPro::PlanWithTax.new(stripe_plan)
+  rescue Stripe::InvalidRequestError
+    raise ActiveRecord::RecordNotFound
   end
 
   private
