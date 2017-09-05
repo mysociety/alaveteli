@@ -613,6 +613,10 @@ Rails.application.routes.draw do
       match '/profile/subscriptions' => 'subscriptions#show',
             :as => :subscription,
             :via => :get
+
+      match '/profile/subscriptions/update_card' => 'payment_methods#update',
+            :as => :update_subscription_payment,
+            :via => :post
     end
   end
 
