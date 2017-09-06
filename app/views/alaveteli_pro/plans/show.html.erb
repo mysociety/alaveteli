@@ -22,4 +22,13 @@
           data-zip-code="true"
           data-currency="gbp">
   </script>
+
+  <noscript>
+    <div id="error">
+      <p>
+        <%= _('Continuing with checkout requires your browser to have ' \
+              'JavaScript enabled.') %>
+      </p>
+    </div>
+  </noscript>
 <% end %>
