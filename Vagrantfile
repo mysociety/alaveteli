@@ -61,7 +61,19 @@ require 'yaml'
 # that the default location is used on the guest. You can use the env var
 # ALAVETELI_THEMES_DIR to change where this Vagrantfile looks for the themes
 # directory on the host.
-#
+
+def cpu_count
+  host = RbConfig::CONFIG['host_os']
+  # Give VM access to all cpu cores on the host
+  if host =~ /darwin/
+    `sysctl -n hw.ncpu`.to_i
+  elsif host =~ /linux/
+    `nproc`.to_i
+  else # sorry Windows folks, I can't help you
+    1
+  end
+end
+
 # Customization Options
 # =====================
 #
@@ -76,7 +88,8 @@ DEFAULTS = {
   'themes_dir' => '../alaveteli-themes',
   'os' => 'wheezy64',
   'use_nfs' => false,
-  'show_settings' => false
+  'show_settings' => false,
+  'cpus' => cpu_count
 }.freeze
 
 env = DEFAULTS.keys.reduce({}) do |memo, key|
@@ -155,18 +168,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # The bundle install fails unless you have quite a large amount of
   # memory; insist on 1.5GiB:
   config.vm.provider 'virtualbox' do |vb|
-    host = RbConfig::CONFIG['host_os']
-    # Give VM access to all cpu cores on the host
-    if host =~ /darwin/
-      cpus = `sysctl -n hw.ncpu`.to_i
-    elsif host =~ /linux/
-      cpus = `nproc`.to_i
-    else # sorry Windows folks, I can't help you
-      cpus = 1
-    end
-
     vb.customize ['modifyvm', :id, '--memory', SETTINGS['memory']]
-    vb.customize ['modifyvm', :id, '--cpus', cpus]
+    vb.customize ['modifyvm', :id, '--cpus', SETTINGS['cpus']]
   end
 
   # Fetch and run the install script:
