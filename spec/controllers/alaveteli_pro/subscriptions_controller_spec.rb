@@ -128,6 +128,141 @@ describe AlaveteliPro::SubscriptionsController do
 
       end
 
+      context 'when we are rate limited' do
+        let(:token) { stripe_helper.generate_card_token }
+
+        before do
+          error = Stripe::RateLimitError.new
+          StripeMock.prepare_error(error, :create_subscription)
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro'
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::RateLimitError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the plan page' do
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+      end
+
+      context 'when Stripe receives an invalid request' do
+        let(:token) { stripe_helper.generate_card_token }
+
+        before do
+          error = Stripe::InvalidRequestError.new('message', 'param')
+          StripeMock.prepare_error(error, :create_subscription)
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro'
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::InvalidRequestError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the plan page' do
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+      end
+
+      context 'when we cannot authenticate with Stripe' do
+        let(:token) { stripe_helper.generate_card_token }
+
+        before do
+          error = Stripe::AuthenticationError.new
+          StripeMock.prepare_error(error, :create_subscription)
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro'
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::AuthenticationError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the plan page' do
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+      end
+
+      context 'when we cannot connect to Stripe' do
+        let(:token) { stripe_helper.generate_card_token }
+
+        before do
+          error = Stripe::APIConnectionError.new
+          StripeMock.prepare_error(error, :create_subscription)
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro'
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::APIConnectionError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the plan page' do
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+      end
+
+      context 'when Stripe returns a generic error' do
+        let(:token) { stripe_helper.generate_card_token }
+
+        before do
+          error = Stripe::StripeError.new
+          StripeMock.prepare_error(error, :create_subscription)
+          post :create, 'stripeToken' => token,
+                        'stripeTokenType' => 'card',
+                        'stripeEmail' => user.email,
+                        'plan_id' => 'pro'
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::StripeError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the plan page' do
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+      end
+
     end
 
   end
