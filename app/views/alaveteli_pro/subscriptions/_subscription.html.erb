@@ -1,6 +1,13 @@
 <li class='subscription__list__item'>
   <%= subscription.plan.name %><br>
-  Amount: <%= number_to_currency(subscription.plan.amount * 1.2 / 100.0) %><br>
+  Amount:
+  <%= number_to_currency(subscription_amount(subscription) / 100.0,
+                         unit: '£') %>
+  <% if discount_applied?(subscription) %>
+    <%= _('(with <b>{{discount_name}}</b> discount applied)',
+          :discount_name => subscription.discount.coupon.id) %>
+  <% end %>
+  <br>
   Billed: <%= billing_frequency(subscription.plan.interval) %><br>
   Subscription created on
   <%= simple_date(
