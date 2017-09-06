@@ -263,6 +263,20 @@ describe AlaveteliPro::SubscriptionsController do
 
       end
 
+      context 'when invalid params are submitted' do
+
+        it 'redirects to the plan page if there is a plan' do
+          post :create, :plan_id => 'pro'
+          expect(response).to redirect_to(plan_path('pro'))
+        end
+
+        pending 'redirects to the pricing page if there is no plan' do
+          post :create
+          expect(response).to redirect_to(plans_path)
+        end
+
+      end
+
     end
 
   end
