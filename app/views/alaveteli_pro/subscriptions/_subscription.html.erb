@@ -1,7 +1,11 @@
 <%= subscription.plan.name %><br>
 <%= _('Amount: {{plan_price}}',
-      plan_price: number_to_currency(subscription.plan.amount * 1.2 / 100.0)) %>
-<br>
+      plan_price: number_to_currency(subscription_amount(subscription) / 100.0,
+                                     unit: '£')) %>
+<% if discount_applied?(subscription) %>
+  <%= _('(with <b>{{discount_name}}</b> discount applied)',
+        :discount_name => subscription.discount.coupon.id) %>
+<% end %><br>
 <%= billing_frequency(subscription.plan.interval) %><br>
 <%= _('Subscription created on {{date}}',
       date: simple_date(Time.zone.at(subscription.created),
