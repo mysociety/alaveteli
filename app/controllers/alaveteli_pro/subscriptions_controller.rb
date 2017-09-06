@@ -14,32 +14,45 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
   #  "controller"=>"alaveteli_pro/subscriptions",
   #  "action"=>"create"}
   def create
-    @token = Stripe::Token.retrieve(params[:stripeToken])
-
-    existing_customer_id = current_user.pro_account.try(:stripe_customer_id)
-
-    @customer =
-      if existing_customer_id
-        customer = Stripe::Customer.retrieve(existing_customer_id)
-        customer.source = @token.id
-        customer.save
-        customer
-      else
-        customer =
-          Stripe::Customer.create(email: params[:stripeEmail],
-                                  source: @token)
-
-        current_user.create_pro_account(stripe_customer_id: customer.id)
-        customer
-      end
-
     begin
+      @token = Stripe::Token.retrieve(params[:stripeToken])
+
+      existing_customer_id = current_user.pro_account.try(:stripe_customer_id)
+
+      @customer =
+        if existing_customer_id
+          customer = Stripe::Customer.retrieve(existing_customer_id)
+          customer.source = @token.id
+          customer.save
+          customer
+        else
+          customer =
+            Stripe::Customer.create(email: params[:stripeEmail],
+                                    source: @token)
+
+          current_user.create_pro_account(stripe_customer_id: customer.id)
+          customer
+        end
+
       @subscription =
         Stripe::Subscription.create(customer: @customer,
                                     plan: params[:plan_id],
                                     tax_percent: 20.0)
     rescue Stripe::CardError => e
       flash[:error] = e.message
+      redirect_to plan_path(params[:plan_id])
+      return
+    rescue Stripe::RateLimitError,
+           Stripe::InvalidRequestError,
+           Stripe::AuthenticationError,
+           Stripe::APIConnectionError,
+           Stripe::StripeError => e
+      if send_exception_notifications?
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      flash[:error] = _('There was a problem submitting your payment. You ' \
+                        'have not been charged. Please try again later.')
       redirect_to plan_path(params[:plan_id])
       return
     end
