@@ -20,4 +20,15 @@ module AlaveteliPro::AccountHelper
     end
   end
 
+  def subscription_amount(subscription)
+    AlaveteliPro::PlanWithTax.new(
+      AlaveteliPro::PlanWithDiscount.new(subscription)
+    ).amount_with_tax
+  end
+
+  def discount_applied?(subscription)
+    AlaveteliPro::PlanWithDiscount.new(subscription).amount <
+      subscription.plan.amount
+  end
+
 end
