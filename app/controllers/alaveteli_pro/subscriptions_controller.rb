@@ -53,7 +53,9 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
 
       flash[:error] = _('There was a problem submitting your payment. You ' \
                         'have not been charged. Please try again later.')
-      redirect_to plan_path(params[:plan_id])
+
+      path = params[:plan_id] ? plan_path(params[:plan_id]) : plans_path
+      redirect_to path
       return
     end
 
