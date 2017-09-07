@@ -52,9 +52,9 @@ class AdminGeneralController < AdminController
                          @body_update_requests ].
       any?{ |to_do_list| ! to_do_list.empty? }
 
+    # HACK: Running this query through ActiveRecord freezes…
     @attention_comments = Comment.
-      where(:attention_requested => true).
-        not_embargoed
+      find_by_sql(Comment.where(attention_requested: true).not_embargoed.to_sql)
 
     @comment_tasks = [ @attention_comments ].
       any?{ |to_do_list| ! to_do_list.empty? }
