@@ -33,6 +33,10 @@ FactoryGirl.define do
     factory :attention_requested do
       attention_requested true
     end
+
+    factory :embargoed_comment do
+      association :info_request, factory: :embargoed_request
+    end
   end
 
 end
