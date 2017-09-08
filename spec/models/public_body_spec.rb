@@ -1517,6 +1517,7 @@ CSV
 
   it 'has a default list of fields to import' do
     expected_fields = [
+      ['id', ''],
       ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
       ['short_name', '(i18n)'],
       ['request_email', '(i18n)'],
@@ -1533,6 +1534,7 @@ CSV
   it 'allows you to override the default list of fields to import' do
     old_csv_import_fields = PublicBody.csv_import_fields.clone
     expected_fields = [
+      ['id', ''],
       ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
       ['short_name', '(i18n)'],
     ]
@@ -1548,6 +1550,7 @@ CSV
   it 'allows you to append to the default list of fields to import' do
     old_csv_import_fields = PublicBody.csv_import_fields.clone
     expected_fields = [
+      ['id', ''],
       ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
       ['short_name', '(i18n)'],
       ['request_email', '(i18n)'],
@@ -1576,7 +1579,7 @@ CSV
     expect(errors).to eq([])
     expect(notes.size).to eq(3)
     expect(notes[0..1]).to eq([
-      "line 2: creating new authority 'Test' (locale: en):\n\t{\"name\":\"Test\",\"request_email\":\"test@test.es\",\"home_page\":\"http://www.test.es/\",\"tag_string\":\"37\"}",
+      "line 2: creating new authority 'Test' (locale: en):\n\t{\"id\":\"23842\",\"name\":\"Test\",\"request_email\":\"test@test.es\",\"home_page\":\"http://www.test.es/\",\"tag_string\":\"37\"}",
       "line 2: creating new authority 'Test' (locale: es):\n\t{\"name\":\"Test\"}",
     ])
     expect(notes[2]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
