@@ -238,15 +238,22 @@ that you have appropriate versions installed. Some also list "`|`" and offer a
 choice of packages.
 
 <div class="attention-box">
-
 <strong>Note:</strong> To install Alaveteli's Ruby dependencies, you need to install bundler. In
 Debian and Ubuntu, this is provided as a package (installed as part of the
 package install process above). For other OSes, you could also install it as a gem:
 
-   <pre><code> gem install bundler --no-rdoc --no-ri</code></pre>
+   <pre><code>sudo -u alaveteli gem install --user-install bundler --no-rdoc --no-ri</code></pre>
+
+You should see a warning telling you that gem executables will not run as the application
+user doesn't have their local gem bin path in their path. Add it, making sure you use the ruby version
+directory you see in the warning message:
+
+<pre><code>cat >> /home/alaveteli/.bashrc <<EOF
+export PATH="\$HOME/.gem/ruby/1.9.1/bin:\$PATH"
+EOF
+exec $SHELL</code></pre>
 
 </div>
-
 
 ## Configure Database
 
@@ -443,6 +450,9 @@ and then drop it in `/etc/cron.d/` on the server.
 * `user`: the user that the software runs as
 * `site`: a string to identify your alaveteli instance
 * `mailto`: The email address or local account that cron output will be sent to - setting an email address depends on your MTA having been configured for remote delivery.
+* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
+  if that was neccessary. This will be used to add the deployment user's local
+  gem directory to the `PATH` used in the cron file
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. This example sends cron output to the local `alaveteli` user. Change the variables to suit your installation.
@@ -459,6 +469,13 @@ useful to you. This example sends cron output to the local `alaveteli` user. Cha
 
     chown root:alaveteli /etc/cron.d/alaveteli
     chmod 754 /etc/cron.d/alaveteli
+
+Note: If you are generating the crontab manually, rather than with this rake task,
+you will need to add a line to periodically check on each daemon you install following
+the instructions below, as follows, making sure to replace DAEMON_NAME with the name
+of the daemon file:
+
+    5,15,25,35,45,55 * * * * alaveteli /etc/init.d/DAEMON_NAME check
 
 ### Generate application daemon
 
@@ -543,6 +560,9 @@ is an init script, which can be generated from the
   e.g. `alaveteli`
 * `site`: a string to identify your alaveteli instance
 * `user`: the user that the software runs as
+* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
+  if that was neccessary. This will be used to add the user's local
+  gem directory to the `PATH` used in the daemon file
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
@@ -563,7 +583,7 @@ Start the alert tracks daemon:
 
     service alaveteli-alert-tracks start
 
-### Generate varnish purge daemon
+### Generate varnish purge daemon (optional)
 
 `config/purge-varnish-debian.example` is a similar init script, which is optional
 and not required if you choose not to run your site behind Varnish (see below). It notifies Varnish of cached pages that need to be purged from Varnish's cache. It will not run if Varnish is not installed.
@@ -577,6 +597,9 @@ and not required if you choose not to run your site behind Varnish (see below). 
   e.g. `alaveteli`
 * `site`: a string to identify your alaveteli instance
 * `user`: the user that the software runs as
+* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
+  if that was neccessary. This will be used to add the user's local
+  gem directory to the `PATH` used in the daemon file
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
@@ -593,10 +616,51 @@ useful to you. Change the variables to suit your installation.
     chown root:alaveteli /etc/init.d/alaveteli-purge-varnish
     chmod 754 /etc/init.d/alaveteli-purge-varnish
 
-Start the alert tracks daemon:
+Start the varnish purge daemon:
 
     service alaveteli-purge-varnish start
 
+### Generate mail poller daemon (optional)
+
+`config/poll-for-incoming-debian.example` is another init script, which is optional
+and not required unless you want to have Alaveteli poll a POP3 mailbox for incoming
+mail rather than passively accepting it via the `mailin` script. The setup for
+polling is described in the documentation for [`PRODUCTION_MAILER_RETRIEVER_METHOD`]({{ page.baseurl }}/docs/customising/config#production_mailer_retriever_method), the config setting that
+switches it on. If you are using polling, this daemon will check the POP3 mailbox
+for new incoming emails. If you want to use polling, you should setup your install to
+deliver incoming mail for requests to the mailbox, rather than into the application.
+
+**Template Variables:**
+
+* `daemon_name`: The name of the daemon. This is set by the rake task.
+* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the alaveteli code.
+  e.g. `alaveteli`
+* `site`: a string to identify your alaveteli instance
+* `user`: the user that the software runs as
+* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
+  if that was neccessary. This will be used to add the user's local
+  gem directory to the `PATH` used in the daemon file
+
+There is a rake task that will help to rewrite this file into one that is
+useful to you. Change the variables to suit your installation.
+
+    pushd /var/www/alaveteli
+    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
+      DEPLOY_USER=alaveteli \
+      VHOST_DIR=/var/www \
+      VCSPATH=alaveteli \
+      SITE=alaveteli \
+      SCRIPT_FILE=/var/www/alaveteli/config/poll-for-incoming-debian.example > /etc/init.d/alaveteli-poll-for-incoming
+    popd
+
+    chown root:alaveteli /etc/init.d/alaveteli-poll-for-incoming
+    chmod 754 /etc/init.d/alaveteli-poll-for-incoming
+
+Start the polling daemon:
+
+    service alaveteli-poll-for-incoming start
 
 ## Configure the web server
 
