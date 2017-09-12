@@ -191,6 +191,18 @@ a.track-request-action {
   h2 {
     padding: 1.2em 1.2em 0;
   }
+
+  &.collapsed {
+    // When collapsed, hide everything except the header.
+    // TODO: Screenreaders?
+    & > * {
+      display: none;
+    }
+
+    & > .correspondence__header {
+      display: block;
+    }
+  }
 }
 
 .correspondence_delivery {
@@ -209,14 +221,12 @@ a.track-request-action {
   padding: 0.6em 1.2em;
 }
 
-.correspondence__header__from--with-delivery-status {
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    margin-right: 8em;
+@include respond-min( $main_menu-mobile_menu_cutoff ){
+  .correspondence__header--with-delivery-status {
+    padding-right: 8.6em;
   }
-}
 
-.correspondence__header__delivery-status {
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
+  .correspondence__header__delivery-status {
     position: absolute;
     right: 1.2em;
     top: 0.6em;
