@@ -150,8 +150,13 @@ postfix reload
 
 install_website_packages
 
-# use ruby 2.1.5 or 1.9.3 if it's already the default (i.e. 'jessie', 'trusty')
-if ruby --version | grep -q 'ruby 2.1.5' > /dev/null
+# use ruby 2.3.3, 2.1.5 or 1.9.3 if it's already the default
+# (i.e. 'stretch', 'jessie', 'trusty')
+if ruby --version | grep -q 'ruby 2.3.3' > /dev/null
+then
+  echo 'using ruby 2.3.3'
+  RUBY_VERSION='2.3.3'
+elif ruby --version | grep -q 'ruby 2.1.5' > /dev/null
 then
   echo 'using ruby 2.1.5'
   RUBY_VERSION='2.1.5'
