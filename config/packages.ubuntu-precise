@@ -17,7 +17,6 @@ lockfile-progs
 memcached
 mutt
 pdftk
-php5-cli
 poppler-utils
 postgresql
 postgresql-client
