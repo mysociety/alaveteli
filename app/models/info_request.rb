@@ -1424,19 +1424,35 @@ class InfoRequest < ActiveRecord::Base
      PublicBody.set_callback(:save, :after, :purge_in_cache)
   end
 
+  def similar_cache_key
+    "request/similar/#{id}"
+  end
+
   # Get requests that have similar important terms
   def similar_requests(limit=10)
-    xapian_similar = nil
-    xapian_similar_more = false
-    begin
-      xapian_similar = ActsAsXapian::Similar.new([InfoRequestEvent],
-                                                 info_request_events,
-                                                 :limit => limit,
-                                                 :collapse_by_prefix => 'request_collapse')
-      xapian_similar_more = (xapian_similar.matches_estimated > limit)
-    rescue
+    ids, more = similar_ids(limit)
+    [InfoRequest.includes(:public_body => :translations).find(ids), more]
+  end
+
+  # Get the ids of similar requests, and whether there are more
+  def similar_ids(limit=10)
+    Rails.cache.fetch(similar_cache_key, expires_in: 3.days) do
+      ids = []
+      xapian_similar_more = false
+      begin
+        xapian_similar =
+          ActsAsXapian::Similar.new([InfoRequestEvent],
+                                    info_request_events,
+                                    :limit => limit,
+                                    :collapse_by_prefix => 'request_collapse')
+        xapian_similar_more = (xapian_similar.matches_estimated > limit)
+        ids = xapian_similar.results.map do |result|
+          result[:model].info_request_id
+        end
+      rescue
+      end
+      [ids, xapian_similar_more]
     end
-    [xapian_similar, xapian_similar_more]
   end
 
   def self.request_list(filters, page, per_page, max_results)

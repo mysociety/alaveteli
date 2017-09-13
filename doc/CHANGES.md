@@ -42,6 +42,8 @@
   passively accepting mail piped into the application via `script/mailin` (Louise Crow)
 * Only publicly visible requests are now counted in the text for a user search
   result (Louise Crow)
+* Similar request IDs are now cached, rather than template partials displaying
+  similar requests, in order to make better usage of the cache space (Louise Crow)
 
 ## Upgrade Notes
 
