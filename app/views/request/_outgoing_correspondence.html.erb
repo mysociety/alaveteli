@@ -6,8 +6,10 @@
 
     <% delivery_status = outgoing_message.delivery_status %>
 
-    <div class="correspondence__header <% if delivery_status %>correspondence__header--with-delivery-status<% end %> js-collapsable-trigger">
-      <%= @info_request.user_name %>
+    <div class="correspondence__header <% if delivery_status %>correspondence__header--with-delivery-status<% end %>">
+      <span class="correspondence__header__author js-collapsable-trigger">
+        <%= @info_request.user_name %>
+      </span>
 
       <%= link_to outgoing_message_path(outgoing_message), :class => 'correspondence__header__date' do %>
           <%= simple_date(info_request_event.created_at) %>
