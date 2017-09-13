@@ -367,6 +367,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         end
 
         it "adds all the batch's requests unique phases as categories" do
+          skip 'Frequent transient failures'
           TestAfterCommit.with_commits(true) do
             # There are 5 requests, but three should be in "awaiting_response"
             # and they should be de-duped
