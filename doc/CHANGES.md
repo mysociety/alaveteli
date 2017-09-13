@@ -40,6 +40,8 @@
   a daemon from the `poll-for-incoming-debian.example` template will
   cause Alaveteli to poll a mailbox for incoming mail via POP, in addition to
   passively accepting mail piped into the application via `script/mailin` (Louise Crow)
+* Only publicly visible requests are now counted in the text for a user search
+  result (Louise Crow)
 
 ## Upgrade Notes
 
@@ -59,7 +61,7 @@
   not recommended.
 * Upgrading to Rails 4.2 requires that themes have a new section in their
   `alavetelitheme.rb` file as in:
-  https://github.com/mysociety/whatdotheyknow-theme/commit/f99f7fd4538e57c2429ee2301317785c76eb08b0  
+  https://github.com/mysociety/whatdotheyknow-theme/commit/f99f7fd4538e57c2429ee2301317785c76eb08b0
   For more details, see the [preparatory changes](https://github.com/mysociety/alaveteli/pull/4124/commits)
   and [the upgrade itself](https://github.com/mysociety/alaveteli/pull/4114/commits)
 * To start the Rails server from a Vagrant box, you will now need to tell it
