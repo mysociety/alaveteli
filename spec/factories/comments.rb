@@ -31,7 +31,15 @@ FactoryGirl.define do
     end
 
     factory :attention_requested do
-      attention_requested true
+      after(:create) do |comment, evaluator|
+        reporting_user = create(:user)
+        reason = comment.report_reasons.sample
+        comment.report!(reason, 'Bad Comment', reporting_user)
+      end
+    end
+
+    factory :embargoed_comment do
+      association :info_request, factory: :embargoed_request
     end
   end
 

@@ -151,8 +151,7 @@ class RequestMailer < ApplicationMailer
 
     set_reply_to_headers(info_request.user)
     set_auto_generated_headers
-    mail_user(info_request.user, _("Was the response you got to your FOI " \
-                                      "request any good?"))
+    mail_user(info_request.user, _("Please update the status of your request"))
   end
 
   # Tell the requester that someone updated their old unclassified request

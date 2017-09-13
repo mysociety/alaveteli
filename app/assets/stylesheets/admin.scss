@@ -136,6 +136,12 @@ body.admin {
     margin-bottom: 30px;
   }
 
+  .role-filter {
+    input[type="checkbox"] {
+      margin: 0;
+    }
+  }
+
   /* Censor Rules */
   .censor-rule-list td.text,
   .censor-rule-list td.replacement {

@@ -22,16 +22,24 @@ class AdminUserController < AdminController
   def index
     @query = params[:query]
 
+    @roles = params[:roles] || []
     @sort_options = index_sort_options
 
     @sort_order =
       @sort_options.key?(params[:sort_order]) ? params[:sort_order] : 'name_asc'
 
-    users = if @query
-      User.where(["lower(name) LIKE lower('%'||?||'%') OR " \
-                  "lower(email) LIKE lower('%'||?||'%')", @query, @query])
+    users = if @query.present?
+      User.where(["lower(users.name) LIKE lower('%'||?||'%') OR " \
+                  "lower(users.email) LIKE lower('%'||?||'%')", @query, @query])
     else
       User
+    end
+
+    # with_all_roles returns an array as it takes multiple queries
+    # so we need to requery in order to paginate
+    if !@roles.empty?
+      users = users.with_any_role(*@roles)
+      users = User.where(:id => users.map{ |user| user.id })
     end
 
     @admin_users =

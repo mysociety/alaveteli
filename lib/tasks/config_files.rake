@@ -136,7 +136,7 @@ namespace :config_files do
       :vhost_dir => ENV['VHOST_DIR'],
       :vcspath => ENV['VCSPATH'],
       :site => ENV['SITE'],
-      :mailto => ENV.fetch('MAILTO') { "cron-#{ ENV['SITE'] }@mysociety.org" },
+      :mailto => ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
       :ruby_version => ENV.fetch('RUBY_VERSION') { '' }
     }
 
