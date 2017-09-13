@@ -24,7 +24,8 @@ class UserSpamScorer
        yopmail.com
        yandex.com).freeze
   DEFAULT_SPAM_DOMAINS =
-    %w(allemaling.com
+    %w(7x.cz
+       allemaling.com
        brmailing.com
        checknowmail.com
        colde-mail.com
@@ -52,6 +53,9 @@ class UserSpamScorer
        takmailing.com
        themailemail.com
        visitinbox.com
+       webgarden.com
+       webgarden.cz
+       wgz.cz
        wowmailing.com).freeze
   DEFAULT_SPAM_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,
