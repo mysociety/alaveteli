@@ -8,6 +8,9 @@ describe UserStats do
     context "in general" do
 
       before do
+        User.destroy_all
+        FactoryGirl.create(:user, :email => "test1@localhost")
+        FactoryGirl.create(:user, :email => "test2@localhost")
         FactoryGirl.create(:user, :email => "test@example.com")
       end
 
@@ -19,7 +22,7 @@ describe UserStats do
 
       it "returns the expected results" do
         expected = [
-          { "domain" => "localhost", "count"=> "6" },
+          { "domain" => "localhost", "count"=> "2" },
           { "domain" => "example.com", "count" => "1" }
         ]
         expect(user_stats).to eq(expected)
