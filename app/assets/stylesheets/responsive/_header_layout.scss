@@ -120,6 +120,14 @@
 
 }
 
+.no-js #banner {
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    #logged_in_bar {
+      margin-left: 50%;
+    }
+  }
+}
+
 .site-title__logo {
   @extend .image-replacement;
   width: $logo-width;
