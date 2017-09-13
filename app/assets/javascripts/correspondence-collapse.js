@@ -25,11 +25,21 @@ var setUpCorrespondenceCollapsing = function(){
 
     // Collapse/uncollapse when the trigger is clicked.
     $triggers.on('click', function(){
-      $collapsable.trigger('collapse');
+      $collapsable.trigger('toggle');
     });
 
-    // Listen for the "collapse" event on the collapsable.
+    // Listen for events on the collapsable.
     $collapsable.on('collapse', function(){
+      $collapsable.addClass('collapsed');
+      $triggers.attr({
+        'aria-expanded': 'false'
+      });
+    }).on('expand', function(){
+      $collapsable.removeClass('collapsed');
+      $triggers.attr({
+        'aria-expanded': 'true'
+      });
+    }).on('toggle', function(){
       $collapsable.toggleClass('collapsed');
       $triggers.attr({
         'aria-expanded': function(){
@@ -68,5 +78,21 @@ var setUpCorrespondenceCollapsing = function(){
         $correspondenceHeader.removeClass('hovered');
       }
     });
+  });
+
+  $('.js-collapsable-trigger-all').on('click', function(e){
+    e.preventDefault();
+
+    var currentText = $.trim($(this).text());
+    var expandedText = $(this).attr('data-text-expanded');
+    var collapsedText = $(this).attr('data-text-collapsed');
+
+    if (currentText === expandedText) {
+      $('.js-collapsable').trigger('collapse');
+      $(this).text(collapsedText);
+    } else if (currentText === collapsedText) {
+      $('.js-collapsable').trigger('expand');
+      $(this).text(expandedText);
+    }
   });
 };

@@ -86,6 +86,10 @@
             </li>
 
             <li>
+              <a tabindex="0" class="js-collapsable-trigger-all" data-text-expanded="<%= _('Collapse all correspondence') %>" data-text-collapsed="<%= _('Expand all correspondence') %>"><%= _('Collapse all correspondence') %></a>
+            </li>
+
+            <li>
               <%= render :partial => 'track/rss_feed',
                          :locals => { :track_thing => @track_thing,
                                       :location => 'action-menu' } %>
