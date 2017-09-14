@@ -105,7 +105,6 @@ gem 'iso_country_codes', '~> 0.7.0'
 gem 'mahoro', '~> 0.4'
 gem 'newrelic_rpm'
 gem 'net-http-local', '~> 0.1.0', :platforms => [:ruby_19]
-gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '~> 1.6.0', '< 1.7'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 1.6.0'
