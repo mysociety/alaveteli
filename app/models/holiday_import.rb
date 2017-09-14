@@ -74,7 +74,7 @@ class HolidayImport
     rescue Errno::ENOENT, Exception => e
       if e.message == 'Invalid line in calendar string!'
         errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")
-      elsif e.message.starts_with 'No such file or directory'
+      elsif e.message =~ /^No such file or directory/
         errors.add(:ical_feed_url, "Sorry we couldn't find that feed.")
       else
         raise e

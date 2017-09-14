@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require 'zip/zip'
+require 'zip'
 require 'open-uri'
 
 class RequestController < ApplicationController
@@ -940,7 +940,7 @@ class RequestController < ApplicationController
   end
 
   def make_request_zip(info_request, file_path)
-    Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(file_path, Zip::File::CREATE) do |zipfile|
       file_info = make_request_summary_file(info_request)
       zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
       message_index = 0

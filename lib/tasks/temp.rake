@@ -68,9 +68,9 @@ namespace :temp do
       cached_zips = Dir.glob(File.join(info_request.download_zip_dir, "**", "*.zip"))
       cached_zips.each do |zip|
         file_name = File.basename(zip, '.zip')
-        if file_name.ends_with('requester_only')
+        if file_name =~ /requester_only$/
           cached_types << :requester_only
-        elsif file_name.ends_with('hidden')
+        elsif file_name =~ /hidden$/
           cached_types << :hidden
         else
           cached_types << :public
