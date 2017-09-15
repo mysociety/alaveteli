@@ -77,6 +77,11 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
     @subscriptions = @customer.subscriptions.map do |subscription|
       AlaveteliPro::SubscriptionWithDiscount.new(subscription)
     end
+    if @customer.default_source
+      @card =
+        @customer.
+          sources.select { |card| card.id == @customer.default_source }.first
+    end
   end
 
   private
