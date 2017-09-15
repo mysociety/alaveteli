@@ -8,4 +8,8 @@
 
 <h2><%= _('Your payment details') %></h2>
 
-<%= render partial: 'card', locals: { card: @customer.sources.first } %>
+<% if @customer.default_source %>
+  <%= render partial: 'card', locals: { card: @card } %>
+<% elsif @subscriptions.first.free? %>
+  <%= _("Your subscription level is free so you don't need a card") %>
+<% end %>
