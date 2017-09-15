@@ -1,16 +1,16 @@
 # -*- encoding : utf-8 -*-
 #
-# Calculate amount + 20% tax for a Stripe::Plan
+# Calculate amount + 20% tax for a Stripe::Plan or Stripe::Subscription
 #
 # Example
 #
 #   plan = Stripe::Plan.retrieve('pro')
-#   @plan = PlanWithTax.new(plan)
+#   @plan = WithTax.new(plan)
 #   @plan.amount
 #   # => 833
 #   @plan.amount_with_tax
 #   # => 1000
-class AlaveteliPro::PlanWithTax < SimpleDelegator
+class AlaveteliPro::WithTax < SimpleDelegator
   TAX_RATE = BigDecimal('0.20').freeze
 
   def amount_with_tax
