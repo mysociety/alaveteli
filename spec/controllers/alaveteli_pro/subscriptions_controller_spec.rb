@@ -346,6 +346,10 @@ describe AlaveteliPro::SubscriptionsController do
           to eq(customer.subscriptions.first.id)
       end
 
+      it 'assigns the default source as card' do
+        expect(assigns[:card].id).to eq(customer.default_source)
+      end
+
     end
 
   end
