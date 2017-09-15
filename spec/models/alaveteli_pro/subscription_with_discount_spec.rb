@@ -37,4 +37,38 @@ describe AlaveteliPro::SubscriptionWithDiscount do
 
   end
 
+  describe '#discounted?' do
+
+    context 'there is no discount' do
+
+      it 'returns false' do
+        expect(subject.discounted?).to be false
+      end
+
+    end
+
+    context 'the discount is invalid' do
+
+      it 'returns false' do
+        coupon = OpenStruct.new(id: "50_off", percent_off: 50, valid: false)
+        subject = described_class.new(mock_subscription(coupon))
+
+        expect(subject.discounted?).to be false
+      end
+
+    end
+
+    context 'a valid discount applies' do
+
+      it 'returns true' do
+        coupon = OpenStruct.new(id: "50_off", percent_off: 50, valid: true)
+        subject = described_class.new(mock_subscription(coupon))
+
+        expect(subject.discounted?).to be true
+      end
+
+    end
+
+  end
+
 end
