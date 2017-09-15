@@ -6,30 +6,31 @@ describe AlaveteliPro::SubscriptionWithDiscount do
   let(:subscription) { OpenStruct.new(plan: plan, discount: nil) }
   subject { described_class.new(subscription) }
 
+  def mock_subscription(coupon)
+    discount = OpenStruct.new(coupon: coupon)
+    OpenStruct.new(plan: plan, discount: discount)
+  end
+
   describe '#amount' do
 
     context 'no discount is set' do
+
       it 'returns the original stripe plan amount' do
         expect(subject.amount).to eq(833)
       end
+
     end
 
     it 'applies a percentage discount correctly' do
-      coupon = OpenStruct.new(id: "50_off", object: "coupon", percent_off: 50,
-                              duration: "forever", valid: true)
-      discount = OpenStruct.new(coupon: coupon)
-      subscription = OpenStruct.new(plan: plan, discount: discount)
-      subject = described_class.new(subscription)
+      coupon = OpenStruct.new(id: "50_off", percent_off: 50, valid: true)
+      subject = described_class.new(mock_subscription(coupon))
 
       expect(subject.amount).to eq(416.5)
     end
 
     it 'applies an amount_off discount correctly' do
-      coupon = OpenStruct.new(id: "2_off", object: "coupon", amount_off: 200,
-                              duration: "forever", valid: true)
-      discount = OpenStruct.new(coupon: coupon)
-      subscription = OpenStruct.new(plan: plan, discount: discount)
-      subject = described_class.new(subscription)
+      coupon = OpenStruct.new(id: "2_off", amount_off: 200, valid: true)
+      subject = described_class.new(mock_subscription(coupon))
 
       expect(subject.amount).to eq(633.0)
     end
