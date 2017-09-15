@@ -30,7 +30,7 @@ class AlaveteliPro::PlansController < ApplicationController
       # TODO: This doesn't take the plan in to account
       if customer.subscriptions.any?
         flash[:error] = _('You are already subscribed to this plan')
-        redirect_to alaveteli_pro_dashboard_path
+        redirect_to subscription_path
       end
     end
   end

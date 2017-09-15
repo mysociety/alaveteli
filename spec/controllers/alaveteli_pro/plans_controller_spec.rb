@@ -68,12 +68,8 @@ describe AlaveteliPro::PlansController do
           expect(flash[:error]).to eq('You are already subscribed to this plan')
         end
 
-        it 'redirects to the pro dashboard' do
-          expect(response).to redirect_to(alaveteli_pro_dashboard_path)
-        end
-
-        pending 'redirects to the account page' do
-          expect(response).to redirect_to(users_subscriptions_path)
+        it 'redirects to the account page' do
+          expect(response).to redirect_to(subscription_path)
         end
       end
 
