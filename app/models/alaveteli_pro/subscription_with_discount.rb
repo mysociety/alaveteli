@@ -10,7 +10,7 @@
 #   @subscription.original_amount
 #   # => 833
 #   @subscription.amount
-#   # => 416.5
+#   # => 416
 class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
   attr_reader :original_amount
 
@@ -22,18 +22,18 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
   end
 
   def amount
-    net = BigDecimal.new(original_amount * 0.01, 0).round(2)
+    net = BigDecimal.new((original_amount * 0.01), 0).round(2)
     discount_coupon = fetch_discount_coupon
     if discount_coupon
       if discount_coupon.amount_off
         net =
-          net - BigDecimal.new(discount_coupon.amount_off * 0.01, 0).round(2)
+          net - BigDecimal.new((discount_coupon.amount_off * 0.01), 0).round(2)
       else
         reduction = discount_coupon.percent_off
         net = net - (net * discount_coupon.percent_off / 100)
       end
     end
-    (net * 100)
+    (net * 100).floor
   end
 
   private
