@@ -25,14 +25,14 @@ describe AlaveteliPro::SubscriptionWithDiscount do
       coupon = OpenStruct.new(id: "50_off", percent_off: 50, valid: true)
       subject = described_class.new(mock_subscription(coupon))
 
-      expect(subject.amount).to eq(416.5)
+      expect(subject.amount).to eq(416)
     end
 
     it 'applies an amount_off discount correctly' do
       coupon = OpenStruct.new(id: "2_off", amount_off: 200, valid: true)
       subject = described_class.new(mock_subscription(coupon))
 
-      expect(subject.amount).to eq(633.0)
+      expect(subject.amount).to eq(633)
     end
 
   end
