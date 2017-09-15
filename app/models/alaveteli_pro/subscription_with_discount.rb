@@ -11,6 +11,8 @@
 #   # => 833
 #   @subscription.amount
 #   # => 416
+#   @subscription.discounted?
+#   # => true
 class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
   attr_reader :original_amount
 
@@ -34,6 +36,10 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
       end
     end
     (net * 100).floor
+  end
+
+  def discounted?
+    amount < original_amount
   end
 
   private
