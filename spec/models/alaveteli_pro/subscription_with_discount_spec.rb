@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::PlanWithDiscount do
+describe AlaveteliPro::SubscriptionWithDiscount do
   let(:plan) { OpenStruct.new(amount: 833) }
   let(:subscription) { OpenStruct.new(plan: plan, discount: nil) }
   subject { described_class.new(subscription) }

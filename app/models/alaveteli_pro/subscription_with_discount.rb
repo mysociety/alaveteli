@@ -1,20 +1,17 @@
 # -*- encoding : utf-8 -*-
 #
-# Build a Stripe::Plan from an initial Stripe::Subscription and override
-# `#amount` (the net price) by applying the discount - returns a BigDecimal
-# rather than the usual integer (the original amount value is retained as
-# `#original_amount`)
+# Calculate the pre-tax amount for a subscription with any discounts applied
 #
 # Example
 #
 #   # subscription with 50% off 'forever' discount
 #   subscription = Stripe::Subscription.retrieve('sub_1234')
-#   @plan = PlanWithDiscount.new(subscription)
-#   @plan.original_amount
+#   @subscription = SubscriptionWithDiscount.new(subscription)
+#   @subscription.original_amount
 #   # => 833
 #   @subscription.amount
 #   # => 416.5
-class AlaveteliPro::PlanWithDiscount < SimpleDelegator
+class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
   attr_reader :original_amount
 
   def initialize(subscription)
