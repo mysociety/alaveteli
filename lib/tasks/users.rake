@@ -92,4 +92,65 @@ namespace :users do
     end
   end
 
+  desc <<-EOF
+  A list of most-active to least-active pro users.
+
+  START_DATE: Specify the start of the period of activity to consider
+  END_DATE: Specify the end of the period of activity to consider
+  FIELDS: A CSV list of User attributes to print
+          (default: "id,name,email,activity")
+  EOF
+  task :pro_activity => :environment do
+    fields =
+      if ENV['FIELDS']
+        ENV['FIELDS'].split(',').map(&:strip)
+      else
+        %w(id name email activity)
+      end
+
+    start_date =
+      if ENV['START_DATE']
+        Time.zone.parse(ENV['START_DATE']).at_beginning_of_day
+      end
+
+    end_date =
+      if ENV['END_DATE']
+        Time.zone.parse(ENV['END_DATE']).at_end_of_day
+      end
+
+    # Only auto-calculate missing dates if one has been provided without the
+    # other
+    if start_date || end_date
+      # If we don't have a start_date, set it to the earliest created User as
+      # there can't be events before that
+      start_date ||= User.minimum(:created_at)
+
+      # If we don't have an end_date, set it to now.
+      end_date ||= Time.zone.now
+    end
+
+    # Only create a date filter if one has been requested through the
+    # environment
+    between = start_date..end_date if start_date && end_date
+
+    query = User::WithActivityQuery.new
+    query = between ? query.call(between) : query.call
+    users = query.pro.order('activity DESC')
+
+    # We can't `#pluck` activity because its not a real attribute, so we fall
+    # back to a slower `#map`.
+    users =
+      if fields.include?('activity')
+        users.map { |user| fields.map { |field| user.send(field) } }
+      else
+        users.pluck(*fields)
+      end
+
+    csv_string = CSV.generate do |csv|
+      csv << fields
+      users.each { |user| csv << Array(user) }
+    end
+
+    puts csv_string
+  end
 end
