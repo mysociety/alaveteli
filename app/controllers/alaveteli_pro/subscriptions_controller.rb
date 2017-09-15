@@ -74,6 +74,9 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
     else
       raise ActiveRecord::RecordNotFound
     end
+    @subscriptions = @customer.subscriptions.map do |subscription|
+      AlaveteliPro::SubscriptionWithDiscount.new(subscription)
+    end
   end
 
   private
