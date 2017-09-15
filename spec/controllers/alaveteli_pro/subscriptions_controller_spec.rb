@@ -315,9 +315,11 @@ describe AlaveteliPro::SubscriptionsController do
       let(:user) { FactoryGirl.create(:pro_user) }
 
       let!(:customer) do
+        plan = stripe_helper.create_plan(id: 'test')
         customer = Stripe::Customer.create({
           email: user.email,
-          source: stripe_helper.generate_card_token
+          source: stripe_helper.generate_card_token,
+          plan: 'test'
         })
         user.pro_account.update!(stripe_customer_id: customer.id)
         customer
@@ -336,6 +338,12 @@ describe AlaveteliPro::SubscriptionsController do
       it 'finds the Stripe subscription for the user' do
         expect(assigns[:customer].id).
           to eq(user.pro_account.stripe_customer_id)
+      end
+
+      it 'assigns subscriptions' do
+        expect(assigns[:subscriptions].length).to eq(1)
+        expect(assigns[:subscriptions].first.id).
+          to eq(customer.subscriptions.first.id)
       end
 
     end
