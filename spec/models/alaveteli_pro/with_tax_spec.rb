@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::PlanWithTax do
+describe AlaveteliPro::WithTax do
   let(:plan) { OpenStruct.new(amount: 833) }
   subject { described_class.new(plan) }
 

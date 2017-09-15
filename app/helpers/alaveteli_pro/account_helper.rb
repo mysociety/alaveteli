@@ -21,7 +21,7 @@ module AlaveteliPro::AccountHelper
   end
 
   def subscription_amount(subscription)
-    AlaveteliPro::PlanWithTax.new(
+    AlaveteliPro::WithTax.new(
       AlaveteliPro::PlanWithDiscount.new(subscription)
     ).amount_with_tax
   end
