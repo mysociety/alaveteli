@@ -13,6 +13,8 @@
 #   # => 416
 #   @subscription.discounted?
 #   # => true
+#   @subscription.free?
+#   # => false
 class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
   attr_reader :original_amount
 
@@ -40,6 +42,10 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
 
   def discounted?
     amount < original_amount
+  end
+
+  def free?
+    amount == 0
   end
 
   private
