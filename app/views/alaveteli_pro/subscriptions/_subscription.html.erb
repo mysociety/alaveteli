@@ -2,7 +2,7 @@
 <%= _('Amount: {{plan_price}}',
       plan_price: number_to_currency(subscription_amount(subscription) / 100.0,
                                      unit: '£')) %>
-<% if discount_applied?(subscription) %>
+<% if subscription.discounted? %>
   <%= _('(with <b>{{discount_name}}</b> discount applied)',
         :discount_name => subscription.discount.coupon.id) %>
 <% end %><br>
