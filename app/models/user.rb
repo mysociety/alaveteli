@@ -449,13 +449,6 @@ class User < ActiveRecord::Base
     is_admin?
   end
 
-  # Does this user have extraordinary powers?
-  def super?
-    warn %q([DEPRECATION] User#super? will be removed in 0.30.
-          It has been replaced by User#is_admin?).squish
-    is_admin?
-  end
-
   def can_admin_roles
     roles.flat_map{ |role| Role.grants_and_revokes(role.name.to_sym) }.compact.uniq
   end
