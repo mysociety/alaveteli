@@ -22,12 +22,12 @@ module AlaveteliPro::AccountHelper
 
   def subscription_amount(subscription)
     AlaveteliPro::WithTax.new(
-      AlaveteliPro::PlanWithDiscount.new(subscription)
+      AlaveteliPro::SubscriptionWithDiscount.new(subscription)
     ).amount_with_tax
   end
 
   def discount_applied?(subscription)
-    AlaveteliPro::PlanWithDiscount.new(subscription).amount <
+    AlaveteliPro::SubscriptionWithDiscount.new(subscription).amount <
       subscription.plan.amount
   end
 
