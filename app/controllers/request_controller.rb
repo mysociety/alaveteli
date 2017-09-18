@@ -78,13 +78,7 @@ class RequestController < ApplicationController
   end
 
   def show
-    if !AlaveteliConfiguration::varnish_host.blank?
-      # If varnish is set up to accept PURGEs, then cache for a
-      # long time
-      long_cache
-    else
-      medium_cache
-    end
+    medium_cache
     @locale = AlaveteliLocalization.locale
     AlaveteliLocalization.with_locale(@locale) do
       # Look up by new style text names
