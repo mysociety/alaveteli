@@ -1,0 +1,101 @@
+.pricing__tier__subheading {
+  font-size: 0.875em;
+}
+
+.pricing__tier--primary {
+  background-image: linear-gradient(-180deg, #4C888F 4%, #4C888F 17%, #365B74 100%);
+  border-radius: 5px;
+  color: #fff;
+  h2 {
+    color: #fff;
+  }
+
+  .pricing__tier__subhead {
+    color: #A3C1C5;
+  }
+
+  a.button {
+    background-color: #284858;
+    padding: 0.65em 2.55em;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: #000;
+    }
+  }
+
+  .price-label {
+    background-color: #427A88;
+    border-radius: 2em;
+    font-size: 1.125em;
+    padding: 0.75em 1em;
+    line-height: 1em;
+  }
+
+}
+
+.pricing__tier__features {
+  list-style: none outside none;
+  li {
+    background-image: url('/assets/alaveteli-pro/feature-tick.png');
+    background-position: 0 4px;
+    background-repeat:  no-repeat;
+    background-size: 14px 13px;
+    padding-left: 20px;
+  }
+}
+
+.pricing__tier--tier-feature-message {
+  background-color: #F3F1EB;
+  border: 1px solid #E6E4DF;
+  h2 {
+    font-weight: bold;
+  }
+  h3 {
+    font-size: 1em;
+  }
+  p {
+    color: #83827F;
+  }
+}
+
+.pricing__testimonials {
+
+}
+
+
+.testimonials__list {
+  list-style: none outside none;
+  padding: 0;
+}
+
+.testimonial {
+  padding: 1.25em;
+  border: 1px solid #E6E4DF;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.testimonial__content {
+  margin: 0;
+}
+
+.testimonial__source {
+  color: #787774;
+}
+
+.pricing__faqs {
+  border-top: 1px solid #E6E4DF;
+  h2 {
+    font-size: 1.3125em;
+  }
+}
+
+.faqs__term {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.faqs__def {
+  color: #787774;
+}
