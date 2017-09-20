@@ -22,6 +22,10 @@ describe AlaveteliPro::PlansController do
       expect(response).to have_http_status(:success)
     end
 
+    it 'sets in_pro_area' do
+      expect(assigns(:in_pro_area)).to be true
+    end
+
   end
 
   describe 'GET #show' do
