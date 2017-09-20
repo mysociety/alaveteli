@@ -25,14 +25,10 @@ class AlaveteliPro::PlansController < ApplicationController
   end
 
   def check_existing_subscription
-    customer = @user.pro_account.try(:stripe_customer)
-
-    if customer
-      # TODO: This doesn't take the plan in to account
-      if customer.subscriptions.any?
-        flash[:error] = _('You are already subscribed to this plan')
-        redirect_to subscription_path
-      end
+    # TODO: This doesn't take the plan in to account
+    if @user.pro_account.try(:active?)
+      flash[:error] = _('You are already subscribed to this plan')
+      redirect_to subscription_path
     end
   end
 end
