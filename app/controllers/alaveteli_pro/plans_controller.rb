@@ -25,11 +25,9 @@ class AlaveteliPro::PlansController < ApplicationController
   end
 
   def check_existing_subscription
-    customer_id = @user.pro_account.try(:stripe_customer_id)
+    customer = @user.pro_account.try(:stripe_customer)
 
-    if customer_id
-      customer = Stripe::Customer.retrieve(customer_id)
-
+    if customer
       # TODO: This doesn't take the plan in to account
       if customer.subscriptions.any?
         flash[:error] = _('You are already subscribed to this plan')
