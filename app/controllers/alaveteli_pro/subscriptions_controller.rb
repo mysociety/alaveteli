@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
-# Does not inherit from AlaveteliPro::BaseController as is pre-pro-login
-class AlaveteliPro::SubscriptionsController < ApplicationController
-  before_filter :authenticate
+class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
+  skip_before_action :pro_user_authenticated?, only: [:create]
+  before_filter :authenticate, only: [:create]
 
   # TODO: remove reminder of Stripe params once shipped
   #
@@ -117,18 +117,11 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
   private
 
   def authenticate
-    case action_name
-    when 'create'
-      post_redirect_params = {
-        :web => _('To upgrade your account'),
-        :email => _('To upgrade your account'),
-        :email_subject => _('To upgrade your account') }
-    else
-      post_redirect_params = {
-        :web => _('To access your account'),
-        :email => _('To access your account'),
-        :email_subject => _('To access your account') }
-    end
+    post_redirect_params = {
+      :web => _('To upgrade your account'),
+      :email => _('Then you can upgrade your account'),
+      :email_subject => _('To upgrade your account') }
     authenticated?(post_redirect_params)
   end
+
 end
