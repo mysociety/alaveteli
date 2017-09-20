@@ -298,7 +298,7 @@ describe AlaveteliPro::SubscriptionsController do
 
     context 'user has no Stripe id' do
 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:pro_user) }
 
       before do
         session[:user_id] = user.id
@@ -371,7 +371,7 @@ describe AlaveteliPro::SubscriptionsController do
 
     context 'user has no Stripe id' do
 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:pro_user) }
 
       before do
         session[:user_id] = user.id
