@@ -79,6 +79,41 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
     end
   end
 
+  def destroy
+    begin
+      @customer = current_user.pro_account.try(:stripe_customer)
+      raise ActiveRecord::RecordNotFound unless @customer
+
+      @subscription = Stripe::Subscription.retrieve(params[:id])
+
+      unless @subscription.customer == @customer.id
+        raise ActiveRecord::RecordNotFound
+      end
+
+      @subscription.delete(at_period_end: true)
+    rescue Stripe::RateLimitError,
+           Stripe::InvalidRequestError,
+           Stripe::AuthenticationError,
+           Stripe::APIConnectionError,
+           Stripe::StripeError => e
+      if send_exception_notifications?
+        ExceptionNotifier.notify_exception(e, :env => request.env)
+      end
+
+      flash[:error] = _('There was a problem cancelling your account. Please ' \
+                        'try again later.')
+
+      redirect_to profile_subscription_path
+      return
+    end
+
+    flash[:notice] = _('You have successfully cancelled your subscription ' \
+                       'to {{pro_site_name}}',
+                       pro_site_name: AlaveteliConfiguration.pro_site_name)
+
+    redirect_to profile_subscription_path
+  end
+
   private
 
   def authenticate
