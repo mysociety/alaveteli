@@ -85,7 +85,7 @@ describe AlaveteliPro::PlansController do
         end
 
         it 'redirects to the account page' do
-          expect(response).to redirect_to(subscription_path)
+          expect(response).to redirect_to(profile_subscription_path)
         end
       end
 

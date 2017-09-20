@@ -354,4 +354,221 @@ describe AlaveteliPro::SubscriptionsController do
 
   end
 
+  describe 'DELETE #destroy' do
+
+    context 'without a signed-in user' do
+
+      before do
+        delete :destroy, id: '123'
+      end
+
+      it 'redirects to the login form' do
+        expect(response).
+          to redirect_to(signin_path(:token => PostRedirect.last.token))
+      end
+
+    end
+
+    context 'user has no Stripe id' do
+
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it 'raise an error' do
+        expect { delete :destroy, id: '123' }.
+          to raise_error ActiveRecord::RecordNotFound
+      end
+
+    end
+
+    context 'with a signed-in user' do
+
+      let(:user) { FactoryGirl.create(:pro_user) }
+
+      let(:plan) { stripe_helper.create_plan(id: 'test') }
+
+      let(:customer) do
+        customer = Stripe::Customer.create({
+          email: user.email,
+          source: stripe_helper.generate_card_token,
+        })
+        user.pro_account.update!(stripe_customer_id: customer.id)
+        customer
+      end
+
+      let(:subscription) do
+        Stripe::Subscription.create(customer: customer, plan: plan.id)
+      end
+
+      before do
+        session[:user_id] = user.id
+        delete :destroy, id: subscription.id
+      end
+
+      it 'finds the subscription in Stripe' do
+        expect(assigns[:subscription].id).to eq(subscription.id)
+      end
+
+      it 'cancels the subscription at the end of the billing period' do
+        expect(assigns[:subscription].cancel_at_period_end).to eq(true)
+      end
+
+      it 'informs the user that they have cancelled' do
+        msg = 'You have successfully cancelled your subscription to ' \
+              'Alaveteli Professional'
+        expect(flash[:notice]).to eq(msg)
+      end
+
+      it 'redirects to the subscriptions page' do
+        expect(response).to redirect_to(profile_subscription_path)
+      end
+
+      context 'when destroying a subscription belonging to another user' do
+
+        let(:other_subscription) do
+          customer = Stripe::Customer.create({
+            email: 'test@example.org',
+            source: stripe_helper.generate_card_token,
+          })
+          Stripe::Subscription.create(customer: customer, plan: plan.id)
+        end
+
+        it 'raises an error' do
+          session[:user_id] = user.id
+          expect { delete :destroy, id: other_subscription.id }.
+            to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'when we are rate limited' do
+
+        before do
+          error = Stripe::RateLimitError.new
+          StripeMock.prepare_error(error, :cancel_subscription)
+          delete :destroy, id: subscription.id
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::RateLimitError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the subscriptions page' do
+          expect(response).to redirect_to(profile_subscription_path)
+        end
+
+      end
+
+      context 'when Stripe receives an invalid request' do
+
+        before do
+          error = Stripe::InvalidRequestError.new('message', 'param')
+          StripeMock.prepare_error(error, :cancel_subscription)
+          delete :destroy, id: subscription.id
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::InvalidRequestError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the subscriptions page' do
+          expect(response).to redirect_to(profile_subscription_path)
+        end
+
+      end
+
+      context 'when we cannot authenticate with Stripe' do
+
+        before do
+          error = Stripe::AuthenticationError.new
+          StripeMock.prepare_error(error, :cancel_subscription)
+          delete :destroy, id: subscription.id
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::AuthenticationError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the subscriptions page' do
+          expect(response).to redirect_to(profile_subscription_path)
+        end
+
+      end
+
+      context 'when we cannot connect to Stripe' do
+
+        before do
+          error = Stripe::APIConnectionError.new
+          StripeMock.prepare_error(error, :cancel_subscription)
+          delete :destroy, id: subscription.id
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::APIConnectionError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the subscriptions page' do
+          expect(response).to redirect_to(profile_subscription_path)
+        end
+
+      end
+
+      context 'when Stripe returns a generic error' do
+
+        before do
+          error = Stripe::StripeError.new
+          StripeMock.prepare_error(error, :cancel_subscription)
+          delete :destroy, id: subscription.id
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::StripeError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the subscriptions page' do
+          expect(response).to redirect_to(profile_subscription_path)
+        end
+
+      end
+
+      context 'when invalid params are submitted' do
+
+        it 'redirects to the plan page if there is a plan' do
+          delete :destroy, :id => 'unknown'
+          expect(response).to redirect_to(profile_subscription_path)
+        end
+
+      end
+
+    end
+
+  end
+
 end
