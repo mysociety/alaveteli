@@ -300,3 +300,24 @@ textarea{
     display: none;
   }
 }
+
+
+.inner-canvas {
+  padding-bottom: 3em;
+}
+
+.inner-canvas-header {
+  margin-top: 2em;
+  padding-left: 0.9375em;
+  padding-right: 0.9375em;
+  h1 {
+    margin-top: 0.4em;
+    margin-bottom: 0.5em;
+    display: block;
+    width: 100%;
+  }
+}
+
+.inner-canvas-body {
+  padding-top: 2em;
+}
