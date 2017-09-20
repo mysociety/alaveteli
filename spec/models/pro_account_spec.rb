@@ -64,16 +64,14 @@ describe ProAccount do
 
     it 'returns true if there is an active subscription' do
       Stripe::Subscription.create(customer: customer,
-                                  plan: plan.id,
-                                  tax_percent: 20.0)
+                                  plan: plan.id)
       expect(subject.active?).to eq(true)
     end
 
     it 'returns true if there is an expiring subscription' do
       subscription =
         Stripe::Subscription.create(customer: customer,
-                                    plan: plan.id,
-                                    tax_percent: 20.0)
+                                    plan: plan.id)
       subscription.delete(at_period_end: true)
       expect(subject.active?).to eq(true)
     end
