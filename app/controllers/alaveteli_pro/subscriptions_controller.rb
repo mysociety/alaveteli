@@ -17,11 +17,10 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
     begin
       @token = Stripe::Token.retrieve(params[:stripeToken])
 
-      existing_customer_id = current_user.pro_account.try(:stripe_customer_id)
+      customer = current_user.pro_account.try(:stripe_customer)
 
       @customer =
-        if existing_customer_id
-          customer = Stripe::Customer.retrieve(existing_customer_id)
+        if customer
           customer.source = @token.id
           customer.save
           customer
@@ -67,13 +66,9 @@ class AlaveteliPro::SubscriptionsController < ApplicationController
   end
 
   def show
-    stripe_customer_id = current_user.pro_account.try(:stripe_customer_id)
+    @customer = current_user.pro_account.try(:stripe_customer)
+    raise ActiveRecord::RecordNotFound unless @customer
 
-    @customer = if stripe_customer_id
-      Stripe::Customer.retrieve(stripe_customer_id)
-    else
-      raise ActiveRecord::RecordNotFound
-    end
     @subscriptions = @customer.subscriptions.map do |subscription|
       AlaveteliPro::SubscriptionWithDiscount.new(subscription)
     end
