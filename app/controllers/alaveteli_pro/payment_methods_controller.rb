@@ -13,7 +13,7 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
       flash[:notice] = _('Your payment details have been updated')
     rescue Stripe::CardError => e
       flash[:error] = e.message
-      redirect_to subscription_path
+      redirect_to profile_subscription_path
       return
     rescue Stripe::RateLimitError,
            Stripe::InvalidRequestError,
@@ -25,10 +25,10 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
       end
       flash[:error] = _('There was a problem updating your payment details. ' \
                         'Please try again later.')
-      redirect_to subscription_path
+      redirect_to profile_subscription_path
       return
     end
-    redirect_to subscription_path
+    redirect_to profile_subscription_path
   end
 
   private

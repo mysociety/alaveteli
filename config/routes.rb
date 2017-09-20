@@ -612,10 +612,12 @@ Rails.application.routes.draw do
 
     scope module: 'alaveteli_pro' do
       resources :plans, only: [:show]
-      resources :subscriptions, only: [:create]
+      resources :subscriptions, only: [:create, :destroy]
 
+      # TODO: Move to subscriptions#index
+      # TODO: Use resourceful routing
       match '/profile/subscriptions' => 'subscriptions#show',
-            :as => :subscription,
+            :as => :profile_subscription,
             :via => :get
 
       match '/profile/subscriptions/update_card' => 'payment_methods#update',
