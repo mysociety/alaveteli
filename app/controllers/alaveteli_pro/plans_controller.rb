@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-# Does not inherit from AlaveteliPro::BaseController as is pre-login
-class AlaveteliPro::PlansController < ApplicationController
+class AlaveteliPro::PlansController < AlaveteliPro::BaseController
+  skip_before_action :pro_user_authenticated?
   before_filter :authenticate, :check_existing_subscription, only: [:show]
 
   def index
