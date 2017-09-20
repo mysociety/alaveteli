@@ -110,6 +110,7 @@ class UserController < ApplicationController
   # Login form
   def signin
     work_out_post_redirect
+    @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     # First time page is shown
     return render :action => 'sign' unless params[:user_signin]
@@ -145,6 +146,7 @@ class UserController < ApplicationController
   # Create new account form
   def signup
     work_out_post_redirect
+    @in_pro_area = true if @post_redirect.reason_params[:pro]
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false

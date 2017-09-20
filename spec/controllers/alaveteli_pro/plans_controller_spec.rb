@@ -41,6 +41,10 @@ describe AlaveteliPro::PlansController do
           to redirect_to(signin_path(:token => PostRedirect.last.token))
       end
 
+      it 'sets in_pro_area' do
+        expect(assigns(:in_pro_area)).to be true
+      end
+
     end
 
     context 'with a signed-in user' do

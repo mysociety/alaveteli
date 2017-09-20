@@ -37,6 +37,12 @@ class AlaveteliPro::BaseController < ApplicationController
     return false
   end
 
+  # A pro-specific version of authenticated? that sets the `pro: true` param
+  # so that compatible controllers will know to use the pro livery post redirect
+  def pro_authenticated?(reason_params)
+    authenticated?(reason_params.merge(pro: true))
+  end
+
   # An override of set_in_pro_area from ApplicationController, because we are
   # always in the pro area if we're using a descendant of this controller.
   # Note that this is called as a before_filter in this class, so that
