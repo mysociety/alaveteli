@@ -31,4 +31,11 @@
   <%= _('Your next payment will be taken on {{date}}',
         date: simple_date(Time.zone.at(subscription.current_period_end),
                           :format => :text)) %>
+
+  <br>
+
+  <%= link_to _('Cancel your subscription'),
+              subscription_path(subscription.id), 
+              method: :delete, 
+              data: { confirm: _('Are you sure?') } %> 
 <% end %>
