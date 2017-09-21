@@ -1,15 +1,28 @@
-<%= subscription.plan.name %><br>
+<%= subscription.plan.name %>
+
+<br>
+
 <%= _('Amount: {{plan_price}}',
       plan_price: number_to_currency(subscription_amount(subscription) / 100.0,
                                      unit: '£')) %>
+
 <% if subscription.discounted? %>
   <%= _('(with <b>{{discount_name}}</b> discount applied)',
         :discount_name => subscription.discount.coupon.id) %>
-<% end %><br>
-<%= billing_frequency(subscription.plan.interval) %><br>
+<% end %>
+
+<br>
+
+<%= billing_frequency(subscription.plan.interval) %>
+
+<br>
+
 <%= _('Subscription created on {{date}}',
       date: simple_date(Time.zone.at(subscription.created),
-                        :format => :text)) %><br>
+                        :format => :text)) %>
+
+<br>
+
 <% if subscription.cancel_at_period_end %>
   <%= _('Your subscription will end on {{date}}',
         date: simple_date(Time.zone.at(subscription.current_period_end),
