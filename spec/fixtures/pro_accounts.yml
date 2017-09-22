@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: pro_accounts
+#
+#  id                       :integer          not null, primary key
+#  user_id                  :integer          not null
+#  default_embargo_duration :string(255)
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#
+
 pro_account_7:
   id: 1
   user_id: 7
@@ -6,7 +17,7 @@ pro_account_7:
   created_at: 2007-10-31 10:39:15.491593
 
 pro_account_8:
-  id: 1
+  id: 2
   user_id: 8
   default_embargo_duration: nil
   updated_at: 2007-10-31 10:39:15.491593

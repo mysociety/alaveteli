@@ -1,4 +1,16 @@
 # -*- encoding : utf-8 -*-
+# == Schema Information
+#
+# Table name: incoming_message_errors
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  unique_id  :string(255)      not null
+#  retry_at   :datetime
+#  backtrace  :text
+#
+
 
 require 'spec_helper'
 
