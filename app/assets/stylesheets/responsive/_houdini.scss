@@ -1,0 +1,46 @@
+// Houdini is a custom-written CSS+HTML library for
+// showing and hiding elements on a page using just
+// checkboxes and radio buttons.
+
+// Relies on the "+" adjacent/next sibling selector and
+// the ":checked" pseudo-class, which means this doesn't
+// work in IE8 or below.
+
+// Example use:
+//
+// <label class="houdini-label" for="input1">Click me...</label>
+// <input class="houdini-input" type="checkbox" id="input1">
+// <div class="houdini-target">...To show and hide me</div>
+
+// Or an example where the input remains visible to the user,
+// and is placed before the label (eg: to be floated right, so it
+// appears to the right of the label, like a normal checkbox):
+//
+// <input class="houdini-input houdini-input--visible" type="checkbox" id="input2">
+// <label class="houdini-label" for="input2">Click me...</label>
+// <div class="houdini-target">...To show and hide me</div>
+
+// The three elements must be placed sequentially in the document,
+// either label+input+target or input+label+target.
+
+// Each label+input pair must have matching `id` and `for` attributes.
+// You cannot nest the input inside the label.
+
+.houdini-input {
+  position: absolute;
+  opacity: 0;
+}
+
+.houdini-input--visible {
+  position: static;
+  opacity: 1;
+}
+
+.houdini-target {
+  display: none;
+
+  .houdini-input:checked + &,
+  .houdini-input:checked + .houdini-label + & {
+    display: block;
+  }
+}
