@@ -77,6 +77,9 @@
   or `bundle exec rails s -b 10.10.10.30` to just use the Vagrantfile address.
 * File-type icons have been moved from `images` to `images/content_type`. Please
   ensure any direct use of these uses the new path.
+* This release deprecates the use of purge requests to Varnish. Please make sure
+  your site works with `VARNISH_HOST` empty - it will be removed as a param in
+  the next release.
 
 ### Changed Templates
 
