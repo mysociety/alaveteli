@@ -61,6 +61,13 @@ these settings:
 You should consider running the admin part of the site over HTTPS. This can be
 achieved with rewrite rules that redirect URLs beginning with `/admin`.
 
+Additionally, the `INCOMING_EMAIL_DOMAIN` should not be the one that you use for your organisational email.
+Mail sent to Alaveteli request addresses is published on the site, and using an organisational email domain
+could leave you vulnerable to attacks that sign up for your internal tools using these addresses and use
+Alaveteli to receive and publish confirmation emails. Use a completely different domain or a subdomain
+of your organisational domain. See [this blog post](https://medium.freecodecamp.org/how-i-hacked-hundreds-of-companies-through-their-helpdesk-b7680ddc2d4c) for a description of this kind of
+attack.
+
 ## Email configuration
 
 See the [configuration for exim or postfix]({{ page.baseurl }}/docs/installing/email/) for
