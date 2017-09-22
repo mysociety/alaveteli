@@ -11,6 +11,7 @@
 #  send_after            :datetime         not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  expired               :boolean          default(FALSE)
 #
 
 require "spec_helper"
