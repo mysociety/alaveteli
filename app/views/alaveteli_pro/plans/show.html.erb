@@ -61,7 +61,9 @@
                   data-zip-code="true"
                   data-currency="gbp">
           </script>
-          <a onlclick="window.history.back();" class="settings__cancel-button">Cancel</a>
+
+          <%= link_to _('Cancel'), pro_plans_path, class: 'settings__cancel-button' %>
+
           <noscript>
             <div id="error">
               <p>
