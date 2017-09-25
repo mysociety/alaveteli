@@ -1315,4 +1315,6 @@ describe User do
     end
   end
 
+  it_behaves_like "PhaseCounts"
+
 end
