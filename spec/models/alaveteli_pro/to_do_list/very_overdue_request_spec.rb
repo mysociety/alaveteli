@@ -9,6 +9,7 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
   before do
     time_travel_to(Date.parse('2015-11-01')){ info_request }
+    AlaveteliPro::RequestSummary.create_or_update_from(info_request)
     @very_overdue_request = described_class.new(user)
   end
 
@@ -21,10 +22,11 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
     end
 
     it 'gives a description for multiple responses' do
-      time_travel_to(Date.parse('2015-11-01')) do
+      request = time_travel_to(Date.parse('2015-11-01')) do
         FactoryGirl.create(:info_request, :user => user)
       end
       time_travel_to(Date.parse('2016-01-01')) do
+        AlaveteliPro::RequestSummary.create_or_update_from(request)
         expect(@very_overdue_request.description).to eq "2 requests are long overdue."
       end
     end
@@ -56,10 +58,12 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
     context 'when there is more than one item' do
 
       it 'returns a link to the info request list with a "very_overdue" filter' do
-        time_travel_to(Date.parse('2015-11-01')) do
+        request = time_travel_to(Date.parse('2015-11-01')) do
           FactoryGirl.create(:info_request, :user => user)
         end
         time_travel_to(Date.parse('2016-01-01')) do
+          AlaveteliPro::RequestSummary.create_or_update_from(info_request)
+          AlaveteliPro::RequestSummary.create_or_update_from(request)
           expect(@very_overdue_request.url)
             .to eq alaveteli_pro_info_requests_path('alaveteli_pro_request_filter[filter]' =>
                                                       'very_overdue')
@@ -87,10 +91,11 @@ describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
       it 'returns an appropriate text' do
 
-        time_travel_to(Date.parse('2015-11-01')) do
+        request = time_travel_to(Date.parse('2015-11-01')) do
           FactoryGirl.create(:info_request, :user => user)
         end
         time_travel_to(Date.parse('2016-01-01')) do
+          AlaveteliPro::RequestSummary.create_or_update_from(request)
           expect(@very_overdue_request.call_to_action)
             .to eq 'Request internal reviews (or send other followups).'
         end
