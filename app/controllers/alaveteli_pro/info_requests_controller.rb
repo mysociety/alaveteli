@@ -17,6 +17,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
       @request_filter.update_attributes(request_filter_params)
     end
     request_summaries = @request_filter.results(current_user)
+    current_user.reset_phase_counts
     @page = params[:page] || 1
     @per_page = 10
     @request_summaries = request_summaries.paginate :page => @page,
