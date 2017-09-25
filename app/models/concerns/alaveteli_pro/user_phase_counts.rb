@@ -4,6 +4,10 @@ module AlaveteliPro
 
     extend ActiveSupport::Concern
 
+    def reset_phase_counts
+      @raw_counts = nil
+    end
+
     def phase_count(key)
       key = key.to_s
       if raw_counts.keys.include?(key)
@@ -16,7 +20,7 @@ module AlaveteliPro
     private
 
     def raw_counts
-      @raw_counts =
+      @raw_counts ||=
         request_summaries.
           joins(:request_summary_categories).
           references(:request_summary_categories).
