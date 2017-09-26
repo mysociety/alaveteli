@@ -36,7 +36,7 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
   def authenticate
     post_redirect_params = {
       :web => _('To update your payment details'),
-      :email => _('To update your payment details'),
+      :email => _('Then you can update your payment details'),
       :email_subject => _('To update your payment details') }
     authenticated?(post_redirect_params)
   end

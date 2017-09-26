@@ -17,9 +17,12 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
 
   def authenticate
     post_redirect_params = {
-      :web => _('To upgrade your account'),
-      :email => _('To upgrade your account'),
-      :email_subject => _('To upgrade your account') }
+      web: _('Confirm your account on {{site_name}}',
+             site_name: AlaveteliConfiguration.pro_site_name),
+      email: _('Then you can activate your {{site_name}} account',
+               site_name: AlaveteliConfiguration.pro_site_name),
+      email_subject: _('Confirm your account on {{site_name}}',
+                       site_name: AlaveteliConfiguration.pro_site_name) }
 
     pro_authenticated?(post_redirect_params)
   end
