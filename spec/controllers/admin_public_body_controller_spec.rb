@@ -40,7 +40,7 @@ describe AdminPublicBodyController do
     end
 
     it "shows a public body in another locale" do
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         public_body.name = 'El Public Body'
         public_body.save
       end
@@ -95,10 +95,11 @@ describe AdminPublicBodyController do
     it "builds new translations for all locales" do
       get :new
 
-      translations = assigns[:public_body].translations.map{ |t| t.locale.to_s }.sort
-      available = FastGettext.default_available_locales.map{ |l| l.to_s }.sort
+      translations = assigns[:public_body].
+                       translations.map { |t| t.locale.to_s }.sort
 
-      expect(translations).to eq(available)
+      expect(translations).
+        to match_array(AlaveteliLocalization.available_locales)
     end
 
     it 'renders the new template' do
@@ -149,6 +150,14 @@ describe AdminPublicBodyController do
         }.to change{ PublicBody.count }.from(existing).to(expected)
       end
 
+      it 'can create a public body when the default locale is an underscore locale' do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+        post :create, @params
+        expect(
+          PublicBody.find_by_name('New Quango').translations.first.locale
+        ).to eq(:en_GB)
+      end
+
       it 'notifies the admin that the body was created' do
         post :create, @params
         expect(flash[:notice]).to eq('PublicBody was successfully created.')
@@ -191,7 +200,7 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find_by_name('New Quango')
 
-        I18n.with_locale(:en) do
+        AlaveteliLocalization.with_locale(:en) do
           expect(body.name).to eq('New Quango')
         end
       end
@@ -201,7 +210,7 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find_by_name('New Quango')
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(body.name).to eq('Los Quango')
           expect(body.url_name).to eq('lq')
           expect(body.first_letter).to eq('L')
@@ -248,7 +257,7 @@ describe AdminPublicBodyController do
         post :create, @params
 
         expect(assigns(:public_body)).to_not be_persisted
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body).name).to eq('Los Quango')
         end
       end
@@ -290,7 +299,7 @@ describe AdminPublicBodyController do
 
     before do
       @body = FactoryGirl.create(:public_body)
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @body.name = 'Los Body'
         @body.save!
       end
@@ -374,7 +383,7 @@ describe AdminPublicBodyController do
 
     before do
       @body = FactoryGirl.create(:public_body)
-      I18n.with_locale('es') do
+      AlaveteliLocalization.with_locale('es') do
         @body.name = 'Los Quango'
         @body.save!
       end
@@ -455,9 +464,22 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find(@body.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(body.name).to eq('Example Public Body ES')
         end
+      end
+
+      it 'creates a new translation for the default locale' do
+        AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+        put :update, {
+          :id => @body.id,
+          :public_body => {
+            :name => "Example Public Body en_GB",
+          }
+        }
+
+        body = PublicBody.find(@body.id)
+        expect(body.translations.map(&:locale)).to include(:en_GB)
       end
 
       it 'adds new translations' do
@@ -481,10 +503,10 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find(@body.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(body.name).to eq('Example Public Body ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(body.name).to eq('Example Public Body FR')
         end
       end
@@ -510,10 +532,10 @@ describe AdminPublicBodyController do
 
         body = PublicBody.find(@body.id)
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(body.name).to eq('Renamed Example Public Body ES')
         end
-        I18n.with_locale(:fr) do
+        AlaveteliLocalization.with_locale(:fr) do
           expect(body.name).to eq('Example Public Body FR')
         end
       end
@@ -563,7 +585,7 @@ describe AdminPublicBodyController do
       it 'is rebuilt with the alternative locale translation' do
         post :update, @params
 
-        I18n.with_locale(:es) do
+        AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body).name).to eq('Mi Nuevo Body')
         end
       end

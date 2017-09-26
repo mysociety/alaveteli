@@ -138,12 +138,13 @@ namespace :themes do
 
 
   def locale_extensions(locale)
-    locale_extensions = if locale == I18n.default_locale
+    locale_extensions = if AlaveteliLocalization.default_locale?(locale)
       ['']
     else
       [".#{locale}"]
     end
-    if locale != I18n.default_locale && locale.to_s.include?('_')
+    if !AlaveteliLocalization.default_locale?(locale) &&
+       locale.to_s.include?('_')
       locale_extensions << ".#{locale.to_s.split('_').first}"
     end
     locale_extensions
@@ -238,8 +239,9 @@ EOF
                                           ]},
                            {:name => '_why_they_should_reply_by_email',
                             :sections => []}]
+
     theme_names.each do |theme_name|
-      FastGettext.default_available_locales.each do |locale|
+      AlaveteliLocalization.available_locales.each do |locale|
         puts ""
         puts "theme: #{theme_name} locale: #{locale}"
         puts ""

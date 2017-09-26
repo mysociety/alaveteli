@@ -1,7 +1,7 @@
 
-<div class="tab-pane" id="div-locale-<%=locale.to_s%>">
+<div class="tab-pane" id="div-locale-<%= locale %>">
   <div class="control-group">
-    <%= t.hidden_field :locale, :value => locale.to_s %>
+    <%= t.hidden_field :locale, :value => locale %>
     <%= t.label :name, 'Name', :class => 'control-label' %>
     <div class="controls">
       <%= t.text_field :name, :class => "span4" %>

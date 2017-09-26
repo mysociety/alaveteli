@@ -63,25 +63,32 @@ class ApplicationController < ActionController::Base
     anonymous_cache(24.hours)
   end
 
-  # This is an override of the method provided by gettext_i18n_rails - note the explicit
-  # setting of I18n.locale, required due to the I18nProxy used in Rails 3 to trigger the
+  # This is an override of the method provided by gettext_i18n_rails.
+  # AlaveteliLocalization.set_session_locale explicitly sets I18n.locale,
+  # required due to the I18nProxy used in Rails to trigger the
   # lookup_context and expire the template cache
   def set_gettext_locale
-    if AlaveteliConfiguration::include_default_locale_in_urls == false
-      params_locale = params[:locale] ? params[:locale] : I18n.default_locale
+    if AlaveteliConfiguration.include_default_locale_in_urls == false
+      params_locale = params.fetch(:locale) do
+        AlaveteliLocalization.default_locale
+      end
     else
       params_locale = params[:locale]
     end
-    if AlaveteliConfiguration::use_default_browser_language
-      requested_locale = params_locale || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+    browser_locale = if AlaveteliConfiguration.use_default_browser_language
+      request.env['HTTP_ACCEPT_LANGUAGE']
     else
-      requested_locale = params_locale || session[:locale] || cookies[:locale] || I18n.default_locale
+      nil
     end
-    requested_locale = FastGettext.best_locale_in(requested_locale)
-    session[:locale] = I18n.locale = FastGettext.set_locale(requested_locale)
+    AlaveteliLocalization.set_session_locale(params_locale,
+                                             session[:locale],
+                                             cookies[:locale],
+                                             browser_locale)
+    # set the currrent locale to the requested_locale
+    session[:locale] = AlaveteliLocalization.locale
     if !@user.nil?
-      if @user.locale != requested_locale
-        @user.locale = session[:locale]
+      if @user.locale != AlaveteliLocalization.locale
+        @user.locale = AlaveteliLocalization.locale
         @user.save!
       end
     end
@@ -513,9 +520,9 @@ class ApplicationController < ActionController::Base
   #
   # Returns a Hash
   def collect_locales
-    @locales = { :current => FastGettext.locale, :available => [] }
-    FastGettext.default_available_locales.map(&:to_s).each do |possible_locale|
-      if possible_locale == FastGettext.locale
+    @locales = { :current => AlaveteliLocalization.locale, :available => [] }
+    AlaveteliLocalization.available_locales.each do |possible_locale|
+      if possible_locale == AlaveteliLocalization.locale
         @locales[:current] = possible_locale
       else
         @locales[:available] << possible_locale

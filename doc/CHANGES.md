@@ -1,3 +1,15 @@
+
+# 0.29.0.1
+
+## Highlighted Features
+
+* Fixed problem where the routing filter doesn't recognise default locales with
+  underscores properly (Liz Conlan)
+* Added wrapper methods to AlaveteliLocalization to be used in preference to the
+  underlying I18n and FastGettext methods, avoiding confusion about which should
+  be used and reducing the likelihood of getting hyphenated and underscore
+  locale formats mixed up (Liz Conlan)
+
 # 0.29.0.0
 
 ## Highlighted Features

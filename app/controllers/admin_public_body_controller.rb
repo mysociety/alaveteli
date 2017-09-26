@@ -16,8 +16,8 @@ class AdminPublicBodyController < AdminController
   end
 
   def show
-    @locale = I18n.locale.to_s
-    I18n.with_locale(@locale) do
+    @locale = AlaveteliLocalization.locale
+    AlaveteliLocalization.with_locale(@locale) do
       @public_body = PublicBody.find(params[:id])
       info_requests = @public_body.info_requests.order('created_at DESC')
       if cannot? :admin, AlaveteliPro::Embargo
@@ -47,7 +47,7 @@ class AdminPublicBodyController < AdminController
   end
 
   def create
-    I18n.with_locale(I18n.default_locale) do
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
       if params[:change_request_id]
         @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
       end
@@ -89,7 +89,7 @@ class AdminPublicBodyController < AdminController
     if params[:change_request_id]
       @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
     end
-    I18n.with_locale(I18n.default_locale) do
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
       params[:public_body][:last_edit_editor] = admin_current_user
       if @public_body.update_attributes(public_body_params)
         if @change_request
@@ -173,12 +173,13 @@ class AdminPublicBodyController < AdminController
       end
       if !csv_contents.nil?
         # Try with dry run first
-        errors, notes = PublicBody.import_csv(csv_contents,
-                                              params[:tag],
-                                              params[:tag_behaviour],
-                                              true,
-                                              admin_current_user,
-                                              FastGettext.default_available_locales)
+        errors, notes = PublicBody.
+                          import_csv(csv_contents,
+                                     params[:tag],
+                                     params[:tag_behaviour],
+                                     true,
+                                     admin_current_user,
+                                     AlaveteliLocalization.available_locales)
 
         if errors.size == 0
           if dry_run_only
@@ -187,12 +188,14 @@ class AdminPublicBodyController < AdminController
             @temporary_csv_file = store_csv_data(csv_contents)
           else
             # And if OK, with real run
-            errors, notes = PublicBody.import_csv(csv_contents,
-                                                  params[:tag],
-                                                  params[:tag_behaviour],
-                                                  false,
-                                                  admin_current_user,
-                                                  FastGettext.default_available_locales)
+            errors, notes = PublicBody.
+                              import_csv(csv_contents,
+                                         params[:tag],
+                                         params[:tag_behaviour],
+                                         false,
+                                         admin_current_user,
+                                         AlaveteliLocalization.
+                                           available_locales)
             if errors.size != 0
               raise "dry run mismatched real run"
             end
@@ -222,80 +225,79 @@ class AdminPublicBodyController < AdminController
   # Delete the file, return the contents.
   def retrieve_csv_data(tempfile_name)
     if not /csv_upload-\d{8}-\d{1,5}/.match(tempfile_name)
-            raise "Invalid filename in upload_csv: #{tempfile_name}"
-        end
-        tempfile_path = File.join(Dir::tmpdir, tempfile_name)
-        if ! File.exist?(tempfile_path)
-            raise "Missing file in upload_csv: #{tempfile_name}"
-        end
-        csv_contents = File.read(tempfile_path)
-        File.delete(tempfile_path)
-        return csv_contents
+      raise "Invalid filename in upload_csv: #{tempfile_name}"
     end
-
-    def lookup_query
-        @locale = I18n.locale.to_s
-        underscore_locale = @locale.gsub '-', '_'
-        I18n.with_locale(@locale) do
-            @query = params[:query]
-            if @query == ""
-                @query = nil
-            end
-            @page = params[:page]
-            if @page == ""
-                @page = nil
-            end
-
-            query = if @query
-              query_str = <<-EOF.strip_heredoc
-              (lower(public_body_translations.name)
-               LIKE lower('%'||?||'%')
-               OR lower(public_body_translations.short_name)
-               LIKE lower('%'||?||'%')
-               OR lower(public_body_translations.request_email)
-               LIKE lower('%'||?||'%' ))
-               AND (public_body_translations.locale = '#{underscore_locale}')
-              EOF
-
-              [query_str, @query, @query, @query]
-            else
-              <<-EOF.strip_heredoc
-              public_body_translations.locale = '#{underscore_locale}'
-              EOF
-            end
-
-            @public_bodies =
-              PublicBody.
-                joins(:translations).
-                  where(query).
-                    order('public_body_translations.name').
-                      paginate(:page => @page, :per_page => 100)
-        end
-
-        @public_bodies_by_tag = PublicBody.find_by_tag(@query)
+    tempfile_path = File.join(Dir.tmpdir, tempfile_name)
+    if !File.exist?(tempfile_path)
+      raise "Missing file in upload_csv: #{tempfile_name}"
     end
+    csv_contents = File.read(tempfile_path)
+    File.delete(tempfile_path)
+    return csv_contents
+  end
 
-    def public_body_params
-      if public_body_params = params[:public_body]
-        keys = { :translated_keys => [:locale,
-                                      :name,
-                                      :short_name,
-                                      :request_email,
-                                      :publication_scheme,
-                                      :notes],
-                 :general_keys => [:tag_string,
-                                  :home_page,
-                                  :disclosure_log,
-                                  :last_edit_comment,
-                                  :last_edit_editor] }
-        translatable_params(keys, public_body_params)
-      else
-       {}
+  def lookup_query
+    @locale = AlaveteliLocalization.locale
+    AlaveteliLocalization.with_locale(@locale) do
+      @query = params[:query]
+      if @query == ""
+        @query = nil
       end
+      @page = params[:page]
+      if @page == ""
+        @page = nil
+      end
+
+      query = if @query
+        query_str = <<-EOF.strip_heredoc
+        (lower(public_body_translations.name)
+         LIKE lower('%'||?||'%')
+         OR lower(public_body_translations.short_name)
+         LIKE lower('%'||?||'%')
+         OR lower(public_body_translations.request_email)
+         LIKE lower('%'||?||'%' ))
+         AND (public_body_translations.locale = '#{@locale}')
+        EOF
+
+        [query_str, @query, @query, @query]
+      else
+        <<-EOF.strip_heredoc
+        public_body_translations.locale = '#{@locale}'
+        EOF
+      end
+
+      @public_bodies =
+        PublicBody.
+          joins(:translations).
+            where(query).
+              order('public_body_translations.name').
+                paginate(:page => @page, :per_page => 100)
     end
 
-    def set_public_body
-      @public_body = PublicBody.find(params[:id])
+    @public_bodies_by_tag = PublicBody.find_by_tag(@query)
+  end
+
+  def public_body_params
+    if public_body_params = params[:public_body]
+      keys = { :translated_keys => [:locale,
+                                    :name,
+                                    :short_name,
+                                    :request_email,
+                                    :publication_scheme,
+                                    :notes],
+               :general_keys => [:tag_string,
+                                 :home_page,
+                                 :disclosure_log,
+                                 :last_edit_comment,
+                                 :last_edit_editor] }
+      translatable_params(keys, public_body_params)
+    else
+      {}
     end
+  end
+
+  def set_public_body
+    @public_body = PublicBody.find(params[:id])
+  end
 
 end

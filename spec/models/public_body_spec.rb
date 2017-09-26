@@ -81,8 +81,12 @@ describe PublicBody do
         }
 
         expect(body.translations.size).to eq(3)
-        I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
-        I18n.with_locale(:fr) { expect(body.name).to eq('Le Body') }
+        AlaveteliLocalization.with_locale(:es) do
+          expect(body.name).to eq('Renamed')
+        end
+        AlaveteliLocalization.with_locale(:fr) do
+          expect(body.name).to eq('Le Body')
+        end
       end
 
       it 'skips empty translations' do
@@ -152,6 +156,30 @@ describe PublicBody do
       end
 
       public_body.expire_requests
+    end
+
+  end
+
+  describe '.localized_csv_field_name' do
+
+    it 'returns the field name if passed the default_locale' do
+      expect(PublicBody.localized_csv_field_name(:en, "first_letter")).
+        to eq("first_letter")
+    end
+
+    context 'the default_locale contains an underscore' do
+
+      it 'returns the field name if passed the default_locale' do
+        AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
+        expect(PublicBody.localized_csv_field_name(:"en_GB", "first_letter")).
+          to eq("first_letter")
+      end
+
+    end
+
+    it 'returns appends the locale name if passed a non default locale' do
+      expect(PublicBody.localized_csv_field_name(:es, "first_letter")).
+        to eq("first_letter.es")
     end
 
   end
@@ -390,7 +418,7 @@ describe PublicBody, " when saving" do
 
   it 'should create a url_name for a translation' do
     existing = FactoryGirl.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       existing.update_attributes :short_name => 'Prueba', :name => 'Prueba body'
       expect(existing.url_name).to eq('prueba')
     end
@@ -480,7 +508,7 @@ describe PublicBody, "when searching" do
   end
 
   it "should cope with same url_name across multiple locales" do
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       # use the unique spanish name to retrieve and edit
       body = PublicBody.find_by_url_name_with_historic('etgq')
       body.short_name = 'tgq' # Same as english version
@@ -1011,17 +1039,47 @@ describe PublicBody, " when loading CSV files" do
     expect(PublicBody.count).to eq(original_count)
   end
 
-  it "should be able to load CSV from a file as well as a string" do
-    # Essentially the same code is used for import_csv_from_file
-    # as import_csv, so this is just a basic check that
-    # import_csv_from_file can load from a file at all. (It would
-    # be easy to introduce a regression that broke this, because
-    # of the confusing change in behaviour of CSV.parse between
-    # Ruby 1.8 and 1.9.)
-    original_count = PublicBody.count
-    filename = file_fixture_name('fake-authority-type-with-field-names.csv')
-    PublicBody.import_csv_from_file(filename, '', 'replace', false, 'someadmin')
-    expect(PublicBody.count).to eq(original_count + 3)
+  context 'when importing data from a CSV' do
+
+    before do
+      InfoRequest.destroy_all
+      PublicBody.destroy_all
+      PublicBody.internal_admin_body
+    end
+
+    let(:filename) do
+      file_fixture_name('fake-authority-type-with-field-names.csv')
+    end
+
+    it "is able to load CSV from a file as well as a string" do
+      # Essentially the same code is used for import_csv_from_file
+      # as import_csv, so this is just a basic check that
+      # import_csv_from_file can load from a file at all. (It would
+      # be easy to introduce a regression that broke this, because
+      # of the confusing change in behaviour of CSV.parse between
+      # Ruby 1.8 and 1.9.)
+      original_count = PublicBody.count
+      filename = file_fixture_name('fake-authority-type-with-field-names.csv')
+      PublicBody.
+        import_csv_from_file(filename, '', 'replace', false, 'someadmin')
+      expect(PublicBody.count).to eq(original_count + 3)
+    end
+
+    it 'recognises an underscore locale as the default' do
+      AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
+      PublicBody.
+        import_csv_from_file(filename, '', 'replace', false, 'someadmin')
+
+      expect(
+        PublicBody.joins(:translations).
+          where("public_body_translations.name != 'Internal admin authority'").
+            first.
+              translations.
+                first.
+                  locale
+      ).to eq(:en_GB)
+    end
+
   end
 
   it "should handle active record validation errors" do
@@ -1417,6 +1475,8 @@ describe PublicBody do
     end
   end
 end
+
+
 
 describe PublicBody::Translation do
 

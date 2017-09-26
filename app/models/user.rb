@@ -330,7 +330,7 @@ class User < ActiveRecord::Base
   end
 
   def get_locale
-    (locale || I18n.locale).to_s
+    (locale || AlaveteliLocalization.locale).to_s
   end
 
   def name

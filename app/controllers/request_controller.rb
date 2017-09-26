@@ -85,8 +85,8 @@ class RequestController < ApplicationController
     else
       medium_cache
     end
-    @locale = I18n.locale.to_s
-    I18n.with_locale(@locale) do
+    @locale = AlaveteliLocalization.locale
+    AlaveteliLocalization.with_locale(@locale) do
       # Look up by new style text names
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
@@ -185,7 +185,7 @@ class RequestController < ApplicationController
 
     medium_cache
     @view = params[:view]
-    @locale = I18n.locale.to_s
+    @locale = AlaveteliLocalization.locale
     @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
     @per_page = PER_PAGE
     @max_results = MAX_RESULTS
@@ -230,7 +230,7 @@ class RequestController < ApplicationController
 
     @batch = true
 
-    I18n.with_locale(@locale) do
+    AlaveteliLocalization.with_locale(@locale) do
       @public_bodies =
         PublicBody.
           where(:id => params[:public_body_ids]).
@@ -736,8 +736,8 @@ class RequestController < ApplicationController
 
   # FOI officers can upload a response
   def upload_response
-    @locale = I18n.locale.to_s
-    I18n.with_locale(@locale) do
+    @locale = AlaveteliLocalization.locale
+    AlaveteliLocalization.with_locale(@locale) do
       @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
 
       @reason_params = {
@@ -811,8 +811,8 @@ class RequestController < ApplicationController
   end
 
   def download_entire_request
-    @locale = I18n.locale.to_s
-    I18n.with_locale(@locale) do
+    @locale = AlaveteliLocalization.locale
+    AlaveteliLocalization.with_locale(@locale) do
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       # Check for access and hide emargoed requests immediately, so that we
       # don't leak any info to people who can't access them

@@ -117,8 +117,12 @@ describe PublicBodyHeading do
         }
 
         expect(heading.translations.size).to eq(3)
-        I18n.with_locale(:es) { expect(heading.name).to eq('Renamed') }
-        I18n.with_locale(:fr) { expect(heading.name).to eq('Le Heading') }
+        AlaveteliLocalization.with_locale(:es) do
+          expect(heading.name).to eq('Renamed')
+        end
+        AlaveteliLocalization.with_locale(:fr) do
+          expect(heading.name).to eq('Le Heading')
+        end
       end
 
       it 'skips empty translations' do
@@ -150,7 +154,9 @@ describe PublicBodyHeading::Translation do
   end
 
   it 'is valid if all required attributes are assigned' do
-    translation = PublicBodyHeading::Translation.new(:locale => I18n.default_locale)
+    translation = PublicBodyHeading::Translation.new(
+      :locale => AlaveteliLocalization.default_locale
+    )
     expect(translation).to be_valid
   end
 
