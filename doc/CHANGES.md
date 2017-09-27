@@ -99,6 +99,12 @@
     app/views/general/search.html.erb
     app/views/request/_list_results.html.erb
 
+# 0.29.0.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Louise Crow)
+
 # 0.29.0.1
 
 ## Highlighted Features
