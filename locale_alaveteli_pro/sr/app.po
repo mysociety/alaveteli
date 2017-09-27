@@ -10,13 +10,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 16:14+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
-"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>, 2017\n"
-"Language-Team: Icelandic (Iceland) (https://www.transifex.com/mysociety/teams/33529/is_IS/)\n"
-"Language: is_IS\n"
+"Language-Team: Serbian (https://www.transifex.com/mysociety/teams/33529/sr/)\n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
 msgstr ""
@@ -25,16 +24,16 @@ msgid " Say how you've <strong>used the information</strong>, with links if poss
 msgstr ""
 
 msgid "+ Add"
-msgstr "+ Bæta við"
+msgstr ""
 
 msgid "- Remove"
-msgstr "- Fjarlægja"
+msgstr ""
 
 msgid "12 Months"
-msgstr "12 mánuðir"
+msgstr ""
 
 msgid "3 Months"
-msgstr "3 mánuðir"
+msgstr ""
 
 msgid "6 Months"
 msgstr ""
@@ -55,7 +54,7 @@ msgid "A one line summary of the information you are requesting, e.g."
 msgstr ""
 
 msgid "Activity"
-msgstr "Breytingasaga"
+msgstr ""
 
 msgid "Add an annotation"
 msgstr ""
@@ -64,10 +63,10 @@ msgid "Add authorities to your batch"
 msgstr ""
 
 msgid "Added"
-msgstr "Bætt við"
+msgstr ""
 
 msgid "All requests"
-msgstr "Allar beiðnir"
+msgstr ""
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
@@ -79,7 +78,7 @@ msgid "Are you sure you want to publish this request?"
 msgstr ""
 
 msgid "Browse public requests"
-msgstr "Skoða opinberar upplýsingabeiðnir"
+msgstr ""
 
 msgid "Change privacy"
 msgstr ""
@@ -127,16 +126,16 @@ msgid "Get started with your first request"
 msgstr ""
 
 msgid "Help"
-msgstr "Hjálp"
+msgstr ""
 
 msgid "Keep private for a further:"
 msgstr ""
 
 msgid "Last updated"
-msgstr "Seinast uppfært"
+msgstr ""
 
 msgid "Make a request"
-msgstr "Útbúa beiðni"
+msgstr ""
 
 msgid "Make an {{law_used_short}} request"
 msgstr ""
@@ -157,13 +156,13 @@ msgid "Point to <strong>related information</strong>, campaigns or forums which 
 msgstr ""
 
 msgid "Preview and send request"
-msgstr "Forskoða og senda beiðni"
+msgstr ""
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
 msgstr ""
 
 msgid "Preview your request"
-msgstr "Forskoða beiðni"
+msgstr ""
 
 msgid "Privacy"
 msgstr ""
@@ -172,18 +171,19 @@ msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
 
 msgid "Publish immediately"
-msgstr "Birta strax"
+msgstr ""
 
 msgid "Publish request"
-msgstr "Birta beiðni"
+msgstr ""
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "Read blog"
-msgstr "Lesa blogg"
+msgstr ""
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr ""
@@ -198,6 +198,7 @@ msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr ""
@@ -206,19 +207,19 @@ msgid "Request to"
 msgstr ""
 
 msgid "Requests"
-msgstr "Beiðnir"
+msgstr ""
 
 msgid "Requests that will be made public soon"
 msgstr ""
 
 msgid "Save draft"
-msgstr "Vista drög"
+msgstr ""
 
 msgid "Search"
-msgstr "Leit"
+msgstr ""
 
 msgid "Search for an authority"
-msgstr "Leita að stjórnvaldi"
+msgstr ""
 
 msgid "Search for an authority by name"
 msgstr ""
@@ -233,6 +234,7 @@ msgid "Send a follow up (or request an internal review)."
 msgid_plural "Send follow ups (or request internal reviews)."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "Send a follow up message to {{person_or_body}}"
 msgstr ""
@@ -265,7 +267,7 @@ msgid "Sorry, something went wrong updating your request's privacy settings, ple
 msgstr ""
 
 msgid "Sort by"
-msgstr "Raða eftir"
+msgstr ""
 
 msgid "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr ""
@@ -274,13 +276,13 @@ msgid "Start new request"
 msgstr ""
 
 msgid "Status"
-msgstr "Staða"
+msgstr ""
 
 msgid "Subject"
-msgstr "Efni"
+msgstr ""
 
 msgid "Submit Search"
-msgstr "Efnisleit"
+msgstr ""
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr ""
@@ -289,6 +291,7 @@ msgid "The following request will be made public on {{site_name}} in the next we
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "Then you can access {{pro_site_name}}"
 msgstr ""
@@ -306,7 +309,7 @@ msgid "This request is private on {{site_name}} until <span class=\"js-embargo-e
 msgstr ""
 
 msgid "This request is public"
-msgstr "Þessi beiðni er opinber"
+msgstr ""
 
 msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 msgstr ""
@@ -315,7 +318,7 @@ msgid "Title (A-Z)"
 msgstr ""
 
 msgid "To"
-msgstr "Til"
+msgstr ""
 
 msgid "To access {{pro_site_name}}"
 msgstr ""
@@ -330,15 +333,16 @@ msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "Updated"
-msgstr "Uppfært"
+msgstr ""
 
 msgid "View"
 msgstr ""
 
 msgid "View authorities"
-msgstr "Skoða"
+msgstr ""
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
 msgstr ""
@@ -350,10 +354,10 @@ msgid "When your request is made public on {{site_name}}, any annotations you ad
 msgstr ""
 
 msgid "Write a reply"
-msgstr "Skrifa svar"
+msgstr ""
 
 msgid "Write request"
-msgstr "Skrifa beiðni"
+msgstr ""
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
@@ -407,7 +411,7 @@ msgid "Your request has been updated!"
 msgstr ""
 
 msgid "Your request is now public!"
-msgstr "Upplýsingabeiðnin þín er núna opinber!"
+msgstr ""
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
 msgstr ""
@@ -422,10 +426,10 @@ msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> s
 msgstr ""
 
 msgid "all requests"
-msgstr "allar beiðnir"
+msgstr ""
 
 msgid "drafts"
-msgstr "drög"
+msgstr ""
 
 msgid "eg. Cabinet Office"
 msgstr ""
@@ -452,26 +456,31 @@ msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} request is delayed."
 msgid_plural "{{count}} requests are delayed."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} request is long overdue."
 msgid_plural "{{count}} requests are long overdue."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} request made"
 msgid_plural "{{count}} requests made"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} request will be made public this week."
 msgid_plural "{{count}} requests will be made public this week."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{length_of_time}} ago"
 msgstr ""
