@@ -259,7 +259,7 @@ That's the end of the step-by-step process to make your own theme, but of
 course this is just the start of your customisation.
 
 For more detail about what you can do in your theme, see
-[more about themes]({{ page.baseurl }}docs/customising/themes/#customising-the-help-pages).
+[more about themes]({{ page.baseurl }}/docs/customising/themes/#customising-the-help-pages).
 
 ### Changing the help pages
 
@@ -274,7 +274,7 @@ whenever we release a newer version without that update colliding with your
 changes.
 
 See
-[changing the help pages]({{ page.baseurl }}docs/customising/themes/#customising-the-help-pages) 
+[changing the help pages]({{ page.baseurl }}/docs/customising/themes/#customising-the-help-pages) 
 for details.
 
 As usual, whenever you make changes, commit them and be sure to push them
