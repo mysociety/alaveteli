@@ -829,6 +829,18 @@ describe UserController, "when signing in" do
     expect(post_redirect.uri).to eq("/list")
   end
 
+  it "reuses the user's last PostRedirect if they attempt to sign in pre confirmation" do
+    user = FactoryGirl.create(:user, email_confirmed: false)
+    user_redirect = PostRedirect.create(uri: '/', user: user, reason_params: {})
+    get :signin, :r => '/list'
+    last_redirect = get_last_postredirect
+    post :signin, token: last_redirect.token,
+                  user_signin: { email: user.email, password: 'jonespassword' }
+
+    expect(response).to render_template('confirm')
+    expect(user.post_redirects.last).to eq(user_redirect)
+  end
+
   it "should show you the sign in page again if you get the password wrong" do
     get :signin, :r => "/list"
     expect(response).to render_template('sign')

@@ -535,6 +535,17 @@ class UserController < ApplicationController
     # Redirect to front page later if nothing else specified
     params[:r] = "/" if params[:r].nil? && params[:token].nil?
 
+    # retrieve the user's previous PostRedirect token if they did not click
+    # the confirm link from an earlier email
+    if params[:user_signin] && params[:user_signin][:email]
+      if user = User.find_user_by_email(params[:user_signin][:email])
+        if @post_redirect = PostRedirect.find_by_user_id(user.id)
+          params[:token] = @post_redirect.token
+          return
+        end
+      end
+    end
+
     # The explicit "signin" link uses this to specify where to go back to
     if params[:r]
       @post_redirect = generate_post_redirect_for_signup(params[:r])
