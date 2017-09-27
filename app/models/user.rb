@@ -13,7 +13,6 @@
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
 #  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
-#  admin_level                       :string(255)      default("none"), not null
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string(255)
@@ -121,10 +120,6 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :message => _("Please enter your name")
   validates_presence_of :hashed_password, :message => _("Please enter a password")
   validates_confirmation_of :password, :message => _("Please enter the same password twice")
-  validates_inclusion_of :admin_level, :in => [
-    'none',
-    'super',
-  ], :message => N_('Admin level is not included in list')
 
   validates_length_of :about_me,
     :maximum => 500,
@@ -659,9 +654,6 @@ class User < ActiveRecord::Base
   end
 
   def set_defaults
-    if admin_level.nil?
-      self.admin_level = 'none'
-    end
     if new_record?
       # make alert emails go out at a random time for each new user, so
       # overall they are spread out throughout the day.

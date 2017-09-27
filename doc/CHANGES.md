@@ -49,9 +49,14 @@
 * Similar request IDs are now cached, rather than template partials displaying
   similar requests, in order to make better usage of the cache space (Louise Crow)
 * You can now filter users by their role on the admin user list page (Louise Crow)
+* Remove the obsolete `admin_level` user attribute (Louise Crow)
 
 ## Upgrade Notes
 
+* This release removes the `admin_level` user attribute. You will need to migrate
+  to this release via 0.29.0.0 and follow the instructions in the release notes for
+  that release to migrate admin and pro statuses to the role-based system first, in
+  order to retain admin status for your admin users.
 * Ensure memcached is installed (`sudo apt-get install memcached`) and running
   (`sudo service memcached start`).
 * `app/views/track/_track_set.erb` has been renamed to
