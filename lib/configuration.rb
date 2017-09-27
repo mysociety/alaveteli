@@ -38,6 +38,7 @@ module AlaveteliConfiguration
       :STRIPE_PUBLISHABLE_KEY => '',
       :STRIPE_SECRET_KEY => '',
       :STRIPE_NAMESPACE => '',
+      :STRIPE_WEBHOOK_SECRET => '',
       :DEBUG_RECORD_MEMORY => false,
       :DEFAULT_LOCALE => '',
       :DISABLE_EMERGENCY_USER => false,
