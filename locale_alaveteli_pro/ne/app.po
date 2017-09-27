@@ -10,6 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 16:14+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
+"Last-Translator: Rabi Raj Khadka <er.rabirajkhadka@gmail.com>, 2017\n"
 "Language-Team: Nepali (https://www.transifex.com/mysociety/teams/33529/ne/)\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -18,25 +19,25 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr ""
+msgstr "फिर्ता पाइएको सुचनाको सामग्री <strong>सारांश गरिदै </strong>"
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "तपाईले कसरि <strong>सुचनाको प्रयोग </strong>गर्नु भयो बताउनु होस्, यदि सम्भब छ भने लिङ्क सहित "
 
 msgid "+ Add"
-msgstr ""
+msgstr "+ थप्नुहोस् "
 
 msgid "- Remove"
-msgstr ""
+msgstr "- हटाउनुहोस् "
 
 msgid "12 Months"
-msgstr ""
+msgstr "बाह्र महिना "
 
 msgid "3 Months"
-msgstr ""
+msgstr "तिन महिना "
 
 msgid "6 Months"
-msgstr ""
+msgstr "छ महिना "
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr ""
@@ -54,19 +55,19 @@ msgid "A one line summary of the information you are requesting, e.g."
 msgstr ""
 
 msgid "Activity"
-msgstr ""
+msgstr "गतिबिधि "
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "टिप्पणी थप्नुहोस् "
 
 msgid "Add authorities to your batch"
 msgstr ""
 
 msgid "Added"
-msgstr ""
+msgstr "थपियो "
 
 msgid "All requests"
-msgstr ""
+msgstr "सबै अनुरोधहरु "
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
@@ -78,13 +79,13 @@ msgid "Are you sure you want to publish this request?"
 msgstr ""
 
 msgid "Browse public requests"
-msgstr ""
+msgstr "सार्वजनिक अनुरोधहरू हेर्नुहोस्  "
 
 msgid "Change privacy"
-msgstr ""
+msgstr "गोपनियता परिवर्तन गर्नुहोस् "
 
 msgid "Change status"
-msgstr ""
+msgstr "बस्तुस्तिथि परिवर्तन गर्नुहोस् "
 
 msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
 msgstr ""
@@ -93,28 +94,28 @@ msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr ""
 
 msgid "Choose a duration"
-msgstr ""
+msgstr "एक अवधि चयन गर्नुहोस् "
 
 msgid "Created"
-msgstr ""
+msgstr "बनाइयो "
 
 msgid "Dashboard"
-msgstr ""
+msgstr "ड्यासबोर्ड"
 
 msgid "Download a zip file of all correspondence"
-msgstr ""
+msgstr "सबै पत्राचारहरुको जिप फाइल डाउनलोड गर्नुहोस् "
 
 msgid "Draft"
-msgstr ""
+msgstr "मस्यौदा"
 
 msgid "Drafts"
-msgstr ""
+msgstr "मस्यौदाहरु "
 
 msgid "Edit your request"
-msgstr ""
+msgstr "तपाइको अनुरोध सम्पादन गर्नुहोस् "
 
 msgid "First created"
-msgstr ""
+msgstr "पहिलो पटक बनाइएको "
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr ""
@@ -126,25 +127,25 @@ msgid "Get started with your first request"
 msgstr ""
 
 msgid "Help"
-msgstr ""
+msgstr "सहयोग "
 
 msgid "Keep private for a further:"
-msgstr ""
+msgstr "केहि अघि सम्मको लागि निजि राख्नुहोस्"
 
 msgid "Last updated"
-msgstr ""
+msgstr "पछिल्लो पटक अद्यावधिक गरिएको"
 
 msgid "Make a request"
-msgstr ""
+msgstr "अनुरोध गर्नुहोस् "
 
 msgid "Make an {{law_used_short}} request"
 msgstr ""
 
 msgid "My profile"
-msgstr ""
+msgstr "मेरो प्रोफाइल "
 
 msgid "My wall"
-msgstr ""
+msgstr "मेरो भित्ता "
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
 msgstr ""
@@ -156,16 +157,16 @@ msgid "Point to <strong>related information</strong>, campaigns or forums which 
 msgstr ""
 
 msgid "Preview and send request"
-msgstr ""
+msgstr "पूर्वावलोकन गर्नुहोस र अनुरोध पठाउनुहोस् "
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
 msgstr ""
 
 msgid "Preview your request"
-msgstr ""
+msgstr "तपाइको अनुरोध पूर्वावलोकन गर्नुहोस् "
 
 msgid "Privacy"
-msgstr ""
+msgstr "गोपनीयता "
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""

@@ -10,6 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 16:14+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
+"Last-Translator: Anatoli F. Peña Castillo <djanatoli@gmail.com>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/mysociety/teams/33529/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -18,341 +19,341 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr ""
+msgstr " <strong>Resumiendo</strong> el contenido de cualquier información devuelta. "
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "Diga cómo ha <strong>utilizado la información </strong>, coloque enlaces si es posible."
 
 msgid "+ Add"
-msgstr ""
+msgstr "+ Añadir"
 
 msgid "- Remove"
-msgstr ""
+msgstr "- Remover"
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 Meses"
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 Meses"
 
 msgid "6 Months"
-msgstr ""
+msgstr "6 Meses"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-msgstr ""
+msgstr "<strong>Nota:</strong> Al estar realizando pruebas, las solicitudes se están enviando a {{email}} en vez de al organismo real."
 
 msgid "<strong>Thank</strong> the public authority."
-msgstr ""
+msgstr "<strong>Dé las gracias</strong> al organismo público."
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr ""
+msgstr "<strong>{{filter_description}}</strong> ordenado por <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">despejar</a>"
 
 msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr ""
+msgstr "Un <strong>resumen</strong> de la respuesta si la ha recibido por correo ordinario. "
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr ""
+msgstr "Un resumen de una línea de la información que solicita, por ejemplo."
 
 msgid "Activity"
-msgstr ""
+msgstr "Actividad"
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Añada un comentario"
 
 msgid "Add authorities to your batch"
-msgstr ""
+msgstr "Añadir autoridades a su lote"
 
 msgid "Added"
-msgstr ""
+msgstr "Añadido"
 
 msgid "All requests"
-msgstr ""
+msgstr "Todas las solicitudes"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
-msgstr ""
+msgstr "Los comentarios le permiten añadir notas adicionales en una solicitud, que finalmente se harán públicos. Por ejemplo:"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
-msgstr ""
+msgstr "¿Está seguro de que la información que busca no está disponible en otra parte?"
 
 msgid "Are you sure you want to publish this request?"
-msgstr ""
+msgstr "¿Está seguro de que desea publicar esta solicitud?"
 
 msgid "Browse public requests"
-msgstr ""
+msgstr "Buscar solicitudes públicas"
 
 msgid "Change privacy"
-msgstr ""
+msgstr "Cambiar privacidad"
 
 msgid "Change status"
-msgstr ""
+msgstr "Cambiar estado"
 
 msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
 msgstr ""
 
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr ""
+msgstr "Compruebe que no ha incluido <strong>ninguna información personal</strong>."
 
 msgid "Choose a duration"
-msgstr ""
+msgstr "Elija una duración"
 
 msgid "Created"
-msgstr ""
+msgstr "Creado"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Tablero"
 
 msgid "Download a zip file of all correspondence"
-msgstr ""
+msgstr "Descargar un archivo zip con toda la correspondencia"
 
 msgid "Draft"
-msgstr ""
+msgstr "Borrador"
 
 msgid "Drafts"
-msgstr ""
+msgstr "Borradores"
 
 msgid "Edit your request"
-msgstr ""
+msgstr "Editar su solicitud"
 
 msgid "First created"
-msgstr ""
+msgstr "Primera creación"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
-msgstr ""
+msgstr "Desde esta pantalla puede obtener una visión general útil de sus solicitudes y utilizar acciones rápidas para mantenerlas actualizadas. ¿Por qué no comenzar la primera ahora?"
 
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
-msgstr ""
+msgstr "Desde esta pantalla puede ver lo que necesita hacer para mantener sus solicitudes avanzando. ¿Por qué no iniciar una nueva solicitud ahora?"
 
 msgid "Get started with your first request"
-msgstr ""
+msgstr "Comience con su primera solicitud"
 
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 msgid "Keep private for a further:"
-msgstr ""
+msgstr "Manténgase privado para más:"
 
 msgid "Last updated"
-msgstr ""
+msgstr "Última actualización"
 
 msgid "Make a request"
-msgstr ""
+msgstr "Enviar solicitud"
 
 msgid "Make an {{law_used_short}} request"
-msgstr ""
+msgstr "Realizar una {{law_used_short}} solicitud"
 
 msgid "My profile"
-msgstr ""
+msgstr "Mi perfil"
 
 msgid "My wall"
-msgstr ""
+msgstr "Mi muro"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
-msgstr ""
+msgstr "Nota: Cuando esta solicitud se publique en {{site_name}}, este mensaje también se hará público."
 
 msgid "Once you’re happy with your request, click preview and send."
-msgstr ""
+msgstr "Una vez que esté satisfecho con su solicitud, haga clic en revisar y enviar."
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
-msgstr ""
+msgstr "Haz referencia a <strong>información relacionada</strong>, campañas o foros que puedan ser útiles."
 
 msgid "Preview and send request"
-msgstr ""
+msgstr "Revisar y enviar solicitud."
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr ""
+msgstr "Revisar nueva {{law_used_short}} solicitud para '{{public_body_name}}"
 
 msgid "Preview your request"
-msgstr ""
+msgstr "Revista su solicitud"
 
 msgid "Privacy"
-msgstr ""
+msgstr "Privacidad"
 
 msgid "Provide extra context on the request and your reasons for making it."
-msgstr ""
+msgstr "Proporcione un contexto adicional en la solicitud y sus razones para hacerlo."
 
 msgid "Publish immediately"
-msgstr ""
+msgstr "Publicar inmediatamente"
 
 msgid "Publish request"
-msgstr ""
+msgstr "Publicar solicitud"
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Publique esta solicitud o manténgala privada durante más tiempo."
+msgstr[1] "Publique estas solicitudes o manténgalas privadas por más tiempo."
 
 msgid "Read blog"
-msgstr ""
+msgstr "Leer el blog"
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
-msgstr ""
+msgstr "Recuerde que las autoridades públicas tienen {{late_number_of_days}} días calendario para responder a las solicitudes de Libertad de Información."
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
-msgstr ""
+msgstr "Recuerde, las autoridades públicas tienen {{late_number_of_days}} días laborables para responder a las solicitudes de Libertad de Información."
 
 msgid "Request an internal review"
-msgstr ""
+msgstr "Solicitar una revisión interna"
 
 msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Solicitar una revisión interna (o enviar otro seguimiento)."
+msgstr[1] "Solicitar revisiones internas (o enviar otros seguimientos)."
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr ""
+msgstr "Solicitar una revisión interna de {{person_or_body}}"
 
 msgid "Request to"
-msgstr ""
+msgstr "Solicitud a"
 
 msgid "Requests"
-msgstr ""
+msgstr "Solicitudes "
 
 msgid "Requests that will be made public soon"
-msgstr ""
+msgstr "Solicitudes que se harán públicas pronto"
 
 msgid "Save draft"
-msgstr ""
+msgstr "Guardar borrador"
 
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 msgid "Search for an authority"
-msgstr ""
+msgstr "Buscar una autoridad"
 
 msgid "Search for an authority by name"
-msgstr ""
+msgstr "Buscar una autoridad por nombre"
 
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr ""
+msgstr "Buscando <strong>{{search_term}}</strong> en <strong> {{filter_description}}</strong> ordenado por <strong> {{order_description}} </strong> <a href =\"{{reset_url}}\" class =\"clear-icon\"> despejar </a>"
 
 msgid "Send a follow up"
-msgstr ""
+msgstr "Enviar un seguimiento"
 
 msgid "Send a follow up (or request an internal review)."
 msgid_plural "Send follow ups (or request internal reviews)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Enviar seguimiento (o solicitar revisión interna)."
+msgstr[1] "Enviar seguimientos (o solicitar revisiones internas)."
 
 msgid "Send a follow up message to {{person_or_body}}"
-msgstr ""
+msgstr "Enviar mensaje de seguimiento a {{person_or_body}}"
 
 msgid "Send a followup"
-msgstr ""
+msgstr "Enviar un seguimiento"
 
 msgid "Send a reply to {{person_or_body}}"
-msgstr ""
+msgstr "Enviar una respuesta a {{person_or_body}}"
 
 msgid "Send request"
-msgstr ""
+msgstr "Enviar solicitud"
 
 msgid "Sending..."
-msgstr ""
+msgstr "Enviando..."
 
 msgid "Sorry, no authorities matched that search"
-msgstr ""
+msgstr "Lo sentimos, ninguna autoridad coincide con esa búsqueda."
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
-msgstr ""
+msgstr "Lo sentimos, algo salió mal al obtener sus resultados. Por favor, inténtelo de nuevo."
 
 msgid "Sorry, something went wrong publishing your request, please try again."
-msgstr ""
+msgstr "Lo sentimos, algo salió mal al publicar sus solicitudes. Por favor, inténtelo de nuevo."
 
 msgid "Sorry, something went wrong updating your batch request, please try again."
-msgstr ""
+msgstr "Lo sentimos, se ha producido un error al actualizar su solicitud por lote. Por favor, inténtelo de nuevo."
 
 msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
-msgstr ""
+msgstr "Lo sentimos, se ha producido un error al actualizar la configuración de privacidad de su solicitud. Por favor, inténtelo de nuevo."
 
 msgid "Sort by"
-msgstr ""
+msgstr "Ordenar por"
 
 msgid "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr ""
+msgstr "Ordenado por <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">despejar</a>"
 
 msgid "Start new request"
-msgstr ""
+msgstr "Iniciar nueva solicitud"
 
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 msgid "Subject"
-msgstr ""
+msgstr "Asunto"
 
 msgid "Submit Search"
-msgstr ""
+msgstr "Enviar búsqueda"
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
-msgstr ""
+msgstr "Gracias por iniciar sesion. Hemos guardado su solicitud como un borrador, en caso de que desee agregar un embargo antes de enviarla. Puede establecer eso (o simplemente enviarlo enseguida) usando el siguiente formulario."
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Las siguiente solicitud se hará pública en {{site_name}} la próxima semana. Si no desea que esta solicitud se publique en ese tiempo, haga clic en el enlace a continuación para mantenerla en privado por mas tiempo."
+msgstr[1] "Las siguientes solicitudes se harán públicas en {{site_name}} en la próxima semana. Si no desea que ninguna de estas solicitudes se publique, haga clic en los enlaces a continuación para ampliarlas."
 
 msgid "Then you can access {{pro_site_name}}"
-msgstr ""
+msgstr "Entonces podrá acceder a {{pro_site_name}}"
 
 msgid "There's nothing to do right now. Great job!"
-msgstr ""
+msgstr "No hay nada que hacer ahora mismo. Buen trabajo!"
 
 msgid "Things to do today"
-msgstr ""
+msgstr "Cosas para hacer hoy"
 
 msgid "This page is only accessible to {{pro_site_name}} users"
-msgstr ""
+msgstr "Esta página sólo es accesible para los usuarios de {{pro_site_name}}"
 
 msgid "This request is private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
-msgstr ""
+msgstr "Esta solicitud es privada en {{site_name}} hasta <span class = \"js-embargo-expiry\"> {{embargo_publish_at}} </ span>"
 
 msgid "This request is public"
-msgstr ""
+msgstr "La solicitud es publica "
 
 msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
-msgstr ""
+msgstr "Esta solicitud será privada en {{site_name}} hasta <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 
 msgid "Title (A-Z)"
-msgstr ""
+msgstr "Titulo (A-Z)"
 
 msgid "To"
-msgstr ""
+msgstr "Para"
 
 msgid "To access {{pro_site_name}}"
-msgstr ""
+msgstr "Para acceder {{pro_site_name}}"
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
-msgstr ""
+msgstr "A menos que elija una opción de privacidad, su solicitud será pública en {{site_name}} inmediatamente."
 
 msgid "Update"
-msgstr ""
+msgstr "Actualizar"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Actualizar su estado."
+msgstr[1] "Actualizar estados."
 
 msgid "Updated"
-msgstr ""
+msgstr "Actualizada"
 
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 msgid "View authorities"
-msgstr ""
+msgstr "Ver organismos públicos"
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
-msgstr ""
+msgstr "Le recordaremos por correo electrónico y en el sitio cuando la solicitud se va a hacer pública, y tendrá la opción de mantenerla privada por más tiempo si lo desea. Puede extender este tiempo indefinidamente o hacer pública la solicitud en cualquier momento."
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr ""
+msgstr "Cuando una solicitud es privada, garantizamos que sólo será visible en {{site_name}} durante el período que seleccione. Los administradores de {{pro_site_name}} también podrán ver su solicitud, pero solo lo harán en caso de que necesiten solucionar un problema con ella (por ejemplo, entrega fallida a la autoridad). Ellos no revelarán el contenido de su solicitud o cualquier respuesta que obtenga a otra persona. La autoridad todavía puede publicarla en un registro de divulgación como de costumbre."
 
 msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 
 msgid "Write a reply"
-msgstr ""
+msgstr "Escribir una respuesta"
 
 msgid "Write request"
-msgstr ""
+msgstr "Escribir una solicitud"
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
@@ -397,7 +398,7 @@ msgid "Your message will be displayed publicly on this website once you publish 
 msgstr ""
 
 msgid "Your request"
-msgstr ""
+msgstr "Su solicitud"
 
 msgid "Your request \"{{info_request_title}}\" to {{public_body_name}} was resent."
 msgstr ""
@@ -406,7 +407,7 @@ msgid "Your request has been updated!"
 msgstr ""
 
 msgid "Your request is now public!"
-msgstr ""
+msgstr "Su solicitud ahora es publica!"
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
 msgstr ""
@@ -421,10 +422,10 @@ msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> s
 msgstr ""
 
 msgid "all requests"
-msgstr ""
+msgstr "todas las solicitudes"
 
 msgid "drafts"
-msgstr ""
+msgstr "borradores"
 
 msgid "eg. Cabinet Office"
 msgstr ""

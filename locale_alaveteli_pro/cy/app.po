@@ -10,6 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 16:14+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
+"Last-Translator: Aled Powell <aled@aledpowell.cymru>, 2017\n"
 "Language-Team: Welsh (https://www.transifex.com/mysociety/teams/33529/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -24,19 +25,19 @@ msgid " Say how you've <strong>used the information</strong>, with links if poss
 msgstr ""
 
 msgid "+ Add"
-msgstr ""
+msgstr "+ Ychwanegu"
 
 msgid "- Remove"
-msgstr ""
+msgstr "- Tynnu"
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 Mis"
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 Mis"
 
 msgid "6 Months"
-msgstr ""
+msgstr "6 Mis"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr ""
@@ -54,19 +55,19 @@ msgid "A one line summary of the information you are requesting, e.g."
 msgstr ""
 
 msgid "Activity"
-msgstr ""
+msgstr "Gweithred"
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Ychwanegu anodiad"
 
 msgid "Add authorities to your batch"
 msgstr ""
 
 msgid "Added"
-msgstr ""
+msgstr "Ychwanegwyd"
 
 msgid "All requests"
-msgstr ""
+msgstr "Eich ceisiadau"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
@@ -78,13 +79,13 @@ msgid "Are you sure you want to publish this request?"
 msgstr ""
 
 msgid "Browse public requests"
-msgstr ""
+msgstr "Pori ceisiadau cyhoeddus"
 
 msgid "Change privacy"
-msgstr ""
+msgstr "Newid preifatrwydd"
 
 msgid "Change status"
-msgstr ""
+msgstr "Newid statws"
 
 msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
 msgstr ""
@@ -93,28 +94,28 @@ msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr ""
 
 msgid "Choose a duration"
-msgstr ""
+msgstr "Dewis hyd"
 
 msgid "Created"
-msgstr ""
+msgstr "Wedi creu"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Dashfwrdd"
 
 msgid "Download a zip file of all correspondence"
 msgstr ""
 
 msgid "Draft"
-msgstr ""
+msgstr "Drafft"
 
 msgid "Drafts"
-msgstr ""
+msgstr "Drafftiau"
 
 msgid "Edit your request"
-msgstr ""
+msgstr "Golygu'ch cais"
 
 msgid "First created"
-msgstr ""
+msgstr "Creuwyd yn gyntaf"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr ""
@@ -123,28 +124,28 @@ msgid "From this screen you can see what you need to do next to keep your reques
 msgstr ""
 
 msgid "Get started with your first request"
-msgstr ""
+msgstr "Dechrau arni gyda'ch cais cyntaf"
 
 msgid "Help"
-msgstr ""
+msgstr "Cymorth"
 
 msgid "Keep private for a further:"
-msgstr ""
+msgstr "Cadw'n breifat yn hirach am:"
 
 msgid "Last updated"
-msgstr ""
+msgstr "Diweddarwyd diwethaf"
 
 msgid "Make a request"
-msgstr ""
+msgstr "Gwneud cais"
 
 msgid "Make an {{law_used_short}} request"
 msgstr ""
 
 msgid "My profile"
-msgstr ""
+msgstr "Fy mhroffil"
 
 msgid "My wall"
-msgstr ""
+msgstr "Fy wal"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
 msgstr ""
@@ -156,25 +157,25 @@ msgid "Point to <strong>related information</strong>, campaigns or forums which 
 msgstr ""
 
 msgid "Preview and send request"
-msgstr ""
+msgstr "Rhagolwg ac anfon cais"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
 msgstr ""
 
 msgid "Preview your request"
-msgstr ""
+msgstr "Rhagolwg o'ch cais"
 
 msgid "Privacy"
-msgstr ""
+msgstr "Preifatrwydd"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
 
 msgid "Publish immediately"
-msgstr ""
+msgstr "Cyhoeddi'n syth"
 
 msgid "Publish request"
-msgstr ""
+msgstr "Cyhoeddi'r cais"
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
@@ -184,7 +185,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 msgid "Read blog"
-msgstr ""
+msgstr "Darllen blog"
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr ""
@@ -193,7 +194,7 @@ msgid "Remember, public authorities have {{late_number_of_days}} working days to
 msgstr ""
 
 msgid "Request an internal review"
-msgstr ""
+msgstr "Gofyn am adolygiad mewnol"
 
 msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
@@ -206,25 +207,25 @@ msgid "Request an internal review from {{person_or_body}}"
 msgstr ""
 
 msgid "Request to"
-msgstr ""
+msgstr "Cais i"
 
 msgid "Requests"
-msgstr ""
+msgstr "Ceisiadau"
 
 msgid "Requests that will be made public soon"
-msgstr ""
+msgstr "Ceisiadau a chaiff eu gwneud yn gyhoeddus yn fuan"
 
 msgid "Save draft"
-msgstr ""
+msgstr "Cadw drafft"
 
 msgid "Search"
-msgstr ""
+msgstr "Chwilio"
 
 msgid "Search for an authority"
-msgstr ""
+msgstr "Chwilio am awdurdod"
 
 msgid "Search for an authority by name"
-msgstr ""
+msgstr "Chwilio am awdurdod gydag enw"
 
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr ""
@@ -246,13 +247,13 @@ msgid "Send a followup"
 msgstr ""
 
 msgid "Send a reply to {{person_or_body}}"
-msgstr ""
+msgstr "Anfon ymateb at {{person_or_body}}"
 
 msgid "Send request"
-msgstr ""
+msgstr "Anfon ymateb"
 
 msgid "Sending..."
-msgstr ""
+msgstr "Yn anfon..."
 
 msgid "Sorry, no authorities matched that search"
 msgstr ""
@@ -270,22 +271,22 @@ msgid "Sorry, something went wrong updating your request's privacy settings, ple
 msgstr ""
 
 msgid "Sort by"
-msgstr ""
+msgstr "Trefnu yn ôl"
 
 msgid "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr ""
 
 msgid "Start new request"
-msgstr ""
+msgstr "Dechrau cais newydd"
 
 msgid "Status"
-msgstr ""
+msgstr "Statws"
 
 msgid "Subject"
-msgstr ""
+msgstr "Pwnc:"
 
 msgid "Submit Search"
-msgstr ""
+msgstr "Cyflwyno Chwiliad"
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr ""
@@ -304,7 +305,7 @@ msgid "There's nothing to do right now. Great job!"
 msgstr ""
 
 msgid "Things to do today"
-msgstr ""
+msgstr "Pethau i'w gwneud heddiw"
 
 msgid "This page is only accessible to {{pro_site_name}} users"
 msgstr ""
@@ -313,16 +314,16 @@ msgid "This request is private on {{site_name}} until <span class=\"js-embargo-e
 msgstr ""
 
 msgid "This request is public"
-msgstr ""
+msgstr "Mae'r cais hwn yn gyhoeddus"
 
 msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 msgstr ""
 
 msgid "Title (A-Z)"
-msgstr ""
+msgstr "Teitl (A-Y)"
 
 msgid "To"
-msgstr ""
+msgstr "At"
 
 msgid "To access {{pro_site_name}}"
 msgstr ""
@@ -331,7 +332,7 @@ msgid "Unless you choose a privacy option, your request will be public on {{site
 msgstr ""
 
 msgid "Update"
-msgstr ""
+msgstr "Diweddaru"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
@@ -341,13 +342,13 @@ msgstr[2] ""
 msgstr[3] ""
 
 msgid "Updated"
-msgstr ""
+msgstr "Diweddarwyd"
 
 msgid "View"
-msgstr ""
+msgstr "Gweld"
 
 msgid "View authorities"
-msgstr ""
+msgstr "Gweld awdurdodau"
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
 msgstr ""
@@ -359,10 +360,10 @@ msgid "When your request is made public on {{site_name}}, any annotations you ad
 msgstr ""
 
 msgid "Write a reply"
-msgstr ""
+msgstr "Ysgrifennu ateb"
 
 msgid "Write request"
-msgstr ""
+msgstr "Ysgrifennu cais"
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
@@ -392,10 +393,10 @@ msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\"
 msgstr ""
 
 msgid "Your dashboard"
-msgstr ""
+msgstr "Eich dashfwrdd"
 
 msgid "Your draft has been saved!"
-msgstr ""
+msgstr "Mae eich drafft wedi ei gadw"
 
 msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
 msgstr ""
@@ -407,16 +408,16 @@ msgid "Your message will be displayed publicly on this website once you publish 
 msgstr ""
 
 msgid "Your request"
-msgstr ""
+msgstr "Eich cais"
 
 msgid "Your request \"{{info_request_title}}\" to {{public_body_name}} was resent."
 msgstr ""
 
 msgid "Your request has been updated!"
-msgstr ""
+msgstr "Mae'ch cais wedi ei ddiweddaru!"
 
 msgid "Your request is now public!"
-msgstr ""
+msgstr "Mae'ch cais bellach yn gyhoeddus!"
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
 msgstr ""
@@ -431,28 +432,28 @@ msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> s
 msgstr ""
 
 msgid "all requests"
-msgstr ""
+msgstr "pob cais"
 
 msgid "drafts"
-msgstr ""
+msgstr "drafftiau"
 
 msgid "eg. Cabinet Office"
-msgstr ""
+msgstr "e.e. Swyddfa Cymru"
 
 msgid "first created"
-msgstr ""
+msgstr "creuwyd cyntaf"
 
 msgid "last updated"
-msgstr ""
+msgstr "diweddarwyd diwethaf"
 
 msgid "requests that will be made public soon"
-msgstr ""
+msgstr "ceisiadau caiff eu gwneud yn gyhoeddus yn fuan"
 
 msgid "the {{site_name}} team"
 msgstr ""
 
 msgid "title (A-Z)"
-msgstr ""
+msgstr "teitl (A-Y)"
 
 msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
