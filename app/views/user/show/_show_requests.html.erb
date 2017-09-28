@@ -1,14 +1,25 @@
 <div id="user_profile_search" class="user_profile_search">
   <%= form_tag(show_user_url, :method => "get", :id=>"search_form") do %>
     <div>
-      <%= text_field_tag(:user_query, params[:user_query], {:title => "type your search term here" }) %>
+      <%= text_field_tag :user_query,
+                         params[:user_query],
+                         title: "type your search term here" %>
+
+      <% filter_options =
+           options_from_collection_for_select(
+             @request_states,
+             'value',
+             'text',
+             params[:request_latest_status]) %>
+
       <%= select_tag :request_latest_status,
-        options_from_collection_for_select(@request_states, 'value', 'text', params[:request_latest_status]),
-        :prompt => _('Filter by Request Status (optional)') %>
+                     filter_options,
+                     prompt: _('Filter by Request Status (optional)') %>
+
       <% if @is_you %>
-        <%= submit_tag(_("Search your contributions")) %>
+        <%= submit_tag _("Search your contributions") %>
       <% else %>
-        <%= submit_tag(_("Search contributions by this person")) %>
+        <%= submit_tag _("Search contributions by this person") %>
       <% end %>
     </div>
   <% end %>
@@ -17,42 +28,70 @@
     <% if @xapian_requests.results.empty? %>
       <% if @page == 1 %>
         <h2 class="foi_results foi_requests" id="foi_requests">
-          <%= @is_you ? _('Freedom of Information requests made by you') : _('Freedom of Information requests made by this person') %> <%= @match_phrase %>
+          <% if @is_you %>
+            <%= _('Freedom of Information requests made by you') %>
+          <% else %>
+            <%= _('Freedom of Information requests made by this person') %>
+          <% end %>
+          <%= @match_phrase %>
         </h2>
 
-        <p><%= @is_you ? _('You have made no Freedom of Information requests using this site.') : _('This person has made no Freedom of Information requests using this site.') %></p>
+        <p>
+          <% if @is_you %>
+            <%= _('You have made no Freedom of Information requests using ' \
+                  'this site.') %>
+          <% else %>
+            <%= _('This person has made no Freedom of Information requests ' \
+                  'using this site.') %>
+          <% end %>
+        </p>
 
         <%= @page_desc %>
       <% end %>
     <% else %>
       <h2 class="foi_results foi_requests" id="foi_requests">
-        <%= @is_you ? n_('Your {{count}} Freedom of Information request',
-                         'Your {{count}} Freedom of Information requests',
-                         @xapian_requests.matches_estimated,
-                         :count => @xapian_requests.matches_estimated) :
-                      n_("This person's {{count}} Freedom of Information request",
-                         "This person's {{count}} Freedom of Information requests",
-                         @xapian_requests.matches_estimated,
-                         :count => @xapian_requests.matches_estimated) %>
-        <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
+        <% if @is_you %>
+          <%= n_('Your {{count}} Freedom of Information request',
+                 'Your {{count}} Freedom of Information requests',
+                 @xapian_requests.matches_estimated,
+                 :count => @xapian_requests.matches_estimated) %>
+        <% else %>
+          <%= n_("This person's {{count}} Freedom of Information request",
+                 "This person's {{count}} Freedom of Information requests",
+                 @xapian_requests.matches_estimated,
+                 :count => @xapian_requests.matches_estimated) %>
+        <% end %>
+
+        <!-- matches_estimated <%= @xapian_requests.matches_estimated %> -->
         <%= @match_phrase %>
         <%= @page_desc %>
       </h2>
 
       <% @xapian_requests.results.each do |result| %>
-        <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+        <%= render partial: 'request/request_listing_via_event',
+                   locals: { event: result[:model] } %>
       <% end %>
 
-      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.info_requests.size) %>
+      <% requests_collection =
+           WillPaginate::Collection.new(@page,
+                                        @per_page,
+                                        @display_user.info_requests.size) %>
+      <%= will_paginate requests_collection %>
     <% end %>
   <% else %>
     <% if @show_requests %>
       <h2 class="foi_results foi_requests" id="foi_requests">
-        <%= @is_you ? _('Freedom of Information requests made by you') :
-                      _('Freedom of Information requests made by this person') %>
+        <% if @is_you %>
+          <%= _('Freedom of Information requests made by you') %>
+        <% else %>
+          <%= _('Freedom of Information requests made by this person') %>
+        <% end %>
       </h2>
-      <p><%= _('The search index is currently offline, so we can\'t show ' \
-                  'the Freedom of Information requests this person has made.')%></p>
+
+      <p>
+        <%= _("The search index is currently offline, so we can't show " \
+              "the Freedom of Information requests this person has made.") %>
+      </p>
     <% end %>
   <% end %>
 
@@ -60,30 +99,45 @@
     <% if @xapian_comments.results.empty? %>
       <% if @page == 1 %>
         <h2>
-          <%= @is_you ? _('Your annotations') : _('This person\'s annotations') %>
+          <% if @is_you %>
+            <%= _('Your annotations') %>
+          <% else %>
+            <%= _("This person's annotations") %>
+          <% end %>
+
           <%= @match_phrase %>
         </h2>
+
         <p><%= _('None made.') %></p>
       <% end %>
     <% else %>
       <h2 id="annotations">
-        <%= @is_you ? n_('Your {{count}} annotation',
-                         'Your {{count}} annotations',
-                         @display_user.comments.visible.size,
-                         :count => @display_user.comments.visible.size) :
-                      n_("This person's {{count}} annotation",
-                         "This person's {{count}} annotations",
-                         @display_user.comments.visible.size,
-                         :count => @display_user.comments.visible.size) %>
-        <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
+          <% if @is_you %>
+            <%= n_('Your {{count}} annotation',
+                   'Your {{count}} annotations',
+                   @display_user.comments.visible.size,
+                   :count => @display_user.comments.visible.size) %>
+          <% else %>
+            <%= n_("This person's {{count}} annotation",
+                   "This person's {{count}} annotations",
+                   @display_user.comments.visible.size,
+                   :count => @display_user.comments.visible.size) %>
+          <% end %>
+
+        <!-- matches_estimated <%= @xapian_comments.matches_estimated %> -->
         <%= @page_desc %>
       </h2>
 
       <% @xapian_comments.results.each do |result| %>
-        <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+        <%= render partial: 'request/request_listing_via_event',
+                   locals: { event: result[:model] } %>
       <% end %>
 
-      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.comments.visible.size) %>
+      <% comments_collection =
+           WillPaginate::Collection.new(@page,
+                                        @per_page,
+                                        @display_user.comments.visible.size) %>
+      <%= will_paginate comments_collection %>
     <% end %>
   <% end %>
 </div>
