@@ -1,0 +1,8 @@
+<p>
+  <%= _('There is <strong>more than one person</strong> who uses this site ' \
+        'and has this name. One of them is shown below, you may mean a ' \
+        'different one:')%>
+  <% @same_name_users.each do |same_name_user| %>
+    <%= user_link(same_name_user) %>
+  <% end %>
+</p>
