@@ -3,7 +3,7 @@
     <div>
       <%= text_field_tag :user_query,
                          params[:user_query],
-                         title: "type your search term here" %>
+                         title: _('type your search term here') %>
 
       <% filter_options =
            options_from_collection_for_select(
