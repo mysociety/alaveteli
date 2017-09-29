@@ -258,6 +258,48 @@ describe UserController do
 
     end
 
+    context 'when logged in filtering your own requests' do
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it 'filters by the given query' do
+        request_1 =
+          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
+        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money'
+
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array([request_1])
+      end
+
+      it 'filters by the given query and request status' do
+        request_1 =
+          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
+        FactoryGirl.create(:successful_request, user: user, title: 'More money')
+        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        actual =
+          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+
+        expect(actual).to match_array([request_1])
+      end
+
+    end
+
   end
 
   describe 'POST set_profile_photo' do
