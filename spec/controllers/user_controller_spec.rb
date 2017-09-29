@@ -109,6 +109,14 @@ describe UserController do
           not_to match(/change password, subscriptions and more/)
       end
 
+      it 'does not show private requests' do
+        user = FactoryGirl.create(:pro_user)
+        FactoryGirl.create(:embargoed_request, user: user)
+        update_xapian_index
+        get :show, url_name: user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to be_empty
+      end
+
     end
 
     context 'when filtering requests' do
@@ -256,6 +264,25 @@ describe UserController do
         expect(response.body).to match(/Your 1 annotation/)
       end
 
+      it 'shows private requests' do
+        user = FactoryGirl.create(:pro_user)
+        info_request = FactoryGirl.create(:embargoed_request, user: user)
+        update_xapian_index
+        session[:user_id] = user.id
+        get :show, url_name: user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to match_array([info_request])
+      end
+
+      it 'does not show hidden private requests' do
+        user = FactoryGirl.create(:pro_user)
+        info_request = FactoryGirl.create(:embargoed_request, user: user)
+        FactoryGirl.create(:embargoed_request, user: user, prominence: 'hidden')
+        update_xapian_index
+        session[:user_id] = user.id
+        get :show, url_name: user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to match_array([info_request])
+      end
+
     end
 
     context 'when logged in filtering your own requests' do
@@ -280,6 +307,24 @@ describe UserController do
         expect(actual).to match_array([request_1])
       end
 
+      it 'filters private requests by the given query' do
+        user = FactoryGirl.create(:pro_user)
+        request_1 =
+          FactoryGirl.
+          create(:embargoed_request, user: user, title: 'Some money?')
+        FactoryGirl.
+          create(:embargoed_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        session[:user_id] = user.id
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money'
+
+        expect(assigns[:private_requests]).to match_array([request_1])
+      end
+
       it 'filters by the given query and request status' do
         request_1 =
           FactoryGirl.create(:info_request, user: user, title: 'Some money?')
@@ -296,6 +341,25 @@ describe UserController do
           assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
+      end
+
+      it 'filters private requests by the given query and request status' do
+        request_1 =
+          FactoryGirl.
+          create(:embargoed_request, user: user, title: 'Some money?')
+        FactoryGirl.
+          create(:embargoed_request, user: user, title: 'How many books?')
+        FactoryGirl.
+          create(:embargoed_request, user: user, title: 'More money').
+          set_described_state('successful')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        expect(assigns[:private_requests]).to match_array([request_1])
       end
 
     end
