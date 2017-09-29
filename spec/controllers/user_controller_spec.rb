@@ -54,7 +54,7 @@ describe UserController do
 
     end
 
-    context "when viewing the user's own profile" do
+    context 'when logged in viewing your own profile' do
 
       def make_request
         get :show, url_name: user.url_name, view: 'profile'
@@ -76,7 +76,13 @@ describe UserController do
 
     end
 
-    context 'when the user being shown is logged in' do
+    context 'when logged in viewing your own requests' do
+
+      def make_request
+        get :show, url_name: user.url_name, view: 'requests'
+      end
+
+      render_views
 
       before do
         session[:user_id] = user.id
@@ -89,7 +95,7 @@ describe UserController do
           to receive(:get_undescribed_requests).
             and_return([info_request])
 
-        get :show, url_name: user.url_name, view: 'requests'
+        make_request
 
         expect(assigns[:undescribed_requests]).to eq([info_request])
       end
@@ -97,7 +103,7 @@ describe UserController do
       it "assigns the user's track things" do
         search_track = FactoryGirl.create(:search_track, tracking_user: user)
 
-        get :show, url_name: user.url_name, view: 'requests'
+        make_request
 
         expect(assigns[:track_things]).to eq([search_track])
       end
@@ -105,24 +111,10 @@ describe UserController do
       it "assigns the user's grouped track things" do
         search_track = FactoryGirl.create(:search_track, tracking_user: user)
 
-        get :show, url_name: user.url_name, view: 'requests'
+        make_request
 
         expect(assigns[:track_things_grouped]).
           to eq('search_query' => [search_track])
-      end
-
-    end
-
-    context "when viewing a user's own requests" do
-
-      def make_request
-        get :show, url_name: user.url_name, view: 'requests'
-      end
-
-      render_views
-
-      before do
-        session[:user_id] = user.id
       end
 
       it 'shows requests, batch requests, but not account options' do
