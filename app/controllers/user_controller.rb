@@ -22,7 +22,28 @@ class UserController < ApplicationController
 
     set_show_requests if @show_requests
 
+    @private_requests = []
+
     if @is_you
+      private_requests =
+        @display_user.
+          info_requests.
+          visible_to_requester.
+          embargoed
+
+      if params[:user_query]
+        private_requests = private_requests.
+          where("info_requests.title ILIKE :q", q: "%#{ params[:user_query] }%")
+      end
+
+      unless params[:request_latest_status].blank?
+        private_requests = private_requests.
+          where(described_state: params[:request_latest_status])
+      end
+
+      @private_requests =
+        private_requests.page(params[:page]).per_page(@per_page)
+
       # All tracks for the user
       @track_things = TrackThing.
         where(:tracking_user_id => @display_user, :track_medium => 'email_daily').
