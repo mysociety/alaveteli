@@ -22,9 +22,26 @@ describe UserController do
       expect(response).to be_success
     end
 
-    it 'does not show unconfirmed users' do
-      expect { get :show, url_name: 'unconfirmed_user' }.
+    it 'raises a RecordNotFound for non-existent users' do
+      user.destroy!
+      expect { get :show, url_name: user.url_name }.
         to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'raises a RecordNotFound for unconfirmed users' do
+      user = FactoryGirl.create(:user, email_confirmed: false)
+      expect { get :show, url_name: user.url_name }.
+        to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    # Also doubles for when not logged in viewing another user's profile
+    context 'when viewing a profile' do
+
+    end
+
+    # Also doubles for when not logged in viewing another user's requests
+    context 'when viewing requests' do
+
     end
 
     # TODO: Use route_for or params_from to check /c/ links better
@@ -198,6 +215,10 @@ describe UserController do
 
         expect(response.body).to match(/Your 1 annotation/)
       end
+
+    end
+
+    context 'when logged in filtering your own requests' do
 
     end
 
