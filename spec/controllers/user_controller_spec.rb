@@ -54,6 +54,51 @@ describe UserController do
 
     end
 
+    context 'when filtering requests' do
+
+      before do
+        load_raw_emails_data
+        get_fixtures_xapian_index
+      end
+
+      it "searches the user's contributions" do
+        user = users(:bob_smith_user)
+
+        get :show, url_name: 'bob_smith'
+
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array(user.info_requests)
+      end
+
+      it 'filters by the given query' do
+        user = users(:bob_smith_user)
+
+        get :show, url_name: 'bob_smith', user_query: 'money'
+
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array([info_requests(:naughty_chicken_request),
+                                       info_requests(:another_boring_request)])
+      end
+
+      it 'filters by the given query and request status' do
+        user = users(:bob_smith_user)
+
+        get :show, url_name: 'bob_smith',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        actual =
+          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+
+        expect(actual).to match_array([info_requests(:naughty_chicken_request)])
+      end
+
+    end
+
     context 'when logged in viewing your own profile' do
 
       def make_request
@@ -152,51 +197,6 @@ describe UserController do
         make_request
 
         expect(response.body).to match(/Your 1 annotation/)
-      end
-
-    end
-
-    context 'when filtering requests' do
-
-      before do
-        load_raw_emails_data
-        get_fixtures_xapian_index
-      end
-
-      it "searches the user's contributions" do
-        user = users(:bob_smith_user)
-
-        get :show, url_name: 'bob_smith'
-
-        actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
-
-        expect(actual).to match_array(user.info_requests)
-      end
-
-      it 'filters by the given query' do
-        user = users(:bob_smith_user)
-
-        get :show, url_name: 'bob_smith', user_query: 'money'
-
-        actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
-
-        expect(actual).to match_array([info_requests(:naughty_chicken_request),
-                                       info_requests(:another_boring_request)])
-      end
-
-      it 'filters by the given query and request status' do
-        user = users(:bob_smith_user)
-
-        get :show, url_name: 'bob_smith',
-                   user_query: 'money',
-                   request_latest_status: 'waiting_response'
-
-        actual =
-          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
-
-        expect(actual).to match_array([info_requests(:naughty_chicken_request)])
       end
 
     end
