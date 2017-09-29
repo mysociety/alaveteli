@@ -3,6 +3,190 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UserController do
 
+  describe 'GET show' do
+
+    # TODO: Use route_for or params_from to check /c/ links better
+    # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/
+    # ControllerExampleGroup.html
+    context 'when redirecting a show request to a canonical url' do
+
+      it "should redirect to lower case name if given one with capital letters" do
+        get :show, :url_name => "Bob_Smith"
+        expect(response).to redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
+      end
+
+      it 'should redirect a long non-canonical name that has a numerical suffix,
+        retaining the suffix' do
+        get :show, :url_name => 'Bob_SmithBob_SmithBob_SmithBob_S_2'
+        expect(response).to redirect_to(:controller => 'user',
+                                    :action => 'show',
+                                    :url_name => 'bob_smithbob_smithbob_smithbob_s_2')
+      end
+
+      it 'should not redirect a long canonical name that has a numerical suffix' do
+        user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
+        second_user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
+        get :show, :url_name => 'bob_smith_bob_smith_bob_smith_bo_2'
+        expect(response).to be_success
+      end
+
+    end
+
+    context "when showing a user" do
+
+      before(:each) do
+        @user = FactoryGirl.create(:user)
+      end
+
+      it "should be successful" do
+        get :show, :url_name => @user.url_name
+        expect(response).to be_success
+      end
+
+      it "should render with 'show' template" do
+        get :show, :url_name => @user.url_name
+        expect(response).to render_template('show')
+      end
+
+      it "should assign the user" do
+        get :show, :url_name => @user.url_name
+        expect(assigns[:display_user]).to eq(@user)
+      end
+
+      context "when viewing the user's own profile" do
+
+        render_views
+
+        def make_request
+          get :show, {:url_name => @user.url_name, :view => 'profile'}, {:user_id => @user.id}
+        end
+
+        it 'should not show requests, or batch requests, but should show account options' do
+          make_request
+          expect(response.body).not_to match(/Freedom of Information requests made by you/)
+          expect(assigns[:show_batches]).to be false
+          expect(response.body).to include("Change your password")
+        end
+
+      end
+
+      context 'when the user being shown is logged in' do
+
+        it "assigns the user's undescribed requests" do
+          info_request = FactoryGirl.create(:info_request, :user => @user)
+          allow_any_instance_of(User).
+            to receive(:get_undescribed_requests).
+              and_return([info_request])
+          get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
+          expect(assigns[:undescribed_requests]).to eq([info_request])
+        end
+
+        it "assigns the user's track things" do
+          search_track = FactoryGirl.create(:search_track, :tracking_user => @user)
+          get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
+          expect(assigns[:track_things]).to eq([search_track])
+        end
+
+        it "assigns the user's grouped track things" do
+          search_track = FactoryGirl.create(:search_track, :tracking_user => @user)
+          get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
+          expect(assigns[:track_things_grouped]).to eq({'search_query' => [search_track]})
+        end
+
+      end
+
+      context "when viewing a user's own requests" do
+
+        render_views
+
+        def make_request
+          get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
+        end
+
+        it 'should show requests, batch requests, but no account options' do
+          make_request
+          expect(response.body).to match(/Freedom of Information requests made by you/)
+          expect(assigns[:show_batches]).to be true
+          expect(response.body).not_to include("Change your password")
+        end
+
+        it 'should not include annotations of hidden requests in the count' do
+          hidden_request = FactoryGirl.create(:info_request, :prominence => "hidden")
+          shown_request = FactoryGirl.create(:info_request)
+          comment1 = FactoryGirl.create(:visible_comment,
+                                        :info_request => hidden_request,
+                                        :user => @user)
+          comment2 = FactoryGirl.create(:visible_comment,
+                                        :info_request => shown_request,
+                                        :user => @user)
+          FactoryGirl.create(:info_request_event,
+                             :event_type => 'comment',
+                             :comment => comment1,
+                             :info_request => hidden_request)
+          FactoryGirl.create(:info_request_event,
+                             :event_type => 'comment',
+                             :comment => comment2,
+                             :info_request => shown_request)
+          expect(@user.reload.comments.size).to eq(2)
+          expect(@user.reload.comments.visible.size).to eq(1)
+          update_xapian_index
+
+          make_request
+          expect(response.body).to match(/Your 1 annotation/)
+        end
+      end
+
+    end
+
+    context 'when using fixture data' do
+
+      before do
+        load_raw_emails_data
+        get_fixtures_xapian_index
+      end
+
+      it "should search the user's contributions" do
+        user = users(:bob_smith_user)
+
+        get :show, :url_name => "bob_smith"
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array(user.info_requests)
+      end
+
+      it 'filters by the given query' do
+        user = users(:bob_smith_user)
+
+        get :show, :url_name => user.url_name, :user_query => "money"
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array([info_requests(:naughty_chicken_request),
+                                       info_requests(:another_boring_request)])
+      end
+
+      it 'filters by the given query and request status' do
+        user = users(:bob_smith_user)
+
+        get :show, :url_name => user.url_name,
+                   :user_query => 'money',
+                   :request_latest_status => 'waiting_response'
+        actual =
+          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+
+        expect(actual).to match_array([info_requests(:naughty_chicken_request)])
+      end
+
+      it 'should not show unconfirmed users' do
+        expect { get :show, :url_name => 'unconfirmed_user' }.
+          to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+    end
+
+  end
+
   describe 'POST set_profile_photo' do
 
     context 'user is banned' do
@@ -257,188 +441,6 @@ describe UserController do
 
     end
 
-  end
-
-end
-
-# TODO: Use route_for or params_from to check /c/ links better
-# http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
-describe UserController, "when redirecting a show request to a canonical url" do
-
-  it "should redirect to lower case name if given one with capital letters" do
-    get :show, :url_name => "Bob_Smith"
-    expect(response).to redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
-  end
-
-  it 'should redirect a long non-canonical name that has a numerical suffix,
-    retaining the suffix' do
-    get :show, :url_name => 'Bob_SmithBob_SmithBob_SmithBob_S_2'
-    expect(response).to redirect_to(:controller => 'user',
-                                :action => 'show',
-                                :url_name => 'bob_smithbob_smithbob_smithbob_s_2')
-  end
-
-  it 'should not redirect a long canonical name that has a numerical suffix' do
-    user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
-    second_user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
-    get :show, :url_name => 'bob_smith_bob_smith_bob_smith_bo_2'
-    expect(response).to be_success
-  end
-
-end
-
-describe UserController, "when showing a user" do
-
-  before(:each) do
-    @user = FactoryGirl.create(:user)
-  end
-
-  it "should be successful" do
-    get :show, :url_name => @user.url_name
-    expect(response).to be_success
-  end
-
-  it "should render with 'show' template" do
-    get :show, :url_name => @user.url_name
-    expect(response).to render_template('show')
-  end
-
-  it "should assign the user" do
-    get :show, :url_name => @user.url_name
-    expect(assigns[:display_user]).to eq(@user)
-  end
-
-  context "when viewing the user's own profile" do
-
-    render_views
-
-    def make_request
-      get :show, {:url_name => @user.url_name, :view => 'profile'}, {:user_id => @user.id}
-    end
-
-    it 'should not show requests, or batch requests, but should show account options' do
-      make_request
-      expect(response.body).not_to match(/Freedom of Information requests made by you/)
-      expect(assigns[:show_batches]).to be false
-      expect(response.body).to include("Change your password")
-    end
-
-  end
-
-  context 'when the user being shown is logged in' do
-
-    it "assigns the user's undescribed requests" do
-      info_request = FactoryGirl.create(:info_request, :user => @user)
-      allow_any_instance_of(User).
-        to receive(:get_undescribed_requests).
-          and_return([info_request])
-      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
-      expect(assigns[:undescribed_requests]).to eq([info_request])
-    end
-
-    it "assigns the user's track things" do
-      search_track = FactoryGirl.create(:search_track, :tracking_user => @user)
-      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
-      expect(assigns[:track_things]).to eq([search_track])
-    end
-
-    it "assigns the user's grouped track things" do
-      search_track = FactoryGirl.create(:search_track, :tracking_user => @user)
-      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
-      expect(assigns[:track_things_grouped]).to eq({'search_query' => [search_track]})
-    end
-
-  end
-
-  context "when viewing a user's own requests" do
-
-    render_views
-
-    def make_request
-      get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
-    end
-
-    it 'should show requests, batch requests, but no account options' do
-      make_request
-      expect(response.body).to match(/Freedom of Information requests made by you/)
-      expect(assigns[:show_batches]).to be true
-      expect(response.body).not_to include("Change your password")
-    end
-
-    it 'should not include annotations of hidden requests in the count' do
-      hidden_request = FactoryGirl.create(:info_request, :prominence => "hidden")
-      shown_request = FactoryGirl.create(:info_request)
-      comment1 = FactoryGirl.create(:visible_comment,
-                                    :info_request => hidden_request,
-                                    :user => @user)
-      comment2 = FactoryGirl.create(:visible_comment,
-                                    :info_request => shown_request,
-                                    :user => @user)
-      FactoryGirl.create(:info_request_event,
-                         :event_type => 'comment',
-                         :comment => comment1,
-                         :info_request => hidden_request)
-      FactoryGirl.create(:info_request_event,
-                         :event_type => 'comment',
-                         :comment => comment2,
-                         :info_request => shown_request)
-      expect(@user.reload.comments.size).to eq(2)
-      expect(@user.reload.comments.visible.size).to eq(1)
-      update_xapian_index
-
-      make_request
-      expect(response.body).to match(/Your 1 annotation/)
-    end
-  end
-
-end
-
-describe UserController, "when showing a user" do
-
-  context 'when using fixture data' do
-
-    before do
-      load_raw_emails_data
-      get_fixtures_xapian_index
-    end
-
-    it "should search the user's contributions" do
-      user = users(:bob_smith_user)
-
-      get :show, :url_name => "bob_smith"
-      actual =
-        assigns[:xapian_requests].results.map { |x| x[:model].info_request }
-
-      expect(actual).to match_array(user.info_requests)
-    end
-
-    it 'filters by the given query' do
-      user = users(:bob_smith_user)
-
-      get :show, :url_name => user.url_name, :user_query => "money"
-      actual =
-        assigns[:xapian_requests].results.map { |x| x[:model].info_request }
-
-      expect(actual).to match_array([info_requests(:naughty_chicken_request),
-                                     info_requests(:another_boring_request)])
-    end
-
-    it 'filters by the given query and request status' do
-      user = users(:bob_smith_user)
-
-      get :show, :url_name => user.url_name,
-                 :user_query => 'money',
-                 :request_latest_status => 'waiting_response'
-      actual =
-        assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
-
-      expect(actual).to match_array([info_requests(:naughty_chicken_request)])
-    end
-
-    it 'should not show unconfirmed users' do
-      expect { get :show, :url_name => 'unconfirmed_user' }.
-        to raise_error(ActiveRecord::RecordNotFound)
-    end
   end
 
 end
