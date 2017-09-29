@@ -34,16 +34,6 @@ describe UserController do
         to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    # Also doubles for when not logged in viewing another user's profile
-    context 'when viewing a profile' do
-
-    end
-
-    # Also doubles for when not logged in viewing another user's requests
-    context 'when viewing requests' do
-
-    end
-
     # TODO: Use route_for or params_from to check /c/ links better
     # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/
     # ControllerExampleGroup.html
@@ -67,6 +57,56 @@ describe UserController do
                            name: 'Bob Smith Bob Smith Bob Smith Bob Smith')
         get :show, url_name: 'bob_smith_bob_smith_bob_smith_bo_2'
         expect(response).to be_success
+      end
+
+    end
+
+    # Also doubles for when not logged in viewing another user's profile
+    context 'when viewing a profile' do
+
+      def make_request
+        get :show, url_name: user.url_name, view: 'profile'
+      end
+
+      render_views
+
+      it 'does not show requests or batch requests, but does show account options' do
+        make_request
+
+        expect(assigns[:show_profile]).to be true
+        expect(assigns[:show_requests]).to be false
+        expect(assigns[:show_batches]).to be false
+
+        expect(response.body).
+          not_to match(/Freedom of Information requests made by this person/)
+
+        expect(response.body).
+          to match(/change password, subscriptions and more/)
+      end
+
+    end
+
+    # Also doubles for when not logged in viewing another user's requests
+    context 'when viewing requests' do
+
+      def make_request
+        get :show, url_name: user.url_name, view: 'requests'
+      end
+
+      render_views
+
+      it 'shows requests and batch requests, but does not show account options' do
+        make_request
+
+        expect(assigns[:show_profile]).to be false
+        expect(assigns[:show_requests]).to be true
+        expect(assigns[:show_batches]).to be true
+
+        expect(response.body).
+          to match(/Freedom of Information requests made by this person/)
+
+        expect(response.body).
+          not_to match(/change password, subscriptions and more/)
       end
 
     end
@@ -215,10 +255,6 @@ describe UserController do
 
         expect(response.body).to match(/Your 1 annotation/)
       end
-
-    end
-
-    context 'when logged in filtering your own requests' do
 
     end
 
