@@ -5,22 +5,20 @@ describe UserController do
 
   describe 'GET show' do
 
-    before do
-      @user = FactoryGirl.create(:user)
-    end
+    let(:user) { FactoryGirl.create(:user) }
 
     it 'renders the show template' do
-      get :show, :url_name => @user.url_name
+      get :show, :url_name => user.url_name
       expect(response).to render_template(:show)
     end
 
     it 'assigns the user' do
-      get :show, url_name: @user.url_name
-      expect(assigns[:display_user]).to eq(@user)
+      get :show, url_name: user.url_name
+      expect(assigns[:display_user]).to eq(user)
     end
 
     it 'should be successful' do
-      get :show, url_name: @user.url_name
+      get :show, url_name: user.url_name
       expect(response).to be_success
     end
 
@@ -62,8 +60,8 @@ describe UserController do
 
       def make_request
         get :show,
-            { url_name: @user.url_name, view: 'profile' },
-            { user_id: @user.id }
+            { url_name: user.url_name, view: 'profile' },
+            { user_id: user.id }
       end
 
       it 'does not show requests or batch requests, but does show account options' do
@@ -79,35 +77,35 @@ describe UserController do
     context 'when the user being shown is logged in' do
 
       it "assigns the user's undescribed requests" do
-        info_request = FactoryGirl.create(:info_request, user: @user)
+        info_request = FactoryGirl.create(:info_request, user: user)
 
         allow_any_instance_of(User).
           to receive(:get_undescribed_requests).
             and_return([info_request])
 
         get :show,
-            { url_name: @user.url_name, view: 'requests' },
-            { user_id: @user.id }
+            { url_name: user.url_name, view: 'requests' },
+            { user_id: user.id }
 
         expect(assigns[:undescribed_requests]).to eq([info_request])
       end
 
       it "assigns the user's track things" do
-        search_track = FactoryGirl.create(:search_track, tracking_user: @user)
+        search_track = FactoryGirl.create(:search_track, tracking_user: user)
 
         get :show,
-            { url_name: @user.url_name, view: 'requests' },
-            { user_id: @user.id }
+            { url_name: user.url_name, view: 'requests' },
+            { user_id: user.id }
 
         expect(assigns[:track_things]).to eq([search_track])
       end
 
       it "assigns the user's grouped track things" do
-        search_track = FactoryGirl.create(:search_track, tracking_user: @user)
+        search_track = FactoryGirl.create(:search_track, tracking_user: user)
 
         get :show,
-            { url_name: @user.url_name, view: 'requests' },
-            { user_id: @user.id }
+            { url_name: user.url_name, view: 'requests' },
+            { user_id: user.id }
 
         expect(assigns[:track_things_grouped]).
           to eq('search_query' => [search_track])
@@ -121,8 +119,8 @@ describe UserController do
 
       def make_request
         get :show,
-            { url_name: @user.url_name, view: 'requests' },
-            { user_id: @user.id }
+            { url_name: user.url_name, view: 'requests' },
+            { user_id: user.id }
       end
 
       it 'shows requests, batch requests, but not account options' do
@@ -138,7 +136,7 @@ describe UserController do
           FactoryGirl.create(:info_request, prominence: 'hidden')
         comment1 = FactoryGirl.create(:visible_comment,
                                       info_request: hidden_request,
-                                      user: @user)
+                                      user: user)
         FactoryGirl.create(:info_request_event,
                            event_type: 'comment',
                            comment: comment1,
@@ -147,14 +145,14 @@ describe UserController do
         shown_request = FactoryGirl.create(:info_request)
         comment2 = FactoryGirl.create(:visible_comment,
                                       info_request: shown_request,
-                                      user: @user)
+                                      user: user)
         FactoryGirl.create(:info_request_event,
                            event_type: 'comment',
                            comment: comment2,
                            info_request: shown_request)
 
-        expect(@user.reload.comments.size).to eq(2)
-        expect(@user.reload.comments.visible.size).to eq(1)
+        expect(user.reload.comments.size).to eq(2)
+        expect(user.reload.comments.visible.size).to eq(1)
 
         update_xapian_index
         make_request
