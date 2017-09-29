@@ -95,6 +95,25 @@
     <% end %>
   <% end %>
 
+  <% if @private_requests.any? %>
+    <h2 class="foi_results foi_requests" id="private_foi_requests">
+      <%= n_('Your {{count}} private Freedom of Information request',
+             'Your {{count}} private Freedom of Information requests',
+             @private_requests.count,
+             count: @private_requests.count) -%>
+
+      <%= @match_phrase %>
+      <%= @page_desc %>
+    </h2>
+
+    <% @private_requests.each do |info_request| %>
+      <%= render partial: 'request/request_listing_single',
+                 locals: { info_request: info_request } %>
+    <% end %>
+
+    <%= will_paginate @private_requests %>
+  <% end %>
+
   <% if @xapian_comments && feature_enabled?(:annotations) %>
     <% if @xapian_comments.results.empty? %>
       <% if @page == 1 %>
