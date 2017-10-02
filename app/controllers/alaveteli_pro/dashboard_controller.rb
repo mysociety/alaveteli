@@ -8,7 +8,6 @@
 class AlaveteliPro::DashboardController < AlaveteliPro::BaseController
   def index
     @user = current_user
-    @user.reset_phase_counts
     @to_do_list = AlaveteliPro::ToDoList::List.new(@user)
     @page = (params[:page] || "1").to_i
     @page = 1 if @page < 1
