@@ -4,18 +4,18 @@ require 'spec_helper'
 describe 'AlaveteliPro::UserPhaseCounts' do
   let(:user) { FactoryGirl.create(:user) }
 
-  before do
-    AlaveteliPro::RequestSummary.
-      create_or_update_from(FactoryGirl.create(:info_request, user: user))
-    AlaveteliPro::RequestSummary.
-      create_or_update_from(FactoryGirl.create(:info_request, user: user))
-    overdue = Delorean.time_travel_to(1.month.ago) do
-      FactoryGirl.create(:info_request, user: user)
-    end
-    AlaveteliPro::RequestSummary.create_or_update_from(overdue)
-  end
-
   describe '#phase_count' do
+
+    before do
+      AlaveteliPro::RequestSummary.
+        create_or_update_from(FactoryGirl.create(:info_request, user: user))
+      AlaveteliPro::RequestSummary.
+        create_or_update_from(FactoryGirl.create(:info_request, user: user))
+      overdue = Delorean.time_travel_to(1.month.ago) do
+        FactoryGirl.create(:info_request, user: user)
+      end
+      AlaveteliPro::RequestSummary.create_or_update_from(overdue)
+    end
 
     it 'returns the number of requests for the given phase key' do
       expect(user.phase_count('awaiting_response')).to eq 2
@@ -69,25 +69,6 @@ describe 'AlaveteliPro::UserPhaseCounts' do
         expect(user.phase_count('not_drafts')).to eq 4
       end
 
-    end
-
-    it 'caches the results' do
-      before = user.phase_count('awaiting_response')
-      AlaveteliPro::RequestSummary.
-        create_or_update_from(FactoryGirl.create(:info_request, user: user))
-      expect(user.phase_count('awaiting_response')).to eq(before)
-    end
-
-  end
-
-  describe '#reset_phase_counts' do
-
-    it 'resets the cache so the results are recalcuated' do
-      before = user.phase_count('awaiting_response')
-      AlaveteliPro::RequestSummary.
-        create_or_update_from(FactoryGirl.create(:info_request, user: user))
-      user.reset_phase_counts
-      expect(user.phase_count('awaiting_response')).to eq(before + 1)
     end
 
   end
