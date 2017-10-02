@@ -15,7 +15,7 @@ module AlaveteliPro
       end
 
       def count
-        user.phase_count('very_overdue')
+        user.phase_counts['very_overdue']
       end
 
       def url

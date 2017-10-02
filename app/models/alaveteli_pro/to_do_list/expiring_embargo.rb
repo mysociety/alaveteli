@@ -15,7 +15,7 @@ module AlaveteliPro
       end
 
       def count
-        user.phase_count('embargo_expiring')
+        user.phase_counts['embargo_expiring']
       end
 
       def url

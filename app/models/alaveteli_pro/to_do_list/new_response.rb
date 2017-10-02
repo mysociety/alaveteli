@@ -15,7 +15,7 @@ module AlaveteliPro
       end
 
       def count
-        user.phase_count('response_received')
+        user.phase_counts['response_received']
       end
 
       def url
