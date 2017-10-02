@@ -40,7 +40,7 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   include AlaveteliFeatures::Helpers
-  include AlaveteliPro::UserPhaseCounts
+  include AlaveteliPro::PhaseCounts
   rolify
   strip_attributes :allow_empty => true
 

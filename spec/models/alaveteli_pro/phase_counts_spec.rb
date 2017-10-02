@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'AlaveteliPro::UserPhaseCounts' do
+describe AlaveteliPro::PhaseCounts do
   let(:user) { FactoryGirl.create(:user) }
 
   describe '#phase_count' do
