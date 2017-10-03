@@ -199,6 +199,34 @@ describe RequestController, "when showing one request" do
       end
     end
 
+    context 'when a cancelled pro views their embargoed request' do
+
+      before do
+        pro_user.remove_role(:pro)
+      end
+
+      let(:info_request) do
+        FactoryGirl.create(:embargoed_request, user: pro_user)
+      end
+
+      it 'redirects to the pro version of the page' do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user.id
+          get :show, url_title: info_request.url_title
+          expect(response).to redirect_to show_alaveteli_pro_request_path(
+            url_title: info_request.url_title)
+        end
+      end
+
+      it 'uses the pro livery' do
+        with_feature_enabled(:alaveteli_pro) do
+          session[:user_id] = pro_user.id
+          get :show, url_title: info_request.url_title, pro: '1'
+          expect(assigns[:in_pro_area]).to be true
+        end
+      end
+    end
+
     context "when showing pros a someone else's request" do
       it "should not redirect to the pro version of the page" do
         with_feature_enabled(:alaveteli_pro) do
