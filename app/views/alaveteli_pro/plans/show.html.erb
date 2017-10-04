@@ -1,3 +1,21 @@
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#pro-signup button').attr('disabled', 'disabled');
+    });
+
+    $(function() {
+      $('#accept-terms').click(function() {
+        if ($(this).is(':checked')) {
+          $('#pro-signup button').removeAttr('disabled');
+        } else {
+          $('#pro-signup button').attr('disabled', 'disabled');
+        }
+      });
+    });
+  </script>
+<% end %>
+
 <div class="inner-canvas settings">
 
   <div class="inner-canvas-header">
@@ -11,7 +29,7 @@
       <div class="settings-left-column">
       </div>
       <div class="settings-right-column">
-        <%= form_tag(subscriptions_path) do %>
+        <%= form_tag(subscriptions_path, id: 'pro-signup') do %>
         <div class="settings__section">
           <h3>Selected plan</h3>
           <div class="plan-overview">
