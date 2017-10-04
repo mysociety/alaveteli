@@ -13,6 +13,14 @@
         }
       });
     });
+
+    $(function() {
+      $('#pro-signup button span').click(function() {
+        if ($('#pro-signup button').is(':disabled')) {
+          alert('<%=_('You must accept the terms and conditions') %>');
+        }
+      });
+    });
   </script>
 <% end %>
 
