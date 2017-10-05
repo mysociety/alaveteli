@@ -563,10 +563,19 @@ describe Ability do
     let(:admin_user) { FactoryGirl.create(:admin_user) }
     let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
 
-    it "allows the info request owner to update it" do
+    it "allows pro info request owners to update it" do
       with_feature_enabled(:alaveteli_pro) do
         ability = Ability.new(embargo.info_request.user)
         expect(ability).to be_able_to(:update, embargo)
+      end
+    end
+
+    it "doesn't allow non-pro info request owners to update it" do
+      embargo.info_request.user.remove_role(:pro)
+
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).not_to be_able_to(:update, embargo)
       end
     end
 
