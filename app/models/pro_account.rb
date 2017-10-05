@@ -15,10 +15,14 @@ class ProAccount < ActiveRecord::Base
              :inverse_of => :pro_account
 
   def active?
-    stripe_customer.subscriptions.any?
+    stripe_customer.present? && stripe_customer.subscriptions.any?
   end
 
   def stripe_customer
+    @stripe_customer ||= stripe_customer!
+  end
+
+  def stripe_customer!
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end
 end
