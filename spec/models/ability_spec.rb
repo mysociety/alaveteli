@@ -555,7 +555,11 @@ describe Ability do
   end
 
   describe "Updating Embargoes" do
-    let(:embargo) { FactoryGirl.create(:embargo) }
+
+    let(:embargo) do
+      FactoryGirl.create(:embargo, user: FactoryGirl.create(:pro_user))
+    end
+
     let(:admin_user) { FactoryGirl.create(:admin_user) }
     let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
 
@@ -594,6 +598,61 @@ describe Ability do
         expect(ability).not_to be_able_to(:update, embargo)
       end
     end
+  end
+
+  describe "Destroying Embargoes" do
+
+    let(:embargo) do
+      FactoryGirl.create(:embargo, user: FactoryGirl.create(:pro_user))
+    end
+
+    let(:admin_user) { FactoryGirl.create(:admin_user) }
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    it 'allows a pro info request owner to destroy it' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it 'allows a non-pro info request owner to destroy it' do
+      with_feature_enabled(:alaveteli_pro) do
+        embargo.info_request.user.remove_role(:pro)
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it "allows pro admins to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(pro_admin_user)
+        expect(ability).to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it "doesn't allow admins to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(admin_user)
+        expect(ability).not_to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it "doesnt allow anonymous users to destroy it" do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(nil)
+        expect(ability).not_to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it "doesnt allow other users to destroy it" do
+      other_user = FactoryGirl.create(:user)
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(other_user)
+        expect(ability).not_to be_able_to(:destroy, embargo)
+      end
+    end
+
   end
 
   describe "Logging in as a user" do
