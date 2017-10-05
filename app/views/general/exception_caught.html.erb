@@ -13,6 +13,11 @@
     <% end %>
     </li>
   </ul>
+
+  <% if feature_enabled? :alaveteli_pro %>
+    <%= _('Please note that in some cases publication of requests and ' \
+          'responses will be delayed.') %>
+  <% end %>
 <% else %>
   <h1><%= _("Sorry, there was a problem processing this page") %></h1>
   <p><%= _('You have found a bug.  Please <a href="{{contact_url}}">contact us</a> to tell us about the problem', :contact_url => help_contact_path) %></p>
