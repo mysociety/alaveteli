@@ -84,6 +84,10 @@ class Ability
         user && (user == embargo.info_request.user || user.is_pro_admin?)
       end
 
+      # Removing embargoes
+      can :destroy, AlaveteliPro::Embargo do |embargo|
+        user && (user == embargo.info_request.user || user.is_pro_admin?)
+      end
     end
 
     can :admin, AlaveteliPro::Embargo if user && user.is_pro_admin?

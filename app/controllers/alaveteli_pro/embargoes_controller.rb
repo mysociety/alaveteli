@@ -32,7 +32,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
 
   def destroy
     @embargo = AlaveteliPro::Embargo.find(params[:id])
-    authorize! :update, @embargo
+    authorize! :destroy, @embargo
     @info_request = @embargo.info_request
     # Embargoes cannot be updated individually on batch requests
     if @info_request.info_request_batch_id

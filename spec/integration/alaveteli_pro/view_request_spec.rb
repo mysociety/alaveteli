@@ -88,6 +88,26 @@ describe "viewing requests in alaveteli_pro" do
     end
   end
 
+  context 'the user does not have an active subscription' do
+
+    before do
+      pro_user.pro_account.update!(stripe_customer_id: nil)
+    end
+
+    it 'allows the user to publish a request' do
+      using_pro_session(pro_user_session) do
+        browse_pro_request(info_request.url_title)
+        old_publish_at = embargo.publish_at.strftime('%-d %B %Y')
+        expect(page).to have_content("This request is private on " \
+                                     "Alaveteli until #{old_publish_at}")
+        click_button("Publish request")
+        expect(info_request.reload.embargo).to be nil
+        expect(page).to have_content("Your request is now public!")
+      end
+    end
+
+  end
+
   it "allows the user to add an annotation" do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)

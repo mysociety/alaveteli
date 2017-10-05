@@ -555,9 +555,26 @@ describe Ability do
   end
 
   describe "Updating Embargoes" do
-    let(:embargo) { FactoryGirl.create(:embargo) }
+    let(:embargo) do
+      FactoryGirl.create(:embargo, user: FactoryGirl.create(:pro_user))
+    end
     let(:admin_user) { FactoryGirl.create(:admin_user) }
     let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    it 'allows the info request owner to remove it' do
+      with_feature_enabled(:alaveteli_pro) do
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).to be_able_to(:destroy, embargo)
+      end
+    end
+
+    it 'allows a non-pro info request owner to remove it' do
+      with_feature_enabled(:alaveteli_pro) do
+        allow(embargo.info_request.user).to receive(:is_pro?).and_return(false)
+        ability = Ability.new(embargo.info_request.user)
+        expect(ability).to be_able_to(:destroy, embargo)
+      end
+    end
 
     it "allows the info request owner to update it" do
       with_feature_enabled(:alaveteli_pro) do
