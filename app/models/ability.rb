@@ -81,7 +81,16 @@ class Ability
 
       # Extending embargoes
       can :update, AlaveteliPro::Embargo do |embargo|
-        user && (user == embargo.info_request.user || user.is_pro_admin?)
+        if feature_enabled? :pro_pricing
+          user && (user.is_pro_admin? ||
+                   user == embargo.info_request.user &&
+                   (user.is_pro? &&
+                    self.class.active_pro_subscription?(user)))
+        else
+          user && (user.is_pro_admin? ||
+                   user == embargo.info_request.user &&
+                   user.is_pro?)
+        end
       end
 
       # Removing embargoes
@@ -131,6 +140,10 @@ class Ability
   end
 
   private
+
+  def self.active_pro_subscription?(user)
+    user.pro_account && user.pro_account.active?
+  end
 
   def self.can_update_request_state?(user, request)
     (user && request.is_old_unclassified?) || request.is_owning_user?(user)

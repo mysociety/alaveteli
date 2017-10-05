@@ -1,9 +1,32 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
+require 'stripe_mock'
 
 describe "viewing requests in alaveteli_pro" do
-  let(:pro_user) { FactoryGirl.create(:pro_user) }
+  let(:stripe_helper) { StripeMock.create_test_helper }
+
+  before do
+    StripeMock.start
+    AlaveteliFeatures.backend.enable(:pro_pricing)
+    stripe_helper.create_plan(id: 'pro', amount: 1000)
+  end
+
+  after do
+    StripeMock.stop
+    AlaveteliFeatures.backend.disable(:pro_pricing)
+  end
+
+  let(:pro_user) do
+    user = FactoryGirl.create(:pro_user)
+    customer = Stripe::Customer.create({
+      email: user.email,
+      source: stripe_helper.generate_card_token,
+    })
+    user.pro_account.update!(stripe_customer_id: customer.id)
+    Stripe::Subscription.create(customer: customer, plan: 'pro')
+    user
+  end
   let(:info_request) { FactoryGirl.create(:info_request, user: pro_user) }
   let!(:embargo) { FactoryGirl.create(:embargo, info_request: info_request) }
   let!(:pro_user_session) { login(pro_user) }
