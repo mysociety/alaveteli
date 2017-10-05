@@ -34,13 +34,52 @@ describe ProAccount do
                               source: stripe_helper.generate_card_token)
     end
 
-    it 'returns nil if a stripe_customer_id does not exist' do
+    it 'returns nil if there is no stripe_customer_id set' do
       expect(subject.stripe_customer).to be_nil
+    end
+
+    it 'raises an error if the Stripe::Customer is not found' do
+      subject.update!(stripe_customer_id: 'invalid_id')
+      expect{ subject.stripe_customer }.
+        to raise_error Stripe::InvalidRequestError
     end
 
     it 'finds the Stripe::Customer linked to the ProAccount' do
       subject.update!(stripe_customer_id: customer.id)
       expect(subject.stripe_customer).to eq(customer)
+    end
+
+    it 'memoizes the result' do
+      subject.update!(stripe_customer_id: customer.id)
+      subject.stripe_customer
+      subject.update!(stripe_customer_id: nil)
+      expect(subject.stripe_customer).to eq(customer)
+    end
+
+  end
+
+  describe '#stripe_customer!' do
+
+    subject { FactoryGirl.create(:pro_account) }
+
+    let(:customer) do
+      Stripe::Customer.create(email: subject.user.email,
+                              source: stripe_helper.generate_card_token)
+    end
+
+    it 'returns a Stripe::Customer if there is a valid stripe_customer_id' do
+      subject.update!(stripe_customer_id: customer.id)
+      expect(subject.stripe_customer!).to eq(customer)
+    end
+
+    it 'raises an error if the Stripe::Customer is not found' do
+      subject.update!(stripe_customer_id: 'invalid_id')
+      expect{ subject.stripe_customer! }.
+        to raise_error Stripe::InvalidRequestError
+    end
+
+    it 'returns nil if there is no stripe_customer_id set' do
+      expect(subject.stripe_customer!).to be_nil
     end
 
   end
@@ -85,6 +124,11 @@ describe ProAccount do
     end
 
     it 'returns false if there are no active subscriptions' do
+      expect(subject.active?).to eq(false)
+    end
+
+    it 'returns false if there is no customer id' do
+      subject.stripe_customer_id = nil
       expect(subject.active?).to eq(false)
     end
 
