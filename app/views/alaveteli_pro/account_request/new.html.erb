@@ -3,8 +3,13 @@
     <h1>WhatDoTheyKnow<sup>Pro</sup> is a powerful, fully-featured <strong class="marketing-highlight">FOI toolkit</strong> for journalists</h1>
   <h2>Everything you need to keep on top of complex FOI-driven stories.</h2>
   <div class="marketing__hero__cta">
-    <h3>Now in beta </h2>
-    <a href="#input-beta" class="button" id="launch-access">Get pre-launch access</a>
+    <% if feature_enabled?(:pro_pricing) %>
+     <h3>Now in public beta</h3>
+     <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
+    <% else %>
+      <h3>Now in beta </h2>
+      <a href="#input-beta" class="button" id="launch-access">Get pre-launch access</a>
+    <% end %>
   </div>
   </div>
 
@@ -74,8 +79,11 @@
           <a href="<%= image_path("alaveteli-pro/screenshot-batch-list.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-batch-list.jpg", :alt => "Batch requests are part of a new workflow") %></a>
         </div>
       </div>
-
-      <%= render :partial => 'account_request_form' %>
+      <% if feature_enabled?(:pro_pricing) %>
+        <%= link_to _('Plans and pricing'), pro_plans_path, :class => "button" %>
+      <% else %>
+        <%= render :partial => 'account_request_form' %>
+      <% end %>
     </div>
   </div>
 </div>
