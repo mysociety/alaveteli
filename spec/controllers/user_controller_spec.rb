@@ -364,6 +364,180 @@ describe UserController do
 
     end
 
+    context 'when logged in viewing other requests' do
+
+      def make_request
+        get :show, url_name: user.url_name, view: 'requests'
+      end
+
+      render_views
+
+      before do
+        session[:user_id] = FactoryGirl.create(:user).id
+      end
+
+      it "does not assign undescribed requests" do
+        info_request = FactoryGirl.create(:info_request, user: user)
+
+        allow_any_instance_of(User).
+          to receive(:get_undescribed_requests).
+            and_return([info_request])
+
+        make_request
+
+        expect(assigns[:undescribed_requests]).to be_nil
+      end
+
+      it "does not assign the user's track things" do
+        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+
+        make_request
+
+        expect(assigns[:track_things]).to be_nil
+      end
+
+      it "does not assign grouped track things" do
+        search_track = FactoryGirl.create(:search_track, tracking_user: user)
+
+        make_request
+
+        expect(assigns[:track_things_grouped]).to be_nil
+      end
+
+      it 'shows requests, batch requests, but not account options' do
+        make_request
+        expect(response.body).
+          to match(/Freedom of Information requests made by this person/)
+        expect(assigns[:show_batches]).to be true
+        expect(response.body).not_to include('Change your password')
+      end
+
+      it 'does not include annotations of hidden requests in the count' do
+        hidden_request =
+          FactoryGirl.create(:info_request, prominence: 'hidden')
+        comment1 = FactoryGirl.create(:visible_comment,
+                                      info_request: hidden_request,
+                                      user: user)
+        FactoryGirl.create(:info_request_event,
+                           event_type: 'comment',
+                           comment: comment1,
+                           info_request: hidden_request)
+
+        shown_request = FactoryGirl.create(:info_request)
+        comment2 = FactoryGirl.create(:visible_comment,
+                                      info_request: shown_request,
+                                      user: user)
+        FactoryGirl.create(:info_request_event,
+                           event_type: 'comment',
+                           comment: comment2,
+                           info_request: shown_request)
+
+        expect(user.reload.comments.size).to eq(2)
+        expect(user.reload.comments.visible.size).to eq(1)
+
+        update_xapian_index
+        make_request
+
+        expect(response.body).to match(/This person's 1 annotation/)
+      end
+
+      it 'does not show private requests' do
+        pro_user = FactoryGirl.create(:pro_user)
+        info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
+        update_xapian_index
+        get :show, url_name: pro_user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to be_empty
+      end
+
+      it 'does not show hidden private requests' do
+        pro_user = FactoryGirl.create(:pro_user)
+        info_request = FactoryGirl.create(:embargoed_request, user: pro_user)
+        FactoryGirl.
+          create(:embargoed_request, user: pro_user, prominence: 'hidden')
+        update_xapian_index
+        get :show, url_name: pro_user.url_name, view: 'requests'
+        expect(assigns[:private_requests]).to be_empty
+      end
+    end
+
+    context 'when logged in filtering other requests' do
+
+      before do
+        session[:user_id] = FactoryGirl.create(:user).id
+      end
+
+      it 'filters by the given query' do
+        request_1 =
+          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
+        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money'
+
+        actual =
+          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+
+        expect(actual).to match_array([request_1])
+      end
+
+      it 'does not show private requests when filtering by query' do
+        pro_user = FactoryGirl.create(:pro_user)
+        request_1 =
+          FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'Some money?')
+        FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: pro_user.url_name,
+                   view: 'requests',
+                   user_query: 'money'
+
+        expect(assigns[:private_requests]).to be_empty
+      end
+
+      it 'filters by the given query and request status' do
+        request_1 =
+          FactoryGirl.create(:info_request, user: user, title: 'Some money?')
+        FactoryGirl.create(:successful_request, user: user, title: 'More money')
+        FactoryGirl.create(:info_request, user: user, title: 'How many books?')
+        update_xapian_index
+
+        get :show, url_name: user.url_name,
+                   view: 'requests',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        actual =
+          assigns[:xapian_requests].results.map{ |x| x[:model].info_request }
+
+        expect(actual).to match_array([request_1])
+      end
+
+      it 'does not show private requests when filtering by request status' do
+        pro_user = FactoryGirl.create(:pro_user)
+        request_1 =
+          FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'Some money?')
+        FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'How many books?')
+        FactoryGirl.
+          create(:embargoed_request, user: pro_user, title: 'More money').
+          set_described_state('successful')
+        update_xapian_index
+
+        get :show, url_name: pro_user.url_name,
+                   view: 'requests',
+                   user_query: 'money',
+                   request_latest_status: 'waiting_response'
+
+        expect(assigns[:private_requests]).to be_empty
+      end
+
+    end
+
   end
 
   describe 'POST set_profile_photo' do
