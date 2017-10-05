@@ -65,14 +65,7 @@
   </table>
 </div>
 
-<% unless subscription.cancel_at_period_end %>
-  <div class="cancel-sub-section">
-    <h4><%= _('Cancel subscription') %></h4>
-    <div class="settings__item">
-      <%= link_to _('Cancel your subscription'),
-                  subscription_path(subscription.id),
-                  method: :delete,
-                  data: { confirm: _('Are you sure?') } %>
-    </div>
-  </div>
-<% end %>
+<div class="cancel-sub-section">
+  <%= render 'cancel_subscription', subscription: subscription %>
+</div>
+
