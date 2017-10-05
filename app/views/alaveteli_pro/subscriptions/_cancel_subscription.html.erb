@@ -1,0 +1,60 @@
+<% cancelled = subscription.cancel_at_period_end %>
+<% css_class = cancelled ? 'cancelled' : 'active' %>
+
+<% if cancelled %>
+  <h4><%= _('Subscription cancelled') %></h4>
+<% else %>
+  <h4><%= _('Cancel subscription') %></h4>
+<% end %>
+
+<div class="settings__item cancel-subscription <%= css_class %>">
+  <p>
+    <%= _('Subscription cancellations are applied at the end of the ' \
+          'current billing period ({{date}}).',
+          date: simple_date(Time.zone.at(subscription.current_period_end),
+                            format: :text)) %>
+  </p>
+
+  <p>
+    <%= _('Until that date you will continue to have full access to ' \
+          '{{pro_site_name}}.',
+          pro_site_name: AlaveteliConfiguration.pro_site_name) %>
+  </p>
+
+  <% if cancelled %>
+    <%= _('When the current billing period ends:') %>
+  <% else %>
+    <%= _('When you cancel your account:') %>
+  <% end %>
+
+  <p>
+    <ul>
+      <li>
+        <%= _("You'll lose access to any requests you still have in " \
+              "draft.") %>
+      </li>
+      <li>
+        <%= _("You won't be able to access {{pro_site_name}} tools, " \
+              "including the dashboard and embargoes.",
+              pro_site_name: AlaveteliConfiguration.pro_site_name) %>
+      </li>
+      <li>
+        <%= _("You will still be able to see any requests which are " \
+              "currently under an embargo, but you won't be able to add or " \
+              "extend embargoes. These requests will be published when the " \
+              "embargo ends.") %>
+      </li>
+      <li>
+        <%= _("You can re-subscribe at any time and full access to these " \
+              "features will be restored.") %>
+      </li>
+    </ul>
+  </p>
+
+  <% unless cancelled %>
+    <%= link_to _('Cancel your subscription'),
+                subscription_path(subscription.id),
+                method: :delete,
+                data: { confirm: _('Are you sure?') } %>
+  <% end %>
+</div>
