@@ -11,9 +11,9 @@
       <div class="settings-left-column">
       </div>
       <div class="settings-right-column">
+        <%= form_tag(subscriptions_path) do %>
         <div class="settings__section">
           <h3>Selected plan</h3>
-          <%= form_tag(subscriptions_path) do %>
           <div class="plan-overview">
             <div class="plan-overview__desc">
               <%= @plan.name %>
