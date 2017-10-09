@@ -50,6 +50,12 @@
   similar requests, in order to make better usage of the cache space (Louise Crow)
 * You can now filter users by their role on the admin user list page (Louise Crow)
 * Remove the obsolete `admin_level` user attribute (Louise Crow)
+* Allow embargoed requests to be displayed separately in the admin interface
+  to admins with pro_admin permissions (Louise Crow)
+* Add a cookie_passthrough param to ensure that image files in responses can be
+  accessed by authorised users on embargoed requests (Louise Crow)
+* Add `oink` memory debugging setup. Use `ALAVETELI_USE_OINK=1` to produce
+  object allocation debugging output (Louise Crow)
 
 ## Upgrade Notes
 
@@ -85,19 +91,52 @@
 * This release deprecates the use of purge requests to Varnish. Please make sure
   your site works with `VARNISH_HOST` empty - it will be removed as a param in
   the next release.
+* There are some database structure updates so remember to `rake db:migrate`
 
 ### Changed Templates
 
-    app/views/alaveteli_pro/followups/_submit.html.erb
+    app/views/admin_comment/index.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_general/timeline.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/alaveteli_pro/account_mailer/account_request.text.erb
+    app/views/alaveteli_pro/account_request/new.html.erb
+    app/views/alaveteli_pro/draft_info_request_batches/_draft_info_request_batch.html.erb
+    app/views/alaveteli_pro/embargo_mailer/expiring_alert.text.erb
+    app/views/alaveteli_pro/info_request_batches/_authority_list.html.erb
+    app/views/alaveteli_pro/info_request_batches/_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request_batch.html.erb
     app/views/alaveteli_pro/info_requests/_after_actions.html.erb
-    app/views/followups/_submit.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/comment/preview.html.erb
+    app/views/contact_mailer/update_public_body_email.text.erb
     app/views/followups/preview.html.erb
+    app/views/general/_footer.html.erb
+    app/views/general/_header.html.erb
+    app/views/general/_opengraph_tags.html.erb
+    app/views/general/_orglink.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_stylesheet_includes.html.erb
+    app/views/general/_topnav.html.erb
     app/views/general/search.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/default.html.erb
+    app/views/layouts/no_chrome.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/_more_info.html.erb
+    app/views/public_body/show.html.erb
     app/views/request/_after_actions.html.erb
     app/views/request/_bubble.html.erb
-    app/views/request/_outgoing_correspondence.html.erb
-    app/views/general/search.html.erb
     app/views/request/_list_results.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_view_html_stylesheet.html.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/track/_track_set.erb
+    app/views/user/_user_listing_single.html.erb
 
 # 0.29.0.2
 
