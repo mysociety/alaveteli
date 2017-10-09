@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
   class RouteNotFound < StandardError
   end
-  protect_from_forgery :if => :user?
+  protect_from_forgery :if => :user?, :with => :exception
   skip_before_filter :verify_authenticity_token, :unless => :user?
 
   # Deal with access denied errors from CanCan
