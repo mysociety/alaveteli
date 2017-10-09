@@ -25,7 +25,7 @@ describe OutgoingMessage do
 
     it 'replaces the batch request salutation with the body name' do
       text = 'Dear [Authority name],'
-      public_body = mock_model(PublicBody, :name => 'A Body')
+      public_body = FactoryGirl.build(:public_body, name: 'A Body')
       expect(described_class.fill_in_salutation(text, public_body)).
         to eq('Dear A Body,')
     end
@@ -616,14 +616,11 @@ describe OutgoingMessage do
     context 'an initial_request' do
 
       it 'produces the expected text for a batch request template' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => false)
+        public_body = FactoryGirl.build(:public_body,
+                                        name: 'a test public body')
+        info_request = FactoryGirl.build(:info_request,
+                                         title: 'A test title',
+                                         public_body: public_body)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
                               :message_type => 'initial_request',
@@ -639,14 +636,13 @@ describe OutgoingMessage do
     context 'a batch request template' do
 
       it 'produces the expected text for a batch request template' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => true)
+        public_body = FactoryGirl.build(:public_body,
+                                        name: 'a test public body')
+        info_request = FactoryGirl.build(:info_request,
+                                         title: 'A test title',
+                                         public_body: public_body)
+        allow(info_request).
+          to receive(:is_batch_request_template?).and_return(true)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
                               :message_type => 'initial_request',
@@ -662,14 +658,11 @@ describe OutgoingMessage do
     context 'a followup' do
 
       it 'produces the expected text for a followup' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => false)
+        public_body = FactoryGirl.build(:public_body,
+                                        name: 'a test public body')
+        info_request = FactoryGirl.build(:info_request,
+                                         title: 'A test title',
+                                         public_body: public_body)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
                               :message_type => 'followup',
@@ -681,14 +674,11 @@ describe OutgoingMessage do
       end
 
       it 'produces the expected text for an incoming message followup' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => false)
+        public_body = FactoryGirl.build(:public_body,
+                                        name: 'A test public body')
+        info_request = FactoryGirl.build(:info_request,
+                                         title: 'A test title',
+                                         public_body: public_body)
         incoming_message =
           mock_model(IncomingMessage, :safe_mail_from => 'helpdesk',
                                       :valid_to_reply_to? => true)
@@ -708,14 +698,11 @@ describe OutgoingMessage do
     context 'an internal_review' do
 
       it 'produces the expected text for an internal review request' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => false)
+        public_body = FactoryGirl.build(:public_body,
+                                        name: 'a test public body')
+        info_request = FactoryGirl.build(:info_request,
+                                         title: 'a test title',
+                                         public_body: public_body)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
                               :message_type => 'followup',
@@ -827,15 +814,14 @@ describe OutgoingMessage do
   describe '#is_owning_user?' do
 
     it 'returns true if the user is the owning user of the info request' do
-      user = mock_model(User)
-      request = mock_model(InfoRequest, :is_owning_user? => true)
+      request = FactoryGirl.build(:info_request)
       message = FactoryGirl.build(:initial_request, :info_request => request)
-      expect(message.is_owning_user?(user)).to eq(true)
+      expect(message.is_owning_user?(request.user)).to eq(true)
     end
 
     it 'returns false if the user is not the owning user of the info request' do
-      user = mock_model(User)
-      request = mock_model(InfoRequest, :is_owning_user? => false)
+      user = FactoryGirl.build(:user)
+      request = FactoryGirl.build(:info_request)
       message = FactoryGirl.build(:initial_request, :info_request => request)
       expect(message.is_owning_user?(user)).to eq(false)
     end
@@ -1767,13 +1753,10 @@ describe OutgoingMessage, " when making an outgoing message" do
   end
 
   it 'should produce the expected text for an internal review request' do
-    public_body = mock_model(PublicBody, :name => 'A test public body')
-    info_request = mock_model(InfoRequest, :public_body => public_body,
-                              :url_title => 'a_test_title',
-                              :title => 'A test title',
-                              :applicable_censor_rules => [],
-                              :apply_censor_rules_to_text! => nil,
-                              :is_batch_request_template? => false)
+    public_body = FactoryGirl.build(:public_body, name: 'A test public body')
+    info_request = FactoryGirl.build(:info_request,
+                                     title: 'A test title',
+                                     public_body: public_body)
     outgoing_message = OutgoingMessage.new({
                                              :status => 'ready',
                                              :message_type => 'followup',
