@@ -509,6 +509,34 @@ describe OutgoingMessage do
             to include("Please give details explaining why you want a review")
         end
 
+        it 'includes a all correspondence being available online' do
+          outgoing_message =
+            OutgoingMessage.new(:status => 'ready',
+                                :message_type => 'followup',
+                                :what_doing => 'internal_review',
+                                :info_request => info_request)
+
+          expect(outgoing_message.body).
+            to include("A full history of my FOI request and all " \
+                       "correspondence is available on the Internet at this " \
+                       "address")
+        end
+
+        it 'removes the all correspondence line if the message is embargoed' do
+          FactoryGirl.create(:embargo, :info_request => info_request)
+          info_request.reload
+          outgoing_message =
+            OutgoingMessage.new(:status => 'ready',
+                                :message_type => 'followup',
+                                :what_doing => 'internal_review',
+                                :info_request => info_request)
+
+          expect(outgoing_message.body).
+            not_to include("A full history of my FOI request and all " \
+                          "correspondence is available on the Internet at " \
+                          "this address")
+        end
+
       end
 
       context "when it's an followup" do

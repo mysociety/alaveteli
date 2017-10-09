@@ -376,6 +376,7 @@ class OutgoingMessage < ActiveRecord::Base
     if info_request
       opts[:url] = request_url(info_request) if info_request.url_title
       opts[:info_request_title] = info_request.title if info_request.title
+      opts[:embargo] = true if info_request.embargo
     end
 
     opts[:public_body_name] =
