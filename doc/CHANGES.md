@@ -49,9 +49,14 @@
 * Similar request IDs are now cached, rather than template partials displaying
   similar requests, in order to make better usage of the cache space (Louise Crow)
 * You can now filter users by their role on the admin user list page (Louise Crow)
+* Remove the obsolete `admin_level` user attribute (Louise Crow)
 
 ## Upgrade Notes
 
+* This release removes the `admin_level` user attribute. You will need to migrate
+  to this release via 0.29.0.0 and follow the instructions in the release notes for
+  that release to migrate admin and pro statuses to the role-based system first, in
+  order to retain admin status for your admin users.
 * Ensure memcached is installed (`sudo apt-get install memcached`) and running
   (`sudo service memcached start`).
 * `app/views/track/_track_set.erb` has been renamed to
@@ -77,6 +82,13 @@
   or `bundle exec rails s -b 10.10.10.30` to just use the Vagrantfile address.
 * File-type icons have been moved from `images` to `images/content_type`. Please
   ensure any direct use of these uses the new path.
+* This release deprecates the use of purge requests to Varnish. Please make sure
+  your site works with `VARNISH_HOST` empty - it will be removed as a param in
+  the next release.
+* Run `bundle exec rake temp:set_daily_summary_times` to set some default
+  times for users to receive daily summaries of notifications. This won't have
+  any effect on emails for most users until the new notifications system is
+  rolled out.
 
 ### Changed Templates
 
@@ -90,6 +102,23 @@
     app/views/request/_outgoing_correspondence.html.erb
     app/views/general/search.html.erb
     app/views/request/_list_results.html.erb
+
+# 0.29.0.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Louise Crow)
+
+# 0.29.0.1
+
+## Highlighted Features
+
+* Fixed problem where the routing filter doesn't recognise default locales with
+  underscores properly (Liz Conlan)
+* Added wrapper methods to AlaveteliLocalization to be used in preference to the
+  underlying I18n and FastGettext methods, avoiding confusion about which should
+  be used and reducing the likelihood of getting hyphenated and underscore
+  locale formats mixed up (Liz Conlan)
 
 # 0.29.0.0
 
@@ -207,10 +236,7 @@
   [notes](https://git.io/vLNg0) on migrating away from 1.8.7; migrating to
   Ruby 2+ should be a similar process. Debian Jessie and Ubuntu 14.04+ include
   packaged versions of Ruby 2+.
-* Run `bundle exec rake temp:set_daily_summary_times` to set some default
-  times for users to receive daily summaries of notifications. This won't have
-  any effect on emails for most users until the new notifications system is
-  rolled out.
+
 
 ### Changed Templates
 

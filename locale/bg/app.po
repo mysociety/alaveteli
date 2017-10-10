@@ -10,6 +10,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2014
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-12 04:52-0700\n"
-"PO-Revision-Date: 2017-06-12 11:56+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2017-09-27 18:47+0100\n"
+"PO-Revision-Date: 2017-09-27 17:56+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -94,6 +95,9 @@ msgstr "'Криминална статистика на ниво квартал 
 
 msgid "'Pollution levels over time for the River Tyne'"
 msgstr "'Нива на замърсяване на река Искър през годините'"
+
+msgid "'{{authority_name}}' is defunct"
+msgstr ""
 
 msgid "'{{link_to_authority}}', a public authority"
 msgstr "'{{link_to_authority}}', публичен орган"
@@ -307,6 +311,9 @@ msgstr ""
 msgid "About you:"
 msgstr "За Вас:"
 
+msgid "About {{count}} FOI requests found"
+msgstr ""
+
 msgid "Act on what you've learnt"
 msgstr "Предприемете нещо с това което научихте"
 
@@ -342,9 +349,6 @@ msgstr "Добавяне на орган - {{public_body_name}}"
 
 msgid "Add the authority:"
 msgstr "Добавяне на органа:"
-
-msgid "Admin level is not included in list"
-msgstr "Администраторското ниво не е включено в списъка"
 
 msgid "Administration URL:"
 msgstr "Администраторски URL:"
@@ -389,6 +393,9 @@ msgid "AlaveteliPro::EmbargoExtension|Extension duration"
 msgstr ""
 
 msgid "AlaveteliPro::Embargo|Embargo duration"
+msgstr ""
+
+msgid "AlaveteliPro::Embargo|Expiring notification at"
 msgstr ""
 
 msgid "AlaveteliPro::Embargo|Publish at"
@@ -685,6 +692,9 @@ msgstr "Премахни снимката"
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why response to the request has been so slow."
 msgstr "Цъкнете връзката по-долу за да изпратите съобщение на {{public_body_name}}, казващо им да отговорят на заявлението Ви. Може да поискате да направят вътрешно\\nразглеждане, с което да открият причината защо отговорът на заявлението се е забавил толкова много."
 
+msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgstr ""
+
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
 msgstr "Цъкнете върху връзката по-долу за да изпратите съобщение до {{public_body}}, подсещащо го да отговори на заявлението Ви."
 
@@ -759,9 +769,6 @@ msgstr ""
 
 msgid "Contact {{recipient}}"
 msgstr "Свържете се с {{recipient}}"
-
-msgid "Contact {{site_name}}"
-msgstr "Връзка с {{site_name}}"
 
 msgid "Contains defamatory material"
 msgstr "Съдържа клеветнически материал"
@@ -973,8 +980,8 @@ msgstr "Заявления за ДдИ"
 msgid "FOI requests by '{{user_name}}'"
 msgstr "Заявления за ДдИ от '{{user_name}}'"
 
-msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr "Заявления за ДдИ {{start_count}} до {{end_count}} от {{total_count}}"
+msgid "FOI requests {{start_count}} to {{end_count}} of about {{total_count}}"
+msgstr ""
 
 msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
 msgstr "Отговорът за ДдИ изисква администратор ({{reason}}) - {{request_title}}"
@@ -1230,9 +1237,6 @@ msgstr "Здравейте! Вие можете да отправяте заяв
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
 msgstr ""
 
-msgid "Hello, {{username}}!"
-msgstr "Здравей, {{username}}!"
-
 msgid "Help"
 msgstr "Помощ"
 
@@ -1249,6 +1253,9 @@ msgid "Here you can <a href=\"#public_bodies\">see how well public bodies have r
 msgstr ""
 
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
+msgstr ""
+
+msgid "Here's your daily request summary from {{site_name}}"
 msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
@@ -1271,9 +1278,6 @@ msgstr "Празник|Ден"
 
 msgid "Holiday|Description"
 msgstr "Празник|Описание"
-
-msgid "Home"
-msgstr "Начало"
 
 msgid "Home page"
 msgstr "Начална страница"
@@ -1310,9 +1314,6 @@ msgstr "Не искам да чистя повече точно сега!"
 
 msgid "I like this request"
 msgstr "Харесвам това Заявление"
-
-msgid "I want to withdraw this request"
-msgstr ""
 
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Бих искал да <strong>изтегля това заявление</strong>"
@@ -1437,7 +1438,16 @@ msgstr "Адрес за входяща поща"
 msgid "Incoming message"
 msgstr "Входящо съобщение"
 
+msgid "Incoming message error"
+msgstr ""
+
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
+msgstr ""
+
+msgid "IncomingMessageError|Backtrace"
+msgstr ""
+
+msgid "IncomingMessageError|Retry at"
 msgstr ""
 
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1548,6 +1558,9 @@ msgstr ""
 msgid "InfoRequest|Idhash"
 msgstr ""
 
+msgid "InfoRequest|Last event time"
+msgstr ""
+
 msgid "InfoRequest|Last public response at"
 msgstr ""
 
@@ -1640,6 +1653,12 @@ msgstr ""
 
 msgid "Last authority viewed: {{authority_url}}"
 msgstr "Последно гледан орган: {{authority_url}}"
+
+msgid "Last edit editor can't be blank"
+msgstr ""
+
+msgid "Last edit editor can't be longer than 255 characters"
+msgstr ""
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Последно гледано заявление: {{request_url}}"
@@ -1782,6 +1801,9 @@ msgstr "Името вече е заето"
 msgid "Needs admin attention"
 msgstr ""
 
+msgid "Needs status update"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Нови заявления за Достъп до информация"
 
@@ -1862,6 +1884,21 @@ msgstr "Имайте предвид, че заявителят няма да б�
 
 msgid "Notes:"
 msgstr "Бележки:"
+
+msgid "Notification"
+msgstr ""
+
+msgid "Notification|Expired"
+msgstr ""
+
+msgid "Notification|Frequency"
+msgstr ""
+
+msgid "Notification|Seen at"
+msgstr ""
+
+msgid "Notification|Send after"
+msgstr ""
 
 msgid "Now check your email!"
 msgstr "Сега си проверете пощата!"
@@ -2141,6 +2178,9 @@ msgstr "Молим, кажете ни повече:"
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Моля, напишете съобщение и/или посочете файл, съдържащ Вашия отговор."
 
+msgid "Please update the status of your request"
+msgstr ""
+
 msgid "Please use this email address for all replies to this request:"
 msgstr "Моля, ползвайте този имейл адрес за всички отговори на това заявление:"
 
@@ -2363,9 +2403,6 @@ msgstr ""
 msgid "PublicBody|Disclosure log"
 msgstr ""
 
-msgid "PublicBody|First letter"
-msgstr "PublicBody|Първа буква"
-
 msgid "PublicBody|Home page"
 msgstr "PublicBody|Сайт"
 
@@ -2392,24 +2429,6 @@ msgstr "PublicBody|Последно редактиран коментар"
 
 msgid "PublicBody|Last edit editor"
 msgstr "PublicBody|Последен редактор на коментар"
-
-msgid "PublicBody|Name"
-msgstr "PublicBody|Име"
-
-msgid "PublicBody|Notes"
-msgstr "PublicBody|Бележки"
-
-msgid "PublicBody|Publication scheme"
-msgstr ""
-
-msgid "PublicBody|Request email"
-msgstr "PublicBody|Имейл за заявления"
-
-msgid "PublicBody|Short name"
-msgstr "PublicBody|Кратко име"
-
-msgid "PublicBody|Url name"
-msgstr "PublicBody|Url име"
 
 msgid "PublicBody|Version"
 msgstr "PublicBody|Версия"
@@ -2471,9 +2490,6 @@ msgstr ""
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
-msgid "Replying by post"
-msgstr ""
-
 msgid "Report an offensive or unsuitable request"
 msgstr "Докладване на обидно или неподходящо заявление"
 
@@ -2509,6 +2525,9 @@ msgstr "Искане на вътрешно разглеждане"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Искане на вътрешно разглеждане от {{person_or_body}}"
+
+msgid "Request email can't be nil"
+msgstr ""
 
 msgid "Request for personal information"
 msgstr "Заявление за лична информация"
@@ -2561,7 +2580,7 @@ msgstr "Заявления, подобни на '{{request_title}}' (стр. {{p
 msgid "Requests will be sent to the following bodies:"
 msgstr "Заявления ще бъдат изпратени до следните органи:"
 
-msgid "Requires administrator attention"
+msgid "Requires admin attention"
 msgstr ""
 
 msgid "Respond by email"
@@ -2776,6 +2795,9 @@ msgstr "Някой, вероятно Вие, току-що се опита да 
 msgid "Sorry - you cannot respond to this request via {{site_name}}, because this is a copy of the request originally at {{link_to_original_request}}."
 msgstr "Съжаляваме - не може да отговорите на това заявление чрез {{site_name}}, понеже е копие на заявление на {{link_to_original_request}}."
 
+msgid "Sorry, '{{authority_name}}' has been marked as defunct, which means we can no longer process requests to them. You may need to check whether their responsibilities have been taken over by a different authority."
+msgstr ""
+
 msgid "Sorry, but only {{user_name}} is allowed to do that."
 msgstr "Съжаляваме, но само {{user_name}} има право да направи това."
 
@@ -2971,6 +2993,9 @@ msgstr ""
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
 
+msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
+msgstr ""
+
 msgid "The last incoming message was created in the last day"
 msgstr "Последното получено съобщение е било създадено в последния ден"
 
@@ -3151,9 +3176,6 @@ msgstr "Няма заявления, съвпадащи със заявката 
 msgid "There were no results matching your query."
 msgstr "Няма резултати, съвпадащи със заявката ви."
 
-msgid "There's an error message"
-msgstr ""
-
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
 msgstr "Тези графики са частично вдъхновени от <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">някои статистики, които Mark Goodge създаде за WhatDoTheyKnow</a>, за което му благодарим."
 
@@ -3174,6 +3196,9 @@ msgstr "Те не са отговорили на заявлението Ви з�
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as required by law"
 msgstr "Те не са отговорили на Вашето Заявление {{title}} за {{law_used_short}} ,\\nкакто се изисква от закона"
+
+msgid "They have still not replied to your {{law_used_short}} request {{title}}, as required by law"
+msgstr ""
 
 msgid "Things you're following"
 msgstr "Нещата, които следите"
@@ -3307,6 +3332,9 @@ msgstr "Това Заявление изисква вниманието на а�
 
 msgid "This request was not made via {{site_name}}"
 msgstr "Това заявление не е направено чрез {{site_name}}"
+
+msgid "This request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
+msgstr ""
 
 msgid "This section on public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
 msgstr ""
@@ -3575,9 +3603,6 @@ msgstr "Нормално потребителите не могат да пра�
 msgid "User|About me"
 msgstr "User|За мен"
 
-msgid "User|Admin level"
-msgstr "User|Административно ниво"
-
 msgid "User|Ban text"
 msgstr "User|Текст при блокиране"
 
@@ -3588,6 +3613,12 @@ msgid "User|Comments count"
 msgstr ""
 
 msgid "User|Confirmed not spam"
+msgstr ""
+
+msgid "User|Daily summary hour"
+msgstr ""
+
+msgid "User|Daily summary minute"
 msgstr ""
 
 msgid "User|Email"
@@ -3686,23 +3717,11 @@ msgstr ""
 msgid "View your two factor authentication one time passcode"
 msgstr ""
 
-msgid "Waiting clarification"
-msgstr ""
-
 msgid "Waiting clarification."
 msgstr "Очаква пояснение."
 
-msgid "Waiting for a response"
-msgstr ""
-
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Очаква <strong>вътрешно разглеждане</strong> от {{public_body_link}} на тяхната работа по това заявление."
-
-msgid "Waiting for an internal review"
-msgstr ""
-
-msgid "Waiting for clarification"
-msgstr ""
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Чака публичния орган да завърши вътрешно разглеждане на тяхната обработка на заявлението"
@@ -3712,9 +3731,6 @@ msgstr "Очаква отговор на публичния орган"
 
 msgid "Want to know something?"
 msgstr ""
-
-msgid "Was the response you got to your FOI request any good?"
-msgstr "Беше ли с нещо полезен отговорът на Вашето Заявление за ДдИ?"
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr "Според нас, това не е валидно Заявление за ДдИ и затова го скрихме от останалите потребители."
@@ -3814,6 +3830,9 @@ msgid "What information has been requested?"
 msgstr "Каква информация беше поискана?"
 
 msgid "What next?"
+msgstr ""
+
+msgid "What's happened:"
 msgstr ""
 
 msgid "When you get there, please update the status to say if the response contains any useful information."
@@ -3957,11 +3976,29 @@ msgstr "От този орган, Вие можете да искате инфо
 msgid "You can regenerate your one time passcode at any time."
 msgstr ""
 
+msgid "You can see the request and remind the body to respond with the following link:"
+msgid_plural "You can see the requests and remind the bodies to respond with the following links:"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "You can see the request and tell the body to respond with the following link. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgid_plural "You can see the requests and tell the bodies to respond with the following links. You might like to ask for internal reviews, asking the bodies to find out why responses to the requests have been so slow."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "You can see the response with the following link:"
+msgid_plural "You can see the responses with the following links:"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "You can't update your profile text at this time."
 msgstr ""
 
-msgid "You have a new response to the {{law_used_full}} request "
-msgstr "Имате нов отговор на Заявлението за {{law_used_full}} "
+msgid "You have a new response to the {{law_used_full}} request"
+msgstr ""
+
+msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
+msgstr ""
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Открили сте бъг.  Моля, <a href=\"{{contact_url}}\">свържете се с нас</a> за да ни кажете за проблема"
@@ -3998,6 +4035,9 @@ msgstr "Вие може да откриете\\n    такъв на техния
 
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
 msgstr "Вие може да откриете такъв на техния сайт, или като им позвъните и ги попитате. Ако успеете да откриете такъв, молим изпратете го и на нас:"
+
+msgid "You might find some useful information in the notes we hold about '{{authority_name}}':"
+msgstr ""
 
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Трябва да сте влезли за да смените текста за Вас в профила Ви."
@@ -4077,6 +4117,9 @@ msgstr "Профилната Ви снимка беше премахната"
 msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "Вашето <strong>име ще се показва публично</strong>\\n        (<a href=\"{{why_url}}\">защо?</a>)\\n        на този уеб сайт и в машините за търсене. Ако Вие\\n        възнамерявате да ползвате псевдоним, молим\\n        <a href=\"{{help_url}}\">прочетете първо това</a>."
 
+msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
+msgstr ""
+
 msgid "Your annotations"
 msgstr "Вашите коментари"
 
@@ -4084,6 +4127,9 @@ msgid "Your batch request \"{{title}}\" has been sent"
 msgstr "Вашето размножено заявление \"{{title}}\" беше изпратено"
 
 msgid "Your current one time passcode:"
+msgstr ""
+
+msgid "Your daily request summary from {{pro_site_name}}"
 msgstr ""
 
 msgid "Your details, including your email address, have not been given to anyone."
@@ -4280,6 +4326,9 @@ msgstr "от"
 
 msgid "by {{user_link_absolute}}"
 msgstr "от {{user_link_absolute}}"
+
+msgid "can't be nil"
+msgstr ""
 
 msgid "clarification needed"
 msgstr ""
@@ -4480,9 +4529,6 @@ msgid_plural "{{count}} Attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "{{count}} FOI requests found"
-msgstr "{{count}} намерени заявления за ДдИ"
-
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
 msgstr[0] ""
@@ -4503,10 +4549,30 @@ msgid_plural "{{count}} requests"
 msgstr[0] "{{count}} Заявление"
 msgstr[1] "{{count}} Заявления"
 
+msgid "{{count}} request had a new response:"
+msgid_plural "{{count}} requests had new responses:"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{count}} request has not had a prompt response:"
+msgid_plural "{{count}} requests have not had prompt responses:"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{count}} request has still not had a response:"
+msgid_plural "{{count}} requests have still not had responses:"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "{{count}} request made."
 msgid_plural "{{count}} requests made."
 msgstr[0] "{{count}} направено заявление."
 msgstr[1] "{{count}} направени заявления."
+
+msgid "{{count}} request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
+msgid_plural "{{count}} requests will be made public on {{site_name}} in the next week. If you do not wish these requests to go public at that time, please click on the links below to keep them private for longer."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request."
 msgid_plural "{{count}} requests."
@@ -4560,7 +4626,22 @@ msgstr "{{public_body_link}} му бе изпратено Заявление о�
 msgid "{{public_body_name}}"
 msgstr ""
 
+msgid "{{public_body_name}} have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law. Click on the link below to remind them to reply."
+msgstr ""
+
+msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
+msgstr ""
+
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr ""
+
+msgid "{{public_body_name}}: {{confirm_url}}"
+msgstr ""
+
+msgid "{{public_body_name}}: {{request_url}}"
+msgstr ""
+
+msgid "{{public_body_name}}: {{response_url}}"
 msgstr ""
 
 msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."

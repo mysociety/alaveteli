@@ -10,6 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 16:14+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
+"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>, 2017\n"
 "Language-Team: Icelandic (Iceland) (https://www.transifex.com/mysociety/teams/33529/is_IS/)\n"
 "Language: is_IS\n"
 "MIME-Version: 1.0\n"
@@ -24,16 +25,16 @@ msgid " Say how you've <strong>used the information</strong>, with links if poss
 msgstr ""
 
 msgid "+ Add"
-msgstr ""
+msgstr "+ Bæta við"
 
 msgid "- Remove"
-msgstr ""
+msgstr "- Fjarlægja"
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 mánuðir"
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 mánuðir"
 
 msgid "6 Months"
 msgstr ""
@@ -54,7 +55,7 @@ msgid "A one line summary of the information you are requesting, e.g."
 msgstr ""
 
 msgid "Activity"
-msgstr ""
+msgstr "Breytingasaga"
 
 msgid "Add an annotation"
 msgstr ""
@@ -63,10 +64,10 @@ msgid "Add authorities to your batch"
 msgstr ""
 
 msgid "Added"
-msgstr ""
+msgstr "Bætt við"
 
 msgid "All requests"
-msgstr ""
+msgstr "Allar beiðnir"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr ""
@@ -78,7 +79,7 @@ msgid "Are you sure you want to publish this request?"
 msgstr ""
 
 msgid "Browse public requests"
-msgstr ""
+msgstr "Skoða opinberar upplýsingabeiðnir"
 
 msgid "Change privacy"
 msgstr ""
@@ -126,16 +127,16 @@ msgid "Get started with your first request"
 msgstr ""
 
 msgid "Help"
-msgstr ""
+msgstr "Hjálp"
 
 msgid "Keep private for a further:"
 msgstr ""
 
 msgid "Last updated"
-msgstr ""
+msgstr "Seinast uppfært"
 
 msgid "Make a request"
-msgstr ""
+msgstr "Útbúa beiðni"
 
 msgid "Make an {{law_used_short}} request"
 msgstr ""
@@ -156,13 +157,13 @@ msgid "Point to <strong>related information</strong>, campaigns or forums which 
 msgstr ""
 
 msgid "Preview and send request"
-msgstr ""
+msgstr "Forskoða og senda beiðni"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
 msgstr ""
 
 msgid "Preview your request"
-msgstr ""
+msgstr "Forskoða beiðni"
 
 msgid "Privacy"
 msgstr ""
@@ -171,10 +172,10 @@ msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
 
 msgid "Publish immediately"
-msgstr ""
+msgstr "Birta strax"
 
 msgid "Publish request"
-msgstr ""
+msgstr "Birta beiðni"
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
@@ -182,7 +183,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Read blog"
-msgstr ""
+msgstr "Lesa blogg"
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr ""
@@ -205,19 +206,19 @@ msgid "Request to"
 msgstr ""
 
 msgid "Requests"
-msgstr ""
+msgstr "Beiðnir"
 
 msgid "Requests that will be made public soon"
 msgstr ""
 
 msgid "Save draft"
-msgstr ""
+msgstr "Vista drög"
 
 msgid "Search"
-msgstr ""
+msgstr "Leit"
 
 msgid "Search for an authority"
-msgstr ""
+msgstr "Leita að stjórnvaldi"
 
 msgid "Search for an authority by name"
 msgstr ""
@@ -264,7 +265,7 @@ msgid "Sorry, something went wrong updating your request's privacy settings, ple
 msgstr ""
 
 msgid "Sort by"
-msgstr ""
+msgstr "Raða eftir"
 
 msgid "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr ""
@@ -273,13 +274,13 @@ msgid "Start new request"
 msgstr ""
 
 msgid "Status"
-msgstr ""
+msgstr "Staða"
 
 msgid "Subject"
-msgstr ""
+msgstr "Efni"
 
 msgid "Submit Search"
-msgstr ""
+msgstr "Efnisleit"
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr ""
@@ -305,7 +306,7 @@ msgid "This request is private on {{site_name}} until <span class=\"js-embargo-e
 msgstr ""
 
 msgid "This request is public"
-msgstr ""
+msgstr "Þessi beiðni er opinber"
 
 msgid "This request will be private on {{site_name}} until <span class=\"js-embargo-expiry\">{{embargo_publish_at}}</span>"
 msgstr ""
@@ -314,7 +315,7 @@ msgid "Title (A-Z)"
 msgstr ""
 
 msgid "To"
-msgstr ""
+msgstr "Til"
 
 msgid "To access {{pro_site_name}}"
 msgstr ""
@@ -331,13 +332,13 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Updated"
-msgstr ""
+msgstr "Uppfært"
 
 msgid "View"
 msgstr ""
 
 msgid "View authorities"
-msgstr ""
+msgstr "Skoða"
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
 msgstr ""
@@ -349,10 +350,10 @@ msgid "When your request is made public on {{site_name}}, any annotations you ad
 msgstr ""
 
 msgid "Write a reply"
-msgstr ""
+msgstr "Skrifa svar"
 
 msgid "Write request"
-msgstr ""
+msgstr "Skrifa beiðni"
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
@@ -406,7 +407,7 @@ msgid "Your request has been updated!"
 msgstr ""
 
 msgid "Your request is now public!"
-msgstr ""
+msgstr "Upplýsingabeiðnin þín er núna opinber!"
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
 msgstr ""
@@ -421,10 +422,10 @@ msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> s
 msgstr ""
 
 msgid "all requests"
-msgstr ""
+msgstr "allar beiðnir"
 
 msgid "drafts"
-msgstr ""
+msgstr "drög"
 
 msgid "eg. Cabinet Office"
 msgstr ""
