@@ -22,23 +22,57 @@ describe "viewing requests in alaveteli_pro" do
     end
   end
 
-  it "allows the user to extend an embargo" do
-    using_pro_session(pro_user_session) do
-      browse_pro_request(info_request.url_title)
-      old_publish_at = embargo.publish_at
-      expect(page).to have_content("This request is private on " \
-                                   "Alaveteli until " \
-                                   "#{old_publish_at.strftime('%d %B %Y')}")
-      select "3 Months", from: "Keep private for a further:"
-      within ".update-embargo" do
-        click_button("Update")
-      end
-      expected_publish_at = old_publish_at + AlaveteliPro::Embargo::THREE_MONTHS
-      expect(embargo.reload.publish_at).to eq(expected_publish_at)
-      expect(page).to have_content("This request is private on " \
-                                   "Alaveteli until " \
-                                   "#{expected_publish_at.strftime('%d %B %Y')}")
+  context "the embargo is expiring soon" do
+
+    before do
+      embargo.update_attribute(:publish_at, embargo.publish_at - 88.days)
     end
+
+    it "allows the user to extend an embargo" do
+      using_pro_session(pro_user_session) do
+        browse_pro_request(info_request.url_title)
+        old_publish_at = embargo.publish_at
+        expect(page).to have_content("This request is private on " \
+                                     "Alaveteli until " \
+                                     "#{old_publish_at.strftime('%d %B %Y')}")
+        select "3 Months", from: "Keep private for a further:"
+        within ".update-embargo" do
+          click_button("Update")
+        end
+        expected = old_publish_at + AlaveteliPro::Embargo::THREE_MONTHS
+        expect(embargo.reload.publish_at).to eq(expected)
+        expect(page).
+          to have_content("This request is private on Alaveteli until " \
+                          "#{expected.strftime('%d %B %Y')}")
+      end
+
+    end
+
+  end
+
+  context "the embargo is not expiring soon" do
+
+    it "does not show the user the extend embargo section" do
+      using_pro_session(pro_user_session) do
+        browse_pro_request(info_request.url_title)
+        expect(page).not_to have_content('Keep private for a further:')
+        expect(page).
+          to have_content("This request is private on Alaveteli until " \
+                          "#{embargo.publish_at.strftime('%d %B %Y')}")
+      end
+    end
+
+    it 'displays a message to say when the embargo can be extended' do
+      using_pro_session(pro_user_session) do
+        expiring_notification = info_request.
+                                  embargo.calculate_expiring_notification_at
+        browse_pro_request(info_request.url_title)
+        expect(page).
+          to have_content("You will be able to extend this privacy period " \
+                          "from #{expiring_notification.strftime('%-d %B %Y')}")
+      end
+    end
+
   end
 
   it "allows the user to publish a request" do
