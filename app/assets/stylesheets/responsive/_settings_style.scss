@@ -68,3 +68,44 @@
 .faqs__def {
   color: #787774;
 }
+
+.settings__item {
+border-top: 1px solid #E6E4DF;
+}
+
+.card-desc {
+  font-size: 0.875em;
+  color: #787774;
+  strong {
+    font-size: 1.142857143em; //16px
+    color: #333;
+  }
+}
+
+.settings__table {
+  width: 100%;
+  border-bottom: 1px solid #E6E4DF;
+  tr {
+    border-top: 1px solid #E6E4DF;
+    width: 100%;
+    padding: 0.5em 0;
+  }
+  th {
+    text-align: left;
+    font-weight: normal;
+  }
+  td {
+    text-align: right;
+  }
+}
+
+.cancel-sub-section {
+  a {
+    margin-top: 1em;
+  }
+}
+
+.card__expiring {
+  color: #F33D3D;
+  font-weight: bold;
+}

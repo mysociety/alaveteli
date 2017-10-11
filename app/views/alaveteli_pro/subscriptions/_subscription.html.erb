@@ -1,41 +1,78 @@
-<%= subscription.plan.name %>
 
-<br>
+<div class="plan-overview">
+  <div class="plan-overview__desc">
+    <%= subscription.plan.name %>
+  </div>
 
-<%= _('Amount: {{plan_price}}',
-      plan_price: number_to_currency(subscription_amount(subscription) / 100.0,
-                                     unit: '£')) %>
+  <div class="plan-overview__details">
+  </div>
 
-<% if subscription.discounted? %>
-  <%= _('(with <b>{{discount_name}}</b> discount applied)',
-        :discount_name => subscription.discount.coupon.id) %>
-<% end %>
+  <label class="plan-overview__amount amount">
+    <span>
+      <%= _('{{plan_price}}',
+            plan_price: number_to_currency(subscription_amount(subscription) / 100.0,
+                                           unit: '£')) %>
+      <span class="amount__freq">
+        <%= billing_frequency(subscription.plan.interval) %>
 
-<br>
+        <% if subscription.discounted? %>
+          <%= _('(with <b>{{discount_name}}</b> discount applied)',
+                :discount_name => subscription.discount.coupon.id) %>
+        <% end %>
+      </span>
+    </span>
+  </label>
+</div>
 
-<%= billing_frequency(subscription.plan.interval) %>
+<div>
+  <h4><%= _('Billing') %></h4>
 
-<br>
+  <table class="settings__table">
+    <tr>
+      <th scope="row">
+        <%= _('Subscription began') %>
+      </th>
+      <td>
+        <%= _('{{date}}',
+              date: simple_date(Time.zone.at(subscription.created),
+                                :format => :text)) %>
+      </td>
+    </tr>
 
-<%= _('Subscription created on {{date}}',
-      date: simple_date(Time.zone.at(subscription.created),
-                        :format => :text)) %>
+    <% if subscription.cancel_at_period_end %>
+      <tr>
+        <th scope="row">
+          <%= _('Subscription ends') %>
+        </th>
+        <td>
+          <%= _('{{date}}',
+                date: simple_date(Time.zone.at(subscription.current_period_end),
+                                  :format => :text)) %>
+        </td>
+      </tr>
+    <% else %>
+      <tr>
+        <th scope="row">
+          <%= _('Next payment') %>
+        </th>
+        <td>
+          <%= _('{{date}}',
+                date: simple_date(Time.zone.at(subscription.current_period_end),
+                                  :format => :text)) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
-<br>
-
-<% if subscription.cancel_at_period_end %>
-  <%= _('Your subscription will end on {{date}}',
-        date: simple_date(Time.zone.at(subscription.current_period_end),
-                          :format => :text)) %>
-<% else %>
-  <%= _('Your next payment will be taken on {{date}}',
-        date: simple_date(Time.zone.at(subscription.current_period_end),
-                          :format => :text)) %>
-
-  <br>
-
-  <%= link_to _('Cancel your subscription'),
-              subscription_path(subscription.id), 
-              method: :delete, 
-              data: { confirm: _('Are you sure?') } %> 
+<% unless subscription.cancel_at_period_end %>
+  <div class="cancel-sub-section">
+    <h4><%= _('Cancel subscription') %></h4>
+    <div class="settings__item">
+      <%= link_to _('Cancel your subscription'),
+                  subscription_path(subscription.id),
+                  method: :delete,
+                  data: { confirm: _('Are you sure?') } %>
+    </div>
+  </div>
 <% end %>
