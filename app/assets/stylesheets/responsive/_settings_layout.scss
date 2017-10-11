@@ -24,7 +24,7 @@ $settings-collapse: 50em; //where the dashboard layout needs to change
   }
 }
 
-.settings__section {
+.settings-section {
   margin-bottom: 3em;
 }
 
@@ -55,5 +55,22 @@ $settings-collapse: 50em; //where the dashboard layout needs to change
   flex: 0 0 30%;
   @include respond-min( $settings-collapse ){
     flex: 0 0 30%;
+  }
+}
+
+.settings__item {
+  position: relative;
+  padding-top: 1em;
+}
+
+.settings__item__primary {
+
+}
+
+.settings__item__secondary {
+  @include respond-min( $settings-collapse ){
+    position: absolute;
+    top: 1em;
+    right: 0
   }
 }
