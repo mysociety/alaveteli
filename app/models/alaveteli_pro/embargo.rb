@@ -74,6 +74,11 @@ module AlaveteliPro
       save
     end
 
+    def expiring_soon?
+      (Time.zone.now >= calculate_expiring_notification_at &&
+       Time.zone.now < publish_at)
+    end
+
     def calculate_expiring_notification_at
       self.publish_at - 1.week
     end
