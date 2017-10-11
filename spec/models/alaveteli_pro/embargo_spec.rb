@@ -152,6 +152,34 @@ describe AlaveteliPro::Embargo, :type => :model do
 
   end
 
+  describe '#expiring_soon?' do
+
+    it 'returns true if the embargo expires in less than a week' do
+      embargo = FactoryGirl.build(:embargo,
+                                  :publish_at => Time.zone.now + 6.days)
+      expect(embargo.expiring_soon?).to be true
+    end
+
+    it 'returns true if the embargo expires in a week' do
+      embargo = FactoryGirl.build(:embargo,
+                                  :publish_at => Time.zone.now + 7.days)
+      expect(embargo.expiring_soon?).to be true
+    end
+
+    it 'returns false if the embargo expires in more than a week' do
+      embargo = FactoryGirl.build(:embargo,
+                                  :publish_at => Time.zone.now + 8.days)
+      expect(embargo.expiring_soon?).to be false
+    end
+
+    it 'returns false if the embargo has already expired' do
+      embargo = FactoryGirl.build(:embargo,
+                                  :publish_at => Time.zone.now.beginning_of_day)
+      expect(embargo.expiring_soon?).to be false
+    end
+
+  end
+
   describe '.expire_publishable' do
 
     context 'for an embargo whose publish_at date has passed' do
