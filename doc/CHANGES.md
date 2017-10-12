@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update format of `robots.txt` for Baidu compatibility (Gareth Rees)
 * Added some extra margin space to the `#logged_in_bar` when javascript is
   disabled to avoid the user's name from overlapping the 'Sign out' link -
   otherwise if there is enough space to do so, the secondary menu will try to
