@@ -334,7 +334,7 @@ class ApplicationController < ActionController::Base
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
-  def do_post_redirect(post_redirect, user=nil)
+  def do_post_redirect(post_redirect, user=nil, context)
     uri = URI.parse(post_redirect.uri).path
     if feature_enabled?(:alaveteli_pro) &&
       user &&
@@ -345,27 +345,27 @@ class ApplicationController < ActionController::Base
                                            user)
     end
     session[:post_redirect_token] = post_redirect.token
-    uri = add_post_redirect_param_to_uri(uri)
+    uri = add_post_redirect_param_to_uri(uri, context)
     session.delete(:admin_confirmation)
     redirect_to uri
   end
 
-  def add_post_redirect_param_to_uri(uri)
+  def add_post_redirect_param_to_uri(uri, context)
     # TODO: what is the built in Ruby URI munging function that can do this
     # choice of & vs. ? more elegantly than this dumb if statement?
     if uri.include?("?")
       # TODO: This looks odd. What would a fragment identifier be doing server-side?
       #     But it also looks harmless, so I’ll leave it just in case.
       if uri.include?("#")
-        uri.sub!("#", "&post_redirect=1#")
+        uri.sub!("#", "&post_redirect=1&context=#{context}#")
       else
-        uri += "&post_redirect=1"
+        uri += "&post_redirect=1&context=#{context}"
       end
     else
       if uri.include?("#")
-        uri.sub!("#", "?post_redirect=1#")
+        uri.sub!("#", "?post_redirect=1&context=#{context}#")
       else
-        uri += "?post_redirect=1"
+        uri += "?post_redirect=1&context=#{context}"
       end
     end
     return uri
@@ -385,7 +385,9 @@ class ApplicationController < ActionController::Base
         logger.warn "Missing post redirect token. " \
                     "Session: #{session.to_hash} " \
                     "IP: #{user_ip} " \
-                    "Params: #{params}"
+                    "Params: #{params} " \
+                    "Context: #{params[:context]}"
+        return redirect_to no_cookies_path(:context => params[:context])
       end
     end
   end

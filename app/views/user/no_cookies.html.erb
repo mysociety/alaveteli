@@ -2,14 +2,19 @@
 
 <h1><%= _('Please enable "cookies" to carry on') %></h1>
 
-<p><%= _('To carry on, you need to sign in or make an account. ' \
+<p><%= _('To carry on, you need to sign in. ' \
          'Unfortunately, there was a technical problem trying to ' \
          'do this.') %></p>
 
 <p><%= _('It may be that your browser is not set to accept a thing called ' \
          '"cookies", or cannot do so.  If you can, please enable cookies, ' \
-         'or try using a different browser.  Then press refresh to have ' \
-         'another go.') %></p>
+         'or try using a different browser.') %>
+  <% if params[:context] == "signin" %>
+    <%= _("Then try to sign in again.") %>
+  <% else %>
+    <%= _("Then try the confirmation link again.") %>
+  <% end %>
+</p>
 
 <p><%= _('If your browser is set to accept cookies and you are seeing this ' \
          'message, then there is probably a fault with our server.') %>

@@ -197,6 +197,9 @@ Rails.application.routes.draw do
   match '/c/:email_token' => 'users/confirmations#confirm',
         :as => :confirm,
         :via => :get
+  match '/profile/no_cookies' => 'user#no_cookies',
+        :as => :no_cookies,
+        :via => :get
   match '/user/:url_name' => 'user#show',
         :as => :show_user,
         :via => :get

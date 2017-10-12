@@ -42,13 +42,13 @@ describe "Signing in" do
     it "it redirects to the redirect path" do
       try_login(user, { :redirect => '/list' })
       expect(page).
-        to have_current_path '/list?post_redirect=1'
+        to have_current_path '/list?post_redirect=1&context=signin'
     end
 
     it 'does not redirect to another domain' do
       try_login(user, { :redirect => 'http://bad.place.com/list' })
       expect(page).
-        to have_current_path('/list?post_redirect=1')
+        to have_current_path('/list?post_redirect=1&context=signin')
     end
 
     context 'if an account is not confirmed' do
@@ -61,7 +61,8 @@ describe "Signing in" do
         # check confirmation URL works
         visit confirmation_url_from_email
         expect(page).to have_content user.name
-        expect(page).to have_current_path '/list?post_redirect=1'
+        expect(page).
+          to have_current_path '/list?post_redirect=1&context=confirm'
       end
 
       context 'if an admin clicks the confirmation link' do
@@ -78,7 +79,8 @@ describe "Signing in" do
             expect(page).to have_content admin_user.name
 
             # And the redirect should still work, of course
-            expect(page).to have_current_path '/list?post_redirect=1'
+            expect(page).
+              to have_current_path '/list?post_redirect=1&context=confirm'
 
           end
         end

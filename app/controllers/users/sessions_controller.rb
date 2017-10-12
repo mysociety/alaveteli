@@ -28,7 +28,7 @@ class Users::SessionsController < UserController
         if is_modal_dialog
           render :template => 'users/sessions/show'
         else
-          do_post_redirect @post_redirect, @user_signin
+          do_post_redirect @post_redirect, @user_signin, :signin
         end
       else
         send_confirmation_mail @user_signin
