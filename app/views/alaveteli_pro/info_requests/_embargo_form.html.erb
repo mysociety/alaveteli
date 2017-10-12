@@ -11,37 +11,8 @@
   <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
   <input class="houdini-input" type="checkbox" id="input1">
   <div class="houdini-target extend-embargo-sidebar">
-    <%= render partial: "alaveteli_pro/info_requests/embargo_info",
-                 locals: {embargo: info_request.embargo, tense: :present} %>
-
-    <% if info_request.embargo.expiring_soon? %>
-      <%= form_for(
-            [AlaveteliPro::EmbargoExtension.new(embargo: info_request.embargo)],
-            html: {class: 'js-embargo-form'}) do |f| %>
-        <%= f.hidden_field :embargo_id %>
-
-        <p>
-          <label class="form_label"
-                 for="alaveteli_pro_embargo_extension_extension_duration">
-            <%= _('Keep private for a further:') %>
-          </label>
-          <%= f.select :extension_duration,
-                       options_for_select(
-                         embargo_extension_options(info_request.embargo)),
-                       {},
-                       { class: 'js-embargo-duration' } %>
-          <input type="submit"
-                 value="<%= _("Update") %>"
-                 class="embargo__submit js-embargo-submit">
-        </p>
-      <% end %>
-    <% else %>
-      <p>
-        <%= _("You will be able to extend this privacy period from " \
-              "{{embargo_extend_from}}.",
-              embargo_extend_from: embargo_extend_from(info_request.embargo)) %>
-      </p>
-    <% end %>
+    <%= render partial: "alaveteli_pro/info_requests/embargo_extension_form",
+               locals: {info_request: info_request} %>
     <%= button_to _("Publish request"),
                   alaveteli_pro_embargo_path(info_request.embargo),
                   method: :delete,
