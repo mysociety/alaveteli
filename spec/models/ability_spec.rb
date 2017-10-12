@@ -489,6 +489,71 @@ describe Ability do
     end
   end
 
+  describe "Creating Embargoes" do
+    let(:pro_admin_user) { FactoryGirl.create(:pro_admin_user) }
+
+    context 'the info request owner is a pro user' do
+      let(:user) { FactoryGirl.create(:pro_user) }
+      let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+
+      it 'allows the request owner to add an embargo' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(info_request.user)
+          expect(ability).to be_able_to(:create_embargo, info_request)
+        end
+
+      end
+
+      it "allows pro admins to add an embargo" do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:create_embargo, info_request)
+        end
+      end
+
+      context 'the info request is part of a batch' do
+        let(:batch_request) do
+          batch = FactoryGirl.create(:batch_request, user: user)
+          request = FactoryGirl.create(:info_request, title: batch.title,
+                                                      user: batch.user)
+          batch.info_requests << request
+          batch.info_requests.first
+        end
+
+        it 'does not allow the request owner to add an embargo' do
+          with_feature_enabled(:alaveteli_pro) do
+            ability = Ability.new(batch_request.user)
+            expect(ability).to_not be_able_to(:create_embargo, batch_request)
+          end
+        end
+
+      end
+
+    end
+
+    context 'the info request owner is not a pro user' do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:info_request) { FactoryGirl.create(:info_request, user: user) }
+
+      it 'prevents the request owner from adding an embargo' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(info_request.user)
+          expect(ability).not_to be_able_to(:create_embargo, info_request)
+        end
+
+      end
+
+      it "prevents pro admins adding an embargo" do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).not_to be_able_to(:create_embargo, info_request)
+        end
+      end
+
+    end
+
+  end
+
   describe "Updating Embargoes" do
     let(:embargo) { FactoryGirl.create(:embargo) }
     let(:admin_user) { FactoryGirl.create(:admin_user) }
