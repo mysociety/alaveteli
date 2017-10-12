@@ -6,6 +6,30 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
+  def create
+    @info_request = InfoRequest.find(embargo_params[:info_request_id])
+    authorize! :create_embargo, @info_request
+
+    # Embargoes cannot be created individually on batch requests
+    if @info_request.info_request_batch_id
+      # shouldn't be reachable because CanCan should catch it, but just in case
+      raise PermissionDenied
+    end
+    @embargo = AlaveteliPro::Embargo.new(embargo_params)
+    if @embargo.save
+      flash[:notice] = _("Your request will now be private on " \
+                         "{{site_name}} until {{expiry_date}}.",
+                         site_name: AlaveteliConfiguration.site_name,
+                         expiry_date: I18n.l(
+                           @embargo.publish_at, format: '%d %B %Y'))
+    else
+      flash[:error] = _("Sorry, something went wrong updating your " \
+                        "request's privacy settings, please try again.")
+    end
+
+    redirect_to request_url(@info_request)
+  end
+
   def destroy
     @embargo = AlaveteliPro::Embargo.find(params[:id])
     authorize! :update, @embargo
@@ -46,5 +70,13 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
     else
       redirect_to show_alaveteli_pro_batch_request_path(@info_request_batch)
     end
+  end
+
+  private
+
+  def embargo_params
+    params.
+      require(:alaveteli_pro_embargo).
+      permit(:info_request_id, :embargo_duration)
   end
 end
