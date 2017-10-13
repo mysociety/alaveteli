@@ -8,8 +8,7 @@ require "flipper-active_record"
 module AlaveteliFeatures
   def self.backend
     return @backend if @backend
-    if ActiveRecord::Base.connected? && \
-       ActiveRecord::Base.connection.table_exists?(:flipper_features)
+    if self.tables_exist?
       @backend = Flipper.new(Flipper::Adapters::ActiveRecord.new)
     else
       if defined?(Rails)
@@ -28,5 +27,16 @@ module AlaveteliFeatures
   # for overriding with memory adapter in tests
   def self.backend=(backend)
     @backend = backend
+  end
+
+  # We just want to know if our tables exist, but we can't do that without
+  # risking an error
+  def self.tables_exist?
+    begin
+      ActiveRecord::Base.establish_connection
+      return ActiveRecord::Base.connection.table_exists?(:flipper_features)
+    rescue
+      return false
+    end
   end
 end
