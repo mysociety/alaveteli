@@ -30,6 +30,8 @@ module AlaveteliPro
     after_initialize :set_default_duration,
                      :set_publish_at_from_duration,
                      :set_expiring_notification_at
+    after_create :reindex_request
+    before_destroy :reindex_request
     around_save :add_set_embargo_event
     attr_accessor :extension
 
@@ -141,6 +143,10 @@ module AlaveteliPro
       unless self.expiring_notification_at.present?
         self.expiring_notification_at = calculate_expiring_notification_at
       end
+    end
+
+    def reindex_request
+      info_request.reindex_request_events
     end
   end
 end
