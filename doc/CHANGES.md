@@ -1,6 +1,14 @@
+# 0.28.0.13
+
+## Highlighted Features
+
+* Backported fix for the AlaveteliFeatures gem mistakenly treating the flipper
+  database tables as unavailable and failing over to using in memory storage
+  (Liz Conlan)
+
 # 0.28.0.12
 
-## Highlighted Featuers
+## Highlighted Features
 
 * Backported fix from Rails 4.1 for calls to `.days` raising an error in
   Rails 4.0 sites where 'en' is not included in available locales
