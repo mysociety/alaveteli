@@ -4036,6 +4036,41 @@ describe InfoRequest do
 
   end
 
+  describe '#last_embargo_expire_event' do
+    let(:info_request) { FactoryGirl.create(:info_request) }
+
+    context 'if no embargo has been set' do
+
+      it 'returns nil' do
+        expect(info_request.last_embargo_expire_event).to be_nil
+      end
+
+    end
+
+    context 'if an embargo has been set' do
+      let(:embargo) { FactoryGirl.create(:embargo, info_request: info_request) }
+
+      context 'the embargo has not yet expired' do
+
+        it 'returns nil' do
+          expect(info_request.last_embargo_expire_event).to be_nil
+        end
+
+      end
+
+      it 'returns the last "expire_embargo" event' do
+        time_travel_to embargo.publish_at + 1.day do
+          AlaveteliPro::Embargo.expire_publishable
+        end
+        last_embargo_set_event = info_request.reload.last_embargo_expire_event
+
+        expect(last_embargo_set_event.event_type).to eq 'expire_embargo'
+      end
+
+    end
+
+  end
+
   describe '#should_summarise?' do
     it "returns true if the request is not in a batch" do
       request = FactoryGirl.create(:info_request)
