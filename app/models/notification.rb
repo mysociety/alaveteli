@@ -76,6 +76,12 @@ class Notification < ActiveRecord::Base
     !self.info_request_event.info_request.embargo_expiring?
   end
 
+  def expire_embargo_expired
+    # If someone has added a new embargo, they might not need this notification
+    # any more.
+    !info_request_event.info_request.embargo_expired?
+  end
+
   def overdue_expired
     info_request = self.info_request_event.info_request
     user = info_request.user
