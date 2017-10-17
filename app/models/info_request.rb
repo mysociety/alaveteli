@@ -1580,6 +1580,17 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  # Has a previously attached embargo expired?
+  #
+  # Returns boolean
+  def embargo_expired?
+    if !embargo && last_embargo_expire_event
+      true
+    else
+      false
+    end
+  end
+
   # @see RequestSummaries#should_summarise?
   def should_summarise?
     self.info_request_batch_id.blank?

@@ -3450,6 +3450,49 @@ describe InfoRequest do
     end
   end
 
+  describe '#embargo_expired?' do
+
+    context 'when the embargo has expired' do
+      let!(:info_request) do
+        request = FactoryGirl.create(:info_request)
+        FactoryGirl.create(:embargo,
+                           info_request: request,
+                           publish_at: Time.now - 4.months)
+        AlaveteliPro::Embargo.expire_publishable
+        request.reload
+      end
+
+      it 'returns true' do
+        expect(info_request.embargo_expired?).to be true
+      end
+
+    end
+
+    context 'when the embargo has not expired' do
+      let!(:info_request) do
+        request = FactoryGirl.create(:info_request)
+        FactoryGirl.create(:embargo,
+                           info_request: request)
+        request.reload
+      end
+
+      it 'returns false' do
+        expect(info_request.embargo_expired?).to be false
+      end
+
+    end
+
+    context 'when there is no embargo' do
+
+      it 'returns false' do
+        info_request = FactoryGirl.build(:info_request)
+        expect(info_request.embargo_expired?).to be false
+      end
+
+    end
+
+  end
+
   describe "#embargo_expiring?" do
     let(:info_request) { FactoryGirl.create(:info_request) }
 
