@@ -888,6 +888,13 @@ class InfoRequest < ActiveRecord::Base
           first
   end
 
+  def last_embargo_expire_event
+    info_request_events.
+      where(:event_type => 'expire_embargo').
+        reorder('created_at DESC').
+          first
+  end
+
   # Where the initial request is sent to
   def recipient_email
     public_body.request_email
