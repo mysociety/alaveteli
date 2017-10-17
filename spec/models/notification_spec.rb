@@ -176,6 +176,44 @@ RSpec.describe Notification do
       end
     end
 
+    context 'when the notification is for an expired embargo' do
+      let(:embargo_expired_request) do
+        FactoryGirl.create(:embargo_expired_request)
+      end
+
+      let(:embargo_expired_event) do
+        FactoryGirl.create(:expire_embargo_event,
+                           info_request: embargo_expired_request)
+      end
+
+      let(:notification) do
+        FactoryGirl.create(:notification,
+                           info_request_event: embargo_expired_event)
+      end
+
+      context 'and a new embargo has not been created' do
+
+        it 'returns false' do
+          expect(notification.expired).to be false
+        end
+
+      end
+
+      context 'and a new embargo has been created' do
+
+        before do
+          FactoryGirl.create(:embargo, info_request: embargo_expired_request)
+          notification.reload
+        end
+
+        it 'returns true' do
+          expect(notification.expired).to be true
+        end
+
+      end
+
+    end
+
     context "when the notification is for an overdue request" do
       let(:info_request) { FactoryGirl.create(:overdue_request) }
       let(:event) do

@@ -130,6 +130,23 @@ class NotificationMailer < ApplicationMailer
               template_name: 'embargo_expiring_notification')
   end
 
+  def embargo_expired_notification(notification)
+    @info_request = notification.info_request_event.info_request
+
+    set_reply_to_headers(@info_request.user)
+    set_auto_generated_headers
+
+    subject = _(
+      "Your FOI request - {{request_title}} has been made public on " \
+      "{{site_name}}",
+      :request_title => @info_request.title.html_safe,
+      :site_name => AlaveteliConfiguration.site_name.html_safe)
+
+    mail_user(@info_request.user,
+              subject,
+              template_name: 'embargo_expired_notification')
+  end
+
   def overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
 
