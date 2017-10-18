@@ -66,6 +66,8 @@
 </div>
 
 <div class="cancel-sub-section">
-  <%= render 'cancel_subscription', subscription: subscription %>
+  <h4><%= _('Cancel subscription') %></h4>
+  <div class="settings__item">
+    <%= render 'cancel_subscription', subscription: subscription %>
+  </div>
 </div>
-

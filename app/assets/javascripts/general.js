@@ -142,3 +142,13 @@ $(document).ready(function() {
     submenuEl: '.action-menu__menu'
   });
 });
+
+
+// Pro subscription cancellation message controls
+$(document).ready(function() {
+  $(".js-cancel-subscription__message").toggle();
+});
+
+$(".js-control-cancel-subscription__message").click(function(){
+  $(".js-cancel-subscription__message").slideToggle( 150 );
+});

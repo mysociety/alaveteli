@@ -411,3 +411,33 @@ div.pagination {
     }
   }
 }
+
+.button-unstyled {
+  //completely remove all of Foundation's styles
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  position: inherit;
+  text-decoration: inherit;
+  margin: inherit;
+  display: inline;
+  transition: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  border-radius: inherit;
+  border: inherit;
+
+  //make it have the appearance of a link
+  color: #1567ae;
+  text-decoration: underline;
+  &:hover,
+  &:active,
+  &:focus {
+    color: #333;
+    background-color: transparent;
+  }
+}

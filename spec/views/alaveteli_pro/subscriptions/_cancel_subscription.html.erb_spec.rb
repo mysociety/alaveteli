@@ -18,12 +18,12 @@ describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
 
     it 'sets the section heading' do
       render_view
-      expect(rendered).to have_content('Cancel subscription')
+      expect(rendered).to have_content('Cancel your subscription')
     end
 
-    it 'adds an .active class to the .cancel-subscription div' do
+    it 'adds an .active class to the .cancel-subscription__message div' do
       render_view
-      expect(rendered).to have_css('div.cancel-subscription.active')
+      expect(rendered).to have_css('div.cancel-subscription__message.active')
     end
 
     it 'displays the what happens if you cancel' do
@@ -35,8 +35,9 @@ describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
 
     it 'displays a link to allow the user to cancel' do
       render_view
-      expect(rendered).to have_link(text: 'Cancel your subscription',
-                                    href: subscription_path(subscription.id) )
+      expect(rendered).
+        to have_link(text: 'I understand and still want to cancel',
+                     href: subscription_path(subscription.id) )
     end
 
   end
@@ -51,12 +52,12 @@ describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
 
     it 'sets the section heading' do
       render_view
-      expect(rendered).to have_content('Subscription cancelled')
+      expect(rendered).to have_content('Your subscription has been cancelled,')
     end
 
-    it 'adds a .cancelled class to the .cancel-subscription div' do
+    it 'adds a .cancelled class to the .cancel-subscription__message div' do
       render_view
-      expect(rendered).to have_css('div.cancel-subscription.cancelled')
+      expect(rendered).to have_css('div.cancel-subscription__message.cancelled')
     end
 
     it 'displays what will happen at the end of the billing period' do
