@@ -1,33 +1,44 @@
 <% cancelled = subscription.cancel_at_period_end %>
 <% css_class = cancelled ? 'cancelled' : 'active' %>
-
-<% if cancelled %>
-  <h4><%= _('Subscription cancelled') %></h4>
-<% else %>
-  <h4><%= _('Cancel subscription') %></h4>
-<% end %>
-
-<div class="settings__item cancel-subscription <%= css_class %>">
+<div class="cancel-subscription__status">
+  <% if cancelled %>
   <p>
-    <%= _('Subscription cancellations are applied at the end of the ' \
-          'current billing period ({{date}}).',
+    <%= _('Your subscription has been cancelled, your access to ' \
+          '{{pro_site_name}} will end on <strong>{{date}}</strong>.',
+          pro_site_name: AlaveteliConfiguration.pro_site_name,
           date: simple_date(Time.zone.at(subscription.current_period_end),
                             format: :text)) %>
+    <button class="button-unstyled js-control-cancel-subscription__message">
+      <%= _('Details') %>
+    </button>
   </p>
-
+  <% else %>
   <p>
+    <button class="button-secondary js-control-cancel-subscription__message">
+      <%= _('Cancel your subscription') %>
+    </button>
+  </p>
+  <% end %>
+</div>
+
+
+
+<div class="cancel-subscription__message <%= css_class %> js-cancel-subscription__message" id="cancel-subscription">
+  <p>
+    <%= _('Subscription cancellations are applied at the end of the ' \
+          'current billing period (<strong>{{date}}</strong>).',
+          date: simple_date(Time.zone.at(subscription.current_period_end),
+                            format: :text)) %>
     <%= _('Until that date you will continue to have full access to ' \
           '{{pro_site_name}}.',
           pro_site_name: AlaveteliConfiguration.pro_site_name) %>
   </p>
 
   <% if cancelled %>
-    <%= _('When the current billing period ends:') %>
+    <p><%= _('When the current billing period ends:') %></p>
   <% else %>
-    <%= _('When you cancel your account:') %>
+    <p><%= _('When you cancel your account:') %></p>
   <% end %>
-
-  <p>
     <ul>
       <li>
         <%= _("You'll lose access to any requests you still have in " \
@@ -49,12 +60,11 @@
               "features will be restored.") %>
       </li>
     </ul>
-  </p>
-
   <% unless cancelled %>
-    <%= link_to _('Cancel your subscription'),
+    <%= link_to _('I understand and still want to cancel'),
                 subscription_path(subscription.id),
                 method: :delete,
-                data: { confirm: _('Are you sure?') } %>
+                data: { confirm: _('Are you sure?') },
+                class: "button" %>
   <% end %>
 </div>
