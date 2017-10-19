@@ -28,6 +28,13 @@ describe NotificationMailer do
         public_body: public_body_1
       )
     end
+    let(:embargo_expired_request_1) do
+      FactoryGirl.create(
+        :embargo_expired_request,
+        title: "Misdelivered letters",
+        public_body: public_body_1
+      )
+    end
     let(:overdue_request_1) do
       FactoryGirl.create(
         :overdue_request,
@@ -167,6 +174,12 @@ describe NotificationMailer do
       FactoryGirl.create(:daily_notification, info_request_event: event,
                                               user: user)
     end
+    let!(:notification_7) do
+      event = FactoryGirl.create(:expire_embargo_event,
+                                 info_request: embargo_expired_request_1)
+      FactoryGirl.create(:daily_notification, info_request_event: event,
+                                              user: user)
+    end
     let!(:new_response_batch_notifications) do
       notifications = []
 
@@ -271,7 +284,8 @@ describe NotificationMailer do
                        notification_3,
                        notification_4,
                        notification_5,
-                       notification_6]
+                       notification_6,
+                       notification_7]
       notifications + batch_notifications
     end
 
