@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix bug that prevented private requests from being published across the whole
+  site once the embargo period had expired (Liz Conlan)
 * Update format of `robots.txt` for Baidu compatibility (Gareth Rees)
 * Added some extra margin space to the `#logged_in_bar` when javascript is
   disabled to avoid the user's name from overlapping the 'Sign out' link -
