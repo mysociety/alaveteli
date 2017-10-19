@@ -155,28 +155,48 @@ describe AlaveteliPro::Embargo, :type => :model do
   describe '.expire_publishable' do
 
     context 'for an embargo whose publish_at date has passed' do
+      let!(:embargo) do
+        FactoryGirl.create(:embargo, :publish_at => Time.now - 2.days)
+      end
+
+      let!(:info_request) { embargo.info_request }
+
       it 'deletes the embargo' do
-        embargo = FactoryGirl.create(:embargo)
-        info_request = embargo.info_request
-        time_travel_to(Time.zone.today + 4.months) do
-          AlaveteliPro::Embargo.expire_publishable
-          info_request = InfoRequest.find(info_request.id)
-          expect(info_request.embargo).to be_nil
-        end
+        AlaveteliPro::Embargo.expire_publishable
+        expect(info_request.reload.embargo).to be_nil
       end
 
       it 'logs the embargo expiry' do
-        embargo = FactoryGirl.create(:embargo)
-        info_request = embargo.info_request
-        time_travel_to(Time.zone.today + 4.months) do
-          AlaveteliPro::Embargo.expire_publishable
-          info_request = InfoRequest.find(info_request.id)
-          expiry_events = info_request.
+        AlaveteliPro::Embargo.expire_publishable
+        expiry_events = info_request.
+                          reload.
                             info_request_events.
                               where(:event_type => 'expire_embargo')
-          expect(expiry_events.size).to eq 1
-        end
+        expect(expiry_events.size).to eq 1
       end
+
+      context 'when the request has use_notifications: true' do
+
+        it 'notifies the user of the event' do
+          info_request = FactoryGirl.create(:use_notifications_request)
+          embargo = FactoryGirl.create(:expiring_embargo,
+                                       info_request: info_request)
+          embargo.update_attribute(:publish_at, Time.zone.today -  4.months)
+          AlaveteliPro::Embargo.expire_publishable
+          expect(Notification.count).to eq 1
+        end
+
+      end
+
+      context 'when the request has use_notifications: false' do
+
+        it 'does not notify the user of the event' do
+          AlaveteliPro::Embargo.expire_publishable
+          expect(Notification.count).to eq 0
+        end
+
+      end
+
     end
 
     context 'for an embargo whose publish_at date is today' do
@@ -354,4 +374,5 @@ describe AlaveteliPro::Embargo, :type => :model do
       end
     end
   end
+
 end
