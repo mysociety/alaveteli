@@ -28,27 +28,30 @@
 <% columns = ['id', 'event_type', 'created_at', 'described_state', 'calculated_state', 'last_described_at' ] %>
 
 <table>
-  <tr>
+  <thead>
+  <tr scope="col">
   <% for column in @columns%>
     <th><%= column %></th>
   <% end %>
-  <th>link</th>
+  <th scope="col">link</th>
   </tr>
+  </thead>
 
   <% @info_request.info_request_events.each do |info_request_event| %>
     <tr class="<%= cycle('odd', 'even') %>">
     <% for column in @columns %>
-      <td>
-        <%=h info_request_event.send(column) %>
+      <td data-label="<%= column %>">
+        <%=h info_request_event.send(column) %>&nbsp;
       </td>
     <% end %>
-    <td>
+    <td data-label="link">
     <% if info_request_event.outgoing_message %>
       <%= link_to "outgoing", outgoing_message_path(info_request_event.outgoing_message) %>
     <% end %>
     <% if info_request_event.incoming_message %>
       <%= link_to "incoming", incoming_message_path(info_request_event.incoming_message) %>
     <% end %>
+    &nbsp;
     </td>
     </tr>
   <% end %>
