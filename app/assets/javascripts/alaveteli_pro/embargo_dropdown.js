@@ -2,15 +2,23 @@
   $(function(){
     var $expiry = $('.js-embargo-expiry');
     var $durationSelect = $('.js-embargo-duration');
-    var $submit = $('.js-embargo-submit');
-    $('.js-embargo-form').change(function() {
-      if($durationSelect.val() !== '') {
+    var $form = $('.js-embargo-form');
+    var $submit = $('.js-embargo-submit', $form);
+    var $active = $('.js-embargo-active');
+    var $inactive = $('.js-embargo-inactive');
+    $durationSelect.change(function() {
+      if($(this).val() !== '') {
+        var expiryDate = $(this).find('option:selected').data('expiry-date');
+        $expiry.text(expiryDate);
+        $active.show();
+        $inactive.hide();
         if(typeof $submit.data('confirm') === 'undefined' || window.confirm($submit.data('confirm'))) {
-          var expiryDate = $durationSelect.find('option:selected').data('expiry-date');
-          $expiry.text(expiryDate);
-          $(this).submit();
+          $form.submit();
         }
+      } else if ($form.length == 0) {
+        $active.hide();
+        $inactive.show();
       }
-    });
+    }).change();
   });
 })(window.jQuery);

@@ -42,7 +42,9 @@
                        options_for_select(
                          publish_at_options,
                          :selected => @embargo ? @embargo.embargo_duration : ''
-                       ) %>
+                       ),
+                       {},
+                       { class: 'js-embargo-duration' } %>
         <% end %>
       </p>
       <div class="form_item_note">

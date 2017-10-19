@@ -1,5 +1,5 @@
 <% if embargo && embargo.publish_at %>
-  <p class="form_item_note--important">
+  <p class="form_item_note--important js-embargo-active">
     <% if tense == :future %>
       <%= _('This request will be private on {{site_name}} until ' \
             '<span class="js-embargo-expiry">{{embargo_publish_at}}</span>',
@@ -12,7 +12,9 @@
             embargo_publish_at: I18n.l(embargo.publish_at, format: '%d %B %Y')) %>
     <% end %>
   </p>
-<% else %>
+<% end %>
+
+<span class="js-embargo-inactive"<% if embargo && embargo.publish_at %> style="display: none;"<% end %>>
   <% if tense == :future %>
     <p><%= _("Unless you choose a privacy option, your request will be " \
              "public on {{site_name}} immediately.",
@@ -20,4 +22,4 @@
   <% else %>
     <p><%= _("This request is public") %></p>
   <% end %>
-<% end %>
+</span>
