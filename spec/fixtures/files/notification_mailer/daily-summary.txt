@@ -89,6 +89,19 @@ What's happened:
   Minor infractions quango: http://test.host/en/request/employees_caught_stealing_statio_2
 
 
+Employee of the month awards
+----------------------------
+
+2 recipients, including Ministry of fact keeping and Minor infractions quango
+
+2 In progress
+
+What's happened:
+2 requests have been made public on Alaveteli.
+  Ministry of fact keeping: http://test.host/en/request/employee_of_the_month_awards
+  Minor infractions quango: http://test.host/en/request/employee_of_the_month_awards_2
+
+
 Late FOI requests
 -----------------
 
