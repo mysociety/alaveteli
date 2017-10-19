@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Make the event history table responsive (Miroslav Schlossberg)
 * Fix bug that prevented private requests from being published across the whole
   site once the embargo period had expired (Liz Conlan)
 * Update format of `robots.txt` for Baidu compatibility (Gareth Rees)
