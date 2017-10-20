@@ -25,6 +25,12 @@ describe AlaveteliPro::EmbargoesController do
           expect { AlaveteliPro::Embargo.find(embargo.id) }.
             to raise_error(ActiveRecord::RecordNotFound)
         end
+
+        it "logs an 'expire_embargo' event" do
+          expect(info_request.reload.info_request_events.last.event_type).
+            to eq 'expire_embargo'
+        end
+
       end
 
       context "because they are an admin" do
@@ -40,6 +46,12 @@ describe AlaveteliPro::EmbargoesController do
           expect { AlaveteliPro::Embargo.find(embargo.id) }.
             to raise_error(ActiveRecord::RecordNotFound)
         end
+
+        it "logs an 'expire_embargo' event" do
+          expect(info_request.reload.info_request_events.last.event_type).
+            to eq 'expire_embargo'
+        end
+
       end
     end
 

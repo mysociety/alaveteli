@@ -15,6 +15,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
       raise PermissionDenied
     end
     if @embargo.destroy
+      @info_request.log_event('expire_embargo', {})
       flash[:notice] = _("Your request is now public!")
     else
       flash[:error] = _("Sorry, something went wrong publishing your " \
