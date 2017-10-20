@@ -1,18 +1,16 @@
-<% if embargo && embargo.publish_at %>
-  <p class="form_item_note--important js-embargo-active">
-    <% if tense == :future %>
-      <%= _('This request will be private on {{site_name}} until ' \
-            '<span class="js-embargo-expiry">{{embargo_publish_at}}</span>',
-            site_name: AlaveteliConfiguration.site_name,
-            embargo_publish_at: I18n.l(embargo.publish_at, format: '%d %B %Y')) %>
-    <% else %>
-      <%= _('This request is private on {{site_name}} until ' \
-            '<span class="js-embargo-expiry">{{embargo_publish_at}}</span>',
-            site_name: AlaveteliConfiguration.site_name,
-            embargo_publish_at: I18n.l(embargo.publish_at, format: '%d %B %Y')) %>
-    <% end %>
-  </p>
-<% end %>
+<p class="form_item_note--important js-embargo-active">
+  <% if tense == :future %>
+    <%= _('This request will be private on {{site_name}} until ' \
+          '<span class="js-embargo-expiry">{{embargo_publish_at}}</span>',
+          site_name: AlaveteliConfiguration.site_name,
+          embargo_publish_at: embargo_publish_at(embargo)) %>
+  <% else %>
+    <%= _('This request is private on {{site_name}} until ' \
+          '<span class="js-embargo-expiry">{{embargo_publish_at}}</span>',
+          site_name: AlaveteliConfiguration.site_name,
+          embargo_publish_at: embargo_publish_at(embargo)) %>
+  <% end %>
+</p>
 
 <span class="js-embargo-inactive"<% if embargo && embargo.publish_at %> style="display: none;"<% end %>>
   <% if tense == :future %>

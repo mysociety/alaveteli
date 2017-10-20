@@ -1,5 +1,10 @@
 # -*- encoding : utf-8 -*-
 module AlaveteliPro::InfoRequestsHelper
+  def embargo_publish_at(embargo)
+    return unless embargo && embargo.publish_at
+    I18n.l(embargo.publish_at, format: '%d %B %Y')
+  end
+
   def publish_at_options
     options = embargo_options_from_date(Date.today)
     options.unshift([_('Publish immediately'), ''])
