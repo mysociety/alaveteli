@@ -16,7 +16,8 @@
 .vagrant.yml
 *#*#
 TAGS
-/lib/themes
+/lib/themes/*
+!/lib/themes/.keep
 /locale/model_attributes.rb
 /files/
 /public/download
