@@ -22,3 +22,10 @@
   <% end %>
   </strong>
 </p>
+<p>
+  <%= _('Once the privacy period ends, everything that you enter on ' \
+        'this page, including <strong>your name</strong>, will be ' \
+        '<strong><a href="{{url}}">displayed publicly</a></strong> on this ' \
+        'website.',
+        :url => help_privacy_path(:anchor => "public_request").html_safe) %>
+</p>
