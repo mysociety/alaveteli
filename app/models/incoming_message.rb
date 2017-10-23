@@ -138,7 +138,7 @@ class IncomingMessage < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         self.extract_attachments!
         write_attribute(:sent_at, self.mail.date || self.created_at)
-        write_attribute(:subject, self.mail.subject)
+        write_attribute(:subject, MailHandler.get_subject(self.mail))
         write_attribute(:mail_from, MailHandler.get_from_name(self.mail))
         if self.from_email
           self.mail_from_domain = PublicBody.extract_domain_from_email(self.from_email)

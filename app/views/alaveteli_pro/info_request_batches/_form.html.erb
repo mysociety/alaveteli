@@ -38,7 +38,9 @@
                      options_for_select(
                        publish_at_options,
                        :selected => @embargo ? @embargo.embargo_duration : ''
-                     ) %>
+                     ),
+                     {},
+                     { class: 'js-embargo-duration' } %>
       </p>
       <div class="form_item_note">
         <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
