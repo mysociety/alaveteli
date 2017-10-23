@@ -83,10 +83,10 @@
 
 .icon--downarrow {
   display: inline-block;
-    width: 10px;
-    height: 7px;
-    background-position: center;
-    background-image: image-url('alaveteli-pro/arrow-pointing-down.png');
-    background-repeat: no-repeat;
-    padding-left: 0.5em;
+  margin-left: 0.5em;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid #BFBEBA;
 }
