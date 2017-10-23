@@ -2,18 +2,17 @@
   font-weight: bold;
   font-size: 4em;
   text-align: center;
-  margin-bottom: 1.3em;
-}
-
-.pricing__tiers {
-
+  margin-bottom: 1em;
 }
 
 .pricing__tier {
-  padding: 1.1em 1.3em;
   margin-bottom: 2em;
+  max-width: 53.125em;
+  margin-left: auto;
+  margin-right: auto;
   @include respond-min($main_menu-mobile_menu_cutoff) {
-    padding: 2.625em;
+    @include flexbox();
+    flex-wrap: nowrap;
   }
 
   h2 {
@@ -22,42 +21,26 @@
 }
 
 .pricing__tier__heading {
-  position: relative;
-  h2,
-  p {
-    @include respond-min($main_menu-mobile_menu_cutoff) {
-      display: inline-block;
-      margin-right: 1em;
-    }
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    width: 50%;
+  }
+}
+
+.pricing__tier__content {
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    width: 50%;
   }
 }
 
 .pricing__tier__features {
   padding: 0;
   margin: 0.5em 0;
-  @include respond-min($main_menu-mobile_menu_cutoff) {
-    max-width: 33.75em;
-    -webkit-column-count: 2;
-       -moz-column-count: 2;
-            column-count: 2;
-    -webkit-column-gap: 2em;
-       -moz-column-gap: 2em;
-            column-gap: 2em;
-  }
   li {
     margin-bottom: 1em;
   }
 }
 
-.price-label {
-  @include respond-min($main_menu-mobile_menu_cutoff) {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-}
-
-.pricing__tier--tier-feature-message {
+.pricing__feature-message {
   @include respond-min($main_menu-mobile_menu_cutoff) {
     padding: 1.8em;
   }
@@ -75,8 +58,9 @@
 }
 
 .pricing__testimonials {
-  margin: 5em 0;
+  margin: 3em 0 5em;
 }
+
 
 .testimonials__list {
   @include grid-row($behavior: nest);
@@ -88,16 +72,14 @@
   }
 }
 
-.testimonial {}
+.testimonial {
+  margin: 1em 0.5em;
+}
 
 .testimonial__source__thumbnail {
   width: 36px;
   height: 36px;
   margin-right: 18px;
-}
-
-.pricing__faqs {
-  padding-top: 5em;
 }
 
 .pricing__faqs__list {
