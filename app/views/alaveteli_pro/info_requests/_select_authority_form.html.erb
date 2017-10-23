@@ -27,13 +27,11 @@
 </form>
 
 <% if @info_request.public_body && @info_request.public_body.has_notes? %>
-  <div id="request_header_text"
-       class="request_header_text js-public-body-notes">
+  <div class="to_public_body_notes js-public-body-notes">
     <p><%= @info_request.public_body.notes.html_safe %></p>
   </div>
 <% else %>
-  <div id="request_header_text"
-       class="request_header_text js-public-body-notes"
+  <div class="to_public_body_notes js-public-body-notes"
        style="display: none;">
   </div>
 <% end %>
